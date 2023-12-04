@@ -1,0 +1,85 @@
+aides:
+  formule:
+    somme:
+      - MPR et CEE
+
+revenu:
+  titre: Revenu fiscal de référence
+  question: Quel est votre revenu fiscal de référence ?
+  par défaut: 23000 €
+  suggestions:
+    Très modeste 1 personne: 15000 €
+    modeste 2 personnes: 26000 €
+    intermédiaires 1 personne: 25000 €
+    supérieurs 2 personnes: 50000 €
+
+personnes:
+  question: Quelle est la composition de votre foyer ?
+  par défaut: 1 personne
+  suggestions:
+    seul: 1 personne
+    couple: 2 personne
+    couple avec enfant: 3 personne
+    couple avec 2 enfants: 4 personne
+revenu . classe:
+  formule:
+    variations:
+      - si: personnes = 1
+        alors:
+          variations:
+            - si: revenu < 16229 €
+              alors: '"très modeste"'
+            - si: revenu < 20805 €
+              alors: '"modeste"'
+            - si: revenu < 29148 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieur"'
+      - sinon:
+          variations:
+            - si: revenu < 23734 €
+              alors: '"très modeste"'
+            - si: revenu < 30427 €
+              alors: '"modeste"'
+            - si: revenu < 42848 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieur"'
+
+sauts:
+  titre: Sauts de classe DPE
+  question: Combien de sauts de classe DPE sont visés ?
+  description: |
+    Par exemple, passer d'un DPE G à un DPE D vaut 3 sauts.
+  par défaut: 3
+
+travaux:
+  titre: Montant des travaux
+  question: Quel est le montant total hors taxe (HT) de vos travaux ?
+  suggestions:
+    faible: 15000 €
+    moyenne: 40000 €
+    haute: 70000 €
+  description: |
+    Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, de 5,5 % à 10 %.
+
+MPR et CEE:
+  titre: Ma prime rénov'
+
+MPR et CEE . montant: pourcent * travaux
+MPR et CEE . pourcent:
+  formule:
+    variations:
+      - si: revenu . classe = 'très modeste'
+        alors: 60 % + 20 %
+      - si: revenu . classe = 'modeste'
+        alors: 40 % + 20 %
+      - si: revenu . classe = 'intermédiaire'
+        alors:
+          variations:
+            - si: sauts < 3
+              alors: 30 % + 15 %
+            - sinon: 30 % + 20 %
+      - sinon:
+          variations:
+            - si: sauts < 3
+              alors: 15 % + 15 %
+            - sinon: 15 % + 20 %
