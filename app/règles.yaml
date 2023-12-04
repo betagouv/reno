@@ -1,7 +1,7 @@
 aides:
   formule:
     somme:
-      - MPR et CEE
+      - MPR et CEE . montant
 
 revenu:
   titre: Revenu fiscal de référence
