@@ -54,6 +54,7 @@ sauts:
 travaux:
   titre: Montant des travaux
   question: Quel est le montant total hors taxe (HT) de vos travaux ?
+  par défaut: 20000 €
   suggestions:
     faible: 15000 €
     moyenne: 40000 €

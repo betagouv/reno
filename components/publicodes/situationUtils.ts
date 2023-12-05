@@ -6,12 +6,16 @@ const entriesFromSearchParams = (searchParams, rules) =>
     .map(([k, v]) => [decodeDottedName(k), v])
     .filter(([k, v]) => rules[k] !== undefined)
 
-export const getFoldedSteps = (searchParams, rules) =>
-  entriesFromSearchParams(searchParams, rules).map(([k, v]) => k)
+export const getAnsweredQuestions = (searchParams, rules) =>
+  entriesFromSearchParams(searchParams, rules)
+    .filter(([k, v]) => v.endsWith(validValueMark))
+    .map(([k, v]) => k)
 
 export const getSituation = (searchParams, rules) =>
   Object.fromEntries(
-    entriesFromSearchParams(searchParams, rules).filter(([k, v]) => v !== '∅'),
+    entriesFromSearchParams(searchParams, rules)
+      .filter(([k, v]) => v !== '∅')
+      .map(([k, v]) => [k, v.endsWith(validValueMark) ? v.slice(0, -1) : v]),
   ) //should be changed to clearly handle defaultValues
 
 export const encodeValue = (value) => {
@@ -30,10 +34,13 @@ export const encodeValue = (value) => {
   throw new Error('Unhandled value format')
 }
 
-export const encodeSituation = (situation, doEncodeValue = false) =>
+export const encodeSituation = (situation, doEncodeValue = false, valid = []) =>
   Object.fromEntries(
     Object.entries(situation).map(([k, v]) => [
       encodeDottedName(k),
-      doEncodeValue ? encodeValue(v) : v,
+      (doEncodeValue ? encodeValue(v) : v) +
+        (valid.includes(k) ? validValueMark : ''),
     ]),
   )
+
+export const validValueMark = '*'
