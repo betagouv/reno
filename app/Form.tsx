@@ -98,11 +98,11 @@ export default function Form({ searchParams }) {
       {nextQuestions.length ? (
         <div>
           <h3>Prochaines questions</h3>
-          <ul>
+          <ol>
             {nextQuestions.slice(1).map((question) => (
               <li key={question}>{rules[question].titre}</li>
             ))}
-          </ul>
+          </ol>
         </div>
       ) : (
         <p>⭐️ Vous avez terminé.</p>
