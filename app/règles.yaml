@@ -66,7 +66,10 @@ travaux:
 MPR et CEE:
   titre: Ma prime rénov'
 
-MPR et CEE . montant: pourcent * travaux
+MPR et CEE . montant:
+  formule: pourcent * travaux
+  unité: €
+
 MPR et CEE . pourcent:
   formule:
     variations:

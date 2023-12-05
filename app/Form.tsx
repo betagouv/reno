@@ -21,7 +21,13 @@ export default function Form({ searchParams }) {
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
   console.log({ answeredQuestions })
 
-  const evaluation = engine.evaluate('aides'),
+  const situation = getSituation(searchParams, rules),
+    validatedSituation = Object.fromEntries(
+      Object.entries(situation).filter(([k, v]) =>
+        answeredQuestions.includes(k),
+      ),
+    )
+  const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
     value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
       evaluation,
@@ -30,8 +36,6 @@ export default function Form({ searchParams }) {
     )
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
-
-  const situation = getSituation(searchParams, rules)
 
   const setSearchParams = useSetSearchParams()
   const currentValue = situation[currentQuestion]
@@ -52,7 +56,9 @@ export default function Form({ searchParams }) {
             <InputWrapper>
               <Input
                 type="number"
-                value={currentValue || defaultValue.nodeValue}
+                value={
+                  currentValue != null ? currentValue : defaultValue.nodeValue
+                }
                 name={currentQuestion}
                 onChange={(e) =>
                   setSearchParams(
