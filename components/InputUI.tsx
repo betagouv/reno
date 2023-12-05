@@ -41,6 +41,7 @@ export const SuggestionsList = styled.ul`
     margin: 0 0.4rem;
     a {
       text-decoration-style: dashed;
+      text-underline-offset: 4px;
     }
   }
 `

@@ -8,10 +8,14 @@ revenu:
   question: Quel est votre revenu fiscal de référence ?
   par défaut: 23000 €
   suggestions:
-    Très modeste 1 personne: 15000 €
-    modeste 2 personnes: 26000 €
-    intermédiaires 1 personne: 25000 €
-    supérieurs 2 personnes: 50000 €
+    #Très modeste 1 personne: 15000 €
+    #modeste 2 personnes: 26000 €
+    #intermédiaires 1 personne: 25000 €
+    #supérieurs 2 personnes: 50000 €
+    Très modeste: 15000 €
+    modeste: 22000 €
+    intermédiaire: 25000 €
+    supérieur: 50000 €
 
 personnes:
   titre: Composition du foyer
@@ -48,13 +52,17 @@ revenu . classe:
 sauts:
   titre: Sauts de classe DPE
   question: Combien de sauts de classe DPE sont visés ?
+  suggestions:
+    de G à D: 3
+    de F à B: 4
+    de C à A: 2
   description: |
     Par exemple, passer d'un DPE G à un DPE D vaut 3 sauts.
   par défaut: 3
 
 travaux:
-  titre: Montant des travaux
-  question: Quel est le montant total hors taxe (HT) de vos travaux ?
+  titre: Enveloppe des travaux
+  question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?
   par défaut: 20000 €
   suggestions:
     faible: 15000 €

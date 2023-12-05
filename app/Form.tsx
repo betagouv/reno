@@ -80,41 +80,45 @@ export default function Form({ searchParams }) {
               <InputWrapper>
                 <Input
                   type="number"
-                  value={
-                    currentValue != null ? currentValue : defaultValue.nodeValue
-                  }
+                  placeholder={defaultValue.nodeValue}
+                  value={currentValue == null ? '' : currentValue}
                   name={currentQuestion}
-                  onChange={(e) =>
-                    setSearchParams(
+                  onChange={(e) => {
+                    const encodedSituation = encodeSituation(
+                      {
+                        ...situation,
+                        [currentQuestion]: e.target.value,
+                      },
+                      false,
+                      answeredQuestions,
+                    )
+                    console.log(
+                      'on change will set encodedSituation',
+                      encodedSituation,
+                    )
+
+                    setSearchParams(encodedSituation, false, false)
+                  }}
+                />
+
+                {currentValue != null && (
+                  <FormLinkButton
+                    href={setSearchParams(
                       encodeSituation(
                         {
                           ...situation,
-                          [currentQuestion]: e.target.value,
+                          [currentQuestion]: situation[currentQuestion],
                         },
                         false,
-                        answeredQuestions,
+                        [...answeredQuestions, currentQuestion],
                       ),
+                      true,
                       false,
-                      false,
-                    )
-                  }
-                />
-                <FormLinkButton
-                  href={setSearchParams(
-                    encodeSituation(
-                      {
-                        ...situation,
-                        [currentQuestion]: situation[currentQuestion],
-                      },
-                      false,
-                      [...answeredQuestions, currentQuestion],
-                    ),
-                    true,
-                    false,
-                  )}
-                >
-                  Suivant
-                </FormLinkButton>
+                    )}
+                  >
+                    Suivant
+                  </FormLinkButton>
+                )}
               </InputWrapper>
             </AnswerWrapper>
           </label>
