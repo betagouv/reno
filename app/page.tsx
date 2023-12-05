@@ -9,8 +9,8 @@ export default function Page({ searchParams }) {
         margin: 0 auto;
       `}
     >
-      <h1>MAR</h1>
-      <p>Mes Aides Rénovation 2024</p>
+      <h1>Mes Aides Rénovation 2024</h1>
+      <p>Ce petit calculateur vous aide à savoir si vous pouvez prétendre à des aides pour la rénovation de votre logement.</p>
       <Form searchParams={searchParams} />
     </main>
   )
