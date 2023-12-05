@@ -56,11 +56,14 @@ export default function Form({ searchParams }) {
   return (
     <div>
       <div>
-        <h2>Votre aide Ma Prime Rénov (CEE inclus)</h2>
+        <h2>Votre aide </h2>
         <p>
-          Estimation {currentQuestion ? '' : ' finale'}&nbsp;: {value}
+          <em>Ma Prime Rénov + montant indicatif CEE.</em>
         </p>
-        {currentQuestion && <p>Estimation intéractive&nbsp;: {newValue}</p>}
+        <div>
+          Estimation {currentQuestion ? '' : ' finale'}&nbsp;: {value}
+        </div>
+        {currentQuestion && <div>Estimation intéractive&nbsp;: {newValue}</div>}
       </div>
       {rule && (
         <div>
