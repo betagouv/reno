@@ -20,6 +20,8 @@ import {
   InputWrapper,
 } from '@/components/InputUI'
 import Suggestions from './Suggestions'
+import Link from '@/node_modules/next/link'
+import css from '@/components/css/convertToJs'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -141,6 +143,15 @@ export default function Form({ searchParams }) {
         </div>
       ) : (
         <p>⭐️ Vous avez terminé.</p>
+      )}
+      {answeredQuestions.length > 0 && (
+        <div
+          style={css`
+            margin-top: 1rem;
+          `}
+        >
+          <Link href={'/'}>Recommencer</Link>
+        </div>
       )}
     </div>
   )
