@@ -56,20 +56,10 @@ export default function Form({ searchParams }) {
 
   return (
     <div>
-      <div>
-        <Personas setSearchParams={setSearchParams} />
-        <h2>Votre aide </h2>
-        <p>
-          <em>Ma Prime Rénov + montant indicatif CEE.</em>
-        </p>
-        <div>
-          Estimation {currentQuestion ? '' : ' finale'}&nbsp;: {value}
-        </div>
-        {currentQuestion && <div>Estimation intéractive&nbsp;: {newValue}</div>}
-      </div>
+      <Personas setSearchParams={setSearchParams} />
       {rule && (
         <div>
-          <h2>Question</h2>
+          <h2>Questions</h2>
           <label>
             <div>{rule.question}</div>
             <AnswerWrapper>
@@ -158,6 +148,20 @@ export default function Form({ searchParams }) {
           <Link href={'/'}>Recommencer</Link>
         </div>
       )}
+      <div
+        style={css`
+          margin-top: 2rem;
+        `}
+      >
+        <h2>Votre aide </h2>
+        <p>
+          <em>Ma Prime Rénov + estimation CEE.</em>
+        </p>
+        <div>
+          Estimation {currentQuestion ? '' : ' finale'}&nbsp;: {value}
+        </div>
+        {currentQuestion && <div>Estimation intéractive&nbsp;: {newValue}</div>}
+      </div>
     </div>
   )
 }

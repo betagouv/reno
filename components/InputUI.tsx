@@ -63,7 +63,6 @@ export const PersonasList = styled.div`
   overflow: scroll hidden;
   white-space: nowrap;
   max-width: 90vw;
-  height: 5rem;
   scrollbar-width: none;
   ul {
     display: flex;

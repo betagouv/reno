@@ -9,7 +9,7 @@ export default function Personas({ setSearchParams }) {
       <ul>
         {personas.map((persona) => (
           <li key={persona.nom}>
-            <h3>{persona.nom}</h3>
+            <div>{persona.nom}</div>
 
             <Link
               href={setSearchParams(
