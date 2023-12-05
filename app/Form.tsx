@@ -36,6 +36,8 @@ export default function Form({ searchParams }) {
     )
   const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
     value = formatValue(evaluation),
+    newEvaluation = engine.setSituation(situation).evaluate('aides'),
+    newValue = formatValue(newEvaluation),
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
@@ -53,7 +55,10 @@ export default function Form({ searchParams }) {
     <div>
       <div>
         <h2>Votre aide Ma Prime Rénov (CEE inclus)</h2>
-        {value}
+        <p>
+          Estimation {currentQuestion ? '' : ' finale'}&nbsp;: {value}
+        </p>
+        {currentQuestion && <p>Estimation intéractive&nbsp;: {newValue}</p>}
       </div>
       {rule && (
         <div>
