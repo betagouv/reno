@@ -45,7 +45,7 @@ export default function Form({ searchParams }) {
   return (
     <div>
       <div>
-        <h2>Résultat calcul MPR + CEE</h2>
+        <h2>Votre aide Ma Prime Rénov (CEE inclus)</h2>
         {value}
       </div>
       {rule && (
@@ -95,14 +95,18 @@ export default function Form({ searchParams }) {
           </label>
         </div>
       )}
-      <div>
-        <h3>Prochaines questions</h3>
-        <ul>
-          {nextQuestions.slice(1).map((question) => (
-            <li key={question}>{rules[question].titre}</li>
-          ))}
-        </ul>
-      </div>
+      {nextQuestions.length ? (
+        <div>
+          <h3>Prochaines questions</h3>
+          <ul>
+            {nextQuestions.slice(1).map((question) => (
+              <li key={question}>{rules[question].titre}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>⭐️ Vous avez terminé.</p>
+      )}
     </div>
   )
 }
