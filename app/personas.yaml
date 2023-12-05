@@ -1,0 +1,12 @@
+- nom: Persona 1
+  situation:
+    personnes: 3
+    revenu: 25000
+    sauts: 4
+    travaux: 65000
+- nom: Persona 2
+  situation:
+    personnes: 2
+    revenu: 35000
+    sauts: 3
+    travaux: 49300
