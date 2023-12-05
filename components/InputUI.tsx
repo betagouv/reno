@@ -6,6 +6,11 @@ export const InputWrapper = styled.div`
   align-items: center;
   flex-direction: row;
 `
+export const AnswerWrapper = styled.div`
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+`
 export const Input = styled.input`
   box-shadow:
     rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
@@ -26,4 +31,16 @@ export const FormLinkButton = styled(Link)`
   padding: 0.3rem 0.6rem;
   text-decoration: none;
   margin: 0.4rem;
+`
+
+export const SuggestionsList = styled.ul`
+  display: flex;
+  list-style-type: none;
+  margin: 0.2rem 0;
+  li {
+    margin: 0 0.4rem;
+    a {
+      text-decoration-style: dashed;
+    }
+  }
 `

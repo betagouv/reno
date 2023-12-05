@@ -12,7 +12,13 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import { useState } from 'react'
-import { FormLinkButton, Input, InputWrapper } from '@/components/InputUI'
+import {
+  AnswerWrapper,
+  FormLinkButton,
+  Input,
+  InputWrapper,
+} from '@/components/InputUI'
+import Suggestions from './Suggestions'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -53,45 +59,64 @@ export default function Form({ searchParams }) {
           <h2>Question</h2>
           <label>
             <div>{rule.question}</div>
-            <InputWrapper>
-              <Input
-                type="number"
-                value={
-                  currentValue != null ? currentValue : defaultValue.nodeValue
-                }
-                name={currentQuestion}
-                onChange={(e) =>
+            <AnswerWrapper>
+              <Suggestions
+                rule={rule}
+                onClick={(value) =>
                   setSearchParams(
                     encodeSituation(
                       {
                         ...situation,
-                        [currentQuestion]: e.target.value,
+                        [currentQuestion]: value,
                       },
                       false,
                       answeredQuestions,
                     ),
-                    false,
+                    true,
                     false,
                   )
                 }
               />
-              <FormLinkButton
-                href={setSearchParams(
-                  encodeSituation(
-                    {
-                      ...situation,
-                      [currentQuestion]: situation[currentQuestion],
-                    },
+              <InputWrapper>
+                <Input
+                  type="number"
+                  value={
+                    currentValue != null ? currentValue : defaultValue.nodeValue
+                  }
+                  name={currentQuestion}
+                  onChange={(e) =>
+                    setSearchParams(
+                      encodeSituation(
+                        {
+                          ...situation,
+                          [currentQuestion]: e.target.value,
+                        },
+                        false,
+                        answeredQuestions,
+                      ),
+                      false,
+                      false,
+                    )
+                  }
+                />
+                <FormLinkButton
+                  href={setSearchParams(
+                    encodeSituation(
+                      {
+                        ...situation,
+                        [currentQuestion]: situation[currentQuestion],
+                      },
+                      false,
+                      [...answeredQuestions, currentQuestion],
+                    ),
+                    true,
                     false,
-                    [...answeredQuestions, currentQuestion],
-                  ),
-                  true,
-                  false,
-                )}
-              >
-                Suivant
-              </FormLinkButton>
-            </InputWrapper>
+                  )}
+                >
+                  Suivant
+                </FormLinkButton>
+              </InputWrapper>
+            </AnswerWrapper>
           </label>
         </div>
       )}
