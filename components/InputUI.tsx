@@ -37,15 +37,24 @@ export const FormButtonsWrapper = styled.div`
   height: 2rem;
 `
 
-export const SuggestionsList = styled.ul`
-  display: flex;
-  list-style-type: none;
-  margin: 0.2rem 0;
-  li {
-    margin: 0 0.4rem;
-    a {
-      text-decoration-style: dashed;
-      text-underline-offset: 4px;
+export const SuggestionsList = styled.div`
+  margin-top: 0.8rem;
+  overflow: scroll hidden;
+  white-space: nowrap;
+  max-width: 90vw;
+  height: 2rem;
+  scrollbar-width: none;
+  ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0.2rem 0;
+    align-items: center;
+    li {
+      margin: 0 0.4rem;
+      a {
+        text-decoration-style: dashed;
+        text-underline-offset: 4px;
+      }
     }
   }
 `
