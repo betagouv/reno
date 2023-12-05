@@ -30,7 +30,11 @@ export const FormLinkButton = styled(Link)`
   border-radius: 0.2rem;
   padding: 0.3rem 0.6rem;
   text-decoration: none;
-  margin: 0.4rem;
+  margin: 0.4rem 0;
+`
+export const FormButtonsWrapper = styled.div`
+  margin: 0.6rem 0;
+  height: 2rem;
 `
 
 export const SuggestionsList = styled.ul`

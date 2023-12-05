@@ -14,6 +14,7 @@ import Publicodes from 'publicodes'
 import { useState } from 'react'
 import {
   AnswerWrapper,
+  FormButtonsWrapper,
   FormLinkButton,
   Input,
   InputWrapper,
@@ -77,30 +78,30 @@ export default function Form({ searchParams }) {
                   )
                 }
               />
-              <InputWrapper>
-                <Input
-                  type="number"
-                  placeholder={defaultValue.nodeValue}
-                  value={currentValue == null ? '' : currentValue}
-                  name={currentQuestion}
-                  onChange={(e) => {
-                    const encodedSituation = encodeSituation(
-                      {
-                        ...situation,
-                        [currentQuestion]: e.target.value,
-                      },
-                      false,
-                      answeredQuestions,
-                    )
-                    console.log(
-                      'on change will set encodedSituation',
-                      encodedSituation,
-                    )
+              <Input
+                type="number"
+                placeholder={defaultValue.nodeValue}
+                value={currentValue == null ? '' : currentValue}
+                name={currentQuestion}
+                onChange={(e) => {
+                  const encodedSituation = encodeSituation(
+                    {
+                      ...situation,
+                      [currentQuestion]: e.target.value,
+                    },
+                    false,
+                    answeredQuestions,
+                  )
+                  console.log(
+                    'on change will set encodedSituation',
+                    encodedSituation,
+                  )
 
-                    setSearchParams(encodedSituation, false, false)
-                  }}
-                />
+                  setSearchParams(encodedSituation, false, false)
+                }}
+              />
 
+              <FormButtonsWrapper>
                 {currentValue != null && (
                   <FormLinkButton
                     href={setSearchParams(
@@ -119,7 +120,7 @@ export default function Form({ searchParams }) {
                     Suivant
                   </FormLinkButton>
                 )}
-              </InputWrapper>
+              </FormButtonsWrapper>
             </AnswerWrapper>
           </label>
         </div>
