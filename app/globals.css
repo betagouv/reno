@@ -25,6 +25,13 @@ main {
 a {
 }
 
+h1,
+h2,
+h3,
+h4 {
+  margin: 1rem 0 0.6rem 0;
+}
+
 @media (max-width: 800px) {
   h1 {
     font-size: 140%;
@@ -38,13 +45,12 @@ a {
   h4 {
     font-size: 110%;
   }
-}
-
-h1,
-h2,
-h3,
-h4 {
-  margin: 1rem 0 0.6rem 0;
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0.2rem 0;
+  }
 }
 
 p {

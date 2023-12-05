@@ -22,6 +22,7 @@ import {
 import Suggestions from './Suggestions'
 import Link from '@/node_modules/next/link'
 import css from '@/components/css/convertToJs'
+import Personas from './Personas'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -56,6 +57,7 @@ export default function Form({ searchParams }) {
   return (
     <div>
       <div>
+        <Personas setSearchParams={setSearchParams} />
         <h2>Votre aide </h2>
         <p>
           <em>Ma Prime Rénov + montant indicatif CEE.</em>
