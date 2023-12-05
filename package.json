@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@adobe/css-tools": "^4.3.2",
     "@types/node": "20.5.7",
     "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",

@@ -12,7 +12,7 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import { useState } from 'react'
-import Link from '@/node_modules/next/link'
+import { FormLinkButton, Input, InputWrapper } from '@/components/InputUI'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -49,49 +49,51 @@ export default function Form({ searchParams }) {
           <h2>Question</h2>
           <label>
             <div>{rule.question}</div>
-            <input
-              type="number"
-              value={currentValue || defaultValue.nodeValue}
-              name={currentQuestion}
-              onChange={(e) =>
-                setSearchParams(
+            <InputWrapper>
+              <Input
+                type="number"
+                value={currentValue || defaultValue.nodeValue}
+                name={currentQuestion}
+                onChange={(e) =>
+                  setSearchParams(
+                    encodeSituation(
+                      {
+                        ...situation,
+                        [currentQuestion]: e.target.value,
+                      },
+                      false,
+                      answeredQuestions,
+                    ),
+                    false,
+                    false,
+                  )
+                }
+              />
+              <FormLinkButton
+                href={setSearchParams(
                   encodeSituation(
                     {
                       ...situation,
-                      [currentQuestion]: e.target.value,
+                      [currentQuestion]: situation[currentQuestion],
                     },
                     false,
-                    answeredQuestions,
+                    [...answeredQuestions, currentQuestion],
                   ),
+                  true,
                   false,
-                  false,
-                )
-              }
-            />
+                )}
+              >
+                Suivant
+              </FormLinkButton>
+            </InputWrapper>
           </label>
-          <Link
-            href={setSearchParams(
-              encodeSituation(
-                {
-                  ...situation,
-                  [currentQuestion]: situation[currentQuestion],
-                },
-                false,
-                [...answeredQuestions, currentQuestion],
-              ),
-              true,
-              false,
-            )}
-          >
-            Suivant
-          </Link>
         </div>
       )}
       <div>
         <h3>Prochaines questions</h3>
         <ul>
-          {nextQuestions.map((question) => (
-            <li key={question}>{question}</li>
+          {nextQuestions.slice(1).map((question) => (
+            <li key={question}>{rules[question].titre}</li>
           ))}
         </ul>
       </div>

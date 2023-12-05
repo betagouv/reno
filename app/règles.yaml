@@ -14,6 +14,7 @@ revenu:
     supérieurs 2 personnes: 50000 €
 
 personnes:
+  titre: Composition du foyer
   question: Quelle est la composition de votre foyer ?
   par défaut: 1 personne
   suggestions:
