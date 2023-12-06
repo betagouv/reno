@@ -2,6 +2,7 @@ aides:
   formule:
     somme:
       - MPR et CEE . montant
+      - MPR et CEE . bonus
 
 revenu:
   titre: Revenu fiscal de référence
@@ -78,6 +79,14 @@ MPR et CEE . montant:
   formule: pourcent * travaux
   unité: €
 
+MPR et CEE . bonus:
+  titre: Bonus sortie de passoire
+  formule: sauts > 3 # TODO ceci est faux. CF la description
+  description: |
+    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
+  note: |
+    Cette formule est fausse. C'est juste un test, mieux que rien. Il faut que l'on sache le DPE de départ et d'arrivée, forcément.
+MPR et CEE . bonus . pourcent: 10 %
 MPR et CEE . pourcent:
   formule:
     variations:
