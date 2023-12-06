@@ -7,7 +7,11 @@ export default function Suggestions({ rule, onClick }) {
   const suggestions = Object.entries(rule.suggestions)
   // TODO should be evaluated by the engine
 
-  const getValue = (v) => ('' + v).split(' ')[0]
+  const getValue = (v) => {
+    const unitSplit = ('' + v).split(' ')
+    if (!isNaN(unitSplit[0])) return unitSplit[0]
+    return v
+  }
 
   return (
     <SuggestionsList>

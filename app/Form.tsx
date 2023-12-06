@@ -23,6 +23,7 @@ import Suggestions from './Suggestions'
 import Link from '@/node_modules/next/link'
 import css from '@/components/css/convertToJs'
 import Personas from './Personas'
+import questionType from '@/components/publicodes/questionType'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -50,10 +51,13 @@ export default function Form({ searchParams }) {
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-  const currentValue = situation[currentQuestion]
+  const ruleQuestionType = questionType(rule)
+  const rawValue = situation[currentQuestion]
+  const currentValue =
+    rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
+
   console.log('currentQuestion', currentQuestion, currentValue)
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
-
   return (
     <div>
       <Personas setSearchParams={setSearchParams} />
@@ -81,7 +85,7 @@ export default function Form({ searchParams }) {
                 }
               />
               <Input
-                type="number"
+                type={ruleQuestionType}
                 placeholder={defaultValue.nodeValue}
                 value={currentValue == null ? '' : currentValue}
                 name={currentQuestion}
@@ -89,7 +93,10 @@ export default function Form({ searchParams }) {
                   const encodedSituation = encodeSituation(
                     {
                       ...situation,
-                      [currentQuestion]: e.target.value,
+                      [currentQuestion]:
+                        ruleQuestionType === 'number'
+                          ? e.target.value
+                          : `"${e.target.value}"`,
                     },
                     false,
                     answeredQuestions,

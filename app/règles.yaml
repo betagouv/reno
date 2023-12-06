@@ -63,6 +63,9 @@ revenu . classe:
 région:
   question: Dans quelle région se situe votre logement ?
   par défaut: "'Bretagne'"
+  suggestions:
+    Bretagne: "'Bretagne'"
+    Pays de la Loire: "'Pays de la Loire'"
 
 région . IDF: région = "'Île-de-France'"
 
