@@ -30,6 +30,16 @@ personnes:
 revenu . classe:
   formule:
     variations:
+      - si: région . IDF
+        alors:
+          variations: # Barème fictif pour l'instant, il faudra tout remplir méticuleusement avec les nouvelles valeurs de 2024, publiées au bulletin officiel le 6 décembre 2024
+            - si: revenu < 18229 €
+              alors: '"très modeste"'
+            - si: revenu < 22805 €
+              alors: '"modeste"'
+            - si: revenu < 35148 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieur"'
       - si: personnes = 1
         alors:
           variations:
@@ -49,6 +59,22 @@ revenu . classe:
             - si: revenu < 42848 €
               alors: '"intermédiaire"'
             - sinon: '"supérieur"'
+
+région:
+  question: Dans quelle région se situe votre logement ?
+  par défaut: "'Bretagne'"
+
+région . IDF: région = "'Île-de-France'"
+
+DPE:
+  titre: Diagnostique de Performance Énergétique.
+
+DPE . actuel:
+  question: Quel est le DPE actuel de votre logement ?
+  par défaut: 4
+DPE . visé:
+  question: Quel est le DPE visé après la rénovation ?
+  par défaut: 2
 
 sauts:
   titre: Sauts de classe DPE
