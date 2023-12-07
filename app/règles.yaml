@@ -67,6 +67,9 @@ région:
     Bretagne: "'Bretagne'"
     Pays de la Loire: "'Pays de la Loire'"
 
+id ban:
+  titre: Identifiant base nationale des adresses (BAN)
+
 région . IDF: région = "'Île-de-France'"
 
 DPE:

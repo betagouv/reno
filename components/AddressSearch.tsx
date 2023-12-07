@@ -11,8 +11,9 @@ export default function AddressSearch({
   const [results, setResults] = useState(null)
 
   useEffect(() => {
-    if (input?.length < 3) return
+    if (!input || input.length < 3) return
 
+    console.log('input', input)
     const asyncFetch = async () => {
       const request = await fetch(
         ` https://api.gorenove.fr/v2/gorenove/addresses/search?q=${input}`,
@@ -32,6 +33,7 @@ export default function AddressSearch({
       {
         ...situation,
         région: `"${result.properties.context.split(', ')[2]}"`,
+        'id ban': `"${result.properties.id}"`,
       },
       false,
       answeredQuestions,
@@ -40,6 +42,7 @@ export default function AddressSearch({
 
     setSearchParams(encodedSituation, false, false)
   }
+
   return (
     <div>
       <input
