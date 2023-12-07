@@ -76,14 +76,17 @@ DPE:
   titre: Diagnostique de Performance Énergétique.
 
 DPE . actuel:
+  titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
   par défaut: 4
 DPE . visé:
+  titre: Votre futur DPE visé
   question: Quel est le DPE visé après la rénovation ?
   par défaut: 2
 
 sauts:
   titre: Sauts de classe DPE
+  formule: DPE . actuel - DPE . visé
   question: Combien de sauts de classe DPE sont visés ?
   suggestions:
     de G à D: 3

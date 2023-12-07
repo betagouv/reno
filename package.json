@@ -13,7 +13,6 @@
     "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",
     "clsx": "^2.0.0",
-    "dpeges": "^1.0.17",
     "next": "^14.0.2",
     "postcss": "8.4.31",
     "publicodes": "^1.0.0-beta.77",

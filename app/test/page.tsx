@@ -22,7 +22,7 @@ export default function Test() {
 
   return (
     <div>
-      <div id="dpe" ref={dpeRef}></div>
+      <div id="dpe" ref={dpeRef} onClick={(e) => console.log(e)}></div>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import AddressSearch from './AddressSearch'
+import DPESelector from './DPESelector'
 import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
@@ -19,6 +20,18 @@ export default function InputSwitch({
     return (
       <AddressSearch
         {...{
+          setSearchParams,
+          situation,
+          answeredQuestions,
+        }}
+      />
+    )
+
+  if (['DPE . actuel', 'DPE . visé'].includes(currentQuestion))
+    return (
+      <DPESelector
+        {...{
+          currentQuestion,
           setSearchParams,
           situation,
           answeredQuestions,

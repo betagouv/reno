@@ -1222,11 +1222,6 @@ dotenv@^16.3.1:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.3.1.tgz#369034de7d7e5b120972693352a3bf112172cc3e"
   integrity sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==
 
-dpeges@^1.0.17:
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/dpeges/-/dpeges-1.0.17.tgz#83c931512694e6a63a45bd2739b0a9a001a7a268"
-  integrity sha512-4Ai2Evdft46tCupz1+7WFfSq4DMm00brkBM+/sfHun2WiKQWIKNrBV4BRV/boHGem09sYiEBoT+EGuMbZJiFyQ==
-
 electron-to-chromium@^1.4.601:
   version "1.4.601"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.601.tgz#cac69868548aee89961ffe63ff5a7716f0685b75"
