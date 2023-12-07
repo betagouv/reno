@@ -1,29 +1,26 @@
 'use client'
 import rules from './règles.yaml'
 
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
-import {
-  encodeSituation,
-  getAnsweredQuestions,
-  getSituation,
-  validValueMark,
-} from '@/components/publicodes/situationUtils'
-import useSetSearchParams from '@/components/useSetSearchParams'
-import { formatValue } from '@/node_modules/publicodes/dist/index'
-import Publicodes from 'publicodes'
-import { useState } from 'react'
+import css from '@/components/css/convertToJs'
+import InputSwitch from '@/components/InputSwitch'
 import {
   AnswerWrapper,
   FormButtonsWrapper,
   FormLinkButton,
-  Input,
-  InputWrapper,
 } from '@/components/InputUI'
-import Suggestions from './Suggestions'
-import Link from '@/node_modules/next/link'
-import css from '@/components/css/convertToJs'
-import Personas from './Personas'
+import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import questionType from '@/components/publicodes/questionType'
+import {
+  encodeSituation,
+  getAnsweredQuestions,
+  getSituation,
+} from '@/components/publicodes/situationUtils'
+import useSetSearchParams from '@/components/useSetSearchParams'
+import Link from '@/node_modules/next/link'
+import { formatValue } from '@/node_modules/publicodes/dist/index'
+import Publicodes from 'publicodes'
+import Personas from './Personas'
+import Suggestions from './Suggestions'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -57,7 +54,6 @@ export default function Form({ searchParams }) {
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
   console.log('currentQuestion', currentQuestion, currentValue)
-  const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
   return (
     <div>
       <Personas setSearchParams={setSearchParams} />
@@ -84,29 +80,15 @@ export default function Form({ searchParams }) {
                   )
                 }
               />
-              <Input
-                type={ruleQuestionType}
-                placeholder={defaultValue.nodeValue}
-                value={currentValue == null ? '' : currentValue}
-                name={currentQuestion}
-                onChange={(e) => {
-                  const encodedSituation = encodeSituation(
-                    {
-                      ...situation,
-                      [currentQuestion]:
-                        ruleQuestionType === 'number'
-                          ? e.target.value
-                          : `"${e.target.value}"`,
-                    },
-                    false,
-                    answeredQuestions,
-                  )
-                  console.log(
-                    'on change will set encodedSituation',
-                    encodedSituation,
-                  )
-
-                  setSearchParams(encodedSituation, false, false)
+              <InputSwitch
+                {...{
+                  rule,
+                  currentValue,
+                  currentQuestion,
+                  situation,
+                  answeredQuestions,
+                  setSearchParams,
+                  engine,
                 }}
               />
 
