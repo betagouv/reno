@@ -1,3 +1,4 @@
+import AddressSearch from './AddressSearch'
 import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
@@ -13,6 +14,17 @@ export default function InputSwitch({
 }) {
   const ruleQuestionType = questionType(rule)
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
+
+  if (currentQuestion === 'région')
+    return (
+      <AddressSearch
+        {...{
+          setSearchParams,
+          situation,
+          answeredQuestions,
+        }}
+      />
+    )
 
   return (
     <Input
