@@ -34,11 +34,12 @@ export default function DPESelector({
     const url = setSearchParams(newSituation, false, false)
     console.log('newU', url)
   }
+  console.log('YO', correspondance[+numericalValue])
   return (
     <DPE
-      value={correspondance[numericalValue]}
+      value={correspondance[+numericalValue]}
       onClick={(value) =>
-        console.log('setDPE', value) || doSetSearchParams(value)
+        console.log('setDPE', value + 1) || doSetSearchParams(value + 1)
       }
     />
   )
