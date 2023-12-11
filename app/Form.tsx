@@ -132,7 +132,13 @@ export default function Form({ searchParams }) {
           </ol>
         </div>
       ) : (
-        <p>⭐️ Vous avez terminé.</p>
+        <p
+          style={css`
+            margin: 1rem 0;
+          `}
+        >
+          ⭐️ Vous avez terminé.
+        </p>
       )}
       {answeredQuestions.length > 0 && (
         <div
