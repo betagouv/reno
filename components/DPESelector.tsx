@@ -39,7 +39,7 @@ export default function DPESelector({
     <DPE
       value={correspondance[+numericalValue]}
       onClick={(value) =>
-        console.log('setDPE', value + 1) || doSetSearchParams(value + 1)
+        console.log('setDPE', value + 1) || doSetSearchParams(+value + 1)
       }
     />
   )

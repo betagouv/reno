@@ -187,11 +187,8 @@ class Diag extends Component {
     return elem
   }
 
-  getPolygon(points, i, color, onClick) {
+  getPolygon(points, i, color) {
     var elem = document.createElementNS(this.svgNS, 'polygon')
-    elem.addEventListener('click', function () {
-      onClick(i)
-    })
 
     elem.setAttribute(
       'style',
@@ -201,7 +198,6 @@ class Diag extends Component {
         (this.state.shadow ? 'filter:url(#fs)' : ''),
     )
     elem.setAttribute('points', points)
-    elem.style.cursor = 'pointer'
     return elem
   }
 
@@ -360,6 +356,7 @@ class Diag extends Component {
           ' ' +
           sy2 +
           ' Z'
+        /*
         svg.appendChild(
           this.getPath(scorePath, {
             stroke: '#5b5b5b',
@@ -383,15 +380,22 @@ class Diag extends Component {
             },
           }),
         )
+		*/
       }
 
-      svg.appendChild(
-        this.getPolygon(poly, i, datas.colors[i], this.props.onClick),
-      )
+      var group = document.createElementNS(this.svgNS, 'g')
+      group.dataset.i = i
+      group.style.cursor = 'pointer'
+      group.addEventListener('click', (e) => {
+        const index = e.target.parentNode.dataset.i
+        this.props.onClick(index)
+      })
+      svg.appendChild(group)
+      group.appendChild(this.getPolygon(poly, i, datas.colors[i]))
 
       var whiteIdx = this.state.shape === 'sharp' ? 5 : 3
 
-      svg.appendChild(
+      group.appendChild(
         this.getText({
           x: x1 - this.state.pad,
           y: y + blocHeight * 0.8,
@@ -405,7 +409,7 @@ class Diag extends Component {
           },
         }),
       )
-      svg.appendChild(
+      group.appendChild(
         this.getText({
           x: x + this.state.pad,
           y: y + blocHeight - (blocHeight * 0.6) / 2,
