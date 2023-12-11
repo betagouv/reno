@@ -201,6 +201,7 @@ class Diag extends Component {
         (this.state.shadow ? 'filter:url(#fs)' : ''),
     )
     elem.setAttribute('points', points)
+    elem.style.cursor = 'pointer'
     return elem
   }
 
