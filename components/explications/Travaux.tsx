@@ -1,59 +1,43 @@
+import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { Key, P } from './ExplicationUI'
+import Travaux from './Travaux'
 
+const getMissings = (evaluation, rules) => {
+  const missing = Object.entries(evaluation.missingVariables).map(
+    ([k, v]) => rules[k],
+  )
+  return [missing, missing.length > 0]
+}
 export default function Travaux({ engine, rules, situation }) {
   const upEngine = engine.setSituation(situation)
 
-  const revenuClasse = upEngine.evaluate('revenu . classe'),
-    revenuMissing = Object.entries(revenuClasse.missingVariables).map(
-      ([k, v]) => rules[k],
-    ),
-    hasRevenuMissing = revenuMissing.length > 0
-  console.log(revenuClasse)
+  const plafonnés = upEngine.evaluate('travaux . plafonnés'),
+    plafonnésValue = formatValue(plafonnés),
+    [plafonnésMissing, hasPlafonnésMissing] = getMissings(plafonnés, rules)
+  const travaux = upEngine.evaluate('travaux'),
+    travauxValue = formatValue(travaux),
+    [travauxMissing, hasTravauxMissing] = getMissings(travaux, rules)
 
-  const idf = upEngine.evaluate('région . IdF').nodeValue
-
-  const sauts = upEngine.evaluate('sauts'),
-    sautsMissing = sauts.missingVariables,
-    hasSautsMissing = Object.entries(sautsMissing).length > 0,
-    dpeFrom = upEngine.evaluate('DPE . actuel'),
-    dpeTo = upEngine.evaluate('DPE . visé')
+  if (hasTravauxMissing) return null
 
   return (
     <section>
-      <h2>Explications</h2>
-      <h3>Votre classe de revenu</h3>
+      <h3>Le montant de vos travaux</h3>
+
       <P>
-        Vous êtes {hasRevenuMissing ? <em>temporairement</em> : ''} considéré
-        comme appartenant à la classe de revenu dite{' '}
-        <Key $state={hasRevenuMissing ? 'inProgress' : 'final'}>
-          {revenuClasse.nodeValue}
+        Le montant brut de vos travaux est de{' '}
+        <Key $state={hasTravauxMissing ? 'inProgress' : 'final'}>
+          {travauxValue}
         </Key>
-        {idf ? <span>(barème Île-de-France)</span> : ''}
-        {revenuMissing.length ? (
+        {plafonnés && (
           <span>
-            , en attendant les informations suivantes :{' '}
-            {revenuMissing.map((el) => (
-              <>
-                <Key $state={'null'}>{el.titre.toLowerCase()}</Key>
-                <span> </span>
-              </>
-            ))}
+            , mais ils sont plafonnés à{' '}
+            <Key $state={hasPlafonnésMissing ? 'inProgress' : 'final'}>
+              {plafonnésValue}
+            </Key>
           </span>
-        ) : (
-          ''
         )}
-        .
       </P>
-      <h3>L'amélioration de votre DPE</h3>
-      {!hasSautsMissing && (
-        <P>
-          Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key> sauts
-          de classe DPE (de {dpeFrom.nodeValue} à {dpeTo.nodeValue}
-          ).
-        </P>
-      )}
-      <h3>L'enveloppe de vos travaux</h3>
-      <Travaux />
     </section>
   )
 }

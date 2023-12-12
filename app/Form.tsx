@@ -24,7 +24,7 @@ import Suggestions from './Suggestions'
 import Result from '@/components/Result'
 import DifferentialResult from '@/components/DifferentialResult'
 import NextQuestions from '@/components/NextQuestions'
-import Explications from '@/Explications'
+import Explications from '@/components/explications/Explications'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }

@@ -1,7 +1,9 @@
-import Travaux from './components/explications/Travaux'
+import Travaux from './Travaux'
 import { Key, P } from './ExplicationUI'
+import css from '../css/convertToJs'
 
-export default function Explication({ engine, rules, situation }) {
+export default function Explication(props) {
+  const { engine, rules, situation } = props
   const upEngine = engine.setSituation(situation)
 
   const revenuClasse = upEngine.evaluate('revenu . classe'),
@@ -20,7 +22,11 @@ export default function Explication({ engine, rules, situation }) {
     dpeTo = upEngine.evaluate('DPE . visé')
 
   return (
-    <section>
+    <section
+      style={css`
+        margin-bottom: 2rem;
+      `}
+    >
       <h2>Explications</h2>
       <h3>Votre classe de revenu</h3>
       <P>
@@ -53,8 +59,7 @@ export default function Explication({ engine, rules, situation }) {
           ).
         </P>
       )}
-      <h3>L'enveloppe de vos travaux</h3>
-      <Travaux />
+      <Travaux {...props} />
     </section>
   )
 }
