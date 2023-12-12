@@ -32,7 +32,7 @@ export default function Page({ searchParams }) {
         <h1>Mes Aides Rénovation&nbsp;2024</h1>
       </header>
       <p>
-        Ce petit vous aide à calculer les aides à la rénovation de votre
+        Ce petit outil vous aide à calculer les aides à la rénovation de votre
         logement.
       </p>
       <Form searchParams={searchParams} />
