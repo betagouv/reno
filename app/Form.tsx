@@ -23,6 +23,7 @@ import Personas from './Personas'
 import Suggestions from './Suggestions'
 import Result from '@/components/Result'
 import DifferentialResult from '@/components/DifferentialResult'
+import NextQuestions from '@/components/NextQuestions'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -132,24 +133,7 @@ export default function Form({ searchParams }) {
           currentQuestion,
         }}
       />
-      {nextQuestions.length ? (
-        <div>
-          <h3>Prochaines questions</h3>
-          <ol>
-            {nextQuestions.slice(1).map((question) => (
-              <li key={question}>{rules[question].titre}</li>
-            ))}
-          </ol>
-        </div>
-      ) : (
-        <p
-          style={css`
-            margin: 1rem 0;
-          `}
-        >
-          ⭐️ Vous avez terminé.
-        </p>
-      )}
+      <NextQuestions {...{ nextQuestions, rules }} />
       {answeredQuestions.length > 0 && (
         <div
           style={css`
