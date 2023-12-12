@@ -233,22 +233,27 @@ MPR . accompagnée . montant:
   formule: pourcent écrêté * travaux . plafonnés
   unité: €
 
+MPR . accompagnée . bonus . sauts minimum: 3
+MPR . accompagnée . bonus . condition: sauts > sauts minimum
 MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
   description: |
     Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
-  applicable si: sauts > 3
+  applicable si: condition
   valeur: 10 %
 
+MPR . accompagnée . écrêté: pourcent dont bonus > écrêtement
 MPR . accompagnée . pourcent écrêté:
   valeur: pourcent dont bonus
   plafond: écrêtement
+
 MPR . accompagnée . pourcent dont bonus: pourcent brut + bonus
 
+MPR . accompagnée . sauts minimum: 2
 MPR . accompagnée . pourcent brut:
   formule:
     variations:
-      - si: sauts < 2
+      - si: sauts < sauts minimum
         alors: 0
       - si: revenu . classe = 'très modeste'
         alors: 60 % + 20 %
@@ -281,5 +286,4 @@ MPR . accompagnée . écrêtement:
       alors: 80 %
     - si: revenu . classe = 'intermédiaire'
       alors: 60 %
-    - si: revenu . classe = 'supérieur'
-      alors: 40 %
+    - sinon: 40 %

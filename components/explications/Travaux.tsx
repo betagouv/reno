@@ -1,24 +1,14 @@
 import { formatValue } from '@/node_modules/publicodes/dist/index'
+import { compute } from './Aide'
 import { Key, P } from './ExplicationUI'
-import Travaux from './Travaux'
 
-const getMissings = (evaluation, rules) => {
-  const missing = Object.entries(evaluation.missingVariables).map(
-    ([k, v]) => rules[k],
-  )
-  return [missing, missing.length > 0]
-}
 export default function Travaux({ engine, rules, situation }) {
   const upEngine = engine.setSituation(situation)
 
-  const plafonnés = upEngine.evaluate('travaux . plafonnés'),
-    plafonnésValue = formatValue(plafonnés),
-    [plafonnésMissing, hasPlafonnésMissing] = getMissings(plafonnés, rules)
-  const travaux = upEngine.evaluate('travaux'),
-    travauxValue = formatValue(travaux),
-    [travauxMissing, hasTravauxMissing] = getMissings(travaux, rules)
+  const plafonnés = compute('travaux . plafonnés', upEngine, rules)
+  const travaux = compute('travaux', upEngine, rules)
 
-  if (hasTravauxMissing) return null
+  if (travaux.hasMissing) return null
 
   return (
     <section>
@@ -26,18 +16,18 @@ export default function Travaux({ engine, rules, situation }) {
 
       <P>
         Le montant de vos travaux est de{' '}
-        <Key $state={hasTravauxMissing ? 'inProgress' : 'final'}>
-          {travauxValue}
+        <Key $state={travaux.hasMissing ? 'inProgress' : 'final'}>
+          {travaux.value} €
         </Key>
-        {plafonnés && plafonnésValue < travauxValue && (
+        {plafonnés.node.nodeValue < travaux.node.nodeValue && (
           <span>
             , mais l'aide ne s'appliquera qu'à un plafond de{' '}
-            <Key $state={hasPlafonnésMissing ? 'inProgress' : 'final'}>
-              {plafonnésValue}
+            <Key $state={plafonnés.hasMissing ? 'inProgress' : 'final'}>
+              {plafonnés.value}
             </Key>
           </span>
         )}
-        € .
+        .
       </P>
     </section>
   )

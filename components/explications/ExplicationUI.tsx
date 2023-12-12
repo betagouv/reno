@@ -21,6 +21,7 @@ export const Key = styled.em`
         ? `
 
   background: #c4e5ef;
+  border-color: lightblue;
   `
         : ''}
 `

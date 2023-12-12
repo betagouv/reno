@@ -2,6 +2,7 @@ import Travaux from './Travaux'
 import { Key, P } from './ExplicationUI'
 import css from '../css/convertToJs'
 import { correspondance } from '../DPESelector'
+import Aide from './Aide'
 
 export default function Explication(props) {
   const { engine, rules, situation } = props
@@ -64,6 +65,7 @@ export default function Explication(props) {
         </div>
       )}
       <Travaux {...props} />
+      <Aide {...props} />
     </section>
   )
 }
