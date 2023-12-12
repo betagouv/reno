@@ -7,4 +7,11 @@ export const Key = styled.em`
   border: 1px solid lightgray;
   padding: 0 0.1rem;
   font-style: normal;
+  ${(p) =>
+    p.$ok &&
+    `
+  background: #c4e5ef;
+  border-color: lightblue;
+
+  `}
 `
