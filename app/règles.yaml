@@ -27,6 +27,10 @@ personnes:
     couple: 2 personne
     couple avec enfant: 3 personne
     couple avec 2 enfants: 4 personne
+personnes plus:
+  titre: Personnes de plus qu'un foyer de 5
+  formule: personnes - 5
+
 revenu . classe:
   formule:
     variations:
@@ -50,13 +54,53 @@ revenu . classe:
             - si: revenu < 29148 €
               alors: '"intermédiaire"'
             - sinon: '"supérieur"'
-      - sinon:
+      - si: personnes = 2
+        alors:
           variations:
             - si: revenu < 23734 €
               alors: '"très modeste"'
             - si: revenu < 30427 €
               alors: '"modeste"'
             - si: revenu < 42848 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieur"'
+      - si: personnes = 3
+        alors:
+          variations:
+            - si: revenu < 28545 €
+              alors: '"très modeste"'
+            - si: revenu < 36591 €
+              alors: '"modeste"'
+            - si: revenu < 51592 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieur"'
+      - si: personnes = 4
+        alors:
+          variations:
+            - si: revenu < 33346 €
+              alors: '"très modeste"'
+            - si: revenu < 42748 €
+              alors: '"modeste"'
+            - si: revenu < 60336 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieur"'
+      - si: personnes = 5
+        alors:
+          variations:
+            - si: revenu < 38168 €
+              alors: '"très modeste"'
+            - si: revenu < 48930 €
+              alors: '"modeste"'
+            - si: revenu < 69081 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieur"'
+      - sinon:
+          variations:
+            - si: revenu < (38168 + personnes plus * 4813 €)
+              alors: '"très modeste"'
+            - si: revenu < (48930 + personnes plus * 6165 €)
+              alors: '"modeste"'
+            - si: revenu < (69081 + personnes plus * 8744 €)
               alors: '"intermédiaire"'
             - sinon: '"supérieur"'
 
