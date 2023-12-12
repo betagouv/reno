@@ -34,16 +34,16 @@ h4 {
 
 @media (max-width: 800px) {
   h1 {
-    font-size: 140%;
+    font-size: 150%;
   }
   h2 {
     font-size: 130%;
   }
   h3 {
-    font-size: 120%;
+    font-size: 115%;
   }
   h4 {
-    font-size: 110%;
+    font-size: 105%;
   }
   h1,
   h2 {
