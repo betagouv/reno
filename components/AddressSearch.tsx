@@ -44,7 +44,13 @@ export default function AddressSearch({
   }
 
   return (
-    <div>
+    <div
+      style={css`
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+      `}
+    >
       <input
         type="text"
         autoFocus={true}
@@ -53,13 +59,20 @@ export default function AddressSearch({
         onChange={(e) => setInput(e.target.value)}
       />
       {results && (
-        <ul>
+        <ul
+          style={css`
+            width: 25rem;
+            max-width: 90vw;
+            list-style-type: none;
+          `}
+        >
           {results.map((result) => (
             <li
               key={result.properties.x + result.properties.y}
               onClick={() => setChoice(result)}
               style={css`
                 cursor: pointer;
+                text-align: right;
               `}
             >
               {result.properties.label}

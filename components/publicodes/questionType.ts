@@ -1,4 +1,7 @@
-export default function questionType(rule) {
-  const ruleType = typeof rule['par défaut']
-  return { number: 'number', string: 'text' }[ruleType]
+export default function questionType(evaluation) {
+  const ruleType = { number: 'number', string: 'text', undefined: 'text' }[
+    evaluation.type
+  ]
+  console.log(evaluation, ruleType)
+  return ruleType
 }

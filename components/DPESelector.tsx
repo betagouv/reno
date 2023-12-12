@@ -1,5 +1,6 @@
 import Test from '@/app/test/page'
 import { DPE } from './DPE'
+import { encodeSituation } from './publicodes/situationUtils'
 
 const correspondance = {
   1: 'A',
@@ -20,10 +21,26 @@ export default function DPESelector({
 
   console.log(situation, numericalValue, currentQuestion)
 
+  const doSetSearchParams = (value) => {
+    const newSituation = encodeSituation(
+      {
+        ...situation,
+        [currentQuestion]: value,
+      },
+      false,
+      answeredQuestions,
+    )
+    console.log('newS', newSituation)
+    const url = setSearchParams(newSituation, false, false)
+    console.log('newU', url)
+  }
+  console.log('YO', correspondance[+numericalValue])
   return (
     <DPE
-      value={correspondance[numericalValue]}
-      onClick={(value) => setSearchParams()}
+      value={correspondance[+numericalValue]}
+      onClick={(value) =>
+        console.log('setDPE', value + 1) || doSetSearchParams(+value + 1)
+      }
     />
   )
 }

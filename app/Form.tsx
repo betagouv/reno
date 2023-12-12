@@ -21,6 +21,8 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
+import Result from '@/components/Result'
+import DifferentialResult from '@/components/DifferentialResult'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -48,12 +50,19 @@ export default function Form({ searchParams }) {
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-  const ruleQuestionType = questionType(rule)
+  const ruleQuestionType =
+    currentQuestion && questionType(engine.evaluate(currentQuestion))
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
-  console.log('currentQuestion', currentQuestion, currentValue)
+  console.log(
+    'currentQuestion',
+    currentQuestion,
+    currentValue,
+    ruleQuestionType,
+    nextQuestions,
+  )
   return (
     <div>
       <Personas setSearchParams={setSearchParams} />
@@ -116,6 +125,13 @@ export default function Form({ searchParams }) {
           </label>
         </div>
       )}
+      <DifferentialResult
+        {...{
+          value: evaluation.nodeValue,
+          newValue: newEvaluation.nodeValue,
+          currentQuestion,
+        }}
+      />
       {nextQuestions.length ? (
         <div>
           <h3>Prochaines questions</h3>
@@ -126,7 +142,13 @@ export default function Form({ searchParams }) {
           </ol>
         </div>
       ) : (
-        <p>⭐️ Vous avez terminé.</p>
+        <p
+          style={css`
+            margin: 1rem 0;
+          `}
+        >
+          ⭐️ Vous avez terminé.
+        </p>
       )}
       {answeredQuestions.length > 0 && (
         <div
@@ -146,10 +168,7 @@ export default function Form({ searchParams }) {
         <p>
           <em>Ma Prime Rénov + estimation CEE.</em>
         </p>
-        <div>
-          Estimation {currentQuestion ? '' : ' finale'}&nbsp;: {value}
-        </div>
-        {currentQuestion && <div>Estimation intéractive&nbsp;: {newValue}</div>}
+        <Result value={value} currentQuestion={currentQuestion} />
       </div>
     </div>
   )
