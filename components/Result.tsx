@@ -4,7 +4,7 @@ export default function Result({ value, currentQuestion }) {
     <div
       style={css`
         padding: 1rem;
-        width: 10rem;
+        width: 12rem;
         display: flex;
         flex-direction: column;
         align-items: center;
