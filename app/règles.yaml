@@ -212,6 +212,17 @@ travaux:
   description: |
     Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, de 5,5 % à 10 %.
 
+travaux . plafonnés:
+  plafond:
+    variations:
+      - si: sauts = 2
+        alors: 40000 €
+      - si: sauts = 3
+        alors: 55000 €
+      - si: sauts >= 4
+        alors: 70000 €
+  valeur: travaux
+
 MPR:
   titre: Ma prime rénov'
 
@@ -219,7 +230,7 @@ MPR . accompagnée:
   titre: Ma prime rénov' parcours accompagné
 
 MPR . accompagnée . montant:
-  formule: pourcent écrêté * travaux
+  formule: pourcent écrêté * travaux . plafonnés
   unité: €
 
 MPR . accompagnée . bonus:
