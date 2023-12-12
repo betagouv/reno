@@ -1,8 +1,8 @@
 aides:
   formule:
     somme:
-      - MPR et CEE . montant
-      - MPR et CEE . bonus
+      - MPR . accompagnée . montant
+      - MPR . accompagnée . bonus
 
 revenu:
   titre: Revenu fiscal de référence
@@ -213,22 +213,27 @@ travaux:
   description: |
     Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, de 5,5 % à 10 %.
 
-MPR et CEE:
+MPR:
   titre: Ma prime rénov'
 
-MPR et CEE . montant:
+MPR . accompagnée:
+  titre: Ma prime rénov' parcours accompagné
+
+MPR . accompagnée . montant:
   formule: pourcent * travaux
   unité: €
 
-MPR et CEE . bonus:
+MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
   formule: sauts > 3 # TODO ceci est faux. CF la description
   description: |
     Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
   note: |
     Cette formule est fausse. C'est juste un test, mieux que rien. Il faut que l'on sache le DPE de départ et d'arrivée, forcément.
-MPR et CEE . bonus . pourcent: 10 %
-MPR et CEE . pourcent:
+MPR . accompagnée . bonus . pourcent: 10 %
+MPR . accompagnée . pourcent:
+  description: |
+    Dans cette formule, on somme deux pourcentages : l'un correspond au budget de l'État, l'autre aux CEE. En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
   formule:
     variations:
       - si: revenu . classe = 'très modeste'
