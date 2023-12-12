@@ -10,6 +10,12 @@ export default function Explication({ engine, rules, situation }) {
     hasRevenuMissing = revenuMissing.length > 0
   console.log(revenuClasse)
 
+  const sauts = upEngine.evaluate('sauts'),
+    sautsMissing = sauts.missingVariables,
+    hasSautsMissing = Object.entries(sautsMissing).length > 0,
+    dpeFrom = upEngine.evaluate('DPE . actuel'),
+    dpeTo = upEngine.evaluate('DPE . visé')
+
   return (
     <section>
       <h2>Explications</h2>
@@ -34,6 +40,13 @@ export default function Explication({ engine, rules, situation }) {
         )}
         .
       </P>
+      {!hasSautsMissing && (
+        <P>
+          Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key> sauts
+          de classe DPE (de {dpeFrom.nodeValue} à {dpeTo.nodeValue}
+          ).
+        </P>
+      )}
     </section>
   )
 }
