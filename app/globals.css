@@ -67,3 +67,7 @@ ol {
 button {
   cursor: pointer;
 }
+
+details summary {
+  cursor: pointer;
+}

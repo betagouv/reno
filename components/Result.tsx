@@ -3,7 +3,8 @@ export default function Result({ value, currentQuestion }) {
   return (
     <div
       style={css`
-        padding: 1rem;
+        padding: 1.2vh;
+        margin: 0 auto;
         width: 12rem;
         display: flex;
         flex-direction: column;

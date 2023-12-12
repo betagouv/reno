@@ -25,6 +25,7 @@ import Result from '@/components/Result'
 import DifferentialResult from '@/components/DifferentialResult'
 import NextQuestions from '@/components/NextQuestions'
 import Explications from '@/components/explications/Explications'
+import { Card } from '@/components/UI'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -69,8 +70,7 @@ export default function Form({ searchParams }) {
     <div>
       <Personas setSearchParams={setSearchParams} />
       {rule && (
-        <div>
-          <h2>Questions</h2>
+        <Card>
           <label>
             <div>{rule.question}</div>
             <AnswerWrapper>
@@ -125,7 +125,7 @@ export default function Form({ searchParams }) {
               </FormButtonsWrapper>
             </AnswerWrapper>
           </label>
-        </div>
+        </Card>
       )}
       <DifferentialResult
         {...{
@@ -146,12 +146,12 @@ export default function Form({ searchParams }) {
       )}
       <div
         style={css`
-          margin-top: 2rem;
+          margin-top: 1vh;
         `}
       >
-        <h2>Votre aide </h2>
+        <h2>Vos aides</h2>
         <p>
-          <em>Ma Prime Rénov + estimation CEE.</em>
+          <em>Ma Prime Rénov accompagnée.</em>
         </p>
         <Result value={value} currentQuestion={currentQuestion} />
       </div>

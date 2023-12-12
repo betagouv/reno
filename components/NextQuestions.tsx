@@ -4,16 +4,26 @@ export default function NextQuestions({ nextQuestions, rules }) {
   return nextQuestions.length ? (
     <div
       style={css`
-        margin-top: 1rem;
+        margin-top: 0.4rem;
+        display: flex;
+        align-items: center;
       `}
     >
-      <h3>À suivre</h3>
+      <h3
+        style={css`
+          width: 8rem;
+          margin: 0;
+        `}
+      >
+        À suivre
+      </h3>
       <div
         style={css`
           overflow: scroll;
-          height: 2rem;
+          height: 1.5rem;
           width: 100%;
           white-space: nowrap;
+          padding-top: 0.1rem;
         `}
       >
         <ol
