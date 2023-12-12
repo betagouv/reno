@@ -1,12 +1,18 @@
 - nom: Persona 1
+  description: |
+    4 sauts de DPE, enveloppe de 65 k€, couple modeste avec enfant.
   situation:
     personnes: 3
     revenu: 25000
     sauts: 4
     travaux: 65000
+    région: "'Bretagne'"
 - nom: Persona 2
+  description: |
+    3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
   situation:
     personnes: 2
     revenu: 35000
     sauts: 3
     travaux: 49300
+    région: "'Pays de la Loire'"

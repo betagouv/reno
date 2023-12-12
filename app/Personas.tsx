@@ -1,3 +1,4 @@
+import css from '@/components/css/convertToJs'
 import { PersonasList } from '@/components/InputUI'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
 import Link from '@/node_modules/next/link'
@@ -9,7 +10,24 @@ export default function Personas({ setSearchParams }) {
       <ul>
         {personas.map((persona) => (
           <li key={persona.nom}>
-            <div>{persona.nom}</div>
+            <details>
+              <summary
+                style={css`
+                  cursor: pointer;
+                `}
+              >
+                {persona.nom}
+              </summary>
+              <small
+                style={css`
+                  white-space: normal;
+                  width: 16rem;
+                  display: inline-block;
+                `}
+              >
+                {persona.description}
+              </small>
+            </details>
 
             <Link
               href={setSearchParams(
