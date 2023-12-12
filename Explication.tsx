@@ -20,8 +20,8 @@ export default function Explication({ engine, rules, situation }) {
     <section>
       <h2>Explications</h2>
       <P>
-        Vous êtes {hasRevenuMissing ? 'temporairement' : ''} considéré comme
-        appartenant à la classe de revenu dite{' '}
+        Vous êtes {hasRevenuMissing ? <em>temporairement</em> : ''} considéré
+        comme appartenant à la classe de revenu dite{' '}
         <Key $state={hasRevenuMissing ? 'inProgress' : 'final'}>
           {revenuClasse.nodeValue}
         </Key>

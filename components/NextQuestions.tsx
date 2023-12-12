@@ -2,8 +2,12 @@ import css from './css/convertToJs'
 
 export default function NextQuestions({ nextQuestions, rules }) {
   return nextQuestions.length ? (
-    <div>
-      <h3>Prochaines questions</h3>
+    <div
+      style={css`
+        margin-top: 1rem;
+      `}
+    >
+      <h3>À suivre</h3>
       <div
         style={css`
           overflow: scroll;
@@ -25,7 +29,7 @@ export default function NextQuestions({ nextQuestions, rules }) {
               `}
               key={question}
             >
-              {rules[question].titre}
+              <small>{rules[question].titre}</small>
             </li>
           ))}
         </ol>
