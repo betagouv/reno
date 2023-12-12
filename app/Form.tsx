@@ -24,7 +24,7 @@ import Suggestions from './Suggestions'
 import Result from '@/components/Result'
 import DifferentialResult from '@/components/DifferentialResult'
 import NextQuestions from '@/components/NextQuestions'
-import Explication from '@/Explication'
+import Explications from '@/Explications'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -155,7 +155,7 @@ export default function Form({ searchParams }) {
         </p>
         <Result value={value} currentQuestion={currentQuestion} />
       </div>
-      <Explication {...{ engine, rules, situation }} />
+      <Explications {...{ engine, rules, situation }} />
     </div>
   )
 }

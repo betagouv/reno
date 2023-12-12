@@ -1,3 +1,4 @@
+import Travaux from './components/explications/Travaux'
 import { Key, P } from './ExplicationUI'
 
 export default function Explication({ engine, rules, situation }) {
@@ -21,6 +22,7 @@ export default function Explication({ engine, rules, situation }) {
   return (
     <section>
       <h2>Explications</h2>
+      <h3>Votre classe de revenu</h3>
       <P>
         Vous êtes {hasRevenuMissing ? <em>temporairement</em> : ''} considéré
         comme appartenant à la classe de revenu dite{' '}
@@ -43,6 +45,7 @@ export default function Explication({ engine, rules, situation }) {
         )}
         .
       </P>
+      <h3>L'amélioration de votre DPE</h3>
       {!hasSautsMissing && (
         <P>
           Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key> sauts
@@ -50,6 +53,8 @@ export default function Explication({ engine, rules, situation }) {
           ).
         </P>
       )}
+      <h3>L'enveloppe de vos travaux</h3>
+      <Travaux />
     </section>
   )
 }
