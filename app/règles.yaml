@@ -19,7 +19,7 @@ revenu:
     supérieur: 50000 €
 
 personnes:
-  titre: Composition du foyer
+  titre: La composition de votre foyer
   question: Quelle est la composition de votre foyer ?
   par défaut: 1 personne
   suggestions:
@@ -61,6 +61,7 @@ revenu . classe:
             - sinon: '"supérieur"'
 
 région:
+  titre: Votre région
   question: Dans quelle région se situe votre logement ?
   par défaut: "'Bretagne'"
   suggestions:
@@ -97,7 +98,7 @@ sauts:
   par défaut: 3
 
 travaux:
-  titre: Enveloppe des travaux
+  titre: Votre enveloppe des travaux
   question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?
   par défaut: 20000 €
   suggestions:

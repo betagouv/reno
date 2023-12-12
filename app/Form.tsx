@@ -60,6 +60,7 @@ export default function Form({ searchParams }) {
     currentQuestion,
     currentValue,
     ruleQuestionType,
+    nextQuestions,
   )
   return (
     <div>
