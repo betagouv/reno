@@ -236,6 +236,8 @@ MPR . accompagnée . pourcent:
     Dans cette formule, on somme deux pourcentages : l'un correspond au budget de l'État, l'autre aux CEE. En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
   formule:
     variations:
+      - si: sauts < 2
+        alors: 0
       - si: revenu . classe = 'très modeste'
         alors: 60 % + 20 %
       - si: revenu . classe = 'modeste'
