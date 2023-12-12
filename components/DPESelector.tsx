@@ -2,7 +2,7 @@ import Test from '@/app/test/page'
 import { DPE } from './DPE'
 import { encodeSituation } from './publicodes/situationUtils'
 
-const correspondance = {
+export const correspondance = {
   1: 'A',
   2: 'B',
   3: 'C',

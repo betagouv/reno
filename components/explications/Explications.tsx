@@ -1,6 +1,7 @@
 import Travaux from './Travaux'
 import { Key, P } from './ExplicationUI'
 import css from '../css/convertToJs'
+import { correspondance } from '../DPESelector'
 
 export default function Explication(props) {
   const { engine, rules, situation } = props
@@ -30,8 +31,8 @@ export default function Explication(props) {
       <h2>Explications</h2>
       <h3>Votre classe de revenu</h3>
       <P>
-        Vous êtes {hasRevenuMissing ? <em>temporairement</em> : ''} considéré
-        comme appartenant à la classe de revenu dite{' '}
+        Votre revenue est {hasRevenuMissing ? <em>temporairement</em> : ''} dans
+        la classe dite{' '}
         <Key $state={hasRevenuMissing ? 'inProgress' : 'final'}>
           {revenuClasse.nodeValue}
         </Key>
@@ -51,13 +52,16 @@ export default function Explication(props) {
         )}
         .
       </P>
-      <h3>L'amélioration de votre DPE</h3>
       {!hasSautsMissing && (
-        <P>
-          Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key> sauts
-          de classe DPE (de {dpeFrom.nodeValue} à {dpeTo.nodeValue}
-          ).
-        </P>
+        <div>
+          <h3>L'amélioration de votre DPE</h3>
+          <P>
+            Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key>{' '}
+            sauts de classe DPE (de {correspondance[dpeFrom.nodeValue]} à{' '}
+            {correspondance[dpeTo.nodeValue]}
+            ).
+          </P>
+        </div>
       )}
       <Travaux {...props} />
     </section>
