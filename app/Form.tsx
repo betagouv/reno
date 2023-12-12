@@ -21,6 +21,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
+import Result from '@/components/Result'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -158,9 +159,7 @@ export default function Form({ searchParams }) {
         <p>
           <em>Ma Prime Rénov + estimation CEE.</em>
         </p>
-        <div>
-          Estimation {currentQuestion ? '' : ' finale'}&nbsp;: {value}
-        </div>
+        <Result value={value} currentQuestion={currentQuestion} />
         {currentQuestion && <div>Estimation intéractive&nbsp;: {newValue}</div>}
       </div>
     </div>
