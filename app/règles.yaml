@@ -171,11 +171,12 @@ région:
   suggestions:
     Bretagne: "'Bretagne'"
     Pays de la Loire: "'Pays de la Loire'"
+    IdF: "'Île-de-France'"
 
 id ban:
   titre: Identifiant base nationale des adresses (BAN)
 
-région . IdF: région = "'Île-de-France'"
+région . IdF: région = 'Île-de-France'
 
 DPE:
   titre: Diagnostique de Performance Énergétique.

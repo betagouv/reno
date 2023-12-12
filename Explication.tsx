@@ -10,6 +10,8 @@ export default function Explication({ engine, rules, situation }) {
     hasRevenuMissing = revenuMissing.length > 0
   console.log(revenuClasse)
 
+  const idf = upEngine.evaluate('région . IdF').nodeValue
+
   const sauts = upEngine.evaluate('sauts'),
     sautsMissing = sauts.missingVariables,
     hasSautsMissing = Object.entries(sautsMissing).length > 0,
@@ -25,6 +27,7 @@ export default function Explication({ engine, rules, situation }) {
         <Key $state={hasRevenuMissing ? 'inProgress' : 'final'}>
           {revenuClasse.nodeValue}
         </Key>
+        {idf ? <span>(barème Île-de-France)</span> : ''}
         {revenuMissing.length ? (
           <span>
             , en attendant les informations suivantes :{' '}
