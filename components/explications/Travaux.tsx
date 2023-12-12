@@ -25,18 +25,19 @@ export default function Travaux({ engine, rules, situation }) {
       <h3>Le montant de vos travaux</h3>
 
       <P>
-        Le montant brut de vos travaux est de{' '}
+        Le montant de vos travaux est de{' '}
         <Key $state={hasTravauxMissing ? 'inProgress' : 'final'}>
           {travauxValue}
         </Key>
-        {plafonnés && (
+        {plafonnés && plafonnésValue < travauxValue && (
           <span>
-            , mais ils sont plafonnés à{' '}
+            , mais l'aide ne s'appliquera qu'à un plafond de{' '}
             <Key $state={hasPlafonnésMissing ? 'inProgress' : 'final'}>
               {plafonnésValue}
             </Key>
           </span>
         )}
+        € .
       </P>
     </section>
   )
