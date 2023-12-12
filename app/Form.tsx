@@ -22,6 +22,7 @@ import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
 import Result from '@/components/Result'
+import DifferentialResult from '@/components/DifferentialResult'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -124,6 +125,13 @@ export default function Form({ searchParams }) {
           </label>
         </div>
       )}
+      <DifferentialResult
+        {...{
+          value: evaluation.nodeValue,
+          newValue: newEvaluation.nodeValue,
+          currentQuestion,
+        }}
+      />
       {nextQuestions.length ? (
         <div>
           <h3>Prochaines questions</h3>
@@ -161,7 +169,6 @@ export default function Form({ searchParams }) {
           <em>Ma Prime Rénov + estimation CEE.</em>
         </p>
         <Result value={value} currentQuestion={currentQuestion} />
-        {currentQuestion && <div>Estimation intéractive&nbsp;: {newValue}</div>}
       </div>
     </div>
   )
