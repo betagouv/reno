@@ -2,7 +2,6 @@ aides:
   formule:
     somme:
       - MPR . accompagnée . montant
-      - MPR . accompagnée . bonus
 
 revenu:
   titre: Revenu fiscal de référence
@@ -220,20 +219,22 @@ MPR . accompagnée:
   titre: Ma prime rénov' parcours accompagné
 
 MPR . accompagnée . montant:
-  formule: pourcent * travaux
+  formule: pourcent écrêté * travaux
   unité: €
 
 MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
-  formule: sauts > 3 # TODO ceci est faux. CF la description
   description: |
     Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
-  note: |
-    Cette formule est fausse. C'est juste un test, mieux que rien. Il faut que l'on sache le DPE de départ et d'arrivée, forcément.
-MPR . accompagnée . bonus . pourcent: 10 %
-MPR . accompagnée . pourcent:
-  description: |
-    Dans cette formule, on somme deux pourcentages : l'un correspond au budget de l'État, l'autre aux CEE. En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
+  applicable si: sauts > 3
+  valeur: 10 %
+
+MPR . accompagnée . pourcent écrêté:
+  valeur: pourcent dont bonus
+  plafond: écrêtement
+MPR . accompagnée . pourcent dont bonus: pourcent brut + bonus
+
+MPR . accompagnée . pourcent brut:
   formule:
     variations:
       - si: sauts < 2
@@ -253,3 +254,21 @@ MPR . accompagnée . pourcent:
             - si: sauts < 3
               alors: 15 % + 15 %
             - sinon: 15 % + 20 %
+  description: |
+    Dans cette formule, on somme deux pourcentages : l'un correspond au budget de l'État, l'autre aux CEE. 
+
+    En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
+
+MPR . accompagnée . écrêtement:
+  titre: Taux maximum toutes aides
+  description: |
+    Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 100 %
+    - si: revenu . classe = 'modeste'
+      alors: 80 %
+    - si: revenu . classe = 'intermédiaire'
+      alors: 60 %
+    - si: revenu . classe = 'supérieur'
+      alors: 40 %
