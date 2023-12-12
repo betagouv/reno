@@ -43,7 +43,7 @@ revenu . classe:
               alors: '"modeste"'
             - si: revenu < 35148 €
               alors: '"intermédiaire"'
-            - sinon: '"supérieur"'
+            - sinon: '"supérieure"'
       - si: personnes = 1
         alors:
           variations:
@@ -53,7 +53,7 @@ revenu . classe:
               alors: '"modeste"'
             - si: revenu < 29148 €
               alors: '"intermédiaire"'
-            - sinon: '"supérieur"'
+            - sinon: '"supérieure"'
       - si: personnes = 2
         alors:
           variations:
@@ -63,7 +63,7 @@ revenu . classe:
               alors: '"modeste"'
             - si: revenu < 42848 €
               alors: '"intermédiaire"'
-            - sinon: '"supérieur"'
+            - sinon: '"supérieure"'
       - si: personnes = 3
         alors:
           variations:
@@ -73,7 +73,7 @@ revenu . classe:
               alors: '"modeste"'
             - si: revenu < 51592 €
               alors: '"intermédiaire"'
-            - sinon: '"supérieur"'
+            - sinon: '"supérieure"'
       - si: personnes = 4
         alors:
           variations:
@@ -83,7 +83,7 @@ revenu . classe:
               alors: '"modeste"'
             - si: revenu < 60336 €
               alors: '"intermédiaire"'
-            - sinon: '"supérieur"'
+            - sinon: '"supérieure"'
       - si: personnes = 5
         alors:
           variations:
@@ -93,7 +93,7 @@ revenu . classe:
               alors: '"modeste"'
             - si: revenu < 69081 €
               alors: '"intermédiaire"'
-            - sinon: '"supérieur"'
+            - sinon: '"supérieure"'
       - sinon:
           variations:
             - si: revenu < (38168 + personnes plus * 4813 €)
@@ -102,7 +102,7 @@ revenu . classe:
               alors: '"modeste"'
             - si: revenu < (69081 + personnes plus * 8744 €)
               alors: '"intermédiaire"'
-            - sinon: '"supérieur"'
+            - sinon: '"supérieure"'
 
 région:
   titre: Votre région
