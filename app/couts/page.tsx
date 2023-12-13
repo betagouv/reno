@@ -1,7 +1,7 @@
 import css from '@/components/css/convertToJs'
-import Form from './Form'
 import logo from '@/public/icon.svg'
 import Image from 'next/image'
+import Couts from './Couts'
 
 export default function Page({ searchParams }) {
   return (
@@ -29,10 +29,10 @@ export default function Page({ searchParams }) {
             padding-top: 0.5rem;
           `}
         />
-        <h1>Mes Aides Réno&nbsp;2024</h1>
+        <h1>Prix des gestes de réno</h1>
       </header>
-      <p>Cet outil calcule les aides 2024 à la rénovation de votre logement.</p>
-      <Form searchParams={searchParams} />
+      <p>Une analyse des coûts des gestes d'isolation</p>
+      <Couts />
     </main>
   )
 }
