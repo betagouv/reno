@@ -4,6 +4,7 @@ import { DensityChart } from '@/components/densityGraph/DensityChart'
 import gestes1 from '@/secureData/mpr_geste_paiementsolde_2023T1.csv'
 import gestes2 from '@/secureData/mpr_geste_paiementsolde_2023T2.csv'
 import gestes3 from '@/secureData/mpr_geste_paiementsolde_2023T3.csv'
+import FilterableChart from './FilterableChart'
 
 const gestes = [
   ...gestes1.map((el) => ({ ...el, trimestre: 1 })),
@@ -13,7 +14,7 @@ const gestes = [
 
 const isValidMontant = (gestePrice) => gestePrice !== 'NA' && gestePrice != 0
 
-const keyPrice = 'mtttcplanfinsolde',
+export const keyPrice = 'mtttcplanfinsolde',
   keyGeste = 'subtypename'
 export default function Couts({}) {
   const groupedByGeste = gestes.reduce((memo, next) => {
@@ -85,7 +86,9 @@ export default function Couts({}) {
                 </div>
               </div>
               <div>
-                <DensityChart width={'300'} height={'250'} data={valids} />
+                <FilterableChart
+                  data={gestes.filter((el) => isValidMontant(el[keyPrice]))}
+                />
                 <details>
                   <summary>Voir les entrées</summary>
                   <ul>
