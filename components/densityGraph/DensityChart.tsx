@@ -11,7 +11,6 @@ type DensityChartProps = {
 }
 
 export const DensityChart = ({ width, height, data }: DensityChartProps) => {
-  console.log(data.length)
   const boundsWidth = width - MARGIN.right - MARGIN.left
   const boundsHeight = height - MARGIN.top - MARGIN.bottom
 
