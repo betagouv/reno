@@ -20,7 +20,8 @@ export const isValidMontant = (gestePrice) =>
 
 export const keyPrice = 'mtttcplanfinsolde',
   keyGeste = 'subtypename',
-  keyNumEquipement = 'wpequipement'
+  keyNumEquipement = 'wpequipement',
+  keySurface = 'wpsurface'
 export default function Couts({}) {
   const [trimestre, setTrimestre] = useState(trimestres.slice(-1)[0])
   const filteredData = data.filter((el) => el.trimestre === trimestre)
@@ -42,8 +43,15 @@ export default function Couts({}) {
       valids = validsRaw.map((geste) => {
         const total = geste[keyPrice]
         const numEq = geste[keyNumEquipement]
+        const surface = geste[keySurface]
 
+        if (numEq !== 'NA' && surface !== 'NA')
+          return new Error(
+            "Attention, à la fois surface et nombre d'équipement, investiguer",
+          )
         if (numEq !== 'NA') return total / numEq
+        if (surface !== 'NA') return total / surface
+
         return total
       })
 
@@ -55,6 +63,12 @@ export default function Couts({}) {
     const perEquipement = gestes.filter((el) => el[keyNumEquipement] !== 'NA')
     const isPerSingleEquipement = perEquipement.length === gestes.length
     if (perEquipement.length > 0 && perEquipement.length < gestes.length)
+      return new Error(
+        "Certaines lignes ont un prix par équipement, et d'autres non. Investiguer",
+      )
+    const perSurface = gestes.filter((el) => el[keySurface] !== 'NA')
+    const isPerSurface = perSurface.length === gestes.length
+    if (perSurface.length > 0 && perSurface.length < gestes.length)
       return new Error(
         "Certaines lignes ont un prix par équipement, et d'autres non. Investiguer",
       )
@@ -70,6 +84,7 @@ export default function Couts({}) {
       elements: gestes,
       max,
       isPerSingleEquipement,
+      isPerSurface,
     }
   })
 

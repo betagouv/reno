@@ -4,6 +4,7 @@ import { isValidMontant, keyPrice } from './Couts'
 
 export default function Geste({
   isPerSingleEquipement,
+  isPerSurface,
   geste,
   mean,
   median,
@@ -29,6 +30,11 @@ export default function Geste({
               Prix <strong>par équipement individuel</strong>
             </div>
           )}
+          {isPerSurface && (
+            <div>
+              Prix <strong>par surface</strong>
+            </div>
+          )}
           <div>Médiane : {format(median)} €</div>
           <div>Moyenne : {format(mean)} €</div>
           <div>Max : {format(max)} €</div>
@@ -47,17 +53,19 @@ export default function Geste({
             </details>
           </div>
         </div>
-        <div>
-          <DensityChart width={'300'} height={'250'} data={valids} />
-          <details>
-            <summary>Voir les entrées</summary>
-            <ul>
-              {valids.map((el, i) => (
-                <li key={i}>{el}</li>
-              ))}
-            </ul>
-          </details>
-        </div>
+        {valids && (
+          <div>
+            <DensityChart width={'300'} height={'250'} data={valids} />
+            <details>
+              <summary>Voir les entrées</summary>
+              <ul>
+                {valids.map((el, i) => (
+                  <li key={i}>{el}</li>
+                ))}
+              </ul>
+            </details>
+          </div>
+        )}
       </div>
     </li>
   )
