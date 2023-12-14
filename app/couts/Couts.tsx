@@ -1,36 +1,51 @@
 'use client'
 import css from '@/components/css/convertToJs'
 import { DensityChart } from '@/components/densityGraph/DensityChart'
-import gestes from '@/secureData/gestes.csv'
+import gestes1 from '@/secureData/mpr_geste_paiementsolde_2023T1.csv'
+import gestes2 from '@/secureData/mpr_geste_paiementsolde_2023T2.csv'
+import gestes3 from '@/secureData/mpr_geste_paiementsolde_2023T3.csv'
+
+const gestes = [
+  ...gestes1.map((el) => ({ ...el, trimestre: 1 })),
+  ...gestes2.map((el) => ({ ...el, trimestre: 2 })),
+  ...gestes3.map((el) => ({ ...el, trimestre: 3 })),
+]
+
+const isValidMontant = (gestePrice) => gestePrice !== 'NA' && gestePrice != 0
 
 const keyPrice = 'mtttcplanfinsolde',
   keyGeste = 'subtypename'
 export default function Couts({}) {
-  const aggregation = gestes.reduce((memo, next) => {
+  const groupedByGeste = gestes.reduce((memo, next) => {
     const geste = next[keyGeste]
     const gestes = memo[geste]
 
-    const gestePrice = next[keyPrice]
-    const valid = gestePrice !== 'NA' && gestePrice != 0
-
     return {
       ...memo,
-      [geste]: valid ? [...(gestes || []), gestePrice] : gestes,
+      [geste]: [...(gestes || []), next],
     }
   }, {})
 
-  const statistics = Object.entries(aggregation)
-    .map(([geste, montants]) => {
-      if (!montants) return
-      const sum = montants.reduce((memo, next) => memo + next, 0),
-        mean = sum / montants.length
+  console.log({ groupedByGeste })
+
+  const statistics = Object.entries(groupedByGeste)
+    .map(([geste, gestes]) => {
+      const montants = gestes.map((geste) => geste[keyPrice])
+      const valids = montants.filter(isValidMontant)
+      const sum = valids.reduce((memo, next) => memo + next, 0),
+        mean = sum / valids.length
+      const max = Math.max(...valids),
+        min = Math.min(...valids)
       return {
+        valids,
         geste,
         sum,
         mean,
-        montants,
-        num: montants.length,
-        median: computeMedian(montants),
+        num: gestes.length,
+        numValids: valids.length,
+        median: computeMedian(valids),
+        min,
+        max,
       }
     })
     .filter(Boolean)
@@ -41,7 +56,7 @@ export default function Couts({}) {
     <div>
       {statistics
         .sort((a, b) => -a.num + b.num)
-        .map(({ geste, mean, median, num, montants }) => (
+        .map(({ geste, mean, median, num, numValids, min, max, valids }) => (
           <li key={geste}>
             <h3>{geste}</h3>
             <div
@@ -53,17 +68,29 @@ export default function Couts({}) {
               <div>
                 <div>Médiane : {format(median)} €</div>
                 <div>Moyenne : {format(mean)} €</div>
-                <div>Max : {format(Math.max(...montants))} €</div>
-                <div>Min : {format(Math.min(...montants))} €</div>
-                <div>Nombre : {num}</div>
+                <div>Max : {format(max)} €</div>
+                <div>Min : {format(min)} €</div>
+                <div>
+                  Nombre : {num} dont {numValids}{' '}
+                  <details>
+                    <summary
+                      style={css`
+                        display: inline;
+                      `}
+                    >
+                      valides
+                    </summary>
+                    valides (différents de 0 ou de NA)
+                  </details>
+                </div>
               </div>
               <div>
-                <DensityChart width={'300'} height={'250'} data={montants} />
+                <DensityChart width={'300'} height={'250'} data={valids} />
                 <details>
-                  <summary>Voir les montants</summary>
+                  <summary>Voir les entrées</summary>
                   <ul>
-                    {montants.map((el, i) => (
-                      <li key={i}>{el}</li>
+                    {gestes.map((el, i) => (
+                      <li key={i}>{el[keyPrice]}</li>
                     ))}
                   </ul>
                 </details>
