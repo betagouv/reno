@@ -3,6 +3,7 @@ import { DensityChart } from '@/components/densityGraph/DensityChart'
 import { isValidMontant, keyPrice } from './Couts'
 
 export default function Geste({
+  isPerSingleEquipement,
   geste,
   mean,
   median,
@@ -23,6 +24,11 @@ export default function Geste({
         `}
       >
         <div>
+          {isPerSingleEquipement && (
+            <div>
+              Prix <strong>par équipement individuel</strong>
+            </div>
+          )}
           <div>Médiane : {format(median)} €</div>
           <div>Moyenne : {format(mean)} €</div>
           <div>Max : {format(max)} €</div>
@@ -42,18 +48,12 @@ export default function Geste({
           </div>
         </div>
         <div>
-          <DensityChart
-            width={'300'}
-            height={'250'}
-            data={elements
-              .filter((el) => isValidMontant(el[keyPrice]))
-              .map((el) => el[keyPrice])}
-          />
+          <DensityChart width={'300'} height={'250'} data={valids} />
           <details>
             <summary>Voir les entrées</summary>
             <ul>
-              {elements.map((el, i) => (
-                <li key={i}>{el[keyPrice]}</li>
+              {valids.map((el, i) => (
+                <li key={i}>{el}</li>
               ))}
             </ul>
           </details>

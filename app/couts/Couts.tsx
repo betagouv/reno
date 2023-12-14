@@ -19,7 +19,8 @@ export const isValidMontant = (gestePrice) =>
   gestePrice !== 'NA' && gestePrice != 0
 
 export const keyPrice = 'mtttcplanfinsolde',
-  keyGeste = 'subtypename'
+  keyGeste = 'subtypename',
+  keyNumEquipement = 'wpequipement'
 export default function Couts({}) {
   const [trimestre, setTrimestre] = useState(trimestres.slice(-1)[0])
   const filteredData = data.filter((el) => el.trimestre === trimestre)
@@ -37,13 +38,26 @@ export default function Couts({}) {
   console.log({ groupedByGeste })
 
   const statistics = Object.entries(groupedByGeste).map(([geste, gestes]) => {
-    const montants = gestes.map((geste) => geste[keyPrice])
-    const valids = montants.filter(isValidMontant)
+    const validsRaw = gestes.filter((el) => isValidMontant(el[keyPrice])),
+      valids = validsRaw.map((geste) => {
+        const total = geste[keyPrice]
+        const numEq = geste[keyNumEquipement]
+
+        if (numEq !== 'NA') return total / numEq
+        return total
+      })
+
     const sum = valids.reduce((memo, next) => memo + next, 0),
       mean = sum / valids.length
     const max = Math.max(...valids),
       min = Math.min(...valids)
-    console.log('gestes', gestes)
+
+    const perEquipement = gestes.filter((el) => el[keyNumEquipement] !== 'NA')
+    const isPerSingleEquipement = perEquipement.length === gestes.length
+    if (perEquipement.length > 0 && perEquipement.length < gestes.length)
+      return new Error(
+        "Certaines lignes ont un prix par équipement, et d'autres non. Investiguer",
+      )
     return {
       valids,
       geste,
@@ -55,6 +69,7 @@ export default function Couts({}) {
       min,
       elements: gestes,
       max,
+      isPerSingleEquipement,
     }
   })
 
