@@ -23,6 +23,8 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
           rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
           rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
           rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
+
+		border: 1px ${isFinal ? 'solid' : 'dashed'} black;
         ${notApplicable ? 'opacity: .7;' : ''}
       `)}
     >
