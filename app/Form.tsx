@@ -1,5 +1,5 @@
 'use client'
-import rules from './règles.yaml'
+import rules from './rules'
 
 import css from '@/components/css/convertToJs'
 import InputSwitch from '@/components/InputSwitch'

@@ -226,9 +226,6 @@ travaux . plafonnés:
 MPR:
   titre: Ma prime rénov'
 
-MPR . non accompagnée:
-  titre: Parcours par geste
-
 MPR . accompagnée:
   titre: Parcours accompagné
 
