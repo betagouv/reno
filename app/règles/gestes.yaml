@@ -3,3 +3,34 @@ MPR . non accompagnée:
   non applicable si: revenu . classe = "supérieure"
   valeur: 999
   titre: Parcours par geste
+
+gestes . chauffage:
+  titre: Chauffage et eau chaude sanitaire
+gestes . chauffage . chaudière à granulés:
+gestes . chauffage . chaudière à bûches:
+gestes . chauffage . poêle à granulés:
+gestes . chauffage . poêle à bûches:
+gestes . chauffage . foyer et insert:
+  titre: Foyer fermé et insert à buches ou à granulés
+
+gestes . chauffage . solaire combiné:
+gestes . chauffage . chauffe-eau solaire:
+  titre:
+    Chauffe-eau solaire individuel
+    # Métro vs O-M
+gestes . chauffage . panneau thermique:
+  titre: Partie thermique d’un panneau hybride
+gestes . chauffage . PAC géothermique:
+  titre: Pompes à chaleur géothermiques ou solarothermiques
+gestes . chauffage . PAC air-eau:
+  titre: Pompe à chaleur air/eau
+
+gestes . isolation:
+  titre: Isolation thermique
+gestes . isolation . vitres:
+  titre: Isolation thermique des parois vitrées
+gestes . isolation . murs extérieur:
+  titre: Isolation des murs par l'extérieur
+
+gestes . autres:
+  titre: Autres travaux
