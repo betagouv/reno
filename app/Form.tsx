@@ -3,7 +3,7 @@ import rules from './rules'
 
 import css from '@/components/css/convertToJs'
 import Explications from '@/components/explications/Explications'
-import InputSwitch from '@/components/InputSwitch'
+import InputSwitch, { getQuestionText } from '@/components/InputSwitch'
 import {
   AnswerWrapper,
   FormButtonsWrapper,
@@ -71,8 +71,14 @@ export default function Form({ searchParams }) {
       <Personas setSearchParams={setSearchParams} />
       {rule && (
         <Card>
-          <label>
-            <div>{rule.question || rule.titre || ruleName}</div>
+          <div>
+            <h3
+              style={css`
+                margin: 0 0.2rem 0.4rem;
+              `}
+            >
+              {getQuestionText(rule, currentQuestion, rules)}
+            </h3>
             <AnswerWrapper>
               <Suggestions
                 rule={rule}
@@ -125,7 +131,7 @@ export default function Form({ searchParams }) {
                 )}
               </FormButtonsWrapper>
             </AnswerWrapper>
-          </label>
+          </div>
         </Card>
       )}
       <NextQuestions {...{ nextQuestions, rules }} />

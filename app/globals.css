@@ -71,3 +71,7 @@ button {
 details summary {
   cursor: pointer;
 }
+
+fieldset {
+  border: none;
+}

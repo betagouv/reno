@@ -2,6 +2,13 @@ import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
 
+export const isMosaicQuestion = (currentQuestion, rule) =>
+  currentQuestion.startsWith('gestes . ') &&
+  ['oui', 'non'].includes(rule['par défaut'])
+
+export const mosaicQuestionText = (rules, currentQuestion) => {
+  return rules['gestes . montant'].question.mosaïque
+}
 export default function BooleanMosaic({
   rules,
   setSearchParams,
@@ -37,6 +44,7 @@ export default function BooleanMosaic({
                 margin-right: 1rem;
               `}
               type="checkbox"
+              checked={situation[dottedName] === 'oui'}
               value={Math.random() > 0.5 ? true : false}
               onChange={() => {
                 const encodedSituation = encodeSituation(

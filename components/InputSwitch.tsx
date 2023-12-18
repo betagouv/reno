@@ -1,11 +1,21 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import BooleanMosaic from './BooleanMosaic'
+import BooleanMosaic, {
+  isMosaicQuestion,
+  mosaicQuestionText,
+} from './BooleanMosaic'
 import DPESelector from './DPESelector'
 import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
-
+import { getRuleName } from './publicodes/utils'
+export const getQuestionText = (rule, dottedName, rules) => {
+  if (isMosaicQuestion(dottedName, rule))
+    return mosaicQuestionText(rules, dottedName)
+  const ruleName = getRuleName(dottedName)
+  const text = rule.question || rule.titre || ruleName
+  return text
+}
 export default function InputSwitch({
   rule,
   currentValue,
@@ -42,7 +52,7 @@ export default function InputSwitch({
       />
     )
 
-  if (currentQuestion.startsWith('gestes . '))
+  if (isMosaicQuestion(currentQuestion, rule))
     return (
       <BooleanMosaic
         {...{

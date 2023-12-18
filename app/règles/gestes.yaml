@@ -1,4 +1,6 @@
 montant:
+  question:
+    mosaïque: Quels gestes envisagez-vous ?
   somme:
     - chauffage
     - isolation
