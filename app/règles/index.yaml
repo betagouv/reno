@@ -184,10 +184,24 @@ DPE . actuel:
   titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
   par défaut: 4
+  suggestions:
+    G: 7
+    F: 6
+    E: 5
+    D: 4
+    C: 3
+    B: 2
+
 DPE . visé:
   titre: Votre futur DPE visé
   question: Quel est le DPE visé après la rénovation ?
   par défaut: 2
+  suggestions:
+    E: 5
+    D: 4
+    C: 3
+    B: 2
+    A: 1
 
 sauts:
   titre: Sauts de classe DPE
