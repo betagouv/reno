@@ -252,7 +252,7 @@ MPR:
 MPR . non accompagnée:
   applicable si: DPE . actuel < 6
   non applicable si: revenu . classe = "supérieure"
-  valeur: 999
+  valeur: gestes . montant
   titre: Parcours par geste
 
 MPR . accompagnée:
