@@ -34,7 +34,7 @@ export const FormLinkButton = styled(Link)`
 `
 export const FormButtonsWrapper = styled.div`
   margin: 0.6rem 0;
-  height: 2rem;
+  height: 1.2rem;
 `
 
 export const SuggestionsList = styled.div`
