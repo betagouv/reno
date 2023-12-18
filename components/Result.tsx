@@ -1,6 +1,13 @@
 import css from '@/components/css/convertToJs'
+import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { styled } from 'styled-components'
-export default function Result({ value, isFinal, rule }) {
+export default function Result({ engine, isFinal, rules, dottedName }) {
+  const rule = rules[dottedName]
+  const evaluation = engine.evaluate(dottedName)
+
+  const value = formatValue(evaluation)
+
+  console.log(dottedName, evaluation)
   return (
     <div
       style={css`

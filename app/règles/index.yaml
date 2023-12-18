@@ -1,7 +1,8 @@
 aides:
   formule:
     somme:
-      - MPR . accompagnée . montant
+      - MPR . accompagnée
+      - MPR . non accompagnée
 
 revenu:
   titre: Revenu fiscal de référence
@@ -30,9 +31,12 @@ personnes plus:
   titre: Personnes de plus qu'un foyer de 5
   formule: personnes - 5
 
+revenu . max: 90496 €
 revenu . classe:
   formule:
     variations:
+      - si: revenu >= max
+        alors: '"supérieure"'
       - si: région . IdF
         alors: barème IdF
       - sinon: barème
@@ -40,6 +44,8 @@ revenu . classe:
 revenu . barème IdF:
   formule:
     variations:
+      - si: revenu >= 90496
+        alors: '"supérieure"'
       - si: personnes = 1
         alors:
           variations:
@@ -87,7 +93,7 @@ revenu . barème IdF:
               alors: '"très modeste"'
             - si: revenu < 64380 €
               alors: '"modeste"'
-            - si: revenu < 90496 €
+            - si: revenu < max
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
@@ -100,9 +106,12 @@ revenu . barème IdF:
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
 
+revenu . barème . max: 69081 €
 revenu . barème:
   formule:
     variations:
+      - si: revenu >= max
+        alors: '"supérieure"'
       - si: personnes = 1
         alors:
           variations:
@@ -150,7 +159,7 @@ revenu . barème:
               alors: '"très modeste"'
             - si: revenu < 48930 €
               alors: '"modeste"'
-            - si: revenu < 69081 €
+            - si: revenu < max
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
@@ -242,6 +251,7 @@ MPR:
 
 MPR . accompagnée:
   titre: Parcours accompagné
+  valeur: montant
 
 MPR . accompagnée . montant:
   formule: pourcent écrêté * travaux . plafonnés

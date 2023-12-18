@@ -2,12 +2,14 @@
 import rules from './rules'
 
 import css from '@/components/css/convertToJs'
+import Explications from '@/components/explications/Explications'
 import InputSwitch from '@/components/InputSwitch'
 import {
   AnswerWrapper,
   FormButtonsWrapper,
   FormLinkButton,
 } from '@/components/InputUI'
+import NextQuestions from '@/components/NextQuestions'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import questionType from '@/components/publicodes/questionType'
 import {
@@ -15,24 +17,20 @@ import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
+import Result, { Results } from '@/components/Result'
+import { Card } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
-import Result, { Results } from '@/components/Result'
-import DifferentialResult from '@/components/DifferentialResult'
-import NextQuestions from '@/components/NextQuestions'
-import Explications from '@/components/explications/Explications'
-import { Card } from '@/components/UI'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
 
 export default function Form({ searchParams }) {
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  console.log({ answeredQuestions })
 
   const situation = getSituation(searchParams, rules),
     validatedSituation = Object.fromEntries(
@@ -40,10 +38,9 @@ export default function Form({ searchParams }) {
         answeredQuestions.includes(k),
       ),
     )
+  console.log({ answeredQuestions, situation })
   const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
     value = formatValue(evaluation),
-    newEvaluation = engine.setSituation(situation).evaluate('aides'),
-    newValue = formatValue(newEvaluation),
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
@@ -54,7 +51,8 @@ export default function Form({ searchParams }) {
 
   const setSearchParams = useSetSearchParams()
   const ruleQuestionType =
-    currentQuestion && questionType(engine.evaluate(currentQuestion))
+    currentQuestion &&
+    questionType(engine.setSituation(situation).evaluate(currentQuestion))
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
@@ -127,13 +125,6 @@ export default function Form({ searchParams }) {
           </label>
         </Card>
       )}
-      <DifferentialResult
-        {...{
-          value: evaluation.nodeValue,
-          newValue: newEvaluation.nodeValue,
-          currentQuestion,
-        }}
-      />
       <NextQuestions {...{ nextQuestions, rules }} />
       {answeredQuestions.length > 0 && (
         <div
@@ -152,17 +143,21 @@ export default function Form({ searchParams }) {
         <h2>Votre Prime Rénov'</h2>
         <Results>
           <Result
+            key={'acc'}
             {...{
-              value,
+              engine: engine.setSituation(situation),
               isFinal: !currentQuestion,
-              rule: rules['MPR . accompagnée'],
+              rules,
+              dottedName: 'MPR . accompagnée',
             }}
           />
           <Result
+            key={'non acc'}
             {...{
-              value,
+              engine: engine.setSituation(situation),
               isFinal: !currentQuestion,
-              rule: rules['MPR . accompagnée'],
+              dottedName: 'MPR . non accompagnée',
+              rules,
             }}
           />
         </Results>
