@@ -21,7 +21,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
-import Result from '@/components/Result'
+import Result, { Results } from '@/components/Result'
 import DifferentialResult from '@/components/DifferentialResult'
 import NextQuestions from '@/components/NextQuestions'
 import Explications from '@/components/explications/Explications'
@@ -149,11 +149,23 @@ export default function Form({ searchParams }) {
           margin-top: 1vh;
         `}
       >
-        <h2>Vos aides</h2>
-        <p>
-          <em>Ma Prime Rénov accompagnée.</em>
-        </p>
-        <Result value={value} currentQuestion={currentQuestion} />
+        <h2>Votre Prime Rénov'</h2>
+        <Results>
+          <Result
+            {...{
+              value,
+              isFinal: !currentQuestion,
+              rule: rules['MPR . accompagnée'],
+            }}
+          />
+          <Result
+            {...{
+              value,
+              isFinal: !currentQuestion,
+              rule: rules['MPR . accompagnée'],
+            }}
+          />
+        </Results>
       </div>
       <Explications {...{ engine, rules, situation }} />
     </div>

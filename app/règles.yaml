@@ -226,8 +226,11 @@ travaux . plafonnés:
 MPR:
   titre: Ma prime rénov'
 
+MPR . non accompagnée:
+  titre: Parcours par geste
+
 MPR . accompagnée:
-  titre: Ma prime rénov' parcours accompagné
+  titre: Parcours accompagné
 
 MPR . accompagnée . montant:
   formule: pourcent écrêté * travaux . plafonnés
