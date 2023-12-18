@@ -154,6 +154,7 @@ export default function Form({ searchParams }) {
               dottedName: 'MPR . accompagnée',
             }}
           />
+          <span>OU</span>
           <Result
             key={'non acc'}
             {...{

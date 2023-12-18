@@ -56,4 +56,5 @@ export const Results = styled.ul`
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 `
