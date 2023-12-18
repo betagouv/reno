@@ -249,6 +249,12 @@ travaux . plafonnés:
 MPR:
   titre: Ma prime rénov'
 
+MPR . non accompagnée:
+  applicable si: DPE . actuel < 6
+  non applicable si: revenu . classe = "supérieure"
+  valeur: 999
+  titre: Parcours par geste
+
 MPR . accompagnée:
   titre: Parcours accompagné
   valeur: montant

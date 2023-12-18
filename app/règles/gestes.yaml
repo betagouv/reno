@@ -1,36 +1,47 @@
-MPR . non accompagnée:
-  applicable si: DPE . actuel < 6
-  non applicable si: revenu . classe = "supérieure"
-  valeur: 999
-  titre: Parcours par geste
-
-gestes . chauffage:
+chauffage:
   titre: Chauffage et eau chaude sanitaire
-gestes . chauffage . chaudière à granulés:
-gestes . chauffage . chaudière à bûches:
-gestes . chauffage . poêle à granulés:
-gestes . chauffage . poêle à bûches:
-gestes . chauffage . foyer et insert:
+  par défaut: non
+chauffage . chaudière à granulés:
+  par défaut: non
+chauffage . chaudière à granulés . montant:
+
+chauffage . chaudière à bûches:
+  par défaut: non
+chauffage . poêle à granulés:
+  par défaut: non
+chauffage . poêle à bûches:
+  par défaut: non
+chauffage . foyer et insert:
+  par défaut: non
   titre: Foyer fermé et insert à buches ou à granulés
 
-gestes . chauffage . solaire combiné:
-gestes . chauffage . chauffe-eau solaire:
+chauffage . solaire combiné:
+  par défaut: non
+chauffage . chauffe-eau solaire:
+  par défaut: non
   titre:
     Chauffe-eau solaire individuel
     # Métro vs O-M
-gestes . chauffage . panneau thermique:
+chauffage . panneau thermique:
   titre: Partie thermique d’un panneau hybride
-gestes . chauffage . PAC géothermique:
+  par défaut: non
+chauffage . PAC géothermique:
   titre: Pompes à chaleur géothermiques ou solarothermiques
-gestes . chauffage . PAC air-eau:
+  par défaut: non
+chauffage . PAC air-eau:
   titre: Pompe à chaleur air/eau
+  par défaut: non
 
-gestes . isolation:
+isolation:
   titre: Isolation thermique
-gestes . isolation . vitres:
+  par défaut: non
+isolation . vitres:
   titre: Isolation thermique des parois vitrées
-gestes . isolation . murs extérieur:
+  par défaut: non
+isolation . murs extérieur:
   titre: Isolation des murs par l'extérieur
+  par défaut: non
 
-gestes . autres:
+autres:
   titre: Autres travaux
+  par défaut: non
