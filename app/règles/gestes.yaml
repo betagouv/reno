@@ -43,7 +43,12 @@ isolation:
 isolation . vitres:
   titre: Isolation thermique des parois vitrées
   par défaut: non
-isolation . vitres . montant:
+isolation . vitres . montant: barème * nombre
+isolation . vitres . nombre:
+  question: Combien de parois vitrées voulez-vous isoler ?
+  par défaut: 4 équipement
+
+isolation . vitres . barème:
   variations:
     - si: revenu . classe = 'très modeste'
       alors: 100 €/équipement
@@ -55,7 +60,11 @@ isolation . vitres . montant:
 isolation . murs extérieur:
   titre: Isolation des murs par l'extérieur
   par défaut: non
-isolation . murs extérieur . montant:
+isolation . murs extérieur . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler ?
+  par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+isolation . murs extérieur . montant: surface * barème
+isolation . murs extérieur . barème:
   variations:
     - si: revenu . classe = 'très modeste'
       alors: 75 €/m2
