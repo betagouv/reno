@@ -1,8 +1,10 @@
 import css from './css/convertToJs'
+import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
 
 export default function BooleanMosaic({
   rules,
+  setSearchParams,
   rule,
   engine,
   situation,
@@ -36,7 +38,24 @@ export default function BooleanMosaic({
               `}
               type="checkbox"
               value={Math.random() > 0.5 ? true : false}
-              onChange={() => console.log('set situation', dottedName)}
+              onChange={() => {
+                const encodedSituation = encodeSituation(
+                  {
+                    ...situation,
+                    [dottedName]:
+                      situation[dottedName] === 'oui' ? 'non' : 'oui',
+                  },
+                  false,
+                  answeredQuestions,
+                )
+                console.log(
+                  'on change will set encodedSituation',
+                  encodedSituation,
+                )
+
+                setSearchParams(encodedSituation, false, false)
+                console.log('set situation', dottedName)
+              }}
             />
             {questionRule.titre || getRuleName(dottedName)}
           </label>

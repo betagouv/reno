@@ -45,7 +45,15 @@ export default function InputSwitch({
   if (currentQuestion.startsWith('gestes . '))
     return (
       <BooleanMosaic
-        {...{ rules, rule, engine, situation, answeredQuestions }}
+        {...{
+          rules,
+          rule,
+          engine,
+          situation,
+          answeredQuestions,
+
+          setSearchParams,
+        }}
       />
     )
 

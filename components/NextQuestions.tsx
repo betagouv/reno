@@ -1,4 +1,5 @@
 import css from './css/convertToJs'
+import { getRuleName } from './publicodes/utils'
 
 export default function NextQuestions({ nextQuestions, rules }) {
   return nextQuestions.length ? (
@@ -39,7 +40,7 @@ export default function NextQuestions({ nextQuestions, rules }) {
               `}
               key={question}
             >
-              <small>{rules[question].titre}</small>
+              <small>{rules[question].titre || getRuleName(question)}</small>
             </li>
           ))}
         </ol>

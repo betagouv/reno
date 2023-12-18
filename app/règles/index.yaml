@@ -255,6 +255,8 @@ MPR . non accompagnée:
   valeur: gestes . montant
   titre: Parcours par geste
 
+gestes:
+
 MPR . accompagnée:
   titre: Parcours accompagné
   valeur: montant
