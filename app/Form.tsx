@@ -25,6 +25,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
+import { getRuleName } from '@/components/publicodes/utils'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -52,7 +53,7 @@ export default function Form({ searchParams }) {
   const setSearchParams = useSetSearchParams()
   const ruleQuestionType =
     currentQuestion &&
-    questionType(engine.setSituation(situation).evaluate(currentQuestion))
+    questionType(engine.setSituation(situation).evaluate(currentQuestion), rule)
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
@@ -64,13 +65,14 @@ export default function Form({ searchParams }) {
     ruleQuestionType,
     nextQuestions,
   )
+  const ruleName = currentQuestion && getRuleName(currentQuestion)
   return (
     <div>
       <Personas setSearchParams={setSearchParams} />
       {rule && (
         <Card>
           <label>
-            <div>{rule.question}</div>
+            <div>{rule.question || rule.titre || ruleName}</div>
             <AnswerWrapper>
               <Suggestions
                 rule={rule}
@@ -92,6 +94,7 @@ export default function Form({ searchParams }) {
               <InputSwitch
                 {...{
                   rule,
+                  rules,
                   currentValue,
                   currentQuestion,
                   situation,

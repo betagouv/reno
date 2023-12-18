@@ -6,7 +6,6 @@ montant:
 
 chauffage:
   titre: Chauffage et eau chaude sanitaire
-  par défaut: non
   somme:
     - chaudière à granulés . montant
     - chaudière à bûches . montant
@@ -38,7 +37,6 @@ chauffage . chaudière à bûches . montant:
 
 isolation:
   titre: Isolation thermique
-  par défaut: non
   somme:
     - vitres . montant
     - murs extérieur . montant

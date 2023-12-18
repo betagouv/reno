@@ -1,4 +1,6 @@
 import AddressSearch from './AddressSearch'
+import BinaryQuestion from './BinaryQuestion'
+import BooleanMosaic from './BooleanMosaic'
 import DPESelector from './DPESelector'
 import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
@@ -12,8 +14,9 @@ export default function InputSwitch({
   answeredQuestions,
   setSearchParams,
   engine,
+  rules,
 }) {
-  const ruleQuestionType = questionType(rule)
+  const ruleQuestionType = questionType(rule, rules[currentQuestion])
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
 
   if (currentQuestion === 'région')
@@ -39,6 +42,14 @@ export default function InputSwitch({
       />
     )
 
+  if (currentQuestion.startsWith('gestes . '))
+    return (
+      <BooleanMosaic
+        {...{ rules, rule, engine, situation, answeredQuestions }}
+      />
+    )
+
+  if (ruleQuestionType === 'boolean') return <BinaryQuestion />
   return (
     <Input
       type={ruleQuestionType}
