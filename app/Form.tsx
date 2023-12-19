@@ -4,11 +4,7 @@ import rules from './rules'
 import css from '@/components/css/convertToJs'
 import Explications from '@/components/explications/Explications'
 import InputSwitch, { getQuestionText } from '@/components/InputSwitch'
-import {
-  AnswerWrapper,
-  FormButtonsWrapper,
-  FormLinkButton,
-} from '@/components/InputUI'
+import { AnswerWrapper } from '@/components/InputUI'
 import NextQuestions from '@/components/NextQuestions'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import questionType from '@/components/publicodes/questionType'
@@ -17,6 +13,7 @@ import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
+import { getRuleName } from '@/components/publicodes/utils'
 import Result, { Results } from '@/components/Result'
 import { Card } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
@@ -25,7 +22,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
-import { getRuleName } from '@/components/publicodes/utils'
+import FormButtons from './FormButtons'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -46,6 +43,7 @@ export default function Form({ searchParams }) {
       evaluation,
       answeredQuestions,
       questionsConfig,
+      rules,
     )
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
@@ -110,26 +108,16 @@ export default function Form({ searchParams }) {
                 }}
               />
 
-              <FormButtonsWrapper>
-                {currentValue != null && (
-                  <FormLinkButton
-                    href={setSearchParams(
-                      encodeSituation(
-                        {
-                          ...situation,
-                          [currentQuestion]: situation[currentQuestion],
-                        },
-                        false,
-                        [...answeredQuestions, currentQuestion],
-                      ),
-                      true,
-                      false,
-                    )}
-                  >
-                    Suivant
-                  </FormLinkButton>
-                )}
-              </FormButtonsWrapper>
+              <FormButtons
+                {...{
+                  currentValue,
+                  setSearchParams,
+                  encodeSituation,
+                  answeredQuestions,
+                  currentQuestion,
+                  situation,
+                }}
+              />
             </AnswerWrapper>
           </div>
         </Card>

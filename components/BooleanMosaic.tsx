@@ -2,9 +2,18 @@ import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
 
-export const isMosaicQuestion = (currentQuestion, rule) =>
-  currentQuestion.startsWith('gestes . ') &&
-  ['oui', 'non'].includes(rule['par défaut'])
+export const isMosaicQuestion = (currentQuestion, rule, rules) => {
+  const localIsMosaic = (dottedName, rule) =>
+    dottedName.startsWith('gestes . ') &&
+    rule &&
+    ['oui', 'non'].includes(rule['par défaut'])
+  if (!localIsMosaic(currentQuestion, rule)) return false
+
+  const questions = Object.entries(rules).filter(([dottedName, rule]) =>
+    localIsMosaic(dottedName, rule),
+  )
+  return questions
+}
 
 export const mosaicQuestionText = (rules, currentQuestion) => {
   return rules['gestes . montant'].question.mosaïque
@@ -16,13 +25,8 @@ export default function BooleanMosaic({
   engine,
   situation,
   answeredQuestions,
+  questions,
 }) {
-  const questions = Object.entries(rules).filter(
-    ([dottedName]) =>
-      dottedName.startsWith('gestes . ') &&
-      dottedName.split(' . ').length === 3,
-  )
-
   return (
     <div>
       <fieldset

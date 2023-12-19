@@ -9,13 +9,15 @@ import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
+
 export const getQuestionText = (rule, dottedName, rules) => {
-  if (isMosaicQuestion(dottedName, rule))
+  if (isMosaicQuestion(dottedName, rule, rules))
     return mosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
   const text = rule.question || rule.titre || ruleName
   return text
 }
+
 export default function InputSwitch({
   rule,
   currentValue,
@@ -52,7 +54,8 @@ export default function InputSwitch({
       />
     )
 
-  if (isMosaicQuestion(currentQuestion, rule))
+  const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
+  if (mosaic)
     return (
       <BooleanMosaic
         {...{
@@ -61,8 +64,8 @@ export default function InputSwitch({
           engine,
           situation,
           answeredQuestions,
-
           setSearchParams,
+          questions: mosaic,
         }}
       />
     )
