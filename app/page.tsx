@@ -5,14 +5,7 @@ import Image from 'next/image'
 
 export default function Page({ searchParams }) {
   return (
-    <main
-      style={css`
-        width: 700px;
-        max-width: 96vw;
-        padding: 0 0.6rem;
-        margin: 0 auto;
-      `}
-    >
+    <main>
       <header
         style={css`
           display: flex;

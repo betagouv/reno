@@ -20,6 +20,10 @@ body {
   color: #111;
 }
 main {
+  width: 700px;
+  max-width: 96vw;
+  padding: 0 0.6rem;
+  margin: 0 auto;
 }
 
 a {

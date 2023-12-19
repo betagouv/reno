@@ -20,9 +20,10 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
+import FormButtons from './FormButtons'
+import LinkAPI from './LinkAPI'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
-import FormButtons from './FormButtons'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -162,6 +163,7 @@ export default function Form({ searchParams }) {
         </Results>
       </div>
       <Explications {...{ engine, rules, situation }} />
+      <LinkAPI searchParams={searchParams} />
     </div>
   )
 }
