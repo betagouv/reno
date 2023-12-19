@@ -29,6 +29,7 @@ export default function InputSwitch({
   rules,
 }) {
   const ruleQuestionType = questionType(rule, rules[currentQuestion])
+  console.log('question type', ruleQuestionType)
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
 
   if (currentQuestion === 'région')
