@@ -30,11 +30,8 @@ export default function DPESelector({
       false,
       answeredQuestions,
     )
-    console.log('newS', newSituation)
     const url = setSearchParams(newSituation, false, false)
-    console.log('newU', url)
   }
-  console.log('YO', correspondance[+numericalValue])
   return (
     <DPE
       value={correspondance[+numericalValue]}

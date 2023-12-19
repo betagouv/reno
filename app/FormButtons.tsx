@@ -16,7 +16,6 @@ export default function FormButtons({
     rules,
   )
 
-  console.log('YO', situation, mosaicQuestions)
   const showValidation =
     currentValue != null ||
     (mosaicQuestions && mosaicQuestions.find(([q]) => situation[q] != null))

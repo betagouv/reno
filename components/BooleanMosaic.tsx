@@ -27,6 +27,20 @@ export default function BooleanMosaic({
   answeredQuestions,
   questions,
 }) {
+  const grouped = questions.reduce(
+    (memo, [q, rule]) => {
+      const categoryDottedName = q.split(' . ').slice(0, -1).join(' . ')
+
+      return {
+        ...memo,
+        [categoryDottedName]: [...(memo[categoryDottedName] || []), q],
+      }
+    },
+
+    {},
+  )
+
+  console.log('grouped', grouped)
   return (
     <div>
       <fieldset
@@ -35,43 +49,58 @@ export default function BooleanMosaic({
           flex-wrap: wrap;
         `}
       >
-        {questions.map(([dottedName, questionRule]) => (
-          <label
-            key={dottedName}
-            style={css`
-              margin: 0 1rem;
-              width: 16rem;
-            `}
-          >
-            <input
-              style={css`
-                margin-right: 1rem;
-              `}
-              type="checkbox"
-              checked={situation[dottedName] === 'oui'}
-              value={Math.random() > 0.5 ? true : false}
-              onChange={() => {
-                const encodedSituation = encodeSituation(
-                  {
-                    ...situation,
-                    [dottedName]:
-                      situation[dottedName] === 'oui' ? 'non' : 'oui',
-                  },
-                  false,
-                  answeredQuestions,
-                )
-                console.log(
-                  'on change will set encodedSituation',
-                  encodedSituation,
-                )
+        <ul>
+          {Object.entries(grouped).map(([categoryName, questions]) => {
+            const categoryTitle = rules[categoryName].titre
 
-                setSearchParams(encodedSituation, false, false)
-                console.log('set situation', dottedName)
-              }}
-            />
-            {questionRule.titre || getRuleName(dottedName)}
-          </label>
-        ))}
+            console.log('QUES', questions)
+            return (
+              <li key={categoryName}>
+                <h4>{categoryTitle}</h4>
+                {questions.map((dottedName) => {
+                  const questionRule = rules[dottedName]
+                  return (
+                    <label
+                      key={dottedName}
+                      style={css`
+                        margin: 0 1rem;
+                        width: 16rem;
+                      `}
+                    >
+                      <input
+                        style={css`
+                          margin-right: 1rem;
+                        `}
+                        type="checkbox"
+                        checked={situation[dottedName] === 'oui'}
+                        value={Math.random() > 0.5 ? true : false}
+                        onChange={() => {
+                          const encodedSituation = encodeSituation(
+                            {
+                              ...situation,
+                              [dottedName]:
+                                situation[dottedName] === 'oui' ? 'non' : 'oui',
+                            },
+                            false,
+                            answeredQuestions,
+                          )
+                          console.log(
+                            'on change will set encodedSituation',
+                            encodedSituation,
+                          )
+
+                          setSearchParams(encodedSituation, false, false)
+                          console.log('set situation', dottedName)
+                        }}
+                      />
+                      {questionRule.titre || getRuleName(dottedName)}
+                    </label>
+                  )
+                })}
+              </li>
+            )
+          })}
+        </ul>
       </fieldset>
     </div>
   )
