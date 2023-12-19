@@ -34,7 +34,7 @@ export default function Page({ searchParams }) {
         <h1>Prix des gestes de réno</h1>
       </header>
       <p>Une analyse des coûts des gestes d'isolation</p>
-      <Couts />
+      <Couts searchParams={searchParams} />
     </main>
   )
 }

@@ -1,19 +1,7 @@
 'use client'
-import css from '@/components/css/convertToJs'
-import { DensityChart } from '@/components/densityGraph/DensityChart'
-import gestes1 from '@/secureData/mpr_geste_paiementsolde_2023T1.csv'
-import gestes2 from '@/secureData/mpr_geste_paiementsolde_2023T2.csv'
-import gestes3 from '@/secureData/mpr_geste_paiementsolde_2023T3.csv'
-import { useState } from 'react'
-import FilterableChart from './FilterableChart'
+import { useEffect, useState } from 'react'
 import Geste from './Geste'
 import TrimestreSelector, { trimestres } from './TrimestreSelector'
-
-const data = [
-  ...gestes1.map((el) => ({ ...el, trimestre: 1 })),
-  ...gestes2.map((el) => ({ ...el, trimestre: 2 })),
-  ...gestes3.map((el) => ({ ...el, trimestre: 3 })),
-]
 
 export const isValidMontant = (gestePrice) =>
   gestePrice !== 'NA' && gestePrice != 0
@@ -22,8 +10,38 @@ export const keyPrice = 'mtttcplanfinsolde',
   keyGeste = 'subtypename',
   keyNumEquipement = 'wpequipement',
   keySurface = 'wpsurface'
-export default function Couts({}) {
+export default function Couts({ searchParams }) {
   const [trimestre, setTrimestre] = useState(trimestres.slice(-1)[0])
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    if (!searchParams.key) return
+    const doFetch = async () => {
+      const url =
+        `https://mardata.osc-fr1.scalingo.io/data/` +
+        encodeURIComponent(searchParams.key)
+      const req = await fetch(url)
+      const json = await req.json()
+
+      if (json.error) return setData(json.error)
+      setData(json.data)
+    }
+    doFetch()
+  }, [setData, searchParams.key])
+
+  if (!searchParams.key)
+    return (
+      <p>
+        Vous devez entrer la clef dans l'URL (?key=MACLEF) pour accéder aux
+        données de coût.
+      </p>
+    )
+  if (data === null)
+    return <p>Chargement des données (enfin, si votre clef est la bonne)</p>
+
+  if (typeof data === 'string') return <p>{data}</p>
+  console.log(data, typeof data)
+
   const filteredData = data.filter((el) => el.trimestre === trimestre)
 
   const groupedByGeste = filteredData.reduce((memo, next) => {
