@@ -1,7 +1,9 @@
 import css from '@/components/css/convertToJs'
+import dynamic from '@/node_modules/next/dynamic'
 import logo from '@/public/icon.svg'
 import Image from 'next/image'
-import Couts from './Couts'
+
+const Couts = dynamic(() => import('./Couts'), { ssr: false })
 
 export default function Page({ searchParams }) {
   return (
