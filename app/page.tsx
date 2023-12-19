@@ -31,7 +31,18 @@ export default function Page({ searchParams }) {
         />
         <h1>Mes Aides Réno&nbsp;2024</h1>
       </header>
-      <p>Cet outil calcule les aides 2024 à la rénovation de votre logement.</p>
+      <p>
+        Cet outil calcule les aides 2024 à la rénovation de votre logement.{' '}
+        <strong
+          style={css`
+            background: salmon;
+            padding: 0 0.2rem;
+            white-space: nowrap;
+          `}
+        >
+          En cours de développement. Peu fiable.
+        </strong>
+      </p>
       <Form searchParams={searchParams} />
     </main>
   )
