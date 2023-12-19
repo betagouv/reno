@@ -60,7 +60,7 @@ export default function Couts({ searchParams }) {
   const statistics = Object.entries(groupedByGeste).map(([geste, gestes]) => {
     const validsRaw = gestes.filter((el) => isValidMontant(el[keyPrice])),
       valids = validsRaw.map((geste) => {
-        const total = geste[keyPrice]
+        const total = +geste[keyPrice]
         const numEq = geste[keyNumEquipement]
         const surface = geste[keySurface]
 
@@ -68,14 +68,16 @@ export default function Couts({ searchParams }) {
           return new Error(
             "Attention, à la fois surface et nombre d'équipement, investiguer",
           )
-        if (numEq !== 'NA') return total / numEq
-        if (surface !== 'NA') return total / surface
+        if (numEq !== 'NA') return total / +numEq
+        if (surface !== 'NA') return total / +surface
 
         return total
       })
 
     const sum = valids.reduce((memo, next) => memo + next, 0),
       mean = sum / valids.length
+
+    console.log('moyenne', sum, valids.length)
     const max = Math.max(...valids),
       min = Math.min(...valids)
 
