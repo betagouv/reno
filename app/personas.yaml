@@ -4,7 +4,8 @@
   situation:
     personnes: 3
     revenu: 25000
-    sauts: 4
+    DPE . actuel: 6
+    DPE . visé: 2
     travaux: 65000
     région: "'Bretagne'"
 - nom: Persona 2
@@ -13,6 +14,7 @@
   situation:
     personnes: 2
     revenu: 35000
-    sauts: 3
+    DPE . actuel: 4
+    DPE . visé: 1
     travaux: 49300
     région: "'Pays de la Loire'"

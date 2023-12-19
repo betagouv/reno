@@ -1,13 +1,11 @@
 'use client'
-import rules from './règles.yaml'
+import rules from './rules'
 
 import css from '@/components/css/convertToJs'
-import InputSwitch from '@/components/InputSwitch'
-import {
-  AnswerWrapper,
-  FormButtonsWrapper,
-  FormLinkButton,
-} from '@/components/InputUI'
+import Explications from '@/components/explications/Explications'
+import InputSwitch, { getQuestionText } from '@/components/InputSwitch'
+import { AnswerWrapper } from '@/components/InputUI'
+import NextQuestions from '@/components/NextQuestions'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import questionType from '@/components/publicodes/questionType'
 import {
@@ -15,24 +13,22 @@ import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
+import { getRuleName } from '@/components/publicodes/utils'
+import Result, { Results } from '@/components/Result'
+import { Card } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
-import Result from '@/components/Result'
-import DifferentialResult from '@/components/DifferentialResult'
-import NextQuestions from '@/components/NextQuestions'
-import Explications from '@/components/explications/Explications'
-import { Card } from '@/components/UI'
+import FormButtons from './FormButtons'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
 
 export default function Form({ searchParams }) {
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  console.log({ answeredQuestions })
 
   const situation = getSituation(searchParams, rules),
     validatedSituation = Object.fromEntries(
@@ -40,21 +36,22 @@ export default function Form({ searchParams }) {
         answeredQuestions.includes(k),
       ),
     )
+  console.log({ answeredQuestions, situation })
   const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
     value = formatValue(evaluation),
-    newEvaluation = engine.setSituation(situation).evaluate('aides'),
-    newValue = formatValue(newEvaluation),
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
       questionsConfig,
+      rules,
     )
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
   const ruleQuestionType =
-    currentQuestion && questionType(engine.evaluate(currentQuestion))
+    currentQuestion &&
+    questionType(engine.setSituation(situation).evaluate(currentQuestion), rule)
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
@@ -66,13 +63,20 @@ export default function Form({ searchParams }) {
     ruleQuestionType,
     nextQuestions,
   )
+  const ruleName = currentQuestion && getRuleName(currentQuestion)
   return (
     <div>
       <Personas setSearchParams={setSearchParams} />
       {rule && (
         <Card>
-          <label>
-            <div>{rule.question}</div>
+          <div>
+            <h3
+              style={css`
+                margin: 0 0.2rem 0.4rem;
+              `}
+            >
+              {getQuestionText(rule, currentQuestion, rules)}
+            </h3>
             <AnswerWrapper>
               <Suggestions
                 rule={rule}
@@ -94,6 +98,7 @@ export default function Form({ searchParams }) {
               <InputSwitch
                 {...{
                   rule,
+                  rules,
                   currentValue,
                   currentQuestion,
                   situation,
@@ -103,37 +108,21 @@ export default function Form({ searchParams }) {
                 }}
               />
 
-              <FormButtonsWrapper>
-                {currentValue != null && (
-                  <FormLinkButton
-                    href={setSearchParams(
-                      encodeSituation(
-                        {
-                          ...situation,
-                          [currentQuestion]: situation[currentQuestion],
-                        },
-                        false,
-                        [...answeredQuestions, currentQuestion],
-                      ),
-                      true,
-                      false,
-                    )}
-                  >
-                    Suivant
-                  </FormLinkButton>
-                )}
-              </FormButtonsWrapper>
+              <FormButtons
+                {...{
+                  currentValue,
+                  rules,
+                  setSearchParams,
+                  encodeSituation,
+                  answeredQuestions,
+                  currentQuestion,
+                  situation,
+                }}
+              />
             </AnswerWrapper>
-          </label>
+          </div>
         </Card>
       )}
-      <DifferentialResult
-        {...{
-          value: evaluation.nodeValue,
-          newValue: newEvaluation.nodeValue,
-          currentQuestion,
-        }}
-      />
       <NextQuestions {...{ nextQuestions, rules }} />
       {answeredQuestions.length > 0 && (
         <div
@@ -149,11 +138,28 @@ export default function Form({ searchParams }) {
           margin-top: 1vh;
         `}
       >
-        <h2>Vos aides</h2>
-        <p>
-          <em>Ma Prime Rénov accompagnée.</em>
-        </p>
-        <Result value={value} currentQuestion={currentQuestion} />
+        <h2>Votre Prime Rénov'</h2>
+        <Results>
+          <Result
+            key={'acc'}
+            {...{
+              engine: engine.setSituation(situation),
+              isFinal: !currentQuestion,
+              rules,
+              dottedName: 'MPR . accompagnée',
+            }}
+          />
+          <span>OU</span>
+          <Result
+            key={'non acc'}
+            {...{
+              engine: engine.setSituation(situation),
+              isFinal: !currentQuestion,
+              dottedName: 'MPR . non accompagnée',
+              rules,
+            }}
+          />
+        </Results>
       </div>
       <Explications {...{ engine, rules, situation }} />
     </div>

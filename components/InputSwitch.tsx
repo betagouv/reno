@@ -1,8 +1,22 @@
 import AddressSearch from './AddressSearch'
+import BinaryQuestion from './BinaryQuestion'
+import BooleanMosaic, {
+  isMosaicQuestion,
+  mosaicQuestionText,
+} from './BooleanMosaic'
 import DPESelector from './DPESelector'
 import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
+import { getRuleName } from './publicodes/utils'
+
+export const getQuestionText = (rule, dottedName, rules) => {
+  if (isMosaicQuestion(dottedName, rule, rules))
+    return mosaicQuestionText(rules, dottedName)
+  const ruleName = getRuleName(dottedName)
+  const text = rule.question || rule.titre || ruleName
+  return text
+}
 
 export default function InputSwitch({
   rule,
@@ -12,8 +26,9 @@ export default function InputSwitch({
   answeredQuestions,
   setSearchParams,
   engine,
+  rules,
 }) {
-  const ruleQuestionType = questionType(rule)
+  const ruleQuestionType = questionType(rule, rules[currentQuestion])
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
 
   if (currentQuestion === 'région')
@@ -39,6 +54,23 @@ export default function InputSwitch({
       />
     )
 
+  const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
+  if (mosaic)
+    return (
+      <BooleanMosaic
+        {...{
+          rules,
+          rule,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          questions: mosaic,
+        }}
+      />
+    )
+
+  if (ruleQuestionType === 'boolean') return <BinaryQuestion />
   return (
     <Input
       type={ruleQuestionType}

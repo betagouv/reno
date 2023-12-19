@@ -1,0 +1,81 @@
+montant:
+  question:
+    mosaïque: Quels gestes envisagez-vous ?
+  somme:
+    - chauffage
+    - isolation
+    - autres
+
+chauffage:
+  titre: Chauffage et eau chaude sanitaire
+  somme:
+    - chaudière à granulés . montant
+    - chaudière à bûches . montant
+
+chauffage . chaudière à granulés:
+  par défaut: non
+
+chauffage . chaudière à granulés . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 7000 €
+    - si: revenu . classe = 'modestes'
+      alors: 5500 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 3000 €
+    - sinon: 0 €
+
+chauffage . chaudière à bûches:
+  par défaut: non
+chauffage . chaudière à bûches . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 5500 €
+    - si: revenu . classe = 'modeste'
+      alors: 4500 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 2000 €
+    - sinon: 0 €
+
+isolation:
+  titre: Isolation thermique
+  somme:
+    - vitres . montant
+    - murs extérieur . montant
+isolation . vitres:
+  titre: Isolation thermique des parois vitrées
+  par défaut: non
+isolation . vitres . montant: barème * nombre
+isolation . vitres . nombre:
+  question: Combien de parois vitrées voulez-vous isoler ?
+  par défaut: 4 équipement
+
+isolation . vitres . barème:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 100 €/équipement
+    - si: revenu . classe = 'modeste'
+      alors: 80 €/équipement
+    - si: revenu . classe = 'intermédiaire'
+      alors: 40 €/équipement
+    - sinon: 0 €
+isolation . murs extérieur:
+  titre: Isolation des murs par l'extérieur
+  par défaut: non
+isolation . murs extérieur . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler ?
+  par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+isolation . murs extérieur . montant: surface * barème
+isolation . murs extérieur . barème:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 75 €/m2
+    - si: revenu . classe = 'modeste'
+      alors: 60 €/m2
+    - si: revenu . classe = 'intermédiaire'
+      alors: 40 €/m2
+    - sinon: 0 €
+
+autres:
+  titre: Autres travaux
+  valeur: 0

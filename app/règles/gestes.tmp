@@ -1,0 +1,26 @@
+
+chauffage . poêle à granulés:
+  par défaut: non
+chauffage . poêle à bûches:
+  par défaut: non
+chauffage . foyer et insert:
+  par défaut: non
+  titre: Foyer fermé et insert à buches ou à granulés
+
+chauffage . solaire combiné:
+  par défaut: non
+chauffage . chauffe-eau solaire:
+  par défaut: non
+  titre:
+    Chauffe-eau solaire individuel
+    # Métro vs O-M
+chauffage . panneau thermique:
+  titre: Partie thermique d’un panneau hybride
+  par défaut: non
+chauffage . PAC géothermique:
+  titre: Pompes à chaleur géothermiques ou solarothermiques
+  par défaut: non
+chauffage . PAC air-eau:
+  titre: Pompe à chaleur air/eau
+  par défaut: non
+

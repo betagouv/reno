@@ -4,7 +4,7 @@ import css from '../css/convertToJs'
 import { correspondance } from '../DPESelector'
 import Aide from './Aide'
 
-export default function Explication(props) {
+export default function Explications(props) {
   const { engine, rules, situation } = props
   const upEngine = engine.setSituation(situation)
 
@@ -13,7 +13,6 @@ export default function Explication(props) {
       ([k, v]) => rules[k],
     ),
     hasRevenuMissing = revenuMissing.length > 0
-  console.log(revenuClasse)
 
   const idf = upEngine.evaluate('région . IdF').nodeValue
 
@@ -42,10 +41,10 @@ export default function Explication(props) {
           <span>
             , en attendant les informations suivantes :{' '}
             {revenuMissing.map((el) => (
-              <>
+              <span key={el.titre}>
                 <Key $state={'null'}>{el.titre.toLowerCase()}</Key>
                 <span> </span>
-              </>
+              </span>
             ))}
           </span>
         ) : (
