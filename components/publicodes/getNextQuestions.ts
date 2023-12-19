@@ -21,7 +21,11 @@ export default function getNextQuestions(
 
         if (!mosaicQuestions) return true
 
-        if (answeredQuestions.find((q) => mosaicQuestions.includes(q)))
+        if (
+          answeredQuestions.find((q) =>
+            mosaicQuestions.map(([k]) => k).includes(q),
+          )
+        )
           return false
 
         return true

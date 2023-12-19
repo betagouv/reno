@@ -1,3 +1,4 @@
+import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { FormButtonsWrapper, FormLinkButton } from '@/components/InputUI'
 
 export default function FormButtons({
@@ -7,8 +8,19 @@ export default function FormButtons({
   answeredQuestions,
   currentQuestion,
   situation,
+  rules,
 }) {
-  const showValidation = currentValue != null
+  const mosaicQuestions = isMosaicQuestion(
+    currentQuestion,
+    rules[currentQuestion],
+    rules,
+  )
+
+  console.log('YO', situation, mosaicQuestions)
+  const showValidation =
+    currentValue != null ||
+    (mosaicQuestions && mosaicQuestions.find(([q]) => situation[q] != null))
+
   return (
     <FormButtonsWrapper>
       {showValidation && (

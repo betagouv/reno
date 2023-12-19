@@ -111,6 +111,7 @@ export default function Form({ searchParams }) {
               <FormButtons
                 {...{
                   currentValue,
+                  rules,
                   setSearchParams,
                   encodeSituation,
                   answeredQuestions,
