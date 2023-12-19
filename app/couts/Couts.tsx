@@ -19,7 +19,8 @@ export default function Couts({ searchParams }) {
     const doFetch = async () => {
       const url =
         `https://mardata.osc-fr1.scalingo.io/data/` +
-        encodeURIComponent(searchParams.key)
+        //`http://localhost:3000/data/`
+        searchParams.key
       const req = await fetch(url)
       const json = await req.json()
 
