@@ -1,5 +1,13 @@
-## Next.js App Router Course - Starter
+# Ma Rénovation 2024
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+## Le calcul des aides
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+Sur /, dans un premier temps, les aides nationales : MPR accompagnée, et MPR non accompagnée (dit aussi gestes).
+
+## Le coût des travaux
+
+Sur /couts, des statistiques sur le coût des travaux. Nécessite une clef d'accès, les données étant pour l'instant privées.
+
+## Tech
+
+Site en NextJS et publicodes.
