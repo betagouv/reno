@@ -68,7 +68,9 @@ export default function Couts({ searchParams }) {
           return new Error(
             "Attention, à la fois surface et nombre d'équipement, investiguer",
           )
-        if (numEq !== 'NA') return total / +numEq
+        if (numEq !== 'NA') {
+          return total / +numEq
+        }
         if (surface !== 'NA') return total / +surface
 
         return total
@@ -77,7 +79,6 @@ export default function Couts({ searchParams }) {
     const sum = valids.reduce((memo, next) => memo + next, 0),
       mean = sum / valids.length
 
-    console.log('moyenne', sum, valids.length)
     const max = Math.max(...valids),
       min = Math.min(...valids)
 

@@ -18,3 +18,19 @@
     DPE . visé: 1
     travaux: 49300
     région: "'Pays de la Loire'"
+- nom: Persona 3
+  description: |
+    Ménage sup, 3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
+  situation:
+    personnes: 2
+    revenu: 70000
+    DPE . actuel: 6
+    région: "'Bretagne'"
+- nom: Persona 4
+  description: |
+
+  situation:
+    personnes: 2
+    revenu: 20000
+    DPE . actuel: 5
+    région: "'Bretagne'"
