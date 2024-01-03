@@ -25,6 +25,7 @@ import LinkAPI from './LinkAPI'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
 import simulationConfig from './simulationConfig.yaml'
+import { QuestionHeader } from './QuestionHeader'
 
 const engine = new Publicodes(rules)
 
@@ -57,6 +58,7 @@ export default function Form({ searchParams }) {
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
+  /*
   console.log(
     'currentQuestion',
     currentQuestion,
@@ -64,6 +66,7 @@ export default function Form({ searchParams }) {
     ruleQuestionType,
     nextQuestions,
   )
+  */
   const ruleName = currentQuestion && getRuleName(currentQuestion)
   return (
     <div>
@@ -71,13 +74,15 @@ export default function Form({ searchParams }) {
       {rule && (
         <Card>
           <div>
-            <h3
-              style={css`
-                margin: 0 0.2rem 0.4rem;
-              `}
-            >
-              {getQuestionText(rule, currentQuestion, rules)}
-            </h3>
+            <QuestionHeader>
+              <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
+              {rule.description && (
+                <details>
+                  <summary>ℹ️</summary>
+                  {rule.description}
+                </details>
+              )}
+            </QuestionHeader>
             <AnswerWrapper>
               <Suggestions
                 rule={rule}

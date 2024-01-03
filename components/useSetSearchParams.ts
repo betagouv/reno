@@ -25,7 +25,6 @@ export default function useSetSeachParams() {
     [searchParams],
   )
   return (newSearchParams: object, noPush: boolean, clear: boolean) => {
-    console.log('hash', hash)
     const newUrl =
       pathname + '?' + createQueryString(newSearchParams, clear) + hash
     if (!noPush) {
