@@ -3,6 +3,13 @@ import Form from './Form'
 import logo from '@/public/icon.svg'
 import Image from 'next/image'
 
+const description = `Cet outil calcule les aides 2024 à la rénovation de votre logement, notamment Ma Prime Rénov et Ma Prime Rénov accompagnée.`
+
+export const metadata: Metadata = {
+  title: 'Aides réno 2024',
+  description,
+}
+
 export default function Page({ searchParams }) {
   return (
     <main>
@@ -25,7 +32,7 @@ export default function Page({ searchParams }) {
         <h1>Mes Aides Réno&nbsp;2024</h1>
       </header>
       <p>
-        Cet outil calcule les aides 2024 à la rénovation de votre logement.{' '}
+        {description}
         <strong
           style={css`
             background: salmon;
