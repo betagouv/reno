@@ -1,0 +1,130 @@
+revenu . barème IdF:
+  formule:
+    variations:
+      - si: revenu >= 90496
+        alors: '"supérieure"'
+      - si: personnes = 1
+        alors:
+          variations:
+            - si: revenu < 22461 €
+              alors: '"très modeste"'
+            - si: revenu < 27343 €
+              alors: '"modeste"'
+            - si: revenu < 38184 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 2
+        alors:
+          variations:
+            - si: revenu < 32967 €
+              alors: '"très modeste"'
+            - si: revenu < 40130 €
+              alors: '"modeste"'
+            - si: revenu < 56130 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 3
+        alors:
+          variations:
+            - si: revenu < 39591 €
+              alors: '"très modeste"'
+            - si: revenu < 48197 €
+              alors: '"modeste"'
+            - si: revenu < 67585 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 4
+        alors:
+          variations:
+            - si: revenu < 46226 €
+              alors: '"très modeste"'
+            - si: revenu < 56277 €
+              alors: '"modeste"'
+            - si: revenu < 79041 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 5
+        alors:
+          variations:
+            - si: revenu < 52886 €
+              alors: '"très modeste"'
+            - si: revenu < 64380 €
+              alors: '"modeste"'
+            - si: revenu < max
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - sinon:
+          variations:
+            - si: revenu < (38168 + personnes plus * 6650 €)
+              alors: '"très modeste"'
+            - si: revenu < (48930 + personnes plus * 8097 €)
+              alors: '"modeste"'
+            - si: revenu < (69081 + personnes plus * 11445 €)
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+
+revenu . barème . max: 69081 €
+revenu . barème:
+  formule:
+    variations:
+      - si: revenu >= max
+        alors: '"supérieure"'
+      - si: personnes = 1
+        alors:
+          variations:
+            - si: revenu < 16229 €
+              alors: '"très modeste"'
+            - si: revenu < 20805 €
+              alors: '"modeste"'
+            - si: revenu < 29148 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 2
+        alors:
+          variations:
+            - si: revenu < 23734 €
+              alors: '"très modeste"'
+            - si: revenu < 30427 €
+              alors: '"modeste"'
+            - si: revenu < 42848 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 3
+        alors:
+          variations:
+            - si: revenu < 28545 €
+              alors: '"très modeste"'
+            - si: revenu < 36591 €
+              alors: '"modeste"'
+            - si: revenu < 51592 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 4
+        alors:
+          variations:
+            - si: revenu < 33346 €
+              alors: '"très modeste"'
+            - si: revenu < 42748 €
+              alors: '"modeste"'
+            - si: revenu < 60336 €
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - si: personnes = 5
+        alors:
+          variations:
+            - si: revenu < 38168 €
+              alors: '"très modeste"'
+            - si: revenu < 48930 €
+              alors: '"modeste"'
+            - si: revenu < max
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
+      - sinon:
+          variations:
+            - si: revenu < (38168 + personnes plus * 4813 €)
+              alors: '"très modeste"'
+            - si: revenu < (48930 + personnes plus * 6165 €)
+              alors: '"modeste"'
+            - si: revenu < (69081 + personnes plus * 8744 €)
+              alors: '"intermédiaire"'
+            - sinon: '"supérieure"'
