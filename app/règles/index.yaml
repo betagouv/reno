@@ -152,12 +152,29 @@ travaux . plafonnés:
         alors: 70000 €
   valeur: travaux
 
+condition d'ancienneté:
+  variations:
+    #TODO question des mois
+    - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
+      alors: âge >= 2
+    - sinon: âge >= 15
+
+conditions communes:
+  toutes ces conditions:
+    - propriétaire
+    - condition d'ancienneté
+    - résidence principale
 MPR:
   titre: Ma prime rénov'
 
 MPR . non accompagnée:
-  applicable si: DPE . actuel < 6
-  non applicable si: revenu . classe = "supérieure"
+  applicable si:
+    toutes ces conditions:
+      - conditions communes
+      - DPE . actuel < 6
+  non applicable si:
+    une de ces conditions:
+      - revenu . classe = "supérieure"
   valeur: gestes . montant
   titre: Parcours par geste
 
@@ -166,6 +183,7 @@ gestes:
 MPR . accompagnée:
   titre: Parcours accompagné
   valeur: montant
+  applicable si: conditions communes
 
 MPR . accompagnée . montant:
   formule: pourcent écrêté * travaux . plafonnés
