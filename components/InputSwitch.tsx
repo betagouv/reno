@@ -71,7 +71,28 @@ export default function InputSwitch({
       />
     )
 
-  if (ruleQuestionType === 'boolean') return <BinaryQuestion />
+  if (ruleQuestionType === 'boolean')
+    return (
+      <BinaryQuestion
+        value={currentValue}
+        onChange={(value) => {
+          const encodedSituation = encodeSituation(
+            {
+              ...situation,
+              [currentQuestion]: value,
+            },
+            false,
+            answeredQuestions,
+          )
+          console.log(
+            'binary question on change will set encodedSituation',
+            encodedSituation,
+          )
+
+          setSearchParams(encodedSituation, false, false)
+        }}
+      />
+    )
   return (
     <Input
       type={ruleQuestionType}

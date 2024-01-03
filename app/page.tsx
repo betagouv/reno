@@ -33,7 +33,7 @@ export default function Page({ searchParams }) {
             white-space: nowrap;
           `}
         >
-          En cours de développement. Peu fiable.
+          En cours de développement, peu fiable, métropole seulement.
         </strong>
       </p>
       <Form searchParams={searchParams} />

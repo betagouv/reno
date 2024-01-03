@@ -153,11 +153,13 @@ travaux . plafonnés:
   valeur: travaux
 
 condition d'ancienneté:
-  variations:
-    #TODO question des mois
-    - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
-      alors: âge >= 2
-    - sinon: âge >= 15
+  âge >= 15
+  ## variations:
+  #TODO outre-mer
+  #TODO question des mois
+  ## - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
+  ## alors: âge >= 2
+  ## - sinon:
 
 conditions communes:
   toutes ces conditions:
