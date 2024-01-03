@@ -18,6 +18,43 @@ revenu:
     intermédiaire: 25000 €
     supérieur: 50000 €
 
+propriétaire:
+  question: Êtes-vous propriétaire ?
+  par défaut: oui
+  description: |
+    Pour bénéficier des aides à la rénovation, il faut être dans l'une de ces situations. 
+
+    Situations simples : 
+      - propriétaire occupant (vous vivez dans votre logement)
+      - propriétaire bailleur (un locataire vit dans votre logement)
+
+    Autres situations éligibles, vous êtes : 
+      - usufruitier
+      - titulaires (occupants et bailleurs) d’un droit réel conférant l’usage du bien 
+      - preneurs (occupants et bailleurs) d’un bail emphytéotique ou d’un bail à construction 
+      - propriétaires en indivision si l’ensemble des propriétaires indivisaires ont signé l’[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l’honneur qui désigne le demandeur pour porter les travaux au nom de l’indivision.
+
+    Situations non éligibles, vous êtes : 
+      - les nus-propriétaires
+      - les personnes morales (par exemple les sociétés civiles immobilières)
+résidence principale:
+  question: Votre logement est-il et restera-t-il une résidence principale ?
+  par défaut: oui
+  description: |
+    Que ce soit votre résidence principale (vous êtes propriétaire occupant), ou celle de votre locataire (propriétaire bailleur), elle doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins suivant la rénovation.
+
+    Les résidences secondaires sont donc exclues.
+
+    Si vous comptez louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
+
+année de construction:
+  question: De quelle année date la construction de votre logement ?
+  par défaut: 1950 # Au hasard, on n'a pas trouvé d'âge moyen
+
+âge:
+  titre: Âge du logement
+  formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
+
 personnes:
   titre: La composition de votre foyer
   question: Quelle est la composition de votre foyer ?
