@@ -31,10 +31,10 @@ personnes plus:
   titre: Personnes de plus qu'un foyer de 5
   formule: personnes - 5
 
-revenu . max: 90496 €
 revenu . classe:
   formule:
     variations:
+      # C'est un court-circuit pour éviter de poser la question des personnes
       - si: revenu >= max
         alors: '"supérieure"'
       - si: région . IdF
