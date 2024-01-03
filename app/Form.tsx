@@ -24,9 +24,9 @@ import FormButtons from './FormButtons'
 import LinkAPI from './LinkAPI'
 import Personas from './Personas'
 import Suggestions from './Suggestions'
+import simulationConfig from './simulationConfig.yaml'
 
 const engine = new Publicodes(rules)
-const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
 
 export default function Form({ searchParams }) {
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
@@ -43,7 +43,7 @@ export default function Form({ searchParams }) {
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
-      questionsConfig,
+      simulationConfig,
       rules,
     )
   const currentQuestion = nextQuestions[0],
