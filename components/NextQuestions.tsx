@@ -21,7 +21,7 @@ export default function NextQuestions({ nextQuestions, rules }) {
       <div
         style={css`
           overflow: scroll;
-          height: 1.5rem;
+          height: 1.8rem;
           width: 100%;
           white-space: nowrap;
           padding-top: 0.1rem;
