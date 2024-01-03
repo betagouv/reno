@@ -8,6 +8,11 @@ export const QuestionHeader = styled.header`
     margin: 0.4rem 0.8rem 0.4rem 0.4rem;
   }
   details {
+    > div {
+      border-left: 6px solid #253b71;
+      margin-bottom: 2rem;
+      padding-left: 0.6rem;
+    }
     summary {
       list-style-type: none;
       border: none;

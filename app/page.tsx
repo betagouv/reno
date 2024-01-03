@@ -2,6 +2,7 @@ import css from '@/components/css/convertToJs'
 import Form from './Form'
 import logo from '@/public/icon.svg'
 import Image from 'next/image'
+import rules from './rules'
 
 const description = `Cet outil calcule les aides 2024 à la rénovation de votre logement, notamment Ma Prime Rénov et Ma Prime Rénov accompagnée.`
 
@@ -43,7 +44,7 @@ export default function Page({ searchParams }) {
           En cours de développement, peu fiable, métropole seulement.
         </strong>
       </p>
-      <Form searchParams={searchParams} />
+      <Form searchParams={searchParams} rules={rules} />
     </main>
   )
 }

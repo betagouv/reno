@@ -1,5 +1,4 @@
 'use client'
-import rules from './rules'
 
 import css from '@/components/css/convertToJs'
 import Explications from '@/components/explications/Explications'
@@ -26,10 +25,10 @@ import Personas from './Personas'
 import Suggestions from './Suggestions'
 import simulationConfig from './simulationConfig.yaml'
 import { QuestionHeader } from './QuestionHeader'
+import { useMemo } from 'react'
 
-const engine = new Publicodes(rules)
-
-export default function Form({ searchParams }) {
+export default function Form({ searchParams, rules }) {
+  const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
 
   const situation = getSituation(searchParams, rules),
@@ -76,10 +75,12 @@ export default function Form({ searchParams }) {
           <div>
             <QuestionHeader>
               <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
-              {rule.description && (
+              {rule.descriptionHtml && (
                 <details>
                   <summary>ℹ️</summary>
-                  {rule.description}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+                  />
                 </details>
               )}
             </QuestionHeader>
