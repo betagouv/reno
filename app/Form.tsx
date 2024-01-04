@@ -71,7 +71,7 @@ export default function Form({ searchParams, rules }) {
     <div>
       <Personas setSearchParams={setSearchParams} />
       {rule && (
-        <Card>
+        <Card $background={`#f2f2f9`}>
           <div>
             <QuestionHeader>
               <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
