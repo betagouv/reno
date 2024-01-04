@@ -29,9 +29,15 @@ import { useMemo } from 'react'
 
 export default function Form({ searchParams, rules }) {
   const engine = useMemo(() => new Publicodes(rules), [rules])
-  const answeredQuestions = getAnsweredQuestions(searchParams, rules)
+  const answeredQuestions = [
+    ...Object.keys(simulationConfig.situation || {}),
+    ...getAnsweredQuestions(searchParams, rules),
+  ]
 
-  const situation = getSituation(searchParams, rules),
+  const situation = {
+      ...(simulationConfig.situation || {}),
+      ...getSituation(searchParams, rules),
+    },
     validatedSituation = Object.fromEntries(
       Object.entries(situation).filter(([k, v]) =>
         answeredQuestions.includes(k),
@@ -57,6 +63,7 @@ export default function Form({ searchParams, rules }) {
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
+  console.log('eval', engine.evaluate('gestes . montant'))
   /*
   console.log(
     'currentQuestion',
