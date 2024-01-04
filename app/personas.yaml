@@ -38,3 +38,8 @@
     revenu: 20000
     DPE . actuel: 5
     région: "'Bretagne'"
+- nom: Persona 5
+  description: |
+    Propriétaire élligible, mais pas d'autres infos
+  situation:
+    conditions communes: oui
