@@ -13,7 +13,7 @@ chauffage:
     - chaudière à bûches . montant
 
 chauffage . chaudière à granulés:
-  par défaut: non
+  par défaut: oui
 
 chauffage . chaudière à granulés . montant:
   variations:
@@ -26,7 +26,7 @@ chauffage . chaudière à granulés . montant:
     - sinon: 0 €
 
 chauffage . chaudière à bûches:
-  par défaut: non
+  par défaut: oui
 chauffage . chaudière à bûches . montant:
   variations:
     - si: revenu . classe = 'très modeste'
@@ -44,7 +44,7 @@ isolation:
     - murs extérieur . montant
 isolation . vitres:
   titre: Isolation thermique des parois vitrées
-  par défaut: non
+  par défaut: oui
 isolation . vitres . montant: barème * nombre
 isolation . vitres . nombre:
   question: Combien de parois vitrées voulez-vous isoler ?
@@ -61,7 +61,7 @@ isolation . vitres . barème:
     - sinon: 0 €
 isolation . murs extérieur:
   titre: Isolation des murs par l'extérieur
-  par défaut: non
+  par défaut: oui
 isolation . murs extérieur . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .

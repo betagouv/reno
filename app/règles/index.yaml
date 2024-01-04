@@ -132,7 +132,7 @@ DPE . actuel:
     variations:
       - si: simulation . mode = 'moyen'
         alors: 4
-      - sinon: 7
+      - sinon: 5 # Ce DPE de départ maximise les deux aides MPR, pratique !
   suggestions:
     G: 7
     F: 6
@@ -212,13 +212,11 @@ MPR:
   titre: Ma prime rénov'
 
 MPR . non accompagnée:
-  applicable si:
-    toutes ces conditions:
-      - conditions communes
-      - DPE . actuel < 6
+  applicable si: conditions communes
   non applicable si:
     une de ces conditions:
       - revenu . classe = "supérieure"
+      - DPE . actuel > 6
   valeur: gestes . montant
   titre: Parcours par geste
 

@@ -63,7 +63,12 @@ export default function Form({ searchParams, rules }) {
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
-  console.log('eval', engine.evaluate('gestes . montant'))
+  console.log(
+    'eval',
+    engine.evaluate('MPR . non accompagnée'),
+    engine.evaluate('gestes . montant'),
+    engine.evaluate('revenu . classe'),
+  )
   /*
   console.log(
     'currentQuestion',
