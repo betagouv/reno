@@ -20,7 +20,7 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
     colors[isNotApplicable ? 'fail' : isFinal ? 'success' : 'running']
 
   return (
-    <div
+    <li
       style={css(`
         padding: 1.2vh;
         margin: 0 auto;
@@ -75,7 +75,7 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
       ) : (
         <Badge $background={colors.running.background}>Sous conditions</Badge>
       )}
-    </div>
+    </li>
   )
 }
 
@@ -86,9 +86,13 @@ export const Badge = styled.strong`
 `
 
 export const Results = styled.ul`
+  padding-left: 0;
   margin-top: 1rem;
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `

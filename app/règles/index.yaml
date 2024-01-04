@@ -153,7 +153,7 @@ DPE . actuel:
 
 DPE . visé:
   titre: Votre futur DPE visé
-  question: Quel est le DPE visé après la rénovation ?
+  question: Quel DPE visé après rénovation ?
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'

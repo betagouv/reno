@@ -148,7 +148,7 @@ export default function Form({ searchParams, rules }) {
       {answeredQuestions.length > 0 && (
         <div
           style={css`
-            margin-top: 1rem;
+            margin-top: 1vh;
           `}
         >
           <Link href={'/'}>Recommencer</Link>

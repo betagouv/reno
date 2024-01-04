@@ -5,7 +5,10 @@ export const QuestionHeader = styled.header`
   flex-wrap: wrap;
   align-items: center;
   h3 {
-    margin: 0.4rem 0.8rem 0.4rem 0.2rem;
+    margin: 0.4rem 0.2rem 0.4rem 0.2rem;
+    @media (max-width: 800px) {
+      font-size: 110%;
+    }
   }
   details {
     > div {
