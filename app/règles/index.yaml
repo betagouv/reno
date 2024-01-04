@@ -39,6 +39,7 @@ revenu:
     supérieur: 50000 €
 
 propriétaire:
+propriétaire . condition:
   question: Êtes-vous propriétaire ?
   par défaut: oui
   description: |
@@ -57,6 +58,16 @@ propriétaire:
     Situations non éligibles, vous êtes : 
       - les nus-propriétaires
       - les personnes morales (par exemple les sociétés civiles immobilières)
+
+propriétaire . astuce:
+  type: notification
+  sévérité: information
+  formule: condition = non
+  description: |
+    Si vous êtes locataires, vous n'êtes pas éligibles aux aides à la rénovation. 
+
+    **Cependant**, n'hésitez pas à faire cette simulation en tant que propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides 2024.
+
 résidence principale:
   question: Votre logement est-il et restera-t-il une résidence principale ?
   par défaut: oui
@@ -205,7 +216,7 @@ condition d'ancienneté:
 conditions communes:
   titre: Conditions d'élligibilité de base
   toutes ces conditions:
-    - propriétaire
+    - propriétaire . condition
     - condition d'ancienneté
     - résidence principale
 MPR:

@@ -1,5 +1,5 @@
 prioritaires:
-  - propriétaire
+  - propriétaire . condition
   - résidence principale
   - année de construction
   - revenu

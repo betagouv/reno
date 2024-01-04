@@ -26,6 +26,7 @@ import Suggestions from './Suggestions'
 import simulationConfig from './simulationConfig.yaml'
 import { QuestionHeader } from './QuestionHeader'
 import { useMemo } from 'react'
+import Notifications from '@/components/Notifications'
 
 export default function Form({ searchParams, rules }) {
   const engine = useMemo(() => new Publicodes(rules), [rules])
@@ -142,6 +143,7 @@ export default function Form({ searchParams, rules }) {
           </div>
         </Card>
       )}
+      <Notifications {...{ currentQuestion, engine }} />
       <NextQuestions {...{ nextQuestions, rules }} />
       {answeredQuestions.length > 0 && (
         <div
