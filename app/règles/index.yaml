@@ -162,6 +162,7 @@ condition d'ancienneté:
   ## - sinon:
 
 conditions communes:
+  titre: Conditions d'élligibilité de base
   toutes ces conditions:
     - propriétaire
     - condition d'ancienneté

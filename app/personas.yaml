@@ -2,6 +2,7 @@
   description: |
     4 sauts de DPE, enveloppe de 65 k€, couple modeste avec enfant.
   situation:
+    conditions communes: oui
     personnes: 3
     revenu: 25000
     DPE . actuel: 6
@@ -12,6 +13,7 @@
   description: |
     3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
   situation:
+    conditions communes: oui
     personnes: 2
     revenu: 35000
     DPE . actuel: 4
@@ -20,16 +22,18 @@
     région: "'Pays de la Loire'"
 - nom: Persona 3
   description: |
-    Ménage sup, 3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
+    Couple sup., passoire, ~ 70k € de travaux
   situation:
+    conditions communes: oui
     personnes: 2
     revenu: 70000
     DPE . actuel: 6
     région: "'Bretagne'"
 - nom: Persona 4
   description: |
-
+    Couple modeste, presque passoire.
   situation:
+    conditions communes: oui
     personnes: 2
     revenu: 20000
     DPE . actuel: 5
