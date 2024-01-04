@@ -7,8 +7,7 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
   const evaluation = engine.evaluate(dottedName)
 
   const value = formatValue(evaluation)
-  const notApplicable = value === 'Non applicable'
-  const displayedValue = notApplicable ? 'Non éligible' : value
+  const isNotApplicable = value === 'Non applicable'
 
   return (
     <div
@@ -26,7 +25,7 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
           rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
 
 		border: 1px ${isFinal ? 'solid' : 'dashed'} black;
-        ${notApplicable ? 'opacity: .7;' : ''}
+        ${isNotApplicable ? 'opacity: .7;' : ''}
       `)}
     >
       <h3
@@ -38,19 +37,27 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
       >
         {rule.titre}
       </h3>
-      <strong
-        style={css(`
-		padding: 0 .2rem;
-	  ${notApplicable ? 'background: salmon; color: white' : ''}
-
-			  `)}
-      >
-        {displayedValue}
-      </strong>
-      <div>Estimation {!isFinal ? '' : ' finale'}&nbsp;</div>
+      <span style={isNotApplicable ? { visibility: 'hidden' } : {}}>
+        {value}
+      </span>
+      {isNotApplicable ? (
+        <Badge $background="salmon">Non éligible</Badge>
+      ) : isFinal ? (
+        <Badge $color="#297254" $background="#c3fad5">
+          Estimation finale
+        </Badge>
+      ) : (
+        <Badge $background="#2a82dd">Sous conditions</Badge>
+      )}
     </div>
   )
 }
+
+export const Badge = styled.strong`
+  padding: 0 0.2rem;
+  background: ${(p) => p.$background};
+  color: ${(p) => p.$color || 'white'};
+`
 
 export const Results = styled.ul`
   margin-top: 1rem;
