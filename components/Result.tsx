@@ -2,12 +2,21 @@ import css from '@/components/css/convertToJs'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { styled } from 'styled-components'
 
+const colors = {
+  success: { color: '#297254', background: '#c4fad5' },
+  running: { background: '#2a82dd', color: 'white' },
+  fail: { background: 'salmon', color: 'white' },
+}
+
 export default function Result({ engine, isFinal, rules, dottedName }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
 
   const value = formatValue(evaluation)
   const isNotApplicable = value === 'Non applicable'
+
+  const { color, background } =
+    colors[isNotApplicable ? 'fail' : isFinal ? 'success' : 'running']
 
   return (
     <div
@@ -19,13 +28,21 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+		border: ${
+      isFinal || isNotApplicable ? '2px solid' : '2px dashed'
+    } ${background};
+        ${isNotApplicable ? 'opacity: .7;' : ''}
+
+		${
+      isFinal || isNotApplicable
+        ? `
         box-shadow:
           rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
           rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
           rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
-
-		border: ${isFinal || isNotApplicable ? '1px solid' : '1px dashed'} black;
-        ${isNotApplicable ? 'opacity: .7;' : ''}
+		  `
+        : ''
+    } 
       `)}
     >
       <h3
@@ -46,13 +63,16 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
         {isFinal ? `` : `Jusqu'à `} {value}
       </div>
       {isNotApplicable ? (
-        <Badge $background="salmon">Non éligible</Badge>
+        <Badge $background={colors.fail.background}>Non éligible</Badge>
       ) : isFinal ? (
-        <Badge $color="#297254" $background="#c3fad5">
+        <Badge
+          $color={colors.success.color}
+          $background={colors.success.background}
+        >
           Estimation finale
         </Badge>
       ) : (
-        <Badge $background="#2a82dd">Sous conditions</Badge>
+        <Badge $background={colors.running.background}>Sous conditions</Badge>
       )}
     </div>
   )
