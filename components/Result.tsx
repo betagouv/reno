@@ -13,7 +13,8 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
   const evaluation = engine.evaluate(dottedName)
 
   const value = formatValue(evaluation)
-  const isNotApplicable = value === 'Non applicable'
+  const isNotApplicable =
+    value === 'Non applicable' || evaluation.nodeValue === 0
 
   const { color, background } =
     colors[isNotApplicable ? 'fail' : isFinal ? 'success' : 'running']
