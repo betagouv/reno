@@ -4,7 +4,7 @@ import logo from '@/public/icon.svg'
 import Image from 'next/image'
 import rules from './rules'
 
-const description = `Cet outil calcule les aides 2024 à la rénovation de votre logement, dont Ma Prime Rénov.`
+const description = `Calculez les aides 2024 à la rénovation de votre logement, dont Ma Prime Rénov.`
 
 export const metadata: Metadata = {
   title: 'Aides réno 2024',
@@ -32,23 +32,29 @@ export default function Page({ searchParams }) {
       <header
         style={css`
           margin-top: 1rem;
-          display: flex;
-          align-items: center;
+          margin-bottom: 1rem;
         `}
       >
-        <Image
-          src={logo}
-          alt="Logo Mes Aides Rénovation 2024"
+        <div
           style={css`
-            width: 2rem;
-            margin-right: 0.6rem;
-            height: auto;
-            padding-top: 0.5rem;
+            display: flex;
+            align-items: center;
           `}
-        />
-        <h1>Mes Aides Réno&nbsp;2024</h1>
+        >
+          <Image
+            src={logo}
+            alt="Logo Mes Aides Rénovation 2024"
+            style={css`
+              width: 2rem;
+              margin-right: 0.6rem;
+              height: auto;
+              padding-top: 0.5rem;
+            `}
+          />
+          <h1>Mes Aides Réno&nbsp;2024</h1>
+        </div>
+        <small>{description}</small>
       </header>
-      {description}
       <Form searchParams={searchParams} rules={rules} />
     </main>
   )
