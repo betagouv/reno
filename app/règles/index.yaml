@@ -1,3 +1,19 @@
+simulation:
+  description: Sont ici définies les options de simulation. Ce ne sont en général pas des questions à poser à l'utilisateur, mais des choix d'interface à faire.
+
+simulation . mode:
+  titre: Mode de simulation
+  description: |
+    En fonction de votre interface, vous pouvez présenter les valeurs maximum de simulation, ou les valeurs moyennes. 
+
+    Vous pouvez aussi afficher les deux. 
+
+    Dans notre cas ici, la valeur minimum est la plupart du temps zéro, nous ne l'avons donc pas considérée.
+  par défaut: "'max'"
+  possibilités:
+    - 'max'
+    - 'moyen'
+
 aides:
   formule:
     somme:
@@ -7,7 +23,11 @@ aides:
 revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
-  par défaut: 23000 €
+  par défaut:
+    variations:
+      - si: simulation . mode = 'moyen'
+        alors: 23000 €
+      - sinon: 0 €
   suggestions:
     #Très modeste 1 personne: 15000 €
     #modeste 2 personnes: 26000 €
@@ -58,7 +78,11 @@ année de construction:
 personnes:
   titre: La composition de votre foyer
   question: Quelle est la composition de votre foyer ?
-  par défaut: 1 personne
+  par défaut:
+    variations:
+      - si: simulation . mode = 'moyen'
+        alors: 1 personne
+      - sinon: 5 personne
   suggestions:
     seul: 1 personne
     couple: 2 personne
@@ -81,7 +105,7 @@ revenu . classe:
 région:
   titre: Votre région
   question: Dans quelle région se situe votre logement ?
-  par défaut: "'Bretagne'"
+  par défaut: "'Bretagne'" # La Bretagne, comme toute autre région non francilienne, ouvre l'éligibilité aux aides
   suggestions:
     Bretagne: "'Bretagne'"
     Pays de la Loire: "'Pays de la Loire'"
@@ -98,7 +122,11 @@ DPE:
 DPE . actuel:
   titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
-  par défaut: 4
+  par défaut:
+    variations:
+      - si: simulation . mode = 'moyen'
+        alors: 4
+      - sinon: 7
   suggestions:
     G: 7
     F: 6
@@ -110,7 +138,11 @@ DPE . actuel:
 DPE . visé:
   titre: Votre futur DPE visé
   question: Quel est le DPE visé après la rénovation ?
-  par défaut: 2
+  par défaut:
+    variations:
+      - si: simulation . mode = 'moyen'
+        alors: 2
+      - sinon: 1
   suggestions:
     E: 5
     D: 4
@@ -128,12 +160,15 @@ sauts:
     de C à A: 2
   description: |
     Par exemple, passer d'un DPE G à un DPE D vaut 3 sauts.
-  par défaut: 3
 
 travaux:
   titre: Votre enveloppe des travaux
   question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?
-  par défaut: 20000 €
+  par défaut:
+    variations:
+      - si: simulation . mode = 'moyen'
+        alors: 20000 €
+      - sinon: 9990000 €
   suggestions:
     faible: 15000 €
     moyenne: 40000 €
