@@ -14,8 +14,24 @@ export const metadata: Metadata = {
 export default function Page({ searchParams }) {
   return (
     <main>
+      <p>
+        <strong
+          style={css`
+            position: fixed;
+            margin: 0 auto;
+            top: 0;
+            background: salmon;
+            padding: 0 0.2rem;
+            white-space: nowrap;
+            padding: 0 1rem;
+          `}
+        >
+          🚧 En cours de développement, peu fiable, métropole seulement
+        </strong>
+      </p>
       <header
         style={css`
+          margin-top: 1rem;
           display: flex;
           align-items: center;
         `}
@@ -32,18 +48,7 @@ export default function Page({ searchParams }) {
         />
         <h1>Mes Aides Réno&nbsp;2024</h1>
       </header>
-      <p>
-        {description}
-        <strong
-          style={css`
-            background: salmon;
-            padding: 0 0.2rem;
-            white-space: nowrap;
-          `}
-        >
-          En cours de développement, peu fiable, métropole seulement.
-        </strong>
-      </p>
+      {description}
       <Form searchParams={searchParams} rules={rules} />
     </main>
   )
