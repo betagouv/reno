@@ -143,7 +143,7 @@ DPE . actuel:
       - si: simulation . mode = 'moyen'
         alors: 4
       - sinon: 5 # Ce DPE de départ maximise les deux aides MPR, pratique !
-  suggestions:
+  aide:
     G: 7
     F: 6
     E: 5
@@ -159,7 +159,7 @@ DPE . visé:
       - si: simulation . mode = 'moyen'
         alors: 2
       - sinon: 1
-  suggestions:
+  aide:
     E: 5
     D: 4
     C: 3
