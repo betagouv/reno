@@ -33,10 +33,9 @@ revenu:
     #modeste 2 personnes: 26000 €
     #intermédiaires 1 personne: 25000 €
     #supérieurs 2 personnes: 50000 €
-    Très modeste: 15000 €
-    modeste: 22000 €
-    intermédiaire: 25000 €
-    supérieur: 50000 €
+    bas: 20000 €
+    moyen: 50000 €
+    élevé: 80000 €
 
 propriétaire:
 propriétaire . condition:
