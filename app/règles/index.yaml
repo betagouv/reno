@@ -177,6 +177,13 @@ sauts:
   description: |
     Par exemple, passer d'un DPE G à un DPE D vaut 3 sauts.
 
+DPE . visé . erreur:
+  type: notification
+  sévérité: invalide
+  formule: sauts < 0
+  description: |
+    À moins que vous n'ayez prévu de détruire un mur, votre DPE visé n'est pas sensé être moins inférieur à votre DPE actuel 😉
+
 travaux:
   titre: Votre enveloppe des travaux
   question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?

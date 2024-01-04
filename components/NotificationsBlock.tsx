@@ -34,6 +34,7 @@ export const NotificationsBlock = styled.div`
     align-items: center;
   }
   .notificationText {
+    margin-left: 1rem;
     width: 100%;
     padding: 1rem 2.6rem 1rem 1.6rem;
     /*For the .hide element */

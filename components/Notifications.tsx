@@ -26,7 +26,7 @@ export function getNotifications(engine: Engine) {
       descriptionHtml,
     }))
 
-  console.log('salut', engine.evaluate('propriétaire . astuce'))
+  console.log('notifications', notifications)
   return notifications
 }
 
