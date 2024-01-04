@@ -8,6 +8,7 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
 
   const value = formatValue(evaluation)
   const notApplicable = value === 'Non applicable'
+  const displayedValue = notApplicable ? 'Non éligible' : value
 
   return (
     <div
@@ -44,7 +45,7 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
 
 			  `)}
       >
-        {value}
+        {displayedValue}
       </strong>
       <div>Estimation {!isFinal ? '' : ' finale'}&nbsp;</div>
     </div>
