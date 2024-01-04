@@ -24,7 +24,7 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
           rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
           rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
 
-		border: ${isFinal || isNotApplicable ? '2px solid' : '1px dashed'} #000091;
+		border: ${isFinal || isNotApplicable ? '1px solid' : '1px dashed'} black;
         ${isNotApplicable ? 'opacity: .7;' : ''}
       `)}
     >
@@ -37,9 +37,14 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
       >
         {rule.titre}
       </h3>
-      <span style={isNotApplicable ? { visibility: 'hidden' } : {}}>
-        {value}
-      </span>
+      <div
+        style={css(`
+          visibility: ${isNotApplicable ? 'hidden' : ''};
+          margin: 0.3rem 0;
+        `)}
+      >
+        {isFinal ? `` : `Jusqu'à `} {value}
+      </div>
       {isNotApplicable ? (
         <Badge $background="salmon">Non éligible</Badge>
       ) : isFinal ? (
