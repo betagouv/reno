@@ -155,7 +155,7 @@ travaux . plafonnés:
 condition d'ancienneté:
   âge >= 15
   ## variations:
-  #TODO outre-mer
+  #TODO outre-mer :  MAR accompagné est réservée à un logement en France métropolitaine
   #TODO question des mois
   ## - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
   ## alors: âge >= 2

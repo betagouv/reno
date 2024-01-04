@@ -4,7 +4,7 @@ import logo from '@/public/icon.svg'
 import Image from 'next/image'
 import rules from './rules'
 
-const description = `Cet outil calcule les aides 2024 à la rénovation de votre logement, notamment Ma Prime Rénov et Ma Prime Rénov accompagnée.`
+const description = `Cet outil calcule les aides 2024 à la rénovation de votre logement, dont Ma Prime Rénov.`
 
 export const metadata: Metadata = {
   title: 'Aides réno 2024',
