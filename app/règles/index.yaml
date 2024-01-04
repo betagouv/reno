@@ -70,6 +70,12 @@ résidence principale:
 année de construction:
   question: De quelle année date la construction de votre logement ?
   par défaut: 1950 # Au hasard, on n'a pas trouvé d'âge moyen
+  suggestions:
+    très ancien: 1900
+    trente glorieuses: 1950
+    choc pétrolier: 1975
+    récent: 2000
+    neuf: 2020
 
 âge:
   titre: Âge du logement

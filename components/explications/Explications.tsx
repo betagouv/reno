@@ -31,7 +31,7 @@ export default function Explications(props) {
       <h2>Explications</h2>
       <h3>Votre classe de revenu</h3>
       <P>
-        Votre revenue est {hasRevenuMissing ? <em>temporairement</em> : ''} dans
+        Votre revenu est {hasRevenuMissing ? <em>temporairement</em> : ''} dans
         la classe dite{' '}
         <Key $state={hasRevenuMissing ? 'inProgress' : 'final'}>
           {revenuClasse.nodeValue}
