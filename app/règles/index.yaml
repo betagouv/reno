@@ -133,11 +133,19 @@ id ban:
 région . IdF: région = 'Île-de-France'
 
 DPE:
-  titre: Diagnostique de Performance Énergétique.
+  titre: Diagnostic de Performance Énergétique.
 
 DPE . actuel:
   titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
+  description: |
+    Le DPE, c'est le Diagnostic de Performance Énergétique de votre logement. 
+
+    Il mesure d'un côté l'énergie nécessaire pour y maintenir une température standard, et de l'autre l'empreinte climat associée. 
+
+    Le DPE est exprimé comme une note de A (très bon) à G (passoire thermique). 
+
+    Si vous ne connaissez pas le DPE actuel de votre logement, vous pourrez en trouver une estimation en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
