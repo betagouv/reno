@@ -132,6 +132,7 @@ chauffage . partie thermique PVT eau . montant:
 
 chauffage . chaudière bois:
   par défaut: oui
+  titre: Chaudière bois
 
 chauffage . chaudière bois . manuelle:
   titre: Chaudière bois à alimentation manuelle (bûches)

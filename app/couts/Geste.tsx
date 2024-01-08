@@ -1,6 +1,5 @@
 import css from '@/components/css/convertToJs'
 import { DensityChart } from '@/components/densityGraph/DensityChart'
-import { isValidMontant, keyPrice } from './Couts'
 
 export default function Geste({
   isPerSingleEquipement,

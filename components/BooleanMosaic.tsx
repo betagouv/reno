@@ -1,3 +1,4 @@
+import { Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
@@ -43,30 +44,18 @@ export default function BooleanMosaic({
   console.log('grouped', grouped)
   return (
     <div>
-      <fieldset
-        style={css`
-          display: flex;
-          flex-wrap: wrap;
-        `}
-      >
+      <Fieldset>
         <ul>
           {Object.entries(grouped).map(([categoryName, questions]) => {
             const categoryTitle = rules[categoryName].titre
 
-            console.log('QUES', questions)
             return (
               <li key={categoryName}>
                 <h4>{categoryTitle}</h4>
                 {questions.map((dottedName) => {
                   const questionRule = rules[dottedName]
                   return (
-                    <label
-                      key={dottedName}
-                      style={css`
-                        margin: 0 1rem;
-                        width: 16rem;
-                      `}
-                    >
+                    <label key={dottedName}>
                       <input
                         style={css`
                           margin-right: 1rem;
@@ -101,7 +90,7 @@ export default function BooleanMosaic({
             )
           })}
         </ul>
-      </fieldset>
+      </Fieldset>
     </div>
   )
 }
