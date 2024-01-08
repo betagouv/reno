@@ -35,8 +35,8 @@ export default function APIDoc() {
       <p>
         Pour découvrir l'API, le plus simple est de faire votre simulation sur
         la page d'accueil, ou de cliquer directement sur un persona pour charger
-        une des simulations pré-remplies, puis de cliquer sur le lien d'API tout
-        en bas de la page.
+        une des simulations pré-remplies, puis de préfixer l'URL de simulation
+        par `/api?PARAMÈTRES`.
       </p>
       <h3>Le code</h3>
       <p>
