@@ -1,5 +1,7 @@
 # Aides et coût d'une rénovation thermique en 2024
 
+> 🚧 Ce projet est en plein développement. Il est instable et vous ne devez pas vous fier aveuglement aux règles métier qui y sont exposées
+
 ## Le calcul des aides
 
 Sur /, dans un premier temps, les aides nationales : MPR accompagnée, et MPR non accompagnée (dit aussi gestes).
