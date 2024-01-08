@@ -1,6 +1,7 @@
 import DPE from './DPE2'
 import { encodeSituation } from './publicodes/situationUtils'
 import data from '@/components/DPE.yaml'
+import css from './css/convertToJs'
 
 console.log('DPE data', data)
 
@@ -30,12 +31,18 @@ export default function DPESelector({
     oldLetter = isNew && data[+situation['DPE . actuel']].lettre
 
   return (
-    <DPE
-      newLetter={newLetter}
-      letter={isNew ? oldLetter : newLetter}
-      onClick={(value) =>
-        console.log('setDPE', value) || doSetSearchParams(value)
-      }
-    />
+    <div
+      style={css`
+        margin-top: 0.6rem;
+      `}
+    >
+      <DPE
+        newLetter={newLetter}
+        letter={isNew ? oldLetter : newLetter}
+        onClick={(value) =>
+          console.log('setDPE', value) || doSetSearchParams(value)
+        }
+      />
+    </div>
   )
 }

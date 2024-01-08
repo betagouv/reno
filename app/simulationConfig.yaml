@@ -1,7 +1,7 @@
 prioritaires:
   - propriétaire . condition
   - résidence principale
-  - année de construction
+  - condition d'ancienneté
   - revenu
   - région
   - personnes

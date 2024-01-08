@@ -226,7 +226,11 @@ travaux . plafonnés:
   valeur: travaux
 
 condition d'ancienneté:
-  âge >= 15
+  question: Votre logement a-t-il plus de 15 ans (construit avant 2009) ?
+  par défaut: oui
+
+  # Si l'on a besoin dans un second temps d'avoir l'âge exact
+  # âge >= 15
   ## variations:
   #TODO outre-mer :  MAR accompagné est réservée à un logement en France métropolitaine
   #TODO question des mois
