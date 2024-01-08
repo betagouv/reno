@@ -21,10 +21,15 @@ export default function DPE({ letter, newLetter }) {
               $background={el.couleur}
               $index={index}
               $selected={el.lettre === letter}
+              $selected2={el.lettre === newLetter}
             >
               {el.lettre}
             </Bar>
-            <Triangle background={el.couleur} selected={el.lettre === letter} />
+            <Triangle
+              background={el.couleur}
+              selected={el.lettre === letter}
+              selected2={el.lettre === newLetter}
+            />
           </Li>
         ))}
       </ul>
@@ -56,7 +61,12 @@ const Bar = styled.div`
   font-weight: bold;
   height: ${size};
   font-size: 150%;
-  border: ${(p) => (p.$selected ? `2px solid black` : `none`)};
+  border: ${(p) =>
+    p.$selected
+      ? `2px solid black`
+      : p.$selected2
+        ? `2px dashed black`
+        : `none`};
   border-right: none;
   z-index: 1;
   line-height: ${size};
@@ -69,7 +79,7 @@ const Bar = styled.div`
   `}
 `
 
-const Triangle = ({ background, selected }) => (
+const Triangle = ({ background, selected, selected2 }) => (
   <svg
     viewBox="0 0 400 400"
     style={css(`
@@ -88,7 +98,14 @@ const Triangle = ({ background, selected }) => (
   stroke-width: 20px;
   stroke: black;
   `
-      : ``
+      : selected2
+        ? `
+  stroke-width: 20px;
+  stroke-dasharray: 55;
+  stroke: black;
+
+		  `
+        : ``
   }
 
   
