@@ -184,6 +184,13 @@ DPE . visé . erreur:
   description: |
     À moins que vous n'ayez prévu de détruire un mur, votre DPE visé n'est pas sensé être moins inférieur à votre DPE actuel 😉
 
+travaux . notification:
+  type: notification
+  sévérité: information
+  formule: travaux < 5000
+  description: |
+    Pour atteindre 2 sauts de DPE, il est en général nécessaire de prévoir une enveloppe de travaux de plusieurs milliers d'€.
+
 travaux:
   titre: Votre enveloppe des travaux
   question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?
@@ -191,9 +198,9 @@ travaux:
     variations:
       - si: simulation . mode = 'moyen'
         alors: 20000 €
-      - sinon: 9990000 €
+      - sinon: 70000 €
   suggestions:
-    faible: 15000 €
+    basse: 10000 €
     moyenne: 40000 €
     haute: 70000 €
   description: |

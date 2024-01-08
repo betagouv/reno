@@ -77,12 +77,14 @@ const Bar = styled.div`
     font-size: 150%;
     margin-right: 0.6rem;
     ${(p) =>
-      p.$selected &&
-      ` 
+      p.$selected
+        ? ` 
 	  font-size: 180%;
   text-shadow: 1px 2px 4px black;
-  line-height: 1.85rem
-
+  line-height: 1.85rem;
+  `
+        : `
+  line-height: ${size};
   `}
   }
   height: ${size};
@@ -94,7 +96,7 @@ const Bar = styled.div`
         : `none`};
   border-right: none;
   z-index: 1;
-  line-height: ${size};
+  line-height: 1.6rem;
 `
 
 const Triangle = ({ background, selected, selected2 }) => (
