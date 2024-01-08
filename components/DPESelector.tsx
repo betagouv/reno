@@ -25,10 +25,14 @@ export default function DPESelector({
     )
     const url = setSearchParams(newSituation, false, false)
   }
+  const isNew = currentQuestion === 'DPE . visé' ? numericalValue : null,
+    newLetter = numericalValue && data[+numericalValue].lettre,
+    oldLetter = isNew && data[+situation['DPE . actuel']].lettre
 
   return (
     <DPE
-      letter={numericalValue && data[+numericalValue].lettre}
+      newLetter={newLetter}
+      letter={isNew ? oldLetter : newLetter}
       onClick={(value) =>
         console.log('setDPE', value) || doSetSearchParams(value)
       }

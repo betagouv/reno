@@ -1,7 +1,7 @@
 import Travaux from './Travaux'
 import { Key, P } from './ExplicationUI'
 import css from '../css/convertToJs'
-import { correspondance } from '../DPESelector'
+import dpeData from '@/components/DPE.yaml'
 import Aide from './Aide'
 
 export default function Explications(props) {
@@ -57,8 +57,8 @@ export default function Explications(props) {
           <h3>L'amélioration de votre DPE</h3>
           <P>
             Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key>{' '}
-            sauts de classe DPE (de {correspondance[dpeFrom.nodeValue]} à{' '}
-            {correspondance[dpeTo.nodeValue]}
+            sauts de classe DPE (de {dpeData[+dpeFrom.nodeValue].lettre} à{' '}
+            {dpeData[+dpeTo.nodeValue].lettre}
             ).
           </P>
         </div>
