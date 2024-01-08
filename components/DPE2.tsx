@@ -28,7 +28,15 @@ export default function DPE({ letter, newLetter, onClick }) {
               $selected={el.lettre === letter}
               $selected2={el.lettre === newLetter}
             >
-              {el.lettre}
+              {' '}
+              <span>{el.lettre}</span>
+              <span>
+                {el.lettre === letter
+                  ? 'actuel'
+                  : el.lettre === newLetter
+                    ? 'visé'
+                    : ''}
+              </span>
             </Bar>
             <Triangle
               background={el.couleur}
@@ -64,9 +72,20 @@ const Bar = styled.div`
   margin: 0.2rem 0;
   padding-left: 0.6rem;
   color: white;
-  font-weight: bold;
+  > span:first-child {
+    font-weight: bold;
+    font-size: 150%;
+    margin-right: 0.6rem;
+    ${(p) =>
+      p.$selected &&
+      ` 
+	  font-size: 180%;
+  text-shadow: 1px 2px 4px black;
+  line-height: 1.85rem
+
+  `}
+  }
   height: ${size};
-  font-size: 150%;
   border: ${(p) =>
     p.$selected
       ? `2px solid black`
@@ -76,14 +95,6 @@ const Bar = styled.div`
   border-right: none;
   z-index: 1;
   line-height: ${size};
-  ${(p) =>
-    p.$selected &&
-    `
-	  font-size: 180%;
-  text-shadow: 1px 2px 4px black;
-  line-height: 1.85rem
-
-  `}
 `
 
 const Triangle = ({ background, selected, selected2 }) => (
