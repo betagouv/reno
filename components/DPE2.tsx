@@ -2,7 +2,8 @@
 import { styled } from 'styled-components'
 import css from './css/convertToJs'
 import data from './DPE.yaml'
-export default function DPE({ letter, newLetter }) {
+
+export default function DPE({ letter, newLetter, onClick }) {
   /*
 		 *
 - énergie: 420
@@ -16,7 +17,11 @@ export default function DPE({ letter, newLetter }) {
     <Bars>
       <ul>
         {data.map((el, index) => (
-          <Li key={el.lettre} $selected={el.lettre === letter}>
+          <Li
+            key={el.lettre}
+            $selected={el.lettre === letter}
+            onClick={() => onClick(index)}
+          >
             <Bar
               $background={el.couleur}
               $index={index}
@@ -51,6 +56,7 @@ const Li = styled.li`
     width: ${size};
     height: ${size};
   }
+  cursor: pointer;
 `
 const Bar = styled.div`
   background: ${(p) => p.$background};

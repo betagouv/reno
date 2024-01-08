@@ -1,16 +1,9 @@
-import Test from '@/app/test/page'
-import { DPE } from './DPE'
+import DPE from './DPE2'
 import { encodeSituation } from './publicodes/situationUtils'
+import data from '@/components/DPE.yaml'
 
-export const correspondance = {
-  1: 'A',
-  2: 'B',
-  3: 'C',
-  4: 'D',
-  5: 'E',
-  6: 'F',
-  7: 'G',
-}
+console.log('DPE data', data)
+
 export default function DPESelector({
   setSearchParams,
   situation,
@@ -32,11 +25,12 @@ export default function DPESelector({
     )
     const url = setSearchParams(newSituation, false, false)
   }
+
   return (
     <DPE
-      value={correspondance[+numericalValue]}
+      letter={numericalValue && data[+numericalValue].lettre}
       onClick={(value) =>
-        console.log('setDPE', value + 1) || doSetSearchParams(+value + 1)
+        console.log('setDPE', value) || doSetSearchParams(value)
       }
     />
   )
