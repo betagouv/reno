@@ -3,6 +3,8 @@ import Form from './Form'
 import logo from '@/public/icon.svg'
 import Image from 'next/image'
 import rules from './rules'
+import Footer from '@/components/Footer'
+import { PageBlock, TopBanner } from '@/components/UI'
 
 const description = `Calculez les aides 2024 à la rénovation de votre logement, dont Ma Prime Rénov.`
 
@@ -13,22 +15,12 @@ export const metadata: Metadata = {
 
 export default function Page({ searchParams }) {
   return (
-    <main>
-      <p>
-        <strong
-          style={css`
-            position: fixed;
-            margin: 0 auto;
-            top: 0;
-            background: salmon;
-            padding: 0 0.2rem;
-            white-space: nowrap;
-            padding: 0 1rem;
-          `}
-        >
+    <PageBlock>
+      <TopBanner>
+        <strong>
           🚧 En cours de développement, peu fiable, métropole seulement
         </strong>
-      </p>
+      </TopBanner>
       <header
         style={css`
           margin-top: 1rem;
@@ -55,7 +47,10 @@ export default function Page({ searchParams }) {
         </div>
         <small>{description}</small>
       </header>
-      <Form searchParams={searchParams} rules={rules} />
-    </main>
+      <main>
+        <Form searchParams={searchParams} rules={rules} />
+      </main>
+      <Footer />
+    </PageBlock>
   )
 }

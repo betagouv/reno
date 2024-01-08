@@ -18,11 +18,15 @@ body {
 
 body {
   color: #111;
+  min-height: 100%;
 }
 main {
   width: 700px;
   max-width: 100vw;
   padding: 0 0.6rem;
+  margin: 0 auto;
+}
+header {
   margin: 0 auto;
 }
 
