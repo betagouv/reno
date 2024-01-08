@@ -21,6 +21,7 @@ export const QuestionHeader = styled.header`
       border: none;
       font-size: 110%;
       cursor: pointer;
+      margin-left: 0.4rem;
     }
   }
 `
