@@ -1,5 +1,6 @@
 'use client'
 import { styled } from 'styled-components'
+import css from './css/convertToJs'
 import data from './DPE.yaml'
 export default function DPE({ letter, newLetter }) {
   /*
@@ -15,7 +16,7 @@ export default function DPE({ letter, newLetter }) {
     <Bars>
       <ul>
         {data.map((el, index) => (
-          <li key={el.lettre}>
+          <Li key={el.lettre} $selected={el.lettre === letter}>
             <Bar
               $background={el.couleur}
               $index={index}
@@ -23,7 +24,8 @@ export default function DPE({ letter, newLetter }) {
             >
               {el.lettre}
             </Bar>
-          </li>
+            <Triangle background={el.couleur} selected={el.lettre === letter} />
+          </Li>
         ))}
       </ul>
     </Bars>
@@ -35,16 +37,53 @@ const Bars = styled.div`
     list-style-type: none;
   }
 `
+const size = '2.2rem'
+const Li = styled.li`
+  display: flex;
+  align-items: center;
+  svg {
+    width: ${size};
+    height: ${size};
+  }
+`
 const Bar = styled.div`
   background: ${(p) => p.$background};
-  width: ${(p) => 3 + p.$index * 1.5}rem;
-  margin: 0.4rem 0;
+  width: ${(p) => 2 + (p.$index + 1) * 1.5}rem;
+  margin: 0.2rem 0;
   padding-left: 0.6rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
   color: white;
   font-weight: bold;
-  height: 2.2rem;
+  height: ${size};
   font-size: 150%;
-  border: 3px solid ${(p) => (p.$selected ? 'black' : 'transparent')};
+  border: ${(p) => (p.$selected ? `2px solid black` : `none`)};
+  border-right: none;
+  z-index: 1;
 `
+
+const Triangle = ({ background, selected }) => (
+  <svg
+    viewBox="0 0 400 400"
+    style={css(`
+
+  margin-left: -1px
+		  `)}
+  >
+    <polygon
+      points="0,0 180,200 0,400"
+      style={css(`
+
+  fill: ${background};
+  ${
+    selected
+      ? `
+  stroke-width: 20px;
+  stroke: black;
+  `
+      : ``
+  }
+
+  
+		  `)}
+    />
+  </svg>
+)
