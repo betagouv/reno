@@ -72,21 +72,16 @@ const Bar = styled.div`
   margin: 0.2rem 0;
   padding-left: 0.6rem;
   color: white;
+  text-shadow: 1px 2px 4px black;
+  display: flex;
+  align-items: center;
   > span:first-child {
     font-weight: bold;
     font-size: 150%;
     margin-right: 0.6rem;
-    ${(p) =>
-      p.$selected
-        ? ` 
-	  font-size: 180%;
-  text-shadow: 1px 2px 4px black;
-  line-height: 1.85rem;
-  `
-        : `
-  line-height: ${size};
-  `}
+    line-height: ${size};
   }
+
   height: ${size};
   border: ${(p) =>
     p.$selected
