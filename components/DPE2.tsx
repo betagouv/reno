@@ -30,13 +30,13 @@ export default function DPE({ letter, newLetter, onClick }) {
             >
               {' '}
               <span>{el.lettre}</span>
-              <span>
+              <small>
                 {el.lettre === letter
-                  ? 'actuel'
+                  ? 'Votre DPE'
                   : el.lettre === newLetter
                     ? 'visé'
                     : ''}
-              </span>
+              </small>
             </Bar>
             <Triangle
               background={el.couleur}
@@ -68,7 +68,7 @@ const Li = styled.li`
 `
 const Bar = styled.div`
   background: ${(p) => p.$background};
-  width: ${(p) => 2 + (p.$index + 1) * 1.5}rem;
+  width: ${(p) => 3 + (p.$index + 1) * 1.5}rem;
   margin: 0.2rem 0;
   padding-left: 0.6rem;
   color: white;
@@ -80,6 +80,11 @@ const Bar = styled.div`
     font-size: 150%;
     margin-right: 0.6rem;
     line-height: ${size};
+  }
+  small {
+    font-size: 80%;
+    white-space: nowrap;
+    text-shadow: 1px 1px 2px black;
   }
 
   height: ${size};
