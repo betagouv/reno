@@ -35,6 +35,7 @@ export default function DPE({ letter, newLetter }) {
 const Bars = styled.div`
   ul {
     list-style-type: none;
+    padding-left: 0;
   }
 `
 const size = '2.2rem'
@@ -58,6 +59,14 @@ const Bar = styled.div`
   border: ${(p) => (p.$selected ? `2px solid black` : `none`)};
   border-right: none;
   z-index: 1;
+  line-height: ${size};
+  ${(p) =>
+    p.$selected &&
+    `
+	  font-size: 180%;
+  text-shadow: 1px 2px 4px black;
+
+  `}
 `
 
 const Triangle = ({ background, selected }) => (
