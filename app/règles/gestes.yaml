@@ -9,33 +9,204 @@ montant:
 chauffage:
   titre: Chauffage et eau chaude sanitaire
   somme:
-    - chaudière à granulés . montant
-    - chaudière à bûches . montant
+    - raccordement réseau . montant
+    - chauffe-eau thermodynamique . montant
+    - PAC . air-eau . montant
+    - PAC . géo ou solaire . montant
+    - chauffe-eau solaire . montant
+    - solaire combiné . montant
+    - partie thermique PVT eau . montant
+    - poêle . à bûches . montant
+    - poêle . à granulés . montant
+    - chaudière bois . manuelle . montant
+    - chaudière bois . automatique . montant
 
-chauffage . chaudière à granulés:
+chauffage . raccordement réseau:
   par défaut: oui
-
-chauffage . chaudière à granulés . montant:
+  titre: Raccordement à un réseau de chaleur et/ou de froid
+chauffage . raccordement réseau . plafond:
+  valeur: 1800 €
+chauffage . raccordement réseau . montant:
   variations:
     - si: revenu . classe = 'très modeste'
-      alors: 7000 €
+      alors: 1200 €
     - si: revenu . classe = 'modestes'
-      alors: 5500 €
+      alors: 800 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 400 €
+    - sinon: 0 €
+
+chauffage . chauffe-eau thermodynamique:
+  par défaut: oui
+  titre: Raccordement à un réseau de chaleur et/ou de froid
+chauffage . chauffe-eau thermodynamique . plafond:
+  valeur: 3500 €
+chauffage . chauffe-eau thermodynamique . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 1200 €
+    - si: revenu . classe = 'modestes'
+      alors: 800 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 400 €
+    - sinon: 0 €
+
+chauffage . PAC:
+  titre: Pompe à chaleur
+chauffage . PAC . air-eau:
+  par défaut: oui
+  titre: Pompe à chaleur air/eau (dont PAC hybrides)
+chauffage . PAC . air-eau . plafond: 12000 €
+chauffage . PAC . air-eau . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 5000 €
+    - si: revenu . classe = 'modestes'
+      alors: 4000 €
     - si: revenu . classe = 'intermédiaire'
       alors: 3000 €
     - sinon: 0 €
-
-chauffage . chaudière à bûches:
+chauffage . PAC . géo ou solaire:
   par défaut: oui
-chauffage . chaudière à bûches . montant:
+  titre: Pompe à chaleur air/eau (dont PAC hybrides)
+chauffage . PAC . géo ou solaire . plafond: 18000 €
+chauffage . PAC . géo ou solaire . montant:
   variations:
     - si: revenu . classe = 'très modeste'
-      alors: 5500 €
-    - si: revenu . classe = 'modeste'
-      alors: 4500 €
+      alors: 11000 €
+    - si: revenu . classe = 'modestes'
+      alors: 9000 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 6000 €
+    - sinon: 0 €
+
+chauffage . chauffe-eau solaire:
+  par défaut: oui
+  titre: Chauffe-eau solaire individuel en Métropole
+  desription: |
+    Et dispositifs solaires pour le chauffage de l’eau.
+
+chauffage . chauffe-eau solaire . plafond: 7000 €
+
+chauffage . chauffe-eau solaire . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 4000 €
+    - si: revenu . classe = 'modestes'
+      alors: 3000 €
     - si: revenu . classe = 'intermédiaire'
       alors: 2000 €
     - sinon: 0 €
+
+chauffage . solaire combiné:
+  par défaut: oui
+  titre: Système solaire combiné
+  desription: |
+    Et dispositifs solaires pour le chauffage des locaux.
+chauffage . solaire combiné . plafond: 16000 €
+chauffage . solaire combiné . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 10000 €
+    - si: revenu . classe = 'modestes'
+      alors: 8000 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 4000 €
+    - sinon: 0 €
+
+chauffage . partie thermique PVT eau:
+  titre: Partie thermique d’un équipement PVT eau
+  par défaut: oui
+  desription: |
+    Et dispositifs solaires pour le chauffage des locaux.
+chauffage . partie thermique PVT eau . plafond: 4000 €
+chauffage . partie thermique PVT eau . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 10000 €
+    - si: revenu . classe = 'modestes'
+      alors: 8000 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 4000 €
+    - sinon: 0 €
+
+chauffage . chaudière bois:
+  par défaut: oui
+
+chauffage . chaudière bois . manuelle:
+  titre: Chaudière bois à alimentation manuelle (bûches)
+  par défaut: oui
+chauffage . chaudière bois . manuelle . plafond: 16000 €
+chauffage . chaudière bois . manuelle . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 8000 €
+    - si: revenu . classe = 'modestes'
+      alors: 6500 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 3000 €
+    - sinon: 0 €
+chauffage . chaudière bois . automatique:
+  titre: Chaudière bois à alimentation automatique (granulés, plaquettes)
+  par défaut: oui
+chauffage . chaudière bois . automatique . plafond: 18000 €
+chauffage . chaudière bois . automatique . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 10000 €
+    - si: revenu . classe = 'modestes'
+      alors: 8000 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 4000 €
+    - sinon: 0 €
+
+chauffage . foyer et insert:
+  par défaut: non
+  titre: Foyer fermé et insert à buches ou à granulés
+chauffage . foyer et insert . plafond: 4000 €
+chauffage . foyer et insert . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 2500 €
+    - si: revenu . classe = 'modestes'
+      alors: 1500 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 800 €
+    - sinon: 0 €
+
+chauffage . poêle:
+  titre: Poêle et cuisinière
+chauffage . poêle . à bûches:
+  par défaut: non
+  titre: Poêle à bûches et cuisinière à bûches
+chauffage . poêle . à bûches . plafond: 4000 €
+chauffage . poêle . à bûches . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 2500 €
+    - si: revenu . classe = 'modestes'
+      alors: 2000 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 1000 €
+    - sinon: 0 €
+
+chauffage . poêle . à granulés:
+  par défaut: non
+  titre: Poêle à granulés et cuisinière à granulés
+chauffage . poêle . à granulés . plafond: 5000 €
+chauffage . poêle . à granulés . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 2500 €
+    - si: revenu . classe = 'modestes'
+      alors: 2000 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 1500 €
+    - sinon: 0 €
+
+#####################
+# ÀFAIRE Segmenter ce fichier en plusieurs pour clarifier
+#####################
 
 isolation:
   titre: Isolation thermique
