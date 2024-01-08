@@ -81,6 +81,7 @@ const Bar = styled.div`
     `
 	  font-size: 180%;
   text-shadow: 1px 2px 4px black;
+  line-height: 1.85rem
 
   `}
 `
