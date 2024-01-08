@@ -27,8 +27,8 @@ export default function DPESelector({
     const url = setSearchParams(newSituation, false, false)
   }
   const isNew = currentQuestion === 'DPE . visé' ? numericalValue : null,
-    newLetter = numericalValue && data[+numericalValue].lettre,
-    oldLetter = isNew && data[+situation['DPE . actuel']].lettre
+    newLetter = numericalValue && data[+numericalValue - 1].lettre,
+    oldLetter = isNew && data[+situation['DPE . actuel'] - 1].lettre
 
   return (
     <div
@@ -40,7 +40,7 @@ export default function DPESelector({
         newLetter={newLetter}
         letter={isNew ? oldLetter : newLetter}
         onClick={(value) =>
-          console.log('setDPE', value) || doSetSearchParams(value)
+          console.log('setDPE', value) || doSetSearchParams(value + 1)
         }
       />
     </div>

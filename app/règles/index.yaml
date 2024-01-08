@@ -135,6 +135,26 @@ région . IdF: région = 'Île-de-France'
 DPE:
   titre: Diagnostic de Performance Énergétique.
 
+DPE . actuel . passoire:
+  type: notification
+  sévérité: information
+  formule: actuel > 5
+  description: |
+    Votre logement est considéré comme une **passoire énergétique**. pour le chauffer, il faut dépenser beaucoup d'énergie, ou bien émettre beaucoup de gaz à effet de serre.
+
+    Vous n'êtes pas éligible à l'aide dite *par gestes*, qui ne suffira pas : il faut faire une rénovation globale. Elle est réservée aux logements plus énergivores ou qui émettent plus de gaz à effet de serre.
+
+    La bonne nouvelle, c'est que si vous décidez de le faire avec au moins 2 sauts de DPE, le *parcours accompagné* vous proposera une aide conséquente.
+
+DPE . actuel . efficace:
+  type: notification
+  sévérité: information
+  formule: actuel < 3
+  description: |
+    Votre logement est classé A ou B, il est donc relativement efficace.
+
+    Vous n'êtes donc pas éligible à l'aide à la rénovation globale, car elle nécessite 2 sauts de DPE.
+
 DPE . actuel:
   titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
