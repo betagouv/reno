@@ -82,6 +82,17 @@ export default function Form({ searchParams, rules }) {
   const ruleName = currentQuestion && getRuleName(currentQuestion)
   return (
     <div>
+      {answeredQuestions.length > 0 && (
+        <div
+          style={css`
+            text-align: right;
+            float: right;
+            margin-bottom: 0.6rem;
+          `}
+        >
+          <Link href={'/'}>Recommencer</Link>
+        </div>
+      )}
       <Personas setSearchParams={setSearchParams} />
       {rule && (
         <Card $background={`#f2f2f9`}>
@@ -145,15 +156,6 @@ export default function Form({ searchParams, rules }) {
       )}
       <Notifications {...{ currentQuestion, engine }} />
       <NextQuestions {...{ nextQuestions, rules }} />
-      {answeredQuestions.length > 0 && (
-        <div
-          style={css`
-            margin-top: 1vh;
-          `}
-        >
-          <Link href={'/'}>Recommencer</Link>
-        </div>
-      )}
       <div
         style={css`
           margin-top: 1vh;
