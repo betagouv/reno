@@ -37,11 +37,11 @@ export const TopBanner = styled.p`
     position: fixed;
     margin: 0 auto;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     background: salmon;
-    padding: 0 0.2rem;
     white-space: nowrap;
-    padding: 0 1rem;
+    padding: 0.1rem 1rem;
+    width: 100vw;
+    text-align: center;
   }
 `
