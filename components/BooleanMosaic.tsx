@@ -59,6 +59,7 @@ export default function BooleanMosaic({
                       <input
                         style={css`
                           margin-right: 1rem;
+                          cursor: pointer;
                         `}
                         type="checkbox"
                         checked={situation[dottedName] === 'oui'}
