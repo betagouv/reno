@@ -142,7 +142,7 @@ DPE . actuel . passoire:
   description: |
     Votre logement est considéré comme une **passoire énergétique**. pour le chauffer, il faut dépenser beaucoup d'énergie, ou bien émettre beaucoup de gaz à effet de serre.
 
-    Vous n'êtes pas éligible à l'aide dite *par gestes*, qui ne suffira pas : il faut faire une rénovation globale. Elle est réservée aux logements plus énergivores ou qui émettent plus de gaz à effet de serre.
+    À partir du 1er juillet 2024, vous ne serez pas éligible à l'aide dite *par gestes*, qui ne suffira pas : il faut faire une rénovation globale. Elle est réservée aux logements plus énergivores ou qui émettent plus de gaz à effet de serre.
 
     La bonne nouvelle, c'est que si vous décidez de le faire avec au moins 2 sauts de DPE, le *parcours accompagné* vous proposera une aide conséquente.
 
@@ -280,7 +280,7 @@ MPR . non accompagnée:
   non applicable si:
     une de ces conditions:
       - revenu . classe = "supérieure"
-      - DPE . actuel > 6
+      - DPE . actuel >= 6 # 1er juillet 2024
   valeur: gestes . montant
   titre: Parcours par geste
 
