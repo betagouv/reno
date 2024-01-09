@@ -34,6 +34,7 @@ export function getCurrentNotification(
   engine,
   currentQuestion: RuleNode['dottedName'],
 ) {
+  if (!currentQuestion) return
   const messages: Array<Notification> = getNotifications(
     engine,
   ) as Array<Notification>
