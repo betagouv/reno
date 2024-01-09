@@ -103,5 +103,8 @@ export const Results = styled.ul`
   align-items: center;
   @media (max-width: 800px) {
     flex-direction: column;
+    > span {
+      margin: 0.6rem;
+    }
   }
 `
