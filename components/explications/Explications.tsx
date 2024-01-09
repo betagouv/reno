@@ -66,8 +66,8 @@ export default function Explications(props) {
           <h3>L'amélioration de votre DPE</h3>
           <P>
             Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key>{' '}
-            sauts de classe DPE (de <DPELabel index={dpeFrom.nodeValue} /> à{' '}
-            <DPELabel index={dpeTo.nodeValue} />
+            sauts de classe DPE (de <DPELabel index={dpeFrom.nodeValue - 1} /> à{' '}
+            <DPELabel index={dpeTo.nodeValue - 1} />
             ).
           </P>
         </div>
