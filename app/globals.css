@@ -34,7 +34,7 @@ h1,
 h2,
 h3,
 h4 {
-  margin: 1rem 0 0.6rem 0;
+  margin: 1.4rem 0 0.6rem 0;
 }
 
 @media (max-width: 800px) {
