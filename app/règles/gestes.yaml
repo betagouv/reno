@@ -7,7 +7,8 @@ montant:
     - autres
 
 chauffage:
-  titre: Chauffage et eau chaude sanitaire
+  titre: Chauffage et eau chaude
+  description: Chauffage et eau chaude sanitaire
   somme:
     - raccordement réseau . montant
     - chauffe-eau thermodynamique . montant
@@ -55,7 +56,8 @@ chauffage . PAC:
   titre: Pompe à chaleur
 chauffage . PAC . air-eau:
   par défaut: oui
-  titre: Pompe à chaleur air/eau (dont PAC hybrides)
+  titre: Pompe à chaleur air/eau
+  description: Pompe à chaleur air/eau (dont PAC hybrides)
 chauffage . PAC . air-eau . plafond: 12000 €
 chauffage . PAC . air-eau . montant:
   variations:
@@ -68,7 +70,8 @@ chauffage . PAC . air-eau . montant:
     - sinon: 0 €
 chauffage . PAC . géo ou solaire:
   par défaut: oui
-  titre: Pompe à chaleur air/eau (dont PAC hybrides)
+  titre: Pompe à chaleur géo/solarothermique
+  description: Pompe à chaleur géothermique ou solarothermique (dont PAC hybrides)
 chauffage . PAC . géo ou solaire . plafond: 18000 €
 chauffage . PAC . géo ou solaire . montant:
   variations:
@@ -134,7 +137,8 @@ chauffage . chaudière bois:
   titre: Chaudière bois
 
 chauffage . chaudière bois . manuelle:
-  titre: Chaudière bois à alimentation manuelle (bûches)
+  titre: Chaudière bois manuelle (bûches)
+  description: Chaudière bois à alimentation manuelle (bûches)
   par défaut: oui
 chauffage . chaudière bois . manuelle . plafond: 16000 €
 chauffage . chaudière bois . manuelle . montant:
@@ -147,7 +151,8 @@ chauffage . chaudière bois . manuelle . montant:
       alors: 3000 €
     - sinon: 0 €
 chauffage . chaudière bois . automatique:
-  titre: Chaudière bois à alimentation automatique (granulés, plaquettes)
+  titre: Chaudière bois auto (granulés, plaquettes)
+  description: Chaudière bois à alimentation automatique (granulés, plaquettes)
   par défaut: oui
 chauffage . chaudière bois . automatique . plafond: 18000 €
 chauffage . chaudière bois . automatique . montant:
@@ -178,7 +183,7 @@ chauffage . poêle:
   titre: Poêle et cuisinière
 chauffage . poêle . à bûches:
   par défaut: non
-  titre: Poêle à bûches et cuisinière à bûches
+  titre: Poêle et cuisinière à bûches
 chauffage . poêle . à bûches . plafond: 4000 €
 chauffage . poêle . à bûches . montant:
   variations:
@@ -192,7 +197,7 @@ chauffage . poêle . à bûches . montant:
 
 chauffage . poêle . à granulés:
   par défaut: non
-  titre: Poêle à granulés et cuisinière à granulés
+  titre: Poêle et cuisinière à granulés
 chauffage . poêle . à granulés . plafond: 5000 €
 chauffage . poêle . à granulés . montant:
   variations:
