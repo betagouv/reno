@@ -42,7 +42,7 @@ export default function BooleanMosaic({
     {},
   )
 
-  console.log('grouped', grouped)
+  console.log('grouped', questions, grouped)
   return (
     <div>
       <Fieldset>

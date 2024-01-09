@@ -8,7 +8,13 @@ const colors = {
   fail: { background: 'salmon', color: 'white' },
 }
 
-export default function Result({ engine, isFinal, rules, dottedName }) {
+export default function Result({
+  engine,
+  isFinal,
+  rules,
+  dottedName,
+  hideNumeric,
+}) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
 
@@ -57,7 +63,10 @@ export default function Result({ engine, isFinal, rules, dottedName }) {
       </h3>
       <div
         style={css(`
-          visibility: ${isNotApplicable ? 'hidden' : ''};
+          visibility: ${
+            // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
+            hideNumeric ? 'hidden' : isNotApplicable ? 'hidden' : ''
+          };
           margin: 0.3rem 0;
         `)}
       >

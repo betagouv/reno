@@ -179,6 +179,7 @@ export default function Form({ searchParams, rules }) {
               engine: engine.setSituation(situation),
               isFinal: !currentQuestion,
               dottedName: 'MPR . non accompagnée',
+              hideNumeric: !currentQuestion.startsWith('gestes . '),
               rules,
             }}
           />
