@@ -31,10 +31,6 @@ export default function Result({
         padding: 1.2vh;
         margin: 0 auto;
         width: 14rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
 		border: ${
       isFinal || isNotApplicable ? '2px solid' : '2px dashed'
     } ${background};
@@ -52,41 +48,55 @@ export default function Result({
     } 
       `)}
     >
-      <h3
-        style={css`
-          font-size: 100%;
-          margin: 0;
-          font-weight: 500;
-        `}
-      >
-        {rule.titre}
-      </h3>
-      <div
-        style={css(`
+      <InvisibleDetails open={false}>
+        <summary>
+          <h3
+            style={css`
+              font-size: 100%;
+              margin: 0;
+              font-weight: 500;
+            `}
+          >
+            {rule.titre}
+          </h3>
+          <div
+            style={css(`
           visibility: ${
             // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
             hideNumeric ? 'hidden' : isNotApplicable ? 'hidden' : ''
           };
           margin: 0.3rem 0;
         `)}
-      >
-        {isFinal ? `` : `Jusqu'à `} {value}
-      </div>
-      {isNotApplicable ? (
-        <Badge $background={colors.fail.background}>Non éligible</Badge>
-      ) : isFinal ? (
-        <Badge
-          $color={colors.success.color}
-          $background={colors.success.background}
-        >
-          Estimation finale
-        </Badge>
-      ) : (
-        <Badge $background={colors.running.background}>Sous conditions</Badge>
-      )}
+          >
+            {isFinal ? `` : `Jusqu'à `} {value}
+          </div>
+          {isNotApplicable ? (
+            <Badge $background={colors.fail.background}>Non éligible</Badge>
+          ) : isFinal ? (
+            <Badge
+              $color={colors.success.color}
+              $background={colors.success.background}
+            >
+              Estimation finale
+            </Badge>
+          ) : (
+            <Badge $background={colors.running.background}>
+              Sous conditions
+            </Badge>
+          )}
+        </summary>
+        <Explanation
+          dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+        />
+      </InvisibleDetails>
     </li>
   )
 }
+
+const Explanation = styled.div`
+  margin: 0.8rem 0;
+  font-size: 90%;
+`
 
 export const Badge = styled.strong`
   padding: 0 0.2rem;
@@ -106,5 +116,16 @@ export const Results = styled.ul`
     > span {
       margin: 0.6rem;
     }
+  }
+`
+
+const InvisibleDetails = styled.details`
+  summary {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
   }
 `

@@ -276,6 +276,11 @@ MPR:
   titre: Ma prime rénov'
 
 MPR . non accompagnée:
+  description: |
+    En alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez choisir de faire une rénovation plus progressive de votre logement. 
+
+    Soit avec un seul geste de décarbonation de votre chauffage, soit avec un bouquet de gestes d'isolation et d'efficacité énergétique.
+
   applicable si: conditions communes
   non applicable si:
     une de ces conditions:
@@ -288,6 +293,11 @@ gestes:
 
 MPR . accompagnée:
   titre: Parcours accompagné
+  description: |
+    C'est l'aide principale en 2024 pour rénover son logement. 
+
+    Vous serez accompagné par un conseiller France Rénov', pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
+
   valeur: montant
   applicable si: conditions communes
 
