@@ -1,5 +1,6 @@
 import css from './css/convertToJs'
 import { getRuleName } from './publicodes/utils'
+import { Card } from './UI'
 
 export default function NextQuestions({ nextQuestions, rules }) {
   return nextQuestions.length ? (
@@ -47,12 +48,13 @@ export default function NextQuestions({ nextQuestions, rules }) {
       </div>
     </div>
   ) : (
-    <p
+    <Card
       style={css`
         margin: 1rem 0;
+        text-align: center;
       `}
     >
       ⭐️ Vous avez terminé.
-    </p>
+    </Card>
   )
 }
