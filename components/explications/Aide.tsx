@@ -80,7 +80,10 @@ export default function Travaux({ engine, rules, situation }) {
           {bonus.source.valeur}
         </Key>{' '}
         applicables à partir de {sautsMinBonus.source} sauts de DPE, qui
-        s'ajoute au taux brut de <Key>{brut.value}</Key>
+        s'ajoute au taux brut de{' '}
+        <Key $state={brut.hasMissing ? 'inProgress' : 'final'}>
+          {brut.value}
+        </Key>
         {isÉcrêté.value === 'oui' ? (
           <span>
             {' '}
