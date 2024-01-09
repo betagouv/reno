@@ -19,6 +19,7 @@ export const isMosaicQuestion = (currentQuestion, rule, rules) => {
 export const mosaicQuestionText = (rules, currentQuestion) => {
   return rules['gestes . montant'].question.mosaïque
 }
+
 export default function BooleanMosaic({
   rules,
   setSearchParams,
