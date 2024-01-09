@@ -50,7 +50,15 @@ export default function Explications(props) {
           </span>
         ) : (
           ''
-        )}
+        )}{' '}
+        <a
+          href={`https://france-renov.gouv.fr/bareme${
+            idf ? '#fr_idf-threshold' : ''
+          }`}
+          target="_blank"
+        >
+          (voir le tableau)
+        </a>
         .
       </P>
       {!hasSautsMissing && (
