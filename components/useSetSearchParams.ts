@@ -28,7 +28,7 @@ export default function useSetSeachParams() {
     const newUrl =
       pathname + '?' + createQueryString(newSearchParams, clear) + hash
     if (!noPush) {
-      router.push(newUrl)
+      router.push(newUrl, { scroll: false })
     }
     return newUrl
   }
