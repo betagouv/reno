@@ -1,4 +1,3 @@
-import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { compute } from './Aide'
 import { Key, P } from './ExplicationUI'
 

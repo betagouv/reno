@@ -1,8 +1,8 @@
-import Travaux from './Travaux'
-import { Key, P } from './ExplicationUI'
 import css from '../css/convertToJs'
-import dpeData from '@/components/DPE.yaml'
+import DPELabel from '../DPELabel'
 import Aide from './Aide'
+import { Key, P } from './ExplicationUI'
+import Travaux from './Travaux'
 
 export default function Explications(props) {
   const { engine, rules, situation } = props
@@ -57,8 +57,8 @@ export default function Explications(props) {
           <h3>L'amélioration de votre DPE</h3>
           <P>
             Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key>{' '}
-            sauts de classe DPE (de {dpeData[+dpeFrom.nodeValue].lettre} à{' '}
-            {dpeData[+dpeTo.nodeValue].lettre}
+            sauts de classe DPE (de <DPELabel index={dpeFrom.nodeValue} /> à{' '}
+            <DPELabel index={dpeTo.nodeValue} />
             ).
           </P>
         </div>
