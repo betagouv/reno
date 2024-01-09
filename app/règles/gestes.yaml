@@ -20,6 +20,7 @@ chauffage:
     - poêle . à granulés . montant
     - chaudière bois . manuelle . montant
     - chaudière bois . automatique . montant
+    - foyer et insert . montant
 
 chauffage . raccordement réseau:
   par défaut: oui
@@ -38,7 +39,6 @@ chauffage . raccordement réseau . montant:
 
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
-  titre: Raccordement à un réseau de chaleur et/ou de froid
 chauffage . chauffe-eau thermodynamique . plafond:
   valeur: 3500 €
 chauffage . chauffe-eau thermodynamique . montant:
@@ -131,7 +131,6 @@ chauffage . partie thermique PVT eau . montant:
     - sinon: 0 €
 
 chauffage . chaudière bois:
-  par défaut: oui
   titre: Chaudière bois
 
 chauffage . chaudière bois . manuelle:

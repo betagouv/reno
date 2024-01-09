@@ -4,3 +4,5 @@ export const sortBy = (f) => (list) =>
       fb = f(b)
     return fa < fb ? -1 : fa > fb ? 1 : 0
   })
+
+export const capitalise0 = (s) => s[0].toUpperCase() + s.slice(1)
