@@ -25,6 +25,7 @@ export default function Explications(props) {
   return (
     <section
       style={css`
+        margin-top: 3rem;
         margin-bottom: 2rem;
       `}
     >
