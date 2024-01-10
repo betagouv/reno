@@ -98,7 +98,7 @@ export default function Form({ searchParams, rules }) {
         {rule && (
           <Card $background={`#f2f2f9`}>
             <div>
-              {!rule.type === 'question rhétorique' && (
+              {(!rule.type || !rule.type === 'question rhétorique') && (
                 <QuestionHeader>
                   <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
                   {rule.descriptionHtml && (
