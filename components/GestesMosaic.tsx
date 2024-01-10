@@ -144,25 +144,24 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
             value={Math.random() > 0.5 ? true : false}
             onChange={() => onChange(dottedName)}
           />
-          {questionRule.titre || getRuleName(dottedName)}
+          <div>
+            <div>{questionRule.titre || getRuleName(dottedName)}</div>
+
+            <small style={css``}>
+              <span
+                style={css`
+                  color: rgb(11, 73, 48);
+                  background: #c4fad5;
+                  padding: 0 0.3rem;
+                  border-radius: 0.2rem;
+                `}
+              >
+                - {montantValue}
+              </span>{' '}
+              sur max. {plafondValue}
+            </small>
+          </div>
         </label>
-        <small
-          style={css`
-            margin-left: 2.4rem;
-          `}
-        >
-          <span
-            style={css`
-              color: rgb(11, 73, 48);
-              background: #c4fad5;
-              padding: 0 0.3rem;
-              border-radius: 0.2rem;
-            `}
-          >
-            - {montantValue}
-          </span>{' '}
-          sur max. {plafondValue}
-        </small>
       </li>
     )
   })

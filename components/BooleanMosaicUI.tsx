@@ -11,6 +11,9 @@ export const Fieldset = styled.fieldset`
   label {
     margin: 0 0.4rem;
     whitespace: nowrap;
+    display: flex;
+    justify-content: start;
+    align-items: center;
   }
   > ul > li {
     margin-top: 0.6rem;
