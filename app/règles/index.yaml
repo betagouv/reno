@@ -297,7 +297,7 @@ explication des 2 aides:
   description: |
     Nous avons estimé votre éligibilité générale aux 2 aides Ma Prime Rénov'. 
 
-    La suite du test vous permettra de répondre aux contitions plus fines d'éligibilité, et les travaux de rénovation envisagés.
+    La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
   type: question rhétorique
   par défaut: non # Peut-être à mettre à oui par défaut pour l'API ?
 
