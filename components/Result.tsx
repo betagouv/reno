@@ -6,6 +6,7 @@ const colors = {
   success: { color: '#297254', background: '#c4fad5' },
   running: { background: '#2a82dd', color: 'white' },
   fail: { background: 'salmon', color: 'white' },
+  waiting: { background: '#9f9f9f', color: 'white' },
 }
 
 export default function Result({
@@ -24,7 +25,15 @@ export default function Result({
     value === 'Non applicable' || evaluation.nodeValue === 0
 
   const { color, background } =
-    colors[isNotApplicable ? 'fail' : isFinal ? 'success' : 'running']
+    colors[
+      hideNumeric
+        ? 'waiting'
+        : isNotApplicable
+          ? 'fail'
+          : isFinal
+            ? 'success'
+            : 'running'
+    ]
 
   return (
     <li
@@ -47,24 +56,26 @@ export default function Result({
 		  `
         : ''
     } 
-	position: relative
+	position: relative;
+	${hideNumeric ? `width: 12rem;` : ``}
 
       `)}
     >
       <span
-        style={css`
+        style={css(`
           line-height: 1.5rem;
           left: -2px;
           position: absolute;
           top: 50%;
           transform: translateY(-50%) translateX(-50%);
           background: #2a82dd;
+          ${hideNumeric ? `background: ${colors.waiting.background};` : ``}
           border-radius: 1rem;
           width: 1.6rem;
           height: 1.6rem;
           color: white;
           text-align: center;
-        `}
+        `)}
       >
         {index}
       </span>
@@ -73,24 +84,27 @@ export default function Result({
           <h3
             style={css`
               font-size: 100%;
-              margin: 0;
               font-weight: 500;
+              margin: 0.15rem 0;
             `}
           >
             {rule.titre}
           </h3>
           <div
             style={css(`
+			${hideNumeric ? 'display: none;' : ''}
           visibility: ${
             // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
-            hideNumeric ? 'hidden' : isNotApplicable ? 'hidden' : ''
+            isNotApplicable ? 'hidden' : ''
           };
-          margin: 0.3rem 0;
+          margin: 0.15rem 0;
         `)}
           >
             {isFinal ? `` : `Jusqu'à `} {value}
           </div>
-          {isNotApplicable ? (
+          {hideNumeric ? (
+            <Badge $background={colors.waiting.background}>À suivre</Badge>
+          ) : isNotApplicable ? (
             <Badge $background={colors.fail.background}>Non éligible</Badge>
           ) : isFinal ? (
             <Badge
