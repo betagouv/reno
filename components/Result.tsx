@@ -4,8 +4,8 @@ import { styled } from 'styled-components'
 
 const colors = {
   success: {
-    color: '#297254',
-    background: '#c4fad5',
+    background: '#297254',
+    //background: '#c4fad5', //TODO use this for the contour, more beautiful
     label: 'Estimation finale',
   },
   running: { background: '#2a82dd', color: 'white', label: 'Sous conditions' },
