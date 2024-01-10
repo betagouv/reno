@@ -164,6 +164,7 @@ export default function Form({ searchParams, rules }) {
         <h2>Votre Prime Rénov'</h2>
         <Results>
           <Result
+            index={1}
             key={'acc'}
             {...{
               engine: engine.setSituation(situation),
@@ -174,6 +175,7 @@ export default function Form({ searchParams, rules }) {
           />
           <span>OU</span>
           <Result
+            index={2}
             key={'non acc'}
             {...{
               engine: engine.setSituation(situation),

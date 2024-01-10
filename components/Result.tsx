@@ -14,6 +14,7 @@ export default function Result({
   rules,
   dottedName,
   hideNumeric,
+  index,
 }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
@@ -46,8 +47,27 @@ export default function Result({
 		  `
         : ''
     } 
+	position: relative
+
       `)}
     >
+      <span
+        style={css`
+          line-height: 1.5rem;
+          left: -2px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%) translateX(-50%);
+          background: #2a82dd;
+          border-radius: 1rem;
+          width: 1.6rem;
+          height: 1.6rem;
+          color: white;
+          text-align: center;
+        `}
+      >
+        {index}
+      </span>
       <InvisibleDetails open={false}>
         <summary>
           <h3
