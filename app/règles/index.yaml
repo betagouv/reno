@@ -299,7 +299,7 @@ explication des 2 aides:
 
     La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
   type: question rhétorique
-  par défaut: non # Peut-être à mettre à oui par défaut pour l'API ?
+  par défaut: oui # Peut-être à mettre à oui par défaut pour l'API ?
 
 gestes: # gestes.yaml
 
