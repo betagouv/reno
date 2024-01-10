@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+import informationIcon from '@/public/information.svg'
 import css from '@/components/css/convertToJs'
 import Explications from '@/components/explications/Explications'
 import InputSwitch, { getQuestionText } from '@/components/InputSwitch'
@@ -104,7 +106,15 @@ export default function Form({ searchParams, rules }) {
                   <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
                   {rule.descriptionHtml && (
                     <details>
-                      <summary>ℹ️</summary>
+                      <summary>
+                        <Image
+                          src={informationIcon}
+                          width="25"
+                          style={css`
+                            vertical-align: bottom;
+                          `}
+                        />
+                      </summary>
                       <div
                         dangerouslySetInnerHTML={{
                           __html: rule.descriptionHtml,
