@@ -47,6 +47,12 @@ export const TopBanner = styled.p`
     top: 0;
     left: 0;
     background: salmon;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(250, 128, 114, 1) 48%,
+      rgba(255, 255, 255, 1) 100%
+    );
     white-space: nowrap;
     padding: 0.1rem 1rem;
     width: 100vw;
