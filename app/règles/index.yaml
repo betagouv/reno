@@ -197,7 +197,10 @@ DPE . visé:
 DPE . visé . insuffisant:
   type: notification
   sévérité: information
-  formule: sauts < 2
+  formule:
+    toutes ces conditions:
+      - sauts < 2
+      - sauts >= 0
   description: |
     Pour être éligible à l'aide à la rénovation globale dite *parcours accompagné*, votre projet doit viser un minimum de 2 sauts de DPE.
 
