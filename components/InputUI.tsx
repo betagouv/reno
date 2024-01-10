@@ -10,6 +10,7 @@ export const AnswerWrapper = styled.div`
   display: flex;
   align-items: end;
   flex-direction: column;
+  margin-top: 3vh;
 `
 export const Input = styled.input`
   box-shadow:
@@ -33,8 +34,8 @@ export const FormLinkButton = styled(Link)`
   margin: 0.4rem 0;
 `
 export const FormButtonsWrapper = styled.div`
-  margin: 0.6rem 0;
-  height: 1.2rem;
+  margin: 1.4rem 0 0.6rem 0;
+  height: calc(1.2rem + 1vw);
 `
 
 export const SuggestionsList = styled.div`
