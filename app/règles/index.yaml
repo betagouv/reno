@@ -296,7 +296,9 @@ MPR . accompagnée:
   description: |
     C'est l'aide principale en 2024 pour rénover son logement. 
 
-    Vous serez accompagné par un conseiller France Rénov', pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
+    Vous serez accompagné par un [accompagnateur](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov), pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
+
+    [En savoir plus](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
 
   valeur: montant
   applicable si: conditions communes
