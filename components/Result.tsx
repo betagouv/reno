@@ -3,10 +3,14 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { styled } from 'styled-components'
 
 const colors = {
-  success: { color: '#297254', background: '#c4fad5' },
-  running: { background: '#2a82dd', color: 'white' },
-  fail: { background: 'salmon', color: 'white' },
-  waiting: { background: '#9f9f9f', color: 'white' },
+  success: {
+    color: '#297254',
+    background: '#c4fad5',
+    label: 'Estimation finale',
+  },
+  running: { background: '#2a82dd', color: 'white', label: 'Sous conditions' },
+  fail: { background: 'salmon', color: 'white', label: 'Non éligible' },
+  waiting: { background: '#9f9f9f', color: 'white', label: 'À suivre' },
 }
 
 export default function Result({
@@ -24,14 +28,14 @@ export default function Result({
   const isNotApplicable =
     value === 'Non applicable' || evaluation.nodeValue === 0
 
-  const { color, background } =
+  const { color, background, label } =
     colors[
-      hideNumeric
-        ? 'waiting'
-        : isNotApplicable
-          ? 'fail'
-          : isFinal
-            ? 'success'
+      isNotApplicable
+        ? 'fail'
+        : isFinal
+          ? 'success'
+          : hideNumeric
+            ? 'waiting'
             : 'running'
     ]
 
@@ -68,8 +72,7 @@ export default function Result({
           position: absolute;
           top: 50%;
           transform: translateY(-50%) translateX(-50%);
-          background: #2a82dd;
-          ${hideNumeric ? `background: ${colors.waiting.background};` : ``}
+          background: ${background};
           border-radius: 1rem;
           width: 1.6rem;
           height: 1.6rem;
@@ -102,22 +105,7 @@ export default function Result({
           >
             {isFinal ? `` : `Jusqu'à `} {value}
           </div>
-          {hideNumeric ? (
-            <Badge $background={colors.waiting.background}>À suivre</Badge>
-          ) : isNotApplicable ? (
-            <Badge $background={colors.fail.background}>Non éligible</Badge>
-          ) : isFinal ? (
-            <Badge
-              $color={colors.success.color}
-              $background={colors.success.background}
-            >
-              Estimation finale
-            </Badge>
-          ) : (
-            <Badge $background={colors.running.background}>
-              Sous conditions
-            </Badge>
-          )}
+          <Badge $background={background}>{label}</Badge>
         </summary>
         <Explanation
           dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
