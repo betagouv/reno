@@ -43,7 +43,7 @@ export default function Result({
       style={css(`
         padding: 1.2vh;
         margin: 0 auto;
-        width: 14rem;
+        max-width: min(18rem, 90%);
 		border: ${
       isFinal || isNotApplicable ? '2px solid' : '2px dashed'
     } ${background};
