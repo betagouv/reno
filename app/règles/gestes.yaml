@@ -266,7 +266,7 @@ isolation . murs intérieurs . surface:
 
 isolation . murs intérieurs . montant: surface * barème
 isolation . murs intérieurs . plafond: 70 €/m2
-isolation . murs extérieurs . barème:
+isolation . murs intérieurs . barème:
   variations:
     - si: revenu . classe = 'très modeste'
       alors: 25 €/m2
@@ -275,6 +275,26 @@ isolation . murs extérieurs . barème:
     - si: revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
+
+isolation . rampants:
+  titre: Isolation des rampants de toiture ou plafonds de combles
+  par défaut: oui
+isolation . rampants . surface:
+  question: Quelle surface de rampants voulez-vous isoler ?
+  par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+
+isolation . rampants . montant: surface * barème
+isolation . rampants . plafond: 75 €/m2
+isolation . rampants . barème:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 25 €/m2
+    - si: revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 0 €
+
 autres:
   titre: Autres travaux
   valeur: 0
