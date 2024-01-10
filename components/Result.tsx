@@ -57,7 +57,7 @@ export default function Result({
         : ''
     } 
 	position: relative;
-	${hideNumeric ? `width: 12rem;` : ``}
+	${started && hideNumeric ? `width: 12rem;` : ``}
 
       `)}
     >
