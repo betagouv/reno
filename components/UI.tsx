@@ -1,6 +1,11 @@
 'use client'
 import styled from 'styled-components'
 
+export const Section = styled.section`
+  margin: 0 auto;
+  width: 700px;
+  max-width: 100%;
+`
 export const Card = styled.div`
   margin: 0.6rem 0;
   padding: 0.2rem 1vw;

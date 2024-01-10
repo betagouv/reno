@@ -25,3 +25,15 @@ export const Key = styled.em`
   `
         : ''}
 `
+
+export const Wrapper = styled.section`
+  background: #f6f6f6;
+  width: 100%;
+  padding: 1rem 0;
+  margin-top: 3rem;
+`
+export const Content = styled.div`
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+`

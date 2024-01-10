@@ -1,8 +1,9 @@
+import { Section } from '@/components/UI'
 import Link from '@/node_modules/next/link'
 
 export default function LinkAPI({ searchParams }) {
   return (
-    <section>
+    <Section>
       <h2>Partage</h2>
 
       <p>
@@ -12,6 +13,6 @@ export default function LinkAPI({ searchParams }) {
         </Link>{' '}
         actuelle.
       </p>
-    </section>
+    </Section>
   )
 }

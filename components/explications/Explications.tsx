@@ -1,7 +1,7 @@
 import css from '../css/convertToJs'
 import DPELabel from '../DPELabel'
 import Aide from './Aide'
-import { Key, P } from './ExplicationUI'
+import { Key, Content, Wrapper, P } from './ExplicationUI'
 import Travaux from './Travaux'
 
 export default function Explications(props) {
@@ -23,57 +23,54 @@ export default function Explications(props) {
     dpeTo = upEngine.evaluate('DPE . visé')
 
   return (
-    <section
-      style={css`
-        margin-top: 3rem;
-        margin-bottom: 2rem;
-      `}
-    >
-      <h2>Explications</h2>
-      <h3>Votre classe de revenu</h3>
-      <P>
-        Votre revenu est {hasRevenuMissing ? <em>temporairement</em> : ''} dans
-        la classe dite{' '}
-        <Key $state={hasRevenuMissing ? 'inProgress' : 'final'}>
-          {revenuClasse.nodeValue}
-        </Key>
-        {idf ? <span>(barème Île-de-France)</span> : ''}
-        {revenuMissing.length ? (
-          <span>
-            , en attendant les informations suivantes :{' '}
-            {revenuMissing.map((el) => (
-              <span key={el.titre}>
-                <Key $state={'null'}>{el.titre.toLowerCase()}</Key>
-                <span> </span>
-              </span>
-            ))}
-          </span>
-        ) : (
-          ''
-        )}{' '}
-        <a
-          href={`https://france-renov.gouv.fr/bareme${
-            idf ? '#fr_idf-threshold' : ''
-          }`}
-          target="_blank"
-        >
-          (voir le tableau)
-        </a>
-        .
-      </P>
-      {!hasSautsMissing && (
-        <div>
-          <h3>L'amélioration de votre DPE</h3>
-          <P>
-            Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key>{' '}
-            sauts de classe DPE (de <DPELabel index={dpeFrom.nodeValue - 1} /> à{' '}
-            <DPELabel index={dpeTo.nodeValue - 1} />
-            ).
-          </P>
-        </div>
-      )}
-      <Travaux {...props} />
-      <Aide {...props} />
-    </section>
+    <Wrapper>
+      <Content>
+        <h2>Explications</h2>
+        <h3>Votre classe de revenu</h3>
+        <P>
+          Votre revenu est {hasRevenuMissing ? <em>temporairement</em> : ''}{' '}
+          dans la classe dite{' '}
+          <Key $state={hasRevenuMissing ? 'inProgress' : 'final'}>
+            {revenuClasse.nodeValue}
+          </Key>
+          {idf ? <span>(barème Île-de-France)</span> : ''}
+          {revenuMissing.length ? (
+            <span>
+              , en attendant les informations suivantes :{' '}
+              {revenuMissing.map((el) => (
+                <span key={el.titre}>
+                  <Key $state={'null'}>{el.titre.toLowerCase()}</Key>
+                  <span> </span>
+                </span>
+              ))}
+            </span>
+          ) : (
+            ''
+          )}{' '}
+          <a
+            href={`https://france-renov.gouv.fr/bareme${
+              idf ? '#fr_idf-threshold' : ''
+            }`}
+            target="_blank"
+          >
+            (voir le tableau)
+          </a>
+          .
+        </P>
+        {!hasSautsMissing && (
+          <div>
+            <h3>L'amélioration de votre DPE</h3>
+            <P>
+              Votre projet prévoit <Key $state="final">{sauts.nodeValue}</Key>{' '}
+              sauts de classe DPE (de <DPELabel index={dpeFrom.nodeValue - 1} />{' '}
+              à <DPELabel index={dpeTo.nodeValue - 1} />
+              ).
+            </P>
+          </div>
+        )}
+        <Travaux {...props} />
+        <Aide {...props} />
+      </Content>
+    </Wrapper>
   )
 }
