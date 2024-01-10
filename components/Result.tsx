@@ -90,7 +90,7 @@ export default function Result({
           </h3>
           <div
             style={css(`
-			${hideNumeric ? 'display: none;' : ''}
+			${hideNumeric && !isFinal ? 'display: none;' : ''}
           visibility: ${
             // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
             isNotApplicable ? 'hidden' : ''
