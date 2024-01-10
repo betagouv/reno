@@ -293,7 +293,17 @@ MPR . non accompagnée:
   valeur: gestes . montant
   titre: Parcours par geste
 
-gestes:
+explication des 2 aides:
+  description: |
+    Nous avons estimé votre éligibilité générale aux 2 aides Ma Prime Rénov'. 
+
+    La suite du test vous permettra de préciser les travaux de rénovation envisagés. 
+
+    Vous découvrirez les conditions plus fines d'éligibilité au parcours accompagné, et découvrir les aides par geste.
+  type: question rhétorique
+  par défaut: non
+
+gestes: # gestes.yaml
 
 MPR . accompagnée:
   titre: Parcours accompagné

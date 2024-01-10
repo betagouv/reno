@@ -9,6 +9,7 @@ import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
+import RhetoricalQuestion from './RhetoricalQuestion'
 
 export const getQuestionText = (rule, dottedName, rules) => {
   if (isMosaicQuestion(dottedName, rule, rules))
@@ -32,6 +33,17 @@ export default function InputSwitch({
   console.log('question type', ruleQuestionType)
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
 
+  if (rule.type === 'question rhétorique')
+    return (
+      <RhetoricalQuestion
+        {...{
+          effect: () => setSearchParams({ [currentQuestion]: 'oui' }),
+          situation,
+          answeredQuestions,
+          html: rule.descriptionHtml,
+        }}
+      />
+    )
   if (currentQuestion === 'région')
     return (
       <AddressSearch

@@ -97,17 +97,19 @@ export default function Form({ searchParams, rules }) {
       {rule && (
         <Card $background={`#f2f2f9`}>
           <div>
-            <QuestionHeader>
-              <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
-              {rule.descriptionHtml && (
-                <details>
-                  <summary>ℹ️</summary>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
-                  />
-                </details>
-              )}
-            </QuestionHeader>
+            {!rule.type === 'question rhétorique' && (
+              <QuestionHeader>
+                <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
+                {rule.descriptionHtml && (
+                  <details>
+                    <summary>ℹ️</summary>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+                    />
+                  </details>
+                )}
+              </QuestionHeader>
+            )}
             <AnswerWrapper>
               <Suggestions
                 rule={rule}

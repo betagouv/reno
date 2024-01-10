@@ -1,4 +1,5 @@
 montant:
+  applicable si: explication des 2 aides
   question:
     mosaïque: Quels gestes envisagez-vous ?
   somme:

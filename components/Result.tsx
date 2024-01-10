@@ -119,6 +119,7 @@ export const Badge = styled.strong`
   padding: 0 0.2rem;
   background: ${(p) => p.$background};
   color: ${(p) => p.$color || 'white'};
+  margin-top: 0.1rem;
 `
 
 export const Results = styled.ul`
