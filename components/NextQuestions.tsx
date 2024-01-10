@@ -52,6 +52,7 @@ export default function NextQuestions({ nextQuestions, rules }) {
       style={css`
         margin: 1rem 0;
         text-align: center;
+        padding: 1.6rem 0;
       `}
     >
       ⭐️ Vous avez terminé.
