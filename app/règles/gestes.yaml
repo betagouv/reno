@@ -219,6 +219,9 @@ isolation:
   somme:
     - vitres . montant
     - murs extérieurs . montant
+    - murs intérieurs . montant
+    - rampants . montant
+
 isolation . vitres:
   titre: Isolation thermique des fenêtres et porte-fenêtres
   description: Isolation thermique des parois vitrées (fenêtres et portes-fenêtres) en remplacement de simple vitrage
