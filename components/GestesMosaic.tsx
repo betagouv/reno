@@ -2,6 +2,7 @@ import { Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
+import { formatValue } from 'publicodes'
 
 export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
   const localIsMosaic = (dottedName, rule) =>
@@ -78,7 +79,13 @@ export default function GestesMosaic({
             <h4>{rules[category].titre}</h4>
             <ul>
               <Checkboxes
-                {...{ questions: dottedNames, rules, onChange, situation }}
+                {...{
+                  questions: dottedNames,
+                  rules,
+                  onChange,
+                  situation,
+                  engine,
+                }}
               />
               {entries
                 .filter(([k, v]) => k.startsWith(category) && k !== category)
@@ -95,6 +102,7 @@ export default function GestesMosaic({
                             rules,
                             onChange,
                             situation,
+                            engine,
                           }}
                         />
                       </ul>
@@ -109,11 +117,22 @@ export default function GestesMosaic({
   )
 }
 
-const Checkboxes = ({ questions, rules, onChange, situation }) => {
+const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
   return questions.map((dottedName) => {
     const questionRule = rules[dottedName]
+
+    const montant = dottedName + ' . montant',
+      montantValue = formatValue(engine.evaluate(montant))
+
+    const plafond = dottedName + ' . plafond',
+      plafondValue = formatValue(engine.evaluate(plafond))
     return (
-      <li key={dottedName}>
+      <li
+        key={dottedName}
+        style={css`
+          margin-bottom: 0.6rem;
+        `}
+      >
         <label key={dottedName}>
           <input
             style={css`
@@ -127,6 +146,23 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
           />
           {questionRule.titre || getRuleName(dottedName)}
         </label>
+        <small
+          style={css`
+            margin-left: 2.4rem;
+          `}
+        >
+          <span
+            style={css`
+              color: rgb(11, 73, 48);
+              background: #c4fad5;
+              padding: 0 0.3rem;
+              border-radius: 0.2rem;
+            `}
+          >
+            - {montantValue}
+          </span>{' '}
+          sur max. {plafondValue}
+        </small>
       </li>
     )
   })

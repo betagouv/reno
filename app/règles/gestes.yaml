@@ -220,13 +220,15 @@ isolation:
     - vitres . montant
     - murs extérieur . montant
 isolation . vitres:
-  titre: Isolation thermique des parois vitrées
+  titre: Isolation thermique des fenêtres et porte-fenêtres
+  description: Isolation thermique des parois vitrées (fenêtres et portes-fenêtres) en remplacement de simple vitrage
   par défaut: oui
 isolation . vitres . montant: barème * nombre
 isolation . vitres . nombre:
   question: Combien de parois vitrées voulez-vous isoler ?
   par défaut: 4 équipement
 
+isolation . vitres . plafond: 1000 €/m2
 isolation . vitres . barème:
   variations:
     - si: revenu . classe = 'très modeste'
@@ -243,6 +245,7 @@ isolation . murs extérieur . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
 isolation . murs extérieur . montant: surface * barème
+isolation . murs extérieur . plafond: 150 €/m2
 isolation . murs extérieur . barème:
   variations:
     - si: revenu . classe = 'très modeste'
