@@ -28,16 +28,14 @@ export default function Result({
   const isNotApplicable =
     value === 'Non applicable' || evaluation.nodeValue === 0
 
-  const { color, background, label } =
-    colors[
-      isNotApplicable
-        ? 'fail'
-        : isFinal
-          ? 'success'
-          : hideNumeric
-            ? 'waiting'
-            : 'running'
-    ]
+  const state = isNotApplicable
+    ? 'fail'
+    : isFinal
+      ? 'success'
+      : hideNumeric
+        ? 'waiting'
+        : 'running'
+  const { color, background, label } = colors[state]
 
   return (
     <li
@@ -51,12 +49,9 @@ export default function Result({
         ${isNotApplicable ? 'opacity: .7;' : ''}
 
 		${
-      isFinal || isNotApplicable
+      state !== 'waiting'
         ? `
-        box-shadow:
-          rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
-          rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
-          rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
+		  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 		  `
         : ''
     } 
