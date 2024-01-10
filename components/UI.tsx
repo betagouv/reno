@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const Section = styled.section`
   margin: 0 auto;
-  width: 700px;
+  width: 800px;
   max-width: 100%;
 `
 export const Card = styled.div`

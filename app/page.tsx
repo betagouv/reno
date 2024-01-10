@@ -39,7 +39,7 @@ export default function Page({ searchParams }) {
       >
         <div
           style={css`
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
           `}
         >

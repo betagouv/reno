@@ -33,7 +33,7 @@ export const Wrapper = styled.section`
   margin-top: 3rem;
 `
 export const Content = styled.div`
-  width: 700px;
+  width: 800px;
   max-width: 100%;
   margin: 0 auto;
 `
