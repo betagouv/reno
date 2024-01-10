@@ -1,9 +1,15 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
+
 import BooleanMosaic, {
   isMosaicQuestion,
   mosaicQuestionText,
 } from './BooleanMosaic'
+
+import GestesMosaic, {
+  isGestesMosaicQuestion,
+  gestesMosaicQuestionText,
+} from './GestesMosaic'
 import DPESelector from './DPESelector'
 import { Input } from './InputUI'
 import questionType from './publicodes/questionType'
@@ -13,7 +19,7 @@ import RhetoricalQuestion from './RhetoricalQuestion'
 
 export const getQuestionText = (rule, dottedName, rules) => {
   if (isMosaicQuestion(dottedName, rule, rules))
-    return mosaicQuestionText(rules, dottedName)
+    return gestesMosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
   const text = rule.question || rule.titre || ruleName
   return text
@@ -67,6 +73,22 @@ export default function InputSwitch({
       />
     )
 
+  const gestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
+  if (gestesMosaic)
+    return (
+      <GestesMosaic
+        {...{
+          rules,
+          rule,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          questions: gestesMosaic,
+        }}
+      />
+    )
+  // We kept the latter component before it got really specialized. TODO not completely functional
   const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
   if (mosaic)
     return (
