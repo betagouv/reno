@@ -2,7 +2,8 @@ import { Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
-import { formatValue } from 'publicodes'
+import Engine, { formatValue } from 'publicodes'
+import rules from '@/app/rules'
 
 export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
   const localIsMosaic = (dottedName, rule) =>
@@ -25,7 +26,6 @@ export default function GestesMosaic({
   rules,
   setSearchParams,
   rule,
-  engine,
   situation,
   answeredQuestions,
   questions,
@@ -84,7 +84,6 @@ export default function GestesMosaic({
                   rules,
                   onChange,
                   situation,
-                  engine,
                 }}
               />
               {entries
@@ -102,7 +101,6 @@ export default function GestesMosaic({
                             rules,
                             onChange,
                             situation,
-                            engine,
                           }}
                         />
                       </ul>
@@ -117,15 +115,17 @@ export default function GestesMosaic({
   )
 }
 
-const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
+const safeEngine = new Engine(rules)
+
+const Checkboxes = ({ questions, rules, onChange, situation }) => {
   return questions.map((dottedName) => {
     const questionRule = rules[dottedName]
 
     const montant = dottedName + ' . montant',
-      montantValue = formatValue(engine.evaluate(montant))
+      montantValue = formatValue(safeEngine.evaluate(montant))
 
     const plafond = dottedName + ' . plafond',
-      plafondValue = formatValue(engine.evaluate(plafond))
+      plafondValue = formatValue(safeEngine.evaluate(plafond))
     return (
       <li
         key={dottedName}
