@@ -101,9 +101,10 @@ personnes:
       - sinon: 5 personne
   suggestions:
     seul: 1 personne
+    seul + enfant: 2 personne
     couple: 2 personne
-    couple avec enfant: 3 personne
-    couple avec 2 enfants: 4 personne
+    couple + enfant: 3 personne
+    couple + 2 enfants: 4 personne
 personnes plus:
   titre: Personnes de plus qu'un foyer de 5
   formule: personnes - 5
