@@ -83,6 +83,40 @@ export default function Form({ searchParams, rules }) {
   return (
     <div>
       <Section>
+        <div
+          style={css`
+            margin-bottom: 4vh;
+            position: sticky;
+            top: 0px;
+            background: white;
+          `}
+        >
+          <h2>Votre Prime Rénov'</h2>
+          <Results>
+            <Result
+              index={1}
+              key={'acc'}
+              {...{
+                engine: engine.setSituation(situation),
+                isFinal: !currentQuestion,
+                rules,
+                dottedName: 'MPR . accompagnée',
+              }}
+            />
+            <span>OU</span>
+            <Result
+              index={2}
+              key={'non acc'}
+              {...{
+                engine: engine.setSituation(situation),
+                isFinal: !currentQuestion,
+                dottedName: 'MPR . non accompagnée',
+                hideNumeric: !currentQuestion?.startsWith('gestes . '),
+                rules,
+              }}
+            />
+          </Results>
+        </div>
         {answeredQuestions.length > 0 && (
           <div
             style={css`
@@ -161,37 +195,6 @@ export default function Form({ searchParams, rules }) {
         )}
         <Notifications {...{ currentQuestion, engine }} />
         <NextQuestions {...{ nextQuestions, rules }} />
-        <div
-          style={css`
-            margin-top: 1vh;
-          `}
-        >
-          <h2>Votre Prime Rénov'</h2>
-          <Results>
-            <Result
-              index={1}
-              key={'acc'}
-              {...{
-                engine: engine.setSituation(situation),
-                isFinal: !currentQuestion,
-                rules,
-                dottedName: 'MPR . accompagnée',
-              }}
-            />
-            <span>OU</span>
-            <Result
-              index={2}
-              key={'non acc'}
-              {...{
-                engine: engine.setSituation(situation),
-                isFinal: !currentQuestion,
-                dottedName: 'MPR . non accompagnée',
-                hideNumeric: !currentQuestion?.startsWith('gestes . '),
-                rules,
-              }}
-            />
-          </Results>
-        </div>
       </Section>
       <Explications {...{ engine, rules, situation }} />
       <Share searchParams={searchParams} />
