@@ -96,7 +96,7 @@ export default function Form({ searchParams, rules }) {
         )}
         <Personas setSearchParams={setSearchParams} />
         {rule && (
-          <Card $background={`#f2f2f9`}>
+          <Card $background={`#2a82dd1f`}>
             <div>
               {(!rule.type || !rule.type === 'question rhétorique') && (
                 <QuestionHeader>

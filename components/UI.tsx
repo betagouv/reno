@@ -14,6 +14,7 @@ export const Card = styled.div`
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: 2px solid #253b71;
+  ${(p) => (p.$background ? `background: ${p.$background}` : '')}
 `
 
 export const FooterWrapper = styled.footer`
