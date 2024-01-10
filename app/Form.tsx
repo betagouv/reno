@@ -34,6 +34,7 @@ export default function Form({ searchParams, rules }) {
     ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(searchParams, rules),
   ]
+  const started = answeredQuestions.length > 1 // because of simulation mode
 
   const situation = {
       ...(simulationConfig.situation || {}),
@@ -44,7 +45,7 @@ export default function Form({ searchParams, rules }) {
         answeredQuestions.includes(k),
       ),
     )
-  console.log({ answeredQuestions, situation })
+  console.log({ answeredQuestions, situation, started })
   const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
     value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
@@ -169,6 +170,7 @@ export default function Form({ searchParams, rules }) {
           <h2>Votre Prime Rénov'</h2>
           <Results>
             <Result
+              started={started}
               index={1}
               key={'acc'}
               {...{
@@ -180,6 +182,7 @@ export default function Form({ searchParams, rules }) {
             />
             <span>OU</span>
             <Result
+              started={started}
               index={2}
               key={'non acc'}
               {...{

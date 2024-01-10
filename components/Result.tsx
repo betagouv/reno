@@ -20,6 +20,7 @@ export default function Result({
   dottedName,
   hideNumeric,
   index,
+  started,
 }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
@@ -77,7 +78,7 @@ export default function Result({
       >
         {index}
       </span>
-      <InvisibleDetails open={false}>
+      <InvisibleDetails open={!started}>
         <summary>
           <h3
             style={css`
