@@ -3,7 +3,7 @@ import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
 import Engine, { formatValue } from 'publicodes'
-import rules from '@/app/rules'
+import rules from '@/app/règles/rules'
 
 export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
   const localIsMosaic = (dottedName, rule) =>

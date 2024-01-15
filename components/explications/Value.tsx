@@ -1,6 +1,6 @@
 import { compute } from './Aide'
 import { Key } from './ExplicationUI'
-import rules from '@/app/rules'
+import rules from '@/app/règles/rules'
 
 export default function Value({
   engine,

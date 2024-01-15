@@ -1,7 +1,7 @@
-import Form from './Form'
-import rules from './rules'
 import Footer from '@/components/Footer'
-import { PageBlock, TopBanner } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
+import Form from './Form'
+import rules from '@/app/règles/rules'
 
 const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 

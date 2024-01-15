@@ -1,10 +1,10 @@
-import index from './règles/index.yaml'
-import revenus from './règles/revenus.yaml'
-import gestes from './règles/gestes.yaml'
-import isolation from './règles/gestes/isolation.yaml'
-import chauffage from './règles/gestes/chauffage.yaml'
-
 import { micromark } from 'micromark'
+
+import gestes from '@/app/règles/gestes.yaml'
+import chauffage from '@/app/règles/gestes/chauffage.yaml'
+import isolation from '@/app/règles/gestes/isolation.yaml'
+import index from '@/app/règles/index.yaml'
+import revenus from '@/app/règles/revenus.yaml'
 
 const prefix = (rules) =>
   Object.fromEntries(
