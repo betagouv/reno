@@ -66,6 +66,6 @@ export const CTA = styled(Link)`
   background: #000091;
   color: white;
   padding: 0.4rem 1rem;
-  font-size: 200%;
+  font-size: 150%;
   text-decoration: none;
 `
