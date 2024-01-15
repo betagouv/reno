@@ -279,6 +279,10 @@ conditions communes:
 MPR:
   titre: Ma prime rénov'
 
+MPR . non accompagnée . conditions:
+  une de ces conditions:
+    - revenu . classe = "supérieure"
+    - DPE . actuel >= 6 # 1er juillet 2024
 MPR . non accompagnée:
   description: |
     En alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez choisir de faire une rénovation plus progressive de votre logement. 
@@ -286,10 +290,7 @@ MPR . non accompagnée:
     Soit avec un seul geste de décarbonation de votre chauffage, soit avec un bouquet de gestes d'isolation et d'efficacité énergétique.
 
   applicable si: conditions communes
-  non applicable si:
-    une de ces conditions:
-      - revenu . classe = "supérieure"
-      - DPE . actuel >= 6 # 1er juillet 2024
+  non applicable si: conditions
   valeur: gestes . montant
   titre: Parcours par geste
 

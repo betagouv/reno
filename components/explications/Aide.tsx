@@ -1,5 +1,6 @@
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { Key, P } from './ExplicationUI'
+import ParGeste from './ParGeste'
 import Travaux from './Travaux'
 
 const getMissings = (evaluation, rules) => {
@@ -50,6 +51,7 @@ export default function Travaux({ engine, rules, situation }) {
   return (
     <section>
       <h3>Votre aide</h3>
+      <h4>Ma Prime Rénov' accompagnée</h4>
       <P>
         Votre aide Ma prime rénov' accompagnée s'élèvera à&nbsp;
         <Key $state={montant.hasMissing ? 'inProgress' : 'final'}>
@@ -95,6 +97,7 @@ export default function Travaux({ engine, rules, situation }) {
         )}
         .
       </P>
+      <ParGeste engine={engine} rules={rules} />
     </section>
   )
 }
