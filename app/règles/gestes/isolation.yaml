@@ -7,7 +7,7 @@ isolation:
     - rampants . montant
 
 isolation . vitres:
-  titre: Isolation thermique des fenêtres et porte-fenêtres
+  titre: Remplacement de simple vitrage
   description: Isolation thermique des parois vitrées (fenêtres et portes-fenêtres) en remplacement de simple vitrage
   par défaut: oui
 isolation . vitres . montant: barème * nombre
@@ -80,6 +80,24 @@ isolation . rampants . barème:
       alors: 20 €/m2
     - si: revenu . classe = 'intermédiaire'
       alors: 15 €/m2
+    - sinon: 0 €
+isolation . toitures terrasses:
+  titre: Isolation thermique des toitures terrasses
+  par défaut: oui
+isolation . toitures terrasses . surface:
+  question: Quelle surface de toiture terrasses voulez-vous isoler ?
+  par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+
+isolation . toitures terrasses . montant: surface * barème
+isolation . toitures terrasses . plafond: 180 €/m2
+isolation . toitures terrasses . barème:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 75 €/m2
+    - si: revenu . classe = 'modeste'
+      alors: 60 €/m2
+    - si: revenu . classe = 'intermédiaire'
+      alors: 40 €/m2
     - sinon: 0 €
 
 autres:
