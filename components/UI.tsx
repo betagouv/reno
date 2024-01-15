@@ -1,5 +1,6 @@
 'use client'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 export const Section = styled.section`
   margin: 0 auto;
@@ -59,4 +60,12 @@ export const TopBanner = styled.p`
     width: 100vw;
     text-align: center;
   }
+`
+
+export const CTA = styled(Link)`
+  background: #000091;
+  color: white;
+  padding: 0.4rem 1rem;
+  font-size: 200%;
+  text-decoration: none;
 `

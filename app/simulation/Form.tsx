@@ -94,7 +94,7 @@ export default function Form({ searchParams, rules }) {
               margin-bottom: 0.6rem;
             `}
           >
-            <Link href={'/'}>Recommencer</Link>
+            <Link href={'/simulation'}>Recommencer</Link>
           </div>
         )}
         <Personas setSearchParams={setSearchParams} />

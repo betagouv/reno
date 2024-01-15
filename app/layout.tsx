@@ -105,7 +105,7 @@ export default function RootLayout({
                     padding-top: 0.5rem;
                   `}
                 />
-                <h1>Calculez vos aides rénovation &nbsp;2024</h1>
+                <h1>Mes aides réno 2024</h1>
               </div>
               <small>{description}</small>
             </div>
