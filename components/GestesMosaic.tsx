@@ -1,4 +1,4 @@
-import { Fieldset } from './BooleanMosaicUI'
+import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
@@ -76,38 +76,43 @@ export default function GestesMosaic({
       <ul>
         {categories.map(([category, dottedNames]) => (
           <li key={category}>
-            <h4>{rules[category].titre}</h4>
-            <ul>
-              <Checkboxes
-                {...{
-                  questions: dottedNames,
-                  rules,
-                  onChange,
-                  situation,
-                }}
-              />
-              {entries
-                .filter(([k, v]) => k.startsWith(category) && k !== category)
-                .map(([subCategory, dottedNames2]) => {
-                  const categoryTitle = rules[subCategory].titre
+            <Details open={true}>
+              <summary>
+                <h4>{rules[category].titre}</h4>
+              </summary>
 
-                  return (
-                    <li key={subCategory}>
-                      <h5>{categoryTitle}</h5>
-                      <ul>
-                        <Checkboxes
-                          {...{
-                            questions: dottedNames2,
-                            rules,
-                            onChange,
-                            situation,
-                          }}
-                        />
-                      </ul>
-                    </li>
-                  )
-                })}
-            </ul>
+              <ul>
+                <Checkboxes
+                  {...{
+                    questions: dottedNames,
+                    rules,
+                    onChange,
+                    situation,
+                  }}
+                />
+                {entries
+                  .filter(([k, v]) => k.startsWith(category) && k !== category)
+                  .map(([subCategory, dottedNames2]) => {
+                    const categoryTitle = rules[subCategory].titre
+
+                    return (
+                      <li key={subCategory}>
+                        <h5>{categoryTitle}</h5>
+                        <ul>
+                          <Checkboxes
+                            {...{
+                              questions: dottedNames2,
+                              rules,
+                              onChange,
+                              situation,
+                            }}
+                          />
+                        </ul>
+                      </li>
+                    )
+                  })}
+              </ul>
+            </Details>
           </li>
         ))}
       </ul>
