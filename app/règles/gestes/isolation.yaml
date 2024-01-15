@@ -5,6 +5,7 @@ isolation:
     - murs extérieurs . montant
     - murs intérieurs . montant
     - rampants . montant
+    - toitures terrasses
 
 isolation . vitres:
   titre: Remplacement de simple vitrage
@@ -99,7 +100,6 @@ isolation . toitures terrasses . barème:
     - si: revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 0 €
+#TODO Outre-mer
+# Protection des parois vitrées ou opaques contre le rayonnement solaire
 
-autres:
-  titre: Autres travaux
-  valeur: 0

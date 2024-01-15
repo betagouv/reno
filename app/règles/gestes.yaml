@@ -6,3 +6,54 @@ montant:
     - chauffage
     - isolation
     - autres
+
+autres:
+  titre: Divers
+  somme:
+    - audit
+    - dépose fioul
+    - ventilation double flux
+
+autres . audit:
+  par défaut: oui
+  titre: Audit énergétique hors obligation réglementaire
+  description: Conditionné à la réalisation d'un geste de travaux
+autres . audit . plafond:
+  valeur: 800 €
+autres . audit . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 500 €
+    - si: revenu . classe = 'modestes'
+      alors: 400 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 300 €
+    - sinon: 0 €
+
+autres . dépose fioul:
+  par défaut: oui
+  titre: Dépose de cuve à fioul
+autres . dépose fioul . plafond:
+  valeur: 4000 €
+autres . dépose fioul . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 1200 €
+    - si: revenu . classe = 'modestes'
+      alors: 800 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 400 €
+    - sinon: 0 €
+autres . ventilation double flux:
+  par défaut: oui
+autres . ventilation double flux . plafond:
+  valeur: 4000 €
+autres . ventilation double flux . montant:
+  variations:
+    - si: revenu . classe = 'très modeste'
+      alors: 2500 €
+    - si: revenu . classe = 'modestes'
+      alors: 2000 €
+    - si: revenu . classe = 'intermédiaire'
+      alors: 1500 €
+    - sinon: 0 €
