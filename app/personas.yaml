@@ -43,3 +43,15 @@
     Propriétaire élligible, mais pas d'autres infos
   situation:
     conditions communes: oui
+- nom: Persona 6
+  description: |
+    Gestes
+  situation:
+    conditions communes: oui
+    personnes: 2
+    revenu: 35000
+    DPE . actuel: 4
+    DPE . visé: 1
+    travaux: 49300
+    région: "'Pays de la Loire'"
+    explication des 2 aides: oui
