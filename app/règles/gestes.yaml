@@ -16,8 +16,12 @@ autres:
 
 autres . audit:
   par défaut: oui
-  titre: Audit énergétique hors obligation réglementaire
-  description: Conditionné à la réalisation d'un geste de travaux
+  titre: Audit énergétique
+  description: |
+    Cet audit est conditionné à la réalisation d'un geste de travaux.
+
+    À noter, pour les appartements en copro de 50 lots ou plus et équipés d'un chauffage ou refroidissement collectif, construits avant 2001, l'audit est obligatoire et ne sera pas financé par Ma Prime Rénov'. Voir [cet article de loi](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000022493232/2019-11-10).
+
 autres . audit . plafond:
   valeur: 800 €
 autres . audit . montant:
