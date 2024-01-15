@@ -46,11 +46,23 @@ export const Fieldset = styled.fieldset`
 export const Details = styled.details`
   summary {
     padding-left: 0.3rem;
+    background: ${blue};
+    display: inline list-item;
+    padding-right: 0.6rem;
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.1rem;
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
   }
   summary::-webkit-details-marker {
-    color: ${blue};
+    color: white;
   }
   summary::marker {
-    color: ${blue};
+    color: white;
+  }
+  > ul {
+    margin-top: 0.6rem;
   }
 `
