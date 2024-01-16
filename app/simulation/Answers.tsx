@@ -35,6 +35,7 @@ export default function Answers({
         <summary>
           <Number>{categoryIndex}</Number> {categoryName}
         </summary>
+        <h2>Vos réponses</h2>
         <AnswerList>
           {answeredQuestions.map((answer) => (
             <li key={answer}>
@@ -51,12 +52,17 @@ export default function Answers({
   )
 }
 
-const AnswerList = styled.ol``
+const AnswerList = styled.ol`
+  margin: 0.6rem 0;
+`
 
 const Wrapper = styled.section`
   margin-bottom: 2vh;
 `
 const Details = styled.details`
+  h2 {
+    margin-top: 0.6rem;
+  }
   padding-bottom: 1.4vh;
 `
 
