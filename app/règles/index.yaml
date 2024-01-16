@@ -46,6 +46,7 @@ vous:
   titre: Votre situation
 vous . propriétaire:
 vous . propriétaire . condition:
+  titre: Propriétaire
   question: Êtes-vous propriétaire ?
   par défaut: oui
   description: |
@@ -77,6 +78,7 @@ vous . propriétaire . astuce:
 logement:
   titre: Votre logement
 logement . résidence principale:
+  titre: Résidence principale
   question: Le logement est-il occupé au moins 8 mois par an ?
   par défaut: oui
   description: |
@@ -87,6 +89,7 @@ logement . résidence principale:
     Si vous comptez louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
 logement . année de construction:
+  titre: Année de construction
   question: De quelle année date la construction de votre logement ?
   par défaut: 1950 # Au hasard, on n'a pas trouvé d'âge moyen
   suggestions:

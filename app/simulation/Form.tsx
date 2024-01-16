@@ -37,7 +37,8 @@ export default function Form({ searchParams, rules }) {
     ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(searchParams, rules),
   ]
-  const started = answeredQuestions.length > 1 // because of simulation mode
+  const started =
+    answeredQuestions.filter((el) => el === 'simulation . mode').length > 1 // because of simulation mode
 
   const situation = {
       ...(simulationConfig.situation || {}),
@@ -72,7 +73,13 @@ export default function Form({ searchParams, rules }) {
     <div>
       <Section>
         <Answers
-          {...{ answeredQuestions, nextQuestions, currentQuestion, rules }}
+          {...{
+            answeredQuestions,
+            nextQuestions,
+            currentQuestion,
+            rules,
+            situation,
+          }}
         />
         {rule && (
           <Card $background={`#2a82dd1f`}>

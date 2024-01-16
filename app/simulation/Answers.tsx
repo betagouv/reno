@@ -5,11 +5,16 @@ import simulationConfig from '@/app/simulation/simulationConfig.yaml'
 import NextQuestions from '@/components/NextQuestions'
 
 export default function Answers({
-  answeredQuestions,
+  answeredQuestions: rawAnsweredQuestions,
   nextQuestions,
   currentQuestion,
   rules,
+  situation,
 }) {
+  console.log({ rawAnsweredQuestions })
+  const answeredQuestions = rawAnsweredQuestions.filter(
+    (el) => el !== 'simulation . mode',
+  )
   const category = currentQuestion.split(' . ')[0]
   const categories = simulationConfig.catégories
   const categoryIndex = categories.findIndex((el) => el === category) + 1,
@@ -30,12 +35,23 @@ export default function Answers({
         <summary>
           <Number>{categoryIndex}</Number> {categoryName}
         </summary>
+        <AnswerList>
+          {answeredQuestions.map((answer) => (
+            <li key={answer}>
+              {' '}
+              <span>{rules[answer].titre}</span> -{' '}
+              <span>{situation[answer]}</span>
+            </li>
+          ))}
+        </AnswerList>
       </Details>
       <ProgressBar $ratio={categoryIndex / categories.length} />
       <NextQuestions {...{ nextQuestions, rules }} />
     </Wrapper>
   )
 }
+
+const AnswerList = styled.ol``
 
 const Wrapper = styled.section`
   margin-bottom: 2vh;
