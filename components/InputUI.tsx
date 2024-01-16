@@ -61,29 +61,29 @@ export const SuggestionsList = styled.div`
 `
 export const PersonasList = styled.div`
   margin-top: 0.8rem;
-  overflow: scroll hidden;
-  white-space: nowrap;
-  max-width: 90vw;
-  scrollbar-width: none;
   ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
     display: flex;
     list-style-type: none;
     margin: 0.2rem 0;
     align-items: center;
     li {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin: 0 0.4rem;
-      padding: 0.4rem 0.6rem;
-      box-shadow:
-        rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
-        rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
-        rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
-      a {
-        text-decoration-style: dashed;
-        text-underline-offset: 4px;
+      > div {
+        width: 14rem;
+        height: 12rem;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: 1rem 0.6rem;
+        h3 {
+          margin: 0;
+        }
       }
+      margin: 0 0.6rem;
     }
   }
 `

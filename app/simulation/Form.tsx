@@ -72,7 +72,6 @@ export default function Form({ searchParams, rules }) {
     <div>
       <Section>
         <Answers answeredQuestions={answeredQuestions} />
-        <Personas setSearchParams={setSearchParams} />
         {rule && (
           <Card $background={`#2a82dd1f`}>
             <div>

@@ -24,9 +24,17 @@ export default function useSetSeachParams() {
     },
     [searchParams],
   )
-  return (newSearchParams: object, noPush: boolean, clear: boolean) => {
+  return (
+    newSearchParams: object,
+    noPush: boolean,
+    clear: boolean,
+    newPathname,
+  ) => {
     const newUrl =
-      pathname + '?' + createQueryString(newSearchParams, clear) + hash
+      (newPathname || pathname) +
+      '?' +
+      createQueryString(newSearchParams, clear) +
+      hash
     if (!noPush) {
       router.push(newUrl, { scroll: false })
     }

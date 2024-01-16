@@ -8,6 +8,9 @@ export default function Footer() {
         <li>
           <Link href="/api-doc">API</Link>
         </li>
+        <li>
+          <Link href="/personas">Personas</Link>
+        </li>
         <li>Accessibilité : non conforme</li>
         <li>Vie privée : à venir</li>
         <li>

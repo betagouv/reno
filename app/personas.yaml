@@ -45,7 +45,7 @@
     conditions communes: oui
 - nom: Persona 6
   description: |
-    Gestes
+    Accès au parcours geste.
   situation:
     conditions communes: oui
     personnes: 2
