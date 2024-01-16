@@ -37,6 +37,7 @@ export default function Page({ searchParams }) {
             padding: 1rem;
             width: 100%;
             margin: 4vh 0 0;
+            text-align: center;
           `}
         >
           Mes aides Réno est une initiative du gouvernement et de l'Agence
