@@ -30,6 +30,19 @@ export default function Page({ searchParams }) {
           </p>
           <CTA href="/simulation">C'est parti</CTA>
         </Content>
+        <div
+          style={css`
+            background: #26a75f;
+            color: black;
+            padding: 1rem;
+            width: 100%;
+            margin: 4vh 0 0;
+          `}
+        >
+          Mes aides Réno est une initiative du gouvernement et de l'Agence
+          nationale de l'habitat pour simplifier l’accès à l’information sur les
+          aides à la rénovation énergétique.{' '}
+        </div>
         <Wrapper>
           <Content>
             <p>
