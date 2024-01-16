@@ -17,7 +17,7 @@ export default function Introduction() {
 
         <p>
           Ces deux aides peuvent être cumulées avec des aides locales et
-          d’autres dispositifs (EcoPTZ, Crédit d’impôt…).
+          d’autres dispositifs (Éco-prêt à taux zéro, Crédit d’impôt…).
         </p>
         <p>
           <strong>
