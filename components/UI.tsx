@@ -75,8 +75,8 @@ export const TopBanner = styled.p`
 export const CTA = styled(Link)`
   background: #000091;
   color: white;
-  padding: 0.4rem 1rem;
-  font-size: 150%;
+  padding: 0.5rem 1.2rem;
+  font-size: 130%;
   text-decoration: none;
   white-space: nowrap;
   @media (max-width: 800px) {
