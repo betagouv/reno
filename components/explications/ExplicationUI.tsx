@@ -34,6 +34,6 @@ export const Wrapper = styled.section`
 `
 export const Content = styled.div`
   width: 800px;
-  max-width: 100%;
+  max-width: 90vw;
   margin: 0 auto;
 `
