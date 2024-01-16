@@ -285,10 +285,11 @@ MPR . non accompagnée . conditions:
     - DPE . actuel >= 6 # 1er juillet 2024
 MPR . non accompagnée:
   description: |
-    En alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez choisir de faire une rénovation plus progressive de votre logement. 
+    Alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez être aidé pour rénover plus progressivement votre logement. 
 
-    Soit avec un seul geste de décarbonation de votre chauffage, soit avec un bouquet de gestes d'isolation et d'efficacité énergétique.
+    Soit en optant pour un chauffage décarboné seul, soit en le complétant avec des gestes d'isolation.
 
+    [En savoir plus](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=15).
   applicable si: conditions communes
   non applicable si: conditions
   valeur: gestes . montant
@@ -307,9 +308,9 @@ gestes: # gestes.yaml
 MPR . accompagnée:
   titre: Parcours accompagné
   description: |
-    C'est l'aide principale en 2024 pour rénover son logement. 
+    L'aide principale en 2024 pour rénover son logement, c'est celle qui offre le plus d'aide et elle est accessible quel que soit le revenu du foyer. 
 
-    Vous serez accompagné par un [accompagnateur](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov), pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
+    Vous serez [accompagné](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov), pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
 
     [En savoir plus](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
 

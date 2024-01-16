@@ -24,15 +24,16 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.61978175"
-     inkscape:cx="622.79988"
-     inkscape:cy="697.01956"
+     inkscape:zoom="0.76290216"
+     inkscape:cx="604.27146"
+     inkscape:cy="380.78277"
      inkscape:window-width="1920"
-     inkscape:window-height="1175"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     showgrid="false" />
   <defs
      id="defs1">
     <linearGradient
@@ -56,49 +57,73 @@
        fx="103.91143"
        fy="101.0099"
        r="89.954521"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,3.7041668)" />
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
     <circle
-       style="fill:url(#radialGradient3);fill-rule:evenodd;stroke:#000091;stroke-width:3;stroke-dasharray:3,9;stroke-opacity:1;fill-opacity:1;stroke-dashoffset:0;stroke-linecap:round"
+       style="fill:url(#radialGradient3);fill-opacity:1;fill-rule:evenodd;stroke:#000091;stroke-width:4;stroke-linecap:round;stroke-dasharray:24, 24;stroke-dashoffset:0;stroke-opacity:1"
        id="path1-7"
        cx="103.91143"
-       cy="101.0099"
+       cy="104.71406"
        r="87.454521" />
     <g
-       id="g2"
-       transform="matrix(1.506418,0,0,1.506418,-49.489959,-54.647872)">
-      <rect
-         style="fill:#000091;fill-opacity:1;fill-rule:evenodd;stroke-width:0.188071"
-         id="rect1"
-         width="33.286583"
-         height="33.286583"
-         x="66.296349"
-         y="105.74704" />
-      <rect
-         style="fill:#3636b5;fill-opacity:1;fill-rule:evenodd;stroke-width:0.188071"
-         id="rect1-6"
-         width="33.286583"
-         height="33.286583"
-         x="103.5346"
-         y="106.15149" />
-      <rect
-         style="fill:#5b5bcd;fill-opacity:1;fill-rule:evenodd;stroke-width:0.188071"
-         id="rect1-9"
-         width="33.286583"
-         height="33.286583"
-         x="66.698883"
-         y="68.672554" />
-      <rect
-         style="fill:#8e8eef;fill-opacity:1;fill-rule:evenodd;stroke-width:0.188071"
-         id="rect1-3"
-         width="33.286583"
-         height="33.286583"
-         x="103.48289"
-         y="69.176918" />
+       id="g3"
+       transform="translate(-185.20839,19.261208)">
+      <g
+         id="g2-1"
+         transform="matrix(1.506418,0,0,1.506418,115.58442,-76.038034)">
+        <rect
+           style="fill:#5b5bcd;fill-opacity:1;fill-rule:evenodd;stroke-width:0.175637"
+           id="rect2"
+           width="25.900196"
+           height="16.67067"
+           x="89.042931"
+           y="93.529648" />
+      </g>
+      <g
+         id="g2-1-6"
+         transform="matrix(1.4476285,0,0,1.506418,163.827,-75.912674)"
+         style="fill:#8e8eef;fill-opacity:1">
+        <rect
+           style="fill:#8e8eef;fill-opacity:1;fill-rule:evenodd;stroke-width:0.175637"
+           id="rect2-2"
+           width="25.900196"
+           height="16.67067"
+           x="89.042931"
+           y="93.529648" />
+      </g>
+      <g
+         id="g2-1-7"
+         transform="matrix(1.4436265,0,0,1.6701161,164.20779,-61.343156)"
+         style="fill:#3636b5;fill-opacity:1">
+        <rect
+           style="fill:#3636b5;fill-opacity:1;fill-rule:evenodd;stroke-width:0.175637"
+           id="rect2-9"
+           width="25.900196"
+           height="16.67067"
+           x="89.042931"
+           y="93.529648" />
+      </g>
+      <g
+         id="g2-1-7-3"
+         transform="matrix(1.4436265,0,0,1.6701161,122.18323,-61.5678)"
+         style="fill:#000091;fill-opacity:1">
+        <rect
+           style="fill:#000091;fill-opacity:1;fill-rule:evenodd;stroke-width:0.175637"
+           id="rect2-9-7"
+           width="25.900196"
+           height="16.67067"
+           x="89.042931"
+           y="93.529648" />
+      </g>
+      <path
+         style="fill:#3636b5;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 290.8128,37.461772 -40.51697,21.726099 79.22882,0.307454 z"
+         id="path3" />
     </g>
   </g>
 </svg>

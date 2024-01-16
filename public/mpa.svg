@@ -24,11 +24,11 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.61978175"
-     inkscape:cx="622.79988"
-     inkscape:cy="697.01956"
+     inkscape:zoom="0.56730475"
+     inkscape:cx="109.2887"
+     inkscape:cy="289.96761"
      inkscape:window-width="1920"
-     inkscape:window-height="1175"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -40,7 +40,7 @@
        inkscape:collect="always">
       <stop
          style="stop-color:#000091;stop-opacity:1;"
-         offset="0.05814755"
+         offset="0.47392437"
          id="stop1" />
       <stop
          style="stop-color:#9a9af7;stop-opacity:1;"
@@ -63,17 +63,15 @@
      inkscape:groupmode="layer"
      id="layer1">
     <circle
-       style="fill:url(#radialGradient2);fill-rule:evenodd;stroke-width:5;stroke:#000091;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:url(#radialGradient2);fill-rule:evenodd;stroke-width:5;stroke:#000091;stroke-opacity:1;stroke-dasharray:none;opacity:0.5788562"
        id="path1"
        cx="106.882"
        cy="107.94331"
        r="87.454521" />
-    <rect
-       style="fill:#000091;fill-opacity:1;fill-rule:evenodd;stroke-width:0.524249"
-       id="rect1"
-       width="92.786201"
-       height="92.786201"
-       x="59.810703"
-       y="64.525177" />
+    <path
+       style="fill:#000091;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 64.855009,89.795227 43.415941,-23.957953 39.79741,23.991031 0.16002,61.733485 -82.8851,0.25465 z"
+       id="path2"
+       sodipodi:nodetypes="cccccc" />
   </g>
 </svg>
