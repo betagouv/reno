@@ -15,6 +15,16 @@ export default function Introduction() {
         </p>
         <VisualExplanation />
 
+        <p>
+          Ces deux aides peuvent être cumulées avec des aides locales et
+          d’autres dispositifs (EcoPTZ, Crédit d’impôt…).
+        </p>
+        <p>
+          <strong>
+            Ce simulateur vous aide à les comprendre et à choisir le dispositif
+            qui vous convient le mieux.
+          </strong>
+        </p>
         <div
           style={css`
             text-align: right;
