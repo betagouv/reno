@@ -10,13 +10,8 @@ export default function Introduction() {
     <Main>
       <Section>
         <p>
-          En 2024, tous les foyers peuvent bénéficier d'une aide minimum,
-          quelque soit leur revenu, grâce à un parcours accompagné pour des
-          rénovations ambitieuses de deux sauts de DPE.
-        </p>
-        <p>
-          Deux dispositifs Ma Prime Rénov' existent. Ce calculateur vous aide à
-          les comprendre et à choisir celui qui vous convient.
+          En 2024, les aides à la rénovation énergétique des logements sont
+          organisées autour de deux grands dispositifs nationaux.
         </p>
         <VisualExplanation />
 
