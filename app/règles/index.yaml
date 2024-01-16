@@ -20,9 +20,14 @@ aides:
       - MPR . accompagnée
       - MPR . non accompagnée
 
-revenu:
+ménage . revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
+  description: |
+    Saisissez le « revenus fiscal de référence » des personnes composant le ménage. 
+
+    Si ces dernières ont des avis d’imposition distincts, le montant à prendre en compte est la somme de leurs « revenus fiscaux de référence ».
+
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
@@ -37,8 +42,10 @@ revenu:
     moyen: 50000 €
     élevé: 80000 €
 
-propriétaire:
-propriétaire . condition:
+vous:
+  titre: Votre situation
+vous . propriétaire:
+vous . propriétaire . condition:
   question: Êtes-vous propriétaire ?
   par défaut: oui
   description: |
@@ -58,7 +65,7 @@ propriétaire . condition:
       - les nus-propriétaires
       - les personnes morales (par exemple les sociétés civiles immobilières)
 
-propriétaire . astuce:
+vous . propriétaire . astuce:
   type: notification
   sévérité: information
   formule: condition = non
@@ -67,17 +74,19 @@ propriétaire . astuce:
 
     **Cependant**, n'hésitez pas à faire cette simulation en tant que propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides 2024.
 
-résidence principale:
-  question: Votre logement est-il et restera-t-il une résidence principale ?
+logement:
+  titre: Votre logement
+logement . résidence principale:
+  question: Le logement est-il occupé au moins 8 mois par an ?
   par défaut: oui
   description: |
-    Que ce soit votre résidence principale (vous êtes propriétaire occupant), ou celle de votre locataire (propriétaire bailleur), elle doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins suivant la rénovation.
+    Le logement à rénover **doit être une résidence principale**. Les résidences secondaires sont donc exclues.
 
-    Les résidences secondaires sont donc exclues.
+    Que ce soit votre résidence principale (vous êtes propriétaire occupant), ou celle de votre locataire (propriétaire bailleur), elle doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation.
 
     Si vous comptez louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
-année de construction:
+logement . année de construction:
   question: De quelle année date la construction de votre logement ?
   par défaut: 1950 # Au hasard, on n'a pas trouvé d'âge moyen
   suggestions:
@@ -87,13 +96,13 @@ année de construction:
     récent: 2000
     neuf: 2020
 
-âge:
+logement . âge:
   titre: Âge du logement
   formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
 
-personnes:
-  titre: La composition de votre foyer
-  question: Quelle est la composition de votre foyer ?
+ménage . personnes:
+  titre: La composition de votre ménage
+  question: Quelle est la composition de votre ménage ?
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
@@ -105,11 +114,12 @@ personnes:
     couple: 2 personne
     couple + enfant: 3 personne
     couple + 2 enfants: 4 personne
-personnes plus:
-  titre: Personnes de plus qu'un foyer de 5
+
+ménage . personnes plus:
+  titre: Personnes de plus qu'un ménage de 5
   formule: personnes - 5
 
-revenu . classe:
+ménage . revenu . classe:
   formule:
     variations:
       # C'est un court-circuit pour éviter de poser la question des personnes
@@ -119,19 +129,25 @@ revenu . classe:
         alors: barème IdF
       - sinon: barème
 
-région:
+ménage:
+  titre: Votre ménage
+ménage . région:
   titre: Votre région
-  question: Dans quelle région se situe votre logement ?
+  question: Dans quelle région habitez-vous ?
+  description: |
+    Attention, il s'agit de renseigner la région de *votre ménage*.
+
+    Dans le cas où vous êtes propriétaire bailleur, peu importe la région du logement pour lequel vous avez un projet de rénovation.
   par défaut: "'Bretagne'" # La Bretagne, comme toute autre région non francilienne, ouvre l'éligibilité aux aides
   suggestions:
     Bretagne: "'Bretagne'"
     Pays de la Loire: "'Pays de la Loire'"
     IdF: "'Île-de-France'"
 
-id ban:
+ménage . id ban:
   titre: Identifiant base nationale des adresses (BAN)
 
-région . IdF: région = 'Île-de-France'
+ménage . région . IdF: région = 'Île-de-France'
 
 DPE:
   titre: Diagnostic de Performance Énergétique.
@@ -257,7 +273,7 @@ travaux . plafonnés:
         alors: 70000 €
   valeur: travaux
 
-condition d'ancienneté:
+logement . condition d'ancienneté:
   question: Votre logement a-t-il plus de 15 ans (construit avant 2009) ?
   par défaut: oui
 
@@ -273,15 +289,15 @@ condition d'ancienneté:
 conditions communes:
   titre: Conditions d'élligibilité de base
   toutes ces conditions:
-    - propriétaire . condition
-    - condition d'ancienneté
-    - résidence principale
+    - vous . propriétaire . condition
+    - logement . condition d'ancienneté
+    - logement . résidence principale
 MPR:
   titre: Ma prime rénov'
 
 MPR . non accompagnée . conditions:
   une de ces conditions:
-    - revenu . classe = "supérieure"
+    - ménage . revenu . classe = "supérieure"
     - DPE . actuel >= 6 # 1er juillet 2024
 MPR . non accompagnée:
   description: |
@@ -308,7 +324,7 @@ gestes: # gestes.yaml
 MPR . accompagnée:
   titre: Parcours accompagné
   description: |
-    L'aide principale en 2024 pour rénover son logement, c'est celle qui offre le plus d'aide et elle est accessible quel que soit le revenu du foyer. 
+    L'aide principale en 2024 pour rénover son logement, c'est celle qui offre le plus d'aide et elle est accessible quel que soit le revenu du ménage. 
 
     Vous serez [accompagné](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov), pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
 
@@ -343,11 +359,11 @@ MPR . accompagnée . pourcent brut:
     variations:
       - si: sauts < sauts minimum
         alors: 0
-      - si: revenu . classe = 'très modeste'
+      - si: ménage . revenu . classe = 'très modeste'
         alors: 60 % + 20 %
-      - si: revenu . classe = 'modeste'
+      - si: ménage . revenu . classe = 'modeste'
         alors: 40 % + 20 %
-      - si: revenu . classe = 'intermédiaire'
+      - si: ménage . revenu . classe = 'intermédiaire'
         alors:
           variations:
             - si: sauts < 3
@@ -368,10 +384,10 @@ MPR . accompagnée . écrêtement:
   description: |
     Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
-    - si: revenu . classe = 'modeste'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 80 %
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 60 %
     - sinon: 40 %

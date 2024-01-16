@@ -1,5 +1,5 @@
-revenu . max: 94844 €
-revenu . barème IdF:
+ménage . revenu . max: 94844 €
+ménage . revenu . barème IdF:
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
@@ -67,8 +67,8 @@ revenu . barème IdF:
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
 
-revenu . barème . max: 72400 €
-revenu . barème:
+ménage . revenu . barème . max: 72400 €
+ménage . revenu . barème:
   description: |
     Source Web : https://france-renov.gouv.fr/bareme
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5

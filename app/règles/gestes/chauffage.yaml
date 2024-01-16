@@ -22,11 +22,11 @@ chauffage . raccordement réseau . plafond:
   valeur: 1800 €
 chauffage . raccordement réseau . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 800 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
     - sinon: 0 €
 
@@ -36,11 +36,11 @@ chauffage . chauffe-eau thermodynamique . plafond:
   valeur: 3500 €
 chauffage . chauffe-eau thermodynamique . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 800 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
     - sinon: 0 €
 
@@ -53,11 +53,11 @@ chauffage . PAC . air-eau:
 chauffage . PAC . air-eau . plafond: 12000 €
 chauffage . PAC . air-eau . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 5000 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 4000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
     - sinon: 0 €
 chauffage . PAC . géo ou solaire:
@@ -67,11 +67,11 @@ chauffage . PAC . géo ou solaire:
 chauffage . PAC . géo ou solaire . plafond: 18000 €
 chauffage . PAC . géo ou solaire . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 11000 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 9000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 6000 €
     - sinon: 0 €
 
@@ -85,11 +85,11 @@ chauffage . chauffe-eau solaire . plafond: 7000 €
 
 chauffage . chauffe-eau solaire . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 4000 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 3000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 2000 €
     - sinon: 0 €
 
@@ -101,11 +101,11 @@ chauffage . solaire combiné:
 chauffage . solaire combiné . plafond: 16000 €
 chauffage . solaire combiné . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 8000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
     - sinon: 0 €
 
@@ -117,11 +117,11 @@ chauffage . partie thermique PVT eau:
 chauffage . partie thermique PVT eau . plafond: 4000 €
 chauffage . partie thermique PVT eau . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 8000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
     - sinon: 0 €
 
@@ -135,11 +135,11 @@ chauffage . chaudière bois . manuelle:
 chauffage . chaudière bois . manuelle . plafond: 16000 €
 chauffage . chaudière bois . manuelle . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 8000 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 6500 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
     - sinon: 0 €
 chauffage . chaudière bois . automatique:
@@ -149,11 +149,11 @@ chauffage . chaudière bois . automatique:
 chauffage . chaudière bois . automatique . plafond: 18000 €
 chauffage . chaudière bois . automatique . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 8000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
     - sinon: 0 €
 
@@ -163,11 +163,11 @@ chauffage . foyer et insert:
 chauffage . foyer et insert . plafond: 4000 €
 chauffage . foyer et insert . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 1500 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 800 €
     - sinon: 0 €
 
@@ -179,11 +179,11 @@ chauffage . poêle . à bûches:
 chauffage . poêle . à bûches . plafond: 4000 €
 chauffage . poêle . à bûches . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 2000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1000 €
     - sinon: 0 €
 
@@ -193,10 +193,10 @@ chauffage . poêle . à granulés:
 chauffage . poêle . à granulés . plafond: 5000 €
 chauffage . poêle . à granulés . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modestes'
       alors: 2000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1500 €
     - sinon: 0 €

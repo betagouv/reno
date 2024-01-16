@@ -29,6 +29,7 @@ import simulationConfig from './simulationConfig.yaml'
 import { QuestionHeader } from './QuestionHeader'
 import { useMemo } from 'react'
 import Notifications from '@/components/Notifications'
+import Answers from './Answers'
 
 export default function Form({ searchParams, rules }) {
   const engine = useMemo(() => new Publicodes(rules), [rules])
@@ -67,36 +68,10 @@ export default function Form({ searchParams, rules }) {
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
-  console.log(
-    'eval',
-    engine.evaluate('MPR . non accompagnée'),
-    engine.evaluate('gestes . montant'),
-    engine.evaluate('revenu . classe'),
-  )
-  /*
-  console.log(
-    'currentQuestion',
-    currentQuestion,
-    currentValue,
-    ruleQuestionType,
-    nextQuestions,
-  )
-  */
-  const ruleName = currentQuestion && getRuleName(currentQuestion)
   return (
     <div>
       <Section>
-        {answeredQuestions.length > 0 && (
-          <div
-            style={css`
-              text-align: right;
-              float: right;
-              margin-bottom: 0.6rem;
-            `}
-          >
-            <Link href={'/simulation'}>Recommencer</Link>
-          </div>
-        )}
+        <Answers answeredQuestions={answeredQuestions} />
         <Personas setSearchParams={setSearchParams} />
         {rule && (
           <Card $background={`#2a82dd1f`}>
@@ -172,41 +147,7 @@ export default function Form({ searchParams, rules }) {
         )}
         <Notifications {...{ currentQuestion, engine }} />
         <NextQuestions {...{ nextQuestions, rules }} />
-        <div
-          style={css`
-            margin-top: 1vh;
-          `}
-        >
-          <h2>Votre Prime Rénov'</h2>
-          <Results>
-            <Result
-              started={started}
-              index={1}
-              key={'acc'}
-              {...{
-                engine: engine.setSituation(situation),
-                isFinal: !currentQuestion,
-                rules,
-                dottedName: 'MPR . accompagnée',
-              }}
-            />
-            <span>OU</span>
-            <Result
-              started={started}
-              index={2}
-              key={'non acc'}
-              {...{
-                engine: engine.setSituation(situation),
-                isFinal: !currentQuestion,
-                dottedName: 'MPR . non accompagnée',
-                hideNumeric: !currentQuestion?.startsWith('gestes . '),
-                rules,
-              }}
-            />
-          </Results>
-        </div>
       </Section>
-      <Explications {...{ engine, rules, situation }} />
       <Share searchParams={searchParams} />
     </div>
   )

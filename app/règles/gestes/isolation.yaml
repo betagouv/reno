@@ -19,11 +19,11 @@ isolation . vitres . nombre:
 isolation . vitres . plafond: 1000 €/m2
 isolation . vitres . barème:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 100 €/équipement
-    - si: revenu . classe = 'modeste'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 80 €/équipement
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/équipement
     - sinon: 0 €
 isolation . murs extérieurs:
@@ -37,11 +37,11 @@ isolation . murs extérieurs . montant: surface * barème
 isolation . murs extérieurs . plafond: 150 €/m2
 isolation . murs extérieurs . barème:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 75 €/m2
-    - si: revenu . classe = 'modeste'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 60 €/m2
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 0 €
 
@@ -56,11 +56,11 @@ isolation . murs intérieurs . montant: surface * barème
 isolation . murs intérieurs . plafond: 70 €/m2
 isolation . murs intérieurs . barème:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 25 €/m2
-    - si: revenu . classe = 'modeste'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 20 €/m2
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
 
@@ -75,11 +75,11 @@ isolation . rampants . montant: surface * barème
 isolation . rampants . plafond: 75 €/m2
 isolation . rampants . barème:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 25 €/m2
-    - si: revenu . classe = 'modeste'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 20 €/m2
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
 isolation . toitures terrasses:
@@ -93,11 +93,11 @@ isolation . toitures terrasses . montant: surface * barème
 isolation . toitures terrasses . plafond: 180 €/m2
 isolation . toitures terrasses . barème:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 75 €/m2
-    - si: revenu . classe = 'modeste'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 60 €/m2
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 0 €
 #TODO Outre-mer

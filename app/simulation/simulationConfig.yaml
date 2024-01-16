@@ -1,10 +1,10 @@
 prioritaires:
-  - propriétaire . condition
-  - résidence principale
-  - condition d'ancienneté
-  - personnes
-  - revenu
-  - région
+  - vous . propriétaire . condition
+  - logement . résidence principale
+  - logement . condition d'ancienneté
+  - foyer . personnes
+  - foyer . région
+  - foyer . revenu
   - DPE . actuel
   - travaux
   - DPE . visé
