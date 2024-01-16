@@ -31,9 +31,9 @@ export default function Answers({
           <Link href={'/simulation'}>Recommencer</Link>
         </Header>
       )}
-      <Details>
+      <Details $noMarker={answeredQuestions.length === 0}>
         <summary>
-          <Number>{categoryIndex}</Number> {categoryName}
+          <Number>{categoryIndex}</Number> &nbsp;{categoryName}
         </summary>
         <h2>Vos réponses</h2>
         <AnswerList>
@@ -64,6 +64,20 @@ const Details = styled.details`
     margin-top: 0.6rem;
   }
   padding-bottom: 1.4vh;
+  ${(p) =>
+    p.$noMarker &&
+    `
+  summary::-webkit-details-marker {
+
+  display: block
+
+  } 
+  summary{
+display: block
+}
+
+
+  `}
 `
 
 const Header = styled.div`
