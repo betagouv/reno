@@ -1,6 +1,6 @@
 import css from '@/components/css/convertToJs'
 import dynamic from '@/node_modules/next/dynamic'
-import logo from '@/public/icon.svg'
+import logo from '@/app/icon.svg'
 import Image from 'next/image'
 
 const Couts = dynamic(() => import('./Couts'), { ssr: false })
