@@ -2,20 +2,30 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 
+export const Main = styled.main`
+  width: 98vw;
+  padding: 0 1vw;
+  margin: 0 auto;
+`
+
 export const Section = styled.section`
   margin: 0 auto;
   width: 800px;
   max-width: 100%;
 `
-export const Card = styled.div`
-  margin: 0.6rem 0;
-  padding: 0.2rem 1vw;
+export const cardBorder = `
+
+  padding: 0.2rem 1.5vw;
   border: 2px solid #dfdff1;
   border-radius: 0.3rem;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: 2px solid #253b71;
-  ${(p) => (p.$background ? `background: ${p.$background}` : '')}
+`
+export const Card = styled.div`
+  margin: 0.6rem 0;
+  ${(p) => (p.$background ? `background: ${p.$background};` : '')}
+  ${cardBorder}
 `
 
 export const FooterWrapper = styled.footer`

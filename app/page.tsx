@@ -27,7 +27,7 @@ export default function Page({ searchParams }) {
               et de votre projet.
             </p>
           </Intro>
-          <CTA href="/simulation">Commencer la simulation</CTA>
+          <CTA href="/simulation/introduction">Commencer la simulation</CTA>
         </Content>
         <div
           style={css`

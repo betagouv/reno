@@ -4,6 +4,7 @@ import MpaIcon from '@/public/mpa.svg'
 import MpgIcon from '@/public/mpg.svg'
 import Image from 'next/image'
 import rules from '@/app/règles/rules'
+import { cardBorder } from '@/components/UI'
 
 export default function VisualExplanation() {
   return (
@@ -47,7 +48,12 @@ const Images = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  @media (max-width: 800px) {
+    justify-content: center;
+  }
+  align-items: center;
   li {
+    margin: 0.6rem 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -59,6 +65,7 @@ const Images = styled.ul`
     > div {
       height: 18rem;
     }
+    ${cardBorder}
   }
   h3 {
     width: 12rem;

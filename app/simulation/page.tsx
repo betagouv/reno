@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer'
-import { PageBlock } from '@/components/UI'
+import { Main, PageBlock } from '@/components/UI'
 import Form from './Form'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
@@ -14,15 +14,9 @@ export const metadata: Metadata = {
 export default function Page({ searchParams }) {
   return (
     <PageBlock>
-      <main
-        style={css`
-          width: 98vw;
-          padding: 0 1vw;
-          margin: 0 auto;
-        `}
-      >
+      <Main>
         <Form searchParams={searchParams} rules={rules} />
-      </main>
+      </Main>
       <Footer />
     </PageBlock>
   )
