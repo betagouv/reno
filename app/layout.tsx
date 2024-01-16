@@ -61,7 +61,7 @@ export default function RootLayout({
           </TopBanner>
           <header
             style={css`
-              margin-top: 0.4rem;
+              margin-top: 1rem;
               margin-bottom: calc(1.5vh + 1.5vw);
               --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
@@ -95,19 +95,8 @@ export default function RootLayout({
                     height: auto;
                   `}
                 />
-                <Image
-                  src={logo}
-                  alt="Logo Mes Aides Rénovation 2024"
-                  style={css`
-                    width: 2rem;
-                    margin-right: 0.6rem;
-                    height: auto;
-                    padding-top: 0.5rem;
-                  `}
-                />
                 <h1>Mes aides réno 2024</h1>
               </div>
-              <small>{description}</small>
             </div>
           </header>
           {children}

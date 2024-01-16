@@ -8,9 +8,10 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3.1 (9b9bdc1480, 2023-11-25, custom)"
-   sodipodi:docname="icon.svg"
+   sodipodi:docname="mpa.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
@@ -23,26 +24,54 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.74297138"
-     inkscape:cx="397.05433"
-     inkscape:cy="484.54087"
+     inkscape:zoom="0.56730475"
+     inkscape:cx="109.2887"
+     inkscape:cy="289.96761"
      inkscape:window-width="1920"
-     inkscape:window-height="1055"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
-     id="defs1" />
+     id="defs1">
+    <linearGradient
+       id="linearGradient1"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#000091;stop-opacity:1;"
+         offset="0.47392437"
+         id="stop1" />
+      <stop
+         style="stop-color:#9a9af7;stop-opacity:1;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1"
+       id="radialGradient2"
+       cx="106.882"
+       cy="107.94331"
+       fx="106.882"
+       fy="107.94331"
+       r="87.454521"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
     <circle
-       style="fill:#253b71;fill-rule:evenodd;stroke-width:0.305013;fill-opacity:1"
+       style="fill:url(#radialGradient2);fill-rule:evenodd;stroke-width:5;stroke:#000091;stroke-opacity:1;stroke-dasharray:none;opacity:0.5788562"
        id="path1"
-       cx="106.22543"
-       cy="105.43718"
-       r="90.293022" />
+       cx="106.882"
+       cy="107.94331"
+       r="87.454521" />
+    <path
+       style="fill:#000091;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 64.855009,89.795227 43.415941,-23.957953 39.79741,23.991031 0.16002,61.733485 -82.8851,0.25465 z"
+       id="path2"
+       sodipodi:nodetypes="cccccc" />
   </g>
 </svg>
