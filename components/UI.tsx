@@ -26,6 +26,7 @@ export const Card = styled.div`
   margin: 0.6rem 0;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
   ${cardBorder}
+  ${(p) => p.$noBorder && `border: none;`}
 `
 
 export const FooterWrapper = styled.footer`

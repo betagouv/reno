@@ -82,29 +82,11 @@ export default function Form({ searchParams, rules }) {
           }}
         />
         {rule && (
-          <Card $background={`#2a82dd1f`}>
+          <Card>
             <div>
               {(!rule.type || !rule.type === 'question rhétorique') && (
                 <QuestionHeader>
                   <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
-                  {rule.descriptionHtml && (
-                    <details>
-                      <summary>
-                        <Image
-                          src={informationIcon}
-                          width="25"
-                          style={css`
-                            vertical-align: bottom;
-                          `}
-                        />
-                      </summary>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: rule.descriptionHtml,
-                        }}
-                      />
-                    </details>
-                  )}
                 </QuestionHeader>
               )}
               <AnswerWrapper>
@@ -154,6 +136,28 @@ export default function Form({ searchParams, rules }) {
           </Card>
         )}
         <Notifications {...{ currentQuestion, engine }} />
+        {rule.description && (
+          <div
+            style={css`
+              margin-top: 2rem;
+              display: flex;
+              align-items: center;
+            `}
+          >
+            <Image
+              src={informationIcon}
+              width="25"
+              style={css`
+                margin-right: 1rem;
+              `}
+            />
+            <Card $background={`#2a82dd1f`} $noBorder={true}>
+              <div
+                dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+              ></div>
+            </Card>
+          </div>
+        )}
       </Section>
       <Share searchParams={searchParams} />
     </div>
