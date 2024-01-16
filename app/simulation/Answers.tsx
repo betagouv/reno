@@ -1,28 +1,72 @@
 import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
 import styled from 'styled-components'
+import simulationConfig from '@/app/simulation/simulationConfig.yaml'
+import NextQuestions from '@/components/NextQuestions'
 
-export default function Answers({ answeredQuestions }) {
+export default function Answers({
+  answeredQuestions,
+  nextQuestions,
+  currentQuestion,
+  rules,
+}) {
+  const category = currentQuestion.split(' . ')[0]
+  const categories = simulationConfig.catégories
+  const categoryIndex = categories.findIndex((el) => el === category) + 1,
+    categoryName = rules[category].titre
+  console.log({ category, categories, categoryIndex })
   return (
-    <section>
+    <Wrapper>
       {answeredQuestions.length > 0 && (
-        <div
-          style={css`
-            text-align: right;
-            float: right;
-            margin-bottom: 0.6rem;
-          `}
-        >
+        <Header>
+          {' '}
+          <small>
+            Étape {categoryIndex} sur {categories.length}
+          </small>
           <Link href={'/simulation'}>Recommencer</Link>
-        </div>
+        </Header>
       )}
       <Details>
-        <summary>Votre situation</summary>
+        <summary>
+          <Number>{categoryIndex}</Number> {categoryName}
+        </summary>
       </Details>
-    </section>
+      <ProgressBar $ratio={categoryIndex / categories.length} />
+      <NextQuestions {...{ nextQuestions, rules }} />
+    </Wrapper>
   )
 }
 
+const Wrapper = styled.section`
+  margin-bottom: 2vh;
+`
 const Details = styled.details`
-  border-bottom: 1px solid lightgrey;
+  padding-bottom: 1.4vh;
+`
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.2vh;
+  align-items: center;
+  > small {
+    color: #555;
+  }
+`
+
+const Number = styled.span`
+  background: #000093;
+  border-radius: 1rem;
+  width: 1.4rem;
+  display: inline-block;
+  text-align: center;
+  height: auto;
+  color: white;
+`
+
+const ProgressBar = styled.div`
+  height: 0.4rem;
+  background: #000093;
+  border-radius: 0.25rem;
+  width: ${(p) => p.$ratio * 100}%;
 `

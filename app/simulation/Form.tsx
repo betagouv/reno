@@ -71,7 +71,9 @@ export default function Form({ searchParams, rules }) {
   return (
     <div>
       <Section>
-        <Answers answeredQuestions={answeredQuestions} />
+        <Answers
+          {...{ answeredQuestions, nextQuestions, currentQuestion, rules }}
+        />
         {rule && (
           <Card $background={`#2a82dd1f`}>
             <div>
@@ -145,7 +147,6 @@ export default function Form({ searchParams, rules }) {
           </Card>
         )}
         <Notifications {...{ currentQuestion, engine }} />
-        <NextQuestions {...{ nextQuestions, rules }} />
       </Section>
       <Share searchParams={searchParams} />
     </div>

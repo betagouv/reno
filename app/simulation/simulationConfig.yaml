@@ -1,3 +1,8 @@
+catégories:
+  - vous
+  - logement
+  - foyer
+  - DPE
 prioritaires:
   - vous . propriétaire . condition
   - logement . résidence principale
