@@ -69,3 +69,8 @@ export const CTA = styled(Link)`
   font-size: 150%;
   text-decoration: none;
 `
+export const Intro = styled.div`
+  margin: 2rem 0 1.6rem;
+  width: 30rem;
+  max-width: 90%;
+`

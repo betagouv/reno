@@ -1,7 +1,7 @@
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Footer from '@/components/Footer'
-import { CTA, PageBlock } from '@/components/UI'
+import { CTA, Intro, PageBlock } from '@/components/UI'
 import VisualExplanation from './VisualExplanation'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
@@ -17,18 +17,18 @@ export default function Page({ searchParams }) {
       <PageBlock>
         <Content>
           <h1>Calculez vos aides rénovation 2024</h1>
-          <p
-            style={css`
-              margin: 2rem 0 1.6rem;
-              width: 30rem;
-              max-width: 90%;
-            `}
-          >
-            En 2024, les aides à la rénovation thermique des logements
-            particuliers ont été renforcées. Calculez votre éligibilité et le
-            montant de vos aides Ma Prime Rénov' en ⌚️ 5 minutes chrono.
-          </p>
-          <CTA href="/simulation">C'est parti</CTA>
+          <Intro>
+            <p>
+              En 2024, les aides évoluent pour mieux accompagner les rénovations
+              énergétiques.
+            </p>
+
+            <p>
+              Estimez vos droits en ⌚️ 5 minutes en fonction de votre situation
+              et de votre projet.
+            </p>
+          </Intro>
+          <CTA href="/simulation">Commencer la simulation</CTA>
         </Content>
         <div
           style={css`
