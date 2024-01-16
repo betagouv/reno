@@ -1,5 +1,6 @@
 import css from '@/components/css/convertToJs'
 import StyledComponentsRegistry from '../lib/registry'
+import Link from 'next/link'
 import './globals.css'
 
 import { TopBanner } from '@/components/UI'
@@ -65,24 +66,32 @@ export default function RootLayout({
               width: 100%;
             `}
           >
-            <div
+            <Link
+              href="/"
               style={css`
-                max-width: 800px;
-                margin: 0 auto;
-                display: flex;
-                align-items: center;
+                text-decoration: none;
+                color: inherit;
               `}
             >
-              <DynamicHeaderIcon />
-              <h1
+              <div
                 style={css`
-                  margin: 1vh 0;
-                  margin-left: 1vw;
+                  max-width: 800px;
+                  margin: 0 auto;
+                  display: flex;
+                  align-items: center;
                 `}
               >
-                Mes aides réno
-              </h1>
-            </div>
+                <DynamicHeaderIcon />
+                <h1
+                  style={css`
+                    margin: 1vh 0;
+                    margin-left: 1vw;
+                  `}
+                >
+                  Mes aides réno
+                </h1>
+              </div>
+            </Link>
           </header>
           {children}
         </StyledComponentsRegistry>

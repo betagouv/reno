@@ -68,6 +68,10 @@ export const CTA = styled(Link)`
   padding: 0.4rem 1rem;
   font-size: 150%;
   text-decoration: none;
+  white-space: nowrap;
+  @media (max-width: 800px) {
+    font-size: 120%;
+  }
 `
 export const Intro = styled.div`
   margin: 2rem 0 1.6rem;

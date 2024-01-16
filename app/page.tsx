@@ -32,7 +32,7 @@ export default function Page({ searchParams }) {
         </Content>
         <div
           style={css`
-            background: #26a75f;
+            background: #26a75f63;
             color: black;
             padding: 1rem;
             width: 100%;
@@ -43,7 +43,7 @@ export default function Page({ searchParams }) {
           nationale de l'habitat pour simplifier l’accès à l’information sur les
           aides à la rénovation énergétique.{' '}
         </div>
-        <Wrapper>
+        <Wrapper $noMargin={true}>
           <Content>
             <p>
               Les aides Ma Prime Rénov' sont destinées aux propriétaires dont le

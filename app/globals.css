@@ -24,11 +24,6 @@ body {
   color: #111;
   min-height: 100%;
 }
-main {
-  width: 98vw;
-  padding: 0 1vw;
-  margin: 0 auto;
-}
 header {
   margin: 0 auto;
 }
