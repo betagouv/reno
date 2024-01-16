@@ -2,7 +2,6 @@ import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Footer from '@/components/Footer'
 import { CTA, Intro, PageBlock } from '@/components/UI'
-import VisualExplanation from './VisualExplanation'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -46,20 +45,56 @@ export default function Page({ searchParams }) {
         </div>
         <Wrapper $noMargin={true}>
           <Content>
+            <h2>Pourquoi un simulateur Mes aides Réno ?</h2>
             <p>
-              Les aides Ma Prime Rénov' sont destinées aux propriétaires dont le
-              logement est occupé ou loué comme résidence principale.{' '}
+              Rénover son logement permet de réduire ses factures et d’améliorer
+              son confort, en luttant contre le froid et le chaud. C’est
+              également l’un des leviers importants de notre transition
+              énergétique et climatique. Le gouvernement et les collectivités
+              territoriales accompagnent les propriétaires dans leur projets à
+              travers plusieurs dispositif d’aides.
             </p>
             <p>
-              En 2024, tous les foyers peuvent bénéficier d'une aide minimum,
-              quelque soit leur revenu, grâce à un parcours accompagné pour des
-              rénovations ambitieuses de deux sauts de DPE.
+              Ces d’aides peuvent vous accompagner dans une rénovation d’ampleur
+              de votre logement ou la réalisation d’un ou plusieurs gestes de
+              travaux (changement des fenêtre, installation d’une pompe à
+              chaleur, isolation des murs…).
             </p>
             <p>
-              Deux dispositifs Ma Prime Rénov' existent. Ce calculateur vous
-              aide à les comprendre et à choisir celui qui vous convient.
+              Mes Aides Réno vous permet :
+              <ul>
+                <li>
+                  d’évaluer rapidement votre éligibilité aux principaux
+                  dispositifs
+                </li>
+                <li>de choisir celui qui est le plus pertinent pour vous</li>
+                <li>
+                  et d’estimer le montant de vos aides en fonction de votre
+                  situation personnel et de votre projet de rénovation
+                </li>
+              </ul>
             </p>
-            <VisualExplanation />
+
+            <h2>Qui est éligible aux dispositifs ?</h2>
+            <p>
+              Les aides a la rénovation sont accessibles à tous les
+              propriétaires, qu’ils habitent leur logement ou le mettent en
+              location, ainsi qu’aux copropriétaires. Elles sont ouvertes aux
+              maisons individuelles, aux appartements et aux copropriétés. Il
+              faut cependant que le logement soit une résidence principale.
+            </p>
+            <p>
+              Si vous êtes locataire, vous n’êtes pas éligible aux aides.
+              Cependant, le simulateur Mes aides réno peut vous aider à mieux
+              informer et à sensibiliser votre bailleur.
+            </p>
+            <h2>Quels sont les dispositifs ?</h2>
+            <p>
+              Mes aides réno vous donnera votre éligibilité et les montants de
+              Ma Prime Rénov', aussi bien le parcours accompagné que le parcours
+              par geste. Dans un second temps, seront aussi inclus l'éco-prêt à
+              taux zéro, et les aides locales.
+            </p>
           </Content>
         </Wrapper>
         <Footer />
