@@ -2,7 +2,7 @@ import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
-import rules from '@/app/rules'
+import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 
