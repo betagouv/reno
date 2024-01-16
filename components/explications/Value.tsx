@@ -9,7 +9,6 @@ export default function Value({
   display = (v) => v,
 }) {
   const evaluation = givenEvaluation || compute(name, engine, rules)
-  console.log(name, evaluation)
   return (
     <Key $state={evaluation.hasMissing ? 'inProgress' : 'final'}>
       {display(evaluation.node.nodeValue)}

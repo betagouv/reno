@@ -1,13 +1,10 @@
 import css from '@/components/css/convertToJs'
-import logo from '@/public/icon.svg'
-import marianneLogo from '@/public/marianne.svg'
-import Image from 'next/image'
 import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
 
 import { TopBanner } from '@/components/UI'
 import localFont from 'next/font/local'
-import { description } from './page'
+import DynamicHeaderIcon from './DynamicHeaderIcon'
 
 const marianneFont = localFont({
   src: [
@@ -61,16 +58,10 @@ export default function RootLayout({
           </TopBanner>
           <header
             style={css`
-              margin-top: 1rem;
+              margin-top: 1.6rem;
               margin-bottom: calc(1.5vh + 1.5vw);
-              --shadow-color: 0deg 0% 63%;
-              --shadow-elevation-medium: 0.3px 0.5px 0.7px
-                  hsl(var(--shadow-color) / 0.36),
-                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
               box-shadow: var(--shadow-elevation-medium);
-              padding: 1vh;
+              padding: 0 1vh;
               width: 100%;
             `}
           >
@@ -78,25 +69,19 @@ export default function RootLayout({
               style={css`
                 max-width: 800px;
                 margin: 0 auto;
+                display: flex;
+                align-items: center;
               `}
             >
-              <div
+              <DynamicHeaderIcon />
+              <h1
                 style={css`
-                  display: flex;
-                  align-items: center;
+                  margin: 1vh 0;
+                  margin-left: 1vw;
                 `}
               >
-                <Image
-                  src={marianneLogo}
-                  alt="Bloc Mariane officiel de la République Française"
-                  style={css`
-                    width: 10vh;
-                    margin-right: 0.6rem;
-                    height: auto;
-                  `}
-                />
-                <h1>Mes aides réno 2024</h1>
-              </div>
+                Mes aides réno
+              </h1>
             </div>
           </header>
           {children}
