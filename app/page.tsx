@@ -45,10 +45,6 @@ export default function Page({ searchParams }) {
               Deux dispositifs Ma Prime Rénov' existent. Ce calculateur vous
               aide à les comprendre et à choisir celui qui vous convient.
             </p>
-          </Content>
-        </Wrapper>
-        <Wrapper>
-          <Content>
             <VisualExplanation />
           </Content>
         </Wrapper>

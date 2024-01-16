@@ -41,6 +41,7 @@ export default function VisualExplanation() {
 }
 
 const Images = styled.ul`
+  margin-top: 3vh;
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
