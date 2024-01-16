@@ -20,7 +20,7 @@ export default function Page({ searchParams }) {
           <p
             style={css`
               margin: 2rem 0 1.6rem;
-              width: 600px;
+              width: 30rem;
               max-width: 90%;
             `}
           >
