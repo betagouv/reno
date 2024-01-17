@@ -1,0 +1,11 @@
+- question: De quel revenu parle-t-on pour les conditions d'éligibilité ? Mon ménage, mon foyer ?
+  catégorie: revenu
+  id: revenu
+  réponse: |
+    La définition d'un foyer est différente de celle d'un ménage. Le foyer concerne des groupes de personnes ayant des liens de parenté.
+
+- question: Mon DPE a été fait avant 2021, faut-il le refaire pour Ma Prime Rénov' ?
+  catégorie: dpe
+  id: vieux-dpe
+  réponse: |
+    Nous ne savons pas pour l'instant si les DPE qui étaient calculés sur la consommation du ménage, plutôt que sur des températures standards, sont valides pour prétendre à Ma Prime Rénov'.
