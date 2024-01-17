@@ -73,6 +73,10 @@ export const TopBanner = styled.p`
   }
 `
 
+export const CTAWrapper = styled.div`
+  text-align: right;
+  margin: 3vh 0;
+`
 export const CTA = styled(Link)`
   background: #000091;
   color: white;

@@ -1,6 +1,6 @@
 import VisualExplanation from '@/app/VisualExplanation'
 import css from '@/components/css/convertToJs'
-import { CTA, Main, Section } from '@/components/UI'
+import { CTA, CTAWrapper, Main, Section } from '@/components/UI'
 
 export const metadata: Metadata = {
   title: 'Introduction - Mes aides réno',
@@ -25,14 +25,9 @@ export default function Introduction() {
             qui vous convient le mieux.
           </strong>
         </p>
-        <div
-          style={css`
-            text-align: right;
-            margin: 3vh 0;
-          `}
-        >
+        <CTAWrapper>
           <CTA href="/simulation">J'ai compris</CTA>
-        </div>
+        </CTAWrapper>
       </Section>
     </Main>
   )

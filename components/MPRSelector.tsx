@@ -2,6 +2,7 @@ import ResultsBlock from '@/app/simulation/ResultsBlock'
 import VisualExplanation from '@/app/VisualExplanation'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
+import { CTA, CTAWrapper } from './UI'
 
 export default function MPRSelector({
   setSearchParams,
@@ -13,16 +14,17 @@ export default function MPRSelector({
 }) {
   const numericalValue = situation[currentQuestion]
 
-  const doSetSearchParams = (value) => {
+  const nextLink = (value) => {
     const newSituation = encodeSituation(
       {
         ...situation,
-        [currentQuestion]: value,
+        [currentQuestion]: value + '*',
       },
       false,
       answeredQuestions,
     )
-    const url = setSearchParams(newSituation, false, false)
+    const url = setSearchParams(newSituation, true, false)
+    return url
   }
 
   return (
@@ -41,6 +43,10 @@ export default function MPRSelector({
           showIfNull: false,
         }}
       />
+
+      <CTAWrapper>
+        <CTA href={nextLink(`accompagnée`)}>Suivant</CTA>
+      </CTAWrapper>
     </div>
   )
 }
