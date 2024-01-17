@@ -1,5 +1,4 @@
 import ResultsBlock from '@/app/simulation/ResultsBlock'
-import VisualExplanation from '@/app/VisualExplanation'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { CTA, CTAWrapper } from './UI'
