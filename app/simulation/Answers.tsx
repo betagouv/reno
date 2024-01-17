@@ -15,10 +15,12 @@ export default function Answers({
   const answeredQuestions = rawAnsweredQuestions.filter(
     (el) => el !== 'simulation . mode',
   )
-  const category = currentQuestion.split(' . ')[0]
+  const category = currentQuestion?.split(' . ')[0]
   const categories = simulationConfig.catégories
-  const categoryIndex = categories.findIndex((el) => el === category) + 1,
-    categoryName = rules[category].titre
+  const categoryIndex = currentQuestion
+      ? categories.findIndex((el) => el === category) + 1
+      : categories.length + 1,
+    categoryName = currentQuestion && rules[category].titre
   console.log({ category, categories, categoryIndex })
   return (
     <Wrapper>
@@ -33,7 +35,13 @@ export default function Answers({
       )}
       <Details $noMarker={answeredQuestions.length === 0}>
         <summary>
-          <Number>{categoryIndex}</Number> &nbsp;{categoryName}
+          {currentQuestion ? (
+            <span>
+              <Number>{categoryIndex}</Number> &nbsp;{categoryName}
+            </span>
+          ) : (
+            'Terminé'
+          )}
         </summary>
         <h2>Vos réponses</h2>
         {answeredQuestions.length > 0 ? (

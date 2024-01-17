@@ -62,9 +62,8 @@ export default function Form({ searchParams, rules }) {
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-  const liveEvaluation = engine
-    .setSituation(situation)
-    .evaluate(currentQuestion)
+  const liveEvaluation =
+    currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
 
   console.log('liveEvaluation', liveEvaluation)
   const ruleQuestionType = currentQuestion && questionType(liveEvaluation, rule)
@@ -140,7 +139,7 @@ export default function Form({ searchParams, rules }) {
           </Card>
         )}
         <Notifications {...{ currentQuestion, engine }} />
-        {rule.description && (
+        {currentQuestion && rule.description && (
           <div
             style={css`
               margin-top: 2rem;
