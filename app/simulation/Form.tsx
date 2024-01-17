@@ -162,6 +162,7 @@ export default function Form({ searchParams, rules }) {
           </div>
         )}
       </Section>
+      <br />
       <Share searchParams={searchParams} />
     </div>
   )
