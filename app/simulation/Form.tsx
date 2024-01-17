@@ -30,6 +30,7 @@ import { QuestionHeader } from './QuestionHeader'
 import { useMemo } from 'react'
 import Notifications from '@/components/Notifications'
 import Answers from './Answers'
+import ResultsBlock from './ResultsBlock'
 
 export default function Form({ searchParams, rules }) {
   const engine = useMemo(() => new Publicodes(rules), [rules])
@@ -162,6 +163,9 @@ export default function Form({ searchParams, rules }) {
           </div>
         )}
       </Section>
+      <ResultsBlock
+        {...{ engine, rules, currentQuestion, validatedSituation }}
+      />
       <br />
       <Share searchParams={searchParams} />
     </div>

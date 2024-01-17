@@ -1,38 +1,39 @@
 import css from '@/components/css/convertToJs'
 import Result, { Results } from '@/components/Result'
+import { Section } from '@/components/UI'
 
 export default function ResultsBlock({
   engine,
   rules,
   currentQuestion,
-  situation,
+  validatedSituation,
 }) {
+  const targets = rules['aides'].somme,
+    evaluations = targets.map((dottedName) =>
+      engine.setSituation(validatedSituation).evaluate(dottedName),
+    )
+  console.log('results', evaluations)
+  if (evaluations.find((evaluation) => evaluation.nodeValue)) return null
+
   return (
-    <div
-      style={css`
-        margin-top: 1vh;
-      `}
-    >
+    <Section>
       <h2>Votre Prime Rénov'</h2>
       <Results>
         <Result
-          started={started}
           index={1}
           key={'acc'}
           {...{
-            engine: engine.setSituation(situation),
+            engine: engine.setSituation(validatedSituation),
             isFinal: !currentQuestion,
             rules,
             dottedName: 'MPR . accompagnée',
           }}
         />
-        <span>OU</span>
         <Result
-          started={started}
           index={2}
           key={'non acc'}
           {...{
-            engine: engine.setSituation(situation),
+            engine: engine.setSituation(validatedSituation),
             isFinal: !currentQuestion,
             dottedName: 'MPR . non accompagnée',
             hideNumeric: !currentQuestion?.startsWith('gestes . '),
@@ -40,6 +41,6 @@ export default function ResultsBlock({
           }}
         />
       </Results>
-    </div>
+    </Section>
   )
 }

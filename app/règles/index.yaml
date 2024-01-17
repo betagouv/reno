@@ -15,10 +15,9 @@ simulation . mode:
     - 'moyen'
 
 aides:
-  formule:
-    somme:
-      - MPR . accompagnée
-      - MPR . non accompagnée
+  somme:
+    - MPR . accompagnée
+    - MPR . non accompagnée
 
 ménage . revenu:
   titre: Revenu fiscal de référence

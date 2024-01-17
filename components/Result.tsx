@@ -20,7 +20,6 @@ export default function Result({
   dottedName,
   hideNumeric,
   index,
-  started,
 }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
@@ -57,7 +56,6 @@ export default function Result({
         : ''
     } 
 	position: relative;
-	${started && hideNumeric ? `width: 12rem;` : ``}
 
       `)}
     >
@@ -78,7 +76,7 @@ export default function Result({
       >
         {index}
       </span>
-      <InvisibleDetails open={!started}>
+      <InvisibleDetails open={false}>
         <summary>
           <h3
             style={css`
