@@ -36,15 +36,19 @@ export default function Answers({
           <Number>{categoryIndex}</Number> &nbsp;{categoryName}
         </summary>
         <h2>Vos réponses</h2>
-        <AnswerList>
-          {answeredQuestions.map((answer) => (
-            <li key={answer}>
-              {' '}
-              <span>{rules[answer].titre}</span> -{' '}
-              <span>{situation[answer]}</span>
-            </li>
-          ))}
-        </AnswerList>
+        {answeredQuestions.length > 0 ? (
+          <AnswerList>
+            {answeredQuestions.map((answer) => (
+              <li key={answer}>
+                {' '}
+                <span>{rules[answer].titre}</span> -{' '}
+                <span>{situation[answer]}</span>
+              </li>
+            ))}
+          </AnswerList>
+        ) : (
+          <p>Vous n'avez pas encore validé de réponse.</p>
+        )}
       </Details>
       <ProgressBar $ratio={categoryIndex / categories.length} />
       <NextQuestions {...{ nextQuestions, rules }} />

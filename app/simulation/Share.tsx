@@ -7,11 +7,10 @@ export default function LinkAPI({ searchParams }) {
       <h2>Partage</h2>
 
       <p>
-        Voici{' '}
-        <Link href={'?' + new URLSearchParams(searchParams)}>
-          le lien vers votre simulation
-        </Link>{' '}
-        actuelle.
+        En partageant{' '}
+        <Link href={'?' + new URLSearchParams(searchParams)}>ce lien</Link> a
+        des amis, de la famille ou un conseiller, vous leur donnerez accès à vos
+        données et résultats de simulation.
       </p>
     </Section>
   )
