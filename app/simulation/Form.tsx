@@ -62,9 +62,13 @@ export default function Form({ searchParams, rules }) {
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-  const ruleQuestionType =
-    currentQuestion &&
-    questionType(engine.setSituation(situation).evaluate(currentQuestion), rule)
+  const liveEvaluation = engine
+    .setSituation(situation)
+    .evaluate(currentQuestion)
+
+  console.log('liveEvaluation', liveEvaluation)
+  const ruleQuestionType = currentQuestion && questionType(liveEvaluation, rule)
+
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
