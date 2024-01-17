@@ -1,6 +1,5 @@
 :root {
-  --color1: #976aec;
-  --color2: #7963e3;
+  --color: #000093;
   --darkColor: #121226;
   --shadow-color: 0deg 0% 63%;
   --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
