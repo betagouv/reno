@@ -1,15 +1,15 @@
 catégories:
   - vous
   - logement
-  - foyer
+  - ménage
   - DPE
 prioritaires:
   - vous . propriétaire . condition
   - logement . résidence principale
   - logement . condition d'ancienneté
-  - foyer . personnes
-  - foyer . région
-  - foyer . revenu
+  - ménage . personnes
+  - ménage . région
+  - ménage . revenu
   - DPE . actuel
   - travaux
   - DPE . visé

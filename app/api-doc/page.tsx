@@ -16,7 +16,7 @@ export default function APIDoc() {
       <p>
         Elle permet de calculer les deux parcours Ma Prime Rénov' 2024,
         accompagné et non accompagné, à partir de la situation d'un utilisateur.
-        La situation comprend le revenu fiscal du foyer, les sauts de DPE
+        La situation comprend le revenu fiscal du ménage, les sauts de DPE
         envisagés, mais aussi le projet d'isolation par geste.
       </p>
       <p>
