@@ -15,6 +15,8 @@ simulation . mode:
     - 'moyen'
 
 aides:
+  applicable si:
+    est défini: MPR . choix
   somme:
     - MPR . accompagnée
     - MPR . non accompagnée
@@ -295,13 +297,23 @@ conditions communes:
     - vous . propriétaire . condition
     - logement . condition d'ancienneté
     - logement . résidence principale
+
 MPR:
   titre: Ma prime rénov'
+
+MPR . choix:
+  question: Quel parcours Ma Prime Rénov' choisissez-vous ?
+  par défaut:
+    texte: accompagnée
+  possibilités:
+    - 'accompagnée'
+    - 'non accompagnée'
 
 MPR . non accompagnée . conditions:
   une de ces conditions:
     - ménage . revenu . classe = "supérieure"
     - DPE . actuel >= 6 # 1er juillet 2024
+
 MPR . non accompagnée:
   description: |
     Alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez être aidé pour rénover plus progressivement votre logement. 
