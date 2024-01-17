@@ -26,12 +26,13 @@ export const Input = styled.input`
 `
 
 export const FormLinkButton = styled(Link)`
-  background: black;
+  background: var(--color);
   color: white;
   border-radius: 0.2rem;
   padding: 0.3rem 0.6rem;
   text-decoration: none;
   margin: 0.4rem 0;
+  font-size: 115%;
 `
 export const FormButtonsWrapper = styled.div`
   margin: 1.4rem 0 0.6rem 0;
