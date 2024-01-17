@@ -24,7 +24,7 @@ ménage . revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
   description: |
-    Saisissez le « revenus fiscal de référence » des personnes composant le ménage. 
+    Saisissez le « revenu fiscal de référence » des personnes composant le ménage. 
 
     Si ces dernières ont des avis d’imposition distincts, le montant à prendre en compte est la somme de leurs « revenus fiscaux de référence ».
 
