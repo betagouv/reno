@@ -14,6 +14,7 @@ export default function ScenariosSelector({
   currentQuestion,
   answeredQuestions,
   engine,
+  rules,
 }) {
   const numericalValue = situation[currentQuestion]
 
@@ -55,20 +56,67 @@ export default function ScenariosSelector({
       <ol>
         {possibilities.map((el, index) => (
           <li key={el.lettre}>
-            <DPELabel index={oldIndex} /> ⟶ <DPELabel index={index} />{' '}
-            <Aide {...{ engine, index, situation }} />
+            {-index + oldIndex} <DPELabel index={oldIndex} /> ⟶{' '}
+            <DPELabel index={index} />{' '}
+            <Value
+              {...{
+                engine,
+                index,
+                situation: { ...situation, 'DPE . visé': index },
+                dottedName: 'MPR . accompagnée . pourcent écrêté',
+              }}
+            />
+            <Value
+              {...{
+                engine,
+                index,
+                situation: { ...situation, 'DPE . visé': index },
+                dottedName: 'MPR . accompagnée . montant',
+              }}
+            />
+            <Value
+              {...{
+                engine,
+                index,
+                situation: { ...situation, 'DPE . visé': index },
+                dottedName: 'travaux',
+              }}
+            />
           </li>
         ))}
       </ol>
-      <input type="number" placeholder="Votre investissement" />
+      <div>
+        <label>
+          Votre investissement{' '}
+          <input
+            type="number"
+            placeholder="12 000 €"
+            value={
+              situation['investissement'] ||
+              rules['investissement']['par défaut']
+            }
+            onChange={(e) => {
+              setSearchParams(
+                {
+                  investissement: e.target.value,
+                },
+                false,
+                false,
+              )
+            }}
+          />
+        </label>
+        <p>
+          En tant que ménage modeste ou très modeste, France Rénov avancera 8
+          400 € sur les 12 000 €.
+        </p>
+      </div>
     </div>
   )
 }
 
-const Aide = ({ engine, index, situation }) => {
-  const evaluation = engine
-      .setSituation({ ...situation, 'DPE . visé': index })
-      .evaluate('MPR . accompagnée . pourcent écrêté'),
+const Value = ({ engine, index, situation, dottedName }) => {
+  const evaluation = engine.setSituation(situation).evaluate(dottedName),
     value = formatValue(evaluation)
   return (
     <span

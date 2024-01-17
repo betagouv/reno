@@ -265,6 +265,14 @@ travaux:
     haute: 70000 €
   description: |
     Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, de 5,5 % à 10 %.
+  formule: investissement + MPR . accompagnée . montant
+  résoudre la référence circulaire: oui
+
+investissement:
+  titre: Votre investissement
+  description: |
+    Le budget dont vous disposez pour investir dans votre projet de rénovation, et qui sera bonifié par les aides si vous y êtes éligible.
+  par défaut: 25000 €
 
 travaux . plafonnés:
   plafond:

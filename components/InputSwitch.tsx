@@ -140,6 +140,7 @@ export default function InputSwitch({
           situation,
           answeredQuestions,
           engine,
+          rules,
         }}
       />
     )
