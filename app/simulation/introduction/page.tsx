@@ -28,7 +28,7 @@ export default function Introduction() {
         <div
           style={css`
             text-align: right;
-            margin: 2vh 0;
+            margin: 3vh 0;
           `}
         >
           <CTA href="/simulation">J'ai compris</CTA>
