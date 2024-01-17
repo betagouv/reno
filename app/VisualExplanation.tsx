@@ -10,28 +10,32 @@ export default function VisualExplanation() {
   return (
     <Images>
       <li>
-        <h3>
-          Ma Prime Rénov' <strong>accompagnée</strong>
-        </h3>
-        <Image
-          src={MpaIcon}
-          alt="Illustration du parcours Ma Prime Rénov' accompagnée"
-        />
-        <div
+        <Header>
+          <h3>
+            Ma Prime Rénov' <strong>accompagnée</strong>
+          </h3>
+          <Image
+            src={MpaIcon}
+            alt="Illustration du parcours Ma Prime Rénov' accompagnée"
+          />
+        </Header>
+        <Content
           dangerouslySetInnerHTML={{
             __html: rules['MPR . accompagnée'].descriptionHtml,
           }}
         />
       </li>
       <li>
-        <h3>
-          Ma Prime Rénov' <strong>par geste</strong>
-        </h3>
-        <Image
-          src={MpgIcon}
-          alt="Illustration du parcours Ma Prime Rénov' par gestes"
-        />
-        <div
+        <Header>
+          <h3>
+            Ma Prime Rénov' <strong>par&nbsp;geste</strong>
+          </h3>
+          <Image
+            src={MpgIcon}
+            alt="Illustration du parcours Ma Prime Rénov' par gestes"
+          />
+        </Header>
+        <Content
           dangerouslySetInnerHTML={{
             __html: rules['MPR . non accompagnée'].descriptionHtml,
           }}
@@ -40,10 +44,23 @@ export default function VisualExplanation() {
     </Images>
   )
 }
+const Content = styled.div`
+  height: 18rem;
+`
 
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    margin: 0;
+  }
+  margin-bottom: 1rem;
+`
 const Images = styled.ul`
   padding-left: 0;
-  margin-top: 3vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
@@ -62,9 +79,6 @@ const Images = styled.ul`
       max-width: 20rem;
       margin-bottom: 1.6rem;
     }
-    > div {
-      height: 18rem;
-    }
     ${cardBorder}
   }
   h3 {
@@ -78,6 +92,5 @@ const Images = styled.ul`
   img {
     width: 6rem;
     height: auto;
-    margin-bottom: 1rem;
   }
 `
