@@ -50,7 +50,7 @@ export default function Answers({
           <p>Vous n'avez pas encore validé de réponse.</p>
         )}
       </Details>
-      <ProgressBar $ratio={categoryIndex / categories.length} />
+      <ProgressBar $ratio={(categoryIndex - 1) / categories.length} />
       <NextQuestions {...{ nextQuestions, rules }} />
     </Wrapper>
   )
