@@ -16,6 +16,7 @@ import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
 import RhetoricalQuestion from './RhetoricalQuestion'
+import MPRSelector from './MPRSelector'
 
 export const getQuestionText = (rule, dottedName, rules) => {
   if (isMosaicQuestion(dottedName, rule, rules))
@@ -69,6 +70,19 @@ export default function InputSwitch({
           setSearchParams,
           situation,
           answeredQuestions,
+        }}
+      />
+    )
+  if (['MPR . choix'].includes(currentQuestion))
+    return (
+      <MPRSelector
+        {...{
+          currentQuestion,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
         }}
       />
     )

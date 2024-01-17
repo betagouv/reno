@@ -10,7 +10,7 @@ const colors = {
   },
   running: { background: '#2a82dd', color: 'white', label: 'Sous conditions' },
   fail: { background: 'salmon', color: 'white', label: 'Non éligible' },
-  waiting: { background: '#9f9f9f', color: 'white', label: 'À suivre' },
+  //  waiting: { background: '#9f9f9f', color: 'white', label: 'À suivre' },
 }
 
 export default function Result({
@@ -23,18 +23,14 @@ export default function Result({
 }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
+  console.log('result', evaluation)
+  console.log('condi', engine.evaluate('MPR . non accompagnée . conditions'))
 
   const value = formatValue(evaluation)
   const isNotApplicable =
     value === 'Non applicable' || evaluation.nodeValue === 0
 
-  const state = isNotApplicable
-    ? 'fail'
-    : isFinal
-      ? 'success'
-      : hideNumeric
-        ? 'waiting'
-        : 'running'
+  const state = isNotApplicable ? 'fail' : isFinal ? 'success' : 'running'
   const { color, background, label } = colors[state]
 
   return (
@@ -48,13 +44,6 @@ export default function Result({
     } ${background};
         ${isNotApplicable ? 'opacity: .7;' : ''}
 
-		${
-      state !== 'waiting'
-        ? `
-		  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-		  `
-        : ''
-    } 
 	position: relative;
 
       `)}
@@ -84,16 +73,15 @@ export default function Result({
               font-weight: 500;
               margin: 0.15rem 0;
             `}
-          >
-            {rule.titre}
-          </h3>
+            dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
+          />
           <div
             style={css(`
-			${hideNumeric && !isFinal ? 'display: none;' : ''}
           visibility: ${
             // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
             isNotApplicable ? 'hidden' : ''
           };
+			${hideNumeric && !isFinal ? 'visibility: hidden;' : ''}
           margin: 0.15rem 0;
         `)}
           >

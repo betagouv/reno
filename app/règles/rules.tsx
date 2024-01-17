@@ -30,6 +30,7 @@ function transformRuleObject(v) {
   const newV = {
     ...v,
     descriptionHtml: micromark(v.description),
+    titreHtml: micromark(v.titre),
   }
   return newV
 }

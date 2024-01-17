@@ -302,7 +302,11 @@ MPR:
   titre: Ma prime rénov'
 
 MPR . choix:
-  question: Quel parcours Ma Prime Rénov' choisissez-vous ?
+  question: Vos résultats
+  description: |
+    Nous avons estimé votre éligibilité générale aux 2 aides Ma Prime Rénov'. 
+
+    La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
   par défaut:
     texte: accompagnée
   possibilités:
@@ -315,6 +319,9 @@ MPR . non accompagnée . conditions:
     - DPE . actuel >= 6 # 1er juillet 2024
 
 MPR . non accompagnée:
+  titre: Ma Prime Rénov' **par geste**
+  illustration: mpg.svg
+  alias: Parcours par geste
   description: |
     Alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez être aidé pour rénover plus progressivement votre logement. 
 
@@ -324,20 +331,13 @@ MPR . non accompagnée:
   applicable si: conditions communes
   non applicable si: conditions
   valeur: gestes . montant
-  titre: Parcours par geste
-
-explication des 2 aides:
-  description: |
-    Nous avons estimé votre éligibilité générale aux 2 aides Ma Prime Rénov'. 
-
-    La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
-  type: question rhétorique
-  par défaut: oui # Peut-être à mettre à oui par défaut pour l'API ?
 
 gestes: # gestes.yaml
 
 MPR . accompagnée:
-  titre: Parcours accompagné
+  titre: Ma Prime Rénov' **accompagnée**
+  illustration: mpa.svg
+  alias: Parcours accompagné
   description: |
     L'aide principale en 2024 pour rénover son logement, c'est celle qui offre le plus d'aide et elle est accessible quel que soit le revenu du ménage. 
 
