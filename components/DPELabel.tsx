@@ -8,6 +8,8 @@ export default function DPELabel({ index }) {
       style={css(`
         background: ${couleur};
 		width: 1.6rem; 
+		display: inline-block;
+		text-align: center;
 		padding: 0 .4rem;
 		color: black;
 		border-radius: .3rem;
