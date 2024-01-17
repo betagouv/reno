@@ -9,7 +9,7 @@ export default function DPELabel({ index }) {
         background: ${couleur};
 		width: 1.6rem; 
 		padding: 0 .4rem;
-		color: white;
+		color: black;
 		border-radius: .3rem;
       `)}
     >
