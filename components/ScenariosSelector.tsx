@@ -148,8 +148,10 @@ export default function ScenariosSelector({
           />{' '}
           €
         </label>
-        <Avance {...{ engine, rules }} />
       </Card>
+      {/*
+      <Avance {...{ engine, rules }} />
+	  */}
     </div>
   )
 }
