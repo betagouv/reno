@@ -58,7 +58,26 @@ export default function ScenariosSelector({
       <ol>
         {possibilities.map((el, index) => (
           <li key={el.lettre}>
-            {-index + oldIndex} <DPELabel index={oldIndex} /> ⟶{' '}
+            <DPELabel index={oldIndex} />{' '}
+            <span
+              css={`
+                position: relative;
+              `}
+            >
+              <small
+                css={`
+                  position: absolute;
+                  left: 40%;
+                  top: -0.3rem;
+                  transform: translateX(-50%);
+                  color: #555;
+                  font-size: 70%;
+                `}
+              >
+                +{-index + oldIndex}
+              </small>
+              {'⟶ '}
+            </span>
             <DPELabel index={index} />{' '}
             <Value
               {...{
