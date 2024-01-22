@@ -37,7 +37,8 @@ export default function Result({
     <li
       style={css(`
         padding: 1.2vh;
-        margin: 0 auto;
+        margin: .6rem auto;
+		width: 18rem;
         max-width: min(18rem, 90%);
 		border: ${
       isFinal || isNotApplicable ? '2px solid' : '2px dashed'
