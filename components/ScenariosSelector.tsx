@@ -7,6 +7,7 @@ import DPELabel from './DPELabel'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import ExplanationValue from '@/components/explications/Value'
 import { compute } from './explications/Aide'
+import { Card } from './UI'
 
 console.log('DPE data', data)
 
@@ -56,7 +57,7 @@ export default function ScenariosSelector({
       `}
     >
       <h2>Quel est votre projet de rénovation globale ?</h2>
-      <p>Voici vos scénarios de sauts de DPE et l'aide correspondante : </p>
+      <p>Voici vos scénarios de sauts de DPE et les aides correspondantes : </p>
       <ol>
         <li key="en-tête">
           <span>Scénario de sauts DPE</span>
@@ -116,15 +117,24 @@ export default function ScenariosSelector({
           </li>
         ))}
       </ol>
-      <div>
+      <Card
+        css={`
+          padding: 1rem;
+          margin: 1rem auto;
+          text-align: center;
+          input {
+            width: 6rem;
+            text-align: right;
+          }
+        `}
+      >
         <label>
           Votre investissement{' '}
           <input
             type="number"
-            placeholder="12 000 €"
             value={
               situation['investissement'] ||
-              rules['investissement']['par défaut']
+              rules['investissement']['par défaut'].split(' €')[0]
             }
             onChange={(e) => {
               setSearchParams(
@@ -135,10 +145,11 @@ export default function ScenariosSelector({
                 false,
               )
             }}
-          />
+          />{' '}
+          €
         </label>
         <Avance {...{ engine, rules }} />
-      </div>
+      </Card>
     </div>
   )
 }
