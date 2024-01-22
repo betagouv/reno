@@ -49,6 +49,8 @@ export default function ScenariosSelector({
           padding: 0;
           li {
             margin: 0.6rem 0;
+            display: flex;
+            justify-content: space-evenly;
           }
         }
       `}
@@ -56,29 +58,37 @@ export default function ScenariosSelector({
       <h2>Quel est votre projet de rénovation globale ?</h2>
       <p>Voici vos scénarios de sauts de DPE et l'aide correspondante : </p>
       <ol>
+        <li key="en-tête">
+          <span>Scénario de sauts DPE</span>
+          <span>Aide (en %)</span>
+          <span>Aide (en €)</span>
+          <span>Montant des travaux</span>
+        </li>
         {possibilities.map((el, index) => (
           <li key={el.lettre}>
-            <DPELabel index={oldIndex} />{' '}
-            <span
-              css={`
-                position: relative;
-              `}
-            >
-              <small
+            <span>
+              <DPELabel index={oldIndex} />{' '}
+              <span
                 css={`
-                  position: absolute;
-                  left: 40%;
-                  top: -0.3rem;
-                  transform: translateX(-50%);
-                  color: #555;
-                  font-size: 70%;
+                  position: relative;
                 `}
               >
-                +{-index + oldIndex}
-              </small>
-              {'⟶ '}
+                <small
+                  css={`
+                    position: absolute;
+                    left: 40%;
+                    top: -0.3rem;
+                    transform: translateX(-50%);
+                    color: #555;
+                    font-size: 70%;
+                  `}
+                >
+                  +{-index + oldIndex}
+                </small>
+                {'⟶ '}
+              </span>
+              <DPELabel index={index} />{' '}
             </span>
-            <DPELabel index={index} />{' '}
             <Value
               {...{
                 engine,
