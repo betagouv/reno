@@ -2,7 +2,7 @@ import dpeData from '@/components/DPE.yaml'
 
 import css from './css/convertToJs'
 export default function DPELabel({ index }) {
-  const { couleur, lettre } = dpeData[+index]
+  const { couleur, lettre, 'couleur du texte': textColor } = dpeData[+index]
   return (
     <span
       style={css(`
@@ -11,7 +11,7 @@ export default function DPELabel({ index }) {
 		display: inline-block;
 		text-align: center;
 		padding: 0 .4rem;
-		color: black;
+		color: ${textColor || 'black'};
 		border-radius: .3rem;
       `)}
     >

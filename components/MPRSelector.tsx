@@ -24,11 +24,12 @@ export default function MPRSelector({
     return url
   }
 
-  const newEngine = engine.setSituation(situation)
-  const mpra = newEngine.evaluate('MPR . accompagnée').nodeValue
-  const mprg = newEngine.evaluate('MPR . non accompagnée').nodeValue
-
-  console.log('mprselector', mpra, mprg)
+  console.log('mprselector', situation)
+  const mpraEvaluation = engine.evaluate('MPR . accompagnée')
+  const mprgEvaluation = engine.evaluate('MPR . non accompagnée'),
+    mpra = mpraEvaluation.nodeValue,
+    mprg = mprgEvaluation.nodeValue
+  console.log('mprselector', mpraEvaluation, mprgEvaluation)
   return (
     <div
       style={css`
@@ -48,12 +49,15 @@ export default function MPRSelector({
           éligible au parcours par geste.
         </p>
       ) : (
-        <div>
-          <p>
-            Vous êtes éligible aux deux parcours, le parcours accompagné et le
-            parcours par gestes. Vous devez choisir l'un des parcours.
-          </p>
-        </div>
+        mpra &&
+        mprg && (
+          <div>
+            <p>
+              Vous êtes éligible aux deux parcours, le parcours accompagné et le
+              parcours par gestes. Vous devez choisir l'un des deux parcours.
+            </p>
+          </div>
+        )
       )}
 
       <ResultsBlock

@@ -70,7 +70,7 @@
     conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 80000
-    DPE . actuel: 4
+    DPE . actuel: 7
     ménage . région: "'Pays de la Loire'"
 - nom: Persona 9
   description: |

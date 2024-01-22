@@ -5,6 +5,8 @@ import data from '@/components/DPE.yaml'
 import css from './css/convertToJs'
 import DPELabel from './DPELabel'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
+import ExplanationValue from '@/components/explications/Value'
+import { compute } from './explications/Aide'
 
 console.log('DPE data', data)
 
@@ -106,18 +108,27 @@ export default function ScenariosSelector({
             }}
           />
         </label>
-        <p>
-          En tant que ménage modeste ou très modeste, France Rénov avancera 8
-          400 € sur les 12 000 €.
-        </p>
+        <Avance {...{ engine, rules }} />
       </div>
+    </div>
+  )
+}
+const Avance = ({ engine, rules }) => {
+  const evaluation = compute('ménage . revenu . classe', engine, rules)
+  if (!['modeste', 'très modeste'].includes(evaluation.value)) return null
+  return (
+    <div>
+      <p>
+        En tant que ménage au revenu <ExplanationValue {...{ evaluation }} />,
+        France Rénov pourra avancer 70 % de l'aide soit x sur y.
+      </p>
     </div>
   )
 }
 
 const Value = ({ engine, index, situation, dottedName }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
-    value = formatValue(evaluation)
+    value = formatValue(evaluation, { precision: 0 })
   return (
     <span
       css={`
