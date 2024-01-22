@@ -26,7 +26,7 @@ export default function Result({
   console.log('result', evaluation)
   console.log('condi', engine.evaluate('MPR . non accompagnée . conditions'))
 
-  const value = formatValue(evaluation)
+  const value = formatValue(evaluation, { precision: 0 })
   const isNotApplicable =
     value === 'Non applicable' || evaluation.nodeValue === 0
 
