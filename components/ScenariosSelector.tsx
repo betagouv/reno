@@ -47,9 +47,11 @@ export default function ScenariosSelector({
       css={`
         margin-top: 0.6rem;
         ol {
+          margin-top: 1vh;
           list-style-type: none;
           padding: 0;
           border: 1px solid var(--lighterColor);
+          border-radius: 0.3rem;
           li {
             padding: 1.2rem 1vw;
             display: flex;
@@ -138,15 +140,17 @@ export default function ScenariosSelector({
             width: 6rem;
             text-align: right;
           }
-          width: 26rem;
+          width: 34rem;
           max-width: 100%;
           img {
-            width: 3rem;
+            width: 3.5rem;
             height: auto;
             margin-right: 1rem;
           }
           display: flex;
           align-items: center;
+          justify-content: space-evenly;
+          flex-wrap: wrap;
           label {
             span {
               display: inline-block;
@@ -161,30 +165,57 @@ export default function ScenariosSelector({
           height="30"
           alt="Icône représentant votre apport personnel qui sera complété par les aides"
         />
-        <label>
-          <span>Votre investissement</span>
-          <input
-            type="number"
-            value={
-              situation['investissement'] ||
-              rules['investissement']['par défaut'].split(' €')[0]
-            }
-            onChange={(e) => {
-              setSearchParams(
-                {
-                  investissement: e.target.value,
-                },
-                false,
-                false,
-              )
-            }}
-          />{' '}
-          €
-        </label>
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            max-width: 25rem;
+          `}
+        >
+          <label>
+            <span>
+              Votre investissement <strong>net</strong>
+            </span>
+            <input
+              type="number"
+              value={
+                situation['investissement'] ||
+                rules['investissement']['par défaut'].split(' €')[0]
+              }
+              onChange={(e) => {
+                setSearchParams(
+                  {
+                    investissement: e.target.value,
+                  },
+                  false,
+                  false,
+                )
+              }}
+            />
+            &nbsp;€
+          </label>
+          <div
+            css={`
+              margin-top: 0.4rem;
+              p {
+                line-height: 1.1rem;
+                color: #555;
+                font-size: 80%;
+                @media (min-width: 800px) {
+                  text-align: right;
+                }
+              }
+            `}
+          >
+            <p>
+              C'est la part des travaux que vous aurez payée une fois la prime
+              rénov' déduite.
+            </p>
+            <Avance {...{ engine, rules }} />
+          </div>
+        </div>
       </Card>
-      {/*
-      <Avance {...{ engine, rules }} />
-	  */}
     </div>
   )
 }
@@ -192,12 +223,10 @@ const Avance = ({ engine, rules }) => {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
   if (!['modeste', 'très modeste'].includes(evaluation.value)) return null
   return (
-    <div>
-      <p>
-        En tant que ménage au revenu <ExplanationValue {...{ evaluation }} />,
-        France Rénov pourra avancer 70 % de l'aide soit x sur y.
-      </p>
-    </div>
+    <p>
+      En tant que ménage au revenu <ExplanationValue {...{ evaluation }} />,
+      vous pourrez bénéficier d'une avance de <strong>70 %</strong>.
+    </p>
   )
 }
 
