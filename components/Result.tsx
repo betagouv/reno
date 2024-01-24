@@ -1,6 +1,7 @@
 import css from '@/components/css/convertToJs'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { styled } from 'styled-components'
+import Image from 'next/image'
 
 const colors = {
   success: {
@@ -8,7 +9,11 @@ const colors = {
     //background: '#c4fad5', //TODO use this for the contour, more beautiful
     label: 'Estimation finale',
   },
-  running: { background: '#2a82dd', color: 'white', label: 'Sous conditions' },
+  running: {
+    background: 'var(--color)',
+    color: 'white',
+    label: 'Sous conditions',
+  },
   fail: { background: 'salmon', color: 'white', label: 'Non éligible' },
   //  waiting: { background: '#9f9f9f', color: 'white', label: 'À suivre' },
 }
@@ -50,28 +55,37 @@ export default function Result({
       `)}
     >
       <span
-        style={css(`
+        css={`
           line-height: 1.5rem;
           left: -2px;
           position: absolute;
           top: 50%;
           transform: translateY(-50%) translateX(-50%);
-          background: ${background};
-          border-radius: 1rem;
-          width: 1.6rem;
-          height: 1.6rem;
-          color: white;
+          border-radius: 3rem;
+          width: 3.6rem;
+          height: 3.6rem;
+          background: white;
           text-align: center;
-        `)}
+          img {
+            width: 100%;
+            height: auto;
+          }
+          z-index: 1;
+        `}
       >
-        {index}
+        <Image
+          src={'/' + rule.illustration}
+          alt={'Illustration de ' + rule.titre}
+          width="20"
+          height="20"
+        />
       </span>
       <InvisibleDetails open={false}>
         <summary>
           <h3
             style={css`
               font-size: 100%;
-              font-weight: 500;
+              font-weight: 400;
               margin: 0.15rem 0;
             `}
             dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
