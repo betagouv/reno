@@ -37,7 +37,6 @@ export default function Form({ searchParams, rules }) {
         answeredQuestions.includes(k),
       ),
     )
-  console.log({ answeredQuestions, situation, started })
   const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
     value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
@@ -53,7 +52,6 @@ export default function Form({ searchParams, rules }) {
   const liveEvaluation =
     currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
 
-  console.log('liveEvaluation', liveEvaluation)
   const ruleQuestionType = currentQuestion && questionType(liveEvaluation, rule)
 
   const rawValue = situation[currentQuestion]
