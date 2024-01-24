@@ -35,7 +35,7 @@ export default function Page({ searchParams }) {
             color: black;
             padding: 1rem;
             width: 100%;
-            margin: 4vh 0 0;
+            margin: 5vh 0 0;
             text-align: center;
           `}
         >
