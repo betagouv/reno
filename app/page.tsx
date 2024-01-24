@@ -43,7 +43,7 @@ export default function Page({ searchParams }) {
           nationale de l'habitat pour simplifier l’accès à l’information sur les
           aides à la rénovation énergétique.{' '}
         </div>
-        <Wrapper $noMargin={true}>
+        <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h2>Pourquoi un simulateur Mes aides Réno ?</h2>
             <p>

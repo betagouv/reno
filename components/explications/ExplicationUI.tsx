@@ -27,7 +27,7 @@ export const Key = styled.em`
 `
 
 export const Wrapper = styled.section`
-  background: #f6f6f6;
+  background: ${(p) => p.$background || '#f6f6f6'};
   width: 100%;
   padding: 1rem 0;
   margin-top: 3vh;
