@@ -8,6 +8,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import ExplanationValue from '@/components/explications/Value'
 import { compute } from './explications/Aide'
 import { Card } from './UI'
+import Image from 'next/image'
 
 console.log('DPE data', data)
 
@@ -137,10 +138,31 @@ export default function ScenariosSelector({
             width: 6rem;
             text-align: right;
           }
+          width: 26rem;
+          max-width: 100%;
+          img {
+            width: 3rem;
+            height: auto;
+            margin-right: 1rem;
+          }
+          display: flex;
+          align-items: center;
+          label {
+            span {
+              display: inline-block;
+              margin: 0.4rem;
+            }
+          }
         `}
       >
+        <Image
+          src="/investissement.svg"
+          width="30"
+          height="30"
+          alt="Icône représentant votre apport personnel qui sera complété par les aides"
+        />
         <label>
-          Votre investissement{' '}
+          <span>Votre investissement</span>
           <input
             type="number"
             value={
