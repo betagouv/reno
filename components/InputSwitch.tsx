@@ -11,7 +11,7 @@ import GestesMosaic, {
   gestesMosaicQuestionText,
   isGestesMosaicQuestion,
 } from './GestesMosaic'
-import { AnswerWrapper, Input } from './InputUI'
+import { AnswerWrapper } from './InputUI'
 import MPRSelector from './MPRSelector'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
@@ -21,6 +21,7 @@ import ScenariosSelector from './ScenariosSelector'
 import { Card } from './UI'
 import Notifications from './Notifications'
 import QuestionDescription from './QuestionDescription'
+import Input from './Input'
 
 export const getQuestionText = (rule, dottedName, rules) => {
   if (isMosaicQuestion(dottedName, rule, rules))
@@ -213,35 +214,37 @@ export default function InputSwitch({
               encodedSituation,
             )
 
-            setSearchParams(encodedSituation, false, false)
+            setSearchParams(encodedSituation, 'push', false)
           }}
         />
       </ClassicQuestionWrapper>
     )
+
+  const InputComponent = () => (
+    <Input
+      type={ruleQuestionType}
+      placeholder={defaultValue.nodeValue}
+      value={currentValue == null ? '' : currentValue}
+      name={currentQuestion}
+      onChange={(value) => {
+        const encodedSituation = encodeSituation(
+          {
+            ...situation,
+            [currentQuestion]:
+              ruleQuestionType === 'number' ? value : `"${value}"`,
+          },
+          false,
+          answeredQuestions,
+        )
+        console.log('on change will set encodedSituation', encodedSituation)
+
+        setSearchParams(encodedSituation, 'replace', false)
+      }}
+    />
+  )
   return (
     <ClassicQuestionWrapper>
-      <Input
-        type={ruleQuestionType}
-        placeholder={defaultValue.nodeValue}
-        value={currentValue == null ? '' : currentValue}
-        name={currentQuestion}
-        onChange={(e) => {
-          const encodedSituation = encodeSituation(
-            {
-              ...situation,
-              [currentQuestion]:
-                ruleQuestionType === 'number'
-                  ? e.target.value
-                  : `"${e.target.value}"`,
-            },
-            false,
-            answeredQuestions,
-          )
-          console.log('on change will set encodedSituation', encodedSituation)
-
-          setSearchParams(encodedSituation, false, false)
-        }}
-      />
+      <InputComponent />
     </ClassicQuestionWrapper>
   )
 }

@@ -26,7 +26,7 @@ export default function useSetSeachParams() {
   )
   return (
     newSearchParams: object,
-    noPush: boolean,
+    action: 'url' | 'push' | 'replace' = 'push',
     clear: boolean,
     newPathname,
   ) => {
@@ -35,8 +35,11 @@ export default function useSetSeachParams() {
       '?' +
       createQueryString(newSearchParams, clear) +
       hash
-    if (!noPush) {
+    if (action === 'push') {
       router.push(newUrl, { scroll: false })
+    }
+    if (action === 'replace') {
+      router.replace(newUrl, { scroll: false })
     }
     return newUrl
   }

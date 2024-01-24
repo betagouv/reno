@@ -67,7 +67,7 @@ export default function GestesMosaic({
     )
     console.log('on change will set encodedSituation', encodedSituation)
 
-    setSearchParams(encodedSituation, false, false)
+    setSearchParams(encodedSituation, 'push', false)
     console.log('set situation', dottedName)
   }
 

@@ -33,7 +33,7 @@ export default function FormButtons({
               false,
               [...answeredQuestions, currentQuestion],
             ),
-            true,
+            'url',
             false,
           )}
         >

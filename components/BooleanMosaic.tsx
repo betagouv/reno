@@ -66,7 +66,7 @@ export default function BooleanMosaic({
     )
     console.log('on change will set encodedSituation', encodedSituation)
 
-    setSearchParams(encodedSituation, false, false)
+    setSearchParams(encodedSituation, 'push', false)
     console.log('set situation', dottedName)
   }
 

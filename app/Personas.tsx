@@ -28,7 +28,7 @@ export default function Personas({}) {
                           false,
                           Object.keys(persona.situation),
                         ),
-                        true,
+                        'url',
                         true,
                         `simulation`,
                       )}

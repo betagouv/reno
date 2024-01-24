@@ -80,8 +80,7 @@ fieldset {
   border: none;
 }
 
-input[type='text'],
-input[type='number'] {
+input {
   height: 2.2rem;
   text-align: right;
   padding-right: 0.4rem;
@@ -93,4 +92,12 @@ input[type='number'] {
   border: none;
   border-bottom: 2px solid var(--color);
   font-size: 95%;
+  box-shadow:
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
+    rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
+    rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
+}
+input[type='text'],
+input[type='number'] {
+  width: 8rem;
 }

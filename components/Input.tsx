@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 
 export default function Input({ onChange, value, ...props }) {
@@ -11,6 +11,7 @@ export default function Input({ onChange, value, ...props }) {
 
   return (
     <input
+      autoFocus={true}
       type="number"
       value={state}
       onChange={(e) => {

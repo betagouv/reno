@@ -20,7 +20,7 @@ export default function MPRSelector({
       false,
       answeredQuestions,
     )
-    const url = setSearchParams(newSituation, true, false)
+    const url = setSearchParams(newSituation, 'url', false)
     return url
   }
 

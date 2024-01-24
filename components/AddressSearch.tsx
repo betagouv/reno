@@ -40,7 +40,7 @@ export default function AddressSearch({
     )
     console.log('on change will set encodedSituation', encodedSituation)
 
-    setSearchParams(encodedSituation, false, false)
+    setSearchParams(encodedSituation, 'push', false)
   }
 
   return (
