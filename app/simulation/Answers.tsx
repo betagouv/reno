@@ -59,7 +59,7 @@ export default function Answers({
         )}
       </Details>
       <ProgressBar $ratio={(categoryIndex - 1) / categories.length} />
-      <NextQuestions {...{ nextQuestions, rules }} />
+      <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
     </Wrapper>
   )
 }

@@ -2,7 +2,12 @@ import css from './css/convertToJs'
 import { getRuleName } from './publicodes/utils'
 import { Card } from './UI'
 
-export default function NextQuestions({ nextQuestions, rules }) {
+export default function NextQuestions({
+  nextQuestions,
+  currentQuestion,
+  rules,
+}) {
+  console.log({ nextQuestions })
   return nextQuestions.length ? (
     <div
       style={css`
@@ -14,11 +19,13 @@ export default function NextQuestions({ nextQuestions, rules }) {
     >
       <small
         style={css`
-          width: 8rem;
+          width: 10rem;
           margin: 0;
         `}
       >
-        À suivre :
+        {nextQuestions.length === 1 && nextQuestions[0] === currentQuestion
+          ? `Dernière question`
+          : `À suivre :`}
       </small>
       <div
         style={css`
