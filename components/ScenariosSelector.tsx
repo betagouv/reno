@@ -48,10 +48,21 @@ export default function ScenariosSelector({
         ol {
           list-style-type: none;
           padding: 0;
+          border: 1px solid var(--lighterColor);
           li {
-            margin: 0.6rem 0;
+            padding: 1.2rem 1vw;
             display: flex;
             justify-content: space-evenly;
+            border-bottom: 1px solid var(--lighterColor);
+          }
+          li:first-child {
+            background: var(--lightestColor);
+            padding: 0.4rem 1vw;
+            font-size: 90%;
+          }
+          li:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
           }
         }
       `}

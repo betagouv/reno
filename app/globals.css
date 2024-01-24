@@ -1,6 +1,8 @@
 :root {
   --color: #000093;
   --darkColor: #121226;
+  --lighterColor: #d1d1fb;
+  --lightestColor: #f5f5fe;
   --shadow-color: 0deg 0% 63%;
   --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
     0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
@@ -76,4 +78,19 @@ details summary {
 
 fieldset {
   border: none;
+}
+
+input[type='text'],
+input[type='number'] {
+  height: 2.2rem;
+  text-align: right;
+  padding-right: 0.4rem;
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+  border-bottom-left-radius: 0rem;
+  border-bottom-right-radius: 0rem;
+  background: var(--lightestColor);
+  border: none;
+  border-bottom: 2px solid var(--color);
+  font-size: 95%;
 }
