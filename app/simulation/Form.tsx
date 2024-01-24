@@ -87,9 +87,6 @@ export default function Form({ searchParams, rules }) {
           />
         )}
       </Section>
-      <ResultsBlock
-        {...{ engine, rules, currentQuestion, validatedSituation }}
-      />
       <br />
       <Share searchParams={searchParams} />
     </div>

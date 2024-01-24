@@ -7,15 +7,12 @@ export default function ResultsBlock({
   rules,
   currentQuestion,
   validatedSituation,
-  showIfNull = true,
 }) {
   const targets = rules['aides'].somme,
     evaluations = targets.map((dottedName) =>
       engine.setSituation(validatedSituation).evaluate(dottedName),
     )
   console.log('results', evaluations)
-  if (showIfNull && evaluations.find((evaluation) => evaluation.nodeValue))
-    return null
 
   return (
     <Section>

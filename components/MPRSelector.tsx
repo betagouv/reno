@@ -30,6 +30,18 @@ export default function MPRSelector({
     mpra = mpraEvaluation.nodeValue,
     mprg = mprgEvaluation.nodeValue
   console.log('mprselector', mpraEvaluation, mprgEvaluation)
+
+  if (!mpra && !mprg)
+    return (
+      <p
+        css={`
+          text-decoration: underline;
+          text-decoration-color: salmon;
+        `}
+      >
+        Vous n'êtes pas éligible aux aides Ma Prime Rénov.
+      </p>
+    )
   return (
     <div
       style={css`
@@ -66,7 +78,6 @@ export default function MPRSelector({
           rules,
           currentQuestion,
           validatedSituation: situation,
-          showIfNull: false,
         }}
       />
 
