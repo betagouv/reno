@@ -9,6 +9,7 @@ import ExplanationValue from '@/components/explications/Value'
 import { compute } from './explications/Aide'
 import { Card } from './UI'
 import Image from 'next/image'
+import Input from './Input'
 
 console.log('DPE data', data)
 
@@ -177,21 +178,21 @@ export default function ScenariosSelector({
             <span>
               Votre investissement <strong>net</strong>
             </span>
-            <input
-              type="number"
+            <Input
               value={
                 situation['investissement'] ||
                 rules['investissement']['par défaut'].split(' €')[0]
               }
-              onChange={(e) => {
+              onChange={(value) => {
                 setSearchParams(
                   {
-                    investissement: e.target.value,
+                    investissement: value,
                   },
                   false,
                   false,
                 )
               }}
+              step="100"
             />
             &nbsp;€
           </label>

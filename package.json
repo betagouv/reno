@@ -24,6 +24,7 @@
     "react-dom": "18.2.0",
     "styled-components": "^6.1.1",
     "typescript": "5.2.2",
+    "use-debounce": "^10.0.0",
     "yaml-loader": "^0.8.0",
     "zod": "^3.22.2"
   },
