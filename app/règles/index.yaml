@@ -51,22 +51,30 @@ vous . propriétaire . condition:
   question: Êtes-vous propriétaire ?
   par défaut: oui
   description: |
-    Pour bénéficier des aides à la rénovation, il faut être dans l'une de ces situations. 
+
+    Pour bénéficier de des aides à la rénovation, il faut être dans l'une de ces situations. 
 
     Situations simples : 
       - propriétaire occupant (vous vivez dans votre logement)
       - propriétaire bailleur (un locataire vit dans votre logement)
 
 
-    Autres situations éligibles, vous êtes : 
+    <br/>
+    <details>
+    <summary>Autres situations éligibles</summary> 
+
+    Vous êtes : 
       - usufruitier
       - titulaires (occupants et bailleurs) d’un droit réel conférant l’usage du bien 
       - preneurs (occupants et bailleurs) d’un bail emphytéotique ou d’un bail à construction 
       - propriétaires en indivision si l’ensemble des propriétaires indivisaires ont signé l’[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l’honneur qui désigne le demandeur pour porter les travaux au nom de l’indivision.
+    </details>
 
-    Situations non éligibles, vous êtes : 
+    <details><summary>Situations non éligibles</summary>
+    Vous êtes : 
       - les nus-propriétaires
       - les personnes morales (par exemple les sociétés civiles immobilières)
+    </details>
 
 vous . propriétaire . astuce:
   type: notification

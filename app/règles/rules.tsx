@@ -1,4 +1,4 @@
-import { micromark } from 'micromark'
+import { parse } from 'marked'
 
 import gestes from '@/app/règles/gestes.yaml'
 import chauffage from '@/app/règles/gestes/chauffage.yaml'
@@ -29,8 +29,8 @@ function transformRuleObject(v) {
 
   const newV = {
     ...v,
-    descriptionHtml: micromark(v.description),
-    titreHtml: micromark(v.titre),
+    descriptionHtml: v.description && parse(v.description),
+    titreHtml: v.titre && parse(v.titre),
   }
   return newV
 }
