@@ -128,9 +128,9 @@ ménage . revenu . barème:
             - sinon: '"supérieure"'
       - sinon:
           variations:
-            - si: revenu < (40002 + personnes plus * 5045 €)
+            - si: revenu < (40002 € + personnes plus * 5045 €)
               alors: '"très modeste"'
-            - si: revenu < (51281 + personnes plus * 6462 €)
+            - si: revenu < (51281 € + personnes plus * 6462 €)
               alors: '"modeste"'
             - si: revenu < (max + personnes plus * 9165 €)
               alors: '"intermédiaire"'

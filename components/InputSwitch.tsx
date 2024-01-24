@@ -2,34 +2,16 @@ import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
 
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
+import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 
-import FormButtons from '@/app/simulation/FormButtons'
-import { QuestionHeader } from '@/app/simulation/QuestionHeader'
-import Suggestions from '@/app/simulation/Suggestions'
 import DPESelector from './DPESelector'
-import GestesMosaic, {
-  gestesMosaicQuestionText,
-  isGestesMosaicQuestion,
-} from './GestesMosaic'
-import { AnswerWrapper } from './InputUI'
+import GestesMosaic, { isGestesMosaicQuestion } from './GestesMosaic'
+import Input from './Input'
 import MPRSelector from './MPRSelector'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
-import { getRuleName } from './publicodes/utils'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
-import { Card } from './UI'
-import Notifications from './Notifications'
-import QuestionDescription from './QuestionDescription'
-import Input from './Input'
-
-export const getQuestionText = (rule, dottedName, rules) => {
-  if (isMosaicQuestion(dottedName, rule, rules))
-    return gestesMosaicQuestionText(rules, dottedName)
-  const ruleName = getRuleName(dottedName)
-  const text = rule.question || rule.titre || ruleName
-  return text
-}
 
 export default function InputSwitch({
   rule,
@@ -45,57 +27,20 @@ export default function InputSwitch({
   console.log('question type', ruleQuestionType)
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
 
-  const ClassicQuestionWrapper = ({ children }) => (
-    <div>
-      <Card>
-        <div>
-          {(!rule.type || !rule.type === 'question rhétorique') && (
-            <QuestionHeader>
-              <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
-            </QuestionHeader>
-          )}
-          <AnswerWrapper>
-            <Suggestions
-              rule={rule}
-              onClick={(value) =>
-                setSearchParams(
-                  encodeSituation(
-                    {
-                      ...situation,
-                      [currentQuestion]: value,
-                    },
-                    false,
-                    answeredQuestions,
-                  ),
-                  true,
-                  false,
-                )
-              }
-            />
-            {children}
-
-            <FormButtons
-              {...{
-                currentValue,
-                rules,
-                setSearchParams,
-                encodeSituation,
-                answeredQuestions,
-                currentQuestion,
-                situation,
-              }}
-            />
-          </AnswerWrapper>
-        </div>
-      </Card>
-      <Notifications {...{ currentQuestion, engine }} />
-      <QuestionDescription {...{ currentQuestion, rule }} />
-    </div>
-  )
-
   if (rule.type === 'question rhétorique')
     return (
-      <ClassicQuestionWrapper>
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
         <RhetoricalQuestion
           {...{
             effect: () => setSearchParams({ [currentQuestion]: 'oui' }),
@@ -108,7 +53,18 @@ export default function InputSwitch({
     )
   if (currentQuestion === 'région')
     return (
-      <ClassicQuestionWrapper>
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
         <AddressSearch
           {...{
             setSearchParams,
@@ -121,7 +77,18 @@ export default function InputSwitch({
 
   if (['DPE . actuel'].includes(currentQuestion))
     return (
-      <ClassicQuestionWrapper>
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
         <DPESelector
           {...{
             currentQuestion,
@@ -162,7 +129,18 @@ export default function InputSwitch({
   const gestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
   if (gestesMosaic)
     return (
-      <ClassicQuestionWrapper>
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
         <GestesMosaic
           {...{
             rules,
@@ -180,7 +158,18 @@ export default function InputSwitch({
   const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
   if (mosaic)
     return (
-      <ClassicQuestionWrapper>
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
         <BooleanMosaic
           {...{
             rules,
@@ -197,7 +186,18 @@ export default function InputSwitch({
 
   if (ruleQuestionType === 'boolean')
     return (
-      <ClassicQuestionWrapper>
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
         <BinaryQuestion
           value={currentValue}
           onChange={(value) => {
@@ -220,31 +220,39 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  const InputComponent = () => (
-    <Input
-      type={ruleQuestionType}
-      placeholder={defaultValue.nodeValue}
-      value={currentValue == null ? '' : currentValue}
-      name={currentQuestion}
-      onChange={(value) => {
-        const encodedSituation = encodeSituation(
-          {
-            ...situation,
-            [currentQuestion]:
-              ruleQuestionType === 'number' ? value : `"${value}"`,
-          },
-          false,
-          answeredQuestions,
-        )
-        console.log('on change will set encodedSituation', encodedSituation)
-
-        setSearchParams(encodedSituation, 'replace', false)
-      }}
-    />
-  )
   return (
-    <ClassicQuestionWrapper>
-      <InputComponent />
+    <ClassicQuestionWrapper
+      {...{
+        rule,
+        currentQuestion,
+        rules,
+        answeredQuestions,
+        situation,
+        setSearchParams,
+        currentValue,
+        engine,
+      }}
+    >
+      <Input
+        type={ruleQuestionType}
+        placeholder={defaultValue.nodeValue}
+        value={currentValue == null ? '' : currentValue}
+        name={currentQuestion}
+        onChange={(value) => {
+          const encodedSituation = encodeSituation(
+            {
+              ...situation,
+              [currentQuestion]:
+                ruleQuestionType === 'number' ? value : `"${value}"`,
+            },
+            false,
+            answeredQuestions,
+          )
+          console.log('on change will set encodedSituation', encodedSituation)
+
+          setSearchParams(encodedSituation, 'replace', false)
+        }}
+      />
     </ClassicQuestionWrapper>
   )
 }

@@ -97,7 +97,6 @@ input {
     rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
     rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
 }
-input[type='text'],
 input[type='number'] {
   width: 8rem;
 }
