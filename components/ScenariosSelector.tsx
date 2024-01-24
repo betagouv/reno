@@ -7,7 +7,7 @@ import DPELabel from './DPELabel'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import ExplanationValue from '@/components/explications/Value'
 import { compute } from './explications/Aide'
-import { Card } from './UI'
+import { Card, CTA } from './UI'
 import Image from 'next/image'
 import Input from './Input'
 
@@ -217,6 +217,11 @@ export default function ScenariosSelector({
           </div>
         </div>
       </Card>
+      <h2>Conditions d'éligibilité</h2>
+      <p>Ventilation, etc.</p>
+      <h2>C'est parti ?</h2>
+      <p>Prochaine étape, contactez un conseiller France Rénov'</p>
+      <CTA href="https://france-renov.gouv.fr">GO</CTA>
     </div>
   )
 }
