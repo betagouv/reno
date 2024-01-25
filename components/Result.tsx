@@ -2,6 +2,7 @@ import css from '@/components/css/convertToJs'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { styled } from 'styled-components'
 import Image from 'next/image'
+import { CTA, CTAWrapper } from './UI'
 
 const colors = {
   success: {
@@ -26,6 +27,7 @@ export default function Result({
   hideNumeric = false,
   index,
   openByDefault,
+  url,
 }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
@@ -124,6 +126,11 @@ export default function Result({
             dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
           />
         </InvisibleDetails>
+      )}
+      {!isNotApplicable && url && (
+        <CTAWrapper>
+          <CTA href={url}>Suivant</CTA>
+        </CTAWrapper>
       )}
     </li>
   )

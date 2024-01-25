@@ -1,8 +1,7 @@
-import ResultsBlock from '@/app/simulation/ResultsBlock'
+import Result, { Results } from '@/components/Result'
 import { useMemo } from 'react'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
-import { CTA, CTAWrapper } from './UI'
 
 export default function MPRSelector({
   setSearchParams,
@@ -77,19 +76,33 @@ export default function MPRSelector({
         )
       )}
 
-      <ResultsBlock
-        {...{
-          engine,
-          rules,
-          currentQuestion,
-          situation,
-          openByDefault: true,
-        }}
-      />
-
-      <CTAWrapper>
-        <CTA href={nextLink(`accompagnée`)}>Suivant</CTA>
-      </CTAWrapper>
+      <Results>
+        <Result
+          index={1}
+          key={'acc'}
+          openByDefault={true}
+          {...{
+            engine: engine.setSituation(situation),
+            isFinal: !currentQuestion,
+            rules,
+            dottedName: 'MPR . accompagnée',
+            url: nextLink(`accompagnée`),
+          }}
+        />
+        <Result
+          index={2}
+          key={'non acc'}
+          openByDefault={true}
+          {...{
+            engine: engine.setSituation(situation),
+            isFinal: !currentQuestion,
+            dottedName: 'MPR . non accompagnée',
+            hideNumeric: true,
+            rules,
+            url: nextLink(`non accompagnée`),
+          }}
+        />
+      </Results>
     </div>
   )
 }

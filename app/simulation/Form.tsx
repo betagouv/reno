@@ -1,22 +1,19 @@
 'use client'
 
-import css from '@/components/css/convertToJs'
 import InputSwitch from '@/components/InputSwitch'
-import Notifications from '@/components/Notifications'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import questionType from '@/components/publicodes/questionType'
 import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
-import { Card, Section } from '@/components/UI'
+import { Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import Answers from './Answers'
-import ResultsBlock from './ResultsBlock'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
 
