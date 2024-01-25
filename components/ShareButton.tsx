@@ -137,6 +137,7 @@ export const DesktopShareButton = (props) => {
           document.queryCommandSupported('copy') && (
             <button
               css={`
+                padding: 0.2rem 0.6rem;
                 border-radius: 0.3rem;
                 border-bottom-left-radius: 0;
                 border-top-left-radius: 0;
