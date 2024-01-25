@@ -23,7 +23,7 @@ export default function Result({
   isFinal,
   rules,
   dottedName,
-  hideNumeric,
+  hideNumeric = false,
   index,
   openByDefault,
 }) {

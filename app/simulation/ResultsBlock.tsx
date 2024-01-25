@@ -6,15 +6,9 @@ export default function ResultsBlock({
   engine,
   rules,
   currentQuestion,
-  validatedSituation,
+  situation,
   openByDefault,
 }) {
-  const targets = rules['aides'].somme,
-    evaluations = targets.map((dottedName) =>
-      engine.setSituation(validatedSituation).evaluate(dottedName),
-    )
-  console.log('results', evaluations)
-
   return (
     <Section>
       <Results>
@@ -23,7 +17,7 @@ export default function ResultsBlock({
           key={'acc'}
           openByDefault={openByDefault}
           {...{
-            engine: engine.setSituation(validatedSituation),
+            engine: engine.setSituation(situation),
             isFinal: !currentQuestion,
             rules,
             dottedName: 'MPR . accompagnée',
@@ -34,7 +28,7 @@ export default function ResultsBlock({
           key={'non acc'}
           openByDefault={openByDefault}
           {...{
-            engine: engine.setSituation(validatedSituation),
+            engine: engine.setSituation(situation),
             isFinal: !currentQuestion,
             dottedName: 'MPR . non accompagnée',
             hideNumeric: true,

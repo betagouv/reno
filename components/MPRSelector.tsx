@@ -1,4 +1,5 @@
 import ResultsBlock from '@/app/simulation/ResultsBlock'
+import { useMemo } from 'react'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { CTA, CTAWrapper } from './UI'
@@ -24,12 +25,16 @@ export default function MPRSelector({
     return url
   }
 
-  console.log('mprselector', situation)
-  const mpraEvaluation = engine.evaluate('MPR . accompagnée')
-  const mprgEvaluation = engine.evaluate('MPR . non accompagnée'),
+  const [mpraEvaluation, mprgEvaluation] = useMemo(() => {
+      const newEngine = engine.setSituation(situation)
+      return [
+        newEngine.evaluate('MPR . accompagnée'),
+        newEngine.evaluate('MPR . non accompagnée'),
+      ]
+    }, [situation, engine]),
     mpra = mpraEvaluation.nodeValue,
     mprg = mprgEvaluation.nodeValue
-  console.log('mprselector', mpraEvaluation, mprgEvaluation)
+  console.log('result 2', mpraEvaluation, mprgEvaluation)
 
   if (!mpra && !mprg)
     return (
@@ -77,7 +82,7 @@ export default function MPRSelector({
           engine,
           rules,
           currentQuestion,
-          validatedSituation: situation,
+          situation,
           openByDefault: true,
         }}
       />
