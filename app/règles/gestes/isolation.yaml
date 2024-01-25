@@ -5,7 +5,7 @@ isolation:
     - murs extérieurs . montant
     - murs intérieurs . montant
     - rampants . montant
-    - toitures terrasses
+    - toitures terrasses . montant
 
 isolation . vitres:
   titre: Remplacement de simple vitrage

@@ -1,6 +1,6 @@
 montant:
-  question:
-    mosaïque: Quels gestes envisagez-vous ?
+  question: Quels gestes envisagez-vous ?
+  mosaïque: oui
   somme:
     - chauffage
     - isolation
@@ -9,9 +9,9 @@ montant:
 autres:
   titre: Divers
   somme:
-    - audit
-    - dépose fioul
-    - ventilation double flux
+    - audit . montant
+    - dépose fioul . montant
+    - ventilation double flux . montant
 
 autres . audit:
   par défaut: oui

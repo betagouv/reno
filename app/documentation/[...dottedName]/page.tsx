@@ -10,17 +10,14 @@ export default function RuleDocumentation({
   /*
   const decoded = utils.decodeRuleName(dottedName)
 
-  const situation = getSituation(searchParams, rules)
   */
 
   return (
     <Main>
-      <Section>
-        <ClientDocumentation
-          dottedName={dottedName}
-          searchParams={searchParams}
-        />
-      </Section>
+      <ClientDocumentation
+        dottedName={dottedName}
+        searchParams={searchParams}
+      />
     </Main>
   )
 }

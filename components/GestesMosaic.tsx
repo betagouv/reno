@@ -19,7 +19,8 @@ export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
 }
 
 export const gestesMosaicQuestionText = (rules, currentQuestion) => {
-  return rules['gestes . montant'].question.mosaïque
+  const rule = rules['gestes . montant']
+  return rule.mosaïque && rule.question
 }
 
 export default function GestesMosaic({
