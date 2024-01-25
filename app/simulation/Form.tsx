@@ -11,6 +11,7 @@ import {
 } from '@/components/publicodes/situationUtils'
 import { Card, Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
+import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
@@ -87,6 +88,21 @@ export default function Form({ searchParams, rules }) {
       </Section>
       <br />
       <Share searchParams={searchParams} />
+      <Section>
+        <h2>Documentation</h2>
+        <p>
+          Si vous êtes experts, vous pouvez parcourir notre{' '}
+          <Link
+            href={
+              '/documentation/MPR/?' +
+              new URLSearchParams(searchParams).toString()
+            }
+          >
+            documentation complète du calcul
+          </Link>
+          .
+        </p>
+      </Section>
     </div>
   )
 }
