@@ -36,6 +36,23 @@ h4 {
   margin: 1.4rem 0 0.6rem 0;
 }
 
+h1 {
+  font-size: 220%;
+  margin: 3rem 0 1.8rem;
+}
+h2 {
+  font-size: 180%;
+  margin: 2rem 0 1.2rem;
+}
+h3 {
+  font-size: 130%;
+  margin: 1rem 0 0.8rem;
+}
+h4 {
+  font-size: 120%;
+  margin: 0.8rem 0 0.6rem;
+}
+
 @media (max-width: 800px) {
   h1 {
     font-size: 150%;

@@ -15,7 +15,13 @@ export default function Page({ searchParams }) {
     <main>
       <PageBlock>
         <Content>
-          <h1>Calculez vos aides rénovation 2024</h1>
+          <h1
+            style={css`
+              margin-top: 0.6rem;
+            `}
+          >
+            Calculez vos aides rénovation 2024
+          </h1>
           <Intro>
             <p>
               En 2024, les aides évoluent pour mieux accompagner les rénovations
