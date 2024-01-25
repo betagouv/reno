@@ -53,6 +53,9 @@ export default function Result({
 
 	position: relative;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
       `)}
     >
       <span
@@ -81,18 +84,16 @@ export default function Result({
           height="20"
         />
       </span>
-      <InvisibleDetails open={openByDefault}>
-        <summary>
-          <h3
-            style={css`
-              font-size: 100%;
-              font-weight: 400;
-              margin: 0.15rem 0;
-            `}
-            dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
-          />
-          <div
-            style={css(`
+      <h3
+        style={css`
+          font-size: 100%;
+          font-weight: 400;
+          margin: 0.15rem 0;
+        `}
+        dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
+      />
+      <div
+        style={css(`
           visibility: ${
             // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
             isNotApplicable ? 'hidden' : ''
@@ -100,15 +101,30 @@ export default function Result({
 			${hideNumeric && !isFinal ? 'visibility: hidden;' : ''}
           margin: 0.15rem 0;
         `)}
-          >
-            {isFinal ? `` : `Jusqu'à `} {value}
-          </div>
-          <Badge $background={background}>{label}</Badge>
-        </summary>
+      >
+        {isFinal ? `` : `Jusqu'à `} {value}
+      </div>
+      <Badge $background={background}>{label}</Badge>
+      {openByDefault ? (
         <Explanation
           dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
         />
-      </InvisibleDetails>
+      ) : (
+        <InvisibleDetails open={openByDefault}>
+          <summary>
+            <span>En savoir plus</span>
+            <img
+              src="/close.svg"
+              alt="Fermer les détails"
+              width="10"
+              height="10"
+            />
+          </summary>
+          <Explanation
+            dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+          />
+        </InvisibleDetails>
+      )}
     </li>
   )
 }
@@ -143,12 +159,26 @@ export const Results = styled.ul`
 `
 
 const InvisibleDetails = styled.details`
+  margin-top: 0.8rem;
   summary {
     list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
     cursor: help;
+  }
+  &[open] summary {
+    display: flex;
+    justify-content: end;
+    span {
+      display: none;
+    }
+  }
+  summary img {
+    width: 1rem;
+    height: auto;
+    filter: invert(1);
+    opacity: 0.4;
+  }
+  &:not([open]) summary img {
+    display: none;
   }
 `
