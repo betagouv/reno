@@ -78,6 +78,7 @@ export default function MPRSelector({
           rules,
           currentQuestion,
           validatedSituation: situation,
+          openByDefault: true,
         }}
       />
 

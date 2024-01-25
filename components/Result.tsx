@@ -25,6 +25,7 @@ export default function Result({
   dottedName,
   hideNumeric,
   index,
+  openByDefault,
 }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
@@ -80,7 +81,7 @@ export default function Result({
           height="20"
         />
       </span>
-      <InvisibleDetails open={false}>
+      <InvisibleDetails open={openByDefault}>
         <summary>
           <h3
             style={css`
@@ -116,6 +117,7 @@ const Explanation = styled.div`
   margin: 0.8rem 0;
   font-size: 90%;
   margin-left: 1rem;
+  height: 14rem;
 `
 
 export const Badge = styled.strong`

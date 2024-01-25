@@ -7,6 +7,7 @@ export default function ResultsBlock({
   rules,
   currentQuestion,
   validatedSituation,
+  openByDefault,
 }) {
   const targets = rules['aides'].somme,
     evaluations = targets.map((dottedName) =>
@@ -20,6 +21,7 @@ export default function ResultsBlock({
         <Result
           index={1}
           key={'acc'}
+          openByDefault={openByDefault}
           {...{
             engine: engine.setSituation(validatedSituation),
             isFinal: !currentQuestion,
@@ -30,6 +32,7 @@ export default function ResultsBlock({
         <Result
           index={2}
           key={'non acc'}
+          openByDefault={openByDefault}
           {...{
             engine: engine.setSituation(validatedSituation),
             isFinal: !currentQuestion,
