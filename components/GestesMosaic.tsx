@@ -73,7 +73,10 @@ export default function GestesMosaic({
     console.log('set situation', dottedName)
   }
 
-  const evaluation = engine.evaluate('gestes . montant'),
+  console.log('situation', situation)
+  const evaluation = engine
+      .setSituation(situation)
+      .evaluate('gestes . montant'),
     value = formatValue(evaluation)
 
   return (
@@ -188,14 +191,13 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
             `}
             type="checkbox"
             checked={situation[dottedName] === 'oui'}
-            value={Math.random() > 0.5 ? true : false}
             onChange={() => onChange(dottedName)}
           />
           <div>
             <div>{questionRule.titre || getRuleName(dottedName)}</div>
 
             <small style={css``}>
-              <Prime value={montantValue} /> sur max. {plafondValue}
+              <Prime value={`- ${montantValue}`} /> sur max. {plafondValue}
             </small>
           </div>
         </label>
@@ -211,8 +213,9 @@ const Prime = ({ value }) => (
       background: #c4fad5;
       padding: 0 0.3rem;
       border-radius: 0.2rem;
+      white-space: nowrap;
     `}
   >
-    - {value}
+    {value}
   </span>
 )

@@ -11,8 +11,8 @@ isolation . vitres:
   titre: Remplacement de simple vitrage
   description: Isolation thermique des parois vitrées (fenêtres et portes-fenêtres) en remplacement de simple vitrage
   par défaut: oui
-isolation . vitres . montant: barème * nombre
-isolation . vitres . nombre:
+isolation . vitres . montant: barème * quantité
+isolation . vitres . quantité:
   question: Combien de parois vitrées voulez-vous isoler ?
   par défaut: 4 équipement
 
