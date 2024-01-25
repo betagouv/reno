@@ -177,7 +177,7 @@ export default function ScenariosSelector({
         >
           <label>
             <span>
-              Votre investissement <strong>net</strong>
+              Votre budget <strong>net</strong>
             </span>
             <Input
               value={

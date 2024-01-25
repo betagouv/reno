@@ -9,6 +9,7 @@ export default function getNextQuestions(
 ) {
   const { missingVariables } = evaluation
 
+  console.log({ missingVariables })
   const allMissingEntries = Object.entries(missingVariables),
     missingEntries = allMissingEntries
       .filter(([question]) => !answeredQuestions.includes(question))
