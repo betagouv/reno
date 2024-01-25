@@ -255,7 +255,28 @@ export default function ScenariosSelector({
         vous engage à rien.
       </p>
       <CTAWrapper>
-        <CTA href="https://france-renov.gouv.fr">Contacter un conseiller</CTA>
+        <CTA href="https://france-renov.gouv.fr">
+          {' '}
+          <span
+            css={`
+              img {
+                filter: invert(1);
+                width: 1.6rem;
+                margin-right: 0.6rem;
+                height: auto;
+                vertical-align: bottom;
+              }
+            `}
+          >
+            <Image
+              src="/check.svg"
+              width="10"
+              height="10"
+              alt="Icône coche pleine"
+            />
+            Contacter un conseiller
+          </span>
+        </CTA>
       </CTAWrapper>
     </div>
   )
