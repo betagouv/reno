@@ -40,6 +40,7 @@ export const Fieldset = styled.fieldset`
     padding: 0 0.4rem;
     margin: 0;
     margin-bottom: 0.3rem;
+    font-size: 100%;
   }
 `
 

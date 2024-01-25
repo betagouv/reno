@@ -129,30 +129,17 @@ export default function InputSwitch({
   const gestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
   if (gestesMosaic)
     return (
-      <ClassicQuestionWrapper
+      <GestesMosaic
         {...{
-          rule,
-          currentQuestion,
           rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
+          rule,
           engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          questions: gestesMosaic,
         }}
-      >
-        <GestesMosaic
-          {...{
-            rules,
-            rule,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: gestesMosaic,
-          }}
-        />
-      </ClassicQuestionWrapper>
+      />
     )
   // We kept the latter component before it got really specialized. TODO not completely functional
   const mosaic = isMosaicQuestion(currentQuestion, rule, rules)

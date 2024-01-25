@@ -350,6 +350,7 @@ MPR . non accompagnée:
   valeur: gestes . montant
 
 gestes: # gestes.yaml
+  titre: Gestes
 
 MPR . accompagnée:
   titre: Ma Prime Rénov' **accompagnée**
