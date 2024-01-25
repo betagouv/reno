@@ -18,7 +18,7 @@ export const Fieldset = styled.fieldset`
     align-items: center;
   }
   > ul > li {
-    margin-top: 0.6rem;
+    margin-top: 1rem;
     border-left: 2px solid ${blue};
     ul {
       padding-left: 0.6vw;
