@@ -7,9 +7,10 @@ import DPELabel from './DPELabel'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import ExplanationValue from '@/components/explications/Value'
 import { compute } from './explications/Aide'
-import { Card, CTA } from './UI'
+import { Card, CTA, CTAWrapper } from './UI'
 import Image from 'next/image'
 import Input from './Input'
+import styled from 'styled-components'
 
 console.log('DPE data', data)
 
@@ -217,14 +218,67 @@ export default function ScenariosSelector({
           </div>
         </div>
       </Card>
+      <h2>Je n'arrive pas à me décider</h2>
+      <p>
+        C'est normal : si vous n'êtes pas encore entouré de professionnels pour
+        concrétiser la rénovation en chiffres (coûts et gains), il est difficile
+        de choisir entre ces scénarios de sauts qui ouvrent droit à la prime.
+      </p>
+      <p>
+        Bonne nouvelle : l'accompagnement fait partie intégrante de la prime :
+        votre <strong>Accompagnateur Rénov'</strong> fera un{' '}
+        <AuditStyle>audit énergétique</AuditStyle> de votre logement et vous
+        aidera à choisir parmi les scénarios de travaux.
+      </p>
+      <p>
+        <strong></strong>
+      </p>
       <h2>Conditions d'éligibilité</h2>
-      <p>Ventilation, etc.</p>
+      <p>
+        Outre les sauts de classe, votre projet de rénovation devra respecter
+        les conditions suivantes :
+      </p>
+      <ul>
+        <li>
+          Il est obligatoire de réaliser au moins deux gestes d’isolation (murs,
+          fenêtres / menuiserie, sols ou toiture).{' '}
+        </li>
+        <li>
+          Il est impossible d’installer un chauffage fonctionnant
+          majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou de
+          conserver un chauffage fonctionnant au fioul ou au charbon.
+        </li>
+      </ul>
       <h2>C'est parti ?</h2>
-      <p>Prochaine étape, contactez un conseiller France Rénov'</p>
-      <CTA href="https://france-renov.gouv.fr">GO</CTA>
+      <p>
+        Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
+        vous engage à rien.
+      </p>
+      <CTAWrapper>
+        <CTA href="https://france-renov.gouv.fr">Contacter un conseiller</CTA>
+      </CTAWrapper>
     </div>
   )
 }
+
+const AuditStyle = ({ children }) => (
+  <span
+    css={`
+      width: 6rem;
+      position: relative;
+      background: linear-gradient(to right, #eb8235, #52b153);
+      padding: 0;
+      padding-bottom: 0.3rem;
+      > span {
+        background: white;
+        color: black;
+        padding: 0 0.3rem;
+      }
+    `}
+  >
+    <span>{children}</span>
+  </span>
+)
 const Avance = ({ engine, rules }) => {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
   if (!['modeste', 'très modeste'].includes(evaluation.value)) return null
