@@ -30,6 +30,7 @@ export default function GestesMosaic({
   situation,
   answeredQuestions,
   questions,
+  engine,
 }) {
   const grouped = questions.reduce(
       (memo, [q, rule]) => {
@@ -72,6 +73,9 @@ export default function GestesMosaic({
     console.log('set situation', dottedName)
   }
 
+  const evaluation = engine.evaluate('gestes . montant'),
+    value = formatValue(evaluation)
+
   return (
     <div>
       <h2>Quels gestes vous intéressent ?</h2>
@@ -89,6 +93,24 @@ export default function GestesMosaic({
           maximum.
         </small>
       </p>
+      <div
+        css={`
+          margin-top: 0.6rem;
+          position: sticky;
+          top: 2rem;
+          > div {
+            text-align: center;
+            border: 2px solid #7eb48f;
+            padding: 0.2rem 0.4rem;
+            background: #c4fad5;
+            width: 10rem;
+            margin: 0;
+            margin-left: auto;
+          }
+        `}
+      >
+        <div>Total = {value}</div>
+      </div>
       <Fieldset>
         <ul>
           {categories.map(([category, dottedNames]) => (

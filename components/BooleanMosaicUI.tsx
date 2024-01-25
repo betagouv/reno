@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-const blue = '#2a82dd'
+const blue = 'var(--lightColor)'
 
 export const Fieldset = styled.fieldset`
   width: 100%;
