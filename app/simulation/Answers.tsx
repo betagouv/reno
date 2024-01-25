@@ -20,7 +20,7 @@ export default function Answers({
   const categoryIndex = currentQuestion
       ? categories.findIndex((el) => el === category) + 1
       : categories.length + 1,
-    categoryName = currentQuestion && rules[category].titre
+    categoryName = currentQuestion && rules[category]?.titre
   console.log({ category, categories, categoryIndex })
   return (
     <Wrapper>

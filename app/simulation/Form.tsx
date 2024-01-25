@@ -18,24 +18,29 @@ import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
 
 export default function Form({ searchParams, rules }) {
+  // this param lets us optionally build the form to target one specific publicode rule
+  const { objectif, ...situationSearchParams } = searchParams
+
+  const target = objectif || 'aides'
+
   const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
     ...Object.keys(simulationConfig.situation || {}),
-    ...getAnsweredQuestions(searchParams, rules),
+    ...getAnsweredQuestions(situationSearchParams, rules),
   ]
   const started =
     answeredQuestions.filter((el) => el === 'simulation . mode').length > 1 // because of simulation mode
 
   const situation = {
       ...(simulationConfig.situation || {}),
-      ...getSituation(searchParams, rules),
+      ...getSituation(situationSearchParams, rules),
     },
     validatedSituation = Object.fromEntries(
       Object.entries(situation).filter(([k, v]) =>
         answeredQuestions.includes(k),
       ),
     )
-  const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
+  const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
       evaluation,
@@ -92,7 +97,7 @@ export default function Form({ searchParams, rules }) {
           <Link
             href={
               '/documentation/MPR/?' +
-              new URLSearchParams(searchParams).toString()
+              new URLSearchParams(situationSearchParams).toString()
             }
           >
             documentation complète du calcul

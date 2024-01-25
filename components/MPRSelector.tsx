@@ -12,15 +12,7 @@ export default function MPRSelector({
   engine,
 }) {
   const nextLink = (value) => {
-    const newSituation = encodeSituation(
-      {
-        ...situation,
-        [currentQuestion]: value + '*',
-      },
-      false,
-      answeredQuestions,
-    )
-    const url = setSearchParams(newSituation, 'url', false)
+    const url = setSearchParams({ objectif: value }, 'url', false)
     return url
   }
 
@@ -86,7 +78,7 @@ export default function MPRSelector({
             isFinal: !currentQuestion,
             rules,
             dottedName: 'MPR . accompagnée',
-            url: nextLink(`accompagnée`),
+            url: nextLink(`MPR . accompagnée`),
           }}
         />
         <Result
@@ -99,7 +91,7 @@ export default function MPRSelector({
             dottedName: 'MPR . non accompagnée',
             hideNumeric: true,
             rules,
-            url: nextLink(`non accompagnée`),
+            url: nextLink(`MPR . non accompagnée`),
           }}
         />
       </Results>
