@@ -93,3 +93,10 @@ export const Intro = styled.div`
   width: 30rem;
   max-width: 90%;
 `
+
+export const ConstraintedParagraphs = styled.div`
+  p {
+    max-width: 660px;
+    margin: 0 auto;
+  }
+`
