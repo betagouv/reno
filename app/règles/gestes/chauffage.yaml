@@ -24,7 +24,7 @@ chauffage . raccordement réseau . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 800 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
@@ -38,7 +38,7 @@ chauffage . chauffe-eau thermodynamique . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 800 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
@@ -55,7 +55,7 @@ chauffage . PAC . air-eau . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 5000 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 4000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
@@ -69,7 +69,7 @@ chauffage . PAC . géo ou solaire . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 11000 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 9000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 6000 €
@@ -87,7 +87,7 @@ chauffage . chauffe-eau solaire . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 4000 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 3000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 2000 €
@@ -103,7 +103,7 @@ chauffage . solaire combiné . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 8000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
@@ -119,7 +119,7 @@ chauffage . partie thermique PVT eau . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 8000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
@@ -137,7 +137,7 @@ chauffage . chaudière bois . manuelle . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 8000 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 6500 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
@@ -151,7 +151,7 @@ chauffage . chaudière bois . automatique . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 8000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
@@ -165,7 +165,7 @@ chauffage . foyer et insert . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 1500 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 800 €
@@ -181,7 +181,7 @@ chauffage . poêle . à bûches . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 2000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1000 €
@@ -195,7 +195,7 @@ chauffage . poêle . à granulés . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 2000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1500 €

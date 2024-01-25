@@ -27,7 +27,7 @@ autres . audit . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 500 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 400 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 300 €
@@ -42,7 +42,7 @@ autres . dépose fioul . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 800 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
@@ -55,7 +55,7 @@ autres . ventilation double flux . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: ménage . revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 2000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1500 €

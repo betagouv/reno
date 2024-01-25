@@ -112,7 +112,7 @@ export default function GestesMosaic({
           }
         `}
       >
-        <div>Total = {value}</div>
+        <div>Estimation ~ {value}</div>
       </div>
       <Fieldset>
         <ul>
