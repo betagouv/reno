@@ -115,6 +115,7 @@ export default function Result({
 const Explanation = styled.div`
   margin: 0.8rem 0;
   font-size: 90%;
+  margin-left: 1rem;
 `
 
 export const Badge = styled.strong`
