@@ -73,9 +73,13 @@ export default function GestesMosaic({
     console.log('set situation', dottedName)
   }
 
-  console.log('situation', situation)
+  const nullSituation = Object.fromEntries(
+    questions.map((question) => [question[0], 'non']),
+  )
+  console.log(nullSituation)
+  const runSituation = { ...nullSituation, ...situation }
   const evaluation = engine
-      .setSituation(situation)
+      .setSituation(runSituation)
       .evaluate('gestes . montant'),
     value = formatValue(evaluation)
 
