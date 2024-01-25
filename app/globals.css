@@ -97,7 +97,7 @@ fieldset {
   border: none;
 }
 
-input {
+input[type]:not([type='checkbox']) {
   height: 2.2rem;
   text-align: right;
   padding-right: 0.4rem;
