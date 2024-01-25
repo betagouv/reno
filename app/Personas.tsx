@@ -3,12 +3,12 @@ import css from '@/components/css/convertToJs'
 import { PersonasList } from '@/components/InputUI'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
 import { Card, Main, Section } from '@/components/UI'
-import useSetSeachParams from '@/components/useSetSearchParams'
+import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import personas from './personas.yaml'
 
 export default function Personas({}) {
-  const setSearchParams = useSetSeachParams()
+  const setSearchParams = useSetSearchParams()
   return (
     <Main>
       <Section>

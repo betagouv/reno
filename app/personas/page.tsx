@@ -1,5 +1,10 @@
-import Personas from "../Personas";
+import { Suspense } from 'react'
+import Personas from '../Personas'
 
 export default function PersonasPage() {
-  return <Personas />
+  return (
+    <Suspense>
+      <Personas />
+    </Suspense>
+  )
 }
