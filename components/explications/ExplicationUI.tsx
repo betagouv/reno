@@ -37,4 +37,7 @@ export const Content = styled.div`
   width: 800px;
   max-width: 90vw;
   margin: 0 auto;
+  p {
+    color: #333;
+  }
 `
