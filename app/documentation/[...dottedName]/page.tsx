@@ -16,7 +16,10 @@ export default function RuleDocumentation({
   return (
     <Main>
       <Section>
-        <ClientDocumentation dottedName={dottedName} />
+        <ClientDocumentation
+          dottedName={dottedName}
+          searchParams={searchParams}
+        />
       </Section>
     </Main>
   )
