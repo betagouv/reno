@@ -4,9 +4,7 @@ import { useDebounce } from 'use-debounce'
 export default function Input({ onChange, value, ...props }) {
   const [state, setState] = useState(value)
 
-  // Debuggin
-  //  const [debouncedState] = useDebounce(state, 2000)
-  const debouncedState = state
+  const [debouncedState] = useDebounce(state, 500)
 
   useEffect(() => {
     if (!debouncedState) return
