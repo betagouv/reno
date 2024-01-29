@@ -1,7 +1,9 @@
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Footer from '@/components/Footer'
+import Image from 'next/image'
 import { CTA, Intro, PageBlock } from '@/components/UI'
+import { HeaderWrapper } from './LandingUI'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -14,27 +16,35 @@ export default function Page({ searchParams }) {
   return (
     <main>
       <PageBlock>
-        <Content>
-          <h1
-            style={css`
-              margin-top: 0.6rem;
-            `}
-          >
-            Calculez vos aides rénovation 2024
-          </h1>
-          <Intro>
-            <p>
-              En 2024, les aides évoluent pour mieux accompagner les rénovations
-              énergétiques.
-            </p>
+        <HeaderWrapper>
+          <div>
+            <h1
+              style={css`
+                margin-top: 0.6rem;
+              `}
+            >
+              Calculez vos aides rénovation 2024
+            </h1>
+            <Intro>
+              <p>
+                En 2024, les aides évoluent pour mieux accompagner les
+                rénovations énergétiques.
+              </p>
 
-            <p>
-              Estimez vos droits en ⌚️ 5 minutes en fonction de votre situation
-              et de votre projet.
-            </p>
-          </Intro>
-          <CTA href="/simulation/introduction">Commencer la simulation</CTA>
-        </Content>
+              <p>
+                Estimez vos droits en ⌚️ 5 minutes en fonction de votre
+                situation et de votre projet.
+              </p>
+            </Intro>
+            <CTA href="/simulation/introduction">Commencer la simulation</CTA>
+          </div>
+          <Image
+            src="/brouillons/illustration.svg"
+            width="200"
+            height="200"
+            alt="Une maison dessinée avec la couleur orange d'un mauvais DPE, avec des murs isolés en vert"
+          />
+        </HeaderWrapper>
         <div
           style={css`
             background: #26a75f63;
