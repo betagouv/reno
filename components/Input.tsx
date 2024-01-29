@@ -6,6 +6,7 @@ export default function Input({ onChange, value, ...props }) {
   const [debouncedState] = useDebounce(state, 500)
 
   useEffect(() => {
+    if (!debouncedState) return
     onChange(debouncedState)
   }, [debouncedState, onChange])
 
