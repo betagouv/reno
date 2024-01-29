@@ -25,6 +25,7 @@ body {
 body {
   color: #111;
   min-height: 100%;
+  line-height: 1.6rem;
 }
 header {
   margin: 0 auto;
