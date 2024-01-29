@@ -22,9 +22,8 @@ export default function InputSwitch({
   setSearchParams,
   engine,
   rules,
+  ruleQuestionType,
 }) {
-  const ruleQuestionType = questionType(rule, rules[currentQuestion])
-  console.log('question type', ruleQuestionType)
   const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
 
   if (rule.type === 'question rhétorique')
