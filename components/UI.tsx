@@ -91,7 +91,7 @@ export const CTA = styled(Link)`
 export const Intro = styled.div`
   margin: 3vh 0 1.6rem;
   width: 30rem;
-  max-width: 90%;
+  max-width: 90vw;
 `
 
 export const ConstraintedParagraphs = styled.div`

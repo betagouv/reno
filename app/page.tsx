@@ -23,7 +23,7 @@ export default function Page({ searchParams }) {
                 margin-top: 0.6rem;
               `}
             >
-              Calculez vos aides rénovation 2024
+              Calculez vos aides rénovation
             </h1>
             <Intro>
               <p>
