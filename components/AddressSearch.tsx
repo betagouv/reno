@@ -16,7 +16,7 @@ export default function AddressSearch({
     console.log('input', input)
     const asyncFetch = async () => {
       const request = await fetch(
-        ` https://api.gorenove.fr/v2/gorenove/addresses/search?q=${input}`,
+        `https://api-adresse.data.gouv.fr/search/?q=${input}&type=municipality`,
       )
       const json = await request.json()
 
@@ -55,12 +55,13 @@ export default function AddressSearch({
         type="text"
         autoFocus={true}
         value={input}
-        placeholder={'12 rue Victor Hugo Rennes'}
+        placeholder={'Rennes ou '}
         onChange={(e) => setInput(e.target.value)}
       />
       {results && (
         <ul
           style={css`
+            margin-top: 0.6rem;
             width: 25rem;
             max-width: 90vw;
             list-style-type: none;
@@ -75,7 +76,8 @@ export default function AddressSearch({
                 text-align: right;
               `}
             >
-              {result.properties.label}
+              {result.properties.label}{' '}
+              <small>{result.properties.postcode}</small>
             </li>
           ))}
         </ul>

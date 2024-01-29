@@ -51,7 +51,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-  if (currentQuestion === 'région')
+  if (currentQuestion === 'ménage . région')
     return (
       <ClassicQuestionWrapper
         {...{
