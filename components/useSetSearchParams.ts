@@ -35,12 +35,16 @@ export default function useSetSeachParams() {
       '?' +
       createQueryString(newSearchParams, clear) +
       hash
+
+    if (action === 'url') return newUrl
+    const oldUrl = pathname + '?' + new URLSearchParams(searchParams).toString()
+    if (oldUrl === newUrl) return
+    console.log('NEW URL', decodeURIComponent(newUrl), oldUrl === newUrl)
     if (action === 'push') {
       router.push(newUrl, { scroll: false })
     }
     if (action === 'replace') {
       router.replace(newUrl, { scroll: false })
     }
-    return newUrl
   }
 }

@@ -51,7 +51,7 @@ export default function ClassicQuestionWrapper({
                     false,
                     answeredQuestions,
                   ),
-                  true,
+                  'url',
                   false,
                 )
               }

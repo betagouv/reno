@@ -234,7 +234,11 @@ export default function InputSwitch({
             false,
             answeredQuestions,
           )
-          console.log('on change will set encodedSituation', encodedSituation)
+          console.log(
+            'on change will set encodedSituation',
+            encodedSituation,
+            situation,
+          )
 
           setSearchParams(encodedSituation, 'replace', false)
         }}
