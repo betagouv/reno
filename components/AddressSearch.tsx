@@ -55,7 +55,7 @@ export default function AddressSearch({
         type="text"
         autoFocus={true}
         value={input}
-        placeholder={'Rennes ou '}
+        placeholder={'Commune ou code postal'}
         onChange={(e) => setInput(e.target.value)}
       />
       {results && (
