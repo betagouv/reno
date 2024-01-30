@@ -9,6 +9,7 @@ export default function AddressSearch({
 }) {
   const [input, setInput] = useState(null)
   const [results, setResults] = useState(null)
+  const [clicked, setClicked] = useState(null)
 
   useEffect(() => {
     if (!input || input.length < 3) return
@@ -29,6 +30,7 @@ export default function AddressSearch({
   console.log(results)
 
   const setChoice = (result) => {
+    setClicked(result)
     const region = result.properties.context.split(', ')[2]
     console.log('user clicked adress result ', result, region)
     const encodedSituation = encodeSituation(
@@ -64,7 +66,7 @@ export default function AddressSearch({
         <ul
           style={css`
             margin-top: 0.6rem;
-            width: 25rem;
+            width: 20rem;
             max-width: 90vw;
             list-style-type: none;
           `}
@@ -73,9 +75,12 @@ export default function AddressSearch({
             <li
               key={result.properties.x + result.properties.y}
               onClick={() => setChoice(result)}
-              style={css`
+              css={`
                 cursor: pointer;
                 text-align: right;
+                ${clicked &&
+                clicked.properties.id === result.properties.id &&
+                `background: var(--lighterColor)`}
               `}
             >
               {result.properties.label}{' '}
