@@ -36,7 +36,7 @@ export default function Page({ searchParams }) {
                 situation et de votre projet.
               </p>
             </Intro>
-            <CTA href="/simulation/introduction">Commencer la simulation</CTA>
+            <CTA href="/simulation/introduction">Lancer la simulation</CTA>
           </div>
           <Image
             src="/brouillons/illustration.svg"
