@@ -12,6 +12,7 @@ import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
+import SmartInput from './SmartInput'
 
 export default function InputSwitch({
   rule,
@@ -24,7 +25,51 @@ export default function InputSwitch({
   rules,
   ruleQuestionType,
 }) {
-  const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
+  const evaluation = currentQuestion && engine.evaluate(currentQuestion)
+
+  if (rule['bornes intelligentes'])
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <SmartInput
+          type={ruleQuestionType}
+          rule={rule}
+          engine={engine}
+          evaluation={evaluation}
+          placeholder={evaluation.nodeValue}
+          value={currentValue == null ? '' : currentValue}
+          name={currentQuestion}
+          onChange={(value) => {
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]:
+                  ruleQuestionType === 'number' ? value : `"${value}"`,
+              },
+              false,
+              answeredQuestions,
+            )
+            console.log(
+              'on change will set encodedSituation',
+              encodedSituation,
+              situation,
+            )
+
+            setSearchParams(encodedSituation, 'replace', false)
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
 
   if (rule.type === 'question rhétorique')
     return (
@@ -221,7 +266,7 @@ export default function InputSwitch({
     >
       <Input
         type={ruleQuestionType}
-        placeholder={defaultValue.nodeValue}
+        placeholder={evaluation.nodeValue}
         value={currentValue == null ? '' : currentValue}
         name={currentQuestion}
         onChange={(value) => {

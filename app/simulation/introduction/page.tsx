@@ -18,9 +18,10 @@ export default function Introduction() {
         <ConstraintedParagraphs>
           <p>
             En 2024, les aides à la rénovation énergétique des logements sont
-            organisées autour de deux grands dispositifs nationaux.
+            organisées autour de deux grands dispositifs nationaux, Ma Prime
+            Rénov' <strong>accompagnée</strong>, et Ma Prime Rénov'{' '}
+            <strong>par gestes</strong>.
           </p>
-          <VisualExplanation />
 
           <p>
             Ces deux aides peuvent être cumulées avec des aides locales et
@@ -34,8 +35,12 @@ export default function Introduction() {
             </strong>
           </p>
           <CTAWrapper>
-            <CTA href="/simulation">J'ai compris</CTA>
+            <CTA href="/simulation" $importance="secondary">
+              ←
+            </CTA>{' '}
+            <CTA href="/simulation">Suivant</CTA>
           </CTAWrapper>
+          <VisualExplanation />
         </ConstraintedParagraphs>
       </Section>
     </Main>

@@ -24,6 +24,7 @@ aides:
 ménage . revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
+  bornes intelligentes: oui
   description: |
     Saisissez le « revenu fiscal de référence » des personnes composant le ménage. 
 
@@ -102,6 +103,7 @@ logement . année de construction:
   titre: Année de construction
   question: De quelle année date la construction de votre logement ?
   par défaut: 1950 # Au hasard, on n'a pas trouvé d'âge moyen
+  #bornes intelligentes: oui
   suggestions:
     très ancien: 1900
     trente glorieuses: 1950
@@ -112,6 +114,22 @@ logement . année de construction:
 logement . âge:
   titre: Âge du logement
   formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
+
+logement . condition d'ancienneté:
+  titre: Logement de + de 15 ans
+  formule: âge > 15 ans
+
+PTZ . condition d'ancienneté:
+  logement . âge > 2 ans
+
+  # Si l'on a besoin dans un second temps d'avoir l'âge exact
+  # âge >= 15
+  ## variations:
+  #TODO outre-mer :  MAR accompagné est réservée à un logement en France métropolitaine
+  #TODO question des mois
+  ## - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
+  ## alors: âge >= 2
+  ## - sinon:
 
 ménage . personnes:
   titre: La composition de votre ménage
@@ -294,20 +312,6 @@ travaux . plafonnés:
         alors: 70000 €
   valeur: travaux
 
-logement . condition d'ancienneté:
-  titre: Logement de + de 15 ans
-  question: Votre logement a-t-il plus de 15 ans (construit avant 2009) ?
-  par défaut: oui
-
-  # Si l'on a besoin dans un second temps d'avoir l'âge exact
-  # âge >= 15
-  ## variations:
-  #TODO outre-mer :  MAR accompagné est réservée à un logement en France métropolitaine
-  #TODO question des mois
-  ## - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
-  ## alors: âge >= 2
-  ## - sinon:
-
 conditions communes:
   titre: Conditions d'élligibilité de base
   toutes ces conditions:
@@ -429,7 +433,7 @@ PTZ:
   applicable si:
     toutes ces conditions:
       - logement . résidence principale
-      - logement . âge > 2
+      - condition d'ancienneté
   titre: Éco-prêt à taux zéro
   description: |
 
