@@ -29,11 +29,13 @@ export default function AddressSearch({
   console.log(results)
 
   const setChoice = (result) => {
+    const region = result.properties.context.split(', ')[2]
+    console.log('user clicked adress result ', result, region)
     const encodedSituation = encodeSituation(
       {
         ...situation,
-        région: `"${result.properties.context.split(', ')[2]}"`,
-        'id ban': `"${result.properties.id}"`,
+        'ménage . région': `"${region}"`,
+        'ménage . id ban': `"${result.properties.id}"`,
       },
       false,
       answeredQuestions,
