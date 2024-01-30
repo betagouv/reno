@@ -81,57 +81,60 @@ export default function ScenariosSelector({
           <span>Aide (en €)</span>
           <span>Montant des travaux</span>
         </li>
-        {possibilities.map((el, index) => (
-          <li key={el.lettre}>
-            <span>
-              <DPELabel index={oldIndex} />{' '}
-              <span
-                css={`
-                  position: relative;
-                `}
-              >
-                <small
-                  css={`
-                    position: absolute;
-                    left: 40%;
-                    top: -0.3rem;
-                    transform: translateX(-50%);
-                    color: #555;
-                    font-size: 70%;
-                  `}
-                >
-                  +{-index + oldIndex}
-                </small>
-                {'⟶ '}
-              </span>
-              <DPELabel index={index} />{' '}
-            </span>
-            <Value
-              {...{
-                engine,
-                index,
-                situation: { ...situation, 'DPE . visé': index },
-                dottedName: 'MPR . accompagnée . pourcent écrêté',
-              }}
-            />
-            <Value
-              {...{
-                engine,
-                index,
-                situation: { ...situation, 'DPE . visé': index },
-                dottedName: 'MPR . accompagnée . montant',
-              }}
-            />
-            <Value
-              {...{
-                engine,
-                index,
-                situation: { ...situation, 'DPE . visé': index },
-                dottedName: 'travaux',
-              }}
-            />
-          </li>
-        ))}
+        {possibilities.map(
+          (el, index) =>
+            console.log('index', index) || (
+              <li key={el.lettre}>
+                <span>
+                  <DPELabel index={oldIndex} />{' '}
+                  <span
+                    css={`
+                      position: relative;
+                    `}
+                  >
+                    <small
+                      css={`
+                        position: absolute;
+                        left: 40%;
+                        top: -0.3rem;
+                        transform: translateX(-50%);
+                        color: #555;
+                        font-size: 70%;
+                      `}
+                    >
+                      +{-index + oldIndex}
+                    </small>
+                    {'⟶ '}
+                  </span>
+                  <DPELabel index={index} />{' '}
+                </span>
+                <Value
+                  {...{
+                    engine,
+                    index,
+                    situation: { ...situation, 'DPE . visé': index + 1 },
+                    dottedName: 'MPR . accompagnée . pourcent écrêté',
+                  }}
+                />
+                <Value
+                  {...{
+                    engine,
+                    index,
+                    situation: { ...situation, 'DPE . visé': index + 1 },
+                    dottedName: 'MPR . accompagnée . montant',
+                  }}
+                />
+                <Value
+                  {...{
+                    engine,
+                    index,
+                    situation: { ...situation, 'DPE . visé': index + 1 },
+                    dottedName: 'travaux',
+                  }}
+                />
+              </li>
+            ),
+        )}
       </ol>
       <Card
         css={`
