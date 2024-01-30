@@ -27,7 +27,6 @@ export default function Introduction() {
             Ces deux aides peuvent être cumulées avec des aides locales et
             d’autres dispositifs (Éco-prêt à taux zéro, Crédit d’impôt…).
           </p>
-          <br />
           <p>
             <strong>
               Ce simulateur vous aide à les comprendre et à choisir le
@@ -35,9 +34,9 @@ export default function Introduction() {
             </strong>
           </p>
           <CTAWrapper>
-            <CTA href="/simulation" $importance="secondary">
+            <CTA href="/" $importance="secondary" title="Retour en arrière">
               ←
-            </CTA>{' '}
+            </CTA>
             <CTA href="/simulation">Suivant</CTA>
           </CTAWrapper>
           <VisualExplanation />

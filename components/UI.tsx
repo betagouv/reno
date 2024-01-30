@@ -76,14 +76,30 @@ export const TopBanner = styled.p`
 export const CTAWrapper = styled.div`
   text-align: right;
   margin: 3vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 `
 export const CTA = styled(Link)`
-  background: #000091;
+  ${(p) =>
+    p.$importance === 'secondary'
+      ? `
+  background: var(--lightestColor);
+  border: 1px solid var(--lighterColor);
+  color: var(--color);
+  line-height: 1.1rem;
+  `
+      : `
+
+  background: var(--color);
+  border: 1px solid var(--color);
   color: white;
-  padding: 0.5rem 1.2rem;
+  `}
   font-size: 130%;
+  padding: 0.5rem 1.2rem;
   text-decoration: none;
   white-space: nowrap;
+  margin-right: 1rem;
   @media (max-width: 800px) {
     font-size: 120%;
   }
@@ -97,6 +113,6 @@ export const Intro = styled.div`
 export const ConstraintedParagraphs = styled.div`
   p {
     max-width: 660px;
-    margin: 0 auto;
+    margin: 0.6rem auto;
   }
 `
