@@ -1,9 +1,10 @@
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Footer from '@/components/Footer'
-import Image from 'next/image'
 import { CTA, Intro, PageBlock } from '@/components/UI'
-import { HeaderWrapper } from './LandingUI'
+import informationIconBlack from '@/public/information-black.svg'
+import Image from 'next/image'
+import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -45,20 +46,20 @@ export default function Page({ searchParams }) {
             alt="Une maison dessinée avec la couleur orange d'un mauvais DPE, avec des murs isolés en vert"
           />
         </HeaderWrapper>
-        <div
-          style={css`
-            background: #26a75f63;
-            color: black;
-            padding: 1rem;
-            width: 100%;
-            margin: 5vh 0 0;
-            text-align: center;
-          `}
-        >
-          Mes aides Réno est une initiative du gouvernement et de l'Agence
-          nationale de l'habitat pour simplifier l’accès à l’information sur les
-          aides à la rénovation énergétique.{' '}
-        </div>
+        <LandingGreenBanner>
+          <Image
+            src={informationIconBlack}
+            width="25"
+            style={css`
+              margin-right: 1rem;
+            `}
+          />
+          <p>
+            Une initiative du gouvernement et de l'Agence nationale de l'habitat
+            pour simplifier l’accès à l’information sur les aides à la
+            rénovation énergétique.{' '}
+          </p>
+        </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h2>Pourquoi un simulateur Mes aides Réno ?</h2>
