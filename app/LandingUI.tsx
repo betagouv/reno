@@ -7,6 +7,7 @@ export const HeaderWrapper = styled(Content)`
   align-items: center;
   img {
     margin-top: 4rem;
+    margin-left: 4rem;
     width: 13rem;
     height: auto;
   }
