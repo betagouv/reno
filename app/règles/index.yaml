@@ -274,8 +274,17 @@ travaux:
     haute: 70000 €
   description: |
     Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, de 5,5 % à 10 %.
-  formule: investissement + MPR . accompagnée . montant
+  # Je ne suis pas satisfait de cette formule
+  # Elle n'est pas lisible directement, elle résulte d'une inversion de formule à la main
+  # Car il semble y avoir un bug résultant d'un choc entre les mécanismes `plafond` et `résoudre la référence circulaire`
+  # https://github.com/publicodes/publicodes/issues/443
+  formule: investissement / (1 - MPR . accompagnée . pourcent écrêté)
+  plafond: investissement + MPR . accompagnée . pourcent écrêté * travaux . plafond
   résoudre la référence circulaire: oui
+
+MPR . accompagnée . montant:
+  formule: pourcent écrêté * travaux . plafonnés
+  unité: €
 
 investissement:
   titre: Votre investissement
@@ -284,15 +293,17 @@ investissement:
   par défaut: 25000 €
 
 travaux . plafonnés:
-  plafond:
-    variations:
-      - si: sauts = 2
-        alors: 40000 €
-      - si: sauts = 3
-        alors: 55000 €
-      - si: sauts >= 4
-        alors: 70000 €
+  plafond: plafond
   valeur: travaux
+
+travaux . plafond:
+  variations:
+    - si: sauts = 2
+      alors: 40000 €
+    - si: sauts = 3
+      alors: 55000 €
+    - si: sauts >= 4
+      alors: 70000 €
 
 logement . condition d'ancienneté:
   titre: Logement de + de 15 ans
@@ -365,10 +376,6 @@ MPR . accompagnée:
 
   valeur: montant
   applicable si: conditions communes
-
-MPR . accompagnée . montant:
-  formule: pourcent écrêté * travaux . plafonnés
-  unité: €
 
 MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition: sauts > sauts minimum
