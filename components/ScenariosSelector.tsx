@@ -100,6 +100,7 @@ export default function ScenariosSelector({
                         transform: translateX(-50%);
                         color: #555;
                         font-size: 70%;
+                        line-height: 1rem;
                       `}
                     >
                       +{-index + oldIndex}
