@@ -3,6 +3,7 @@
   --lightColor: #2a82dd;
   --darkColor: #121226;
   --lighterColor: #d1d1fb;
+  --lighterColor2: #e4e4f8;
   --lightestColor: #f5f5fe;
   --shadow-color: 0deg 0% 63%;
   --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),

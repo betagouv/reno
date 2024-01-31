@@ -313,6 +313,8 @@ travaux:
   plafond: investissement + MPR . accompagnée . pourcent écrêté * travaux . plafond
   résoudre la référence circulaire: oui
 
+MPR . accompagnée . avance: 0.7 * montant
+
 MPR . accompagnée . montant:
   formule: pourcent écrêté * travaux . plafonnés
   unité: €
@@ -502,4 +504,8 @@ PTZ:
 
     Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
 PTZ . plafond:
-PTZ . montant:
+PTZ . montant: 50000 # pour MPR
+
+somme à engager:
+  plancher: 0
+  valeur: travaux - (MPR . accompagnée . avance + 50000)

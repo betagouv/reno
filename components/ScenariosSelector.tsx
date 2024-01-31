@@ -11,6 +11,7 @@ import { Card, CTA, CTAWrapper } from './UI'
 import Image from 'next/image'
 import Input from './Input'
 import styled from 'styled-components'
+import { useState } from 'react'
 
 console.log('DPE data', data)
 
@@ -22,6 +23,7 @@ export default function ScenariosSelector({
   engine,
   rules,
 }) {
+  const [choice, setChoice] = useState(null)
   const numericalValue = situation[currentQuestion]
 
   console.log(situation, numericalValue, currentQuestion)
@@ -59,6 +61,7 @@ export default function ScenariosSelector({
             display: flex;
             justify-content: space-evenly;
             border-bottom: 1px solid var(--lighterColor);
+            cursor: pointer;
           }
           li:first-child {
             background: var(--lightestColor);
@@ -78,13 +81,16 @@ export default function ScenariosSelector({
         <li key="en-tête">
           <span>Scénario de sauts DPE</span>
           <span>Aide (en %)</span>
-          <span>Aide (en €)</span>
-          <span>Montant des travaux</span>
+          <span>Assiette maximum de l'aide</span>
         </li>
         {possibilities.map(
           (el, index) =>
             console.log('index', index) || (
-              <li key={el.lettre}>
+              <li
+                key={el.lettre}
+                css={choice === index ? `background: var(--lighterColor2)` : ``}
+                onClick={() => setChoice(index)}
+              >
                 <span>
                   <DPELabel index={oldIndex} />{' '}
                   <span
@@ -122,106 +128,109 @@ export default function ScenariosSelector({
                     engine,
                     index,
                     situation: { ...situation, 'DPE . visé': index + 1 },
-                    dottedName: 'MPR . accompagnée . montant',
-                  }}
-                />
-                <Value
-                  {...{
-                    engine,
-                    index,
-                    situation: { ...situation, 'DPE . visé': index + 1 },
-                    dottedName: 'travaux',
+                    dottedName: 'travaux . plafond',
                   }}
                 />
               </li>
             ),
         )}
       </ol>
-      <Card
-        css={`
-          padding: 1rem;
-          margin: 1rem auto;
-          text-align: center;
-          input {
-            width: 6rem;
-            text-align: right;
-          }
-          width: 34rem;
-          max-width: 100%;
-          img {
-            width: 3.5rem;
-            height: auto;
-            margin-right: 1rem;
-          }
-          display: flex;
-          align-items: center;
-          justify-content: space-evenly;
-          flex-wrap: wrap;
-          label {
-            span {
-              display: inline-block;
-              margin: 0.4rem;
-            }
-          }
-        `}
-      >
-        <Image
-          src="/investissement.svg"
-          width="30"
-          height="30"
-          alt="Icône représentant votre apport personnel qui sera complété par les aides"
-        />
-        <div
+      {choice != null && (
+        <Card
           css={`
+            background: var(--lighterColor2);
+            padding: 1rem;
+            margin: 1rem auto;
+            text-align: center;
+            input {
+              width: 6rem;
+              height: 1.6rem !important;
+              text-align: right;
+            }
+            width: 34rem;
+            max-width: 100%;
+            img {
+              width: 3.5rem;
+              height: auto;
+              margin-right: 1rem;
+            }
             display: flex;
-            flex-direction: column;
-            align-items: end;
-            max-width: 25rem;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
           `}
         >
-          <label>
-            <span>
-              Votre budget <strong>net</strong>
-            </span>
-            <Input
-              value={
-                situation['investissement'] ||
-                rules['investissement']['par défaut'].split(' €')[0]
-              }
-              onChange={(value) => {
-                setSearchParams(
-                  {
-                    investissement: value,
-                  },
-                  'replace',
-                  false,
-                )
-              }}
-              step="100"
-            />
-            &nbsp;€
-          </label>
+          <Image
+            src="/investissement.svg"
+            width="30"
+            height="30"
+            alt="Icône représentant votre apport personnel qui sera complété par les aides"
+          />
           <div
             css={`
-              margin-top: 0.4rem;
-              p {
-                line-height: 1.1rem;
-                color: #555;
-                font-size: 80%;
-                @media (min-width: 800px) {
-                  text-align: right;
-                }
-              }
+              text-align: left;
+              max-width: 25rem;
             `}
           >
+            <label>
+              <h3>Scénario {choice + 1}</h3>
+              <span>Avec un apport personnel net de </span>
+              <Input
+                value={
+                  situation['investissement'] ||
+                  rules['investissement']['par défaut'].split(' €')[0]
+                }
+                onChange={(value) => {
+                  setSearchParams(
+                    {
+                      investissement: value,
+                    },
+                    'replace',
+                    false,
+                  )
+                }}
+                step="100"
+              />
+              <span>&nbsp;€</span>
+            </label>
+            <span>, vous pourrez obtenir une aide de </span>
+            <Value
+              {...{
+                engine,
+                choice,
+                situation: { ...situation, 'DPE . visé': choice + 1 },
+                dottedName: 'MPR . accompagnée . montant',
+              }}
+            />
+            <span> pour une enveloppe totale de travaux de </span>
+            <Value
+              {...{
+                engine,
+                choice,
+                situation: { ...situation, 'DPE . visé': choice + 1 },
+                dottedName: 'travaux',
+              }}
+            />
+            <Avance {...{ engine, rules, situation, choice }} />
             <p>
-              C'est la part des travaux que vous aurez payée une fois la prime
-              rénov' déduite.
+              En cas de besoin, un éco-prêt à taux zéro vous permet d'emprunter
+              50 000 €.
             </p>
-            <Avance {...{ engine, rules }} />
+            <p>
+              En cumulant l'avance et le prêt, vous devrez avoir à disposition{' '}
+              <Value
+                {...{
+                  engine,
+                  choice,
+                  situation: { ...situation, 'DPE . visé': choice + 1 },
+                  dottedName: 'somme à engager',
+                }}
+              />{' '}
+              € pour lancer les travaux.
+            </p>
           </div>
-        </div>
-      </Card>
+        </Card>
+      )}
       <h2>Je n'arrive pas à me décider</h2>
       <p>
         C'est normal : si vous n'êtes pas encore entouré de professionnels pour
@@ -303,13 +312,23 @@ const AuditStyle = ({ children }) => (
     <span>{children}</span>
   </span>
 )
-const Avance = ({ engine, rules }) => {
+const Avance = ({ engine, rules, choice, situation }) => {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
   if (!['modeste', 'très modeste'].includes(evaluation.value)) return null
   return (
     <p>
       En tant que ménage au revenu <ExplanationValue {...{ evaluation }} />,
-      vous pourrez bénéficier d'une avance de <strong>70 %</strong>.
+      vous pourrez bénéficier d'une avance de <strong>70 %</strong> de la prime,
+      soit{' '}
+      <Value
+        {...{
+          engine,
+          choice,
+          situation: { ...situation, 'DPE . visé': choice + 1 },
+          dottedName: 'MPR . accompagnée . avance',
+        }}
+      />
+      .
     </p>
   )
 }
@@ -317,13 +336,5 @@ const Avance = ({ engine, rules }) => {
 const Value = ({ engine, index, situation, dottedName }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
     value = formatValue(evaluation, { precision: 0 })
-  return (
-    <span
-      css={`
-        margin-left: 1rem;
-      `}
-    >
-      {value}
-    </span>
-  )
+  return <span css={``}>{value}</span>
 }
