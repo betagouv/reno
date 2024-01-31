@@ -29,18 +29,43 @@ export default function Input({ situation, onChange, value, rule, engine }) {
     .filter(Boolean)
   console.log('smart eval list', list)
 
-  return list.map((threshold) => (
-    <label>
-      inférieur à {formatNumber(threshold)} €
-      <input
-        type="radio"
-        name={threshold}
-        value={threshold}
-        checked={revenu < threshold}
-        onChange={() => null}
-      />
-    </label>
-  ))
+  console.log('smart revenu', revenu)
+  const lastThreshold = list.slice(-1)[0]
+  return [...list, Infinity].map((threshold, index) => {
+    const valueToSet =
+      threshold === Infinity ? lastThreshold + 1 : threshold - 1
+    return (
+      <label
+        key={threshold}
+        css={`
+          cursor: pointer;
+          width: 14rem;
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.6rem;
+        `}
+      >
+        <input
+          css={`
+            width: 1.4rem;
+            height: 1.4rem;
+            cursor: pointer;
+            margin-right: 0.4rem;
+          `}
+          type="radio"
+          name={threshold}
+          value={threshold}
+          checked={revenu > (list[index - 1] || 0) && revenu <= threshold}
+          onChange={(e) => onChange(valueToSet)}
+        />{' '}
+        {threshold === Infinity ? (
+          <span>supérieur à {formatNumber(lastThreshold)} €</span>
+        ) : (
+          <span>inférieur à {formatNumber(threshold)} €</span>
+        )}
+      </label>
+    )
+  })
 }
 
 const numberFormatter = new Intl.NumberFormat('fr-FR', {

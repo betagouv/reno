@@ -55,18 +55,11 @@ export default function InputSwitch({
             const encodedSituation = encodeSituation(
               {
                 ...situation,
-                [currentQuestion]:
-                  ruleQuestionType === 'number' ? value : `"${value}"`,
+                [currentQuestion]: value,
               },
               false,
               answeredQuestions,
             )
-            console.log(
-              'on change will set encodedSituation',
-              encodedSituation,
-              situation,
-            )
-
             setSearchParams(encodedSituation, 'replace', false)
           }}
         />
