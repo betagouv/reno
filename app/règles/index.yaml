@@ -323,11 +323,6 @@ travaux . plafond:
     - si: sauts >= 4
       alors: 70000 €
 
-logement . condition d'ancienneté:
-  titre: Logement de + de 15 ans
-  question: Votre logement a-t-il plus de 15 ans (construit avant 2009) ?
-  par défaut: oui
-
   # Si l'on a besoin dans un second temps d'avoir l'âge exact
   # âge >= 15
   ## variations:
