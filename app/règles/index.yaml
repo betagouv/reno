@@ -105,7 +105,7 @@ logement . année de construction:
   par défaut: 1950 # Au hasard, on n'a pas trouvé d'âge moyen
   #bornes intelligentes: oui
   suggestions:
-    très ancien: 1900
+    : 1900
     trente glorieuses: 1950
     choc pétrolier: 1975
     récent: 2000
@@ -115,12 +115,25 @@ logement . âge:
   titre: Âge du logement
   formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
 
+logement . période de construction:
+  par défaut: "'au moins 15 ans'"
+  question: Quelle est l'âge du logement ?
+  une possibilité parmi:
+    possibilités:
+      - au moins 15 ans
+      - entre 15 et 2 ans
+      - moins de 2 ans
+
+logement . période de construction . au moins 15 ans:
+logement . période de construction . entre 15 et 2 ans:
+logement . période de construction . moins de 2 ans:
+
 logement . condition d'ancienneté:
   titre: Logement de + de 15 ans
-  formule: âge > 15 ans
+  formule: période de construction = 'au moins 15 ans'
 
 PTZ . condition d'ancienneté:
-  logement . âge > 2 ans
+  logement . période de construction != 'moins de 2 ans'
 
   # Si l'on a besoin dans un second temps d'avoir l'âge exact
   # âge >= 15

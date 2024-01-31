@@ -10,6 +10,7 @@ import Input from './Input'
 import MPRSelector from './MPRSelector'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
+import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
 import SmartInput from './SmartInput'
@@ -66,6 +67,43 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
+  if (rule['une possibilité parmi'])
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+          noSuggestions: true,
+        }}
+      >
+        <RadioQuestion
+          rule={rule}
+          engine={engine}
+          evaluation={evaluation}
+          situation={situation}
+          placeholder={evaluation.nodeValue}
+          value={currentValue == null ? '' : currentValue}
+          name={currentQuestion}
+          onChange={(value) => {
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]: `"${value}"`,
+              },
+              false,
+              answeredQuestions,
+            )
+            setSearchParams(encodedSituation, 'replace', false)
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
   if (rule.type === 'question rhétorique')
     return (
       <ClassicQuestionWrapper
