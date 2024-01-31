@@ -28,6 +28,7 @@ export default function ClassicQuestionWrapper({
   setSearchParams,
   currentValue,
   engine,
+  noSuggestions,
 }) {
   return (
     <div>
@@ -39,23 +40,25 @@ export default function ClassicQuestionWrapper({
             </QuestionHeader>
           )}
           <AnswerWrapper>
-            <Suggestions
-              rule={rule}
-              onClick={(value) =>
-                setSearchParams(
-                  encodeSituation(
-                    {
-                      ...situation,
-                      [currentQuestion]: value,
-                    },
+            {!noSuggestions && (
+              <Suggestions
+                rule={rule}
+                onClick={(value) =>
+                  setSearchParams(
+                    encodeSituation(
+                      {
+                        ...situation,
+                        [currentQuestion]: value,
+                      },
+                      false,
+                      answeredQuestions,
+                    ),
+                    'url',
                     false,
-                    answeredQuestions,
-                  ),
-                  'url',
-                  false,
-                )
-              }
-            />
+                  )
+                }
+              />
+            )}
             {children}
 
             <FormButtons

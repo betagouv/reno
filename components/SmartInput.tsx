@@ -3,52 +3,47 @@ import { useDebounce } from 'use-debounce'
 
 import { reduceAST } from 'publicodes'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-export default function Input({ onChange, value, rule, evaluation, engine }) {
-  const name = 'ménage . revenu . classe'
-  const rulesUsingThisInput = [engine.getParsedRules()[name]]
-  console.log(rulesUsingThisInput, engine.evaluate(name))
-  const comparaisonOperators = ['<', '<=', '>', '>=']
-  const unit = '€'
-  const convertValue = (node) => {
-    const valeur = formatValue(engine.evaluate(node)).replace(/\s/g, '')
-    if (valeur === '∞') {
-      return Infinity
-    }
-    return engine.evaluate({ valeur, unité: unit }).nodeValue
-  }
-  const searchedName = 'ménage . revenu'
+export default function Input({ situation, onChange, value, rule, engine }) {
+  /* First we went for Maxime's method on mesaidesvelo
+   * consisting of doing a static analysis of candidate values,
+   * then trying them all by evaluating them to see which
+   * would change the final output.
+   *
+   * However, we've got lots of values here, it's an automated method but quite
+   * inefficient. In our case, we know the format of our bounds. We'll do it by
+   * hand for now.
+   *
+   * */
+  const revenu = situation['ménage . revenu']
+  const targets = ['ménage . revenu . barème IdF', 'ménage . revenu . barème']
 
-  function findAllComparaisonsValue(dottedName, { searchedName, unit }) {
-    const accumulateThresholds = (acc, node) => {
-      if (
-        node.nodeKind === 'operation' &&
-        comparaisonOperators.includes(node.operationKind)
-      ) {
-        console.log('smart kind', node)
-        if (node.explanation[0]?.dottedName === searchedName) {
-          return [...acc, convertValue(node.explanation[1])]
-        } else if (node.explanation[1]?.dottedName === searchedName) {
-          return [...acc, convertValue(node.explanation[0])]
-        }
-      } else if (
-        (node.nodeKind === 'reference' && console.log('smart name', node)) ||
-        node.name?.split(' . ').slice(-1).includes('barème')
-      ) {
-        console.log('smart found', acc)
-        return [
-          ...acc,
-          ...findAllComparaisonsValue(node.dottedName, { searchedName, unit }),
-        ]
-      }
-    }
+  const idf = engine.evaluate('ménage . région . IdF')
+  const evaluation = engine.evaluate(targets[idf.nodeValue ? 0 : 1])
+  console.log('smart eval', evaluation)
+  const activeBarème =
+    evaluation.explanation.valeur.explanation.alors.explanation.find(
+      (el) => el.condition.nodeValue,
+    )
+  const list = activeBarème.consequence.explanation
+    .map((el) => el.condition[1]?.constant?.nodeValue)
+    .filter(Boolean)
+  console.log('smart eval list', list)
 
-    return reduceAST(accumulateThresholds, [], engine.getRule(dottedName))
-  }
-  const result = findAllComparaisonsValue(name, {
-    searchedName,
-    unit,
-  })
-  console.log('yoyo getrule', engine.getRule(name))
-  console.log('yoyo eval', engine.evaluate(name))
-  return 'salut'
+  return list.map((threshold) => (
+    <label>
+      inférieur à {formatNumber(threshold)} €
+      <input
+        type="radio"
+        name={threshold}
+        value={threshold}
+        checked={revenu < threshold}
+        onChange={() => null}
+      />
+    </label>
+  ))
 }
+
+const numberFormatter = new Intl.NumberFormat('fr-FR', {
+  maximumFractionDigits: 0,
+})
+const formatNumber = (n) => numberFormatter.format(n)

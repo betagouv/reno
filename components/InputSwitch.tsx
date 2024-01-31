@@ -39,6 +39,7 @@ export default function InputSwitch({
           setSearchParams,
           currentValue,
           engine,
+          noSuggestions: true,
         }}
       >
         <SmartInput
@@ -46,6 +47,7 @@ export default function InputSwitch({
           rule={rule}
           engine={engine}
           evaluation={evaluation}
+          situation={situation}
           placeholder={evaluation.nodeValue}
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
