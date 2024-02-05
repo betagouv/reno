@@ -1,5 +1,6 @@
 import VisualExplanation from '@/app/VisualExplanation'
 import css from '@/components/css/convertToJs'
+import Link from 'next/link'
 import {
   ConstraintedParagraphs,
   CTA,
@@ -34,10 +35,16 @@ export default function Introduction() {
             </strong>
           </p>
           <CTAWrapper>
-            <CTA href="/" $importance="secondary" title="Retour en arrière">
-              ←
+            <CTA $importance="secondary">
+              <Link href="/" title="Retour en arrière">
+                ←
+              </Link>
             </CTA>
-            <CTA href="/simulation">Suivant</CTA>
+            <CTA>
+              <Link href="/simulation" title="Aller à l'étape suivante">
+                Suivant
+              </Link>
+            </CTA>
           </CTAWrapper>
           <VisualExplanation />
         </ConstraintedParagraphs>

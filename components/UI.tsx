@@ -78,9 +78,19 @@ export const CTAWrapper = styled.div`
   margin: 3vh 0;
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: ${(p) => p.$justify || 'right'};
 `
-export const CTA = styled(Link)`
+export const CTA = styled.div`
+  > button {
+    border: none;
+    background: none;
+    font-size: inherit;
+  }
+  > a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   ${(p) =>
     p.$importance === 'secondary'
       ? `

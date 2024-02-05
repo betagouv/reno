@@ -1,8 +1,9 @@
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Footer from '@/components/Footer'
-import { CTA, Intro, PageBlock } from '@/components/UI'
+import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import informationIconBlack from '@/public/information-black.svg'
+import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
 
@@ -37,7 +38,14 @@ export default function Page({ searchParams }) {
                 situation et de votre projet.
               </p>
             </Intro>
-            <CTA href="/simulation/introduction">Commencer la simulation</CTA>
+            <CTAWrapper $justify="left">
+              <CTA>
+                {' '}
+                <Link href="/simulation/introduction">
+                  Commencer la simulation
+                </Link>
+              </CTA>
+            </CTAWrapper>
           </div>
           <Image
             src="/brouillons/illustration.svg"

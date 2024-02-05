@@ -1,5 +1,7 @@
 import { isMosaicQuestion } from '@/components/BooleanMosaic'
-import { FormButtonsWrapper, FormLinkButton } from '@/components/InputUI'
+import { CTA, CTAWrapper } from '@/components/UI'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function FormButtons({
   currentValue,
@@ -10,6 +12,7 @@ export default function FormButtons({
   situation,
   rules,
 }) {
+  const router = useRouter()
   const mosaicQuestions = isMosaicQuestion(
     currentQuestion,
     rules[currentQuestion],
@@ -21,25 +24,31 @@ export default function FormButtons({
     (mosaicQuestions && mosaicQuestions.find(([q]) => situation[q] != null))
 
   return (
-    <FormButtonsWrapper>
+    <CTAWrapper>
+      <CTA $importance="secondary" title="Retour en arrière">
+        <button onClick={() => router.back()}>←</button>
+      </CTA>
       {showValidation && (
-        <FormLinkButton
-          href={setSearchParams(
-            encodeSituation(
-              {
-                ...situation,
-                [currentQuestion]: situation[currentQuestion],
-              },
+        <CTA>
+          <Link
+            href={setSearchParams(
+              encodeSituation(
+                {
+                  ...situation,
+                  [currentQuestion]: situation[currentQuestion],
+                },
+                false,
+                [...answeredQuestions, currentQuestion],
+              ),
+              'url',
               false,
-              [...answeredQuestions, currentQuestion],
-            ),
-            'url',
-            false,
-          )}
-        >
-          Suivant
-        </FormLinkButton>
+            )}
+            title="Aller à l'étape suivante"
+          >
+            Suivant
+          </Link>
+        </CTA>
       )}
-    </FormButtonsWrapper>
+    </CTAWrapper>
   )
 }
