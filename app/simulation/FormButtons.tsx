@@ -28,8 +28,8 @@ export default function FormButtons({
       <CTA $importance="secondary" title="Retour en arrière">
         <button onClick={() => router.back()}>←</button>
       </CTA>
-      {showValidation && (
-        <CTA>
+      <CTA $importance={showValidation ? 'primary' : 'inactive'}>
+        {showValidation ? (
           <Link
             href={setSearchParams(
               encodeSituation(
@@ -47,8 +47,12 @@ export default function FormButtons({
           >
             Suivant
           </Link>
-        </CTA>
-      )}
+        ) : (
+          <span title="Répondez à la question pour avancer dans le questionnaire">
+            Suivant
+          </span>
+        )}
+      </CTA>
     </CTAWrapper>
   )
 }

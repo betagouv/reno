@@ -79,6 +79,12 @@ export const CTAWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: ${(p) => p.$justify || 'right'};
+  > div {
+    margin-right: 1rem;
+  }
+  > div:last-child {
+    margin-right: 0;
+  }
 `
 export const CTA = styled.div`
   > button {
@@ -99,7 +105,12 @@ export const CTA = styled.div`
   color: var(--color);
   line-height: 1.1rem;
   `
-      : `
+      : p.$importance === 'inactive'
+        ? `
+	background: lightgrey; color: white;
+
+		  `
+        : `
 
   background: var(--color);
   border: 1px solid var(--color);
@@ -109,7 +120,6 @@ export const CTA = styled.div`
   padding: 0.5rem 1.2rem;
   text-decoration: none;
   white-space: nowrap;
-  margin-right: 1rem;
   @media (max-width: 800px) {
     font-size: 120%;
   }
