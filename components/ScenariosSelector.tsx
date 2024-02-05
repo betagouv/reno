@@ -147,7 +147,7 @@ export default function ScenariosSelector({
               height: 1.6rem !important;
               text-align: right;
             }
-            width: 34rem;
+            width: 40rem;
             max-width: 100%;
             img {
               width: 3.5rem;
@@ -169,48 +169,53 @@ export default function ScenariosSelector({
           <div
             css={`
               text-align: left;
-              max-width: 25rem;
+              max-width: 30rem;
+              p {
+                margin: 0.6rem 0;
+              }
             `}
           >
-            <label>
-              <h3>Scénario {choice + 1}</h3>
+            <h3>Scénario {choice + 1}</h3>
+            <p>
               <span>Avec un apport personnel net de </span>
-              <Input
-                value={
-                  situation['investissement'] ||
-                  rules['investissement']['par défaut'].split(' €')[0]
-                }
-                onChange={(value) => {
-                  setSearchParams(
-                    {
-                      investissement: value,
-                    },
-                    'replace',
-                    false,
-                  )
+              <label>
+                <Input
+                  value={
+                    situation['investissement'] ||
+                    rules['investissement']['par défaut'].split(' €')[0]
+                  }
+                  onChange={(value) => {
+                    setSearchParams(
+                      {
+                        investissement: value,
+                      },
+                      'replace',
+                      false,
+                    )
+                  }}
+                  step="100"
+                />
+                <span>&nbsp;€</span>
+              </label>
+              <span>, vous pourrez obtenir une aide de </span>
+              <Value
+                {...{
+                  engine,
+                  choice,
+                  situation: { ...situation, 'DPE . visé': choice + 1 },
+                  dottedName: 'MPR . accompagnée . montant',
                 }}
-                step="100"
               />
-              <span>&nbsp;€</span>
-            </label>
-            <span>, vous pourrez obtenir une aide de </span>
-            <Value
-              {...{
-                engine,
-                choice,
-                situation: { ...situation, 'DPE . visé': choice + 1 },
-                dottedName: 'MPR . accompagnée . montant',
-              }}
-            />
-            <span> pour une enveloppe totale de travaux de </span>
-            <Value
-              {...{
-                engine,
-                choice,
-                situation: { ...situation, 'DPE . visé': choice + 1 },
-                dottedName: 'travaux',
-              }}
-            />
+              <span> pour une enveloppe totale de travaux de </span>
+              <Value
+                {...{
+                  engine,
+                  choice,
+                  situation: { ...situation, 'DPE . visé': choice + 1 },
+                  dottedName: 'travaux',
+                }}
+              />
+            </p>
             <Avance {...{ engine, rules, situation, choice }} />
             <p>
               En cas de besoin, un éco-prêt à taux zéro vous permet d'emprunter
