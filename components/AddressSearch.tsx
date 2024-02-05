@@ -75,7 +75,7 @@ export default function AddressSearch({
         >
           {results.map((result) => (
             <li
-              key={result.properties.x + result.properties.y}
+              key={result.properties.postcode}
               onClick={() => setChoice(result)}
               css={`
                 cursor: pointer;
