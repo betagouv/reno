@@ -319,7 +319,13 @@ const AuditStyle = ({ children }) => (
 )
 const Avance = ({ engine, rules, choice, situation }) => {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
-  if (!['modeste', 'très modeste'].includes(evaluation.value)) return null
+  if (!['modeste', 'très modeste'].includes(evaluation.value))
+    return (
+      <p>
+        La prime rénov est un remboursement : vous devrez avancer l'argent pour
+        lancer les travaux.
+      </p>
+    )
   return (
     <p>
       En tant que ménage au revenu <ExplanationValue {...{ evaluation }} />,
@@ -333,7 +339,7 @@ const Avance = ({ engine, rules, choice, situation }) => {
           dottedName: 'MPR . accompagnée . avance',
         }}
       />
-      .
+      , le reste sera un remboursement.
     </p>
   )
 }
