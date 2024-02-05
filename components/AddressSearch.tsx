@@ -32,10 +32,12 @@ export default function AddressSearch({
   const setChoice = (result) => {
     setClicked(result)
     const region = result.properties.context.split(', ')[2]
+    const codePostal = result.properties.postcode
     console.log('user clicked adress result ', result, region)
     const encodedSituation = encodeSituation(
       {
         ...situation,
+        'ménage . commune': `"${codePostal}"`,
         'ménage . région': `"${region}"`,
         'ménage . id ban': `"${result.properties.id}"`,
       },

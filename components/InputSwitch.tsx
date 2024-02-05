@@ -128,7 +128,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-  if (currentQuestion === 'ménage . région')
+  if (currentQuestion === 'ménage . commune')
     return (
       <ClassicQuestionWrapper
         {...{

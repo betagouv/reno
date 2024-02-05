@@ -9,7 +9,7 @@ prioritaires:
   - logement . résidence principale
   - logement . période de construction
   - ménage . personnes
-  - ménage . région
+  - ménage . commune
   - ménage . revenu
   - DPE . actuel
   - MPR . choix

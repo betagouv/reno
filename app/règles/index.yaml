@@ -176,17 +176,24 @@ ménage . revenu . classe:
 ménage:
   titre: Votre ménage
 ménage . région:
-  titre: Votre région
-  question: Dans quelle région habitez-vous ?
-  description: |
-    Attention, il s'agit de renseigner la région de *votre ménage*.
-
-    Dans le cas où vous êtes propriétaire bailleur, peu importe la région du logement pour lequel vous avez un projet de rénovation.
+  formule: commune
   par défaut: "'Bretagne'" # La Bretagne, comme toute autre région non francilienne, ouvre l'éligibilité aux aides
   suggestions:
     Bretagne: "'Bretagne'"
     Pays de la Loire: "'Pays de la Loire'"
     IdF: "'Île-de-France'"
+
+ménage . commune:
+  titre: Votre commune
+  question: Dans quelle commune habitez-vous ?
+  description: |
+    Attention, il s'agit de renseigner la commune de *votre ménage*.
+
+    Dans le cas où vous êtes propriétaire bailleur, peu importe la commune du logement pour lequel vous avez un projet de rénovation.
+
+    Cette question nous permet de déterminer votre région, un paramètre clef de l'éligibilité de l'aide, et nous permettra bientôt d'ajouter les aides locales. 
+
+    > 🕵️ Les réponses que vous donnez à ce questionnaire *ne sont pas stockées* sur nos serveur, elles servent uniquement à calculer vos aides réno.
 
 ménage . id ban:
   titre: Identifiant base nationale des adresses (BAN)
