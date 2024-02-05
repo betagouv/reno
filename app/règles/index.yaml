@@ -90,7 +90,7 @@ logement:
   titre: Votre logement
 logement . résidence principale:
   titre: Résidence principale
-  question: Le logement est-il occupé au moins 8 mois par an ?
+  question: Le logement est-il une résidence principale ?
   par défaut: oui
   description: |
     Le logement à rénover **doit être une résidence principale**. Les résidences secondaires sont donc exclues.

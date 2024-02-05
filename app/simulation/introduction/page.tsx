@@ -46,7 +46,6 @@ export default function Introduction() {
               </Link>
             </CTA>
           </CTAWrapper>
-          <VisualExplanation />
         </ConstraintedParagraphs>
       </Section>
     </Main>

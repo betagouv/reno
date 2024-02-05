@@ -6,6 +6,7 @@ import informationIconBlack from '@/public/information-black.svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
+import VisualExplanation from './VisualExplanation'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -120,6 +121,7 @@ export default function Page({ searchParams }) {
               par geste. Dans un second temps, seront aussi inclus l'éco-prêt à
               taux zéro, et les aides locales.
             </p>
+            <VisualExplanation />
           </Content>
         </Wrapper>
         <Footer />
