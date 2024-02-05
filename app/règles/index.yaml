@@ -175,13 +175,14 @@ ménage . revenu . classe:
 
 ménage:
   titre: Votre ménage
-ménage . région:
-  formule: commune
-  par défaut: "'Bretagne'" # La Bretagne, comme toute autre région non francilienne, ouvre l'éligibilité aux aides
+
+ménage . code région:
+  formule: commune # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
+  par défaut: 53 # La Bretagne, comme toute autre région non francilienne, ouvre l'éligibilité aux aides
   suggestions:
-    Bretagne: "'Bretagne'"
-    Pays de la Loire: "'Pays de la Loire'"
-    IdF: "'Île-de-France'"
+    Bretagne: 53
+    Pays de la Loire: 52
+    IdF: 11
 
 ménage . commune:
   titre: Votre commune
@@ -198,7 +199,8 @@ ménage . commune:
 ménage . id ban:
   titre: Identifiant base nationale des adresses (BAN)
 
-ménage . région . IdF: région = 'Île-de-France'
+ménage . région:
+ménage . région . IdF: code région = 11
 
 DPE:
   titre: Diagnostic de Performance Énergétique.

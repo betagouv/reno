@@ -17,11 +17,11 @@ export default function AddressSearch({
     console.log('input', input)
     const asyncFetch = async () => {
       const request = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${input}&type=municipality`,
+        `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
       )
       const json = await request.json()
 
-      setResults(json.features)
+      setResults(json)
     }
 
     asyncFetch()
@@ -31,15 +31,12 @@ export default function AddressSearch({
 
   const setChoice = (result) => {
     setClicked(result)
-    const region = result.properties.context.split(', ')[2]
-    const codePostal = result.properties.postcode
-    console.log('user clicked adress result ', result, region)
+    const codeRegion = result.codeRegion
     const encodedSituation = encodeSituation(
       {
         ...situation,
-        'ménage . commune': `"${codePostal}"`,
-        'ménage . région': `"${region}"`,
-        'ménage . id ban': `"${result.properties.id}"`,
+        'ménage . code région': `"${codeRegion}"`,
+        'ménage . commune': `"${result.code}"`,
       },
       false,
       answeredQuestions,
@@ -75,18 +72,17 @@ export default function AddressSearch({
         >
           {results.map((result) => (
             <li
-              key={result.properties.postcode}
+              key={result.code}
               onClick={() => setChoice(result)}
               css={`
                 cursor: pointer;
                 text-align: right;
                 ${clicked &&
-                clicked.properties.id === result.properties.id &&
+                clicked.code === result.code &&
                 `background: var(--lighterColor)`}
               `}
             >
-              {result.properties.label}{' '}
-              <small>{result.properties.postcode}</small>
+              {result.nom} <small>{result.codeDepartement}</small>
             </li>
           ))}
         </ul>
