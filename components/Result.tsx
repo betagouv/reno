@@ -3,6 +3,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { styled } from 'styled-components'
 import Image from 'next/image'
 import { CTA, CTAWrapper } from './UI'
+import Link from 'next/link'
 
 const colors = {
   success: {
@@ -129,7 +130,9 @@ export default function Result({
       )}
       {!isNotApplicable && url && (
         <CTAWrapper>
-          <CTA href={url}>Suivant</CTA>
+          <CTA>
+            <Link href={url}>Suivant</Link>
+          </CTA>
         </CTAWrapper>
       )}
     </li>

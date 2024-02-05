@@ -8,7 +8,7 @@
     DPE . actuel: 6
     DPE . visé: 2
     travaux: 65000
-    ménage . région: "'Bretagne'"
+    ménage . code région: 52
 - nom: Persona 2
   description: |
     3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
@@ -19,7 +19,7 @@
     DPE . actuel: 4
     DPE . visé: 1
     travaux: 49300
-    ménage . région: "'Pays de la Loire'"
+    ménage . code région: 53
 - nom: Persona 3
   description: |
     Couple sup., passoire, ~ 70k € de travaux
@@ -28,7 +28,7 @@
     ménage . personnes: 2
     ménage . revenu: 70000
     DPE . actuel: 6
-    ménage . région: "'Bretagne'"
+    ménage . code région: 52
 - nom: Persona 4
   description: |
     Couple modeste, presque passoire.
@@ -37,7 +37,7 @@
     ménage . personnes: 2
     ménage . revenu: 20000
     DPE . actuel: 5
-    ménage . région: "'Bretagne'"
+    ménage . code région: 52
 - nom: Persona 5
   description: |
     Propriétaire élligible, mais pas d'autres infos
@@ -53,7 +53,7 @@
     DPE . actuel: 4
     DPE . visé: 1
     travaux: 49300
-    ménage . région: "'Pays de la Loire'"
+    ménage . code région: 53
 - nom: Persona 7
   description: |
     Éligible aux deux parcours.
@@ -62,7 +62,7 @@
     ménage . personnes: 2
     ménage . revenu: 25000
     DPE . actuel: 4
-    ménage . région: "'Pays de la Loire'"
+    ménage . code région: 53
 - nom: Persona 8
   description: |
     Éligible seulement au parcours accompagné.
@@ -71,7 +71,7 @@
     ménage . personnes: 2
     ménage . revenu: 80000
     DPE . actuel: 7
-    ménage . région: "'Pays de la Loire'"
+    ménage . code région: 53
 - nom: Persona 9
   description: |
     Éligible seulement au parcours par gestes.
@@ -80,4 +80,5 @@
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 2
-    ménage . région: "'Pays de la Loire'"
+    ménage . code région: 53
+#TODO ajouter des personas IdF code région 11
