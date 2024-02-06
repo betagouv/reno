@@ -6,8 +6,12 @@ export const P = styled.p`
   line-height: 1.8rem;
 `
 export const Key = styled.em`
-  background: #e9e9e9;
+  ${(p) =>
+    p.$state !== 'none' &&
+    `background: #e9e9e9;
   border: 2px solid lightgray;
+  `}
+
   padding: 0 0.1rem;
   white-space: nowrap;
   font-style: normal;
@@ -23,7 +27,11 @@ export const Key = styled.em`
   background: #c4e5ef;
   border-color: lightblue;
   `
-        : ''}
+        : ''};
+  line-height: 1.4rem;
+  display: inline-block;
+  min-width: 3rem;
+  text-align: center;
 `
 
 export const Wrapper = styled.section`

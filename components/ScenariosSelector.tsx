@@ -14,6 +14,7 @@ import Input from './Input'
 import styled from 'styled-components'
 import { useState } from 'react'
 import dpeData from '@/components/DPE.yaml'
+import { Key } from './explications/ExplicationUI'
 
 console.log('DPE data', data)
 
@@ -150,6 +151,7 @@ export default function ScenariosSelector({
                     index,
                     situation: { ...situation, 'DPE . visé': index + 1 },
                     dottedName: 'MPR . accompagnée . pourcent écrêté',
+                    state: 'none',
                   }}
                 />
                 <Value
@@ -158,6 +160,7 @@ export default function ScenariosSelector({
                     index,
                     situation: { ...situation, 'DPE . visé': index + 1 },
                     dottedName: 'travaux . plafond',
+                    state: 'none',
                   }}
                 />
               </li>
@@ -502,8 +505,15 @@ const Avance = ({ engine, rules, choice, situation }) => {
   )
 }
 
-const Value = ({ engine, index, situation, dottedName }) => {
+const Value = ({ engine, index, situation, dottedName, state }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
     value = formatValue(evaluation, { precision: 0 })
-  return <span css={``}>{value}</span>
+  const missingVariables = evaluation.missingVariables
+  const missing = Object.entries(missingVariables)
+
+  return (
+    <Key $state={state || (missing.length > 0 ? 'inProgress' : 'final')}>
+      {missing.length > 0 ? '...' : value}
+    </Key>
+  )
 }
