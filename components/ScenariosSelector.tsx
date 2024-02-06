@@ -245,14 +245,14 @@ export default function ScenariosSelector({
             </h3>
 
             <p>
-              Si vous engagez des travaux vous permettant de sauter{' '}
-              <strong>{-choice + oldIndex} classes DPE</strong>, vous pourrez
-              demander une aide de{' '}
+              Vous engagez des travaux permettant de sauter{' '}
+              <strong>{-choice + oldIndex} classes DPE</strong> : vous avez
+              droit à une aide de{' '}
               <Value
                 {...{
                   engine,
-                  index: 0,
-                  situation: { ...situation, 'DPE . visé': 0 + 1 },
+                  index: choice,
+                  situation: { ...situation, 'DPE . visé': choice + 1 },
                   dottedName: 'MPR . accompagnée . pourcent écrêté',
                   state: 'emphasize',
                 }}
@@ -261,8 +261,8 @@ export default function ScenariosSelector({
               <Value
                 {...{
                   engine,
-                  index: 0,
-                  situation: { ...situation, 'DPE . visé': 0 + 1 },
+                  index: choice,
+                  situation: { ...situation, 'DPE . visé': choice + 1 },
                   dottedName: 'travaux . plafond',
                   state: 'emphasize',
                 }}
