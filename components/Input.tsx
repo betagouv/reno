@@ -7,7 +7,6 @@ export default function Input({ onChange, value, ...props }) {
   const [debouncedState] = useDebounce(state, 500)
 
   useEffect(() => {
-    if (!debouncedState) return
     console.log('will call on change from useeffect', debouncedState)
     onChange(debouncedState)
   }, [debouncedState, onChange])
@@ -18,7 +17,10 @@ export default function Input({ onChange, value, ...props }) {
       type="number"
       value={state}
       onChange={(e) => {
-        setState(e.target.value)
+        console.log('vava2', e.target.value)
+        const value = e.target.value
+
+        setState(value === '' ? undefined : value)
       }}
       {...props}
     />

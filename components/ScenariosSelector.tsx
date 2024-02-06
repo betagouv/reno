@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import dpeData from '@/components/DPE.yaml'
 import { Key } from './explications/ExplicationUI'
+import { motion } from 'framer-motion'
 
 console.log('DPE data', data)
 
@@ -202,144 +203,157 @@ export default function ScenariosSelector({
         </p>
       )}
       {choice != null && (
-        <Card
-          css={`
-            background: var(--lighterColor2);
-            padding: 1rem;
-            margin: 1rem auto;
-            text-align: center;
-            input {
-              width: 8rem; /* width of "votre apport"*/
-              height: 1.6rem !important;
-              text-align: right;
-            }
-            max-width: 100%;
-            img {
-              width: 3.5rem;
-              height: auto;
-              margin-right: 1rem;
-            }
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
-          `}
+        <motion.div
+          initial={{ x: -30, scale: 1 }}
+          animate={{ x: 0, scale: 1 }}
+          key={choice}
+          transition={{
+            type: 'spring',
+            stiffness: 120,
+            damping: 20,
+          }}
         >
-          <Image
-            src="/investissement.svg"
-            width="30"
-            height="30"
-            alt="Icône représentant votre apport personnel qui sera complété par les aides"
-          />
-          <div
+          <Card
             css={`
-              text-align: left;
-              max-width: 40rem;
-              p {
-                margin: 0.6rem 0;
+              background: var(--lighterColor2);
+              padding: 1rem;
+              margin: 1rem auto;
+              text-align: center;
+              input {
+                width: 8rem; /* width of "votre apport"*/
+                height: 1.6rem !important;
+                text-align: right;
+                margin-left: 0.2rem;
               }
+              max-width: 100%;
+              img {
+                width: 3.5rem;
+                height: auto;
+                margin-right: 1rem;
+              }
+              display: flex;
+              align-items: center;
+              justify-content: space-evenly;
+              flex-wrap: wrap;
             `}
           >
-            <h3>
-              Scénario <DPELabel index={choice} />
-            </h3>
-
-            <p>
-              Vous engagez des travaux permettant de sauter{' '}
-              <strong>{-choice + oldIndex} classes DPE</strong> : vous avez
-              droit à une aide de{' '}
-              <Value
-                {...{
-                  engine,
-                  index: choice,
-                  situation: { ...situation, 'DPE . visé': choice + 1 },
-                  dottedName: 'MPR . accompagnée . pourcent écrêté',
-                  state: 'emphasize',
-                }}
-              />{' '}
-              qui s'appliquera à un montant maximum de travaux de{' '}
-              <Value
-                {...{
-                  engine,
-                  index: choice,
-                  situation: { ...situation, 'DPE . visé': choice + 1 },
-                  dottedName: 'travaux . plafond',
-                  state: 'emphasize',
-                }}
-              />
-              .
-            </p>
+            <Image
+              src="/investissement.svg"
+              width="30"
+              height="30"
+              alt="Icône représentant votre apport personnel qui sera complété par les aides"
+            />
             <div
               css={`
-                border-left: 8px solid var(--lighterColor0);
-                padding-left: 0.8rem;
-                label {
-                  white-space: nowrap;
+                text-align: left;
+                max-width: 40rem;
+                p {
+                  margin: 0.6rem 0;
                 }
               `}
             >
+              <h3>
+                Scénario <DPELabel index={choice} />
+              </h3>
+
               <p>
-                Par exemple : avec un apport personnel de{' '}
-                <label>
-                  <Input
-                    value={situation['investissement'] || undefined}
-                    placeholder="votre apport"
-                    onChange={(value) => {
-                      setSearchParams(
-                        {
-                          investissement: value,
-                        },
-                        'replace',
-                        false,
-                      )
-                    }}
-                    step="100"
-                  />
-                  &nbsp;€
-                </label>
-                <span>, vous pourrez obtenir une aide de </span>
+                Vous engagez des travaux permettant de sauter{' '}
+                <strong>{-choice + oldIndex} classes DPE</strong> : vous avez
+                droit à une aide de{' '}
                 <Value
                   {...{
                     engine,
-                    choice,
+                    index: choice,
                     situation: { ...situation, 'DPE . visé': choice + 1 },
-                    dottedName: 'MPR . accompagnée . montant',
+                    dottedName: 'MPR . accompagnée . pourcent écrêté',
+                    state: 'emphasize',
+                  }}
+                />{' '}
+                qui s'appliquera à un montant maximum de travaux de{' '}
+                <Value
+                  {...{
+                    engine,
+                    index: choice,
+                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    dottedName: 'travaux . plafond',
+                    state: 'emphasize',
                   }}
                 />
                 .
               </p>
+              <div
+                css={`
+                  border-left: 8px solid var(--lighterColor0);
+                  padding-left: 0.8rem;
+                  label {
+                    white-space: nowrap;
+                  }
+                `}
+              >
+                <p>
+                  Par exemple : avec un apport personnel de{' '}
+                  <label>
+                    <Input
+                      value={situation['investissement'] || undefined}
+                      placeholder="votre apport"
+                      onChange={(value) => {
+                        console.log('vava', value)
+                        setSearchParams(
+                          {
+                            investissement: value,
+                          },
+                          'replace',
+                          false,
+                        )
+                      }}
+                      step="100"
+                    />
+                    &nbsp;€
+                  </label>
+                  <span>, vous pourrez obtenir une aide de </span>
+                  <Value
+                    {...{
+                      engine,
+                      choice,
+                      situation: { ...situation, 'DPE . visé': choice + 1 },
+                      dottedName: 'MPR . accompagnée . montant',
+                    }}
+                  />
+                  .
+                </p>
+                <p>
+                  Votre budget total pour réaliser des travaux sera alors de{' '}
+                  <Value
+                    {...{
+                      engine,
+                      choice,
+                      situation: { ...situation, 'DPE . visé': choice + 1 },
+                      dottedName: 'travaux',
+                    }}
+                  />
+                  .
+                </p>
+              </div>
+              <Avance {...{ engine, rules, situation, choice }} />
               <p>
-                Votre budget total pour réaliser des travaux sera alors de{' '}
+                En cas de besoin, un éco-prêt à taux zéro vous permet
+                d'emprunter 50 000 €.
+              </p>
+              <p>
+                Avec le prêt, vous devrez avoir à disposition{' '}
                 <Value
                   {...{
                     engine,
                     choice,
                     situation: { ...situation, 'DPE . visé': choice + 1 },
-                    dottedName: 'travaux',
+                    dottedName: 'somme à engager',
                   }}
-                />
-                .
+                />{' '}
+                € pour lancer les travaux.
               </p>
             </div>
-            <Avance {...{ engine, rules, situation, choice }} />
-            <p>
-              En cas de besoin, un éco-prêt à taux zéro vous permet d'emprunter
-              50 000 €.
-            </p>
-            <p>
-              Avec le prêt, vous devrez avoir à disposition{' '}
-              <Value
-                {...{
-                  engine,
-                  choice,
-                  situation: { ...situation, 'DPE . visé': choice + 1 },
-                  dottedName: 'somme à engager',
-                }}
-              />{' '}
-              € pour lancer les travaux.
-            </p>
-          </div>
-        </Card>
+          </Card>
+        </motion.div>
       )}
       <h2>Je n'arrive pas à me décider</h2>
       <p>

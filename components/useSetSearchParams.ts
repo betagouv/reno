@@ -18,7 +18,9 @@ export default function useSetSeachParams() {
     (newSearchParams: object, clear: boolean) => {
       const params = new URLSearchParams(clear ? {} : searchParams)
 
-      Object.entries(newSearchParams).map(([k, v]) => params.set(k, v))
+      Object.entries(newSearchParams).map(([k, v]) => {
+        v === undefined ? params.delete(k) : params.set(k, v)
+      })
 
       return params.toString()
     },
