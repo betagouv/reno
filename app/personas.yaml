@@ -1,12 +1,12 @@
 - nom: Persona 1
   description: |
-    4 sauts de DPE, enveloppe de 65 k€, couple modeste avec enfant.
+    2 sauts de DPE, enveloppe de 65 k€, couple modeste avec enfant.
   situation:
     conditions communes: oui
     ménage . personnes: 3
     ménage . revenu: 25000
     DPE . actuel: 6
-    DPE . visé: 2
+    DPE . visé: 4
     travaux: 65000
     ménage . code région: 52
 - nom: Persona 2
@@ -22,21 +22,33 @@
     ménage . code région: 53
 - nom: Persona 3
   description: |
-    Couple sup., passoire, ~ 70k € de travaux
+    Couple aisé., passoire, 4 sauts,  ~ 70k € de travaux
   situation:
     conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 70000
     DPE . actuel: 6
+    DPE . visé: 2
     ménage . code région: 52
 - nom: Persona 4
   description: |
-    Couple modeste, presque passoire.
+    Couple modeste, presque passoire, 1 saut.
   situation:
     conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 20000
     DPE . actuel: 5
+    DPE . visé: 4
+    ménage . code région: 52
+- nom: Persona 4
+  description: |
+    Individu aisé, presque passoire, 3 saut.
+  situation:
+    conditions communes: oui
+    ménage . personnes: 1
+    ménage . revenu: 80000
+    DPE . actuel: 5
+    DPE . visé: 2
     ménage . code région: 52
 - nom: Persona 5
   description: |
@@ -45,7 +57,7 @@
     conditions communes: oui
 - nom: Persona 6
   description: |
-    Accès au parcours geste.
+    Couple moyen, accès au parcours geste.
   situation:
     conditions communes: oui
     ménage . personnes: 2
