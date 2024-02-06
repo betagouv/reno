@@ -75,10 +75,35 @@ export default function ScenariosSelector({
             border-bottom: none;
           }
         }
+        h2 {
+          img {
+            width: 2rem;
+            height: auto;
+            vertical-align: bottom;
+          }
+        }
       `}
     >
-      <h2>Quel est votre projet de rénovation globale ?</h2>
-      <p>Voici vos scénarios de sauts de DPE et les aides correspondantes.</p>
+      <h2>
+        <Image
+          src="/check.svg"
+          width="10"
+          height="10"
+          alt="Icône case cochée"
+        />{' '}
+        Vous êtes éligible à MaPrimeRénov' Parcours accompagné
+      </h2>
+      <p>
+        Plus votre rénovation est ambitieuse, plus l’aide est généreuse : le
+        montant de l'aide dépend des gains de performance visés.
+      </p>
+      <p
+        css={`
+          text-align: right;
+        `}
+      >
+        <em> Sélectionnez une ligne pour évaluez votre budget. </em>
+      </p>
       <ol>
         <li key="en-tête">
           <span>Scénario de sauts DPE</span>
@@ -326,7 +351,7 @@ export default function ScenariosSelector({
       <p>
         <strong></strong>
       </p>
-      <h2>Conditions d'éligibilité</h2>
+      <h2>À savoir</h2>
       <p>
         Outre les sauts de classe, votre projet de rénovation devra respecter
         les conditions suivantes :
@@ -352,6 +377,16 @@ export default function ScenariosSelector({
           .
         </li>
       </ul>
+      <div
+        css={`
+          margin: 1rem 0;
+        `}
+      >
+        <details>
+          <summary open={false}>Quelle est la procédure ?</summary>
+          <p>La procédure c'est</p>
+        </details>
+      </div>
       <h2>C'est parti ?</h2>
       <p>
         Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
