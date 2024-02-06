@@ -1,15 +1,14 @@
 'use client'
-import css from '@/components/css/convertToJs'
-import { PersonasList } from '@/components/InputUI'
+import rules from '@/app/règles/rules'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
+import { colors } from '@/components/Result'
 import { Card, Main, Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
-import personas from './personas.yaml'
-import rules from '@/app/règles/rules'
-import Publicodes from 'publicodes'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import { colors } from '@/components/Result'
+import styled from 'styled-components'
+import Publicodes from 'publicodes'
+import personas from './personas.yaml'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -35,6 +34,7 @@ export default function Personas({}) {
                     <small
                       css={`
                         line-height: 1rem;
+                        margin-bottom: 0.4rem;
                       `}
                     >
                       {persona.description}
@@ -104,3 +104,31 @@ const ResultLabel = ({ binary, children }) => (
     {children}
   </span>
 )
+export const PersonasList = styled.div`
+  margin-top: 0.8rem;
+  ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+    margin: 0.2rem 0;
+    align-items: center;
+    li {
+      > div {
+        width: 14rem;
+        height: 12rem;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: 0.4rem 0.6rem;
+        h3 {
+          margin: 0;
+        }
+      }
+      margin: 0 0.6rem;
+    }
+  }
+`

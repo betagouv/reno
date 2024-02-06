@@ -49,31 +49,3 @@ export const SuggestionsList = styled.div`
     }
   }
 `
-export const PersonasList = styled.div`
-  margin-top: 0.8rem;
-  ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 0;
-    display: flex;
-    list-style-type: none;
-    margin: 0.2rem 0;
-    align-items: center;
-    li {
-      > div {
-        width: 14rem;
-        height: 12rem;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        padding: 1rem 0.6rem;
-        h3 {
-          margin: 0;
-        }
-      }
-      margin: 0 0.6rem;
-    }
-  }
-`
