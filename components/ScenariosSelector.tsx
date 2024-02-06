@@ -249,6 +249,7 @@ export default function ScenariosSelector({
                   dottedName: 'travaux',
                 }}
               />
+              .
             </p>
             <Avance {...{ engine, rules, situation, choice }} />
             <p>
@@ -356,8 +357,8 @@ const Avance = ({ engine, rules, choice, situation }) => {
   if (!['modeste', 'très modeste'].includes(evaluation.value))
     return (
       <p>
-        La prime rénov est un remboursement : vous devrez avancer l'argent pour
-        lancer les travaux.
+        Votre prime rénov est un remboursement : vous devrez avancer l'argent
+        pour lancer les travaux.
       </p>
     )
   return (

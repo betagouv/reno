@@ -303,6 +303,7 @@ travaux . notification:
 travaux:
   titre: Votre enveloppe des travaux
   question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?
+  unité: €
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
