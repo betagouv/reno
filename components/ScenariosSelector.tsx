@@ -379,12 +379,47 @@ export default function ScenariosSelector({
       </ul>
       <div
         css={`
-          margin: 1rem 0;
+          border: 1px solid var(--lighterColor);
+          padding: 4vh 4vw;
+          margin: 4vh 0;
+          details:first-child summary {
+            border-top: 1px solid var(--lighterColor);
+          }
+          details {
+            summary {
+              font-size: 130%;
+              color: var(--color);
+              border-bottom: 1px solid var(--lighterColor);
+              padding: 0.8rem;
+            }
+            p {
+              padding: 1rem;
+              border-top: none;
+            }
+          }
         `}
       >
         <details>
           <summary open={false}>Quelle est la procédure ?</summary>
-          <p>La procédure c'est</p>
+          <p>À remplir</p>
+        </details>
+        <details>
+          <summary open={false}>Quels sont les délais ?</summary>
+          <p>À remplir</p>
+        </details>
+        <details>
+          <summary open={false}>Y a-t-il des aides locales ?</summary>
+          <p>
+            En fonction de la localisation de votre bien ou de votre ménage,
+            vous pouvez être éligibles à des aides locales qui se cumulent aux
+            aides nationales.{' '}
+          </p>
+          <p>
+            Nous ne proposons pas encore le calcul de ces aides, il faudra aller
+            vous renseigner{' '}
+            <a href="https://www.anil.org/aides-locales-travaux/">en ligne</a>{' '}
+            ou auprès d'un conseiller d'une agence locale.
+          </p>
         </details>
       </div>
       <h2>C'est parti ?</h2>
