@@ -56,13 +56,13 @@ export default function ScenariosSelector({
           margin-top: 1vh;
           list-style-type: none;
           padding: 0;
-          border: 1px solid var(--lighterColor);
+          border: 1px solid var(--lighterColor0);
           border-radius: 0.3rem;
           li {
             padding: 1.2rem 1vw;
             display: flex;
             justify-content: space-evenly;
-            border-bottom: 1px solid var(--lighterColor);
+            border-bottom: 1px solid var(--lighterColor0);
             cursor: pointer;
           }
           li:first-child {
