@@ -38,8 +38,10 @@ export const encodeSituation = (situation, doEncodeValue = false, valid = []) =>
   Object.fromEntries(
     Object.entries(situation).map(([k, v]) => [
       encodeDottedName(k),
-      (doEncodeValue ? encodeValue(v) : v) +
-        (valid.includes(k) ? validValueMark : ''),
+      v === undefined
+        ? v
+        : (doEncodeValue ? encodeValue(v) : v) +
+          (valid.includes(k) ? validValueMark : ''),
     ]),
   )
 

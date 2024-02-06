@@ -300,14 +300,18 @@ export default function InputSwitch({
       <Input
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
-        value={currentValue == null ? '' : currentValue}
+        value={currentValue == null ? undefined : currentValue}
         name={currentQuestion}
         onChange={(value) => {
           const encodedSituation = encodeSituation(
             {
               ...situation,
               [currentQuestion]:
-                ruleQuestionType === 'number' ? value : `"${value}"`,
+                value == undefined
+                  ? undefined
+                  : ruleQuestionType === 'number'
+                    ? value
+                    : `"${value}"`,
             },
             false,
             answeredQuestions,
