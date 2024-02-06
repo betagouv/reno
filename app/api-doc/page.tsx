@@ -13,6 +13,11 @@ export default function APIDoc() {
           conseillons de faire un petit tour (10&nbsp;minutes) sur la
           documentation de Publicodes pour mieux comprendre ses fondamentaux.
         </p>
+        <p>
+          ⚠️ Attention, cette API bien que fonctionnelle, n'est pas encore
+          suffisamment testée. Ne l'utilisez pas en production ou assurez-vous
+          d'avoir averti vos utilisateurs sur ses inexactitudes potentielles.
+        </p>
         <h3>Que permet elle ?</h3>
         <p>
           Elle permet de calculer les deux parcours Ma Prime Rénov' 2024,
