@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 
+function startsWithNumber(str) {
+  return /^\d/.test(str)
+}
+
 export default function AddressSearch({
   setSearchParams,
   situation,
@@ -17,7 +21,9 @@ export default function AddressSearch({
     console.log('input', input)
     const asyncFetch = async () => {
       const request = await fetch(
-        `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
+        startsWithNumber(input)
+          ? `https://geo.api.gouv.fr/communes?codePostal=${input}&boost=population&limit=5`
+          : `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
       )
       const json = await request.json()
 
@@ -58,7 +64,7 @@ export default function AddressSearch({
         type="text"
         autoFocus={true}
         value={input}
-        placeholder={'Commune ou code postal'}
+        placeholder={'commune ou code postal'}
         onChange={(e) => setInput(e.target.value)}
       />
       {results && (
