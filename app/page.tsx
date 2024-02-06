@@ -138,6 +138,11 @@ export default function Page({ searchParams }) {
               </strong>
             </p>
             <VisualExplanation />
+            <CTAWrapper $justify="center">
+              <CTA>
+                <Link href="/simulation">Commencer la simulation</Link>
+              </CTA>
+            </CTAWrapper>
           </Content>
         </Wrapper>
         <Footer />
