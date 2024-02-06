@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { CTA, CTAWrapper } from './UI'
 import Link from 'next/link'
 
-const colors = {
+export const colors = {
   success: {
     background: '#297254',
-    //background: '#c4fad5', //TODO use this for the contour, more beautiful
+    lightBackground: '#c4fad5', //TODO use this for the contour, more beautiful
     label: 'Estimation finale',
   },
   running: {
@@ -16,7 +16,12 @@ const colors = {
     color: 'white',
     label: 'Sous conditions',
   },
-  fail: { background: 'salmon', color: 'white', label: 'Non éligible' },
+  fail: {
+    background: 'salmon',
+    lightBackground: '#f6b7af',
+    color: 'white',
+    label: 'Non éligible',
+  },
   //  waiting: { background: '#9f9f9f', color: 'white', label: 'À suivre' },
 }
 
