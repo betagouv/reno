@@ -9,6 +9,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import styled from 'styled-components'
 import Publicodes from 'publicodes'
 import personas from './personas.yaml'
+import personaNames from './personaNames.yaml'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -20,17 +21,18 @@ export default function Personas({}) {
         <h1>Tester un persona</h1>
         <PersonasList>
           <ul>
-            {personas.map((persona) => {
+            {personas.map((persona, index) => {
               const newEngine = engine.setSituation(persona.situation)
               const mpra = newEngine.evaluate('MPR . accompagnée')
               const mprg = newEngine.evaluate('MPR . non accompagnée')
               const mpraValue = formatValue(mpra, { precision: 0 }),
                 mprgValue = mprg.nodeValue && mprg.nodeValue > 1
 
+              const nom = personaNames[index]
               return (
-                <li key={persona.nom}>
+                <li key={persona.description}>
                   <Card>
-                    <h3>{persona.nom}</h3>
+                    <h3>{nom}</h3>
                     <small
                       css={`
                         line-height: 1rem;
