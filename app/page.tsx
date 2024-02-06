@@ -41,10 +41,7 @@ export default function Page({ searchParams }) {
             </Intro>
             <CTAWrapper $justify="left">
               <CTA>
-                {' '}
-                <Link href="/simulation/introduction">
-                  Commencer la simulation
-                </Link>
+                <Link href="/simulation">Commencer la simulation</Link>
               </CTA>
             </CTAWrapper>
           </div>
@@ -115,11 +112,30 @@ export default function Page({ searchParams }) {
               informer et à sensibiliser votre bailleur.
             </p>
             <h2>Quels sont les dispositifs ?</h2>
+            {false && (
+              <p>
+                Mes aides réno vous donnera votre éligibilité et les montants de
+                Ma Prime Rénov', aussi bien le parcours accompagné que le
+                parcours par geste. Dans un second temps, seront aussi inclus
+                l'éco-prêt à taux zéro, et les aides locales.
+              </p>
+            )}
             <p>
-              Mes aides réno vous donnera votre éligibilité et les montants de
-              Ma Prime Rénov', aussi bien le parcours accompagné que le parcours
-              par geste. Dans un second temps, seront aussi inclus l'éco-prêt à
-              taux zéro, et les aides locales.
+              En 2024, les aides à la rénovation énergétique des logements sont
+              organisées autour de deux grands dispositifs nationaux, Ma Prime
+              Rénov' <strong>accompagnée</strong>, et Ma Prime Rénov'{' '}
+              <strong>par gestes</strong>.
+            </p>
+
+            <p>
+              Ces deux aides peuvent être cumulées avec des aides locales et
+              d’autres dispositifs (Éco-prêt à taux zéro, Crédit d’impôt…).
+            </p>
+            <p>
+              <strong>
+                Ce simulateur vous aide à les comprendre et à choisir le
+                dispositif qui vous convient le mieux.
+              </strong>
             </p>
             <VisualExplanation />
           </Content>
