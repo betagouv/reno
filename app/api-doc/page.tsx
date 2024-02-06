@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
 import Link from '@/node_modules/next/link'
 
@@ -64,6 +65,7 @@ export default function APIDoc() {
           paquet NPM tout prêt.
         </p>
       </Section>
+      <Footer />
     </Main>
   )
 }
