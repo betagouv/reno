@@ -9,9 +9,11 @@ import ExplanationValue from '@/components/explications/Value'
 import { compute } from './explications/Aide'
 import { Card, CTA, CTAWrapper } from './UI'
 import Image from 'next/image'
+import Link from 'next/link'
 import Input from './Input'
 import styled from 'styled-components'
 import { useState } from 'react'
+import dpeData from '@/components/DPE.yaml'
 
 console.log('DPE data', data)
 
@@ -137,38 +139,40 @@ export default function ScenariosSelector({
             ),
         )}
       </ol>
-      <p
-        css={`
-          line-height: 1.2rem;
-          text-align: center;
-          max-width: 40rem;
-          margin: 0 auto;
-          margin-top: 0.4rem;
-        `}
-      >
-        <em>
-          Lecture : pour {oldIndex} sauts de DPE, vous pouvez demander une aide
-          de{' '}
-          <Value
-            {...{
-              engine,
-              index: 0,
-              situation: { ...situation, 'DPE . visé': 0 + 1 },
-              dottedName: 'MPR . accompagnée . pourcent écrêté',
-            }}
-          />{' '}
-          qui s'appliquera à un montant maximum de travaux de{' '}
-          <Value
-            {...{
-              engine,
-              index: 0,
-              situation: { ...situation, 'DPE . visé': 0 + 1 },
-              dottedName: 'travaux . plafond',
-            }}
-          />
-          .
-        </em>
-      </p>
+      {false && (
+        <p
+          css={`
+            line-height: 1.2rem;
+            text-align: center;
+            max-width: 40rem;
+            margin: 0 auto;
+            margin-top: 0.4rem;
+          `}
+        >
+          <em>
+            Lecture : pour {oldIndex} sauts de DPE, vous pouvez demander une
+            aide de{' '}
+            <Value
+              {...{
+                engine,
+                index: 0,
+                situation: { ...situation, 'DPE . visé': 0 + 1 },
+                dottedName: 'MPR . accompagnée . pourcent écrêté',
+              }}
+            />{' '}
+            qui s'appliquera à un montant maximum de travaux de{' '}
+            <Value
+              {...{
+                engine,
+                index: 0,
+                situation: { ...situation, 'DPE . visé': 0 + 1 },
+                dottedName: 'travaux . plafond',
+              }}
+            />
+            .
+          </em>
+        </p>
+      )}
       {choice != null && (
         <Card
           css={`
@@ -177,11 +181,10 @@ export default function ScenariosSelector({
             margin: 1rem auto;
             text-align: center;
             input {
-              width: 6rem;
+              width: 8rem; /* width of "votre apport"*/
               height: 1.6rem !important;
               text-align: right;
             }
-            width: 40rem;
             max-width: 100%;
             img {
               width: 3.5rem;
@@ -203,61 +206,98 @@ export default function ScenariosSelector({
           <div
             css={`
               text-align: left;
-              max-width: 30rem;
+              max-width: 40rem;
               p {
                 margin: 0.6rem 0;
               }
             `}
           >
-            <h3>Scénario {choice + 1}</h3>
+            <h3>
+              Scénario <DPELabel index={choice} />
+            </h3>
+
             <p>
-              <span>Avec un apport personnel net de </span>
-              <label>
-                <Input
-                  value={
-                    situation['investissement'] ||
-                    rules['investissement']['par défaut'].split(' €')[0]
-                  }
-                  onChange={(value) => {
-                    setSearchParams(
-                      {
-                        investissement: value,
-                      },
-                      'replace',
-                      false,
-                    )
-                  }}
-                  step="100"
-                />
-                <span>&nbsp;€</span>
-              </label>
-              <span>, vous pourrez obtenir une aide de </span>
+              Si vous engagez des travaux vous permettant de sauter{' '}
+              {-choice + oldIndex} classes DPE, vous pourrez demander une aide
+              de{' '}
               <Value
                 {...{
                   engine,
-                  choice,
-                  situation: { ...situation, 'DPE . visé': choice + 1 },
-                  dottedName: 'MPR . accompagnée . montant',
+                  index: 0,
+                  situation: { ...situation, 'DPE . visé': 0 + 1 },
+                  dottedName: 'MPR . accompagnée . pourcent écrêté',
                 }}
-              />
-              <span> pour une enveloppe totale de travaux de </span>
+              />{' '}
+              qui s'appliquera à un montant maximum de travaux de{' '}
               <Value
                 {...{
                   engine,
-                  choice,
-                  situation: { ...situation, 'DPE . visé': choice + 1 },
-                  dottedName: 'travaux',
+                  index: 0,
+                  situation: { ...situation, 'DPE . visé': 0 + 1 },
+                  dottedName: 'travaux . plafond',
                 }}
               />
               .
             </p>
+            <div
+              css={`
+                border-left: 8px solid var(--lighterColor0);
+                padding-left: 0.8rem;
+                label {
+                  white-space: nowrap;
+                }
+              `}
+            >
+              <p>
+                Par exemple : avec un apport personnel de{' '}
+                <label>
+                  <Input
+                    value={situation['investissement'] || undefined}
+                    placeholder="votre apport"
+                    onChange={(value) => {
+                      setSearchParams(
+                        {
+                          investissement: value,
+                        },
+                        'replace',
+                        false,
+                      )
+                    }}
+                    step="100"
+                  />
+                  &nbsp;€
+                </label>
+                <span>, vous pourrez obtenir une aide de </span>
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    dottedName: 'MPR . accompagnée . montant',
+                  }}
+                />
+                .
+              </p>
+              <p>
+                Votre budget total pour réaliser des travaux sera alors de{' '}
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    dottedName: 'travaux',
+                  }}
+                />
+                .
+              </p>
+            </div>
             <Avance {...{ engine, rules, situation, choice }} />
             <p>
               En cas de besoin, un éco-prêt à taux zéro vous permet d'emprunter
               50 000 €.
             </p>
             <p>
-              En cumulant l'avance et le prêt, vous devrez avoir à disposition{' '}
+              Avec le prêt, vous devrez avoir à disposition{' '}
               <Value
                 {...{
                   engine,
@@ -301,6 +341,16 @@ export default function ScenariosSelector({
           majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou de
           conserver un chauffage fonctionnant au fioul ou au charbon.
         </li>
+        <li>
+          Vos artisans doivent être{' '}
+          <a
+            href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
+            target="_blank"
+          >
+            certifiés RGE
+          </a>
+          .
+        </li>
       </ul>
       <h2>C'est parti ?</h2>
       <p>
@@ -308,26 +358,29 @@ export default function ScenariosSelector({
         vous engage à rien.
       </p>
       <CTAWrapper>
-        <CTA href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
-          <span
-            css={`
-              img {
-                filter: invert(1);
-                width: 1.6rem;
-                margin-right: 0.6rem;
-                height: auto;
-                vertical-align: bottom;
-              }
-            `}
-          >
-            <Image
-              src="/check.svg"
-              width="10"
-              height="10"
-              alt="Icône coche pleine"
-            />
-            Trouver mon conseiller
-          </span>
+        <CTA>
+          {' '}
+          <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
+            <span
+              css={`
+                img {
+                  filter: invert(1);
+                  width: 1.6rem;
+                  margin-right: 0.6rem;
+                  height: auto;
+                  vertical-align: bottom;
+                }
+              `}
+            >
+              <Image
+                src="/check.svg"
+                width="10"
+                height="10"
+                alt="Icône coche pleine"
+              />
+              Trouver mon conseiller
+            </span>
+          </Link>
         </CTA>
       </CTAWrapper>
     </div>

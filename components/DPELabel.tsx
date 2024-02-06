@@ -1,6 +1,6 @@
 import dpeData from '@/components/DPE.yaml'
-
 import css from './css/convertToJs'
+
 export default function DPELabel({ index }) {
   const { couleur, lettre, 'couleur du texte': textColor } = dpeData[+index]
   return (
