@@ -26,7 +26,7 @@ export default function Page({ searchParams }) {
                 margin-top: 0.6rem;
               `}
             >
-              Calculez vos aides rénovation
+              Calculez vos aides à la rénovation énergétique
             </h1>
             <Intro>
               <p>

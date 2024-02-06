@@ -26,7 +26,6 @@ body {
 body {
   color: #111;
   min-height: 100%;
-  line-height: 1.6rem;
 }
 header {
   margin: 0 auto;
@@ -81,6 +80,7 @@ h4 {
 
 p {
   margin: 0 0 0.4rem;
+  line-height: 1.6rem;
 }
 
 ul,
