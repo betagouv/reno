@@ -246,14 +246,15 @@ export default function ScenariosSelector({
 
             <p>
               Si vous engagez des travaux vous permettant de sauter{' '}
-              {-choice + oldIndex} classes DPE, vous pourrez demander une aide
-              de{' '}
+              <strong>{-choice + oldIndex} classes DPE</strong>, vous pourrez
+              demander une aide de{' '}
               <Value
                 {...{
                   engine,
                   index: 0,
                   situation: { ...situation, 'DPE . visé': 0 + 1 },
                   dottedName: 'MPR . accompagnée . pourcent écrêté',
+                  state: 'emphasize',
                 }}
               />{' '}
               qui s'appliquera à un montant maximum de travaux de{' '}
@@ -263,6 +264,7 @@ export default function ScenariosSelector({
                   index: 0,
                   situation: { ...situation, 'DPE . visé': 0 + 1 },
                   dottedName: 'travaux . plafond',
+                  state: 'emphasize',
                 }}
               />
               .
