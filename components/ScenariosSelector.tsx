@@ -76,7 +76,7 @@ export default function ScenariosSelector({
       `}
     >
       <h2>Quel est votre projet de rénovation globale ?</h2>
-      <p>Voici vos scénarios de sauts de DPE et les aides correspondantes : </p>
+      <p>Voici vos scénarios de sauts de DPE et les aides correspondantes.</p>
       <ol>
         <li key="en-tête">
           <span>Scénario de sauts DPE</span>
@@ -137,6 +137,38 @@ export default function ScenariosSelector({
             ),
         )}
       </ol>
+      <p
+        css={`
+          line-height: 1.2rem;
+          text-align: center;
+          max-width: 40rem;
+          margin: 0 auto;
+          margin-top: 0.4rem;
+        `}
+      >
+        <em>
+          Lecture : pour {oldIndex} sauts de DPE, vous pouvez demander une aide
+          de{' '}
+          <Value
+            {...{
+              engine,
+              index: 0,
+              situation: { ...situation, 'DPE . visé': 0 + 1 },
+              dottedName: 'MPR . accompagnée . pourcent écrêté',
+            }}
+          />{' '}
+          qui s'appliquera à un montant maximum de travaux de{' '}
+          <Value
+            {...{
+              engine,
+              index: 0,
+              situation: { ...situation, 'DPE . visé': 0 + 1 },
+              dottedName: 'travaux . plafond',
+            }}
+          />
+          .
+        </em>
+      </p>
       {choice != null && (
         <Card
           css={`
