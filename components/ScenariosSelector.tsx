@@ -89,7 +89,9 @@ export default function ScenariosSelector({
               <li
                 key={el.lettre}
                 css={choice === index ? `background: var(--lighterColor2)` : ``}
-                onClick={() => setChoice(index)}
+                onClick={() =>
+                  setChoice((choice) => (choice === index ? null : index))
+                }
               >
                 <span>
                   <DPELabel index={oldIndex} />{' '}
