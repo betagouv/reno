@@ -16,6 +16,7 @@ import { useState } from 'react'
 import dpeData from '@/components/DPE.yaml'
 import { Key } from './explications/ExplicationUI'
 import { motion } from 'framer-motion'
+import { useMediaQuery } from 'usehooks-ts'
 
 console.log('DPE data', data)
 
@@ -27,6 +28,7 @@ export default function ScenariosSelector({
   engine,
   rules,
 }) {
+  const isMobile = useMediaQuery('(max-width: 800px)')
   const [choice, setChoice] = useState(null)
   const numericalValue = situation[currentQuestion]
 
@@ -102,15 +104,20 @@ export default function ScenariosSelector({
       <p
         css={`
           text-align: right;
+          line-height: 1rem;
         `}
       >
         <em> Sélectionnez une ligne pour évaluez votre budget. </em>
       </p>
       <ol>
         <li key="en-tête">
-          <span>Scénario de sauts DPE</span>
-          <span>Aide (en %)</span>
-          <span>Assiette maximum de l'aide</span>
+          <span>Sauts de DPE</span>
+          <span>Aide</span>
+          {isMobile ? (
+            <span>Assiette max.</span>
+          ) : (
+            <span>Assiette maximum de l'aide</span>
+          )}
         </li>
         {possibilities.map(
           (el, index) =>
