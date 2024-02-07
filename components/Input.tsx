@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 
-export default function Input({ onChange, value, ...props }) {
+export default function Input({ onChange, value, autoFocus = true, ...props }) {
   const [state, setState] = useState(value)
 
   const [debouncedState] = useDebounce(state, 500)
@@ -13,7 +13,7 @@ export default function Input({ onChange, value, ...props }) {
 
   return (
     <input
-      autoFocus={true}
+      autoFocus={autoFocus}
       type="number"
       value={state}
       onChange={(e) => {

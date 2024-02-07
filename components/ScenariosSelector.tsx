@@ -29,21 +29,22 @@ export default function ScenariosSelector({
   rules,
 }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
-  const [choice, setChoice] = useState(null)
   const numericalValue = situation[currentQuestion]
 
-  console.log(situation, numericalValue, currentQuestion)
+  const value = situation['DPE . visé'],
+    choice = value ? value - 1 : null
 
-  const doSetSearchParams = (value) => {
+  const doSetSearchParams = (question, value) => {
     const newSituation = encodeSituation(
       {
         ...situation,
-        [currentQuestion]: value,
+        [question]: value,
       },
       false,
       answeredQuestions,
     )
-    const url = setSearchParams(newSituation, 'url', false)
+    console.log('girafe', newSituation)
+    setSearchParams(newSituation, 'push')
   }
   const isNew = currentQuestion === 'DPE . visé' ? numericalValue : null,
     newLetter = numericalValue && data[+numericalValue - 1].lettre,
@@ -64,10 +65,12 @@ export default function ScenariosSelector({
           border-radius: 0.3rem;
           li {
             padding: 1.2rem 1vw;
-            display: flex;
-            justify-content: space-evenly;
             border-bottom: 1px solid var(--lighterColor0);
-            cursor: pointer;
+            label {
+              display: flex;
+              justify-content: space-evenly;
+              cursor: pointer;
+            }
           }
           li:first-child {
             background: var(--lightestColor);
@@ -125,52 +128,64 @@ export default function ScenariosSelector({
               <li
                 key={el.lettre}
                 css={choice === index ? `background: var(--lighterColor2)` : ``}
-                onClick={() =>
-                  setChoice((choice) => (choice === index ? null : index))
-                }
               >
-                <span>
-                  <DPELabel index={oldIndex} />{' '}
-                  <span
-                    css={`
-                      position: relative;
-                    `}
-                  >
-                    <small
+                {' '}
+                <label>
+                  <span>
+                    <DPELabel index={oldIndex} />{' '}
+                    <span
                       css={`
-                        position: absolute;
-                        left: 40%;
-                        top: -0.3rem;
-                        transform: translateX(-50%);
-                        color: #555;
-                        font-size: 70%;
-                        line-height: 1rem;
+                        position: relative;
                       `}
                     >
-                      +{-index + oldIndex}
-                    </small>
-                    {'⟶ '}
+                      <small
+                        css={`
+                          position: absolute;
+                          left: 40%;
+                          top: -0.3rem;
+                          transform: translateX(-50%);
+                          color: #555;
+                          font-size: 70%;
+                          line-height: 1rem;
+                        `}
+                      >
+                        +{-index + oldIndex}
+                      </small>
+                      {'⟶ '}
+                    </span>
+                    <DPELabel index={index} />{' '}
                   </span>
-                  <DPELabel index={index} />{' '}
-                </span>
-                <Value
-                  {...{
-                    engine,
-                    index,
-                    situation: { ...situation, 'DPE . visé': index + 1 },
-                    dottedName: 'MPR . accompagnée . pourcent écrêté',
-                    state: 'none',
-                  }}
-                />
-                <Value
-                  {...{
-                    engine,
-                    index,
-                    situation: { ...situation, 'DPE . visé': index + 1 },
-                    dottedName: 'travaux . plafond',
-                    state: 'none',
-                  }}
-                />
+                  <Value
+                    {...{
+                      engine,
+                      index,
+                      situation: { ...situation, 'DPE . visé': index + 1 },
+                      dottedName: 'MPR . accompagnée . pourcent écrêté',
+                      state: 'none',
+                    }}
+                  />
+                  <Value
+                    {...{
+                      engine,
+                      index,
+                      situation: { ...situation, 'DPE . visé': index + 1 },
+                      dottedName: 'travaux . plafond',
+                      state: 'none',
+                    }}
+                  />
+                  <input
+                    css={`
+                      width: 1.4rem;
+                      height: 1.4rem;
+                      cursor: pointer;
+                      margin-right: 0.4rem;
+                    `}
+                    type="radio"
+                    name={index}
+                    checked={index === choice}
+                    onChange={() => doSetSearchParams('DPE . visé', index + 1)}
+                  />
+                </label>
               </li>
             ),
         )}
@@ -301,6 +316,7 @@ export default function ScenariosSelector({
                   Par exemple : avec un apport personnel de{' '}
                   <label>
                     <Input
+                      autoFocus={false}
                       value={situation['investissement'] || undefined}
                       placeholder="votre apport"
                       onChange={(value) => {
