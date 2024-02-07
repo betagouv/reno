@@ -101,6 +101,9 @@ fieldset {
   border: none;
 }
 
+input {
+  margin-right: 0.2rem;
+}
 input[type]:not([type='checkbox']):not([type='radio']) {
   height: 2.2rem;
   text-align: right;

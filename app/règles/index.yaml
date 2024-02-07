@@ -147,6 +147,7 @@ PTZ . condition d'ancienneté:
 ménage . personnes:
   titre: La composition de votre ménage
   question: Quelle est la composition de votre ménage ?
+  unité: personne
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'

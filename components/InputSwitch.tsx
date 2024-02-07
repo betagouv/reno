@@ -302,7 +302,7 @@ export default function InputSwitch({
         placeholder={evaluation.nodeValue}
         value={currentValue == null ? undefined : currentValue}
         name={currentQuestion}
-        unit={evaluation}
+        unit={evaluation.unit}
         onChange={(value) => {
           const encodedSituation = encodeSituation(
             {

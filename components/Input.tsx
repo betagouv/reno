@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
+import { serializeUnit } from 'publicodes'
 
 export default function Input({
   onChange: serverOnChange,
   value,
+  unit,
   autoFocus = true,
   ...props
 }) {
-  console.log('girafe')
   const [state, setState] = useState(value)
 
   const sendRequest = useCallback((value) => {
@@ -35,13 +36,18 @@ export default function Input({
     debouncedSendRequest(value === '' ? undefined : value)
   }
 
+  const serializedUnit = serializeUnit(unit)
+
   return (
-    <input
-      autoFocus={autoFocus}
-      type="number"
-      value={state}
-      onChange={onChange}
-      {...props}
-    />
+    <div>
+      <input
+        autoFocus={autoFocus}
+        type="number"
+        value={state}
+        onChange={onChange}
+        {...props}
+      />
+      &nbsp;{serializedUnit}
+    </div>
   )
 }
