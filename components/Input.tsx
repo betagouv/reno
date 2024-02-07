@@ -37,6 +37,8 @@ export default function Input({
   }
 
   const serializedUnit = serializeUnit(unit)
+  const pluralUnit =
+    serializedUnit === 'personne' && value > 1 ? 'personnes' : serializedUnit
 
   return (
     <div>
@@ -47,7 +49,7 @@ export default function Input({
         onChange={onChange}
         {...props}
       />
-      &nbsp;{serializedUnit}
+      &nbsp;{pluralUnit}
     </div>
   )
 }
