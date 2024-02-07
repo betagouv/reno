@@ -53,6 +53,7 @@ export default function ScenariosSelector({
   const oldIndex = +situation['DPE . actuel'] - 1,
     possibilities = data.filter((el, index) => index <= oldIndex - 2)
 
+  const mprg = engine.evaluate('MPR . non accompagnée').nodeValue
   return (
     <div
       css={`
@@ -464,6 +465,38 @@ export default function ScenariosSelector({
             <a href="https://www.anil.org/aides-locales-travaux/">en ligne</a>{' '}
             ou auprès d'un conseiller d'une agence locale.
           </p>
+        </details>
+        <details>
+          <summary open={false}>C'est trop ambitieux pour moi</summary>
+          <p>
+            Le parcours accompagné de MaPrimeRénov exige en effet un minimum de
+            deux sauts de DPE, en échange d'un montant d'aide important.
+          </p>
+          {mprg ? (
+            <p>
+              Bonne nouvelle, vous êtes également éligible au parcours par geste
+              de MaPrimeRénov'. Vous pouvez{' '}
+              <Link
+                href={setSearchParams(
+                  { objectif: 'MPR . non accompagnée' },
+                  'url',
+                )}
+              >
+                découvrir le parcours par geste
+              </Link>
+              .
+            </p>
+          ) : (
+            <p>
+              Vous n'êtes pas éligible au parcours par geste de MaPrimeRénov'.
+              Sous certaines conditions, vous pourriez cependant avoir accès à
+              l'
+              <a href="https://www.ecologie.gouv.fr/eco-pret-taux-zero-eco-ptz">
+                éco-prêt à taux zéro (PTZ)
+              </a>
+              .
+            </p>
+          )}
         </details>
       </div>
       <h2>C'est parti ?</h2>
