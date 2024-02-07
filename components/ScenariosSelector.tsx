@@ -76,6 +76,8 @@ export default function ScenariosSelector({
             background: var(--lightestColor);
             padding: 0.4rem 1vw;
             font-size: 90%;
+            display: flex;
+            justify-content: space-evenly;
           }
           li:last-child {
             margin-bottom: 0;
@@ -114,6 +116,7 @@ export default function ScenariosSelector({
       </p>
       <ol>
         <li key="en-tête">
+          {isMobile ? <span>Choix</span> : <span>Votre choix</span>}
           <span>Sauts de DPE</span>
           <span>Aide</span>
           {isMobile ? (
@@ -129,8 +132,19 @@ export default function ScenariosSelector({
                 key={el.lettre}
                 css={choice === index ? `background: var(--lighterColor2)` : ``}
               >
-                {' '}
                 <label>
+                  <input
+                    css={`
+                      width: 1.4rem;
+                      height: 1.4rem;
+                      cursor: pointer;
+                      margin-right: 0.4rem;
+                    `}
+                    type="radio"
+                    name={index}
+                    checked={index === choice}
+                    onChange={() => doSetSearchParams('DPE . visé', index + 1)}
+                  />
                   <span>
                     <DPELabel index={oldIndex} />{' '}
                     <span
@@ -172,18 +186,6 @@ export default function ScenariosSelector({
                       dottedName: 'travaux . plafond',
                       state: 'none',
                     }}
-                  />
-                  <input
-                    css={`
-                      width: 1.4rem;
-                      height: 1.4rem;
-                      cursor: pointer;
-                      margin-right: 0.4rem;
-                    `}
-                    type="radio"
-                    name={index}
-                    checked={index === choice}
-                    onChange={() => doSetSearchParams('DPE . visé', index + 1)}
                   />
                 </label>
               </li>
