@@ -176,7 +176,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-  if (['DPE . visé', 'travaux'].includes(currentQuestion))
+  if (['DPE . visé', 'travaux', 'investissement'].includes(currentQuestion))
     return (
       <ScenariosSelector
         {...{

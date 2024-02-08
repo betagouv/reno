@@ -41,9 +41,6 @@ export default function ScenariosSelector({
     console.log('girafe', newSituation)
     setSearchParams(newSituation, 'push')
   }
-  const isNew = currentQuestion === 'DPE . visé' ? numericalValue : null,
-    newLetter = numericalValue && data[+numericalValue - 1].lettre,
-    oldLetter = isNew && data[+situation['DPE . actuel'] - 1].lettre
 
   const oldIndex = +situation['DPE . actuel'] - 1,
     possibilities = data.filter((el, index) => index <= oldIndex - 2)
