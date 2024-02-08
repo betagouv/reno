@@ -123,9 +123,16 @@ export const CTA = styled.div`
     font-size: 120%;
   }
   > button,
-  > a {
-    padding: 1rem 1.2rem;
-    line-height: 3rem;
+  > a,
+  > span {
+    display: inline-block;
+
+    ${(p) =>
+      p.$importance === 'secondary'
+        ? `padding: 0.2rem 1rem;`
+        : `
+    padding: 0.8rem 1.2rem;
+	`}
   }
 `
 export const Intro = styled.div`
