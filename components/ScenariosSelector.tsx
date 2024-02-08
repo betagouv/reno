@@ -366,7 +366,7 @@ export default function ScenariosSelector({
                 d'emprunter 50 000 €.
               </p>
               <p>
-                Avec le prêt, vous devrez avoir à disposition{' '}
+                Avec ce prêt, vous devrez avoir à disposition{' '}
                 <Value
                   {...{
                     engine,
@@ -557,8 +557,8 @@ const Avance = ({ engine, rules, choice, situation }) => {
   if (!['modeste', 'très modeste'].includes(evaluation.value))
     return (
       <p>
-        Votre prime rénov est un remboursement : vous devrez avancer l'argent
-        pour lancer les travaux.
+        Votre prime rénov sera un remboursement : vous devrez avancer l'argent
+        des travaux.
       </p>
     )
   return (
