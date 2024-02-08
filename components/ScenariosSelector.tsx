@@ -322,8 +322,8 @@ export default function ScenariosSelector({
                       autoFocus={false}
                       value={situation['investissement'] || undefined}
                       placeholder="votre apport"
-                      onChange={(value) => {
-                        console.log('vava', value)
+                      onChange={(rawValue) => {
+                        const value = +rawValue === 0 ? undefined : rawValue
                         setSearchParams(
                           {
                             investissement: value,
