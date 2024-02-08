@@ -41,7 +41,7 @@ export default function Input({
     serializedUnit === 'personne' && value > 1 ? 'personnes' : serializedUnit
 
   return (
-    <div>
+    <span>
       <input
         autoFocus={autoFocus}
         type="number"
@@ -50,6 +50,6 @@ export default function Input({
         {...props}
       />
       &nbsp;{pluralUnit}
-    </div>
+    </span>
   )
 }
