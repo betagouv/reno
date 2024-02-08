@@ -117,11 +117,15 @@ export const CTA = styled.div`
   color: white;
   `}
   font-size: 130%;
-  padding: 0.5rem 1.2rem;
   text-decoration: none;
   white-space: nowrap;
   @media (max-width: 800px) {
     font-size: 120%;
+  }
+  > button,
+  > a {
+    padding: 1rem 1.2rem;
+    line-height: 3rem;
   }
 `
 export const Intro = styled.div`
