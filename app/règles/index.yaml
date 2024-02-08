@@ -324,7 +324,12 @@ travaux:
   plafond: investissement + MPR . accompagnée . pourcent écrêté * travaux . plafond
   résoudre la référence circulaire: oui
 
-MPR . accompagnée . avance: 0.7 * montant
+MPR . accompagnée . avance:
+  applicable si:
+    une de ces conditions:
+      - ménage . revenu . classe = 'très modeste'
+      - ménage . revenu . classe = 'modeste'
+  formule: 0.7 * montant
 
 MPR . accompagnée . montant:
   formule: pourcent écrêté * travaux . plafonnés
