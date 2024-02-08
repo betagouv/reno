@@ -12,19 +12,20 @@ import { Key } from './explications/ExplicationUI'
 import Input from './Input'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
+import { omit } from './utils'
 
 console.log('DPE data', data)
 
 export default function ScenariosSelector({
   setSearchParams,
-  situation,
+  situation: givenSituation,
   currentQuestion,
   answeredQuestions,
   engine,
   rules,
 }) {
+  const situation = omit(['travaux'], givenSituation)
   const isMobile = useMediaQuery('(max-width: 800px)')
-  const numericalValue = situation[currentQuestion]
 
   const value = situation['DPE . visé'],
     choice = value ? value - 1 : null
