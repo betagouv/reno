@@ -81,7 +81,6 @@ export default function RootLayout({
                   align-items: center;
                 `}
               >
-                <DynamicHeaderIcon />
                 <h1
                   style={css`
                     margin: 1vh 0;
