@@ -1,3 +1,4 @@
+import css from '@/components/css/convertToJs'
 import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
 import Link from '@/node_modules/next/link'
@@ -15,7 +16,13 @@ export default function APIDoc() {
           conseillons de faire un petit tour (10&nbsp;minutes) sur la
           documentation de Publicodes pour mieux comprendre ses fondamentaux.
         </p>
-        <p>
+        <p
+          style={css`
+            margin: 0.6rem 0;
+            background: lightsalmon;
+            padding: 0.4rem 1rem;
+          `}
+        >
           ⚠️ Attention, cette API bien que fonctionnelle, n'est pas encore
           suffisamment testée. Ne l'utilisez pas en production ou assurez-vous
           d'avoir averti vos utilisateurs sur ses inexactitudes potentielles.
