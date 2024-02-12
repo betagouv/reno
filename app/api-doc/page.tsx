@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
 import Link from '@/node_modules/next/link'
+import APIDemo from './APIDemo'
 
 export default function APIDoc() {
   return (
@@ -19,7 +20,9 @@ export default function APIDoc() {
           suffisamment testée. Ne l'utilisez pas en production ou assurez-vous
           d'avoir averti vos utilisateurs sur ses inexactitudes potentielles.
         </p>
-        <h3>Que permet elle ?</h3>
+        <h3>Démonstration</h3>
+        <APIDemo />
+        <h3>Que permet-elle ?</h3>
         <p>
           Elle permet de calculer les deux parcours Ma Prime Rénov' 2024,
           accompagné et non accompagné, à partir de la situation d'un
