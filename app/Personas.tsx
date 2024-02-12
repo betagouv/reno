@@ -6,10 +6,11 @@ import { Card, Main, Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import styled from 'styled-components'
+import Image from 'next/image'
 import Publicodes from 'publicodes'
-import personas from './personas.yaml'
+import styled from 'styled-components'
 import personaNames from './personaNames.yaml'
+import personas from './personas.yaml'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -28,6 +29,9 @@ export default function Personas({}) {
               const mpraValue = formatValue(mpra, { precision: 0 }),
                 mprgValue = mprg.nodeValue && mprg.nodeValue > 1
 
+              const tests = persona['valeurs attendues'],
+                mpraTest = tests && tests['MPR . accompagnée']
+              const correct = Math.round(mpra.nodeValue) === mpraTest
               const nom = personaNames[index]
               return (
                 <li key={persona.description}>
@@ -46,12 +50,36 @@ export default function Personas({}) {
                         display: flex;
                         justify-content: space-between;
                         line-height: 1.3rem;
+                        img {
+                          width: 1.2rem;
+                          height: auto;
+                          vertical-align: bottom;
+                          background: ${colors.success.lightBackground};
+                          border-radius: 2rem;
+                        }
                       `}
                     >
-                      MPR accompagnée
-                      <ResultLabel binary={mpra.nodeValue > 0}>
-                        {mpraValue}
-                      </ResultLabel>
+                      MPR acc.
+                      <span>
+                        <ResultLabel binary={mpra.nodeValue > 0}>
+                          {mpraValue}
+                        </ResultLabel>
+                        {mpraTest &&
+                          (correct ? (
+                            <Image
+                              src="/check.svg"
+                              width="10"
+                              height="10"
+                              alt={
+                                'La valeur calculée correspond à la valeur attendue'
+                              }
+                            />
+                          ) : (
+                            <span title="La valeur calculée ne correspond pas à la valeur attendue">
+                              ❌
+                            </span>
+                          ))}
+                      </span>
                     </small>
                     <small
                       css={`
@@ -95,6 +123,7 @@ export default function Personas({}) {
 const ResultLabel = ({ binary, children }) => (
   <span
     css={`
+      margin-right: 0.2rem;
       margin-left: 0.4rem;
       padding: 0 0.4rem;
       ${binary
