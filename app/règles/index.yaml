@@ -315,7 +315,9 @@ travaux:
     moyenne: 40000 €
     haute: 70000 €
   description: |
-    Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, de 5,5 % à 10 %.
+    Attention, renseignez l'enveloppe hors TVA. 
+
+    Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, principalement de 5,5 % et parfois à 10 %.
   # Je ne suis pas satisfait de cette formule
   # Elle n'est pas lisible directement, elle résulte d'une inversion de formule à la main
   # Car il semble y avoir un bug résultant d'un choc entre les mécanismes `plafond` et `résoudre la référence circulaire`
@@ -422,7 +424,10 @@ MPR . accompagnée:
   applicable si: conditions communes
 
 MPR . accompagnée . bonus . sauts minimum: 3
-MPR . accompagnée . bonus . condition: sauts > sauts minimum
+MPR . accompagnée . bonus . condition:
+  toutes ces conditions:
+    - DPE . visé <= 4
+    - DPE . actuel >= 6
 MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
   description: |

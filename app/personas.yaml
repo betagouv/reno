@@ -1,13 +1,30 @@
 - description: |
-    2 sauts de DPE, enveloppe de 65 k€, couple modeste avec enfant.
+    2 sauts de DPE, enveloppe de 70 k€, couple modeste avec enfant.
   situation:
     conditions communes: oui
     ménage . personnes: 3
     ménage . revenu: 25000
     DPE . actuel: 6
+    DPE . visé: 2
+    travaux: 70140 / (1.055)
+    ménage . code région: 27 # Doubs
+  valeurs attendues:
+    # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
+    MPR . accompagnée: 59835 €
+- description: |
+    2 sauts de DPE, enveloppe de 70 k€, couple modeste avec enfant.
+  situation:
+    conditions communes: oui
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 7
     DPE . visé: 4
-    travaux: 65000
-    ménage . code région: 52
+    travaux: 53200 / (1.055)
+    ménage . code région: 24 # Doubs
+  valeurs attendues:
+    # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
+    MPR . accompagnée: 30256 €
+
 - description: |
     3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
   situation:
