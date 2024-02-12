@@ -61,7 +61,9 @@ export default function APIDoc() {
         <p>
           Plutôt que de dépendre d'une API tierce, si vous avez confiance dans
           votre capacité à mettre des services en ligne, le mieux reste
-          d'intégrer le moteur de calcul publicodes chez vous. Si vous êtes dans
+          d'intégrer le moteur de calcul publicodes chez vous. C'est ce qui rend
+          la démonstration plus haut si fluide, les calculs sont faits{' '}
+          <em>dans votre navigateur, sans appel réseau</em>. Si vous êtes dans
           un environnement Javascript, il suffit de quelques lignes de code.
           Sinon, un simple projet Javascript avec ExpressJs permet de faire
           tourner une API en 30 minutes sur vos serveurs. Nous publierons un
