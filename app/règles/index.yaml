@@ -233,7 +233,7 @@ travaux . notification:
 
 travaux:
   titre: Votre enveloppe des travaux
-  question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?
+  question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
