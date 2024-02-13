@@ -10,6 +10,7 @@ import DPELabel from './DPELabel'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
 import Input from './Input'
+import MARFinder from './MarFinder'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
@@ -477,6 +478,10 @@ export default function ScenariosSelector({
             </li>
             <li>Je paie mes factures et obtiens mes aides.</li>
           </ol>
+        </details>
+        <details>
+          <summary open={false}>Où trouver mon accompagnateur rénov' ?</summary>
+          <MARFinder />
         </details>
         <details>
           <summary open={false}>Quels sont les délais ?</summary>
