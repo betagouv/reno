@@ -51,33 +51,6 @@ export default function ScenariosSelector({
     <div
       css={`
         margin-top: 0.6rem;
-        ol {
-          margin-top: 1vh;
-          list-style-type: none;
-          padding: 0;
-          border: 1px solid var(--lighterColor0);
-          border-radius: 0.3rem;
-          li {
-            padding: 1.2rem 1vw;
-            border-bottom: 1px solid var(--lighterColor0);
-            label {
-              display: flex;
-              justify-content: space-evenly;
-              cursor: pointer;
-            }
-          }
-          li:first-child {
-            background: var(--lightestColor);
-            padding: 0.4rem 1vw;
-            font-size: 90%;
-            display: flex;
-            justify-content: space-evenly;
-          }
-          li:last-child {
-            margin-bottom: 0;
-            border-bottom: none;
-          }
-        }
         h2 {
           img {
             width: 2rem;
@@ -108,7 +81,35 @@ export default function ScenariosSelector({
       >
         <em> Sélectionnez une ligne pour évaluez votre budget. </em>
       </p>
-      <ol>
+      <ol
+        css={`
+          margin-top: 1vh;
+          list-style-type: none;
+          padding: 0;
+          border: 1px solid var(--lighterColor0);
+          border-radius: 0.3rem;
+          li {
+            padding: 1.2rem 1vw;
+            border-bottom: 1px solid var(--lighterColor0);
+            label {
+              display: flex;
+              justify-content: space-evenly;
+              cursor: pointer;
+            }
+          }
+          li:first-child {
+            background: var(--lightestColor);
+            padding: 0.4rem 1vw;
+            font-size: 90%;
+            display: flex;
+            justify-content: space-evenly;
+          }
+          li:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+          }
+        `}
+      >
         <li key="en-tête">
           {isMobile ? <span>Choix</span> : <span>Votre choix</span>}
           <span>Sauts de DPE</span>
@@ -440,7 +441,42 @@ export default function ScenariosSelector({
       >
         <details>
           <summary open={false}>Quelle est la procédure ?</summary>
-          <p>À remplir</p>
+          <ol
+            css={`
+              li {
+                margin: 1.5vh 0;
+              }
+            `}
+          >
+            <li>
+              Je m'informe sur les aides, et si besoin{' '}
+              <a href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
+                j'appelle un conseiller France Rénov'
+              </a>
+              .
+            </li>
+            <li>
+              Je suis orienté vers un accompagnateur Rénov' qui m'aide à
+              construire mon projet et m'accompagnera tout au long des travaux.{' '}
+              <ol>
+                <li>Réalisation d'un audit</li>
+                <li>
+                  Réalisation de plusieurs devis auprès d'artisans certifiés
+                  RGE.
+                </li>
+              </ol>
+            </li>
+            <li>
+              Je monte mon dossier de financement (en demandant ou non une
+              avance) et le dépose auprès de l'Anah.
+            </li>
+            <li>Je fais réaliser mes travaux.</li>
+            <li>
+              Je prends en main mon logement rénové avec mon accompagnateur
+              Rénov' lors de la deuxième visite.
+            </li>
+            <li>Je paie mes factures et obtiens mes aides.</li>
+          </ol>
         </details>
         <details>
           <summary open={false}>Quels sont les délais ?</summary>
