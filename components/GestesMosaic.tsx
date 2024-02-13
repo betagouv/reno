@@ -19,7 +19,8 @@ export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
 }
 
 export const gestesMosaicQuestionText = (rules, currentQuestion) => {
-  return rules['gestes . montant'].question.mosaïque
+  const rule = rules['gestes . montant']
+  return rule.mosaïque && rule.question
 }
 
 export default function GestesMosaic({
@@ -29,6 +30,7 @@ export default function GestesMosaic({
   situation,
   answeredQuestions,
   questions,
+  engine,
 }) {
   const grouped = questions.reduce(
       (memo, [q, rule]) => {
@@ -67,56 +69,103 @@ export default function GestesMosaic({
     )
     console.log('on change will set encodedSituation', encodedSituation)
 
-    setSearchParams(encodedSituation, false, false)
+    setSearchParams(encodedSituation, 'push', false)
     console.log('set situation', dottedName)
   }
 
+  const nullSituation = Object.fromEntries(
+    questions.map((question) => [question[0], 'non']),
+  )
+  console.log(nullSituation)
+  const runSituation = { ...nullSituation, ...situation }
+  const evaluation = engine
+      .setSituation(runSituation)
+      .evaluate('gestes . montant'),
+    value = formatValue(evaluation)
+
   return (
-    <Fieldset>
-      <ul>
-        {categories.map(([category, dottedNames]) => (
-          <li key={category}>
-            <Details open={true}>
-              <summary>
-                <h4>{rules[category].titre}</h4>
-              </summary>
+    <div>
+      <h2>Quels gestes vous intéressent ?</h2>
+      <p
+        css={`
+          text-align: right;
+          max-width: 30rem;
+          margin: 0 0 0 auto;
+          color: #666;
+        `}
+      >
+        <small>
+          Lecture : pour chaque geste, une prime de <Prime value={'xxx €'} />{' '}
+          sera versée si le montant du geste est en-dessous d'un plafond
+          maximum.
+        </small>
+      </p>
+      <div
+        css={`
+          margin-top: 0.6rem;
+          position: sticky;
+          top: 2rem;
+          > div {
+            text-align: center;
+            border: 2px solid #7eb48f;
+            padding: 0.2rem 0.4rem;
+            background: #c4fad5;
+            width: 10rem;
+            margin: 0;
+            margin-left: auto;
+          }
+        `}
+      >
+        <div>Estimation ~ {value}</div>
+      </div>
+      <Fieldset>
+        <ul>
+          {categories.map(([category, dottedNames]) => (
+            <li key={category}>
+              <Details open={true}>
+                <summary>
+                  <h4>{rules[category].titre}</h4>
+                </summary>
 
-              <ul>
-                <Checkboxes
-                  {...{
-                    questions: dottedNames,
-                    rules,
-                    onChange,
-                    situation,
-                  }}
-                />
-                {entries
-                  .filter(([k, v]) => k.startsWith(category) && k !== category)
-                  .map(([subCategory, dottedNames2]) => {
-                    const categoryTitle = rules[subCategory].titre
-
-                    return (
-                      <li key={subCategory}>
-                        <h5>{categoryTitle}</h5>
-                        <ul>
-                          <Checkboxes
-                            {...{
-                              questions: dottedNames2,
-                              rules,
-                              onChange,
-                              situation,
-                            }}
-                          />
-                        </ul>
-                      </li>
+                <ul>
+                  <Checkboxes
+                    {...{
+                      questions: dottedNames,
+                      rules,
+                      onChange,
+                      situation,
+                    }}
+                  />
+                  {entries
+                    .filter(
+                      ([k, v]) => k.startsWith(category) && k !== category,
                     )
-                  })}
-              </ul>
-            </Details>
-          </li>
-        ))}
-      </ul>
-    </Fieldset>
+                    .map(([subCategory, dottedNames2]) => {
+                      const categoryTitle = rules[subCategory].titre
+
+                      return (
+                        <li key={subCategory}>
+                          <h5>{categoryTitle}</h5>
+                          <ul>
+                            <Checkboxes
+                              {...{
+                                questions: dottedNames2,
+                                rules,
+                                onChange,
+                                situation,
+                              }}
+                            />
+                          </ul>
+                        </li>
+                      )
+                    })}
+                </ul>
+              </Details>
+            </li>
+          ))}
+        </ul>
+      </Fieldset>
+    </div>
   )
 }
 
@@ -146,24 +195,13 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
             `}
             type="checkbox"
             checked={situation[dottedName] === 'oui'}
-            value={Math.random() > 0.5 ? true : false}
             onChange={() => onChange(dottedName)}
           />
           <div>
             <div>{questionRule.titre || getRuleName(dottedName)}</div>
 
             <small style={css``}>
-              <span
-                style={css`
-                  color: rgb(11, 73, 48);
-                  background: #c4fad5;
-                  padding: 0 0.3rem;
-                  border-radius: 0.2rem;
-                `}
-              >
-                - {montantValue}
-              </span>{' '}
-              sur max. {plafondValue}
+              <Prime value={`- ${montantValue}`} /> sur max. {plafondValue}
             </small>
           </div>
         </label>
@@ -171,3 +209,17 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
     )
   })
 }
+
+const Prime = ({ value }) => (
+  <span
+    style={css`
+      color: rgb(11, 73, 48);
+      background: #c4fad5;
+      padding: 0 0.3rem;
+      border-radius: 0.2rem;
+      white-space: nowrap;
+    `}
+  >
+    {value}
+  </span>
+)

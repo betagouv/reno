@@ -6,9 +6,14 @@ export const P = styled.p`
   line-height: 1.8rem;
 `
 export const Key = styled.em`
-  background: #e9e9e9;
+  ${(p) => p.$state === 'emphasize' && `font-weight: bold;`}
+  ${(p) =>
+    p.$state !== 'none' &&
+    `background: #e9e9e9;
   border: 2px solid lightgray;
-  padding: 0 0.1rem;
+  `}
+
+  padding: 0 0.3rem;
   white-space: nowrap;
   font-style: normal;
   ${(p) =>
@@ -20,14 +25,18 @@ export const Key = styled.em`
       : p.$state === 'final'
         ? `
 
-  background: #c4e5ef;
-  border-color: lightblue;
+  background: var(--lighterColor);
+  border-color: var(--lighterColor0);
   `
-        : ''}
+        : ''};
+  line-height: 1.4rem;
+  display: inline-block;
+  min-width: 3rem;
+  text-align: center;
 `
 
 export const Wrapper = styled.section`
-  background: #f6f6f6;
+  background: ${(p) => p.$background || '#f6f6f6'};
   width: 100%;
   padding: 1rem 0;
   margin-top: 3vh;
@@ -37,4 +46,7 @@ export const Content = styled.div`
   width: 800px;
   max-width: 90vw;
   margin: 0 auto;
+  p {
+    color: #333;
+  }
 `

@@ -17,7 +17,8 @@ export const isMosaicQuestion = (currentQuestion, rule, rules) => {
 }
 
 export const mosaicQuestionText = (rules, currentQuestion) => {
-  return rules['gestes . montant'].question.mosaïque
+  const rule = rules['gestes . montant']
+  return rule.mosaïque && rule.question
 }
 
 export default function BooleanMosaic({
@@ -66,7 +67,7 @@ export default function BooleanMosaic({
     )
     console.log('on change will set encodedSituation', encodedSituation)
 
-    setSearchParams(encodedSituation, false, false)
+    setSearchParams(encodedSituation, 'push', false)
     console.log('set situation', dottedName)
   }
 

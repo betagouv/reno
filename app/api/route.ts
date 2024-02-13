@@ -9,7 +9,7 @@ import getNextQuestions from '@/components/publicodes/getNextQuestions'
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
 
-const targets = rules.aides.formule.somme
+const targets = rules.aides.somme
 export async function GET(request: Request) {
   const searchParams = request.nextUrl.searchParams
   const searchParamsObject = Object.fromEntries(searchParams.entries())

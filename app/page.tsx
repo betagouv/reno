@@ -1,7 +1,12 @@
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Footer from '@/components/Footer'
-import { CTA, Intro, PageBlock } from '@/components/UI'
+import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
+import informationIconBlack from '@/public/information-black.svg'
+import Link from 'next/link'
+import Image from 'next/image'
+import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
+import VisualExplanation from './VisualExplanation'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -14,36 +19,54 @@ export default function Page({ searchParams }) {
   return (
     <main>
       <PageBlock>
-        <Content>
-          <h1>Calculez vos aides rénovation 2024</h1>
-          <Intro>
-            <p>
-              En 2024, les aides évoluent pour mieux accompagner les rénovations
-              énergétiques.
-            </p>
+        <HeaderWrapper>
+          <div>
+            <h1
+              style={css`
+                margin-top: 0.6rem;
+              `}
+            >
+              Calculez vos aides à la rénovation énergétique
+            </h1>
+            <Intro>
+              <p>
+                En 2024, les aides évoluent pour mieux accompagner les
+                rénovations énergétiques.
+              </p>
 
-            <p>
-              Estimez vos droits en ⌚️ 5 minutes en fonction de votre situation
-              et de votre projet.
-            </p>
-          </Intro>
-          <CTA href="/simulation/introduction">Commencer la simulation</CTA>
-        </Content>
-        <div
-          style={css`
-            background: #26a75f63;
-            color: black;
-            padding: 1rem;
-            width: 100%;
-            margin: 4vh 0 0;
-            text-align: center;
-          `}
-        >
-          Mes aides Réno est une initiative du gouvernement et de l'Agence
-          nationale de l'habitat pour simplifier l’accès à l’information sur les
-          aides à la rénovation énergétique.{' '}
-        </div>
-        <Wrapper $noMargin={true}>
+              <p>
+                Estimez vos droits en ⌚️ 5 minutes en fonction de votre
+                situation et de votre projet.
+              </p>
+            </Intro>
+            <CTAWrapper $justify="left">
+              <CTA>
+                <Link href="/simulation">Commencer la simulation</Link>
+              </CTA>
+            </CTAWrapper>
+          </div>
+          <Image
+            src="/brouillons/illustration.svg"
+            width="200"
+            height="200"
+            alt="Une maison dessinée avec la couleur orange d'un mauvais DPE, avec des murs isolés en vert"
+          />
+        </HeaderWrapper>
+        <LandingGreenBanner>
+          <Image
+            src={informationIconBlack}
+            width="25"
+            style={css`
+              margin-right: 1rem;
+            `}
+          />
+          <p>
+            Une initiative du gouvernement et de l'Agence nationale de l'habitat
+            pour simplifier l’accès à l’information sur les aides à la
+            rénovation énergétique.{' '}
+          </p>
+        </LandingGreenBanner>
+        <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h2>Pourquoi un simulateur Mes aides Réno ?</h2>
             <p>
@@ -89,12 +112,37 @@ export default function Page({ searchParams }) {
               informer et à sensibiliser votre bailleur.
             </p>
             <h2>Quels sont les dispositifs ?</h2>
+            {false && (
+              <p>
+                Mes aides réno vous donnera votre éligibilité et les montants de
+                Ma Prime Rénov', aussi bien le parcours accompagné que le
+                parcours par geste. Dans un second temps, seront aussi inclus
+                l'éco-prêt à taux zéro, et les aides locales.
+              </p>
+            )}
             <p>
-              Mes aides réno vous donnera votre éligibilité et les montants de
-              Ma Prime Rénov', aussi bien le parcours accompagné que le parcours
-              par geste. Dans un second temps, seront aussi inclus l'éco-prêt à
-              taux zéro, et les aides locales.
+              En 2024, les aides à la rénovation énergétique des logements sont
+              organisées autour de deux grands dispositifs nationaux, Ma Prime
+              Rénov' <strong>accompagnée</strong>, et Ma Prime Rénov'{' '}
+              <strong>par gestes</strong>.
             </p>
+
+            <p>
+              Ces deux aides peuvent être cumulées avec des aides locales et
+              d’autres dispositifs (Éco-prêt à taux zéro, Crédit d’impôt…).
+            </p>
+            <p>
+              <strong>
+                Ce simulateur vous aide à les comprendre et à choisir le
+                dispositif qui vous convient le mieux.
+              </strong>
+            </p>
+            <VisualExplanation />
+            <CTAWrapper $justify="center">
+              <CTA>
+                <Link href="/simulation">Commencer la simulation</Link>
+              </CTA>
+            </CTAWrapper>
           </Content>
         </Wrapper>
         <Footer />

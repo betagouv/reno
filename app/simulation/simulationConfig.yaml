@@ -1,14 +1,18 @@
+catégories:
+  - vous
+  - logement
+  - ménage
+  - DPE
+  - gestes
 prioritaires:
-  - propriétaire . condition
-  - résidence principale
-  - condition d'ancienneté
-  - personnes
-  - revenu
-  - région
+  - vous . propriétaire . condition
+  - logement . résidence principale
+  - logement . période de construction
+  - ménage . personnes
+  - ménage . commune
+  - ménage . revenu
   - DPE . actuel
-  - travaux
-  - DPE . visé
-  - explication des 2 aides
+  - MPR . choix
 non prioritaires:
   -
 

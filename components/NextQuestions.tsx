@@ -2,23 +2,31 @@ import css from './css/convertToJs'
 import { getRuleName } from './publicodes/utils'
 import { Card } from './UI'
 
-export default function NextQuestions({ nextQuestions, rules }) {
+export default function NextQuestions({
+  nextQuestions,
+  currentQuestion,
+  rules,
+}) {
+  console.log({ nextQuestions })
   return nextQuestions.length ? (
     <div
       style={css`
         margin-top: 0.4rem;
         display: flex;
         align-items: center;
+        color: #555;
       `}
     >
-      <h3
+      <small
         style={css`
-          width: 8rem;
+          width: 10rem;
           margin: 0;
         `}
       >
-        À suivre
-      </h3>
+        {nextQuestions.length === 1 && nextQuestions[0] === currentQuestion
+          ? `Dernière question`
+          : `À suivre :`}
+      </small>
       <div
         style={css`
           overflow: scroll;
@@ -31,17 +39,24 @@ export default function NextQuestions({ nextQuestions, rules }) {
         <ol
           style={css`
             display: flex;
+            list-style-type: none;
           `}
         >
           {nextQuestions.slice(1).map((question) => (
             <li
               style={css`
-                width: auto;
-                margin-right: 2rem;
+                padding-right: 0.6vw;
               `}
               key={question}
             >
               <small>{rules[question].titre || getRuleName(question)}</small>
+              <small
+                style={css`
+                  padding-left: 0.6vw;
+                `}
+              >
+                -
+              </small>
             </li>
           ))}
         </ol>

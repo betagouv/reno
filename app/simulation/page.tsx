@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default function Page({ searchParams }) {
+  console.log('debug searchParams', searchParams)
   return (
     <PageBlock>
       <Main>

@@ -15,7 +15,7 @@ export const Section = styled.section`
 `
 export const cardBorder = `
 
-  padding: .8vh calc(.4rem + 1vw);
+  padding: 1.2vh calc(.4rem + 1vw);
   border: 2px solid #dfdff1;
   border-radius: 0.3rem;
   border-bottom-left-radius: 0;
@@ -26,6 +26,7 @@ export const Card = styled.div`
   margin: 0.6rem 0;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
   ${cardBorder}
+  ${(p) => p.$noBorder && `border: none;`}
 `
 
 export const FooterWrapper = styled.footer`
@@ -72,19 +73,77 @@ export const TopBanner = styled.p`
   }
 `
 
-export const CTA = styled(Link)`
-  background: #000091;
+export const CTAWrapper = styled.div`
+  text-align: right;
+  margin: 3vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: ${(p) => p.$justify || 'right'};
+  > div {
+    margin-right: 1rem;
+  }
+  > div:last-child {
+    margin-right: 0;
+  }
+`
+export const CTA = styled.div`
+  > button {
+    border: none;
+    background: none;
+    font-size: inherit;
+  }
+  > a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  ${(p) =>
+    p.$importance === 'secondary'
+      ? `
+  background: var(--lightestColor);
+  border: 1px solid var(--lighterColor);
+  color: var(--color);
+  line-height: 1.1rem;
+  `
+      : p.$importance === 'inactive'
+        ? `
+	background: lightgrey; color: white;
+
+		  `
+        : `
+
+  background: var(--color);
+  border: 1px solid var(--color);
   color: white;
-  padding: 0.5rem 1.2rem;
+  `}
   font-size: 130%;
   text-decoration: none;
   white-space: nowrap;
   @media (max-width: 800px) {
     font-size: 120%;
   }
+  > button,
+  > a,
+  > span {
+    display: inline-block;
+
+    ${(p) =>
+      p.$importance === 'secondary'
+        ? `padding: 0.2rem 1rem;`
+        : `
+    padding: 0.8rem 1.2rem;
+	`}
+  }
 `
 export const Intro = styled.div`
-  margin: 2rem 0 1.6rem;
+  margin: 3vh 0 1.6rem;
   width: 30rem;
-  max-width: 90%;
+  max-width: 90vw;
+`
+
+export const ConstraintedParagraphs = styled.div`
+  p {
+    max-width: 660px;
+    margin: 0.6rem auto;
+  }
 `

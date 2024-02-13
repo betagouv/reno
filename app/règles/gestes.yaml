@@ -1,7 +1,6 @@
 montant:
-  applicable si: explication des 2 aides
-  question:
-    mosaïque: Quels gestes envisagez-vous ?
+  question: Quels gestes envisagez-vous ?
+  mosaïque: oui
   somme:
     - chauffage
     - isolation
@@ -10,9 +9,9 @@ montant:
 autres:
   titre: Divers
   somme:
-    - audit
-    - dépose fioul
-    - ventilation double flux
+    - audit . montant
+    - dépose fioul . montant
+    - ventilation double flux . montant
 
 autres . audit:
   par défaut: oui
@@ -26,11 +25,11 @@ autres . audit . plafond:
   valeur: 800 €
 autres . audit . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 500 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 400 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 300 €
     - sinon: 0 €
 
@@ -41,11 +40,11 @@ autres . dépose fioul . plafond:
   valeur: 4000 €
 autres . dépose fioul . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 800 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
     - sinon: 0 €
 autres . ventilation double flux:
@@ -54,10 +53,10 @@ autres . ventilation double flux . plafond:
   valeur: 4000 €
 autres . ventilation double flux . montant:
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
-    - si: revenu . classe = 'modestes'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 2000 €
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1500 €
     - sinon: 0 €
