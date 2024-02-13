@@ -15,5 +15,12 @@ prioritaires:
   - MPR . choix
 non prioritaires:
   -
+groupes de questions:
+  - titre: Mon scénario Ma Prime Rénov' accompagnée
+    nom: scenariosMPRA
+    questions:
+      - DPE . visé
+      - travaux
+      - investissement
 
 situation:

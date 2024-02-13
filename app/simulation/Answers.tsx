@@ -4,6 +4,30 @@ import styled from 'styled-components'
 import simulationConfig from '@/app/simulation/simulationConfig.yaml'
 import NextQuestions from '@/components/NextQuestions'
 
+const categoryData = (nextQuestions, currentQuestion) => {
+  const category = currentQuestion?.split(' . ')[0]
+  const categories = simulationConfig.catégories
+
+  const foundQuestionGroup = simulationConfig['groupes de questions'].find(
+    (group) => group.questions.includes(currentQuestion),
+  )
+  if (foundQuestionGroup)
+    return {
+      categoryIndex: 999,
+      categoryTitle: foundQuestionGroup.title,
+    }
+  const categoryIndex = currentQuestion
+      ? categories.findIndex((el) => el === category) + 1
+      : categories.length + 1,
+    categoryTitle = currentQuestion && rules[category]?.titre
+
+  return {
+    categoryTitle,
+    categoryIndex,
+    categories,
+  }
+}
+
 export default function Answers({
   answeredQuestions: rawAnsweredQuestions,
   nextQuestions,
@@ -15,20 +39,25 @@ export default function Answers({
   const answeredQuestions = rawAnsweredQuestions.filter(
     (el) => el !== 'simulation . mode',
   )
-  const category = currentQuestion?.split(' . ')[0]
-  const categories = simulationConfig.catégories
-  const categoryIndex = currentQuestion
-      ? categories.findIndex((el) => el === category) + 1
-      : categories.length + 1,
-    categoryName = currentQuestion && rules[category]?.titre
-  console.log({ category, categories, categoryIndex })
+
+  const { categoryIndex, categoryTitle } = categoryData(
+    nextQuestions,
+    currentQuestion,
+  )
+
   return (
     <Wrapper>
       {answeredQuestions.length > 0 && (
         <Header>
           {' '}
           <small>
-            Étape {categoryIndex} sur {categories.length}
+            {categoryIndex === categories.length ? (
+              'Dernière étape'
+            ) : (
+              <span>
+                Étape {categoryIndex} sur {categories.length}
+              </span>
+            )}
           </small>
           <Link href={'/simulation'}>Recommencer</Link>
         </Header>
@@ -37,7 +66,7 @@ export default function Answers({
         <summary>
           {currentQuestion ? (
             <span>
-              <Number>{categoryIndex}</Number> &nbsp;{categoryName}
+              <Number>{categoryIndex}</Number> &nbsp;{categoryTitle}
             </span>
           ) : (
             'Terminé'

@@ -17,6 +17,7 @@ import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
 import SmartInput from './SmartInput'
 import GestesBasket from './GestesBasket'
+import config from '@/app/simulation/simulationConfig.yaml'
 
 export default function InputSwitch({
   rule,
@@ -199,19 +200,25 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-  if (['DPE . visé', 'travaux', 'investissement'].includes(currentQuestion))
-    return (
-      <ScenariosSelector
-        {...{
-          currentQuestion,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-        }}
-      />
-    )
+  const foundQuestionGroup = config['groupes de questions'].find((group) =>
+    group.questions.includes(currentQuestion),
+  )
+  if (foundQuestionGroup) {
+    if (foundQuestionGroup.nom === 'scenariosMPRA') {
+      return (
+        <ScenariosSelector
+          {...{
+            currentQuestion,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+          }}
+        />
+      )
+    }
+  }
   if (['MPR . choix'].includes(currentQuestion))
     return (
       <MPRSelector

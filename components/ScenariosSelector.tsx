@@ -531,6 +531,9 @@ export default function ScenariosSelector({
             lutte contre l’habitat indigne, 2 000 € supplémentaires viennent
             compléter la somme initiale.
           </p>
+          <p>
+            <em>Source non officielle, à confirmer.</em>
+          </p>
         </details>
         <details>
           <summary open={false}>Quels sont les délais ?</summary>
