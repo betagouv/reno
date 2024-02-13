@@ -117,7 +117,7 @@ logement . âge:
 
 logement . période de construction:
   par défaut: "'au moins 15 ans'"
-  question: Quelle est l'âge du logement ?
+  question: De quand date la construction du logement à rénover ?
   une possibilité parmi:
     possibilités:
       - au moins 15 ans
