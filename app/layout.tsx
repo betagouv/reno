@@ -86,6 +86,7 @@ export default function RootLayout({
                   style={css`
                     margin: 1vh 0;
                     margin-left: 1vw;
+                    font-size: 140%;
                   `}
                 >
                   Mes aides réno

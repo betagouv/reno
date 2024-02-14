@@ -11,12 +11,13 @@ export default function DynamicHeaderIcon() {
   const simulating = pathname.includes('/simulation')
   return (
     <Image
-      src={!simulating ? marianneLogo : marianneSansTexte}
+      src={true ? marianneLogo : marianneSansTexte}
       alt="Bloc Mariane officiel de la République Française"
       style={css`
-        width: min(10vh, 15vw);
+        width: 7rem;
         margin-right: 0.6rem;
         height: auto;
+        padding: 1vh 0;
       `}
     />
   )

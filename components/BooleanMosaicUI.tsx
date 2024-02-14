@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-const blue = '#2a82dd'
+const blue = 'var(--lightColor)'
 
 export const Fieldset = styled.fieldset`
   width: 100%;
@@ -18,7 +18,7 @@ export const Fieldset = styled.fieldset`
     align-items: center;
   }
   > ul > li {
-    margin-top: 0.6rem;
+    margin-top: 1rem;
     border-left: 2px solid ${blue};
     ul {
       padding-left: 0.6vw;
@@ -40,6 +40,7 @@ export const Fieldset = styled.fieldset`
     padding: 0 0.4rem;
     margin: 0;
     margin-bottom: 0.3rem;
+    font-size: 100%;
   }
 `
 

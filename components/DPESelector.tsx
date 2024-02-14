@@ -24,7 +24,7 @@ export default function DPESelector({
       false,
       answeredQuestions,
     )
-    const url = setSearchParams(newSituation, false, false)
+    const url = setSearchParams(newSituation, 'push', false)
   }
   const isNew = currentQuestion === 'DPE . visé' ? numericalValue : null,
     newLetter = numericalValue && data[+numericalValue - 1].lettre,

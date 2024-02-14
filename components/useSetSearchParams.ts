@@ -18,18 +18,36 @@ export default function useSetSeachParams() {
     (newSearchParams: object, clear: boolean) => {
       const params = new URLSearchParams(clear ? {} : searchParams)
 
-      Object.entries(newSearchParams).map(([k, v]) => params.set(k, v))
+      Object.entries(newSearchParams).map(([k, v]) => {
+        v === undefined ? params.delete(k) : params.set(k, v)
+      })
 
       return params.toString()
     },
     [searchParams],
   )
-  return (newSearchParams: object, noPush: boolean, clear: boolean) => {
+  return (
+    newSearchParams: object,
+    action: 'url' | 'push' | 'replace' = 'push',
+    clear: boolean,
+    newPathname,
+  ) => {
     const newUrl =
-      pathname + '?' + createQueryString(newSearchParams, clear) + hash
-    if (!noPush) {
+      (newPathname || pathname) +
+      '?' +
+      createQueryString(newSearchParams, clear) +
+      hash
+
+    if (action === 'url') return newUrl
+    const oldUrl = pathname + '?' + new URLSearchParams(searchParams).toString()
+    if (oldUrl === newUrl) return
+    console.log('OLD URL', decodeURIComponent(oldUrl))
+    console.log('NEW URL', decodeURIComponent(newUrl))
+    if (action === 'push') {
       router.push(newUrl, { scroll: false })
     }
-    return newUrl
+    if (action === 'replace') {
+      router.replace(newUrl, { scroll: false })
+    }
   }
 }

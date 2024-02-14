@@ -1,54 +1,51 @@
 'use client'
 
-import Image from 'next/image'
-import informationIcon from '@/public/information.svg'
-import css from '@/components/css/convertToJs'
-import Explications from '@/components/explications/Explications'
-import InputSwitch, { getQuestionText } from '@/components/InputSwitch'
-import { AnswerWrapper } from '@/components/InputUI'
-import NextQuestions from '@/components/NextQuestions'
+import InputSwitch from '@/components/InputSwitch'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import questionType from '@/components/publicodes/questionType'
 import {
-  encodeSituation,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
-import { getRuleName } from '@/components/publicodes/utils'
-import Result, { Results } from '@/components/Result'
-import { Card, Section } from '@/components/UI'
+import { Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
-import FormButtons from './FormButtons'
-import Share from './Share'
-import Personas from '@/app/Personas'
-import Suggestions from './Suggestions'
-import simulationConfig from './simulationConfig.yaml'
-import { QuestionHeader } from './QuestionHeader'
 import { useMemo } from 'react'
-import Notifications from '@/components/Notifications'
+import Answers from './Answers'
+import Share from './Share'
+import simulationConfig from './simulationConfig.yaml'
 
 export default function Form({ searchParams, rules }) {
+  // this param lets us optionally build the form to target one specific publicode rule
+  const { objectif, ...situationSearchParams } = searchParams
+
+  const target = objectif || 'aides'
+
   const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
     ...Object.keys(simulationConfig.situation || {}),
-    ...getAnsweredQuestions(searchParams, rules),
+    ...getAnsweredQuestions(situationSearchParams, rules),
   ]
-  const started = answeredQuestions.length > 1 // because of simulation mode
+  const started =
+    answeredQuestions.filter((el) => el === 'simulation . mode').length > 1 // because of simulation mode
 
   const situation = {
       ...(simulationConfig.situation || {}),
-      ...getSituation(searchParams, rules),
+      ...getSituation(situationSearchParams, rules),
     },
     validatedSituation = Object.fromEntries(
       Object.entries(situation).filter(([k, v]) =>
         answeredQuestions.includes(k),
       ),
     )
-  console.log({ answeredQuestions, situation, started })
-  const evaluation = engine.setSituation(validatedSituation).evaluate('aides'),
+  console.log(
+    'question type: validated and situation',
+    validatedSituation,
+    situation,
+  )
+  const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
       evaluation,
@@ -60,154 +57,60 @@ export default function Form({ searchParams, rules }) {
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-  const ruleQuestionType =
-    currentQuestion &&
-    questionType(engine.setSituation(situation).evaluate(currentQuestion), rule)
+  const liveEvaluation =
+    currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
+
+  const ruleQuestionType = currentQuestion && questionType(liveEvaluation, rule)
+
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
-  console.log(
-    'eval',
-    engine.evaluate('MPR . non accompagnée'),
-    engine.evaluate('gestes . montant'),
-    engine.evaluate('revenu . classe'),
-  )
-  /*
-  console.log(
-    'currentQuestion',
-    currentQuestion,
-    currentValue,
-    ruleQuestionType,
-    nextQuestions,
-  )
-  */
-  const ruleName = currentQuestion && getRuleName(currentQuestion)
   return (
     <div>
       <Section>
-        {answeredQuestions.length > 0 && (
-          <div
-            style={css`
-              text-align: right;
-              float: right;
-              margin-bottom: 0.6rem;
-            `}
-          >
-            <Link href={'/simulation'}>Recommencer</Link>
-          </div>
-        )}
-        <Personas setSearchParams={setSearchParams} />
+        <Answers
+          {...{
+            answeredQuestions,
+            nextQuestions,
+            currentQuestion,
+            rules,
+            situation,
+          }}
+        />
         {rule && (
-          <Card $background={`#2a82dd1f`}>
-            <div>
-              {(!rule.type || !rule.type === 'question rhétorique') && (
-                <QuestionHeader>
-                  <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
-                  {rule.descriptionHtml && (
-                    <details>
-                      <summary>
-                        <Image
-                          src={informationIcon}
-                          width="25"
-                          style={css`
-                            vertical-align: bottom;
-                          `}
-                        />
-                      </summary>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: rule.descriptionHtml,
-                        }}
-                      />
-                    </details>
-                  )}
-                </QuestionHeader>
-              )}
-              <AnswerWrapper>
-                <Suggestions
-                  rule={rule}
-                  onClick={(value) =>
-                    setSearchParams(
-                      encodeSituation(
-                        {
-                          ...situation,
-                          [currentQuestion]: value,
-                        },
-                        false,
-                        answeredQuestions,
-                      ),
-                      true,
-                      false,
-                    )
-                  }
-                />
-                <InputSwitch
-                  {...{
-                    rule,
-                    rules,
-                    currentValue,
-                    currentQuestion,
-                    situation,
-                    answeredQuestions,
-                    setSearchParams,
-                    engine,
-                  }}
-                />
-
-                <FormButtons
-                  {...{
-                    currentValue,
-                    rules,
-                    setSearchParams,
-                    encodeSituation,
-                    answeredQuestions,
-                    currentQuestion,
-                    situation,
-                  }}
-                />
-              </AnswerWrapper>
-            </div>
-          </Card>
+          <InputSwitch
+            {...{
+              rule,
+              rules,
+              currentValue,
+              currentQuestion,
+              situation,
+              answeredQuestions,
+              setSearchParams,
+              engine,
+              ruleQuestionType,
+            }}
+          />
         )}
-        <Notifications {...{ currentQuestion, engine }} />
-        <NextQuestions {...{ nextQuestions, rules }} />
-        <div
-          style={css`
-            margin-top: 1vh;
-          `}
-        >
-          <h2>Votre Prime Rénov'</h2>
-          <Results>
-            <Result
-              started={started}
-              index={1}
-              key={'acc'}
-              {...{
-                engine: engine.setSituation(situation),
-                isFinal: !currentQuestion,
-                rules,
-                dottedName: 'MPR . accompagnée',
-              }}
-            />
-            <span>OU</span>
-            <Result
-              started={started}
-              index={2}
-              key={'non acc'}
-              {...{
-                engine: engine.setSituation(situation),
-                isFinal: !currentQuestion,
-                dottedName: 'MPR . non accompagnée',
-                hideNumeric: !currentQuestion?.startsWith('gestes . '),
-                rules,
-              }}
-            />
-          </Results>
-        </div>
       </Section>
-      <Explications {...{ engine, rules, situation }} />
+      <br />
       <Share searchParams={searchParams} />
+      <Section>
+        <h2>Documentation</h2>
+        <p>
+          Si vous êtes experts, vous pouvez parcourir notre{' '}
+          <Link
+            href={
+              '/documentation/MPR/?' +
+              new URLSearchParams(situationSearchParams).toString()
+            }
+          >
+            documentation complète du calcul
+          </Link>
+          .
+        </p>
+      </Section>
     </div>
   )
 }

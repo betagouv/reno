@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 
+function startsWithNumber(str) {
+  return /^\d/.test(str)
+}
+
 export default function AddressSearch({
   setSearchParams,
   situation,
@@ -9,6 +13,7 @@ export default function AddressSearch({
 }) {
   const [input, setInput] = useState(null)
   const [results, setResults] = useState(null)
+  const [clicked, setClicked] = useState(null)
 
   useEffect(() => {
     if (!input || input.length < 3) return
@@ -16,11 +21,13 @@ export default function AddressSearch({
     console.log('input', input)
     const asyncFetch = async () => {
       const request = await fetch(
-        ` https://api.gorenove.fr/v2/gorenove/addresses/search?q=${input}`,
+        startsWithNumber(input)
+          ? `https://geo.api.gouv.fr/communes?codePostal=${input}&boost=population&limit=5`
+          : `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
       )
       const json = await request.json()
 
-      setResults(json.features)
+      setResults(json)
     }
 
     asyncFetch()
@@ -29,18 +36,20 @@ export default function AddressSearch({
   console.log(results)
 
   const setChoice = (result) => {
+    setClicked(result)
+    const codeRegion = result.codeRegion
     const encodedSituation = encodeSituation(
       {
         ...situation,
-        région: `"${result.properties.context.split(', ')[2]}"`,
-        'id ban': `"${result.properties.id}"`,
+        'ménage . code région': `"${codeRegion}"`,
+        'ménage . commune': `"${result.code}"`,
       },
       false,
       answeredQuestions,
     )
     console.log('on change will set encodedSituation', encodedSituation)
 
-    setSearchParams(encodedSituation, false, false)
+    setSearchParams(encodedSituation, 'push', false)
   }
 
   return (
@@ -55,27 +64,31 @@ export default function AddressSearch({
         type="text"
         autoFocus={true}
         value={input}
-        placeholder={'12 rue Victor Hugo Rennes'}
+        placeholder={'commune ou code postal'}
         onChange={(e) => setInput(e.target.value)}
       />
       {results && (
         <ul
           style={css`
-            width: 25rem;
+            margin-top: 0.6rem;
+            width: 20rem;
             max-width: 90vw;
             list-style-type: none;
           `}
         >
           {results.map((result) => (
             <li
-              key={result.properties.x + result.properties.y}
+              key={result.code}
               onClick={() => setChoice(result)}
-              style={css`
+              css={`
                 cursor: pointer;
                 text-align: right;
+                ${clicked &&
+                clicked.code === result.code &&
+                `background: var(--lighterColor)`}
               `}
             >
-              {result.properties.label}
+              {result.nom} <small>{result.codeDepartement}</small>
             </li>
           ))}
         </ul>

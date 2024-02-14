@@ -15,14 +15,21 @@ simulation . mode:
     - 'moyen'
 
 aides:
-  formule:
-    somme:
-      - MPR . accompagnée
-      - MPR . non accompagnée
+  applicable si:
+    est défini: MPR . choix
+  somme:
+    - MPR . accompagnée
+    - MPR . non accompagnée
 
-revenu:
+ménage . revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
+  bornes intelligentes: oui
+  description: |
+    Saisissez le « revenu fiscal de référence » des personnes composant le ménage. 
+
+    Si ces dernières ont des avis d’imposition distincts, le montant à prendre en compte est la somme de leurs « revenus fiscaux de référence ».
+
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
@@ -37,63 +44,110 @@ revenu:
     moyen: 50000 €
     élevé: 80000 €
 
-propriétaire:
-propriétaire . condition:
+vous:
+  titre: Votre situation
+vous . propriétaire:
+vous . propriétaire . condition:
+  titre: Propriétaire
   question: Êtes-vous propriétaire ?
   par défaut: oui
   description: |
-    Pour bénéficier des aides à la rénovation, il faut être dans l'une de ces situations. 
+
+    Pour bénéficier de des aides à la rénovation, il faut être dans l'une de ces situations. 
 
     Situations simples : 
       - propriétaire occupant (vous vivez dans votre logement)
       - propriétaire bailleur (un locataire vit dans votre logement)
 
-    Autres situations éligibles, vous êtes : 
+
+    <br/>
+    <details>
+    <summary>Autres situations éligibles</summary> 
+
+    Vous êtes : 
       - usufruitier
       - titulaires (occupants et bailleurs) d’un droit réel conférant l’usage du bien 
       - preneurs (occupants et bailleurs) d’un bail emphytéotique ou d’un bail à construction 
       - propriétaires en indivision si l’ensemble des propriétaires indivisaires ont signé l’[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l’honneur qui désigne le demandeur pour porter les travaux au nom de l’indivision.
+    </details>
 
-    Situations non éligibles, vous êtes : 
+    <details><summary>Situations non éligibles</summary>
+    Vous êtes : 
       - les nus-propriétaires
       - les personnes morales (par exemple les sociétés civiles immobilières)
+    </details>
 
-propriétaire . astuce:
+vous . propriétaire . astuce:
   type: notification
   sévérité: information
   formule: condition = non
   description: |
     Si vous êtes locataires, vous n'êtes pas éligibles aux aides à la rénovation. 
 
-    **Cependant**, n'hésitez pas à faire cette simulation en tant que propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides 2024.
+    **Cependant**, n'hésitez pas à faire cette simulation comme si vous étiez propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides 2024.
 
-résidence principale:
-  question: Votre logement est-il et restera-t-il une résidence principale ?
+logement:
+  titre: Votre logement
+logement . résidence principale:
+  titre: Résidence principale
+  question: Le logement est-il une résidence principale ?
   par défaut: oui
   description: |
-    Que ce soit votre résidence principale (vous êtes propriétaire occupant), ou celle de votre locataire (propriétaire bailleur), elle doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins suivant la rénovation.
+    Le logement à rénover **doit être une résidence principale**. Les résidences secondaires sont donc exclues.
 
-    Les résidences secondaires sont donc exclues.
+    Que ce soit votre résidence principale (vous êtes propriétaire occupant), ou celle de votre locataire (propriétaire bailleur), elle doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation.
 
     Si vous comptez louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
-année de construction:
+logement . année de construction:
+  titre: Année de construction
   question: De quelle année date la construction de votre logement ?
   par défaut: 1950 # Au hasard, on n'a pas trouvé d'âge moyen
+  #bornes intelligentes: oui
   suggestions:
-    très ancien: 1900
+    : 1900
     trente glorieuses: 1950
     choc pétrolier: 1975
     récent: 2000
     neuf: 2020
 
-âge:
+logement . âge:
   titre: Âge du logement
   formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
 
-personnes:
-  titre: La composition de votre foyer
-  question: Quelle est la composition de votre foyer ?
+logement . période de construction:
+  par défaut: "'au moins 15 ans'"
+  question: De quand date la construction du logement à rénover ?
+  une possibilité parmi:
+    possibilités:
+      - au moins 15 ans
+      - entre 15 et 2 ans
+      - moins de 2 ans
+
+logement . période de construction . au moins 15 ans:
+logement . période de construction . entre 15 et 2 ans:
+logement . période de construction . moins de 2 ans:
+
+logement . condition d'ancienneté:
+  titre: Logement de + de 15 ans
+  formule: période de construction = 'au moins 15 ans'
+
+PTZ . condition d'ancienneté:
+  logement . période de construction != 'moins de 2 ans'
+
+  # Si l'on a besoin dans un second temps d'avoir l'âge exact
+  # âge >= 15
+  ## variations:
+  #TODO outre-mer :  MAR accompagné est réservée à un logement en France métropolitaine
+  #TODO question des mois
+  ## - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
+  ## alors: âge >= 2
+  ## - sinon:
+
+ménage . personnes:
+  titre: La composition de votre ménage
+  question: Quelle est la composition de votre ménage ?
+  unité: personne
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
@@ -105,11 +159,12 @@ personnes:
     couple: 2 personne
     couple + enfant: 3 personne
     couple + 2 enfants: 4 personne
-personnes plus:
-  titre: Personnes de plus qu'un foyer de 5
+
+ménage . personnes plus:
+  titre: Personnes de plus qu'un ménage de 5
   formule: personnes - 5
 
-revenu . classe:
+ménage . revenu . classe:
   formule:
     variations:
       # C'est un court-circuit pour éviter de poser la question des personnes
@@ -119,19 +174,34 @@ revenu . classe:
         alors: barème IdF
       - sinon: barème
 
-région:
-  titre: Votre région
-  question: Dans quelle région se situe votre logement ?
-  par défaut: "'Bretagne'" # La Bretagne, comme toute autre région non francilienne, ouvre l'éligibilité aux aides
-  suggestions:
-    Bretagne: "'Bretagne'"
-    Pays de la Loire: "'Pays de la Loire'"
-    IdF: "'Île-de-France'"
+ménage:
+  titre: Votre ménage
 
-id ban:
+ménage . code région:
+  formule: commune # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
+  par défaut: 53 # La Bretagne, comme toute autre région non francilienne, ouvre l'éligibilité aux aides
+  suggestions:
+    Bretagne: 53
+    Pays de la Loire: 52
+    IdF: 11
+
+ménage . commune:
+  titre: Votre commune
+  question: Dans quelle commune habitez-vous ?
+  description: |
+    Attention, il s'agit de renseigner la commune de *votre ménage*.
+
+    Dans le cas où vous êtes propriétaire bailleur, peu importe la commune du logement pour lequel vous avez un projet de rénovation.
+
+    Cette question nous permet de déterminer votre région, un paramètre clef de l'éligibilité de l'aide, et nous permettra bientôt d'ajouter les aides locales. 
+
+    > 🕵️ Les réponses que vous donnez à ce questionnaire *ne sont pas stockées* sur nos serveur, elles servent uniquement à calculer vos aides réno.
+
+ménage . id ban:
   titre: Identifiant base nationale des adresses (BAN)
 
-région . IdF: région = 'Île-de-France'
+ménage . région:
+ménage . région . IdF: code région = 11
 
 DPE:
   titre: Diagnostic de Performance Énergétique.
@@ -233,7 +303,8 @@ travaux . notification:
 
 travaux:
   titre: Votre enveloppe des travaux
-  question: Quel est l'enveloppe totale hors taxe (HT) de vos travaux ?
+  question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
+  unité: €
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
@@ -244,22 +315,46 @@ travaux:
     moyenne: 40000 €
     haute: 70000 €
   description: |
-    Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, de 5,5 % à 10 %.
+    Attention, renseignez l'enveloppe hors TVA. 
+
+    Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, principalement de 5,5 % et parfois à 10 %.
+  # Je ne suis pas satisfait de cette formule
+  # Elle n'est pas lisible directement, elle résulte d'une inversion de formule à la main
+  # Car il semble y avoir un bug résultant d'un choc entre les mécanismes `plafond` et `résoudre la référence circulaire`
+  # https://github.com/publicodes/publicodes/issues/443
+  formule: investissement / (1 - MPR . accompagnée . pourcent écrêté)
+  plafond: investissement + MPR . accompagnée . pourcent écrêté * travaux . plafond
+  résoudre la référence circulaire: oui
+
+MPR . accompagnée . avance:
+  applicable si:
+    une de ces conditions:
+      - ménage . revenu . classe = 'très modeste'
+      - ménage . revenu . classe = 'modeste'
+  formule: 0.7 * montant
+
+MPR . accompagnée . montant:
+  formule: pourcent écrêté * travaux . plafonnés
+  unité: €
+
+investissement:
+  titre: Votre investissement
+  description: |
+    Le budget dont vous disposez pour investir dans votre projet de rénovation, et qui sera bonifié par les aides si vous y êtes éligible.
+  par défaut: 25000 €
 
 travaux . plafonnés:
-  plafond:
-    variations:
-      - si: sauts = 2
-        alors: 40000 €
-      - si: sauts = 3
-        alors: 55000 €
-      - si: sauts >= 4
-        alors: 70000 €
+  plafond: plafond
   valeur: travaux
 
-condition d'ancienneté:
-  question: Votre logement a-t-il plus de 15 ans (construit avant 2009) ?
-  par défaut: oui
+travaux . plafond:
+  variations:
+    - si: sauts = 2
+      alors: 40000 €
+    - si: sauts = 3
+      alors: 55000 €
+    - si: sauts >= 4
+      alors: 70000 €
 
   # Si l'on a besoin dans un second temps d'avoir l'âge exact
   # âge >= 15
@@ -273,56 +368,66 @@ condition d'ancienneté:
 conditions communes:
   titre: Conditions d'élligibilité de base
   toutes ces conditions:
-    - propriétaire . condition
-    - condition d'ancienneté
-    - résidence principale
+    - vous . propriétaire . condition
+    - logement . condition d'ancienneté
+    - logement . résidence principale
+
 MPR:
   titre: Ma prime rénov'
 
-MPR . non accompagnée . conditions:
-  une de ces conditions:
-    - revenu . classe = "supérieure"
-    - DPE . actuel >= 6 # 1er juillet 2024
-MPR . non accompagnée:
-  description: |
-    Alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez être aidé pour rénover plus progressivement votre logement. 
-
-    Soit en optant pour un chauffage décarboné seul, soit en le complétant avec des gestes d'isolation.
-
-    [En savoir plus](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=15).
-  applicable si: conditions communes
-  non applicable si: conditions
-  valeur: gestes . montant
-  titre: Parcours par geste
-
-explication des 2 aides:
+MPR . choix:
+  question: Vos résultats
   description: |
     Nous avons estimé votre éligibilité générale aux 2 aides Ma Prime Rénov'. 
 
     La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
-  type: question rhétorique
-  par défaut: oui # Peut-être à mettre à oui par défaut pour l'API ?
+  par défaut:
+    texte: accompagnée
+  possibilités:
+    - 'accompagnée'
+    - 'non accompagnée'
+
+MPR . non accompagnée . conditions:
+  une de ces conditions:
+    - ménage . revenu . classe = "supérieure"
+    - DPE . actuel >= 6 # 1er juillet 2024
+
+MPR . non accompagnée:
+  titre: Ma Prime Rénov' **par geste**
+  illustration: mpg.svg
+  alias: Parcours par geste
+  description: |
+    Alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez être aidé pour rénover plus progressivement votre logement. 
+
+    En optant pour un chauffage décarboné seul, ou en le complétant avec des gestes d'isolation.
+
+    [Tous les détails](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=15).
+  applicable si: conditions communes
+  non applicable si: conditions
+  valeur: gestes . montant
 
 gestes: # gestes.yaml
+  titre: Gestes
 
 MPR . accompagnée:
-  titre: Parcours accompagné
+  titre: Ma Prime Rénov' **accompagnée**
+  illustration: mpa.svg
+  alias: Parcours accompagné
   description: |
-    L'aide principale en 2024 pour rénover son logement, c'est celle qui offre le plus d'aide et elle est accessible quel que soit le revenu du foyer. 
+    L'aide principale en 2024 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
 
     Vous serez [accompagné](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov), pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
 
-    [En savoir plus](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
+    [Tous les détails](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
 
   valeur: montant
   applicable si: conditions communes
 
-MPR . accompagnée . montant:
-  formule: pourcent écrêté * travaux . plafonnés
-  unité: €
-
 MPR . accompagnée . bonus . sauts minimum: 3
-MPR . accompagnée . bonus . condition: sauts > sauts minimum
+MPR . accompagnée . bonus . condition:
+  toutes ces conditions:
+    - DPE . visé <= 4
+    - DPE . actuel >= 6
 MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
   description: |
@@ -343,11 +448,11 @@ MPR . accompagnée . pourcent brut:
     variations:
       - si: sauts < sauts minimum
         alors: 0
-      - si: revenu . classe = 'très modeste'
+      - si: ménage . revenu . classe = 'très modeste'
         alors: 60 % + 20 %
-      - si: revenu . classe = 'modeste'
+      - si: ménage . revenu . classe = 'modeste'
         alors: 40 % + 20 %
-      - si: revenu . classe = 'intermédiaire'
+      - si: ménage . revenu . classe = 'intermédiaire'
         alors:
           variations:
             - si: sauts < 3
@@ -368,10 +473,60 @@ MPR . accompagnée . écrêtement:
   description: |
     Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
   variations:
-    - si: revenu . classe = 'très modeste'
+    - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
-    - si: revenu . classe = 'modeste'
+    - si: ménage . revenu . classe = 'modeste'
       alors: 80 %
-    - si: revenu . classe = 'intermédiaire'
+    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 60 %
     - sinon: 40 %
+
+PTZ:
+  applicable si:
+    toutes ces conditions:
+      - logement . résidence principale
+      - condition d'ancienneté
+  titre: Éco-prêt à taux zéro
+  description: |
+
+    L'éco-PTZ est disponible pour une [liste de types de travaux](https://www.economie.gouv.fr/particuliers/eco-pret-a-taux-zero-ptz-renovation-performance-energetique#quels-sont-les-travaux-ligibles-_1).
+
+    En fonction des travaux que vous réalisez, vous pouvez obtenir **jusqu'à 50 000 € de prêt**. La durée de remboursement de ce prêt **peut aller jusqu’à 20 ans**.
+
+
+    Vous devez réaliser des travaux qui répondent à l'une des trois conditions suivantes.
+
+    A) Soit correspondent à au moins une action efficace d’amélioration de la performance énergétique. 
+    <details><summary>Voir la liste</summary>
+      - isolation thermique de la toiture
+      - isolation thermique des murs donnant sur l'extérieur
+      - remplacement d'au moins la moitié des fenêtres en simple vitrage par du double vitrage et remplacement des portes donnant sur l'extérieur
+      - isolation des planchers bas
+      - installation ou remplacement d'un système de chauffage ou de production d'eau chaude sanitaire
+      - installation d'équipements de chauffage utilisant une source d'énergie renouvelable
+      - installation d'équipements de production d'eau chaude sanitaire utilisant une source d'énergie renouvelable.
+
+    </details>
+
+    B) soit ouvrent droit à l’aide MaPrimeRénov’ Parcours accompagné ou à MaPrimeRénov’ mobilisée en parallèle ;
+
+    C) soit permettent d’améliorer d’au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux. Un audit énergétique réalisé par un diagnostiqueur qualifié doit être effectué au préalable pour déterminer les travaux nécessaires.
+
+    Voici le montant maximum d'un prêt par logement : 
+      
+      | Action parois vitrées | Autre  action seule | 2 actions | 3 actions | Prime Rénov' | Performance globale +35% |
+      |-----------------------|:-------------------:|:---------:|:---------:|:------------:|--------------------------|
+      | 7 000 €               | 15 000 €            | 25 000 €  |  30 000 € |     50 000 € | 50 000 €                 |
+      |                       |                     |           |           |              |                          |
+
+    > Si vous bénéficiez de Ma Prime Rénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov’ auprès de votre banque simplement sur la base de la notification d’accord transmise par l’Agence nationale de l’habitat (Anah).
+
+    Il existe aussi un éco-PTZ [pour les copropriétaires](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
+
+    Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
+PTZ . plafond:
+PTZ . montant: 50000 # pour MPR
+
+somme à engager:
+  plancher: 0
+  valeur: travaux - (MPR . accompagnée . avance + 50000)

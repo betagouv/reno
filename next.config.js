@@ -3,11 +3,10 @@ const nextConfig = {
   /* not sure if needed
 		experimental: {
 		serverComponentsExternalPackages: ['publicodes'],
-	},
-		compiler: {
-		styledComponents: true,
-	},
 		*/
+  compiler: {
+    styledComponents: true,
+  },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.

@@ -1,29 +1,19 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
 
-import BooleanMosaic, {
-  isMosaicQuestion,
-  mosaicQuestionText,
-} from './BooleanMosaic'
+import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
+import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 
-import GestesMosaic, {
-  isGestesMosaicQuestion,
-  gestesMosaicQuestionText,
-} from './GestesMosaic'
 import DPESelector from './DPESelector'
-import { Input } from './InputUI'
+import GestesMosaic, { isGestesMosaicQuestion } from './GestesMosaic'
+import Input from './Input'
+import MPRSelector from './MPRSelector'
 import questionType from './publicodes/questionType'
 import { encodeSituation } from './publicodes/situationUtils'
-import { getRuleName } from './publicodes/utils'
+import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
-
-export const getQuestionText = (rule, dottedName, rules) => {
-  if (isMosaicQuestion(dottedName, rule, rules))
-    return gestesMosaicQuestionText(rules, dottedName)
-  const ruleName = getRuleName(dottedName)
-  const text = rule.question || rule.titre || ruleName
-  return text
-}
+import ScenariosSelector from './ScenariosSelector'
+import SmartInput from './SmartInput'
 
 export default function InputSwitch({
   rule,
@@ -34,41 +24,181 @@ export default function InputSwitch({
   setSearchParams,
   engine,
   rules,
+  ruleQuestionType,
 }) {
-  const ruleQuestionType = questionType(rule, rules[currentQuestion])
-  console.log('question type', ruleQuestionType)
-  const defaultValue = currentQuestion && engine.evaluate(currentQuestion)
+  const evaluation = currentQuestion && engine.evaluate(currentQuestion)
 
+  if (rule['bornes intelligentes'])
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+          noSuggestions: true,
+        }}
+      >
+        <SmartInput
+          type={ruleQuestionType}
+          rule={rule}
+          engine={engine}
+          evaluation={evaluation}
+          situation={situation}
+          placeholder={evaluation.nodeValue}
+          value={currentValue == null ? '' : currentValue}
+          name={currentQuestion}
+          onChange={(value) => {
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]: value,
+              },
+              false,
+              answeredQuestions,
+            )
+            setSearchParams(encodedSituation, 'replace', false)
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+
+  if (rule['une possibilité parmi'])
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+          noSuggestions: true,
+        }}
+      >
+        <RadioQuestion
+          rule={rule}
+          engine={engine}
+          evaluation={evaluation}
+          situation={situation}
+          placeholder={evaluation.nodeValue}
+          value={currentValue == null ? '' : currentValue}
+          name={currentQuestion}
+          onChange={(value) => {
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]: `"${value}"`,
+              },
+              false,
+              answeredQuestions,
+            )
+            setSearchParams(encodedSituation, 'replace', false)
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
   if (rule.type === 'question rhétorique')
     return (
-      <RhetoricalQuestion
+      <ClassicQuestionWrapper
         {...{
-          effect: () => setSearchParams({ [currentQuestion]: 'oui' }),
-          situation,
+          rule,
+          currentQuestion,
+          rules,
           answeredQuestions,
-          html: rule.descriptionHtml,
-        }}
-      />
-    )
-  if (currentQuestion === 'région')
-    return (
-      <AddressSearch
-        {...{
+          situation,
           setSearchParams,
-          situation,
-          answeredQuestions,
+          currentValue,
+          engine,
         }}
-      />
+      >
+        <RhetoricalQuestion
+          {...{
+            effect: () => setSearchParams({ [currentQuestion]: 'oui' }),
+            situation,
+            answeredQuestions,
+            html: rule.descriptionHtml,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  if (currentQuestion === 'ménage . commune')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <AddressSearch
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+          }}
+        />
+      </ClassicQuestionWrapper>
     )
 
-  if (['DPE . actuel', 'DPE . visé'].includes(currentQuestion))
+  if (['DPE . actuel'].includes(currentQuestion))
     return (
-      <DPESelector
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <DPESelector
+          {...{
+            currentQuestion,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  if (['DPE . visé', 'travaux', 'investissement'].includes(currentQuestion))
+    return (
+      <ScenariosSelector
         {...{
           currentQuestion,
           setSearchParams,
           situation,
           answeredQuestions,
+          engine,
+          rules,
+        }}
+      />
+    )
+  if (['MPR . choix'].includes(currentQuestion))
+    return (
+      <MPRSelector
+        {...{
+          currentQuestion,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
         }}
       />
     )
@@ -92,63 +222,110 @@ export default function InputSwitch({
   const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
   if (mosaic)
     return (
-      <BooleanMosaic
+      <ClassicQuestionWrapper
         {...{
-          rules,
           rule,
-          engine,
-          situation,
+          currentQuestion,
+          rules,
           answeredQuestions,
+          situation,
           setSearchParams,
-          questions: mosaic,
+          currentValue,
+          engine,
         }}
-      />
+      >
+        <BooleanMosaic
+          {...{
+            rules,
+            rule,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            questions: mosaic,
+          }}
+        />
+      </ClassicQuestionWrapper>
     )
 
   if (ruleQuestionType === 'boolean')
     return (
-      <BinaryQuestion
-        value={currentValue}
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <BinaryQuestion
+          value={currentValue}
+          onChange={(value) => {
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]: value,
+              },
+              false,
+              answeredQuestions,
+            )
+            console.log(
+              'binary question on change will set encodedSituation',
+              encodedSituation,
+            )
+
+            setSearchParams(encodedSituation, 'push', false)
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+
+  return (
+    <ClassicQuestionWrapper
+      {...{
+        rule,
+        currentQuestion,
+        rules,
+        answeredQuestions,
+        situation,
+        setSearchParams,
+        currentValue,
+        engine,
+      }}
+    >
+      <Input
+        type={ruleQuestionType}
+        placeholder={evaluation.nodeValue}
+        value={currentValue == null ? undefined : currentValue}
+        name={currentQuestion}
+        unit={evaluation.unit}
         onChange={(value) => {
           const encodedSituation = encodeSituation(
             {
               ...situation,
-              [currentQuestion]: value,
+              [currentQuestion]:
+                value == undefined
+                  ? undefined
+                  : ruleQuestionType === 'number'
+                    ? value
+                    : `"${value}"`,
             },
             false,
             answeredQuestions,
           )
           console.log(
-            'binary question on change will set encodedSituation',
+            'on change will set encodedSituation',
             encodedSituation,
+            situation,
           )
 
-          setSearchParams(encodedSituation, false, false)
+          setSearchParams(encodedSituation, 'replace', false)
         }}
       />
-    )
-  return (
-    <Input
-      type={ruleQuestionType}
-      placeholder={defaultValue.nodeValue}
-      value={currentValue == null ? '' : currentValue}
-      name={currentQuestion}
-      onChange={(e) => {
-        const encodedSituation = encodeSituation(
-          {
-            ...situation,
-            [currentQuestion]:
-              ruleQuestionType === 'number'
-                ? e.target.value
-                : `"${e.target.value}"`,
-          },
-          false,
-          answeredQuestions,
-        )
-        console.log('on change will set encodedSituation', encodedSituation)
-
-        setSearchParams(encodedSituation, false, false)
-      }}
-    />
+    </ClassicQuestionWrapper>
   )
 }
