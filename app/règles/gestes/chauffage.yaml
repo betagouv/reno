@@ -78,7 +78,7 @@ chauffage . PAC . géo ou solaire . montant:
 chauffage . chauffe-eau solaire:
   par défaut: oui
   titre: Chauffe-eau solaire individuel en Métropole
-  desription: |
+  description: |
     Et dispositifs solaires pour le chauffage de l’eau.
 
 chauffage . chauffe-eau solaire . plafond: 7000 €
@@ -96,7 +96,7 @@ chauffage . chauffe-eau solaire . montant:
 chauffage . solaire combiné:
   par défaut: oui
   titre: Système solaire combiné
-  desription: |
+  description: |
     Et dispositifs solaires pour le chauffage des locaux.
 chauffage . solaire combiné . plafond: 16000 €
 chauffage . solaire combiné . montant:
@@ -112,7 +112,7 @@ chauffage . solaire combiné . montant:
 chauffage . partie thermique PVT eau:
   titre: Partie thermique d’un équipement PVT eau
   par défaut: oui
-  desription: |
+  description: |
     Et dispositifs solaires pour le chauffage des locaux.
 chauffage . partie thermique PVT eau . plafond: 4000 €
 chauffage . partie thermique PVT eau . montant:
