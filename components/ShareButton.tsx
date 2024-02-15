@@ -19,7 +19,7 @@ export default function ShareButton({
 
   const searchParamsString = searchParams.toString()
   const url =
-    'https://réno.fr' +
+    'https://mesaidesreno.beta.gouv.fr' +
     (withAnswers ? pathname : '/introduction') +
     (searchParamsString && withAnswers ? '?' + searchParamsString : '')
 
