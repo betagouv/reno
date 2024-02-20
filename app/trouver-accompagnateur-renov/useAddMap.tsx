@@ -1,6 +1,7 @@
 import maplibregl from 'maplibre-gl'
 import { useEffect, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
+import 'maplibre-gl/dist/maplibre-gl.css'
 
 const defaultCenter =
   // Saint Malo [-1.9890417068124002, 48.66284934737089]
