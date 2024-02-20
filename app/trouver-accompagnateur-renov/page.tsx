@@ -1,17 +1,21 @@
 'use client'
 
+import AddressSearch from '@/components/AddressSearch'
+import useSetSeachParams from '@/components/useSetSearchParams'
 import { useEffect, useRef, useState } from 'react'
 import MapShapes from './MapShape'
 import useAddMap from './useAddMap'
 
-export default function CarteMAR() {
+export default function CarteMAR({ searchParams }) {
+  const { codePostal, codeInsee } = searchParams
   const [data, setData] = useState(null)
   const [location, setLocation] = useState(null)
   const mapContainerRef = useRef(null)
 
-  const codePostal = '35000',
-    codeInsee = '35238'
+  const setSearchParams = useSetSeachParams()
+
   useEffect(() => {
+    if (!codePostal || !codeInsee) return
     const doFetch = async () => {
       const request = await fetch(
         `/trouver-accompagnateur-renov/api?codePostal=${codePostal}&codeInsee=${codeInsee}`,
@@ -36,7 +40,7 @@ export default function CarteMAR() {
       setData(geolocatedData.filter(Boolean))
     }
     doFetch()
-  }, [])
+  }, [codePostal, codeInsee])
 
   const map = useAddMap(mapContainerRef, setLocation)
 
@@ -45,13 +49,26 @@ export default function CarteMAR() {
     <div
       css={`
         display: flex;
-
-        ol {
-          width: 20rem;
-        }
       `}
     >
-      <div>
+      <div
+        css={`
+          width: 30rem;
+          max-width: 90vw;
+          ol {
+          }
+          padding: 0 0.6rem;
+        `}
+      >
+        <AddressSearch
+          setChoice={(result) =>
+            console.log('olive', result) ||
+            setSearchParams({
+              codeInsee: result.code,
+              codePostal: result.codesPostaux[0],
+            })
+          }
+        />
         {data ? (
           <ol>
             {data.map((el) => (
@@ -81,6 +98,8 @@ export default function CarteMAR() {
               </li>
             ))}
           </ol>
+        ) : !codePostal ? (
+          <p>Saisissez votre ville</p>
         ) : (
           <p>Chargement des données...</p>
         )}

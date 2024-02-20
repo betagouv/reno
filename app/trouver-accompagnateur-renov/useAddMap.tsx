@@ -3,10 +3,8 @@ import { useEffect, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
-const defaultCenter =
-  // Saint Malo [-1.9890417068124002, 48.66284934737089]
-  [-1.678, 48.11]
-export const defaultZoom = 8
+const defaultCenter = [1.86, 46.67]
+export const defaultZoom = 4.8
 const defaultHash = `#${defaultZoom}/${defaultCenter[1]}/${defaultCenter[0]}`
 
 export default function useAddMap(mapContainerRef, setLocation) {
