@@ -1,12 +1,16 @@
 'use client'
 
 import AddressSearch from '@/components/AddressSearch'
+import { Card } from '@/components/UI'
 import useSetSeachParams from '@/components/useSetSearchParams'
 import { useEffect, useRef, useState } from 'react'
+import Entreprise from './Entreprise'
 import MapShapes from './MapShape'
+import { Loader } from './UI'
 import useAddMap from './useAddMap'
 
 export default function CarteMAR({ searchParams }) {
+  const [selectedMarker, selectMarker] = useState(null)
   const { codePostal, codeInsee } = searchParams
   const [data, setData] = useState(null)
   const [location, setLocation] = useState(null)
@@ -49,6 +53,8 @@ export default function CarteMAR({ searchParams }) {
     <div
       css={`
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       `}
     >
       <div
@@ -56,6 +62,9 @@ export default function CarteMAR({ searchParams }) {
           width: 30rem;
           max-width: 90vw;
           ol {
+            max-height: 60vh;
+            margin: 1rem 0;
+            overflow: scroll;
           }
           padding: 0 0.6rem;
         `}
@@ -69,48 +78,58 @@ export default function CarteMAR({ searchParams }) {
             })
           }
         />
+        {selectedMarker && (
+          <Card
+            css={`
+              margin: 1rem 0;
+            `}
+          >
+            <Entreprise data={selectedMarker} />
+          </Card>
+        )}
         {data ? (
           <ol>
             {data.map((el) => (
-              <li key={el.raison_sociale}>
-                <div>
-                  <strong>{el.raison_sociale}</strong>
-                </div>
-                <small>
-                  {el.adresse} {el.ville}
-                </small>
-                <div>
-                  <a
-                    href={`tel:${el.tel}`}
-                    title="Contacter cette entreprise par téléphone"
-                  >
-                    {el.tel}
-                  </a>
-                </div>
-                <div>
-                  <a
-                    href={`mailto:${el.email}`}
-                    title="Contacter cette entreprise par courriel"
-                  >
-                    {el.email}
-                  </a>
-                </div>
+              <li
+                key={el.raison_sociale}
+                css={`
+                  ${selectedMarker?.raison_sociale === el.raison_sociale &&
+                  `border: 2px solid var(--color)`}
+                `}
+              >
+                <Entreprise data={el} />
               </li>
             ))}
           </ol>
         ) : !codePostal ? (
           <p>Saisissez votre ville</p>
         ) : (
-          <p>Chargement des données...</p>
+          <div
+            css={`
+              margin: 0.6rem;
+              display: flex;
+              align-items: center;
+              p {
+                margin: 0;
+                padding: 0;
+              }
+            `}
+          >
+            <Loader />
+            <p>Chargement des données...</p>
+          </div>
         )}
       </div>
       <div>
-        {map && data?.length && <MapShapes map={map} marList={data} />}
+        {map && data?.length && (
+          <MapShapes map={map} marList={data} selectMarker={selectMarker} />
+        )}
         <div
           ref={mapContainerRef}
           css={`
             height: 60vh;
-            width: 60vw;
+            max-width: 90vw;
+            width: 60rem;
             margin: 0 auto;
           `}
         />
