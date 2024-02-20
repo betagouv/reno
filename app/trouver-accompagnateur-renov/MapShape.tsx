@@ -1,13 +1,21 @@
 import { useEffect } from 'react'
-import { Marker } from 'maplibre-gl'
+import { Marker, LngLatBounds } from 'maplibre-gl'
 
 export default function MapShapes({ map, marList }) {
   console.log('olive', marList)
   useEffect(() => {
-    marList.filter(Boolean).map((el) => {
-      const marker = new Marker().setLngLat(el.geometry.coordinates).addTo(map)
-      return marker
-    })
+    const bounds = new LngLatBounds()
+    marList
+      .filter((el) => el.geometry)
+      .map((el) => {
+        const marker = new Marker()
+          .setLngLat(el.geometry.coordinates)
+          .addTo(map)
+        bounds.extend(el.geometry.coordinates)
+        return marker
+      })
+
+    map.fitBounds(bounds)
   }, [map, marList])
   return <div></div>
 }

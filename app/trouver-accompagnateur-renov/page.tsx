@@ -29,11 +29,11 @@ export default function CarteMAR() {
           const request = await fetch(encodeURI(url))
           const json = await request.json()
 
-          return json.features[0] // only take the first result for now
+          return { ...el, ...(json.features[0] || {}) } // only take the first result for now
         }),
       )
       // We tried doing it on the server side, it failed with 404 not found nginx html messages
-      setData(geolocatedData)
+      setData(geolocatedData.filter(Boolean))
     }
     doFetch()
   }, [])
@@ -42,16 +42,60 @@ export default function CarteMAR() {
 
   console.log('olive', data)
   return (
-    <div>
-      {map && data?.length && <MapShapes map={map} marList={data} />}
-      <div
-        ref={mapContainerRef}
-        css={`
-          height: 80vh;
-          width: 90vw;
-          margin: 0 auto;
-        `}
-      />
+    <div
+      css={`
+        display: flex;
+
+        ol {
+          width: 20rem;
+        }
+      `}
+    >
+      <div>
+        {data ? (
+          <ol>
+            {data.map((el) => (
+              <li key={el.raison_sociale}>
+                <div>
+                  <strong>{el.raison_sociale}</strong>
+                </div>
+                <small>
+                  {el.adresse} {el.ville}
+                </small>
+                <div>
+                  <a
+                    href={`tel:${el.tel}`}
+                    title="Contacter cette entreprise par téléphone"
+                  >
+                    {el.tel}
+                  </a>
+                </div>
+                <div>
+                  <a
+                    href={`mailto:${el.email}`}
+                    title="Contacter cette entreprise par courriel"
+                  >
+                    {el.email}
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p>Chargement des données...</p>
+        )}
+      </div>
+      <div>
+        {map && data?.length && <MapShapes map={map} marList={data} />}
+        <div
+          ref={mapContainerRef}
+          css={`
+            height: 60vh;
+            width: 60vw;
+            margin: 0 auto;
+          `}
+        />
+      </div>
     </div>
   )
 }
