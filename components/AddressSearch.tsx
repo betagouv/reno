@@ -1,16 +1,11 @@
 import { useEffect, useState } from 'react'
 import css from './css/convertToJs'
-import { encodeSituation } from './publicodes/situationUtils'
 
 function startsWithNumber(str) {
   return /^\d/.test(str)
 }
 
-export default function AddressSearch({
-  setSearchParams,
-  situation,
-  answeredQuestions,
-}) {
+export default function AddressSearch({ setChoice }) {
   const [input, setInput] = useState(null)
   const [results, setResults] = useState(null)
   const [clicked, setClicked] = useState(null)
@@ -32,25 +27,6 @@ export default function AddressSearch({
 
     asyncFetch()
   }, [input])
-
-  console.log(results)
-
-  const setChoice = (result) => {
-    setClicked(result)
-    const codeRegion = result.codeRegion
-    const encodedSituation = encodeSituation(
-      {
-        ...situation,
-        'ménage . code région': `"${codeRegion}"`,
-        'ménage . commune': `"${result.code}"`,
-      },
-      false,
-      answeredQuestions,
-    )
-    console.log('on change will set encodedSituation', encodedSituation)
-
-    setSearchParams(encodedSituation, 'push', false)
-  }
 
   return (
     <div
@@ -79,7 +55,10 @@ export default function AddressSearch({
           {results.map((result) => (
             <li
               key={result.code}
-              onClick={() => setChoice(result)}
+              onClick={() => {
+                setClicked(result)
+                setChoice(result)
+              }}
               css={`
                 cursor: pointer;
                 text-align: right;

@@ -1,5 +1,6 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
+import { encodeSituation } from './publicodes/situationUtils'
 
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
@@ -8,8 +9,6 @@ import DPESelector from './DPESelector'
 import GestesMosaic, { isGestesMosaicQuestion } from './GestesMosaic'
 import Input from './Input'
 import MPRSelector from './MPRSelector'
-import questionType from './publicodes/questionType'
-import { encodeSituation } from './publicodes/situationUtils'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
@@ -144,6 +143,20 @@ export default function InputSwitch({
       >
         <AddressSearch
           {...{
+            setChoice = (result) => {
+              const codeRegion = result.codeRegion
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  'ménage . code région': `"${codeRegion}"`,
+                  'ménage . commune': `"${result.code}"`,
+                },
+                false,
+                answeredQuestions,
+              )
+
+              setSearchParams(encodedSituation, 'push', false)
+            },
             setSearchParams,
             situation,
             answeredQuestions,
