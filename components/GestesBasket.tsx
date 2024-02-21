@@ -31,6 +31,7 @@ export default function GestesBasket({
   const missingValues = nextQuestions.find(
     (question) => situation[question] == undefined,
   )
+  console.log({ missingValues })
   return (
     <div>
       <h2>Votre panier de gestes</h2>
@@ -79,7 +80,7 @@ export default function GestesBasket({
               width: 10rem;
               margin: 0;
               margin-left: auto;
-              ${missingValues && `filter: blur(3px);`}
+              ${missingValues && `filter: blur(1.5px);`}
             }
           `}
         >
@@ -106,7 +107,6 @@ const Question = ({
   const evaluation = engine.evaluate(question),
     currentValue = situation[question]
   const setSearchParams = useSetSeachParams()
-  console.log({ evaluation })
   return (
     <div
       css={`
@@ -140,13 +140,8 @@ const Question = ({
               false,
               answeredQuestions,
             )
-            console.log(
-              'on change will set encodedSituation',
-              encodedSituation,
-              situation,
-            )
 
-            setSearchParams(encodedSituation, 'replace', false)
+            setSearchParams(encodedSituation, 'push', false)
           }}
         />
       </label>
