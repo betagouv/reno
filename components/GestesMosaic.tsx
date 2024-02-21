@@ -197,7 +197,11 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
     const questionRule = rules[dottedName]
 
     const montant = dottedName + ' . montant',
-      montantValue = formatValue(safeEngine.evaluate(montant))
+      barème = dottedName + ' . barème'
+
+    const relevant = rules[barème] ? barème : montant
+
+    const montantValue = formatValue(safeEngine.evaluate(relevant))
 
     const plafond = dottedName + ' . plafond',
       plafondValue = formatValue(safeEngine.evaluate(plafond))
