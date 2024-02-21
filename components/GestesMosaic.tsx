@@ -1,10 +1,13 @@
+import rules from '@/app/règles/rules'
+import Link from 'next/link'
+import Image from 'next/image'
+import Engine, { formatValue } from 'publicodes'
 import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
-import Engine, { formatValue } from 'publicodes'
-import rules from '@/app/règles/rules'
 import { Value } from './ScenariosSelector'
+import { CTA, CTAWrapper } from './UI'
 
 export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
   const localIsMosaic = (dottedName, rule) =>
@@ -186,6 +189,33 @@ export default function GestesMosaic({
           ))}
         </ul>
       </Fieldset>
+
+      <CTAWrapper>
+        <CTA>
+          {' '}
+          <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
+            <span
+              css={`
+                img {
+                  filter: invert(1);
+                  width: 1.6rem;
+                  margin-right: 0.6rem;
+                  height: auto;
+                  vertical-align: bottom;
+                }
+              `}
+            >
+              <Image
+                src="/check.svg"
+                width="10"
+                height="10"
+                alt="Icône coche pleine"
+              />
+              Suivant
+            </span>
+          </Link>
+        </CTA>
+      </CTAWrapper>
     </div>
   )
 }
@@ -201,7 +231,10 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
 
     const relevant = rules[barème] ? barème : montant
 
-    const montantValue = formatValue(safeEngine.evaluate(relevant))
+    const montantValue = formatValue(safeEngine.evaluate(relevant)).replace(
+      'm2',
+      'm²',
+    )
 
     const plafond = dottedName + ' . plafond',
       plafondValue = formatValue(safeEngine.evaluate(plafond))
