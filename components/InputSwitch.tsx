@@ -143,7 +143,7 @@ export default function InputSwitch({
       >
         <AddressSearch
           {...{
-            setChoice = (result) => {
+            setChoice: (result) => {
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
