@@ -92,12 +92,13 @@ export default function GestesMosaic({
           max-width: 30rem;
           margin: 0 0 0 auto;
           color: #666;
+          line-height: 1.1rem;
         `}
       >
         <small>
           Lecture : pour chaque geste, une prime de <Prime value={'xxx €'} />{' '}
-          sera versée si le montant du geste est en-dessous d'un plafond
-          maximum.
+          sera versée si le montant du geste est en-dessous du plafond maximum{' '}
+          <em>max €</em>.
         </small>
       </p>
       <div
