@@ -90,6 +90,7 @@ export default function Form({ searchParams, rules }) {
               setSearchParams,
               engine,
               ruleQuestionType,
+              nextQuestions,
             }}
           />
         )}

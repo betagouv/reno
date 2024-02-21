@@ -1,26 +1,26 @@
 import rules from '@/app/règles/rules'
-import Link from 'next/link'
 import Image from 'next/image'
-import Engine, { formatValue } from 'publicodes'
+import Link from 'next/link'
+import { formatValue } from 'publicodes'
 import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
+import Geste, { Prime } from './Geste'
 import { encodeSituation } from './publicodes/situationUtils'
-import { getRuleName } from './publicodes/utils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
 
-export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
-  const localIsMosaic = (dottedName, rule) =>
-    dottedName.startsWith('gestes . ') &&
-    rule &&
-    ['oui', 'non'].includes(rule['par défaut'])
-  if (!localIsMosaic(currentQuestion, rule)) return false
+const localIsMosaic = (dottedName, rule) =>
+  dottedName.startsWith('gestes . ') &&
+  rule &&
+  ['oui', 'non'].includes(rule['par défaut'])
 
-  const questions = Object.entries(rules).filter(([dottedName, rule]) =>
-    localIsMosaic(dottedName, rule),
-  )
-  return questions
+export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
+  return localIsMosaic(currentQuestion, rule)
 }
+
+export const gestesMosaicQuestions = Object.entries(rules).filter(
+  ([dottedName, rule]) => localIsMosaic(dottedName, rule),
+)
 
 export const gestesMosaicQuestionText = (rules, currentQuestion) => {
   const rule = rules['gestes . montant']
@@ -88,7 +88,7 @@ export default function GestesMosaic({
     value = formatValue(evaluation)
 
   const nextUrl = setSearchParams(
-    encodeSituation(situation, false, [
+    encodeSituation(runSituation, false, [
       ...answeredQuestions,
       ...questions.map((q) => q[0]),
     ]),
@@ -228,24 +228,8 @@ export default function GestesMosaic({
   )
 }
 
-const safeEngine = new Engine(rules)
-
 const Checkboxes = ({ questions, rules, onChange, situation }) => {
   return questions.map((dottedName) => {
-    const questionRule = rules[dottedName]
-
-    const montant = dottedName + ' . montant',
-      barème = dottedName + ' . barème'
-
-    const relevant = rules[barème] ? barème : montant
-
-    const montantValue = formatValue(safeEngine.evaluate(relevant)).replace(
-      'm2',
-      'm²',
-    )
-
-    const plafond = dottedName + ' . plafond',
-      plafondValue = formatValue(safeEngine.evaluate(plafond))
     return (
       <li
         key={dottedName}
@@ -263,30 +247,9 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
             checked={situation[dottedName] === 'oui'}
             onChange={() => onChange(dottedName)}
           />
-          <div>
-            <div>{questionRule.titre || getRuleName(dottedName)}</div>
-
-            <small style={css``}>
-              <Prime value={`${montantValue}`} /> pour max. {plafondValue}
-            </small>
-          </div>
+          <Geste {...{ rules, dottedName }} />
         </label>
       </li>
     )
   })
 }
-
-const Prime = ({ value }) => (
-  <span
-    style={css`
-      color: rgb(11, 73, 48);
-      background: #c4fad5;
-      border: 1px solid rgb(128, 202, 151);
-      padding: 0 0.3rem;
-      border-radius: 0.2rem;
-      white-space: nowrap;
-    `}
-  >
-    {value}
-  </span>
-)

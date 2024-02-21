@@ -6,13 +6,17 @@ import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 
 import DPESelector from './DPESelector'
-import GestesMosaic, { isGestesMosaicQuestion } from './GestesMosaic'
+import GestesMosaic, {
+  gestesMosaicQuestions,
+  isGestesMosaicQuestion,
+} from './GestesMosaic'
 import Input from './Input'
 import MPRSelector from './MPRSelector'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
 import SmartInput from './SmartInput'
+import GestesBasket from './GestesBasket'
 
 export default function InputSwitch({
   rule,
@@ -24,7 +28,10 @@ export default function InputSwitch({
   engine,
   rules,
   ruleQuestionType,
+  nextQuestions,
 }) {
+  console.log({ currentQuestion })
+
   const evaluation = currentQuestion && engine.evaluate(currentQuestion)
 
   if (rule['bornes intelligentes'])
@@ -216,8 +223,8 @@ export default function InputSwitch({
       />
     )
 
-  const gestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
-  if (gestesMosaic)
+  const isGestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
+  if (isGestesMosaic)
     return (
       <GestesMosaic
         {...{
@@ -227,10 +234,29 @@ export default function InputSwitch({
           situation,
           answeredQuestions,
           setSearchParams,
-          questions: gestesMosaic,
+          questions: gestesMosaicQuestions,
         }}
       />
     )
+
+  if (
+    currentQuestion.startsWith('gestes . ') &&
+    !gestesMosaicQuestions.includes(currentQuestion)
+  ) {
+    return (
+      <GestesBasket
+        {...{
+          rules,
+          rule,
+          engine,
+          situation,
+          answeredQuestions,
+          nextQuestions,
+          setSearchParams,
+        }}
+      />
+    )
+  }
   // We kept the latter component before it got really specialized. TODO not completely functional
   const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
   if (mosaic)

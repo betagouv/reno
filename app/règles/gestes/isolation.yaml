@@ -15,6 +15,7 @@ isolation . vitres . montant: barème * quantité
 isolation . vitres . quantité:
   question: Combien de parois vitrées voulez-vous isoler ?
   par défaut: 4 équipement
+  unité: équipements
 
 isolation . vitres . plafond: 1000 €/m2
 isolation . vitres . barème:
@@ -32,6 +33,7 @@ isolation . murs extérieurs:
 isolation . murs extérieurs . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+  unité: m2
 
 isolation . murs extérieurs . montant: surface * barème
 isolation . murs extérieurs . plafond: 150 €/m2
@@ -51,6 +53,7 @@ isolation . murs intérieurs:
 isolation . murs intérieurs . surface:
   question: Quelle surface de murs intérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+  unité: m2
 
 isolation . murs intérieurs . montant: surface * barème
 isolation . murs intérieurs . plafond: 70 €/m2
@@ -70,6 +73,7 @@ isolation . rampants:
 isolation . rampants . surface:
   question: Quelle surface de rampants voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+  unité: m2
 
 isolation . rampants . montant: surface * barème
 isolation . rampants . plafond: 75 €/m2
@@ -88,6 +92,7 @@ isolation . toitures terrasses:
 isolation . toitures terrasses . surface:
   question: Quelle surface de toiture terrasses voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+  unité: m2
 
 isolation . toitures terrasses . montant: surface * barème
 isolation . toitures terrasses . plafond: 180 €/m2
