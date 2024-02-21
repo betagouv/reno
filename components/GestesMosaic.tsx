@@ -107,15 +107,16 @@ export default function GestesMosaic({
           > div {
             text-align: center;
             border: 2px solid #7eb48f;
-            padding: 0.2rem 0.4rem;
+            padding: 0.4rem 0rem;
             background: #c4fad5;
-            width: 10rem;
+            border-radius: 0.4rem;
+            width: 6rem;
             margin: 0;
             margin-left: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 120%;
+            font-size: 140%;
             img {
               width: 1.4rem;
               height: auto;
@@ -136,6 +137,7 @@ export default function GestesMosaic({
       </div>
       <div
         css={`
+          margin-top: 1rem;
           p {
             max-width: 35rem;
             color: #666;
