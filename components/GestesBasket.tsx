@@ -27,6 +27,10 @@ export default function GestesBasket({
       .setSituation(situation)
       .evaluate('gestes . montant'),
     total = formatValue(evaluation)
+
+  const missingValues = nextQuestions.find(
+    (question) => situation[question] == undefined,
+  )
   return (
     <div>
       <h2>Votre panier de gestes</h2>
@@ -55,23 +59,32 @@ export default function GestesBasket({
           </li>
         ))}
       </ul>
-      <div
-        css={`
-          margin-top: 0.6rem;
-          position: sticky;
-          top: 2rem;
-          > div {
-            text-align: center;
-            border: 2px solid #7eb48f;
-            padding: 0.2rem 0.4rem;
-            background: #c4fad5;
-            width: 10rem;
-            margin: 0;
-            margin-left: auto;
-          }
-        `}
-      >
-        <div>Estimation totale ~ {total}</div>
+      <div>
+        {missingValues && (
+          <p>
+            💡 Répondez aux questions ci-dessus pour obtenir une estimatoin de
+            l'aide totale.
+          </p>
+        )}
+        <div
+          css={`
+            margin-top: 0.6rem;
+            position: sticky;
+            top: 2rem;
+            > div {
+              text-align: center;
+              border: 2px solid #7eb48f;
+              padding: 0.2rem 0.4rem;
+              background: #c4fad5;
+              width: 10rem;
+              margin: 0;
+              margin-left: auto;
+              ${missingValues && `filter: blur(3px);`}
+            }
+          `}
+        >
+          <div>Estimation totale ~ {total}</div>
+        </div>
       </div>
     </div>
   )
