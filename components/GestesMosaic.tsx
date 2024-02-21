@@ -202,7 +202,7 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
             <div>{questionRule.titre || getRuleName(dottedName)}</div>
 
             <small style={css``}>
-              <Prime value={`- ${montantValue}`} /> sur max. {plafondValue}
+              <Prime value={`${montantValue}`} /> pour max. {plafondValue}
             </small>
           </div>
         </label>
@@ -216,6 +216,7 @@ const Prime = ({ value }) => (
     style={css`
       color: rgb(11, 73, 48);
       background: #c4fad5;
+      border: 1px solid rgb(128, 202, 151);
       padding: 0 0.3rem;
       border-radius: 0.2rem;
       white-space: nowrap;
