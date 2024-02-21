@@ -2,9 +2,10 @@ const boundary = `123457`
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
-  const codePostal = searchParams.get('codePostal')
   const codeInsee = searchParams.get('codeInsee')
 
+  const codePostal = '00000'
+  // codePostal and city name looks useless in this request
   const body = `-----------------------------${boundary}\r\nContent-Disposition: form-data; name=\"localisation\"\r\n\r\n${codePostal} - Rennes\r\n-----------------------------${boundary}\r\nContent-Disposition: form-data; name=\"insee\"\r\n\r\n${codeInsee}\r\n-----------------------------${boundary}--\r\n`
 
   const externalRequest = await fetch(

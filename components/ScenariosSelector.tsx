@@ -1,4 +1,5 @@
 'use client'
+import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import data from '@/components/DPE.yaml'
 import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
@@ -10,7 +11,6 @@ import DPELabel from './DPELabel'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
 import Input from './Input'
-import MARFinder from './MarFinder'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
@@ -481,7 +481,7 @@ export default function ScenariosSelector({
         </details>
         <details>
           <summary open={false}>Où trouver mon accompagnateur rénov' ?</summary>
-          <MARFinder />
+          <MarSearch codeInsee={situation['ménage . commune']} />
         </details>
         <details>
           <summary open={false}>Qui paie l'Accompagnateur Rénov' ?</summary>
