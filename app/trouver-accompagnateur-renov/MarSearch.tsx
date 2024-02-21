@@ -8,6 +8,7 @@ import Entreprise from './Entreprise'
 import MapShapes from './MapShape'
 import { Loader } from './UI'
 import useAddMap from './useAddMap'
+import computeDistance from '@turf/distance'
 
 export default function MarSearch({ codeInsee: givenCodeInsee }) {
   const [selectedMarker, selectMarker] = useState(null)
@@ -27,6 +28,12 @@ export default function MarSearch({ codeInsee: givenCodeInsee }) {
       )
       const data = await request.json()
 
+      // Temporary, should be done once properly in the form, maybe with the exact adress to find the closest MAR
+      const coordinatesRequest = await fetch(
+        `https://geo.api.gouv.fr/communes?code=${codeInsee}&format=geojson`,
+      )
+      const coordinates = await coordinatesRequest.json()
+
       const geolocatedData = await Promise.all(
         data.map(async (el) => {
           const url =
@@ -41,8 +48,17 @@ export default function MarSearch({ codeInsee: givenCodeInsee }) {
           return { ...el, ...(json.features[0] || {}) } // only take the first result for now
         }),
       )
+      const plainData = geolocatedData.filter(Boolean)
+      const centre = coordinates?.features[0]
+      if (!centre) return setData(plainData)
+
+      const filtered = plainData.filter((el) => {
+        const distance = computeDistance(centre, el)
+        console.log('red', distance, centre, el)
+        return distance < 200
+      })
       // We tried doing it on the server side, it failed with 404 not found nginx html messages
-      setData(geolocatedData.filter(Boolean))
+      setData(filtered)
     }
     doFetch()
   }, [codeInsee])

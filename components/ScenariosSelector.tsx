@@ -481,7 +481,9 @@ export default function ScenariosSelector({
         </details>
         <details>
           <summary open={false}>Où trouver mon accompagnateur rénov' ?</summary>
-          <MarSearch codeInsee={situation['ménage . commune']} />
+          <MarSearch
+            codeInsee={situation['ménage . commune'].replace(/'/g, '')}
+          />
         </details>
         <details>
           <summary open={false}>Qui paie l'Accompagnateur Rénov' ?</summary>
