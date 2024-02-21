@@ -87,6 +87,15 @@ export default function GestesMosaic({
       .evaluate('gestes . montant'),
     value = formatValue(evaluation)
 
+  const nextUrl = setSearchParams(
+    encodeSituation(situation, false, [
+      ...answeredQuestions,
+      ...questions.map((q) => q[0]),
+    ]),
+    'url',
+    false,
+  )
+
   return (
     <div>
       <h2>Quels gestes vous intéressent ?</h2>
@@ -192,8 +201,7 @@ export default function GestesMosaic({
 
       <CTAWrapper>
         <CTA>
-          {' '}
-          <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
+          <Link href={nextUrl}>
             <span
               css={`
                 img {
