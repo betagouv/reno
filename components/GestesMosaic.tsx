@@ -82,10 +82,10 @@ export default function GestesMosaic({
   )
   console.log(nullSituation)
   const runSituation = { ...nullSituation, ...situation }
-  const evaluation = engine
-      .setSituation(runSituation)
-      .evaluate('gestes . montant'),
-    value = formatValue(evaluation)
+
+  const count = questions.filter(
+    ([dottedName]) => situation[dottedName] === 'oui',
+  ).length
 
   const nextUrl = setSearchParams(
     encodeSituation(runSituation, false, [
@@ -112,10 +112,27 @@ export default function GestesMosaic({
             width: 10rem;
             margin: 0;
             margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120%;
+            img {
+              width: 1.4rem;
+              height: auto;
+              margin-right: 0.4rem;
+            }
           }
         `}
       >
-        <div>Estimation ~ {value}</div>
+        <div>
+          <Image
+            src="/basket.svg"
+            alt="Symbole d'un représentant vos gestes choisis"
+            width="10"
+            height="10"
+          />
+          <span>{count}</span>
+        </div>
       </div>
       <div
         css={`
