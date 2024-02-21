@@ -387,23 +387,24 @@ MPR . choix:
     - 'accompagnée'
     - 'non accompagnée'
 
-MPR . non accompagnée . conditions:
+MPR . non accompagnée . conditions excluantes:
   une de ces conditions:
     - ménage . revenu . classe = "supérieure"
-    - DPE . actuel >= 6 # 1er juillet 2024
+      #    - DPE . actuel >= 6
+      # cette deuxième condition serait finalement encore décalée plus loin que le 1er juillet 2024
 
 MPR . non accompagnée:
   titre: Ma Prime Rénov' **par geste**
   illustration: mpg.svg
   alias: Parcours par geste
   description: |
-    Alternative au parcours accompagné, si votre logement n'est pas une passoire thermique, vous pouvez être aidé pour rénover plus progressivement votre logement. 
+    Alternative au parcours accompagné, vous pouvez être aidé pour rénover plus progressivement votre logement. 
 
     En optant pour un chauffage décarboné seul, ou en le complétant avec des gestes d'isolation.
 
     [Tous les détails](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=15).
   applicable si: conditions communes
-  non applicable si: conditions
+  non applicable si: conditions excluantes
   valeur: gestes . montant
 
 gestes: # gestes.yaml

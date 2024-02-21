@@ -11,7 +11,7 @@ export default function ParGeste({ rules, engine }) {
       <P>
         Vous{' '}
         <Value
-          name={'MPR . non accompagnée . conditions'}
+          name={'MPR . non accompagnée . conditions excluantes'}
           engine={engine}
           display={(value) => (value ? 'êtes' : "n'êtes pas")}
         />{' '}

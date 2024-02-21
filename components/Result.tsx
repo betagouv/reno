@@ -38,7 +38,10 @@ export default function Result({
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
   console.log('result', evaluation)
-  console.log('condi', engine.evaluate('MPR . non accompagnée . conditions'))
+  console.log(
+    'condi',
+    engine.evaluate('MPR . non accompagnée . conditions excluantes'),
+  )
 
   const value = formatValue(evaluation, { precision: 0 })
   const isNotApplicable =
