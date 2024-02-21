@@ -119,9 +119,9 @@ export default function GestesMosaic({
       >
         <p>
           <small>
-            Pour chaque geste ci-dessous, une prime de <Prime value={'xxx €'} />{' '}
-            est disponible si le montant du geste est en-dessous du plafond
-            maximum <em>max €</em>.
+            Pour chaque geste ci-dessous, une <Prime value={'prime'} /> est
+            disponible si le montant du geste est en-dessous du plafond{' '}
+            <em>max</em>.
           </small>
         </p>
         <p>
