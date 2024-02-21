@@ -643,7 +643,7 @@ const Avance = ({ engine, rules, choice, situation }) => {
   )
 }
 
-const Value = ({ engine, index, situation, dottedName, state }) => {
+export const Value = ({ engine, index, situation, dottedName, state }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
     value = formatValue(evaluation, { precision: 0 })
   const missingVariables = evaluation.missingVariables

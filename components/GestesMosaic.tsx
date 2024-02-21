@@ -4,6 +4,7 @@ import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
 import Engine, { formatValue } from 'publicodes'
 import rules from '@/app/règles/rules'
+import { Value } from './ScenariosSelector'
 
 export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
   const localIsMosaic = (dottedName, rule) =>
@@ -86,21 +87,6 @@ export default function GestesMosaic({
   return (
     <div>
       <h2>Quels gestes vous intéressent ?</h2>
-      <p
-        css={`
-          text-align: right;
-          max-width: 30rem;
-          margin: 0 0 0 auto;
-          color: #666;
-          line-height: 1.1rem;
-        `}
-      >
-        <small>
-          Lecture : pour chaque geste, une prime de <Prime value={'xxx €'} />{' '}
-          sera versée si le montant du geste est en-dessous du plafond maximum{' '}
-          <em>max €</em>.
-        </small>
-      </p>
       <div
         css={`
           margin-top: 0.6rem;
@@ -118,6 +104,40 @@ export default function GestesMosaic({
         `}
       >
         <div>Estimation ~ {value}</div>
+      </div>
+      <div
+        css={`
+          p {
+            max-width: 35rem;
+            color: #666;
+            line-height: 1.1rem;
+            em {
+              display: inline;
+            }
+          }
+        `}
+      >
+        <p>
+          <small>
+            Pour chaque geste ci-dessous, une prime de <Prime value={'xxx €'} />{' '}
+            est disponible si le montant du geste est en-dessous du plafond
+            maximum <em>max €</em>.
+          </small>
+        </p>
+        <p>
+          <small>
+            Les primes sont personnalisées pour votre classe de revenu{' '}
+            <Value
+              {...{
+                engine,
+                situation: { ...situation },
+                dottedName: 'ménage . revenu . classe',
+                state: 'final',
+              }}
+            />
+            .
+          </small>
+        </p>
       </div>
       <Fieldset>
         <ul>
