@@ -2,17 +2,17 @@ montant:
   question: Quels gestes envisagez-vous ?
   mosaïque: oui
   somme:
+    - recommandés
     - chauffage
     - isolation
     - ventilation
-    - autres
 
-autres:
-  titre: Divers
+recommandés:
+  titre: ⭐️ Recommandés
   somme:
     - audit . montant
 
-autres . audit:
+recommandés . audit:
   par défaut: oui
   titre: Audit énergétique
   description: |
@@ -20,9 +20,9 @@ autres . audit:
 
     À noter, pour les appartements en copro de 50 lots ou plus et équipés d'un chauffage ou refroidissement collectif, construits avant 2001, l'audit est obligatoire et ne sera pas financé par Ma Prime Rénov'. Voir [cet article de loi](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000022493232/2019-11-10).
 
-autres . audit . plafond:
+recommandés . audit . plafond:
   valeur: 800 €
-autres . audit . montant:
+recommandés . audit . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 500 €
