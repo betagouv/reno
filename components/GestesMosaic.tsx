@@ -7,6 +7,7 @@ import Geste, { Prime } from './Geste'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
+import { omit } from './utils'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -102,11 +103,17 @@ export default function GestesMosaic({
     'url',
     false,
   )
+  const resetSituation = omit(
+    questions.map((q) => q[0]),
+    situation,
+  )
+  console.log('null situation', resetSituation)
   const resetUrl = setSearchParams(
-    encodeSituation(nullSituation, false, answeredQuestions),
+    encodeSituation(resetSituation, false, answeredQuestions),
     'url',
     false,
   )
+  const safeEngine = engine.setSituation(resetSituation)
 
   return (
     <div>
@@ -204,7 +211,7 @@ export default function GestesMosaic({
                       rules,
                       onChange,
                       situation,
-                      engine,
+                      engine: safeEngine,
                     }}
                   />
                   {entries
@@ -224,7 +231,7 @@ export default function GestesMosaic({
                                 rules,
                                 onChange,
                                 situation,
-                                engine,
+                                engine: safeEngine,
                               }}
                             />
                           </ul>
@@ -286,7 +293,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
             checked={situation[dottedName] === 'oui'}
             onChange={() => onChange(dottedName)}
           />
-          <Geste {...{ rules, dottedName, engine }} />
+          <Geste {...{ rules, dottedName, engine: engine.setSituation() }} />
         </label>
       </li>
     )

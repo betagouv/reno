@@ -14,18 +14,18 @@ isolation . vitres:
 isolation . vitres . montant: barème * quantité
 isolation . vitres . quantité:
   question: Combien de parois vitrées voulez-vous isoler ?
-  par défaut: 4 équipement
+  par défaut: 4 équipements
   unité: équipements
 
 isolation . vitres . plafond: 1000 €/m2
 isolation . vitres . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 100 €/équipement
+      alors: 100 €/équipements
     - si: ménage . revenu . classe = 'modeste'
-      alors: 80 €/équipement
+      alors: 80 €/équipements
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 40 €/équipement
+      alors: 40 €/équipements
     - sinon: 0 €
 isolation . murs extérieurs:
   titre: Isolation des murs par l'extérieur
