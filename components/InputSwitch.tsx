@@ -223,6 +223,7 @@ export default function InputSwitch({
       />
     )
 
+  console.log('yellow', gestesMosaicQuestions)
   const isGestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
   if (isGestesMosaic)
     return (

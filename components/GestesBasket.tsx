@@ -31,7 +31,7 @@ export default function GestesBasket({
   const missingValues = nextQuestions.find(
     (question) => situation[question] == undefined,
   )
-  console.log({ missingValues })
+  console.log('yellow missing', { missingValues, nextQuestions })
   return (
     <div>
       <h2>Votre panier de gestes</h2>

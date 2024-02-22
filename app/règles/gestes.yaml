@@ -4,8 +4,8 @@ montant:
   somme:
     - recommandés
     - chauffage
-    - isolation
     - ventilation
+    - isolation
 
 recommandés:
   titre: ⭐️ Recommandés
@@ -34,7 +34,8 @@ recommandés . audit . montant:
 
 ventilation:
   titre: Ventilation
-  formule: double flux
+  somme:
+    - double flux
 
 ventilation . double flux:
   titre: Ventilation double flux

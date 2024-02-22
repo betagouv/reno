@@ -53,6 +53,7 @@ export default function Form({ searchParams, rules }) {
       simulationConfig,
       rules,
     )
+  console.log('yellow nextQuestions', nextQuestions, answeredQuestions)
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 

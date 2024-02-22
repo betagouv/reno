@@ -8,6 +8,7 @@ import Geste, { Prime } from './Geste'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
+import { omit } from './utils'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -102,6 +103,11 @@ export default function GestesMosaic({
     'url',
     false,
   )
+  const resetUrl = setSearchParams(
+    encodeSituation(nullSituation, false, answeredQuestions),
+    'url',
+    false,
+  )
 
   return (
     <div>
@@ -175,6 +181,13 @@ export default function GestesMosaic({
             .
           </small>
         </p>
+      </div>
+      <div
+        css={`
+          text-align: right;
+        `}
+      >
+        <Link href={resetUrl}>Tout décocher</Link>
       </div>
       <Fieldset>
         <ul>
