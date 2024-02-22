@@ -113,10 +113,9 @@ export default function GestesMosaic({
           top: 2rem;
           > div {
             text-align: center;
-            border: 2px solid #7eb48f;
             padding: 1.2rem 0rem;
-            background: #c4fad5;
-            border-radius: 0.4rem;
+            background: #4aeab0;
+            border-radius: 2rem;
             width: 6rem;
             margin: 0;
             margin-left: auto;
@@ -132,7 +131,7 @@ export default function GestesMosaic({
           }
         `}
       >
-        <div>
+        <div title={`Vous avez sélectionné ${count} gestes.`}>
           <Image
             src="/basket.svg"
             alt="Symbole d'un représentant vos gestes choisis"
