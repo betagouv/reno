@@ -31,7 +31,6 @@ export default function GestesBasket({
       situation[question] == undefined &&
       question !== 'MPR . non accompagnée . confirmation',
   )
-  console.log('yellow', situation)
   return (
     <div>
       <h2>Votre panier de gestes</h2>
@@ -107,6 +106,21 @@ const Question = ({
   const evaluation = engine.evaluate(question),
     currentValue = situation[question]
   const setSearchParams = useSetSeachParams()
+
+  console.log('olive situation', situation)
+  const onChange = (value) => {
+    const encodedSituation = encodeSituation(
+      {
+        ...situation,
+        [question]: value == undefined ? undefined : value,
+      },
+      false,
+      answeredQuestions,
+    )
+    console.log('olive', encodedSituation)
+
+    setSearchParams(encodedSituation, 'push', false)
+  }
   return (
     <div
       css={`
@@ -131,18 +145,7 @@ const Question = ({
           value={currentValue == null ? undefined : currentValue}
           name={question}
           unit={evaluation.unit}
-          onChange={(value) => {
-            const encodedSituation = encodeSituation(
-              {
-                ...situation,
-                [question]: value == undefined ? undefined : value,
-              },
-              false,
-              answeredQuestions,
-            )
-
-            setSearchParams(encodedSituation, 'push', false)
-          }}
+          onChange={onChange}
         />
       </label>
       <div
