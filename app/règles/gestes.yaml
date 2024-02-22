@@ -4,8 +4,8 @@ montant:
   somme:
     - chauffage
     - isolation
-    - autres
     - ventilation
+    - autres
 
 autres:
   titre: Divers

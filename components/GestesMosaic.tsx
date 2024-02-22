@@ -58,7 +58,14 @@ export default function GestesMosaic({
     throw new Error('The UI cannot yet handle 3 level mosaic questions')
   }
 
-  const categories = entries.filter((el) => el[0].split(' . ').length === 2)
+  const categoryIndex = (category) =>
+      rules['gestes . montant'].somme.findIndex((el) => el === category),
+    categoryName = (category) => category[0].split(' . ')[1]
+  const categories = entries
+    .filter((el) => el[0].split(' . ').length === 2)
+    .sort(
+      (a, b) => categoryIndex(categoryName(a)) - categoryIndex(categoryName(b)),
+    )
 
   console.log({ entries })
 
