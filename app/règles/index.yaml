@@ -9,7 +9,7 @@ simulation . mode:
     Vous pouvez aussi afficher les deux. 
 
     Dans notre cas ici, la valeur minimum est la plupart du temps zéro, nous ne l'avons donc pas considérée.
-  par défaut: "'max'"
+  par défaut: "'moyen'"
   possibilités:
     - 'max'
     - 'moyen'
