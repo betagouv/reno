@@ -1,12 +1,11 @@
-import Geste, { Prime, safeEngine } from './Geste'
+import { formatValue } from 'publicodes'
+import { getQuestionText } from './ClassicQuestionWrapper'
+import Geste, { Prime } from './Geste'
 import { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
-import InputSwitch from './InputSwitch'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Card } from './UI'
 import useSetSeachParams from './useSetSearchParams'
-import { formatValue } from 'publicodes'
-import { getQuestionText } from './ClassicQuestionWrapper'
 
 export default function GestesBasket({
   rules,
@@ -21,7 +20,6 @@ export default function GestesBasket({
     const active = situation[q[0]] === 'oui'
     return active
   })
-  console.log('chartreuse', gestes)
 
   const evaluation = engine
       .setSituation(situation)
@@ -33,7 +31,7 @@ export default function GestesBasket({
       situation[question] == undefined &&
       question !== 'MPR . non accompagnée . confirmation',
   )
-  console.log('yellow missing', { missingValues, nextQuestions })
+  console.log('yellow', situation)
   return (
     <div>
       <h2>Votre panier de gestes</h2>
@@ -47,7 +45,7 @@ export default function GestesBasket({
         {gestes.map((question) => (
           <li key={question[0]}>
             <Card css={``}>
-              <Geste {...{ dottedName: question[0], rules }} />
+              <Geste {...{ dottedName: question[0], rules, engine }} />
               <Question
                 {...{
                   dottedName: question[0],
@@ -153,7 +151,9 @@ const Question = ({
         `}
       >
         <Prime
-          value={formatValue(engine.evaluate(dottedName + ' . montant'))}
+          value={formatValue(
+            engine.setSituation(situation).evaluate(dottedName + ' . montant'),
+          )}
         />
       </div>
     </div>

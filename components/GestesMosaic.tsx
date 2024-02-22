@@ -1,14 +1,12 @@
 import rules from '@/app/règles/rules'
 import Image from 'next/image'
 import Link from 'next/link'
-import { formatValue } from 'publicodes'
 import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import Geste, { Prime } from './Geste'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
-import { omit } from './utils'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -206,6 +204,7 @@ export default function GestesMosaic({
                       rules,
                       onChange,
                       situation,
+                      engine,
                     }}
                   />
                   {entries
@@ -225,6 +224,7 @@ export default function GestesMosaic({
                                 rules,
                                 onChange,
                                 situation,
+                                engine,
                               }}
                             />
                           </ul>
@@ -267,7 +267,7 @@ export default function GestesMosaic({
   )
 }
 
-const Checkboxes = ({ questions, rules, onChange, situation }) => {
+const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
   return questions.map((dottedName) => {
     return (
       <li
@@ -286,7 +286,7 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
             checked={situation[dottedName] === 'oui'}
             onChange={() => onChange(dottedName)}
           />
-          <Geste {...{ rules, dottedName }} />
+          <Geste {...{ rules, dottedName, engine }} />
         </label>
       </li>
     )
