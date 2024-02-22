@@ -260,7 +260,7 @@ const Checkboxes = ({ questions, rules, onChange, situation }) => {
       <li
         key={dottedName}
         style={css`
-          margin-bottom: 0.6rem;
+          margin-bottom: 0.8rem;
         `}
       >
         <label key={dottedName}>
