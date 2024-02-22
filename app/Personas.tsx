@@ -88,8 +88,8 @@ export default function Personas({}) {
                         justify-content: space-between;
                       `}
                     >
-                      MPR gestes
-                      <ResultLabel binary={mprg.nodeValue > 0}>
+                      MPR gestes {console.log('yaya', mprg.nodeValue)}
+                      <ResultLabel binary={mprgValue}>
                         {mprgValue ? 'oui' : 'non'}
                       </ResultLabel>
                     </small>

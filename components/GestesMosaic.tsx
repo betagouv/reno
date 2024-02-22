@@ -56,6 +56,7 @@ export default function GestesMosaic({
     maximum = Math.max(...levels)
 
   if (maximum - minimum > 1) {
+    console.log(entries)
     throw new Error('The UI cannot yet handle 3 level mosaic questions')
   }
 

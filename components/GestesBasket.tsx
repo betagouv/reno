@@ -18,10 +18,10 @@ export default function GestesBasket({
   setSearchParams,
 }) {
   const gestes = gestesMosaicQuestions.filter((q) => {
-    console.log('chartreuse', q[0], situation[q[0]])
     const active = situation[q[0]] === 'oui'
     return active
   })
+  console.log('chartreuse', gestes)
 
   const evaluation = engine
       .setSituation(situation)
@@ -29,7 +29,9 @@ export default function GestesBasket({
     total = formatValue(evaluation)
 
   const missingValues = nextQuestions.find(
-    (question) => situation[question] == undefined,
+    (question) =>
+      situation[question] == undefined &&
+      question !== 'MPR . non accompagnée . confirmation',
   )
   console.log('yellow missing', { missingValues, nextQuestions })
   return (

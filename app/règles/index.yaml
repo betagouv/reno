@@ -393,6 +393,9 @@ MPR . non accompagnée . conditions excluantes:
       #    - DPE . actuel >= 6
       # cette deuxième condition serait finalement encore décalée plus loin que le 1er juillet 2024
 
+MPR . non accompagnée . confirmation:
+  question: Confirmation de vos choix de gestes
+  par défaut: oui
 MPR . non accompagnée:
   titre: Ma Prime Rénov' **par geste**
   illustration: mpg.svg

@@ -241,8 +241,9 @@ export default function InputSwitch({
     )
 
   if (
-    currentQuestion.startsWith('gestes . ') &&
-    !gestesMosaicQuestions.includes(currentQuestion)
+    currentQuestion === 'MPR . non accompagnée . confirmation' ||
+    (currentQuestion.startsWith('gestes . ') &&
+      !gestesMosaicQuestions.includes(currentQuestion))
   ) {
     return (
       <GestesBasket

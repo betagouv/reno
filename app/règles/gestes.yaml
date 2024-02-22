@@ -1,5 +1,6 @@
 montant:
   question: Quels gestes envisagez-vous ?
+  applicable si: MPR . non accompagnée . confirmation
   mosaïque: oui
   somme:
     - recommandés
