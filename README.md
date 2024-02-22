@@ -1,5 +1,7 @@
 # Aides et coût d'une rénovation thermique en 2024
 
+
+> [!IMPORTANT]
 > 🚧 Ce projet est en plein développement. Il est instable et vous ne devez pas vous fier aveuglement aux règles métier qui y sont exposées
 
 ## Le calcul des aides
