@@ -20,7 +20,9 @@ export default function Geste({ dottedName, rules, engine }) {
     <div>
       <div>{questionRule.titre || getRuleName(dottedName)}</div>
 
-      <small>
+      <small
+        title={`Pour bénéficier de l'aide de ${montantValue}, le coût du geste ne doit pas dépasser ${plafondValue}.`}
+      >
         <Prime value={`${montantValue}`} /> pour max. {plafondValue}
       </small>
     </div>
