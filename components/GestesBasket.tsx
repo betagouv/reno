@@ -1,4 +1,4 @@
-import Geste from './Geste'
+import Geste, { Prime, safeEngine } from './Geste'
 import { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import InputSwitch from './InputSwitch'
@@ -65,7 +65,7 @@ export default function GestesBasket({
       <div>
         {missingValues && (
           <p>
-            💡 Répondez aux questions ci-dessus pour obtenir une estimatoin de
+            💡 Répondez aux questions ci-dessus pour obtenir une estimation de
             l'aide totale.
           </p>
         )}
@@ -147,6 +147,15 @@ const Question = ({
           }}
         />
       </label>
+      <div
+        css={`
+          text-align: right;
+        `}
+      >
+        <Prime
+          value={formatValue(engine.evaluate(dottedName + ' . montant'))}
+        />
+      </div>
     </div>
   )
 }

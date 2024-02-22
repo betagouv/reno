@@ -1,7 +1,8 @@
 import rules from '@/app/règles/rules'
 import Engine, { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
-const safeEngine = new Engine(rules)
+
+export const safeEngine = new Engine(rules)
 
 export default function Geste({ dottedName, rules }) {
   const questionRule = rules[dottedName]
