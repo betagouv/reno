@@ -107,7 +107,7 @@ export default function GestesMosaic({
           > div {
             text-align: center;
             border: 2px solid #7eb48f;
-            padding: 0.4rem 0rem;
+            padding: 1.2rem 0rem;
             background: #c4fad5;
             border-radius: 0.4rem;
             width: 6rem;
@@ -140,7 +140,7 @@ export default function GestesMosaic({
           margin-top: 1rem;
           p {
             max-width: 35rem;
-            color: #666;
+            color: #555;
             line-height: 1.1rem;
             em {
               display: inline;

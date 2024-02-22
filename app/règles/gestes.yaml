@@ -10,7 +10,6 @@ autres:
   titre: Divers
   somme:
     - audit . montant
-    - dépose fioul . montant
     - ventilation double flux . montant
 
 autres . audit:
@@ -33,20 +32,6 @@ autres . audit . montant:
       alors: 300 €
     - sinon: 0 €
 
-autres . dépose fioul:
-  par défaut: oui
-  titre: Dépose de cuve à fioul
-autres . dépose fioul . plafond:
-  valeur: 4000 €
-autres . dépose fioul . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1200 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 800 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 400 €
-    - sinon: 0 €
 autres . ventilation double flux:
   par défaut: oui
 autres . ventilation double flux . plafond:

@@ -14,6 +14,7 @@ chauffage:
     - chaudière bois . manuelle . montant
     - chaudière bois . automatique . montant
     - foyer et insert . montant
+    - fioul . dépose cuve . montant
 
 chauffage . raccordement réseau:
   par défaut: oui
@@ -199,4 +200,22 @@ chauffage . poêle . à granulés . montant:
       alors: 2000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1500 €
+    - sinon: 0 €
+
+chauffage . fioul:
+  titre: Suppression du fioul
+
+chauffage . fioul . dépose cuve:
+  par défaut: oui
+  titre: Dépose de cuve à fioul
+chauffage . fioul . dépose cuve . plafond:
+  valeur: 4000 €
+chauffage . fioul . dépose cuve . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1200 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 800 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 400 €
     - sinon: 0 €
