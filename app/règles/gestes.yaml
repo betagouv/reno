@@ -5,12 +5,12 @@ montant:
     - chauffage
     - isolation
     - autres
+    - ventilation
 
 autres:
   titre: Divers
   somme:
     - audit . montant
-    - ventilation double flux . montant
 
 autres . audit:
   par défaut: oui
@@ -32,11 +32,16 @@ autres . audit . montant:
       alors: 300 €
     - sinon: 0 €
 
-autres . ventilation double flux:
+ventilation:
+  titre: Ventilation
+  formule: double flux
+
+ventilation . double flux:
+  titre: Ventilation double flux
   par défaut: oui
-autres . ventilation double flux . plafond:
+ventilation . double flux . plafond:
   valeur: 4000 €
-autres . ventilation double flux . montant:
+ventilation . double flux . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
