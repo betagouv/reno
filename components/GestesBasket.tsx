@@ -53,6 +53,7 @@ export default function GestesBasket({
                   engine,
                   situation,
                   answeredQuestions,
+                  setSearchParams,
                 }}
               />
             </Card>
@@ -97,6 +98,7 @@ const Question = ({
   engine,
   situation,
   answeredQuestions,
+  setSearchParams,
 }) => {
   const question = nextQuestions.find((question) =>
     question.startsWith(dottedName),
@@ -105,7 +107,6 @@ const Question = ({
 
   const evaluation = engine.evaluate(question),
     currentValue = situation[question]
-  const setSearchParams = useSetSearchParams()
 
   console.log('olive situation', situation)
   const onChange = (value) => {
@@ -142,7 +143,7 @@ const Question = ({
         <Input
           type={'number'}
           placeholder={evaluation.nodeValue}
-          value={currentValue == null ? undefined : currentValue}
+          value={currentValue == null ? '' : currentValue}
           name={question}
           unit={evaluation.unit}
           onChange={onChange}
