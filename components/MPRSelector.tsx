@@ -1,7 +1,7 @@
 import Result, { Results } from '@/components/Result'
 import { useMemo } from 'react'
 import css from './css/convertToJs'
-import { encodeSituation } from './publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 
 export default function MPRSelector({
   setSearchParams,
@@ -12,7 +12,11 @@ export default function MPRSelector({
   engine,
 }) {
   const nextLink = (value) => {
-    const url = setSearchParams({ objectif: value }, 'url', false)
+    const url = setSearchParams(
+      { objectif: encodeDottedName(value) },
+      'url',
+      false,
+    )
     return url
   }
 
