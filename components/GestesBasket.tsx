@@ -1,11 +1,12 @@
+import Link from 'next/link'
 import { formatValue } from 'publicodes'
 import { getQuestionText } from './ClassicQuestionWrapper'
 import Geste, { Prime } from './Geste'
 import { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
+import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
-import { Card } from './UI'
-import useSetSearchParams from './useSetSearchParams'
+import { Card, CTA, CTAWrapper } from './UI'
 
 export default function GestesBasket({
   rules,
@@ -87,6 +88,37 @@ export default function GestesBasket({
           <div>Estimation totale ~ {total}</div>
         </div>
       </div>
+      <h2>C'est parti ?</h2>
+      <p>
+        Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
+        vous engage à rien.
+      </p>
+      <CTAWrapper>
+        <CTA>
+          {' '}
+          <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
+            <span
+              css={`
+                img {
+                  filter: invert(1);
+                  width: 1.6rem;
+                  margin-right: 0.6rem;
+                  height: auto;
+                  vertical-align: bottom;
+                }
+              `}
+            >
+              <Image
+                src="/check.svg"
+                width="10"
+                height="10"
+                alt="Icône coche pleine"
+              />
+              Trouver mon conseiller
+            </span>
+          </Link>
+        </CTA>
+      </CTAWrapper>
     </div>
   )
 }
