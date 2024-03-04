@@ -7,6 +7,7 @@ import Input from './Input'
 import Image from 'next/image'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
+import { BlocQuestionRéponse } from './BlocQuestionRéponse'
 
 export default function GestesBasket({
   rules,
@@ -104,6 +105,31 @@ export default function GestesBasket({
           <div>Estimation totale {missingValues ? '...' : ` ~ ${total}`}</div>
         </div>
       </div>
+      <BlocQuestionRéponse>
+        <details>
+          <summary open={false}>
+            Avec quelles professionnels puis-je bénéficier de ces primes ?
+          </summary>
+          <p>
+            Les entreprises qui feront les travaux{' '}
+            <strong>
+              doivent être{' '}
+              <a
+                href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
+                target="_blank"
+              >
+                certifiées RGE
+              </a>
+            </strong>{' '}
+            pour que vous puissiez rentrer dans le parcours MaPrimeRénov' et
+            bénéficier des primes ci-dessus.
+          </p>
+        </details>
+        <details>
+          <summary open={false}>Les montants incluent-ils la pose ?</summary>
+          <p>Oui</p>
+        </details>
+      </BlocQuestionRéponse>
       <h2>C'est parti ?</h2>
       <p>
         Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
