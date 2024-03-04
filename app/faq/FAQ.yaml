@@ -9,3 +9,8 @@
   id: vieux-dpe
   réponse: |
     Nous ne savons pas pour l'instant si les DPE qui étaient calculés sur la consommation du ménage, plutôt que sur des températures standards, sont valides pour prétendre à Ma Prime Rénov'.
+- question: Qu'est-ce qu'une fenêtre ?
+  catégorie: gestes
+  id: fenetre
+  réponse: |
+    Une fenêtre, dans le parcours gestes, c'est une petite fenêtre ? Une baie vitrée, ça compte pour combien de fenêtres ? Car le coût n'est pas le même entre une lucarne et une baie vitrée !
