@@ -4,6 +4,7 @@ import InputSwitch from '@/components/InputSwitch'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import questionType from '@/components/publicodes/questionType'
 import {
+  decodeDottedName,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
@@ -21,7 +22,7 @@ export default function Form({ searchParams, rules }) {
   // this param lets us optionally build the form to target one specific publicode rule
   const { objectif, ...situationSearchParams } = searchParams
 
-  const target = objectif || 'aides'
+  const target = decodeDottedName(objectif) || 'aides'
 
   const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
@@ -40,7 +41,6 @@ export default function Form({ searchParams, rules }) {
         answeredQuestions.includes(k),
       ),
     )
-  console.log('yellow validated', validatedSituation, 'situation', situation)
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
@@ -49,7 +49,6 @@ export default function Form({ searchParams, rules }) {
       simulationConfig,
       rules,
     )
-  console.log('yellow nextQuestions', nextQuestions, answeredQuestions)
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 

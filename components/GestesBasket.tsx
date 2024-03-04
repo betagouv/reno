@@ -36,7 +36,6 @@ export default function GestesBasket({
   const firstGestesMosaicDottedName = Object.entries(rules).find(
     ([dottedName, rule]) => isGestesMosaicQuestion(dottedName, rule),
   )[0]
-  console.log('yellow', firstGestesMosaicDottedName)
   return (
     <div>
       <Link
