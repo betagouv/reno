@@ -4,6 +4,9 @@ import { GreenCell, Table } from './TestsUI'
 import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
+import Link from 'next/link'
+import useSetSearchParams from '@/components/useSetSearchParams'
+import { encodeSituation } from '@/components/publicodes/situationUtils'
 
 const tests = rawTests.filter((test) => test['aide complémentaire'] === 0)
 
@@ -31,6 +34,7 @@ export default function Tests() {
           {tests.map((test) => {
             const situation = {
               travaux: test['montant de travaux HT'],
+              investissement: 9999999, //TODO dirty, this happens because "plafond" still applies to a rule for which we set a value
               sauts: test['saut de classe'],
               'MPR . accompagnée . bonus . condition':
                 test['bonus passoire'] === '0,1' ? 'oui' : 'non',
@@ -65,7 +69,18 @@ export default function Tests() {
                 <td>{test['saut de classe']}</td>
                 <td>{test['montant de travaux HT']} €</td>
                 <td>{expectedValue} €</td>
+
                 {valid ? <GreenCell>{value}</GreenCell> : <td>{value}</td>}
+                <td>
+                  <Link
+                    href={
+                      '/documentation/MPR/accompagnée/?' +
+                      new URLSearchParams(encodeSituation(situation)).toString()
+                    }
+                  >
+                    Inspection
+                  </Link>
+                </td>
               </tr>
             )
           })}
