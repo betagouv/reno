@@ -249,7 +249,7 @@ export default function GestesMosaic({
         </ul>
       </Fieldset>
 
-      <Condition />
+      <Condition {...{ questions, situation }} />
 
       <CTAWrapper>
         <CTA>
