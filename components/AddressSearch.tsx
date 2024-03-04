@@ -1,3 +1,4 @@
+import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
 import css from './css/convertToJs'
 
@@ -45,7 +46,18 @@ export default function AddressSearch({ setChoice }) {
         placeholder={'commune ou code postal'}
         onChange={(e) => setInput(e.target.value)}
       />
-      {validInput && !results && <div>Chargement...</div>}
+      {validInput && !results && (
+        <div
+          css={`
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+          `}
+        >
+          <Loader />
+          Chargement...
+        </div>
+      )}
       {results && (
         <ul
           style={css`
