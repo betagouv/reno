@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMediaQuery } from 'usehooks-ts'
+import {BlocQuestionRéponse} from './BlocQuestionRéponse'
 import DPELabel from './DPELabel'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
@@ -418,27 +419,7 @@ export default function ScenariosSelector({
           .
         </li>
       </ul>
-      <div
-        css={`
-          border: 1px solid var(--lighterColor);
-          padding: 4vh 4vw;
-          margin: 4vh 0;
-          details:first-child summary {
-            border-top: 1px solid var(--lighterColor);
-          }
-          details {
-            summary {
-              font-size: 130%;
-              color: var(--color);
-              border-bottom: 1px solid var(--lighterColor);
-              padding: 0.8rem;
-            }
-            p {
-              padding: 1rem;
-              border-top: none;
-            }
-          }
-        `}
+      <BlocQuestionRéponse>
       >
         <details>
           <summary open={false}>Quelle est la procédure ?</summary>
@@ -562,7 +543,7 @@ export default function ScenariosSelector({
             </p>
           )}
         </details>
-      </div>
+      </BlocQuestionRéponse>
       <h2>C'est parti ?</h2>
       <p>
         Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
