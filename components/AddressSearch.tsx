@@ -10,8 +10,10 @@ export default function AddressSearch({ setChoice }) {
   const [results, setResults] = useState(null)
   const [clicked, setClicked] = useState(null)
 
+  const validInput = input && input.length >= 3
+
   useEffect(() => {
-    if (!input || input.length < 3) return
+    if (!validInput) return
 
     console.log('input', input)
     const asyncFetch = async () => {
@@ -26,7 +28,7 @@ export default function AddressSearch({ setChoice }) {
     }
 
     asyncFetch()
-  }, [input])
+  }, [input, validInput])
 
   return (
     <div
@@ -43,6 +45,7 @@ export default function AddressSearch({ setChoice }) {
         placeholder={'commune ou code postal'}
         onChange={(e) => setInput(e.target.value)}
       />
+      {validInput && !results && <div>Chargement...</div>}
       {results && (
         <ul
           style={css`
