@@ -5,9 +5,7 @@ import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 
-const tests = rawTests.filter(
-  (test) => test['aide complémentaire MAR'] === 'oui',
-)
+const tests = rawTests.filter((test) => test['aide complémentaire'] === 0)
 
 const engine = new Publicodes(rules)
 
