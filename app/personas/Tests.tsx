@@ -32,6 +32,8 @@ export default function Tests() {
             const situation = {
               travaux: test['montant de travaux HT'],
               sauts: test['saut de classe'],
+              'MPR . accompagnée . bonus . condition':
+                test['bonus passoire'] === '0,1' ? 'oui' : 'non',
               'ménage . revenu . classe': `"${
                 {
                   TMO: 'très modeste',
@@ -49,6 +51,7 @@ export default function Tests() {
             const value = formatValue(evaluation)
 
             const expectedValue = test['aide MPR']
+
             const valid =
               Math.round(evaluation.nodeValue) ===
               Math.round(
