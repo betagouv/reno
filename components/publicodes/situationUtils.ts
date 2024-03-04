@@ -3,8 +3,11 @@ export const decodeDottedName = (encoded) => encoded.replace(/\./g, ' . ')
 
 const entriesFromSearchParams = (searchParams, rules) =>
   Object.entries(searchParams || {})
-    .map(([k, v]) => [decodeDottedName(k), v])
-    .filter(([k, v]) => rules[k] !== undefined)
+    .map(([k, v]) => {
+      const decoded = decodeDottedName(k)
+      return [decoded, v, rules[decoded]]
+    })
+    .filter(([k, v, rule]) => rule !== undefined)
 
 export const getAnsweredQuestions = (searchParams, rules) =>
   entriesFromSearchParams(searchParams, rules)
@@ -15,7 +18,17 @@ export const getSituation = (searchParams, rules) =>
   Object.fromEntries(
     entriesFromSearchParams(searchParams, rules)
       .filter(([k, v]) => v !== '∅')
-      .map(([k, v]) => [k, v.endsWith(validValueMark) ? v.slice(0, -1) : v]),
+      .map(([k, v, rule]) => {
+        const stringValue = v.endsWith(validValueMark) ? v.slice(0, -1) : v
+
+        // TODO this is brittle : some values can be numeric without an explicité yaml unit, it can be defined on the go in the value itself like blabla: 23 dogs
+        const value =
+          rule.unité && stringValue.match(/^0+\d+?/g)
+            ? stringValue.replace(/^0+/g, '')
+            : stringValue
+
+        return [k, value]
+      }),
   ) //should be changed to clearly handle defaultValues
 
 export const encodeValue = (value) => {
