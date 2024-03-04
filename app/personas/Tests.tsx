@@ -29,26 +29,33 @@ export default function Tests() {
         </thead>
         <tbody>
           {tests.map((test) => {
+            const situation = {
+              travaux: test['montant de travaux HT'],
+              sauts: test['saut de classe'],
+              'ménage . revenu . classe': `"${
+                {
+                  TMO: 'très modeste',
+                  MO: 'modeste',
+                  INT: 'intermédiaire',
+                  SUP: 'supérieure',
+                }[test['ressource ménage']]
+              }"`,
+            }
+            console.log(situation)
             const evaluation = engine
-              .setSituation({
-                travaux: test['montant de travaux HT'],
-                sauts: test['saut de classe'],
-                'ménage . revenu . classe': `"${
-                  {
-                    TMO: 'très modeste',
-                    MO: 'modeste',
-                    INT: 'intermédiaire',
-                    SUP: 'supérieure',
-                  }[test['ressource ménage']]
-                }"`,
-              })
+              .setSituation(situation)
               .evaluate('MPR . accompagnée')
 
             const value = formatValue(evaluation)
 
             const expectedValue = test['aide MPR']
             const valid =
-              Math.round(evaluation.nodeValue) === Math.round(+expectedValue)
+              Math.round(evaluation.nodeValue) ===
+              Math.round(
+                typeof expectedValue === 'string'
+                  ? expectedValue.replace(',', '.')
+                  : expectedValue,
+              )
             return (
               <tr key={JSON.stringify(test)}>
                 <td>{test['ressource ménage']}</td>
