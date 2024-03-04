@@ -485,11 +485,14 @@ export default function ScenariosSelector({
           <p>
             L'État prend en charge jusqu'à 100 % des prestations des
             Accompagnateurs Rénov' pour les ménages très modestes, dans une
-            limite de 2 000 €. Ce plafond pourra même atteindre 4 000 € dans les
-            situations de traitement de l'habitat indigne et de précarité
-            énergétique, toujours pour les très modestes. Cette prise en charge
-            sera de 80 % pour les ménages modestes, de 40 % pour ceux aux
-            revenus intermédiaires et de 20 % pour les revenus supérieurs.
+            limite de 2 000 €. Cette prise en charge sera de 80 % pour les
+            ménages modestes, de 40 % pour ceux aux revenus intermédiaires et de
+            20 % pour les revenus supérieurs.
+          </p>
+          <p>
+            Si une prestation renforcée est nécessaire pour une situation de
+            lutte contre l’habitat indigne, 2 000 € supplémentaires viennent
+            compléter la somme initiale.
           </p>
         </details>
         <details>
