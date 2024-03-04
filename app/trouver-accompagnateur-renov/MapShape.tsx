@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { Marker, LngLatBounds } from 'maplibre-gl'
 
 export default function MapShapes({ map, marList, selectMarker }) {
-  console.log('olive', marList)
   useEffect(() => {
     const bounds = new LngLatBounds()
     const markers = marList

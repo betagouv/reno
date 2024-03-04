@@ -64,7 +64,6 @@ export default function MarSearch({ codeInsee: givenCodeInsee }) {
 
   const map = useAddMap(mapContainerRef, setLocation)
 
-  console.log('olive', data)
   return (
     <div
       css={`

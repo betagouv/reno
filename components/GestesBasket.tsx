@@ -108,7 +108,6 @@ const Question = ({
   const evaluation = engine.evaluate(question),
     currentValue = situation[question]
 
-  console.log('olive situation', situation)
   const onChange = (value) => {
     const encodedSituation = encodeSituation(
       {
@@ -118,10 +117,20 @@ const Question = ({
       false,
       answeredQuestions,
     )
-    console.log('olive', encodedSituation)
 
     setSearchParams(encodedSituation, 'push', false)
   }
+
+  const InputComponent = () => (
+    <Input
+      type={'number'}
+      placeholder={evaluation.nodeValue}
+      value={currentValue == null ? '' : currentValue}
+      name={question}
+      unit={evaluation.unit}
+      onChange={onChange}
+    />
+  )
   return (
     <div
       css={`
@@ -140,14 +149,7 @@ const Question = ({
     >
       <label>
         <div>{getQuestionText(rules[question], question, rules)}</div>
-        <Input
-          type={'number'}
-          placeholder={evaluation.nodeValue}
-          value={currentValue == null ? '' : currentValue}
-          name={question}
-          unit={evaluation.unit}
-          onChange={onChange}
-        />
+        <InputComponent />
       </label>
       <div
         css={`
