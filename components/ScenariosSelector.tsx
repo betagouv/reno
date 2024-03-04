@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMediaQuery } from 'usehooks-ts'
-import {BlocQuestionRéponse} from './BlocQuestionRéponse'
+import { BlocQuestionRéponse } from './BlocQuestionRéponse'
 import DPELabel from './DPELabel'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
@@ -420,7 +420,6 @@ export default function ScenariosSelector({
         </li>
       </ul>
       <BlocQuestionRéponse>
-      >
         <details>
           <summary open={false}>Quelle est la procédure ?</summary>
           <ol
@@ -463,7 +462,7 @@ export default function ScenariosSelector({
         <details>
           <summary open={false}>Où trouver mon accompagnateur rénov' ?</summary>
           <MarSearch
-            codeInsee={situation['ménage . commune'].replace(/'/g, '')}
+            codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
           />
         </details>
         <details>
