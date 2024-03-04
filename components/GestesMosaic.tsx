@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import Geste, { Prime } from './Geste'
-import Condition from './gestes/Condition'
+import Condition, { computeConditionValue } from './gestes/Condition'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
@@ -118,6 +118,8 @@ export default function GestesMosaic({
     false,
   )
   const safeEngine = engine.setSituation(resetSituation)
+
+  const conditionValue = computeConditionValue(questions, situation)
 
   return (
     <div>
@@ -249,31 +251,43 @@ export default function GestesMosaic({
         </ul>
       </Fieldset>
 
-      <Condition {...{ questions, situation }} />
+      <Condition conditionValue={conditionValue} />
 
       <CTAWrapper>
-        <CTA>
-          <Link href={nextUrl}>
+        <CTA $importance={conditionValue ? 'primary' : 'inactive'}>
+          {conditionValue ? (
+            <Link href={nextUrl}>
+              <span
+                css={`
+                  img {
+                    filter: invert(1);
+                    width: 1.6rem;
+                    margin-right: 0.6rem;
+                    height: auto;
+                    vertical-align: bottom;
+                  }
+                `}
+              >
+                <Image
+                  src="/check.svg"
+                  width="10"
+                  height="10"
+                  alt="Icône coche pleine"
+                />
+                Suivant
+              </span>
+            </Link>
+          ) : (
             <span
-              css={`
-                img {
-                  filter: invert(1);
-                  width: 1.6rem;
-                  margin-right: 0.6rem;
-                  height: auto;
-                  vertical-align: bottom;
-                }
-              `}
+              title={
+                conditionValue === false
+                  ? `Il vous manque un chauffage décarboné pour obtenir une prime`
+                  : `Sélectionnez au moins un geste pour passer à l'écran suivant`
+              }
             >
-              <Image
-                src="/check.svg"
-                width="10"
-                height="10"
-                alt="Icône coche pleine"
-              />
               Suivant
             </span>
-          </Link>
+          )}
         </CTA>
       </CTAWrapper>
     </div>

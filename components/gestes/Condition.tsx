@@ -1,5 +1,6 @@
 import Image from 'next/image'
-export default function Condition({ questions, situation }) {
+
+export function computeConditionValue(questions, situation) {
   const isConditionedQuestion = (question) =>
     question.startsWith('gestes . isolation') ||
     question.startsWith('gestes . ventilation') ||
@@ -15,8 +16,12 @@ export default function Condition({ questions, situation }) {
       !isConditionedQuestion(question) && situation[question] === 'oui',
   )
 
-  console.log('beige', questions, situation)
+  return valid ? true : trigger ? false : null
+}
 
+export default function Condition({ conditionValue }) {
+  const valid = conditionValue
+  const trigger = conditionValue === false
   return (
     <div
       css={`
