@@ -83,8 +83,8 @@ export default function Page({ searchParams }) {
               travaux (changement des fenêtre, installation d’une pompe à
               chaleur, isolation des murs…).
             </p>
-            <p>
-              Mes Aides Réno vous permet :
+            <div>
+              <p>Mes Aides Réno vous permet :</p>
               <ul>
                 <li>
                   d’évaluer rapidement votre éligibilité aux principaux
@@ -96,7 +96,7 @@ export default function Page({ searchParams }) {
                   situation personnel et de votre projet de rénovation
                 </li>
               </ul>
-            </p>
+            </div>
 
             <h2>Qui est éligible aux dispositifs ?</h2>
             <p>
