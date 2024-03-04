@@ -76,12 +76,15 @@ export default function GestesBasket({
         ))}
       </ul>
       <div>
-        {missingValues && (
-          <p>
-            💡 Répondez aux questions ci-dessus pour obtenir une estimation de
-            l'aide totale.
-          </p>
-        )}
+        <p
+          css={`
+            visibility: ${missingValues ? 'visible' : 'hidden'};
+            text-align: right;
+          `}
+        >
+          💡 Répondez aux questions ci-dessus pour obtenir une estimation de
+          l'aide totale.
+        </p>
         <div
           css={`
             margin-top: 0.6rem;
@@ -95,11 +98,10 @@ export default function GestesBasket({
               width: 10rem;
               margin: 0;
               margin-left: auto;
-              ${missingValues && `filter: blur(1.5px);`}
             }
           `}
         >
-          <div>Estimation totale ~ {total}</div>
+          <div>Estimation totale {missingValues ? '...' : ` ~ ${total}`}</div>
         </div>
       </div>
       <h2>C'est parti ?</h2>
