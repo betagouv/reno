@@ -17,7 +17,7 @@ isolation . vitres . quantité:
   par défaut: 4 équipements
   unité: équipements
 
-isolation . vitres . plafond: 1000 €/m2
+isolation . vitres . plafond: 1000 €/équipements
 isolation . vitres . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
