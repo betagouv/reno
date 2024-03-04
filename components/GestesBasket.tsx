@@ -127,7 +127,10 @@ export default function GestesBasket({
         </details>
         <details>
           <summary open={false}>Les montants incluent-ils la pose ?</summary>
-          <p>Oui</p>
+          <p>
+            Oui. La dépense éligible correspond au coût du matériel, pose
+            comprise.
+          </p>
         </details>
       </BlocQuestionRéponse>
       <h2>C'est parti ?</h2>
