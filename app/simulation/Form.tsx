@@ -22,7 +22,7 @@ export default function Form({ searchParams, rules }) {
   // this param lets us optionally build the form to target one specific publicode rule
   const { objectif, ...situationSearchParams } = searchParams
 
-  const target = decodeDottedName(objectif) || 'aides'
+  const target = objectif ? decodeDottedName(objectif) : 'aides'
 
   const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
