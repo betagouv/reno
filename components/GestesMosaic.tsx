@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import Geste, { Prime } from './Geste'
+import Condition from './gestes/Condition'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
@@ -247,6 +248,8 @@ export default function GestesMosaic({
           ))}
         </ul>
       </Fieldset>
+
+      <Condition />
 
       <CTAWrapper>
         <CTA>
