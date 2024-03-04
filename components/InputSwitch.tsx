@@ -1,6 +1,6 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import { encodeSituation } from './publicodes/situationUtils'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
@@ -21,7 +21,7 @@ import GestesBasket from './GestesBasket'
 export default function InputSwitch({
   rule,
   currentValue,
-  currentQuestion,
+  currentQuestion: givenCurrentQuestion,
   situation,
   answeredQuestions,
   setSearchParams,
@@ -29,8 +29,11 @@ export default function InputSwitch({
   rules,
   ruleQuestionType,
   nextQuestions,
+  searchParams,
 }) {
-  console.log({ currentQuestion })
+  const currentQuestion = searchParams.question
+    ? decodeDottedName(searchParams.question)
+    : givenCurrentQuestion
 
   const evaluation = currentQuestion && engine.evaluate(currentQuestion)
 
@@ -223,8 +226,8 @@ export default function InputSwitch({
       />
     )
 
-  console.log('yellow', gestesMosaicQuestions)
   const isGestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
+  console.log('yellow isGestesMosaic', isGestesMosaic)
   if (isGestesMosaic)
     return (
       <GestesMosaic

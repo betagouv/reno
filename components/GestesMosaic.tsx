@@ -14,7 +14,7 @@ const localIsMosaic = (dottedName, rule) =>
   rule &&
   ['oui', 'non'].includes(rule['par défaut'])
 
-export const isGestesMosaicQuestion = (currentQuestion, rule, rules) => {
+export const isGestesMosaicQuestion = (currentQuestion, rule) => {
   return localIsMosaic(currentQuestion, rule)
 }
 
@@ -96,10 +96,13 @@ export default function GestesMosaic({
   ).length
 
   const nextUrl = setSearchParams(
-    encodeSituation(runSituation, false, [
-      ...answeredQuestions,
-      ...questions.map((q) => q[0]),
-    ]),
+    {
+      ...encodeSituation(runSituation, false, [
+        ...answeredQuestions,
+        ...questions.map((q) => q[0]),
+      ]),
+      question: undefined,
+    },
     'url',
     false,
   )

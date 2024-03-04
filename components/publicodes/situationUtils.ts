@@ -1,5 +1,5 @@
 export const encodeDottedName = (decoded) => decoded.replace(/\s\.\s/g, '.')
-const decodeDottedName = (encoded) => encoded.replace(/\./g, ' . ')
+export const decodeDottedName = (encoded) => encoded.replace(/\./g, ' . ')
 
 const entriesFromSearchParams = (searchParams, rules) =>
   Object.entries(searchParams || {})

@@ -40,7 +40,7 @@ export default function Form({ searchParams, rules }) {
         answeredQuestions.includes(k),
       ),
     )
-  console.log('validated', validatedSituation, 'situation', situation)
+  console.log('yellow validated', validatedSituation, 'situation', situation)
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
@@ -88,6 +88,7 @@ export default function Form({ searchParams, rules }) {
               engine,
               ruleQuestionType,
               nextQuestions,
+              searchParams,
             }}
           />
         )}

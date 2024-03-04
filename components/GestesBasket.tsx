@@ -2,10 +2,10 @@ import Link from 'next/link'
 import { formatValue } from 'publicodes'
 import { getQuestionText } from './ClassicQuestionWrapper'
 import Geste, { Prime } from './Geste'
-import { gestesMosaicQuestions } from './GestesMosaic'
+import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
 import Input from './Input'
 import Image from 'next/image'
-import { encodeSituation } from './publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
 
 export default function GestesBasket({
@@ -32,8 +32,23 @@ export default function GestesBasket({
       situation[question] == undefined &&
       question !== 'MPR . non accompagnée . confirmation',
   )
+
+  const firstGestesMosaicDottedName = Object.entries(rules).find(
+    ([dottedName, rule]) => isGestesMosaicQuestion(dottedName, rule),
+  )[0]
+  console.log('yellow', firstGestesMosaicDottedName)
   return (
     <div>
+      <Link
+        href={setSearchParams(
+          {
+            question: encodeDottedName(firstGestesMosaicDottedName),
+          },
+          'url',
+        )}
+      >
+        Retour à la sélection des gestes
+      </Link>
       <h2>Votre panier de gestes</h2>
       <ul
         css={`

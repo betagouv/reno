@@ -11,7 +11,7 @@ import DPELabel from './DPELabel'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
 import Input from './Input'
-import { encodeSituation } from './publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
 
@@ -542,7 +542,7 @@ export default function ScenariosSelector({
               de MaPrimeRénov'. Vous pouvez{' '}
               <Link
                 href={setSearchParams(
-                  { objectif: 'MPR . non accompagnée' },
+                  { objectif: encodeDottedName('MPR . non accompagnée') },
                   'url',
                 )}
               >
