@@ -60,7 +60,9 @@ export default function GestesBasket({
         {gestes.map((question) => (
           <li key={question[0]}>
             <Card css={``}>
-              <Geste {...{ dottedName: question[0], rules, engine }} />
+              <Geste
+                {...{ dottedName: question[0], rules, engine, expanded: true }}
+              />
               <Question
                 {...{
                   dottedName: question[0],

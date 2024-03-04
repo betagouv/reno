@@ -1,7 +1,7 @@
 import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 
-export default function Geste({ dottedName, rules, engine }) {
+export default function Geste({ dottedName, rules, engine, expanded }) {
   const questionRule = rules[dottedName]
 
   const montant = dottedName + ' . montant',
@@ -16,6 +16,7 @@ export default function Geste({ dottedName, rules, engine }) {
 
   const plafond = dottedName + ' . plafond',
     plafondValue = formatValue(engine.evaluate(plafond))
+
   return (
     <div>
       <div>{questionRule.titre || getRuleName(dottedName)}</div>
@@ -23,7 +24,16 @@ export default function Geste({ dottedName, rules, engine }) {
       <small
         title={`Pour bénéficier de l'aide de ${montantValue}, le coût du geste ne doit pas dépasser ${plafondValue}.`}
       >
-        <Prime value={`${montantValue}`} /> pour max. {plafondValue}
+        {expanded ? (
+          <span>
+            <Prime value={`${montantValue}`} /> de prime, éligible pour un geste
+            qui coûte au maximum {plafondValue}.
+          </span>
+        ) : (
+          <span>
+            <Prime value={`${montantValue}`} /> pour max. {plafondValue}
+          </span>
+        )}
       </small>
     </div>
   )
