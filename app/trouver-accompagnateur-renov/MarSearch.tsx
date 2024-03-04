@@ -2,13 +2,12 @@
 
 import AddressSearch from '@/components/AddressSearch'
 import { Card } from '@/components/UI'
-import useSetSeachParams from '@/components/useSetSearchParams'
+import computeDistance from '@turf/distance'
 import { useEffect, useRef, useState } from 'react'
 import Entreprise from './Entreprise'
 import MapShapes from './MapShape'
 import { Loader } from './UI'
 import useAddMap from './useAddMap'
-import computeDistance from '@turf/distance'
 
 export default function MarSearch({ codeInsee: givenCodeInsee }) {
   const [selectedMarker, selectMarker] = useState(null)

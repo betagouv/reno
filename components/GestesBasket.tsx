@@ -5,7 +5,7 @@ import { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Card } from './UI'
-import useSetSeachParams from './useSetSearchParams'
+import useSetSearchParams from './useSetSearchParams'
 
 export default function GestesBasket({
   rules,
@@ -105,7 +105,7 @@ const Question = ({
 
   const evaluation = engine.evaluate(question),
     currentValue = situation[question]
-  const setSearchParams = useSetSeachParams()
+  const setSearchParams = useSetSearchParams()
 
   console.log('olive situation', situation)
   const onChange = (value) => {
