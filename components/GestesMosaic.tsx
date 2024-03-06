@@ -1,11 +1,12 @@
 import rules from '@/app/règles/rules'
 import Image from 'next/image'
 import Link from 'next/link'
+import { BlocQuestionRéponse } from './BlocQuestionRéponse'
 import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import Geste, { Prime } from './Geste'
 import Condition, { computeConditionValue } from './gestes/Condition'
-import { encodeSituation } from './publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
@@ -290,6 +291,29 @@ export default function GestesMosaic({
           )}
         </CTA>
       </CTAWrapper>
+      <BlocQuestionRéponse>
+        <details>
+          <summary open={false}>🙋 Je ne sais pas quoi choisir !</summary>
+          <p>
+            Le parcours non accompagné de MaPrimeRénov' exige en effet de s'y
+            connaitre ou d'avoir réfléchi aux gestes qui sont susceptibles
+            d'améliorer efficacement les dépenses énergétiques de votre
+            logement.
+          </p>
+          <p>
+            Si cela vous semble trop compliqué, n'hésitez pas à{' '}
+            <Link
+              href={setSearchParams(
+                { objectif: encodeDottedName('MPR . accompagnée') },
+                'url',
+              )}
+            >
+              choisir à la place le parcours accompagné
+            </Link>
+            .
+          </p>
+        </details>
+      </BlocQuestionRéponse>
     </div>
   )
 }

@@ -553,7 +553,7 @@ export default function ScenariosSelector({
         <details>
           <summary open={false}>C'est trop ambitieux pour moi</summary>
           <p>
-            Le parcours accompagné de MaPrimeRénov exige en effet un minimum de
+            Le parcours accompagné de MaPrimeRénov' exige en effet un minimum de
             deux sauts de DPE, en échange d'un montant d'aide important.
           </p>
           {mprg ? (
