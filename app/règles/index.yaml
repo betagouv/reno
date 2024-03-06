@@ -229,6 +229,7 @@ DPE . actuel . efficace:
 DPE . actuel:
   titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
+  sous-titre: Si vous ne le connaissez pas, n'hésitez pas à faire des tests, cela ne vous engage pas.
   description: |
     Le DPE, c'est le Diagnostic de Performance Énergétique de votre logement. 
 

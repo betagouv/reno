@@ -37,6 +37,16 @@ export default function ClassicQuestionWrapper({
           {(!rule.type || !rule.type === 'question rhétorique') && (
             <QuestionHeader>
               <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
+              {rule['sous-titre'] && (
+                <p
+                  css={`
+                    color: #666;
+                    font-size: 90%;
+                  `}
+                >
+                  {rule['sous-titre']}
+                </p>
+              )}
             </QuestionHeader>
           )}
           <AnswerWrapper>

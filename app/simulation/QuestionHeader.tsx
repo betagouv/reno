@@ -10,6 +10,9 @@ export const QuestionHeader = styled.header`
       font-size: 110%;
     }
   }
+  h3 + p {
+    margin-left: 0.2rem;
+  }
   details {
     > div {
       border-left: 6px solid #253b71;
