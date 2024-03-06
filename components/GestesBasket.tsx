@@ -1,13 +1,13 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
-import { getQuestionText } from './ClassicQuestionWrapper'
-import Geste, { Prime } from './Geste'
-import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
-import Input from './Input'
-import Image from 'next/image'
-import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import { Card, CTA, CTAWrapper } from './UI'
 import { BlocQuestionRéponse } from './BlocQuestionRéponse'
+import Geste from './Geste'
+import GesteQuestion from './GesteQuestion'
+import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
+import { encodeDottedName } from './publicodes/situationUtils'
+import { Value } from './ScenariosSelector'
+import { Card, CTA, CTAWrapper } from './UI'
 
 export default function GestesBasket({
   rules,
@@ -63,7 +63,7 @@ export default function GestesBasket({
               <Geste
                 {...{ dottedName: question[0], rules, engine, expanded: true }}
               />
-              <Question
+              <GesteQuestion
                 {...{
                   dottedName: question[0],
                   rules,
@@ -108,6 +108,42 @@ export default function GestesBasket({
         </div>
       </div>
       <BlocQuestionRéponse>
+        <details>
+          <summary open={false}>Y a-t-il un montant maximum d'aides ?</summary>
+
+          <p>
+            Le montant cumulé de MaPrimeRénov’, des aides des fournisseurs
+            d’énergie et des aides versées par la Commission de régulation de
+            l’énergie en Outre-mer ne peut pas dépasser, pour votre ménage de
+            classe de revenu{' '}
+            <Value
+              {...{
+                engine,
+                situation: { ...situation },
+                dottedName: 'ménage . revenu . classe',
+                state: 'emphasize',
+              }}
+            />
+            , un maximum de{' '}
+            <Value
+              {...{
+                engine,
+                situation: { ...situation },
+                dottedName: "MPR . non accompagnée . pourcentage d'écrêtement",
+                state: 'emphasize',
+              }}
+            />{' '}
+            de la dépense éligible.
+          </p>
+          <p>
+            Le montant cumulé de MaPrimeRenov’ et de toutes les aides publiques
+            et privées perçues ne peut pas dépasser 100 % de la dépense éligible
+            après remise, ristourne ou rabais des entreprises.
+          </p>
+          <p>
+            Cette règle est appellée <em>écrêtement</em>.
+          </p>
+        </details>
         <details>
           <summary open={false}>
             Avec quelles professionnels puis-je bénéficier de ces primes ?
@@ -166,81 +202,6 @@ export default function GestesBasket({
           </Link>
         </CTA>
       </CTAWrapper>
-    </div>
-  )
-}
-
-const Question = ({
-  dottedName,
-  rules,
-  nextQuestions,
-  engine,
-  situation,
-  answeredQuestions,
-  setSearchParams,
-}) => {
-  const question = nextQuestions.find((question) =>
-    question.startsWith(dottedName),
-  )
-  if (!question) return null
-
-  const evaluation = engine.evaluate(question),
-    currentValue = situation[question]
-
-  const onChange = (value) => {
-    const encodedSituation = encodeSituation(
-      {
-        ...situation,
-        [question]: value == undefined ? undefined : value,
-      },
-      false,
-      answeredQuestions,
-    )
-
-    setSearchParams(encodedSituation, 'push', false)
-  }
-
-  const InputComponent = () => (
-    <Input
-      type={'number'}
-      placeholder={evaluation.nodeValue}
-      value={currentValue == null ? '' : currentValue}
-      name={question}
-      unit={evaluation.unit}
-      onChange={onChange}
-    />
-  )
-  return (
-    <div
-      css={`
-        margin: 0.6rem 0;
-        > label {
-          margin: 1rem 0;
-          display: flex;
-          justify-content: end;
-          align-items: center;
-          flex-wrap: wrap;
-          > div {
-            margin-right: 1rem;
-          }
-        }
-      `}
-    >
-      <label>
-        <div>{getQuestionText(rules[question], question, rules)}</div>
-        <InputComponent />
-      </label>
-      <div
-        css={`
-          text-align: right;
-        `}
-      >
-        <Prime
-          value={formatValue(
-            engine.setSituation(situation).evaluate(dottedName + ' . montant'),
-          )}
-        />
-      </div>
     </div>
   )
 }

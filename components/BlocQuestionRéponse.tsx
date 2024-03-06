@@ -5,6 +5,9 @@ export const BlocQuestionRéponse = styled.div`
   border: 1px solid var(--lighterColor);
   padding: 4vh 4vw;
   margin: 4vh 0;
+  summary {
+    white-space: nowrap;
+  }
   details:last-child summary {
     border-bottom: none;
   }

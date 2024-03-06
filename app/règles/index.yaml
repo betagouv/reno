@@ -426,6 +426,20 @@ MPR . choix:
     - 'accompagnée'
     - 'non accompagnée'
 
+MPR . non accompagnée . pourcentage d'écrêtement:
+  description: |
+    Semble s'appliquer sur la dépense HT. Ce n'est pas dit explicitement, mais on le déduit du fait que le TTC est clairement précisé pour l'écrêtement de MPR accompagnée.
+
+    Pour le détail de cet écrêtement, voir [cette page du guide complet PDF ANAH](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24).
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 90 %
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 75 %
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 60 %
+    - sinon: 40 %
+
 MPR . non accompagnée . conditions excluantes:
   une de ces conditions:
     - ménage . revenu . classe = "supérieure"

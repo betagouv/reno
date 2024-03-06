@@ -455,6 +455,7 @@ export default function ScenariosSelector({
           .
         </li>
       </ul>
+      <p></p>
       <BlocQuestionRéponse>
         <details>
           <summary open={false}>Quelle est la procédure ?</summary>
@@ -662,7 +663,7 @@ const Avance = ({ engine, rules, choice, situation }) => {
   )
 }
 
-export const Value = ({ engine, index, situation, dottedName, state }) => {
+export const Value = ({ engine, situation, dottedName, state }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
     value = formatValue(evaluation, { precision: 0 })
   const missingVariables = evaluation.missingVariables
