@@ -441,6 +441,15 @@ MPR . accompagnée . bonus:
 
 MPR . accompagnée . écrêté: pourcent dont bonus > écrêtement
 MPR . accompagnée . pourcent écrêté:
+  description: |
+    L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux toutes taxes comprises (TTC).
+
+    Ce dernier point est important. 
+
+    Prenons l'exemple de travaux de 100 000 €, pour un foyer qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE.
+
+    L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
+
   valeur: pourcent dont bonus
   plafond: écrêtement
 
