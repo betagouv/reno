@@ -26,6 +26,7 @@ export default function Tests() {
             <th scope="col">Classe de revenu</th>
             <th scope="col">Sauts DPE</th>
             <th scope="col">Travaux HT</th>
+            <th scope="col">Bonus passoire</th>
             <th scope="col">Aide MPR-A test</th>
             <th scope="col">Aide MPR-A recalculée</th>
           </tr>
@@ -69,6 +70,7 @@ export default function Tests() {
                 <td>{test['ressource ménage']}</td>
                 <td>{test['saut de classe']}</td>
                 <td>{test['montant de travaux HT']} €</td>
+                <td>{test['bonus passoire']}</td>
                 <td>{expectedValue} €</td>
 
                 {valid ? <GreenCell>{value}</GreenCell> : <td>{value}</td>}
