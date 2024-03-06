@@ -236,7 +236,9 @@ DPE . actuel:
 
     Le DPE est exprimé comme une note de A (très bon) à G (passoire thermique). 
 
-    Si vous ne connaissez pas le DPE actuel de votre logement, vous pourrez en trouver une estimation en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
+    Si votre logement n'a pas de DPE, ou s'il date d'avant septembre 2021, date de mise en place du nouveau DPE, il vous faudra le faire réaliser pour obtenir une aide MaPrimeRénov'.
+
+    Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoique ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
