@@ -171,7 +171,7 @@ export default function ScenariosSelector({
                       engine,
                       index,
                       situation: { ...situation, 'DPE . visé': index + 1 },
-                      dottedName: 'MPR . accompagnée . pourcent écrêté',
+                      dottedName: 'MPR . accompagnée . pourcent dont bonus',
                       state: 'none',
                     }}
                   />
@@ -207,7 +207,7 @@ export default function ScenariosSelector({
                 engine,
                 index: 0,
                 situation: { ...situation, 'DPE . visé': 0 + 1 },
-                dottedName: 'MPR . accompagnée . pourcent écrêté',
+                dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
             />{' '}
             qui s'appliquera à un montant maximum de travaux de{' '}
@@ -286,7 +286,7 @@ export default function ScenariosSelector({
                     engine,
                     index: choice,
                     situation: { ...situation, 'DPE . visé': choice + 1 },
-                    dottedName: 'MPR . accompagnée . pourcent écrêté',
+                    dottedName: 'MPR . accompagnée . pourcent dont bonus',
                     state: 'emphasize',
                   }}
                 />{' '}
@@ -338,7 +338,8 @@ export default function ScenariosSelector({
                       engine,
                       choice,
                       situation: { ...situation, 'DPE . visé': choice + 1 },
-                      dottedName: 'MPR . accompagnée . montant',
+                      dottedName:
+                        'MPR . accompagnée . montant avant écrêtement',
                     }}
                   />
                   .
@@ -352,10 +353,45 @@ export default function ScenariosSelector({
                       situation: { ...situation, 'DPE . visé': choice + 1 },
                       dottedName: 'travaux',
                     }}
-                  />
-                  .
+                  />{' '}
+                  HT .
                 </p>
               </div>
+              <p>
+                <span>
+                  💡 Le montant total de vos aides ne peut pas dépasser{' '}
+                </span>
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    dottedName: "MPR . accompagnée . pourcent d'écrêtement",
+                    state: 'none',
+                  }}
+                />{' '}
+                de la dépense TTC (par exemple{' '}
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    dottedName: 'travaux . TTC',
+                    state: 'none',
+                  }}
+                />{' '}
+                pour une TVA à 5,5 %, soit une aide maximale de{' '}
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    dottedName: 'MPR . accompagnée . montant',
+                    state: 'none',
+                  }}
+                />
+                ).
+              </p>
               <Avance {...{ engine, rules, situation, choice }} />
               <p>
                 En cas de besoin, un éco-prêt à taux zéro vous permet

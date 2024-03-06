@@ -327,7 +327,7 @@ travaux:
   résoudre la référence circulaire: oui
 
 travaux . TTC:
-  par défaut: travaux * 1.055
+  formule: travaux * 1.055
   description: Nous considérons par défaut que les travaux de l'enveloppe concernent tous de la performance énergétique, ou des travaux liés tels que définis [sur cette page "TVA à taux réduit"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=32), et donc assujettis à un taux réduit de 5,5 %.
 
 MPR . accompagnée . avance:
