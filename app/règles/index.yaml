@@ -322,9 +322,13 @@ travaux:
   # Elle n'est pas lisible directement, elle résulte d'une inversion de formule à la main
   # Car il semble y avoir un bug résultant d'un choc entre les mécanismes `plafond` et `résoudre la référence circulaire`
   # https://github.com/publicodes/publicodes/issues/443
-  formule: investissement / (1 - MPR . accompagnée . pourcent écrêté)
-  plafond: investissement + MPR . accompagnée . pourcent écrêté * travaux . plafond
+  formule: investissement / (1 - MPR . accompagnée . pourcent dont bonus)
+  plafond: investissement + MPR . accompagnée . pourcent dont bonus * travaux . plafond
   résoudre la référence circulaire: oui
+
+travaux . TTC:
+  par défaut: travaux * 1.055
+  description: Nous considérons par défaut que les travaux de l'enveloppe concernent tous de la performance énergétique, ou des travaux liés tels que définis [sur cette page "TVA à taux réduit"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=32), et donc assujettis à un taux réduit de 5,5 %.
 
 MPR . accompagnée . avance:
   applicable si:
@@ -334,8 +338,43 @@ MPR . accompagnée . avance:
   formule: 0.7 * montant
 
 MPR . accompagnée . montant:
-  formule: pourcent écrêté * travaux . plafonnés
+  formule: montant écrêté
   unité: €
+
+MPR . accompagnée . montant écrêté:
+  description: |
+    L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux *toutes taxes comprises (TTC)*.
+
+    Si le montant total des aides était amené à dépasser le pourcentage d'écrêtement, alors c'est MaPrimeRénov' accompagnée qui serait réduite pour ne pas le dépasser, comme cela est expliqué dans les notes de bas de page de [ce tableau expliquant les cumuls](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=25).
+
+    > Cela dit, le modèle actuel Mes Aides Réno ne donne pas encore la possibilité de calculer les autres aides, hors MPR (MaPrimeRénov'). 
+
+    Prenons l'exemple simple sans cumule, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
+
+    L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC des dépenses*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
+
+    L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
+
+  valeur: montant avant écrêtement
+  plafond: pourcent d'écrêtement * travaux . TTC
+
+MPR . accompagnée . montant avant écrêtement:
+  formule: pourcent dont bonus * travaux . plafonnés
+
+MPR . accompagnée . pourcent d'écrêtement:
+  titre: Taux maximum toutes aides sur enveloppe TTC
+  description: |
+    Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
+
+    Il se calcule sur l'enveloppe **TTC**.
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 100 %
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 80 %
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 60 %
+    - sinon: 40 %
 
 investissement:
   titre: Votre investissement
@@ -439,20 +478,6 @@ MPR . accompagnée . bonus:
   applicable si: condition
   valeur: 10 %
 
-MPR . accompagnée . écrêté: pourcent dont bonus > écrêtement
-MPR . accompagnée . pourcent écrêté:
-  description: |
-    L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux toutes taxes comprises (TTC).
-
-    Ce dernier point est important. 
-
-    Prenons l'exemple de travaux de 100 000 €, pour un foyer qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE.
-
-    L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
-
-  valeur: pourcent dont bonus
-  plafond: écrêtement
-
 MPR . accompagnée . pourcent dont bonus: pourcent brut + bonus
 
 MPR . accompagnée . sauts minimum: 2
@@ -480,19 +505,6 @@ MPR . accompagnée . pourcent brut:
     Dans cette formule, on somme deux pourcentages : l'un correspond au budget de l'État, l'autre aux CEE. 
 
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
-
-MPR . accompagnée . écrêtement:
-  titre: Taux maximum toutes aides
-  description: |
-    Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 100 %
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 80 %
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 60 %
-    - sinon: 40 %
 
 PTZ:
   applicable si:

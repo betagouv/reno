@@ -34,6 +34,7 @@ export default function Tests() {
           {tests.map((test) => {
             const situation = {
               travaux: test['montant de travaux HT'],
+              'travaux . TTC': test['montant de travaux TTC'],
               investissement: 9999999, //TODO dirty, this happens because "plafond" still applies to a rule for which we set a value
               sauts: test['saut de classe'],
               'MPR . accompagnée . bonus . condition':
