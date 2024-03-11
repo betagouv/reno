@@ -18,6 +18,7 @@ import ScenariosSelector from './ScenariosSelector'
 import SmartInput from './SmartInput'
 import GestesBasket from './GestesBasket'
 import config from '@/app/simulation/simulationConfig.yaml'
+import { firstLevelCategory } from '@/app/simulation/Answers'
 
 export default function InputSwitch({
   rule,
@@ -200,25 +201,22 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-  const foundQuestionGroup = config['groupes de questions'].find((group) =>
-    group.questions.includes(currentQuestion),
-  )
-  if (foundQuestionGroup) {
-    if (foundQuestionGroup.nom === 'scenariosMPRA') {
-      return (
-        <ScenariosSelector
-          {...{
-            currentQuestion,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            rules,
-          }}
-        />
-      )
-    }
+
+  if (firstLevelCategory(currentQuestion) === 'projet') {
+    return (
+      <ScenariosSelector
+        {...{
+          currentQuestion,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+        }}
+      />
+    )
   }
+
   if (['MPR . choix'].includes(currentQuestion))
     return (
       <MPRSelector

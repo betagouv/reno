@@ -4,8 +4,8 @@ import { Key, P } from './ExplicationUI'
 export default function Travaux({ engine, rules, situation }) {
   const upEngine = engine.setSituation(situation)
 
-  const plafonnés = compute('travaux . plafonnés', upEngine, rules)
-  const travaux = compute('travaux', upEngine, rules)
+  const plafonnés = compute('projet . travaux . plafonnés', upEngine, rules)
+  const travaux = compute('projet . travaux', upEngine, rules)
 
   if (travaux.hasMissing) return null
 

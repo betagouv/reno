@@ -5,8 +5,8 @@
     ménage . personnes: 3
     ménage . revenu: 25000
     DPE . actuel: 6
-    DPE . visé: 2
-    travaux: 70140 / (1.055)
+    projet . DPE visé: 2
+    projet . travaux: 70140 / (1.055)
     ménage . code région: 27 # Doubs
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
@@ -18,8 +18,8 @@
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 7
-    DPE . visé: 4
-    travaux: 53200 / (1.055)
+    projet . DPE visé: 4
+    projet . travaux: 53200 / (1.055)
     ménage . code région: 24 # Cher
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
@@ -32,8 +32,8 @@
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
-    DPE . visé: 1
-    travaux: 49300
+    projet . DPE visé: 1
+    projet . travaux: 49300
     ménage . code région: 53
 - description: |
     Couple aisé., passoire, 4 sauts,  ~ 70k € de travaux
@@ -42,7 +42,7 @@
     ménage . personnes: 2
     ménage . revenu: 70000
     DPE . actuel: 6
-    DPE . visé: 2
+    projet . DPE visé: 2
     ménage . code région: 52
 - description: |
     Couple modeste, presque passoire, 1 saut.
@@ -51,7 +51,7 @@
     ménage . personnes: 2
     ménage . revenu: 20000
     DPE . actuel: 5
-    DPE . visé: 4
+    projet . DPE visé: 4
     ménage . code région: 52
 - description: |
     Individu aisé, presque passoire, 3 saut.
@@ -60,7 +60,7 @@
     ménage . personnes: 1
     ménage . revenu: 80000
     DPE . actuel: 5
-    DPE . visé: 2
+    projet . DPE visé: 2
     ménage . code région: 52
 - description: |
     Propriétaire élligible, mais pas d'autres infos
@@ -73,8 +73,8 @@
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
-    DPE . visé: 1
-    travaux: 49000
+    projet . DPE visé: 1
+    projet . travaux: 49000
     ménage . code région: 53
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
@@ -83,8 +83,8 @@
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
-    DPE . visé: 1
-    travaux: 49000
+    projet . DPE visé: 1
+    projet . travaux: 49000
     ménage . code région: 11
 - description: |
     Éligible aux deux parcours.
@@ -117,5 +117,5 @@
     ménage . personnes: 2
     ménage . revenu: 85000
     DPE . actuel: 3
-    DPE . visé: 2
+    projet . DPE visé: 2
     ménage . code région: 53

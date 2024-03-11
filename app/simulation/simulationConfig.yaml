@@ -1,9 +1,3 @@
-catégories:
-  - vous
-  - logement
-  - ménage
-  - DPE
-  - gestes
 prioritaires:
   - vous . propriétaire . condition
   - logement . résidence principale
@@ -13,14 +7,8 @@ prioritaires:
   - ménage . revenu
   - DPE . actuel
   - MPR . choix
+  # Le reste est non-linéaire, en fonction du choix
 non prioritaires:
   -
-groupes de questions:
-  - titre: Mon scénario Ma Prime Rénov' accompagnée
-    nom: scenariosMPRA
-    questions:
-      - DPE . visé
-      - travaux
-      - investissement
 
 situation:

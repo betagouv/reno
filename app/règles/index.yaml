@@ -253,7 +253,9 @@ DPE . actuel:
     C: 3
     B: 2
 
-DPE . visé:
+projet:
+  titre: Votre projet de rénovation
+projet . DPE visé:
   titre: Votre futur DPE visé
   question: Quel DPE visé après rénovation ?
   par défaut:
@@ -267,7 +269,10 @@ DPE . visé:
     C: 3
     B: 2
     A: 1
-DPE . visé . insuffisant:
+
+scnénario MPRA:
+  titre: Mon scénario MaPrimeRénov' accompagnée
+projet . DPE visé . insuffisant:
   type: notification
   sévérité: information
   formule:
@@ -281,7 +286,7 @@ DPE . visé . insuffisant:
 
 sauts:
   titre: Sauts de classe DPE
-  formule: DPE . actuel - DPE . visé
+  formule: DPE . actuel - projet . DPE visé
   question: Combien de sauts de classe DPE sont visés ?
   suggestions:
     de G à D: 3
@@ -290,23 +295,24 @@ sauts:
   description: |
     Par exemple, passer d'un DPE G à un DPE D vaut 3 sauts.
 
-DPE . visé . erreur:
+projet . DPE visé . erreur:
   type: notification
   sévérité: invalide
   formule: sauts < 0
   description: |
     À moins que vous n'ayez prévu de détruire un mur, votre DPE visé n'est pas sensé être moins inférieur à votre DPE actuel 😉
 
-travaux . notification:
+projet . travaux . notification:
   type: notification
   sévérité: information
   formule: travaux < 5000
   description: |
     Pour atteindre 2 sauts de DPE, il est en général nécessaire de prévoir une enveloppe de travaux de plusieurs milliers d'€.
 
-travaux:
+projet . travaux:
   titre: Votre enveloppe des travaux
   question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
+  groupe de questions: scénario MPRA
   unité: €
   par défaut:
     variations:
@@ -329,7 +335,7 @@ travaux:
   plafond: investissement + MPR . accompagnée . pourcent dont bonus * travaux . plafond
   résoudre la référence circulaire: oui
 
-travaux . TTC:
+projet . travaux . TTC:
   formule: travaux * 1.055
   description: Nous considérons par défaut que les travaux de l'enveloppe concernent tous de la performance énergétique, ou des travaux liés tels que définis [sur cette page "TVA à taux réduit"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=32), et donc assujettis à un taux réduit de 5,5 %.
 
@@ -359,10 +365,10 @@ MPR . accompagnée . montant écrêté:
     L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
 
   valeur: montant avant écrêtement
-  plafond: pourcent d'écrêtement * travaux . TTC
+  plafond: pourcent d'écrêtement * projet . travaux . TTC
 
 MPR . accompagnée . montant avant écrêtement:
-  formule: pourcent dont bonus * travaux . plafonnés
+  formule: pourcent dont bonus * projet . travaux . plafonnés
 
 MPR . accompagnée . pourcent d'écrêtement:
   titre: Taux maximum toutes aides sur enveloppe TTC
@@ -379,17 +385,17 @@ MPR . accompagnée . pourcent d'écrêtement:
       alors: 60 %
     - sinon: 40 %
 
-investissement:
+projet . investissement:
   titre: Votre investissement
   description: |
     Le budget dont vous disposez pour investir dans votre projet de rénovation, et qui sera bonifié par les aides si vous y êtes éligible.
   par défaut: 25000 €
 
-travaux . plafonnés:
+projet . travaux . plafonnés:
   plafond: plafond
   valeur: travaux
 
-travaux . plafond:
+projet . travaux . plafond:
   variations:
     - si: sauts = 2
       alors: 40000 €
@@ -467,7 +473,7 @@ MPR . non accompagnée:
   valeur: gestes . montant
 
 gestes: # gestes.yaml
-  titre: Gestes
+  titre: Parcours par gestes
 
 MPR . accompagnée:
   titre: Ma Prime Rénov' **accompagnée**
@@ -486,7 +492,7 @@ MPR . accompagnée:
 MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition:
   toutes ces conditions:
-    - DPE . visé <= 4
+    - projet . DPE visé <= 4
     - DPE . actuel >= 6
 MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
@@ -571,4 +577,4 @@ PTZ . montant: 50000 # pour MPR
 
 somme à engager:
   plancher: 0
-  valeur: travaux - (MPR . accompagnée . avance + 50000)
+  valeur: projet . travaux - (MPR . accompagnée . avance + 50000)

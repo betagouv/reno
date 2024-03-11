@@ -1,4 +1,4 @@
-'use client'
+'projet'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import data from '@/components/DPE.yaml'
 import ExplanationValue from '@/components/explications/Value'
@@ -26,10 +26,10 @@ export default function ScenariosSelector({
   engine,
   rules,
 }) {
-  const situation = omit(['travaux'], givenSituation)
+  const situation = omit(['projet . travaux'], givenSituation)
   const isMobile = useMediaQuery('(max-width: 800px)')
 
-  const value = situation['DPE . visé'],
+  const value = situation['projet . DPE visé'],
     choice = value ? value - 1 : null
 
   const doSetSearchParams = (question, value) => {
@@ -140,7 +140,9 @@ export default function ScenariosSelector({
                     type="radio"
                     name={index}
                     checked={index === choice}
-                    onChange={() => doSetSearchParams('DPE . visé', index + 1)}
+                    onChange={() =>
+                      doSetSearchParams('projet . DPE visé', index + 1)
+                    }
                   />
                   <span>
                     <DPELabel index={oldIndex} />{' '}
@@ -170,7 +172,10 @@ export default function ScenariosSelector({
                     {...{
                       engine,
                       index,
-                      situation: { ...situation, 'DPE . visé': index + 1 },
+                      situation: {
+                        ...situation,
+                        'projet . DPE visé': index + 1,
+                      },
                       dottedName: 'MPR . accompagnée . pourcent dont bonus',
                       state: 'none',
                     }}
@@ -179,8 +184,11 @@ export default function ScenariosSelector({
                     {...{
                       engine,
                       index,
-                      situation: { ...situation, 'DPE . visé': index + 1 },
-                      dottedName: 'travaux . plafond',
+                      situation: {
+                        ...situation,
+                        'projet . DPE visé': index + 1,
+                      },
+                      dottedName: 'projet . travaux . plafond',
                       state: 'none',
                     }}
                   />
@@ -206,7 +214,7 @@ export default function ScenariosSelector({
               {...{
                 engine,
                 index: 0,
-                situation: { ...situation, 'DPE . visé': 0 + 1 },
+                situation: { ...situation, 'projet . DPE visé': 0 + 1 },
                 dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
             />{' '}
@@ -215,8 +223,8 @@ export default function ScenariosSelector({
               {...{
                 engine,
                 index: 0,
-                situation: { ...situation, 'DPE . visé': 0 + 1 },
-                dottedName: 'travaux . plafond',
+                situation: { ...situation, 'projet . DPE visé': 0 + 1 },
+                dottedName: 'projet . travaux . plafond',
               }}
             />
             .
@@ -285,7 +293,10 @@ export default function ScenariosSelector({
                   {...{
                     engine,
                     index: choice,
-                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
                     dottedName: 'MPR . accompagnée . pourcent dont bonus',
                     state: 'emphasize',
                   }}
@@ -295,8 +306,11 @@ export default function ScenariosSelector({
                   {...{
                     engine,
                     index: choice,
-                    situation: { ...situation, 'DPE . visé': choice + 1 },
-                    dottedName: 'travaux . plafond',
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
+                    dottedName: 'projet . travaux . plafond',
                     state: 'emphasize',
                   }}
                 />
@@ -316,14 +330,14 @@ export default function ScenariosSelector({
                   <label>
                     <Input
                       autoFocus={false}
-                      value={situation['investissement'] || undefined}
+                      value={situation['projet . investissement'] || undefined}
                       placeholder="votre apport"
                       onChange={(rawValue) => {
                         const value = +rawValue === 0 ? undefined : rawValue
                         setSearchParams(
-                          {
-                            investissement: value,
-                          },
+                          encodeSituation({
+                            'projet . investissement': value,
+                          }),
                           'replace',
                           false,
                         )
@@ -337,7 +351,10 @@ export default function ScenariosSelector({
                     {...{
                       engine,
                       choice,
-                      situation: { ...situation, 'DPE . visé': choice + 1 },
+                      situation: {
+                        ...situation,
+                        'projet . DPE visé': choice + 1,
+                      },
                       dottedName:
                         'MPR . accompagnée . montant avant écrêtement',
                     }}
@@ -350,8 +367,11 @@ export default function ScenariosSelector({
                     {...{
                       engine,
                       choice,
-                      situation: { ...situation, 'DPE . visé': choice + 1 },
-                      dottedName: 'travaux',
+                      situation: {
+                        ...situation,
+                        'projet . DPE visé': choice + 1,
+                      },
+                      dottedName: 'projet . travaux',
                     }}
                   />{' '}
                   HT .
@@ -365,7 +385,10 @@ export default function ScenariosSelector({
                   {...{
                     engine,
                     choice,
-                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
                     dottedName: "MPR . accompagnée . pourcent d'écrêtement",
                     state: 'none',
                   }}
@@ -375,8 +398,11 @@ export default function ScenariosSelector({
                   {...{
                     engine,
                     choice,
-                    situation: { ...situation, 'DPE . visé': choice + 1 },
-                    dottedName: 'travaux . TTC',
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
+                    dottedName: 'projet . travaux . TTC',
                     state: 'none',
                   }}
                 />{' '}
@@ -385,7 +411,10 @@ export default function ScenariosSelector({
                   {...{
                     engine,
                     choice,
-                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
                     dottedName: 'MPR . accompagnée . montant',
                     state: 'none',
                   }}
@@ -403,7 +432,10 @@ export default function ScenariosSelector({
                   {...{
                     engine,
                     choice,
-                    situation: { ...situation, 'DPE . visé': choice + 1 },
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
                     dottedName: 'somme à engager',
                   }}
                 />{' '}
@@ -657,7 +689,7 @@ const Avance = ({ engine, rules, choice, situation }) => {
         {...{
           engine,
           choice,
-          situation: { ...situation, 'DPE . visé': choice + 1 },
+          situation: { ...situation, 'projet . DPE visé': choice + 1 },
           dottedName: 'MPR . accompagnée . avance',
         }}
       />

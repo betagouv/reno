@@ -1,30 +1,40 @@
-import css from '@/components/css/convertToJs'
+import NextQuestions from '@/components/NextQuestions'
 import Link from '@/node_modules/next/link'
 import styled from 'styled-components'
-import simulationConfig from '@/app/simulation/simulationConfig.yaml'
-import NextQuestions from '@/components/NextQuestions'
 
-const categoryData = (nextQuestions, currentQuestion) => {
-  const category = currentQuestion?.split(' . ')[0]
-  const categories = simulationConfig.catégories
+export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
-  const foundQuestionGroup = simulationConfig['groupes de questions'].find(
-    (group) => group.questions.includes(currentQuestion),
+const categoryMap = (questions) =>
+  Object.entries(
+    questions.reduce((memo, next) => {
+      const category = firstLevelCategory(next)
+      return { ...memo, [category]: [...(memo[category] || []), next] }
+    }, {}),
   )
-  if (foundQuestionGroup)
-    return {
-      categoryIndex: 999,
-      categoryTitle: foundQuestionGroup.title,
-    }
-  const categoryIndex = currentQuestion
-      ? categories.findIndex((el) => el === category) + 1
-      : categories.length + 1,
+
+const categoryData = (
+  nextQuestions,
+  currentQuestion,
+  answeredQuestions,
+  rules,
+) => {
+  const pastCategories = categoryMap(answeredQuestions),
+    allCategories = categoryMap([...answeredQuestions, ...nextQuestions])
+
+  const category = firstLevelCategory(currentQuestion)
+
+  const categoryIndex = pastCategories.length + 1,
     categoryTitle = currentQuestion && rules[category]?.titre
+
+  const isLastCategory = nextQuestions.every(
+    (question) => firstLevelCategory(question) === category,
+  )
 
   return {
     categoryTitle,
     categoryIndex,
-    categories,
+    isLastCategory,
+    allCategories,
   }
 }
 
@@ -40,10 +50,8 @@ export default function Answers({
     (el) => el !== 'simulation . mode',
   )
 
-  const { categoryIndex, categoryTitle } = categoryData(
-    nextQuestions,
-    currentQuestion,
-  )
+  const { categoryIndex, categoryTitle, isLastCategory, allCategories } =
+    categoryData(nextQuestions, currentQuestion, answeredQuestions, rules)
 
   return (
     <Wrapper>
@@ -51,11 +59,11 @@ export default function Answers({
         <Header>
           {' '}
           <small>
-            {categoryIndex === categories.length ? (
+            {isLastCategory ? (
               'Dernière étape'
             ) : (
               <span>
-                Étape {categoryIndex} sur {categories.length}
+                Étape {categoryIndex} sur {allCategories.length}
               </span>
             )}
           </small>
@@ -87,7 +95,7 @@ export default function Answers({
           <p>Vous n'avez pas encore validé de réponse.</p>
         )}
       </Details>
-      <ProgressBar $ratio={(categoryIndex - 1) / categories.length} />
+      <ProgressBar $ratio={(categoryIndex - 1) / allCategories.length} />
       {false && (
         <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
       )}

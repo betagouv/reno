@@ -20,7 +20,7 @@ export default function Explications(props) {
     sautsMissing = sauts.missingVariables,
     hasSautsMissing = Object.entries(sautsMissing).length > 0,
     dpeFrom = upEngine.evaluate('DPE . actuel'),
-    dpeTo = upEngine.evaluate('DPE . visé')
+    dpeTo = upEngine.evaluate('projet . DPE visé')
 
   return (
     <Wrapper>

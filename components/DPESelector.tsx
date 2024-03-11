@@ -26,7 +26,7 @@ export default function DPESelector({
     )
     const url = setSearchParams(newSituation, 'push', false)
   }
-  const isNew = currentQuestion === 'DPE . visé' ? numericalValue : null,
+  const isNew = currentQuestion === 'projet . DPE visé' ? numericalValue : null,
     newLetter = numericalValue && data[+numericalValue - 1].lettre,
     oldLetter = isNew && data[+situation['DPE . actuel'] - 1].lettre
 
