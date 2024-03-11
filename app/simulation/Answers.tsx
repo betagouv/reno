@@ -2,6 +2,7 @@ import NextQuestions from '@/components/NextQuestions'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import Link from '@/node_modules/next/link'
 import styled from 'styled-components'
+import { useMediaQuery } from 'usehooks-ts'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -46,6 +47,7 @@ export default function Answers({
   rules,
   situation,
 }) {
+  const isMobile = useMediaQuery('(max-width: 800px)')
   console.log({ rawAnsweredQuestions })
   const answeredQuestions = rawAnsweredQuestions.filter(
     (el) => el !== 'simulation . mode',
@@ -71,8 +73,11 @@ export default function Answers({
               {isLastCategory ? (
                 'Dernière étape'
               ) : (
-                <span>
-                  Étape <Number>{categoryIndex}</Number> sur{' '}
+                <span
+                  title={`Étape ${categoryIndex} sur un total de ${allCategories.length} étapes. Cliquez pour obtenir le détail.`}
+                >
+                  {!isMobile && 'Étape '}
+                  <Number>{categoryIndex}</Number> {isMobile ? '/' : 'sur'}{' '}
                   {allCategories.length} :
                 </span>
               )}
