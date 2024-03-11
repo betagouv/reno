@@ -52,20 +52,17 @@ export default function Condition({ conditionValue }) {
     >
       <Image
         src={
-          valid ? '/check.svg' : trigger ? `/attention.svg` : '/information.svg'
+          '/information.svg'
+
+          //valid ? '/check.svg' : trigger ? `/attention.svg` : '/information.svg'
         }
         width="10"
         height="10"
         alt="Icône d'information"
       />
       <p>
-        Pour bénéficier de la prime sur l'audit énergétique, les gestes
-        d'isolation, de ventilation et de dépose de cuve à fioul,{' '}
-        <strong>
-          vous devrez choisir au moins un geste de remplacement de chauffage ou
-          eau chaude sanitaire
-        </strong>
-        .
+        Pour une rénovation efficace, il est conseillé de combiner isolation,
+        ventilation et décarbonation du chauffage.
       </p>
     </div>
   )

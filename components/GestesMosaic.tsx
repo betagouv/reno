@@ -255,40 +255,28 @@ export default function GestesMosaic({
       <Condition conditionValue={conditionValue} />
 
       <CTAWrapper>
-        <CTA $importance={conditionValue ? 'primary' : 'inactive'}>
-          {conditionValue ? (
-            <Link href={nextUrl}>
-              <span
-                css={`
-                  img {
-                    filter: invert(1);
-                    width: 1.6rem;
-                    margin-right: 0.6rem;
-                    height: auto;
-                    vertical-align: bottom;
-                  }
-                `}
-              >
-                <Image
-                  src="/check.svg"
-                  width="10"
-                  height="10"
-                  alt="Icône coche pleine"
-                />
-                Suivant
-              </span>
-            </Link>
-          ) : (
+        <CTA>
+          <Link href={nextUrl}>
             <span
-              title={
-                conditionValue === false
-                  ? `Il vous manque un chauffage décarboné pour obtenir une prime`
-                  : `Sélectionnez au moins un geste pour passer à l'écran suivant`
-              }
+              css={`
+                img {
+                  filter: invert(1);
+                  width: 1.6rem;
+                  margin-right: 0.6rem;
+                  height: auto;
+                  vertical-align: bottom;
+                }
+              `}
             >
+              <Image
+                src="/check.svg"
+                width="10"
+                height="10"
+                alt="Icône coche pleine"
+              />
               Suivant
             </span>
-          )}
+          </Link>
         </CTA>
       </CTAWrapper>
       <BlocQuestionRéponse>
