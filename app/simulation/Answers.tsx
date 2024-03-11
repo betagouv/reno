@@ -147,15 +147,14 @@ const Details = styled.details`
             justify-content: space-between;
             margin-bottom: 0vh;
             align-items: center;
-            > small {
-              color: #555;
+        color: #555;
+		> span {color:inherit}
 
-            }
+       
 			h2 {
 
 font-size: 100%;
 margin: 0;
-              color: #555;
 			  font-weight: normal;
 
 			}
@@ -169,14 +168,7 @@ margin: 0;
 
   } 
   summary{
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.2vh;
-            align-items: center;
-            > small {
-              color: #555;
-
-            }
+			display: block
 			h2 {
 
 font-size: 110%
