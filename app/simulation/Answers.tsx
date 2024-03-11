@@ -56,32 +56,43 @@ export default function Answers({
 
   return (
     <Wrapper>
-      {answeredQuestions.length > 0 && (
-        <Header>
-          {' '}
-          <small>
-            {isLastCategory ? (
-              'Dernière étape'
-            ) : (
-              <span>
-                Étape {categoryIndex} sur {allCategories.length}
-              </span>
-            )}
-          </small>
-          <Link href={'/simulation'}>Recommencer</Link>
-        </Header>
-      )}
       <Details $noMarker={answeredQuestions.length === 0}>
         <summary>
-          {currentQuestion ? (
-            <span>
-              <Number>{categoryIndex}</Number> &nbsp;{categoryTitle}
-            </span>
-          ) : (
-            'Terminé'
-          )}
+          <div
+            css={`
+              display: flex;
+              align-items: center;
+              h2 {
+                margin-left: 0.4rem !important;
+              }
+            `}
+          >
+            <small>
+              {isLastCategory ? (
+                'Dernière étape'
+              ) : (
+                <span>
+                  Étape <Number>{categoryIndex}</Number> sur{' '}
+                  {allCategories.length} :
+                </span>
+              )}
+            </small>
+            <h2>
+              {currentQuestion ? <span>{categoryTitle}</span> : 'Terminé'}
+            </h2>
+          </div>
+
+          <div
+            css={`
+              visibility: ${answeredQuestions.length > 0
+                ? 'visible'
+                : 'hidden'};
+            `}
+          >
+            <Link href={'/simulation'}>Recommencer</Link>
+          </div>
         </summary>
-        <h2>Vos réponses</h2>
+        <h3>Vos réponses</h3>
         {answeredQuestions.length > 0 ? (
           <AnswerList>
             {answeredQuestions.map((answer) => (
@@ -123,10 +134,27 @@ const Wrapper = styled.section`
   margin-bottom: 2vh;
 `
 const Details = styled.details`
-  h2 {
+  h3 {
     margin-top: 0.6rem;
   }
-  padding-bottom: 1.4vh;
+  summary{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0vh;
+            align-items: center;
+            > small {
+              color: #555;
+
+            }
+			h2 {
+
+font-size: 100%;
+margin: 0;
+              color: #555;
+			  font-weight: normal;
+
+			}
+  padding-bottom: 1vh;
   ${(p) =>
     p.$noMarker &&
     `
@@ -136,21 +164,24 @@ const Details = styled.details`
 
   } 
   summary{
-display: block
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.2vh;
+            align-items: center;
+            > small {
+              color: #555;
+
+            }
+			h2 {
+
+font-size: 110%
+
+			}
+
 }
 
 
   `}
-`
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1.2vh;
-  align-items: center;
-  > small {
-    color: #555;
-  }
 `
 
 const Number = styled.span`
