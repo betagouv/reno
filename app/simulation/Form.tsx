@@ -78,7 +78,6 @@ export default function Form({ searchParams, rules }) {
         {rule && (
           <InputSwitch
             {...{
-              rule,
               rules,
               currentValue,
               currentQuestion,

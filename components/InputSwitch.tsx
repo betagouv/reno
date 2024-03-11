@@ -21,7 +21,6 @@ import config from '@/app/simulation/simulationConfig.yaml'
 import { firstLevelCategory } from '@/app/simulation/Answers'
 
 export default function InputSwitch({
-  rule,
   currentValue,
   currentQuestion: givenCurrentQuestion,
   situation,
@@ -37,6 +36,7 @@ export default function InputSwitch({
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
 
+  const rule = rules[currentQuestion]
   const evaluation = currentQuestion && engine.evaluate(currentQuestion)
 
   if (rule['bornes intelligentes'])
