@@ -155,12 +155,15 @@ const Header = styled.div`
 
 const Number = styled.span`
   background: #000093;
-  border-radius: 1rem;
-  width: 1.4rem;
-  display: inline-block;
-  text-align: center;
-  height: auto;
+  border-radius: 1.4rem;
+  width: 1.6rem;
+  height: 1.6rem;
   color: white;
+  padding: 0;
+  line-height: 1.4rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const ProgressBar = styled.div`
