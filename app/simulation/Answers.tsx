@@ -95,10 +95,21 @@ export default function Answers({
           <p>Vous n'avez pas encore validé de réponse.</p>
         )}
       </Details>
-      <ProgressBar $ratio={(categoryIndex - 1) / allCategories.length} />
+      <h3>Questions à venir</h3>
+      <ol
+        css={`
+          list-style-type: circle;
+          margin-bottom: 1rem;
+        `}
+      >
+        {allCategories.slice(categoryIndex).map(([k, v]) => (
+          <li key={k}>{rules[k].titre || k}</li>
+        ))}
+      </ol>
       {false && (
         <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
       )}
+      <ProgressBar $ratio={(categoryIndex - 1) / allCategories.length} />
     </Wrapper>
   )
 }
