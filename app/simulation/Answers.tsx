@@ -37,6 +37,7 @@ const categoryData = (
     categoryIndex,
     isLastCategory,
     allCategories,
+    pastCategories,
   }
 }
 
@@ -53,8 +54,13 @@ export default function Answers({
     (el) => el !== 'simulation . mode',
   )
 
-  const { categoryIndex, categoryTitle, isLastCategory, allCategories } =
-    categoryData(nextQuestions, currentQuestion, answeredQuestions, rules)
+  const {
+    categoryIndex,
+    categoryTitle,
+    isLastCategory,
+    allCategories,
+    pastCategories,
+  } = categoryData(nextQuestions, currentQuestion, answeredQuestions, rules)
 
   return (
     <Wrapper>
@@ -98,20 +104,35 @@ export default function Answers({
           </div>
         </summary>
         <h3>Vos réponses</h3>
-        {answeredQuestions.length > 0 ? (
-          <AnswerList>
-            {answeredQuestions.map((answer) => (
-              <li key={answer}>
-                {' '}
-                <span>{getRuleTitle(answer, rules)}</span> -{' '}
-                <span>{situation[answer]}</span>
+
+        {pastCategories.length > 0 ? (
+          <ol
+            css={`
+              list-style-type: circle;
+              ol {
+                list-style-type: disc;
+              }
+            `}
+          >
+            {pastCategories.map(([category, questions]) => (
+              <li key={category}>
+                {getRuleTitle(category, rules)}
+                <AnswerList>
+                  {questions.map((answer) => (
+                    <li key={answer}>
+                      {' '}
+                      <span>{getRuleTitle(answer, rules)}</span> -{' '}
+                      <span>{situation[answer]}</span>
+                    </li>
+                  ))}
+                </AnswerList>
               </li>
             ))}
-          </AnswerList>
+          </ol>
         ) : (
           <p>Vous n'avez pas encore validé de réponse.</p>
         )}
-        <h3>Questions à venir</h3>
+        <h3>Prochaines étapes</h3>
         <ol
           css={`
             list-style-type: circle;
