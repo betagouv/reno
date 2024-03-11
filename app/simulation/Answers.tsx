@@ -119,9 +119,22 @@ export default function Answers({
                 {getRuleTitle(category, rules)}
                 <AnswerList>
                   {questions.map((answer) => (
-                    <li key={answer}>
-                      {' '}
-                      <span>{getRuleTitle(answer, rules)}</span> -{' '}
+                    <li
+                      key={answer}
+                      css={`
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                      `}
+                    >
+                      <span>{getRuleTitle(answer, rules)}</span>{' '}
+                      <span
+                        css={`
+                          border-bottom: 1px dashed #aaa;
+                          flex-grow: 1;
+                          margin: 0 1rem;
+                        `}
+                      ></span>
                       <span>{situation[answer]}</span>
                     </li>
                   ))}
