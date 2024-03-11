@@ -1,4 +1,5 @@
 import NextQuestions from '@/components/NextQuestions'
+import { getRuleTitle } from '@/components/publicodes/utils'
 import Link from '@/node_modules/next/link'
 import styled from 'styled-components'
 
@@ -86,7 +87,7 @@ export default function Answers({
             {answeredQuestions.map((answer) => (
               <li key={answer}>
                 {' '}
-                <span>{rules[answer].titre}</span> -{' '}
+                <span>{getRuleTitle(answer, rules)}</span> -{' '}
                 <span>{situation[answer]}</span>
               </li>
             ))}
@@ -94,21 +95,21 @@ export default function Answers({
         ) : (
           <p>Vous n'avez pas encore validé de réponse.</p>
         )}
+        <h3>Questions à venir</h3>
+        <ol
+          css={`
+            list-style-type: circle;
+            margin-bottom: 1rem;
+          `}
+        >
+          {allCategories.slice(categoryIndex).map(([k, v]) => (
+            <li key={k}>{getRuleTitle(k, rules)}</li>
+          ))}
+        </ol>
+        {false && (
+          <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
+        )}
       </Details>
-      <h3>Questions à venir</h3>
-      <ol
-        css={`
-          list-style-type: circle;
-          margin-bottom: 1rem;
-        `}
-      >
-        {allCategories.slice(categoryIndex).map(([k, v]) => (
-          <li key={k}>{rules[k].titre || k}</li>
-        ))}
-      </ol>
-      {false && (
-        <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
-      )}
       <ProgressBar $ratio={(categoryIndex - 1) / allCategories.length} />
     </Wrapper>
   )

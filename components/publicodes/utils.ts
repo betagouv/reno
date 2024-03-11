@@ -5,3 +5,11 @@ export const getRuleName = (dottedName) =>
 
 export const parentName = (dottedName) =>
   dottedName.split(' . ').slice(0, -1).join(' . ')
+
+export const getRuleTitle = (dottedName, rules) => {
+  const rule = rules[dottedName]
+  const title = rule.titre
+  if (title) return title
+
+  return getRuleName(dottedName)
+}
