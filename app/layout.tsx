@@ -2,6 +2,7 @@ import css from '@/components/css/convertToJs'
 import StyledComponentsRegistry from '../lib/registry'
 import Link from 'next/link'
 import './globals.css'
+import Matomo from '@/utils/Matomo'
 
 import { TopBanner } from '@/components/UI'
 import localFont from 'next/font/local'
@@ -97,6 +98,7 @@ export default function RootLayout({
           {children}
         </StyledComponentsRegistry>
       </body>
+      <Matomo />
     </html>
   )
 }
