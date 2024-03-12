@@ -12,7 +12,11 @@ export default function Footer() {
           <Link href="/personas">Personas</Link>
         </li>
         <li>Accessibilité : non conforme</li>
-        <li>Vie privée : à venir</li>
+        <li>
+          <Link href="/confidentialite">
+            Confidentialité et mentions légales
+          </Link>
+        </li>
         <li>
           <a href="https://github.com/betagouv/reno">Code source</a>
         </li>
