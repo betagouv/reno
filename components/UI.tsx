@@ -62,7 +62,7 @@ export const TopBanner = styled.p`
     background: linear-gradient(
       90deg,
       rgba(255, 255, 255, 1) 0%,
-      rgba(250, 128, 114, 1) 48%,
+      #f0b50f 48%,
       rgba(255, 255, 255, 1) 100%
     );
     white-space: nowrap;

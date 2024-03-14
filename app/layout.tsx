@@ -54,8 +54,8 @@ export default function RootLayout({
       <body className={marianneFont.className}>
         <StyledComponentsRegistry>
           <TopBanner>
-            <strong>
-              🚧 En cours de développement, peu fiable, métropole seulement
+            <strong title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'">
+              Version beta, métropole seulement, non contractuel.
             </strong>
           </TopBanner>
           <header
