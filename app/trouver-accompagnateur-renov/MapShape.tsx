@@ -15,7 +15,7 @@ export default function MapShapes({ map, marList, selectMarker }) {
         return marker
       })
 
-    map.fitBounds(bounds)
+    map.fitBounds(bounds, { maxZoom: 12 })
     return () => {
       markers.map((marker) => marker.remove())
     }

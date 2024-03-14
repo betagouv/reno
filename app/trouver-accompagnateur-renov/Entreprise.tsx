@@ -1,12 +1,12 @@
+import { getAdresse } from './MarSearch'
+
 export default function Entreprise({ data }) {
   return (
     <div>
       <div>
         <strong>{data.raison_sociale}</strong>
       </div>
-      <small>
-        {data.adresse} {data.ville}
-      </small>
+      <small>{getAdresse(data)}</small>
       <div>
         <a
           href={`tel:${data.tel}`}
@@ -23,6 +23,28 @@ export default function Entreprise({ data }) {
           {data.email}
         </a>
       </div>
+      {data.horaire && (
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+          `}
+        >
+          🕑️{' '}
+          <ul
+            css={`
+              list-style-type: none;
+              padding-left: 0.6rem;
+              margin: 1rem 0 0 1rem;
+              border-left: 3px solid var(--color);
+            `}
+          >
+            {data.horaire.map((horaire) => (
+              <li key={horaire}>{horaire}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

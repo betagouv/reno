@@ -9,7 +9,10 @@ import MapShapes from './MapShape'
 import { Loader } from './UI'
 import useAddMap from './useAddMap'
 
-export default function MarSearch({ codeInsee: givenCodeInsee }) {
+export default function MarSearch({
+  codeInsee: givenCodeInsee,
+  what = 'trouver-accompagnateur-renov',
+}) {
   const [selectedMarker, selectMarker] = useState(null)
   const [data, setData] = useState(null)
   const [location, setLocation] = useState(null)
@@ -22,10 +25,10 @@ export default function MarSearch({ codeInsee: givenCodeInsee }) {
   useEffect(() => {
     if (!codeInsee) return
     const doFetch = async () => {
-      const request = await fetch(
-        `/trouver-accompagnateur-renov/api?codeInsee=${codeInsee}`,
-      )
-      const data = await request.json()
+      const request = await fetch(`/${what}/api?codeInsee=${codeInsee}`)
+      const rawData = await request.json()
+
+      const data = Array.isArray(rawData) ? rawData : [rawData]
 
       // Temporary, should be done once properly in the form, maybe with the exact adress to find the closest MAR
       const coordinatesRequest = await fetch(
@@ -34,18 +37,18 @@ export default function MarSearch({ codeInsee: givenCodeInsee }) {
       const coordinates = await coordinatesRequest.json()
 
       const geolocatedData = await Promise.all(
-        data.map(async (el) => {
-          const url =
-            `https://photon.komoot.io/api/?q=` +
-            el.adresse +
-            ' ' +
-            el.code_postal
-          timeout(10)
-          const request = await fetch(encodeURI(url))
-          const json = await request.json()
+        data
+          .map(async (el) => {
+            const address = getAdresse(el)
+            if (!address) return false
+            const url = `https://photon.komoot.io/api/?q=` + address
+            timeout(10)
+            const request = await fetch(encodeURI(url))
+            const json = await request.json()
 
-          return { ...el, ...(json.features[0] || {}) } // only take the first result for now
-        }),
+            return { ...el, ...(json.features[0] || {}) } // only take the first result for now
+          })
+          .filter(Boolean),
       )
       const plainData = geolocatedData.filter(Boolean)
       const centre = coordinates?.features[0]
@@ -181,4 +184,15 @@ export default function MarSearch({ codeInsee: givenCodeInsee }) {
 }
 function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+export const getAdresse = (obj) => {
+  if (obj.adresse) return obj.adresse + ' ' + obj.code_postal
+  if (typeof obj.adresse_postale === 'object') {
+    const { adresse1, adresse2, adresse3, code_postal, ville } =
+      obj.adresse_postale
+    return `${adresse1 || ''} ${adresse2 || ''} ${adresse3 || ''} ${code_postal} ${ville}`
+  }
+
+  return null
 }
