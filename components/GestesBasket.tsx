@@ -1,3 +1,4 @@
+import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import Image from 'next/image'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
@@ -202,6 +203,10 @@ export default function GestesBasket({
           </Link>
         </CTA>
       </CTAWrapper>
+      <MarSearch
+        codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
+        what="trouver-conseiller-renov"
+      />
     </div>
   )
 }
