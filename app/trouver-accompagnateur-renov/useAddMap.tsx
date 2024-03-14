@@ -15,7 +15,7 @@ export default function useAddMap(mapContainerRef, setLocation) {
 
     const newMap = new maplibregl.Map({
       container: mapContainerRef.current,
-      style: `https://api.protomaps.com/styles/v2/light.json?key=8df307109ae3eabc`,
+      style: `https://api.protomaps.com/styles/v2/light.json?key=d1510405cab9980c`,
       center: defaultCenter,
       zoom: defaultZoom,
       hash: true,
