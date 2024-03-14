@@ -4,32 +4,23 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url)
   const codeInsee = searchParams.get('codeInsee')
 
-  const codePostal = '00000'
-  // codePostal and city name looks useless in this request
-  const body = `-----------------------------${boundary}\r\nContent-Disposition: form-data; name=\"localisation\"\r\n\r\n${codePostal} - Rennes\r\n-----------------------------${boundary}\r\nContent-Disposition: form-data; name=\"insee\"\r\n\r\n${codeInsee}\r\n-----------------------------${boundary}--\r\n`
-
+  const bodyFormData = new FormData()
+  bodyFormData.append('insee', codeInsee)
   const externalRequest = await fetch(
     'https://france-renov.gouv.fr/annuaire-ar/search.json',
     {
       credentials: 'include',
       headers: {
         Accept: 'application/json',
-        'Accept-Language': 'fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3',
         'x-requested-with': 'XMLHttpRequest',
-        'Content-Type': `multipart/form-data; boundary=---------------------------${boundary}`,
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        Pragma: 'no-cache',
-        'Cache-Control': 'no-cache',
       },
       referrer:
         'https://france-renov.gouv.fr/annuaire-ar/recherche?localisation=35000+-+Rennes&insee=35238',
-      body,
+      body: bodyFormData,
       method: 'POST',
-      mode: 'cors',
     },
   )
+  if (!externalRequest.ok) console.log(externalRequest)
   const data = await externalRequest.json()
 
   return Response.json(data)
