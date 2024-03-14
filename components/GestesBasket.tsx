@@ -177,36 +177,46 @@ export default function GestesBasket({
         Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
         vous engage à rien.
       </p>
-      <CTAWrapper>
-        <CTA>
-          {' '}
-          <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
-            <span
-              css={`
-                img {
-                  filter: invert(1);
-                  width: 1.6rem;
-                  margin-right: 0.6rem;
-                  height: auto;
-                  vertical-align: bottom;
-                }
-              `}
-            >
-              <Image
-                src="/check.svg"
-                width="10"
-                height="10"
-                alt="Icône coche pleine"
-              />
-              Trouver mon conseiller
-            </span>
-          </Link>
-        </CTA>
-      </CTAWrapper>
       <MarSearch
         codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
         what="trouver-conseiller-renov"
       />
+      <div
+        css={`
+          margin-top: 3rem;
+        `}
+      >
+        <p>
+          Si votre conseiller France Rénov' ne s'affiche pas sur la carte
+          ci-dessus, cliquez sur le bouton suivant :
+        </p>
+        <CTAWrapper>
+          <CTA>
+            {' '}
+            <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
+              <span
+                css={`
+                  img {
+                    filter: invert(1);
+                    width: 1.6rem;
+                    margin-right: 0.6rem;
+                    height: auto;
+                    vertical-align: bottom;
+                  }
+                `}
+              >
+                <Image
+                  src="/check.svg"
+                  width="10"
+                  height="10"
+                  alt="Icône coche pleine"
+                />
+                Trouver mon conseiller
+              </span>
+            </Link>
+          </CTA>
+        </CTAWrapper>
+      </div>
     </div>
   )
 }
