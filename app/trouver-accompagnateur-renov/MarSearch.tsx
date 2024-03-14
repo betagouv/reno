@@ -49,13 +49,16 @@ export default function MarSearch({ codeInsee: givenCodeInsee }) {
       )
       const plainData = geolocatedData.filter(Boolean)
       const centre = coordinates?.features[0]
+      console.log('indigo', plainData, centre)
       if (!centre) return setData(plainData)
 
-      const filtered = plainData.filter((el) => {
-        const distance = computeDistance(centre, el)
-        console.log('red', distance, centre, el)
-        return distance < 200
-      })
+      const filtered = plainData
+        .filter((el) => el.geometry?.coordinates)
+        .filter((el) => {
+          const distance = computeDistance(centre, el)
+          console.log('red', distance, centre, el)
+          return distance < 200
+        })
       // We tried doing it on the server side, it failed with 404 not found nginx html messages
       setData(filtered)
     }
