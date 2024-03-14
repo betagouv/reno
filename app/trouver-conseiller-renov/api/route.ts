@@ -5,7 +5,7 @@ export async function GET(request) {
   const bodyFormData = new FormData()
   bodyFormData.append('insee', codeInsee)
   const externalRequest = await fetch(
-    'https://france-renov.gouv.fr/annuaire-ar/search.json',
+    'https://france-renov.gouv.fr/espaces-conseil-fr/search.json',
     {
       credentials: 'include',
       headers: {
