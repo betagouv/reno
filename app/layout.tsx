@@ -6,6 +6,7 @@ import './globals.css'
 
 import localFont from 'next/font/local'
 import DynamicHeaderIcon from './DynamicHeaderIcon'
+import { Title } from './LayoutUI'
 
 const marianneFont = localFont({
   src: [
@@ -82,15 +83,7 @@ export default function RootLayout({
                     align-items: center;
                   `}
                 >
-                  <h1
-                    style={css`
-                      margin: 1vh 0;
-                      margin-left: 1vw;
-                      font-size: 140%;
-                    `}
-                  >
-                    Mes aides réno
-                  </h1>
+                  <Title>Mes aides réno</Title>
                   <strong
                     title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'"
                     style={css`
