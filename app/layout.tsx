@@ -7,6 +7,7 @@ import './globals.css'
 import localFont from 'next/font/local'
 import DynamicHeaderIcon from './DynamicHeaderIcon'
 import { Title } from './LayoutUI'
+import { Suspense } from 'react'
 
 const marianneFont = localFont({
   src: [
@@ -104,7 +105,9 @@ export default function RootLayout({
           {children}
         </StyledComponentsRegistry>
       </body>
-      <Matomo />
+      <Suspense>
+        <Matomo />
+      </Suspense>
     </html>
   )
 }
