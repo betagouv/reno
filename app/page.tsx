@@ -44,6 +44,17 @@ export default function Page({ searchParams }) {
                 <Link href="/simulation">Commencer la simulation</Link>
               </CTA>
             </CTAWrapper>
+            <p
+              style={css`
+                margin: 0;
+                margin-top: -1rem;
+                font-style: italic;
+                color: #555;
+                line-height: 1.3rem;
+              `}
+            >
+              Pour l'instant limité aux maisons en France&nbsp;hexagonale.
+            </p>
           </div>
           <Image
             src="/brouillons/illustration.svg"
