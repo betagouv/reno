@@ -1,10 +1,9 @@
 import css from '@/components/css/convertToJs'
-import StyledComponentsRegistry from '../lib/registry'
-import Link from 'next/link'
-import './globals.css'
 import Matomo from '@/utils/Matomo'
+import Link from 'next/link'
+import StyledComponentsRegistry from '../lib/registry'
+import './globals.css'
 
-import { TopBanner } from '@/components/UI'
 import localFont from 'next/font/local'
 import DynamicHeaderIcon from './DynamicHeaderIcon'
 
@@ -53,14 +52,8 @@ export default function RootLayout({
     <html lang="fr">
       <body className={marianneFont.className}>
         <StyledComponentsRegistry>
-          <TopBanner>
-            <strong>
-              🚧 En cours de développement, peu fiable, métropole seulement
-            </strong>
-          </TopBanner>
           <header
             style={css`
-              margin-top: 1.6rem;
               margin-bottom: calc(1.5vh + 1.5vw);
               box-shadow: var(--shadow-elevation-medium);
               padding: 0 1vh;
@@ -83,15 +76,35 @@ export default function RootLayout({
                 `}
               >
                 <DynamicHeaderIcon />
-                <h1
+                <div
                   style={css`
-                    margin: 1vh 0;
-                    margin-left: 1vw;
-                    font-size: 140%;
+                    display: flex;
+                    align-items: center;
                   `}
                 >
-                  Mes aides réno
-                </h1>
+                  <h1
+                    style={css`
+                      margin: 1vh 0;
+                      margin-left: 1vw;
+                      font-size: 140%;
+                    `}
+                  >
+                    Mes aides réno
+                  </h1>
+                  <strong
+                    title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'"
+                    style={css`
+                      background: #e8edff;
+                      color: #0063cb;
+                      padding: 0.1rem 0.3rem;
+                      border-radius: 0.1rem;
+                      margin-left: 0.6rem;
+                      font-size: 110%;
+                    `}
+                  >
+                    BETA
+                  </strong>
+                </div>
               </div>
             </Link>
           </header>
