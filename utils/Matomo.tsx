@@ -1,16 +1,15 @@
 'use client'
-import Script from 'next/script'
 import { init, push } from '@socialgouv/matomo-next'
-import { useEffect, useRef, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
 
 const MATOMO_URL = 'https://stats.beta.gouv.fr'
 const MATOMO_SITE_ID = '101'
 
-export default function Matomo() {
+const MatomoComponent = () => {
   const [initialised, setInitialised] = useState(false)
   useEffect(() => {
-    if (MATOMO_URL && MATOMO_SITE_ID && initialised) {
+    if (MATOMO_URL && MATOMO_SITE_ID && !initialised) {
       init({ url: MATOMO_URL, siteId: MATOMO_SITE_ID })
     }
     return () => {
@@ -27,4 +26,12 @@ export default function Matomo() {
     push(['trackPageView'])
   }, [pathname, searchParamsString])
   return null
+}
+
+export default function Matomo() {
+  return (
+    <Suspense>
+      <MatomoComponent />
+    </Suspense>
+  )
 }
