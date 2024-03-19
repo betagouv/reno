@@ -2,7 +2,9 @@ import { useState } from 'react'
 import DPELabel from './DPELabel'
 import useSetSearchParams from './useSetSearchParams'
 import Link from 'next/link'
+import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
+import editIcon from '@/public/crayon.svg'
 
 export default function ({ oldIndex }) {
   const [editing, setEditing] = useState(false)
@@ -35,11 +37,20 @@ export default function ({ oldIndex }) {
           css={`
             text-decoration: underline dotted var(--color);
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            img {
+              margin-left: 0.3rem;
+              height: 1.2rem;
+              width: auto;
+            }
           `}
           onClick={() => setEditing(true)}
           title="Cliquez pour choisir un autre DPE actuel de votre logement, dans le cas où vous n'êtes pas certain de votre DPE."
         >
-          DPE <DPELabel index={oldIndex} />
+          DPE&nbsp;
+          <DPELabel index={oldIndex} />
+          <Image src={editIcon} alt="Icône crayon" />
         </span>
       )}
       .
