@@ -1,3 +1,24 @@
+
+- question: Je suis en collocation
+  catégorie: ménage
+  id: ménage
+  réponse: |
+    Question à Loïc : dans le cas d'une collocation ou l'un des collocataire, qui entre en compte dans le calcul si je suis le seul propriétaire ?  
+
+
+- question: Qu'est-ce qu'un ménage ?
+  catégorie: ménage
+  id: ménage
+  réponse: |
+    Question à Loïc :  Comment guider les usagers dans leur réponse ?
+    cas pratique 
+    - Je suis unique propiétaire d'un logement loué et j'habite en concubinage ?
+    - Je suis propiétaire occupant et j'acceuil un colloque chez moi ? 
+    - J'habite seul un logement que j'ai achété avec mon ancienne compagne dont je suis séparé ? Je possède 70% des parts ? 
+    - Je suis en garde partagé à 50% du temps ? 20% ?
+  
+
+
 - question: De quel revenu parle-t-on pour les conditions d'éligibilité ? Mon ménage, mon foyer ?
   catégorie: revenu
   id: revenu
