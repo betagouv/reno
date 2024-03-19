@@ -15,6 +15,7 @@ import Input from './Input'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
+import DPEQuickSwitch from './DPEQuickSwitch'
 
 console.log('DPE data', data)
 
@@ -59,6 +60,7 @@ export default function ScenariosSelector({
             height: auto;
             vertical-align: bottom;
           }
+          margin-bottom: 2vh;
         }
       `}
     >
@@ -71,17 +73,21 @@ export default function ScenariosSelector({
         />{' '}
         Vous êtes éligible à MaPrimeRénov' Parcours accompagné
       </h2>
+      <DPEQuickSwitch oldIndex={oldIndex} />
       <p>
         Plus votre rénovation est ambitieuse, plus l’aide est généreuse : le
         montant de l'aide dépend des gains de performance visés.
       </p>
       <p
         css={`
+          margin-top: 1.5vh;
           text-align: right;
           line-height: 1rem;
         `}
       >
-        <em> Sélectionnez une ligne pour évaluez votre budget. </em>
+        <small>
+          <em> Sélectionnez une ligne pour évaluer votre budget. </em>
+        </small>
       </p>
       <ol
         css={`
@@ -197,6 +203,16 @@ export default function ScenariosSelector({
             ),
         )}
       </ol>
+      {oldIndex < 2 && (
+        <Card
+          css={`
+            margin: 0.6rem 0;
+          `}
+        >
+          👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
+          bénéficier du parcours accompagné.
+        </Card>
+      )}
       {false && (
         <p
           css={`

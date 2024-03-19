@@ -1,17 +1,15 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
+import { Section } from '@/components/UI'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
-import questionType from '@/components/publicodes/questionType'
 import {
   decodeDottedName,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
-import { Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
-import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import Answers from './Answers'
@@ -43,7 +41,6 @@ export default function Form({ searchParams, rules }) {
     )
   console.log('indigo', situation)
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
-    value = formatValue(evaluation),
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
@@ -54,14 +51,6 @@ export default function Form({ searchParams, rules }) {
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-  const liveEvaluation =
-    currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
-
-  const ruleQuestionType = currentQuestion && questionType(liveEvaluation, rule)
-
-  const rawValue = situation[currentQuestion]
-  const currentValue =
-    rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
   return (
     <div>
@@ -78,15 +67,12 @@ export default function Form({ searchParams, rules }) {
         {rule && (
           <InputSwitch
             {...{
-              rule,
               rules,
-              currentValue,
               currentQuestion,
               situation,
               answeredQuestions,
               setSearchParams,
               engine,
-              ruleQuestionType,
               nextQuestions,
               searchParams,
             }}

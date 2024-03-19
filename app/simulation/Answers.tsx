@@ -1,5 +1,11 @@
 import NextQuestions from '@/components/NextQuestions'
+import {
+  encodeDottedName,
+  encodeSituation,
+} from '@/components/publicodes/situationUtils'
 import { getRuleTitle } from '@/components/publicodes/utils'
+import useSetSearchParams from '@/components/useSetSearchParams'
+import { transformObject } from '@/components/utils'
 import Link from '@/node_modules/next/link'
 import styled from 'styled-components'
 import { useMediaQuery } from 'usehooks-ts'
@@ -62,6 +68,7 @@ export default function Answers({
     pastCategories,
   } = categoryData(nextQuestions, currentQuestion, answeredQuestions, rules)
 
+  const setSearchParams = useSetSearchParams()
   return (
     <Wrapper>
       <Details $noMarker={answeredQuestions.length === 0}>
@@ -135,7 +142,21 @@ export default function Answers({
                           margin: 0 1rem;
                         `}
                       ></span>
-                      <span>{situation[answer]}</span>
+                      <Link
+                        href={setSearchParams(
+                          {
+                            question: encodeDottedName(answer),
+                            ...encodeSituation(
+                              situation,
+                              false,
+                              answeredQuestions.filter((q) => q !== answer),
+                            ),
+                          },
+                          'url',
+                        )}
+                      >
+                        {situation[answer]}
+                      </Link>
                     </li>
                   ))}
                 </AnswerList>

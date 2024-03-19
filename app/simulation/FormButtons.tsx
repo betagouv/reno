@@ -32,14 +32,17 @@ export default function FormButtons({
         {showValidation ? (
           <Link
             href={setSearchParams(
-              encodeSituation(
-                {
-                  ...situation,
-                  [currentQuestion]: situation[currentQuestion],
-                },
-                false,
-                [...answeredQuestions, currentQuestion],
-              ),
+              {
+                ...encodeSituation(
+                  {
+                    ...situation,
+                    [currentQuestion]: situation[currentQuestion],
+                  },
+                  false,
+                  [...answeredQuestions, currentQuestion],
+                ),
+                question: undefined,
+              },
               'url',
               false,
             )}
