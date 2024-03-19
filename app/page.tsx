@@ -81,48 +81,60 @@ export default function Page({ searchParams }) {
         </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true}>
           <Content>
-            <h2>Pourquoi un simulateur Mes aides Réno ?</h2>
+            <h2>Qu'est-ce que c'est ?</h2>
+            <h3>1) Je réponds à un questionnaire détaillé</h3>
+            <p>
+              6 questions pour évaluer votre éligibilité et estimer le montant
+              le vos aides.
+            </p>
+            <h3>2) Je découvre les aides auxquelles je suis éligible</h3>
+            <p>
+              Et j’affine mon projet pour obtenir un montant d’enveloppe global
+              pour mes travaux.
+            </p>
+            <h3>3) J’exporte le résultat de ma simulation</h3>
+            <p>
+              Pour le partager avec mon conseiller local France Rénov’, mes
+              proches ou mes artisans.
+            </p>
+          </Content>
+        </Wrapper>
+        <Wrapper $noMargin={true}>
+          <Content>
+            <h2>
+              Vous aider à vous projeter la rénovation énergétique de votre
+              logement
+            </h2>
             <p>
               Rénover son logement permet de réduire ses factures et d’améliorer
-              son confort, en luttant contre le froid et le chaud. C’est
-              également l’un des leviers importants de notre transition
-              énergétique et climatique. Le gouvernement et les collectivités
-              territoriales accompagnent les propriétaires dans leur projets à
-              travers plusieurs dispositif d’aides.
+              son confort d’hiver et d’été. C’est également l’un des leviers
+              importants de notre transition énergétique et climatique.
             </p>
             <p>
-              Ces d’aides peuvent vous accompagner dans une rénovation d’ampleur
-              de votre logement ou la réalisation d’un ou plusieurs gestes de
-              travaux (changement des fenêtre, installation d’une pompe à
-              chaleur, isolation des murs…).
+              De nombreuses aides existent à l’échelle nationale ou local. En
+              tant que particulier, il est parfois difficile à s’y retrouver.
+              Mes Aides Réno vous accompagne dans le choix du bon dispositif en
+              fonction de votre situation.
             </p>
-            <div>
-              <p>Mes Aides Réno vous permet :</p>
-              <ul>
-                <li>
-                  d’évaluer rapidement votre éligibilité aux principales aides
-                </li>
-                <li>de choisir celle qui est la plus pertinente pour vous</li>
-                <li>
-                  d’estimer le montant de vos aides en fonction de votre
-                  situation et de votre projet de rénovation
-                </li>
-              </ul>
-            </div>
-
-            <h2>Qui est éligible aux dispositifs ?</h2>
             <p>
               Les aides a la rénovation sont accessibles à tous les
               propriétaires, qu’ils habitent leur logement ou le mettent en
-              location, ainsi qu’aux copropriétaires. Elles sont ouvertes aux
-              maisons individuelles, aux appartements et aux copropriétés. Il
-              faut cependant que le logement soit une résidence principale.
+              location, ainsi qu’aux copropriétaires. Elles permettent de
+              financer une rénovation d’ampleur, comme la réalisation d’un ou
+              plusieurs gestes de travaux (changement des fenêtre, installation
+              d’une pompe à chaleur, isolation des murs…).
             </p>
+
             <p>
               Si vous êtes locataire, vous n’êtes pas éligible aux aides.
               Cependant, le simulateur Mes aides réno peut vous aider à mieux
               informer et à sensibiliser votre bailleur.
             </p>
+          </Content>
+        </Wrapper>
+
+        <Wrapper $background="white" $noMargin={true}>
+          <Content>
             <h2>Quels sont les dispositifs ?</h2>
             <p>
               En 2024, les aides à la rénovation énergétique des logements sont
