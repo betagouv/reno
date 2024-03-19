@@ -5,7 +5,9 @@ import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 
+import { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './DPESelector'
+import GestesBasket from './GestesBasket'
 import GestesMosaic, {
   gestesMosaicQuestions,
   isGestesMosaicQuestion,
@@ -16,19 +18,15 @@ import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
 import SmartInput from './SmartInput'
-import GestesBasket from './GestesBasket'
-import config from '@/app/simulation/simulationConfig.yaml'
-import { firstLevelCategory } from '@/app/simulation/Answers'
+import questionType from './publicodes/questionType'
 
 export default function InputSwitch({
-  currentValue,
   currentQuestion: givenCurrentQuestion,
   situation,
   answeredQuestions,
   setSearchParams,
   engine,
   rules,
-  ruleQuestionType,
   nextQuestions,
   searchParams,
 }) {
@@ -37,7 +35,13 @@ export default function InputSwitch({
     : givenCurrentQuestion
 
   const rule = rules[currentQuestion]
-  const evaluation = currentQuestion && engine.evaluate(currentQuestion)
+  const evaluation =
+    currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
+
+  const ruleQuestionType = currentQuestion && questionType(evaluation, rule)
+  const rawValue = situation[currentQuestion]
+  const currentValue =
+    rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
   if (rule['bornes intelligentes'])
     return (
