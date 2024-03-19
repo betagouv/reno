@@ -36,15 +36,13 @@ export default function Page({ searchParams }) {
             </h1>
             <Intro>
               <p>
-                5 minutes pour obtenir le montant des aides en fonction de votre
-                situation et votre projet.
+                Des factures moins élevées dans un logement plus confortable et
+                plus écologique.
               </p>
             </Intro>
             <CTAWrapper $justify="left">
-              <CTA>
-                <Link href="/simulation">
-                  ➞&nbsp;&nbsp;Commencer la simulation
-                </Link>
+              <CTA $fontSize="normal">
+                <Link href="/simulation">➞&nbsp;&nbsp;C'est parti !</Link>
               </CTA>
             </CTAWrapper>
             <p
