@@ -9,9 +9,9 @@ export const Labels = styled.ul`
   padding: 0;
   li {
     margin-right: 0.6rem;
-    padding: 0 0.3rem;
+    padding: 0.1rem 0.3rem;
 
-    color: #308951;
+    color: #18753c;
     background: #b8fec9;
     font-weight: 500;
     font-size: 90%;

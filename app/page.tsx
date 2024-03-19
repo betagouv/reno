@@ -23,7 +23,7 @@ export default function Page({ searchParams }) {
         <HeaderWrapper>
           <div>
             <Labels>
-              {['confort', 'économies', 'climat'].map((text) => (
+              {['⚡️ En 2024, les aides évoluent'].map((text) => (
                 <li key={text}>{text}</li>
               ))}
             </Labels>
@@ -32,17 +32,12 @@ export default function Page({ searchParams }) {
                 margin-top: 0.6rem;
               `}
             >
-              Découvrez les aides 2024 à la rénovation énergétique
+              Estimez vos aides pour rénover votre logement
             </h1>
             <Intro>
               <p>
-                En 2024, les aides évoluent pour mieux accompagner les
-                rénovations énergétiques.
-              </p>
-
-              <p>
-                Estimez vos droits en ⌚️ 5 minutes en fonction de votre
-                situation et de votre projet.
+                5 minutes pour obtenir le montant des aides en fonction de votre
+                situation et votre projet.
               </p>
             </Intro>
             <CTAWrapper $justify="left">
