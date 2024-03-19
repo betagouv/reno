@@ -55,7 +55,7 @@ export default function Page({ searchParams }) {
                 line-height: 1.3rem;
               `}
             >
-              Pour l'instant limité aux maisons en France&nbsp;hexagonale.
+              Pour l'instant limité à la France&nbsp;hexagonale.
             </p>
           </div>
           <Image
