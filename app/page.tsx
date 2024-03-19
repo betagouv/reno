@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
 import VisualExplanation from './VisualExplanation'
+import { Labels } from './HomeUI'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -21,12 +22,17 @@ export default function Page({ searchParams }) {
       <PageBlock>
         <HeaderWrapper>
           <div>
+            <Labels>
+              {['confort', 'économies', 'climat'].map((text) => (
+                <li key={text}>{text}</li>
+              ))}
+            </Labels>
             <h1
               style={css`
                 margin-top: 0.6rem;
               `}
             >
-              Calculez vos aides à la rénovation énergétique
+              Découvrez les aides 2024 à la rénovation énergétique
             </h1>
             <Intro>
               <p>
