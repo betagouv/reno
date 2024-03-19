@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
 import VisualExplanation from './VisualExplanation'
-import { Labels } from './HomeUI'
+import { HomeList, Labels } from './HomeUI'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -80,38 +80,46 @@ export default function Page({ searchParams }) {
         </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true}>
           <Content>
-            <h2>Qu'est-ce que c'est ?</h2>
             <p>Pour l'instant limité à la France&nbsp;hexagonale.</p>
-            <h3>1) Je réponds à un questionnaire détaillé</h3>
-            <p>
-              6 questions pour évaluer votre éligibilité et estimer le montant
-              le vos aides.
-            </p>
-            <h3>2) Je découvre les aides auxquelles je suis éligible</h3>
-            <p>
-              Et j’affine mon projet pour obtenir un montant d’enveloppe global
-              pour mes travaux.
-            </p>
-            <h3>3) J’exporte le résultat de ma simulation</h3>
-            <p>
-              Pour le partager avec mon conseiller local France Rénov’, mes
-              proches ou mes artisans.
-            </p>
+
+            <HomeList>
+              <li>
+                <strong>1</strong>
+                <h3>Je réponds à un questionnaire simplifié</h3>
+                <p>
+                  6 questions pour évaluer votre éligibilité et estimer le
+                  montant le vos aides.
+                </p>
+              </li>
+              <li>
+                <strong>2</strong>
+                <h3>Je découvre les aides auxquelles je suis éligible</h3>
+                <p>
+                  Et j’affine mon projet pour obtenir un montant d’enveloppe
+                  global pour mes travaux.
+                </p>
+              </li>
+              <li>
+                <strong>3</strong>
+                <h3>J’exporte le résultat de ma simulation</h3>
+                <p>
+                  Pour le partager avec mon conseiller local France Rénov’, mes
+                  proches ou mes artisans.
+                </p>
+              </li>
+            </HomeList>
           </Content>
         </Wrapper>
         <Wrapper $noMargin={true}>
           <Content>
-            <h2>
-              Vous aider à vous projeter la rénovation énergétique de votre
-              logement
-            </h2>
+            <h2>Vous aider à vous projeter</h2>
             <p>
               Rénover son logement permet de réduire ses factures et d’améliorer
               son confort d’hiver et d’été. C’est également l’un des leviers
               importants de notre transition énergétique et climatique.
             </p>
             <p>
-              De nombreuses aides existent à l’échelle nationale ou local. En
+              De nombreuses aides existent à l’échelle nationale ou locale. En
               tant que particulier, il est parfois difficile à s’y retrouver.
               Mes Aides Réno vous accompagne dans le choix du bon dispositif en
               fonction de votre situation.

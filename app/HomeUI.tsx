@@ -18,3 +18,24 @@ export const Labels = styled.ul`
     text-transform: uppercase;
   }
 `
+
+export const HomeList = styled.ol`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
+  li {
+    margin: 1rem 0.6rem;
+    width: 12rem;
+    strong {
+      font-family: Noto Serif;
+      color: var(--lightColor);
+      font-weight: 800;
+      font-size: 300%;
+      display: block;
+    }
+  }
+`
