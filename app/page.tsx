@@ -41,7 +41,9 @@ export default function Page({ searchParams }) {
             </Intro>
             <CTAWrapper $justify="left">
               <CTA>
-                <Link href="/simulation">Commencer la simulation</Link>
+                <Link href="/simulation">
+                  ➞&nbsp;&nbsp;Commencer la simulation
+                </Link>
               </CTA>
             </CTAWrapper>
             <p
