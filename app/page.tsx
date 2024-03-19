@@ -73,15 +73,12 @@ export default function Page({ searchParams }) {
             `}
           />
           <p>
-            Une initiative du gouvernement et de l'Agence nationale de l'habitat
-            pour simplifier l’accès à l’information sur les aides à la
-            rénovation énergétique.{' '}
+            Une initiative du gouvernement et de France Rénov' pour simplifier
+            l’accès à l’information sur les aides à la rénovation énergétique.{' '}
           </p>
         </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true}>
           <Content>
-            <p>Pour l'instant limité à la France&nbsp;hexagonale.</p>
-
             <HomeList>
               <li>
                 <strong>1</strong>
@@ -119,10 +116,10 @@ export default function Page({ searchParams }) {
               importants de notre transition énergétique et climatique.
             </p>
             <p>
-              De nombreuses aides existent à l’échelle nationale ou locale. En
-              tant que particulier, il est parfois difficile à s’y retrouver.
-              Mes Aides Réno vous accompagne dans le choix du bon dispositif en
-              fonction de votre situation.
+              En tant que particulier, il est parfois difficile de s’y
+              retrouver. De nombreuses aides existent à l’échelle nationale ou
+              locale. Mes Aides Réno vous accompagne dans le choix du bon
+              dispositif en fonction de votre situation.
             </p>
             <p>
               Les aides a la rénovation sont accessibles à tous les
@@ -138,6 +135,7 @@ export default function Page({ searchParams }) {
               Cependant, le simulateur Mes aides réno peut vous aider à mieux
               informer et à sensibiliser votre bailleur.
             </p>
+            <p>ℹ️ Pour l'instant limité à la France&nbsp;hexagonale.</p>
           </Content>
         </Wrapper>
 
