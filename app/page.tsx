@@ -54,7 +54,7 @@ export default function Page({ searchParams }) {
                 line-height: 1.3rem;
               `}
             >
-              Un résultat en 5 minutes chrono et sans inscription.
+              5 minutes chrono et sans inscription.
             </p>
           </div>
           <Image
