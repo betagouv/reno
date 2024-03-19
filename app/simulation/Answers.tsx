@@ -147,12 +147,9 @@ export default function Answers({
                           {
                             question: encodeDottedName(answer),
                             ...encodeSituation(
-                              transformObject((k, v) => [
-                                k,
-                                k === answer && v.endsWith('*')
-                                  ? v.slice(0, -1)
-                                  : v,
-                              ])(situation),
+                              situation,
+                              false,
+                              answeredQuestions.filter((q) => q !== answer),
                             ),
                           },
                           'url',
