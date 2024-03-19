@@ -100,13 +100,12 @@ export default function Page({ searchParams }) {
               <p>Mes Aides Réno vous permet :</p>
               <ul>
                 <li>
-                  d’évaluer rapidement votre éligibilité aux principaux
-                  dispositifs
+                  d’évaluer rapidement votre éligibilité aux principales aides
                 </li>
-                <li>de choisir celui qui est le plus pertinent pour vous</li>
+                <li>de choisir celle qui est la plus pertinente pour vous</li>
                 <li>
-                  et d’estimer le montant de vos aides en fonction de votre
-                  situation personnel et de votre projet de rénovation
+                  d’estimer le montant de vos aides en fonction de votre
+                  situation et de votre projet de rénovation
                 </li>
               </ul>
             </div>
@@ -125,14 +124,6 @@ export default function Page({ searchParams }) {
               informer et à sensibiliser votre bailleur.
             </p>
             <h2>Quels sont les dispositifs ?</h2>
-            {false && (
-              <p>
-                Mes aides réno vous donnera votre éligibilité et les montants de
-                Ma Prime Rénov', aussi bien le parcours accompagné que le
-                parcours par geste. Dans un second temps, seront aussi inclus
-                l'éco-prêt à taux zéro, et les aides locales.
-              </p>
-            )}
             <p>
               En 2024, les aides à la rénovation énergétique des logements sont
               organisées autour de deux grands dispositifs nationaux, Ma Prime
