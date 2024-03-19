@@ -90,7 +90,7 @@ export default function Page({ searchParams }) {
               </li>
               <li>
                 <strong>2</strong>
-                <h3>Je découvre les aides auxquelles je suis éligible</h3>
+                <h3>Je découvre le montant de mes aides</h3>
                 <p>
                   Et j’affine mon projet pour obtenir un montant d’enveloppe
                   global pour mes travaux.
