@@ -54,7 +54,7 @@ export default function Page({ searchParams }) {
                 line-height: 1.3rem;
               `}
             >
-              Pour l'instant limité à la France&nbsp;hexagonale.
+              Un résultat en 5 minutes chrono et sans inscription.
             </p>
           </div>
           <Image
@@ -81,6 +81,7 @@ export default function Page({ searchParams }) {
         <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h2>Qu'est-ce que c'est ?</h2>
+            <p>Pour l'instant limité à la France&nbsp;hexagonale.</p>
             <h3>1) Je réponds à un questionnaire détaillé</h3>
             <p>
               6 questions pour évaluer votre éligibilité et estimer le montant
