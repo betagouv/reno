@@ -5,6 +5,7 @@ import {
 } from '@/components/publicodes/situationUtils'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
+import { transformObject } from '@/components/utils'
 import Link from '@/node_modules/next/link'
 import styled from 'styled-components'
 import { useMediaQuery } from 'usehooks-ts'
@@ -146,14 +147,12 @@ export default function Answers({
                           {
                             question: encodeDottedName(answer),
                             ...encodeSituation(
-                              Object.fromEntries(
-                                Object.entries(situation).map(([k, v]) => [
-                                  k,
-                                  k === answer && v.endsWith('*')
-                                    ? v.slice(0, -1)
-                                    : v,
-                                ]),
-                              ),
+                              transformObject((k, v) => [
+                                k,
+                                k === answer && v.endsWith('*')
+                                  ? v.slice(0, -1)
+                                  : v,
+                              ])(situation),
                             ),
                           },
                           'url',

@@ -15,3 +15,6 @@ export function omit(givenKeys, obj) {
 
   return omit(keys, rest)
 }
+
+export const transformObject = (transformer) => (obj) =>
+  Object.fromEntries(Object.entries(obj).map(([k, v]) => transformer(k, v)))
