@@ -132,6 +132,7 @@ export default function Answers({
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
+                        flex-wrap: wrap;
                       `}
                     >
                       <span>{getRuleTitle(answer, rules)}</span>{' '}
@@ -140,23 +141,35 @@ export default function Answers({
                           border-bottom: 1px dashed #aaa;
                           flex-grow: 1;
                           margin: 0 1rem;
+                          @media (max-width: 800px) {
+                            display: none;
+                          }
                         `}
                       ></span>
-                      <Link
-                        href={setSearchParams(
-                          {
-                            question: encodeDottedName(answer),
-                            ...encodeSituation(
-                              situation,
-                              false,
-                              answeredQuestions.filter((q) => q !== answer),
-                            ),
-                          },
-                          'url',
-                        )}
+                      <span
+                        css={`
+                          @media (max-width: 800px) {
+                            flex-grow: 1;
+                            text-align: right;
+                          }
+                        `}
                       >
-                        {situation[answer]}
-                      </Link>
+                        <Link
+                          href={setSearchParams(
+                            {
+                              question: encodeDottedName(answer),
+                              ...encodeSituation(
+                                situation,
+                                false,
+                                answeredQuestions.filter((q) => q !== answer),
+                              ),
+                            },
+                            'url',
+                          )}
+                        >
+                          {situation[answer]}
+                        </Link>
+                      </span>
                     </li>
                   ))}
                 </AnswerList>
