@@ -115,12 +115,17 @@ export const CTA = styled.div`
   border: 1px solid var(--color);
   color: white;
   `}
+  ${(p) =>
+    p.$fontSize === 'normal'
+      ? ''
+      : `
   font-size: 130%;
-  text-decoration: none;
-  white-space: nowrap;
   @media (max-width: 800px) {
     font-size: 120%;
   }
+  `}
+  text-decoration: none;
+  white-space: nowrap;
   > button,
   > a,
   > span {

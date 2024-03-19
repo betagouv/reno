@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
 import VisualExplanation from './VisualExplanation'
+import { HomeList, Labels } from './HomeUI'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -21,29 +22,27 @@ export default function Page({ searchParams }) {
       <PageBlock>
         <HeaderWrapper>
           <div>
+            <Labels>
+              {['⚡️ En 2024, les aides évoluent'].map((text) => (
+                <li key={text}>{text}</li>
+              ))}
+            </Labels>
             <h1
               style={css`
                 margin-top: 0.6rem;
               `}
             >
-              Calculez vos aides à la rénovation énergétique
+              Estimez vos aides pour rénover votre logement
             </h1>
             <Intro>
               <p>
-                En 2024, les aides évoluent pour mieux accompagner les
-                rénovations énergétiques.
-              </p>
-
-              <p>
-                Estimez vos droits en ⌚️ 5 minutes en fonction de votre
-                situation et de votre projet.
+                Des factures moins élevées dans un logement plus confortable et
+                plus écologique.
               </p>
             </Intro>
             <CTAWrapper $justify="left">
-              <CTA>
-                <Link href="/simulation">
-                  ➞&nbsp;&nbsp;Commencer la simulation
-                </Link>
+              <CTA $fontSize="normal">
+                <Link href="/simulation">➞&nbsp;&nbsp;C'est parti !</Link>
               </CTA>
             </CTAWrapper>
             <p
@@ -55,7 +54,7 @@ export default function Page({ searchParams }) {
                 line-height: 1.3rem;
               `}
             >
-              Pour l'instant limité à la France&nbsp;hexagonale.
+              5 minutes chrono et sans inscription.
             </p>
           </div>
           <Image
@@ -74,55 +73,74 @@ export default function Page({ searchParams }) {
             `}
           />
           <p>
-            Une initiative du gouvernement et de l'Agence nationale de l'habitat
-            pour simplifier l’accès à l’information sur les aides à la
-            rénovation énergétique.{' '}
+            Une initiative du gouvernement et de France Rénov' pour simplifier
+            l’accès à l’information sur les aides à la rénovation énergétique.{' '}
           </p>
         </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true}>
           <Content>
-            <h2>Pourquoi un simulateur Mes aides Réno ?</h2>
+            <HomeList>
+              <li>
+                <strong>1</strong>
+                <h3>Je réponds à un questionnaire simplifié</h3>
+                <p>
+                  6 questions pour évaluer votre éligibilité et estimer le
+                  montant le vos aides.
+                </p>
+              </li>
+              <li>
+                <strong>2</strong>
+                <h3>Je découvre le montant de mes aides</h3>
+                <p>
+                  Et j’affine mon projet pour obtenir un montant d’enveloppe
+                  global pour mes travaux.
+                </p>
+              </li>
+              <li>
+                <strong>3</strong>
+                <h3>J’exporte le résultat de ma simulation</h3>
+                <p>
+                  Pour le partager avec mon conseiller local France Rénov’, mes
+                  proches ou mes artisans.
+                </p>
+              </li>
+            </HomeList>
+          </Content>
+        </Wrapper>
+        <Wrapper $noMargin={true}>
+          <Content>
+            <h2>Vous aider à vous projeter</h2>
             <p>
               Rénover son logement permet de réduire ses factures et d’améliorer
-              son confort, en luttant contre le froid et le chaud. C’est
-              également l’un des leviers importants de notre transition
-              énergétique et climatique. Le gouvernement et les collectivités
-              territoriales accompagnent les propriétaires dans leur projets à
-              travers plusieurs dispositif d’aides.
+              son confort d’hiver et d’été. C’est également l’un des leviers
+              importants de notre transition énergétique et climatique.
             </p>
             <p>
-              Ces d’aides peuvent vous accompagner dans une rénovation d’ampleur
-              de votre logement ou la réalisation d’un ou plusieurs gestes de
-              travaux (changement des fenêtre, installation d’une pompe à
-              chaleur, isolation des murs…).
+              En tant que particulier, il est parfois difficile de s’y
+              retrouver. De nombreuses aides existent à l’échelle nationale ou
+              locale. Mes Aides Réno vous accompagne dans le choix du bon
+              dispositif en fonction de votre situation.
             </p>
-            <div>
-              <p>Mes Aides Réno vous permet :</p>
-              <ul>
-                <li>
-                  d’évaluer rapidement votre éligibilité aux principales aides
-                </li>
-                <li>de choisir celle qui est la plus pertinente pour vous</li>
-                <li>
-                  d’estimer le montant de vos aides en fonction de votre
-                  situation et de votre projet de rénovation
-                </li>
-              </ul>
-            </div>
-
-            <h2>Qui est éligible aux dispositifs ?</h2>
             <p>
               Les aides a la rénovation sont accessibles à tous les
               propriétaires, qu’ils habitent leur logement ou le mettent en
-              location, ainsi qu’aux copropriétaires. Elles sont ouvertes aux
-              maisons individuelles, aux appartements et aux copropriétés. Il
-              faut cependant que le logement soit une résidence principale.
+              location, ainsi qu’aux copropriétaires. Elles permettent de
+              financer une rénovation d’ampleur, comme la réalisation d’un ou
+              plusieurs gestes de travaux (changement des fenêtre, installation
+              d’une pompe à chaleur, isolation des murs…).
             </p>
+
             <p>
               Si vous êtes locataire, vous n’êtes pas éligible aux aides.
               Cependant, le simulateur Mes aides réno peut vous aider à mieux
               informer et à sensibiliser votre bailleur.
             </p>
+            <p>ℹ️ Pour l'instant limité à la France&nbsp;hexagonale.</p>
+          </Content>
+        </Wrapper>
+
+        <Wrapper $background="white" $noMargin={true}>
+          <Content>
             <h2>Quels sont les dispositifs ?</h2>
             <p>
               En 2024, les aides à la rénovation énergétique des logements sont
