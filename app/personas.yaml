@@ -119,3 +119,10 @@
     DPE . actuel: 3
     projet . DPE visé: 2
     ménage . code région: 53
+- description: |
+    DPE C, revenu aisé -> 1 seul scénario MPR accompagné.
+  situation:
+    conditions communes: oui
+    ménage . personnes: 2
+    ménage . revenu: 54072
+    DPE . actuel: 3
