@@ -389,7 +389,11 @@ projet . investissement:
   titre: Votre investissement
   description: |
     Le budget dont vous disposez pour investir dans votre projet de rénovation, et qui sera bonifié par les aides si vous y êtes éligible.
-  par défaut: 25000 €
+  par défaut:
+    variations:
+      - si: simulation . mode = 'moyen'
+        alors: 25000 €
+      - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
 
 projet . travaux . plafonnés:
   plafond: plafond
