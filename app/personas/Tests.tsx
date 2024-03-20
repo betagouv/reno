@@ -14,7 +14,7 @@ const engine = new Publicodes(rules)
 
 export default function Tests() {
   return (
-    <Section>
+    <Section id="tests">
       <h2>Tests</h2>
       <p>
         Pour assurer la fiabilité de notre modèle de calcul, voici une liste de
