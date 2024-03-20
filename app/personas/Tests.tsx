@@ -14,7 +14,7 @@ const engine = new Publicodes(rules)
 
 export default function Tests() {
   return (
-    <Section>
+    <Section id="tests">
       <h2>Tests</h2>
       <p>
         Pour assurer la fiabilité de notre modèle de calcul, voici une liste de
@@ -36,7 +36,7 @@ export default function Tests() {
             const situation = {
               'projet . travaux': test['montant de travaux HT'],
               'projet . travaux . TTC': test['montant de travaux TTC'],
-              'projet . investissement': 9999999, //TODO dirty, this happens because "plafond" still applies to a rule for which we set a value
+              'simulation . mode': '"max"',
               sauts: test['saut de classe'],
               'MPR . accompagnée . bonus . condition':
                 test['bonus passoire'] === '0,1' ? 'oui' : 'non',

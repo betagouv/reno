@@ -20,10 +20,20 @@ export default function Personas({}) {
     <Main>
       <Section>
         <h1>Tester un persona</h1>
+        <p>Ces personas constituent des profils fictifs de test. </p>
+        <p>
+          Certains sont complets : toutes les informations sont renseignées, les
+          montants sont exacts. D'autres non (par exemple, on connait le DPE de
+          départ, mais pas le DPE visé) : les aides sont alors calculées pour
+          donner les <em>aides maximales</em>.
+        </p>
         <PersonasList>
           <ul>
             {personas.map((persona, index) => {
-              const newEngine = engine.setSituation(persona.situation)
+              const newEngine = engine.setSituation({
+                'simulation . mode': '"max"',
+                ...persona.situation,
+              })
               const mpra = newEngine.evaluate('MPR . accompagnée')
               const mprg = newEngine.evaluate('MPR . non accompagnée')
               const mpraValue = formatValue(mpra, { precision: 0 }),
@@ -88,7 +98,7 @@ export default function Personas({}) {
                         justify-content: space-between;
                       `}
                     >
-                      MPR gestes {console.log('yaya', mprg.nodeValue)}
+                      MPR gestes
                       <ResultLabel binary={mprgValue}>
                         {mprgValue ? 'oui' : 'non'}
                       </ResultLabel>

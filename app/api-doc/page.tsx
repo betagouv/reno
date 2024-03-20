@@ -57,6 +57,21 @@ export default function APIDoc() {
           charger une des simulations pré-remplies, puis de préfixer l'URL de
           simulation par `/api?PARAMÈTRES`.
         </p>
+        <p>
+          Publicodes offre nativement une documentation Web qui vous permet
+          d'explorer les calculs de façon granulaire. Pour la découvrir, suivez
+          les liens "Inspection" de la{' '}
+          <a href="/personas#tests">section "Tests" de la page personas</a>.
+        </p>
+        <h4>Mode de simulation</h4>
+        <p>
+          Le modèle de calcul offre deux modes de simulation : le mode "max" qui
+          maximise les aides, et le mode "moyen". Ce mode ne vous importe que si
+          vous voulez afficher un résultat à l'utilisateur avant qu'il finisse
+          de répondre à toutes les questions. Les réponses manquantes (appellées{' '}
+          <em>missing variables</em> dans Publicodes) seront remplacées par au
+          choix, des valeurs maximales ou des valeurs moyennes estimées.
+        </p>
         <h3>Le code</h3>
         <p>
           Tout le code du calculateur (site en NextJS), l'API (Route handler
