@@ -30,12 +30,13 @@ export default function APIDoc() {
           <a href="https://beta.gouv.fr">BetaGouv</a>.
         </p>
         <p>
-          Vous pouvez en apprendre davantage sur{' '}
+          Vous pouvez en apprendre davantage sur le problème que nous souhaitons
+          résoudre, les solutions que nous expérimentons et comment nous
+          comptons en étudier l'impact en lisant notre{' '}
           <a href="https://www.beta.gouv.fr/startups/mesaidesreno.html">
-            le problème que nous souhaitons résoudre
+            fiche produit
           </a>
-          , les solutions que nous expérimentons et comment nous comptons en
-          étudier l'impact .
+          .
         </p>
       </Section>
       <Footer />
