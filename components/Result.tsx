@@ -6,6 +6,8 @@ import { CTA, CTAWrapper } from './UI'
 import Link from 'next/link'
 import Check from './Check'
 
+/* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
+ * can only be success or fail. I've kept this object for future references, for its colors */
 export const colors = {
   success: {
     background: '#297254',
@@ -178,20 +180,6 @@ export default function Result({
   )
 }
 
-const Explanation = styled.div`
-  margin: 0.8rem 0;
-  margin-left: 1rem;
-  height: 14rem;
-`
-
-export const Badge = styled.strong`
-  padding: 0 0.2rem;
-  background: ${(p) => p.$background};
-  color: ${(p) => p.$color || 'white'};
-  border: ${(p) => p.$border || 'none'};
-  margin-top: 0.1rem;
-`
-
 export const Results = styled.ul`
   padding-left: 0;
   margin-top: 1rem;
@@ -204,30 +192,5 @@ export const Results = styled.ul`
     > span {
       margin: 0.6rem;
     }
-  }
-`
-
-const InvisibleDetails = styled.details`
-  margin-top: 0.8rem;
-  summary {
-    list-style-type: none;
-    justify-content: center;
-    cursor: help;
-  }
-  &[open] summary {
-    display: flex;
-    justify-content: end;
-    span {
-      display: none;
-    }
-  }
-  summary img {
-    width: 1rem;
-    height: auto;
-    filter: invert(1);
-    opacity: 0.4;
-  }
-  &:not([open]) summary img {
-    display: none;
   }
 `
