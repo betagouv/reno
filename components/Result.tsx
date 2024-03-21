@@ -103,22 +103,11 @@ export default function Result({
         `}
         dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
       />
-      <div
-        style={css(`
-          visibility: ${
-            // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
-            isNotApplicable ? 'hidden' : ''
-          };
-			${hideNumeric && !isFinal ? 'visibility: hidden;' : ''}
-          margin: 0.15rem 0;
-        `)}
-      >
-        {isFinal ? `` : `Jusqu'à `} {value}
-      </div>
-      <Badge $background={background}>{label}</Badge>
       {openByDefault ? (
         <Explanation
-          dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+          dangerouslySetInnerHTML={{
+            __html: rule.interfaceHtml['description simplifiée'],
+          }}
         />
       ) : (
         <InvisibleDetails open={openByDefault}>
@@ -136,10 +125,23 @@ export default function Result({
           />
         </InvisibleDetails>
       )}
+      <div
+        style={css(`
+          visibility: ${
+            // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
+            isNotApplicable ? 'hidden' : ''
+          };
+			${hideNumeric && !isFinal ? 'visibility: hidden;' : ''}
+          margin: 0.15rem 0;
+        `)}
+      >
+        {isFinal ? `` : `Jusqu'à `} {value}
+      </div>
+      <Badge $background={background}>{label}</Badge>
       {!isNotApplicable && url && (
         <CTAWrapper>
-          <CTA>
-            <Link href={url}>Suivant</Link>
+          <CTA $fontSize="normal">
+            <Link href={url}>{rule.interface.action}</Link>
           </CTA>
         </CTAWrapper>
       )}
@@ -149,7 +151,6 @@ export default function Result({
 
 const Explanation = styled.div`
   margin: 0.8rem 0;
-  font-size: 90%;
   margin-left: 1rem;
   height: 14rem;
 `

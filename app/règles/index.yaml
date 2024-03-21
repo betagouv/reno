@@ -466,6 +466,13 @@ MPR . non accompagnée:
   titre: Ma Prime Rénov' **par geste**
   illustration: mpg.svg
   alias: Parcours par geste
+  interface:
+    action: Je choisis mes travaux
+    description simplifiée: |
+      J’ai une idée précise des travaux à réaliser
+
+      - 👍 Un choix à la carte dans un bouquet de travaux subventionnés
+
   description: |
     Alternative au parcours accompagné, vous pouvez être aidé pour rénover plus progressivement votre logement. 
 
@@ -483,6 +490,13 @@ MPR . accompagnée:
   titre: Ma Prime Rénov' **accompagnée**
   illustration: mpa.svg
   alias: Parcours accompagné
+  interface:
+    action: J'affine mon projet
+    description simplifiée: |
+      Je veux améliorer significativement la performance de mon logement.
+
+      - 👍 Un accompagnement renforcé pour des gains réels après travaux
+      - 👍 Un financement plus important
   description: |
     L'aide principale en 2024 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
 

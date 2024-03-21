@@ -31,6 +31,16 @@ function transformRuleObject(v) {
     ...v,
     descriptionHtml: v.description && parse(v.description),
     titreHtml: v.titre && parse(v.titre),
+    ...(v.interface
+      ? {
+          interfaceHtml: {
+            action: parse(v.interface.action),
+            'description simplifiée': parse(
+              v.interface['description simplifiée'],
+            ),
+          },
+        }
+      : {}),
   }
   return newV
 }
