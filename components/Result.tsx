@@ -47,18 +47,20 @@ export default function Result({
   const isNotApplicable =
     value === 'Non applicable' || evaluation.nodeValue === 0
 
-  const state = isNotApplicable ? 'fail' : isFinal ? 'success' : 'running'
+  const state = isNotApplicable ? 'fail' : isFinal ? 'success' : 'running',
+    fail = state === 'fail'
   const { color, background, label } = colors[state]
 
   return (
     <li
       style={css(`
+	  color: ${fail ? '#888' : 'inherit'};
         padding: 1.4rem 1.5rem;
         margin: .6rem auto;
 		height: 30rem;
 		width: 22rem;
         max-width: min(22rem, 90%);
-		border: 1px solid #dddddd;
+		border: 1px solid ${fail ? '#ddd' : 'var(--color)'};
 
 	position: relative;
 
@@ -124,7 +126,7 @@ export default function Result({
         {rule.interface.avantages.map((avantage) => (
           <li key={avantage}>
             <span>
-              <Check color="#347c5d" />
+              <Check color={fail ? '#888' : '#347c5d'} />
             </span>
             <span>{avantage}</span>
           </li>
@@ -145,20 +147,33 @@ export default function Result({
       <small
         css={`
           padding: 0 0.2rem;
+          margin-top: 0.1rem;
+          ${fail
+            ? `
+			font-size: 120%;
+		  background: ${background}; 
+		  color: ${color};
+
+		  `
+            : `
           text-decoration: underline dotted var(--color);
           text-decoration-thickness: 2px;
-          margin-top: 0.1rem;
+		  `}
         `}
       >
         {label}
       </small>
-      {!isNotApplicable && url && (
+      <div
+        css={`
+          visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
+        `}
+      >
         <CTAWrapper>
           <CTA $fontSize="normal">
             <Link href={url}>{rule.interface.action}</Link>
           </CTA>
         </CTAWrapper>
-      )}
+      </div>
     </li>
   )
 }
