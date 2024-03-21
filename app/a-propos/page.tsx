@@ -14,7 +14,16 @@ export default function APIDoc() {
           Numérique lancé en avril 2024 pour simplifier l’accès à l’information
           sur les aides à la rénovation énergétique.
         </p>
-        <p>Il est conçu en partenariat avec l'ANAH et France Rénov'.</p>
+        <p>
+          Il est conçu en partenariat avec l'
+          <a
+            href="https://www.anah.gouv.fr/"
+            title="L'Agence Nationale de l'Habitat"
+          >
+            ANAH
+          </a>{' '}
+          et <a href="https://france-renov.gouv.fr/">France Rénov'</a>.
+        </p>
 
         <p>
           Le service est incubé à l'incubateur des services numériques de l'État{' '}
