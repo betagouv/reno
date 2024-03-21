@@ -53,7 +53,7 @@ export default function Result({
   return (
     <li
       style={css(`
-        padding: 1.4rem 1.8rem;
+        padding: 1.4rem 1.5rem;
         margin: .6rem auto;
 		height: 30rem;
 		width: 22rem;
@@ -142,18 +142,16 @@ export default function Result({
       >
         {isFinal ? `` : `Jusqu'à `} {value}
       </div>
-      <div
-	  css={` 
-
-  padding: 0 0.2rem;
-  background: ${(p) => p.$background};
-  color: ${(p) => p.$color || 'white'};
-  border: ${(p) => p.$border || 'none'};
-  margin-top: 0.1rem;
-			  ` }
+      <small
+        css={`
+          padding: 0 0.2rem;
+          text-decoration: underline dotted var(--color);
+          text-decoration-thickness: 2px;
+          margin-top: 0.1rem;
+        `}
       >
         {label}
-      </Badge>
+      </small>
       {!isNotApplicable && url && (
         <CTAWrapper>
           <CTA $fontSize="normal">
