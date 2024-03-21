@@ -4,6 +4,7 @@ import { styled } from 'styled-components'
 import Image from 'next/image'
 import { CTA, CTAWrapper } from './UI'
 import Link from 'next/link'
+import Check from './Check'
 
 export const colors = {
   success: {
@@ -32,7 +33,6 @@ export default function Result({
   dottedName,
   hideNumeric = false,
   index,
-  openByDefault,
   url,
 }) {
   const rule = rules[dottedName]
@@ -53,20 +53,19 @@ export default function Result({
   return (
     <li
       style={css(`
-        padding: 1.2vh;
+        padding: 1.4rem 1.8rem;
         margin: .6rem auto;
-		width: 18rem;
-        max-width: min(18rem, 90%);
-		border: ${
-      isFinal || isNotApplicable ? '2px solid' : '2px dashed'
-    } ${background};
-        ${isNotApplicable ? 'opacity: .7;' : ''}
+		height: 30rem;
+		width: 22rem;
+        max-width: min(22rem, 90%);
+		border: 1px solid #dddddd;
 
 	position: relative;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+	justify-content: space-between;
       `)}
     >
       <span
@@ -97,34 +96,40 @@ export default function Result({
       </span>
       <h3
         style={css`
-          font-size: 100%;
           font-weight: 400;
-          margin: 0.15rem 0;
+          margin: 0.15rem 0 1rem;
+          color: var(--color);
         `}
         dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
       />
-      {openByDefault ? (
-        <Explanation
-          dangerouslySetInnerHTML={{
-            __html: rule.interfaceHtml['description simplifiée'],
-          }}
-        />
-      ) : (
-        <InvisibleDetails open={openByDefault}>
-          <summary>
-            <span>En savoir plus</span>
-            <img
-              src="/close.svg"
-              alt="Fermer les détails"
-              width="10"
-              height="10"
-            />
-          </summary>
-          <Explanation
-            dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
-          />
-        </InvisibleDetails>
-      )}
+      <p>{rule.interface.motivation}</p>
+      <ol
+        css={`
+          margin: 1rem 0;
+          list-style-type: none;
+
+          li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            svg {
+              margin-right: 0.6rem;
+              width: 1.4rem;
+              height: auto;
+            }
+          }
+          height: 10rem;
+        `}
+      >
+        {rule.interface.avantages.map((avantage) => (
+          <li key={avantage}>
+            <span>
+              <Check color="#347c5d" />
+            </span>
+            <span>{avantage}</span>
+          </li>
+        ))}
+      </ol>
       <div
         style={css(`
           visibility: ${
