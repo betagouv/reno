@@ -44,11 +44,11 @@ export function ExplicationCommune({ situation, engine }) {
   return null
 }
 export function ExplicationMPRG({ situation, engine }) {
-  const condition = situation['ménage . revenu']
-  if (condition)
+  const revenu = situation['ménage . revenu']
+  if (revenu)
     return (
       <p>
-        💡 Votre classe de revenu{' '}
+        💡 Votre revenu de {revenu} (classe{' '}
         <Value
           {...{
             engine,
@@ -57,7 +57,7 @@ export function ExplicationMPRG({ situation, engine }) {
             state: 'final',
           }}
         />{' '}
-        est trop élevée.
+        ) dépasse le seuil.
       </p>
     )
 }
