@@ -36,7 +36,7 @@ recommandés . audit . montant:
 ventilation:
   titre: Ventilation
   somme:
-    - double flux
+    - double flux . montant
 
 ventilation . double flux:
   titre: Ventilation double flux
