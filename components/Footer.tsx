@@ -6,6 +6,9 @@ export default function Footer() {
     <FooterWrapper>
       <ul>
         <li>
+          <Link href="/a-propos">À propos</Link>
+        </li>
+        <li>
           <Link href="/api-doc">API</Link>
         </li>
         <li>
