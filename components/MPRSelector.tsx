@@ -2,7 +2,7 @@ import Result, { Results } from '@/components/Result'
 import { useMemo } from 'react'
 import css from './css/convertToJs'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import { ExplicationCommune } from './explications/Éligibilité'
+import { Avis, ExplicationCommune } from './explications/Éligibilité'
 
 export default function MPRSelector({
   setSearchParams,
@@ -79,6 +79,7 @@ export default function MPRSelector({
               parcours par gestes.
             </p>
             <p>Vous devez choisir l'un des deux parcours.</p>
+            <Avis {...{ situation, engine }} />
           </div>
         )
       )}

@@ -61,3 +61,16 @@ export function ExplicationMPRG({ situation, engine }) {
       </p>
     )
 }
+
+export function Avis({ engine, situation }) {
+  const passoire = engine.evaluate('DPE . actuel . passoire')
+  if (passoire.nodeValue)
+    return (
+      <p>
+        💡 Votre logement est une passoire énergétique (DPE{' '}
+        <DPELabel index={situation['DPE . actuel'] - 1} />
+        ). Il vous est conseillé d'opter pour le{' '}
+        <strong>parcours accompagné</strong>.
+      </p>
+    )
+}
