@@ -142,7 +142,18 @@ export default function Result({
       >
         {isFinal ? `` : `Jusqu'à `} {value}
       </div>
-      <Badge $background={background}>{label}</Badge>
+      <div
+	  css={` 
+
+  padding: 0 0.2rem;
+  background: ${(p) => p.$background};
+  color: ${(p) => p.$color || 'white'};
+  border: ${(p) => p.$border || 'none'};
+  margin-top: 0.1rem;
+			  ` }
+      >
+        {label}
+      </Badge>
       {!isNotApplicable && url && (
         <CTAWrapper>
           <CTA $fontSize="normal">
@@ -164,6 +175,7 @@ export const Badge = styled.strong`
   padding: 0 0.2rem;
   background: ${(p) => p.$background};
   color: ${(p) => p.$color || 'white'};
+  border: ${(p) => p.$border || 'none'};
   margin-top: 0.1rem;
 `
 
