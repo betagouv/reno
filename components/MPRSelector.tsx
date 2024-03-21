@@ -36,7 +36,10 @@ export default function MPRSelector({
     engine.evaluate('gestes . ventilation . double flux').nodeValue,
   )
 
-  if (!mpra && !mprg)
+  const both = mpra && mprg,
+    none = !mpra && !mprg,
+    some = mpra || mprg
+  if (none)
     return (
       <p
         css={`
@@ -54,7 +57,7 @@ export default function MPRSelector({
         width: 100%;
       `}
     >
-      <h2>Votre éligibilité</h2>
+      <h2>{some ? '✅ Bonne nouvelle !' : 'Votre éligibilité'}</h2>
       {mpra && !mprg ? (
         <p>
           Vous êtes éligible au parcours accompagné. Vous n'êtes pas éligible au
@@ -66,13 +69,13 @@ export default function MPRSelector({
           éligible au parcours par geste.
         </p>
       ) : (
-        mpra &&
-        mprg && (
+        both && (
           <div>
             <p>
               Vous êtes éligible aux deux parcours, le parcours accompagné et le
-              parcours par gestes. Vous devez choisir l'un des deux parcours.
+              parcours par gestes.
             </p>
+            <p>Vous devez choisir l'un des deux parcours.</p>
           </div>
         )
       )}

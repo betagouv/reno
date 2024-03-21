@@ -425,7 +425,7 @@ conditions communes:
     - logement . résidence principale
 
 MPR:
-  titre: Choix ma prime rénov'
+  titre: Choix de l'aide
 
 MPR . choix:
   question: Vos résultats
