@@ -75,6 +75,14 @@ export default function Page({ searchParams }) {
           <p>
             Une initiative du gouvernement et de France Rénov' pour simplifier
             l’accès à l’information sur les aides à la rénovation énergétique.{' '}
+            <Link
+              href="/a-propos"
+              style={css`
+                white-space: nowrap;
+              `}
+            >
+              En savoir plus.
+            </Link>
           </p>
         </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true}>
