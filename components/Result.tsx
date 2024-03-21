@@ -1,10 +1,16 @@
 import css from '@/components/css/convertToJs'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import { styled } from 'styled-components'
 import Image from 'next/image'
-import { CTA, CTAWrapper } from './UI'
 import Link from 'next/link'
+import { styled } from 'styled-components'
 import Check from './Check'
+import { Value } from './ScenariosSelector'
+import { CTA, CTAWrapper } from './UI'
+import {
+  ExplicationMPRA,
+  ExplicationCommune,
+  ExplicationMPRG,
+} from './explications/Éligibilité'
 
 /* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
  * can only be success or fail. I've kept this object for future references, for its colors */
@@ -36,6 +42,7 @@ export default function Result({
   hideNumeric = false,
   index,
   url,
+  situation,
 }) {
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
@@ -122,7 +129,7 @@ export default function Result({
               height: auto;
             }
           }
-          height: 10rem;
+          min-height: 8rem;
         `}
       >
         {rule.interface.avantages.map((avantage) => (
@@ -152,7 +159,8 @@ export default function Result({
           margin-top: 0.1rem;
           ${fail
             ? `
-			font-size: 120%;
+			font-size: 100%;
+			padding: .2rem .6rem;
 		  background: ${background}; 
 		  color: ${color};
 
@@ -165,6 +173,21 @@ export default function Result({
       >
         {label}
       </small>
+      {fail && (
+        <div
+          css={`
+            margin: 1rem 0;
+            color: black;
+            text-align: center;
+          `}
+        >
+          {dottedName === 'MPR . non accompagnée' ? (
+            <ExplicationMPRG {...{ engine, situation }} />
+          ) : (
+            <ExplicationMPRA {...{ engine, situation }} />
+          )}
+        </div>
+      )}
       <div
         css={`
           visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
