@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import css from './css/convertToJs'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Avis, ExplicationCommune } from './explications/Éligibilité'
+import AutresAides from './AutresAides'
 
 export default function MPRSelector({
   setSearchParams,
@@ -111,6 +112,7 @@ export default function MPRSelector({
           }}
         />
       </Results>
+      <AutresAides />
     </div>
   )
 }
