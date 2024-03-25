@@ -438,6 +438,27 @@ export default function ScenariosSelector({
                 ).
               </p>
               <Avance {...{ engine, rules, situation, choice }} />
+            </div>
+          </Card>
+
+          <Card
+            css={`
+              display: flex;
+              align-items: center;
+              img {
+                width: 4rem;
+                height: auto;
+                margin-right: 1rem;
+              }
+            `}
+          >
+            <Image
+              src="/ptz.svg"
+              alt="Icône représentant le prêt à taux zéro"
+              width="10"
+              height="10"
+            />
+            <div>
               <p>
                 En cas de besoin, un éco-prêt à taux zéro vous permet
                 d'emprunter 50 000 €.
