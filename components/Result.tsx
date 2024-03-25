@@ -113,7 +113,26 @@ export default function Result({
         `}
         dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
       />
-      <p>{rule.interface.motivation}</p>
+      <p
+        css={`
+          img {
+            width: 1.6rem;
+            height: auto;
+            margin-right: 0.6rem;
+            opacity: 0.4;
+          }
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <Image
+          src="/quote-remix.svg"
+          alt="Icône citation"
+          width="10"
+          height="10"
+        />
+        {rule.interface.motivation}
+      </p>
       <ol
         css={`
           margin: 1rem 0;
