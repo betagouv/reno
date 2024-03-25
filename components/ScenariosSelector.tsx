@@ -75,8 +75,13 @@ export default function ScenariosSelector({
       </h2>
       <DPEQuickSwitch oldIndex={oldIndex} />
       <p>
-        Plus votre rénovation est ambitieuse, plus l’aide est généreuse : le
-        montant de l'aide dépend des gains de performance visés.
+        Plus votre rénovation est ambitieuse, plus l’aide du parcours accompagné
+        est généreuse : son montant dépend des gains de performance visés.
+      </p>
+      <p>
+        Vous serez accompagné par un Accompagnateur Rénov’ pour vous aider à
+        construire votre projet, choisir les bon travaux à engager et garantir
+        leur efficacité.
       </p>
       <p
         css={`
@@ -298,7 +303,7 @@ export default function ScenariosSelector({
               `}
             >
               <h3>
-                Scénario <DPELabel index={choice} />
+                Vers un DPE <DPELabel index={choice} />
               </h3>
 
               <p>

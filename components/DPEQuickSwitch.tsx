@@ -11,7 +11,7 @@ export default function ({ oldIndex }) {
   const setSearchParams = useSetSearchParams()
   return (
     <p>
-      Vous partez d'un{' '}
+      Vous avez déclaré un{' '}
       {editing ? (
         <span
           css={`
