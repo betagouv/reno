@@ -12,7 +12,7 @@ import { HomeList, Labels } from './HomeUI'
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
 export const metadata: Metadata = {
-  title: 'Aides réno 2024',
+  title: 'Mes aides réno 2024',
   description,
 }
 
