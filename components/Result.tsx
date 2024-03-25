@@ -120,9 +120,10 @@ export default function Result({
             height: auto;
             margin-right: 0.6rem;
             opacity: 0.4;
+            margin-top: -0.3rem;
           }
           display: flex;
-          align-items: center;
+          align-items: start;
         `}
       >
         <Image
