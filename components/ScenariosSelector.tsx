@@ -334,6 +334,7 @@ export default function ScenariosSelector({
               </p>
               <div
                 css={`
+                  margin-top: 2.5vh;
                   border-left: 8px solid var(--lighterColor0);
                   padding-left: 0.8rem;
                   label {
@@ -393,51 +394,63 @@ export default function ScenariosSelector({
                   HT .
                 </p>
               </div>
-              <p>
-                <span>
-                  💡 Le montant total de vos aides ne peut pas dépasser{' '}
-                </span>
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: "MPR . accompagnée . pourcent d'écrêtement",
-                    state: 'none',
-                  }}
-                />{' '}
-                de la dépense TTC (par exemple{' '}
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: 'projet . travaux . TTC',
-                    state: 'none',
-                  }}
-                />{' '}
-                pour une TVA à 5,5 %, soit une aide maximale de{' '}
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: 'MPR . accompagnée . montant',
-                    state: 'none',
-                  }}
-                />
-                ).
-              </p>
-              <Avance {...{ engine, rules, situation, choice }} />
+              <section
+                css={`
+                  margin-top: 4vh !important;
+                `}
+              >
+                <h4>💡 À savoir :</h4>
+                <ul>
+                  <li key="avance">
+                    <Avance {...{ engine, rules, situation, choice }} />
+                  </li>
+                  <li key="écrêtement">
+                    <p>
+                      Le montant total de vos aides ne peut pas dépasser{' '}
+                      <Value
+                        {...{
+                          engine,
+                          choice,
+                          situation: {
+                            ...situation,
+                            'projet . DPE visé': choice + 1,
+                          },
+                          dottedName:
+                            "MPR . accompagnée . pourcent d'écrêtement",
+                          state: 'none',
+                        }}
+                      />{' '}
+                      de la dépense TTC (par exemple{' '}
+                      <Value
+                        {...{
+                          engine,
+                          choice,
+                          situation: {
+                            ...situation,
+                            'projet . DPE visé': choice + 1,
+                          },
+                          dottedName: 'projet . travaux . TTC',
+                          state: 'none',
+                        }}
+                      />{' '}
+                      pour une TVA à 5,5 %, soit une aide maximale de{' '}
+                      <Value
+                        {...{
+                          engine,
+                          choice,
+                          situation: {
+                            ...situation,
+                            'projet . DPE visé': choice + 1,
+                          },
+                          dottedName: 'MPR . accompagnée . montant',
+                          state: 'none',
+                        }}
+                      />
+                      ).
+                    </p>
+                  </li>
+                </ul>
+              </section>
             </div>
           </Card>
 
