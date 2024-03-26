@@ -430,7 +430,7 @@ MPR:
 MPR . choix:
   question: Vos résultats
   description: |
-    Nous avons estimé votre éligibilité générale aux 2 aides Ma Prime Rénov'. 
+    Nous avons estimé votre éligibilité générale aux 2 aides MaPrimeRénov'. 
 
     La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
   par défaut:
@@ -463,9 +463,15 @@ MPR . non accompagnée . confirmation:
   question: Confirmation de vos choix de gestes
   par défaut: oui
 MPR . non accompagnée:
-  titre: Ma Prime Rénov' **par geste**
+  titre: MaPrimeRénov' **par geste**
   illustration: mpg.svg
   alias: Parcours par geste
+  interface:
+    motivation: J’ai une idée précise des travaux à réaliser
+    action: Je choisis mes travaux
+    avantages:
+      - Un choix à la carte dans un bouquet de travaux subventionnés
+
   description: |
     Alternative au parcours accompagné, vous pouvez être aidé pour rénover plus progressivement votre logement. 
 
@@ -480,9 +486,15 @@ gestes: # gestes.yaml
   titre: Parcours par gestes
 
 MPR . accompagnée:
-  titre: Ma Prime Rénov' **accompagnée**
+  titre: MaPrimeRénov' **accompagnée**
   illustration: mpa.svg
   alias: Parcours accompagné
+  interface:
+    motivation: Je veux améliorer significativement la performance de mon logement.
+    action: J'affine mon projet
+    avantages:
+      - Un accompagnement renforcé pour des gains réels après travaux
+      - Un financement plus important
   description: |
     L'aide principale en 2024 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
 
@@ -533,6 +545,19 @@ MPR . accompagnée . pourcent brut:
 
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
 
+MPR . accompagnée . prise en charge MAR:
+  description: |
+    L'État prend en charge tout ou une partie de la prestation du MAR (Mon accompagnateur rénov').
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 100 %
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 80 %
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 40 %
+    - si: ménage . revenu . classe = 'supérieure'
+      alors: 20 %
+
 PTZ:
   applicable si:
     toutes ces conditions:
@@ -571,7 +596,7 @@ PTZ:
       | 7 000 €               | 15 000 €            | 25 000 €  |  30 000 € |     50 000 € | 50 000 €                 |
       |                       |                     |           |           |              |                          |
 
-    > Si vous bénéficiez de Ma Prime Rénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov’ auprès de votre banque simplement sur la base de la notification d’accord transmise par l’Agence nationale de l’habitat (Anah).
+    > Si vous bénéficiez de MaPrimeRénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov’ auprès de votre banque simplement sur la base de la notification d’accord transmise par l’Agence nationale de l’habitat (Anah).
 
     Il existe aussi un éco-PTZ [pour les copropriétaires](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
 

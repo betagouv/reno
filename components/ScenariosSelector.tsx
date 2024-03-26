@@ -1,21 +1,19 @@
-'projet'
-import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import data from '@/components/DPE.yaml'
 import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useMediaQuery } from 'usehooks-ts'
-import { BlocQuestionRéponse } from './BlocQuestionRéponse'
 import DPELabel from './DPELabel'
+import DPEQuickSwitch from './DPEQuickSwitch'
+import Input from './Input'
+import MapBehindCTA from './MapBehindCTA'
+import { Card } from './UI'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
-import Input from './Input'
-import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import { Card, CTA, CTAWrapper } from './UI'
+import QuestionsRéponses from './mpra/QuestionsRéponses'
+import { encodeSituation } from './publicodes/situationUtils'
 import { omit } from './utils'
-import DPEQuickSwitch from './DPEQuickSwitch'
 
 console.log('DPE data', data)
 
@@ -49,7 +47,6 @@ export default function ScenariosSelector({
   const oldIndex = +situation['DPE . actuel'] - 1,
     possibilities = data.filter((el, index) => index <= oldIndex - 2)
 
-  const mprg = engine.evaluate('MPR . non accompagnée').nodeValue
   return (
     <div
       css={`
@@ -75,8 +72,13 @@ export default function ScenariosSelector({
       </h2>
       <DPEQuickSwitch oldIndex={oldIndex} />
       <p>
-        Plus votre rénovation est ambitieuse, plus l’aide est généreuse : le
-        montant de l'aide dépend des gains de performance visés.
+        Plus votre rénovation est ambitieuse, plus l’aide du parcours accompagné
+        est généreuse : son montant dépend des gains de performance visés.
+      </p>
+      <p>
+        Vous serez accompagné par un Accompagnateur Rénov’ pour vous aider à
+        construire votre projet, choisir les bon travaux à engager et garantir
+        leur efficacité.
       </p>
       <p
         css={`
@@ -298,7 +300,7 @@ export default function ScenariosSelector({
               `}
             >
               <h3>
-                Scénario <DPELabel index={choice} />
+                Vers un DPE <DPELabel index={choice} />
               </h3>
 
               <p>
@@ -334,6 +336,7 @@ export default function ScenariosSelector({
               </p>
               <div
                 css={`
+                  margin-top: 2.5vh;
                   border-left: 8px solid var(--lighterColor0);
                   padding-left: 0.8rem;
                   label {
@@ -393,51 +396,84 @@ export default function ScenariosSelector({
                   HT .
                 </p>
               </div>
-              <p>
-                <span>
-                  💡 Le montant total de vos aides ne peut pas dépasser{' '}
-                </span>
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: "MPR . accompagnée . pourcent d'écrêtement",
-                    state: 'none',
-                  }}
-                />{' '}
-                de la dépense TTC (par exemple{' '}
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: 'projet . travaux . TTC',
-                    state: 'none',
-                  }}
-                />{' '}
-                pour une TVA à 5,5 %, soit une aide maximale de{' '}
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: 'MPR . accompagnée . montant',
-                    state: 'none',
-                  }}
-                />
-                ).
-              </p>
-              <Avance {...{ engine, rules, situation, choice }} />
+              <section
+                css={`
+                  margin-top: 4vh !important;
+                `}
+              >
+                <h4>💡 À savoir :</h4>
+                <ul>
+                  <li key="avance">
+                    <Avance {...{ engine, rules, situation, choice }} />
+                  </li>
+                  <li key="écrêtement">
+                    <p>
+                      Le montant total de vos aides ne peut pas dépasser{' '}
+                      <Value
+                        {...{
+                          engine,
+                          choice,
+                          situation: {
+                            ...situation,
+                            'projet . DPE visé': choice + 1,
+                          },
+                          dottedName:
+                            "MPR . accompagnée . pourcent d'écrêtement",
+                          state: 'none',
+                        }}
+                      />{' '}
+                      de la dépense TTC (par exemple{' '}
+                      <Value
+                        {...{
+                          engine,
+                          choice,
+                          situation: {
+                            ...situation,
+                            'projet . DPE visé': choice + 1,
+                          },
+                          dottedName: 'projet . travaux . TTC',
+                          state: 'none',
+                        }}
+                      />{' '}
+                      pour une TVA à 5,5 %, soit une aide maximale de{' '}
+                      <Value
+                        {...{
+                          engine,
+                          choice,
+                          situation: {
+                            ...situation,
+                            'projet . DPE visé': choice + 1,
+                          },
+                          dottedName: 'MPR . accompagnée . montant',
+                          state: 'none',
+                        }}
+                      />
+                      ).
+                    </p>
+                  </li>
+                </ul>
+              </section>
+            </div>
+          </Card>
+
+          <Card
+            css={`
+              display: flex;
+              align-items: center;
+              img {
+                width: 4rem;
+                height: auto;
+                margin-right: 1rem;
+              }
+            `}
+          >
+            <Image
+              src="/ptz.svg"
+              alt="Icône représentant le prêt à taux zéro"
+              width="10"
+              height="10"
+            />
+            <div>
               <p>
                 En cas de besoin, un éco-prêt à taux zéro vous permet
                 d'emprunter 50 000 €.
@@ -462,209 +498,78 @@ export default function ScenariosSelector({
           </Card>
         </motion.div>
       )}
-      <h2>Je n'arrive pas à me décider</h2>
+      <h2>Engager la démarche</h2>
       <p>
-        C'est normal : si vous n'êtes pas encore entouré de professionnels pour
-        concrétiser la rénovation en chiffres (coûts et gains), il est difficile
-        de choisir entre ces scénarios de sauts qui ouvrent droit à la prime.
+        Avec France Rénov’, vous êtes entouré de professionnels pour affiner et
+        concrétiser votre projet. Ils vous aideront à choisir entre ces
+        scénarios de sauts de DPE qui ouvrent droit à la prime.
       </p>
+      <h3>Vous avez des question sur les aides et les prochaines étapes ?</h3>
       <p>
-        Bonne nouvelle : l'accompagnement fait partie intégrante de la prime :
-        votre <strong>Accompagnateur Rénov'</strong> fera un{' '}
-        <AuditStyle>audit énergétique</AuditStyle> de votre logement et vous
-        aidera à choisir parmi les scénarios de travaux.
+        Profitez gratuitement des conseils personnalisés de votre conseiller
+        local France Rénov’. Cela ne vous engage à rien. Vous pouvez également
+        consulter notre FAQ en pied de page.
       </p>
-      <p>
-        <strong></strong>
-      </p>
-      <h2>À savoir</h2>
-      <p>
-        Outre les sauts de classe, votre projet de rénovation devra respecter
-        les conditions suivantes :
-      </p>
-      <ul>
-        <li>
-          Il est obligatoire de réaliser au moins deux gestes d’isolation (murs,
-          fenêtres / menuiserie, sols ou toiture).{' '}
-        </li>
-        <li>
-          Il est impossible d’installer un chauffage fonctionnant
-          majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou de
-          conserver un chauffage fonctionnant au fioul ou au charbon.
-        </li>
-        <li>
-          Vos artisans doivent être{' '}
-          <a
-            href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
-            target="_blank"
-          >
-            certifiés RGE
-          </a>
-          .
-        </li>
-      </ul>
-      <p></p>
-      <BlocQuestionRéponse>
-        <details>
-          <summary open={false}>Quelle est la procédure ?</summary>
-          <ol
-            css={`
-              li {
-                margin: 1.5vh 0;
-              }
-            `}
-          >
-            <li>
-              Je m'informe sur les aides, et si besoin{' '}
-              <a href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
-                j'appelle un conseiller France Rénov'
-              </a>
-              .
-            </li>
-            <li>
-              Je suis orienté vers un accompagnateur Rénov' qui m'aide à
-              construire mon projet et m'accompagnera tout au long des travaux.{' '}
-              <ol>
-                <li>Réalisation d'un audit</li>
-                <li>
-                  Réalisation de plusieurs devis auprès d'artisans certifiés
-                  RGE.
-                </li>
-              </ol>
-            </li>
-            <li>
-              Je monte mon dossier de financement (en demandant ou non une
-              avance) et le dépose auprès de l'Anah.
-            </li>
-            <li>Je fais réaliser mes travaux.</li>
-            <li>
-              Je prends en main mon logement rénové avec mon accompagnateur
-              Rénov' lors de la deuxième visite.
-            </li>
-            <li>Je paie mes factures et obtiens mes aides.</li>
-          </ol>
-        </details>
-        <details>
-          <summary open={false}>Où trouver mon accompagnateur rénov' ?</summary>
-          <MarSearch
-            codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
-          />
-        </details>
-        <details>
-          <summary open={false}>Qui paie l'Accompagnateur Rénov' ?</summary>
-          <p>
-            Pour rappel, le revenu que vous avez saisi vous classe en
-            ménage&nbsp;
-            <Value
-              {...{
-                engine,
-                index: choice,
-                situation: { ...situation },
-                dottedName: 'ménage . revenu . classe',
-                state: 'emphasize',
-              }}
-            />
-            .
-          </p>
+      <MapBehindCTA
+        {...{
+          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
 
-          <p>
-            L'État prend en charge jusqu'à 100 % des prestations des
-            Accompagnateurs Rénov' pour les ménages très modestes, dans une
-            limite de 2 000 €. Cette prise en charge sera de 80 % pour les
-            ménages modestes, de 40 % pour ceux aux revenus intermédiaires et de
-            20 % pour les revenus supérieurs.
-          </p>
-          <p>
-            Si une prestation renforcée est nécessaire pour une situation de
-            lutte contre l’habitat indigne, 2 000 € supplémentaires viennent
-            compléter la somme initiale.
-          </p>
-          <p>
-            <em>Source non officielle, à confirmer.</em>
-          </p>
-        </details>
-        <details>
-          <summary open={false}>Quels sont les délais ?</summary>
-          <p>À remplir</p>
-        </details>
-        <details>
-          <summary open={false}>Y a-t-il des aides locales ?</summary>
-          <p>
-            En fonction de la localisation de votre bien ou de votre ménage,
-            vous pouvez être éligibles à des aides locales qui se cumulent aux
-            aides nationales.{' '}
-          </p>
-          <p>
-            Nous ne proposons pas encore le calcul de ces aides, il faudra aller
-            vous renseigner{' '}
-            <a href="https://www.anil.org/aides-locales-travaux/">en ligne</a>{' '}
-            ou auprès d'un conseiller d'une agence locale.
-          </p>
-        </details>
-        <details>
-          <summary open={false}>C'est trop ambitieux pour moi</summary>
-          <p>
-            Le parcours accompagné de MaPrimeRénov' exige en effet un minimum de
-            deux sauts de DPE, en échange d'un montant d'aide important.
-          </p>
-          {mprg ? (
-            <p>
-              Bonne nouvelle, vous êtes également éligible au parcours par geste
-              de MaPrimeRénov'. Vous pouvez{' '}
-              <Link
-                href={setSearchParams(
-                  { objectif: encodeDottedName('MPR . non accompagnée') },
-                  'url',
-                )}
-              >
-                découvrir le parcours par geste
-              </Link>
-              .
-            </p>
-          ) : (
-            <p>
-              Vous n'êtes pas éligible au parcours par geste de MaPrimeRénov'.
-              Sous certaines conditions, vous pourriez cependant avoir accès à
-              l'
-              <a href="https://www.ecologie.gouv.fr/eco-pret-taux-zero-eco-ptz">
-                éco-prêt à taux zéro (PTZ)
-              </a>
-              .
-            </p>
-          )}
-        </details>
-      </BlocQuestionRéponse>
-      <h2>C'est parti ?</h2>
+          what: 'trouver-conseiller-renov',
+          text: 'Trouver mon conseiller',
+          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+        }}
+      />
+      <h3>Vous voulez lancer votre projet ?</h3>
       <p>
-        Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
-        vous engage à rien.
+        L'<strong>accompagnateur rénov'</strong> est un interlocuteur de
+        confiance agréé par l’ANAH. Il vous accompagne de bout-en-bout dans
+        votre parcours de travaux en proposant un{' '}
+        <AuditStyle>audit énergétique</AuditStyle>, un appui technique,
+        administratif, financier et social. Il est obligatoire pour bénéficier
+        de Ma Prime Rénov’ Accompagné.
       </p>
-      <CTAWrapper>
-        <CTA>
-          {' '}
-          <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
-            <span
-              css={`
-                img {
-                  filter: invert(1);
-                  width: 1.6rem;
-                  margin-right: 0.6rem;
-                  height: auto;
-                  vertical-align: bottom;
-                }
-              `}
-            >
-              <Image
-                src="/check.svg"
-                width="10"
-                height="10"
-                alt="Icône coche pleine"
-              />
-              Trouver mon conseiller
-            </span>
-          </Link>
-        </CTA>
-      </CTAWrapper>
+
+      <br />
+      <p>
+        🪙 Pour rappel, le revenu que vous avez saisi vous classe en
+        ménage&nbsp;
+        <Value
+          {...{
+            engine,
+            index: choice,
+            situation: { ...situation },
+            dottedName: 'ménage . revenu . classe',
+            state: 'emphasize',
+          }}
+        />
+        . Dans ce cas, l'État prend en charge jusqu'à{' '}
+        <Value
+          {...{
+            engine,
+            index: choice,
+            situation: { ...situation },
+            dottedName: 'MPR . accompagnée . prise en charge MAR',
+            state: 'emphasize',
+          }}
+        />{' '}
+        de la prestation de votre Accompagnateur Rénov'.
+      </p>
+      <MapBehindCTA
+        {...{
+          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+
+          text: 'Trouver mon accompagnateur',
+          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+        }}
+      />
+      <QuestionsRéponses
+        {...{
+          engine,
+          situation,
+          oldIndex,
+          choice,
+        }}
+      />
     </div>
   )
 }
@@ -676,7 +581,7 @@ const AuditStyle = ({ children }) => (
       position: relative;
       background: linear-gradient(to right, #eb8235, #52b153);
       padding: 0;
-      padding-bottom: 0.3rem;
+      padding-bottom: 0.15rem;
       > span {
         background: white;
         color: black;

@@ -2,6 +2,8 @@ import Result, { Results } from '@/components/Result'
 import { useMemo } from 'react'
 import css from './css/convertToJs'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import { Avis, ExplicationCommune } from './explications/Éligibilité'
+import AutresAides from './AutresAides'
 
 export default function MPRSelector({
   setSearchParams,
@@ -39,17 +41,6 @@ export default function MPRSelector({
   const both = mpra && mprg,
     none = !mpra && !mprg,
     some = mpra || mprg
-  if (none)
-    return (
-      <p
-        css={`
-          text-decoration: underline;
-          text-decoration-color: salmon;
-        `}
-      >
-        Vous n'êtes pas éligible aux aides Ma Prime Rénov.
-      </p>
-    )
   return (
     <div
       style={css`
@@ -58,7 +49,20 @@ export default function MPRSelector({
       `}
     >
       <h2>{some ? '✅ Bonne nouvelle !' : 'Votre éligibilité'}</h2>
-      {mpra && !mprg ? (
+      {none ? (
+        <div>
+          <p
+            css={`
+              text-decoration: underline;
+              text-decoration-color: salmon;
+            `}
+          >
+            Vous n'êtes pas éligible aux aides Ma Prime Rénov.
+          </p>
+
+          <ExplicationCommune {...{ situation, engine }} />
+        </div>
+      ) : mpra && !mprg ? (
         <p>
           Vous êtes éligible au parcours accompagné. Vous n'êtes pas éligible au
           parcours par geste.
@@ -76,6 +80,7 @@ export default function MPRSelector({
               parcours par gestes.
             </p>
             <p>Vous devez choisir l'un des deux parcours.</p>
+            <Avis {...{ situation, engine }} />
           </div>
         )
       )}
@@ -84,7 +89,7 @@ export default function MPRSelector({
         <Result
           index={1}
           key={'acc'}
-          openByDefault={true}
+          situation={situation}
           {...{
             engine: engine.setSituation(situation),
             isFinal: !currentQuestion,
@@ -96,7 +101,7 @@ export default function MPRSelector({
         <Result
           index={2}
           key={'non acc'}
-          openByDefault={true}
+          situation={situation}
           {...{
             engine: engine.setSituation(situation),
             isFinal: !currentQuestion,
@@ -107,6 +112,7 @@ export default function MPRSelector({
           }}
         />
       </Results>
+      <AutresAides />
     </div>
   )
 }

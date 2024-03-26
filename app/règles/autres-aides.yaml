@@ -1,0 +1,20 @@
+- nom: CEE
+  description: |
+    Les CEE complètent le parcours MaPrimeRénov' par geste. Vous devrez faire la démarche de trouver une entreprise qui offre des aides via les CEE. Ils incluent les primes ["coupe de pouce"](https://www.service-public.fr/particuliers/vosdroits/F34421).
+  lien: https://france-renov.gouv.fr/aides/cee
+- nom: Éco-prêt à taux zéro
+  description: |
+    Le prêt à taux zéro permet de financer votre reste à charge une fois les aides prises en compte. Il vous permet de ne payer aucun intérêt sur un montant jusqu'à 50 000 €.
+  lien: https://france-renov.gouv.fr/aides/eco-pret-taux-zero
+- nom: Les aides locales
+  description: |
+    En fonction de la localisation du logement, les collectivités locales (ville, communauté de communes, métropoles...) peuvent vous propser des aides.
+  lien: https://www.anil.org/aides-locales-travaux
+- nom: MaPrimeRénov' Copropriété
+  description: |
+    En appartement, certains travaux dépendent de votre copropriété. Un parcours dédié finance les travaux dans les logements de votre copropriété.
+  lien: https://france-renov.gouv.fr/aides/maprimerenov-copropriete
+- nom: TVA à taux réduit
+  description: |
+    La TVA est réduite sur les travaux de rénovation thermique. Au lieu de 20 % de TVA, vous n'en paierez que 5,5 %.
+  lien: https://www.economie.gouv.fr/particuliers/tva-taux-reduits-travaux
