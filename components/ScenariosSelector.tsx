@@ -641,6 +641,21 @@ export default function ScenariosSelector({
           </p>
         </details>
         <details>
+          <summary open={false}>Peut-on cumuler les aides ?</summary>
+          <p>
+            MaPrimeRenov’ Parcours accompagné n’est pas cumulable avec les aides
+            des fournisseurs d’énergie (CEE).
+          </p>
+          <p>
+            MaPrimeRenov’ Parcours accompagné est cumulable avec les aides des
+            collectivité locales et des caisses de retraite.
+          </p>
+          <p>
+            L'aide du parcours accompagnée est limitée par un montant maximum,
+            appelé l'écrêtement, calculé ci-dessus.
+          </p>
+        </details>
+        <details>
           <summary open={false}>C'est trop ambitieux pour moi</summary>
           <p>
             Le parcours accompagné de MaPrimeRénov' exige en effet un minimum de
