@@ -19,7 +19,35 @@ export default function QuestionsRéponses({
 
       <BlocQuestionRéponse>
         <details>
-          <summary open={false}>Quelle est la procédure ?</summary>
+          <summary open={false}>Je ne sais pas quel travaux réaliser</summary>
+          <p>
+            Pas d’inquiétudes, le dispositif MaPrimeRénov’ Parcours Accompagné a
+            justement été conçu pour vous guider dans la construction et la mise
+            en oeuvre de votre projet de rénovation.
+          </p>
+          <p>
+            Le rôle de votre Accompagnateur Rénov’ sera de vous aider à définir
+            un projet qui vous correspond, en fonction :{' '}
+          </p>
+          <ul>
+            <li>
+              des vos objectifs en terme d’économie sur vos factures, de
+              réduction de votre consommation d’énergie et de diminution de
+              votre empreinte écologique
+            </li>
+            <li>
+              de la situation de votre logement et son potentiel d’amélioration
+            </li>
+            <li>
+              et de votre budget, en prenant en compte le reste à charge après
+              déduction des aides.
+            </li>
+          </ul>
+        </details>
+        <details>
+          <summary open={false}>
+            Les grandes étape de MaPrimeRénov’ parcours Accompagné
+          </summary>
           <ol
             css={`
               li {
