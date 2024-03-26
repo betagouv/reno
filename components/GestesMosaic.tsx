@@ -123,8 +123,32 @@ export default function GestesMosaic({
   const conditionValue = computeConditionValue(questions, situation)
 
   return (
-    <div>
-      <h2>Quels gestes vous intéressent ?</h2>
+    <div
+      css={`
+        margin-top: 0.6rem;
+        h2 {
+          img {
+            width: 2rem;
+            height: auto;
+            vertical-align: bottom;
+          }
+          margin-bottom: 2vh;
+        }
+      `}
+    >
+      <h2>
+        <Image
+          src="/check.svg"
+          width="10"
+          height="10"
+          alt="Icône case cochée"
+        />{' '}
+        Vous êtes éligible à MaPrimeRénov' parcours gestes
+      </h2>
+      <p>
+        Choisissez les travaux que vous souhaitez réaliser pour obtenir le
+        montant de vos aides par travaux et au total.
+      </p>
       <div
         css={`
           margin-top: 0.6rem;
