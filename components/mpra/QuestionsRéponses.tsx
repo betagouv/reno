@@ -48,6 +48,11 @@ export default function QuestionsRéponses({
           <summary open={false}>
             Les grandes étape de MaPrimeRénov’ parcours Accompagné
           </summary>
+          <p>
+            Mon Accompagnateur Rénov' est un interlocuteur de confiance pour
+            vous accompagner. Il intervient à toutes les étapes de votre projet
+            de rénovation énergétique.
+          </p>
           <ol
             css={`
               li {
@@ -56,33 +61,43 @@ export default function QuestionsRéponses({
             `}
           >
             <li>
-              Je m'informe sur les aides, et si besoin{' '}
-              <a href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
-                j'appelle un conseiller France Rénov'
+              Une visite de votre logement est organisée pour évaluer sa
+              situation et réaliser un audit énergétique.
+            </li>
+            <li>
+              Votre Accompagnateur Rénov’ vous propose plusieurs scénarios de
+              travaux en fonction de votre bien et de votre projet. Le choix
+              d’un des scénarios proposé vous permet de valider votre
+              éligibilité à l’aide MaPrimeRénov' Parcours accompagné.
+            </li>
+            <li>
+              Vous choisissez un scenario et vous contactez des artisans, qui
+              doivent être{' '}
+              <a
+                href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
+                target="_blank"
+              >
+                certifiés RGE
               </a>
+              , pour obtenir des devis. Votre Accompagnateur Rénov’ vous aide a
+              choisir des artisans, à sélectionner les devis et à définir un
+              plan de financement.
+            </li>
+            <li>
+              Votre Accompagnateur Rénov’ vous accompagne dans le dossier de
+              <a href="http://maprimerenov.gouv.fr/">dépot de demande d’aide</a>
               .
             </li>
             <li>
-              Je suis orienté vers un accompagnateur Rénov' qui m'aide à
-              construire mon projet et m'accompagnera tout au long des travaux.{' '}
-              <ol>
-                <li>Réalisation d'un audit</li>
-                <li>
-                  Réalisation de plusieurs devis auprès d'artisans certifiés
-                  RGE.
-                </li>
-              </ol>
+              Une fois votre demande d’aide validée, les travaux sont lancés.
+              Votre Accompagnateur Rénov’ vous conseille sur le suivi du
+              chantier tout au long de la réalisation des travaux.
             </li>
             <li>
-              Je monte mon dossier de financement (en demandant ou non une
-              avance) et le dépose auprès de l'Anah.
+              La seconde visite post-travaux est faite pour confirmer la fin des
+              travaux, préparer le suivi des consommations et donner des
+              conseils utiles à la prise en main du logement rénové.
             </li>
-            <li>Je fais réaliser mes travaux.</li>
-            <li>
-              Je prends en main mon logement rénové avec mon accompagnateur
-              Rénov' lors de la deuxième visite.
-            </li>
-            <li>Je paie mes factures et obtiens mes aides.</li>
           </ol>
         </details>
         <details>
@@ -103,16 +118,7 @@ export default function QuestionsRéponses({
               majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou
               de conserver un chauffage fonctionnant au fioul ou au charbon.
             </li>
-            <li>
-              Vos artisans doivent être{' '}
-              <a
-                href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
-                target="_blank"
-              >
-                certifiés RGE
-              </a>
-              .
-            </li>
+            <li>Vos artisans doivent être .</li>
           </ul>
         </details>
 
