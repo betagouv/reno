@@ -89,39 +89,6 @@ export default function QuestionsRéponses({
         </details>
 
         <details>
-          <summary open={false}>Qui paie l'Accompagnateur Rénov' ?</summary>
-          <p>
-            Pour rappel, le revenu que vous avez saisi vous classe en
-            ménage&nbsp;
-            <Value
-              {...{
-                engine,
-                index: choice,
-                situation: { ...situation },
-                dottedName: 'ménage . revenu . classe',
-                state: 'emphasize',
-              }}
-            />
-            .
-          </p>
-
-          <p>
-            L'État prend en charge jusqu'à 100 % des prestations des
-            Accompagnateurs Rénov' pour les ménages très modestes, dans une
-            limite de 2 000 €. Cette prise en charge sera de 80 % pour les
-            ménages modestes, de 40 % pour ceux aux revenus intermédiaires et de
-            20 % pour les revenus supérieurs.
-          </p>
-          <p>
-            Si une prestation renforcée est nécessaire pour une situation de
-            lutte contre l’habitat indigne, 2 000 € supplémentaires viennent
-            compléter la somme initiale.
-          </p>
-          <p>
-            <em>Source non officielle, à confirmer.</em>
-          </p>
-        </details>
-        <details>
           <summary open={false}>Quels sont les délais ?</summary>
           <p>À remplir</p>
         </details>

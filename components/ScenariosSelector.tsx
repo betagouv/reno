@@ -529,6 +529,31 @@ export default function ScenariosSelector({
         de Ma Prime Rénov’ Accompagné.
       </p>
 
+      <br />
+      <p>
+        🪙 Pour rappel, le revenu que vous avez saisi vous classe en
+        ménage&nbsp;
+        <Value
+          {...{
+            engine,
+            index: choice,
+            situation: { ...situation },
+            dottedName: 'ménage . revenu . classe',
+            state: 'emphasize',
+          }}
+        />
+        . Dans ce cas, l'État prend en charge jusqu'à{' '}
+        <Value
+          {...{
+            engine,
+            index: choice,
+            situation: { ...situation },
+            dottedName: 'MPR . accompagnée . prise en charge MAR',
+            state: 'emphasize',
+          }}
+        />{' '}
+        de la prestation de votre Accompagnateur Rénov'.
+      </p>
       <MapBehindCTA
         {...{
           codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
