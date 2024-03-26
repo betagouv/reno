@@ -171,6 +171,32 @@ export default function GestesBasket({
             comprise.
           </p>
         </details>
+        <details>
+          <summary open={false}>Peut-on cumuler les aides ?</summary>
+          <p>
+            Il est possible d’obtenir plusieurs fois MaPrimeRénov’ gestes pour
+            des travaux différents au sein d’un même logement (par exemple : des
+            travaux portant sur une autre surface du logement ou sur un autre
+            équipement), dans la limite de 20 000 € de travaux par logement sur
+            5 ans.
+          </p>
+          <p>
+            MaPrimeRénov’ gestes est cumulable avec les aides versées par les
+            fournisseurs d’énergie (CEE) ainsi que les aides des collectivités
+            locales et des caisses de retraite
+          </p>
+          <details>
+            <summary open={false}>Si vous êtes propriétaire bailleur</summary>
+
+            <p>
+              Les propriétaires bailleurs peuvent déposer des dossiers pour 3
+              logements diffé - rents maximum, dans la limite de 20 000€ de
+              travaux par logement sur 5 ans. Ils peuvent par ailleurs
+              bénéficier de MaPrimeRénov’ en tant que propriétaire occupant,
+              pour leur résidence principale ;
+            </p>
+          </details>
+        </details>
       </BlocQuestionRéponse>
       <h2>C'est parti ?</h2>
       <p>
