@@ -1,4 +1,5 @@
 import { Main, Section } from '@/components/UI'
+import FAQ from './FAQ'
 
 export default function FaqPage() {
   return (
@@ -14,7 +15,10 @@ export default function FaqPage() {
           formulaire ci-dessous.
         </p>
         <FAQ />
+        {/*
         <Contact />
+
+*/}
       </Section>
     </Main>
   )
