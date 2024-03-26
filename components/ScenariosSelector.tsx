@@ -646,6 +646,17 @@ export default function ScenariosSelector({
             Le parcours accompagné de MaPrimeRénov' exige en effet un minimum de
             deux sauts de DPE, en échange d'un montant d'aide important.
           </p>
+          {oldIndex >= 4 && (
+            <p>
+              Pour les logements de classe E, F ou G avant travaux (vous avez
+              saisi <DPELabel index={oldIndex} /> ), il est possible de faire
+              des rénovations en 2 étapes sur une durée de 5 ans. Voir la{' '}
+              <a href="https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=21">
+                page 21 du guide de l'ANAH
+              </a>
+              .
+            </p>
+          )}
           {mprg ? (
             <p>
               Bonne nouvelle, vous êtes également éligible au parcours par geste
