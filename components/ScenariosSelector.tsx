@@ -16,6 +16,7 @@ import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Card, CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
 import DPEQuickSwitch from './DPEQuickSwitch'
+import MapBehindCTA from './MapBehindCTA'
 
 console.log('DPE data', data)
 
@@ -501,48 +502,47 @@ export default function ScenariosSelector({
           </Card>
         </motion.div>
       )}
-      <h2>Je n'arrive pas à me décider</h2>
+      <h2>Engager la démarche</h2>
       <p>
-        C'est normal : si vous n'êtes pas encore entouré de professionnels pour
-        concrétiser la rénovation en chiffres (coûts et gains), il est difficile
-        de choisir entre ces scénarios de sauts qui ouvrent droit à la prime.
+        Avec France Rénov’, vous êtes entouré de professionnels pour affiner et
+        concrétiser votre projet. Ils vous aideront à choisir entre ces
+        scénarios de sauts de DPE qui ouvrent droit à la prime.
       </p>
+      <h3>Vous avez des question sur les aides et les prochaines étapes ?</h3>
       <p>
-        Bonne nouvelle : l'accompagnement fait partie intégrante de la prime :
-        votre <strong>Accompagnateur Rénov'</strong> fera un{' '}
-        <AuditStyle>audit énergétique</AuditStyle> de votre logement et vous
-        aidera à choisir parmi les scénarios de travaux.
+        Profitez gratuitement des conseils personnalisés de votre conseiller
+        local France Rénov’. Cela ne vous engage à rien. Vous pouvez également
+        consulter notre FAQ en pied de page.
       </p>
+      <MapBehindCTA
+        {...{
+          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+
+          what: 'trouver-conseiller-renov',
+          text: 'Trouver mon conseiller',
+          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+        }}
+      />
+      <h3>Vous voulez lancer votre projet ?</h3>
       <p>
-        <strong></strong>
+        L'<strong>accompagnateur rénov'</strong> est un interlocuteur de
+        confiance agréé par l’ANAH. Il vous accompagne de bout-en-bout dans
+        votre parcours de travaux en proposant un{' '}
+        <AuditStyle>audit énergétique</AuditStyle>, un appui technique,
+        administratif, financier et social. Il est obligatoire pour bénéficier
+        de Ma Prime Rénov’ Accompagné.
       </p>
-      <h2>À savoir</h2>
-      <p>
-        Outre les sauts de classe, votre projet de rénovation devra respecter
-        les conditions suivantes :
-      </p>
-      <ul>
-        <li>
-          Il est obligatoire de réaliser au moins deux gestes d’isolation (murs,
-          fenêtres / menuiserie, sols ou toiture).{' '}
-        </li>
-        <li>
-          Il est impossible d’installer un chauffage fonctionnant
-          majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou de
-          conserver un chauffage fonctionnant au fioul ou au charbon.
-        </li>
-        <li>
-          Vos artisans doivent être{' '}
-          <a
-            href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
-            target="_blank"
-          >
-            certifiés RGE
-          </a>
-          .
-        </li>
-      </ul>
-      <p></p>
+
+      <MapBehindCTA
+        {...{
+          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+
+          text: 'Trouver mon accompagnateur',
+          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+        }}
+      />
+      <h2>Questions fréquentes</h2>
+
       <BlocQuestionRéponse>
         <details>
           <summary open={false}>Quelle est la procédure ?</summary>
@@ -584,11 +584,36 @@ export default function ScenariosSelector({
           </ol>
         </details>
         <details>
-          <summary open={false}>Où trouver mon accompagnateur rénov' ?</summary>
-          <MarSearch
-            codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
-          />
+          <summary open={false}>
+            Y a-t-il des conditions supplémentaires ?
+          </summary>
+          <p>
+            Outre les sauts de classe, votre projet de rénovation devra
+            respecter les conditions suivantes :
+          </p>
+          <ul>
+            <li>
+              Il est obligatoire de réaliser au moins deux gestes d’isolation
+              (murs, fenêtres / menuiserie, sols ou toiture).{' '}
+            </li>
+            <li>
+              Il est impossible d’installer un chauffage fonctionnant
+              majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou
+              de conserver un chauffage fonctionnant au fioul ou au charbon.
+            </li>
+            <li>
+              Vos artisans doivent être{' '}
+              <a
+                href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
+                target="_blank"
+              >
+                certifiés RGE
+              </a>
+              .
+            </li>
+          </ul>
         </details>
+
         <details>
           <summary open={false}>Qui paie l'Accompagnateur Rénov' ?</summary>
           <p>
@@ -699,37 +724,6 @@ export default function ScenariosSelector({
           )}
         </details>
       </BlocQuestionRéponse>
-      <h2>C'est parti ?</h2>
-      <p>
-        Vous pouvez maintenant contacter un conseiller France Rénov'. Cela ne
-        vous engage à rien.
-      </p>
-      <CTAWrapper>
-        <CTA>
-          {' '}
-          <Link href="https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov">
-            <span
-              css={`
-                img {
-                  filter: invert(1);
-                  width: 1.6rem;
-                  margin-right: 0.6rem;
-                  height: auto;
-                  vertical-align: bottom;
-                }
-              `}
-            >
-              <Image
-                src="/check.svg"
-                width="10"
-                height="10"
-                alt="Icône coche pleine"
-              />
-              Trouver mon conseiller
-            </span>
-          </Link>
-        </CTA>
-      </CTAWrapper>
     </div>
   )
 }
@@ -741,7 +735,7 @@ const AuditStyle = ({ children }) => (
       position: relative;
       background: linear-gradient(to right, #eb8235, #52b153);
       padding: 0;
-      padding-bottom: 0.3rem;
+      padding-bottom: 0.15rem;
       > span {
         background: white;
         color: black;
