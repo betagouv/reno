@@ -45,7 +45,6 @@ export default function APIDoc() {
           optique d'accessibilité.
         </p>
       </Section>
-      <Footer />
     </Main>
   )
 }

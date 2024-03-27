@@ -1,6 +1,7 @@
 import { Main, Section } from '@/components/UI'
 import FAQ from './FAQ'
 import { Metadata } from 'next/types'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Questions fréquentes - Mes aides réno',

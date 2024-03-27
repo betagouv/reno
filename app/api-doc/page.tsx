@@ -98,7 +98,6 @@ export default function APIDoc() {
           paquet NPM tout prêt.
         </p>
       </Section>
-      <Footer />
     </Main>
   )
 }

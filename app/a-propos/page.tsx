@@ -65,7 +65,6 @@ export default function APIDoc() {
           <Link href="/confidentialite">confidentialité</Link>.
         </p>
       </Section>
-      <Footer />
     </Main>
   )
 }

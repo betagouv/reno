@@ -1,8 +1,7 @@
-import Footer from '@/components/Footer'
+import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import Personas from '../Personas'
 import Tests from './Tests'
-import { Metadata } from 'next/types'
 
 export const metadata: Metadata = {
   title: 'Personas- Mes aides réno',
@@ -15,7 +14,6 @@ export default function PersonasPage() {
     <Suspense>
       <Personas />
       <Tests />
-      <Footer />
     </Suspense>
   )
 }

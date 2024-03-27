@@ -9,7 +9,7 @@ export default function Footer() {
           <Link href="/a-propos">À propos</Link>
         </li>
         <li>
-          <Link href="/faq">Questions fréquentes</Link>
+          <Link href="/faq">Questions fréquentes et contact</Link>
         </li>
         <li>
           <Link href="/api-doc">API</Link>

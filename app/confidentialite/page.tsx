@@ -43,7 +43,6 @@ export default function APIDoc() {
           de Scalingo.
         </p>
       </Section>
-      <Footer />
     </Main>
   )
 }
