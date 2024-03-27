@@ -14,7 +14,7 @@ export default function Footer() {
         <li>
           <Link href="/personas">Personas</Link>
         </li>
-        <li>Accessibilité : non conforme</li>
+        <Link href="/accessibilite">Accessibilité : non conforme</Link>
         <li>
           <Link href="/confidentialite">
             Confidentialité et mentions légales
