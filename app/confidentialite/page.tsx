@@ -12,9 +12,8 @@ export default function APIDoc() {
   return (
     <Main>
       <Section>
-        <h2>Confidentialité et mentions légales</h2>
-
         <h2>Confidentialité</h2>
+
         <h3>Traceurs</h3>
         <p>
           Nous utilisons le traceur libre Matomo, via l'instance hébergée par
@@ -42,14 +41,6 @@ export default function APIDoc() {
             fiche entreprise
           </a>{' '}
           de Scalingo.
-        </p>
-        <h2>Mentions légales</h2>
-        <p>
-          Ce site Web est opéré par la{' '}
-          <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265">
-            Direction du Numérique de l'État français
-          </a>
-          .
         </p>
       </Section>
       <Footer />

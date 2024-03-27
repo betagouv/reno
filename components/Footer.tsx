@@ -9,6 +9,9 @@ export default function Footer() {
           <Link href="/a-propos">À propos</Link>
         </li>
         <li>
+          <Link href="/faq">Questions fréquentes</Link>
+        </li>
+        <li>
           <Link href="/api-doc">API</Link>
         </li>
         <li>
@@ -16,12 +19,7 @@ export default function Footer() {
         </li>
         <Link href="/accessibilite">Accessibilité : non conforme</Link>
         <li>
-          <Link href="/confidentialite">
-            Confidentialité et mentions légales
-          </Link>
-        </li>
-        <li>
-          <a href="https://github.com/betagouv/reno">Code source</a>
+          <Link href="/confidentialite">Confidentialité</Link>
         </li>
       </ul>
     </FooterWrapper>
