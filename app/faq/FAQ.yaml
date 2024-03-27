@@ -1,31 +1,55 @@
+- question: Y a-t-il toujours des aides à la rénovation thermique en 2024 ?
+  catégorie: général
+  réponse: |
+    Il n'y en a jamais eu autant ! L'État s'engage en 2024 à financer davantage les rénovations thermiques, via une enveloppe d'aide très importante.
 
+- question: J'ai un bon revenu, y a-t-il des aides pour moi ?
+  catégorie: revenu
+  réponse: |
+    Oui, depuis 2024, des aides existent quel que soit le revenu de votre ménage. Faites le test pour voir ce que l'État vous propose.
+- question: L'aide MaPrimeRénov' est-elle une avance ou un remboursement après travaux ?
+  catégorie: finance
+  réponse: |
+    En général, c'est un remboursement, mais pour les foyers les plus modestes, dans le parcours MaPrimeRénov' accompagnée, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
+
+- question: Je suis en appartement. Puis-je faire des travaux à côté des décisions de la copro ?
+  catégorie: appartement
+  réponse: |
+    Oui, les aides MaPrimeRénov accompagnée et par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
+
+    Le dispositif MaPrimeRénov' copropriété pourra venir financer les travaux communs, et il peut être cumulé avec les parcours individuels MaPrimeRénov'.
+
+#### Questions pas encore assez travaillées
 - question: Je suis en collocation
   catégorie: ménage
+  désactivée: oui
   id: ménage
   réponse: |
-    Question à Loïc : dans le cas d'une collocation ou l'un des collocataire, qui entre en compte dans le calcul si je suis le seul propriétaire ?  
-
+    Question à Loïc : dans le cas d'une collocation ou l'un des collocataire, qui entre en compte dans le calcul si je suis le seul propriétaire ?
 
 - question: Qu'est-ce qu'un ménage ?
   catégorie: ménage
   id: ménage
+  désactivée: oui
   réponse: |
+    C'est une question à apprécier au sens fiscal.
+  notes: |
     Question à Loïc :  Comment guider les usagers dans leur réponse ?
     cas pratique 
     - Je suis unique propiétaire d'un logement loué et j'habite en concubinage ?
     - Je suis propiétaire occupant et j'acceuil un colloque chez moi ? 
     - J'habite seul un logement que j'ai achété avec mon ancienne compagne dont je suis séparé ? Je possède 70% des parts ? 
     - Je suis en garde partagé à 50% du temps ? 20% ?
-  
-
 
 - question: De quel revenu parle-t-on pour les conditions d'éligibilité ? Mon ménage, mon foyer ?
   catégorie: revenu
+  désactivée: oui
   id: revenu
   réponse: |
     La définition d'un foyer est différente de celle d'un ménage. Le foyer concerne des groupes de personnes ayant des liens de parenté.
 
 - question: Mon DPE a été fait avant 2021, faut-il le refaire pour Ma Prime Rénov' ?
+  désactivée: oui
   catégorie: dpe
   id: vieux-dpe
   réponse: |
@@ -33,10 +57,12 @@
 - question: Qu'est-ce qu'une fenêtre ?
   catégorie: gestes
   id: fenetre
+  désactivée: oui
   réponse: |
     Une fenêtre, dans le parcours gestes, c'est une petite fenêtre ? Une baie vitrée, ça compte pour combien de fenêtres ? Car le coût n'est pas le même entre une lucarne et une baie vitrée !
 - question: Que met-on dans l'enveloppe des travaux MaPrimeRénov' accompagnée ?
   catégorie: accompagnée
+  désactivée: oui
   id: enveloppe
   réponse: |
     Si à l'occasion de mes travaux, j'isole par l'intérieur ma cuisine, et je suis donc plus ou moins contraint à la refaire (ou tout du moins, c'est une bonne ocasion), dois-je écarte de l'enveloppe MPRA (MaPrimeRénov accompagnée) les dépenses concernant la cuisine, qui d'ailleurs ne seront pas assujetties à une TVA de 5,5 % ? 
