@@ -25,6 +25,7 @@ export default function FAQ() {
               </details>
             </li>
           ))}
+        <p>De nouvelles questions viendront bientôt completer cette page.</p>
       </Questions>
     </section>
   )
