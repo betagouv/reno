@@ -19,7 +19,7 @@ export default function QuestionsRéponses({
 
       <BlocQuestionRéponse>
         <details>
-          <summary open={false}>Je ne sais pas quel travaux réaliser</summary>
+          <summary open={false}>Je ne sais pas quels travaux réaliser</summary>
           <p>
             Pas d’inquiétudes, le dispositif MaPrimeRénov’ Parcours Accompagné a
             justement été conçu pour vous guider dans la construction et la mise

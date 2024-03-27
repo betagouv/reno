@@ -1,15 +1,19 @@
-import css from '@/components/css/convertToJs'
 import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
-import Link from '@/node_modules/next/link'
+import { Metadata } from 'next/types'
+
+export const metadata: Metadata = {
+  title: 'Confidentialité - Mes aides réno',
+  description:
+    "Mes Aides réno respecte votre vie privée, découvrez l'usage que nous faisons de vos données.",
+}
 
 export default function APIDoc() {
   return (
     <Main>
       <Section>
-        <h2>Confidentialité et mentions légales</h2>
-
         <h2>Confidentialité</h2>
+
         <h3>Traceurs</h3>
         <p>
           Nous utilisons le traceur libre Matomo, via l'instance hébergée par
@@ -38,16 +42,7 @@ export default function APIDoc() {
           </a>{' '}
           de Scalingo.
         </p>
-        <h2>Mentions légales</h2>
-        <p>
-          Ce site Web est opéré par la{' '}
-          <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265">
-            Direction du Numérique de l'État français
-          </a>
-          .
-        </p>
       </Section>
-      <Footer />
     </Main>
   )
 }

@@ -1,6 +1,5 @@
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import Footer from '@/components/Footer'
 import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import informationIconBlack from '@/public/information-black.svg'
 import Link from 'next/link'
@@ -175,7 +174,6 @@ export default function Page({ searchParams }) {
             </CTAWrapper>
           </Content>
         </Wrapper>
-        <Footer />
       </PageBlock>
     </main>
   )

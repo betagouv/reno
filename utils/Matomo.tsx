@@ -23,6 +23,9 @@ const MatomoComponent = () => {
   const searchParamsString = searchParams.toString()
   useEffect(() => {
     if (!pathname) return
+    // may be necessary to decodeURIComponent searchParamsString ?
+    const url = pathname + (searchParamsString ? '?' + searchParamsString : '')
+    push(['setCustomUrl', url])
     push(['trackPageView'])
   }, [pathname, searchParamsString])
   return null

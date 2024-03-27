@@ -9,7 +9,6 @@ export default function getNextQuestions(
 ) {
   const { missingVariables } = evaluation
 
-  console.log({ missingVariables })
   const allMissingEntries = Object.entries(missingVariables),
     missingEntries = allMissingEntries
       .filter(([question]) => !answeredQuestions.includes(question))
@@ -36,7 +35,6 @@ export default function getNextQuestions(
     maxScore = firstEntry ? firstEntry[1] : 0,
     prio = questionsConfig.prioritaires || []
 
-  console.log({ orderedEntries }, maxScore)
   const artificialOrdered = sortBy(([k, v]) =>
     prio.includes(k)
       ? maxScore + [...prio].reverse().findIndex((kk) => kk === k) + 1

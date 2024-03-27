@@ -15,6 +15,7 @@ import { useMemo } from 'react'
 import Answers from './Answers'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
+import UserProblemBanner from '@/components/UserProblemBanner'
 
 export default function Form({ searchParams, rules }) {
   // this param lets us optionally build the form to target one specific publicode rule
@@ -80,6 +81,7 @@ export default function Form({ searchParams, rules }) {
         )}
       </Section>
       <br />
+      <UserProblemBanner />
       <Share searchParams={searchParams} />
       <Section>
         <h2>Documentation</h2>

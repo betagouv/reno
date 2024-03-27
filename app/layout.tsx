@@ -7,6 +7,7 @@ import './globals.css'
 import localFont from 'next/font/local'
 import DynamicHeaderIcon from './DynamicHeaderIcon'
 import { Title } from './LayoutUI'
+import Footer from '@/components/Footer'
 
 const marianneFont = localFont({
   src: [
@@ -102,6 +103,8 @@ export default function RootLayout({
             </Link>
           </header>
           {children}
+
+          <Footer />
         </StyledComponentsRegistry>
       </body>
       <Matomo />
