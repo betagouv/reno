@@ -491,8 +491,8 @@ export default function ScenariosSelector({
                     dottedName: 'somme à engager',
                   }}
                 />{' '}
-                € pour lancer les travaux, et une somme mensuelle sur une durée
-                d'emprunt d'au maximum 20 ans.
+                € pour lancer les travaux, et rembourser une somme mensuelle sur
+                une durée d'emprunt d'au maximum 20 ans.
               </p>
             </div>
           </Card>
