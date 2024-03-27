@@ -504,7 +504,7 @@ export default function ScenariosSelector({
         concrétiser votre projet. Ils vous aideront à choisir entre ces
         scénarios de sauts de DPE qui ouvrent droit à la prime.
       </p>
-      <h3>Vous avez des question sur les aides et les prochaines étapes ?</h3>
+      <h3>Vous avez des questions sur les aides et les prochaines étapes ?</h3>
       <p>
         Profitez gratuitement des conseils personnalisés de votre conseiller
         local France Rénov’. Cela ne vous engage à rien. Vous pouvez également
