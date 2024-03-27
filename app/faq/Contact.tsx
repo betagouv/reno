@@ -111,8 +111,7 @@ export const GithubContributionForm = ({ fromLocation }) => {
             comment +
             (fromLocation
               ? '\n> ' + 'Depuis la page' + ': `' + fromLocation + '`'
-              : '') +
-            'publicodes.Contribution.commentaireAugmenté'
+              : '')
           createIssue(sujet, augmentedComment, setURL, disableButton, [
             '❓ FAQ',
             '💁 contribution externe',
