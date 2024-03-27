@@ -1,7 +1,12 @@
-import css from '@/components/css/convertToJs'
 import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
-import Link from '@/node_modules/next/link'
+import { Metadata } from 'next/types'
+
+export const metadata: Metadata = {
+  title: 'Confidentialité - Mes aides réno',
+  description:
+    "Mes Aides réno respecte votre vie privée, découvrez l'usage que nous faisons de vos données.",
+}
 
 export default function APIDoc() {
   return (

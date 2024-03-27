@@ -1,6 +1,12 @@
 import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
+import { Metadata } from 'next/types'
 
+export const metadata: Metadata = {
+  title: 'Accessibilité - Mes aides réno',
+  description:
+    "Le site Mes aides réno respecte les critères de base de l'accessibilité du Web mais n'est pas encore testé face au référentiel d'accessibilité public RGAA",
+}
 export default function APIDoc() {
   return (
     <Main>
@@ -18,6 +24,13 @@ export default function APIDoc() {
           Ils sont exposés par exemple via le guide{' '}
           <a href="https://design-accessible.fr/checklist">Design accessible</a>{' '}
           utilisant les balises HTML sémantiques les plus adaptées.{' '}
+        </p>
+        <p>
+          Le code du site{' '}
+          <a href="https://github.com/betagouv/reno">
+            est intégralement ouvert
+          </a>
+          , et basé sur des bibliothèques elles-même ouvertes.
         </p>
         <p>
           Cependant, le site est récent, en phase de développement, il n'a donc

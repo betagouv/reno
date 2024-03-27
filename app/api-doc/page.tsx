@@ -1,8 +1,14 @@
-import css from '@/components/css/convertToJs'
 import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
+import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
 import APIDemo from './APIDemo'
+import { Metadata } from 'next/types'
+export const metadata: Metadata = {
+  title: 'API - Mes aides réno',
+  description:
+    "Découvrez la documentation de l'API de calcul des aides à la rénovation",
+}
 
 export default function APIDoc() {
   return (

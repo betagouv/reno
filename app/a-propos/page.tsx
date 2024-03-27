@@ -1,7 +1,10 @@
-import css from '@/components/css/convertToJs'
 import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
-import Link from '@/node_modules/next/link'
+import { Metadata } from 'next/types'
+
+export const metadata: Metadata = {
+  title: 'À propos - Mes aides réno',
+}
 
 export default function APIDoc() {
   return (
@@ -37,6 +40,13 @@ export default function APIDoc() {
             fiche produit
           </a>
           .
+        </p>
+        <p>
+          Le code du site{' '}
+          <a href="https://github.com/betagouv/reno">
+            est intégralement ouvert
+          </a>
+          , et basé sur des bibliothèques elles-même ouvertes.
         </p>
       </Section>
       <Footer />
