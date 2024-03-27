@@ -18,7 +18,6 @@ export default function Page({ searchParams }) {
       <Main>
         <Form searchParams={searchParams} rules={rules} />
       </Main>
-      <Footer />
     </PageBlock>
   )
 }

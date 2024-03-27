@@ -64,7 +64,7 @@ export const GithubContributionForm = ({ fromLocation }) => {
           color: var(--color);
         `}
       >
-        Le titre bref de votre problème
+        Le titre bref de votre problème ou question
         <input
           aria-describedby="messageAttention"
           value={sujet}
@@ -75,13 +75,13 @@ export const GithubContributionForm = ({ fromLocation }) => {
         />
       </label>
       <label css="color: var(--color)">
-        <p>La description complète de votre problème</p>
+        <p>La description complète de votre problème ou votre question</p>
         <p>
           <small>
-            En indiquant le navigateur que vous utilisez (par exemple Firefox
-            version 93, Chrome version 95, Safari, etc.), et la plateforme
-            (iPhone, Android, ordinateur Windows, etc.), vous nous aiderez à
-            résoudre le bug plus rapidement.
+            S'il s'agit d'un bug, en indiquant le navigateur que vous utilisez
+            (par exemple Firefox version 93, Chrome version 95, Safari, etc.),
+            et la plateforme (iPhone, Android, ordinateur Windows, etc.), vous
+            nous aiderez à résoudre le bug plus rapidement.
           </small>
         </p>
         <textarea
@@ -94,8 +94,8 @@ export const GithubContributionForm = ({ fromLocation }) => {
       </label>
       <p id="messageAttention">
         <em>
-          Cette contribution sera publique : n'y mettez pas d'informations
-          sensibles
+          Cette contribution sera publique : n'y mettez{' '}
+          <strong>pas d'informations sensibles</strong>.
         </em>
       </p>
       <button
@@ -123,10 +123,22 @@ export const GithubContributionForm = ({ fromLocation }) => {
       </button>
     </form>
   ) : (
-    <p role="status">
-      Merci 😍! Suivez l'avancement de votre suggestion en cliquant sur{' '}
-      <a href={URL}>ce lien</a>.
-    </p>
+    <section>
+      <p role="status">
+        Merci 😍 ! Suivez l'avancement de votre suggestion en cliquant sur{' '}
+        <a href={URL}>ce lien</a>.
+      </p>
+      <p>
+        Si vous désirez être notifié de nos réponses,
+        <strong>
+          vous pouvez{' '}
+          <a href="https://github.com/betagouv/reno/issues/new?assignees=&labels=contribution&template=retour-utilisateur.md&title=">
+            créer un compte sur la plateforme Github
+          </a>
+        </strong>{' '}
+        afin de suivre les échanges et discuter avec nous.
+      </p>
+    </section>
   )
 }
 
@@ -155,18 +167,10 @@ export default function Contact({ fromLocation }) {
     <div className="ui__ container" css="padding-bottom: 1rem">
       <h2>🙋 J'ai une autre question</h2>
       <p>
-        Pour toute remarque ou question,{' '}
-        <strong>
-          nous vous recommandons{' '}
-          <a href="https://github.com/betagouv/reno/issues/new?assignees=&labels=contribution&template=retour-utilisateur.md&title=">
-            d'ouvrir un ticket directement sur GitHub
-          </a>
-        </strong>{' '}
-        afin de suivre les échanges plus facilement.{' '}
-      </p>
-      <p>
-        Vous pouvez également nous envoyer un message via le formulaire de
-        contact ci-dessous.
+        Vous pouvez nous envoyer un message via le formulaire de contact
+        ci-dessous. N'y mettez <strong>pas d'informations sensibles</strong>{' '}
+        (nom, adresse précise, etc) car votre message sera utilisé pour
+        consolider la base de questions-réponses.
       </p>
       <div
         className="ui__ card"
