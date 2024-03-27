@@ -62,6 +62,9 @@ export const GithubContributionForm = ({ fromLocation }) => {
       <label
         css={`
           color: var(--color);
+          input {
+            text-align: left !important;
+          }
         `}
       >
         Le titre bref de votre problème ou question
