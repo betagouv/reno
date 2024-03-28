@@ -23,10 +23,13 @@ export default function APIDoc() {
           Quand vous faites une simulation sur Mes Aides Réno, et que vous
           saisissez par exemple votre catégorie de revenu, cette information est
           reçue par notre serveur (car les données sont stockées dans la barre
-          d'adresse de votre navigateur), l'adresse est stockée dans notre outil
-          de suivi d'audience, mais aucun compte utilisateur nominatif n'est
-          créé et les données ne sont utilisées que pour améliorer les parcours
-          sur le site et la fiabilité du modèle de calcul.
+          d'adresse de votre navigateur).
+        </p>
+        <p>
+          L'adresse est stockée dans notre outil de suivi d'audience, mais aucun
+          compte utilisateur nominatif n'est créé et les données ne sont
+          utilisées que pour améliorer les parcours sur le site et la fiabilité
+          du modèle de calcul.
         </p>
         <p>
           L'outil de suivi Matomo est configuré pour un suivi qui ne nécessite
@@ -35,7 +38,7 @@ export default function APIDoc() {
         <h3>Serveur</h3>
         <p>
           Notre serveur est géré par la société française{' '}
-          <a href="https://scalingo.com/">Scalingo</a>, et sont physiquement
+          <a href="https://scalingo.com/">Scalingo</a>, et est physiquement
           localisés en France. Voici la{' '}
           <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">
             fiche entreprise

@@ -22,15 +22,8 @@ export default function APIDoc() {
         </p>
         <p>
           Ils sont exposés par exemple via le guide{' '}
-          <a href="https://design-accessible.fr/checklist">Design accessible</a>{' '}
-          utilisant les balises HTML sémantiques les plus adaptées.{' '}
-        </p>
-        <p>
-          Le code du site{' '}
-          <a href="https://github.com/betagouv/reno">
-            est intégralement ouvert
-          </a>
-          , et basé sur des bibliothèques elles-même ouvertes.
+          <a href="https://design-accessible.fr/checklist">Design accessible</a>
+          .
         </p>
         <p>
           Cependant, le site est récent, en phase de développement, il n'a donc
@@ -43,6 +36,13 @@ export default function APIDoc() {
         <p>
           Nous n'avons pas non plus testé le site avec des utilisateurs dans une
           optique d'accessibilité.
+        </p>
+        <p>
+          Le code du site{' '}
+          <a href="https://github.com/betagouv/reno">
+            est intégralement ouvert
+          </a>
+          , n'hésitez pas à nous faire des retours.
         </p>
       </Section>
     </Main>
