@@ -48,6 +48,7 @@ export default function InputSwitch({
       <ClassicQuestionWrapper
         {...{
           rule,
+          nextQuestions,
           currentQuestion,
           rules,
           answeredQuestions,
@@ -189,7 +190,7 @@ export default function InputSwitch({
       <ClassicQuestionWrapper
         {...{
           rule,
-          nextquestions,
+          nextQuestions,
           currentQuestion,
           rules,
           answeredQuestions,
