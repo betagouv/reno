@@ -22,6 +22,7 @@ export const cardBorder = `
   border-bottom: 2px solid #253b71;
 `
 export const Card = styled.div`
+  background: white;
   margin: 0.6rem 0;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
   ${cardBorder}
