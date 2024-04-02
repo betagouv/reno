@@ -10,6 +10,7 @@ import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
 import { Card } from './UI'
 import { getRuleName } from './publicodes/utils'
+import { categoryData } from '@/app/simulation/Answers'
 
 export const getQuestionText = (rule, dottedName, rules) => {
   if (isMosaicQuestion(dottedName, rule, rules))
@@ -29,13 +30,21 @@ export default function ClassicQuestionWrapper({
   currentValue,
   engine,
   noSuggestions,
+  nextQuestions,
 }) {
+  const { categoryTitle } = categoryData(
+    nextQuestions,
+    currentQuestion,
+    answeredQuestions,
+    rules,
+  )
   return (
     <div>
       <Card>
         <div>
           {(!rule.type || !rule.type === 'question rhétorique') && (
             <QuestionHeader>
+              <small>{categoryTitle}</small>
               <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
               {rule['sous-titre'] && (
                 <p

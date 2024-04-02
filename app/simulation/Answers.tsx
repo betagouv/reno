@@ -90,14 +90,10 @@ export default function Answers({
                   title={`Étape ${categoryIndex} sur un total de ${allCategories.length} étapes. Cliquez pour obtenir le détail.`}
                 >
                   {!isMobile && 'Étape '}
-                  <Number>{categoryIndex}</Number> {isMobile ? '/' : 'sur'}{' '}
-                  {allCategories.length} :
+                  <Number>{categoryIndex}</Number> sur {allCategories.length}
                 </span>
               )}
             </small>
-            <h2>
-              {currentQuestion ? <span>{categoryTitle}</span> : 'Terminé'}
-            </h2>
           </div>
 
           <div

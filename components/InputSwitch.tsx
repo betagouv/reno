@@ -92,6 +92,7 @@ export default function InputSwitch({
           answeredQuestions,
           situation,
           setSearchParams,
+          nextQuestions,
           currentValue,
           engine,
           noSuggestions: true,
@@ -123,6 +124,7 @@ export default function InputSwitch({
     return (
       <ClassicQuestionWrapper
         {...{
+          nextQuestions,
           rule,
           currentQuestion,
           rules,
@@ -147,6 +149,7 @@ export default function InputSwitch({
     return (
       <ClassicQuestionWrapper
         {...{
+          nextQuestions,
           rule,
           currentQuestion,
           rules,
@@ -186,6 +189,7 @@ export default function InputSwitch({
       <ClassicQuestionWrapper
         {...{
           rule,
+          nextquestions,
           currentQuestion,
           rules,
           answeredQuestions,
@@ -276,6 +280,7 @@ export default function InputSwitch({
     return (
       <ClassicQuestionWrapper
         {...{
+          nextQuestions,
           rule,
           currentQuestion,
           rules,
@@ -305,6 +310,7 @@ export default function InputSwitch({
       <ClassicQuestionWrapper
         {...{
           rule,
+          nextQuestions,
           currentQuestion,
           rules,
           answeredQuestions,
@@ -340,6 +346,7 @@ export default function InputSwitch({
     <ClassicQuestionWrapper
       {...{
         rule,
+        nextQuestions,
         currentQuestion,
         rules,
         answeredQuestions,
