@@ -349,7 +349,9 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
             checked={situation[dottedName] === 'oui'}
             onChange={() => onChange(dottedName)}
           />
-          <Geste {...{ rules, dottedName, engine: engine.setSituation() }} />
+          <Geste
+            {...{ rules, dottedName, engine: engine.setSituation(situation) }}
+          />
         </label>
       </li>
     )
