@@ -139,6 +139,7 @@ export default function MPRSelector({
           }}
         />
       </Results>
+      <AidesLocales />
       <AutresAides />
     </CustomQuestionWrapper>
   )
