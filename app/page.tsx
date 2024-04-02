@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
 import VisualExplanation from './VisualExplanation'
 import { HomeList, Labels } from './HomeUI'
+import FromStorageSimulationButton from '@/components/FromStorageSimulationButton'
+import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -55,6 +57,7 @@ export default function Page({ searchParams }) {
             >
               5 minutes chrono et sans inscription.
             </p>
+            <FromStorageSimulationButton />
           </div>
           <Image
             src="/brouillons/illustration.svg"
