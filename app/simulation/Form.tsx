@@ -16,8 +16,10 @@ import Answers from './Answers'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
 import UserProblemBanner from '@/components/UserProblemBanner'
+import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 
 export default function Form({ searchParams, rules }) {
+  useSyncUrlLocalStorage()
   // this param lets us optionally build the form to target one specific publicode rule
   const { objectif, ...situationSearchParams } = searchParams
 
@@ -40,7 +42,6 @@ export default function Form({ searchParams, rules }) {
         answeredQuestions.includes(k),
       ),
     )
-  console.log('indigo', situation)
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,
