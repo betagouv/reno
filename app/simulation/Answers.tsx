@@ -1,5 +1,5 @@
 import NextQuestions from '@/components/NextQuestions'
-import { LinkStyleButton } from '@/components/UI'
+import { Card, LinkStyleButton } from '@/components/UI'
 import {
   encodeDottedName,
   encodeSituation,
@@ -107,105 +107,107 @@ export default function Answers({
             <LinkStyleButton>Voir mes réponses</LinkStyleButton>
           </div>
         </summary>
-        <div
-          css={`
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          `}
-        >
-          <h3>Vos réponses</h3>
+        <Card>
           <div
             css={`
-              visibility: ${answeredQuestions.length > 0
-                ? 'visible'
-                : 'hidden'};
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
             `}
           >
-            <Link href={'/simulation'}>Recommencer</Link>
+            <h3>Vos réponses</h3>
+            <div
+              css={`
+                visibility: ${answeredQuestions.length > 0
+                  ? 'visible'
+                  : 'hidden'};
+              `}
+            >
+              <Link href={'/simulation'}>Recommencer</Link>
+            </div>
           </div>
-        </div>
-        {pastCategories.length > 0 ? (
+          {pastCategories.length > 0 ? (
+            <ol
+              css={`
+                list-style-type: circle;
+                ol {
+                  list-style-type: disc;
+                }
+              `}
+            >
+              {pastCategories.map(([category, questions]) => (
+                <li key={category}>
+                  {getRuleTitle(category, rules)}
+                  <AnswerList>
+                    {questions.map((answer) => (
+                      <li
+                        key={answer}
+                        css={`
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          flex-wrap: wrap;
+                        `}
+                      >
+                        <span>{getRuleTitle(answer, rules)}</span>{' '}
+                        <span
+                          css={`
+                            border-bottom: 1px dashed #aaa;
+                            flex-grow: 1;
+                            margin: 0 1rem;
+                            @media (max-width: 800px) {
+                              display: none;
+                            }
+                          `}
+                        ></span>
+                        <span
+                          css={`
+                            @media (max-width: 800px) {
+                              flex-grow: 1;
+                              text-align: right;
+                            }
+                          `}
+                        >
+                          <Link
+                            href={setSearchParams(
+                              {
+                                question: encodeDottedName(answer),
+                                ...encodeSituation(
+                                  situation,
+                                  false,
+                                  answeredQuestions.filter((q) => q !== answer),
+                                ),
+                              },
+                              'url',
+                            )}
+                          >
+                            {situation[answer]}
+                          </Link>
+                        </span>
+                      </li>
+                    ))}
+                  </AnswerList>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p>Vous n'avez pas encore validé de réponse.</p>
+          )}
+          <h3>Prochaines étapes</h3>
           <ol
             css={`
               list-style-type: circle;
-              ol {
-                list-style-type: disc;
-              }
+              margin-bottom: 1rem;
             `}
           >
-            {pastCategories.map(([category, questions]) => (
-              <li key={category}>
-                {getRuleTitle(category, rules)}
-                <AnswerList>
-                  {questions.map((answer) => (
-                    <li
-                      key={answer}
-                      css={`
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        flex-wrap: wrap;
-                      `}
-                    >
-                      <span>{getRuleTitle(answer, rules)}</span>{' '}
-                      <span
-                        css={`
-                          border-bottom: 1px dashed #aaa;
-                          flex-grow: 1;
-                          margin: 0 1rem;
-                          @media (max-width: 800px) {
-                            display: none;
-                          }
-                        `}
-                      ></span>
-                      <span
-                        css={`
-                          @media (max-width: 800px) {
-                            flex-grow: 1;
-                            text-align: right;
-                          }
-                        `}
-                      >
-                        <Link
-                          href={setSearchParams(
-                            {
-                              question: encodeDottedName(answer),
-                              ...encodeSituation(
-                                situation,
-                                false,
-                                answeredQuestions.filter((q) => q !== answer),
-                              ),
-                            },
-                            'url',
-                          )}
-                        >
-                          {situation[answer]}
-                        </Link>
-                      </span>
-                    </li>
-                  ))}
-                </AnswerList>
-              </li>
+            {allCategories.slice(categoryIndex).map(([k, v]) => (
+              <li key={k}>{getRuleTitle(k, rules)}</li>
             ))}
           </ol>
-        ) : (
-          <p>Vous n'avez pas encore validé de réponse.</p>
-        )}
-        <h3>Prochaines étapes</h3>
-        <ol
-          css={`
-            list-style-type: circle;
-            margin-bottom: 1rem;
-          `}
-        >
-          {allCategories.slice(categoryIndex).map(([k, v]) => (
-            <li key={k}>{getRuleTitle(k, rules)}</li>
-          ))}
-        </ol>
-        {false && (
-          <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
-        )}
+          {false && (
+            <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
+          )}
+        </Card>
       </Details>
       <ProgressBar $ratio={(categoryIndex - 1) / allCategories.length} />
     </Wrapper>
