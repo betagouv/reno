@@ -118,7 +118,16 @@ export default function QuestionsRéponses({
               majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou
               de conserver un chauffage fonctionnant au fioul ou au charbon.
             </li>
-            <li>Vos artisans doivent être .</li>
+            <li>
+              Vos artisans doivent être{' '}
+              <a
+                href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
+                target="_blank"
+              >
+                certifiés RGE
+              </a>
+              .
+            </li>
           </ul>
         </details>
 
