@@ -20,7 +20,7 @@ const categoryMap = (questions) =>
     }, {}),
   )
 
-const categoryData = (
+export const categoryData = (
   nextQuestions,
   currentQuestion,
   answeredQuestions,
