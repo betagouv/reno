@@ -139,6 +139,14 @@ export const CTA = styled.div`
 	`}
   }
 `
+// Could not make it a button cause it traps the click for the outside details summary
+export const LinkStyleButton = styled.span`
+  background: none;
+  text-decoration: underline;
+  color: var(--color);
+  border: none;
+  font-size: inherit;
+`
 export const Intro = styled.div`
   margin: 3vh 0 1.6rem;
   width: 30rem;

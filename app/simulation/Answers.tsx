@@ -1,4 +1,5 @@
 import NextQuestions from '@/components/NextQuestions'
+import { LinkStyleButton } from '@/components/UI'
 import {
   encodeDottedName,
   encodeSituation,
@@ -103,7 +104,7 @@ export default function Answers({
                 : 'hidden'};
             `}
           >
-            <span>Voir mes réponses</span>
+            <LinkStyleButton>Voir mes réponses</LinkStyleButton>
           </div>
         </summary>
         <div
