@@ -279,7 +279,7 @@ export default function GestesMosaic({
       <Condition conditionValue={conditionValue} />
 
       <CTAWrapper>
-        <CTA>
+        <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
           <Link href={nextUrl}>
             <span
               css={`
