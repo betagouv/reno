@@ -103,11 +103,27 @@ export default function Answers({
                 : 'hidden'};
             `}
           >
-            <Link href={'/simulation'}>Recommencer</Link>
+            <span>Voir mes réponses</span>
           </div>
         </summary>
-        <h3>Vos réponses</h3>
-
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          `}
+        >
+          <h3>Vos réponses</h3>
+          <div
+            css={`
+              visibility: ${answeredQuestions.length > 0
+                ? 'visible'
+                : 'hidden'};
+            `}
+          >
+            <Link href={'/simulation'}>Recommencer</Link>
+          </div>
+        </div>
         {pastCategories.length > 0 ? (
           <ol
             css={`
