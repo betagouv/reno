@@ -1,0 +1,21 @@
+angers:
+  titre: Ville d'Angers
+  applicable si:
+    toutes ces conditions:
+      - localisation . code commune = '49007'
+      - une de ces conditions:
+          - ménage . revenu . classe = '"intermédiaire"'
+          - ménage . revenu . classe = '"modeste"'
+          - ménage . revenu . classe = '"très modeste"'
+      - conditions communes
+      - sauts >= 2
+  description: |
+    Etre éligible aux aides de l'Anah, MaPrimeRénov' - Parcours accompagné (sous plafond de ressources "Intermédiaire"), MaPrimeAdapt', MaPrime Logement Décent, MaPrimeRénov' Copropriété, ou Copropriété en difficulté.
+  valeur: 5500 €
+  fin prévue: 31/12/2024
+  lien: https://www.angersloiremetropole.fr/mon-quotidien/logement/mieux-chez-moi-un-accompagnement-a-la-renovation-de-votre-logement/index.html
+  email: mieuxchezmoi@angersloiremetropole.fr
+  téléphone: 02 41 43 00 00
+  service: Service Habitat-Logement
+  incertitudes: |
+    Est-ce qu'on peut demander cette aide sans demander les aides ANAH ?
