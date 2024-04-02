@@ -17,9 +17,6 @@ export const cardBorder = `
   padding: 1.2vh calc(.4rem + 1vw);
   border: 2px solid #dfdff1;
   border-radius: 0.3rem;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 2px solid #253b71;
 `
 export const Card = styled.div`
   background: white;
