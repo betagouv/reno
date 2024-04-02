@@ -3,7 +3,8 @@ import { styled } from 'styled-components'
 export const QuestionHeader = styled.header`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: start;
+  flex-direction: column;
   margin: 0.4rem 0.2rem 0.4rem 0.2rem;
   > small {
     color: var(--color);
@@ -18,19 +19,5 @@ export const QuestionHeader = styled.header`
   }
   h3 + p {
     margin-left: 0.2rem;
-  }
-  details {
-    > div {
-      border-left: 6px solid #253b71;
-      margin-bottom: 2rem;
-      padding-left: 0.6rem;
-    }
-    summary {
-      list-style-type: none;
-      border: none;
-      font-size: 110%;
-      cursor: pointer;
-      margin-left: 0.4rem;
-    }
   }
 `
