@@ -6,11 +6,11 @@
   --lighterColor: #d1d1fb;
   --lighterColor2: #e4e4f8;
   --lightestColor: #f5f5fe;
-  --shadow-color: 0deg 0% 63%;
-  --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
-    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+  --shadow-color: 180deg 2% 70%;
+  --shadow-elevation-medium: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.31),
+    0.7px 1.3px 1.6px -1px hsl(var(--shadow-color) / 0.29),
+    1.7px 3.5px 4.1px -2px hsl(var(--shadow-color) / 0.26),
+    4.3px 8.7px 10.2px -3px hsl(var(--shadow-color) / 0.23);
   accent-color: var(--color);
 }
 
@@ -22,6 +22,7 @@
 html,
 body {
   max-width: 100vw;
+  background: #f7f8f8;
 }
 
 body {

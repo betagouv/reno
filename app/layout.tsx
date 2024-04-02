@@ -60,6 +60,7 @@ export default function RootLayout({
               box-shadow: var(--shadow-elevation-medium);
               padding: 0 1vh;
               width: 100%;
+              background: white;
             `}
           >
             <Link
