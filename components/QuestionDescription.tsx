@@ -12,7 +12,11 @@ export default function QuestionDescription({ currentQuestion, rule }) {
           align-items: center;
         `}
       >
-        <Card>
+        <Card
+          css={`
+            width: 100%;
+          `}
+        >
           <span
             css={`
               display: flex;
