@@ -19,14 +19,26 @@ export default function Input({ situation, onChange, value, rule, engine }) {
 
   const idf = engine.evaluate('ménage . région . IdF')
   const evaluation = engine.evaluate(targets[idf.nodeValue ? 0 : 1])
-  console.log('smart eval', evaluation)
   const activeBarème =
     evaluation.explanation.valeur.explanation.alors.explanation.find(
       (el) => el.condition.nodeValue,
     )
+  console.log('smart eval list', activeBarème.consequence.explanation)
   const list = activeBarème.consequence.explanation
-    .map((el) => el.condition[1]?.constant?.nodeValue)
+    .map((el) => {
+      if (el.condition.isDefault) return false
+      console.log('smart eval condition', el.condition)
+      const conditionRightValue = engine.evaluate(
+        el.condition.explanation[1],
+      ).nodeValue
+      if (conditionRightValue != null) return conditionRightValue
+
+      throw new Error(
+        'Impossible de calculer les bornes de revenu intelligentes.',
+      )
+    })
     .filter(Boolean)
+
   console.log('smart eval list', list)
 
   console.log('smart revenu', revenu)
