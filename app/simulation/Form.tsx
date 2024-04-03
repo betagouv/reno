@@ -42,6 +42,7 @@ export default function Form({ searchParams, rules }) {
         answeredQuestions.includes(k),
       ),
     )
+
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,

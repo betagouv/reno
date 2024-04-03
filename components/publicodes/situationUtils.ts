@@ -21,9 +21,11 @@ export const getSituation = (searchParams, rules) =>
       .map(([k, v, rule]) => {
         const stringValue = v.endsWith(validValueMark) ? v.slice(0, -1) : v
 
+        // Remove trailing zeros for numeric values
         // TODO this is brittle : some values can be numeric without an explicité yaml unit, it can be defined on the go in the value itself like blabla: 23 dogs
         const value =
-          rule.unité && stringValue.match(/^0+\d+?/g)
+          (rule.unité || typeof rule['par défaut'] === 'number') &&
+          stringValue.match(/^0+\d+?/g)
             ? stringValue.replace(/^0+/g, '')
             : stringValue
 
