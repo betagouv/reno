@@ -12,12 +12,15 @@ import { Card } from './UI'
 import { getRuleName } from './publicodes/utils'
 import { categoryData } from '@/app/simulation/Answers'
 
-export const getQuestionText = (rule, dottedName, rules) => {
+export const QuestionText = ({ rule, question: dottedName, rules }) => {
   if (isMosaicQuestion(dottedName, rule, rules))
     return gestesMosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
   const text = rule.question || rule.titre || ruleName
-  return text
+
+  if (text.endsWith(' ?'))
+    return <span>{text.replace(/\s\?$/, '')}&nbsp;?</span>
+  return <span>{text}</span>
 }
 export default function ClassicQuestionWrapper({
   children,
@@ -45,16 +48,20 @@ export default function ClassicQuestionWrapper({
           {(!rule.type || !rule.type === 'question rhétorique') && (
             <QuestionHeader>
               <small>{categoryTitle}</small>
-              <h3>{getQuestionText(rule, currentQuestion, rules)}</h3>
+              <h3>
+                <QuestionText {...{ rule, question: currentQuestion, rules }} />
+              </h3>
               {rule['sous-titre'] && (
-                <p
+                <div
                   css={`
-                    color: #666;
-                    font-size: 90%;
+                    p {
+                      color: #666;
+                      font-size: 90%;
+                      line-height: 1.25rem;
+                    }
                   `}
-                >
-                  {rule['sous-titre']}
-                </p>
+                  dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+                ></div>
               )}
             </QuestionHeader>
           )}

@@ -1,7 +1,7 @@
-import { getQuestionText } from './ClassicQuestionWrapper'
+import { formatValue } from 'publicodes'
+import { QuestionText } from './ClassicQuestionWrapper'
 import { Prime } from './Geste'
 import Input from './Input'
-import { formatValue } from 'publicodes'
 import { encodeSituation } from './publicodes/situationUtils'
 export default function GesteQuestion({
   dottedName,
@@ -60,7 +60,9 @@ export default function GesteQuestion({
       `}
     >
       <label>
-        <div>{getQuestionText(rules[question], question, rules)}</div>
+        <div>
+          <QuestionText {...{ rule: rules[question], question, rules }} />
+        </div>
         <InputComponent />
       </label>
       <div

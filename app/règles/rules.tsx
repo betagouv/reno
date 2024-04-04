@@ -31,6 +31,7 @@ function transformRuleObject(v) {
     ...v,
     descriptionHtml: v.description && parse(v.description),
     titreHtml: v.titre && parse(v.titre),
+    sousTitreHtml: v['sous-titre'] && parse(v['sous-titre']),
   }
   return newV
 }
