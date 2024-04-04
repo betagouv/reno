@@ -55,15 +55,18 @@ export default function MarSearch({
       console.log('indigo', plainData, centre)
       if (!centre) return setData(plainData)
 
-      const filtered = plainData
-        .filter((el) => el.geometry?.coordinates)
-        .filter((el) => {
+      const hasGeo = plainData.filter((el) => el.geometry?.coordinates)
+      const closeEnough = hasGeo
+        .map((el) => {
           const distance = computeDistance(centre, el)
           console.log('red', distance, centre, el)
-          return distance < 200
+          return { ...el, properties: { ...el.properties, distance } }
         })
+        .filter(({ properties: { distance } }) => distance < 200)
+        .sort((a, b) => a.properties.distance > b.properties.distance)
+
       // We tried doing it on the server side, it failed with 404 not found nginx html messages
-      setData(filtered)
+      setData(closeEnough)
     }
     doFetch()
   }, [codeInsee])
