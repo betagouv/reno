@@ -18,3 +18,14 @@ export function omit(givenKeys, obj) {
 
 export const transformObject = (transformer) => (obj) =>
   Object.fromEntries(Object.entries(obj).map(([k, v]) => transformer(k, v)))
+
+export const debounce = <F extends (...args: any[]) => void>(
+  waitFor: number,
+  fn: F,
+) => {
+  let timeoutId: ReturnType<typeof setTimeout>
+  return (...args: any[]) => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => fn(...args), waitFor)
+  }
+}

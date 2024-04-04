@@ -1,13 +1,17 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
 import css from './css/convertToJs'
+import { useDebounce } from 'use-debounce'
 
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
 
 export default function AddressSearch({ setChoice }) {
-  const [input, setInput] = useState(null)
+  const [immediateInput, setInput] = useState(null)
+
+  const [input] = useDebounce(immediateInput, 300)
+
   const [results, setResults] = useState(null)
   const [clicked, setClicked] = useState(null)
 
@@ -44,7 +48,7 @@ export default function AddressSearch({ setChoice }) {
       <input
         type="text"
         autoFocus={true}
-        value={input}
+        value={immediateInput}
         placeholder={'commune ou code postal'}
         onChange={(e) => setInput(e.target.value)}
       />
