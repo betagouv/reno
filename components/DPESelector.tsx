@@ -35,7 +35,7 @@ export default function DPESelector({
       style={css`
         margin-top: 0.6rem;
       `}
-    >
+    > 
       <DPE
         newLetter={newLetter}
         letter={isNew ? oldLetter : newLetter}

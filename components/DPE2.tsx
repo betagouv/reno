@@ -22,6 +22,7 @@ export default function DPE({ letter, newLetter, onClick }) {
             $selected={el.lettre === letter}
             onClick={() => onClick(index)}
           >
+            <input type="radio" checked={el.lettre === letter} />
             <Bar
               $background={el.couleur}
               $index={index}
@@ -65,8 +66,12 @@ const Li = styled.li`
     height: ${size};
   }
   cursor: pointer;
+  input {
+    margin-right: 0.6rem;
+    cursor: pointer;
+  }
 `
-const Bar = styled.div`
+const Bar = styled.label`
   background: ${(p) => p.$background};
   width: ${(p) => 3 + (p.$index + 1) * 1.5}rem;
   margin: 0.2rem 0;
@@ -90,9 +95,9 @@ const Bar = styled.div`
   height: ${size};
   border: ${(p) =>
     p.$selected
-      ? `2px solid black`
+      ? `2px solid var(--color)`
       : p.$selected2
-        ? `2px dashed black`
+        ? `2px dashed var(--color)`
         : `none`};
   border-right: none;
   z-index: 1;
@@ -116,13 +121,13 @@ const Triangle = ({ background, selected, selected2 }) => (
     selected
       ? `
   stroke-width: 20px;
-  stroke: black;
+  stroke: var(--color);
   `
       : selected2
         ? `
   stroke-width: 20px;
   stroke-dasharray: 55;
-  stroke: black;
+  stroke: var(--color);
 
 		  `
         : ``
