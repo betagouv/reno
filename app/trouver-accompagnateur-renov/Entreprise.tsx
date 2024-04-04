@@ -1,12 +1,20 @@
 import { getAdresse } from './MarSearch'
 
 export default function Entreprise({ data }) {
+  console.log('indigo data', data)
+
+  const [rue, ville] = getAdresse(data)
   return (
     <div>
       <div>
         <strong>{data.raison_sociale}</strong>
       </div>
-      <small>{getAdresse(data)}</small>
+      <div>
+        <small>{rue}</small>
+      </div>
+      <div>
+        <small>{ville}</small>
+      </div>
       <div>
         <a
           href={`tel:${data.tel}`}

@@ -41,7 +41,7 @@ export default function MarSearch({
           .map(async (el) => {
             const address = getAdresse(el)
             if (!address) return false
-            const url = `https://photon.komoot.io/api/?q=` + address
+            const url = `https://photon.komoot.io/api/?q=` + address.join(' ')
             timeout(10)
             const request = await fetch(encodeURI(url))
             const json = await request.json()
@@ -133,6 +133,7 @@ export default function MarSearch({
               <li
                 key={el.raison_sociale}
                 css={`
+                  margin: 1rem 0;
                   ${selectedMarker?.raison_sociale === el.raison_sociale &&
                   `border: 2px solid var(--color)`}
                 `}
@@ -187,11 +188,14 @@ function timeout(ms) {
 }
 
 export const getAdresse = (obj) => {
-  if (obj.adresse) return obj.adresse + ' ' + obj.code_postal
+  if (obj.adresse) return [obj.adresse, obj.code_postal + ' ' + obj.ville]
   if (typeof obj.adresse_postale === 'object') {
     const { adresse1, adresse2, adresse3, code_postal, ville } =
       obj.adresse_postale
-    return `${adresse1 || ''} ${adresse2 || ''} ${adresse3 || ''} ${code_postal} ${ville}`
+    return [
+      `${adresse1 || ''} ${adresse2 || ''} ${adresse3 || ''}`,
+      `${code_postal} ${ville}`,
+    ]
   }
 
   return null
