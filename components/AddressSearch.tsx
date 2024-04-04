@@ -2,8 +2,8 @@ import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
 import css from './css/convertToJs'
 
-function startsWithNumber(str) {
-  return /^\d/.test(str)
+function onlyNumbers(str) {
+  return /^\d+/.test(str)
 }
 
 export default function AddressSearch({ setChoice }) {
@@ -15,12 +15,14 @@ export default function AddressSearch({ setChoice }) {
 
   useEffect(() => {
     if (!validInput) return
+    // Le code postal en France est une suite de cinq chiffres https://fr.wikipedia.org/wiki/Code_postal_en_France
+    if (onlyNumbers(input) && input.length !== 5) return
 
     console.log('input', input)
     const asyncFetch = async () => {
       const request = await fetch(
-        startsWithNumber(input)
-          ? `https://geo.api.gouv.fr/communes?codePostal=${input}&boost=population&limit=5`
+        onlyNumbers(input)
+          ? `https://geo.api.gouv.fr/communes?codePostal=${input}`
           : `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
       )
       const json = await request.json()
