@@ -71,7 +71,8 @@ export default function MarSearch({
     doFetch()
   }, [codeInsee])
 
-  const map = useAddMap(mapContainerRef, setLocation)
+  // Map disactivated per https://github.com/betagouv/reno/issues/74#issuecomment-2036347206
+  //const map = useAddMap(mapContainerRef, setLocation)
 
   return (
     <div
@@ -164,25 +165,27 @@ export default function MarSearch({
           )
         )}
       </div>
-      <div
-        css={`
-          height: 60vh;
-          width: 60rem;
-          margin: 0 auto;
-          max-width: 90%;
-        `}
-      >
-        {map && data?.length && (
-          <MapShapes map={map} marList={data} selectMarker={selectMarker} />
-        )}
+      {false && (
         <div
-          ref={mapContainerRef}
           css={`
-            width: 100%;
-            height: 100%;
+            height: 60vh;
+            width: 60rem;
+            margin: 0 auto;
+            max-width: 90%;
           `}
-        />
-      </div>
+        >
+          {map && data?.length && (
+            <MapShapes map={map} marList={data} selectMarker={selectMarker} />
+          )}
+          <div
+            ref={mapContainerRef}
+            css={`
+              width: 100%;
+              height: 100%;
+            `}
+          />
+        </div>
+      )}
     </div>
   )
 }
