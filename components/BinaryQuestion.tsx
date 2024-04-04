@@ -36,4 +36,10 @@ const Label = styled.label`
     cursor: pointer;
     margin: 0 0.2rem;
   }
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  > input + span {
+    margin-left: 0.6rem;
+  }
 `

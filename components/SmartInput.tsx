@@ -62,7 +62,7 @@ export default function Input({ situation, onChange, value, rule, engine }) {
             width: 1.4rem;
             height: 1.4rem;
             cursor: pointer;
-            margin-right: 0.4rem;
+            margin-right: 0.6rem;
           `}
           type="radio"
           name={threshold}

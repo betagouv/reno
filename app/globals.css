@@ -127,3 +127,26 @@ input[type]:not([type='checkbox']):not([type='radio']) {
 input[type='number'] {
   width: 8rem;
 }
+
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--color);
+  height: 2rem;
+  width: 2rem;
+  vertical-align: middle;
+}
+
+input[type='radio']:not(:checked):not(:disabled) {
+  appearance: none;
+  margin-bottom: 0;
+  height: 2rem;
+  width: 2rem;
+  vertical-align: middle;
+  background: white;
+  border: 2px solid var(--color);
+  border-radius: 50%;
+}
+
+input[type='radio']:not(:checked):not(:disabled) {
+  border-radius: 100px;
+}
