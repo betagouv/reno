@@ -4,6 +4,7 @@ import styled from 'styled-components'
 export const Main = styled.main`
   width: 98vw;
   padding: 0 1vw;
+  padding-bottom: 6vh;
   margin: 0 auto;
 `
 
@@ -30,7 +31,6 @@ export const FooterWrapper = styled.footer`
   border-top: 2px solid #000091;
   background: #f5f5fe;
   text-align: center;
-  margin-top: 3vh;
   padding: 2rem;
   ul {
     padding: 0;

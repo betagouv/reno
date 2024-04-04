@@ -40,7 +40,8 @@ export const Wrapper = styled.section`
   width: 100%;
   padding: 1rem 0;
   margin-top: 3vh;
-  ${(p) => p.$noMargin && `margin: 0; padding-top: 3vh`}
+  ${(p) => p.$noMargin && `margin: 0; padding-top: 3vh;`}
+  ${(p) => p.$last && `padding-bottom: 6vh;`}
 `
 export const Content = styled.div`
   width: 800px;
