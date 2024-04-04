@@ -85,6 +85,38 @@ export default function MarSearch({
         justify-content: center;
       `}
     >
+      {!codeInsee ? (
+        <label
+          css={`
+            display: flex;
+            align-items: center;
+            span {
+              margin-right: 1rem;
+            }
+          `}
+        >
+          <span>Saisissez votre ville</span>
+          <AddressSearch
+            setChoice={(result) => {
+              setData(null)
+
+              setLocalCodeInsee('' + result.code)
+            }}
+          />
+        </label>
+      ) : (
+        <div
+          css={`
+            margin: auto;
+            margin-right: 0;
+          `}
+        >
+          <small>
+            Recherche pour votre code Insee {codeInsee}.{' '}
+            <button onClick={() => setLocalCodeInsee(null)}>Changer</button>
+          </small>
+        </div>
+      )}
       <div
         css={`
           margin: 1rem;
@@ -98,33 +130,6 @@ export default function MarSearch({
           padding: 0 0.6rem;
         `}
       >
-        {!codeInsee ? (
-          <label
-            css={`
-              display: flex;
-              align-items: center;
-              span {
-                margin-right: 1rem;
-              }
-            `}
-          >
-            <span>Saisissez votre ville</span>
-            <AddressSearch
-              setChoice={(result) => {
-                setData(null)
-
-                setLocalCodeInsee('' + result.code)
-              }}
-            />
-          </label>
-        ) : (
-          <div>
-            Recherche pour votre code Insee {codeInsee}.{' '}
-            <button onClick={() => setLocalCodeInsee(null)}>
-              Rechercher ailleurs
-            </button>
-          </div>
-        )}
         {selectedMarker && (
           <Card
             css={`
@@ -135,20 +140,46 @@ export default function MarSearch({
           </Card>
         )}
         {data ? (
-          <ol>
-            {data.map((el) => (
-              <li
-                key={el.raison_sociale}
-                css={`
-                  margin: 1rem 0;
-                  ${selectedMarker?.raison_sociale === el.raison_sociale &&
-                  `border: 2px solid var(--color)`}
-                `}
-              >
-                <Entreprise data={el} />
-              </li>
-            ))}
-          </ol>
+          <section>
+            {data.length === 1 ? (
+              <section>
+                <h3>Votre conseiller : </h3>
+                <br />
+
+                <Entreprise data={data[0]} />
+              </section>
+            ) : (
+              <div>
+                <ol
+                  css={`
+                    padding: 0 1.2rem;
+                    margin-bottom: 0 !important;
+                  `}
+                >
+                  {data.map((el) => (
+                    <li
+                      key={el.raison_sociale}
+                      css={`
+                        margin: 1rem 0;
+                        ${selectedMarker?.raison_sociale ===
+                          el.raison_sociale && `border: 2px solid var(--color)`}
+                      `}
+                    >
+                      <Entreprise data={el} />
+                    </li>
+                  ))}
+                </ol>
+                <div
+                  css={`
+                    width: 100%;
+                    height: 1px;
+                    background: grey;
+                    box-shadow: 0 4px 6px -6px #222;
+                  `}
+                />
+              </div>
+            )}
+          </section>
         ) : (
           codeInsee && (
             <div

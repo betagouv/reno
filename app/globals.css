@@ -92,6 +92,8 @@ ol {
 
 button {
   cursor: pointer;
+  padding: 0rem 0.3rem;
+  font-size: inherit;
 }
 
 details summary {

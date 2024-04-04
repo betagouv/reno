@@ -1,9 +1,17 @@
+import { Card } from '@/components/UI'
 import { getAdresse } from './MarSearch'
 
 export default function Entreprise({ data }) {
   const [rue, ville] = getAdresse(data)
   return (
-    <div>
+    <Card
+      css={`
+        a {
+          overflow-x: scroll;
+          display: block;
+        }
+      `}
+    >
       <div>
         <strong>{data.raison_sociale}</strong>
       </div>
@@ -51,6 +59,6 @@ export default function Entreprise({ data }) {
           </ul>
         </div>
       )}
-    </div>
+    </Card>
   )
 }
