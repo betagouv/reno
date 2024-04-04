@@ -1,8 +1,6 @@
 import { getAdresse } from './MarSearch'
 
 export default function Entreprise({ data }) {
-  console.log('indigo data', data)
-
   const [rue, ville] = getAdresse(data)
   return (
     <div>

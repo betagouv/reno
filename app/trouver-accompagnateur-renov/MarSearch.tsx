@@ -30,6 +30,9 @@ export default function MarSearch({
 
       const data = Array.isArray(rawData) ? rawData : [rawData]
 
+      // We bypass the following geolocation code, per https://github.com/betagouv/reno/issues/74#issuecomment-2036347206
+      return setData(data)
+
       // Temporary, should be done once properly in the form, maybe with the exact adress to find the closest MAR
       const coordinatesRequest = await fetch(
         `https://geo.api.gouv.fr/communes?code=${codeInsee}&format=geojson`,
@@ -52,7 +55,6 @@ export default function MarSearch({
       )
       const plainData = geolocatedData.filter(Boolean)
       const centre = coordinates?.features[0]
-      console.log('indigo', plainData, centre)
       if (!centre) return setData(plainData)
 
       const hasGeo = plainData.filter((el) => el.geometry?.coordinates)
@@ -65,6 +67,7 @@ export default function MarSearch({
         .filter(({ properties: { distance } }) => distance < 200)
         .sort((a, b) => a.properties.distance > b.properties.distance)
 
+      console.log('indigo', plainData.length, hasGeo.length, closeEnough.length)
       // We tried doing it on the server side, it failed with 404 not found nginx html messages
       setData(closeEnough)
     }
