@@ -82,40 +82,6 @@ export default function ScenariosSelector({
           bénéficier du parcours accompagné.
         </Card>
       )}
-      {false && (
-        <p
-          css={`
-            line-height: 1.2rem;
-            text-align: center;
-            max-width: 40rem;
-            margin: 0 auto;
-            margin-top: 0.4rem;
-          `}
-        >
-          <em>
-            Lecture : pour {oldIndex} sauts de DPE, vous pouvez demander une
-            aide de{' '}
-            <Value
-              {...{
-                engine,
-                index: 0,
-                situation: { ...situation, 'projet . DPE visé': 0 + 1 },
-                dottedName: 'MPR . accompagnée . pourcent dont bonus',
-              }}
-            />{' '}
-            qui s'appliquera à un montant maximum de travaux de{' '}
-            <Value
-              {...{
-                engine,
-                index: 0,
-                situation: { ...situation, 'projet . DPE visé': 0 + 1 },
-                dottedName: 'projet . travaux . plafond',
-              }}
-            />
-            .
-          </em>
-        </p>
-      )}
       {choice != null && (
         <motion.div
           initial={{ x: -30, scale: 1 }}
