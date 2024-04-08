@@ -4,6 +4,8 @@ import { Value } from '../ScenariosSelector'
 import { encodeSituation } from '../publicodes/situationUtils'
 import data from '@/components/DPE.yaml'
 
+// this component was our first attempt to make a dedicated interface for the user to explain this law
+// we're trying something even simpler, tabs. See TargetDPETabs
 export default function TargetDPETable({
   oldIndex,
   setSearchParams,

@@ -12,7 +12,7 @@ import { Key } from './explications/ExplicationUI'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import { encodeSituation } from './publicodes/situationUtils'
 import { omit } from './utils'
-import TargetDPETable from './mpra/TargetDPETables'
+import TargetDPETabs from './mpra/TargetDPETabs'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -62,7 +62,7 @@ export default function ScenariosSelector({
         construire votre projet, choisir les bon travaux à engager et garantir
         leur efficacité.
       </p>
-      <TargetDPETable
+      <TargetDPETabs
         {...{
           oldIndex,
           setSearchParams,
