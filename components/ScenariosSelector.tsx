@@ -49,16 +49,11 @@ export default function ScenariosSelector({
         />{' '}
         Vous êtes éligible à MaPrimeRénov' Parcours accompagné
       </h2>
+      <p>
+        Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux
+        classes DPE.
+      </p>
       <DPEQuickSwitch oldIndex={oldIndex} />
-      <p>
-        Plus votre rénovation est ambitieuse, plus l’aide du parcours accompagné
-        est généreuse : son montant dépend des gains de performance visés.
-      </p>
-      <p>
-        Vous serez accompagné par un Accompagnateur Rénov’ pour vous aider à
-        construire votre projet, choisir les bon travaux à engager et garantir
-        leur efficacité.
-      </p>
       <TargetDPETabs
         {...{
           oldIndex,

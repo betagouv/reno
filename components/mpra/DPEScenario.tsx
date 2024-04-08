@@ -28,9 +28,11 @@ export default function DPEScenario({
     >
       <Card
         css={`
-          background: var(--lighterColor2);
           padding: 1rem;
-          margin: 1rem auto;
+          margin: 0;
+          margin-top: -0.25rem; /* hack */
+          z-index: 42;
+          position: relative;
           text-align: center;
           input {
             width: 8rem; /* width of "votre apport"*/

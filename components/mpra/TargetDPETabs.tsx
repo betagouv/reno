@@ -47,6 +47,7 @@ export default function TargetDPETabs({
             display: flex;
             justify-content: start;
             list-style-type: none;
+            padding-left: 0.8rem;
             input {
               display: none;
             }
@@ -63,6 +64,7 @@ export default function TargetDPETabs({
                 cursor: pointer;
                 font-size: 130%;
               }
+              z-index: 41;
             }
           `}
         >
@@ -71,7 +73,11 @@ export default function TargetDPETabs({
               key={el.lettre}
               css={
                 choice === index
-                  ? `background: white !important; border-bottom: none !important`
+                  ? `
+				  background: white !important; 
+				  border-bottom: none !important; 
+			  z-index: 43 !important;
+					  `
                   : ``
               }
             >
