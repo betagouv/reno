@@ -137,11 +137,11 @@ chauffage . chaudière bois . manuelle . plafond: 16000 €
 chauffage . chaudière bois . manuelle . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 8000 €
+      alors: 5500 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 6500 €
+      alors: 4500 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 3000 €
+      alors: 2000 €
     - sinon: 0 €
 chauffage . chaudière bois . automatique:
   titre: Chaudière bois auto (granulés, plaquettes)
@@ -151,11 +151,11 @@ chauffage . chaudière bois . automatique . plafond: 18000 €
 chauffage . chaudière bois . automatique . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 10000 €
+      alors: 7000 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 8000 €
+      alors: 5500 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 4000 €
+      alors: 3000 €
     - sinon: 0 €
 
 chauffage . foyer et insert:
@@ -165,11 +165,11 @@ chauffage . foyer et insert . plafond: 4000 €
 chauffage . foyer et insert . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 2500 €
+      alors: 1800 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
+      alors: 1000 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 800 €
+      alors: 600 €
     - sinon: 0 €
 
 chauffage . poêle:
@@ -181,11 +181,11 @@ chauffage . poêle . à bûches . plafond: 4000 €
 chauffage . poêle . à bûches . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 2500 €
+      alors: 1800 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 2000 €
+      alors: 1500 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 1000 €
+      alors: 700 €
     - sinon: 0 €
 
 chauffage . poêle . à granulés:
@@ -195,11 +195,11 @@ chauffage . poêle . à granulés . plafond: 5000 €
 chauffage . poêle . à granulés . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 2500 €
+      alors: 1800 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 2000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 1000 €
     - sinon: 0 €
 
 chauffage . fioul:
