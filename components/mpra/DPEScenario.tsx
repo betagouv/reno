@@ -77,7 +77,6 @@ export default function DPEScenario({
                   'projet . DPE visé': choice + 1,
                 },
                 dottedName: 'MPR . accompagnée . pourcent dont bonus',
-                state: 'emphasize',
               }}
             />{' '}
             du coût de vos travaux, jusqu'à{' '}
@@ -92,7 +91,6 @@ export default function DPEScenario({
                   'projet . DPE visé': choice + 1,
                 },
                 dottedName: 'MPR . accompagnée . montant',
-                state: 'emphasize',
               }}
             />
             .

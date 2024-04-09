@@ -6,6 +6,7 @@ export const P = styled.p`
   line-height: 1.8rem;
 `
 export const Key = styled.em`
+  font-weight: bold;
   ${(p) => p.$state === 'emphasize' && `font-weight: bold;`}
   ${(p) =>
     p.$state !== 'none' &&

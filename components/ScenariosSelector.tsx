@@ -195,7 +195,7 @@ export const Avance = ({ engine, rules, choice, situation }) => {
   )
 }
 
-export const Value = ({ engine, situation, dottedName, state }) => {
+export const Value = ({ engine, situation, dottedName, state = 'none' }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
     value = formatValue(evaluation, { precision: 0 })
   const missingVariables = evaluation.missingVariables
