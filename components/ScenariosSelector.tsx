@@ -1,5 +1,7 @@
 import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
+import informationIcon from '@/public/information.svg'
+import Image from 'next/image'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
 import { Card } from './UI'
@@ -74,6 +76,43 @@ export default function ScenariosSelector({
       <DPEScenario
         {...{ rules, choice, oldIndex, engine, situation, setSearchParams }}
       />
+
+      <section
+        css={`
+          margin-top: 2vh !important;
+
+          header {
+            display: flex;
+            align-items: center;
+            h4 {
+              color: #0359bf;
+              margin: 0;
+
+              font-weight: 500;
+            }
+            margin-bottom: 1.5vh !important;
+          }
+        `}
+      >
+        <header>
+          <Image
+            src={informationIcon}
+            width="25"
+            css={`
+              margin-right: 0.4rem;
+            `}
+          />
+          <h4>Informations utiles</h4>
+        </header>
+        <Avance {...{ engine, rules, situation, choice }} />
+        <p>
+          En cas de besoin, un{' '}
+          <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
+            éco-prêt à taux zéro
+          </a>{' '}
+          vous permet d'emprunter 50 000 € sur 20 ans.
+        </p>
+      </section>
       <h2>Engager la démarche</h2>
       <p>
         Avec France Rénov’, vous êtes entouré de professionnels pour affiner et
@@ -179,9 +218,9 @@ export const Avance = ({ engine, rules, choice, situation }) => {
     )
   return (
     <p>
-      En tant que ménage au revenu <ExplanationValue {...{ evaluation }} />,
-      vous pourrez bénéficier d'une avance de <strong>70 %</strong> de la prime,
-      soit{' '}
+      En tant que ménage au revenu{' '}
+      <ExplanationValue {...{ evaluation, state: 'none' }} />, vous pourrez
+      bénéficier d'une avance de <strong>70&nbsp;%</strong> de la prime, soit{' '}
       <Value
         {...{
           engine,

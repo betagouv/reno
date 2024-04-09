@@ -7,14 +7,12 @@ export const P = styled.p`
 `
 export const Key = styled.em`
   font-weight: bold;
-  ${(p) => p.$state === 'emphasize' && `font-weight: bold;`}
   ${(p) =>
     p.$state !== 'none' &&
     `background: #e9e9e9;
   border: 2px solid lightgray;
   `}
 
-  padding: 0 0.3rem;
   white-space: nowrap;
   font-style: normal;
   ${(p) =>
