@@ -3,6 +3,7 @@ import { Key } from './ExplicationUI'
 import rules from '@/app/règles/rules'
 
 export default function Value({
+  state,
   engine,
   evaluation: givenEvaluation,
   name,
@@ -10,7 +11,7 @@ export default function Value({
 }) {
   const evaluation = givenEvaluation || compute(name, engine, rules)
   return (
-    <Key $state={evaluation.hasMissing ? 'inProgress' : 'final'}>
+    <Key $state={state || (evaluation.hasMissing ? 'inProgress' : 'final')}>
       {display(evaluation.node.nodeValue)}
     </Key>
   )

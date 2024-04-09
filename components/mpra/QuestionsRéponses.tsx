@@ -19,7 +19,9 @@ export default function QuestionsRéponses({
 
       <BlocQuestionRéponse>
         <details>
-          <summary open={false}>Je ne sais pas quels travaux réaliser</summary>
+          <summary open={false}>
+            Comment choisir les travaux à réaliser ?
+          </summary>
           <p>
             Pas d’inquiétudes, le dispositif MaPrimeRénov’ Parcours Accompagné a
             justement été conçu pour vous guider dans la construction et la mise
@@ -46,7 +48,8 @@ export default function QuestionsRéponses({
         </details>
         <details>
           <summary open={false}>
-            Les grandes étape de MaPrimeRénov’ parcours Accompagné
+            Quelles sont les grandes étape de MaPrimeRénov’ parcours Accompagné
+            ?
           </summary>
           <p>
             Mon Accompagnateur Rénov' est un interlocuteur de confiance pour
@@ -102,21 +105,32 @@ export default function QuestionsRéponses({
         </details>
         <details>
           <summary open={false}>
-            Y a-t-il des conditions supplémentaires ?
+            Quels sont les conditions pour bénéfice de MaPrimeRénov' parcours
+            Accompagné ?
           </summary>
-          <p>
-            Outre les sauts de classe, votre projet de rénovation devra
-            respecter les conditions suivantes :
-          </p>
+
           <ul>
+            <li>
+              L’accompagnement par Mon Accompagnateur Rénov’ est obligatoire.
+            </li>
+            <li>
+              Un gain de 2 classes DPE au minimum est exigé. La rénovation
+              énergétique peut être réalisée en 2 étapes tant que la durée des
+              travaux ne dépasse pas 5 ans.
+            </li>
+
             <li>
               Il est obligatoire de réaliser au moins deux gestes d’isolation
               (murs, fenêtres / menuiserie, sols ou toiture).{' '}
             </li>
             <li>
               Il est impossible d’installer un chauffage fonctionnant
-              majoritairement aux énergies fossiles (par ex. chaudière à gaz) ou
-              de conserver un chauffage fonctionnant au fioul ou au charbon.
+              majoritairement aux énergies fossiles ou de conserver un chauffage
+              fonctionnant au fioul ou au charbon.
+            </li>
+            <li>
+              Il est obligatoire de vivre dans le logement les 3 années qui
+              suivent la date d’acceptation de la demande d’aide.
             </li>
             <li>
               Vos artisans doivent être{' '}
@@ -132,25 +146,9 @@ export default function QuestionsRéponses({
         </details>
 
         <details>
-          <summary open={false}>Quels sont les délais ?</summary>
-          <p>À remplir</p>
-        </details>
-        <details>
-          <summary open={false}>Y a-t-il des aides locales ?</summary>
-          <p>
-            En fonction de la localisation de votre bien ou de votre ménage,
-            vous pouvez être éligibles à des aides locales qui se cumulent aux
-            aides nationales.{' '}
-          </p>
-          <p>
-            Nous ne proposons pas encore le calcul de ces aides, il faudra aller
-            vous renseigner{' '}
-            <a href="https://www.anil.org/aides-locales-travaux/">en ligne</a>{' '}
-            ou auprès d'un conseiller d'une agence locale.
-          </p>
-        </details>
-        <details>
-          <summary open={false}>Peut-on cumuler les aides ?</summary>
+          <summary open={false}>
+            Peut-on cumuler MaPrimeRénov’ Accompagné avec d’autres aides ?
+          </summary>
           <p>
             MaPrimeRenov’ Parcours accompagné n’est pas cumulable avec les aides
             des fournisseurs d’énergie (CEE).
@@ -163,49 +161,6 @@ export default function QuestionsRéponses({
             L'aide du parcours accompagnée est limitée par un montant maximum,
             appelé l'écrêtement, calculé ci-dessus.
           </p>
-        </details>
-        <details>
-          <summary open={false}>C'est trop ambitieux pour moi</summary>
-          <p>
-            Le parcours accompagné de MaPrimeRénov' exige en effet un minimum de
-            deux sauts de DPE, en échange d'un montant d'aide important.
-          </p>
-          {oldIndex >= 4 && (
-            <p>
-              Pour les logements de classe E, F ou G avant travaux (vous avez
-              saisi <DPELabel index={oldIndex} /> ), il est possible de faire
-              des rénovations en 2 étapes sur une durée de 5 ans. Voir la{' '}
-              <a href="https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=21">
-                page 21 du guide de l'ANAH
-              </a>
-              .
-            </p>
-          )}
-          {mprg ? (
-            <p>
-              Bonne nouvelle, vous êtes également éligible au parcours par geste
-              de MaPrimeRénov'. Vous pouvez{' '}
-              <Link
-                href={setSearchParams(
-                  { objectif: encodeDottedName('MPR . non accompagnée') },
-                  'url',
-                )}
-              >
-                découvrir le parcours par geste
-              </Link>
-              .
-            </p>
-          ) : (
-            <p>
-              Vous n'êtes pas éligible au parcours par geste de MaPrimeRénov'.
-              Sous certaines conditions, vous pourriez cependant avoir accès à
-              l'
-              <a href="https://www.ecologie.gouv.fr/eco-pret-taux-zero-eco-ptz">
-                éco-prêt à taux zéro (PTZ)
-              </a>
-              .
-            </p>
-          )}
         </details>
       </BlocQuestionRéponse>
     </section>
