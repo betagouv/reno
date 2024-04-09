@@ -2,12 +2,17 @@ import FromStorageSimulationButton from '@/components/FromStorageSimulationButto
 import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import informationIconBlack from '@/public/information-black.svg'
+import illustrationAccueilWatermark from '@/public/illustration-accueil-watermark.png'
+import logoFranceRenov from '@/public/logo-france-rénov.png'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
-import { HomeList, Labels } from './HomeUI'
-import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
+import {
+  HeaderWrapper,
+  HomeList,
+  Labels,
+  LandingGreenBanner,
+} from './LandingUI'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -18,9 +23,19 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
+    <main
+      style={css`
+        background: white;
+
+        padding-top: calc(1.5vh + 1.5vw);
+      `}
+    >
       <PageBlock>
         <HeaderWrapper>
+          <Image
+            src={illustrationAccueilWatermark}
+            alt="Des ouvriers peignent et réparent la facade d'une maison"
+          />
           <div>
             <Labels>
               {['⚡️ En 2024, les aides évoluent'].map((text) => (
@@ -49,42 +64,35 @@ export default function Page() {
               style={css`
                 margin: 0;
                 margin-top: -1rem;
-                font-style: italic;
                 color: #555;
                 line-height: 1.3rem;
               `}
             >
-              5 minutes chrono et sans inscription.
+              <strong>5 minutes chrono</strong> et sans inscription.
             </p>
             <FromStorageSimulationButton />
           </div>
-          <Image
-            src="/brouillons/illustration.svg"
-            width="200"
-            height="200"
-            alt="Une maison dessinée avec la couleur orange d'un mauvais DPE, avec des murs isolés en vert"
-          />
         </HeaderWrapper>
         <LandingGreenBanner>
-          <Image
-            src={informationIconBlack}
-            width="25"
-            style={css`
-              margin-right: 1rem;
-            `}
-          />
-          <p>
-            Une initiative du gouvernement et de France Rénov' pour simplifier
-            l’accès à l’information sur les aides à la rénovation énergétique.{' '}
-            <Link
-              href="/a-propos"
-              style={css`
-                white-space: nowrap;
-              `}
-            >
-              En savoir plus.
-            </Link>
-          </p>
+          <div>
+            <Image src={logoFranceRenov} />
+            <p>
+              Une initiative construite avec{' '}
+              <a href="https://france-renov.gouv.fr">France&nbsp;Rénov'</a> pour
+              simplifier l’accès à l’information sur les aides à la rénovation
+              énergétique.
+            </p>
+            <p>
+              <Link
+                href="/a-propos"
+                style={css`
+                  white-space: nowrap;
+                `}
+              >
+                En savoir plus.
+              </Link>
+            </p>
+          </div>
         </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true} $last={true}>
           <Content>
