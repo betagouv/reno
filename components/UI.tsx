@@ -89,25 +89,34 @@ export const CTA = styled.div`
     background: none;
     font-size: inherit;
   }
-  > a {
+  > a,
+  > button,
+  span {
     text-decoration: none;
     color: inherit;
   }
 
   ${(p) =>
-    p.$importance === 'secondary'
+    p.$importance === 'emptyBackground'
       ? `
+  background: none;
+  border: 1px solid var(--color);
+  color: var(--color) !important;
+
+		  `
+      : p.$importance === 'secondary'
+        ? `
   background: var(--lightestColor);
   border: 1px solid var(--lighterColor);
   color: var(--color);
   line-height: 1.1rem;
   `
-      : p.$importance === 'inactive'
-        ? `
+        : p.$importance === 'inactive'
+          ? `
 	background: lightgrey; color: white;
 
 		  `
-        : `
+          : `
 
   background: var(--color);
   border: 1px solid var(--color);

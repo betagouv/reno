@@ -11,6 +11,7 @@ import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { omit } from './utils'
+import { Number } from '@/app/simulation/Answers'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -122,70 +123,70 @@ export default function ScenariosSelector({
           pour emprunter jusqu'à 50 000 € sur 20 ans.
         </p>
       </section>
-      <h2>Comment toucher cette aide ?</h2>
-      <p>
-        Avec France Rénov’, vous êtes entouré de professionnels pour affiner et
-        concrétiser votre projet. Ils vous aideront à choisir entre ces
-        scénarios de sauts de DPE qui ouvrent droit à la prime.
-      </p>
-      <h3>Vous avez des questions sur les aides et les prochaines étapes ?</h3>
-      <p>
-        Profitez gratuitement des conseils personnalisés de votre conseiller
-        local France Rénov’. Cela ne vous engage à rien. Vous pouvez également
-        consulter notre FAQ en pied de page.
-      </p>
-      <MapBehindCTA
-        {...{
-          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+      <h3>Comment toucher cette aide ?</h3>
+      <ol
+        css={`
+          padding-left: 0;
+          list-style-type: none;
+          header {
+            display: flex;
+            align-items: center;
+            h3 {
+              margin: 0;
+              margin-left: 0.6rem;
+            }
+            margin-bottom: 1vh;
+          }
+          li > section {
+            margin-left: 2.4rem;
+          }
+        `}
+      >
+        <li>
+          <header>
+            <Number>1</Number>
+            <h3>Vous avez encore des questions ?</h3>
+          </header>
+          <section>
+            <p>
+              Votre conseiller local France Rénov’ vous accompagne{' '}
+              <strong>gratuitement</strong> et sans engagement.
+            </p>
+            <MapBehindCTA
+              {...{
+                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
 
-          what: 'trouver-conseiller-renov',
-          text: 'Trouver mon conseiller',
-          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-        }}
-      />
-      <h3>Vous voulez lancer votre projet ?</h3>
-      <p>
-        L'<strong>accompagnateur rénov'</strong> est un interlocuteur de
-        confiance agréé par l’ANAH. Il vous accompagne de bout-en-bout dans
-        votre parcours de travaux en proposant un{' '}
-        <AuditStyle>audit énergétique</AuditStyle>, un appui technique,
-        administratif, financier et social. Il est obligatoire pour bénéficier
-        de Ma Prime Rénov’ Accompagné.
-      </p>
+                what: 'trouver-conseiller-renov',
+                text: 'Trouver mon conseiller',
+                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+              }}
+            />
+          </section>
+        </li>
+        <li>
+          <header>
+            <Number>2</Number>
+            <h3>Vous voulez lancer votre projet ?</h3>
+          </header>
+          <section>
+            <p>
+              Choisissez votre Accompagnateur Rénov’, l’interlocuteur de
+              confiance agréé par France Rénov’ qui vous accompagne de
+              bout-en-bout dans votre parcours de travaux.
+            </p>
 
-      <br />
-      <p>
-        🪙 Pour rappel, le revenu que vous avez saisi vous classe en
-        ménage&nbsp;
-        <Value
-          {...{
-            engine,
-            index: choice,
-            situation: { ...situation },
-            dottedName: 'ménage . revenu . classe',
-            state: 'emphasize',
-          }}
-        />
-        . Dans ce cas, l'État prend en charge jusqu'à{' '}
-        <Value
-          {...{
-            engine,
-            index: choice,
-            situation: { ...situation },
-            dottedName: 'MPR . accompagnée . prise en charge MAR',
-            state: 'emphasize',
-          }}
-        />{' '}
-        de la prestation de votre Accompagnateur Rénov'.
-      </p>
-      <MapBehindCTA
-        {...{
-          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+            <MapBehindCTA
+              {...{
+                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
 
-          text: 'Trouver mon accompagnateur',
-          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-        }}
-      />
+                text: 'Trouver mon accompagnateur',
+                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+                importance: 'emptyBackground',
+              }}
+            />
+          </section>
+        </li>
+      </ol>
       <QuestionsRéponses
         {...{
           engine,

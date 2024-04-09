@@ -264,7 +264,7 @@ font-size: 110%
   `}
 `
 
-const Number = styled.span`
+export const Number = styled.span`
   background: #000093;
   border-radius: 1.4rem;
   width: 1.6rem;
