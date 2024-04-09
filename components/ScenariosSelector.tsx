@@ -37,17 +37,21 @@ export default function ScenariosSelector({
           }
           margin-bottom: 2vh;
         }
+        header {
+          small {
+            color: var(--color);
+            font-weight: 500;
+          }
+          h2 {
+            margin-top: 0;
+          }
+        }
       `}
     >
-      <h2>
-        <Image
-          src="/check.svg"
-          width="10"
-          height="10"
-          alt="Icône case cochée"
-        />{' '}
-        Vous êtes éligible à MaPrimeRénov' Parcours accompagné
-      </h2>
+      <header>
+        <small>MaPrimeRénov’ Parcours accompagné</small>
+        <h2>Financer une rénovation d’ampleur de votre logement</h2>
+      </header>
       <p>
         Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux
         classes DPE.
