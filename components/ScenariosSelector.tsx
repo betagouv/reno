@@ -115,11 +115,11 @@ export default function ScenariosSelector({
         </p>
         <Avance {...{ engine, rules, situation, choice }} />
         <p>
-          En cas de besoin, un{' '}
+          Vous êtes éligible à l'
           <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
             éco-prêt à taux zéro
           </a>{' '}
-          vous permet d'emprunter 50 000 € sur 20 ans.
+          pour emprunter jusqu'à 50 000 € sur 20 ans.
         </p>
       </section>
       <h2>Comment toucher cette aide ?</h2>
