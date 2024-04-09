@@ -8,6 +8,8 @@ import localFont from 'next/font/local'
 import DynamicHeaderIcon from './DynamicHeaderIcon'
 import { Title } from './LayoutUI'
 import Footer from '@/components/Footer'
+import Image from 'next/image'
+import logo from '@/public/logo.svg'
 
 const marianneFont = localFont({
   src: [
@@ -84,7 +86,13 @@ export default function RootLayout({
                     align-items: center;
                   `}
                 >
-                  <Title>Mes aides réno</Title>
+                  <Image
+                    src={logo}
+                    alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"
+                  />
+                  <Title>
+                    Mes <strong>Aides Réno</strong>
+                  </Title>
                   <strong
                     title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'"
                     style={css`
