@@ -53,12 +53,6 @@ export default function DPEScenario({
           flex-wrap: wrap;
         `}
       >
-        <Image
-          src="/investissement.svg"
-          width="30"
-          height="30"
-          alt="Icône représentant votre apport personnel qui sera complété par les aides"
-        />
         <div
           css={`
             text-align: left;

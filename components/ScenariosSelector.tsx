@@ -1,15 +1,14 @@
 import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import Image from 'next/image'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
 import { Card } from './UI'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
-import QuestionsRéponses from './mpra/QuestionsRéponses'
-import { omit } from './utils'
-import TargetDPETabs from './mpra/TargetDPETabs'
 import DPEScenario from './mpra/DPEScenario'
+import QuestionsRéponses from './mpra/QuestionsRéponses'
+import TargetDPETabs from './mpra/TargetDPETabs'
+import { omit } from './utils'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -30,11 +29,6 @@ export default function ScenariosSelector({
       css={`
         margin-top: 0.6rem;
         h2 {
-          img {
-            width: 2rem;
-            height: auto;
-            vertical-align: bottom;
-          }
           margin-bottom: 2vh;
         }
         header {
