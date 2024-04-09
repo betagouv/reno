@@ -104,6 +104,15 @@ export default function ScenariosSelector({
           />
           <h4>Informations utiles</h4>
         </header>
+        <p>
+          Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
+          logement pour définir le projet de travaux vous permettant d’atteindre
+          le DPE visé.{' '}
+          <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
+            En savoir plus
+          </a>
+          .
+        </p>
         <Avance {...{ engine, rules, situation, choice }} />
         <p>
           En cas de besoin, un{' '}
@@ -113,7 +122,7 @@ export default function ScenariosSelector({
           vous permet d'emprunter 50 000 € sur 20 ans.
         </p>
       </section>
-      <h2>Engager la démarche</h2>
+      <h2>Comment toucher cette aide ?</h2>
       <p>
         Avec France Rénov’, vous êtes entouré de professionnels pour affiner et
         concrétiser votre projet. Ils vous aideront à choisir entre ces
