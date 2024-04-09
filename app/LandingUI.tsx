@@ -18,6 +18,7 @@ export const HeaderWrapper = styled(Content)`
       margin-top: 4rem;
       margin-left: 4rem;
       order: 1;
+      width: 25rem;
     }
   }
 `
