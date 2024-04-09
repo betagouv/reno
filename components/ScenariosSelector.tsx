@@ -22,9 +22,8 @@ export default function ScenariosSelector({
   const situation = omit(['projet . travaux'], givenSituation)
 
   const value = situation['projet . DPE visé'],
-    choice = value ? value - 1 : null
-
-  const oldIndex = +situation['DPE . actuel'] - 1
+    oldIndex = +situation['DPE . actuel'] - 1,
+    choice = value ? value - 1 : Math.max(oldIndex - 2, 0)
 
   return (
     <div
