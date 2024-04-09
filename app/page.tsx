@@ -6,8 +6,13 @@ import informationIconBlack from '@/public/information-black.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
-import { HomeList, Labels } from './HomeUI'
-import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
+import {
+  HeaderWrapper,
+  LandingGreenBanner,
+  HomeList,
+  Labels,
+} from './LandingUI'
+import illustrationAccueilWatermark from '@/public/illustration-accueil-watermark.png'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -18,9 +23,17 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
+    <main
+      style={css`
+        background: white;
+      `}
+    >
       <PageBlock>
         <HeaderWrapper>
+          <Image
+            src={illustrationAccueilWatermark}
+            alt="Des ouvriers peignent et réparent la facade d'une maison"
+          />
           <div>
             <Labels>
               {['⚡️ En 2024, les aides évoluent'].map((text) => (
@@ -49,21 +62,14 @@ export default function Page() {
               style={css`
                 margin: 0;
                 margin-top: -1rem;
-                font-style: italic;
                 color: #555;
                 line-height: 1.3rem;
               `}
             >
-              5 minutes chrono et sans inscription.
+              <strong>5 minutes chrono</strong> et sans inscription.
             </p>
             <FromStorageSimulationButton />
           </div>
-          <Image
-            src="/brouillons/illustration.svg"
-            width="200"
-            height="200"
-            alt="Une maison dessinée avec la couleur orange d'un mauvais DPE, avec des murs isolés en vert"
-          />
         </HeaderWrapper>
         <LandingGreenBanner>
           <Image
