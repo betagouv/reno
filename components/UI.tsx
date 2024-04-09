@@ -6,6 +6,7 @@ export const Main = styled.main`
   padding: 0 1vw;
   padding-bottom: 6vh;
   margin: 0 auto;
+  padding-top: calc(1.5vh + 1.5vw);
 `
 
 export const Section = styled.section`

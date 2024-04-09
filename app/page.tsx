@@ -2,17 +2,17 @@ import FromStorageSimulationButton from '@/components/FromStorageSimulationButto
 import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import informationIconBlack from '@/public/information-black.svg'
+import illustrationAccueilWatermark from '@/public/illustration-accueil-watermark.png'
+import logoFranceRenov from '@/public/logo-france-rénov.png'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
   HeaderWrapper,
-  LandingGreenBanner,
   HomeList,
   Labels,
+  LandingGreenBanner,
 } from './LandingUI'
-import illustrationAccueilWatermark from '@/public/illustration-accueil-watermark.png'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -26,6 +26,8 @@ export default function Page() {
     <main
       style={css`
         background: white;
+
+        padding-top: calc(1.5vh + 1.5vw);
       `}
     >
       <PageBlock>
@@ -72,25 +74,25 @@ export default function Page() {
           </div>
         </HeaderWrapper>
         <LandingGreenBanner>
-          <Image
-            src={informationIconBlack}
-            width="25"
-            style={css`
-              margin-right: 1rem;
-            `}
-          />
-          <p>
-            Une initiative du gouvernement et de France Rénov' pour simplifier
-            l’accès à l’information sur les aides à la rénovation énergétique.{' '}
-            <Link
-              href="/a-propos"
-              style={css`
-                white-space: nowrap;
-              `}
-            >
-              En savoir plus.
-            </Link>
-          </p>
+          <div>
+            <Image src={logoFranceRenov} />
+            <p>
+              Une initiative construite avec{' '}
+              <a href="https://france-renov.gouv.fr">France&nbsp;Rénov'</a> pour
+              simplifier l’accès à l’information sur les aides à la rénovation
+              énergétique.
+            </p>
+            <p>
+              <Link
+                href="/a-propos"
+                style={css`
+                  white-space: nowrap;
+                `}
+              >
+                En savoir plus.
+              </Link>
+            </p>
+          </div>
         </LandingGreenBanner>
         <Wrapper $background="white" $noMargin={true} $last={true}>
           <Content>

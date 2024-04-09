@@ -22,18 +22,31 @@ export const HeaderWrapper = styled(Content)`
   }
 `
 export const LandingGreenBanner = styled.div`
-  background: #dffee6;
-  color: black;
-  padding: 1rem;
-  width: 100%;
-  margin: 5vh 0 0;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: left;
-  p {
-    margin: 0;
+  background: #f7f8f8;
+  margin: 5vh 0;
+  padding-bottom: 1vh;
+  > div {
+    color: black;
+    padding: 1rem;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+    text-align: left;
+    font-size: 90%;
+    p {
+      line-height: 1.3rem;
+      max-width: 30rem;
+    }
+    img {
+      margin: 0.4rem;
+      margin-left: 0;
+      width: 7rem;
+      height: auto;
+    }
+    p {
+      margin: 0;
+    }
   }
 `
 export const Labels = styled.ul`

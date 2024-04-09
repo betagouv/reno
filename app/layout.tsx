@@ -56,8 +56,7 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <header
             style={css`
-              margin-bottom: calc(1.5vh + 1.5vw);
-              box-shadow: var(--shadow-elevation-medium);
+              border-bottom: 1px solid #dddddd;
               padding: 0 1vh;
               width: 100%;
               background: white;
