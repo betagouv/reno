@@ -77,7 +77,9 @@ export default function ScenariosSelector({
           bénéficier du parcours accompagné.
         </Card>
       )}
-      <DPEScenario {...{ rules, choice, oldIndex, engine, situation }} />
+      <DPEScenario
+        {...{ rules, choice, oldIndex, engine, situation, setSearchParams }}
+      />
       <h2>Engager la démarche</h2>
       <p>
         Avec France Rénov’, vous êtes entouré de professionnels pour affiner et

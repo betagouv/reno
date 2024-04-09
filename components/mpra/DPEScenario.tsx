@@ -12,6 +12,7 @@ export default function DPEScenario({
   oldIndex,
   engine,
   situation,
+  setSearchParams,
 }) {
   if (choice == null) return null
 
@@ -72,9 +73,7 @@ export default function DPEScenario({
           </h3>
 
           <p>
-            Vous engagez des travaux permettant de sauter{' '}
-            <strong>{-choice + oldIndex} classes DPE</strong> : vous avez droit
-            à une aide de{' '}
+            Vous touchez une aide de{' '}
             <Value
               {...{
                 engine,
@@ -87,16 +86,18 @@ export default function DPEScenario({
                 state: 'emphasize',
               }}
             />{' '}
-            qui s'appliquera à un montant maximum de travaux de{' '}
+            du coût de vos travaux, jusqu'à{' '}
             <Value
               {...{
                 engine,
                 index: choice,
                 situation: {
                   ...situation,
+
+                  'projet . investissement': 999999,
                   'projet . DPE visé': choice + 1,
                 },
-                dottedName: 'projet . travaux . plafond',
+                dottedName: 'MPR . accompagnée . montant',
                 state: 'emphasize',
               }}
             />
@@ -104,16 +105,13 @@ export default function DPEScenario({
           </p>
           <div
             css={`
-              margin-top: 2.5vh;
-              border-left: 8px solid var(--lighterColor0);
-              padding-left: 0.8rem;
               label {
                 white-space: nowrap;
               }
             `}
           >
             <p>
-              Par exemple : avec un apport personnel de{' '}
+              Par exemple : si vous apportez{' '}
               <label>
                 <Input
                   autoFocus={false}
@@ -133,22 +131,9 @@ export default function DPEScenario({
                 />
                 &nbsp;€
               </label>
-              <span>, vous pourrez obtenir une aide de </span>
-              <Value
-                {...{
-                  engine,
-                  choice,
-                  situation: {
-                    ...situation,
-                    'projet . DPE visé': choice + 1,
-                  },
-                  dottedName: 'MPR . accompagnée . montant avant écrêtement',
-                }}
-              />
-              .
-            </p>
-            <p>
-              Votre budget total pour réaliser des travaux sera alors de{' '}
+              <span>
+                , vous pourrez entreprendre des travaux d'un montant total de{' '}
+              </span>
               <Value
                 {...{
                   engine,
@@ -160,7 +145,7 @@ export default function DPEScenario({
                   dottedName: 'projet . travaux',
                 }}
               />{' '}
-              HT .
+              HT.
             </p>
           </div>
           <section
