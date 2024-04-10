@@ -78,7 +78,6 @@ export const HomeList = styled.ol`
     margin: 1rem 0.6rem;
     width: 12rem;
     strong {
-      font-family: Noto Serif;
       color: var(--lightColor);
       font-weight: 800;
       font-size: 300%;
