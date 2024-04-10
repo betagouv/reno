@@ -1,5 +1,7 @@
 import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
+import informationIcon from '@/public/information.svg'
+import Image from 'next/image'
 
 export default function Geste({
   dottedName,
@@ -36,24 +38,62 @@ export default function Geste({
       </div>
     )
   return (
-    <div>
-      <div>{questionRule.titre || getRuleName(dottedName)}</div>
+    <details
+      css={`
+        summary {
+          > div {
+            margin-left: 0.6rem;
+            display: inline-block;
+            width: calc(100% - 50px);
+            vertical-align: middle;
+            > div {
+              margin: 0 0 0.6rem 0;
+            }
+          }
 
-      <small
-        title={`Pour bénéficier de l'aide de ${montantValue}, le coût du geste ne doit pas dépasser ${plafondValue}.`}
-      >
-        {expanded ? (
-          <span>
-            <Prime value={`${montantValue}`} /> de prime, éligible pour un geste
-            qui coûte au maximum {plafondValue}.
-          </span>
-        ) : (
-          <span>
-            <Prime value={`${montantValue}`} /> pour max. {plafondValue}
-          </span>
-        )}
-      </small>
-    </div>
+          padding: 0.6rem 0;
+        }
+        > div {
+          padding-top: 1rem;
+          border-top: 1px solid #ddd;
+          p {
+            line-height: 1.4rem;
+          }
+        }
+      `}
+    >
+      <summary>
+        <div>
+          <div>{questionRule.titre || getRuleName(dottedName)}</div>
+          <Prime value={`${montantValue}`} />
+        </div>
+      </summary>
+
+      <div>
+        <span
+          css={`
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            color: #2a82dd;
+            font-weight: 500;
+          `}
+        >
+          <Image
+            src={informationIcon}
+            width="25"
+            css={`
+              margin-right: 0.4rem;
+            `}
+          />{' '}
+          <span>Conditions</span>
+        </span>
+        <p>
+          Remboursement de <strong>{montantValue}</strong> si la prestation est
+          inférieure à <strong>{plafondValue}</strong>.
+        </p>
+      </div>
+    </details>
   )
 }
 export const Prime = ({ value }) => (
@@ -62,7 +102,7 @@ export const Prime = ({ value }) => (
       color: #356e3e;
       background: #bef2c5;
       border: 1px solid #356e3e4d;
-      padding: 0.2rem 0.4rem 0.1rem;
+      padding: 0.1rem 0.4rem 0.05rem;
       border-radius: 0.2rem;
       white-space: nowrap;
     `}
