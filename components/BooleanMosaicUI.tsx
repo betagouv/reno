@@ -19,7 +19,6 @@ export const Fieldset = styled.fieldset`
   }
   > ul > li {
     margin-top: 1rem;
-    border-left: 2px solid ${blue};
     ul {
       padding-left: 0.6vw;
     }
@@ -34,8 +33,7 @@ export const Fieldset = styled.fieldset`
     margin: 1.3rem 0 0.4rem 0.6rem;
   }
   h4 {
-    background: ${blue};
-    color: white;
+    color: var(--color);
     display: inline-block;
     padding: 0 0.4rem;
     margin: 0;
@@ -46,22 +44,22 @@ export const Fieldset = styled.fieldset`
 
 export const Details = styled.details`
   summary {
-    padding-left: 0.3rem;
-    background: ${blue};
-    display: inline list-item;
+    padding-left: 0.6rem;
+    background: #e3e3fd;
     padding-right: 0.6rem;
     padding-bottom: 0.1rem;
     margin-bottom: 0.1rem;
     h4 {
       margin: 0;
-      padding: 0;
+      padding: 0.8rem 0 0.6rem 0;
+      font-weight: 400;
     }
   }
   summary::-webkit-details-marker {
-    color: white;
+    color: var(--color);
   }
   summary::marker {
-    color: white;
+    color: var(--color);
   }
   > ul {
     margin-top: 0.6rem;

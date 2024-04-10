@@ -9,7 +9,7 @@ montant:
     - isolation
 
 recommandés:
-  titre: ⭐️ Recommandés
+  titre: Recommandés
   somme:
     - audit . montant
 
