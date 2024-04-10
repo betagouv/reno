@@ -18,10 +18,23 @@ export const Header = styled.header`
   padding: 0 1vh;
   width: 100%;
   background: white;
-  > div {
+  > nav {
     max-width: 1200px;
     margin: 0 auto;
-    @media (min-width: 800px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > div {
+      @media (max-width: 800px) {
+        display: none;
+      }
+      > a {
+        margin: 0 0.6rem;
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 90%;
+      }
     }
   }
 `

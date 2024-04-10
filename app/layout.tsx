@@ -57,7 +57,7 @@ export default function RootLayout({
       <body className={marianneFont.className}>
         <StyledComponentsRegistry>
           <Header>
-            <div>
+            <nav>
               <Link
                 href="/"
                 style={css`
@@ -102,7 +102,11 @@ export default function RootLayout({
                   </div>
                 </div>
               </Link>
-            </div>
+              <div>
+                <Link href="/a-propos">À propos</Link>
+                <Link href="/faq">Questions et contact</Link>
+              </div>
+            </nav>
           </Header>
           {children}
 
