@@ -238,10 +238,11 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
   return questions.map((dottedName) => {
     const interfaceSituation = { ...situation, [dottedName]: 'oui' }
 
+    const checked = situation[dottedName] === 'oui'
     return (
       <li
         key={dottedName}
-        style={css`
+        css={`
           margin-bottom: 0.8rem;
         `}
       >
@@ -251,6 +252,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
             background: white;
             padding: 0.6rem 0.6rem;
             border: 1px solid #00008f26;
+            ${checked && `border: 2px solid var(--color);`}
             border-radius: 0.2rem;
             > div {
               max-width: calc(100% - 4rem);
@@ -265,7 +267,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
               cursor: pointer;
             `}
             type="checkbox"
-            checked={situation[dottedName] === 'oui'}
+            checked={checked}
             onChange={() => onChange(dottedName)}
           />
           <Geste
