@@ -249,7 +249,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
           key={dottedName}
           css={`
             background: white;
-            padding: 0.8rem;
+            padding: 0.6rem 0.6rem;
             border: 1px solid #00008f26;
             border-radius: 0.2rem;
             > div {

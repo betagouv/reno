@@ -27,7 +27,7 @@ export default function Geste({
       <div>
         <div
           css={`
-            margin: 0.6rem 0;
+            margin: 0 0 0.6rem 0;
           `}
         >
           {questionRule.titre || getRuleName(dottedName)}
