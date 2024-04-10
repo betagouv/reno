@@ -50,9 +50,11 @@ export default function GestesBasket({
       >
         Retour à la sélection des gestes
       </Link>
-      <h2>Votre panier de gestes</h2>
+      <h2>Votre sélection d'aides</h2>
       <ul
         css={`
+          list-style-type: none;
+          padding-left: 0;
           li {
             margin: 1rem 0;
           }
