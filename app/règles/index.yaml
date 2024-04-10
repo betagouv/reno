@@ -24,6 +24,8 @@ aides:
 ménage . revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
+  sous-titre: |
+    Votre revenu fiscal de référence se trouve sur la première page de votre dernier [avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu](https://www.service-public.fr/particuliers/vosdroits/F99).
   bornes intelligentes: oui
   description: |
     Saisissez le « revenu fiscal de référence » des personnes composant le ménage. 
