@@ -11,6 +11,7 @@ import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
 import { dot } from 'node:test/reporters'
+import { CustomQuestionWrapper } from './CustomQuestionUI'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -124,109 +125,11 @@ export default function GestesMosaic({
   const conditionValue = computeConditionValue(questions, situation)
 
   return (
-    <div
-      css={`
-        margin-top: 0.6rem;
-        h2 {
-          img {
-            width: 2rem;
-            height: auto;
-            vertical-align: bottom;
-          }
-          margin-bottom: 2vh;
-        }
-      `}
-    >
-      <h2>
-        <Image
-          src="/check.svg"
-          width="10"
-          height="10"
-          alt="Icône case cochée"
-        />{' '}
-        Vous êtes éligible à MaPrimeRénov' parcours gestes
-      </h2>
-      <p>
-        Choisissez les travaux que vous souhaitez réaliser pour obtenir le
-        montant de vos aides par travaux et au total.
-      </p>
-      <div
-        css={`
-          margin-top: 0.6rem;
-          position: sticky;
-          top: 2rem;
-          > div {
-            text-align: center;
-            padding: 1.2rem 0rem;
-            background: #4aeab0;
-            border-radius: 2rem;
-            width: 6rem;
-            margin: 0;
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 140%;
-            img {
-              width: 1.4rem;
-              height: auto;
-              margin-right: 0.4rem;
-            }
-          }
-        `}
-      >
-        <div title={`Vous avez sélectionné ${count} gestes.`}>
-          <Image
-            src="/basket.svg"
-            alt="Symbole d'un représentant vos gestes choisis"
-            width="10"
-            height="10"
-          />
-          <span>{count}</span>
-        </div>
-      </div>
-      <div
-        css={`
-          margin-top: 1rem;
-          p {
-            max-width: 35rem;
-            color: #555;
-            line-height: 1.1rem;
-            em {
-              display: inline;
-            }
-          }
-        `}
-      >
-        <p>
-          <small>
-            Pour chaque geste ci-dessous, une <Prime value={'prime'} /> est
-            disponible si le montant du geste est en-dessous du plafond{' '}
-            <em>max</em>.
-          </small>
-        </p>
-        <p>
-          <small>
-            Les primes sont personnalisées pour votre classe de revenu{' '}
-            <Value
-              {...{
-                engine,
-                situation: { ...situation },
-                dottedName: 'ménage . revenu . classe',
-                state: 'final',
-              }}
-            />
-            .
-          </small>
-        </p>
-      </div>
-      <div
-        css={`
-          text-align: right;
-        `}
-      >
-        <Link href={resetUrl}>Tout décocher</Link>
-      </div>
+    <CustomQuestionWrapper>
+      <header>
+        <small>Les aides à la carte</small>
+        <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
+      </header>
       <Fieldset>
         <ul>
           {categories.map(([category, dottedNames]) => (
@@ -277,8 +180,6 @@ export default function GestesMosaic({
         </ul>
       </Fieldset>
 
-      <Condition conditionValue={conditionValue} />
-
       <CTAWrapper>
         <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
           <Link href={nextUrl}>
@@ -299,35 +200,12 @@ export default function GestesMosaic({
                 height="10"
                 alt="Icône coche pleine"
               />
-              Suivant
+              Valider ma sélection ({count})
             </span>
           </Link>
         </CTA>
       </CTAWrapper>
-      <BlocQuestionRéponse>
-        <details>
-          <summary open={false}>🙋 Je ne sais pas quoi choisir !</summary>
-          <p>
-            Le parcours non accompagné de MaPrimeRénov' exige en effet de s'y
-            connaitre ou d'avoir réfléchi aux gestes qui sont susceptibles
-            d'améliorer efficacement les dépenses énergétiques de votre
-            logement.
-          </p>
-          <p>
-            Si cela vous semble trop compliqué, n'hésitez pas à{' '}
-            <Link
-              href={setSearchParams(
-                { objectif: encodeDottedName('MPR . accompagnée') },
-                'url',
-              )}
-            >
-              choisir à la place le parcours accompagné
-            </Link>
-            .
-          </p>
-        </details>
-      </BlocQuestionRéponse>
-    </div>
+    </CustomQuestionWrapper>
   )
 }
 

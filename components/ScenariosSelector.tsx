@@ -12,6 +12,7 @@ import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { omit } from './utils'
 import { Number } from '@/app/simulation/Answers'
+import { CustomQuestionWrapper } from './CustomQuestionUI'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -28,23 +29,7 @@ export default function ScenariosSelector({
     choice = value ? value - 1 : Math.max(oldIndex - 2, 0)
 
   return (
-    <div
-      css={`
-        margin-top: 0.6rem;
-        h2 {
-          margin-bottom: 2vh;
-        }
-        header {
-          small {
-            color: var(--color);
-            font-weight: 500;
-          }
-          h2 {
-            margin-top: 0;
-          }
-        }
-      `}
-    >
+    <CustomQuestionWrapper>
       <header>
         <small>MaPrimeRénov’ Parcours accompagné</small>
         <h2>Financer une rénovation d’ampleur de votre logement</h2>
@@ -195,7 +180,7 @@ export default function ScenariosSelector({
           choice,
         }}
       />
-    </div>
+    </CustomQuestionWrapper>
   )
 }
 
