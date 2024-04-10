@@ -180,7 +180,31 @@ export default function GestesMosaic({
         </ul>
       </Fieldset>
 
-      <CTAWrapper>
+      <CTAWrapper
+        css={`
+          @media (max-width: 800px) {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            background: white;
+            padding: 1rem 0;
+            --shadow-color: 180deg 2% 61%;
+            --shadow-elevation-medium: 0px -0.4px 0.5px hsl(var(--shadow-color) /
+                    0.36),
+              0px -1.2px 1.3px -0.8px hsl(var(--shadow-color) / 0.36),
+              0.1px -2.9px 3.3px -1.7px hsl(var(--shadow-color) / 0.36),
+              0.2px -7.1px 8px -2.5px hsl(var(--shadow-color) / 0.36);
+
+            box-shadow: var(--shadow-elevation-medium);
+            > div {
+              width: 90%;
+              margin: 0 auto !important;
+            }
+          }
+        `}
+      >
         <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
           <Link href={nextUrl}>
             <span
