@@ -6,7 +6,7 @@ import './globals.css'
 
 import localFont from 'next/font/local'
 import DynamicHeaderIcon from './DynamicHeaderIcon'
-import { Title } from './LayoutUI'
+import { Title, Header } from './LayoutUI'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
 import logo from '@/public/logo.svg'
@@ -56,60 +56,54 @@ export default function RootLayout({
     <html lang="fr">
       <body className={marianneFont.className}>
         <StyledComponentsRegistry>
-          <header
-            style={css`
-              border-bottom: 1px solid #dddddd;
-              padding: 0 1vh;
-              width: 100%;
-              background: white;
-            `}
-          >
-            <Link
-              href="/"
-              style={css`
-                text-decoration: none;
-                color: inherit;
-              `}
-            >
-              <div
+          <Header>
+            <div>
+              <Link
+                href="/"
                 style={css`
-                  max-width: 800px;
-                  margin: 0 auto;
-                  display: flex;
-                  align-items: center;
+                  text-decoration: none;
+                  color: inherit;
                 `}
               >
-                <DynamicHeaderIcon />
                 <div
                   style={css`
                     display: flex;
                     align-items: center;
                   `}
                 >
-                  <Image
-                    src={logo}
-                    alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"
-                  />
-                  <Title>
-                    Mes <strong>Aides Réno</strong>
-                  </Title>
-                  <strong
-                    title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'"
+                  <DynamicHeaderIcon />
+                  <div
                     style={css`
-                      background: #e8edff;
-                      color: #0063cb;
-                      padding: 0.1rem 0.3rem;
-                      border-radius: 0.1rem;
-                      margin-left: 0.6rem;
-                      font-size: 110%;
+                      display: flex;
+                      align-items: center;
+                      margin-left: 1vw;
                     `}
                   >
-                    BETA
-                  </strong>
+                    <Image
+                      src={logo}
+                      alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"
+                    />
+                    <Title>
+                      Mes <strong>Aides Réno</strong>
+                    </Title>
+                    <strong
+                      title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'"
+                      style={css`
+                        background: #e8edff;
+                        color: #0063cb;
+                        padding: 0.1rem 0.3rem;
+                        border-radius: 0.1rem;
+                        margin-left: 0.6rem;
+                        font-size: 110%;
+                      `}
+                    >
+                      BETA
+                    </strong>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          </header>
+              </Link>
+            </div>
+          </Header>
           {children}
 
           <Footer />
