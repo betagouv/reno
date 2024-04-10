@@ -184,6 +184,7 @@ export default function GestesMosaic({
         css={`
           @media (max-width: 800px) {
             position: fixed;
+            text-align: center;
             bottom: 0;
             left: 0;
             width: 100%;
