@@ -51,8 +51,8 @@ export default function Page() {
             </h1>
             <Intro>
               <p>
-                Des factures moins élevées dans un logement plus confortable et
-                plus écologique.
+                Une rénovation énergétique pour des factures moins élevées dans
+                un logement plus confortable et plus écologique.
               </p>
             </Intro>
             <CTAWrapper $justify="left">
