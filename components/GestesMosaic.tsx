@@ -10,6 +10,7 @@ import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Value } from './ScenariosSelector'
 import { CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
+import { dot } from 'node:test/reporters'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -332,6 +333,8 @@ export default function GestesMosaic({
 
 const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
   return questions.map((dottedName) => {
+    const interfaceSituation = { ...situation, [dottedName]: 'oui' }
+
     return (
       <li
         key={dottedName}
@@ -350,7 +353,12 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
             onChange={() => onChange(dottedName)}
           />
           <Geste
-            {...{ rules, dottedName, engine: engine.setSituation(situation) }}
+            {...{
+              rules,
+              dottedName,
+              engine,
+              situation: interfaceSituation,
+            }}
           />
         </label>
       </li>

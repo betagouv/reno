@@ -1,7 +1,13 @@
 import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 
-export default function Geste({ dottedName, rules, engine, expanded }) {
+export default function Geste({
+  dottedName,
+  rules,
+  engine,
+  expanded,
+  situation,
+}) {
   const questionRule = rules[dottedName]
 
   const montant = dottedName + ' . montant',
@@ -9,13 +15,12 @@ export default function Geste({ dottedName, rules, engine, expanded }) {
 
   const relevant = rules[barème] ? barème : montant
 
-  const montantValue = formatValue(engine.evaluate(relevant)).replace(
-    'm2',
-    'm²',
-  )
+  const montantValue = formatValue(
+    engine.setSituation(situation).evaluate(relevant),
+  ).replace('m2', 'm²')
 
   const plafond = dottedName + ' . plafond',
-    plafondValue = formatValue(engine.evaluate(plafond))
+    plafondValue = formatValue(engine.setSituation(situation).evaluate(plafond))
 
   return (
     <div>
