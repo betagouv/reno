@@ -22,6 +22,19 @@ export default function Geste({
   const plafond = dottedName + ' . plafond',
     plafondValue = formatValue(engine.setSituation(situation).evaluate(plafond))
 
+  if (!expanded)
+    return (
+      <div>
+        <div
+          css={`
+            margin: 0.6rem 0;
+          `}
+        >
+          {questionRule.titre || getRuleName(dottedName)}
+        </div>
+        <Prime value={`${montantValue}`} />
+      </div>
+    )
   return (
     <div>
       <div>{questionRule.titre || getRuleName(dottedName)}</div>
@@ -44,16 +57,16 @@ export default function Geste({
   )
 }
 export const Prime = ({ value }) => (
-  <span
+  <strong
     css={`
-      color: rgb(11, 73, 48);
-      background: #c4fad5;
-      border: 1px solid rgb(128, 202, 151);
-      padding: 0 0.3rem;
+      color: #356e3e;
+      background: #bef2c5;
+      border: 1px solid #356e3e4d;
+      padding: 0.2rem 0.4rem 0.1rem;
       border-radius: 0.2rem;
       white-space: nowrap;
     `}
   >
     {value}
-  </span>
+  </strong>
 )

@@ -244,9 +244,22 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
           margin-bottom: 0.8rem;
         `}
       >
-        <label key={dottedName}>
+        <label
+          key={dottedName}
+          css={`
+            background: white;
+            padding: 0.8rem;
+            border: 1px solid #00008f26;
+            border-radius: 0.2rem;
+            > div {
+              max-width: calc(100% - 4rem);
+            }
+          `}
+        >
           <input
             style={css`
+              width: 1.6rem;
+              height: 1.6rem;
               margin-right: 1rem;
               cursor: pointer;
             `}
@@ -260,6 +273,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
               dottedName,
               engine,
               situation: interfaceSituation,
+              expanded: false,
             }}
           />
         </label>

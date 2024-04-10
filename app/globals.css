@@ -23,6 +23,7 @@ html,
 body {
   max-width: 100vw;
   background: #f7f8f8;
+  font-size: 95%;
 }
 
 body {
@@ -115,7 +116,22 @@ input[type='number'] {
   width: 8rem;
 }
 
-input[type='checkbox'],
+input[type='checkbox'] {
+  accent-color: var(--color);
+  height: 1.6rem;
+  width: 1.6rem;
+  vertical-align: middle;
+}
+input[type='checkbox']:not(:checked):not(:disabled) {
+  appearance: none;
+  margin-bottom: 0;
+  height: 1.6rem;
+  width: 1.6rem;
+  vertical-align: middle;
+  background: white;
+  border: 2px solid var(--color);
+  border-radius: 0.2rem;
+}
 input[type='radio'] {
   accent-color: var(--color);
   height: 2rem;
@@ -132,8 +148,4 @@ input[type='radio']:not(:checked):not(:disabled) {
   background: white;
   border: 2px solid var(--color);
   border-radius: 50%;
-}
-
-input[type='radio']:not(:checked):not(:disabled) {
-  border-radius: 100px;
 }
