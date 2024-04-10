@@ -2,6 +2,7 @@ import { parentName } from '@/components/publicodes/utils'
 import Engine, { RuleNode } from 'publicodes'
 import { NotificationsBlock } from './NotificationsBlock'
 import { Card } from './UI'
+import { motion } from 'framer-motion'
 
 // To add a new notification to a simulator, you should create a publicodes rule
 // with the "type: notification" attribute. The display can be customized with
@@ -69,7 +70,18 @@ export default function Notifications({ currentQuestion, engine, objectives }) {
         {filteredMessages.map(({ sévérité, dottedName, descriptionHtml }) =>
           hiddenNotifications?.includes(dottedName) ? null : (
             <li key={dottedName}>
-              <div role="alert" className="notification">
+              <motion.div
+                role="alert"
+                className="notification"
+                initial={{ x: -30, scale: 1 }}
+                animate={{ x: 0, scale: 1 }}
+                key={dottedName}
+                transition={{
+                  type: 'spring',
+                  stiffness: 120,
+                  damping: 20,
+                }}
+              >
                 {sévérité == 'avertissement'
                   ? '⚠️'
                   : sévérité == 'invalide'
@@ -96,7 +108,7 @@ export default function Notifications({ currentQuestion, engine, objectives }) {
                     </button>
                   )}
                 </Card>
-              </div>
+              </motion.div>
             </li>
           ),
         )}
