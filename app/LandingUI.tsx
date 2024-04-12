@@ -7,18 +7,22 @@ export const HeaderWrapper = styled(Content)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  > div {
+    width: 30rem;
+    max-width: 90vw;
+  }
   img {
-    width: 16rem;
-    height: auto;
+    display: none;
   }
   @media (min-width: 800px) {
     flex-direction: row;
     > img {
+      display: block;
       margin-top: 4rem;
       margin-left: 4rem;
       order: 1;
       width: 25rem;
+      height: auto;
     }
   }
 `
@@ -29,9 +33,9 @@ export const LandingGreenBanner = styled.div`
   > div {
     color: black;
     padding: 1rem;
-    width: 100%;
+    width: 61rem;
+    max-width: 90vw;
     margin: 0 auto;
-    max-width: 800px;
     text-align: center;
     text-align: left;
     font-size: 90%;
