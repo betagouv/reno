@@ -41,7 +41,6 @@ export const LandingGreenBanner = styled.div`
     font-size: 90%;
     p {
       line-height: 1.3rem;
-      max-width: 30rem;
     }
     img {
       margin: 0.4rem;
@@ -51,6 +50,18 @@ export const LandingGreenBanner = styled.div`
     }
     p {
       margin: 0;
+    }
+    @media (min-width: 800px) {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      > img {
+        order: 0;
+      }
+      > p {
+        margin-top: 1rem;
+        margin-left: 1rem;
+      }
     }
   }
 `

@@ -79,10 +79,8 @@ export default function Page() {
             <p>
               Une initiative construite avec{' '}
               <a href="https://france-renov.gouv.fr">France&nbsp;Rénov'</a> pour
-              simplifier l’accès à l’information sur les aides à la rénovation
-              énergétique.
-            </p>
-            <p>
+              simplifier l’information sur les
+              aides&nbsp;à&nbsp;la&nbsp;rénovation&nbsp;énergétique.{' '}
               <Link
                 href="/a-propos"
                 style={css`
