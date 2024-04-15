@@ -11,6 +11,7 @@ import {
   ExplicationCommune,
   ExplicationMPRG,
 } from './explications/Éligibilité'
+import { Labels } from '@/app/LandingUI'
 
 /* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
  * can only be success or fail. I've kept this object for future references, for its colors */
@@ -70,45 +71,33 @@ export default function Result({
 		width: 22rem;
         max-width: min(22rem, 90%);
 		background: white;
-		${cardBorder}
+		${cardBorder};
 		border-color: ${fail ? '#ddd' : '#dfdff1'};
 
 	position: relative;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
 	justify-content: space-between;
       `)}
     >
-      <span
-        css={`
-          line-height: 1.5rem;
-          left: -2px;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%) translateX(-50%);
-          border-radius: 3rem;
-          width: 3.6rem;
-          height: 3.6rem;
-          background: white;
-          text-align: center;
-          img {
-            width: 100%;
-            height: auto;
-          }
-          z-index: 1;
-        `}
-      >
-        <Image
-          src={'/' + rule.illustration}
-          alt={'Illustration de ' + rule.titre}
-          width="20"
-          height="20"
-        />
-      </span>
+      {dottedName === 'MPR . accompagnée' && (
+        <Labels
+          $color={'#6E4444'}
+          $background={'#fdf8db'}
+          css={`
+            margin-top: 0.3rem;
+          `}
+        >
+          {['🤝 Un professionnel vous accompagne'].map((text) => (
+            <li key={text}>{text}</li>
+          ))}
+        </Labels>
+      )}
       <h3
         style={css`
+          margin-top: 1.2rem;
           font-weight: 400;
           margin: 0.15rem 0 1rem;
         `}
