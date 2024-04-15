@@ -26,7 +26,8 @@ export default function ScenariosSelector({
 
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
-    choice = value ? value - 1 : Math.max(oldIndex - 2, 0)
+    automaticChoice = Math.max(oldIndex - 2, 0),
+    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   return (
     <CustomQuestionWrapper>
