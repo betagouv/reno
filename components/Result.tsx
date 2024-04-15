@@ -6,6 +6,7 @@ import { styled } from 'styled-components'
 import { PrimeStyle } from './Geste'
 import { CTA, CTAWrapper, Card, cardBorder } from './UI'
 import { ExplicationMPRA, ExplicationMPRG } from './explications/Éligibilité'
+import GestesPreview from './mprg/GestesPreview'
 
 /* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
  * can only be success or fail. I've kept this object for future references, for its colors */
@@ -165,7 +166,19 @@ export default function Result({
               <ExplicationMPRG {...{ engine, situation }} />
             </div>
           )}
-
+          <GestesPreview
+            {...{
+              rules,
+              dottedNames: [
+                'gestes . recommandés . audit',
+                'gestes . chauffage . PAC . air-eau',
+                'gestes . isolation . murs extérieurs',
+                'gestes . isolation . murs intérieurs',
+              ],
+              engine,
+              situation,
+            }}
+          />
           <div
             css={`
               visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
