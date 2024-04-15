@@ -105,6 +105,7 @@ export const PrimeStyle = styled.span`
   padding: 0.1rem 0.4rem 0.05rem;
   border-radius: 0.2rem;
   white-space: nowrap;
+  ${(p) => p.$inactive && `background: grey`}
 `
 export const Prime = ({ value }) => (
   <PrimeStyle>

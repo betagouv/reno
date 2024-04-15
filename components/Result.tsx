@@ -93,6 +93,17 @@ export default function Result({
             <h3>L'État vous accompagne</h3>
             <p>L'aide principale en 2024 pour rénover son logement.</p>
           </header>
+          {fail && (
+            <div
+              css={`
+                margin: 1rem 0;
+                color: black;
+                text-align: center;
+              `}
+            >
+              <ExplicationMPRA {...{ engine, situation }} />
+            </div>
+          )}
           <Card
             css={`
               margin-top: 0.2rem;
@@ -130,17 +141,6 @@ export default function Result({
               Vous serez accompagné pour rénover votre logement et gagner au
               minimum <strong>deux classes DPE</strong>.
             </p>
-            {fail && (
-              <div
-                css={`
-                  margin: 1rem 0;
-                  color: black;
-                  text-align: center;
-                `}
-              >
-                <ExplicationMPRA {...{ engine, situation }} />
-              </div>
-            )}
             <div
               css={`
                 visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
