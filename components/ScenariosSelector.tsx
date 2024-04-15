@@ -237,7 +237,21 @@ export const Value = ({ engine, situation, dottedName, state = 'none' }) => {
 
   return (
     <Key $state={state || (missing.length > 0 ? 'inProgress' : 'final')}>
-      {missing.length > 0 ? '...' : value}
+      {missing.length > 0 ? (
+        <span
+          css={`
+            display: inline-block;
+            padding: 0 1rem;
+            background: var(--lighterColor);
+            border-radius: 0.3rem;
+            font-weight: 300;
+          `}
+        >
+          ... €
+        </span>
+      ) : (
+        value
+      )}
     </Key>
   )
 }
