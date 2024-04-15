@@ -183,20 +183,40 @@ export default function Result({
               <ExplicationMPRG {...{ engine, situation }} />
             </div>
           )}
-          <GestesPreview
-            {...{
-              rules,
-              inactive: fail,
-              dottedNames: [
-                'gestes . recommandés . audit',
-                'gestes . chauffage . PAC . air-eau',
-                'gestes . isolation . murs extérieurs',
-                'gestes . isolation . murs intérieurs',
-              ],
-              engine,
-              situation,
-            }}
-          />
+          {!fail ? (
+            <GestesPreview
+              {...{
+                rules,
+                inactive: fail,
+                dottedNames: [
+                  'gestes . recommandés . audit',
+                  'gestes . chauffage . PAC . air-eau',
+                  'gestes . isolation . murs extérieurs',
+                  'gestes . isolation . murs intérieurs',
+                ],
+                engine,
+                situation,
+              }}
+            />
+          ) : (
+            <details>
+              <summary>Détails</summary>
+              <GestesPreview
+                {...{
+                  rules,
+                  inactive: fail,
+                  dottedNames: [
+                    'gestes . recommandés . audit',
+                    'gestes . chauffage . PAC . air-eau',
+                    'gestes . isolation . murs extérieurs',
+                    'gestes . isolation . murs intérieurs',
+                  ],
+                  engine,
+                  situation,
+                }}
+              />
+            </details>
+          )}
           <div
             css={`
               visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
