@@ -7,6 +7,7 @@ export default function GestesPreview({
   dottedNames,
   engine,
   situation,
+  inactive,
 }) {
   return (
     <Fieldset>
@@ -20,6 +21,7 @@ export default function GestesPreview({
             <Card>
               <Geste
                 {...{
+                  inactive,
                   rules,
                   dottedName,
                   engine,

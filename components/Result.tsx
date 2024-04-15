@@ -130,8 +130,8 @@ export default function Result({
               dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
             />
 
-            <PrimeStyle>
-              {isFinal ? `` : `Jusqu'à `} <strong>{value}</strong>
+            <PrimeStyle $inactive={fail}>
+              {isFinal ? `` : fail ? `` : `Jusqu'à `} <strong>{value}</strong>
             </PrimeStyle>
             <p
               css={`
@@ -186,6 +186,7 @@ export default function Result({
           <GestesPreview
             {...{
               rules,
+              inactive: fail,
               dottedNames: [
                 'gestes . recommandés . audit',
                 'gestes . chauffage . PAC . air-eau',

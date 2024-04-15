@@ -10,6 +10,7 @@ export default function Geste({
   engine,
   expanded,
   situation,
+  inactive,
 }) {
   const questionRule = rules[dottedName]
 
@@ -35,7 +36,7 @@ export default function Geste({
         >
           {questionRule.titre || getRuleName(dottedName)}
         </div>
-        <Prime value={`${montantValue}`} />
+        <Prime value={`${montantValue}`} inactive={inactive} />
       </div>
     )
   return (
@@ -66,7 +67,7 @@ export default function Geste({
       <summary>
         <div>
           <div>{questionRule.titre || getRuleName(dottedName)}</div>
-          <Prime value={`${montantValue}`} />
+          <Prime value={`${montantValue}`} inactive={inactive} />
         </div>
       </summary>
 
@@ -105,10 +106,10 @@ export const PrimeStyle = styled.span`
   padding: 0.1rem 0.4rem 0.05rem;
   border-radius: 0.2rem;
   white-space: nowrap;
-  ${(p) => p.$inactive && `background: grey`}
+  ${(p) => p.$inactive && `background: #eee; color: #666`}
 `
-export const Prime = ({ value }) => (
-  <PrimeStyle>
+export const Prime = ({ value, inactive = false }) => (
+  <PrimeStyle $inactive={inactive}>
     <strong>{value}</strong>
   </PrimeStyle>
 )
