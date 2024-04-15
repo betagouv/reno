@@ -16,7 +16,7 @@ export const Section = styled.section`
 `
 export const cardBorder = `
 
-  padding: 1.2vh calc(.4rem + 1vw);
+  padding: 1.2vh calc(.5rem + 1vw);
   border: 2px solid #dfdff1;
   border-radius: 0.3rem;
 `
@@ -72,7 +72,6 @@ export const TopBanner = styled.p`
 `
 
 export const CTAWrapper = styled.div`
-  text-align: right;
   margin: 3vh 0;
   display: flex;
   align-items: center;
@@ -82,6 +81,7 @@ export const CTAWrapper = styled.div`
   }
   > div:last-child {
     margin-right: 0;
+  }
   }
 `
 export const CTA = styled.div`

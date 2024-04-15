@@ -2,6 +2,7 @@ import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
+import styled from 'styled-components'
 
 export default function Geste({
   dottedName,
@@ -9,6 +10,7 @@ export default function Geste({
   engine,
   expanded,
   situation,
+  inactive,
 }) {
   const questionRule = rules[dottedName]
 
@@ -34,7 +36,7 @@ export default function Geste({
         >
           {questionRule.titre || getRuleName(dottedName)}
         </div>
-        <Prime value={`${montantValue}`} />
+        <Prime value={`${montantValue}`} inactive={inactive} />
       </div>
     )
   return (
@@ -61,11 +63,12 @@ export default function Geste({
           }
         }
       `}
+      open={true}
     >
       <summary>
         <div>
           <div>{questionRule.titre || getRuleName(dottedName)}</div>
-          <Prime value={`${montantValue}`} />
+          <Prime value={`${montantValue}`} inactive={inactive} />
         </div>
       </summary>
 
@@ -96,17 +99,18 @@ export default function Geste({
     </details>
   )
 }
-export const Prime = ({ value }) => (
-  <strong
-    css={`
-      color: #356e3e;
-      background: #bef2c5;
-      border: 1px solid #356e3e4d;
-      padding: 0.1rem 0.4rem 0.05rem;
-      border-radius: 0.2rem;
-      white-space: nowrap;
-    `}
-  >
-    {value}
-  </strong>
+
+export const PrimeStyle = styled.span`
+  color: #356e3e;
+  background: #bef2c5;
+  border: 1px solid #356e3e4d;
+  padding: 0.1rem 0.4rem 0.05rem;
+  border-radius: 0.2rem;
+  white-space: nowrap;
+  ${(p) => p.$inactive && `background: #eee; color: #666`}
+`
+export const Prime = ({ value, inactive = false }) => (
+  <PrimeStyle $inactive={inactive}>
+    <strong>{value}</strong>
+  </PrimeStyle>
 )

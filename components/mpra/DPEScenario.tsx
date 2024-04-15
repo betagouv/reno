@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import DPELabel from '../DPELabel'
 import Input from '../Input'
-import { Avance, Value } from '../ScenariosSelector'
+import { Value } from '../ScenariosSelector'
 import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Image from 'next/image'
+
+import calculatorIcon from '@/public/calculator-empty.svg'
 
 export default function DPEScenario({
   rules,
@@ -56,9 +58,12 @@ export default function DPEScenario({
         <div
           css={`
             text-align: left;
-            max-width: 40rem;
+            margin: 0 1rem;
             p {
               margin: 0.6rem 0;
+            }
+            h3 {
+              margin-top: 1rem;
             }
           `}
         >
@@ -102,43 +107,60 @@ export default function DPEScenario({
               }
             `}
           >
-            <p>
-              Par exemple : si vous apportez{' '}
-              <label>
-                <Input
-                  autoFocus={false}
-                  value={situation['projet . investissement'] || undefined}
-                  placeholder="votre apport"
-                  onChange={(rawValue) => {
-                    const value = +rawValue === 0 ? undefined : rawValue
-                    setSearchParams(
-                      encodeSituation({
-                        'projet . investissement': value,
-                      }),
-                      'replace',
-                      false,
-                    )
+            <div
+              css={`
+                display: flex;
+                align-items: center;
+              `}
+            >
+              <Image
+                src={calculatorIcon}
+                alt="Icône calculette"
+                css={`
+                  width: 2.2rem !important;
+                  height: auto !important;
+                  margin-right: 0.8rem !important;
+                `}
+              />
+              <p>
+                À vos calculs : si j'apporte{' '}
+                <label>
+                  <Input
+                    autoFocus={false}
+                    value={situation['projet . investissement'] || undefined}
+                    placeholder="mon apport"
+                    min="0"
+                    onChange={(rawValue) => {
+                      const value = +rawValue === 0 ? undefined : rawValue
+                      setSearchParams(
+                        encodeSituation({
+                          'projet . investissement': value,
+                        }),
+                        'replace',
+                        false,
+                      )
+                    }}
+                    step="100"
+                  />
+                  &nbsp;€
+                </label>
+                <span>
+                  , je pourrai entreprendre des travaux d'un montant total de{' '}
+                </span>
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
+                    dottedName: 'projet . travaux',
                   }}
-                  step="100"
-                />
-                &nbsp;€
-              </label>
-              <span>
-                , vous pourrez entreprendre des travaux d'un montant total de{' '}
-              </span>
-              <Value
-                {...{
-                  engine,
-                  choice,
-                  situation: {
-                    ...situation,
-                    'projet . DPE visé': choice + 1,
-                  },
-                  dottedName: 'projet . travaux',
-                }}
-              />{' '}
-              HT.
-            </p>
+                />{' '}
+                HT.
+              </p>
+            </div>
           </div>
         </div>
       </Card>

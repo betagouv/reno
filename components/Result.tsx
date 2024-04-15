@@ -1,16 +1,12 @@
+import { Labels } from '@/app/LandingUI'
 import css from '@/components/css/convertToJs'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import Image from 'next/image'
 import Link from 'next/link'
 import { styled } from 'styled-components'
-import Check from './Check'
-import { Value } from './ScenariosSelector'
-import { CTA, CTAWrapper, cardBorder } from './UI'
-import {
-  ExplicationMPRA,
-  ExplicationCommune,
-  ExplicationMPRG,
-} from './explications/Éligibilité'
+import { PrimeStyle } from './Geste'
+import { CTA, CTAWrapper, Card, cardBorder } from './UI'
+import { ExplicationMPRA, ExplicationMPRG } from './explications/Éligibilité'
+import GestesPreview from './mprg/GestesPreview'
 
 /* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
  * can only be success or fail. I've kept this object for future references, for its colors */
@@ -59,167 +55,199 @@ export default function Result({
   const state = isNotApplicable ? 'fail' : isFinal ? 'success' : 'running',
     fail = state === 'fail'
   const { color, background, label } = colors[state]
+  const MPRA = dottedName === 'MPR . accompagnée'
 
   return (
     <li
-      style={css(`
-	  color: ${fail ? '#888' : 'inherit'};
-        padding: 1.4rem 1.5rem;
-        margin: .6rem auto;
-		height: 30rem;
-		width: 22rem;
+      css={`
+        margin: 0;
+        width: 22rem;
         max-width: min(22rem, 90%);
-		background: white;
-		${cardBorder}
-		border-color: ${fail ? '#ddd' : '#dfdff1'};
+        @media (min-width: 800px) {
+          width: 100%;
+          max-width: initial;
+        }
+        border-color: ${fail ? '#ddd' : '#dfdff1'};
 
-	position: relative;
+        position: relative;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-	justify-content: space-between;
-      `)}
+        h3 {
+          font-size: 120%;
+          margin: 2rem 0 0.4rem;
+        }
+        @media (min-width: 800px) {
+        }
+      `}
     >
-      <span
-        css={`
-          line-height: 1.5rem;
-          left: -2px;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%) translateX(-50%);
-          border-radius: 3rem;
-          width: 3.6rem;
-          height: 3.6rem;
-          background: white;
-          text-align: center;
-          img {
-            width: 100%;
-            height: auto;
-          }
-          z-index: 1;
-        `}
-      >
-        <Image
-          src={'/' + rule.illustration}
-          alt={'Illustration de ' + rule.titre}
-          width="20"
-          height="20"
-        />
-      </span>
-      <h3
-        style={css`
-          font-weight: 400;
-          margin: 0.15rem 0 1rem;
-        `}
-        dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
-      />
-      <p
-        css={`
-          img {
-            width: 1.6rem;
-            height: auto;
-            margin-right: 0.6rem;
-            opacity: 0.4;
-            margin-top: -0.3rem;
-          }
-          display: flex;
-          align-items: start;
-        `}
-      >
-        <Image
-          src="/quote-remix.svg"
-          alt="Icône citation"
-          width="10"
-          height="10"
-        />
-        {rule.interface.motivation}
-      </p>
-      <ol
-        css={`
-          margin: 1rem 0;
-          list-style-type: none;
+      {' '}
+      {MPRA ? (
+        <section>
+          <header>
+            <h3>L'État vous accompagne</h3>
+            <p>
+              L'aide principale en 2024 pour faire une rénovation d'ampleur.
+            </p>
+          </header>
+          <Card
+            css={`
+              color: ${fail ? '#888' : 'inherit'};
+              margin-top: 0.2rem;
+              background: white;
+            `}
+          >
+            <Labels
+              $color={'#6E4444'}
+              $background={'#fdf8db'}
+              css={`
+                margin-top: 0.3rem;
+              `}
+            >
+              {['🤝 Un professionnel vous accompagne'].map((text) => (
+                <li key={text}>{text}</li>
+              ))}
+            </Labels>
+            <h4
+              style={css`
+                font-weight: 400;
+                margin: 1rem 0 0rem;
+                font-size: 120%;
+              `}
+              dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
+            />
 
-          li {
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            svg {
-              margin-right: 0.6rem;
-              width: 1.4rem;
-              height: auto;
-            }
-          }
-          min-height: 8rem;
-        `}
-      >
-        {rule.interface.avantages.map((avantage) => (
-          <li key={avantage}>
-            <span>
-              <Check color={fail ? '#888' : '#347c5d'} />
-            </span>
-            <span>{avantage}</span>
-          </li>
-        ))}
-      </ol>
-      <div
-        style={css(`
-          visibility: ${
-            // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
-            isNotApplicable ? 'hidden' : ''
-          };
-			${hideNumeric && !isFinal ? 'visibility: hidden;' : ''}
-          margin: 0.15rem 0;
-        `)}
-      >
-        {isFinal ? `` : `Jusqu'à `} {value}
-      </div>
-      <small
-        css={`
-          padding: 0 0.2rem;
-          margin-top: 0.1rem;
-          ${fail
-            ? `
-			font-size: 100%;
-			padding: .2rem .6rem;
-		  background: ${background}; 
-		  color: ${color};
+            {fail ? (
+              <div
+                css={`
+                  margin: 1rem 0;
+                  color: black;
+                  text-align: center;
+                `}
+              >
+                <ExplicationMPRA {...{ engine, situation }} />
+              </div>
+            ) : (
+              <PrimeStyle $inactive={fail}>
+                {isFinal ? `` : fail ? `` : `Jusqu'à `} <strong>{value}</strong>
+              </PrimeStyle>
+            )}
+            <p
+              css={`
+                margin-top: 1.4rem;
+              `}
+            >
+              Un programme sur-mesure pour gagner au minimum{' '}
+              <strong>deux&nbsp;classes&nbsp;DPE</strong>.
+            </p>
+            <div
+              css={`
+                visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
+                > div {
+                  margin-bottom: 0.3rem;
+                  margin-top: 1rem;
+                }
+              `}
+            >
+              <CTAWrapper $justify="start">
+                <CTA $fontSize="normal">
+                  <Link href={url}>
+                    {MPRA
+                      ? 'Découvrir le détail'
+                      : 'Voir les 20 gestes disponibles'}
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+            </div>
+          </Card>
+        </section>
+      ) : (
+        <section>
+          <header>
+            <h3>Les aides à la carte</h3>
+            <p>Rénovez progressivement votre logement.</p>
+          </header>
+          <Card
+            css={`
+              color: ${fail ? '#888' : 'inherit'};
+            `}
+          >
+            <h4
+              style={css`
+                font-weight: 400;
+                margin: 1rem 0 0rem;
+                font-size: 120%;
+              `}
+              dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
+            />
+            {fail && (
+              <div
+                css={`
+                  margin: 1rem 0;
+                  color: black;
+                  text-align: center;
+                `}
+              >
+                <ExplicationMPRG {...{ engine, situation }} />
+              </div>
+            )}
 
-		  `
-            : `
-          text-decoration: underline dotted var(--color);
-          text-decoration-thickness: 2px;
-		  `}
-        `}
-      >
-        {label}
-      </small>
-      {fail && (
-        <div
-          css={`
-            margin: 1rem 0;
-            color: black;
-            text-align: center;
-          `}
-        >
-          {dottedName === 'MPR . non accompagnée' ? (
-            <ExplicationMPRG {...{ engine, situation }} />
-          ) : (
-            <ExplicationMPRA {...{ engine, situation }} />
-          )}
-        </div>
+            <p
+              css={`
+                margin-top: 1.4rem;
+              `}
+            >
+              Choisissez vos travaux dans un bouquet de gestes subventionnés.
+            </p>
+            {!fail ? (
+              <GestesPreview
+                {...{
+                  rules,
+                  inactive: fail,
+                  dottedNames: [
+                    'gestes . recommandés . audit',
+                    'gestes . chauffage . PAC . air-eau',
+                    'gestes . isolation . murs extérieurs',
+                  ],
+                  engine,
+                  situation,
+                }}
+              />
+            ) : (
+              <span>
+                <a
+                  target="_blank"
+                  href="https://www.service-public.fr/particuliers/vosdroits/F35083"
+                >
+                  En savoir plus sur ce parcours
+                </a>
+                .
+              </span>
+            )}
+            <div
+              css={`
+                display: ${!isNotApplicable && url ? 'visible' : 'none'};
+                > div {
+                  margin-bottom: 0.3rem;
+                  margin-top: 1.6rem;
+                }
+              `}
+            >
+              <CTAWrapper $justify="start">
+                <CTA $fontSize="normal">
+                  <Link href={url}>
+                    {MPRA ? (
+                      'Découvrir le détail'
+                    ) : (
+                      <span>
+                        Voir les <strong>20</strong> gestes disponibles
+                      </span>
+                    )}
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+            </div>
+          </Card>
+        </section>
       )}
-      <div
-        css={`
-          visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
-        `}
-      >
-        <CTAWrapper>
-          <CTA $fontSize="normal">
-            <Link href={url}>{rule.interface.action}</Link>
-          </CTA>
-        </CTAWrapper>
-      </div>
     </li>
   )
 }
@@ -228,10 +256,10 @@ export const Results = styled.ul`
   padding-left: 0;
   margin-top: 1rem;
   list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   @media (max-width: 800px) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     flex-direction: column;
     > span {
       margin: 0.6rem;

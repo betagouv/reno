@@ -1,6 +1,6 @@
 import autresAides from '@/app/règles/autres-aides.yaml'
 import { parse } from 'marked'
-import { CTA, CTAWrapper } from './UI'
+import { CTA, CTAWrapper, Card } from './UI'
 import Link from 'next/link'
 
 export default function AutresAides() {
@@ -20,6 +20,7 @@ export default function AutresAides() {
       </p>
       <ol
         css={`
+          padding-left: 0;
           list-style-type: none;
           display: flex;
           align-items: center;
@@ -32,11 +33,10 @@ export default function AutresAides() {
       >
         {autresAides.map((aide) => (
           <li key={aide.nom}>
-            <div
+            <Card
               css={`
-                border: 1px solid var(--color);
                 width: 14rem;
-                height: 16rem;
+                height: 20rem;
                 padding: 0.2rem 1rem;
                 p {
                   margin-bottom: 0.8rem 0;
@@ -45,6 +45,7 @@ export default function AutresAides() {
                   }
                 }
                 h4 {
+                  margin-top: 1.6rem;
                 }
                 display: flex;
                 flex-direction: column;
@@ -66,7 +67,7 @@ export default function AutresAides() {
                   <Link href={aide.lien}>En savoir plus</Link>
                 </CTA>
               </CTAWrapper>
-            </div>
+            </Card>
           </li>
         ))}
       </ol>

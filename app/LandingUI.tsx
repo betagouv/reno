@@ -73,8 +73,8 @@ export const Labels = styled.ul`
   li {
     margin-right: 0.6rem;
     padding: 0.1rem 0.3rem;
-    color: #18753c;
-    background: #b8fec9;
+    color: ${(p) => p.$color || '#18753c'};
+    background: ${(p) => p.$background || '#b8fec9'};
     font-weight: bold;
     font-size: 90%;
     border-radius: 0.6rem;

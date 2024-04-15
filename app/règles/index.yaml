@@ -472,7 +472,6 @@ MPR . non accompagnée:
   alias: Parcours par geste
   interface:
     motivation: J’ai une idée précise des travaux à réaliser
-    action: Je choisis mes travaux
     avantages:
       - Un choix à la carte dans un bouquet de travaux subventionnés
 
@@ -495,7 +494,6 @@ MPR . accompagnée:
   alias: Parcours accompagné
   interface:
     motivation: Je veux améliorer significativement la performance de mon logement.
-    action: J'affine mon projet
     avantages:
       - Un accompagnement renforcé pour des gains réels après travaux
       - Un financement plus important

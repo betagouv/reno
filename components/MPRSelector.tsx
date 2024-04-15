@@ -7,6 +7,7 @@ import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import Image from 'next/image'
 import checkIcon from '@/public/check.svg'
+import crossIcon from '@/public/remix-close-empty.svg'
 
 export default function MPRSelector({
   setSearchParams,
@@ -74,8 +75,16 @@ export default function MPRSelector({
             css={`
               text-decoration: underline;
               text-decoration-color: salmon;
+              display: flex;
+              align-items: center;
+              img {
+                margin-right: 0.4rem;
+                height: 1.6rem;
+                width: auto;
+              }
             `}
           >
+            <Image src={crossIcon} alt="Icône d'une croix" />
             Vous n'êtes pas éligible aux aides Ma Prime Rénov.
           </p>
 
@@ -96,9 +105,8 @@ export default function MPRSelector({
           <div>
             <p>
               Vous êtes éligible aux deux parcours, le parcours accompagné et le
-              parcours par gestes.
+              parcours par gestes. Vous devez choisir l'un des deux parcours.
             </p>
-            <p>Vous devez choisir l'un des deux parcours.</p>
             <Avis {...{ situation, engine }} />
           </div>
         )
