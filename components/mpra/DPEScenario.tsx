@@ -56,9 +56,12 @@ export default function DPEScenario({
         <div
           css={`
             text-align: left;
-            max-width: 40rem;
+            margin: 0 1rem;
             p {
               margin: 0.6rem 0;
+            }
+            h3 {
+              margin-top: 1rem;
             }
           `}
         >
