@@ -72,7 +72,6 @@ export const TopBanner = styled.p`
 `
 
 export const CTAWrapper = styled.div`
-  text-align: right;
   margin: 3vh 0;
   display: flex;
   align-items: center;
@@ -82,6 +81,7 @@ export const CTAWrapper = styled.div`
   }
   > div:last-child {
     margin-right: 0;
+  }
   }
 `
 export const CTA = styled.div`
