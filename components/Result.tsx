@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { styled } from 'styled-components'
 import Check from './Check'
 import { Value } from './ScenariosSelector'
-import { CTA, CTAWrapper } from './UI'
+import { CTA, CTAWrapper, cardBorder } from './UI'
 import {
   ExplicationMPRA,
   ExplicationCommune,
@@ -69,7 +69,9 @@ export default function Result({
 		height: 30rem;
 		width: 22rem;
         max-width: min(22rem, 90%);
-		border: 1px solid ${fail ? '#ddd' : 'var(--color)'};
+		background: white;
+		${cardBorder}
+		border-color: ${fail ? '#ddd' : '#dfdff1'};
 
 	position: relative;
 
@@ -109,7 +111,6 @@ export default function Result({
         style={css`
           font-weight: 400;
           margin: 0.15rem 0 1rem;
-          color: var(--color);
         `}
         dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
       />
