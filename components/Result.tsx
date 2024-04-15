@@ -60,7 +60,6 @@ export default function Result({
   return (
     <li
       css={`
-        color: ${fail ? '#888' : 'inherit'};
         margin: 0;
         width: 22rem;
         max-width: min(22rem, 90%);
@@ -95,19 +94,9 @@ export default function Result({
               L'aide principale en 2024 pour faire une rénovation d'ampleur.
             </p>
           </header>
-          {fail && (
-            <div
-              css={`
-                margin: 1rem 0;
-                color: black;
-                text-align: center;
-              `}
-            >
-              <ExplicationMPRA {...{ engine, situation }} />
-            </div>
-          )}
           <Card
             css={`
+              color: ${fail ? '#888' : 'inherit'};
               margin-top: 0.2rem;
               background: white;
             `}
@@ -132,9 +121,21 @@ export default function Result({
               dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
             />
 
-            <PrimeStyle $inactive={fail}>
-              {isFinal ? `` : fail ? `` : `Jusqu'à `} <strong>{value}</strong>
-            </PrimeStyle>
+            {fail ? (
+              <div
+                css={`
+                  margin: 1rem 0;
+                  color: black;
+                  text-align: center;
+                `}
+              >
+                <ExplicationMPRA {...{ engine, situation }} />
+              </div>
+            ) : (
+              <PrimeStyle $inactive={fail}>
+                {isFinal ? `` : fail ? `` : `Jusqu'à `} <strong>{value}</strong>
+              </PrimeStyle>
+            )}
             <p
               css={`
                 margin-top: 1.4rem;
@@ -170,7 +171,11 @@ export default function Result({
             <h3>Les aides à la carte</h3>
             <p>Rénovez progressivement votre logement.</p>
           </header>
-          <Card>
+          <Card
+            css={`
+              color: ${fail ? '#888' : 'inherit'};
+            `}
+          >
             <h4
               style={css`
                 font-weight: 400;
@@ -205,27 +210,19 @@ export default function Result({
                 }}
               />
             ) : (
-              <details>
-                <summary>Détails</summary>
-                <GestesPreview
-                  {...{
-                    rules,
-                    inactive: fail,
-                    dottedNames: [
-                      'gestes . recommandés . audit',
-                      'gestes . chauffage . PAC . air-eau',
-                      'gestes . isolation . murs extérieurs',
-                      'gestes . isolation . murs intérieurs',
-                    ],
-                    engine,
-                    situation,
-                  }}
-                />
-              </details>
+              <span>
+                <a
+                  target="_blank"
+                  href="https://www.service-public.fr/particuliers/vosdroits/F35083"
+                >
+                  En savoir plus sur ce parcours
+                </a>
+                .
+              </span>
             )}
             <div
               css={`
-                visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
+                display: ${!isNotApplicable && url ? 'visible' : 'none'};
                 > div {
                   margin-bottom: 0.3rem;
                   margin-top: 1rem;

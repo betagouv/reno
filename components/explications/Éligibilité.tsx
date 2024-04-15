@@ -1,5 +1,8 @@
 import DPELabel from '../DPELabel'
 import { Value } from '../ScenariosSelector'
+import Image from 'next/image'
+import checkIcon from '@/public/check.svg'
+import crossIcon from '@/public/remix-close-empty.svg'
 
 export function ExplicationMPRA({ situation, engine }) {
   const dpeActuel = situation['DPE . actuel']
@@ -16,19 +19,34 @@ export function ExplicationMPRA({ situation, engine }) {
   const sauts = engine.evaluate('sauts')
   if (sauts.nodeValue < 2)
     return (
-      <p>
-        💡 Votre projet de {sauts.nodeValue} sauts de DPE{' '}
-        <span
-          css={`
-            white-space: nowrap;
-          `}
-        >
-          (de <DPELabel index={situation['DPE . actuel'] - 1} />
-          &nbsp;à&nbsp;
-          <DPELabel index={situation['projet . DPE visé'] - 1} />)
-        </span>{' '}
-        est insuffisant.
-      </p>
+      <div
+        css={`
+          text-decoration: underline;
+          text-decoration-color: salmon;
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 0.4rem;
+            height: 1.6rem;
+            width: auto;
+          }
+        `}
+      >
+        <Image src={crossIcon} alt="Icône d'une croix" />
+        <p>
+          Votre projet de {sauts.nodeValue} sauts de DPE{' '}
+          <span
+            css={`
+              white-space: nowrap;
+            `}
+          >
+            (de <DPELabel index={situation['DPE . actuel'] - 1} />
+            &nbsp;à&nbsp;
+            <DPELabel index={situation['projet . DPE visé'] - 1} />)
+          </span>{' '}
+          est insuffisant.
+        </p>
+      </div>
     )
 }
 
@@ -64,7 +82,7 @@ export function ExplicationMPRG({ situation, engine }) {
             }}
           />{' '}
         </span>{' '}
-        dépasse le seuil.
+        dépasse le seuil d'éligibilité.
       </p>
     )
 }
