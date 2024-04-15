@@ -129,6 +129,7 @@ export default function DPEScenario({
                     autoFocus={false}
                     value={situation['projet . investissement'] || undefined}
                     placeholder="mon apport"
+                    min="0"
                     onChange={(rawValue) => {
                       const value = +rawValue === 0 ? undefined : rawValue
                       setSearchParams(
