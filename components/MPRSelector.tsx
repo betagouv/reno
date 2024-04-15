@@ -105,9 +105,8 @@ export default function MPRSelector({
           <div>
             <p>
               Vous êtes éligible aux deux parcours, le parcours accompagné et le
-              parcours par gestes.
+              parcours par gestes. Vous devez choisir l'un des deux parcours.
             </p>
-            <p>Vous devez choisir l'un des deux parcours.</p>
             <Avis {...{ situation, engine }} />
           </div>
         )

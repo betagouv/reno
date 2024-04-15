@@ -140,8 +140,8 @@ export default function Result({
                 margin-top: 1.4rem;
               `}
             >
-              Vous serez accompagné pour rénover votre logement et gagner au
-              minimum <strong>deux classes DPE</strong>.
+              Un programme sur-mesure pour gagner au minimum{' '}
+              <strong>deux&nbsp;classes&nbsp;DPE</strong>.
             </p>
             <div
               css={`
