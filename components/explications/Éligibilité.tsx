@@ -48,13 +48,13 @@ export function ExplicationMPRG({ situation, engine }) {
   if (revenu)
     return (
       <p>
-        💡 Votre revenu de {revenu} €{' '}
+        💡 Votre revenu de{' '}
         <span
           css={`
             white-space: nowrap;
           `}
         >
-          (classe{' '}
+          classe{' '}
           <Value
             {...{
               engine,
@@ -63,7 +63,6 @@ export function ExplicationMPRG({ situation, engine }) {
               state: 'final',
             }}
           />{' '}
-          )
         </span>{' '}
         dépasse le seuil.
       </p>
