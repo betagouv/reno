@@ -1,8 +1,7 @@
+import dpeValues from '@/components/DPE.yaml'
 import { useMediaQuery } from 'usehooks-ts'
 import DPELabel from '../DPELabel'
-import { Value } from '../ScenariosSelector'
 import { encodeSituation } from '../publicodes/situationUtils'
-import data from '@/components/DPE.yaml'
 
 export default function TargetDPETabs({
   oldIndex,
@@ -14,7 +13,7 @@ export default function TargetDPETabs({
 }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
 
-  const possibilities = data.filter((el, index) => index <= oldIndex - 2)
+  const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
   const doSetSearchParams = (question, value) => {
     const newSituation = encodeSituation(

@@ -3,35 +3,42 @@ import { Value } from '../ScenariosSelector'
 import Image from 'next/image'
 import checkIcon from '@/public/check.svg'
 import crossIcon from '@/public/remix-close-empty.svg'
+import styled from 'styled-components'
 
+export const InapplicableBlock = styled.div`
+  text-decoration: underline;
+  text-decoration-color: salmon;
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 0.6rem;
+    height: 1.6rem;
+    width: auto;
+  }
+  p {
+    text-align: left;
+    margin: 0;
+  }
+`
 export function ExplicationMPRA({ situation, engine }) {
   const dpeActuel = situation['DPE . actuel']
 
   if (dpeActuel < 3)
     return (
-      <p>
-        💡 Votre DPE {' '}
-        <DPELabel index={dpeActuel - 1} />
-        {' '}
-        est déjà trop performant.
-      </p>
+      <InapplicableBlock>
+        <Image src={crossIcon} alt="Icône d'une croix" />
+        <p>
+          Votre DPE {' '}
+          <DPELabel index={dpeActuel - 1} />
+          {' '}
+          est déjà trop performant.
+        </p>
+      </InapplicableBlock>
     )
   const sauts = engine.evaluate('sauts')
   if (sauts.nodeValue < 2)
     return (
-      <div
-        css={`
-          text-decoration: underline;
-          text-decoration-color: salmon;
-          display: flex;
-          align-items: center;
-          img {
-            margin-right: 0.4rem;
-            height: 1.6rem;
-            width: auto;
-          }
-        `}
-      >
+      <InapplicableBlock>
         <Image src={crossIcon} alt="Icône d'une croix" />
         <p>
           Votre projet de {sauts.nodeValue} sauts de DPE{' '}
@@ -46,7 +53,7 @@ export function ExplicationMPRA({ situation, engine }) {
           </span>{' '}
           est insuffisant.
         </p>
-      </div>
+      </InapplicableBlock>
     )
 }
 
@@ -54,10 +61,13 @@ export function ExplicationCommune({ situation, engine }) {
   const commune = engine.evaluate('conditions communes')
   if (!commune.nodeValue)
     return (
-      <p>
-        💡 Vous devez être propriétaire du logement, qui doit être une résidence
-        principale, construite il y a au moins 15 ans.
-      </p>
+      <InapplicableBlock>
+        <Image src={crossIcon} alt="Icône d'une croix" />
+        <p>
+          Vous devez être propriétaire du logement, qui doit être une résidence
+          principale, construite il y a au moins 15 ans.
+        </p>
+      </InapplicableBlock>
     )
   return null
 }
@@ -65,25 +75,28 @@ export function ExplicationMPRG({ situation, engine }) {
   const revenu = situation['ménage . revenu']
   if (revenu)
     return (
-      <p>
-        💡 Votre revenu de{' '}
-        <span
-          css={`
-            white-space: nowrap;
-          `}
-        >
-          classe{' '}
-          <Value
-            {...{
-              engine,
-              situation,
-              dottedName: 'ménage . revenu . classe',
-              state: 'final',
-            }}
-          />{' '}
-        </span>{' '}
-        dépasse le seuil d'éligibilité.
-      </p>
+      <InapplicableBlock>
+        <Image src={crossIcon} alt="Icône d'une croix" />
+        <p>
+          Votre revenu de{' '}
+          <span
+            css={`
+              white-space: nowrap;
+            `}
+          >
+            classe{' '}
+            <Value
+              {...{
+                engine,
+                situation,
+                dottedName: 'ménage . revenu . classe',
+                state: 'final',
+              }}
+            />{' '}
+          </span>{' '}
+          dépasse le seuil d'éligibilité.
+        </p>
+      </InapplicableBlock>
     )
 }
 
