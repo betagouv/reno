@@ -78,6 +78,9 @@ export default function ScenariosSelector({
             }
             margin-bottom: 1.5vh !important;
           }
+          ul li {
+            margin: 0.6rem 0;
+          }
         `}
       >
         <header>
@@ -90,23 +93,29 @@ export default function ScenariosSelector({
           />
           <h4>Informations utiles</h4>
         </header>
-        <p>
-          Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
-          logement pour définir le projet de travaux vous permettant d’atteindre
-          le DPE visé.{' '}
-          <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
-            En savoir plus
-          </a>
-          .
-        </p>
-        <Avance {...{ engine, rules, situation, choice }} />
-        <p>
-          Vous êtes éligible à l'
-          <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
-            éco-prêt à taux zéro
-          </a>{' '}
-          pour emprunter jusqu'à 50 000 € sur 20 ans.
-        </p>
+        <ul>
+          <li>
+            Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
+            logement pour définir le projet de travaux vous permettant
+            d’atteindre le DPE visé.{' '}
+            <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
+              En savoir plus
+            </a>
+            .
+          </li>
+          <li>
+            <Avance {...{ engine, rules, situation, choice }} />
+          </li>
+          <li>
+            <p>
+              Vous êtes éligible à l'
+              <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
+                éco-prêt à taux zéro
+              </a>{' '}
+              pour emprunter jusqu'à 50 000 € sur 20 ans.
+            </p>
+          </li>
+        </ul>
       </section>
       <h3>Comment toucher cette aide ?</h3>
       <ol
