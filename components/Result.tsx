@@ -63,6 +63,10 @@ export default function Result({
         margin: 0;
         width: 22rem;
         max-width: min(22rem, 90%);
+        @media (min-width: 800px) {
+          width: 100%;
+          max-width: initial;
+        }
         border-color: ${fail ? '#ddd' : '#dfdff1'};
 
         position: relative;
@@ -72,16 +76,6 @@ export default function Result({
           margin: 2rem 0 0.4rem;
         }
         @media (min-width: 800px) {
-          margin: 0 1.5rem;
-          > section {
-            height: 40rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            > header {
-              height: 12rem;
-            }
-          }
         }
       `}
     >
@@ -195,6 +189,14 @@ export default function Result({
                 <ExplicationMPRG {...{ engine, situation }} />
               </div>
             )}
+
+            <p
+              css={`
+                margin-top: 1.4rem;
+              `}
+            >
+              Choisissez vos travaux dans un bouquet de gestes subventionnés.
+            </p>
             {!fail ? (
               <GestesPreview
                 {...{
@@ -225,7 +227,7 @@ export default function Result({
                 display: ${!isNotApplicable && url ? 'visible' : 'none'};
                 > div {
                   margin-bottom: 0.3rem;
-                  margin-top: 1rem;
+                  margin-top: 1.6rem;
                 }
               `}
             >
@@ -254,10 +256,10 @@ export const Results = styled.ul`
   padding-left: 0;
   margin-top: 1rem;
   list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   @media (max-width: 800px) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     flex-direction: column;
     > span {
       margin: 0.6rem;

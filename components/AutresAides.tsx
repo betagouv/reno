@@ -45,6 +45,7 @@ export default function AutresAides() {
                   }
                 }
                 h4 {
+                  margin-top: 1.6rem;
                 }
                 display: flex;
                 flex-direction: column;
