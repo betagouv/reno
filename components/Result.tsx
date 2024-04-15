@@ -72,15 +72,30 @@ export default function Result({
           font-size: 120%;
           margin: 2rem 0 0.4rem;
         }
+        @media (min-width: 800px) {
+          margin: 0 1.5rem;
+          > section {
+            height: 40rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            > header {
+              height: 12rem;
+            }
+          }
+        }
       `}
     >
       {' '}
       {MPRA ? (
         <section>
-          <h3>L'État vous accompagne</h3>
-          <p>L'aide principale en 2024 pour rénover son logement.</p>
+          <header>
+            <h3>L'État vous accompagne</h3>
+            <p>L'aide principale en 2024 pour rénover son logement.</p>
+          </header>
           <Card
             css={`
+              margin-top: 0.2rem;
               background: white;
             `}
           >
@@ -149,11 +164,13 @@ export default function Result({
         </section>
       ) : (
         <section>
-          <h3>Les aides à la carte</h3>
-          <p>
-            Vous pouvez autrement être aidé pour rénover plus progressivement
-            votre logement.
-          </p>
+          <header>
+            <h3>Les aides à la carte</h3>
+            <p>
+              Vous pouvez autrement être aidé pour rénover plus progressivement
+              votre logement.
+            </p>
+          </header>
 
           {fail && (
             <div

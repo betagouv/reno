@@ -10,7 +10,11 @@ export default function GestesPreview({
 }) {
   return (
     <Fieldset>
-      <ul>
+      <ul
+        css={`
+          padding-left: 0 !important;
+        `}
+      >
         {dottedNames.map((dottedName) => (
           <li key={dottedName}>
             <Card>
