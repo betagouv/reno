@@ -49,7 +49,7 @@ export default function ScenariosSelector({
           situation,
         }}
       />
-      {oldIndex < 2 && (
+      {oldIndex < 2 ? (
         <Card
           css={`
             margin: 0.6rem 0;
@@ -58,90 +58,72 @@ export default function ScenariosSelector({
           👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
           bénéficier du parcours accompagné.
         </Card>
-      )}
-      <DPEScenario
-        {...{ rules, choice, oldIndex, engine, situation, setSearchParams }}
-      />
-
-      <section
-        css={`
-          margin-top: 2vh !important;
-
-          header {
-            display: flex;
-            align-items: center;
-            h4 {
-              color: #0359bf;
-              margin: 0;
-
-              font-weight: 500;
-            }
-            margin-bottom: 1.5vh !important;
-          }
-          ul li {
-            margin: 0.6rem 0;
-          }
-        `}
-      >
-        <header>
-          <Image
-            src={informationIcon}
-            width="25"
-            css={`
-              margin-right: 0.4rem;
-            `}
+      ) : (
+        <>
+          <DPEScenario
+            {...{ rules, choice, oldIndex, engine, situation, setSearchParams }}
           />
-          <h4>Informations utiles</h4>
-        </header>
-        <ul>
-          <li>
-            Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
-            logement pour définir le projet de travaux vous permettant
-            d’atteindre le DPE visé.{' '}
-            <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
-              En savoir plus
-            </a>
-            .
-          </li>
-          <li>
-            <Avance {...{ engine, rules, situation, choice }} />
-          </li>
-          <li>
-            <p>
-              Vous êtes éligible à l'
-              <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
-                éco-prêt à taux zéro
-              </a>{' '}
-              pour emprunter jusqu'à 50 000 € sur 20 ans.
-            </p>
-          </li>
-        </ul>
-      </section>
-      <h3>Comment toucher cette aide ?</h3>
-      <ol
-        css={`
-          padding-left: 0;
-          list-style-type: none;
-          header {
-            display: flex;
-            align-items: center;
-            h3 {
-              margin: 0;
-              margin-left: 0.6rem;
-            }
-            margin-bottom: 1vh;
-          }
-          li > section {
-            margin-left: 2.4rem;
-          }
-        `}
-      >
-        <li>
-          <header>
-            <Number>1</Number>
-            <h3>Vous avez encore des questions ?</h3>
-          </header>
-          <section>
+
+          <section
+            css={`
+              margin-top: 2vh !important;
+
+              header {
+                display: flex;
+                align-items: center;
+                h4 {
+                  color: #0359bf;
+                  margin: 0;
+
+                  font-weight: 500;
+                }
+                margin-bottom: 1.5vh !important;
+              }
+              ul li {
+                margin: 0.6rem 0;
+              }
+            `}
+          >
+            <header>
+              <Image
+                src={informationIcon}
+                width="25"
+                css={`
+                  margin-right: 0.4rem;
+                `}
+              />
+              <h4>Informations utiles</h4>
+            </header>
+            <ul>
+              <li>
+                Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
+                logement pour définir le projet de travaux vous permettant
+                d’atteindre le DPE visé.{' '}
+                <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
+                  En savoir plus
+                </a>
+                .
+              </li>
+              <li>
+                <Avance {...{ engine, rules, situation, choice }} />
+              </li>
+              <li>
+                <p>
+                  Vous êtes éligible à l'
+                  <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
+                    éco-prêt à taux zéro
+                  </a>{' '}
+                  pour emprunter jusqu'à 50 000 € sur 20 ans.
+                </p>
+              </li>
+            </ul>
+          </section>
+        </>
+      )}
+      {oldIndex < 2 ? (
+        <section>
+          <h3>Vous avez encore des questions ?</h3>
+          <div>
             <p>
               Votre conseiller local France Rénov’ vous accompagne{' '}
               <strong>gratuitement</strong> et sans engagement.
@@ -155,32 +137,76 @@ export default function ScenariosSelector({
                 link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
               }}
             />
-          </section>
-        </li>
-        <li>
-          <header>
-            <Number>2</Number>
-            <h3>Vous voulez lancer votre projet ?</h3>
-          </header>
-          <section>
-            <p>
-              Choisissez votre Accompagnateur Rénov’, l’interlocuteur de
-              confiance agréé par France Rénov’ qui vous accompagne de
-              bout-en-bout dans votre parcours de travaux.
-            </p>
+          </div>
+        </section>
+      ) : (
+        <>
+          <h3>Comment toucher cette aide ?</h3>
+          <ol
+            css={`
+              padding-left: 0;
+              list-style-type: none;
+              header {
+                display: flex;
+                align-items: center;
+                h3 {
+                  margin: 0;
+                  margin-left: 0.6rem;
+                }
+                margin-bottom: 1vh;
+              }
+              li > section {
+                margin-left: 2.4rem;
+              }
+            `}
+          >
+            <li>
+              <header>
+                <Number>1</Number>
+                <h3>Vous avez encore des questions ?</h3>
+              </header>
+              <section>
+                <p>
+                  Votre conseiller local France Rénov’ vous accompagne{' '}
+                  <strong>gratuitement</strong> et sans engagement.
+                </p>
+                <MapBehindCTA
+                  {...{
+                    codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
 
-            <MapBehindCTA
-              {...{
-                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+                    what: 'trouver-conseiller-renov',
+                    text: 'Trouver mon conseiller',
+                    link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+                  }}
+                />
+              </section>
+            </li>
+            <li>
+              <header>
+                <Number>2</Number>
+                <h3>Vous voulez lancer votre projet ?</h3>
+              </header>
+              <section>
+                <p>
+                  Choisissez votre Accompagnateur Rénov’, l’interlocuteur de
+                  confiance agréé par France Rénov’ qui vous accompagne de
+                  bout-en-bout dans votre parcours de travaux.
+                </p>
 
-                text: 'Trouver mon accompagnateur',
-                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-                importance: 'emptyBackground',
-              }}
-            />
-          </section>
-        </li>
-      </ol>
+                <MapBehindCTA
+                  {...{
+                    codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+
+                    text: 'Trouver mon accompagnateur',
+                    link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+                    importance: 'emptyBackground',
+                  }}
+                />
+              </section>
+            </li>
+          </ol>
+        </>
+      )}
       <QuestionsRéponses
         {...{
           engine,
