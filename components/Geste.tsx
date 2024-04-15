@@ -2,6 +2,7 @@ import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
+import styled from 'styled-components'
 
 export default function Geste({
   dottedName,
@@ -96,17 +97,17 @@ export default function Geste({
     </details>
   )
 }
+
+export const PrimeStyle = styled.span`
+  color: #356e3e;
+  background: #bef2c5;
+  border: 1px solid #356e3e4d;
+  padding: 0.1rem 0.4rem 0.05rem;
+  border-radius: 0.2rem;
+  white-space: nowrap;
+`
 export const Prime = ({ value }) => (
-  <strong
-    css={`
-      color: #356e3e;
-      background: #bef2c5;
-      border: 1px solid #356e3e4d;
-      padding: 0.1rem 0.4rem 0.05rem;
-      border-radius: 0.2rem;
-      white-space: nowrap;
-    `}
-  >
-    {value}
-  </strong>
+  <PrimeStyle>
+    <strong>{value}</strong>
+  </PrimeStyle>
 )

@@ -1,17 +1,11 @@
+import { Labels } from '@/app/LandingUI'
 import css from '@/components/css/convertToJs'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import Image from 'next/image'
 import Link from 'next/link'
 import { styled } from 'styled-components'
-import Check from './Check'
-import { Value } from './ScenariosSelector'
+import { PrimeStyle } from './Geste'
 import { CTA, CTAWrapper, cardBorder } from './UI'
-import {
-  ExplicationMPRA,
-  ExplicationCommune,
-  ExplicationMPRG,
-} from './explications/Éligibilité'
-import { Labels } from '@/app/LandingUI'
+import { ExplicationMPRA, ExplicationMPRG } from './explications/Éligibilité'
 
 /* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
  * can only be success or fail. I've kept this object for future references, for its colors */
@@ -60,6 +54,7 @@ export default function Result({
   const state = isNotApplicable ? 'fail' : isFinal ? 'success' : 'running',
     fail = state === 'fail'
   const { color, background, label } = colors[state]
+  const MPRA = dottedName === 'MPR . accompagnée'
 
   return (
     <li
@@ -67,7 +62,6 @@ export default function Result({
 	  color: ${fail ? '#888' : 'inherit'};
         padding: 1.4rem 1.5rem;
         margin: .6rem auto;
-		height: 30rem;
 		width: 22rem;
         max-width: min(22rem, 90%);
 		background: white;
@@ -82,7 +76,7 @@ export default function Result({
 	justify-content: space-between;
       `)}
     >
-      {dottedName === 'MPR . accompagnée' && (
+      {MPRA && (
         <Labels
           $color={'#6E4444'}
           $background={'#fdf8db'}
@@ -97,92 +91,27 @@ export default function Result({
       )}
       <h3
         style={css`
-          margin-top: 1.2rem;
           font-weight: 400;
-          margin: 0.15rem 0 1rem;
+          margin: 1rem 0 0rem;
         `}
         dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
       />
-      <p
-        css={`
-          img {
-            width: 1.6rem;
-            height: auto;
-            margin-right: 0.6rem;
-            opacity: 0.4;
-            margin-top: -0.3rem;
-          }
-          display: flex;
-          align-items: start;
-        `}
-      >
-        <Image
-          src="/quote-remix.svg"
-          alt="Icône citation"
-          width="10"
-          height="10"
-        />
-        {rule.interface.motivation}
-      </p>
-      <ol
-        css={`
-          margin: 1rem 0;
-          list-style-type: none;
 
-          li {
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            svg {
-              margin-right: 0.6rem;
-              width: 1.4rem;
-              height: auto;
-            }
-          }
-          min-height: 8rem;
-        `}
-      >
-        {rule.interface.avantages.map((avantage) => (
-          <li key={avantage}>
-            <span>
-              <Check color={fail ? '#888' : '#347c5d'} />
-            </span>
-            <span>{avantage}</span>
-          </li>
-        ))}
-      </ol>
-      <div
-        style={css(`
-          visibility: ${
-            // TODO pour l'instant, on cache la valeur numérique de ce parcours, car on sait pas trop comment l'estimer, il faudrait définir un montant pour chaque geste, des m², un nombre de fenêtres etc.
-            isNotApplicable ? 'hidden' : ''
-          };
-			${hideNumeric && !isFinal ? 'visibility: hidden;' : ''}
-          margin: 0.15rem 0;
-        `)}
-      >
-        {isFinal ? `` : `Jusqu'à `} {value}
-      </div>
-      <small
-        css={`
-          padding: 0 0.2rem;
-          margin-top: 0.1rem;
-          ${fail
-            ? `
-			font-size: 100%;
-			padding: .2rem .6rem;
-		  background: ${background}; 
-		  color: ${color};
-
-		  `
-            : `
-          text-decoration: underline dotted var(--color);
-          text-decoration-thickness: 2px;
-		  `}
-        `}
-      >
-        {label}
-      </small>
+      {MPRA && (
+        <PrimeStyle>
+          {isFinal ? `` : `Jusqu'à `} <strong>{value}</strong>
+        </PrimeStyle>
+      )}
+      {MPRA && (
+        <p
+          css={`
+            margin-top: 1.4rem;
+          `}
+        >
+          Vous serez accompagné pour rénover votre logement et gagner au minimum{' '}
+          <strong>deux classes DPE</strong>.
+        </p>
+      )}
       {fail && (
         <div
           css={`
@@ -191,7 +120,7 @@ export default function Result({
             text-align: center;
           `}
         >
-          {dottedName === 'MPR . non accompagnée' ? (
+          {!MPRA ? (
             <ExplicationMPRG {...{ engine, situation }} />
           ) : (
             <ExplicationMPRA {...{ engine, situation }} />
@@ -201,11 +130,17 @@ export default function Result({
       <div
         css={`
           visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
+          > div {
+            margin-bottom: 0.3rem;
+            margin-top: 1rem;
+          }
         `}
       >
         <CTAWrapper>
           <CTA $fontSize="normal">
-            <Link href={url}>{rule.interface.action}</Link>
+            <Link href={url}>
+              {MPRA ? 'Découvrir le détail' : 'Voir les 20 gestes disponibles'}
+            </Link>
           </CTA>
         </CTAWrapper>
       </div>
