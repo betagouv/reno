@@ -48,16 +48,24 @@ export function ExplicationMPRG({ situation, engine }) {
   if (revenu)
     return (
       <p>
-        💡 Votre revenu de {revenu} (classe{' '}
-        <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'ménage . revenu . classe',
-            state: 'final',
-          }}
-        />{' '}
-        ) dépasse le seuil.
+        💡 Votre revenu de {revenu} €{' '}
+        <span
+          css={`
+            white-space: nowrap;
+          `}
+        >
+          (classe{' '}
+          <Value
+            {...{
+              engine,
+              situation,
+              dottedName: 'ménage . revenu . classe',
+              state: 'final',
+            }}
+          />{' '}
+          )
+        </span>{' '}
+        dépasse le seuil.
       </p>
     )
 }
