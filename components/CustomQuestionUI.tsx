@@ -9,9 +9,10 @@ export const CustomQuestionWrapper = styled.section`
     small {
       color: var(--color);
       font-weight: 500;
+      font-size: 100%;
     }
     h2 {
-      margin-top: 0;
+      margin-top: 0.4rem;
     }
   }
 `

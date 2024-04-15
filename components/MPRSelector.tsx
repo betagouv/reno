@@ -4,6 +4,9 @@ import css from './css/convertToJs'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Avis, ExplicationCommune } from './explications/Éligibilité'
 import AutresAides from './AutresAides'
+import { CustomQuestionWrapper } from './CustomQuestionUI'
+import Image from 'next/image'
+import checkIcon from '@/public/check.svg'
 
 export default function MPRSelector({
   setSearchParams,
@@ -42,13 +45,29 @@ export default function MPRSelector({
     none = !mpra && !mprg,
     some = mpra || mprg
   return (
-    <div
-      style={css`
-        margin-top: 0.6rem;
-        width: 100%;
-      `}
-    >
-      <h2>{some ? '✅ Bonne nouvelle !' : 'Votre éligibilité'}</h2>
+    <CustomQuestionWrapper>
+      <header>
+        <small>Découvrez vos aides</small>
+        <h2>
+          {some ? (
+            <span
+              css={`
+                display: flex;
+                align-items: center;
+                img {
+                  margin-right: 0.4rem;
+                  width: 1.8rem;
+                  height: auto;
+                }
+              `}
+            >
+              <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle !
+            </span>
+          ) : (
+            'Votre éligibilité'
+          )}
+        </h2>
+      </header>
       {none ? (
         <div>
           <p
@@ -113,6 +132,6 @@ export default function MPRSelector({
         />
       </Results>
       <AutresAides />
-    </div>
+    </CustomQuestionWrapper>
   )
 }
