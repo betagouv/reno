@@ -91,7 +91,9 @@ export default function Result({
         <section>
           <header>
             <h3>L'État vous accompagne</h3>
-            <p>L'aide principale en 2024 pour rénover son logement.</p>
+            <p>
+              L'aide principale en 2024 pour faire une rénovation d'ampleur.
+            </p>
           </header>
           {fail && (
             <div
@@ -166,41 +168,29 @@ export default function Result({
         <section>
           <header>
             <h3>Les aides à la carte</h3>
-            <p>
-              Vous pouvez autrement être aidé pour rénover plus progressivement
-              votre logement.
-            </p>
+            <p>Rénovez progressivement votre logement.</p>
           </header>
-
-          {fail && (
-            <div
-              css={`
-                margin: 1rem 0;
-                color: black;
-                text-align: center;
+          <Card>
+            <h4
+              style={css`
+                font-weight: 400;
+                margin: 1rem 0 0rem;
+                font-size: 120%;
               `}
-            >
-              <ExplicationMPRG {...{ engine, situation }} />
-            </div>
-          )}
-          {!fail ? (
-            <GestesPreview
-              {...{
-                rules,
-                inactive: fail,
-                dottedNames: [
-                  'gestes . recommandés . audit',
-                  'gestes . chauffage . PAC . air-eau',
-                  'gestes . isolation . murs extérieurs',
-                  'gestes . isolation . murs intérieurs',
-                ],
-                engine,
-                situation,
-              }}
+              dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
             />
-          ) : (
-            <details>
-              <summary>Détails</summary>
+            {fail && (
+              <div
+                css={`
+                  margin: 1rem 0;
+                  color: black;
+                  text-align: center;
+                `}
+              >
+                <ExplicationMPRG {...{ engine, situation }} />
+              </div>
+            )}
+            {!fail ? (
               <GestesPreview
                 {...{
                   rules,
@@ -209,37 +199,54 @@ export default function Result({
                     'gestes . recommandés . audit',
                     'gestes . chauffage . PAC . air-eau',
                     'gestes . isolation . murs extérieurs',
-                    'gestes . isolation . murs intérieurs',
                   ],
                   engine,
                   situation,
                 }}
               />
-            </details>
-          )}
-          <div
-            css={`
-              visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
-              > div {
-                margin-bottom: 0.3rem;
-                margin-top: 1rem;
-              }
-            `}
-          >
-            <CTAWrapper $justify="start">
-              <CTA $fontSize="normal">
-                <Link href={url}>
-                  {MPRA ? (
-                    'Découvrir le détail'
-                  ) : (
-                    <span>
-                      Voir les <strong>20</strong> gestes disponibles
-                    </span>
-                  )}
-                </Link>
-              </CTA>
-            </CTAWrapper>
-          </div>
+            ) : (
+              <details>
+                <summary>Détails</summary>
+                <GestesPreview
+                  {...{
+                    rules,
+                    inactive: fail,
+                    dottedNames: [
+                      'gestes . recommandés . audit',
+                      'gestes . chauffage . PAC . air-eau',
+                      'gestes . isolation . murs extérieurs',
+                      'gestes . isolation . murs intérieurs',
+                    ],
+                    engine,
+                    situation,
+                  }}
+                />
+              </details>
+            )}
+            <div
+              css={`
+                visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
+                > div {
+                  margin-bottom: 0.3rem;
+                  margin-top: 1rem;
+                }
+              `}
+            >
+              <CTAWrapper $justify="start">
+                <CTA $fontSize="normal">
+                  <Link href={url}>
+                    {MPRA ? (
+                      'Découvrir le détail'
+                    ) : (
+                      <span>
+                        Voir les <strong>20</strong> gestes disponibles
+                      </span>
+                    )}
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+            </div>
+          </Card>
         </section>
       )}
     </li>

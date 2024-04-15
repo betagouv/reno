@@ -18,18 +18,16 @@ export default function GestesPreview({
       >
         {dottedNames.map((dottedName) => (
           <li key={dottedName}>
-            <Card>
-              <Geste
-                {...{
-                  inactive,
-                  rules,
-                  dottedName,
-                  engine,
-                  situation: { ...situation, [dottedName]: 'oui' },
-                  expanded: false,
-                }}
-              />
-            </Card>
+            <Geste
+              {...{
+                inactive,
+                rules,
+                dottedName,
+                engine,
+                situation: { ...situation, [dottedName]: 'oui' },
+                expanded: false,
+              }}
+            />
           </li>
         ))}
       </ul>
