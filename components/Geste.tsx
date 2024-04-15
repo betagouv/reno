@@ -63,6 +63,7 @@ export default function Geste({
           }
         }
       `}
+      open={true}
     >
       <summary>
         <div>
