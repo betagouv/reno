@@ -44,10 +44,12 @@ export default function useSetSearchParams() {
     console.log('OLD URL', decodeURIComponent(oldUrl))
     console.log('NEW URL', decodeURIComponent(newUrl))
     if (action === 'push') {
-      router.push(newUrl, { scroll: false })
+      window.history.pushState(null, '', newUrl)
+      //router.push(newUrl, { scroll: false })
     }
     if (action === 'replace') {
-      router.replace(newUrl, { scroll: false })
+      window.history.replaceState(null, '', newUrl)
+      //      router.replace(newUrl, { scroll: false })
     }
   }
 }
