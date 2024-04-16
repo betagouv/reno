@@ -1,7 +1,7 @@
 'use client'
 import { init, push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 const MATOMO_URL = 'https://stats.beta.gouv.fr'
 const MATOMO_SITE_ID = '101'
@@ -33,5 +33,9 @@ const MatomoComponent = () => {
 }
 
 export default function Matomo() {
-  return <MatomoComponent />
+  return (
+    <Suspense>
+      <MatomoComponent />
+    </Suspense>
+  )
 }

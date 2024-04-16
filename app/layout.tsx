@@ -113,8 +113,8 @@ export default function RootLayout({
 
           <Footer />
         </StyledComponentsRegistry>
+        <Matomo />
       </body>
-      <Matomo />
     </html>
   )
 }
