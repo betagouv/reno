@@ -16,6 +16,8 @@ Si c'est une correction de bug sans incidence sur les réintégrateurs, c'est un
 
 > PATCH version when you make backward compatible bug fixes
 
+À noter, tant que nous n'avons pas atteint la version 1, le versionage sémantique est décalé vers la droite d'une décimale : passer de 0.4.1 à 0.5.0 représente un changement cassant !
+
 ### Externalisation du modèle ?
 
 Dans un premier temps, je pense que nous devons garder le modèle et le code JS sur le même dépot, et les versions sont unifiées : on y met les changement de l'interface comme du modèle.
@@ -27,6 +29,13 @@ On pourra publier paquet NPM à chaque changement de version qui expose le modè
 Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
+
+### v0.5.0
+
+Changement cassant : nous avons trouvé des bugs dans nos barèmes de revenu, qui sont maintenant corrigés.
+
+- notre système de maximum, mis en place pour optimiser la génération des questions, était sujet à oubli de mise à jour (constaté), confusion. Nous l'avons enlevé.
+- les seuils sont tous augmenté d'1 €, car le barème national France-Rénov semble avoir une mauvaise utilisation, ou du moins une ambiguité, du "jusqu'à". Leur "jusqu'à 24004" signifie en fait "inférieur strict à 24005".
 
 ### v0.4.1
 
