@@ -3,7 +3,7 @@ import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueilWatermark from '@/public/illustration-accueil-watermark.png'
-import logoFranceRenov from '@/public/logo-france-rénov.png'
+import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -75,7 +75,7 @@ export default function Page() {
         </HeaderWrapper>
         <LandingGreenBanner>
           <div>
-            <Image src={logoFranceRenov} />
+            <Image src={logoFranceRenov} alt="Logo de France Rénov" />
             <p>
               Une initiative construite avec{' '}
               <a href="https://france-renov.gouv.fr">France&nbsp;Rénov'</a> pour

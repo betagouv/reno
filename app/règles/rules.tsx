@@ -22,6 +22,7 @@ const rulesWithMarkdown = Object.fromEntries(
   Object.entries(rules).map(([k, v]) => [k, transformRuleObject(v)]),
 )
 
+console.log('imported non parsed rules')
 export default rulesWithMarkdown
 
 function transformRuleObject(v) {
