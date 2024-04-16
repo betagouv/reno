@@ -36,7 +36,9 @@ export default function Geste({
         >
           {questionRule.titre || getRuleName(dottedName)}
         </div>
-        <Prime value={`${montantValue}`} inactive={inactive} />
+        <PrimeStyle $inactive={inactive}>
+          Prime de <strong>{montantValue}</strong>
+        </PrimeStyle>
       </div>
     )
   return (
