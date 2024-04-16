@@ -11,7 +11,7 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import Publicodes from 'publicodes'
-import { useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 import Answers from './Answers'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
@@ -19,7 +19,7 @@ import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 
-export default function Form({ rules }) {
+function Form({ rules }) {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -105,5 +105,13 @@ export default function Form({ rules }) {
         </p>
       </Section>
     </div>
+  )
+}
+
+export default function ({ rules }) {
+  return (
+    <Suspense>
+      <Form rules={rules} />
+    </Suspense>
   )
 }
