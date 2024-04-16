@@ -17,10 +17,14 @@ import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import { useSearchParams } from 'next/navigation'
 
-export default function Form({ searchParams, rules }) {
+export default function Form({ rules }) {
   useSyncUrlLocalStorage()
   // this param lets us optionally build the form to target one specific publicode rule
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
+  console.log('violet', searchParams)
   const { objectif, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
