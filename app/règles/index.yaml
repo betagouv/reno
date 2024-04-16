@@ -169,9 +169,7 @@ ménage . personnes plus:
 ménage . revenu . classe:
   formule:
     variations:
-      # C'est un court-circuit pour éviter de poser la question des personnes
-      - si: revenu >= max
-        alors: '"supérieure"'
+      # Ici j'avais pensé à faire un court-circuit pour éviter de poser la question des personnes. Si > 94845 € vous êtes supérieur. Mais en fait non, car pour un ménage de 8 personnes le seuil 94845 € est dépassé même pour un revenu modeste !
       - si: région . IdF
         alors: barème IdF
       - sinon: barème

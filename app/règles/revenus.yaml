@@ -1,12 +1,9 @@
-ménage . revenu . max: 94844 €
 ménage . revenu . barème IdF:
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
   formule:
     variations:
-      - si: revenu >= 90496
-        alors: '"supérieure"'
       - si: personnes = 1
         alors:
           variations:
@@ -54,7 +51,7 @@ ménage . revenu . barème IdF:
               alors: '"très modeste"'
             - si: revenu < 67473 €
               alors: '"modeste"'
-            - si: revenu < max
+            - si: revenu < 94844 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
@@ -63,19 +60,16 @@ ménage . revenu . barème IdF:
               alors: '"très modeste"'
             - si: revenu < (67473 + personnes plus * 8486 €)
               alors: '"modeste"'
-            - si: revenu < (max + personnes plus * 12006 €)
+            - si: revenu < (94844 + personnes plus * 12006 €)
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
 
-ménage . revenu . barème . max: 72400 €
 ménage . revenu . barème:
   description: |
     Source Web : https://france-renov.gouv.fr/bareme
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
   formule:
     variations:
-      - si: revenu >= max
-        alors: '"supérieure"'
       - si: personnes = 1
         alors:
           variations:
@@ -123,7 +117,7 @@ ménage . revenu . barème:
               alors: '"très modeste"'
             - si: revenu < 51281 €
               alors: '"modeste"'
-            - si: revenu < max
+            - si: revenu < 72400
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
@@ -132,6 +126,6 @@ ménage . revenu . barème:
               alors: '"très modeste"'
             - si: revenu < (51281 € + personnes plus * 6462 €)
               alors: '"modeste"'
-            - si: revenu < (max + personnes plus * 9165 €)
+            - si: revenu < (72400 + personnes plus * 9165 €)
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
