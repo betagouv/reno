@@ -3,6 +3,7 @@ import { useDebounce } from 'use-debounce'
 
 import { reduceAST } from 'publicodes'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
+import { omit } from './utils'
 export default function Input({ situation, onChange, value, rule, engine }) {
   /* First we went for Maxime's method on mesaidesvelo
    * consisting of doing a static analysis of candidate values,
@@ -18,7 +19,9 @@ export default function Input({ situation, onChange, value, rule, engine }) {
   const targets = ['ménage . revenu . barème IdF', 'ménage . revenu . barème']
 
   const idf = engine.evaluate('ménage . région . IdF')
-  const evaluation = engine.evaluate(targets[idf.nodeValue ? 0 : 1])
+  const evaluation = engine
+    .setSituation(omit(['ménage . revenu'], situation))
+    .evaluate(targets[idf.nodeValue ? 0 : 1])
   const activeBarème =
     evaluation.explanation.valeur.explanation.alors.explanation.find(
       (el) => el.condition.nodeValue,
