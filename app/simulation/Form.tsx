@@ -21,10 +21,10 @@ import { useSearchParams } from 'next/navigation'
 
 export default function Form({ rules }) {
   useSyncUrlLocalStorage()
-  // this param lets us optionally build the form to target one specific publicode rule
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   console.log('violet', searchParams)
+  // this param `objectif` lets us optionally build the form to target one specific publicode rule
   const { objectif, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'

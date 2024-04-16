@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   description,
 }
 
-export default function Page({ searchParams }) {
+export default function Page() {
   return (
     <PageBlock>
       <Main>
-        <Form searchParams={searchParams} rules={rules} />
+        <Form rules={rules} />
       </Main>
     </PageBlock>
   )
