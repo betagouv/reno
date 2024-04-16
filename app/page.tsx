@@ -5,7 +5,7 @@ const FromStorageSimulationButton = dynamic(
 import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationAccueilWatermark from '@/public/illustration-accueil-watermark.png'
+import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
@@ -37,7 +37,7 @@ export default function Page() {
       <PageBlock>
         <HeaderWrapper>
           <Image
-            src={illustrationAccueilWatermark}
+            src={illustrationAccueil}
             alt="Des ouvriers peignent et réparent la facade d'une maison"
           />
           <div>

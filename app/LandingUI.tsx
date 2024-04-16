@@ -21,8 +21,10 @@ export const HeaderWrapper = styled(Content)`
       margin-top: 4rem;
       margin-left: 4rem;
       order: 1;
-      width: 25rem;
+      width: 20rem;
+      max-width: 25vw;
       height: auto;
+      margin: 4rem;
     }
   }
 `
