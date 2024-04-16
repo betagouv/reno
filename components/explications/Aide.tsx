@@ -1,7 +1,6 @@
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import { Key, P } from './ExplicationUI'
 import ParGeste from './ParGeste'
-import Travaux from './Travaux'
 
 const getMissings = (evaluation, rules) => {
   const missing = Object.entries(evaluation.missingVariables).map(

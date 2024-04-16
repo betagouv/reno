@@ -10,6 +10,7 @@ import { Title, Header } from './LayoutUI'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
 import logo from '@/public/logo.svg'
+import { Suspense } from 'react'
 
 const marianneFont = localFont({
   src: [

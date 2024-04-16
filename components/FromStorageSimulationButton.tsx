@@ -1,11 +1,9 @@
 'use client'
-import Link from 'next/link'
-import { CTA } from './UI'
-import { useLocalStorage } from 'usehooks-ts'
-import Image from 'next/image'
 import restoreIcon from '@/public/restore.svg'
-import { categoryData } from '@/app/simulation/Answers'
-import rules from '@/app/règles/rules'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useLocalStorage } from 'usehooks-ts'
+import { CTA } from './UI'
 
 export default function FromStorageSimulationButton() {
   const [simulation] = useLocalStorage('simulation', null)

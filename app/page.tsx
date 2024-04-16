@@ -1,4 +1,7 @@
-import FromStorageSimulationButton from '@/components/FromStorageSimulationButton'
+const FromStorageSimulationButton = dynamic(
+  () => import('@/components/FromStorageSimulationButton'),
+  { ssr: false },
+)
 import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
@@ -13,6 +16,7 @@ import {
   Labels,
   LandingGreenBanner,
 } from './LandingUI'
+import dynamic from 'next/dynamic'
 
 export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
