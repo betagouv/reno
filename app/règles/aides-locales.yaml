@@ -1,8 +1,9 @@
 métropole d'Angers:
 
 métropole d'Angers . aides:
-  - aides socles
-  - prime basse consommation
+  somme:
+    - aides socles
+    - prime basse consommation
 
 métropole d'Angers . aides socles:
   applicable si:
