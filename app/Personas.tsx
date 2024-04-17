@@ -35,7 +35,7 @@ export default function Personas({}) {
                 ...persona.situation,
               })
 
-              const tests = Object.entries(persona['valeurs attendues'])
+              const tests = Object.entries(persona['valeurs attendues'] || {})
               const nom = personaNames[index]
               return (
                 <li key={persona.description}>
