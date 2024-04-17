@@ -11,6 +11,7 @@
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
     MPR . accompagnée: 59835
+    MPR . non accompagnée . éligible: oui
 - description: |
     3 sauts de DPE, enveloppe de 53200 k€ TTC, couple intermédiaire.
   situation:
@@ -24,6 +25,7 @@
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
     MPR . accompagnée: 30256
+    MPR . non accompagnée . éligible: oui
 
 - description: |
     3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
@@ -37,6 +39,7 @@
     ménage . code région: "'53'"
   valeurs attendues:
     MPR . accompagnée: 24650
+    MPR . non accompagnée . éligible: oui
 - description: |
     Couple aisé., passoire, 4 sauts,  ~ 70k € de travaux
   situation:
@@ -48,6 +51,7 @@
     ménage . code région: "'52'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 45
+    MPR . non accompagnée . éligible: non
 - description: |
     Couple modeste, presque passoire, 1 saut.
   situation:
@@ -59,6 +63,7 @@
     ménage . code région: '"52"'
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
+    MPR . non accompagnée . éligible: oui
 - description: |
     Individu aisé, presque passoire, 3 saut.
   situation:
@@ -70,10 +75,13 @@
     ménage . code région: "'52'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 35
+    MPR . non accompagnée . éligible: non
 - description: |
     Propriétaire élligible, mais pas d'autres infos
   situation:
     conditions communes: oui
+  valeurs attendues:
+    MPR . accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k, Bretagne.
   situation:
@@ -86,6 +94,7 @@
     ménage . code région: "'53'"
   valeurs attendues:
     MPR . accompagnée: 24500
+    MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 58k donc plafonnée, Bretagne.
   situation:
@@ -98,6 +107,7 @@
     ménage . code région: "'53'"
   valeurs attendues:
     MPR . accompagnée: 27500
+    MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
   situation:
@@ -110,6 +120,7 @@
     ménage . code région: "'11'"
   valeurs attendues:
     MPR . accompagnée: 29400
+    MPR . non accompagnée . éligible: oui
 - description: |
     Éligible aux deux parcours.
   situation:
@@ -120,8 +131,9 @@
     ménage . code région: "'53'"
   valeurs attendues:
     MPR . accompagnée . éligible: oui
+    MPR . non accompagnée . éligible: oui
 - description: |
-    Éligible seulement au parcours accompagné.
+    Éligible seulement au parcours accompagné car trop riche.
   situation:
     conditions communes: oui
     ménage . personnes: 2
@@ -129,9 +141,10 @@
     DPE . actuel: 7
     ménage . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée: 9
+    MPR . accompagnée . éligible: oui
+    MPR . non accompagnée . éligible: non
 - description: |
-    Éligible seulement au parcours par gestes.
+    Éligible seulement au parcours par gestes car trop bon DPE.
   situation:
     conditions communes: oui
     ménage . personnes: 2
@@ -139,7 +152,8 @@
     DPE . actuel: 2
     ménage . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée: 9
+    MPR . accompagnée . éligible: non
+    MPR . non accompagnée . éligible: oui
 - description: |
     1 saut, aisé.
   situation:
@@ -150,7 +164,8 @@
     projet . DPE visé: 2
     ménage . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée: 9
+    MPR . accompagnée . pourcent dont bonus: 0
+    MPR . non accompagnée . éligible: non
 - description: |
     DPE C, revenu aisé -> 1 seul scénario MPR accompagné.
   situation:
@@ -159,4 +174,7 @@
     ménage . revenu: 54072
     DPE . actuel: 3
   valeurs attendues:
-    MPR . accompagnée: 9
+    MPR . accompagnée . pourcent dont bonus: 30
+    MPR . non accompagnée . éligible: non
+    MPR . non accompagnée . conditions excluantes: oui
+    ménage . revenu . classe: 'supérieure'

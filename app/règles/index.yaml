@@ -456,14 +456,14 @@ MPR . non accompagnée . pourcentage d'écrêtement:
     - sinon: 40 %
 
 MPR . non accompagnée . conditions excluantes:
-  une de ces conditions:
-    - ménage . revenu . classe = "supérieure"
-      #    - DPE . actuel >= 6
-      # cette deuxième condition serait finalement encore décalée plus loin que le 1er juillet 2024
+  ménage . revenu . classe = "supérieure"
+  #    - DPE . actuel >= 6
+  # cette deuxième condition serait finalement encore décalée plus loin que le 1er juillet 2024
 
 MPR . non accompagnée . confirmation:
   question: Confirmation de vos choix de gestes
   par défaut: oui
+
 MPR . non accompagnée:
   titre: MaPrimeRénov' **par geste**
   illustration: mpg.svg
@@ -479,9 +479,19 @@ MPR . non accompagnée:
     En optant pour un chauffage décarboné seul, ou en le complétant avec des gestes d'isolation.
 
     [Tous les détails](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=15).
+  valeur: montant
+
+MPR . non accompagnée . montant:
+  valeur: gestes . montant
   applicable si: conditions communes
   non applicable si: conditions excluantes
-  valeur: gestes . montant
+
+MPR . non accompagnée . éligible:
+  titre: Éligible parcours par gestes
+  formule:
+    toutes ces conditions:
+      - conditions communes
+      - conditions excluantes = non
 
 gestes: # gestes.yaml
   titre: Parcours par gestes
@@ -505,7 +515,9 @@ MPR . accompagnée:
   valeur: montant
   applicable si: conditions communes
 
-MPR . accompagnée . éligible: montant > 0
+MPR . accompagnée . éligible:
+  titre: Éligible parcours accompagné
+  formule: montant > 0
 MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition:
   toutes ces conditions:

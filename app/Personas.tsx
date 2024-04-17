@@ -90,7 +90,9 @@ export default function Personas({}) {
                             ? Math.round(computedValue) === expectedValue
                             : ['oui', 'non'].includes(expectedValue)
                               ? expectedValue === formattedValue
-                              : undefined
+                              : typeof expectedValue === 'string'
+                                ? formattedValue === expectedValue
+                                : undefined
 
                         if (correct === undefined)
                           throw new Error(
@@ -100,7 +102,8 @@ export default function Personas({}) {
                           <li key={dottedName}>
                             <small
                               dangerouslySetInnerHTML={{
-                                __html: rule.titreHtml || rule.titre,
+                                __html:
+                                  rule.titreHtml || rule.titre || dottedName,
                               }}
                             />
 
