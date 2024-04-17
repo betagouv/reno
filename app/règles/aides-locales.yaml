@@ -5,6 +5,7 @@ métropole d'Angers . aides socles:
     toutes ces conditions:
       - logement . EPCI = '244900015'
       - logement . propriétaire occupant
+      # TODO pour l'instant on ignore les 2 autres dispositifs logement indécent et prime adapt'
       - conditions communes
       # TODO définition du revenu : somme des derniers revenus fiscaux de toutes les personnes occupant le logement année N-1
       # est-ce différent de la condition de l'ANAH ?
