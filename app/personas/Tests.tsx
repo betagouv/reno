@@ -32,7 +32,7 @@ export default function Tests() {
           </tr>
         </thead>
         <tbody>
-          {tests.map((test) => {
+          {tests.map((test, testIndex) => {
             const situation = {
               'projet . travaux': test['montant de travaux HT'],
               'projet . travaux . TTC': test['montant de travaux TTC'],
@@ -65,6 +65,13 @@ export default function Tests() {
                   ? expectedValue.replace(',', '.')
                   : expectedValue,
               )
+            if (!valid) {
+              console.log('Failing test object ', test)
+              throw new Error(
+                'Failing test !! See log above ; test index in filtered tests.csv : ' +
+                  testIndex,
+              )
+            }
             return (
               <tr key={JSON.stringify(test)}>
                 <td>{test['ressource ménage']}</td>

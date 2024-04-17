@@ -28,6 +28,10 @@ export default function Personas({}) {
           départ, mais pas le DPE visé) : les aides sont alors calculées pour
           donner les <em>aides maximales</em>.
         </p>
+        <p>
+          💡 Cette page ne peut en principe pas contenir de test erroné, car un
+          seul test qui ne passe pas empêche le déploiement de Mes Aides Réno.
+        </p>
         <PersonasList>
           <ul>
             {personas.map((persona, index) => {
