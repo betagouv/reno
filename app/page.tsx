@@ -18,7 +18,7 @@ import {
 } from './LandingUI'
 import dynamic from 'next/dynamic'
 
-export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
+export const description = `Calculez les aides MaPrimeRénov' 2024 pour la rénovation de votre logement.`
 
 export const metadata: Metadata = {
   title: 'Mes aides réno 2024',
