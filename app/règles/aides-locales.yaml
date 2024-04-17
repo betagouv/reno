@@ -1,5 +1,9 @@
 métropole d'Angers:
 
+métropole d'Angers . aides:
+  - aides socles
+  - prime basse consommation
+
 métropole d'Angers . aides socles:
   applicable si:
     toutes ces conditions:
@@ -22,6 +26,11 @@ métropole d'Angers . aides socles:
   incertitudes: |
     Est-ce qu'on peut demander cette aide sans demander les aides ANAH ?
 
+métropole d'Angers . aides socles . montant: taux d'aide * travaux plafonnés
+
+métropole d'Angers . aides socles . travaux plafonnés:
+  valeur: projet . travaux
+  plafond: plafond de travaux HT
 métropole d'Angers . conditions de revenu:
   une de ces conditions:
     - ménage . revenu . classe = '"intermédiaire"'

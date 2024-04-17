@@ -5,6 +5,7 @@ import chauffage from '@/app/règles/gestes/chauffage.yaml'
 import isolation from '@/app/règles/gestes/isolation.yaml'
 import index from '@/app/règles/index.yaml'
 import revenus from '@/app/règles/revenus.yaml'
+import aidesLocales from '@/app/règles/aides-locales.yaml'
 
 const prefix = (rules) =>
   Object.fromEntries(
@@ -16,6 +17,7 @@ const rules = {
   ...prefix(gestes),
   ...prefix(chauffage),
   ...prefix(isolation),
+  ...aidesLocales,
 }
 
 const rulesWithMarkdown = Object.fromEntries(
