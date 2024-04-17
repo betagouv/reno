@@ -29,15 +29,15 @@ métropole d'Angers . conditions de revenu:
 
 métropole d'Angers . taux d'aide:
   variations:
+    - si: ménage . revenu . très très modeste
+      alors: 20 %
+    - si: ménage . revenu . classe = '"très modeste"'
+      alors: 15 %
     - si:
         une de ces conditions:
           - ménage . revenu . classe = '"intermédiaire"'
           - ménage . revenu . classe = '"modeste"'
       alors: 10 %
-    - si: ménage . revenu . classe = '"très modeste"'
-      alors: 15 %
-    - si: ménage . revenu . classe = '"très très modeste"'
-      alors: 20 %
 
 métropole d'Angers . plafond de travaux HT:
   valeur: 20000 €

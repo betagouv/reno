@@ -1,3 +1,24 @@
+# écrit pour Angers métropole, à voir si chaque territoire a sa définition ou si c'est généralisé
+ménage . revenu . très très modeste:
+  formule:
+    une de ces conditions:
+      - toutes ces conditions:
+          - personnes = 1
+          - revenu < 13607 + 1 €
+      - toutes ces conditions:
+          - personnes = 2
+          - revenu < 19900 + 1 €
+      - toutes ces conditions:
+          - personnes = 3
+          - revenu < 23934 + 1 €
+      - toutes ces conditions:
+          - personnes = 4
+          - revenu < 27958 + 1 €
+      - toutes ces conditions:
+          - personnes = 5
+          - revenu < 32002 + 1 €
+      - revenu < (32002 + 1 + personnes plus * 4036 €)
+
 ménage . revenu . barème IdF:
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
