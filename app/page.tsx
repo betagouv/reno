@@ -64,12 +64,18 @@ export default function Page() {
             <p
               style={css`
                 margin: 0;
-                margin-top: -1rem;
                 color: #555;
                 line-height: 1.3rem;
               `}
             >
-              <strong>5 minutes chrono</strong> et sans inscription.
+              <strong
+                style={css`
+                  color: #da504b;
+                `}
+              >
+                5 minutes chrono
+              </strong>{' '}
+              et sans inscription.
             </p>
             <CTAWrapper $justify="left">
               <CTA $fontSize="normal">
