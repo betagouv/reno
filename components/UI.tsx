@@ -156,7 +156,7 @@ export const LinkStyleButton = styled.span`
   font-size: inherit;
 `
 export const Intro = styled.div`
-  margin: 3vh 0 1.6rem;
+  margin: 1vh 0 1.6rem;
   width: 30rem;
   max-width: 90vw;
 `

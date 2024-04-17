@@ -50,6 +50,7 @@ export default function Page() {
             <h1
               style={css`
                 margin-top: 0.6rem;
+                margin-bottom: 1rem;
               `}
             >
               Estimez vos aides pour rénover votre logement
@@ -60,11 +61,6 @@ export default function Page() {
                 un logement plus confortable et plus écologique.
               </p>
             </Intro>
-            <CTAWrapper $justify="left">
-              <CTA $fontSize="normal">
-                <Link href="/simulation">➞&nbsp;&nbsp;C'est parti !</Link>
-              </CTA>
-            </CTAWrapper>
             <p
               style={css`
                 margin: 0;
@@ -75,6 +71,11 @@ export default function Page() {
             >
               <strong>5 minutes chrono</strong> et sans inscription.
             </p>
+            <CTAWrapper $justify="left">
+              <CTA $fontSize="normal">
+                <Link href="/simulation">➞&nbsp;&nbsp;C'est parti !</Link>
+              </CTA>
+            </CTAWrapper>
             <FromStorageSimulationButton />
           </div>
         </HeaderWrapper>
