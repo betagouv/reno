@@ -135,7 +135,7 @@ export default function MPRSelector({
             dottedName: 'MPR . non accompagnée . éligible',
             hideNumeric: true,
             rules,
-            url: nextLink(`MPR . non accompagnée`),
+            url: nextLink(`MPR . non accompagnée . montant`),
           }}
         />
       </Results>
