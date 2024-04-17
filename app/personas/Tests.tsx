@@ -18,7 +18,8 @@ export default function Tests() {
       <h2>Tests</h2>
       <p>
         Pour assurer la fiabilité de notre modèle de calcul, voici une liste de
-        tests effectués via un modèle tiers.
+        tests effectués via un modèle tiers et confrontés au modèle Mes Aides
+        Réno.
       </p>
       <Table>
         <thead>
