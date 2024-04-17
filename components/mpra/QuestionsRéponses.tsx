@@ -1,9 +1,4 @@
-import Link from 'next/link'
 import { BlocQuestionRéponse } from '../BlocQuestionRéponse'
-import DPELabel from '../DPELabel'
-import { Value } from '../ScenariosSelector'
-import { encodeDottedName } from '../publicodes/situationUtils'
-import useSetSearchParams from '../useSetSearchParams'
 
 export default function QuestionsRéponses({
   engine,
@@ -11,8 +6,6 @@ export default function QuestionsRéponses({
   oldIndex,
   choice,
 }) {
-  const setSearchParams = useSetSearchParams()
-  const mprg = engine.evaluate('MPR . non accompagnée').nodeValue
   return (
     <section>
       <h2>Questions fréquentes</h2>

@@ -11,6 +11,7 @@ import Publicodes from 'publicodes'
 import styled from 'styled-components'
 import personaNames from './personaNames.yaml'
 import personas from './personas.yaml'
+import quoteIcon from '@/public/quote-remix.svg'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -45,8 +46,18 @@ export default function Personas({}) {
                       css={`
                         line-height: 1rem;
                         margin-bottom: 0.4rem;
+                        img {
+                          width: 1.1rem;
+                          height: auto;
+                          opacity: 0.8;
+                          vertical-align: bottom;
+                          margin-right: 0.4rem;
+                          transform: scale(-1, -1);
+                          filter: grayscale(1);
+                        }
                       `}
                     >
+                      <Image src={quoteIcon} alt="Icône citation" />
                       {persona.description}
                     </small>
                     <ul
@@ -57,6 +68,8 @@ export default function Personas({}) {
                           flex-direction: column;
                           line-height: 1.3rem;
                           margin: 0 !important;
+                          width: 100%;
+                          margin-top: 0.6rem !important;
                           img {
                             width: 1.2rem;
                             height: auto;
@@ -196,7 +209,7 @@ export const PersonasList = styled.div`
     li {
       > div {
         width: 14rem;
-        height: 12rem;
+        height: 20rem;
         display: flex;
         justify-content: space-between;
         flex-direction: column;

@@ -30,7 +30,7 @@ export default function MPRSelector({
       const newEngine = engine.setSituation(situation)
       return [
         newEngine.evaluate('MPR . accompagnée'),
-        newEngine.evaluate('MPR . non accompagnée'),
+        newEngine.evaluate('MPR . non accompagnée . montant'),
       ]
     }, [situation, engine]),
     mpra = mpraEvaluation.nodeValue,
@@ -132,7 +132,7 @@ export default function MPRSelector({
           {...{
             engine: engine.setSituation(situation),
             isFinal: !currentQuestion,
-            dottedName: 'MPR . non accompagnée',
+            dottedName: 'MPR . non accompagnée . éligible',
             hideNumeric: true,
             rules,
             url: nextLink(`MPR . non accompagnée`),

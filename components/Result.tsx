@@ -50,7 +50,7 @@ export default function Result({
 
   const value = formatValue(evaluation, { precision: 0 })
   const isNotApplicable =
-    value === 'Non applicable' || evaluation.nodeValue === 0
+    value === 'Non applicable' || evaluation.nodeValue === 0 || value === 'non'
 
   const state = isNotApplicable ? 'fail' : isFinal ? 'success' : 'running',
     fail = state === 'fail'
