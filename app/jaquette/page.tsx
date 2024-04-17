@@ -14,17 +14,23 @@ export default function Page() {
     <main
       style={css`
         background: white;
-
-        margin: 6rem 0;
+        padding: 5rem 0;
       `}
     >
       <PageBlock>
         <HeaderWrapper>
           <Image
+            css={`
+              margin: 0 !important;
+            `}
             src={illustrationAccueil}
             alt="Des ouvriers peignent et réparent la facade d'une maison"
           />
-          <div>
+          <div
+            css={`
+              width: 20rem !important;
+            `}
+          >
             <div
               css={`
                 width: 20rem;
@@ -69,10 +75,10 @@ export default function Page() {
             >
               Estimez vos aides pour rénover votre logement
             </h1>
-            <Intro>
+            <Intro css={``}>
               <p>
-                Une rénovation énergétique pour des factures moins élevées dans
-                un logement plus confortable et plus écologique.
+                Des factures moins élevées dans un logement plus confortable et
+                plus écologique.
               </p>
             </Intro>
             <p
