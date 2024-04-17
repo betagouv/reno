@@ -1,3 +1,4 @@
+'use client'
 import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 import informationIcon from '@/public/information.svg'

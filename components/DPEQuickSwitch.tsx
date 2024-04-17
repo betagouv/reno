@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import DPELabel from './DPELabel'
 import useSetSearchParams from './useSetSearchParams'

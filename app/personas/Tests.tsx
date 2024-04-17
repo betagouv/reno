@@ -1,12 +1,11 @@
-import { Section } from '@/components/UI'
-import rawTests from '@/app/règles/tests.csv'
-import { GreenCell, Table } from './TestsUI'
 import rules from '@/app/règles/rules'
-import Publicodes from 'publicodes'
+import rawTests from '@/app/règles/tests.csv'
+import { Section } from '@/components/UI'
+import { encodeSituation } from '@/components/publicodes/situationUtils'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Link from 'next/link'
-import useSetSearchParams from '@/components/useSetSearchParams'
-import { encodeSituation } from '@/components/publicodes/situationUtils'
+import Publicodes from 'publicodes'
+import { GreenCell, Table } from './TestsUI'
 
 const tests = rawTests.filter((test) => test['aide complémentaire'] === 0)
 

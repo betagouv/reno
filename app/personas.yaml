@@ -10,7 +10,7 @@
     ménage . code région: "'27'" # Doubs
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
-    MPR . accompagnée: 59835
+    MPR . accompagnée: 59836
     MPR . non accompagnée . éligible: oui
 - description: |
     3 sauts de DPE, enveloppe de 53200 k€ TTC, couple intermédiaire.

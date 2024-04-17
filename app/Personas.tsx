@@ -1,22 +1,22 @@
-'use client'
 import rules from '@/app/règles/rules'
-import { encodeSituation } from '@/components/publicodes/situationUtils'
-import { colors } from '@/components/Result'
 import { Card, Main, Section } from '@/components/UI'
-import useSetSearchParams from '@/components/useSetSearchParams'
-import Link from '@/node_modules/next/link'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
+import quoteIcon from '@/public/quote-remix.svg'
 import Image from 'next/image'
 import Publicodes from 'publicodes'
-import styled from 'styled-components'
+import PersonaInjection from './PersonaInjection'
+import {
+  PersonaStory,
+  PersonaTests,
+  PersonasList,
+  ResultLabel,
+} from './PersonasUI'
 import personaNames from './personaNames.yaml'
 import personas from './personas.yaml'
-import quoteIcon from '@/public/quote-remix.svg'
+import css from '@/components/css/convertToJs'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
-  const setSearchParams = useSetSearchParams()
-
   return (
     <Main>
       <Section>
@@ -42,48 +42,11 @@ export default function Personas({}) {
                 <li key={persona.description}>
                   <Card>
                     <h3>{nom}</h3>
-                    <small
-                      css={`
-                        line-height: 1rem;
-                        margin-bottom: 0.4rem;
-                        img {
-                          width: 1.1rem;
-                          height: auto;
-                          opacity: 0.8;
-                          vertical-align: bottom;
-                          margin-right: 0.4rem;
-                          transform: scale(-1, -1);
-                          filter: grayscale(1);
-                        }
-                      `}
-                    >
+                    <PersonaStory>
                       <Image src={quoteIcon} alt="Icône citation" />
                       {persona.description}
-                    </small>
-                    <ul
-                      css={`
-                        li {
-                          display: flex;
-                          justify-content: space-between;
-                          flex-direction: column;
-                          line-height: 1.3rem;
-                          margin: 0 !important;
-                          width: 100%;
-                          margin-top: 0.6rem !important;
-                          img {
-                            width: 1.2rem;
-                            height: auto;
-                            vertical-align: bottom;
-                            background: ${colors.success.lightBackground};
-                            border-radius: 2rem;
-                          }
-                          small p {
-                            margin: 0;
-                            line-height: 1rem;
-                          }
-                        }
-                      `}
-                    >
+                    </PersonaStory>
+                    <PersonaTests>
                       {tests.map(([dottedName, expectedValue]) => {
                         const rule = rules[dottedName]
                         const evaluation = newEngine.evaluate(dottedName),
@@ -111,6 +74,10 @@ export default function Personas({}) {
                           throw new Error(
                             'Failing test because of incorrect type recognition',
                           )
+                        if (correct === false) {
+                          console.log('Failing persona', persona)
+                          throw new Error('Failing test !! ' + nom)
+                        }
                         return (
                           <li key={dottedName}>
                             <small
@@ -121,13 +88,13 @@ export default function Personas({}) {
                             />
 
                             <span
-                              css={`
+                              style={css`
                                 margin-top: 0.4rem;
                                 text-align: right;
                               `}
                             >
                               <ResultLabel
-                                binary={
+                                $binary={
                                   computedValue === 'oui' || computedValue > 0
                                 }
                               >
@@ -151,22 +118,9 @@ export default function Personas({}) {
                           </li>
                         )
                       })}
-                    </ul>
+                    </PersonaTests>
                     <div>
-                      <Link
-                        href={setSearchParams(
-                          encodeSituation(
-                            persona.situation,
-                            false,
-                            Object.keys(persona.situation),
-                          ),
-                          'url',
-                          true,
-                          `simulation`,
-                        )}
-                      >
-                        Injecter
-                      </Link>
+                      <PersonaInjection persona={persona} />
                     </div>
                   </Card>
                 </li>
@@ -178,47 +132,3 @@ export default function Personas({}) {
     </Main>
   )
 }
-
-const ResultLabel = ({ binary, children }) => (
-  <span
-    css={`
-      margin-right: 0.2rem;
-      margin-left: 0.4rem;
-      padding: 0 0.4rem;
-      ${binary
-        ? `background: var(--lighterColor2); border: 1px solid var(--color); color: var(--darkColor);`
-        : `background: transparent; border: 1px solid gray; color: gray
-								`}
-    `}
-  >
-    {children}
-  </span>
-)
-export const PersonasList = styled.div`
-  margin-top: 0.8rem;
-  ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 0;
-    display: flex;
-    list-style-type: none;
-    margin: 0.2rem 0;
-    align-items: center;
-    li {
-      > div {
-        width: 14rem;
-        height: 20rem;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        padding: 0.4rem 0.6rem;
-        h3 {
-          margin: 0;
-        }
-      }
-      margin: 0 0.6rem;
-    }
-  }
-`

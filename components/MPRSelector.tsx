@@ -1,13 +1,13 @@
-import Result, { Results } from '@/components/Result'
-import { useMemo } from 'react'
-import css from './css/convertToJs'
-import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import { Avis, ExplicationCommune } from './explications/Éligibilité'
-import AutresAides from './AutresAides'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
-import Image from 'next/image'
+import Result from '@/components/Result'
+import { Results } from '@/components/ResultUI'
 import checkIcon from '@/public/check.svg'
 import crossIcon from '@/public/remix-close-empty.svg'
+import Image from 'next/image'
+import { useMemo } from 'react'
+import AutresAides from './AutresAides'
+import { CustomQuestionWrapper } from './CustomQuestionUI'
+import { Avis, ExplicationCommune } from './explications/Éligibilité'
+import { encodeDottedName } from './publicodes/situationUtils'
 
 export default function MPRSelector({
   setSearchParams,

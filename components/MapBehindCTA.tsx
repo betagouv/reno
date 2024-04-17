@@ -1,8 +1,8 @@
+'use client'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
-import Link from 'next/link'
-import { CTA, CTAWrapper } from './UI'
 import Image from 'next/image'
 import { useState } from 'react'
+import { CTA, CTAWrapper } from './UI'
 
 export default function MapBehindCTA({
   link,
