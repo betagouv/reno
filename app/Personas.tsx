@@ -80,7 +80,9 @@ export default function Personas({}) {
                           )
                         if (correct === false) {
                           console.log('Failing persona', persona)
-                          throw new Error('Failing test !! ' + nom)
+                          throw new Error(
+                            `Failing test !! ${nom} ${persona.description}`,
+                          )
                         }
                         return (
                           <li key={dottedName}>

@@ -123,6 +123,24 @@
     MPR . accompagnée: 29400
     MPR . non accompagnée . éligible: oui
 - description: |
+    Ménage seul au revenu 28567.8 juste avant le seuil modeste en IdF.
+  situation:
+    conditions communes: oui
+    ménage . personnes: 1
+    ménage . revenu: 28657.8
+    ménage . code région: "'11'"
+  valeurs attendues:
+    ménage . revenu . classe: modeste
+- description: |
+    Ménage seul au revenu 28568 juste avant le seuil modeste en IdF.
+  situation:
+    conditions communes: oui
+    ménage . personnes: 1
+    ménage . revenu: 28658
+    ménage . code région: "'11'"
+  valeurs attendues:
+    ménage . revenu . classe: intermédiaire
+- description: |
     Éligible aux deux parcours.
   situation:
     conditions communes: oui
