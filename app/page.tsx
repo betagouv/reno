@@ -23,6 +23,7 @@ export const description = `Calculez les aides Ma Prime Rénov' 2024 pour la ré
 export const metadata: Metadata = {
   title: 'Mes aides réno 2024',
   description,
+  openGraph: { images: ['/jaquette.png'] },
 }
 
 export default function Page() {

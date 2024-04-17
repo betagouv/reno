@@ -4,13 +4,12 @@ import Link from 'next/link'
 import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
 
-import localFont from 'next/font/local'
-import DynamicHeaderIcon from './DynamicHeaderIcon'
-import { Title, Header } from './LayoutUI'
 import Footer from '@/components/Footer'
-import Image from 'next/image'
 import logo from '@/public/logo.svg'
-import { Suspense } from 'react'
+import localFont from 'next/font/local'
+import Image from 'next/image'
+import DynamicHeaderIcon from './DynamicHeaderIcon'
+import { Header, Title } from './LayoutUI'
 
 const marianneFont = localFont({
   src: [
@@ -80,6 +79,7 @@ export default function RootLayout({
                       margin-left: 1vw;
                     `}
                   >
+                    t{' '}
                     <Image
                       src={logo}
                       alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"

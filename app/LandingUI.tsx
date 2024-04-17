@@ -11,7 +11,7 @@ export const HeaderWrapper = styled(Content)`
     width: 30rem;
     max-width: 90vw;
   }
-  img {
+  > img {
     display: none;
   }
   @media (min-width: 800px) {
