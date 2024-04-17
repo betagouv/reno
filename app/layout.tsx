@@ -79,7 +79,6 @@ export default function RootLayout({
                       margin-left: 1vw;
                     `}
                   >
-                    t{' '}
                     <Image
                       src={logo}
                       alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"
