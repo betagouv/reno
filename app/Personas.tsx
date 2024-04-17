@@ -84,15 +84,12 @@ export default function Personas({}) {
                           expectedValue,
                           computedValue,
                           formattedValue,
-                          `'${expectedValue}','${formattedValue}'`,
-                          expectedValue.toString() ===
-                            formattedValue.toString(),
                         )
                         const correct =
                           typeof expectedValue === 'number'
                             ? Math.round(computedValue) === expectedValue
                             : ['oui', 'non'].includes(expectedValue)
-                              ? expectedValue === computedValue
+                              ? expectedValue === formattedValue
                               : undefined
 
                         if (correct === undefined)

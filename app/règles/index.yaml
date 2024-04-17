@@ -505,6 +505,7 @@ MPR . accompagnée:
   valeur: montant
   applicable si: conditions communes
 
+MPR . accompagnée . éligible: montant > 0
 MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition:
   toutes ces conditions:

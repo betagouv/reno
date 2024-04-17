@@ -119,7 +119,7 @@
     DPE . actuel: 4
     ménage . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée: 9
+    MPR . accompagnée . éligible: oui
 - description: |
     Éligible seulement au parcours accompagné.
   situation:
