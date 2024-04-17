@@ -90,6 +90,10 @@ vous . propriétaire . astuce:
 
 logement:
   titre: Votre logement
+logement . propriétaire occupant:
+  question: Vivez-vous dans le logement à rénover (propriétaire occupant) ?
+  par défaut: non
+
 logement . résidence principale:
   titre: Résidence principale
   question: Le logement est-il une résidence principale ?
@@ -173,6 +177,17 @@ ménage . revenu . classe:
       - si: région . IdF
         alors: barème IdF
       - sinon: barème
+
+logement . EPCI:
+  formule: commune
+  par défaut: '"242900314"'
+
+logement . commune:
+  applicable si: propriétaire occupant = non
+  titre: La commune du logement
+  question: Dans quelle commune se situe le logement ?
+  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre élligibilité aux aides locales.
+  par défaut: "'29200'"
 
 ménage:
   titre: Votre ménage

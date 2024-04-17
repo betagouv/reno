@@ -185,6 +185,44 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+  if (currentQuestion === 'logement . commune')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <AddressSearch
+          {...{
+            setChoice: (result) => {
+              const codeRegion = result.codeRegion
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  'logement . EPCI': `"${result.codeEpci}"`,
+                  'logement . commune': `"${result.code}"`,
+                },
+                false,
+                answeredQuestions,
+              )
+
+              setSearchParams(encodedSituation, 'push', false)
+            },
+            setSearchParams,
+            situation,
+            answeredQuestions,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
 
   if (['DPE . actuel'].includes(currentQuestion))
     return (

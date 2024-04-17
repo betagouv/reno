@@ -1,21 +1,52 @@
-angers:
-  titre: Ville d'Angers
+métropole d'Angers:
+
+métropole d'Angers . aides socles:
   applicable si:
     toutes ces conditions:
-      - localisation . code commune = '49007'
-      - une de ces conditions:
-          - ménage . revenu . classe = '"intermédiaire"'
-          - ménage . revenu . classe = '"modeste"'
-          - ménage . revenu . classe = '"très modeste"'
+      - logement . EPCI = '244900015'
+      - logement . propriétaire occupant
       - conditions communes
+      # TODO définition du revenu : somme des derniers revenus fiscaux de toutes les personnes occupant le logement année N-1
+      # est-ce différent de la condition de l'ANAH ?
+      - conditions de revenu
       - sauts >= 2
   description: |
     Etre éligible aux aides de l'Anah, MaPrimeRénov' - Parcours accompagné (sous plafond de ressources "Intermédiaire"), MaPrimeAdapt', MaPrime Logement Décent, MaPrimeRénov' Copropriété, ou Copropriété en difficulté.
-  valeur: 5500 €
-  fin prévue: 31/12/2024
+  valeur: montant
+  # fin prévue: 31/12/2024
   lien: https://www.angersloiremetropole.fr/mon-quotidien/logement/mieux-chez-moi-un-accompagnement-a-la-renovation-de-votre-logement/index.html
   email: mieuxchezmoi@angersloiremetropole.fr
   téléphone: 02 41 43 00 00
   service: Service Habitat-Logement
   incertitudes: |
     Est-ce qu'on peut demander cette aide sans demander les aides ANAH ?
+
+métropole d'Angers . conditions de revenu:
+  une de ces conditions:
+    - ménage . revenu . classe = '"intermédiaire"'
+    - ménage . revenu . classe = '"modeste"'
+    - ménage . revenu . classe = '"très modeste"'
+
+métropole d'Angers . taux d'aide:
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = '"intermédiaire"'
+          - ménage . revenu . classe = '"modeste"'
+      alors: 10 %
+    - si: ménage . revenu . classe = '"très modeste"'
+      alors: 15 %
+    - si: ménage . revenu . classe = '"très très modeste"'
+      alors: 20 %
+
+métropole d'Angers . plafond de travaux HT:
+  valeur: 20000 €
+  description: Aide par logement.
+
+métropole d'Angers . prime basse consommation:
+  applicable si:
+    toutes ces conditions:
+      - conditions de revenu
+      - projet . DPE visé <= 2
+      - DPE . actuel >= 2
+  valeur: 1500 €
