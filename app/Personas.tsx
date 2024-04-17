@@ -34,14 +34,8 @@ export default function Personas({}) {
                 'simulation . mode': '"max"',
                 ...persona.situation,
               })
-              const mpra = newEngine.evaluate('MPR . accompagnée')
-              const mprg = newEngine.evaluate('MPR . non accompagnée')
-              const mpraValue = formatValue(mpra, { precision: 0 }),
-                mprgValue = mprg.nodeValue && mprg.nodeValue > 1
 
-              const tests = persona['valeurs attendues'],
-                mpraTest = tests && tests['MPR . accompagnée']
-              const correct = Math.round(mpra.nodeValue) === mpraTest
+              const tests = Object.entries(persona['valeurs attendues'])
               const nom = personaNames[index]
               return (
                 <li key={persona.description}>
@@ -55,54 +49,96 @@ export default function Personas({}) {
                     >
                       {persona.description}
                     </small>
-                    <small
+                    <ul
                       css={`
-                        display: flex;
-                        justify-content: space-between;
-                        line-height: 1.3rem;
-                        img {
-                          width: 1.2rem;
-                          height: auto;
-                          vertical-align: bottom;
-                          background: ${colors.success.lightBackground};
-                          border-radius: 2rem;
+                        li {
+                          display: flex;
+                          justify-content: space-between;
+                          flex-direction: column;
+                          line-height: 1.3rem;
+                          margin: 0 !important;
+                          img {
+                            width: 1.2rem;
+                            height: auto;
+                            vertical-align: bottom;
+                            background: ${colors.success.lightBackground};
+                            border-radius: 2rem;
+                          }
+                          small p {
+                            margin: 0;
+                            line-height: 1rem;
+                          }
                         }
                       `}
                     >
-                      MPR acc.
-                      <span>
-                        <ResultLabel binary={mpra.nodeValue > 0}>
-                          {mpraValue}
-                        </ResultLabel>
-                        {mpraTest &&
-                          (correct ? (
-                            <Image
-                              src="/check.svg"
-                              width="10"
-                              height="10"
-                              alt={
-                                'La valeur calculée correspond à la valeur attendue'
-                              }
+                      {tests.map(([dottedName, expectedValue]) => {
+                        const rule = rules[dottedName]
+                        const evaluation = newEngine.evaluate(dottedName),
+                          computedValue = evaluation.nodeValue,
+                          formattedValue = formatValue(evaluation, {
+                            precision: 0,
+                          })
+                        console.log(
+                          nom,
+                          dottedName,
+                          expectedValue,
+                          computedValue,
+                          formattedValue,
+                          `'${expectedValue}','${formattedValue}'`,
+                          expectedValue.toString() ===
+                            formattedValue.toString(),
+                        )
+                        const correct =
+                          typeof expectedValue === 'number'
+                            ? Math.round(computedValue) === expectedValue
+                            : ['oui', 'non'].includes(expectedValue)
+                              ? expectedValue === computedValue
+                              : undefined
+
+                        if (correct === undefined)
+                          throw new Error(
+                            'Failing test because of incorrect type recognition',
+                          )
+                        return (
+                          <li key={dottedName}>
+                            <small
+                              dangerouslySetInnerHTML={{
+                                __html: rule.titreHtml || rule.titre,
+                              }}
                             />
-                          ) : (
-                            <span title="La valeur calculée ne correspond pas à la valeur attendue">
-                              ❌
+
+                            <span
+                              css={`
+                                margin-top: 0.4rem;
+                                text-align: right;
+                              `}
+                            >
+                              <ResultLabel
+                                binary={
+                                  computedValue === 'oui' || computedValue > 0
+                                }
+                              >
+                                {formattedValue}
+                              </ResultLabel>
+                              {correct ? (
+                                <Image
+                                  src="/check.svg"
+                                  width="10"
+                                  height="10"
+                                  alt={
+                                    'La valeur calculée correspond à la valeur attendue'
+                                  }
+                                />
+                              ) : (
+                                <span title="La valeur calculée ne correspond pas à la valeur attendue">
+                                  ❌
+                                </span>
+                              )}
                             </span>
-                          ))}
-                      </span>
-                    </small>
-                    <small
-                      css={`
-                        display: flex;
-                        line-height: 1.3rem;
-                        justify-content: space-between;
-                      `}
-                    >
-                      MPR gestes
-                      <ResultLabel binary={mprgValue}>
-                        {mprgValue ? 'oui' : 'non'}
-                      </ResultLabel>
-                    </small>
+                          </li>
+                        )
+                      })}
+                    </ul>
                     <div>
                       <Link
                         href={setSearchParams(
@@ -137,8 +173,8 @@ const ResultLabel = ({ binary, children }) => (
       margin-left: 0.4rem;
       padding: 0 0.4rem;
       ${binary
-        ? `background: ${colors.success.lightBackground}; border: 1px solid ${colors.success.background}`
-        : `background: ${colors.fail.lightBackground}; border: 1px solid ${colors.fail.background}
+        ? `background: var(--lighterColor2); border: 1px solid var(--color); color: var(--darkColor);`
+        : `background: transparent; border: 1px solid gray; color: gray
 								`}
     `}
   >

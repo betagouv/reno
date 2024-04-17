@@ -35,6 +35,8 @@
     projet . DPE visé: 1
     projet . travaux: 49300
     ménage . code région: "'53'"
+  valeurs attendues:
+    MPR . accompagnée: 24650
 - description: |
     Couple aisé., passoire, 4 sauts,  ~ 70k € de travaux
   situation:
@@ -44,6 +46,8 @@
     DPE . actuel: 6
     projet . DPE visé: 2
     ménage . code région: "'52'"
+  valeurs attendues:
+    MPR . accompagnée . pourcent dont bonus: 45
 - description: |
     Couple modeste, presque passoire, 1 saut.
   situation:
@@ -53,6 +57,8 @@
     DPE . actuel: 5
     projet . DPE visé: 4
     ménage . code région: '"52"'
+  valeurs attendues:
+    MPR . accompagnée . pourcent dont bonus: 0
 - description: |
     Individu aisé, presque passoire, 3 saut.
   situation:
@@ -62,10 +68,14 @@
     DPE . actuel: 5
     projet . DPE visé: 2
     ménage . code région: "'52'"
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     Propriétaire élligible, mais pas d'autres infos
   situation:
     conditions communes: oui
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k, Bretagne.
   situation:
@@ -76,6 +86,8 @@
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'53'"
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
   situation:
@@ -86,6 +98,8 @@
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'11'"
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     Éligible aux deux parcours.
   situation:
@@ -94,6 +108,8 @@
     ménage . revenu: 25000
     DPE . actuel: 4
     ménage . code région: "'53'"
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     Éligible seulement au parcours accompagné.
   situation:
@@ -102,6 +118,8 @@
     ménage . revenu: 80000
     DPE . actuel: 7
     ménage . code région: "'53'"
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     Éligible seulement au parcours par gestes.
   situation:
@@ -110,6 +128,8 @@
     ménage . revenu: 35000
     DPE . actuel: 2
     ménage . code région: "'53'"
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     1 saut, aisé.
   situation:
@@ -119,6 +139,8 @@
     DPE . actuel: 3
     projet . DPE visé: 2
     ménage . code région: "'53'"
+  valeurs attendues:
+    MPR . accompagnée: 9
 - description: |
     DPE C, revenu aisé -> 1 seul scénario MPR accompagné.
   situation:
@@ -126,3 +148,5 @@
     ménage . personnes: 2
     ménage . revenu: 54072
     DPE . actuel: 3
+  valeurs attendues:
+    MPR . accompagnée: 9
