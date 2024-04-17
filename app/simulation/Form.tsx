@@ -11,16 +11,20 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import Publicodes from 'publicodes'
-import { useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 import Answers from './Answers'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import { useSearchParams } from 'next/navigation'
 
-export default function Form({ searchParams, rules }) {
+function Form({ rules }) {
   useSyncUrlLocalStorage()
-  // this param lets us optionally build the form to target one specific publicode rule
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
+  console.log('violet', searchParams)
+  // this param `objectif` lets us optionally build the form to target one specific publicode rule
   const { objectif, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
@@ -101,5 +105,13 @@ export default function Form({ searchParams, rules }) {
         </p>
       </Section>
     </div>
+  )
+}
+
+export default function ({ rules }) {
+  return (
+    <Suspense>
+      <Form rules={rules} />
+    </Suspense>
   )
 }

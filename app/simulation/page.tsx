@@ -1,8 +1,6 @@
-import Footer from '@/components/Footer'
+import rules from '@/app/règles/rules'
 import { Main, PageBlock } from '@/components/UI'
 import Form from './Form'
-import rules from '@/app/règles/rules'
-import css from '@/components/css/convertToJs'
 
 const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
 
@@ -11,11 +9,11 @@ export const metadata: Metadata = {
   description,
 }
 
-export default function Page({ searchParams }) {
+export default function Page() {
   return (
     <PageBlock>
       <Main>
-        <Form searchParams={searchParams} rules={rules} />
+        <Form rules={rules} />
       </Main>
     </PageBlock>
   )

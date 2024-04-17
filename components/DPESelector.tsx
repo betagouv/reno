@@ -3,8 +3,6 @@ import { encodeSituation } from './publicodes/situationUtils'
 import data from '@/components/DPE.yaml'
 import css from './css/convertToJs'
 
-console.log('DPE data', data)
-
 export default function DPESelector({
   setSearchParams,
   situation,
@@ -35,7 +33,7 @@ export default function DPESelector({
       style={css`
         margin-top: 0.6rem;
       `}
-    > 
+    >
       <DPE
         newLetter={newLetter}
         letter={isNew ? oldLetter : newLetter}
