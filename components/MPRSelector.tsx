@@ -126,6 +126,8 @@ export default function MPRSelector({
             url: nextLink(`MPR . accompagnée`),
           }}
         />
+        {/* On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas ! */}
+        <AidesLocales {...{ engine, situation }} />
         <Result
           index={2}
           key={'non acc'}
@@ -140,7 +142,6 @@ export default function MPRSelector({
           }}
         />
       </Results>
-      <AidesLocales />
       <AutresAides />
     </CustomQuestionWrapper>
   )
