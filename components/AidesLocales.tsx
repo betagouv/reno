@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import hexagoneIcon from '@/public/hexagone-contour.svg'
 import { formatValue } from 'publicodes'
+import { PrimeStyle } from './Geste'
 
 const Hexagone = () => (
   <Image
@@ -34,7 +35,7 @@ export default function AidesLocales({ engine, situation }) {
     return (
       <section>
         <Header>
-          <p>Nous n'avons pas trouvé d'aides locales pour vous.</p>
+          <p>[dev] Nous n'avons pas trouvé d'aides locales pour vous.</p>
         </Header>
       </section>
     )
@@ -42,13 +43,37 @@ export default function AidesLocales({ engine, situation }) {
   const value = formatValue(locales)
 
   return (
-    <section>
-      <Header />
-      <p>Angers : jusqu'à {value}</p>
-      <p>
-        Cette liste est non exhaustive et les montants ne sont pas encore
-        validés.
-      </p>
+    <section
+      css={`
+        margin: 1rem 0;
+      `}
+    >
+      <div
+        css={`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <small
+          css={`
+            background: #fdf8db;
+            color: #6e4444;
+            margin-right: 0.8rem;
+            padding: 0 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 0.4rem;
+            img {
+              margin-right: 0.4rem;
+            }
+          `}
+        >
+          <Hexagone /> bonus&nbsp;<strong>Angers</strong>
+        </small>
+        <PrimeStyle>
+          jusqu'à <strong>{value}</strong>
+        </PrimeStyle>
+      </div>
     </section>
   )
 }

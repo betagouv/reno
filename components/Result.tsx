@@ -6,6 +6,7 @@ import { PrimeStyle } from './Geste'
 import { CTA, CTAWrapper, Card, cardBorder } from './UI'
 import { ExplicationMPRA, ExplicationMPRG } from './explications/Éligibilité'
 import GestesPreview from './mprg/GestesPreview'
+import AidesLocales from './AidesLocales'
 
 /* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
  * can only be success or fail. I've kept this object for future references, for its colors */
@@ -129,6 +130,9 @@ export default function Result({
                 {isFinal ? `` : fail ? `` : `Jusqu'à `} <strong>{value}</strong>
               </PrimeStyle>
             )}
+
+            {/* On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas ! */}
+            <AidesLocales {...{ engine, situation }} />
             <p
               css={`
                 margin-top: 1.4rem;
