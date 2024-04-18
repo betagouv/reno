@@ -53,6 +53,12 @@ function Form({ rules }) {
       simulationConfig,
       rules,
     )
+
+  console.log(
+    'blue',
+    engine.evaluate("métropole d'Angers . aides socles"),
+    nextQuestions,
+  )
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 

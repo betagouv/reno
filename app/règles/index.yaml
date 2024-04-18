@@ -20,6 +20,7 @@ aides:
   somme:
     - MPR . accompagnée
     - MPR . non accompagnée
+    - aides locales
 
 ménage . revenu:
   titre: Revenu fiscal de référence

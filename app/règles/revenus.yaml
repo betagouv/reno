@@ -1,24 +1,3 @@
-# écrit pour Angers métropole, à voir si chaque territoire a sa définition ou si c'est généralisé
-ménage . revenu . très très modeste:
-  formule:
-    une de ces conditions:
-      - toutes ces conditions:
-          - personnes = 1
-          - revenu < 13607 + 1 €
-      - toutes ces conditions:
-          - personnes = 2
-          - revenu < 19900 + 1 €
-      - toutes ces conditions:
-          - personnes = 3
-          - revenu < 23934 + 1 €
-      - toutes ces conditions:
-          - personnes = 4
-          - revenu < 27958 + 1 €
-      - toutes ces conditions:
-          - personnes = 5
-          - revenu < 32002 + 1 €
-      - revenu < (32002 + 1 + personnes plus * 4036 €)
-
 ménage . revenu . barème IdF:
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
@@ -98,6 +77,9 @@ ménage . revenu . barème:
       - si: personnes = 1
         alors:
           variations:
+            # très très modeste ajouté pour Angers métropole, à voir si chaque territoire a sa définition ou si c'est généralisé
+            - si: revenu < 13607 + 1 €
+              alors: '"très très modeste"'
             - si: revenu < 17009 + 1 €
               alors: '"très modeste"'
             - si: revenu < 21805 + 1 €
@@ -108,6 +90,8 @@ ménage . revenu . barème:
       - si: personnes = 2
         alors:
           variations:
+            - si: revenu < 19900 + 1 €
+              alors: '"très très modeste"'
             - si: revenu < 24875 + 1 €
               alors: '"très modeste"'
             - si: revenu < 31889 + 1 €
@@ -118,6 +102,8 @@ ménage . revenu . barème:
       - si: personnes = 3
         alors:
           variations:
+            - si: revenu < 23934 + 1 €
+              alors: '"très très modeste"'
             - si: revenu < 29917 + 1 €
               alors: '"très modeste"'
             - si: revenu < 38349 + 1 €
@@ -128,6 +114,8 @@ ménage . revenu . barème:
       - si: personnes = 4
         alors:
           variations:
+            - si: revenu < 27958 + 1 €
+              alors: '"très très modeste"'
             - si: revenu < 34948 + 1 €
               alors: '"très modeste"'
             - si: revenu < 44802 + 1 €
@@ -138,6 +126,8 @@ ménage . revenu . barème:
       - si: personnes = 5
         alors:
           variations:
+            - si: revenu < 32002 + 1 €
+              alors: '"très très modeste"'
             - si: revenu < 40002 + 1 €
               alors: '"très modeste"'
             - si: revenu < 51281 + 1 €
@@ -147,6 +137,8 @@ ménage . revenu . barème:
             - sinon: '"supérieure"'
       - sinon:
           variations:
+            - si: revenu < (32002 + 1 + personnes plus * 4036 €)
+              alors: "'très très modeste'"
             - si: revenu < (40002 + 1 + personnes plus * 5045 €)
               alors: '"très modeste"'
             - si: revenu < (51281 + 1 + personnes plus * 6462 €)

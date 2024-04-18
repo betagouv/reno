@@ -6,6 +6,8 @@ prioritaires:
   - ménage . commune
   - ménage . revenu
   - DPE . actuel
+  - logement . propriétaire occupant
+  - logement . commune
   - MPR . choix
   # Le reste est non-linéaire, en fonction du choix
 non prioritaires:

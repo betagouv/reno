@@ -1,3 +1,7 @@
+aides locales:
+  somme:
+    - métropole d'Angers . aides
+
 métropole d'Angers:
 
 métropole d'Angers . aides:
@@ -34,20 +38,20 @@ métropole d'Angers . aides socles . travaux plafonnés:
   plafond: plafond de travaux HT
 métropole d'Angers . conditions de revenu:
   une de ces conditions:
-    - ménage . revenu . classe = '"intermédiaire"'
-    - ménage . revenu . classe = '"modeste"'
-    - ménage . revenu . classe = '"très modeste"'
+    - ménage . revenu . classe = "intermédiaire"
+    - ménage . revenu . classe = "modeste"
+    - ménage . revenu . classe = "très modeste"
 
 métropole d'Angers . taux d'aide:
   variations:
-    - si: ménage . revenu . très très modeste
+    - si: ménage . revenu . classe = "très très modeste"
       alors: 20 %
-    - si: ménage . revenu . classe = '"très modeste"'
+    - si: ménage . revenu . classe = "très modeste"
       alors: 15 %
     - si:
         une de ces conditions:
-          - ménage . revenu . classe = '"intermédiaire"'
-          - ménage . revenu . classe = '"modeste"'
+          - ménage . revenu . classe = "intermédiaire"
+          - ménage . revenu . classe = "modeste"
       alors: 10 %
 
 métropole d'Angers . plafond de travaux HT:
