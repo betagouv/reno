@@ -196,3 +196,15 @@
     MPR . accompagnée . pourcent dont bonus: 30
     MPR . non accompagnée . éligible: non
     ménage . revenu . classe: 'supérieure'
+- description: |
+    Aide locale Angers pour rénovation globale.
+  situation:
+    conditions communes: oui
+    logement . propriétaire occupant: oui
+    ménage . personnes: 2
+    ménage . revenu: 31000
+    DPE . actuel: 3
+    ménage . commune: "'49007'"
+    logement . EPCI: "'244900015'"
+  valeurs attendues:
+    métropole d'Angers . taux d'aide: 10
