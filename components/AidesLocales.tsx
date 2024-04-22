@@ -46,15 +46,20 @@ export default function AidesLocales({ engine, situation }) {
     <section
       css={`
         margin: 1rem 0;
+        h4 {
+          font-weight: 400;
+          margin: 1rem 0px 0.6rem;
+          font-size: 120%;
+        }
       `}
     >
-      <div
+      <h4
         css={`
           display: flex;
           align-items: center;
         `}
       >
-        <strong>+</strong>
+        <strong>+</strong>&nbsp;Métropole d'<strong>Angers</strong>
         <small
           css={`
             margin-left: 0.3rem;
@@ -68,14 +73,15 @@ export default function AidesLocales({ engine, situation }) {
             img {
               margin-right: 0.4rem;
             }
+            display: none;
           `}
         >
-          <Hexagone /> bonus&nbsp;<strong>Angers</strong>
+          <Hexagone /> bonus&nbsp;local
         </small>
-        <PrimeStyle>
-          jusqu'à <strong>{value}</strong>
-        </PrimeStyle>
-      </div>
+      </h4>
+      <PrimeStyle>
+        jusqu'à <strong>{value}</strong>
+      </PrimeStyle>
     </section>
   )
 }
