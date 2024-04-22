@@ -54,8 +54,10 @@ export default function AidesLocales({ engine, situation }) {
           align-items: center;
         `}
       >
+        <strong>+</strong>
         <small
           css={`
+            margin-left: 0.3rem;
             background: #fdf8db;
             color: #6e4444;
             margin-right: 0.8rem;
