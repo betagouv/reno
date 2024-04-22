@@ -95,7 +95,7 @@ export default function DPEScenario({
                   'projet . investissement': 999999,
                   'projet . DPE visé': choice + 1,
                 },
-                dottedName: 'MPR . accompagnée . montant',
+                dottedName: 'aides à la rénovation globale',
               }}
             />
             .

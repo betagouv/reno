@@ -9,6 +9,10 @@ métropole d'Angers . aides:
     - aides socles
     - prime basse consommation
 
+métropole d'Angers . montant si assiette maximum:
+  somme:
+    - prime basse consommation
+    - aides socles . montant si assiette maximum
 métropole d'Angers . aides socles:
   applicable si:
     toutes ces conditions:
@@ -31,7 +35,9 @@ métropole d'Angers . aides socles:
   incertitudes: |
     Est-ce qu'on peut demander cette aide sans demander les aides ANAH ?
 
-métropole d'Angers . aides socles . montant: taux d'aide * travaux plafonnés
+métropole d'Angers . aides socles . montant si assiette maximum:
+  formule: taux * plafond de travaux HT
+métropole d'Angers . aides socles . montant: taux * travaux plafonnés
 
 métropole d'Angers . aides socles . travaux plafonnés:
   valeur: projet . travaux
@@ -42,7 +48,7 @@ métropole d'Angers . conditions de revenu:
     - ménage . revenu . classe = "modeste"
     - ménage . revenu . classe = "très modeste"
 
-métropole d'Angers . taux d'aide:
+métropole d'Angers . aides socles . taux:
   variations:
     - si: ménage . revenu . classe = "très très modeste"
       alors: 20 %
@@ -54,7 +60,7 @@ métropole d'Angers . taux d'aide:
           - ménage . revenu . classe = "modeste"
       alors: 10 %
 
-métropole d'Angers . plafond de travaux HT:
+métropole d'Angers . aides socles . plafond de travaux HT:
   valeur: 20000 €
   description: Aide par logement.
 

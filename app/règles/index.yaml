@@ -18,9 +18,14 @@ aides:
   applicable si:
     est défini: MPR . choix
   somme:
-    - MPR . accompagnée
-    - MPR . non accompagnée
+    - MPR . accompagnée . montant
+    - MPR . non accompagnée . montant
     - aides locales
+
+aides à la rénovation globale:
+  somme:
+    - MPR . accompagnée
+    - métropole d'Angers . aides
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -323,6 +328,14 @@ projet . travaux . notification:
   description: |
     Pour atteindre 2 sauts de DPE, il est en général nécessaire de prévoir une enveloppe de travaux de plusieurs milliers d'€.
 
+taux d'aides relatives:
+  somme:
+    - métropole d'Angers . aides socles . taux
+    - MPR . accompagnée . pourcent dont bonus
+
+montant d'aides absolues:
+  formule: métropole d'Angers . prime basse consommation
+
 projet . travaux:
   titre: Votre enveloppe des travaux
   question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
@@ -347,10 +360,10 @@ projet . travaux:
   # https://github.com/publicodes/publicodes/issues/443
   #
   # Cette première formule pour simplement calculer le montant des travaux comme s'il n'y avait pas de plafond de travaux pour les aides expérimées en %
-  formule: investissement / (1 - MPR . accompagnée . pourcent dont bonus)
+  formule: investissement / (1 - taux d'aides relatives) + montant d'aides absolues
   # Ce deuxième élément, le plafond, pour appliquer le plafond des travaux auquel s'applique l'aide en %. Donc si investissement = 1 000 000 €, l'aide sera de 1 000 000 + plafond (par exemple 70 000 €) * taux en % (par exemple 60 %)
   # Car l'objectif de cette formule est de maximiser l'assiette des travaux à partir d'un montant fixe d'investissement, plutôt que de réduire l'investissement à partir d'une enveloppe de travaux fixe
-  plafond: investissement + MPR . accompagnée . montant si assiette maximum
+  plafond: investissement + MPR . accompagnée . montant si assiette maximum + métropole d'Angers . montant si assiette maximum
   résoudre la référence circulaire: oui
 
 projet . travaux . TTC:
