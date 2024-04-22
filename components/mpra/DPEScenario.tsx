@@ -126,6 +126,9 @@ export default function DPEScenario({
                 À vos calculs : si j'apporte{' '}
                 <label>
                   <Input
+                    css={`
+                      vertical-align: text-bottom;
+                    `}
                     autoFocus={false}
                     value={situation['projet . investissement'] || undefined}
                     placeholder="mon apport"
@@ -142,7 +145,7 @@ export default function DPEScenario({
                     }}
                     step="100"
                   />
-                  &nbsp;€
+                  €
                 </label>
                 <span>
                   , je pourrai entreprendre des travaux d'un montant total de{' '}
