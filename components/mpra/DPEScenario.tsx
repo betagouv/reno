@@ -161,7 +161,10 @@ export default function DPEScenario({
                     dottedName: 'projet . travaux',
                   }}
                 />{' '}
-                HT.
+                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                  HT
+                </span>
+                .
               </p>
             </div>
           </div>
