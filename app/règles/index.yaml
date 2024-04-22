@@ -345,8 +345,12 @@ projet . travaux:
   # Elle n'est pas lisible directement, elle résulte d'une inversion de formule à la main
   # Car il semble y avoir un bug résultant d'un choc entre les mécanismes `plafond` et `résoudre la référence circulaire`
   # https://github.com/publicodes/publicodes/issues/443
+  #
+  # Cette première formule pour simplement calculer le montant des travaux comme s'il n'y avait pas de plafond de travaux pour les aides expérimées en %
   formule: investissement / (1 - MPR . accompagnée . pourcent dont bonus)
-  plafond: investissement + MPR . accompagnée . pourcent dont bonus * travaux . plafond
+  # Ce deuxième élément, le plafond, pour appliquer le plafond des travaux auquel s'applique l'aide en %. Donc si investissement = 1 000 000 €, l'aide sera de 1 000 000 + plafond (par exemple 70 000 €) * taux en % (par exemple 60 %)
+  # Car l'objectif de cette formule est de maximiser l'assiette des travaux à partir d'un montant fixe d'investissement, plutôt que de réduire l'investissement à partir d'une enveloppe de travaux fixe
+  plafond: investissement + MPR . accompagnée . montant si assiette maximum
   résoudre la référence circulaire: oui
 
 projet . travaux . TTC:
@@ -537,7 +541,8 @@ MPR . accompagnée . bonus:
     Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
   applicable si: condition
   valeur: 10 %
-
+MPR . accompagnée . montant si assiette maximum:
+  formule: MPR . accompagnée . pourcent dont bonus * projet . travaux . plafond
 MPR . accompagnée . pourcent dont bonus:
   titre: '% accompagné dont bonus'
   formule: pourcent brut + bonus
