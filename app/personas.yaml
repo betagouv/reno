@@ -203,7 +203,7 @@
     logement . propriétaire occupant: oui
     ménage . personnes: 2
     ménage . revenu: 31000
-    DPE . actuel: 3
+    DPE . actuel: 5
     ménage . commune: "'49007'"
     logement . EPCI: "'244900015'"
   valeurs attendues:

@@ -72,7 +72,7 @@ export default function DPEScenario({
           </h3>
 
           <p>
-            Vous touchez une aide de{' '}
+            Vous touchez une aide de
             <Value
               {...{
                 engine,
@@ -83,7 +83,7 @@ export default function DPEScenario({
                 },
                 dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
-            />{' '}
+            />
             du coût de vos travaux, jusqu'à{' '}
             <Value
               {...{
