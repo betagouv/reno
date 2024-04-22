@@ -157,6 +157,7 @@ export default function InputSwitch({
           answeredQuestions,
           situation,
           setSearchParams,
+          questionsToSubmit: ['ménage . code région', 'ménage . commune'],
           currentValue,
           engine,
         }}
