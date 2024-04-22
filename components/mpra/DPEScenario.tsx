@@ -128,6 +128,8 @@ export default function DPEScenario({
                   <Input
                     css={`
                       vertical-align: text-bottom;
+                      padding: 0.2rem 0.3rem 0 0;
+                      max-width: 6.5rem !important;
                     `}
                     autoFocus={false}
                     value={situation['projet . investissement'] || undefined}
