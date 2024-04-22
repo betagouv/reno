@@ -9,6 +9,7 @@ export default function FormButtons({
   encodeSituation,
   answeredQuestions,
   currentQuestion,
+  questionsToSubmit,
   situation,
   rules,
 }) {
@@ -39,7 +40,7 @@ export default function FormButtons({
                     [currentQuestion]: situation[currentQuestion],
                   },
                   false,
-                  [...answeredQuestions, currentQuestion],
+                  [...answeredQuestions, ...questionsToSubmit],
                 ),
                 question: undefined,
               },

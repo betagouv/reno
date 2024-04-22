@@ -30,6 +30,7 @@ export default function ClassicQuestionWrapper({
   answeredQuestions,
   situation,
   setSearchParams,
+  questionsToSubmit = [currentQuestion],
   currentValue,
   engine,
   noSuggestions,
@@ -94,6 +95,7 @@ export default function ClassicQuestionWrapper({
                 setSearchParams,
                 encodeSituation,
                 answeredQuestions,
+                questionsToSubmit,
                 currentQuestion,
                 situation,
               }}

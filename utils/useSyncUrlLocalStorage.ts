@@ -18,7 +18,6 @@ export default function useSyncUrlLocalStorage() {
 
     if (!pathname.includes('/simulation') || searchParamsString === '') return
 
-    console.log('indigo', pathname, searchParamsString)
     setSimulation(pathname + '?' + searchParamsString)
   }, [pathname, searchParamsString])
 
