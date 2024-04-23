@@ -43,10 +43,6 @@ export default function Result({
   const rule = rules[dottedName]
   const evaluation = engine.evaluate(dottedName)
   console.log('result', evaluation)
-  console.log(
-    'condi',
-    engine.evaluate('MPR . non accompagnée . conditions excluantes'),
-  )
 
   const value = formatValue(evaluation, { precision: 0 })
   const isNotApplicable =
@@ -55,7 +51,7 @@ export default function Result({
   const state = isNotApplicable ? 'fail' : isFinal ? 'success' : 'running',
     fail = state === 'fail'
   const { color, background, label } = colors[state]
-  const MPRA = dottedName === 'MPR . accompagnée'
+  const MPRA = dottedName === 'MPR . accompagnée . montant'
 
   return (
     <li

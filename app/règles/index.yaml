@@ -334,7 +334,7 @@ taux d'aides relatives:
     - MPR . accompagnée . pourcent dont bonus
 
 montant d'aides absolues:
-  formule: métropole d'Angers . prime basse consommation
+  formule: métropole d'Angers . prime basse consommation . montant
 
 projet . travaux:
   titre: Votre enveloppe des travaux

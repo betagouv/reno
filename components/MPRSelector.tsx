@@ -30,7 +30,7 @@ export default function MPRSelector({
   const [mpraEvaluation, mprgEvaluation] = useMemo(() => {
       const newEngine = engine.setSituation(situation)
       return [
-        newEngine.evaluate('MPR . accompagnée'),
+        newEngine.evaluate('MPR . accompagnée . montant'),
         newEngine.evaluate('MPR . non accompagnée . montant'),
       ]
     }, [situation, engine]),
@@ -116,19 +116,19 @@ export default function MPRSelector({
       <Results>
         <Result
           index={1}
-          key={'acc'}
+          key={'accompagnée'}
           situation={situation}
           {...{
             engine: engine.setSituation(situation),
             isFinal: !currentQuestion,
             rules,
-            dottedName: 'MPR . accompagnée',
-            url: nextLink(`MPR . accompagnée`),
+            dottedName: 'MPR . accompagnée . montant',
+            url: nextLink(`MPR . accompagnée . montant`),
           }}
         />
         <Result
           index={2}
-          key={'non acc'}
+          key={'non accompagnée'}
           situation={situation}
           {...{
             engine: engine.setSituation(situation),

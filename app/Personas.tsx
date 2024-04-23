@@ -14,9 +14,8 @@ import {
 import personaNames from './personaNames.yaml'
 import personas from './personas.yaml'
 import css from '@/components/css/convertToJs'
+import { throwIfFailingTest } from './dangerouslyDisactiveFailingTests'
 
-// switch to true ONLY FOR LOCAL TESTING
-export const throwIfFailingTest = false
 const engine = new Publicodes(rules)
 export default function Personas({}) {
   return (

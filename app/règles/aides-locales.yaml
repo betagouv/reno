@@ -7,11 +7,11 @@ métropole d'Angers:
 métropole d'Angers . aides:
   somme:
     - aides socles
-    - prime basse consommation
+    - prime basse consommation . montant
 
 métropole d'Angers . montant si assiette maximum:
   somme:
-    - prime basse consommation
+    - prime basse consommation . montant
     - aides socles . montant si assiette maximum
 métropole d'Angers . aides socles:
   applicable si:
@@ -42,6 +42,7 @@ métropole d'Angers . aides socles . montant: taux * travaux plafonnés
 métropole d'Angers . aides socles . travaux plafonnés:
   valeur: projet . travaux
   plafond: plafond de travaux HT
+
 métropole d'Angers . conditions de revenu:
   une de ces conditions:
     - ménage . revenu . classe = "intermédiaire"
@@ -49,6 +50,7 @@ métropole d'Angers . conditions de revenu:
     - ménage . revenu . classe = "très modeste"
 
 métropole d'Angers . aides socles . taux:
+  titre: Taux d'aide métropole d'Angers
   variations:
     - si: ménage . revenu . classe = "très très modeste"
       alors: 20 %
@@ -65,9 +67,12 @@ métropole d'Angers . aides socles . plafond de travaux HT:
   description: Aide par logement.
 
 métropole d'Angers . prime basse consommation:
-  applicable si:
-    toutes ces conditions:
-      - conditions de revenu
-      - projet . DPE visé <= 2
-      - DPE . actuel >= 2
+métropole d'Angers . prime basse consommation . conditions:
+  toutes ces conditions:
+    - conditions de revenu
+    - projet . DPE visé <= 2
+    - DPE . actuel >= 2
+métropole d'Angers . prime basse consommation . montant:
+  titre: Prime BBC métropole d'Angers
+  applicable si: conditions
   valeur: 1500 €

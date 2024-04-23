@@ -18,6 +18,9 @@ export default function DPEScenario({
 }) {
   if (choice == null) return null
 
+  const conditionBBCAngers = engine.evaluate(
+    "métropole d'Angers . prime basse consommation . conditions",
+  ).nodeValue
   return (
     <motion.div
       initial={{ x: -30, scale: 1 }}
@@ -72,7 +75,7 @@ export default function DPEScenario({
           </h3>
 
           <p>
-            Une aide nationale de
+            Aide de l'État :
             <Value
               {...{
                 engine,
@@ -83,8 +86,8 @@ export default function DPEScenario({
                 },
                 dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
-            />{' '}
-            calculée sur un plafond de
+            />
+            calculée sur un plafond de{' '}
             <Value
               {...{
                 engine,
@@ -111,6 +114,72 @@ export default function DPEScenario({
               }}
             />
             .
+          </p>
+          <p>
+            Aide de votre métropole :
+            <ul>
+              <li>
+                <p>
+                  <Value
+                    {...{
+                      engine,
+                      index: choice,
+                      situation: {
+                        ...situation,
+                        'projet . DPE visé': choice + 1,
+                      },
+                      dottedName: "métropole d'Angers . aides socles . taux",
+                    }}
+                  />{' '}
+                  du coût de vos travaux avec un plafond de{' '}
+                  <Value
+                    {...{
+                      engine,
+                      index: choice,
+                      situation: {
+                        ...situation,
+                        'projet . DPE visé': choice + 1,
+                      },
+                      dottedName:
+                        "métropole d'Angers . aides socles . plafond de travaux HT",
+                    }}
+                  />{' '}
+                  de travaux, soit une aide complémentaire maximum de{' '}
+                  <Value
+                    {...{
+                      engine,
+                      index: choice,
+                      situation: {
+                        ...situation,
+
+                        'projet . investissement': 999999,
+                        'projet . DPE visé': choice + 1,
+                      },
+                      dottedName: "métropole d'Angers . aides socles . montant",
+                    }}
+                  />
+                  .
+                </p>
+              </li>
+              {conditionBBCAngers && (
+                <li>
+                  <Value
+                    {...{
+                      engine,
+                      index: choice,
+                      situation: {
+                        ...situation,
+
+                        'projet . investissement': 999999,
+                        'projet . DPE visé': choice + 1,
+                      },
+                      dottedName:
+                        "métropole d'Angers . prime basse consommation . montant",
+                    }}
+                  />
+                </li>
+              )}
+            </ul>
           </p>
           <div
             css={`
