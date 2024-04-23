@@ -22,7 +22,8 @@ export default function ScenariosSelector({
   engine,
   rules,
 }) {
-  const situation = omit(['projet . travaux'], givenSituation)
+  const situation = //omit(['projet . travaux'], givenSituation)
+    givenSituation
 
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,

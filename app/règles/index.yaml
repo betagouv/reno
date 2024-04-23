@@ -24,7 +24,7 @@ aides:
 
 aides à la rénovation globale:
   somme:
-    - MPR . accompagnée
+    - MPR . accompagnée . montant
     - métropole d'Angers . aides
 
 ménage . revenu:
@@ -354,17 +354,6 @@ projet . travaux:
     Attention, renseignez l'enveloppe hors TVA. 
 
     Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, principalement de 5,5 % et parfois à 10 %.
-  # Je ne suis pas satisfait de cette formule
-  # Elle n'est pas lisible directement, elle résulte d'une inversion de formule à la main
-  # Car il semble y avoir un bug résultant d'un choc entre les mécanismes `plafond` et `résoudre la référence circulaire`
-  # https://github.com/publicodes/publicodes/issues/443
-  #
-  # Cette première formule pour simplement calculer le montant des travaux comme s'il n'y avait pas de plafond de travaux pour les aides expérimées en %
-  formule: (investissement + montant d'aides absolues) / (1 - taux d'aides relatives)
-  # Ce deuxième élément, le plafond, pour appliquer le plafond des travaux auquel s'applique l'aide en %. Donc si investissement = 1 000 000 €, l'aide sera de 1 000 000 + plafond (par exemple 70 000 €) * taux en % (par exemple 60 %)
-  # Car l'objectif de cette formule est de maximiser l'assiette des travaux à partir d'un montant fixe d'investissement, plutôt que de réduire l'investissement à partir d'une enveloppe de travaux fixe
-  plafond: investissement + MPR . accompagnée . montant si assiette maximum + métropole d'Angers . montant si assiette maximum
-  résoudre la référence circulaire: oui
 
 projet . travaux . TTC:
   formule: travaux * 1.055
@@ -427,6 +416,7 @@ projet . investissement:
       - si: simulation . mode = 'moyen'
         alors: 25000 €
       - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
+  formule: travaux - aides à la rénovation globale
 
 projet . travaux . plafonnés:
   plafond: plafond

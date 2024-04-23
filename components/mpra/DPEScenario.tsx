@@ -17,6 +17,7 @@ export default function DPEScenario({
   situation,
   setSearchParams,
 }) {
+  console.log('LightGreen', situation)
   if (choice == null) return null
 
   const conditionBBCAngers = engine.evaluate(
@@ -107,8 +108,7 @@ export default function DPEScenario({
                 index: choice,
                 situation: {
                   ...situation,
-
-                  'projet . investissement': 999999,
+                  'projet . travaux': 999999,
                   'projet . DPE visé': choice + 1,
                 },
                 dottedName: 'MPR . accompagnée . montant',
@@ -153,7 +153,7 @@ export default function DPEScenario({
                       situation: {
                         ...situation,
 
-                        'projet . investissement': 999999,
+                        'projet . travaux': 999999,
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: "métropole d'Angers . aides socles . montant",
@@ -207,23 +207,23 @@ export default function DPEScenario({
                 `}
               />
               <p>
-                À vos calculs : si j'apporte{' '}
+                À vos calculs : pour une enveloppe de travaux de rénovation de{' '}
                 <label>
                   <Input
                     css={`
                       vertical-align: text-bottom;
                       padding: 0.2rem 0.3rem 0 0;
-                      max-width: 7.5rem !important;
+                      max-width: 8rem !important;
                     `}
                     autoFocus={false}
-                    value={situation['projet . investissement'] || undefined}
-                    placeholder="mon apport"
+                    value={situation['projet . travaux'] || undefined}
+                    placeholder="mes travaux"
                     min="0"
                     onChange={(rawValue) => {
                       const value = +rawValue === 0 ? undefined : rawValue
                       setSearchParams(
                         encodeSituation({
-                          'projet . investissement': value,
+                          'projet . travaux': value,
                         }),
                         'replace',
                         false,
@@ -231,11 +231,12 @@ export default function DPEScenario({
                     }}
                     step="100"
                   />
-                  €
+                  €{' '}
+                  <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                    HT
+                  </span>
                 </label>
-                <span>
-                  , je pourrai entreprendre des travaux d'un montant total de{' '}
-                </span>
+                <span>, je toucherai un total d'aides de </span>
                 <Value
                   {...{
                     engine,
@@ -244,12 +245,21 @@ export default function DPEScenario({
                       ...situation,
                       'projet . DPE visé': choice + 1,
                     },
-                    dottedName: 'projet . travaux',
+                    dottedName: 'aides à la rénovation globale',
                   }}
-                />{' '}
-                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                  HT
-                </span>
+                />
+                , ce qui me laissera un reste à charge de{' '}
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: {
+                      ...situation,
+                      'projet . DPE visé': choice + 1,
+                    },
+                    dottedName: 'projet . investissement',
+                  }}
+                />
                 .
               </p>
             </div>

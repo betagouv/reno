@@ -6,7 +6,7 @@ métropole d'Angers:
 
 métropole d'Angers . aides:
   somme:
-    - aides socles
+    - aides socles . montant
     - prime basse consommation . montant
 
 métropole d'Angers . montant si assiette maximum:
