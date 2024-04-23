@@ -87,7 +87,7 @@ export default function DPEScenario({
                 dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
             />
-            calculée sur un plafond de{' '}
+            du coût de vos travaux avec un plafond de{' '}
             <Value
               {...{
                 engine,
@@ -98,8 +98,8 @@ export default function DPEScenario({
                 },
                 dottedName: 'projet . travaux . plafond',
               }}
-            />
-            , soit jusqu'à{' '}
+            />{' '}
+            de travaux, soit jusqu'à{' '}
             <Value
               {...{
                 engine,
