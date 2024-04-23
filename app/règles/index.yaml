@@ -378,6 +378,7 @@ MPR . accompagnée . avance:
   formule: 0.7 * montant
 
 MPR . accompagnée . montant:
+  applicable si: éligible
   formule: montant écrêté
   unité: €
 
@@ -537,12 +538,19 @@ MPR . accompagnée:
 
     [Tous les détails](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
 
-  valeur: montant
-  applicable si: conditions communes
-
 MPR . accompagnée . éligible:
   titre: Éligible parcours accompagné
-  formule: montant > 0
+  formule:
+    toutes ces conditions:
+      - conditions communes
+      - condition de sauts
+
+MPR . accompagnée . condition de sauts:
+  formule:
+    toutes ces conditions:
+      - DPE . actuel > 2
+      - sauts >= sauts minimum
+
 MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition:
   toutes ces conditions:

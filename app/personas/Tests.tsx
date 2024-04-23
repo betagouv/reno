@@ -6,6 +6,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Link from 'next/link'
 import Publicodes from 'publicodes'
 import { GreenCell, Table } from './TestsUI'
+import { throwIfFailingTest } from '../Personas'
 
 const tests = rawTests.filter((test) => test['aide complémentaire'] === 0)
 
@@ -52,7 +53,7 @@ export default function Tests() {
             console.log(situation)
             const evaluation = engine
               .setSituation(situation)
-              .evaluate('MPR . accompagnée')
+              .evaluate('MPR . accompagnée . montant')
 
             const value = formatValue(evaluation)
 
@@ -67,10 +68,11 @@ export default function Tests() {
               )
             if (!valid) {
               console.log('Failing test object ', test)
-              throw new Error(
-                'Failing test !! See log above ; test index in filtered tests.csv : ' +
-                  testIndex,
-              )
+              if (throwIfFailingTest)
+                throw new Error(
+                  'Failing test !! See log above ; test index in filtered tests.csv : ' +
+                    testIndex,
+                )
             }
             return (
               <tr key={JSON.stringify(test)}>

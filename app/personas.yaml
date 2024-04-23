@@ -10,7 +10,7 @@
     ménage . code région: "'27'" # Doubs
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
-    MPR . accompagnée: 59835
+    MPR . accompagnée . montant: 59835
     MPR . non accompagnée . éligible: oui
 - description: |
     3 sauts de DPE, enveloppe de 53200 k€ TTC, couple intermédiaire.
@@ -24,7 +24,7 @@
     ménage . code région: "'24'" # Cher
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée: 30256
+    MPR . accompagnée . montant: 30256
     MPR . non accompagnée . éligible: oui
 
 - description: |
@@ -38,7 +38,7 @@
     projet . travaux: 49300
     ménage . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée: 24650
+    MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple aisé., passoire, 4 sauts,  ~ 70k € de travaux
@@ -94,7 +94,7 @@
     projet . travaux: 49000
     ménage . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée: 24500
+    MPR . accompagnée . montant: 24500
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 58k donc plafonnée, Bretagne.
@@ -107,7 +107,7 @@
     projet . travaux: 58000
     ménage . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée: 27500
+    MPR . accompagnée . montant: 27500
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
@@ -120,7 +120,7 @@
     projet . travaux: 49000
     ménage . code région: "'11'"
   valeurs attendues:
-    MPR . accompagnée: 29400
+    MPR . accompagnée . montant: 29400
     MPR . non accompagnée . éligible: oui
 - description: |
     Ménage seul au revenu 28567.8 juste avant le seuil modeste en IdF.
@@ -207,4 +207,4 @@
     ménage . commune: "'49007'"
     logement . EPCI: "'244900015'"
   valeurs attendues:
-    métropole d'Angers . taux d'aide: 10
+    métropole d'Angers . aides socles . taux: 10

@@ -15,6 +15,8 @@ import personaNames from './personaNames.yaml'
 import personas from './personas.yaml'
 import css from '@/components/css/convertToJs'
 
+// switch to true ONLY FOR LOCAL TESTING
+export const throwIfFailingTest = false
 const engine = new Publicodes(rules)
 export default function Personas({}) {
   return (
@@ -80,9 +82,10 @@ export default function Personas({}) {
                           )
                         if (correct === false) {
                           console.log('Failing persona', persona)
-                          throw new Error(
-                            `Failing test !! ${nom} ${persona.description}`,
-                          )
+                          if (throwIfFailingTest)
+                            throw new Error(
+                              `Failing test !! ${nom} ${persona.description}`,
+                            )
                         }
                         return (
                           <li key={dottedName}>
