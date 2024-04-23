@@ -360,7 +360,7 @@ projet . travaux:
   # https://github.com/publicodes/publicodes/issues/443
   #
   # Cette première formule pour simplement calculer le montant des travaux comme s'il n'y avait pas de plafond de travaux pour les aides expérimées en %
-  formule: investissement / (1 - taux d'aides relatives) + montant d'aides absolues
+  formule: (investissement + montant d'aides absolues) / (1 - taux d'aides relatives)
   # Ce deuxième élément, le plafond, pour appliquer le plafond des travaux auquel s'applique l'aide en %. Donc si investissement = 1 000 000 €, l'aide sera de 1 000 000 + plafond (par exemple 70 000 €) * taux en % (par exemple 60 %)
   # Car l'objectif de cette formule est de maximiser l'assiette des travaux à partir d'un montant fixe d'investissement, plutôt que de réduire l'investissement à partir d'une enveloppe de travaux fixe
   plafond: investissement + MPR . accompagnée . montant si assiette maximum + métropole d'Angers . montant si assiette maximum
@@ -378,6 +378,7 @@ MPR . accompagnée . avance:
   formule: 0.7 * montant
 
 MPR . accompagnée . montant:
+  titre: Aide accompagnée
   applicable si: éligible
   formule: montant écrêté
   unité: €
@@ -508,6 +509,7 @@ MPR . non accompagnée:
     [Tous les détails](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=15).
 
 MPR . non accompagnée . montant:
+  titre: Aide non accompagnée
   valeur: gestes . montant
   applicable si: conditions communes
   non applicable si: conditions excluantes

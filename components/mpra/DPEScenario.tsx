@@ -7,6 +7,7 @@ import { encodeSituation } from '../publicodes/situationUtils'
 import Image from 'next/image'
 
 import calculatorIcon from '@/public/calculator-empty.svg'
+import Link from 'next/link'
 
 export default function DPEScenario({
   rules,
@@ -130,7 +131,7 @@ export default function DPEScenario({
                       },
                       dottedName: "métropole d'Angers . aides socles . taux",
                     }}
-                  />{' '}
+                  />
                   du coût de vos travaux avec un plafond de{' '}
                   <Value
                     {...{
@@ -254,6 +255,23 @@ export default function DPEScenario({
             </div>
           </div>
         </div>
+        <Link
+          title="Comprendre le calcul en détail"
+          css={`
+            position: absolute;
+            right: 0.4rem;
+            bottom: 0.2rem;
+            color: #ccc;
+          `}
+          href={setSearchParams(
+            encodeSituation(situation),
+            'url',
+            true,
+            'documentation/aides',
+          )}
+        >
+          ?
+        </Link>
       </Card>
     </motion.div>
   )
