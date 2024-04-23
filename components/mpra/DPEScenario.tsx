@@ -116,7 +116,7 @@ export default function DPEScenario({
             .
           </p>
           <p>
-            Aide de votre métropole :
+            Aide{conditionBBCAngers ? 's' : ''} de votre métropole :
             <ul>
               <li>
                 <p>
@@ -163,6 +163,7 @@ export default function DPEScenario({
               </li>
               {conditionBBCAngers && (
                 <li>
+                  Un bonus bâtiment basse consommation (BBC) de{' '}
                   <Value
                     {...{
                       engine,
@@ -177,6 +178,7 @@ export default function DPEScenario({
                         "métropole d'Angers . prime basse consommation . montant",
                     }}
                   />
+                  .
                 </li>
               )}
             </ul>
