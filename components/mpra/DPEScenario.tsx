@@ -72,7 +72,7 @@ export default function DPEScenario({
           </h3>
 
           <p>
-            Vous touchez une aide de
+            Une aide nationale de
             <Value
               {...{
                 engine,
@@ -83,8 +83,20 @@ export default function DPEScenario({
                 },
                 dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
+            />{' '}
+            calculée sur un plafond de
+            <Value
+              {...{
+                engine,
+                index: choice,
+                situation: {
+                  ...situation,
+                  'projet . DPE visé': choice + 1,
+                },
+                dottedName: 'projet . travaux . plafond',
+              }}
             />
-            du coût de vos travaux, jusqu'à{' '}
+            , soit jusqu'à{' '}
             <Value
               {...{
                 engine,
@@ -95,7 +107,7 @@ export default function DPEScenario({
                   'projet . investissement': 999999,
                   'projet . DPE visé': choice + 1,
                 },
-                dottedName: 'aides à la rénovation globale',
+                dottedName: 'MPR . accompagnée . montant',
               }}
             />
             .
