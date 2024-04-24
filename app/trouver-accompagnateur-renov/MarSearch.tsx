@@ -13,6 +13,7 @@ export default function MarSearch({
   codeInsee: givenCodeInsee,
   what = 'trouver-accompagnateur-renov',
 }) {
+  if (what === 'trouver-accompagnateur-renov') return //  Disactivated, we were forbidden to use france-renov.gouv.fr's non documented APIs, and the UI doesn't expose this anymore
   const [selectedMarker, selectMarker] = useState(null)
   const [data, setData] = useState(null)
   const [location, setLocation] = useState(null)
@@ -25,13 +26,18 @@ export default function MarSearch({
   useEffect(() => {
     if (!codeInsee) return
     const doFetch = async () => {
-      const request = await fetch(`/${what}/api?codeInsee=${codeInsee}`)
+      const whereClause = encodeURIComponent(
+        `startsWith(ancien_code_pivot, 'fr_renov-${codeInsee}')`,
+      )
+      const request = await fetch(
+        `https://api-lannuaire.service-public.fr/api/explore/v2.1/catalog/datasets/api-lannuaire-administration/records?where=${whereClause}`,
+      )
       const rawData = await request.json()
 
-      const data = Array.isArray(rawData) ? rawData : [rawData]
+      const result = rawData.results[0]
 
       // We bypass the following geolocation code, per https://github.com/betagouv/reno/issues/74#issuecomment-2036347206
-      return setData(data)
+      return setData([result])
 
       // Temporary, should be done once properly in the form, maybe with the exact adress to find the closest MAR
       const coordinatesRequest = await fetch(
@@ -228,15 +234,28 @@ function timeout(ms) {
 }
 
 export const getAdresse = (obj) => {
-  if (obj.adresse) return [obj.adresse, obj.code_postal + ' ' + obj.ville]
-  if (typeof obj.adresse_postale === 'object') {
-    const { adresse1, adresse2, adresse3, code_postal, ville } =
-      obj.adresse_postale
-    return [
-      `${adresse1 || ''} ${adresse2 || ''} ${adresse3 || ''}`,
-      `${code_postal} ${ville}`,
-    ]
+  console.log('cyan addios', obj.adresse)
+  if (obj.adresse) {
+    try {
+      const adresses = JSON.parse(obj.adresse)
+
+      const {
+        complement1,
+        complement2,
+        numero_voie,
+        code_postal,
+        nom_commune,
+      } = adresses[0]
+      return [
+        `${complement1 || ''} ${complement2 || ''}`,
+        `${numero_voie}`,
+        `${code_postal} ${nom_commune}`,
+      ]
+    } catch (e) {
+      console.log(`Erreur de parsing de l'addresse`, obj)
+      return ['Adresse inconnue', null]
+    }
   }
 
-  return null
+  return ['Adresse inconnue', null]
 }
