@@ -20,9 +20,13 @@ export default function DPEScenario({
   console.log('LightGreen', situation)
   if (choice == null) return null
 
-  const conditionBBCAngers = engine.evaluate(
-    "métropole d'Angers . prime basse consommation . conditions",
-  ).nodeValue
+  const conditionBBCAngers = engine
+    .setSituation({ ...situation, 'projet . DPE visé': choice + 1 })
+    .evaluate(
+      "métropole d'Angers . prime basse consommation . conditions",
+    ).nodeValue
+
+  console.log('cyan', conditionBBCAngers)
   return (
     <motion.div
       initial={{ x: -30, scale: 1 }}
