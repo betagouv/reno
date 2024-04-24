@@ -120,7 +120,7 @@ export default function DPEScenario({
             />
             .
           </p>
-          <p>
+          <div>
             Aide{conditionBBCAngers ? 's' : ''} de votre métropole :
             <ul>
               <li>
@@ -187,7 +187,7 @@ export default function DPEScenario({
                 </li>
               )}
             </ul>
-          </p>
+          </div>
           <div
             css={`
               label {
@@ -249,7 +249,7 @@ export default function DPEScenario({
                       ...situation,
                       'projet . DPE visé': choice + 1,
                     },
-                    dottedName: 'aides à la rénovation globale',
+                    dottedName: 'aides globales',
                   }}
                 />
                 , ce qui me laissera un reste à charge de{' '}

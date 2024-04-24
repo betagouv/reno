@@ -53,7 +53,7 @@ export default function Tests() {
             console.log(situation)
             const evaluation = engine
               .setSituation(situation)
-              .evaluate('MPR . accompagnée . montant')
+              .evaluate('MPR . accompagnée . montant écrêté')
 
             const value = formatValue(evaluation)
 

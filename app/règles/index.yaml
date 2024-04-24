@@ -22,10 +22,9 @@ aides:
     - MPR . non accompagnée . montant
     - aides locales
 
-aides à la rénovation globale:
-  somme:
-    - MPR . accompagnée . montant
-    - métropole d'Angers . aides
+aides globales:
+  titre: Aides à la rénovation globale
+  formule: montant écrêté
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -369,10 +368,19 @@ MPR . accompagnée . avance:
 MPR . accompagnée . montant:
   titre: Aide accompagnée
   applicable si: éligible
-  formule: montant écrêté
+  note: |
+    Nous calculons pour l'instant ici l'écrêtement au niveau de la règle "aides globales". En pratique pourtant, il semblerait que ce soit le montant de MaPrimeRénov' qui soit écrêté avant celui des aides locales et diverses.
+  formule: montant avant écrêtement
   unité: €
 
 MPR . accompagnée . montant écrêté:
+  valeur: montant
+  plafond: aides globales . montant écrêté
+
+MPR . accompagnée . montant avant écrêtement:
+  formule: pourcent dont bonus * projet . travaux . plafonnés
+
+aides globales . montant écrêté:
   description: |
     L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux *toutes taxes comprises (TTC)*.
 
@@ -380,19 +388,19 @@ MPR . accompagnée . montant écrêté:
 
     > Cela dit, le modèle actuel Mes Aides Réno ne donne pas encore la possibilité de calculer les autres aides, hors MPR (MaPrimeRénov'). 
 
-    Prenons l'exemple simple sans cumule, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
+    Prenons l'exemple simple sans cumul, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
 
     L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC des dépenses*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
 
     L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
 
-  valeur: montant avant écrêtement
+  valeur:
+    somme:
+      - MPR . accompagnée . montant
+      - métropole d'Angers . aides
   plafond: pourcent d'écrêtement * projet . travaux . TTC
 
-MPR . accompagnée . montant avant écrêtement:
-  formule: pourcent dont bonus * projet . travaux . plafonnés
-
-MPR . accompagnée . pourcent d'écrêtement:
+aides globales . pourcent d'écrêtement:
   titre: Taux maximum toutes aides sur enveloppe TTC
   description: |
     Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
@@ -416,7 +424,7 @@ projet . investissement:
       - si: simulation . mode = 'moyen'
         alors: 25000 €
       - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
-  formule: travaux - aides à la rénovation globale
+  formule: travaux - aides globales
 
 projet . travaux . plafonnés:
   plafond: plafond
