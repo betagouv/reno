@@ -20,9 +20,12 @@ export default function MarSearch({
   const mapContainerRef = useRef(null)
   const [localCodeInsee, setLocalCodeInsee] = useState(undefined)
 
-  const codeInsee =
+  const rawCodeInsee =
     localCodeInsee === undefined ? givenCodeInsee : localCodeInsee
 
+  const codeInsee = rawCodeInsee?.replace(/"/g, '')
+
+  console.log('black', codeInsee, givenCodeInsee, localCodeInsee)
   useEffect(() => {
     if (!codeInsee) return
     const doFetch = async () => {
