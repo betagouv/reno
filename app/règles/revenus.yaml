@@ -77,7 +77,7 @@ ménage . revenu . barème:
       - si: personnes = 1
         alors:
           variations:
-            # très très modeste ajouté pour Angers métropole, à voir si chaque territoire a sa définition ou si c'est généralisé
+            # très très modeste ajouté pour Angers métropole, a priori spécifique à Angers métropole
             - si: revenu < 13607 + 1 €
               alors: '"très très modeste"'
             - si: revenu < 17009 + 1 €
