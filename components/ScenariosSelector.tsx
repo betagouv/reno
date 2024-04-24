@@ -121,93 +121,24 @@ export default function ScenariosSelector({
           </section>
         </>
       )}
-      {oldIndex < 2 ? (
-        <section>
-          <h3>Vous avez encore des questions ?</h3>
-          <div>
-            <p>
-              Votre conseiller local France Rénov’ vous accompagne{' '}
-              <strong>gratuitement</strong> et sans engagement.
-            </p>
-            <MapBehindCTA
-              {...{
-                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+      {oldIndex < 2 && null}
+      <h2>Comment toucher cette aide ?</h2>
+      <section>
+        <p>
+          Votre conseiller local France Rénov’ vous accompagne{' '}
+          <strong>gratuitement</strong> pour vous guider dans les premières
+          étapes de votre projet.
+        </p>
+        <MapBehindCTA
+          {...{
+            codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
 
-                what: 'trouver-conseiller-renov',
-                text: 'Trouver mon conseiller',
-                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-              }}
-            />
-          </div>
-        </section>
-      ) : (
-        <>
-          <h3>Comment toucher cette aide ?</h3>
-          <ol
-            css={`
-              padding-left: 0;
-              list-style-type: none;
-              header {
-                display: flex;
-                align-items: center;
-                h3 {
-                  margin: 0;
-                  margin-left: 0.6rem;
-                }
-                margin-bottom: 1vh;
-              }
-              li > section {
-                margin-left: 2.4rem;
-              }
-            `}
-          >
-            <li>
-              <header>
-                <Number>1</Number>
-                <h3>Vous avez encore des questions ?</h3>
-              </header>
-              <section>
-                <p>
-                  Votre conseiller local France Rénov’ vous accompagne{' '}
-                  <strong>gratuitement</strong> et sans engagement.
-                </p>
-                <MapBehindCTA
-                  {...{
-                    codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
-                    what: 'trouver-conseiller-renov',
-                    text: 'Trouver mon conseiller',
-                    link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-                  }}
-                />
-              </section>
-            </li>
-            <li>
-              <header>
-                <Number>2</Number>
-                <h3>Vous voulez lancer votre projet ?</h3>
-              </header>
-              <section>
-                <p>
-                  Choisissez votre Accompagnateur Rénov’, l’interlocuteur de
-                  confiance agréé par France Rénov’ qui vous accompagne de
-                  bout-en-bout dans votre parcours de travaux.
-                </p>
-
-                <MapBehindCTA
-                  {...{
-                    codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
-                    text: 'Trouver mon accompagnateur',
-                    link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-                    importance: 'emptyBackground',
-                  }}
-                />
-              </section>
-            </li>
-          </ol>
-        </>
-      )}
+            what: 'trouver-conseiller-renov',
+            text: 'Trouver mon conseiller',
+            link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+          }}
+        />
+      </section>
       <QuestionsRéponses
         {...{
           engine,
