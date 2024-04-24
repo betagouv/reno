@@ -211,7 +211,8 @@ export default function DPEScenario({
                 `}
               />
               <p>
-                À vos calculs : pour une enveloppe de travaux de rénovation de{' '}
+                À vos calculs : pour une enveloppe de travaux de rénovation
+                énergétique de{' '}
                 <label>
                   <Input
                     css={`
