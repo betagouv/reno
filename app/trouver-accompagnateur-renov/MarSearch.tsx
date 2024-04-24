@@ -27,14 +27,36 @@ export default function MarSearch({
     if (!codeInsee) return
     const doFetch = async () => {
       const whereClause = encodeURIComponent(
-        `startsWith(ancien_code_pivot, 'fr_renov-${codeInsee}')`,
+        `startsWith(ancien_code_pivot, 'fr_renov-')`,
       )
+
+      // Using the "exports" endpoint instead of "record" lets us query all 300 features, and then find the closest one. So we download 300ko initially, which is not optimal but simpler than building our indexed DB locally by geo distance
       const request = await fetch(
-        `https://api-lannuaire.service-public.fr/api/explore/v2.1/catalog/datasets/api-lannuaire-administration/records?where=${whereClause}`,
+        `https://api-lannuaire.service-public.fr/api/explore/v2.1/catalog/datasets/api-lannuaire-administration/exports/json?where=${whereClause}`,
       )
+
+      const coordsRequest = await fetch(
+        `https://geo.api.gouv.fr/communes/${codeInsee}?fields=centre`,
+      )
+
+      const coords = await coordsRequest.json()
+
       const rawData = await request.json()
 
-      const result = rawData.results[0]
+      const centreDistance = (el) => {
+        const address = JSON.parse(el.adresse || '[{}]')[0]
+        if (!address || !address.longitude || !address.latitude) return Infinity
+        return computeDistance(coords.centre, {
+          type: 'Point',
+          coordinates: [address.longitude, address.latitude],
+        })
+      }
+
+      const closest = rawData.sort(
+        (a, b) => centreDistance(a) > centreDistance(b),
+      )
+
+      const result = closest[0]
 
       // We bypass the following geolocation code, per https://github.com/betagouv/reno/issues/74#issuecomment-2036347206
       return setData([result])
