@@ -83,13 +83,13 @@ export default function Page() {
               <li>
                 <span>
                   <div>
-                    {' '}
                     Au 1er janvier <strong>2028</strong>
                   </div>
                   <small> (dans {timeIsRunningOut('2028-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de louer un DPE de classe <DPELabel index="5" />
+                  Interdiction de louer un DPE de classe
+                  <DPELabel index="5" />
                 </span>
               </li>
               <li>
