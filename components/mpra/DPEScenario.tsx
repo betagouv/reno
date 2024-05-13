@@ -222,18 +222,20 @@ export default function DPEScenario({
                 }}
               />{' '}
               de travaux, soit jusqu'à{' '}
-              <Value
-                {...{
-                  engine,
-                  index: choice,
-                  situation: {
-                    ...situation,
-                    'projet . travaux': 999999,
-                    'projet . DPE visé': choice + 1,
-                  },
-                  dottedName: 'MPR . accompagnée . montant',
-                }}
-              />
+              <PrimeStyle>
+                <Value
+                  {...{
+                    engine,
+                    index: choice,
+                    situation: {
+                      ...situation,
+                      'projet . travaux': 999999,
+                      'projet . DPE visé': choice + 1,
+                    },
+                    dottedName: 'MPR . accompagnée . montant',
+                  }}
+                />
+              </PrimeStyle>
               .
             </div>
           </li>

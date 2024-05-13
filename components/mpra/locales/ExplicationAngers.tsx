@@ -1,3 +1,4 @@
+import { PrimeStyle } from '@/components/Geste'
 import { Value } from '@/components/ScenariosSelector'
 
 const Base = ({ engine, situation, choice }) => (
@@ -26,19 +27,21 @@ const Base = ({ engine, situation, choice }) => (
       }}
     />{' '}
     de travaux, soit une aide complémentaire maximum de{' '}
-    <Value
-      {...{
-        engine,
-        index: choice,
-        situation: {
-          ...situation,
+    <PrimeStyle>
+      <Value
+        {...{
+          engine,
+          index: choice,
+          situation: {
+            ...situation,
 
-          'projet . travaux': 999999,
-          'projet . DPE visé': choice + 1,
-        },
-        dottedName: "métropole d'Angers . aides socles . montant",
-      }}
-    />
+            'projet . travaux': 999999,
+            'projet . DPE visé': choice + 1,
+          },
+          dottedName: "métropole d'Angers . aides socles . montant",
+        }}
+      />
+    </PrimeStyle>
     .
   </p>
 )
@@ -62,19 +65,21 @@ export default function ExplicationAngers({ engine, situation, choice }) {
           {conditionBBCAngers && (
             <li>
               Un bonus bâtiment basse consommation (BBC) de{' '}
-              <Value
-                {...{
-                  engine,
-                  index: choice,
-                  situation: {
-                    ...situation,
+              <PrimeStyle>
+                <Value
+                  {...{
+                    engine,
+                    index: choice,
+                    situation: {
+                      ...situation,
 
-                    'projet . DPE visé': choice + 1,
-                  },
-                  dottedName:
-                    "métropole d'Angers . prime basse consommation . montant",
-                }}
-              />
+                      'projet . DPE visé': choice + 1,
+                    },
+                    dottedName:
+                      "métropole d'Angers . prime basse consommation . montant",
+                  }}
+                />
+              </PrimeStyle>
               .
             </li>
           )}
