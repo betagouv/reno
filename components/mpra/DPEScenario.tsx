@@ -8,6 +8,8 @@ import Image from 'next/image'
 
 import calculatorIcon from '@/public/calculator-empty.svg'
 import Link from 'next/link'
+import { PrimeStyle } from '../Geste'
+import ExplicationAngers from './locales/ExplicationAngers'
 
 export default function DPEScenario({
   rules,
@@ -20,13 +22,6 @@ export default function DPEScenario({
   console.log('LightGreen', situation)
   if (choice == null) return null
 
-  const conditionBBCAngers = engine
-    .setSituation({ ...situation, 'projet . DPE visé': choice + 1 })
-    .evaluate(
-      "métropole d'Angers . prime basse consommation . conditions",
-    ).nodeValue
-
-  console.log('cyan', conditionBBCAngers)
   return (
     <>
       <motion.div
@@ -43,7 +38,7 @@ export default function DPEScenario({
           css={`
             padding: 1rem;
             margin: 0;
-            margin-top: -0.25rem; /* hack */
+            margin: -0.25rem 0 0 0 !important; /* hack */
             z-index: 42;
             position: relative;
             text-align: center;
@@ -77,18 +72,20 @@ export default function DPEScenario({
 
             <p>
               Jusqu'à{' '}
-              <Value
-                {...{
-                  engine,
-                  index: choice,
-                  situation: {
-                    ...situation,
-                    'projet . travaux': 999999,
-                    'projet . DPE visé': choice + 1,
-                  },
-                  dottedName: 'aides globales',
-                }}
-              />{' '}
+              <PrimeStyle>
+                <Value
+                  {...{
+                    engine,
+                    index: choice,
+                    situation: {
+                      ...situation,
+                      'projet . travaux': 999999,
+                      'projet . DPE visé': choice + 1,
+                    },
+                    dottedName: 'aides globales',
+                  }}
+                />
+              </PrimeStyle>{' '}
               d'aides.
             </p>
             <div
@@ -108,7 +105,7 @@ export default function DPEScenario({
                   src={calculatorIcon}
                   alt="Icône calculette"
                   css={`
-                    width: 2.2rem !important;
+                    width: 3rem !important;
                     height: auto !important;
                     margin-right: 0.8rem !important;
                   `}
@@ -138,6 +135,9 @@ export default function DPEScenario({
                         )
                       }}
                       step="100"
+                      css={`
+                        border-bottom: 2px solid #d1d1fb !important;
+                      `}
                     />
                     €{' '}
                     <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
@@ -180,120 +180,68 @@ export default function DPEScenario({
         <h4
           css={`
             text-align: left;
-            margin: 0rem 0 0.4rem 0;
+            margin: 0rem 0 0.8rem 0;
             color: gray;
             font-weight: 400;
           `}
         >
           Explications
         </h4>
-        <p>
-          Aide de l'État :
-          <Value
-            {...{
-              engine,
-              index: choice,
-              situation: {
-                ...situation,
-                'projet . DPE visé': choice + 1,
-              },
-              dottedName: 'MPR . accompagnée . pourcent dont bonus',
-            }}
-          />
-          du coût de vos travaux avec un plafond de{' '}
-          <Value
-            {...{
-              engine,
-              index: choice,
-              situation: {
-                ...situation,
-                'projet . DPE visé': choice + 1,
-              },
-              dottedName: 'projet . travaux . plafond',
-            }}
-          />{' '}
-          de travaux, soit jusqu'à{' '}
-          <Value
-            {...{
-              engine,
-              index: choice,
-              situation: {
-                ...situation,
-                'projet . travaux': 999999,
-                'projet . DPE visé': choice + 1,
-              },
-              dottedName: 'MPR . accompagnée . montant',
-            }}
-          />
-          .
-        </p>
-        <div>
-          Aide{conditionBBCAngers ? 's' : ''} de la métropole d'Angers :
-          <ul>
-            <li>
-              <p>
-                <Value
-                  {...{
-                    engine,
-                    index: choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: "métropole d'Angers . aides socles . taux",
-                  }}
-                />
-                du coût de vos travaux avec un plafond de{' '}
-                <Value
-                  {...{
-                    engine,
-                    index: choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName:
-                      "métropole d'Angers . aides socles . plafond de travaux HT",
-                  }}
-                />{' '}
-                de travaux, soit une aide complémentaire maximum de{' '}
-                <Value
-                  {...{
-                    engine,
-                    index: choice,
-                    situation: {
-                      ...situation,
+        <ol
+          css={`
+            list-style-type: circle;
+            li {
+              margin-bottom: 1rem;
+            }
+          `}
+        >
+          <li>
+            <div>Aide de l'État :</div>
+            <div>
+              <Value
+                {...{
+                  engine,
+                  index: choice,
+                  situation: {
+                    ...situation,
+                    'projet . DPE visé': choice + 1,
+                  },
+                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
+                }}
+              />
+              du coût de vos travaux avec un plafond de{' '}
+              <Value
+                {...{
+                  engine,
+                  index: choice,
+                  situation: {
+                    ...situation,
+                    'projet . DPE visé': choice + 1,
+                  },
+                  dottedName: 'projet . travaux . plafond',
+                }}
+              />{' '}
+              de travaux, soit jusqu'à{' '}
+              <Value
+                {...{
+                  engine,
+                  index: choice,
+                  situation: {
+                    ...situation,
+                    'projet . travaux': 999999,
+                    'projet . DPE visé': choice + 1,
+                  },
+                  dottedName: 'MPR . accompagnée . montant',
+                }}
+              />
+              .
+            </div>
+          </li>
 
-                      'projet . travaux': 999999,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: "métropole d'Angers . aides socles . montant",
-                  }}
-                />
-                .
-              </p>
-            </li>
-            {conditionBBCAngers && (
-              <li>
-                Un bonus bâtiment basse consommation (BBC) de{' '}
-                <Value
-                  {...{
-                    engine,
-                    index: choice,
-                    situation: {
-                      ...situation,
-
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName:
-                      "métropole d'Angers . prime basse consommation . montant",
-                  }}
-                />
-                .
-              </li>
-            )}
-          </ul>
-        </div>
+          <li>
+            <ExplicationAngers {...{ engine, situation, choice }} />
+          </li>
+        </ol>
         <Link
           title="Comprendre le calcul en détail"
           css={`
