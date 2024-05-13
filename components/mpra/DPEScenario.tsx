@@ -61,7 +61,7 @@ export default function DPEScenario({
               margin: 0.6rem 0;
             }
             h3 {
-              margin-top: 1rem;
+              margin-top: 0.6rem;
             }
           `}
         >
