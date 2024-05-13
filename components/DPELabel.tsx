@@ -1,3 +1,5 @@
+'use client'
+
 import dpeData from '@/components/DPE.yaml'
 
 export default function DPELabel({ index }) {
@@ -6,7 +8,8 @@ export default function DPELabel({ index }) {
     <span
       css={`
         background: ${couleur};
-        width: auto;
+        width: 1.6rem;
+        line-height: 1.5rem;
         display: inline-block;
         text-align: center;
         padding: 0.05rem 0.45rem;
