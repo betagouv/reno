@@ -77,7 +77,8 @@ export default function Page() {
                   <small>(dans {timeIsRunningOut('2025-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de louer un DPE de classe <DPELabel index="6" />
+                  Interdiction de louer un DPE de classe
+                  <DPELabel index="6" />
                 </span>
               </li>
               <li>
@@ -100,7 +101,8 @@ export default function Page() {
                   <small> (dans {timeIsRunningOut('2034-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de louer un DPE de classe <DPELabel index="4" />
+                  Interdiction de louer un DPE de classe
+                  <DPELabel index="4" />
                 </span>
               </li>
             </Calendrier>
