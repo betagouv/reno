@@ -19,7 +19,6 @@ export default function DPEScenario({
   situation,
   setSearchParams,
 }) {
-  console.log('LightGreen', situation)
   if (choice == null) return null
 
   return (
@@ -176,7 +175,16 @@ export default function DPEScenario({
         </Card>
       </motion.div>
 
-      <Card>
+      <Card
+        css={`
+          background: transparent;
+          border: none;
+          border-left: 3px solid #dfdff1;
+          border-radius: 0;
+          padding: 0rem 0 0rem 0.8rem;
+          margin: 2vh 0 3vh;
+        `}
+      >
         <h4
           css={`
             text-align: left;
