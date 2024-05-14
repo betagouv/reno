@@ -31,14 +31,9 @@ const Header = () => (
 export default function AidesLocales({ engine, situation }) {
   const locales = engine.setSituation(situation).evaluate('aides locales')
 
-  if (!locales.nodeValue)
-    return (
-      <section>
-        <Header>
-          <p>[dev] Nous n'avons pas trouvé d'aides locales pour vous.</p>
-        </Header>
-      </section>
-    )
+  console.log('indigo', locales)
+
+  if (!locales.nodeValue) return null
 
   const value = formatValue(locales)
 
