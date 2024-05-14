@@ -104,9 +104,9 @@ logement . résidence principale:
   question: Le logement est-il une résidence principale ?
   par défaut: oui
   description: |
-    Le logement à rénover **doit être une résidence principale**. Les résidences secondaires sont donc exclues.
+    Le logement à rénover **doit être une résidence principale**, la votre (propriétaire occupant) ou celle de votre locataire (vous êtes propriétaire bailleur). 
 
-    Que ce soit votre résidence principale (vous êtes propriétaire occupant), ou celle de votre locataire (propriétaire bailleur), elle doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation.
+    Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
 
     Si vous comptez louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
