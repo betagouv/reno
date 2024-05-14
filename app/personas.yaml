@@ -198,6 +198,7 @@
     DPE . actuel: 3
     projet . DPE visé: 2
     ménage . code région: "'53'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
     MPR . non accompagnée . éligible: non
@@ -208,6 +209,7 @@
     ménage . personnes: 2
     ménage . revenu: 54072
     DPE . actuel: 3
+    logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 30
     MPR . non accompagnée . éligible: non
