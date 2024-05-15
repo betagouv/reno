@@ -6,7 +6,11 @@ export const P = styled.p`
   line-height: 1.8rem;
 `
 export const Key = styled.em`
+  border-radius: 0.2rem;
+  white-space: nowrap;
   font-weight: bold;
+  padding: 0.1rem 0.4rem 0.05rem;
+
   ${(p) =>
     p.$state !== 'none' &&
     `background: #e9e9e9;
@@ -15,6 +19,7 @@ export const Key = styled.em`
 
   white-space: nowrap;
   font-style: normal;
+
   ${(p) =>
     p.$state === 'inProgress'
       ? `
@@ -27,7 +32,20 @@ export const Key = styled.em`
   background: var(--lighterColor);
   border-color: var(--lighterColor0);
   `
-        : ''};
+        : p.$state === 'prime'
+          ? `
+
+  color: #356e3e;
+  background: #bef2c5;
+  border-color: #356e3e4d;
+  `
+          : p.$state === 'prime-secondary'
+            ? `
+    background: transparent; border: none; font-weight: 500;text-decoration: underline solid #356e3e; color: #356e3e;
+
+  padding: 0.1rem 0.1rem 0.05rem;
+		  `
+            : ''};
   line-height: 1.4rem;
   display: inline-block;
   min-width: 3rem;

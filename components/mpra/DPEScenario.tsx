@@ -80,20 +80,19 @@ export default function DPEScenario({
 
             <p>
               Jusqu'à{' '}
-              <PrimeStyle>
-                <Value
-                  {...{
-                    engine,
-                    index: choice,
-                    situation: {
-                      ...situation,
-                      'projet . travaux': 999999,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: 'aides globales',
-                  }}
-                />
-              </PrimeStyle>{' '}
+              <Value
+                {...{
+                  engine,
+                  index: choice,
+                  situation: {
+                    ...situation,
+                    'projet . travaux': 999999,
+                    'projet . DPE visé': choice + 1,
+                  },
+                  dottedName: 'aides globales',
+                  state: 'prime',
+                }}
+              />{' '}
               d'aides.
             </p>
             <div
@@ -162,6 +161,7 @@ export default function DPEScenario({
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: 'aides globales',
+                      state: 'final',
                     }}
                   />
                   , ce qui me laissera un reste à charge de{' '}
@@ -174,6 +174,7 @@ export default function DPEScenario({
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: 'projet . investissement',
+                      state: 'final',
                     }}
                   />
                   .

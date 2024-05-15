@@ -3,7 +3,6 @@ import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 
 import Link from 'next/link'
-import { PrimeStyle } from '../Geste'
 import ExplicationAngers from './locales/ExplicationAngers'
 
 export default function ExplicationsMPRA({
@@ -86,20 +85,19 @@ const Etat = ({ engine, situation, choice }) => (
   <section>
     <span>
       Aide de l'État jusqu'à{' '}
-      <PrimeStyle $secondary={true}>
-        <Value
-          {...{
-            engine,
-            index: choice,
-            situation: {
-              ...situation,
-              'projet . travaux': 999999,
-              'projet . DPE visé': choice + 1,
-            },
-            dottedName: 'MPR . accompagnée . montant',
-          }}
-        />
-      </PrimeStyle>{' '}
+      <Value
+        {...{
+          engine,
+          index: choice,
+          situation: {
+            ...situation,
+            'projet . travaux': 999999,
+            'projet . DPE visé': choice + 1,
+          },
+          dottedName: 'MPR . accompagnée . montant',
+          state: 'prime-secondary',
+        }}
+      />{' '}
       :
     </span>
     <span>
