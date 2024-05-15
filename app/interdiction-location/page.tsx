@@ -77,7 +77,7 @@ export default function Page() {
                   <small>(dans {timeIsRunningOut('2025-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de nouvelle location
+                  Interdiction de louer un DPE
                   <DPELabel index="6" />
                 </span>
               </li>
@@ -89,7 +89,7 @@ export default function Page() {
                   <small> (dans {timeIsRunningOut('2028-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de nouvelle location
+                  Interdiction de louer un DPE
                   <DPELabel index="5" />
                 </span>
               </li>
@@ -101,14 +101,25 @@ export default function Page() {
                   <small> (dans {timeIsRunningOut('2034-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de nouvelle location
+                  Interdiction de louer un DPE
                   <DPELabel index="4" />
                 </span>
               </li>
             </Calendrier>
             <p>
               Ces mesures s'appliqueront aux nouveaux contrats de location et
-              aux renouvellements ou reconductions tacites de contrats.{' '}
+              aux renouvellements ou reconductions tacites de contrats.
+            </p>
+            <p>
+              <small>
+                En ne respectant pas ce critère de dédence du logement, le
+                propriétaire bailleur s’expose à être contraint par le juge, à
+                la réalisation de travaux de rénovation, à une diminution du
+                montant du loyer ou la suspension de sa perception, et à une
+                suspension de la durée du bail.{' '}
+              </small>
+            </p>
+            <p>
               <a href="https://www.ecologie.gouv.fr/interdiction-location-et-gel-des-loyers-des-passoires-energetiques">
                 En savoir plus
               </a>
