@@ -99,6 +99,7 @@ export default function DPEScenario({
                 css={`
                   display: flex;
                   align-items: center;
+                  margin-top: 1rem;
                 `}
               >
                 <Image
@@ -110,7 +111,11 @@ export default function DPEScenario({
                     margin-right: 0.8rem !important;
                   `}
                 />
-                <p>
+                <p
+                  css={`
+                    line-height: 1.7rem;
+                  `}
+                >
                   Par exemple : pour une enveloppe de travaux de rénovation
                   énergétique de{' '}
                   <label>
@@ -118,7 +123,7 @@ export default function DPEScenario({
                       css={`
                         vertical-align: text-bottom;
                         padding: 0.2rem 0.3rem 0 0;
-                        max-width: 6.5rem !important;
+                        max-width: 6rem !important;
                       `}
                       autoFocus={false}
                       value={exampleSituation['projet . travaux']}
