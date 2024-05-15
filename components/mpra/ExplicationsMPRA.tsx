@@ -86,7 +86,7 @@ const Etat = ({ engine, situation, choice }) => (
   <section>
     <span>
       Aide de l'État jusqu'à{' '}
-      <PrimeStyle>
+      <PrimeStyle $secondary={true}>
         <Value
           {...{
             engine,

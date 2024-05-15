@@ -30,7 +30,7 @@ const Base = ({ engine, situation, choice, showTotal }) => (
     {showTotal ? (
       <span>
         , soit une aide complémentaire maximum de{' '}
-        <PrimeStyle>
+        <PrimeStyle $secondary={true}>
           <Value
             {...{
               engine,
@@ -63,7 +63,7 @@ export default function ExplicationAngers({ engine, situation, choice }) {
     <section>
       <span>
         Aide{conditionBBCAngers ? 's' : ''} de la métropole d'Angers jusqu'à{' '}
-        <PrimeStyle>
+        <PrimeStyle $secondary={true}>
           <Value
             {...{
               engine,
@@ -87,7 +87,7 @@ export default function ExplicationAngers({ engine, situation, choice }) {
           {conditionBBCAngers && (
             <li>
               Un bonus bâtiment basse consommation (BBC) de{' '}
-              <PrimeStyle>
+              <PrimeStyle $secondary={true}>
                 <Value
                   {...{
                     engine,
