@@ -41,7 +41,9 @@ export default function Result({
   situation,
 }) {
   const rule = rules[dottedName]
-  const evaluation = engine.evaluate(dottedName)
+  const evaluation = engine
+    .setSituation({ ...situation, 'projet . travaux': 999999 })
+    .evaluate(dottedName)
   console.log('result', evaluation)
 
   const value = formatValue(evaluation, { precision: 0 })
