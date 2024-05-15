@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { PrimeStyle } from '../Geste'
 import ExplicationAngers from './locales/ExplicationAngers'
 
+const roundToThousands = (value) => Math.round(value / 1000) * 1000
 export default function DPEScenario({
   rules,
   choice,
@@ -20,6 +21,13 @@ export default function DPEScenario({
   setSearchParams,
 }) {
   if (choice == null) return null
+
+  const exampleSituation = {
+    'projet . travaux': roundToThousands(
+      engine.evaluate('projet . enveloppe estimée').nodeValue,
+    ),
+    ...situation,
+  }
 
   return (
     <>
@@ -117,10 +125,10 @@ export default function DPEScenario({
                       css={`
                         vertical-align: text-bottom;
                         padding: 0.2rem 0.3rem 0 0;
-                        max-width: 8rem !important;
+                        max-width: 6.5rem !important;
                       `}
                       autoFocus={false}
-                      value={situation['projet . travaux'] || undefined}
+                      value={exampleSituation['projet . travaux']}
                       placeholder="mes travaux"
                       min="0"
                       onChange={(rawValue) => {
@@ -149,7 +157,7 @@ export default function DPEScenario({
                       engine,
                       choice,
                       situation: {
-                        ...situation,
+                        ...exampleSituation,
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: 'aides globales',
@@ -161,7 +169,7 @@ export default function DPEScenario({
                       engine,
                       choice,
                       situation: {
-                        ...situation,
+                        ...exampleSituation,
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: 'projet . investissement',
