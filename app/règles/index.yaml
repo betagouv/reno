@@ -368,28 +368,31 @@ projet . enveloppe estimée . par surface:
     - sinon: appartement
 
 projet . enveloppe estimée . par surface . appartement:
+  description: |
+    Ces montants sont fournis par l'étude https://premoclasse.fr. Il s'agit d'un ensemble de simulation sur la base de 2 300 logements. 
+
+    Des simulations sont faites sur les possibilités de rénovation, et un chiffre final de cout estimé est calculé pour un jeu de scénarios DPE actuel -> DPE visé. 
+
+    Pour les couples de DPE actuel -> visé qui ne sont pas couverts par l'étude, nous prenons simplement l'estimation du DPE visé disponible supérieur. Donc l'estimation du cout E -> C est celle de E -> B.
   variations:
     - si: DPE . actuel = 3
       alors:
         variations:
           - si: DPE visé = 1
             alors: 214
-          - si: DPE visé = 2
-            alors: 168
+          - sinon: 168
     - si: DPE . actuel = 4
       alors:
         variations:
           - si: DPE visé = 1
             alors: 238
-          - si: DPE visé = 2
-            alors: 204
+          - sinon: 204
     - si: DPE . actuel = 5
       alors:
         variations:
           - si: DPE visé = 1
             alors: 246
-          - si: DPE visé = 2
-            alors: 232
+          - sinon: 232
     - si: DPE . actuel = 6
       alors:
         variations:
@@ -397,8 +400,7 @@ projet . enveloppe estimée . par surface . appartement:
             alors: 458 # OUCH ! À creuser.
           - si: DPE visé = 2
             alors: 282
-          - si: DPE visé = 3
-            alors: 188
+          - sinon: 188
     - si: DPE . actuel = 7
       alors:
         variations:
@@ -406,8 +408,7 @@ projet . enveloppe estimée . par surface . appartement:
             alors: 321
           - si: DPE visé = 2
             alors: 296
-          - si: DPE visé = 3
-            alors: 208
+          - sinon: 208
 
 projet . enveloppe estimée . par surface . maison:
   variations:
@@ -416,22 +417,19 @@ projet . enveloppe estimée . par surface . maison:
         variations:
           - si: DPE visé = 1
             alors: 242
-          - si: DPE visé = 2
-            alors: 210
+          - sinon: 210
     - si: DPE . actuel = 4
       alors:
         variations:
           - si: DPE visé = 1
             alors: 288
-          - si: DPE visé = 2
-            alors: 244
+          - sinon: 244
     - si: DPE . actuel = 5
       alors:
         variations:
           - si: DPE visé = 1
             alors: 301
-          - si: DPE visé = 2
-            alors: 292
+          - sinon: 292
     - si: DPE . actuel = 6
       alors:
         variations:
@@ -439,8 +437,7 @@ projet . enveloppe estimée . par surface . maison:
             alors: 310
           - si: DPE visé = 2
             alors: 315
-          - si: DPE visé = 3
-            alors: 281
+          - sinon: 281
     - si: DPE . actuel = 7
       alors:
         variations:
@@ -448,15 +445,14 @@ projet . enveloppe estimée . par surface . maison:
             alors: 347
           - si: DPE visé = 2
             alors: 353
-          - si: DPE visé = 3
-            alors: 335
+          - sinon: 335
 
 projet . travaux:
   titre: Votre enveloppe des travaux
   question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
   groupe de questions: scénario MPRA
   unité: €
-  par défaut: 12 # enveloppe estimée
+  par défaut: enveloppe estimée
   suggestions:
     basse: 10000 €
     moyenne: 40000 €
