@@ -374,6 +374,8 @@ projet . enveloppe estimée . par surface . appartement:
     Des simulations sont faites sur les possibilités de rénovation, et un chiffre final de cout estimé est calculé pour un jeu de scénarios DPE actuel -> DPE visé. 
 
     Pour les couples de DPE actuel -> visé qui ne sont pas couverts par l'étude, nous prenons simplement l'estimation du DPE visé disponible supérieur. Donc l'estimation du cout E -> C est celle de E -> B.
+
+    À noter : l'étude n'est pas représentative des logements ! D'où notre réticence à en afficher les résultats comme de bonnes estimations : nous les utilisations uniquement comme la valeur par défaut d'un exemple.
   variations:
     - si: DPE . actuel = 3
       alors:
