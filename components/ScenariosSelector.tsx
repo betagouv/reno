@@ -10,7 +10,7 @@ import { Key } from './explications/ExplicationUI'
 import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
-import { omit } from './utils'
+import { omit, roundToThousands } from './utils'
 import { Number } from '@/app/simulation/Answers'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 
@@ -30,6 +30,13 @@ export default function ScenariosSelector({
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+
+  const exampleSituation = {
+    'projet . travaux': roundToThousands(
+      engine.evaluate('projet . enveloppe estimée').nodeValue,
+    ),
+    ...situation,
+  }
 
   return (
     <CustomQuestionWrapper>
@@ -64,7 +71,16 @@ export default function ScenariosSelector({
       ) : (
         <>
           <DPEScenario
-            {...{ rules, choice, oldIndex, engine, situation, setSearchParams }}
+            {...{
+              rules,
+              choice,
+              oldIndex,
+              engine,
+              situation,
+              setSearchParams,
+
+              exampleSituation,
+            }}
           />
 
           <section
@@ -108,7 +124,9 @@ export default function ScenariosSelector({
                 .
               </li>
               <li>
-                <Avance {...{ engine, rules, situation, choice }} />
+                <Avance
+                  {...{ engine, rules, situation, choice, exampleSituation }}
+                />
               </li>
               <li>
                 <p>
@@ -171,7 +189,14 @@ const AuditStyle = ({ children }) => (
     <span>{children}</span>
   </span>
 )
-export const Avance = ({ engine, rules, choice, situation }) => {
+
+export const Avance = ({
+  engine,
+  rules,
+  choice,
+  situation,
+  exampleSituation,
+}) => {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
   if (!['modeste', 'très modeste'].includes(evaluation.value))
     return (
@@ -189,8 +214,9 @@ export const Avance = ({ engine, rules, choice, situation }) => {
         {...{
           engine,
           choice,
-          situation: { ...situation, 'projet . DPE visé': choice + 1 },
+          situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
           dottedName: 'MPR . accompagnée . avance',
+          state: 'final',
         }}
       />
       , le reste sera un remboursement.

@@ -12,7 +12,6 @@ import { PrimeStyle } from '../Geste'
 import ExplicationAngers from './locales/ExplicationAngers'
 import ExplicationsMPRA from './ExplicationsMPRA'
 
-const roundToThousands = (value) => Math.round(value / 1000) * 1000
 export default function DPEScenario({
   rules,
   choice,
@@ -20,15 +19,9 @@ export default function DPEScenario({
   engine,
   situation,
   setSearchParams,
+  exampleSituation,
 }) {
   if (choice == null) return null
-
-  const exampleSituation = {
-    'projet . travaux': roundToThousands(
-      engine.evaluate('projet . enveloppe estimée').nodeValue,
-    ),
-    ...situation,
-  }
 
   return (
     <>
