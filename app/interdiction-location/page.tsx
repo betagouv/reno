@@ -77,7 +77,7 @@ export default function Page() {
                   <small>(dans {timeIsRunningOut('2025-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de louer un DPE de classe
+                  Interdiction de nouvelle location
                   <DPELabel index="6" />
                 </span>
               </li>
@@ -89,7 +89,7 @@ export default function Page() {
                   <small> (dans {timeIsRunningOut('2028-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de louer un DPE de classe
+                  Interdiction de nouvelle location
                   <DPELabel index="5" />
                 </span>
               </li>
@@ -101,19 +101,18 @@ export default function Page() {
                   <small> (dans {timeIsRunningOut('2034-01-01')})</small>
                 </span>
                 <span>
-                  Interdiction de louer un DPE de classe
+                  Interdiction de nouvelle location
                   <DPELabel index="4" />
                 </span>
               </li>
             </Calendrier>
             <p>
               Ces mesures s'appliqueront aux nouveaux contrats de location et
-              aux renouvellements ou reconductions tacites de contrats.
-            </p>
-            <p>
+              aux renouvellements ou reconductions tacites de contrats.{' '}
               <a href="https://www.ecologie.gouv.fr/interdiction-location-et-gel-des-loyers-des-passoires-energetiques">
-                En savoir plus.
+                En savoir plus
               </a>
+              .
             </p>
           </Content>
         </Wrapper>
