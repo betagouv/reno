@@ -1,8 +1,8 @@
 import { PrimeStyle } from '@/components/Geste'
 import { Value } from '@/components/ScenariosSelector'
 
-const Base = ({ engine, situation, choice }) => (
-  <p>
+const Base = ({ engine, situation, choice, showTotal }) => (
+  <span>
     <Value
       {...{
         engine,
@@ -26,24 +26,29 @@ const Base = ({ engine, situation, choice }) => (
         dottedName: "métropole d'Angers . aides socles . plafond de travaux HT",
       }}
     />{' '}
-    de travaux, soit une aide complémentaire maximum de{' '}
-    <PrimeStyle>
-      <Value
-        {...{
-          engine,
-          index: choice,
-          situation: {
-            ...situation,
+    de travaux
+    {showTotal ? (
+      <span>
+        , soit une aide complémentaire maximum de{' '}
+        <PrimeStyle>
+          <Value
+            {...{
+              engine,
+              index: choice,
+              situation: {
+                ...situation,
 
-            'projet . travaux': 999999,
-            'projet . DPE visé': choice + 1,
-          },
-          dottedName: "métropole d'Angers . aides socles . montant",
-        }}
-      />
-    </PrimeStyle>
-    .
-  </p>
+                'projet . travaux': 999999,
+                'projet . DPE visé': choice + 1,
+              },
+              dottedName: "métropole d'Angers . aides socles . montant",
+            }}
+          />
+        </PrimeStyle>
+        .
+      </span>
+    ) : null}
+  </span>
 )
 
 // This should be generalised to any local subvention
@@ -56,11 +61,28 @@ export default function ExplicationAngers({ engine, situation, choice }) {
 
   return (
     <section>
-      Aide{conditionBBCAngers ? 's' : ''} de la métropole d'Angers :
+      <span>
+        Aide{conditionBBCAngers ? 's' : ''} de la métropole d'Angers jusqu'à{' '}
+        <PrimeStyle>
+          <Value
+            {...{
+              engine,
+              index: choice,
+              situation: {
+                ...situation,
+                'projet . travaux': 999999,
+                'projet . DPE visé': choice + 1,
+              },
+              dottedName: "métropole d'Angers . aides",
+            }}
+          />
+        </PrimeStyle>{' '}
+        :
+      </span>
       {conditionBBCAngers ? (
         <ul>
           <li>
-            <Base {...{ engine, situation, choice }} />
+            <Base {...{ engine, situation, choice, showTotal: true }} />
           </li>
           {conditionBBCAngers && (
             <li>

@@ -84,8 +84,25 @@ export default function ExplicationsMPRA({
 
 const Etat = ({ engine, situation, choice }) => (
   <section>
-    <div>Aide de l'État :</div>
-    <div>
+    <span>
+      Aide de l'État jusqu'à{' '}
+      <PrimeStyle>
+        <Value
+          {...{
+            engine,
+            index: choice,
+            situation: {
+              ...situation,
+              'projet . travaux': 999999,
+              'projet . DPE visé': choice + 1,
+            },
+            dottedName: 'MPR . accompagnée . montant',
+          }}
+        />
+      </PrimeStyle>{' '}
+      :
+    </span>
+    <span>
       <Value
         {...{
           engine,
@@ -109,22 +126,7 @@ const Etat = ({ engine, situation, choice }) => (
           dottedName: 'projet . travaux . plafond',
         }}
       />{' '}
-      de travaux, soit jusqu'à{' '}
-      <PrimeStyle>
-        <Value
-          {...{
-            engine,
-            index: choice,
-            situation: {
-              ...situation,
-              'projet . travaux': 999999,
-              'projet . DPE visé': choice + 1,
-            },
-            dottedName: 'MPR . accompagnée . montant',
-          }}
-        />
-      </PrimeStyle>
-      .
-    </div>
+      de travaux.
+    </span>
   </section>
 )
