@@ -22,6 +22,7 @@ export default function ScenariosSelector({
   engine,
   rules,
 }) {
+  console.log('indigo plop', givenSituation)
   const situation = //omit(['projet . travaux'], givenSituation)
     givenSituation
 

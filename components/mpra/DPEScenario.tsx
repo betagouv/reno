@@ -110,7 +110,7 @@ export default function DPEScenario({
                   `}
                 />
                 <p>
-                  À vos calculs : pour une enveloppe de travaux de rénovation
+                  Par exemple : pour une enveloppe de travaux de rénovation
                   énergétique de{' '}
                   <label>
                     <Input
