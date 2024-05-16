@@ -111,6 +111,9 @@ export const PrimeStyle = styled.span`
   border-radius: 0.2rem;
   white-space: nowrap;
   ${(p) => p.$inactive && `background: #eee; color: #666`}
+  ${(p) =>
+    p.$secondary &&
+    `background: transparent; border: none; em {font-weight: 500;text-decoration: underline solid #49c75d}; border-radius: 0; padding: 0`}
 `
 export const Prime = ({ value, inactive = false }) => (
   <PrimeStyle $inactive={inactive}>

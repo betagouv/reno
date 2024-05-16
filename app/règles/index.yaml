@@ -18,8 +18,13 @@ aides:
   applicable si:
     est défini: MPR . choix
   somme:
-    - MPR . accompagnée
-    - MPR . non accompagnée
+    - MPR . accompagnée . montant
+    - MPR . non accompagnée . montant
+    - aides locales
+
+aides globales:
+  titre: Aides à la rénovation globale
+  formule: montant écrêté
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -90,14 +95,42 @@ vous . propriétaire . astuce:
 
 logement:
   titre: Votre logement
+
+logement . type:
+  question: Le logement est-il une maison ou un appartement ?
+  par défaut: "'maison'"
+  une possibilité:
+    possibilités:
+      - maison
+      - appartement
+logement . type . maison:
+logement . type . appartement:
+
+logement . surface:
+  question: Quelle est la surface de logement ?
+  par défaut: 91 m2
+  description: Renseignez la surface habitable du logement.
+  suggestions:
+    studio: 25 m2
+    2 pièces: 45 m2
+    3 pièces: 70 m2
+    maison: 120 m2
+    château 🏰: 1000 m2
+  notes: |
+    Pour le calcul de la surface moyenne, voir la [documentation Nos Gestes Climat](https://nosgestesclimat.fr/documentation/parc-fran%C3%A7ais/surface-moyenne).
+
+logement . propriétaire occupant:
+  question: Vivez-vous dans le logement à rénover (propriétaire occupant) ?
+  par défaut: non
+
 logement . résidence principale:
   titre: Résidence principale
   question: Le logement est-il une résidence principale ?
   par défaut: oui
   description: |
-    Le logement à rénover **doit être une résidence principale**. Les résidences secondaires sont donc exclues.
+    Le logement à rénover **doit être une résidence principale**, la votre (propriétaire occupant) ou celle de votre locataire (vous êtes propriétaire bailleur). 
 
-    Que ce soit votre résidence principale (vous êtes propriétaire occupant), ou celle de votre locataire (propriétaire bailleur), elle doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation.
+    Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
 
     Si vous comptez louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
@@ -173,6 +206,17 @@ ménage . revenu . classe:
       - si: région . IdF
         alors: barème IdF
       - sinon: barème
+
+logement . EPCI:
+  formule: commune
+  par défaut: '"242900314"'
+
+logement . commune:
+  applicable si: propriétaire occupant = non
+  titre: La commune du logement
+  question: Dans quelle commune se situe le logement ?
+  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre élligibilité aux aides locales.
+  par défaut: "'29200'"
 
 ménage:
   titre: Votre ménage
@@ -307,16 +351,110 @@ projet . travaux . notification:
   description: |
     Pour atteindre 2 sauts de DPE, il est en général nécessaire de prévoir une enveloppe de travaux de plusieurs milliers d'€.
 
+taux d'aides relatives:
+  somme:
+    - métropole d'Angers . aides socles . taux
+    - MPR . accompagnée . pourcent dont bonus
+
+montant d'aides absolues:
+  formule: métropole d'Angers . prime basse consommation . montant
+
+projet . enveloppe estimée:
+  formule: par surface * logement . surface
+projet . enveloppe estimée . par surface:
+  variations:
+    - si: logement . type = 'maison'
+      alors: maison
+    - sinon: appartement
+
+projet . enveloppe estimée . par surface . appartement:
+  description: |
+    Ces montants sont fournis par l'étude https://premoclasse.fr. Il s'agit d'un ensemble de simulation sur la base de 2 300 logements. 
+
+    Des simulations sont faites sur les possibilités de rénovation, et un chiffre final de cout estimé est calculé pour un jeu de scénarios DPE actuel -> DPE visé. 
+
+    Pour les couples de DPE actuel -> visé qui ne sont pas couverts par l'étude, nous prenons simplement l'estimation du DPE visé disponible supérieur. Donc l'estimation du cout E -> C est celle de E -> B.
+
+    À noter : l'étude n'est pas représentative des logements ! D'où notre réticence à en afficher les résultats comme de bonnes estimations : nous les utilisations uniquement comme la valeur par défaut d'un exemple.
+  variations:
+    - si: DPE . actuel = 3
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 214
+          - sinon: 168
+    - si: DPE . actuel = 4
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 238
+          - sinon: 204
+    - si: DPE . actuel = 5
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 246
+          - sinon: 232
+    - si: DPE . actuel = 6
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 458 # OUCH ! À creuser.
+          - si: DPE visé = 2
+            alors: 282
+          - sinon: 188
+    - si: DPE . actuel = 7
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 321
+          - si: DPE visé = 2
+            alors: 296
+          - sinon: 208
+
+projet . enveloppe estimée . par surface . maison:
+  variations:
+    - si: DPE . actuel = 3
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 242
+          - sinon: 210
+    - si: DPE . actuel = 4
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 288
+          - sinon: 244
+    - si: DPE . actuel = 5
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 301
+          - sinon: 292
+    - si: DPE . actuel = 6
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 310
+          - si: DPE visé = 2
+            alors: 315
+          - sinon: 281
+    - si: DPE . actuel = 7
+      alors:
+        variations:
+          - si: DPE visé = 1
+            alors: 347
+          - si: DPE visé = 2
+            alors: 353
+          - sinon: 335
+
 projet . travaux:
   titre: Votre enveloppe des travaux
   question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
   groupe de questions: scénario MPRA
   unité: €
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 20000 €
-      - sinon: 70000 €
+  par défaut: enveloppe estimée
   suggestions:
     basse: 10000 €
     moyenne: 40000 €
@@ -325,13 +463,6 @@ projet . travaux:
     Attention, renseignez l'enveloppe hors TVA. 
 
     Notez que le taux de TVA des travaux de rénovation énergétique varie en fonction des gestes, principalement de 5,5 % et parfois à 10 %.
-  # Je ne suis pas satisfait de cette formule
-  # Elle n'est pas lisible directement, elle résulte d'une inversion de formule à la main
-  # Car il semble y avoir un bug résultant d'un choc entre les mécanismes `plafond` et `résoudre la référence circulaire`
-  # https://github.com/publicodes/publicodes/issues/443
-  formule: investissement / (1 - MPR . accompagnée . pourcent dont bonus)
-  plafond: investissement + MPR . accompagnée . pourcent dont bonus * travaux . plafond
-  résoudre la référence circulaire: oui
 
 projet . travaux . TTC:
   formule: travaux * 1.055
@@ -345,10 +476,21 @@ MPR . accompagnée . avance:
   formule: 0.7 * montant
 
 MPR . accompagnée . montant:
-  formule: montant écrêté
+  titre: Aide accompagnée
+  applicable si: éligible
+  note: |
+    Nous calculons pour l'instant ici l'écrêtement au niveau de la règle "aides globales". En pratique pourtant, il semblerait que ce soit le montant de MaPrimeRénov' qui soit écrêté avant celui des aides locales et diverses.
+  formule: montant avant écrêtement
   unité: €
 
 MPR . accompagnée . montant écrêté:
+  valeur: montant
+  plafond: aides globales . montant écrêté
+
+MPR . accompagnée . montant avant écrêtement:
+  formule: pourcent dont bonus * projet . travaux . plafonnés
+
+aides globales . montant écrêté:
   description: |
     L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux *toutes taxes comprises (TTC)*.
 
@@ -356,19 +498,19 @@ MPR . accompagnée . montant écrêté:
 
     > Cela dit, le modèle actuel Mes Aides Réno ne donne pas encore la possibilité de calculer les autres aides, hors MPR (MaPrimeRénov'). 
 
-    Prenons l'exemple simple sans cumule, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
+    Prenons l'exemple simple sans cumul, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
 
     L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC des dépenses*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
 
     L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
 
-  valeur: montant avant écrêtement
+  valeur:
+    somme:
+      - MPR . accompagnée . montant
+      - métropole d'Angers . aides
   plafond: pourcent d'écrêtement * projet . travaux . TTC
 
-MPR . accompagnée . montant avant écrêtement:
-  formule: pourcent dont bonus * projet . travaux . plafonnés
-
-MPR . accompagnée . pourcent d'écrêtement:
+aides globales . pourcent d'écrêtement:
   titre: Taux maximum toutes aides sur enveloppe TTC
   description: |
     Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
@@ -392,6 +534,7 @@ projet . investissement:
       - si: simulation . mode = 'moyen'
         alors: 25000 €
       - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
+  formule: travaux - aides globales
 
 projet . travaux . plafonnés:
   plafond: plafond
@@ -474,6 +617,7 @@ MPR . non accompagnée:
     [Tous les détails](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=15).
 
 MPR . non accompagnée . montant:
+  titre: Aide non accompagnée
   valeur: gestes . montant
   applicable si: conditions communes
   non applicable si: conditions excluantes
@@ -504,12 +648,19 @@ MPR . accompagnée:
 
     [Tous les détails](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
 
-  valeur: montant
-  applicable si: conditions communes
-
 MPR . accompagnée . éligible:
   titre: Éligible parcours accompagné
-  formule: montant > 0
+  formule:
+    toutes ces conditions:
+      - conditions communes
+      - condition de sauts
+
+MPR . accompagnée . condition de sauts:
+  formule:
+    toutes ces conditions:
+      - DPE . actuel > 2
+      - sauts >= sauts minimum
+
 MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition:
   toutes ces conditions:
@@ -521,7 +672,8 @@ MPR . accompagnée . bonus:
     Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
   applicable si: condition
   valeur: 10 %
-
+MPR . accompagnée . montant si assiette maximum:
+  formule: MPR . accompagnée . pourcent dont bonus * projet . travaux . plafond
 MPR . accompagnée . pourcent dont bonus:
   titre: '% accompagné dont bonus'
   formule: pourcent brut + bonus

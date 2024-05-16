@@ -80,7 +80,7 @@ export default function QuestionsRéponses({
               plan de financement.
             </li>
             <li>
-              Votre Accompagnateur Rénov’ vous accompagne dans le dossier de
+              Votre Accompagnateur Rénov’ vous accompagne dans le dossier de{' '}
               <a href="http://maprimerenov.gouv.fr/">dépot de demande d’aide</a>
               .
             </li>

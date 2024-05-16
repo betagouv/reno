@@ -46,6 +46,7 @@ function Form({ rules }) {
       ),
     )
 
+  console.log('blue validatedSituation', validatedSituation)
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,
@@ -53,6 +54,9 @@ function Form({ rules }) {
       simulationConfig,
       rules,
     )
+
+  console.log('blue', nextQuestions)
+
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 

@@ -29,3 +29,5 @@ export const debounce = <F extends (...args: any[]) => void>(
     timeoutId = setTimeout(() => fn(...args), waitFor)
   }
 }
+export const roundToThousands = (value, thousands = 1) =>
+  Math.round(value / (1000 * thousands)) * 1000 * thousands

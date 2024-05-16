@@ -8,9 +8,10 @@
     projet . DPE visé: 2
     projet . travaux: 70140 / (1.055)
     ménage . code région: "'27'" # Doubs
+    logement . propriétaire occupant: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
-    MPR . accompagnée: 59835
+    MPR . accompagnée . montant: 59835
     MPR . non accompagnée . éligible: oui
 - description: |
     3 sauts de DPE, enveloppe de 53200 k€ TTC, couple intermédiaire.
@@ -22,9 +23,10 @@
     projet . DPE visé: 4
     projet . travaux: 53200 / (1.055)
     ménage . code région: "'24'" # Cher
+    logement . propriétaire occupant: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée: 30256
+    MPR . accompagnée . montant: 30256
     MPR . non accompagnée . éligible: oui
 
 - description: |
@@ -37,8 +39,9 @@
     projet . DPE visé: 1
     projet . travaux: 49300
     ménage . code région: "'53'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée: 24650
+    MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple aisé., passoire, 4 sauts,  ~ 70k € de travaux
@@ -49,6 +52,8 @@
     DPE . actuel: 6
     projet . DPE visé: 2
     ménage . code région: "'52'"
+    logement . propriétaire occupant: non
+    logement . commune: "'29019'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 45
     MPR . non accompagnée . éligible: non
@@ -61,6 +66,8 @@
     DPE . actuel: 5
     projet . DPE visé: 4
     ménage . code région: '"52"'
+    logement . propriétaire occupant: non
+    logement . commune: "'29019'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
     MPR . non accompagnée . éligible: oui
@@ -73,6 +80,7 @@
     DPE . actuel: 5
     projet . DPE visé: 2
     ménage . code région: "'52'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 35
     MPR . non accompagnée . éligible: non
@@ -93,8 +101,10 @@
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'53'"
+    logement . propriétaire occupant: non
+    logement . commune: "'29006'"
   valeurs attendues:
-    MPR . accompagnée: 24500
+    MPR . accompagnée . montant: 24500
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 58k donc plafonnée, Bretagne.
@@ -106,8 +116,9 @@
     projet . DPE visé: 1
     projet . travaux: 58000
     ménage . code région: "'53'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée: 27500
+    MPR . accompagnée . montant: 27500
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
@@ -119,8 +130,9 @@
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'11'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée: 29400
+    MPR . accompagnée . montant: 29400
     MPR . non accompagnée . éligible: oui
 - description: |
     Ménage seul au revenu 28567.8 juste avant le seuil modeste en IdF.
@@ -129,6 +141,7 @@
     ménage . personnes: 1
     ménage . revenu: 28657.8
     ménage . code région: "'11'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
     ménage . revenu . classe: modeste
 - description: |
@@ -138,6 +151,7 @@
     ménage . personnes: 1
     ménage . revenu: 28658
     ménage . code région: "'11'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
     ménage . revenu . classe: intermédiaire
 - description: |
@@ -148,6 +162,7 @@
     ménage . revenu: 25000
     DPE . actuel: 4
     ménage . code région: "'53'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . éligible: oui
     MPR . non accompagnée . éligible: oui
@@ -159,6 +174,7 @@
     ménage . revenu: 80000
     DPE . actuel: 7
     ménage . code région: "'53'"
+    logement . propriétaire occupant: 92051
   valeurs attendues:
     MPR . accompagnée . éligible: oui
     MPR . non accompagnée . éligible: non
@@ -182,6 +198,7 @@
     DPE . actuel: 3
     projet . DPE visé: 2
     ménage . code région: "'53'"
+    logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
     MPR . non accompagnée . éligible: non
@@ -192,7 +209,22 @@
     ménage . personnes: 2
     ménage . revenu: 54072
     DPE . actuel: 3
+    logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 30
     MPR . non accompagnée . éligible: non
     ménage . revenu . classe: 'supérieure'
+- description: |
+    Aide locale Angers pour rénovation globale.
+  situation:
+    conditions communes: oui
+    ménage . personnes: 2
+    ménage . revenu: 31000
+    DPE . actuel: 5
+    ménage . commune: "'49007'"
+    logement . EPCI: "'244900015'"
+    logement . propriétaire occupant: oui
+  valeurs attendues:
+    métropole d'Angers . aides socles . taux: 10
+    métropole d'Angers . prime basse consommation . montant: 1500
+    ménage . revenu . classe: 'modeste'
