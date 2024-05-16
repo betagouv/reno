@@ -55,7 +55,7 @@ function Form({ rules }) {
       rules,
     )
 
-  console.log('blue', nextQuestions)
+  console.log('blue', { target, nextQuestions })
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]

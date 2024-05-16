@@ -170,6 +170,7 @@ export default function InputSwitch({
                 {
                   ...situation,
                   'ménage . code région': `"${codeRegion}"`,
+                  'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
                 },
                 false,
