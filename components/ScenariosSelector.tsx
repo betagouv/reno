@@ -34,6 +34,7 @@ export default function ScenariosSelector({
   const exampleSituation = {
     'projet . travaux': roundToThousands(
       engine.evaluate('projet . enveloppe estimée').nodeValue,
+      5,
     ),
     ...situation,
   }
