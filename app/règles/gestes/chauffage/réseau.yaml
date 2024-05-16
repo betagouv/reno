@@ -1,0 +1,43 @@
+chauffage . raccordement réseau . chaleur:
+  par défaut: oui
+  titre: Raccordement à un réseau de chaleur
+  description: |
+    Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
+  somme:
+    - MPR
+    - CEE
+
+chauffage . raccordement réseau . chaleur . MPR: plafond * montant
+
+chauffage . raccordement réseau . chaleur . MPR . plafond:
+  valeur: 1800 €
+chauffage . raccordement réseau . chaleur . MPR . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1200 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 800 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 400 €
+    - sinon: 0 €
+
+chauffage . raccordement réseau . chaleur . CEE:
+  applicable si: projet . remplacement chaudière thermique
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 700 €
+    - sinon: 450 €
+
+chauffage . raccordement réseau . froid:
+  par défaut: oui
+  titre: Raccordement à un réseau de froid
+  description: |
+    Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
+
+    Il n'y a pas de prime coup de pouce CEE pour les réseaux de froid, contrairement au cas des réseaux de chaleur !
+
+chauffage . raccordement réseau . froid . plafond: chaud . plafond
+chauffage . raccordement réseau . froid . montant: chaud . montant

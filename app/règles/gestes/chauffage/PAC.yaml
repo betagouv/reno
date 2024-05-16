@@ -1,0 +1,77 @@
+chauffage . PAC:
+  titre: Pompe à chaleur
+
+chauffage . PAC . air-eau:
+  par défaut: oui
+  titre: Pompe à chaleur air/eau
+  description: Pompe à chaleur air/eau (dont PAC hybrides)
+  note: La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
+  somme:
+    - MPR
+    - CEE
+
+chauffage . PAC . air-eau . MPR:
+chauffage . PAC . air-eau . MPR . plafond: 12000 €
+chauffage . PAC . air-eau . MPR . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 5000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 3000 €
+    - sinon: 0 €
+
+chauffage . PAC . air-eau . CEE:
+  applicable si: projet . remplacement chaudière thermique
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - sinon: 2500 €
+
+chauffage . PAC . géo:
+  par défaut: oui
+  titre: Pompe à chaleur géothermique
+  description: Pompe à chaleur géothermique
+  note: |
+    Le guide Anah parle de PAC géo ou solarothermique *dont hybride*. Ça me semble étonnant. D'après les ressources disponibles en ligne, l'hybridation avec une chaudière à combustile est surtout utilisée pour palier à la baisse de température de l'air, ce qui ne semble pas etre utile pour une PAC qui va puiser la chaleur dans le sol qui a pour particularité de garder une température plus constante toute l'année. Peut-etre est-ce utile pour palier à l'augmentation de la chaleur nécessaire à cause de la baisse de température ? À creuser, pour l'instant on ignore cette option.
+
+    La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est donc avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
+  somme:
+    - MPRA
+    - CEE
+
+chauffage . PAC . géo . MPR:
+chauffage . PAC . géo . MPR . plafond: 18000 €
+chauffage . PAC . géo . MPR . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 11000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 9000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 6000 €
+    - sinon: 0 €
+
+chauffage . PAC . géo . CEE:
+  applicable si: projet . remplacement chaudière thermique
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - sinon: 2500 €
+
+chauffage . PAC . solaire:
+  par défaut: oui
+  titre: Pompe à chaleur solarothermique
+  description: Pompe à chaleur solarothermique
+  valeur: MPR
+
+chauffage . PAC . solaire . MPR:
+chauffage . PAC . solaire . MPR . plafond: géo . MPR . plafond
+chauffage . PAC . solaire . MPR . montant: géo . MPR . montant

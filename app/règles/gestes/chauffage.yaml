@@ -16,21 +16,6 @@ chauffage:
     - foyer et insert . montant
     - fioul . dépose cuve . montant
 
-chauffage . raccordement réseau:
-  par défaut: oui
-  titre: Raccordement à un réseau de chaleur et/ou de froid
-chauffage . raccordement réseau . plafond:
-  valeur: 1800 €
-chauffage . raccordement réseau . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1200 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 800 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 400 €
-    - sinon: 0 €
-
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
 chauffage . chauffe-eau thermodynamique . plafond:
@@ -43,37 +28,6 @@ chauffage . chauffe-eau thermodynamique . montant:
       alors: 800 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
-    - sinon: 0 €
-
-chauffage . PAC:
-  titre: Pompe à chaleur
-chauffage . PAC . air-eau:
-  par défaut: oui
-  titre: Pompe à chaleur air/eau
-  description: Pompe à chaleur air/eau (dont PAC hybrides)
-chauffage . PAC . air-eau . plafond: 12000 €
-chauffage . PAC . air-eau . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 5000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 4000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 3000 €
-    - sinon: 0 €
-chauffage . PAC . géo ou solaire:
-  par défaut: oui
-  titre: Pompe à chaleur géo/solarothermique
-  description: Pompe à chaleur géothermique ou solarothermique (dont PAC hybrides)
-chauffage . PAC . géo ou solaire . plafond: 18000 €
-chauffage . PAC . géo ou solaire . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 11000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 9000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 6000 €
     - sinon: 0 €
 
 chauffage . chauffe-eau solaire:
@@ -98,7 +52,10 @@ chauffage . solaire combiné:
   par défaut: oui
   titre: Système solaire combiné
   description: |
-    Et dispositifs solaires pour le chauffage des locaux.
+    ...et dispositifs solaires pour le chauffage des locaux.
+
+    Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d’un chauffage central. Quand il fait également la production d’eau chaude, il est appelé  système solaire combiné (SSC)
+
 chauffage . solaire combiné . plafond: 16000 €
 chauffage . solaire combiné . montant:
   variations:

@@ -1,0 +1,20 @@
+CEE:
+
+CEE . logement:
+CEE . logement . condition d'ancienneté:
+  titre: Logement de + de 2 ans
+  formule: logement . période de construction = 'au moins 2 ans'
+
+CEE . conditions:
+  titre: Conditions d'élligibilité de base des CEE
+  toutes ces conditions:
+    # propriétaires ou locataires
+    # résidence principales ou secondaire
+    - CEE . logement . condition d'ancienneté
+
+projet . remplacement chaudière thermique:
+  question: Prévoyez-vous de remplacer une chaudière au gaz, au fioul ou au charbon ?
+  description: |
+    Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" CEE qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
+
+    À l'inverse, pour le dispositif MaPrimeRénov' par gestes, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
