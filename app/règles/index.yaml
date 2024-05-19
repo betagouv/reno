@@ -471,6 +471,7 @@ projet . travaux . TTC:
 MPR . accompagnée . avance:
   applicable si:
     une de ces conditions:
+      - ménage . revenu . classe = 'très très modeste'
       - ménage . revenu . classe = 'très modeste'
       - ménage . revenu . classe = 'modeste'
   formule: 0.7 * montant
@@ -588,6 +589,8 @@ MPR . non accompagnée . pourcentage d'écrêtement:
 
     Pour le détail de cet écrêtement, voir [cette page du guide complet PDF ANAH](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24).
   variations:
+    - si: ménage . revenu . classe = 'très très modeste'
+      alors: 90 %
     - si: ménage . revenu . classe = 'très modeste'
       alors: 90 %
     - si: ménage . revenu . classe = 'modeste'
@@ -686,6 +689,8 @@ MPR . accompagnée . pourcent brut:
     variations:
       - si: sauts < sauts minimum
         alors: 0 %
+      - si: ménage . revenu . classe = 'très très modeste'
+        alors: 60 % + 20 %
       - si: ménage . revenu . classe = 'très modeste'
         alors: 60 % + 20 %
       - si: ménage . revenu . classe = 'modeste'
@@ -710,6 +715,8 @@ MPR . accompagnée . prise en charge MAR:
   description: |
     L'État prend en charge tout ou une partie de la prestation du MAR (Mon accompagnateur rénov').
   variations:
+    - si: ménage . revenu . classe = 'très très modeste'
+      alors: 100 %
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
     - si: ménage . revenu . classe = 'modeste'
