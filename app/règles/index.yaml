@@ -517,6 +517,8 @@ aides globales . pourcent d'écrêtement:
 
     Il se calcule sur l'enveloppe **TTC**.
   variations:
+    - si: ménage . revenu . classe = 'très très modeste'
+      alors: 100 %
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
     - si: ménage . revenu . classe = 'modeste'
