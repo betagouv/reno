@@ -1,6 +1,7 @@
 import data from '@/app/faq/FAQ.yaml'
 import { Questions } from './FAQUI'
 import { parse } from 'marked'
+import css from '@/components/css/convertToJs'
 
 export default function FAQ() {
   return (
@@ -25,7 +26,13 @@ export default function FAQ() {
               </details>
             </li>
           ))}
-        <p>De nouvelles questions viendront bientôt completer cette page.</p>
+        <p
+          style={css`
+            font-style: italic;
+          `}
+        >
+          De nouvelles questions viendront bientôt completer cette page.
+        </p>
       </Questions>
     </section>
   )

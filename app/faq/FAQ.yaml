@@ -18,8 +18,18 @@
     Oui, les aides MaPrimeRénov accompagnée et par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
 
     Le dispositif MaPrimeRénov' copropriété pourra venir financer les travaux communs, et il peut être cumulé avec les parcours individuels MaPrimeRénov'.
+- question: Y a-t-il des aides locales pour ma rénovation ?
+  catégorie: local
+  réponse: |
+    Oui, de nombreuses communes, métropoles et communautés de communes ont voté des aides locales. 
 
+    Elles prennent diverses formes : complément au parcours accompagné MaPrimeRénov', bonus fixe de quelques milliers d'euros pour une rénovation BBC (DPE A ou B), ou encore subvention spécifique d'un geste comme l'installation de panneaux solaires. 
+
+    Nous les integrerons progressivement sur Mes Aides Réno. Si après avoir renseigné votre commune, nous n'en proposons pas, cela ne signifie pas qu'il n'y en a pas.
+
+############################
 #### Questions pas encore assez travaillées
+############################
 - question: Je suis en collocation
   catégorie: ménage
   désactivée: oui
