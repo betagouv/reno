@@ -1,4 +1,8 @@
 CEE:
+  note: |
+    Les CEE sont intégrés directement dans les règles `gestes`. 
+
+    Par exemple, la règle [pompe à chaleur](/documentation/gestes/chauffage/PAC), qui aura d'un côté des aides via MaPrimeRénov', d'un autre via les CEE.
 
 CEE . logement:
 CEE . logement . condition d'ancienneté:
