@@ -135,7 +135,18 @@
     MPR . accompagnée . montant: 29400
     MPR . non accompagnée . éligible: oui
 - description: |
-    Ménage seul au revenu 28567.8 juste avant le seuil modeste en IdF.
+    Personne seule au revenu très modeste en Bretagne
+  situation:
+    conditions communes: oui
+    ménage . personnes: 1
+    ménage . revenu: 13600
+    ménage . code région: "'53'"
+    logement . propriétaire occupant: oui
+  valeurs attendues:
+    ménage . revenu . classe: très très modeste
+    MPR . non accompagnée . éligible: oui
+- description: |
+    Personne seule au revenu 28567.8 juste avant le seuil modeste en IdF.
   situation:
     conditions communes: oui
     ménage . personnes: 1
@@ -145,7 +156,7 @@
   valeurs attendues:
     ménage . revenu . classe: modeste
 - description: |
-    Ménage seul au revenu 28568 juste avant le seuil modeste en IdF.
+    Personne seule au revenu 28568 juste avant le seuil modeste en IdF.
   situation:
     conditions communes: oui
     ménage . personnes: 1
