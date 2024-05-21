@@ -233,7 +233,7 @@
     ménage . revenu: 31000
     DPE . actuel: 5
     ménage . commune: "'49007'"
-    logement . EPCI: "'244900015'"
+    ménage . EPCI: "'244900015'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     métropole d'Angers . aides socles . taux: 10
