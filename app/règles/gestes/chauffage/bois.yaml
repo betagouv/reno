@@ -1,0 +1,80 @@
+chauffage . bois:
+  titre: Chauffage au bois (biomasse)
+
+chauffage . bois . chaudière:
+  titre: Chaudière bois
+  description: |
+    Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poême n'est souvent qu'un chauffage d'appoint.
+
+chauffage . bois . chaudière . manuelle:
+  titre: Chaudière bois manuelle (bûches)
+  description: Chaudière bois à alimentation manuelle (bûches)
+  par défaut: oui
+chauffage . bois . chaudière . manuelle . plafond: 16000 €
+chauffage . bois . chaudière . manuelle . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 5500 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 4500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 2000 €
+    - sinon: 0 €
+chauffage . bois . chaudière . automatique:
+  titre: Chaudière bois auto (granulés, plaquettes)
+  description: Chaudière bois à alimentation automatique (granulés, plaquettes)
+  par défaut: oui
+chauffage . bois . chaudière . automatique . plafond: 18000 €
+chauffage . bois . chaudière . automatique . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 7000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 5500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 3000 €
+    - sinon: 0 €
+
+chauffage . bois . foyer et insert:
+  par défaut: oui
+  titre: Foyer fermé et insert à buches ou à granulés
+chauffage . bois . foyer et insert . plafond: 4000 €
+chauffage . bois . foyer et insert . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1800 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 1000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 600 €
+    - sinon: 0 €
+
+chauffage . bois . poêle:
+  titre: Poêle et cuisinière
+chauffage . bois . poêle . à bûches:
+  par défaut: oui
+  titre: Poêle et cuisinière à bûches
+chauffage . bois . poêle . à bûches . plafond: 4000 €
+chauffage . bois . poêle . à bûches . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1800 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 1500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 700 €
+    - sinon: 0 €
+
+chauffage . bois . poêle . à granulés:
+  par défaut: oui
+  titre: Poêle et cuisinière à granulés
+chauffage . bois . poêle . à granulés . plafond: 5000 €
+chauffage . bois . poêle . à granulés . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1800 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 1500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 1000 €
+    - sinon: 0 €

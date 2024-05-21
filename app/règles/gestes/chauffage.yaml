@@ -9,10 +9,10 @@ chauffage:
     - chauffe-eau solaire . montant
     - solaire combiné . montant
     - partie thermique PVT eau . montant
-    - poêle . à bûches . montant
-    - poêle . à granulés . montant
-    - chaudière bois . manuelle . montant
-    - chaudière bois . automatique . montant
+    - bois . poêle . à bûches . montant
+    - bois . poêle . à granulés . montant
+    - bois . chaudière . manuelle . montant
+    - bois . chaudière . automatique . montant
     - foyer et insert . montant
     - fioul . dépose cuve . montant
 
@@ -81,82 +81,6 @@ chauffage . partie thermique PVT eau . montant:
       alors: 8000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
-    - sinon: 0 €
-
-chauffage . chaudière bois:
-  titre: Chaudière bois
-
-chauffage . chaudière bois . manuelle:
-  titre: Chaudière bois manuelle (bûches)
-  description: Chaudière bois à alimentation manuelle (bûches)
-  par défaut: oui
-chauffage . chaudière bois . manuelle . plafond: 16000 €
-chauffage . chaudière bois . manuelle . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 5500 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 4500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 2000 €
-    - sinon: 0 €
-chauffage . chaudière bois . automatique:
-  titre: Chaudière bois auto (granulés, plaquettes)
-  description: Chaudière bois à alimentation automatique (granulés, plaquettes)
-  par défaut: oui
-chauffage . chaudière bois . automatique . plafond: 18000 €
-chauffage . chaudière bois . automatique . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 7000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 5500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 3000 €
-    - sinon: 0 €
-
-chauffage . foyer et insert:
-  par défaut: oui
-  titre: Foyer fermé et insert à buches ou à granulés
-chauffage . foyer et insert . plafond: 4000 €
-chauffage . foyer et insert . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 1000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 600 €
-    - sinon: 0 €
-
-chauffage . poêle:
-  titre: Poêle et cuisinière
-chauffage . poêle . à bûches:
-  par défaut: oui
-  titre: Poêle et cuisinière à bûches
-chauffage . poêle . à bûches . plafond: 4000 €
-chauffage . poêle . à bûches . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 700 €
-    - sinon: 0 €
-
-chauffage . poêle . à granulés:
-  par défaut: oui
-  titre: Poêle et cuisinière à granulés
-chauffage . poêle . à granulés . plafond: 5000 €
-chauffage . poêle . à granulés . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 1000 €
     - sinon: 0 €
 
 chauffage . fioul:
