@@ -6,9 +6,9 @@ métropole d'Angers:
 
 métropole d'Angers . conditions de base:
   toutes ces conditions:
-    - logement . EPCI = '244900015'
-    - logement . propriétaire occupant
     - conditions de revenu
+    - logement . propriétaire occupant
+    - ménage . EPCI = '244900015'
 
 métropole d'Angers . aides:
   somme:
