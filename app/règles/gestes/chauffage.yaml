@@ -15,6 +15,26 @@ chauffage:
     - bois . chaudière . automatique . montant
     - bois . foyer et insert . montant
     - fioul . dépose cuve . montant
+    - pilotage connecté
+
+chauffage . pilotage connecté:
+  titre: Pilotage connecté pièce par pièce
+  description: |
+    Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
+  variations:
+    - si: surface chauffée < 35
+      alors: 260 €
+    - si: surface chauffée < 60
+      alors: 312 €
+    - si: surface chauffée < 70
+      alors: 364 €
+    - si: surface chauffée < 90
+      alors: 416 €
+    - si: surface chauffée < 110
+      alors: 520 €
+    - si: surface chauffée < 130
+      alors: 572 €
+    - sinon: 624 €
 
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
