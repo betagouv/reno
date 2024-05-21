@@ -22,3 +22,45 @@ projet . remplacement chaudière thermique:
     Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" CEE qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
 
     À l'inverse, pour le dispositif MaPrimeRénov' par gestes, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
+
+CEE . rénovation d'ampleur:
+  description: |
+    Primes minimales prévues par la charte "Coup de pouce rénovation d'ampleur de maisons et d'appartements individuels".
+
+CEE . rénovation d'ampleur . conditions:
+  description: |
+    Il n’est possible de mobiliser le coup de pouce « Rénovation d’ampleur » que pour les ménages non éligibles à MaPrimeRénov’ Parcours accompagné. Ce coup de pouce s’applique en maison 
+individuelle et en appartement.
+  toutes ces conditions: 
+    - MPR . accompagnée . élibible = non
+    - sauts >= 2
+    - logement . période de construction != 'moins de 2 ans'
+    # France métropolitaine seulement
+    # Entreprise RGE
+
+
+CEE . rénovation d'ampleur . montant:
+
+CEE . rénovation d'ampleur . montant non corrigé:
+  variations: 
+    - si: sauts = 2
+      alors: 4700 €
+    - si: sauts = 3
+      alors: 5800 €
+    - si: sauts >= 4
+      alors: 7400 €
+    - sinon: 0
+
+CEE . rénovation d'ampleur . facteur correctif:
+  variations: 
+    - si: surface habitable < 35
+      alors: 0.4
+    - si: surface habitable < 60
+      alors: 0.5
+    - si: surface habitable < 90
+      alors: 0.8
+    - si: surface habitable < 110
+      alors: 1
+    - si: surface habitable < 130
+      alors: 1.2
+    - sinon: 1.3
