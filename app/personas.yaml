@@ -143,7 +143,7 @@
     ménage . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    ménage . revenu . classe: très très modeste
+    métropole d'Angers . revenu très très modeste: oui
     MPR . non accompagnée . éligible: oui
 - description: |
     Personne seule au revenu 28567.8 juste avant le seuil modeste en IdF.
