@@ -8,7 +8,6 @@ import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { Avis, ExplicationCommune } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
-import AidesLocales from './AidesLocales'
 
 export default function MPRSelector({
   setSearchParams,

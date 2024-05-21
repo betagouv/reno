@@ -229,6 +229,10 @@ ménage . code région:
     Pays de la Loire: '"52"'
     IdF: "'11'"
 
+ménage . EPCI:
+  formule: commune
+  par défaut: '"242900314"'
+
 ménage . commune:
   titre: Votre commune
   question: Dans quelle commune habitez-vous ?
