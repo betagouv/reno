@@ -35,6 +35,16 @@ const nextConfig = {
     })
     return config
   },
+  async redirects() {
+    return [
+      // Basic redirect
+      {
+        source: '/guide',
+        destination: '/guide.html',
+        permanent: false,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
