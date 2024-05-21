@@ -13,7 +13,7 @@ chauffage:
     - bois . poêle . à granulés . montant
     - bois . chaudière . manuelle . montant
     - bois . chaudière . automatique . montant
-    - foyer et insert . montant
+    - bois . foyer et insert . montant
     - fioul . dépose cuve . montant
 
 chauffage . chauffe-eau thermodynamique:
@@ -55,9 +55,13 @@ chauffage . solaire combiné:
     ...et dispositifs solaires pour le chauffage des locaux.
 
     Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d’un chauffage central. Quand il fait également la production d’eau chaude, il est appelé  système solaire combiné (SSC)
+  somme:
+    - MPR
+    - CEE
 
-chauffage . solaire combiné . plafond: 16000 €
-chauffage . solaire combiné . montant:
+chauffage . solaire combiné . MPR:
+chauffage . solaire combiné . MPR . plafond: 16000 €
+chauffage . solaire combiné . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
@@ -66,6 +70,9 @@ chauffage . solaire combiné . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
     - sinon: 0 €
+chauffage . solaire combiné . CEE:
+  applicable si: projet . remplacement chaudière thermique
+  valeur: 5000 €
 
 chauffage . partie thermique PVT eau:
   titre: Partie thermique d’un équipement PVT eau

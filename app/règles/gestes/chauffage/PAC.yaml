@@ -58,13 +58,7 @@ chauffage . PAC . géo . MPR . montant:
 
 chauffage . PAC . géo . CEE:
   applicable si: projet . remplacement chaudière thermique
-  variations:
-    - si:
-        une de ces conditions:
-          - ménage . revenu . classe = 'très modeste'
-          - ménage . revenu . classe = 'modeste'
-      alors: 4000 €
-    - sinon: 2500 €
+  valeur: 5000 €
 
 chauffage . PAC . solaire:
   par défaut: oui

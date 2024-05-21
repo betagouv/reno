@@ -10,8 +10,13 @@ chauffage . bois . chaudière . manuelle:
   titre: Chaudière bois manuelle (bûches)
   description: Chaudière bois à alimentation manuelle (bûches)
   par défaut: oui
-chauffage . bois . chaudière . manuelle . plafond: 16000 €
-chauffage . bois . chaudière . manuelle . montant:
+  somme:
+    - MPR
+    - CEE
+
+chauffage . bois . chaudière . manuelle . MPR:
+chauffage . bois . chaudière . manuelle . MPR . plafond: 16000 €
+chauffage . bois . chaudière . manuelle . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 5500 €
@@ -20,6 +25,17 @@ chauffage . bois . chaudière . manuelle . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 2000 €
     - sinon: 0 €
+
+chauffage . bois . chaudière . manuelle . CEE:
+  applicable si: projet . remplacement chaudière thermique
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - sinon: 2500 €
+
 chauffage . bois . chaudière . automatique:
   titre: Chaudière bois auto (granulés, plaquettes)
   description: Chaudière bois à alimentation automatique (granulés, plaquettes)
@@ -34,6 +50,8 @@ chauffage . bois . chaudière . automatique . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
     - sinon: 0 €
+
+chauffage . bois . chaudière . automatique . CEE: chaudière . manuelle . CEE
 
 chauffage . bois . foyer et insert:
   par défaut: oui
