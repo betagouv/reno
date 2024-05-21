@@ -6,7 +6,8 @@
     "dev": "next dev -p 8080",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "start": "next start -p $PORT"
+    "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
+    "start": "node .next/standalone/server.js"
   },
   "dependencies": {
     "@adobe/css-tools": "^4.3.3",
@@ -28,6 +29,7 @@
     "publicodes": "^1.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.33.4",
     "styled-components": "^6.1.8",
     "typescript": "5.4.3",
     "use-debounce": "^10.0.0",
