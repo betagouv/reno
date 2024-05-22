@@ -107,9 +107,17 @@ logement . type . maison:
 logement . type . appartement:
 
 logement . surface:
-  question: Quelle est la surface de logement ?
+  titre: Surface habitable
+  question: Quelle est la surface habitable de logement ?
   par défaut: 91 m2
-  description: Renseignez la surface habitable du logement.
+  description: |
+
+    « La surface habitable d'un logement est la surface de plancher construite, après déduction des surfaces occupées par les murs, cloisons, marches et cages d'escaliers, gaines, embrasures de portes et de fenêtres. Le volume habitable correspond au total des surfaces habitables ainsi définies multipliées par les hauteurs sous plafond.
+    Il n'est pas tenu compte de la superficie des combles non aménagés, caves, sous-sols, remises, garages, terrasses, loggias, balcons, séchoirs extérieurs au logement, vérandas, volumes vitrés prévus à l'article R. 155-1, locaux communs et autres dépendances des logements, ni des parties de locaux d'une hauteur inférieure à 1,80 mètre1 »
+
+    *Article R156-1 du Code de la construction et de l'habitation*
+
+    Source : https://fr.wikipedia.org/wiki/Surface_habitable_(France)
   suggestions:
     studio: 25 m2
     2 pièces: 45 m2
@@ -234,7 +242,7 @@ logement . commune:
   applicable si: propriétaire occupant = non
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?
-  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre élligibilité aux aides locales.
+  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides locales.
   par défaut: "'29200'"
 
 ménage:
@@ -255,7 +263,7 @@ ménage . EPCI:
 ménage . commune:
   titre: Votre commune
   question: Dans quelle commune habitez-vous ?
-  sous-titre: Renseignez bien votre **adresse personnelle**. Elle définit votre élligibilité et le montant de l'aide.
+  sous-titre: Renseignez bien votre **adresse personnelle**. Elle définit votre éligibilité et le montant de l'aide.
   par défaut: "'29200'"
   description: |
 
@@ -582,7 +590,7 @@ projet . travaux . plafond:
   ## - sinon:
 
 conditions communes:
-  titre: Conditions d'élligibilité de base
+  titre: Conditions d'éligibilité de base
   toutes ces conditions:
     - vous . propriétaire . condition
     - logement . condition d'ancienneté

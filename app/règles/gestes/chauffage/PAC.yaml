@@ -40,8 +40,10 @@ chauffage . PAC . géo:
     Le guide Anah parle de PAC géo ou solarothermique *dont hybride*. Ça me semble étonnant. D'après les ressources disponibles en ligne, l'hybridation avec une chaudière à combustile est surtout utilisée pour palier à la baisse de température de l'air, ce qui ne semble pas etre utile pour une PAC qui va puiser la chaleur dans le sol qui a pour particularité de garder une température plus constante toute l'année. Peut-etre est-ce utile pour palier à l'augmentation de la chaleur nécessaire à cause de la baisse de température ? À creuser, pour l'instant on ignore cette option.
 
     La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est donc avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
+
+chauffage . PAC . géo . montant:
   somme:
-    - MPRA
+    - MPR
     - CEE
 
 chauffage . PAC . géo . MPR:
@@ -64,6 +66,8 @@ chauffage . PAC . solaire:
   par défaut: oui
   titre: Pompe à chaleur solarothermique
   description: Pompe à chaleur solarothermique
+
+chauffage . PAC . solaire . montant:
   valeur: MPR
 
 chauffage . PAC . solaire . MPR:

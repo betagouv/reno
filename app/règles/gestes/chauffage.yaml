@@ -2,25 +2,36 @@ chauffage:
   titre: Chauffage et eau chaude
   description: Chauffage et eau chaude sanitaire
   somme:
-    - raccordement réseau . montant
+    - raccordement réseau
     - chauffe-eau thermodynamique . montant
-    - PAC . air-eau . montant
-    - PAC . géo ou solaire . montant
+    - PAC . air-eau
+    - PAC . géo . montant
+    - PAC . solaire . montant
     - chauffe-eau solaire . montant
     - solaire combiné . montant
     - partie thermique PVT eau . montant
-    - bois . poêle . à bûches . montant
-    - bois . poêle . à granulés . montant
-    - bois . chaudière . manuelle . montant
-    - bois . chaudière . automatique . montant
+    - bois . poêle
+    - bois . chaudière
     - bois . foyer et insert . montant
     - fioul . dépose cuve . montant
-    - pilotage connecté
+    - pilotage connecté . montant
 
 chauffage . pilotage connecté:
+  par défaut: oui
   titre: Pilotage connecté pièce par pièce
   description: |
     Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
+
+#logement . surface chauffée:
+#question: Quelle est la surface chauffée de votre logement ?
+#par défaut: 100 m2 # estimation sur base de "surface" + ~10 % pour les escaliers, les combles habitées, etc
+
+chauffage . pilotage connecté . surface chauffée:
+  description: |
+    Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
+  valeur: logement . surface
+
+chauffage . pilotage connecté . montant:
   variations:
     - si: surface chauffée < 35
       alors: 260 €
@@ -75,6 +86,7 @@ chauffage . solaire combiné:
     ...et dispositifs solaires pour le chauffage des locaux.
 
     Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d’un chauffage central. Quand il fait également la production d’eau chaude, il est appelé  système solaire combiné (SSC)
+chauffage . solaire combiné . montant:
   somme:
     - MPR
     - CEE

@@ -2,6 +2,9 @@ import { parse } from 'marked'
 
 import gestes from '@/app/règles/gestes.yaml'
 import chauffage from '@/app/règles/gestes/chauffage.yaml'
+import réseau from '@/app/règles/gestes/chauffage/réseau.yaml'
+import PAC from '@/app/règles/gestes/chauffage/PAC.yaml'
+import bois from '@/app/règles/gestes/chauffage/bois.yaml'
 import isolation from '@/app/règles/gestes/isolation.yaml'
 import index from '@/app/règles/index.yaml'
 import revenus from '@/app/règles/revenus.yaml'
@@ -18,6 +21,9 @@ const rules = {
   ...prefix(gestes),
   ...prefix(chauffage),
   ...prefix(isolation),
+  ...prefix(réseau),
+  ...prefix(PAC),
+  ...prefix(bois),
   ...aidesLocales,
   ...CEE,
 }

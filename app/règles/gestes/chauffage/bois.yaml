@@ -5,11 +5,16 @@ chauffage . bois . chaudière:
   titre: Chaudière bois
   description: |
     Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poême n'est souvent qu'un chauffage d'appoint.
+  somme:
+    - manuelle . montant
+    - automatique . montant
 
 chauffage . bois . chaudière . manuelle:
   titre: Chaudière bois manuelle (bûches)
   description: Chaudière bois à alimentation manuelle (bûches)
   par défaut: oui
+
+chauffage . bois . chaudière . manuelle . montant:
   somme:
     - MPR
     - CEE
@@ -69,6 +74,9 @@ chauffage . bois . foyer et insert . montant:
 
 chauffage . bois . poêle:
   titre: Poêle et cuisinière
+  somme:
+    - à bûches . montant
+    - à granulés . montant
 chauffage . bois . poêle . à bûches:
   par défaut: oui
   titre: Poêle et cuisinière à bûches
