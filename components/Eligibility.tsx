@@ -121,11 +121,9 @@ export default function MPRSelector({
           />
         </li>
         <li>
-          {false && (
-            <ÀlaCarteSummary
-              {...{ engine, url: nextLink('à la carte'), situation }}
-            />
-          )}
+          <ÀlaCarteSummary
+            {...{ engine, url: nextLink('à la carte'), situation }}
+          />
         </li>
       </Results>
       <AutresAides />

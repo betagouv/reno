@@ -19,6 +19,25 @@ export default function ÀlaCarteSummary({ engine, url, situation }) {
       </header>
       <Card
         css={`
+          min-height: 10rem;
+        `}
+      ></Card>
+    </section>
+  )
+  return (
+    <section>
+      <header>
+        <h3>Rénover à la carte</h3>
+        <p
+          css={`
+            margin-top: 1.4rem;
+          `}
+        >
+          Rénovez progressivement via un bouquet de gestes subventionnés.
+        </p>
+      </header>
+      <Card
+        css={`
           color: ${fail ? '#888' : 'inherit'};
         `}
       >

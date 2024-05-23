@@ -115,7 +115,7 @@ export const PrimeStyle = styled.span`
   ${(p) => p.$inactive && `background: #eee; color: #666`}
   ${(p) =>
     p.$dashed &&
-    `border-style: dashed !important; background: #e4f3e6 !important`}
+    `border-style: dashed !important; background: #ecf6ee !important`}
   ${(p) =>
     p.$secondary &&
     `background: transparent; border: none; em {font-weight: 500;text-decoration: underline solid #49c75d}; border-radius: 0; padding: 0`}
