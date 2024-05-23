@@ -22,7 +22,7 @@ export default function AmpleurSummary({ engine, url, situation }) {
   return (
     <section>
       <header>
-        <h3>Faire un rénovation d'ampleur</h3>
+        <h3>Faire une rénovation d'ampleur</h3>
         <Labels
           $color={'#6E4444'}
           $background={'#fdf8db'}
@@ -43,6 +43,7 @@ export default function AmpleurSummary({ engine, url, situation }) {
           deux&nbsp;classes&nbsp;DPE.
         </p>
       </header>
+
       <Card
         css={`
           /* if nothing's active, grayscale the font ?
@@ -50,6 +51,7 @@ export default function AmpleurSummary({ engine, url, situation }) {
           margin-top: 0.2rem;
           background: white;
           padding-top: 1.2rem;
+          max-width: 32rem;
         `}
       >
         <SummaryAide
