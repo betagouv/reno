@@ -77,6 +77,17 @@ export default function AmpleurSummary({ engine, url, situation }) {
 
         <SummaryAide
           {...{
+            icon: 'ptz-bleu.svg',
+            text: 'PTZ',
+            text2: 'Prêt à taux zéro',
+            engine,
+            dottedName: 'PTZ . montant',
+            situation: { ...situation },
+            type: 'prêt',
+          }}
+        />
+        <SummaryAide
+          {...{
             icon: 'cee.svg',
             text: 'CEE',
             text2: "Rénovation d'ampleur",

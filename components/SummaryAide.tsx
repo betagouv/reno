@@ -14,6 +14,7 @@ export const SummaryAide = ({
   engine,
   situation,
   dottedName,
+  type = '',
 }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName)
   const value = formatValue(evaluation, { precision: 0 })
@@ -66,7 +67,7 @@ export const SummaryAide = ({
             display: inline-flex;
             align-items: center;
             img {
-              margin-right: 0.2rem;
+              margin-right: 0.1rem;
               ${!applicable && 'filter: grayscale(1)'}
             }
           `}
@@ -78,6 +79,7 @@ export const SummaryAide = ({
             height="25"
           />
           <span>{text}</span>
+          <span css="color: #aaa">-</span>
           <span>{text2}</span>
         </h4>
       </div>
@@ -97,8 +99,8 @@ export const SummaryAide = ({
               }
             `}
           >
-            <span>jusqu'à </span>
-            <PrimeStyle $inactive={false}>{value}</PrimeStyle>
+            <span>{type} jusqu'à </span>
+            <PrimeStyle $dashed={type === 'prêt'}>{value}</PrimeStyle>
           </small>
         )}
       </div>

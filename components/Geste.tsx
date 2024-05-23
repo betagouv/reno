@@ -110,7 +110,12 @@ export const PrimeStyle = styled.span`
   padding: 0.1rem 0.4rem 0.05rem;
   border-radius: 0.2rem;
   white-space: nowrap;
+  width: 4.5rem;
+  text-align: center;
   ${(p) => p.$inactive && `background: #eee; color: #666`}
+  ${(p) =>
+    p.$dashed &&
+    `border-style: dashed !important; background: #e4f3e6 !important`}
   ${(p) =>
     p.$secondary &&
     `background: transparent; border: none; em {font-weight: 500;text-decoration: underline solid #49c75d}; border-radius: 0; padding: 0`}

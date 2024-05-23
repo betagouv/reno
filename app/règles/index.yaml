@@ -758,10 +758,6 @@ MPR . accompagnée . prise en charge MAR:
       alors: 20 %
 
 PTZ:
-  applicable si:
-    toutes ces conditions:
-      - logement . résidence principale
-      - condition d'ancienneté
   titre: Éco-prêt à taux zéro
   description: |
 
@@ -800,8 +796,16 @@ PTZ:
     Il existe aussi un éco-PTZ [pour les copropriétaires](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
 
     Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
-PTZ . plafond:
-PTZ . montant: 50000 # pour MPR
+PTZ . montant:
+  applicable si:
+    toutes ces conditions:
+      - logement . résidence principale
+      - condition d'ancienneté
+  note: Impléméntation imparfaite du montant, voir la description de la règle PTZ.
+  variations:
+    - si: parcours d'aide = "ampleur"
+      alors: 50000 €
+    - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
 
 somme à engager:
   plancher: 0
