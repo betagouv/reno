@@ -13,7 +13,7 @@ import GestesMosaic, {
   isGestesMosaicQuestion,
 } from './GestesMosaic'
 import Input from './Input'
-import MPRSelector from './MPRSelector'
+import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
@@ -266,9 +266,9 @@ export default function InputSwitch({
     )
   }
 
-  if (['MPR . choix'].includes(currentQuestion))
+  if (["parcours d'aide"].includes(currentQuestion))
     return (
-      <MPRSelector
+      <Eligibility
         {...{
           currentQuestion,
           setSearchParams,

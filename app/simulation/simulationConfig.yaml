@@ -9,7 +9,7 @@ prioritaires:
   - ménage . revenu
   - DPE . actuel
   - logement . commune
-  - MPR . choix
+  - parcours d'aide
   # Le reste est non-linéaire, en fonction du choix
 non prioritaires:
   -

@@ -8,6 +8,8 @@ import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { Avis, ExplicationCommune } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
+import AmpleurSummary from './AmpleurSummary'
+import ÀlaCarteSummary from './ÀlaCarteSummary'
 
 export default function MPRSelector({
   setSearchParams,
@@ -113,31 +115,18 @@ export default function MPRSelector({
       )}
 
       <Results>
-        <Result
-          index={1}
-          key={'accompagnée'}
-          situation={situation}
-          {...{
-            engine: engine.setSituation(situation),
-            isFinal: !currentQuestion,
-            rules,
-            dottedName: 'MPR . accompagnée . montant',
-            url: nextLink(`MPR . accompagnée . montant`),
-          }}
-        />
-        <Result
-          index={2}
-          key={'non accompagnée'}
-          situation={situation}
-          {...{
-            engine: engine.setSituation(situation),
-            isFinal: !currentQuestion,
-            dottedName: 'MPR . non accompagnée . éligible',
-            hideNumeric: true,
-            rules,
-            url: nextLink(`MPR . non accompagnée . montant`),
-          }}
-        />
+        <li>
+          <AmpleurSummary
+            {...{ engine, url: nextLink('ampleur'), situation }}
+          />
+        </li>
+        <li>
+          {false && (
+            <ÀlaCarteSummary
+              {...{ engine, url: nextLink('à la carte'), situation }}
+            />
+          )}
+        </li>
       </Results>
       <AutresAides />
     </CustomQuestionWrapper>

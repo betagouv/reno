@@ -16,7 +16,7 @@ simulation . mode:
 
 aides:
   applicable si:
-    est défini: MPR . choix
+    est défini: parcours d'aide
   somme:
     - MPR . accompagnée . montant
     - MPR . non accompagnée . montant
@@ -599,17 +599,26 @@ conditions communes:
 MPR:
   titre: Choix de l'aide
 
-MPR . choix:
-  question: Vos résultats
+parcours d'aide:
+  question: Votre choix du parcours d'aide
   description: |
-    Nous avons estimé votre éligibilité générale aux 2 aides MaPrimeRénov'. 
 
+    Les aides à la rénovation énergétique sont séparées en deux grands parcours, qui sont exclusifs l'un à l'autre. 
+
+    Vous devez choisir entre d'un côté, une rénovation d'ampleur de votre logement, et de l'autre une rénovation à la carte d'un ou plusieurs gestes. 
+
+    Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'. 
+
+    Le parcours à la carte propose des gestes via MaPrimeRénov' par geste, ainsi que de nombreuses possibilité de subvention via les CEE, dont les primes bonifiées dites "coup de pouce". 
     La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
   par défaut:
-    texte: accompagnée
+    texte: ampleur
   possibilités:
-    - 'accompagnée'
-    - 'non accompagnée'
+    - 'ampleur'
+    - 'à la carte'
+
+parcours d'aide . ampleur:
+parcours d'aide . à la carte:
 
 MPR . non accompagnée . pourcentage d'écrêtement:
   description: |
