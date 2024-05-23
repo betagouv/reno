@@ -54,39 +54,38 @@ export default function AmpleurSummary({ engine, url, situation }) {
       >
         <SummaryAide
           {...{
-            condition: mpra,
-            icon: 'maprimerenov',
+            engine,
+            icon: 'maprimerenov.svg',
             text: "MaPrimeRénov'",
             text2: 'accompagnée',
+            dottedName: 'MPR . accompagnée . montant',
+            situation: { ...situation, 'projet . travaux': 999999 },
           }}
         />
-        <SummaryAide
-          {...{
-            condition: true,
-            icon: 'hexagone-contour',
-            text: 'Aide locale',
-            text2: 'Angers',
-          }}
-        />
-
-        {!hasMpra ? (
-          <div
-            css={`
-              margin: 1rem 0;
-              color: black;
-              text-align: center;
-            `}
-          >
-            <ExplicationMPRA {...{ engine, situation }} />
-          </div>
-        ) : (
-          <PrimeStyle $inactive={false}>
-            Jusqu'à <strong>{mpraValue}</strong>
-          </PrimeStyle>
-        )}
 
         {/* On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas ! */}
-        <AidesLocales {...{ engine, situation }} />
+        <SummaryAide
+          {...{
+            icon: 'hexagone-contour.svg',
+            text: 'Aide locale',
+            text2: 'Angers Métropole',
+            engine,
+            dottedName: 'aides locales',
+            situation: { ...situation, 'projet . travaux': 999999 },
+          }}
+        />
+
+        <SummaryAide
+          {...{
+            icon: 'cee.svg',
+            text: 'CEE',
+            text2: "Rénovation d'ampleur",
+            engine,
+            dottedName: "CEE . rénovation d'ampleur . montant",
+            situation: { ...situation },
+          }}
+        />
+
         <div
           css={`
             visibility: visible > div {

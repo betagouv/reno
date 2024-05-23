@@ -38,6 +38,8 @@ CEE . rénovation d'ampleur . conditions:
     # Entreprise RGE
 
 CEE . rénovation d'ampleur . montant:
+  applicable si: conditions
+  valeur: montant non corrigé * facteur correctif
 
 CEE . rénovation d'ampleur . montant non corrigé:
   variations:
