@@ -3,8 +3,10 @@ ampleur:
 ampleur . montant:
   somme:
     - MPR . accompagnée . montant
+    - MPR . accompagnée . prise en charge MAR
     - aides locales
     - CEE . rénovation d'ampleur . montant
+
 ampleur . prêt:
   somme:
     - PTZ . montant
@@ -16,6 +18,10 @@ liste:
     texte2: accompagnée
     situation:
       projet . travaux: 999999
+  - règle: MPR . accompagnée . prise en charge MAR
+    icône: maprimerenov.svg
+    texte: MaPrimeRénov'
+    texte2: accompagnement
   - icône: 'hexagone-contour.svg'
     texte: 'Aide locale'
     texte2: 'Angers Métropole'
