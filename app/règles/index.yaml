@@ -21,6 +21,8 @@ aides:
     - MPR . accompagnée . montant
     - MPR . non accompagnée . montant
     - aides locales
+    - PTZ . montant
+    - CEE . rénovation d'ampleur . montant
 
 aides globales:
   titre: Aides à la rénovation globale

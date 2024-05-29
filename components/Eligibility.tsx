@@ -37,12 +37,14 @@ export default function MPRSelector({
     }, [situation, engine]),
     mpra = mpraEvaluation.nodeValue,
     mprg = mprgEvaluation.nodeValue
+  /*
   console.log(
     'result 2',
     mpraEvaluation,
     mprgEvaluation,
     engine.evaluate('gestes . ventilation . double flux').nodeValue,
   )
+  */
 
   const both = mpra && mprg,
     none = !mpra && !mprg,

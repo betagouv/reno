@@ -1,30 +1,11 @@
 'use client'
 
-import Image from 'next/image'
-import { Label } from './Label'
 import checkIcon from '@/public/check-green.svg'
 import crossIcon from '@/public/remix-close-empty.svg'
-import { formatValue } from 'publicodes'
+import Image from 'next/image'
 import { PrimeStyle } from './Geste'
 
-export const SummaryAide = ({
-  icon,
-  text,
-  text2,
-  engine,
-  situation,
-  dottedName,
-  type = '',
-}) => {
-  const evaluation = engine.setSituation(situation).evaluate(dottedName)
-  const value = formatValue(evaluation, { precision: 0 })
-
-  const applicable = !(
-    value === 'Non applicable' ||
-    evaluation.nodeValue === 0 ||
-    value === 'non'
-  )
-
+export const SummaryAide = ({ icon, text, text2, type, eligible, value }) => {
   return (
     <section
       css={`
@@ -35,7 +16,7 @@ export const SummaryAide = ({
         css={`
           display: flex;
           align-items: center;
-          opacity: ${applicable ? '1' : '.75'};
+          opacity: ${eligible ? '1' : '.75'};
         `}
       >
         <span
@@ -50,7 +31,7 @@ export const SummaryAide = ({
             }
           `}
         >
-          {applicable ? (
+          {eligible ? (
             <Image src={checkIcon} alt={"Icône d'une coche"} />
           ) : (
             <Image src={crossIcon} alt="Icône d'une croix" />
@@ -68,7 +49,7 @@ export const SummaryAide = ({
             align-items: center;
             img {
               margin-right: 0.1rem;
-              ${!applicable && 'filter: grayscale(1)'}
+              ${!eligible && 'filter: grayscale(1)'}
             }
           `}
         >
@@ -89,7 +70,7 @@ export const SummaryAide = ({
           justify-content: end;
         `}
       >
-        {applicable && (
+        {eligible && (
           <small
             css={`
               display: flex;

@@ -1,11 +1,10 @@
 import { Labels } from '@/app/LandingUI'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
-import AidesLocales from './AidesLocales'
-import { PrimeStyle } from './Geste'
 import { SummaryAide } from './SummaryAide'
 import { CTA, CTAWrapper, Card } from './UI'
-import { ExplicationMPRA } from './explications/Éligibilité'
+
+import aidesAmpleur from '@/app/règles/ampleur.yaml'
 
 export default function AmpleurSummary({ engine, url, situation }) {
   const mpra = engine
@@ -18,6 +17,20 @@ export default function AmpleurSummary({ engine, url, situation }) {
     mpra.nodeValue === 0 ||
     mpraValue === 'non'
   )
+
+  const aides = aidesAmpleur.map((aide) => {
+    const evaluation = engine
+      .setSituation({ ...situation, ...aide.situation })
+      .evaluate(aide.règle)
+    const value = formatValue(evaluation, { precision: 0 })
+
+    const eligible = !(
+      value === 'Non applicable' ||
+      evaluation.nodeValue === 0 ||
+      value === 'non'
+    )
+    return { ...aide, evaluation, value, eligible }
+  })
 
   return (
     <section>
@@ -54,50 +67,18 @@ export default function AmpleurSummary({ engine, url, situation }) {
           max-width: 32rem;
         `}
       >
-        <SummaryAide
-          {...{
-            engine,
-            icon: 'maprimerenov.svg',
-            text: "MaPrimeRénov'",
-            text2: 'accompagnée',
-            dottedName: 'MPR . accompagnée . montant',
-            situation: { ...situation, 'projet . travaux': 999999 },
-          }}
-        />
-
-        {/* On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas ! */}
-        <SummaryAide
-          {...{
-            icon: 'hexagone-contour.svg',
-            text: 'Aide locale',
-            text2: 'Angers Métropole',
-            engine,
-            dottedName: 'aides locales',
-            situation: { ...situation, 'projet . travaux': 999999 },
-          }}
-        />
-
-        <SummaryAide
-          {...{
-            icon: 'ptz-bleu.svg',
-            text: 'PTZ',
-            text2: 'Prêt à taux zéro',
-            engine,
-            dottedName: 'PTZ . montant',
-            situation: { ...situation },
-            type: 'prêt',
-          }}
-        />
-        <SummaryAide
-          {...{
-            icon: 'cee.svg',
-            text: 'CEE',
-            text2: "Rénovation d'ampleur",
-            engine,
-            dottedName: "CEE . rénovation d'ampleur . montant",
-            situation: { ...situation },
-          }}
-        />
+        {aides.map((aide) => (
+          <SummaryAide
+            key={aide.règle}
+            {...{
+              ...aide,
+              icon: aide.icône,
+              text: aide.texte,
+              text2: aide.texte2,
+              type: aide.type,
+            }}
+          />
+        ))}
 
         <div
           css={`

@@ -1,0 +1,22 @@
+- règle: MPR . accompagnée . montant
+  icône: maprimerenov.svg
+  texte: MaPrimeRénov'
+  texte2: accompagnée
+  situation:
+    projet . travaux: 999999
+- icône: 'hexagone-contour.svg'
+  texte: 'Aide locale'
+  texte2: 'Angers Métropole'
+  règle: 'aides locales'
+  note: On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas !
+  situation:
+    projet . travaux: 999999
+- icône: 'ptz-bleu.svg'
+  texte: PTZ
+  texte2: Prêt à taux zéro
+  règle: 'PTZ . montant'
+  type: 'prêt'
+- icône: 'cee.svg'
+  texte: CEE
+  texte2: Rénovation d'ampleur
+  règle: "CEE . rénovation d'ampleur . montant"
