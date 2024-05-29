@@ -110,7 +110,7 @@ export const PrimeStyle = styled.span`
   padding: 0.1rem 0.4rem 0.05rem;
   border-radius: 0.2rem;
   white-space: nowrap;
-  width: 4.5rem;
+  width: fit-content;
   text-align: center;
   ${(p) => p.$inactive && `background: #eee; color: #666`}
   ${(p) =>

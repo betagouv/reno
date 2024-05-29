@@ -5,6 +5,7 @@ import { SummaryAide } from './SummaryAide'
 import { CTA, CTAWrapper, Card } from './UI'
 
 import aidesAmpleur from '@/app/règles/ampleur.yaml'
+import { PrimeStyle } from './Geste'
 
 export default function AmpleurSummary({
   engine,
@@ -13,18 +14,19 @@ export default function AmpleurSummary({
   expanded,
   setSearchParams,
 }) {
-  const mpra = engine
+  const evaluation = engine
     .setSituation({ ...situation, 'projet . travaux': 999999 })
-    .evaluate('MPR . accompagnée . montant')
-  const mpraValue = formatValue(mpra, { precision: 0 })
+    .evaluate('ampleur . montant')
 
-  const hasMpra = !(
-    mpraValue === 'Non applicable' ||
-    mpra.nodeValue === 0 ||
-    mpraValue === 'non'
+  const value = formatValue(evaluation, { precision: 0 })
+
+  const eligible = !(
+    value === 'Non applicable' ||
+    evaluation.nodeValue === 0 ||
+    value === 'non'
   )
 
-  const aides = aidesAmpleur.map((aide) => {
+  const aides = aidesAmpleur.liste.map((aide) => {
     const evaluation = engine
       .setSituation({ ...situation, ...aide.situation })
       .evaluate(aide.règle)
@@ -90,14 +92,39 @@ export default function AmpleurSummary({
           />
         ))}
 
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            span {
+              margin: 0 0.15rem;
+            }
+          `}
+        >
+          <span>
+            {expanded ? (
+              <span>
+                <strong>Au total</strong> jusqu'à
+              </span>
+            ) : (
+              <span>Jusqu'à</span>
+            )}
+          </span>
+          <PrimeStyle>{value}</PrimeStyle>
+        </div>
         <button
           css={`
             border: none;
             background: none;
+            text-align: right;
+            display: block;
+            margin: 0 0 0 auto;
+            color: gray;
           `}
         >
           <small onClick={() => expand()}>
-            Voir les montants aide par aide
+            {expanded ? 'Cacher' : 'Voir'} les montants aide par aide
           </small>
         </button>
         <div
