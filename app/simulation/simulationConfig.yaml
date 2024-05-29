@@ -1,12 +1,13 @@
 prioritaires:
   - vous . propriétaire . condition
-  - logement . résidence principale
+  - logement . propriétaire occupant
+  - logement . résidence principale propriétaire
+  - logement . résidence principale locataire
   - logement . période de construction
   - ménage . personnes
   - ménage . commune
   - ménage . revenu
   - DPE . actuel
-  - logement . propriétaire occupant
   - logement . commune
   - MPR . choix
   # Le reste est non-linéaire, en fonction du choix
