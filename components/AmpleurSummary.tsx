@@ -6,7 +6,13 @@ import { CTA, CTAWrapper, Card } from './UI'
 
 import aidesAmpleur from '@/app/règles/ampleur.yaml'
 
-export default function AmpleurSummary({ engine, url, situation }) {
+export default function AmpleurSummary({
+  engine,
+  url,
+  situation,
+  expanded,
+  setSearchParams,
+}) {
   const mpra = engine
     .setSituation({ ...situation, 'projet . travaux': 999999 })
     .evaluate('MPR . accompagnée . montant')
@@ -31,6 +37,9 @@ export default function AmpleurSummary({ engine, url, situation }) {
     )
     return { ...aide, evaluation, value, eligible }
   })
+
+  const expand = () =>
+    setSearchParams({ details: expanded ? undefined : 'oui' })
 
   return (
     <section>
@@ -76,10 +85,21 @@ export default function AmpleurSummary({ engine, url, situation }) {
               text: aide.texte,
               text2: aide.texte2,
               type: aide.type,
+              expanded,
             }}
           />
         ))}
 
+        <button
+          css={`
+            border: none;
+            background: none;
+          `}
+        >
+          <small onClick={() => expand()}>
+            Voir les montants aide par aide
+          </small>
+        </button>
         <div
           css={`
             visibility: visible > div {

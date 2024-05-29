@@ -5,7 +5,15 @@ import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import { PrimeStyle } from './Geste'
 
-export const SummaryAide = ({ icon, text, text2, type, eligible, value }) => {
+export const SummaryAide = ({
+  icon,
+  text,
+  text2,
+  type,
+  eligible,
+  value,
+  expanded,
+}) => {
   return (
     <section
       css={`
@@ -70,7 +78,7 @@ export const SummaryAide = ({ icon, text, text2, type, eligible, value }) => {
           justify-content: end;
         `}
       >
-        {eligible && (
+        {expanded && eligible && (
           <small
             css={`
               display: flex;

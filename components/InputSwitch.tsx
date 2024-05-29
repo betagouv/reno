@@ -276,6 +276,7 @@ export default function InputSwitch({
           answeredQuestions,
           engine,
           rules,
+          expanded: searchParams.details,
         }}
       />
     )

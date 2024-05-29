@@ -1,23 +1,23 @@
-import Result from '@/components/Result'
 import { Results } from '@/components/ResultUI'
 import checkIcon from '@/public/check.svg'
 import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import { useMemo } from 'react'
+import AmpleurSummary from './AmpleurSummary'
 import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { Avis, ExplicationCommune } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
-import AmpleurSummary from './AmpleurSummary'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
 
-export default function MPRSelector({
+export default function Eligibility({
   setSearchParams,
   situation,
   currentQuestion,
   answeredQuestions,
   rules,
   engine,
+  expanded,
 }) {
   const nextLink = (value) => {
     const url = setSearchParams(
@@ -119,7 +119,13 @@ export default function MPRSelector({
       <Results>
         <li>
           <AmpleurSummary
-            {...{ engine, url: nextLink('ampleur'), situation }}
+            {...{
+              engine,
+              url: nextLink('ampleur'),
+              situation,
+              expanded,
+              setSearchParams,
+            }}
           />
         </li>
         <li>
