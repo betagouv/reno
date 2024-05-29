@@ -124,15 +124,30 @@ logement . propriétaire occupant:
   par défaut: non
 
 logement . résidence principale:
-  titre: Résidence principale
-  question: Le logement est-il une résidence principale ?
+  description: |
+    Le logement à rénover **doit être une résidence principale**, la votre (propriétaire occupant) ou celle de votre locataire (vous êtes propriétaire bailleur).
+
+  une de ces conditions:
+    - résidence principale propriétaire
+    - résidence principale locataire
+
+logement . résidence principale propriétaire:
+  applicable si: propriétaire occupant
+  question: Le logement est-il votre résidence principale ?
   par défaut: oui
   description: |
-    Le logement à rénover **doit être une résidence principale**, la votre (propriétaire occupant) ou celle de votre locataire (vous êtes propriétaire bailleur). 
-
     Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
 
-    Si vous comptez louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
+    Si vous comptez mettre en location votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
+
+logement . résidence principale locataire:
+  non applicable si: propriétaire occupant
+  question: Le logement est-il la résidence principale de votre locataire ?
+  par défaut: oui
+  description: |
+    Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
+
+    Si vous comptez continuer de louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
 logement . année de construction:
   titre: Année de construction
