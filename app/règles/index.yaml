@@ -33,7 +33,7 @@ ménage . revenu:
     Votre revenu fiscal de référence se trouve sur la première page de votre dernier [avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu](https://www.service-public.fr/particuliers/vosdroits/F99).
   bornes intelligentes: oui
   description: |
-    Saisissez le « revenu fiscal de référence » des personnes composant le ménage. 
+    Saisissez le « revenu fiscal de référence » des personnes composant votre ménage. 
 
     Si ces dernières ont des avis d’imposition distincts, le montant à prendre en compte est la somme de leurs « revenus fiscaux de référence ».
 
@@ -209,6 +209,10 @@ ménage . personnes:
     couple: 2 personne
     couple + enfant: 3 personne
     couple + 2 enfants: 4 personne
+  description: |
+    Répondez pour votre ménage, pas le ménage occupant votre logement dans le cas où il serait en location.
+
+    💡 La composition de votre ménage nous permet d'appliquer le bon barème de revenus : vos aides sont conditionnées à votre revenu, pas celui de vos locataires.
 
 ménage . personnes plus:
   titre: Personnes de plus qu'un ménage de 5
