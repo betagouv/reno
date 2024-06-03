@@ -11,6 +11,8 @@ import index from '@/app/règles/index.yaml'
 import revenus from '@/app/règles/revenus.yaml'
 import aidesLocales from '@/app/règles/aides-locales.yaml'
 import CEE from '@/app/règles/CEE.yaml'
+import denormandie from '@/app/règles/denormandie.yaml'
+import taxeFoncière from '@/app/règles/taxe-foncière.yaml'
 
 const prefix = (rules) =>
   Object.fromEntries(
@@ -28,6 +30,8 @@ const rules = {
   ...aidesLocales,
   ...ampleur,
   ...CEE,
+  ...denormandie,
+  ...taxeFoncière,
 }
 
 const rulesWithMarkdown = Object.fromEntries(

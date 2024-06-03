@@ -1,0 +1,77 @@
+denormandie:
+
+denormandie . conditions:
+  toutes ces conditions:
+    - propriétaire occupant = non
+    - logement . location longue durée
+    - soumis à l'impôt
+    - amélioration énergétique
+    - ville éligible
+
+denormandie . ville éligible: 
+  description: |
+    Le dispositif Denormandie est disponible dans les 222 villes du [plan Action cœur de ville](https://www.cohesion-territoires.gouv.fr/programme-action-coeur-de-ville), mais certaines communes ayant signé une [opération de revitalisation du territoire](https://www.ecologie.gouv.fr/operation-revitalisation-territoire-ort) peuvent également proposer à des particuliers ou à des promoteurs d’investir, de rénover et de louer moyennant une défiscalisation.
+
+    Consulter la carte des villes sur [cette page du Ministère de l'Écologie](https://www.ecologie.gouv.fr/dispositif-denormandie-aide-fiscale-renovation-et-location).
+
+denormandie . amélioration énergétique:
+  toutes ces conditions: 
+    - seuil travaux minimum
+    - une de ces conditions: 
+        - gain énergétique minimum
+        - gestes minimum
+
+denormandie . plafonnement loyer et ressources locataire: 
+  description: |
+    Voir les grilles de plafonnement sur [cette page](https://www.ecologie.gouv.fr/dispositif-denormandie-aide-fiscale-renovation-et-location).
+
+  question: Allez-vous plafonner les loyers pour bénéficier de l'exonération d'impôt Denormandie ?
+denormandie . plafond: 
+  valeur: 300000 €
+  description: |
+  Le plafond des dépenses pris en charge est de 300 000 €. 
+
+  > Si le bien est acheté 450 000 € et que 150 000 € de travaux sont effectués, la déduction s’appliquera sur 300 000 €  et  non  sur  600 000 €.
+denormandie . DPE visé minimum: 
+  description: |
+    Après travaux, le logement doit être classé sur le diagnostic de performance énergétique en classe A à E.
+  formule: projet . DPE visé >= 5
+
+denormandie . seuil travaux minimum: 
+  description: |
+    Faire des travaux à hauteur d’au moins 25 % du coût total de l’opération immobilière.
+
+    > Par exemple, pour l’achat d’un logement de 150 000 €, 50 000 € de travaux soit un coût total de l’opération de 200 000 €
+  valeur: 25 %
+  
+denormandie . gain énergétique minimum: 
+  description: |
+    Améliorer la performance énergétique 
+du logement d’au moins 30 %
+  valeur: 30 %
+
+  description: |
+     Les travaux doivent correspondre à 2 types au moins de travaux parmi les 5 suivants : 
+       - changement de chaudière
+       - isolation thermique des combles
+       - isolation thermique des murs
+       - changement de production d’eau chaude
+       - isolation thermique des fenêtres
+logement . location longue durée:
+  question: Avez-vous prévu de louer votre logement à long-terme ?
+
+denormandie . montant:
+denormandie . :
+denormandie . taux:
+  variations: 
+    -si: années = 6
+     alors: 12 %
+    -si: années = 9
+     alors: 18 %
+    -si: années = 12
+     alors: 21 %
+    -sinon: 0
+
+soumis à l'impôt: 
+  description: Cette condition est potentiellement contestable mais elle nous sert à ne pas afficher cette aide totalement inintéressante pour des foyers trop modestes. 
+  formule: ménage . revenu > 11295 €

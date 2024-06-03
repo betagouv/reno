@@ -38,3 +38,11 @@ liste:
     texte: CEE
     texte2: Rénovation d'ampleur
     règle: "CEE . rénovation d'ampleur . montant"
+  - icône: 'cee.svg'
+    texte: Denormandie
+    texte2: Réduction d'impôt location
+    règle: 'denormandie . montant'
+  - icône: 'cee.svg'
+    texte: Taxe foncière
+    texte2: Exonération
+    règle: 'taxe foncière . montant'
