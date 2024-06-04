@@ -2,76 +2,100 @@ denormandie:
 
 denormandie . conditions:
   toutes ces conditions:
-    - propriétaire occupant = non
+    - logement . propriétaire occupant = non
     - logement . location longue durée
     - soumis à l'impôt
     - amélioration énergétique
     - ville éligible
 
-denormandie . ville éligible: 
+denormandie . ville éligible:
   description: |
     Le dispositif Denormandie est disponible dans les 222 villes du [plan Action cœur de ville](https://www.cohesion-territoires.gouv.fr/programme-action-coeur-de-ville), mais certaines communes ayant signé une [opération de revitalisation du territoire](https://www.ecologie.gouv.fr/operation-revitalisation-territoire-ort) peuvent également proposer à des particuliers ou à des promoteurs d’investir, de rénover et de louer moyennant une défiscalisation.
 
     Consulter la carte des villes sur [cette page du Ministère de l'Écologie](https://www.ecologie.gouv.fr/dispositif-denormandie-aide-fiscale-renovation-et-location).
 
 denormandie . amélioration énergétique:
-  toutes ces conditions: 
+  toutes ces conditions:
     - seuil travaux minimum
-    - une de ces conditions: 
+    - une de ces conditions:
         - gain énergétique minimum
         - gestes minimum
 
-denormandie . plafonnement loyer et ressources locataire: 
+denormandie . plafonnement loyer et ressources locataire:
+  question: Allez-vous plafonner les loyers pour bénéficier de l'exonération d'impôt Denormandie ?
+  par défaut: oui
   description: |
     Voir les grilles de plafonnement sur [cette page](https://www.ecologie.gouv.fr/dispositif-denormandie-aide-fiscale-renovation-et-location).
-
-  question: Allez-vous plafonner les loyers pour bénéficier de l'exonération d'impôt Denormandie ?
-denormandie . plafond: 
+denormandie . plafond:
   valeur: 300000 €
   description: |
-  Le plafond des dépenses pris en charge est de 300 000 €. 
+    Le plafond des dépenses pris en charge est de 300 000 €. 
 
-  > Si le bien est acheté 450 000 € et que 150 000 € de travaux sont effectués, la déduction s’appliquera sur 300 000 €  et  non  sur  600 000 €.
-denormandie . DPE visé minimum: 
+    > Si le bien est acheté 450 000 € et que 150 000 € de travaux sont effectués, la déduction s’appliquera sur 300 000 €  et  non  sur  600 000 €.
+denormandie . DPE visé minimum:
   description: |
     Après travaux, le logement doit être classé sur le diagnostic de performance énergétique en classe A à E.
   formule: projet . DPE visé >= 5
 
-denormandie . seuil travaux minimum: 
+denormandie . seuil travaux minimum:
   description: |
     Faire des travaux à hauteur d’au moins 25 % du coût total de l’opération immobilière.
 
     > Par exemple, pour l’achat d’un logement de 150 000 €, 50 000 € de travaux soit un coût total de l’opération de 200 000 €
-  valeur: 25 %
-  
-denormandie . gain énergétique minimum: 
-  description: |
-    Améliorer la performance énergétique 
-du logement d’au moins 30 %
-  valeur: 30 %
+  formule: (projet . travaux / logement . prix d'achat) >= 25 %
+
+projet . gain énergétique:
+  question: Quel est le gain énergétique prévu par les travaux ?
+  par défaut: 30 %
+
+denormandie . gain énergétique minimum:
+  valeur: projet . gain énergétique >= 30 %
 
   description: |
-     Les travaux doivent correspondre à 2 types au moins de travaux parmi les 5 suivants : 
-       - changement de chaudière
-       - isolation thermique des combles
-       - isolation thermique des murs
-       - changement de production d’eau chaude
-       - isolation thermique des fenêtres
+    Améliorer la performance énergétique du logement d’au moins 30 %.
+
+denormandie . gestes minimum:
+  question: Les gestes minimum du dispositif Denormandie sont-ils respectés ?
+  par défaut: oui
+  description: |
+    Les travaux doivent correspondre à 2 types au moins de travaux parmi les 5 suivants : 
+      - changement de chaudière
+      - isolation thermique des combles
+      - isolation thermique des murs
+      - changement de production d’eau chaude
+      - isolation thermique des fenêtres
+
 logement . location longue durée:
   question: Avez-vous prévu de louer votre logement à long-terme ?
+  par défaut: oui
+
+logement . prix d'achat:
+  question: Quel est le prix d'achat du bien ?
+  par défaut: 250000 €
+
+denormandie . assiette:
+  valeur: logement . prix d'achat + projet . travaux
+  plafond: plafond
 
 denormandie . montant:
-denormandie . :
-denormandie . taux:
-  variations: 
-    -si: années = 6
-     alors: 12 %
-    -si: années = 9
-     alors: 18 %
-    -si: années = 12
-     alors: 21 %
-    -sinon: 0
+  applicable si: conditions
+  formule: taux * assiette
 
-soumis à l'impôt: 
-  description: Cette condition est potentiellement contestable mais elle nous sert à ne pas afficher cette aide totalement inintéressante pour des foyers trop modestes. 
+denormandie . années de location:
+  applicable si: logement . location longue durée
+  question: Combien d'années allez-vous louer votre logement ?
+  par défaut: 9
+
+denormandie . taux:
+  variations:
+    - si: années de location = 6
+      alors: 12 %
+    - si: années de location = 9
+      alors: 18 %
+    - si: années de location = 12
+      alors: 21 %
+    - sinon: 0
+
+soumis à l'impôt:
+  description: Cette condition est potentiellement contestable mais elle nous sert à ne pas afficher cette aide totalement inintéressante pour des foyers trop modestes.
   formule: ménage . revenu > 11295 €
