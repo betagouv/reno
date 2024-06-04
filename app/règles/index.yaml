@@ -18,15 +18,8 @@ aides:
   applicable si:
     est défini: parcours d'aide
   somme:
-    - MPR . accompagnée . montant
+    - ampleur . tous les dispositifs
     - MPR . non accompagnée . montant
-    - aides locales
-    - PTZ . montant
-    - CEE . rénovation d'ampleur . montant
-
-aides globales:
-  titre: Aides à la rénovation globale
-  formule: montant écrêté
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -523,41 +516,6 @@ MPR . accompagnée . montant écrêté:
 MPR . accompagnée . montant avant écrêtement:
   formule: pourcent dont bonus * projet . travaux . plafonnés
 
-aides globales . montant écrêté:
-  description: |
-    L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux *toutes taxes comprises (TTC)*.
-
-    Si le montant total des aides était amené à dépasser le pourcentage d'écrêtement, alors c'est MaPrimeRénov' accompagnée qui serait réduite pour ne pas le dépasser, comme cela est expliqué dans les notes de bas de page de [ce tableau expliquant les cumuls](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=25).
-
-    > Cela dit, le modèle actuel Mes Aides Réno ne donne pas encore la possibilité de calculer les autres aides, hors MPR (MaPrimeRénov'). 
-
-    Prenons l'exemple simple sans cumul, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
-
-    L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC des dépenses*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
-
-    L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
-
-  valeur:
-    somme:
-      - MPR . accompagnée . montant
-      - métropole d'Angers . aides
-  plafond: pourcent d'écrêtement * projet . travaux . TTC
-
-aides globales . pourcent d'écrêtement:
-  titre: Taux maximum toutes aides sur enveloppe TTC
-  description: |
-    Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
-
-    Il se calcule sur l'enveloppe **TTC**.
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 100 %
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 80 %
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 60 %
-    - sinon: 40 %
-
 projet . investissement:
   titre: Votre investissement
   description: |
@@ -677,7 +635,10 @@ gestes: # gestes.yaml
 MPR . accompagnée:
   titre: MaPrimeRénov' **accompagnée**
   illustration: mpa.svg
+  icône: maprimerenov.svg
   alias: Parcours accompagné
+  marque: MaPrimeRénov
+  complément de marque: accompagnée
   interface:
     motivation: Je veux améliorer significativement la performance de mon logement.
     avantages:
@@ -747,6 +708,9 @@ MPR . accompagnée . pourcent brut:
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
 
 MPR . accompagnée . prise en charge MAR:
+  icône: maprimerenov.svg
+  marque: MaPrimeRénov'
+  complément de marque: audit énergétique
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond
@@ -777,56 +741,6 @@ MPR . accompagnée . prise en charge MAR . pourcent:
       alors: 40 %
     - si: ménage . revenu . classe = 'supérieure'
       alors: 20 %
-
-PTZ:
-  titre: Éco-prêt à taux zéro
-  description: |
-
-    L'éco-PTZ est disponible pour une [liste de types de travaux](https://www.economie.gouv.fr/particuliers/eco-pret-a-taux-zero-ptz-renovation-performance-energetique#quels-sont-les-travaux-ligibles-_1).
-
-    En fonction des travaux que vous réalisez, vous pouvez obtenir **jusqu'à 50 000 € de prêt**. La durée de remboursement de ce prêt **peut aller jusqu’à 20 ans**.
-
-
-    Vous devez réaliser des travaux qui répondent à l'une des trois conditions suivantes.
-
-    A) Soit correspondent à au moins une action efficace d’amélioration de la performance énergétique. 
-    <details><summary>Voir la liste</summary>
-      - isolation thermique de la toiture
-      - isolation thermique des murs donnant sur l'extérieur
-      - remplacement d'au moins la moitié des fenêtres en simple vitrage par du double vitrage et remplacement des portes donnant sur l'extérieur
-      - isolation des planchers bas
-      - installation ou remplacement d'un système de chauffage ou de production d'eau chaude sanitaire
-      - installation d'équipements de chauffage utilisant une source d'énergie renouvelable
-      - installation d'équipements de production d'eau chaude sanitaire utilisant une source d'énergie renouvelable.
-
-    </details>
-
-    B) soit ouvrent droit à l’aide MaPrimeRénov’ Parcours accompagné ou à MaPrimeRénov’ mobilisée en parallèle ;
-
-    C) soit permettent d’améliorer d’au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux. Un audit énergétique réalisé par un diagnostiqueur qualifié doit être effectué au préalable pour déterminer les travaux nécessaires.
-
-    Voici le montant maximum d'un prêt par logement : 
-      
-      | Action parois vitrées | Autre  action seule | 2 actions | 3 actions | Prime Rénov' | Performance globale +35% |
-      |-----------------------|:-------------------:|:---------:|:---------:|:------------:|--------------------------|
-      | 7 000 €               | 15 000 €            | 25 000 €  |  30 000 € |     50 000 € | 50 000 €                 |
-      |                       |                     |           |           |              |                          |
-
-    > Si vous bénéficiez de MaPrimeRénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov’ auprès de votre banque simplement sur la base de la notification d’accord transmise par l’Agence nationale de l’habitat (Anah).
-
-    Il existe aussi un éco-PTZ [pour les copropriétaires](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
-
-    Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
-PTZ . montant:
-  applicable si:
-    toutes ces conditions:
-      - logement . résidence principale
-      - condition d'ancienneté
-  note: Impléméntation imparfaite du montant, voir la description de la règle PTZ.
-  variations:
-    - si: parcours d'aide = "ampleur"
-      alors: 50000 €
-    - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
 
 somme à engager:
   plancher: 0

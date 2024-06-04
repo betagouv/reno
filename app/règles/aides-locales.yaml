@@ -1,4 +1,6 @@
 aides locales:
+  marque: Aide locale
+  icône: 'hexagone-contour.svg'
   somme:
     - métropole d'Angers . aides
 

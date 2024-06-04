@@ -1,5 +1,6 @@
 import { parse } from 'marked'
 
+import PTZ from '@/app/règles/PTZ.yaml'
 import ampleur from '@/app/règles/ampleur.yaml'
 import gestes from '@/app/règles/gestes.yaml'
 import chauffage from '@/app/règles/gestes/chauffage.yaml'
@@ -32,6 +33,7 @@ const rules = {
   ...CEE,
   ...denormandie,
   ...taxeFoncière,
+  ...PTZ,
 }
 
 const rulesWithMarkdown = Object.fromEntries(

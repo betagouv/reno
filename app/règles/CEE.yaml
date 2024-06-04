@@ -24,6 +24,9 @@ projet . remplacement chaudière thermique:
     À l'inverse, pour le dispositif MaPrimeRénov' par gestes, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
 
 CEE . rénovation d'ampleur:
+  icône: 'cee.svg'
+  marque: CEE
+  complément de marque: Rénovation d'ampleur
   description: |
     Primes minimales prévues par la charte "Coup de pouce rénovation d'ampleur de maisons et d'appartements individuels".
 
