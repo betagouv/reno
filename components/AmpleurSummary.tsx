@@ -4,8 +4,34 @@ import { formatValue } from 'publicodes'
 import { SummaryAide } from './SummaryAide'
 import { CTA, CTAWrapper, Card } from './UI'
 
-import aidesAmpleur from '@/app/règles/ampleur.yaml'
 import { PrimeStyle } from './Geste'
+import rules from '@/app/règles/rules'
+
+const topList = rules['ampleur . tous les dispositifs'].somme,
+  // unfold the sums with one level only, no recursion yet
+  list = topList
+    .map((dottedName) => {
+      const rule = rules[dottedName]
+      if (rule.somme) return rule.somme
+      return dottedName
+    })
+    .flat()
+    .map((dottedName) => {
+      const rule = rules[dottedName]
+      const split = dottedName.split(' . montant')
+      if (split.length > 1) {
+        const parentRule = rules[split[0]]
+        return {
+          ...rule,
+          dottedName,
+          icône: parentRule.icône,
+          marque: parentRule.marque,
+          'complément de marque': parentRule['complément de marque'],
+          type: parentRule['type'],
+        }
+      }
+      return { ...rule, dottedName }
+    })
 
 export default function AmpleurSummary({
   engine,
@@ -14,8 +40,10 @@ export default function AmpleurSummary({
   expanded,
   setSearchParams,
 }) {
+  const extremeSituation = { ...situation, 'projet . travaux': 999999 }
+
   const evaluation = engine
-    .setSituation({ ...situation, 'projet . travaux': 999999 })
+    .setSituation(extremeSituation)
     .evaluate('ampleur . montant')
 
   const value = formatValue(evaluation, { precision: 0 })
@@ -26,10 +54,10 @@ export default function AmpleurSummary({
     value === 'non'
   )
 
-  const aides = aidesAmpleur.liste.map((aide) => {
+  const aides = list.map((aide) => {
     const evaluation = engine
-      .setSituation({ ...situation, ...aide.situation })
-      .evaluate(aide.règle)
+      .setSituation(extremeSituation)
+      .evaluate(aide.dottedName)
     const value = formatValue(evaluation, { precision: 0 })
 
     const eligible = !(
@@ -84,8 +112,8 @@ export default function AmpleurSummary({
             {...{
               ...aide,
               icon: aide.icône,
-              text: aide.texte,
-              text2: aide.texte2,
+              text: aide.marque,
+              text2: aide['complément de marque'],
               type: aide.type,
               expanded,
             }}

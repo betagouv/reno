@@ -15,6 +15,16 @@ import CEE from '@/app/règles/CEE.yaml'
 import denormandie from '@/app/règles/denormandie.yaml'
 import taxeFoncière from '@/app/règles/taxe-foncière.yaml'
 
+/* TODO this doesn't work, investigate why, it should
+ *
+function requireAll(r) {
+  r.keys().forEach(r)
+}
+
+const allYamls = requireAll(require.context('@/app/règles', true, /\.yaml$/))
+console.log('allyamls', allYamls)
+*/
+
 const prefix = (rules) =>
   Object.fromEntries(
     Object.entries(rules).map(([k, v]) => ['gestes . ' + k, v]),

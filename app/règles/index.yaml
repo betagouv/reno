@@ -511,7 +511,7 @@ MPR . accompagnée . montant:
 
 MPR . accompagnée . montant écrêté:
   valeur: montant
-  plafond: aides globales . montant écrêté
+  plafond: ampleur . montant écrêté
 
 MPR . accompagnée . montant avant écrêtement:
   formule: pourcent dont bonus * projet . travaux . plafonnés
@@ -525,7 +525,7 @@ projet . investissement:
       - si: simulation . mode = 'moyen'
         alors: 25000 €
       - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
-  formule: travaux - aides globales
+  formule: travaux - ampleur
 
 projet . travaux . plafonnés:
   plafond: plafond

@@ -61,12 +61,15 @@ export const SummaryAide = ({
             }
           `}
         >
-          <Image
-            src={`/${icon}`}
-            alt={`Icône ${text}`}
-            width="25"
-            height="25"
-          />
+          {' '}
+          {false && (
+            <Image
+              src={`/${icon}`}
+              alt={`Icône ${text}`}
+              width="25"
+              height="25"
+            />
+          )}
           <span>{text}</span>
           <span css="color: #aaa">-</span>
           <span>{text2}</span>

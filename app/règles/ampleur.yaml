@@ -18,7 +18,7 @@ ampleur . tous les dispositifs:
   note: Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
   somme:
     - ampleur . montant
-    - prêt
+    - ampleur . prêt
     - denormandie . montant
     - taxe foncière . montant
 
@@ -46,7 +46,7 @@ ampleur . montant écrêté:
       - métropole d'Angers . aides
   plafond: pourcent d'écrêtement * projet . travaux . TTC
 
-aides globales . pourcent d'écrêtement:
+ampleur . pourcent d'écrêtement:
   titre: Taux maximum toutes aides sur enveloppe TTC
   description: |
     Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
