@@ -54,21 +54,22 @@ export default function AmpleurSummary({
     value === 'non'
   )
 
-  const aides = list
-    .map((aide) => {
-      const evaluation = engine
-        .setSituation(extremeSituation)
-        .evaluate(aide.dottedName)
-      const value = formatValue(evaluation, { precision: 0 })
+  const aides = list.map((aide) => {
+    const evaluation = engine
+      .setSituation(extremeSituation)
+      .evaluate(aide.dottedName)
+    const value = formatValue(evaluation, { precision: 0 })
 
-      const eligible = !(
-        value === 'Non applicable' ||
-        evaluation.nodeValue === 0 ||
-        value === 'non'
-      )
-      return { ...aide, evaluation, value, eligible }
-    })
-    .sort((a, b) => b.eligible - a.eligible)
+    const eligible = !(
+      value === 'Non applicable' ||
+      evaluation.nodeValue === 0 ||
+      value === 'non'
+    )
+    return { ...aide, evaluation, value, eligible }
+  })
+
+  const aidesEligibles = aides.filter((a) => a.eligible)
+  const aidesNonEligibles = aides.filter((a) => !a.eligible)
 
   const expand = () =>
     setSearchParams({ details: expanded ? undefined : 'oui' })
@@ -108,7 +109,7 @@ export default function AmpleurSummary({
           max-width: 32rem;
         `}
       >
-        {aides.map((aide) => (
+        {aidesEligibles.map((aide) => (
           <SummaryAide
             key={aide.règle}
             {...{
@@ -143,6 +144,7 @@ export default function AmpleurSummary({
           </span>
           <PrimeStyle>{value}</PrimeStyle>
         </div>
+
         <button
           css={`
             border: none;
@@ -157,6 +159,7 @@ export default function AmpleurSummary({
             {expanded ? 'Cacher' : 'Voir'} les montants aide par aide
           </small>
         </button>
+
         <div
           css={`
             visibility: visible > div {
@@ -165,12 +168,26 @@ export default function AmpleurSummary({
             }
           `}
         >
-          <CTAWrapper $justify="start">
+          <CTAWrapper $justify="end">
             <CTA $fontSize="normal">
               <Link href={url}>Découvrir le détail</Link>
             </CTA>
           </CTAWrapper>
         </div>
+
+        {aidesNonEligibles.map((aide) => (
+          <SummaryAide
+            key={aide.règle}
+            {...{
+              ...aide,
+              icon: aide.icône,
+              text: aide.marque,
+              text2: aide['complément de marque'],
+              type: aide.type,
+              expanded,
+            }}
+          />
+        ))}
       </Card>
     </section>
   )

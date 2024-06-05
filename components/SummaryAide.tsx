@@ -77,8 +77,12 @@ export const SummaryAide = ({
             />
           )}
           <span>{text}</span>
-          <span css="color: #aaa">-</span>
-          <span>{text2}</span>
+          {text2 && (
+            <>
+              <span css="color: #aaa">-</span>
+              <span>{text2}</span>
+            </>
+          )}
         </h4>
       </div>
       <div
