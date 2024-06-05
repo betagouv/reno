@@ -2,6 +2,10 @@ import { Labels } from '@/app/LandingUI'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
 import { SummaryAide } from './SummaryAide'
+import addIcon from '@/public/add-circle-stroke.svg'
+import removeIcon from '@/public/remove-circle-stroke.svg'
+import Image from 'next/image'
+
 import { CTA, CTAWrapper, Card } from './UI'
 
 import { PrimeStyle } from './Geste'
@@ -153,10 +157,23 @@ export default function AmpleurSummary({
             display: block;
             margin: 0 0 0 auto;
             color: gray;
+            img {
+              filter: grayscale(1);
+            }
           `}
         >
           <small onClick={() => expand()}>
-            {expanded ? 'Cacher' : 'Voir'} les montants aide par aide
+            {expanded ? (
+              <span>
+                <Image src={removeIcon} alt="Icône signe moins entouré" />{' '}
+                Cacher
+              </span>
+            ) : (
+              <span>
+                <Image src={addIcon} alt="Icône signe plus entouré" /> Voir
+              </span>
+            )}{' '}
+            les montants aide par aide
           </small>
         </button>
 
