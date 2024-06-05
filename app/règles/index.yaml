@@ -169,21 +169,24 @@ logement . âge:
   formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
 
 logement . période de construction:
-  par défaut: "'au moins 15 ans'"
+  par défaut: "'au moins 25 ans'"
   question: De quand date la construction du logement à rénover ?
   une possibilité parmi:
     possibilités:
-      - au moins 15 ans
-      - entre 15 et 2 ans
       - moins de 2 ans
+      - de 2 à 15 ans
+      - de 15 à 25 ans
+      - au moins 25 ans
 
-logement . période de construction . au moins 15 ans:
-logement . période de construction . entre 15 et 2 ans:
+logement . période de construction . au moins 25 ans:
+logement . période de construction . de 15 à 25 ans:
+logement . période de construction . entre 2 et 15 ans:
 logement . période de construction . moins de 2 ans:
 
-logement . condition d'ancienneté:
-  titre: Logement de + de 15 ans
-  formule: période de construction = 'au moins 15 ans'
+logement . au moins 15 ans:
+  une de ces conditions:
+    - période de construction = 'au moins 25 ans'
+    - période de construction = 'de 15 à 25 ans'
 
 PTZ . condition d'ancienneté:
   logement . période de construction != 'moins de 2 ans'
@@ -553,7 +556,7 @@ conditions communes:
   titre: Conditions d'éligibilité de base
   toutes ces conditions:
     - vous . propriétaire . condition
-    - logement . condition d'ancienneté
+    - logement . au moins 15 ans
     - logement . résidence principale
 
 MPR:
