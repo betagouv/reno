@@ -129,6 +129,7 @@ export default function AmpleurSummary({
 
         <div
           css={`
+            margin-top: 1.6rem;
             display: flex;
             align-items: center;
             justify-content: end;

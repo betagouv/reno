@@ -22,7 +22,7 @@ taxe foncière . taux:
     La référence officielle pour cette exonération de taxe foncière est sur [Legifrance](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041579348).
 
 taxe foncière . condition d'ancienneté:
-  note: Les logements éligibles sont ceux achevés avant le 1er janvier 1989. Nous simplifions en "au moins 25 ans ans" pour cette première condition de test.
+  note: Les logements éligibles sont ceux achevés avant le 1er janvier 1989. Nous simplifions en "au moins 25 ans" pour cette première condition de test.
   valeur: logement . période de construction = 'au moins 25 ans'
 
 taxe foncière . conditions:

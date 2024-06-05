@@ -5,6 +5,7 @@ import { ExplicationMPRG } from './explications/Éligibilité'
 import GestesPreview from './mprg/GestesPreview'
 
 export default function ÀlaCarteSummary({ engine, url, situation }) {
+  const isNotApplicable = false
   return (
     <section>
       <header>
@@ -21,7 +22,25 @@ export default function ÀlaCarteSummary({ engine, url, situation }) {
         css={`
           min-height: 10rem;
         `}
-      ></Card>
+      >
+        <div
+          css={`
+            display: ${!isNotApplicable && url ? 'visible' : 'none'};
+            > div {
+              margin-bottom: 0.3rem;
+              margin-top: 1.6rem;
+            }
+          `}
+        >
+          <CTAWrapper $justify="start">
+            <CTA $fontSize="normal">
+              <Link href={url}>
+                <span>Voir tous les gestes disponibles</span>
+              </Link>
+            </CTA>
+          </CTAWrapper>
+        </div>
+      </Card>
     </section>
   )
   return (
@@ -86,29 +105,6 @@ export default function ÀlaCarteSummary({ engine, url, situation }) {
             .
           </span>
         )}
-        <div
-          css={`
-            display: ${!isNotApplicable && url ? 'visible' : 'none'};
-            > div {
-              margin-bottom: 0.3rem;
-              margin-top: 1.6rem;
-            }
-          `}
-        >
-          <CTAWrapper $justify="start">
-            <CTA $fontSize="normal">
-              <Link href={url}>
-                {MPRA ? (
-                  'Découvrir le détail'
-                ) : (
-                  <span>
-                    Voir les <strong>20</strong> gestes disponibles
-                  </span>
-                )}
-              </Link>
-            </CTA>
-          </CTAWrapper>
-        </div>
       </Card>
     </section>
   )
