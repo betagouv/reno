@@ -54,19 +54,21 @@ export default function AmpleurSummary({
     value === 'non'
   )
 
-  const aides = list.map((aide) => {
-    const evaluation = engine
-      .setSituation(extremeSituation)
-      .evaluate(aide.dottedName)
-    const value = formatValue(evaluation, { precision: 0 })
+  const aides = list
+    .map((aide) => {
+      const evaluation = engine
+        .setSituation(extremeSituation)
+        .evaluate(aide.dottedName)
+      const value = formatValue(evaluation, { precision: 0 })
 
-    const eligible = !(
-      value === 'Non applicable' ||
-      evaluation.nodeValue === 0 ||
-      value === 'non'
-    )
-    return { ...aide, evaluation, value, eligible }
-  })
+      const eligible = !(
+        value === 'Non applicable' ||
+        evaluation.nodeValue === 0 ||
+        value === 'non'
+      )
+      return { ...aide, evaluation, value, eligible }
+    })
+    .sort((a, b) => b.eligible - a.eligible)
 
   const expand = () =>
     setSearchParams({ details: expanded ? undefined : 'oui' })
