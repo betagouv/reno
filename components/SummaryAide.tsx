@@ -42,7 +42,13 @@ export const SummaryAide = ({
           {eligible ? (
             <Image src={checkIcon} alt={"Icône d'une coche"} />
           ) : (
-            <Image src={crossIcon} alt="Icône d'une croix" />
+            <Image
+              src={crossIcon}
+              alt="Icône d'une croix"
+              css={`
+                filter: grayscale(1);
+              `}
+            />
           )}
         </span>
         <h4
