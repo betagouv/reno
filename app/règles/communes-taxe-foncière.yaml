@@ -1,3 +1,7 @@
+####
+# Pour l'instant, la seule source que nous avons trouvée est un article d'Effy.
+# Il nous manque le taux décidé par chaque commune, qui peut être soit 50 % soit 100 %
+####
 - commune: Aiglemont
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 

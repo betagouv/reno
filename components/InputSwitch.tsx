@@ -165,6 +165,7 @@ export default function InputSwitch({
         <AddressSearch
           {...{
             setChoice: (result) => {
+              console.log('purple result ', result)
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
