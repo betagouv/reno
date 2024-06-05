@@ -25,7 +25,6 @@ export default function MarSearch({
 
   const codeInsee = rawCodeInsee?.replace(/"/g, '')
 
-  console.log('black', codeInsee, givenCodeInsee, localCodeInsee)
   useEffect(() => {
     if (!codeInsee) return
     const doFetch = async () => {
@@ -49,14 +48,15 @@ export default function MarSearch({
       const centreDistance = (el) => {
         const address = JSON.parse(el.adresse || '[{}]')[0]
         if (!address || !address.longitude || !address.latitude) return Infinity
-        return computeDistance(coords.centre, {
+        const distance = computeDistance(coords.centre, {
           type: 'Point',
           coordinates: [address.longitude, address.latitude],
         })
+        return distance
       }
 
       const closest = rawData.sort(
-        (a, b) => centreDistance(a) > centreDistance(b),
+        (a, b) => centreDistance(a) - centreDistance(b),
       )
 
       const result = closest[0]
