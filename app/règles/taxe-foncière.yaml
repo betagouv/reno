@@ -4,7 +4,7 @@ taxe foncière:
 
 logement . taxe foncière:
   question: Combien payez-vous de taxe foncière chaque année pour votre logement ?
-  par défaut: 1000 €
+  par défaut: 1000 €/an
   note: |
     Le montant par défaut n'est qu'un ordre de grandeur : la taxe foncière varie en fonction de chaque commune et a subi d'énormes augmentations qui rendent obsolète [la seule étude de l'INSEE](https://www.insee.fr/fr/statistiques/7735076) que nous avons trouvée sur le sujet.
 
