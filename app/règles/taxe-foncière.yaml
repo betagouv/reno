@@ -2,7 +2,16 @@ taxe foncière:
   marque: Taxe foncière
   complément de marque: Exonération
 
-taxe foncière . montant:
+logement . taxe foncière:
+  question: Combien payez-vous de taxe foncière chaque année pour votre logement ?
+  par défaut: 1000 €
+  note: |
+    Le montant par défaut n'est qu'un ordre de grandeur : la taxe foncière varie en fonction de chaque commune et a subi d'énormes augmentations qui rendent obsolète [la seule étude de l'INSEE](https://www.insee.fr/fr/statistiques/7735076) que nous avons trouvée sur le sujet.
+
+taxe foncière . montant: taux * logement . taxe foncière
+taxe foncière . taux:
+  question: Quel taux d'exonération de taxe foncière a été décidé par votre commune ?
+  par défaut: 100 %
   description: |
     3 années de taxe foncière sont exonérées. 
 
