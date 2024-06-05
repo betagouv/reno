@@ -29,7 +29,7 @@ taxe foncière . conditions:
   toutes ces conditions:
     - condition d'ancienneté
     - condition de dépenses
-    - ville éligible
+    - logement . commune exonérée taxe foncière
 
 taxe foncière . condition de dépenses:
   description: |
@@ -40,7 +40,9 @@ taxe foncière . condition de dépenses:
 
     Les délibérations antérieures à 2020 ayant institué l’exonération avec un taux de 50 % ou de 100 % restent applicables pour 5 ans.
 
-taxe foncière . ville éligible:
+logement . commune exonérée taxe foncière:
+  formule: logement . commune
+  par défaut: non
   description: |
     Il faut que la commune ait voté cette exonération. Il n'existe pas de liste officielle quand on écrit ces lignes au 5 juin 2024 (!!). 
 

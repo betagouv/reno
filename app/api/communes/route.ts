@@ -7,10 +7,10 @@ export async function GET(request: Request) {
   const insee = searchParams.get('insee')
   const nom = searchParams.get('nom')
 
-  const eligibilité = {
+  const eligibilite = {
     denormandie: denormandie.find((el) => el.insee === insee) != null,
     taxeFoncière: taxeFoncière.find((el) => el.commune === nom) != null,
   }
 
-  return Response.json(eligibilité)
+  return Response.json(eligibilite)
 }

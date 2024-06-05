@@ -146,6 +146,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+
   if (currentQuestion === 'ménage . commune')
     return (
       <ClassicQuestionWrapper
@@ -211,6 +212,14 @@ export default function InputSwitch({
                   ...situation,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
+                  'logement . commune exonérée taxe foncière': result
+                    .eligibilite.taxeFoncière
+                    ? 'oui'
+                    : 'non',
+                  'logement . commune denormandie': result.eligibilite
+                    .denormandie
+                    ? 'oui'
+                    : 'non',
                 },
                 false,
                 answeredQuestions,

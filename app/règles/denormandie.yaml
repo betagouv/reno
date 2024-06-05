@@ -8,9 +8,11 @@ denormandie . conditions:
     - logement . location longue durée
     - soumis à l'impôt
     - amélioration énergétique
-    - ville éligible
+    - logement . commune denormandie
 
-denormandie . ville éligible:
+logement . commune denormandie:
+  formule: logement . commune
+  par défaut: non
   note: Ce test reste à faire
   description: |
     Le dispositif Denormandie est disponible dans les 222 villes du [plan Action cœur de ville](https://www.cohesion-territoires.gouv.fr/programme-action-coeur-de-ville), mais certaines communes ayant signé une [opération de revitalisation du territoire](https://www.ecologie.gouv.fr/operation-revitalisation-territoire-ort) peuvent également proposer à des particuliers ou à des promoteurs d’investir, de rénover et de louer moyennant une défiscalisation.
