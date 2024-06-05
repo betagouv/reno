@@ -30,9 +30,15 @@ export default function AddressSearch({ setChoice }) {
       )
       const json = await request.json()
 
-      //const enrichRequest = await fetch('/api/commune')
+      const enrichedResults = await Promise.all(
+        json.map((commune) =>
+          fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
+            .then((response) => response.json())
+            .then((json) => ({ ...commune, eligibilite: json })),
+        ),
+      )
 
-      setResults(json)
+      setResults(enrichedResults)
     }
 
     asyncFetch()
