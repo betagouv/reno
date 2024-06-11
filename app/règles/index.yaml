@@ -250,7 +250,11 @@ ménage . code région:
 
 ménage . EPCI:
   formule: commune
-  par défaut: '"242900314"'
+  par défaut: '"242900314"' # Brest métropole
+
+ménage . département:
+  formule: commune
+  par défaut: '"Finistère"'
 
 ménage . commune:
   titre: Votre commune
@@ -385,11 +389,11 @@ projet . travaux . notification:
 
 taux d'aides relatives:
   somme:
-    - métropole d'Angers . aides socles . taux
+    - aides locales . angers . aides socles . taux
     - MPR . accompagnée . pourcent dont bonus
 
 montant d'aides absolues:
-  formule: métropole d'Angers . prime basse consommation . montant
+  formule: aides locales . angers . prime basse consommation . montant
 
 projet . enveloppe estimée:
   formule: par surface * logement . surface
@@ -539,7 +543,7 @@ aides globales . montant écrêté:
   valeur:
     somme:
       - MPR . accompagnée . montant
-      - métropole d'Angers . aides
+      - aides locales . angers . aides
   plafond: pourcent d'écrêtement * projet . travaux . TTC
 
 aides globales . pourcent d'écrêtement:

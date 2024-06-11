@@ -48,7 +48,7 @@ export default function Input({ situation, onChange, value, rule, engine }) {
   const additionalbarème =
     !idf.nodeValue &&
     engine
-      .evaluate(`métropole d'Angers . revenu très très modeste`)
+      .evaluate(`angers . revenu très très modeste`)
       .explanation.valeur.explanation.alors.explanation.find(
         (branch) => branch.condition.nodeValue === true,
       )

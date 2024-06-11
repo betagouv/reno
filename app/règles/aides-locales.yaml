@@ -30,7 +30,7 @@ côte-d'or:
 côte-d'or . conditions:
   toutes ces conditions:
     - ménage . revenu . classe = 'très modeste'
-    - projet . gain énergétique > 40 %
+    - projet . gain energétique > 40 %
     - conditions communes
     - ménage . département = "Côte-d'Or"
     - ménage . EPCI != '242100410'

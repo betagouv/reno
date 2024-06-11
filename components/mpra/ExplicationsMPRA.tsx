@@ -16,7 +16,7 @@ export default function ExplicationsMPRA({
       .evaluate('aides locales').nodeValue,
     hasLocales = locales > 0
 
-  const angers = engine.evaluate("métropole d'Angers . aides").nodeValue,
+  const angers = engine.evaluate('aides locales . angers . aides').nodeValue,
     hasAngers = angers > 0
 
   return (
