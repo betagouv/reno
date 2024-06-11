@@ -12,18 +12,16 @@
     région: 0 €
     état: 0 €
 
-occitanie:
+besançon:
+besançon . bonus passoire: 5 %
 
-occitanie . avance ampleur:
-  titre: Caisse d’Avance Rénov’Occitanie
+nouvelle-aquitaine: 800 à 1200 € sans conditions de ressources, déclenchées par les conseillers France Rénov'
+
+charente-maritime:
   description: |
-    Pour les ménages modestes et très modestes selon le barème de l’Anah, Rénov’Occitanie propose un dispositif d’avance de subvention permettant de limiter, voire de supprimer la nécessité d’avancer la part du coût des travaux subventionnable. [Source](https://renovoccitanie.laregion.fr/La-caisse-d-Avance-Renov-Occitanie)
-  note: |
-    Décrit comme une avance, on pourrait croire que c'est un prêt à taux zéro, mais les frais de dossier font que c'est en fait un prêt à taux fixe...
+    Les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [Fiche PDF officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/Reglement-proprietaires-bailleurs.pdf).
 
-    Il reste à la brancher au reste de la simulation.
-
-côte d'or:
+côte-d'or:
   note: |
     Attention, le département n'a pas mis à jour [sa page décrivant l'aide](https://www.service-public.fr/particuliers/vosdroits/F20554) depuis la réforme des aides ANAH. Elle se base sur [MaPrimeRénov' Sérénité qui n'existe plus](https://www.service-public.fr/particuliers/vosdroits/F20554).
 
@@ -55,12 +53,6 @@ côte-d'or . aide au dossier de subvention ANAH:
   description: |
     Aide au financement de l’ingénierie spécialisée (assistance administrative, technique et financière à l’élaboration d’un dossier de demande de subvention ANaH) :
   valeur: 250 €
-
-dijon:
-
-dijon . aide:
-  remplace: intercommunalité
-  valeur: 999999 €
 
 angers:
 
