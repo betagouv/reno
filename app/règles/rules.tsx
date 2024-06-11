@@ -7,17 +7,20 @@ import index from '@/app/règles/index.yaml'
 import revenus from '@/app/règles/revenus.yaml'
 import aidesLocales from '@/app/règles/aides-locales.yaml'
 
-const prefix = (rules) =>
+const prefix = (rules, prefix) =>
   Object.fromEntries(
-    Object.entries(rules).map(([k, v]) => ['gestes . ' + k, v]),
+    Object.entries(rules).map(([k, v]) => [
+      k === '' ? prefix : prefix + ' . ' + k, // lets us create a root rule
+      v,
+    ]),
   )
 const rules = {
   ...index,
   ...revenus,
-  ...prefix(gestes),
-  ...prefix(chauffage),
-  ...prefix(isolation),
-  ...aidesLocales,
+  ...prefix(gestes, 'gestes'),
+  ...prefix(chauffage, 'gestes'),
+  ...prefix(isolation, 'gestes'),
+  ...prefix(aidesLocales, 'aides locales'),
 }
 
 const rulesWithMarkdown = Object.fromEntries(

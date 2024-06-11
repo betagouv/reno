@@ -1,26 +1,35 @@
-aides locales:
-  somme:
-    - métropole d'Angers . aides
+# Cette structure est inspirée de Mes Aides Vélo, qui a au passage également inspiré Mes Aides Réno en général https://github.com/mquandalle/mesaidesvelo/blob/master/src/aides.yaml
+# Il utilise une structure en somme d'échelons administratifs qui seront remplacés par la valeur correspondant à la situation de l'utilisateur
+# Pourquoi ? Cela nous évite de sommer toutes les aides pour obtenir une variable "aides locales". Publicodes n'a pas de mécanisme de somme abstraite, et ça reviendrait de toute façon à sommer une liste où tout est nul sauf un élément au max.
 
-métropole d'Angers:
+'':
+  avec:
+    commune: 0 €
+    intercommunalité: 0 €
+    département: 0 €
+    région: 0 €
+    état: 0 €
 
-métropole d'Angers . conditions de base:
+angers:
+
+angers . conditions de base:
   toutes ces conditions:
     - conditions de revenu
     - logement . propriétaire occupant
     - ménage . EPCI = '244900015'
 
-métropole d'Angers . aides:
+angers . aides:
+  remplace: intercommunalité
   somme:
     - aides socles . montant
     - prime basse consommation . montant
 
-métropole d'Angers . montant si assiette maximum:
+angers . montant si assiette maximum:
   somme:
     - prime basse consommation . montant
     - aides socles . montant si assiette maximum
 
-métropole d'Angers . aides socles:
+angers . aides socles:
   applicable si:
     toutes ces conditions:
       - conditions de base
@@ -38,15 +47,15 @@ métropole d'Angers . aides socles:
   incertitudes: |
     Est-ce qu'on peut demander cette aide sans demander les aides ANAH ?
 
-métropole d'Angers . aides socles . montant si assiette maximum:
+angers . aides socles . montant si assiette maximum:
   formule: taux * plafond de travaux HT
-métropole d'Angers . aides socles . montant: taux * travaux plafonnés
+angers . aides socles . montant: taux * travaux plafonnés
 
-métropole d'Angers . aides socles . travaux plafonnés:
+angers . aides socles . travaux plafonnés:
   valeur: projet . travaux
   plafond: plafond de travaux HT
 
-métropole d'Angers . revenu très très modeste:
+angers . revenu très très modeste:
   description: |
     Cette catégorie de revenu est a priori spécifique à Angers.
 
@@ -66,15 +75,15 @@ métropole d'Angers . revenu très très modeste:
       alors: ménage . revenu < 32002 + 1 €
     - sinon: ménage . revenu < (32002 + 1 + ménage . personnes plus * 4036 €)
 
-métropole d'Angers . conditions de revenu:
+angers . conditions de revenu:
   # TODO définition du revenu : somme des derniers revenus fiscaux de toutes les personnes occupant le logement année N-1
   une de ces conditions:
     - ménage . revenu . classe = "intermédiaire"
     - ménage . revenu . classe = "modeste"
     - ménage . revenu . classe = "très modeste"
 
-métropole d'Angers . aides socles . taux:
-  titre: Taux d'aide métropole d'Angers
+angers . aides socles . taux:
+  titre: Taux d'aide angers
   variations:
     - si: revenu très très modeste
       alors: 20 %
@@ -86,17 +95,17 @@ métropole d'Angers . aides socles . taux:
           - ménage . revenu . classe = "modeste"
       alors: 10 %
 
-métropole d'Angers . aides socles . plafond de travaux HT:
+angers . aides socles . plafond de travaux HT:
   valeur: 20000 €
   description: Aide par logement.
 
-métropole d'Angers . prime basse consommation:
-métropole d'Angers . prime basse consommation . conditions:
+angers . prime basse consommation:
+angers . prime basse consommation . conditions:
   toutes ces conditions:
     - conditions de base
     - projet . DPE visé <= 2
     - DPE . actuel >= 2
-métropole d'Angers . prime basse consommation . montant:
-  titre: Prime BBC métropole d'Angers
+angers . prime basse consommation . montant:
+  titre: Prime BBC angers
   applicable si: conditions
   valeur: 1500 €
