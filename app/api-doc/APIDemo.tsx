@@ -5,6 +5,7 @@ import personas from '@/app/personas.yaml'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import { useDebounce } from 'use-debounce'
+import styled from 'styled-components'
 
 const engine = new Publicodes(rules)
 export default function APIDemo() {
@@ -33,14 +34,6 @@ export default function APIDemo() {
         flex-wrap: wrap;
         justify-content: space-evenly;
         align-items: center;
-        textarea {
-          padding: 0.6rem;
-          font-size: 110%;
-          width: 25rem;
-          height: 10rem;
-          border: 2px solid var(--color);
-          margin-right: 2rem;
-        }
         > div {
           background: var(--color);
           color: white;
@@ -52,7 +45,7 @@ export default function APIDemo() {
         }
       `}
     >
-      <textarea
+      <TextArea
         value={yaml}
         onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
       />
@@ -63,3 +56,12 @@ export default function APIDemo() {
     </section>
   )
 }
+
+export const TextArea = styled.textarea`
+  padding: 0.6rem;
+  font-size: 110%;
+  width: 25rem;
+  height: 10rem;
+  border: 2px solid var(--color);
+  margin-right: 2rem;
+`
