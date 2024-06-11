@@ -15,7 +15,9 @@ export default function APIDemo() {
     console.log('memo')
     try {
       const json = parse(debouncedYaml)
-      const evaluation = engine.setSituation(json).evaluate('MPR . accompagnée')
+      const evaluation = engine
+        .setSituation(json)
+        .evaluate('MPR . accompagnée . montant')
       return formatValue(evaluation, { precision: 0 })
     } catch (e) {
       console.log(e)
