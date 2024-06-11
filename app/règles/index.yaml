@@ -320,6 +320,15 @@ DPE . actuel:
 
 projet:
   titre: Votre projet de rénovation
+
+projet . gain energétique:
+  question: Quel est le gain energétique prévu par votre projet de rénovation ?
+  par défaut: 30 %
+  suggestions:
+    faible: 10 %
+    moyen: 30 %
+    elevé: 50 %
+
 projet . DPE visé:
   titre: Votre futur DPE visé
   question: Quel DPE visé après rénovation ?

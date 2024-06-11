@@ -10,6 +10,45 @@
     région: 0 €
     état: 0 €
 
+côte d'or:
+  note: |
+    Attention, le département n'a pas mis à jour sa page décrivant l'aide depuis la réforme des aides ANAH. Elle se base sur MaPrimeRénov' Sérénité qui n'existe plus : https://www.cotedor.fr/aide/aide-aux-proprietaires-occupants-travaux-damelioration-energetique-des-logements.
+
+    Nous partons donc du principe qu'elle est implicitement mise à jour pour respecter les conditions du parcours accompagné 2024 de MaPrimeRénov', mais avec l'exigence de 40 % de gain energétique plutôt que le saut de 2 DPE.
+
+côte-d'or . conditions:
+  toutes ces conditions:
+    - ménage . revenu . classe = 'très modeste'
+    - projet . gain énergétique > 40 %
+    - conditions communes
+    - ménage . département = "Côte-d'Or"
+    - ménage . EPCI != '242100410'
+
+côte-d'or . aide aux travaux:
+  applicable si: conditions
+  remplace: département
+  valeur: 250 €
+
+côte-d'or . hors opération programmée:
+  question: Votre projet est-il situé en dehors d’un territoire couvert par une opération programmée (OPAH ou PIG) ?
+  par défaut: oui
+
+côte-d'or . aide au dossier de subvention ANAH:
+  titre: Aide au financement d’un opérateur pour l’assistance au montage des dossiers de demande de subvention ANAH
+  applicable si:
+    toutes ces conditions:
+      - MPR . accompagnée . éligible
+      - hors opération programmée
+  description: |
+    Aide au financement de l’ingénierie spécialisée (assistance administrative, technique et financière à l’élaboration d’un dossier de demande de subvention ANaH) :
+  valeur: 250 €
+
+dijon:
+
+dijon . aide:
+  remplace: intercommunalité
+  valeur: 999999 €
+
 angers:
 
 angers . conditions de base:
