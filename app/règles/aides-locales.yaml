@@ -13,13 +13,27 @@
     état: 0 €
 
 besançon:
-besançon . bonus passoire: 5 %
+besançon . bonus passoire:
+besançon . bonus passoire . montant:
+  formule: 5 % * projet . travaux
+  note: Brouillon d'implémentation
 
-nouvelle-aquitaine: 800 à 1200 € sans conditions de ressources, déclenchées par les conseillers France Rénov'
+nouvelle-aquitaine:
+nouvelle-aquitaine . montant:
+  description: 800 à 1200 € sans conditions de ressources, déclenchées par les conseillers France Rénov'
+  note: Brouillon d'implémentation
+  valeur: 1200 €
 
 charente-maritime:
+charente-maritime . montant:
+  applicable si:
+    toutes ces conditions:
+      - projet . gain energétique >= 35 %
   description: |
     Les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [Fiche PDF officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/Reglement-proprietaires-bailleurs.pdf).
+  valeur: 30 % * projet . travaux
+  plafond: 5000 €
+  note: Brouillon d'implémentation
 
 côte-d'or:
   note: |
@@ -27,7 +41,8 @@ côte-d'or:
 
     Nous partons donc du principe qu'elle est implicitement mise à jour pour respecter les conditions du parcours accompagné 2024 de MaPrimeRénov', mais avec l'exigence de 40 % de gain energétique plutôt que le saut de 2 DPE.
 
-côte-d'or . conditions:
+côte-d'or . aide aux travaux:
+côte-d'or . aide aux travaux . conditions:
   toutes ces conditions:
     - ménage . revenu . classe = 'très modeste'
     - projet . gain energétique > 40 %
@@ -35,7 +50,7 @@ côte-d'or . conditions:
     - ménage . département = "Côte-d'Or"
     - ménage . EPCI != '242100410'
 
-côte-d'or . aide aux travaux:
+côte-d'or . aide aux travaux . montant:
   applicable si: conditions
   remplace: département
   valeur: 250 €
@@ -45,6 +60,7 @@ côte-d'or . hors opération programmée:
   par défaut: oui
 
 côte-d'or . aide au dossier de subvention ANAH:
+côte-d'or . aide au dossier de subvention ANAH . montant:
   titre: Aide au financement d’un opérateur pour l’assistance au montage des dossiers de demande de subvention ANAH
   applicable si:
     toutes ces conditions:
