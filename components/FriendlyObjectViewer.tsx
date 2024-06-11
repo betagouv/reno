@@ -10,7 +10,7 @@ const FriendlyObjectViewer = ({
   level = 0,
   context,
   searchParams,
-  options = { capitalise0: true },
+  options = { capitalise0: true, keyStyle: '' },
 }) => {
   if (data == null) return null
   const capitaliseOrNot = (s) => s && (options.capitalise0 ? capitalise0(s) : s)
@@ -64,7 +64,7 @@ const FriendlyObjectViewer = ({
         if (['description', 'note', 'titre'].includes(key)) {
           return (
             <li>
-              <span>{key}:</span>
+              <span css={options.keyStyle}>{key}&nbsp;:</span>
               <span dangerouslySetInnerHTML={{ __html: parse(value) }}></span>
             </li>
           )
@@ -72,7 +72,7 @@ const FriendlyObjectViewer = ({
 
         return typeof value === 'string' || typeof value === 'number' ? (
           <li key={key}>
-            <span>{capitaliseOrNot(key)}:</span>
+            <span css={options.keyStyle}>{capitaliseOrNot(key)}&nbsp;:</span>
             <span>
               <FriendlyObjectViewer
                 data={value}
@@ -86,7 +86,7 @@ const FriendlyObjectViewer = ({
           </li>
         ) : (
           <li key={key}>
-            <div>{capitaliseOrNot(key)}:</div>
+            <div css={options.keyStyle}>{capitaliseOrNot(key)}:</div>
             <div>
               <FriendlyObjectViewer
                 data={value}

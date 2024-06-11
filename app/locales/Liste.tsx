@@ -2,7 +2,7 @@
 import aides from '@/app/règles/aides-locales.yaml'
 import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
 import { getRuleTitle } from '@/components/publicodes/utils'
-import { capitalise0 } from '@/components/utils'
+import { capitalise0, omit } from '@/components/utils'
 
 const entries = Object.entries(aides)
 
@@ -38,6 +38,7 @@ export default function () {
               >
                 {rules.map(([dottedName, rule]) => {
                   if (rule == null) return
+                  if (typeof rule === 'string') return rule
                   return (
                     <li
                       key={dottedName}
@@ -50,12 +51,23 @@ export default function () {
                       )}
                       <div
                         css={`
-                          border: 1px solid #aaa;
+                          > div {
+                            border: 1px solid #aaa;
+                            > ul {
+                              padding-left: 0.6rem;
+                              margin: 0.6rem 0;
+                            }
+                          }
                         `}
                       >
                         <FriendlyObjectViewer
                           {...{
-                            data: rule,
+                            data: omit(['titre'], rule),
+                            options: {
+                              keyStyle: `
+									color: #41438a
+									`,
+                            },
                           }}
                         />
                       </div>

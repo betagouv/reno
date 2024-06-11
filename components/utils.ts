@@ -6,6 +6,7 @@ export const sortBy = (f) => (list) =>
   })
 
 export const capitalise0 = (s) => s[0].toUpperCase() + s.slice(1)
+
 export function omit(givenKeys, obj) {
   const keys = [...givenKeys]
   if (!keys.length) {
