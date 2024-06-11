@@ -1,6 +1,8 @@
 # Cette structure est inspirée de Mes Aides Vélo, qui a au passage également inspiré Mes Aides Réno en général https://github.com/mquandalle/mesaidesvelo/blob/master/src/aides.yaml
 # Il utilise une structure en somme d'échelons administratifs qui seront remplacés par la valeur correspondant à la situation de l'utilisateur
 # Pourquoi ? Cela nous évite de sommer toutes les aides pour obtenir une variable "aides locales". Publicodes n'a pas de mécanisme de somme abstraite, et ça reviendrait de toute façon à sommer une liste où tout est nul sauf un élément au max.
+#
+# À noter, si certaines règles ici sont des aides, d'autres sont des prêts ou des avances de travaux (c'est pareil), qui vont impacter d'autres variables du calcul
 
 '':
   avec:
@@ -10,9 +12,20 @@
     région: 0 €
     état: 0 €
 
+occitanie:
+
+occitanie . avance ampleur:
+  titre: Caisse d’Avance Rénov’Occitanie
+  description: |
+    Pour les ménages modestes et très modestes selon le barème de l’Anah, Rénov’Occitanie propose un dispositif d’avance de subvention permettant de limiter, voire de supprimer la nécessité d’avancer la part du coût des travaux subventionnable. [Source](https://renovoccitanie.laregion.fr/La-caisse-d-Avance-Renov-Occitanie)
+  note: |
+    Décrit comme une avance, on pourrait croire que c'est un prêt à taux zéro, mais les frais de dossier font que c'est en fait un prêt à taux fixe...
+
+    Il reste à la brancher au reste de la simulation.
+
 côte d'or:
   note: |
-    Attention, le département n'a pas mis à jour sa page décrivant l'aide depuis la réforme des aides ANAH. Elle se base sur MaPrimeRénov' Sérénité qui n'existe plus : https://www.cotedor.fr/aide/aide-aux-proprietaires-occupants-travaux-damelioration-energetique-des-logements.
+    Attention, le département n'a pas mis à jour [sa page décrivant l'aide](https://www.service-public.fr/particuliers/vosdroits/F20554) depuis la réforme des aides ANAH. Elle se base sur [MaPrimeRénov' Sérénité qui n'existe plus](https://www.service-public.fr/particuliers/vosdroits/F20554).
 
     Nous partons donc du principe qu'elle est implicitement mise à jour pour respecter les conditions du parcours accompagné 2024 de MaPrimeRénov', mais avec l'exigence de 40 % de gain energétique plutôt que le saut de 2 DPE.
 
