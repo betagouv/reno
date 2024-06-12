@@ -63,7 +63,7 @@ const FriendlyObjectViewer = ({
       {Object.entries(data).map(([key, value]) => {
         if (['description', 'note', 'titre'].includes(key)) {
           return (
-            <li>
+            <li key={key}>
               <span css={options.keyStyle}>{key}&nbsp;:</span>
               <span dangerouslySetInnerHTML={{ __html: parse(value) }}></span>
             </li>

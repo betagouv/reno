@@ -34,22 +34,22 @@ const toSum = aidesEntries
 
 const engine = new Publicodes({ ...rules, 'somme des aides locales': sum })
 
-export default function () {
-  const evaluation = engine.evaluate('somme des aides locales')
-  const { missingVariables } = evaluation
+const evaluation = engine.evaluate('somme des aides locales')
+const { missingVariables } = evaluation
 
-  const defaultSituationEntries = sortBy(([, score]) => score)(
-    Object.entries(missingVariables),
+const defaultSituationEntries = sortBy(([, score]) => score)(
+  Object.entries(missingVariables),
+)
+  .map(
+    ([dottedName]) =>
+      dottedName !== 'simulation . mode' && [
+        dottedName,
+        engine.evaluate(dottedName).nodeValue,
+      ],
   )
-    .map(
-      ([dottedName]) =>
-        dottedName !== 'simulation . mode' && [
-          dottedName,
-          engine.evaluate(dottedName).nodeValue,
-        ],
-    )
-    .filter(Boolean)
+  .filter(Boolean)
 
+export default function () {
   const [situationEntries, setSituationEntries] = useState(
     defaultSituationEntries,
   )
@@ -123,13 +123,9 @@ export default function () {
 
             const montant =
               mainRule &&
-              engine
-                .setSituation(situation)
-                .evaluate('aides locales . ' + mainRule[0])
+              safeEvaluate('aides locales . ' + mainRule[0], situation, engine)
 
             if (!montant) return null
-
-            console.log('montant2', montant)
 
             const value = formatValue(montant)
 
@@ -185,14 +181,16 @@ export default function () {
                               <small>
                                 {parentName(dottedName).split(place + ' . ')[1]}
                               </small>
-                              <span
+                              <h3
                                 css={`
+                                  font-size: 100%;
+                                  margin: 0;
                                   width: fit-content;
                                   ${isMontant && `background: yellow`}
                                 `}
                               >
                                 {getRuleTitle(dottedName, aides)}
-                              </span>
+                              </h3>
                             </span>
                             <span>{value}</span>
                           </div>
@@ -234,4 +232,12 @@ export default function () {
       </Section>
     </div>
   )
+}
+
+const safeEvaluate = (dottedName, situation, engine) => {
+  try {
+    return engine.setSituation(situation).evaluate(dottedName)
+  } catch (e) {
+    console.log('Publicodes error, user is probably still typing here input')
+  }
 }
