@@ -44,14 +44,17 @@ export default function () {
   ])
 
   console.log('situation', situation)
-  const [yaml, setYaml] = useState(stringify(Object.fromEntries(situation)))
+  const [yaml, setYaml] = useState(
+    stringify(omit(['simulation . mode'], Object.fromEntries(situation))),
+  )
   const [debouncedYaml] = useDebounce(yaml, 500)
 
   return (
     <div>
       <TextArea
         css={`
-          width: 80%;
+          width: 30rem;
+          max-width: 90%;
           height: 18rem;
         `}
         value={yaml}
@@ -62,59 +65,75 @@ export default function () {
           list-style-type: none;
         `}
       >
-        {Object.entries(byPlace).map(
-          ([place, rules]) =>
-            place != 0 && (
-              <li key={place} css={``}>
-                <h2>{capitalise0(place)}</h2>
+        {Object.entries(byPlace).map(([place, rules]) => {
+          if (place == 0) return undefined
 
-                <ul
-                  css={`
-                    list-style-type: none;
-                  `}
-                >
-                  {rules.map(([dottedName, rule]) => {
-                    if (rule == null) return
-                    if (typeof rule === 'string') return rule
-                    return (
-                      <li
-                        key={dottedName}
+          const mainRule =
+            Array.isArray(rules) &&
+            rules.find(([dottedName]) => dottedName.endsWith('montant'))
+
+          const montant =
+            mainRule && engine.evaluate('aides locales . ' + mainRule[0])
+
+          if (!montant) return null
+
+          console.log('montant2', montant)
+
+          const value = formatValue(montant)
+
+          return (
+            <li key={place} css={``}>
+              <h2>{capitalise0(place)}</h2>
+
+              {value}
+
+              <ul
+                css={`
+                  list-style-type: none;
+                `}
+              >
+                {rules.map(([dottedName, rule]) => {
+                  if (rule == null) return
+                  if (typeof rule === 'string') return rule
+                  return (
+                    <li
+                      key={dottedName}
+                      css={`
+                        margin: 0.6rem 0;
+                      `}
+                    >
+                      {dottedName !== place && (
+                        <div>{getRuleTitle(dottedName, aides)}</div>
+                      )}
+                      <div
                         css={`
-                          margin: 0.6rem 0;
+                          > div {
+                            border: 1px solid #aaa;
+                            > ul {
+                              padding-left: 0.6rem;
+                              margin: 0.6rem 0;
+                            }
+                          }
                         `}
                       >
-                        {dottedName !== place && (
-                          <div>{getRuleTitle(dottedName, aides)}</div>
-                        )}
-                        <div
-                          css={`
-                            > div {
-                              border: 1px solid #aaa;
-                              > ul {
-                                padding-left: 0.6rem;
-                                margin: 0.6rem 0;
-                              }
-                            }
-                          `}
-                        >
-                          <FriendlyObjectViewer
-                            {...{
-                              data: omit(['titre'], rule),
-                              options: {
-                                keyStyle: `
+                        <FriendlyObjectViewer
+                          {...{
+                            data: omit(['titre'], rule),
+                            options: {
+                              keyStyle: `
 									color: #41438a
 									`,
-                              },
-                            }}
-                          />
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </li>
-            ),
-        )}
+                            },
+                          }}
+                        />
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )
