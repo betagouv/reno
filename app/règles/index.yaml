@@ -55,7 +55,7 @@ vous:
   titre: Votre situation
 vous . propriétaire:
 vous . propriétaire . condition:
-  titre: Propriétaire
+  titre: Propriétaire ?
   question: Êtes-vous propriétaire ?
   par défaut: oui
   description: |
@@ -97,6 +97,7 @@ logement:
   titre: Votre logement
 
 logement . type:
+  titre: Type de logement
   question: Le logement est-il une maison ou un appartement ?
   par défaut: "'maison'"
   une possibilité:

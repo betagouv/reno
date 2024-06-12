@@ -9,6 +9,8 @@ import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import { stringify } from 'yaml'
 import { TextArea } from '../api-doc/APIDemo'
+import { defaults } from 'marked'
+import SituationEditor from './SituationEditor'
 
 const entries = Object.entries(aides)
 
@@ -36,30 +38,26 @@ const engine = new Publicodes({ ...rules, 'somme des aides locales': sum })
 export default function () {
   const evaluation = engine.evaluate('somme des aides locales')
   const { missingVariables } = evaluation
-  const situation = sortBy(([, score]) => score)(
-    Object.entries(missingVariables),
-  ).map(([dottedName]) => [
-    dottedName,
-    formatValue(engine.evaluate(dottedName)),
-  ])
 
-  console.log('situation', situation)
-  const [yaml, setYaml] = useState(
-    stringify(omit(['simulation . mode'], Object.fromEntries(situation))),
+  const defaultSituationEntries = sortBy(([, score]) => score)(
+    Object.entries(missingVariables),
+  ).map(([dottedName]) => [dottedName, engine.evaluate(dottedName).nodeValue])
+
+  const [situationEntries, setSituationEntries] = useState(
+    defaultSituationEntries,
   )
-  const [debouncedYaml] = useDebounce(yaml, 500)
+
+  const situation = Object.fromEntries(situationEntries)
+
+  console.log(
+    'situation',
+    situation,
+    Object.fromEntries(defaultSituationEntries),
+  )
 
   return (
     <div>
-      <TextArea
-        css={`
-          width: 30rem;
-          max-width: 90%;
-          height: 18rem;
-        `}
-        value={yaml}
-        onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
-      />
+      <SituationEditor {...{ situationEntries, setSituationEntries }} />
       <ul
         css={`
           list-style-type: none;
@@ -73,7 +71,10 @@ export default function () {
             rules.find(([dottedName]) => dottedName.endsWith('montant'))
 
           const montant =
-            mainRule && engine.evaluate('aides locales . ' + mainRule[0])
+            mainRule &&
+            engine
+              .setSituation(situation)
+              .evaluate('aides locales . ' + mainRule[0])
 
           if (!montant) return null
 
