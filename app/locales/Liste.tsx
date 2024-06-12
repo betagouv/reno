@@ -2,7 +2,7 @@
 import aides from '@/app/règles/aides-locales.yaml'
 import rules from '@/app/règles/rules'
 import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
-import { getRuleTitle } from '@/components/publicodes/utils'
+import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0, omit, sortBy } from '@/components/utils'
 import Publicodes, { formatValue } from 'publicodes'
 import { useState } from 'react'
@@ -131,12 +131,26 @@ export default function () {
                           css={`
                             display: flex;
                             justify-content: space-between;
-                            > span:first-child {
-                              ${isMontant && `background: yellow`}
-                            }
                           `}
                         >
-                          <span>{getRuleTitle(dottedName, aides)}</span>
+                          <span
+                            css={`
+                              display: flex;
+                              flex-direction: column;
+                            `}
+                          >
+                            <small>
+                              {parentName(dottedName).split(place + ' . ')[1]}
+                            </small>
+                            <span
+                              css={`
+                                width: fit-content;
+                                ${isMontant && `background: yellow`}
+                              `}
+                            >
+                              {getRuleTitle(dottedName, aides)}
+                            </span>
+                          </span>
                           <span>{value}</span>
                         </div>
                       )}

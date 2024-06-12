@@ -17,7 +17,7 @@ export default function AidesLocales({ searchParams }) {
         <h1>Les aides locales en France</h1>
         <p>{description}</p>
         <p>
-          Cette liste est la seule base ouverte d'aides locales implémentées,
+          💡 Cette liste est la seule base ouverte d'aides locales implémentées,
           mais elle n'est pas encore complète : si vous avez des informations
           précises sur une aide locale,{' '}
           <Link href="/faq">contactez-nous !</Link>.
