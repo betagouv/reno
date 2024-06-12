@@ -15,6 +15,10 @@ export default function ({ situationEntries, setSituationEntries }) {
                 display: flex;
                 justify-content: space-between;
                 max-width: 30rem;
+                input {
+                  text-align: right;
+                  padding: 0 0.2rem;
+                }
               `}
             >
               <small>{nameSpace}</small>

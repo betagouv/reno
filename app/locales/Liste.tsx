@@ -2,15 +2,14 @@
 import aides from '@/app/règles/aides-locales.yaml'
 import rules from '@/app/règles/rules'
 import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
+import { Section } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0, omit, sortBy } from '@/components/utils'
 import Publicodes, { formatValue } from 'publicodes'
 import { useState } from 'react'
-import { useDebounce } from 'use-debounce'
-import { stringify } from 'yaml'
-import { EvaluationValue, TextArea } from '../api-doc/APIDemo'
-import { defaults } from 'marked'
 import SituationEditor from './SituationEditor'
+import Link from 'next/link'
+import { description } from './description'
 
 const aidesEntries = Object.entries(aides)
 
@@ -41,7 +40,15 @@ export default function () {
 
   const defaultSituationEntries = sortBy(([, score]) => score)(
     Object.entries(missingVariables),
-  ).map(([dottedName]) => [dottedName, engine.evaluate(dottedName).nodeValue])
+  )
+    .map(
+      ([dottedName]) =>
+        dottedName !== 'simulation . mode' && [
+          dottedName,
+          engine.evaluate(dottedName).nodeValue,
+        ],
+    )
+    .filter(Boolean)
 
   const [situationEntries, setSituationEntries] = useState(
     defaultSituationEntries,
@@ -72,122 +79,159 @@ export default function () {
   )
 
   return (
-    <div>
-      <SituationEditor {...{ situationEntries, setSituationEntries }} />
-      <ul
+    <div
+      css={`
+        display: flex;
+        overflow: scroll;
+      `}
+    >
+      <div
         css={`
-          list-style-type: none;
+          position: fixed;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 2rem;
         `}
       >
-        {Object.entries(byPlace).map(([place, rules]) => {
-          if (place == 0) return undefined
+        <h2>Situation</h2>
+        <SituationEditor {...{ situationEntries, setSituationEntries }} />
+      </div>
 
-          const mainRule =
-            Array.isArray(rules) &&
-            rules.find(([dottedName]) => dottedName.endsWith('montant'))
+      <Section
+        css={`
+          margin-left: 28rem;
+        `}
+      >
+        <h1>Les aides locales à la rénovation en France</h1>
+        <p>{description}</p>
+        <p>
+          💡 Cette liste est la seule base ouverte d'aides locales implémentées,
+          mais elle n'est pas encore complète : si vous avez des informations
+          précises sur une aide locale,{' '}
+          <Link href="/faq">contactez-nous !</Link>.
+        </p>
+        <ul
+          css={`
+            list-style-type: none;
+          `}
+        >
+          {Object.entries(byPlace).map(([place, rules]) => {
+            if (place == 0) return undefined
 
-          const montant =
-            mainRule &&
-            engine
-              .setSituation(situation)
-              .evaluate('aides locales . ' + mainRule[0])
+            const mainRule =
+              Array.isArray(rules) &&
+              rules.find(([dottedName]) => dottedName.endsWith('montant'))
 
-          if (!montant) return null
+            const montant =
+              mainRule &&
+              engine
+                .setSituation(situation)
+                .evaluate('aides locales . ' + mainRule[0])
 
-          console.log('montant2', montant)
+            if (!montant) return null
 
-          const value = formatValue(montant)
+            console.log('montant2', montant)
 
-          return (
-            <li key={place} css={``}>
-              <h2>{capitalise0(place)}</h2>
+            const value = formatValue(montant)
 
-              <ul
-                css={`
-                  list-style-type: none;
-                `}
-              >
-                {sortBy(([dottedName]) => !dottedName.endsWith('montant'))(
-                  rules,
-                ).map(([dottedName, rule]) => {
-                  if (rule == null) return
+            return (
+              <li key={place} css={``}>
+                <h2
+                  css={`
+                    position: sticky;
+                    top: 0px;
+                  `}
+                >
+                  {capitalise0(place)}
+                </h2>
 
-                  const evaluation = engine
-                    .setSituation(situation)
-                    .evaluate('aides locales . ' + dottedName)
-                  const value = formatValue(evaluation)
+                <ul
+                  css={`
+                    list-style-type: none;
+                  `}
+                >
+                  {sortBy(([dottedName]) => !dottedName.endsWith('montant'))(
+                    rules,
+                  ).map(([dottedName, rule]) => {
+                    if (rule == null) return
 
-                  const isMontant = dottedName.endsWith('montant')
+                    const evaluation = engine
+                      .setSituation(situation)
+                      .evaluate('aides locales . ' + dottedName)
+                    const value = formatValue(evaluation)
 
-                  return (
-                    <li
-                      key={dottedName}
-                      css={`
-                        margin: 0.6rem 0;
-                      `}
-                    >
-                      {dottedName !== place && (
-                        <div
-                          css={`
-                            display: flex;
-                            justify-content: space-between;
-                          `}
-                        >
-                          <span
-                            css={`
-                              display: flex;
-                              flex-direction: column;
-                            `}
-                          >
-                            <small>
-                              {parentName(dottedName).split(place + ' . ')[1]}
-                            </small>
-                            <span
-                              css={`
-                                width: fit-content;
-                                ${isMontant && `background: yellow`}
-                              `}
-                            >
-                              {getRuleTitle(dottedName, aides)}
-                            </span>
-                          </span>
-                          <span>{value}</span>
-                        </div>
-                      )}
-                      <div
+                    const isMontant = dottedName.endsWith('montant')
+
+                    return (
+                      <li
+                        key={dottedName}
                         css={`
-                          > div {
-                            border: 1px solid #aaa;
-                            > ul {
-                              padding-left: 0.6rem;
-                              margin: 0.6rem 0;
-                            }
-                          }
+                          margin: 0.6rem 0;
                         `}
                       >
-                        {typeof rule === 'string' ? (
-                          <div>{rule}</div>
-                        ) : (
-                          <FriendlyObjectViewer
-                            {...{
-                              data: omit(['titre'], rule),
-                              options: {
-                                keyStyle: `
+                        {dottedName !== place && (
+                          <div
+                            css={`
+                              display: flex;
+                              justify-content: space-between;
+                            `}
+                          >
+                            <span
+                              css={`
+                                display: flex;
+                                flex-direction: column;
+                              `}
+                            >
+                              <small>
+                                {parentName(dottedName).split(place + ' . ')[1]}
+                              </small>
+                              <span
+                                css={`
+                                  width: fit-content;
+                                  ${isMontant && `background: yellow`}
+                                `}
+                              >
+                                {getRuleTitle(dottedName, aides)}
+                              </span>
+                            </span>
+                            <span>{value}</span>
+                          </div>
+                        )}
+                        <div
+                          css={`
+                            > div {
+                              border: 1px solid #aaa;
+                              > ul {
+                                padding-left: 0.6rem;
+                                margin: 0.6rem 0;
+                              }
+                            }
+                          `}
+                        >
+                          {typeof rule === 'string' ? (
+                            <div>{rule}</div>
+                          ) : (
+                            <FriendlyObjectViewer
+                              {...{
+                                data: omit(['titre'], rule),
+                                options: {
+                                  keyStyle: `
 									color: #41438a
 									`,
-                              },
-                            }}
-                          />
-                        )}
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            </li>
-          )
-        })}
-      </ul>
+                                },
+                              }}
+                            />
+                          )}
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </li>
+            )
+          })}
+        </ul>
+      </Section>
     </div>
   )
 }
