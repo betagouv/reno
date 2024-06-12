@@ -41,14 +41,18 @@ côte-d'or:
 
     Nous partons donc du principe qu'elle est implicitement mise à jour pour respecter les conditions du parcours accompagné 2024 de MaPrimeRénov', mais avec l'exigence de 40 % de gain energétique plutôt que le saut de 2 DPE.
 
+côte-d'or . aide aux travaux . conditions géo:
+  toutes ces conditions:
+    - ménage . département = "Côte-d'Or"
+    - ménage . EPCI != '242100410'
+
 côte-d'or . aide aux travaux:
 côte-d'or . aide aux travaux . conditions:
   toutes ces conditions:
     - ménage . revenu . classe = 'très modeste'
     - projet . gain energétique > 40 %
     - conditions communes
-    - ménage . département = "Côte-d'Or"
-    - ménage . EPCI != '242100410'
+    - conditions géo
 
 côte-d'or . aide aux travaux . montant:
   applicable si: conditions
@@ -71,12 +75,14 @@ côte-d'or . aide au dossier de subvention ANAH . montant:
   valeur: 250 €
 
 angers:
+angers . conditions géo:
+  - ménage . EPCI = '244900015'
 
 angers . conditions de base:
   toutes ces conditions:
     - conditions de revenu
     - logement . propriétaire occupant
-    - ménage . EPCI = '244900015'
+    - conditions géo
 
 angers . aides:
   remplace: intercommunalité

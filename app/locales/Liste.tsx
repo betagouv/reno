@@ -12,9 +12,9 @@ import { TextArea } from '../api-doc/APIDemo'
 import { defaults } from 'marked'
 import SituationEditor from './SituationEditor'
 
-const entries = Object.entries(aides)
+const aidesEntries = Object.entries(aides)
 
-const byPlace = entries.reduce(
+const byPlace = aidesEntries.reduce(
   (memo, next) => {
     const dottedName = next[0]
     if (dottedName === '' || dottedName == '0') return memo
@@ -26,7 +26,7 @@ const byPlace = entries.reduce(
   [{}],
 )
 
-const toSum = entries
+const toSum = aidesEntries
     .filter(
       ([dottedName, value]) => dottedName && dottedName.endsWith(' . montant'),
     )
@@ -48,16 +48,21 @@ export default function () {
   )
 
   const situation = Object.fromEntries(
-    situationEntries
-      .map(([dottedName, value]) => {
+    [
+      // The situation was evaluted from the evaluation of default values
+      // the result is not compatible with the object we need to inject in Engine.setSituation
+      ...situationEntries.map(([dottedName, value]) => {
         if ([true, false].includes(value))
           return [dottedName, { true: 'oui', false: 'non' }[value]]
 
         if (dottedName === 'simulation . mode') return
 
         return [dottedName, value]
-      })
-      .filter(Boolean),
+      }),
+      ...aidesEntries
+        .filter(([dottedName, rule]) => dottedName.endsWith('conditions géo'))
+        .map(([dottedName, rule]) => ['aides locales . ' + dottedName, 'oui']),
+    ].filter(Boolean),
   )
 
   console.log(
