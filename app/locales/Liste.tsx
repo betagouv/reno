@@ -47,7 +47,18 @@ export default function () {
     defaultSituationEntries,
   )
 
-  const situation = Object.fromEntries(situationEntries)
+  const situation = Object.fromEntries(
+    situationEntries
+      .map(([dottedName, value]) => {
+        if ([true, false].includes(value))
+          return [dottedName, { true: 'oui', false: 'non' }[value]]
+
+        if (dottedName === 'simulation . mode') return
+
+        return [dottedName, value]
+      })
+      .filter(Boolean),
+  )
 
   console.log(
     'situation',
