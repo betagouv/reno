@@ -105,10 +105,9 @@ export default function () {
         <h1>Les aides locales à la rénovation en France</h1>
         <p>{description}</p>
         <p>
-          💡 Cette liste est la seule base ouverte d'aides locales implémentées,
-          mais elle n'est pas encore complète : si vous avez des informations
-          précises sur une aide locale,{' '}
-          <Link href="/faq">contactez-nous !</Link>.
+          💡 Cette liste n'est pas complète : si vous avez des informations
+          précises sur une aide locale, <Link href="/faq">contactez-nous</Link>{' '}
+          !
         </p>
         <ul
           css={`
@@ -150,9 +149,10 @@ export default function () {
                     list-style-type: none;
                   `}
                 >
-                  {sortBy(([dottedName]) => !dottedName.endsWith('montant'))(
-                    rules,
-                  ).map(([dottedName, rule]) => {
+                  {sortBy(
+                    ([dottedName]) =>
+                      dottedName == place || !dottedName.endsWith('montant'),
+                  )(rules).map(([dottedName, rule]) => {
                     if (rule == null) return
 
                     const evaluation = engine
