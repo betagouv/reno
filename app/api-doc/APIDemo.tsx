@@ -34,25 +34,16 @@ export default function APIDemo() {
         flex-wrap: wrap;
         justify-content: space-evenly;
         align-items: center;
-        > div {
-          background: var(--color);
-          color: white;
-          padding: 1rem 2rem;
-          text-align: center;
-          small {
-            margin-bottom: 0.4rem;
-          }
-        }
       `}
     >
       <TextArea
         value={yaml}
         onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
       />
-      <div>
+      <EvaluationValue>
         <small>MaPrimeRénov' accompagnée</small>{' '}
         <div>{typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}</div>
-      </div>
+      </EvaluationValue>
     </section>
   )
 }
@@ -64,4 +55,14 @@ export const TextArea = styled.textarea`
   height: 10rem;
   border: 2px solid var(--color);
   margin-right: 2rem;
+`
+
+export const EvaluationValue = styled.div`
+  background: var(--color);
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  small {
+    margin-bottom: 0.4rem;
+  }
 `

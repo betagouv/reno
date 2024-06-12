@@ -64,8 +64,9 @@ côte-d'or . hors opération programmée:
   par défaut: oui
 
 côte-d'or . aide au dossier de subvention ANAH:
+  titre: Aide dossier de subvention
+  description: Aide au financement d’un opérateur pour l’assistance au montage des dossiers de demande de subvention ANAH
 côte-d'or . aide au dossier de subvention ANAH . montant:
-  titre: Aide au financement d’un opérateur pour l’assistance au montage des dossiers de demande de subvention ANAH
   applicable si:
     toutes ces conditions:
       - MPR . accompagnée . éligible
@@ -115,6 +116,7 @@ angers . aides socles:
 
 angers . aides socles . montant si assiette maximum:
   formule: taux * plafond de travaux HT
+
 angers . aides socles . montant: taux * travaux plafonnés
 
 angers . aides socles . travaux plafonnés:

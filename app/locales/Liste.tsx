@@ -8,7 +8,7 @@ import Publicodes, { formatValue } from 'publicodes'
 import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import { stringify } from 'yaml'
-import { TextArea } from '../api-doc/APIDemo'
+import { EvaluationValue, TextArea } from '../api-doc/APIDemo'
 import { defaults } from 'marked'
 import SituationEditor from './SituationEditor'
 
@@ -102,16 +102,23 @@ export default function () {
             <li key={place} css={``}>
               <h2>{capitalise0(place)}</h2>
 
-              {value}
-
               <ul
                 css={`
                   list-style-type: none;
                 `}
               >
-                {rules.map(([dottedName, rule]) => {
+                {sortBy(([dottedName]) => !dottedName.endsWith('montant'))(
+                  rules,
+                ).map(([dottedName, rule]) => {
                   if (rule == null) return
-                  if (typeof rule === 'string') return rule
+
+                  const evaluation = engine
+                    .setSituation(situation)
+                    .evaluate('aides locales . ' + dottedName)
+                  const value = formatValue(evaluation)
+
+                  const isMontant = dottedName.endsWith('montant')
+
                   return (
                     <li
                       key={dottedName}
@@ -120,7 +127,18 @@ export default function () {
                       `}
                     >
                       {dottedName !== place && (
-                        <div>{getRuleTitle(dottedName, aides)}</div>
+                        <div
+                          css={`
+                            display: flex;
+                            justify-content: space-between;
+                            > span:first-child {
+                              ${isMontant && `background: yellow`}
+                            }
+                          `}
+                        >
+                          <span>{getRuleTitle(dottedName, aides)}</span>
+                          <span>{value}</span>
+                        </div>
                       )}
                       <div
                         css={`
@@ -133,16 +151,20 @@ export default function () {
                           }
                         `}
                       >
-                        <FriendlyObjectViewer
-                          {...{
-                            data: omit(['titre'], rule),
-                            options: {
-                              keyStyle: `
+                        {typeof rule === 'string' ? (
+                          <div>{rule}</div>
+                        ) : (
+                          <FriendlyObjectViewer
+                            {...{
+                              data: omit(['titre'], rule),
+                              options: {
+                                keyStyle: `
 									color: #41438a
 									`,
-                            },
-                          }}
-                        />
+                              },
+                            }}
+                          />
+                        )}
                       </div>
                     </li>
                   )
