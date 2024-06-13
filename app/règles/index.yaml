@@ -338,6 +338,18 @@ projet . gain energétique:
     moyen: 30 %
     elevé: 50 %
 
+projet . objectif BBC rénovation:
+  question: Votre projet de rénovation respecte-t-il le niveau BBC rénovation ?
+  description: |
+    Labels Bâtiment Basse Consommation en rénovation.
+
+    [Fiche officielle Ministère de l'écologie](https://www.ecologie.gouv.fr/labels-batiment-basse-consommation-en-renovation).
+
+projet . objectif BBC neuf:
+  question: Votre projet de rénovation respecte-t-il le niveau BBC neuf ?
+  description: |
+    Labels Bâtiment Basse Consommation neuf.
+
 projet . DPE visé:
   titre: Votre futur DPE visé
   question: Quel DPE visé après rénovation ?

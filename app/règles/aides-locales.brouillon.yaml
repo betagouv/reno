@@ -7,3 +7,8 @@ occitanie . avance ampleur:
     Décrit comme une avance, on pourrait croire que c'est un prêt à taux zéro, mais les frais de dossier font que c'est en fait un prêt à taux fixe...
 
     Il reste à la brancher au reste de la simulation.
+
+nouvelle-aquitaine:
+nouvelle-aquitaine . montant:
+  description: 800 à 1200 € sans conditions de ressources, déclenchées par les conseillers France Rénov'
+  note: Brouillon d'implémentation. Nous n'avons trouvé aucun site officiel qui validerait cette aide et qui en décrirait les valeurs. Elle ne nous a pas non plus été confirmée par les agents de la collectivité.

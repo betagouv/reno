@@ -13,16 +13,112 @@
     état: 0 €
 
 besançon:
+besançon . conditions géo:
+  logement . EPCI = '242500361'
+besançon . conditions de revenu . AAPEL:
+  une de ces conditions:
+    - modeste
+    - très modeste
+besançon . conditions de revenu . PAMELA:
+  note: |
+    Sur [la fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement), le barème cite des seuils de revenu très proches de [la catégorie "intermédiaire" de l'ANAH](https://france-renov.gouv.fr/bareme#fr_idf-threshold). Nous faisons donc cette simplification. Nous supposons que c'est une erreur de mise à jour de la part du Grand Besançon, les seuils de revenu évoluant chaque année. 
+  une de ces conditions:
+    - intermédiaire
+    - modeste
+    - très modeste
+
+
+
+besançon . seuil minimum travaux: projet . travaux > 5000 €
+
+besançon . travaux recevables:
+  question: Votre bouquet de travaux respecte-t-il les catégories exigées par le Grand Besançon ?
+  par défaut: oui
+  description: |
+    Les travaux devront être réalisés par des professionnels disposant
+de la certification RGE, et le bouquet devra être constitué d'au moins deux des catégories suivantes :
+
+    - Travaux d’isolation thermique sous toiture ;
+    - Travaux d’isolation des planchers ;
+    - Travaux d’isolation thermique des murs donnant sur l’extérieur ou l’intérieur ;
+    - Travaux d’isolation thermique de la moitié au moins des menuiseries (portes, fenêtres…) donnant sur
+    l’extérieur ;
+    - Travaux d’installation de chaudières à haute performance énergétique, de chaudières à micro-
+    cogénération gaz ou de pompes à chaleur (sauf pompe à chaleur air/air) ;
+    - Travaux d’installation de chaudières ou d’équipements de chauffage ou de production d’eau chaude
+    fonctionnant au bois ou autres biomasses ;
+    - Travaux d’installation d’équipements de production d’eau chaude sanitaire utilisant une source d’énergie
+    renouvelable ;
+    - Acquisition d’équipements de récupération et de traitement des eaux pluviales, de systèmes permettant
+    de réduire la consommation d’eau ;
+
+    Source : https://www.grandbesancon.fr/wp-content/uploads/sites/2/2019/06/R%C3%A8glement-dintervention-r%C3%A9novation-des-logements-2019.pdf
+
+besançon . occupant:
+besançon . occupant . montant:
+  titre: Dispositif AAPEL propriétaire occupant
+  description: |
+    [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement).
+    [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
+  note: |
+    À étudier : "Clause anti spéculative d'une durée de 5 ans".
+  applicable si:
+    toutes ces conditions:
+      - conditions géo
+      - conditions de revenu
+      - logement . période de construction = 'au moins 15 ans'
+      - seuil minimum travaux
+      - travaux recevables
+      - projet . DPE visé <= 4 # D
+      - projet . gain energétique > 25 %
+
+besançon . occupant . socle:
+  formule: 
+    variations: 
+      - si: projet . gain energétique < 30 %
+        alors: 
+          valeur: 25 % * travaux
+          plafond: 12000 €
+      - si: projet . gain energétique < 35 %
+        alors: 
+          valeur: 30 % * travaux
+          plafond: 14000 €
+      - si: projet . gain energétique < 40 %
+        alors: 
+          valeur: 35 % * travaux
+          plafond: 16000 €
+      - sinon: 
+          valeur: 40 % * travaux
+          plafond: 18000 €
+
+besançon . occupant . objectif BBC rénovation:
+  applicable si: projet . objectif BBC rénovation
+  valeur: 1500 €
+besançon . occupant . objectif BBC neuf:
+  applicable si: projet . objectif BBC neuf
+  valeur: 2000 €
+
+besançon . aide audit energétique: 
+  valeur: 150 €
+  description: Hors Opah et PIG.
+
+besançon . occupant:
+besançon . occupant . montant:
+  titre: Dispositif AAPEL propriétaire bailleur
+
 besançon . bonus passoire:
 besançon . bonus passoire . montant:
   formule: 5 % * projet . travaux
   note: Brouillon d'implémentation
 
-nouvelle-aquitaine:
-nouvelle-aquitaine . montant:
-  description: 800 à 1200 € sans conditions de ressources, déclenchées par les conseillers France Rénov'
-  note: Brouillon d'implémentation
-  valeur: 1200 €
+
+
+
+
+
+
+
+
 
 charente-maritime:
 charente-maritime . conditions géo:
