@@ -25,17 +25,35 @@ nouvelle-aquitaine . montant:
   valeur: 1200 €
 
 charente-maritime:
-charente-maritime . montant:
+charente-maritime . conditions géo:
+  formule: logement . département = 'Charente-Maritime'
+
+charente-maritime . bailleur:
+charente-maritime . bailleur . montant:
   applicable si:
     toutes ces conditions:
       - projet . gain energétique >= 35 %
   description: |
-    Les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [Fiche PDF officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/Reglement-proprietaires-bailleurs.pdf).
+    les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [fiche pdf officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/reglement-proprietaires-bailleurs.pdf).
+  valeur: 30 % * projet . travaux
+  plafond: 5000 €
+
+  note: il n'est pas du tout explicite dans les fiches qu'il s'agisse de la localisation du logement plutôt que celle du propriétaire. nous choisissons le logement, car l'aide est bonifiée pour certaines communes, ce qui laisse penser que c'est du logement qu'il s'agit.
+
+charente-maritime . occupant:
+charente-maritime . occupant . montant:
+  applicable si:
+    toutes ces conditions:
+      - ménage . revenu . classe = 'très modeste'
+      - logement . résidence principale propriétaire
+      - logement . période de construction = 'au moins 15 ans'
+      - projet . gain energétique >= 25 %
+  description: |
+    Source : https://www.anil.org/aides-locales-travaux/details/charente-aide-a-lamelioration-thermique-3065
   valeur: 30 % * projet . travaux
   plafond: 5000 €
   note: |
-    Brouillon d'implémentation. 
-    Alerte : cette fiche ANIL donne 15 % https://www.anil.org/aides-locales-travaux/details/charente-aide-a-lamelioration-thermique-3065/
+    La liste de conditions "Autre(s) condition(s) relatives aux travaux" dans la fiche ANIL est ambigüe : s'agit-il de "toutes ces conditions" ou "une de ces conditions" ?
 
 côte-d'or:
   note: |

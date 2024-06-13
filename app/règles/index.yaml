@@ -231,6 +231,10 @@ logement . EPCI:
   formule: commune
   par défaut: '"242900314"'
 
+logement . département:
+  formule: commune
+  par défaut: '"Finistère"'
+
 logement . commune:
   applicable si: propriétaire occupant = non
   titre: La commune du logement
