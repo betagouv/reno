@@ -81,18 +81,7 @@ export default function Result({
       {MPRA ? (
         <section>
           <header>
-            <h3>L'État vous accompagne</h3>
-            <p>
-              L'aide principale en 2024 pour faire une rénovation d'ampleur.
-            </p>
-          </header>
-          <Card
-            css={`
-              color: ${fail ? '#888' : 'inherit'};
-              margin-top: 0.2rem;
-              background: white;
-            `}
-          >
+            <h3>Faire un rénovation d'ampleur</h3>
             <Labels
               $color={'#6E4444'}
               $background={'#fdf8db'}
@@ -104,6 +93,22 @@ export default function Result({
                 <li key={text}>{text}</li>
               ))}
             </Labels>
+            <p
+              css={`
+                margin-top: 1.4rem;
+              `}
+            >
+              Un programme sur-mesure pour gagner au minimum{' '}
+              deux&nbsp;classes&nbsp;DPE.
+            </p>
+          </header>
+          <Card
+            css={`
+              color: ${fail ? '#888' : 'inherit'};
+              margin-top: 0.2rem;
+              background: white;
+            `}
+          >
             <h4
               style={css`
                 font-weight: 400;
@@ -131,14 +136,6 @@ export default function Result({
 
             {/* On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas ! */}
             <AidesLocales {...{ engine, situation }} />
-            <p
-              css={`
-                margin-top: 1.4rem;
-              `}
-            >
-              Un programme sur-mesure pour gagner au minimum{' '}
-              <strong>deux&nbsp;classes&nbsp;DPE</strong>.
-            </p>
             <div
               css={`
                 visibility: ${!isNotApplicable && url ? 'visible' : 'hidden'};
@@ -163,8 +160,14 @@ export default function Result({
       ) : (
         <section>
           <header>
-            <h3>Les aides à la carte</h3>
-            <p>Rénovez progressivement votre logement.</p>
+            <h3>Rénover à la carte</h3>
+            <p
+              css={`
+                margin-top: 1.4rem;
+              `}
+            >
+              Rénovez progressivement via un bouquet de gestes subventionnés.
+            </p>
           </header>
           <Card
             css={`
@@ -191,13 +194,6 @@ export default function Result({
               </div>
             )}
 
-            <p
-              css={`
-                margin-top: 1.4rem;
-              `}
-            >
-              Choisissez vos travaux dans un bouquet de gestes subventionnés.
-            </p>
             {!fail ? (
               <GestesPreview
                 {...{

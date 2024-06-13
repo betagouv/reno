@@ -22,7 +22,6 @@ export default function AddressSearch({ setChoice }) {
     // Le code postal en France est une suite de cinq chiffres https://fr.wikipedia.org/wiki/Code_postal_en_France
     if (onlyNumbers(input) && input.length !== 5) return
 
-    console.log('input', input)
     const asyncFetch = async () => {
       const request = await fetch(
         onlyNumbers(input)
@@ -31,7 +30,15 @@ export default function AddressSearch({ setChoice }) {
       )
       const json = await request.json()
 
-      setResults(json)
+      const enrichedResults = await Promise.all(
+        json.map((commune) =>
+          fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
+            .then((response) => response.json())
+            .then((json) => ({ ...commune, eligibilite: json })),
+        ),
+      )
+
+      setResults(enrichedResults)
     }
 
     asyncFetch()

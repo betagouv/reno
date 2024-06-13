@@ -13,7 +13,7 @@ import GestesMosaic, {
   isGestesMosaicQuestion,
 } from './GestesMosaic'
 import Input from './Input'
-import MPRSelector from './MPRSelector'
+import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
@@ -146,6 +146,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+
   if (currentQuestion === 'ménage . commune')
     return (
       <ClassicQuestionWrapper
@@ -165,6 +166,7 @@ export default function InputSwitch({
         <AddressSearch
           {...{
             setChoice: (result) => {
+              console.log('purple result ', result)
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
@@ -210,6 +212,14 @@ export default function InputSwitch({
                   ...situation,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
+                  'logement . commune exonérée taxe foncière': result
+                    .eligibilite.taxeFoncière
+                    ? 'oui'
+                    : 'non',
+                  'logement . commune denormandie': result.eligibilite
+                    .denormandie
+                    ? 'oui'
+                    : 'non',
                 },
                 false,
                 answeredQuestions,
@@ -266,9 +276,9 @@ export default function InputSwitch({
     )
   }
 
-  if (['MPR . choix'].includes(currentQuestion))
+  if (["parcours d'aide"].includes(currentQuestion))
     return (
-      <MPRSelector
+      <Eligibility
         {...{
           currentQuestion,
           setSearchParams,
@@ -276,6 +286,7 @@ export default function InputSwitch({
           answeredQuestions,
           engine,
           rules,
+          expanded: searchParams.details,
         }}
       />
     )

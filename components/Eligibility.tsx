@@ -1,21 +1,23 @@
-import Result from '@/components/Result'
 import { Results } from '@/components/ResultUI'
 import checkIcon from '@/public/check.svg'
 import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import { useMemo } from 'react'
+import AmpleurSummary from './AmpleurSummary'
 import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { Avis, ExplicationCommune } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
+import ÀlaCarteSummary from './ÀlaCarteSummary'
 
-export default function MPRSelector({
+export default function Eligibility({
   setSearchParams,
   situation,
   currentQuestion,
   answeredQuestions,
   rules,
   engine,
+  expanded,
 }) {
   const nextLink = (value) => {
     const url = setSearchParams(
@@ -35,12 +37,14 @@ export default function MPRSelector({
     }, [situation, engine]),
     mpra = mpraEvaluation.nodeValue,
     mprg = mprgEvaluation.nodeValue
+  /*
   console.log(
     'result 2',
     mpraEvaluation,
     mprgEvaluation,
     engine.evaluate('gestes . ventilation . double flux').nodeValue,
   )
+  */
 
   const both = mpra && mprg,
     none = !mpra && !mprg,
@@ -113,31 +117,22 @@ export default function MPRSelector({
       )}
 
       <Results>
-        <Result
-          index={1}
-          key={'accompagnée'}
-          situation={situation}
-          {...{
-            engine: engine.setSituation(situation),
-            isFinal: !currentQuestion,
-            rules,
-            dottedName: 'MPR . accompagnée . montant',
-            url: nextLink(`MPR . accompagnée . montant`),
-          }}
-        />
-        <Result
-          index={2}
-          key={'non accompagnée'}
-          situation={situation}
-          {...{
-            engine: engine.setSituation(situation),
-            isFinal: !currentQuestion,
-            dottedName: 'MPR . non accompagnée . éligible',
-            hideNumeric: true,
-            rules,
-            url: nextLink(`MPR . non accompagnée . montant`),
-          }}
-        />
+        <li>
+          <AmpleurSummary
+            {...{
+              engine,
+              url: nextLink('ampleur'),
+              situation,
+              expanded,
+              setSearchParams,
+            }}
+          />
+        </li>
+        <li>
+          <ÀlaCarteSummary
+            {...{ engine, url: nextLink('à la carte'), situation }}
+          />
+        </li>
       </Results>
       <AutresAides />
     </CustomQuestionWrapper>

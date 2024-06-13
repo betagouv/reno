@@ -2,34 +2,50 @@ chauffage:
   titre: Chauffage et eau chaude
   description: Chauffage et eau chaude sanitaire
   somme:
-    - raccordement réseau . montant
+    - raccordement réseau
     - chauffe-eau thermodynamique . montant
-    - PAC . air-eau . montant
-    - PAC . géo ou solaire . montant
+    - PAC . air-eau
+    - PAC . géo . montant
+    - PAC . solaire . montant
     - chauffe-eau solaire . montant
     - solaire combiné . montant
     - partie thermique PVT eau . montant
-    - poêle . à bûches . montant
-    - poêle . à granulés . montant
-    - chaudière bois . manuelle . montant
-    - chaudière bois . automatique . montant
-    - foyer et insert . montant
+    - bois . poêle
+    - bois . chaudière
+    - bois . foyer et insert . montant
     - fioul . dépose cuve . montant
+    - pilotage connecté . montant
 
-chauffage . raccordement réseau:
+chauffage . pilotage connecté:
   par défaut: oui
-  titre: Raccordement à un réseau de chaleur et/ou de froid
-chauffage . raccordement réseau . plafond:
-  valeur: 1800 €
-chauffage . raccordement réseau . montant:
+  titre: Pilotage connecté pièce par pièce
+  description: |
+    Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
+
+#logement . surface chauffée:
+#question: Quelle est la surface chauffée de votre logement ?
+#par défaut: 100 m2 # estimation sur base de "surface" + ~10 % pour les escaliers, les combles habitées, etc
+
+chauffage . pilotage connecté . surface chauffée:
+  description: |
+    Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
+  valeur: logement . surface
+
+chauffage . pilotage connecté . montant:
   variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1200 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 800 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 400 €
-    - sinon: 0 €
+    - si: surface chauffée < 35
+      alors: 260 €
+    - si: surface chauffée < 60
+      alors: 312 €
+    - si: surface chauffée < 70
+      alors: 364 €
+    - si: surface chauffée < 90
+      alors: 416 €
+    - si: surface chauffée < 110
+      alors: 520 €
+    - si: surface chauffée < 130
+      alors: 572 €
+    - sinon: 624 €
 
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
@@ -43,37 +59,6 @@ chauffage . chauffe-eau thermodynamique . montant:
       alors: 800 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
-    - sinon: 0 €
-
-chauffage . PAC:
-  titre: Pompe à chaleur
-chauffage . PAC . air-eau:
-  par défaut: oui
-  titre: Pompe à chaleur air/eau
-  description: Pompe à chaleur air/eau (dont PAC hybrides)
-chauffage . PAC . air-eau . plafond: 12000 €
-chauffage . PAC . air-eau . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 5000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 4000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 3000 €
-    - sinon: 0 €
-chauffage . PAC . géo ou solaire:
-  par défaut: oui
-  titre: Pompe à chaleur géo/solarothermique
-  description: Pompe à chaleur géothermique ou solarothermique (dont PAC hybrides)
-chauffage . PAC . géo ou solaire . plafond: 18000 €
-chauffage . PAC . géo ou solaire . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 11000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 9000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 6000 €
     - sinon: 0 €
 
 chauffage . chauffe-eau solaire:
@@ -98,9 +83,17 @@ chauffage . solaire combiné:
   par défaut: oui
   titre: Système solaire combiné
   description: |
-    Et dispositifs solaires pour le chauffage des locaux.
-chauffage . solaire combiné . plafond: 16000 €
+    ...et dispositifs solaires pour le chauffage des locaux.
+
+    Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d’un chauffage central. Quand il fait également la production d’eau chaude, il est appelé  système solaire combiné (SSC)
 chauffage . solaire combiné . montant:
+  somme:
+    - MPR
+    - CEE
+
+chauffage . solaire combiné . MPR:
+chauffage . solaire combiné . MPR . plafond: 16000 €
+chauffage . solaire combiné . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
@@ -109,6 +102,9 @@ chauffage . solaire combiné . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
     - sinon: 0 €
+chauffage . solaire combiné . CEE:
+  applicable si: projet . remplacement chaudière thermique
+  valeur: 5000 €
 
 chauffage . partie thermique PVT eau:
   titre: Partie thermique d’un équipement PVT eau
@@ -124,82 +120,6 @@ chauffage . partie thermique PVT eau . montant:
       alors: 8000 €
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
-    - sinon: 0 €
-
-chauffage . chaudière bois:
-  titre: Chaudière bois
-
-chauffage . chaudière bois . manuelle:
-  titre: Chaudière bois manuelle (bûches)
-  description: Chaudière bois à alimentation manuelle (bûches)
-  par défaut: oui
-chauffage . chaudière bois . manuelle . plafond: 16000 €
-chauffage . chaudière bois . manuelle . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 5500 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 4500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 2000 €
-    - sinon: 0 €
-chauffage . chaudière bois . automatique:
-  titre: Chaudière bois auto (granulés, plaquettes)
-  description: Chaudière bois à alimentation automatique (granulés, plaquettes)
-  par défaut: oui
-chauffage . chaudière bois . automatique . plafond: 18000 €
-chauffage . chaudière bois . automatique . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 7000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 5500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 3000 €
-    - sinon: 0 €
-
-chauffage . foyer et insert:
-  par défaut: oui
-  titre: Foyer fermé et insert à buches ou à granulés
-chauffage . foyer et insert . plafond: 4000 €
-chauffage . foyer et insert . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 1000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 600 €
-    - sinon: 0 €
-
-chauffage . poêle:
-  titre: Poêle et cuisinière
-chauffage . poêle . à bûches:
-  par défaut: oui
-  titre: Poêle et cuisinière à bûches
-chauffage . poêle . à bûches . plafond: 4000 €
-chauffage . poêle . à bûches . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 700 €
-    - sinon: 0 €
-
-chauffage . poêle . à granulés:
-  par défaut: oui
-  titre: Poêle et cuisinière à granulés
-chauffage . poêle . à granulés . plafond: 5000 €
-chauffage . poêle . à granulés . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 1000 €
     - sinon: 0 €
 
 chauffage . fioul:
