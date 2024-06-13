@@ -32,26 +32,44 @@ charente-maritime . bailleur:
 charente-maritime . bailleur . montant:
   applicable si:
     toutes ces conditions:
+      - conditions géo
       - projet . gain energétique >= 35 %
+      - logement . loyer social ou très social
   description: |
-    les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [fiche pdf officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/reglement-proprietaires-bailleurs.pdf).
+    les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [fiche pdf officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/Reglement-proprietaires-bailleurs.pdf).
   valeur: 30 % * projet . travaux
-  plafond: 5000 €
+  plafond:
+    variations:
+      - si:
+          une de ces conditions:
+            - logement . commune = '17457' # La Devise
+            - logement . commune = '17266' # Les Nouillers
+            - logement . commune = '17237' # Moëze
+            - logement . commune = '17269' # Orignolles
+        alors: 7000 €
+      - sinon: 5000 €
 
-  note: il n'est pas du tout explicite dans les fiches qu'il s'agisse de la localisation du logement plutôt que celle du propriétaire. nous choisissons le logement, car l'aide est bonifiée pour certaines communes, ce qui laisse penser que c'est du logement qu'il s'agit.
+  note: |
+    Il n'est pas du tout explicite dans les fiches qu'il s'agisse de la localisation du logement plutôt que celle du propriétaire. nous choisissons le logement, car l'aide est bonifiée pour certaines communes, ce qui laisse penser que c'est du logement qu'il s'agit.
+
+    La fiche stipule la chose suivante : 
+
+    > Les ressources des locataires du logement aidé doivent être inférieures ou égales au plafond défini par l’Etat et révisé chaque année.
+
+    Or, l'aide MaPrimeRénov' ampleur en 2024 n'a pas de plafond de revenu, seulement un barème. Ainsi nous partons du principe qu'il n'y en a pas pour cette aide.
 
 charente-maritime . occupant:
 charente-maritime . occupant . montant:
   applicable si:
     toutes ces conditions:
+      - conditions géo
       - ménage . revenu . classe = 'très modeste'
       - logement . résidence principale propriétaire
       - logement . période de construction = 'au moins 15 ans'
       - projet . gain energétique >= 25 %
   description: |
     Source : https://www.anil.org/aides-locales-travaux/details/charente-aide-a-lamelioration-thermique-3065
-  valeur: 30 % * projet . travaux
-  plafond: 5000 €
+  valeur: 15 % * projet . travaux
   note: |
     La liste de conditions "Autre(s) condition(s) relatives aux travaux" dans la fiche ANIL est ambigüe : s'agit-il de "toutes ces conditions" ou "une de ces conditions" ?
 

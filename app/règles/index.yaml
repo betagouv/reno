@@ -807,3 +807,9 @@ PTZ . montant: 50000 # pour MPR
 somme à engager:
   plancher: 0
   valeur: projet . travaux - (MPR . accompagnée . avance + 50000)
+
+logement . loyer social ou très social:
+  question: Le loyer du bail de location est-il "social" ou "très social" ?
+  par défaut: non
+  description: |
+    Le loyer dit "social" correspond à un loyer de 30 % en dessous des loyers du marché. Voir [la fiche service-public.fr à propos du conventionnement ANAH](https://www.service-public.fr/particuliers/vosdroits/F2541).
