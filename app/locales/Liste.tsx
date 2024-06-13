@@ -120,6 +120,13 @@ export default function () {
         <h1>Les aides locales à la rénovation en France</h1>
         <p>{description}</p>
         <p>
+          Sont listées ici les aides financières soutenues par une source
+          officielle. Cela peut être une page Web, un PDF sur le site d'une
+          collectivité, ou une page ANIL dont la date de vérification est
+          récente. Il est de la responsabilité des collectivités de supprimer
+          leurs références à des aides obsolètes.
+        </p>
+        <p>
           💡 Cette liste n'est pas complète : si vous avez des informations
           précises sur une aide locale, <Link href="/faq">contactez-nous</Link>{' '}
           !
