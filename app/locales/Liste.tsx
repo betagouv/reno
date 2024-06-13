@@ -6,7 +6,7 @@ import { Section } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0, omit, sortBy } from '@/components/utils'
 import Publicodes, { formatValue } from 'publicodes'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import SituationEditor from './SituationEditor'
 import Link from 'next/link'
 import { description } from './description'
@@ -32,9 +32,9 @@ const toSum = aidesEntries
     .map(([dottedName, value]) => 'aides locales . ' + dottedName),
   sum = { somme: toSum }
 
-const engine = new Publicodes({ ...rules, 'somme des aides locales': sum })
+const baseEngine = new Publicodes({ ...rules, 'somme des aides locales': sum })
 
-const evaluation = engine.evaluate('somme des aides locales')
+const evaluation = baseEngine.evaluate('somme des aides locales')
 const { missingVariables } = evaluation
 
 const defaultSituationEntries = sortBy(([, score]) => score)(
@@ -44,7 +44,7 @@ const defaultSituationEntries = sortBy(([, score]) => score)(
     ([dottedName]) =>
       dottedName !== 'simulation . mode' && [
         dottedName,
-        engine.evaluate(dottedName).nodeValue,
+        baseEngine.evaluate(dottedName).nodeValue,
       ],
   )
   .filter(Boolean)
@@ -54,29 +54,44 @@ export default function () {
     defaultSituationEntries,
   )
 
-  const situation = Object.fromEntries(
-    [
-      // The situation was evaluted from the evaluation of default values
-      // the result is not compatible with the object we need to inject in Engine.setSituation
-      ...situationEntries.map(([dottedName, value]) => {
-        if ([true, false].includes(value))
-          return [dottedName, { true: 'oui', false: 'non' }[value]]
+  const engine = useMemo(() => {
+    try {
+      const situation = Object.fromEntries(
+        [
+          // The situation was evaluted from the evaluation of default values
+          // the result is not compatible with the object we need to inject in Engine.setSituation
+          ...situationEntries.map(([dottedName, value]) => {
+            if ([true, false, 'true', 'false'].includes(value))
+              return [
+                dottedName,
+                { true: 'oui', true: 'oui', false: 'non', false: 'non' }[value],
+              ]
 
-        if (dottedName === 'simulation . mode') return
+            if (dottedName === 'simulation . mode') return
 
-        return [dottedName, value]
-      }),
-      ...aidesEntries
-        .filter(([dottedName, rule]) => dottedName.endsWith('conditions géo'))
-        .map(([dottedName, rule]) => ['aides locales . ' + dottedName, 'oui']),
-    ].filter(Boolean),
-  )
+            return [dottedName, value]
+          }),
+          ...aidesEntries
+            .filter(([dottedName, rule]) =>
+              dottedName.endsWith('conditions géo'),
+            )
+            .map(([dottedName, rule]) => [
+              'aides locales . ' + dottedName,
+              'oui',
+            ]),
+        ].filter(Boolean),
+      )
+      console.log(
+        'situation',
+        situation,
+        Object.fromEntries(defaultSituationEntries),
+      )
 
-  console.log(
-    'situation',
-    situation,
-    Object.fromEntries(defaultSituationEntries),
-  )
+      return baseEngine.setSituation(situation)
+    } catch (e) {
+      return baseEngine
+    }
+  }, [situationEntries, baseEngine])
 
   return (
     <div
@@ -122,8 +137,7 @@ export default function () {
               rules.find(([dottedName]) => dottedName.endsWith('montant'))
 
             const montant =
-              mainRule &&
-              safeEvaluate('aides locales . ' + mainRule[0], situation, engine)
+              mainRule && engine.evaluate('aides locales . ' + mainRule[0])
 
             if (!montant) return null
 
@@ -151,9 +165,9 @@ export default function () {
                   )(rules).map(([dottedName, rule]) => {
                     if (rule == null) return
 
-                    const evaluation = engine
-                      .setSituation(situation)
-                      .evaluate('aides locales . ' + dottedName)
+                    const evaluation = engine.evaluate(
+                      'aides locales . ' + dottedName,
+                    )
                     const value = formatValue(evaluation)
 
                     const isMontant = dottedName.endsWith('montant')
@@ -232,12 +246,4 @@ export default function () {
       </Section>
     </div>
   )
-}
-
-const safeEvaluate = (dottedName, situation, engine) => {
-  try {
-    return engine.setSituation(situation).evaluate(dottedName)
-  } catch (e) {
-    console.log('Publicodes error, user is probably still typing here input')
-  }
 }

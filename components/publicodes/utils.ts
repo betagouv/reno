@@ -7,7 +7,6 @@ export const parentName = (dottedName) =>
   dottedName.split(' . ').slice(0, -1).join(' . ')
 
 export const getRuleTitle = (dottedName, rules) => {
-  console.log('plop', dottedName, rules)
   const rule = rules[dottedName]
   const title = rule?.titre
   if (title) return title
