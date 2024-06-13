@@ -63,6 +63,10 @@ besançon . occupant . montant:
       - travaux recevables
       - projet . DPE visé <= 4 # D
       - projet . gain energétique > 25 %
+  somme:
+    - socle
+    - objectif BBC rénovation
+    - objectif BBC neuf
 
 besançon . occupant . socle:
   formule:
