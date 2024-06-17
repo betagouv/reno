@@ -1,5 +1,5 @@
 'use client'
-import aides from '@/app/règles/aides-locales.yaml'
+import aides from '@/app/règles/aides-locales.publicodes'
 import rules from '@/app/règles/rules'
 import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
 import { Section } from '@/components/UI'

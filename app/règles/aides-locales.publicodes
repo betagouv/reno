@@ -15,15 +15,18 @@
     état: 0 €
 
 #########
+
 besançon:
 
 besançon . conditions géo: logement . EPCI = '242500361'
 
 besançon . conditions de revenu:
+
 besançon . conditions de revenu . AAPEL:
   une de ces conditions:
     - ménage . revenu . classe = 'modeste'
     - ménage . revenu . classe = 'très modeste'
+
 besançon . conditions de revenu . PAMELA:
   note: |
     Sur [la fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement), le barème cite des seuils de revenu très proches de [la catégorie "intermédiaire" de l'ANAH](https://france-renov.gouv.fr/bareme#fr_idf-threshold). Nous faisons donc cette simplification. Nous supposons que c'est une erreur de mise à jour de la part du Grand Besançon, les seuils de revenu évoluant chaque année.
