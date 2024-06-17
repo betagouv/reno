@@ -232,6 +232,7 @@
     ménage . personnes: 2
     ménage . revenu: 31000
     DPE . actuel: 5
+    projet . DPE visé: 2
     ménage . commune: "'49007'"
     ménage . EPCI: "'244900015'"
     logement . propriétaire occupant: oui

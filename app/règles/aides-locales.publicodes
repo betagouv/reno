@@ -229,8 +229,7 @@ côte-d'or . aide au dossier de subvention ANAH . montant:
   valeur: 250 €
 
 angers:
-angers . conditions géo:
-  - ménage . EPCI = '244900015'
+angers . conditions géo: ménage . EPCI = '244900015'
 
 angers . conditions de base:
   toutes ces conditions:
