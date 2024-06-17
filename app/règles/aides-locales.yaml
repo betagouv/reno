@@ -18,6 +18,7 @@ rennes:
 
     Nous l'avons confirmé le 14 juin 2024 avec l'ADIL de Rennes : si ces aides courent toujours pour les dossiers MPR déposés en 2023, ce n'est plus le cas aujourd'hui.
 rennes . conditions géo: logement . EPCI = '243500139'
+#########
 besançon:
 besançon . conditions géo: logement . EPCI = '242500361'
 
@@ -108,10 +109,32 @@ besançon . bailleur:
 besançon . bailleur . montant:
   titre: Dispositif AAPEL propriétaire bailleur
 
-besançon . bonus passoire:
-besançon . bonus passoire . montant:
-  formule: 5 % * projet . travaux
+doubs:
+doubs . conditions géo: logement . département = 'Doubs'
+doubs . bonus passoire . conditions:
+  toutes ces conditions:
+    - logement . période de construction = 'au moins 15 ans'
+    - logement . résidence principale propriétaire
+    - DPE . actuel >= 6
+    - MPR . accompagnée . bénéficiaire
+
+doubs . bonus passoire:
+  description: |
+    [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-aide-a-la-sortie-de-passoire-energetique-3234/).
+
+    Les travaux éligibles à l'aide départementale sont ceux éligibles à l'aide "Ma Prime Rénov' - Parcours accompagné" de l'Anah (ils doivent permettre un saut d'au-moins deux classes énergétiques). 
+    Le recours à une assistance à maîtrise d'ouvrage obligatoire réalisé par un prestataire agréé "Mon Accompagnateur Rénov" est obligatoire.
+
+doubs . bonus passoire . montant:
+  formule: 5 % * projet . travaux . plafonnés
   note: Brouillon d'implémentation
+
+doubs . bonus passoire . aide AMOA:
+  description: |
+    Aide à l'assistance à maîtrise d'ouvrage de 150 € pour la constitution du dossier de demande de subvention auprès du département (mais non applicable en secteur programmé), et hors zone de délégation du Conseil départemental (sur le secteur de délégation du Département, la subvention du Département sera instruite concomitamment à l’aide de l’Anah. La mention de l’aide départementale devra figurer dans le plan de financement prévisionnel).
+
+doubs . bonus passoire . aide AMOA . montant:
+  valeur: 150 €
 
 charente-maritime:
 charente-maritime . conditions géo:

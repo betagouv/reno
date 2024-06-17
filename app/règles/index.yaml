@@ -701,6 +701,10 @@ MPR . accompagnée:
 
     [Tous les détails](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
 
+MPR . accompagnée . bénéficiaire:
+  applicable si: éligible
+  titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
+  par défaut: oui
 MPR . accompagnée . éligible:
   titre: Éligible parcours accompagné
   formule:
