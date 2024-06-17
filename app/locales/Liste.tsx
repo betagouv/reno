@@ -54,6 +54,8 @@ export default function () {
     defaultSituationEntries,
   )
 
+  console.log('plop', missingVariables)
+
   const engine = useMemo(() => {
     try {
       const situation = Object.fromEntries(
@@ -87,8 +89,12 @@ export default function () {
         Object.fromEntries(defaultSituationEntries),
       )
 
-      return baseEngine.setSituation(situation)
+      const engine = baseEngine.setSituation(situation)
+
+      console.log('Success loading situation in Publicodes engine ')
+      return engine
     } catch (e) {
+      console.error('Error loading situation in Publicodes engine : ', e)
       return baseEngine
     }
   }, [situationEntries, baseEngine])

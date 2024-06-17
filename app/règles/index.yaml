@@ -340,6 +340,7 @@ projet . gain energétique:
 
 projet . objectif BBC rénovation:
   question: Votre projet de rénovation respecte-t-il le niveau BBC rénovation ?
+  par défaut: non
   description: |
     Labels Bâtiment Basse Consommation en rénovation.
 
@@ -347,6 +348,7 @@ projet . objectif BBC rénovation:
 
 projet . objectif BBC neuf:
   question: Votre projet de rénovation respecte-t-il le niveau BBC neuf ?
+  par défaut: non
   description: |
     Labels Bâtiment Basse Consommation neuf.
 

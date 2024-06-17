@@ -62,7 +62,6 @@ const FriendlyObjectViewer = ({
     <List>
       {Object.entries(data).map(([key, value]) => {
         if (['description', 'note', 'titre'].includes(key) && value != null) {
-          console.log('key', data)
           return (
             <li key={key}>
               <span css={options.keyStyle}>{key}&nbsp;:</span>
