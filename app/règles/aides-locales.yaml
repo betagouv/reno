@@ -13,32 +13,11 @@
     état: 0 €
 
 rennes:
-rennes . conditions géo: logement . EPCI = '243500139'
-rennes . aide audit . conditions:
-  toutes ces conditions:
-    - vous . propriétaire
-    - logement . résidence principale
-    - logement . type = 'maison'
-    - pas bénéficiaire ANAH
-
-rennes . aide audit:
-  note: |
+  description: |
     Ce règlement date de 2021, plusieurs indices ("sous les plafonds ANAH", "conventionnement ANAH pour les bailleurs") semblent aller dans le sens du fait qu'il est périmé. 
 
-    https://ecotravo.rennesmetropole.fr/media/pages/vous-habitez-une-maison-individuelle/ecoTravo-vous-accompagne/165d7b1463-1658395519/ecotravo-mi-reglements-aides-audit-v4.pdf
-
-    Audit base : 80% du montant TTC de la prestation. Aide plafonnée à 800€.
-
-    Audit plus : 80% du montant TTC de la prestation. Aide plafonnée à 1000€.
-
-    Les aides écoTravo pour les maisons individuelles sont cumulables avec l'ensemble des autres aides financières individuelles dans la limite de 80% d'aides publiques.
-
-rennes . aide audit . pas bénéficiaire ANAH:
-  description: |
-    Ne pas être bénéficiaire des aides de l'ANAH pour cette étape d'audit. Les ménages bénéficiaires des aides de l'ANAH sont accompagnés par le CDHAT, opérateur agréé ANAH, dans le cadre du dispositif PIG de Rennes Métropole, qui assure l'audit et la définition du programme de travaux.
-
-    À Noter : Un ménage est dit "éligible aux aides de l'ANAH" lorsque ses ressources sont inférieures aux plafonds ANAH. Un ménage est dit "non bénéficiaire ANAH" lorsque que, bien qu'éligible aux aides de l'ANAH, il ne peut en bénéficier (plafond d'aide ANAH atteint, PTZ contracté…).
-
+    Nous l'avons confirmé le 14 juin 2024 avec l'ADIL de Rennes : si ces aides courent toujours pour les dossiers MPR déposés en 2023, ce n'est plus le cas aujourd'hui.
+rennes . conditions géo: logement . EPCI = '243500139'
 besançon:
 besançon . conditions géo: logement . EPCI = '242500361'
 
