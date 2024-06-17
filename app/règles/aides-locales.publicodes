@@ -16,6 +16,7 @@
 
 #########
 besançon:
+
 besançon . conditions géo: logement . EPCI = '242500361'
 
 besançon . conditions de revenu:

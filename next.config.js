@@ -21,7 +21,7 @@ const nextConfig = {
   },
   webpack: (config, options) => {
     config.module.rules.push({
-      test: /\.ya?ml$/,
+      test: /(\.ya?ml$)|\.publicodes/,
       use: 'yaml-loader',
     })
     config.module.rules.push({
