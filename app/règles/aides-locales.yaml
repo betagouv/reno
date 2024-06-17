@@ -3,6 +3,8 @@
 # Pourquoi ? Cela nous évite de sommer toutes les aides pour obtenir une variable "aides locales". Publicodes n'a pas de mécanisme de somme abstraite, et ça reviendrait de toute façon à sommer une liste où tout est nul sauf un élément au max.
 #
 # À noter, si certaines règles ici sont des aides, d'autres sont des prêts ou des avances de travaux (c'est pareil), qui vont impacter d'autres variables du calcul
+#
+# Voir aussi le fichier aides-locales.brouillon.yaml pour les aides pas encore implémentées ou qui ne sont plus valides
 
 '':
   avec:
@@ -12,12 +14,6 @@
     région: 0 €
     état: 0 €
 
-rennes:
-  description: |
-    Ce règlement date de 2021, plusieurs indices ("sous les plafonds ANAH", "conventionnement ANAH pour les bailleurs") semblent aller dans le sens du fait qu'il est périmé. 
-
-    Nous l'avons confirmé le 14 juin 2024 avec l'ADIL de Rennes : si ces aides courent toujours pour les dossiers MPR déposés en 2023, ce n'est plus le cas aujourd'hui.
-rennes . conditions géo: logement . EPCI = '243500139'
 #########
 besançon:
 besançon . conditions géo: logement . EPCI = '242500361'
@@ -54,6 +50,17 @@ besançon . travaux recevables:
     [Source](https://www.grandbesancon.fr/wp-content/uploads/sites/2/2019/06/R%C3%A8glement-dintervention-r%C3%A9novation-des-logements-2019.pdf)
 
 besançon . occupant:
+
+besançon . occupant . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - conditions de revenu . AAPEL
+    - logement . période de construction = 'au moins 15 ans'
+    - seuil minimum travaux
+    - travaux recevables
+    - projet . DPE visé <= 4 # D
+    - projet . gain energétique > 25 %
+
 besançon . occupant . montant:
   titre: Dispositif AAPEL propriétaire occupant
   description: |
@@ -61,15 +68,7 @@ besançon . occupant . montant:
     [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
   note: |
     À étudier : "Clause anti spéculative d'une durée de 5 ans".
-  applicable si:
-    toutes ces conditions:
-      - conditions géo
-      - conditions de revenu . AAPEL
-      - logement . période de construction = 'au moins 15 ans'
-      - seuil minimum travaux
-      - travaux recevables
-      - projet . DPE visé <= 4 # D
-      - projet . gain energétique > 25 %
+  applicable si: conditions
   somme:
     - socle
     - objectif BBC rénovation
