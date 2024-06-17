@@ -37,6 +37,7 @@ const baseEngine = new Publicodes({ ...rules, 'somme des aides locales': sum })
 const evaluation = baseEngine.evaluate('somme des aides locales')
 const { missingVariables } = evaluation
 
+// TODO je crois que l'itinialisation ici fait peut-être louper des missing variables qui apparaissent après
 const defaultSituationEntries = sortBy(([, score]) => score)(
   Object.entries(missingVariables),
 )
