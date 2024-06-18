@@ -73,6 +73,7 @@ export default function () {
               const situation = {
                 [prefix + place + ' . conditions géo']: 'oui',
                 'projet . travaux': 999999,
+                'ménage . revenu': 0,
               }
               const maxSituation = hasCondition
                 ? { ...situation, [prefix + conditionName]: 'oui' }
@@ -129,7 +130,7 @@ export default function () {
                   <CTAWrapper $justify="left" css="margin-bottom: .6rem">
                     <CTA $importance="secondary">
                       <Link href={'/locales/' + place}>
-                        Explorer les aides locales {place}
+                        Explorer les aides locales {capitalise0(place)}
                       </Link>
                     </CTA>
                   </CTAWrapper>
