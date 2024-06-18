@@ -5,12 +5,11 @@ import { List, OrderedList, Wrapper } from './FriendlyObjectViewerUI'
 import { capitalise0 } from './utils'
 
 const FriendlyObjectViewer = ({
-  pathPrefix = '',
   data,
   level = 0,
   context,
   searchParams,
-  options = { capitalise0: true, keyStyle: '' },
+  options = { capitalise0: true, keyStyle: '', computePathname },
 }) => {
   if (data == null) return null
   const capitaliseOrNot = (s) => s && (options.capitalise0 ? capitalise0(s) : s)
@@ -24,17 +23,12 @@ const FriendlyObjectViewer = ({
       )
 
       return (
-        <Link
-          href={{
-            pathname:
-              pathPrefix + `/documentation/${utils.encodeRuleName(isRule)}`,
-            query: searchParams,
-          }}
-        >
+        <Link href={options.computePathname(utils.encodeRuleName(isRule))}>
           {capitaliseOrNot(data)}
         </Link>
       )
     } catch (e) {
+      console.log('Error using context', context)
       const Content = <span>{capitaliseOrNot(data)}</span>
       if (level === 0) return <Wrapper>{Content}</Wrapper>
       return Content
@@ -52,7 +46,6 @@ const FriendlyObjectViewer = ({
             level={level + 1}
             context={context}
             options={options}
-            pathPrefix={pathPrefix}
             searchParams={searchParams}
           />
         </li>
@@ -80,7 +73,6 @@ const FriendlyObjectViewer = ({
                 level={level + 1}
                 context={context}
                 options={options}
-                pathPrefix={pathPrefix}
               />
             </span>
           </li>
@@ -93,7 +85,6 @@ const FriendlyObjectViewer = ({
                 level={level + 1}
                 searchParams={searchParams}
                 context={context}
-                pathPrefix={pathPrefix}
                 options={options}
               />
             </div>

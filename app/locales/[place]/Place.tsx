@@ -8,6 +8,8 @@ import { useMemo, useState } from 'react'
 import SituationEditor from '../SituationEditor'
 import aides from '@/app/règles/aides-locales.publicodes'
 import Publicodes, { formatValue } from 'publicodes'
+import { utils } from 'publicodes'
+const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)
 
@@ -160,6 +162,7 @@ export default function LocalePlace({ place }) {
                         display: flex;
                         justify-content: space-between;
                       `}
+                      id={encodeRuleName(dottedName)}
                     >
                       <span
                         css={`
@@ -197,15 +200,27 @@ export default function LocalePlace({ place }) {
                     `}
                   >
                     {typeof rule === 'string' ? (
-                      <div>{rule}</div>
+                      <div
+                        css={`
+                          padding: 0.6rem 1.2rem;
+                        `}
+                      >
+                        {rule}
+                      </div>
                     ) : (
                       <FriendlyObjectViewer
                         {...{
                           data: omit(['titre'], rule),
+                          context: {
+                            dottedName,
+                            rules: Object.fromEntries(placeRules),
+                          },
                           options: {
                             keyStyle: `
 									color: #41438a
 									`,
+                            computePathname: (encodedDottedName: string) =>
+                              `/locales/${place}/#${encodedDottedName}`,
                           },
                         }}
                       />
