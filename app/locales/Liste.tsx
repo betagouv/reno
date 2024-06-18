@@ -1,17 +1,18 @@
 'use client'
 import aides from '@/app/règles/aides-locales.publicodes'
 import rules from '@/app/règles/rules'
-import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
-import { Section } from '@/components/UI'
-import { getRuleTitle, parentName } from '@/components/publicodes/utils'
-import { capitalise0, omit, sortBy } from '@/components/utils'
+import { Card, Section } from '@/components/UI'
+import { capitalise0, sortBy } from '@/components/utils'
+import Link from 'next/link'
 import Publicodes, { formatValue } from 'publicodes'
 import { useMemo, useState } from 'react'
 import SituationEditor from './SituationEditor'
-import Link from 'next/link'
 import { description } from './description'
+import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 
 const aidesEntries = Object.entries(aides)
+
+const prefix = 'aides locales . '
 
 const byPlace = aidesEntries.reduce(
   (memo, next) => {
@@ -57,7 +58,7 @@ export default function () {
 
   console.log('plop', missingVariables)
 
-  const engine = useMemo(() => {
+  const [engine, situation] = useMemo(() => {
     try {
       const situation = Object.fromEntries(
         [
@@ -93,10 +94,10 @@ export default function () {
       const engine = baseEngine.setSituation(situation)
 
       console.log('Success loading situation in Publicodes engine ')
-      return engine
+      return [engine, situation]
     } catch (e) {
       console.error('Error loading situation in Publicodes engine : ', e)
-      return baseEngine
+      return [baseEngine, situation]
     }
   }, [situationEntries, baseEngine])
 
@@ -143,13 +144,54 @@ export default function () {
             list-style-type: none;
           `}
         >
-          {Object.entries(byPlace).map(([place, rules]) => {
+          {Object.entries(byPlace).map(([place, placeRules]) => {
             if (place == 0) return undefined
 
-            const mainRule =
-              Array.isArray(rules) &&
-              rules.find(([dottedName]) => dottedName.endsWith('montant'))
+            const valueRules =
+              Array.isArray(placeRules) &&
+              placeRules.filter(([dottedName]) =>
+                dottedName.endsWith('montant'),
+              )
 
+            const levels = valueRules.map(([dottedName, rule]) => [
+              dottedName.split(' . ').length,
+              dottedName,
+            ])
+
+            const evaluations = valueRules.map(([dottedName, rule]) => {
+              const conditionName =
+                  dottedName.replace(/montant$/, '') + 'conditions',
+                hasCondition = placeRules.find(
+                  ([dottedName2]) => dottedName2 === conditionName,
+                )
+              const okSituation = hasCondition
+                ? {
+                    ...situation,
+                    //[place + ' . conditions géo']: 'oui',
+                    [prefix + conditionName]: 'oui',
+                  }
+                : situation
+              console.log(
+                'okSituation',
+                conditionName,
+                hasCondition,
+                okSituation,
+              )
+              const evaluation = engine
+                .setSituation(okSituation)
+                .evaluate(prefix + dottedName)
+
+              const title =
+                rule.titre ||
+                getRuleTitle(
+                  parentName(dottedName),
+                  Object.fromEntries(placeRules),
+                )
+
+              return [dottedName, evaluation, title]
+            })
+
+            const mainRule = valueRules[0]
             const montant =
               mainRule && engine.evaluate('aides locales . ' + mainRule[0])
 
@@ -167,92 +209,19 @@ export default function () {
                 >
                   {capitalise0(place)}
                 </h2>
+                <Card>
+                  {evaluations.map(([dottedName, evaluation, title]) => (
+                    <li key={dottedName}>
+                      <div>
+                        {title} : {formatValue(evaluation)}
+                      </div>
 
-                <ul
-                  css={`
-                    list-style-type: none;
-                  `}
-                >
-                  {sortBy(
-                    ([dottedName]) =>
-                      dottedName == place || !dottedName.endsWith('montant'),
-                  )(rules).map(([dottedName, rule]) => {
-                    if (rule == null) return
-
-                    const evaluation = engine.evaluate(
-                      'aides locales . ' + dottedName,
-                    )
-                    const value = formatValue(evaluation)
-
-                    const isMontant = dottedName.endsWith('montant')
-
-                    return (
-                      <li
-                        key={dottedName}
-                        css={`
-                          margin: 0.6rem 0;
-                        `}
-                      >
-                        {dottedName !== place && (
-                          <div
-                            css={`
-                              display: flex;
-                              justify-content: space-between;
-                            `}
-                          >
-                            <span
-                              css={`
-                                display: flex;
-                                flex-direction: column;
-                              `}
-                            >
-                              <small>
-                                {parentName(dottedName).split(place + ' . ')[1]}
-                              </small>
-                              <h3
-                                css={`
-                                  font-size: 100%;
-                                  margin: 0;
-                                  width: fit-content;
-                                  ${isMontant && `background: yellow`}
-                                `}
-                              >
-                                {getRuleTitle(dottedName, aides)}
-                              </h3>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        )}
-                        <div
-                          css={`
-                            > div {
-                              border: 1px solid #aaa;
-                              > ul {
-                                padding-left: 0.6rem;
-                                margin: 0.6rem 0;
-                              }
-                            }
-                          `}
-                        >
-                          {typeof rule === 'string' ? (
-                            <div>{rule}</div>
-                          ) : (
-                            <FriendlyObjectViewer
-                              {...{
-                                data: omit(['titre'], rule),
-                                options: {
-                                  keyStyle: `
-									color: #41438a
-									`,
-                                },
-                              }}
-                            />
-                          )}
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
+                      <Link href={'/locales/' + place}>
+                        Explorer l'aide locale {place}
+                      </Link>
+                    </li>
+                  ))}
+                </Card>
               </li>
             )
           })}

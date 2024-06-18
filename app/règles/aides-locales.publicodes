@@ -144,12 +144,15 @@ charente-maritime . conditions géo:
   formule: logement . département = 'Charente-Maritime'
 
 charente-maritime . bailleur:
+
+charente-maritime . bailleur . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - projet . gain energétique >= 35 %
+    - logement . loyer social ou très social
+
 charente-maritime . bailleur . montant:
-  applicable si:
-    toutes ces conditions:
-      - conditions géo
-      - projet . gain energétique >= 35 %
-      - logement . loyer social ou très social
+  applicable si: conditions
   description: |
     les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [fiche pdf officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/Reglement-proprietaires-bailleurs.pdf).
   valeur: 30 % * projet . travaux
@@ -174,14 +177,16 @@ charente-maritime . bailleur . montant:
     Or, l'aide MaPrimeRénov' ampleur en 2024 n'a pas de plafond de revenu, seulement un barème. Ainsi nous partons du principe qu'il n'y en a pas pour cette aide.
 
 charente-maritime . occupant:
+charente-maritime . occupant . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - ménage . revenu . classe = 'très modeste'
+    - logement . résidence principale propriétaire
+    - logement . période de construction = 'au moins 15 ans'
+    - projet . gain energétique >= 25 %
 charente-maritime . occupant . montant:
-  applicable si:
-    toutes ces conditions:
-      - conditions géo
-      - ménage . revenu . classe = 'très modeste'
-      - logement . résidence principale propriétaire
-      - logement . période de construction = 'au moins 15 ans'
-      - projet . gain energétique >= 25 %
+  applicable si: conditions
+
   description: |
     Source : https://www.anil.org/aides-locales-travaux/details/charente-aide-a-lamelioration-thermique-3065
   valeur: 15 % * projet . travaux
@@ -248,13 +253,14 @@ angers . montant si assiette maximum:
     - prime basse consommation . montant
     - aides socles . montant si assiette maximum
 
+angers . aides socles . conditions:
+  toutes ces conditions:
+    - conditions de base
+    # TODO pour l'instant on ignore les 2 autres dispositifs logement indécent et prime adapt'
+    # est-ce différent de la condition de l'ANAH ?
+    - sauts >= 2
 angers . aides socles:
-  applicable si:
-    toutes ces conditions:
-      - conditions de base
-      # TODO pour l'instant on ignore les 2 autres dispositifs logement indécent et prime adapt'
-      # est-ce différent de la condition de l'ANAH ?
-      - sauts >= 2
+  applicable si: conditions
   description: |
     Etre éligible aux aides de l'Anah, MaPrimeRénov' - Parcours accompagné (sous plafond de ressources "Intermédiaire"), MaPrimeAdapt', MaPrime Logement Décent, MaPrimeRénov' Copropriété, ou Copropriété en difficulté.
   valeur: montant
