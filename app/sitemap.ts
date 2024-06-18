@@ -11,11 +11,19 @@ const basePaths = [
   '/confidentialite',
 ]
 
-const documentationPaths = Object.keys(rules).map(
-  (dottedName) => '/documentation/' + dottedName,
-)
+const documentationPaths = Object.keys(rules)
+  .filter((dottedName) => !dottedName.startsWith('aides locales'))
+  .map((dottedName) => '/documentation/' + dottedName)
 
-const paths = [...basePaths, ...documentationPaths]
+const aidesLocales = Object.keys(rules)
+  .filter(
+    (dottedName) =>
+      dottedName.startsWith('aides locales') &&
+      dottedName.split(' . ').length === 2,
+  )
+  .map((dottedName) => `/locales/${dottedName.replace('aides locales . ', '')}`)
+
+const paths = [...basePaths, ...documentationPaths, ...aidesLocales]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return paths.map((path) => ({
