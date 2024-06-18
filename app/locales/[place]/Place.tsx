@@ -10,82 +10,92 @@ import aides from '@/app/règles/aides-locales.publicodes'
 import Publicodes, { formatValue } from 'publicodes'
 
 const aidesEntries = Object.entries(aides)
-const toSum = aidesEntries
-    .filter(
-      ([dottedName, value]) => dottedName && dottedName.endsWith(' . montant'),
-    )
-    .map(([dottedName, value]) => 'aides locales . ' + dottedName),
-  sum = { somme: toSum }
 
-const baseEngine = new Publicodes({ ...rules, 'somme des aides locales': sum })
-const evaluation = baseEngine.evaluate('somme des aides locales')
-const { missingVariables } = evaluation
-// TODO je crois que l'itinialisation ici fait peut-être louper des missing variables qui apparaissent après
+const getDefaultSituation = (place, engine, placeRules) => {
+  const evaluation = engine.evaluate('somme des aides locales')
+  const { missingVariables } = evaluation
+  console.log('situ missingVariables', missingVariables)
 
-const defaultSituationEntries = sortBy(([, score]) => score)(
-  Object.entries(missingVariables),
-)
-  .map(
-    ([dottedName]) =>
-      dottedName !== 'simulation . mode' && [
-        dottedName,
-        baseEngine.evaluate(dottedName).nodeValue,
-      ],
+  const defaultSituationEntries = sortBy(([, score]) => score)(
+    Object.entries(missingVariables),
   )
-  .filter(Boolean)
+    .map(
+      ([dottedName]) =>
+        dottedName !== 'simulation . mode' && [
+          dottedName,
+          engine.evaluate(dottedName).nodeValue,
+        ],
+    )
+    .filter(Boolean)
+    // The situation was evaluted from the evaluation of default values
+    // the result is not compatible with the object we need to inject in Engine.setSituation
+    .map(([dottedName, value]) => {
+      if (value === undefined) return
+      if ([true, false, 'true', 'false'].includes(value))
+        return [
+          dottedName,
+          { true: 'oui', true: 'oui', false: 'non', false: 'non' }[value],
+        ]
+
+      if (dottedName === 'simulation . mode') return
+
+      return [dottedName, value]
+    })
+    .filter(Boolean)
+
+  const maximiseSituation = [
+    ...placeRules
+      .filter(([dottedName, rule]) => dottedName.endsWith('conditions géo'))
+      .map(([dottedName, rule]) => ['aides locales . ' + dottedName, 'oui']),
+    ['projet . travaux', 99999],
+    ['ménage . revenu', 0],
+  ]
+
+  return Object.fromEntries([...defaultSituationEntries, ...maximiseSituation])
+}
 
 export default function LocalePlace({ place }) {
-  const [situationEntries, setSituationEntries] = useState(
-    defaultSituationEntries,
-  )
+  // defaultSituation
+  // maxSituation
+  // userSituation
 
-  console.log('plop', missingVariables)
+  const baseEngine = useMemo(() => {
+    const toSum = aidesEntries
+        .filter(
+          ([dottedName, value]) =>
+            dottedName &&
+            dottedName.startsWith(place) &&
+            dottedName.endsWith(' . montant'),
+        )
+        .map(([dottedName, value]) => 'aides locales . ' + dottedName),
+      sum = { somme: toSum }
+    return new Publicodes({
+      ...rules,
+      'somme des aides locales': sum,
+    })
+  }, [place])
   const placeRules = aidesEntries.filter(([dottedName, rule]) =>
     dottedName.startsWith(place),
   )
+  const defaultSituation = getDefaultSituation(place, baseEngine, placeRules)
 
-  const [engine, situation] = useMemo(() => {
+  const [userSituation, setUserSituation] = useState({})
+
+  const situation = { ...defaultSituation, ...userSituation }
+
+  console.log('situ', defaultSituation, userSituation)
+
+  const [engine] = useMemo(() => {
     try {
-      const situation = Object.fromEntries(
-        [
-          // The situation was evaluted from the evaluation of default values
-          // the result is not compatible with the object we need to inject in Engine.setSituation
-          ...situationEntries.map(([dottedName, value]) => {
-            if ([true, false, 'true', 'false'].includes(value))
-              return [
-                dottedName,
-                { true: 'oui', true: 'oui', false: 'non', false: 'non' }[value],
-              ]
-
-            if (dottedName === 'simulation . mode') return
-
-            return [dottedName, value]
-          }),
-          ...aidesEntries
-            .filter(([dottedName, rule]) =>
-              dottedName.endsWith('conditions géo'),
-            )
-            .map(([dottedName, rule]) => [
-              'aides locales . ' + dottedName,
-              'oui',
-            ]),
-        ].filter(Boolean),
-      )
-      console.log(
-        'situation',
-        situation,
-        Object.fromEntries(defaultSituationEntries),
-      )
-
       const engine = baseEngine.setSituation(situation)
 
       console.log('Success loading situation in Publicodes engine ')
-      return [engine, situation]
+      return [engine]
     } catch (e) {
       console.error('Error loading situation in Publicodes engine : ', e)
-      return [baseEngine, situation]
+      return [baseEngine]
     }
-  }, [situationEntries, baseEngine])
+  }, [situation, baseEngine])
 
   return (
     <div css={``}>
@@ -112,7 +122,7 @@ export default function LocalePlace({ place }) {
           `}
         >
           <h2>Votre situation</h2>
-          <SituationEditor {...{ situationEntries, setSituationEntries }} />
+          <SituationEditor {...{ situation, setUserSituation }} />
         </div>
         <Section
           css={`

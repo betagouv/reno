@@ -1,8 +1,10 @@
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import rules from '@/app/règles/rules'
 import { sortBy } from '@/components/utils'
+import { userAgentFromString } from 'next/server'
 
-export default function ({ situationEntries, setSituationEntries }) {
+export default function ({ situation, setUserSituation }) {
+  const situationEntries = Object.entries(situation)
   return (
     <ul>
       {sortBy(([dottedName]) => dottedName)(situationEntries).map(
@@ -25,12 +27,10 @@ export default function ({ situationEntries, setSituationEntries }) {
               <input
                 value={value}
                 onChange={(e) =>
-                  setSituationEntries(
-                    situationEntries.map(([dottedName2, value2]) => [
-                      dottedName2,
-                      dottedName2 === dottedName ? e.target.value : value2,
-                    ]),
-                  )
+                  setUserSituation((userSituation) => ({
+                    ...userSituation,
+                    [dottedName]: e.target.value,
+                  }))
                 }
                 css={`
                   max-width: 8rem;
