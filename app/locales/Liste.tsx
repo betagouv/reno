@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Publicodes, { formatValue } from 'publicodes'
 import { description } from './description'
 import rules from '@/app/règles/rules'
+import Image from 'next/image'
 
 const aidesEntries = Object.entries(aides)
 
@@ -40,11 +41,31 @@ export default function () {
           récente. Il est de la responsabilité des collectivités de supprimer
           leurs références à des aides obsolètes.
         </p>
-        <p>
-          💡 Cette liste n'est pas complète : si vous avez des informations
-          précises sur une aide locale, <Link href="/faq">contactez-nous</Link>{' '}
-          !
-        </p>
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+            margin-top: 1.4rem;
+            img {
+              margin-left: 0.3rem;
+              margin-right: 1rem;
+              height: 2rem;
+              width: auto;
+            }
+          `}
+        >
+          <Image
+            src="/information.svg"
+            width="10"
+            height="10"
+            alt="Icône d'information"
+          />{' '}
+          <p>
+            Cette liste n'est pas complète. Vous disposez d'informations
+            sourcées sur une aide locale ?
+            <Link href="/faq">Contactez-nous</Link> !
+          </p>
+        </div>
         <ul
           css={`
             list-style-type: none;
@@ -116,7 +137,11 @@ export default function () {
                 >
                   {capitalise0(place)}
                 </h2>
-                <Card>
+                <Card
+                  css={`
+                    max-width: 36rem;
+                  `}
+                >
                   {evaluations.map(([dottedName, evaluation, title]) => (
                     <li key={dottedName}>
                       <p>
@@ -128,7 +153,7 @@ export default function () {
                     </li>
                   ))}
                   <CTAWrapper $justify="left" css="margin-bottom: .6rem">
-                    <CTA $importance="secondary">
+                    <CTA $importance="primary" css="font-size: 100%">
                       <Link href={'/locales/' + place}>
                         Explorer les aides locales {capitalise0(place)}
                       </Link>
