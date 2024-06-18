@@ -1,7 +1,7 @@
 'use client'
 import aides from '@/app/règles/aides-locales.publicodes'
 import rules from '@/app/règles/rules'
-import { Card, Section } from '@/components/UI'
+import { CTA, CTAWrapper, Card, Section } from '@/components/UI'
 import { capitalise0, sortBy } from '@/components/utils'
 import Link from 'next/link'
 import Publicodes, { formatValue } from 'publicodes'
@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react'
 import SituationEditor from './SituationEditor'
 import { description } from './description'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
+import { PrimeStyle } from '@/components/Geste'
 
 const aidesEntries = Object.entries(aides)
 
@@ -164,21 +165,22 @@ export default function () {
                 hasCondition = placeRules.find(
                   ([dottedName2]) => dottedName2 === conditionName,
                 )
-              const okSituation = hasCondition
+              const maxSituation = hasCondition
                 ? {
                     ...situation,
                     //[place + ' . conditions géo']: 'oui',
                     [prefix + conditionName]: 'oui',
+                    'projet . travaux': 999999,
                   }
                 : situation
               console.log(
-                'okSituation',
+                'maxSituation',
                 conditionName,
                 hasCondition,
-                okSituation,
+                maxSituation,
               )
               const evaluation = engine
-                .setSituation(okSituation)
+                .setSituation(maxSituation)
                 .evaluate(prefix + dottedName)
 
               const title =
@@ -212,15 +214,21 @@ export default function () {
                 <Card>
                   {evaluations.map(([dottedName, evaluation, title]) => (
                     <li key={dottedName}>
-                      <div>
-                        {title} : {formatValue(evaluation)}
-                      </div>
-
-                      <Link href={'/locales/' + place}>
-                        Explorer l'aide locale {place}
-                      </Link>
+                      <p>
+                        <div>{title} : </div>
+                        <PrimeStyle>
+                          Jusqu'à {formatValue(evaluation)}
+                        </PrimeStyle>
+                      </p>
                     </li>
                   ))}
+                  <CTAWrapper $justify="left" css="margin-bottom: .6rem">
+                    <CTA $importance="secondary">
+                      <Link href={'/locales/' + place}>
+                        Explorer les aides locales {place}
+                      </Link>
+                    </CTA>
+                  </CTAWrapper>
                 </Card>
               </li>
             )
