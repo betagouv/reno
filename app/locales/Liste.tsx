@@ -61,8 +61,11 @@ export default function () {
             alt="Icône d'information"
           />{' '}
           <p>
-            Cette liste n'est pas complète. Vous disposez d'informations
-            sourcées sur une aide locale ?
+            Cette liste n'est{' '}
+            <em css="background: yellow">
+              pas encore validée par les collectivités.
+            </em>{' '}
+            Vous disposez d'informations sourcées sur une aide locale ?{' '}
             <Link href="/faq">Contactez-nous</Link> !
           </p>
         </div>
