@@ -9,6 +9,7 @@ const basePaths = [
   '/api-doc',
   '/personas',
   '/confidentialite',
+  '/locales',
 ]
 
 const documentationPaths = Object.keys(rules)
