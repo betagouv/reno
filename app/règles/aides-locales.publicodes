@@ -199,6 +199,8 @@ côte-d'or:
 
     Nous partons donc du principe qu'elle est implicitement mise à jour pour respecter les conditions du parcours accompagné 2024 de MaPrimeRénov', mais avec l'exigence de 40 % de gain energétique plutôt que le saut de 2 DPE.
 
+côte-d'or . conditions géo: ménage . département = "Côte-d'Or"
+
 côte-d'or . aide aux travaux . conditions géo:
   toutes ces conditions:
     - ménage . département = "Côte-d'Or"

@@ -1,15 +1,13 @@
 'use client'
 import aides from '@/app/règles/aides-locales.publicodes'
-import rules from '@/app/règles/rules'
+import { PrimeStyle } from '@/components/Geste'
 import { CTA, CTAWrapper, Card, Section } from '@/components/UI'
-import { capitalise0, sortBy } from '@/components/utils'
+import { getRuleTitle, parentName } from '@/components/publicodes/utils'
+import { capitalise0 } from '@/components/utils'
 import Link from 'next/link'
 import Publicodes, { formatValue } from 'publicodes'
-import { useMemo, useState } from 'react'
-import SituationEditor from './SituationEditor'
 import { description } from './description'
-import { getRuleTitle, parentName } from '@/components/publicodes/utils'
-import { PrimeStyle } from '@/components/Geste'
+import rules from '@/app/règles/rules'
 
 const aidesEntries = Object.entries(aides)
 
@@ -27,105 +25,12 @@ const byPlace = aidesEntries.reduce(
   [{}],
 )
 
-const toSum = aidesEntries
-    .filter(
-      ([dottedName, value]) => dottedName && dottedName.endsWith(' . montant'),
-    )
-    .map(([dottedName, value]) => 'aides locales . ' + dottedName),
-  sum = { somme: toSum }
-
-const baseEngine = new Publicodes({ ...rules, 'somme des aides locales': sum })
-
-const evaluation = baseEngine.evaluate('somme des aides locales')
-const { missingVariables } = evaluation
-
-// TODO je crois que l'itinialisation ici fait peut-être louper des missing variables qui apparaissent après
-const defaultSituationEntries = sortBy(([, score]) => score)(
-  Object.entries(missingVariables),
-)
-  .map(
-    ([dottedName]) =>
-      dottedName !== 'simulation . mode' && [
-        dottedName,
-        baseEngine.evaluate(dottedName).nodeValue,
-      ],
-  )
-  .filter(Boolean)
+const engine = new Publicodes({ ...rules })
 
 export default function () {
-  const [situationEntries, setSituationEntries] = useState(
-    defaultSituationEntries,
-  )
-
-  console.log('plop', missingVariables)
-
-  const [engine, situation] = useMemo(() => {
-    try {
-      const situation = Object.fromEntries(
-        [
-          // The situation was evaluted from the evaluation of default values
-          // the result is not compatible with the object we need to inject in Engine.setSituation
-          ...situationEntries.map(([dottedName, value]) => {
-            if ([true, false, 'true', 'false'].includes(value))
-              return [
-                dottedName,
-                { true: 'oui', true: 'oui', false: 'non', false: 'non' }[value],
-              ]
-
-            if (dottedName === 'simulation . mode') return
-
-            return [dottedName, value]
-          }),
-          ...aidesEntries
-            .filter(([dottedName, rule]) =>
-              dottedName.endsWith('conditions géo'),
-            )
-            .map(([dottedName, rule]) => [
-              'aides locales . ' + dottedName,
-              'oui',
-            ]),
-        ].filter(Boolean),
-      )
-      console.log(
-        'situation',
-        situation,
-        Object.fromEntries(defaultSituationEntries),
-      )
-
-      const engine = baseEngine.setSituation(situation)
-
-      console.log('Success loading situation in Publicodes engine ')
-      return [engine, situation]
-    } catch (e) {
-      console.error('Error loading situation in Publicodes engine : ', e)
-      return [baseEngine, situation]
-    }
-  }, [situationEntries, baseEngine])
-
   return (
-    <div
-      css={`
-        display: flex;
-        overflow: scroll;
-      `}
-    >
-      <div
-        css={`
-          position: fixed;
-          top: 50%;
-          transform: translateY(-50%);
-          left: 2rem;
-        `}
-      >
-        <h2>Situation</h2>
-        <SituationEditor {...{ situationEntries, setSituationEntries }} />
-      </div>
-
-      <Section
-        css={`
-          margin-left: 28rem;
-        `}
-      >
+    <div>
+      <Section>
         <h1>Les aides locales à la rénovation en France</h1>
         <p>{description}</p>
         <p>
@@ -165,13 +70,12 @@ export default function () {
                 hasCondition = placeRules.find(
                   ([dottedName2]) => dottedName2 === conditionName,
                 )
+              const situation = {
+                [prefix + place + ' . conditions géo']: 'oui',
+                'projet . travaux': 999999,
+              }
               const maxSituation = hasCondition
-                ? {
-                    ...situation,
-                    //[place + ' . conditions géo']: 'oui',
-                    [prefix + conditionName]: 'oui',
-                    'projet . travaux': 999999,
-                  }
+                ? { ...situation, [prefix + conditionName]: 'oui' }
                 : situation
               console.log(
                 'maxSituation',
