@@ -175,7 +175,8 @@ export default function LocalePlace({ place }) {
                             font-size: 100%;
                             margin: 0;
                             width: fit-content;
-                            ${isMontant && `background: yellow`}
+                            padding: 0 0.4rem;
+                            ${isMontant && `background: var(--lighterColor)`}
                           `}
                         >
                           {getRuleTitle(dottedName, aides)}

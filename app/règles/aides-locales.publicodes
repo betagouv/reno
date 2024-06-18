@@ -110,6 +110,8 @@ besançon . aide audit energétique:
 
 besançon . bailleur:
   titre: Dispositif AAPEL propriétaire bailleur
+  note: Pas encore implémenté.
+
 #besançon . bailleur . montant:
 
 doubs:
