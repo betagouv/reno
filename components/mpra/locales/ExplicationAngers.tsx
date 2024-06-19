@@ -61,7 +61,7 @@ export default function ExplicationAngers({ engine, situation, choice }) {
   return (
     <section>
       <span>
-        Aide{conditionBBCAngers ? 's' : ''} de la angers jusqu'à{' '}
+        Aide{conditionBBCAngers ? 's' : ''} d'Angers Métropole jusqu'à{' '}
         <Value
           {...{
             engine,
