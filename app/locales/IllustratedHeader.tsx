@@ -1,7 +1,7 @@
 import useWikidata from '@/components/wikidata/useWikidata'
 
-export default function IllustratedHeader({ placeTitle }) {
-  const wikidataImage = useWikidata(placeTitle),
+export default function IllustratedHeader({ placeTitle, imageTitle }) {
+  const wikidataImage = useWikidata(imageTitle),
     wikidataImageUrl = wikidataImage?.pictureUrl
 
   return (
@@ -17,7 +17,7 @@ export default function IllustratedHeader({ placeTitle }) {
         src={wikidataImageUrl}
         width="30"
         height="30"
-        alt={`Photo emblématique du territoire ${placeTitle}`}
+        alt={`Photo emblématique du territoire ${imageTitle}`}
         css={`
           object-fit: cover;
           height: 4rem;

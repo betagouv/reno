@@ -25,6 +25,8 @@ total:
 #########
 
 besançon:
+  image wikidata: Besançon
+  titre: Grand Besançon Métropole
 
 besançon . conditions géo: logement . EPCI = '242500361'
 
@@ -248,7 +250,8 @@ côte-d'or . aide au dossier de subvention ANAH . montant:
   valeur: 250 €
 
 angers:
-  titre:
+  image wikidata: Angers
+  titre: Angers Loire Métropole
 
 angers . conditions géo: ménage . EPCI = '244900015'
 

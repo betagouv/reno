@@ -13,7 +13,9 @@ const engine = new Publicodes({ ...rules })
 export default function PlaceSummary({ place, placeRules }) {
   if (place == 0) return undefined
 
-  const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules))
+  const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules)),
+    rule = Object.fromEntries(placeRules)[place] || {},
+    imageTitle = rule['image wikidata'] || placeTitle
 
   const valueRules =
     Array.isArray(placeRules) &&
@@ -64,7 +66,7 @@ export default function PlaceSummary({ place, placeRules }) {
         margin-bottom: 2rem;
       `}
     >
-      <IllustratedHeader placeTitle={placeTitle} />
+      <IllustratedHeader imageTitle={imageTitle} placeTitle={placeTitle} />
       <Card
         css={`
           max-width: 36rem;

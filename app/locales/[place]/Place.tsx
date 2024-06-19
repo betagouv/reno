@@ -80,7 +80,11 @@ export default function LocalePlace({ place }) {
   const placeRules = aidesEntries.filter(([dottedName, rule]) =>
     dottedName.startsWith(place),
   )
-  const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules))
+
+  const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules)),
+    rule = Object.fromEntries(placeRules)[place] || {},
+    imageTitle = rule['image wikidata'] || placeTitle
+
   const defaultSituation = getDefaultSituation(place, baseEngine, placeRules)
 
   const [userSituation, setUserSituation] = useState({})
@@ -104,7 +108,7 @@ export default function LocalePlace({ place }) {
   return (
     <div css={``}>
       <Section>
-        <IllustratedHeader placeTitle={placeTitle} />
+        <IllustratedHeader placeTitle={placeTitle} imageTitle={imageTitle} />
         <p>
           Découvrez ci-dessous les aides locales {capitalise0(place)}. Vous
           pouvez changer la situation de votre ménage pour voir l'évolution du
