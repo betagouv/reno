@@ -14,6 +14,14 @@
     région: 0 €
     état: 0 €
 
+total:
+  somme:
+    - commune
+    - intercommunalité
+    - département
+    - région
+    - état
+
 #########
 
 besançon:
@@ -240,6 +248,8 @@ côte-d'or . aide au dossier de subvention ANAH . montant:
   valeur: 250 €
 
 angers:
+  titre:
+
 angers . conditions géo: ménage . EPCI = '244900015'
 
 angers . conditions de base:

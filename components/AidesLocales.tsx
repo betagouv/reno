@@ -29,7 +29,9 @@ const Header = () => (
   </header>
 )
 export default function AidesLocales({ engine, situation }) {
-  const locales = engine.setSituation(situation).evaluate('aides locales')
+  const locales = engine
+    .setSituation(situation)
+    .evaluate('aides locales . total')
 
   if (!locales.nodeValue) return null
 

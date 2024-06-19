@@ -1,9 +1,8 @@
+import crossIcon from '@/public/remix-close-empty.svg'
+import Image from 'next/image'
+import styled from 'styled-components'
 import DPELabel from '../DPELabel'
 import { Value } from '../ScenariosSelector'
-import Image from 'next/image'
-import checkIcon from '@/public/check.svg'
-import crossIcon from '@/public/remix-close-empty.svg'
-import styled from 'styled-components'
 
 export const InapplicableBlock = styled.div`
   text-decoration: underline;

@@ -13,7 +13,7 @@ export default function ExplicationsMPRA({
 }) {
   const locales = engine
       .setSituation(situation)
-      .evaluate('aides locales').nodeValue,
+      .evaluate('aides locales . total').nodeValue,
     hasLocales = locales > 0
 
   const angers = engine.evaluate('aides locales . angers . aides').nodeValue,
