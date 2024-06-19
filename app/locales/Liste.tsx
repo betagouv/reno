@@ -58,7 +58,11 @@ export default function () {
               pas encore validée par les collectivités.
             </em>{' '}
             Vous disposez d'informations sourcées sur une aide locale ?{' '}
-            <Link href="/faq">Contactez-nous</Link> !
+            <Link href="/faq">Contactez-nous</Link> ! En attendant, la{' '}
+            <a href="https://www.anil.org/aides-locales-travaux">
+              base de l'ANIL
+            </a>{' '}
+            est la source la plus complète.
           </p>
         </div>
         <ul
