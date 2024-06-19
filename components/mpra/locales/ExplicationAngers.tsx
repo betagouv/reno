@@ -10,7 +10,7 @@ const Base = ({ engine, situation, choice, showTotal }) => (
           ...situation,
           'projet . DPE visé': choice + 1,
         },
-        dottedName: "métropole d'Angers . aides socles . taux",
+        dottedName: 'aides locales . angers . aides socles . taux',
       }}
     />
     du coût de vos travaux avec un plafond de{' '}
@@ -22,7 +22,8 @@ const Base = ({ engine, situation, choice, showTotal }) => (
           ...situation,
           'projet . DPE visé': choice + 1,
         },
-        dottedName: "métropole d'Angers . aides socles . plafond de travaux HT",
+        dottedName:
+          'aides locales . angers . aides socles . plafond de travaux HT',
       }}
     />{' '}
     de travaux
@@ -39,7 +40,7 @@ const Base = ({ engine, situation, choice, showTotal }) => (
               'projet . travaux': 999999,
               'projet . DPE visé': choice + 1,
             },
-            dottedName: "métropole d'Angers . aides socles . montant",
+            dottedName: 'aides locales . angers . aides socles . montant',
             state: 'prime-secondary',
           }}
         />
@@ -54,13 +55,13 @@ export default function ExplicationAngers({ engine, situation, choice }) {
   const conditionBBCAngers = engine
     .setSituation({ ...situation, 'projet . DPE visé': choice + 1 })
     .evaluate(
-      "métropole d'Angers . prime basse consommation . conditions",
+      'aides locales . angers . prime basse consommation . conditions',
     ).nodeValue
 
   return (
     <section>
       <span>
-        Aide{conditionBBCAngers ? 's' : ''} de la métropole d'Angers jusqu'à{' '}
+        Aide{conditionBBCAngers ? 's' : ''} d'Angers Métropole jusqu'à{' '}
         <Value
           {...{
             engine,
@@ -70,7 +71,7 @@ export default function ExplicationAngers({ engine, situation, choice }) {
               'projet . travaux': 999999,
               'projet . DPE visé': choice + 1,
             },
-            dottedName: "métropole d'Angers . aides",
+            dottedName: 'aides locales . angers . aides',
             state: 'prime-secondary',
           }}
         />{' '}
@@ -94,7 +95,7 @@ export default function ExplicationAngers({ engine, situation, choice }) {
                     'projet . DPE visé': choice + 1,
                   },
                   dottedName:
-                    "métropole d'Angers . prime basse consommation . montant",
+                    'aides locales . angers . prime basse consommation . montant',
                   state: 'prime-secondary',
                 }}
               />

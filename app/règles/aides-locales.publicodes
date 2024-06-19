@@ -1,0 +1,356 @@
+# Cette structure est inspirée de Mes Aides Vélo, qui a au passage également inspiré Mes Aides Réno en général https://github.com/mquandalle/mesaidesvelo/blob/master/src/aides.yaml
+# Il utilise une structure en somme d'échelons administratifs qui seront remplacés par la valeur correspondant à la situation de l'utilisateur
+# Pourquoi ? Cela nous évite de sommer toutes les aides pour obtenir une variable "aides locales". Publicodes n'a pas de mécanisme de somme abstraite, et ça reviendrait de toute façon à sommer une liste où tout est nul sauf un élément au max.
+#
+# À noter, si certaines règles ici sont des aides, d'autres sont des prêts ou des avances de travaux (c'est pareil), qui vont impacter d'autres variables du calcul
+#
+# Voir aussi le fichier aides-locales.brouillon.yaml pour les aides pas encore implémentées ou qui ne sont plus valides
+
+'':
+  avec:
+    commune: 0 €
+    intercommunalité: 0 €
+    département: 0 €
+    région: 0 €
+    état: 0 €
+
+total:
+  somme:
+    - commune
+    - intercommunalité
+    - département
+    - région
+    - état
+
+#########
+
+besançon:
+  image wikidata: Besançon
+  titre: Grand Besançon Métropole
+
+besançon . conditions géo: logement . EPCI = '242500361'
+
+besançon . seuil minimum travaux: projet . travaux > 5000 €
+
+besançon . conditions de revenu:
+
+besançon . conditions de revenu . AAPEL:
+  une de ces conditions:
+    - ménage . revenu . classe = 'modeste'
+    - ménage . revenu . classe = 'très modeste'
+
+besançon . conditions de revenu . PAMELA:
+  note: |
+    Sur [la fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement), le barème cite des seuils de revenu très proches de [la catégorie "intermédiaire" de l'ANAH](https://france-renov.gouv.fr/bareme#fr_idf-threshold). Nous faisons donc cette simplification. Nous supposons que c'est une erreur de mise à jour de la part du Grand Besançon, les seuils de revenu évoluant chaque année.
+  une de ces conditions:
+    - ménage . revenu . classe = 'intermédiaire'
+    - ménage . revenu . classe = 'modeste'
+    - ménage . revenu . classe = 'très modeste'
+
+besançon . travaux recevables:
+  question: Votre bouquet de travaux respecte-t-il les catégories exigées par le Grand Besançon ?
+  par défaut: oui
+  description: |
+    Les travaux devront être réalisés par des professionnels disposant de la certification RGE, et le bouquet devra être constitué d'au moins deux des catégories suivantes :  
+    - Travaux d’isolation thermique sous toiture ;
+    - Travaux d’isolation des planchers ;
+    - Travaux d’isolation thermique des murs donnant sur l’extérieur ou l’intérieur ;
+    - Travaux d’isolation thermique de la moitié au moins des menuiseries (portes, fenêtres…) donnant sur l’extérieur ;
+    - Travaux d’installation de chaudières à haute performance énergétique, de chaudières à micro-cogénération gaz ou de pompes à chaleur (sauf pompe à chaleur air/air) ;
+    - Travaux d’installation de chaudières ou d’équipements de chauffage ou de production d’eau chaude fonctionnant au bois ou autres biomasses ;
+    - Travaux d’installation d’équipements de production d’eau chaude sanitaire utilisant une source d’énergie renouvelable 
+    - Acquisition d’équipements de récupération et de traitement des eaux pluviales, de systèmes permettant de réduire la consommation d’eau
+
+    [Source](https://www.grandbesancon.fr/wp-content/uploads/sites/2/2019/06/R%C3%A8glement-dintervention-r%C3%A9novation-des-logements-2019.pdf)
+
+besançon . occupant:
+
+besançon . occupant . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - conditions de revenu . AAPEL
+    - logement . période de construction = 'au moins 15 ans'
+    - seuil minimum travaux
+    - travaux recevables
+    - projet . DPE visé <= 4 # D
+    - projet . gain energétique > 25 %
+
+besançon . occupant . montant:
+  titre: Dispositif AAPEL propriétaire occupant
+  description: |
+    [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement).
+    [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
+  note: |
+    À étudier : "Clause anti spéculative d'une durée de 5 ans".
+  applicable si: conditions
+  somme:
+    - socle
+    - objectif BBC rénovation
+    - objectif BBC neuf
+
+besançon . occupant . socle:
+  formule:
+    variations:
+      - si: projet . gain energétique < 30 %
+        alors:
+          valeur: 25 % * projet . travaux
+          plafond: 12000 €
+      - si: projet . gain energétique < 35 %
+        alors:
+          valeur: 30 % * projet . travaux
+          plafond: 14000 €
+      - si: projet . gain energétique < 40 %
+        alors:
+          valeur: 35 % * projet . travaux
+          plafond: 16000 €
+      - sinon:
+          valeur: 40 % * projet . travaux
+          plafond: 18000 €
+
+besançon . occupant . objectif BBC rénovation:
+  applicable si: projet . objectif BBC rénovation
+  valeur: 1500 €
+besançon . occupant . objectif BBC neuf:
+  applicable si: projet . objectif BBC neuf
+  valeur: 2000 €
+
+besançon . aide audit energétique:
+  valeur: 150 €
+  description: Hors Opah et PIG.
+
+besançon . bailleur:
+  titre: Dispositif AAPEL propriétaire bailleur
+  note: Pas encore implémenté.
+
+#besançon . bailleur . montant:
+
+doubs:
+doubs . conditions géo: logement . département = 'Doubs'
+doubs . bonus passoire . conditions:
+  toutes ces conditions:
+    - logement . période de construction = 'au moins 15 ans'
+    - logement . résidence principale propriétaire
+    - DPE . actuel >= 6
+    - MPR . accompagnée . bénéficiaire
+
+doubs . bonus passoire:
+  description: |
+    [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-aide-a-la-sortie-de-passoire-energetique-3234/).
+
+    Les travaux éligibles à l'aide départementale sont ceux éligibles à l'aide "Ma Prime Rénov' - Parcours accompagné" de l'Anah (ils doivent permettre un saut d'au-moins deux classes énergétiques). 
+    Le recours à une assistance à maîtrise d'ouvrage obligatoire réalisé par un prestataire agréé "Mon Accompagnateur Rénov" est obligatoire.
+
+doubs . bonus passoire . montant:
+  formule: 5 % * projet . travaux . plafonnés
+  note: Brouillon d'implémentation
+
+doubs . bonus passoire . aide AMOA:
+  description: |
+    Aide à l'assistance à maîtrise d'ouvrage de 150 € pour la constitution du dossier de demande de subvention auprès du département (mais non applicable en secteur programmé), et hors zone de délégation du Conseil départemental (sur le secteur de délégation du Département, la subvention du Département sera instruite concomitamment à l’aide de l’Anah. La mention de l’aide départementale devra figurer dans le plan de financement prévisionnel).
+
+doubs . bonus passoire . aide AMOA . montant:
+  valeur: 150 €
+
+charente-maritime:
+  titre: Charente-Maritime
+charente-maritime . conditions géo:
+  formule: logement . département = 'Charente-Maritime'
+
+charente-maritime . bailleur:
+
+charente-maritime . bailleur . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - projet . gain energétique >= 35 %
+    - logement . loyer social ou très social
+
+charente-maritime . bailleur . montant:
+  applicable si: conditions
+  description: |
+    les propriétaires bailleurs qui réhabilitent leur patrimoine afin d’améliorer les performances énergétiques du logement permettant la réduction des factures d’énergie ou d’eau des locataires. [fiche pdf officielle](https://la.charente-maritime.fr/sites/charente_maritime/files/2023-04/Reglement-proprietaires-bailleurs.pdf).
+  valeur: 30 % * projet . travaux
+  plafond:
+    variations:
+      - si:
+          une de ces conditions:
+            - logement . commune = '17457' # La Devise
+            - logement . commune = '17266' # Les Nouillers
+            - logement . commune = '17237' # Moëze
+            - logement . commune = '17269' # Orignolles
+        alors: 7000 €
+      - sinon: 5000 €
+
+  note: |
+    Il n'est pas du tout explicite dans les fiches qu'il s'agisse de la localisation du logement plutôt que celle du propriétaire. nous choisissons le logement, car l'aide est bonifiée pour certaines communes, ce qui laisse penser que c'est du logement qu'il s'agit.
+
+    La fiche stipule la chose suivante : 
+
+    > Les ressources des locataires du logement aidé doivent être inférieures ou égales au plafond défini par l’Etat et révisé chaque année.
+
+    Or, l'aide MaPrimeRénov' ampleur en 2024 n'a pas de plafond de revenu, seulement un barème. Ainsi nous partons du principe qu'il n'y en a pas pour cette aide.
+
+charente-maritime . occupant:
+charente-maritime . occupant . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - ménage . revenu . classe = 'très modeste'
+    - logement . résidence principale propriétaire
+    - logement . période de construction = 'au moins 15 ans'
+    - projet . gain energétique >= 25 %
+charente-maritime . occupant . montant:
+  applicable si: conditions
+
+  description: |
+    Source : https://www.anil.org/aides-locales-travaux/details/charente-aide-a-lamelioration-thermique-3065
+  valeur: 15 % * projet . travaux
+  note: |
+    La liste de conditions "Autre(s) condition(s) relatives aux travaux" dans la fiche ANIL est ambigüe : s'agit-il de "toutes ces conditions" ou "une de ces conditions" ?
+
+côte-d'or:
+  titre: Côte-d'Or
+  note: |
+    Attention, le département n'a pas mis à jour [sa page décrivant l'aide](https://www.service-public.fr/particuliers/vosdroits/F20554) depuis la réforme des aides ANAH. Elle se base sur [MaPrimeRénov' Sérénité qui n'existe plus](https://www.service-public.fr/particuliers/vosdroits/F20554).
+
+    Nous partons donc du principe qu'elle est implicitement mise à jour pour respecter les conditions du parcours accompagné 2024 de MaPrimeRénov', mais avec l'exigence de 40 % de gain energétique plutôt que le saut de 2 DPE.
+
+côte-d'or . conditions géo: ménage . département = "Côte-d'Or"
+
+côte-d'or . aide aux travaux . conditions géo:
+  toutes ces conditions:
+    - ménage . département = "Côte-d'Or"
+    - ménage . EPCI != '242100410'
+
+côte-d'or . aide aux travaux:
+côte-d'or . aide aux travaux . conditions:
+  toutes ces conditions:
+    - ménage . revenu . classe = 'très modeste'
+    - projet . gain energétique > 40 %
+    - conditions communes
+    - conditions géo
+
+côte-d'or . aide aux travaux . montant:
+  applicable si: conditions
+  remplace: département
+  valeur: 250 €
+
+côte-d'or . hors opération programmée:
+  question: Votre projet est-il situé en dehors d’un territoire couvert par une opération programmée (OPAH ou PIG) ?
+  par défaut: oui
+
+côte-d'or . aide au dossier de subvention ANAH:
+  titre: Aide dossier de subvention
+  description: Aide au financement d’un opérateur pour l’assistance au montage des dossiers de demande de subvention ANAH
+côte-d'or . aide au dossier de subvention ANAH . montant:
+  applicable si:
+    toutes ces conditions:
+      - MPR . accompagnée . éligible
+      - hors opération programmée
+  description: |
+    Aide au financement de l’ingénierie spécialisée (assistance administrative, technique et financière à l’élaboration d’un dossier de demande de subvention ANaH) :
+  valeur: 250 €
+
+angers:
+  image wikidata: Angers
+  titre: Angers Loire Métropole
+
+angers . conditions géo: ménage . EPCI = '244900015'
+
+angers . conditions de base:
+  toutes ces conditions:
+    - conditions de revenu
+    - logement . propriétaire occupant
+    - conditions géo
+
+angers . aides:
+  remplace: intercommunalité
+  somme:
+    - aides socles . montant
+    - prime basse consommation . montant
+
+angers . montant si assiette maximum:
+  somme:
+    - prime basse consommation . montant
+    - aides socles . montant si assiette maximum
+
+angers . aides socles . conditions:
+  toutes ces conditions:
+    - conditions de base
+    # TODO pour l'instant on ignore les 2 autres dispositifs logement indécent et prime adapt'
+    # est-ce différent de la condition de l'ANAH ?
+    - sauts >= 2
+angers . aides socles:
+  applicable si: conditions
+  description: |
+    Etre éligible aux aides de l'Anah, MaPrimeRénov' - Parcours accompagné (sous plafond de ressources "Intermédiaire"), MaPrimeAdapt', MaPrime Logement Décent, MaPrimeRénov' Copropriété, ou Copropriété en difficulté.
+  valeur: montant
+  # fin prévue: 31/12/2024
+  lien: https://www.angersloiremetropole.fr/mon-quotidien/logement/mieux-chez-moi-un-accompagnement-a-la-renovation-de-votre-logement/index.html
+  email: mieuxchezmoi@angersloiremetropole.fr
+  téléphone: 02 41 43 00 00
+  service: Service Habitat-Logement
+  incertitudes: |
+    Est-ce qu'on peut demander cette aide sans demander les aides ANAH ?
+
+angers . aides socles . montant si assiette maximum:
+  formule: taux * plafond de travaux HT
+
+angers . aides socles . montant: taux * travaux plafonnés
+
+angers . aides socles . travaux plafonnés:
+  valeur: projet . travaux
+  plafond: plafond de travaux HT
+
+angers . revenu très très modeste:
+  description: |
+    Cette catégorie de revenu est a priori spécifique à Angers.
+
+    De plus, elle fait concurrence à la catégorie "très modeste": du point de vue de MaPrimeRénov', un revenu très très modeste *est* un revenu très modeste. D'où l'intérêt de la définir à côté, plutôt que dans le barème standard.
+  note: |
+    Cette entrée dans le barème des revenus est ajoutée à la main à la question du revenu, toujours dans l'optique de ne pas demander le revenu exact à la personne, mais juste sa classe de revenu.
+  variations:
+    - si: ménage . personnes = 1
+      alors: ménage . revenu < 13607 + 1 €
+    - si: ménage . personnes = 2
+      alors: ménage . revenu < 19900 + 1 €
+    - si: ménage . personnes = 3
+      alors: ménage . revenu < 23934 + 1 €
+    - si: ménage . personnes = 4
+      alors: ménage . revenu < 27958 + 1 €
+    - si: ménage . personnes = 5
+      alors: ménage . revenu < 32002 + 1 €
+    - sinon: ménage . revenu < (32002 + 1 + ménage . personnes plus * 4036 €)
+
+angers . conditions de revenu:
+  # TODO définition du revenu : somme des derniers revenus fiscaux de toutes les personnes occupant le logement année N-1
+  une de ces conditions:
+    - ménage . revenu . classe = "intermédiaire"
+    - ménage . revenu . classe = "modeste"
+    - ménage . revenu . classe = "très modeste"
+
+angers . aides socles . taux:
+  titre: Taux d'aide angers
+  variations:
+    - si: revenu très très modeste
+      alors: 20 %
+    - si: ménage . revenu . classe = "très modeste"
+      alors: 15 %
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = "intermédiaire"
+          - ménage . revenu . classe = "modeste"
+      alors: 10 %
+
+angers . aides socles . plafond de travaux HT:
+  valeur: 20000 €
+  description: Aide par logement.
+
+angers . prime basse consommation:
+angers . prime basse consommation . conditions:
+  toutes ces conditions:
+    - conditions de base
+    - projet . DPE visé <= 2
+    - DPE . actuel >= 2
+angers . prime basse consommation . montant:
+  titre: Prime BBC angers
+  applicable si: conditions
+  valeur: 1500 €
