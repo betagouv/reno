@@ -5,11 +5,14 @@ import { Main, Section } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0, omit, sortBy } from '@/components/utils'
 import { useMemo, useState } from 'react'
-import SituationEditor from '../SituationEditor'
+const SituationEditor = dynamic(() => import('../SituationEditor'), {
+  ssr: false,
+})
 import aides from '@/app/règles/aides-locales.publicodes'
 import Publicodes, { formatValue } from 'publicodes'
 import { utils } from 'publicodes'
 import IllustratedHeader from '../IllustratedHeader'
+import dynamic from 'next/dynamic'
 const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)
