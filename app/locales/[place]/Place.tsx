@@ -9,6 +9,7 @@ import SituationEditor from '../SituationEditor'
 import aides from '@/app/règles/aides-locales.publicodes'
 import Publicodes, { formatValue } from 'publicodes'
 import { utils } from 'publicodes'
+import IllustratedHeader from '../IllustratedHeader'
 const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)
@@ -79,6 +80,7 @@ export default function LocalePlace({ place }) {
   const placeRules = aidesEntries.filter(([dottedName, rule]) =>
     dottedName.startsWith(place),
   )
+  const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules))
   const defaultSituation = getDefaultSituation(place, baseEngine, placeRules)
 
   const [userSituation, setUserSituation] = useState({})
@@ -102,7 +104,7 @@ export default function LocalePlace({ place }) {
   return (
     <div css={``}>
       <Section>
-        <h1>Aides locales {capitalise0(place)}</h1>
+        <IllustratedHeader placeTitle={placeTitle} />
         <p>
           Découvrez ci-dessous les aides locales {capitalise0(place)}. Vous
           pouvez changer la situation de votre ménage pour voir l'évolution du

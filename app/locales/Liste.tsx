@@ -64,6 +64,8 @@ export default function () {
         <ul
           css={`
             list-style-type: none;
+            padding-left: 0;
+            margin-top: 4vh;
           `}
         >
           {Object.entries(byPlace).map(([place, placeRules]) => (

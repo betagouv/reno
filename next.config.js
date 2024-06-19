@@ -46,6 +46,14 @@ const nextConfig = {
     ]
   },
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'commons.wikimedia.org',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

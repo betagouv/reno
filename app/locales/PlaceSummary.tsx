@@ -1,11 +1,11 @@
+import rules from '@/app/règles/rules'
 import { PrimeStyle } from '@/components/Geste'
 import { CTA, CTAWrapper, Card } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0 } from '@/components/utils'
 import Link from 'next/link'
-import { formatValue } from 'publicodes'
-import Publicodes from 'publicodes'
-import rules from '@/app/règles/rules'
+import Publicodes, { formatValue } from 'publicodes'
+import IllustratedHeader from './IllustratedHeader'
 const prefix = 'aides locales . '
 
 const engine = new Publicodes({ ...rules })
@@ -13,10 +13,13 @@ const engine = new Publicodes({ ...rules })
 export default function PlaceSummary({ place, placeRules }) {
   if (place == 0) return undefined
 
+  const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules))
+
   const valueRules =
     Array.isArray(placeRules) &&
     placeRules.filter(([dottedName]) => dottedName.endsWith('montant'))
 
+  // idea, not used yet
   const levels = valueRules.map(([dottedName, rule]) => [
     dottedName.split(' . ').length,
     dottedName,
@@ -55,32 +58,32 @@ export default function PlaceSummary({ place, placeRules }) {
   const value = formatValue(montant)
 
   return (
-    <li key={place} css={``}>
-      <h2
-        css={`
-          position: sticky;
-          top: 0px;
-        `}
-      >
-        {capitalise0(place)}
-      </h2>
+    <li
+      key={place}
+      css={`
+        margin-bottom: 2rem;
+      `}
+    >
+      <IllustratedHeader placeTitle={placeTitle} />
       <Card
         css={`
           max-width: 36rem;
         `}
       >
-        {evaluations.map(([dottedName, evaluation, title]) => (
-          <li key={dottedName}>
-            <p>
-              <div>{title} : </div>
-              <PrimeStyle>Jusqu'à {formatValue(evaluation)}</PrimeStyle>
-            </p>
-          </li>
-        ))}
+        <ul css="padding-left: .6rem">
+          {evaluations.map(([dottedName, evaluation, title]) => (
+            <li key={dottedName}>
+              <p>
+                <div>{title} </div>
+                <PrimeStyle>Jusqu'à {formatValue(evaluation)}</PrimeStyle>
+              </p>
+            </li>
+          ))}
+        </ul>
         <CTAWrapper $justify="left" css="margin-bottom: .6rem">
           <CTA $importance="primary" css="font-size: 100%">
             <Link href={'/locales/' + place}>
-              Explorer les aides locales {capitalise0(place)}
+              Explorer les aides {capitalise0(place)}
             </Link>
           </CTA>
         </CTAWrapper>

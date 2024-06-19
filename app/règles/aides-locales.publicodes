@@ -142,6 +142,7 @@ doubs . bonus passoire . aide AMOA . montant:
   valeur: 150 €
 
 charente-maritime:
+  titre: Charente-Maritime
 charente-maritime . conditions géo:
   formule: logement . département = 'Charente-Maritime'
 
@@ -196,6 +197,7 @@ charente-maritime . occupant . montant:
     La liste de conditions "Autre(s) condition(s) relatives aux travaux" dans la fiche ANIL est ambigüe : s'agit-il de "toutes ces conditions" ou "une de ces conditions" ?
 
 côte-d'or:
+  titre: Côte-d'Or
   note: |
     Attention, le département n'a pas mis à jour [sa page décrivant l'aide](https://www.service-public.fr/particuliers/vosdroits/F20554) depuis la réforme des aides ANAH. Elle se base sur [MaPrimeRénov' Sérénité qui n'existe plus](https://www.service-public.fr/particuliers/vosdroits/F20554).
 
