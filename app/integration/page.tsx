@@ -89,21 +89,25 @@ export default function Page() {
             <p>
               MaPrimeRénov', parcours par geste et parcours accompagné, CEE, CEE
               coup de pouce, aides locales, prêt à taux zéro, dispositif
-              Denormandie, exonérations fiscales, etc : le monde des aides à la
-              rénovation est complexe.
+              Denormandie, exonérations fiscales, aides à la coproriété, etc :
+              le monde des aides à la rénovation est complexe.
             </p>
             <p>
-              Depuis début 2024, l'État propose Mes Aides Réno, un calculateur
-              ouvert et en développement actif qui integrera toutes ces aides
-              dans une interface de simulation simple destinée au grand public.
+              Depuis début 2024, l'État propose <BlueEm>Mes Aides Réno</BlueEm>,
+              un calculateur ouvert et en développement actif qui integrera
+              toutes ces aides dans une interface de simulation simple destinée
+              au grand public.
             </p>
             <h2>Toujours à jour</h2>
             <p>
               Pour l'instant, l'accent est mis sur le dispositif principal,
-              MaPrimeRénov'. En intégrant dès maintenant le calculateur sur
-              votre site, vous profiterez automatiquement des mises à jour qui
-              auront lieu courant été et à la rentrée 2024 pour ajouter toutes
-              les aides à la rénovation energétique.
+              MaPrimeRénov'.
+            </p>
+            <p>
+              En intégrant dès maintenant le calculateur sur votre site, vous
+              profiterez automatiquement des mises à jour qui auront lieu très
+              prochainement pendant l'été et à la rentrée 2024 et ajouteront
+              progressivement toutes les aides à la rénovation energétique.
             </p>
           </Content>
         </Wrapper>
