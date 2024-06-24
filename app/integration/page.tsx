@@ -12,7 +12,7 @@ export const description = `Vous pouvez intégrer le simulateur Mes Aides Réno 
 export const metadata: Metadata = {
   title: 'Intégrer le simulateur Mes Aides Réno',
   description,
-  openGraph: { images: ['/jaquette.png'] },
+  openGraph: { images: ['/iframe.png'] },
 }
 
 const iframeCode = `
@@ -70,17 +70,34 @@ export default function Page() {
             <code>{iframeCode}</code>
             <h2>Le résultat</h2>
 
-            <iframe
-              src="https://mesaidesreno.beta.gouv.fr"
+            <div
               style={css`
-                width: 400px;
-                height: 700px;
-                margin: 3rem auto;
-                display: block;
-                border: 0.2rem solid black;
-                border-radius: 1rem;
+                text-align: center;
+                background: radial-gradient(
+                  circle,
+                  rgba(0, 0, 145, 0.2) 0%,
+                  rgba(0, 212, 255, 0) 60%,
+                  rgba(0, 212, 255, 0) 100%
+                );
               `}
-            ></iframe>
+            >
+              <p>[votre contenu]</p>
+              <iframe
+                src="https://mesaidesreno.beta.gouv.fr"
+                style={css`
+                  width: 400px;
+                  height: 700px;
+                  margin: 3rem auto;
+                  display: block;
+                  border: 0.2rem solid black;
+                  border-radius: 1rem;
+                  box-shadow:
+                    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+                    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+                `}
+              ></iframe>
+              <p>[la suite de votre contenu]</p>
+            </div>
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
