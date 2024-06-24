@@ -102,3 +102,8 @@ export const HomeList = styled.ol`
     }
   }
 `
+
+export const BlueEm = styled.em`
+  color: var(--lightColor);
+  font-style: normal;
+`
