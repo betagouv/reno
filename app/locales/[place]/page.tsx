@@ -5,6 +5,7 @@ import css from '@/components/css/convertToJs'
 import { capitalise0 } from '@/components/utils'
 import { Metadata, Metadata } from 'next'
 import { description } from '../description'
+import dynamic from 'next/dynamic'
 
 export async function generateMetadata(
   { params: { place: encodedPlace } }: Props,

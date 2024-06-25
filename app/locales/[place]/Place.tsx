@@ -3,8 +3,8 @@ import rules from '@/app/règles/rules'
 import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
 import { Main, Section } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
-import { capitalise0, omit, sortBy } from '@/components/utils'
-import { useMemo, useState } from 'react'
+import { capitalise0, omit, sortBy, transformObject } from '@/components/utils'
+import { useEffect, useMemo, useState } from 'react'
 const SituationEditor = dynamic(() => import('../SituationEditor'), {
   ssr: false,
 })
@@ -13,23 +13,27 @@ import Publicodes, { formatValue } from 'publicodes'
 import { utils } from 'publicodes'
 import IllustratedHeader from '../IllustratedHeader'
 import dynamic from 'next/dynamic'
+import { dot } from 'node:test/reporters'
+import { defaults } from 'marked'
+import { userAgentFromString } from 'next/server'
+import { removeTrailingZeros } from '@/components/publicodes/situationUtils'
 const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)
 
-const getDefaultSituation = (place, engine, placeRules) => {
-  const evaluation = engine.evaluate('somme des aides locales')
-  const { missingVariables } = evaluation
-  console.log('situ missingVariables', missingVariables)
-
+const getDefaultSituation = (
+  allMissingVariables,
+  engineWithDefaults,
+  placeRules,
+) => {
   const defaultSituationEntries = sortBy(([, score]) => score)(
-    Object.entries(missingVariables),
+    Object.entries(allMissingVariables),
   )
     .map(
       ([dottedName]) =>
         dottedName !== 'simulation . mode' && [
           dottedName,
-          engine.evaluate(dottedName).nodeValue,
+          engineWithDefaults.evaluate(dottedName).nodeValue,
         ],
     )
     .filter(Boolean)
@@ -57,15 +61,25 @@ const getDefaultSituation = (place, engine, placeRules) => {
     ['ménage . revenu', 0],
   ]
 
-  return Object.fromEntries([...defaultSituationEntries, ...maximiseSituation])
+  const defaultMissingVariables = Object.fromEntries([
+    ...defaultSituationEntries,
+    ...maximiseSituation,
+  ])
+
+  //  console.log('situ defaultMissingVariables', defaultMissingVariables)
+  return defaultMissingVariables
 }
 
+// This component renders in two steps :
+// - first extract missing variables, get their default values in an object dottedName: defaultValue
+// - get the following missing variables
 export default function LocalePlace({ place }) {
-  // defaultSituation
-  // maxSituation
-  // userSituation
-
-  const baseEngine = useMemo(() => {
+  const placeRules = useMemo(
+    () =>
+      aidesEntries.filter(([dottedName, rule]) => dottedName.startsWith(place)),
+    [place],
+  )
+  const [defaultSituation, rulesAndTarget] = useMemo(() => {
     const toSum = aidesEntries
         .filter(
           ([dottedName, value]) =>
@@ -75,38 +89,58 @@ export default function LocalePlace({ place }) {
         )
         .map(([dottedName, value]) => 'aides locales . ' + dottedName),
       sum = { somme: toSum }
-    return new Publicodes({
-      ...rules,
+
+    const rulesWithoutDefault = Object.fromEntries(
+      Object.entries(rules).map(([dottedName, rule]) => [
+        dottedName,
+        rule ? omit(['par défaut'], rule) : rule,
+      ]),
+    )
+
+    console.log(
+      'instantiating new publicodes engine for missing variables listing',
+    )
+    const noDefaultEngine = new Publicodes({
+      ...rulesWithoutDefault,
       'somme des aides locales': sum,
     })
-  }, [place])
-  const placeRules = aidesEntries.filter(([dottedName, rule]) =>
-    dottedName.startsWith(place),
-  )
+    const evaluation = noDefaultEngine.evaluate('somme des aides locales')
+    const { missingVariables } = evaluation
+
+    const rulesAndTarget = {
+      ...rules,
+      'somme des aides locales': sum,
+    }
+
+    console.log(
+      'instantiating new publicodes engine for rules default computation',
+    )
+    const engineWithDefaults = new Publicodes(rulesAndTarget)
+    const defaultSituation = getDefaultSituation(
+      missingVariables,
+      engineWithDefaults,
+      placeRules,
+    )
+    return [defaultSituation, rulesAndTarget]
+  }, [place, placeRules])
 
   const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules)),
     rule = Object.fromEntries(placeRules)[place] || {},
     imageTitle = rule['image wikidata'] || placeTitle
 
-  const defaultSituation = getDefaultSituation(place, baseEngine, placeRules)
+  const engine = useMemo(() => {
+    console.log('instantiating new publicodes engine for evaluation')
+    return new Publicodes(rulesAndTarget)
+  }, [rulesAndTarget])
 
   const [userSituation, setUserSituation] = useState({})
+  const safeUserSituation = transformObject((k, v) => [
+    k,
+    v.startsWith('0') ? 0 : v,
+  ])(userSituation)
+  console.log('safe', userSituation, safeUserSituation)
 
-  const situation = { ...defaultSituation, ...userSituation }
-
-  console.log('situ', defaultSituation, userSituation)
-
-  const [engine] = useMemo(() => {
-    try {
-      const engine = baseEngine.setSituation(situation)
-
-      console.log('Success loading situation in Publicodes engine ')
-      return [engine]
-    } catch (e) {
-      console.error('Error loading situation in Publicodes engine : ', e)
-      return [baseEngine]
-    }
-  }, [situation, baseEngine])
+  const situation = { ...defaultSituation, ...safeUserSituation }
 
   return (
     <div css={``}>
@@ -151,9 +185,9 @@ export default function LocalePlace({ place }) {
             )(placeRules).map(([dottedName, rule]) => {
               if (rule == null) return
 
-              const evaluation = engine.evaluate(
-                'aides locales . ' + dottedName,
-              )
+              const evaluation = engine
+                .setSituation(situation)
+                .evaluate('aides locales . ' + dottedName)
               const value = formatValue(evaluation)
 
               const isMontant = dottedName.endsWith('montant')

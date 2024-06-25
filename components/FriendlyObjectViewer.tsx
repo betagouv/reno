@@ -28,7 +28,6 @@ const FriendlyObjectViewer = ({
         </Link>
       )
     } catch (e) {
-      console.log('Error using context', context)
       const Content = <span>{capitaliseOrNot(data)}</span>
       if (level === 0) return <Wrapper>{Content}</Wrapper>
       return Content
