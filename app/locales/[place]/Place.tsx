@@ -4,7 +4,7 @@ import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
 import { Main, Section } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0, omit, sortBy } from '@/components/utils'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 const SituationEditor = dynamic(() => import('../SituationEditor'), {
   ssr: false,
 })
@@ -14,22 +14,25 @@ import { utils } from 'publicodes'
 import IllustratedHeader from '../IllustratedHeader'
 import dynamic from 'next/dynamic'
 import { dot } from 'node:test/reporters'
+import { defaults } from 'marked'
+import { userAgentFromString } from 'next/server'
 const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)
 
-const getDefaultSituation = (place, engine, placeRules) => {
-  const evaluation = engine.evaluate('somme des aides locales')
-  const { missingVariables } = evaluation
-
+const getDefaultSituation = (
+  allMissingVariables,
+  engineWithDefaults,
+  placeRules,
+) => {
   const defaultSituationEntries = sortBy(([, score]) => score)(
-    Object.entries(missingVariables),
+    Object.entries(allMissingVariables),
   )
     .map(
       ([dottedName]) =>
         dottedName !== 'simulation . mode' && [
           dottedName,
-          engine.evaluate(dottedName).nodeValue,
+          engineWithDefaults.evaluate(dottedName).nodeValue,
         ],
     )
     .filter(Boolean)
@@ -70,7 +73,12 @@ const getDefaultSituation = (place, engine, placeRules) => {
 // - first extract missing variables, get their default values in an object dottedName: defaultValue
 // - get the following missing variables
 export default function LocalePlace({ place }) {
-  const baseEngine = useMemo(() => {
+  const placeRules = useMemo(
+    () =>
+      aidesEntries.filter(([dottedName, rule]) => dottedName.startsWith(place)),
+    [place],
+  )
+  const [defaultSituation, rulesAndTarget] = useMemo(() => {
     const toSum = aidesEntries
         .filter(
           ([dottedName, value]) =>
@@ -80,31 +88,52 @@ export default function LocalePlace({ place }) {
         )
         .map(([dottedName, value]) => 'aides locales . ' + dottedName),
       sum = { somme: toSum }
+
     const rulesWithoutDefault = Object.fromEntries(
       Object.entries(rules).map(([dottedName, rule]) => [
         dottedName,
         rule ? omit(['par défaut'], rule) : rule,
       ]),
     )
-    return new Publicodes({
+
+    console.log(
+      'instantiating new publicodes engine for missing variables listing',
+    )
+    const noDefaultEngine = new Publicodes({
       ...rulesWithoutDefault,
       'somme des aides locales': sum,
     })
-  }, [place])
+    const evaluation = noDefaultEngine.evaluate('somme des aides locales')
+    const { missingVariables } = evaluation
 
-  const placeRules = aidesEntries.filter(([dottedName, rule]) =>
-    dottedName.startsWith(place),
-  )
+    const rulesAndTarget = {
+      ...rules,
+      'somme des aides locales': sum,
+    }
+
+    console.log(
+      'instantiating new publicodes engine for rules default computation',
+    )
+    const engineWithDefaults = new Publicodes(rulesAndTarget)
+    const defaultSituation = getDefaultSituation(
+      missingVariables,
+      engineWithDefaults,
+      placeRules,
+    )
+    return [defaultSituation, rulesAndTarget]
+  }, [place, placeRules])
 
   const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules)),
     rule = Object.fromEntries(placeRules)[place] || {},
     imageTitle = rule['image wikidata'] || placeTitle
 
-  //const defaultSituation = getDefaultSituation(place, baseEngine, placeRules)
-  const evaluation = baseEngine.evaluate('somme des aides locales')
-  const { missingVariables } = evaluation
+  const engine = useMemo(() => {
+    console.log('instantiating new publicodes engine for evaluation')
+    return new Publicodes(rulesAndTarget)
+  }, [rulesAndTarget])
 
-  return console.log(missingVariables)
+  const [userSituation, setUserSituation] = useState({})
+  const situation = { ...defaultSituation, ...userSituation }
 
   return (
     <div css={``}>
@@ -149,9 +178,9 @@ export default function LocalePlace({ place }) {
             )(placeRules).map(([dottedName, rule]) => {
               if (rule == null) return
 
-              const evaluation = engine.evaluate(
-                'aides locales . ' + dottedName,
-              )
+              const evaluation = engine
+                .setSituation(situation)
+                .evaluate('aides locales . ' + dottedName)
               const value = formatValue(evaluation)
 
               const isMontant = dottedName.endsWith('montant')
