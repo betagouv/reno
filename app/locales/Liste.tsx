@@ -26,6 +26,7 @@ export default function () {
       <Section>
         <h1>Les aides locales à la rénovation en France</h1>
         <p>{description}</p>
+
         <p>
           Sont listées ici les aides financières soutenues par une source
           officielle. Cela peut être une page Web, un PDF sur le site d'une
@@ -57,7 +58,7 @@ export default function () {
             <em css="background: yellow">
               pas encore validée par les collectivités.
             </em>{' '}
-            Vous disposez d'informations sourcées sur une aide locale ?{' '}
+            t Vous disposez d'informations sourcées sur une aide locale ?{' '}
             <Link href="/faq">Contactez-nous</Link> ! En attendant, la{' '}
             <a href="https://www.anil.org/aides-locales-travaux">
               base de l'ANIL

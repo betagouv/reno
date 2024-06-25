@@ -72,13 +72,21 @@ export default function PlaceSummary({ place, placeRules }) {
           max-width: 36rem;
         `}
       >
-        <ul css="padding-left: .6rem">
+        <ul
+          css={`
+            padding-left: 0.6rem;
+            li {
+              margin: 0.6rem 0;
+              div:first-child {
+                margin-bottom: 0.4rem;
+              }
+            }
+          `}
+        >
           {evaluations.map(([dottedName, evaluation, title]) => (
             <li key={dottedName}>
-              <p>
-                <div>{title} </div>
-                <PrimeStyle>Jusqu'à {formatValue(evaluation)}</PrimeStyle>
-              </p>
+              <div>{title} </div>
+              <PrimeStyle>Jusqu'à {formatValue(evaluation)}</PrimeStyle>
             </li>
           ))}
         </ul>
