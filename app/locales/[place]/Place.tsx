@@ -20,7 +20,6 @@ const aidesEntries = Object.entries(aides)
 const getDefaultSituation = (place, engine, placeRules) => {
   const evaluation = engine.evaluate('somme des aides locales')
   const { missingVariables } = evaluation
-  console.log('situ missingVariables', missingVariables)
 
   const defaultSituationEntries = sortBy(([, score]) => score)(
     Object.entries(missingVariables),
@@ -57,14 +56,19 @@ const getDefaultSituation = (place, engine, placeRules) => {
     ['ménage . revenu', 0],
   ]
 
-  return Object.fromEntries([...defaultSituationEntries, ...maximiseSituation])
+  const defaultMissingVariables = Object.fromEntries([
+    ...defaultSituationEntries,
+    ...maximiseSituation,
+  ])
+
+  //  console.log('situ defaultMissingVariables', defaultMissingVariables)
+  return defaultMissingVariables
 }
 
+// This component renders in two steps :
+// - first extract missing variables, get their default values in an object dottedName: defaultValue
+// - get the following missing variables
 export default function LocalePlace({ place }) {
-  // defaultSituation
-  // maxSituation
-  // userSituation
-
   const baseEngine = useMemo(() => {
     const toSum = aidesEntries
         .filter(

@@ -1,3 +1,4 @@
+'use client'
 import rules from '@/app/règles/rules'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import { sortBy } from '@/components/utils'
