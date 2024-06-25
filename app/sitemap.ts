@@ -10,6 +10,8 @@ const basePaths = [
   '/personas',
   '/confidentialite',
   '/locales',
+  '/interdiction-location',
+  '/integration',
 ]
 
 const documentationPaths = Object.keys(rules)

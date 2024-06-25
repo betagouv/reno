@@ -105,6 +105,7 @@ export default function RootLayout({
               <div>
                 <Link href="/a-propos">À propos</Link>
                 <Link href="/faq">Questions et contact</Link>
+                <Link href="/integration">Partenaires</Link>
               </div>
             </nav>
           </Header>

@@ -15,6 +15,9 @@ export default function Footer() {
           <Link href="/api-doc">API</Link>
         </li>
         <li>
+          <Link href="/integration">Intégrer notre calculateur</Link>
+        </li>
+        <li>
           <Link href="/personas">Personas</Link>
         </li>
         <Link href="/accessibilite">Accessibilité : non conforme</Link>
