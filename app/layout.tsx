@@ -10,6 +10,21 @@ import localFont from 'next/font/local'
 import Image from 'next/image'
 import DynamicHeaderIcon from './DynamicHeaderIcon'
 import { Header, Title } from './LayoutUI'
+import { description } from './page'
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent?: ResolvingMetadata,
+): Promise<Metadata> {
+  return {
+    title: 'Mes aides réno 2024',
+    description: description,
+    metadataBase: new URL('https://mesaidesreno.beta.gouv.fr'),
+    openGraph: {
+      images: ['/jaquette.png'],
+    },
+  }
+}
 
 const marianneFont = localFont({
   src: [
