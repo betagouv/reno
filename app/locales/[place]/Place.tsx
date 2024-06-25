@@ -13,6 +13,7 @@ import Publicodes, { formatValue } from 'publicodes'
 import { utils } from 'publicodes'
 import IllustratedHeader from '../IllustratedHeader'
 import dynamic from 'next/dynamic'
+import { dot } from 'node:test/reporters'
 const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)
@@ -79,11 +80,18 @@ export default function LocalePlace({ place }) {
         )
         .map(([dottedName, value]) => 'aides locales . ' + dottedName),
       sum = { somme: toSum }
+    const rulesWithoutDefault = Object.fromEntries(
+      Object.entries(rules).map(([dottedName, rule]) => [
+        dottedName,
+        rule ? omit(['par défaut'], rule) : rule,
+      ]),
+    )
     return new Publicodes({
-      ...rules,
+      ...rulesWithoutDefault,
       'somme des aides locales': sum,
     })
   }, [place])
+
   const placeRules = aidesEntries.filter(([dottedName, rule]) =>
     dottedName.startsWith(place),
   )
@@ -92,25 +100,11 @@ export default function LocalePlace({ place }) {
     rule = Object.fromEntries(placeRules)[place] || {},
     imageTitle = rule['image wikidata'] || placeTitle
 
-  const defaultSituation = getDefaultSituation(place, baseEngine, placeRules)
+  //const defaultSituation = getDefaultSituation(place, baseEngine, placeRules)
+  const evaluation = baseEngine.evaluate('somme des aides locales')
+  const { missingVariables } = evaluation
 
-  const [userSituation, setUserSituation] = useState({})
-
-  const situation = { ...defaultSituation, ...userSituation }
-
-  console.log('situ', defaultSituation, userSituation)
-
-  const [engine] = useMemo(() => {
-    try {
-      const engine = baseEngine.setSituation(situation)
-
-      console.log('Success loading situation in Publicodes engine ')
-      return [engine]
-    } catch (e) {
-      console.error('Error loading situation in Publicodes engine : ', e)
-      return [baseEngine]
-    }
-  }, [situation, baseEngine])
+  return console.log(missingVariables)
 
   return (
     <div css={``}>
