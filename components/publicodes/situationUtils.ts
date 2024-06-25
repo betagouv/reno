@@ -25,13 +25,14 @@ export const getSituation = (searchParams, rules) =>
         // TODO this is brittle : some values can be numeric without an explicité yaml unit, it can be defined on the go in the value itself like blabla: 23 dogs
         const value =
           (rule.unité || typeof rule['par défaut'] === 'number') &&
-          stringValue.match(/^0+\d+?/g)
-            ? stringValue.replace(/^0+/g, '')
-            : stringValue
+          removeTrailingZeros(stringValue)
 
         return [k, value]
       }),
   ) //should be changed to clearly handle defaultValues
+
+export const removeTrailingZeros = (stringValue) =>
+  stringValue.match(/^0+\d+?/g) ? stringValue.replace(/^0+/g, '') : stringValue
 
 export const encodeValue = (value) => {
   if (value == null) return '∅'

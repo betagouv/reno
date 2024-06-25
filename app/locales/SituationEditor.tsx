@@ -54,12 +54,13 @@ export default function ({ situation, setUserSituation }) {
               ) : (
                 <input
                   value={value}
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    const { value } = e.target
                     setUserSituation((userSituation) => ({
                       ...userSituation,
-                      [dottedName]: e.target.value,
+                      [dottedName]: value,
                     }))
-                  }
+                  }}
                   css={`
                     max-width: 8rem;
                   `}

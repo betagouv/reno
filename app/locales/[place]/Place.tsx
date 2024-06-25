@@ -3,7 +3,7 @@ import rules from '@/app/règles/rules'
 import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
 import { Main, Section } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
-import { capitalise0, omit, sortBy } from '@/components/utils'
+import { capitalise0, omit, sortBy, transformObject } from '@/components/utils'
 import { useEffect, useMemo, useState } from 'react'
 const SituationEditor = dynamic(() => import('../SituationEditor'), {
   ssr: false,
@@ -16,6 +16,7 @@ import dynamic from 'next/dynamic'
 import { dot } from 'node:test/reporters'
 import { defaults } from 'marked'
 import { userAgentFromString } from 'next/server'
+import { removeTrailingZeros } from '@/components/publicodes/situationUtils'
 const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)
@@ -133,7 +134,13 @@ export default function LocalePlace({ place }) {
   }, [rulesAndTarget])
 
   const [userSituation, setUserSituation] = useState({})
-  const situation = { ...defaultSituation, ...userSituation }
+  const safeUserSituation = transformObject((k, v) => [
+    k,
+    v.startsWith('0') ? 0 : v,
+  ])(userSituation)
+  console.log('safe', userSituation, safeUserSituation)
+
+  const situation = { ...defaultSituation, ...safeUserSituation }
 
   return (
     <div css={``}>
