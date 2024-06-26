@@ -1,22 +1,17 @@
 'use client'
+import aides from '@/app/règles/aides-locales.publicodes'
 import rules from '@/app/règles/rules'
 import FriendlyObjectViewer from '@/components/FriendlyObjectViewer'
-import { Main, Section } from '@/components/UI'
+import { Section } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0, omit, sortBy, transformObject } from '@/components/utils'
-import { useEffect, useMemo, useState } from 'react'
+import dynamic from 'next/dynamic'
+import Publicodes, { formatValue, utils } from 'publicodes'
+import { useMemo, useState } from 'react'
+import IllustratedHeader from '../IllustratedHeader'
 const SituationEditor = dynamic(() => import('../SituationEditor'), {
   ssr: false,
 })
-import aides from '@/app/règles/aides-locales.publicodes'
-import Publicodes, { formatValue } from 'publicodes'
-import { utils } from 'publicodes'
-import IllustratedHeader from '../IllustratedHeader'
-import dynamic from 'next/dynamic'
-import { dot } from 'node:test/reporters'
-import { defaults } from 'marked'
-import { userAgentFromString } from 'next/server'
-import { removeTrailingZeros } from '@/components/publicodes/situationUtils'
 const { encodeRuleName } = utils
 
 const aidesEntries = Object.entries(aides)

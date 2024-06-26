@@ -37,16 +37,14 @@ function Form({ rules }) {
     answeredQuestions.filter((el) => el === 'simulation . mode').length > 1 // because of simulation mode
 
   const situation = {
-      ...(simulationConfig.situation || {}),
-      ...getSituation(situationSearchParams, rules),
-    },
-    validatedSituation = Object.fromEntries(
-      Object.entries(situation).filter(([k, v]) =>
-        answeredQuestions.includes(k),
-      ),
-    )
+    ...(simulationConfig.situation || {}),
+    ...getSituation(situationSearchParams, rules),
+  }
 
-  console.log('blue validatedSituation', validatedSituation)
+  const validatedSituation = Object.fromEntries(
+    Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
+  )
+
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,
@@ -54,8 +52,6 @@ function Form({ rules }) {
       simulationConfig,
       rules,
     )
-
-  console.log('blue', nextQuestions)
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]

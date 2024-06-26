@@ -14,8 +14,8 @@ export const getAnsweredQuestions = (searchParams, rules) =>
     .filter(([k, v]) => v.endsWith(validValueMark))
     .map(([k, v]) => k)
 
-export const getSituation = (searchParams, rules) =>
-  Object.fromEntries(
+export const getSituation = (searchParams, rules) => {
+  const parsedSituation = Object.fromEntries(
     entriesFromSearchParams(searchParams, rules)
       .filter(([k, v]) => v !== '∅')
       .map(([k, v, rule]) => {
@@ -23,16 +23,20 @@ export const getSituation = (searchParams, rules) =>
 
         // Remove trailing zeros for numeric values
         // TODO this is brittle : some values can be numeric without an explicité yaml unit, it can be defined on the go in the value itself like blabla: 23 dogs
+        const isNumberRule =
+          rule.unité || typeof rule['par défaut'] === 'number'
         const value =
-          (rule.unité || typeof rule['par défaut'] === 'number') &&
-          removeTrailingZeros(stringValue)
+          isNumberRule && stringValue.match(/^0+\d+?/g)
+            ? stringValue.replace(/^0+/g, '')
+            : stringValue
 
+        console.log({ k, v, rule, value, stringValue })
         return [k, value]
       }),
   ) //should be changed to clearly handle defaultValues
-
-export const removeTrailingZeros = (stringValue) =>
-  stringValue.match(/^0+\d+?/g) ? stringValue.replace(/^0+/g, '') : stringValue
+  console.log('parsedSituation', parsedSituation)
+  return parsedSituation
+}
 
 export const encodeValue = (value) => {
   if (value == null) return '∅'
