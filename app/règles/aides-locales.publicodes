@@ -202,10 +202,13 @@ charente-maritime . occupant . montant:
 
   description: |
     Source : https://www.anil.org/aides-locales-travaux/details/charente-aide-a-lamelioration-thermique-3065
-  valeur: 15 % * projet . travaux
+  valeur: 15 % * travaux plafonnés
   note: |
     La liste de conditions "Autre(s) condition(s) relatives aux travaux" dans la fiche ANIL est ambigüe : s'agit-il de "toutes ces conditions" ou "une de ces conditions" ?
 
+charente-maritime . occupant . travaux plafonnés:
+  valeur: projet . travaux
+  plafond: 20000 €
 côte-d'or:
   titre: Côte-d'Or
   note: |
