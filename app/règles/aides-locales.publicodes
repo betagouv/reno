@@ -354,3 +354,14 @@ angers . prime basse consommation . montant:
   titre: Prime BBC angers
   applicable si: conditions
   valeur: 1500 €
+
+essonne:
+  image wikidata: Essonne
+  titre: Essonne - Prime éco-logis 91
+
+essonne . travaux essentiels :
+  description: |
+    La prime s’adresse aux propriétaires occupants aux ressources modestes ou très modestes voulant engager des travaux de rénovation dans leur logement.
+essonne . gros travaux :
+  description: |
+    Cette aide est destinée aux propriétaires occupants voulant engager des travaux de rénovation ambitieux dans leur logement (maison individuelle ou parties privatives d’un appartement). Les travaux doivent viser un gain énergétique d’au moins 35%, ce qui implique la réalisation au préalable d’un audit énergétique par un professionnel qualifié.
