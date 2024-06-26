@@ -358,10 +358,30 @@ angers . prime basse consommation . montant:
 essonne:
   image wikidata: Essonne
   titre: Essonne - Prime éco-logis 91
+essonne . conditions géo: logement . département = 'Essonne'
 
 essonne . travaux essentiels :
+  applicable si: conditions géo
   description: |
     La prime s’adresse aux propriétaires occupants aux ressources modestes ou très modestes voulant engager des travaux de rénovation dans leur logement.
+essonne . travaux essentiels . montant: 800 €
+
 essonne . gros travaux :
   description: |
     Cette aide est destinée aux propriétaires occupants voulant engager des travaux de rénovation ambitieux dans leur logement (maison individuelle ou parties privatives d’un appartement). Les travaux doivent viser un gain énergétique d’au moins 35%, ce qui implique la réalisation au préalable d’un audit énergétique par un professionnel qualifié.
+  plafond: 20000 €
+essonne . gros travaux . conditions :
+    toutes ces conditions:
+    - conditions géo
+    - projet . gain energétique >= 35 %
+essonne . gros travaux . montant:
+  applicable si: conditions
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 20 % * travaux plafonnés
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 15 % * travaux plafonnés
+    - sinon: 10 % * travaux plafonnés
+essonne . gros travaux . travaux plafonnés:
+  valeur: projet . travaux
+  plafond: 20000 €
