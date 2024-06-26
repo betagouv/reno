@@ -1,15 +1,12 @@
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import DPELabel from '../DPELabel'
 import Input from '../Input'
 import { Value } from '../ScenariosSelector'
 import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
-import Image from 'next/image'
 
 import calculatorIcon from '@/public/calculator-empty.svg'
-import Link from 'next/link'
-import { PrimeStyle } from '../Geste'
-import ExplicationAngers from './locales/ExplicationAngers'
 import ExplicationsMPRA from './ExplicationsMPRA'
 
 export default function DPEScenario({
