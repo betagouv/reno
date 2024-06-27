@@ -365,7 +365,6 @@ essonne . conditions communes:
   - logement . période de construction = 'au moins 15 ans'
 essonne . conditions géo: logement . département = 'Essonne'
 essonne . travaux essentiels :
-  applicable si: conditions
   description: |
     La prime s’adresse aux propriétaires occupants aux ressources modestes ou très modestes voulant engager des travaux de rénovation dans leur logement.
 essonne . travaux essentiels . conditions :
