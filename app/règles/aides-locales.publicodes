@@ -360,15 +360,16 @@ essonne:
   titre: Essonne - Prime éco-logis 91
   lien: https://www.renover-malin.fr/prime-eco-logis-91/
 essonne . conditions communes:
-  - conditions géo
-  - logement . résidence principale propriétaire
-  - logement . période de construction = 'au moins 15 ans'
+  toutes ces conditions:
+    - conditions géo
+    - logement . résidence principale propriétaire
+    - logement . période de construction = 'au moins 15 ans'
 essonne . conditions géo: logement . département = 'Essonne'
 essonne . travaux essentiels :
   description: |
     La prime s’adresse aux propriétaires occupants aux ressources modestes ou très modestes voulant engager des travaux de rénovation dans leur logement.
 essonne . travaux essentiels . conditions :
-  - toutes ces conditions:
+  toutes ces conditions:
     - conditions communes
     - conditions de revenu
     - projet . travaux > 5000 €
