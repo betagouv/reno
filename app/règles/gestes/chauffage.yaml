@@ -21,7 +21,7 @@ chauffage . pilotage connecté:
   titre: Pilotage connecté pièce par pièce
   description: |
     Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
-
+chauffage . pilotage connecté . montant: CEE . montant
 #logement . surface chauffée:
 #question: Quelle est la surface chauffée de votre logement ?
 #par défaut: 100 m2 # estimation sur base de "surface" + ~10 % pour les escaliers, les combles habitées, etc
@@ -31,7 +31,8 @@ chauffage . pilotage connecté . surface chauffée:
     Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
   valeur: logement . surface
 
-chauffage . pilotage connecté . montant:
+chauffage . pilotage connecté . CEE:
+chauffage . pilotage connecté . CEE . montant:
   variations:
     - si: surface chauffée < 35
       alors: 260 €
@@ -49,9 +50,11 @@ chauffage . pilotage connecté . montant:
 
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
-chauffage . chauffe-eau thermodynamique . plafond:
+chauffage . chauffe-eau thermodynamique . montant: MPR . montant
+chauffage . chauffe-eau thermodynamique . MPR:
+chauffage . chauffe-eau thermodynamique . MPR . plafond:
   valeur: 3500 €
-chauffage . chauffe-eau thermodynamique . montant:
+chauffage . chauffe-eau thermodynamique . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
@@ -66,10 +69,10 @@ chauffage . chauffe-eau solaire:
   titre: Chauffe-eau solaire individuel en Métropole
   description: |
     Et dispositifs solaires pour le chauffage de l’eau.
-
-chauffage . chauffe-eau solaire . plafond: 7000 €
-
-chauffage . chauffe-eau solaire . montant:
+chauffage . chauffe-eau solaire . montant: MPR . montant
+chauffage . chauffe-eau solaire . MPR:
+chauffage . chauffe-eau solaire . MPR . plafond: 7000 €
+chauffage . chauffe-eau solaire . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 4000 €
@@ -88,9 +91,8 @@ chauffage . solaire combiné:
     Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d’un chauffage central. Quand il fait également la production d’eau chaude, il est appelé  système solaire combiné (SSC)
 chauffage . solaire combiné . montant:
   somme:
-    - MPR
-    - CEE
-
+    - MPR . montant
+    - CEE . montant
 chauffage . solaire combiné . MPR:
 chauffage . solaire combiné . MPR . plafond: 16000 €
 chauffage . solaire combiné . MPR . montant:
@@ -104,22 +106,24 @@ chauffage . solaire combiné . MPR . montant:
     - sinon: 0 €
 chauffage . solaire combiné . CEE:
   applicable si: projet . remplacement chaudière thermique
-  valeur: 5000 €
+chauffage . solaire combiné . CEE . montant: 5000 €
 
 chauffage . partie thermique PVT eau:
   titre: Partie thermique d’un équipement PVT eau
   par défaut: oui
   description: |
     Et dispositifs solaires pour le chauffage des locaux.
-chauffage . partie thermique PVT eau . plafond: 4000 €
-chauffage . partie thermique PVT eau . montant:
+chauffage . partie thermique PVT eau . montant: MPR . montant
+chauffage . partie thermique PVT eau . MPR:
+chauffage . partie thermique PVT eau . MPR . plafond: 4000 €
+chauffage . partie thermique PVT eau . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 10000 €
+      alors: 2500 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 8000 €
+      alors: 2000 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 4000 €
+      alors: 1000 €
     - sinon: 0 €
 
 chauffage . fioul:
@@ -128,9 +132,10 @@ chauffage . fioul:
 chauffage . fioul . dépose cuve:
   par défaut: oui
   titre: Dépose de cuve à fioul
-chauffage . fioul . dépose cuve . plafond:
-  valeur: 4000 €
-chauffage . fioul . dépose cuve . montant:
+chauffage . fioul . dépose cuve . montant: MPR . montant
+chauffage . fioul . dépose cuve . MPR:
+chauffage . fioul . dépose cuve . MPR . plafond: 4000 €
+chauffage . fioul . dépose cuve . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €

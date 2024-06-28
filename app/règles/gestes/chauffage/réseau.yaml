@@ -2,20 +2,11 @@ chauffage . raccordement réseau:
   somme:
     - chaleur
     - froid
-chauffage . raccordement réseau . chaleur:
-  par défaut: oui
-  titre: Raccordement à un réseau de chaleur
-  description: |
-    Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
-  somme:
-    - MPR
-    - CEE
 
-chauffage . raccordement réseau . chaleur . MPR: plafond * montant
-
-chauffage . raccordement réseau . chaleur . MPR . plafond:
+chauffage . raccordement réseau . MPR:
+chauffage . raccordement réseau . MPR . plafond:
   valeur: 1800 €
-chauffage . raccordement réseau . chaleur . MPR . montant:
+chauffage . raccordement réseau . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
@@ -25,7 +16,21 @@ chauffage . raccordement réseau . chaleur . MPR . montant:
       alors: 400 €
     - sinon: 0 €
 
+chauffage . raccordement réseau . chaleur:
+  par défaut: oui
+  titre: Raccordement à un réseau de chaleur
+  description: |
+    Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
+chauffage . raccordement réseau . chaleur . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
+chauffage . raccordement réseau . chaleur . MPR:
+chauffage . raccordement réseau . chaleur . MPR . plafond: MPR . plafond
+chauffage . raccordement réseau . chaleur . MPR . montant: MPR . montant
+
 chauffage . raccordement réseau . chaleur . CEE:
+chauffage . raccordement réseau . chaleur . CEE . montant:
   applicable si: projet . remplacement chaudière thermique
   variations:
     - si:
@@ -42,7 +47,7 @@ chauffage . raccordement réseau . froid:
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 
     Il n'y a pas de prime coup de pouce CEE pour les réseaux de froid, contrairement au cas des réseaux de chaleur !
-  valeur: plafond * montant
-
-chauffage . raccordement réseau . froid . plafond: chaleur . MPR . plafond
-chauffage . raccordement réseau . froid . montant: chaleur . MPR . montant
+chauffage . raccordement réseau . froid . montant: MPR . montant
+chauffage . raccordement réseau . froid . MPR:
+chauffage . raccordement réseau . froid . MPR . plafond: MPR . plafond
+chauffage . raccordement réseau . froid . MPR . montant: MPR . montant

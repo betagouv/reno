@@ -1,6 +1,5 @@
 chauffage . bois:
   titre: Chauffage au bois (biomasse)
-
 chauffage . bois . chaudière:
   titre: Chaudière bois
   description: |
@@ -8,17 +7,25 @@ chauffage . bois . chaudière:
   somme:
     - manuelle . montant
     - automatique . montant
+chauffage . bois . chaudière . CEE:
+chauffage . bois . chaudière . CEE . montant:
+  applicable si: projet . remplacement chaudière thermique
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - sinon: 2500 €
 
 chauffage . bois . chaudière . manuelle:
   titre: Chaudière bois manuelle (bûches)
   description: Chaudière bois à alimentation manuelle (bûches)
   par défaut: oui
-
 chauffage . bois . chaudière . manuelle . montant:
   somme:
-    - MPR
-    - CEE
-
+    - MPR . montant
+    - CEE . montant
 chauffage . bois . chaudière . manuelle . MPR:
 chauffage . bois . chaudière . manuelle . MPR . plafond: 16000 €
 chauffage . bois . chaudière . manuelle . MPR . montant:
@@ -30,23 +37,20 @@ chauffage . bois . chaudière . manuelle . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 2000 €
     - sinon: 0 €
-
 chauffage . bois . chaudière . manuelle . CEE:
-  applicable si: projet . remplacement chaudière thermique
-  variations:
-    - si:
-        une de ces conditions:
-          - ménage . revenu . classe = 'très modeste'
-          - ménage . revenu . classe = 'modeste'
-      alors: 4000 €
-    - sinon: 2500 €
+chauffage . bois . chaudière . manuelle . CEE . montant: CEE . montant
 
 chauffage . bois . chaudière . automatique:
   titre: Chaudière bois auto (granulés, plaquettes)
   description: Chaudière bois à alimentation automatique (granulés, plaquettes)
   par défaut: oui
-chauffage . bois . chaudière . automatique . plafond: 18000 €
-chauffage . bois . chaudière . automatique . montant:
+chauffage . bois . chaudière . automatique . montant : 
+  somme: 
+    - MPR . montant
+    - CEE . montant
+chauffage . bois . chaudière . automatique . MPR:
+chauffage . bois . chaudière . automatique . MPR . plafond: 18000 €
+chauffage . bois . chaudière . automatique . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 7000 €
@@ -55,14 +59,16 @@ chauffage . bois . chaudière . automatique . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
     - sinon: 0 €
-
-chauffage . bois . chaudière . automatique . CEE: chaudière . manuelle . CEE
+chauffage . bois . chaudière . automatique . CEE:
+chauffage . bois . chaudière . automatique . CEE . montant: CEE . montant
 
 chauffage . bois . foyer et insert:
   par défaut: oui
   titre: Foyer fermé et insert à buches ou à granulés
-chauffage . bois . foyer et insert . plafond: 4000 €
-chauffage . bois . foyer et insert . montant:
+chauffage . bois . foyer et insert . montant: MPR . montant
+chauffage . bois . foyer et insert . MPR:
+chauffage . bois . foyer et insert . MPR . plafond: 4000 €
+chauffage . bois . foyer et insert . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €
@@ -80,8 +86,10 @@ chauffage . bois . poêle:
 chauffage . bois . poêle . à bûches:
   par défaut: oui
   titre: Poêle et cuisinière à bûches
-chauffage . bois . poêle . à bûches . plafond: 4000 €
-chauffage . bois . poêle . à bûches . montant:
+chauffage . bois . poêle . à bûches . montant: MPR . montant
+chauffage . bois . poêle . à bûches . MPR:
+chauffage . bois . poêle . à bûches . MPR . plafond: 4000 €
+chauffage . bois . poêle . à bûches . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €
@@ -94,8 +102,10 @@ chauffage . bois . poêle . à bûches . montant:
 chauffage . bois . poêle . à granulés:
   par défaut: oui
   titre: Poêle et cuisinière à granulés
-chauffage . bois . poêle . à granulés . plafond: 5000 €
-chauffage . bois . poêle . à granulés . montant:
+chauffage . bois . poêle . à granulés . montant: MPR . montant
+chauffage . bois . poêle . à granulés . MPR:
+chauffage . bois . poêle . à granulés . MPR . plafond: 5000 €
+chauffage . bois . poêle . à granulés . MPR . montant:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €

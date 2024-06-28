@@ -11,13 +11,14 @@ isolation . vitres:
   titre: Remplacement de simple vitrage
   description: Isolation thermique des parois vitrées (fenêtres et portes-fenêtres) en remplacement de simple vitrage
   par défaut: oui
-isolation . vitres . montant: barème * quantité
+isolation . vitres . montant: MPR . montant
 isolation . vitres . quantité:
   question: Combien de parois vitrées voulez-vous isoler ?
   par défaut: 4 équipements
   unité: équipements
-
-isolation . vitres . plafond: 1000 €/équipements
+isolation . vitres . MPR:
+isolation . vitres . MPR . plafond: 1000 €/équipements
+isolation . vitres . MPR . montant: barème * quantité
 isolation . vitres . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
@@ -27,6 +28,7 @@ isolation . vitres . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/équipements
     - sinon: 0 €
+
 isolation . murs extérieurs:
   titre: Isolation des murs par l'extérieur
   par défaut: oui
@@ -34,9 +36,10 @@ isolation . murs extérieurs . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . murs extérieurs . montant: surface * barème
-isolation . murs extérieurs . plafond: 150 €/m2
+isolation . murs extérieurs . montant: MPR . montant
+isolation . murs extérieurs . MPR:
+isolation . murs extérieurs . MPR . plafond: 150 €/m2
+isolation . murs extérieurs . MPR . montant: surface * barème
 isolation . murs extérieurs . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
@@ -54,9 +57,10 @@ isolation . murs intérieurs . surface:
   question: Quelle surface de murs intérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . murs intérieurs . montant: surface * barème
-isolation . murs intérieurs . plafond: 70 €/m2
+isolation . murs intérieurs . montant: MPR . montant
+isolation . murs intérieurs . MPR:
+isolation . murs intérieurs . MPR . plafond: 70 €/m2
+isolation . murs intérieurs . MPR . montant: surface * barème
 isolation . murs intérieurs . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
@@ -74,9 +78,10 @@ isolation . rampants . surface:
   question: Quelle surface de rampants voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . rampants . montant: surface * barème
-isolation . rampants . plafond: 75 €/m2
+isolation . rampants . montant: MPR . montant
+isolation . rampants . MPR:
+isolation . rampants . MPR . plafond: 75 €/m2
+isolation . rampants . MPR . montant: surface * barème
 isolation . rampants . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
@@ -86,6 +91,7 @@ isolation . rampants . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
+
 isolation . toitures terrasses:
   titre: Isolation thermique des toitures terrasses
   par défaut: oui
@@ -93,9 +99,10 @@ isolation . toitures terrasses . surface:
   question: Quelle surface de toiture terrasses voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . toitures terrasses . montant: surface * barème
-isolation . toitures terrasses . plafond: 180 €/m2
+isolation . toitures terrasses . montant: MPR . montant
+isolation . toitures terrasses . MPR:
+isolation . toitures terrasses . MPR . plafond: 180 €/m2
+isolation . toitures terrasses . MPR . montant: surface * barème
 isolation . toitures terrasses . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
