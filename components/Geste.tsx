@@ -26,10 +26,11 @@ export default function Geste({
   if(cee in rules) {
     // TODO: Improve parsing system and make it for MPR too
     const evaluationCEE = engineSituation.evaluate(cee + ' . montant');
-    let variable = evaluationCEE.explanation.valeur.explanation.alors.explanation[0]?.condition[0].variable
-    if(variable) {
-      explicationCEE += "avec " + variable +" = " + formatValue(engineSituation.evaluate(dottedName + ' . ' + variable))+ "<br />";
-    }
+    //let variable = evaluationCEE.explanation.valeur.explanation.alors.explanation[0]?.condition[0].variable
+    //if(variable) {
+    //  explicationCEE += "avec " + variable +" = " + formatValue(engineSituation.evaluate(dottedName + ' . ' + variable))+ "<br />";
+    //}
+  
     evaluationCEE.explanation.valeur.rawNode.variations?.forEach(variation => {
       if(typeof variation.si === 'object') {
         for (const [key, value] of Object.entries(variation.si)) {

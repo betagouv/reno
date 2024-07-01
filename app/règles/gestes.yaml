@@ -42,7 +42,10 @@ ventilation:
 ventilation . double flux:
   titre: Ventilation double flux
   par défaut: oui
-ventilation . double flux . montant: MPR . montant
+ventilation . double flux . montant: 
+  somme:
+  - MPR . montant
+  - CEE . montant
 ventilation . double flux . MPR:
 ventilation . double flux . MPR . plafond: 4000 €
 ventilation . double flux . MPR . montant:
@@ -54,3 +57,8 @@ ventilation . double flux . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1500 €
     - sinon: 0 €
+ventilation . double flux . CEE:
+  titre: BAR-TH-125
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-125%20vA54-5%20%C3%A0%20compter%20du%2001-01-2024.pdf"
+ventilation . double flux . CEE . montant:

@@ -69,3 +69,63 @@ CEE . rénovation d'ampleur . facteur correctif:
     - si: surface habitable < 130
       alors: 1.2
     - sinon: 1.3
+
+CEE . prix kWh Cumac: 0.008
+
+CEE . région:
+  variations:
+    - si: departement H3
+      alors: "'H3'"
+    - si: departement H2
+      alors: "'H2'"
+    - sinon: "'H1'"
+
+CEE . région . departement H3:
+  une de ces conditions:
+    - ménage . code département = "06"
+    - ménage . code département = "11"
+    - ménage . code département = "13"
+    - ménage . code département = "20"
+    - ménage . code département = "30"
+    - ménage . code département = "34"
+    - ménage . code département = "66"
+    - ménage . code département = "83"
+
+CEE . région . departement H2:
+  une de ces conditions:
+    - ménage . code département = "04"
+    - ménage . code département = "07"
+    - ménage . code département = "09"
+    - ménage . code département = "12"
+    - ménage . code département = "16"
+    - ménage . code département = "17"
+    - ménage . code département = "18"
+    - ménage . code département = "22"
+    - ménage . code département = "24"
+    - ménage . code département = "26"
+    - ménage . code département = "29"
+    - ménage . code département = "31"
+    - ménage . code département = "32"
+    - ménage . code département = "33"
+    - ménage . code département = "35"
+    - ménage . code département = "36"
+    - ménage . code département = "37"
+    - ménage . code département = "40"
+    - ménage . code département = "41"
+    - ménage . code département = "44"
+    - ménage . code département = "46"
+    - ménage . code département = "47"
+    - ménage . code département = "48"
+    - ménage . code département = "49"
+    - ménage . code département = "50"
+    - ménage . code département = "53"
+    - ménage . code département = "56"
+    - ménage . code département = "64"
+    - ménage . code département = "65"
+    - ménage . code département = "72"
+    - ménage . code département = "79"
+    - ménage . code département = "81"
+    - ménage . code département = "82"
+    - ménage . code département = "84"
+    - ménage . code département = "85"
+    - ménage . code département = "86"

@@ -50,7 +50,10 @@ chauffage . pilotage connecté . CEE . montant:
 
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
-chauffage . chauffe-eau thermodynamique . montant: MPR . montant
+chauffage . chauffe-eau thermodynamique . montant: 
+  somme:
+  - MPR . montant
+  - CEE . montant
 chauffage . chauffe-eau thermodynamique . MPR:
 chauffage . chauffe-eau thermodynamique . MPR . plafond:
   valeur: 3500 €
@@ -63,13 +66,26 @@ chauffage . chauffe-eau thermodynamique . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 400 €
     - sinon: 0 €
+chauffage . chauffe-eau thermodynamique . CEE:
+  titre: BAR-TH-148
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-148%20v%20A15-2.pdf"
+chauffage . chauffe-eau thermodynamique . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . chauffe-eau thermodynamique . CEE . barème:
+  variations:
+    - si: logement . type = "maison"
+      alors: 15600
+    - sinon: 11900
 
 chauffage . chauffe-eau solaire:
   par défaut: oui
   titre: Chauffe-eau solaire individuel en Métropole
   description: |
     Et dispositifs solaires pour le chauffage de l’eau.
-chauffage . chauffe-eau solaire . montant: MPR . montant
+chauffage . chauffe-eau solaire . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
 chauffage . chauffe-eau solaire . MPR:
 chauffage . chauffe-eau solaire . MPR . plafond: 7000 €
 chauffage . chauffe-eau solaire . MPR . montant:
@@ -81,6 +97,18 @@ chauffage . chauffe-eau solaire . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 2000 €
     - sinon: 0 €
+chauffage . chauffe-eau solaire . CEE:
+  titre: BAR-TH-101
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-101.pdf"
+chauffage . chauffe-eau solaire . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . chauffe-eau solaire . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 21500
+    - si: CEE . région = 'H2'
+      alors: 24100
+    - sinon: 27600
 
 chauffage . solaire combiné:
   par défaut: oui
@@ -92,6 +120,7 @@ chauffage . solaire combiné:
 chauffage . solaire combiné . montant:
   somme:
     - MPR . montant
+    - Coup de pouce . montant
     - CEE . montant
 chauffage . solaire combiné . MPR:
 chauffage . solaire combiné . MPR . plafond: 16000 €
@@ -104,9 +133,21 @@ chauffage . solaire combiné . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 4000 €
     - sinon: 0 €
-chauffage . solaire combiné . CEE:
+chauffage . solaire combiné . Coup de pouce:
   applicable si: projet . remplacement chaudière thermique
-chauffage . solaire combiné . CEE . montant: 5000 €
+chauffage . solaire combiné . Coup de pouce . montant: 5000 €
+chauffage . solaire combiné . CEE:
+  titre: BAR-TH-143
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA51-5%20à%20compter%20du%2001-03-2023.pdf"
+chauffage . solaire combiné . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . solaire combiné . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 134800
+    - si: CEE . région = 'H2'
+      alors: 121000
+    - sinon: 100500
 
 chauffage . partie thermique PVT eau:
   titre: Partie thermique d’un équipement PVT eau

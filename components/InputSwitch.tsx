@@ -158,7 +158,7 @@ export default function InputSwitch({
           answeredQuestions,
           situation,
           setSearchParams,
-          questionsToSubmit: ['ménage . code région', 'ménage . commune'],
+          questionsToSubmit: ['ménage . code région', 'ménage . code département', 'ménage . commune'],
           currentValue,
           engine,
         }}
@@ -172,6 +172,7 @@ export default function InputSwitch({
                 {
                   ...situation,
                   'ménage . code région': `"${codeRegion}"`,
+                  'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
                 },

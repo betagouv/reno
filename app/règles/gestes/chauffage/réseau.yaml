@@ -24,13 +24,25 @@ chauffage . raccordement réseau . chaleur:
 chauffage . raccordement réseau . chaleur . montant:
   somme:
     - MPR . montant
+    - Coup de pouce . montant
     - CEE . montant
 chauffage . raccordement réseau . chaleur . MPR:
 chauffage . raccordement réseau . chaleur . MPR . plafond: MPR . plafond
 chauffage . raccordement réseau . chaleur . MPR . montant: MPR . montant
-
 chauffage . raccordement réseau . chaleur . CEE:
-chauffage . raccordement réseau . chaleur . CEE . montant:
+  titre: BAR-TH-137
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-137%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf"
+chauffage . raccordement réseau . chaleur . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . raccordement réseau . chaleur . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 48300
+    - si: CEE . région = 'H2'
+      alors: 40200
+    - sinon: 29600
+chauffage . raccordement réseau . chaleur . Coup de pouce:
+chauffage . raccordement réseau . chaleur . Coup de pouce . montant:
   applicable si: projet . remplacement chaudière thermique
   variations:
     - si:

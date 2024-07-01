@@ -254,6 +254,13 @@ ménage . code région:
     Pays de la Loire: '"52"'
     IdF: "'11'"
 
+ménage . code département: # Necessaire pour déterminer la zone climatique (et donc le montant des CEE)
+  formule: commune # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
+  par défaut: '"35"'
+  suggestions:
+    Ille-et-Villaine: '"35"'
+    Paris: '"75"'
+
 ménage . EPCI:
   formule: commune
   par défaut: '"242900314"'

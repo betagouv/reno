@@ -9,6 +9,7 @@ chauffage . PAC . air-eau:
 chauffage . PAC . air-eau . montant:
   somme:
     - MPR . montant
+    - Coup de pouce . montant
     - CEE . montant
 
 chauffage . PAC . air-eau . MPR:
@@ -22,9 +23,13 @@ chauffage . PAC . air-eau . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
     - sinon: 0 €
-
 chauffage . PAC . air-eau . CEE:
+  titre: BAR-TH-171
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf"
 chauffage . PAC . air-eau . CEE . montant:
+chauffage . PAC . air-eau . Coup de pouce:
+chauffage . PAC . air-eau . Coup de pouce . montant:
   applicable si: projet . remplacement chaudière thermique
   variations:
     - si:
@@ -58,14 +63,20 @@ chauffage . PAC . géo:
 chauffage . PAC . géo . montant:
   somme:
     - MPR . montant
+    - Coup de pouce
     - CEE . montant
 chauffage . PAC . géo . MPR:
 chauffage . PAC . géo . MPR . plafond: géo et solaire . MPR . plafond
 chauffage . PAC . géo . MPR . montant: géo et solaire . MPR . montant
-chauffage . PAC . géo . CEE:
-chauffage . PAC . géo . CEE . montant:
+chauffage . PAC . géo . Coup de pouce:
+chauffage . PAC . géo . Coup de pouce . montant:
   applicable si: projet . remplacement chaudière thermique
   valeur: 5000 €
+chauffage . PAC . géo . CEE:
+  titre: BAR-TH-172
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf"
+chauffage . PAC . géo . CEE . montant:
 
 chauffage . PAC . solaire:
   par défaut: oui

@@ -28,6 +28,35 @@ isolation . vitres . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/équipements
     - sinon: 0 €
+isolation . vitres . CEE:
+  titre: BAR-EN-104
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-104%20vA54-2%20%C3%A0%20compter%20du%2001-01-2024.pdf"
+isolation . vitres . CEE . surface:
+  question: Quelle surface de vitre souhaitez-vous remplacer
+  par défaut: 4 m2
+  unité: m2
+isolation . vitres . CEE . montant: barème * surface * CEE . prix kWh Cumac
+isolation . vitres . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 3800
+    - si: CEE . région = 'H2'
+      alors: 3100
+    - sinon: 2100
+
+isolation . murs:
+isolation . murs . CEE:
+  titre: "'BAR-EN-102'"
+  lien : |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf"
+isolation . murs . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1600
+    - si: CEE . région = 'H2'
+      alors: 1300
+    - sinon: 880
 
 isolation . murs extérieurs:
   titre: Isolation des murs par l'extérieur
@@ -36,7 +65,10 @@ isolation . murs extérieurs . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-isolation . murs extérieurs . montant: MPR . montant
+isolation . murs extérieurs . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
 isolation . murs extérieurs . MPR:
 isolation . murs extérieurs . MPR . plafond: 150 €/m2
 isolation . murs extérieurs . MPR . montant: surface * barème
@@ -49,6 +81,9 @@ isolation . murs extérieurs . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 0 €
+isolation . murs extérieurs . CEE: isolation . murs . CEE
+isolation . murs extérieurs . CEE . montant: surface * barème * CEE . prix kWh Cumac
+isolation . murs extérieurs . CEE . barème: isolation . murs . CEE . barème
 
 isolation . murs intérieurs:
   titre: Isolation des murs par l'intérieur
@@ -57,7 +92,10 @@ isolation . murs intérieurs . surface:
   question: Quelle surface de murs intérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-isolation . murs intérieurs . montant: MPR . montant
+isolation . murs intérieurs . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
 isolation . murs intérieurs . MPR:
 isolation . murs intérieurs . MPR . plafond: 70 €/m2
 isolation . murs intérieurs . MPR . montant: surface * barème
@@ -70,6 +108,9 @@ isolation . murs intérieurs . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
+isolation . murs intérieurs . CEE: isolation . murs . CEE
+isolation . murs intérieurs . CEE . montant: surface * barème * CEE . prix kWh Cumac
+isolation . murs intérieurs . CEE . barème: isolation . murs . CEE . barème
 
 isolation . rampants:
   titre: Isolation des rampants de toiture ou plafonds de combles
@@ -78,7 +119,10 @@ isolation . rampants . surface:
   question: Quelle surface de rampants voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-isolation . rampants . montant: MPR . montant
+isolation . rampants . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
 isolation . rampants . MPR:
 isolation . rampants . MPR . plafond: 75 €/m2
 isolation . rampants . MPR . montant: surface * barème
@@ -91,6 +135,18 @@ isolation . rampants . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
+isolation . rampants . CEE:
+  titre: BAR-EN-101
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/Fiche%20BAR-EN-101.pdf"
+isolation . rampants . CEE . montant: surface * barème * CEE . prix kWh Cumac
+isolation . rampants . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1700
+    - si: CEE . région = 'H2'
+      alors: 1400
+    - sinon: 900
 
 isolation . toitures terrasses:
   titre: Isolation thermique des toitures terrasses
@@ -99,7 +155,10 @@ isolation . toitures terrasses . surface:
   question: Quelle surface de toiture terrasses voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-isolation . toitures terrasses . montant: MPR . montant
+isolation . toitures terrasses . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
 isolation . toitures terrasses . MPR:
 isolation . toitures terrasses . MPR . plafond: 180 €/m2
 isolation . toitures terrasses . MPR . montant: surface * barème
@@ -112,6 +171,40 @@ isolation . toitures terrasses . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 0 €
+isolation . toitures terrasses . CEE:
+  titre: BAR-EN-105
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-105%20vA39-3%20%C3%A0%20compter%20du%2001-05-2022.pdf"
+isolation . toitures terrasses . CEE . montant: surface * barème * CEE . prix kWh Cumac
+isolation . toitures terrasses . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1200
+    - si: CEE . région = 'H2'
+      alors: 1000
+    - sinon: 670
+
+isolation . plancher bas:
+  titre: Isolation du plancher
+  par défaut: oui
+isolation . plancher bas . surface:
+  question: Quelle surface de plancher voulez-vous isoler ?
+  par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+  unité: m2
+isolation . plancher bas . montant: CEE . montant
+isolation . plancher bas . CEE:
+  titre: BAR-EN-103
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-103%20vA39-5%20%C3%A0%20compter%20du%2001-05-2022.pdf"
+isolation . plancher bas . CEE . montant: barème * surface * CEE . prix kWh Cumac
+isolation . plancher bas . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1100
+    - si: CEE . région = 'H2'
+      alors: 890
+    - sinon: 590
+
 #TODO Outre-mer
 # Protection des parois vitrées ou opaques contre le rayonnement solaire
 
