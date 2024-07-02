@@ -94,6 +94,9 @@ logement:
 logement . type:
   question: Le logement est-il une maison ou un appartement ?
   par défaut: "'maison'"
+  suggestions:
+    maison: maison
+    appartement: appartement
   une possibilité:
     possibilités:
       - maison

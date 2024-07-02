@@ -15,13 +15,14 @@ export default function Geste({
 }) {
   const questionRule = rules[dottedName]
   const montant = dottedName + ' . montant',
-    barème = dottedName + ' . barème',
+    barème = dottedName + ' . MPR . barème',
     cee = dottedName + ' . CEE',
-    mpr = dottedName + ' . MPR'
+    mpr = dottedName + ' . MPR',
+    coupDePouce = dottedName + ' . Coup de pouce'
   const relevant = rules[barème] ? barème : montant
-  let montantCEE, montantMPR, plafondMPR, missingVariableCEE;
+  let montantMPR, montantCP, plafondMPR, missingVariableCP;
   let explicationCEE = ""
-
+  let infoCEE = {};
   const engineSituation  = engine.setSituation(situation)
   if(cee in rules) {
     // TODO: Improve parsing system and make it for MPR too
@@ -31,30 +32,37 @@ export default function Geste({
     //  explicationCEE += "avec " + variable +" = " + formatValue(engineSituation.evaluate(dottedName + ' . ' + variable))+ "<br />";
     //}
   
-    evaluationCEE.explanation.valeur.rawNode.variations?.forEach(variation => {
-      if(typeof variation.si === 'object') {
-        for (const [key, value] of Object.entries(variation.si)) {
-          if (Array.isArray(value)) {
-              explicationCEE += `Si ${key}:<br /><ul>`;
-              value.forEach(item => {
-                explicationCEE += `<li>${item}</li>`;
-              });
-              explicationCEE += `</ul>alors ${variation.alors}<br />`;
-          }
-        }
-      } else {
-        explicationCEE += variation.si ?
-          `Si ${variation.si} alors ${variation.alors} <br />` :
-          `Sinon ${variation.sinon}`
-      }
-    });
+    // evaluationCEE.explanation.valeur.rawNode.variations?.forEach(variation => {
+    //   if(typeof variation.si === 'object') {
+    //     for (const [key, value] of Object.entries(variation.si)) {
+    //       if (Array.isArray(value)) {
+    //           explicationCEE += `Si ${key}:<br /><ul>`;
+    //           value.forEach(item => {
+    //             explicationCEE += `<li>${item}</li>`;
+    //           });
+    //           explicationCEE += `</ul>alors ${variation.alors}<br />`;
+    //       }
+    //     }
+    //   } else {
+    //     explicationCEE += variation.si ?
+    //       `Si ${variation.si} alors ${variation.alors} <br />` :
+    //       `Sinon ${variation.sinon}`
+    //   }
+    // });
 
-    montantCEE = formatValue(evaluationCEE)
-    missingVariableCEE = Object.keys(evaluationCEE.missingVariables).map((v) => getRuleName(v))
+    infoCEE['montant'] = formatValue(evaluationCEE)
+    infoCEE['missingVariable'] = Object.keys(evaluationCEE.missingVariables).map((v) => getRuleName(v))
+    infoCEE['titre'] = rules[cee].titre
+    infoCEE['lien'] = rules[cee].lien
   }
   if(mpr in rules) {
     montantMPR = formatValue(engineSituation.evaluate(mpr + ' . montant'))
     plafondMPR = formatValue(engineSituation.evaluate(mpr + ' . plafond'))
+  }
+  if(coupDePouce in rules) {
+    const evaluationCP = engineSituation.evaluate(coupDePouce + ' . montant')
+    montantCP = formatValue(evaluationCP)
+    missingVariableCP = Object.keys(evaluationCP.missingVariables).map((v) => getRuleName(v))
   }
 
   const montantTotal = formatValue(engineSituation.evaluate(relevant))
@@ -109,7 +117,7 @@ export default function Geste({
 
       { montantMPR && 
         <div>
-          <span
+          <div
             css={`
               display: flex;
               align-items: center;
@@ -127,17 +135,16 @@ export default function Geste({
               `}
             />{' '}
             <span>Conditions MPR</span>
-          </span>
+          </div>
           <p>
               Remboursement de <strong>{montantMPR}</strong> si la prestation est
               inférieure à <strong>{plafondMPR}</strong>.
             </p>
         </div>
       }
-
-      { montantCEE && 
+      { montantCP && 
         <div>
-          <span
+          <div
             css={`
               display: flex;
               align-items: center;
@@ -154,11 +161,50 @@ export default function Geste({
                 margin-right: 0.4rem;
               `}
             />{' '}
-            <span>Conditions CEE</span>
-          </span>
+            <span>Prime Coup de pouce</span>
+          </div>
           <p>
-              Remboursement de <strong>{montantCEE}</strong> {missingVariableCEE.length > 0 && "si "+ missingVariableCEE}
+              Remboursement de <strong>{montantCP}</strong> {missingVariableCP.length > 0 && "si "+ missingVariableCP}
           </p>
+          {explicationCEE && 
+            <div>
+              <div css={`
+                margin-bottom: 0.4rem;
+              `}><strong>Explications:</strong></div>
+              <p dangerouslySetInnerHTML={{
+                __html: explicationCEE
+              }}>
+              </p>
+            </div>
+          }
+        </div>
+      }
+
+      { infoCEE.montant && 
+        <div>
+          <div
+            css={`
+              display: flex;
+              align-items: center;
+              margin-bottom: 0.8rem;
+              color: #2a82dd;
+              font-weight: 500;
+            `}
+          >
+            <Image
+              src={informationIcon}
+              alt="infobulle"
+              width="25"
+              css={`
+                margin-right: 0.4rem;
+              `}
+            />{' '}
+            <span>CEE: <a href={infoCEE.lien} target="_blank">{infoCEE.titre}</a></span>
+          </div>
+          {infoCEE.montant == "Non applicable" ? (<p><strong>Non applicable</strong> en cas de Prime Coup de pouce</p>) :
+          (<p>
+              Remboursement de <strong>{infoCEE.montant}</strong> {infoCEE.missingVariableCEE && infoCEE.missingVariableCEE.length > 0 && "(dépend de "+ infoCEE.missingVariableCEE+")"}
+          </p>)}
           {explicationCEE && 
             <div>
               <div css={`

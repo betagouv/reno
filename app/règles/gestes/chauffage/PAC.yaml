@@ -27,10 +27,105 @@ chauffage . PAC . air-eau . CEE:
   titre: BAR-TH-171
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf"
-chauffage . PAC . air-eau . CEE . montant:
+chauffage . PAC . air-eau . CEE . montant: # TODO: le prix varie si seulement chauffage ou chauffage + eau chaude
+  produit:
+    - barème
+    - facteur correctif surface
+    - facteur correctif region
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . PAC . air-eau . CEE . surface: logement . surface
+chauffage . PAC . air-eau . CEE . Etas:
+  titre: Efficacité énergétique saisonnière
+  par défaut: 120 %
+chauffage . PAC . air-eau . CEE . facteur correctif surface:
+  variations:
+    - si: logement . type = 'maison'
+      alors: facteur correctif surface maison
+    - sinon: facteur correctif surface appartement
+chauffage . PAC . air-eau . CEE . facteur correctif surface maison:
+  variations:
+    - si: surface < 70
+      alors: 0.5
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
+chauffage . PAC . air-eau . CEE . facteur correctif surface appartement:
+  variations:
+    - si: surface < 35
+      alors: 0.5
+    - si: surface < 60
+      alors: 0.7
+    - si: surface < 70
+      alors: 1
+    - si: surface < 90
+      alors: 1.2
+    - si: surface < 110
+      alors: 1.5
+    - si: surface < 130
+      alors: 1.9
+    - si: surface >= 130
+      alors: 2.5
+chauffage . PAC . air-eau . CEE . facteur correctif region:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1.2
+    - si: CEE . région = 'H2'
+      alors: 1
+    - si: CEE . région = 'H3'
+      alors: 0.7
+chauffage . PAC . air-eau . CEE . barème:
+  variations:
+    - si: logement . type = 'maison'
+      alors: barème maison
+    - sinon: barème appartement
+chauffage . PAC . air-eau . CEE . barème maison:
+  variations:
+    - si:
+        toutes ces conditions :
+          - Etas >= 111 %
+          - Etas < 140 %
+      alors: 47800
+    - si:
+        toutes ces conditions :
+          - Etas >= 140 %
+          - Etas < 170 %
+      alors: 77300
+    - si:
+        toutes ces conditions :
+          - Etas >= 170 %
+          - Etas < 200 %
+      alors: 97100
+    - si: Etas >= 200 %
+      alors: 106000
+chauffage . PAC . air-eau . CEE . barème appartement:
+  variations:
+    - si:
+        toutes ces conditions :
+          - Etas >= 111 %
+          - Etas < 140 %
+      alors: 26000
+    - si:
+        toutes ces conditions :
+          - Etas >= 140 %
+          - Etas < 170 %
+      alors: 42000
+    - si:
+        toutes ces conditions :
+          - Etas >= 170 %
+          - Etas < 200 %
+      alors: 52700
+    - si: Etas >= 200 %
+      alors: 57600
 chauffage . PAC . air-eau . Coup de pouce:
 chauffage . PAC . air-eau . Coup de pouce . montant:
   applicable si: projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
   variations:
     - si:
         une de ces conditions:
@@ -63,7 +158,7 @@ chauffage . PAC . géo:
 chauffage . PAC . géo . montant:
   somme:
     - MPR . montant
-    - Coup de pouce
+    - Coup de pouce . montant
     - CEE . montant
 chauffage . PAC . géo . MPR:
 chauffage . PAC . géo . MPR . plafond: géo et solaire . MPR . plafond
@@ -71,12 +166,67 @@ chauffage . PAC . géo . MPR . montant: géo et solaire . MPR . montant
 chauffage . PAC . géo . Coup de pouce:
 chauffage . PAC . géo . Coup de pouce . montant:
   applicable si: projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
   valeur: 5000 €
 chauffage . PAC . géo . CEE:
   titre: BAR-TH-172
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf"
 chauffage . PAC . géo . CEE . montant:
+  produit:
+    - barème
+    - facteur correctif surface
+    - facteur correctif région
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . PAC . géo . CEE . surface: logement . surface
+chauffage . PAC . géo . CEE . Etas:
+  titre: Efficacité énergétique saisonnière
+  par défaut: 120 %
+chauffage . PAC . géo . CEE . barème:
+  variations:
+    - si:
+        toutes ces conditions :
+          - Etas >= 111 %
+          - Etas < 140 %
+      alors: 53400
+    - si:
+        toutes ces conditions :
+          - Etas >= 140 %
+          - Etas < 170 %
+      alors: 86400
+    - si:
+        toutes ces conditions :
+          - Etas >= 170 %
+          - Etas < 200 %
+      alors: 108400
+    - si:
+        toutes ces conditions :
+          - Etas >= 200 %
+          - Etas < 230 %
+      alors: 124200
+    - si: Etas > 230 %
+      alors: 131600
+chauffage . PAC . géo . CEE . facteur correctif surface:
+  variations:
+    - si: surface < 70
+      alors: 0.5
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
+chauffage . PAC . géo . CEE . facteur correctif région:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1.2
+    - si: CEE . région = 'H2'
+      alors: 1
+    - si: CEE . région = 'H3'
+      alors: 0.7
 
 chauffage . PAC . solaire:
   par défaut: oui

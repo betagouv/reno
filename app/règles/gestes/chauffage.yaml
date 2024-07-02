@@ -1,20 +1,6 @@
 chauffage:
   titre: Chauffage et eau chaude
   description: Chauffage et eau chaude sanitaire
-  somme:
-    - raccordement réseau
-    - chauffe-eau thermodynamique . montant
-    - PAC . air-eau
-    - PAC . géo . montant
-    - PAC . solaire . montant
-    - chauffe-eau solaire . montant
-    - solaire combiné . montant
-    - partie thermique PVT eau . montant
-    - bois . poêle
-    - bois . chaudière
-    - bois . foyer et insert . montant
-    - fioul . dépose cuve . montant
-    - pilotage connecté . montant
 
 chauffage . pilotage connecté:
   par défaut: oui
@@ -32,25 +18,119 @@ chauffage . pilotage connecté . surface chauffée:
   valeur: logement . surface
 
 chauffage . pilotage connecté . CEE:
-chauffage . pilotage connecté . CEE . montant:
+  titre: BAR-TH-173
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-173%20vA56-1%20à%20compter%20du%2030-11-2023.pdf"
+chauffage . pilotage connecté . CEE . montant: 
+  produit:
+    - facteur correctif région
+    - facteur correctif surface
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . pilotage connecté . CEE . classe:
+  description: |
+    On appelle classe A, les systèmes avec détection de présence
+  par défaut: "'B'"
+  possibilités:
+    - 'B'
+    - 'A'
+chauffage . pilotage connecté . type de logement:
+  par défaut: logement . type
+chauffage . pilotage connecté . CEE . facteur correctif région:
+  variations:
+    - si:
+        toutes ces conditions:
+          - classe = 'A'
+          - type de logement = 'maison'
+      alors: facteur correctif région maison A
+    - si:
+        toutes ces conditions:
+          - classe = 'B'
+          - type de logement = 'maison'
+      alors: facteur correctif région maison B
+    - si:
+        toutes ces conditions:
+          - classe = 'A'
+          - type de logement = 'appartement'
+      alors: facteur correctif région appartement A
+    - si:
+        toutes ces conditions:
+          - classe = 'B'
+          - type de logement = 'appartement'
+      alors: facteur correctif région appartement B
+chauffage . pilotage connecté . CEE . facteur correctif région maison A:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 32800
+    - si: CEE . région = 'H2'
+      alors: 26900
+    - si: CEE . région = 'H3'
+      alors: 17900
+chauffage . pilotage connecté . CEE . facteur correctif région maison B:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 22800
+    - si: CEE . région = 'H2'
+      alors: 18700
+    - si: CEE . région = 'H3'
+      alors: 12500
+chauffage . pilotage connecté . CEE . facteur correctif région appartement A:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 14200
+    - si: CEE . région = 'H2'
+      alors: 11500
+    - si: CEE . région = 'H3'
+      alors: 7700
+chauffage . pilotage connecté . CEE . facteur correctif région appartement B:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 9900
+    - si: CEE . région = 'H2'
+      alors: 8000
+    - si: CEE . région = 'H3'
+      alors: 5400
+chauffage . pilotage connecté . CEE . facteur correctif surface:
+  variations:
+    - si: type de logement = 'maison'
+      alors: facteur correctif surface maison
+    - sinon: facteur correctif surface appartement
+chauffage . pilotage connecté . CEE . facteur correctif surface maison:
   variations:
     - si: surface chauffée < 35
-      alors: 260 €
+      alors: 0.3
     - si: surface chauffée < 60
-      alors: 312 €
+      alors: 0.5
     - si: surface chauffée < 70
-      alors: 364 €
+      alors: 0.6
     - si: surface chauffée < 90
-      alors: 416 €
+      alors: 0.7
     - si: surface chauffée < 110
-      alors: 520 €
+      alors: 1
     - si: surface chauffée < 130
-      alors: 572 €
-    - sinon: 624 €
+      alors: 1.1
+    - si: surface chauffée >= 130
+      alors: 1.6
+chauffage . pilotage connecté . CEE . facteur correctif surface appartement:
+  variations:
+    - si: surface chauffée < 35
+      alors: 0.5
+    - si: surface chauffée < 60
+      alors: 0.7
+    - si: surface chauffée < 70
+      alors: 1
+    - si: surface chauffée < 90
+      alors: 1.2
+    - si: surface chauffée < 110
+      alors: 1.5
+    - si: surface chauffée < 130
+      alors: 1.9
+    - si: surface chauffée >= 130
+      alors: 2.5
 
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
-chauffage . chauffe-eau thermodynamique . montant: 
+chauffage . chauffe-eau thermodynamique . montant:
   somme:
   - MPR . montant
   - CEE . montant
@@ -70,12 +150,19 @@ chauffage . chauffe-eau thermodynamique . CEE:
   titre: BAR-TH-148
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-148%20v%20A15-2.pdf"
-chauffage . chauffe-eau thermodynamique . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . chauffe-eau thermodynamique . CEE . type de logement:
+  par défaut: logement . type
+chauffage . chauffe-eau thermodynamique . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
 chauffage . chauffe-eau thermodynamique . CEE . barème:
   variations:
-    - si: logement . type = "maison"
+    - si: type de logement = "maison"
       alors: 15600
-    - sinon: 11900
+    - si: type de logement = "appartement"
+      alors: 11900
 
 chauffage . chauffe-eau solaire:
   par défaut: oui
@@ -101,14 +188,19 @@ chauffage . chauffe-eau solaire . CEE:
   titre: BAR-TH-101
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-101.pdf"
-chauffage . chauffe-eau solaire . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . chauffe-eau solaire . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
 chauffage . chauffe-eau solaire . CEE . barème:
   variations:
     - si: CEE . région = 'H1'
       alors: 21500
     - si: CEE . région = 'H2'
       alors: 24100
-    - sinon: 27600
+    - si: CEE . région = 'H3'
+      alors: 27600
 
 chauffage . solaire combiné:
   par défaut: oui
@@ -134,27 +226,37 @@ chauffage . solaire combiné . MPR . montant:
       alors: 4000 €
     - sinon: 0 €
 chauffage . solaire combiné . Coup de pouce:
+chauffage . solaire combiné . Coup de pouce . montant:
   applicable si: projet . remplacement chaudière thermique
-chauffage . solaire combiné . Coup de pouce . montant: 5000 €
+  rend non applicable: CEE . montant
+  valeur: 5000 €
 chauffage . solaire combiné . CEE:
   titre: BAR-TH-143
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA51-5%20à%20compter%20du%2001-03-2023.pdf"
-chauffage . solaire combiné . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . solaire combiné . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
 chauffage . solaire combiné . CEE . barème:
   variations:
     - si: CEE . région = 'H1'
       alors: 134800
     - si: CEE . région = 'H2'
       alors: 121000
-    - sinon: 100500
+    - si: CEE . région = 'H3'
+      alors: 100500
 
 chauffage . partie thermique PVT eau:
   titre: Partie thermique d’un équipement PVT eau
   par défaut: oui
   description: |
     Et dispositifs solaires pour le chauffage des locaux.
-chauffage . partie thermique PVT eau . montant: MPR . montant
+chauffage . partie thermique PVT eau . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
 chauffage . partie thermique PVT eau . MPR:
 chauffage . partie thermique PVT eau . MPR . plafond: 4000 €
 chauffage . partie thermique PVT eau . MPR . montant:
@@ -166,7 +268,15 @@ chauffage . partie thermique PVT eau . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1000 €
     - sinon: 0 €
-
+chauffage . partie thermique PVT eau . CEE:
+  titre: BAR-TH-162
+  lien: |
+    https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-162.pdf
+chauffage . partie thermique PVT eau . CEE . montant:
+  produit:
+    - 20900
+    - CEE . prix kWh Cumac
+  unité: €
 chauffage . fioul:
   titre: Suppression du fioul
 

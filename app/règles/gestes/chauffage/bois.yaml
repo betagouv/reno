@@ -4,12 +4,10 @@ chauffage . bois . chaudière:
   titre: Chaudière bois
   description: |
     Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poême n'est souvent qu'un chauffage d'appoint.
-  somme:
-    - manuelle . montant
-    - automatique . montant
 chauffage . bois . chaudière . Coup de pouce:
 chauffage . bois . chaudière . Coup de pouce . montant:
   applicable si: projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
   variations:
     - si:
         une de ces conditions:
@@ -21,14 +19,19 @@ chauffage . bois . chaudière . CEE:
   titre : BAR-TH-113
   lien : |
     "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf"
-chauffage . bois . chaudière . CEE . montant: barème * CEE . prix kWh Cumac
+chauffage . bois . chaudière . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
 chauffage . bois . chaudière . CEE . barème:
   variations:
     - si: CEE . région = 'H1'
       alors: 41300
     - si: CEE . région = 'H2'
       alors: 33800
-    - sinon: 26300
+    - si: CEE . région = 'H3'
+      alors: 26300
 
 chauffage . bois . chaudière . manuelle:
   titre: Chaudière bois manuelle (bûches)
@@ -37,8 +40,8 @@ chauffage . bois . chaudière . manuelle:
 chauffage . bois . chaudière . manuelle . montant:
   somme:
     - MPR . montant
-    - Coup de pouce . montant
     - CEE . montant
+    - Coup de pouce . montant
 chauffage . bois . chaudière . manuelle . MPR:
 chauffage . bois . chaudière . manuelle . MPR . plafond: 16000 €
 chauffage . bois . chaudière . manuelle . MPR . montant:
@@ -50,10 +53,8 @@ chauffage . bois . chaudière . manuelle . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 2000 €
     - sinon: 0 €
-chauffage . bois . chaudière . manuelle . Coup de pouce:
-chauffage . bois . chaudière . manuelle . Coup de pouce . montant: Coup de pouce . montant
-chauffage . bois . chaudière . manuelle . CEE:
-chauffage . bois . chaudière . manuelle . CEE . montant: CEE . montant
+chauffage . bois . chaudière . manuelle . Coup de pouce: Coup de pouce
+chauffage . bois . chaudière . manuelle . Coup de pouce . montant : Coup de pouce . montant
 
 chauffage . bois . chaudière . automatique:
   titre: Chaudière bois auto (granulés, plaquettes)
@@ -62,8 +63,8 @@ chauffage . bois . chaudière . automatique:
 chauffage . bois . chaudière . automatique . montant :
   somme:
     - MPR . montant
-    - Coup de pouce . montant
     - CEE . montant
+    - Coup de pouce . montant
 chauffage . bois . chaudière . automatique . MPR:
 chauffage . bois . chaudière . automatique . MPR . plafond: 18000 €
 chauffage . bois . chaudière . automatique . MPR . montant:
@@ -75,16 +76,55 @@ chauffage . bois . chaudière . automatique . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 3000 €
     - sinon: 0 €
-chauffage . bois . chaudière . automatique . Coup de pouce:
-chauffage . bois . chaudière . automatique . Coup de pouce . montant: Coup de pouce . montant
-chauffage . bois . chaudière . automatique . CEE:
-chauffage . bois . chaudière . automatique . CEE . montant: CEE . montant
+chauffage . bois . chaudière . automatique . Coup de pouce: Coup de pouce
+chauffage . bois . chaudière . automatique . Coup de pouce . montant : Coup de pouce . montant
 
 chauffage . bois . poêle et insert:
 chauffage . bois . poêle et insert . CEE:
-  titre: BAR-TH-112
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf"
+chauffage . bois . poêle et insert . CEE . Etas:
+  titre: Efficacité énergétique saisonnière
+  par défaut: 70 %
+chauffage . bois . poêle et insert . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . bois . poêle et insert . CEE . barème:
+  variations:
+    - si:
+        toutes ces conditions:
+          - Etas >= 66 %
+          - Etas < 72 %
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 9400
+          - si: CEE . région = 'H2'
+            alors: 7700
+          - si: CEE . région = 'H3'
+            alors: 5100
+    - si:
+        toutes ces conditions:
+          - Etas >= 72
+          - Etas < 80
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 23500
+          - si: CEE . région = 'H2'
+            alors: 19300
+          - si: CEE . région = 'H3'
+            alors: 12800
+    - si: Etas >= 80
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 35300
+          - si: CEE . région = 'H2'
+            alors: 28900
+          - si: CEE . région = 'H3'
+            alors: 19200
+
 chauffage . bois . foyer et insert:
   par défaut: oui
   titre: Foyer fermé et insert à buches ou à granulés
@@ -104,7 +144,10 @@ chauffage . bois . foyer et insert . MPR . montant:
       alors: 600 €
     - sinon: 0 €
 chauffage . bois . foyer et insert . CEE:
-chauffage . bois . foyer et insert . CEE . montant:
+  titre: BAR-TH-112
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf"
+chauffage . bois . foyer et insert . CEE . montant: poêle et insert . CEE . montant
 
 chauffage . bois . poêle:
   titre: Poêle et cuisinière
@@ -130,7 +173,10 @@ chauffage . bois . poêle . à bûches . MPR . montant:
       alors: 700 €
     - sinon: 0 €
 chauffage . bois . poêle . à bûches . CEE:
-chauffage . bois . poêle . à bûches . CEE . montant:
+  titre: BAR-TH-112
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf"
+chauffage . bois . poêle . à bûches . CEE . montant: poêle et insert . CEE . montant
 
 chauffage . bois . poêle . à granulés:
   par défaut: oui
@@ -151,4 +197,7 @@ chauffage . bois . poêle . à granulés . MPR . montant:
       alors: 1000 €
     - sinon: 0 €
 chauffage . bois . poêle . à granulés . CEE:
-chauffage . bois . poêle . à granulés . CEE . montant:
+  titre: BAR-TH-112
+  lien: |
+    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf"
+chauffage . bois . poêle . à granulés . CEE . montant: poêle et insert . CEE . montant

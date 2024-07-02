@@ -42,7 +42,7 @@ ventilation:
 ventilation . double flux:
   titre: Ventilation double flux
   par défaut: oui
-ventilation . double flux . montant: 
+ventilation . double flux . montant:
   somme:
   - MPR . montant
   - CEE . montant
@@ -62,3 +62,51 @@ ventilation . double flux . CEE:
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-125%20vA54-5%20%C3%A0%20compter%20du%2001-01-2024.pdf"
 ventilation . double flux . CEE . montant:
+  produit:
+    - facteur correctif région
+    - facteur correctif surface
+    - CEE . prix kWh Cumac
+  unité: €
+ventilation . double flux . CEE . surface: logement . surface
+ventilation . double flux . CEE . type de ventilation:
+  par défaut: "'autoréglable'"
+  possibilités:
+    - 'autoréglable'
+    - 'double flux'
+ventilation . double flux . CEE . facteur correctif région:
+  variations:
+    - si: type de ventilation = 'autoréglable'
+      alors: facteur correctif autoréglable
+      sinon: facteur correctif double flux
+ventilation . double flux . CEE . facteur correctif autoréglable:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 39700
+    - si: CEE . région = 'H2'
+      alors: 32500
+    - si: CEE . région = 'H3'
+      alors: 21600
+ventilation . double flux . CEE . facteur correctif double flux:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 42000
+    - si: CEE . région = 'H2'
+      alors: 34400
+    - si: CEE . région = 'H3'
+      alors: 22900
+ventilation . double flux . CEE . facteur correctif surface:
+  variations:
+    - si: surface < 35
+      alors: 0.3
+    - si: surface < 60
+      alors: 0.5
+    - si: surface < 70
+      alors: 0.6
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
