@@ -110,7 +110,7 @@ export default function DPEScenario({
                 />
                 <p
                   css={`
-                    line-height: 1.7rem;
+                    line-height: 1.9rem;
                   `}
                 >
                   Par exemple : pour une enveloppe de travaux de rénovation
@@ -146,7 +146,19 @@ export default function DPEScenario({
                       HT
                     </span>
                   </label>
-                  <span>, je toucherai un total d'aides de </span>
+                  <span>, soit </span>
+                  <Value
+                    {...{
+                      engine,
+                      choice,
+                      situation: {
+                        ...exampleSituation,
+                        'projet . DPE visé': choice + 1,
+                      },
+                      dottedName: 'projet . travaux . TTC',
+                      state: 'final',
+                    }}
+                  /><span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA"> TTC</span><span>, je toucherai un total d'aides de </span>
                   <Value
                     {...{
                       engine,

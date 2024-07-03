@@ -589,7 +589,7 @@ projet . investissement:
       - si: simulation . mode = 'moyen'
         alors: 25000 €
       - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
-  formule: travaux - aides globales
+  formule: travaux . TTC - aides globales
 
 projet . travaux . plafonnés:
   plafond: plafond
