@@ -1,62 +1,75 @@
 chauffage:
   titre: Chauffage et eau chaude
   description: Chauffage et eau chaude sanitaire
-
+  somme:
+    - raccordement réseau
+    - chauffe-eau thermodynamique . montant
+    - PAC . air-eau . montant
+    - PAC . géo . montant
+    - PAC . solaire . montant
+    - chauffe-eau solaire . montant
+    - solaire combiné . montant
+    - partie thermique PVT eau . montant
+    - bois . poêle
+    - bois . chaudière
+    - bois . foyer et insert . montant
+    - fioul . dépose cuve . montant
+    - pilotage connecté . montant
 chauffage . pilotage connecté:
   par défaut: oui
   titre: Pilotage connecté pièce par pièce
   description: |
     Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
 chauffage . pilotage connecté . montant: CEE . montant
-#logement . surface chauffée:
-#question: Quelle est la surface chauffée de votre logement ?
-#par défaut: 100 m2 # estimation sur base de "surface" + ~10 % pour les escaliers, les combles habitées, etc
-
 chauffage . pilotage connecté . surface chauffée:
+  question: Quelle est la surface chauffée de votre logement ?
+  #par défaut: 100 m2 # estimation sur base de "surface" + ~10 % pour les escaliers, les combles habitées, etc
   description: |
     Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
-  valeur: logement . surface
-
 chauffage . pilotage connecté . CEE:
   titre: BAR-TH-173
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-173%20vA56-1%20à%20compter%20du%2030-11-2023.pdf"
-chauffage . pilotage connecté . CEE . montant: 
+chauffage . pilotage connecté . CEE . montant:
   produit:
     - facteur correctif région
     - facteur correctif surface
     - CEE . prix kWh Cumac
   unité: €
 chauffage . pilotage connecté . CEE . classe:
-  description: |
-    On appelle classe A, les systèmes avec détection de présence
+  question: |
+    Quelle est le type de système de pilotage connecté envisagé ?
+  sous-titre: |
+    On appelle classe A, les systèmes possédant un détecteur de présence
   par défaut: "'B'"
-  possibilités:
-    - 'B'
-    - 'A'
-chauffage . pilotage connecté . type de logement:
-  par défaut: logement . type
+  suggestions:
+    B (sans détecteur de présence): "'B'"
+    A (avec détecteur de présence): "'A'"
+  une possibilité:
+    possibilités:
+      - "'B'"
+      - "'A'"
 chauffage . pilotage connecté . CEE . facteur correctif région:
   variations:
     - si:
         toutes ces conditions:
           - classe = 'A'
-          - type de logement = 'maison'
+          - logement . type = 'maison'
       alors: facteur correctif région maison A
     - si:
         toutes ces conditions:
           - classe = 'B'
-          - type de logement = 'maison'
+          - logement . type = 'maison'
       alors: facteur correctif région maison B
     - si:
         toutes ces conditions:
           - classe = 'A'
-          - type de logement = 'appartement'
+          - logement . type = 'appartement'
       alors: facteur correctif région appartement A
     - si:
         toutes ces conditions:
           - classe = 'B'
-          - type de logement = 'appartement'
+          - logement . type = 'appartement'
       alors: facteur correctif région appartement B
 chauffage . pilotage connecté . CEE . facteur correctif région maison A:
   variations:
@@ -92,7 +105,7 @@ chauffage . pilotage connecté . CEE . facteur correctif région appartement B:
       alors: 5400
 chauffage . pilotage connecté . CEE . facteur correctif surface:
   variations:
-    - si: type de logement = 'maison'
+    - si: logement . type = 'maison'
       alors: facteur correctif surface maison
     - sinon: facteur correctif surface appartement
 chauffage . pilotage connecté . CEE . facteur correctif surface maison:
@@ -150,8 +163,6 @@ chauffage . chauffe-eau thermodynamique . CEE:
   titre: BAR-TH-148
   lien: |
     "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-148%20v%20A15-2.pdf"
-chauffage . chauffe-eau thermodynamique . CEE . type de logement:
-  par défaut: logement . type
 chauffage . chauffe-eau thermodynamique . CEE . montant:
   produit:
     - barème
@@ -159,9 +170,9 @@ chauffage . chauffe-eau thermodynamique . CEE . montant:
   unité: €
 chauffage . chauffe-eau thermodynamique . CEE . barème:
   variations:
-    - si: type de logement = "maison"
+    - si: logement . type = 'maison'
       alors: 15600
-    - si: type de logement = "appartement"
+    - si: logement . type = 'appartement'
       alors: 11900
 
 chauffage . chauffe-eau solaire:
@@ -227,7 +238,7 @@ chauffage . solaire combiné . MPR . montant:
     - sinon: 0 €
 chauffage . solaire combiné . Coup de pouce:
 chauffage . solaire combiné . Coup de pouce . montant:
-  applicable si: projet . remplacement chaudière thermique
+  applicable si: CEE . projet . remplacement chaudière thermique
   rend non applicable: CEE . montant
   valeur: 5000 €
 chauffage . solaire combiné . CEE:
@@ -277,9 +288,9 @@ chauffage . partie thermique PVT eau . CEE . montant:
     - 20900
     - CEE . prix kWh Cumac
   unité: €
+
 chauffage . fioul:
   titre: Suppression du fioul
-
 chauffage . fioul . dépose cuve:
   par défaut: oui
   titre: Dépose de cuve à fioul

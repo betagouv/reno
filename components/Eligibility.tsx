@@ -31,20 +31,12 @@ export default function Eligibility({
   const [mpraEvaluation, mprgEvaluation] = useMemo(() => {
       const newEngine = engine.setSituation(situation)
       return [
-        newEngine.evaluate('MPR . accompagnée . montant'),
-        newEngine.evaluate('MPR . non accompagnée . montant'),
+        newEngine.evaluate('MPR . accompagnée . éligible'),
+        newEngine.evaluate('MPR . non accompagnée . éligible'),
       ]
     }, [situation, engine]),
     mpra = mpraEvaluation.nodeValue,
     mprg = mprgEvaluation.nodeValue
-  /*
-  console.log(
-    'result 2',
-    mpraEvaluation,
-    mprgEvaluation,
-    engine.evaluate('gestes . ventilation . double flux').nodeValue,
-  )
-  */
 
   const both = mpra && mprg,
     none = !mpra && !mprg,

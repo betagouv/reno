@@ -1,7 +1,8 @@
 chauffage . raccordement réseau:
+  titre: Raccordement réseau
   somme:
-    - chaleur
-    - froid
+    - chaleur . montant
+    - froid . montant
 
 chauffage . raccordement réseau . MPR:
 chauffage . raccordement réseau . MPR . plafond:
@@ -27,8 +28,16 @@ chauffage . raccordement réseau . chaleur . montant:
     - Coup de pouce . montant
     - CEE . montant
 chauffage . raccordement réseau . chaleur . MPR:
-chauffage . raccordement réseau . chaleur . MPR . plafond: MPR . plafond
-chauffage . raccordement réseau . chaleur . MPR . montant: MPR . montant
+chauffage . raccordement réseau . chaleur . MPR . plafond: 1800 €
+chauffage . raccordement réseau . chaleur . MPR . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1200 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 800 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 400 €
+    - sinon: 0 €
 chauffage . raccordement réseau . chaleur . CEE:
   titre: BAR-TH-137
   lien: |
@@ -36,8 +45,10 @@ chauffage . raccordement réseau . chaleur . CEE:
 chauffage . raccordement réseau . chaleur . CEE . montant:
   produit:
     - barème
+    - facteur correctif surface
     - CEE . prix kWh Cumac
   unité: €
+chauffage . raccordement réseau . chaleur . CEE . surface: logement . surface
 chauffage . raccordement réseau . chaleur . CEE . barème:
   variations:
     - si: CEE . région = 'H1'
@@ -46,9 +57,21 @@ chauffage . raccordement réseau . chaleur . CEE . barème:
       alors: 40200
     - si: CEE . région = 'H3'
       alors: 29600
+chauffage . raccordement réseau . chaleur . CEE . facteur correctif surface:
+  variations:
+    - si: surface < 70
+      alors: 0.5
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
 chauffage . raccordement réseau . chaleur . Coup de pouce:
 chauffage . raccordement réseau . chaleur . Coup de pouce . montant:
-  applicable si: projet . remplacement chaudière thermique
+  applicable si: CEE . projet . remplacement chaudière thermique
   rend non applicable: CEE . montant
   variations:
     - si:

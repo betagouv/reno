@@ -1,8 +1,11 @@
 import { formatValue } from 'publicodes'
 import { QuestionText } from './ClassicQuestionWrapper'
 import { Prime } from './Geste'
+import InputSwitch from './InputSwitch'
+import { Section } from '@/components/UI'
 import Input from './Input'
 import { encodeSituation } from './publicodes/situationUtils'
+import { useSearchParams } from 'next/navigation'
 export default function GesteQuestion({
   dottedName,
   rules,
@@ -12,13 +15,16 @@ export default function GesteQuestion({
   answeredQuestions,
   setSearchParams,
 }) {
-  const question = nextQuestions.find((question) =>
+  const currentQuestion = nextQuestions.find((question) =>
     question.startsWith(dottedName),
   )
-  if (!question) return null
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
 
-  const evaluation = engine.evaluate(question),
-    currentValue = situation[question]
+  if (!currentQuestion) return null
+
+  const evaluation = engine.evaluate(currentQuestion),
+    currentValue = situation[currentQuestion]
 
   const onChange = (value) => {
     const encodedSituation = encodeSituation(
@@ -29,6 +35,8 @@ export default function GesteQuestion({
       false,
       answeredQuestions,
     )
+
+    console.log('on change')
 
     setSearchParams(encodedSituation, 'push', false)
   }
@@ -44,38 +52,32 @@ export default function GesteQuestion({
     />
   )
   return (
-    <div
-      css={`
-        margin: 0.6rem 0;
-        > label {
-          margin: 1rem 0;
-          display: flex;
-          justify-content: end;
-          align-items: center;
-          flex-wrap: wrap;
-          > div {
-            margin-right: 1rem;
-          }
-        }
-      `}
-    >
-      <label>
-        <div>
-          <QuestionText {...{ rule: rules[question], question, rules }} />
-        </div>
-        <InputComponent />
-      </label>
-      <div
-        css={`
-          text-align: right;
-        `}
-      >
-        <Prime
-          value={formatValue(
-            engine.setSituation(situation).evaluate(dottedName + ' . montant'),
-          )}
+    <div>
+      <Section>
+        <InputSwitch
+          {...{
+            rules,
+            currentQuestion,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            engine,
+            nextQuestions,
+            searchParams,
+          }}
         />
-      </div>
+      </Section>
     </div>
-  )
+  );
+      // <div
+      //   css={`
+      //     text-align: right;
+      //   `}
+      // >
+      //   { <Prime
+      //     value={formatValue(
+      //       engine.setSituation(situation).evaluate(dottedName + ' . montant'),
+      //     )}
+      //   /> }
+      // </div>
 }

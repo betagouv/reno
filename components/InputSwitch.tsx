@@ -309,9 +309,8 @@ export default function InputSwitch({
     )
 
   if (
-    currentQuestion === 'MPR . non accompagnée . confirmation' ||
-    (currentQuestion.startsWith('gestes . ') &&
-      !gestesMosaicQuestions.includes(currentQuestion))
+    currentQuestion === 'MPR . non accompagnée . confirmation' // ||
+    //(currentQuestion.startsWith('gestes . ') && !gestesMosaicQuestions.includes(currentQuestion))
   ) {
     return (
       <GestesBasket
@@ -412,7 +411,7 @@ export default function InputSwitch({
       <Input
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
-        value={currentValue == null ? undefined : currentValue}
+        value={currentValue == null ? "" : currentValue}
         name={currentQuestion}
         unit={evaluation.unit}
         onChange={(value) => {

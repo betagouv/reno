@@ -34,10 +34,11 @@ chauffage . PAC . air-eau . CEE . montant: # TODO: le prix varie si seulement ch
     - facteur correctif region
     - CEE . prix kWh Cumac
   unité: €
-chauffage . PAC . air-eau . CEE . surface: logement . surface
 chauffage . PAC . air-eau . CEE . Etas:
+  question: Quelle est l'efficacité énergétique saisonnière (Etas) de la PAC que vous souhaitez-installer ?
   titre: Efficacité énergétique saisonnière
-  par défaut: 120 %
+  unité: "%"
+chauffage . PAC . air-eau . CEE . surface: logement . surface
 chauffage . PAC . air-eau . CEE . facteur correctif surface:
   variations:
     - si: logement . type = 'maison'
@@ -124,7 +125,7 @@ chauffage . PAC . air-eau . CEE . barème appartement:
       alors: 57600
 chauffage . PAC . air-eau . Coup de pouce:
 chauffage . PAC . air-eau . Coup de pouce . montant:
-  applicable si: projet . remplacement chaudière thermique
+  applicable si: CEE . projet . remplacement chaudière thermique
   rend non applicable: CEE . montant
   variations:
     - si:
@@ -165,7 +166,7 @@ chauffage . PAC . géo . MPR . plafond: géo et solaire . MPR . plafond
 chauffage . PAC . géo . MPR . montant: géo et solaire . MPR . montant
 chauffage . PAC . géo . Coup de pouce:
 chauffage . PAC . géo . Coup de pouce . montant:
-  applicable si: projet . remplacement chaudière thermique
+  applicable si: CEE . projet . remplacement chaudière thermique
   rend non applicable: CEE . montant
   valeur: 5000 €
 chauffage . PAC . géo . CEE:
@@ -181,6 +182,7 @@ chauffage . PAC . géo . CEE . montant:
   unité: €
 chauffage . PAC . géo . CEE . surface: logement . surface
 chauffage . PAC . géo . CEE . Etas:
+  question: Quelle est l'efficacité énergétique saisonnière (Etas) de la PAC que vous souhaitez-installer ?
   titre: Efficacité énergétique saisonnière
   par défaut: 120 %
 chauffage . PAC . géo . CEE . barème:

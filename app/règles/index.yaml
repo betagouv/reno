@@ -93,16 +93,10 @@ logement:
 
 logement . type:
   question: Le logement est-il une maison ou un appartement ?
-  par défaut: "'maison'"
-  suggestions:
-    maison: maison
-    appartement: appartement
-  une possibilité:
+  une possibilité parmi:
     possibilités:
-      - maison
-      - appartement
-logement . type . maison:
-logement . type . appartement:
+      - "maison"
+      - "appartement"
 
 logement . surface:
   titre: Surface habitable
