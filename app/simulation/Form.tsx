@@ -88,21 +88,6 @@ function Form({ rules }) {
       <br />
       <UserProblemBanner />
       <Share searchParams={searchParams} />
-      <Section>
-        <h2>Documentation</h2>
-        <p>
-          Si vous êtes experts, vous pouvez parcourir notre{' '}
-          <Link
-            href={
-              '/documentation/MPR/?' +
-              new URLSearchParams(situationSearchParams).toString()
-            }
-          >
-            documentation complète du calcul
-          </Link>
-          .
-        </p>
-      </Section>
     </div>
   )
 }
