@@ -365,10 +365,10 @@ essonne . conditions communes:
     - logement . résidence principale propriétaire
     - logement . période de construction = 'au moins 15 ans'
 essonne . conditions géo: logement . département = 'Essonne'
-essonne . travaux essentiels :
+essonne . travaux essentiels:
   description: |
     La prime s’adresse aux propriétaires occupants aux ressources modestes ou très modestes voulant engager des travaux de rénovation dans leur logement.
-essonne . travaux essentiels . conditions :
+essonne . travaux essentiels . conditions:
   toutes ces conditions:
     - conditions communes
     - conditions de revenu
@@ -403,10 +403,12 @@ essonne . travaux essentiels . montant:
   applicable si: conditions
   valeur: 800 €
 
-essonne . gros travaux :
+essonne . gros travaux:
   description: |
-    Cette aide est destinée aux propriétaires occupants voulant engager des travaux de rénovation ambitieux dans leur logement (maison individuelle ou parties privatives d’un appartement). Les travaux doivent viser un gain énergétique d’au moins 35%, ce qui implique la réalisation au préalable d’un audit énergétique par un professionnel qualifié.
-essonne . gros travaux . conditions :
+    Cette aide est destinée aux propriétaires occupants voulant engager des travaux de rénovation ambitieux dans leur logement (maison individuelle ou parties privatives d’un appartement).
+
+    Les travaux doivent viser un gain énergétique d’au moins 35%, ce qui implique la réalisation au préalable d’un audit énergétique par un professionnel qualifié.
+essonne . gros travaux . conditions:
   toutes ces conditions:
     - conditions communes
     - projet . gain energétique >= 35 %
