@@ -13,7 +13,7 @@ export const Title = styled.h1`
   }
 `
 
-export const Header = styled.header`
+export const HeaderWrapper = styled.header`
   border-bottom: 1px solid #dddddd;
   padding: 0 1vh;
   width: 100%;
