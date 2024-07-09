@@ -59,6 +59,7 @@ export default function PlaceSummary({ place, placeRules }) {
 
   const value = formatValue(montant)
 
+  const href = '/locales/' + place
   return (
     <li
       key={place}
@@ -66,7 +67,10 @@ export default function PlaceSummary({ place, placeRules }) {
         margin-bottom: 2rem;
       `}
     >
-      <IllustratedHeader imageTitle={imageTitle} placeTitle={placeTitle} />
+      {' '}
+      <Link href={href}>
+        <IllustratedHeader imageTitle={imageTitle} placeTitle={placeTitle} />
+      </Link>
       <Card
         css={`
           max-width: 36rem;
@@ -92,9 +96,7 @@ export default function PlaceSummary({ place, placeRules }) {
         </ul>
         <CTAWrapper $justify="left" css="margin-bottom: .6rem">
           <CTA $importance="primary" css="font-size: 100%">
-            <Link href={'/locales/' + place}>
-              Explorer les aides {capitalise0(place)}
-            </Link>
+            <Link href={href}>Explorer les aides {capitalise0(place)}</Link>
           </CTA>
         </CTAWrapper>
       </Card>
