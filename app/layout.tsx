@@ -5,7 +5,6 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import localFont from 'next/font/local'
 import { description } from './page'
-import IframeProvider from '../components/IframeContext'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -66,13 +65,11 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={marianneFont.className}>
-        <IframeProvider>
-          <StyledComponentsRegistry>
-            <Header />
-            {children}
-            <Footer />
-          </StyledComponentsRegistry>
-        </IframeProvider>
+        <StyledComponentsRegistry>
+          <Header />
+          {children}
+          <Footer />
+        </StyledComponentsRegistry>
         <Matomo />
       </body>
     </html>

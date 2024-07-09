@@ -18,8 +18,10 @@ import simulationConfig from './simulationConfig.yaml'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
+import useIsInIframe from '@/components/useIsInIframe'
 
 function Form({ rules }) {
+  const isInIframe = useIsInIframe()
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -88,21 +90,23 @@ function Form({ rules }) {
       <br />
       <UserProblemBanner />
       <Share searchParams={searchParams} />
-      <Section>
-        <h2>Documentation</h2>
-        <p>
-          Si vous êtes experts, vous pouvez parcourir notre{' '}
-          <Link
-            href={
-              '/documentation/MPR/?' +
-              new URLSearchParams(situationSearchParams).toString()
-            }
-          >
-            documentation complète du calcul
-          </Link>
-          .
-        </p>
-      </Section>
+      { !isInIframe && 
+        <Section>
+          <h2>Documentation</h2>
+          <p>
+            Si vous êtes experts, vous pouvez parcourir notre{' '}
+            <Link
+              href={
+                '/documentation/MPR/?' +
+                new URLSearchParams(situationSearchParams).toString()
+              }
+            >
+              documentation complète du calcul
+            </Link>
+            .
+          </p>
+        </Section>
+      }
     </div>
   )
 }

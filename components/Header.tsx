@@ -5,12 +5,11 @@ import logo from '@/public/logo.svg'
 import css from '@/components/css/convertToJs'
 import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper, Title } from '@/app/LayoutUI'
-import { IframeContext, useIframe } from '@/components/IframeContext'
-import { useContext } from 'react'
+import useIsInIframe from '@/components/useIsInIframe'
 
 export default function Header() {
-  const isInIframe = useIframe()
-
+  const isInIframe = useIsInIframe()
+  
   return (
     <HeaderWrapper>
       <nav>
