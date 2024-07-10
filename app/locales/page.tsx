@@ -4,7 +4,8 @@ import Liste from './Liste'
 import { description } from './description'
 
 export const metadata: Metadata = {
-  title: 'Liste des aides locales - Mes aides réno',
+  title:
+    'Liste des aides locales pour la rénovation energétique - Mes aides réno',
   description,
 }
 
