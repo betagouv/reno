@@ -8,7 +8,14 @@
     projet . DPE visé: 2
     projet . travaux: 70140 / (1.055)
     ménage . code région: "'27'" # Doubs
+    ménage . code département: "'25'"
+    ménage . commune: "'25388'"
+    ménage . EPCI: "'200065647'"
     logement . propriétaire occupant: oui
+    logement . résidence principale propriétaire: oui
+    logement . type: "'maison'"
+    logement . surface: 91
+    logement . période de construction: de 15 à 25 ans
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
     MPR . accompagnée . montant: 59835
