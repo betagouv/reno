@@ -3,6 +3,8 @@ prioritaires:
   - logement . propriétaire occupant
   - logement . résidence principale propriétaire
   - logement . résidence principale locataire
+  - logement . type
+  - logement . surface
   - logement . période de construction
   - ménage . personnes
   - ménage . commune
