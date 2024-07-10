@@ -192,6 +192,7 @@ conditions communes: oui
           <EvaluationValue>
             <small>MaPrimeRénov' parcours accompagné</small>{' '}
             <div>
+              Jusqu'à{' '}
               {typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}
             </div>
           </EvaluationValue>
