@@ -50,7 +50,7 @@ export default function Geste({
     //   }
     // });
 
-    infoCEE['montant'] = formatValue(evaluationCEE)
+    infoCEE['montant'] = formatValue(evaluationCEE, {precision: 0})
     infoCEE['missingVariable'] = Object.keys(evaluationCEE.missingVariables).map((v) => getRuleName(v))
     infoCEE['titre'] = rules[cee].titre
     infoCEE['lien'] = rules[cee].lien
@@ -61,12 +61,26 @@ export default function Geste({
   }
   if(coupDePouce in rules) {
     const evaluationCP = engineSituation.evaluate(coupDePouce + ' . montant')
-    montantCP = formatValue(evaluationCP)
+    montantCP = formatValue(evaluationCP, {precision: 0})
     missingVariableCP = Object.keys(evaluationCP.missingVariables).map((v) => getRuleName(v))
   }
 
-  const montantTotal = formatValue(engineSituation.evaluate(relevant))
-
+  const evaluationTotal = engineSituation.evaluate(relevant);
+  const isExactTotal = Object.keys(evaluationTotal.missingVariables).length == 0
+  let montantTotal = formatValue(engineSituation.evaluate(relevant), {precision: 0})
+  if(!isExactTotal) {
+    const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
+                                        .map((dottedName) => {
+                                          if(rules[dottedName].maximum) {
+                                            return { [dottedName]: rules[dottedName].maximum }
+                                          }
+                                          return rules[dottedName].maximum
+                                        })
+                                        .reduce((acc, obj) => ({ ...acc, ...obj }), {});
+    montantTotal = formatValue(engine.setSituation({ ...situation, ...maximizeAideVariables })
+                                     .evaluate(relevant), 
+                               {precision: 0})
+  }
   if (!expanded)
     return (
       <div>
@@ -78,7 +92,7 @@ export default function Geste({
           {questionRule.titre || getRuleName(dottedName)}
         </div>
         <PrimeStyle $inactive={inactive}>
-          Prime de <strong>{montantTotal}</strong>
+          {isExactTotal ? "Prime de " : "Jusqu'à "}<strong>{montantTotal}</strong>
         </PrimeStyle>
       </div>
     )
@@ -199,7 +213,7 @@ export default function Geste({
                 margin-right: 0.4rem;
               `}
             />{' '}
-            <span>CEE: <a href={infoCEE.lien} target="_blank">{infoCEE.titre}</a></span>
+            <span>CEE <small>(Plus d'infos: <a href={infoCEE.lien} target="_blank">{infoCEE.titre}</a>)</small></span>
           </div>
           {infoCEE.montant == "Non applicable" ? (<p><strong>Non applicable</strong> en cas de Prime Coup de pouce</p>) :
           (<p>
