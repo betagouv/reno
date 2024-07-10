@@ -2,6 +2,7 @@
 import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
+import personas from './examplePersonas.yaml'
 import { CTA, CTAWrapper } from '@/components/UI'
 import logo from '@/public/logo.svg'
 import dotIcon from '@/public/point.svg'
@@ -12,7 +13,8 @@ import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 import { parse } from 'yaml'
 import { BlueEm } from '../LandingUI'
-import marianne from '@/public/marianne-sans-texte.svg'
+import marianne from '@/public/marianne.svg'
+import { PrimeStyle } from '@/components/Geste'
 
 const engine = new Publicodes(rules)
 
@@ -53,19 +55,17 @@ conditions communes: oui
     >
       <h3>Les données d'entrée de votre plateforme d'annonce</h3>
       <ul>
-        {personas.map((situation) => (
-          <li key={JSON.stringify(situation)}>{situation['DPE . actuel']}</li>
+        {personas.map(({ nom, situation }) => (
+          <li key={nom}>
+            <div>{nom}</div>
+            <div>DPE : {situation['DPE . actuel']}</div>
+          </li>
         ))}
       </ul>
       <section>
-        <TextArea
-          value={yaml}
-          onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
-        />
         <h3>Le module de simulation que verra l'usager</h3>
         <div
           css={`
-            border: 1px solid var(--color);
             --shadow-color: 0deg 0% 63%;
             --shadow-elevation-low: 0.3px 0.5px 0.7px
                 hsl(var(--shadow-color) / 0.34),
@@ -82,13 +82,22 @@ conditions communes: oui
             width: 45rem;
             border-radius: 0.4rem;
             position: relative;
-            h2 {
-              margin-top: 0.8rem;
+            h2 + hr {
+              width: 4rem;
+              background: var(--color);
+              height: 4px;
+              margin-bottom: 2.6rem;
             }
             h2,
             h3 {
               font-size: 140%;
               font-weight: 500;
+            }
+            h2 {
+              margin-top: 0.4rem;
+              margin-bottom: 0.8rem;
+              font-size: 160%;
+              font-weight: 600;
             }
             h3 {
               margin-top: 2.5rem;
@@ -100,24 +109,12 @@ conditions communes: oui
                 margin: 1.2rem 0;
               }
             }
-            > img {
-              height: 4rem;
-              width: auto;
-              position: absolute;
-              left: 50%;
-              transform: translateX(-50%);
-              top: -0.7rem;
-            }
           `}
         >
-          <Image
-            src={marianne}
-            alt="Iconographie officielle Marianne, symbole de la république française"
-          />
           <h2>
-            Quelles <BlueEm>aides publiques</BlueEm> pour une rénovation
-            d'ampleur ?
+            Quelles <BlueEm>aides</BlueEm> pour une rénovation d'ampleur ?
           </h2>
+          <hr />
           <ul>
             <li>
               <label
@@ -211,18 +208,60 @@ conditions communes: oui
           </ul>
           <h3>Pour ce bien, vous pouvez toucher :</h3>
           <EvaluationValue>
-            <small>MaPrimeRénov' parcours accompagné</small>{' '}
+            <Image
+              src={'/investissement.svg'}
+              alt="Icône argent dans la main"
+              width="10"
+              height="10"
+            />
             <div>
-              Jusqu'à{' '}
-              {typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}
+              <div>
+                Jusqu'à{' '}
+                <PrimeStyle>
+                  {typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}
+                </PrimeStyle>{' '}
+                d'aides
+              </div>
+              <small
+                css={`
+                  display: block;
+                  font-size: 70%;
+                  margin: 0 auto;
+                  margin-top: 0.4rem;
+                `}
+              >
+                avec{' '}
+                <BlueEm>
+                  <strong>MaPrimeRénov'</strong>
+                </BlueEm>{' '}
+              </small>{' '}
             </div>
           </EvaluationValue>
-          <CTAWrapper
-            $justify="right"
+          <section
             css={`
               margin-bottom: 0;
+              display: flex;
+              align-items: center;
+              background: var(--lightestColor);
+              justify-content: space-evenly;
+              h4 {
+                margin: 0;
+                margin-bottom: 0.6rem;
+              }
+              padding: 0.4rem 1rem;
+              > div {
+                margin-right: 1rem;
+              }
+              margin-top: 2rem;
             `}
           >
+            <div>
+              <h4>Découvrir toutes les aides</h4>
+              <p>
+                En parallèle du parcours accompagné, il existe des aides par
+                geste pour rénover votre bien de façon plus progressive.
+              </p>
+            </div>
             <CTA
               css={`
                 margin-bottom: 0;
@@ -243,10 +282,36 @@ conditions communes: oui
                 href="https://mesaidesreno.beta.gouv.fr/simulation"
               >
                 <Image src={logo} alt="Logo Mes Aides Réno" />
-                <span>Faire une simulation complète</span>
+                <span>Affiner ma simulation</span>
               </a>
             </CTA>
-          </CTAWrapper>
+          </section>
+
+          <footer
+            css={`
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: -1rem;
+              margin-top: 1rem;
+
+              > img {
+                height: 5.5rem;
+                width: auto;
+                margin-right: 1rem;
+              }
+              p {
+                margin: 0;
+              }
+              margin-top: 1rem;
+            `}
+          >
+            <Image
+              src={marianne}
+              alt="Iconographie officielle Marianne, symbole de la république française"
+            />
+            <p>Mes Aides Réno est un service proposé par l'État.</p>
+          </footer>
         </div>
       </section>
     </div>
@@ -260,6 +325,7 @@ const Dot = () => (
     width="10"
     height="10"
     css={`
+      display: none;
       margin-right: 1rem;
       margin-left: 0.25rem;
       height: 1rem;
@@ -269,21 +335,19 @@ const Dot = () => (
   />
 )
 
-export const TextArea = styled.textarea`
-  padding: 0.6rem;
-  font-size: 110%;
-  width: 25rem;
-  height: 10rem;
-  border: 2px solid var(--color);
-  margin-right: 2rem;
-`
-
 export const EvaluationValue = styled.div`
+  img {
+    width: 4rem;
+    height: auto;
+    margin-right: 1rem;
+  }
+  margin: 1.6rem auto;
+  display: flex;
+  align-items: center;
   font-size: 150%;
-  background: var(--color);
-  color: #356e3e;
-  background: #bef2c5;
-  border: 1px solid #356e3e4d;
+  border: 2px solid var(--color);
+  width: fit-content;
+
   padding: 1rem 2rem;
   text-align: center;
   small {
