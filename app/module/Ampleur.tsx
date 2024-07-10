@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 import { parse } from 'yaml'
 import { BlueEm } from '../LandingUI'
+import marianne from '@/public/marianne-sans-texte.svg'
 
 const engine = new Publicodes(rules)
 
@@ -74,9 +75,12 @@ conditions communes: oui
             padding: 1.6rem;
             width: 45rem;
             border-radius: 0.4rem;
+            position: relative;
+            h2 {
+              margin-top: 0.4rem;
+            }
             h2,
             h3 {
-              margin-top: 0;
               font-size: 140%;
               font-weight: 500;
             }
@@ -90,8 +94,20 @@ conditions communes: oui
                 margin: 1.2rem 0;
               }
             }
+            > img {
+              height: 4rem;
+              width: auto;
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%);
+              top: -1rem;
+            }
           `}
         >
+          <Image
+            src={marianne}
+            alt="Iconographie officielle Marianne, symbole de la république française"
+          />
           <h2>
             Quelles <BlueEm>aides publiques</BlueEm> pour une rénovation
             d'ampleur ?
@@ -187,7 +203,6 @@ conditions communes: oui
               </label>
             </li>
           </ul>
-
           <h3>Pour ce bien, vous pouvez toucher :</h3>
           <EvaluationValue>
             <small>MaPrimeRénov' parcours accompagné</small>{' '}
@@ -196,7 +211,6 @@ conditions communes: oui
               {typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}
             </div>
           </EvaluationValue>
-
           <CTAWrapper
             $justify="right"
             css={`
