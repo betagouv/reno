@@ -68,8 +68,6 @@ export default function GestesMosaic({
       (a, b) => categoryIndex(categoryName(a)) - categoryIndex(categoryName(b)),
     )
 
-  console.log({ entries })
-
   const onChange = (dottedName) => {
     const encodedSituation = encodeSituation(
       {
@@ -88,7 +86,7 @@ export default function GestesMosaic({
   const nullSituation = Object.fromEntries(
     questions.map((question) => [question[0], 'non']),
   )
-  console.log(nullSituation)
+
   const runSituation = { ...nullSituation, ...situation }
 
   const count = questions.filter(
@@ -110,7 +108,7 @@ export default function GestesMosaic({
     questions.map((q) => q[0]),
     situation,
   )
-  console.log('null situation', resetSituation)
+
   const resetUrl = setSearchParams(
     encodeSituation(resetSituation, false, answeredQuestions),
     'url',

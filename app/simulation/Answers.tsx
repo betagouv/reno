@@ -56,7 +56,7 @@ export default function Answers({
   situation,
 }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
-  console.log({ rawAnsweredQuestions })
+
   const answeredQuestions = rawAnsweredQuestions.filter(
     (el) => el !== 'simulation . mode',
   )
