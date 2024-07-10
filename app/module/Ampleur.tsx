@@ -105,6 +105,9 @@ conditions communes: oui
                   display: flex;
                   align-items: center;
                   margin-bottom: 0.6rem;
+                  small {
+                    margin-left: 0.1rem;
+                  }
                 `}
               >
                 <input
