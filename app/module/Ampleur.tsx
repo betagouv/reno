@@ -52,6 +52,11 @@ conditions communes: oui
       `}
     >
       <h3>Les données d'entrée de votre plateforme d'annonce</h3>
+      <ul>
+        {personas.map((situation) => (
+          <li key={JSON.stringify(situation)}>{situation['DPE . actuel']}</li>
+        ))}
+      </ul>
       <section>
         <TextArea
           value={yaml}
@@ -60,6 +65,7 @@ conditions communes: oui
         <h3>Le module de simulation que verra l'usager</h3>
         <div
           css={`
+            border: 1px solid var(--color);
             --shadow-color: 0deg 0% 63%;
             --shadow-elevation-low: 0.3px 0.5px 0.7px
                 hsl(var(--shadow-color) / 0.34),
@@ -77,7 +83,7 @@ conditions communes: oui
             border-radius: 0.4rem;
             position: relative;
             h2 {
-              margin-top: 0.4rem;
+              margin-top: 0.8rem;
             }
             h2,
             h3 {
@@ -100,7 +106,7 @@ conditions communes: oui
               position: absolute;
               left: 50%;
               transform: translateX(-50%);
-              top: -1rem;
+              top: -0.7rem;
             }
           `}
         >
