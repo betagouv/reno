@@ -9,7 +9,8 @@ import styled from 'styled-components'
 import { Card } from '@/components/UI'
 
 const engine = new Publicodes(rules)
-export default function APIDemo() {
+
+export default function Ampleur() {
   const [yaml, setYaml] = useState(stringify(personas[0].situation))
   const [debouncedYaml] = useDebounce(yaml, 500)
 
@@ -44,17 +45,24 @@ export default function APIDemo() {
           onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
         />
         <h3>Le module de simulation que verra l'usager</h3>
-        <ul>
-          <li>Pas pour résidence secondaire</li>
-          <li>
-            <input placeholder="Votre revenu" />
-          </li>
-          <li>
-            <input placeholder="Votre revenu" />
-          </li>
-          <li>Ile de France ?</li>
-        </ul>
-        <Card>
+        <Card
+          css={`
+            h2 {
+              margin-top: 0;
+            }
+          `}
+        >
+          <h2>Aide à la rénovation d'ampleur</h2>
+          <ul>
+            <li>Pas pour résidence secondaire</li>
+            <li>
+              <input placeholder="Votre revenu" />
+            </li>
+            <li>
+              <input placeholder="Votre revenu" />
+            </li>
+            <li>Ile de France ?</li>
+          </ul>
           <EvaluationValue>
             <small>MaPrimeRénov' accompagnée</small>{' '}
             <div>
