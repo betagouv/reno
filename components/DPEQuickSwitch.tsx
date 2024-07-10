@@ -7,12 +7,13 @@ import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
 
-export default function ({ oldIndex }) {
+export default function ({ oldIndex, prefixText }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
+  const text = prefixText === undefined ? 'Vous avez déclaré un ' : prefixText
   return (
-    <p>
-      Vous avez déclaré un{' '}
+    <span>
+      {text}
       {editing ? (
         <span
           css={`
@@ -55,6 +56,6 @@ export default function ({ oldIndex }) {
         </span>
       )}
       .
-    </p>
+    </span>
   )
 }
