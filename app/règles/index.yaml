@@ -97,6 +97,14 @@ logement . type:
     possibilités:
       - "maison"
       - "appartement"
+logement . type . maison:
+  valeur: "maison"
+  par défaut: "maison"
+  titre: Une maison
+logement . type . appartement:
+  valeur: "appartement"
+  par défaut: "appartement"
+  titre: Un appartement
 
 logement . surface:
   titre: Surface habitable
@@ -177,7 +185,7 @@ logement . période de construction:
 
 logement . période de construction . au moins 25 ans:
 logement . période de construction . de 15 à 25 ans:
-logement . période de construction . entre 2 et 15 ans:
+logement . période de construction . de 2 à 15 ans:
 logement . période de construction . moins de 2 ans:
 
 logement . au moins 15 ans:

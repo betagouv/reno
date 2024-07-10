@@ -21,11 +21,11 @@ chauffage . pilotage connecté:
   description: |
     Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
 chauffage . pilotage connecté . montant: CEE . montant
-chauffage . pilotage connecté . surface chauffée:
-  question: Quelle est la surface chauffée de votre logement ?
+chauffage . pilotage connecté . surface chauffée: logement . surface
+  #question: Quelle est la surface chauffée de votre logement ?
   #par défaut: 100 m2 # estimation sur base de "surface" + ~10 % pour les escaliers, les combles habitées, etc
-  description: |
-    Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
+  #description: |
+  #  Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
 chauffage . pilotage connecté . CEE:
   titre: BAR-TH-173
   lien: |
@@ -41,14 +41,21 @@ chauffage . pilotage connecté . CEE . classe:
     Quelle est le type de système de pilotage connecté envisagé ?
   sous-titre: |
     On appelle classe A, les systèmes possédant un détecteur de présence
-  par défaut: "'B'"
+  par défaut: "B"
+  maximum: "'A'"
   suggestions:
-    B (sans détecteur de présence): "'B'"
-    A (avec détecteur de présence): "'A'"
-  une possibilité:
+    B (sans détecteur de présence): "B"
+    A (avec détecteur de présence): "A"
+  une possibilité parmi:
     possibilités:
-      - "'B'"
-      - "'A'"
+      - "B"
+      - "A"
+chauffage . pilotage connecté . CEE . classe . A:
+  valeur: "A"
+  titre: "A (avec détecteur de présence)"
+chauffage . pilotage connecté . CEE . classe . B:
+  valeur: "B"
+  titre: "B (sans détecteur de présence)"
 chauffage . pilotage connecté . CEE . facteur correctif région:
   variations:
     - si:

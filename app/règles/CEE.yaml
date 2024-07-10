@@ -23,10 +23,8 @@ CEE . projet . remplacement chaudière thermique:
     Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" CEE qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
 
     À l'inverse, pour le dispositif MaPrimeRénov' par gestes, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
-  une possibilité parmi:
-    possibilités:
-      - "Oui"
-      - "Non"
+  par défaut: non
+
 CEE . rénovation d'ampleur:
   icône: 'cee.svg'
   marque: CEE
