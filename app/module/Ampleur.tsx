@@ -1,16 +1,18 @@
 'use client'
-import personas from '@/app/personas.yaml'
-import Image from 'next/image'
-import dotIcon from '@/public/point.svg'
 import rules from '@/app/règles/rules'
+import DPELabel from '@/components/DPELabel'
+import DPEQuickSwitch from '@/components/DPEQuickSwitch'
+import { CTA, CTAWrapper } from '@/components/UI'
+import logo from '@/public/logo.svg'
+import dotIcon from '@/public/point.svg'
+import Image from 'next/image'
+import Link from 'next/link'
 import Publicodes, { formatValue } from 'publicodes'
 import { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { BlueEm } from '../LandingUI'
-import DPELabel from '@/components/DPELabel'
-import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 
 const engine = new Publicodes(rules)
 
@@ -191,6 +193,37 @@ conditions communes: oui
               {typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}
             </div>
           </EvaluationValue>
+
+          <CTAWrapper
+            $justify="right"
+            css={`
+              margin-bottom: 0;
+            `}
+          >
+            <CTA
+              css={`
+                margin-bottom: 0;
+                a  {
+                  display: flex;
+                  font-size: 85% !important;
+                  align-items: center;
+                  img {
+                    height: 2rem;
+                    width: auto;
+                    margin-right: 0.6rem;
+                  }
+                }
+              `}
+            >
+              <a
+                target="_blank"
+                href="https://mesaidesreno.beta.gouv.fr/simulation"
+              >
+                <Image src={logo} alt="Logo Mes Aides Réno" />
+                <span>Faire une simulation complète</span>
+              </a>
+            </CTA>
+          </CTAWrapper>
         </div>
       </section>
     </div>
