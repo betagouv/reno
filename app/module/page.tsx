@@ -1,11 +1,12 @@
-import { Intro, Main, PageBlock, Section } from '@/components/UI'
+import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
+import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
-import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Ampleur from './Ampleur'
+import { Suspense } from 'react'
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
   description:
@@ -59,8 +60,9 @@ export default function APIDoc() {
         <Wrapper>
           <Content>
             <h3>Démonstration</h3>
-
-            <Ampleur />
+            <Suspense>
+              <Ampleur />
+            </Suspense>
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
