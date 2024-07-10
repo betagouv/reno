@@ -8,7 +8,7 @@ const content = `
 
 ### À propos
 
-Mes Aides Réno est un service conçu par la [Direction Interministérielle du Numérique](https://www.numerique.gouv.fr/dinum/) en partenariat avec avec [France Rénov'](https://france-renov.gouv.fr/) et le [Secrétariat général à la planification écologique (SGPE)](https://www.info.gouv.fr/france-nation-verte).
+Mes Aides Réno est un service conçu par la [Direction Interministérielle du Numérique](https://www.numerique.gouv.fr/dinum/) en partenariat avec [France Rénov'](https://france-renov.gouv.fr/) et le [Secrétariat général à la planification écologique (SGPE)](https://www.info.gouv.fr/france-nation-verte).
 
 Ce service a pour objectif de simplifier l’accès à l’information sur les aides à la rénovation énergétique. Il est incubé par l'incubateur des services numériques de l'État, [beta.gouv](https://beta.gouv.fr). 
 
