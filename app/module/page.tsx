@@ -59,7 +59,7 @@ export default function APIDoc() {
 
         <Wrapper>
           <Content>
-            <h3>Démonstration</h3>
+            <h2>Démonstration</h2>
             <Suspense>
               <Ampleur />
             </Suspense>

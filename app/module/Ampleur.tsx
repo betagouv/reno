@@ -3,7 +3,7 @@ import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import personas from './examplePersonas.yaml'
-import { CTA, CTAWrapper } from '@/components/UI'
+import { CTA, CTAWrapper, Card } from '@/components/UI'
 import logo from '@/public/logo.svg'
 import dotIcon from '@/public/point.svg'
 import Image from 'next/image'
@@ -53,15 +53,48 @@ conditions communes: oui
         align-items: start;
       `}
     >
-      <h3>Les données d'entrée de votre plateforme d'annonce</h3>
-      <ul>
-        {personas.map(({ nom, situation }) => (
-          <li key={nom}>
-            <div>{nom}</div>
-            <div>DPE : {situation['DPE . actuel']}</div>
-          </li>
-        ))}
-      </ul>
+      <h3>La situation d'entrée de votre plateforme d'annonce</h3>
+      <div
+        css={`
+          max-width: 90vw;
+          overflow: scroll hidden;
+          white-space: nowrap;
+          height: 12rem;
+          scrollbar-width: none;
+          ul {
+            list-style-type: none;
+
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            li {
+              min-width: 12rem;
+              height: 10rem;
+              white-space: wrap;
+              > div {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              }
+            }
+          }
+        `}
+      >
+        <ul>
+          {personas.map(({ nom, situation }) => (
+            <li key={nom}>
+              <Card>
+                <div>{nom}</div>
+                <div>
+                  DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
+                </div>
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </div>
       <section>
         <h3>Le module de simulation que verra l'usager</h3>
         <div
@@ -200,7 +233,7 @@ conditions communes: oui
               <label>
                 <span>
                   Vos travaux font passer le DPE actuel{' '}
-                  <DPELabel index={currentDPE} /> vers un{' '}
+                  <DPELabel index={currentDPE - 1} /> vers un{' '}
                   <DPEQuickSwitch oldIndex={targetDPE} prefixText={''} />
                 </span>{' '}
               </label>
