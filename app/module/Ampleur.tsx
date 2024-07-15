@@ -2,25 +2,25 @@
 import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
-import personas from './examplePersonas.yaml'
-import { CTA, CTAWrapper, Card } from '@/components/UI'
-import logo from '@/public/logo.svg'
-import dotIcon from '@/public/point.svg'
-import Image from 'next/image'
-import Publicodes, { formatValue } from 'publicodes'
-import { useMemo, useState } from 'react'
-import styled from 'styled-components'
-import { useDebounce } from 'use-debounce'
-import { parse } from 'yaml'
-import { BlueEm, Labels } from '../LandingUI'
-import marianne from '@/public/marianne.svg'
 import { PrimeStyle } from '@/components/Geste'
+import { CTA, Card } from '@/components/UI'
+import {
+  encodeDottedName,
+  getSituation,
+} from '@/components/publicodes/situationUtils'
+import useSetSearchParams from '@/components/useSetSearchParams'
 import { roundToThousands } from '@/components/utils'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
-import useSetSearchParams from '@/components/useSetSearchParams'
+import marianne from '@/public/marianne.svg'
+import dotIcon from '@/public/point.svg'
+import Image from 'next/image'
 import Link from 'next/link'
-import { getSituation } from '@/components/publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
+import Publicodes from 'publicodes'
+import { useMemo } from 'react'
+import styled from 'styled-components'
+import { BlueEm, Labels } from '../LandingUI'
+import personas from './examplePersonas.yaml'
 
 const engine = new Publicodes(rules)
 
@@ -36,17 +36,25 @@ export default function Ampleur() {
   const userSituation = getSituation(situationSearchParams, rules)
   const personaSituation = personas[selectedPersona].situation
   const currentDPE = +personaSituation['DPE . actuel']
-  console.log('userSituation', userSituation, situationSearchParams)
   const targetDPE =
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
+
+  const defaultSituation = {
+    'ménage . revenu': 20000,
+    'ménage . personnes': 2,
+    'ménage . région . IdF': 'non',
+    'logement . résidence principale': 'oui',
+  }
+
   const situation = {
+    ...defaultSituation,
     ...personaSituation,
     'projet . DPE visé': targetDPE,
     ...userSituation,
   }
+  console.log('situation', situation)
 
   const mpra = useMemo(() => {
-    console.log('memo')
     try {
       const evaluation = engine
         .setSituation(situation)
@@ -58,7 +66,13 @@ export default function Ampleur() {
     }
   }, [situation])
 
-  const onChange = () => null
+  const onChange =
+    (dottedName) =>
+    ({ target: { value } }) =>
+      setSearchParams({
+        [encodeDottedName(dottedName)]:
+          (value === 'true' ? 'oui' : value === 'false' ? 'non' : value) + '*',
+      })
 
   return (
     <div
@@ -90,6 +104,7 @@ export default function Ampleur() {
               white-space: wrap;
               a {
                 text-decoration: none;
+                color: inherit;
                 > div {
                   height: 100%;
                   width: 100%;
@@ -115,6 +130,7 @@ export default function Ampleur() {
                   `}
                 >
                   <div>{nom}</div>
+                  <small>Logement de plus de 15 ans</small>
                   <div>
                     DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
                   </div>
@@ -208,10 +224,11 @@ export default function Ampleur() {
                     margin-right: 0.6rem;
                   `}
                   type="checkbox"
-                  name={'revenu'}
-                  value={true}
-                  checked={true}
-                  onChange={() => onChange()}
+                  name={'residenceprincipale'}
+                  checked={
+                    situation['logement . résidence principale'] === 'oui'
+                  }
+                  onChange={onChange('logement . résidence principale')}
                 />
                 <div>
                   <div>
@@ -239,9 +256,8 @@ export default function Ampleur() {
                   `}
                   type="checkbox"
                   name={'IDF'}
-                  value={true}
-                  checked={true}
-                  onChange={() => onChange()}
+                  checked={situation['ménage . région . IdF'] === 'non'}
+                  onChange={onChange('ménage . région . IdF')}
                 />
                 <div>
                   <div>Vous habitez actuellement hors Île-de-France</div>
@@ -254,7 +270,8 @@ export default function Ampleur() {
                 <span>Votre ménage est composé de </span>{' '}
                 <input
                   type="number"
-                  placeholder="2"
+                  placeholder={defaultSituation['ménage . personnes']}
+                  onChange={onChange('ménage . personnes')}
                   css={`
                     width: 4rem !important;
                   `}
@@ -266,7 +283,12 @@ export default function Ampleur() {
               <Dot />
               <label>
                 <span>Le revenu de votre ménage est de </span>{' '}
-                <input type="number" placeholder="Votre revenu" /> €
+                <input
+                  type="number"
+                  placeholder={defaultSituation['ménage . revenu']}
+                  onChange={onChange('ménage . revenu')}
+                />{' '}
+                €
               </label>
             </li>
             <li key="DPE">
@@ -396,7 +418,6 @@ export default function Ampleur() {
                 width: 6.5rem !important;
               `}
             />
-            <p>Un service proposé par l'État.</p>
           </footer>
         </div>
       </section>
