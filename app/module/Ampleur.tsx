@@ -19,18 +19,26 @@ import { roundToThousands } from '@/components/utils'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from 'next/link'
+import { getSituation } from '@/components/publicodes/situationUtils'
+import { useSearchParams } from 'next/navigation'
 
 const engine = new Publicodes(rules)
 
-export default function Ampleur({ searchParams }) {
+export default function Ampleur() {
   const setSearchParams = useSetSearchParams()
 
-  const [userSituation, setUserSituation] = useState({})
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
 
-  const selectedPersona = searchParams.persona || 0
+  const { persona: selectedPersona = 0, ...situationSearchParams } =
+    searchParams
+
+  const userSituation = getSituation(situationSearchParams, rules)
   const personaSituation = personas[selectedPersona].situation
   const currentDPE = +personaSituation['DPE . actuel']
-  const targetDPE = Math.max(currentDPE - 2, 1)
+  console.log('userSituation', userSituation, situationSearchParams)
+  const targetDPE =
+    +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
   const situation = {
     ...personaSituation,
     'projet . DPE visé': targetDPE,
@@ -267,7 +275,11 @@ export default function Ampleur({ searchParams }) {
                 <span>
                   Vos travaux font passer le DPE actuel{' '}
                   <DPELabel index={currentDPE - 1} /> vers un{' '}
-                  <DPEQuickSwitch oldIndex={targetDPE - 1} prefixText={''} />
+                  <DPEQuickSwitch
+                    oldIndex={targetDPE - 1}
+                    prefixText={''}
+                    dottedName="projet . DPE visé"
+                  />
                 </span>{' '}
               </label>
             </li>
