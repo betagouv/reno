@@ -28,7 +28,14 @@ export default function Ampleur({ searchParams }) {
   const [userSituation, setUserSituation] = useState({})
 
   const selectedPersona = searchParams.persona || 0
-  const situation = { ...personas[selectedPersona].situation, ...userSituation }
+  const personaSituation = personas[selectedPersona].situation
+  const currentDPE = +personaSituation['DPE . actuel']
+  const targetDPE = Math.max(currentDPE - 2, 1)
+  const situation = {
+    ...personaSituation,
+    'projet . DPE visé': targetDPE,
+    ...userSituation,
+  }
 
   const mpra = useMemo(() => {
     console.log('memo')
@@ -45,8 +52,6 @@ export default function Ampleur({ searchParams }) {
 
   const onChange = () => null
 
-  const currentDPE = +situation['DPE . actuel']
-  const targetDPE = Math.max(currentDPE - 2, 1)
   return (
     <div
       css={`
@@ -262,7 +267,7 @@ export default function Ampleur({ searchParams }) {
                 <span>
                   Vos travaux font passer le DPE actuel{' '}
                   <DPELabel index={currentDPE - 1} /> vers un{' '}
-                  <DPEQuickSwitch oldIndex={targetDPE} prefixText={''} />
+                  <DPEQuickSwitch oldIndex={targetDPE - 1} prefixText={''} />
                 </span>{' '}
               </label>
             </li>
