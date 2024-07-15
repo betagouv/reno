@@ -12,10 +12,11 @@ import { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 import { parse } from 'yaml'
-import { BlueEm } from '../LandingUI'
+import { BlueEm, Labels } from '../LandingUI'
 import marianne from '@/public/marianne.svg'
 import { PrimeStyle } from '@/components/Geste'
 import { roundToThousands } from '@/components/utils'
+import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 
 const engine = new Publicodes(rules)
 
@@ -128,7 +129,7 @@ conditions communes: oui
               font-weight: 500;
             }
             h2 {
-              margin-top: 0.4rem;
+              margin-top: 0.6rem;
               margin-bottom: 0.8rem;
               font-size: 160%;
               font-weight: 600;
@@ -137,19 +138,29 @@ conditions communes: oui
               margin-top: 2.5rem;
               margin-bottom: 0.6rem;
             }
-            ul {
-              list-style-type: none;
-              li {
-                margin: 1.2rem 0;
-              }
-            }
           `}
         >
+          <Labels
+            css={`
+              margin: 0;
+            `}
+          >
+            {['⚡️ En 2024, les aides évoluent'].map((text) => (
+              <li key={text}>{text}</li>
+            ))}
+          </Labels>
           <h2>
             Quelles <BlueEm>aides</BlueEm> pour une rénovation d'ampleur ?
           </h2>
           <hr />
-          <ul>
+          <ul
+            css={`
+              list-style-type: none;
+              li {
+                margin: 1.2rem 0;
+              }
+            `}
+          >
             <li>
               <label
                 css={`
@@ -337,6 +348,7 @@ conditions communes: oui
               }
               p {
                 margin: 0;
+                margin-left: 2rem;
               }
               margin-top: 1rem;
             `}
@@ -345,7 +357,15 @@ conditions communes: oui
               src={marianne}
               alt="Iconographie officielle Marianne, symbole de la république française"
             />
-            <p>Mes Aides Réno est un service proposé par l'État.</p>
+
+            <Image
+              src={logoFranceRenov}
+              alt="Logo de France Rénov"
+              css={`
+                width: 6.5rem !important;
+              `}
+            />
+            <p>Un service proposé par l'État.</p>
           </footer>
         </div>
       </section>
