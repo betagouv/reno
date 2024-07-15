@@ -17,7 +17,7 @@ const iframeCode = `
 <iframe src="https://mesaidesreno.beta.gouv.fr/module/integration" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: .2rem solid black; border-radius: 1rem; "></iframe>
 `
 
-export default function APIDoc() {
+export default function Module({ searchParams }) {
   return (
     <main
       style={css`
@@ -61,7 +61,7 @@ export default function APIDoc() {
           <Content>
             <h2>Démonstration</h2>
             <Suspense>
-              <Ampleur />
+              <Ampleur searchParams={searchParams} />
             </Suspense>
           </Content>
         </Wrapper>

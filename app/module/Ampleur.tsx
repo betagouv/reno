@@ -17,29 +17,31 @@ import marianne from '@/public/marianne.svg'
 import { PrimeStyle } from '@/components/Geste'
 import { roundToThousands } from '@/components/utils'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
+import useSetSearchParams from '@/components/useSetSearchParams'
+import Link from 'next/link'
 
 const engine = new Publicodes(rules)
 
-export default function Ampleur() {
-  const [yaml, setYaml] = useState(`
-DPE . actuel: 6
-conditions communes: oui
-`)
-  const [debouncedYaml] = useDebounce(yaml, 500)
+export default function Ampleur({ searchParams }) {
+  const setSearchParams = useSetSearchParams()
 
-  const [mpra, situation] = useMemo(() => {
+  const [userSituation, setUserSituation] = useState({})
+
+  const selectedPersona = searchParams.persona || 0
+  const situation = { ...personas[selectedPersona].situation, ...userSituation }
+
+  const mpra = useMemo(() => {
     console.log('memo')
     try {
-      const json = parse(debouncedYaml)
       const evaluation = engine
-        .setSituation(json)
+        .setSituation(situation)
         .evaluate('MPR . accompagnée . montant')
-      return [evaluation.nodeValue, json]
+      return evaluation.nodeValue
     } catch (e) {
       console.log(e)
       return e
     }
-  }, [debouncedYaml])
+  }, [situation])
 
   const onChange = () => null
 
@@ -73,26 +75,38 @@ conditions communes: oui
               min-width: 12rem;
               height: 10rem;
               white-space: wrap;
-              > div {
-                height: 100%;
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
+              a {
+                text-decoration: none;
+                > div {
+                  height: 100%;
+                  width: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                }
               }
             }
           }
         `}
       >
         <ul>
-          {personas.map(({ nom, situation }) => (
+          {personas.map(({ nom, situation }, i) => (
             <li key={nom}>
-              <Card>
-                <div>{nom}</div>
-                <div>
-                  DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
-                </div>
-              </Card>
+              <Link
+                href={setSearchParams({ persona: i }, 'url')}
+                scroll={false}
+              >
+                <Card
+                  css={`
+                    ${selectedPersona == i && `border: 2px solid var(--color)`}
+                  `}
+                >
+                  <div>{nom}</div>
+                  <div>
+                    DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
+                  </div>
+                </Card>
+              </Link>
             </li>
           ))}
         </ul>
