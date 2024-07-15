@@ -15,6 +15,7 @@ import { parse } from 'yaml'
 import { BlueEm } from '../LandingUI'
 import marianne from '@/public/marianne.svg'
 import { PrimeStyle } from '@/components/Geste'
+import { roundToThousands } from '@/components/utils'
 
 const engine = new Publicodes(rules)
 
@@ -32,7 +33,7 @@ conditions communes: oui
       const evaluation = engine
         .setSituation(json)
         .evaluate('MPR . accompagnée . montant')
-      return [formatValue(evaluation, { precision: 0 }), json]
+      return [evaluation.nodeValue, json]
     } catch (e) {
       console.log(e)
       return e
@@ -175,8 +176,10 @@ conditions communes: oui
                   onChange={() => onChange()}
                 />
                 <div>
-                  <div>Usage comme résidence principale</div>
-                  <small>la votre ou celle de votre locataire</small>
+                  <div>
+                    Le logement sera votre résidence principale ou celle de
+                    votre locataire
+                  </div>
                 </div>
               </label>
             </li>
@@ -251,7 +254,13 @@ conditions communes: oui
               <div>
                 Jusqu'à{' '}
                 <PrimeStyle>
-                  {typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}
+                  {typeof mpra === 'string' ? (
+                    mpra
+                  ) : (
+                    <span>
+                      {roundToThousands(mpra).toLocaleString('fr-FR')} €
+                    </span>
+                  )}
                 </PrimeStyle>{' '}
                 d'aides
               </div>
@@ -277,24 +286,18 @@ conditions communes: oui
               align-items: center;
               background: var(--lightestColor);
               justify-content: space-evenly;
-              h4 {
+              padding: 1.2rem 1rem;
+              p {
                 margin: 0;
-                margin-bottom: 0.6rem;
-              }
-              padding: 0.4rem 1rem;
-              > div {
-                margin-right: 1rem;
+                margin-right: 2rem;
               }
               margin-top: 2rem;
             `}
           >
-            <div>
-              <h4>Découvrir toutes les aides</h4>
-              <p>
-                En parallèle du parcours accompagné, il existe des aides par
-                geste pour rénover votre bien de façon plus progressive.
-              </p>
-            </div>
+            <p>
+              Découvrez toutes les aides pour une rénovation énergétique votre
+              logement
+            </p>
             <CTA
               css={`
                 margin-bottom: 0;
@@ -314,8 +317,7 @@ conditions communes: oui
                 target="_blank"
                 href="https://mesaidesreno.beta.gouv.fr/simulation"
               >
-                <Image src={logo} alt="Logo Mes Aides Réno" />
-                <span>Affiner ma simulation</span>
+                <span>➞&nbsp;&nbsp;J'affine ma simulation</span>
               </a>
             </CTA>
           </section>
