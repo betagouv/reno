@@ -400,8 +400,9 @@ export const EvaluationValue = styled.div`
   display: flex;
   align-items: center;
   font-size: 150%;
-  border: 2px solid var(--color);
   width: fit-content;
+  background: var(--lightestColor);
+  border-bottom: 4px solid var(--color);
 
   padding: 1rem 2rem;
   text-align: center;
