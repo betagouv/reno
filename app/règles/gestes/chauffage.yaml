@@ -35,25 +35,26 @@ chauffage . pilotage connecté . CEE . montant:
     - facteur correctif surface
     - CEE . prix kWh Cumac
   unité: €
+chauffage . pilotage connecté . CEE . question:
+  type: liste
+  valeurs:
+    - classe
 chauffage . pilotage connecté . CEE . classe:
   question: |
     Quelle est le type de système de pilotage connecté envisagé ?
   sous-titre: |
     On appelle classe A, les systèmes possédant un détecteur de présence
-  par défaut: "B"
+  par défaut: "'B'"
   maximum: "'A'"
-  suggestions:
-    B (sans détecteur de présence): "B"
-    A (avec détecteur de présence): "A"
   une possibilité parmi:
     possibilités:
-      - "B"
-      - "A"
+      - B
+      - A
 chauffage . pilotage connecté . CEE . classe . A:
-  valeur: "A"
+  valeur: "'A'"
   titre: "A (avec détecteur de présence)"
 chauffage . pilotage connecté . CEE . classe . B:
-  valeur: "B"
+  valeur: "'B'"
   titre: "B (sans détecteur de présence)"
 chauffage . pilotage connecté . CEE . facteur correctif région:
   variations:
@@ -245,7 +246,9 @@ chauffage . solaire combiné . Coup de pouce . montant:
   applicable si: CEE . projet . remplacement chaudière thermique
   rend non applicable: CEE . montant
   valeur: 5000 €
+chauffage . solaire combiné . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . solaire combiné . CEE:
+  non applicable si: CEE . projet . remplacement chaudière thermique
   titre: BAR-TH-143
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA51-5%20à%20compter%20du%2001-03-2023.pdf
 chauffage . solaire combiné . CEE . montant:

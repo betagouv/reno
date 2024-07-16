@@ -66,17 +66,31 @@ ventilation . double flux . CEE . montant:
     - facteur correctif surface
     - CEE . prix kWh Cumac
   unité: €
+ventilation . double flux . CEE . question:
+  type: liste
+  valeurs:
+    - type de ventilation
 ventilation . double flux . CEE . surface: logement . surface
 ventilation . double flux . CEE . type de ventilation:
+  question: Quel type de ventilation souhaitez-vous installer ?
   par défaut: "'autoréglable'"
-  possibilités:
-    - 'autoréglable'
-    - 'double flux'
+  maximum: "'double flux'"
+  une possibilité parmi:
+    possibilités:
+      - 'autoréglable'
+      - 'modulée'
+ventilation . double flux . CEE . type de ventilation . autoréglable:
+  valeur: "'autoréglable'"
+  titre: "Autoréglable"
+ventilation . double flux . CEE . type de ventilation . modulée:
+  valeur: "'modulée'"
+  titre: "Modulée"
 ventilation . double flux . CEE . facteur correctif région:
   variations:
     - si: type de ventilation = 'autoréglable'
       alors: facteur correctif autoréglable
-      sinon: facteur correctif double flux
+    - si: type de ventilation = 'modulée'
+      alors: facteur correctif modulée
 ventilation . double flux . CEE . facteur correctif autoréglable:
   variations:
     - si: CEE . région = 'H1'
@@ -85,7 +99,7 @@ ventilation . double flux . CEE . facteur correctif autoréglable:
       alors: 32500
     - si: CEE . région = 'H3'
       alors: 21600
-ventilation . double flux . CEE . facteur correctif double flux:
+ventilation . double flux . CEE . facteur correctif modulée:
   variations:
     - si: CEE . région = 'H1'
       alors: 42000
