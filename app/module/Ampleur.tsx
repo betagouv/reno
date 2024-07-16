@@ -194,6 +194,7 @@ export default function Ampleur() {
             <span>Votre ménage est composé de </span>{' '}
             <input
               type="number"
+              min="1"
               placeholder={defaultSituation['ménage . personnes']}
               onChange={onChange('ménage . personnes')}
               css={`
@@ -209,6 +210,7 @@ export default function Ampleur() {
             <span>Le revenu de votre ménage est de </span>{' '}
             <input
               type="number"
+              min="0"
               placeholder={defaultSituation['ménage . revenu']}
               onChange={onChange('ménage . revenu')}
             />{' '}
