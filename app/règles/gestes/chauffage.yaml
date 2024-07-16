@@ -28,8 +28,7 @@ chauffage . pilotage connecté . surface chauffée: logement . surface
   #  Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
 chauffage . pilotage connecté . CEE:
   titre: BAR-TH-173
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-173%20vA56-1%20à%20compter%20du%2030-11-2023.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-173%20vA56-1%20à%20compter%20du%2030-11-2023.pdf
 chauffage . pilotage connecté . CEE . montant:
   produit:
     - facteur correctif région
@@ -168,8 +167,7 @@ chauffage . chauffe-eau thermodynamique . MPR . montant:
     - sinon: 0 €
 chauffage . chauffe-eau thermodynamique . CEE:
   titre: BAR-TH-148
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-148%20v%20A15-2.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-148%20v%20A15-2.pdf
 chauffage . chauffe-eau thermodynamique . CEE . montant:
   produit:
     - barème
@@ -204,8 +202,7 @@ chauffage . chauffe-eau solaire . MPR . montant:
     - sinon: 0 €
 chauffage . chauffe-eau solaire . CEE:
   titre: BAR-TH-101
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-101.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-101.pdf
 chauffage . chauffe-eau solaire . CEE . montant:
   produit:
     - barème
@@ -250,8 +247,7 @@ chauffage . solaire combiné . Coup de pouce . montant:
   valeur: 5000 €
 chauffage . solaire combiné . CEE:
   titre: BAR-TH-143
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA51-5%20à%20compter%20du%2001-03-2023.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA51-5%20à%20compter%20du%2001-03-2023.pdf
 chauffage . solaire combiné . CEE . montant:
   produit:
     - barème
@@ -288,8 +284,7 @@ chauffage . partie thermique PVT eau . MPR . montant:
     - sinon: 0 €
 chauffage . partie thermique PVT eau . CEE:
   titre: BAR-TH-162
-  lien: |
-    https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-162.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-162.pdf
 chauffage . partie thermique PVT eau . CEE . montant:
   produit:
     - 20900

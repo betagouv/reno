@@ -30,8 +30,7 @@ isolation . vitres . barème:
     - sinon: 0 €
 isolation . vitres . CEE:
   titre: BAR-EN-104
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-104%20vA54-2%20%C3%A0%20compter%20du%2001-01-2024.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-104%20vA54-2%20%C3%A0%20compter%20du%2001-01-2024.pdf
 isolation . vitres . CEE . surface:
   question: Quelle surface de vitre souhaitez-vous remplacer
   par défaut: 4 m2
@@ -86,8 +85,7 @@ isolation . murs extérieurs . MPR . barème:
     - sinon: 0 €
 isolation . murs extérieurs . CEE:
   titre: BAR-EN-102
-  lien : |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf"
+  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . murs extérieurs . CEE . montant:
   produit:
     - surface
@@ -120,8 +118,7 @@ isolation . murs intérieurs . MPR . barème:
     - sinon: 0 €
 isolation . murs intérieurs . CEE:
   titre: BAR-EN-102
-  lien : |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf"
+  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . murs intérieurs . CEE . montant:
   produit:
     - surface
@@ -154,8 +151,7 @@ isolation . rampants . MPR . barème:
     - sinon: 0 €
 isolation . rampants . CEE:
   titre: BAR-EN-101
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/Fiche%20BAR-EN-101.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/Fiche%20BAR-EN-101.pdf
 isolation . rampants . CEE . montant:
   produit:
     - surface
@@ -196,8 +192,7 @@ isolation . toitures terrasses . MPR . barème:
     - sinon: 0 €
 isolation . toitures terrasses . CEE:
   titre: BAR-EN-105
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-105%20vA39-3%20%C3%A0%20compter%20du%2001-05-2022.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-105%20vA39-3%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . toitures terrasses . CEE . montant:
   produit:
     - surface
@@ -223,8 +218,7 @@ isolation . plancher bas . surface:
 isolation . plancher bas . montant: CEE . montant
 isolation . plancher bas . CEE:
   titre: BAR-EN-103
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-103%20vA39-5%20%C3%A0%20compter%20du%2001-05-2022.pdf"
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-103%20vA39-5%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . plancher bas . CEE . montant: 
   produit:
     - barème

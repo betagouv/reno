@@ -174,9 +174,7 @@ chauffage . bois . poêle . à bûches . MPR . montant:
     - sinon: 0 €
 chauffage . bois . poêle . à bûches . CEE:
   titre: BAR-TH-112
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf"
-chauffage . bois . poêle . à bûches . CEE . montant: poêle et insert . CEE . montant
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 
 chauffage . bois . poêle . à granulés:
   par défaut: oui
@@ -198,6 +196,4 @@ chauffage . bois . poêle . à granulés . MPR . montant:
     - sinon: 0 €
 chauffage . bois . poêle . à granulés . CEE:
   titre: BAR-TH-112
-  lien: |
-    "https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf"
-chauffage . bois . poêle . à granulés . CEE . montant: poêle et insert . CEE . montant
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
