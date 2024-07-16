@@ -4,7 +4,7 @@ import { CTA, CTAWrapper, Card } from './UI'
 import { ExplicationMPRG } from './explications/Éligibilité'
 import GestesPreview from './mprg/GestesPreview'
 
-export default function ÀlaCarteSummary({ engine, url, situation }) {
+export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
   const isNotApplicable = false
   return (
     <section>
@@ -23,6 +23,18 @@ export default function ÀlaCarteSummary({ engine, url, situation }) {
           min-height: 10rem;
         `}
       >
+        <GestesPreview
+            {...{
+              rules,
+              dottedNames: [
+                'gestes . recommandés . audit',
+                'gestes . chauffage . PAC . air-eau',
+                'gestes . isolation . murs extérieurs',
+              ],
+              engine,
+              situation,
+            }}
+        />
         <div
           css={`
             display: ${!isNotApplicable && url ? 'visible' : 'none'};

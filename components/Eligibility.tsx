@@ -122,7 +122,7 @@ export default function Eligibility({
         </li>
         <li>
           <ÀlaCarteSummary
-            {...{ engine, url: nextLink('MPR . non accompagnée . montant'), situation }}
+            {...{ engine, rules, url: nextLink('MPR . non accompagnée . montant'), situation }}
           />
         </li>
       </Results>
