@@ -12,6 +12,7 @@ const basePaths = [
   '/locales',
   '/interdiction-location',
   '/integration',
+  '/module',
 ]
 
 const documentationPaths = Object.keys(rules)
