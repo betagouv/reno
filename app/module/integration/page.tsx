@@ -1,3 +1,12 @@
+import { Suspense } from 'react'
+import Ampleur from '../Ampleur'
+
 export default function Integration() {
-  return <div>plop</div>
+  return (
+    <div>
+      <Suspense>
+        <Ampleur />
+      </Suspense>
+    </div>
+  )
 }

@@ -14,7 +14,6 @@ import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import marianne from '@/public/marianne.svg'
 import dotIcon from '@/public/point.svg'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
@@ -80,353 +79,268 @@ export default function Ampleur() {
   return (
     <div
       css={`
-        margin: 2rem 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
+        background: white;
+        padding: 1.6rem;
+        height: 800px;
+        width: 720px;
+        position: relative;
+        h2 + hr {
+          width: 4rem;
+          background: var(--color);
+          height: 4px;
+          margin-bottom: 2.6rem;
+        }
+        h2,
+        h3 {
+          font-size: 140%;
+          font-weight: 500;
+        }
+        h2 {
+          margin-top: 0.6rem;
+          margin-bottom: 0.8rem;
+          font-size: 160%;
+          font-weight: 600;
+        }
+        h3 {
+          margin-top: 2.5rem;
+          margin-bottom: 0.6rem;
+        }
       `}
     >
-      <h3>La situation d'entrée de votre plateforme d'annonce</h3>
-      <div
+      <Labels
         css={`
-          max-width: 90vw;
-          overflow: scroll hidden;
-          white-space: nowrap;
-          height: 12rem;
-          scrollbar-width: none;
-          ul {
-            list-style-type: none;
-
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            li {
-              min-width: 12rem;
-              height: 10rem;
-              white-space: wrap;
-              a {
-                text-decoration: none;
-                color: inherit;
-                > div {
-                  height: 100%;
-                  width: 100%;
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: space-between;
-                }
-              }
-            }
+          margin: 0;
+        `}
+      >
+        {['⚡️ En 2024, les aides évoluent'].map((text) => (
+          <li key={text}>{text}</li>
+        ))}
+      </Labels>
+      <h2>
+        Quelles <BlueEm>aides</BlueEm> pour une rénovation d'ampleur ?
+      </h2>
+      <hr />
+      <ul
+        css={`
+          list-style-type: none;
+          li {
+            margin: 1.2rem 0;
           }
         `}
       >
-        <ul>
-          {personas.map(({ nom, situation }, i) => (
-            <li key={nom}>
-              <Link
-                href={setSearchParams({ persona: i }, 'url')}
-                scroll={false}
-              >
-                <Card
-                  css={`
-                    ${selectedPersona == i && `border: 2px solid var(--color)`}
-                  `}
-                >
-                  <div>{nom}</div>
-                  <small>Logement de plus de 15 ans</small>
-                  <div>
-                    DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
-                  </div>
-                </Card>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <section>
-        <h3>Le module de simulation que verra l'usager</h3>
-        <div
-          css={`
-            --shadow-color: 0deg 0% 63%;
-            --shadow-elevation-low: 0.3px 0.5px 0.7px
-                hsl(var(--shadow-color) / 0.34),
-              0.4px 0.8px 1px -1.2px hsl(var(--shadow-color) / 0.34),
-              1px 2px 2.5px -2.5px hsl(var(--shadow-color) / 0.34);
-            --shadow-elevation-medium: 0.3px 0.5px 0.7px
-                hsl(var(--shadow-color) / 0.36),
-              0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-              2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-              5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
-            box-shadow: var(--shadow-elevation-medium);
-            background: white;
-            padding: 1.6rem;
-            width: 45rem;
-            border-radius: 0.4rem;
-            position: relative;
-            h2 + hr {
-              width: 4rem;
-              background: var(--color);
-              height: 4px;
-              margin-bottom: 2.6rem;
-            }
-            h2,
-            h3 {
-              font-size: 140%;
-              font-weight: 500;
-            }
-            h2 {
-              margin-top: 0.6rem;
-              margin-bottom: 0.8rem;
-              font-size: 160%;
-              font-weight: 600;
-            }
-            h3 {
-              margin-top: 2.5rem;
+        <li>
+          <label
+            css={`
+              cursor: pointer;
+              display: flex;
+              align-items: center;
               margin-bottom: 0.6rem;
-            }
-          `}
-        >
-          <Labels
-            css={`
-              margin: 0;
-            `}
-          >
-            {['⚡️ En 2024, les aides évoluent'].map((text) => (
-              <li key={text}>{text}</li>
-            ))}
-          </Labels>
-          <h2>
-            Quelles <BlueEm>aides</BlueEm> pour une rénovation d'ampleur ?
-          </h2>
-          <hr />
-          <ul
-            css={`
-              list-style-type: none;
-              li {
-                margin: 1.2rem 0;
+              small {
+                margin-left: 0.1rem;
               }
             `}
           >
-            <li>
-              <label
-                css={`
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  margin-bottom: 0.6rem;
-                  small {
-                    margin-left: 0.1rem;
-                  }
-                `}
-              >
-                <input
-                  css={`
-                    width: 1.4rem;
-                    height: 1.4rem;
-                    cursor: pointer;
-                    margin-right: 0.6rem;
-                  `}
-                  type="checkbox"
-                  name={'residenceprincipale'}
-                  defaultChecked={
-                    situation['logement . résidence principale'] === 'oui'
-                  }
-                  onChange={onChange(
-                    'logement . résidence principale',
-                    'checkbox',
-                  )}
-                />
-                <div>
-                  <div>
-                    Le logement sera votre résidence principale ou celle de
-                    votre locataire
-                  </div>
-                </div>
-              </label>
-            </li>
-            <li>
-              <label
-                css={`
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  margin-bottom: 0.6rem;
-                `}
-              >
-                <input
-                  css={`
-                    width: 1.4rem;
-                    height: 1.4rem;
-                    cursor: pointer;
-                    margin-right: 0.6rem;
-                  `}
-                  type="checkbox"
-                  name={'IDF'}
-                  defaultChecked={situation['ménage . région . IdF'] === 'non'}
-                  onChange={onChange('ménage . région . IdF', 'checkbox')}
-                />
-                <div>
-                  <div>Vous habitez actuellement hors Île-de-France</div>
-                </div>
-              </label>
-            </li>
-            <li key="personnes">
-              <Dot />
-              <label>
-                <span>Votre ménage est composé de </span>{' '}
-                <input
-                  type="number"
-                  placeholder={defaultSituation['ménage . personnes']}
-                  onChange={onChange('ménage . personnes')}
-                  css={`
-                    width: 4rem !important;
-                  `}
-                />{' '}
-                personnes
-              </label>
-            </li>
-            <li key="revenu">
-              <Dot />
-              <label>
-                <span>Le revenu de votre ménage est de </span>{' '}
-                <input
-                  type="number"
-                  placeholder={defaultSituation['ménage . revenu']}
-                  onChange={onChange('ménage . revenu')}
-                />{' '}
-                €
-              </label>
-            </li>
-            <li key="DPE">
-              <Dot />
-              <label>
-                <span>
-                  Vos travaux font passer le DPE actuel{' '}
-                  <DPELabel index={currentDPE - 1} /> vers un{' '}
-                  <DPEQuickSwitch
-                    oldIndex={targetDPE - 1}
-                    prefixText={''}
-                    dottedName="projet . DPE visé"
-                  />
-                </span>{' '}
-              </label>
-            </li>
-          </ul>
-          <h3>Pour ce bien, vous pouvez toucher :</h3>
-          <EvaluationValue>
-            <Image
-              src={'/investissement.svg'}
-              alt="Icône argent dans la main"
-              width="10"
-              height="10"
+            <input
+              css={`
+                width: 1.4rem;
+                height: 1.4rem;
+                cursor: pointer;
+                margin-right: 0.6rem;
+              `}
+              type="checkbox"
+              name={'residenceprincipale'}
+              defaultChecked={
+                situation['logement . résidence principale'] === 'oui'
+              }
+              onChange={onChange('logement . résidence principale', 'checkbox')}
             />
             <div>
               <div>
-                {mpra > 0 && <span>Jusqu'à </span>}
-                <PrimeStyle>
-                  {typeof mpra === 'string' ? (
-                    mpra
-                  ) : (
-                    <span>
-                      {roundToThousands(mpra).toLocaleString('fr-FR')} €
-                    </span>
-                  )}
-                </PrimeStyle>{' '}
-                d'aides
+                Le logement sera votre résidence principale ou celle de votre
+                locataire
               </div>
-              <small
-                css={`
-                  display: block;
-                  font-size: 70%;
-                  margin: 0 auto;
-                  margin-top: 0.4rem;
-                `}
-              >
-                avec{' '}
-                <BlueEm>
-                  <strong>MaPrimeRénov'</strong>
-                </BlueEm>{' '}
-              </small>{' '}
             </div>
-          </EvaluationValue>
-          <section
+          </label>
+        </li>
+        <li>
+          <label
             css={`
-              margin-bottom: 0;
+              cursor: pointer;
               display: flex;
               align-items: center;
-              background: var(--lightestColor);
-              justify-content: space-evenly;
-              padding: 1.2rem 1rem;
-              p {
-                margin: 0;
-                margin-right: 2rem;
-              }
-              margin-top: 2rem;
+              margin-bottom: 0.6rem;
             `}
           >
-            <p>
-              Découvrez toutes les aides pour une rénovation énergétique votre
-              logement
-            </p>
-            <CTA
+            <input
               css={`
-                margin-bottom: 0;
-                a  {
-                  display: flex;
-                  font-size: 85% !important;
-                  align-items: center;
-                  img {
-                    height: 2rem;
-                    width: auto;
-                    margin-right: 0.6rem;
-                  }
-                }
+                width: 1.4rem;
+                height: 1.4rem;
+                cursor: pointer;
+                margin-right: 0.6rem;
               `}
-            >
-              <a
-                target="_blank"
-                href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(situationSearchParams).toString()}`}
-              >
-                <span>➞&nbsp;&nbsp;J'affine ma simulation</span>
-              </a>
-            </CTA>
-          </section>
-
-          <footer
+              type="checkbox"
+              name={'IDF'}
+              defaultChecked={situation['ménage . région . IdF'] === 'non'}
+              onChange={onChange('ménage . région . IdF', 'checkbox')}
+            />
+            <div>
+              <div>Vous habitez actuellement hors Île-de-France</div>
+            </div>
+          </label>
+        </li>
+        <li key="personnes">
+          <Dot />
+          <label>
+            <span>Votre ménage est composé de </span>{' '}
+            <input
+              type="number"
+              placeholder={defaultSituation['ménage . personnes']}
+              onChange={onChange('ménage . personnes')}
+              css={`
+                width: 4rem !important;
+              `}
+            />{' '}
+            personnes
+          </label>
+        </li>
+        <li key="revenu">
+          <Dot />
+          <label>
+            <span>Le revenu de votre ménage est de </span>{' '}
+            <input
+              type="number"
+              placeholder={defaultSituation['ménage . revenu']}
+              onChange={onChange('ménage . revenu')}
+            />{' '}
+            €
+          </label>
+        </li>
+        <li key="DPE">
+          <Dot />
+          <label>
+            <span>
+              Vos travaux font passer le DPE actuel{' '}
+              <DPELabel index={currentDPE - 1} /> vers un{' '}
+              <DPEQuickSwitch
+                oldIndex={targetDPE - 1}
+                prefixText={''}
+                dottedName="projet . DPE visé"
+              />
+            </span>{' '}
+          </label>
+        </li>
+      </ul>
+      <h3>Pour ce bien, vous pouvez toucher :</h3>
+      <EvaluationValue>
+        <Image
+          src={'/investissement.svg'}
+          alt="Icône argent dans la main"
+          width="10"
+          height="10"
+        />
+        <div>
+          <div>
+            {mpra > 0 && <span>Jusqu'à </span>}
+            <PrimeStyle>
+              {typeof mpra === 'string' ? (
+                mpra
+              ) : (
+                <span>{roundToThousands(mpra).toLocaleString('fr-FR')} €</span>
+              )}
+            </PrimeStyle>{' '}
+            d'aides
+          </div>
+          <small
             css={`
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-bottom: -1rem;
-              margin-top: 1rem;
-
-              > img {
-                height: 5.5rem;
-                width: auto;
-                margin-right: 1rem;
-              }
-              p {
-                margin: 0;
-                margin-left: 2rem;
-              }
-              margin-top: 1rem;
+              display: block;
+              font-size: 70%;
+              margin: 0 auto;
+              margin-top: 0.4rem;
             `}
           >
-            <Image
-              src={marianne}
-              alt="Iconographie officielle Marianne, symbole de la république française"
-            />
-
-            <Image
-              src={logoFranceRenov}
-              alt="Logo de France Rénov"
-              css={`
-                width: 6.5rem !important;
-              `}
-            />
-          </footer>
+            avec{' '}
+            <BlueEm>
+              <strong>MaPrimeRénov'</strong>
+            </BlueEm>{' '}
+          </small>{' '}
         </div>
+      </EvaluationValue>
+      <section
+        css={`
+          margin-bottom: 0;
+          display: flex;
+          align-items: center;
+          background: var(--lightestColor);
+          justify-content: space-evenly;
+          padding: 1.2rem 1rem;
+          p {
+            margin: 0;
+            margin-right: 2rem;
+          }
+          margin-top: 2rem;
+        `}
+      >
+        <p>
+          Découvrez toutes les aides pour une rénovation énergétique votre
+          logement
+        </p>
+        <CTA
+          css={`
+            margin-bottom: 0;
+            a  {
+              display: flex;
+              font-size: 85% !important;
+              align-items: center;
+              img {
+                height: 2rem;
+                width: auto;
+                margin-right: 0.6rem;
+              }
+            }
+          `}
+        >
+          <a
+            target="_blank"
+            href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(situationSearchParams).toString()}`}
+          >
+            <span>➞&nbsp;&nbsp;J'affine ma simulation</span>
+          </a>
+        </CTA>
       </section>
+
+      <footer
+        css={`
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: -1rem;
+          margin-top: 1rem;
+
+          > img {
+            height: 5.5rem;
+            width: auto;
+            margin-right: 1rem;
+          }
+          p {
+            margin: 0;
+            margin-left: 2rem;
+          }
+          margin-top: 1rem;
+        `}
+      >
+        <Image
+          src={marianne}
+          alt="Iconographie officielle Marianne, symbole de la république française"
+        />
+
+        <Image
+          src={logoFranceRenov}
+          alt="Logo de France Rénov"
+          css={`
+            width: 6.5rem !important;
+          `}
+        />
+      </footer>
     </div>
   )
 }

@@ -5,8 +5,7 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
-import Ampleur from './Ampleur'
-import { Suspense } from 'react'
+import AmpleurDemonstration from './AmpleurDemonstration'
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
   description:
@@ -14,7 +13,15 @@ export const metadata: Metadata = {
 }
 
 const iframeCode = `
-<iframe src="https://mesaidesreno.beta.gouv.fr/module/integration" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: .2rem solid black; border-radius: 1rem; "></iframe>
+<iframe src="https://mesaidesreno.beta.gouv.fr/module/integration" style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
+              --shadow-elevation-medium: 0.3px 0.5px 0.7px
+                  hsl(var(--shadow-color) / 0.36),
+                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+              box-shadow: var(--shadow-elevation-medium);
+
+"></iframe>
 `
 
 export default function Module({}) {
@@ -59,10 +66,7 @@ export default function Module({}) {
 
         <Wrapper>
           <Content>
-            <h2>Démonstration</h2>
-            <Suspense>
-              <Ampleur />
-            </Suspense>
+            <AmpleurDemonstration />
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
@@ -76,36 +80,6 @@ export default function Module({}) {
               dans votre HTML ou votre contenu Wordpress :
             </p>
             <code>{iframeCode}</code>
-            <h2>Le résultat</h2>
-
-            <div
-              style={css`
-                text-align: center;
-                background: radial-gradient(
-                  circle,
-                  rgba(0, 0, 145, 0.2) 0%,
-                  rgba(0, 212, 255, 0) 60%,
-                  rgba(0, 212, 255, 0) 100%
-                );
-              `}
-            >
-              <p>[votre contenu]</p>
-              <iframe
-                src="https://mesaidesreno.beta.gouv.fr"
-                style={css`
-                  width: 400px;
-                  height: 700px;
-                  margin: 3rem auto;
-                  display: block;
-                  border: 0.2rem solid black;
-                  border-radius: 1rem;
-                  box-shadow:
-                    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-                    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-                `}
-              ></iframe>
-              <p>[la suite de votre contenu]</p>
-            </div>
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
