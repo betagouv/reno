@@ -6,6 +6,7 @@ import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
+import getAppUrl from '@/components/getAppUrl'
 
 export const description = `Vous pouvez intégrer le simulateur Mes Aides Réno sur votre site Web en trois clics.`
 
@@ -83,7 +84,7 @@ export default function Page() {
             >
               <p>[votre contenu]</p>
               <iframe
-                src="https://mesaidesreno.beta.gouv.fr"
+                src={getAppUrl()}
                 style={css`
                   width: 400px;
                   height: 700px;

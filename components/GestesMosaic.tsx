@@ -12,6 +12,7 @@ import { CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
 import { dot } from 'node:test/reporters'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
+import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -126,6 +127,12 @@ export default function GestesMosaic({
 
   return (
     <CustomQuestionWrapper>
+      <BtnBackToParcoursChoice {...{
+          setSearchParams,
+          situation,
+          answeredQuestions
+        }}
+      />
       <header>
         <small>Les aides à la carte</small>
         <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
