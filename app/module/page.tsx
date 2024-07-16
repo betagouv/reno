@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
 import AmpleurDemonstration from './AmpleurDemonstration'
+import { Suspense } from 'react'
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
   description:
@@ -66,7 +67,9 @@ export default function Module({}) {
 
         <Wrapper>
           <Content>
-            <AmpleurDemonstration />
+            <Suspense>
+              <AmpleurDemonstration />
+            </Suspense>
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
