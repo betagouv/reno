@@ -1,15 +1,13 @@
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
-import Image from 'next/image'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
 import Geste from './Geste'
 import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
 import { encodeDottedName } from './publicodes/situationUtils'
-import { Card, CTA, CTAWrapper } from './UI'
+import { Card } from './UI'
 
 export default function GestesBasket({
   rules,
-  rule,
   engine,
   situation,
   answeredQuestions,
@@ -25,12 +23,6 @@ export default function GestesBasket({
       .setSituation(situation)
       .evaluate('gestes . montant'),
     total = formatValue(evaluation)
-
-  const missingValues = nextQuestions.find(
-    (question) =>
-      situation[question] == undefined &&
-      question !== 'MPR . non accompagnée . confirmation',
-  )
 
   const firstGestesMosaicDottedName = Object.entries(rules).find(
     ([dottedName, rule]) => isGestesMosaicQuestion(dottedName, rule),
@@ -66,6 +58,9 @@ export default function GestesBasket({
                   rules,
                   engine,
                   situation,
+                  answeredQuestions,
+                  nextQuestions,
+                  setSearchParams,
                   expanded: true,
                 }}
               />

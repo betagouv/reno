@@ -1,31 +1,26 @@
-import { formatValue } from 'publicodes'
-import { QuestionText } from './ClassicQuestionWrapper'
-import { Prime } from './Geste'
-import InputSwitch from './InputSwitch'
 import { Section } from '@/components/UI'
 import Input from './Input'
+import Select from './Select'
+import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 export default function GesteQuestion({
-  dottedName,
+  type,
   rules,
   nextQuestions,
+  question,
   engine,
   situation,
   answeredQuestions,
   setSearchParams,
 }) {
-  const currentQuestion = nextQuestions.find((question) =>
-    question.startsWith(dottedName),
-  )
+  const currentQuestion = rules[question]
   const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
-
+      searchParams = Object.fromEntries(rawSearchParams.entries())
   if (!currentQuestion) return null
 
-  const evaluation = engine.evaluate(currentQuestion),
-    currentValue = situation[currentQuestion]
-
+  const evaluation = engine.evaluate(currentQuestion)
+  let currentValue = situation[question]
   const onChange = (value) => {
     const encodedSituation = encodeSituation(
       {
@@ -36,25 +31,45 @@ export default function GesteQuestion({
       answeredQuestions,
     )
 
-    console.log('on change')
-
     setSearchParams(encodedSituation, 'push', false)
   }
 
+  if(!currentValue) {
+    // Par défaut, on propose le maximum
+    currentValue = currentQuestion.maximum;
+    onChange(currentValue)
+  }
   const InputComponent = () => (
-    <Input
-      type={'number'}
-      placeholder={evaluation.nodeValue}
-      value={currentValue == null ? '' : currentValue}
-      name={question}
-      unit={evaluation.unit}
-      onChange={onChange}
+    ["oui", "non"].includes(currentQuestion["par défaut"]) ?
+    <SegmentedControl
+      value={currentValue}
+      name={type+question}
+      onChange={onChange} 
     />
+    : (currentQuestion["une possibilité parmi"] ?
+        <Select
+          value={currentValue == null ? '' : currentValue}
+          name={question}
+          engine={engine}
+          values={currentQuestion["une possibilité parmi"]["possibilités"].map((i) => rules[question + " . " + i])}
+          onChange={onChange}
+        />
+      :
+        <Input
+          type={'number'}
+          placeholder={evaluation.nodeValue}
+          value={currentValue == null ? '' : currentValue}
+          name={question}
+          unit={evaluation.unit}
+          onChange={onChange}
+        />
+    )
   )
   return (
     <div>
-      <Section>
-        <InputSwitch
+      <Section css={`display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;`}>
+        <div>{ currentQuestion.question }</div>
+        <InputComponent
           {...{
             rules,
             currentQuestion,
@@ -69,15 +84,4 @@ export default function GesteQuestion({
       </Section>
     </div>
   );
-      // <div
-      //   css={`
-      //     text-align: right;
-      //   `}
-      // >
-      //   { <Prime
-      //     value={formatValue(
-      //       engine.setSituation(situation).evaluate(dottedName + ' . montant'),
-      //     )}
-      //   /> }
-      // </div>
 }

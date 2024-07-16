@@ -88,7 +88,7 @@ export default function GestesMosaic({
         ...answeredQuestions,
         ...questions.map((q) => q[0]),
       ]),
-      question: undefined,
+      question: 'MPR.non accompagnée.confirmation',
     },
     'url',
     false,
