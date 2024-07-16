@@ -1,0 +1,9 @@
+- nom: Maison périurbaine E près de Rennes
+  situation:
+    DPE . actuel: 5
+- nom: Appartement passoire thermique à Épinal
+  situation:
+    DPE . actuel: 6
+- nom: Maison déjà rénovée en C à Valserhône
+  situation:
+    DPE . actuel: 3
