@@ -273,7 +273,7 @@ const BlocAide = styled.div`
   }
 `;
 
-const PrimeStyle = styled.span`
+export const PrimeStyle = styled.span`
   color: #356e3e;
   background: #bef2c5;
   border: 1px solid #356e3e4d;
