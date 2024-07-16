@@ -74,6 +74,12 @@ isolation . murs extérieurs . MPR . surface:
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . murs extérieurs . MPR . plafond: 150 €/m2
+isolation . murs extérieurs . MPR . montant:
+  produit:
+    - le minimum de:
+      - surface
+      - 100 m2
+    - barème
 isolation . murs extérieurs . MPR . question: surface
 isolation . murs extérieurs . MPR . barème:
   variations:
