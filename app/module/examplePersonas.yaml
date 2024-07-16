@@ -1,15 +1,9 @@
 - nom: Maison périurbaine E près de Rennes
   situation:
     DPE . actuel: 5
-    conditions communes: oui
-    projet . investissement: 999999
 - nom: Appartement passoire thermique à Épinal
   situation:
     DPE . actuel: 6
-    conditions communes: oui
-    projet . investissement: 999999
 - nom: Maison déjà rénovée en C à Valserhône
   situation:
     DPE . actuel: 3
-    conditions communes: oui
-    projet . investissement: 999999

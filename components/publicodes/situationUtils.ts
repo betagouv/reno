@@ -30,11 +30,9 @@ export const getSituation = (searchParams, rules) => {
             ? stringValue.replace(/^0+/g, '')
             : stringValue
 
-        console.log({ k, v, rule, value, stringValue })
         return [k, value]
       }),
   ) //should be changed to clearly handle defaultValues
-  console.log('parsedSituation', parsedSituation)
   return parsedSituation
 }
 

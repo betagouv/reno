@@ -40,10 +40,13 @@ export default function Ampleur() {
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
 
   const defaultSituation = {
+    "logement . condition d'ancienneté": 'oui',
+    'vous . propriétaire . condition': 'oui',
     'ménage . revenu': 20000,
     'ménage . personnes': 2,
     'ménage . région . IdF': 'non',
     'logement . résidence principale': 'oui',
+    'projet . investissement': 999999,
   }
 
   const situation = {
@@ -52,7 +55,7 @@ export default function Ampleur() {
     'projet . DPE visé': targetDPE,
     ...userSituation,
   }
-  console.log('situation', situation)
+  console.log('blue', situation)
 
   const mpra = useMemo(() => {
     try {
@@ -67,11 +70,11 @@ export default function Ampleur() {
   }, [situation])
 
   const onChange =
-    (dottedName) =>
-    ({ target: { value } }) =>
+    (dottedName, type) =>
+    ({ target: { value, checked } }) =>
       setSearchParams({
         [encodeDottedName(dottedName)]:
-          (value === 'true' ? 'oui' : value === 'false' ? 'non' : value) + '*',
+          (type === 'checkbox' ? (checked ? 'oui' : 'non') : value) + '*',
       })
 
   return (
@@ -225,10 +228,13 @@ export default function Ampleur() {
                   `}
                   type="checkbox"
                   name={'residenceprincipale'}
-                  checked={
+                  defaultChecked={
                     situation['logement . résidence principale'] === 'oui'
                   }
-                  onChange={onChange('logement . résidence principale')}
+                  onChange={onChange(
+                    'logement . résidence principale',
+                    'checkbox',
+                  )}
                 />
                 <div>
                   <div>
@@ -256,8 +262,8 @@ export default function Ampleur() {
                   `}
                   type="checkbox"
                   name={'IDF'}
-                  checked={situation['ménage . région . IdF'] === 'non'}
-                  onChange={onChange('ménage . région . IdF')}
+                  defaultChecked={situation['ménage . région . IdF'] === 'non'}
+                  onChange={onChange('ménage . région . IdF', 'checkbox')}
                 />
                 <div>
                   <div>Vous habitez actuellement hors Île-de-France</div>
@@ -316,7 +322,7 @@ export default function Ampleur() {
             />
             <div>
               <div>
-                Jusqu'à{' '}
+                {mpra > 0 && <span>Jusqu'à </span>}
                 <PrimeStyle>
                   {typeof mpra === 'string' ? (
                     mpra
