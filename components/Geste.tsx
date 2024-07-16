@@ -2,6 +2,9 @@
 import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 import informationIcon from '@/public/information.svg'
+import ceeImage from '@/public/cee-logo.png'
+import mprImage from '@/public/maprimerenov-logo.svg'
+import coupDePouceImage from '@/public/coup-de-pouce-logo.jpg'
 import Image from 'next/image'
 import styled from 'styled-components'
 
