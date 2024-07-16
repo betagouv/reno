@@ -41,7 +41,7 @@ export default function Ampleur() {
   const defaultSituation = {
     "logement . condition d'ancienneté": 'oui',
     'vous . propriétaire . condition': 'oui',
-    'ménage . revenu': 20000,
+    'ménage . revenu': 25000, // Le revenu médian est de 20 000, mais le mettre à 25 000 permet de faire en sorte qu'il y ait une différence entre IdF et hors IdF pour que la case à cocher ait un effet
     'ménage . personnes': 2,
     'ménage . région . IdF': 'non',
     'logement . résidence principale': 'oui',
