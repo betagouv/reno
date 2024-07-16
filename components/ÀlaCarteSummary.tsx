@@ -51,63 +51,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
               </Link>
             </CTA>
           </CTAWrapper>
-        </div>
-      </Card>
-    </section>
-  )
-  return (
-    <section>
-      <header>
-        <h3>Rénover à la carte</h3>
-        <p
-          css={`
-            margin-top: 1.4rem;
-          `}
-        >
-          Rénovez progressivement via un bouquet de gestes subventionnés.
-        </p>
-      </header>
-      <Card
-        css={`
-          color: ${fail ? '#888' : 'inherit'};
-        `}
-      >
-        <h4
-          style={css`
-            font-weight: 400;
-            margin: 1rem 0 0rem;
-            font-size: 120%;
-          `}
-          dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
-        />
-        {fail && (
-          <div
-            css={`
-              margin: 1rem 0;
-              color: black;
-              text-align: center;
-            `}
-          >
-            <ExplicationMPRG {...{ engine, situation }} />
-          </div>
-        )}
-
-        {!fail ? (
-          <GestesPreview
-            {...{
-              rules,
-              inactive: fail,
-              dottedNames: [
-                'gestes . recommandés . audit',
-                'gestes . chauffage . PAC . air-eau',
-                'gestes . isolation . murs extérieurs',
-              ],
-              engine,
-              situation,
-            }}
-          />
-        ) : (
-          <span>
+          {/* <span>
             <a
               target="_blank"
               href="https://www.service-public.fr/particuliers/vosdroits/F35083"
@@ -115,8 +59,8 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
               En savoir plus sur ce parcours
             </a>
             .
-          </span>
-        )}
+          </span> */}
+        </div>
       </Card>
     </section>
   )

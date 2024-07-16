@@ -13,8 +13,6 @@ import ÀlaCarteSummary from './ÀlaCarteSummary'
 export default function Eligibility({
   setSearchParams,
   situation,
-  currentQuestion,
-  answeredQuestions,
   rules,
   engine,
   expanded,

@@ -1,16 +1,12 @@
 import rules from '@/app/règles/rules'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BlocQuestionRéponse } from './BlocQuestionRéponse'
 import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
-import Geste, { Prime } from './Geste'
-import Condition, { computeConditionValue } from './gestes/Condition'
-import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import { Value } from './ScenariosSelector'
+import Geste from './Geste'
+import { encodeSituation } from './publicodes/situationUtils'
 import { CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
-import { dot } from 'node:test/reporters'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 
 const localIsMosaic = (dottedName, rule) =>
@@ -26,7 +22,7 @@ export const gestesMosaicQuestions = Object.entries(rules).filter(
   ([dottedName, rule]) => localIsMosaic(dottedName, rule),
 )
 
-export const gestesMosaicQuestionText = (rules, currentQuestion) => {
+export const gestesMosaicQuestionText = (rules) => {
   const rule = rules['gestes . montant']
   return rule.mosaïque && rule.question
 }
@@ -34,14 +30,13 @@ export const gestesMosaicQuestionText = (rules, currentQuestion) => {
 export default function GestesMosaic({
   rules,
   setSearchParams,
-  rule,
   situation,
   answeredQuestions,
   questions,
   engine,
 }) {
   const grouped = questions.reduce(
-      (memo, [q, rule]) => {
+      (memo, [q]) => {
         const categoryDottedName = q.split(' . ').slice(0, -1).join(' . ')
 
         return {
@@ -53,11 +48,6 @@ export default function GestesMosaic({
       {},
     ),
     entries = Object.entries(grouped)
-
-  const levels = entries.map(([el]) => el.split(' . ').length),
-    minimum = Math.min(...levels),
-    maximum = Math.max(...levels)
-
 
   const categoryIndex = (category) =>
       rules['gestes . montant'].somme.findIndex((el) => el === category),
@@ -80,7 +70,6 @@ export default function GestesMosaic({
     console.log('on change will set encodedSituation', encodedSituation)
 
     setSearchParams(encodedSituation, 'push', false)
-    console.log('set situation', dottedName)
   }
 
   const nullSituation = Object.fromEntries(
@@ -115,8 +104,6 @@ export default function GestesMosaic({
     false,
   )
   const safeEngine = engine.setSituation(resetSituation)
-
-  const conditionValue = computeConditionValue(questions, situation)
 
   return (
     <CustomQuestionWrapper>

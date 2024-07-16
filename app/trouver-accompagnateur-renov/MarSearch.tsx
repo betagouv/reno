@@ -259,7 +259,6 @@ function timeout(ms) {
 }
 
 export const getAdresse = (obj) => {
-  console.log('cyan addios', obj.adresse)
   if (obj.adresse) {
     try {
       const adresses = JSON.parse(obj.adresse)
