@@ -207,7 +207,7 @@ export default function Ampleur() {
         <li key="revenu">
           <Dot />
           <label>
-            <span>Le revenu de votre ménage est de </span>{' '}
+            <span>Le revenu fiscal de votre ménage est de </span>{' '}
             <input
               type="number"
               min="0"
