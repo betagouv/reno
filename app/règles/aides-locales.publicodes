@@ -202,10 +202,13 @@ charente-maritime . occupant . montant:
 
   description: |
     Source : https://www.anil.org/aides-locales-travaux/details/charente-aide-a-lamelioration-thermique-3065
-  valeur: 15 % * projet . travaux
+  valeur: 15 % * travaux plafonnés
   note: |
     La liste de conditions "Autre(s) condition(s) relatives aux travaux" dans la fiche ANIL est ambigüe : s'agit-il de "toutes ces conditions" ou "une de ces conditions" ?
 
+charente-maritime . occupant . travaux plafonnés:
+  valeur: projet . travaux
+  plafond: 20000 €
 côte-d'or:
   titre: Côte-d'Or
   note: |
@@ -354,3 +357,102 @@ angers . prime basse consommation . montant:
   titre: Prime BBC angers
   applicable si: conditions
   valeur: 1500 €
+
+essonne:
+  image wikidata: Essonne
+  titre: Essonne - Prime éco-logis 91
+  lien: https://www.renover-malin.fr/prime-eco-logis-91/
+essonne . conditions communes:
+  toutes ces conditions:
+    - conditions géo
+    - logement . résidence principale propriétaire
+    - logement . période de construction = 'au moins 15 ans'
+essonne . conditions géo: logement . département = 'Essonne'
+essonne . travaux essentiels:
+  description: |
+    La prime s’adresse aux propriétaires occupants aux ressources modestes ou très modestes voulant engager des travaux de rénovation dans leur logement.
+essonne . travaux essentiels . conditions:
+  toutes ces conditions:
+    - conditions communes
+    - conditions de revenu
+    - projet . travaux > 5000 €
+    - travaux recevables
+essonne . travaux essentiels . conditions de revenu:
+  une de ces conditions:
+    - ménage . revenu . classe = 'modeste'
+    - ménage . revenu . classe = 'très modeste'
+essonne . travaux essentiels . travaux recevables:
+  question: Les travaux envisagés sont-ils éligibles à la prime éco-logis 91?
+  par défaut: oui
+  description: |
+    Les travaux devront être réalisés par des professionnels disposant de la certification RGE, et figurer parmi la liste suivante :
+    - Isolation du toit (Isolation de la toiture-terrasse, Isolation des planchers de combles perdus, Isolation des rampants et plafonds de combles) ;
+    - Isolation des murs en façade ou pignon (par l’intérieur ou l’extérieur) ;
+    - Isolation des planchers bas sur sous-sol, vide sanitaire ou passage ouvert ;
+    - Remplacement des menuiseries de simple vitrage ;
+    - Chauffage GAZ Chaudière gaz à très haute performance énergétique (THPE) ;
+    - Pompe à chaleur (PAC) : air/eau, eau/eau, sol/eau, sol/sol utilisées pour le chauffage ou le chauffage et la production d’eau chaude sanitaire ;
+    - Chauffe-eau thermodynamique (CET) ;
+    - Chauffage & chauffe-eau solaire : Equipements de production de chauffage et dispositifs solaires pour le chauffage des locaux installés sur appoint séparé ; 
+    - Chauffage au bois indépendant ;
+    - Suppression de la cuve à fioul ;
+    - Raccordement au réseau de chaleur ;
+    - Appareils de régulation ou de programmation du chauffage.
+
+    Les caractéristiques détaillées spécifiques à chaque type de travaux sont disponibles dans le document mentionné comme Source
+
+    [Source](https://www.renover-malin.fr/wp-content/uploads/2024/01/LISTE-TRAVAUX-ELIGIBLES-PRIMEECOLOGIS91-TRAVAUX-ESSENTIELS-2.pdf)
+essonne . travaux essentiels . montant:
+  applicable si: conditions
+  valeur: 800 €
+
+essonne . gros travaux:
+  description: |
+    Cette aide est destinée aux propriétaires occupants voulant engager des travaux de rénovation ambitieux dans leur logement (maison individuelle ou parties privatives d’un appartement).
+
+    Les travaux doivent viser un gain énergétique d’au moins 35%, ce qui implique la réalisation au préalable d’un audit énergétique par un professionnel qualifié.
+essonne . gros travaux . conditions:
+  toutes ces conditions:
+    - conditions communes
+    - projet . gain energétique >= 35 %
+    - travaux recevables
+essonne . gros travaux . travaux recevables:
+  question: Les travaux envisagés sont-ils éligibles à la prime éco-logis 91?
+  par défaut: oui
+  description: |
+    Les travaux devront être réalisés par des professionnels disposant de la certification RGE, et figurer parmi la liste suivante :
+    - Travaux préparatoires : Installation de chantier, échafaudages, travaux de démolition d’ampleur limitée et nécessaires à la réhabilitation, etc. ; 
+    - Isolation du toit (Isolation de la toiture-terrasse, Isolation des planchers de combles perdus ou Isolation des rampants et plafonds de combles) ;
+    - Isolation des murs en façade ou pignon (par l’intérieur ou l’extérieur) ;
+    - Isolation des planchers bas sur sous-sol, vide sanitaire ou passage ouvert ;
+    - Remplacement des menuiseries (de simple ou double vitrage) ;
+    - Toiture, couverture : Réfection générale ou de grosses reprises de couverture (y compris toit-terrasse) ;
+    - Chauffage GAZ Chaudière gaz à très haute performance énergétique (THPE) ;
+    - Pompe à chaleur (PAC) : air/eau, eau/eau, sol/eau, sol/sol utilisées pour le chauffage ou le chauffage et la production d’eau chaude sanitaire ;
+    - Chauffe-eau thermodynamique (CET) ;
+    - Chauffage & chauffe-eau solaire : Equipements de production de chauffage et dispositifs solaires pour le chauffage des locaux installés sur appoint séparé ;
+    - Chauffage au bois indépendant (insert et foyer fermé) ;
+    - Panneaux photovoltaïques (PV) ;
+    - Suppression de la cuve à fioul ;
+    - Calorifugeage des installations de production ou de distribution de chaleur ou d’eau chaude sanitaire ;
+    - Appareils de régulation ou de programmation du chauffage ;
+    - Ventilation ;
+    - Equipements transition écologique ;
+    - Travaux induits : Postes de travaux rendus obligatoire par la réalisation d’un poste concourant à la rénovation énergétique (dont étanchéité) ;
+    - Honoraires : Maîtrise d’œuvre (hors Programme SARE), bureau de contrôle, coordination SPS.
+
+    Les caractéristiques détaillées spécifiques à chaque type de travaux sont disponibles dans le document mentionné comme Source
+
+    [Source](https://www.renover-malin.fr/wp-content/uploads/2024/01/LISTE-DES-TRAVAUX-ELIGIBLES-PRIMEECOLOGIS91-GROS-TRAVAUX-1.pdf)
+
+essonne . gros travaux . montant:
+  applicable si: conditions
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 20 % * travaux plafonnés
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 15 % * travaux plafonnés
+    - sinon: 10 % * travaux plafonnés
+essonne . gros travaux . travaux plafonnés:
+  valeur: projet . travaux
+  plafond: 20000 €

@@ -1,11 +1,10 @@
 import { Main, Section } from '@/components/UI'
-import LocalePlace from './Place'
-import Link from 'next/link'
 import css from '@/components/css/convertToJs'
 import { capitalise0 } from '@/components/utils'
-import { Metadata, Metadata } from 'next'
+import { Metadata } from 'next'
+import Link from 'next/link'
 import { description } from '../description'
-import dynamic from 'next/dynamic'
+import LocalePlace from './Place'
 
 export async function generateMetadata(
   { params: { place: encodedPlace } }: Props,
@@ -15,7 +14,7 @@ export async function generateMetadata(
   const place = decodeURIComponent(encodedPlace)
 
   return {
-    title: `Aides locales ${capitalise0(place)} - Mes aides réno`,
+    title: `Aides rénovation energétique locales ${capitalise0(place)}`,
     description,
   }
 }
