@@ -379,7 +379,7 @@ export default function Ampleur() {
             >
               <a
                 target="_blank"
-                href="https://mesaidesreno.beta.gouv.fr/simulation"
+                href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(situationSearchParams).toString()}`}
               >
                 <span>➞&nbsp;&nbsp;J'affine ma simulation</span>
               </a>
