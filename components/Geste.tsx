@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react';
 
 export default function Geste({
   dottedName,
-  nextQuestions,
   answeredQuestions,
   setSearchParams,
   rules,
@@ -137,7 +136,6 @@ export default function Geste({
           <p className="details">
             <GesteQuestion
               {...{
-                type: "mpr",
                 rules,
                 question: infoMPR.questions,
                 engine,
@@ -179,9 +177,7 @@ export default function Geste({
           <div className="aide-details">
             <GesteQuestion
               {...{
-                type: "coupDePouce",
                 rules,
-                nextQuestions,
                 question: infoCP.question,
                 engine,
                 situation,
@@ -226,9 +222,7 @@ export default function Geste({
               <GesteQuestion
                 key={idx}
                 {...{
-                  type: "cee",
                   rules,
-                  nextQuestions,
                   question,
                   engine,
                   situation,

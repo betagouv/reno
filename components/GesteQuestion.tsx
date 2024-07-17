@@ -3,7 +3,6 @@ import Input from './Input'
 import Select from './Select'
 import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
-import { useSearchParams } from 'next/navigation'
 export default function GesteQuestion({
   rules,
   question,
@@ -13,8 +12,6 @@ export default function GesteQuestion({
   setSearchParams,
 }) {
   const currentQuestion = rules[question]
-  const rawSearchParams = useSearchParams(),
-      searchParams = Object.fromEntries(rawSearchParams.entries())
   if (!currentQuestion) return null
 
   const evaluation = engine.evaluate(currentQuestion)
@@ -47,14 +44,13 @@ export default function GesteQuestion({
     : (currentQuestion["une possibilité parmi"] ?
         <Select
           value={currentValue == null ? '' : currentValue}
-          name={question}
-          engine={engine}
           values={currentQuestion["une possibilité parmi"]["possibilités"].map((i) => rules[question + " . " + i])}
           onChange={onChange}
         />
       :
         <Input
           type={'number'}
+          id={question}
           placeholder={evaluation.nodeValue}
           value={currentValue == null ? '' : currentValue}
           name={question}
@@ -67,17 +63,7 @@ export default function GesteQuestion({
     <div>
       <Section css={`display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;`}>
         <div>{ currentQuestion.question }</div>
-        <InputComponent
-          {...{
-            rules,
-            currentQuestion,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            engine,
-            searchParams,
-          }}
-        />
+        <InputComponent />
       </Section>
     </div>
   );

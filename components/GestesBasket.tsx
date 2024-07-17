@@ -11,7 +11,6 @@ export default function GestesBasket({
   engine,
   situation,
   answeredQuestions,
-  nextQuestions,
   setSearchParams,
 }) {
   const gestes = gestesMosaicQuestions.filter((q) => {
@@ -59,7 +58,6 @@ export default function GestesBasket({
                   engine,
                   situation,
                   answeredQuestions,
-                  nextQuestions,
                   setSearchParams,
                   expanded: true,
                 }}

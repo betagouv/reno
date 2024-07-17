@@ -298,7 +298,6 @@ export default function InputSwitch({
       <GestesMosaic
         {...{
           rules,
-          rule,
           engine,
           situation,
           answeredQuestions,
@@ -313,11 +312,9 @@ export default function InputSwitch({
       <GestesBasket
         {...{
           rules,
-          rule,
           engine,
           situation,
           answeredQuestions,
-          nextQuestions,
           setSearchParams,
         }}
       />
