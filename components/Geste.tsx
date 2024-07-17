@@ -212,12 +212,41 @@ export default function Geste({
                 Prime CEE (Certificats d'Économie d'Énergie)
                 <br />
                 <small css={`color: #666; font-size: 0.6em; font-weight: 500;`}>
-                  Plus d'infos: <a href={infoCEE.lien} target="_blank">{infoCEE.titre}</a>
+                  Plus d'infos: <InlineLink 
+                    title={`formulaire ${infoCEE.titre}`} 
+                    href={infoCEE.lien} 
+                    target="_blank"
+                  >{infoCEE.titre}</InlineLink>
                 </small>
               </h3>
             </div>
           </div>
           <div className="aide-details">
+            <div css={`
+                        background-image: linear-gradient(0deg,#2a82dd,#2a82dd);
+                        background-position: 0 0;
+                        background-repeat: no-repeat;
+                        background-size: .25rem 100%;
+                        font-size: 1rem;
+                        line-height: 1.5rem;
+                        padding-left: 1.25rem;
+                        margin-bottom: 0.8rem;
+                `}>
+                <div css={`display: flex;
+                          align-items: center;
+                          margin-bottom: 0.4rem;
+                          color: #2a82dd;
+                          font-weight: 500;`}>
+                  <Image
+                    src={informationIcon}
+                    alt="infobulle"
+                    width="25"
+                  />
+                  <span>Informations</span>
+                </div>
+              <p>
+                Ce montant est le minimum imposé par l'État, les fournisseurs d'énergies sont libres d'appliquer leur propre formule tant qu'elle reste plus avantageuse.</p>
+            </div>
             {infoCEE.questions?.map((question, idx) => (
               <GesteQuestion
                 key={idx}
@@ -261,6 +290,32 @@ const BlocAide = styled.div`
     font-size: 0.75rem;
     line-height: 1.25rem;
     color: #3a3a3a;
+  }
+`;
+
+export const InlineLink = styled.a`
+  color: #666;
+  text-decoration: none;
+  background-image: linear-gradient(0deg,currentColor,currentColor),linear-gradient(0deg,currentColor,currentColor);
+  background-position: 0 100%,0 calc(100% - .0625em);
+  background-repeat: no-repeat,no-repeat;
+  background-size: 0 .125em,100% .0625em;
+  &:after {
+      content: "";
+      display: inline-block;
+      flex: 0 0 auto;
+      height: 1rem;
+      margin-left: .25rem;
+      -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEwIDZ2Mkg1djExaDExdi01aDJ2NmExIDEgMCAwIDEtMSAxSDRhMSAxIDAgMCAxLTEtMVY3YTEgMSAwIDAgMSAxLTFoNlptMTEtM3Y4aC0yVjYuNDEzbC03Ljc5MyA3Ljc5NC0xLjQxNC0xLjQxNEwxNy41ODUgNUgxM1YzaDhaIi8+PC9zdmc+);
+      mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEwIDZ2Mkg1djExaDExdi01aDJ2NmExIDEgMCAwIDEtMSAxSDRhMSAxIDAgMCAxLTEtMVY3YTEgMSAwIDAgMSAxLTFoNlptMTEtM3Y4aC0yVjYuNDEzbC03Ljc5MyA3Ljc5NC0xLjQxNC0xLjQxNEwxNy41ODUgNUgxM1YzaDhaIi8+PC9zdmc+);
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      vertical-align: calc(.375em - .5rem);
+      width: 1rem;
+      background: #666;
+  }
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
