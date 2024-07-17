@@ -5,9 +5,7 @@ import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 export default function GesteQuestion({
-  type,
   rules,
-  nextQuestions,
   question,
   engine,
   situation,
@@ -43,7 +41,7 @@ export default function GesteQuestion({
     ["oui", "non"].includes(currentQuestion["par défaut"]) ?
     <SegmentedControl
       value={currentValue}
-      name={type+question}
+      name={question}
       onChange={onChange} 
     />
     : (currentQuestion["une possibilité parmi"] ?
@@ -77,7 +75,6 @@ export default function GesteQuestion({
             answeredQuestions,
             setSearchParams,
             engine,
-            nextQuestions,
             searchParams,
           }}
         />

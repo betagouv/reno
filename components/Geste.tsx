@@ -18,16 +18,11 @@ export default function Geste({
   rules,
   engine,
   expanded,
-  situation,
-  inactive,
+  situation
 }) {
   const [infoCEE, setInfoCEE] = useState({});
-  const [montantMPR, setMontantMPR] = useState(null);
-  const [plafondMPR, setPlafondMPR] = useState(null);
-  const [montantCP, setMontantCP] = useState(null);
-  const [questionsCee, setQuestionsCee] = useState(null);
-  const [questionMpr, setQuestionMpr] = useState(null);
-  const [questionCoupDePouce, setQuestionCoupDePouce] = useState(null);
+  const [infoMPR, setInfoMPR] = useState({});
+  const [infoCP, setInfoCP] = useState({});
   const [montantTotal, setMontantTotal] = useState(null);
   const [isExactTotal, setIsExactTotal] = useState(false);
 
@@ -35,30 +30,33 @@ export default function Geste({
     const engineSituation = engine.setSituation(situation);
     const relevant = rules[dottedName + ' . MPR . barème'] ? dottedName + ' . MPR . barème' : dottedName + ' . montant'
 
-    if (typeof rules[dottedName + ' . CEE'] !== "undefined") {
-      const evaluationCEE = engineSituation.evaluate(dottedName + ' . CEE . montant');
-      const ceeQuestions = rules[dottedName + ' . CEE . question']?.valeurs.map(
-        (q) => (rules[dottedName + ' . CEE . ' + q] ? dottedName + ' . CEE . ' + q : q)
-      );
+    const dottedNameCee = dottedName + ' . CEE';
+    if (typeof rules[dottedNameCee] !== "undefined") {
       setInfoCEE({
-        montant: formatValue(evaluationCEE, { precision: 0 }),
-        titre: rules[dottedName + ' . CEE'].titre,
-        lien: rules[dottedName + ' . CEE'].lien,
+        montant: formatValue(engineSituation.evaluate(dottedNameCee + ' . montant'), { precision: 0 }),
+        titre: rules[dottedNameCee].titre,
+        lien: rules[dottedNameCee].lien,
+        questions: rules[dottedNameCee + ' . question']?.valeurs.map(
+          (q) => (rules[dottedNameCee + ' . ' + q] ? dottedNameCee + ' . ' + q : q)
+        )
       });
-      setQuestionsCee(ceeQuestions);
     }
 
-    if (typeof rules[dottedName + ' . MPR'] !== "undefined") {
-      const evaluationMPR = engineSituation.evaluate(dottedName + ' . MPR . montant');
-      setMontantMPR(formatValue(evaluationMPR));
-      setPlafondMPR(formatValue(engineSituation.evaluate(dottedName + ' . MPR . plafond')));
-      setQuestionMpr(dottedName + ' . MPR . ' + rules[dottedName + ' . MPR . question']);
+    const dottedNameMpr = dottedName + ' . MPR';
+    if (typeof rules[dottedNameMpr] !== "undefined") {
+      setInfoMPR({
+        montant: formatValue(engineSituation.evaluate(dottedNameMpr + ' . montant')),
+        plafond: formatValue(engineSituation.evaluate(dottedNameMpr + ' . plafond')),
+        questions: dottedNameMpr + ' . ' + rules[dottedNameMpr +  ' . question']
+      })
     }
 
-    if (typeof rules[dottedName + ' . Coup de pouce'] !== "undefined") {
-      const evaluationCP = engineSituation.evaluate(dottedName + ' . Coup de pouce . montant');
-      setMontantCP(formatValue(evaluationCP, { precision: 0 }));
-      setQuestionCoupDePouce(rules[dottedName + ' . Coup de pouce . question']);
+    const dottedNameCP = dottedName + ' . Coup de pouce'
+    if (typeof rules[dottedNameCP] !== "undefined") {
+      setInfoCP({
+        montant: formatValue(engineSituation.evaluate(dottedNameCP + ' . montant')),
+        question: rules[dottedNameCP + ' . question']
+      })
     }
 
     const evaluationTotal = engineSituation.evaluate(dottedName + ' . montant');
@@ -80,7 +78,7 @@ export default function Geste({
         <div css={`margin: 0 0 0.6rem 0;`}>
           {rules[dottedName].titre || getRuleName(dottedName)}
         </div>
-        <PrimeStyle $inactive={inactive}>
+        <PrimeStyle>
           {isExactTotal ? "Prime de " : "Jusqu'à "}
           <strong>{montantTotal}</strong>
         </PrimeStyle>
@@ -122,7 +120,7 @@ export default function Geste({
           </PrimeStyle>
         </div>
       </summary>
-      {montantMPR && (
+      {infoMPR.montant && (
         <BlocAide>
           <div className="aide-header">
             <div>
@@ -131,7 +129,7 @@ export default function Geste({
             <div>
               <PrimeStyle>
                 {"Prime de "}
-                <strong>{montantMPR}</strong>
+                <strong>{infoMPR.montant}</strong>
               </PrimeStyle>
               <h3>MaPrimeRénov'</h3>
             </div>
@@ -141,39 +139,38 @@ export default function Geste({
               {...{
                 type: "mpr",
                 rules,
-                nextQuestions,
-                question: questionMpr,
+                question: infoMPR.questions,
                 engine,
                 situation,
                 answeredQuestions,
                 setSearchParams,
               }}
             />
-            Conditions: La prestation doit être inférieure à <strong>{plafondMPR}</strong>.
+            Conditions: La prestation doit être inférieure à <strong>{infoMPR.plafond}</strong>.
           </p>
         </BlocAide>
       )}
-      {questionCoupDePouce && (
+      {infoCP.question && (
         <BlocAide>
           <div className="aide-header">
             <div>
               <Image src={coupDePouceImage} alt="logo coup de pouce" width="100" />
             </div>
             <div>
-              {montantCP === "Non applicable" ? (
+              {infoCP.montant === "Non applicable" ? (
                 <>
                   <PrimeStyle $inactive={true}>
-                    <strong>{montantCP}</strong>
+                    <strong>{infoCP.montant}</strong>
                   </PrimeStyle>
-                  <span className="aide-details"> sans {rules[questionCoupDePouce].titre}</span>
+                  <span className="aide-details"> sans {rules[infoCP.question].titre}</span>
                 </>
               ) : (
                 <>
                   <PrimeStyle>
                     {"Prime de "}
-                    <strong>{montantCP}</strong>
+                    <strong>{infoCP.montant}</strong>
                   </PrimeStyle>
-                  <span className="aide-details"> si {rules[questionCoupDePouce].titre}</span>
+                  <span className="aide-details"> si {rules[infoCP.question].titre}</span>
                 </>
               )}
               <h3>Prime Coup de pouce</h3>
@@ -185,7 +182,7 @@ export default function Geste({
                 type: "coupDePouce",
                 rules,
                 nextQuestions,
-                question: questionCoupDePouce,
+                question: infoCP.question,
                 engine,
                 situation,
                 answeredQuestions,
@@ -225,7 +222,7 @@ export default function Geste({
             </div>
           </div>
           <div className="aide-details">
-            {questionsCee?.map((question, idx) => (
+            {infoCEE.questions?.map((question, idx) => (
               <GesteQuestion
                 key={idx}
                 {...{
@@ -290,9 +287,3 @@ export const PrimeStyle = styled.span`
     p.$secondary &&
     `background: transparent; border: none; em {font-weight: 500;text-decoration: underline solid #49c75d}; border-radius: 0; padding: 0`}
 `;
-
-const Prime = ({ value, inactive = false }) => (
-  <PrimeStyle $inactive={inactive}>
-    <strong>{value}</strong>
-  </PrimeStyle>
-);

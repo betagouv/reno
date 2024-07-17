@@ -1,7 +1,5 @@
-import css from '@/components/css/convertToJs'
 import Link from 'next/link'
 import { CTA, CTAWrapper, Card } from './UI'
-import { ExplicationMPRG } from './explications/Éligibilité'
 import GestesPreview from './mprg/GestesPreview'
 
 export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
