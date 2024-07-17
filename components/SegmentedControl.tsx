@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { v4 as uuid } from 'uuid'
 
 const HiddenInput = styled.input`
     opacity: 0;
@@ -55,6 +56,7 @@ export default function SegmentedControl({
   onChange: serverOnChange,
   value,
   name,
+  options = ["oui", "non"],
   ...props
 }) {
   const [state, setState] = useState(value)
@@ -63,44 +65,34 @@ export default function SegmentedControl({
     setState(value)
   }, [value, setState])
 
-  const onClick = (e) => {
+  const onChange = (e) => {
     const value = e.target.value
     // state is updated on every value change, so input will work
     setState(value)
 
     serverOnChange(value)
   }
-
+  const uniqueId = uuid();
   return (
-    <fieldset class="fr-segmented fr-segmented--sm">
+    <fieldset>
         <div css={`
                 border-radius: .25rem;
                 box-shadow: inset 0 0 0 1px #ddd;
                 display: flex;
                 flex-direction: row;
             `}>
-            <div css={`position: relative;`}>
-                <HiddenInput
-                    value="oui"
-                    type="radio"
-                    id={`${name}-oui`}
-                    checked={state === "oui"}
-                    name={name}
-                    onClick={onClick}
-                />
-                <SegmentedLabel htmlFor={`${name}-oui`}>Oui</SegmentedLabel>
-            </div>
-            <div css={`position: relative;`}>
-                <HiddenInput
-                    value="non"
-                    type="radio"
-                    id={`${name}-non`}
-                    checked={state === "non"}
-                    name={name}
-                    onClick={onClick}
-                />
-                <SegmentedLabel htmlFor={`${name}-non`}>Non</SegmentedLabel>
-            </div>
+            {options.map((option) => (
+                <div key={option} css={`position: relative;`}>
+                    <HiddenInput
+                        value={option}
+                        type="radio"
+                        id={uniqueId+option}
+                        checked={option === value}
+                        onChange={onChange}
+                    />
+                    <SegmentedLabel htmlFor={uniqueId+option}>{option}</SegmentedLabel>
+                </div>
+            ))}
         </div>
     </fieldset>
   )
