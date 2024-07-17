@@ -221,7 +221,7 @@ export default function Ampleur() {
           <Dot />
           <label>
             <span>
-              Vos travaux font passer le DPE actuel{' '}
+              Les travaux de rénovation font passer le DPE actuel{' '}
               <DPELabel index={currentDPE - 1} /> vers un{' '}
               <DPEQuickSwitch
                 oldIndex={targetDPE - 1}
@@ -232,7 +232,7 @@ export default function Ampleur() {
           </label>
         </li>
       </ul>
-      <h3>Pour ce bien, vous pouvez toucher :</h3>
+      <h3>Pour ce bien immobilier, vous pouvez toucher :</h3>
       <EvaluationValue>
         <Image
           src={'/investissement.svg'}
@@ -283,7 +283,7 @@ export default function Ampleur() {
         `}
       >
         <p>
-          Découvrez toutes les aides pour une rénovation énergétique votre
+          Découvrez toutes les aides pour une rénovation énergétique de votre
           logement
         </p>
         <CTA
