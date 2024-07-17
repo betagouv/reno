@@ -26,6 +26,9 @@ export function generateMetadata(
   return {
     title,
     description,
+    alternates: {
+      canonical: `/documentation/${rawDottedName.join('/')}`,
+    },
   }
 }
 
