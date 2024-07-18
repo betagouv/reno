@@ -98,12 +98,8 @@ logement . type:
       - "maison"
       - "appartement"
 logement . type . maison:
-  valeur: "maison"
-  par défaut: "maison"
   titre: Une maison
 logement . type . appartement:
-  valeur: "appartement"
-  par défaut: "appartement"
   titre: Un appartement
 
 logement . surface:
