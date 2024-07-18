@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
 
+// Style repris du design système FR pour le composant contrôle segmenté
+// https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/controle-segmente
 const HiddenInput = styled.input`
     opacity: 0;
     height: 100%;

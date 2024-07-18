@@ -288,6 +288,8 @@ const BlocAide = styled.div`
   }
 `;
 
+// Style repris du design système FR pour le lien externe
+// https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/lien
 export const InlineLink = styled.a`
   color: #666;
   text-decoration: none;
