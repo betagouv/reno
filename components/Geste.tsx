@@ -19,58 +19,53 @@ export default function Geste({
   expanded,
   situation
 }) {
-  const [infoCEE, setInfoCEE] = useState({});
-  const [infoMPR, setInfoMPR] = useState({});
-  const [infoCP, setInfoCP] = useState({});
-  const [montantTotal, setMontantTotal] = useState(null);
-  const [isExactTotal, setIsExactTotal] = useState(false);
+  let infoCEE, infoMPR, infoCP, montantTotal, isExactTotal;
 
-  useEffect(() => {
-    const engineSituation = engine.setSituation(situation);
-    const relevant = rules[dottedName + ' . MPR . barème'] ? dottedName + ' . MPR . barème' : dottedName + ' . montant'
+  const engineSituation = engine.setSituation(situation);
+  const relevant = rules[dottedName + ' . MPR . barème'] ? dottedName + ' . MPR . barème' : dottedName + ' . montant'
 
-    const dottedNameCee = dottedName + ' . CEE';
-    if (typeof rules[dottedNameCee] !== "undefined") {
-      setInfoCEE({
-        montant: formatValue(engineSituation.evaluate(dottedNameCee + ' . montant'), { precision: 0 }),
-        titre: rules[dottedNameCee].titre,
-        lien: rules[dottedNameCee].lien,
-        questions: rules[dottedNameCee + ' . question']?.valeurs.map(
-          (q) => (rules[dottedNameCee + ' . ' + q] ? dottedNameCee + ' . ' + q : q)
-        )
-      });
-    }
+  const dottedNameCee = dottedName + ' . CEE';
+  if (typeof rules[dottedNameCee] !== "undefined") {
+    infoCEE = {
+      "montant": formatValue(engineSituation.evaluate(dottedNameCee + ' . montant'), { precision: 0 }),
+      "titre": rules[dottedNameCee].titre,
+      "lien": rules[dottedNameCee].lien,
+      "questions": rules[dottedNameCee + ' . question']?.valeurs.map(
+        (q) => (rules[dottedNameCee + ' . ' + q] ? dottedNameCee + ' . ' + q : q)
+      )
+    };
+  }
 
-    const dottedNameMpr = dottedName + ' . MPR';
-    if (typeof rules[dottedNameMpr] !== "undefined") {
-      setInfoMPR({
-        montant: formatValue(engineSituation.evaluate(dottedNameMpr + ' . montant')),
-        plafond: formatValue(engineSituation.evaluate(dottedNameMpr + ' . plafond')),
-        questions: dottedNameMpr + ' . ' + rules[dottedNameMpr +  ' . question']
-      })
-    }
+  const dottedNameMpr = dottedName + ' . MPR';
+  if (typeof rules[dottedNameMpr] !== "undefined") {
+    infoMPR = {
+      "montant": formatValue(engineSituation.evaluate(dottedNameMpr + ' . montant')),
+      "plafond": formatValue(engineSituation.evaluate(dottedNameMpr + ' . plafond')),
+      "questions": dottedNameMpr + ' . ' + rules[dottedNameMpr +  ' . question']
+    };
+  }
 
-    const dottedNameCP = dottedName + ' . Coup de pouce'
-    if (typeof rules[dottedNameCP] !== "undefined") {
-      setInfoCP({
-        montant: formatValue(engineSituation.evaluate(dottedNameCP + ' . montant')),
-        question: rules[dottedNameCP + ' . question']
-      })
-    }
+  const dottedNameCP = dottedName + ' . Coup de pouce'
+  if (typeof rules[dottedNameCP] !== "undefined") {
+    infoCP = {
+      "montant": formatValue(engineSituation.evaluate(dottedNameCP + ' . montant')),
+      "question": rules[dottedNameCP + ' . question']
+    };
+  }
 
-    const evaluationTotal = engineSituation.evaluate(dottedName + ' . montant');
-    setIsExactTotal(Object.keys(evaluationTotal.missingVariables).length === 0);
-    let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 });
+  const evaluationTotal = engineSituation.evaluate(dottedName + ' . montant');
+  isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 0;
+  let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 });
 
-    if (!isExactTotal) {
-      const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
-        .map((dn) => (rules[dn].maximum ? { [dn]: rules[dn].maximum } : rules[dn].maximum))
-        .reduce((acc, obj) => ({ ...acc, ...obj }), {});
-      calculatedMontantTotal = formatValue(engine.setSituation({ ...situation, ...maximizeAideVariables }).evaluate(engineSituation.evaluate(relevant)), { precision: 0 });
-    }
+  if (!isExactTotal) {
+    const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
+      .map((dn) => (rules[dn].maximum ? { [dn]: rules[dn].maximum } : rules[dn].maximum))
+      .reduce((acc, obj) => ({ ...acc, ...obj }), {});
+    calculatedMontantTotal = formatValue(engine.setSituation({ ...situation, ...maximizeAideVariables }).evaluate(engineSituation.evaluate(relevant)), { precision: 0 });
+  }
 
-    setMontantTotal(calculatedMontantTotal);
-  }, [dottedName, engine, situation, rules, isExactTotal]);
+  montantTotal = calculatedMontantTotal;
+  
   if (!expanded)
     return (
       <div>
