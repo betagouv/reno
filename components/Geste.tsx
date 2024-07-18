@@ -8,7 +8,6 @@ import mprImage from '@/public/maprimerenov-logo.svg';
 import coupDePouceImage from '@/public/coup-de-pouce-logo.jpg';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 
 export default function Geste({
   dottedName,
