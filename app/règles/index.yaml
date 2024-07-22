@@ -102,6 +102,15 @@ logement . type . maison:
 logement . type . appartement:
   titre: Un appartement
 
+logement . type . information copro:
+  type: notification
+  sévérité: information
+  formule: type = 'appartement'
+  description: |
+    De nombreuses aides sont disponibles pour les propriétaires d'appartements, notamment MaPrimeRénov'. 
+
+    Les travaux étant naturellement plus contraints que dans une maison individuelle, il existe aussi en parallèle un important dispositif d'aide pour votre copropriété. Les deux dispositifs, individuel et copro', se combinent.
+
 logement . surface:
   titre: Surface habitable
   question: Quelle est la surface habitable de logement ?
