@@ -1,0 +1,115 @@
+
+chauffage . solaire:
+  titre: Solaire
+chauffage . solaire . chauffe-eau solaire:
+  par défaut: oui
+  titre: Chauffe-eau solaire individuel en Métropole
+  description: |
+    Et dispositifs solaires pour le chauffage de l’eau.
+chauffage . solaire . chauffe-eau solaire . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
+chauffage . solaire . chauffe-eau solaire . MPR:
+chauffage . solaire . chauffe-eau solaire . MPR . plafond: 7000 €
+chauffage . solaire . chauffe-eau solaire . MPR . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 4000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 3000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 2000 €
+    - sinon: 0 €
+chauffage . solaire . chauffe-eau solaire . CEE:
+  titre: BAR-TH-101
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-101.pdf
+chauffage . solaire . chauffe-eau solaire . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . solaire . chauffe-eau solaire . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 21500
+    - si: CEE . région = 'H2'
+      alors: 24100
+    - si: CEE . région = 'H3'
+      alors: 27600
+
+chauffage . solaire . solaire combiné:
+  par défaut: oui
+  titre: Système solaire combiné
+  description: |
+    ...et dispositifs solaires pour le chauffage des locaux.
+
+    Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d’un chauffage central. Quand il fait également la production d’eau chaude, il est appelé  système solaire combiné (SSC)
+chauffage . solaire . solaire combiné . montant:
+  somme:
+    - MPR . montant
+    - Coup de pouce . montant
+    - CEE . montant
+chauffage . solaire . solaire combiné . MPR:
+chauffage . solaire . solaire combiné . MPR . plafond: 16000 €
+chauffage . solaire . solaire combiné . MPR . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 10000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 8000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 4000 €
+    - sinon: 0 €
+chauffage . solaire . solaire combiné . Coup de pouce:
+chauffage . solaire . solaire combiné . Coup de pouce . montant:
+  applicable si: CEE . projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
+  valeur: 5000 €
+chauffage . solaire . solaire combiné . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
+chauffage . solaire . solaire combiné . CEE:
+  non applicable si: CEE . projet . remplacement chaudière thermique
+  titre: BAR-TH-143
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA51-5%20à%20compter%20du%2001-03-2023.pdf
+chauffage . solaire . solaire combiné . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . solaire . solaire combiné . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 134800
+    - si: CEE . région = 'H2'
+      alors: 121000
+    - si: CEE . région = 'H3'
+      alors: 100500
+
+chauffage . solaire . partie thermique PVT eau:
+  titre: Partie thermique d’un équipement PVT eau
+  par défaut: oui
+  description: |
+    Et dispositifs solaires pour le chauffage des locaux.
+chauffage . solaire . partie thermique PVT eau . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
+chauffage . solaire . partie thermique PVT eau . MPR:
+chauffage . solaire . partie thermique PVT eau . MPR . plafond: 4000 €
+chauffage . solaire . partie thermique PVT eau . MPR . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 2500 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 2000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 1000 €
+    - sinon: 0 €
+chauffage . solaire . partie thermique PVT eau . CEE:
+  titre: BAR-TH-162
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-162.pdf
+chauffage . solaire . partie thermique PVT eau . CEE . montant:
+  produit:
+    - 20900
+    - CEE . prix kWh Cumac
+  unité: €
