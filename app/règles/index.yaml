@@ -113,7 +113,7 @@ logement . type . information copro:
 
 logement . surface:
   titre: Surface habitable
-  question: Quelle est la surface habitable de logement ?
+  question: Quelle est la surface habitable du logement ?
   par défaut: 91 m2
   description: |
 
