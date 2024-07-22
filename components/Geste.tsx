@@ -104,6 +104,7 @@ export default function Geste({
     <details
       css={`
         summary {
+          margin-bottom: 1rem;
           > div {
             margin-left: 0.6rem;
             display: inline-block;
