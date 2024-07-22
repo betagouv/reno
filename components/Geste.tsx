@@ -135,7 +135,7 @@ export default function Geste({
           </PrimeStyle>
         </div>
       </summary>
-      {infoMPR.montant && (
+      {infoMPR?.montant && (
         <BlocAide>
           <div className="aide-header">
             <div>
@@ -165,7 +165,7 @@ export default function Geste({
           </p>
         </BlocAide>
       )}
-      {infoCP.question && (
+      {infoCP?.question && (
         <BlocAide>
           <div className="aide-header">
             <div>
@@ -215,7 +215,7 @@ export default function Geste({
           </div>
         </BlocAide>
       )}
-      {infoCEE.montant && (
+      {infoCEE?.montant && (
         <BlocAide>
           <div className="aide-header">
             <div>
@@ -387,4 +387,3 @@ export const PrimeStyle = styled.span`
     p.$secondary &&
     `background: transparent; border: none; em {font-weight: 500;text-decoration: underline solid #49c75d}; border-radius: 0; padding: 0`}
 `
-
