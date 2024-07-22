@@ -35,7 +35,17 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             />{' '}
             <small>Plus d'informations</small>
           </span>
-          <div dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></div>
+          <div
+            dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+            css={`
+              blockquote {
+                margin-top: 0.8rem;
+                border-left: 4px solid var(--lighterColor);
+                padding: 0 0.6rem;
+                color: #333;
+              }
+            `}
+          ></div>
         </Card>
       </div>
     )
