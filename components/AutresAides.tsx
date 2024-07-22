@@ -31,45 +31,49 @@ export default function AutresAides() {
           }
         `}
       >
-        {autresAides.map((aide) => (
-          <li key={aide.nom}>
-            <Card
-              css={`
-                width: 14rem;
-                height: 20rem;
-                padding: 0.2rem 1rem;
-                p {
-                  margin-bottom: 0.8rem 0;
-                  line-height: 1.3rem;
-                  small {
-                  }
-                }
-                h4 {
-                  margin-top: 1.6rem;
-                }
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-              `}
-            >
-              <h4>{aide.nom}</h4>
-              <p>
-                <small
-                  dangerouslySetInnerHTML={{ __html: parse(aide.description) }}
-                />
-              </p>
-              <CTAWrapper
+        {autresAides
+          .filter((aide) => aide.implémentée !== 'oui')
+          .map((aide) => (
+            <li key={aide.nom}>
+              <Card
                 css={`
-                  margin: 0 0 0.6rem 0;
+                  width: 14rem;
+                  height: 20rem;
+                  padding: 0.2rem 1rem;
+                  p {
+                    margin-bottom: 0.8rem 0;
+                    line-height: 1.3rem;
+                    small {
+                    }
+                  }
+                  h4 {
+                    margin-top: 1.6rem;
+                  }
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
                 `}
               >
-                <CTA $fontSize="normal" $importance="secondary">
-                  <Link href={aide.lien}>En savoir plus</Link>
-                </CTA>
-              </CTAWrapper>
-            </Card>
-          </li>
-        ))}
+                <h4>{aide.nom}</h4>
+                <p>
+                  <small
+                    dangerouslySetInnerHTML={{
+                      __html: parse(aide.description),
+                    }}
+                  />
+                </p>
+                <CTAWrapper
+                  css={`
+                    margin: 0 0 0.6rem 0;
+                  `}
+                >
+                  <CTA $fontSize="normal" $importance="secondary">
+                    <Link href={aide.lien}>En savoir plus</Link>
+                  </CTA>
+                </CTAWrapper>
+              </Card>
+            </li>
+          ))}
       </ol>
     </section>
   )
