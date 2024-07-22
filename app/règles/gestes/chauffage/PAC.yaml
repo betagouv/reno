@@ -24,7 +24,8 @@ chauffage . PAC . air-eau . MPR . montant:
       alors: 3000 €
     - sinon: 0 €
 chauffage . PAC . air-eau . CEE:
-  titre: BAR-TH-171
+  code: BAR-TH-171
+  titre: Pompe à chaleur de type air/eau 
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
 chauffage . PAC . air-eau . CEE . question:
   type: liste
@@ -230,7 +231,8 @@ chauffage . PAC . géo . Coup de pouce . montant:
   valeur: 5000 €
 chauffage . PAC . géo . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . PAC . géo . CEE:
-  titre: BAR-TH-172
+  code: BAR-TH-172
+  titre: Pompe à chaleur de type eau/eau ou sol/eau 
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
 chauffage . PAC . géo . CEE . montant:
   produit:

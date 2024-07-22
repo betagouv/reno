@@ -39,7 +39,8 @@ chauffage . raccordement réseau . chaleur . MPR . montant:
       alors: 400 €
     - sinon: 0 €
 chauffage . raccordement réseau . chaleur . CEE:
-  titre: BAR-TH-137
+  code: BAR-TH-137
+  titre: Raccordement d’un bâtiment résidentiel à un réseau de chaleur
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-137%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . raccordement réseau . chaleur . CEE . montant:
   produit:

@@ -36,7 +36,8 @@ isolation . vitres . MPR . barème:
       alors: 40 €/équipements
     - sinon: 0 €
 isolation . vitres . CEE:
-  titre: BAR-EN-104
+  code: BAR-EN-104
+  titre: Fenêtre ou porte-fenêtre complète avec vitrage isolant
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-104%20vA54-2%20%C3%A0%20compter%20du%2001-01-2024.pdf
 isolation . vitres . CEE . question:
   type: liste
@@ -91,7 +92,8 @@ isolation . murs extérieurs . MPR . barème:
       alors: 40 €/m2
     - sinon: 0 €
 isolation . murs extérieurs . CEE:
-  titre: BAR-EN-102
+  code: BAR-EN-102
+  titre: Isolation des murs
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . murs extérieurs . CEE . question:
   type: liste
@@ -137,7 +139,8 @@ isolation . murs intérieurs . MPR . barème:
       alors: 15 €/m2
     - sinon: 0 €
 isolation . murs intérieurs . CEE:
-  titre: BAR-EN-102
+  code: BAR-EN-102
+  titre: Isolation des murs
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . murs intérieurs . CEE . question:
   type: liste
@@ -183,7 +186,8 @@ isolation . rampants . MPR . barème:
     - sinon: 0 €
 isolation . rampants . MPR . question: surface
 isolation . rampants . CEE:
-  titre: BAR-EN-101
+  code: BAR-EN-101
+  titre: Isolation de combles ou de toiture
   lien: https://www.ecologie.gouv.fr/sites/default/files/Fiche%20BAR-EN-101.pdf
 isolation . rampants . CEE . montant:
   produit:
@@ -225,7 +229,8 @@ isolation . toitures terrasses . MPR . barème:
       alors: 40 €/m2
     - sinon: 0 €
 isolation . toitures terrasses . CEE:
-  titre: BAR-EN-105
+  code: BAR-EN-105
+  titre: Isolation des toitures terrasses 
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-105%20vA39-3%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . toitures terrasses . CEE . montant:
   produit:
@@ -247,7 +252,8 @@ isolation . plancher bas:
   par défaut: oui
 isolation . plancher bas . montant: CEE . montant
 isolation . plancher bas . CEE:
-  titre: BAR-EN-103
+  code: BAR-EN-103
+  titre: Isolation d’un plancher
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-103%20vA39-5%20%C3%A0%20compter%20du%2001-05-2022.pdf
 isolation . plancher bas . CEE . montant: 
   produit:

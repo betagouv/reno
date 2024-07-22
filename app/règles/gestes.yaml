@@ -58,7 +58,8 @@ ventilation . double flux . MPR . montant:
       alors: 1500 €
     - sinon: 0 €
 ventilation . double flux . CEE:
-  titre: BAR-TH-125
+  code: BAR-TH-125
+  titre: Système de ventilation double flux autoréglable ou modulé à haute performance (France métropolitaine)
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-125%20vA54-5%20%C3%A0%20compter%20du%2001-01-2024.pdf
 ventilation . double flux . CEE . montant:
   produit:

@@ -40,7 +40,8 @@ chauffage . bois . chaudière . manuelle . Coup de pouce . montant :
     - sinon: 2500 €
 chauffage . bois . chaudière . manuelle . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . bois . chaudière . manuelle . CEE:
-  titre : BAR-TH-113
+  code : BAR-TH-113
+  titre: Chaudière biomasse individuelle
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
 chauffage . bois . chaudière . manuelle . CEE . montant:
   produit:
@@ -89,7 +90,8 @@ chauffage . bois . chaudière . automatique . Coup de pouce . montant :
     - sinon: 2500 €
 chauffage . bois . chaudière . automatique . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . bois . chaudière . automatique . CEE:
-  titre : BAR-TH-113
+  code : BAR-TH-113
+  titre: Chaudière biomasse individuelle
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
 chauffage . bois . chaudière . automatique . CEE . montant:
   produit:
@@ -124,7 +126,8 @@ chauffage . bois . foyer et insert . MPR . montant:
       alors: 600 €
     - sinon: 0 €
 chauffage . bois . foyer et insert . CEE:
-  titre: BAR-TH-112
+  code: BAR-TH-112
+  titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . foyer et insert . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
@@ -208,7 +211,8 @@ chauffage . bois . poêle . à bûches . MPR . montant:
       alors: 700 €
     - sinon: 0 €
 chauffage . bois . poêle . à bûches . CEE:
-  titre: BAR-TH-112
+  code: BAR-TH-112
+  titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . poêle . à bûches . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
@@ -287,7 +291,8 @@ chauffage . bois . poêle . à granulés . MPR . montant:
       alors: 1000 €
     - sinon: 0 €
 chauffage . bois . poêle . à granulés . CEE:
-  titre: BAR-TH-112
+  code: BAR-TH-112
+  titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . poêle . à granulés . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?

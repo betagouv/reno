@@ -27,7 +27,8 @@ chauffage . pilotage connecté . surface chauffée: logement . surface
   #description: |
   #  Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
 chauffage . pilotage connecté . CEE:
-  titre: BAR-TH-173
+  code: BAR-TH-173
+  titre: Système de régulation par programmation horaire pièce par pièce
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-173%20vA56-1%20à%20compter%20du%2030-11-2023.pdf
 chauffage . pilotage connecté . CEE . montant:
   produit:
@@ -167,7 +168,8 @@ chauffage . chauffe-eau thermodynamique . MPR . montant:
       alors: 400 €
     - sinon: 0 €
 chauffage . chauffe-eau thermodynamique . CEE:
-  titre: BAR-TH-148
+  code: BAR-TH-148
+  titre: Chauffe-eau thermodynamique à accumulation
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-148%20v%20A15-2.pdf
 chauffage . chauffe-eau thermodynamique . CEE . montant:
   produit:
