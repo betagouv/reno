@@ -29,42 +29,63 @@ export default function GesteQuestion({
     setSearchParams(encodedSituation, 'push', false)
   }
 
-  if(!currentValue) {
+  if (!currentValue) {
     // Par défaut, on propose le maximum
-    currentValue = currentQuestion.maximum;
+    currentValue = currentQuestion.maximum
     onChange(currentValue)
   }
-  const InputComponent = () => (
-    ["oui", "non"].includes(currentQuestion["par défaut"]) ?
-    <SegmentedControl
-      value={currentValue}
-      name={question}
-      onChange={onChange} 
-    />
-    : (currentQuestion["une possibilité parmi"] ?
-        <Select
-          value={currentValue == null ? '' : currentValue}
-          values={currentQuestion["une possibilité parmi"]["possibilités"].map((i) => rules[question + " . " + i])}
-          onChange={onChange}
-        />
-      :
-        <Input
-          type={'number'}
-          id={question}
-          placeholder={evaluation.nodeValue}
-          value={currentValue == null ? '' : currentValue}
-          name={question}
-          unit={evaluation.unit}
-          onChange={onChange}
-        />
+  const InputComponent = () =>
+    ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
+      <SegmentedControl
+        value={currentValue}
+        name={question}
+        onChange={onChange}
+      />
+    ) : currentQuestion['une possibilité parmi'] ? (
+      <Select
+        value={currentValue == null ? '' : currentValue}
+        values={currentQuestion['une possibilité parmi']['possibilités'].map(
+          (i) => rules[question + ' . ' + i],
+        )}
+        onChange={onChange}
+      />
+    ) : (
+      <Input
+        type={'number'}
+        id={question}
+        placeholder={evaluation.nodeValue}
+        value={currentValue == null ? '' : currentValue}
+        name={question}
+        unit={evaluation.unit}
+        onChange={onChange}
+      />
     )
-  )
   return (
-    <div>
-      <Section css={`display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;`}>
-        <div>{ currentQuestion.question }</div>
-        <InputComponent />
-      </Section>
-    </div>
-  );
+    <Section
+      css={`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0.8rem 0;
+        padding: 0.4rem 0 1rem;
+        border-bottom: 1px solid var(--lighterColor);
+        &:last-child {
+          border: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+        > div {
+          margin-right: 0.8rem;
+        }
+        > select,
+        input,
+        fieldset {
+          max-width: 60%;
+        }
+      `}
+    >
+      <div>{currentQuestion.question}</div>
+      <InputComponent />
+    </Section>
+  )
 }

@@ -314,7 +314,7 @@ const BlocAide = styled.div`
   padding: 1.5rem 1.5rem 1.75rem;
   border: 1px solid #ddd;
   border-bottom: 3px solid #000091;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   .aide-header {
     display: flex;
     align-items: center;
@@ -332,7 +332,7 @@ const BlocAide = styled.div`
     margin: 1rem 0rem;
   }
   .aide-details {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     line-height: 1.25rem;
     color: #3a3a3a;
   }
