@@ -113,7 +113,7 @@ export default function Geste({
           </PrimeStyle>
         </div>
       </summary>
-      {infoMPR.montant && (
+      {infoMPR && (
         <BlocAide>
           <div className="aide-header">
             <div>
@@ -142,7 +142,7 @@ export default function Geste({
           </p>
         </BlocAide>
       )}
-      {infoCP.question && (
+      {infoCP && (
         <BlocAide>
           <div className="aide-header">
             <div>
@@ -182,7 +182,7 @@ export default function Geste({
           </div>
         </BlocAide>
       )}
-      {infoCEE.montant && (
+      {infoCEE && (
         <BlocAide>
           <div className="aide-header">
             <div>
