@@ -76,11 +76,24 @@ export default function GesteQuestion({
         }
         > div {
           margin-right: 0.8rem;
+          max-width: 60%;
         }
         > select,
         input,
         fieldset {
           max-width: 60%;
+        }
+        @media (max-width: 800px) {
+          flex-wrap: wrap;
+          justify-content: space-between;
+          > div {
+            margin-bottom: 0.8rem;
+          }
+          > select,
+          input,
+          fieldset {
+            margin: 0 0 0 auto;
+          }
         }
       `}
     >
