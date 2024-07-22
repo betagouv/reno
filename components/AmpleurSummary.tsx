@@ -110,7 +110,7 @@ export default function AmpleurSummary({
           margin-top: 0.2rem;
           background: white;
           padding-top: 1.2rem;
-          max-width: 32rem;
+          max-width: 40rem;
         `}
       >
         {aidesEligibles.map((aide) => (

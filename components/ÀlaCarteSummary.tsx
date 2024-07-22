@@ -19,19 +19,20 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
       <Card
         css={`
           min-height: 10rem;
+          max-width: 40rem;
         `}
       >
         <GestesPreview
-            {...{
-              rules,
-              dottedNames: [
-                'gestes . recommandés . audit',
-                'gestes . chauffage . PAC . air-eau',
-                'gestes . isolation . murs extérieurs',
-              ],
-              engine,
-              situation,
-            }}
+          {...{
+            rules,
+            dottedNames: [
+              'gestes . recommandés . audit',
+              'gestes . chauffage . PAC . air-eau',
+              'gestes . isolation . murs extérieurs',
+            ],
+            engine,
+            situation,
+          }}
         />
         <div
           css={`
@@ -63,3 +64,4 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
     </section>
   )
 }
+
