@@ -3,7 +3,7 @@ import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 import GesteQuestion from './GesteQuestion'
 import informationIcon from '@/public/information.svg'
-import ceeImage from '@/public/cee-logo.png'
+import ceeImage from '@/public/cee.svg'
 import mprImage from '@/public/maprimerenov-logo.svg'
 import coupDePouceImage from '@/public/coup-de-pouce-logo.jpg'
 import Image from 'next/image'
@@ -218,9 +218,7 @@ export default function Geste({
       {infoCEE && (
         <BlocAide>
           <div className="aide-header">
-            <div>
-              <Image src={ceeImage} alt="logo Cee" width="100" />
-            </div>
+            <Image src={ceeImage} alt="logo Cee" width="60" />
             <div>
               {infoCEE.montant === 'Non applicable' ? (
                 <>
@@ -280,6 +278,9 @@ export default function Geste({
                   margin-bottom: 0.4rem;
                   color: #2a82dd;
                   font-weight: 500;
+                  img {
+                    margin-right: 0.4rem;
+                  }
                 `}
               >
                 <Image src={informationIcon} alt="infobulle" width="25" />
@@ -322,9 +323,12 @@ const BlocAide = styled.div`
     align-items: center;
     color: #2a82dd;
     font-weight: 500;
-  }
-  img {
-    margin-right: 1rem;
+
+    > img {
+      margin-right: 1rem;
+      width: 3.5rem;
+      height: auto;
+    }
   }
   h3 {
     color: #000091;
