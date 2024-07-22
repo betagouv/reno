@@ -4,7 +4,7 @@ import { getRuleName } from './publicodes/utils'
 import GesteQuestion from './GesteQuestion'
 import informationIcon from '@/public/information.svg'
 import ceeImage from '@/public/cee.svg'
-import mprImage from '@/public/maprimerenov-logo.svg'
+import mprImage from '@/public/maprimerenov.svg'
 import coupDePouceImage from '@/public/coup-de-pouce-logo.jpg'
 import Image from 'next/image'
 import styled from 'styled-components'
@@ -138,9 +138,7 @@ export default function Geste({
       {infoMPR && (
         <BlocAide>
           <div className="aide-header">
-            <div>
-              <Image src={mprImage} alt="logo ma prime renov" width="100" />
-            </div>
+            <Image src={mprImage} alt="logo ma prime renov" width="100" />
             <div>
               <PrimeStyle>
                 {'Prime de '}
@@ -168,13 +166,11 @@ export default function Geste({
       {infoCP && (
         <BlocAide>
           <div className="aide-header">
-            <div>
-              <Image
-                src={coupDePouceImage}
-                alt="logo coup de pouce"
-                width="100"
-              />
-            </div>
+            <Image
+              src={coupDePouceImage}
+              alt="logo coup de pouce"
+              width="100"
+            />
             <div>
               {infoCP.montant === 'Non applicable' ? (
                 <>
@@ -325,7 +321,7 @@ const BlocAide = styled.div`
     font-weight: 500;
 
     > img {
-      margin-right: 1rem;
+      margin-right: 1.4rem;
       width: 3.5rem;
       height: auto;
     }
