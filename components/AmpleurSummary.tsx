@@ -180,17 +180,28 @@ export default function AmpleurSummary({
 
         <div
           css={`
-            visibility: visible > div {
+            visibility: visible;
+            & > div {
               margin-bottom: 0.3rem;
               margin-top: 1rem;
             }
           `}
         >
-          <CTAWrapper $justify="end">
+          <CTAWrapper $justify="end" >
             <CTA $fontSize="normal">
               <Link href={url}>Découvrir le détail</Link>
             </CTA>
           </CTAWrapper>
+          <p
+            css={`
+              display: flex;
+              justify-content: end;
+              color: #666;
+              font-size: 90%;
+            `}
+          >
+            MaPrimeRénov' Parcours Accompagné
+          </p>
         </div>
 
         {aidesNonEligibles.map((aide) => (
