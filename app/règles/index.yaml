@@ -117,12 +117,14 @@ logement . surface:
   par défaut: 91 m2
   description: |
 
+    <details><summary>Définition de la surface habitable</summary>
     « La surface habitable d'un logement est la surface de plancher construite, après déduction des surfaces occupées par les murs, cloisons, marches et cages d'escaliers, gaines, embrasures de portes et de fenêtres. Le volume habitable correspond au total des surfaces habitables ainsi définies multipliées par les hauteurs sous plafond.
     Il n'est pas tenu compte de la superficie des combles non aménagés, caves, sous-sols, remises, garages, terrasses, loggias, balcons, séchoirs extérieurs au logement, vérandas, volumes vitrés prévus à l'article R. 155-1, locaux communs et autres dépendances des logements, ni des parties de locaux d'une hauteur inférieure à 1,80 mètre1 »
 
     *Article R156-1 du Code de la construction et de l'habitation*
 
     Source : https://fr.wikipedia.org/wiki/Surface_habitable_(France)
+    </details>
   suggestions:
     studio: 25 m2
     2 pièces: 45 m2
