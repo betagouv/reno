@@ -127,7 +127,7 @@ chauffage . bois . foyer et insert . CEE:
   titre: BAR-TH-112
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . foyer et insert . CEE . Etas:
-  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de l'insert ?
   titre: Efficacité énergétique saisonnière
   par défaut: "'supérieur à 80 %'"
   maximum: "'supérieur à 80 %'"
@@ -211,7 +211,7 @@ chauffage . bois . poêle . à bûches . CEE:
   titre: BAR-TH-112
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . poêle . à bûches . CEE . Etas:
-  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à bûches ?
   titre: Efficacité énergétique saisonnière
   par défaut: "'supérieur à 80 %'"
   maximum: "'supérieur à 80 %'"
@@ -290,7 +290,7 @@ chauffage . bois . poêle . à granulés . CEE:
   titre: BAR-TH-112
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . poêle . à granulés . CEE . Etas:
-  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à granulés ?
   titre: Efficacité énergétique saisonnière
   par défaut: "'supérieur à 80 %'"
   maximum: "'supérieur à 80 %'"
