@@ -5,7 +5,7 @@ import GesteQuestion from './GesteQuestion'
 import informationIcon from '@/public/information.svg'
 import ceeImage from '@/public/cee.svg'
 import mprImage from '@/public/maprimerenov.svg'
-import coupDePouceImage from '@/public/coup-de-pouce-logo.jpg'
+import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import Image from 'next/image'
 import styled from 'styled-components'
 
