@@ -50,6 +50,16 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
               </Link>
             </CTA>
           </CTAWrapper>
+          {false && ( // inclure les mots clefs qui feront tilt pour les citoyens qui ont déjà entendu parler de ça et viennent les trouver ici ?
+            <p
+              css={`
+                color: #666;
+                font-size: 90%;
+              `}
+            >
+              MaPrimeRénov' par gestes + CEE
+            </p>
+          )}
           {/* <span>
             <a
               target="_blank"
@@ -64,4 +74,3 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
     </section>
   )
 }
-
