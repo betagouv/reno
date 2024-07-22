@@ -95,8 +95,8 @@ logement . type:
   question: Le logement est-il une maison ou un appartement ?
   une possibilité parmi:
     possibilités:
-      - "maison"
-      - "appartement"
+      - 'maison'
+      - 'appartement'
 logement . type . maison:
   titre: Une maison
 logement . type . appartement:
@@ -126,6 +126,10 @@ logement . surface:
 logement . propriétaire occupant:
   question: Vivez-vous dans le logement à rénover (propriétaire occupant) ?
   par défaut: non
+  description: |
+    Cette question nous aide à déterminer les aides qui vous sont applicables : certaines sont réservées aux propriétaires occupants, d'autres aux propriétaires bailleurs.
+
+    > Vous possédez plusieurs logements ? N'hésitez pas à faire une autre simulation dans un nouvel onglet du navigateur.
 
 logement . résidence principale:
   description: |
