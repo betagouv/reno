@@ -4,6 +4,10 @@ CEE:
 
     Par exemple, la règle [pompe à chaleur](/documentation/gestes/chauffage/PAC), qui aura d'un côté des aides via MaPrimeRénov', d'un autre via les CEE.
 
+    À noter, la meilleure plateforme que nous ayons trouvée pour vérifier les calculs avec une source tierces officielle est celle de l'ADEME https://calculateur-cee.ademe.fr. 
+
+    L'interface est austère, c'est comme un tableur Web, mais elle permet après un peu de temps de familiarisation de calculer les montants des primes.
+
 CEE . logement:
 CEE . logement . condition d'ancienneté:
   titre: Logement de + de 2 ans
@@ -136,3 +140,4 @@ CEE . région . departement H2:
     - ménage . code département = "84"
     - ménage . code département = "85"
     - ménage . code département = "86"
+
