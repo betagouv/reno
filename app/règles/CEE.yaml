@@ -73,6 +73,10 @@ CEE . rénovation d'ampleur . facteur correctif:
       alors: 1.2
     - sinon: 1.3
 
+# CEE: Questions
+# Comment récupérer automatiquement ce prix?
+# Quid du prix kWh Cumac "précarité/grand précarité, est-ce toujours d'actualité?
+# Ces formules de calcul garantissent-elles réellement le montant minimum obligatoire?
 CEE . prix kWh Cumac: 0.008
 
 CEE . région:
