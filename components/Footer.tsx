@@ -50,11 +50,21 @@ export default function Footer() {
                   <li><InternalLink className="fr-footer__top-link" href="/api-doc">API</InternalLink></li>
                   <li><InternalLink className="fr-footer__top-link" href="/integration">Intégrer notre calculateur</InternalLink></li>
                   <li><InternalLink className="fr-footer__top-link" href="/personas">Personas</InternalLink></li>
-                  <li><InternalLink className="fr-footer__top-link" href="/confidentialite">Confidentialité</InternalLink></li>
-                  {/* <li><InternalLink className="fr-footer__top-link" href="/accessibilite">Accessibilité : non conforme</InternalLink></li> */}
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="fr-footer__bottom">
+          <ul className="fr-footer_bottom-list">
+            <li className="fr-footer__bottom-item"><InternalLink href="/accessibilite">Accessibilité : non conforme</InternalLink></li>
+            <li className="fr-footer__bottom-item"><InternalLink className="fr-footer__top-link" href="/confidentialite">Confidentialité</InternalLink></li>
+          </ul>
+          <div className="fr-footer__bottom-copy">
+            <p>
+              Sauf mention contraire, tous les contenus de ce site sont sous{' '}
+              <ExternalLink href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" title="licence etalab-2.0 - nouvelle fenêtre" css={`text-decoration: underline`}>licence etalab-2.0</ExternalLink>
+            </p>
           </div>
         </div>
       </FooterWrapper>
