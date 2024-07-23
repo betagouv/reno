@@ -114,6 +114,7 @@ export default function MarSearch({
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        margin-top: 6vh;
       `}
     >
       {!codeInsee ? (
@@ -143,7 +144,7 @@ export default function MarSearch({
           `}
         >
           <small>
-            Recherche pour votre code Insee {codeInsee}.{' '}
+            Recherche de conseiller pour votre code Insee {codeInsee}.{' '}
             <button onClick={() => setLocalCodeInsee(null)}>Changer</button>
           </small>
         </div>
@@ -174,7 +175,14 @@ export default function MarSearch({
           <section>
             {data.length === 1 ? (
               <section>
-                <h3>Votre conseiller : </h3>
+                <h3
+                  css={`
+                    margin-top: 0;
+                    margin-bottom: 0rem;
+                  `}
+                >
+                  Votre conseiller :{' '}
+                </h3>
                 <br />
 
                 <Entreprise data={data[0]} />
