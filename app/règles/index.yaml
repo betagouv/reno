@@ -14,12 +14,16 @@ simulation . mode:
     - 'max'
     - 'moyen'
 
+# C'est la variable qui lance le simulateur principal mes aides réno
+# Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig.ts
+# Nous réservons les questions précises telles que la liste des gestes pour la suite, après l'écran d'éligibilité, elles sont déclenchées via le paramètre d'URL `objectif = à la carte . montant` ou `ampleur . montant` et la condition dans gestes.yaml `applicable si: parcours d'aide = 'à la carte'`
 aides:
   applicable si:
     est défini: parcours d'aide
   somme:
-    - ampleur . tous les dispositifs
+    - ampleur . tous les dispositifs # ampleur.yaml
     - MPR . non accompagnée . montant
+    - à la carte . montant
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -605,6 +609,19 @@ parcours d'aide:
 
 parcours d'aide . ampleur:
 parcours d'aide . à la carte:
+
+à la carte:
+  diminutif: Aides à la carte
+  titre: Aides à la rénovation à la carte, geste par geste
+
+à la carte . montant:
+  description: |
+    Toutes les aides qui se basent sur des gestes précis de rénovation : isolation des murs par l'extérieur, pompe à chaleur air-eau, etc.
+
+  note: |
+    Pour l'instant il n'y a que les gestes dans cette variable, mais nous l'avons définie car d'autres dispositifs comme le prêt à taux zéro viendront subventionner les gestes mais sans être à proprement parler un geste d'isolation.
+  somme:
+    - gestes . montant
 
 MPR . non accompagnée . pourcentage d'écrêtement:
   description: |

@@ -19,7 +19,9 @@ export default function Eligibility({
 }) {
   const nextLink = (value) => {
     const url = setSearchParams(
-      { objectif: encodeDottedName(value) },
+      {
+        [encodeDottedName("parcours d'aide")]: `"${encodeDottedName(value)}"*`,
+      },
       'url',
       false,
     )
@@ -120,7 +122,12 @@ export default function Eligibility({
         </li>
         <li>
           <ÀlaCarteSummary
-            {...{ engine, rules, url: nextLink('MPR . non accompagnée . montant'), situation }}
+            {...{
+              engine,
+              rules,
+              url: nextLink('à la carte'),
+              situation,
+            }}
           />
         </li>
       </Results>

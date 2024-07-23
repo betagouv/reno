@@ -82,7 +82,7 @@ export default function DPEScenario({
                     'projet . travaux': 999999,
                     'projet . DPE visé': choice + 1,
                   },
-                  dottedName: 'aides globales',
+                  dottedName: 'ampleur . montant',
                   state: 'prime',
                 }}
               />{' '}
@@ -158,7 +158,7 @@ export default function DPEScenario({
                         ...exampleSituation,
                         'projet . DPE visé': choice + 1,
                       },
-                      dottedName: 'aides globales',
+                      dottedName: 'ampleur . montant',
                       state: 'final',
                     }}
                   />
