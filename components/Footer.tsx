@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="fr-footer__top">
           <div className="fr-container">
             <div className="fr-grid-row fr-grid-row--start fr-grid-row--gutters">
-              <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
+              {/* <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
                 <h3 className="fr-footer__top-cat">Nos dossiers</h3>
                 <ul className="fr-footer__top-list">
                 <li><InternalLink className="fr-footer__top-link" href="#">La rénovation énergétique</InternalLink></li>
@@ -31,6 +31,7 @@ export default function Footer() {
                   <li><InternalLink className="fr-footer__top-link" href="#">Certificats d'économie d'énergie (CEE)</InternalLink></li>
                 </ul>
               </div>
+              </div> */}
               <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
                 <h3 className="fr-footer__top-cat">Nos partenaires</h3>
                 <ul className="fr-footer__top-list">
@@ -57,29 +58,6 @@ export default function Footer() {
           </div>
         </div>
       </FooterWrapper>
-      {/* <FooterWrapper>
-        <ul>
-          <li>
-            <Link href="/a-propos">À propos</Link>
-          </li>
-          <li>
-            <Link href="/faq">Questions et contact</Link>
-          </li>
-          <li>
-            <Link href="/api-doc">API</Link>
-          </li>
-          <li>
-            <Link href="/integration">Intégrer notre calculateur</Link>
-          </li>
-          <li>
-            <Link href="/personas">Personas</Link>
-          </li>
-          <Link href="/accessibilite">Accessibilité : non conforme</Link>
-          <li>
-            <Link href="/confidentialite">Confidentialité</Link>
-          </li>
-        </ul>
-      </FooterWrapper> */}
     </>
   )
 }
