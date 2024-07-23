@@ -34,32 +34,6 @@ export default function GesteQuestion({
     currentValue = currentQuestion.maximum
     onChange(currentValue)
   }
-  const InputComponent = () =>
-    ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
-      <SegmentedControl
-        value={currentValue}
-        name={question}
-        onChange={onChange}
-      />
-    ) : currentQuestion['une possibilité parmi'] ? (
-      <Select
-        value={currentValue == null ? '' : currentValue}
-        values={currentQuestion['une possibilité parmi']['possibilités'].map(
-          (i) => rules[question + ' . ' + i],
-        )}
-        onChange={onChange}
-      />
-    ) : (
-      <Input
-        type={'number'}
-        id={question}
-        placeholder={evaluation.nodeValue}
-        value={currentValue == null ? '' : currentValue}
-        name={question}
-        unit={evaluation.unit}
-        onChange={onChange}
-      />
-    )
   return (
     <Section
       css={`
@@ -98,7 +72,50 @@ export default function GesteQuestion({
       `}
     >
       <div>{currentQuestion.question}</div>
-      <InputComponent />
+      <InputComponent
+        {...{
+          currentQuestion,
+          currentValue,
+          question,
+          onChange,
+          rules,
+          evaluation,
+        }}
+      />
     </Section>
   )
 }
+const InputComponent = ({
+  currentQuestion,
+  currentValue,
+  question,
+  onChange,
+  rules,
+  evaluation,
+}) =>
+  ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
+    <SegmentedControl
+      value={currentValue}
+      name={question}
+      onChange={onChange}
+    />
+  ) : currentQuestion['une possibilité parmi'] ? (
+    <Select
+      value={currentValue == null ? '' : currentValue}
+      values={currentQuestion['une possibilité parmi']['possibilités'].map(
+        (i) => rules[question + ' . ' + i],
+      )}
+      onChange={onChange}
+    />
+  ) : (
+    <Input
+      type={'number'}
+      id={question}
+      autoFocus={false}
+      placeholder={evaluation.nodeValue}
+      value={currentValue == null ? '' : currentValue}
+      name={question}
+      unit={evaluation.unit}
+      onChange={onChange}
+    />
+  )
