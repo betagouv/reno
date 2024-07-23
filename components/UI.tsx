@@ -34,12 +34,13 @@ export const FooterWrapper = styled.footer`
     box-shadow: inset 0 2px 0 0 #000091,inset 0 -1px 0 0 #ddd;
     padding-top: 2rem;
     width: 100%;
+    font-size: .75rem;
   }
   .fr-footer__top {
     background-color: #f6f6f6;
     display: flex;
     margin: -1.875rem 0 0;
-    padding: 2rem 0 2rem;
+    padding: 2rem 0 1rem;
   }
   .fr-container {
     padding-left: 1rem;
@@ -79,8 +80,57 @@ export const FooterWrapper = styled.footer`
     margin-bottom: .75rem;
   }
   .fr-footer__top-link {
-    font-size: .75rem;
     line-height: 1.25rem;
+  }
+
+  .fr-footer__bottom {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    align-items: center;
+    box-shadow: inset 0 1px 0 0 #ddd;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 1.5rem 1rem 0 1rem;
+    color: #666;
+    .fr-footer_bottom-list {
+      margin: 0;
+      padding: .5rem 0;
+      width: 100%;
+      .fr-footer__bottom-item {
+        display: inline;
+        margin: .5rem 0 0 .25rem;
+        position: relative;
+        a {
+          font-size: .75rem;
+          line-height: 1.25rem;
+        }
+        &:first-child {
+            margin: .5rem .25rem 0 0;
+            &::before {
+              box-shadow: none;
+              width: 0px;
+              margin: 0;
+            }
+        }
+        &::before {
+          box-shadow: inset 0 0 0 1px #ddd;
+          content: "";
+          display: inline-block;
+          height: 1rem;
+          margin-bottom: .625rem;
+          margin-right: .75rem;
+          margin-top: .625rem;
+          position: relative;
+          vertical-align: middle;
+          width: 1px;
+        }
+      }
+    }
+    .fr-footer__bottom-copy {
+      font-size: .75rem;
+      line-height: 1.25rem;
+    }
   }
 `
 
@@ -238,10 +288,19 @@ export const ExternalLink = styled.a`
 }
 `
 export const InternalLink = styled(Link)`
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none;
+  cursor: pointer;
+  &[href] {
+      background-image: linear-gradient(0deg,rgb(58, 58, 58),rgb(58, 58, 58)),linear-gradient(0deg,rgb(58, 58, 58),rgb(58, 58, 58));
+      background-position: 0 100%,0 calc(100% - .0625em);
+      background-repeat: no-repeat,no-repeat;
+      background-size: 0 .125em,0 .0625em;
+      transition: background-size 0s;
+  }
   &:hover {
-    color: blue;
-    text-decoration: underline;
+    background-color: transparent;
+    background-size: 100% calc(0.0625em * 2), 100% 0.0625em;
   }
 `;

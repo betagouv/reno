@@ -30,16 +30,15 @@ export default function Footer() {
                   <li><InternalLink className="fr-footer__top-link" href="#">Les aides des collectivités locales</InternalLink></li>
                   <li><InternalLink className="fr-footer__top-link" href="#">Certificats d'économie d'énergie (CEE)</InternalLink></li>
                 </ul>
-              </div>
               </div> */}
               <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
                 <h3 className="fr-footer__top-cat">Nos partenaires</h3>
                 <ul className="fr-footer__top-list">
-                  <li><ExternalLink className="fr-footer__top-link" href="#">France Rénov'</ExternalLink></li>
-                  <li><ExternalLink className="fr-footer__top-link" href="#">Dossier Facile</ExternalLink></li>
-                  <li><ExternalLink className="fr-footer__top-link" href="#">France Chaleur Urbaine</ExternalLink></li>
-                  <li><ExternalLink className="fr-footer__top-link" href="#">Pacoupa</ExternalLink></li>
-                  <li><ExternalLink className="fr-footer__top-link" href="#">Zéro Logement Vacant</ExternalLink></li>
+                  <li><ExternalLink target="_blank" className="fr-footer__top-link" title="France Rénov'" href="https://france-renov.gouv.fr">France Rénov'</ExternalLink></li>
+                  <li><ExternalLink target="_blank" className="fr-footer__top-link" title="Dossier Facile" href="https://www.dossierfacile.logement.gouv.fr">Dossier Facile</ExternalLink></li>
+                  <li><ExternalLink target="_blank" className="fr-footer__top-link" title="France Chaleur Urbaine" href="https://france-chaleur-urbaine.beta.gouv.fr">France Chaleur Urbaine</ExternalLink></li>
+                  <li><ExternalLink target="_blank" className="fr-footer__top-link" title="Pacoupa" href="https://pacoupa.ademe.fr">Pacoupa</ExternalLink></li>
+                  <li><ExternalLink target="_blank" className="fr-footer__top-link" title="Zéro Logement Vacant" href="https://zerologementvacant.beta.gouv.fr">Zéro Logement Vacant</ExternalLink></li>
                 </ul>
               </div>
               <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
