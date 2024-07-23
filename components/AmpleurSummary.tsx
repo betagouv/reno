@@ -115,7 +115,7 @@ export default function AmpleurSummary({
       >
         {aidesEligibles.map((aide) => (
           <SummaryAide
-            key={aide.règle}
+            key={aide.dottedName}
             {...{
               ...aide,
               icon: aide.icône,
@@ -187,7 +187,7 @@ export default function AmpleurSummary({
             }
           `}
         >
-          <CTAWrapper $justify="end" >
+          <CTAWrapper $justify="end">
             <CTA $fontSize="normal">
               <Link href={url}>Découvrir le détail</Link>
             </CTA>
@@ -206,7 +206,7 @@ export default function AmpleurSummary({
 
         {aidesNonEligibles.map((aide) => (
           <SummaryAide
-            key={aide.règle}
+            key={aide.dottedName}
             {...{
               ...aide,
               icon: aide.icône,

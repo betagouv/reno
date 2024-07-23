@@ -158,7 +158,11 @@ export default function InputSwitch({
           answeredQuestions,
           situation,
           setSearchParams,
-          questionsToSubmit: ['ménage . code région', 'ménage . code département', 'ménage . commune'],
+          questionsToSubmit: [
+            'ménage . code région',
+            'ménage . code département',
+            'ménage . commune',
+          ],
           currentValue,
           engine,
         }}
@@ -293,19 +297,19 @@ export default function InputSwitch({
     )
 
   const isGestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
-  if (isGestesMosaic)
-    return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          questions: gestesMosaicQuestions,
-        }}
-      />
-    )
+  if (isGestesMosaic) console.log('gestes mosaic')
+  return (
+    <GestesMosaic
+      {...{
+        rules,
+        engine,
+        situation,
+        answeredQuestions,
+        setSearchParams,
+        questions: gestesMosaicQuestions,
+      }}
+    />
+  )
 
   if (currentQuestion === 'MPR . non accompagnée . confirmation') {
     return (
@@ -405,7 +409,7 @@ export default function InputSwitch({
       <Input
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
-        value={currentValue == null ? "" : currentValue}
+        value={currentValue == null ? '' : currentValue}
         name={currentQuestion}
         unit={evaluation.unit}
         onChange={(value) => {
