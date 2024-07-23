@@ -297,19 +297,19 @@ export default function InputSwitch({
     )
 
   const isGestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
-  if (isGestesMosaic) console.log('gestes mosaic')
-  return (
-    <GestesMosaic
-      {...{
-        rules,
-        engine,
-        situation,
-        answeredQuestions,
-        setSearchParams,
-        questions: gestesMosaicQuestions,
-      }}
-    />
-  )
+  if (isGestesMosaic)
+    return (
+      <GestesMosaic
+        {...{
+          rules,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          questions: gestesMosaicQuestions,
+        }}
+      />
+    )
 
   if (currentQuestion === 'MPR . non accompagnée . confirmation') {
     return (
