@@ -75,7 +75,8 @@ export default function GestesBasket({
       <p>
         Les montants calculés ci-dessus sont des estimations. Les primes CEE
         sont des estimations minimales qui seront à confronter aux primes
-        réelles des entreprises qui vendent de l'énergie.{' '}
+        réelles des entreprises qui vendent de l'énergie, qui peuvent décider de
+        les verser en chèques, cartes cadeaux ou encore réductions.
       </p>
       <small
         css={`
