@@ -112,8 +112,16 @@ export const HomeTestimonies = styled.div`
   padding-left: 0;
   text-align: left;
   .fr-quote {
-    width: 50%;
-    padding: 1rem;
+    width: 48%;
+    padding: 0 1rem;
+    border-left: 1px solid #ddd;
+    margin-bottom: 2rem;
+    &:nth-child(odd) {
+      margin-left: 0;
+    }
+    &:nth-child(even) {
+      margin-left: 2%;
+    }
     h3 {
       font-size: 1.2rem;
       margin: 0 0 1rem 1rem;
@@ -140,7 +148,7 @@ export const HomeTestimonies = styled.div`
       transition: max-height 0.5s ease;
     }
     .see-more.expanded {
-      max-height: 300px;
+      max-height: 500px;
     }
     .see-more-click {
         cursor: pointer;

@@ -41,6 +41,7 @@ export default function HomepageSteps() {
     return !isInIFrame && (
     <Wrapper $background="white" $noMargin={true} $last={true}>
         <Content>
+            <h2 css={`text-align: center; margin-top: 0;`}>Histoires d’usagers</h2>
             <HomeTestimonies>
                 {testimonials.map((testimonial, index) => (
                     <div key={index} className="fr-quote">
