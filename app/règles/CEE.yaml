@@ -11,7 +11,7 @@ CEE:
 CEE . logement:
 CEE . logement . condition d'ancienneté:
   titre: Logement de + de 2 ans
-  formule: logement . période de construction = 'au moins 2 ans'
+  formule: logement . au moins 2 ans
 
 CEE . conditions:
   titre: Conditions d'éligibilité de base des CEE
@@ -140,4 +140,3 @@ CEE . région . departement H2:
     - ménage . code département = "84"
     - ménage . code département = "85"
     - ménage . code département = "86"
-

@@ -5,8 +5,6 @@ import DPELabel from '../DPELabel'
 import { Value } from '../ScenariosSelector'
 
 export const InapplicableBlock = styled.div`
-  text-decoration: underline;
-  text-decoration-color: salmon;
   display: flex;
   align-items: center;
   img {
@@ -15,6 +13,8 @@ export const InapplicableBlock = styled.div`
     width: auto;
   }
   p {
+    text-decoration: underline;
+    text-decoration-color: salmon;
     text-align: left;
     margin: 0;
   }
@@ -56,20 +56,6 @@ export function ExplicationMPRA({ situation, engine }) {
     )
 }
 
-export function ExplicationCommune({ situation, engine }) {
-  const commune = engine.evaluate('conditions communes')
-  if (!commune.nodeValue)
-    return (
-      <InapplicableBlock>
-        <Image src={crossIcon} alt="Icône d'une croix" />
-        <p>
-          Vous devez être propriétaire du logement, qui doit être une résidence
-          principale, construite il y a au moins 15 ans.
-        </p>
-      </InapplicableBlock>
-    )
-  return null
-}
 export function ExplicationMPRG({ situation, engine }) {
   const revenu = situation['ménage . revenu']
   if (revenu)

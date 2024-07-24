@@ -204,6 +204,10 @@ logement . période de construction . de 15 à 25 ans:
 logement . période de construction . de 2 à 15 ans:
 logement . période de construction . moins de 2 ans:
 
+logement . au moins 2 ans:
+  une de ces conditions:
+    - au moins 15 ans
+    - période de construction = 'de 2 à 15 ans'
 logement . au moins 15 ans:
   une de ces conditions:
     - période de construction = 'au moins 25 ans'

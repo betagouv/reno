@@ -1,16 +1,14 @@
-import { Results } from '@/components/ResultUI'
+import { No, Yes, Results } from '@/components/ResultUI'
 import checkIcon from '@/public/check.svg'
-import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import { useMemo } from 'react'
-import AmpleurSummary from './AmpleurSummary'
 import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
-import { Avis, ExplicationCommune } from './explications/Éligibilité'
+import PersonaBar from './PersonaBar'
+import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
+import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
-import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
-import PersonaBar from './PersonaBar'
 
 export default function Eligibility({
   setSearchParams,
@@ -30,19 +28,24 @@ export default function Eligibility({
     return url
   }
 
-  const [mpraEvaluation, mprgEvaluation] = useMemo(() => {
-      const newEngine = engine.setSituation(situation)
-      return [
-        newEngine.evaluate('MPR . accompagnée . éligible'),
-        newEngine.evaluate('MPR . non accompagnée . éligible'),
-      ]
-    }, [situation, engine]),
+  const [mpraEvaluation, mprgEvaluation, ceeConditionsEvaluation] =
+      useMemo(() => {
+        const newEngine = engine.setSituation(situation)
+        return [
+          newEngine.evaluate('MPR . accompagnée . éligible'),
+          newEngine.evaluate('MPR . non accompagnée . éligible'),
+          newEngine.evaluate('CEE . conditions'),
+        ]
+      }, [situation, engine]),
     mpra = mpraEvaluation.nodeValue,
-    mprg = mprgEvaluation.nodeValue
+    mprg = mprgEvaluation.nodeValue,
+    ceeConditions = ceeConditionsEvaluation.nodeValue
 
   const both = mpra && mprg,
-    none = !mpra && !mprg,
-    some = mpra || mprg
+    noMpr = !mpra && !mprg,
+    some = mpra || mprg || ceeConditions
+
+  console.log('plop', ceeConditionsEvaluation)
   return (
     <section>
       <PersonaBar />
@@ -70,48 +73,42 @@ export default function Eligibility({
             )}
           </h2>
         </header>
-        {none ? (
-          <div>
-            <p
-              css={`
-                text-decoration: underline;
-                text-decoration-color: salmon;
-                display: flex;
-                align-items: center;
-                img {
-                  margin-right: 0.4rem;
-                  height: 1.6rem;
-                  width: auto;
-                }
-              `}
-            >
-              <Image src={crossIcon} alt="Icône d'une croix" />
-              Vous n'êtes pas éligible aux aides Ma Prime Rénov.
+        {noMpr && !ceeConditions && (
+          <p>
+            Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
+            éligible, mais vous pouvez explorer les aides listées ci-dessous qui
+            ne sont pas encore calculées par Mes Aides Réno.
+          </p>
+        )}
+        {noMpr && (
+          <p>
+            Vous n'êtes <No>pas éligible</No> à MaPrimeRénov', mais{' '}
+            <Yes>vous êtes éligible</Yes> au parcours par geste via le
+            dispositif CEE.
+          </p>
+        )}
+        {!noMpr && !mpra && (
+          <p>
+            Vous n'êtes <No>pas éligible</No> au parcours accompagné, mais{' '}
+            <Yes>vous êtes éligible</Yes> au parcours par geste (MaPrimeRénov'
+            et CEE).
+          </p>
+        )}
+        {!noMpr && !mprg && (
+          <p>
+            Vous êtes <Yes>éligible</Yes> au parcours accompagné, vous êtes
+            aussi <Yes>éligible</Yes> au parcours par geste mais seulement via
+            le dispositif CEE. Vous devez choisir l'un des deux parcours.
+          </p>
+        )}
+        {both && (
+          <>
+            <p>
+              Vous pouvez choisir l'un ou l'autre des parcours d'aide, mais pas
+              les deux.
             </p>
-
-            <ExplicationCommune {...{ situation, engine }} />
-          </div>
-        ) : mpra && !mprg ? (
-          <p>
-            Vous êtes éligible au parcours accompagné. Vous n'êtes pas éligible
-            au parcours par geste.
-          </p>
-        ) : !mpra && mprg ? (
-          <p>
-            Vous n'êtes pas éligible au parcours accompagné. Vous êtes cependant
-            éligible au parcours par geste.
-          </p>
-        ) : (
-          both && (
-            <div>
-              <p>
-                Vous êtes éligible aux deux parcours, le parcours accompagné et
-                le parcours par gestes. Vous devez choisir l'un des deux
-                parcours.
-              </p>
-              <Avis {...{ situation, engine }} />
-            </div>
-          )
+            <Avis {...{ situation, engine }} />
+          </>
         )}
 
         <Results>

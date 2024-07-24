@@ -1,46 +1,15 @@
-import { Labels } from '@/app/LandingUI'
-import css from '@/components/css/convertToJs'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
+import Image from 'next/image'
 import Link from 'next/link'
-import { PrimeStyle } from './Geste'
-import { CTA, CTAWrapper, Card, cardBorder } from './UI'
-import { ExplicationMPRA, ExplicationMPRG } from './explications/Éligibilité'
-import GestesPreview from './mprg/GestesPreview'
 import AidesLocales from './AidesLocales'
-import rules from '@/app/règles/rules'
+import crossIcon from '@/public/remix-close-empty.svg'
 import { ProfessionnelLabel } from './AmpleurSummary'
-
-/* This component was first written for simulation mode where the state could be success, running or fail. Since then we've switched to a more classic result where it
- * can only be success or fail. I've kept this object for future references, for its colors */
-export const colors = {
-  success: {
-    background: '#297254',
-    lightBackground: '#c4fad5', //TODO use this for the contour, more beautiful
-    label: 'Estimation finale',
-  },
-  running: {
-    background: 'var(--color)',
-    color: 'white',
-    label: 'Sous conditions',
-  },
-  fail: {
-    background: 'salmon',
-    lightBackground: '#f6b7af',
-    color: 'white',
-    label: 'Non éligible',
-  },
-  //  waiting: { background: '#9f9f9f', color: 'white', label: 'À suivre' },
-}
+import { PrimeStyle } from './Geste'
+import { CTA, CTAWrapper, Card } from './UI'
+import { InapplicableBlock } from './explications/Éligibilité'
 
 const dottedName = 'MPR . accompagnée . montant'
-export default function SimplifiedAmpleurSummary({
-  engine,
-  url,
-  situation,
-  expanded,
-  setSearchParams,
-}) {
-  const rule = rules[dottedName]
+export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
   const evaluation = engine
     .setSituation({ ...situation, 'projet . travaux': 999999 })
     .evaluate(dottedName)
@@ -48,11 +17,9 @@ export default function SimplifiedAmpleurSummary({
 
   const value = formatValue(evaluation, { precision: 0 })
 
-  const eligible = !(
-    value === 'Non applicable' ||
-    evaluation.nodeValue === 0 ||
-    value === 'non'
-  )
+  const mpraEligible = engine.evaluate('MPR . accompagnée . éligible')
+
+  const eligible = mpraEligible.nodeValue == true && evaluation.nodeValue > 0
 
   return (
     <section>
@@ -70,30 +37,29 @@ export default function SimplifiedAmpleurSummary({
       </header>
       <Card
         css={`
-          color: ${!eligible ? '#888' : 'inherit'};
           margin-top: 0.2rem;
-          background: white;
           max-width: 40rem;
         `}
       >
-        <h4
-          style={css`
-            font-weight: 400;
-            margin: 1rem 0 0rem;
-            font-size: 120%;
-          `}
-          dangerouslySetInnerHTML={{ __html: rule.titreHtml }}
-        />
-
         {!eligible ? (
           <div
             css={`
-              margin: 1rem 0;
-              color: black;
-              text-align: center;
+              margin-top: 1rem;
+              margin-bottom: -2rem;
             `}
           >
-            <ExplicationMPRA {...{ engine, situation }} />
+            <InapplicableBlock>
+              <Image src={crossIcon} alt="Icône d'une croix" />
+              <div>
+                <p>
+                  Vous n'êtes pas éligible à MaPrimeRénov' parcours accompagné.
+                </p>
+                <small>
+                  Il faut être propriétaire du logement, construit il y a au
+                  moins 15 ans et occupé ou loué comme résidence principale.
+                </small>
+              </div>
+            </InapplicableBlock>
           </div>
         ) : (
           <section>
