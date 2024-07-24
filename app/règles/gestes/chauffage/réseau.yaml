@@ -8,6 +8,7 @@ chauffage . raccordement réseau . MPR:
 chauffage . raccordement réseau . MPR . plafond:
   valeur: 1800 €
 chauffage . raccordement réseau . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
@@ -30,6 +31,7 @@ chauffage . raccordement réseau . chaleur . montant:
 chauffage . raccordement réseau . chaleur . MPR:
 chauffage . raccordement réseau . chaleur . MPR . plafond: 1800 €
 chauffage . raccordement réseau . chaleur . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €

@@ -19,6 +19,7 @@ chauffage . bois . chaudière . manuelle . montant:
 chauffage . bois . chaudière . manuelle . MPR:
 chauffage . bois . chaudière . manuelle . MPR . plafond: 16000 €
 chauffage . bois . chaudière . manuelle . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 5500 €
@@ -68,6 +69,7 @@ chauffage . bois . chaudière . automatique . montant :
 chauffage . bois . chaudière . automatique . MPR:
 chauffage . bois . chaudière . automatique . MPR . plafond: 18000 €
 chauffage . bois . chaudière . automatique . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 7000 €
@@ -115,6 +117,7 @@ chauffage . bois . foyer et insert . montant:
 chauffage . bois . foyer et insert . MPR:
 chauffage . bois . foyer et insert . MPR . plafond: 4000 €
 chauffage . bois . foyer et insert . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €
@@ -199,6 +202,7 @@ chauffage . bois . poêle . à bûches . montant:
 chauffage . bois . poêle . à bûches . MPR:
 chauffage . bois . poêle . à bûches . MPR . plafond: 4000 €
 chauffage . bois . poêle . à bûches . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €
@@ -278,6 +282,7 @@ chauffage . bois . poêle . à granulés . montant:
 chauffage . bois . poêle . à granulés . MPR:
 chauffage . bois . poêle . à granulés . MPR . plafond: 5000 €
 chauffage . bois . poêle . à granulés . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €

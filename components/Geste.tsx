@@ -24,6 +24,7 @@ export default function Geste({
   const relevant = rules[dottedName + ' . MPR . barème']
     ? dottedName + ' . MPR . barème'
     : dottedName + ' . montant'
+  const eligibleMPRG = engineSituation.evaluate('MPR . non accompagnée . éligible').nodeValue
 
   const dottedNameCee = dottedName + ' . CEE'
   if (typeof rules[dottedNameCee] !== 'undefined') {
@@ -41,7 +42,7 @@ export default function Geste({
   }
 
   const dottedNameMpr = dottedName + ' . MPR'
-  if (typeof rules[dottedNameMpr] !== 'undefined') {
+  if (eligibleMPRG && typeof rules[dottedNameMpr] !== 'undefined') {
     infoMPR = {
       montant: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . montant'),

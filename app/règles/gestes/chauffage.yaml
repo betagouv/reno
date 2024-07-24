@@ -158,6 +158,7 @@ chauffage . chauffe-eau thermodynamique . MPR:
 chauffage . chauffe-eau thermodynamique . MPR . plafond:
   valeur: 3500 €
 chauffage . chauffe-eau thermodynamique . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
@@ -190,6 +191,7 @@ chauffage . fioul . dépose cuve . montant: MPR . montant
 chauffage . fioul . dépose cuve . MPR:
 chauffage . fioul . dépose cuve . MPR . plafond: 4000 €
 chauffage . fioul . dépose cuve . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1200 €
