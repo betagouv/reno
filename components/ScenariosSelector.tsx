@@ -13,6 +13,7 @@ import TargetDPETabs from './mpra/TargetDPETabs'
 import { omit, roundToThousands } from './utils'
 import { Number } from '@/app/simulation/Answers'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
+import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -41,6 +42,12 @@ export default function ScenariosSelector({
 
   return (
     <CustomQuestionWrapper>
+      <BtnBackToParcoursChoice {...{
+          setSearchParams,
+          situation,
+          answeredQuestions
+        }}
+      />
       <header>
         <small>MaPrimeRénov’ Parcours accompagné</small>
         <h2>Financer une rénovation d’ampleur de votre logement</h2>
@@ -231,9 +238,11 @@ export const Value = ({ engine, situation, dottedName, state = 'none' }) => {
   const missingVariables = evaluation.missingVariables
   const missing = Object.entries(missingVariables)
 
+  console.log('vv', value, missingVariables)
+
   return (
     <Key $state={state || (missing.length > 0 ? 'inProgress' : 'final')}>
-      {missing.length > 0 ? (
+      {false && missing.length > 0 ? (
         <span
           css={`
             display: inline-block;

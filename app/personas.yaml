@@ -150,7 +150,7 @@
     ménage . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    métropole d'Angers . revenu très très modeste: oui
+    aides locales . angers . revenu très très modeste: oui
     MPR . non accompagnée . éligible: oui
 - description: |
     Personne seule au revenu 28567.8 juste avant le seuil modeste en IdF.
@@ -239,10 +239,11 @@
     ménage . personnes: 2
     ménage . revenu: 31000
     DPE . actuel: 5
+    projet . DPE visé: 2
     ménage . commune: "'49007'"
     ménage . EPCI: "'244900015'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    métropole d'Angers . aides socles . taux: 10
-    métropole d'Angers . prime basse consommation . montant: 1500
+    aides locales . angers . aides socles . taux: 10
+    aides locales . angers . prime basse consommation . montant: 1500
     ménage . revenu . classe: 'modeste'

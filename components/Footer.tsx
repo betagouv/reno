@@ -1,8 +1,11 @@
+"use client"
 import Link from 'next/link'
 import { FooterWrapper } from './UI'
+import useIsInIframe from '@/components/useIsInIframe'
 
 export default function Footer() {
-  return (
+  const isInIframe = useIsInIframe()
+  return !isInIframe && (
     <FooterWrapper>
       <ul>
         <li>
@@ -13,6 +16,9 @@ export default function Footer() {
         </li>
         <li>
           <Link href="/api-doc">API</Link>
+        </li>
+        <li>
+          <Link href="/integration">Intégrer notre calculateur</Link>
         </li>
         <li>
           <Link href="/personas">Personas</Link>
