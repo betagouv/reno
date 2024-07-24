@@ -15,7 +15,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 91
-    logement . période de construction: de 15 à 25 ans
+    logement . période de construction: "'de 15 à 25 ans'"
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
     MPR . accompagnée . montant: 59835
@@ -34,7 +34,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: de 15 à 25 ans
+    logement . période de construction: "'de 15 à 25 ans'"
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
     MPR . accompagnée . montant: 30256
@@ -53,11 +53,12 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 55
-    logement . période de construction: de 2 à 15 ans
+    logement . période de construction: "'de 2 à 15 ans'"
   valeurs attendues:
-    # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
+    conditions communes: non
     MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
+
 - description: |
     3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
   situation:
@@ -72,7 +73,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: au moins 25 ans
+    logement . période de construction: "'au moins 25 ans'"
   valeurs attendues:
     MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
@@ -90,7 +91,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 130
-    logement . période de construction: au moins 25 ans
+    logement . période de construction: "'au moins 25 ans'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 45
     MPR . non accompagnée . éligible: non
@@ -108,7 +109,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 65
-    logement . période de construction: au moins 25 ans
+    logement . période de construction: "'au moins 25 ans'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
     MPR . non accompagnée . éligible: oui
@@ -125,7 +126,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 50
-    logement . période de construction: au moins 25 ans
+    logement . période de construction: "'au moins 25 ans'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 35
     MPR . non accompagnée . éligible: non
