@@ -21,7 +21,7 @@
     MPR . accompagnée . montant: 59835
     MPR . non accompagnée . éligible: oui
 - description: |
-    3 sauts de DPE, enveloppe de 53200 k€ TTC, couple intermédiaire.
+    3 sauts de DPE, passoire, enveloppe de 53200 k€ TTC, couple intermédiaire.
   situation:
     conditions communes: oui
     ménage . personnes: 2
@@ -31,11 +31,33 @@
     projet . travaux: 53200 / (1.055)
     ménage . code région: "'24'" # Cher
     logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'maison'"
+    logement . surface: 110
+    logement . période de construction: de 15 à 25 ans
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
     MPR . accompagnée . montant: 30256
     MPR . non accompagnée . éligible: oui
 
+- description: |
+    Individu intermédiaire, appart récent, 2 sauts.
+  situation:
+    vous . propriétaire . condition: oui
+    ménage . personnes: 1
+    ménage . revenu: 25000
+    DPE . actuel: 3
+    projet . DPE visé: 1
+    ménage . code région: "'52'"
+    logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'appartement'"
+    logement . surface: 55
+    logement . période de construction: de 2 à 15 ans
+  valeurs attendues:
+    # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
+    MPR . accompagnée . éligible: non
+    MPR . non accompagnée . éligible: non
 - description: |
     3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
   situation:
@@ -47,11 +69,15 @@
     projet . travaux: 49300
     ménage . code région: "'53'"
     logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'maison'"
+    logement . surface: 110
+    logement . période de construction: au moins 25 ans
   valeurs attendues:
     MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
 - description: |
-    Couple aisé., passoire, 4 sauts,  ~ 70k € de travaux
+    Couple aisé, passoire, 4 sauts, ~ 70k € de travaux
   situation:
     conditions communes: oui
     ménage . personnes: 2
@@ -61,11 +87,15 @@
     ménage . code région: "'52'"
     logement . propriétaire occupant: non
     logement . commune: "'29019'"
+    logement . résidence principale: oui
+    logement . type: "'maison'"
+    logement . surface: 130
+    logement . période de construction: au moins 25 ans
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 45
     MPR . non accompagnée . éligible: non
 - description: |
-    Couple modeste, presque passoire, 1 saut.
+    Couple modeste, appart, presque passoire, 1 saut.
   situation:
     conditions communes: oui
     ménage . personnes: 2
@@ -75,6 +105,10 @@
     ménage . code région: '"52"'
     logement . propriétaire occupant: non
     logement . commune: "'29019'"
+    logement . résidence principale: oui
+    logement . type: "'appartement'"
+    logement . surface: 65
+    logement . période de construction: au moins 25 ans
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
     MPR . non accompagnée . éligible: oui
@@ -88,11 +122,15 @@
     projet . DPE visé: 2
     ménage . code région: "'52'"
     logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'appartement'"
+    logement . surface: 50
+    logement . période de construction: au moins 25 ans
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 35
     MPR . non accompagnée . éligible: non
 - description: |
-    Propriétaire élligible, mais pas d'autres infos
+    Propriétaire éligible MPR, mais pas d'autres infos
   situation:
     conditions communes: oui
   valeurs attendues:
