@@ -80,7 +80,7 @@ export default function Eligibility({
             ne sont pas encore calculées par Mes Aides Réno.
           </p>
         )}
-        {noMpr && (
+        {noMpr && ceeConditions && (
           <p>
             Vous n'êtes <No>pas éligible</No> à MaPrimeRénov', mais{' '}
             <Yes>vous êtes éligible</Yes> au parcours par geste via le

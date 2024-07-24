@@ -1,9 +1,15 @@
 import Link from 'next/link'
 import { CTA, CTAWrapper, Card } from './UI'
+import Image from 'next/image'
+import crossIcon from '@/public/remix-close-empty.svg'
+import checkIcon from '@/public/check-green.svg'
 import GestesPreview from './mprg/GestesPreview'
+import { InapplicableBlock } from './explications/Éligibilité'
 
 export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
-  const isNotApplicable = false
+  const eligibleMPRG = engine.evaluate('MPR . non accompagnée . éligible').nodeValue
+  const eligibleCEE = engine.evaluate('CEE . conditions').nodeValue
+  
   return (
     <section>
       <header>
@@ -22,54 +28,118 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           max-width: 40rem;
         `}
       >
-        <GestesPreview
-          {...{
-            rules,
-            dottedNames: [
-              'gestes . recommandés . audit',
-              'gestes . chauffage . PAC . air-eau',
-              'gestes . isolation . murs extérieurs',
-            ],
-            engine,
-            situation,
-          }}
-        />
-        <div
-          css={`
-            display: ${!isNotApplicable && url ? 'visible' : 'none'};
-            > div {
-              margin-bottom: 0.3rem;
-              margin-top: 1.6rem;
-            }
-          `}
-        >
-          <CTAWrapper $justify="end">
-            <CTA $fontSize="normal">
-              <Link href={url}>
-                <span>Voir tous les gestes disponibles</span>
-              </Link>
-            </CTA>
-          </CTAWrapper>
-          <p
+        {!eligibleMPRG && (
+          <div
             css={`
-              display: flex;
-              justify-content: end;
-              color: #666;
-              font-size: 90%;
+              margin-top: 1rem;
             `}
           >
-            MaPrimeRénov' par gestes + CEE
-          </p>
-          {/* <span>
-            <a
-              target="_blank"
-              href="https://www.service-public.fr/particuliers/vosdroits/F35083"
+            <InapplicableBlock>
+              <Image src={crossIcon} alt="Icône d'une croix" />
+              <div>
+                <p>
+                  Vous n'êtes pas éligible à MaPrimeRénov' par geste.
+                </p>
+                <small>
+                  Il faut être propriétaire du logement, construit il y a au
+                  moins 15 ans et occupé ou loué comme résidence principale.
+                </small>
+              </div>
+            </InapplicableBlock>
+          </div>
+        )}
+        {!eligibleCEE && (
+          <div
+            css={`
+              margin-top: 1rem;
+            `}
+          >
+            <InapplicableBlock>
+              <Image src={crossIcon} alt="Icône d'une croix" />
+              <div>
+                <p>
+                  Vous n'êtes pas éligible aux aides CEE.
+                </p>
+                <small>
+                  Il faut que le logement ait été construit il y a plus de 2 ans.
+                </small>
+              </div>
+            </InapplicableBlock>
+          </div>
+        )}
+        { eligibleMPRG && (
+          <GestesPreview
+            {...{
+              rules,
+              dottedNames: [
+                'gestes . recommandés . audit',
+                'gestes . chauffage . PAC . air-eau',
+                'gestes . isolation . murs extérieurs',
+              ],
+              engine,
+              situation,
+            }}
+          />
+        )}
+        { (!eligibleMPRG && eligibleCEE) &&
+          <div
+            css={`
+              margin-top: 1rem;
+            `}
+          >
+            <InapplicableBlock>
+              <Image src={checkIcon} alt="Icône d'un check" />
+              <div>
+                <p css={`text-decoration-color: green !important;`}>
+                  En revanche, vous êtes éligibles aux aides CEE.
+                </p>
+                <small>
+                  Il faut que le logement ait été construit il y a plus de 2 ans.
+                </small>
+              </div>
+            </InapplicableBlock>
+          </div>
+        }
+        { (eligibleMPRG || eligibleCEE) && (
+          <>
+            <div
+              css={`
+                display: 'visible'
+                > div {
+                  margin-bottom: 0.3rem;
+                  margin-top: 1.6rem;
+                }
+              `}
             >
-              En savoir plus sur ce parcours
-            </a>
-            .
-          </span> */}
-        </div>
+              <CTAWrapper $justify="end">
+                <CTA $fontSize="normal">
+                  <Link href={url}>
+                    <span>Voir tous les gestes disponibles</span>
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+              <p
+                css={`
+                  display: flex;
+                  justify-content: end;
+                  color: #666;
+                  font-size: 90%;
+                `}
+              >
+                {eligibleMPRG ? "MaPrimeRénov' par gestes + CEE" : (eligibleCEE ? "CEE" : "")}
+              </p>
+              {/* <span>
+                <a
+                  target="_blank"
+                  href="https://www.service-public.fr/particuliers/vosdroits/F35083"
+                >
+                  En savoir plus sur ce parcours
+                </a>
+                .
+              </span> */}
+            </div>
+          </>
+        )}
       </Card>
     </section>
   )
