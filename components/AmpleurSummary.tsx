@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 import { CTA, CTAWrapper, Card } from './UI'
 
-import { PrimeStyle } from './Geste'
+import { PrimeStyle } from './UI'
 import rules from '@/app/règles/rules'
 
 const topList = rules['ampleur . tous les dispositifs'].somme,
