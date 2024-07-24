@@ -168,6 +168,68 @@ export const ConstraintedParagraphs = styled.div`
   }
 `
 
+export const BlocAide = styled.div`
+  text-align: left;
+  padding: 1.5rem 1.5rem 1.75rem;
+  border: 1px solid #ddd;
+  border-bottom: 3px solid #000091;
+  margin-bottom: 1rem;
+  .aide-header {
+    display: flex;
+    align-items: center;
+    color: #2a82dd;
+    font-weight: 500;
+
+    > img {
+      margin-right: 1.4rem;
+      width: 3.5rem;
+      height: auto;
+    }
+  }
+  h3 {
+    color: #000091;
+    margin: 1rem 0rem;
+  }
+  .aide-details {
+    font-size: 0.9rem;
+    line-height: 1.25rem;
+    color: #3a3a3a;
+  }
+`
+
+// Style repris du design système FR pour le lien externe
+// https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/lien
+export const InlineLink = styled.a`
+  color: #666;
+  text-decoration: none;
+  background-image: linear-gradient(0deg, currentColor, currentColor),
+    linear-gradient(0deg, currentColor, currentColor);
+  background-position:
+    0 100%,
+    0 calc(100% - 0.0625em);
+  background-repeat: no-repeat, no-repeat;
+  background-size:
+    0 0.125em,
+    100% 0.0625em;
+  &:after {
+    content: '';
+    display: inline-block;
+    flex: 0 0 auto;
+    height: 1rem;
+    margin-left: 0.25rem;
+    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEwIDZ2Mkg1djExaDExdi01aDJ2NmExIDEgMCAwIDEtMSAxSDRhMSAxIDAgMCAxLTEtMVY3YTEgMSAwIDAgMSAxLTFoNlptMTEtM3Y4aC0yVjYuNDEzbC03Ljc5MyA3Ljc5NC0xLjQxNC0xLjQxNEwxNy41ODUgNUgxM1YzaDhaIi8+PC9zdmc+);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEwIDZ2Mkg1djExaDExdi01aDJ2NmExIDEgMCAwIDEtMSAxSDRhMSAxIDAgMCAxLTEtMVY3YTEgMSAwIDAgMSAxLTFoNlptMTEtM3Y4aC0yVjYuNDEzbC03Ljc5MyA3Ljc5NC0xLjQxNC0xLjQxNEwxNy41ODUgNUgxM1YzaDhaIi8+PC9zdmc+);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    vertical-align: calc(0.375em - 0.5rem);
+    width: 1rem;
+    background: #666;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 export const PrimeStyle = styled.span`
   color: #356e3e;
   background: #bef2c5;
