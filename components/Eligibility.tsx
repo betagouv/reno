@@ -10,6 +10,7 @@ import { Avis, ExplicationCommune } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
 import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
+import PersonaBar from './PersonaBar'
 
 export default function Eligibility({
   setSearchParams,
@@ -43,96 +44,101 @@ export default function Eligibility({
     none = !mpra && !mprg,
     some = mpra || mprg
   return (
-    <CustomQuestionWrapper>
-      <header>
-        <small>Découvrez vos aides</small>
-        <h2>
-          {some ? (
-            <span
+    <section>
+      <PersonaBar />
+      <CustomQuestionWrapper>
+        <header>
+          <small>Découvrez vos aides</small>
+          <h2>
+            {some ? (
+              <span
+                css={`
+                  display: flex;
+                  align-items: center;
+                  img {
+                    margin-right: 0.4rem;
+                    width: 1.8rem;
+                    height: auto;
+                  }
+                `}
+              >
+                <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle
+                !
+              </span>
+            ) : (
+              'Votre éligibilité'
+            )}
+          </h2>
+        </header>
+        {none ? (
+          <div>
+            <p
               css={`
+                text-decoration: underline;
+                text-decoration-color: salmon;
                 display: flex;
                 align-items: center;
                 img {
                   margin-right: 0.4rem;
-                  width: 1.8rem;
-                  height: auto;
+                  height: 1.6rem;
+                  width: auto;
                 }
               `}
             >
-              <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle !
-            </span>
-          ) : (
-            'Votre éligibilité'
-          )}
-        </h2>
-      </header>
-      {none ? (
-        <div>
-          <p
-            css={`
-              text-decoration: underline;
-              text-decoration-color: salmon;
-              display: flex;
-              align-items: center;
-              img {
-                margin-right: 0.4rem;
-                height: 1.6rem;
-                width: auto;
-              }
-            `}
-          >
-            <Image src={crossIcon} alt="Icône d'une croix" />
-            Vous n'êtes pas éligible aux aides Ma Prime Rénov.
-          </p>
-
-          <ExplicationCommune {...{ situation, engine }} />
-        </div>
-      ) : mpra && !mprg ? (
-        <p>
-          Vous êtes éligible au parcours accompagné. Vous n'êtes pas éligible au
-          parcours par geste.
-        </p>
-      ) : !mpra && mprg ? (
-        <p>
-          Vous n'êtes pas éligible au parcours accompagné. Vous êtes cependant
-          éligible au parcours par geste.
-        </p>
-      ) : (
-        both && (
-          <div>
-            <p>
-              Vous êtes éligible aux deux parcours, le parcours accompagné et le
-              parcours par gestes. Vous devez choisir l'un des deux parcours.
+              <Image src={crossIcon} alt="Icône d'une croix" />
+              Vous n'êtes pas éligible aux aides Ma Prime Rénov.
             </p>
-            <Avis {...{ situation, engine }} />
-          </div>
-        )
-      )}
 
-      <Results>
-        <li>
-          <SimplifiedAmpleurSummary
-            {...{
-              engine,
-              url: nextLink('ampleur'),
-              situation,
-              expanded,
-              setSearchParams,
-            }}
-          />
-        </li>
-        <li>
-          <ÀlaCarteSummary
-            {...{
-              engine,
-              rules,
-              url: nextLink('à la carte'),
-              situation,
-            }}
-          />
-        </li>
-      </Results>
-      <AutresAides />
-    </CustomQuestionWrapper>
+            <ExplicationCommune {...{ situation, engine }} />
+          </div>
+        ) : mpra && !mprg ? (
+          <p>
+            Vous êtes éligible au parcours accompagné. Vous n'êtes pas éligible
+            au parcours par geste.
+          </p>
+        ) : !mpra && mprg ? (
+          <p>
+            Vous n'êtes pas éligible au parcours accompagné. Vous êtes cependant
+            éligible au parcours par geste.
+          </p>
+        ) : (
+          both && (
+            <div>
+              <p>
+                Vous êtes éligible aux deux parcours, le parcours accompagné et
+                le parcours par gestes. Vous devez choisir l'un des deux
+                parcours.
+              </p>
+              <Avis {...{ situation, engine }} />
+            </div>
+          )
+        )}
+
+        <Results>
+          <li>
+            <SimplifiedAmpleurSummary
+              {...{
+                engine,
+                url: nextLink('ampleur'),
+                situation,
+                expanded,
+                setSearchParams,
+              }}
+            />
+          </li>
+          <li>
+            <ÀlaCarteSummary
+              {...{
+                engine,
+                rules,
+                url: nextLink('à la carte'),
+                situation,
+              }}
+            />
+          </li>
+        </Results>
+        <AutresAides />
+      </CustomQuestionWrapper>
+    </section>
   )
 }
