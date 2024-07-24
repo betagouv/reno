@@ -82,17 +82,7 @@ export default function AmpleurSummary({
     <section>
       <header>
         <h3>Faire une rénovation d'ampleur</h3>
-        <Labels
-          $color={'#6E4444'}
-          $background={'#fdf8db'}
-          css={`
-            margin-top: 0.3rem;
-          `}
-        >
-          {['🤝 Un professionnel vous accompagne'].map((text) => (
-            <li key={text}>{text}</li>
-          ))}
-        </Labels>
+        <ProfessionnelLabel />
         <p
           css={`
             margin-top: 1.4rem;
@@ -221,3 +211,16 @@ export default function AmpleurSummary({
     </section>
   )
 }
+export const ProfessionnelLabel = () => (
+  <Labels
+    $color={'#6E4444'}
+    $background={'#fdf8db'}
+    css={`
+      margin-top: 0.3rem;
+    `}
+  >
+    {['🤝 Un professionnel vous accompagne'].map((text) => (
+      <li key={text}>{text}</li>
+    ))}
+  </Labels>
+)

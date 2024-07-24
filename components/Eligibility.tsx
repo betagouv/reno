@@ -9,6 +9,7 @@ import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { Avis, ExplicationCommune } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
+import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
 
 export default function Eligibility({
   setSearchParams,
@@ -110,7 +111,7 @@ export default function Eligibility({
 
       <Results>
         <li>
-          <AmpleurSummary
+          <SimplifiedAmpleurSummary
             {...{
               engine,
               url: nextLink('ampleur'),
