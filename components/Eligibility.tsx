@@ -45,7 +45,6 @@ export default function Eligibility({
     noMpr = !mpra && !mprg,
     some = mpra || mprg || ceeConditions
 
-  console.log('plop', ceeConditionsEvaluation)
   return (
     <section>
       <PersonaBar />

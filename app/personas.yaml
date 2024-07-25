@@ -16,10 +16,12 @@
     logement . type: "'maison'"
     logement . surface: 91
     logement . période de construction: "'de 15 à 25 ans'"
+    CEE . projet . remplacement chaudière thermique: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
     MPR . accompagnée . montant: 59835
     MPR . non accompagnée . éligible: oui
+    gestes . chauffage . PAC . air-eau . montant: 9000
 - description: |
     3 sauts de DPE, passoire, enveloppe de 53200 k€ TTC, couple intermédiaire.
   situation:

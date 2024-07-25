@@ -13,7 +13,6 @@ export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
   const evaluation = engine
     .setSituation({ ...situation, 'projet . travaux': 999999 })
     .evaluate(dottedName)
-  console.log('result', evaluation)
 
   const value = formatValue(evaluation, { precision: 0 })
 
