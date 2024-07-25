@@ -24,7 +24,7 @@ export default function HomepageSteps() {
         {
             title: "Véronique, cherche à acheter un appartement pour de la location",
             shortText: "Véronique voudrait réaliser un investissement locatif dans une grande ville. Elle regarde du côté des appartements classés en passoire énergétique (DPE classe F ou G).",
-            moreText: "Ces appartements sont proposés à des prix bien inférieurs au marché. Elle renseigne son revenu fiscal (41 000 euros) dans le simulateur Mes Aides Réno. Elle constate qu’elle pourrait bénéficier de 42 000 euros d’aides (dont une avance) pour faire une rénovation d’ampleur, et ainsi louer un logement plus confortable et économe. Surtout, elle est rassurée de découvrir qu’elle pourra bénéficier d’un accompagnement par un professionnel, en partie financé par les aides."
+            moreText: "Ces appartements sont proposés à des prix bien inférieurs au marché. Elle renseigne son revenu fiscal (41 000 euros) dans le simulateur Mes Aides Réno. Elle constate qu’elle pourrait bénéficier de 42 000 euros d’aides (dont une avance) pour faire une rénovation d’ampleur, et ainsi mettre en location un logement plus confortable et économe. Surtout, elle est rassurée de découvrir qu’elle pourra bénéficier d’un accompagnement par un professionnel, en partie financé par les aides."
         },
         {
             title: "Linda et Jérémy, veulent rénover leur future longère",
