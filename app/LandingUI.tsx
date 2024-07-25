@@ -113,6 +113,7 @@ export const HomeTestimonies = styled.div`
   text-align: left;
   .fr-quote {
     width: 48%;
+    min-width: 18rem;
     padding: 0 1rem;
     border-left: 1px solid #ddd;
     margin-bottom: 2rem;
