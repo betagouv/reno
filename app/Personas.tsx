@@ -83,7 +83,8 @@ export default function Personas({}) {
                           console.log('Failing persona', persona)
                           if (throwIfFailingTest)
                             throw new Error(
-                              `Failing test !! ${nom} ${persona.description}`,
+                              `Failing test !! ${nom} ${persona.description},
+                              computed: ${computedValue}, expected: ${expectedValue} for variable: ${dottedName}`
                             )
                         }
                         return (
