@@ -68,7 +68,7 @@ export default function Personas({}) {
                         )
                         const correct =
                           typeof expectedValue === 'number'
-                            ? Math.round(computedValue) === expectedValue
+                            ? Math.round(computedValue) === Math.round(expectedValue)
                             : ['oui', 'non'].includes(expectedValue)
                               ? expectedValue === formattedValue
                               : typeof expectedValue === 'string'
