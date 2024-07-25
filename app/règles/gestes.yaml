@@ -25,6 +25,7 @@ recommandés . audit . MPR:
 recommandés . audit . MPR . plafond:
   valeur: 800 €
 recommandés . audit . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 500 €
@@ -49,6 +50,7 @@ ventilation . double flux . montant:
 ventilation . double flux . MPR:
 ventilation . double flux . MPR . plafond: 4000 €
 ventilation . double flux . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
