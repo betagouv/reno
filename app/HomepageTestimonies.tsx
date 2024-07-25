@@ -46,18 +46,28 @@ export default function HomepageSteps() {
                 {testimonials.map((testimonial, index) => (
                     <div key={index} className="fr-quote">
                         <h3>{testimonial.title}</h3>
-                        <p css={`text-align: justify`}>
-                            {testimonial.shortText}
-                            <span
-                                className="see-more-click"
-                                onClick={() => toggleExpand(index)}
-                            >
-                                {expanded[index] ? "Voir moins" : "Voir plus"}
-                            </span>
-                        </p>
-                        <p className={`see-more ${expanded[index] ? "expanded" : ""}`}>
-                            {testimonial.moreText}
-                        </p>
+                        <details>
+                            <summary
+                             onClick={() => toggleExpand(index)}
+                             css={`
+                                outline: none;
+                                list-style: none;
+                                text-align: justify;
+                                &::-webkit-details-marker {
+                                    display: none;
+                                }
+                                &::marker {
+                                    display: none;
+                                }`}>
+                                <span>{testimonial.shortText}</span>
+                                <span className="see-more-click">
+                                    {expanded[index] ? "Voir moins" : "Voir plus"}
+                                </span>
+                            </summary>
+                            <p className="see-more">
+                                {testimonial.moreText}
+                            </p>
+                        </details>
                     </div>
                 ))}
             </HomeTestimonies>

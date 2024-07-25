@@ -146,9 +146,12 @@ export const HomeTestimonies = styled.div`
     .see-more {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.5s ease;
+      transition: max-height 1s ease;
     }
-    .see-more.expanded {
+    details {
+      overflow: hidden;
+    }
+    details[open] .see-more {
       max-height: 500px;
     }
     .see-more-click {
