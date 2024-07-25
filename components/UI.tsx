@@ -33,8 +33,6 @@ export const FooterWrapper = styled.footer`
   &.fr-footer {
     box-shadow: inset 0 2px 0 0 #000091,inset 0 -1px 0 0 #ddd;
     padding-top: 2rem;
-    width: 100%;
-    font-size: .75rem;
   }
   .fr-footer__top {
     background-color: #f6f6f6;
@@ -61,14 +59,14 @@ export const FooterWrapper = styled.footer`
   .fr-footer__top-cat {
     color: #161616;
     display: block;
-    font-size: .75rem;
+    font-size: .95rem;
     font-weight: 700;
     line-height: 1.25rem;
-    margin: 0 0 .75rem;
+    margin: 0 0 1rem;
     text-align: left;
   }
   .fr-footer__top-list {
-    font-size: .75rem;
+    font-size: .85rem;
     line-height: 1.25rem;
     margin: 0;
   }
@@ -102,7 +100,7 @@ export const FooterWrapper = styled.footer`
         margin: .5rem 0 0 .25rem;
         position: relative;
         a {
-          font-size: .75rem;
+          font-size: .85rem;
           line-height: 1.25rem;
         }
         &:first-child {
@@ -128,7 +126,7 @@ export const FooterWrapper = styled.footer`
       }
     }
     .fr-footer__bottom-copy {
-      font-size: .75rem;
+      font-size: .85rem;
       line-height: 1.25rem;
     }
   }
