@@ -82,23 +82,37 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           />
         )}
         { (!eligibleMPRG && eligibleCEE) &&
-          <div
-            css={`
-              margin-top: 1rem;
-            `}
-          >
-            <InapplicableBlock>
-              <Image src={checkIcon} alt="Icône d'un check" />
-              <div>
-                <p css={`text-decoration-color: green !important;`}>
-                  En revanche, vous êtes éligibles aux aides CEE.
-                </p>
-                <small>
-                  Il faut que le logement ait été construit il y a plus de 2 ans.
-                </small>
-              </div>
-            </InapplicableBlock>
-          </div>
+          <>
+            <div
+              css={`
+                margin-top: 1rem;
+              `}
+            >
+              <InapplicableBlock>
+                <Image src={checkIcon} alt="Icône d'un check" />
+                <div>
+                  <p css={`text-decoration-color: green !important;`}>
+                    En revanche, vous êtes éligibles aux aides CEE.
+                  </p>
+                  <small>
+                    Il faut que le logement ait été construit il y a plus de 2 ans.
+                  </small>
+                </div>
+              </InapplicableBlock>
+            </div>
+            <GestesPreview
+              {...{
+                rules,
+                dottedNames: [
+                  'gestes . chauffage . PAC . air-eau',
+                  'gestes . chauffage . bois . chaudière . automatique',
+                  'gestes . isolation . murs extérieurs',
+                ],
+                engine,
+                situation,
+              }}
+            />
+          </>
         }
         { (eligibleMPRG || eligibleCEE) && (
           <>
