@@ -23,7 +23,7 @@ CEE . conditions:
 CEE . projet:
 CEE . projet . remplacement chaudière thermique:
   titre: Remplacement d'une chaudière thermique
-  question: Prévoyez-vous de remplacer une chaudière individuelle au gaz, au fioul ou au charbon ?
+  question: Prévoyez-vous de remplacer une chaudière individuelle au gaz (autres qu’à condensation), au fioul ou au charbon ?
   description: |
     Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" CEE qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
 
