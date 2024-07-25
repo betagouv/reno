@@ -43,7 +43,6 @@ export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
         {!eligible ? (
           <div
             css={`
-              margin-top: 1rem;
               margin-bottom: -2rem;
             `}
           >

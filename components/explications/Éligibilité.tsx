@@ -5,6 +5,7 @@ import DPELabel from '../DPELabel'
 import { Value } from '../ScenariosSelector'
 
 export const InapplicableBlock = styled.div`
+  margin: 1rem 0;
   display: flex;
   align-items: center;
   img {
@@ -62,25 +63,28 @@ export function ExplicationMPRG({ situation, engine }) {
     return (
       <InapplicableBlock>
         <Image src={crossIcon} alt="Icône d'une croix" />
-        <p>
-          Votre revenu de{' '}
-          <span
-            css={`
-              white-space: nowrap;
-            `}
-          >
-            classe{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: 'ménage . revenu . classe',
-                state: 'final',
-              }}
-            />{' '}
-          </span>{' '}
-          dépasse le seuil d'éligibilité.
-        </p>
+        <div>
+          <p>Vous n'êtes pas éligible à MaPrimeRénov' par geste.</p>
+          <small>
+            Votre revenu de{' '}
+            <span
+              css={`
+                white-space: nowrap;
+              `}
+            >
+              classe{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'ménage . revenu . classe',
+                  state: 'final',
+                }}
+              />{' '}
+            </span>{' '}
+            dépasse le seuil d'éligibilité.
+          </small>
+        </div>
       </InapplicableBlock>
     )
 }
