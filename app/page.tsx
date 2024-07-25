@@ -17,6 +17,7 @@ import {
 } from './LandingUI'
 import dynamic from 'next/dynamic'
 import HomepageSteps from './HomepageSteps'
+import HomepageTestimonies from './HomepageTestimonies'
 
 export const description = `Calculez les aides MaPrimeRénov' 2024 pour la rénovation de votre logement.`
 
@@ -105,6 +106,7 @@ export default function Page() {
           </div>
         </LandingGreenBanner>
         <HomepageSteps />
+        <HomepageTestimonies />
       </PageBlock>
     </main>
   )

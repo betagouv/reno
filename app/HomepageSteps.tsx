@@ -6,7 +6,7 @@ import { HomeList } from "./LandingUI"
 export default function HomepageSteps() {
     const isInIFrame = useIsInIframe()
     return !isInIFrame && (
-    <Wrapper $background="white" $noMargin={true} $last={true}>
+    <Wrapper $background="white" $noMargin={true}>
         <Content>
             <HomeList>
                 <li>
