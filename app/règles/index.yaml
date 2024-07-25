@@ -140,6 +140,7 @@ logement . surface:
     Pour le calcul de la surface moyenne, voir la [documentation Nos Gestes Climat](https://nosgestesclimat.fr/documentation/parc-fran%C3%A7ais/surface-moyenne).
 
 logement . propriétaire occupant:
+  applicable si: vous . propriétaire . condition
   question: Vivez-vous dans le logement à rénover (propriétaire occupant) ?
   par défaut: non
   description: |
@@ -166,7 +167,7 @@ logement . résidence principale propriétaire:
 
 logement . résidence principale locataire:
   non applicable si: propriétaire occupant
-  question: Le logement est-il la résidence principale de votre locataire ?
+  question: Le logement est-il la résidence principale du locataire ?
   par défaut: oui
   description: |
     Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
