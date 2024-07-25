@@ -267,6 +267,164 @@
     gestes . chauffage . PAC . géo . Coup de pouce . montant: 5000
     gestes . chauffage . raccordement réseau . chaleur . MPR . montant: 800
     gestes . chauffage . raccordement réseau . froid . MPR . montant: 800
+
+- description: |
+    4 sauts de DPE, enveloppe de 70 k€ TTC, couple très modeste avec enfant, sans remplacement chaudière en H1
+  situation:
+    conditions communes: oui
+    ménage . personnes: 3
+    ménage . revenu: 25000
+    DPE . actuel: 6
+    projet . DPE visé: 2
+    projet . travaux: 70140 / (1.055)
+    ménage . code région: "'27'"
+    ménage . code département: "'25'" # Doubs / Zone climatique H1
+    ménage . commune: "'25388'"
+    ménage . EPCI: "'200065647'"
+    logement . propriétaire occupant: oui
+    logement . résidence principale propriétaire: oui
+    logement . type: "'maison'"
+    logement . surface: 91
+    logement . période de construction: "'de 15 à 25 ans'"
+    gestes . isolation . murs extérieurs . MPR . surface: 85
+    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . rampants . MPR . surface: 60
+    gestes . isolation . toitures terrasses . MPR . surface: 60
+    gestes . isolation . vitres . MPR . quantité: 5
+    gestes . isolation . vitres . CEE . surface: 6
+    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
+    gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
+    gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
+    gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
+    gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . air-eau . CEE . Etas: "'entre 140 % et 170 %'"
+    gestes . chauffage . PAC . géo . CEE . usage : "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . géo . CEE . Etas: "'entre 170 % et 200 %'"
+    gestes . ventilation . double flux . CEE . type de ventilation: "'modulée'"
+    CEE . projet . remplacement chaudière thermique: non
+  valeurs attendues:
+    # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
+    MPR . accompagnée . montant: 59835
+    MPR . non accompagnée . éligible: oui
+    gestes . chauffage . solaire . solaire combiné . CEE . montant: 1078.4
+    gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
+    gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
+    gestes . chauffage . pilotage connecté . CEE . montant: 262
+    gestes . ventilation . double flux . CEE . montant: 336
+    gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
+    gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 330.4
+    gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 0
+    gestes . chauffage . bois . chaudière . automatique . CEE . montant: 330.4
+    gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 0
+    gestes . chauffage . PAC . air-eau . CEE . montant: 742
+    gestes . chauffage . PAC . géo . Coup de pouce . montant: 0
+    gestes . chauffage . PAC . géo . CEE . montant: 1040.6
+    gestes . chauffage . raccordement réseau . chaleur . Coup de pouce . montant: 0
+    gestes . chauffage . raccordement réseau . chaleur . CEE . montant: 386.4
+- description: |
+    3 sauts de DPE, passoire, enveloppe de 53200 k€ TTC, couple intermédiaire, sans remplacement chaudière en H2
+  situation:
+    conditions communes: oui
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 7
+    projet . DPE visé: 4
+    projet . travaux: 53200 / (1.055)
+    ménage . code région: "'24'"
+    ménage . code département: "'18'" # Cher / Zone climatique H2
+    logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'maison'"
+    logement . surface: 110
+    logement . période de construction: "'de 15 à 25 ans'"
+    gestes . isolation . murs extérieurs . MPR . surface: 85
+    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . rampants . MPR . surface: 60
+    gestes . isolation . toitures terrasses . MPR . surface: 60
+    gestes . isolation . vitres . MPR . quantité: 5
+    gestes . isolation . vitres . CEE . surface: 6
+    gestes . chauffage . pilotage connecté . CEE . classe: "'B'"
+    gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 72 % et 80 %'"
+    gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 66 % et 72 %'"
+    gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
+    gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . air-eau . CEE . Etas: "'entre 170 % et 200 %'"
+    gestes . chauffage . PAC . géo . CEE . usage : "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . géo . CEE . Etas: "'entre 200 % et 230 %'"
+    gestes . ventilation . double flux . CEE . type de ventilation: "'modulée'"
+    CEE . projet . remplacement chaudière thermique: non
+  valeurs attendues:
+    # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
+    MPR . accompagnée . montant: 30256
+    MPR . non accompagnée . éligible: oui
+    gestes . chauffage . solaire . solaire combiné . CEE . montant: 968
+    gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
+    gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
+    gestes . chauffage . pilotage connecté . CEE . montant: 164.5
+    gestes . ventilation . double flux . CEE . montant: 302.7
+    gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
+    gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 270.4
+    gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 0
+    gestes . chauffage . bois . chaudière . automatique . CEE . montant: 270.4
+    gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 0
+    gestes . chauffage . PAC . air-eau . CEE . montant: 854.4
+    gestes . chauffage . PAC . géo . Coup de pouce . montant: 0
+    gestes . chauffage . PAC . géo . CEE . montant: 1093
+    gestes . chauffage . raccordement réseau . chaleur . Coup de pouce . montant: 0
+    gestes . chauffage . raccordement réseau . chaleur . CEE . montant: 353.7
+- description: |
+    Couple modeste, appart, presque passoire, 1 saut, sans remplacement chaudière en H3
+  situation:
+    conditions communes: oui
+    ménage . personnes: 2
+    ménage . revenu: 25000
+    DPE . actuel: 5
+    projet . DPE visé: 4
+    ménage . code région: '"52"'
+    ménage . code département: '"06"' # Zone climatique H3
+    logement . propriétaire occupant: non
+    logement . commune: "'06019'"
+    logement . résidence principale: oui
+    logement . type: "'appartement'"
+    logement . surface: 65
+    logement . période de construction: "'au moins 25 ans'"
+    gestes . isolation . murs extérieurs . MPR . surface: 85
+    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . rampants . MPR . surface: 60
+    gestes . isolation . toitures terrasses . MPR . surface: 60
+    gestes . isolation . vitres . MPR . quantité: 5
+    gestes . isolation . vitres . CEE . surface: 6
+    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
+    gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
+    gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
+    gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
+    gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . air-eau . CEE . Etas: "'supérieur à 200 %'"
+    gestes . chauffage . PAC . géo . CEE . usage : "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . géo . CEE . Etas: "'supérieur à 230 %'"
+    gestes . ventilation . double flux . CEE . type de ventilation: "'autoréglable'"
+    CEE . projet . remplacement chaudière thermique: non
+  valeurs attendues:
+    MPR . accompagnée . pourcent dont bonus: 0
+    MPR . non accompagnée . éligible: oui
+    gestes . chauffage . solaire . solaire combiné . CEE . montant: 804
+    gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
+    gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 95.2
+    gestes . chauffage . pilotage connecté . CEE . montant: 61.6
+    gestes . ventilation . double flux . CEE . montant: 103.7
+    gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
+    gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 210.4
+    gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 0
+    gestes . chauffage . bois . chaudière . automatique . CEE . montant: 210.4
+    gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 0
+    gestes . chauffage . PAC . air-eau . CEE . montant: 322.5
+    gestes . chauffage . PAC . géo . Coup de pouce . montant: 0
+    gestes . chauffage . PAC . géo . CEE . montant: 368.4
+    gestes . chauffage . raccordement réseau . chaleur . Coup de pouce . montant: 0
+    gestes . chauffage . raccordement réseau . chaleur . CEE . montant: 118.4
+
+
+
 - description: |
     Individu aisé, presque passoire, 3 saut.
   situation:
