@@ -1,0 +1,355 @@
+chauffage . PAC:
+  titre: Pompe à chaleur
+
+chauffage . PAC . air-eau:
+  par défaut: oui
+  titre: Pompe à chaleur air/eau
+  description: Pompe à chaleur air/eau (dont PAC hybrides)
+  note: La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
+chauffage . PAC . air-eau . montant:
+  somme:
+    - MPR . montant
+    - Coup de pouce . montant
+    - CEE . montant
+
+chauffage . PAC . air-eau . MPR:
+chauffage . PAC . air-eau . MPR . plafond: 12000 €
+chauffage . PAC . air-eau . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 5000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 3000 €
+    - sinon: 0 €
+chauffage . PAC . air-eau . CEE:
+  titre: BAR-TH-171
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+chauffage . PAC . air-eau . CEE . question:
+  type: liste
+  valeurs:
+    - CEE . projet . remplacement chaudière thermique
+    - usage
+    - Etas
+chauffage . PAC . air-eau . CEE . montant:
+  produit:
+    - barème
+    - facteur correctif surface
+    - facteur correctif region
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . PAC . air-eau . CEE . usage:
+  question: Quel va être l'usage de cette pompe à chaleur ?
+  titre: Usage
+  par défaut: "'chauffage et eau chaude'"
+  maximum: "'chauffage et eau chaude'"
+  une possibilité parmi:
+    possibilités:
+      - chauffage et eau chaude
+      - chauffage seulement
+chauffage . PAC . air-eau . CEE . usage . chauffage et eau chaude:
+  valeur: "'chauffage et eau chaude'"
+  titre: "Chauffage et eau chaude"
+chauffage . PAC . air-eau . CEE . usage . chauffage seulement:
+  valeur: "'chauffage seulement'"
+  titre: "Chauffage uniquement"
+chauffage . PAC . air-eau . CEE . Etas:
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  titre: Efficacité énergétique saisonnière
+  par défaut: "'entre 111 % et 140 %'"
+  maximum: "'supérieur à 200 %'"
+  une possibilité parmi:
+    possibilités:
+      - "entre 111 % et 140 %"
+      - "entre 140 % et 170 %"
+      - "entre 170 % et 200 %"
+      - "supérieur à 200 %"
+chauffage . PAC . air-eau . CEE . Etas . entre 111 % et 140 %:
+  valeur: "'entre 111 % et 140 %'"
+  titre: "Entre 111 % et 140 %"
+chauffage . PAC . air-eau . CEE . Etas . entre 140 % et 170 %:
+  valeur: "'entre 140 % et 170 %'"
+  titre: "Entre 140 % et 170 %"
+chauffage . PAC . air-eau . CEE . Etas . entre 170 % et 200 %:
+  valeur: "'entre 170 % et 200 %'"
+  titre: "Entre 170 % et 200 %"
+chauffage . PAC . air-eau . CEE . Etas . supérieur à 200 %:
+  valeur: "'supérieur à 200 %'"
+  titre: "Supérieur à 200 %"
+chauffage . PAC . air-eau . CEE . surface: logement . surface
+chauffage . PAC . air-eau . CEE . facteur correctif surface:
+  variations:
+    - si: logement . type = 'maison'
+      alors: facteur correctif surface maison
+    - sinon: facteur correctif surface appartement
+chauffage . PAC . air-eau . CEE . facteur correctif surface maison:
+  variations:
+    - si: surface < 70
+      alors: 0.5
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
+chauffage . PAC . air-eau . CEE . facteur correctif surface appartement:
+  variations:
+    - si: surface < 35
+      alors: 0.5
+    - si: surface < 60
+      alors: 0.7
+    - si: surface < 70
+      alors: 1
+    - si: surface < 90
+      alors: 1.2
+    - si: surface < 110
+      alors: 1.5
+    - si: surface < 130
+      alors: 1.9
+    - si: surface >= 130
+      alors: 2.5
+chauffage . PAC . air-eau . CEE . facteur correctif region:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1.2
+    - si: CEE . région = 'H2'
+      alors: 1
+    - si: CEE . région = 'H3'
+      alors: 0.7
+chauffage . PAC . air-eau . CEE . barème:
+  variations:
+    - si:
+        toutes ces conditions :
+          - logement . type = 'maison'
+          - usage = 'chauffage seulement'
+      alors: barème maison chauffage
+    - si:
+        toutes ces conditions :
+          - logement . type = 'maison'
+          - usage = 'chauffage et eau chaude'
+      alors: barème maison chauffage et eau
+    - si:
+        toutes ces conditions :
+          - logement . type = 'appartement'
+          - usage = 'chauffage seulement'
+      alors: barème appartement chauffage
+    - si:
+        toutes ces conditions :
+          - logement . type = 'appartement'
+          - usage = 'chauffage et eau chaude'
+      alors: barème appartement chauffage et eau
+chauffage . PAC . air-eau . CEE . barème maison chauffage:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 37600
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 60800
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 76300
+    - si: Etas = "supérieur à 200 %"
+      alors: 83300
+chauffage . PAC . air-eau . CEE . barème maison chauffage et eau:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 47800
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 77300
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 97100
+    - si: Etas = "supérieur à 200 %"
+      alors: 106000
+chauffage . PAC . air-eau . CEE . barème appartement chauffage:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 16600
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 26900
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 33700
+    - si: Etas = "supérieur à 200 %"
+      alors: 36800
+chauffage . PAC . air-eau . CEE . barème appartement chauffage et eau:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 26000
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 42000
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 52700
+    - si: Etas = "supérieur à 200 %"
+      alors: 57600
+chauffage . PAC . air-eau . Coup de pouce:
+chauffage . PAC . air-eau . Coup de pouce . montant:
+  applicable si: CEE . projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - sinon: 2500 €
+chauffage . PAC . air-eau . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
+
+chauffage . PAC . géo et solaire:
+chauffage . PAC . géo et solaire . MPR:
+chauffage . PAC . géo et solaire . MPR . plafond: 18000 €
+chauffage . PAC . géo et solaire . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 11000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 9000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 6000 €
+    - sinon: 0 €
+
+chauffage . PAC . géo:
+  par défaut: oui
+  titre: Pompe à chaleur géothermique
+  description: Pompe à chaleur géothermique
+  note: |
+    Le guide Anah parle de PAC géo ou solarothermique *dont hybride*. Ça me semble étonnant. D'après les ressources disponibles en ligne, l'hybridation avec une chaudière à combustile est surtout utilisée pour palier à la baisse de température de l'air, ce qui ne semble pas etre utile pour une PAC qui va puiser la chaleur dans le sol qui a pour particularité de garder une température plus constante toute l'année. Peut-etre est-ce utile pour palier à l'augmentation de la chaleur nécessaire à cause de la baisse de température ? À creuser, pour l'instant on ignore cette option.
+
+    La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est donc avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
+chauffage . PAC . géo . montant:
+  somme:
+    - MPR . montant
+    - Coup de pouce . montant
+    - CEE . montant
+chauffage . PAC . géo . MPR:
+chauffage . PAC . géo . MPR . plafond: géo et solaire . MPR . plafond
+chauffage . PAC . géo . MPR . montant: géo et solaire . MPR . montant
+chauffage . PAC . géo . Coup de pouce:
+chauffage . PAC . géo . Coup de pouce . montant:
+  applicable si: CEE . projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
+  valeur: 5000 €
+chauffage . PAC . géo . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
+chauffage . PAC . géo . CEE:
+  titre: BAR-TH-172
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+chauffage . PAC . géo . CEE . montant:
+  produit:
+    - barème
+    - facteur correctif surface
+    - facteur correctif région
+    - CEE . prix kWh Cumac
+  unité: €
+
+chauffage . PAC . géo . CEE . question:
+  type: liste
+  valeurs:
+    - CEE . projet . remplacement chaudière thermique
+    - usage
+    - Etas
+chauffage . PAC . géo . CEE . surface: logement . surface
+chauffage . PAC . géo . CEE . usage:
+  question: Quel va être l'usage de cette pompe à chaleur ?
+  titre: Usage
+  par défaut: "'chauffage et eau chaude'"
+  maximum: "'chauffage et eau chaude'"
+  une possibilité parmi:
+    possibilités:
+      - chauffage et eau chaude
+      - chauffage seulement
+chauffage . PAC . géo . CEE . usage . chauffage et eau chaude:
+  valeur: "'chauffage et eau chaude'"
+  titre: "Chauffage et eau chaude"
+chauffage . PAC . géo . CEE . usage . chauffage seulement:
+  valeur: "'chauffage seulement'"
+  titre: "Chauffage uniquement"
+
+chauffage . PAC . géo . CEE . Etas:
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  titre: Efficacité énergétique saisonnière
+  par défaut: "'entre 111 % et 140 %'"
+  maximum: "'supérieur à 230 %'"
+  une possibilité parmi:
+    possibilités:
+      - "entre 111 % et 140 %"
+      - "entre 140 % et 170 %"
+      - "entre 170 % et 200 %"
+      - "entre 200 % et 230 %"
+      - "supérieur à 230 %"
+chauffage . PAC . géo . CEE . Etas . entre 111 % et 140 %:
+  valeur: "'entre 111 % et 140 %'"
+  titre: "Entre 111 % et 140 %"
+chauffage . PAC . géo . CEE . Etas . entre 140 % et 170 %:
+  valeur: "'entre 140 % et 170 %'"
+  titre: "Entre 140 % et 170 %"
+chauffage . PAC . géo . CEE . Etas . entre 170 % et 200 %:
+  valeur: "'entre 170 % et 200 %'"
+  titre: "Entre 170 % et 200 %"
+chauffage . PAC . géo . CEE . Etas . entre 200 % et 230 %:
+  valeur: "'entre 200 % et 230 %'"
+  titre: "Entre 200 % et 230 %"
+chauffage . PAC . géo . CEE . Etas . supérieur à 230 %:
+  valeur: "'supérieur à 230 %'"
+  titre: "Supérieur à 230 %"
+
+chauffage . PAC . géo . CEE . barème:
+  variations:
+    - si: usage = 'chauffage seulement'
+      alors: barème chauffage
+    - si: usage = 'chauffage et eau chaude'
+      alors: barème chauffage et eau
+chauffage . PAC . géo . CEE . barème chauffage:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 42000
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 67900
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 85200
+    - si: Etas = "entre 200 % et 230 %"
+      alors: 97600
+    - si: Etas = "supérieur à 230 %"
+      alors: 103500
+chauffage . PAC . géo . CEE . barème chauffage et eau:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 53400
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 86400
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 108400
+    - si: Etas = "entre 200 % et 230 %"
+      alors: 124200
+    - si: Etas = "supérieur à 230 %"
+      alors: 131600
+
+chauffage . PAC . géo . CEE . facteur correctif surface:
+  variations:
+    - si: surface < 70
+      alors: 0.5
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
+chauffage . PAC . géo . CEE . facteur correctif région:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1.2
+    - si: CEE . région = 'H2'
+      alors: 1
+    - si: CEE . région = 'H3'
+      alors: 0.7
+
+chauffage . PAC . solaire:
+  par défaut: oui
+  titre: Pompe à chaleur solarothermique
+  description: Pompe à chaleur solarothermique
+chauffage . PAC . solaire . montant: MPR . montant
+chauffage . PAC . solaire . MPR:
+chauffage . PAC . solaire . MPR . plafond: géo et solaire . MPR . plafond
+chauffage . PAC . solaire . MPR . montant: géo et solaire . MPR . montant

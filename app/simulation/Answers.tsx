@@ -61,10 +61,11 @@ export default function Answers({
     if (detailsElement) {
       detailsElement.open = !detailsElement.open;
     }
-  };
+  }
   const preventSummaryClick = (event) => {
     event.preventDefault();
   };
+
   console.log({ rawAnsweredQuestions })
   const answeredQuestions = rawAnsweredQuestions.filter(
     (el) => el !== 'simulation . mode',

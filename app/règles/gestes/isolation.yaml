@@ -11,14 +11,23 @@ isolation . vitres:
   titre: Remplacement de simple vitrage
   description: Isolation thermique des parois vitrées (fenêtres et portes-fenêtres) en remplacement de simple vitrage
   par défaut: oui
-isolation . vitres . montant: barème * quantité
-isolation . vitres . quantité:
+isolation . vitres . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
+isolation . vitres . MPR:
+isolation . vitres . MPR . plafond: 1000 €/équipements
+isolation . vitres . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - quantité
+    - barème
+isolation . vitres . MPR . question: quantité
+isolation . vitres . MPR . quantité:
   question: Combien de parois vitrées voulez-vous isoler ?
-  par défaut: 4 équipements
+  par défaut: 3
   unité: équipements
-
-isolation . vitres . plafond: 1000 €/équipements
-isolation . vitres . barème:
+isolation . vitres . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 €/équipements
@@ -27,17 +36,54 @@ isolation . vitres . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/équipements
     - sinon: 0 €
+isolation . vitres . CEE:
+  titre: BAR-EN-104
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-104%20vA54-2%20%C3%A0%20compter%20du%2001-01-2024.pdf
+isolation . vitres . CEE . question:
+  type: liste
+  valeurs:
+    - surface
+isolation . vitres . CEE . surface:
+  question: Quelle surface de vitre souhaitez-vous remplacer
+  par défaut: 4 m2
+  unité: m2
+isolation . vitres . CEE . montant:
+  produit:
+    - barème
+    - surface
+    - CEE . prix kWh Cumac
+  unité: €
+isolation . vitres . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 3800
+    - si: CEE . région = 'H2'
+      alors: 3100
+    - si: CEE . région = 'H3'
+      alors: 2100
+
 isolation . murs extérieurs:
   titre: Isolation des murs par l'extérieur
   par défaut: oui
-isolation . murs extérieurs . surface:
+isolation . murs extérieurs . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
+isolation . murs extérieurs . MPR:
+isolation . murs extérieurs . MPR . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . murs extérieurs . montant: surface * barème
-isolation . murs extérieurs . plafond: 150 €/m2
-isolation . murs extérieurs . barème:
+isolation . murs extérieurs . MPR . plafond: 150 €/m2
+isolation . murs extérieurs . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - le minimum de:
+      - surface
+      - 100 m2
+    - barème
+isolation . murs extérieurs . MPR . question: surface
+isolation . murs extérieurs . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 75 €/m2
@@ -46,18 +92,48 @@ isolation . murs extérieurs . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 0 €
+isolation . murs extérieurs . CEE:
+  titre: BAR-EN-102
+  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+isolation . murs extérieurs . CEE . question:
+  type: liste
+  valeurs:
+  - MPR . surface
+isolation . murs extérieurs . CEE . montant:
+  produit:
+    - MPR . surface
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+isolation . murs extérieurs . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1600
+    - si: CEE . région = 'H2'
+      alors: 1300
+    - si: CEE . région = 'H3'
+      alors: 880
 
 isolation . murs intérieurs:
   titre: Isolation des murs par l'intérieur
   par défaut: oui
-isolation . murs intérieurs . surface:
+isolation . murs intérieurs . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
+isolation . murs intérieurs . MPR:
+isolation . murs intérieurs . MPR . surface:
   question: Quelle surface de murs intérieurs voulez-vous isoler ?
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . murs intérieurs . montant: surface * barème
-isolation . murs intérieurs . plafond: 70 €/m2
-isolation . murs intérieurs . barème:
+isolation . murs intérieurs . MPR . plafond: 70 €/m2
+isolation . murs intérieurs . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - surface
+    - barème
+isolation . murs intérieurs . MPR . question: surface
+isolation . murs intérieurs . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 25 €/m2
@@ -66,18 +142,47 @@ isolation . murs intérieurs . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
+isolation . murs intérieurs . CEE:
+  titre: BAR-EN-102
+  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+isolation . murs intérieurs . CEE . question:
+  type: liste
+  valeurs:
+  - MPR . surface
+isolation . murs intérieurs . CEE . montant:
+  produit:
+    - MPR . surface
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+isolation . murs intérieurs . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1600
+    - si: CEE . région = 'H2'
+      alors: 1300
+    - si: CEE . région = 'H3'
+      alors: 880
 
 isolation . rampants:
   titre: Isolation des rampants de toiture ou plafonds de combles
   par défaut: oui
-isolation . rampants . surface:
+isolation . rampants . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
+isolation . rampants . MPR:
+isolation . rampants . MPR . surface:
   question: Quelle surface de rampants voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . rampants . montant: surface * barème
-isolation . rampants . plafond: 75 €/m2
-isolation . rampants . barème:
+isolation . rampants . MPR . plafond: 75 €/m2
+isolation . rampants . MPR . montant: 
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - surface
+    - barème
+isolation . rampants . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 25 €/m2
@@ -86,17 +191,45 @@ isolation . rampants . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 0 €
+isolation . rampants . MPR . question: surface
+isolation . rampants . CEE:
+  titre: BAR-EN-101
+  lien: https://www.ecologie.gouv.fr/sites/default/files/Fiche%20BAR-EN-101.pdf
+isolation . rampants . CEE . montant:
+  produit:
+    - MPR . surface
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+isolation . rampants . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1700
+    - si: CEE . région = 'H2'
+      alors: 1400
+    - si: CEE . région = 'H3'
+      alors: 900
+
 isolation . toitures terrasses:
   titre: Isolation thermique des toitures terrasses
   par défaut: oui
-isolation . toitures terrasses . surface:
+isolation . toitures terrasses . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
+isolation . toitures terrasses . MPR:
+isolation . toitures terrasses . MPR . question: surface
+isolation . toitures terrasses . MPR . surface:
   question: Quelle surface de toiture terrasses voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
-
-isolation . toitures terrasses . montant: surface * barème
-isolation . toitures terrasses . plafond: 180 €/m2
-isolation . toitures terrasses . barème:
+isolation . toitures terrasses . MPR . plafond: 180 €/m2
+isolation . toitures terrasses . MPR . montant: 
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - surface
+    - barème
+isolation . toitures terrasses . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 75 €/m2
@@ -105,6 +238,54 @@ isolation . toitures terrasses . barème:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 0 €
+isolation . toitures terrasses . CEE:
+  titre: BAR-EN-105
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-105%20vA39-3%20%C3%A0%20compter%20du%2001-05-2022.pdf
+isolation . toitures terrasses . CEE . montant:
+  produit:
+    - MPR . surface
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+isolation . toitures terrasses . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1200
+    - si: CEE . région = 'H2'
+      alors: 1000
+    - si: CEE . région = 'H3'
+      alors: 670
+
+isolation . plancher bas:
+  titre: Isolation du plancher
+  par défaut: oui
+isolation . plancher bas . montant: CEE . montant
+isolation . plancher bas . CEE:
+  titre: BAR-EN-103
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-103%20vA39-5%20%C3%A0%20compter%20du%2001-05-2022.pdf
+isolation . plancher bas . CEE . montant: 
+  produit:
+    - barème
+    - surface
+    - CEE . prix kWh Cumac
+  unité: €
+isolation . plancher bas . CEE . question: 
+  type: liste
+  valeurs: 
+  - surface
+isolation . plancher bas . CEE . surface:
+  question: Quelle surface de plancher voulez-vous isoler ?
+  par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
+  unité: m2
+isolation . plancher bas . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1100
+    - si: CEE . région = 'H2'
+      alors: 890
+    - si: CEE . région = 'H3'
+      alors: 590
+
 #TODO Outre-mer
 # Protection des parois vitrées ou opaques contre le rayonnement solaire
 

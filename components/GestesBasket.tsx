@@ -1,20 +1,16 @@
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
-import Image from 'next/image'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
 import Geste from './Geste'
-import GesteQuestion from './GesteQuestion'
 import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
 import { encodeDottedName } from './publicodes/situationUtils'
-import { Card, CTA, CTAWrapper } from './UI'
+import { Card } from './UI'
 
 export default function GestesBasket({
   rules,
-  rule,
   engine,
   situation,
   answeredQuestions,
-  nextQuestions,
   setSearchParams,
 }) {
   const gestes = gestesMosaicQuestions.filter((q) => {
@@ -26,12 +22,6 @@ export default function GestesBasket({
       .setSituation(situation)
       .evaluate('gestes . montant'),
     total = formatValue(evaluation)
-
-  const missingValues = nextQuestions.find(
-    (question) =>
-      situation[question] == undefined &&
-      question !== 'MPR . non accompagnée . confirmation',
-  )
 
   const firstGestesMosaicDottedName = Object.entries(rules).find(
     ([dottedName, rule]) => isGestesMosaicQuestion(dottedName, rule),
@@ -67,6 +57,8 @@ export default function GestesBasket({
                   rules,
                   engine,
                   situation,
+                  answeredQuestions,
+                  setSearchParams,
                   expanded: true,
                 }}
               />
@@ -80,6 +72,28 @@ export default function GestesBasket({
         <strong>gratuitement</strong> et vous aide à calculer vos aides et votre
         budget.
       </p>
+      <p>
+        Les montants calculés ci-dessus sont des estimations. Les primes CEE
+        sont des estimations minimales qui seront à confronter aux primes
+        réelles des entreprises qui vendent de l'énergie, qui peuvent décider de
+        les verser en chèques, cartes cadeaux ou encore réductions.
+      </p>
+      <small
+        css={`
+          display: block;
+          margin: 0 0 0 auto;
+          width: fit-content;
+        `}
+      >
+        Plus d'infos à propos des CEE sur{' '}
+        <a
+          href="https://www.service-public.fr/particuliers/vosdroits/F35584"
+          target="_blank"
+        >
+          service-public.fr
+        </a>
+        .
+      </small>
       <MarSearch
         codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
         what="trouver-conseiller-renov"
