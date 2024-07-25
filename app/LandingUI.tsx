@@ -157,6 +157,7 @@ export const HomeTestimonies = styled.div`
     .see-more-click {
         cursor: pointer;
         display: block;
+        margin-bottom: 1rem;
         text-align: right;
         text-decoration: underline;
     }
