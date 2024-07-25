@@ -82,17 +82,7 @@ export default function AmpleurSummary({
     <section>
       <header>
         <h3>Faire une rénovation d'ampleur</h3>
-        <Labels
-          $color={'#6E4444'}
-          $background={'#fdf8db'}
-          css={`
-            margin-top: 0.3rem;
-          `}
-        >
-          {['🤝 Un professionnel vous accompagne'].map((text) => (
-            <li key={text}>{text}</li>
-          ))}
-        </Labels>
+        <ProfessionnelLabel />
         <p
           css={`
             margin-top: 1.4rem;
@@ -115,7 +105,7 @@ export default function AmpleurSummary({
       >
         {aidesEligibles.map((aide) => (
           <SummaryAide
-            key={aide.règle}
+            key={aide.dottedName}
             {...{
               ...aide,
               icon: aide.icône,
@@ -187,7 +177,7 @@ export default function AmpleurSummary({
             }
           `}
         >
-          <CTAWrapper $justify="end" >
+          <CTAWrapper $justify="end">
             <CTA $fontSize="normal">
               <Link href={url}>Découvrir le détail</Link>
             </CTA>
@@ -206,7 +196,7 @@ export default function AmpleurSummary({
 
         {aidesNonEligibles.map((aide) => (
           <SummaryAide
-            key={aide.règle}
+            key={aide.dottedName}
             {...{
               ...aide,
               icon: aide.icône,
@@ -221,3 +211,16 @@ export default function AmpleurSummary({
     </section>
   )
 }
+export const ProfessionnelLabel = () => (
+  <Labels
+    $color={'#6E4444'}
+    $background={'#fdf8db'}
+    css={`
+      margin-top: 0.3rem;
+    `}
+  >
+    {['🤝 Un professionnel vous accompagne'].map((text) => (
+      <li key={text}>{text}</li>
+    ))}
+  </Labels>
+)

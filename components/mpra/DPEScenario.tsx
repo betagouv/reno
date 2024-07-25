@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import DPELabel from '../DPELabel'
 import Input from '../Input'
 import { Value } from '../ScenariosSelector'
 import { Card, PrimeStyle } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
-import Image from 'next/image'
 
 import calculatorIcon from '@/public/calculator-empty.svg'
 import ExplicationsMPRA from './ExplicationsMPRA'
@@ -79,7 +79,7 @@ export default function DPEScenario({
                     'projet . travaux': 999999,
                     'projet . DPE visé': choice + 1,
                   },
-                  dottedName: 'aides globales',
+                  dottedName: 'ampleur . montant',
                   state: 'prime',
                 }}
               />{' '}
@@ -110,7 +110,7 @@ export default function DPEScenario({
                 />
                 <p
                   css={`
-                    line-height: 1.7rem;
+                    line-height: 1.9rem;
                   `}
                 >
                   Par exemple : pour une enveloppe de travaux de rénovation
@@ -146,7 +146,7 @@ export default function DPEScenario({
                       HT
                     </span>
                   </label>
-                  <span>, je toucherai un total d'aides de </span>
+                  <span>, soit </span>
                   <Value
                     {...{
                       engine,
@@ -155,7 +155,19 @@ export default function DPEScenario({
                         ...exampleSituation,
                         'projet . DPE visé': choice + 1,
                       },
-                      dottedName: 'aides globales',
+                      dottedName: 'projet . travaux . TTC',
+                      state: 'final',
+                    }}
+                  /><span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA"> TTC</span><span>, je toucherai un total d'aides de </span>
+                  <Value
+                    {...{
+                      engine,
+                      choice,
+                      situation: {
+                        ...exampleSituation,
+                        'projet . DPE visé': choice + 1,
+                      },
+                      dottedName: 'ampleur . montant',
                       state: 'final',
                     }}
                   />

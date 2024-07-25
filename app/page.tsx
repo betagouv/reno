@@ -4,7 +4,6 @@ const FromStorageSimulationButton = dynamic(
 )
 import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
@@ -17,6 +16,8 @@ import {
   LandingGreenBanner,
 } from './LandingUI'
 import dynamic from 'next/dynamic'
+import HomepageSteps from './HomepageSteps'
+import HomepageTestimonies from './HomepageTestimonies'
 
 export const description = `Calculez les aides MaPrimeRénov' 2024 pour la rénovation de votre logement.`
 
@@ -104,36 +105,8 @@ export default function Page() {
             </p>
           </div>
         </LandingGreenBanner>
-        <Wrapper $background="white" $noMargin={true} $last={true}>
-          <Content>
-            <HomeList>
-              <li>
-                <strong>1</strong>
-                <h3>Je réponds à un questionnaire simplifié</h3>
-                <p>
-                  6 questions pour évaluer votre éligibilité et estimer le
-                  montant le vos aides.
-                </p>
-              </li>
-              <li>
-                <strong>2</strong>
-                <h3>Je découvre le montant de mes aides</h3>
-                <p>
-                  Et j’affine mon projet pour obtenir un montant d’enveloppe
-                  global pour mes travaux.
-                </p>
-              </li>
-              <li>
-                <strong>3</strong>
-                <h3>J’exporte le résultat de ma simulation</h3>
-                <p>
-                  Pour le partager avec mon conseiller local France Rénov’, mes
-                  proches ou mes artisans.
-                </p>
-              </li>
-            </HomeList>
-          </Content>
-        </Wrapper>
+        <HomepageSteps />
+        <HomepageTestimonies />
       </PageBlock>
     </main>
   )

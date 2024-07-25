@@ -1,13 +1,11 @@
+import crossIcon from '@/public/remix-close-empty.svg'
+import Image from 'next/image'
+import styled from 'styled-components'
 import DPELabel from '../DPELabel'
 import { Value } from '../ScenariosSelector'
-import Image from 'next/image'
-import checkIcon from '@/public/check.svg'
-import crossIcon from '@/public/remix-close-empty.svg'
-import styled from 'styled-components'
 
 export const InapplicableBlock = styled.div`
-  text-decoration: underline;
-  text-decoration-color: salmon;
+  margin: 1rem 0;
   display: flex;
   align-items: center;
   img {
@@ -16,6 +14,8 @@ export const InapplicableBlock = styled.div`
     width: auto;
   }
   p {
+    text-decoration: underline;
+    text-decoration-color: salmon;
     text-align: left;
     margin: 0;
   }
@@ -57,45 +57,34 @@ export function ExplicationMPRA({ situation, engine }) {
     )
 }
 
-export function ExplicationCommune({ situation, engine }) {
-  const commune = engine.evaluate('conditions communes')
-  if (!commune.nodeValue)
-    return (
-      <InapplicableBlock>
-        <Image src={crossIcon} alt="Icône d'une croix" />
-        <p>
-          Vous devez être propriétaire du logement, qui doit être une résidence
-          principale, construite il y a au moins 15 ans.
-        </p>
-      </InapplicableBlock>
-    )
-  return null
-}
 export function ExplicationMPRG({ situation, engine }) {
   const revenu = situation['ménage . revenu']
   if (revenu)
     return (
       <InapplicableBlock>
         <Image src={crossIcon} alt="Icône d'une croix" />
-        <p>
-          Votre revenu de{' '}
-          <span
-            css={`
-              white-space: nowrap;
-            `}
-          >
-            classe{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: 'ménage . revenu . classe',
-                state: 'final',
-              }}
-            />{' '}
-          </span>{' '}
-          dépasse le seuil d'éligibilité.
-        </p>
+        <div>
+          <p>Vous n'êtes pas éligible à MaPrimeRénov' par geste.</p>
+          <small>
+            Votre revenu de{' '}
+            <span
+              css={`
+                white-space: nowrap;
+              `}
+            >
+              classe{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'ménage . revenu . classe',
+                  state: 'final',
+                }}
+              />{' '}
+            </span>{' '}
+            dépasse le seuil d'éligibilité.
+          </small>
+        </div>
       </InapplicableBlock>
     )
 }

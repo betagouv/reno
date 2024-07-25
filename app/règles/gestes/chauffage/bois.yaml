@@ -19,6 +19,7 @@ chauffage . bois . chaudière . manuelle . montant:
 chauffage . bois . chaudière . manuelle . MPR:
 chauffage . bois . chaudière . manuelle . MPR . plafond: 16000 €
 chauffage . bois . chaudière . manuelle . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 5500 €
@@ -69,6 +70,7 @@ chauffage . bois . chaudière . automatique . montant :
 chauffage . bois . chaudière . automatique . MPR:
 chauffage . bois . chaudière . automatique . MPR . plafond: 18000 €
 chauffage . bois . chaudière . automatique . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 7000 €
@@ -117,6 +119,7 @@ chauffage . bois . foyer et insert . montant:
 chauffage . bois . foyer et insert . MPR:
 chauffage . bois . foyer et insert . MPR . plafond: 4000 €
 chauffage . bois . foyer et insert . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €
@@ -130,7 +133,7 @@ chauffage . bois . foyer et insert . CEE:
   titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . foyer et insert . CEE . Etas:
-  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de l'insert ?
   titre: Efficacité énergétique saisonnière
   par défaut: "'supérieur à 80 %'"
   maximum: "'supérieur à 80 %'"
@@ -202,6 +205,7 @@ chauffage . bois . poêle . à bûches . montant:
 chauffage . bois . poêle . à bûches . MPR:
 chauffage . bois . poêle . à bûches . MPR . plafond: 4000 €
 chauffage . bois . poêle . à bûches . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €
@@ -215,7 +219,7 @@ chauffage . bois . poêle . à bûches . CEE:
   titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . poêle . à bûches . CEE . Etas:
-  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à bûches ?
   titre: Efficacité énergétique saisonnière
   par défaut: "'supérieur à 80 %'"
   maximum: "'supérieur à 80 %'"
@@ -282,6 +286,7 @@ chauffage . bois . poêle . à granulés . montant:
 chauffage . bois . poêle . à granulés . MPR:
 chauffage . bois . poêle . à granulés . MPR . plafond: 5000 €
 chauffage . bois . poêle . à granulés . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 1800 €
@@ -295,7 +300,7 @@ chauffage . bois . poêle . à granulés . CEE:
   titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
 chauffage . bois . poêle . à granulés . CEE . Etas:
-  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à granulés ?
   titre: Efficacité énergétique saisonnière
   par défaut: "'supérieur à 80 %'"
   maximum: "'supérieur à 80 %'"

@@ -56,7 +56,17 @@ export default function Answers({
   situation,
 }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
+  const handleSummaryClick = (event) => {
+    const detailsElement = event.target.closest('details');
+    if (detailsElement) {
+      detailsElement.open = !detailsElement.open;
+    }
+  }
+  const preventSummaryClick = (event) => {
+    event.preventDefault();
+  };
 
+  console.log({ rawAnsweredQuestions })
   const answeredQuestions = rawAnsweredQuestions.filter(
     (el) => el !== 'simulation . mode',
   )
@@ -73,7 +83,7 @@ export default function Answers({
   return (
     <Wrapper>
       <Details $noMarker={answeredQuestions.length === 0}>
-        <summary>
+        <summary onClick={preventSummaryClick}>
           <div
             css={`
               display: flex;
@@ -104,7 +114,7 @@ export default function Answers({
                 : 'hidden'};
             `}
           >
-            <LinkStyleButton>Voir mes réponses</LinkStyleButton>
+            <LinkStyleButton onClick={handleSummaryClick} css={`cursor: pointer;`}>Voir mes réponses</LinkStyleButton>
           </div>
         </summary>
         <Card>
@@ -226,6 +236,7 @@ const Details = styled.details`
     margin-top: 0.6rem;
   }
   summary{
+            cursor: default;
             display: flex;
             justify-content: space-between;
             margin-bottom: 0vh;

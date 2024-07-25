@@ -1,0 +1,21 @@
+occitanie:
+occitanie . avance ampleur:
+  titre: Caisse d’Avance Rénov’Occitanie
+  description: |
+    Pour les ménages modestes et très modestes selon le barème de l’Anah, Rénov’Occitanie propose un dispositif d’avance de subvention permettant de limiter, voire de supprimer la nécessité d’avancer la part du coût des travaux subventionnable. [Source](https://renovoccitanie.laregion.fr/La-caisse-d-Avance-Renov-Occitanie)
+  note: |
+    Décrit comme une avance, on pourrait croire que c'est un prêt à taux zéro, mais les frais de dossier font que c'est en fait un prêt à taux fixe...
+
+    Il reste à la brancher au reste de la simulation.
+
+nouvelle-aquitaine:
+nouvelle-aquitaine . montant:
+  description: 800 à 1200 € sans conditions de ressources, déclenchées par les conseillers France Rénov'
+  note: Brouillon d'implémentation. Nous n'avons trouvé aucun site officiel qui validerait cette aide et qui en décrirait les valeurs. Elle ne nous a pas non plus été confirmée par les agents de la collectivité.
+
+rennes:
+  description: |
+    Ce règlement date de 2021, plusieurs indices ("sous les plafonds ANAH", "conventionnement ANAH pour les bailleurs") semblent aller dans le sens du fait qu'il est périmé. 
+
+    Nous l'avons confirmé le 14 juin 2024 avec l'ADIL de Rennes : si ces aides courent toujours pour les dossiers MPR déposés en 2023, ce n'est plus le cas aujourd'hui.
+rennes . conditions géo: logement . EPCI = '243500139'

@@ -23,6 +23,7 @@ export default function Geste({
   const relevant = rules[dottedName + ' . MPR . barème']
     ? dottedName + ' . MPR . barème'
     : dottedName + ' . montant'
+  const eligibleMPRG = engineSituation.evaluate('MPR . non accompagnée . éligible').nodeValue
 
   const dottedNameCee = dottedName + ' . CEE'
   if (typeof rules[dottedNameCee] !== 'undefined') {
@@ -40,7 +41,7 @@ export default function Geste({
   }
 
   const dottedNameMpr = dottedName + ' . MPR'
-  if (typeof rules[dottedNameMpr] !== 'undefined') {
+  if (eligibleMPRG && typeof rules[dottedNameMpr] !== 'undefined') {
     infoMPR = {
       montant: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . montant'),
@@ -82,20 +83,23 @@ export default function Geste({
 
   montantTotal = calculatedMontantTotal
 
+  const PrimeDisplay = ({ montantTotal, isExactTotal, rules, dottedName }) => (
+    <>
+      <div css={`margin: 0 0 0.6rem 0;`}>{rules[dottedName].titre || getRuleName(dottedName)}</div>
+      <PrimeStyle $inactive={montantTotal === "Non applicable"}>
+        {montantTotal === "Non applicable" ? (
+          <>Prime <strong>non applicable</strong> dans votre situation</>
+        ) : (
+          <>{isExactTotal ? 'Prime de ' : "Jusqu'à "}<strong>{montantTotal}</strong></>
+        )}
+      </PrimeStyle>
+    </>
+  );
+
   if (!expanded)
     return (
       <div>
-        <div
-          css={`
-            margin: 0 0 0.6rem 0;
-          `}
-        >
-          {rules[dottedName].titre || getRuleName(dottedName)}
-        </div>
-        <PrimeStyle>
-          {isExactTotal ? 'Prime de ' : "Jusqu'à "}
-          <strong>{montantTotal}</strong>
-        </PrimeStyle>
+        <PrimeDisplay {...{montantTotal, isExactTotal, rules, dottedName }} />
       </div>
     )
 
@@ -109,9 +113,6 @@ export default function Geste({
             display: inline-block;
             width: calc(100% - 50px);
             vertical-align: middle;
-            > div {
-              margin: 0 0 0.6rem 0;
-            }
           }
 
           padding: 0.6rem 0;
@@ -128,11 +129,7 @@ export default function Geste({
     >
       <summary>
         <div>
-          <div>{rules[dottedName].titre || getRuleName(dottedName)}</div>
-          <PrimeStyle>
-            {isExactTotal ? 'Prime de ' : "Jusqu'à "}
-            <strong>{montantTotal}</strong>
-          </PrimeStyle>
+          <PrimeDisplay {...{montantTotal, isExactTotal, rules, dottedName }} />
         </div>
       </summary>
       {infoMPR && (

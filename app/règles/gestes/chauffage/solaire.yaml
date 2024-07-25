@@ -13,6 +13,7 @@ chauffage . solaire . chauffe-eau solaire . montant:
 chauffage . solaire . chauffe-eau solaire . MPR:
 chauffage . solaire . chauffe-eau solaire . MPR . plafond: 7000 €
 chauffage . solaire . chauffe-eau solaire . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 4000 €
@@ -54,6 +55,7 @@ chauffage . solaire . solaire combiné . montant:
 chauffage . solaire . solaire combiné . MPR:
 chauffage . solaire . solaire combiné . MPR . plafond: 16000 €
 chauffage . solaire . solaire combiné . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 10000 €
@@ -99,6 +101,7 @@ chauffage . solaire . partie thermique PVT eau . montant:
 chauffage . solaire . partie thermique PVT eau . MPR:
 chauffage . solaire . partie thermique PVT eau . MPR . plafond: 4000 €
 chauffage . solaire . partie thermique PVT eau . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €

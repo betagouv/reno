@@ -15,6 +15,7 @@ chauffage . PAC . air-eau . montant:
 chauffage . PAC . air-eau . MPR:
 chauffage . PAC . air-eau . MPR . plafond: 12000 €
 chauffage . PAC . air-eau . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 5000 €
@@ -199,6 +200,7 @@ chauffage . PAC . géo et solaire:
 chauffage . PAC . géo et solaire . MPR:
 chauffage . PAC . géo et solaire . MPR . plafond: 18000 €
 chauffage . PAC . géo et solaire . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 11000 €

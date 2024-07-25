@@ -1,7 +1,6 @@
 import autresAides from '@/app/règles/autres-aides.yaml'
-import { parse } from 'marked'
-import { CTA, CTAWrapper, Card } from './UI'
 import Link from 'next/link'
+import { CTA, CTAWrapper, Card } from './UI'
 
 export default function AutresAides() {
   return (
@@ -56,11 +55,7 @@ export default function AutresAides() {
               >
                 <h4>{aide.nom}</h4>
                 <p>
-                  <small
-                    dangerouslySetInnerHTML={{
-                      __html: parse(aide.description),
-                    }}
-                  />
+                  <small>{aide.description}</small>
                 </p>
                 <CTAWrapper
                   css={`

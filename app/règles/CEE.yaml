@@ -4,10 +4,14 @@ CEE:
 
     Par exemple, la règle [pompe à chaleur](/documentation/gestes/chauffage/PAC), qui aura d'un côté des aides via MaPrimeRénov', d'un autre via les CEE.
 
+    À noter, la meilleure plateforme que nous ayons trouvée pour vérifier les calculs avec une source tierces officielle est celle de l'ADEME https://calculateur-cee.ademe.fr. 
+
+    L'interface est austère, c'est comme un tableur Web, mais elle permet après un peu de temps de familiarisation de calculer les montants des primes.
+
 CEE . logement:
 CEE . logement . condition d'ancienneté:
   titre: Logement de + de 2 ans
-  formule: logement . période de construction = 'au moins 2 ans'
+  formule: logement . au moins 2 ans
 
 CEE . conditions:
   titre: Conditions d'éligibilité de base des CEE
@@ -19,7 +23,7 @@ CEE . conditions:
 CEE . projet:
 CEE . projet . remplacement chaudière thermique:
   titre: Remplacement d'une chaudière thermique
-  question: Prévoyez-vous de remplacer une chaudière individuelle au gaz, au fioul ou au charbon ?
+  question: Prévoyez-vous de remplacer une chaudière individuelle au gaz (autres qu’à condensation), au fioul ou au charbon ?
   description: |
     Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" CEE qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
 
@@ -73,6 +77,10 @@ CEE . rénovation d'ampleur . facteur correctif:
       alors: 1.2
     - sinon: 1.3
 
+# CEE: Questions
+# Comment récupérer automatiquement ce prix?
+# Quid du prix kWh Cumac "précarité/grand précarité, est-ce toujours d'actualité?
+# Ces formules de calcul garantissent-elles réellement le montant minimum obligatoire?
 CEE . prix kWh Cumac: 0.008
 
 CEE . région:

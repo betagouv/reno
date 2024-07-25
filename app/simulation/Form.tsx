@@ -18,8 +18,10 @@ import simulationConfig from './simulationConfig.yaml'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
+import useIsInIframe from '@/components/useIsInIframe'
 
 function Form({ rules }) {
+  const isInIframe = useIsInIframe()
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -37,16 +39,14 @@ function Form({ rules }) {
     answeredQuestions.filter((el) => el === 'simulation . mode').length > 1 // because of simulation mode
 
   const situation = {
-      ...(simulationConfig.situation || {}),
-      ...getSituation(situationSearchParams, rules),
-    },
-    validatedSituation = Object.fromEntries(
-      Object.entries(situation).filter(([k, v]) =>
-        answeredQuestions.includes(k),
-      ),
-    )
+    ...(simulationConfig.situation || {}),
+    ...getSituation(situationSearchParams, rules),
+  }
 
-  //console.log('blue validatedSituation', validatedSituation)
+  const validatedSituation = Object.fromEntries(
+    Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
+  )
+
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,
@@ -54,8 +54,6 @@ function Form({ rules }) {
       simulationConfig,
       rules,
     )
-
-  //console.log('blue', nextQuestions)
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
@@ -92,21 +90,23 @@ function Form({ rules }) {
       <br />
       <UserProblemBanner />
       <Share searchParams={searchParams} />
-      <Section>
-        <h2>Documentation</h2>
-        <p>
-          Si vous êtes experts, vous pouvez parcourir notre{' '}
-          <Link
-            href={
-              '/documentation/MPR/?' +
-              new URLSearchParams(situationSearchParams).toString()
-            }
-          >
-            documentation complète du calcul
-          </Link>
-          .
-        </p>
-      </Section>
+      { !isInIframe && 
+        <Section>
+          <h2>Documentation</h2>
+          <p>
+            Si vous êtes experts, vous pouvez parcourir notre{' '}
+            <Link
+              href={
+                '/documentation/MPR/?' +
+                new URLSearchParams(situationSearchParams).toString()
+              }
+            >
+              documentation complète du calcul
+            </Link>
+            .
+          </p>
+        </Section>
+      }
     </div>
   )
 }

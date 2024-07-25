@@ -1,6 +1,6 @@
 montant:
   question: Quels gestes envisagez-vous ?
-  applicable si: MPR . non accompagnée . confirmation
+  applicable si: parcours d'aide = 'à la carte'
   mosaïque: oui
   somme:
     - recommandés
@@ -25,6 +25,7 @@ recommandés . audit . MPR:
 recommandés . audit . MPR . plafond:
   valeur: 800 €
 recommandés . audit . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 500 €
@@ -44,11 +45,12 @@ ventilation . double flux:
   par défaut: oui
 ventilation . double flux . montant:
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 ventilation . double flux . MPR:
 ventilation . double flux . MPR . plafond: 4000 €
 ventilation . double flux . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 2500 €
@@ -75,17 +77,17 @@ ventilation . double flux . CEE . surface: logement . surface
 ventilation . double flux . CEE . type de ventilation:
   question: Quel type de ventilation souhaitez-vous installer ?
   par défaut: "'autoréglable'"
-  maximum: "'double flux'"
+  maximum: "'modulée'"
   une possibilité parmi:
     possibilités:
       - 'autoréglable'
       - 'modulée'
 ventilation . double flux . CEE . type de ventilation . autoréglable:
   valeur: "'autoréglable'"
-  titre: "Autoréglable"
+  titre: 'Autoréglable'
 ventilation . double flux . CEE . type de ventilation . modulée:
   valeur: "'modulée'"
-  titre: "Modulée"
+  titre: 'Modulée'
 ventilation . double flux . CEE . facteur correctif région:
   variations:
     - si: type de ventilation = 'autoréglable'

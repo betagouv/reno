@@ -7,6 +7,9 @@ const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovatio
 export const metadata: Metadata = {
   title: 'Aides réno 2024',
   description,
+  alternates: {
+    canonical: '/simulation',
+  },
 }
 
 export default function Page() {

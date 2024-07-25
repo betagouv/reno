@@ -18,6 +18,7 @@ isolation . vitres . montant:
 isolation . vitres . MPR:
 isolation . vitres . MPR . plafond: 1000 €/équipements
 isolation . vitres . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   produit:
     - quantité
     - barème
@@ -76,6 +77,7 @@ isolation . murs extérieurs . MPR . surface:
   unité: m2
 isolation . murs extérieurs . MPR . plafond: 150 €/m2
 isolation . murs extérieurs . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
   produit:
     - le minimum de:
       - surface
@@ -127,7 +129,11 @@ isolation . murs intérieurs . MPR . surface:
   par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . murs intérieurs . MPR . plafond: 70 €/m2
-isolation . murs intérieurs . MPR . montant: surface * barème
+isolation . murs intérieurs . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - surface
+    - barème
 isolation . murs intérieurs . MPR . question: surface
 isolation . murs intérieurs . MPR . barème:
   variations:
@@ -174,7 +180,11 @@ isolation . rampants . MPR . surface:
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . rampants . MPR . plafond: 75 €/m2
-isolation . rampants . MPR . montant: surface * barème
+isolation . rampants . MPR . montant: 
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - surface
+    - barème
 isolation . rampants . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
@@ -218,7 +228,11 @@ isolation . toitures terrasses . MPR . surface:
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . toitures terrasses . MPR . plafond: 180 €/m2
-isolation . toitures terrasses . MPR . montant: surface * barème
+isolation . toitures terrasses . MPR . montant: 
+  applicable si: MPR . non accompagnée . éligible
+  produit:
+    - surface
+    - barème
 isolation . toitures terrasses . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'

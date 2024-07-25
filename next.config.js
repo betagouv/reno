@@ -21,7 +21,7 @@ const nextConfig = {
   },
   webpack: (config, options) => {
     config.module.rules.push({
-      test: /\.ya?ml$/,
+      test: /(\.ya?ml$)|\.publicodes/,
       use: 'yaml-loader',
     })
     config.module.rules.push({
@@ -46,6 +46,14 @@ const nextConfig = {
     ]
   },
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'commons.wikimedia.org',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

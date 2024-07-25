@@ -11,10 +11,10 @@ import solaire from '@/app/règles/gestes/chauffage/solaire.yaml'
 import isolation from '@/app/règles/gestes/isolation.yaml'
 import index from '@/app/règles/index.yaml'
 import revenus from '@/app/règles/revenus.yaml'
-import aidesLocales from '@/app/règles/aides-locales.yaml'
 import CEE from '@/app/règles/CEE.yaml'
 import denormandie from '@/app/règles/denormandie.yaml'
 import taxeFoncière from '@/app/règles/taxe-foncière.yaml'
+import aidesLocales from '@/app/règles/aides-locales.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -26,21 +26,24 @@ const allYamls = requireAll(require.context('@/app/règles', true, /\.yaml$/))
 console.log('allyamls', allYamls)
 */
 
-const prefix = (rules) =>
+const prefix = (rules, prefix) =>
   Object.fromEntries(
-    Object.entries(rules).map(([k, v]) => ['gestes . ' + k, v]),
+    Object.entries(rules).map(([k, v]) => [
+      k === '' ? prefix : prefix + ' . ' + k, // lets us create a root rule
+      v,
+    ]),
   )
 const rules = {
   ...index,
   ...revenus,
-  ...prefix(gestes),
-  ...prefix(chauffage),
-  ...prefix(isolation),
-  ...prefix(PAC),
-  ...prefix(bois),
-  ...prefix(réseau),
-  ...prefix(solaire),
-  ...aidesLocales,
+  ...prefix(gestes, 'gestes'),
+  ...prefix(chauffage, 'gestes',),
+  ...prefix(isolation, 'gestes',),
+  ...prefix(PAC, 'gestes',),
+  ...prefix(bois, 'gestes',),
+  ...prefix(réseau, 'gestes'),
+  ...prefix(solaire, 'gestes',),
+  ...prefix(aidesLocales, 'aides locales'),
   ...ampleur,
   ...CEE,
   ...denormandie,

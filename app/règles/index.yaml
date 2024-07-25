@@ -14,12 +14,16 @@ simulation . mode:
     - 'max'
     - 'moyen'
 
+# C'est la variable qui lance le simulateur principal mes aides réno
+# Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig.ts
+# Nous réservons les questions précises telles que la liste des gestes pour la suite, après l'écran d'éligibilité, elles sont déclenchées via le paramètre d'URL `objectif = à la carte . montant` ou `ampleur . montant` et la condition dans gestes.yaml `applicable si: parcours d'aide = 'à la carte'`
 aides:
   applicable si:
     est défini: parcours d'aide
   somme:
-    - ampleur . tous les dispositifs
+    - ampleur . tous les dispositifs # ampleur.yaml
     - MPR . non accompagnée . montant
+    - à la carte . montant
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -50,12 +54,12 @@ vous:
   titre: Votre situation
 vous . propriétaire:
 vous . propriétaire . condition:
-  titre: Propriétaire
+  titre: Propriétaire ?
   question: Êtes-vous propriétaire ?
   par défaut: oui
   description: |
 
-    Pour bénéficier de des aides à la rénovation, il faut être dans l'une de ces situations. 
+    Pour bénéficier des aides à la rénovation, il faut être dans l'une de ces situations. 
 
     Situations simples : 
       - **Propriétaire occupant** (vous vivez dans votre logement)
@@ -92,6 +96,7 @@ logement:
   titre: Votre logement
 
 logement . type:
+  titre: Type de logement
   question: Le logement est-il une maison ou un appartement ?
   une possibilité parmi:
     possibilités:
@@ -135,6 +140,7 @@ logement . surface:
     Pour le calcul de la surface moyenne, voir la [documentation Nos Gestes Climat](https://nosgestesclimat.fr/documentation/parc-fran%C3%A7ais/surface-moyenne).
 
 logement . propriétaire occupant:
+  applicable si: vous . propriétaire . condition
   question: Vivez-vous dans le logement à rénover (propriétaire occupant) ?
   par défaut: non
   description: |
@@ -161,7 +167,7 @@ logement . résidence principale propriétaire:
 
 logement . résidence principale locataire:
   non applicable si: propriétaire occupant
-  question: Le logement est-il la résidence principale de votre locataire ?
+  question: Le logement est-il la résidence principale du locataire ?
   par défaut: oui
   description: |
     Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
@@ -199,6 +205,10 @@ logement . période de construction . de 15 à 25 ans:
 logement . période de construction . de 2 à 15 ans:
 logement . période de construction . moins de 2 ans:
 
+logement . au moins 2 ans:
+  une de ces conditions:
+    - au moins 15 ans
+    - période de construction = 'de 2 à 15 ans'
 logement . au moins 15 ans:
   une de ces conditions:
     - période de construction = 'au moins 25 ans'
@@ -252,6 +262,10 @@ logement . EPCI:
   formule: commune
   par défaut: '"242900314"'
 
+logement . département:
+  formule: commune
+  par défaut: '"Finistère"'
+
 logement . commune:
   applicable si: propriétaire occupant = non
   titre: La commune du logement
@@ -279,7 +293,11 @@ ménage . code département: # Necessaire pour déterminer la zone climatique (e
 
 ménage . EPCI:
   formule: commune
-  par défaut: '"242900314"'
+  par défaut: '"242900314"' # Brest métropole
+
+ménage . département:
+  formule: commune
+  par défaut: '"Finistère"'
 
 ménage . commune:
   titre: Votre commune
@@ -349,6 +367,29 @@ DPE . actuel:
 
 projet:
   titre: Votre projet de rénovation
+
+projet . gain energétique:
+  question: Quel est le gain energétique prévu par votre projet de rénovation ?
+  par défaut: 30 %
+  suggestions:
+    faible: 10 %
+    moyen: 30 %
+    elevé: 50 %
+
+projet . objectif BBC rénovation:
+  question: Votre projet de rénovation respecte-t-il le niveau BBC rénovation ?
+  par défaut: non
+  description: |
+    Labels Bâtiment Basse Consommation en rénovation.
+
+    [Fiche officielle Ministère de l'écologie](https://www.ecologie.gouv.fr/labels-batiment-basse-consommation-en-renovation).
+
+projet . objectif BBC neuf:
+  question: Votre projet de rénovation respecte-t-il le niveau BBC neuf ?
+  par défaut: non
+  description: |
+    Labels Bâtiment Basse Consommation neuf.
+
 projet . DPE visé:
   titre: Votre futur DPE visé
   question: Quel DPE visé après rénovation ?
@@ -405,11 +446,11 @@ projet . travaux . notification:
 
 taux d'aides relatives:
   somme:
-    - métropole d'Angers . aides socles . taux
+    - aides locales . angers . aides socles . taux
     - MPR . accompagnée . pourcent dont bonus
 
 montant d'aides absolues:
-  formule: métropole d'Angers . prime basse consommation . montant
+  formule: aides locales . angers . prime basse consommation . montant
 
 projet . enveloppe estimée:
   formule: par surface * logement . surface
@@ -551,7 +592,7 @@ projet . investissement:
       - si: simulation . mode = 'moyen'
         alors: 25000 €
       - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
-  formule: travaux - ampleur
+  formule: travaux . TTC - ampleur
 
 projet . travaux . plafonnés:
   plafond: plafond
@@ -605,6 +646,19 @@ parcours d'aide:
 
 parcours d'aide . ampleur:
 parcours d'aide . à la carte:
+
+à la carte:
+  diminutif: Aides à la carte
+  titre: Aides à la rénovation à la carte, geste par geste
+
+à la carte . montant:
+  description: |
+    Toutes les aides qui se basent sur des gestes précis de rénovation : isolation des murs par l'extérieur, pompe à chaleur air-eau, etc.
+
+  note: |
+    Pour l'instant il n'y a que les gestes dans cette variable, mais nous l'avons définie car d'autres dispositifs comme le prêt à taux zéro viendront subventionner les gestes mais sans être à proprement parler un geste d'isolation.
+  somme:
+    - gestes . montant
 
 MPR . non accompagnée . pourcentage d'écrêtement:
   description: |
@@ -677,6 +731,10 @@ MPR . accompagnée:
 
     [Tous les détails](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
 
+MPR . accompagnée . bénéficiaire:
+  applicable si: éligible
+  titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
+  par défaut: oui
 MPR . accompagnée . éligible:
   titre: Éligible parcours accompagné
   formule:
@@ -771,3 +829,9 @@ MPR . accompagnée . prise en charge MAR . pourcent:
 somme à engager:
   plancher: 0
   valeur: projet . travaux - (MPR . accompagnée . avance + 50000)
+
+logement . loyer social ou très social:
+  question: Le loyer du bail de location est-il "social" ou "très social" ?
+  par défaut: non
+  description: |
+    Le loyer dit "social" correspond à un loyer de 30 % en dessous des loyers du marché. Voir [la fiche service-public.fr à propos du conventionnement ANAH](https://www.service-public.fr/particuliers/vosdroits/F2541).

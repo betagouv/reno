@@ -72,6 +72,28 @@ export default function GestesBasket({
         <strong>gratuitement</strong> et vous aide à calculer vos aides et votre
         budget.
       </p>
+      <p>
+        Les montants calculés ci-dessus sont des estimations. Les primes CEE
+        sont des estimations minimales qui seront à confronter aux primes
+        réelles des entreprises qui vendent de l'énergie, qui peuvent décider de
+        les verser en chèques, cartes cadeaux ou encore réductions.
+      </p>
+      <small
+        css={`
+          display: block;
+          margin: 0 0 0 auto;
+          width: fit-content;
+        `}
+      >
+        Plus d'infos à propos des CEE sur{' '}
+        <a
+          href="https://www.service-public.fr/particuliers/vosdroits/F35584"
+          target="_blank"
+        >
+          service-public.fr
+        </a>
+        .
+      </small>
       <MarSearch
         codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
         what="trouver-conseiller-renov"

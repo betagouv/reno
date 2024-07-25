@@ -7,12 +7,17 @@ import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
 
-export default function ({ oldIndex }) {
+export default function ({
+  oldIndex,
+  prefixText,
+  dottedName = 'DPE . actuel',
+}) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
+  const text = prefixText === undefined ? 'Vous avez déclaré un ' : prefixText
   return (
-    <p>
-      Vous avez déclaré un{' '}
+    <span>
+      {text}
       {editing ? (
         <span
           css={`
@@ -24,8 +29,9 @@ export default function ({ oldIndex }) {
           {[0, 1, 2, 3, 4, 5, 6].map((index) => (
             <Link
               onClick={() => setEditing(false)}
+              scroll={false}
               href={setSearchParams(
-                encodeSituation({ 'DPE . actuel': index + 1 + '*' }),
+                encodeSituation({ [dottedName]: index + 1 + '*' }),
                 'url',
               )}
             >
@@ -55,6 +61,6 @@ export default function ({ oldIndex }) {
         </span>
       )}
       .
-    </p>
+    </span>
   )
 }
