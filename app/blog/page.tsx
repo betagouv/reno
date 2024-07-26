@@ -6,11 +6,12 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Logo from '@/public/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
-import { HeaderWrapper } from '../LandingUI'
+import { BlueEm, HeaderWrapper } from '../LandingUI'
 import { List } from './UI'
 import { dateCool } from './utils'
+import { sortBy } from '@/components/utils'
 
-const title = `Le blog - Mes Aides Réno`
+const title = `Le blog des aides à la rénovation energétique`
 const description =
   "Découvrez l'histoire, les nouveautés et le futur de Mes Aides Réno"
 
@@ -21,7 +22,8 @@ export const metadata: metadata = {
 }
 
 const Page = () => {
-  const articles = allArticles.sort((a, b) => a.date - b.date)
+  console.log(allArticles.map((el) => el.date))
+  const articles = [...sortBy((article) => article.date)(allArticles).reverse()]
   return (
     <main
       style={css`
@@ -51,7 +53,7 @@ const Page = () => {
                 margin-bottom: 1rem;
               `}
             >
-              Le blog de Mes Aides Réno
+              Le <BlueEm>blog</BlueEm> des aides à la rénovation energétique
             </h1>
             <Intro>
               <p>
@@ -73,10 +75,12 @@ const Page = () => {
                 <li key={url}>
                   <div>
                     <Link href={url}>
-                      <h2 dangerouslySetInnerHTML={{ __html: titre.html }} />
+                      <h2>{titre}</h2>
                     </Link>
                   </div>
-                  <small>publié {dateCool(date)}</small>
+                  <small>
+                    <BlueEm>Publié le {dateCool(date)}</BlueEm>
+                  </small>
                 </li>
               ))}
             </List>

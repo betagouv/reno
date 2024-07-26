@@ -7,14 +7,19 @@ export const List = styled.ol`
   padding-left: 1rem;
   list-style-type: circle;
   li {
+    margin: 2rem 0;
     a {
     }
     h2 {
       margin: 0;
     }
-  }
-  li small {
-    color: var(--darkestColor);
+    small {
+      color: var(--darkestColor);
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
   }
   margin-bottom: 10vh;
 `
