@@ -39,13 +39,13 @@ export default function Ampleur() {
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
 
   const defaultSituation = {
-    "logement . condition d'ancienneté": 'oui',
+    'logement . période de construction': "'de 15 à 25 ans'",
     'vous . propriétaire . condition': 'oui',
     'ménage . revenu': 25000, // Le revenu médian est de 20 000, mais le mettre à 25 000 permet de faire en sorte qu'il y ait une différence entre IdF et hors IdF pour que la case à cocher ait un effet
     'ménage . personnes': 2,
     'ménage . région . IdF': 'non',
     'logement . résidence principale': 'oui',
-    'projet . investissement': 999999,
+    'projet . travaux': 999999,
   }
 
   const situation = {
