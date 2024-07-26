@@ -1,3 +1,7 @@
+import createMDX from '@next/mdx'
+import { withContentlayer } from 'next-contentlayer2'
+import mdxOptions from './mdxOptions.mjs'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   /* not sure if needed
@@ -56,4 +60,7 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+const withMDX = createMDX({ options: mdxOptions })
+
+const finalConfig = withContentlayer(withMDX(nextConfig))
+export default finalConfig

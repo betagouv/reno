@@ -1,0 +1,23 @@
+{
+  "titre": {
+    "raw": "Bienvenue sur le blog de Mes Aides Réno",
+    "html": "<p>Bienvenue sur le blog de Mes Aides Réno</p>"
+  },
+  "date": "2024-07-26T00:00:00.000Z",
+  "description": "Mes Aides Réno est le calculateur de référence des aides à la rénovation energétique pour les particuliers en France. On vous raconte les étapes de la construction de ce service public numérique.",
+  "image": "/jaquette.png",
+  "body": {
+    "raw": "\n# Bienvenue\n\nBla\n\n## Section 1\n\nBla\n\n## Section 2\n\nBla\n\n## Section 3\n",
+    "code": "var Component=(()=>{var u=Object.create;var c=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var m=Object.getOwnPropertyNames;var x=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var b=(n,e)=>()=>(e||n((e={exports:{}}).exports,e),e.exports),k=(n,e)=>{for(var a in e)c(n,a,{get:e[a],enumerable:!0})},r=(n,e,a,t)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let s of m(e))!f.call(n,s)&&s!==a&&c(n,s,{get:()=>e[s],enumerable:!(t=p(e,s))||t.enumerable});return n};var N=(n,e,a)=>(a=n!=null?u(x(n)):{},r(e||!n||!n.__esModule?c(a,\"default\",{value:n,enumerable:!0}):a,n)),v=n=>r(c({},\"__esModule\",{value:!0}),n);var l=b((B,o)=>{o.exports=_jsx_runtime});var g={};k(g,{default:()=>h,frontmatter:()=>_});var i=N(l()),_={titre:\"Bienvenue sur le blog de Mes Aides R\\xE9no\",date:\"2024-07-26\",image:\"/jaquette.png\",description:\"Mes Aides R\\xE9no est le calculateur de r\\xE9f\\xE9rence des aides \\xE0 la r\\xE9novation energ\\xE9tique pour les particuliers en France. On vous raconte les \\xE9tapes de la construction de ce service public num\\xE9rique.\"};function d(n){let e={a:\"a\",h1:\"h1\",h2:\"h2\",p:\"p\",span:\"span\",...n.components};return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsxs)(e.h1,{id:\"bienvenue\",children:[(0,i.jsx)(e.a,{\"aria-hidden\":!0,tabIndex:\"-1\",className:\"hash-link\",href:\"#bienvenue\",children:(0,i.jsx)(e.span,{className:\"icon icon-link\"})}),\"Bienvenue\"]}),`\n`,(0,i.jsx)(e.p,{children:\"Bla\"}),`\n`,(0,i.jsxs)(e.h2,{id:\"section-1\",children:[(0,i.jsx)(e.a,{\"aria-hidden\":!0,tabIndex:\"-1\",className:\"hash-link\",href:\"#section-1\",children:(0,i.jsx)(e.span,{className:\"icon icon-link\"})}),\"Section 1\"]}),`\n`,(0,i.jsx)(e.p,{children:\"Bla\"}),`\n`,(0,i.jsxs)(e.h2,{id:\"section-2\",children:[(0,i.jsx)(e.a,{\"aria-hidden\":!0,tabIndex:\"-1\",className:\"hash-link\",href:\"#section-2\",children:(0,i.jsx)(e.span,{className:\"icon icon-link\"})}),\"Section 2\"]}),`\n`,(0,i.jsx)(e.p,{children:\"Bla\"}),`\n`,(0,i.jsxs)(e.h2,{id:\"section-3\",children:[(0,i.jsx)(e.a,{\"aria-hidden\":!0,tabIndex:\"-1\",className:\"hash-link\",href:\"#section-3\",children:(0,i.jsx)(e.span,{className:\"icon icon-link\"})}),\"Section 3\"]})]})}function h(n={}){let{wrapper:e}=n.components||{};return e?(0,i.jsx)(e,{...n,children:(0,i.jsx)(d,{...n})}):d(n)}return v(g);})();\n;return Component;"
+  },
+  "_id": "bienvenue.mdx",
+  "_raw": {
+    "sourceFilePath": "bienvenue.mdx",
+    "sourceFileName": "bienvenue.mdx",
+    "sourceFileDir": ".",
+    "contentType": "mdx",
+    "flattenedPath": "bienvenue"
+  },
+  "type": "Article",
+  "url": "/blog/bienvenue"
+}
