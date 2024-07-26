@@ -3,6 +3,7 @@ import Input from './Input'
 import Select from './Select'
 import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
+import AddressSearch from './AddressSearch'
 export default function GesteQuestion({
   rules,
   question,
@@ -25,17 +26,66 @@ export default function GesteQuestion({
       false,
       answeredQuestions,
     )
-
     setSearchParams(encodedSituation, 'push', false)
   }
 
-  if (!currentValue) {
-    // Par défaut, on propose le maximum
-    currentValue = currentQuestion.maximum
+  if (!currentValue && currentQuestion.maximum) {
+    // Par défaut, on propose le maximum s'il existe
     onChange(currentValue)
   }
+  const InputComponent = () =>
+    ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
+      <SegmentedControl
+        value={currentValue}
+        name={question}
+        onChange={onChange}
+      />
+    ) : currentQuestion['une possibilité parmi'] ? (
+      <Select
+        value={currentValue == null ? '' : currentValue}
+        values={currentQuestion['une possibilité parmi']['possibilités'].map(
+          (i) => rules[question + ' . ' + i],
+        )}
+        onChange={onChange}
+      />
+    ) : question === 'ménage . commune' ? (
+      <AddressSearch
+        {...{
+          setChoice: (result) => {
+            console.log('purple result ', result)
+            const codeRegion = result.codeRegion
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                'ménage . code région': `"${codeRegion}"`,
+                'ménage . code département': `"${result.codeDepartement}"`,
+                'ménage . EPCI': `"${result.codeEpci}"`,
+                'ménage . commune': `"${result.code}"`,
+              },
+              false,
+              answeredQuestions,
+            )
+
+            setSearchParams(encodedSituation, 'push', false)
+          },
+          setSearchParams,
+          situation,
+          answeredQuestions,
+        }}
+      />
+    ) : (
+      <Input
+        type={'number'}
+        id={question}
+        placeholder={evaluation.nodeValue}
+        value={currentValue == null ? '' : currentValue}
+        name={question}
+        unit={evaluation.unit}
+        onChange={onChange}
+      />
+    )
   return (
-    <Section
+    <div
       css={`
         display: flex;
         justify-content: space-between;
@@ -47,15 +97,6 @@ export default function GesteQuestion({
           border: none;
           margin-bottom: 0;
           padding-bottom: 0;
-        }
-        > div {
-          margin-right: 0.8rem;
-          max-width: 60%;
-        }
-        > select,
-        input,
-        fieldset {
-          max-width: 60%;
         }
         @media (max-width: 800px) {
           flex-wrap: wrap;
@@ -72,17 +113,8 @@ export default function GesteQuestion({
       `}
     >
       <div>{currentQuestion.question}</div>
-      <InputComponent
-        {...{
-          currentQuestion,
-          currentValue,
-          question,
-          onChange,
-          rules,
-          evaluation,
-        }}
-      />
-    </Section>
+      <InputComponent />
+    </div>
   )
 }
 const InputComponent = ({

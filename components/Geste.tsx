@@ -32,6 +32,7 @@ export default function Geste({
         engineSituation.evaluate(dottedNameCee + ' . montant'),
         { precision: 0 },
       ),
+      code: rules[dottedNameCee].code,
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
       questions: rules[dottedNameCee + ' . question']?.valeurs.map((q) =>
@@ -210,12 +211,14 @@ export default function Geste({
       )}
       {infoCEE && (
         <BlocAideCEE
-          infoCEE={infoCEE}
-          rules={rules}
-          engine={engine}
-          situation={situation}
-          answeredQuestions={answeredQuestions}
-          setSearchParams={setSearchParams}
+          {...{
+            infoCEE,
+            rules,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams
+          }}
         />
       )}
     </details>

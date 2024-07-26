@@ -39,11 +39,11 @@ const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestions, set
             >
               Plus d'infos:{' '}
               <InlineLink
-                title={`formulaire ${infoCEE.titre}`}
+                title={`formulaire ${infoCEE.code}`}
                 href={infoCEE.lien}
                 target="_blank"
               >
-                {infoCEE.titre}
+                {infoCEE.code}
               </InlineLink>
             </small>
           </h3>
