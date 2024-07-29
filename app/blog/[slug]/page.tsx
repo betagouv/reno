@@ -8,6 +8,7 @@ import Contribution from '../Contribution'
 import { dateCool, getLastEdit } from '../utils'
 import { mdxComponents } from '../mdxComponents'
 import { BlogBackButton } from '../UI'
+import OtherArticles from '../OtherArticles'
 
 export const generateMetadata = async ({ params }) => {
   const post = allArticles.find(
@@ -88,6 +89,7 @@ export default async function Post({ params }: Props) {
         <MDXContent components={mdxComponents} />
         <Contribution slug={params.slug} />
       </section>
+      <OtherArticles excludeUrl={post.url} />
     </Article>
   )
 }

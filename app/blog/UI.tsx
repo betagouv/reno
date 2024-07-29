@@ -38,3 +38,47 @@ export const BlogBackButton = ({ children }) => (
     </CTA>
   </CTAWrapper>
 )
+
+export const OtherArticlesSection = styled.section`
+  margin-top: 2vh;
+  h2 {
+    width: 700px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+  }
+`
+export const OtherArticlesList = styled.div`
+  overflow: hidden;
+  width: 1100px;
+  max-width: 90vw;
+  margin: 0 auto;
+  > ol {
+    white-space: nowrap;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    overflow: scroll;
+    list-style-type: none;
+    padding-left: 0;
+    li {
+      background: white;
+      height: 10rem;
+      width: 18rem;
+      min-width: 18rem;
+      margin: 0 0.6rem;
+      padding: 0.8rem 1.4rem;
+      border: 1px solid var(--lighterColor);
+      border-radius: 0.4rem;
+      white-space: wrap;
+      h3 {
+        margin-top: 0.6rem;
+        height: 3rem;
+      }
+      small {
+        max-height: 6rem;
+        display: block;
+        overflow: hidden;
+      }
+    }
+  }
+`
