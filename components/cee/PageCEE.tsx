@@ -8,12 +8,12 @@ import {
   import Publicodes, { formatValue } from 'publicodes'
   import getNextQuestions from '@/components/publicodes/getNextQuestions'
   import { useSearchParams } from 'next/navigation'
-  import BlocAideCEE from '@/components/BlocAideCee'
+  import { BlocAideCEE } from '@/components/BlocAideCee'
   import useSetSearchParams from '@/components/useSetSearchParams'
-import Link from 'next/link'
-    
+  import Link from 'next/link'
+
   export default function PageCEE({ params }: { params: { code: string } }) {
-  
+
     const engine = new Publicodes(rules)
     const rawSearchParams = useSearchParams(),
       situationSearchParams = Object.fromEntries(rawSearchParams.entries())

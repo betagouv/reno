@@ -2,11 +2,11 @@
 import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
 import GesteQuestion from './GesteQuestion'
-import mprImage from '@/public/maprimerenov.svg'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import Image from 'next/image'
 import { BlocAide, PrimeStyle } from './UI'
-import BlocAideCEE from './BlocAideCee'
+import { BlocAideCEE } from './BlocAideCee'
+import { BlocAideMPR } from './mprg/BlocAideMPR'
 
 export default function Geste({
   dottedName,
@@ -134,32 +134,16 @@ export default function Geste({
         </div>
       </summary>
       {infoMPR && (
-        <BlocAide>
-          <div className="aide-header">
-            <Image src={mprImage} alt="logo ma prime renov" width="100" />
-            <div>
-              <PrimeStyle>
-                {'Prime de '}
-                <strong>{infoMPR.montant}</strong>
-              </PrimeStyle>
-              <h3>MaPrimeRénov'</h3>
-            </div>
-          </div>
-          <p className="details">
-            <GesteQuestion
-              {...{
-                rules,
-                question: infoMPR.questions,
-                engine,
-                situation,
-                answeredQuestions,
-                setSearchParams,
-              }}
-            />
-            Conditions: La prestation doit être inférieure à{' '}
-            <strong>{infoMPR.plafond}</strong>.
-          </p>
-        </BlocAide>
+        <BlocAideMPR
+          {...{
+            infoMPR,
+            rules,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams
+          }}
+        />
       )}
       {infoCP && (
         <BlocAide>
