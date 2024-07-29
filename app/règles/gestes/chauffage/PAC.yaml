@@ -197,6 +197,7 @@ chauffage . PAC . air-eau . Coup de pouce . montant:
 chauffage . PAC . air-eau . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 
 chauffage . PAC . géo et solaire:
+  titre: Pompe à chaleur géothermique ou solarothermique
 chauffage . PAC . géo et solaire . MPR:
 chauffage . PAC . géo et solaire . MPR . plafond: 18000 €
 chauffage . PAC . géo et solaire . MPR . montant:
