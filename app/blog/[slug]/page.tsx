@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Contribution from '../Contribution'
 import { dateCool, getLastEdit } from '../utils'
 import { mdxComponents } from '../mdxComponents'
-import { BlogBackButton } from '../UI'
+import { ArticleCta, BlogBackButton } from '../UI'
 import OtherArticles from '../OtherArticles'
 
 export const generateMetadata = async ({ params }) => {
@@ -91,6 +91,7 @@ export default async function Post({ params }: Props) {
       </section>
       <hr />
       <OtherArticles excludeUrl={post.url} />
+      <ArticleCta />
     </Article>
   )
 }

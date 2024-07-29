@@ -1,8 +1,9 @@
 'use client'
 
 import { CTA, CTAWrapper } from '@/components/UI'
+import Link from 'next/link'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const List = styled.ol`
   margin-top: 2rem;
@@ -41,6 +42,7 @@ export const BlogBackButton = ({ children }) => (
 
 export const OtherArticlesSection = styled.section`
   margin-top: 2vh;
+  padding: 0 0.8rem;
   h2 {
     width: 700px;
     margin: 0 auto;
@@ -82,3 +84,51 @@ export const OtherArticlesList = styled.div`
     }
   }
 `
+
+export const ArticleCta = () => (
+  <div
+    css={`
+      margin-top: 4vh;
+      padding: 6vh 0;
+      background: white;
+      section {
+        width: 800px;
+        max-width: 90vw;
+        margin: 0 auto;
+        p {
+          color: #333;
+        }
+      }
+    `}
+  >
+    {' '}
+    <section>
+      <h2>Calculer mes aides rénovation</h2>
+      <p>
+        L'État propose de nombreuses aides et exonérations fiscales pour rénover
+        votre maison ou appartement.
+      </p>
+      <p
+        css={`
+          margin: 0;
+          color: #555;
+          line-height: 1.3rem;
+        `}
+      >
+        <strong
+          css={`
+            color: #da504b;
+          `}
+        >
+          5 minutes chrono
+        </strong>{' '}
+        et sans inscription.
+      </p>
+      <CTAWrapper $justify="center">
+        <CTA $fontSize="normal">
+          <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+        </CTA>
+      </CTAWrapper>
+    </section>
+  </div>
+)

@@ -3,10 +3,10 @@ import styled from 'styled-components'
 
 const Article = styled.article`
   margin: 0 auto;
-  padding-bottom: 10vh;
 
   header {
     background: white;
+    padding: 0 0.8rem;
     margin-bottom: 2rem;
     padding-bottom: 2rem;
     section {
