@@ -1,0 +1,83 @@
+---
+titre: 'Première version beta'
+date: '2024-01-16'
+image: /blog-images/v0.1-simu-intro.png
+description: |
+  Voici le premier prototype fonctionnel de Mes Aides Réno. Il permet de calculer le montant de MaPrimeRénov' parcours accompagné et parcours par geste, via un questionnaire simple adossé à un modèle accessible via une API de calcul.
+---
+
+Découvrez [les aides à la rénovation thermique sur Mes Aides Réno](https://mesaidesreno.beta.gouv.fr).
+
+Dans cette première version très alpha, nous avons implémenté un premier modèle de calcul de Ma Prime Rénov, accessible via une interface Web ainsi que via une API.
+
+Nos premiers tests nous ont conduit à lancer une deuxième itération v0.2 avant une diffusion publique.
+
+> 🚧 Les calculs, bien que relativement complets, sont considérés **peu fiables** pour l'instant, car ils n'ont pas été suffisamment relus et testés. N'utilisez pas ce service en production en attendant une nouvelle version qui changera cet état de faits.
+
+## Présentation de la version actuelle
+
+### L’accueil
+
+Une page d'accueil permet de comprendre le contexte de l'initiative.
+
+![image](/blog-images/v0.1.png)
+
+### L'interface de simulation
+
+L'utilisateur se voit poser une série de questions, classées par ordre d'importance dans une optique de fermeture au plus vite de la simulation : par exemple, les trois premières versions sont booléennes, et un seul `non` suffit à terminer le parcours avec un résultat négatif.
+
+![image](/blog-images/v0.1-simu.png)
+
+Les deux aides calculées sont présentées, et leur résultat chiffré se précise au fil de la simulation.
+
+![image](/blog-images/v0.1-simu-intro.png)
+
+Des personas permettent de tester le formulaire et le calcul dans plusieurs configurations différentes.
+
+![image](/blog-images/v0.1-personas.png)
+
+Plusieurs composants ont été implémentés pour répondre aux besoins particuliers de chaque question.
+
+![image](/blog-images/v0.1-communes.png)
+
+Le choix du DPE actuel et par la suite du DPE visé sont cruciaux.
+
+![image](/blog-images/v0.1-dpe.png)
+
+Des messages viennent expliquer les conséquences de certains choix de saisie, dont ceux qui rendent non éligibles aux aides.
+
+![image](/blog-images/v0.1-notif.png)
+
+Pour la suite du parcours concernant l'aide "par geste", un tableau d'aide affichant les subventions et les plafonds guide l'utilisateur dans ses choix.
+
+![image](/blog-images/v0.1-gestes.png)
+
+Durant le parcours, une section explique le pourquoi du calcul, de façon simple et personnalisée.
+
+![image](/blog-images/v0.1-explications.png)
+
+### L'API
+
+Sur `/api-doc`, une documentation sommaire est disponible pour commencer à utiliser notre modèle de calcul.
+
+![image](/blog-images/v0.1-api.png)
+
+### Déploiement
+
+Le site est déployé sur l'adresse https://réno.fr, mais il n'est pas encore listé, donc pas accessible au grand public. Ne le partagez pas au-delà de cercles de développement.
+
+> Le nom de domaine `réno.fr` n'est pas un choix définitif, mais il est pratique et a l'avantage d'avoir un prix anecdotique. L'usage d'un accent dans l'URL n'est en effet pas courant sur le Web.
+
+## Par la suite : la v0.2
+
+Nous avons décidé de ne pas diffuser cette version.
+
+3 tests utilisateur nous ont permis d'en trouver les limites. En particulier, il nous semble peu intéressant de présenter les aides tout au long du parcours, plutôt que de les afficher sur un écran final. En particulier, les 63 000 € de subvention maximum pour Ma Prime Rénov' accompagnée sont déceptifs pour la plupart des utilisateurs.
+
+Une introduction viendra expliquer les aides avant la première question.
+
+Des changements doivent être fait pour aider l'utilisatrice à comprendre les questions et savoir comment y répondre.
+
+Les questions "DPE visé" et "enveloppe de travaux" sont particulièrement problématiques, car l'utilisateur ne sait en général pas encore y répondre. Nous privilégions donc une proposition de scénarios concurrents pour aider à la réflexion.
+
+À bientôt !

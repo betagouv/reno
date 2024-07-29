@@ -36,7 +36,7 @@ const Article = styled.article`
     padding: 0 1rem;
   }
   h2 {
-    font-size: 120%;
+    font-size: 180%;
     font-weight: 600;
     line-height: 1.6rem;
     margin-top: 2rem;

@@ -1,0 +1,55 @@
+---
+titre: 'Deuxième version beta'
+date: '2024-02-20'
+image: /blog-images/v0.2-eligibilite.png
+description: |
+  Voici la deuxième version de Mes Aides Réno, avec un questionnaire revenu et un nouvel écran d'éligibilité qui donne un aperçu simple des montants d'aide mobilisables via les deux parcours de MaPrimeRénov', parcours accompagné et parcours par geste.
+---
+
+Découvrez [les aides à la rénovation thermique sur Mes Aides Réno](https://mesaidesreno.beta.gouv.fr).
+
+Nous avons préparé une deuxième version suite aux retours nombreux de nos tests utilisateur.
+
+## Meilleur formulaire
+
+L'interface est moins lourde pendant le test car on cache les aides en attendant d'avoir suffisamment d'information pour en montrer sereinement un montant non déceptif. La navigation dans le questionnaire est plus fluide avec un indicateur d'avancement, un résumé (très basique) des réponses et un bouton précédent.
+
+![Meilleur formulaire](v0.2-meilleur-formulaire.png)
+
+Les textes des questions ont été travaillés, les aides à la réponse affichés par défaut sous la réponse. Pour certaines questions, le code des conditions des aides est interprété pour poser la question la plus simple possible, stockant le moins de données précises sur l'utilisateur, comme ici le revenu.
+
+![image](v0.2-revenu.png)
+
+Le simulateur amène sur un écran de choix des aides MaPrimeRénov'.
+
+![image](v0.2-eligibilite.png)
+
+## Un nouvel écran MaPrimeRénov' accompagnée
+
+L'essentiel du travail de cette version réside dans ce nouvel écran de présentation de la prime parcours accompagné.
+
+![image](v0.2-accompagne.png)
+
+Une suite à l'écran donne plus d'information qu'on veut le plus grand public possible sur le comment de l'aide.
+
+![image](v0.2-accompagne-conditions.png)
+
+## Itérations sur le parcours par gestes
+
+Concernant le parcours par geste, nous itérons avec une somme du total, l'affichage des plafonds, la complétion des aides, leur regroupement en catégories.
+
+![image](v0.2-gestes.png)
+
+Nous ne sommes pas encore satisfaits de cet écran.
+
+> D'autant plus que le parcours par gestes devrait rester disponibles pour les passoires jusqu'à au moins la moitié de l'année.
+
+## De nouveaux outils de test
+
+L'[écran persona](/personas) devient plus utile avec l'ajout des montants calculés, ainsi qu'un système de tests qui confronte nos calculs à ceux d'un tiers (ici les 2 exemples du gouvernement en décembre).
+
+![image](v0.2-personas.png)
+
+La [page API](/api-doc) présente maintenant un calculateur pour comprendre par l'expérience l'intérêt de cette brique logicielle.
+
+![image](v0.2-api.png)

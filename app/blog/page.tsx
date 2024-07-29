@@ -77,8 +77,13 @@ const Page = () => {
                       <h2>{titre}</h2>
                     </Link>
                   </div>
-                  <small>
-                    <BlueEm>Publié le {dateCool(date)}</BlueEm>
+                  <small
+                    style={css`
+                      color: var(--color);
+                      font-size: 90%;
+                    `}
+                  >
+                    Publié le {dateCool(date)}
                   </small>
                 </li>
               ))}
