@@ -2,14 +2,13 @@ import { allArticles } from '@/.contentlayer/generated'
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
+import { sortBy } from '@/components/utils'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
-import Logo from '@/public/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
 import { List } from './UI'
 import { dateCool } from './utils'
-import { sortBy } from '@/components/utils'
 
 const title = `Le blog des aides à la rénovation energétique`
 const description =
@@ -18,7 +17,7 @@ const description =
 export const metadata: metadata = {
   title,
   description,
-  openGraph: { images: ['/jaquette.png'] },
+  openGraph: { images: ['/illustration-accueil.resized.jpg'] },
 }
 
 const Page = () => {
@@ -91,7 +90,9 @@ const Page = () => {
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
-          <Content>📨 Abonnez-vous à notre lettre d'information. </Content>
+          <Content>
+            📨 Vous pourrez bientôt vous abonner à notre lettre d'information.{' '}
+          </Content>
         </Wrapper>
       </PageBlock>
     </main>
