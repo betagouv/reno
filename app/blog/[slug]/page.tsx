@@ -89,6 +89,7 @@ export default async function Post({ params }: Props) {
         <MDXContent components={mdxComponents} />
         <Contribution slug={params.slug} />
       </section>
+      <hr />
       <OtherArticles excludeUrl={post.url} />
     </Article>
   )

@@ -87,8 +87,10 @@ const Article = styled.article`
   }
   hr {
     opacity: 0.25;
-    margin: 1.6rem 0;
     border: 1px solid var(--lightColor);
+    width: 50rem;
+    max-width: 90vw;
+    margin: 4vh auto;
   }
   iframe {
     width: 90%;
