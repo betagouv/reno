@@ -1,25 +1,21 @@
-import { formatValue } from 'publicodes'
-import { QuestionText } from './ClassicQuestionWrapper'
-import { Prime } from './Geste'
+import { Section } from '@/components/UI'
 import Input from './Input'
+import Select from './Select'
+import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 export default function GesteQuestion({
-  dottedName,
   rules,
-  nextQuestions,
+  question,
   engine,
   situation,
   answeredQuestions,
   setSearchParams,
 }) {
-  const question = nextQuestions.find((question) =>
-    question.startsWith(dottedName),
-  )
-  if (!question) return null
+  const currentQuestion = rules[question]
+  if (!currentQuestion) return null
 
-  const evaluation = engine.evaluate(question),
-    currentValue = situation[question]
-
+  const evaluation = engine.evaluate(currentQuestion)
+  let currentValue = situation[question]
   const onChange = (value) => {
     const encodedSituation = encodeSituation(
       {
@@ -33,9 +29,89 @@ export default function GesteQuestion({
     setSearchParams(encodedSituation, 'push', false)
   }
 
-  const InputComponent = () => (
+  if (!currentValue) {
+    // Par défaut, on propose le maximum
+    currentValue = currentQuestion.maximum
+    onChange(currentValue)
+  }
+  return (
+    <Section
+      css={`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0.8rem 0;
+        padding: 0.4rem 0 1rem;
+        border-bottom: 1px solid var(--lighterColor);
+        &:last-child {
+          border: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+        > div {
+          margin-right: 0.8rem;
+          max-width: 60%;
+        }
+        > select,
+        input,
+        fieldset {
+          max-width: 60%;
+        }
+        @media (max-width: 800px) {
+          flex-wrap: wrap;
+          justify-content: space-between;
+          > div {
+            margin-bottom: 0.8rem;
+          }
+          > select,
+          input,
+          fieldset {
+            margin: 0 0 0 auto;
+          }
+        }
+      `}
+    >
+      <div>{currentQuestion.question}</div>
+      <InputComponent
+        {...{
+          currentQuestion,
+          currentValue,
+          question,
+          onChange,
+          rules,
+          evaluation,
+        }}
+      />
+    </Section>
+  )
+}
+const InputComponent = ({
+  currentQuestion,
+  currentValue,
+  question,
+  onChange,
+  rules,
+  evaluation,
+}) =>
+  ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
+    <SegmentedControl
+      value={currentValue}
+      name={question}
+      onChange={onChange}
+    />
+  ) : currentQuestion['une possibilité parmi'] ? (
+    <Select
+      value={currentValue == null ? '' : currentValue}
+      values={currentQuestion['une possibilité parmi']['possibilités'].map(
+        (i) => rules[question + ' . ' + i],
+      )}
+      onChange={onChange}
+    />
+  ) : (
     <Input
       type={'number'}
+      id={question}
+      autoFocus={false}
       placeholder={evaluation.nodeValue}
       value={currentValue == null ? '' : currentValue}
       name={question}
@@ -43,39 +119,3 @@ export default function GesteQuestion({
       onChange={onChange}
     />
   )
-  return (
-    <div
-      css={`
-        margin: 0.6rem 0;
-        > label {
-          margin: 1rem 0;
-          display: flex;
-          justify-content: end;
-          align-items: center;
-          flex-wrap: wrap;
-          > div {
-            margin-right: 1rem;
-          }
-        }
-      `}
-    >
-      <label>
-        <div>
-          <QuestionText {...{ rule: rules[question], question, rules }} />
-        </div>
-        <InputComponent />
-      </label>
-      <div
-        css={`
-          text-align: right;
-        `}
-      >
-        <Prime
-          value={formatValue(
-            engine.setSituation(situation).evaluate(dottedName + ' . montant'),
-          )}
-        />
-      </div>
-    </div>
-  )
-}

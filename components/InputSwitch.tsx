@@ -13,7 +13,7 @@ import GestesMosaic, {
   isGestesMosaicQuestion,
 } from './GestesMosaic'
 import Input from './Input'
-import MPRSelector from './MPRSelector'
+import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import ScenariosSelector from './ScenariosSelector'
@@ -146,6 +146,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+
   if (currentQuestion === 'ménage . commune')
     return (
       <ClassicQuestionWrapper
@@ -157,7 +158,11 @@ export default function InputSwitch({
           answeredQuestions,
           situation,
           setSearchParams,
-          questionsToSubmit: ['ménage . code région', 'ménage . commune'],
+          questionsToSubmit: [
+            'ménage . code région',
+            'ménage . code département',
+            'ménage . commune',
+          ],
           currentValue,
           engine,
         }}
@@ -165,11 +170,13 @@ export default function InputSwitch({
         <AddressSearch
           {...{
             setChoice: (result) => {
+              console.log('purple result ', result)
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
                   'ménage . code région': `"${codeRegion}"`,
+                  'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
                 },
@@ -210,6 +217,14 @@ export default function InputSwitch({
                   ...situation,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
+                  'logement . commune exonérée taxe foncière': result
+                    .eligibilite.taxeFoncière
+                    ? 'oui'
+                    : 'non',
+                  'logement . commune denormandie': result.eligibilite
+                    .denormandie
+                    ? 'oui'
+                    : 'non',
                 },
                 false,
                 answeredQuestions,
@@ -266,9 +281,9 @@ export default function InputSwitch({
     )
   }
 
-  if (['MPR . choix'].includes(currentQuestion))
+  if (["parcours d'aide"].includes(currentQuestion))
     return (
-      <MPRSelector
+      <Eligibility
         {...{
           currentQuestion,
           setSearchParams,
@@ -276,6 +291,7 @@ export default function InputSwitch({
           answeredQuestions,
           engine,
           rules,
+          expanded: searchParams.details,
         }}
       />
     )
@@ -286,7 +302,6 @@ export default function InputSwitch({
       <GestesMosaic
         {...{
           rules,
-          rule,
           engine,
           situation,
           answeredQuestions,
@@ -296,20 +311,14 @@ export default function InputSwitch({
       />
     )
 
-  if (
-    currentQuestion === 'MPR . non accompagnée . confirmation' ||
-    (currentQuestion.startsWith('gestes . ') &&
-      !gestesMosaicQuestions.includes(currentQuestion))
-  ) {
+  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
     return (
       <GestesBasket
         {...{
           rules,
-          rule,
           engine,
           situation,
           answeredQuestions,
-          nextQuestions,
           setSearchParams,
         }}
       />
@@ -400,7 +409,7 @@ export default function InputSwitch({
       <Input
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
-        value={currentValue == null ? undefined : currentValue}
+        value={currentValue == null ? '' : currentValue}
         name={currentQuestion}
         unit={evaluation.unit}
         onChange={(value) => {

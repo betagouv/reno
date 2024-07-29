@@ -65,7 +65,6 @@ const Li = styled.li`
     width: ${size};
     height: ${size};
   }
-  cursor: pointer;
   input {
     margin-right: 0.6rem;
     cursor: pointer;
@@ -102,6 +101,7 @@ const Bar = styled.label`
   border-right: none;
   z-index: 1;
   line-height: 1.6rem;
+  cursor: pointer;
 `
 
 const Triangle = ({ background, selected, selected2 }) => (

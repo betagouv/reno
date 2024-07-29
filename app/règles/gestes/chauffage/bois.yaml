@@ -1,0 +1,353 @@
+chauffage . bois:
+  titre: Chauffage au bois (biomasse)
+chauffage . bois . chaudière:
+  titre: Chaudière bois
+  description: |
+    Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poême n'est souvent qu'un chauffage d'appoint.
+chauffage . bois . chaudière . Coup de pouce:
+chauffage . bois . chaudière . Coup de pouce . montant:
+
+chauffage . bois . chaudière . manuelle:
+  titre: Chaudière bois manuelle (bûches)
+  description: Chaudière bois à alimentation manuelle (bûches)
+  par défaut: oui
+chauffage . bois . chaudière . manuelle . montant:
+  somme:
+    - MPR . montant
+    - CEE . montant
+    - Coup de pouce . montant
+chauffage . bois . chaudière . manuelle . MPR:
+chauffage . bois . chaudière . manuelle . MPR . plafond: 16000 €
+chauffage . bois . chaudière . manuelle . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 5500 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 4500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 2000 €
+    - sinon: 0 €
+chauffage . bois . chaudière . manuelle . Coup de pouce:
+chauffage . bois . chaudière . manuelle . Coup de pouce . montant :
+  applicable si: CEE . projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - sinon: 2500 €
+chauffage . bois . chaudière . manuelle . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
+chauffage . bois . chaudière . manuelle . CEE:
+  titre : BAR-TH-113
+  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
+chauffage . bois . chaudière . manuelle . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . bois . chaudière . manuelle . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 41300
+    - si: CEE . région = 'H2'
+      alors: 33800
+    - si: CEE . région = 'H3'
+      alors: 26300
+
+chauffage . bois . chaudière . automatique:
+  titre: Chaudière bois auto (granulés, plaquettes)
+  description: Chaudière bois à alimentation automatique (granulés, plaquettes)
+  par défaut: oui
+chauffage . bois . chaudière . automatique . montant :
+  somme:
+    - MPR . montant
+    - CEE . montant
+    - Coup de pouce . montant
+chauffage . bois . chaudière . automatique . MPR:
+chauffage . bois . chaudière . automatique . MPR . plafond: 18000 €
+chauffage . bois . chaudière . automatique . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 7000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 5500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 3000 €
+    - sinon: 0 €
+chauffage . bois . chaudière . automatique . Coup de pouce:
+chauffage . bois . chaudière . automatique . Coup de pouce . montant :
+  applicable si: CEE . projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
+  variations:
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
+      alors: 4000 €
+    - sinon: 2500 €
+chauffage . bois . chaudière . automatique . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
+chauffage . bois . chaudière . automatique . CEE:
+  titre : BAR-TH-113
+  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
+chauffage . bois . chaudière . automatique . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . bois . chaudière . automatique . CEE . barème:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 41300
+    - si: CEE . région = 'H2'
+      alors: 33800
+    - si: CEE . région = 'H3'
+      alors: 26300
+
+chauffage . bois . foyer et insert:
+  par défaut: oui
+  titre: Foyer fermé et insert à buches ou à granulés
+chauffage . bois . foyer et insert . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
+chauffage . bois . foyer et insert . MPR:
+chauffage . bois . foyer et insert . MPR . plafond: 4000 €
+chauffage . bois . foyer et insert . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1800 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 1000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 600 €
+    - sinon: 0 €
+chauffage . bois . foyer et insert . CEE:
+  titre: BAR-TH-112
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
+chauffage . bois . foyer et insert . CEE . Etas:
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de l'insert ?
+  titre: Efficacité énergétique saisonnière
+  par défaut: "'supérieur à 80 %'"
+  maximum: "'supérieur à 80 %'"
+  une possibilité parmi:
+    possibilités:
+      - "entre 66 % et 72 %"
+      - "entre 72 % et 80 %"
+      - "supérieur à 80 %"
+chauffage . bois . foyer et insert . CEE . Etas . entre 66 % et 72 %:
+  valeur: "'entre 66 % et 72 %'"
+  titre: "Entre 66 % et 72 %"
+chauffage . bois . foyer et insert . CEE . Etas . entre 72 % et 80 %:
+  valeur: "'entre 72 % et 80 %'"
+  titre: "Entre 72 % et 80 %"
+chauffage . bois . foyer et insert . CEE . Etas . supérieur à 80 %:
+  valeur: "'supérieur à 80 %'"
+  titre: "Supérieur à 80 %"
+chauffage . bois . foyer et insert . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . bois . foyer et insert . CEE . barème:
+  variations:
+    - si: Etas = 'entre 66 % et 72 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 9400
+          - si: CEE . région = 'H2'
+            alors: 7700
+          - si: CEE . région = 'H3'
+            alors: 5100
+    - si: Etas = 'entre 72 % et 80 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 23500
+          - si: CEE . région = 'H2'
+            alors: 19300
+          - si: CEE . région = 'H3'
+            alors: 12800
+    - si: Etas = 'supérieur à 80 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 35300
+          - si: CEE . région = 'H2'
+            alors: 28900
+          - si: CEE . région = 'H3'
+            alors: 19200
+chauffage . bois . foyer et insert . CEE . question:
+  type: liste
+  valeurs:
+    - Etas
+
+chauffage . bois . poêle:
+  titre: Poêle et cuisinière
+  somme:
+    - à bûches . montant
+    - à granulés . montant
+chauffage . bois . poêle . à bûches:
+  par défaut: oui
+  titre: Poêle et cuisinière à bûches
+chauffage . bois . poêle . à bûches . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
+chauffage . bois . poêle . à bûches . MPR:
+chauffage . bois . poêle . à bûches . MPR . plafond: 4000 €
+chauffage . bois . poêle . à bûches . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1800 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 1500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 700 €
+    - sinon: 0 €
+chauffage . bois . poêle . à bûches . CEE:
+  titre: BAR-TH-112
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
+chauffage . bois . poêle . à bûches . CEE . Etas:
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à bûches ?
+  titre: Efficacité énergétique saisonnière
+  par défaut: "'supérieur à 80 %'"
+  maximum: "'supérieur à 80 %'"
+  une possibilité parmi:
+    possibilités:
+      - "entre 66 % et 72 %"
+      - "entre 72 % et 80 %"
+      - "supérieur à 80 %"
+chauffage . bois . poêle . à bûches . CEE . Etas . entre 66 % et 72 %:
+  valeur: "'entre 66 % et 72 %'"
+  titre: "Entre 66 % et 72 %"
+chauffage . bois . poêle . à bûches . CEE . Etas . entre 72 % et 80 %:
+  valeur: "'entre 72 % et 80 %'"
+  titre: "Entre 72 % et 80 %"
+chauffage . bois . poêle . à bûches . CEE . Etas . supérieur à 80 %:
+  valeur: "'supérieur à 80 %'"
+  titre: "Supérieur à 80 %"
+chauffage . bois . poêle . à bûches . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . bois . poêle . à bûches . CEE . barème:
+  variations:
+    - si: Etas = 'entre 66 % et 72 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 9400
+          - si: CEE . région = 'H2'
+            alors: 7700
+          - si: CEE . région = 'H3'
+            alors: 5100
+    - si: Etas = 'entre 72 % et 80 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 23500
+          - si: CEE . région = 'H2'
+            alors: 19300
+          - si: CEE . région = 'H3'
+            alors: 12800
+    - si: Etas = 'supérieur à 80 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 35300
+          - si: CEE . région = 'H2'
+            alors: 28900
+          - si: CEE . région = 'H3'
+            alors: 19200
+chauffage . bois . poêle . à bûches . CEE . question:
+  type: liste
+  valeurs:
+    - Etas
+
+chauffage . bois . poêle . à granulés:
+  par défaut: oui
+  titre: Poêle et cuisinière à granulés
+chauffage . bois . poêle . à granulés . montant:
+  somme:
+  - MPR . montant
+  - CEE . montant
+chauffage . bois . poêle . à granulés . MPR:
+chauffage . bois . poêle . à granulés . MPR . plafond: 5000 €
+chauffage . bois . poêle . à granulés . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 1800 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 1500 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 1000 €
+    - sinon: 0 €
+chauffage . bois . poêle . à granulés . CEE:
+  titre: BAR-TH-112
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
+chauffage . bois . poêle . à granulés . CEE . Etas:
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à granulés ?
+  titre: Efficacité énergétique saisonnière
+  par défaut: "'supérieur à 80 %'"
+  maximum: "'supérieur à 80 %'"
+  une possibilité parmi:
+    possibilités:
+      - "entre 66 % et 72 %"
+      - "entre 72 % et 80 %"
+      - "supérieur à 80 %"
+chauffage . bois . poêle . à granulés . CEE . Etas . entre 66 % et 72 %:
+  valeur: "'entre 66 % et 72 %'"
+  titre: "Entre 66 % et 72 %"
+chauffage . bois . poêle . à granulés . CEE . Etas . entre 72 % et 80 %:
+  valeur: "'entre 72 % et 80 %'"
+  titre: "Entre 72 % et 80 %"
+chauffage . bois . poêle . à granulés . CEE . Etas . supérieur à 80 %:
+  valeur: "'supérieur à 80 %'"
+  titre: "Supérieur à 80 %"
+chauffage . bois . poêle . à granulés . CEE . montant:
+  produit:
+    - barème
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . bois . poêle . à granulés . CEE . barème:
+  variations:
+    - si: Etas = 'entre 66 % et 72 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 9400
+          - si: CEE . région = 'H2'
+            alors: 7700
+          - si: CEE . région = 'H3'
+            alors: 5100
+    - si: Etas = 'entre 72 % et 80 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 23500
+          - si: CEE . région = 'H2'
+            alors: 19300
+          - si: CEE . région = 'H3'
+            alors: 12800
+    - si: Etas = 'supérieur à 80 %'
+      alors:
+        variations:
+          - si: CEE . région = 'H1'
+            alors: 35300
+          - si: CEE . région = 'H2'
+            alors: 28900
+          - si: CEE . région = 'H3'
+            alors: 19200
+chauffage . bois . poêle . à granulés . CEE . question:
+  type: liste
+  valeurs:
+    - Etas

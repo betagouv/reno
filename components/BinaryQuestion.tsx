@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 
 // If needed, use a more advanced component that handles non boolean and nested propositions like https://github.com/laem/futureco/blob/master/components/conversation/Question.tsx
 export default function BinaryQuestion({ value, onChange }) {
-  console.log('value')
+
   return (
     <div>
       <Label>

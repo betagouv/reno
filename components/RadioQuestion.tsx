@@ -1,7 +1,8 @@
-export default function Input({ situation, onChange, value, rule, engine }) {
+export default function Input({ situation, name, onChange, value, rule, engine }) {
   const list = rule['une possibilité parmi'].possibilités
 
   return list.map((element, index) => {
+    const questionParams = engine.getParsedRules()[name+" . "+element]
     return (
       <label
         key={element}
@@ -26,7 +27,7 @@ export default function Input({ situation, onChange, value, rule, engine }) {
           checked={element === value}
           onChange={() => onChange(element)}
         />
-        <span>{element}</span>
+        <span>{questionParams ? questionParams.title : element}</span>
       </label>
     )
   })

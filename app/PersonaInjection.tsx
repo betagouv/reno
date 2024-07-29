@@ -3,7 +3,7 @@ import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import { omit } from '@/components/utils'
 import Link from 'next/link'
-export default function PersonInjection({ persona }) {
+export default function PersonaInjection({ persona }) {
   const setSearchParams = useSetSearchParams()
   return (
     <Link
