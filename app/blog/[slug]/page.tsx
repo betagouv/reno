@@ -49,14 +49,23 @@ export default async function Post({ params }: Props) {
         ← Retour au blog
       </Link>
       <header>
-        {post.image && (
-          <Image
-            src={post.image}
-            width="600"
-            height="400"
-            alt="Illustration de l'article"
-          />
-        )}
+        <div
+          style={css`
+            position: relative;
+            width: 100%;
+            height: 32rem;
+            padding-bottom: 4vh;
+          `}
+        >
+          {post.image && (
+            <Image
+              src={post.image}
+              layout="fill"
+              objectFit="contain"
+              alt="Illustration de l'article"
+            />
+          )}
+        </div>
         <h1>{post.titre}</h1>
         <p>{post?.description}</p>
         <small>
