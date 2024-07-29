@@ -4,6 +4,7 @@ import useIsInIframe from "@/components/useIsInIframe"
 import { HomeTestimonies } from "./LandingUI"
 import { useState } from 'react'
 import DPELabel from '@/components/DPELabel'
+import { CTA } from '@/components/UI'
 
 export default function HomepageSteps() {
     const isInIFrame = useIsInIframe()
@@ -61,9 +62,15 @@ export default function HomepageSteps() {
                                     display: none;
                                 }`}>
                                 <span>{testimonial.shortText}</span>
-                                <span className="see-more-click">
-                                    {expanded[index] ? "Voir moins" : "Voir plus"}
-                                </span>
+                                <div css={`display: flex;justify-content: flex-end;`}>
+                                    <CTA
+                                        $fontSize="normal"
+                                        $importance="secondary"
+                                        className="see-more-click"
+                                        >
+                                        Voir ses aides €
+                                    </CTA>
+                                </div>
                             </summary>
                             <p className="see-more">
                                 {testimonial.moreText}

@@ -159,7 +159,12 @@ export const HomeTestimonies = styled.div`
         display: block;
         margin-bottom: 1rem;
         text-align: right;
-        text-decoration: underline;
+        text-decoration: none;
+        padding: 0.5rem 0.8rem;
+        &:hover {
+          color: white;
+          background-color: #000091;
+        }
     }
   }
 `
