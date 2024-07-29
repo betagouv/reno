@@ -1,12 +1,12 @@
 import { allArticles } from '@/.contentlayer/generated'
 import Article from '@/components/Article'
-import { dateCool, getLastEdit } from '../utils'
-import { getMDXComponent } from 'next-contentlayer2/hooks'
-import Link from 'next/link'
-import Image from 'next/image'
-import LastEdit from '@/components/blog/LastEdit'
-import Contribution from '../Contribution'
 import css from '@/components/css/convertToJs'
+import { getMDXComponent, useMDXComponent } from 'next-contentlayer2/hooks'
+import Image from 'next/image'
+import Link from 'next/link'
+import Contribution from '../Contribution'
+import { dateCool, getLastEdit } from '../utils'
+import { mdxComponents } from '../mdxComponents'
 
 export const generateMetadata = async ({ params }) => {
   const post = allArticles.find(
@@ -30,6 +30,7 @@ export default async function Post({ params }: Props) {
     (post) => post._raw.flattenedPath === params.slug,
   )
 
+  const MDXContent = useMDXComponent(post.body.code)
   const Content = getMDXComponent(post.body.code)
   const lastEdit = await getLastEdit(params.slug)
 
@@ -67,7 +68,7 @@ export default async function Post({ params }: Props) {
         </small>
         <hr />
       </header>
-      <Content />
+      <MDXContent components={mdxComponents} />
       <Contribution slug={params.slug} />
     </Article>
   )

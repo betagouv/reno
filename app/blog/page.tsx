@@ -62,8 +62,7 @@ const Page = () => {
               </p>
               <p>
                 On vous raconte ici les étapes de la construction de ce{' '}
-                <strong>service public</strong>
-                numérique.
+                <strong>service public</strong> numérique.
               </p>
             </Intro>
           </div>

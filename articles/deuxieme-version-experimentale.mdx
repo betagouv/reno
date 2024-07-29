@@ -1,0 +1,54 @@
+---
+titre: 'Deuxième version expérimentale'
+date: '2024-02-20'
+image: /blog-images/v0.1-simu-intro.png
+description: Nous vous présentons ici le premier prototype fonctionnel de Mes Aides Réno.
+---
+
+Découvrez [les aides à la rénovation thermique sur Mes Aides Réno](https://mesaidesreno.beta.gouv.fr).
+
+Nous avons préparé une deuxième version suite aux retours nombreux de nos tests utilisateur.
+
+## Meilleur formulaire
+
+L'interface est moins lourde pendant le test car on cache les aides en attendant d'avoir suffisamment d'information pour en montrer sereinement un montant non déceptif. La navigation dans le questionnaire est plus fluide avec un indicateur d'avancement, un résumé (très basique) des réponses et un bouton précédent.
+
+![Meilleur formulaire](v0.2-meilleur-formulaire.png)
+
+Les textes des questions ont été travaillés, les aides à la réponse affichés par défaut sous la réponse. Pour certaines questions, le code des conditions des aides est interprété pour poser la question la plus simple possible, stockant le moins de données précises sur l'utilisateur, comme ici le revenu.
+
+![image](v0.2-revenu.png)
+
+Le simulateur amène sur un écran de choix des aides MaPrimeRénov'.
+
+![image](https://github.com/betagouv/reno/assets/1177762/17f775e1-9bdf-4b1d-b590-61bb7b793487)
+
+## Un nouvel écran MaPrimeRénov' accompagnée
+
+L'essentiel du travail de cette version réside dans ce nouvel écran de présentation de la prime parcours accompagné.
+
+![image](https://github.com/betagouv/reno/assets/1177762/84d3568b-b624-4f41-86c7-4c9b8ebdc136)
+
+Une suite à l'écran donne plus d'information qu'on veut le plus grand public possible sur le comment de l'aide.
+
+![image](https://github.com/betagouv/reno/assets/1177762/d2f64d94-edab-4cfe-bdbe-396a5cde2ca8)
+
+## Itérations sur le parcours par gestes
+
+Concernant le parcours par geste, nous itérons avec une somme du total, l'affichage des plafonds, la complétion des aides, leur regroupement en catégories.
+
+![image](https://github.com/betagouv/reno/assets/1177762/3131728d-2884-4045-a9fa-8d39eeccf098)
+
+Nous ne sommes pas encore satisfaits de cet écran.
+
+> D'autant plus que le parcours par gestes devrait rester disponibles pour les passoires jusqu'à au moins la moitié de l'année.
+
+## De nouveaux outils de test
+
+L'écran persona devient plus utile avec l'ajout des montants calculés, ainsi qu'un système de tests qui confronte nos calculs à ceux d'un tiers (ici les 2 exemples du gouvernement en décembre).
+
+![image](https://github.com/betagouv/reno/assets/1177762/3c0786e5-cd16-4129-b8d5-82be76fb7319)
+
+La page API présente maintenant un calculateur pour comprendre par l'expérience l'intérêt de cette brique logicielle.
+
+![image](https://github.com/betagouv/reno/assets/1177762/51e6af6a-f56e-49bb-a684-88047986a461)
