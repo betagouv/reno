@@ -1,7 +1,12 @@
-import { InternalLink, Main, MiseEnAvant, Section } from '@/components/UI'
+import { InternalLink, Main, MiseEnAvant, Section, Badge, BlocAide } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
+import iconIsolation from '@/public/isolation.svg'
+import iconChauffage from '@/public/chauffage.svg'
+import iconVentilation from '@/public/ventilation.svg'
+import iconSolaire from '@/public/solaire.svg'
 import css from '@/components/css/convertToJs'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: "Certificats d'économie d'énergie (CEE)",
@@ -11,11 +16,49 @@ export const metadata: Metadata = {
 export default function CEE() {
     const allRulesCEE = Object.keys(rules).filter((item) => item.startsWith('gestes') && item.endsWith("CEE"))
     const distinctRulesCEE = []
+    const categories = [
+      {
+        'code': 'isolation',
+        'titre': 'Isolation',
+        'icone': iconIsolation
+      },
+      {
+        'code': 'solaire',
+        'titre': 'Solaire',
+        'icone': iconSolaire
+      },
+      {
+        'code': 'chauffage',
+        'titre': 'Chauffage',
+        'icone': iconChauffage
+      },
+      {
+        'code': 'ventilation',
+        'titre': 'Ventilation',
+        'icone': iconVentilation,
+      }
+    ];
     allRulesCEE.forEach((item) => {
         const value = rules[item].code
         if (!distinctRulesCEE.find((item) => rules[item].code == value)) {
-            distinctRulesCEE.push(item)
+          distinctRulesCEE.push(item)
         }
+    });
+
+    const rulesByCategory = Object.fromEntries(categories.map(category => [category.titre, []]));
+    distinctRulesCEE.forEach((rule) => {
+      let categorized = false;
+      for (const category of categories) {
+        if (rule.includes(category.code)) {
+          rulesByCategory[category.titre].push(rule);
+          categorized = true;
+          break;
+        }
+      }
+
+      if (!categorized) {
+        rulesByCategory['Autres'].push(rule);
+      }
     });
 
     return (
@@ -33,21 +76,25 @@ export default function CEE() {
         </MiseEnAvant>
 
         <h3>Calculateurs d'aide CEE concernant la rénovation énergétique des logements</h3>
-        <ul>
-        { distinctRulesCEE
-            .sort((a, b) => {
-              const codeA = rules[a].code.toUpperCase(); // Ignore case for consistent sorting
-              const codeB = rules[b].code.toUpperCase();
-              if (codeA < codeB) return -1;
-              if (codeA > codeB) return 1;
-              return 0;
-          })
-            .map((rule, index) => {
-              return (
-                  <li style={css`margin: 1rem 0;`} key={index}><InternalLink href={`/cee/${rules[rule].code}/${rules[rule].titre}`}><strong>{rules[rule].code}</strong>: {rules[rule].titre}</InternalLink></li>
-              )
-        })}
-        </ul>
+        <div>
+          { Object.keys(rulesByCategory).map((category) => (
+            <BlocAide>
+              <div style={css`display: flex;align-items: flex-start;`}>
+                <Image src={categories.find((c) => c.titre == category).icone} alt={`icone $(category)}`} width="60" />
+                <div>
+                  <h3 style={css`padding-left: 1.6rem;`}>{category}</h3>
+                  <ul style={css`list-style-position: inside;`}>
+                    { rulesByCategory[category].map((rule, index) => (
+                        <li style={css`margin: 1rem 0;`} key={index}><InternalLink href={`/cee/${rules[rule].code}/${rules[rule].titre}`}>{rules[rule].titre} <Badge><small>{rules[rule].code}</small></Badge></InternalLink></li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </div>
+              
+            </BlocAide>
+        ))}
+        </div>
       </Section>
     </Main>
   )

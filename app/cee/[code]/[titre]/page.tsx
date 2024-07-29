@@ -1,5 +1,5 @@
 import PageCEE from '@/components/cee/PageCEE'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 import rules from '@/app/règles/rules'
 
 export async function generateMetadata(
