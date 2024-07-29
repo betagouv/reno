@@ -21,7 +21,7 @@ export default function HomepageSteps() {
         {
             title: "Myriam, veut rénover sa résidence principale",
             shortText: "Myriam est propriétaire de la petite maison dans laquelle elle vit avec ses deux enfants, près d'une grande ville et ne connaît pas le DPE actuel de sa maison.",
-            moreText: <>Dans le simulateur Mes Aides Réno, elle renseigne un revenu fiscal de <Key $state={'final'}>28 000 €</Key>. Elle découvre qu'elle pourrait prétendre à des aides et même <strong>une avance pour la rénovation énergétique</strong> de son logement. Pour commencer, elle pense installer un chauffe-eau solaire (<Key $state={'prime'}>3 000 €</Key>  d'aides), et peut-être en profiter pour isoler les murs par l'extérieur (<Key $state={'prime'}>60 euros/m² isolé</Key> d'aides). Pour aller plus loin, elle prend contact avec la conseillère France Rénov proche de chez elle qui lui propose un <strong>rendez-vous d'une heure gratuit</strong> et indépendant.</>
+            moreText: <>Dans le simulateur Mes Aides Réno, elle renseigne un revenu fiscal de <Key $state={'final'}>28 000 €</Key>. Elle découvre qu'elle pourrait prétendre à des aides et même <strong>une avance pour la rénovation énergétique</strong> de son logement. Pour commencer, elle pense installer un chauffe-eau solaire (<Key $state={'prime'}>3 000 €</Key>  d'aides), et peut-être en profiter pour isoler les murs par l'extérieur (<Key $state={'prime'}>60 €/m² isolé</Key> d'aides). Pour aller plus loin, elle prend contact avec la conseillère France Rénov proche de chez elle qui lui propose un <strong>rendez-vous d'une heure gratuit</strong> et indépendant.</>
         },
         {
             title: "Véronique, cherche à acheter un appartement pour de la location",
