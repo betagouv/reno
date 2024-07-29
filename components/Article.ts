@@ -2,34 +2,38 @@
 import styled from 'styled-components'
 
 const Article = styled.article`
-  max-width: 700px;
   margin: 0 auto;
-  padding: 0 1rem;
   padding-bottom: 10vh;
+
   header {
+    background: white;
     margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    section {
+      max-width: 50rem;
+      margin: 0 auto;
+    }
+    img {
+    }
+    small {
+      margin-top: 1rem;
+      display: block;
+      text-align: center;
+      color: var(--color);
+      font-size: 90%;
+    }
   }
+
   h1 {
     font-size: 240%;
     margin-bottom: 1rem;
     line-height: 2.6rem;
     text-align: center;
   }
-  header > small {
-    display: block;
-    text-align: center;
-    color: var(--color);
-  }
-  header > img {
-    width: 30rem;
-    max-width: 80%;
-    height: auto;
-    border-radius: 1rem;
-    box-shadow:
-      0.3px 0.5px 0.7px hsl(0deg 0% 63% / 0.36),
-      0.8px 1.6px 2px -0.8px hsl(0deg 0% 63% / 0.36),
-      2.1px 4.1px 5.2px -1.7px hsl(0deg 0% 63% / 0.36),
-      5px 10px 12.6px -2.5px hsl(0deg 0% 63% / 0.36);
+  header + section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
   h2 {
     font-size: 120%;

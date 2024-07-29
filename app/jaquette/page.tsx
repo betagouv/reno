@@ -1,11 +1,9 @@
 'use client'
-import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
+import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
-import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import logo from '@/public/logo.svg'
-import Link from 'next/link'
+import Image from 'next/image'
 import { HeaderWrapper, Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 

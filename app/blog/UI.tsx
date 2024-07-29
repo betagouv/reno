@@ -1,5 +1,7 @@
 'use client'
 
+import { CTA, CTAWrapper } from '@/components/UI'
+
 import styled from 'styled-components'
 
 export const List = styled.ol`
@@ -23,3 +25,16 @@ export const List = styled.ol`
   }
   margin-bottom: 10vh;
 `
+export const BlogBackButton = ({ children }) => (
+  <CTAWrapper
+    $justify="start"
+    css={`
+      margin-top: 0 !important;
+      padding-top: 2vh !important;
+    `}
+  >
+    <CTA $fontSize="normal" $importance="secondary">
+      {children}
+    </CTA>
+  </CTAWrapper>
+)

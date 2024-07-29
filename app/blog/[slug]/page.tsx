@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Contribution from '../Contribution'
 import { dateCool, getLastEdit } from '../utils'
 import { mdxComponents } from '../mdxComponents'
+import { BlogBackButton } from '../UI'
 
 export const generateMetadata = async ({ params }) => {
   const post = allArticles.find(
@@ -39,47 +40,54 @@ export default async function Post({ params }: Props) {
     !lastEdit || post.date.slice(0, 10) === lastEdit.slice(0, 10)
   return (
     <Article>
-      <Link
-        href="/blog"
-        style={css`
-          margin-top: 0.6rem;
-          display: inline-block;
-        `}
-      >
-        ← Retour au blog
-      </Link>
       <header>
-        <div
-          style={css`
-            position: relative;
-            width: 100%;
-            height: 32rem;
-            padding-bottom: 4vh;
-          `}
-        >
-          {post.image && (
-            <Image
-              src={post.image}
-              layout="fill"
-              objectFit="contain"
-              alt="Illustration de l'article"
-            />
-          )}
-        </div>
-        <h1>{post.titre}</h1>
-        <p>{post?.description}</p>
-        <small>
-          publié le <time dateTime={post.date}>{dateCool(post.date)}</time>
-          {!sameEditDate && (
-            <span>
-              , mis à jour <time dateTime={lastEdit}>{dateCool(lastEdit)}</time>
-            </span>
-          )}
-        </small>
-        <hr />
+        <section>
+          <BlogBackButton>
+            <Link
+              href="/blog"
+              style={css`
+                margin-top: 0.6rem;
+                display: inline-block;
+                padding: 0rem 0.8rem 0.5rem;
+              `}
+            >
+              ← Retour au blog
+            </Link>
+          </BlogBackButton>
+          <div
+            style={css`
+              position: relative;
+              width: 100%;
+              height: 24rem;
+              padding-bottom: 4vh;
+            `}
+          >
+            {post.image && (
+              <Image
+                src={post.image}
+                layout="fill"
+                objectFit="contain"
+                alt="Illustration de l'article"
+              />
+            )}
+          </div>
+          <h1>{post.titre}</h1>
+          <p>{post?.description}</p>
+          <small>
+            publié le <time dateTime={post.date}>{dateCool(post.date)}</time>
+            {!sameEditDate && (
+              <span>
+                , mis à jour{' '}
+                <time dateTime={lastEdit}>{dateCool(lastEdit)}</time>
+              </span>
+            )}
+          </small>
+        </section>
       </header>
-      <MDXContent components={mdxComponents} />
-      <Contribution slug={params.slug} />
+      <section>
+        <MDXContent components={mdxComponents} />
+        <Contribution slug={params.slug} />
+      </section>
     </Article>
   )
 }
