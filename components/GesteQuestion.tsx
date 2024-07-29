@@ -14,7 +14,7 @@ export default function GesteQuestion({
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
-
+  
   const evaluation = engine.evaluate(currentQuestion)
   let currentValue = situation[question]
   const onChange = (value) => {
@@ -117,37 +117,3 @@ export default function GesteQuestion({
     </div>
   )
 }
-const InputComponent = ({
-  currentQuestion,
-  currentValue,
-  question,
-  onChange,
-  rules,
-  evaluation,
-}) =>
-  ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
-    <SegmentedControl
-      value={currentValue}
-      name={question}
-      onChange={onChange}
-    />
-  ) : currentQuestion['une possibilité parmi'] ? (
-    <Select
-      value={currentValue == null ? '' : currentValue}
-      values={currentQuestion['une possibilité parmi']['possibilités'].map(
-        (i) => rules[question + ' . ' + i],
-      )}
-      onChange={onChange}
-    />
-  ) : (
-    <Input
-      type={'number'}
-      id={question}
-      autoFocus={false}
-      placeholder={evaluation.nodeValue}
-      value={currentValue == null ? '' : currentValue}
-      name={question}
-      unit={evaluation.unit}
-      onChange={onChange}
-    />
-  )
