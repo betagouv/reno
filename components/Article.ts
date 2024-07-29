@@ -74,8 +74,9 @@ const Article = styled.article`
   }
   blockquote {
     margin-left: 0;
-    padding-left: 1.4rem;
-    border-left: 6px solid var(--color1);
+    padding-left: 1.2rem;
+    margin-top: 1rem;
+    border-left: 6px solid var(--lightColor);
   }
   ul {
     padding-left: 1rem;
