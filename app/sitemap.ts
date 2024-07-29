@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
 import rules from '@/app/règles/rules.tsx'
+import generateBlogSitemap from '@/blogSitemap'
 
+export const domain = 'https://mesaidesreno.beta.gouv.fr'
 const basePaths = [
   '',
   '/simulation',
@@ -13,6 +15,7 @@ const basePaths = [
   '/interdiction-location',
   '/integration',
   '/module',
+  '/blog',
 ]
 
 const documentationPaths = Object.keys(rules)
@@ -29,8 +32,13 @@ const aidesLocales = Object.keys(rules)
 
 const paths = [...basePaths, ...documentationPaths, ...aidesLocales]
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return paths.map((path) => ({
-    url: 'https://mesaidesreno.beta.gouv.fr' + path,
-  }))
+export default async function sitemap(): MetadataRoute.Sitemap {
+  const blogSitemap = await generateBlogSitemap()
+  console.log(blogSitemap)
+  return [
+    ...paths.map((path) => ({
+      url: domain + path,
+    })),
+    ...blogSitemap,
+  ]
 }
