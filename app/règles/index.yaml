@@ -157,7 +157,7 @@ logement . résidence principale:
     - résidence principale locataire
 
 logement . résidence principale propriétaire:
-  applicable si: propriétaire occupant
+  applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
   question: Le logement est-il votre résidence principale ?
   par défaut: oui
   description: |
@@ -166,7 +166,7 @@ logement . résidence principale propriétaire:
     Si vous comptez mettre en location votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
 logement . résidence principale locataire:
-  non applicable si: propriétaire occupant
+  non applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
   question: Le logement est-il la résidence principale du locataire ?
   par défaut: oui
   description: |
