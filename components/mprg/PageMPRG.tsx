@@ -12,6 +12,7 @@ import {
   import useSetSearchParams from '@/components/useSetSearchParams'
   import Link from 'next/link'
   import { BlocAideMPR } from './BlocAideMPR'
+import OtherSimulateur from '../OtherSimulateur'
 
   export default function PageMPRG({ params }: { params: { titre: string } }) {
 
@@ -19,7 +20,7 @@ import {
     const rawSearchParams = useSearchParams(),
       situationSearchParams = Object.fromEntries(rawSearchParams.entries())
 
-    const rule = Object.keys(rules).filter((rule) => rules[rule] && rules[rule].titre == decodeURIComponent(params.titre))[0]
+    const rule = Object.keys(rules).find((rule) => rules[rule] && rules[rule].titre == decodeURIComponent(params.titre))
     const answeredQuestions = [
       ...getAnsweredQuestions(situationSearchParams, rules),
     ]
@@ -31,8 +32,8 @@ import {
 
     const nextQuestions = getNextQuestions(
       montant,
-      [],
-      [],
+      answeredQuestions,
+      simulationConfig,
       rules,
     )
 
@@ -41,9 +42,11 @@ import {
       titre: rules[rule].titre,
       questions: nextQuestions.filter((q) => rules[q].question),
     }
-    console.log("infoMPR", infoMPR)
+
     const setSearchParams = useSetSearchParams()
 
+    // Y a-t-il une aide CEE associée?
+    const ceeAssocie = Object.keys(rules).includes(rule + " . CEE") ? rules[rule + " . CEE"] : null;
     return (
       <Main>
         <Section>
@@ -71,6 +74,7 @@ import {
                 setSearchParams
                 }}
             />
+            <OtherSimulateur {...{ceeAssocie}} />
         </Section>
       </Main>
     )

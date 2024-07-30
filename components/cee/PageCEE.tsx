@@ -3,17 +3,16 @@ import {
     getAnsweredQuestions,
     getSituation
   } from '@/components/publicodes/situationUtils'
-  import { Card, CTA, CTAWrapper, Main, Section } from '@/components/UI'
+  import { CTA, CTAWrapper, Main, Section } from '@/components/UI'
   import rules from '@/app/règles/rules'
   import Publicodes, { formatValue } from 'publicodes'
   import getNextQuestions from '@/components/publicodes/getNextQuestions'
   import { useSearchParams } from 'next/navigation'
   import { BlocAideCEE } from '@/components/BlocAideCee'
   import useSetSearchParams from '@/components/useSetSearchParams'
-  import logoMPR from '@/public/maprimerenov-logo.svg'
   import Link from 'next/link'
-  import Image from 'next/image'
   import styled from 'styled-components'
+  import OtherSimulateur from '../OtherSimulateur'
 
   export default function PageCEE({ params }: { params: { code: string } }) {
 
@@ -30,13 +29,11 @@ import {
       ...getSituation(situationSearchParams, rules),
     }
 
-
     // Y a-t-il des MPR associés?
     const mprAssocie = allRuleConcerned.map((rule) => rule.replace(". CEE", ". MPR"))
                                 .filter((rule) => Object.keys(rules).includes(rule)) // On vérifie qu'il y a une règle MPR qui existe pour ce geste
                                 .map((rule) => rule.replace(" . MPR", ""))
                                 .map((rule) => rules[rule] && rules[rule].titre)
-    
 
     const montant = engine.evaluate(rule + ' . montant')
 
@@ -83,39 +80,8 @@ import {
                 setSearchParams
                 }}
             />
-            <h3>Ce n'est pas tout! Simulez également:</h3>
-            <div css={`display:flex;justify-content:space-around;column-gap: 20px;`}>
-              { mprAssocie && mprAssocie.map((mpr) => (
-                <Card css={`padding: 0.5rem;&:hover { background: #e8edff; }`}>
-                  <LinkSimulateur href={`/maprimerenov/${mpr}`}>
-                    <Image src={logoMPR} alt="Logo MaPrimeRénov" width="200" />
-                    Aides MaPrimeRénov pour<br /> 
-                    <strong>{mpr}</strong> 
-                  </LinkSimulateur>
-                </Card>
-              ))}
-              <Card css={`padding: 0.5rem;&:hover { background: #e8edff; }`}>
-                <LinkSimulateur href="/simulation">
-                    <span css={`font-size: 3rem; color: #000091; margin-bottom: 0.5rem;`}>€</span>
-                    L'ensemble de vos aides
-                </LinkSimulateur>
-              </Card>
-            </div>
+            <OtherSimulateur {...{mprAssocie}} />
         </Section>
       </Main>
     )
   }
-
-  export const LinkSimulateur=styled.a`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration:none;
-    color: black;
-    height: 100%;
-    justify-content: space-between;
-    text-align: center;
-    img {
-      margin-bottom: 0.5rem;
-    }
-  `
