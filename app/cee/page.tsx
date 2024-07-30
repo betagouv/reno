@@ -1,12 +1,10 @@
-import { InternalLink, Main, MiseEnAvant, Section, Badge, BlocAide } from '@/components/UI'
+import { InternalLink, Main, MiseEnAvant, Section, Badge, BlocAide, Card } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
-import iconIsolation from '@/public/isolation.svg'
-import iconChauffage from '@/public/chauffage.svg'
-import iconVentilation from '@/public/ventilation.svg'
-import iconSolaire from '@/public/solaire.svg'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
+import { categoriesGeste } from '@/components/utils'
+
 
 export const metadata: Metadata = {
   title: "Certificats d'économie d'énergie (CEE)",
@@ -15,29 +13,8 @@ export const metadata: Metadata = {
 
 export default function CEE() {
     const allRulesCEE = Object.keys(rules).filter((item) => item.startsWith('gestes') && item.endsWith("CEE"))
-    const distinctRulesCEE = []
-    const categories = [
-      {
-        'code': 'isolation',
-        'titre': 'Isolation',
-        'icone': iconIsolation
-      },
-      {
-        'code': 'solaire',
-        'titre': 'Solaire',
-        'icone': iconSolaire
-      },
-      {
-        'code': 'chauffage',
-        'titre': 'Chauffage',
-        'icone': iconChauffage
-      },
-      {
-        'code': 'ventilation',
-        'titre': 'Ventilation',
-        'icone': iconVentilation,
-      }
-    ];
+    const distinctRulesCEE: string[] = []
+
     allRulesCEE.forEach((item) => {
         const value = rules[item].code
         if (!distinctRulesCEE.find((item) => rules[item].code == value)) {
@@ -45,19 +22,13 @@ export default function CEE() {
         }
     });
 
-    const rulesByCategory = Object.fromEntries(categories.map(category => [category.titre, []]));
+    const rulesByCategory = Object.fromEntries(categoriesGeste.map(category => [category.titre, []]));
     distinctRulesCEE.forEach((rule) => {
-      let categorized = false;
-      for (const category of categories) {
+      for (const category of categoriesGeste) {
         if (rule.includes(category.code)) {
           rulesByCategory[category.titre].push(rule);
-          categorized = true;
           break;
         }
-      }
-
-      if (!categorized) {
-        rulesByCategory['Autres'].push(rule);
       }
     });
 
@@ -78,21 +49,21 @@ export default function CEE() {
         <h3>Calculateurs d'aide CEE concernant la rénovation énergétique des logements</h3>
         <div>
           { Object.keys(rulesByCategory).map((category) => (
-            <BlocAide>
+            <Card>
               <div style={css`display: flex;align-items: flex-start;`}>
-                <Image src={categories.find((c) => c.titre == category).icone} alt={`icone $(category)}`} width="60" />
+                <Image src={categoriesGeste.find((c) => c.titre == category).icone} alt={`icone ${category}`} width="60" />
                 <div>
-                  <h3 style={css`padding-left: 1.6rem;`}>{category}</h3>
+                  <h3 style={css`margin-top:1rem;padding-left: 1.6rem;`}>{category}</h3>
                   <ul style={css`list-style-position: inside;`}>
                     { rulesByCategory[category].map((rule, index) => (
-                        <li style={css`margin: 1rem 0;`} key={index}><InternalLink href={`/cee/${rules[rule].code}/${rules[rule].titre}`}>{rules[rule].titre} <Badge><small>{rules[rule].code}</small></Badge></InternalLink></li>
+                        <li style={css`margin: 1rem 0;`} key={index}><InternalLink href={`/cee/${rules[rule].code}/${encodeURIComponent(rules[rule].titre)}`}>{rules[rule].titre} <Badge><small>{rules[rule].code}</small></Badge></InternalLink></li>
                       ))
                     }
                   </ul>
                 </div>
               </div>
               
-            </BlocAide>
+            </Card>
         ))}
         </div>
       </Section>

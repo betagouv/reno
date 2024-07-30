@@ -1,3 +1,8 @@
+import iconIsolation from '@/public/isolation.svg'
+import iconChauffage from '@/public/chauffage.svg'
+import iconVentilation from '@/public/ventilation.svg'
+import iconSolaire from '@/public/solaire.svg'
+
 export const sortBy = (f) => (list) =>
   list.sort((a, b) => {
     const fa = f(a),
@@ -32,3 +37,26 @@ export const debounce = <F extends (...args: any[]) => void>(
 }
 export const roundToThousands = (value, thousands = 1) =>
   Math.round(value / (1000 * thousands)) * 1000 * thousands
+
+export const categoriesGeste = [
+  {
+    'code': 'isolation',
+    'titre': 'Isolation',
+    'icone': iconIsolation
+  },
+  {
+    'code': 'solaire',
+    'titre': 'Solaire',
+    'icone': iconSolaire
+  },
+  {
+    'code': 'chauffage',
+    'titre': 'Chauffage',
+    'icone': iconChauffage
+  },
+  {
+    'code': 'ventilation',
+    'titre': 'Ventilation',
+    'icone': iconVentilation,
+  }
+];
