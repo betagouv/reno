@@ -1,9 +1,9 @@
-import { Section } from '@/components/UI'
 import Input from './Input'
 import Select from './Select'
 import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
+import SmartInput from './SmartInput'
 export default function GesteQuestion({
   rules,
   question,
@@ -82,6 +82,18 @@ export default function GesteQuestion({
           answeredQuestions,
         }}
       />
+    ) : question === 'ménage . revenu' ? (
+      <SmartInput
+          type='select'
+          rule={currentQuestion}
+          engine={engine}
+          evaluation={evaluation}
+          situation={situation}
+          placeholder={evaluation.nodeValue}
+          value={currentValue == null ? '' : currentValue}
+          name={currentQuestion}
+          onChange={onChange}
+        />
     ) : (
       <Input
         type={'number'}
