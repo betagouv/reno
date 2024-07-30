@@ -11,6 +11,7 @@ export default function GesteQuestion({
   situation,
   answeredQuestions,
   setSearchParams,
+  onAnswered
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
@@ -27,6 +28,10 @@ export default function GesteQuestion({
       answeredQuestions,
     )
     setSearchParams(encodedSituation, 'push', false)
+
+    if (onAnswered) {
+      onAnswered();
+    }
   }
 
   if (!currentValue && currentQuestion.maximum) {
@@ -67,6 +72,10 @@ export default function GesteQuestion({
             )
 
             setSearchParams(encodedSituation, 'push', false)
+
+            if (onAnswered) {
+              onAnswered();
+            }
           },
           setSearchParams,
           situation,

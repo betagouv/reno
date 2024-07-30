@@ -1,0 +1,15 @@
+prioritaires:
+  - vous . propriétaire . condition
+  - logement . propriétaire occupant
+  - logement . résidence principale propriétaire
+  - logement . résidence principale locataire
+  - logement . période de construction
+  - ménage . personnes
+  - ménage . commune
+  - ménage . revenu
+  # Le reste est non-linéaire, en fonction du choix
+non prioritaires:
+  -
+
+situation:
+  simulation . mode: "'max'"
