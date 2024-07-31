@@ -63,10 +63,10 @@ export default function Input({ situation, onChange, value, rule, engine, type }
 
   return type ==='select' ? <Select
       value={value}
-      values={[...list, Infinity].map((threshold, index) => {
+      values={[...list].map((threshold) => {
           return {
             'valeur': threshold,
-            'titre': displayRevenuLabel(threshold, lastThreshold)
+            'titre': displayRevenuLabel(threshold, lastThreshold, false)
           }
         })}
       onChange={onChange}
@@ -104,7 +104,8 @@ export default function Input({ situation, onChange, value, rule, engine, type }
           )
         })
 }
-const displayRevenuLabel = (threshold, lastThreshold) => threshold === Infinity ? (
+const displayRevenuLabel = (threshold, lastThreshold, withInfinity=true) => threshold === Infinity || 
+                                                                            (!withInfinity && threshold == lastThreshold) ? (
   "supérieur à "+ formatNumber(lastThreshold) + '€'
 ) : (
   "inférieur à "+ formatNumber(threshold) + '€'
