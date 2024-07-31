@@ -11,7 +11,6 @@ import {
   import { BlocAideCEE } from '@/components/BlocAideCee'
   import useSetSearchParams from '@/components/useSetSearchParams'
   import Link from 'next/link'
-  import styled from 'styled-components'
   import OtherSimulateur from '../OtherSimulateur'
 
   export default function PageCEE({ params }: { params: { code: string } }) {
