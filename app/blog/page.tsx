@@ -1,4 +1,3 @@
-import { allArticles } from '@/.contentlayer/generated'
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
@@ -9,6 +8,7 @@ import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
 import { List } from './UI'
 import { dateCool } from './utils'
+import { articles } from './[slug]/page'
 
 const title = `Le blog des aides à la rénovation energétique`
 const description =
@@ -21,8 +21,9 @@ export const metadata: metadata = {
 }
 
 const Page = () => {
-  console.log(allArticles.map((el) => el.date))
-  const articles = [...sortBy((article) => article.date)(allArticles).reverse()]
+  const sortedArticles = [
+    ...sortBy((article) => article.date)(articles).reverse(),
+  ]
   return (
     <main
       style={css`
@@ -69,7 +70,7 @@ const Page = () => {
         <Wrapper>
           <Content>
             <List>
-              {articles.map(({ url, date, titre }) => (
+              {sortedArticles.map(({ url, date, titre }) => (
                 <li key={url}>
                   <div>
                     <Link href={url}>
