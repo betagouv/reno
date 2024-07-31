@@ -1,0 +1,72 @@
+---
+titre: 'Troisième version beta'
+date: '2024-03-14'
+image: /blog-images/v0.3.png
+description: |
+  Voici la troisième version de Mes Aides Réno. Elle propose un nouveau parcours gestes en deux étapes, une fiabilisation des calculs via des tests contradictoires et des mises à jour reglementaires.
+---
+
+📜 Au menu :
+
+> - nouveau parcours gestes
+> - nouveau fil d'avancement
+> - page vie privée, matomo
+> - tests contradictoires pour vérifier notre modèle
+> - correction du taux d'écrêtement
+> - intégration des changements annoncés par le gouvernement
+> - par la suite : milestone 4
+
+## Interface
+
+### Nouveau parcours gestes
+
+Le parcours geste a été retravaillé pour être maintenant en 2 étapes : d'abord la sélection des gestes, avec un petit panier en haut qui ne donne plus le montant provisoire trop approximatif mais le compte des gestes, puis un écran "pannier" de résumé.
+
+![image](v0.3-gestes.png)
+
+Cet écran est important, car il pose les questions manquantes pour estimer le montant final des aides par geste.
+
+![image](v0.3-pannier-gestes.png)
+
+Par la suite, une série de questions réponses aide l'utilisateur à concrétiser l'aide.
+
+![image](v0.3-gestes-faq.png)
+
+Enfin, le conseiller France Rénov' est directement affiché sur la carte pour la commune sélectionnée pendant le test.
+
+![image](v0.3-conseiller-carte.png)
+
+### Nouveau fil d'avancement
+
+Le fil d'avancement qui était très basique a été largement amélioré : il prend moins de place verticale, affiche les bonnes questions et les catégories répondues, ainsi que les catégories suivantes.
+
+![image](v0.3-avancement.gif)
+
+### Page vie privée et suivi
+
+Nous commençons le suivi de nos statistiques via Matomo, comme expliqué sur [la page vie privée](https://mesaidesreno.beta.gouv.fr/confidentialite).
+
+## Modèle de calcul
+
+### Tests contradictoires
+
+Des tests contradictoires via les données de l'ANAH ont été mis en place pour vérifier notre modèle. Ils ne se font pas encore automatiquement à chaque compilation, mais sont affichés en ligne et colorés en fonction du résultat. Ils sont tous au vert, grâce à la correction ci-dessous.
+
+### Correction du taux d'écrêtement
+
+Nous nous étions trompés dans la compréhension du taux d'écrêtement des aides : il se fait en pourcentage du total des trauvaux TTC, et non pas hors taxe. Ce qui n'est pas aisé, car le taux de TVA peut varier de 5 à 20%. Nous avons modifié l'interface du parcours MPRA pour refléter ce changement, ce qui le complexifie légèrement.
+
+Ce problème est le seul qui a été révélé par les tests.
+
+### Intégration des changements annoncés par le gouvernement
+
+Ont été annoncées deux choses la semaine dernière :
+
+- le parcours par geste reste ouvert aux passoires thermiques
+- la condition "chauffage décarboné" n'est plus nécessaire...
+
+Ces changements ont été intégrés.
+
+## Par la suite
+
+Nous continuons le travail, et notamment les nouveaux [tickets listés](https://github.com/betagouv/reno/issues), et nous avons lancé un nouveau jeu d'améliorations pour la [version 0.4](https://github.com/betagouv/reno/milestone/2).
