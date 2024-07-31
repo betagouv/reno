@@ -16,7 +16,7 @@ export const generateMetadata = async ({ params }) => {
   )
   const lastEdit = await getLastEdit(params.slug)
   return {
-    title: post.titre.raw,
+    title: post.titre,
     description: post.description,
     openGraph: {
       images: [post.image],
