@@ -28,8 +28,12 @@ chauffage . raccordement réseau . chaleur . MPR . montant:
     - sinon: 0 €
 chauffage . raccordement réseau . chaleur . CEE:
   code: BAR-TH-137
-  titre: Raccordement d’un bâtiment résidentiel à un réseau de chaleur
+  titre: Raccordement d'un bâtiment résidentiel à un réseau de chaleur
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-137%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
+  technique: |
+    L'opération respecte les conditions cumulatives suivantes : 
+    - le bâtiment n'a jamais été raccordé à un réseau de chaleur dans le délai de cinq ans précédant la date de l'engagement de l'opération ; 
+    - le cas échéant, le ou les raccordements précédents n'ont pas fait l'objet d'une demande de certificats d'économies d'énergie. 
 chauffage . raccordement réseau . chaleur . CEE . montant:
   produit:
     - barème

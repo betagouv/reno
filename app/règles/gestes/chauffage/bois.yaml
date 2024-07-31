@@ -44,6 +44,19 @@ chauffage . bois . chaudière . manuelle . CEE:
   code : BAR-TH-113
   titre: Chaudière biomasse individuelle
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
+  technique: |
+    La **puissance thermique nominale** de la chaudière est inférieure ou égale à **70 kW**.  
+      
+    Elle utilise de la biomasse ligneuse notamment à base de bûches de bois, de copeaux de bois, de bois comprimé sous forme de granulés, de bois comprimé sous forme de briquettes ou de sciure de bois.  
+      
+    Elle est **équipée d'un régulateur** relevant de l'une des classes IV, V, VI, VII ou VIII telles que définies au paragraphe 6.1 de la communication de la Commission 2014/C 207/02.  
+      
+    Une chaudière à alimentation manuelle est associée à un ballon tampon, neuf ou existant.
+    L'**efficacité énergétique saisonnière** (ηs) de la chaudière selon le règlement (EU) n°2015/1189 de la commission du 28 avril 2015 est supérieure ou égale à : 
+      - **77 %** pour les chaudières de puissance thermique nominale **inférieure ou égale à 20 kW** ;
+      - **79 %** pour les chaudières de puissance thermique nominale **supérieure à 20 kW**.  
+
+    <br />Une chaudière possédant le **label Flamme verte 7*** est réputée **satisfaire les conditions** relatives aux émissions atmosphériques.
 chauffage . bois . chaudière . manuelle . CEE . montant:
   produit:
     - barème
@@ -95,6 +108,19 @@ chauffage . bois . chaudière . automatique . CEE:
   code : BAR-TH-113
   titre: Chaudière biomasse individuelle
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
+  technique: |
+    La **puissance thermique nominale** de la chaudière est inférieure ou égale à **70 kW**.  
+      
+    Elle utilise de la biomasse ligneuse notamment à base de bûches de bois, de copeaux de bois, de bois comprimé sous forme de granulés, de bois comprimé sous forme de briquettes ou de sciure de bois.  
+      
+    Elle est **équipée d'un régulateur** relevant de l'une des classes IV, V, VI, VII ou VIII telles que définies au paragraphe 6.1 de la communication de la Commission 2014/C 207/02.  
+      
+    Une chaudière à alimentation automatique est associée à un **silo d'un volume minimal de 225 litres**, neuf ou existant.  
+    L'**efficacité énergétique saisonnière** (ηs) de la chaudière selon le règlement (EU) n°2015/1189 de la commission du 28 avril 2015 est supérieure ou égale à : 
+      - **77 %** pour les chaudières de puissance thermique nominale **inférieure ou égale à 20 kW** ;
+      - **79 %** pour les chaudières de puissance thermique nominale **supérieure à 20 kW**.  
+
+    <br />Une chaudière possédant le **label Flamme verte 7*** est réputée satisfaire les conditions relatives aux émissions atmosphériques.
 chauffage . bois . chaudière . automatique . CEE . montant:
   produit:
     - barème
@@ -132,6 +158,15 @@ chauffage . bois . foyer et insert . CEE:
   code: BAR-TH-112
   titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
+  technique: |
+    Les conditions à respectées sont les suivantes :  
+      - l'**efficacité énergétique saisonnière** (Etas) de l'équipement est **supérieure ou égale à 66 %** ;
+      - les **émissions de particules** sont **inférieures ou égales à 40 mg/Nm3** ;
+      - les **émissions de composés organiques gazeux** (COG) sont **inférieures ou égales à 120 mgC/Nm3** ;
+      - les **émissions de monoxyde de carbone** (CO) sont **inférieures ou égales à 1 500 mg/Nm3** (soit 0,12 %) ;
+      - les **émissions d'oxydes d'azote** (NOx) sont **inférieures ou égales à 200 mg/Nm3** ;  
+        
+    <br />Un appareil de chauffage au bois possédant le **label Flamme verte** est réputé **satisfaire les conditions** relatives aux émissions de polluants. 
 chauffage . bois . foyer et insert . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de l'insert ?
   titre: Efficacité énergétique saisonnière
@@ -218,6 +253,15 @@ chauffage . bois . poêle . à bûches . CEE:
   code: BAR-TH-112
   titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
+  technique: |
+    Les conditions à respectées sont les suivantes :
+      - l'efficacité énergétique saisonnière (Etas) de l'équipement est supérieure ou égale à 66 % ;
+      - les émissions de particules sont inférieures ou égales à 40 mg/Nm3 ;
+      - les émissions de composés organiques gazeux (COG) sont inférieures ou égales à 120 mgC/Nm3 ;
+      - les émissions de monoxyde de carbone (CO) sont inférieures ou égales à 1 500 mg/Nm3 (soit 0,12 %) ;
+      - les émissions d'oxydes d'azote (NOx) sont inférieures ou égales à 200 mg/Nm3 ;
+    Un appareil de chauffage au bois possédant le label Flamme verte est réputé satisfaire les conditions relatives aux émissions de polluants. 
+
 chauffage . bois . poêle . à bûches . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à bûches ?
   titre: Efficacité énergétique saisonnière
@@ -299,6 +343,13 @@ chauffage . bois . poêle . à granulés . CEE:
   code: BAR-TH-112
   titre: Appareil indépendant de chauffage au bois
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-112%20v%20A35-2%20%C3%A0%20compter%20du%2001-10-2020.pdf
+  technique: |
+    Les conditions à respectées sont les suivantes :
+      - l'efficacité énergétique saisonnière (Etas) de l’équipement est supérieure ou égale à 80 % ;
+      - les émissions de particules sont inférieures ou égales à 20 mg/Nm3 ;
+      - les émissions de composés organiques gazeux (COG) sont inférieures ou égales à 60 mgC/Nm3 ;
+      - les émissions de monoxyde de carbone (CO) sont inférieures ou égales à 300 mg/Nm3 (soit 0,02 %) ;
+      - les émissions d'oxydes d'azote (NOx) sont inférieures ou égales à 200 mg/Nm3. 
 chauffage . bois . poêle . à granulés . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à granulés ?
   titre: Efficacité énergétique saisonnière

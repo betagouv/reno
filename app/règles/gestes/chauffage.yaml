@@ -30,6 +30,15 @@ chauffage . pilotage connecté . CEE:
   code: BAR-TH-173
   titre: Système de régulation par programmation horaire pièce par pièce
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-173%20vA56-1%20à%20compter%20du%2030-11-2023.pdf
+  technique: |
+    Le dispositif de régulation, répondant aux fonctionnalités de la **classe B** ou de **classe A** de la norme NF EN ISO 52120-1 pour les bâtiments résidentiels, est composé : 
+    -  d'un **appareil central qui collecte les informations** des dispositifs déportés dans les pièces équipées d'un émetteur de chaleur, pilote ces dispositifs, gère la programmation d'intermittence et les consignes de températures associées ; 
+    - d'une **sonde de mesure** de la température ambiante **dans chaque pièce** équipée d'un émetteur de chaleur ; 
+    - d'un **dispositif régulant l'émission** de chaque émetteur de chaleur selon la consigne émise par l'appareil central ; 
+    - **tous les réglages**, y compris les programmations horaires par pièce et l'exécution de ces programmes, peuvent **s'effectuer en local** a minima. Les équipements permettent à l'occupant de déroger localement à ces consignes. Le dispositif de régulation continue de fonctionner en cas de perte de connexion Internet.  
+      
+    <br />On entend par **classe B** au sens de la norme NF EN ISO 52120-1, une régulation modulante individuelle par pièce du signal de régulation et communication entre les régulateurs et l'appareil central.  
+    On entend par **classe A** au sens de la norme NF EN ISO 52120-1, une régulation modulante individuelle par pièce du signal de régulation entre les régulateurs et l'appareil central, **avec une détection d'occupation par pièce**.  
 chauffage . pilotage connecté . CEE . montant:
   produit:
     - facteur correctif région
@@ -173,6 +182,10 @@ chauffage . chauffe-eau thermodynamique . CEE:
   code: BAR-TH-148
   titre: Chauffe-eau thermodynamique à accumulation
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-148%20v%20A15-2.pdf
+  technique: |
+    Le **COP** de l'équipement mesuré conformément aux conditions de la norme EN 16147 est :
+      - **supérieur à 2,5** pour une **installation sur air extrait** ; 
+      - **supérieur à 2,4** pour **toutes autres installations**. 
 chauffage . chauffe-eau thermodynamique . CEE . montant:
   produit:
     - barème

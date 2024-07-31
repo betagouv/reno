@@ -28,6 +28,10 @@ chauffage . PAC . air-eau . CEE:
   code: BAR-TH-171
   titre: Pompe à chaleur de type air/eau 
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  technique: |
+    Les PAC **associées à un autre système de chauffage** et les PAC utilisées **uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
+      
+    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** «Chauffe-eau thermodynamique à accumulation» si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire. 
 chauffage . PAC . air-eau . CEE . question:
   type: liste
   valeurs:
@@ -235,8 +239,12 @@ chauffage . PAC . géo . Coup de pouce . montant:
 chauffage . PAC . géo . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . PAC . géo . CEE:
   code: BAR-TH-172
-  titre: Pompe à chaleur de type eau/eau ou sol/eau 
+  titre: Pompe à chaleur de type eau/eau ou sol/eau
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  technique: |
+    Les PAC **associées à un autre système de chauffage**** et les PAC **utilisées uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
+      
+    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** « Chauffe-eau thermodynamique à accumulation » si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire. 
 chauffage . PAC . géo . CEE . montant:
   produit:
     - barème
@@ -244,7 +252,6 @@ chauffage . PAC . géo . CEE . montant:
     - facteur correctif région
     - CEE . prix kWh Cumac
   unité: €
-
 chauffage . PAC . géo . CEE . question:
   type: liste
   valeurs:
@@ -267,7 +274,6 @@ chauffage . PAC . géo . CEE . usage . chauffage et eau chaude:
 chauffage . PAC . géo . CEE . usage . chauffage seulement:
   valeur: "'chauffage seulement'"
   titre: "Chauffage uniquement"
-
 chauffage . PAC . géo . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
   titre: Efficacité énergétique saisonnière
@@ -295,7 +301,6 @@ chauffage . PAC . géo . CEE . Etas . entre 200 % et 230 %:
 chauffage . PAC . géo . CEE . Etas . supérieur à 230 %:
   valeur: "'supérieur à 230 %'"
   titre: "Supérieur à 230 %"
-
 chauffage . PAC . géo . CEE . barème:
   variations:
     - si: usage = 'chauffage seulement'
@@ -326,7 +331,6 @@ chauffage . PAC . géo . CEE . barème chauffage et eau:
       alors: 124200
     - si: Etas = "supérieur à 230 %"
       alors: 131600
-
 chauffage . PAC . géo . CEE . facteur correctif surface:
   variations:
     - si: surface < 70

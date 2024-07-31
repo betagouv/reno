@@ -40,6 +40,16 @@ isolation . vitres . CEE:
   code: BAR-EN-104
   titre: Fenêtre ou porte-fenêtre complète avec vitrage isolant
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-104%20vA54-2%20%C3%A0%20compter%20du%2001-01-2024.pdf
+  technique: |
+    Le coefficient de transmission surfacique **Uw** et le facteur solaire **Sw** sont :
+      - pour les fenêtres de toiture :
+        - **Uw** ≤ 1,5 W/m².K et **Sw** ≤ 0,36 ;
+      - pour les autres fenêtres ou portes-fenêtres :
+        - **Uw** ≤ 1,3 W/m2.K et **Sw** ≥ 0,3 ou **Uw** ≤ 1,7 W/m2.K et **Sw** ≥ 0,36.
+      - pour les double fenêtres :
+        - **Uw** ≤ 1,8 W/m2.K et **Sw** ≥ 0,32.  
+
+    <br />L'installation d'une double fenêtre consiste en la pose, sur la baie existante, d'une seconde fenêtre à double vitrage renforcé.
 isolation . vitres . CEE . question:
   type: liste
   valeurs:
@@ -97,6 +107,8 @@ isolation . murs extérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  technique: |
+    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m2.K/W**. 
 isolation . murs extérieurs . CEE . question:
   type: liste
   valeurs:
@@ -148,6 +160,8 @@ isolation . murs intérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
   lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  technique: |
+    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m².K/W**. 
 isolation . murs intérieurs . CEE . question:
   type: liste
   valeurs:
@@ -199,6 +213,10 @@ isolation . rampants . CEE:
   code: BAR-EN-101
   titre: Isolation de combles ou de toiture
   lien: https://www.ecologie.gouv.fr/sites/default/files/Fiche%20BAR-EN-101.pdf
+  technique: |
+    La résistance thermique **R** de l'isolation installée est supérieure ou égale à : 
+      - 7 m².K/W en comble perdu ; 
+      - 6 m².K/W en rampant de toiture. 
 isolation . rampants . CEE . montant:
   produit:
     - MPR . surface
@@ -246,6 +264,8 @@ isolation . toitures terrasses . CEE:
   code: BAR-EN-105
   titre: Isolation des toitures terrasses 
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-105%20vA39-3%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  technique: |
+    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **4,5 m².K/W**. 
 isolation . toitures terrasses . CEE . montant:
   produit:
     - MPR . surface
@@ -267,8 +287,10 @@ isolation . plancher bas:
 isolation . plancher bas . montant: CEE . montant
 isolation . plancher bas . CEE:
   code: BAR-EN-103
-  titre: Isolation d’un plancher
+  titre: Isolation d'un plancher
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-103%20vA39-5%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  technique: |
+    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3 m².K/W**.
 isolation . plancher bas . CEE . montant: 
   produit:
     - barème

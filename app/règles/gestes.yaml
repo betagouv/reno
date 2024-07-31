@@ -63,6 +63,16 @@ ventilation . double flux . CEE:
   code: BAR-TH-125
   titre: Système de ventilation double flux autoréglable ou modulé à haute performance (France métropolitaine)
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-125%20vA54-5%20%C3%A0%20compter%20du%2001-01-2024.pdf
+  technique: |
+    La centrale double-flux est autoréglable ou à modulation hygroréglable et est de **classe d’efficacité énergétique A ou supérieure** selon le règlement européen (UE) n° 1254/2014 de la Commission du 11 juillet 2014.  
+      
+    La centrale double flux présente un rapport de température (**efficacité thermique**) mesuré selon la norme NF EN 13141-7 **supérieur ou égal à 85 %** et est certifiée par un organisme établi dans l’Espace économique européen et accrédité selon la norme NF EN ISO/CEI 17065 par le comité français d’accréditation (COFRAC) ou tout autre organisme d’accréditation signataire de l’accord européen multilatéral pertinent dans le cadre de la coordination européenne des organismes d’accréditation.  
+      
+      
+    La **puissance électrique absorbée** pondérée du caisson de ventilation est inférieure ou égale à **47,6 WThC** dans une configuration T4 avec une salle de bain et un WC.
+
+    Est réputé **satisfaire aux exigences**, une centrale double flux **certifiée NF 205**.  
+    
 ventilation . double flux . CEE . montant:
   produit:
     - facteur correctif région
