@@ -10,6 +10,8 @@ import { mdxComponents } from '../mdxComponents'
 import { ArticleCta, BlogBackButton } from '../UI'
 import OtherArticles from '../OtherArticles'
 
+export const articles = allArticles.filter((article) => !article.brouillon)
+
 export const generateMetadata = async ({ params }) => {
   const post = allArticles.find(
     (post) => post._raw.flattenedPath === params.slug,
@@ -29,9 +31,7 @@ export const generateMetadata = async ({ params }) => {
 }
 
 export default async function Post({ params }: Props) {
-  const post = allArticles.find(
-    (post) => post._raw.flattenedPath === params.slug,
-  )
+  const post = articles.find((post) => post._raw.flattenedPath === params.slug)
 
   const MDXContent = useMDXComponent(post.body.code)
   const Content = getMDXComponent(post.body.code)

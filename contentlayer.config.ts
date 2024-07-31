@@ -9,6 +9,7 @@ export const Article = defineDocumentType(() => ({
 
   fields: {
     titre: { type: 'string', required: true },
+    brouillon: { type: 'boolean', required: false },
     date: { type: 'date', required: true },
     description: { type: 'string', required: true },
     image: { type: 'string', required: false },
