@@ -1,18 +1,14 @@
 'use client'
-import {
-    getAnsweredQuestions,
-    getSituation
-  } from '@/components/publicodes/situationUtils'
+  import { getSituation } from '@/components/publicodes/situationUtils'
   import { CTA, CTAWrapper, Main, Section } from '@/components/UI'
   import rules from '@/app/règles/rules'
   import simulationConfig from '../../app/simulation/simulationConfigMPR.yaml'
   import Publicodes, { formatValue } from 'publicodes'
   import getNextQuestions from '@/components/publicodes/getNextQuestions'
   import { useSearchParams } from 'next/navigation'
-  import useSetSearchParams from '@/components/useSetSearchParams'
   import Link from 'next/link'
   import { BlocAideMPR } from './BlocAideMPR'
-import OtherSimulateur from '../OtherSimulateur'
+  import OtherSimulateur from '../OtherSimulateur'
 
   export default function PageMPRG({ params }: { params: { titre: string } }) {
 
@@ -21,18 +17,13 @@ import OtherSimulateur from '../OtherSimulateur'
       situationSearchParams = Object.fromEntries(rawSearchParams.entries())
 
     const rule = Object.keys(rules).find((rule) => rules[rule] && rules[rule].titre == decodeURIComponent(params.titre))
-    const answeredQuestions = [
-      ...getAnsweredQuestions(situationSearchParams, rules),
-    ]
     const situation = {
       ...getSituation(situationSearchParams, rules),
     }
 
-    const montant = engine.evaluate(rule + ' . MPR . montant')
-
-    const nextQuestions = getNextQuestions(
-      montant,
-      answeredQuestions,
+    const questions = getNextQuestions(
+      engine.evaluate(rule + ' . MPR . montant'),
+      [],
       simulationConfig,
       rules,
     )
@@ -40,10 +31,8 @@ import OtherSimulateur from '../OtherSimulateur'
     const infoMPR = {
       montant: formatValue(engine.setSituation(situation).evaluate(rule + ' . MPR . montant'), { precision: 0 }),
       titre: rules[rule].titre,
-      questions: nextQuestions.filter((q) => rules[q].question),
+      questions: questions.filter((q) => rules[q].question),
     }
-
-    const setSearchParams = useSetSearchParams()
 
     // Y a-t-il une aide CEE associée?
     const ceeAssocie = Object.keys(rules).includes(rule + " . CEE") ? rules[rule + " . CEE"] : null;
@@ -70,8 +59,6 @@ import OtherSimulateur from '../OtherSimulateur'
                 rules,
                 engine,
                 situation,
-                answeredQuestions,
-                setSearchParams
                 }}
             />
             <OtherSimulateur {...{ceeAssocie}} />

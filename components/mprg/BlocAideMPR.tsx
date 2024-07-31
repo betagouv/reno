@@ -1,18 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import GesteQuestion from './../GesteQuestion'
 import mprImage from '@/public/maprimerenov.svg'
 import { BlocAide, PrimeStyle } from '../UI'
-export const BlocAideMPR = ({ infoMPR, rules, engine, situation, answeredQuestions, setSearchParams }) => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answeredQuestionIndexes, setAnsweredQuestionIndexes] = useState([]);
+import { getAnsweredQuestions } from '../publicodes/situationUtils'
+import { useSearchParams } from 'next/navigation'
 
-  const handleAnswer = () => {
-    setAnsweredQuestionIndexes([...answeredQuestionIndexes, currentQuestionIndex]);
-    setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-  }
-  const currentQuestion = infoMPR.questions[currentQuestionIndex];
+export const BlocAideMPR = ({ infoMPR, rules, engine, situation }) => {
 
+  const rawSearchParams = useSearchParams(),
+  situationSearchParams = Object.fromEntries(rawSearchParams.entries())
+
+  const validatedQuestion = getAnsweredQuestions(situationSearchParams, rules)
+
+  // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
+  const questionsAnswered = Object.keys(situation)
+                                  .filter(value => infoMPR.questions.includes(value))
+                                  .filter(value => !validatedQuestion.includes(value))
+
+  const currentQuestion = infoMPR.questions[questionsAnswered.length];
   return (
         <BlocAide>
           <div className="aide-header">
@@ -26,27 +32,24 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation, answeredQuestio
             </div>
           </div>
           <div className="aide-details">
-            {answeredQuestionIndexes.map(index => (
-              <GesteQuestion
-                  key={index}
-                  rules={rules}
-                  question={infoMPR.questions[index]}
-                  engine={engine}
-                  situation={situation}
-                  answeredQuestions={answeredQuestions}
-                  setSearchParams={setSearchParams}
-              />
+            {questionsAnswered.map((question, index) => (
+                <GesteQuestion
+                    key={index}
+                    {...{
+                      rules,
+                      question,
+                      engine,
+                      situation
+                    }}
+                />
             ))}
             {currentQuestion && (
-              <GesteQuestion
-                  key={currentQuestion.id || currentQuestionIndex} // Use unique identifier if available
-                  rules={rules}
-                  question={currentQuestion}
-                  engine={engine}
-                  situation={situation}
-                  answeredQuestions={answeredQuestions}
-                  setSearchParams={setSearchParams}
-                  onAnswered={handleAnswer} // Trigger the next question display
+              <GesteQuestion {... {
+                  rules,
+                  question: currentQuestion,
+                  engine,
+                  situation
+                }}
               />
             )}
             <p className="details">
