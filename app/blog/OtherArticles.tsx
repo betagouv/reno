@@ -3,13 +3,14 @@ import css from '@/components/css/convertToJs'
 import Link from 'next/link'
 import { OtherArticlesList, OtherArticlesSection } from './UI'
 import { dateCool } from './utils'
+import { sortBy } from '@/components/utils'
 export default function ({ excludeUrl }) {
   return (
     <OtherArticlesSection>
-      <h2>Nos autres articles</h2>
+      <h2>Nos derniers articles</h2>
       <OtherArticlesList>
         <ol>
-          {[...allArticles]
+          {sortBy((article) => article.date)(allArticles)
             .reverse()
             .filter(({ url }) => url !== excludeUrl)
             .map(({ url, titre, date }) => (
