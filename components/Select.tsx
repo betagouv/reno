@@ -14,7 +14,7 @@ export default function Select({
   }, [value, setState])
 
   const onChange = (e) => {
-    const value = `"${e.target.value}"`
+    const value = e.target.value
 
     setState(value)
     serverOnChange(value)
