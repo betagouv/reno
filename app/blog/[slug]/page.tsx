@@ -59,7 +59,7 @@ export default async function Post({ params }: Props) {
             style={css`
               position: relative;
               width: 100%;
-              height: 24rem;
+              height: 20rem;
               padding-bottom: 4vh;
             `}
           >
