@@ -8,7 +8,7 @@ function onlyNumbers(str) {
 }
 
 export default function AddressSearch({ setChoice, situation }) {
-  const [immediateInput, setInput] = useState(null)
+  const [immediateInput, setInput] = useState('')
 
   const [input] = useDebounce(immediateInput, 300)
 
