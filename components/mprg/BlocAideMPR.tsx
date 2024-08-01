@@ -66,10 +66,15 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation, setSearchParams
                 </PrimeStyle>
               </div>
             )}
-            <p className="details">
-                Conditions: La prestation doit être inférieure à{' '}
-                <strong>{infoMPR.plafond}</strong>.
-            </p>
+            {displayPrime === "top" && (
+              <div className="details">
+                  Précisions:
+                  <ul>
+                    <li>La prestation doit être inférieure à <strong>{infoMPR.plafond}</strong></li>
+                    <li>Sous condition de recours à un professionnel <strong>RGE</strong></li>
+                  </ul>
+              </div>
+            )}
           </div>
         </BlocAide>
     )

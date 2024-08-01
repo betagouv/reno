@@ -391,6 +391,7 @@ export const MiseEnAvant = styled.div`
   background-size: 100% 1px, 1px 100%, 100% 1px, 2.5rem 100%;
   padding: 1rem 2.25rem .75rem 3.5rem;
   position: relative;
+  margin-bottom: 1rem;
   h3 {
     margin: 0 0 1rem 0;
   }

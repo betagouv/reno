@@ -1,6 +1,6 @@
 'use client'
   import { getSituation } from '@/components/publicodes/situationUtils'
-  import { CTA, CTAWrapper, Main, Section } from '@/components/UI'
+  import { CTA, CTAWrapper, ExternalLink, Main, MiseEnAvant, Section } from '@/components/UI'
   import rules from '@/app/règles/rules'
   import simulationConfig from '../../app/simulation/simulationConfigMPR.yaml'
   import Publicodes, { formatValue } from 'publicodes'
@@ -57,6 +57,15 @@ import useSetSearchParams from '../useSetSearchParams'
                 </CTA>
             </CTAWrapper>
             <h2>{infoMPR.titre}</h2>
+            <MiseEnAvant>
+                <h3>Conditions d'obtention:</h3>
+                <ul>
+                  <li>La prestation doit être inférieure à{' '}<strong>{infoMPR.plafond}</strong>.</li>
+                  <li>Recours à un professionnel <strong>RGE</strong></li>
+                  <li>Le dépôt du dossier de demande d'aide s'effectue <strong>avant le démarrage des travaux</strong>.</li>
+                  <li>Vous pouvez déposer votre dossier en ligne sur <ExternalLink target="_blank" title="site officiel Ma Prime Rénov'" href="https://maprimerenov.gouv.fr">maprimerenov.gouv.fr</ExternalLink>. </li>
+                </ul>
+            </MiseEnAvant>
             <BlocAideMPR
                 {...{
                 infoMPR,
