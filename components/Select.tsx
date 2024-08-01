@@ -40,8 +40,8 @@ export default function Select({
       {...props}
       defaultValue={value}
     >
-      {values.map((item, index) => (
-        <option key={index} value={item.valeur}>
+      {[{valeur:'', titre: 'Choisir une réponse'},...values].map((item, index) => (
+        <option key={index} value={item.valeur} disabled={item.valeur === ""}>
           {item.titre}
         </option>
       ))}
