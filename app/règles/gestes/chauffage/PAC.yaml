@@ -200,21 +200,6 @@ chauffage . PAC . air-eau . Coup de pouce . montant:
     - sinon: 2500 €
 chauffage . PAC . air-eau . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 
-chauffage . PAC . géo et solaire:
-  titre: Pompe à chaleur géothermique ou solarothermique
-chauffage . PAC . géo et solaire . MPR:
-chauffage . PAC . géo et solaire . MPR . plafond: 18000 €
-chauffage . PAC . géo et solaire . MPR . montant:
-  applicable si: MPR . non accompagnée . éligible
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 11000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 9000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 6000 €
-    - sinon: 0 €
-
 chauffage . PAC . géo:
   par défaut: oui
   titre: Pompe à chaleur géothermique
@@ -229,8 +214,17 @@ chauffage . PAC . géo . montant:
     - Coup de pouce . montant
     - CEE . montant
 chauffage . PAC . géo . MPR:
-chauffage . PAC . géo . MPR . plafond: géo et solaire . MPR . plafond
-chauffage . PAC . géo . MPR . montant: géo et solaire . MPR . montant
+chauffage . PAC . géo . MPR . plafond: 18000 €
+chauffage . PAC . géo . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 11000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 9000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 6000 €
+    - sinon: 0 €
 chauffage . PAC . géo . Coup de pouce:
 chauffage . PAC . géo . Coup de pouce . montant:
   applicable si: CEE . projet . remplacement chaudière thermique
@@ -358,5 +352,14 @@ chauffage . PAC . solaire:
   description: Pompe à chaleur solarothermique
 chauffage . PAC . solaire . montant: MPR . montant
 chauffage . PAC . solaire . MPR:
-chauffage . PAC . solaire . MPR . plafond: géo et solaire . MPR . plafond
-chauffage . PAC . solaire . MPR . montant: géo et solaire . MPR . montant
+chauffage . PAC . solaire . MPR . plafond: 18000 €
+chauffage . PAC . solaire . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 11000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 9000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 6000 €
+    - sinon: 0 €
