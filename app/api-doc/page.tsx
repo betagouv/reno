@@ -20,7 +20,8 @@ export default function APIDoc() {
         <p>
           C'est une API <a href="https://publi.codes">Publicodes</a>. Nous vous
           conseillons de faire un petit tour (10&nbsp;minutes) sur la
-          documentation de Publicodes pour mieux comprendre ses fondamentaux.
+          <a href="https://publi.codes/docs">documentation</a>de Publicodes pour
+          mieux comprendre ses fondamentaux.
         </p>
         <p
           style={css`
@@ -35,14 +36,21 @@ export default function APIDoc() {
           utilisateurs si cela vous semble légitime.
         </p>
         <h3>Démonstration</h3>
-        <APIDemo />
-        <h3>Que permet-elle ?</h3>
         <p>
-          Elle permet de calculer les deux parcours Ma Prime Rénov' 2024,
-          accompagné et non accompagné, à partir de la situation d'un
-          utilisateur. La situation comprend le revenu fiscal du ménage, les
-          sauts de DPE envisagés, mais aussi le projet d'isolation par geste, et
-          quelques autres données.
+          En modifiant la <em>situation</em> (à gauche), vous obtenez une{' '}
+          <em>evaluation</em> (à droite) différente.
+        </p>
+        <APIDemo />
+        <h3>Que permet l'API ?</h3>
+        <p>
+          Calculer les deux parcours Ma Prime Rénov' 2024, accompagné et non
+          accompagné, ainsi que les CEE, à partir de la situation d'un
+          utilisateur.
+        </p>
+        <p>
+          La situation comprend le revenu fiscal du ménage, les sauts de DPE
+          envisagés, mais aussi le projet d'isolation par geste, et quelques
+          autres données.
         </p>
         <p>
           L'API n'est pour l'instant disponible qu'en méthode <em>GET</em> :
