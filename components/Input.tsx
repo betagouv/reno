@@ -16,7 +16,7 @@ export default function Input({
     // send value to the backend
     // useCallback to not get an infinite loop
     serverOnChange(value)
-  }, [])
+  }, [serverOnChange])
 
   useEffect(() => {
     setState(value)
