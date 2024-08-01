@@ -102,9 +102,12 @@ logement . type:
     possibilités:
       - 'maison'
       - 'appartement'
+  maximum: "'maison'"
 logement . type . maison:
+  valeur: "'maison'"
   titre: Une maison
 logement . type . appartement:
+  valeur: "'appartement'"
   titre: Un appartement
 
 logement . type . information copro:
@@ -201,16 +204,16 @@ logement . période de construction:
       - au moins 25 ans
 
 logement . période de construction . au moins 25 ans:
-  valeur: au moins 25 ans
+  valeur: "'au moins 25 ans'"
   titre: au moins 25 ans
 logement . période de construction . de 15 à 25 ans:
-  valeur: de 15 à 25 ans
+  valeur: "'de 15 à 25 ans'"
   titre: de 15 à 25 ans
 logement . période de construction . de 2 à 15 ans:
-  valeur: de 2 à 15 ans
+  valeur: "'de 2 à 15 ans'"
   titre: de 2 à 15 ans
 logement . période de construction . moins de 2 ans:
-  valeur: moins de 2 ans
+  valeur: "'moins de 2 ans'"
   titre: moins de 2 ans
 
 logement . au moins 2 ans:
