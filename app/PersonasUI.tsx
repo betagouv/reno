@@ -48,18 +48,22 @@ export const PersonaTests = styled.ul`
     margin: 0 !important;
     width: 100%;
     margin-top: 0.6rem !important;
-    img {
-      width: 1.2rem;
-      height: auto;
-      vertical-align: bottom;
-      background: #c4fad5;
-      border-radius: 2rem;
-    }
+
     small p {
       margin: 0;
       line-height: 1rem;
     }
   }
+`
+
+import Image from 'next/image'
+
+export const TestIcon = styled(Image)`
+  width: 1.2rem;
+  height: auto;
+  vertical-align: bottom;
+  background: #c4fad5;
+  border-radius: 2rem;
 `
 
 export const PersonaStory = styled.small`

@@ -8,8 +8,10 @@ export const parentName = (dottedName) =>
 
 export const getRuleTitle = (dottedName, rules) => {
   const rule = rules[dottedName]
-  const title = rule?.titre
-  if (title) return title
+  if (!rule) return getRuleName(dottedName)
+  const { titreHtml, titre } = rule
+  if (titreHtml) return titreHtml
+  if (titre) return titre
 
   return getRuleName(dottedName)
 }
