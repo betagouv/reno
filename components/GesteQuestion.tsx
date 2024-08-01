@@ -4,18 +4,17 @@ import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
 import SmartInput from './SmartInput'
-import useSetSearchParams from './useSetSearchParams'
 
 export default function GesteQuestion({
   rules,
   question,
   engine,
   situation,
+  setSearchParams,
   answeredQuestions
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
-  const setSearchParams = useSetSearchParams()
   const evaluation = currentQuestion && engine.setSituation(situation).evaluate(question)
   let currentValue = situation[question]
   const onChange = (value) => {

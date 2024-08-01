@@ -6,7 +6,7 @@ import { BlocAide, PrimeStyle } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 
-export const BlocAideMPR = ({ infoMPR, rules, engine, situation, displayPrime="top" }) => {
+export const BlocAideMPR = ({ infoMPR, rules, engine, situation, setSearchParams, displayPrime="top" }) => {
 
   const rawSearchParams = useSearchParams(),
   situationSearchParams = Object.fromEntries(rawSearchParams.entries())
@@ -46,7 +46,8 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation, displayPrime="t
                       rules,
                       question,
                       engine,
-                      situation
+                      situation,
+                      setSearchParams
                     }}
                 />
             ))}
@@ -55,7 +56,8 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation, displayPrime="t
                   rules,
                   question: currentQuestion,
                   engine,
-                  situation
+                  situation,
+                  setSearchParams
                 }}
               />
             )}

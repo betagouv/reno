@@ -9,6 +9,7 @@
   import Link from 'next/link'
   import { BlocAideMPR } from './BlocAideMPR'
   import OtherSimulateur from '../OtherSimulateur'
+import useSetSearchParams from '../useSetSearchParams'
 
   export default function PageMPRG({ params }: { params: { titre: string } }) {
 
@@ -27,7 +28,6 @@
       simulationConfig,
       rules,
     )
-
     const infoMPR = {
       montant: formatValue(engine.setSituation(situation).evaluate(rule + ' . MPR . montant'), { precision: 0 }),
       titre: rules[rule].titre,
@@ -36,6 +36,9 @@
 
     // Y a-t-il une aide CEE associée?
     const ceeAssocie = Object.keys(rules).includes(rule + " . CEE") ? rules[rule + " . CEE"] : null;
+
+    const setSearchParams = useSetSearchParams()
+
     return (
       <Main>
         <Section>
@@ -59,6 +62,7 @@
                 rules,
                 engine,
                 situation,
+                setSearchParams,
                 displayPrime: "bottom"
                 }}
             />
