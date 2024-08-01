@@ -1,5 +1,5 @@
 'use client'
-import {
+  import {
     getAnsweredQuestions,
     getSituation
   } from '@/components/publicodes/situationUtils'
@@ -15,6 +15,7 @@ import {
   import { parse } from 'marked'
   import css from '@/components/css/convertToJs'
   import { Card } from '@/components/UI'
+
   export default function PageCEE({ params }: { params: { code: string } }) {
 
     const engine = new Publicodes(rules)
@@ -49,7 +50,9 @@ import {
       titre: rules[rule].titre,
       lien: rules[rule].lien,
       technique: rules[rule].technique,
-      questions: questions.filter((q) => rules[q].question),
+      questions: questions
+                    .filter((q) => q !== "CEE . projet . remplacement chaudière thermique")
+                    .filter((q) => rules[q].question),
     }
     const setSearchParams = useSetSearchParams()
 
