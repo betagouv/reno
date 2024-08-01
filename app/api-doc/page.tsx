@@ -25,13 +25,14 @@ export default function APIDoc() {
         <p
           style={css`
             margin: 0.6rem 0;
-            background: lightsalmon;
+            background: lightyellow;
             padding: 0.4rem 1rem;
           `}
         >
-          ⚠️ Attention, cette API bien que fonctionnelle, n'est pas encore
-          suffisamment testée. Ne l'utilisez pas en production ou assurez-vous
-          d'avoir averti vos utilisateurs sur ses inexactitudes potentielles.
+          ℹ️ Cette API est basée sur le modèle de calcul qui fait tourner
+          mesaidesreno.betagouv.fr. C'est un produit en version beta, qui peut
+          toujours contenir des inexactitudes : n'oubliez pas d'en avertir vos
+          utilisateurs si cela vous semble légitime.
         </p>
         <h3>Démonstration</h3>
         <APIDemo />
