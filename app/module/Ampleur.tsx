@@ -2,8 +2,7 @@
 import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
-import { PrimeStyle } from '@/components/Geste'
-import { CTA, Card } from '@/components/UI'
+import { CTA, PrimeStyle, Card } from '@/components/UI'
 import {
   encodeDottedName,
   getSituation,
