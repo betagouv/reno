@@ -10,6 +10,7 @@ const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
 
 const targets = rules.aides.somme
+
 export async function GET(request: Request) {
   const searchParams = request.nextUrl.searchParams
   const searchParamsObject = Object.fromEntries(searchParams.entries())
@@ -43,4 +44,10 @@ export async function GET(request: Request) {
     answeredQuestions,
     results,
   })
+}
+
+export async function POST(request) {
+  const body = await request.json()
+
+  return Response.json(body)
 }

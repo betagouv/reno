@@ -1,9 +1,9 @@
-import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
-import APIDemo from './APIDemo'
 import { Metadata } from 'next/types'
+import APIDemo from './APIDemo'
+import APIDemoRest from './APIDemoRest'
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
   description:
@@ -20,34 +20,55 @@ export default function APIDoc() {
         <p>
           C'est une API <a href="https://publi.codes">Publicodes</a>. Nous vous
           conseillons de faire un petit tour (10&nbsp;minutes) sur la
-          documentation de Publicodes pour mieux comprendre ses fondamentaux.
+          <a href="https://publi.codes/docs">documentation</a>de Publicodes pour
+          mieux comprendre ses fondamentaux.
         </p>
         <p
           style={css`
             margin: 0.6rem 0;
-            background: lightsalmon;
+            background: lightyellow;
             padding: 0.4rem 1rem;
           `}
         >
-          ⚠️ Attention, cette API bien que fonctionnelle, n'est pas encore
-          suffisamment testée. Ne l'utilisez pas en production ou assurez-vous
-          d'avoir averti vos utilisateurs sur ses inexactitudes potentielles.
+          ℹ️ Cette API est basée sur le modèle de calcul qui fait tourner
+          mesaidesreno.betagouv.fr. C'est un produit en version beta, qui peut
+          toujours contenir des inexactitudes : n'oubliez pas d'en avertir vos
+          utilisateurs si cela vous semble légitime.
         </p>
         <h3>Démonstration</h3>
+        <p>
+          En modifiant la <em>situation</em> (à gauche), vous obtenez une{' '}
+          <em>evaluation</em> (à droite) différente.
+        </p>
         <APIDemo />
-        <h3>Que permet-elle ?</h3>
+        <h3>Que permet l'API ?</h3>
         <p>
-          Elle permet de calculer les deux parcours Ma Prime Rénov' 2024,
-          accompagné et non accompagné, à partir de la situation d'un
-          utilisateur. La situation comprend le revenu fiscal du ménage, les
-          sauts de DPE envisagés, mais aussi le projet d'isolation par geste, et
-          quelques autres données.
+          Calculer les deux parcours Ma Prime Rénov' 2024, accompagné et non
+          accompagné, ainsi que les CEE, à partir de la situation d'un
+          utilisateur.
         </p>
         <p>
-          L'API n'est pour l'instant disponible qu'en méthode <em>GET</em> :
-          tous les paramètres de la simulation sont à sérialiser dans l'unique
-          URL de simulation.
+          La situation comprend le revenu fiscal du ménage, les sauts de DPE
+          envisagés, mais aussi le projet d'isolation par geste, et quelques
+          autres données.
+          <p>L'API est disponible en version GET ou POST.</p>
         </p>
+        <h4>Méthode GET</h4>
+        <p>
+          Pour la version GET, il faut sérialiser les paramètres de la
+          simulation comme nous le faisons via la fonction{' '}
+          <a href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55">
+            encodeSituation
+          </a>
+          .
+        </p>
+        <APIDemoRest personaIndex={1} methode={'get'} />
+        <h4>Méthode POST</h4>
+        <p>
+          Pour tester la méthode POST, cliquez sur le bouton et ouvrez la
+          console de votre navigateur pour voir les résultats de l'appel.
+        </p>
+        <APIDemoRest personaIndex={1} method={'post'} />
         <h3>Que renvoie-t-elle ?</h3>
         <p>
           L'API vous renvoie, pour chacun des deux dispositifs de Ma Prime
