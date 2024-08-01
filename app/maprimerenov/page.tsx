@@ -49,7 +49,9 @@ export default function MaPrimeRenov() {
                   <h3 style={css`margin-top:1rem;padding-left: 1.6rem;`}>{category}</h3>
                   <ul style={css`list-style-position: inside;`}>
                     { rulesByCategory[category].map((rule, index) => (
-                        <li style={css`margin: 1rem 0;`} key={index}><InternalLink href={`/maprimerenov/${encodeURIComponent(rules[rule].titre)}`}>{rules[rule].titre}</InternalLink></li>
+                        <li style={css`margin: 1rem 0;`} key={index}>
+                          <InternalLink href={`/maprimerenov/${encodeURIComponent(rules[rule].titre)}`}>{rules[rule].titre}</InternalLink>
+                        </li>
                       ))
                     }
                   </ul>

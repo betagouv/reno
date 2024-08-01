@@ -10,30 +10,30 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
         <>
             <h3>Ce n'est pas tout! Simulez également:</h3>
             <div css={`display:flex;justify-content:space-around;column-gap: 20px;`}>
-            { mprAssocie && mprAssocie.map((mpr) => (
-                <CardLink key={mpr} css={`&:hover { background: #e8edff; }`}>
-                    <LinkSimulateur href={`/maprimerenov/${mpr}`}>
-                        <Image src={logoMPR} alt="Logo MaPrimeRénov" width="200" css={`margin: 1rem 0 !important;`} />
-                        Aides MaPrimeRénov pour<br /> 
-                        <strong>{mpr}</strong> 
+                <CardLink>
+                    <LinkSimulateur href="/simulation">
+                        <span css={`font-size: 4rem; color: #000091;height: 100%;align-content: center;`}>€</span>
+                        L'ensemble de vos aides
                     </LinkSimulateur>
                 </CardLink>
-            ))}
-            { ceeAssocie && (
-                <CardLink css={`&:hover { background: #e8edff; }`}>
-                    <LinkSimulateur href={`/cee/${ceeAssocie.code}/${ceeAssocie.titre}`}>
-                        <Image src={logoCEE} alt="Logo MaPrimeRénov" width="100" />
-                        Aides CEE pour<br /> 
-                        <strong>{ceeAssocie.titre}</strong> 
-                    </LinkSimulateur>
-                </CardLink>
-            )}
-            <CardLink>
-                <LinkSimulateur href="/simulation">
-                    <span css={`font-size: 4rem; color: #000091;height: 100%;align-content: center;`}>€</span>
-                    L'ensemble de vos aides
-                </LinkSimulateur>
-            </CardLink>
+                { mprAssocie && mprAssocie.map((mpr) => (
+                    <CardLink key={mpr} css={`&:hover { background: #e8edff; }`}>
+                        <LinkSimulateur href={`/maprimerenov/${mpr}`}>
+                            <Image src={logoMPR} alt="Logo MaPrimeRénov" width="200" css={`margin: 1rem 0 !important;`} />
+                            Aides MaPrimeRénov pour<br /> 
+                            <strong>{mpr}</strong> 
+                        </LinkSimulateur>
+                    </CardLink>
+                ))}
+                { ceeAssocie && (
+                    <CardLink css={`&:hover { background: #e8edff; }`}>
+                        <LinkSimulateur href={`/cee/${ceeAssocie.code}/${ceeAssocie.titre}`}>
+                            <Image src={logoCEE} alt="Logo MaPrimeRénov" width="100" />
+                            Aides CEE pour<br /> 
+                            <strong>{ceeAssocie.titre}</strong> 
+                        </LinkSimulateur>
+                    </CardLink>
+                )}
             </div>
         </>
     )
