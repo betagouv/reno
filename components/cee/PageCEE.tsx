@@ -36,10 +36,8 @@ import {
                                 .map((rule) => rule.replace(" . MPR", ""))
                                 .map((rule) => rules[rule] && rules[rule].titre)
 
-    const montant = engine.evaluate(rule + ' . montant')
-
-    const nextQuestions = getNextQuestions(
-      montant,
+    const questions = getNextQuestions(
+      engine.evaluate(rule + ' . montant'),
       [],
       [],
       rules,
@@ -51,7 +49,7 @@ import {
       titre: rules[rule].titre,
       lien: rules[rule].lien,
       technique: rules[rule].technique,
-      questions: nextQuestions.filter((q) => rules[q].question),
+      questions: questions.filter((q) => rules[q].question),
     }
     const setSearchParams = useSetSearchParams()
 
@@ -71,7 +69,7 @@ import {
                 <Link href="/cee">⬅ Retour à la liste des aides CEE</Link>
                 </CTA>
             </CTAWrapper>
-            <h2>{infoCEE.titre}<Badge>{infoCEE.code}</Badge></h2>
+            <h2>{infoCEE.titre}{' '}<Badge>{infoCEE.code}</Badge></h2>
             <MiseEnAvant>
               <h3>Vous êtes éligible à cette aide si:</h3>
               <ul>
@@ -89,7 +87,8 @@ import {
                 engine,
                 situation,
                 answeredQuestions,
-                setSearchParams
+                setSearchParams,
+                displayPrime: "bottom"
                 }}
             />
             <details>

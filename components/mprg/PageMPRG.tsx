@@ -59,6 +59,7 @@
                 rules,
                 engine,
                 situation,
+                displayPrime: "bottom"
                 }}
             />
             <OtherSimulateur {...{ceeAssocie}} />

@@ -6,7 +6,7 @@ import { BlocAide, PrimeStyle } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 
-export const BlocAideMPR = ({ infoMPR, rules, engine, situation }) => {
+export const BlocAideMPR = ({ infoMPR, rules, engine, situation, displayPrime="top" }) => {
 
   const rawSearchParams = useSearchParams(),
   situationSearchParams = Object.fromEntries(rawSearchParams.entries())
@@ -19,17 +19,24 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation }) => {
                                   .filter(value => !validatedQuestion.includes(value))
 
   const currentQuestion = infoMPR.questions[questionsAnswered.length];
+  
+  const isExactTotal = infoMPR.questions.filter((q) => rules[q].question)
+                                        .every(e => Object.keys(situation).includes(e))
+  const isEligible = infoMPR.montant !== "Non applicable"
+  
   return (
         <BlocAide>
           <div className="aide-header">
             <Image src={mprImage} alt="logo ma prime renov" width="100" />
-            <div>
-              <PrimeStyle>
-                {'Prime de '}
-                <strong>{infoMPR.montant}</strong>
-              </PrimeStyle>
-              <h3>MaPrimeRénov'</h3>
-            </div>
+            {displayPrime == "top" && (
+              <div>
+                <PrimeStyle>
+                  {'Prime de '}
+                  <strong>{infoMPR.montant}</strong>
+                </PrimeStyle>
+                <h3>MaPrimeRénov'</h3>
+              </div>
+            )}
           </div>
           <div className="aide-details">
             {questionsAnswered.map((question, index) => (
@@ -51,6 +58,16 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation }) => {
                   situation
                 }}
               />
+            )}
+            {displayPrime == "bottom" && (
+              <div css={`justify-content: end;display: flex;`}>
+                <PrimeStyle css={`padding: 0.75rem;`} $inactive={!isEligible}>
+                  {isEligible ?
+                      (<>Prime de <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoMPR.montant : "???"}</strong></>) :
+                      (<strong css={`font-size: 1.25rem;`}>Non éligible</strong>)
+                  }
+                </PrimeStyle>
+              </div>
             )}
             <p className="details">
                 Conditions: La prestation doit être inférieure à{' '}

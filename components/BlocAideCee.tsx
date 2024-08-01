@@ -5,27 +5,33 @@ import ceeImage from '@/public/cee.svg'
 import informationIcon from '@/public/information.svg'
 import { BlocAide, InlineLink, PrimeStyle } from './UI'
 
-export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestions, setSearchParams }) => {
+export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestions, setSearchParams, displayPrime="top" }) => {
+  
+  const isExactTotal = infoCEE.questions.filter((q) => rules[q].question)
+                                        .every(e => Object.keys(situation).includes(e))
+  
   return (
     <BlocAide>
       <div className="aide-header">
         <Image src={ceeImage} alt="logo Cee" width="60" />
         <div>
-          {infoCEE.montant === 'Non applicable' ? (
-            <>
-              <PrimeStyle $inactive={true}>
-                <strong>Non applicable</strong>
+          {displayPrime === "top" && (
+            infoCEE.montant === 'Non applicable' ? (
+              <>
+                <PrimeStyle $inactive={true}>
+                  <strong>Non applicable</strong>
+                </PrimeStyle>
+                <span className="aide-details">
+                  {' '}
+                  (non cumulable avec la Prime Coup de pouce)
+                </span>
+              </>
+            ) : (
+              <PrimeStyle>
+                {'Prime minimum de '}
+                <strong>{infoCEE.montant}</strong>
               </PrimeStyle>
-              <span className="aide-details">
-                {' '}
-                (non cumulable avec la Prime Coup de pouce)
-              </span>
-            </>
-          ) : (
-            <PrimeStyle>
-              {'Prime minimum de '}
-              <strong>{infoCEE.montant}</strong>
-            </PrimeStyle>
+            )
           )}
           <h3>
             Prime CEE (Certificats d'Économie d'Énergie)
@@ -96,6 +102,14 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
             }}
           />
         ))}
+        {displayPrime === "bottom" && (
+          <div css={`justify-content: end;display: flex;`}>
+            <PrimeStyle css={`padding: 0.75rem;`}>
+              {'Prime minimum de '}
+              <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoCEE.montant : "???"}</strong>
+            </PrimeStyle>
+          </div>
+        )}
       </div>
     </BlocAide>
   )
