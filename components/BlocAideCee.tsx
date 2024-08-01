@@ -1,21 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import GesteQuestion from './GesteQuestion'
 import ceeImage from '@/public/cee.svg'
 import informationIcon from '@/public/information.svg'
 import { BlocAide, InlineLink, PrimeStyle } from './UI'
+import { encodeSituation } from './publicodes/situationUtils'
 
 export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestions, setSearchParams, displayPrime="top" }) => {
-  
+
   const isExactTotal = infoCEE.questions.filter((q) => rules[q].question)
                                         .every(e => Object.keys(situation).includes(e))
-  
+
   // Par défaut, on propose les valeurs max (cela sert aussi à sélectionner des valeurs dans les <select>)
   infoCEE.questions.map((q) => {
     if(!Object.keys(situation).includes(q) && rules[q].maximum) {
       situation[q] = rules[q].maximum
     }
   })
+
+  const encodedSituation = encodeSituation(
+    {
+      ...situation,
+    },
+    false,
+    answeredQuestions,
+  )
+
+  useEffect(() => {
+    setSearchParams(encodedSituation, 'push', false)
+  }, [encodedSituation, setSearchParams])
+
   return (
     <BlocAide>
       <div className="aide-header">
