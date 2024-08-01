@@ -31,6 +31,7 @@ import useSetSearchParams from '../useSetSearchParams'
     const infoMPR = {
       montant: formatValue(engine.setSituation(situation).evaluate(rule + ' . MPR . montant'), { precision: 0 }),
       titre: rules[rule].titre,
+      plafond:  formatValue(engine.setSituation(situation).evaluate(rule + ' . MPR . plafond')),
       questions: questions.filter((q) => rules[q].question),
     }
 
