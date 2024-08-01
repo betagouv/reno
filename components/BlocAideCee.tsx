@@ -6,7 +6,7 @@ import informationIcon from '@/public/information.svg'
 import { BlocAide, InlineLink, PrimeStyle } from './UI'
 import { encodeSituation } from './publicodes/situationUtils'
 
-export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestions, setSearchParams, displayPrime="top" }) => {
+export const BlocAideCEE = ({ infoCEE, rules, engine, situation, setSearchParams, displayPrime="top" }) => {
 
   const isExactTotal = infoCEE.questions.filter((q) => rules[q].question)
                                         .every(e => Object.keys(situation).includes(e))
@@ -23,7 +23,7 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
       ...situation,
     },
     false,
-    answeredQuestions,
+    [],
   )
 
   useEffect(() => {
@@ -117,7 +117,6 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
               question,
               engine,
               situation,
-              answeredQuestions,
               setSearchParams,
             }}
           />

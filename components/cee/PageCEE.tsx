@@ -1,8 +1,5 @@
 'use client'
-import {
-  getAnsweredQuestions,
-  getSituation
-} from '@/components/publicodes/situationUtils'
+import { getSituation } from '@/components/publicodes/situationUtils'
 import { Badge, CTA, CTAWrapper, Main, MiseEnAvant, Section } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
@@ -24,9 +21,7 @@ export default function PageCEE({ params }: { params: { code: string } }) {
 
   const allRuleConcerned = Object.keys(rules).filter((rule) => rules[rule] && rules[rule].code == params.code)
   const rule = allRuleConcerned[0]
-  const answeredQuestions = [
-    ...getAnsweredQuestions(situationSearchParams, rules),
-  ]
+  
   const situation = {
     ...getSituation(situationSearchParams, rules),
   }
@@ -89,7 +84,6 @@ export default function PageCEE({ params }: { params: { code: string } }) {
               rules,
               engine,
               situation,
-              answeredQuestions,
               setSearchParams,
               displayPrime: "bottom"
               }}

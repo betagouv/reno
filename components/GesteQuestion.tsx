@@ -10,8 +10,7 @@ export default function GesteQuestion({
   question,
   engine,
   situation,
-  setSearchParams,
-  answeredQuestions
+  setSearchParams
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
@@ -24,7 +23,7 @@ export default function GesteQuestion({
         [question]: value == undefined ? undefined : value,
       },
       false,
-      answeredQuestions,
+      [],
     )
     setSearchParams(encodedSituation, 'push', false)
 
@@ -83,7 +82,6 @@ const InputComponent = ({
   rules,
   engine,
   situation,
-  answeredQuestions,
   setSearchParams,
   evaluation,
 }) =>
@@ -115,14 +113,13 @@ const InputComponent = ({
               'ménage . commune': `"${result.code}"`,
             },
             false,
-            answeredQuestions,
+            [],
           )
 
           setSearchParams(encodedSituation, 'push', false)
         },
         setSearchParams,
-        situation,
-        answeredQuestions,
+        situation
       }}
     />
   ) : question === 'ménage . revenu' ? (
