@@ -10,6 +10,12 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
   const isExactTotal = infoCEE.questions.filter((q) => rules[q].question)
                                         .every(e => Object.keys(situation).includes(e))
   
+  // Par défaut, on propose les valeurs max (cela sert aussi à sélectionner des valeurs dans les <select>)
+  infoCEE.questions.map((q) => {
+    if(!Object.keys(situation).includes(q) && rules[q].maximum) {
+      situation[q] = rules[q].maximum
+    }
+  })
   return (
     <BlocAide>
       <div className="aide-header">

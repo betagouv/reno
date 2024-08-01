@@ -31,10 +31,6 @@ export default function GesteQuestion({
 
   }
 
-  if (!currentValue && currentQuestion.maximum) {
-    // Par défaut, on propose le maximum s'il existe
-    onChange(currentValue)
-  }
   return (
     <div
       css={`
