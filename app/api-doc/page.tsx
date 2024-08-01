@@ -1,9 +1,9 @@
-import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
-import APIDemo from './APIDemo'
 import { Metadata } from 'next/types'
+import APIDemo from './APIDemo'
+import APIDemoRest from './APIDemoRest'
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
   description:
@@ -51,12 +51,24 @@ export default function APIDoc() {
           La situation comprend le revenu fiscal du ménage, les sauts de DPE
           envisagés, mais aussi le projet d'isolation par geste, et quelques
           autres données.
+          <p>L'API est disponible en version GET ou POST.</p>
         </p>
+        <h4>Méthode GET</h4>
         <p>
-          L'API n'est pour l'instant disponible qu'en méthode <em>GET</em> :
-          tous les paramètres de la simulation sont à sérialiser dans l'unique
-          URL de simulation.
+          Pour la version GET, il faut sérialiser les paramètres de la
+          simulation comme nous le faisons via la fonction{' '}
+          <a href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55">
+            encodeSituation
+          </a>
+          .
         </p>
+        <APIDemoRest personaIndex={1} methode={'get'} />
+        <h4>Méthode POST</h4>
+        <p>
+          Pour tester la méthode POST, cliquez sur le bouton et ouvrez la
+          console de votre navigateur pour voir les résultats de l'appel.
+        </p>
+        <APIDemoRest personaIndex={1} method={'post'} />
         <h3>Que renvoie-t-elle ?</h3>
         <p>
           L'API vous renvoie, pour chacun des deux dispositifs de Ma Prime
