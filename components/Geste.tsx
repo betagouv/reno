@@ -1,12 +1,10 @@
 'use client'
 import { formatValue } from 'publicodes'
 import { getRuleName } from './publicodes/utils'
-import GesteQuestion from './GesteQuestion'
-import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
-import Image from 'next/image'
-import { BlocAide, PrimeStyle } from './UI'
-import { BlocAideCEE } from './BlocAideCee'
+import { BlocAideCEE } from './cee/BlocAideCee'
+import { BlocAideCoupDePouce } from './cee/BlocAideCoupDePouce'
 import { BlocAideMPR } from './mprg/BlocAideMPR'
+import { PrimeStyle } from './UI'
 
 export default function Geste({
   dottedName,
@@ -17,7 +15,7 @@ export default function Geste({
   expanded,
   situation,
 }) {
-  let infoCEE, infoMPR, infoCP, montantTotal, isExactTotal
+  let infoCEE, infoMPR, infoCoupDePouce, montantTotal, isExactTotal
 
   const engineSituation = engine.setSituation(situation)
   const relevant = rules[dottedName + ' . MPR . barème']
@@ -56,11 +54,11 @@ export default function Geste({
 
   const dottedNameCP = dottedName + ' . Coup de pouce'
   if (typeof rules[dottedNameCP] !== 'undefined') {
-    infoCP = {
+    infoCoupDePouce = {
       montant: formatValue(
         engineSituation.evaluate(dottedNameCP + ' . montant'),
       ),
-      question: rules[dottedNameCP + ' . question'],
+      questions: [rules[dottedNameCP + ' . question']],
     }
   }
 
@@ -145,53 +143,17 @@ export default function Geste({
           }}
         />
       )}
-      {infoCP && (
-        <BlocAide>
-          <div className="aide-header">
-            <Image
-              src={coupDePouceImage}
-              alt="logo coup de pouce"
-              width="100"
-            />
-            <div>
-              {infoCP.montant === 'Non applicable' ? (
-                <>
-                  <PrimeStyle $inactive={true}>
-                    <strong>{infoCP.montant}</strong>
-                  </PrimeStyle>
-                  <span className="aide-details">
-                    {' '}
-                    sans {rules[infoCP.question].titre}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <PrimeStyle>
-                    {'Prime de '}
-                    <strong>{infoCP.montant}</strong>
-                  </PrimeStyle>
-                  <span className="aide-details">
-                    {' '}
-                    si {rules[infoCP.question].titre}
-                  </span>
-                </>
-              )}
-              <h3>Prime Coup de pouce</h3>
-            </div>
-          </div>
-          <div className="aide-details">
-            <GesteQuestion
-              {...{
-                rules,
-                question: infoCP.question,
-                engine,
-                situation,
-                answeredQuestions,
-                setSearchParams,
-              }}
-            />
-          </div>
-        </BlocAide>
+      {infoCoupDePouce && (
+        <BlocAideCoupDePouce
+          {...{
+            infoCoupDePouce,
+            rules,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams
+          }}
+        />
       )}
       {infoCEE && (
         <BlocAideCEE

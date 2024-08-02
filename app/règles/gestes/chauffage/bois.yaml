@@ -4,8 +4,6 @@ chauffage . bois . chaudière:
   titre: Chaudière bois
   description: |
     Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poême n'est souvent qu'un chauffage d'appoint.
-chauffage . bois . chaudière . Coup de pouce:
-chauffage . bois . chaudière . Coup de pouce . montant:
 
 chauffage . bois . chaudière . manuelle:
   titre: Chaudière bois manuelle (bûches)
