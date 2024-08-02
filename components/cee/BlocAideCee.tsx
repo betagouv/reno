@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import Image from 'next/image'
-import GesteQuestion from './GesteQuestion'
+import GesteQuestion from '../GesteQuestion'
 import ceeImage from '@/public/cee.svg'
 import informationIcon from '@/public/information.svg'
-import { BlocAide, InlineLink, PrimeStyle } from './UI'
-import { encodeSituation } from './publicodes/situationUtils'
+import { BlocAide, InlineLink, PrimeStyle } from '../UI'
+import { encodeSituation } from '../publicodes/situationUtils'
 
 export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestions, setSearchParams, displayPrime="top" }) => {
 
