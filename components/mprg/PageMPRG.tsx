@@ -53,7 +53,7 @@ import useSetSearchParams from '../useSetSearchParams'
                     }
                 `}
                 >
-                <Link href="/maprimerenov">⬅ Retour à la liste des aides MaPrimeRénov'</Link>
+                <Link href="/ma-prime-renov">⬅ Retour à la liste des aides MaPrimeRénov'</Link>
                 </CTA>
             </CTAWrapper>
             <h2>{infoMPR.titre}</h2>

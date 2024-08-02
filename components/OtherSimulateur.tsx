@@ -18,7 +18,7 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
                 </CardLink>
                 { mprAssocie && mprAssocie.map((mpr) => (
                     <CardLink key={mpr} css={`&:hover { background: #e8edff; }`}>
-                        <LinkSimulateur href={`/maprimerenov/${mpr}`}>
+                        <LinkSimulateur href={`/ma-primere-nov/${encodeURIComponent(mpr)}`}>
                             <Image src={logoMPR} alt="Logo MaPrimeRénov" width="200" css={`margin: 1rem 0 !important;`} />
                             Aides MaPrimeRénov pour<br /> 
                             <strong>{mpr}</strong> 
@@ -27,7 +27,7 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
                 ))}
                 { ceeAssocie && (
                     <CardLink css={`&:hover { background: #e8edff; }`}>
-                        <LinkSimulateur href={`/cee/${ceeAssocie.code}/${ceeAssocie.titre}`}>
+                        <LinkSimulateur href={`/cee/${ceeAssocie.code}/${encodeURIComponent(ceeAssocie.titre)}`}>
                             <Image src={logoCEE} alt="Logo MaPrimeRénov" width="100" />
                             Aides CEE pour<br /> 
                             <strong>{ceeAssocie.titre}</strong> 
