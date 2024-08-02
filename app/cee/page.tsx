@@ -3,6 +3,7 @@ import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
+import ceeImage from '@/public/cee.svg'
 import { categoriesGeste } from '@/components/utils'
 
 
@@ -35,9 +36,12 @@ export default function CEE() {
     return (
     <Main>
       <Section>
-        <h2>Les Certificats d'économie d'énergie (CEE)</h2>
-          <MiseEnAvant>
-            <h3>Vous êtes éligiblie à l'aide CEE si:</h3>
+        <div style={css`display: flex;margin-bottom: 1rem;`}>
+          <Image src={ceeImage} alt="Logo CEE" width="100" />
+          <h2 style={css`margin-left: 1rem;`}>Les Certificats d'économie d'énergie (CEE)</h2>
+        </div>
+        <MiseEnAvant>
+            <h3>Vous êtes éligible à l'aide CEE si:</h3>
             <ul>
               <li>vous êtes <strong>propriétaire ou locataire</strong></li>
               <li>le logement a été <strong>construit depuis plus de 2 ans.</strong></li>
