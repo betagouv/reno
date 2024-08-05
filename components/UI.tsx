@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 export const Main = styled.main`
   width: 98vw;
+  max-width: 100%; // pour éviter la barre de défilement horizontal dans les iframe
   padding: 0 1vw;
   padding-bottom: 6vh;
   margin: 0 auto;
@@ -392,6 +393,8 @@ export const MiseEnAvant = styled.div`
   padding: 1rem 2.25rem .75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
+  border-radius: 5px;
+  background-color: white;
   h3 {
     margin: 0 0 1rem 0;
   }

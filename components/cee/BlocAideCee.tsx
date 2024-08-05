@@ -126,7 +126,7 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
           <div css={`justify-content: end;display: flex;`}>
             <PrimeStyle css={`padding: 0.75rem;`}>
               {'Prime minimum de '}
-              <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoCEE.montant : "???"}</strong>
+              <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoCEE.montant : "..."}</strong>
             </PrimeStyle>
           </div>
         )}

@@ -8,8 +8,8 @@ import styled from 'styled-components'
 export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
     return (
         <>
-            <h3>Ce n'est pas tout! Simulez également:</h3>
-            <div css={`display:flex;justify-content:space-around;column-gap: 20px;`}>
+            <h3>Ce n'est pas tout ! Simulez également :</h3>
+            <div css={`display:flex;justify-content:space-around;flex-direction: row;flex-wrap: wrap;overflow: hidden;`}>
                 <CardLink>
                     <LinkSimulateur href="/simulation">
                         <span css={`font-size: 4rem; color: #000091;height: 100%;align-content: center;`}>€</span>
@@ -18,7 +18,7 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
                 </CardLink>
                 { mprAssocie && mprAssocie.map((mpr) => (
                     <CardLink key={mpr} css={`&:hover { background: #e8edff; }`}>
-                        <LinkSimulateur href={`/ma-primere-nov/${encodeURIComponent(mpr)}`}>
+                        <LinkSimulateur href={`/ma-prime-renov/${encodeURIComponent(mpr)}`}>
                             <Image src={logoMPR} alt="Logo MaPrimeRénov" width="200" css={`margin: 1rem 0 !important;`} />
                             Aides MaPrimeRénov pour<br /> 
                             <strong>{mpr}</strong> 

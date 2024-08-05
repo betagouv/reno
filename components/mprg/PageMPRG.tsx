@@ -9,7 +9,8 @@
   import Link from 'next/link'
   import { BlocAideMPR } from './BlocAideMPR'
   import OtherSimulateur from '../OtherSimulateur'
-import useSetSearchParams from '../useSetSearchParams'
+  import css from '@/components/css/convertToJs'
+  import useSetSearchParams from '../useSetSearchParams'
 
   export default function PageMPRG({ params }: { params: { titre: string } }) {
 
@@ -58,7 +59,7 @@ import useSetSearchParams from '../useSetSearchParams'
             </CTAWrapper>
             <h2>{infoMPR.titre}</h2>
             <MiseEnAvant>
-                <h3>Conditions d'obtention:</h3>
+                <h3 style={css`color: #0063cb`}>Informations sur les conditions d'obtention:</h3>
                 <ul>
                   <li>La prestation doit être inférieure à{' '}<strong>{infoMPR.plafond}</strong>.</li>
                   <li>Recours à un professionnel <strong>RGE</strong></li>

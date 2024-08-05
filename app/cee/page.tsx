@@ -41,7 +41,8 @@ export default function CEE() {
           <h2 style={css`margin-left: 1rem;`}>Les Certificats d'économie d'énergie (CEE)</h2>
         </div>
         <MiseEnAvant>
-            <h3>Vous êtes éligible à l'aide CEE si:</h3>
+            <h3 style={css`color: #0063cb`}>Informations</h3>
+            <p>Vous êtes éligible à l'aide CEE si:</p>
             <ul>
               <li>vous êtes <strong>propriétaire ou locataire</strong></li>
               <li>le logement a été <strong>construit depuis plus de 2 ans.</strong></li>

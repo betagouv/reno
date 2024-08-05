@@ -34,7 +34,8 @@ export default function MaPrimeRenov() {
             <h2 style={css`margin-left: 1rem;`}>MaPrimeRénov' Parcours par geste</h2>
           </div>
           <MiseEnAvant>
-            <h3>Vous êtes éligible à l'aide MaPrimeRénov' Parcours par geste si:</h3>
+            <h3 style={css`color: #0063cb`}>Informations</h3>
+            <p>Vous êtes éligible à l'aide MaPrimeRénov' Parcours par geste si:</p>
             <ul>
               <li>vous êtes <strong>propriétaire (occupant ou bailleur)</strong></li>
               <li>le logement a été <strong>construit depuis plus de 15 ans.</strong></li>
