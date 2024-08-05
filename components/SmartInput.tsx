@@ -67,7 +67,7 @@ export default function Input({ situation, onChange, value, rule, engine, type }
       value={value}
       values={[...baseList, Infinity].map((threshold) => {
           return {
-            'valeur': threshold,
+            'valeur': threshold === Infinity ? lastThreshold + 1 : threshold - 1,
             'titre': displayRevenuLabel(threshold, lastThreshold)
           }
         })}
