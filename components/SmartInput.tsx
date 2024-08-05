@@ -61,12 +61,14 @@ export default function Input({ situation, onChange, value, rule, engine, type }
 
   const lastThreshold = list.slice(-1)[0]
 
+  // Dans le cas d'un affichage en select, on n'a pas besoin des valeurs de l'aide locale d'Angers 
+  // car il s'agit des questions nationaux MPR et Coup de pouce
   return type ==='select' ? <Select
       value={value}
-      values={[...list].map((threshold) => {
+      values={[...baseList, Infinity].map((threshold) => {
           return {
             'valeur': threshold,
-            'titre': displayRevenuLabel(threshold, lastThreshold, false)
+            'titre': displayRevenuLabel(threshold, lastThreshold)
           }
         })}
       onChange={onChange}
@@ -104,8 +106,7 @@ export default function Input({ situation, onChange, value, rule, engine, type }
           )
         })
 }
-const displayRevenuLabel = (threshold, lastThreshold, withInfinity=true) => threshold === Infinity || 
-                                                                            (!withInfinity && threshold == lastThreshold) ? (
+const displayRevenuLabel = (threshold, lastThreshold) => threshold === Infinity ? (
   "supérieur à "+ formatNumber(lastThreshold) + '€'
 ) : (
   "inférieur à "+ formatNumber(threshold) + '€'
