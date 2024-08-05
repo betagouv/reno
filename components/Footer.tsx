@@ -1,5 +1,5 @@
 "use client"
-import Link from 'next/link'
+
 import { FooterWrapper, ExternalLink, InternalLink } from './UI'
 import useIsInIframe from '@/components/useIsInIframe'
 
@@ -21,17 +21,21 @@ export default function Footer() {
                     <li><InternalLink className="fr-footer__top-link" href="#">L'isolation</InternalLink></li>
                   </ul>
                 </div>
+                 */}
                 <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
                   <h3 className="fr-footer__top-cat">Les aides</h3>
                   <ul className="fr-footer__top-list">
-                    <li><InternalLink className="fr-footer__top-link" href="#">MaPrimeRénov</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">L'éco-prêt à taux zéro</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">L'exonération de taxe foncière</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Le dispositif Denormandie</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Les aides des collectivités locales</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Certificats d'économie d'énergie (CEE)</InternalLink></li>
+                    <li><InternalLink className="fr-footer__top-link" href="/ma-prime-renov">MaPrimeRénov</InternalLink></li>
+                    <li><InternalLink className="fr-footer__top-link" href="/cee">Certificats d'économie d'énergie (CEE)</InternalLink></li>
+                    <li><InternalLink className="fr-footer__top-link" href="locales">Les aides des collectivités locales</InternalLink></li>
+                    {/* 
+                      <li><InternalLink className="fr-footer__top-link" href="/coup-de-pouce">Les Coups de pouce</InternalLink></li>
+                      <li><InternalLink className="fr-footer__top-link" href="#">L'éco-prêt à taux zéro</InternalLink></li>
+                      <li><InternalLink className="fr-footer__top-link" href="#">L'exonération de taxe foncière</InternalLink></li>
+                      <li><InternalLink className="fr-footer__top-link" href="#">Le dispositif Denormandie</InternalLink></li>
+                    */}
                   </ul>
-                </div> */}
+                </div>
                 <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
                   <h3 className="fr-footer__top-cat">Nos partenaires</h3>
                   <ul className="fr-footer__top-list">
