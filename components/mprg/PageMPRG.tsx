@@ -12,9 +12,11 @@ import OtherSimulateur from '../OtherSimulateur'
 import css from '@/components/css/convertToJs'
 import useSetSearchParams from '../useSetSearchParams'
 import IframeIntegrator from '../IframeIntegrator'
+import useIsInIframe from '@/components/useIsInIframe'
 
 export default function PageMPRG({ params }: { params: { titre: string } }) {
 
+  const isInIframe = useIsInIframe()
   const engine = new Publicodes(rules)
   const rawSearchParams = useSearchParams(),
     situationSearchParams = Object.fromEntries(rawSearchParams.entries())
@@ -45,7 +47,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   return (
     <Main>
       <Section>
-          <CTAWrapper $justify="end">
+          { !isInIframe && (<CTAWrapper $justify="end">
               <CTA
               $fontSize="normal"
               $importance="secondary"
@@ -58,7 +60,8 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               <Link href="/ma-prime-renov">⬅ Retour à la liste des aides MaPrimeRénov'</Link>
               </CTA>
           </CTAWrapper>
-          <h2>{infoMPR.titre}</h2>
+          )}
+          <h2 style={css`margin: 0 0 1rem;`}>{infoMPR.titre}</h2>
           <MiseEnAvant>
               <h3 style={css`color: #0063cb`}>Informations sur les conditions d'obtention:</h3>
               <ul>
