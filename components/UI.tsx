@@ -389,11 +389,12 @@ export const MiseEnAvant = styled.div`
   background-image: linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb);
   background-position: 0 0, 100% 0, 0 100%, 0 0, 100% 100%;
   background-repeat: no-repeat, no-repeat, no-repeat;
-  background-size: 100% 1px, 1px 100%, 100% 1px, 2.5rem 100%;
+  background-size: 0, 0, 0, 2.5rem 100%;
   padding: 1rem 2.25rem .75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
-  border-radius: 5px;
+  border-radius: 10px;
+  border: 1px solid #0063cb;
   background-color: white;
   h3 {
     margin: 0 0 1rem 0;
