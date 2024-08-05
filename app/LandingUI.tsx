@@ -146,16 +146,25 @@ export const HomeTestimonies = styled.div`
     .see-more {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.5s ease;
+      transition: max-height 1s ease;
     }
-    .see-more.expanded {
+    details {
+      overflow: hidden;
+    }
+    details[open] .see-more {
       max-height: 500px;
     }
     .see-more-click {
         cursor: pointer;
         display: block;
+        margin-bottom: 1rem;
         text-align: right;
-        text-decoration: underline;
+        text-decoration: none;
+        padding: 0.5rem 0.8rem;
+        &:hover {
+          color: white;
+          background-color: #000091;
+        }
     }
   }
 `

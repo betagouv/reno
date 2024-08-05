@@ -6,7 +6,7 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Link from 'next/link'
 import Publicodes from 'publicodes'
 import { GreenCell, Table } from './TestsUI'
-import { throwIfFailingTest } from '../dangerouslyDisactiveFailingTests'
+import { throwIfFailingTest } from '@/components/tests/dangerouslyDisactiveFailingTests'
 
 const tests = rawTests.filter((test) => test['aide complémentaire'] === 0)
 

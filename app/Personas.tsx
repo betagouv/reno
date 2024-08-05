@@ -1,6 +1,5 @@
 import rules from '@/app/règles/rules'
 import { Card, Main, Section } from '@/components/UI'
-import { formatValue } from '@/node_modules/publicodes/dist/index'
 import quoteIcon from '@/public/quote-remix.svg'
 import Image from 'next/image'
 import Publicodes from 'publicodes'
@@ -10,11 +9,14 @@ import {
   PersonaTests,
   PersonasList,
   ResultLabel,
+  TestIcon,
 } from './PersonasUI'
 import personaNames from './personaNames.yaml'
 import personas from './personas.yaml'
 import css from '@/components/css/convertToJs'
-import { throwIfFailingTest } from './dangerouslyDisactiveFailingTests'
+import { personaTest } from '@/components/tests/personaTest'
+import { getRuleTitle } from '@/components/publicodes/utils'
+import Link from 'next/link'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -41,8 +43,18 @@ export default function Personas({}) {
                 ...persona.situation,
               })
 
-              const tests = Object.entries(persona['valeurs attendues'] || {})
               const nom = personaNames[index]
+              const tests = Object.entries(
+                persona['valeurs attendues'] || {},
+              ).map(([dottedName, expectedValue]) =>
+                personaTest(persona, nom, engine, dottedName, expectedValue),
+              )
+              const moreTests = Object.entries(
+                persona['autres valeurs attendues'] || {},
+              ).map(([dottedName, expectedValue]) =>
+                personaTest(persona, nom, engine, dottedName, expectedValue),
+              )
+
               return (
                 <li key={persona.description}>
                   <Card>
@@ -52,84 +64,84 @@ export default function Personas({}) {
                       {persona.description}
                     </PersonaStory>
                     <PersonaTests>
-                      {tests.map(([dottedName, expectedValue]) => {
-                        const rule = rules[dottedName]
-                        const evaluation = newEngine.evaluate(dottedName),
-                          computedValue = evaluation.nodeValue,
-                          formattedValue = formatValue(evaluation, {
-                            precision: 0,
-                          })
-                        console.log(
-                          nom,
+                      {tests.map(
+                        ({
                           dottedName,
-                          expectedValue,
+                          correct,
                           computedValue,
                           formattedValue,
-                        )
-                        const correct =
-                          typeof expectedValue === 'number'
-                            ? Math.round(computedValue) === Math.round(expectedValue)
-                            : ['oui', 'non'].includes(expectedValue)
-                              ? expectedValue === formattedValue
-                              : typeof expectedValue === 'string'
-                                ? formattedValue === expectedValue
-                                : undefined
+                        }) => {
+                          return (
+                            <li key={dottedName}>
+                              <small
+                                dangerouslySetInnerHTML={{
+                                  __html: getRuleTitle(dottedName, rules),
+                                }}
+                              />
 
-                        if (correct === undefined)
-                          throw new Error(
-                            'Failing test because of incorrect type recognition',
-                          )
-                        if (correct === false) {
-                          console.log('Failing persona', persona)
-                          if (throwIfFailingTest)
-                            throw new Error(
-                              `Failing test !! ${nom} ${persona.description},
-                              computed: ${computedValue}, expected: ${expectedValue} for variable: ${dottedName}`
-                            )
-                        }
-                        return (
-                          <li key={dottedName}>
-                            <small
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  rule.titreHtml || rule.titre || dottedName,
-                              }}
-                            />
-
-                            <span
-                              style={css`
-                                margin-top: 0.4rem;
-                                text-align: right;
-                              `}
-                            >
-                              <ResultLabel
-                                $binary={
-                                  computedValue === 'oui' || computedValue > 0
-                                }
+                              <span
+                                style={css`
+                                  margin-top: 0.4rem;
+                                  text-align: right;
+                                `}
                               >
-                                {formattedValue}
-                              </ResultLabel>
-                              {correct ? (
-                                <Image
-                                  src="/check.svg"
-                                  width="10"
-                                  height="10"
-                                  alt={
-                                    'La valeur calculée correspond à la valeur attendue'
+                                <ResultLabel
+                                  $binary={
+                                    computedValue === 'oui' || computedValue > 0
                                   }
-                                />
-                              ) : (
-                                <span title="La valeur calculée ne correspond pas à la valeur attendue">
-                                  ❌
-                                </span>
-                              )}
-                            </span>
-                          </li>
-                        )
-                      })}
+                                >
+                                  {formattedValue}
+                                </ResultLabel>
+                                {correct ? (
+                                  <TestIcon
+                                    src="/check.svg"
+                                    width="10"
+                                    height="10"
+                                    alt={
+                                      'La valeur calculée correspond à la valeur attendue'
+                                    }
+                                  />
+                                ) : (
+                                  <span title="La valeur calculée ne correspond pas à la valeur attendue">
+                                    ❌
+                                  </span>
+                                )}
+                              </span>
+                            </li>
+                          )
+                        },
+                      )}
                     </PersonaTests>
-                    <div>
+                    {moreTests.length > 0 && (
+                      <small
+                        style={css`
+                          text-align: right;
+                        `}
+                      >
+                        {moreTests.length} autres tests&nbsp;
+                        <TestIcon
+                          src="/check.svg"
+                          width="10"
+                          height="10"
+                          style={css`
+                            vertical-align: sub;
+                          `}
+                          alt={
+                            'La valeur calculée correspond à la valeur attendue'
+                          }
+                        />
+                      </small>
+                    )}
+                    <div
+                      style={css`
+                        display: flex;
+                        justify-content: space-evenly;
+                      `}
+                    >
                       <PersonaInjection persona={persona} />
+                      <Link href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
+                        Inspecter
+                      </Link>
                     </div>
                   </Card>
                 </li>

@@ -7,7 +7,7 @@
     DPE . actuel: 6
     projet . DPE visé: 2
     projet . travaux: 70140 / (1.055)
-    ménage . code région: "'27'" 
+    ménage . code région: "'27'"
     ménage . code département: "'25'" # Doubs / Zone climatique H1
     ménage . commune: "'25388'"
     ménage . EPCI: "'200065647'"
@@ -31,6 +31,7 @@
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
     MPR . accompagnée . montant: 59835
     MPR . non accompagnée . éligible: oui
+  autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 500
     gestes . chauffage . solaire . chauffe-eau solaire . MPR . montant: 4000
     gestes . chauffage . solaire . solaire combiné . MPR . montant: 10000
@@ -104,6 +105,7 @@
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
     MPR . accompagnée . montant: 30256
     MPR . non accompagnée . éligible: oui
+  autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 300
     gestes . chauffage . solaire . chauffe-eau solaire . MPR . montant: 2000
     gestes . chauffage . solaire . chauffe-eau solaire . CEE . montant: 192.8
@@ -229,6 +231,7 @@
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
     MPR . non accompagnée . éligible: oui
+  autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 400
     gestes . chauffage . solaire . chauffe-eau solaire . MPR . montant: 3000
     gestes . chauffage . solaire . chauffe-eau solaire . CEE . montant: 220.8
@@ -298,7 +301,7 @@
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
     gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
     gestes . chauffage . PAC . air-eau . CEE . Etas: "'entre 140 % et 170 %'"
-    gestes . chauffage . PAC . géo . CEE . usage : "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . géo . CEE . usage: "'chauffage et eau chaude'"
     gestes . chauffage . PAC . géo . CEE . Etas: "'entre 170 % et 200 %'"
     gestes . ventilation . double flux . CEE . type de ventilation: "'modulée'"
     CEE . projet . remplacement chaudière thermique: non
@@ -306,6 +309,7 @@
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
     MPR . accompagnée . montant: 59835
     MPR . non accompagnée . éligible: oui
+  autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 1078.4
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
@@ -349,7 +353,7 @@
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
     gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
     gestes . chauffage . PAC . air-eau . CEE . Etas: "'entre 170 % et 200 %'"
-    gestes . chauffage . PAC . géo . CEE . usage : "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . géo . CEE . usage: "'chauffage et eau chaude'"
     gestes . chauffage . PAC . géo . CEE . Etas: "'entre 200 % et 230 %'"
     gestes . ventilation . double flux . CEE . type de ventilation: "'modulée'"
     CEE . projet . remplacement chaudière thermique: non
@@ -357,6 +361,7 @@
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
     MPR . accompagnée . montant: 30256
     MPR . non accompagnée . éligible: oui
+  autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 968
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
@@ -400,13 +405,14 @@
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
     gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
     gestes . chauffage . PAC . air-eau . CEE . Etas: "'supérieur à 200 %'"
-    gestes . chauffage . PAC . géo . CEE . usage : "'chauffage et eau chaude'"
+    gestes . chauffage . PAC . géo . CEE . usage: "'chauffage et eau chaude'"
     gestes . chauffage . PAC . géo . CEE . Etas: "'supérieur à 230 %'"
     gestes . ventilation . double flux . CEE . type de ventilation: "'autoréglable'"
     CEE . projet . remplacement chaudière thermique: non
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
     MPR . non accompagnée . éligible: oui
+  autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 804
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 95.2
@@ -422,8 +428,6 @@
     gestes . chauffage . PAC . géo . CEE . montant: 368.4
     gestes . chauffage . raccordement réseau . chaleur . Coup de pouce . montant: 0
     gestes . chauffage . raccordement réseau . chaleur . CEE . montant: 118.4
-
-
 
 - description: |
     Individu aisé, presque passoire, 3 saut.
