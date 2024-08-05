@@ -15,7 +15,15 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation, setSearchParams
   const questionsAnswered = Object.keys(situation)
                                   .filter(q => infoMPR.questions.includes(q) && !getAnsweredQuestions(situationSearchParams, rules).includes(q))
 
-  const currentQuestion = infoMPR.questions[questionsAnswered.length];
+  let lastQuestionAnswered = -1;
+  for (let i = infoMPR.questions.length - 1; i >= 0; i--) {  
+    if (questionsAnswered.includes(infoMPR.questions[i])) {
+        lastQuestionAnswered = i;
+        break;
+    }
+  }
+
+  const currentQuestion = infoMPR.questions[lastQuestionAnswered+1];
   const isExactTotal =  Array.isArray(infoMPR.questions) && infoMPR.questions.every(question => question in situation)
   const isEligible = infoMPR.montant !== "Non applicable"
   
@@ -34,7 +42,7 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation, setSearchParams
               </div>
           </div>
           <div className="aide-details">
-            {questionsAnswered.map((question, index) => (
+            {infoMPR.questions.slice(0, lastQuestionAnswered+1).map((question, index) => (
                 <GesteQuestion
                     key={index}
                     {...{
