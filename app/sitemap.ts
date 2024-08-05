@@ -10,6 +10,8 @@ const basePaths = [
   '/personas',
   '/confidentialite',
   '/locales',
+  '/cee',
+  '/mpr',
   '/interdiction-location',
   '/integration',
   '/module',
@@ -27,7 +29,22 @@ const aidesLocales = Object.keys(rules)
   )
   .map((dottedName) => `/locales/${dottedName.replace('aides locales . ', '')}`)
 
-const paths = [...basePaths, ...documentationPaths, ...aidesLocales]
+const simulateurCEE = Object.keys(rules)
+  .filter((dottedName) => dottedName.startsWith('gestes') && dottedName.endsWith('CEE'))
+  .map((dottedName) => `/cee/${rules[dottedName].code}/${encodeURIComponent(rules[dottedName].titre)}`)
+
+const simulateurMPR = Object.keys(rules)
+  .filter((dottedName) => dottedName.startsWith('gestes') && dottedName.endsWith('MPR'))
+  .map((dottedName) => dottedName.replace(" . MPR", ""))
+  .map((dottedName) => `/ma-prime-renov/${encodeURIComponent(rules[dottedName].titre)}`)
+
+const paths = [
+  ...basePaths,
+  ...documentationPaths,
+  ...aidesLocales,
+  ...[...new Set(simulateurCEE)], // pour éviter les doublons
+  ...[...new Set(simulateurMPR)] // pour éviter les doublons
+]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return paths.map((path) => ({
