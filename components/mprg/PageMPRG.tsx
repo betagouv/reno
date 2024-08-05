@@ -11,6 +11,7 @@
   import OtherSimulateur from '../OtherSimulateur'
   import css from '@/components/css/convertToJs'
   import useSetSearchParams from '../useSetSearchParams'
+  import IframeIntegrator from '../IframeIntegrator'
 
   export default function PageMPRG({ params }: { params: { titre: string } }) {
 
@@ -78,6 +79,7 @@
                 }}
             />
             <OtherSimulateur {...{ceeAssocie}} />
+            <IframeIntegrator iframeUrl={`/ma-prime-renov/${encodeURIComponent(infoMPR.titre)}`} />
         </Section>
       </Main>
     )
