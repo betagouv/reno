@@ -13,6 +13,7 @@ import css from '@/components/css/convertToJs'
 import useSetSearchParams from '../useSetSearchParams'
 import IframeIntegrator from '../IframeIntegrator'
 import useIsInIframe from '@/components/useIsInIframe'
+import Breadcrumb from '../Breadcrumb'
 
 export default function PageMPRG({ params }: { params: { titre: string } }) {
 
@@ -47,6 +48,11 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   return (
     <Main>
       <Section>
+          <Breadcrumb links={[
+            {"Les aides": "/aides"},
+            {"MaPrimeRénov' - Parcours par geste": "/aides/ma-prime-renov"},
+            {[infoMPR.titre]: ""}
+            ]} />
           { !isInIframe && (<CTAWrapper $justify="end">
               <CTA
               $fontSize="normal"

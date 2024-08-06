@@ -6,6 +6,7 @@ import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import localeImage from '@/public/locale-logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
   title: "Les aides à la rénovation énergétique en "+new Date().getFullYear(),
@@ -16,6 +17,7 @@ export default function Aides() {
     return (
       <Main>
         <Section>
+          <Breadcrumb links={[{"Les aides": "/aides"}]} />
           <h2>Les principaux dispositifs d'aides à la rénovation énergétique en {new Date().getFullYear()}</h2>
           <CardLink>
             <Link href="/simulation">

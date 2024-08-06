@@ -4,6 +4,7 @@ import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
   title: "Coup de Pouce Chauffage",
@@ -19,7 +20,8 @@ export default function CoupDePouce() {
     return (
     <Main>
       <Section>
-        <div style={css`display: flex;margin-bottom: 1rem;`}>
+        <Breadcrumb links={[{"Les aides": "/aides"}, {"Coup de Pouce Chauffage": "/aides/coup-de-pouce"}]} />
+        <div style={css`display: flex;margin: 1rem 0;`}>
           <Image src={coupDePouceImage} alt="Logo Coup de Pouce" width="100" />
           <h2 style={css`margin-left: 1rem;`}>Coup de Pouce chauffage</h2>
         </div>

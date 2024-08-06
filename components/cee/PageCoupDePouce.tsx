@@ -15,6 +15,7 @@ import css from '@/components/css/convertToJs'
 import { BlocAideCoupDePouce } from './BlocAideCoupDePouce'
 import IframeIntegrator from '../IframeIntegrator'
 import useIsInIframe from '@/components/useIsInIframe'
+import Breadcrumb from '../Breadcrumb'
 
 export default function PageCoupDePouce({ params }: { params: { titre: string } }) {
 
@@ -64,6 +65,11 @@ export default function PageCoupDePouce({ params }: { params: { titre: string } 
   return (
     <Main>
       <Section>
+          <Breadcrumb links={[
+            {"Les aides": "/aides"},
+            {"Coup de Pouce Chauffage": "/aides/coup-de-pouce"},
+            {[infoCoupDePouce.titre]: ""}
+          ]} />
           { !isInIframe && (<CTAWrapper $justify="end">
               <CTA
               $fontSize="normal"

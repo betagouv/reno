@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { description } from './description'
 import PlaceSummary from './PlaceSummary'
+import Breadcrumb from '@/components/Breadcrumb'
 
 const aidesEntries = Object.entries(aides)
 
@@ -24,6 +25,10 @@ export default function () {
   return (
     <div>
       <Section>
+        <Breadcrumb links={[
+          {"Les aides": "/aides"},
+          {"Les aides locales à la rénovation en France": "/locales"}
+        ]} />
         <h1>Les aides locales à la rénovation en France</h1>
         <p>{description}</p>
 

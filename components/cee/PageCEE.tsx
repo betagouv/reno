@@ -17,6 +17,7 @@ import css from '@/components/css/convertToJs'
 import { Card } from '@/components/UI'
 import useIsInIframe from '@/components/useIsInIframe'
 import IframeIntegrator from '../IframeIntegrator'
+import Breadcrumb from '../Breadcrumb'
 
 export default function PageCEE({ params }: { params: { code: string } }) {
 
@@ -63,6 +64,11 @@ export default function PageCEE({ params }: { params: { code: string } }) {
   return (
     <Main>
       <Section>
+        <Breadcrumb links={[
+            {"Les aides": "/aides"},
+            {"Certificats d'économie d'énergie (CEE)": "/aides/cee"},
+            {[infoCEE.titre]: ""}
+          ]} />
         { !isInIframe && (<CTAWrapper $justify="end">
             <CTA
             $fontSize="normal"

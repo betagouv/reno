@@ -5,6 +5,7 @@ import css from '@/components/css/convertToJs'
 import mprImage from '@/public/maprimerenov.svg'
 import { categoriesGeste } from '@/components/utils'
 import Image from 'next/image'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
   title: "MaPrimeRénov'",
@@ -29,7 +30,8 @@ export default function MaPrimeRenov() {
     return (
       <Main>
         <Section>
-          <div style={css`display: flex;margin-bottom: 1rem;`}>
+          <Breadcrumb links={[{"Les aides": "/aides"}, {"MaPrimeRénov' - Parcours par geste": "/aides/ma-prime-renov"}]} />
+          <div style={css`display: flex;margin: 1rem 0;`}>
             <Image src={mprImage} alt="Logo MaPrimeRénov'" width="100" />
             <h2 style={css`margin-left: 1rem;`}>MaPrimeRénov' Parcours par geste</h2>
           </div>
