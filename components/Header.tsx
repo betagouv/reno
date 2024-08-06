@@ -63,6 +63,7 @@ export default function Header() {
           </div>
         </Link>
         <div>
+          <Link href="/aides">Les aides</Link>
           <Link href="/a-propos">À propos</Link>
           <Link href="/faq">Questions et contact</Link>
           <Link href="/integration">Partenaires</Link>
