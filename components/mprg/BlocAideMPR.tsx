@@ -69,7 +69,7 @@ export const BlocAideMPR = ({ infoMPR, rules, engine, situation, setSearchParams
                 <PrimeStyle css={`padding: 0.75rem;`} $inactive={!isEligible}>
                   {isEligible ?
                       (<>Prime de <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoMPR.montant : "..."}</strong></>) :
-                      (<strong css={`font-size: 1.25rem;`}>Non éligible</strong>)
+                      (<strong css={`font-size: 1.25rem;`}>Non Éligible</strong>)
                   }
                 </PrimeStyle>
               </div>

@@ -260,6 +260,7 @@ export const BlocAide = styled.div`
   padding: 1.5rem 1.5rem 1.75rem;
   border: 1px solid #ddd;
   border-bottom: 3px solid #000091;
+  background: white;
   margin-bottom: 1rem;
   .aide-header {
     display: flex;

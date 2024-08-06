@@ -34,7 +34,12 @@ export default function Geste({
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
       questions: rules[dottedNameCee + ' . question']?.valeurs.map((q) =>
-        rules[dottedNameCee + ' . ' + q] ? dottedNameCee + ' . ' + q : q,
+        rules[dottedNameCee + ' . ' + q] ? 
+          dottedNameCee + ' . ' + q :
+          (rules[dottedName + ' . ' + q] ? 
+            dottedName + ' . ' + q :
+            q
+          )
       ),
     }
   }
@@ -48,7 +53,7 @@ export default function Geste({
       plafond: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . plafond'),
       ),
-      questions: dottedNameMpr + ' . ' + rules[dottedNameMpr + ' . question'],
+      questions: [dottedNameMpr + ' . ' + rules[dottedNameMpr + ' . question']],
     }
   }
 
