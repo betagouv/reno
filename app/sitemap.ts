@@ -12,8 +12,10 @@ const basePaths = [
   '/personas',
   '/confidentialite',
   '/locales',
-  '/cee',
-  '/mpr',
+  '/aides',
+  '/aides/cee',
+  '/aides/ma-prime-renov',
+  '/aides/coup-de-pouce',
   '/interdiction-location',
   '/integration',
   '/module',
@@ -34,19 +36,25 @@ const aidesLocales = Object.keys(rules)
 
 const simulateurCEE = Object.keys(rules)
   .filter((dottedName) => dottedName.startsWith('gestes') && dottedName.endsWith('CEE'))
-  .map((dottedName) => `/cee/${rules[dottedName].code}/${encodeURIComponent(rules[dottedName].titre)}`)
+  .map((dottedName) => `/aides/cee/${rules[dottedName].code}/${encodeURIComponent(rules[dottedName].titre)}`)
 
 const simulateurMPR = Object.keys(rules)
   .filter((dottedName) => dottedName.startsWith('gestes') && dottedName.endsWith('MPR'))
   .map((dottedName) => dottedName.replace(" . MPR", ""))
-  .map((dottedName) => `/ma-prime-renov/${encodeURIComponent(rules[dottedName].titre)}`)
+  .map((dottedName) => `/aides/ma-prime-renov/${encodeURIComponent(rules[dottedName].titre)}`)
+
+const simulateurCoupDePouce = Object.keys(rules)
+  .filter((dottedName) => dottedName.startsWith('gestes') && dottedName.endsWith('Coup de pouce'))
+  .map((dottedName) => dottedName.replace(" . Coup de pouce", ""))
+  .map((dottedName) => `/aides/coup-de-pouce/${encodeURIComponent(rules[dottedName].titre)}`)
 
 const paths = [
   ...basePaths,
   ...documentationPaths,
   ...aidesLocales,
   ...[...new Set(simulateurCEE)], // pour éviter les doublons
-  ...[...new Set(simulateurMPR)] // pour éviter les doublons
+  ...[...new Set(simulateurMPR)], // pour éviter les doublons
+  ...[...new Set(simulateurCoupDePouce)] // pour éviter les doublons
 ]
 
 export default async function sitemap(): MetadataRoute.Sitemap {
