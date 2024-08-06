@@ -72,6 +72,7 @@ chauffage . raccordement réseau . chaleur . Coup de pouce . montant:
           - ménage . revenu . classe = 'modeste'
       alors: 700 €
     - sinon: 450 €
+chauffage . raccordement réseau . chaleur . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 
 chauffage . raccordement réseau . froid:
   par défaut: oui
