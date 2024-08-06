@@ -48,6 +48,7 @@ export default function Input({
         type="number"
         value={state}
         onChange={onChange}
+        min="0"
         {...props}
       />
       &nbsp;{pluralUnit}
