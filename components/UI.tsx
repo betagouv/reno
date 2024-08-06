@@ -31,30 +31,39 @@ export const Card = styled.div`
 
 export const FooterWrapper = styled.footer`
   &.fr-footer {
-    box-shadow: inset 0 2px 0 0 #000091,inset 0 -1px 0 0 #ddd;
+    border-top: 3px solid var(--color);
     padding-top: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   .fr-footer__top {
     background-color: #f6f6f6;
     display: flex;
-    margin: -1.875rem 0 0;
-    padding: 2rem 0 1rem;
-  }
-  .fr-container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .fr-grid-row--gutters {
-    margin: -.5rem;
-  }
-  .fr-grid-row--gutters>[class^=fr-col-] {
-    padding: 1rem;
-  }
-  .fr-grid-row {
-    display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     margin: 0;
     padding: 0;
+  }
+  .footer-col {
+    padding: 0 0.5rem;
+    width: 25%;
+  }
+
+  @media (max-width: 600px) {
+    .fr-footer__top {
+      justify-content: none;
+    }
+    .footer-col {
+      width: 50%;
+    }
+  }
+  @media (max-width: 400px) {
+    .fr-footer__top {
+      justify-content: none;
+    }
+    .footer-col {
+      width: 100%;
+    }
   }
   .fr-footer__top-cat {
     color: #161616;
