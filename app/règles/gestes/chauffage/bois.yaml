@@ -68,9 +68,6 @@ chauffage . bois . chaudière . manuelle . CEE . barème:
       alors: 33800
     - si: CEE . région = 'H3'
       alors: 26300
-chauffage . bois . chaudière . manuelle . CEE . question: 
-  type: liste
-  valeurs: []
 
 chauffage . bois . chaudière . automatique:
   titre: Chaudière bois auto (granulés, plaquettes)
@@ -135,9 +132,6 @@ chauffage . bois . chaudière . automatique . CEE . barème:
       alors: 33800
     - si: CEE . région = 'H3'
       alors: 26300
-chauffage . bois . chaudière . automatique . CEE . question: 
-  type: liste
-  valeurs: []
 
 chauffage . bois . foyer et insert:
   par défaut: oui
