@@ -24,7 +24,8 @@ export default function CoupDePouce() {
           <h2 style={css`margin-left: 1rem;`}>Coup de Pouce chauffage</h2>
         </div>
         <MiseEnAvant>
-          <h3>Vous êtes éligible à l'aide Coup de Pouce si:</h3>
+          <h3 style={css`color: #0063cb`}>Informations</h3>
+          <p style={css`margin: 1rem 0;`}>Vous êtes éligible à cette aide si:</p>
           <ul>
             <li>vous êtes <strong>propriétaire ou locataire</strong> d'une <strong>résidence principale ou secondaire</strong>.</li>
             <li>le logement a été <strong>construit depuis plus de 2 ans.</strong></li>
