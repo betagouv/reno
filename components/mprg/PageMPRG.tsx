@@ -57,7 +57,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
                   }
               `}
               >
-              <Link href="/ma-prime-renov">⬅ Retour à la liste des aides MaPrimeRénov'</Link>
+              <Link href="/aides/ma-prime-renov">⬅ Retour à la liste des aides MaPrimeRénov'</Link>
               </CTA>
           </CTAWrapper>
           )}
@@ -82,7 +82,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               }}
           />
           <OtherSimulateur {...{ceeAssocie}} />
-          <IframeIntegrator iframeUrl={`/ma-prime-renov/${encodeURIComponent(infoMPR.titre)}`} />
+          <IframeIntegrator iframeUrl={`/aides/ma-prime-renov/${encodeURIComponent(infoMPR.titre)}`} />
       </Section>
     </Main>
   )

@@ -73,7 +73,7 @@ export default function PageCEE({ params }: { params: { code: string } }) {
                 }
             `}
             >
-            <Link href="/cee">⬅ Retour à la liste des aides CEE</Link>
+            <Link href="/aides/cee">⬅ Retour à la liste des aides CEE</Link>
             </CTA>
         </CTAWrapper>) }
         <h2 style={css`margin: 0 0 1rem;`}>{infoCEE.titre}{' '}<Badge>{infoCEE.code}</Badge></h2>
@@ -104,7 +104,7 @@ export default function PageCEE({ params }: { params: { code: string } }) {
           ></Card>
         </details>
         <OtherSimulateur {...{mprAssocie}} />
-        <IframeIntegrator iframeUrl={`/cee/${infoCEE.code}/${encodeURIComponent(infoCEE.titre)}`} />
+        <IframeIntegrator iframeUrl={`/aides/cee/${infoCEE.code}/${encodeURIComponent(infoCEE.titre)}`} />
       </Section>
     </Main>
   )

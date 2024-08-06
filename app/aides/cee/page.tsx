@@ -62,7 +62,7 @@ export default function CEE() {
                   <ul style={css`list-style-position: inside;`}>
                     { rulesByCategory[category].map((rule, index) => (
                         <li style={css`margin: 1rem 0;`} key={index}>
-                          <InternalLink href={`/cee/${rules[rule].code}/${encodeURIComponent(rules[rule].titre)}`}>{rules[rule].titre}</InternalLink>
+                          <InternalLink href={`/aides/cee/${rules[rule].code}/${encodeURIComponent(rules[rule].titre)}`}>{rules[rule].titre}</InternalLink>
                           {" "}
                           <Badge><small>{rules[rule].code}</small></Badge>
                         </li>

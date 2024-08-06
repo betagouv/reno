@@ -18,7 +18,7 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
                 </CardLink>
                 { mprAssocie && mprAssocie.map((mpr) => (
                     <CardLink key={mpr} css={`&:hover { background: #e8edff; }`}>
-                        <LinkSimulateur href={`/ma-prime-renov/${encodeURIComponent(mpr)}`}>
+                        <LinkSimulateur href={`/aides/ma-prime-renov/${encodeURIComponent(mpr)}`}>
                             <Image src={logoMPR} alt="Logo MaPrimeRénov" width="200" css={`margin: 1rem 0 !important;`} />
                             Aides MaPrimeRénov pour<br /> 
                             <strong>{mpr}</strong> 
@@ -27,7 +27,7 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
                 ))}
                 { ceeAssocie && (
                     <CardLink css={`&:hover { background: #e8edff; }`}>
-                        <LinkSimulateur href={`/cee/${ceeAssocie.code}/${encodeURIComponent(ceeAssocie.titre)}`}>
+                        <LinkSimulateur href={`/aides/cee/${ceeAssocie.code}/${encodeURIComponent(ceeAssocie.titre)}`}>
                             <Image src={logoCEE} alt="Logo MaPrimeRénov" width="100" />
                             Aides CEE pour<br /> 
                             <strong>{ceeAssocie.titre}</strong> 
@@ -38,7 +38,9 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
         </>
     )
 }
-
+export const CardLink=styled(Card)`
+    &:hover { background: #e8edff; }
+`
 export const LinkSimulateur=styled.a`
     display: flex;
     flex-direction: column;
@@ -53,6 +55,3 @@ export const LinkSimulateur=styled.a`
     }
 `
 
-export const CardLink=styled(Card)`
-    &:hover { background: #e8edff; }
-`

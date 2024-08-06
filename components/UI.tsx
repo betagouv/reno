@@ -385,7 +385,6 @@ export const InternalLink = styled(Link)`
     background-size: 100% calc(0.0625em * 2), 100% 0.0625em;
   }
 `
-
 export const MiseEnAvant = styled.div`
   background-image: linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb);
   background-position: 0 0, 100% 0, 0 100%, 0 0, 100% 100%;
@@ -418,7 +417,6 @@ export const MiseEnAvant = styled.div`
     mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
   }
 `
-
 export const Badge = styled.span`
     align-items: center;
     background-color: #eee;
@@ -437,4 +435,15 @@ export const Badge = styled.span`
     text-transform: uppercase;
     width: -moz-fit-content;
     width: fit-content;
+`
+export const CardLink=styled(Card)`
+    &:hover { background: #e8edff; }
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    img { margin-right: 1rem; }
+    h3 { margin-top: 1rem; color: var(--color); }
+    p { color: black; }
 `

@@ -74,7 +74,7 @@ export default function PageCoupDePouce({ params }: { params: { titre: string } 
                   }
               `}
               >
-              <Link href="/coup-de-pouce">⬅ Retour à la liste des aides Coup de pouce</Link>
+              <Link href="/aides/coup-de-pouce">⬅ Retour à la liste des aides Coup de pouce</Link>
               </CTA>
           </CTAWrapper>) }
           <h2 style={css`margin: 0 0 1rem;`}>{infoCoupDePouce.titre}</h2>
@@ -102,7 +102,7 @@ export default function PageCoupDePouce({ params }: { params: { titre: string } 
               }}
           />
           <OtherSimulateur {...{mprAssocie, ceeAssocie}} />
-          <IframeIntegrator iframeUrl={`/coup-de-pouce/${encodeURIComponent(rules[rule].titre)}`} />
+          <IframeIntegrator iframeUrl={`/aides/coup-de-pouce/${encodeURIComponent(rules[rule].titre)}`} />
       </Section>
     </Main>
   )

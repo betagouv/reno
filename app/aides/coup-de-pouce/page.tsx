@@ -32,7 +32,7 @@ export default function CoupDePouce() {
             <li>vous remplacez une chaudière individuelle <strong>au charbon, au fioul ou au gaz</strong></li>
           </ul>
           <p style={css`margin: 1rem 0;`}>Il n'y a <strong>pas de plafond de ressources à respecter</strong>, mais le montant de l'aide Coup de Pouce varie en fonction de vos revenus.</p>
-          <p>Ce dispositif est cumulable avec <InternalLink href="/ma-prime-renov" title="Liste des aides MaPrimeRénov'"><strong>MaPrimeRénov (parcours par geste)</strong></InternalLink> et <strong>l’éco-prêt à taux zéro</strong>. En revanche, il n'est pas cumulable avec <InternalLink href="/cee" title="Liste des aides CEE"><strong>les aides CEE "classiques"</strong></InternalLink></p>
+          <p>Ce dispositif est cumulable avec <InternalLink href="/aides/ma-prime-renov" title="Liste des aides MaPrimeRénov'"><strong>MaPrimeRénov (parcours par geste)</strong></InternalLink> et <strong>l’éco-prêt à taux zéro</strong>. En revanche, il n'est pas cumulable avec <InternalLink href="/aides/cee" title="Liste des aides CEE"><strong>les aides CEE "classiques"</strong></InternalLink></p>
         </MiseEnAvant>
         <h3>Calculateurs des aides "Coup de pouce Chauffage"</h3>
         <div>
@@ -40,7 +40,7 @@ export default function CoupDePouce() {
             <ul style={css`list-style-position: inside;`}>
               { distinctRulesCoupDePouce.map((rule, index) => (
                   <li style={css`margin: 1rem 0;`} key={index}>
-                    <InternalLink href={`/coup-de-pouce/${encodeURIComponent(rules[rule].titre)}`}>
+                    <InternalLink href={`/aides/coup-de-pouce/${encodeURIComponent(rules[rule].titre)}`}>
                       Remplacement d'une chaudière par <strong>{rules[rule].titre}</strong>
                     </InternalLink>
                   </li>

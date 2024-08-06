@@ -30,7 +30,7 @@ export default function MaPrimeRenov() {
       <Main>
         <Section>
           <div style={css`display: flex;margin-bottom: 1rem;`}>
-            <Image src={mprImage} alt="Logo CEE" width="100" />
+            <Image src={mprImage} alt="Logo MaPrimeRénov'" width="100" />
             <h2 style={css`margin-left: 1rem;`}>MaPrimeRénov' Parcours par geste</h2>
           </div>
           <MiseEnAvant>
@@ -55,7 +55,7 @@ export default function MaPrimeRenov() {
                   <ul style={css`list-style-position: inside;`}>
                     { rulesByCategory[category].map((rule, index) => (
                         <li style={css`margin: 1rem 0;`} key={index}>
-                          <InternalLink href={`/ma-prime-renov/${encodeURIComponent(rules[rule].titre)}`}>{rules[rule].titre}</InternalLink>
+                          <InternalLink href={`/aides/ma-prime-renov/${encodeURIComponent(rules[rule].titre)}`}>{rules[rule].titre}</InternalLink>
                         </li>
                       ))
                     }
