@@ -3,20 +3,18 @@ import Image from 'next/image'
 import GesteQuestion from '../GesteQuestion'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import { BlocAide, PrimeStyle } from '../UI'
-import { encodeSituation } from '../publicodes/situationUtils'
+import { encodeSituation, getAnsweredQuestions } from '../publicodes/situationUtils'
+import { useSearchParams } from 'next/navigation'
 
 export const BlocAideCoupDePouce = ({ infoCoupDePouce, rules, engine, situation, answeredQuestions, setSearchParams, displayPrime="top" }) => {
 
-  const isExactTotal = infoCoupDePouce.questions.filter((q) => rules[q].question)
-                                                .every(e => Object.keys(situation).includes(e))
+  const rawSearchParams = useSearchParams(),
+  situationSearchParams = Object.fromEntries(rawSearchParams.entries())
 
-  // Par défaut, on propose les valeurs max (cela sert aussi à sélectionner des valeurs dans les <select>)
-  infoCoupDePouce.questions.map((q) => {
-    if(!Object.keys(situation).includes(q) && rules[q].maximum) {
-      situation[q] = rules[q].maximum
-    }
-  })
-
+  // On n'affiche pas les questions validées (sinon elles s'affichent lors du parcours par geste)
+  const questionsToAnswer = infoCoupDePouce.questions.filter(q => !getAnsweredQuestions(situationSearchParams, rules).includes(q))
+  const isExactTotal =  Array.isArray(infoCoupDePouce.questions) && infoCoupDePouce.questions.every(question => question in situation)
+  const isEligible = infoCoupDePouce.isEligible
   const encodedSituation = encodeSituation(
     {
       ...situation,
@@ -59,7 +57,7 @@ export const BlocAideCoupDePouce = ({ infoCoupDePouce, rules, engine, situation,
         </div>
       </div>
       <div className="aide-details">
-        {infoCoupDePouce.questions?.map((question, idx) => (
+        {questionsToAnswer.map((question, idx) => (
           <GesteQuestion
             key={idx}
             {...{
@@ -67,16 +65,18 @@ export const BlocAideCoupDePouce = ({ infoCoupDePouce, rules, engine, situation,
               question,
               engine,
               situation,
-              answeredQuestions,
               setSearchParams,
             }}
           />
         ))}
         {displayPrime === "bottom" && (
           <div css={`justify-content: end;display: flex;`}>
-            <PrimeStyle css={`padding: 0.75rem;`}>
-              {'Prime minimum de '}
-              <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoCoupDePouce.montant : "???"}</strong>
+            <PrimeStyle css={`padding: 0.75rem;`} $inactive={!isEligible}>
+              {isEligible ? (
+                <>Prime de <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoCoupDePouce.montant : "..."}</strong></>
+              ) : (
+                <strong css={`font-size: 1.25rem;`}>Non Éligible</strong>
+              )}
             </PrimeStyle>
           </div>
         )}

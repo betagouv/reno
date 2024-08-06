@@ -1,6 +1,5 @@
 import PageCoupDePouce from '@/components/cee/PageCoupDePouce'
 import { Metadata } from 'next'
-import rules from '@/app/règles/rules'
 
 export async function generateMetadata(
   { params }

@@ -1,4 +1,4 @@
-import { InternalLink, Main, MiseEnAvant, Section, Badge, BlocAide, Card } from '@/components/UI'
+import { InternalLink, Main, MiseEnAvant, Section, Card } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
@@ -32,8 +32,7 @@ export default function CoupDePouce() {
           </ul>
           <p style={css`margin: 1rem 0;`}>Il n'y a <strong>pas de plafond de ressources à respecter</strong>, mais le montant de l'aide Coup de Pouce varie en fonction de vos revenus.</p>
           <p>Ce dispositif est cumulable avec <InternalLink href="/ma-prime-renov" title="Liste des aides MaPrimeRénov'"><strong>MaPrimeRénov (parcours par geste)</strong></InternalLink> et <strong>l’éco-prêt à taux zéro</strong>. En revanche, il n'est pas cumulable avec <InternalLink href="/cee" title="Liste des aides CEE"><strong>les aides CEE "classiques"</strong></InternalLink></p>
-      </MiseEnAvant>
-
+        </MiseEnAvant>
         <h3>Calculateurs des aides "Coup de pouce Chauffage"</h3>
         <div>
           <Card>
