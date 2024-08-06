@@ -6,7 +6,7 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
-import { List } from './UI'
+import { Badge, List } from './UI'
 import { dateCool } from './utils'
 import { articles } from './[slug]/page'
 
@@ -24,6 +24,7 @@ const Page = () => {
   const sortedArticles = [
     ...sortBy((article) => article.date)(articles).reverse(),
   ]
+  
   return (
     <main
       style={css`
@@ -70,11 +71,11 @@ const Page = () => {
         <Wrapper>
           <Content>
             <List>
-              {sortedArticles.map(({ url, date, titre }) => (
+              {sortedArticles.map(({ url, date, titre, tags }) => (
                 <li key={url}>
                   <div>
                     <Link href={url}>
-                      <h2>{titre}</h2>
+                      <h2>{titre} {tags?.map((tag) => (<Badge><small>{tag}</small></Badge>))}</h2>
                     </Link>
                   </div>
                   <small
