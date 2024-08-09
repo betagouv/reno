@@ -1,5 +1,5 @@
-'use client'
-import Link from 'next/link'
+"use client"
+
 import { FooterWrapper, ExternalLink, InternalLink } from './UI'
 import useIsInIframe from '@/components/useIsInIframe'
 
@@ -19,26 +19,20 @@ export default function Footer() {
             <div className="fr-footer__top">
               <div className="fr-container">
                 <div className="fr-grid-row fr-grid-row--start fr-grid-row--gutters">
-                  {/* <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
-                  <h3 className="fr-footer__top-cat">Nos dossiers</h3>
-                  <ul className="fr-footer__top-list">
-                  <li><InternalLink className="fr-footer__top-link" href="#">La rénovation énergétique</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Les passoires thermiques</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Les Pompes à chaleur</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">L'isolation</InternalLink></li>
-                  </ul>
-                </div>
-                <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
-                  <h3 className="fr-footer__top-cat">Les aides</h3>
-                  <ul className="fr-footer__top-list">
-                    <li><InternalLink className="fr-footer__top-link" href="#">MaPrimeRénov</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">L'éco-prêt à taux zéro</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">L'exonération de taxe foncière</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Le dispositif Denormandie</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Les aides des collectivités locales</InternalLink></li>
-                    <li><InternalLink className="fr-footer__top-link" href="#">Certificats d'économie d'énergie (CEE)</InternalLink></li>
-                  </ul>
-                </div> */}
+                  <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
+                    <h3 className="fr-footer__top-cat"><InternalLink href="/aides">Les aides</InternalLink></h3>
+                    <ul className="fr-footer__top-list">
+                      <li><InternalLink className="fr-footer__top-link" href="/aides/ma-prime-renov">MaPrimeRénov</InternalLink></li>
+                      <li><InternalLink className="fr-footer__top-link" href="/aides/coup-de-pouce">Les Coups de pouce</InternalLink></li>
+                      <li><InternalLink className="fr-footer__top-link" href="/aides/cee">Certificats d'économie d'énergie (CEE)</InternalLink></li>
+                      <li><InternalLink className="fr-footer__top-link" href="locales">Les aides des collectivités locales</InternalLink></li>
+                    </ul>
+                      {/* 
+                        <li><InternalLink className="fr-footer__top-link" href="#">L'éco-prêt à taux zéro</InternalLink></li>
+                        <li><InternalLink className="fr-footer__top-link" href="#">L'exonération de taxe foncière</InternalLink></li>
+                        <li><InternalLink className="fr-footer__top-link" href="#">Le dispositif Denormandie</InternalLink></li>
+                      */}
+                  </div>
                   <div className="fr-col-12 fr-col-sm-3 fr-col-md-2">
                     <h3 className="fr-footer__top-cat">Nos partenaires</h3>
                     <ul className="fr-footer__top-list">

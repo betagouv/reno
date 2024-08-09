@@ -1,20 +1,21 @@
-import { Section } from '@/components/UI'
 import Input from './Input'
 import Select from './Select'
 import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
+import AddressSearch from './AddressSearch'
+import SmartInput from './SmartInput'
+
 export default function GesteQuestion({
   rules,
   question,
   engine,
   situation,
-  answeredQuestions,
   setSearchParams,
+  answeredQuestions
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
-
-  const evaluation = engine.evaluate(currentQuestion)
+  const evaluation = currentQuestion && engine.setSituation(situation).evaluate(question)
   let currentValue = situation[question]
   const onChange = (value) => {
     const encodedSituation = encodeSituation(
@@ -25,17 +26,12 @@ export default function GesteQuestion({
       false,
       answeredQuestions,
     )
-
     setSearchParams(encodedSituation, 'push', false)
+
   }
 
-  if (!currentValue) {
-    // Par défaut, on propose le maximum
-    currentValue = currentQuestion.maximum
-    onChange(currentValue)
-  }
   return (
-    <Section
+    <div
       css={`
         display: flex;
         justify-content: space-between;
@@ -47,15 +43,6 @@ export default function GesteQuestion({
           border: none;
           margin-bottom: 0;
           padding-bottom: 0;
-        }
-        > div {
-          margin-right: 0.8rem;
-          max-width: 60%;
-        }
-        > select,
-        input,
-        fieldset {
-          max-width: 60%;
         }
         @media (max-width: 800px) {
           flex-wrap: wrap;
@@ -79,10 +66,13 @@ export default function GesteQuestion({
           question,
           onChange,
           rules,
+          engine,
+          situation,
+          setSearchParams,
           evaluation,
         }}
       />
-    </Section>
+    </div>
   )
 }
 const InputComponent = ({
@@ -91,6 +81,10 @@ const InputComponent = ({
   question,
   onChange,
   rules,
+  engine,
+  situation,
+  answeredQuestions,
+  setSearchParams,
   evaluation,
 }) =>
   ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
@@ -107,11 +101,41 @@ const InputComponent = ({
       )}
       onChange={onChange}
     />
+  ) : question === 'ménage . commune' ? (
+    <AddressSearch
+      {...{
+        setChoice: (result) => {
+          const codeRegion = result.codeRegion
+          const encodedSituation = encodeSituation(
+            {
+              ...situation,
+              'ménage . code région': `"${codeRegion}"`,
+              'ménage . code département': `"${result.codeDepartement}"`,
+              'ménage . EPCI': `"${result.codeEpci}"`,
+              'ménage . commune': `"${result.code}"`,
+            },
+            false,
+            answeredQuestions,
+          )
+
+          setSearchParams(encodedSituation, 'push', false)
+        },
+        setSearchParams,
+        situation,
+        answeredQuestions,
+      }}
+    />
+  ) : question === 'ménage . revenu' ? (
+    <SmartInput
+        type='select'
+        engine={engine}
+        situation={situation}
+        value={currentValue == null ? '' : currentValue}
+        onChange={onChange}
+      />
   ) : (
     <Input
       type={'number'}
-      id={question}
-      autoFocus={false}
       placeholder={evaluation.nodeValue}
       value={currentValue == null ? '' : currentValue}
       name={question}

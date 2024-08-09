@@ -13,13 +13,11 @@ export default function Select({
     setState(value)
   }, [value, setState])
 
-  // onChange is not debounced anymore, it just calls debounced function
   const onChange = (e) => {
     const value = e.target.value
 
-    // state is updated on every value change, so input will work
     setState(value)
-    serverOnChange(value === '' ? undefined : value)
+    serverOnChange(value)
   }
 
   return (
@@ -40,9 +38,10 @@ export default function Select({
       `}
       onChange={onChange}
       {...props}
+      defaultValue={value}
     >
-      {values.map((item, index) => (
-        <option key={index} value={item.valeur} selected={state == item.valeur}>
+      {[{valeur:'', titre: 'Choisir une réponse'},...values].map((item, index) => (
+        <option key={index} value={item.valeur} disabled={item.valeur === ""}>
           {item.titre}
         </option>
       ))}

@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { description } from '../description'
 import LocalePlace from './Place'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export async function generateMetadata(
   { params: { place: encodedPlace } }: Props,
@@ -25,6 +26,11 @@ export default function ({ params: { place: encodedPlace } }) {
   return (
     <Main>
       <Section>
+        <Breadcrumb links={[
+          {"Les aides": "/aides"},
+          {"Les aides locales à la rénovation en France": "/locales"},
+          {[capitalise0(place)]: ""}
+        ]} />
         <Link href="/locales" style={css``}>
           ⬅️ Retour aux aides locales
         </Link>

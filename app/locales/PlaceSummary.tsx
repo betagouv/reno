@@ -1,6 +1,5 @@
 import rules from '@/app/règles/rules'
-import { PrimeStyle } from '@/components/Geste'
-import { CTA, CTAWrapper, Card } from '@/components/UI'
+import { CTA, CTAWrapper, Card, PrimeStyle } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0 } from '@/components/utils'
 import Link from 'next/link'

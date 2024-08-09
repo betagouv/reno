@@ -1,6 +1,6 @@
 import { omit, sortBy } from './utils'
-
-export default function Input({ situation, onChange, value, rule, engine }) {
+import Select from './Select'
+export default function Input({ situation, onChange, value, rule, engine, type }) {
   /* First we went for Maxime's method on mesaidesvelo
    * consisting of doing a static analysis of candidate values,
    * then trying them all by evaluating them to see which
@@ -60,42 +60,57 @@ export default function Input({ situation, onChange, value, rule, engine }) {
   const list = sortBy((el) => el)([...baseList, ...additionalList])
 
   const lastThreshold = list.slice(-1)[0]
-  return [...list, Infinity].map((threshold, index) => {
-    const valueToSet =
-      threshold === Infinity ? lastThreshold + 1 : threshold - 1
-    return (
-      <label
-        key={threshold}
-        css={`
-          cursor: pointer;
-          width: 14rem;
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.6rem;
-        `}
-      >
-        <input
-          css={`
-            width: 1.4rem;
-            height: 1.4rem;
-            cursor: pointer;
-            margin-right: 0.6rem;
-          `}
-          type="radio"
-          name={threshold}
-          value={threshold}
-          checked={revenu > (list[index - 1] || 0) && revenu <= threshold}
-          onChange={(e) => onChange(valueToSet)}
-        />{' '}
-        {threshold === Infinity ? (
-          <span>supérieur à {formatNumber(lastThreshold)} €</span>
-        ) : (
-          <span>inférieur à {formatNumber(threshold)} €</span>
-        )}
-      </label>
-    )
-  })
+
+  // Dans le cas d'un affichage en select, on n'a pas besoin des valeurs de l'aide locale d'Angers 
+  // car il s'agit des questions nationaux MPR et Coup de pouce
+  return type ==='select' ? <Select
+      value={value}
+      values={[...baseList, Infinity].map((threshold) => {
+          return {
+            'valeur': threshold === Infinity ? lastThreshold + 1 : threshold - 1,
+            'titre': displayRevenuLabel(threshold, lastThreshold)
+          }
+        })}
+      onChange={onChange}
+    /> : [...list, Infinity].map((threshold, index) => {
+          const valueToSet =
+            threshold === Infinity ? lastThreshold + 1 : threshold - 1
+          return (
+            <label
+              key={threshold}
+              css={`
+                cursor: pointer;
+                width: 14rem;
+                display: flex;
+                align-items: center;
+                margin-bottom: 0.6rem;
+              `}
+            >
+              <input
+                css={`
+                  width: 1.4rem;
+                  height: 1.4rem;
+                  cursor: pointer;
+                  margin-right: 0.6rem;
+                `}
+                type="radio"
+                name={threshold}
+                value={threshold}
+                checked={revenu > (list[index - 1] || 0) && revenu <= threshold}
+                onChange={(e) => onChange(valueToSet)}
+              />{' '}
+              <span>{displayRevenuLabel(threshold, lastThreshold)}
+              </span>
+            </label>
+
+          )
+        })
 }
+const displayRevenuLabel = (threshold, lastThreshold) => threshold === Infinity ? (
+  "supérieur à "+ formatNumber(lastThreshold) + '€'
+) : (
+  "inférieur à "+ formatNumber(threshold) + '€'
+)
 
 const numberFormatter = new Intl.NumberFormat('fr-FR', {
   maximumFractionDigits: 0,
