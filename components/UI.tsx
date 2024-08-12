@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 export const Main = styled.main`
   width: 98vw;
+  max-width: 100%; // pour éviter la barre de défilement horizontal dans les iframe
   padding: 0 1vw;
   padding-bottom: 6vh;
   margin: 0 auto;
@@ -262,6 +263,88 @@ export const ConstraintedParagraphs = styled.div`
     margin: 0.6rem auto;
   }
 `
+
+export const BlocAide = styled.div`
+  text-align: left;
+  padding: 1.5rem 1.5rem 1.75rem;
+  border: 1px solid #ddd;
+  border-bottom: 3px solid #000091;
+  background: white;
+  margin-bottom: 1rem;
+  .aide-header {
+    display: flex;
+    align-items: center;
+    color: #2a82dd;
+    font-weight: 500;
+
+    > img {
+      margin-right: 1.4rem;
+      width: 3.5rem;
+      height: auto;
+    }
+  }
+  h3 {
+    color: #000091;
+    margin: 1rem 0rem;
+  }
+  .aide-details {
+    font-size: 0.9rem;
+    line-height: 1.25rem;
+    color: #3a3a3a;
+  }
+`
+
+// Style repris du design système FR pour le lien externe
+// https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/lien
+export const InlineLink = styled.a`
+  color: #666;
+  text-decoration: none;
+  background-image: linear-gradient(0deg, currentColor, currentColor),
+    linear-gradient(0deg, currentColor, currentColor);
+  background-position:
+    0 100%,
+    0 calc(100% - 0.0625em);
+  background-repeat: no-repeat, no-repeat;
+  background-size:
+    0 0.125em,
+    100% 0.0625em;
+  &:after {
+    content: '';
+    display: inline-block;
+    flex: 0 0 auto;
+    height: 1rem;
+    margin-left: 0.25rem;
+    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEwIDZ2Mkg1djExaDExdi01aDJ2NmExIDEgMCAwIDEtMSAxSDRhMSAxIDAgMCAxLTEtMVY3YTEgMSAwIDAgMSAxLTFoNlptMTEtM3Y4aC0yVjYuNDEzbC03Ljc5MyA3Ljc5NC0xLjQxNC0xLjQxNEwxNy41ODUgNUgxM1YzaDhaIi8+PC9zdmc+);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEwIDZ2Mkg1djExaDExdi01aDJ2NmExIDEgMCAwIDEtMSAxSDRhMSAxIDAgMCAxLTEtMVY3YTEgMSAwIDAgMSAxLTFoNlptMTEtM3Y4aC0yVjYuNDEzbC03Ljc5MyA3Ljc5NC0xLjQxNC0xLjQxNEwxNy41ODUgNUgxM1YzaDhaIi8+PC9zdmc+);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    vertical-align: calc(0.375em - 0.5rem);
+    width: 1rem;
+    background: #666;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+export const PrimeStyle = styled.span`
+  color: #356e3e;
+  background: #bef2c5;
+  border: 1px solid #356e3e4d;
+  padding: 0.1rem 0.4rem 0.05rem;
+  border-radius: 0.2rem;
+  white-space: nowrap;
+  width: fit-content;
+  text-align: center;
+  ${(p) => p.$inactive && `background: #eee; color: #666`}
+  ${(p) =>
+    p.$dashed &&
+    `border-style: dashed !important; background: #ecf6ee !important`}
+  ${(p) =>
+    p.$secondary &&
+    `background: transparent; border: none; em {font-weight: 500;text-decoration: underline solid #49c75d}; border-radius: 0; padding: 0`}
+`
+
 export const ExternalLink = styled.a`
     color: inherit;
     text-decoration: none;
@@ -310,4 +393,66 @@ export const InternalLink = styled(Link)`
     background-color: transparent;
     background-size: 100% calc(0.0625em * 2), 100% 0.0625em;
   }
-`;
+`
+export const MiseEnAvant = styled.div`
+  background-image: linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb);
+  background-position: 0 0, 100% 0, 0 100%, 0 0, 100% 100%;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: 0, 0, 0, 2.5rem 100%;
+  padding: 1rem 2.25rem .75rem 3.5rem;
+  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #0063cb;
+  background-color: white;
+  h3 {
+    margin: 0 0 1rem 0;
+  }
+  &::before {
+    content: "";
+    background: #fff;
+    display: inline-block;
+    flex: 0 0 auto;
+    height: 1.5rem;
+    left: 0;
+    margin: 1rem .5rem;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    vertical-align: calc(.375em - .75rem);
+    width: 1.5rem;
+    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
+  }
+`
+export const Badge = styled.span`
+    align-items: center;
+    background-color: #eee;
+    border-radius: .25rem;
+    color: #3a3a3a;
+    display: inline-flex;
+    flex-direction: row;
+    font-size: .875rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    max-height: none;
+    max-width: 100%;
+    min-height: 1.5rem;
+    overflow: initial;
+    padding: 0 .5rem;
+    text-transform: uppercase;
+    width: -moz-fit-content;
+    width: fit-content;
+`
+export const CardLink=styled(Card)`
+    &:hover { background: #e8edff; }
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    img { margin-right: 1rem; }
+    h3 { margin-top: 1rem; color: var(--color); }
+    p { color: black; }
+`

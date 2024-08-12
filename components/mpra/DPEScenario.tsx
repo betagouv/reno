@@ -3,7 +3,7 @@ import Image from 'next/image'
 import DPELabel from '../DPELabel'
 import Input from '../Input'
 import { Value } from '../ScenariosSelector'
-import { Card } from '../UI'
+import { Card, PrimeStyle } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 
 import calculatorIcon from '@/public/calculator-empty.svg'

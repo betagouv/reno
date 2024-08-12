@@ -5,7 +5,7 @@ chauffage . solaire . chauffe-eau solaire:
   par défaut: oui
   titre: Chauffe-eau solaire individuel en Métropole
   description: |
-    Et dispositifs solaires pour le chauffage de l’eau.
+    Et dispositifs solaires pour le chauffage de l'eau.
 chauffage . solaire . chauffe-eau solaire . montant:
   somme:
   - MPR . montant
@@ -23,8 +23,15 @@ chauffage . solaire . chauffe-eau solaire . MPR . montant:
       alors: 2000 €
     - sinon: 0 €
 chauffage . solaire . chauffe-eau solaire . CEE:
-  titre: BAR-TH-101
+  code: BAR-TH-101
+  titre: Chauffe-eau solaire individuel  (France métropolitaine)
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-101.pdf
+  technique: |
+    Les capteurs hybrides sont exclus. 
+    
+    Les capteurs solaires ont : 
+      - une certification **CSTBat** ou **SolarKeymark** ; 
+      - ou des caractéristiques de performances et de qualité équivalentes, établies par un organisme établi dans l'Espace Economique Européen et accrédité selon les normes **NF EN ISO/CEI 17025** et **NF EN 45011** par le Comité Français d'Accréditation (COFRAC) ou tout autre organisme d'accréditation signataire de l'accord européen multilatéral pertinent pris dans le cadre de European co-operation for Accreditation (EA), coordination européenne des organismes d'accréditation. 
 chauffage . solaire . chauffe-eau solaire . CEE . montant:
   produit:
     - barème
@@ -45,7 +52,7 @@ chauffage . solaire . solaire combiné:
   description: |
     ...et dispositifs solaires pour le chauffage des locaux.
 
-    Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d’un chauffage central. Quand il fait également la production d’eau chaude, il est appelé  système solaire combiné (SSC)
+    Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d'un chauffage central. Quand il fait également la production d'eau chaude, il est appelé  système solaire combiné (SSC)
 chauffage . solaire . solaire combiné . montant:
   somme:
     - MPR . montant
@@ -71,8 +78,19 @@ chauffage . solaire . solaire combiné . Coup de pouce . montant:
 chauffage . solaire . solaire combiné . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . solaire . solaire combiné . CEE:
   non applicable si: CEE . projet . remplacement chaudière thermique
-  titre: BAR-TH-143
+  code: BAR-TH-143
+  titre: Système solaire combiné (France métropolitaine)
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA51-5%20à%20compter%20du%2001-03-2023.pdf
+  technique: |
+    Les capteurs hybrides produisant à la fois électricité et chaleur sont exclus.  
+      
+    Le système est couplé à des émetteurs de chauffage central de type basse température permettant une optimisation de la valorisation de l'énergie solaire.  
+      
+    Les capteurs solaires ont une **productivité supérieure ou égale à 600 W/m²** de surface d'entrée de capteur, calculée en multipliant le rendement optique du capteur mesurée en condition ∆T=0 par un rayonnement (G) de 1 000 W/m².  
+      
+    La **surface** hors tout de capteurs installés est **supérieure ou égale à 8 m²**.  
+      
+    Les capteurs installés sont associés à un ou plusieurs ballon(s) d'eau chaude solaire(s). La **capacité de stockage** du ou des ballons d'eau chaude solaires est strictement **supérieure à 400 litres**. 
 chauffage . solaire . solaire combiné . CEE . montant:
   produit:
     - barème
@@ -88,7 +106,7 @@ chauffage . solaire . solaire combiné . CEE . barème:
       alors: 100500
 
 chauffage . solaire . partie thermique PVT eau:
-  titre: Partie thermique d’un équipement PVT eau
+  titre: Partie thermique d'un équipement PVT eau
   par défaut: oui
   description: |
     Et dispositifs solaires pour le chauffage des locaux.
@@ -109,8 +127,17 @@ chauffage . solaire . partie thermique PVT eau . MPR . montant:
       alors: 1000 €
     - sinon: 0 €
 chauffage . solaire . partie thermique PVT eau . CEE:
-  titre: BAR-TH-162
+  code: BAR-TH-162
+  titre: Système énergétique comportant des capteurs solaires photovoltaïques et thermiques à circulation d'eau (France métropolitaine)
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-162.pdf
+  technique: |
+    Les capteurs solaires sont des capteurs à la fois photovoltaïques et thermiques à circulation d'eau.  
+      
+    Ils ont une **productivité** supérieure ou égale à **500 W/m²** de surface d'entrée des capteurs calculée en multipliant le rendement optique du capteur mesuré en condition ∆T=0 par un rayonnement (G) de 1000W/m².  
+      
+    Ils possèdent une certification **CSTBat ou SolarKeymark**, ou une certification des caractéristiques de performances et de qualité équivalentes dès lors que cette certification repose sur les normes NF EN 12975 ou NF EN 12976 et qu'elle est mentionnée comme telle sur la facture ou une attestation fournie par l'entreprise.  
+      
+    La **surface totale** de capteurs installés est **au minimum de 6 m²**. 
 chauffage . solaire . partie thermique PVT eau . CEE . montant:
   produit:
     - 20900

@@ -3,7 +3,7 @@
 import checkIcon from '@/public/check-green.svg'
 import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
-import { PrimeStyle } from './Geste'
+import { PrimeStyle } from './UI'
 
 export const SummaryAide = ({
   icon,
