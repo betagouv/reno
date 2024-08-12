@@ -10,9 +10,9 @@ ampleur . montant:
   note: On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas !
   somme:
     - MPR . accompagnée . montant
-    - MPR . accompagnée . prise en charge MAR
+    #    - MPR . accompagnée . prise en charge MAR
     - aides locales . total
-    - CEE . rénovation d'ampleur . montant
+    # - CEE . rénovation d'ampleur . montant
 
 ampleur . tous les dispositifs:
   note: Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
