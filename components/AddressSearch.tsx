@@ -17,14 +17,14 @@ export default function AddressSearch({ setChoice, situation }) {
   const validInput = input && input.length >= 3
 
   useEffect(() => {
-    if (situation['ménage . commune']) {
+    if (situation && situation['ménage . commune']) {
       fetch(
         `https://geo.api.gouv.fr/communes?code=${situation['ménage . commune'].replace(/"/g, '')}`,
       )
         .then((response) => response.json())
         .then((json) => setInput(json[0].nom + ' ' + json[0].codeDepartement))
     }
-  }, [])
+  }, [situation, setInput])
 
   useEffect(() => {
     if (!validInput) return
