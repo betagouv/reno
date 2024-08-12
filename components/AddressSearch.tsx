@@ -17,13 +17,15 @@ export default function AddressSearch({ setChoice, situation }) {
   const validInput = input && input.length >= 3
 
   useEffect(() => {
-    if(situation["ménage . commune"]) {
-      fetch(`https://geo.api.gouv.fr/communes?code=${situation["ménage . commune"].replace(/"/g, '')}`)
+    if (situation['ménage . commune']) {
+      fetch(
+        `https://geo.api.gouv.fr/communes?code=${situation['ménage . commune'].replace(/"/g, '')}`,
+      )
         .then((response) => response.json())
-        .then((json) => setInput(json[0].nom + " "+ json[0].codeDepartement));
+        .then((json) => setInput(json[0].nom + ' ' + json[0].codeDepartement))
     }
   }, [])
-  
+
   useEffect(() => {
     if (!validInput) return
     // Le code postal en France est une suite de cinq chiffres https://fr.wikipedia.org/wiki/Code_postal_en_France
@@ -92,7 +94,7 @@ export default function AddressSearch({ setChoice, situation }) {
               onClick={() => {
                 setClicked(result)
                 setChoice(result)
-                setInput(result.nom + " " + result.codeDepartement)
+                setInput(result.nom + ' ' + result.codeDepartement)
               }}
               css={`
                 cursor: pointer;
