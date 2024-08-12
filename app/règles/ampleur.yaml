@@ -11,7 +11,7 @@ ampleur . montant:
   somme:
     - MPR . accompagnée . montant
     - MPR . accompagnée . prise en charge MAR
-    - aides locales
+    - aides locales . total
     - CEE . rénovation d'ampleur . montant
 
 ampleur . tous les dispositifs:
