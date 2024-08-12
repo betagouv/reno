@@ -9,8 +9,7 @@ export const parentName = (dottedName) =>
 export const getRuleTitle = (dottedName, rules) => {
   const rule = rules[dottedName]
   if (!rule) return getRuleName(dottedName)
-  const { titreHtml, titre } = rule
-  if (titreHtml) return titreHtml
+  const { titre } = rule
   if (titre) return titre
 
   return getRuleName(dottedName)
