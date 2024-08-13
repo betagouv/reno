@@ -82,10 +82,15 @@ export const SummaryAide = ({
               height="25"
             />
           )}
-          <span>{text}</span>
+          {text &&
+            (text === "MaPrimeRénov'" ? (
+              <strong css="color: var(--color)">{text}</strong>
+            ) : (
+              <span>{text}</span>
+            ))}
           {text2 && (
             <>
-              <span css="color: #aaa">-</span>
+              {text && <span css="color: #aaa">-</span>}
               <span>{text2}</span>
             </>
           )}
