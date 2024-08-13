@@ -7,8 +7,6 @@
 # Voir aussi le fichier aides-locales.brouillon.yaml pour les aides pas encore implémentées ou qui ne sont plus valides
 
 '':
-  marque: Aide locale
-  icône: 'hexagone-contour.svg'
   avec:
     commune: 0 €
     intercommunalité: 0 €
@@ -17,6 +15,8 @@
     état: 0 €
 
 total:
+  marque: Aide locale
+  icône: 'hexagone-contour.svg'
   somme:
     - commune
     - intercommunalité

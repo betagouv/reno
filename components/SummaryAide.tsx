@@ -12,11 +12,14 @@ export const SummaryAide = ({
   eligible,
   value,
   expanded,
+  small = false,
 }) => {
   return (
     <section
       css={`
-        margin-bottom: 0.6rem;
+        ${small
+          ? 'font-size: 85%; margin-bottom: .2rem'
+          : 'margin-bottom: .6rem'}
       `}
     >
       <div
@@ -71,7 +74,6 @@ export const SummaryAide = ({
             }
           `}
         >
-          {' '}
           {false && (
             <Image
               src={`/${icon}`}

@@ -104,19 +104,23 @@ export default function AmpleurSummary({
           max-width: 40rem;
         `}
       >
-        {aidesEligibles.map((aide) => (
-          <SummaryAide
-            key={aide.dottedName}
-            {...{
-              ...aide,
-              icon: aide.icône,
-              text: aide.marque,
-              text2: aide['complément de marque'],
-              type: aide.type,
-              expanded,
-            }}
-          />
-        ))}
+        {aidesEligibles.map((aide) => {
+          const text = aide.marque,
+            text2 = aide['complément de marque']
+          return (
+            <SummaryAide
+              key={aide.dottedName}
+              {...{
+                ...aide,
+                icon: aide.icône,
+                text,
+                text2,
+                type: aide.type,
+                expanded,
+              }}
+            />
+          )
+        })}
 
         <div
           css={`
@@ -196,19 +200,25 @@ export default function AmpleurSummary({
           </CTAWrapper>
         </div>
 
-        {aidesNonEligibles.map((aide) => (
-          <SummaryAide
-            key={aide.dottedName}
-            {...{
-              ...aide,
-              icon: aide.icône,
-              text: aide.marque,
-              text2: aide['complément de marque'],
-              type: aide.type,
-              expanded,
-            }}
-          />
-        ))}
+        {aidesNonEligibles.map((aide) => {
+          const text = aide.marque,
+            text2 = aide['complément de marque']
+          console.log('cyan', text, text2, aide)
+          return (
+            <SummaryAide
+              key={aide.dottedName}
+              {...{
+                ...aide,
+                icon: aide.icône,
+                text,
+                text2,
+                type: aide.type,
+                expanded,
+                small: true,
+              }}
+            />
+          )
+        })}
       </Card>
     </section>
   )
