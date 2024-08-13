@@ -24,7 +24,7 @@ export default function Footer() {
                 {articles
                   .filter(
                     ({ tags, brouillon }) =>
-                      !tags?.includes('version') && !brouillon,
+                      !tags?.includes('notes de version') && !brouillon,
                   )
                   .map(({ url, titre }) => (
                     <li key={url}>
