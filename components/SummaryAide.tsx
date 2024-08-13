@@ -1,6 +1,5 @@
 'use client'
 
-import checkIcon from '@/public/check-green.svg'
 import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import { PrimeStyle } from './UI'
@@ -40,7 +39,12 @@ export const SummaryAide = ({
           `}
         >
           {eligible ? (
-            <Image src={checkIcon} alt={"Icône d'une coche"} />
+            <Image
+              src={'/check-green-hybrid.svg'}
+              alt={"Icône d'une coche"}
+              width="10"
+              height="10"
+            />
           ) : (
             <Image
               src={crossIcon}

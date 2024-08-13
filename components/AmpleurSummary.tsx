@@ -140,10 +140,14 @@ export default function AmpleurSummary({
                 <strong>Au total</strong> jusqu'à
               </span>
             ) : (
-              <span>Jusqu'à</span>
+              <span>Des aides jusqu'à</span>
             )}
           </span>
-          <PrimeStyle css={expanded ? `font-size: 110%` : ''}>
+          <PrimeStyle
+            css={`
+              font-size: 110%;
+            `}
+          >
             {value}
           </PrimeStyle>
         </div>
@@ -190,16 +194,6 @@ export default function AmpleurSummary({
               <Link href={url}>Découvrir le détail</Link>
             </CTA>
           </CTAWrapper>
-          <p
-            css={`
-              display: flex;
-              justify-content: end;
-              color: #666;
-              font-size: 90%;
-            `}
-          >
-            MaPrimeRénov' Parcours Accompagné
-          </p>
         </div>
 
         {aidesNonEligibles.map((aide) => (
