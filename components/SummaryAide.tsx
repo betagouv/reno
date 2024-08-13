@@ -110,7 +110,19 @@ export const SummaryAide = ({
             `}
           >
             <span>{type} jusqu'à </span>
-            <PrimeStyle $dashed={type === 'prêt'}>{value}</PrimeStyle>
+            <PrimeStyle
+              $dashed={type === 'prêt'}
+              css={
+                type === 'prêt'
+                  ? `
+                background: #d2eafc !important;
+				color: #216090; border-color: #98b5cb; 
+              `
+                  : ''
+              }
+            >
+              {value}
+            </PrimeStyle>
           </small>
         </div>
       )}

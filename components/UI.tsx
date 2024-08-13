@@ -488,4 +488,3 @@ export const CardLink = styled(Card)`
     color: black;
   }
 `
-
