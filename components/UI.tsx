@@ -33,7 +33,10 @@ export const Card = styled.div`
 export const FooterWrapper = styled.footer`
   &.fr-footer {
     border-top: 3px solid var(--color);
-    padding-top: 2rem;
+    padding: 2rem 0.4rem 0;
+    width: 100%;
+  }
+  > div {
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -69,14 +72,14 @@ export const FooterWrapper = styled.footer`
   .fr-footer__top-cat {
     color: #161616;
     display: block;
-    font-size: .95rem;
+    font-size: 0.95rem;
     font-weight: 700;
     line-height: 1.25rem;
     margin: 0 0 1rem;
     text-align: left;
   }
   .fr-footer__top-list {
-    font-size: .85rem;
+    font-size: 0.85rem;
     line-height: 1.25rem;
     margin: 0;
   }
@@ -85,7 +88,7 @@ export const FooterWrapper = styled.footer`
     padding-left: 0;
   }
   .fr-footer__top-list li {
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
   }
   .fr-footer__top-link {
     line-height: 1.25rem;
@@ -103,32 +106,32 @@ export const FooterWrapper = styled.footer`
     color: #666;
     .fr-footer_bottom-list {
       margin: 0;
-      padding: .5rem 0;
+      padding: 0.5rem 0;
       width: 100%;
       .fr-footer__bottom-item {
         display: inline;
-        margin: .5rem 0 0 .25rem;
+        margin: 0.5rem 0 0 0.25rem;
         position: relative;
         a {
-          font-size: .85rem;
+          font-size: 0.85rem;
           line-height: 1.25rem;
         }
         &:first-child {
-            margin: .5rem .25rem 0 0;
-            &::before {
-              box-shadow: none;
-              width: 0px;
-              margin: 0;
-            }
+          margin: 0.5rem 0.25rem 0 0;
+          &::before {
+            box-shadow: none;
+            width: 0px;
+            margin: 0;
+          }
         }
         &::before {
           box-shadow: inset 0 0 0 1px #ddd;
-          content: "";
+          content: '';
           display: inline-block;
           height: 1rem;
-          margin-bottom: .625rem;
-          margin-right: .75rem;
-          margin-top: .625rem;
+          margin-bottom: 0.625rem;
+          margin-right: 0.75rem;
+          margin-top: 0.625rem;
           position: relative;
           vertical-align: middle;
           width: 1px;
@@ -136,7 +139,7 @@ export const FooterWrapper = styled.footer`
       }
     }
     .fr-footer__bottom-copy {
-      font-size: .85rem;
+      font-size: 0.85rem;
       line-height: 1.25rem;
     }
   }
@@ -383,23 +386,43 @@ export const InternalLink = styled(Link)`
   -webkit-text-decoration: none;
   cursor: pointer;
   &[href] {
-      background-image: linear-gradient(0deg,rgb(58, 58, 58),rgb(58, 58, 58)),linear-gradient(0deg,rgb(58, 58, 58),rgb(58, 58, 58));
-      background-position: 0 100%,0 calc(100% - .0625em);
-      background-repeat: no-repeat,no-repeat;
-      background-size: 0 .125em,0 .0625em;
-      transition: background-size 0s;
+    background-image: linear-gradient(0deg, rgb(58, 58, 58), rgb(58, 58, 58)),
+      linear-gradient(0deg, rgb(58, 58, 58), rgb(58, 58, 58));
+    background-position:
+      0 100%,
+      0 calc(100% - 0.0625em);
+    background-repeat: no-repeat, no-repeat;
+    background-size:
+      0 0.125em,
+      0 0.0625em;
+    transition: background-size 0s;
   }
   &:hover {
     background-color: transparent;
-    background-size: 100% calc(0.0625em * 2), 100% 0.0625em;
+    background-size:
+      100% calc(0.0625em * 2),
+      100% 0.0625em;
   }
 `
 export const MiseEnAvant = styled.div`
-  background-image: linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb);
-  background-position: 0 0, 100% 0, 0 100%, 0 0, 100% 100%;
+  background-image: linear-gradient(0deg, #0063cb, #0063cb),
+    linear-gradient(0deg, #0063cb, #0063cb),
+    linear-gradient(0deg, #0063cb, #0063cb),
+    linear-gradient(0deg, #0063cb, #0063cb),
+    linear-gradient(0deg, #0063cb, #0063cb);
+  background-position:
+    0 0,
+    100% 0,
+    0 100%,
+    0 0,
+    100% 100%;
   background-repeat: no-repeat, no-repeat, no-repeat;
-  background-size: 0, 0, 0, 2.5rem 100%;
-  padding: 1rem 2.25rem .75rem 3.5rem;
+  background-size:
+    0,
+    0,
+    0,
+    2.5rem 100%;
+  padding: 1rem 2.25rem 0.75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
   border-radius: 10px;
@@ -409,50 +432,60 @@ export const MiseEnAvant = styled.div`
     margin: 0 0 1rem 0;
   }
   &::before {
-    content: "";
+    content: '';
     background: #fff;
     display: inline-block;
     flex: 0 0 auto;
     height: 1.5rem;
     left: 0;
-    margin: 1rem .5rem;
+    margin: 1rem 0.5rem;
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
     position: absolute;
     top: 0;
-    vertical-align: calc(.375em - .75rem);
+    vertical-align: calc(0.375em - 0.75rem);
     width: 1.5rem;
     -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
     mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
   }
 `
 export const Badge = styled.span`
+  align-items: center;
+  background-color: #eee;
+  border-radius: 0.25rem;
+  color: #3a3a3a;
+  display: inline-flex;
+  flex-direction: row;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  max-height: none;
+  max-width: 100%;
+  min-height: 1.5rem;
+  overflow: initial;
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+  width: -moz-fit-content;
+  width: fit-content;
+`
+export const CardLink = styled(Card)`
+  &:hover {
+    background: #e8edff;
+  }
+  a {
+    display: flex;
     align-items: center;
-    background-color: #eee;
-    border-radius: .25rem;
-    color: #3a3a3a;
-    display: inline-flex;
-    flex-direction: row;
-    font-size: .875rem;
-    font-weight: 700;
-    line-height: 1.5rem;
-    max-height: none;
-    max-width: 100%;
-    min-height: 1.5rem;
-    overflow: initial;
-    padding: 0 .5rem;
-    text-transform: uppercase;
-    width: -moz-fit-content;
-    width: fit-content;
+    text-decoration: none;
+  }
+  img {
+    margin-right: 1rem;
+  }
+  h3 {
+    margin-top: 1rem;
+    color: var(--color);
+  }
+  p {
+    color: black;
+  }
 `
-export const CardLink=styled(Card)`
-    &:hover { background: #e8edff; }
-    a {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-    img { margin-right: 1rem; }
-    h3 { margin-top: 1rem; color: var(--color); }
-    p { color: black; }
-`
+
