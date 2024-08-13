@@ -104,6 +104,7 @@ export const SummaryAide = ({
               border-bottom: 1px dashed #ddd;
               flex-grow: 1;
               margin: 0 1rem 0.7rem 2rem;
+              display: none; /* not convinced by this, to iterate*/
             `}
           ></span>
           <small
