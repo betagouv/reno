@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { FooterWrapper, ExternalLink, InternalLink } from './UI'
 import useIsInIframe from '@/components/useIsInIframe'
@@ -7,9 +7,7 @@ import { sortBy } from './utils'
 
 export default function Footer() {
   const isInIframe = useIsInIframe()
-  const articles = [
-    ...sortBy((article) => article.date)(allArticles).reverse(),
-  ]
+  const articles = [...sortBy((article) => article.date)(allArticles).reverse()]
 
   return (
     !isInIframe && (
@@ -17,23 +15,62 @@ export default function Footer() {
         <FooterWrapper className="fr-footer" role="contentinfo">
           <div className="fr-footer__top">
             <div className="footer-col">
-              <h3 className="fr-footer__top-cat">Blog</h3>
+              <h3 className="fr-footer__top-cat">
+                <InternalLink className="fr-footer__top-link" href={'/blog'}>
+                  Blog
+                </InternalLink>
+              </h3>
               <ul className="fr-footer__top-list">
-                {articles.filter(({tags, brouillon}) => !tags?.includes("version") && !brouillon)
-                          .map(({ url, titre}) => (
-                  <li key={url}><InternalLink className="fr-footer__top-link" href={url}>{titre}</InternalLink></li>
-                ))}
+                {articles
+                  .filter(
+                    ({ tags, brouillon }) =>
+                      !tags?.includes('version') && !brouillon,
+                  )
+                  .map(({ url, titre }) => (
+                    <li key={url}>
+                      <InternalLink className="fr-footer__top-link" href={url}>
+                        {titre}
+                      </InternalLink>
+                    </li>
+                  ))}
               </ul>
             </div>
             <div className="footer-col">
-              <h3 className="fr-footer__top-cat"><InternalLink href="/aides">Les aides</InternalLink></h3>
+              <h3 className="fr-footer__top-cat">
+                <InternalLink href="/aides">Les aides</InternalLink>
+              </h3>
               <ul className="fr-footer__top-list">
-                <li><InternalLink className="fr-footer__top-link" href="/aides/ma-prime-renov">MaPrimeRénov</InternalLink></li>
-                <li><InternalLink className="fr-footer__top-link" href="/aides/coup-de-pouce">Les Coups de pouce</InternalLink></li>
-                <li><InternalLink className="fr-footer__top-link" href="/aides/cee">Certificats d'économie d'énergie (CEE)</InternalLink></li>
-                <li><InternalLink className="fr-footer__top-link" href="locales">Les aides des collectivités locales</InternalLink></li>
+                <li>
+                  <InternalLink
+                    className="fr-footer__top-link"
+                    href="/aides/ma-prime-renov"
+                  >
+                    MaPrimeRénov
+                  </InternalLink>
+                </li>
+                <li>
+                  <InternalLink
+                    className="fr-footer__top-link"
+                    href="/aides/coup-de-pouce"
+                  >
+                    Les Coups de pouce
+                  </InternalLink>
+                </li>
+                <li>
+                  <InternalLink
+                    className="fr-footer__top-link"
+                    href="/aides/cee"
+                  >
+                    Certificats d'économie d'énergie (CEE)
+                  </InternalLink>
+                </li>
+                <li>
+                  <InternalLink className="fr-footer__top-link" href="locales">
+                    Les aides des collectivités locales
+                  </InternalLink>
+                </li>
               </ul>
-                {/* 
+              {/* 
                   <li><InternalLink className="fr-footer__top-link" href="#">L'éco-prêt à taux zéro</InternalLink></li>
                   <li><InternalLink className="fr-footer__top-link" href="#">L'exonération de taxe foncière</InternalLink></li>
                   <li><InternalLink className="fr-footer__top-link" href="#">Le dispositif Denormandie</InternalLink></li>
@@ -106,18 +143,12 @@ export default function Footer() {
                   </InternalLink>
                 </li>
                 <li>
-                  <InternalLink
-                    className="fr-footer__top-link"
-                    href="/faq"
-                  >
+                  <InternalLink className="fr-footer__top-link" href="/faq">
                     Questions et contact
                   </InternalLink>
                 </li>
                 <li>
-                  <InternalLink
-                    className="fr-footer__top-link"
-                    href="/api-doc"
-                  >
+                  <InternalLink className="fr-footer__top-link" href="/api-doc">
                     API
                   </InternalLink>
                 </li>
@@ -138,10 +169,7 @@ export default function Footer() {
                   </InternalLink>
                 </li>
                 <li>
-                  <InternalLink
-                    className="fr-footer__top-link"
-                    href="/blog"
-                  >
+                  <InternalLink className="fr-footer__top-link" href="/blog">
                     Blog
                   </InternalLink>
                 </li>
