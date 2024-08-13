@@ -10,6 +10,7 @@ import { CTA, CTAWrapper, Card } from './UI'
 
 import { PrimeStyle } from './UI'
 import rules from '@/app/règles/rules'
+import { Explanation } from '@publicodes/react-ui'
 
 const topList = rules['ampleur . tous les dispositifs'].somme,
   // unfold the sums with one level only, no recursion yet
@@ -126,6 +127,11 @@ export default function AmpleurSummary({
             span {
               margin: 0 0.15rem;
             }
+            strong {
+              font-weight: normal;
+              text-decoration: underline;
+              text-decoration-color: var(--color);
+            }
           `}
         >
           <span>
@@ -137,7 +143,9 @@ export default function AmpleurSummary({
               <span>Jusqu'à</span>
             )}
           </span>
-          <PrimeStyle>{value}</PrimeStyle>
+          <PrimeStyle css={expanded ? `font-size: 110%` : ''}>
+            {value}
+          </PrimeStyle>
         </div>
 
         <button
@@ -146,7 +154,7 @@ export default function AmpleurSummary({
             background: none;
             text-align: right;
             display: block;
-            margin: 0 0 0 auto;
+            margin: 0.5rem 0 0 auto;
             color: gray;
             img {
               filter: grayscale(1);
