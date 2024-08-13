@@ -83,6 +83,11 @@ export default function Page() {
                 <Link href="/simulation">➞&nbsp;&nbsp;C'est parti !</Link>
               </CTA>
             </CTAWrapper>
+            <CTAWrapper $justify="left">
+              <CTA $fontSize="normal">
+                <Link href="/copropriete">➞&nbsp;&nbsp;Je suis une copropriété !</Link>
+              </CTA>
+            </CTAWrapper>
             <FromStorageSimulationButton />
           </div>
         </HeaderWrapper>

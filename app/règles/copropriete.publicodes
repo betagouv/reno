@@ -1,0 +1,96 @@
+copropriété:
+  titre: MaPrimeRénov' Copropriété
+  description: |
+    Cette aide est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarés d’intérêt collectif.  
+        
+    Ces travaux sont votés lors des assemblées générales de copropriétés. Cette prime est demandée par le syndic de copropriété au titre du syndicat des copropriétaires.  
+    La subvention est versée directement au syndicat de copropriétaires puis répartie selon la règle des tantièmes.  
+        
+    L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
+copropriété . nombre de logement:
+  question: Combien de logement compose la copropriété?
+  unité: logements
+copropriété . montant travaux:
+  question: Quel est le montant estimé de travaux pour cette rénovation?
+  unité: €
+copropriété . pourcentage résidence principale:
+      variations:
+        - si: nombre de logement > 20
+          alors: pourcentage résidence principale . minimum 75 %
+        - si: nombre de logement <= 20
+          alors: pourcentage résidence principale . minimum 65 %
+copropriété . pourcentage résidence principale . minimum 75 %:
+  question: "Quel pourcentage des lots (ou à défaut des tantièmes) de cette copropriété est dédié à l'usage d'habitation principale?"
+  une possibilité parmi:
+    possibilités:
+      - plus de 75 %
+      - moins de 75 %
+copropriété . pourcentage résidence principale . minimum 65 %:
+  question: "Quel pourcentage des lots (ou à défaut des tantièmes) de cette copropriété est dédié à l'usage d'habitation principale?"
+  une possibilité parmi:
+    possibilités:
+      - plus de 65 %
+      - moins de 65 %
+copropriété . pourcentage résidence principale . plus de 75 %:
+  valeur: "plus de 75 %"
+  titre: "Plus de 75 %"
+copropriété . pourcentage résidence principale . moins de 75 %:
+  valeur: "moins de 75 %"
+  titre: "Moins de 75 %"
+copropriété . pourcentage résidence principale . plus de 65 %:
+  valeur: "plus de 65 %"
+  titre: "Plus de 65 %"
+copropriété . pourcentage résidence principale . moins de 65 %:
+  valeur: "moins de 65 %"
+  titre: "Moins de 65 %"
+
+copropriété . gain énergétique:
+  question: "Quel est le gain énergétique envisagé dans le cadre de cette rénovation?"
+  une possibilité parmi:
+    possibilités:
+      - 'moins de 35 %'
+      - 'entre 35 % et 50 %'
+      - 'plus de 50 %'
+copropriété . gain énergétique . moins de 35 %:
+  valeur: "'moins de 35 %'"
+  titre: moins de 35 %
+copropriété . gain énergétique . entre 35 % et 50 %:
+  valeur: "'entre 35 % et 50 %'"
+  titre: entre 35 % et 50 %
+copropriété . gain énergétique . plus de 50 %:
+  valeur: "'plus de 50 %'"
+  titre: plus de 50 %
+
+copropriété . bonus sortie passoire:
+  question: Votre immeuble est-il classe F ou G et atteindra-t-il après rénovation à minima une classe D?
+  par défaut: oui
+copropriété . bonus fragile:
+  question: Votre copropriété est-elle considérée comme fragile ou en difficulté?
+  par défaut: oui
+  description: |
+    Une copropriété est considérée fragile ou en difficulté si:
+    - son taux d'impayés par rapport au budget à l'année N-2 est supérieur ou égal à 8 %  ; 
+    - ou si elle est située dans un quartier NPNRU (Nouveau programme national de renouvellement  urbain) ; 
+    - ou si elle correspond à la définition d'une copropriété en difficulté au sens de la délibération
+
+copropriété . pourcentage d'aide:
+  somme:
+    - variations:
+      - si: bonus sortie passoire = 'oui'
+        alors: 10 %
+    - variations:
+      - si: bonus fragile = 'oui'
+        alors: 20 %
+    - variations:
+      - si: gain énergétique = gain énergétique . entre 35 % et 50 %
+        alors: 30 %
+      - si: gain énergétique = gain énergétique . plus de 50 %
+        alors: 45 %
+
+copropriété . montant:
+  applicable si: pourcentage résidence principale
+  valeur:
+    produit:
+      - pourcentage d'aide
+      - montant travaux
+  plafond: 25000 * nombre de logement
