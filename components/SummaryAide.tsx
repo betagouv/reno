@@ -85,13 +85,21 @@ export const SummaryAide = ({
           )}
         </h4>
       </div>
-      <div
-        css={`
-          display: flex;
-          justify-content: end;
-        `}
-      >
-        {expanded && eligible && (
+      {expanded && eligible && (
+        <div
+          css={`
+            display: flex;
+            justify-content: end;
+          `}
+        >
+          {' '}
+          <span
+            css={`
+              border-bottom: 1px dashed #ddd;
+              flex-grow: 1;
+              margin: 0 1rem 0.7rem 2rem;
+            `}
+          ></span>
           <small
             css={`
               display: flex;
@@ -104,8 +112,8 @@ export const SummaryAide = ({
             <span>{type} jusqu'à </span>
             <PrimeStyle $dashed={type === 'prêt'}>{value}</PrimeStyle>
           </small>
-        )}
-      </div>
+        </div>
+      )}
     </section>
   )
 }

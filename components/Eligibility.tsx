@@ -9,6 +9,7 @@ import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
+import AmpleurSummary from './AmpleurSummary'
 
 export default function Eligibility({
   setSearchParams,
@@ -113,6 +114,17 @@ export default function Eligibility({
         <Results>
           <li>
             <SimplifiedAmpleurSummary
+              {...{
+                engine,
+                url: nextLink('ampleur'),
+                situation,
+                expanded,
+                setSearchParams,
+              }}
+            />
+          </li>
+          <li>
+            <AmpleurSummary
               {...{
                 engine,
                 url: nextLink('ampleur'),
