@@ -34,7 +34,6 @@ export default async function Post({ params }: Props) {
   const post = articles.find((post) => post._raw.flattenedPath === params.slug)
 
   const MDXContent = useMDXComponent(post.body.code)
-  const Content = getMDXComponent(post.body.code)
   const lastEdit = await getLastEdit(params.slug)
 
   const sameEditDate =
@@ -73,7 +72,7 @@ export default async function Post({ params }: Props) {
             )}
           </div>
           <h1>{post.titre}</h1>
-          <p>{post?.description}</p>
+          <p dangerouslySetInnerHTML={{__html:post.description}}></p>
           <small>
             publié le <time dateTime={post.date}>{dateCool(post.date)}</time>
             {!sameEditDate && (
