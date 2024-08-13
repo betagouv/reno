@@ -199,26 +199,28 @@ export default function AmpleurSummary({
             </CTA>
           </CTAWrapper>
         </div>
-
-        {aidesNonEligibles.map((aide) => {
-          const text = aide.marque,
-            text2 = aide['complément de marque']
-          console.log('cyan', text, text2, aide)
-          return (
-            <SummaryAide
-              key={aide.dottedName}
-              {...{
-                ...aide,
-                icon: aide.icône,
-                text,
-                text2,
-                type: aide.type,
-                expanded,
-                small: true,
-              }}
-            />
-          )
-        })}
+        {aidesNonEligibles.length > 0 && (
+          <div title="Aides auxquelles vous n'êtes pas éligible">
+            {aidesNonEligibles.map((aide) => {
+              const text = aide.marque,
+                text2 = aide['complément de marque']
+              return (
+                <SummaryAide
+                  key={aide.dottedName}
+                  {...{
+                    ...aide,
+                    icon: aide.icône,
+                    text,
+                    text2,
+                    type: aide.type,
+                    expanded,
+                    small: true,
+                  }}
+                />
+              )
+            })}
+          </div>
+        )}
       </Card>
     </section>
   )
