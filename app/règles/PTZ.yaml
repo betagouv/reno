@@ -1,5 +1,5 @@
 PTZ:
-  marque: PTZ
+  marque: éco-PTZ
   complément de marque: Prêt à taux zéro
   type: 'prêt'
   icône: 'ptz-bleu.svg'
@@ -51,5 +51,5 @@ PTZ . montant:
     - si: parcours d'aide = "ampleur"
       alors: 50000 €
     - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
-PTZ . condition d'ancienneté:
-  logement . période de construction != 'moins de 2 ans'
+PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
+
