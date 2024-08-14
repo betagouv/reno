@@ -4,7 +4,7 @@ import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
-import { Card } from './UI'
+import { Card, PaymentType, PrimeStyle } from './UI'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
 import DPEScenario from './mpra/DPEScenario'
@@ -42,55 +42,167 @@ export default function ScenariosSelector({
 
   return (
     <CustomQuestionWrapper>
-      <BtnBackToParcoursChoice {...{
+      <BtnBackToParcoursChoice
+        {...{
           setSearchParams,
           situation,
-          answeredQuestions
+          answeredQuestions,
         }}
       />
       <header>
-        <small>MaPrimeRénov’ Parcours accompagné</small>
         <h2>Financer une rénovation d’ampleur de votre logement</h2>
       </header>
-      <p>
-        Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux
-        classes DPE.
-      </p>
-      <DPEQuickSwitch oldIndex={oldIndex} />
-      <TargetDPETabs
-        {...{
-          oldIndex,
-          setSearchParams,
-          answeredQuestions,
-          choice,
-          engine,
-          situation,
-        }}
-      />
-      {oldIndex < 2 ? (
-        <Card
-          css={`
-            margin: 0.6rem 0;
-          `}
-        >
-          👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
-          bénéficier du parcours accompagné.
-        </Card>
-      ) : (
-        <>
-          <DPEScenario
+
+      <section
+        css={`
+          > h3 {
+            margin: 4vh 0 0;
+            font-size: 140%;
+          }
+        `}
+      >
+        <h3>MaPrimeRénov’ Parcours accompagné</h3>
+        <Card>
+          <p>
+            Pour bénéficier de cette aide, vous devez viser un saut d’au moins
+            deux classes DPE.
+          </p>
+
+          <br />
+          <p>
+            Cette aide est un <PaymentType>remboursement</PaymentType>.
+          </p>
+          <br />
+          <DPEQuickSwitch oldIndex={oldIndex} />
+          <TargetDPETabs
             {...{
-              rules,
-              choice,
               oldIndex,
+              setSearchParams,
+              answeredQuestions,
+              choice,
               engine,
               situation,
-              setSearchParams,
-
-              exampleSituation,
             }}
           />
+          {oldIndex < 2 ? (
+            <Card
+              css={`
+                margin: 0.6rem 0;
+              `}
+            >
+              👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
+              bénéficier du parcours accompagné.
+            </Card>
+          ) : (
+            <>
+              <DPEScenario
+                {...{
+                  rules,
+                  choice,
+                  oldIndex,
+                  engine,
+                  situation,
+                  setSearchParams,
 
+                  exampleSituation,
+                }}
+              />
+
+              <section
+                css={`
+                  margin-top: 2vh !important;
+
+                  header {
+                    display: flex;
+                    align-items: center;
+                    h4 {
+                      color: #0359bf;
+                      margin: 0;
+
+                      font-weight: 500;
+                    }
+                    margin-bottom: 1.5vh !important;
+                  }
+                  ul li {
+                    margin: 0.6rem 0;
+                  }
+                `}
+              >
+                <header>
+                  <Image
+                    src={informationIcon}
+                    width="25"
+                    css={`
+                      margin-right: 0.4rem;
+                    `}
+                  />
+                  <h4>Informations utiles</h4>
+                </header>
+                <ul>
+                  <li>
+                    Un Accompagnateur Rénov’ réalisera un audit énergétique de
+                    votre logement pour définir le projet de travaux vous
+                    permettant d’atteindre le DPE visé.{' '}
+                    <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
+                      En savoir plus
+                    </a>
+                    .
+                  </li>
+                  <li>
+                    <Avance
+                      {...{
+                        engine,
+                        rules,
+                        situation,
+                        choice,
+                        exampleSituation,
+                      }}
+                    />
+                  </li>
+                  <li>
+                    <p>
+                      Vous êtes éligible à l'
+                      <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
+                        éco-prêt à taux zéro
+                      </a>{' '}
+                      pour emprunter jusqu'à 50 000 € sur 20 ans.
+                    </p>
+                  </li>
+                </ul>
+              </section>
+            </>
+          )}
+          {oldIndex < 2 && null}
+          <h4>Comment toucher cette aide ?</h4>
+          <section>
+            <p>
+              Votre conseiller local France Rénov’ vous accompagne{' '}
+              <strong>gratuitement</strong> pour vous guider dans les premières
+              étapes de votre projet.
+            </p>
+            <MapBehindCTA
+              {...{
+                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+
+                what: 'trouver-conseiller-renov',
+                text: 'Trouver mon conseiller',
+                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+              }}
+            />
+          </section>
+        </Card>
+        <h3>Exonération fiscale</h3>
+
+        <Card>
+          <br />
+          <p>
+            Vous pouvez obtenir une exonération d'impôt jusqu'à{' '}
+            <PrimeStyle>23 000 €</PrimeStyle>, soit{' '}
+            <PrimeStyle>1 250 € / an</PrimeStyle> sur 8 ans.
+          </p>
+          <p>
+            Cette aide est un <PaymentType>crédit d'impôt</PaymentType>.
+          </p>
           <section
             css={`
               margin-top: 2vh !important;
@@ -133,7 +245,13 @@ export default function ScenariosSelector({
               </li>
               <li>
                 <Avance
-                  {...{ engine, rules, situation, choice, exampleSituation }}
+                  {...{
+                    engine,
+                    rules,
+                    situation,
+                    choice,
+                    exampleSituation,
+                  }}
                 />
               </li>
               <li>
@@ -147,25 +265,25 @@ export default function ScenariosSelector({
               </li>
             </ul>
           </section>
-        </>
-      )}
-      {oldIndex < 2 && null}
-      <h2>Comment toucher cette aide ?</h2>
-      <section>
-        <p>
-          Votre conseiller local France Rénov’ vous accompagne{' '}
-          <strong>gratuitement</strong> pour vous guider dans les premières
-          étapes de votre projet.
-        </p>
-        <MapBehindCTA
-          {...{
-            codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
 
-            what: 'trouver-conseiller-renov',
-            text: 'Trouver mon conseiller',
-            link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-          }}
-        />
+          <h4>Comment toucher cette aide ?</h4>
+          <section>
+            <p>
+              Votre conseiller local France Rénov’ vous accompagne{' '}
+              <strong>gratuitement</strong> pour vous guider dans les premières
+              étapes de votre projet.
+            </p>
+            <MapBehindCTA
+              {...{
+                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+
+                what: 'trouver-conseiller-renov',
+                text: 'Trouver mon conseiller',
+                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+              }}
+            />
+          </section>
+        </Card>
       </section>
       <QuestionsRéponses
         {...{

@@ -34,6 +34,7 @@ export default function DPEScenario({
       >
         <Card
           css={`
+            background: #f7f8f8;
             padding: 1rem;
             margin: 0;
             margin: -0.25rem 0 0 0 !important; /* hack */
@@ -158,7 +159,12 @@ export default function DPEScenario({
                       dottedName: 'projet . travaux . TTC',
                       state: 'final',
                     }}
-                  /><span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA"> TTC</span><span>, je toucherai un total d'aides de </span>
+                  />
+                  <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                    {' '}
+                    TTC
+                  </span>
+                  <span>, je toucherai un total d'aides de </span>
                   <Value
                     {...{
                       engine,
