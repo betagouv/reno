@@ -11,6 +11,7 @@
     ménage . code département: "'25'" # Doubs / Zone climatique H1
     ménage . commune: "'25388'"
     ménage . EPCI: "'200065647'"
+    vous . propriétaire . condition: oui
     logement . propriétaire occupant: oui
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
