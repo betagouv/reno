@@ -2,18 +2,18 @@ import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
+import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import { CustomQuestionWrapper } from './CustomQuestionUI'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
-import { Card, PaymentType, PrimeStyle } from './UI'
+import PaymentTypeBlock from './PaymentTypeBlock'
+import { Card, PrimeStyle } from './UI'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
 import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
-import { omit, roundToThousands } from './utils'
-import { Number } from '@/app/simulation/Answers'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
-import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import { roundToThousands } from './utils'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -58,6 +58,7 @@ export default function ScenariosSelector({
           > h3 {
             margin: 4vh 0 0;
             font-size: 140%;
+            color: var(--darkColor0);
           }
         `}
       >
@@ -68,11 +69,6 @@ export default function ScenariosSelector({
             deux classes DPE.
           </p>
 
-          <br />
-          <p>
-            Cette aide est un <PaymentType>remboursement</PaymentType>.
-          </p>
-          <br />
           <DPEQuickSwitch oldIndex={oldIndex} />
           <TargetDPETabs
             {...{
@@ -190,6 +186,9 @@ export default function ScenariosSelector({
               }}
             />
           </section>
+          <br />
+          <PaymentTypeBlock type="remboursement" />
+          <br />
         </Card>
         <h3>Exonération fiscale</h3>
 
@@ -199,9 +198,6 @@ export default function ScenariosSelector({
             Vous pouvez obtenir une exonération d'impôt jusqu'à{' '}
             <PrimeStyle>23 000 €</PrimeStyle>, soit{' '}
             <PrimeStyle>1 250 € / an</PrimeStyle> sur 8 ans.
-          </p>
-          <p>
-            Cette aide est un <PaymentType>crédit d'impôt</PaymentType>.
           </p>
           <section
             css={`
@@ -283,6 +279,7 @@ export default function ScenariosSelector({
               }}
             />
           </section>
+          <PaymentTypeBlock type="crédit d'impôt" />
         </Card>
       </section>
       <QuestionsRéponses

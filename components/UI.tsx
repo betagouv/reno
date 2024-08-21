@@ -347,16 +347,6 @@ export const PrimeStyle = styled.span`
     p.$secondary &&
     `background: transparent; border: none; em {font-weight: 500;text-decoration: underline solid #49c75d}; border-radius: 0; padding: 0`}
 `
-export const PaymentType = styled.span`
-  color: #082425;
-  background: #b3f8fb;
-  border: 1px solid #356e3e4d;
-  padding: 0.1rem 0.4rem 0.05rem;
-  border-radius: 0.2rem;
-  white-space: nowrap;
-  width: fit-content;
-  text-align: center;
-`
 
 export const ExternalLink = styled.a`
     color: inherit;

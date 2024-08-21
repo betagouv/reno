@@ -72,7 +72,7 @@ export default async function Post({ params }: Props) {
             )}
           </div>
           <h1>{post.titre}</h1>
-          <p dangerouslySetInnerHTML={{__html:post.description}}></p>
+          <p dangerouslySetInnerHTML={{ __html: post.description }}></p>
           <small>
             publié le <time dateTime={post.date}>{dateCool(post.date)}</time>
             {!sameEditDate && (
