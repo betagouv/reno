@@ -84,7 +84,7 @@ export const SummaryAide = ({
           )}
           {text &&
             (text === "MaPrimeRénov'" ? (
-              <strong css="color: var(--color)">{text}</strong>
+              <strong css="color: var(--darkColor0)">{text}</strong>
             ) : (
               <span>{text}</span>
             ))}
