@@ -161,16 +161,6 @@ export default function ScenariosSelector({
                     </a>
                     .
                   </li>
-                  <li>ancienne avance</li>
-                  <li>
-                    <p>
-                      Vous êtes éligible à l'
-                      <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
-                        éco-prêt à taux zéro
-                      </a>{' '}
-                      pour emprunter jusqu'à 50 000 € sur 20 ans.
-                    </p>
-                  </li>
                 </ul>
               </section>
             </>
@@ -303,6 +293,17 @@ export default function ScenariosSelector({
           </PaymentTypeBlock>
         </Card>
       </section>
+      <h3>Éco-prêt à taux zéro</h3>
+      <Card>
+        <p>
+          Vous êtes éligible à l'
+          <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
+            éco-prêt à taux zéro
+          </a>{' '}
+          pour emprunter jusqu'à 50 000 € sur 20 ans.
+        </p>
+      </Card>
+
       <QuestionsRéponses
         {...{
           engine,
