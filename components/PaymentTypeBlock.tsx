@@ -6,32 +6,46 @@ export default function PaymentTypeBlock({ children }) {
   return (
     <div
       css={`
-        display: flex;
-        align-items: center;
-        img {
-          width: 3rem;
-          height: auto;
-          margin-right: 0.2rem;
+        margin: 2vh 0;
+        header {
+          display: flex;
+          align-items: center;
+          img {
+            width: 2rem;
+            height: auto;
+            margin-right: 0.2rem;
+          }
+          h4 {
+            margin: 0;
+            font-weight: 500;
+
+            color: #0359bf;
+          }
+          margin: 0 0 0.4rem;
         }
-        width: fit-content;
-        p {
-          margin: 0;
-        }
-        border: 1px solid #c3c3dd;
-        border-radius: 0.4rem;
-        padding: 0.4rem 0.6rem;
-        background: #dfdff1;
-        margin: 0 0 0 auto;
-        ol {
-          list-style-type: disc;
-          li {
-            margin: 0.2rem 0;
+        > div {
+          width: fit-content;
+          p {
+            margin: 0;
+          }
+          border: 1px solid #c3c3dd;
+          border-radius: 0.4rem;
+          padding: 0.4rem 0.6rem;
+          background: #dfdff1;
+          ol {
+            list-style-type: disc;
+            li {
+              margin: 0.2rem 0;
+            }
           }
         }
       `}
     >
-      <Image src={calendarIcon} alt="icône calendrier de paiement" />
-      {children}
+      <header>
+        <Image src={calendarIcon} alt="icône calendrier de paiement" />
+        <h4>Calendrier de paiement</h4>
+      </header>
+      <div>{children}</div>
     </div>
   )
 }

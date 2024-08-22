@@ -153,6 +153,11 @@ export default function ScenariosSelector({
                 </header>
                 <ul>
                   <li>
+                    Votre conseiller local France Rénov’ vous accompagne{' '}
+                    <strong>gratuitement</strong> pour vous guider dans les
+                    premières étapes de votre projet.
+                  </li>
+                  <li>
                     Un Accompagnateur Rénov’ réalisera un audit énergétique de
                     votre logement pour définir le projet de travaux vous
                     permettant d’atteindre le DPE visé.{' '}
@@ -166,24 +171,6 @@ export default function ScenariosSelector({
             </>
           )}
           {oldIndex < 2 && null}
-          <h4>Comment toucher cette aide ?</h4>
-          <section>
-            <p>
-              Votre conseiller local France Rénov’ vous accompagne{' '}
-              <strong>gratuitement</strong> pour vous guider dans les premières
-              étapes de votre projet.
-            </p>
-            <MapBehindCTA
-              {...{
-                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
-                what: 'trouver-conseiller-renov',
-                text: 'Trouver mon conseiller',
-                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-              }}
-            />
-          </section>
-          <br />
           <PaymentTypeBlock>
             <Avance
               {...{
@@ -195,7 +182,17 @@ export default function ScenariosSelector({
               }}
             />
           </PaymentTypeBlock>
-          <br />
+          <section>
+            <MapBehindCTA
+              {...{
+                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+
+                what: 'trouver-conseiller-renov',
+                text: 'Obtenir cette aide',
+                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+              }}
+            />
+          </section>
         </Card>
         <h3>Exonération fiscale</h3>
 
