@@ -195,10 +195,11 @@ export default function DPEScenario({
               </div>
             </div>
           </div>
+          <ExplicationsMPRA
+            {...{ engine, situation, choice, setSearchParams }}
+          />
         </Card>
       </motion.div>
-
-      <ExplicationsMPRA {...{ engine, situation, choice, setSearchParams }} />
     </>
   )
 }
