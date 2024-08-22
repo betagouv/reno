@@ -14,6 +14,7 @@ import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { roundToThousands } from './utils'
+import starIcon from '@/public/star-full-gold.svg'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -55,14 +56,30 @@ export default function ScenariosSelector({
 
       <section
         css={`
-          > h3 {
+          header {
+            > h3 {
+              margin: 0;
+              color: var(--darkColor0);
+            }
             margin: 4vh 0 0;
             font-size: 140%;
-            color: var(--darkColor0);
+            img {
+              width: 1.3rem;
+              height: auto;
+              margin-right: 1rem;
+            }
+            display: flex;
+            align-items: center;
           }
         `}
       >
-        <h3>MaPrimeRénov’ Parcours accompagné</h3>
+        <header>
+          <Image
+            src={starIcon}
+            alt="Icône étoile signalant le parcours recommandé"
+          />
+          <h3>MaPrimeRénov’ Parcours accompagné</h3>
+        </header>
         <Card>
           <p>
             Pour bénéficier de cette aide, vous devez viser un saut d’au moins
