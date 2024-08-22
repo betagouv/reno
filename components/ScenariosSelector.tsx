@@ -6,7 +6,7 @@ import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
-import PaymentTypeBlock from './PaymentTypeBlock'
+import PaymentTypeBlock, { PaymentType } from './PaymentTypeBlock'
 import { Card, PrimeStyle } from './UI'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
@@ -161,17 +161,7 @@ export default function ScenariosSelector({
                     </a>
                     .
                   </li>
-                  <li>
-                    <Avance
-                      {...{
-                        engine,
-                        rules,
-                        situation,
-                        choice,
-                        exampleSituation,
-                      }}
-                    />
-                  </li>
+                  <li>ancienne avance</li>
                   <li>
                     <p>
                       Vous êtes éligible à l'
@@ -204,7 +194,17 @@ export default function ScenariosSelector({
             />
           </section>
           <br />
-          <PaymentTypeBlock type="remboursement" />
+          <PaymentTypeBlock>
+            <Avance
+              {...{
+                engine,
+                rules,
+                situation,
+                choice,
+                exampleSituation,
+              }}
+            />
+          </PaymentTypeBlock>
           <br />
         </Card>
         <h3>Exonération fiscale</h3>
@@ -296,7 +296,11 @@ export default function ScenariosSelector({
               }}
             />
           </section>
-          <PaymentTypeBlock type="crédit d'impôt" />
+          <PaymentTypeBlock>
+            <p>
+              Cette aide est un <PaymentType>crédit d'impôt</PaymentType>.
+            </p>
+          </PaymentTypeBlock>
         </Card>
       </section>
       <QuestionsRéponses
@@ -340,27 +344,43 @@ export const Avance = ({
   const evaluation = compute('ménage . revenu . classe', engine, rules)
   if (!['modeste', 'très modeste'].includes(evaluation.value))
     return (
-      <p>
-        Votre prime rénov sera un remboursement : vous devrez avancer l'argent
-        des travaux.
-      </p>
+      <div>
+        <p>Cette aide sera un remboursement</p>
+        <small> vous devrez avancer l'argent des travaux.</small>
+      </div>
     )
   return (
-    <p>
-      En tant que ménage au revenu{' '}
-      <ExplanationValue {...{ evaluation, state: 'none' }} />, vous pourrez
-      bénéficier d'une avance de <strong>70&nbsp;%</strong> de la prime, soit{' '}
-      <Value
-        {...{
-          engine,
-          choice,
-          situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
-          dottedName: 'MPR . accompagnée . avance',
-          state: 'final',
-        }}
-      />
-      , le reste sera un remboursement.
-    </p>
+    <ol>
+      <li>
+        Une avance de{' '}
+        <Value
+          {...{
+            engine,
+            choice,
+            situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
+            dottedName: 'MPR . accompagnée . avance',
+            state: 'final',
+          }}
+        />{' '}
+        <span>
+          (70&nbsp;%) en tant que ménage
+          <ExplanationValue {...{ evaluation, state: 'none' }} />
+        </span>
+      </li>
+      <li>
+        Un remboursement de{' '}
+        <Value
+          {...{
+            engine,
+            choice,
+            situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
+            dottedName: 'MPR . accompagnée . remboursement',
+            state: 'final',
+          }}
+        />{' '}
+        <span>(30&nbsp;%)</span> après les travaux
+      </li>
+    </ol>
   )
 }
 

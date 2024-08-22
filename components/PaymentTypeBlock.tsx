@@ -2,7 +2,7 @@ import Image from 'next/image'
 import calendarIcon from '@/public/calendar.svg'
 import styled from 'styled-components'
 
-export default function PaymentTypeBlock({ type }) {
+export default function PaymentTypeBlock({ children }) {
   return (
     <div
       css={`
@@ -11,7 +11,7 @@ export default function PaymentTypeBlock({ type }) {
         img {
           width: 3rem;
           height: auto;
-          margin-right: 1rem;
+          margin-right: 0.2rem;
         }
         width: fit-content;
         p {
@@ -19,19 +19,23 @@ export default function PaymentTypeBlock({ type }) {
         }
         border: 1px solid #c3c3dd;
         border-radius: 0.4rem;
-        padding: 0 0.4rem;
+        padding: 0.4rem 0.6rem;
         background: #dfdff1;
         margin: 0 0 0 auto;
+        ol {
+          list-style-type: disc;
+          li {
+            margin: 0.2rem 0;
+          }
+        }
       `}
     >
       <Image src={calendarIcon} alt="icône calendrier de paiement" />
-      <p>
-        Cette aide est un <PaymentType>{type}</PaymentType>.
-      </p>
+      {children}
     </div>
   )
 }
-const PaymentType = styled.strong`
+export const PaymentType = styled.strong`
   color: var(--darkColor0);
   text-decoration: underline;
   text-decoration-color: var(--darkColor0);

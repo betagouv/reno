@@ -576,6 +576,8 @@ MPR . accompagnée . avance:
       - ménage . revenu . classe = 'modeste'
   formule: 0.7 * montant
 
+MPR . accompagnée . remboursement: montant - avance
+
 MPR . accompagnée . montant:
   titre: Aide accompagnée
   applicable si: éligible
