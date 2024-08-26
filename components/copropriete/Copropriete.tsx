@@ -11,6 +11,7 @@ import { useMemo } from 'react'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Answers from '@/app/simulation/Answers'
+import ExplicationCopropriete from './ExplicationCopropriete'
 
 export default function Copropriete() {
     useSyncUrlLocalStorage()
@@ -27,8 +28,9 @@ export default function Copropriete() {
     const validatedSituation = Object.fromEntries(
       Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
     )
-  
     const evaluation = engine.setSituation(validatedSituation).evaluate('copropriété . montant')
+    // On ne pose pas la question du montant des travaux dans le formulaire
+    // Il sera modifiable dans l'explication
     const nextQuestions = getNextQuestions(
         evaluation,
         answeredQuestions,
@@ -43,11 +45,9 @@ export default function Copropriete() {
             ]
         },
         rules,
-      )
-  
+      ).filter((q) => q != "copropriété . montant travaux") 
     const currentQuestion = nextQuestions[0],
       rule = currentQuestion && rules[currentQuestion]
-  
     const setSearchParams = useSetSearchParams()
 
     return (
@@ -62,7 +62,7 @@ export default function Copropriete() {
             situation,
           }}
         />
-        {rule && (
+        {rule ? (
           <InputSwitch
             {...{
               rules,
@@ -73,6 +73,19 @@ export default function Copropriete() {
               engine,
               nextQuestions,
               searchParams,
+            }}
+          />
+        ) : (
+          <ExplicationCopropriete
+            {...{
+            rules,
+            currentQuestion,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            engine,
+            nextQuestions,
+            searchParams,
             }}
           />
         )}
