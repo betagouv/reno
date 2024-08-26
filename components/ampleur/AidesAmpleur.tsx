@@ -71,6 +71,10 @@ export default function AidesAmpleur({
             exampleSituation,
           }}
         />
+
+        <EcoPTZ />
+
+        <Copro engine={engine} situation={situation} />
         <TaxeFoncière
           {...{
             oldIndex,
@@ -82,10 +86,6 @@ export default function AidesAmpleur({
             exampleSituation,
           }}
         />
-
-        <EcoPTZ />
-
-        <Copro engine={engine} situation={situation} />
       </section>
       <QuestionsRéponses
         {...{
