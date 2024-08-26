@@ -31,7 +31,9 @@ export default function MPRA({
         <InformationBlock>
           <li>
             Il n'existe pas de liste officielle nous permettant de savoir si{' '}
-            {commune} propose cette exonération, c'est à vous de les contacter.
+            {commune} propose cette exonération, c'est à vous de le demander à
+            votre{' '}
+            <a href="https://www.impots.gouv.fr/contacts">centre des impôts</a>.
             Voici{' '}
             <Link href="/taxe-fonciere/communes-eligibles">une sélection</Link>{' '}
             de quelques communes éligibles.
