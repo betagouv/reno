@@ -1,20 +1,14 @@
-import ExplanationValue from '@/components/explications/Value'
 import informationIcon from '@/public/information.svg'
-import starIcon from '@/public/star-full-gold.svg'
 import Image from 'next/image'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import DPEQuickSwitch from '../DPEQuickSwitch'
 import MapBehindCTA from '../MapBehindCTA'
 import PaymentTypeBlock, { PaymentType } from '../PaymentTypeBlock'
 import { Card, PrimeStyle } from '../UI'
-import { compute } from '../explications/Aide'
-import DPEScenario from '../mpra/DPEScenario'
 import QuestionsRéponses from '../mpra/QuestionsRéponses'
-import TargetDPETabs from '../mpra/TargetDPETabs'
 import { roundToThousands } from '../utils'
-import Value from '../Value'
 import { useAides } from './useAides'
+import MPRA from './MPRA'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -63,145 +57,18 @@ export default function AidesAmpleur({
       </ul>
 
       <section>
-        <header
-          css={`
-            > h3 {
-              margin: 0;
-              color: var(--darkColor0);
-            }
-            margin: 4vh 0 0;
-            font-size: 140%;
-            img {
-              width: 1.3rem;
-              height: auto;
-              margin-right: 1rem;
-            }
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <Image
-            src={starIcon}
-            alt="Icône étoile signalant le parcours recommandé"
-          />
-          <h3>MaPrimeRénov’ Parcours accompagné</h3>
-        </header>
-        <Card>
-          <p>
-            Pour bénéficier de cette aide, vous devez viser un saut d’au moins
-            deux classes DPE.
-          </p>
-
-          <DPEQuickSwitch oldIndex={oldIndex} />
-          <TargetDPETabs
-            {...{
-              oldIndex,
-              setSearchParams,
-              answeredQuestions,
-              choice,
-              engine,
-              situation,
-            }}
-          />
-          {oldIndex < 2 ? (
-            <Card
-              css={`
-                margin: 0.6rem 0;
-              `}
-            >
-              👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
-              bénéficier du parcours accompagné.
-            </Card>
-          ) : (
-            <>
-              <DPEScenario
-                {...{
-                  rules,
-                  choice,
-                  oldIndex,
-                  engine,
-                  situation,
-                  setSearchParams,
-
-                  exampleSituation,
-                }}
-              />
-
-              <section
-                css={`
-                  margin-top: 2vh !important;
-
-                  header {
-                    display: flex;
-                    align-items: center;
-                    h4 {
-                      color: #0359bf;
-                      margin: 0;
-
-                      font-weight: 500;
-                    }
-                    margin-bottom: 1.5vh !important;
-                  }
-                  ul li {
-                    margin: 0.6rem 0;
-                  }
-                `}
-              >
-                <header>
-                  <Image
-                    src={informationIcon}
-                    width="25"
-                    css={`
-                      margin-right: 0.4rem;
-                    `}
-                  />
-                  <h4>Informations utiles</h4>
-                </header>
-                <ul>
-                  <li>
-                    Votre conseiller local France Rénov’ vous accompagne{' '}
-                    <strong>gratuitement</strong> pour vous guider dans les
-                    premières étapes de votre projet.
-                  </li>
-                  <li>
-                    Un Accompagnateur Rénov’ réalisera un audit énergétique de
-                    votre logement pour définir le projet de travaux vous
-                    permettant d’atteindre le DPE visé.{' '}
-                    <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
-                      En savoir plus
-                    </a>
-                    .
-                  </li>
-                </ul>
-              </section>
-            </>
-          )}
-          {oldIndex < 2 && null}
-          <PaymentTypeBlock>
-            <Avance
-              {...{
-                engine,
-                rules,
-                situation,
-                choice,
-                exampleSituation,
-              }}
-            />
-          </PaymentTypeBlock>
-          <section>
-            <MapBehindCTA
-              {...{
-                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
-                what: 'trouver-conseiller-renov',
-                text: 'Obtenir cette aide',
-                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-              }}
-            />
-          </section>
-        </Card>
+        <MPRA
+          {...{
+            oldIndex,
+            choice,
+            setSearchParams,
+            answeredQuestions,
+            engine,
+            situation,
+            exampleSituation,
+          }}
+        />
         <h3>Exonération fiscale</h3>
-
         <Card>
           <br />
           <p>
@@ -240,26 +107,6 @@ export default function AidesAmpleur({
               <h4>Informations utiles</h4>
             </header>
             <ul>
-              <li>
-                Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
-                logement pour définir le projet de travaux vous permettant
-                d’atteindre le DPE visé.{' '}
-                <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
-                  En savoir plus
-                </a>
-                .
-              </li>
-              <li>
-                <Avance
-                  {...{
-                    engine,
-                    rules,
-                    situation,
-                    choice,
-                    exampleSituation,
-                  }}
-                />
-              </li>
               <li>
                 <p>
                   Vous êtes éligible à l'
@@ -337,53 +184,3 @@ const AuditStyle = ({ children }) => (
     <span>{children}</span>
   </span>
 )
-
-export const Avance = ({
-  engine,
-  rules,
-  choice,
-  situation,
-  exampleSituation,
-}) => {
-  const evaluation = compute('ménage . revenu . classe', engine, rules)
-  if (!['modeste', 'très modeste'].includes(evaluation.value))
-    return (
-      <div>
-        <p>Cette aide sera un remboursement</p>
-        <small> vous devrez avancer l'argent des travaux.</small>
-      </div>
-    )
-  return (
-    <ol>
-      <li>
-        Une avance de{' '}
-        <Value
-          {...{
-            engine,
-            choice,
-            situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
-            dottedName: 'MPR . accompagnée . avance',
-            state: 'final',
-          }}
-        />{' '}
-        <span>
-          (70&nbsp;%) en tant que ménage
-          <ExplanationValue {...{ evaluation, state: 'none' }} />
-        </span>
-      </li>
-      <li>
-        Un remboursement de{' '}
-        <Value
-          {...{
-            engine,
-            choice,
-            situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
-            dottedName: 'MPR . accompagnée . remboursement',
-            state: 'final',
-          }}
-        />{' '}
-        <span>(30&nbsp;%)</span> après les travaux
-      </li>
-    </ol>
-  )
-}
