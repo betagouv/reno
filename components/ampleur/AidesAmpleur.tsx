@@ -9,6 +9,8 @@ import QuestionsRéponses from '../mpra/QuestionsRéponses'
 import { roundToThousands } from '../utils'
 import { useAides } from './useAides'
 import MPRA from './MPRA'
+import TaxeFoncière from './TaxeFoncière'
+import EcoPTZ from './EcoPTZ'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -68,92 +70,20 @@ export default function AidesAmpleur({
             exampleSituation,
           }}
         />
-        <h3>Exonération fiscale</h3>
-        <Card>
-          <br />
-          <p>
-            Vous pouvez obtenir une exonération d'impôt jusqu'à{' '}
-            <PrimeStyle>23 000 €</PrimeStyle>, soit{' '}
-            <PrimeStyle>1 250 € / an</PrimeStyle> sur 8 ans.
-          </p>
-          <section
-            css={`
-              margin-top: 2vh !important;
+        <TaxeFoncière
+          {...{
+            oldIndex,
+            choice,
+            setSearchParams,
+            answeredQuestions,
+            engine,
+            situation,
+            exampleSituation,
+          }}
+        />
 
-              header {
-                display: flex;
-                align-items: center;
-                h4 {
-                  color: #0359bf;
-                  margin: 0;
-
-                  font-weight: 500;
-                }
-                margin-bottom: 1.5vh !important;
-              }
-              ul li {
-                margin: 0.6rem 0;
-              }
-            `}
-          >
-            <header>
-              <Image
-                src={informationIcon}
-                width="25"
-                css={`
-                  margin-right: 0.4rem;
-                `}
-              />
-              <h4>Informations utiles</h4>
-            </header>
-            <ul>
-              <li>
-                <p>
-                  Vous êtes éligible à l'
-                  <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
-                    éco-prêt à taux zéro
-                  </a>{' '}
-                  pour emprunter jusqu'à 50 000 € sur 20 ans.
-                </p>
-              </li>
-            </ul>
-          </section>
-
-          <h4>Comment toucher cette aide ?</h4>
-          <section>
-            <p>
-              Votre conseiller local France Rénov’ vous accompagne{' '}
-              <strong>gratuitement</strong> pour vous guider dans les premières
-              étapes de votre projet.
-            </p>
-            <MapBehindCTA
-              {...{
-                codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
-                what: 'trouver-conseiller-renov',
-                text: 'Trouver mon conseiller',
-                link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-              }}
-            />
-          </section>
-          <PaymentTypeBlock>
-            <p>
-              Cette aide est un <PaymentType>crédit d'impôt</PaymentType>.
-            </p>
-          </PaymentTypeBlock>
-        </Card>
+        <EcoPTZ />
       </section>
-      <h3>Éco-prêt à taux zéro</h3>
-      <Card>
-        <p>
-          Vous êtes éligible à l'
-          <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
-            éco-prêt à taux zéro
-          </a>{' '}
-          pour emprunter jusqu'à 50 000 € sur 20 ans.
-        </p>
-      </Card>
-
       <QuestionsRéponses
         {...{
           engine,

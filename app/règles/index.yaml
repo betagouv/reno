@@ -729,6 +729,7 @@ MPR . accompagnée:
   alias: Parcours accompagné
   marque: MaPrimeRénov'
   complément de marque: accompagnée
+  favorite: oui
   interface:
     motivation: Je veux améliorer significativement la performance de mon logement.
     avantages:

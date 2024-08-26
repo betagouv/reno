@@ -2,8 +2,15 @@ import starIcon from '@/public/star-full-gold.svg'
 import { Card } from '../UI'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
+import rules from '@/app/règles/rules'
+import { uncapitalise0 } from '../utils'
 
-export default function AideAmpleur({ title, isFavorite, children }) {
+export default function AideAmpleur({ dottedName, children }) {
+  const rule = rules[dottedName]
+  const isFavorite = rule.favorite === 'oui',
+    title =
+      (rule.marque + ' - ' || '') +
+      uncapitalise0(rule['complément de marque'] || '')
   return (
     <section>
       <header

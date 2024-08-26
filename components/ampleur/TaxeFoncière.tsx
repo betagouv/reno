@@ -18,7 +18,7 @@ export default function MPRA({
   exampleSituation,
 }) {
   return (
-    <AideAmpleur dottedName={'MPR . accompagnée'}>
+    <AideAmpleur dottedName={'taxe foncière'}>
       <div>
         <p>
           Pour bénéficier de cette aide, vous devez viser un saut d’au moins
