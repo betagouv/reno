@@ -52,6 +52,7 @@ export default function ScenariosSelector({
       <header>
         <h2>Financer une rénovation d’ampleur de votre logement</h2>
       </header>
+      <p>Vous êtes éligibles à plusieurs aides. Elles sont cumulables.</p>
 
       <section>
         <header
