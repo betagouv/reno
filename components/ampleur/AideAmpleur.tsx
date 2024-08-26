@@ -62,6 +62,7 @@ export const InformationBlock = ({ children }) => (
       }
       ol li {
         margin: 0.6rem 0;
+        list-style-type: disc;
       }
     `}
   >
