@@ -33,9 +33,7 @@ export default function MPRA({
             Il n'existe pas de liste officielle nous permettant de savoir si{' '}
             {commune} propose cette exonération, c'est à vous de les contacter.
             Voici{' '}
-            <Link href="/communes-eligibles-exoneration-taxe-fonciere">
-              une sélection
-            </Link>{' '}
+            <Link href="/taxe-fonciere/communes-eligibles">une sélection</Link>{' '}
             de quelques communes éligibles.
           </li>
           <li>Votre logement a été construit avant le 1er janvier 1989</li>
