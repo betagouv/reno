@@ -14,6 +14,7 @@ import QuestionsRéponses from '../mpra/QuestionsRéponses'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import { roundToThousands } from '../utils'
 import Value from '../Value'
+import { useAides } from './useAides'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -39,6 +40,8 @@ export default function AidesAmpleur({
     ...situation,
   }
 
+  const { eligibles, nonEligibles } = useAides(engine) // TODO which situation
+
   return (
     <CustomQuestionWrapper>
       <BtnBackToParcoursChoice
@@ -52,6 +55,12 @@ export default function AidesAmpleur({
         <h2>Financer une rénovation d’ampleur de votre logement</h2>
       </header>
       <p>Vous êtes éligibles à plusieurs aides. Elles sont cumulables.</p>
+
+      <ul>
+        {eligibles.map((aide) => {
+          return <li>{aide.marque || aide['complément de marque']}</li>
+        })}
+      </ul>
 
       <section>
         <header
