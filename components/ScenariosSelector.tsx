@@ -53,9 +53,9 @@ export default function ScenariosSelector({
         <h2>Financer une rénovation d’ampleur de votre logement</h2>
       </header>
 
-      <section
-        css={`
-          header {
+      <section>
+        <header
+          css={`
             > h3 {
               margin: 0;
               color: var(--darkColor0);
@@ -69,10 +69,8 @@ export default function ScenariosSelector({
             }
             display: flex;
             align-items: center;
-          }
-        `}
-      >
-        <header>
+          `}
+        >
           <Image
             src={starIcon}
             alt="Icône étoile signalant le parcours recommandé"

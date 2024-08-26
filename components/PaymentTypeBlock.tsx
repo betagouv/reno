@@ -24,14 +24,9 @@ export default function PaymentTypeBlock({ children }) {
           margin: 0 0 0.4rem;
         }
         > div {
-          width: fit-content;
           p {
             margin: 0;
           }
-          border: 1px solid #c3c3dd;
-          border-radius: 0.4rem;
-          padding: 0.4rem 0.6rem;
-          background: #dfdff1;
           ol {
             list-style-type: disc;
             li {
