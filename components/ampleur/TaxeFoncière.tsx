@@ -29,11 +29,17 @@ export default function MPRA({
           <li>Votre logement a été construit avant le 1er janvier 1989</li>
           <li>
             Un montant minimum de travaux de rénovation thermique a été engagé :
-            10 000 € l'année précédente, ou 15 000 € les 3 années précédentes.
+            <ul>
+              <li>soit 10 000 € l'année précédente</li>
+              <li>soit 15 000 € les trois années précédentes</li>
+            </ul>
           </li>
         </InformationBlock>
         <PaymentTypeBlock>
-          <p>Cette aide est une exonération de taxe locale.</p>
+          <p>
+            Cette aide est une exonération de taxe locale, une fois par an
+            pendant 3 ans.
+          </p>
         </PaymentTypeBlock>
         <AideCTA text="Obtenir l'exonération">
           <p>
