@@ -18,7 +18,7 @@ export const Section = styled.section`
 `
 export const cardBorder = `
 
-  padding: 1.2vh calc(.5rem + 1vw);
+  padding: calc(.3rem + .7vw) calc(.5rem + 1vw);
   border: 2px solid #dfdff1;
   border-radius: 0.3rem;
 `
