@@ -1,15 +1,8 @@
-import DPEQuickSwitch from '@/components/DPEQuickSwitch'
-import DPEScenario from '@/components/mpra/DPEScenario'
-import TargetDPETabs from '@/components/mpra/TargetDPETabs'
-import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
-import { Card } from '../UI'
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import Avance from '@/components/mpra/Avance'
-import MapBehindCTA from '../MapBehindCTA'
-import rules from '@/app/règles/rules'
 import Link from 'next/link'
+import PaymentTypeBlock from '../PaymentTypeBlock'
+import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 
-export default function MPRA({
+export default function TaxeFoncière({
   oldIndex,
   choice,
   setSearchParams,
