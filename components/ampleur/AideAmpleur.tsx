@@ -1,5 +1,5 @@
 import starIcon from '@/public/star-full-gold.svg'
-import { Card } from '../UI'
+import { CTA, Card } from '../UI'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
 import rules from '@/app/règles/rules'
@@ -78,3 +78,44 @@ export const InformationBlock = ({ children }) => (
     <ol>{children}</ol>
   </section>
 )
+export function AideCTA({ children, text }) {
+  return (
+    <details
+      css={`
+        margin: 1.8rem 0 1rem;
+        summary {
+          list-style-type: none;
+        }
+        > section {
+          margin: 1rem 0;
+          padding-left: 1rem;
+          border-left: 2px solid var(--color);
+        }
+      `}
+    >
+      <summary>
+        <CTA>
+          <span>
+            <span
+              css={`
+                display: flex;
+                align-items: center;
+                img {
+                  filter: invert(1);
+                  width: 1.8rem;
+                  margin-right: 0.6rem;
+                  height: auto;
+                  vertical-align: bottom;
+                }
+                color: inherit;
+              `}
+            >
+              {text}
+            </span>
+          </span>
+        </CTA>
+      </summary>
+      <section>{children}</section>
+    </details>
+  )
+}

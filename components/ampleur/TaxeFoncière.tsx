@@ -1,7 +1,7 @@
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import DPEScenario from '@/components/mpra/DPEScenario'
 import TargetDPETabs from '@/components/mpra/TargetDPETabs'
-import AideAmpleur, { InformationBlock } from './AideAmpleur'
+import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import { Card } from '../UI'
 import PaymentTypeBlock from '../PaymentTypeBlock'
 import Avance from '@/components/mpra/Avance'
@@ -90,17 +90,18 @@ export default function MPRA({
             }}
           />
         </PaymentTypeBlock>
-        <section>
-          <MapBehindCTA
-            {...{
-              codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
-              what: 'trouver-conseiller-renov',
-              text: 'Obtenir cette aide',
-              link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-            }}
-          />
-        </section>
+        <AideCTA text="Obtenir l'exonération">
+          <p>
+            Vous devez adresser au service des impôts correspondant au lieu de
+            situation du bien, avant le 1 er janvier de la première année au
+            titre de laquelle l’exonération est applicable, une déclaration
+            comportant tous les éléments d’identification du bien, dont la date
+            d’achèvement du logement.
+          </p>
+          <a href="https://www.impots.gouv.fr/particulier/questions/ai-je-droit-pour-ma-taxe-fonciere-lexoneration-en-faveur-des-economies">
+            Plus d'infos sur impots.gouv.fr
+          </a>
+        </AideCTA>
       </div>
     </AideAmpleur>
   )

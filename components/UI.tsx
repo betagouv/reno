@@ -185,6 +185,8 @@ export const CTAWrapper = styled.div`
   }
 `
 export const CTA = styled.div`
+  width: fit-content;
+
   > button {
     border: none;
     background: none;
