@@ -19,13 +19,13 @@ copropriété . condition 15 ans:
   par défaut: oui
 copropriété . condition résidence principale:
 copropriété . condition résidence principale . minimum 75 %:
-  appplicable si: nombre de logement > 20
+  applicable si: nombre de logement > 20
   question: La copropriété est-elle composée de minimum 75 % de logement dédié à l'usage d'habitation principale?
   description: |
     ou a défaut de tantième
   par défaut: oui
 copropriété . condition résidence principale . minimum 65 %:
-  appplicable si: nombre de logement <= 20
+  applicable si: nombre de logement <= 20
   question: La copropriété est-elle composée de minimum 65 % de logement dédié à l'usage d'habitation principale?
   description: |
     ou a défaut de tantième
@@ -96,6 +96,8 @@ copropriété . montant:
   produit:
     - montant travaux
     - pourcentage d'aide
+  plafond: plafond
+
 copropriété . montant . plafond:
   produit:
     - plafond par logement
