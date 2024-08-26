@@ -87,9 +87,6 @@ export default function Module({}) {
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
           <Content>
-            <h2>Blabla</h2>
-            <p>Mon gros blabla</p>
-            <p>Super cool.</p>
             <h2>Toujours à jour</h2>
             <p>
               En intégrant dès maintenant le calculateur sur votre site, vous
