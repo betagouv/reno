@@ -113,17 +113,6 @@ export default function Eligibility({
 
         <Results>
           <li>
-            <SimplifiedAmpleurSummary
-              {...{
-                engine,
-                url: nextLink('ampleur'),
-                situation,
-                expanded,
-                setSearchParams,
-              }}
-            />
-          </li>
-          <li>
             <AmpleurSummary
               {...{
                 engine,
