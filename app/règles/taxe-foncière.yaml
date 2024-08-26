@@ -8,7 +8,9 @@ logement . taxe foncière:
   note: |
     Le montant par défaut n'est qu'un ordre de grandeur : la taxe foncière varie en fonction de chaque commune et a subi d'énormes augmentations qui rendent obsolète [la seule étude de l'INSEE](https://www.insee.fr/fr/statistiques/7735076) que nous avons trouvée sur le sujet.
 
-taxe foncière . montant: taux * logement . taxe foncière
+taxe foncière . montant:
+  applicable si: conditions
+  formule: taux * logement . taxe foncière
 taxe foncière . taux:
   question: Quel taux d'exonération de taxe foncière a été décidé par votre commune ?
   par défaut: 100 %
@@ -29,9 +31,10 @@ taxe foncière . conditions:
   toutes ces conditions:
     - condition d'ancienneté
     - condition de dépenses
-    - logement . commune exonérée taxe foncière
+    - commune exonérée
 
 taxe foncière . condition de dépenses:
+  par défaut: non
   description: |
     Pour bénéficier de cette exonération de 50 à 100 %, d’une durée de 3 ans, le montant total des dépenses payées par logement doit être supérieur à : 
 
@@ -40,12 +43,12 @@ taxe foncière . condition de dépenses:
 
     Les délibérations antérieures à 2020 ayant institué l’exonération avec un taux de 50 % ou de 100 % restent applicables pour 5 ans.
 
-logement . commune exonérée taxe foncière:
+taxe foncière . commune exonérée:
   formule: logement . commune
   par défaut: non
   description: |
-    Il faut que la commune ait voté cette exonération. Il n'existe pas de liste officielle quand on écrit ces lignes au 5 juin 2024 (!!). 
+    Il faut que la commune ait voté cette exonération. 
 
-    Nous devons construire notre propre fichier de communes éligibles, probablement sous forme de simple fichier github qui rend la contribution libre pour les communes ou les experts. 
+    Il n'existe pas de liste officielle quand on écrit ces lignes au 5 juin 2024 (!!). 
 
-    Voir https://github.com/betagouv/reno/issues/121.
+    Nous devons construire notre propre fichier de communes éligibles. [Il est ici](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/communes-taxe-fonci%C3%A8re.yaml).

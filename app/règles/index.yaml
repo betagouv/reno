@@ -281,6 +281,10 @@ logement . commune:
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides locales.
   par défaut: "'29200'"
 
+logement . commune . nom:
+  par défaut:
+    texte: Brest
+
 ménage:
   titre: Votre ménage
 

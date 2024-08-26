@@ -55,6 +55,8 @@ function Form({ rules }) {
       rules,
     )
 
+  console.log({ nextQuestions })
+
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 
@@ -90,7 +92,7 @@ function Form({ rules }) {
       <br />
       <UserProblemBanner />
       <Share searchParams={searchParams} />
-      { !isInIframe && 
+      {!isInIframe && (
         <Section>
           <h2>Documentation</h2>
           <p>
@@ -106,7 +108,7 @@ function Form({ rules }) {
             .
           </p>
         </Section>
-      }
+      )}
     </div>
   )
 }

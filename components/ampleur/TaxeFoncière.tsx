@@ -17,6 +17,8 @@ export default function MPRA({
   situation,
   exampleSituation,
 }) {
+  const commune = situation['ménage . commune . nom']
+
   return (
     <AideAmpleur dottedName={'taxe foncière'}>
       <div>
@@ -26,6 +28,10 @@ export default function MPRA({
         </p>
 
         <InformationBlock>
+          <li>
+            Il n'existe pas de liste officielle nous permettant de savoir si{' '}
+            {commune} propose cette exonération, c'est à vous de les contacter.
+          </li>
           <li>Votre logement a été construit avant le 1er janvier 1989</li>
           <li>
             Un montant minimum de travaux de rénovation thermique a été engagé :

@@ -217,6 +217,7 @@ export default function InputSwitch({
                   ...situation,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
+                  'logement . commune . nom': `"${result.name}"`,
                   'logement . commune exonérée taxe foncière': result
                     .eligibilite.taxeFoncière
                     ? 'oui'
