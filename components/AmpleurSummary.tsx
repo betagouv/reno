@@ -9,34 +9,7 @@ import Image from 'next/image'
 import { CTA, CTAWrapper, Card } from './UI'
 
 import { PrimeStyle } from './UI'
-import rules from '@/app/règles/rules'
-import { Explanation } from '@publicodes/react-ui'
-
-const topList = rules['ampleur . tous les dispositifs'].somme,
-  // unfold the sums with one level only, no recursion yet
-  list = topList
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      if (rule.somme) return rule.somme
-      return dottedName
-    })
-    .flat()
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      const split = dottedName.split(' . montant')
-      if (split.length > 1) {
-        const parentRule = rules[split[0]]
-        return {
-          ...rule,
-          dottedName,
-          icône: parentRule.icône,
-          marque: parentRule.marque,
-          'complément de marque': parentRule['complément de marque'],
-          type: parentRule['type'],
-        }
-      }
-      return { ...rule, dottedName }
-    })
+import { useAides } from './ampleur/useAides'
 
 export default function AmpleurSummary({
   engine,
@@ -59,23 +32,7 @@ export default function AmpleurSummary({
     value === 'non'
   )
 
-  const aides = list.map((aide) => {
-    const evaluation = engine
-      .setSituation(extremeSituation)
-      .evaluate(aide.dottedName)
-    const value = formatValue(evaluation, { precision: 0 })
-
-    const eligible = !(
-      value === 'Non applicable' ||
-      evaluation.nodeValue === 0 ||
-      value === 'non'
-    )
-    return { ...aide, evaluation, value, eligible }
-  })
-
-  const aidesEligibles = aides.filter((a) => a.eligible)
-  const aidesNonEligibles = aides.filter((a) => !a.eligible)
-
+  const { eligibles, nonEligibles } = useAides(engine)
   const expand = () =>
     setSearchParams({ details: expanded ? undefined : 'oui' })
 
@@ -104,7 +61,7 @@ export default function AmpleurSummary({
           max-width: 40rem;
         `}
       >
-        {aidesEligibles.map((aide) => {
+        {eligibles.map((aide) => {
           const text = aide.marque,
             text2 = aide['complément de marque']
           return (
@@ -199,9 +156,9 @@ export default function AmpleurSummary({
             </CTA>
           </CTAWrapper>
         </div>
-        {aidesNonEligibles.length > 0 && (
+        {nonEligibles.length > 0 && (
           <div title="Aides auxquelles vous n'êtes pas éligible">
-            {aidesNonEligibles.map((aide) => {
+            {nonEligibles.map((aide) => {
               const text = aide.marque,
                 text2 = aide['complément de marque']
               return (
