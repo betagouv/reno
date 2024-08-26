@@ -21,74 +21,19 @@ export default function MPRA({
     <AideAmpleur dottedName={'taxe foncière'}>
       <div>
         <p>
-          Pour bénéficier de cette aide, vous devez viser un saut d’au moins
-          deux classes DPE.
+          Vore commune peut proposer une exonération de la taxe foncière de 50 %
+          ou 100 % pendant 3 ans pour certains logements rénovés.
         </p>
 
-        <DPEQuickSwitch oldIndex={oldIndex} />
-        <TargetDPETabs
-          {...{
-            oldIndex,
-            setSearchParams,
-            answeredQuestions,
-            choice,
-            engine,
-            situation,
-          }}
-        />
-        {oldIndex < 2 ? (
-          <Card
-            css={`
-              margin: 0.6rem 0;
-            `}
-          >
-            👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
-            bénéficier du parcours accompagné.
-          </Card>
-        ) : (
-          <>
-            <DPEScenario
-              {...{
-                rules,
-                choice,
-                oldIndex,
-                engine,
-                situation,
-                setSearchParams,
-
-                exampleSituation,
-              }}
-            />
-
-            <InformationBlock>
-              <li>
-                Votre conseiller local France Rénov’ vous accompagne{' '}
-                <strong>gratuitement</strong> pour vous guider dans les
-                premières étapes de votre projet.
-              </li>
-              <li>
-                Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
-                logement pour définir le projet de travaux vous permettant
-                d’atteindre le DPE visé.{' '}
-                <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
-                  En savoir plus
-                </a>
-                .
-              </li>
-            </InformationBlock>
-          </>
-        )}
-        {oldIndex < 2 && null}
+        <InformationBlock>
+          <li>Votre logement a été construit avant le 1er janvier 1989</li>
+          <li>
+            Un montant minimum de travaux de rénovation thermique a été engagé :
+            10 000 € l'année précédente, ou 15 000 € les 3 années précédentes.
+          </li>
+        </InformationBlock>
         <PaymentTypeBlock>
-          <Avance
-            {...{
-              engine,
-              rules,
-              situation,
-              choice,
-              exampleSituation,
-            }}
-          />
+          <p>Cette aide est une exonération de taxe locale.</p>
         </PaymentTypeBlock>
         <AideCTA text="Obtenir l'exonération">
           <p>
