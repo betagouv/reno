@@ -10,8 +10,8 @@ export const sortBy = (f) => (list) =>
     return fa < fb ? -1 : fa > fb ? 1 : 0
   })
 
-export const capitalise0 = (s) => s[0].toUpperCase() + s.slice(1)
-export const uncapitalise0 = (s) => s[0].toLowerCase() + s.slice(1)
+export const capitalise0 = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '')
+export const uncapitalise0 = (s) => (s ? s[0].toLowerCase() + s.slice(1) : '')
 
 export function omit(givenKeys, obj) {
   const keys = [...givenKeys]
@@ -61,4 +61,3 @@ export const categoriesGeste = [
     icone: iconVentilation,
   },
 ]
-

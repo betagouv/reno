@@ -60,3 +60,7 @@ ampleur . pourcent d'écrêtement:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 60 %
     - sinon: 40 %
+
+copro:
+  titre: MaPrimeRénov' copropriété
+  marque: MaPrimeRénov' copropriété

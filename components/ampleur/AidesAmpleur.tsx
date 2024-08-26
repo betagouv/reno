@@ -11,6 +11,7 @@ import { useAides } from './useAides'
 import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import EcoPTZ from './EcoPTZ'
+import Copro from './Copro'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -83,6 +84,8 @@ export default function AidesAmpleur({
         />
 
         <EcoPTZ />
+
+        <Copro engine={engine} situation={situation} />
       </section>
       <QuestionsRéponses
         {...{

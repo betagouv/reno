@@ -2,15 +2,7 @@ import Link from 'next/link'
 import PaymentTypeBlock from '../PaymentTypeBlock'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 
-export default function EcoPTZ({
-  oldIndex,
-  choice,
-  setSearchParams,
-  answeredQuestions,
-  engine,
-  situation,
-  exampleSituation,
-}) {
+export default function EcoPTZ({}) {
   return (
     <AideAmpleur dottedName={'PTZ'}>
       <div>
