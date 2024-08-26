@@ -7,6 +7,7 @@ import rules from '@/app/règles/rules'
 import { getAnsweredQuestions, getSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Publicodes from 'publicodes'
+import simulationConfigCopropriete from '../../app/copropriete/simulationConfigCopro.yaml'
 import { useMemo } from 'react'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
@@ -19,10 +20,12 @@ export default function Copropriete() {
     searchParams = Object.fromEntries(rawSearchParams.entries())
     const engine = useMemo(() => new Publicodes(rules), [rules])
     const answeredQuestions = [
-      ...getAnsweredQuestions(searchParams, rules),
+        ...Object.keys(simulationConfigCopropriete.situation || {}),
+        ...getAnsweredQuestions(searchParams, rules),
     ]
     const situation = {
-      ...getSituation(searchParams, rules),
+        ...(simulationConfigCopropriete.situation || {}),
+        ...getSituation(searchParams, rules),
     }
   
     const validatedSituation = Object.fromEntries(
@@ -34,16 +37,7 @@ export default function Copropriete() {
     const nextQuestions = getNextQuestions(
         evaluation,
         answeredQuestions,
-        {
-            'prioritaires': [
-                'copropriété . nombre de logement',
-                'copropriété . pourcentage résidence principale . minimum 75 %',
-                'copropriété . pourcentage résidence principale . minimum 65 %',
-                'copropriété . gain énergétique',
-                'copropriété . bonus sortie passoire',
-                'copropriété . bonus fragile',
-            ]
-        },
+        simulationConfigCopropriete,
         rules,
       ).filter((q) => q != "copropriété . montant travaux") 
     const currentQuestion = nextQuestions[0],
