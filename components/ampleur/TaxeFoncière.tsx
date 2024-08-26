@@ -7,6 +7,7 @@ import PaymentTypeBlock from '../PaymentTypeBlock'
 import Avance from '@/components/mpra/Avance'
 import MapBehindCTA from '../MapBehindCTA'
 import rules from '@/app/règles/rules'
+import Link from 'next/link'
 
 export default function MPRA({
   oldIndex,
@@ -31,6 +32,11 @@ export default function MPRA({
           <li>
             Il n'existe pas de liste officielle nous permettant de savoir si{' '}
             {commune} propose cette exonération, c'est à vous de les contacter.
+            Voici{' '}
+            <Link href="/communes-eligibles-exoneration-taxe-fonciere">
+              une sélection
+            </Link>{' '}
+            de quelques communes éligibles.
           </li>
           <li>Votre logement a été construit avant le 1er janvier 1989</li>
           <li>

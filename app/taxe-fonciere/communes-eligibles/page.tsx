@@ -4,26 +4,18 @@ import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
-import { BlueEm, HeaderWrapper } from '../LandingUI'
-import AmpleurDemonstration from './AmpleurDemonstration'
-import { Suspense } from 'react'
+import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
+import communes from '@/app/règles/communes-taxe-foncière.yaml'
+
+const title =
+  "Communes éligibles à l'exonération de taxe foncière pour rénovation"
+
+const description =
+  "Découvrez une sélection de communes éligibles à l'exonération de taxe foncière pour rénovation energétique"
 export const metadata: Metadata = {
-  title: 'API - Mes aides réno',
-  description:
-    "Découvrez la documentation de l'API de calcul des aides à la rénovation",
+  title,
+  description,
 }
-
-const iframeCode = `
-<iframe src="https://mesaidesreno.beta.gouv.fr/module/integration" style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
-              --shadow-elevation-medium: 0.3px 0.5px 0.7px
-                  hsl(var(--shadow-color) / 0.36),
-                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
-              box-shadow: var(--shadow-elevation-medium);
-
-"></iframe>
-`
 
 export default function Module({}) {
   return (
@@ -47,19 +39,19 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Module de calcul</BlueEm> d'aide pour un achat de passoire
-              thermique
+              Communes éligibles à l'
+              <BlueEm>exonération rénovation</BlueEm> de la taxe foncière
             </h1>
             <Intro>
               <p>
-                Mes Aides Réno est un service public de calcul des aides à la
-                rénovation energétique. Le sujet est complexe, les aides sont
-                multiples, les règles sont mouvantes.
+                Les collectivités locales peuvent proposer une exonération de la
+                taxe foncière sur les propriétés bâties (TFPB) pour certains
+                logements rénovés.
               </p>
               <p>
-                En intégrant directement notre calculateur sous forme d'iframe
-                chez vous, vous permettez à vos utilisateurs de calculer leurs
-                aides sans qu'ils quittent votre site.
+                Il n'existe pas encore de liste officielle complète des communes
+                qui proposent cette exonération. Découvrez ici une sélection à
+                titre indicatif.
               </p>
             </Intro>
           </div>
@@ -67,22 +59,40 @@ export default function Module({}) {
 
         <Wrapper>
           <Content>
-            <Suspense>
-              <AmpleurDemonstration />
-            </Suspense>
+            <p>
+              C'est la commune du logement qui ouvre droit à l'exonération de
+              taxe foncière, pas la commune de résidence du propriétaire du
+              logement.
+            </p>
+            <p>
+              Voici une sélection des communes qui sembleraient offrir cette
+              exonération :
+            </p>
+            <ul>
+              {communes.map(({ commune, source }) => (
+                <li key={commune}>{commune}</li>
+              ))}
+            </ul>
+            <br />
+            <p>
+              Sources :{' '}
+              {communes.reduce(
+                (memo, next) => memo.add(next.source),
+                new Set(),
+              )}
+            </p>
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
           <Content>
-            <h2>Comment l'intégrer ?</h2>
+            <h2>Comment vérifier l'éligibilité de votre commune ?</h2>
             <p>
-              Voici{' '}
+              Vous devez
               <BlueEm>
-                <strong>le code à intégrer</strong>
+                <strong>contacter les services de communes</strong>
               </BlueEm>{' '}
-              dans votre HTML ou votre contenu Wordpress :
+              pour vous assurer de votre éligibilité à cette exonération.
             </p>
-            <code>{iframeCode}</code>
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
