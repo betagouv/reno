@@ -16,7 +16,7 @@ import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
-import ScenariosSelector from './ScenariosSelector'
+import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import SmartInput from './SmartInput'
 import questionType from './publicodes/questionType'
 
@@ -268,7 +268,7 @@ export default function InputSwitch({
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
-      <ScenariosSelector
+      <AidesAmpleur
         {...{
           currentQuestion,
           setSearchParams,

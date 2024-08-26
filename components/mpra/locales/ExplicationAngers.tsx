@@ -1,4 +1,4 @@
-import { Value } from '@/components/ScenariosSelector'
+import Value from '@/components/Value'
 
 const Base = ({ engine, situation, choice, showTotal }) => (
   <span>

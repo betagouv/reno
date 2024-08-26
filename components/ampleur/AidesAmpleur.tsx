@@ -1,22 +1,21 @@
 import ExplanationValue from '@/components/explications/Value'
-import { formatValue } from '@/node_modules/publicodes/dist/index'
 import informationIcon from '@/public/information.svg'
-import Image from 'next/image'
-import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
-import DPEQuickSwitch from './DPEQuickSwitch'
-import MapBehindCTA from './MapBehindCTA'
-import PaymentTypeBlock, { PaymentType } from './PaymentTypeBlock'
-import { Card, PrimeStyle } from './UI'
-import { compute } from './explications/Aide'
-import { Key } from './explications/ExplicationUI'
-import DPEScenario from './mpra/DPEScenario'
-import QuestionsRéponses from './mpra/QuestionsRéponses'
-import TargetDPETabs from './mpra/TargetDPETabs'
-import { roundToThousands } from './utils'
 import starIcon from '@/public/star-full-gold.svg'
+import Image from 'next/image'
+import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
+import { CustomQuestionWrapper } from '../CustomQuestionUI'
+import DPEQuickSwitch from '../DPEQuickSwitch'
+import MapBehindCTA from '../MapBehindCTA'
+import PaymentTypeBlock, { PaymentType } from '../PaymentTypeBlock'
+import { Card, PrimeStyle } from '../UI'
+import { compute } from '../explications/Aide'
+import DPEScenario from '../mpra/DPEScenario'
+import QuestionsRéponses from '../mpra/QuestionsRéponses'
+import TargetDPETabs from '../mpra/TargetDPETabs'
+import { roundToThousands } from '../utils'
+import Value from '../Value'
 
-export default function ScenariosSelector({
+export default function AidesAmpleur({
   setSearchParams,
   situation: givenSituation,
   currentQuestion,
@@ -377,34 +376,5 @@ export const Avance = ({
         <span>(30&nbsp;%)</span> après les travaux
       </li>
     </ol>
-  )
-}
-
-export const Value = ({ engine, situation, dottedName, state = 'none' }) => {
-  const evaluation = engine.setSituation(situation).evaluate(dottedName),
-    value = formatValue(evaluation, { precision: 0 })
-  const missingVariables = evaluation.missingVariables
-  const missing = Object.entries(missingVariables)
-
-  console.log('vv', value, missingVariables)
-
-  return (
-    <Key $state={state || (missing.length > 0 ? 'inProgress' : 'final')}>
-      {false && missing.length > 0 ? (
-        <span
-          css={`
-            display: inline-block;
-            padding: 0 1rem;
-            background: var(--lighterColor);
-            border-radius: 0.3rem;
-            font-weight: 300;
-          `}
-        >
-          ... €
-        </span>
-      ) : (
-        value
-      )}
-    </Key>
   )
 }

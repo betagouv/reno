@@ -2,7 +2,7 @@ import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import styled from 'styled-components'
 import DPELabel from '../DPELabel'
-import { Value } from '../ScenariosSelector'
+import Value from '@/components/Value'
 
 export const InapplicableBlock = styled.div`
   margin: 1rem 0;

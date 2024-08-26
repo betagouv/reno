@@ -1,4 +1,4 @@
-import { Value } from '../ScenariosSelector'
+import Value from '@/components/Value'
 import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 
