@@ -20,8 +20,16 @@ export function generateMetadata(
   const rule = rules[dottedName]
   const { description: rawDescription } = rule ?? {}
 
-  const title = getRuleTitle(dottedName, rules),
-    description = rawDescription != null && markdownToPlainText(rawDescription)
+  const title = getRuleTitle(dottedName, rules)
+
+  let description
+
+  try {
+    if (rawDescription != null)
+      description = markdownToPlainText(rawDescription)
+  } catch (e) {
+    console.log(e)
+  }
 
   return {
     title,
