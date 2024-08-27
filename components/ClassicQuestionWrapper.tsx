@@ -12,12 +12,11 @@ import { Card } from './UI'
 import { getRuleName } from './publicodes/utils'
 import { categoryData } from '@/app/simulation/Answers'
 
-export const QuestionText = ({ rule, question: dottedName, rules }) => {
+export const QuestionText = ({ rule, question: dottedName, rules, situation, engine }) => {
   if (isMosaicQuestion(dottedName, rule, rules))
     return gestesMosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
-  const text = rule.question || rule.titre || ruleName
-
+  const text = rule.question.texte ? engine.setSituation(situation).evaluate(rule.question).nodeValue : rule.question || rule.titre || ruleName
   if (text.endsWith(' ?'))
     return <span>{text.replace(/\s\?$/, '')}&nbsp;?</span>
   return <span>{text}</span>
@@ -50,7 +49,7 @@ export default function ClassicQuestionWrapper({
             <QuestionHeader>
               <small>{categoryTitle}</small>
               <h3>
-                <QuestionText {...{ rule, question: currentQuestion, rules }} />
+                <QuestionText {...{ rule, question: currentQuestion, rules, situation, engine }} />
               </h3>
               {rule['sous-titre'] && (
                 <div
