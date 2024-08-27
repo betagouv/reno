@@ -6,7 +6,6 @@ import {
 } from '@/components/publicodes/situationUtils'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import { transformObject } from '@/components/utils'
 import Link from '@/node_modules/next/link'
 import styled from 'styled-components'
 import { useMediaQuery } from 'usehooks-ts'
@@ -31,17 +30,10 @@ export const categoryData = (
     allCategories = categoryMap([...answeredQuestions, ...nextQuestions])
 
   const category = firstLevelCategory(currentQuestion)
-
-  const categoryIndex = pastCategories.length + 1,
-    categoryTitle = currentQuestion && rules[category]?.titre
-
-  const isLastCategory = nextQuestions.every(
-    (question) => firstLevelCategory(question) === category,
-  )
-
+  const categoryTitle = currentQuestion && rules[category]?.titre
+  const isLastCategory = currentQuestion == nextQuestions.slice(-1)
   return {
     categoryTitle,
-    categoryIndex,
     isLastCategory,
     allCategories,
     pastCategories,
@@ -66,19 +58,27 @@ export default function Answers({
     event.preventDefault();
   };
 
-  console.log({ rawAnsweredQuestions })
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) => el !== 'simulation . mode',
+    (el) => !['simulation . mode', "ménage . code région", "ménage . code département"].includes(el)
   )
 
   const {
-    categoryIndex,
-    categoryTitle,
     isLastCategory,
     allCategories,
     pastCategories,
   } = categoryData(nextQuestions, currentQuestion, answeredQuestions, rules)
-
+  
+  // Dans le cas du simulateur principale, on considère que le questionnaire s'arrête au moment du choix du parcours d'aide
+  const nbQuestionTotal = answeredQuestions.indexOf('parcours d\'aide') !== -1 ?
+                            answeredQuestions.indexOf('parcours d\'aide') :
+                            (answeredQuestions.length + 
+                              (nextQuestions.indexOf('parcours d\'aide') !== -1 ?
+                                nextQuestions.indexOf('parcours d\'aide') :
+                                nextQuestions.length
+                              )
+                            )
+                            
+  const indexQuestionActuel = answeredQuestions.length + 1
   const setSearchParams = useSetSearchParams()
   return (
     <Wrapper>
@@ -93,18 +93,20 @@ export default function Answers({
               }
             `}
           >
-            <small>
-              {isLastCategory ? (
-                'Dernière étape'
-              ) : (
-                <span
-                  title={`Étape ${categoryIndex} sur un total de ${allCategories.length} étapes. Cliquez pour obtenir le détail.`}
-                >
-                  {!isMobile && 'Étape '}
-                  <Number>{categoryIndex}</Number> sur {allCategories.length}
-                </span>
-              )}
-            </small>
+            {indexQuestionActuel <= nbQuestionTotal &&
+              <small>
+                {isLastCategory ? (
+                  'Dernière étape'
+                ) : (
+                  <span
+                    title={`Étape ${indexQuestionActuel} sur un total de ${nbQuestionTotal} étapes. Cliquez pour obtenir le détail.`}
+                  >
+                    {!isMobile && 'Étape '}
+                    <Number>{indexQuestionActuel}</Number> sur {nbQuestionTotal}
+                  </span>
+                )}
+              </small>
+            }
           </div>
 
           <div
@@ -210,7 +212,7 @@ export default function Answers({
               margin-bottom: 1rem;
             `}
           >
-            {allCategories.slice(categoryIndex).map(([k, v]) => (
+            {allCategories.slice(indexQuestionActuel).map(([k, v]) => (
               <li key={k}>{getRuleTitle(k, rules)}</li>
             ))}
           </ol>
@@ -219,7 +221,7 @@ export default function Answers({
           )}
         </Card>
       </Details>
-      <ProgressBar $ratio={(categoryIndex - 1) / allCategories.length} />
+      <ProgressBar $ratio={(indexQuestionActuel - 1) / nbQuestionTotal} />
     </Wrapper>
   )
 }
