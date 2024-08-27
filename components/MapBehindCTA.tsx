@@ -3,20 +3,34 @@ import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import Image from 'next/image'
 import { useState } from 'react'
 import { CTA, CTAWrapper } from './UI'
+import { useSearchParams } from 'next/navigation'
+import useSetSearchParams from './useSetSearchParams'
 
+// Appelé "Map" parce qu'on montrait les conseillers sur une carte, mais ça a été retiré temporairement pour se concentrer sur une première mise en prod plus simple, mais la carte marchait
 export default function MapBehindCTA({
   link,
   what,
   codeInsee,
   text,
   importance,
+  searchParams,
 }) {
-  const [showMap, setShowMap] = useState(false)
+  const clickedCta = searchParams.cta
+  const setSearchParams = useSetSearchParams()
+  const clickCta = () =>
+    setSearchParams({
+      cta:
+        clickedCta == null
+          ? 'cliqué'
+          : clickedCta === 'cliqué'
+            ? 'refermé'
+            : 'cliqué',
+    })
   return (
     <section>
       <CTAWrapper $justify="left">
         <CTA $importance={importance}>
-          <button onClick={() => setShowMap(!showMap)}>
+          <button onClick={clickCta}>
             <span
               css={`
                 display: flex;
@@ -48,7 +62,7 @@ export default function MapBehindCTA({
 
       <div
         css={`
-          display: ${!showMap ? 'none' : 'block'};
+          display: ${clickedCta !== 'cliqué' ? 'none' : 'block'};
         `}
       >
         <MarSearch codeInsee={codeInsee} what={what} />
