@@ -1,10 +1,10 @@
-import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
 import Geste from './Geste'
 import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
-import { encodeDottedName } from './publicodes/situationUtils'
+import MapBehindCTA from './MapBehindCTA'
 import { Card } from './UI'
+import { encodeDottedName } from './publicodes/situationUtils'
 
 export default function GestesBasket({
   rules,
@@ -12,6 +12,7 @@ export default function GestesBasket({
   situation,
   answeredQuestions,
   setSearchParams,
+  searchParams,
 }) {
   const gestes = gestesMosaicQuestions.filter((q) => {
     const active = situation[q[0]] === 'oui'
@@ -94,9 +95,15 @@ export default function GestesBasket({
         </a>
         .
       </small>
-      <MarSearch
-        codeInsee={situation['ménage . commune']?.replace(/'/g, '')}
-        what="trouver-conseiller-renov"
+
+      <MapBehindCTA
+        {...{
+          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+          searchParams,
+          what: 'trouver-conseiller-renov',
+          text: 'Trouver mon conseiller',
+          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
+        }}
       />
     </div>
   )
