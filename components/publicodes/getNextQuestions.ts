@@ -34,8 +34,7 @@ export default function getNextQuestions(
     firstEntry = orderedEntries[0],
     maxScore = firstEntry ? firstEntry[1] : 0,
     prio = questionsConfig.prioritaires || []
-      console.log("prio", prio)
-      console.log("orderedEntries", orderedEntries)
+    
   const artificialOrdered = sortBy(([k, v]) =>
     prio.includes(k)
       ? maxScore + [...prio].reverse().findIndex((kk) => kk === k) + 1
