@@ -18,17 +18,17 @@ copropriété . condition 15 ans:
   question: La copropriété a-t-elle été construite il y a plus de 15 ans?
   par défaut: oui
 copropriété . condition résidence principale:
-copropriété . condition résidence principale . minimum 75 %:
-  applicable si: nombre de logement > 20
-  question: La copropriété est-elle composée de minimum 75 % de logement dédié à l'usage d'habitation principale?
+  question:
+    texte: >
+      La copropriété est-elle composée de minimum {{ pourcent }} de logement dédié à l'usage d'habitation principale?
+    avec:
+      pourcent:
+        variations:
+          - si: copropriété . nombre de logement > 20 
+            alors: 75 %
+          - sinon: 65 %
   description: |
-    A défaut, on raisonnera en terme de tantième
-  par défaut: oui
-copropriété . condition résidence principale . minimum 65 %:
-  applicable si: nombre de logement <= 20
-  question: La copropriété est-elle composée de minimum 65 % de logement dédié à l'usage d'habitation principale?
-  description: |
-    ou a défaut de tantième
+      A défaut, on raisonnera en terme de tantième
   par défaut: oui
 
 copropriété . gain énergétique:
@@ -85,9 +85,7 @@ copropriété . pourcentage d'aide:
 
 copropriété . condition éligibilité:
   toutes ces conditions:
-    - une de ces conditions:
-        - condition résidence principale . minimum 75 %
-        - condition résidence principale . minimum 65 %
+    - condition résidence principale
     - condition 15 ans
     - une de ces conditions:
       - gain énergétique = gain énergétique . entre 35 % et 50 %
