@@ -276,6 +276,7 @@ export default function InputSwitch({
           answeredQuestions,
           engine,
           rules,
+          searchParams,
         }}
       />
     )
@@ -320,6 +321,7 @@ export default function InputSwitch({
           situation,
           answeredQuestions,
           setSearchParams,
+          searchParams,
         }}
       />
     )

@@ -22,6 +22,7 @@ export default function ScenariosSelector({
   answeredQuestions,
   engine,
   rules,
+  searchParams,
 }) {
   console.log('indigo plop', givenSituation)
   const situation = //omit(['projet . travaux'], givenSituation)
@@ -42,10 +43,11 @@ export default function ScenariosSelector({
 
   return (
     <CustomQuestionWrapper>
-      <BtnBackToParcoursChoice {...{
+      <BtnBackToParcoursChoice
+        {...{
           setSearchParams,
           situation,
-          answeredQuestions
+          answeredQuestions,
         }}
       />
       <header>
@@ -160,7 +162,7 @@ export default function ScenariosSelector({
         <MapBehindCTA
           {...{
             codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
+            searchParams,
             what: 'trouver-conseiller-renov',
             text: 'Trouver mon conseiller',
             link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
