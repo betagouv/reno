@@ -68,6 +68,7 @@ export default function GesteQuestion({
           rules,
           engine,
           situation,
+          answeredQuestions,
           setSearchParams,
           evaluation,
         }}
