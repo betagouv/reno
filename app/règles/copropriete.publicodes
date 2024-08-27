@@ -22,7 +22,7 @@ copropriété . condition résidence principale . minimum 75 %:
   applicable si: nombre de logement > 20
   question: La copropriété est-elle composée de minimum 75 % de logement dédié à l'usage d'habitation principale?
   description: |
-    ou a défaut de tantième
+    A défaut, on raisonnera en terme de tantième
   par défaut: oui
 copropriété . condition résidence principale . minimum 65 %:
   applicable si: nombre de logement <= 20
@@ -89,6 +89,9 @@ copropriété . condition éligibilité:
         - condition résidence principale . minimum 75 %
         - condition résidence principale . minimum 65 %
     - condition 15 ans
+    - une de ces conditions:
+      - gain énergétique = gain énergétique . entre 35 % et 50 %
+      - gain énergétique = gain énergétique . plus de 50 %
     - est défini: bonus sortie passoire
     - est défini: bonus copropriété fragile
 copropriété . montant:
