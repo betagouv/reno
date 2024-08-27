@@ -16,6 +16,8 @@ import checkIcon from '@/public/check.svg'
 import { Value } from '../ScenariosSelector'
 import informationIcon from '@/public/information.svg'
 import Link from 'next/link'
+import MprCategory from '../MprCategory'
+import { omit } from '@/components/utils'
 
 export default function ExplicationCopropriete() {
     useSyncUrlLocalStorage()
@@ -41,6 +43,9 @@ export default function ExplicationCopropriete() {
     const isFragile = evaluation.evaluate("copropriété . bonus copropriété fragile").nodeValue
     const isPassoire = evaluation.evaluate("copropriété . bonus sortie passoire").nodeValue
     const isEligibile = evaluation.evaluate("copropriété . condition éligibilité").nodeValue
+    
+    const primeMaxCoproIndividuelle = formatValue(engine.setSituation(omit(['ménage . revenu'], situation))
+                                                        .evaluate('copropriété . prime individuelle totale'))
 
     return (
       <Section>
@@ -284,16 +289,21 @@ export default function ExplicationCopropriete() {
                 <span>Ce n'est pas tout!</span>
               </div>
               <p>Les copropriétaires sont potentiellement éligibles à{' '}
-                <PrimeStyle><strong>{formatValue(engine.evaluate('copropriété . prime individuelle totale'))}</strong></PrimeStyle>
+                  <PrimeStyle><strong>{primeMaxCoproIndividuelle}</strong></PrimeStyle>
                 {' '}d'aide supplémentaire.
               </p>
-              <p>En effet, chaque copropriétaires peut bénéficier individuellement d'une prime pouvant s'élever à{' '}
-                <PrimeStyle><strong>{formatValue(engine.evaluate('copropriété . prime individuelle'))}</strong></PrimeStyle> par logement en fonction de ses revenus.
+              <p>En effet, chaque copropriétaire peut bénéficier individuellement d'une prime pouvant s'élever à{' '}
+                <PrimeStyle><strong>{rules["copropriété . prime individuelle"]["par défaut"]}</strong></PrimeStyle> par logement en fonction de ses revenus.
               </p>
             </div>
+            <MprCategory {...{
+              engine,
+              situation,
+              setSearchParams,
+              answeredQuestions
+            }}></MprCategory>
           </>
         }
-
       </Section>
     )
 }

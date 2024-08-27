@@ -116,3 +116,4 @@ copropriété . prime individuelle:
       alors: 3000 €
     - si: ménage . revenu . classe = 'modeste'
       alors: 1500 €
+    - sinon: 0 €
