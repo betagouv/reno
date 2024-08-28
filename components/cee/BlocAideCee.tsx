@@ -111,9 +111,8 @@ export const BlocAideCEE = ({
             <span>Informations</span>
           </div>
           <p>
-            Ce montant est le minimum imposé par l'État, les fournisseurs
-            d'énergies sont libres d'appliquer leur propre formule tant qu'elle
-            reste plus avantageuse.
+            Ce montant vous est donné à titre indicatif, il vous appartient de
+            mettre en concurrence les offres CEE des fournisseurs d'énergie.
           </p>
         </div>
         {infoCEE.questions?.map((question, idx) => (
@@ -141,7 +140,7 @@ export const BlocAideCEE = ({
                 padding: 0.75rem;
               `}
             >
-              {'Prime minimum de '}
+              {'Prime indicative de '}
               <strong
                 css={`
                   font-size: 1.5rem;
@@ -156,4 +155,3 @@ export const BlocAideCEE = ({
     </BlocAide>
   )
 }
-
