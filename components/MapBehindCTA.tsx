@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { CTA, CTAWrapper } from './UI'
 
+//TODO this component should be turned into a <details tag, like AideAmpleur's CTA
 export default function MapBehindCTA({
   link,
   what,
