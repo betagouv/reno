@@ -6,14 +6,22 @@ import informationIcon from '@/public/information.svg'
 import { BlocAide, InlineLink, PrimeStyle } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 
-export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestions, setSearchParams, displayPrime="top" }) => {
-
-  const isExactTotal = infoCEE.questions?.filter((q) => rules[q].question)
-                                        .every(e => Object.keys(situation).includes(e))
+export const BlocAideCEE = ({
+  infoCEE,
+  rules,
+  engine,
+  situation,
+  answeredQuestions,
+  setSearchParams,
+  displayPrime = 'top',
+}) => {
+  const isExactTotal = infoCEE.questions
+    ?.filter((q) => rules[q].question)
+    .every((e) => Object.keys(situation).includes(e))
 
   // Par défaut, on propose les valeurs max (cela sert aussi à sélectionner des valeurs dans les <select>)
   infoCEE.questions?.map((q) => {
-    if(!Object.keys(situation).includes(q) && rules[q].maximum) {
+    if (!Object.keys(situation).includes(q) && rules[q].maximum) {
       situation[q] = rules[q].maximum
     }
   })
@@ -35,8 +43,8 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
       <div className="aide-header">
         <Image src={ceeImage} alt="logo Cee" width="60" />
         <div>
-          {displayPrime === "top" && (
-            infoCEE.montant === 'Non applicable' ? (
+          {displayPrime === 'top' &&
+            (infoCEE.montant === 'Non applicable' ? (
               <>
                 <PrimeStyle $inactive={true}>
                   <strong>Non applicable</strong>
@@ -48,11 +56,10 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
               </>
             ) : (
               <PrimeStyle>
-                {'Prime minimum de '}
+                {'Prime indicative de '}
                 <strong>{infoCEE.montant}</strong>
               </PrimeStyle>
-            )
-          )}
+            ))}
           <h3>
             Prime CEE (Certificats d'Économie d'Énergie)
             <br />
@@ -104,9 +111,8 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
             <span>Informations</span>
           </div>
           <p>
-            Ce montant est le minimum imposé par l'État, les fournisseurs
-            d'énergies sont libres d'appliquer leur propre formule tant
-            qu'elle reste plus avantageuse.
+            Ce montant vous est donné à titre indicatif, il vous appartient de
+            mettre en concurrence les offres CEE des fournisseurs d'énergie.
           </p>
         </div>
         {infoCEE.questions?.map((question, idx) => (
@@ -122,11 +128,26 @@ export const BlocAideCEE = ({ infoCEE, rules, engine, situation, answeredQuestio
             }}
           />
         ))}
-        {displayPrime === "bottom" && (
-          <div css={`justify-content: end;display: flex;`}>
-            <PrimeStyle css={`padding: 0.75rem;`}>
-              {'Prime minimum de '}
-              <strong css={`font-size: 1.5rem;`}>{isExactTotal ? infoCEE.montant : "..."}</strong>
+        {displayPrime === 'bottom' && (
+          <div
+            css={`
+              justify-content: end;
+              display: flex;
+            `}
+          >
+            <PrimeStyle
+              css={`
+                padding: 0.75rem;
+              `}
+            >
+              {'Prime indicative de '}
+              <strong
+                css={`
+                  font-size: 1.5rem;
+                `}
+              >
+                {isExactTotal ? infoCEE.montant : '...'}
+              </strong>
             </PrimeStyle>
           </div>
         )}
