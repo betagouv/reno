@@ -21,6 +21,7 @@ export default function MapBehindCTA({
               css={`
                 display: flex;
                 align-items: center;
+                padding: 0.6rem 0;
                 img {
                   filter: invert(1);
                   width: 1.8rem;

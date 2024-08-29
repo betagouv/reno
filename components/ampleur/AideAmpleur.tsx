@@ -30,7 +30,6 @@ export default function AideAmpleur({ dottedName, children }) {
           align-items: center;
         `}
       >
-        {' '}
         {isFavorite && (
           <Image
             src={starIcon}
@@ -95,12 +94,13 @@ export function AideCTA({ children, text }) {
       `}
     >
       <summary>
-        <CTA>
+        <CTA $importance="secondary">
           <span>
             <span
               css={`
                 display: flex;
                 align-items: center;
+                padding: 0.6rem 0;
                 img {
                   filter: invert(1);
                   width: 1.8rem;

@@ -12,6 +12,7 @@ import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import EcoPTZ from './EcoPTZ'
 import Copro from './Copro'
+import FatConseiller from '../FatConseiller'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -87,6 +88,7 @@ export default function AidesAmpleur({
           }}
         />
       </section>
+      <FatConseiller codeInsee={situation['ménage . commune']} />
       <QuestionsRéponses
         {...{
           engine,
