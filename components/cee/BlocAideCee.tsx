@@ -56,7 +56,7 @@ export const BlocAideCEE = ({
               </>
             ) : (
               <PrimeStyle>
-                {'Prime minimum de '}
+                {'Prime indicative de '}
                 <strong>{infoCEE.montant}</strong>
               </PrimeStyle>
             ))}
