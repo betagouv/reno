@@ -8,7 +8,7 @@ import { getAnsweredQuestions, getSituation } from '@/components/publicodes/situ
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Publicodes from 'publicodes'
 import simulationConfigCopropriete from '../../app/copropriete/simulationConfigCopro.yaml'
-import { Suspense, useMemo } from 'react'
+import { useMemo } from 'react'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Answers from '@/app/simulation/Answers'
@@ -45,7 +45,7 @@ export default function Copropriete() {
     const setSearchParams = useSetSearchParams()
 
     return (
-    <Suspense>
+    <div>
       <Section>
         <Answers
           {...{
@@ -84,6 +84,6 @@ export default function Copropriete() {
           />
         )}
       </Section>
-    </Suspense>
+    </div>
   )
 }

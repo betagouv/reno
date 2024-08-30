@@ -1,6 +1,7 @@
 import Copropriete from '@/components/copropriete/Copropriete'
 import { Main, PageBlock } from '@/components/UI'
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 
 const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre copropriété.`
 
@@ -16,7 +17,9 @@ export default function Page() {
   return (
     <PageBlock>
       <Main>
-        <Copropriete />
+        <Suspense>
+          <Copropriete />
+        </Suspense>
       </Main>
     </PageBlock>
   )
