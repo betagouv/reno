@@ -55,7 +55,7 @@ copropriété . pourcentage gain énergétique:
       alors: 45%
 
 copropriété . bonus sortie passoire:
-  question: Votre immeuble est-il classe F ou G et atteindra-t-il après rénovation à minima une classe D?
+  question: Votre immeuble est-il classe F ou G et atteindra-t-il après rénovation à minima une classe D ?
   par défaut: oui
 copropriété . pourcentage sortie passoire:
   variations:
