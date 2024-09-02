@@ -12,7 +12,10 @@ copropriété . nombre de logement:
   unité: logements
 copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
-  par défaut: 50000€
+  par défaut:
+    produit:
+      - nombre de logement
+      - 10000€ # Nombre arbitraire pour le montant moyen des travaux par logement
   unité: "€"
 copropriété . condition 15 ans:
   question: La copropriété a-t-elle été construite il y a plus de 15 ans?

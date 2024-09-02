@@ -32,11 +32,13 @@ export default function ExplicationCopropriete() {
     }
 
     const exampleSituation = {
+      ...situation,
       'copropriété . montant travaux': roundToThousands(
-        engine.evaluate('copropriété . montant travaux').nodeValue,
+        engine
+          .setSituation({'copropriété . nombre de logement': situation['copropriété . nombre de logement']})
+          .evaluate('copropriété . montant travaux').nodeValue,
         5,
       ),
-      ...situation,
     }
     const evaluation = engine.setSituation(exampleSituation)
     const setSearchParams = useSetSearchParams()
