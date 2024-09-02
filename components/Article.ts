@@ -4,6 +4,9 @@ import styled from 'styled-components'
 const Article = styled.article`
   margin: 0 auto;
 
+  p {
+    margin: 1.2rem 0;
+  }
   header {
     background: white;
     padding: 0 0.8rem;
@@ -31,7 +34,7 @@ const Article = styled.article`
     text-align: center;
   }
   header + section {
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
     padding: 0 1rem;
   }
@@ -73,9 +76,8 @@ const Article = styled.article`
     }
   }
   blockquote {
-    margin-left: 0;
     padding-left: 1.2rem;
-    margin-top: 1rem;
+    margin: 1rem 0;
     border-left: 6px solid var(--lightColor);
   }
   ul {
