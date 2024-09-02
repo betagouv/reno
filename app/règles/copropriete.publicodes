@@ -8,7 +8,7 @@ copropriété:
         
     L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
 copropriété . nombre de logement:
-  question: Combien de logement compose la copropriété?
+  question: Combien de logements composent la copropriété?
   unité: logements
 copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
