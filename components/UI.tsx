@@ -182,7 +182,8 @@ export const CTAWrapper = styled.div`
   > div:last-child {
     margin-right: 0;
   }
-  }
+
+  ${(p) => p.$customCss}
 `
 export const CTA = styled.div`
   > button {
@@ -488,4 +489,3 @@ export const CardLink = styled(Card)`
     color: black;
   }
 `
-

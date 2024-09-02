@@ -9,6 +9,7 @@ import { dateCool, getLastEdit } from '../utils'
 import { mdxComponents } from '../mdxComponents'
 import { ArticleCta, BlogBackButton } from '../UI'
 import OtherArticles from '../OtherArticles'
+import { CTA, CTAWrapper } from '@/components/UI'
 
 export const articles = allArticles.filter((article) => !article.brouillon)
 
@@ -72,7 +73,7 @@ export default async function Post({ params }: Props) {
             )}
           </div>
           <h1>{post.titre}</h1>
-          <p dangerouslySetInnerHTML={{__html:post.description}}></p>
+          <p dangerouslySetInnerHTML={{ __html: post.description }}></p>
           <small>
             publié le <time dateTime={post.date}>{dateCool(post.date)}</time>
             {!sameEditDate && (
@@ -86,9 +87,30 @@ export default async function Post({ params }: Props) {
       </header>
       <section>
         <MDXContent components={mdxComponents} />
+        {post.cta && (
+          <div
+            style={css`
+              margin-top: 1rem;
+            `}
+          >
+            <p>{post.cta} :</p>
+
+            <CTAWrapper
+              $justify="center"
+              $customCss={`
+                margin-top: 1rem !important;
+              `}
+            >
+              <CTA $fontSize="normal">
+                <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+              </CTA>
+            </CTAWrapper>
+          </div>
+        )}
         <Contribution slug={params.slug} />
       </section>
       <hr />
+
       <OtherArticles excludeUrl={post.url} />
       <ArticleCta />
     </Article>
