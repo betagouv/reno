@@ -27,7 +27,7 @@ copropriété . condition 15 ans:
 copropriété . condition résidence principale:
   question:
     texte: >
-      La copropriété est-elle composée de minimum {{ pourcent }} de logement dédié à l'usage d'habitation principale?
+      La copropriété est-elle composée de minimum {{ pourcent }} de logement dédié à l'usage d'habitation principale ?
     avec:
       pourcent:
         variations:
