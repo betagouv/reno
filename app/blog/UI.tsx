@@ -74,7 +74,8 @@ export const OtherArticlesList = styled.div`
       white-space: wrap;
       h3 {
         margin-top: 0.6rem;
-        height: 3rem;
+        height: 4.7rem;
+        line-height: 1.4rem;
       }
       small {
         max-height: 6rem;
@@ -86,23 +87,23 @@ export const OtherArticlesList = styled.div`
 `
 
 export const Badge = styled.span`
-    align-items: center;
-    background-color: #eee;
-    border-radius: .25rem;
-    color: #3a3a3a;
-    display: inline-flex;
-    flex-direction: row;
-    font-size: .875rem;
-    font-weight: 700;
-    line-height: 1.5rem;
-    max-height: none;
-    max-width: 100%;
-    min-height: 1.5rem;
-    overflow: initial;
-    padding: 0 .5rem;
-    text-transform: uppercase;
-    width: -moz-fit-content;
-    width: fit-content;
+  align-items: center;
+  background-color: #eee;
+  border-radius: 0.25rem;
+  color: #3a3a3a;
+  display: inline-flex;
+  flex-direction: row;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  max-height: none;
+  max-width: 100%;
+  min-height: 1.5rem;
+  overflow: initial;
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+  width: -moz-fit-content;
+  width: fit-content;
 `
 
 export const ArticleCta = () => (
@@ -152,4 +153,3 @@ export const ArticleCta = () => (
     </section>
   </div>
 )
-
