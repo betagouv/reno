@@ -32,6 +32,7 @@ const Article = styled.article`
     margin-bottom: 1rem;
     line-height: 2.6rem;
     text-align: center;
+    margin-top: 4rem;
   }
   header + section {
     max-width: 600px;
