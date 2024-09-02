@@ -107,8 +107,8 @@ export default function Page() {
           </div>
         </LandingGreenBanner>
         <HomepageSteps />
-        <HomepageTalkAboutUs />
         <HomepageTestimonies />
+        <HomepageTalkAboutUs />
       </PageBlock>
     </main>
   )
