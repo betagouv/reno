@@ -46,7 +46,7 @@ const Article = styled.article`
     max-width: 90%;
     max-height: 30rem;
     display: block;
-    margin: 1rem auto;
+    margin: 4vh auto;
   }
 
   @media (max-width: 800px) {
