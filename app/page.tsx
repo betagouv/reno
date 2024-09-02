@@ -84,8 +84,8 @@ export default function Page() {
               </CTA>
             </CTAWrapper>
             <CTAWrapper $justify="left">
-              <CTA $fontSize="normal">
-                <Link href="/copropriete">➞&nbsp;&nbsp;Je représente une copropriété !</Link>
+              <CTA $fontSize="normal" $importance="secondary" style={css`padding: 0.5rem 0;`}>
+                <Link href="/copropriete">Je représente une copropriété</Link>
               </CTA>
             </CTAWrapper>
             <FromStorageSimulationButton />
