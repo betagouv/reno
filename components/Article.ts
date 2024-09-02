@@ -107,6 +107,11 @@ const Article = styled.article`
     text-decoration-color: var(--lightColor);
     text-decoration-style: wavy;
   }
+  ul {
+    li {
+      margin: 0.6rem 0;
+    }
+  }
 `
 
 export default Article
