@@ -9,6 +9,10 @@ copropriété:
     L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
 copropriété . nombre de logement:
   question: Combien de logements composent la copropriété?
+  suggestions:
+    10 logements: 10
+    30 logements: 30
+    60 logements: 60
   unité: logements
 copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
@@ -31,7 +35,7 @@ copropriété . condition résidence principale:
             alors: 75 %
           - sinon: 65 %
   description: |
-      A défaut, on raisonnera en terme de tantième
+      Si votre copropriété a une majorité de volets fermés la plupart de l'année, notamment hors saison estivale, il est probable qu'elle ne soit pas éligible à l'aide.
   par défaut: oui
 
 copropriété . gain énergétique:
@@ -41,6 +45,7 @@ copropriété . gain énergétique:
       - 'moins de 35 %'
       - 'entre 35 % et 50 %'
       - 'plus de 50 %'
+  description: Bien sûr, il y a peu de chance que vous ayez ce chiffre en tête, n'hésitez pas à faire plusieurs simulations
 copropriété . gain énergétique . moins de 35 %:
   valeur: "'moins de 35 %'"
   titre: moins de 35 %
