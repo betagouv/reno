@@ -94,7 +94,13 @@ export default async function Post({ params }: Props) {
               margin-top: 1rem;
             `}
           >
-            <p>{post.cta} :</p>
+            <p
+              style={css`
+                text-wrap: nowrap;
+              `}
+            >
+              {post.cta} :
+            </p>
 
             <CTAWrapper
               $justify="center"
