@@ -11,8 +11,8 @@ const engine = new Publicodes(rules)
 export default function APIDemo({titre, type}) {
   const [yaml, setYaml] = useState(stringify(example[type]))
   const [debouncedYaml] = useDebounce(yaml, 500)
-
-  const mpra = useMemo(() => {
+  
+  const montant = useMemo(() => {
     try {
       const json = parse(debouncedYaml)
       const evaluation = engine
@@ -21,7 +21,7 @@ export default function APIDemo({titre, type}) {
           'gestes . chauffage . PAC . air-eau . MPR . montant' : 
           (type == "copropriete" ?
             'copropriété . montant' :
-            'MPR . accompagnée . montant'
+            (type == "cee" ? 'gestes . isolation . murs extérieurs . CEE . montant' : ' MPR . accompagnée . montant')
           )
         )
       return formatValue(evaluation, { precision: 0 })
@@ -47,7 +47,7 @@ export default function APIDemo({titre, type}) {
       />
       <EvaluationValue>
         <small>{titre}</small>{' '}
-        <div>{typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}</div>
+        <div>{typeof montant === 'string' ? montant : <p>{montant.toString()}</p>}</div>
       </EvaluationValue>
     </section>
   )

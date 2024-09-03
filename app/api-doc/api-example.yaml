@@ -30,3 +30,6 @@ copropriete:
  copropriété . bonus sortie passoire: oui
  copropriété . bonus copropriété fragile: non
  copropriété . montant travaux: 60000
+cee:
+  ménage . commune: "75056"
+  gestes . isolation . murs extérieurs . MPR . surface: 50

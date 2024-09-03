@@ -45,6 +45,18 @@ export default function TabsComponent() {
             Copropriété
           </button>
         </TabHeader>
+        <TabHeader role="presentation">
+          <button
+            id="tabpanel-cee"
+            tabIndex={activeTab === 'tabpanel-cee' ? 0 : -1}
+            role="tab"
+            aria-selected={activeTab === 'tabpanel-cee'}
+            aria-controls="tabpanel-cee"
+            onClick={() => setActiveTab('tabpanel-cee')}
+          >
+            CEE
+          </button>
+        </TabHeader>
       </TabHeaders>
       {activeTab === 'tabpanel-accompagne' && (
         <TabPanel
@@ -75,12 +87,22 @@ export default function TabsComponent() {
             id="tabpanel-copro"
             role="tabpanel"
             aria-labelledby="tabpanel-copro"
-            tabIndex="0"
-            hidden={activeTab !== 'tabpanel-copro'}
         >
             <APIDemo
                 type="copropriete"
                 titre="MaPrimeRénov' - Parcours Copropriété"
+            />
+        </TabPanel>
+      )}
+      {activeTab === 'tabpanel-cee' && (
+        <TabPanel
+            id="tabpanel-cee"
+            role="tabpanel"
+            aria-labelledby="tabpanel-cee"
+        >
+            <APIDemo
+                type="cee"
+                titre="CEE"
             />
         </TabPanel>
       )}
