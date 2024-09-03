@@ -12,17 +12,16 @@ export async function generateFeed() {
     site_url: domain,
     feed_url: domain + '/feed.xml',
     image_url: domain + '/jaquette.png',
-    language: 'fr_FR',
+    language: 'fr',
   })
 
   const capitalLetter = /^[A-Z]/
-
   await Promise.all(
     articles.map(async (post) => {
       feed.item({
         title: post.titre,
-        url: domain + '/blog/' + post.slug,
-        guid: post.slug,
+        url: domain + post.url,
+        guid: post.url.replace('/blog/', ''),
         date: post.date,
         /*
         description: await remark()
