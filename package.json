@@ -6,7 +6,7 @@
     "dev": "next dev -p 8080",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "postbuild": "node lib/rss.mjs && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
+    "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
     "start": "node .next/standalone/server.js"
   },
   "dependencies": {
