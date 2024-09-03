@@ -4,6 +4,9 @@ import styled from 'styled-components'
 const Article = styled.article`
   margin: 0 auto;
 
+  p {
+    margin: 1.2rem 0;
+  }
   header {
     background: white;
     padding: 0 0.8rem;
@@ -29,9 +32,10 @@ const Article = styled.article`
     margin-bottom: 1rem;
     line-height: 2.6rem;
     text-align: center;
+    margin-top: 4rem;
   }
   header + section {
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
     padding: 0 1rem;
   }
@@ -46,7 +50,8 @@ const Article = styled.article`
     max-width: 90%;
     max-height: 30rem;
     display: block;
-    margin: 1rem auto;
+    margin: 4vh auto;
+    position: relative !important;
   }
 
   @media (max-width: 800px) {
@@ -73,9 +78,8 @@ const Article = styled.article`
     }
   }
   blockquote {
-    margin-left: 0;
     padding-left: 1.2rem;
-    margin-top: 1rem;
+    margin: 1rem 0;
     border-left: 6px solid var(--lightColor);
   }
   ul {
@@ -104,6 +108,11 @@ const Article = styled.article`
     text-decoration-thickness: 3px;
     text-decoration-color: var(--lightColor);
     text-decoration-style: wavy;
+  }
+  ul {
+    li {
+      margin: 0.6rem 0;
+    }
   }
 `
 

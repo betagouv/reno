@@ -39,6 +39,7 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",
     "remark-toc": "^9.0.0",
+    "rss": "^1.2.2",
     "sharp": "^0.33.4",
     "styled-components": "^6.1.8",
     "typescript": "5.4.3",

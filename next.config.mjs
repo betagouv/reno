@@ -39,6 +39,9 @@ const nextConfig = {
     })
     return config
   },
+  async rewrites() {
+    return [{ source: '/feed.xml', destination: '/_next/static/feed.xml' }]
+  },
   async redirects() {
     return [
       // Basic redirect

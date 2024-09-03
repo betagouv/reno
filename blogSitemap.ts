@@ -1,4 +1,5 @@
 import { articles } from './app/blog/[slug]/page'
+import { generateFeed } from '@/lib/rss'
 import { getLastEdit } from './app/blog/utils'
 import { domain } from './app/sitemap'
 
@@ -13,3 +14,5 @@ export default async function generateBlogSitemap() {
     }),
   )
 }
+
+generateFeed()
