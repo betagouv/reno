@@ -1,0 +1,12 @@
+prioritaires:
+  - copropriété . condition 15 ans
+  - copropriété . nombre de logement
+  - copropriété . condition résidence principale
+  - copropriété . gain énergétique
+  - copropriété . bonus sortie passoire
+  - copropriété . bonus copropriété fragile
+non prioritaires:
+  -
+
+situation:
+  simulation . mode: "'max'"
