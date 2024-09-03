@@ -1,9 +1,10 @@
-import { Main, Section } from '@/components/UI'
-import css from '@/components/css/convertToJs'
-import Link from '@/node_modules/next/link'
-import { Metadata } from 'next/types'
-import APIDemo from './APIDemo'
-import APIDemoRest from './APIDemoRest'
+import { Main, Section, Tabs, TabHeaders, TabHeader, TabPanel } from '@/components/UI';
+import css from '@/components/css/convertToJs';
+import Link from '@/node_modules/next/link';
+import { Metadata } from 'next/types';
+import APIDemoRest from './APIDemoRest';
+import TabsComponent from './TabsComponent';
+
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
   description:
@@ -20,7 +21,7 @@ export default function APIDoc() {
         <p>
           C'est une API <a href="https://publi.codes">Publicodes</a>. Nous vous
           conseillons de faire un petit tour (10&nbsp;minutes) sur la
-          <a href="https://publi.codes/docs">documentation</a>de Publicodes pour
+          <a href="https://publi.codes/docs">documentation</a> de Publicodes pour
           mieux comprendre ses fondamentaux.
         </p>
         <p
@@ -38,9 +39,9 @@ export default function APIDoc() {
         <h3>Démonstration</h3>
         <p>
           En modifiant la <em>situation</em> (à gauche), vous obtenez une{' '}
-          <em>evaluation</em> (à droite) différente.
+          <em>évaluation</em> (à droite) différente.
         </p>
-        <APIDemo />
+        <TabsComponent />
         <h3>Que permet l'API ?</h3>
         <p>
           Calculer les deux parcours Ma Prime Rénov' 2024, accompagné et non
@@ -51,8 +52,8 @@ export default function APIDoc() {
           La situation comprend le revenu fiscal du ménage, les sauts de DPE
           envisagés, mais aussi le projet d'isolation par geste, et quelques
           autres données.
-          <p>L'API est disponible en version GET ou POST.</p>
         </p>
+        <p>L'API est disponible en version GET ou POST.</p>
         <h4>Méthode GET</h4>
         <p>
           Pour la version GET, il faut sérialiser les paramètres de la
@@ -95,7 +96,7 @@ export default function APIDoc() {
           Le modèle de calcul offre deux modes de simulation : le mode "max" qui
           maximise les aides, et le mode "moyen". Ce mode ne vous importe que si
           vous voulez afficher un résultat à l'utilisateur avant qu'il finisse
-          de répondre à toutes les questions. Les réponses manquantes (appellées{' '}
+          de répondre à toutes les questions. Les réponses manquantes (appelées{' '}
           <em>missing variables</em> dans Publicodes) seront remplacées par au
           choix, des valeurs maximales ou des valeurs moyennes estimées.
         </p>
@@ -104,8 +105,8 @@ export default function APIDoc() {
           Tout le code du calculateur (site en NextJS), l'API (Route handler
           NextJS) ainsi que les règles de calcul complètes sont disponibles sur{' '}
           <Link href="https://github.com/betagouv/reno">Github</Link>. Les
-          règles sont aussi accessibles en JSON{' '}
-          <Link href="/api/rules">cette addresse</Link>.
+          règles sont aussi accessibles en JSON à{' '}
+          <Link href="/api/rules">cette adresse</Link>.
         </p>
         <p>
           Plutôt que de dépendre d'une API tierce, si vous avez confiance dans
@@ -120,5 +121,5 @@ export default function APIDoc() {
         </p>
       </Section>
     </Main>
-  )
+  );
 }

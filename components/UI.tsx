@@ -490,3 +490,117 @@ export const CardLink = styled(Card)`
     color: black;
   }
 `
+
+export const Tabs = styled.div`
+    align-items: flex-start;
+    box-shadow: inset 0 -1px 0 0 #ddd;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: auto;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: -4px;
+    overflow: hidden;
+    padding-top: 4px;
+    position: relative;
+    transition: height .3s;
+    &:before {
+      box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
+      content: "";
+      display: block;
+      height: 100%;
+      margin-top: -1px;
+      order: 2;
+      width: 100%;
+    }
+`
+
+export const TabHeaders = styled.ul`
+    align-items: stretch;
+    display: flex;
+    margin: -4px 0;
+    min-height: 3rem;
+    order: 1;
+    overflow-x: auto;
+    padding: 4px .75rem;
+    width: 100%;
+    z-index: 1;
+    list-style-type: none;
+`
+
+export const TabHeader = styled.li`
+    &::marker { display: none; }
+    button {
+      background-color: #fff;
+      color: #000091;
+      appearance: none;
+      border: none;
+      &[aria-selected=true] {
+        background-size: 100% 2px, 1px calc(100% - 1px), 1px calc(100% - 1px), 0 1px;
+        background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
+        &:before {
+          background-color: #000091;
+        }
+      }
+      &:not([aria-selected=true]) {
+        background-color: #E3E3FD;
+        &:hover {
+          background-color: #ADADF9;
+        }
+        color: #161616;
+        &:before {
+          background-color: #161616;
+        }
+      }
+      max-height: none;
+      max-width: 100%;
+      overflow: initial;
+      align-items: center;
+      background-position: 0 0, 0 calc(100% - 1px), 100% calc(100% - 1px), 100% 100%;
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+      box-shadow: 0 2px 0 0 #FFF;
+      display: inline-flex;
+      flex-direction: row;
+      font-size: 1rem;
+      font-weight: 700;
+      height: 100%;
+      line-height: 1.5rem;
+      margin: 0 .25rem;
+      min-height: 2.5rem;
+      overflow: visible;
+      padding: .5rem 1rem;
+      position: relative;
+      white-space: nowrap;
+      width: -moz-fit-content;
+      width: fit-content;
+      z-index: 1;
+      &:before {
+        content: "";
+        -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwWm0wLTJhOCA4IDAgMSAwIDAtMTYgOCA4IDAgMCAwIDAgMTZabS0uOTk3LTRMNi43NiAxMS43NTdsMS40MTQtMS40MTQgMi44MjkgMi44MjkgNS42NTYtNS42NTcgMS40MTUgMS40MTRMMTEuMDAzIDE2WiIvPjwvc3ZnPg==);
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwWm0wLTJhOCA4IDAgMSAwIDAtMTYgOCA4IDAgMCAwIDAgMTZabS0uOTk3LTRMNi43NiAxMS43NTdsMS40MTQtMS40MTQgMi44MjkgMi44MjkgNS42NTYtNS42NTcgMS40MTUgMS40MTRMMTEuMDAzIDE2WiIvPjwvc3ZnPg==);
+        flex: 0 0 auto;
+        height: 1rem;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        vertical-align: calc(.375em - .75rem);
+        width: 1rem;
+        margin-left: -.125rem;
+        margin-right: .5rem;
+      }
+    }
+`
+export const TabPanel = styled.div`
+    display: block;
+    flex: 0 0 100%;
+    height: auto;
+    left: -100%;
+    margin-right: -100%;
+    order: 3;
+    padding: 1rem;
+    position: relative;
+    transition: visibility .3s, transform .3s;
+    width: 100%;
+    border: 1px solid #ddd;
+    background: white;
+`

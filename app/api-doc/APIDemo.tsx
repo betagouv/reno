@@ -1,24 +1,29 @@
 'use client'
 import { useMemo, useState } from 'react'
 import { parse, stringify } from 'yaml'
-import personas from '@/app/personas.yaml'
+import example from '@/app/api-doc/api-example.yaml'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 
 const engine = new Publicodes(rules)
-export default function APIDemo() {
-  const [yaml, setYaml] = useState(stringify(personas[0].situation))
+export default function APIDemo({titre, type}) {
+  const [yaml, setYaml] = useState(stringify(example[type]))
   const [debouncedYaml] = useDebounce(yaml, 500)
 
   const mpra = useMemo(() => {
-    console.log('memo')
     try {
       const json = parse(debouncedYaml)
       const evaluation = engine
         .setSituation(json)
-        .evaluate('MPR . accompagnée . montant')
+        .evaluate(type == "mprg" ? 
+          'gestes . chauffage . PAC . air-eau . MPR . montant' : 
+          (type == "copropriete" ?
+            'copropriété . montant' :
+            'MPR . accompagnée . montant'
+          )
+        )
       return formatValue(evaluation, { precision: 0 })
     } catch (e) {
       console.log(e)
@@ -41,7 +46,7 @@ export default function APIDemo() {
         onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
       />
       <EvaluationValue>
-        <small>MaPrimeRénov' accompagnée</small>{' '}
+        <small>{titre}</small>{' '}
         <div>{typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}</div>
       </EvaluationValue>
     </section>

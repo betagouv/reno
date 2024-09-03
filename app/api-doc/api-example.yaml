@@ -1,0 +1,32 @@
+mpra:
+  conditions communes: oui
+  ménage . personnes: 3
+  ménage . revenu: 25000
+  DPE . actuel: 6
+  projet . DPE visé: 2
+  projet . travaux: 70140 / (1.055)
+  ménage . code région: "'27'"
+  ménage . code département: "'25'" # Doubs / Zone climatique H1
+  ménage . commune: "'25388'"
+  ménage . EPCI: "'200065647'"
+  logement . propriétaire occupant: oui
+  logement . résidence principale propriétaire: oui
+  logement . type: "'maison'"
+  logement . surface: 91
+  logement . période de construction: "'de 15 à 25 ans'"
+mprg:
+  vous . propriétaire . condition: oui
+  logement . propriétaire occupant: oui
+  logement . résidence principale locataire: oui
+  logement . période de construction: "'de 15 à 25 ans'"
+  ménage . personnes: 2
+  ménage . commune: "75056"
+  ménage . revenu: 42058
+copropriete:
+ copropriété . condition 15 ans: oui
+ copropriété . nombre de logement: 30
+ copropriété . condition résidence principale: oui
+ copropriété . gain énergétique: "entre 35 % et 50 %"
+ copropriété . bonus sortie passoire: oui
+ copropriété . bonus copropriété fragile: non
+ copropriété . montant travaux: 60000
