@@ -1,15 +1,15 @@
 import { allArticles } from '@/.contentlayer/generated'
 import Article from '@/components/Article'
+import { CTA, CTAWrapper } from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import { getMDXComponent, useMDXComponent } from 'next-contentlayer2/hooks'
+import { useMDXComponent } from 'next-contentlayer2/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
 import Contribution from '../Contribution'
-import { dateCool, getLastEdit } from '../utils'
-import { mdxComponents } from '../mdxComponents'
-import { ArticleCta, BlogBackButton } from '../UI'
 import OtherArticles from '../OtherArticles'
-import { CTA, CTAWrapper } from '@/components/UI'
+import { ArticleCta, BlogBackButton } from '../UI'
+import { mdxComponents } from '../mdxComponents'
+import { dateCool, getLastEdit } from '../utils'
 
 export const articles = allArticles.filter((article) => !article.brouillon)
 
@@ -18,6 +18,7 @@ export const generateMetadata = async ({ params }) => {
     (post) => post._raw.flattenedPath === params.slug,
   )
   const lastEdit = await getLastEdit(params.slug)
+
   return {
     title: post.titre,
     description: post.description,

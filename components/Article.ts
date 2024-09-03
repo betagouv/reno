@@ -51,6 +51,7 @@ const Article = styled.article`
     max-height: 30rem;
     display: block;
     margin: 4vh auto;
+    position: relative !important;
   }
 
   @media (max-width: 800px) {

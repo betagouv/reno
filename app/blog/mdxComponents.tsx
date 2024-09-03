@@ -9,8 +9,7 @@ export const mdxComponents: MDXComponents = {
         style={css`
           position: relative;
           width: 100%;
-          height: 35rem;
-          padding-bottom: 20%;
+          padding-bottom: 1vh;
         `}
       >
         <Image src={computedSrc} alt={alt} layout="fill" objectFit="contain" />
