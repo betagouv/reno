@@ -25,8 +25,13 @@ chauffage . PAC . air-eau . MPR . montant:
       alors: 3000 €
     - sinon: 0 €
 chauffage . PAC . air-eau . CEE:
-  titre: BAR-TH-171
+  code: BAR-TH-171
+  titre: Pompe à chaleur de type air/eau 
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  technique: |
+    Les PAC **associées à un autre système de chauffage** et les PAC utilisées **uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
+      
+    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** «Chauffe-eau thermodynamique à accumulation» si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire. 
 chauffage . PAC . air-eau . CEE . question:
   type: liste
   valeurs:
@@ -195,20 +200,6 @@ chauffage . PAC . air-eau . Coup de pouce . montant:
     - sinon: 2500 €
 chauffage . PAC . air-eau . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 
-chauffage . PAC . géo et solaire:
-chauffage . PAC . géo et solaire . MPR:
-chauffage . PAC . géo et solaire . MPR . plafond: 18000 €
-chauffage . PAC . géo et solaire . MPR . montant:
-  applicable si: MPR . non accompagnée . éligible
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 11000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 9000 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 6000 €
-    - sinon: 0 €
-
 chauffage . PAC . géo:
   par défaut: oui
   titre: Pompe à chaleur géothermique
@@ -223,8 +214,17 @@ chauffage . PAC . géo . montant:
     - Coup de pouce . montant
     - CEE . montant
 chauffage . PAC . géo . MPR:
-chauffage . PAC . géo . MPR . plafond: géo et solaire . MPR . plafond
-chauffage . PAC . géo . MPR . montant: géo et solaire . MPR . montant
+chauffage . PAC . géo . MPR . plafond: 18000 €
+chauffage . PAC . géo . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 11000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 9000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 6000 €
+    - sinon: 0 €
 chauffage . PAC . géo . Coup de pouce:
 chauffage . PAC . géo . Coup de pouce . montant:
   applicable si: CEE . projet . remplacement chaudière thermique
@@ -232,8 +232,13 @@ chauffage . PAC . géo . Coup de pouce . montant:
   valeur: 5000 €
 chauffage . PAC . géo . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . PAC . géo . CEE:
-  titre: BAR-TH-172
+  code: BAR-TH-172
+  titre: Pompe à chaleur de type eau/eau ou sol/eau
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  technique: |
+    Les PAC **associées à un autre système de chauffage**** et les PAC **utilisées uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
+      
+    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** « Chauffe-eau thermodynamique à accumulation » si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire. 
 chauffage . PAC . géo . CEE . montant:
   produit:
     - barème
@@ -241,7 +246,6 @@ chauffage . PAC . géo . CEE . montant:
     - facteur correctif région
     - CEE . prix kWh Cumac
   unité: €
-
 chauffage . PAC . géo . CEE . question:
   type: liste
   valeurs:
@@ -264,7 +268,6 @@ chauffage . PAC . géo . CEE . usage . chauffage et eau chaude:
 chauffage . PAC . géo . CEE . usage . chauffage seulement:
   valeur: "'chauffage seulement'"
   titre: "Chauffage uniquement"
-
 chauffage . PAC . géo . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
   titre: Efficacité énergétique saisonnière
@@ -292,7 +295,6 @@ chauffage . PAC . géo . CEE . Etas . entre 200 % et 230 %:
 chauffage . PAC . géo . CEE . Etas . supérieur à 230 %:
   valeur: "'supérieur à 230 %'"
   titre: "Supérieur à 230 %"
-
 chauffage . PAC . géo . CEE . barème:
   variations:
     - si: usage = 'chauffage seulement'
@@ -323,7 +325,6 @@ chauffage . PAC . géo . CEE . barème chauffage et eau:
       alors: 124200
     - si: Etas = "supérieur à 230 %"
       alors: 131600
-
 chauffage . PAC . géo . CEE . facteur correctif surface:
   variations:
     - si: surface < 70
@@ -351,5 +352,14 @@ chauffage . PAC . solaire:
   description: Pompe à chaleur solarothermique
 chauffage . PAC . solaire . montant: MPR . montant
 chauffage . PAC . solaire . MPR:
-chauffage . PAC . solaire . MPR . plafond: géo et solaire . MPR . plafond
-chauffage . PAC . solaire . MPR . montant: géo et solaire . MPR . montant
+chauffage . PAC . solaire . MPR . plafond: 18000 €
+chauffage . PAC . solaire . MPR . montant:
+  applicable si: MPR . non accompagnée . éligible
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 11000 €
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 9000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 6000 €
+    - sinon: 0 €

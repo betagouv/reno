@@ -41,7 +41,7 @@ export default function HomepageSteps() {
     ];
 
     return !isInIFrame && (
-    <Wrapper $background="white" $noMargin={true} $last={true}>
+    <Wrapper $background="white" $noMargin={true} $last={false}>
         <Content>
             <h2 css={`text-align: center; margin-top: 0;`}>Histoires d'usagers</h2>
             <HomeTestimonies>

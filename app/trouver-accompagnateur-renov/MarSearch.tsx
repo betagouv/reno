@@ -8,6 +8,8 @@ import Entreprise from './Entreprise'
 import MapShapes from './MapShape'
 import { Loader } from './UI'
 import useAddMap from './useAddMap'
+import { sortBy } from '@/components/utils'
+import Entreprises from './Entreprises'
 
 export default function MarSearch({
   codeInsee: givenCodeInsee,
@@ -29,7 +31,7 @@ export default function MarSearch({
     if (!codeInsee) return
     const doFetch = async () => {
       const whereClause = encodeURIComponent(
-        `startsWith(ancien_code_pivot, 'fr_renov-')`,
+        `startsWith(pivot, '[{"type_service_local": "fr_renov"')`,
       )
 
       // Using the "exports" endpoint instead of "record" lets us query all 300 features, and then find the closest one. So we download 300ko initially, which is not optimal but simpler than building our indexed DB locally by geo distance
@@ -55,14 +57,23 @@ export default function MarSearch({
         return distance
       }
 
-      const closest = rawData.sort(
-        (a, b) => centreDistance(a) - centreDistance(b),
-      )
-
-      const result = closest[0]
+      const withDistance = rawData.map((element) => ({
+        ...element,
+        distance: centreDistance(element),
+      }))
+      console.log({ withDistance })
+      const closest = sortBy((element) => element.distance)(withDistance)
+      console.log({
+        withDistance,
+        closest: closest.map((el) => el.distance + el.nom),
+        metz: closest.find((el) =>
+          JSON.stringify(el).includes('1 Rue Des Recollets'),
+        ),
+        noDistance: withDistance.filter((el) => el.distance === Infinity),
+      })
 
       // We bypass the following geolocation code, per https://github.com/betagouv/reno/issues/74#issuecomment-2036347206
-      return setData([result])
+      return setData(closest)
 
       // Temporary, should be done once properly in the form, maybe with the exact adress to find the closest MAR
       const coordinatesRequest = await fetch(
@@ -152,17 +163,18 @@ export default function MarSearch({
       <div
         css={`
           margin: 1rem;
-          width: 30rem;
+          width: 100%;
           max-width: 90vw;
-          ol {
-            max-height: 60vh;
-            margin: 1rem 0;
-            overflow: scroll;
-          }
           padding: 0 0.6rem;
         `}
       >
-        {selectedMarker && (
+        {data == null ? (
+          <MarLoader />
+        ) : (
+          <Entreprises data={data} codeInsee={codeInsee} />
+        )}
+        {/*Anciennement utilisé pour afficher la carte avec surlignage des conseillers sélectionnés */}
+        {false && selectedMarker && (
           <Card
             css={`
               margin: 1rem 0;
@@ -171,72 +183,58 @@ export default function MarSearch({
             <Entreprise data={selectedMarker} />
           </Card>
         )}
-        {data ? (
-          <section>
-            {data.length === 1 ? (
-              <section>
-                <h3
-                  css={`
-                    margin-top: 0;
-                    margin-bottom: 0rem;
-                  `}
-                >
-                  Votre conseiller :{' '}
-                </h3>
-                <br />
-
-                <Entreprise data={data[0]} />
-              </section>
-            ) : (
-              <div>
-                <ol
-                  css={`
-                    padding: 0 1.2rem;
-                    margin-bottom: 0 !important;
-                  `}
-                >
-                  {data.map((el) => (
-                    <li
-                      key={el.raison_sociale}
-                      css={`
-                        margin: 1rem 0;
-                        ${selectedMarker?.raison_sociale ===
-                          el.raison_sociale && `border: 2px solid var(--color)`}
-                      `}
-                    >
-                      <Entreprise data={el} />
-                    </li>
-                  ))}
-                </ol>
-                <div
-                  css={`
-                    width: 100%;
-                    height: 1px;
-                    background: grey;
-                    box-shadow: 0 4px 6px -6px #222;
-                  `}
-                />
-              </div>
-            )}
-          </section>
-        ) : (
-          codeInsee && (
-            <div
-              css={`
-                margin: 0.6rem;
-                display: flex;
-                align-items: center;
-                p {
-                  margin: 0;
-                  padding: 0;
-                }
-              `}
-            >
-              <Loader />
-              <p>Chargement des données...</p>
-            </div>
-          )
-        )}
+        {false &&
+          (data ? (
+            <section>
+              {data.length === 1 ? (
+                <section>
+                  <h3
+                    css={`
+                      margin-top: 0;
+                      margin-bottom: 0rem;
+                    `}
+                  >
+                    Votre conseiller :{' '}
+                  </h3>
+                  <br />
+                  <Entreprises data={data} codeInsee={codeInsee} />
+                </section>
+              ) : (
+                <div>
+                  <ol
+                    css={`
+                      padding: 0 1.2rem;
+                      margin-bottom: 0 !important;
+                    `}
+                  >
+                    {data.map((el) => (
+                      <li
+                        key={el.raison_sociale}
+                        css={`
+                          margin: 1rem 0;
+                          ${selectedMarker?.raison_sociale ===
+                            el.raison_sociale &&
+                          `border: 2px solid var(--color)`}
+                        `}
+                      >
+                        <Entreprise data={el} />
+                      </li>
+                    ))}
+                  </ol>
+                  <div
+                    css={`
+                      width: 100%;
+                      height: 1px;
+                      background: grey;
+                      box-shadow: 0 4px 6px -6px #222;
+                    `}
+                  />
+                </div>
+              )}
+            </section>
+          ) : (
+            codeInsee && <MarLoader />
+          ))}
       </div>
       {false && (
         <div
@@ -291,3 +289,19 @@ export const getAdresse = (obj) => {
 
   return ['Adresse inconnue', null]
 }
+const MarLoader = () => (
+  <div
+    css={`
+      margin: 0.6rem;
+      display: flex;
+      align-items: center;
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    `}
+  >
+    <Loader />
+    <p>Chargement des données...</p>
+  </div>
+)

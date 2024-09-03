@@ -102,9 +102,12 @@ logement . type:
     possibilités:
       - 'maison'
       - 'appartement'
+  maximum: "'maison'"
 logement . type . maison:
+  valeur: "'maison'"
   titre: Une maison
 logement . type . appartement:
+  valeur: "'appartement'"
   titre: Un appartement
 
 logement . type . information copro:
@@ -157,7 +160,7 @@ logement . résidence principale:
     - résidence principale locataire
 
 logement . résidence principale propriétaire:
-  applicable si: propriétaire occupant
+  applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
   question: Le logement est-il votre résidence principale ?
   par défaut: oui
   description: |
@@ -166,7 +169,7 @@ logement . résidence principale propriétaire:
     Si vous comptez mettre en location votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
 
 logement . résidence principale locataire:
-  non applicable si: propriétaire occupant
+  non applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
   question: Le logement est-il la résidence principale du locataire ?
   par défaut: oui
   description: |
@@ -201,9 +204,17 @@ logement . période de construction:
       - au moins 25 ans
 
 logement . période de construction . au moins 25 ans:
+  valeur: "'au moins 25 ans'"
+  titre: au moins 25 ans
 logement . période de construction . de 15 à 25 ans:
+  valeur: "'de 15 à 25 ans'"
+  titre: de 15 à 25 ans
 logement . période de construction . de 2 à 15 ans:
+  valeur: "'de 2 à 15 ans'"
+  titre: de 2 à 15 ans
 logement . période de construction . moins de 2 ans:
+  valeur: "'moins de 2 ans'"
+  titre: moins de 2 ans
 
 logement . au moins 2 ans:
   une de ces conditions:
@@ -213,9 +224,6 @@ logement . au moins 15 ans:
   une de ces conditions:
     - période de construction = 'au moins 25 ans'
     - période de construction = 'de 15 à 25 ans'
-
-PTZ . condition d'ancienneté:
-  logement . période de construction != 'moins de 2 ans'
 
   # Si l'on a besoin dans un second temps d'avoir l'âge exact
   # âge >= 15
@@ -592,7 +600,7 @@ projet . investissement:
       - si: simulation . mode = 'moyen'
         alors: 25000 €
       - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
-  formule: travaux . TTC - ampleur
+  formule: travaux . TTC - ampleur . montant
 
 projet . travaux . plafonnés:
   plafond: plafond

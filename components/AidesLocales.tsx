@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import hexagoneIcon from '@/public/hexagone-contour.svg'
 import { formatValue } from 'publicodes'
-import { PrimeStyle } from './Geste'
+import { PrimeStyle } from './UI'
 
 const Hexagone = () => (
   <Image

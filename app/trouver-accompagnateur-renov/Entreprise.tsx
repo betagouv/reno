@@ -10,6 +10,7 @@ export default function Entreprise({ data }) {
       </p>
     )
   const [nom, rue, ville] = getAdresse(data)
+  // le {nom} de l'entité n'est pas très utile, car c'est toujours empiriquement "Espace France Rénov [ville ou EPCI], le complementx de l'adresse est plus informatif
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
   const horaires = data.plage_ouverture && JSON.parse(data.plage_ouverture)
   const telephones = data.telephone && JSON.parse(data.telephone)
