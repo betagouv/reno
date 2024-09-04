@@ -86,7 +86,7 @@ export default function Geste({
   }
 
   montantTotal = calculatedMontantTotal
-
+  // Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
   const PrimeDisplay = ({ montantTotal, isExactTotal, rules, dottedName }) => (
     <>
       <div css={`margin: 0 0 0.6rem 0;`}>{rules[dottedName].titre || getRuleName(dottedName)}</div>
@@ -94,7 +94,12 @@ export default function Geste({
         {montantTotal === "Non applicable" ? (
           <>Prime <strong>non applicable</strong> dans votre situation</>
         ) : (
-          <>{isExactTotal ? 'Prime de ' : "Jusqu'à "}<strong>{montantTotal}</strong></>
+          (!eligibleMPRG && !infoCoupDePouce && !isExactTotal) ?
+          <>Prime existante</> :
+          <>{isExactTotal ? 
+              (!infoCoupDePouce && !eligibleMPRG ? 'Prime indicative de ' : 'Prime de ') : 
+              "Jusqu'à "
+            }<strong>{montantTotal}</strong></>
         )}
       </PrimeStyle>
     </>
