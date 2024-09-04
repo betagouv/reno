@@ -1,7 +1,7 @@
 import { parse } from 'marked'
 
 import PTZ from '@/app/règles/PTZ.yaml'
-import ampleur from '@/app/règles/ampleur.yaml'
+import ampleur from '@/app/règles/ampleur.publicodes'
 import gestes from '@/app/règles/gestes.yaml'
 import chauffage from '@/app/règles/gestes/chauffage.yaml'
 import réseau from '@/app/règles/gestes/chauffage/réseau.yaml'
@@ -38,19 +38,19 @@ const rules = {
   ...index,
   ...revenus,
   ...prefix(gestes, 'gestes'),
-  ...prefix(chauffage, 'gestes',),
-  ...prefix(isolation, 'gestes',),
-  ...prefix(PAC, 'gestes',),
-  ...prefix(bois, 'gestes',),
+  ...prefix(chauffage, 'gestes'),
+  ...prefix(isolation, 'gestes'),
+  ...prefix(PAC, 'gestes'),
+  ...prefix(bois, 'gestes'),
   ...prefix(réseau, 'gestes'),
-  ...prefix(solaire, 'gestes',),
+  ...prefix(solaire, 'gestes'),
   ...prefix(aidesLocales, 'aides locales'),
   ...ampleur,
   ...CEE,
   ...denormandie,
   ...taxeFoncière,
   ...PTZ,
-  ...copropriete
+  ...copropriete,
 }
 
 const rulesWithMarkdown = Object.fromEntries(
