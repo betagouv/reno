@@ -807,8 +807,9 @@ MPR . accompagnée . pourcent brut:
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
 
 MPR . accompagnée . prise en charge MAR:
+  applicable si: MPR . accompagnée . éligible
   icône: maprimerenov.svg
-  complément de marque: Audit énergétique
+  complément de marque: Audit et accompagnement MaPrimeRénov'
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond
