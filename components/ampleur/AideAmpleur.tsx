@@ -1,8 +1,9 @@
-import starIcon from '@/public/star-full-gold.svg'
-import { CTA, Card } from '../UI'
-import informationIcon from '@/public/information.svg'
-import Image from 'next/image'
 import rules from '@/app/règles/rules'
+import informationIcon from '@/public/information.svg'
+import starIcon from '@/public/star-full-gold.svg'
+import Image from 'next/image'
+import { CTA, Card } from '../UI'
+import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
 
 export default function AideAmpleur({ dottedName, children }) {
@@ -12,7 +13,7 @@ export default function AideAmpleur({ dottedName, children }) {
       (rule.marque + ' - ' || '') +
       uncapitalise0(rule['complément de marque'] || '')
   return (
-    <section>
+    <section id={'aide-' + encodeDottedName(dottedName)}>
       <header
         css={`
           > h3 {

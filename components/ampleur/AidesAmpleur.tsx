@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
@@ -8,6 +9,7 @@ import EcoPTZ from './EcoPTZ'
 import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
+import { encodeDottedName } from '../publicodes/situationUtils'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -52,7 +54,13 @@ export default function AidesAmpleur({
 
       <ul>
         {eligibles.map((aide) => {
-          return <li>{aide.marque || aide['complément de marque']}</li>
+          return (
+            <li>
+              <Link href={'#' + 'aide-' + encodeDottedName(aide.dottedName)}>
+                {aide.marque || aide['complément de marque']}
+              </Link>
+            </li>
+          )
         })}
       </ul>
 
