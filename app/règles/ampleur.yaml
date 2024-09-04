@@ -15,12 +15,26 @@ ampleur . montant:
     - CEE . rénovation d'ampleur . montant
 
 ampleur . tous les dispositifs:
-  note: Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
+  note: |
+    Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
+
+    Elle nous sert simplement à regrouper les aides d'ampleur dans une variable, notamment pour la page d'éligibilité et pour le parcours ampleur. 
+
+    Attention, ses membres doivent avoir un chemin absolu, pour useAides.ts.
+
+    Note : le [chéque énergie](https://www.economie.gouv.fr/particuliers/tout-savoir-cheque-energie) peut être considéré comme une aide, mais une aide à la consommation d'énergie, pas à la réduction de consommation. En outre, il est normalement automatiquement versé aux personnes éligibles, donc sa publicité sur Mes Aides Réno n'est pas prioritaire.
   somme:
     - ampleur . montant
     - ampleur . prêt
     - denormandie . montant
     - taxe foncière . montant
+    - ampleur . prime individuelle copropriété
+
+ampleur . prime individuelle copropriété:
+  applicable si: logement . type = "appartement"
+  formule: copropriété . prime individuelle
+  marque: MaPrimeRénov'
+  complément de marque: copropriété
 
 ampleur . prêt:
   somme:
@@ -60,7 +74,3 @@ ampleur . pourcent d'écrêtement:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 60 %
     - sinon: 40 %
-
-copro:
-  titre: MaPrimeRénov' copropriété
-  marque: MaPrimeRénov' copropriété

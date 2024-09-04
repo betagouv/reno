@@ -10,7 +10,7 @@ export default function Copro({ engine, situation, searchParams }) {
   const isTrèsModeste = evaluation.value === 'très modeste'
 
   return (
-    <AideAmpleur dottedName={'copro'}>
+    <AideAmpleur dottedName={'ampleur . prime individuelle copropriété'}>
       <div>
         <p>
           MaPrimeRénov' est aussi disponible pour les propriétaires
