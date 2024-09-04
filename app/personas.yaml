@@ -153,6 +153,7 @@
     Couple modeste, appart, presque passoire, 1 saut.
   situation:
     conditions communes: oui
+    vous . propriétaire . condition: oui
     ménage . personnes: 2
     ménage . revenu: 25000
     DPE . actuel: 5
