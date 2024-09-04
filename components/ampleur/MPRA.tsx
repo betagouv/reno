@@ -16,6 +16,7 @@ export default function MPRA({
   engine,
   situation,
   exampleSituation,
+  searchParams,
 }) {
   return (
     <AideAmpleur dottedName={'MPR . accompagnée'}>
@@ -94,7 +95,7 @@ export default function MPRA({
           <MapBehindCTA
             {...{
               codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
+              searchParams,
               what: 'trouver-conseiller-renov',
               text: 'Obtenir cette aide',
               link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',

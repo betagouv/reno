@@ -1,18 +1,13 @@
-import informationIcon from '@/public/information.svg'
-import Image from 'next/image'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import MapBehindCTA from '../MapBehindCTA'
-import PaymentTypeBlock, { PaymentType } from '../PaymentTypeBlock'
-import { Card, PrimeStyle } from '../UI'
+import FatConseiller from '../FatConseiller'
 import QuestionsRéponses from '../mpra/QuestionsRéponses'
 import { roundToThousands } from '../utils'
-import { useAides } from './useAides'
+import Copro from './Copro'
+import EcoPTZ from './EcoPTZ'
 import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
-import EcoPTZ from './EcoPTZ'
-import Copro from './Copro'
-import FatConseiller from '../FatConseiller'
+import { useAides } from './useAides'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -21,6 +16,7 @@ export default function AidesAmpleur({
   answeredQuestions,
   engine,
   rules,
+  searchParams,
 }) {
   const situation = //omit(['projet . travaux'], givenSituation)
     givenSituation
@@ -70,12 +66,13 @@ export default function AidesAmpleur({
             engine,
             situation,
             exampleSituation,
+            searchParams,
           }}
         />
 
         <EcoPTZ />
 
-        <Copro engine={engine} situation={situation} />
+        <Copro {...{ engine, situation, searchParams }} />
         <TaxeFoncière
           {...{
             oldIndex,

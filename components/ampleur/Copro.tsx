@@ -5,7 +5,7 @@ import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import DPELabel from '../DPELabel'
 import MapBehindCTA from '../MapBehindCTA'
 
-export default function Copro({ engine, situation }) {
+export default function Copro({ engine, situation, searchParams }) {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
   const isTrèsModeste = evaluation.value === 'très modeste'
 
@@ -48,7 +48,7 @@ export default function Copro({ engine, situation }) {
         <MapBehindCTA
           {...{
             codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-
+            searchParams,
             what: 'trouver-conseiller-renov',
             text: 'Obtenir cette aide',
             link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
