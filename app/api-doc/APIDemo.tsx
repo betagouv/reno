@@ -11,25 +11,35 @@ const engine = new Publicodes(rules)
 export default function APIDemo({titre, type}) {
   const [yaml, setYaml] = useState(stringify(example[type]))
   const [debouncedYaml] = useDebounce(yaml, 500)
+  const [geste, setGeste] = useState('gestes . chauffage . PAC . air-eau')
   
+  const distinctRulesMPR = Object.keys(rules)
+                                 .filter((item) => item.startsWith('gestes') && item.endsWith("MPR"))
+                                 .map((item) => ({
+                                    valeur: item.replace(' . MPR', ''),
+                                    titre: rules[item.replace(' . MPR', '')].titre
+                                  }))
+
+  const ruleToEvaluate = {
+    mprg : `${geste} . MPR . montant`,
+    copropriete : 'copropriété . montant',
+    cee : 'gestes . isolation . murs extérieurs . CEE . montant',
+    "category-mpr" : 'ménage . revenu . classe',
+    mpra : 'MPR . accompagnée . montant'
+  }
+
   const montant = useMemo(() => {
     try {
       const json = parse(debouncedYaml)
       const evaluation = engine
         .setSituation(json)
-        .evaluate(type == "mprg" ? 
-          'gestes . chauffage . PAC . air-eau . MPR . montant' : 
-          (type == "copropriete" ?
-            'copropriété . montant' :
-            (type == "cee" ? 'gestes . isolation . murs extérieurs . CEE . montant' : ' MPR . accompagnée . montant')
-          )
-        )
+        .evaluate(ruleToEvaluate[type])
       return formatValue(evaluation, { precision: 0 })
     } catch (e) {
       console.log(e)
       return e
     }
-  }, [debouncedYaml])
+  }, [debouncedYaml, type, geste])
 
   return (
     <section
@@ -37,17 +47,45 @@ export default function APIDemo({titre, type}) {
         margin: 2rem 0;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly;
         align-items: center;
       `}
     >
+      {type == "mprg" && (
+        <div css={`margin-bottom: 1rem`}>
+          Geste : {` `}
+          <select
+            css={`
+              appearance: none;
+              line-height: 1.5rem;
+              padding: 0.5rem 2rem 0.5rem 0.5rem;
+              box-shadow: inset 0 -2px 0 0 #3a3a3a;
+              border: none;
+              background-color: #eee;
+              color: #3a3a3a;
+              background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23161616' d='m12 13.1 5-4.9 1.4 1.4-6.4 6.3-6.4-6.4L7 8.1z'/%3E%3C/svg%3E");
+              background-position: calc(100% - 0.5rem) 50%;
+              background-repeat: no-repeat;
+              background-size: 1rem 1rem;
+              border-radius: 0.25rem 0.25rem 0 0;
+            `}
+            onChange={(e) => setGeste(e.target.value)}
+            value={geste}
+          >
+            {distinctRulesMPR.map((item, index) => (
+              <option key={index} value={item.valeur} disabled={item.valeur === ""}>
+                {item.titre}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       <TextArea
         value={yaml}
         onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
       />
       <EvaluationValue>
-        <small>{titre}</small>{' '}
-        <div>{typeof montant === 'string' ? montant : <p>{montant.toString()}</p>}</div>
+        <small>{titre}</small>
+        <div><strong>{typeof montant === 'string' ? montant : <p>{montant.toString()}</p>}</strong></div>
       </EvaluationValue>
     </section>
   )
