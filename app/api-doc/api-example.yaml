@@ -33,3 +33,7 @@ copropriete:
 cee:
   ménage . commune: "75056"
   gestes . isolation . murs extérieurs . MPR . surface: 50
+category-mpr:
+  ménage . commune: "75056"
+  ménage . personnes: 2
+  ménage . revenu: 50002

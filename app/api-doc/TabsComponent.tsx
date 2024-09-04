@@ -47,6 +47,18 @@ export default function TabsComponent() {
         </TabHeader>
         <TabHeader role="presentation">
           <button
+            id="tabpanel-category-mpr"
+            tabIndex={activeTab === 'tabpanel-category-mpr' ? 0 : -1}
+            role="tab"
+            aria-selected={activeTab === 'tabpanel-category-mpr'}
+            aria-controls="tabpanel-category-mpr"
+            onClick={() => setActiveTab('tabpanel-category-mpr')}
+          >
+            Catégorie MaPrimeRénov'
+          </button>
+        </TabHeader>
+        <TabHeader role="presentation">
+          <button
             id="tabpanel-cee"
             tabIndex={activeTab === 'tabpanel-cee' ? 0 : -1}
             role="tab"
@@ -91,6 +103,18 @@ export default function TabsComponent() {
             <APIDemo
                 type="copropriete"
                 titre="MaPrimeRénov' - Parcours Copropriété"
+            />
+        </TabPanel>
+      )}
+      {activeTab === 'tabpanel-category-mpr' && (
+        <TabPanel
+            id="tabpanel-category-mpr"
+            role="tabpanel"
+            aria-labelledby="tabpanel-category-mpr"
+        >
+            <APIDemo
+                type="category-mpr"
+                titre="Catégorie MaPrimeRénov'"
             />
         </TabPanel>
       )}
