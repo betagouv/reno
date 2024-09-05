@@ -604,3 +604,42 @@ export const TabPanel = styled.div`
     border: 1px solid #ddd;
     background: white;
 `
+
+export const AccordionTitle = styled.button`
+  align-items: center;
+  color: #000091;
+  display: inline-flex;
+  flex-direction: row;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  margin: 0;
+  max-height: none;
+  max-width: 100%;
+  min-height: 3rem;
+  overflow: initial;
+  padding: .75rem 1rem;
+  text-align: left;
+  width: -moz-fit-content;
+  width: fit-content;
+  width: 100%;
+  &::hover {
+    background-color: #f6f6f6;
+  }
+  &::after {
+    background-color: currentColor;
+    content: "";
+    display: inline-block;
+    flex: 0 0 auto;
+    height: 1rem;
+    margin-left: auto;
+    margin-right: 0;
+    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyIDEzLjE3MiA0Ljk1LTQuOTUgMS40MTQgMS40MTRMMTIgMTYgNS42MzYgOS42MzYgNy4wNSA4LjIyMmw0Ljk1IDQuOTVaIi8+PC9zdmc+);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyIDEzLjE3MiA0Ljk1LTQuOTUgMS40MTQgMS40MTRMMTIgMTYgNS42MzYgOS42MzYgNy4wNSA4LjIyMmw0Ljk1IDQuOTVaIi8+PC9zdmc+);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    transition: transform .3s;
+    vertical-align: calc(.375em - .5rem);
+    width: 1rem;
+  }
+`

@@ -6,13 +6,16 @@ import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
+import APIDemoRest from './APIDemoRest'
+import { TabHeader, TabHeaders, TabPanel, Tabs } from '@/components/UI'
 
 const engine = new Publicodes(rules)
 export default function APIDemo({titre, type}) {
+  const [method, setMethod] = useState('POST');
   const [yaml, setYaml] = useState(stringify(example[type]))
   const [debouncedYaml] = useDebounce(yaml, 500)
   const [geste, setGeste] = useState('gestes . chauffage . PAC . air-eau')
-  
+
   const distinctRulesMPR = Object.keys(rules)
                                  .filter((item) => item.startsWith('gestes') && item.endsWith("MPR"))
                                  .map((item) => ({
@@ -42,14 +45,53 @@ export default function APIDemo({titre, type}) {
   }, [debouncedYaml, type, geste])
 
   return (
-    <section
-      css={`
-        margin: 2rem 0;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-      `}
-    >
+    <>
+      <Tabs>
+        <TabHeaders role="tablist" aria-label="Démonstrations des API">
+          <TabHeader role="presentation">
+            <button
+              id="tabpanel-post"
+              tabIndex={method === 'POST' ? 0 : -1}
+              role="tab"
+              aria-selected={method === 'POST'}
+              aria-controls="tabpanel-post"
+              onClick={() => setMethod('POST')}
+            >
+              Méthode POST
+            </button>
+          </TabHeader>
+          <TabHeader role="presentation">
+            <button
+              id="tabpanel-get"
+              tabIndex={method === 'GET' ? 0 : -1}
+              role="tab"
+              aria-selected={method === 'GET'}
+              aria-controls="tabpanel-get"
+              onClick={() => setMethod('GET')}
+            >
+              Méthode GET
+            </button>
+          </TabHeader>
+        </TabHeaders>
+        {method == 'POST' && (
+          <TabPanel
+            id="tabpanel-post"
+            role="tabpanel"
+            aria-labelledby="tabpanel-post"
+          >
+            <APIDemoRest yaml={yaml} method={'post'} />
+          </TabPanel>
+        )}
+        {method == 'GET' && (
+          <TabPanel
+              id="tabpanel-get"
+              role="tabpanel"
+              aria-labelledby="tabpanel-get"
+          >
+            <APIDemoRest yaml={yaml} method={'get'} />
+          </TabPanel>
+        )}
+      </Tabs>
       {type == "mprg" && (
         <div css={`margin-bottom: 1rem`}>
           Geste : {` `}
@@ -79,15 +121,11 @@ export default function APIDemo({titre, type}) {
           </select>
         </div>
       )}
-      <TextArea
-        value={yaml}
-        onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
-      />
       <EvaluationValue>
         <small>{titre}</small>
         <div><strong>{typeof montant === 'string' ? montant : <p>{montant.toString()}</p>}</strong></div>
       </EvaluationValue>
-    </section>
+    </>
   )
 }
 

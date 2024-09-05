@@ -2,8 +2,7 @@ import { Main, Section, Tabs, TabHeaders, TabHeader, TabPanel } from '@/componen
 import css from '@/components/css/convertToJs';
 import Link from '@/node_modules/next/link';
 import { Metadata } from 'next/types';
-import APIDemoRest from './APIDemoRest';
-import TabsComponent from './TabsComponent';
+import AccordionComponent from './AccordionComponent';
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
@@ -41,7 +40,7 @@ export default function APIDoc() {
           En modifiant la <em>situation</em> (à gauche), vous obtenez une{' '}
           <em>évaluation</em> (à droite) différente.
         </p>
-        <TabsComponent />
+        <AccordionComponent />
         <h3>Que permet l'API ?</h3>
         <p>
           Calculer les deux parcours Ma Prime Rénov' 2024, accompagné et non
@@ -54,22 +53,7 @@ export default function APIDoc() {
           autres données.
         </p>
         <p>L'API est disponible en version GET ou POST.</p>
-        <h4>Méthode GET</h4>
-        <p>
-          Pour la version GET, il faut sérialiser les paramètres de la
-          simulation comme nous le faisons via la fonction{' '}
-          <a href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55">
-            encodeSituation
-          </a>
-          .
-        </p>
-        <APIDemoRest personaIndex={1} methode={'get'} />
-        <h4>Méthode POST</h4>
-        <p>
-          Pour tester la méthode POST, cliquez sur le bouton et ouvrez la
-          console de votre navigateur pour voir les résultats de l'appel.
-        </p>
-        <APIDemoRest personaIndex={1} method={'post'} />
+
         <h3>Que renvoie-t-elle ?</h3>
         <p>
           L'API vous renvoie, pour chacun des deux dispositifs de Ma Prime
