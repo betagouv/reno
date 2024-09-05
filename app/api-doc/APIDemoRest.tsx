@@ -13,6 +13,7 @@ import { encodeSituation } from '@/components/publicodes/situationUtils'
 
 export default function APIDemo({ personaIndex = 0, method = 'get' }) {
   const [yaml, setYaml] = useState(stringify(personas[personaIndex].situation))
+  const [result, setResult] = useState("")
   //const [debouncedYaml] = useDebounce(yaml, 500)
 
   const domain = getAppUrl()
@@ -30,7 +31,20 @@ export default function APIDemo({ personaIndex = 0, method = 'get' }) {
   const searchParams = encodeSituation(situation)
   const getUrl =
     domain + '/api/' + '?' + new URLSearchParams(searchParams).toString()
-  const postUrl = 'voila'
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const response = await fetch(domain + '/api/', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(situation),
+      });
+
+      setResult(JSON.stringify(await response.json()))
+  };
 
   return (
     <section
@@ -49,7 +63,10 @@ export default function APIDemo({ personaIndex = 0, method = 'get' }) {
       {method === 'get' ? (
         <Link href={getUrl}>URL d'API GET</Link>
       ) : (
-        <button>Test de l'URL POST</button>
+        <button onClick={(e) => handleSubmit(e)}>Test de l'URL POST</button>
+      )}
+      {method === 'post' && (
+        <div>{result}</div>
       )}
     </section>
   )
