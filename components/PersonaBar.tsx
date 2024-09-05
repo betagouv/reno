@@ -5,8 +5,8 @@ import personaNames from '@/app/personaNames.yaml'
 import { Card } from './UI'
 import PersonaInjection from '@/app/PersonaInjection'
 
-export default function PersonaBar() {
-  const [shown, show] = useState(false)
+export default function PersonaBar({ startShown = false, selectedPersona }) {
+  const [shown, show] = useState(startShown)
 
   useEffect(() => {
     const listener = (e) => {
@@ -24,8 +24,13 @@ export default function PersonaBar() {
   return (
     <section
       css={`
+        position: fixed;
+        margin-bottom: 10rem;
+        background: var(--lightColor);
+        width: 100vw;
+        left: 0;
+        top: 0;
         overflow: hidden;
-        width: 90%;
         ul {
           white-space: nowrap;
           height: 12rem;
@@ -50,14 +55,32 @@ export default function PersonaBar() {
       `}
     >
       <ul>
-        {personas.map((persona, i) => (
-          <li key={persona.description}>
+        {personas.map((persona, personaIndex) => (
+          <li
+            key={persona.description}
+            css={`
+              > div {
+                padding: 0.2rem 0.4rem;
+                min-height: 9rem;
+                justify-content: space-between;
+                display: flex;
+                flex-direction: column;
+              }
+              ${selectedPersona == personaIndex &&
+              `
+			  > div{border: 2px solid var(--color)}`}
+            `}
+          >
             <Card>
-              <div>{personaNames[i]}</div>
+              <div>{personaNames[personaIndex]}</div>
               <div>
                 <small>{persona.description}</small>
               </div>
-              <PersonaInjection persona={persona} />
+              <PersonaInjection
+                persona={persona}
+                keepPersonaBar={true}
+                personaIndex={personaIndex}
+              />
             </Card>
           </li>
         ))}

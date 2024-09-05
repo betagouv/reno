@@ -17,6 +17,7 @@ export default function Eligibility({
   rules,
   engine,
   expanded,
+  searchParams,
 }) {
   const nextLink = (value) => {
     const url = setSearchParams(
@@ -48,7 +49,10 @@ export default function Eligibility({
 
   return (
     <section>
-      <PersonaBar />
+      <PersonaBar
+        startShown={searchParams.personas != null}
+        selectedPersona={searchParams.persona}
+      />
       <CustomQuestionWrapper>
         <header>
           <small>Découvrez vos aides</small>

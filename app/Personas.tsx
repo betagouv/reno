@@ -37,13 +37,13 @@ export default function Personas({}) {
         </p>
         <PersonasList>
           <ul>
-            {personas.map((persona, index) => {
+            {personas.map((persona, personaIndex) => {
               const newEngine = engine.setSituation({
                 'simulation . mode': '"max"',
                 ...persona.situation,
               })
 
-              const nom = personaNames[index]
+              const nom = personaNames[personaIndex]
               const tests = Object.entries(
                 persona['valeurs attendues'] || {},
               ).map(([dottedName, expectedValue]) =>
@@ -138,7 +138,10 @@ export default function Personas({}) {
                         justify-content: space-evenly;
                       `}
                     >
-                      <PersonaInjection persona={persona} />
+                      <PersonaInjection
+                        persona={persona}
+                        personaIndex={personaIndex}
+                      />
                       <Link href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
                         Inspecter
                       </Link>

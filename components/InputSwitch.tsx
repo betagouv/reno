@@ -288,6 +288,7 @@ export default function InputSwitch({
       <Eligibility
         {...{
           currentQuestion,
+          searchParams,
           setSearchParams,
           situation,
           answeredQuestions,
