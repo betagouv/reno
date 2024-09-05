@@ -28,7 +28,7 @@ export default function MarSearch({
     const doFetch = async () => {
 
       const request = await fetch(
-        `https://data.ademe.fr/data-fair/api/v1/datasets/perimetre-espaces-conseil-france-renov/lines?qs=code_insee="${codeInsee}"`,
+        `https://data.ademe.fr/data-fair/api/v1/datasets/perimetre-espaces-conseil-france-renov/lines?q=${codeInsee}&q_fields=Code_Insee_Commune`,
       )
 
       setData((await request.json()).results)
