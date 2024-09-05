@@ -108,8 +108,8 @@ export default function Eligibility({
         {both && (
           <>
             <p>
-              Vous pouvez choisir l'un ou l'autre des parcours d'aide, mais pas
-              les deux.
+              Vous êtes <Yes>éligible</Yes> au <Yes>deux</Yes> parcours d'aide.
+              Vous devez en choisir un.
             </p>
             <Avis {...{ situation, engine }} />
           </>
