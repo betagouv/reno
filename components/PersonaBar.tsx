@@ -68,7 +68,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
               }
               ${selectedPersona == personaIndex &&
               `
-			  > div{border: 2px solid var(--color)}`}
+			  > div{border: 2px solid var(--color); background: var(--lighterColor)}`}
             `}
           >
             <Card>
