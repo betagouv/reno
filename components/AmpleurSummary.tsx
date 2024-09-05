@@ -152,7 +152,7 @@ export default function AmpleurSummary({
         >
           <CTAWrapper $justify="end">
             <CTA $fontSize="normal">
-              <Link href={url}>Découvrir le détail</Link>
+              <Link href={url}>Choisir ce parcours</Link>
             </CTA>
           </CTAWrapper>
         </div>

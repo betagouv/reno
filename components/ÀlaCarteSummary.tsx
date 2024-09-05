@@ -116,7 +116,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
               <CTAWrapper $justify="end">
                 <CTA $fontSize="normal">
                   <Link href={url}>
-                    <span>Voir tous les gestes disponibles</span>
+                    <span>Choisir ce parcours</span>
                   </Link>
                 </CTA>
               </CTAWrapper>
