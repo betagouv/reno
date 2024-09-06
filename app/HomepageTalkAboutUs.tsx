@@ -1,9 +1,9 @@
 'use client'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import useIsInIframe from "@/components/useIsInIframe"
-import logoBonPote from '@/public/logo-bon-pote.jpg'
-import logoFranceInfo from '@/public/logo-france-info.jpg'
-import logoTf1Info from '@/public/logo-tf1-info.svg'
+import logoBonPote from '@/public/logo-partenaire/logo-bon-pote.jpg'
+import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
+import logoTf1Info from '@/public/logo-partenaire/logo-tf1-info.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 
