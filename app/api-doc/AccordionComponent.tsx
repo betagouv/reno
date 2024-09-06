@@ -22,14 +22,11 @@ export default function AccordionComponent() {
           aria-controls="accordion-accompagne"
           onClick={() => toggleSection("accompagne")}
         >
-          Parcours accompagné
+          MaPrimeRénov' - Parcours accompagné
         </AccordionTitle>
         {activeSection === "accompagne" && (
           <div id="accordion-accompagne">
-            <APIDemo 
-              type="mpra"
-              titre="MaPrimeRénov' - Parcours accompagnée"
-            />
+            <APIDemo type="mpra" />
           </div>
         )}
       </section>
@@ -39,14 +36,11 @@ export default function AccordionComponent() {
           aria-controls="accordion-geste"
           onClick={() => toggleSection("geste")}
         >
-          Parcours par geste
+          MaPrimeRénov' - Parcours par geste
         </AccordionTitle>
         {activeSection === "geste" && (
           <div id="accordion-geste">
-            <APIDemo
-              type="mprg"
-              titre="MaPrimeRénov' - Parcours geste" 
-            />
+            <APIDemo type="mprg" />
           </div>
         )}
       </section>
@@ -56,14 +50,11 @@ export default function AccordionComponent() {
           aria-controls="accordion-copro"
           onClick={() => toggleSection("copro")}
         >
-          Copropriété
+          MaPrimeRénov' - Copropriété
         </AccordionTitle>
         {activeSection === "copro" && (
           <div id="accordion-copro">
-            <APIDemo
-              type="copropriete"
-              titre="MaPrimeRénov' - Parcours Copropriété"
-            />
+            <APIDemo type="copropriete" />
           </div>
         )}
       </section>
@@ -73,14 +64,11 @@ export default function AccordionComponent() {
           aria-controls="accordion-category-mpr"
           onClick={() => toggleSection("category-mpr")}
         >
-          Catégorie MaPrimeRénov'
+          MaPrimeRénov' - Catégorie de revenus
         </AccordionTitle>
         {activeSection === "category-mpr" && (
           <div id="accordion-category-mpr">
-            <APIDemo
-              type="category-mpr"
-              titre="Catégorie MaPrimeRénov'"
-            />
+            <APIDemo type="category-mpr" />
           </div>
         )}
       </section>
@@ -90,14 +78,11 @@ export default function AccordionComponent() {
           aria-controls="accordion-cee"
           onClick={() => toggleSection("cee")}
         >
-          Catégorie CEE
+          CEE
         </AccordionTitle>
         {activeSection === "cee" && (
           <div id="accordion-cee">
-            <APIDemo
-              type="cee"
-              titre="CEE"
-            />
+            <APIDemo type="cee" />
           </div>
         )}
       </section>
