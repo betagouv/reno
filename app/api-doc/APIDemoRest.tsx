@@ -6,8 +6,10 @@ import styled from 'styled-components'
 import example from '@/app/api-doc/api-example.yaml'
 import getAppUrl from '@/components/getAppUrl'
 import { encodeDottedName, encodeSituation } from '@/components/publicodes/situationUtils'
-import { CTA, MiseEnAvant } from '@/components/UI'
+import { CTA, InternalLink, MiseEnAvant } from '@/components/UI'
 import { omit } from '@/components/utils'
+import iconDocumentation from '@/public/documentation.svg'
+import Image from 'next/image'
 
 export default function APIDemoRest({type, method = 'POST' }) {
   const [result, setResult] = useState("")
@@ -65,11 +67,11 @@ export default function APIDemoRest({type, method = 'POST' }) {
 
   const changeGeste = (e) => {
     if(typeGeste == "MPR") {
-      setGeste(e.target.value) 
+      setGeste(e.target.value)
     } else {
       setGesteCee(e.target.value)
     }
-    
+
     let newYaml = Object.values(yaml.split("\n").map((line) => line.split(":")))
                         .reduce((acc, [key, value]) => {
                           if(!value) {
@@ -78,15 +80,33 @@ export default function APIDemoRest({type, method = 'POST' }) {
                           acc[key.trim()] = value.trim().replace(/^["\s]+|["\s]+$/g, '');
                           return acc;
                         }, {});
-    console.log("newYaml", newYaml)
+
     newYaml = omit([typeGeste == "MPR" ? geste : gesteCee], newYaml)
     newYaml[e.target.value] = "oui"
-    
+
     setYaml(stringify(newYaml))
   }
 
+  const documentationPath = "documentation/" + ruleToEvaluate[type]
+                                                  .split(' . ')
+                                                  // Problème d'encodage sur les tirets (ex: PAC "air-eau" non reconnu)
+                                                  .map((e) => e.replace("-", "%E2%80%91"))
+                                                  .join('/')
   return (
     <>
+      <InternalLink 
+        href={documentationPath} 
+        target="_blank" 
+        css={`display: inline-flex;align-items:center;margin-bottom: 1rem;`}
+      >
+        <Image src={iconDocumentation} alt="Icône documentation" width="24" css={`margin-right: 0.5rem;`} /> 
+        Documentation
+      </InternalLink>
+
+      <div css={`word-wrap: break-word;margin-bottom: 1rem;`}>
+        <strong>URL: </strong>
+        {method.toUpperCase() + " " + apiUrl}
+      </div>
       {(method === 'GET' &&
         <MiseEnAvant>
           Il faut sérialiser les paramètres passer via l'url en utilisant la fonction{' '}
@@ -96,10 +116,6 @@ export default function APIDemoRest({type, method = 'POST' }) {
           .
         </MiseEnAvant>
       )}
-      <div css={`word-wrap: break-word;margin-bottom: 1rem;`}>
-        <strong>URL: </strong>
-        {method.toUpperCase() + " " + apiUrl}
-      </div>
       {["mprg", "cee"].includes(type) && (
         <div css={`margin-bottom: 1rem`}>
           Geste : {` `}
@@ -124,6 +140,7 @@ export default function APIDemoRest({type, method = 'POST' }) {
             onChange={(e) => setYaml(e.target.value)}
           />
         </div>
+
         <CTA
           onClick={(e) => handleSubmit(e, method)}
           css={`padding: 0.8rem 1.2rem;cursor: pointer;height: fit-content;`} 
@@ -144,7 +161,7 @@ export default function APIDemoRest({type, method = 'POST' }) {
 export const TextArea = styled.textarea`
   padding: 0.6rem;
   font-size: 100%;
-  height: 10rem;
+  height: 11rem;
   border: 2px solid var(--color);
 `
 export const EvaluationValue = styled.div`

@@ -37,8 +37,8 @@ export default function APIDoc() {
         </p>
         <h3>Démonstration</h3>
         <p>
-          En modifiant la <em>situation</em> (à gauche), vous obtenez une{' '}
-          <em>évaluation</em> (à droite) différente.
+          Modifier la <em>situation</em> (les paramètres à gauche), puis cliquer sur le bouton 
+          <em> "Executer"</em> pour voir le résultat.
         </p>
         <AccordionComponent />
         <h3>Que permet l'API ?</h3>
