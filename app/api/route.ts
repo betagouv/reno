@@ -1,10 +1,12 @@
 import {
+  decodeDottedName,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
+import { omit } from '@/components/utils'
 
 const engine = new Publicodes(rules)
 const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
@@ -46,8 +48,18 @@ export async function GET(request: Request) {
   })
 }
 
-export async function POST(request) {
+export async function POST(request: Request) {
   const body = await request.json()
+  const fields = [Object.fromEntries(request.nextUrl.searchParams.entries())["fields"]]
+  const situation = engine.setSituation(body)
 
-  return Response.json(body)
+  return Response.json(fields.reduce((acc, field) => {
+    const evaluation = situation.evaluate(decodeDottedName(field))
+      acc[field] = { 
+        value: formatValue(evaluation),
+        missingVariables: Object.keys(evaluation.missingVariables)
+      }
+      return acc;
+    }, {})
+  );
 }
