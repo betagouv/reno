@@ -10,7 +10,7 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from 'next/link'
 import getAppUrl from '@/components/getAppUrl'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
-import { CTA } from '@/components/UI'
+import { CTA, MiseEnAvant } from '@/components/UI'
 
 export default function APIDemo({ yaml, method = 'get' }) {
   const [result, setResult] = useState("")
@@ -42,41 +42,46 @@ export default function APIDemo({ yaml, method = 'get' }) {
           body: JSON.stringify(situation),
       });
 
-      setResult(JSON.stringify(await response.json()))
+      setResult(JSON.stringify(await response.json(), null, "\t"))
   };
 
   return (
     <>
-      <h4>Méthode {method.toUpperCase()}</h4>
       {(method === 'get' &&
-        <p>
+        <MiseEnAvant>
           Pour la version GET, il faut sérialiser les paramètres de la
           simulation comme nous le faisons via la fonction{' '}
           <a href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55">
             encodeSituation
           </a>
           .
-        </p>
+        </MiseEnAvant>
       )}
-      <div css={`display: flex;align-items: center;justify-content: space-between; width: 100%;`}>
-        <div css={`width: 80%;word-wrap: break-word;`}>{method.toUpperCase() + " " + (method === 'get' ? getUrl : domain + '/api/')}</div>
+      <div css={`word-wrap: break-word;margin-bottom: 1rem;`}>
+        <strong>URL: </strong>
+        {method.toUpperCase() + " " + (method === 'get' ? getUrl : domain + '/api/')}
+      </div>
+      <div css={`display: flex;align-items: end;justify-content: space-between; width: 100%;margin-bottom: 1rem;`}>
+        <div css={`width: 80%;`}>
+          <strong css={`display: block`}>Paramètres:</strong>
+          <TextArea
+            css={`width: 100%`}
+            value={yaml}
+            onChange={(e) => setYaml(e.target.value)}
+          />
+        </div>
         <CTA
           onClick={(e) => handleSubmit(e, method)}
-          css={`padding: 0.8rem 1.2rem;cursor: pointer;word-break: break-word;`} 
+          css={`padding: 0.8rem 1.2rem;cursor: pointer;height: fit-content;`} 
         >
           Exécuter
         </CTA>
       </div>
       <div>
-        Paramètres:<br />
-        <TextArea
-          value={yaml}
-          onChange={(e) => setYaml(e.target.value)}
-        />
-      </div>
-      <div>
-        Résultat:
-        {result}
+        <strong css={`display: block;`}>Résultat:</strong>
+        <code css={`display: block; padding: 1rem; background: black; color: white; min-width: 100%;`}>
+          <pre>{result}</pre>
+        </code>
       </div>
     </>
   )
@@ -84,11 +89,10 @@ export default function APIDemo({ yaml, method = 'get' }) {
 
 export const TextArea = styled.textarea`
   padding: 0.6rem;
-  font-size: 110%;
+  font-size: 100%;
   width: 25rem;
-  height: 10rem;
+  height: 15rem;
   border: 2px solid var(--color);
-  margin-right: 2rem;
 `
 export const EvaluationValue = styled.div`
   background: var(--color);

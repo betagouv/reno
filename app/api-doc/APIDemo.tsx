@@ -47,7 +47,11 @@ export default function APIDemo({titre, type}) {
   return (
     <>
       <Tabs>
-        <TabHeaders role="tablist" aria-label="Démonstrations des API">
+        <TabHeaders
+          css={`border: 1px solid #ddd;border-top: 0px;background: white;`}
+          role="tablist" 
+          aria-label="Démonstrations des API"
+        >
           <TabHeader role="presentation">
             <button
               id="tabpanel-post"

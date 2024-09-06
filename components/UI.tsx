@@ -523,7 +523,7 @@ export const TabHeaders = styled.ul`
     min-height: 3rem;
     order: 1;
     overflow-x: auto;
-    padding: 4px .75rem;
+    padding: 4px .75rem 0px .75rem;
     width: 100%;
     z-index: 1;
     list-style-type: none;
@@ -606,12 +606,13 @@ export const TabPanel = styled.div`
 `
 
 export const AccordionTitle = styled.button`
+  background-color: white;
   align-items: center;
   color: #000091;
   display: inline-flex;
   flex-direction: row;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5rem;
   margin: 0;
   max-height: none;
@@ -623,7 +624,8 @@ export const AccordionTitle = styled.button`
   width: -moz-fit-content;
   width: fit-content;
   width: 100%;
-  &::hover {
+  border: 1px solid #ddd;
+  &:hover {
     background-color: #f6f6f6;
   }
   &::after {
