@@ -20,7 +20,7 @@ export default function APIDoc() {
         <p>
           C'est une API <a href="https://publi.codes">Publicodes</a>. Nous vous
           conseillons de faire un petit tour (10&nbsp;minutes) sur la
-          <a href="https://publi.codes/docs">documentation</a> de Publicodes pour
+          <a href="https://publi.codes/docs"> documentation</a> de Publicodes pour
           mieux comprendre ses fondamentaux.
         </p>
         <p
