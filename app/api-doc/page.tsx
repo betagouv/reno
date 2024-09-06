@@ -57,10 +57,9 @@ export default function APIDoc() {
         <h3>Que renvoie-t-elle ?</h3>
         <p>
           L'API vous renvoie, pour chacun des deux dispositifs de Ma Prime
-          Rénov' : le résultat numérique ou 'Non applicable', la liste des
+          Rénov' : le résultat numérique ou 'Non applicable' ainsi que la liste des
           questions auxquelles l'utilisateur doit encore répondre (c'est une API
-          conversationnelle), ainsi que l'objet complet de simulation
-          Publicodes.
+          conversationnelle).
         </p>
         <h3>Spécification</h3>
         <p>

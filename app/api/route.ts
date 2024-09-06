@@ -9,52 +9,55 @@ import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import { omit } from '@/components/utils'
 
 const engine = new Publicodes(rules)
-const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
+// const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
 
-const targets = rules.aides.somme
+// const targets = rules.aides.somme
 
-export async function GET(request: Request) {
-  const searchParams = request.nextUrl.searchParams
-  const searchParamsObject = Object.fromEntries(searchParams.entries())
+// export async function GET(request: Request) {
+//   const searchParams = request.nextUrl.searchParams
+//   const searchParamsObject = Object.fromEntries(searchParams.entries())
 
-  const answeredQuestions = getAnsweredQuestions(searchParamsObject, rules)
-  const situation = getSituation(searchParamsObject, rules),
-    validatedSituation = Object.fromEntries(
-      Object.entries(situation).filter(([k, v]) =>
-        answeredQuestions.includes(k),
-      ),
-    )
+//   const answeredQuestions = getAnsweredQuestions(searchParamsObject, rules)
+//   const situation = getSituation(searchParamsObject, rules),
+//     validatedSituation = Object.fromEntries(
+//       Object.entries(situation).filter(([k, v]) =>
+//         answeredQuestions.includes(k),
+//       ),
+//     )
 
-  engine.setSituation(validatedSituation)
-  const resultsArray = targets.map((target) => {
-    const evaluation = engine.evaluate(target),
-      value = formatValue(evaluation),
-      nextQuestions = getNextQuestions(
-        evaluation,
-        answeredQuestions,
-        questionsConfig,
-        rules,
-      )
-    return [target, { evaluation, value, nextQuestions }]
-  })
+//   engine.setSituation(validatedSituation)
+//   const resultsArray = targets.map((target) => {
+//     const evaluation = engine.evaluate(target),
+//       value = formatValue(evaluation),
+//       nextQuestions = getNextQuestions(
+//         evaluation,
+//         answeredQuestions,
+//         questionsConfig,
+//         rules,
+//       )
+//     return [target, { evaluation, value, nextQuestions }]
+//   })
 
-  const results = Object.fromEntries(resultsArray)
+//   const results = Object.fromEntries(resultsArray)
 
-  return Response.json({
-    situation,
-    validatedSituation,
-    answeredQuestions,
-    results,
-  })
-}
+//   return Response.json({
+//     situation,
+//     validatedSituation,
+//     answeredQuestions,
+//     results,
+//   })
+// }
+async function apiResponse(method: string, request: Request) {
+  const situation = method === "POST" ? 
+    await request.json() : 
+    getSituation(Object.fromEntries(request.nextUrl.searchParams.entries()), rules)
 
-export async function POST(request: Request) {
-  const body = await request.json()
   const fields = [Object.fromEntries(request.nextUrl.searchParams.entries())["fields"]]
-  const situation = engine.setSituation(body)
-
+  engine.setSituation(situation)
+  console.log("situation", situation)
   return Response.json(fields.reduce((acc, field) => {
-    const evaluation = situation.evaluate(decodeDottedName(field))
+    console.log("field", field)
+    const evaluation = engine.evaluate(decodeDottedName(field))
       acc[field] = { 
         value: formatValue(evaluation),
         missingVariables: Object.keys(evaluation.missingVariables)
@@ -62,4 +65,12 @@ export async function POST(request: Request) {
       return acc;
     }, {})
   );
+}
+
+export async function GET(request: Request) {
+  return apiResponse("GET", request)
+}
+
+export async function POST(request: Request) {
+  return apiResponse("POST", request)
 }

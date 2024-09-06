@@ -42,9 +42,10 @@ export default function APIDemoRest({type, method = 'POST' }) {
     }
   }, [yaml])
 
-  const searchParams = encodeSituation(situation)
+  const fields = {"fields": encodeDottedName(ruleToEvaluate[type])}
+  const searchParams = encodeSituation({...situation, ...fields})
   const apiUrl = domain + '/api/?' +
-                 new URLSearchParams(method === "GET" ? searchParams : {"fields": encodeDottedName(ruleToEvaluate[type])}).toString()
+                 new URLSearchParams(method === "GET" ? searchParams : fields).toString()
 
   const handleSubmit = async (e) => {
       e.preventDefault();
@@ -133,7 +134,7 @@ export default function APIDemoRest({type, method = 'POST' }) {
       <div>
         <strong css={`display: block;`}>Résultat:</strong>
         <code css={`display: block; padding: 1rem; background: black; color: white; min-width: 100%;`}>
-          <pre>{result}</pre>
+          <pre>{result ? result : "{}"}</pre>
         </code>
       </div>
     </>
