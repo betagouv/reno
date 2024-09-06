@@ -4,7 +4,7 @@ import { AccordionTitle } from '@/components/UI';
 import APIDemo from './APIDemo';
 
 export default function AccordionComponent() {
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState("accompagne");
 
   const toggleSection = (section) => {
     if (activeSection === section) {
