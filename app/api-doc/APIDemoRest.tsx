@@ -90,7 +90,7 @@ export default function APIDemoRest({type, method = 'POST' }) {
   const documentationPath = "documentation/" + ruleToEvaluate[type]
                                                   .split(' . ')
                                                   // Problème d'encodage sur les tirets (ex: PAC "air-eau" non reconnu)
-                                                  .map((e) => e.replace("-", "%E2%80%91"))
+                                                  .map((e) => e.replace(/-/g, "%E2%80%91"))
                                                   .join('/')
   return (
     <>
