@@ -104,6 +104,7 @@ export default function APIDoc() {
           règles sont aussi accessibles en JSON à{' '}
           <Link href="/api/rules">cette adresse</Link>.
         </p>
+        <h3>Privilégiez l'intégration directe du modèle si vous le pouvez</h3>
         <p>
           Plutôt que de dépendre d'une API tierce, si vous avez confiance dans
           votre capacité à mettre des services en ligne, le mieux reste
@@ -112,8 +113,11 @@ export default function APIDoc() {
           <em>dans votre navigateur, sans appel réseau</em>. Si vous êtes dans
           un environnement Javascript, il suffit de quelques lignes de code.
           Sinon, un simple projet Javascript avec ExpressJs permet de faire
-          tourner une API en 30 minutes sur vos serveurs. Nous publierons un
-          paquet NPM tout prêt.
+          tourner une API en 30 minutes sur vos serveurs.
+        </p>
+        <p>
+          Nous publierons bientôt un paquet NPM tout prêt, n'hésitez pas à nous
+          contacter pour que l'on priorise sa publication.
         </p>
       </Section>
     </Main>
