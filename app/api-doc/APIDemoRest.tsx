@@ -21,6 +21,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
   const [gesteCee, setGesteCee] = useState(
     'gestes . isolation . murs extérieurs',
   )
+  const [evaluationGlobale, setEvaluationGlobale] = useState(false)
 
   const ruleToEvaluate = {
     mprg: `${geste} . MPR . montant`,
@@ -54,7 +55,8 @@ export default function APIDemoRest({ type, method = 'POST' }) {
   const apiUrl =
     domain +
     '/api/?' +
-    new URLSearchParams(method === 'GET' ? searchParams : fields).toString()
+    new URLSearchParams(method === 'GET' ? searchParams : fields).toString() +
+    (evaluationGlobale ? ",evaluation" : "")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -132,6 +134,15 @@ export default function APIDemoRest({ type, method = 'POST' }) {
       >
         <strong>URL: </strong>
         {method.toUpperCase() + ' ' + apiUrl}
+      </div>
+      <div css={`display: flex; align-items: center;margin-bottom: 1rem;`}>
+        <input
+          css={`margin-right: 1rem;`}
+          type="checkbox"
+          id="evaluationGlobale"
+          onClick={() => setEvaluationGlobale(!evaluationGlobale) }
+        />
+        <label htmlFor="evaluationGlobale">Retourner l'évaluation globale</label>
       </div>
       {method === 'GET' && (
         <MiseEnAvant>
@@ -222,6 +233,8 @@ export default function APIDemoRest({ type, method = 'POST' }) {
             background: black;
             color: white;
             min-width: 100%;
+            max-height: 15rem;
+            overflow: auto;
           `}
         >
           <pre>{result ? result : '{}'}</pre>

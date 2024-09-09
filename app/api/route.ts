@@ -48,18 +48,25 @@ const engine = new Publicodes(rules)
 //   })
 // }
 async function apiResponse(method: string, request: Request) {
+  const params = Object.fromEntries(request.nextUrl.searchParams.entries())
+
   const situation = method === "POST" ? 
     await request.json() : 
-    getSituation(Object.fromEntries(request.nextUrl.searchParams.entries()), rules)
+    getSituation(params, rules)
 
-  const fields = [Object.fromEntries(request.nextUrl.searchParams.entries())["fields"]]
+  let fields = params["fields"].split(',')
+  const fullEvaluation = fields.includes("evaluation")
+
   engine.setSituation(situation)
-  return Response.json(fields.reduce((acc, field) => {
+  return Response.json(fields.filter((f) => f !== "evaluation").reduce((acc, field) => {
     const evaluation = engine.evaluate(decodeDottedName(field))
       acc[field] = { 
         rawValue: evaluation.nodeValue,
         formattedValue: formatValue(evaluation),
         missingVariables: Object.keys(evaluation.missingVariables)
+      }
+      if(fullEvaluation) {
+        acc[field]["evaluation"] = evaluation
       }
       return acc;
     }, {})
