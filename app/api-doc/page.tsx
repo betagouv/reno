@@ -1,8 +1,15 @@
-import { Main, Section, Tabs, TabHeaders, TabHeader, TabPanel } from '@/components/UI';
-import css from '@/components/css/convertToJs';
-import Link from '@/node_modules/next/link';
-import { Metadata } from 'next/types';
-import AccordionComponent from './AccordionComponent';
+import {
+  Main,
+  Section,
+  Tabs,
+  TabHeaders,
+  TabHeader,
+  TabPanel,
+} from '@/components/UI'
+import css from '@/components/css/convertToJs'
+import Link from '@/node_modules/next/link'
+import { Metadata } from 'next/types'
+import AccordionComponent from './AccordionComponent'
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
@@ -16,12 +23,17 @@ export default function APIDoc() {
       <Section>
         <h2>API Ma Prime Rénov' 2024</h2>
 
-        <p>Vous pouvez utiliser ce calculateur via notre API. </p>
         <p>
-          C'est une API <a href="https://publi.codes">Publicodes</a>. Nous vous
-          conseillons de faire un petit tour (10&nbsp;minutes) sur la
-          <a href="https://publi.codes/docs"> documentation</a> de Publicodes pour
-          mieux comprendre ses fondamentaux.
+          Notre API vous permet d'intégrer Mes Aides Réno au coeur de votre
+          service. Si votre objectif est simplement de l'intégrer dans une page
+          Web ou un article de blog, nous avons{' '}
+          <Link href="/integration">une solution bien plus simple</Link>.
+        </p>
+        <p>
+          Notre API est basée sur <a href="https://publi.codes">Publicodes</a>.
+          Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la
+          <a href="https://publi.codes/docs"> documentation</a> de Publicodes
+          pour mieux comprendre ses fondamentaux.
         </p>
         <p
           style={css`
@@ -37,7 +49,8 @@ export default function APIDoc() {
         </p>
         <h3>Démonstration</h3>
         <p>
-          Modifier la <em>situation</em> (les paramètres à gauche), puis cliquer sur le bouton 
+          Modifier la <em>situation</em> (les paramètres à gauche), puis cliquer
+          sur le bouton
           <em> "Executer"</em> pour voir le résultat.
         </p>
         <AccordionComponent />
@@ -57,9 +70,9 @@ export default function APIDoc() {
         <h3>Que renvoie-t-elle ?</h3>
         <p>
           L'API vous renvoie, pour chacun des deux dispositifs de Ma Prime
-          Rénov' : le résultat numérique ou 'Non applicable' ainsi que la liste des
-          questions auxquelles l'utilisateur doit encore répondre (c'est une API
-          conversationnelle).
+          Rénov' : le résultat numérique ou 'Non applicable' ainsi que la liste
+          des questions auxquelles l'utilisateur doit encore répondre (c'est une
+          API conversationnelle).
         </p>
         <h3>Spécification</h3>
         <p>
@@ -104,5 +117,5 @@ export default function APIDoc() {
         </p>
       </Section>
     </Main>
-  );
+  )
 }
