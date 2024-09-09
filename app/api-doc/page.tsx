@@ -43,9 +43,9 @@ export default function APIDoc() {
           `}
         >
           ℹ️ Cette API est basée sur le modèle de calcul qui fait tourner
-          mesaidesreno.betagouv.fr. C'est un produit en version beta, qui peut
-          toujours contenir des inexactitudes : n'oubliez pas d'en avertir vos
-          utilisateurs si cela vous semble légitime.
+          mesaidesreno.betagouv.fr, déjà utilisé par des milliers d'utilisateurs
+          par mois. L'API est en version beta, il est de votre ressort d'en
+          avertir vos utilisateur si cela vous semble légitime.
         </p>
         <h3>Démonstration</h3>
         <p>
