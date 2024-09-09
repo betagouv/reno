@@ -54,12 +54,11 @@ async function apiResponse(method: string, request: Request) {
 
   const fields = [Object.fromEntries(request.nextUrl.searchParams.entries())["fields"]]
   engine.setSituation(situation)
-  console.log("situation", situation)
   return Response.json(fields.reduce((acc, field) => {
-    console.log("field", field)
     const evaluation = engine.evaluate(decodeDottedName(field))
       acc[field] = { 
-        value: formatValue(evaluation),
+        rawValue: evaluation.nodeValue,
+        formattedValue: formatValue(evaluation),
         missingVariables: Object.keys(evaluation.missingVariables)
       }
       return acc;
