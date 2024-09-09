@@ -90,7 +90,7 @@ function Form({ rules }) {
       <br />
       <UserProblemBanner />
       <Share searchParams={searchParams} />
-      { !isInIframe && 
+      {!isInIframe && (
         <Section>
           <h2>Documentation</h2>
           <p>
@@ -106,7 +106,7 @@ function Form({ rules }) {
             .
           </p>
         </Section>
-      }
+      )}
     </div>
   )
 }
