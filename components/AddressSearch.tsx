@@ -16,6 +16,7 @@ export default function AddressSearch({ setChoice, situation }) {
   const [clicked, setClicked] = useState(null)
   const validInput = input && input.length >= 3
 
+  // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
     if (situation && situation['ménage . commune']) {
       fetch(
@@ -101,7 +102,7 @@ export default function AddressSearch({ setChoice, situation }) {
                 text-align: right;
                 ${clicked &&
                 clicked.code === result.code &&
-                `background: var(--lighterColor)`}
+                `background: var(--lighterColor); padding: .3rem .4rem`}
               `}
             >
               {result.nom} <small>{result.codeDepartement}</small>
