@@ -5,6 +5,13 @@ import questionIcon from '@/public/remix-question-empty.svg'
 import Image from 'next/image'
 import { PrimeStyle } from './UI'
 
+export const computeStatusTitle = (status) =>
+  status
+    ? 'Nous avons déterminé que vous êtes éligible à cette aide'
+    : status === null
+      ? 'Nous ne pouvons pas vous dire si vous êtes éligible à cette aide'
+      : "Vous n'êtes pas éligible à cette aide"
+
 export const SummaryAide = ({
   icon,
   text,
@@ -22,6 +29,7 @@ export const SummaryAide = ({
           ? 'font-size: 85%; margin-bottom: .2rem'
           : 'margin-bottom: .6rem'}
       `}
+      title={computeStatusTitle(status)}
     >
       <div
         css={`
