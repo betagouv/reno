@@ -606,6 +606,11 @@
     ménage . commune: "'49007'"
     ménage . EPCI: "'244900015'"
     logement . propriétaire occupant: oui
+    vous . propriétaire . condition: oui
+    logement . résidence principale propriétaire: oui
+    logement . type: "'maison'"
+    logement . surface: 78
+    logement . période de construction: "'de 15 à 25 ans'"
   valeurs attendues:
     aides locales . angers . aides socles . taux: 10
     aides locales . angers . prime basse consommation . montant: 1500
