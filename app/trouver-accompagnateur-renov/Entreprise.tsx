@@ -12,15 +12,14 @@ export default function Entreprise({ data }) {
   const [nom, rue, ville] = getAdresse(data)
   // le {nom} de l'entité n'est pas très utile, car c'est toujours empiriquement "Espace France Rénov [ville ou EPCI], le complementx de l'adresse est plus informatif
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
-  const horaires = data.plage_ouverture && JSON.parse(data.plage_ouverture)
-  const telephones = data.telephone && JSON.parse(data.telephone)
-  const lastModified = data.date_modification
-  const sites = data.site_internet && JSON.parse(data.site_internet)
+  const horaires = JSON.parse(data.Horaires_Structure)
+  const telephone = data.Telephone_Structure
+  const site = data.Site_Internet_Structure
+
   return (
     <Card
       css={`
         a {
-          overflow-x: scroll;
           display: block;
         }
         h4 {
@@ -28,7 +27,7 @@ export default function Entreprise({ data }) {
         }
       `}
     >
-      <h4>{nom || data.nom}</h4>
+      <h4>{nom}</h4>
       <br />
       <div>
         <small>{rue}</small>
@@ -47,34 +46,34 @@ export default function Entreprise({ data }) {
         </div>
       )}
       <br />
-      {telephones?.length > 0 && (
+      {telephone && (
         <div>
           <a
-            href={`tel:${telephones[0].valeur}`}
+            href={`tel:${telephone}`}
             title="Contacter cette entreprise par téléphone"
           >
-            {telephones[0].valeur}
+            {telephone}
           </a>
         </div>
       )}
-      {data.adresse_courriel && (
+      {data.Email_Structure && (
         <div>
           <a
-            href={`mailto:${data.adresse_courriel}`}
+            href={`mailto:${data.Email_Structure}`}
             title="Contacter cette entreprise par courriel"
           >
-            {data.adresse_courriel}
+            {data.Email_Structure}
           </a>
         </div>
       )}
-      {sites?.length > 0 && (
+      {site && (
         <div>
-          <a href={sites[0].valeur} target="_blank">
-            {sites[0].valeur}
+          <a href={site} target="_blank">
+            {site}
           </a>
         </div>
       )}
-      {horaires?.length > 0 && (
+      {horaires[0] != "" && (
         <div
           css={`
             display: flex;
@@ -91,42 +90,15 @@ export default function Entreprise({ data }) {
             `}
           >
             {horaires.map((horaire) => {
-              const {
-                nom_jour_debut,
-                nom_jour_fin,
-                valeur_heure_debut_1,
-                valeur_heure_fin_1,
-                valeur_heure_debut_2,
-                valeur_heure_fin_2,
-                commentaire = '',
-              } = horaire
               return (
                 <li key={JSON.stringify(horaire)}>
                   <div>
-                    Du {nom_jour_debut} au {nom_jour_fin}, de{' '}
-                    {valeur_heure_debut_1} à {valeur_heure_fin_1}
-                    {valeur_heure_debut_2 ? (
-                      <span>
-                        , puis de {valeur_heure_debut_2} à {valeur_heure_fin_2}
-                      </span>
-                    ) : null}
-                    .{' '}
+                    {horaire}
                   </div>
-                  <div>{commentaire || data.commentaire_plage_ouverture}</div>
                 </li>
               )
             })}
           </ul>
-        </div>
-      )}
-      {lastModified && (
-        <div
-          css={`
-            margin-top: 1rem;
-            text-align: right;
-          `}
-        >
-          <small>Mis à jour le {lastModified}</small>
         </div>
       )}
     </Card>

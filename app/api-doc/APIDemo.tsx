@@ -1,68 +1,52 @@
 'use client'
-import { useMemo, useState } from 'react'
-import { parse, stringify } from 'yaml'
-import personas from '@/app/personas.yaml'
-import rules from '@/app/règles/rules'
-import Publicodes, { formatValue } from 'publicodes'
-import { useDebounce } from 'use-debounce'
-import styled from 'styled-components'
+import { useState } from 'react'
+import APIDemoRest from './APIDemoRest'
+import { TabHeader, TabHeaders, TabPanel, Tabs } from '@/components/UI'
 
-const engine = new Publicodes(rules)
-export default function APIDemo() {
-  const [yaml, setYaml] = useState(stringify(personas[0].situation))
-  const [debouncedYaml] = useDebounce(yaml, 500)
-
-  const mpra = useMemo(() => {
-    console.log('memo')
-    try {
-      const json = parse(debouncedYaml)
-      const evaluation = engine
-        .setSituation(json)
-        .evaluate('MPR . accompagnée . montant')
-      return formatValue(evaluation, { precision: 0 })
-    } catch (e) {
-      console.log(e)
-      return e
-    }
-  }, [debouncedYaml])
+export default function APIDemo({type}) {
+  const [method, setMethod] = useState('POST');
 
   return (
-    <section
-      css={`
-        margin: 2rem 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        align-items: center;
-      `}
-    >
-      <TextArea
-        value={yaml}
-        onChange={(e) => console.log('onchange') || setYaml(e.target.value)}
-      />
-      <EvaluationValue>
-        <small>MaPrimeRénov' accompagnée</small>{' '}
-        <div>{typeof mpra === 'string' ? mpra : <p>{mpra.toString()}</p>}</div>
-      </EvaluationValue>
-    </section>
+    <>
+      <Tabs>
+        <TabHeaders
+          css={`border: 1px solid #ddd;border-top: 0px;background: white;`}
+          role="tablist" 
+          aria-label="Démonstrations des API"
+        >
+          <TabHeader role="presentation">
+            <button
+              id="tabpanel-post"
+              tabIndex={method === 'POST' ? 0 : -1}
+              role="tab"
+              aria-selected={method === 'POST'}
+              aria-controls="tabpanel-post"
+              onClick={() => setMethod('POST')}
+            >
+              Méthode POST
+            </button>
+          </TabHeader>
+          <TabHeader role="presentation">
+            <button
+              id="tabpanel-get"
+              tabIndex={method === 'GET' ? 0 : -1}
+              role="tab"
+              aria-selected={method === 'GET'}
+              aria-controls="tabpanel-get"
+              onClick={() => setMethod('GET')}
+            >
+              Méthode GET
+            </button>
+          </TabHeader>
+        </TabHeaders>
+        <TabPanel
+          id={`tabpanel-${method}`}
+          role="tabpanel"
+          aria-labelledby="tabpanel-${method}"
+        >
+          <APIDemoRest {...{type, method}} />
+        </TabPanel>
+      </Tabs>
+    </>
   )
 }
-
-export const TextArea = styled.textarea`
-  padding: 0.6rem;
-  font-size: 110%;
-  width: 25rem;
-  height: 10rem;
-  border: 2px solid var(--color);
-  margin-right: 2rem;
-`
-
-export const EvaluationValue = styled.div`
-  background: var(--color);
-  color: white;
-  padding: 1rem 2rem;
-  text-align: center;
-  small {
-    margin-bottom: 0.4rem;
-  }
-`
