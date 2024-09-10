@@ -1,6 +1,5 @@
 taxe foncière:
-  marque: Taxe foncière
-  complément de marque: Exonération
+  marque: Exonération de taxe foncière
 
 logement . taxe foncière:
   question: Combien payez-vous de taxe foncière chaque année pour votre logement ?
