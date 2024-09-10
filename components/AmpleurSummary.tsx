@@ -33,6 +33,8 @@ export default function AmpleurSummary({
   )
 
   const { eligibles, nonEligibles } = useAides(engine)
+
+  console.log('lightblue', eligibles, nonEligibles, evaluation)
   const expand = () =>
     setSearchParams({ details: expanded ? undefined : 'oui' })
 
