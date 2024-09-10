@@ -3,6 +3,7 @@
 # la liste est sur gitlab ici https://gitlab.com/pidila/sp-simulateurs-data/blob/master/donnees-de-reference/Zonage_Denormandie.json
 # Le ministère de l'écologie la publie en PDF (!) évidemment peu exploitable https://www.ecologie.gouv.fr/sites/default/files/Liste_operations_revitalisation_territoire_signees.pdf
 # Cette liste pour les ORT n'est plus disponible sans raison (!) https://www.data.gouv.fr/fr/datasets/liste-des-communes-couvertes-par-des-operations-de-revitalisation-de-territoire/
+# MAJ : Source valide en CSV sur Data gouv, à jour en septembre 2024 https://www.data.gouv.fr/fr/datasets/programme-action-coeur-de-ville/
 ######
 - insee: '01004'
   nom: Ambérieu-en-Bugey
