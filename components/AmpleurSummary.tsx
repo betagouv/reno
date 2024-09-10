@@ -10,6 +10,16 @@ import { CTA, CTAWrapper, Card } from './UI'
 
 import { PrimeStyle } from './UI'
 import { useAides } from './ampleur/useAides'
+import { sortBy } from './utils'
+
+export const computeAideStatus = (evaluation) => {
+  const value = formatValue(evaluation, { precision: 0 })
+
+  if (value === 'Non applicable' || value === 'non') return false
+  if (evaluation.nodeValue === 0) return null
+  if (evaluation.nodeValue > 0) return true
+  throw new Error('Unknown aide status, missing a case in the switch')
+}
 
 export default function AmpleurSummary({
   engine,
@@ -26,18 +36,15 @@ export default function AmpleurSummary({
 
   const value = formatValue(evaluation, { precision: 0 })
 
-  const eligible = !(
-    value === 'Non applicable' ||
-    evaluation.nodeValue === 0 ||
-    value === 'non'
-  )
+  const aides = useAides(engine)
 
-  const { eligibles, nonEligibles } = useAides(engine)
-
-  console.log('lightblue', eligibles, nonEligibles, evaluation)
+  console.log('lightblue', aides)
   const expand = () =>
     setSearchParams({ details: expanded ? undefined : 'oui' })
 
+  const neSaisPasEtNonEligibles = sortBy((aide) => aide.status)(
+    aides.filter((aide) => aide.status !== true),
+  )
   return (
     <section>
       <header>
@@ -63,23 +70,25 @@ export default function AmpleurSummary({
           max-width: 40rem;
         `}
       >
-        {eligibles.map((aide) => {
-          const text = aide.marque,
-            text2 = aide['complément de marque']
-          return (
-            <SummaryAide
-              key={aide.dottedName}
-              {...{
-                ...aide,
-                icon: aide.icône,
-                text,
-                text2,
-                type: aide.type,
-                expanded,
-              }}
-            />
-          )
-        })}
+        {aides
+          .filter((aide) => aide.status === true)
+          .map((aide) => {
+            const text = aide.marque,
+              text2 = aide['complément de marque']
+            return (
+              <SummaryAide
+                key={aide.dottedName}
+                {...{
+                  ...aide,
+                  icon: aide.icône,
+                  text,
+                  text2,
+                  type: aide.type,
+                  expanded,
+                }}
+              />
+            )
+          })}
 
         <div
           css={`
@@ -158,9 +167,9 @@ export default function AmpleurSummary({
             </CTA>
           </CTAWrapper>
         </div>
-        {nonEligibles.length > 0 && (
+        {neSaisPasEtNonEligibles.length > 0 && (
           <div title="Aides auxquelles vous n'êtes pas éligible">
-            {nonEligibles.map((aide) => {
+            {neSaisPasEtNonEligibles.map((aide) => {
               const text = aide.marque,
                 text2 = aide['complément de marque']
               return (

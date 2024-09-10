@@ -1,5 +1,6 @@
 import rules from '@/app/règles/rules'
 import { formatValue } from 'publicodes'
+import { computeAideStatus } from '../AmpleurSummary'
 
 const topList = rules['ampleur . tous les dispositifs'].somme,
   // unfold the sums with one level only, no recursion yet
@@ -34,16 +35,9 @@ export function useAides(engine) {
       .evaluate(aide.dottedName)
     const value = formatValue(evaluation, { precision: 0 })
 
-    const eligible = !(
-      value === 'Non applicable' ||
-      evaluation.nodeValue === 0 ||
-      value === 'non'
-    )
-    return { ...aide, evaluation, value, eligible }
+    const status = computeAideStatus(evaluation)
+    return { ...aide, evaluation, value, status }
   })
 
-  const eligibles = aides.filter((a) => a.eligible)
-  const nonEligibles = aides.filter((a) => !a.eligible)
-
-  return { eligibles, nonEligibles }
+  return aides
 }

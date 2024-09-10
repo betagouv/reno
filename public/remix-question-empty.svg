@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 24 24"
+   fill="currentColor"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="remix-question-empty.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="20.689335"
+     inkscape:cx="-0.89418049"
+     inkscape:cy="9.1109741"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M 12,22 C 6.47715,22 2,17.5228 2,12 2,6.47715 6.47715,2 12,2 c 5.5228,0 10,4.47715 10,10 0,5.5228 -4.4772,10 -10,10 z m 0,-2 c 4.4183,0 8,-3.5817 8,-8 0,-4.41828 -3.5817,-8 -8,-8 -4.41828,0 -8,3.58172 -8,8 0,4.4183 3.58172,8 8,8 z"
+     id="path1"
+     style="fill:#2a82dd;fill-opacity:1;stroke:none;stroke-opacity:1"
+     sodipodi:nodetypes="ssssssssss" />
+  <text
+     xml:space="preserve"
+     style="font-weight:800;font-size:66.6667px;font-family:Marianne;-inkscape-font-specification:'Marianne Ultra-Bold';text-align:center;text-anchor:middle;opacity:0.459925;fill:#2a82dd;stroke:#ffffff;stroke-width:22.6772;stroke-linecap:round;fill-opacity:1"
+     x="9.2868528"
+     y="12.05166"
+     id="text534"><tspan
+       sodipodi:role="line"
+       id="tspan532"></tspan></text>
+  <g
+     aria-label="?"
+     id="text588"
+     style="font-weight:800;font-size:14.0336px;font-family:Marianne;-inkscape-font-specification:'Marianne Ultra-Bold';text-align:center;text-anchor:middle;opacity:1;fill:#2a82dd;stroke:#ffffff;stroke-width:119.341;stroke-linecap:round;fill-opacity:1">
+    <path
+       d="m 11.014351,14.129681 q -0.02807,-0.140336 -0.0421,-0.308739 0,-0.182437 0,-0.322773 0,-0.575378 0.210504,-0.996386 0.210504,-0.435041 0.519244,-0.785881 0.308739,-0.35084 0.617478,-0.65958 0.308739,-0.308739 0.519243,-0.617478 0.210504,-0.322773 0.210504,-0.6876464 0,-0.4350415 -0.322773,-0.6736127 -0.308739,-0.2526048 -0.856049,-0.2526048 -0.491176,0 -0.940251,0.1263024 -0.435042,0.1122688 -0.9542851,0.3789072 l -0.5192432,-1.40336 q 0.491176,-0.3087392 1.1928563,-0.491176 0.70168,-0.1824368 1.40336,-0.1824368 0.870083,0 1.431427,0.2245376 0.561344,0.2245376 0.884117,0.5894112 0.336806,0.35084 0.463108,0.771848 0.140336,0.421008 0.140336,0.7999151 0,0.6034452 -0.252604,1.0525202 -0.238572,0.435041 -0.589412,0.813949 -0.336806,0.364873 -0.687646,0.70168 -0.35084,0.336806 -0.603445,0.715713 -0.238571,0.364874 -0.238571,0.827983 0,0.0842 0,0.19647 0,0.09824 0.01403,0.182437 z m 0.842016,3.255795 q -0.477142,0 -0.842016,-0.308739 -0.35084,-0.322773 -0.35084,-0.870083 0,-0.547311 0.35084,-0.85605 0.364874,-0.322773 0.842016,-0.322773 0.477143,0 0.827983,0.322773 0.364873,0.308739 0.364873,0.85605 0,0.54731 -0.364873,0.870083 -0.35084,0.308739 -0.827983,0.308739 z"
+       style="font-weight:bold;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Bold';stroke:none;fill:#2a82dd;fill-opacity:1"
+       id="path1555" />
+  </g>
+</svg>

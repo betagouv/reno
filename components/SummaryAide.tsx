@@ -1,6 +1,7 @@
 'use client'
 
 import crossIcon from '@/public/remix-close-empty.svg'
+import questionIcon from '@/public/remix-question-empty.svg'
 import Image from 'next/image'
 import { PrimeStyle } from './UI'
 
@@ -9,7 +10,7 @@ export const SummaryAide = ({
   text,
   text2,
   type,
-  eligible,
+  status,
   value,
   expanded,
   small = false,
@@ -26,7 +27,7 @@ export const SummaryAide = ({
         css={`
           display: flex;
           align-items: center;
-          opacity: ${eligible ? '1' : '.75'};
+          opacity: ${status === false ? '.65' : '1'};
         `}
       >
         <span
@@ -41,19 +42,25 @@ export const SummaryAide = ({
             }
           `}
         >
-          {eligible ? (
+          {status ? (
             <Image
               src={'/check-green-hybrid.svg'}
               alt={"Icône d'une coche"}
               width="10"
               height="10"
             />
+          ) : status === null ? (
+            <Image
+              src={questionIcon}
+              alt="Icône d'un point d'interrogation"
+              css={``}
+            />
           ) : (
             <Image
               src={crossIcon}
               alt="Icône d'une croix"
               css={`
-                filter: grayscale(1);
+                filter: grayscale(0.7);
               `}
             />
           )}
@@ -70,7 +77,7 @@ export const SummaryAide = ({
             align-items: center;
             img {
               margin-right: 0.1rem;
-              ${!eligible && 'filter: grayscale(1)'}
+              ${status === false && 'filter: grayscale(1)'}
             }
           `}
         >
@@ -96,7 +103,7 @@ export const SummaryAide = ({
           )}
         </h4>
       </div>
-      {expanded && eligible && (
+      {expanded && status && (
         <div
           css={`
             display: flex;
