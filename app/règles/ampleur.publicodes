@@ -13,6 +13,7 @@ ampleur . montant:
     - MPR . accompagnée . prise en charge MAR
     - aides locales . total
     - CEE . rénovation d'ampleur . montant
+    - ampleur . prime individuelle copropriété
 
 ampleur . tous les dispositifs:
   note: |
@@ -28,7 +29,6 @@ ampleur . tous les dispositifs:
     - ampleur . prêt
     - denormandie . montant
     - taxe foncière . montant
-    - ampleur . prime individuelle copropriété
 
 ampleur . prime individuelle copropriété:
   note: |
