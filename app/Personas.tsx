@@ -38,7 +38,7 @@ export default function Personas({}) {
         <PersonasList>
           <ul>
             {personas.map((persona, personaIndex) => {
-              const newEngine = engine.setSituation({
+              engine.setSituation({
                 'simulation . mode': '"max"',
                 ...persona.situation,
               })

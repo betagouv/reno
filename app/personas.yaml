@@ -278,6 +278,7 @@
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 45
     MPR . non accompagnée . éligible: non
+    logement . commune . denormandie: oui
 
 - description: |
     4 sauts de DPE, enveloppe de 70 k€ TTC, couple très modeste avec enfant, sans remplacement chaudière en H1

@@ -285,6 +285,8 @@ logement . commune . nom:
   par défaut:
     texte: Brest
 
+# logement . commune . denormandie: voir le fichier denormandie
+
 ménage:
   titre: Votre ménage
 
