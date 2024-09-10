@@ -42,9 +42,9 @@ export default function AmpleurSummary({
   const expand = () =>
     setSearchParams({ details: expanded ? undefined : 'oui' })
 
-  const neSaisPasEtNonEligibles = sortBy((aide) => aide.status)(
-    aides.filter((aide) => aide.status !== true),
-  )
+  const neSaisPasEtNonEligibles = sortBy((aide) =>
+    aide.status === null ? 1 : 2,
+  )(aides.filter((aide) => aide.status !== true))
   return (
     <section>
       <header>
