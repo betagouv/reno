@@ -4,7 +4,7 @@ import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAmpleur from '@/public/illustration-ampleur.png'
 import iconChrono from '@/public/chrono.svg'
 import iconEuro from '@/public/euro.svg'
-import iconMarianne from '@/public/marianne-sans-texte.svg'
+import iconMarianne from '@/public/marianne-sans-texte-cropped.svg'
 import iconCogs from '@/public/cogs.svg'
 import checkIcon from '@/public/check-green.svg'
 import Image from 'next/image'
@@ -65,7 +65,7 @@ export default function DevenirPartenaire() {
                     <p>Le calculateur intègre les données à la source</p>
                 </li>
                 <li>
-                    <Image src={iconMarianne} />
+                    <Image src={iconMarianne} css={`width: 80% !important;`} />
                     <h3>Réputation</h3>
                     <p>Vous intégrez un calculateur officiel</p>
                 </li>
@@ -130,12 +130,9 @@ export const OrderedList = styled(HomeList)`
       width: 25%;
       min-width: 200px;
       margin: 0;
-      h3 {
-        color: var(--lightColor);
+      img {
+        width: auto;
+        height: 70px;
       }
-  }
-  img {
-    width: 100%;
-    height: 100px;
   }
 `
