@@ -40,4 +40,5 @@ next-env.d.ts
 .contentlayer
 .contentlayer/*
 
-data/
+data/*
+!data/README.md
