@@ -141,7 +141,11 @@ const PersonaCard = async ({ engine, persona, personaIndex }) => {
             justify-content: space-evenly;
           `}
         >
-          <PersonaInjection persona={persona} personaIndex={personaIndex} />
+          <PersonaInjection
+            persona={persona}
+            personaIndex={personaIndex}
+            enrichedSituation={enrichedSituation}
+          />
           <Link href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
             Inspecter
           </Link>

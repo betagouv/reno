@@ -10,17 +10,44 @@ export default function PersonaInjection({
   persona,
   keepPersonaBar = false,
   personaIndex,
+  enrichedSituation,
 }) {
   const [clicked, click] = useState(false)
 
+  if (enrichedSituation)
+    return (
+      <PersonaLink
+        {...{
+          enrichedSituation,
+          personaIndex,
+          keepPersonaBar,
+        }}
+      />
+    )
   if (!clicked) return <button onClick={() => click(true)}>Choisir</button>
-  return <Enriched {...{ persona, personaIndex, keepPersonaBar }} />
+  return (
+    <Enriched
+      {...{ persona, personaIndex, keepPersonaBar, enrichedSituation }}
+    />
+  )
 }
 
 const Enriched = ({ persona, personaIndex, keepPersonaBar }) => {
-  const setSearchParams = useSetSearchParams()
   const enrichedSituation = useEnrichSituation(persona.situation)
   if (!enrichedSituation) return <span>En cours</span>
+  return (
+    <PersonaLink
+      {...{
+        enrichedSituation,
+        personaIndex,
+        keepPersonaBar,
+      }}
+    />
+  )
+}
+
+const PersonaLink = ({ enrichedSituation, personaIndex, keepPersonaBar }) => {
+  const setSearchParams = useSetSearchParams()
   return (
     <Link
       href={setSearchParams(
