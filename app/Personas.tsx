@@ -17,6 +17,7 @@ import css from '@/components/css/convertToJs'
 import { personaTest } from '@/components/tests/personaTest'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import Link from 'next/link'
+import enrichSituation from '@/components/personas/enrichSituation'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -37,122 +38,115 @@ export default function Personas({}) {
         </p>
         <PersonasList>
           <ul>
-            {personas.map((persona, personaIndex) => {
-              engine.setSituation({
-                'simulation . mode': '"max"',
-                ...persona.situation,
-              })
-
-              const nom = personaNames[personaIndex]
-              const tests = Object.entries(
-                persona['valeurs attendues'] || {},
-              ).map(([dottedName, expectedValue]) =>
-                personaTest(persona, nom, engine, dottedName, expectedValue),
-              )
-              const moreTests = Object.entries(
-                persona['autres valeurs attendues'] || {},
-              ).map(([dottedName, expectedValue]) =>
-                personaTest(persona, nom, engine, dottedName, expectedValue),
-              )
-
-              return (
-                <li key={persona.description}>
-                  <Card>
-                    <h3>{nom}</h3>
-                    <PersonaStory>
-                      <Image src={quoteIcon} alt="Icône citation" />
-                      {persona.description}
-                    </PersonaStory>
-                    <PersonaTests>
-                      {tests.map(
-                        ({
-                          dottedName,
-                          correct,
-                          computedValue,
-                          formattedValue,
-                        }) => {
-                          return (
-                            <li key={dottedName}>
-                              <small
-                                dangerouslySetInnerHTML={{
-                                  __html: getRuleTitle(dottedName, rules),
-                                }}
-                              />
-
-                              <span
-                                style={css`
-                                  margin-top: 0.4rem;
-                                  text-align: right;
-                                `}
-                              >
-                                <ResultLabel
-                                  $binary={
-                                    computedValue === 'oui' || computedValue > 0
-                                  }
-                                >
-                                  {formattedValue}
-                                </ResultLabel>
-                                {correct ? (
-                                  <TestIcon
-                                    src="/check.svg"
-                                    width="10"
-                                    height="10"
-                                    alt={
-                                      'La valeur calculée correspond à la valeur attendue'
-                                    }
-                                  />
-                                ) : (
-                                  <span title="La valeur calculée ne correspond pas à la valeur attendue">
-                                    ❌
-                                  </span>
-                                )}
-                              </span>
-                            </li>
-                          )
-                        },
-                      )}
-                    </PersonaTests>
-                    {moreTests.length > 0 && (
-                      <small
-                        style={css`
-                          text-align: right;
-                        `}
-                      >
-                        {moreTests.length} autres tests&nbsp;
-                        <TestIcon
-                          src="/check.svg"
-                          width="10"
-                          height="10"
-                          style={css`
-                            vertical-align: sub;
-                          `}
-                          alt={
-                            'La valeur calculée correspond à la valeur attendue'
-                          }
-                        />
-                      </small>
-                    )}
-                    <div
-                      style={css`
-                        display: flex;
-                        justify-content: space-evenly;
-                      `}
-                    >
-                      <PersonaInjection
-                        persona={persona}
-                        personaIndex={personaIndex}
-                      />
-                      <Link href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
-                        Inspecter
-                      </Link>
-                    </div>
-                  </Card>
-                </li>
-              )
-            })}
+            {personas.map((persona, personaIndex) => (
+              <PersonaCard {...{ engine, persona, personaIndex }} />
+            ))}
           </ul>
         </PersonasList>
       </Section>
     </Main>
+  )
+}
+
+const PersonaCard = async ({ engine, persona, personaIndex }) => {
+  const enrichedSituation = await enrichSituation(persona.situation)
+
+  engine.setSituation({
+    'simulation . mode': '"max"',
+    ...enrichedSituation,
+  })
+
+  const nom = personaNames[personaIndex]
+  const tests = Object.entries(persona['valeurs attendues'] || {}).map(
+    ([dottedName, expectedValue]) =>
+      personaTest(persona, nom, engine, dottedName, expectedValue),
+  )
+  const moreTests = Object.entries(
+    persona['autres valeurs attendues'] || {},
+  ).map(([dottedName, expectedValue]) =>
+    personaTest(persona, nom, engine, dottedName, expectedValue),
+  )
+
+  return (
+    <li key={persona.description}>
+      <Card>
+        <h3>{nom}</h3>
+        <PersonaStory>
+          <Image src={quoteIcon} alt="Icône citation" />
+          {persona.description}
+        </PersonaStory>
+        <PersonaTests>
+          {tests.map(
+            ({ dottedName, correct, computedValue, formattedValue }) => {
+              return (
+                <li key={dottedName}>
+                  <small
+                    dangerouslySetInnerHTML={{
+                      __html: getRuleTitle(dottedName, rules),
+                    }}
+                  />
+
+                  <span
+                    style={css`
+                      margin-top: 0.4rem;
+                      text-align: right;
+                    `}
+                  >
+                    <ResultLabel
+                      $binary={computedValue === 'oui' || computedValue > 0}
+                    >
+                      {formattedValue}
+                    </ResultLabel>
+                    {correct ? (
+                      <TestIcon
+                        src="/check.svg"
+                        width="10"
+                        height="10"
+                        alt={
+                          'La valeur calculée correspond à la valeur attendue'
+                        }
+                      />
+                    ) : (
+                      <span title="La valeur calculée ne correspond pas à la valeur attendue">
+                        ❌
+                      </span>
+                    )}
+                  </span>
+                </li>
+              )
+            },
+          )}
+        </PersonaTests>
+        {moreTests.length > 0 && (
+          <small
+            style={css`
+              text-align: right;
+            `}
+          >
+            {moreTests.length} autres tests&nbsp;
+            <TestIcon
+              src="/check.svg"
+              width="10"
+              height="10"
+              style={css`
+                vertical-align: sub;
+              `}
+              alt={'La valeur calculée correspond à la valeur attendue'}
+            />
+          </small>
+        )}
+        <div
+          style={css`
+            display: flex;
+            justify-content: space-evenly;
+          `}
+        >
+          <PersonaInjection persona={persona} personaIndex={personaIndex} />
+          <Link href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
+            Inspecter
+          </Link>
+        </div>
+      </Card>
+    </li>
   )
 }

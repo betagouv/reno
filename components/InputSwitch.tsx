@@ -222,10 +222,8 @@ export default function InputSwitch({
                     .eligibilite.taxeFoncière
                     ? 'oui'
                     : 'non',
-                  'logement . commune denormandie': result.eligibilite
-                    .denormandie
-                    ? 'oui'
-                    : 'non',
+                  'logement . commune . denormandie':
+                    result['logement . commune . denormandie'],
                 },
                 false,
                 answeredQuestions,
