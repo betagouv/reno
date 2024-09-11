@@ -3,8 +3,6 @@ import coeurDeVille from '@/data/coeur-de-ville.csv'
 
 import taxeFoncière from '@/app/règles/communes-taxe-foncière.yaml'
 
-console.log(ort.find((el) => el.Commune.includes('Brest')))
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
 

@@ -6,13 +6,9 @@ export default function useEnrichSituation(situation) {
   const [enrichedSituation, setEnrichedSituation] = useState(null)
   useEffect(() => {
     const asyncEnrich = async () => {
-      const éligibilité = await enrichSituation(situation)
-      setEnrichedSituation({
-        ...situation,
-        'logement . commune . denormandie': éligibilité.denormandie
-          ? 'oui'
-          : 'non',
-      })
+      const newSituation = await enrichSituation(situation)
+      console.log('red', newSituation)
+      setEnrichedSituation(newSituation)
     }
     asyncEnrich()
   }, [situation, setEnrichedSituation])

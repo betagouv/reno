@@ -2,6 +2,10 @@ denormandie:
   marque: Denormandie
   complément de marque: Réduction d'impôt location
 
+denormandie . montant:
+  applicable si: conditions
+  formule: taux * assiette
+
 denormandie . conditions:
   toutes ces conditions:
     - logement . propriétaire occupant = non
@@ -82,10 +86,6 @@ logement . prix d'achat:
 denormandie . assiette:
   valeur: logement . prix d'achat + projet . travaux
   plafond: plafond
-
-denormandie . montant:
-  applicable si: conditions
-  formule: taux * assiette
 
 denormandie . années de location:
   applicable si: logement . location longue durée
