@@ -3,18 +3,46 @@ import PaymentTypeBlock from '../PaymentTypeBlock'
 import { Card, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
+import { No, Yes } from '../ResultUI'
+import Input from '../Input'
+import { encodeSituation } from '../publicodes/situationUtils'
+import Value from '../Value'
 
-export default function Denormandie({ rules }) {
+export default function Denormandie({
+  engine,
+  rules,
+  situation,
+  exampleSituation,
+  setSearchParams,
+}) {
   const dottedName = 'denormandie'
+  const communeName = situation['logement . commune . nom'],
+    communeEligible = situation['logement . commune . denormandie']
+  const rule = rules[dottedName]
+
   return (
     <AideAmpleur dottedName={'denormandie'}>
       <div>
-        <p>{rules[dottedName].description}</p>
+        <p>{rule.description}</p>
+        {communeName && communeEligible && (
+          <p>
+            La commune {communeName} de votre logement{' '}
+            {communeEligible === 'oui' ? (
+              <Yes>est éligible Denormandie</Yes>
+            ) : (
+              <No>n'est pas éligible</No>
+            )}
+            .
+          </p>
+        )}
         <iframe
+          css={`
+            border-radius: 0.3rem;
+          `}
           width="100%"
-          height="300px"
+          height="340px"
           frameborder="0"
-          allowfullscreen
+          allowFullscreen
           allow="geolocation"
           src="//umap.openstreetmap.fr/fr/map/le-dispositif-denormandie-une-aide-fiscale-dans-vo_289689?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=false&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=false&onLoadPanel=none&captionBar=false&captionMenus=true"
         ></iframe>
@@ -36,55 +64,130 @@ export default function Denormandie({ rules }) {
                 margin-right: 0.8rem !important;
               `}
             />
-            <p>
-              Par rapport à un prêt à la consommation de 50 000 € affecté aux
-              travaux à un taux de 5 % sur 20 ans,
-              <br /> l'éco-PTZ vous fait économiser{' '}
-              <a href="https://www.lafinancepourtous.com/outils/calculateurs/calculateur-de-credit-immobilier/">
-                <PrimeStyle>30 000 € d'intérêts</PrimeStyle>
-              </a>
-              .
-            </p>
+            <section>
+              Par exemple : pour une enveloppe de travaux de rénovation
+              énergétique de{' '}
+              <label>
+                <Input
+                  css={`
+                    vertical-align: text-bottom;
+                    padding: 0.2rem 0.3rem 0 0;
+                    max-width: 6rem !important;
+                  `}
+                  autoFocus={false}
+                  value={exampleSituation['projet . travaux']}
+                  placeholder="mes travaux"
+                  min="0"
+                  onChange={(rawValue) => {
+                    const value = +rawValue === 0 ? undefined : rawValue
+                    setSearchParams(
+                      encodeSituation({
+                        'projet . travaux': value,
+                      }),
+                      'replace',
+                      false,
+                    )
+                  }}
+                  step="100"
+                  css={`
+                    border-bottom: 2px solid #d1d1fb !important;
+                  `}
+                />
+                €{' '}
+                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                  HT
+                </span>
+              </label>{' '}
+              pour un logement acheté aux prix de{' '}
+              <label>
+                <Input
+                  css={`
+                    vertical-align: text-bottom;
+                    padding: 0.2rem 0.3rem 0 0;
+                    max-width: 6rem !important;
+                  `}
+                  autoFocus={false}
+                  value={exampleSituation["logement . prix d'achat"]}
+                  placeholder="prix du logement"
+                  min="0"
+                  onChange={(rawValue) => {
+                    const value = +rawValue === 0 ? undefined : rawValue
+                    setSearchParams(
+                      encodeSituation({
+                        "logement . prix d'achat": value,
+                      }),
+                      'replace',
+                      false,
+                    )
+                  }}
+                  step="100"
+                  css={`
+                    border-bottom: 2px solid #d1d1fb !important;
+                  `}
+                />
+                €{' '}
+                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                  HT
+                </span>
+              </label>{' '}
+              <ol
+                css={`
+                  list-style-type: disc;
+                `}
+              >
+                {rules['denormandie . taux'].variations
+                  .filter((v) => v.si)
+                  .map(({ si, alors, sinon }) => (
+                    <li key={si || 'default'}>
+                      Engagement de {si.split(' = ')[1]} années de location :{' '}
+                      {alors || sinon}
+                    </li>
+                  ))}
+              </ol>
+              <p>
+                La réduction d'impôt Denormandie s'élève à un total de{' '}
+                <Value
+                  {...{
+                    engine,
+                    situation: exampleSituation,
+                    dottedName: 'denormandie . montant',
+                    state: 'final',
+                  }}
+                />
+                .
+              </p>
+              {!engine.evaluate('denormandie . seuil travaux minimum')
+                .nodeValue && (
+                <p>
+                  Attention, les travaux doivent représenter au minimum 25 % du
+                  prix d'achat !
+                </p>
+              )}
+              <p></p>
+            </section>
           </div>
         </Card>
         <InformationBlock>
-          <li>
-            L'éco-PTZ est particulièrement adapté pour{' '}
-            <a href="https://www.service-public.fr/particuliers/vosdroits/F36448">
-              couvrir le reste à charge des travaux
-            </a>{' '}
-            du parcours MaPrimeRénov' accompagné.
-          </li>
-          <li>
-            L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov'
-            accompagnée,{' '}
-            <a href="https://www.service-public.fr/particuliers/vosdroits/F19905">
-              de 7 000 € à 30 000 €
-            </a>{' '}
-            en fonction du nombre de gestes de rénovation de votre projet.
-          </li>
-          <li>
-            Son montant dépendra de votre endettement et de votre capacité à le
-            rembourser.
-          </li>
+          {rule['informations utiles'].map((element) => (
+            <li key={element}>{element}</li>
+          ))}
         </InformationBlock>
         <PaymentTypeBlock>
-          <p>Le prêt sera à rembourser mensuellement.</p>
+          <p>Une réduction sur vos impôts chaque année pendant 6 à 12 ans.</p>
         </PaymentTypeBlock>
         <AideCTA text="Demander le prêt à taux zéro">
           <p>
-            L'éco-PTZ est disponible auprès de{' '}
-            <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">
-              ces établissements de crédits
-            </a>
-            . Découvrir{' '}
-            <a href="https://www.service-public.fr/particuliers/vosdroits/F19905">
-              la démarche étape par étape
-            </a>
-            .
+            Pour en bénéficier, vous devez déclarer cet investissement locatif
+            au moment de la déclaration annuelle de revenus : cochez la case «
+            Investissements locatifs » dans la rubrique « Charges ».
           </p>
-          <a href="https://www.impots.gouv.fr/particulier/questions/ai-je-droit-pour-ma-taxe-fonciere-lexoneration-en-faveur-des-economies">
-            Plus d'infos sur impots.gouv.fr
+          <p>
+            Vous devrez joindre une copie de votre bail, l’avis d’imposition du
+            locataire du logement et une note récapitulant les travaux réalisés
+            et leur montant.
+          </p>
+          <a href="https://www.impots.gouv.fr/www2/fichiers/documentation/brochure/ir_2024/pdf_som/14-RICI_2042C_251a290.pdf#Page=9">
+            PDF d'information officiel
           </a>
         </AideCTA>
       </div>

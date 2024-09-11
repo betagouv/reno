@@ -16,6 +16,14 @@ export async function GET(request: Request) {
   const hasTaxeFoncière = taxeFoncière.find((el) => el.commune === nom)
   const eligibilite = {
     'logement . commune . denormandie': hasDenormandie ? 'oui' : 'non',
+    // Also set the name that will be used to explain the eligibilite
+    ...(hasDenormandie
+      ? {
+          'logement . commune . nom': `"${
+            hasDenormandie['lib_com'] || hasDenormandie['Commune']
+          }"`,
+        }
+      : {}),
     //'logement . commune . taxe foncière': hasTaxeFoncière ? 'oui' : 'non',
   }
 

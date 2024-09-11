@@ -3,6 +3,10 @@ denormandie:
   complément de marque: Réduction d'impôt location
   description: |
     Si vous achetez un logement dans l'une des 454 communes éligibles Denormandie, et que vous y faites une rénovation d'ampleur, une importante exonération d'impôt sur le revenu vous est offerte.
+  informations utiles:
+    - pour un logement ancien, loué non meublé, pendant au moins 6 ans
+    - au loyer plafonné
+    - des travaux doivent d'au moins 25 % du prix d'achat et à terminer dans les deux ans
 
 denormandie . montant:
   applicable si: conditions
@@ -43,6 +47,7 @@ denormandie . plafonnement loyer et ressources locataire:
   par défaut: oui
   description: |
     Voir les grilles de plafonnement sur [cette page](https://www.ecologie.gouv.fr/dispositif-denormandie-aide-fiscale-renovation-et-location).
+
 denormandie . plafond:
   valeur: 300000 €
   description: |
@@ -59,7 +64,7 @@ denormandie . seuil travaux minimum:
     Faire des travaux à hauteur d’au moins 25 % du coût total de l’opération immobilière.
 
     > Par exemple, pour l’achat d’un logement de 150 000 €, 50 000 € de travaux soit un coût total de l’opération de 200 000 €
-  formule: (projet . travaux / logement . prix d'achat) >= 25 %
+  formule: (projet . travaux / logement . prix d'achat) >= 0.25
 
 projet . gain énergétique:
   question: Quel est le gain énergétique prévu par les travaux ?
