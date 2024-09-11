@@ -10,6 +10,7 @@ import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
 import { encodeDottedName } from '../publicodes/situationUtils'
+import Denormandie from './Denormandie'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -36,7 +37,9 @@ export default function AidesAmpleur({
     ...situation,
   }
 
-  const { eligibles, nonEligibles } = useAides(engine) // TODO which situation
+  const aides = useAides(engine) // TODO which situation
+
+  const eligibles = aides.filter((aide) => aide.status === true)
 
   return (
     <CustomQuestionWrapper>
@@ -83,6 +86,18 @@ export default function AidesAmpleur({
         <Copro {...{ engine, situation, searchParams }} />
         <TaxeFoncière
           {...{
+            oldIndex,
+            choice,
+            setSearchParams,
+            answeredQuestions,
+            engine,
+            situation,
+            exampleSituation,
+          }}
+        />
+        <Denormandie
+          {...{
+            rules,
             oldIndex,
             choice,
             setSearchParams,
