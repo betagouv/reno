@@ -79,8 +79,8 @@ export default function DevenirPartenaire() {
         </Wrapper>
         <Wrapper $noMargin={true} >
           <Content>
-            <h2 css={"text-align: center; margin-bottom: 4rem;"}>
-              Les caractéristiques du calculateur Mes Aides Réno
+            <h2 css={"text-align: center; margin-bottom: 2rem;"}>
+              Les caractéristiques du calculateur <BlueEm>Mes Aides Réno</BlueEm>
             </h2>
             <ul css={`
               list-style-type: none; 
