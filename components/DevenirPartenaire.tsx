@@ -94,7 +94,10 @@ export default function DevenirPartenaire() {
               }`}>
               <li>
                 <Image src={checkIcon} width="30" alt="Icône case cochée" />
-                deux intégrations possibles : iframe ou API *
+                <span css={`margin-right: 5px`}>deux intégrations possibles :</span>
+                <InternalLink href="/integration" css={`text-decoration: underline;`}>iframe</InternalLink> 
+                <span css={`margin: 0 5px`}>ou</span>
+                <InternalLink href="/api-doc" css={`text-decoration: underline;`}>API</InternalLink>
               </li>
               <li>
                 <Image src={checkIcon} width="30" alt="Icône case cochée" />
@@ -117,7 +120,6 @@ export default function DevenirPartenaire() {
                 mis à disposition gracieusement
               </li>
             </ul>
-            <p>* Consultez les détails techniques concernant l'intégration de <InternalLink href="/api-doc" css={`text-decoration: underline;`}>nos iframes</InternalLink> ou de nos <InternalLink href="/api-doc" css={`text-decoration: underline;`}>API</InternalLink>.</p>
           </Content>
         </Wrapper>
       </PageBlock>
