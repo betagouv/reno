@@ -8,14 +8,18 @@ import Input from '../Input'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
 import { BlueEm } from '@/app/LandingUI'
+import { formatValue } from 'publicodes'
 
 export default function Denormandie({
   engine,
   rules,
-  situation,
   exampleSituation,
   setSearchParams,
 }) {
+  const situation = {
+    ...exampleSituation,
+    'logement . location longue durée': 'oui',
+  }
   const dottedName = 'denormandie'
   const communeName = situation['logement . commune . nom'],
     communeEligible = situation['logement . commune . denormandie']
@@ -76,7 +80,7 @@ export default function Denormandie({
                     max-width: 6rem !important;
                   `}
                   autoFocus={false}
-                  value={exampleSituation['projet . travaux']}
+                  value={situation['projet . travaux']}
                   placeholder="mes travaux"
                   min="0"
                   onChange={(rawValue) => {
@@ -108,7 +112,7 @@ export default function Denormandie({
                     max-width: 6rem !important;
                   `}
                   autoFocus={false}
-                  value={exampleSituation["logement . prix d'achat"]}
+                  value={situation["logement . prix d'achat"]}
                   placeholder="prix du logement"
                   min="0"
                   onChange={(rawValue) => {
@@ -146,7 +150,7 @@ export default function Denormandie({
                     </li>
                   ))}
               </ol>
-              <Result {...{ engine, situation: exampleSituation }} />
+              <Result {...{ engine, situation }} />
             </section>
           </div>
         </Card>
@@ -183,8 +187,12 @@ const Result = ({ engine, situation }) => {
     .setSituation(situation)
     .evaluate('denormandie . seuil travaux minimum')
   const value = engine.evaluate('denormandie . montant')
+  const threshold = formatValue(
+    engine.evaluate('denormandie . travaux minimum'),
+    { precision: 1 },
+  )
 
-  console.log('lightgreen', value)
+  console.log('lightgreen', { value, thresholdCondition })
 
   return (
     <section
@@ -208,7 +216,8 @@ const Result = ({ engine, situation }) => {
       ) : !thresholdCondition.nodeValue ? (
         <p>
           Pour être éligible, les travaux doivent représenter{' '}
-          <BlueEm>au minimum 25 % du prix d'achat</BlueEm>.
+          <BlueEm>au minimum 25 % du prix d'achat</BlueEm>. Il vous faut au
+          moins {threshold} de travaux.
         </p>
       ) : (
         <p>Non applicable.</p>

@@ -66,6 +66,8 @@ denormandie . seuil travaux minimum:
     > Par exemple, pour l’achat d’un logement de 150 000 €, 50 000 € de travaux soit un coût total de l’opération de 200 000 €
   formule: (projet . travaux / logement . prix d'achat) >= 0.25
 
+denormandie . travaux minimum: 0.25 * logement . prix d'achat
+
 projet . gain énergétique:
   question: Quel est le gain énergétique prévu par les travaux ?
   par défaut: 30 %

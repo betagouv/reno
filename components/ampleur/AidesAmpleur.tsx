@@ -34,6 +34,7 @@ export default function AidesAmpleur({
       engine.evaluate('projet . enveloppe estimée').nodeValue,
       5,
     ),
+    'vous . propriétaire': 'oui',
     ...situation,
   }
 
