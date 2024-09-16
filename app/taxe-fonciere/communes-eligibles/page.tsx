@@ -1,4 +1,4 @@
-import { Intro, PageBlock } from '@/components/UI'
+import { Intro, PageBlock, PrimeStyle } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
 import communes from '@/app/règles/communes-taxe-foncière.yaml'
+import { sortBy } from '@/components/utils'
 
 const title =
   "Communes éligibles à l'exonération de taxe foncière pour rénovation"
@@ -69,9 +70,33 @@ export default function Module({}) {
               exonération :
             </p>
             <ul>
-              {communes.map(({ commune, source }) => (
-                <li key={commune}>{commune}</li>
-              ))}
+              {sortBy((c) => c.commune)(communes).map(
+                ({ commune, code, source, taux }) => {
+                  const domain = new URL(source).hostname.replace('www.', ''),
+                    verified = domain.length > 0 && !domain.startsWith('effy')
+                  return (
+                    <li key={commune}>
+                      <h3>{commune}</h3>
+                      <div>Code commune : {code || <em>à renseigner</em>}</div>
+                      <div>
+                        Taux d'exonération
+                        {taux ? (
+                          <span>
+                            {' : '}
+                            <PrimeStyle>{taux}</PrimeStyle>
+                          </span>
+                        ) : (
+                          <span> inconnu : soit 50 %, soit 100 %</span>
+                        )}
+                      </div>
+                      <small>
+                        Source {verified ? '✅ ' : ''}{' '}
+                        <a href={source}>{domain}</a>
+                      </small>
+                    </li>
+                  )
+                },
+              )}
             </ul>
             <br />
             <p>
