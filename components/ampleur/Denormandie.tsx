@@ -7,6 +7,7 @@ import { No, Yes } from '../ResultUI'
 import Input from '../Input'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
+import { BlueEm } from '@/app/LandingUI'
 
 export default function Denormandie({
   engine,
@@ -88,7 +89,7 @@ export default function Denormandie({
                       false,
                     )
                   }}
-                  step="100"
+                  step="1000"
                   css={`
                     border-bottom: 2px solid #d1d1fb !important;
                   `}
@@ -133,6 +134,7 @@ export default function Denormandie({
               <ol
                 css={`
                   list-style-type: disc;
+                  margin-top: 1rem;
                 `}
               >
                 {rules['denormandie . taux'].variations
@@ -144,26 +146,7 @@ export default function Denormandie({
                     </li>
                   ))}
               </ol>
-              <p>
-                La réduction d'impôt Denormandie s'élève à un total de{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation: exampleSituation,
-                    dottedName: 'denormandie . montant',
-                    state: 'final',
-                  }}
-                />
-                .
-              </p>
-              {!engine.evaluate('denormandie . seuil travaux minimum')
-                .nodeValue && (
-                <p>
-                  Attention, les travaux doivent représenter au minimum 25 % du
-                  prix d'achat !
-                </p>
-              )}
-              <p></p>
+              <Result {...{ engine, situation: exampleSituation }} />
             </section>
           </div>
         </Card>
@@ -192,5 +175,44 @@ export default function Denormandie({
         </AideCTA>
       </div>
     </AideAmpleur>
+  )
+}
+
+const Result = ({ engine, situation }) => {
+  const thresholdCondition = engine
+    .setSituation(situation)
+    .evaluate('denormandie . seuil travaux minimum')
+  const value = engine.evaluate('denormandie . montant')
+
+  console.log('lightgreen', value)
+
+  return (
+    <section
+      css={`
+        margin-top: 1rem;
+      `}
+    >
+      {value.nodeValue != null ? (
+        <p>
+          La réduction d'impôt Denormandie s'élève à un total de{' '}
+          <Value
+            {...{
+              engine,
+              situation,
+              dottedName: 'denormandie . montant',
+              state: 'final',
+            }}
+          />
+          .
+        </p>
+      ) : !thresholdCondition.nodeValue ? (
+        <p>
+          Pour être éligible, les travaux doivent représenter{' '}
+          <BlueEm>au minimum 25 % du prix d'achat</BlueEm>.
+        </p>
+      ) : (
+        <p>Non applicable.</p>
+      )}
+    </section>
   )
 }

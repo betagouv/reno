@@ -2,11 +2,11 @@ denormandie:
   marque: Denormandie
   complément de marque: Réduction d'impôt location
   description: |
-    Si vous achetez un logement dans l'une des 454 communes éligibles Denormandie, et que vous y faites une rénovation d'ampleur, une importante exonération d'impôt sur le revenu vous est offerte.
+    Si vous achetez un logement dans l'une des 454 communes éligibles Denormandie et que vous y faites une rénovation d'ampleur, une importante exonération d'impôt sur le revenu vous est offerte.
   informations utiles:
-    - pour un logement ancien, loué non meublé, pendant au moins 6 ans
-    - au loyer plafonné
-    - des travaux doivent d'au moins 25 % du prix d'achat et à terminer dans les deux ans
+    - Applicable pour un logement ancien, loué non meublé, pendant au moins 6 ans
+    - Au loyer plafonné
+    - Des travaux d'au moins 25 % du prix d'achat et à terminer dans les deux ans
 
 denormandie . montant:
   applicable si: conditions
