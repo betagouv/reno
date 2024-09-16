@@ -1,30 +1,60 @@
 ####
 # Pour l'instant, la seule source que nous avons trouvée est un article d'Effy.
-# Il nous manque le taux décidé par chaque commune, qui peut être soit 50 % soit 100 %
+# Voici leur méthode :
+# # Cette liste a été construite en recoupant d’une part les informations présentes sur le site de chaque commune (délibération en conseil municipal, annonce sur le site de la ville…) et d’autre part les informations référencées sur les sites des agences départementales d’information sur le logement. Il ne s’agit pas d’une liste exhaustive.
+# De notre côté, nous avons vérifié quelques communes sur le registre des aides de l'anil : certaines y sont, beaucoup n'y sont pas. C'est inscrit dans l'attribut source.
+# L'attribut "codes" indique qu'il y a une ambiguité sur le nom : on ne sait pas laquelle est la bonne :S
+#
+# En conclusion :
+# - les entrées sans code commune ou avec plusieurs codes sont incertaines
+# - les entrées dont la source est Effy et qui n'ont pas de taux peuvent être considérées comme relativement incertaines. Celles qui ont une source officielle (site de la mairie ou Anil.org) et un taux sont plus fiables, mais seulement pour l'année 2024. La délibération pour 2025 doit avoir lieu avant Octobre 2024. Maj : d'après l'Adil 08, c'est en février 2025 que la délibération aura lieu, et précise que la loi de finance ayant augmenté la date d'éiligibilté des logements de 1989 à -10 ans (2015 en 2025), des communes pourraient revenir dessus...
+# - même la liste donnée par l'adil 08 dans son annexe 3 est marquée "à titre indicatif" !
 ####
 - commune: Aiglemont
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  code: 08003
+  taux: 100 %
+  source: https://www.adil08.org/fileadmin/sites/adil_08/guides_sur_les_aides/adil08_guide_renovation.pdf#page=33
 
 - commune: Ambert
+  code: 63003
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Armentières
+  code: 59017
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Bailleul
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  code: 59043
+  taux: 50 %
+  source: https://www.anil.org/aides-locales-travaux/details/nord-exoneration-partielle-de-la-taxe-fonciere-2789
+
+- commune: Feignies
+  code: 59225
+  taux: 50 %
+  source: https://www.anil.org/aides-locales-travaux/details/nord-exoneration-partielle-de-taxe-fonciere-3747/
 
 - commune: Beaucouzé
+  code: 49020
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Brassac-les-Mines
+  code: 63050
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Breuillet
+  codes:
+    - 17064
+    - 91105
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Caen
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  code: 14118
+  source: https://caen.fr/entreprendre-des-travaux
+- commune: Ifs
+  taux: 50 %
+  code: 14341
+  source: https://ville-ifs.fr/actualites/details/242
 
 - commune: Calorguen
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
@@ -33,16 +63,20 @@
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Chambéry
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  code: 73065
+  taux: 50 %
+  source: https://www.chambery.fr/3731-exoneration-de-taxe-fonciere-en-cas-de-renovation-energetique.htm
 
 - commune: Charleville-Mézières
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  source: https://www.adil08.org/fileadmin/Sites/ADIL_08/Guides_sur_les_aides/ADIL08_Guide_Renovation.pdf#page=33
 
 - commune: Chaville
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Damouzy
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  source: https://www.adil08.org/fileadmin/sites/adil_08/guides_sur_les_aides/adil08_guide_renovation.pdf#page=33
 
 - commune: Epinay-sur-Orge
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
@@ -57,7 +91,8 @@
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Gespunsart
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  source: https://www.adil08.org/fileadmin/Sites/ADIL_08/Guides_sur_les_aides/ADIL08_Guide_Renovation.pdf#page=33
 
 - commune: Gières
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
@@ -80,11 +115,14 @@
 - commune: Louvigné-du-Désert
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
-- commune: Maison-Alfort
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+- commune: Maisons-Alfort
+  code: 94046
+  taux: 50 %
+  source: https://maisons-alfort.fr/exoneration-de-la-taxe-fonciere-sur-les-proprietes-baties-pour-la-renovation-thermique-des-logements/
 
 - commune: Massy
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  source: https://www.anil.org/aides-locales-travaux/details/essonne-exoneration-partielle-de-taxe-fonciere-3224
 
 - commune: Mazaye
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
@@ -93,16 +131,22 @@
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Nantes
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  code: 44109
+  source: https://metropole.nantes.fr/actualites/2022/institutions/conseil-municipal-24-juin-2022
 
 - commune: Nieurlet
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Ouistreham
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  code: 14488
+  taux: 50 %
+  source: https://ouistreham-rivabella.fr/vivre-a-ouistreham/socialsolidarite/aides-financieres-logements/
 
 - commune: Paris
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 100 %
+  code: 75056
+  source: https://www.paris.fr/pages/faq-sur-les-exonerations-pour-renovation-thermique-24600
 
 - commune: Pessac
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
@@ -120,16 +164,21 @@
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Pornichet
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  code: 44132
+  taux: 100 %
+  source: https://www.ville-pornichet.fr/un-coup-de-pouce-pour-la-renovation-energetique-des-logements-anciens
 
 - commune: Prix-lès-Mézières
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  source: https://www.adil08.org/fileadmin/sites/adil_08/guides_sur_les_aides/adil08_guide_renovation.pdf#page=33
 
 - commune: Rimogne
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  source: https://www.adil08.org/fileadmin/sites/adil_08/guides_sur_les_aides/adil08_guide_renovation.pdf#page=33
 
 - commune: Roubaix
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 100 %
+  source: https://www.anil.org/aides-locales-travaux/details/nord-exoneration-partielle-de-la-taxe-fonciere-3744
 
 - commune: Saint-Genès-la-Tourette
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
@@ -141,7 +190,8 @@
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
 
 - commune: Signy-le-petit
-  source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+  taux: 50 %
+  source: https://www.adil08.org/fileadmin/Sites/ADIL_08/Guides_sur_les_aides/ADIL08_Guide_Renovation.pdf#page=33
 
 - commune: Taden
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
@@ -160,3 +210,8 @@
 
 - commune: Villeneuve-Tolosane
   source: https://www.effy.fr/magazine/exoneration-de-taxe-fonciere-et-travaux-de-renovation-energetique
+
+- commune: Revin
+  code: 08363
+  taux: 50 %
+  source: https://www.adil08.org/fileadmin/sites/adil_08/guides_sur_les_aides/adil08_guide_renovation.pdf#page=33

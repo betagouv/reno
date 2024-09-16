@@ -1,5 +1,7 @@
 taxe foncière:
   marque: Exonération de taxe foncière
+  note: |
+    Voici la référence exacte dans la loi : https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000048727497
 
 logement . taxe foncière:
   question: Combien payez-vous de taxe foncière chaque année pour votre logement ?
