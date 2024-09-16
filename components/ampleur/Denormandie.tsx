@@ -174,7 +174,7 @@ export default function Denormandie({
             et leur montant.
           </p>
           <a href="https://www.impots.gouv.fr/www2/fichiers/documentation/brochure/ir_2024/pdf_som/14-RICI_2042C_251a290.pdf#Page=9">
-            PDF d'information officiel
+            PDF officiel d'information
           </a>
         </AideCTA>
       </div>
@@ -189,7 +189,7 @@ const Result = ({ engine, situation }) => {
   const value = engine.evaluate('denormandie . montant')
   const threshold = formatValue(
     engine.evaluate('denormandie . travaux minimum'),
-    { precision: 1 },
+    { precision: 0 },
   )
 
   console.log('lightgreen', { value, thresholdCondition })
@@ -216,8 +216,8 @@ const Result = ({ engine, situation }) => {
       ) : !thresholdCondition.nodeValue ? (
         <p>
           Pour être éligible, les travaux doivent représenter{' '}
-          <BlueEm>au minimum 25 % du prix d'achat</BlueEm>. Il vous faut au
-          moins {threshold} de travaux.
+          <BlueEm>au minimum 25 % du prix de revient (achat + travaux)</BlueEm>.
+          Il vous faut au moins {threshold} de travaux.
         </p>
       ) : (
         <p>Non applicable.</p>

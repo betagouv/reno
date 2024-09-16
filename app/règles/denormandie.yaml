@@ -6,7 +6,7 @@ denormandie:
   informations utiles:
     - Applicable pour un logement ancien, loué non meublé, pendant au moins 6 ans
     - Au loyer plafonné
-    - Des travaux d'au moins 25 % du prix d'achat et à terminer dans les deux ans
+    - Des travaux d'au moins 25 % du prix de revient du logement et à terminer dans les deux ans
 
 denormandie . montant:
   applicable si: conditions
@@ -64,9 +64,10 @@ denormandie . seuil travaux minimum:
     Faire des travaux à hauteur d’au moins 25 % du coût total de l’opération immobilière.
 
     > Par exemple, pour l’achat d’un logement de 150 000 €, 50 000 € de travaux soit un coût total de l’opération de 200 000 €
-  formule: (projet . travaux / logement . prix d'achat) >= 0.25
 
-denormandie . travaux minimum: 0.25 * logement . prix d'achat
+  formule: (projet . travaux / (logement . prix d'achat + projet . travaux)) >= 0.25
+
+denormandie . travaux minimum: logement . prix d'achat / 3
 
 projet . gain énergétique:
   question: Quel est le gain énergétique prévu par les travaux ?
@@ -96,6 +97,7 @@ logement . location longue durée:
 logement . prix d'achat:
   question: Quel est le prix d'achat du bien ?
   par défaut: 250000 €
+  unité: €
 
 denormandie . assiette:
   valeur: logement . prix d'achat + projet . travaux
