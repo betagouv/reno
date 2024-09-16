@@ -5,7 +5,7 @@ import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
 import { No, Yes } from '../ResultUI'
 import Input from '../Input'
-import { encodeSituation } from '../publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
 import { BlueEm } from '@/app/LandingUI'
 import { formatValue } from 'publicodes'
@@ -139,16 +139,34 @@ export default function Denormandie({
                 css={`
                   list-style-type: disc;
                   margin-top: 1rem;
+                  li {
+                    cursor: pointer;
+                  }
                 `}
               >
                 {rules['denormandie . taux'].variations
                   .filter((v) => v.si)
-                  .map(({ si, alors, sinon }) => (
-                    <li key={si || 'default'}>
-                      Engagement de {si.split(' = ')[1]} années de location :{' '}
-                      {alors || sinon}
-                    </li>
-                  ))}
+                  .map(({ si, alors, sinon }) => {
+                    const années = si.split(' = ')[1]
+                    const dottedName = 'denormandie . années de location'
+                    return (
+                      <li
+                        key={si || 'default'}
+                        css={
+                          années == situation[dottedName] &&
+                          `background: var(--lighterColor); width: fit-content`
+                        }
+                        onClick={() =>
+                          setSearchParams({
+                            [encodeDottedName(dottedName)]: années,
+                          })
+                        }
+                      >
+                        Engagement de {années} années de location :{' '}
+                        {alors || sinon}
+                      </li>
+                    )
+                  })}
               </ol>
               <Result {...{ engine, situation }} />
             </section>
