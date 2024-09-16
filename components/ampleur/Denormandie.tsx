@@ -162,7 +162,7 @@ export default function Denormandie({
         <PaymentTypeBlock>
           <p>Une réduction sur vos impôts chaque année pendant 6 à 12 ans.</p>
         </PaymentTypeBlock>
-        <AideCTA text="Demander le prêt à taux zéro">
+        <AideCTA text="Demander la réduction d'impôt">
           <p>
             Pour en bénéficier, vous devez déclarer cet investissement locatif
             au moment de la déclaration annuelle de revenus : cochez la case «
