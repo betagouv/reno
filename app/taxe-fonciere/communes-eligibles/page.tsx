@@ -99,13 +99,15 @@ export default function Module({}) {
               )}
             </ul>
             <br />
-            <p>
-              Sources :{' '}
-              {communes.reduce(
-                (memo, next) => memo.add(next.source),
-                new Set(),
-              )}
-            </p>
+            {false && (
+              <p>
+                Sources :{' '}
+                {communes.reduce(
+                  (memo, next) => memo.add(next.source),
+                  new Set(),
+                )}
+              </p>
+            )}
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
