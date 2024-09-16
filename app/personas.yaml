@@ -494,6 +494,11 @@
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
   situation:
+    vous . propriétaire . condition: oui
+    logement . type: "'appartement'"
+    logement . résidence principale propriétaire: oui
+    logement . surface: 47
+    logement . période de construction: "'au moins 25 ans'"
     conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 35000
@@ -501,10 +506,12 @@
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'11'"
+    logement . commune: "'75112'" # Paris 12ème
     logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . montant: 29400
     MPR . non accompagnée . éligible: oui
+
 - description: |
     Personne seule au revenu très modeste en Bretagne
   situation:
