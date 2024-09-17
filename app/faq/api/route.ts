@@ -6,16 +6,13 @@ export async function GET(request: Request) {
       request.nextUrl.searchParams.entries(),
     )
   const url = baseUrl + repo + '/issues',
-    headers = {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-      Accept: 'application/vnd.github+json',
-    },
     options = {
       method: 'POST',
-      headers: headers,
-      mode: 'cors',
-      cache: 'default',
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.github.v3+json',
+      },
       body: JSON.stringify({
         title,
         body,
@@ -23,11 +20,9 @@ export async function GET(request: Request) {
       }),
     }
 
-  console.log(url)
   try {
     const request = await fetch(url, options)
     const json = await request.json()
-    console.log(json)
     return Response.json({ url: json['html_url'] })
   } catch (error) {
     return console.log(error)
