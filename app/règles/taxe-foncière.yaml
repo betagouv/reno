@@ -15,7 +15,7 @@ taxe foncière . montant:
 
 taxe foncière . taux:
   question: Quel taux d'exonération de taxe foncière a été décidé par votre commune ?
-  formule: taux taxe foncière commune
+  formule: commune . taux
   description: |
     3 années de taxe foncière sont exonérées. 
 
@@ -33,7 +33,7 @@ taxe foncière . conditions:
   toutes ces conditions:
     - condition d'ancienneté
     - condition de dépenses
-    - commune exonérée
+    - commune . éligible
 
 taxe foncière . condition de dépenses:
   par défaut: non
@@ -45,13 +45,13 @@ taxe foncière . condition de dépenses:
 
     Les délibérations antérieures à 2020 ayant institué l’exonération avec un taux de 50 % ou de 100 % restent applicables pour 5 ans.
 
-taxe foncière . commune exonérée: taux taxe foncière commune > 0
-
 plop:
   question: Ploupi
 
-taux taxe foncière commune:
+taxe foncière . commune:
   # On n'utilise pas logement . commune pour l'instant car elle peut être désacitée par occupant = non
+taxe foncière . commune . éligible:
+taxe foncière . commune . taux:
   par défaut: 0
   description: |
     C'est l'exonération de la taxe foncière pour rénovation energétique, il faut que la commune ait voté cette exonération. 

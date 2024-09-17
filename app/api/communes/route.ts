@@ -16,8 +16,10 @@ export async function GET(request: Request) {
   const hasTaxeFoncière = communesTaxeFoncière.find(
       (el) => el.code && el.code == insee,
     ),
-    // Si pas de taux renseigné, nous prenons le taux le moins positif, 50 %
-    taxeFoncière = hasTaxeFoncière ? (hasTaxeFoncière.taux ?? '50 %') : '0'
+    taxeFoncièreTaux =
+      hasTaxeFoncière &&
+      (hasTaxeFoncière.taux != null ? hasTaxeFoncière.taux : false)
+
   // Also set the name that will be used to explain the eligibilite
   console.log('HASTAXE', hasTaxeFoncière, insee)
   const foundName =
@@ -27,7 +29,14 @@ export async function GET(request: Request) {
       hasTaxeFoncière?.commune)
   const eligibilite = {
     'logement . commune . denormandie': hasDenormandie ? 'oui' : 'non',
-    'taux taxe foncière commune': taxeFoncière,
+    ...(hasTaxeFoncière
+      ? taxeFoncièreTaux
+        ? {
+            'taxe foncière . commune . éligible': 'oui',
+            'taxe foncière . commune . taux': taxeFoncièreTaux,
+          }
+        : { 'taxe foncière . commune . éligible': 'oui' }
+      : {}),
     ...(foundName
       ? {
           'logement . commune . nom': `"${foundName}"`,

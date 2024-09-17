@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import PaymentTypeBlock from '../PaymentTypeBlock'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
+import { No, Yes } from '../ResultUI'
 
 export default function TaxeFoncière({
   oldIndex,
@@ -24,6 +25,10 @@ export default function TaxeFoncière({
   )
   console.log('lightyellow s', exampleSituation)
 
+  const communeName = situation['logement . commune . nom'],
+    communeEligible = situation['taxe foncière . commune . éligible'] === 'oui',
+    taux = situation['taxe foncière . commune . taux']
+
   return (
     <AideAmpleur dottedName={'taxe foncière'}>
       <div>
@@ -31,7 +36,27 @@ export default function TaxeFoncière({
           Vore commune peut proposer une exonération de la taxe foncière de 50 %
           ou 100 % pendant 3 ans pour certains logements rénovés.
         </p>
-
+        {communeEligible}
+        {communeName && communeEligible ? (
+          <p>
+            La commune {communeName} de votre logement n'
+            <No>est pas dans notre liste</No>, c'est à vous de vous renseigner
+            auprès de votre mairie.
+          </p>
+        ) : (
+          <p>
+            La commune {communeName} de votre logement est <em>a priori</em>
+            <Yes>éligible</Yes>,{' '}
+            {taux ? (
+              <p>pour une exonération de {taux}</p>
+            ) : (
+              <p>
+                mais nous ne connaissons pas son taux (50 ou 100 %)
+                d'exonération.
+              </p>
+            )}
+          </p>
+        )}
         <InformationBlock>
           <li>
             Il n'existe pas de liste officielle nous permettant de savoir si{' '}
