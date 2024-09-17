@@ -12,13 +12,14 @@ logement . taxe foncière:
 taxe foncière . montant:
   applicable si: conditions
   formule: taux * logement . taxe foncière
+
 taxe foncière . taux:
   question: Quel taux d'exonération de taxe foncière a été décidé par votre commune ?
-  par défaut: 100 %
+  formule: taux taxe foncière commune
   description: |
     3 années de taxe foncière sont exonérées. 
 
-    Il semblerait que le taux, soit 50 %, soit 100 %, dépende de la décision de la commune ou de l'EPCI.
+    Le taux, soit 50 %, soit 100 %, dépende de la décision de la commune ou de l'EPCI.
 
     Les travaux doivent correspondre à [cette liste de travaux éligibles](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042910306).
 
@@ -44,12 +45,21 @@ taxe foncière . condition de dépenses:
 
     Les délibérations antérieures à 2020 ayant institué l’exonération avec un taux de 50 % ou de 100 % restent applicables pour 5 ans.
 
-taxe foncière . commune exonérée:
-  formule: logement . commune
-  par défaut: non
+taxe foncière . commune exonérée: taux taxe foncière commune > 0
+
+plop:
+  question: Ploupi
+
+taux taxe foncière commune:
+  # On n'utilise pas logement . commune pour l'instant car elle peut être désacitée par occupant = non
+  par défaut: 0
   description: |
-    Il faut que la commune ait voté cette exonération. 
+    C'est l'exonération de la taxe foncière pour rénovation energétique, il faut que la commune ait voté cette exonération. 
+
+    Elle est de 0, 50 %, ou 100 %.
 
     Il n'existe pas de liste officielle quand on écrit ces lignes au 5 juin 2024 (!!). 
 
-    Nous devons construire notre propre fichier de communes éligibles. [Il est ici](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/communes-taxe-fonci%C3%A8re.yaml).
+    Nous construisons donc notre propre fichier de communes éligibles. C'est à ce jour (septembre 2024) la base de données la plus complète et sourcée disponible. 
+
+    [La liste des communes éligibles est ici](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/communes-taxe-fonci%C3%A8re.yaml).

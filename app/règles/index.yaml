@@ -275,6 +275,8 @@ logement . département:
   par défaut: '"Finistère"'
 
 logement . commune:
+  # TODO attention, cette condition peut faire sauter cette variable, donc ses sous variables
+  # la remplacer par une formule, si propriétaire occupant = non alors ça vaut foyer . commune ?
   applicable si: propriétaire occupant = non
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?

@@ -506,7 +506,7 @@
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'11'"
-    logement . commune: "'75112'" # Paris 12ème
+    logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
     logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . montant: 29400

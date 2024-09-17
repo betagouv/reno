@@ -19,6 +19,7 @@ export default function Eligibility({
   expanded,
   searchParams,
 }) {
+  console.log('lightyellow', situation)
   const nextLink = (value) => {
     const url = setSearchParams(
       {
