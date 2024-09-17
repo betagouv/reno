@@ -151,7 +151,12 @@ export default function Footer() {
                   </li>
                   <li>
                     <InternalLink className="fr-footer__top-link" href="/faq">
-                      Questions et contact
+                      Questions fréquentes 
+                    </InternalLink>
+                  </li>
+                  <li>
+                    <InternalLink className="fr-footer__top-link" href="/contact">
+                      Contact 
                     </InternalLink>
                   </li>
                   <li>
@@ -176,11 +181,6 @@ export default function Footer() {
                       href="/personas"
                     >
                       Personas
-                    </InternalLink>
-                  </li>
-                  <li>
-                    <InternalLink className="fr-footer__top-link" href="/blog">
-                      Blog
                     </InternalLink>
                   </li>
                 </ul>

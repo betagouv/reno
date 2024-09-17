@@ -66,7 +66,7 @@ export default function Header() {
           <Link href="/blog">Blog</Link>
           <Link href="/aides">Les aides</Link>
           <Link href="/a-propos">À propos</Link>
-          <Link href="/faq">Questions et contact</Link>
+          <Link href="/contact">Contact</Link>
           <Link href="/devenir-partenaire">Devenir Partenaire</Link>
         </div>
       </nav>

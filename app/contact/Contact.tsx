@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 export const formStyle = `
 label {
@@ -18,7 +19,7 @@ label input, label textarea {
 
 }
 label textarea {
-	height: 6em;
+	height: 10em;
 }`
 
 export const createIssue = (
@@ -35,7 +36,7 @@ export const createIssue = (
   fetch(
     '/faq/api?' +
       Object.entries({
-        repo: 'betagouv/reno',
+        repo: 'mesaidesreno/feedback-utilisateur',
         title,
         body,
         labels,
@@ -67,7 +68,7 @@ export const GithubContributionForm = ({ fromLocation }) => {
           }
         `}
       >
-        Le titre bref de votre problème ou question
+        Le titre bref de votre requête
         <input
           aria-describedby="messageAttention"
           value={sujet}
@@ -83,7 +84,7 @@ export const GithubContributionForm = ({ fromLocation }) => {
           <small>
             S'il s'agit d'un bug, en indiquant le navigateur que vous utilisez
             (par exemple Firefox version 93, Chrome version 95, Safari, etc.),
-            et la plateforme (iPhone, Android, ordinateur Windows, etc.), vous
+            la plateforme (iPhone, Android, ordinateur Windows, etc.) ainsi que l'url concernée, vous
             nous aiderez à résoudre le bug plus rapidement.
           </small>
         </p>
@@ -97,12 +98,11 @@ export const GithubContributionForm = ({ fromLocation }) => {
       </label>
       <p id="messageAttention">
         <em>
-          Cette contribution sera publique : n'y mettez{' '}
-          <strong>pas d'informations sensibles</strong>.
+          Cette contribution sera privée et anonyme : <strong>n'hésitez 
+          pas à vous exprimer</strong> et à nous laisser vos coordonnées <strong>uniquement si vous souhaitez être recontacté</strong>.
         </em>
       </p>
-      <button
-        className="ui__ button"
+      <Button
         type="submit"
         disabled={buttonDisabled}
         onClick={(e) => {
@@ -121,8 +121,8 @@ export const GithubContributionForm = ({ fromLocation }) => {
           ])
         }}
       >
-        Envoyer
-      </button>
+        ✉️ Nous contacter
+      </Button>
     </form>
   ) : (
     <section>
@@ -167,15 +167,12 @@ export const GithubContributionCard = ({ fromLocation }) => {
 export default function Contact({ fromLocation }) {
   return (
     <div className="ui__ container" css="padding-bottom: 1rem">
-      <h2>🙋 J'ai une autre question</h2>
+      <h2>🙋 J'ai une question</h2>
       <p>
-        Vous pouvez nous envoyer un message via le formulaire de contact
-        ci-dessous. N'y mettez <strong>pas d'informations sensibles</strong>{' '}
-        (nom, adresse précise, etc) car votre message sera utilisé pour
-        consolider la base de questions-réponses.
+        Nous sommes preneurs de toutes vos remarques, questions, suggestions et avis.<br />
+        <strong>N'hésitez pas</strong> à nous envoyer un message via le formulaire de contact ci-dessous.
       </p>
       <div
-        className="ui__ card"
         css={`
           padding: 1rem 0;
           margin: 1rem 0;
@@ -183,16 +180,14 @@ export default function Contact({ fromLocation }) {
       >
         <GithubContributionForm fromLocation={fromLocation} />
       </div>
-      {false && (
-        <p>
-          Enfin, vous avez la possibilité de nous envoyer un mail à l'adresse{' '}
-          <a href="mailto:contact@nosgestesclimat.fr">
-            contact@nosgestesclimat.fr
-          </a>
-          . Cependant, le délais de réponse sera plus long que les solutions
-          précédentes.
-        </p>
-      )}
     </div>
   )
 }
+
+export const Button = styled.button`
+  appearance: none;
+  background: var(--color);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border: none;
+`
