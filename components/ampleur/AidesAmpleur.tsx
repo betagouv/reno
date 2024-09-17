@@ -11,6 +11,7 @@ import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import Denormandie from './Denormandie'
+import { createExampleSituation } from '../AmpleurSummary'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -29,16 +30,8 @@ export default function AidesAmpleur({
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
-  const exampleSituation = {
-    'projet . travaux': roundToThousands(
-      engine.evaluate('projet . enveloppe estimée').nodeValue,
-      5,
-    ),
-    'vous . propriétaire': 'oui',
-    ...situation,
-  }
-
-  const aides = useAides(engine) // TODO which situation
+  const exampleSituation = createExampleSituation(engine, situation, false)
+  const aides = useAides(engine, exampleSituation) // TODO which situation
 
   const eligibles = aides.filter((aide) => aide.status === true)
 

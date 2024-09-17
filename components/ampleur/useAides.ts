@@ -28,11 +28,10 @@ const topList = rules['ampleur . tous les dispositifs'].somme,
       return { ...rule, dottedName }
     })
 
-export function useAides(engine) {
+export function useAides(engine, situation) {
   const aides = list.map((aide) => {
-    const evaluation = engine
-      //.setSituation(extremeSituation)
-      .evaluate(aide.dottedName)
+    console.log('lightyellow useaides situation', situation)
+    const evaluation = engine.setSituation(situation).evaluate(aide.dottedName)
     const value = formatValue(evaluation, { precision: 0 })
 
     const status = computeAideStatus(evaluation)

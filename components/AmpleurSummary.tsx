@@ -10,15 +10,32 @@ import { CTA, CTAWrapper, Card } from './UI'
 
 import { PrimeStyle } from './UI'
 import { useAides } from './ampleur/useAides'
-import { sortBy } from './utils'
+import { roundToThousands, sortBy } from './utils'
 
 export const computeAideStatus = (evaluation) => {
   const value = formatValue(evaluation, { precision: 0 })
+
+  console.log('lightyellow status', evaluation.dottedName, evaluation)
 
   if (value === 'Non applicable' || value === 'non') return false
   if (evaluation.nodeValue === 0) return null
   if (evaluation.nodeValue > 0) return true
   throw new Error('Unknown aide status, missing a case in the switch')
+}
+
+export const createExampleSituation = (engine, situation, extreme = false) => {
+  const exampleSituation = {
+    'projet . travaux': extreme
+      ? 999999
+      : roundToThousands(
+          engine.evaluate('projet . enveloppe estimée').nodeValue,
+          5,
+        ),
+    'vous . propriétaire': 'oui',
+    'taxe foncière . condition de dépenses': 'oui',
+    ...situation,
+  }
+  return exampleSituation
 }
 
 export default function AmpleurSummary({
@@ -28,7 +45,7 @@ export default function AmpleurSummary({
   expanded,
   setSearchParams,
 }) {
-  const extremeSituation = { ...situation, 'projet . travaux': 999999 }
+  const extremeSituation = createExampleSituation(engine, situation, true)
 
   const evaluation = engine
     .setSituation(extremeSituation)
@@ -36,7 +53,7 @@ export default function AmpleurSummary({
 
   const value = formatValue(evaluation, { precision: 0 })
 
-  const aides = useAides(engine)
+  const aides = useAides(engine, extremeSituation)
 
   console.log('lightblue', aides)
   const expand = () =>

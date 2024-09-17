@@ -13,20 +13,16 @@ export default function TaxeFoncière({
 }) {
   const commune = situation['ménage . commune . nom']
 
-  const caseSituation = {
-    ...exampleSituation,
-    'taxe foncière . condition de dépenses': 'oui',
-  }
-  engine.setSituation(caseSituation)
+  engine.setSituation(exampleSituation)
   console.log(
     'lightyellow montant',
-    engine.setSituation(caseSituation).evaluate('taxe foncière . montant'),
+    engine.setSituation(exampleSituation).evaluate('taxe foncière . montant'),
   )
   console.log(
     'lightyellow test',
-    engine.setSituation(caseSituation).evaluate('taxe foncière . taux'),
+    engine.setSituation(exampleSituation).evaluate('taxe foncière . taux'),
   )
-  console.log('lightyellow s', caseSituation)
+  console.log('lightyellow s', exampleSituation)
 
   return (
     <AideAmpleur dottedName={'taxe foncière'}>
