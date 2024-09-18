@@ -11,6 +11,7 @@ import EcoPTZ from './EcoPTZ'
 import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
+import AideMAR from './AideMAR'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -63,6 +64,19 @@ export default function AidesAmpleur({
       <section>
         <MPRA
           {...{
+            oldIndex,
+            choice,
+            setSearchParams,
+            answeredQuestions,
+            engine,
+            situation,
+            exampleSituation,
+            searchParams,
+          }}
+        />
+        <AideMAR
+          {...{
+            rules,
             oldIndex,
             choice,
             setSearchParams,

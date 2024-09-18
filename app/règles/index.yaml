@@ -814,9 +814,14 @@ MPR . accompagnée . pourcent brut:
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
 
 MPR . accompagnée . prise en charge MAR:
+  description: |
+    L'aide MaPrimeRénov' accompagnée est conditionnée à la réalisation d'un audit energétique avec un professionnel labellisé **"Mon Accompagnateur Rénov"**. 
+
+    Cet audit est payant, mais l'État vous aide à le payer en fonction de votre revenu. Certaines collectivités proposent de financer le reste à charge.
   applicable si: MPR . accompagnée . éligible
   icône: maprimerenov.svg
-  complément de marque: Audit et accompagnement MaPrimeRénov'
+  marque: MaPrimeRénov'
+  complément de marque: Audit et accompagnement
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond
