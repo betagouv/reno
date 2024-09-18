@@ -508,9 +508,12 @@
     ménage . code région: "'11'"
     logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
     logement . propriétaire occupant: oui
+    taxe foncière . condition de dépenses: oui
   valeurs attendues:
     MPR . accompagnée . montant: 29400
     MPR . non accompagnée . éligible: oui
+    taxe foncière . commune . éligible: oui
+    taxe foncière . montant: 2433
 
 - description: |
     Personne seule au revenu très modeste en Bretagne

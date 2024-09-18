@@ -56,6 +56,8 @@ const PersonaCard = async ({ engine, persona, personaIndex }) => {
     ...enrichedSituation,
   })
 
+  console.log('POUP', engine.evaluate('taxe foncière . montant'))
+
   const nom = personaNames[personaIndex]
   const tests = Object.entries(persona['valeurs attendues'] || {}).map(
     ([dottedName, expectedValue]) =>
