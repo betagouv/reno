@@ -11,7 +11,7 @@ ampleur . montant:
   somme:
     - MPR . accompagnée . montant
     - MPR . accompagnée . prise en charge MAR
-    - aides locales . total
+    - aides locales . montant
     - CEE . rénovation d'ampleur . montant
     - ampleur . prime individuelle copropriété . montant
 
@@ -31,8 +31,8 @@ ampleur . tous les dispositifs:
     - taxe foncière . montant
 
 ampleur . prime individuelle copropriété:
-  marque: MaPrimeRénov'
-  complément de marque: copropriété
+  marque: MaPrimeRénov' copro
+  complément de marque: prime individuelle
   note: |
     Cette variable recontextualise la variable prime individuelle du point de vue du ménage, sans parler encore de sa copropriété.
 
