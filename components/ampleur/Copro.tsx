@@ -56,9 +56,14 @@ export default function Copro({ engine, situation, searchParams }) {
             votre copro est éligible et le montant de votre prime individuelle
             additionnelle.
           </p>
+          <p>
+            Le lien s'ouvrira dans un nouvel onglet.{' '}
+            <BlueEm>Vous ne perdrez pas votre simulation actuelle</BlueEm>.
+          </p>
           <CTAWrapper $justify="left">
             <CTA>
               <Link
+                target="_blank"
                 href={
                   '/copropriete/?' +
                   new URLSearchParams(encodeSituation(situation))
