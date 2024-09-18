@@ -4,6 +4,10 @@ import { compute } from '../explications/Aide'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import DPELabel from '../DPELabel'
 import MapBehindCTA from '../MapBehindCTA'
+import { BlueEm } from '@/app/LandingUI'
+import { CTA, CTAWrapper } from '../UI'
+import Link from 'next/link'
+import { encodeSituation } from '../publicodes/situationUtils'
 
 export default function Copro({ engine, situation, searchParams }) {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
@@ -19,13 +23,13 @@ export default function Copro({ engine, situation, searchParams }) {
 
         <InformationBlock>
           <li>
-            Elle se cumule avec la prime MaPrimeRénov' accompagnée individuelle,
-            et offre droit à une prime par logement de{' '}
+            Elle se cumule avec MaPrimeRénov' accompagnée, et offre droit à une
+            prime supplémentaire par logement de{' '}
             {isTrèsModeste ? '3 000 €' : '1 500 €'} pour votre ménage{' '}
             {evaluation.value}.
           </li>
           <li>
-            Pour votre copropriété :
+            Votre copropriété peut elle aussi demander une prime collective :
             <ul>
               <li>
                 30 % des travaux subventionnés si gain energétique de + de 35 %.
@@ -45,16 +49,26 @@ export default function Copro({ engine, situation, searchParams }) {
         <PaymentTypeBlock>
           <p>Avance ? Remboursement ? À déterminer.</p>
         </PaymentTypeBlock>
-        <MapBehindCTA
-          {...{
-            codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-            searchParams,
-            what: 'trouver-conseiller-renov',
-            text: 'Obtenir cette aide',
-            link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-            importance: 'secondary',
-          }}
-        />
+        <AideCTA text="Tester l'éligibilité de ma copro">
+          <p>
+            Nous avons mis en place un parcours dédié pour les copropriétés. Il
+            vous permettra de <BlueEm>vérifier en quelques minutes</BlueEm> si
+            votre copro est éligible et le montant de votre prime individuelle
+            additionnelle.
+          </p>
+          <CTAWrapper $justify="left">
+            <CTA>
+              <Link
+                href={
+                  '/copropriete/?' +
+                  new URLSearchParams(encodeSituation(situation))
+                }
+              >
+                Tester le parcours copro
+              </Link>
+            </CTA>
+          </CTAWrapper>
+        </AideCTA>
       </div>
     </AideAmpleur>
   )

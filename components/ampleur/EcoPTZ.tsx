@@ -34,7 +34,7 @@ export default function EcoPTZ({}) {
             <p>
               Par rapport à un prêt à la consommation de 50 000 € affecté aux
               travaux à un taux de 5 % sur 20 ans,
-              <br /> l'éco-PTZ vous fait économiser{' '}
+              <br /> l'éco-PTZ peut vous faire économiser{' '}
               <a href="https://www.lafinancepourtous.com/outils/calculateurs/calculateur-de-credit-immobilier/">
                 <PrimeStyle>30 000 € d'intérêts</PrimeStyle>
               </a>
