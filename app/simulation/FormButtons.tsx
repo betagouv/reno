@@ -2,6 +2,7 @@ import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { CTA, CTAWrapper } from '@/components/UI'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { push } from '@socialgouv/matomo-next'
 
 export default function FormButtons({
   currentValue,
@@ -47,6 +48,7 @@ export default function FormButtons({
               'url',
               false,
             )}
+            onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "Suivant", currentQuestion])}
             title="Aller à l'étape suivante"
           >
             Suivant
