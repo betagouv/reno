@@ -275,6 +275,8 @@
     logement . type: "'maison'"
     logement . surface: 130
     logement . période de construction: "'au moins 25 ans'"
+    projet . travaux: 82000 €
+    logement . prix d'achat: 230000 €
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 45
     MPR . non accompagnée . éligible: non

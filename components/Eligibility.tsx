@@ -52,6 +52,7 @@ export default function Eligibility({
       <PersonaBar
         startShown={searchParams.personas != null}
         selectedPersona={searchParams.persona}
+        engine={engine}
       />
       <CustomQuestionWrapper>
         <header>
