@@ -8,7 +8,13 @@ import enrichSituation from './personas/enrichSituation'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 
-const matrixLines = ['taxe foncière . montant', 'denormandie . montant']
+const matrixLines = [
+  'MPR . accompagnée',
+  'aides locales',
+  'ampleur . prime individuelle copropriété',
+  'taxe foncière',
+  'denormandie',
+]
 export default function PersonaBar({ startShown = false, selectedPersona }) {
   const [shown, show] = useState(startShown)
   const [enrichedPersonas, setEnrichedPersonas] = useState(personas)
@@ -36,7 +42,9 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
         const enrichedSituation = await enrichSituation(persona.situation)
 
         const evaluations = matrixLines.map((dottedName) =>
-          engine.setSituation(enrichedSituation).evaluate(dottedName),
+          engine
+            .setSituation(enrichedSituation)
+            .evaluate(dottedName + ' . montant'),
         )
 
         const newPersona = {
@@ -77,9 +85,9 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
         css={`
           margin-left: 12rem;
           white-space: nowrap;
-          height: 14rem;
+          height: 18rem;
           display: flex;
-          align-items: center;
+          align-items: start;
           overflow: scroll;
           list-style-type: none;
           padding-left: 0;
@@ -104,6 +112,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
               > div {
                 padding: 0.2rem 0.4rem;
                 min-height: 9rem;
+                height: 9rem;
                 justify-content: space-between;
                 display: flex;
                 flex-direction: column;
@@ -142,7 +151,13 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
                             Non applicable
                           </span>
                         ) : (
-                          value
+                          <span
+                            css={`
+                              background: #bef2c5;
+                            `}
+                          >
+                            {value}
+                          </span>
                         )}
                       </li>
                     )
@@ -153,18 +168,34 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
           </li>
         ))}
       </ul>
-      <section>
-        <ol
-          css={`
-            ul {
-              display: flex;
-              flex-direction: column;
+      <section
+        css={`
+          position: fixed;
+          top: 10rem;
+          left: 0.6rem;
+          color: white;
+          ol {
+            display: flex;
+            flex-direction: column;
+            li {
+              margin: 0.05rem 0;
+              small {
+                max-width: 12rem;
+                line-height: 0.8rem;
+                display: inline-block;
+              }
             }
-          `}
-        >
-          {matrixLines.map((dottedName) => (
-            <li key={dottedName}>{dottedName.replace(' . montant', '')}</li>
-          ))}
+          }
+        `}
+      >
+        <ol>
+          {matrixLines
+            .map((dottedName) => rules[dottedName])
+            .map((rule) => (
+              <li key={rule.dottedName}>
+                <small>{rule.marque}</small>
+              </li>
+            ))}
         </ol>
       </section>
     </section>
