@@ -28,7 +28,10 @@ export default function FormButtons({
   return (
     <CTAWrapper>
       <CTA $importance="secondary" title="Retour en arrière">
-        <button onClick={() => router.back()}>←</button>
+        <button onClick={() => {
+          push(["trackEvent", "Simulateur Principal", "Précédent", currentQuestion]);
+          router.back()
+        }}>←</button>
       </CTA>
       <CTA $importance={showValidation ? 'primary' : 'inactive'}>
         {showValidation ? (
@@ -48,11 +51,7 @@ export default function FormButtons({
               'url',
               false,
             )}
-            onClick={() => {
-              push(["trackEvent", "Simulateur Principal", "Valide", "Suivant", currentQuestion]);
-              push(["trackEvent", "Simulateur Principal", "Valide", "Suivant", `${currentQuestion}`]);
-              push(["trackEvent", "Simulateur Principal", "Valide", currentQuestion, situation[currentQuestion]]);
-            }}
+            onClick={() => push(["trackEvent", "Simulateur Principal", "Valide", currentQuestion]) }
             title="Aller à l'étape suivante"
           >
             Suivant

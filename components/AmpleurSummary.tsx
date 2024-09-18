@@ -10,6 +10,7 @@ import { CTA, CTAWrapper, Card } from './UI'
 
 import { PrimeStyle } from './UI'
 import rules from '@/app/règles/rules'
+import { push } from '@socialgouv/matomo-next'
 
 const topList = rules['ampleur . tous les dispositifs'].somme,
   // unfold the sums with one level only, no recursion yet
@@ -179,7 +180,10 @@ export default function AmpleurSummary({
         >
           <CTAWrapper $justify="end">
             <CTA $fontSize="normal">
-              <Link href={url}>Découvrir le détail</Link>
+              <Link 
+                href={url} 
+                onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "parcours ampleur"]) }  
+              >Découvrir le détail</Link>
             </CTA>
           </CTAWrapper>
           <p
