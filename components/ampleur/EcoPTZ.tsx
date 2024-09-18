@@ -4,9 +4,10 @@ import { Card, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
 
-export default function EcoPTZ({}) {
+export default function EcoPTZ({ rules }) {
+  const dottedName = 'PTZ'
   return (
-    <AideAmpleur dottedName={'PTZ'}>
+    <AideAmpleur dottedName={dottedName}>
       <div>
         <p>
           Vous pouvez emprunter jusqu'à 50 000 € sur 20 ans sans devoir
@@ -43,25 +44,11 @@ export default function EcoPTZ({}) {
           </div>
         </Card>
         <InformationBlock>
-          <li>
-            L'éco-PTZ est particulièrement adapté pour{' '}
-            <a href="https://www.service-public.fr/particuliers/vosdroits/F36448">
-              couvrir le reste à charge des travaux
-            </a>{' '}
-            du parcours MaPrimeRénov' accompagné.
-          </li>
-          <li>
-            L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov'
-            accompagnée,{' '}
-            <a href="https://www.service-public.fr/particuliers/vosdroits/F19905">
-              de 7 000 € à 30 000 €
-            </a>{' '}
-            en fonction du nombre de gestes de rénovation de votre projet.
-          </li>
-          <li>
-            Son montant dépendra de votre endettement et de votre capacité à le
-            rembourser.
-          </li>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].informationsUtilesHtml,
+            }}
+          />
         </InformationBlock>
         <PaymentTypeBlock>
           <p>Le prêt sera à rembourser mensuellement.</p>

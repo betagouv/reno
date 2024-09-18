@@ -4,6 +4,10 @@ PTZ:
   type: 'prêt'
   icône: 'ptz-bleu.svg'
   titre: Éco-prêt à taux zéro
+  informations utiles: |
+    - L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
+    - L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
+    - Son montant dépendra de votre endettement et de votre capacité à le rembourser.
   description: |
 
     L'éco-PTZ est disponible pour une [liste de types de travaux](https://www.economie.gouv.fr/particuliers/eco-pret-a-taux-zero-ptz-renovation-performance-energetique#quels-sont-les-travaux-ligibles-_1).
@@ -52,4 +56,3 @@ PTZ . montant:
       alors: 50000 €
     - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
-

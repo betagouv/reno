@@ -18,8 +18,9 @@ export default function MPRA({
   exampleSituation,
   searchParams,
 }) {
+  const dottedName = 'MPR . accompagnée'
   return (
-    <AideAmpleur dottedName={'MPR . accompagnée'}>
+    <AideAmpleur dottedName={dottedName}>
       <div>
         <p>
           Pour bénéficier de cette aide, vous devez viser un saut d’au moins
@@ -62,20 +63,11 @@ export default function MPRA({
             />
 
             <InformationBlock>
-              <li>
-                Votre conseiller local France Rénov’ vous accompagne{' '}
-                <strong>gratuitement</strong> pour vous guider dans les
-                premières étapes de votre projet.
-              </li>
-              <li>
-                Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
-                logement pour définir le projet de travaux vous permettant
-                d’atteindre le DPE visé.{' '}
-                <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
-                  En savoir plus
-                </a>
-                .
-              </li>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: rules[dottedName].informationsUtilesHtml,
+                }}
+              />
             </InformationBlock>
           </>
         )}

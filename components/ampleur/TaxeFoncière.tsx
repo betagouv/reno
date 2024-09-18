@@ -11,6 +11,7 @@ export default function TaxeFoncière({
   engine,
   situation,
   exampleSituation,
+  rules,
 }) {
   const commune = situation['ménage . commune . nom']
 
@@ -29,6 +30,8 @@ export default function TaxeFoncière({
     communeEligible = situation['taxe foncière . commune . éligible'] === 'oui',
     taux = situation['taxe foncière . commune . taux']
 
+  const dottedName = 'taxe foncière'
+  const rule = rules[dottedName]
   return (
     <AideAmpleur dottedName={'taxe foncière'}>
       <div>
@@ -37,7 +40,7 @@ export default function TaxeFoncière({
           ou 100 % pendant 3 ans pour certains logements rénovés.
         </p>
         {communeEligible}
-        {communeName && communeEligible ? (
+        {communeName && !communeEligible ? (
           <p>
             La commune {communeName} de votre logement n'
             <No>est pas dans notre liste</No>, c'est à vous de vous renseigner
@@ -45,7 +48,7 @@ export default function TaxeFoncière({
           </p>
         ) : (
           <p>
-            La commune {communeName} de votre logement est <em>a priori</em>
+            La commune {communeName} de votre logement est <em>a priori</em>{' '}
             <Yes>éligible</Yes>,{' '}
             {taux ? (
               <p>pour une exonération de {taux}</p>
@@ -58,23 +61,9 @@ export default function TaxeFoncière({
           </p>
         )}
         <InformationBlock>
-          <li>
-            Il n'existe pas de liste officielle nous permettant de savoir si{' '}
-            {commune} propose cette exonération, c'est à vous de le demander à
-            votre{' '}
-            <a href="https://www.impots.gouv.fr/contacts">centre des impôts</a>.
-            Voici{' '}
-            <Link href="/taxe-fonciere/communes-eligibles">une sélection</Link>{' '}
-            de quelques communes éligibles.
-          </li>
-          <li>Votre logement a été construit avant le 1er janvier 1989</li>
-          <li>
-            Un montant minimum de travaux de rénovation thermique a été engagé :
-            <ul>
-              <li>soit 10 000 € l'année précédente</li>
-              <li>soit 15 000 € les trois années précédentes</li>
-            </ul>
-          </li>
+          <div
+            dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }}
+          />
         </InformationBlock>
         <PaymentTypeBlock>
           <p>

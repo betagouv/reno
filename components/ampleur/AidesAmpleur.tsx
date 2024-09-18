@@ -74,7 +74,7 @@ export default function AidesAmpleur({
           }}
         />
 
-        <EcoPTZ />
+        <EcoPTZ rules={rules} />
 
         <Copro {...{ engine, situation, searchParams }} />
         <TaxeFoncière
@@ -85,6 +85,7 @@ export default function AidesAmpleur({
             answeredQuestions,
             engine,
             situation,
+            rules,
             exampleSituation,
           }}
         />

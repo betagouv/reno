@@ -173,9 +173,9 @@ export default function Denormandie({
           </div>
         </Card>
         <InformationBlock>
-          {rule['informations utiles'].map((element) => (
-            <li key={element}>{element}</li>
-          ))}
+          <div
+            dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }}
+          />
         </InformationBlock>
         <PaymentTypeBlock>
           <p>Une réduction sur vos impôts chaque année pendant 6 à 12 ans.</p>
