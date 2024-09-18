@@ -48,7 +48,11 @@ export default function FormButtons({
               'url',
               false,
             )}
-            onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "Suivant", currentQuestion])}
+            onClick={() => {
+              push(["trackEvent", "Simulateur Principal", "Valide", "Suivant", currentQuestion]);
+              push(["trackEvent", "Simulateur Principal", "Valide", "Suivant", `${currentQuestion}`]);
+              push(["trackEvent", "Simulateur Principal", "Valide", currentQuestion, situation[currentQuestion]]);
+            }}
             title="Aller à l'étape suivante"
           >
             Suivant
