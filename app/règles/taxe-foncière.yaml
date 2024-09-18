@@ -5,7 +5,15 @@ taxe foncière:
 
 logement . taxe foncière:
   question: Combien payez-vous de taxe foncière chaque année pour votre logement ?
-  par défaut: 1000 €/an
+  description: |
+    La taxe foncière varie en fonction de chaque commune et de chaque logement, et est réévaluée chaque année. 
+
+    Nous proposons par défaut des [chiffres moyens de 2023](https://www.ouest-france.fr/economie/impots-fiscalite/impots/votre-taxe-fonciere-est-elle-plus-elevee-que-la-moyenne-des-francais-3e1b4422-2a39-11ef-94e8-820b9e9c1d0c) différenciés pour les maisons et appartements.
+  par défaut:
+    variations:
+      - si: logement . type = 'appartement'
+        alors: 811 €/an
+      - sinon: 1019 €/an
   note: |
     Le montant par défaut n'est qu'un ordre de grandeur : la taxe foncière varie en fonction de chaque commune et a subi d'énormes augmentations qui rendent obsolète [la seule étude de l'INSEE](https://www.insee.fr/fr/statistiques/7735076) que nous avons trouvée sur le sujet.
 
@@ -51,6 +59,8 @@ plop:
 taxe foncière . commune:
   # On n'utilise pas logement . commune pour l'instant car elle peut être désacitée par occupant = non
 taxe foncière . commune . éligible:
+  par défaut: non
+  description: La commune du logement a-t-elle voté une exonération de taxe foncière ?
 taxe foncière . commune . taux:
   par défaut: 0
   description: |
