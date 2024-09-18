@@ -17,9 +17,10 @@ logement . taxe foncière:
   note: |
     Le montant par défaut n'est qu'un ordre de grandeur : la taxe foncière varie en fonction de chaque commune et a subi d'énormes augmentations qui rendent obsolète [la seule étude de l'INSEE](https://www.insee.fr/fr/statistiques/7735076) que nous avons trouvée sur le sujet.
 
+taxe foncière . durée: 3 an
 taxe foncière . montant:
   applicable si: conditions
-  formule: taux * logement . taxe foncière
+  formule: taux * logement . taxe foncière * durée
 
 taxe foncière . taux:
   question: Quel taux d'exonération de taxe foncière a été décidé par votre commune ?

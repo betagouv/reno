@@ -1,16 +1,13 @@
 import { Labels } from '@/app/LandingUI'
-import Link from 'next/link'
-import { formatValue } from 'publicodes'
-import { SummaryAide } from './SummaryAide'
 import addIcon from '@/public/add-circle-stroke.svg'
 import removeIcon from '@/public/remove-circle-stroke.svg'
 import Image from 'next/image'
-
-import { CTA, CTAWrapper, Card } from './UI'
-
-import { PrimeStyle } from './UI'
-import { useAides } from './ampleur/useAides'
-import { roundToThousands, sortBy } from './utils'
+import Link from 'next/link'
+import { formatValue } from 'publicodes'
+import { AideSummary } from './AideSummary'
+import { CTA, CTAWrapper, Card, PrimeStyle } from '@/components/UI'
+import { roundToThousands, sortBy } from '@/components/utils'
+import { useAides } from './useAides'
 
 export const computeAideStatus = (evaluation) => {
   const value = formatValue(evaluation, { precision: 0 })
@@ -55,7 +52,6 @@ export default function AmpleurSummary({
 
   const aides = useAides(engine, extremeSituation)
 
-  console.log('lightblue', aides)
   const expand = () =>
     setSearchParams({ details: expanded ? undefined : 'oui' })
 
@@ -93,7 +89,7 @@ export default function AmpleurSummary({
             const text = aide.marque,
               text2 = aide['complément de marque']
             return (
-              <SummaryAide
+              <AideSummary
                 key={aide.dottedName}
                 {...{
                   ...aide,
@@ -102,6 +98,7 @@ export default function AmpleurSummary({
                   text2,
                   type: aide.type,
                   expanded,
+                  engine,
                 }}
               />
             )
@@ -190,7 +187,7 @@ export default function AmpleurSummary({
               const text = aide.marque,
                 text2 = aide['complément de marque']
               return (
-                <SummaryAide
+                <AideSummary
                   key={aide.dottedName}
                   {...{
                     ...aide,

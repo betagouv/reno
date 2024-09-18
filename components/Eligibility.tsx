@@ -1,15 +1,14 @@
-import { No, Yes, Results } from '@/components/ResultUI'
+import { No, Results, Yes } from '@/components/ResultUI'
 import checkIcon from '@/public/check.svg'
 import Image from 'next/image'
 import { useMemo } from 'react'
+import AmpleurSummary from './ampleur/AmpleurSummary'
 import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
-import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
-import AmpleurSummary from './AmpleurSummary'
 
 export default function Eligibility({
   setSearchParams,

@@ -1,6 +1,6 @@
 import rules from '@/app/règles/rules'
 import { formatValue } from 'publicodes'
-import { computeAideStatus } from '../AmpleurSummary'
+import { computeAideStatus } from './AmpleurSummary'
 
 const topList = rules['ampleur . tous les dispositifs'].somme,
   // unfold the sums with one level only, no recursion yet

@@ -3,7 +3,8 @@
 import crossIcon from '@/public/remix-close-empty.svg'
 import questionIcon from '@/public/remix-question-empty.svg'
 import Image from 'next/image'
-import { PrimeStyle } from './UI'
+import { PrimeStyle } from '@/components/UI'
+import AideDurée from './AideDurée'
 
 export const computeStatusTitle = (status) =>
   status
@@ -12,7 +13,7 @@ export const computeStatusTitle = (status) =>
       ? 'Nous ne pouvons pas vous dire si vous êtes éligible à cette aide'
       : "Vous n'êtes pas éligible à cette aide"
 
-export const SummaryAide = ({
+export const AideSummary = ({
   icon,
   text,
   text2,
@@ -21,6 +22,8 @@ export const SummaryAide = ({
   value,
   expanded,
   small = false,
+  engine,
+  dottedName,
 }) => {
   return (
     <section
@@ -150,6 +153,7 @@ export const SummaryAide = ({
             >
               {value}
             </PrimeStyle>
+            <AideDurée engine={engine} dottedName={dottedName} />
           </small>
         </div>
       )}

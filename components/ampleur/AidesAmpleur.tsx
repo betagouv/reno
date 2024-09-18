@@ -1,17 +1,16 @@
 import Link from 'next/link'
+import { createExampleSituation } from './AmpleurSummary'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
 import QuestionsRéponses from '../mpra/QuestionsRéponses'
-import { roundToThousands } from '../utils'
+import { encodeDottedName } from '../publicodes/situationUtils'
 import Copro from './Copro'
+import Denormandie from './Denormandie'
 import EcoPTZ from './EcoPTZ'
 import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
-import { encodeDottedName } from '../publicodes/situationUtils'
-import Denormandie from './Denormandie'
-import { createExampleSituation } from '../AmpleurSummary'
 
 export default function AidesAmpleur({
   setSearchParams,
