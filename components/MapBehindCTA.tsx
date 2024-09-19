@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { CTA, CTAWrapper } from './UI'
 import { useSearchParams } from 'next/navigation'
 import useSetSearchParams from './useSetSearchParams'
+import { push } from '@socialgouv/matomo-next'
 
 // Appelé "Map" parce qu'on montrait les conseillers sur une carte, mais ça a été retiré temporairement pour se concentrer sur une première mise en prod plus simple, mais la carte marchait
 export default function MapBehindCTA({
@@ -17,7 +18,8 @@ export default function MapBehindCTA({
 }) {
   const clickedCta = searchParams.cta
   const setSearchParams = useSetSearchParams()
-  const clickCta = () =>
+  const clickCta = () => {
+    push(["trackEvent", "Simulateur Principal", "Clic", "trouver conseiller"])
     setSearchParams({
       cta:
         clickedCta == null
@@ -26,6 +28,8 @@ export default function MapBehindCTA({
             ? 'refermé'
             : 'cliqué',
     })
+  }
+    
   return (
     <section>
       <CTAWrapper $justify="left">
