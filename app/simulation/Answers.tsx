@@ -7,6 +7,7 @@ import {
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
+import { push } from '@socialgouv/matomo-next'
 import styled from 'styled-components'
 import { useMediaQuery } from 'usehooks-ts'
 
@@ -49,6 +50,7 @@ export default function Answers({
 }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
   const handleSummaryClick = (event) => {
+    push(["trackEvent", "Simulateur principal", "Clic", "voir mes reponses"])
     const detailsElement = event.target.closest('details');
     if (detailsElement) {
       detailsElement.open = !detailsElement.open;
@@ -135,7 +137,10 @@ export default function Answers({
                   : 'hidden'};
               `}
             >
-              <Link href={'/simulation'}>Recommencer</Link>
+              <Link 
+                href={'/simulation'}
+                onClick={() => push(["trackEvent", "Simulateur principal", "Clic", "voir mes reponses"]) }
+              >Recommencer</Link>
             </div>
           </div>
           {pastCategories.length > 0 ? (
