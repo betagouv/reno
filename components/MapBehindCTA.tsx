@@ -1,40 +1,29 @@
 'use client'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import Image from 'next/image'
-import { useState } from 'react'
 import { CTA, CTAWrapper } from './UI'
-import { useSearchParams } from 'next/navigation'
 import useSetSearchParams from './useSetSearchParams'
 import { push } from '@socialgouv/matomo-next'
+import { useState } from 'react'
 
 // Appelé "Map" parce qu'on montrait les conseillers sur une carte, mais ça a été retiré temporairement pour se concentrer sur une première mise en prod plus simple, mais la carte marchait
 export default function MapBehindCTA({
-  link,
   what,
   codeInsee,
   text,
   importance,
-  searchParams,
 }) {
-  const clickedCta = searchParams.cta
-  const setSearchParams = useSetSearchParams()
+  const [clickedCta, setClickedCta] = useState(false)
   const clickCta = () => {
+    setClickedCta(!clickedCta)
     push(["trackEvent", "Simulateur Principal", "Clic", "trouver conseiller"])
-    setSearchParams({
-      cta:
-        clickedCta == null
-          ? 'cliqué'
-          : clickedCta === 'cliqué'
-            ? 'refermé'
-            : 'cliqué',
-    })
   }
     
   return (
     <section>
       <CTAWrapper $justify="left">
         <CTA $importance={importance}>
-          <button onClick={clickCta}>
+          <button onClick={(clickCta)}>
             <span
               css={`
                 display: flex;
@@ -66,7 +55,7 @@ export default function MapBehindCTA({
 
       <div
         css={`
-          display: ${clickedCta !== 'cliqué' ? 'none' : 'block'};
+          display: ${clickedCta ? 'block' : 'none'};
         `}
       >
         <MarSearch codeInsee={codeInsee} what={what} />
