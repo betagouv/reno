@@ -89,7 +89,7 @@ export default function MarSearch({
         `}
       >
         {data == null ? (
-          <MarLoader />
+           codeInsee && (<MarLoader />)
         ) : (
           <Entreprises data={data} />
         )}
