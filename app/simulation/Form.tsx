@@ -19,6 +19,7 @@ import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
+import FooterCompact from '@/components/FooterCompact'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
@@ -88,7 +89,7 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      {! isCompact && (
+      {isCompact ? (<FooterCompact />) : (
         <>
           <br />
           <UserProblemBanner />
