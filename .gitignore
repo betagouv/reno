@@ -42,5 +42,6 @@ next-env.d.ts
 
 data/*
 !data/README.md
+!data/exonération-taxe-foncière-population.csv
 
 deno.lock
