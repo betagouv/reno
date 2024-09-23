@@ -1,7 +1,7 @@
 import ort from '@/data/ort.csv'
 import coeurDeVille from '@/data/coeur-de-ville.csv'
 
-import communesTaxeFoncière from '@/app/règles/communes-taxe-foncière.yaml'
+import communesTaxeFoncière from '@/data/exonération-taxe-foncière.csv'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -13,9 +13,7 @@ export async function GET(request: Request) {
     coeurDeVille.find((el) => el.insee_com == insee) ||
     ort.find((el) => el['Code commune'] == insee && el['Signée ?'] === 'Signée')
 
-  const hasTaxeFoncière = communesTaxeFoncière.find(
-      (el) => el.code && el.code == insee,
-    ),
+  const hasTaxeFoncière = communesTaxeFoncière.find((el) => el.code == insee),
     taxeFoncièreTaux =
       hasTaxeFoncière &&
       (hasTaxeFoncière.taux != null ? hasTaxeFoncière.taux : false)
@@ -26,7 +24,7 @@ export async function GET(request: Request) {
     !nom &&
     (hasDenormandie?.lib_com ||
       hasDenormandie?.Commune ||
-      hasTaxeFoncière?.commune)
+      (hasTaxeFoncière && hasTaxeFoncière['Nom de la collectivité']))
   const eligibilite = {
     'logement . commune . denormandie': hasDenormandie ? 'oui' : 'non',
     ...(hasTaxeFoncière

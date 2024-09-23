@@ -5,7 +5,7 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
-import communes from '@/app/règles/communes-taxe-foncière.yaml'
+import communes from '@/data/exonération-taxe-foncière-population.csv'
 import { sortBy } from '@/components/utils'
 
 const title =
@@ -71,43 +71,42 @@ export default function Module({}) {
             </p>
             <ul>
               {sortBy((c) => c.commune)(communes).map(
-                ({ commune, code, source, taux }) => {
-                  const domain = new URL(source).hostname.replace('www.', ''),
-                    verified = domain.length > 0 && !domain.startsWith('effy')
+                ({
+                  'Nom de la collectivité': commune,
+                  code,
+                  taux,
+                  population,
+                }) => {
                   return (
-                    <li key={commune}>
-                      <h3>{commune}</h3>
+                    <li
+                      key={commune}
+                      style={css`
+                        margin: 1rem 0;
+                      `}
+                    >
+                      <h3
+                        style={css`
+                          font-size: 125%;
+                          margin: 0;
+                        `}
+                      >
+                        {commune}
+                      </h3>
                       <div>Code commune : {code || <em>à renseigner</em>}</div>
                       <div>
                         Taux d'exonération
-                        {taux ? (
-                          <span>
-                            {' : '}
-                            <PrimeStyle>{taux}</PrimeStyle>
-                          </span>
-                        ) : (
-                          <span> inconnu : soit 50 %, soit 100 %</span>
-                        )}
+                        <span>
+                          {' : '}
+                          <PrimeStyle>{taux} %</PrimeStyle>
+                        </span>
                       </div>
-                      <small>
-                        Source {verified ? '✅ ' : ''}{' '}
-                        <a href={source}>{domain}</a>
-                      </small>
+                      <div>{formatter.format(population)} habitants</div>
                     </li>
                   )
                 },
               )}
             </ul>
             <br />
-            {false && (
-              <p>
-                Sources :{' '}
-                {communes.reduce(
-                  (memo, next) => memo.add(next.source),
-                  new Set(),
-                )}
-              </p>
-            )}
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
@@ -137,3 +136,5 @@ export default function Module({}) {
     </main>
   )
 }
+
+const formatter = new Intl.NumberFormat('fr-FR', {})

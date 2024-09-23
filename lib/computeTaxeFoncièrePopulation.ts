@@ -23,7 +23,14 @@ const newCsvLines = await Promise.all(
       )
       const json = await request.json()
       const { population } = json
-      return { ...line, population }
+      return {
+        ...line,
+        population,
+        code: codeInsee,
+        taux: line[
+          'FB - Exonération partielle VL log. anciens économes en énergie (art. 1383 OB CGI) - Taux'
+        ],
+      }
     }),
 )
 
