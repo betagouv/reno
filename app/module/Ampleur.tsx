@@ -81,7 +81,7 @@ export default function Ampleur() {
         background: white;
         padding: 1.6rem;
         height: 800px;
-        width: 720px;
+        max-width: 720px;
         position: relative;
         h2 + hr {
           width: 4rem;
@@ -270,6 +270,7 @@ export default function Ampleur() {
         css={`
           margin-bottom: 0;
           display: flex;
+          flex-wrap: wrap;
           align-items: center;
           background: var(--lightestColor);
           justify-content: space-evenly;
@@ -277,6 +278,7 @@ export default function Ampleur() {
           p {
             margin: 0;
             margin-right: 2rem;
+            margin-bottom: 1rem;
           }
           margin-top: 2rem;
         `}
@@ -364,10 +366,17 @@ const Dot = () => (
 )
 
 export const EvaluationValue = styled.div`
+  position: relative;
   img {
     width: 4rem;
     height: auto;
     margin-right: 1rem;
+    @media (max-width: 800px) {
+      width: 2rem;
+      position: absolute;
+      top: 0.4rem;
+      left: 0.4rem;
+    }
   }
   margin: 1.6rem auto;
   display: flex;
