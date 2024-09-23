@@ -31,7 +31,7 @@ export default function FooterCompact() {
         width="50"
         alt="Logo Mes aides Réno"
       />
-      <Title css={`font-size: 100%;`}>
+      <Title css={`font-size: 100%;line-height: 1rem;`}>
         Mes <strong>Aides Réno</strong>
       </Title>
       <Image
