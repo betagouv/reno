@@ -11,7 +11,7 @@ import { usePathname } from 'next/navigation'
 export default function Header() {
   const isInIframe = useIsInIframe()
   const pathname = usePathname()
-    isBareIframe = pathname === '/module/integration'
+  const isBareIframe = pathname === '/module/integration'
 
   if (isBareIframe) return null
   return (
