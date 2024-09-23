@@ -15,6 +15,7 @@ export default function FooterCompact() {
         css={`
           width: 98vw;
           max-width: 800px;
+          margin: 0 auto;
           display: flex;
           align-items: center;
           background: var(--lightestColor);
