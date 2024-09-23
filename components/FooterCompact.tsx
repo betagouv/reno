@@ -6,6 +6,8 @@ import mesAidesReno from '@/public/logo.svg'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { Title } from '@/app/LayoutUI'
+import { omit } from './utils'
+import { push } from '@socialgouv/matomo-next'
 
 export default function FooterCompact() {
   const rawSearchParams = useSearchParams(),
@@ -63,7 +65,8 @@ export default function FooterCompact() {
       >
         <a
           target="_blank"
-          href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(searchParams).toString()}`}
+          onClick={() => push(["trackEvent", "Iframe", "Clic", "Affiner"]) }
+          href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(omit(['display'], searchParams)).toString()}`}
         >
           <span>➞&nbsp;&nbsp;J'affine ma simulation</span>
         </a>
