@@ -89,7 +89,7 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      {isCompact ? (<FooterCompact />) : (
+      {isInIframe && isCompact ? (<FooterCompact />) : (
         <>
           <br />
           <UserProblemBanner />
