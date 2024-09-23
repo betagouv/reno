@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function useIsInIframe() {
@@ -15,3 +16,17 @@ export default function useIsInIframe() {
 
   return isInIframe;
 };
+
+// Certains partenaires souhaitent une version plus compacte du simulateur pour l'afficher en iframe
+// On propose cette version en rajoutant ?display=compact dans l'url
+export function useIsCompact() {
+  const [isCompact, setIsCompact] = useState(false);
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
+
+  useEffect(() => {
+    setIsCompact(Object.keys(searchParams).includes('display') && searchParams["display"] == "compact");
+  }, []);
+
+  return isCompact;
+}

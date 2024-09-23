@@ -11,6 +11,7 @@ import QuestionDescription from './QuestionDescription'
 import { Card } from './UI'
 import { getRuleName } from './publicodes/utils'
 import { categoryData } from '@/app/simulation/Answers'
+import { useIsCompact } from './useIsInIframe'
 
 export const QuestionText = ({ rule, question: dottedName, rules, situation, engine }) => {
   if (isMosaicQuestion(dottedName, rule, rules))
@@ -35,6 +36,7 @@ export default function ClassicQuestionWrapper({
   noSuggestions,
   nextQuestions,
 }) {
+  const isCompact = useIsCompact()
   const { categoryTitle } = categoryData(
     nextQuestions,
     currentQuestion,
@@ -100,10 +102,11 @@ export default function ClassicQuestionWrapper({
               }}
             />
           </AnswerWrapper>
+          { isCompact && (<QuestionDescription {...{ currentQuestion, rule }} />) }
         </div>
       </Card>
       <Notifications {...{ currentQuestion, engine }} />
-      <QuestionDescription {...{ currentQuestion, rule }} />
+      { !isCompact && (<QuestionDescription {...{ currentQuestion, rule }} />) }
     </div>
   )
 }

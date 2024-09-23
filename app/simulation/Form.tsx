@@ -18,10 +18,12 @@ import simulationConfig from './simulationConfig.yaml'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
-import useIsInIframe from '@/components/useIsInIframe'
+import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
+import FooterCompact from '@/components/FooterCompact'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
+  const isCompact = useIsCompact()
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -87,9 +89,13 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      <br />
-      <UserProblemBanner />
-      <Share searchParams={searchParams} />
+      {isCompact ? (<FooterCompact />) : (
+        <>
+          <br />
+          <UserProblemBanner />
+          <Share searchParams={searchParams} />
+        </>
+      )}
       {!isInIframe && (
         <Section>
           <h2>Documentation</h2>
