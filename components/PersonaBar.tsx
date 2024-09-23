@@ -52,7 +52,6 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
           situation: enrichedSituation,
           evaluations,
         }
-        console.log('lightred', 'did evaluate', newPersona)
 
         setEnrichedPersonas((personas) =>
           personas.map((persona, index2) =>
@@ -64,7 +63,6 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
     doEnrich()
   }, [setEnrichedPersonas, engine])
 
-  console.log('lightred', enrichedPersonas)
   if (!shown) return
   return (
     <section

@@ -17,7 +17,7 @@ import css from '@/components/css/convertToJs'
 import { personaTest } from '@/components/tests/personaTest'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import Link from 'next/link'
-import enrichSituation from '@/components/personas/enrichSituation'
+import enrichSituationServer from '@/components/personas/enrichSituationServer'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -38,9 +38,11 @@ export default function Personas({}) {
         </p>
         <PersonasList>
           <ul>
-            {personas.map((persona, personaIndex) => (
-              <PersonaCard {...{ engine, persona, personaIndex }} />
-            ))}
+            {personas
+              //.filter((persona) => persona.description.includes('mais en IdF'))
+              .map((persona, personaIndex) => (
+                <PersonaCard {...{ engine, persona, personaIndex }} />
+              ))}
           </ul>
         </PersonasList>
       </Section>
@@ -48,15 +50,14 @@ export default function Personas({}) {
   )
 }
 
-const PersonaCard = async ({ engine, persona, personaIndex }) => {
-  const enrichedSituation = await enrichSituation(persona.situation)
+const PersonaCard = ({ engine, persona, personaIndex }) => {
+  const enrichedSituation = enrichSituationServer(persona.situation)
+  console.log('enriched', enrichedSituation)
 
   engine.setSituation({
     'simulation . mode': '"max"',
     ...enrichedSituation,
   })
-
-  console.log('POUP', engine.evaluate('taxe foncière . montant'))
 
   const nom = personaNames[personaIndex]
   const tests = Object.entries(persona['valeurs attendues'] || {}).map(
