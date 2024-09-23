@@ -21,11 +21,9 @@ export default function useIsInIframe() {
 // On propose cette version en rajoutant ?display=compact dans l'url
 export function useIsCompact() {
   const [isCompact, setIsCompact] = useState(false);
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
-
+  let params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : "/");
   useEffect(() => {
-    setIsCompact(Object.keys(searchParams).includes('display') && searchParams["display"] == "compact");
+    setIsCompact(params.has('display') && params.get('display') == "compact");
   }, []);
 
   return isCompact;
