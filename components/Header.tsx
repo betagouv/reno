@@ -5,12 +5,11 @@ import logo from '@/public/logo.svg'
 import css from '@/components/css/convertToJs'
 import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper, Title } from '@/app/LayoutUI'
-import useIsInIframe, {useIsCompact} from '@/components/useIsInIframe'
+import useIsInIframe from '@/components/useIsInIframe'
 import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
-  const isCompact = useIsCompact()
   const pathname = usePathname()
   const isBareIframe = pathname === '/module/integration'
 
