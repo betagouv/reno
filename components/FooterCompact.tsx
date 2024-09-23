@@ -13,36 +13,38 @@ export default function FooterCompact() {
   return (
     <section
         css={`
-          width: 98vw;
           max-width: 800px;
           margin: 0 auto;
           display: flex;
+          flex-wrap: wrap;
           align-items: center;
           background: var(--lightestColor);
-          justify-content: space-evenly;
-          padding: 1rem;
+          justify-content: center;
+          padding: 0.5rem 0;
           p {
-            margin: 0 1.5rem;
+            margin: 1rem;
+            font-size: 100%;
+            line-height: 1.3rem;
           }
         `}
       >
-      <Image
-        src={mesAidesReno}
-        width="50"
-        alt="Logo Mes aides Réno"
-      />
-      <Title css={`font-size: 100%;`}>
-        Mes <strong>Aides Réno</strong>
-      </Title>
-      <Image
-        src={logoFranceRenov}
-        alt="Logo de France Rénov"
-        width="80"
-        css={`margin-left: 1rem;`}
-      />
+      <div css={`display: flex;align-items: center;`}>
+        <Image
+          src={mesAidesReno}
+          width="50"
+          alt="Logo Mes aides Réno"
+        />
+        <Title css={`font-size: 100%;line-height: 1rem;`}>
+          Mes <strong>Aides Réno</strong>
+        </Title>
+        <Image
+          src={logoFranceRenov}
+          alt="Logo de France Rénov"
+          width="80"
+        />
+      </div>
       <p>
-        Découvrez toutes les aides à la rénovation énergétique de votre
-        logement
+        Découvrez les aides à la rénovation<br /> énergétique pour votre logement
       </p>
       <CTA
         css={`
