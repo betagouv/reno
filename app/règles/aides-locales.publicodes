@@ -458,3 +458,94 @@ essonne . gros travaux . montant:
 essonne . gros travaux . travaux plafonnés:
   valeur: projet . travaux
   plafond: 20000 €
+
+grand narbonne:
+  image wikidata: Le Grand Narbonne
+  titre: Grand Narbonne Communauté d'agglomération
+grand narbonne . conditions géo: logement . département = 'Aude'
+grand narbonne . montant:
+  somme:
+    - mon coach éco-logis 
+    - aide grand narbonne
+    - aide acv narbonne
+    
+grand narbonne . aide grand narbonne:
+grand narbonne . aide grand narbonne . montant: 
+  applicable si: logement . EPCI = '241100593'
+  valeur: 300 €
+grand narbonne . aide acv narbonne:
+  question: Etes-vous concerné par le dispositif "Action coeur de ville" Narbonne?
+  par défaut: non
+grand narbonne . aide acv narbonne . montant:
+  valeur: 300 €
+
+grand narbonne . mon coach éco-logis:
+  lien: https://www.aude.fr/je-renove-mon-logement-avec-mon-coach-eco-logis
+  description: |
+    Vous devez être propriétaire de votre logement et avoir des ressources modestes
+    Votre logement doit avoir été construit il y a plus de 15 ans
+    Vous vous engagez à y vivre à titre de résidence principale pendant trois ans
+    Vous ne devez pas avoir eu recours à un prêt à taux zéro pour l’acquisition du logement dans les cinq dernières années
+    Pour savoir si vous pouvez bénéficier de Mon Coach Éco-Logis, appelez le 04 68 11 81 30. Du lundi au vendredi de 9h à 12h et de 14h à 17h. Prix d’un appel local.
+grand narbonne . mon coach éco-logis . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - logement . résidence principale propriétaire
+    - logement . période de construction = 'au moins 15 ans'
+    - conditions de revenu
+    - projet . gain energétique >= 35 %
+    - vivre trois ans
+    - pas de PTZ
+    - travaux recevables
+grand narbonne . mon coach éco-logis . conditions de revenu:
+  une de ces conditions:
+    - ménage . revenu . classe = 'modeste'
+    - ménage . revenu . classe = 'très modeste'
+grand narbonne . mon coach éco-logis . vivre trois ans:
+  question: Vous vous engagez à vivre à titre de résidence principale pendant trois ans  dans le logement
+  par défaut: oui
+grand narbonne . mon coach éco-logis . pas de PTZ:
+  question: Avez-vous eu recours à un prêt à taux zéro pour l’acquisition du logement dans les cinq dernières années
+  par défaut: non
+grand narbonne . mon coach éco-logis . travaux recevables:
+  question: Les travaux envisagés sont-ils éligibles à la prime éco-logis?
+  par défaut: oui
+  description: |
+    La fourniture des matériaux et les travaux doivent impérativement être réalisés par des artisans reconnu garant de l’environnement (RGE) et figurer parmi la liste suivante :
+      - Changement de chauffage
+      - Isolation des combles, des murs, du plancher
+      - Mise en place d’une ventilation
+      - Changement de menuiseries, etc.
+grand narbonne . mon coach éco-logis . montant:
+  applicable si: conditions
+  somme: 
+    - aide du département
+    - prime habiter mieux
+    - bonus bâtiment basse consommation
+    - bonus sortie passoire thermique
+grand narbonne . mon coach éco-logis . aide du département:
+grand narbonne . mon coach éco-logis . aide du département . montant: 200 €
+grand narbonne . mon coach éco-logis . prime habiter mieux:
+grand narbonne . mon coach éco-logis . prime habiter mieux . montant:
+  produit: 
+    - 10 %
+    - projet . travaux 
+  plafond: 30000 €
+grand narbonne . mon coach éco-logis . bonus bâtiment basse consommation:
+grand narbonne . mon coach éco-logis . bonus bâtiment basse consommation . conditions:
+  toutes ces conditions:
+    - projet . DPE visé <= 2
+    - DPE . actuel >= 2
+grand narbonne . mon coach éco-logis . bonus bâtiment basse consommation . montant:
+  titre: Bonus "Bâtiment basse consommation"
+  applicable si: conditions
+  valeur: 1500 €
+grand narbonne . mon coach éco-logis . bonus sortie passoire thermique:
+grand narbonne . mon coach éco-logis . bonus sortie passoire thermique . conditions:
+  toutes ces conditions:
+    - projet . DPE visé < 6
+    - DPE . actuel >= 6
+grand narbonne . mon coach éco-logis . bonus sortie passoire thermique . montant:
+  titre: Bonus "Sortie de passoire énergétique"
+  applicable si: conditions
+  valeur: 1500 €
