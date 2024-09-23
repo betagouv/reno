@@ -42,3 +42,5 @@ next-env.d.ts
 
 data/*
 !data/README.md
+
+deno.lock
