@@ -5,6 +5,7 @@
 # À noter, si certaines règles ici sont des aides, d'autres sont des prêts ou des avances de travaux (c'est pareil), qui vont impacter d'autres variables du calcul
 #
 # Voir aussi le fichier aides-locales.brouillon.yaml pour les aides pas encore implémentées ou qui ne sont plus valides
+# TODO pour activer d'autres aides qu'Angers et Besançon, il faut utiliser le mécanisme de remplacement, et respecter le format [localité] . montant: pour qu'on puisse facilement les lister et déduire leur nom
 
 '':
   marque: Aides locales
@@ -30,6 +31,8 @@ montant: total
 besançon:
   image wikidata: Besançon
   titre: Grand Besançon Métropole
+
+besançon . montant: besançon . occupant . montant
 
 besançon . conditions géo: logement . EPCI = '242500361'
 
@@ -268,6 +271,7 @@ angers . conditions de base:
     - logement . propriétaire occupant
     - conditions géo
 
+angers . montant: aides
 angers . aides:
   remplace: intercommunalité
   somme:

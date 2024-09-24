@@ -1,5 +1,5 @@
 import rules from '@/app/règles/rules'
-import { formatValue } from 'publicodes'
+import { capitalise0, formatValue } from 'publicodes'
 import { computeAideStatus } from './AmpleurSummary'
 
 const topList = rules['ampleur . tous les dispositifs'].somme,
@@ -28,6 +28,29 @@ const topList = rules['ampleur . tous les dispositifs'].somme,
       return { ...rule, dottedName }
     })
 
+const regexp = /aides locales \. (.+) \. montant$/
+const findAideLocaleName = (rules, engine) => {
+  const candidates = Object.entries(rules).filter(
+    ([dottedName]) =>
+      dottedName.match(regexp) && dottedName.split(' . ').length === 3,
+  )
+
+  const found = candidates
+    .map(([dottedName]) => engine.evaluate(dottedName))
+    .find((evaluation) => evaluation.nodeValue > 0)
+
+  console.log('lightbrown aides locales', {
+    candidates,
+    found,
+  })
+  if (!found) return null
+  try {
+    return capitalise0(found.dottedName.match(regexp)[1])
+  } catch (e) {
+    console.error('Could not derive the name of the aide locale')
+    return null
+  }
+}
 export function useAides(engine, situation) {
   const aides = list.map((aide) => {
     console.log('lightyellow useaides situation', situation)
@@ -35,7 +58,17 @@ export function useAides(engine, situation) {
     const value = formatValue(evaluation, { precision: 0 })
 
     const status = computeAideStatus(evaluation)
-    return { ...aide, evaluation, value, status }
+    const marque2 = aide.dottedName.startsWith('aides locales')
+      ? findAideLocaleName(rules, engine)
+      : aide['complément de marque']
+
+    return {
+      ...aide,
+      evaluation,
+      value,
+      status,
+      'complément de marque': marque2,
+    }
   })
 
   return aides
