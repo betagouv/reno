@@ -47,6 +47,10 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
             .setSituation(enrichedSituation)
             .evaluate(dottedName + ' . montant'),
         )
+        console.log(
+          'lightgreen aides locales . montant',
+          engine.evaluate('aides locales . montant'),
+        )
 
         const newPersona = {
           ...persona,

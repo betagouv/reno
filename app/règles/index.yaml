@@ -460,14 +460,6 @@ projet . travaux . notification:
   description: |
     Pour atteindre 2 sauts de DPE, il est en général nécessaire de prévoir une enveloppe de travaux de plusieurs milliers d'€.
 
-taux d'aides relatives:
-  somme:
-    - aides locales . angers . aides socles . taux
-    - MPR . accompagnée . pourcent dont bonus
-
-montant d'aides absolues:
-  formule: aides locales . angers . prime basse consommation . montant
-
 projet . enveloppe estimée:
   formule: par surface * logement . surface
 projet . enveloppe estimée . par surface:

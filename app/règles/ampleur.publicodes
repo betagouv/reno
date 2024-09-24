@@ -65,7 +65,7 @@ ampleur . montant écrêté:
   valeur:
     somme:
       - MPR . accompagnée . montant
-      - aides locales . angers . aides
+      - aides locales . montant
   plafond: pourcent d'écrêtement * projet . travaux . TTC
 
 ampleur . pourcent d'écrêtement:
