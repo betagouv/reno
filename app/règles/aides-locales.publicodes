@@ -90,6 +90,7 @@ besançon . occupant . montant:
     - socle
     - objectif BBC rénovation
     - objectif BBC neuf
+  remplace: intercommunalité
 
 besançon . occupant . socle:
   formule:

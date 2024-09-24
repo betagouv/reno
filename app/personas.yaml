@@ -642,6 +642,7 @@
     projet . gain energétique: 38 %
     aides locales . besançon . travaux recevables: oui
     projet . travaux: 22000 €
+    ménage . commune: "'25014'" # Amagney
     logement . commune: "'25014'" # Amagney
     logement . EPCI: "'242500361'"
     logement . propriétaire occupant: oui
@@ -653,6 +654,7 @@
     #projet . objectif BBC rénovation: oui
     #projet . objectif BBC neuf: oui
   valeurs attendues:
+    aides locales . montant: 5600
     aides locales . besançon . occupant . montant: 5600
     aides locales . besançon . occupant . conditions: oui
 
