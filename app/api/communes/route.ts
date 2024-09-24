@@ -7,12 +7,8 @@ export function buildEligilityObject(insee, nom = null) {
     coeurDeVille.find((el) => el.insee_com == insee) ||
     ort.find((el) => el['Code commune'] == insee && el['Signée ?'] === 'Signée')
 
-  console.log('COUCOU', insee, hasDenormandie)
-
   const hasTaxeFoncière = communesTaxeFoncière.find((el) => el.code == insee),
-    taxeFoncièreTaux =
-      hasTaxeFoncière &&
-      (hasTaxeFoncière.taux != null ? hasTaxeFoncière.taux : false)
+    taxeFoncièreTaux = hasTaxeFoncière ? hasTaxeFoncière.taux : null
 
   // Also set the name that will be used to explain the eligibilite
   const foundName =
@@ -23,13 +19,11 @@ export function buildEligilityObject(insee, nom = null) {
 
   const eligibility = {
     'logement . commune . denormandie': hasDenormandie ? 'oui' : 'non',
+    'taxe foncière . commune . éligible': hasTaxeFoncière ? 'oui' : 'non',
     ...(hasTaxeFoncière
-      ? taxeFoncièreTaux
-        ? {
-            'taxe foncière . commune . éligible': 'oui',
-            'taxe foncière . commune . taux': taxeFoncièreTaux + ' %',
-          }
-        : { 'taxe foncière . commune . éligible': 'oui' }
+      ? {
+          'taxe foncière . commune . taux': taxeFoncièreTaux + ' %',
+        }
       : {}),
     ...(foundName
       ? {
