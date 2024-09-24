@@ -57,7 +57,7 @@ const rulesWithMarkdown = Object.fromEntries(
   Object.entries(rules).map(([k, v]) => [k, transformRuleObject(v)]),
 )
 
-console.log('imported non parsed rules')
+console.log('lightgreen rules', rules)
 export default rulesWithMarkdown
 
 function transformRuleObject(v) {
