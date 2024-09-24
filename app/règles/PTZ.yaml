@@ -46,6 +46,7 @@ PTZ:
 
     Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
 PTZ . montant:
+  titre: Montant du PTZ
   applicable si:
     toutes ces conditions:
       - logement . résidence principale
@@ -55,4 +56,5 @@ PTZ . montant:
     - si: parcours d'aide = "ampleur"
       alors: 50000 €
     - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
+
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'

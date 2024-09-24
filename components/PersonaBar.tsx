@@ -14,6 +14,7 @@ const matrixLines = [
   'ampleur . prime individuelle copropriété',
   'taxe foncière',
   'denormandie',
+  'PTZ',
 ]
 export default function PersonaBar({ startShown = false, selectedPersona }) {
   const [shown, show] = useState(startShown)
@@ -77,13 +78,14 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
         ol {
           list-style-type: none;
         }
+        filter: drop-shadow(0 1px 3px rgba(0, 0, 18, 0.16));
       `}
     >
       <ul
         css={`
           margin-left: 12rem;
           white-space: nowrap;
-          height: 18rem;
+          height: 19rem;
           display: flex;
           align-items: start;
           overflow: scroll;

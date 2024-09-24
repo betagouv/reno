@@ -239,6 +239,7 @@
     conditions communes: non
     MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
+    PTZ . montant: 50000
 
 - description: |
     3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
@@ -628,3 +629,23 @@
     aides locales . angers . aides socles . taux: 10
     aides locales . angers . prime basse consommation . montant: 1500
     ménage . revenu . classe: 'modeste'
+
+- description: |
+    Individu intermédiaire, appart neuf
+  situation:
+    vous . propriétaire . condition: oui
+    ménage . personnes: 1
+    ménage . revenu: 25000
+    ménage . commune: "'25056'"
+    DPE . actuel: 2
+    ménage . code région: "'52'"
+    logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'appartement'"
+    logement . surface: 55
+    logement . période de construction: "'moins de 2 ans'"
+  valeurs attendues:
+    conditions communes: non
+    MPR . accompagnée . éligible: non
+    MPR . non accompagnée . éligible: non
+    PTZ . montant: 0
