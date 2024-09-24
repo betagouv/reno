@@ -72,7 +72,7 @@ besançon . occupant . conditions:
   toutes ces conditions:
     - conditions géo
     - conditions de revenu . AAPEL
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
     - seuil minimum travaux
     - travaux recevables
     - projet . DPE visé <= 4 # D
@@ -81,7 +81,7 @@ besançon . occupant . conditions:
 besançon . occupant . montant:
   titre: Dispositif AAPEL propriétaire occupant
   description: |
-    [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement).
+    [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement), [PDF AAPEL](https://www.grandbesancon.fr/wp-content/uploads/sites/2/2019/06/Aides-financi%C3%A8res-r%C3%A9novation-des-logements-2019.pdf).
     [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
   note: |
     À étudier : "Clause anti spéculative d'une durée de 5 ans".
@@ -97,18 +97,18 @@ besançon . occupant . socle:
       - si: projet . gain energétique < 30 %
         alors:
           valeur: 25 % * projet . travaux
-          plafond: 12000 €
+          plafond: 30000 €
       - si: projet . gain energétique < 35 %
         alors:
           valeur: 30 % * projet . travaux
-          plafond: 14000 €
+          plafond: 42000 €
       - si: projet . gain energétique < 40 %
         alors:
           valeur: 35 % * projet . travaux
-          plafond: 16000 €
+          plafond: 5600 €
       - sinon:
           valeur: 40 % * projet . travaux
-          plafond: 18000 €
+          plafond: 7200 €
 
 besançon . occupant . objectif BBC rénovation:
   applicable si: projet . objectif BBC rénovation
@@ -131,7 +131,7 @@ doubs:
 doubs . conditions géo: logement . département = 'Doubs'
 doubs . bonus passoire . conditions:
   toutes ces conditions:
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
     - logement . résidence principale propriétaire
     - DPE . actuel >= 6
     - MPR . accompagnée . bénéficiaire
@@ -198,7 +198,7 @@ charente-maritime . occupant . conditions:
     - conditions géo
     - ménage . revenu . classe = 'très modeste'
     - logement . résidence principale propriétaire
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
     - projet . gain energétique >= 25 %
 charente-maritime . occupant . montant:
   applicable si: conditions
@@ -369,7 +369,7 @@ essonne . conditions communes:
   toutes ces conditions:
     - conditions géo
     - logement . résidence principale propriétaire
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
 essonne . conditions géo: logement . département = 'Essonne'
 essonne . travaux essentiels:
   description: |
