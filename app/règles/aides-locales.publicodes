@@ -462,31 +462,102 @@ essonne . gros travaux . travaux plafonnés:
 grand narbonne:
   image wikidata: Le Grand Narbonne
   titre: Grand Narbonne Communauté d'agglomération
-grand narbonne . conditions géo: logement . département = 'Aude'
+  questions:
+    type: liste
+    valeurs:
+      - ménage . commune
+      - ménage . personnes
+      - ménage . revenu
+      - vous . propriétaire . condition
+      - logement . période de construction
+      - projet . travaux
+grand narbonne . conditions géo: ménage . EPCI = '241100593'
+grand narbonne . aides:
+  applicable si: conditions
+  remplace: intercommunalité
+  valeur: prime énergie . montant
+grand narbonne . aides . conditions:
+  toutes ces conditions:
+    - conditions géo
+    - pig . bénéficiaire = non
+    - prime énergie . statut bénéficiaire = oui
 grand narbonne . montant:
   somme:
-    - mon coach éco-logis 
+    - mon coach éco-logis
+    - aide département
     - aide grand narbonne
     - aide acv narbonne
-    
+
+grand narbonne . prime énergie:
+grand narbonne . prime énergie . conditions:
+  toutes ces conditions:
+    - ménage . EPCI = '241100593'
+    - statut bénéficiaire
+    - logement . résidence principale
+    - logement . construit avant 2013
+    - mon coach éco-logis . bénéficiaire = non
+    - pig . bénéficiaire = non
+grand narbonne . prime énergie . montant: 0 € # On ne communique pas de chiffre pour l'instant
+grand narbonne . prime énergie . statut bénéficiaire:
+  question: Etes-vous proprietaire (occupant, bailleur, SCI) ou accédant à la propriété qui occupera le logement dans les 6 mois suivant l'achèvement des travaux?
+  par défaut: oui
+  description: |
+    Sont également éligibles :  
+    - les propriétaires qui réhabilitent des logements vacants en vue de les louer (à condition que le logement soit loué au moment de la demande de paiement).
+    - les propriétaires dans le cadre de transformation d'usage, dont l'usage final est de l'habitation
+grand narbonne . prime énergie . logement:
+grand narbonne . prime énergie . logement . résidence principale:
+  question: Le logement est-il occupé à titre de résidence principale
+  par défaut: oui
+  description: Sont exclus du dispositif, les résidences secondaires et les logements saisonniers.
+grand narbonne . prime énergie . logement . construit avant 2013:
+  question: Le permis de construire du logement a été déposé avant le 1er janvier 2013
+  par défaut: oui
+
+grand narbonne . prime énergie . innovation solidaire:
+grand narbonne . prime énergie . innovation solidaire . conditions:
+  toutes ces conditions:
+    - ménage . revenu < 2 x catégorie bleue  
+
+grand narbonne . pig:
+grand narbonne . pig . bénéficiaire:
+  question: Etes-vous bénéficiaire du Programme d'Intérêt Général du Grand Narbonne (à l'exception de la Prime Energie Innovation Solidaire)?
+  par défaut: oui
+
+grand narbonne . aide département:
+grand narbonne . aide département . montant:
+  valeur: 200 €
 grand narbonne . aide grand narbonne:
+  applicable si: ménage . EPCI = '241100593'
 grand narbonne . aide grand narbonne . montant: 
-  applicable si: logement . EPCI = '241100593'
   valeur: 300 €
+
 grand narbonne . aide acv narbonne:
   question: Etes-vous concerné par le dispositif "Action coeur de ville" Narbonne?
   par défaut: non
 grand narbonne . aide acv narbonne . montant:
-  valeur: 300 €
-
+  valeur: 200 €
 grand narbonne . mon coach éco-logis:
   lien: https://www.aude.fr/je-renove-mon-logement-avec-mon-coach-eco-logis
   description: |
-    Vous devez être propriétaire de votre logement et avoir des ressources modestes
-    Votre logement doit avoir été construit il y a plus de 15 ans
-    Vous vous engagez à y vivre à titre de résidence principale pendant trois ans
-    Vous ne devez pas avoir eu recours à un prêt à taux zéro pour l’acquisition du logement dans les cinq dernières années
+    Pour bénéficier de ce programme:
+      - Vous devez être propriétaire de votre logement et avoir des ressources modestes
+      - Votre logement doit avoir été construit il y a plus de 15 ans
+      - Vous vous engagez à y vivre à titre de résidence principale pendant trois ans
+      - Vous ne devez pas avoir eu recours à un prêt à taux zéro pour l’acquisition du logement dans les cinq dernières années
     Pour savoir si vous pouvez bénéficier de Mon Coach Éco-Logis, appelez le 04 68 11 81 30. Du lundi au vendredi de 9h à 12h et de 14h à 17h. Prix d’un appel local.
+grand narbonne . mon coach éco-logis . bénéficiaire:
+  question: "Etes-vous bénéficiaire du Programme d'Intérêt Général du Département de l'Aude (Mon Coach EcoLogis)?"
+  par défaut: non
+  lien: https://www.aude.fr/je-renove-mon-logement-avec-mon-coach-eco-logis
+  description: |
+    Pour bénéficier de ce programme:
+      - Vous devez être propriétaire de votre logement et avoir des ressources modestes
+      - Votre logement doit avoir été construit il y a plus de 15 ans
+      - Vous vous engagez à y vivre à titre de résidence principale pendant trois ans
+      - Vous ne devez pas avoir eu recours à un prêt à taux zéro pour l’acquisition du logement dans les cinq dernières années
+    Pour savoir si vous pouvez bénéficier de Mon Coach Éco-Logis, appelez le 04 68 11 81 30. Du lundi au vendredi de 9h à 12h et de 14h à 17h. Prix d’un appel local.
+
 grand narbonne . mon coach éco-logis . conditions:
   toutes ces conditions:
     - conditions géo
@@ -519,17 +590,9 @@ grand narbonne . mon coach éco-logis . travaux recevables:
 grand narbonne . mon coach éco-logis . montant:
   applicable si: conditions
   somme: 
-    - aide du département
-    - prime habiter mieux
     - bonus bâtiment basse consommation
     - bonus sortie passoire thermique
-grand narbonne . mon coach éco-logis . aide du département:
-grand narbonne . mon coach éco-logis . aide du département . montant: 200 €
-grand narbonne . mon coach éco-logis . prime habiter mieux:
-grand narbonne . mon coach éco-logis . prime habiter mieux . montant:
-  produit: 
-    - 10 %
-    - projet . travaux 
+    - 10 % * projet . travaux 
   plafond: 30000 €
 grand narbonne . mon coach éco-logis . bonus bâtiment basse consommation:
 grand narbonne . mon coach éco-logis . bonus bâtiment basse consommation . conditions:

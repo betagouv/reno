@@ -11,6 +11,8 @@ prioritaires:
   - ménage . revenu
   - DPE . actuel
   - logement . commune
+  - aides locales . grand narbonne . prime énergie . statut bénéficiaire
+  - aides locales . grand narbonne . pig . bénéficiaire
   - parcours d'aide
   # Le reste est non-linéaire, en fonction du choix
 non prioritaires:

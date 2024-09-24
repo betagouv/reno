@@ -161,6 +161,7 @@ export default function InputSwitch({
           questionsToSubmit: [
             'ménage . code région',
             'ménage . code département',
+            'ménage . EPCI',
             'ménage . commune',
           ],
           currentValue,
