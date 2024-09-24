@@ -147,7 +147,8 @@ export default function AmpleurSummary({
             margin: 0.5rem 0 0 auto;
             color: gray;
             img {
-              filter: grayscale(1);
+              width: 0.7rem;
+              height: auto;
             }
           `}
         >

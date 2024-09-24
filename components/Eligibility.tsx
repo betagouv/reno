@@ -47,10 +47,15 @@ export default function Eligibility({
     noMpr = !mpra && !mprg,
     some = mpra || mprg || ceeConditions
 
+  const showPersonaBar = searchParams.personas != null
   return (
-    <section>
+    <section
+      css={`
+        ${showPersonaBar && `margin-top: 4rem`}
+      `}
+    >
       <PersonaBar
-        startShown={searchParams.personas != null}
+        startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
         engine={engine}
       />
