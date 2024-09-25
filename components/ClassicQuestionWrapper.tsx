@@ -47,11 +47,10 @@ export default function ClassicQuestionWrapper({
       <Card>
         <div>
           {(!rule.type || !rule.type === 'question rhétorique') && (
-            <div css={`display: flex;`}>
+            <div css={`display: flex;flex-wrap:wrap;justify-content: center;`}>
               { aideLocale?.image && (<img 
-                  css={`margin: 0.4rem 1rem 0.4rem 0;`}
+                  css={`margin: 0.4rem 0.4rem 0;width: 100px;height: fit-content;`}
                   src={`/logo-locale/${aideLocale.image}`} 
-                  height="100"
                 />) 
               }
               <QuestionHeader>
