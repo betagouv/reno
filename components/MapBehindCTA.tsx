@@ -9,7 +9,7 @@ import useSetSearchParams from './useSetSearchParams'
 export default function MapBehindCTA({
   link,
   what,
-  codeInsee,
+  situation,
   text,
   importance,
   searchParams,
@@ -65,7 +65,7 @@ export default function MapBehindCTA({
           display: ${clickedCta !== 'cliqué' ? 'none' : 'block'};
         `}
       >
-        <MarSearch codeInsee={codeInsee} what={what} />
+        <MarSearch situation={situation} what={what} />
       </div>
     </section>
   )

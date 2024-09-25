@@ -9,6 +9,8 @@
 
 '':
   marque: Aides locales
+  description: |
+    Chaque collectivité française (commune, communauté de communes, métropole, département) est libre d'ajouter sa part aux subventions publiques pour la rénovation energétique.
   avec:
     commune: 0 €
     intercommunalité: 0 €

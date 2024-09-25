@@ -86,7 +86,7 @@ export default function MPRA({
         <section>
           <MapBehindCTA
             {...{
-              codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+              situation,
               searchParams,
               what: 'trouver-conseiller-renov',
               text: 'Obtenir cette aide',

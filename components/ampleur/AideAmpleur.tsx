@@ -10,9 +10,8 @@ import chainIcon from '@/public/link-chain.svg'
 export default function AideAmpleur({ dottedName, children, level = null }) {
   const rule = rules[dottedName]
   const isFavorite = rule.favorite === 'oui',
-    title =
-      (rule.marque + ' - ' || '') +
-      uncapitalise0(rule['complément de marque'] || '')
+    marque2 = rule['complément de marque'],
+    title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
 
   return (
     <section

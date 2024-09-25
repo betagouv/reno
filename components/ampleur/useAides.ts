@@ -19,13 +19,14 @@ const topList = rules['ampleur . tous les dispositifs'].somme,
         return {
           ...rule,
           dottedName,
+          baseDottedName: split[0],
           icône: parentRule.icône,
           marque: parentRule.marque,
           'complément de marque': parentRule['complément de marque'],
           type: parentRule['type'],
         }
       }
-      return { ...rule, dottedName }
+      return { ...rule, dottedName, baseDottedName: dottedName }
     })
 
 const regexp = /aides locales \. (.+) \. montant$/

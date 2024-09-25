@@ -2,7 +2,7 @@ import Image from 'next/image'
 import conseillerIcon from '@/public/rendez-vous.svg'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 
-export default function FatConseiller({ codeInsee }) {
+export default function FatConseiller({ situation }) {
   return (
     <details
       css={`
@@ -52,7 +52,7 @@ export default function FatConseiller({ codeInsee }) {
         <p>Trouver mon conseiller France Rénov'</p>
       </summary>
       <section>
-        <MarSearch codeInsee={codeInsee} what={'trouver-conseiller-renov'} />
+        <MarSearch situation={situation} what={'trouver-conseiller-renov'} />
       </section>
     </details>
   )

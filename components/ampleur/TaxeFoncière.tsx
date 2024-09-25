@@ -13,8 +13,6 @@ export default function TaxeFoncière({
   exampleSituation,
   rules,
 }) {
-  const commune = situation['ménage . commune . nom']
-
   engine.setSituation(exampleSituation)
   console.log(
     'lightyellow montant',

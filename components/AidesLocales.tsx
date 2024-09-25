@@ -1,15 +1,7 @@
 'use client'
-import Image from 'next/image'
-import hexagoneIcon from '@/public/hexagone-contour.svg'
 import { formatValue } from 'publicodes'
 import { PrimeStyle } from './UI'
 
-const Hexagone = () => (
-  <Image
-    src={hexagoneIcon}
-    alt="Icône représentant le territoire français métropolitaine"
-  />
-)
 const Header = () => (
   <header
     css={`
@@ -28,6 +20,7 @@ const Header = () => (
     <h3>Les aides locales</h3>
   </header>
 )
+
 export default function AidesLocales({ engine, situation }) {
   const locales = engine
     .setSituation(situation)

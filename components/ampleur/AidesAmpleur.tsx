@@ -1,5 +1,8 @@
 import Link from 'next/link'
-import { createExampleSituation } from './AmpleurSummary'
+import {
+  createExampleSituation,
+  getNeSaisPasEtNonEligibles,
+} from './AmpleurSummary'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
@@ -13,6 +16,18 @@ import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
 import AideMAR from './AideMAR'
 import StatusIcon from './StatusIcon'
+import AidesLocales from './AidesLocales'
+import { AideSummary } from './AideSummary'
+
+const correspondance = {
+  'MPR . accompagnée': MPRA,
+  'MPR . accompagnée . prise en charge MAR': AideMAR,
+  PTZ: EcoPTZ,
+  'aides locales': AidesLocales,
+  'ampleur . prime individuelle copropriété': Copro,
+  'taxe foncière': TaxeFoncière,
+  denormandie: Denormandie,
+}
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -35,6 +50,7 @@ export default function AidesAmpleur({
   const aides = useAides(engine, exampleSituation) // TODO which situation
 
   const eligibles = aides.filter((aide) => aide.status === true)
+  const neSaisPasEtNonEligibles = getNeSaisPasEtNonEligibles(aides)
 
   return (
     <CustomQuestionWrapper>
@@ -87,62 +103,79 @@ export default function AidesAmpleur({
           <p>Vous êtes éligibles à plusieurs aides. Elles sont cumulables.</p>
         </header>
       )}
+
       <section>
-        <MPRA
-          {...{
-            oldIndex,
-            choice,
-            setSearchParams,
-            answeredQuestions,
-            engine,
-            situation,
-            exampleSituation,
-            searchParams,
-          }}
-        />
-        <AideMAR
-          {...{
-            rules,
-            oldIndex,
-            choice,
-            setSearchParams,
-            answeredQuestions,
-            engine,
-            situation,
-            exampleSituation,
-            searchParams,
-          }}
-        />
+        {eligibles.map((aide) => {
+          const AideComponent = correspondance[aide.baseDottedName]
 
-        <EcoPTZ rules={rules} />
+          console.log('yellow', AideComponent)
 
-        <Copro {...{ engine, situation, searchParams }} />
-        <TaxeFoncière
-          {...{
-            oldIndex,
-            choice,
-            setSearchParams,
-            answeredQuestions,
-            engine,
-            situation,
-            rules,
-            exampleSituation,
-          }}
-        />
-        <Denormandie
-          {...{
-            rules,
-            oldIndex,
-            choice,
-            setSearchParams,
-            answeredQuestions,
-            engine,
-            situation,
-            exampleSituation,
-          }}
-        />
+          if (AideComponent)
+            return (
+              <AideComponent
+                {...{
+                  oldIndex,
+                  choice,
+                  setSearchParams,
+                  answeredQuestions,
+                  engine,
+                  situation,
+                  exampleSituation,
+                  searchParams,
+                  rules,
+                }}
+              />
+            )
+          return (
+            <p>
+              Composant pas trouvé pour {aide.baseDottedName} {aide.dottedName}
+            </p>
+          )
+        })}
       </section>
-      <FatConseiller codeInsee={situation['ménage . commune']} />
+
+      <FatConseiller situation={situation} />
+      {neSaisPasEtNonEligibles.length > 0 && (
+        <div title="Aides auxquelles vous n'êtes pas éligible">
+          <header
+            css={`
+              display: flex;
+              align-items: center;
+              img {
+                width: 2rem;
+                height: auto;
+                margin-right: 0.4rem;
+              }
+              p {
+                margin: 0;
+              }
+              margin: 1rem 0 0 0;
+            `}
+          >
+            <h2>Autres aides</h2>
+          </header>
+
+          {neSaisPasEtNonEligibles.map((aide) => {
+            const text = aide.marque,
+              text2 = aide['complément de marque']
+            return (
+              <AideSummary
+                key={aide.dottedName}
+                {...{
+                  ...aide,
+                  icon: aide.icône,
+                  text,
+                  text2,
+                  type: aide.type,
+                  expanded: false,
+                  small: true,
+                }}
+              />
+            )
+          })}
+        </div>
+      )}
+
       <QuestionsRéponses
         {...{
           engine,

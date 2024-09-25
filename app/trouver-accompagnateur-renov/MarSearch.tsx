@@ -9,9 +9,15 @@ import { Loader } from './UI'
 import Entreprises from './Entreprises'
 
 export default function MarSearch({
-  codeInsee: givenCodeInsee,
+  situation,
   what = 'trouver-accompagnateur-renov',
 }) {
+  const givenCodeInsee =
+    situation['logement . commune'] || situation['ménage . commune']
+
+  const name =
+    situation['logement . commune . nom'] || situation['ménage . commune . nom']
+
   if (what === 'trouver-accompagnateur-renov') return //  Disactivated, we were forbidden to use france-renov.gouv.fr's non documented APIs, and the UI doesn't expose this anymore
   const [selectedMarker, selectMarker] = useState(null)
   const [data, setData] = useState(null)
@@ -26,7 +32,6 @@ export default function MarSearch({
   useEffect(() => {
     if (!codeInsee) return
     const doFetch = async () => {
-
       const request = await fetch(
         `https://data.ademe.fr/data-fair/api/v1/datasets/perimetre-espaces-conseil-france-renov/lines?q=${codeInsee}&q_fields=Code_Insee_Commune`,
       )
@@ -75,7 +80,12 @@ export default function MarSearch({
           `}
         >
           <small>
-            Recherche de conseiller pour votre code Insee {codeInsee}.{' '}
+            Recherche de conseiller pour votre{' '}
+            {name ? (
+              <span>commune {name}</span>
+            ) : (
+              <span>code INSEE {codeInsee}</span>
+            )}{' '}
             <button onClick={() => setLocalCodeInsee(null)}>Changer</button>
           </small>
         </div>
@@ -88,11 +98,7 @@ export default function MarSearch({
           padding: 0 0.6rem;
         `}
       >
-        {data == null ? (
-          <MarLoader />
-        ) : (
-          <Entreprises data={data} />
-        )}
+        {data == null ? <MarLoader /> : <Entreprises data={data} />}
         {/*Anciennement utilisé pour afficher la carte avec surlignage des conseillers sélectionnés */}
         {false && selectedMarker && (
           <Card
