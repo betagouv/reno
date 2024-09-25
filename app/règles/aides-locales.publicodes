@@ -471,6 +471,7 @@ grand narbonne:
       - vous . propriétaire . condition
       - logement . période de construction
       - projet . travaux
+  image: le-grand-narbonne.png
 grand narbonne . conditions géo: ménage . EPCI = '241100593'
 grand narbonne . aides:
   applicable si: conditions
