@@ -12,13 +12,12 @@ export default function FatConseiller({ situation }) {
         summary {
           margin: 0 auto;
           border-radius: 0.4rem;
+          filter: drop-shadow(0px 1px 7px #d83a3440);
           padding: 2rem 1.6rem;
           background: var(--color);
           color: white;
 
           font-size: 160%;
-          @media (max-width: 800px) {
-          }
           img {
             margin-right: 1.4rem;
             width: 4rem;
@@ -32,6 +31,9 @@ export default function FatConseiller({ situation }) {
           display: flex;
           align-items: center;
           justify-content: center;
+          p {
+            line-height: 1.8rem;
+          }
         }
         > section {
           padding-top: 1rem;
@@ -49,7 +51,13 @@ export default function FatConseiller({ situation }) {
           src={conseillerIcon}
           alt="Image qui représente un rendez-vous pris dans un calendrier"
         />
-        <p>Trouver mon conseiller France Rénov'</p>
+        <p>
+          Trouver mon conseiller{' '}
+          <span>
+            <strong>France</strong>&nbsp;
+            <strong css="color: #d83a34; margin-bottom: -.1rem">Rénov'</strong>
+          </span>
+        </p>
       </summary>
       <section>
         <MarSearch situation={situation} what={'trouver-conseiller-renov'} />

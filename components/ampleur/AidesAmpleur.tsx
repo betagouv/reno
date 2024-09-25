@@ -50,7 +50,8 @@ export default function AidesAmpleur({
   const aides = useAides(engine, exampleSituation) // TODO which situation
 
   const eligibles = aides.filter((aide) => aide.status === true)
-  const neSaisPasEtNonEligibles = getNeSaisPasEtNonEligibles(aides)
+  const nonEligibles = aides.filter((aide) => aide.status === false)
+  const neSaisPas = aides.filter((aide) => aide.status === null)
 
   return (
     <CustomQuestionWrapper>
@@ -135,7 +136,75 @@ export default function AidesAmpleur({
       </section>
 
       <FatConseiller situation={situation} />
-      {neSaisPasEtNonEligibles.length > 0 && (
+      {neSaisPas.length > 0 && (
+        <div title="Aides pour lesquelles nous n'avons pu déterminer votre éligibilité">
+          <header
+            css={`
+              display: flex;
+              align-items: center;
+              img {
+                width: 2rem;
+                height: auto;
+                margin-right: 0.4rem;
+              }
+              p {
+                margin: 0;
+              }
+              margin: 4rem 0 0 0;
+              font-size: 130%;
+            `}
+          >
+            <h2>Aides potentielles</h2>
+          </header>
+          <p>
+            Nous n'avons pas pu déterminer votre éligibilité à ces aides, c'est
+            à vous de vous renseigner.
+          </p>
+          {neSaisPas.map((aide) => {
+            const AideComponent = correspondance[aide.baseDottedName]
+
+            console.log('yellow', AideComponent)
+
+            if (AideComponent)
+              return (
+                <AideComponent
+                  {...{
+                    oldIndex,
+                    choice,
+                    setSearchParams,
+                    answeredQuestions,
+                    engine,
+                    situation,
+                    exampleSituation,
+                    searchParams,
+                    rules,
+                  }}
+                />
+              )
+            return (
+              <p>
+                Composant pas trouvé pour {aide.baseDottedName}{' '}
+                {aide.dottedName}
+              </p>
+            )
+            return (
+              <AideSummary
+                key={aide.dottedName}
+                {...{
+                  ...aide,
+                  icon: aide.icône,
+                  text,
+                  text2,
+                  type: aide.type,
+                  expanded: false,
+                  small: true,
+                }}
+              />
+            )
+          })}
+        </div>
+      )}
+      {nonEligibles.length > 0 && (
         <div title="Aides auxquelles vous n'êtes pas éligible">
           <header
             css={`
@@ -149,13 +218,19 @@ export default function AidesAmpleur({
               p {
                 margin: 0;
               }
-              margin: 1rem 0 0 0;
+              margin: 4rem 0 0 0;
+              font-size: 130%;
             `}
           >
-            <h2>Autres aides</h2>
+            <h2>Aides non disponibles</h2>
           </header>
-
-          {neSaisPasEtNonEligibles.map((aide) => {
+          <p>
+            Nous avons déterminé que vous n'êtes pas éligible à ces aides. Si
+            vous avez un doute, n'hésitez pas à contacter gratuitement votre
+            conseiller France Rénov'.
+          </p>
+          <br />
+          {nonEligibles.map((aide) => {
             const text = aide.marque,
               text2 = aide['complément de marque']
             return (
