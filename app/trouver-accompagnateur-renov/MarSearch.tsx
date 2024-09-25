@@ -42,7 +42,7 @@ export default function MarSearch({
   return (
     <div
       css={`
-        justify-content: center;
+        justify-content: start;
         margin-top: 3vh;
         display: flex;
       `}
@@ -52,7 +52,6 @@ export default function MarSearch({
           <label css={`
             margin-right: 1rem;
             line-height: 2.2rem;
-            width: 100%;
           `} htmlFor="ville">Saisissez votre ville</label>
           <AddressSearch
             setChoice={(result) => {
@@ -66,7 +65,6 @@ export default function MarSearch({
       <div
         css={`
           margin: 1rem;
-          width: 100%;
           max-width: 90vw;
         `}
       >

@@ -59,7 +59,9 @@ export default function Contact({ fromLocation, display }) {
                   height: 1.4rem;
                   cursor: pointer;
                 `}
-                onClick={() => setIsHidden(true)}
+                onClick={() => {
+                  setIsHidden(true)
+                }}
               >
                 <Image src={iconClose} width="15" />  
               </div>
@@ -96,14 +98,16 @@ export default function Contact({ fromLocation, display }) {
           ) : 
           (<h3 onClick={() => setIsOpen(!isOpen)} css={h3Style}>🙋 J'ai une question</h3>) 
       }
-      <div className={`slide-up ${isOpen ? 'active' : ''}`}>
+      <div className={`slide-up ${!display || isOpen ? 'active' : ''}`}>
         {sent ? (
           <section>
-            <h3> 😍 Merci à vous</h3>
-            <p>Grâce à votre retour, vous contribuer à l'amélioration de ce service.</p>
-            { type == "email" && (
-              <p>Nous nous efforçons de revenir vers vous dans les plus brefs délais.</p>
-            )}
+            <h3 css={`margin: 0 0 1rem;`}> 😍 Merci à vous</h3>
+            <p>
+              Grâce à votre retour, vous contribuer à l'amélioration de ce service.
+              { type == "email" && (
+                <>Nous nous efforçons de revenir vers vous dans les plus brefs délais.</>
+              )}
+            </p>
             <p>Vous pouvez également contacter <strong> l'espace France Rénov' le plus proche de chez vous </strong> 
               qui est <strong>votre interlocuteur privilégié</strong> pour toutes les questions concernant votre projet de rénovation.</p>
             <MapBehindCTA
@@ -148,7 +152,7 @@ export default function Contact({ fromLocation, display }) {
                   setType("email")
                 }}
               >
-                ✉️ Je souhaite une réponse
+                ✉️ Je souhaite pouvoir être recontacté
               </Link>
               <span css={`display: inline-block; margin: 0.5rem 0.5rem;`}>ou</span>
               <Button
@@ -227,9 +231,9 @@ label textarea {
 export const h3Style = `
   cursor: pointer;
   padding: 0rem;
-  margin: 0;
+  margin: 1rem 0;
   background: var(--color-light);
   color: var(--color-dark);
-  text-align: end;
+  text-align: start;
   
 `

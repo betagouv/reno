@@ -20,7 +20,10 @@ export default function MapBehindCTA({
   }
     
   return (
-    <section>
+    <section css={`    
+        display: flex;
+        align-items: flex-start;`
+      }>
       <CTAWrapper $justify="left">
         <CTA $importance={importance}>
           <button onClick={(clickCta)}>
@@ -56,6 +59,9 @@ export default function MapBehindCTA({
       <div
         css={`
           display: ${clickedCta ? 'block' : 'none'};
+          width: 100%;
+          margin-left: 1rem;
+          min-height: 200px;
         `}
       >
         <MarSearch codeInsee={codeInsee} what={what} />
