@@ -121,7 +121,8 @@ export default function LocalePlace({ place }) {
 
   const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules)),
     rule = Object.fromEntries(placeRules)[place] || {},
-    imageTitle = rule['image wikidata'] || placeTitle
+    imageTitle = rule['image wikidata'] || placeTitle,
+    imageLink = rule['image']
 
   const engine = useMemo(() => {
     console.log('instantiating new publicodes engine for evaluation')
@@ -140,7 +141,11 @@ export default function LocalePlace({ place }) {
   return (
     <div css={``}>
       <Section>
-        <IllustratedHeader placeTitle={placeTitle} imageTitle={imageTitle} />
+        <IllustratedHeader {...{
+          placeTitle,
+          imageTitle,
+          imageLink
+         }} />
         <p>
           Découvrez ci-dessous les aides locales {capitalise0(place)}. Vous
           pouvez changer la situation de votre ménage pour voir l'évolution du

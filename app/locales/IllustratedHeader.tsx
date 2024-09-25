@@ -1,6 +1,6 @@
 import useWikidata from '@/components/wikidata/useWikidata'
 
-export default function IllustratedHeader({ placeTitle, imageTitle }) {
+export default function IllustratedHeader({ placeTitle, imageTitle, imageLink }) {
   const wikidataImage = useWikidata(imageTitle),
     wikidataImageUrl = wikidataImage?.pictureUrl
 
@@ -17,6 +17,7 @@ export default function IllustratedHeader({ placeTitle, imageTitle }) {
         src={wikidataImageUrl}
         width="30"
         height="30"
+        src={imageLink ? "/logo-locale/"+imageLink : wikidataImageUrl}
         alt={`Photo emblématique du territoire ${imageTitle}`}
         css={`
           object-fit: cover;

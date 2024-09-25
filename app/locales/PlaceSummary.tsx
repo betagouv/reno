@@ -14,8 +14,8 @@ export default function PlaceSummary({ place, placeRules }) {
 
   const placeTitle = getRuleTitle(place, Object.fromEntries(placeRules)),
     rule = Object.fromEntries(placeRules)[place] || {},
-    imageTitle = rule['image wikidata'] || placeTitle
-
+    imageTitle = rule['image wikidata'] || placeTitle,
+    imageLink = rule['image']
   const valueRules =
     Array.isArray(placeRules) &&
     placeRules.filter(([dottedName]) => dottedName.endsWith('montant'))
@@ -68,7 +68,12 @@ export default function PlaceSummary({ place, placeRules }) {
     >
       {' '}
       <Link href={href}>
-        <IllustratedHeader imageTitle={imageTitle} placeTitle={placeTitle} />
+        <IllustratedHeader {...{
+          imageTitle, 
+          placeTitle, 
+          imageLink
+         }} 
+        />
       </Link>
       <Card
         css={`
