@@ -17,20 +17,10 @@ export default function FatConseiller({ situation }) {
           background: var(--color);
           color: white;
 
-          font-size: 160%;
-          img {
-            margin-right: 1.4rem;
-            width: 4rem;
-            height: auto;
-            background: white;
-            border-radius: 0.4rem;
-            padding: 0.4rem;
-          }
+          font-size: 150%;
           width: fit-content;
+          max-width: 100%;
           list-style-type: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
           p {
             line-height: 1.8rem;
           }
@@ -47,17 +37,69 @@ export default function FatConseiller({ situation }) {
       `}
     >
       <summary>
-        <Image
-          src={conseillerIcon}
-          alt="Image qui représente un rendez-vous pris dans un calendrier"
-        />
-        <p>
-          Trouver mon conseiller{' '}
-          <span>
-            <strong>France</strong>&nbsp;
-            <strong css="color: #d83a34; margin-bottom: -.1rem">Rénov'</strong>
-          </span>
-        </p>
+        <div
+          css={`
+            > img {
+              margin: 0 1.8rem 0 1rem;
+              width: 4rem;
+              height: auto;
+              background: white;
+              border-radius: 0.4rem;
+              padding: 0.4rem;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            p {
+              margin: 0;
+            }
+          `}
+        >
+          <Image
+            src={conseillerIcon}
+            alt="Image qui représente un rendez-vous pris dans un calendrier"
+          />
+          <p>
+            Trouver mon conseiller{' '}
+            <span>
+              <strong>France</strong>&nbsp;
+              <strong css="color: #d83a34; margin-bottom: -.1rem">
+                Rénov'
+              </strong>
+            </span>
+          </p>
+        </div>
+        <ul
+          css={`
+            margin: 0 auto;
+            width: fit-content;
+            padding-left: 0;
+            margin-top: 1rem;
+            font-size: 65%;
+            list-style-type: none;
+            img {
+              width: 1.2rem;
+              height: auto;
+              vertical-align: sub;
+            }
+          `}
+        >
+          {' '}
+          {[
+            'Un service neutre et gratuit',
+            'Un conseil local et personnalisé',
+          ].map((text) => (
+            <li key={text}>
+              <Image
+                src={'/check-green-hybrid.svg'}
+                alt="coche verte"
+                width="10"
+                height="10"
+              />{' '}
+              {text}
+            </li>
+          ))}
+        </ul>
       </summary>
       <section>
         <MarSearch situation={situation} what={'trouver-conseiller-renov'} />
