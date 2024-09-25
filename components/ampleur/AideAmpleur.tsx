@@ -5,15 +5,44 @@ import Image from 'next/image'
 import { CTA, Card } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
+import chainIcon from '@/public/link-chain.svg'
 
-export default function AideAmpleur({ dottedName, children }) {
+export default function AideAmpleur({ dottedName, children, level = null }) {
   const rule = rules[dottedName]
   const isFavorite = rule.favorite === 'oui',
     title =
       (rule.marque + ' - ' || '') +
       uncapitalise0(rule['complément de marque'] || '')
+
   return (
-    <section id={'aide-' + encodeDottedName(dottedName)}>
+    <section
+      id={'aide-' + encodeDottedName(dottedName)}
+      css={
+        level === 2 &&
+        `
+		  border-left: 2px dashed #dfdff1;
+		  padding-top: .6rem;
+		  padding-left: 1rem;
+		  position: relative;
+		  `
+      }
+    >
+      {level === 2 && (
+        <span>
+          <Image
+            css={`
+              position: absolute;
+              top: -0.1rem;
+              left: 50%;
+              transform: translateX(-60%);
+              width: 3rem;
+              height: auto;
+            `}
+            src={chainIcon}
+            alt="Icône représentant le lien chainé entre l'aide MaPrimeRénov' parcours accompagnée, et l'aide à l'audit energétique"
+          />
+        </span>
+      )}
       <header
         css={`
           > h3 {
@@ -22,6 +51,7 @@ export default function AideAmpleur({ dottedName, children }) {
           }
           margin: 4vh 0 0;
           font-size: 140%;
+          ${level === 2 && 'font-size: 110%;'}
           img {
             width: 1.3rem;
             height: auto;

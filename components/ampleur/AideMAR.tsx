@@ -17,7 +17,7 @@ export default function AideMAR({
 
   const rule = rules[dottedName]
   return (
-    <AideAmpleur dottedName={dottedName}>
+    <AideAmpleur dottedName={dottedName} level={2}>
       <div>
         <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
 
@@ -67,7 +67,7 @@ export default function AideMAR({
             après paiement de l'Accompagnateur Rénov'.
           </p>
         </PaymentTypeBlock>
-        <AideCTA text="En savoir plus sur l'Accompagnateur Rénov'">
+        <AideCTA text="Trouver mon Accompagnateur">
           <p>
             Vous pourrez notamment consulter l'annuaire des Accompagnateurs
             Rénov'.
