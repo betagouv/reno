@@ -53,9 +53,12 @@ const findAideLocaleName = (rules, engine) => {
 }
 export function useAides(engine, situation) {
   const aides = list.map((aide) => {
-    console.log('lightyellow useaides situation', situation)
     const evaluation = engine.setSituation(situation).evaluate(aide.dottedName)
     const value = formatValue(evaluation, { precision: 0 })
+    console.log(
+      'lightyellow useaides situation',
+      engine.evaluate('copropriété . prime individuelle'),
+    )
 
     const status = computeAideStatus(evaluation)
     const marque2 = aide.dottedName.startsWith('aides locales')

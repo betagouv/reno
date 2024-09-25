@@ -12,8 +12,6 @@ import { useAides } from './useAides'
 export const computeAideStatus = (evaluation) => {
   const value = formatValue(evaluation, { precision: 0 })
 
-  console.log('lightyellow status', evaluation.dottedName, evaluation)
-
   if (value === 'Non applicable' || value === 'non') return false
   if (evaluation.nodeValue === 0) return null
   if (evaluation.nodeValue > 0) return true
@@ -84,10 +82,11 @@ export default function AmpleurSummary({
         `}
       >
         {aides
-          .filter((aide) => aide.status === true)
+          .filter((aide) => aide.status === true && !aide['aide parente'])
           .map((aide) => {
             const text = aide.marque,
               text2 = aide['complément de marque']
+
             return (
               <AideSummary
                 key={aide.dottedName}
