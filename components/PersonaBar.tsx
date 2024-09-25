@@ -73,12 +73,12 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
     <section
       css={`
         position: fixed;
+        z-index: 1000;
         margin-bottom: 10rem;
         background: white;
         width: 100vw;
         left: 0;
         top: 0;
-        overflow: hidden;
         ol {
           list-style-type: none;
         }
@@ -199,6 +199,9 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
             ))}
         </ol>
       </section>
+      <div css="position: absolute; bottom: -2.4rem; left: 50%; transform: translateX(-50%); padding: .2rem 1rem; border-radius: .4rem; background: yellow; width: 20rem">
+        Sélectionnez un persona ci-dessus
+      </div>
     </section>
   )
 }
