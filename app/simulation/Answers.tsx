@@ -32,9 +32,11 @@ export const categoryData = (
 
   const category = firstLevelCategory(currentQuestion)
   const categoryTitle = currentQuestion && rules[category]?.titre
+  const aideLocale = rules[currentQuestion.split(' . ').slice(0, 2).join(' . ').trim()]
   const isLastCategory = currentQuestion == nextQuestions.slice(-1)
   return {
     categoryTitle,
+    aideLocale,
     isLastCategory,
     allCategories,
     pastCategories,
