@@ -61,6 +61,7 @@ export default function Contact({ fromLocation, display }) {
                 `}
                 onClick={() => {
                   setIsHidden(true)
+                  push(["trackEvent", "Feedback", "Clic", "fermer"])
                 }}
               >
                 <Image src={iconClose} width="15" />  
@@ -148,6 +149,7 @@ export default function Contact({ fromLocation, display }) {
                 title="Nous vous recontacterons dans les plus brefs délais"
                 target="_blank"
                 onClick={() => {
+                  push(["trackEvent", "Feedback", "Clic", "email"])
                   setSent(true)
                   setType("email")
                 }}
@@ -158,6 +160,7 @@ export default function Contact({ fromLocation, display }) {
               <Button
                 type="submit"
                 onClick={(e) => {
+                  push(["trackEvent", "Feedback", "Clic", "anonyme"])
                   e.preventDefault()
                   const augmentedComment =
                     comment +
