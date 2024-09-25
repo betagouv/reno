@@ -7,6 +7,7 @@
 # Voir aussi le fichier aides-locales.brouillon.yaml pour les aides pas encore implémentées ou qui ne sont plus valides
 
 '':
+  titre: Aide Locale
   marque: Aide locale
   icône: 'hexagone-contour.svg'
   avec:
@@ -472,6 +473,7 @@ grand narbonne:
       - logement . période de construction
       - projet . travaux
   image: le-grand-narbonne.png
+  titre: Grand Narbonne Communauté d'agglomération - Prime Energie
 grand narbonne . conditions géo: ménage . EPCI = '241100593'
 grand narbonne . aides:
   applicable si: conditions
@@ -500,12 +502,22 @@ grand narbonne . prime énergie . conditions:
     - pig . bénéficiaire = non
 grand narbonne . prime énergie . montant: 0 € # On ne communique pas de chiffre pour l'instant
 grand narbonne . prime énergie . statut bénéficiaire:
+  titre: Propriétaire éligible
   question: Etes-vous proprietaire (occupant, bailleur, SCI) ou accédant à la propriété qui occupera le logement dans les 6 mois suivant l'achèvement des travaux?
   par défaut: oui
   description: |
     Sont également éligibles :  
     - les propriétaires qui réhabilitent des logements vacants en vue de les louer (à condition que le logement soit loué au moment de la demande de paiement).
     - les propriétaires dans le cadre de transformation d'usage, dont l'usage final est de l'habitation
+grand narbonne . pig:
+grand narbonne . pig . bénéficiaire:
+  titre: Bénéficiaire du PIG Grand Narbonne
+  question: Etes-vous bénéficiaire du Programme d'Intérêt Général du Grand Narbonne?
+  par défaut: oui
+  sous-titre: A l'exception de la Prime Energie Innovation Solidaire
+  description: |
+    A l'exception de la Prime Energie Innovation Solidaire qui est cumulable avec l'ensemble des PIG et dispositifs existants
+
 grand narbonne . prime énergie . logement:
 grand narbonne . prime énergie . logement . résidence principale:
   question: Le logement est-il occupé à titre de résidence principale
@@ -519,11 +531,6 @@ grand narbonne . prime énergie . innovation solidaire:
 grand narbonne . prime énergie . innovation solidaire . conditions:
   toutes ces conditions:
     - ménage . revenu < 2 x catégorie bleue  
-
-grand narbonne . pig:
-grand narbonne . pig . bénéficiaire:
-  question: Etes-vous bénéficiaire du Programme d'Intérêt Général du Grand Narbonne (à l'exception de la Prime Energie Innovation Solidaire)?
-  par défaut: oui
 
 grand narbonne . aide département:
 grand narbonne . aide département . montant:
