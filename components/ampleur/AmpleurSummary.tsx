@@ -13,9 +13,11 @@ export const computeAideStatus = (evaluation) => {
   const value = formatValue(evaluation, { precision: 0 })
 
   if (value === 'Non applicable' || value === 'non') return false
-  if (evaluation.nodeValue === 0) return null
+  if (value === 'Pas encore défini' || evaluation.nodeValue === 0) return null
   if (evaluation.nodeValue > 0) return true
-  throw new Error('Unknown aide status, missing a case in the switch')
+  const message = 'Unknown aide status, missing a case in the switch'
+  console.error(message, evaluation.dottedName, value, evaluation)
+  throw new Error(message)
 }
 
 export const createExampleSituation = (engine, situation, extreme = false) => {

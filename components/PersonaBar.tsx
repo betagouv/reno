@@ -2,11 +2,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import personas from '@/app/personas.yaml'
 import personaNames from '@/app/personaNames.yaml'
-import { Card } from './UI'
+import { Card, PrimeStyle } from './UI'
 import PersonaInjection from '@/app/PersonaInjection'
 import enrichSituation from './personas/enrichSituation'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
+import { computeAideStatus } from './ampleur/AmpleurSummary'
+import StatusIcon from './ampleur/StatusIcon'
 
 const matrixLines = [
   'MPR . accompagnée',
@@ -74,7 +76,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
       css={`
         position: fixed;
         margin-bottom: 10rem;
-        background: var(--lightColor);
+        background: white;
         width: 100vw;
         left: 0;
         top: 0;
@@ -123,7 +125,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
               }
               ${selectedPersona == personaIndex &&
               `
-			  > div{border: 2px solid var(--color); background: var(--lighterColor)}`}
+			  > div{border: 2px solid var(--color); background: var(--lighterColor2)}`}
             `}
           >
             <Card>
@@ -144,25 +146,23 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
                   {persona.evaluations.map((evaluation) => {
                     const value = formatValue(evaluation)
                     const { dottedName, nodeValue } = evaluation
+                    const status = computeAideStatus(evaluation)
                     return (
-                      <li key={dottedName}>
-                        {!nodeValue || isNaN(nodeValue) ? (
-                          <span
-                            css={`
-                              opacity: 0.3;
-                            `}
-                          >
-                            Non applicable
-                          </span>
-                        ) : (
-                          <span
-                            css={`
-                              background: #bef2c5;
-                            `}
-                          >
-                            {value}
-                          </span>
-                        )}
+                      <li
+                        key={dottedName}
+                        css={`
+                          img {
+                            width: 1rem;
+                            height: auto;
+                            vertical-align: middle;
+                          }
+                          > span {
+                            font-size: 80%;
+                          }
+                        `}
+                      >
+                        <StatusIcon status={status} />{' '}
+                        {status && <PrimeStyle>{value}</PrimeStyle>}
                       </li>
                     )
                   })}
@@ -177,7 +177,6 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
           position: fixed;
           top: 10rem;
           left: 0.6rem;
-          color: white;
           ol {
             display: flex;
             flex-direction: column;
