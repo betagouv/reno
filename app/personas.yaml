@@ -243,9 +243,10 @@
     PTZ . montant: 50000
 
 - description: |
-    3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
+    Rennes, 3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
   situation:
-    ménage . commune: "'26113'"
+    logement . commune: "'35238'" # Rennes, où on sait qu'il n'y a pas d'aides
+    logement . EPCI: "'243500139'"
     conditions communes: oui
     vous . propriétaire . condition: oui
     ménage . personnes: 2
@@ -253,7 +254,7 @@
     DPE . actuel: 4
     projet . DPE visé: 1
     projet . travaux: 49300
-    ménage . code région: "'53'"
+    ménage . code région: "'52'"
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
     logement . type: "'maison'"
@@ -262,6 +263,7 @@
   valeurs attendues:
     MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
+    aides locales . montant: non
 - description: |
     Couple aisé, passoire, 4 sauts, ~ 70k € de travaux
   situation:

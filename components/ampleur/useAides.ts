@@ -30,7 +30,8 @@ const topList = rules['ampleur . tous les dispositifs'].somme,
     })
 
 const regexp = /aides locales \. (.+) \. montant$/
-const findAideLocaleName = (rules, engine) => {
+
+export const findAideLocale = (rules, engine) => {
   const candidates = Object.entries(rules).filter(
     ([dottedName]) =>
       dottedName.match(regexp) && dottedName.split(' . ').length === 3,
@@ -44,12 +45,12 @@ const findAideLocaleName = (rules, engine) => {
     candidates,
     found,
   })
-  if (!found) return null
+  if (!found) return {}
   try {
-    return capitalise0(found.dottedName.match(regexp)[1])
+    return { name: capitalise0(found.dottedName.match(regexp)[1]), found }
   } catch (e) {
     console.error('Could not derive the name of the aide locale')
-    return null
+    return {}
   }
 }
 export function useAides(engine, situation) {
@@ -63,7 +64,7 @@ export function useAides(engine, situation) {
 
     const status = computeAideStatus(evaluation)
     const marque2 = aide.dottedName.startsWith('aides locales')
-      ? findAideLocaleName(rules, engine)
+      ? findAideLocale(rules, engine).name
       : aide['complément de marque']
 
     return {

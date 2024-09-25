@@ -49,8 +49,11 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
             .setSituation(enrichedSituation)
             .evaluate(dottedName + ' . montant'),
         )
-        if (persona.description.includes('combo'))
-          console.log('lightgreen personbar', evaluations)
+        if (persona.description.includes('Rennes,'))
+          console.log(
+            'lightgreen personbar',
+            engine.evaluate('aides locales . montant'),
+          )
 
         const newPersona = {
           ...persona,
