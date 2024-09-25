@@ -2,6 +2,7 @@ import rules from '@/app/règles/rules'
 import GesteQuestion from './GesteQuestion'
 import { BlocAide, PrimeStyle } from './UI'
 import { formatValue } from 'publicodes'
+import StatusIcon from './ampleur/StatusIcon'
 
 export default function MprCategory({
   engine,
@@ -19,6 +20,7 @@ export default function MprCategory({
     .evaluate('copropriété . prime individuelle')
   const isExactTotal =
     Object.keys(primeIndividuelleObj.missingVariables).length === 0
+  const positiveValue = primeIndividuelleObj.nodeValue > 0
   return (
     <BlocAide>
       <div className="aide-header">
@@ -50,17 +52,33 @@ export default function MprCategory({
             css={`
               padding: 0.75rem;
             `}
-            $inactive={!isExactTotal}
+            $inactive={!isExactTotal || !positiveValue}
           >
-            Prime de{' '}
-            <strong
-              css={`
-                font-size: 1.5rem;
-              `}
-            >
-              {isExactTotal ? formatValue(primeIndividuelleObj) : '...'}
-            </strong>
-            {primeIndividuelleObj.nodeValue !== 0 ? ' par logement' : ''}
+            {' '}
+            {positiveValue ? (
+              <span>
+                Prime de{' '}
+                <strong
+                  css={`
+                    font-size: 1.5rem;
+                    padding: 0 0.1rem;
+                  `}
+                >
+                  {isExactTotal ? formatValue(primeIndividuelleObj) : '...'}
+                </strong>{' '}
+                par logement
+              </span>
+            ) : (
+              <span
+                css={`
+                  display: flex;
+                  align-items: center;
+                  gap: 0.4rem;
+                `}
+              >
+                <StatusIcon status={false} /> Pas de prime
+              </span>
+            )}
           </PrimeStyle>
         </div>
       </div>
