@@ -49,10 +49,8 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
             .setSituation(enrichedSituation)
             .evaluate(dottedName + ' . montant'),
         )
-        console.log(
-          'lightgreen aides locales . montant',
-          engine.evaluate('aides locales . montant'),
-        )
+        if (persona.description.includes('combo'))
+          console.log('lightgreen personbar', evaluations)
 
         const newPersona = {
           ...persona,
@@ -157,7 +155,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
                             vertical-align: middle;
                           }
                           > span {
-                            font-size: 80%;
+                            font-size: 75%;
                           }
                         `}
                       >

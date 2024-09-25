@@ -49,24 +49,43 @@ const Enriched = ({ persona, personaIndex, keepPersonaBar }) => {
 const PersonaLink = ({ enrichedSituation, personaIndex, keepPersonaBar }) => {
   const setSearchParams = useSetSearchParams()
   return (
-    <Link
-      href={setSearchParams(
-        {
-          ...encodeSituation(
-            // To trigger the MPR Scenario screen, we omit one of the dependencies that make it pop
-            omit(['projet . travaux'], enrichedSituation),
-            false,
-            Object.keys(enrichedSituation),
-          ),
-          persona: personaIndex,
-          personas: keepPersonaBar,
-        },
-        'url',
-        true,
-        `simulation`,
-      )}
+    <div
+      css={`
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0.4rem;
+      `}
     >
-      Injecter
-    </Link>
+      <Link
+        href={setSearchParams(
+          {
+            ...encodeSituation(
+              // To trigger the MPR Scenario screen, we omit one of the dependencies that make it pop
+              omit(['projet . travaux'], enrichedSituation),
+              false,
+              Object.keys(enrichedSituation),
+            ),
+            persona: personaIndex,
+            personas: keepPersonaBar,
+          },
+          'url',
+          true,
+          `simulation`,
+        )}
+      >
+        Injecter
+      </Link>
+      <small>
+        <Link
+          href={
+            '/documentation/aides/?' +
+            new URLSearchParams(encodeSituation(enrichedSituation)).toString()
+          }
+          title="Inspection de la documentation chargée avec la situation du persona"
+        >
+          🕵️
+        </Link>
+      </small>
+    </div>
   )
 }
