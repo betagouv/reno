@@ -87,6 +87,7 @@
     ménage . code région: "'24'"
     ménage . code département: "'18'" # Cher / Zone climatique H2
     ménage . commune: "'18279'"
+    logement . commune: "'18279'"
     vous . propriétaire . condition: oui
     logement . propriétaire occupant: oui
     logement . résidence principale: oui

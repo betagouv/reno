@@ -40,26 +40,26 @@ export default function TaxeFoncière({
           ou 100 % pendant 3 ans pour certains logements rénovés.
         </p>
         {communeEligible}
-        {communeName && !communeEligible ? (
-          <p>
-            La commune {communeName} de votre logement n'
-            <No>est pas dans notre liste</No>, c'est à vous de vous renseigner
-            auprès de votre mairie.
-          </p>
-        ) : (
-          <p>
-            La commune {communeName} de votre logement est <em>a priori</em>{' '}
-            <Yes>éligible</Yes>,{' '}
-            {taux ? (
-              <p>pour une exonération de {taux}</p>
-            ) : (
-              <p>
-                mais nous ne connaissons pas son taux (50 ou 100 %)
-                d'exonération.
-              </p>
-            )}
-          </p>
-        )}
+        {communeName != null &&
+          (!communeEligible ? (
+            <p>
+              La commune {communeName} de votre logement
+              <No>n'est pas éligible</No> à l'exonération.
+            </p>
+          ) : (
+            <p>
+              La commune {communeName} de votre logement est <Yes>éligible</Yes>
+              ,{' '}
+              {taux ? (
+                <p>pour une exonération de {taux}</p>
+              ) : (
+                <p>
+                  mais nous ne connaissons pas son taux (50 ou 100 %)
+                  d'exonération.
+                </p>
+              )}
+            </p>
+          ))}
         <InformationBlock>
           <div
             dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }}
