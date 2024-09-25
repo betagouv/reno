@@ -43,7 +43,7 @@ export default function TaxeFoncière({
         {communeName != null &&
           (!communeEligible ? (
             <p>
-              La commune {communeName} de votre logement
+              La commune {communeName} de votre logement{' '}
               <No>n'est pas éligible</No> à l'exonération.
             </p>
           ) : (

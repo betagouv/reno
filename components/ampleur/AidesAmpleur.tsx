@@ -12,6 +12,7 @@ import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
 import AideMAR from './AideMAR'
+import StatusIcon from './StatusIcon'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -44,23 +45,48 @@ export default function AidesAmpleur({
           answeredQuestions,
         }}
       />
-      <header>
-        <h2>Financer une rénovation d’ampleur de votre logement</h2>
+      <header
+        css={`
+          font-size: 100%;
+        `}
+      >
+        <h1>Financer une rénovation d’ampleur</h1>
       </header>
-      <p>Vous êtes éligibles à plusieurs aides. Elles sont cumulables.</p>
 
-      <ul>
-        {eligibles.map((aide) => {
-          return (
-            <li>
-              <Link href={'#' + 'aide-' + encodeDottedName(aide.dottedName)}>
-                {aide.marque || aide['complément de marque']}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
+      {false && ( // on pourra mettre un sommaire si besoin
+        <ul>
+          {eligibles.map((aide) => {
+            return (
+              <li>
+                <Link href={'#' + 'aide-' + encodeDottedName(aide.dottedName)}>
+                  {aide.marque || aide['complément de marque']}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
 
+      {eligibles.length > 0 && (
+        <header
+          css={`
+            display: flex;
+            align-items: center;
+            img {
+              width: 2rem;
+              height: auto;
+              margin-right: 0.4rem;
+            }
+            p {
+              margin: 0;
+            }
+            margin: 1rem 0 0 0;
+          `}
+        >
+          <StatusIcon status={true} />
+          <p>Vous êtes éligibles à plusieurs aides. Elles sont cumulables.</p>
+        </header>
+      )}
       <section>
         <MPRA
           {...{
