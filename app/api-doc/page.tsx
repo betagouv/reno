@@ -1,13 +1,12 @@
 import {
   Main,
   Section,
-  Tabs,
-  TabHeaders,
-  TabHeader,
-  TabPanel,
+  Card,
 } from '@/components/UI'
-import css from '@/components/css/convertToJs'
+import css from '@/components/css/convertToJs';
 import Link from '@/node_modules/next/link'
+import informationIcon from '@/public/information.svg'
+import Image from 'next/image'
 import { Metadata } from 'next/types'
 import AccordionComponent from './AccordionComponent'
 
@@ -21,19 +20,12 @@ export default function APIDoc() {
   return (
     <Main>
       <Section>
-        <h2>API Ma Prime Rénov' 2024</h2>
-
+        <h2>API Mes Aides Réno</h2>
         <p>
           Notre API vous permet d'intégrer Mes Aides Réno au coeur de votre
           service. Si votre objectif est simplement de l'intégrer dans une page
           Web ou un article de blog, nous avons{' '}
           <Link href="/integration">une solution bien plus simple</Link>.
-        </p>
-        <p>
-          Notre API est basée sur <a href="https://publi.codes">Publicodes</a>.
-          Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la
-          <a href="https://publi.codes/docs"> documentation</a> de Publicodes
-          pour mieux comprendre ses fondamentaux.
         </p>
         <p
           style={css`
@@ -47,7 +39,52 @@ export default function APIDoc() {
           par mois. L'API est en version beta, il est de votre ressort d'en
           avertir vos utilisateur si cela vous semble légitime.
         </p>
+        <Card>
+          <div
+            style={css`
+              display: flex;
+              align-items: center;
+              margin-bottom: 0.8rem;
+              color: #2a82dd;
+              font-weight: 500;
+            `}
+          >
+            <Image
+              src={informationIcon}
+              width="25"
+              style={css`
+                margin-right: 0.4rem;
+              `}
+            />{' '}
+            <small>Plus d'informations</small>
+          </div>
+          <div
+            css={`
+              blockquote {
+                margin-top: 0.8rem;
+                border-left: 4px solid var(--lighterColor);
+                padding: 0 0.6rem;
+                background: lightyellow;
+                color: #333;
+              }
+            `}
+          >
+            Nous sommes actuellement en train de revoir notre documentation technique. En attendant, voici notre proposition :
+            <ul>
+              <li style={css`margin: 1rem 0;`}><strong><u>Accompagnement sur-mesure</u></strong>:<br /> L'un des développeurs de l'équipe, Morgan ou Maël, peut se rendre disponible pour vous assister en live dans l'intégration. 
+              D'expérience, 45 minutes suffisent. C'est votre souhait ? Merci d’adresser votre demande <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons contact avec vous sous 3 jours ouvrés.
+              </li>
+              <li style={css`margin: 1rem 0;`}><strong><u>Intégration en autonomie</u></strong>:<br /> Vous préférez mettre les mains dans la documentation existante ? Elle est accessible juste en-dessous.</li>
+            </ul>
+          </div>
+        </Card>
         <h3>Démonstration</h3>
+        <p>
+          Notre API est basée sur <a href="https://publi.codes">Publicodes</a>.
+          Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la
+          <a href="https://publi.codes/docs"> documentation</a> de Publicodes
+          pour mieux comprendre ses fondamentaux.
+        </p>
         <p>
           Modifier la <em>situation</em> (les paramètres à gauche), puis cliquer
           sur le bouton
