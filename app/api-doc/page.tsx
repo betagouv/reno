@@ -69,13 +69,14 @@ export default function APIDoc() {
               }
             `}
           >
-            Nous sommes actuellement en train de revoir notre documentation technique. En attendant, voici notre proposition :
+            <p>Nous sommes actuellement en train de revoir notre documentation technique. En attendant, voici notre proposition :</p>
             <ul>
               <li style={css`margin: 1rem 0;`}><strong><u>Accompagnement sur-mesure</u></strong>:<br /> L'un des développeurs de l'équipe, Morgan ou Maël, peut se rendre disponible pour vous assister en live dans l'intégration. 
               D'expérience, 45 minutes suffisent. C'est votre souhait ? Merci d’adresser votre demande <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons contact avec vous sous 3 jours ouvrés.
               </li>
               <li style={css`margin: 1rem 0;`}><strong><u>Intégration en autonomie</u></strong>:<br /> Vous préférez mettre les mains dans la documentation existante ? Elle est accessible juste en-dessous.</li>
             </ul>
+            <p>À votre disposition pour avancer ensemble !</p>
           </div>
         </Card>
         <h3>Démonstration</h3>
