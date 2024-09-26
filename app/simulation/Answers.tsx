@@ -226,7 +226,7 @@ export default function Answers({
           )}
         </Card>
       </Details>
-      <ProgressBar $ratio={(indexQuestionActuel - 1) / nbQuestionTotal} />
+      <ProgressBar $ratio={Math.min((indexQuestionActuel - 1) / nbQuestionTotal, 1)} />
     </Wrapper>
   )
 }
