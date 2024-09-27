@@ -32,7 +32,6 @@ export default function AutresAides() {
   return (
     <section
       css={`
-        margin-top: 4vh;
         > p {
           margin-bottom: 1vh;
         }

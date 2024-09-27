@@ -28,7 +28,6 @@ export default function GestesBasket({
     ([dottedName, rule]) => isGestesMosaicQuestion(dottedName, rule),
   )[0]
   return (
-    <div>
       <Link
         href={setSearchParams(
           {
@@ -39,7 +38,8 @@ export default function GestesBasket({
       >
         Retour à la sélection des gestes
       </Link>
-      <h2>Votre sélection d'aides</h2>
+    <div css={`clear: both;`}>
+      <h2 css={`margin-top: 0;`}>Votre sélection d'aides</h2>
       <ul
         css={`
           list-style-type: none;
