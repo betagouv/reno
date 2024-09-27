@@ -9,6 +9,7 @@ import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
+import Answers from '@/app/simulation/Answers'
 import { useIsCompact } from './useIsInIframe'
 
 export default function Eligibility({
@@ -16,6 +17,9 @@ export default function Eligibility({
   situation,
   rules,
   engine,
+  answeredQuestions,
+  nextQuestions,
+  currentQuestion,
   expanded,
 }) {
   const isCompact = useIsCompact()
@@ -51,6 +55,17 @@ export default function Eligibility({
     <section>
       <PersonaBar />
       <CustomQuestionWrapper>
+        { isCompact && (
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+        )}
         <header>
           <small>Découvrez vos aides</small>
           <h2>
