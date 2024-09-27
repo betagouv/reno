@@ -16,12 +16,18 @@ export const Results = styled.ul`
 `
 
 export const No = styled.em`
-  background: #f67f7254;
   font-style: normal;
   padding: 0 0.2rem;
+  a {
+    text-decoration-color: salmon;
+    color: black;
+  }
 `
 export const Yes = styled.em`
-  background: #bef2c5;
   font-style: normal;
   padding: 0 0.2rem;
+  a {
+    text-decoration-color: green;
+    color: black;
+  }
 `
