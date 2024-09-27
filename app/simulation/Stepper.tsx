@@ -1,4 +1,3 @@
-import useSetSearchParams from '@/components/useSetSearchParams'
 import styled from 'styled-components'
 import { useMediaQuery } from 'usehooks-ts'
 
@@ -37,7 +36,6 @@ export default function Stepper({
   nextQuestions,
   currentQuestion,
   rules,
-  situation,
 }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
   const answeredQuestions = rawAnsweredQuestions.filter(
@@ -57,7 +55,6 @@ export default function Stepper({
                             )
                             
   const indexQuestionActuel = answeredQuestions.length + 1
-  const setSearchParams = useSetSearchParams()
   return (
     <Wrapper css={`
       float: left;
@@ -85,7 +82,7 @@ export default function Stepper({
               'Dernière étape'
             ) : (
               <span
-                title={`Étape ${indexQuestionActuel} sur un total de ${nbQuestionTotal} étapes. Cliquez pour obtenir le détail.`}
+                title={`Étape ${indexQuestionActuel} sur un total de ${nbQuestionTotal} étapes.`}
               >
                 {!isMobile && 'Étape '}
                 <Number>{indexQuestionActuel}</Number> sur {nbQuestionTotal}
