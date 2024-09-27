@@ -1,4 +1,3 @@
-import NextQuestions from '@/components/NextQuestions'
 import { Card, LinkStyleButton } from '@/components/UI'
 import {
   encodeDottedName,
@@ -48,160 +47,150 @@ export default function Answers({
   rules,
   situation,
 }) {
-  
-  const [isOpen, setIsOpen] = useState(false)
-  const handleSummaryClick = (event) => {
-    push(["trackEvent", "Simulateur principal", "Clic", "voir mes reponses"])
-    const detailsElement = event.target.closest('details');
-    if (detailsElement) {
-      setIsOpen(!detailsElement.open);
-      detailsElement.open = !detailsElement.open;
-    }
-  }
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSummaryClick = () => {
+    push(["trackEvent", "Simulateur principal", "Clic", "voir mes reponses"]);
+    setIsOpen((prevIsOpen) => !prevIsOpen); // Toggle the state using React
+  };
+
   const preventSummaryClick = (event) => {
     event.preventDefault();
   };
 
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) => !['simulation . mode', "ménage . code région", "ménage . code département"].includes(el)
-  )
+    (el) => !['simulation . mode', 'ménage . code région', 'ménage . code département'].includes(el)
+  );
 
-  const {
-    allCategories,
-    pastCategories,
-  } = categoryData(nextQuestions, currentQuestion, answeredQuestions, rules)
-  
-  const indexQuestionActuel = answeredQuestions.length + 1
-  const setSearchParams = useSetSearchParams()
+  const { pastCategories } = categoryData(
+    nextQuestions,
+    currentQuestion,
+    answeredQuestions,
+    rules
+  );
+
+  const setSearchParams = useSetSearchParams();
+
   return answeredQuestions.length !== 0 && (
-    <Details $noMarker={answeredQuestions.length === 0}>
-      <summary 
-        css={`justify-content: flex-end;`} 
-        onClick={preventSummaryClick}
-      >
-        <div css={`display: flex;`}>
+    <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
+      <summary css={`justify-content: flex-end;`} onClick={preventSummaryClick}>
           <div
             css={`
+              display: flex;
               visibility: ${answeredQuestions.length > 0
                 ? 'visible'
                 : 'hidden'};
             `}
           >
-            <LinkStyleButton 
-              onClick={handleSummaryClick} 
-              css={`cursor: pointer;`}>
-                {isOpen ? "Cacher": "Voir"} mes réponses
+            <LinkStyleButton
+              onClick={handleSummaryClick}
+              css={`
+                cursor: pointer;
+                width: max-content;
+                display:block;
+              `}
+            >
+              {isOpen ? 'Cacher' : 'Voir'} mes réponses
             </LinkStyleButton>
           </div>
-        </div>
       </summary>
-      <Card>
-        <div
-          css={`
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          `}
-        >
-          <h3>Vos réponses</h3>
+      {isOpen && (
+        <Card css={`overflow: auto;`}>
           <div
             css={`
-              visibility: ${answeredQuestions.length > 0
-                ? 'visible'
-                : 'hidden'};
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
             `}
           >
-            <Link 
-              href={'/simulation'}
-              onClick={() => push(["trackEvent", "Simulateur principal", "Clic", "voir mes reponses"]) }
-            >Recommencer</Link>
+            <h3>Vos réponses</h3>
+            <div
+              css={`
+                visibility: ${answeredQuestions.length > 0 ? 'visible' : 'hidden'};
+              `}
+            >
+              <Link
+                href={'/simulation'}
+                onClick={() =>
+                  push(['trackEvent', 'Simulateur principal', 'Clic', 'voir mes reponses'])
+                }
+              >
+                Recommencer
+              </Link>
+            </div>
           </div>
-        </div>
-        {pastCategories.length > 0 ? (
-          <ol
-            css={`
-              list-style-type: circle;
-              ol {
-                list-style-type: disc;
-                padding-left: 0;
-              }
-            `}
-          >
-            {pastCategories.map(([category, questions]) => (
-              <li key={category}>
-                {getRuleTitle(category, rules)}
-                <AnswerList>
-                  {questions.map((answer) => (
-                    <li
-                      key={answer}
-                      css={`
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        flex-wrap: wrap;
-                      `}
-                    >
-                      <span>{getRuleTitle(answer, rules)}</span>{' '}
-                      <span
+          {pastCategories.length > 0 ? (
+            <ol
+              css={`
+                list-style-type: circle;
+                ol {
+                  list-style-type: disc;
+                  padding-left: 0;
+                }
+              `}
+            >
+              {pastCategories.map(([category, questions]) => (
+                <li key={category}>
+                  {getRuleTitle(category, rules)}
+                  <AnswerList>
+                    {questions.map((answer) => (
+                      <li
+                        key={answer}
                         css={`
-                          border-bottom: 1px dashed #aaa;
-                          flex-grow: 1;
-                          margin: 0 1rem;
-                          @media (max-width: 800px) {
-                            display: none;
-                          }
-                        `}
-                      ></span>
-                      <span
-                        css={`
-                          @media (max-width: 800px) {
-                            flex-grow: 1;
-                            text-align: right;
-                          }
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          flex-wrap: wrap;
                         `}
                       >
-                        <Link
-                          href={setSearchParams(
-                            {
-                              question: encodeDottedName(answer),
-                              ...encodeSituation(
-                                situation,
-                                false,
-                                answeredQuestions.filter((q) => q !== answer),
-                              ),
-                            },
-                            'url',
-                          )}
+                        <span>{getRuleTitle(answer, rules)}</span>{' '}
+                        <span
+                          css={`
+                            border-bottom: 1px dashed #aaa;
+                            flex-grow: 1;
+                            margin: 0 1rem;
+                            @media (max-width: 800px) {
+                              display: none;
+                            }
+                          `}
+                        ></span>
+                        <span
+                          css={`
+                            @media (max-width: 800px) {
+                              flex-grow: 1;
+                              text-align: right;
+                            }
+                          `}
                         >
-                          {situation[answer]}
-                        </Link>
-                      </span>
-                    </li>
-                  ))}
-                </AnswerList>
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <p>Vous n'avez pas encore validé de réponse.</p>
-        )}
-        <h3>Prochaines étapes</h3>
-        <ol
-          css={`
-            list-style-type: circle;
-            margin-bottom: 1rem;
-          `}
-        >
-          {allCategories.slice(indexQuestionActuel).map(([k, v]) => (
-            <li key={k}>{getRuleTitle(k, rules)}</li>
-          ))}
-        </ol>
-        {false && (
-          <NextQuestions {...{ nextQuestions, rules, currentQuestion }} />
-        )}
-      </Card>
+                          <Link
+                            href={setSearchParams(
+                              {
+                                question: encodeDottedName(answer),
+                                ...encodeSituation(
+                                  situation,
+                                  false,
+                                  answeredQuestions.filter((q) => q !== answer),
+                                ),
+                              },
+                              'url',
+                            )}
+                          >
+                            {situation[answer]}
+                          </Link>
+                        </span>
+                      </li>
+                    ))}
+                  </AnswerList>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p>Vous n'avez pas encore validé de réponse.</p>
+          )}
+        </Card>
+      )}
     </Details>
-  )
+  );
 }
 
 const AnswerList = styled.ol`
