@@ -78,16 +78,18 @@ function Form({ rules }) {
             situation,
           }}
         />
-        {!isInIframe && !isCompact && (
-          <Answers
-            {...{
-              answeredQuestions,
-              nextQuestions,
-              currentQuestion,
-              rules,
-              situation,
-            }}
-          />
+        {!isCompact && (
+          <div css={`padding-top: 1rem;`}>
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+          </div>
         )}
         {rule && (
           <InputSwitch
