@@ -7,10 +7,10 @@ import StatusIcon from './StatusIcon'
 
 export const computeStatusTitle = (status) =>
   status
-    ? 'Nous avons déterminé que vous êtes éligible à cette aide'
+    ? 'Nous avons déterminé que vous êtes éligible à cette aide.'
     : status === null
-      ? 'Nous ne pouvons pas vous dire si vous êtes éligible à cette aide'
-      : "Vous n'êtes pas éligible à cette aide"
+      ? 'Nous ne pouvons pas encore vous dire si vous êtes éligible à cette aide.'
+      : "Vous n'êtes pas éligible à cette aide."
 
 export const AideSummary = ({
   icon,

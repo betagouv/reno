@@ -16,7 +16,6 @@
     intercommunalité: 0 €
     département: 0 €
     région: 0 €
-    état: 0 €
 
 total:
   icône: 'hexagone-contour.svg'
@@ -25,7 +24,6 @@ total:
     - intercommunalité
     - département
     - région
-    - état
 
 montant: total
 #########
@@ -479,7 +477,7 @@ rennes:
 
     Nous l'avons confirmé le 14 juin 2024 avec l'ADIL de Rennes : si ces aides courent toujours pour les dossiers MPR déposés en 2023, ce n'est plus le cas aujourd'hui.
 rennes . conditions géo: logement . EPCI = '243500139'
-rennes . aides:
+rennes . montant:
   applicable si: conditions géo
   remplace: intercommunalité
   valeur: non

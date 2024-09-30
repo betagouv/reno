@@ -31,7 +31,7 @@ const topList = rules['ampleur . tous les dispositifs'].somme,
 
 const regexp = /aides locales \. (.+) \. montant$/
 
-export const findAideLocale = (rules, engine) => {
+export const findAidesLocales = (rules, engine) => {
   const candidates = Object.entries(rules).filter(
     ([dottedName]) =>
       dottedName.match(regexp) && dottedName.split(' . ').length === 3,
@@ -39,32 +39,47 @@ export const findAideLocale = (rules, engine) => {
 
   const found = candidates
     .map(([dottedName]) => engine.evaluate(dottedName))
-    .find((evaluation) => evaluation.nodeValue > 0)
+    .filter(
+      (evaluation) =>
+        evaluation.nodeValue > 0 || evaluation.nodeValue === false,
+    )
 
   console.log('lightbrown aides locales', {
     candidates,
     found,
   })
-  if (!found) return {}
+
   try {
-    return { name: capitalise0(found.dottedName.match(regexp)[1]), found }
+    return found.map((evaluation) => ({
+      ...evaluation,
+      name: capitalise0(evaluation.dottedName.match(regexp)[1]),
+      level: rules[evaluation.dottedName].remplace,
+    }))
   } catch (e) {
     console.error('Could not derive the name of the aide locale')
-    return {}
+    return []
   }
 }
+
 export function useAides(engine, situation) {
   const aides = list.map((aide) => {
     const evaluation = engine.setSituation(situation).evaluate(aide.dottedName)
     const value = formatValue(evaluation, { precision: 0 })
     console.log(
-      'lightyellow useaides situation',
-      engine.evaluate('copropriété . prime individuelle'),
+      'lightbrown useaides aides locales',
+      engine
+        .getParsedRules()
+        ['aides locales . total'].rawNode.somme.map(
+          (name) => 'aides locales . ' + name,
+        )
+        .map((name) => engine.evaluate(name)),
     )
 
     const status = computeAideStatus(evaluation)
     const marque2 = aide.dottedName.startsWith('aides locales')
-      ? findAideLocale(rules, engine).name
+      ? findAidesLocales(rules, engine)
+          .map((aide) => aide.name)
+          .join(', ')
       : aide['complément de marque']
 
     return {
