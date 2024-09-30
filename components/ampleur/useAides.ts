@@ -65,15 +65,6 @@ export function useAides(engine, situation) {
   const aides = list.map((aide) => {
     const evaluation = engine.setSituation(situation).evaluate(aide.dottedName)
     const value = formatValue(evaluation, { precision: 0 })
-    console.log(
-      'lightbrown useaides aides locales',
-      engine
-        .getParsedRules()
-        ['aides locales . total'].rawNode.somme.map(
-          (name) => 'aides locales . ' + name,
-        )
-        .map((name) => engine.evaluate(name)),
-    )
 
     const status = computeAideStatus(evaluation)
     const marque2 = aide.dottedName.startsWith('aides locales')

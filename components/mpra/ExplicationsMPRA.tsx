@@ -1,9 +1,7 @@
 import Value from '@/components/Value'
-import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 
 import Link from 'next/link'
-import ExplicationAngers from './locales/ExplicationAngers'
 
 export default function ExplicationsMPRA({
   engine,
@@ -11,14 +9,6 @@ export default function ExplicationsMPRA({
   choice,
   setSearchParams,
 }) {
-  const locales = engine
-      .setSituation(situation)
-      .evaluate('aides locales . total').nodeValue,
-    hasLocales = locales > 0
-
-  const angers = engine.evaluate('aides locales . angers . aides').nodeValue,
-    hasAngers = angers > 0
-
   return (
     <section
       css={`
@@ -51,26 +41,7 @@ export default function ExplicationsMPRA({
             Explications
           </h4>
         </summary>
-        {hasLocales ? (
-          <ol
-            css={`
-              list-style-type: circle;
-              li {
-                margin-bottom: 1rem;
-              }
-            `}
-          >
-            <li>
-              <Etat {...{ engine, situation, choice }} />
-            </li>
-
-            <li>
-              <ExplicationAngers {...{ engine, situation, choice }} />
-            </li>
-          </ol>
-        ) : (
-          <Etat {...{ engine, situation, choice }} />
-        )}
+        <Etat {...{ engine, situation, choice }} />
         <Link
           title="Comprendre le calcul en détail"
           css={`

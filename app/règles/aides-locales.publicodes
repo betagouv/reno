@@ -17,7 +17,7 @@
     département: 0 €
     région: 0 €
 
-total:
+montant:
   icône: 'hexagone-contour.svg'
   somme:
     - commune
@@ -25,7 +25,6 @@ total:
     - département
     - région
 
-montant: total
 #########
 
 besançon:
@@ -271,8 +270,7 @@ angers . conditions de base:
     - logement . propriétaire occupant
     - conditions géo
 
-angers . montant: aides
-angers . aides:
+angers . montant:
   remplace: intercommunalité
   somme:
     - aides socles . montant

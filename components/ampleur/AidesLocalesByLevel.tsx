@@ -3,8 +3,16 @@ import Image from 'next/image'
 import { No, Yes } from '../ResultUI'
 import { Card } from '../UI'
 import { InformationBlock } from './AideAmpleur'
+import ExplicationsMPRA from '../mpra/ExplicationsMPRA'
+import ExplicationAngers from '../mpra/locales/ExplicationAngers'
 
-export default function AidesLocalesByLevel({ aides, level }) {
+export default function AidesLocalesByLevel({
+  aides,
+  level,
+  engine,
+  situation,
+}) {
+  console.log('purple', aides)
   const activeAide = aides.find((aide) => aide.level === level)
   return (
     <li
@@ -41,7 +49,11 @@ export default function AidesLocalesByLevel({ aides, level }) {
                   margin-right: 0.8rem !important;
                 `}
               />
-              <p></p>
+              {activeAide.dottedName.startsWith('aides locales . angers') ? (
+                <ExplicationAngers {...{ engine, situation }} />
+              ) : (
+                <p>Pas de détails pour l'instant</p>
+              )}
             </div>
           </Card>
           {false && (

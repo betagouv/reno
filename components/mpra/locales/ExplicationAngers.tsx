@@ -1,3 +1,4 @@
+import { getAmpleurDPEChoice } from '@/components/ScenariosSelector'
 import Value from '@/components/Value'
 
 const Base = ({ engine, situation, choice, showTotal }) => (
@@ -51,7 +52,8 @@ const Base = ({ engine, situation, choice, showTotal }) => (
 )
 
 // This should be generalised to any local subvention
-export default function ExplicationAngers({ engine, situation, choice }) {
+export default function ExplicationAngers({ engine, situation }) {
+  const choice = getAmpleurDPEChoice(situation)
   const conditionBBCAngers = engine
     .setSituation({ ...situation, 'projet . DPE visé': choice + 1 })
     .evaluate(
@@ -71,7 +73,7 @@ export default function ExplicationAngers({ engine, situation, choice }) {
               'projet . travaux': 999999,
               'projet . DPE visé': choice + 1,
             },
-            dottedName: 'aides locales . angers . aides',
+            dottedName: 'aides locales . angers . montant',
             state: 'prime-secondary',
           }}
         />{' '}

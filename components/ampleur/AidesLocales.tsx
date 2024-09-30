@@ -15,7 +15,7 @@ import AidesLocalesByLevel from './AidesLocalesByLevel'
 import { findAidesLocales } from './useAides'
 import MapBehindCTA from '../MapBehindCTA'
 
-const levels = rules['aides locales . total'].somme
+const levels = rules['aides locales . montant'].somme
 
 const Hexagone = () => (
   <Image
@@ -76,7 +76,10 @@ export default function AidesLocales({
 
       <ul>
         {levels.map((level) => (
-          <AidesLocalesByLevel aides={aides} level={level} key={level} />
+          <AidesLocalesByLevel
+            {...{ aides, level, situation, engine }}
+            key={level}
+          />
         ))}
       </ul>
 
