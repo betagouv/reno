@@ -188,7 +188,7 @@ export default function AmpleurSummary({
           </CTAWrapper>
         </div>
         {neSaisPasEtNonEligibles.length > 0 && (
-          <div title="Aides auxquelles vous n'êtes pas éligible">
+          <div>
             {neSaisPasEtNonEligibles.map((aide) => {
               const text = aide.marque,
                 text2 = aide['complément de marque']
