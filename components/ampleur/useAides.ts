@@ -33,8 +33,7 @@ const regexp = /aides locales \. (.+) \. montant$/
 
 export const findAidesLocales = (rules, engine) => {
   const candidates = Object.entries(rules).filter(
-    ([dottedName]) =>
-      dottedName.match(regexp) && dottedName.split(' . ').length === 3,
+    ([dottedName, rule]) => dottedName.match(regexp) && rule.remplace,
   )
 
   const found = candidates
@@ -52,6 +51,7 @@ export const findAidesLocales = (rules, engine) => {
   try {
     return found.map((evaluation) => ({
       ...evaluation,
+      //TODO get the title, or a better more precise name
       name: capitalise0(evaluation.dottedName.match(regexp)[1]),
       level: rules[evaluation.dottedName].remplace,
     }))
