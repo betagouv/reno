@@ -24,7 +24,7 @@ export default function FaqPage({ searchParams }) {
         <FAQ />
         <h2>Nous contacter par mail</h2>
         <p>
-          Pour des demandes privées, vous pouvez écrire directement à l'équipe à{' '}
+          Pour des demandes privées ou nécessitant une réponse, vous pouvez écrire directement à l'équipe à{' '}
           <a href="mailto:contact@mesaidesreno.fr">notre adresse mel</a>.<br />
         </p>
         <Contact fromLocation={searchParams.fromLocation} />

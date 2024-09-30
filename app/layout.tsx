@@ -5,6 +5,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import localFont from 'next/font/local'
 import { description } from './page'
+import Contact from './contact/Contact'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -69,6 +70,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <Contact display="fixed" />
         </StyledComponentsRegistry>
         <Matomo />
       </body>
