@@ -99,11 +99,11 @@ besançon . occupant . socle:
       - si: projet . gain energétique < 30 %
         alors:
           valeur: 25 % * projet . travaux
-          plafond: 30000 €
+          plafond: 3000 €
       - si: projet . gain energétique < 35 %
         alors:
           valeur: 30 % * projet . travaux
-          plafond: 42000 €
+          plafond: 4200 €
       - si: projet . gain energétique < 40 %
         alors:
           valeur: 35 % * projet . travaux
