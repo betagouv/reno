@@ -263,7 +263,7 @@
   valeurs attendues:
     MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
-    aides locales . montant: non
+    aides locales . montant: 0
 - description: |
     Couple aisé, passoire, 4 sauts, ~ 70k € de travaux
   situation:
