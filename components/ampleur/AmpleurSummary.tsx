@@ -53,6 +53,11 @@ export default function AmpleurSummary({
     .setSituation(extremeSituation)
     .evaluate('ampleur . montant')
 
+  console.log(
+    'purple test',
+    engine.evaluate('conditions communes'),
+    engine.evaluate('logement . au moins 15 ans'),
+  )
   const value = formatValue(evaluation, { precision: 0 })
 
   const aides = useAides(engine, extremeSituation)
