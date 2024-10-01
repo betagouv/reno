@@ -704,5 +704,5 @@
     taxe foncière . condition de dépenses: oui
   valeurs attendues:
     MPR . accompagnée . éligible: non
-    MPR . non accompagnée . éligible: non
-    logement . commune . denormandie: oui
+    taxe foncière . commune . éligible: oui
+    taxe foncière . montant: 2433
