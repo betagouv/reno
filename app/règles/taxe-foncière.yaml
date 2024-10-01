@@ -1,9 +1,8 @@
 taxe foncière:
   marque: Exonération de taxe foncière
   description: |
-    Vore commune peut proposer une exonération de la taxe foncière de 50 % ou 100 % pendant 3 ans pour certains logements rénovés.
+    Votre commune peut proposer une exonération de la taxe foncière de 50 % ou 100 % pendant 3 ans pour certains logements rénovés. <a href="/taxe-fonciere/communes-eligibles">Voici la liste</a>.
   informations utiles: |
-    - Il n'existe pas de liste officielle nous permettant de savoir si votre commune propose cette exonération, c'est à vous de le demander à votre <a href="https://www.impots.gouv.fr/contacts">centre des impôts</a>. Voici <a href="/taxe-fonciere/communes-eligibles">une sélection</a> de quelques communes éligibles.
     - Votre logement doit avoir été construit avant le 1er janvier 1989
     - Un montant minimum de travaux de rénovation thermique doit avoir été engagé:
         - soit 10 000 € l'année précédente

@@ -33,10 +33,7 @@ export default function TaxeFoncière({
   return (
     <AideAmpleur dottedName={'taxe foncière'}>
       <div>
-        <p>
-          Vore commune peut proposer une exonération de la taxe foncière de 50 %
-          ou 100 % pendant 3 ans pour certains logements rénovés.
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
         {communeEligible}
         {communeName != null &&
           (!communeEligible ? (
@@ -49,7 +46,7 @@ export default function TaxeFoncière({
               La commune {communeName} de votre logement est <Yes>éligible</Yes>
               ,{' '}
               {taux ? (
-                <p>pour une exonération de {taux}</p>
+                <p>pour une exonération de {taux}.</p>
               ) : (
                 <p>
                   mais nous ne connaissons pas son taux (50 ou 100 %)
