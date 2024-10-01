@@ -53,8 +53,10 @@ export const findAidesLocales = (rules, engine) => {
       const aideLocalePart = evaluation.dottedName.match(regexp)[1]
       const place = aideLocalePart.split(' . ')[0]
       const rule = rules[evaluation.dottedName],
+        titre = rule.titre,
         name = capitalise0(
-          `${place} : ${rule.titre}` || aideLocalePart.split(' . ').join(' - '),
+          `${place} ${titre ? ` : ${rule.titre}` : ''}` ||
+            aideLocalePart.split(' . ').join(' - '),
         )
       console.log('cerise', name)
       return {
