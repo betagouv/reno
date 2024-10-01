@@ -88,7 +88,13 @@ export default function AmpleurSummary({
         `}
       >
         {aides
-          .filter((aide) => aide.status === true && !aide['aide parente'])
+          .filter((aide) => {
+            if (aide.status !== true) return false
+            const isChild = aide['aide parente']
+            if (!isChild) return true
+            if (expanded) return true
+            return false
+          })
           .map((aide) => {
             const text = aide.marque,
               text2 = aide['complément de marque']

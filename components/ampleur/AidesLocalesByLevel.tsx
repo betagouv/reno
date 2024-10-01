@@ -51,6 +51,12 @@ export default function AidesLocalesByLevel({
               />
               {activeAide.dottedName.startsWith('aides locales . angers') ? (
                 <ExplicationAngers {...{ engine, situation }} />
+              ) : activeAide.dottedName.startsWith(
+                  'aides locales . Besançon',
+                ) ? (
+                <p>
+                  <Yes>Besançon</Yes>
+                </p>
               ) : (
                 // TODO connect the locale/Place component here, injecting the user situation and handling the fast that it's a wide explanation that should be folded by default, giving only the total amount before click
                 <p>Pas de détails pour l'instant</p>
