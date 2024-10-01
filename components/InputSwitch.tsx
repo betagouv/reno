@@ -222,7 +222,7 @@ export default function InputSwitch({
                     ? 'oui'
                     : 'non',
                   'logement . commune . denormandie':
-                    result['logement . commune . denormandie'],
+                    result.eligibilite['logement . commune . denormandie'],
                 },
                 false,
                 answeredQuestions,
