@@ -270,7 +270,7 @@ export const BlocAide = styled.div`
   text-align: left;
   padding: 1.5rem 1.5rem 1.75rem;
   border: 1px solid #ddd;
-  border-bottom: 3px solid #000091;
+  border-bottom: 3px solid var(--color);
   background: white;
   margin-bottom: 1rem;
   .aide-header {
@@ -286,7 +286,7 @@ export const BlocAide = styled.div`
     }
   }
   h3 {
-    color: #000091;
+    color: var(--color);
     margin: 1rem 0rem;
   }
   .aide-details {
@@ -536,7 +536,7 @@ export const TabHeader = styled.li`
   }
   button {
     background-color: #fff;
-    color: #000091;
+    color: var(--color);
     appearance: none;
     border: none;
     &[aria-selected='true'] {
@@ -545,11 +545,11 @@ export const TabHeader = styled.li`
         1px calc(100% - 1px),
         1px calc(100% - 1px),
         0 1px;
-      background-image: linear-gradient(0deg, #000091, #000091),
+      background-image: linear-gradient(0deg, var(--color), var(--color)),
         linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd),
         linear-gradient(0deg, #ddd, #ddd);
       &:before {
-        background-color: #000091;
+        background-color: var(--color);
       }
     }
     &:not([aria-selected='true']) {
@@ -623,7 +623,7 @@ export const TabPanel = styled.div`
 export const AccordionTitle = styled.button`
   background-color: white;
   align-items: center;
-  color: #000091;
+  color: var(--color);
   display: inline-flex;
   flex-direction: row;
   font-size: 1rem;
