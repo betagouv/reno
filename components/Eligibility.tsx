@@ -109,7 +109,7 @@ export default function Eligibility({
         {noMpr && ceeConditions && (
           <p>
             <Yes>
-              <a href="#parcours-geste">Vous êtes éligible</a>
+              <a href="#parcours-gestes">Vous êtes éligible</a>
             </Yes>{' '}
             au parcours par geste via le dispositif CEE.
             <br />
@@ -123,7 +123,7 @@ export default function Eligibility({
         {!noMpr && !mpra && (
           <p>
             <Yes>
-              <a href="#parcours-geste">Vous êtes éligible</a>
+              <a href="#parcours-gestes">Vous êtes éligible</a>
             </Yes>{' '}
             au parcours par geste (MaPrimeRénov' et CEE).
             <br />
@@ -142,7 +142,7 @@ export default function Eligibility({
             </Yes>{' '}
             au parcours accompagné, vous êtes aussi{' '}
             <Yes>
-              <a href="#parcours-geste">éligible</a>
+              <a href="#parcours-gestes">éligible</a>
             </Yes>{' '}
             au parcours par geste mais seulement via le dispositif CEE. Vous
             devez choisir l'un des deux parcours.
