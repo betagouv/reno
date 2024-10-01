@@ -684,3 +684,25 @@
     MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
     PTZ . montant: 0
+
+- description: |
+    Couple aisé, maison secondaire
+  situation:
+    logement . résidence principale propriétaire: non
+    logement . résidence principale locataire: non
+    vous . propriétaire . condition: oui
+    logement . type: "'appartement'"
+    logement . surface: 47
+    logement . période de construction: "'au moins 25 ans'"
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 4
+    projet . DPE visé: 1
+    projet . travaux: 49000
+    ménage . code région: "'11'"
+    logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
+    taxe foncière . condition de dépenses: oui
+  valeurs attendues:
+    MPR . accompagnée . éligible: non
+    MPR . non accompagnée . éligible: non
+    logement . commune . denormandie: oui
