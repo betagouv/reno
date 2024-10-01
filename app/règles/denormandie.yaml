@@ -27,7 +27,8 @@ denormandie . conditions:
     - logement . commune . denormandie
 
 logement . commune . denormandie:
-  formule: logement . commune
+  applicable si:
+    est défini: logement . commune
   par défaut: non
   note: |
     Cette variable est normalement remplie automatiquement par Mes Aides Réno.

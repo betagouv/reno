@@ -67,6 +67,8 @@ plop:
 taxe foncière . commune:
   # On n'utilise pas logement . commune pour l'instant car elle peut être désacitée par occupant = non
 taxe foncière . commune . éligible:
+  applicable si:
+    est défini: logement . commune
   par défaut: non
   description: La commune du logement a-t-elle voté une exonération de taxe foncière ?
 taxe foncière . commune . taux:
