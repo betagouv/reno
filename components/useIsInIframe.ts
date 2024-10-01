@@ -24,6 +24,9 @@ export function useIsCompact() {
   let params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : "/");
   useEffect(() => {
     setIsCompact(params.has('display') && params.get('display') == "compact");
+    if(params.has('color')) {
+      document.documentElement.style.setProperty('--color', `#${params.get('color')}`);
+    }
   }, []);
 
   return isCompact;
