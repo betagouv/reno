@@ -17,7 +17,7 @@ export default function Entreprise({ data }) {
   const telephone = data.Telephone_Structure
 
   const siteRaw = data.Site_Internet_Structure,
-    site = siteRaw.startsWith('http') ? siteRaw : 'https://' + siteRaw
+    site = siteRaw?.startsWith('http') ? siteRaw : 'https://' + siteRaw
 
   return (
     <Card
