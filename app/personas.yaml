@@ -263,6 +263,7 @@
 - description: |
     Couple aisé, passoire, 4 sauts, ~ 70k € de travaux
   situation:
+    vous . propriétaire . condition: oui
     ménage . personnes: 2
     ménage . revenu: 70000
     DPE . actuel: 6
@@ -274,8 +275,8 @@
     logement . type: "'maison'"
     logement . surface: 130
     logement . période de construction: "'au moins 25 ans'"
-    projet . travaux: 82000 €
-    logement . prix d'achat: 230000 €
+    projet . travaux: 82000
+    logement . prix d'achat: 230000
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 45
     MPR . non accompagnée . éligible: non

@@ -82,7 +82,7 @@ export default function Denormandie({
                   autoFocus={false}
                   value={situation['projet . travaux']}
                   placeholder="mes travaux"
-                  min="0"
+                  min="1000"
                   onChange={(rawValue) => {
                     const value = +rawValue === 0 ? undefined : rawValue
                     setSearchParams(
@@ -114,7 +114,7 @@ export default function Denormandie({
                   autoFocus={false}
                   value={situation["logement . prix d'achat"]}
                   placeholder="prix du logement"
-                  min="0"
+                  min="1000"
                   onChange={(rawValue) => {
                     const value = +rawValue === 0 ? undefined : rawValue
                     setSearchParams(
@@ -125,7 +125,7 @@ export default function Denormandie({
                       false,
                     )
                   }}
-                  step="100"
+                  step="1000"
                   css={`
                     border-bottom: 2px solid #d1d1fb !important;
                   `}
@@ -204,7 +204,8 @@ const Result = ({ engine, situation }) => {
   const thresholdCondition = engine
     .setSituation(situation)
     .evaluate('denormandie . seuil travaux minimum')
-  const value = engine.evaluate('denormandie . montant')
+
+  const value = engine.setSituation(situation).evaluate('denormandie . montant')
   const threshold = formatValue(
     engine.evaluate('denormandie . travaux minimum'),
     { precision: 0 },

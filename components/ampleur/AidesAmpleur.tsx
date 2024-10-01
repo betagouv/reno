@@ -47,7 +47,8 @@ export default function AidesAmpleur({
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   const exampleSituation = createExampleSituation(engine, situation, false)
-  const aides = useAides(engine, exampleSituation) // TODO which situation
+  const extremeSituation = createExampleSituation(engine, situation, true)
+  const aides = useAides(engine, extremeSituation) // TODO which situation
 
   const eligibles = aides.filter((aide) => aide.status === true)
   const nonEligibles = aides.filter((aide) => aide.status === false)
@@ -108,8 +109,6 @@ export default function AidesAmpleur({
       <section>
         {eligibles.map((aide) => {
           const AideComponent = correspondance[aide.baseDottedName]
-
-          console.log('yellow', AideComponent)
 
           if (AideComponent)
             return (

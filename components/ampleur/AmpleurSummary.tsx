@@ -22,15 +22,18 @@ export const computeAideStatus = (evaluation) => {
 
 export const createExampleSituation = (engine, situation, extreme = false) => {
   const exampleSituation = {
-    'projet . travaux': extreme
-      ? 999999
-      : roundToThousands(
-          engine.evaluate('projet . enveloppe estimée').nodeValue,
-          5,
-        ),
+    'projet . travaux': roundToThousands(
+      engine.evaluate('projet . enveloppe estimée').nodeValue,
+      5,
+    ),
+    ...situation,
+    ...(extreme
+      ? {
+          'projet . travaux': 999999,
+        }
+      : {}),
     'vous . propriétaire': 'oui',
     'taxe foncière . condition de dépenses': 'oui',
-    ...situation,
   }
   return exampleSituation
 }

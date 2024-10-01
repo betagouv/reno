@@ -464,6 +464,7 @@ projet . travaux . notification:
 
 projet . enveloppe estimée:
   formule: par surface * logement . surface
+
 projet . enveloppe estimée . par surface:
   variations:
     - si: logement . type = 'maison'

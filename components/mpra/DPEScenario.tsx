@@ -126,7 +126,7 @@ export default function DPEScenario({
                       autoFocus={false}
                       value={exampleSituation['projet . travaux']}
                       placeholder="mes travaux"
-                      min="0"
+                      min="1000"
                       onChange={(rawValue) => {
                         const value = +rawValue === 0 ? undefined : rawValue
                         setSearchParams(
@@ -137,7 +137,7 @@ export default function DPEScenario({
                           false,
                         )
                       }}
-                      step="100"
+                      step="1000"
                       css={`
                         border-bottom: 2px solid #d1d1fb !important;
                       `}
