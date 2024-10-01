@@ -83,8 +83,7 @@ besançon . occupant . conditions:
 besançon . occupant . montant:
   titre: Dispositif AAPEL propriétaire occupant
   description: |
-    [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement), [PDF AAPEL](https://www.grandbesancon.fr/wp-content/uploads/sites/2/2019/06/Aides-financi%C3%A8res-r%C3%A9novation-des-logements-2019.pdf).
-    [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
+    Voici la [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement) de l'aide, le dossier [PDF pour le dispositif AAPEL](https://www.grandbesancon.fr/wp-content/uploads/sites/2/2019/06/Aides-financi%C3%A8res-r%C3%A9novation-des-logements-2019.pdf), et la fiche du [registre des aides ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
   note: |
     À étudier : "Clause anti spéculative d'une durée de 5 ans".
   applicable si: conditions

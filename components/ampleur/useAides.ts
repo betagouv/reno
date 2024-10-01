@@ -49,12 +49,19 @@ export const findAidesLocales = (rules, engine) => {
   })
 
   try {
-    return found.map((evaluation) => ({
-      ...evaluation,
-      //TODO get the title, or a better more precise name
-      name: capitalise0(evaluation.dottedName.match(regexp)[1]),
-      level: rules[evaluation.dottedName].remplace,
-    }))
+    return found.map((evaluation) => {
+      const aideLocalePart = evaluation.dottedName.match(regexp)[1]
+      const place = aideLocalePart.split(' . ')[0]
+      const rule = rules[evaluation.dottedName],
+        name = capitalise0(
+          `${place} ${rule.titre}` || aideLocalePart.split(' . ').join(' - '),
+        )
+      return {
+        ...evaluation,
+        name,
+        level: rules[evaluation.dottedName].remplace,
+      }
+    })
   } catch (e) {
     console.error('Could not derive the name of the aide locale')
     return []

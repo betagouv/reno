@@ -77,13 +77,13 @@ export default function AidesLocales({
       <ul>
         {levels.map((level) => (
           <AidesLocalesByLevel
-            {...{ aides, level, situation, engine }}
+            {...{ aides, level, situation, engine, rules }}
             key={level}
           />
         ))}
       </ul>
 
-      <AideCTA text="Découvrir plus d'aides locales">
+      <AideCTA text="Découvrir les aides locales">
         <p>
           N'hésitez pas à consulter la{' '}
           <a href="https://www.anil.org/aides-locales-travaux/">
