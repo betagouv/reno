@@ -5,6 +5,7 @@ import crossIcon from '@/public/remix-close-empty.svg'
 import checkIcon from '@/public/check-green.svg'
 import GestesPreview from './mprg/GestesPreview'
 import { ExplicationMPRG, InapplicableBlock } from './explications/Éligibilité'
+import { push } from '@socialgouv/matomo-next'
 
 export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
   const eligibleMPRG = engine.evaluate('conditions communes').nodeValue
@@ -115,7 +116,17 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
             >
               <CTAWrapper $justify="end">
                 <CTA $fontSize="normal">
-                  <Link href={url}>
+                  <Link
+                    href={url}
+                    onClick={() =>
+                      push([
+                        'trackEvent',
+                        'Simulateur Principal',
+                        'Clic',
+                        'parcours par geste',
+                      ])
+                    }
+                  >
                     <span>Choisir ce parcours</span>
                   </Link>
                 </CTA>

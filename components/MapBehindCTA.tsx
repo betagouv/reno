@@ -3,6 +3,7 @@ import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import Image from 'next/image'
 import { CTA, CTAWrapper } from './UI'
 import useSetSearchParams from './useSetSearchParams'
+import { push } from '@socialgouv/matomo-next'
 
 //TODO this component should be turned into a <details tag, like AideAmpleur's CTA
 // Appelé "Map" parce qu'on montrait les conseillers sur une carte, mais ça a été retiré temporairement pour se concentrer sur une première mise en prod plus simple, mais la carte marchait
@@ -16,7 +17,8 @@ export default function MapBehindCTA({
 }) {
   const clickedCta = searchParams.cta
   const setSearchParams = useSetSearchParams()
-  const clickCta = () =>
+  const clickCta = () => {
+    push(["trackEvent", "Simulateur Principal", "Clic", "trouver conseiller"])
     setSearchParams({
       cta:
         clickedCta == null
@@ -25,6 +27,8 @@ export default function MapBehindCTA({
             ? 'refermé'
             : 'cliqué',
     })
+  }
+    
   return (
     <section>
       <CTAWrapper $justify="left">

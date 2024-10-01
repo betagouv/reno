@@ -14,7 +14,6 @@ const MatomoComponent = () => {
     }
     return () => {
       setInitialised(true)
-      push(['HeatmapSessionRecording::disable'])
     }
   }, [initialised, setInitialised])
 

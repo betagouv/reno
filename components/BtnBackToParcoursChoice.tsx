@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { encodeSituation } from './publicodes/situationUtils'
 import { CTA, CTAWrapper } from './UI'
 import { omit } from './utils'
+import { push } from '@socialgouv/matomo-next'
 
 export default function BtnBackToParcoursChoice({
   setSearchParams,
@@ -31,7 +32,10 @@ export default function BtnBackToParcoursChoice({
           }
         `}
       >
-        <Link href={backUrl}>⬅ Retour au choix du parcours</Link>
+        <Link 
+          href={backUrl}  
+          onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "retour choix parcours"]) } 
+        >⬅ Retour au choix du parcours</Link>
       </CTA>
     </CTAWrapper>
   )

@@ -12,16 +12,19 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import Answers from './Answers'
+import Stepper from './Stepper'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
-import useIsInIframe from '@/components/useIsInIframe'
+import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
+import LogoCompact from '@/components/LogoCompact'
+import Answers from './Answers'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
+  const isCompact = useIsCompact()
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -65,7 +68,10 @@ function Form({ rules }) {
   return (
     <div>
       <Section>
-        <Answers
+        {isInIframe && isCompact && (
+          <LogoCompact css={`float: right;`} />
+        )}
+        <Stepper
           {...{
             answeredQuestions,
             nextQuestions,
@@ -74,6 +80,19 @@ function Form({ rules }) {
             situation,
           }}
         />
+        {!isCompact && (
+          <div css={`padding-top: 1rem;`}>
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+          </div>
+        )}
         {rule && (
           <InputSwitch
             {...{
@@ -89,9 +108,13 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      <br />
-      <UserProblemBanner />
-      <Share searchParams={searchParams} />
+      {(!isInIframe || !isCompact) && (
+        <>
+          <br />
+          <UserProblemBanner />
+          <Share searchParams={searchParams} />
+        </>
+      )}
       {!isInIframe && (
         <Section>
           <h2>Documentation</h2>

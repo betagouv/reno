@@ -32,6 +32,10 @@ export const No = styled.em`
     );
   box-decoration-break: clone;
   text-wrap: nowrap;
+  a {
+    text-decoration-color: black;
+    color: inherit;
+  }
 `
 export const Yes = styled.em`
   font-style: normal;
@@ -47,4 +51,8 @@ export const Yes = styled.em`
     );
   box-decoration-break: clone;
   text-wrap: nowrap;
+  a {
+    text-decoration-color: black;
+    color: inherit;
+  }
 `

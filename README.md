@@ -2,11 +2,14 @@
 
 
 > [!IMPORTANT]
-> 🚧 Ce projet est en plein développement. Il est instable et vous ne devez pas vous fier aveuglement aux règles métier qui y sont exposées
+> 🚧 Ce projet est en plein développement.
+> De nouvelles versions sont publiées fréquemment, potentiellement toutes les semaines.
+> En particulier, le modèle de calcul évolue en fonction de la loi et des améliorations métier, selon le [versionage sémantique](https://github.com/betagouv/reno/issues/41)
+> Si vous l'intégrez, il est de votre responsabilité de le maintenir à jour régulièrement.
 
 ## Le calcul des aides
 
-Sur /, dans un premier temps, les aides nationales : MPR accompagnée, et MPR non accompagnée (dit aussi gestes).
+Sur /, dans un premier temps, les aides nationales : MPR accompagnée, et MPR non accompagnée (dit aussi gestes). Nous y avons ajouté les CEE, et de nombreuses aides à la rénovation d'ampleur viendront les compléter. 
 
 ## Le coût des travaux
 

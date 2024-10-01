@@ -5,13 +5,14 @@ import logo from '@/public/logo.svg'
 import css from '@/components/css/convertToJs'
 import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper, Title } from '@/app/LayoutUI'
-import useIsInIframe from '@/components/useIsInIframe'
+import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
 import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
-  const pathname = usePathname(),
-    isBareIframe = pathname === '/module/integration'
+  const isCompact = useIsCompact()
+  const pathname = usePathname()
+  const isBareIframe = pathname === '/module/integration' || (isInIframe && isCompact)
 
   if (isBareIframe) return null
   return (
@@ -66,8 +67,8 @@ export default function Header() {
           <Link href="/blog">Blog</Link>
           <Link href="/aides">Les aides</Link>
           <Link href="/a-propos">À propos</Link>
-          <Link href="/faq">Questions et contact</Link>
-          <Link href="/integration">Partenaires</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/devenir-partenaire">Devenir Partenaire</Link>
         </div>
       </nav>
     </HeaderWrapper>

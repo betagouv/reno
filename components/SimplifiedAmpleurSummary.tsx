@@ -6,6 +6,7 @@ import crossIcon from '@/public/remix-close-empty.svg'
 import { ProfessionnelLabel } from './AmpleurSummary'
 import { CTA, CTAWrapper, Card, PrimeStyle } from './UI'
 import { InapplicableBlock } from './explications/Éligibilité'
+import { push } from '@socialgouv/matomo-next'
 
 const dottedName = 'MPR . accompagnée . montant'
 export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
@@ -22,7 +23,7 @@ export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
   return (
     <section>
       <header>
-        <h3>Faire un rénovation d'ampleur</h3>
+        <h3>Faire une rénovation d'ampleur</h3>
         <ProfessionnelLabel />
         <p
           css={`
@@ -80,7 +81,10 @@ export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
         >
           <CTAWrapper $justify="end">
             <CTA $fontSize="normal">
-              <Link href={url}>Découvrir le détail</Link>
+              <Link 
+                href={url}
+                onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "parcours ampleur"]) } 
+              >Découvrir le détail</Link>
             </CTA>
           </CTAWrapper>
         </div>

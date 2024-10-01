@@ -2,6 +2,7 @@ import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { CTA, CTAWrapper } from '@/components/UI'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { push } from '@socialgouv/matomo-next'
 
 export default function FormButtons({
   currentValue,
@@ -27,7 +28,10 @@ export default function FormButtons({
   return (
     <CTAWrapper>
       <CTA $importance="secondary" title="Retour en arrière">
-        <button onClick={() => router.back()}>←</button>
+        <button onClick={() => {
+          push(["trackEvent", "Simulateur Principal", "Précédent", currentQuestion]);
+          router.back()
+        }}>←</button>
       </CTA>
       <CTA $importance={showValidation ? 'primary' : 'inactive'}>
         {showValidation ? (
@@ -47,6 +51,7 @@ export default function FormButtons({
               'url',
               false,
             )}
+            onClick={() => push(["trackEvent", "Simulateur Principal", "Valide", currentQuestion]) }
             title="Aller à l'étape suivante"
           >
             Suivant

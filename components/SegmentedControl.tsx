@@ -13,8 +13,8 @@ const HiddenInput = styled.input`
     width: 100%;
     z-index: -1;
     &:checked+label {
-        box-shadow: inset 0 0 0 1px #000091;
-        color: #000091;
+        box-shadow: inset 0 0 0 1px var(--color);
+        color: var(--color);
     }
     &:not(:checked)+label {
         -webkit-mask-image: linear-gradient(0deg,#fff,#fff),linear-gradient(0deg,#fff,#fff),url("data:image/svg+xml;charset=uft8,<svg xmlns='http://www.w3.org/2000/svg' width='4px' height='4px' viewBox='0 0 4 4'><circle fill='%23fff' r='2' cx='2' cy='2' /></svg>"),url("data:image/svg+xml;charset=uft8,<svg xmlns='http://www.w3.org/2000/svg' width='4px' height='4px' viewBox='0 0 4 4'><circle fill='%23fff' r='2' cx='2' cy='2' /></svg>"),url("data:image/svg+xml;charset=uft8,<svg xmlns='http://www.w3.org/2000/svg' width='4px' height='4px' viewBox='0 0 4 4'><circle fill='%23fff' r='2' cx='2' cy='2' /></svg>"),url("data:image/svg+xml;charset=uft8,<svg xmlns='http://www.w3.org/2000/svg' width='4px' height='4px' viewBox='0 0 4 4'><circle fill='%23fff' r='2' cx='2' cy='2' /></svg>");

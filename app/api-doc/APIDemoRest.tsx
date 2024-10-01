@@ -13,6 +13,7 @@ import { CTA, InternalLink, MiseEnAvant } from '@/components/UI'
 import { omit } from '@/components/utils'
 import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
+import { Select } from '@/components/InputUI'
 
 export default function APIDemoRest({ type, method = 'POST' }) {
   const [result, setResult] = useState('')
@@ -259,19 +260,3 @@ export const EvaluationValue = styled.div`
     margin-bottom: 0.4rem;
   }
 `
-
-export const Select = styled.select`
-  appearance: none;
-  line-height: 1.5rem;
-  padding: 0.5rem 2rem 0.5rem 0.5rem;
-  box-shadow: inset 0 -2px 0 0 #3a3a3a;
-  border: none;
-  background-color: #eee;
-  color: #3a3a3a;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23161616' d='m12 13.1 5-4.9 1.4 1.4-6.4 6.3-6.4-6.4L7 8.1z'/%3E%3C/svg%3E");
-  background-position: calc(100% - 0.5rem) 50%;
-  background-repeat: no-repeat;
-  background-size: 1rem 1rem;
-  border-radius: 0.25rem 0.25rem 0 0;
-`
-

@@ -86,7 +86,7 @@ const Images = styled.ul`
     text-align: center;
   }
   strong {
-    color: #000091;
+    color: var(--color);
   }
   img {
     width: 6rem;

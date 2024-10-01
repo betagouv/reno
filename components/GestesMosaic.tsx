@@ -73,19 +73,13 @@ export default function GestesMosaic({
     setSearchParams(encodedSituation, 'push', false)
   }
 
-  const nullSituation = Object.fromEntries(
-    questions.map((question) => [question[0], 'non']),
-  )
-
-  const runSituation = { ...nullSituation, ...situation }
-
   const count = questions.filter(
     ([dottedName]) => situation[dottedName] === 'oui',
   ).length
 
   const nextUrl = setSearchParams(
     {
-      ...encodeSituation(runSituation, false, [
+      ...encodeSituation(situation, false, [
         ...answeredQuestions,
         ...questions.map((q) => q[0]),
       ]),
