@@ -230,7 +230,7 @@ const Details = styled.details`
 `
 
 export const Number = styled.span`
-  background: #000093;
+  background: var(--color);
   border-radius: 1.4rem;
   width: 1.6rem;
   height: 1.6rem;
