@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const CustomQuestionWrapper = styled.section`
+  clear: both;
   margin-top: 0.6rem;
   h2 {
     margin-bottom: 2vh;

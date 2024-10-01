@@ -90,7 +90,7 @@ export default function Geste({
   const PrimeDisplay = ({ montantTotal, isExactTotal, rules, dottedName }) => (
     <>
       <div css={`margin: 0 0 0.6rem 0;`}>{rules[dottedName].titre || getRuleName(dottedName)}</div>
-      <PrimeStyle $inactive={montantTotal === "Non applicable"}>
+      <PrimeStyle css={`display: block;text-align:left;text-wrap: wrap;`} $inactive={montantTotal === "Non applicable"}>
         {montantTotal === "Non applicable" ? (
           <>Prime <strong>non applicable</strong> dans votre situation</>
         ) : (

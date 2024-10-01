@@ -147,8 +147,6 @@ export const FooterWrapper = styled.footer`
 
 export const PageBlock = styled.div`
   min-height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
 `
 
 export const TopBanner = styled.p`
