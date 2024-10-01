@@ -98,6 +98,8 @@ logement:
 logement . type:
   titre: Type de logement
   question: Le logement est-il une maison ou un appartement ?
+  description: |
+    Par maison, nous entendons maison individuelle hors copropriété.
   une possibilité parmi:
     possibilités:
       - 'maison'
