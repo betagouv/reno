@@ -13,11 +13,20 @@ import { getRuleName } from './publicodes/utils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import { useIsCompact } from './useIsInIframe'
 
-export const QuestionText = ({ rule, question: dottedName, rules, situation, engine }) => {
+export const QuestionText = ({
+  rule,
+  question: dottedName,
+  rules,
+  situation,
+  engine,
+}) => {
   if (isMosaicQuestion(dottedName, rule, rules))
     return gestesMosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
-  const text = rule.question.texte ? engine.setSituation(situation).evaluate(rule.question).nodeValue : rule.question || rule.titre || ruleName
+
+  const text = rule.question.texte
+    ? engine.setSituation(situation).evaluate(rule.question).nodeValue
+    : rule.question || rule.titre || ruleName
   if (text.endsWith(' ?'))
     return <span>{text.replace(/\s\?$/, '')}&nbsp;?</span>
   return <span>{text}</span>
@@ -44,13 +53,25 @@ export default function ClassicQuestionWrapper({
     rules,
   )
   return (
-    <div css={`clear: both;`}>
+    <div
+      css={`
+        clear: both;
+      `}
+    >
       <Card>
         {(!rule.type || !rule.type === 'question rhétorique') && (
           <QuestionHeader>
             <small>{categoryTitle}</small>
             <h3>
-              <QuestionText {...{ rule, question: currentQuestion, rules, situation, engine }} />
+              <QuestionText
+                {...{
+                  rule,
+                  question: currentQuestion,
+                  rules,
+                  situation,
+                  engine,
+                }}
+              />
             </h3>
             {rule['sous-titre'] && (
               <div
@@ -101,7 +122,7 @@ export default function ClassicQuestionWrapper({
             }}
           />
         </AnswerWrapper>
-        { isCompact && (
+        {isCompact && (
           <>
             <QuestionDescription {...{ currentQuestion, rule }} />
             <Answers
@@ -117,7 +138,7 @@ export default function ClassicQuestionWrapper({
         )}
       </Card>
       <Notifications {...{ currentQuestion, engine }} />
-      { !isCompact && (<QuestionDescription {...{ currentQuestion, rule }} />) }
+      {!isCompact && <QuestionDescription {...{ currentQuestion, rule }} />}
     </div>
   )
 }

@@ -23,10 +23,12 @@ PAR:
     Vous pouvez obtenir sous certaines conditions un prêt avance mutation avec **un taux zéro pendant 10 ans**.
 
 PAR . conditions:
-  toutes ces conditions:
-    - résidence principale
-    - ancienneté
-    - revenu
+PAR . conditions . communes:
+  valeur:
+    toutes ces conditions:
+      - résidence principale
+      - ancienneté
+      - revenu
 
 PAR . conditions . revenu:
   description: |
@@ -35,9 +37,10 @@ PAR . conditions . revenu:
     Les revenus retenus sont les revenus fiscaux de référence (RFR) de l'année N-1 (soit 2023 pour les demandes faites en 2024) précédant la date d'émission de l'offre de prêt. Ces revenus s'appuient sur l'avis d'impôt sur le revenu ou l'avis de situation déclarative à l'impôt sur le revenu si vous êtes non imposable.
 
     Si ces documents ne sont pas disponibles lors de la demande de prêt, c'est l'année N-2 (soit 2022 pour les demandes faites en 2024) qui est retenue.
-  une de ces conditions:
-    - ménage . revenu . classe = 'très modeste'
-    - ménage . revenu . classe = 'modeste'
+  valeur:
+    une de ces conditions:
+      - ménage . revenu . classe = 'très modeste'
+      - ménage . revenu . classe = 'modeste'
 
 PAR . conditions . résidence principale:
   valeur: logement . résidence principale
@@ -58,7 +61,7 @@ PAR . conditions . ancienneté:
 
 PAR . montant:
   titre: Montant du pret avance rénovation 0 %
-  applicable si: conditions
+  applicable si: conditions . communes
   note: Impléméntation imparfaite du montant, voir la description de la règle PTZ.
   valeur:
     variations:

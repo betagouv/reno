@@ -1,6 +1,10 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import { decodeDottedName, encodeSituation, getAnsweredQuestions } from './publicodes/situationUtils'
+import {
+  decodeDottedName,
+  encodeSituation,
+  getAnsweredQuestions,
+} from './publicodes/situationUtils'
 
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
@@ -8,9 +12,7 @@ import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 import Answers, { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './DPESelector'
 import GestesBasket from './GestesBasket'
-import GestesMosaic, {
-  gestesMosaicQuestions
-} from './GestesMosaic'
+import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
@@ -219,8 +221,9 @@ export default function InputSwitch({
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
                   'logement . commune . nom': `"${result.nom}"`,
-                  'taxe foncière . commune . éligible': result
-                    .eligibilite["taxe foncière . commune . éligible"]
+                  'taxe foncière . commune . éligible': result.eligibilite[
+                    'taxe foncière . commune . éligible'
+                  ]
                     ? 'oui'
                     : 'non',
                   'logement . commune . denormandie':
@@ -265,7 +268,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-    
+
   if (currentQuestion === 'MPR . non accompagnée . confirmation') {
     return (
       <GestesBasket
@@ -280,20 +283,22 @@ export default function InputSwitch({
       />
     )
   }
-  if(getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") && 
-     searchParams["parcours d'aide"].includes("à la carte")) {
-      return (
-        <GestesMosaic
-          {...{
-            rules,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: gestesMosaicQuestions,
-          }}
-        />
-      )
+  if (
+    getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
+    searchParams["parcours d'aide"].includes('à la carte')
+  ) {
+    return (
+      <GestesMosaic
+        {...{
+          rules,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          questions: gestesMosaicQuestions,
+        }}
+      />
+    )
   }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {

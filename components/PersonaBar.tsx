@@ -14,6 +14,7 @@ const matrixLines = [
   'MPR . accompagnée',
   'aides locales',
   'ampleur . prime individuelle copropriété',
+  "CEE . rénovation d'ampleur",
   'taxe foncière',
   'denormandie',
   'PTZ',
@@ -93,7 +94,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
         css={`
           margin-left: 12rem;
           white-space: nowrap;
-          height: 20rem;
+          height: 21.4rem;
           display: flex;
           align-items: start;
           overflow: scroll;
