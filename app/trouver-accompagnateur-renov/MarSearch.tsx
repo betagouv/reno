@@ -9,6 +9,7 @@ import { Loader } from './UI'
 import Entreprises from './Entreprises'
 
 export default function MarSearch({
+  situation,
   codeInsee: givenCodeInsee,
   what = 'trouver-accompagnateur-renov',
 }) {
