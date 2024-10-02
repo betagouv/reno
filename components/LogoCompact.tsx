@@ -1,7 +1,5 @@
 'use client'
 
-import { CTA } from './UI'
-import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import mesAidesReno from '@/public/logo.svg'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
@@ -40,15 +38,6 @@ export default function LogoCompact() {
           Mes <strong>Aides Réno</strong>
         </Title>
       </a>
-      <Image
-        css={`
-          position: relative;
-          top: 5px
-        `}
-        src={logoFranceRenov}
-        alt="Logo de France Rénov"
-        width="70"
-      />
     </div>
   )
 }
