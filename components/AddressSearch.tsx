@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import css from './css/convertToJs'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
-
+import checkIcon from '@/public/check-green.svg'
+import Image from 'next/image'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
@@ -67,6 +68,7 @@ export default function AddressSearch({ setChoice, situation }) {
       <input
         css={`
           margin: 0;
+          padding-right: 1.5rem !important;
           ${clicked && input && `border-bottom: 2px solid var(--validColor) !important;`}
         `}
         type="text"
@@ -78,6 +80,18 @@ export default function AddressSearch({ setChoice, situation }) {
           setInput(e.target.value)
         }}
       />
+      { clicked && input && 
+        <Image
+            src={checkIcon}
+            alt="Icône d'un check"
+            css={`
+              position: relative;
+              transform: translateY(-170%);
+              width: 20px;
+              height: 20px;
+            `}
+          />
+      }
       {validInput && !results && (
         <div
           css={`
@@ -108,7 +122,6 @@ export default function AddressSearch({ setChoice, situation }) {
           ))}
         </CityList>
       )}
-      {clicked && input && (<div css={`margin-top: 0.5rem;`}>✅Commune validée</div>)}
     </div>
   )
 }
