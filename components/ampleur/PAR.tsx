@@ -3,17 +3,17 @@ import PaymentTypeBlock from '../PaymentTypeBlock'
 import { Card, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
+// Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 
-export default function EcoPTZ({ rules }) {
-  const dottedName = 'PTZ'
+export default function PAR({ rules }) {
+  const dottedName = 'PAR'
+
+  const rule = rules[dottedName]
+
   return (
     <AideAmpleur dottedName={dottedName}>
       <div>
-        <p>
-          Vous pouvez emprunter jusqu'à 50 000 € sur 20 ans sans devoir
-          rembourser d'intérêts pour financer vos travaux de rénovation
-          energétique.
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
 
         <Card $background="#f7f8f8">
           <div
@@ -32,35 +32,38 @@ export default function EcoPTZ({ rules }) {
                 margin-right: 0.8rem !important;
               `}
             />
-            <p>
-              Par rapport à un prêt à la consommation de 50 000 € affecté aux
-              travaux à un taux de 5 % sur 20 ans,
-              <br /> l'éco-PTZ peut vous faire économiser{' '}
-              <a href="https://www.lafinancepourtous.com/outils/calculateurs/calculateur-de-credit-immobilier/">
-                <PrimeStyle>30 000 € d'intérêts</PrimeStyle>
-              </a>
-              .
-            </p>
+            <p>{rule.montant}</p>
           </div>
         </Card>
         <InformationBlock>
           <div
             dangerouslySetInnerHTML={{
-              __html: rules[dottedName].informationsUtilesHtml,
+              __html: rule.informationsUtilesHtml,
             }}
           />
         </InformationBlock>
         <PaymentTypeBlock>
-          <p>Le prêt sera à rembourser mensuellement.</p>
+          <p>{rule.paiement}</p>
         </PaymentTypeBlock>
-        <AideCTA text="Demander le prêt à taux zéro">
+        <AideCTA text="Demander le PAR 0 %">
           <p>
-            L'éco-PTZ est disponible auprès de{' '}
+            Assurez-vous d'abord que vos travaux de rénovation{' '}
+            <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
+              sont couverts
+            </a>{' '}
+            par ce dispositif. Dans le cas d'un dossier MaPrimeRénov'
+            accompagnée, ce sera probablement le cas.
+          </p>
+          <p>
+            Le PAR est disponible auprès de{' '}
             <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">
               ces établissements de crédits
             </a>
-            . Découvrir{' '}
-            <a href="https://www.service-public.fr/particuliers/vosdroits/F19905">
+            , colonne "Prêts avance mutation".{' '}
+          </p>
+          <p>
+            Découvrir{' '}
+            <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
               la démarche étape par étape
             </a>
             .

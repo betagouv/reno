@@ -47,6 +47,7 @@ ampleur . prime individuelle copropriété . montant:
 ampleur . prêt:
   somme:
     - PTZ . montant
+    - PAR . montant
 
 ampleur . montant écrêté:
   description: |

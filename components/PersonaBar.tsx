@@ -17,6 +17,7 @@ const matrixLines = [
   'taxe foncière',
   'denormandie',
   'PTZ',
+  'PAR',
 ]
 export default function PersonaBar({ startShown = false, selectedPersona }) {
   const [shown, show] = useState(startShown)
@@ -92,7 +93,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
         css={`
           margin-left: 12rem;
           white-space: nowrap;
-          height: 19rem;
+          height: 20rem;
           display: flex;
           align-items: start;
           overflow: scroll;

@@ -11,6 +11,7 @@ import { encodeDottedName } from '../publicodes/situationUtils'
 import Copro from './Copro'
 import Denormandie from './Denormandie'
 import EcoPTZ from './EcoPTZ'
+import PAR from './PAR.tsx'
 import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
@@ -23,6 +24,7 @@ const correspondance = {
   'MPR . accompagnée': MPRA,
   'MPR . accompagnée . prise en charge MAR': AideMAR,
   PTZ: EcoPTZ,
+  PAR: PAR,
   'aides locales': AidesLocales,
   'ampleur . prime individuelle copropriété': Copro,
   'taxe foncière': TaxeFoncière,

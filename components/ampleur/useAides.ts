@@ -14,6 +14,7 @@ const topList = rules['ampleur . tous les dispositifs'].somme,
     .map((dottedName) => {
       const rule = rules[dottedName]
       const split = dottedName.split(' . montant')
+      console.log('YOYO', split, dottedName)
       if (split.length > 1) {
         const parentRule = rules[split[0]]
         return {

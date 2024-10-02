@@ -1,6 +1,7 @@
 import { parse } from 'marked'
 
 import PTZ from '@/app/règles/PTZ.yaml'
+import PAR from '@/app/règles/PAR.publicodes'
 import ampleur from '@/app/règles/ampleur.publicodes'
 import gestes from '@/app/règles/gestes.yaml'
 import chauffage from '@/app/règles/gestes/chauffage.yaml'
@@ -50,6 +51,7 @@ const rules = {
   ...denormandie,
   ...taxeFoncière,
   ...PTZ,
+  ...PAR,
   ...copropriete,
 }
 
