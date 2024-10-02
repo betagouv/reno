@@ -1,16 +1,18 @@
 import autresAides from '@/app/règles/autres-aides.yaml'
 import Link from 'next/link'
 import { CTA, CTAWrapper, Card } from './UI'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function AutresAides() {
+  const sectionRef = useRef()
 
   useEffect(() => {
+    if (!sectionRef?.current) return
     const handleResize = () => {
       const isMobile = window.innerWidth <= 600
-      const detailsElements = document.querySelectorAll('details')
-      
-      detailsElements.forEach(details => {
+      const detailsElements = sectionRef.current.querySelectorAll('details')
+
+      detailsElements.forEach((details) => {
         if (isMobile) {
           details.removeAttribute('open') // Close <details> on mobile
         } else {
@@ -27,10 +29,11 @@ export default function AutresAides() {
 
     // Cleanup the event listener on component unmount
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [sectionRef])
 
   return (
     <section
+      ref={sectionRef}
       css={`
         > p {
           margin-bottom: 1vh;
@@ -65,7 +68,7 @@ export default function AutresAides() {
                 }
                 background: white;
                 margin: 0 0 1rem 0;
-                padding: 1.2vh calc(.5rem + 1vw);
+                padding: 1.2vh calc(0.5rem + 1vw);
                 border: 2px solid #dfdff1;
                 border-radius: 0.3rem;
                 p {
@@ -79,7 +82,13 @@ export default function AutresAides() {
                 justify-content: space-between;
               `}
             >
-              <summary css={`font-weight:bold;`}>{aide.nom}</summary>
+              <summary
+                css={`
+                  font-weight: bold;
+                `}
+              >
+                {aide.nom}
+              </summary>
               <div>
                 <p>
                   <small>{aide.description}</small>
