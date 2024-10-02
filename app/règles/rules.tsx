@@ -1,7 +1,8 @@
 import { parse } from 'marked'
 
 import PTZ from '@/app/règles/PTZ.yaml'
-import ampleur from '@/app/règles/ampleur.yaml'
+import PAR from '@/app/règles/PAR.publicodes'
+import ampleur from '@/app/règles/ampleur.publicodes'
 import gestes from '@/app/règles/gestes.yaml'
 import chauffage from '@/app/règles/gestes/chauffage.yaml'
 import réseau from '@/app/règles/gestes/chauffage/réseau.yaml'
@@ -38,26 +39,27 @@ const rules = {
   ...index,
   ...revenus,
   ...prefix(gestes, 'gestes'),
-  ...prefix(chauffage, 'gestes',),
-  ...prefix(isolation, 'gestes',),
-  ...prefix(PAC, 'gestes',),
-  ...prefix(bois, 'gestes',),
+  ...prefix(chauffage, 'gestes'),
+  ...prefix(isolation, 'gestes'),
+  ...prefix(PAC, 'gestes'),
+  ...prefix(bois, 'gestes'),
   ...prefix(réseau, 'gestes'),
-  ...prefix(solaire, 'gestes',),
+  ...prefix(solaire, 'gestes'),
   ...prefix(aidesLocales, 'aides locales'),
   ...ampleur,
   ...CEE,
   ...denormandie,
   ...taxeFoncière,
   ...PTZ,
-  ...copropriete
+  ...PAR,
+  ...copropriete,
 }
 
 const rulesWithMarkdown = Object.fromEntries(
   Object.entries(rules).map(([k, v]) => [k, transformRuleObject(v)]),
 )
 
-console.log('imported non parsed rules')
+console.log('lightgreen rules', rules)
 export default rulesWithMarkdown
 
 function transformRuleObject(v) {
@@ -68,6 +70,8 @@ function transformRuleObject(v) {
     descriptionHtml: v.description && parse(v.description),
     titreHtml: v.titre && parse(v.titre),
     sousTitreHtml: v['sous-titre'] && parse(v['sous-titre']),
+    informationsUtilesHtml:
+      v['informations utiles'] && parse(v['informations utiles']),
   }
   return newV
 }

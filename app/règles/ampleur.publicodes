@@ -10,21 +10,44 @@ ampleur . montant:
   note: On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas !
   somme:
     - MPR . accompagnée . montant
-    #    - MPR . accompagnée . prise en charge MAR
-    - aides locales . total
-    # - CEE . rénovation d'ampleur . montant
+    - MPR . accompagnée . prise en charge MAR
+    - aides locales . montant
+    - CEE . rénovation d'ampleur . montant
+    - ampleur . prime individuelle copropriété . montant
 
 ampleur . tous les dispositifs:
-  note: Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
+  note: |
+    Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
+
+    Elle nous sert simplement à regrouper les aides d'ampleur dans une variable, notamment pour la page d'éligibilité et pour le parcours ampleur. 
+
+    Attention, ses membres doivent avoir un chemin absolu, pour useAides.ts.
+
+    Note : le [chéque énergie](https://www.economie.gouv.fr/particuliers/tout-savoir-cheque-energie) peut être considéré comme une aide, mais une aide à la consommation d'énergie, pas à la réduction de consommation. En outre, il est normalement automatiquement versé aux personnes éligibles, donc sa publicité sur Mes Aides Réno n'est pas prioritaire.
   somme:
     - ampleur . montant
     - ampleur . prêt
     - denormandie . montant
     - taxe foncière . montant
 
+ampleur . prime individuelle copropriété:
+  marque: MaPrimeRénov' copro
+  complément de marque: prime individuelle
+  note: |
+    Cette variable recontextualise la variable prime individuelle du point de vue du ménage, sans parler encore de sa copropriété.
+
+ampleur . prime individuelle copropriété . montant:
+  applicable si:
+    toutes ces conditions:
+      - logement . type = "appartement"
+      - logement . au moins 15 ans
+
+  formule: copropriété . prime individuelle
+
 ampleur . prêt:
   somme:
     - PTZ . montant
+    - PAR . montant
 
 ampleur . montant écrêté:
   description: |
@@ -43,7 +66,7 @@ ampleur . montant écrêté:
   valeur:
     somme:
       - MPR . accompagnée . montant
-      - aides locales . angers . aides
+      - aides locales . montant
   plafond: pourcent d'écrêtement * projet . travaux . TTC
 
 ampleur . pourcent d'écrêtement:

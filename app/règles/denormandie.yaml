@@ -1,6 +1,22 @@
 denormandie:
   marque: Denormandie
   complément de marque: Réduction d'impôt location
+  nom court: Denormandie
+  description: |
+    Si vous achetez un logement dans l'une des 454 communes éligibles Denormandie et que vous y faites une rénovation d'ampleur, une importante exonération d'impôt sur le revenu vous est offerte.
+  informations utiles: |
+    - Applicable pour un logement ancien, loué non meublé, pendant au moins 6 ans
+    - Au [loyer plafonné](https://www.service-public.fr/particuliers/vosdroits/F35011#fiche-item-aria-2)
+    - Des travaux d'au moins 25 % du prix de revient du logement et à terminer dans les deux ans
+
+denormandie . durée:
+  description: |
+    L'avantage fiscal est étalé sur la durée de location. Son montant est calculé en appliquant au prix net de revient du logement un pourcentage variant en fonction de la durée de location (pour les logements situés en métropole). [Source](https://www.economie.gouv.fr/particuliers/reduction-impot-denormandie).
+  valeur: années de location
+
+denormandie . montant:
+  applicable si: conditions
+  formule: taux * assiette
 
 denormandie . conditions:
   toutes ces conditions:
@@ -8,14 +24,21 @@ denormandie . conditions:
     - logement . location longue durée
     - soumis à l'impôt
     - amélioration énergétique
-    - logement . commune denormandie
+    - logement . commune . denormandie
 
-logement . commune denormandie:
-  formule: logement . commune
+logement . commune . denormandie:
+  applicable si:
+    est défini: logement . commune
   par défaut: non
-  note: Ce test reste à faire
+  note: |
+    Cette variable est normalement remplie automatiquement par Mes Aides Réno.
+
+    Note : à faire, il semblerait que d'autres logements soient éligibles, [dans les copros en difficulté. 
+
+    > Néanmoins, la loi du 9 avril 2024 a ajouté une extension bienvenue puisque ce dispositif s’applique désormais également aux logements situés dans une copropriété en grave difficulté, et ce, quelle que soit la ville. [Source](https://www.20minutes.fr/economie/immobilier/4107895-20240905-comment-renover-louer-tout-dispositif-denormandie?xtor=RSS-176)
+  question: La commune est-elle éligible au dispositif Denormandie ?
   description: |
-    Le dispositif Denormandie est disponible dans les 222 villes du [plan Action cœur de ville](https://www.cohesion-territoires.gouv.fr/programme-action-coeur-de-ville), mais certaines communes ayant signé une [opération de revitalisation du territoire](https://www.ecologie.gouv.fr/operation-revitalisation-territoire-ort) peuvent également proposer à des particuliers ou à des promoteurs d’investir, de rénover et de louer moyennant une défiscalisation.
+    Le dispositif Denormandie est disponible dans les [245 communes du plan Action cœur de ville](https://agence-cohesion-territoires.gouv.fr/action-coeur-de-ville-42), mais certaines communes ayant signé une [opération de revitalisation du territoire](https://www.ecologie.gouv.fr/operation-revitalisation-territoire-ort) peuvent également proposer à des particuliers ou à des promoteurs d’investir, de rénover et de louer moyennant une défiscalisation.
 
     Consulter la carte des villes sur [cette page du Ministère de l'Écologie](https://www.ecologie.gouv.fr/dispositif-denormandie-aide-fiscale-renovation-et-location).
 
@@ -31,6 +54,7 @@ denormandie . plafonnement loyer et ressources locataire:
   par défaut: oui
   description: |
     Voir les grilles de plafonnement sur [cette page](https://www.ecologie.gouv.fr/dispositif-denormandie-aide-fiscale-renovation-et-location).
+
 denormandie . plafond:
   valeur: 300000 €
   description: |
@@ -47,7 +71,10 @@ denormandie . seuil travaux minimum:
     Faire des travaux à hauteur d’au moins 25 % du coût total de l’opération immobilière.
 
     > Par exemple, pour l’achat d’un logement de 150 000 €, 50 000 € de travaux soit un coût total de l’opération de 200 000 €
-  formule: (projet . travaux / logement . prix d'achat) >= 25 %
+
+  formule: (projet . travaux / (logement . prix d'achat + projet . travaux)) >= 0.25
+
+denormandie . travaux minimum: logement . prix d'achat / 3
 
 projet . gain énergétique:
   question: Quel est le gain énergétique prévu par les travaux ?
@@ -77,14 +104,11 @@ logement . location longue durée:
 logement . prix d'achat:
   question: Quel est le prix d'achat du bien ?
   par défaut: 250000 €
+  unité: €
 
 denormandie . assiette:
   valeur: logement . prix d'achat + projet . travaux
   plafond: plafond
-
-denormandie . montant:
-  applicable si: conditions
-  formule: taux * assiette
 
 denormandie . années de location:
   applicable si: logement . location longue durée

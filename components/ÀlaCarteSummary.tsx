@@ -116,11 +116,18 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
             >
               <CTAWrapper $justify="end">
                 <CTA $fontSize="normal">
-                  <Link 
+                  <Link
                     href={url}
-                    onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "parcours par geste"]) }  
+                    onClick={() =>
+                      push([
+                        'trackEvent',
+                        'Simulateur Principal',
+                        'Clic',
+                        'parcours par geste',
+                      ])
+                    }
                   >
-                    <span>Voir tous les gestes disponibles</span>
+                    <span>Choisir ce parcours</span>
                   </Link>
                 </CTA>
               </CTAWrapper>

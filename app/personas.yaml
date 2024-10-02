@@ -1,7 +1,6 @@
 - description: |
     4 sauts de DPE, enveloppe de 70 k€ TTC, couple très modeste avec enfant.
   situation:
-    conditions communes: oui
     ménage . personnes: 3
     ménage . revenu: 25000
     DPE . actuel: 6
@@ -11,6 +10,7 @@
     ménage . code département: "'25'" # Doubs / Zone climatique H1
     ménage . commune: "'25388'"
     ménage . EPCI: "'200065647'"
+    vous . propriétaire . condition: oui
     logement . propriétaire occupant: oui
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
@@ -77,7 +77,6 @@
 - description: |
     3 sauts de DPE, passoire, enveloppe de 53200 k€ TTC, couple intermédiaire.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 7
@@ -85,6 +84,9 @@
     projet . travaux: 53200 / (1.055)
     ménage . code région: "'24'"
     ménage . code département: "'18'" # Cher / Zone climatique H2
+    ménage . commune: "'18279'"
+    logement . commune: "'18279'"
+    vous . propriétaire . condition: oui
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
     logement . type: "'maison'"
@@ -147,64 +149,9 @@
     gestes . chauffage . raccordement réseau . froid . MPR . montant: 400
 
 - description: |
-    Individu intermédiaire, appart récent, 2 sauts.
-  situation:
-    vous . propriétaire . condition: oui
-    ménage . personnes: 1
-    ménage . revenu: 25000
-    DPE . actuel: 3
-    projet . DPE visé: 1
-    ménage . code région: "'52'"
-    logement . propriétaire occupant: oui
-    logement . résidence principale: oui
-    logement . type: "'appartement'"
-    logement . surface: 55
-    logement . période de construction: "'de 2 à 15 ans'"
-  valeurs attendues:
-    conditions communes: non
-    MPR . accompagnée . éligible: non
-    MPR . non accompagnée . éligible: non
-
-- description: |
-    3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
-  situation:
-    conditions communes: oui
-    ménage . personnes: 2
-    ménage . revenu: 35000
-    DPE . actuel: 4
-    projet . DPE visé: 1
-    projet . travaux: 49300
-    ménage . code région: "'53'"
-    logement . propriétaire occupant: oui
-    logement . résidence principale: oui
-    logement . type: "'maison'"
-    logement . surface: 110
-    logement . période de construction: "'au moins 25 ans'"
-  valeurs attendues:
-    MPR . accompagnée . montant: 24650
-    MPR . non accompagnée . éligible: oui
-- description: |
-    Couple aisé, passoire, 4 sauts, ~ 70k € de travaux
-  situation:
-    conditions communes: oui
-    ménage . personnes: 2
-    ménage . revenu: 70000
-    DPE . actuel: 6
-    projet . DPE visé: 2
-    ménage . code région: "'52'"
-    logement . propriétaire occupant: non
-    logement . commune: "'29019'"
-    logement . résidence principale: oui
-    logement . type: "'maison'"
-    logement . surface: 130
-    logement . période de construction: "'au moins 25 ans'"
-  valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 45
-    MPR . non accompagnée . éligible: non
-- description: |
     Couple modeste, appart, presque passoire, 1 saut.
   situation:
-    conditions communes: oui
+    vous . propriétaire . condition: oui
     ménage . personnes: 2
     ménage . revenu: 25000
     DPE . actuel: 5
@@ -272,9 +219,72 @@
     gestes . chauffage . raccordement réseau . froid . MPR . montant: 800
 
 - description: |
+    Individu intermédiaire, appart récent, 2 sauts.
+  situation:
+    vous . propriétaire . condition: oui
+    ménage . personnes: 1
+    ménage . revenu: 25000
+    ménage . commune: "'25056'"
+    DPE . actuel: 3
+    projet . DPE visé: 1
+    ménage . code région: "'52'"
+    logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'appartement'"
+    logement . surface: 55
+    logement . période de construction: "'de 2 à 15 ans'"
+  valeurs attendues:
+    conditions communes: non
+    MPR . accompagnée . éligible: non
+    MPR . non accompagnée . éligible: non
+    PTZ . montant: 50000
+
+- description: |
+    Rennes, 3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
+  situation:
+    logement . commune: "'35238'" # Rennes, où on sait qu'il n'y a pas d'aides locales de la métropole
+    logement . EPCI: "'243500139'"
+    vous . propriétaire . condition: oui
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 4
+    projet . DPE visé: 1
+    projet . travaux: 49300
+    ménage . code région: "'52'"
+    logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'maison'"
+    logement . surface: 110
+    logement . période de construction: "'au moins 25 ans'"
+  valeurs attendues:
+    MPR . accompagnée . montant: 24650
+    MPR . non accompagnée . éligible: oui
+    aides locales . montant: 0
+- description: |
+    Couple aisé, passoire, 4 sauts, ~ 70k € de travaux
+  situation:
+    vous . propriétaire . condition: oui
+    ménage . personnes: 2
+    ménage . revenu: 70000
+    DPE . actuel: 6
+    projet . DPE visé: 2
+    ménage . code région: "'52'"
+    logement . propriétaire occupant: non
+    logement . commune: "'29019'"
+    logement . résidence principale: oui
+    logement . type: "'maison'"
+    logement . surface: 130
+    logement . période de construction: "'au moins 25 ans'"
+    projet . travaux: 82000
+    logement . prix d'achat: 230000
+  valeurs attendues:
+    MPR . accompagnée . pourcent dont bonus: 45
+    MPR . non accompagnée . éligible: non
+    logement . commune . denormandie: oui
+
+- description: |
     4 sauts de DPE, enveloppe de 70 k€ TTC, couple très modeste avec enfant, sans remplacement chaudière en H1
   situation:
-    conditions communes: oui
     ménage . personnes: 3
     ménage . revenu: 25000
     DPE . actuel: 6
@@ -328,7 +338,6 @@
 - description: |
     3 sauts de DPE, passoire, enveloppe de 53200 k€ TTC, couple intermédiaire, sans remplacement chaudière en H2
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 7
@@ -380,7 +389,6 @@
 - description: |
     Couple modeste, appart, presque passoire, 1 saut, sans remplacement chaudière en H3
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 25000
     DPE . actuel: 5
@@ -432,7 +440,6 @@
 - description: |
     Individu aisé, presque passoire, 3 saut.
   situation:
-    conditions communes: oui
     ménage . personnes: 1
     ménage . revenu: 80000
     DPE . actuel: 5
@@ -449,14 +456,13 @@
 - description: |
     Propriétaire éligible MPR, mais pas d'autres infos
   situation:
-    conditions communes: oui
+    vous . propriétaire . condition: oui
   valeurs attendues:
     MPR . accompagnée . éligible: oui
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k, Bretagne.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
@@ -471,7 +477,6 @@
 - description: |
     Couple moyen, revenu 35k, enveloppe 58k donc plafonnée, Bretagne.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
@@ -485,21 +490,54 @@
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
   situation:
-    conditions communes: oui
+    vous . propriétaire . condition: oui
+    logement . type: "'appartement'"
+    logement . résidence principale propriétaire: oui
+    logement . surface: 47
+    logement . période de construction: "'au moins 25 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'11'"
+    logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
     logement . propriétaire occupant: oui
+    taxe foncière . condition de dépenses: oui
   valeurs attendues:
     MPR . accompagnée . montant: 29400
     MPR . non accompagnée . éligible: oui
+    taxe foncière . commune . éligible: oui
+    taxe foncière . montant: 2433
+
+- description: |
+    Couple moyen aussi, combo Denormandie et taxe foncière à Chambéry
+  situation:
+    vous . propriétaire . condition: oui
+    logement . type: "'appartement'"
+    logement . résidence principale locataire: oui
+    logement . surface: 47
+    logement . période de construction: "'au moins 25 ans'"
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 4
+    projet . DPE visé: 1
+    ménage . code région: "'73'"
+    logement . commune: "'73065'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
+    logement . EPCI: "'200069110'"
+    logement . propriétaire occupant: non
+    taxe foncière . condition de dépenses: oui
+    projet . travaux: 82000 €
+    logement . prix d'achat: 230000 €
+  valeurs attendues:
+    MPR . non accompagnée . éligible: oui
+    taxe foncière . commune . éligible: oui
+    taxe foncière . montant: 1216.5
+    denormandie . montant: 54000
+
 - description: |
     Personne seule au revenu très modeste en Bretagne
   situation:
-    conditions communes: oui
     ménage . personnes: 1
     ménage . revenu: 13600
     ménage . code région: "'53'"
@@ -510,7 +548,6 @@
 - description: |
     Personne seule au revenu 28567.8 juste avant le seuil modeste en IdF.
   situation:
-    conditions communes: oui
     ménage . personnes: 1
     ménage . revenu: 28657.8
     ménage . code région: "'11'"
@@ -520,7 +557,6 @@
 - description: |
     Personne seule au revenu 28568 juste avant le seuil modeste en IdF.
   situation:
-    conditions communes: oui
     ménage . personnes: 1
     ménage . revenu: 28658
     ménage . code région: "'11'"
@@ -530,7 +566,6 @@
 - description: |
     Éligible aux deux parcours.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 25000
     DPE . actuel: 4
@@ -542,7 +577,6 @@
 - description: |
     Éligible seulement au parcours accompagné car trop riche.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 80000
     DPE . actuel: 7
@@ -554,7 +588,6 @@
 - description: |
     Éligible seulement au parcours par gestes car trop bon DPE.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 2
@@ -565,7 +598,6 @@
 - description: |
     1 saut, aisé.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 85000
     DPE . actuel: 3
@@ -578,7 +610,6 @@
 - description: |
     DPE C, revenu aisé -> 1 seul scénario MPR accompagné.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 54072
     DPE . actuel: 3
@@ -587,10 +618,10 @@
     MPR . accompagnée . pourcent dont bonus: 30
     MPR . non accompagnée . éligible: non
     ménage . revenu . classe: 'supérieure'
+
 - description: |
     Aide locale Angers pour rénovation globale.
   situation:
-    conditions communes: oui
     ménage . personnes: 2
     ménage . revenu: 31000
     DPE . actuel: 5
@@ -598,7 +629,80 @@
     ménage . commune: "'49007'"
     ménage . EPCI: "'244900015'"
     logement . propriétaire occupant: oui
+    vous . propriétaire . condition: oui
+    logement . résidence principale propriétaire: oui
+    logement . type: "'maison'"
+    logement . surface: 78
+    logement . période de construction: "'de 15 à 25 ans'"
   valeurs attendues:
     aides locales . angers . aides socles . taux: 10
     aides locales . angers . prime basse consommation . montant: 1500
     ménage . revenu . classe: 'modeste'
+
+- description: |
+    Aide locale Besançon
+  situation:
+    ménage . personnes: 2
+    ménage . revenu: 31000
+    DPE . actuel: 5
+    projet . DPE visé: 2
+    projet . gain energétique: 38 %
+    aides locales . besançon . travaux recevables: oui
+    projet . travaux: 22000 €
+    ménage . commune: "'25014'" # Amagney
+    logement . commune: "'25014'" # Amagney
+    logement . EPCI: "'242500361'"
+    logement . propriétaire occupant: oui
+    vous . propriétaire . condition: oui
+    logement . résidence principale propriétaire: oui
+    logement . type: "'maison'"
+    logement . surface: 78
+    logement . période de construction: "'de 15 à 25 ans'"
+    #projet . objectif BBC rénovation: oui
+    #projet . objectif BBC neuf: oui
+  valeurs attendues:
+    aides locales . montant: 5600
+    aides locales . besançon . occupant . montant: 5600
+    aides locales . besançon . occupant . conditions: oui
+
+- description: |
+    Individu intermédiaire, appart neuf
+  situation:
+    vous . propriétaire . condition: oui
+    ménage . personnes: 1
+    ménage . revenu: 25000
+    ménage . commune: "'25056'"
+    DPE . actuel: 2
+    ménage . code région: "'52'"
+    logement . propriétaire occupant: oui
+    logement . résidence principale: oui
+    logement . type: "'appartement'"
+    logement . surface: 55
+    logement . période de construction: "'moins de 2 ans'"
+  valeurs attendues:
+    conditions communes: non
+    MPR . accompagnée . éligible: non
+    MPR . non accompagnée . éligible: non
+    PTZ . montant: 0
+
+- description: |
+    Couple aisé, maison secondaire
+  situation:
+    logement . résidence principale propriétaire: non
+    logement . résidence principale locataire: non
+    vous . propriétaire . condition: oui
+    logement . type: "'appartement'"
+    logement . surface: 47
+    logement . période de construction: "'au moins 25 ans'"
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 4
+    projet . DPE visé: 1
+    projet . travaux: 49000
+    ménage . code région: "'11'"
+    logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
+    taxe foncière . condition de dépenses: oui
+  valeurs attendues:
+    MPR . accompagnée . éligible: non
+    taxe foncière . commune . éligible: oui
+    taxe foncière . montant: 2433

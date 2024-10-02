@@ -66,6 +66,7 @@ export const BlocAideCoupDePouce = ({ infoCoupDePouce, rules, engine, situation,
               engine,
               situation,
               setSearchParams,
+              answeredQuestions
             }}
           />
         ))}

@@ -36,7 +36,14 @@ CEE . rénovation d'ampleur:
   marque: CEE
   complément de marque: Rénovation d'ampleur
   description: |
-    Primes minimales prévues par la charte "Coup de pouce rénovation d'ampleur de maisons et d'appartements individuels".
+    Le dispositif "Coup de pouce rénovation d'ampleur de maisons et d'appartements individuels" garantit des primes minimales CEE pour les rénovations d'ampleur qui ne sont pas éligibles à MaPrimeRénov parcours ampleur.
+  informations utiles: |
+    - la prime va de 1880 à 9620 €
+    - son montant dépend de deux facteurs:
+        - le gain de DPE de votre projet
+        - la surface habitable de votre logement
+  paiement: |
+    La prime peut être déduite dans le chiffrage des devis lorsque l’installateur est partenaire. Elle peut aussi être versée a posteriori en €, en conseils personnalisés, en prêt à taux préferentiel, en bons d'achat, etc.
 
 CEE . rénovation d'ampleur . conditions:
   description: |

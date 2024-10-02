@@ -10,7 +10,8 @@ export const sortBy = (f) => (list) =>
     return fa < fb ? -1 : fa > fb ? 1 : 0
   })
 
-export const capitalise0 = (s) => s[0].toUpperCase() + s.slice(1)
+export const capitalise0 = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '')
+export const uncapitalise0 = (s) => (s ? s[0].toLowerCase() + s.slice(1) : '')
 
 export function omit(givenKeys, obj) {
   const keys = [...givenKeys]
@@ -40,23 +41,23 @@ export const roundToThousands = (value, thousands = 1) =>
 
 export const categoriesGeste = [
   {
-    'code': 'isolation',
-    'titre': 'Isolation',
-    'icone': iconIsolation
+    code: 'isolation',
+    titre: 'Isolation',
+    icone: iconIsolation,
   },
   {
-    'code': 'solaire',
-    'titre': 'Solaire',
-    'icone': iconSolaire
+    code: 'solaire',
+    titre: 'Solaire',
+    icone: iconSolaire,
   },
   {
-    'code': 'chauffage',
-    'titre': 'Chauffage',
-    'icone': iconChauffage
+    code: 'chauffage',
+    titre: 'Chauffage',
+    icone: iconChauffage,
   },
   {
-    'code': 'ventilation',
-    'titre': 'Ventilation',
-    'icone': iconVentilation,
-  }
-];
+    code: 'ventilation',
+    titre: 'Ventilation',
+    icone: iconVentilation,
+  },
+]

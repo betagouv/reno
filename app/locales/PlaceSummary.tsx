@@ -18,7 +18,10 @@ export default function PlaceSummary({ place, placeRules }) {
     imageLink = rule['image']
   const valueRules =
     Array.isArray(placeRules) &&
-    placeRules.filter(([dottedName]) => dottedName.endsWith('montant'))
+    placeRules.filter(
+      ([dottedName]) =>
+        dottedName.endsWith('montant') && dottedName.split(' . ').length > 2,
+    )
 
   // idea, not used yet
   const levels = valueRules.map(([dottedName, rule]) => [
@@ -39,7 +42,6 @@ export default function PlaceSummary({ place, placeRules }) {
     const maxSituation = hasCondition
       ? { ...situation, [prefix + conditionName]: 'oui' }
       : situation
-    console.log('maxSituation', conditionName, hasCondition, maxSituation)
     const evaluation = engine
       .setSituation(maxSituation)
       .evaluate(prefix + dottedName)

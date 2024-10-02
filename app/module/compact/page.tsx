@@ -4,17 +4,16 @@ import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
-import { BlueEm, HeaderWrapper } from '../LandingUI'
-import AmpleurDemonstration from './AmpleurDemonstration'
 import { Suspense } from 'react'
+import getAppUrl from '@/components/getAppUrl'
+import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
 export const metadata: Metadata = {
-  title: 'API - Mes aides réno',
-  description:
-    "Découvrez la documentation de l'API de calcul des aides à la rénovation",
+  title: 'Widget de calcul des aides à la rénovation énergétique - Mes aides réno',
+  description: "Intégration d'une iframe de calcul des aides à la rénovation énergétique",
 }
 
 const iframeCode = `
-<iframe src="https://mesaidesreno.beta.gouv.fr/module/integration" style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
+<iframe src="${getAppUrl()}/simulation?display=compact" style="width: 400px; height: 500px; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
                   hsl(var(--shadow-color) / 0.36),
                 0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
@@ -25,7 +24,7 @@ const iframeCode = `
 "></iframe>
 `
 
-export default function Module({}) {
+export default function Compact({}) {
   return (
     <main
       style={css`
@@ -47,8 +46,7 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Module de calcul</BlueEm> d'aide pour un achat de passoire
-              thermique
+              <BlueEm>Widget</BlueEm> de calcul des aides à la rénovation
             </h1>
             <Intro>
               <p>
@@ -66,9 +64,23 @@ export default function Module({}) {
         </HeaderWrapper>
 
         <Wrapper>
-          <Content>
+          <Content style={css`margin: 1rem auto;text-align: center;`}>
             <Suspense>
-              <AmpleurDemonstration />
+              <iframe
+                src={getAppUrl() + '/simulation?display=compact'}
+                style={css`
+                  border-radius: 0.4rem;
+                  height: 500px;
+                  width: 400px;
+                  --shadow-color: 0deg 0% 63%;
+                  --shadow-elevation-medium: 0.3px 0.5px 0.7px
+                      hsl(var(--shadow-color) / 0.36),
+                    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+                    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+                    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+                  box-shadow: var(--shadow-elevation-medium);
+                `}
+              ></iframe>
             </Suspense>
           </Content>
         </Wrapper>

@@ -98,6 +98,8 @@ logement:
 logement . type:
   titre: Type de logement
   question: Le logement est-il une maison ou un appartement ?
+  description: |
+    Par maison, nous entendons maison individuelle hors copropriété.
   une possibilité parmi:
     possibilités:
       - 'maison'
@@ -275,11 +277,19 @@ logement . département:
   par défaut: '"Finistère"'
 
 logement . commune:
+  # TODO attention, cette condition peut faire sauter cette variable, donc ses sous variables
+  # la remplacer par une formule, si propriétaire occupant = non alors ça vaut foyer . commune ?
   applicable si: propriétaire occupant = non
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides locales.
   par défaut: "'29200'"
+
+logement . commune . nom:
+  par défaut:
+    texte: Brest
+
+# logement . commune . denormandie: voir le fichier denormandie
 
 ménage:
   titre: Votre ménage
@@ -452,16 +462,9 @@ projet . travaux . notification:
   description: |
     Pour atteindre 2 sauts de DPE, il est en général nécessaire de prévoir une enveloppe de travaux de plusieurs milliers d'€.
 
-taux d'aides relatives:
-  somme:
-    - aides locales . angers . aides socles . taux
-    - MPR . accompagnée . pourcent dont bonus
-
-montant d'aides absolues:
-  formule: aides locales . angers . prime basse consommation . montant
-
 projet . enveloppe estimée:
   formule: par surface * logement . surface
+
 projet . enveloppe estimée . par surface:
   variations:
     - si: logement . type = 'maison'
@@ -575,6 +578,8 @@ MPR . accompagnée . avance:
       - ménage . revenu . classe = 'très modeste'
       - ménage . revenu . classe = 'modeste'
   formule: 0.7 * montant
+
+MPR . accompagnée . remboursement: montant - avance
 
 MPR . accompagnée . montant:
   titre: Aide accompagnée
@@ -727,6 +732,10 @@ MPR . accompagnée:
   alias: Parcours accompagné
   marque: MaPrimeRénov'
   complément de marque: accompagnée
+  favorite: oui
+  informations utiles: |
+    - Votre conseiller local France Rénov’ vous accompagne <strong>gratuitement</strong> pour vous guider dans les premières étapes de votre projet.
+    - Vous devrez payer un <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">Accompagnateur Rénov’</a> pour réaliser un audit énergétique de votre logement qui définira les travaux vous permettant d’atteindre le DPE visé.
   interface:
     motivation: Je veux améliorer significativement la performance de mon logement.
     avantages:
@@ -800,9 +809,15 @@ MPR . accompagnée . pourcent brut:
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
 
 MPR . accompagnée . prise en charge MAR:
+  description: |
+    L'aide MaPrimeRénov' accompagnée est conditionnée à la réalisation d'un audit energétique avec un professionnel labellisé **"Mon Accompagnateur Rénov"**. 
+
+    Cet audit est payant, mais l'État vous aide à le payer en fonction de votre revenu. Certaines collectivités proposent de financer le reste à charge.
+  applicable si: MPR . accompagnée . éligible
   icône: maprimerenov.svg
   marque: MaPrimeRénov'
-  complément de marque: audit énergétique
+  complément de marque: Audit et accompagnement
+  aide parente: MPR . accompagnée
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond

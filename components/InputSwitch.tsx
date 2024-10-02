@@ -1,22 +1,21 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import { decodeDottedName, encodeSituation, getAnsweredQuestions } from './publicodes/situationUtils'
 
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 
-import { firstLevelCategory } from '@/app/simulation/Answers'
+import Answers, { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './DPESelector'
 import GestesBasket from './GestesBasket'
 import GestesMosaic, {
-  gestesMosaicQuestions,
-  isGestesMosaicQuestion,
+  gestesMosaicQuestions
 } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
-import ScenariosSelector from './ScenariosSelector'
+import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import SmartInput from './SmartInput'
 import questionType from './publicodes/questionType'
 
@@ -218,14 +217,13 @@ export default function InputSwitch({
                   ...situation,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
-                  'logement . commune exonérée taxe foncière': result
-                    .eligibilite.taxeFoncière
+                  'logement . commune . nom': `"${result.nom}"`,
+                  'taxe foncière . commune . éligible': result
+                    .eligibilite["taxe foncière . commune . éligible"]
                     ? 'oui'
                     : 'non',
-                  'logement . commune denormandie': result.eligibilite
-                    .denormandie
-                    ? 'oui'
-                    : 'non',
+                  'logement . commune . denormandie':
+                    result.eligibilite['logement . commune . denormandie'],
                 },
                 false,
                 answeredQuestions,
@@ -266,10 +264,40 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+    
+  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
+    return (
+      <GestesBasket
+        {...{
+          rules,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          searchParams,
+        }}
+      />
+    )
+  }
+  if(getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") && 
+     searchParams["parcours d'aide"].includes("à la carte")) {
+      return (
+        <GestesMosaic
+          {...{
+            rules,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            questions: gestesMosaicQuestions,
+          }}
+        />
+      )
+  }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
-      <ScenariosSelector
+      <AidesAmpleur
         {...{
           currentQuestion,
           setSearchParams,
@@ -283,46 +311,19 @@ export default function InputSwitch({
     )
   }
 
-  if (["parcours d'aide"].includes(currentQuestion))
+  if (["parcours d'aide"].includes(currentQuestion)) {
     return (
       <Eligibility
         {...{
           currentQuestion,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          expanded: searchParams.details,
-        }}
-      />
-    )
-
-  const isGestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
-  if (isGestesMosaic)
-    return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          questions: gestesMosaicQuestions,
-        }}
-      />
-    )
-
-  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
-    return (
-      <GestesBasket
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
           searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          nextQuestions,
+          expanded: searchParams.details,
         }}
       />
     )

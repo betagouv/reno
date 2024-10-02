@@ -2,6 +2,8 @@ import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
+import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import { CustomQuestionWrapper } from './CustomQuestionUI'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
 import { Card } from './UI'
@@ -10,10 +12,15 @@ import { Key } from './explications/ExplicationUI'
 import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
-import { omit, roundToThousands } from './utils'
-import { Number } from '@/app/simulation/Answers'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
-import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import { roundToThousands } from './utils'
+
+export const getAmpleurDPEChoice = (situation) => {
+  const value = situation['projet . DPE visé'],
+    oldIndex = +situation['DPE . actuel'] - 1,
+    automaticChoice = Math.max(oldIndex - 2, 0),
+    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+  return choice
+}
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -28,10 +35,8 @@ export default function ScenariosSelector({
   const situation = //omit(['projet . travaux'], givenSituation)
     givenSituation
 
-  const value = situation['projet . DPE visé'],
-    oldIndex = +situation['DPE . actuel'] - 1,
-    automaticChoice = Math.max(oldIndex - 2, 0),
-    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+  const oldIndex = +situation['DPE . actuel'] - 1,
+    choice = getAmpleurDPEChoice(situation)
 
   const exampleSituation = {
     'projet . travaux': roundToThousands(

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import DPELabel from '../DPELabel'
 import Input from '../Input'
-import { Value } from '../ScenariosSelector'
+import Value from '@/components/Value'
 import { Card, PrimeStyle } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 
@@ -34,6 +34,7 @@ export default function DPEScenario({
       >
         <Card
           css={`
+            background: #f7f8f8;
             padding: 1rem;
             margin: 0;
             margin: -0.25rem 0 0 0 !important; /* hack */
@@ -125,7 +126,7 @@ export default function DPEScenario({
                       autoFocus={false}
                       value={exampleSituation['projet . travaux']}
                       placeholder="mes travaux"
-                      min="0"
+                      min="1000"
                       onChange={(rawValue) => {
                         const value = +rawValue === 0 ? undefined : rawValue
                         setSearchParams(
@@ -136,7 +137,7 @@ export default function DPEScenario({
                           false,
                         )
                       }}
-                      step="100"
+                      step="1000"
                       css={`
                         border-bottom: 2px solid #d1d1fb !important;
                       `}
@@ -158,7 +159,12 @@ export default function DPEScenario({
                       dottedName: 'projet . travaux . TTC',
                       state: 'final',
                     }}
-                  /><span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA"> TTC</span><span>, je toucherai un total d'aides de </span>
+                  />
+                  <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                    {' '}
+                    TTC
+                  </span>
+                  <span>, je toucherai un total d'aides de </span>
                   <Value
                     {...{
                       engine,
@@ -189,10 +195,11 @@ export default function DPEScenario({
               </div>
             </div>
           </div>
+          <ExplicationsMPRA
+            {...{ engine, situation, choice, setSearchParams }}
+          />
         </Card>
       </motion.div>
-
-      <ExplicationsMPRA {...{ engine, situation, choice, setSearchParams }} />
     </>
   )
 }

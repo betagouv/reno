@@ -23,7 +23,7 @@ export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
   return (
     <section>
       <header>
-        <h3>Faire un rénovation d'ampleur</h3>
+        <h3>Faire une rénovation d'ampleur</h3>
         <ProfessionnelLabel />
         <p
           css={`

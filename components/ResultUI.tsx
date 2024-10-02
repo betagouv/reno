@@ -19,9 +19,40 @@ export const No = styled.em`
   background: #f67f7254;
   font-style: normal;
   padding: 0 0.2rem;
+  font-style: normal;
+  margin: 0px -0.1rem;
+  padding: 0.1em 0.4em;
+  border-radius: 0.8em 0.3em;
+  background: transparent
+    linear-gradient(
+      to right,
+      rgba(246, 127, 114, 0.1),
+      rgba(246, 127, 114, 0.6) 8%,
+      rgba(246, 127, 114, 0.3)
+    );
+  box-decoration-break: clone;
+  text-wrap: nowrap;
+  a {
+    text-decoration-color: black;
+    color: inherit;
+  }
 `
 export const Yes = styled.em`
-  background: #bef2c5;
   font-style: normal;
-  padding: 0 0.2rem;
+  margin: 0px -0.1rem;
+  padding: 0.1em 0.4em;
+  border-radius: 0.8em 0.3em;
+  background: transparent
+    linear-gradient(
+      to right,
+      rgba(190, 242, 197, 0.1),
+      rgba(190, 242, 197, 1) 8%,
+      rgba(190, 242, 197, 0.6)
+    );
+  box-decoration-break: clone;
+  text-wrap: nowrap;
+  a {
+    text-decoration-color: black;
+    color: inherit;
+  }
 `

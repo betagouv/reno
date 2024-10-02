@@ -163,7 +163,7 @@ export const HomeTestimonies = styled.div`
         padding: 0.5rem 0.8rem;
         &:hover {
           color: white;
-          background-color: #000091;
+          background-color: var(--color);
         }
     }
   }

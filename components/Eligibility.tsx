@@ -1,22 +1,29 @@
-import { No, Yes, Results } from '@/components/ResultUI'
+import { No, Results, Yes } from '@/components/ResultUI'
 import checkIcon from '@/public/check.svg'
 import Image from 'next/image'
 import { useMemo } from 'react'
+import AmpleurSummary from './ampleur/AmpleurSummary'
 import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
-import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
+import Answers from '@/app/simulation/Answers'
+import { useIsCompact } from './useIsInIframe'
 
 export default function Eligibility({
   setSearchParams,
   situation,
   rules,
   engine,
+  answeredQuestions,
+  nextQuestions,
+  currentQuestion,
   expanded,
+  searchParams,
 }) {
+  const isCompact = useIsCompact()
   const nextLink = (value) => {
     const url = setSearchParams(
       {
@@ -45,10 +52,30 @@ export default function Eligibility({
     noMpr = !mpra && !mprg,
     some = mpra || mprg || ceeConditions
 
+  const showPersonaBar = searchParams.personas != null
   return (
-    <section>
-      <PersonaBar />
+    <section
+      css={`
+        ${showPersonaBar && `margin-top: 4rem`}
+      `}
+    >
+      <PersonaBar
+        startShown={showPersonaBar}
+        selectedPersona={searchParams.persona}
+        engine={engine}
+      />
       <CustomQuestionWrapper>
+        {isCompact && (
+          <Answers
+            {...{
+              answeredQuestions,
+              nextQuestions,
+              currentQuestion,
+              rules,
+              situation,
+            }}
+          />
+        )}
         <header>
           <small>Découvrez vos aides</small>
           <h2>
@@ -81,38 +108,59 @@ export default function Eligibility({
         )}
         {noMpr && ceeConditions && (
           <p>
-            Vous n'êtes <No>pas éligible</No> à MaPrimeRénov', mais{' '}
-            <Yes>vous êtes éligible</Yes> au parcours par geste via le
-            dispositif CEE.
+            <Yes>
+              <a href="#parcours-gestes">Vous êtes éligible</a>
+            </Yes>{' '}
+            au parcours par geste via le dispositif CEE.
+            <br />
+            Cependant, vous n'êtes{' '}
+            <No>
+              <a href="#parcours-ampleur">pas éligible</a>
+            </No>{' '}
+            à MaPrimeRénov'.
           </p>
         )}
         {!noMpr && !mpra && (
           <p>
-            Vous n'êtes <No>pas éligible</No> au parcours accompagné, mais{' '}
-            <Yes>vous êtes éligible</Yes> au parcours par geste (MaPrimeRénov'
-            et CEE).
+            <Yes>
+              <a href="#parcours-gestes">Vous êtes éligible</a>
+            </Yes>{' '}
+            au parcours par geste (MaPrimeRénov' et CEE).
+            <br />
+            Cependant, vous n'êtes{' '}
+            <No>
+              <a href="#parcours-ampleur">pas éligible</a>
+            </No>{' '}
+            au parcours accompagné.
           </p>
         )}
         {!noMpr && !mprg && (
           <p>
-            Vous êtes <Yes>éligible</Yes> au parcours accompagné, vous êtes
-            aussi <Yes>éligible</Yes> au parcours par geste mais seulement via
-            le dispositif CEE. Vous devez choisir l'un des deux parcours.
+            Vous êtes{' '}
+            <Yes>
+              <a href="#parcours-ampleur">éligible</a>
+            </Yes>{' '}
+            au parcours accompagné, vous êtes aussi{' '}
+            <Yes>
+              <a href="#parcours-gestes">éligible</a>
+            </Yes>{' '}
+            au parcours par geste mais seulement via le dispositif CEE. Vous
+            devez choisir l'un des deux parcours.
           </p>
         )}
         {both && (
           <>
             <p>
-              Vous pouvez choisir l'un ou l'autre des parcours d'aide, mais pas
-              les deux.
+              Vous êtes <Yes>éligible</Yes> au <Yes>deux</Yes> parcours d'aide.
+              Vous devez en choisir un.
             </p>
             <Avis {...{ situation, engine }} />
           </>
         )}
 
         <Results>
-          <li>
-            <SimplifiedAmpleurSummary
+          <li id="parcours-ampleur">
+            <AmpleurSummary
               {...{
                 engine,
                 url: nextLink('ampleur'),
@@ -122,7 +170,7 @@ export default function Eligibility({
               }}
             />
           </li>
-          <li>
+          <li id="parcours-gestes">
             <ÀlaCarteSummary
               {...{
                 engine,
