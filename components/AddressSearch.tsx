@@ -96,36 +96,38 @@ export default function AddressSearch({ setChoice, situation, type }) {
             `}
           />
       }
-      {validInput && !results && (
-        <div
-          css={`
-            margin: 0.8rem 0;
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <Loader />
-          Chargement...
-        </div>
-      )}
-      {results && !clicked && (
-        <CityList>
-          <li css={`color: #929292;`}>Sélectionnez une ville</li>
-          {results.map((result) => (
-            <li
-              className={situation && situation[type] && situation[type].replace(/"/g, '') == result.code ? "selected" : ""}
-              key={result.code}
-              onClick={() => {
-                setChoice(result)
-                setInput(result.nom + ' ' + result.codeDepartement)
-                setClicked(true)
-              }}
-            >
-              {result.nom} <small>{result?.codesPostaux[0]}</small>
-            </li>
-          ))}
-        </CityList>
-      )}
+      <CityList>
+        {validInput && !results && (
+          <li
+            css={`
+              margin: 0.8rem 0;
+              display: flex;
+              align-items: center;
+            `}
+          >
+            <Loader />
+            Chargement...
+          </li>
+        )}
+        {results && !clicked && (
+          <>
+            <li css={`color: #929292;`}>Sélectionnez une ville</li>
+            {results.map((result) => (
+              <li
+                className={situation && situation[type] && situation[type].replace(/"/g, '') == result.code ? "selected" : ""}
+                key={result.code}
+                onClick={() => {
+                  setChoice(result)
+                  setInput(result.nom + ' ' + result.codeDepartement)
+                  setClicked(true)
+                }}
+              >
+                {result.nom} <small>{result?.codesPostaux[0]}</small>
+              </li>
+            ))}
+          </>
+        )}
+      </CityList>
     </div>
   )
 }
