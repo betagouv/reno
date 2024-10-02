@@ -153,7 +153,7 @@ export default function Answers({
                           align-items: center;
                           justify-content: space-between;
                           flex-wrap: nowrap;
-                          margin-bottom: 1rem;
+                          margin-bottom: 0.5rem;
                         `}
                       >
                         <span>{getRuleTitle(answer, rules)}</span>{' '}
