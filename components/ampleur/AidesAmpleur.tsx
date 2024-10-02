@@ -11,7 +11,8 @@ import { encodeDottedName } from '../publicodes/situationUtils'
 import Copro from './Copro'
 import Denormandie from './Denormandie'
 import EcoPTZ from './EcoPTZ'
-import PAR from './PAR.tsx'
+import PAR from './PAR'
+import CEEAmpleur from './CEEAmpleur'
 import MPRA from './MPRA'
 import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
@@ -29,6 +30,7 @@ const correspondance = {
   'ampleur . prime individuelle copropriété': Copro,
   'taxe foncière': TaxeFoncière,
   denormandie: Denormandie,
+  "CEE . rénovation d'ampleur": CEEAmpleur,
 }
 
 export default function AidesAmpleur({
