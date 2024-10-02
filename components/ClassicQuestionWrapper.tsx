@@ -4,7 +4,6 @@ import Suggestions from '@/app/simulation/Suggestions'
 import { AnswerWrapper } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
-
 import { isMosaicQuestion } from './BooleanMosaic'
 import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
@@ -37,7 +36,7 @@ export default function ClassicQuestionWrapper({
   nextQuestions,
 }) {
   const isCompact = useIsCompact()
-  const { categoryTitle } = categoryData(
+  const { categoryTitle, aideLocale } = categoryData(
     nextQuestions,
     currentQuestion,
     answeredQuestions,
@@ -46,23 +45,54 @@ export default function ClassicQuestionWrapper({
   return (
     <div css={`clear: both;`}>
       <Card>
-        {(!rule.type || !rule.type === 'question rhétorique') && (
-          <QuestionHeader>
-            <small>{categoryTitle}</small>
-            <h3>
-              <QuestionText {...{ rule, question: currentQuestion, rules, situation, engine }} />
-            </h3>
-            {rule['sous-titre'] && (
-              <div
-                css={`
-                  p {
-                    color: #666;
-                    font-size: 90%;
-                    line-height: 1.25rem;
-                  }
-                `}
-                dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-              ></div>
+        <div>
+          {(!rule.type || !rule.type === 'question rhétorique') && (
+            <div css={`display: flex;flex-wrap:wrap;justify-content: center;`}>
+              { aideLocale?.image && (<img 
+                  css={`margin: 0.4rem 0.4rem 0;width: 100px;height: fit-content;`}
+                  src={`/logo-locale/${aideLocale.image}`} 
+                />) 
+              }
+              <QuestionHeader>
+                <small>{categoryTitle}{ aideLocale?.image ? " - " + aideLocale?.titre : "" }</small>
+                <h3>
+                  <QuestionText {...{ rule, question: currentQuestion, rules, situation, engine }} />
+                </h3>
+                {rule['sous-titre'] && (
+                  <div
+                    css={`
+                      p {
+                        color: #666;
+                        font-size: 90%;
+                        line-height: 1.25rem;
+                      }
+                    `}
+                    dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+                  ></div>
+                )}
+              </QuestionHeader>
+            </div>
+          )}
+          <AnswerWrapper>
+            {!noSuggestions && (
+              <Suggestions
+                rule={rule}
+                onClick={(value) =>
+                  setSearchParams(
+                    encodeSituation(
+                      {
+                        ...situation,
+                        [currentQuestion]: value,
+                      },
+                      false,
+                      answeredQuestions,
+                    ),
+                    'url',
+                    false,
+                  )
+                }
+              />
+
             )}
           </QuestionHeader>
         )}
