@@ -15,14 +15,12 @@ export default function MarSearch({
   const givenCodeInsee =
     situation['logement . commune'] || situation['ménage . commune']
 
-  const name =
-    situation['logement . commune . nom'] || situation['ménage . commune . nom']
-
   if (what === 'trouver-accompagnateur-renov') return //  Disactivated, we were forbidden to use france-renov.gouv.fr's non documented APIs, and the UI doesn't expose this anymore
   const [selectedMarker, selectMarker] = useState(null)
   const [data, setData] = useState(null)
   const mapContainerRef = useRef(null)
   const [localCodeInsee, setLocalCodeInsee] = useState(undefined)
+  const [name, setName] = useState(situation['logement . commune . nom'] || situation['ménage . commune . nom'])
 
   const rawCodeInsee =
     localCodeInsee === undefined ? givenCodeInsee : localCodeInsee
@@ -65,9 +63,11 @@ export default function MarSearch({
         >
           <span>Saisissez votre ville</span>
           <AddressSearch
+            type="mar"
             setChoice={(result) => {
+              console.log("result", result)
               setData(null)
-
+              setName(result.nom)
               setLocalCodeInsee('' + result.code)
             }}
           />

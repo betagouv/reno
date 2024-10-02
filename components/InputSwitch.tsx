@@ -168,6 +168,7 @@ export default function InputSwitch({
       >
         <AddressSearch
           {...{
+            type: currentQuestion,
             setChoice: (result) => {
               console.log('purple result ', result)
               const codeRegion = result.codeRegion
@@ -209,6 +210,7 @@ export default function InputSwitch({
       >
         <AddressSearch
           {...{
+            type: currentQuestion,
             setChoice: (result) => {
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(

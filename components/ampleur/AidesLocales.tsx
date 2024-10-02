@@ -56,6 +56,7 @@ export default function AidesLocales({
           </summary>
 
           <AddressSearch
+            type="logement . commune"
             setChoice={(result) => {
               console.log('orange', result)
               setSearchParams(

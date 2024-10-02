@@ -9,7 +9,7 @@ function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
 
-export default function AddressSearch({ setChoice, situation }) {
+export default function AddressSearch({ setChoice, situation, type }) {
   const [immediateInput, setInput] = useState('')
 
   const [input] = useDebounce(immediateInput, 300)
@@ -20,9 +20,12 @@ export default function AddressSearch({ setChoice, situation }) {
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
-    if (situation && situation['ménage . commune']) {
+    if (situation && 
+        ["ménage . commune", "logement . commune"].includes(type) && 
+        situation[type]
+    ) {
       fetch(
-        `https://geo.api.gouv.fr/communes?code=${situation['ménage . commune'].replace(/"/g, '')}`,
+        `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
       )
         .then((response) => response.json())
         .then((json) => {
@@ -110,7 +113,7 @@ export default function AddressSearch({ setChoice, situation }) {
           <li css={`color: #929292;`}>Sélectionnez une ville</li>
           {results.map((result) => (
             <li
-              className={situation['ménage . commune'] && situation['ménage . commune'].replace(/"/g, '') == result.code ? "selected" : ""}
+              className={situation && situation[type] && situation[type].replace(/"/g, '') == result.code ? "selected" : ""}
               key={result.code}
               onClick={() => {
                 setChoice(result)
@@ -133,6 +136,8 @@ export const CityList = styled.ul`
   border-radius: 0 0 5px 5px;
   border: 1px solid #DFDFF0;
   list-style-type: none;
+  position: absolute;
+  margin-top: 35px;
   li {
     padding: 8px 24px 8px 35px;
     line-height: 1.2rem;
