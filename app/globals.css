@@ -7,6 +7,8 @@
   --lighterColor: #d1d1fb;
   --lighterColor2: #e4e4f8;
   --lightestColor: #f5f5fe;
+  --mutedColor: #666666;
+  --validColor: #18753C;
   --shadow-color: 180deg 2% 70%;
   --shadow-elevation-medium: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.31),
     0.7px 1.3px 1.6px -1px hsl(var(--shadow-color) / 0.29),

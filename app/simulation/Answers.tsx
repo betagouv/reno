@@ -1,4 +1,4 @@
-import { Card, LinkStyleButton } from '@/components/UI'
+import { Card, CTA, LinkStyleButton } from '@/components/UI'
 import {
   encodeDottedName,
   encodeSituation,
@@ -119,19 +119,31 @@ export default function Answers({
               </Link>
             </div>
           </div>
+          <p css={`color: var(--mutedColor)`}>Voici un aperçu de vos réponses au formulaire. Vous pouvez les modifier en cliquant sur la réponse, 
+              ou recommencer totalement le formulaire via le lien ci-dessus.</p>
+            
           {pastCategories.length > 0 ? (
             <ol
               css={`
-                list-style-type: circle;
+                list-style-type: none;
+                padding-left: 0;
                 ol {
-                  list-style-type: disc;
-                  padding-left: 0;
+                  list-style-type: none;
                 }
               `}
             >
               {pastCategories.map(([category, questions]) => (
-                <li key={category}>
-                  {getRuleTitle(category, rules)}
+                <li 
+                  key={category}
+                  >
+                  <div css={`
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                  `}>
+                    <span css={`color: var(--color); font-weight: bold;`}>{getRuleTitle(category, rules)}</span>
+                    <span  css={`color: var(--color);`}>Vos réponses</span>
+                  </div>
                   <AnswerList>
                     {questions.map((answer) => (
                       <li
@@ -140,43 +152,38 @@ export default function Answers({
                           display: flex;
                           align-items: center;
                           justify-content: space-between;
-                          flex-wrap: wrap;
+                          flex-wrap: nowrap;
+                          margin-bottom: 0.5rem;
                         `}
                       >
                         <span>{getRuleTitle(answer, rules)}</span>{' '}
-                        <span
-                          css={`
-                            border-bottom: 1px dashed #aaa;
-                            flex-grow: 1;
-                            margin: 0 1rem;
-                            @media (max-width: 800px) {
-                              display: none;
-                            }
-                          `}
-                        ></span>
-                        <span
-                          css={`
-                            @media (max-width: 800px) {
-                              flex-grow: 1;
-                              text-align: right;
-                            }
-                          `}
-                        >
-                          <Link
-                            href={setSearchParams(
-                              {
-                                question: encodeDottedName(answer),
-                                ...encodeSituation(
-                                  situation,
-                                  false,
-                                  rawAnsweredQuestions.filter((q) => q !== answer),
-                                ),
-                              },
-                              'url',
-                            )}
+                        <span>
+                          <CTA
+                            $fontSize="normal"
+                            $importance="emptyBackground"
+                            css={`:hover {
+                                background: var(--color);
+                                color: white;    
+                              }
+                            `}
                           >
-                            {situation[answer]}
-                          </Link>
+                            <Link
+                              css={`padding: 0.3rem !important;`}
+                              href={setSearchParams(
+                                {
+                                  question: encodeDottedName(answer),
+                                  ...encodeSituation(
+                                    situation,
+                                    false,
+                                    answeredQuestions.filter((q) => q !== answer),
+                                  ),
+                                },
+                                'url',
+                              )}
+                            >
+                              {situation[answer]}
+                            </Link>
+                          </CTA>
                         </span>
                       </li>
                     ))}
