@@ -24,9 +24,12 @@ export const AideSummary = ({
   engine,
   dottedName,
 }) => {
+  const attributes = expanded ? { open: true } : {}
+
+  console.log('purple ', typeof expanded, expanded, attributes)
   return (
     <details
-      open={expanded}
+      {...attributes}
       css={`
         summary {
           list-style-type: none;

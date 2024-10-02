@@ -329,7 +329,7 @@ export default function InputSwitch({
           engine,
           rules,
           nextQuestions,
-          expanded: searchParams.details,
+          expanded: searchParams.details === 'oui',
         }}
       />
     )
