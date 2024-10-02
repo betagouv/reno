@@ -175,7 +175,7 @@ export default function Answers({
                                   ...encodeSituation(
                                     situation,
                                     false,
-                                    answeredQuestions.filter((q) => q !== answer),
+                                    rawAnsweredQuestions.filter((q) => q !== answer),
                                   ),
                                 },
                                 'url',
