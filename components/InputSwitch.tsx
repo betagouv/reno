@@ -181,6 +181,11 @@ export default function InputSwitch({
                   'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
+                  'taxe foncière . commune . éligible . ménage': result.eligibilite[
+                    'taxe foncière . commune . éligible'
+                  ],
+                  'logement . commune . denormandie':
+                    result.eligibilite['logement . commune . denormandie'],
                 },
                 false,
                 answeredQuestions,
@@ -214,18 +219,15 @@ export default function InputSwitch({
           {...{
             type: currentQuestion,
             setChoice: (result) => {
-              const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
                   'logement . commune . nom': `"${result.nom}"`,
-                  'taxe foncière . commune . éligible': result.eligibilite[
+                  'taxe foncière . commune . éligible . logement': result.eligibilite[
                     'taxe foncière . commune . éligible'
-                  ]
-                    ? 'oui'
-                    : 'non',
+                  ],
                   'logement . commune . denormandie':
                     result.eligibilite['logement . commune . denormandie'],
                 },
