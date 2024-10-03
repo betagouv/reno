@@ -9,6 +9,7 @@ import { Loader } from './UI'
 import Entreprises from './Entreprises'
 
 export default function MarSearch({
+  situation,
   codeInsee: givenCodeInsee,
   what = 'trouver-accompagnateur-renov',
 }) {
@@ -17,6 +18,7 @@ export default function MarSearch({
   const [data, setData] = useState(null)
   const mapContainerRef = useRef(null)
   const [localCodeInsee, setLocalCodeInsee] = useState(undefined)
+  const [name, setName] = useState(situation['logement . commune . nom'] || situation['ménage . commune . nom'])
 
   const rawCodeInsee =
     localCodeInsee === undefined ? givenCodeInsee : localCodeInsee
@@ -60,9 +62,11 @@ export default function MarSearch({
         >
           <span>Saisissez votre ville</span>
           <AddressSearch
+            type="mar"
             setChoice={(result) => {
+              console.log("result", result)
               setData(null)
-
+              setName(result.nom)
               setLocalCodeInsee('' + result.code)
             }}
           />

@@ -105,6 +105,7 @@ const InputComponent = ({
   ) : question === 'ménage . commune' ? (
     <AddressSearch
       {...{
+        type: "ménage . commune",
         setChoice: (result) => {
           const codeRegion = result.codeRegion
           const encodedSituation = encodeSituation(
