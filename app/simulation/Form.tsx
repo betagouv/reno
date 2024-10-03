@@ -137,15 +137,16 @@ function Form({ rules }) {
           display: flex; 
           align-items: center;
         `}>
-          <Image src={logoFranceRenov} alt="Logo de France Rénov" width="80" />
+          <a href="https://france-renov.gouv.fr" target="_blank">
+            <Image src={logoFranceRenov} alt="Logo de France Rénov" width="80" />
+          </a>
           <p css={`
             font-size: 0.7rem;
             margin: 0;
             margin-left: 10px;
             line-height: 1rem;
           `}>
-            Une initiative construite avec{' '}
-            <a href="https://france-renov.gouv.fr">France&nbsp;Rénov'</a> pour
+            Une initiative construite avec France&nbsp;Rénov' pour
             simplifier l'information sur les aides à la rénovation énergétique.
           </p>
         </div>
