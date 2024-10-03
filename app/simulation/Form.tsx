@@ -15,12 +15,14 @@ import { Suspense, useMemo } from 'react'
 import Stepper from './Stepper'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
+import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
 import LogoCompact from '@/components/LogoCompact'
 import Answers from './Answers'
+import Image from 'next/image'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
@@ -131,6 +133,25 @@ function Form({ rules }) {
             .
           </p>
         </Section>
+      )}
+      { isCompact && (
+        <div css={`
+          display: flex; 
+          align-items: center;
+        `}>
+          <a href="https://france-renov.gouv.fr" target="_blank">
+            <Image src={logoFranceRenov} alt="Logo de France Rénov" width="80" />
+          </a>
+          <p css={`
+            font-size: 0.7rem;
+            margin: 0;
+            margin-left: 10px;
+            line-height: 1rem;
+          `}>
+            Une initiative construite avec France&nbsp;Rénov' pour
+            simplifier l'information sur les aides à la rénovation énergétique.
+          </p>
+        </div>
       )}
     </div>
   )
