@@ -9,14 +9,20 @@ import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
+import Answers from '@/app/simulation/Answers'
+import { useIsCompact } from './useIsInIframe'
 
 export default function Eligibility({
   setSearchParams,
   situation,
   rules,
   engine,
+  answeredQuestions,
+  nextQuestions,
+  currentQuestion,
   expanded,
 }) {
+  const isCompact = useIsCompact()
   const nextLink = (value) => {
     const url = setSearchParams(
       {
@@ -49,6 +55,17 @@ export default function Eligibility({
     <section>
       <PersonaBar />
       <CustomQuestionWrapper>
+        { isCompact && (
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+        )}
         <header>
           <small>Découvrez vos aides</small>
           <h2>
@@ -81,22 +98,22 @@ export default function Eligibility({
         )}
         {noMpr && ceeConditions && (
           <p>
-            Vous n'êtes <No>pas éligible</No> à MaPrimeRénov', mais{' '}
-            <Yes>vous êtes éligible</Yes> au parcours par geste via le
-            dispositif CEE.
+            <Yes><a href="#parcours-geste">Vous êtes éligible</a></Yes> au parcours par geste via le
+            dispositif CEE.<br />
+            Cependant, vous n'êtes <No><a href="#parcours-ampleur">pas éligible</a></No> à MaPrimeRénov'.
           </p>
         )}
         {!noMpr && !mpra && (
           <p>
-            Vous n'êtes <No>pas éligible</No> au parcours accompagné, mais{' '}
-            <Yes>vous êtes éligible</Yes> au parcours par geste (MaPrimeRénov'
-            et CEE).
+            <Yes><a href="#parcours-geste">Vous êtes éligible</a></Yes> au parcours par geste (MaPrimeRénov'
+              et CEE).<br />
+            Cependant, vous n'êtes <No><a href="#parcours-ampleur">pas éligible</a></No> au parcours accompagné.
           </p>
         )}
         {!noMpr && !mprg && (
           <p>
-            Vous êtes <Yes>éligible</Yes> au parcours accompagné, vous êtes
-            aussi <Yes>éligible</Yes> au parcours par geste mais seulement via
+            Vous êtes <Yes><a href="#parcours-ampleur">éligible</a></Yes> au parcours accompagné, vous êtes
+            aussi <Yes><a href="#parcours-geste">éligible</a></Yes> au parcours par geste mais seulement via
             le dispositif CEE. Vous devez choisir l'un des deux parcours.
           </p>
         )}
@@ -111,18 +128,20 @@ export default function Eligibility({
         )}
 
         <Results>
-          <li>
-            <SimplifiedAmpleurSummary
-              {...{
-                engine,
-                url: nextLink('ampleur'),
-                situation,
-                expanded,
-                setSearchParams,
-              }}
-            />
-          </li>
-          <li>
+          { mpra && (
+            <li id="parcours-ampleur">
+              <SimplifiedAmpleurSummary
+                {...{
+                  engine,
+                  url: nextLink('ampleur'),
+                  situation,
+                  expanded,
+                  setSearchParams,
+                }}
+              />
+            </li>
+          )}
+          <li id="parcours-geste">
             <ÀlaCarteSummary
               {...{
                 engine,
@@ -132,6 +151,19 @@ export default function Eligibility({
               }}
             />
           </li>
+          { !mpra && (
+            <li id="parcours-ampleur">
+              <SimplifiedAmpleurSummary
+                {...{
+                  engine,
+                  url: nextLink('ampleur'),
+                  situation,
+                  expanded,
+                  setSearchParams,
+                }}
+              />
+            </li>
+          )}
         </Results>
         <AutresAides />
       </CustomQuestionWrapper>

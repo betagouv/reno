@@ -3,8 +3,9 @@ import { formatValue } from 'publicodes'
 import Geste from './Geste'
 import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
 import MapBehindCTA from './MapBehindCTA'
-import { Card } from './UI'
+import { Card, CTA, CTAWrapper } from './UI'
 import { encodeDottedName } from './publicodes/situationUtils'
+import { push } from '@socialgouv/matomo-next'
 
 export default function GestesBasket({
   rules,
@@ -28,18 +29,31 @@ export default function GestesBasket({
     ([dottedName, rule]) => isGestesMosaicQuestion(dottedName, rule),
   )[0]
   return (
-    <div>
-      <Link
-        href={setSearchParams(
-          {
-            question: encodeDottedName(firstGestesMosaicDottedName),
-          },
-          'url',
-        )}
-      >
-        Retour à la sélection des gestes
-      </Link>
-      <h2>Votre sélection d'aides</h2>
+    <div css={`clear: both;`}>
+      <CTAWrapper $justify="end" css={`margin-bottom: 1vh;`}>
+        <CTA
+          $fontSize="normal"
+          $importance="secondary"
+          css={`
+            a {
+              padding: 0.5rem 0.8rem;
+            }
+          `}
+        >
+          <Link
+            onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "retour sélection geste"]) } 
+            href={setSearchParams(
+              {
+                question: encodeDottedName(firstGestesMosaicDottedName),
+              },
+              'url',
+            )}
+          >
+            ⬅ Retour à la sélection des gestes
+          </Link>
+        </CTA>
+      </CTAWrapper>
+      <h2 css={`margin-top: 0;`}>Votre sélection d'aides</h2>
       <ul
         css={`
           list-style-type: none;
@@ -99,6 +113,8 @@ export default function GestesBasket({
       <MapBehindCTA
         {...{
           codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
+          searchParams,
+          situation,
           what: 'trouver-conseiller-renov',
           text: 'Trouver mon conseiller',
           link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',

@@ -1,16 +1,15 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import { decodeDottedName, encodeSituation, getAnsweredQuestions } from './publicodes/situationUtils'
 
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 
-import { firstLevelCategory } from '@/app/simulation/Answers'
+import Answers, { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './DPESelector'
 import GestesBasket from './GestesBasket'
 import GestesMosaic, {
-  gestesMosaicQuestions,
-  isGestesMosaicQuestion,
+  gestesMosaicQuestions
 } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
@@ -169,6 +168,7 @@ export default function InputSwitch({
       >
         <AddressSearch
           {...{
+            type: currentQuestion,
             setChoice: (result) => {
               console.log('purple result ', result)
               const codeRegion = result.codeRegion
@@ -210,6 +210,7 @@ export default function InputSwitch({
       >
         <AddressSearch
           {...{
+            type: currentQuestion,
             setChoice: (result) => {
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
@@ -265,6 +266,36 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+    
+  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
+    return (
+      <GestesBasket
+        {...{
+          rules,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          searchParams,
+        }}
+      />
+    )
+  }
+  if(getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") && 
+     searchParams["parcours d'aide"].includes("à la carte")) {
+      return (
+        <GestesMosaic
+          {...{
+            rules,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            questions: gestesMosaicQuestions,
+          }}
+        />
+      )
+  }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
@@ -282,7 +313,7 @@ export default function InputSwitch({
     )
   }
 
-  if (["parcours d'aide"].includes(currentQuestion))
+  if (["parcours d'aide"].includes(currentQuestion)) {
     return (
       <Eligibility
         {...{
@@ -292,36 +323,8 @@ export default function InputSwitch({
           answeredQuestions,
           engine,
           rules,
+          nextQuestions,
           expanded: searchParams.details,
-        }}
-      />
-    )
-
-  const isGestesMosaic = isGestesMosaicQuestion(currentQuestion, rule, rules)
-  if (isGestesMosaic)
-    return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          questions: gestesMosaicQuestions,
-        }}
-      />
-    )
-
-  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
-    return (
-      <GestesBasket
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
         }}
       />
     )

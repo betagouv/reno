@@ -12,7 +12,7 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
             <div css={`display:flex;justify-content:space-around;flex-direction: row;flex-wrap: wrap;overflow: hidden;`}>
                 <CardLink>
                     <LinkSimulateur href="/simulation">
-                        <span css={`font-size: 4rem; color: #000091;height: 100%;align-content: center;`}>€</span>
+                        <span css={`font-size: 4rem; color: var(--color);height: 100%;align-content: center;`}>€</span>
                         L'ensemble de vos aides
                     </LinkSimulateur>
                 </CardLink>

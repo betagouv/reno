@@ -12,16 +12,21 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import Answers from './Answers'
+import Stepper from './Stepper'
 import Share from './Share'
 import simulationConfig from './simulationConfig.yaml'
+import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import UserProblemBanner from '@/components/UserProblemBanner'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
-import useIsInIframe from '@/components/useIsInIframe'
+import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
+import LogoCompact from '@/components/LogoCompact'
+import Answers from './Answers'
+import Image from 'next/image'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
+  const isCompact = useIsCompact()
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -63,7 +68,10 @@ function Form({ rules }) {
   return (
     <div>
       <Section>
-        <Answers
+        {isInIframe && isCompact && (
+          <LogoCompact css={`float: right;`} />
+        )}
+        <Stepper
           {...{
             answeredQuestions,
             nextQuestions,
@@ -72,6 +80,19 @@ function Form({ rules }) {
             situation,
           }}
         />
+        {!isCompact && (
+          <div css={`padding-top: 1rem;`}>
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+          </div>
+        )}
         {rule && (
           <InputSwitch
             {...{
@@ -87,9 +108,13 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      <br />
-      <UserProblemBanner />
-      <Share searchParams={searchParams} />
+      {(!isInIframe || !isCompact) && (
+        <>
+          <br />
+          <UserProblemBanner />
+          <Share searchParams={searchParams} />
+        </>
+      )}
       {!isInIframe && (
         <Section>
           <h2>Documentation</h2>
@@ -106,6 +131,24 @@ function Form({ rules }) {
             .
           </p>
         </Section>
+      )}
+      { isCompact && (
+        <div css={`
+          display: flex; 
+          align-items: center;
+        `}>
+          <Image src={logoFranceRenov} alt="Logo de France Rénov" width="80" />
+          <p css={`
+            font-size: 0.7rem;
+            margin: 0;
+            margin-left: 10px;
+            line-height: 1rem;
+          `}>
+            Une initiative construite avec{' '}
+            <a href="https://france-renov.gouv.fr">France&nbsp;Rénov'</a> pour
+            simplifier l'information sur les aides à la rénovation énergétique.
+          </p>
+        </div>
       )}
     </div>
   )
