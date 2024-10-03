@@ -6,6 +6,7 @@ import MapBehindCTA from './MapBehindCTA'
 import { Card, CTA, CTAWrapper } from './UI'
 import { encodeDottedName } from './publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
+import Feedback from '@/app/contact/Feedback'
 
 export default function GestesBasket({
   rules,
@@ -119,6 +120,7 @@ export default function GestesBasket({
           text: 'Trouver mon conseiller',
         }}
       />
+      <Feedback title="Ce simulateur a-t-il été utile ?" />
     </div>
   )
 }

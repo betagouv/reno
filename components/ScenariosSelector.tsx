@@ -21,6 +21,7 @@ export const getAmpleurDPEChoice = (situation) => {
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
   return choice
 }
+import Feedback from '@/app/contact/Feedback'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -174,6 +175,7 @@ export default function ScenariosSelector({
           }}
         />
       </section>
+      <Feedback title="Ce simulateur a-t-il été utile ?" />
       <QuestionsRéponses
         {...{
           engine,

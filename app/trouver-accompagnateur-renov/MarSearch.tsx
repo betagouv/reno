@@ -45,23 +45,17 @@ export default function MarSearch({
   return (
     <div
       css={`
+        justify-content: start;
+        margin-top: 3vh;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 6vh;
       `}
     >
-      {!codeInsee ? (
-        <label
-          css={`
-            display: flex;
-            align-items: center;
-            span {
-              margin-right: 1rem;
-            }
-          `}
-        >
-          <span>Saisissez votre ville</span>
+      {!codeInsee && (
+        <>
+          <label css={`
+            margin-right: 1rem;
+            line-height: 2.2rem;
+          `} htmlFor="ville">Saisissez votre ville</label>
           <AddressSearch
             type="mar"
             setChoice={(result) => {
@@ -93,12 +87,22 @@ export default function MarSearch({
       <div
         css={`
           margin: 1rem;
-          width: 100%;
           max-width: 90vw;
-          padding: 0 0.6rem;
         `}
       >
-        {data == null ? <MarLoader /> : <Entreprises data={data} />}
+        {data == null ? (
+           codeInsee && (<MarLoader />)
+        ) : (
+          <>
+            <div css={`text-align: end;`}>
+              <small>
+                Recherche de conseiller pour votre code Insee {codeInsee}.{' '}
+                <button onClick={() => setLocalCodeInsee(null)}>Changer</button>
+              </small>
+            </div>
+            <Entreprises data={data} />
+          </>
+        )}
         {/*Anciennement utilisé pour afficher la carte avec surlignage des conseillers sélectionnés */}
         {false && selectedMarker && (
           <Card
@@ -185,9 +189,6 @@ export default function MarSearch({
       )}
     </div>
   )
-}
-function timeout(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export const getAdresse = (obj) => {

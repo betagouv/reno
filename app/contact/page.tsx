@@ -6,16 +6,16 @@ export const metadata: Metadata = {
   title: 'Contact - Mes aides réno',
 }
 
-export default function PageContact({ searchParams }) {
+export default function PageContact() {
   return (
     <Main>
       <Section>
-      <h2>Nous contacter par mail</h2>
+      <h2>Nous contacter</h2>
         <p>
-          Pour des demandes privées, vous pouvez écrire directement à l'équipe à{' '}
+          Pour des demandes privées ou nécessitant une réponse, vous pouvez écrire directement à l'équipe à{' '}
           <a href="mailto:contact@mesaidesreno.fr">notre adresse mel</a>.<br />
         </p>
-        <Contact fromLocation={searchParams.fromLocation} />
+        <Contact />
       </Section>
     </Main>
   )
