@@ -1,5 +1,4 @@
 import { No, Results, Yes } from '@/components/ResultUI'
-import checkIcon from '@/public/check.svg'
 import Image from 'next/image'
 import { useMemo } from 'react'
 import AmpleurSummary from './ampleur/AmpleurSummary'
@@ -12,6 +11,7 @@ import ÀlaCarteSummary from './ÀlaCarteSummary'
 import Answers from '@/app/simulation/Answers'
 import { useIsCompact } from './useIsInIframe'
 import Feedback from '@/app/contact/Feedback'
+import FatConseiller from './FatConseiller'
 
 export default function Eligibility({
   setSearchParams,
@@ -78,26 +78,12 @@ export default function Eligibility({
           />
         )}
         <header>
-          <small>Découvrez vos aides</small>
-          <h2>
-            {some ? (
-              <span
-                css={`
-                  display: flex;
-                  align-items: center;
-                  img {
-                    margin-right: 0.4rem;
-                    width: 1.8rem;
-                    height: auto;
-                  }
-                `}
-              >
-                <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle
-                !
-              </span>
-            ) : (
-              'Votre éligibilité'
-            )}
+          <small>Eligibilité</small>
+          <h2 css={`
+            font-size: 120%;
+            margin: 0.5rem 0 !important;
+          `}>
+            {some && (<>Bonne nouvelle ! 🥳</>)}
           </h2>
         </header>
         {noMpr && !ceeConditions && (
@@ -151,10 +137,14 @@ export default function Eligibility({
         )}
         {both && (
           <>
-            <p>
-              Vous êtes <Yes>éligible</Yes> au <Yes>deux</Yes> parcours d'aide.
-              Vous devez en choisir un.
-            </p>
+            <h3 css={`
+              margin: 0; 
+              font-size: 110%;
+              font-weight: 500;
+            `}>
+              Vous êtes éligible à plusieurs aides !
+            </h3>
+            <p>Sélectionnez le parcours adapté à vos besoins.</p>
             <Avis {...{ situation, engine }} />
           </>
         )}
@@ -170,6 +160,12 @@ export default function Eligibility({
                 setSearchParams,
               }}
             />
+            <strong css={`
+              display: block;
+              text-align: center;
+              margin: 1rem auto;
+              font-size: 130%;
+            `}>ou</strong>
           </li>
           <li id="parcours-gestes">
             <ÀlaCarteSummary
@@ -178,6 +174,16 @@ export default function Eligibility({
                 rules,
                 url: nextLink('à la carte'),
                 situation,
+              }}
+            />
+          </li>
+          <li>
+            <h3>Vous ne savez pas quel parcours choisir pour votre projet ?</h3>
+            <p>Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !</p>
+            <FatConseiller 
+              {...{
+                situation,
+                margin: "small"
               }}
             />
           </li>

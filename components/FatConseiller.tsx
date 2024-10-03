@@ -2,12 +2,12 @@ import Image from 'next/image'
 import conseillerIcon from '@/public/rendez-vous.svg'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 
-export default function FatConseiller({ situation }) {
+export default function FatConseiller({ situation, margin }) {
   return (
     <details
       css={`
         margin: 3rem auto;
-
+        ${margin && margin == "small" && `margin: 1rem auto;`}
         width: fit-content;
         summary {
           margin: 0 auto;

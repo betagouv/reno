@@ -2,10 +2,11 @@ import Link from 'next/link'
 import { CTA, CTAWrapper, Card } from './UI'
 import Image from 'next/image'
 import crossIcon from '@/public/remix-close-empty.svg'
-import checkIcon from '@/public/check-green.svg'
+import checkIcon from '@/public/check.svg'
 import GestesPreview from './mprg/GestesPreview'
 import { ExplicationMPRG, InapplicableBlock } from './explications/Éligibilité'
 import { push } from '@socialgouv/matomo-next'
+import { Labels } from '@/app/LandingUI'
 
 export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
   const eligibleMPRG = engine.evaluate('conditions communes').nodeValue
@@ -16,23 +17,58 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
 
   return (
     <section>
-      <header>
-        <h3>Rénover à la carte</h3>
-        <p
-          css={`
-            margin-top: 1.4rem;
-          `}
-        >
-          Rénovez progressivement via un bouquet de gestes subventionnés.
-        </p>
-      </header>
       <Card
         css={`
           min-height: 10rem;
           max-width: 40rem;
         `}
       >
-        {revenuNonEligibleMPRG && (
+        <GesteLabel />
+        <h3>Pour des rénovations par gestes</h3>
+        <p>Je rénove mon logement en réalisant des gestes spécifiques.</p>
+        
+        <CTAWrapper $justify="center">
+          <CTA $fontSize="normal">
+            <Link href={url}>Voir les 20 aides disponibles</Link>
+          </CTA>
+        </CTAWrapper>
+
+        
+        <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
+        <ul css={`
+          list-style-type: none;
+          padding: 0;
+          li {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            img {
+              margin-right: 0.5rem;
+            }
+          }
+        `}>
+          <li>
+            <Image src={checkIcon} alt="icone check" />
+            Votre logement est déjà performant (indice DPE supérieur à C)
+          </li>
+          <li>
+            <Image src={checkIcon} alt="icone check" />
+            Vous souhaitez choisir librement parmi les aides disponibles
+          </li>
+        </ul>
+        <p css={`margin: 1rem 0 0 0;`}><em>Des exemples de gestes:</em></p>
+        <GestesPreview
+          {...{
+            rules,
+            dottedNames: [
+              'gestes . chauffage . PAC . air-eau',
+              'gestes . isolation . murs extérieurs',
+            ],
+            engine,
+            situation,
+          }}
+        />
+        {/* {revenuNonEligibleMPRG && (
           <ExplicationMPRG {...{ engine, situation }} />
         )}
         {!eligibleMPRG && (
@@ -145,7 +181,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
                     ? 'CEE'
                     : ''}
               </p>
-              {/* <span>
+              <span>
                 <a
                   target="_blank"
                   href="https://www.service-public.fr/particuliers/vosdroits/F35083"
@@ -153,11 +189,25 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
                   En savoir plus sur ce parcours
                 </a>
                 .
-              </span> */}
+              </span>
             </div>
           </>
-        )}
+        )} */}
       </Card>
     </section>
   )
 }
+
+export const GesteLabel = () => (
+  <Labels
+    $color={'#6E4444'}
+    $background={'#fdf8db'}
+    css={`
+      margin-top: 0.3rem;
+    `}
+  >
+    <li key="carte">
+      🧩️ Parcours à la carte
+    </li>
+  </Labels>
+)

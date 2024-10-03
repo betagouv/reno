@@ -1,10 +1,8 @@
 import { Labels } from '@/app/LandingUI'
-import addIcon from '@/public/add-circle-stroke.svg'
-import removeIcon from '@/public/remove-circle-stroke.svg'
 import Image from 'next/image'
+import checkIcon from '@/public/check.svg'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'
-import { AideSummary } from './AideSummary'
 import { CTA, CTAWrapper, Card, PrimeStyle } from '@/components/UI'
 import { roundToThousands, sortBy } from '@/components/utils'
 import { useAides } from './useAides'
@@ -67,19 +65,6 @@ export default function AmpleurSummary({
 
   return (
     <section>
-      <header>
-        <h3>Faire une rénovation d'ampleur</h3>
-        <ProfessionnelLabel />
-        <p
-          css={`
-            margin-top: 1.4rem;
-          `}
-        >
-          Un programme sur-mesure pour gagner au minimum{' '}
-          deux&nbsp;classes&nbsp;DPE.
-        </p>
-      </header>
-
       <Card
         css={`
           /* if nothing's active, grayscale the font ?
@@ -90,7 +75,22 @@ export default function AmpleurSummary({
           max-width: 40rem;
         `}
       >
-        {aides
+        <div css={`
+          display: flex; 
+          justify-content: space-between;
+        `}>
+          <ProfessionnelLabel />
+          <PrimeStyle
+              css={`
+                font-size: 110%;
+              `}
+            >
+              {value}
+          </PrimeStyle>
+        </div>
+        <h3>Pour une rénovation d'ampleur</h3>
+        <p>Je me fais accompagner dans mes travaux de rénovation d'ampleur.</p>
+        {/* {aides
           .filter((aide) => {
             if (aide.status !== true) return false
             const isChild = aide['aide parente']
@@ -116,7 +116,8 @@ export default function AmpleurSummary({
                 }}
               />
             )
-          })}
+          })
+        }
 
         <div
           css={`
@@ -179,24 +180,41 @@ export default function AmpleurSummary({
             )}{' '}
             les montants aide par aide
           </small>
-        </button>
+        </button> */}
 
-        <div
-          css={`
-            visibility: visible;
-            & > div {
-              margin-bottom: 0.3rem;
-              margin-top: 1rem;
+        <CTAWrapper $justify="center">
+          <CTA $fontSize="normal">
+            <Link href={url}>Voir le parcours en détail</Link>
+          </CTA>
+        </CTAWrapper>
+
+        <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
+        <ul css={`
+          list-style-type: none;
+          padding: 0;
+          li {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            img {
+              margin-right: 0.5rem;
             }
-          `}
-        >
-          <CTAWrapper $justify="end">
-            <CTA $fontSize="normal">
-              <Link href={url}>Choisir ce parcours</Link>
-            </CTA>
-          </CTAWrapper>
-        </div>
-        {neSaisPasEtNonEligibles.length > 0 && (
+          }
+        `}>
+          <li>
+            <Image src={checkIcon} alt="icone check" />
+            La garantie d'un gain de performance important  
+          </li>
+          <li>
+            <Image src={checkIcon} alt="icone check" />
+            Un montant d'aide plus important  
+          </li>  
+          <li>
+            <Image src={checkIcon} alt="icone check" />
+            L'accès à un prêt à taux 0 jusqu'à 50 000 € et à des exonérations fiscales
+          </li>
+        </ul>
+        {/* {neSaisPasEtNonEligibles.length > 0 && (
           <div>
             {neSaisPasEtNonEligibles.map((aide) => {
               const text = aide.marque,
@@ -217,7 +235,7 @@ export default function AmpleurSummary({
               )
             })}
           </div>
-        )}
+        )} */}
       </Card>
     </section>
   )
@@ -230,7 +248,7 @@ export const ProfessionnelLabel = () => (
       margin-top: 0.3rem;
     `}
   >
-    {['🤝 Un professionnel vous accompagne'].map((text) => (
+    {['⭐ Parcours ampleur'].map((text) => (
       <li key={text}>{text}</li>
     ))}
   </Labels>
