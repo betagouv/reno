@@ -70,7 +70,6 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
-          <Contact display="fixed" />
         </StyledComponentsRegistry>
         <Matomo />
       </body>
