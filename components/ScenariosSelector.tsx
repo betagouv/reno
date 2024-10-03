@@ -168,6 +168,7 @@ export default function ScenariosSelector({
           {...{
             codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
             searchParams,
+            situation,
             what: 'trouver-conseiller-renov',
             text: 'Trouver mon conseiller',
             link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
