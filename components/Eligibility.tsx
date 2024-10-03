@@ -11,7 +11,7 @@ import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
 import Answers from '@/app/simulation/Answers'
 import { useIsCompact } from './useIsInIframe'
-import Contact from '@/app/contact/Contact'
+import Feedback from '@/app/contact/Feedback'
 
 export default function Eligibility({
   setSearchParams,
@@ -166,7 +166,7 @@ export default function Eligibility({
             </li>
           )}
         </Results>
-        <Contact title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+        <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
         <AutresAides />
       </CustomQuestionWrapper>
     </section>

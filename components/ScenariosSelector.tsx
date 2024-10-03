@@ -14,7 +14,7 @@ import { omit, roundToThousands } from './utils'
 import { Number } from '@/app/simulation/Answers'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
-import Contact from '@/app/contact/Contact'
+import Feedback from '@/app/contact/Feedback'
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -171,7 +171,7 @@ export default function ScenariosSelector({
           }}
         />
       </section>
-      <Contact title="Ce simulateur a-t-il été utile ?" />
+      <Feedback title="Ce simulateur a-t-il été utile ?" />
       <QuestionsRéponses
         {...{
           engine,

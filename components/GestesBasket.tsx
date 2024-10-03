@@ -6,7 +6,7 @@ import MapBehindCTA from './MapBehindCTA'
 import { Card, CTA, CTAWrapper } from './UI'
 import { encodeDottedName } from './publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
-import Contact from '@/app/contact/Contact'
+import Feedback from '@/app/contact/Feedback'
 
 export default function GestesBasket({
   rules,
@@ -121,7 +121,7 @@ export default function GestesBasket({
           link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
         }}
       />
-      <Contact title="Ce simulateur a-t-il été utile ?" />
+      <Feedback title="Ce simulateur a-t-il été utile ?" />
     </div>
   )
 }
