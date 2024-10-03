@@ -99,7 +99,6 @@ export default function AidesLocales({
             searchParams,
             what: 'trouver-conseiller-renov',
             text: 'Trouver mon conseiller',
-            link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
             importance: 'secondary',
           }}
         />

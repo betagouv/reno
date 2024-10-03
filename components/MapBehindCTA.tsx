@@ -8,8 +8,6 @@ import { push } from '@socialgouv/matomo-next'
 //TODO this component should be turned into a <details tag, like AideAmpleur's CTA
 // Appelé "Map" parce qu'on montrait les conseillers sur une carte, mais ça a été retiré temporairement pour se concentrer sur une première mise en prod plus simple, mais la carte marchait
 export default function MapBehindCTA({
-  link,
-  situation,
   what,
   situation,
   text,
@@ -71,7 +69,6 @@ export default function MapBehindCTA({
         `}
       >
         <MarSearch {...{
-            codeInsee,
             what,
             situation
           }} 

@@ -117,7 +117,6 @@ export default function GestesBasket({
           situation,
           what: 'trouver-conseiller-renov',
           text: 'Trouver mon conseiller',
-          link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
         }}
       />
     </div>

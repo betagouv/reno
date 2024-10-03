@@ -90,7 +90,6 @@ export default function MPRA({
               searchParams,
               what: 'trouver-conseiller-renov',
               text: 'Obtenir cette aide',
-              link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
               importance: 'secondary',
             }}
           />
