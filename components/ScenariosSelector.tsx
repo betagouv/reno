@@ -13,6 +13,7 @@ import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { roundToThousands } from './utils'
+import Feedback from '@/app/contact/Feedback'
 
 export const getAmpleurDPEChoice = (situation) => {
   const value = situation['projet . DPE visé'],
@@ -21,7 +22,6 @@ export const getAmpleurDPEChoice = (situation) => {
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
   return choice
 }
-import Feedback from '@/app/contact/Feedback'
 
 export default function ScenariosSelector({
   setSearchParams,
