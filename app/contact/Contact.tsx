@@ -1,185 +1,193 @@
 'use client'
-import { CTA } from '@/components/UI'
-import { push } from '@socialgouv/matomo-next'
-import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconSmileyNo from '@/public/smiley-no.svg'
-import iconSmileyMaybe from '@/public/smiley-maybe.svg'
-import iconSmileyYes from '@/public/smiley-yes.svg'
 
-export default function Contact({ title, fromLocation }) {
-  const [comment, setComment] = useState('')
-  const [vote, setVote] = useState(null)
-  const [sent, setSent] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
+export const formStyle = `
+label {
+	display: block;
+	margin-bottom: 1em;
+}
+label input, label textarea {
+	display: block;
+	border-radius: .3em;
+	padding: .3em ;
+	border: 1px solid var(--color);
+	box-shadow: none;
+	margin-top: .6em;
+	font-size: 100%;
+	width: 80%
 
-  const createIssue = (
-    body: string,
-    labels = ['💁 contribution externe'],
-  ) => {
-    if (body == null || body =='') {
-      return null
-    }
-  
-    fetch(
-      '/faq/api?' +
-        Object.entries({
-          repo: 'mesaidesreno/feedback-utilisateur',
-          title: "Retour utilisateurs",
-          body,
-          labels,
-        })
-          .map(([k, v]) => k + '=' + encodeURIComponent(v))
-          .join('&'),
-      { mode: 'cors' },
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        setSent(true)
-      })
+}
+label textarea {
+	height: 10em;
+}`
+
+export const createIssue = (
+  title,
+  body,
+  setURL,
+  disableButton,
+  labels = ['💁 contribution externe'],
+) => {
+  if (title == null || body == null || [title, body].includes('')) {
+    return null
   }
 
-  return (
-    <ContactForm css={`
-          background: #FDF8DB;
-          align-items: center;
-          padding: 1rem;
-          text-align: center;
-      `}
-    >
-      <div css={`font-weight: bold`}>
-        👋 {title}
-      </div>
-      <VoteBox>
-        <div
-          className={vote == "unhappy" ? 'unhappy-active' : 'unhappy'}
-          onClick={() => {
-            setVote("unhappy")
-            push(["trackEvent", "Feedback vote satisfait", "Clic", "Non"])
-          }}
-        >
-          <Image 
-            src={iconSmileyNo}
-            alt="smiley unhappy"
-          />
-          <div>Non</div>
-        </div>
-        <div
-          className={vote == "normal" ? 'normal-active' : 'normal'}
-          onClick={() => {
-            setVote("normal")
-            push(["trackEvent", "Feedback vode satisfait", "Clic", "En partie"]) 
-          }}>
-          <Image 
-            alt="smiley normal"
-            src={iconSmileyMaybe} 
-            />
-          <div>En partie</div>
-        </div>
-        <div 
-          className={vote == "happy" ? 'happy-active' : 'happy'}
-          onClick={() => {
-            setVote("happy")
-            push(["trackEvent", "Feedback vode satisfait", "Clic", "Oui"]) 
-          }}>
-          <Image 
-            alt="smiley happy"
-            src={iconSmileyYes} 
-            />
-          <div>Oui</div>
-        </div>
-      </VoteBox>
-      { (vote || sent) && (<div css={`margin-bottom: 1rem;font-weight: bold`}>✅ Merci pour votre retour</div>)}
-      <div className="active">
-        {sent ? (
-          <p>
-            Vos suggestions nous aident à améliorer l'outil et à rendre l'expérience plus efficace pour tous·tes. 🙏
-          </p>
-        ) : (
-          <form>
-            { isOpen && (
-              <>
-                <label htmlFor='commentaire'>Comment pouvons-nous améliorer cet outil?</label>
-                <textarea
-                  css={`
-                    margin-top: 0.5rem;
-                    background: #EEEEEE;
-                    border-bottom: 3px solid #3A3A3A;
-                    height: 100px;
-                    width: 100%;
-                  `}
-                  id="commentaire"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  name="comment"
-                  placeholder=""
-                  required
-                />
-              </>
-            )}
-            <CTA
-              $fontSize="normal"
-              $importance='emptyBackground'
-              css={`
-                width: fit-content;
-                margin: auto;
-              `}
-              onClick={(e) => {
-                if(!isOpen) {
-                  setIsOpen(true);
-                  push(["trackEvent", "Feedback", "Clic", "donne son avis"])
-                  return;
-                }
-                push(["trackEvent", "Feedback", "Clic", "valide son avis"])
-                e.preventDefault()
-                const augmentedComment =
-                  comment +
-                  (fromLocation
-                    ? '\n> ' + 'Depuis la page' + ': `' + fromLocation + '`'
-                    : '')
-                createIssue(augmentedComment)
-              }}
-              title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
-            >
-              <span css={`font-weight: bold`}>Je donne mon avis</span>
-            </CTA>
-          </form>
-        )}
-      </div>
-    </ContactForm>
+  fetch(
+    '/faq/api?' +
+      Object.entries({
+        repo: 'mesaidesreno/feedback-utilisateur',
+        title,
+        body,
+        labels,
+      })
+        .map(([k, v]) => k + '=' + encodeURIComponent(v))
+        .join('&'),
+    { mode: 'cors' },
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      setURL(json.url)
+      disableButton(false)
+    })
+}
+
+export const GithubContributionForm = ({ fromLocation }) => {
+  const [sujet, setSujet] = useState('')
+  const [comment, setComment] = useState('')
+  const [URL, setURL] = useState(null)
+  const [buttonDisabled, disableButton] = useState(false)
+
+  return !URL ? (
+    <form css={formStyle}>
+      <label
+        css={`
+          color: var(--color);
+          input {
+            text-align: left !important;
+          }
+        `}
+      >
+        Le titre bref de votre requête
+        <input
+          aria-describedby="messageAttention"
+          value={sujet}
+          onChange={(e) => setSujet(e.target.value)}
+          type="text"
+          name="sujet"
+          required
+        />
+      </label>
+      <label css="color: var(--color)">
+        <p>La description complète de votre problème ou votre question</p>
+        <p>
+          <small>
+            S'il s'agit d'un bug, en indiquant le navigateur que vous utilisez
+            (par exemple Firefox version 93, Chrome version 95, Safari, etc.),
+            la plateforme (iPhone, Android, ordinateur Windows, etc.) ainsi que l'url concernée, vous
+            nous aiderez à résoudre le bug plus rapidement.
+          </small>
+        </p>
+        <textarea
+          aria-describedby="messageAttention"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          name="comment"
+          required
+        />
+      </label>
+      <p id="messageAttention">
+        <em>
+          Cette contribution sera privée et anonyme : <strong>n'hésitez 
+          pas à vous exprimer</strong> et à nous laisser vos coordonnées <strong>uniquement si vous souhaitez être recontacté</strong>.
+        </em>
+      </p>
+      <Button
+        type="submit"
+        disabled={buttonDisabled}
+        onClick={(e) => {
+          if (buttonDisabled) return null
+
+          e.preventDefault()
+          disableButton(true)
+          const augmentedComment =
+            comment +
+            (fromLocation
+              ? '\n> ' + 'Depuis la page' + ': `' + fromLocation + '`'
+              : '')
+          createIssue(sujet, augmentedComment, setURL, disableButton, [
+            '❓ FAQ',
+            '💁 contribution externe',
+          ])
+        }}
+      >
+        ✉️ Nous contacter
+      </Button>
+    </form>
+  ) : (
+    <section>
+      <p role="status">
+        Merci 😍 ! Suivez l'avancement de votre suggestion en cliquant sur{' '}
+        <a href={URL}>ce lien</a>.
+      </p>
+      <p>
+        Si vous désirez être notifié de nos réponses,
+        <strong>
+          vous pouvez{' '}
+          <a href="https://github.com/betagouv/reno/issues/new?assignees=&labels=contribution&template=retour-utilisateur.md&title=">
+            créer un compte sur la plateforme Github
+          </a>
+        </strong>{' '}
+        afin de suivre les échanges et discuter avec nous.
+      </p>
+    </section>
   )
 }
 
-export const ContactForm = styled.div`
-.slide-up {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 2s ease-out;
+export const GithubContributionCard = ({ fromLocation }) => {
+  return (
+    <div className="ui__ card" css="padding: 1rem 0">
+      <p>
+        Pour toute remarque ou question, nous vous invitons à{' '}
+        <a href="https://github.com/betagouv/reno/issues/new?assignees=&labels=contribution&template=retour-utilisateur.md&title=">
+          ouvrir un ticket directement sur GitHub
+        </a>
+        .
+      </p>
+      <details>
+        <summary>
+          🐛 Vous avez un bug qui vous empêche d'utiliser Nos Gestes Climat ?
+        </summary>
+        <GithubContributionForm fromLocation={fromLocation} />
+      </details>
+    </div>
+  )
 }
 
-.slide-up.active {
-  max-height: 500px; /* Ajuste cette valeur en fonction de la taille du contenu */
+export default function Contact({ fromLocation }) {
+  return (
+    <div className="ui__ container" css="padding-bottom: 1rem">
+      <h2>🙋 J'ai une question</h2>
+      <p>
+        Nous sommes preneurs de toutes vos remarques, questions, suggestions et avis.<br />
+        <strong>N'hésitez pas</strong> à nous envoyer un message via le formulaire de contact ci-dessous.
+      </p>
+      <div
+        css={`
+          padding: 1rem 0;
+          margin: 1rem 0;
+        `}
+      >
+        <GithubContributionForm fromLocation={fromLocation} />
+      </div>
+    </div>
+  )
 }
-`
 
-export const VoteBox = styled.div`
-  display: flex;
-  justify-content:space-evenly;
-  padding: 1rem 0;  
-  .unhappy-active,
-  .unhappy:hover { 
-    cursor: pointer;
-    filter: invert(19%) sepia(84%) saturate(7173%) hue-rotate(358deg) brightness(101%) contrast(114%);
-  }
-  .normal-active,
-  .normal:hover { 
-    cursor: pointer;
-    filter: invert(72%) sepia(50%) saturate(3873%) hue-rotate(356deg) brightness(103%) contrast(102%);
-  }
-  .happy-active,  
-  .happy:hover { 
-    cursor: pointer;
-    filter: invert(31%) sepia(78%) saturate(468%) hue-rotate(90deg) brightness(98%) contrast(89%);
-  }
+export const Button = styled.button`
+  appearance: none;
+  background: var(--color);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border: none;
 `
