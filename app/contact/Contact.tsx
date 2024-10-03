@@ -1,19 +1,18 @@
 'use client'
-import MapBehindCTA from '@/components/MapBehindCTA'
-import { CTA, CTAWrapper } from '@/components/UI'
+import { CTA } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
-import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconClose from '@/public/close.svg'
-import Image from 'next/image'
+import iconSmileyNo from '@/public/smiley-no.svg'
+import iconSmileyMaybe from '@/public/smiley-maybe.svg'
+import iconSmileyYes from '@/public/smiley-yes.svg'
 
-export default function Contact({ fromLocation, display }) {
+export default function Contact({ title, fromLocation }) {
   const [comment, setComment] = useState('')
+  const [vote, setVote] = useState(null)
   const [sent, setSent] = useState(false)
-  const [type, setType] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const [isHidden, setIsHidden] = useState(false)
 
   const createIssue = (
     body: string,
@@ -38,143 +37,114 @@ export default function Contact({ fromLocation, display }) {
       .then((response) => response.json())
       .then((json) => {
         setSent(true)
-        setType("anonyme")
       })
   }
 
   return (
     <ContactForm css={`
-        ${isHidden ? 'display: none;' : ''}
-        ${display ? fixed : ''}
+          background: #FDF8DB;
+          align-items: center;
+          padding: 1rem;
+          text-align: center;
       `}
     >
-      { display ? 
-          (
-            <>
-              <div 
-                css={`
-                  padding: 0.2rem;
-                  background:var(--color);
-                  float: right;
-                  height: 1.4rem;
-                  cursor: pointer;
-                `}
-                onClick={() => {
-                  setIsHidden(true)
-                  push(["trackEvent", "Feedback", "Clic", "fermer"])
-                }}
-              >
-                <Image src={iconClose} width="15" />  
-              </div>
-              {!isOpen && (
-                <div 
-                  css={`
-                    display: flex; 
-                    justify-content: flex-end;
-                    align-items: center;
-                  `}
-                >
-                  <span css={`margin-right: 1rem;`}>Avez-vous trouvé l'information recherchée ?</span>
-                  <CTAWrapper css={`margin: 0 3rem;`}>
-                    <CTA 
-                      $fontSize="normal"
-                      onClick={() => {
-                        setIsOpen(!isOpen)
-                        push(["trackEvent", "Feedback vode satisfait", "Clic", "Oui"]) 
-                      }}>
-                      <button>Oui</button>
-                    </CTA>
-                    <CTA 
-                      $fontSize="normal"
-                      onClick={() => {
-                        setIsOpen(!isOpen)
-                        push(["trackEvent", "Feedback vode satisfait", "Clic", "Non"])
-                      }}>
-                      <button>Non</button>
-                    </CTA>
-                  </CTAWrapper>
-                </div>
-              )}
-            </>
-          ) : 
-          (<h3 onClick={() => setIsOpen(!isOpen)} css={h3Style}>🙋 J'ai une question</h3>) 
-      }
-      <div className={`slide-up ${!display || isOpen ? 'active' : ''}`}>
-        {sent ? (
-          <section>
-            <h3 css={`margin: 0 0 1rem;`}> 😍 Merci à vous</h3>
-            <p>
-              Grâce à votre retour, vous contribuer à l'amélioration de ce service.
-              { type == "email" && (
-                <>Nous nous efforçons de revenir vers vous dans les plus brefs délais.</>
-              )}
-            </p>
-            <p>Vous pouvez également contacter <strong> l'espace France Rénov' le plus proche de chez vous </strong> 
-              qui est <strong>votre interlocuteur privilégié</strong> pour toutes les questions concernant votre projet de rénovation.</p>
-            <MapBehindCTA
-                {...{
-                  what: 'trouver-conseiller-renov',
-                  text: 'Trouver mon conseiller',
-                  link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
-                }}
+      <div css={`font-weight: bold`}>
+        👋 {title}
+      </div>
+      <VoteBox>
+        <div
+          className={vote == "unhappy" ? 'unhappy-active' : 'unhappy'}
+          onClick={() => {
+            setVote("unhappy")
+            push(["trackEvent", "Feedback vote satisfait", "Clic", "Non"])
+          }}
+        >
+          <Image 
+            src={iconSmileyNo}
+            alt="smiley unhappy"
+          />
+          <div>Non</div>
+        </div>
+        <div
+          className={vote == "normal" ? 'normal-active' : 'normal'}
+          onClick={() => {
+            setVote("normal")
+            push(["trackEvent", "Feedback vode satisfait", "Clic", "En partie"]) 
+          }}>
+          <Image 
+            alt="smiley normal"
+            src={iconSmileyMaybe} 
             />
-          </section>
+          <div>En partie</div>
+        </div>
+        <div 
+          className={vote == "happy" ? 'happy-active' : 'happy'}
+          onClick={() => {
+            setVote("happy")
+            push(["trackEvent", "Feedback vode satisfait", "Clic", "Oui"]) 
+          }}>
+          <Image 
+            alt="smiley happy"
+            src={iconSmileyYes} 
+            />
+          <div>Oui</div>
+        </div>
+      </VoteBox>
+      { (vote || sent) && (<div css={`margin-bottom: 1rem;font-weight: bold`}>✅ Merci pour votre retour</div>)}
+      <div className="active">
+        {sent ? (
+          <p>
+            Vos suggestions nous aident à améliorer l'outil et à rendre l'expérience plus efficace pour tous·tes. 🙏
+          </p>
         ) : (
-          <>
-            <p>Nous sommes preneurs de toutes vos remarques, questions, suggestions et avis.<br />
-                <strong>N'hésitez pas</strong> à nous envoyer un message via le formulaire de contact ci-dessous.
-            </p>
-            <form css={formStyle}>
-              <label>
+          <form>
+            { isOpen && (
+              <>
+                <label htmlFor='commentaire'>Comment pouvons-nous améliorer cet outil?</label>
                 <textarea
-                  aria-describedby="messageAttention"
+                  css={`
+                    margin-top: 0.5rem;
+                    background: #EEEEEE;
+                    border-bottom: 3px solid #3A3A3A;
+                    height: 100px;
+                    width: 100%;
+                  `}
+                  id="commentaire"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   name="comment"
-                  placeholder="S'il s'agit d'un bug, merci de nous indiquer le navigateur que vous utilisez
-                    (par exemple Firefox version 93, Chrome version 95, Safari, etc.),
-                    la plateforme (iPhone, Android, ordinateur Windows, etc.) ainsi que l'url concernée, vous
-                    nous aiderez à résoudre le bug plus rapidement."
+                  placeholder=""
                   required
                 />
-              </label>
-              <Link
-                css={`background: var(--color);
-                    color: white;
-                    padding: 0.8rem 1.2rem;
-                    border: none;
-                    text-decoration: none;`  
+              </>
+            )}
+            <CTA
+              $fontSize="normal"
+              $importance='emptyBackground'
+              css={`
+                width: fit-content;
+                margin: auto;
+              `}
+              onClick={(e) => {
+                if(!isOpen) {
+                  setIsOpen(true);
+                  push(["trackEvent", "Feedback", "Clic", "donne son avis"])
+                  return;
                 }
-                href={`mailto:contact@mesaidesreno.fr?subject=&body=${encodeURIComponent(comment)}`}
-                title="Nous vous recontacterons dans les plus brefs délais"
-                target="_blank"
-                onClick={() => {
-                  push(["trackEvent", "Feedback", "Clic", "email"])
-                  setSent(true)
-                  setType("email")
-                }}
-              >
-                ✉️ Je souhaite pouvoir être recontacté
-              </Link>
-              <span css={`display: inline-block; margin: 0.5rem 0.5rem;`}>ou</span>
-              <Button
-                type="submit"
-                onClick={(e) => {
-                  push(["trackEvent", "Feedback", "Clic", "anonyme"])
-                  e.preventDefault()
-                  const augmentedComment =
-                    comment +
-                    (fromLocation
-                      ? '\n> ' + 'Depuis la page' + ': `' + fromLocation + '`'
-                      : '')
-                  createIssue(augmentedComment)
-                }}
-                title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
-              >
-                ✍ Témoignage anonyme
-              </Button> 
-            </form>
-          </>
+                push(["trackEvent", "Feedback", "Clic", "valide son avis"])
+                e.preventDefault()
+                const augmentedComment =
+                  comment +
+                  (fromLocation
+                    ? '\n> ' + 'Depuis la page' + ': `' + fromLocation + '`'
+                    : '')
+                createIssue(augmentedComment)
+              }}
+              title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
+            >
+              <span css={`font-weight: bold`}>Je donne mon avis</span>
+            </CTA>
+          </form>
         )}
       </div>
     </ContactForm>
@@ -193,50 +163,23 @@ export const ContactForm = styled.div`
 }
 `
 
-export const Button = styled.button`
-  appearance: none;
-  background: var(--color);
-  color: white;
-  padding: 0.8rem 1.2rem;
-  border: none;
-`
-
-export const fixed = `
-  position: fixed;
-  z-index: 1000;
-  bottom: 0;
-  width: 100%;
-  padding: 1rem;
-  background: white;
-  border-top: 1px solid var(--color);
-`
-
-export const formStyle = `
-label {
-	display: block;
-	margin-bottom: 1em;
-}
-label input, label textarea {
-	display: block;
-	border-radius: .3em;
-	padding: .3em ;
-	border: 1px solid var(--color);
-	box-shadow: none;
-	margin-top: .6em;
-	font-size: 100%;
-	width: 80%
-
-}
-label textarea {
-	height: 10em;
-}`
-
-export const h3Style = `
-  cursor: pointer;
-  padding: 0rem;
-  margin: 1rem 0;
-  background: var(--color-light);
-  color: var(--color-dark);
-  text-align: start;
-  
+export const VoteBox = styled.div`
+  display: flex;
+  justify-content:space-evenly;
+  padding: 1rem 0;  
+  .unhappy-active,
+  .unhappy:hover { 
+    cursor: pointer;
+    filter: invert(19%) sepia(84%) saturate(7173%) hue-rotate(358deg) brightness(101%) contrast(114%);
+  }
+  .normal-active,
+  .normal:hover { 
+    cursor: pointer;
+    filter: invert(72%) sepia(50%) saturate(3873%) hue-rotate(356deg) brightness(103%) contrast(102%);
+  }
+  .happy-active,  
+  .happy:hover { 
+    cursor: pointer;
+    filter: invert(31%) sepia(78%) saturate(468%) hue-rotate(90deg) brightness(98%) contrast(89%);
+  }
 `

@@ -200,6 +200,7 @@ export const CTA = styled.div`
     p.$importance === 'emptyBackground'
       ? `
   background: none;
+  cursor: pointer;
   border: 1px solid var(--color);
   color: var(--color) !important;
 
