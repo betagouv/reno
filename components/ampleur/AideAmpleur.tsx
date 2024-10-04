@@ -9,6 +9,7 @@ import { CTA, Card } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
 import chainIcon from '@/public/link-chain.svg'
+import AideCTAs from './AideCTAs'
 
 export default function AideAmpleur({ dottedName, children, level = null }) {
   const rule = rules[dottedName]
@@ -114,6 +115,7 @@ export default function AideAmpleur({ dottedName, children, level = null }) {
           )}
         </header>
         {children}
+        <AideCTAs />
       </Card>
     </section>
   )
