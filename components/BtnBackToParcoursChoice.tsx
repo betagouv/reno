@@ -22,10 +22,10 @@ export default function BtnBackToParcoursChoice({
   )
 
   return (
-    <CTAWrapper $justify="end">
+    <CTAWrapper $justify="start">
       <CTA
         $fontSize="normal"
-        $importance="secondary"
+        $importance="emptyBackground"
         css={`
           a {
             padding: 0.5rem 0.8rem;
@@ -35,7 +35,7 @@ export default function BtnBackToParcoursChoice({
         <Link 
           href={backUrl}  
           onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "retour choix parcours"]) } 
-        >⬅ Retour au choix du parcours</Link>
+        >⬅ Retour</Link>
       </CTA>
     </CTAWrapper>
   )
