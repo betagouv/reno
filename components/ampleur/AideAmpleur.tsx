@@ -1,6 +1,9 @@
 import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
 import starIcon from '@/public/star-full-gold.svg'
+import remboursementIcon from '@/public/icon-remboursement.svg'
+import pretIcon from '@/public/icon-pret.svg'
+import exonerationIcon from '@/public/icon-exoneration-fiscale.svg'
 import Image from 'next/image'
 import { CTA, Card } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
@@ -11,7 +14,28 @@ export default function AideAmpleur({ dottedName, children, level = null }) {
   const rule = rules[dottedName]
   const isFavorite = rule.favorite === 'oui',
     marque2 = rule['complément de marque'],
-    title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
+    title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : ''),
+    aideStyles = {
+      prêt: {
+        color: "#79A5DB",
+        backgroundColor: "#CDE4FF",
+        borderColor: "#79A5DB",
+        icon: pretIcon
+      },
+      "exonération fiscale": {
+        color: "#CD9C5D",
+        backgroundColor: "#FFE9CD",
+        borderColor: "#CD9C5D",
+        icon: exonerationIcon
+      },
+      remboursement: {
+        color: "#8484D0",
+        backgroundColor: "#E3E3FD",
+        borderColor: "#8484D0",
+        icon: remboursementIcon
+      }
+    }
+  const style = aideStyles[rule["type"]] || {};
 
   return (
     <section
@@ -26,7 +50,7 @@ export default function AideAmpleur({ dottedName, children, level = null }) {
 		  `
       }
     >
-      {level === 2 && (
+      {false && level === 2 && (
         <span>
           <Image
             css={`
@@ -42,33 +66,55 @@ export default function AideAmpleur({ dottedName, children, level = null }) {
           />
         </span>
       )}
-      <header
-        css={`
-          > h3 {
+      <Card>
+        <header
+          css={`
+            div > h3 {
+              margin: 0;
+              color: var(--darkColor0);
+            }
             margin: 0;
-            color: var(--darkColor0);
-          }
-          margin: 4vh 0 0;
-          font-size: 140%;
-          ${level === 2 && 'font-size: 110%;'}
-          img {
-            width: 1.3rem;
-            height: auto;
-            margin-right: 1rem;
-          }
-          display: flex;
-          align-items: center;
-        `}
-      >
-        {isFavorite && (
-          <Image
-            src={starIcon}
-            alt="Icône étoile signalant le parcours recommandé"
-          />
-        )}
-        <h3>{title}</h3>
-      </header>
-      <Card>{children}</Card>
+            font-size: 140%;
+            ${level === 2 && 'font-size: 110%;'}
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          `}
+        >
+          {false && isFavorite && (
+            <Image
+              src={starIcon}
+              alt="Icône étoile signalant le parcours recommandé"
+            />
+          )}
+          <div>
+            <h3>{title}</h3>
+          </div>
+          {rule["type"] && (
+            <div
+              css={`
+                color: ${style.color};
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                img {
+                  padding: 0.4rem;
+                  background-color: ${style.backgroundColor};
+                  border: 1px solid ${style.borderColor};
+                  border-radius: 5px;
+                }
+                span {
+                  font-size: 60%;
+                }
+              `}
+            >
+              <Image width="35" src={style.icon} />
+              <span>{rule["type"]}</span>
+            </div>
+          )}
+        </header>
+        {children}
+      </Card>
     </section>
   )
 }
