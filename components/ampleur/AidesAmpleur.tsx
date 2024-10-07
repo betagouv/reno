@@ -20,18 +20,7 @@ import AideMAR from './AideMAR'
 import StatusIcon from './StatusIcon'
 import AidesLocales from './AidesLocales'
 import { AideSummary } from './AideSummary'
-
-const correspondance = {
-  'MPR . accompagnée': MPRA,
-  'MPR . accompagnée . prise en charge MAR': AideMAR,
-  PTZ: EcoPTZ,
-  PAR: PAR,
-  'aides locales': AidesLocales,
-  'ampleur . prime individuelle copropriété': Copro,
-  'taxe foncière': TaxeFoncière,
-  denormandie: Denormandie,
-  "CEE . rénovation d'ampleur": CEEAmpleur,
-}
+import { correspondance } from '@/components/utils'
 
 export default function AidesAmpleur({
   setSearchParams,
