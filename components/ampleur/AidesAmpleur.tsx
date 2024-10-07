@@ -21,6 +21,7 @@ import StatusIcon from './StatusIcon'
 import AidesLocales from './AidesLocales'
 import { AideSummary } from './AideSummary'
 import { correspondance } from '@/components/utils'
+import { CTA, CTAWrapper } from '../UI'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -47,6 +48,7 @@ export default function AidesAmpleur({
   const nonEligibles = aides.filter((aide) => aide.status === false)
   const neSaisPas = aides.filter((aide) => aide.status === null)
 
+  const count = searchParams.synthese?.split(',').length
   return (
     <CustomQuestionWrapper>
       <BtnBackToParcoursChoice
@@ -126,6 +128,51 @@ export default function AidesAmpleur({
           )
         })}
       </section>
+      
+      <CTAWrapper
+        css={`
+          @media (max-width: 800px) {
+            position: fixed;
+            text-align: center;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            background: white;
+            padding: 1rem 0;
+            --shadow-color: 180deg 2% 61%;
+            --shadow-elevation-medium: 0px -0.4px 0.5px hsl(var(--shadow-color) /
+                    0.36),
+              0px -1.2px 1.3px -0.8px hsl(var(--shadow-color) / 0.36),
+              0.1px -2.9px 3.3px -1.7px hsl(var(--shadow-color) / 0.36),
+              0.2px -7.1px 8px -2.5px hsl(var(--shadow-color) / 0.36);
+
+            box-shadow: var(--shadow-elevation-medium);
+            > div {
+              width: 90%;
+              margin: 0 auto !important;
+            }
+          }
+        `}
+      >
+        <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
+          <Link href={nextUrl}>
+            <span
+              css={`
+                img {
+                  filter: invert(1);
+                  width: 1.6rem;
+                  margin-right: 0.6rem;
+                  height: auto;
+                  vertical-align: bottom;
+                }
+              `}
+            >
+              ({count}) Voir ma synthèse 
+            </span>
+          </Link>
+        </CTA>
+      </CTAWrapper>
 
       <FatConseiller situation={situation} />
       {neSaisPas.length > 0 && (
