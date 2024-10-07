@@ -20,6 +20,7 @@ import RhetoricalQuestion from './RhetoricalQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import SmartInput from './SmartInput'
 import questionType from './publicodes/questionType'
+import AideDetails from './AideDetails'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -285,6 +286,22 @@ export default function InputSwitch({
       />
     )
   }
+  
+  if(searchParams["details"]) {
+    return (<AideDetails
+      {...{
+        currentQuestion,
+        searchParams,
+        setSearchParams,
+        situation,
+        answeredQuestions,
+        engine,
+        rules,
+        nextQuestions
+      }}
+    />)
+  }
+
   if (
     getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
     searchParams["parcours d'aide"].includes('à la carte')
