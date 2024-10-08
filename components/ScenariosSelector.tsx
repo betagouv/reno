@@ -12,7 +12,7 @@ import { Key } from './explications/ExplicationUI'
 import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
-import { roundToThousands } from './utils'
+import { omit, roundToThousands } from './utils'
 import Feedback from '@/app/contact/Feedback'
 
 export const getAmpleurDPEChoice = (situation) => {
@@ -52,7 +52,7 @@ export default function ScenariosSelector({
       <BtnBackToParcoursChoice
         {...{
           setSearchParams,
-          situation,
+          situation: omit(["parcours d'aide"], situation),
           answeredQuestions,
         }}
       />

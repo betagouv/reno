@@ -12,7 +12,7 @@ export default function BtnBackToParcoursChoice({
   const backUrl = setSearchParams(
     {
       ...encodeSituation(
-        omit(["parcours d'aide"], situation),
+        situation,
         false,
         answeredQuestions,
       ),

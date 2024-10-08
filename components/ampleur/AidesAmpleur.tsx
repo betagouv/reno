@@ -55,6 +55,7 @@ export default function AidesAmpleur({
         {...{
           setSearchParams,
           situation,
+          situation: omit(["parcours d'aide"], situation),
           answeredQuestions,
         }}
       />

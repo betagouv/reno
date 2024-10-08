@@ -11,7 +11,6 @@ export default function AideCTAs({
   setSearchParams,
   expanded
 }) {
-  
   const rawSearchParams = useSearchParams(),
   searchParams = Object.fromEntries(rawSearchParams.entries())
 
@@ -55,15 +54,13 @@ export default function AideCTAs({
     setSearchParams(encodedSituation, 'push', false)
   }
 
-  console.log(dottedName)
-  console.log("synthese" + searchParams.synthese)
   const isSelected = searchParams.synthese?.includes(encodeDottedName(dottedName))
   return (
     <CTAWrapper $justify="center" css={`flex-wrap: wrap;`}>
       <CTA css={`margin: 0.5rem 0.2rem !important;`} $fontSize="normal" $importance="emptyBackground">
         <Link href={expanded ? backUrl : detailUrl}>
           { expanded ? 
-            (<>Revenir aux aides</>) :
+            (<>← Revenir aux aides</>) :
             (<>Voir le détail sur l'aide</>)
           }
         </Link>
@@ -77,7 +74,6 @@ export default function AideCTAs({
           `}
         `} $fontSize="normal">
         <button
-          data-status={searchParams.synthese?.includes(encodeDottedName(dottedName))}
           onClick={() => addToSynthese(dottedName)}>{ isSelected ? "✔ Ajouté" : "+ Ajouter" } à ma synthèse</button>
       </CTA>
     </CTAWrapper>
