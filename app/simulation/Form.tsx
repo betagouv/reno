@@ -60,8 +60,6 @@ function Form({ rules }) {
       rules,
     )
 
-  console.log({ nextQuestions })
-
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 
@@ -71,19 +69,21 @@ function Form({ rules }) {
     <div>
       <Section>
         {isInIframe && isCompact && (
-          <LogoCompact css={`float: right;`} />
+          <>
+            <LogoCompact css={`float: right;`} />
+            <Stepper
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+          </>
         )}
-        <Stepper
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            situation,
-          }}
-        />
         {!isCompact && (
-          <div css={`padding-top: 1rem;`}>
+          <div>
             <Answers
               {...{
                 answeredQuestions,
