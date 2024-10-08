@@ -2,11 +2,12 @@ import calculatorIcon from '@/public/calculator-empty.svg'
 import PaymentTypeBlock from '../PaymentTypeBlock'
 import { Card, ExternalLink, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
+import rules from '@/app/règles/rules'
 import Image from 'next/image'
 // Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 
 export default function PAR({ 
-  rules,
+  engine,
   situation,
   setSearchParams,
   answeredQuestions, 
@@ -14,6 +15,7 @@ export default function PAR({
 }) {
   return (
     <AideAmpleur {...{
+      engine,
       dottedName: 'PAR',
       setSearchParams,
       answeredQuestions,

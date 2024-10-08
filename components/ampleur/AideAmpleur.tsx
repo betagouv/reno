@@ -2,13 +2,14 @@ import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
 import starIcon from '@/public/star-full-gold.svg'
 import Image from 'next/image'
-import { CTA, Card } from '../UI'
+import { CTA, Card, PrimeStyle } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0, aideStyles } from '../utils'
 import chainIcon from '@/public/link-chain.svg'
 import AideCTAs from './AideCTAs'
 import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
+import { formatValue } from 'publicodes'
 
 export default function AideAmpleur({ 
   engine,
@@ -34,6 +35,7 @@ export default function AideAmpleur({
                           .nodeValue
                           .includes("modeste")
   const isSelected = searchParams["ampleur.synthèse"]?.split(",").find(item => item === '"'+encodeDottedName(dottedName)+'"')
+  const montant = engine && engine.setSituation(situation).evaluate(dottedName + " . montant")
   return (
     <section
       id={'aide-' + encodeDottedName(dottedName)}
@@ -119,12 +121,13 @@ export default function AideAmpleur({
             )}
             <div>
               <h3 css={`
-                  margin: 0;
+                  margin: 0 0 0.5rem 0;
                   color: var(--darkColor0);
                 `}
               >
                 {title}
               </h3>
+              {montant.nodeValue ? <PrimeStyle css={`font-size: 1rem;`}>Jusqu'à <strong>{formatValue(montant)}</strong></PrimeStyle> : ''}
             </div>
             {rule["type"] && (
               <div css={`
@@ -141,7 +144,7 @@ export default function AideAmpleur({
                   <span className="icon"></span>
                   <span>{rule["type"]}</span>
                 </PictoTypeAide>
-                {isModeste && ( // Petite exception pour MPRA qui peut être de 2 formes
+                {isModeste && dottedName == "MPR . accompagnée" && ( // Petite exception pour MPRA qui peut être de 2 formes
                   <PictoTypeAide
                     $style={aideStyles["avance"]}
                     $expanded={expanded}

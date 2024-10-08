@@ -5,7 +5,7 @@ import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import DPELabel from '../DPELabel'
 import MapBehindCTA from '../MapBehindCTA'
 import { BlueEm } from '@/app/LandingUI'
-import { CTA, CTAWrapper, ExternalLink } from '../UI'
+import { Card, CTA, CTAWrapper, ExternalLink } from '../UI'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
@@ -23,6 +23,7 @@ export default function Copro({
 
   return (
     <AideAmpleur {...{
+      engine,
       dottedName: 'ampleur . prime individuelle copropriété',
       setSearchParams,
       answeredQuestions,
@@ -30,22 +31,26 @@ export default function Copro({
       expanded
     }}>
       <p>MaPrimeRénov' Copropriété est une aide de l'État pour la rénovation énergétique des copropriétés.</p>
-      <p>En tant que <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'ménage . revenu . classe',
-            state: 'prime-black',
-          }}
-        /> vous êtes éligible à une prime individuelle de <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'ampleur . prime individuelle copropriété . montant',
-            state: 'prime-black',
-          }}
-        />
-      </p>
+      <Card $background="#f7f8f8">
+        <p
+        >
+          En tant que ménage{' '}<Value
+            {...{
+              engine,
+              situation,
+              dottedName: 'ménage . revenu . classe',
+              state: 'prime-black',
+            }}
+          />, vous êtes éligible à une prime individuelle de{' '}<Value
+            {...{
+              engine,
+              situation,
+              dottedName: 'ampleur . prime individuelle copropriété . montant',
+              state: 'prime-black',
+            }}
+          />.
+        </p>
+      </Card>
       { expanded && (
         <>
           <h3>Comment est calculée l'aide?</h3>

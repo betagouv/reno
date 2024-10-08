@@ -9,6 +9,7 @@ import checkIcon from '@/public/check.svg'
 import Image from 'next/image'
 
 export default function EcoPTZ({ 
+  engine,
   situation,
   setSearchParams,
   answeredQuestions, 
@@ -17,6 +18,7 @@ export default function EcoPTZ({
   const dottedName = 'PTZ'
   return (
     <AideAmpleur {...{
+        engine,
         dottedName,
         setSearchParams,
         answeredQuestions,

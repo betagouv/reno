@@ -44,6 +44,7 @@ export default function AidesLocales({
   if (!communeName && !commune)
     return (
       <AideAmpleur {...{
+        engine,
         dottedName,
         setSearchParams,
         answeredQuestions,
@@ -77,6 +78,7 @@ export default function AidesLocales({
 
   return (
     <AideAmpleur {...{
+      engine,
       dottedName,
       setSearchParams,
       answeredQuestions,

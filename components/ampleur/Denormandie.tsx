@@ -31,6 +31,7 @@ export default function Denormandie({
 
   return (
     <AideAmpleur {...{
+      engine,
       dottedName: 'denormandie',
       setSearchParams,
       answeredQuestions,

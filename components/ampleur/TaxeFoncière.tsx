@@ -22,6 +22,7 @@ export default function TaxeFoncière({
   const rule = rules[dottedName]
   return (
     <AideAmpleur {...{
+      engine,
       dottedName: 'taxe foncière',
       setSearchParams,
       answeredQuestions,

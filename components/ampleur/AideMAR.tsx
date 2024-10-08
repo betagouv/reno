@@ -17,6 +17,7 @@ export default function AideMAR({
   const rule = rules[dottedName]
   return (
     <AideAmpleur {...{
+      engine,
       dottedName, 
       setSearchParams,
       situation,
@@ -33,7 +34,6 @@ export default function AideMAR({
             css={`
               display: flex;
               align-items: center;
-              margin-top: 1rem;
             `}
           >
             {/* <Image

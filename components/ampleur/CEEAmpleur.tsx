@@ -19,6 +19,7 @@ export default function CEEAmpleur({
 
   return (
     <AideAmpleur {...{
+      engine,
       dottedName,
       setSearchParams,
       answeredQuestions,
