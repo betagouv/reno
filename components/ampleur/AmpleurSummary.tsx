@@ -30,7 +30,7 @@ export const createExampleSituation = (engine, situation, extreme = false) => {
           'projet . travaux': 999999,
         }
       : {}),
-    'vous . propriétaire': 'oui',
+    'vous . propriétaire . condition': 'oui',
     'taxe foncière . condition de dépenses': 'oui',
   }
   return exampleSituation
