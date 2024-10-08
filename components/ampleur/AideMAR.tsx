@@ -45,54 +45,22 @@ export default function AideMAR({
                 margin-right: 0.8rem !important;
               `}
             /> */}
-            <p>
-              En tant que ménage{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: 'ménage . revenu . classe',
-                  state: 'prime-black',
-                }}
-              />
-              , vous bénéficiez d'une aide de{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: dottedName,
-                  state: 'prime-black',
-                }}
-              />{' '}
-              pour l'accompagnement MaPrimeRénov'.
-            </p>
+            <AideMontant {...{
+              engine,
+              situation,
+              dottedName
+            }} />
           </div>
         </Card>
       )}
       { expanded && (
           <>
             <h3>Comment est calculée l'aide?</h3>
-            <p>
-              En tant que ménage{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: 'ménage . revenu . classe',
-                  state: 'prime-black',
-                }}
-              />
-              , vous bénéficiez d'une aide de{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: dottedName,
-                  state: 'prime-black',
-                }}
-              />{' '}
-              pour l'accompagnement MaPrimeRénov'.
-            </p>
+            <AideMontant {...{
+              engine,
+              situation,
+              dottedName
+            }} />
             <h3>Les principales conditions d'éligibilité ?</h3>
             <ul css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0;}`}>
               <li>L'audit doit être réalisé par un auditeur certifié. Il peut être réalisé par votre Accompagnateur Rénov'</li>
@@ -139,4 +107,30 @@ export default function AideMAR({
         )}
     </AideAmpleur>
   )
+}
+
+export function AideMontant({ engine, situation, dottedName }) {
+  return (
+    <p>
+      En tant que ménage{' '}
+      <Value
+        {...{
+          engine,
+          situation,
+          dottedName: 'ménage . revenu . classe',
+          state: 'prime-black',
+        }}
+      />
+      , vous bénéficiez d'une aide de{' '}
+      <Value
+        {...{
+          engine,
+          situation,
+          dottedName: dottedName + ' . montant',
+          state: 'prime-black',
+        }}
+      />{' '}
+      pour l'accompagnement MaPrimeRénov'.
+    </p>
+  );
 }
