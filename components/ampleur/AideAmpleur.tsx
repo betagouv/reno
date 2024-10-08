@@ -11,7 +11,15 @@ import { uncapitalise0 } from '../utils'
 import chainIcon from '@/public/link-chain.svg'
 import AideCTAs from './AideCTAs'
 
-export default function AideAmpleur({ dottedName, children, level = null }) {
+export default function AideAmpleur({ 
+  dottedName, 
+  setSearchParams,
+  situation,
+  answeredQuestions, 
+  children,
+  expanded,
+  level = null 
+}) {
   const rule = rules[dottedName]
   const isFavorite = rule.favorite === 'oui',
     marque2 = rule['complément de marque'],
@@ -37,7 +45,6 @@ export default function AideAmpleur({ dottedName, children, level = null }) {
       }
     }
   const style = aideStyles[rule["type"]] || {};
-
   return (
     <section
       id={'aide-' + encodeDottedName(dottedName)}
@@ -115,7 +122,14 @@ export default function AideAmpleur({ dottedName, children, level = null }) {
           )}
         </header>
         {children}
-        <AideCTAs />
+        <AideCTAs {...{
+          dottedName, 
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          expanded
+         }} 
+        />
       </Card>
     </section>
   )

@@ -26,7 +26,13 @@ export default function Denormandie({
   const rule = rules[dottedName]
 
   return (
-    <AideAmpleur dottedName={'denormandie'}>
+    <AideAmpleur {...{
+      dottedName: 'denormandie',
+      setSearchParams,
+      answeredQuestions,
+      situation,
+      expanded
+    }}>
       <div>
         <p>{rule.description}</p>
         {communeName && communeEligible && (

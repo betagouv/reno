@@ -5,13 +5,25 @@ import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
 // Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 
-export default function PAR({ rules }) {
+export default function PAR({ 
+  rules,
+  situation,
+  setSearchParams,
+  answeredQuestions, 
+  expanded
+}) {
   const dottedName = 'PAR'
 
   const rule = rules[dottedName]
 
   return (
-    <AideAmpleur dottedName={dottedName}>
+    <AideAmpleur {...{
+      dottedName,
+      setSearchParams,
+      answeredQuestions,
+      situation,
+      expanded
+    }}>
       <div>
         <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
 

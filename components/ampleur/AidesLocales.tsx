@@ -28,8 +28,10 @@ export default function AidesLocales({
   situation,
   searchParams,
   engine,
+  setSearchParams,
+  answeredQuestions,
+  expanded
 }) {
-  const setSearchParams = useSetSearchParams()
   const dottedName = 'aides locales'
   const rule = rules[dottedName]
   //TODO gérer le cas logement . commune = ménage . commune. Dans enrichSituation ? Ou dans publicodes directement ? Publicodes si on peut !
@@ -41,11 +43,15 @@ export default function AidesLocales({
       situation['ménage . commune'])
 
   const aides = findAidesLocales(rules, engine)
-
-  console.log('lightbrown aide locale', aides)
   if (!communeName && !commune)
     return (
-      <AideAmpleur dottedName={dottedName}>
+      <AideAmpleur {...{
+        dottedName,
+        setSearchParams,
+        answeredQuestions,
+        situation,
+        expanded
+      }}>
         <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
 
         <details>
@@ -72,7 +78,13 @@ export default function AidesLocales({
     )
 
   return (
-    <AideAmpleur dottedName={dottedName}>
+    <AideAmpleur {...{
+      dottedName,
+      setSearchParams,
+      answeredQuestions,
+      situation,
+      expanded
+    }}>
       <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
 
       <ul>

@@ -104,13 +104,12 @@ export default function AidesAmpleur({
       <section>
         {eligibles.map((aide) => {
           const AideComponent = correspondance[aide.baseDottedName]
-
           if (AideComponent)
             return (
               <AideComponent
+                key={aide.dottedName}
                 {...{
-                  oldIndex,
-                  choice,
+                  dottedName: aide.dottedName,
                   setSearchParams,
                   answeredQuestions,
                   engine,
@@ -202,14 +201,12 @@ export default function AidesAmpleur({
           {neSaisPas.map((aide) => {
             const AideComponent = correspondance[aide.baseDottedName]
 
-            console.log('yellow', AideComponent)
-
             if (AideComponent)
               return (
                 <AideComponent
+                  key={aide.dottedName}
                   {...{
-                    oldIndex,
-                    choice,
+                    dottedName: aide.dottedName,
                     setSearchParams,
                     answeredQuestions,
                     engine,

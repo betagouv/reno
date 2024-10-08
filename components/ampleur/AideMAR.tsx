@@ -1,3 +1,4 @@
+import rules from '@/app/règles/rules'
 import calculatorIcon from '@/public/calculator-empty.svg'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,15 +11,24 @@ export default function AideMAR({
   engine,
   situation,
   exampleSituation,
+  dottedName,
   searchParams,
+  setSearchParams,
+  answeredQuestions,
   rules,
+  expanded
 }) {
-  const dottedName = 'MPR . accompagnée . prise en charge MAR'
-
+  
   const rule = rules[dottedName]
   return (
-    <AideAmpleur dottedName={dottedName} level={2}>
-      <div>
+    <AideAmpleur {...{
+      dottedName, 
+      setSearchParams,
+      situation,
+      answeredQuestions,
+      level: 2,
+      expanded
+    }}>
         <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
 
         <Card $background="#f7f8f8">
@@ -80,7 +90,6 @@ export default function AideMAR({
             </CTA>
           </CTAWrapper>
         </AideCTA>
-      </div>
     </AideAmpleur>
   )
 }

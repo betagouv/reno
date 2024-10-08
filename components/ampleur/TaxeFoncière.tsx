@@ -14,15 +14,6 @@ export default function TaxeFoncière({
   rules,
 }) {
   engine.setSituation(exampleSituation)
-  console.log(
-    'lightyellow montant',
-    engine.setSituation(exampleSituation).evaluate('taxe foncière . montant'),
-  )
-  console.log(
-    'lightyellow test',
-    engine.setSituation(exampleSituation).evaluate('taxe foncière . taux'),
-  )
-  console.log('lightyellow s', exampleSituation)
 
   const communeName = situation['logement . commune . nom'],
     communeEligible = situation['taxe foncière . commune . éligible'] === 'oui',
@@ -31,7 +22,13 @@ export default function TaxeFoncière({
   const dottedName = 'taxe foncière'
   const rule = rules[dottedName]
   return (
-    <AideAmpleur dottedName={'taxe foncière'}>
+    <AideAmpleur {...{
+      dottedName: 'taxe foncière',
+      setSearchParams,
+      answeredQuestions,
+      situation,
+      expanded
+    }}>
       <div>
         <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
         {communeEligible}

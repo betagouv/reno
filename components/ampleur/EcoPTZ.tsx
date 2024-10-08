@@ -4,10 +4,23 @@ import { Card, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
 
-export default function EcoPTZ({ rules }) {
+export default function EcoPTZ({ 
+  rules,
+  situation,
+  setSearchParams,
+  answeredQuestions, 
+  expanded
+}) {
   const dottedName = 'PTZ'
   return (
-    <AideAmpleur dottedName={dottedName}>
+    <AideAmpleur {...{
+        dottedName,
+        setSearchParams,
+        answeredQuestions,
+        situation,
+        expanded
+      }}
+    >
       <div>
         <p>
           Vous pouvez emprunter jusqu'à 50 000 € sur 20 ans sans devoir

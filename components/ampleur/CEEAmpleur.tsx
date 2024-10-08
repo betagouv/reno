@@ -4,15 +4,27 @@ import { Card, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
 import Value from '../Value'
-// Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 
-export default function CEEAmpleur({ rules, engine, situation }) {
+export default function CEEAmpleur({ 
+  rules, 
+  engine, 
+  situation, 
+  setSearchParams, 
+  answeredQuestions, 
+  expanded 
+}) {
   const dottedName = "CEE . rénovation d'ampleur"
 
   const rule = rules[dottedName]
 
   return (
-    <AideAmpleur dottedName={dottedName}>
+    <AideAmpleur {...{
+      dottedName,
+      setSearchParams,
+      answeredQuestions,
+      situation,
+      expanded
+    }}>
       <div>
         <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
 
