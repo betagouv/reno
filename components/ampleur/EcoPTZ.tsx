@@ -6,6 +6,7 @@ import { ExternalLink } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
+import Image from 'next/image'
 
 export default function EcoPTZ({ 
   situation,
