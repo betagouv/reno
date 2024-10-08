@@ -1,6 +1,7 @@
 import Image from 'next/image'
-import conseillerIcon from '@/public/rendez-vous.svg'
+import conseillerIcon from '@/public/conseiller.png'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
+import { CTA, CTAWrapper } from './UI'
 
 export default function FatConseiller({ situation, margin }) {
   return (
@@ -8,28 +9,18 @@ export default function FatConseiller({ situation, margin }) {
       css={`
         margin: 3rem auto;
         ${margin && margin == "small" && `margin: 1rem auto;`}
-        width: fit-content;
+        background: var(--lightestColor);
+        padding: 1rem;
+        border: 1px solid #D0D0ED;
         summary {
           margin: 0 auto;
           border-radius: 0.4rem;
-          filter: drop-shadow(0px 1px 7px #d83a3440);
-          padding: 2rem 1.6rem;
-          background: var(--color);
-          color: white;
-
-          font-size: 150%;
           width: fit-content;
           max-width: 100%;
           list-style-type: none;
-          p {
-            line-height: 1.8rem;
-          }
         }
         > section {
-          padding-top: 1rem;
           margin: 0;
-          padding-left: 1rem;
-          margin-left: 3px;
           > div {
             margin-top: 0;
           }
@@ -40,43 +31,42 @@ export default function FatConseiller({ situation, margin }) {
         <div
           css={`
             > img {
-              margin: 0 1.8rem 0 1rem;
-              width: 4rem;
-              height: auto;
-              background: white;
-              border-radius: 0.4rem;
-              padding: 0.4rem;
+             margin: auto;
+             display: block;
+             padding: 1rem;
             }
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            h3 {
+              text-align: left;
+              font-size: 100%;
+              margin: 0;
+            }
             p {
               margin: 0;
             }
           `}
         >
-          <Image
-            src={conseillerIcon}
-            alt="Image qui représente un rendez-vous pris dans un calendrier"
-          />
-          <p>
-            Trouver mon conseiller{' '}
+          <h3>
+            Contacter un conseiller{' '}
             <span>
               <strong>France</strong>&nbsp;
               <strong css="color: #d83a34; margin-bottom: -.1rem">
                 Rénov'
               </strong>
             </span>
-          </p>
+          </h3>
+          <p>Avant la réalisation de vos travaux, un conseiller France Rénov’ vous accompagne gratuitement.</p>
+          <Image
+            src={conseillerIcon}
+            alt="illustration espace conseiller France Rénov'"
+          />
         </div>
         <ul
           css={`
-            margin: 0 auto;
-            width: fit-content;
-            padding-left: 0;
-            margin-top: 1rem;
-            font-size: 65%;
             list-style-type: none;
+            padding: 0;
+            li {
+              margin: 1rem 0;
+            }
             img {
               width: 1.2rem;
               height: auto;
@@ -86,12 +76,13 @@ export default function FatConseiller({ situation, margin }) {
         >
           {' '}
           {[
-            'Un service neutre et gratuit',
-            'Un conseil local et personnalisé',
+            'Service indépendant, neutre et gratuit!',
+            'Conseils personnalisés pour votre projet',
+            'Toutes les réponses à vos questions !',
           ].map((text) => (
             <li key={text}>
               <Image
-                src={'/check-green-hybrid.svg'}
+                src={'/check.svg'}
                 alt="coche verte"
                 width="10"
                 height="10"
@@ -100,6 +91,18 @@ export default function FatConseiller({ situation, margin }) {
             </li>
           ))}
         </ul>
+        <CTAWrapper $justify="center">
+          <CTA
+            css={`
+              padding: 1rem;
+              text-wrap: wrap;
+              text-align: center;
+            `}
+            $fontSize="normal"
+          >
+            Afficher les coordonnées de mon conseiller local
+          </CTA>
+        </CTAWrapper>
       </summary>
       <section>
         <MarSearch situation={situation} what={'trouver-conseiller-renov'} />

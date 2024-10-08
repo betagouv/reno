@@ -14,9 +14,9 @@ export default function Entreprise({ data }) {
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
   const horaires = JSON.parse(data.Horaires_Structure)
   const telephone = data.Telephone_Structure
-
+  
   const siteRaw = data.Site_Internet_Structure,
-    site = siteRaw?.startsWith('http') ? siteRaw : 'https://' + siteRaw
+    site = siteRaw ? siteRaw?.startsWith('http') ? siteRaw : 'https://' + siteRaw : false
 
   return (
     <Card
