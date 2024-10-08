@@ -13,7 +13,6 @@ export default function AidesLocalesByLevel({
   situation,
   rules,
 }) {
-  console.log('purple', aides)
   const activeAide = aides.find((aide) => aide.level === level)
 
   const rule = activeAide && rules[activeAide.dottedName]

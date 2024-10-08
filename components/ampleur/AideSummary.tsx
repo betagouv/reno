@@ -26,7 +26,6 @@ export const AideSummary = ({
 }) => {
   const attributes = expanded ? { open: true } : {}
 
-  console.log('purple ', typeof expanded, expanded, attributes)
   return (
     <details
       {...attributes}

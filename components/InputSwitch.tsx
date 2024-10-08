@@ -173,7 +173,6 @@ export default function InputSwitch({
           {...{
             type: currentQuestion,
             setChoice: (result) => {
-              console.log('purple result ', result)
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {

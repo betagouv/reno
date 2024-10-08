@@ -7,8 +7,6 @@ export default ({ engine, situation, dottedName, state = 'none' }) => {
   const missingVariables = evaluation.missingVariables
   const missing = Object.entries(missingVariables)
 
-  console.log('vv', value, missingVariables)
-
   return (
     <Key $state={state || (missing.length > 0 ? 'inProgress' : 'final')}>
       {false && missing.length > 0 ? (
