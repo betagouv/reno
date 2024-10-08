@@ -11,7 +11,10 @@ import QuestionDescription from './QuestionDescription'
 import { Card } from './UI'
 import { getRuleName } from './publicodes/utils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
-import { useIsCompact } from './useIsInIframe'
+import useIsInIframe, { useIsCompact } from './useIsInIframe'
+import UserProblemBanner from './UserProblemBanner'
+import Share from '@/app/simulation/Share'
+import { useSearchParams } from 'next/navigation'
 
 export const QuestionText = ({
   rule,
@@ -45,7 +48,10 @@ export default function ClassicQuestionWrapper({
   noSuggestions,
   nextQuestions,
 }) {
+  const isInIframe = useIsInIframe()
   const isCompact = useIsCompact()
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
   const { categoryTitle } = categoryData(
     nextQuestions,
     currentQuestion,
@@ -139,6 +145,13 @@ export default function ClassicQuestionWrapper({
       </Card>
       <Notifications {...{ currentQuestion, engine }} />
       {!isCompact && <QuestionDescription {...{ currentQuestion, rule }} />}
+      {(!isInIframe || !isCompact) && (
+        <>
+          <br />
+          <UserProblemBanner />
+          <Share searchParams={searchParams} />
+        </>
+      )}
     </div>
   )
 }

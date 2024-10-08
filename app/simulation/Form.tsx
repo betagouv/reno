@@ -110,14 +110,14 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      {(!isInIframe || !isCompact) && (
+      {false && (!isInIframe || !isCompact) && (
         <>
           <br />
           <UserProblemBanner />
           <Share searchParams={searchParams} />
         </>
       )}
-      {!isInIframe && (
+      {false && !isInIframe && (
         <Section>
           <h2>Documentation</h2>
           <p>
