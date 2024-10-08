@@ -92,10 +92,8 @@ export default function MarSearch({
       )}
       <div
         css={`
-          margin: 1rem;
           width: 100%;
           max-width: 90vw;
-          padding: 0 0.6rem;
         `}
       >
         {data == null ? <MarLoader /> : <Entreprises data={data} />}

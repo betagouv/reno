@@ -89,7 +89,7 @@ export default function AideCTAs({
         </Link>
       </CTA>
       <CTA css={`
-          margin: 0.5rem 0.2rem;
+          margin: 0.5rem 0.2rem !important;
           ${isSelected && `
             background: rgba(190, 242, 197, 0.20);
             border: 1px dashed var(--validColor);
