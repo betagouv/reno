@@ -2,15 +2,6 @@ import iconIsolation from '@/public/isolation.svg'
 import iconChauffage from '@/public/chauffage.svg'
 import iconVentilation from '@/public/ventilation.svg'
 import iconSolaire from '@/public/solaire.svg'
-import AideMAR from './ampleur/AideMAR'
-import AidesLocales from './ampleur/AidesLocales'
-import CEEAmpleur from './ampleur/CEEAmpleur'
-import Copro from './ampleur/Copro'
-import Denormandie from './ampleur/Denormandie'
-import EcoPTZ from './ampleur/EcoPTZ'
-import MPRA from './ampleur/MPRA'
-import PAR from './ampleur/PAR'
-import TaxeFoncière from './ampleur/TaxeFoncière'
 
 export const sortBy = (f) => (list) =>
   list.sort((a, b) => {
@@ -70,15 +61,3 @@ export const categoriesGeste = [
     icone: iconVentilation,
   },
 ]
-
-export const correspondance = {
-  'MPR . accompagnée': MPRA,
-  'MPR . accompagnée . prise en charge MAR': AideMAR,
-  PTZ: EcoPTZ,
-  PAR: PAR,
-  'aides locales': AidesLocales,
-  'ampleur . prime individuelle copropriété': Copro,
-  'taxe foncière': TaxeFoncière,
-  denormandie: Denormandie,
-  "CEE . rénovation d'ampleur": CEEAmpleur,
-}
