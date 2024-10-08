@@ -819,6 +819,7 @@ MPR . accompagnée . prise en charge MAR:
   marque: MaPrimeRénov'
   complément de marque: Audit et accompagnement
   aide parente: MPR . accompagnée
+  type: remboursement
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond
