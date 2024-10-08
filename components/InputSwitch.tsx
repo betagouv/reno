@@ -287,6 +287,25 @@ export default function InputSwitch({
     )
   }
   
+  
+  if(searchParams["details"] && searchParams["details"] == "synthese") {
+    return (<>
+      <AideSynthese
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          correspondance,
+          nextQuestions
+        }}
+      />
+      <Feedback title={"Ce simulateur a-t-il été utile ?"} />
+    </>)
+  }
+
   if(searchParams["details"]) {
     return (<>
       <AideDetails

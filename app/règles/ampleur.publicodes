@@ -83,3 +83,8 @@ ampleur . pourcent d'écrêtement:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 60 %
     - sinon: 40 %
+
+ampleur . synthèse:
+  description: Quels sont les aides dont l'utilisateur souhaite avoir la synthèse
+  par défaut: "''"
+  

@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import rules from '@/app/règles/rules'
 import { CTAWrapper, CTA } from '../UI';
-import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils';
+import { encodeDottedName, encodeSituation, getSituation } from '../publicodes/situationUtils';
 import { omit } from '@/components/utils'
 import { useSearchParams } from 'next/navigation';
 
@@ -18,7 +19,7 @@ export default function AideCTAs({
     {
       ...encodeSituation(
         {
-          ...situation,
+          ...getSituation(searchParams, rules),
           ['details']: encodeDottedName(dottedName),
         },
         false,
@@ -45,7 +46,9 @@ export default function AideCTAs({
     const encodedSituation = encodeSituation(
       {
         ...situation,
-        "synthese": (searchParams.synthese ? searchParams.synthese + ',' :  "")  + encodeDottedName(dottedName),
+        "ampleur.synthèse": (searchParams["ampleur.synthèse"] ? 
+            searchParams["ampleur.synthèse"] + ',' :  "")  + 
+            '"'+encodeDottedName(dottedName)+'"',
       },
       false,
       answeredQuestions,
@@ -54,7 +57,27 @@ export default function AideCTAs({
     setSearchParams(encodedSituation, 'push', false)
   }
 
-  const isSelected = searchParams.synthese?.includes(encodeDottedName(dottedName))
+  const removeFromSynthese = (dottedName) => {
+    const newSynthese = searchParams["ampleur.synthèse"]
+                          .split(",")
+                          .filter(item => item != '"'+encodeDottedName(dottedName)+'"')
+    const encodedSituation = encodeSituation(
+      (newSynthese.length > 0 ?
+        {
+          ...situation,
+          "ampleur.synthèse": newSynthese
+        } :
+        omit(["ampleur . synthèse"], situation)
+      ),
+      false,
+      answeredQuestions,
+    )
+    
+    setSearchParams(encodedSituation, 'push', true)
+  }
+
+  const isSelected = searchParams["ampleur.synthèse"]?.split(",").find(item => item === '"'+encodeDottedName(dottedName)+'"')
+
   return (
     <CTAWrapper $justify="center" css={`flex-wrap: wrap;`}>
       <CTA css={`margin: 0.5rem 0.2rem !important;`} $fontSize="normal" $importance="emptyBackground">
@@ -74,8 +97,23 @@ export default function AideCTAs({
           `}
         `} $fontSize="normal">
         <button
-          onClick={() => addToSynthese(dottedName)}>{ isSelected ? "✔ Ajouté" : "+ Ajouter" } à ma synthèse</button>
+          onClick={() => !isSelected && addToSynthese(dottedName)}>
+            { isSelected ? "✔ Ajouté" : "+ Ajouter" } à ma synthèse
+        </button>
       </CTA>
+      {isSelected && 
+        <CTA css={`
+          margin: 0.5rem 0.2rem;
+          color: #721c24;
+          background-color: #f8d7da;
+          border: 1px dashed #721c24;
+        `} $fontSize="normal">
+          <button
+            onClick={() => removeFromSynthese(dottedName)}>
+              ✖ Retirer de ma synthèse
+          </button>
+        </CTA>
+      }
     </CTAWrapper>
   )
 }

@@ -7,7 +7,7 @@ import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
 import QuestionsRéponses from '../mpra/QuestionsRéponses'
-import { encodeDottedName } from '../publicodes/situationUtils'
+import { encodeDottedName, encodeSituation, getSituation } from '../publicodes/situationUtils'
 import { useAides } from './useAides'
 import { AideSummary } from './AideSummary'
 import { Key } from '../explications/ExplicationUI'
@@ -54,8 +54,21 @@ export default function AidesAmpleur({
   const eligibles = aides.filter((aide) => aide.status === true)
   const nonEligibles = aides.filter((aide) => aide.status === false)
   const neSaisPas = aides.filter((aide) => aide.status === null)
-  const count = searchParams.synthese?.split(',').length
-  const nextUrl = "/"
+  const count = searchParams["ampleur.synthèse"]?.split(',').length
+  const syntheseUrl = setSearchParams(
+    {
+      ...encodeSituation(
+        {
+          ...getSituation(searchParams, rules),
+          ['details']: "synthese",
+        },
+        false,
+        answeredQuestions,
+      ),
+    },
+    'url',
+    true,
+  )
   return (
     <CustomQuestionWrapper>
       <BtnBackToParcoursChoice
@@ -108,9 +121,9 @@ export default function AidesAmpleur({
           if (AideComponent)
             return (
               <AideComponent
-                key={aide.dottedName}
+                key={aide.baseDottedName}
                 {...{
-                  dottedName: aide.dottedName,
+                  dottedName: aide.baseDottedName,
                   setSearchParams,
                   answeredQuestions,
                   engine,
@@ -158,7 +171,7 @@ export default function AidesAmpleur({
           `}
         >
           <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
-            <Link href={nextUrl}>
+            <Link href={syntheseUrl}>
               <span
                 css={`
                   img {
