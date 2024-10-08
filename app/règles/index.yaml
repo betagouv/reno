@@ -820,6 +820,7 @@ MPR . accompagnée . prise en charge MAR:
   complément de marque: Audit et accompagnement
   aide parente: MPR . accompagnée
   type: remboursement
+MPR . accompagnée . prise en charge MAR . montant:
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond
