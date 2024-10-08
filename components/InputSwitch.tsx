@@ -21,6 +21,7 @@ import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import SmartInput from './SmartInput'
 import questionType from './publicodes/questionType'
 import AideDetails from './AideDetails'
+import Feedback from '@/app/contact/Feedback'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -287,18 +288,21 @@ export default function InputSwitch({
   }
   
   if(searchParams["details"]) {
-    return (<AideDetails
-      {...{
-        currentQuestion,
-        searchParams,
-        setSearchParams,
-        situation,
-        answeredQuestions,
-        engine,
-        rules,
-        nextQuestions
-      }}
-    />)
+    return (<>
+      <AideDetails
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          nextQuestions
+        }}
+      />
+      <Feedback title={"Ce simulateur a-t-il été utile ?"} />
+    </>)
   }
 
   if (
@@ -306,50 +310,58 @@ export default function InputSwitch({
     searchParams["parcours d'aide"].includes('à la carte')
   ) {
     return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          questions: gestesMosaicQuestions,
-        }}
-      />
+      <>
+        <GestesMosaic
+          {...{
+            rules,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            questions: gestesMosaicQuestions,
+          }}
+        />
+        <Feedback title={"Ce simulateur a-t-il été utile ?"} />
+      </>
     )
   }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
-      <AidesAmpleur
-        {...{
-          currentQuestion,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          searchParams,
-        }}
-      />
+      <>
+        <AidesAmpleur
+          {...{
+            currentQuestion,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+            searchParams,
+          }}
+        />
+        <Feedback title={"Ce simulateur a-t-il été utile ?"} />
+      </>
     )
   }
 
   if (["parcours d'aide"].includes(currentQuestion)) {
     return (
-      <Eligibility
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          nextQuestions,
-          expanded: searchParams.details === 'oui',
-        }}
-      />
+      <>
+        <Eligibility
+          {...{
+            currentQuestion,
+            searchParams,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+            nextQuestions,
+            expanded: searchParams.details === 'oui',
+          }}
+        />
+      </>
     )
   }
   // We kept the latter component before it got really specialized. TODO not completely functional
