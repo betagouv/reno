@@ -2,6 +2,10 @@ import iconIsolation from '@/public/isolation.svg'
 import iconChauffage from '@/public/chauffage.svg'
 import iconVentilation from '@/public/ventilation.svg'
 import iconSolaire from '@/public/solaire.svg'
+import remboursementIcon from '@/public/icon-remboursement.svg'
+import pretIcon from '@/public/icon-pret.svg'
+import avanceIcon from '@/public/icon-avance.svg'
+import exonerationIcon from '@/public/icon-exoneration-fiscale.svg'
 
 export const sortBy = (f) => (list) =>
   list.sort((a, b) => {
@@ -61,3 +65,31 @@ export const categoriesGeste = [
     icone: iconVentilation,
   },
 ]
+
+export const aideStyles = {
+  prêt: {
+    color: "#79A5DB",
+    backgroundColor: "#CDE4FF",
+    borderColor: "#79A5DB",
+    icon: pretIcon
+  },
+  "exonération fiscale": {
+    color: "#CD9C5D",
+    backgroundColor: "#FFE9CD",
+    borderColor: "#CD9C5D",
+    icon: exonerationIcon
+  },
+  remboursement: {
+    color: "#8484D0",
+    backgroundColor: "#E3E3FD",
+    borderColor: "#8484D0",
+    icon: remboursementIcon
+  },
+  avance: {
+    color: "#97AA7A",
+    backgroundColor: "#FDF8DB",
+    borderColor: "#97AA7A",
+    icon: avanceIcon
+
+  }
+}

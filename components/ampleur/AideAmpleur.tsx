@@ -1,19 +1,17 @@
 import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
 import starIcon from '@/public/star-full-gold.svg'
-import remboursementIcon from '@/public/icon-remboursement.svg'
-import pretIcon from '@/public/icon-pret.svg'
-import exonerationIcon from '@/public/icon-exoneration-fiscale.svg'
 import Image from 'next/image'
 import { CTA, Card } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
-import { uncapitalise0 } from '../utils'
+import { uncapitalise0, aideStyles } from '../utils'
 import chainIcon from '@/public/link-chain.svg'
 import AideCTAs from './AideCTAs'
 import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
 
 export default function AideAmpleur({ 
+  engine,
   dottedName, 
   setSearchParams,
   situation,
@@ -25,34 +23,17 @@ export default function AideAmpleur({
   
   const rawSearchParams = useSearchParams(),
   searchParams = Object.fromEntries(rawSearchParams.entries())
-  
   const rule = rules[dottedName]
   const isFavorite = rule.favorite === 'oui',
     marque2 = rule['complément de marque'],
-    title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : ''),
-    aideStyles = {
-      prêt: {
-        color: "#79A5DB",
-        backgroundColor: "#CDE4FF",
-        borderColor: "#79A5DB",
-        icon: pretIcon
-      },
-      "exonération fiscale": {
-        color: "#CD9C5D",
-        backgroundColor: "#FFE9CD",
-        borderColor: "#CD9C5D",
-        icon: exonerationIcon
-      },
-      remboursement: {
-        color: "#8484D0",
-        backgroundColor: "#E3E3FD",
-        borderColor: "#8484D0",
-        icon: remboursementIcon
-      }
-    }
+    title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
   const style = aideStyles[rule["type"]] || {};
   
-  const isSelected = searchParams.synthese?.includes(encodeDottedName(dottedName))
+  const isModeste = engine && engine.setSituation(situation)
+                          .evaluate('ménage . revenu . classe')
+                          .nodeValue
+                          .includes("modeste")
+  const isSelected = searchParams["ampleur.synthèse"]?.split(",").find(item => item === '"'+encodeDottedName(dottedName)+'"')
   return (
     <section
       id={'aide-' + encodeDottedName(dottedName)}
@@ -82,7 +63,6 @@ export default function AideAmpleur({
           />
         </span>
       )}
-
       { expanded ? (
         <>
           <header
@@ -147,13 +127,30 @@ export default function AideAmpleur({
               </h3>
             </div>
             {rule["type"] && (
-              <PictoTypeAide
-                $style={style}
-                $expanded={expanded}
+              <div css={`
+                  display: flex; 
+                  flex-direction: column;
+                  gap: 0.5rem;
+                  align-items: flex-end;
+                `}
               >
-                <span className="icon"></span>
-                <span>{rule["type"]}</span>
-              </PictoTypeAide>
+                <PictoTypeAide
+                  $style={style}
+                  $expanded={expanded}
+                >
+                  <span className="icon"></span>
+                  <span>{rule["type"]}</span>
+                </PictoTypeAide>
+                {isModeste && ( // Petite exception pour MPRA qui peut être de 2 formes
+                  <PictoTypeAide
+                    $style={aideStyles["avance"]}
+                    $expanded={expanded}
+                  >
+                    <span className="icon"></span>
+                    <span>70 % versés avant travaux</span>
+                  </PictoTypeAide>
+                )}
+              </div>
             )}
           </header>
           {children}
