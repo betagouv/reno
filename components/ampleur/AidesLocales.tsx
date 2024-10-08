@@ -7,10 +7,8 @@ import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import { BlueEm } from '@/app/LandingUI'
 import rules from '@/app/règles/rules'
 import hexagoneIcon from '@/public/hexagone-contour.svg'
-import questionIcon from '@/public/remix-question-empty.svg'
 import AddressSearch from '../AddressSearch'
 import { encodeSituation } from '../publicodes/situationUtils'
-import useSetSearchParams from '../useSetSearchParams'
 import AidesLocalesByLevel from './AidesLocalesByLevel'
 import { findAidesLocales } from './useAides'
 import MapBehindCTA from '../MapBehindCTA'
@@ -85,36 +83,40 @@ export default function AidesLocales({
       situation,
       expanded
     }}>
-      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
+      <p>Certaines collectivités territoriales encouragent les démarches de rénovation par le biais de dispositifs locaux.</p>
+      { false && (
+        <>
+          <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
+          <ul>
+            {levels.map((level) => (
+              <AidesLocalesByLevel
+                {...{ aides, level, situation, engine, rules }}
+                key={level}
+              />
+            ))}
+          </ul>
 
-      <ul>
-        {levels.map((level) => (
-          <AidesLocalesByLevel
-            {...{ aides, level, situation, engine, rules }}
-            key={level}
-          />
-        ))}
-      </ul>
-
-      <AideCTA text="Découvrir les aides locales">
-        <p>
-          N'hésitez pas à consulter la{' '}
-          <a href="https://www.anil.org/aides-locales-travaux/">
-            base des aides locale de l'ANIL
-          </a>
-          , les sites d'information de vos collectivités, ou votre conseiller
-          France Rénov'.
-        </p>
-        <MapBehindCTA
-          {...{
-            situation,
-            searchParams,
-            what: 'trouver-conseiller-renov',
-            text: 'Trouver mon conseiller',
-            importance: 'secondary',
-          }}
-        />
-      </AideCTA>
+          <AideCTA text="Découvrir les aides locales">
+            <p>
+              N'hésitez pas à consulter la{' '}
+              <a href="https://www.anil.org/aides-locales-travaux/">
+                base des aides locale de l'ANIL
+              </a>
+              , les sites d'information de vos collectivités, ou votre conseiller
+              France Rénov'.
+            </p>
+            <MapBehindCTA
+              {...{
+                situation,
+                searchParams,
+                what: 'trouver-conseiller-renov',
+                text: 'Trouver mon conseiller',
+                importance: 'secondary',
+              }}
+            />
+          </AideCTA>
+        </>
+      )}
     </AideAmpleur>
   )
 }
