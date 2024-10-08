@@ -8,25 +8,15 @@ import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
 import QuestionsRéponses from '../mpra/QuestionsRéponses'
 import { encodeDottedName } from '../publicodes/situationUtils'
-import Copro from './Copro'
-import Denormandie from './Denormandie'
-import EcoPTZ from './EcoPTZ'
-import PAR from './PAR'
-import CEEAmpleur from './CEEAmpleur'
-import MPRA from './MPRA'
-import TaxeFoncière from './TaxeFoncière'
 import { useAides } from './useAides'
-import AideMAR from './AideMAR'
-import StatusIcon from './StatusIcon'
-import AidesLocales from './AidesLocales'
 import { AideSummary } from './AideSummary'
-import { correspondance } from '@/components/utils'
-import { CTA, CTAWrapper } from '../UI'
+import { Key } from '../explications/ExplicationUI'
+import { correspondance, omit } from '@/components/utils'
+import { Card, CTA, CTAWrapper } from '../UI'
 
 export default function AidesAmpleur({
   setSearchParams,
   situation: givenSituation,
-  currentQuestion,
   answeredQuestions,
   engine,
   rules,
@@ -35,11 +25,6 @@ export default function AidesAmpleur({
   const situation = //omit(['projet . travaux'], givenSituation)
     givenSituation
 
-  const value = situation['projet . DPE visé'],
-    oldIndex = +situation['DPE . actuel'] - 1,
-    automaticChoice = Math.max(oldIndex - 2, 0),
-    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
-
   const exampleSituation = createExampleSituation(engine, situation, false)
   const extremeSituation = createExampleSituation(engine, situation, true)
   const aides = useAides(engine, extremeSituation) // TODO which situation
@@ -47,31 +32,32 @@ export default function AidesAmpleur({
   const eligibles = aides.filter((aide) => aide.status === true)
   const nonEligibles = aides.filter((aide) => aide.status === false)
   const neSaisPas = aides.filter((aide) => aide.status === null)
-
   const count = searchParams.synthese?.split(',').length
+  const nextUrl = "/"
   return (
     <CustomQuestionWrapper>
       <BtnBackToParcoursChoice
         {...{
           setSearchParams,
-          situation,
           situation: omit(["parcours d'aide"], situation),
           answeredQuestions,
         }}
       />
-      <header
-        css={`
-          font-size: 100%;
-        `}
-      >
-        <h1>Financer une rénovation d’ampleur</h1>
+      
+      <header>
+        <small>Aides disponibles</small>
+        <h2 css={`
+          font-size: 120%;
+          margin: 0.5rem 0 !important;
+        `}>
+          Financer une rénovation d’ampleur
+        </h2>
       </header>
-
       {false && ( // on pourra mettre un sommaire si besoin
         <ul>
           {eligibles.map((aide) => {
             return (
-              <li>
+              <li key={aide.dottedName}>
                 <Link href={'#' + 'aide-' + encodeDottedName(aide.dottedName)}>
                   {aide.marque || aide['complément de marque']}
                 </Link>
@@ -82,24 +68,16 @@ export default function AidesAmpleur({
       )}
 
       {eligibles.length > 0 && (
-        <header
+        <p
           css={`
-            display: flex;
-            align-items: center;
-            img {
-              width: 2rem;
-              height: auto;
-              margin-right: 0.4rem;
-            }
-            p {
-              margin: 0;
-            }
             margin: 1rem 0 0 0;
+            em {
+              min-width: 0;
+            }
           `}
         >
-          <StatusIcon status={true} />
-          <p>Vous êtes éligibles à plusieurs aides. Elles sont cumulables.</p>
-        </header>
+          Vous êtes éligibles à <Key $state={'final'}>{eligibles.length}</Key> dispositifs cumulables entre eux:
+        </p>
       )}
 
       <section>
@@ -118,6 +96,7 @@ export default function AidesAmpleur({
                   exampleSituation,
                   searchParams,
                   rules,
+                  expanded: false
                 }}
               />
             )
@@ -128,72 +107,63 @@ export default function AidesAmpleur({
           )
         })}
       </section>
-      
-      <CTAWrapper
-        css={`
-          @media (max-width: 800px) {
-            position: fixed;
-            text-align: center;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            margin: 0;
-            background: white;
-            padding: 1rem 0;
-            --shadow-color: 180deg 2% 61%;
-            --shadow-elevation-medium: 0px -0.4px 0.5px hsl(var(--shadow-color) /
-                    0.36),
-              0px -1.2px 1.3px -0.8px hsl(var(--shadow-color) / 0.36),
-              0.1px -2.9px 3.3px -1.7px hsl(var(--shadow-color) / 0.36),
-              0.2px -7.1px 8px -2.5px hsl(var(--shadow-color) / 0.36);
+      { count >= 1 &&
+        <CTAWrapper
+          css={`
+            @media (max-width: 800px) {
+              position: fixed;
+              z-index: 1000;
+              text-align: center;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              margin: 0;
+              background: white;
+              padding: 1rem 0;
+              --shadow-color: 180deg 2% 61%;
+              --shadow-elevation-medium: 0px -0.4px 0.5px hsl(var(--shadow-color) /
+                      0.36),
+                0px -1.2px 1.3px -0.8px hsl(var(--shadow-color) / 0.36),
+                0.1px -2.9px 3.3px -1.7px hsl(var(--shadow-color) / 0.36),
+                0.2px -7.1px 8px -2.5px hsl(var(--shadow-color) / 0.36);
 
-            box-shadow: var(--shadow-elevation-medium);
-            > div {
-              width: 90%;
-              margin: 0 auto !important;
+              box-shadow: var(--shadow-elevation-medium);
+              > div {
+                width: 90%;
+                margin: 0 auto !important;
+              }
             }
-          }
-        `}
-      >
-        <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
-          <Link href={nextUrl}>
-            <span
-              css={`
-                img {
-                  filter: invert(1);
-                  width: 1.6rem;
-                  margin-right: 0.6rem;
-                  height: auto;
-                  vertical-align: bottom;
-                }
-              `}
-            >
-              ({count}) Voir ma synthèse 
-            </span>
-          </Link>
-        </CTA>
-      </CTAWrapper>
-
-      <FatConseiller situation={situation} />
+          `}
+        >
+          <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
+            <Link href={nextUrl}>
+              <span
+                css={`
+                  img {
+                    filter: invert(1);
+                    width: 1.6rem;
+                    margin-right: 0.6rem;
+                    height: auto;
+                    vertical-align: bottom;
+                  }
+                `}
+              >
+                ({count}) Voir ma synthèse 
+              </span>
+            </Link>
+          </CTA>
+        </CTAWrapper>
+      }
       {neSaisPas.length > 0 && (
         <div title="Aides pour lesquelles nous n'avons pu déterminer votre éligibilité">
           <header
             css={`
               display: flex;
               align-items: center;
-              img {
-                width: 2rem;
-                height: auto;
-                margin-right: 0.4rem;
-              }
-              p {
-                margin: 0;
-              }
-              margin: 4rem 0 0 0;
-              font-size: 130%;
+              margin: 2rem 0 0 0;
             `}
           >
-            <h2>Aides potentielles</h2>
+            <small>Aides potentielles</small>
           </header>
           <p>
             Nous n'avons pas pu déterminer votre éligibilité à ces aides, c'est
@@ -215,6 +185,7 @@ export default function AidesAmpleur({
                     exampleSituation,
                     searchParams,
                     rules,
+                    expanded: false
                   }}
                 />
               )
@@ -223,20 +194,6 @@ export default function AidesAmpleur({
                 Composant pas trouvé pour {aide.baseDottedName}{' '}
                 {aide.dottedName}
               </p>
-            )
-            return (
-              <AideSummary
-                key={aide.dottedName}
-                {...{
-                  ...aide,
-                  icon: aide.icône,
-                  text,
-                  text2,
-                  type: aide.type,
-                  expanded: false,
-                  small: true,
-                }}
-              />
             )
           })}
         </div>
@@ -247,55 +204,47 @@ export default function AidesAmpleur({
             css={`
               display: flex;
               align-items: center;
-              img {
-                width: 2rem;
-                height: auto;
-                margin-right: 0.4rem;
-              }
-              p {
-                margin: 0;
-              }
-              margin: 4rem 0 0 0;
-              font-size: 130%;
+              margin: 2rem 0 0 0;
             `}
           >
-            <h2>Aides non disponibles</h2>
+            <small>Aides non disponibles</small>
           </header>
           <p>
             Nous avons déterminé que vous n'êtes pas éligible à ces aides. Si
             vous avez un doute, n'hésitez pas à contacter gratuitement votre
             conseiller France Rénov'.
           </p>
-          <br />
-          {nonEligibles.map((aide) => {
-            const text = aide.marque,
-              text2 = aide['complément de marque']
-            return (
-              <AideSummary
-                key={aide.dottedName}
-                {...{
-                  ...aide,
-                  icon: aide.icône,
-                  text,
-                  text2,
-                  type: aide.type,
-                  expanded: false,
-                  small: true,
-                }}
-              />
-            )
-          })}
+          <Card>
+            {nonEligibles.map((aide) => {
+              const text = aide.marque,
+                text2 = aide['complément de marque']
+              return (
+                <AideSummary
+                  key={aide.dottedName}
+                  {...{
+                    ...aide,
+                    icon: aide.icône,
+                    text,
+                    text2,
+                    type: aide.type,
+                    expanded: false,
+                    small: true,
+                  }}
+                />
+              )
+            })}
+          </Card>
         </div>
       )}
+      <FatConseiller situation={situation} />
+      
 
-      <QuestionsRéponses
+      {/* <QuestionsRéponses
         {...{
           engine,
-          situation,
-          oldIndex,
-          choice,
+          situation
         }}
-      />
+      /> */}
     </CustomQuestionWrapper>
   )
 }

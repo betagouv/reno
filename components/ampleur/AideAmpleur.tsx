@@ -10,6 +10,8 @@ import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
 import chainIcon from '@/public/link-chain.svg'
 import AideCTAs from './AideCTAs'
+import styled from 'styled-components'
+import { useSearchParams } from 'next/navigation'
 
 export default function AideAmpleur({ 
   dottedName, 
@@ -20,6 +22,10 @@ export default function AideAmpleur({
   expanded,
   level = null 
 }) {
+  
+  const rawSearchParams = useSearchParams(),
+  searchParams = Object.fromEntries(rawSearchParams.entries())
+  
   const rule = rules[dottedName]
   const isFavorite = rule.favorite === 'oui',
     marque2 = rule['complément de marque'],
@@ -45,11 +51,13 @@ export default function AideAmpleur({
       }
     }
   const style = aideStyles[rule["type"]] || {};
+  
+  const isSelected = searchParams.synthese?.includes(encodeDottedName(dottedName))
   return (
     <section
       id={'aide-' + encodeDottedName(dottedName)}
       css={
-        level === 2 &&
+        level === 2 && !expanded &&
         `
 		  border-left: 2px dashed #dfdff1;
 		  padding-top: .6rem;
@@ -74,66 +82,112 @@ export default function AideAmpleur({
           />
         </span>
       )}
-      <Card>
-        <header
-          css={`
-            div > h3 {
+
+      { expanded ? (
+        <>
+          <header
+            css={`
               margin: 0;
-              color: var(--darkColor0);
-            }
-            margin: 0;
-            font-size: 140%;
-            ${level === 2 && 'font-size: 110%;'}
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          `}
-        >
-          {false && isFavorite && (
-            <Image
-              src={starIcon}
-              alt="Icône étoile signalant le parcours recommandé"
-            />
-          )}
-          <div>
-            <h3>{title}</h3>
-          </div>
-          {rule["type"] && (
-            <div
-              css={`
-                color: ${style.color};
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                img {
-                  padding: 0.4rem;
-                  background-color: ${style.backgroundColor};
-                  border: 1px solid ${style.borderColor};
-                  border-radius: 5px;
-                }
-                span {
-                  font-size: 60%;
-                }
-              `}
-            >
-              <Image width="35" src={style.icon} />
-              <span>{rule["type"]}</span>
+            `}
+          >
+            <small>En détail</small>
+            <h2 css={`
+              font-size: 120%;
+              margin: 0.5rem 0 !important;
+            `}>
+              {title}
+            </h2>
+          </header>
+          <Card css={`width: fit-content`}>
+            {rule["type"] && (
+              <PictoTypeAide
+                $style={style}
+                $expanded={expanded}
+              >
+                <span className="icon"></span>
+                <span>{rule["type"]}</span>
+              </PictoTypeAide>
+            )}
+          </Card>
+          {children}
+          <AideCTAs {...{
+              dottedName, 
+              setSearchParams,
+              situation,
+              answeredQuestions,
+              expanded
+            }} 
+          />
+        </>
+      ) : (        
+        <Card css={`background: ${isSelected ? "rgba(205, 228, 255, 0.20);" : ""}`}>
+          <header
+            css={`
+              margin: 0 0 1rem 0;
+              ${level === 2 && 'font-size: 110%;'}
+              font-size: 130%;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            `}
+          >
+            {false && isFavorite && (
+              <Image
+                src={starIcon}
+                alt="Icône étoile signalant le parcours recommandé"
+              />
+            )}
+            <div>
+              <h3 css={`
+                  margin: 0;
+                  color: var(--darkColor0);
+                `}
+              >
+                {title}
+              </h3>
             </div>
-          )}
-        </header>
-        {children}
-        <AideCTAs {...{
-          dottedName, 
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          expanded
-         }} 
-        />
-      </Card>
+            {rule["type"] && (
+              <PictoTypeAide
+                $style={style}
+                $expanded={expanded}
+              >
+                <span className="icon"></span>
+                <span>{rule["type"]}</span>
+              </PictoTypeAide>
+            )}
+          </header>
+          {children}
+          <AideCTAs {...{
+              dottedName, 
+              setSearchParams,
+              situation,
+              answeredQuestions,
+              expanded
+            }} 
+          />
+        </Card>
+      )}
     </section>
   )
 }
+
+export const PictoTypeAide = styled.div`
+  width: fit-content;
+  color: ${(p) => p.$style.color};
+  display: flex;
+  flex-direction: column;
+  align-items: ${(p) => p.$expanded ? "flex-start": "flex-end"};
+  .icon {
+    padding: 1rem;
+    background: url('${(p) => p.$style.icon.src}') ${(p) => p.$style.backgroundColor} no-repeat center;
+    border: 1px solid ${(p) => p.$style.borderColor};
+    border-radius: 5px;
+    ${(p) => p.$expanded ? "margin: auto;" : ""}
+  }
+  span {
+    font-size: ${(p) => p.$expanded ? "80%": "60%"};
+  }
+`
 
 export const InformationBlock = ({ children }) => (
   <section
