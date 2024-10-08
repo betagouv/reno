@@ -87,10 +87,11 @@ export default function Answers({
               css={`
                 cursor: pointer;
                 width: max-content;
+                font-weight: 500;
                 display:block;
               `}
             >
-              {isOpen ? 'Cacher' : 'Voir'} mes réponses
+              {isOpen ? 'Cacher' : 'Modifier'} mes réponses
             </LinkStyleButton>
           </div>
       </summary>
