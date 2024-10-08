@@ -13,15 +13,6 @@ import { AideSummary } from './AideSummary'
 import { Key } from '../explications/ExplicationUI'
 import { omit } from '@/components/utils'
 import { Card, CTA, CTAWrapper } from '../UI'
-import AideMAR from './AideMAR'
-import AidesLocales from './AidesLocales'
-import CEEAmpleur from './CEEAmpleur'
-import Copro from './Copro'
-import Denormandie from './Denormandie'
-import EcoPTZ from './EcoPTZ'
-import MPRA from './MPRA'
-import PAR from './PAR'
-import TaxeFoncière from './TaxeFoncière'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -30,19 +21,9 @@ export default function AidesAmpleur({
   engine,
   rules,
   searchParams,
+  correspondance
 }) {
-  
-  const correspondance = {
-    'MPR . accompagnée': MPRA,
-    'MPR . accompagnée . prise en charge MAR': AideMAR,
-    PTZ: EcoPTZ,
-    PAR: PAR,
-    'aides locales': AidesLocales,
-    'ampleur . prime individuelle copropriété': Copro,
-    'taxe foncière': TaxeFoncière,
-    denormandie: Denormandie,
-    "CEE . rénovation d'ampleur": CEEAmpleur,
-  }
+
   
   const situation = //omit(['projet . travaux'], givenSituation)
     givenSituation

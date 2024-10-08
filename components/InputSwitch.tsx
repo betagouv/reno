@@ -22,6 +22,16 @@ import SmartInput from './SmartInput'
 import questionType from './publicodes/questionType'
 import AideDetails from './AideDetails'
 import Feedback from '@/app/contact/Feedback'
+import AideSynthese from './ampleur/AideSynthese'
+import AideMAR from './ampleur/AideMAR'
+import AidesLocales from './ampleur/AidesLocales'
+import CEEAmpleur from './ampleur/CEEAmpleur'
+import Copro from './ampleur/Copro'
+import Denormandie from './ampleur/Denormandie'
+import EcoPTZ from './ampleur/EcoPTZ'
+import MPRA from './ampleur/MPRA'
+import PAR from './ampleur/PAR'
+import TaxeFoncière from './ampleur/TaxeFoncière'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -33,6 +43,17 @@ export default function InputSwitch({
   nextQuestions,
   searchParams,
 }) {
+  const correspondance = {
+    'MPR . accompagnée': MPRA,
+    'MPR . accompagnée . prise en charge MAR': AideMAR,
+    PTZ: EcoPTZ,
+    PAR: PAR,
+    'aides locales': AidesLocales,
+    'ampleur . prime individuelle copropriété': Copro,
+    'taxe foncière': TaxeFoncière,
+    denormandie: Denormandie,
+    "CEE . rénovation d'ampleur": CEEAmpleur,
+  }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -317,6 +338,7 @@ export default function InputSwitch({
           answeredQuestions,
           engine,
           rules,
+          correspondance,
           nextQuestions
         }}
       />
@@ -357,6 +379,7 @@ export default function InputSwitch({
             engine,
             rules,
             searchParams,
+            correspondance
           }}
         />
         <Feedback title={"Ce simulateur a-t-il été utile ?"} />
