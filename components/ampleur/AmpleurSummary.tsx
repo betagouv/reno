@@ -70,10 +70,7 @@ export default function AmpleurSummary({
         css={`
           /* if nothing's active, grayscale the font ?
 		  */
-          margin-top: 0.2rem;
           background: white;
-          padding-top: 1.2rem;
-          max-width: 40rem;
         `}
       >
         <div css={`
@@ -82,7 +79,7 @@ export default function AmpleurSummary({
         `}>
           <ProfessionnelLabel />
         </div>
-        <h3>Pour une rénovation performante</h3>
+        <h3 css={`font-size: 120%;`}>Pour une rénovation performante</h3>
         <p>La garantie d'un gain en performance, en confort et d'une réduction de vos factures d'énergie</p>
 
         <CTAWrapper $justify="center">
@@ -93,25 +90,13 @@ export default function AmpleurSummary({
 
         <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
         <ul css={`
-          list-style-type: none;
-          padding: 0;
           li {
-            display: flex;
-            align-items: center;
+            list-style-image: url(${checkIcon.src});
             margin: 0.5rem 0;
-            img {
-              margin-right: 0.5rem;
-            }
           }
         `}>
-          <li>
-            <Image src={checkIcon} alt="icone check" />
-            La garantie d'un gain de performance important  
-          </li>
-          <li>
-            <Image src={checkIcon} alt="icone check" />
-            Des aides souvent plus avantageuses
-          </li>
+          <li>La garantie d'un gain de performance important</li>
+          <li>Des aides souvent plus avantageuses</li>
         </ul>
         <p css={`margin-top: 1rem;`}><em>Parmi les aides ?</em></p>
         {aides

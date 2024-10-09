@@ -1,8 +1,6 @@
-import { No, Results, Yes } from '@/components/ResultUI'
-import Image from 'next/image'
+import { No, Yes } from '@/components/ResultUI'
 import { useMemo } from 'react'
 import AmpleurSummary from './ampleur/AmpleurSummary'
-import AutresAides from './AutresAides'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
 import { Avis } from './explications/Éligibilité'
@@ -149,8 +147,16 @@ export default function Eligibility({
           </>
         )}
 
-        <Results>
-          <li id="parcours-ampleur">
+        <div css={`
+          display: flex;
+          flex-wrap:nowrap;
+          @media (max-width: 700px) {
+            flex-wrap: wrap;
+            flex-direction: column;
+          }
+          justify-content: center;
+        `}>
+          <div id="parcours-ampleur">
             <AmpleurSummary
               {...{
                 engine,
@@ -160,14 +166,19 @@ export default function Eligibility({
                 setSearchParams,
               }}
             />
+          </div>
+          <div css={`
+            padding: 0 1rem;
+            align-self:center;
+            `}>
             <strong css={`
               display: block;
               text-align: center;
               margin: 1rem auto;
               font-size: 130%;
             `}>ou</strong>
-          </li>
-          <li id="parcours-gestes">
+          </div>
+          <div id="parcours-gestes">
             <ÀlaCarteSummary
               {...{
                 engine,
@@ -176,18 +187,18 @@ export default function Eligibility({
                 situation,
               }}
             />
-          </li>
-          <li>
-            <h3>Vous ne savez pas quel parcours choisir pour votre projet ?</h3>
-            <p>Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !</p>
-            <FatConseiller 
-              {...{
-                situation,
-                margin: "small"
-              }}
-            />
-          </li>
-        </Results>
+          </div>
+        </div>
+        <div>
+          <h3>Vous ne savez pas quel parcours choisir pour votre projet ?</h3>
+          <p>Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !</p>
+          <FatConseiller 
+            {...{
+              situation,
+              margin: "small"
+            }}
+          />
+        </div>
         <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
         <AutresAides />
       </CustomQuestionWrapper>

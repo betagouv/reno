@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import { CTA, CTAWrapper, Card } from './UI'
-import Image from 'next/image'
-import crossIcon from '@/public/remix-close-empty.svg'
 import checkIcon from '@/public/check.svg'
 import GestesPreview from './mprg/GestesPreview'
 import { ExplicationMPRG, InapplicableBlock } from './explications/Éligibilité'
@@ -21,11 +19,10 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
       <Card
         css={`
           min-height: 10rem;
-          max-width: 40rem;
         `}
       >
         <GesteLabel />
-        <h3>Pour une rénovation par gestes</h3>
+        <h3 css={`font-size: 120%;`}>Pour une rénovation par gestes</h3>
         <p>Rénover votre logement à votre rythme en choississant librement parmi les travaux subventionnés</p>
         
         <CTAWrapper $justify="center">
@@ -37,23 +34,15 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
         
         <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
         <ul css={`
-          list-style-type: none;
-          padding: 0;
           li {
-            display: flex;
-            align-items: center;
+            list-style-image: url(${checkIcon.src});
             margin: 0.5rem 0;
-            img {
-              margin-right: 0.5rem;
-            }
           }
         `}>
           <li>
-            <Image src={checkIcon} alt="icone check" />
             Votre logement est déjà performant (DPE classe&nbsp;<DPELabel index="0" />&nbsp;ou&nbsp;<DPELabel index="1" />)
           </li>
           <li>
-            <Image src={checkIcon} alt="icone check" />
             Vous souhaitez choisir librement parmi les aides disponibles
           </li>
         </ul>
