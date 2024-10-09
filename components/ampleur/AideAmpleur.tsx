@@ -40,7 +40,7 @@ export default function AideAmpleur({
     <section
       id={'aide-' + encodeDottedName(dottedName)}
       css={
-        level === 2 && !expanded &&
+        false && level === 2 && !expanded &&
         `
 		  border-left: 2px dashed #dfdff1;
 		  padding-top: .6rem;
@@ -49,7 +49,7 @@ export default function AideAmpleur({
 		  `
       }
     >
-      {level === 2 && (
+      {false && level === 2 && (
         <span>
           <Image
             css={`
@@ -109,7 +109,7 @@ export default function AideAmpleur({
               ${level === 2 && 'font-size: 110%;'}
               font-size: 130%;
               display: flex;
-              align-items: center;
+              align-items: flex-start;
               justify-content: space-between;
             `}
           >
@@ -142,7 +142,7 @@ export default function AideAmpleur({
                   $expanded={expanded}
                 >
                   <span className="icon"></span>
-                  <span>{rule["type"]}</span>
+                  <span className="type">{rule["type"]}</span>
                 </PictoTypeAide>
                 {isModeste && dottedName == "MPR . accompagnée" && ( // Petite exception pour MPRA qui peut être de 2 formes
                   <PictoTypeAide
@@ -150,7 +150,7 @@ export default function AideAmpleur({
                     $expanded={expanded}
                   >
                     <span className="icon"></span>
-                    <span>70 % versés avant travaux</span>
+                    <span className="type">70 % versés avant travaux</span>
                   </PictoTypeAide>
                 )}
               </div>
@@ -183,6 +183,10 @@ export const PictoTypeAide = styled.div`
     border: 1px solid ${(p) => p.$style.borderColor};
     border-radius: 5px;
     ${(p) => p.$expanded ? "margin: auto;" : ""}
+  }
+  .type {
+    display: inline-block;
+    margin-top: 0.3rem;
   }
   span {
     font-size: ${(p) => p.$expanded ? "80%": "60%"};
