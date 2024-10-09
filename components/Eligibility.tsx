@@ -10,6 +10,8 @@ import Answers from '@/app/simulation/Answers'
 import { useIsCompact } from './useIsInIframe'
 import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
+import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import { omit } from './utils'
 
 export default function Eligibility({
   setSearchParams,
@@ -75,6 +77,12 @@ export default function Eligibility({
             }}
           />
         )}
+        <BtnBackToParcoursChoice {...{
+            setSearchParams,
+            situation: omit(["DPE . actuel"], situation),
+            answeredQuestions
+          }}
+        />
         <header>
           <small>Eligibilité</small>
           <h2 css={`
