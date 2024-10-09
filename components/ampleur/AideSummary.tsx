@@ -119,7 +119,7 @@ export const AideSummary = ({
           ></span>
             {display == "ampleur-card" ? (
               <PrimeStyle
-                  css={`font-size: 90%;`}
+                  css={`font-size: 90%;margin-top: 0.5rem;`}
                   
               >
                 Jusqu'à <strong>{value} </strong>
