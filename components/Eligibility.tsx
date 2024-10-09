@@ -89,7 +89,7 @@ export default function Eligibility({
             font-size: 120%;
             margin: 0.5rem 0 !important;
           `}>
-            {some && (<>Bonne nouvelle ! 🥳</>)}
+            {some && (<>Bonne nouvelle 🥳</>)}
           </h2>
         </header>
         {noMpr && !ceeConditions && (
@@ -144,14 +144,14 @@ export default function Eligibility({
         {both && (
           <>
             <h3 css={`
-              margin: 0; 
+              margin: 0;
               font-size: 110%;
               font-weight: 500;
             `}>
               Vous êtes éligible à plusieurs aides !
             </h3>
-            <p>Sélectionnez le parcours adapté à vos besoins.</p>
             <Avis {...{ situation, engine }} />
+            <p>Sélectionnez le parcours adapté à vos besoins :</p>
           </>
         )}
 

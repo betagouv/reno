@@ -94,9 +94,9 @@ export function Avis({ engine, situation }) {
   const passoire = engine.evaluate('DPE . actuel . passoire')
   if (passoire.nodeValue)
     return (
-      <MiseEnAvant>
+      <MiseEnAvant css={`margin-top: 1rem;`}>
         <p>
-          💡 Votre logement DPE <DPELabel index={situation['DPE . actuel'] - 1} />{' '}
+          Votre logement DPE <DPELabel index={situation['DPE . actuel'] - 1} />{' '}
           est une passoire énergétique. Il vous est conseillé d'opter pour le{' '}
           <strong>parcours ampleur</strong>.
         </p>
