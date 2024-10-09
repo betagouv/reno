@@ -206,6 +206,9 @@ export default function InputSwitch({
                   'taxe foncière . commune . éligible . ménage': result.eligibilite[
                     'taxe foncière . commune . éligible'
                   ],
+                  'taxe foncière . commune . taux': result.eligibilite[
+                    'taxe foncière . commune . taux'
+                  ],
                   'logement . commune . denormandie':
                     result.eligibilite['logement . commune . denormandie'],
                 },
@@ -249,6 +252,9 @@ export default function InputSwitch({
                   'logement . commune . nom': `"${result.nom}"`,
                   'taxe foncière . commune . éligible . logement': result.eligibilite[
                     'taxe foncière . commune . éligible'
+                  ],
+                  'taxe foncière . commune . taux': result.eligibilite[
+                    'taxe foncière . commune . taux'
                   ],
                   'logement . commune . denormandie':
                     result.eligibilite['logement . commune . denormandie'],
