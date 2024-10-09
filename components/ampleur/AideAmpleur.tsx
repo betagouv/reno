@@ -49,12 +49,12 @@ export default function AideAmpleur({
 		  `
       }
     >
-      {false && level === 2 && (
+      {level === 2 && (
         <span>
           <Image
             css={`
               position: absolute;
-              top: -0.1rem;
+              top: -1.1rem;
               left: 50%;
               transform: translateX(-60%);
               width: 3rem;
