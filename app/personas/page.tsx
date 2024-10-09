@@ -4,7 +4,7 @@ import Personas from '../Personas'
 import Tests from './Tests'
 
 export const metadata: Metadata = {
-  title: 'Personas- Mes aides réno',
+  title: 'Personas - Mes aides réno',
   description:
     "Choisissez l'un des personas pour explorer les résultats de simulation d'une variété de profils types",
 }

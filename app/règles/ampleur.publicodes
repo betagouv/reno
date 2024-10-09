@@ -10,21 +10,58 @@ ampleur . montant:
   note: On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas !
   somme:
     - MPR . accompagnée . montant
-    #    - MPR . accompagnée . prise en charge MAR
-    - aides locales . total
-    # - CEE . rénovation d'ampleur . montant
+    - MPR . accompagnée . prise en charge MAR . montant
+    - aides locales . montant
+    - CEE . rénovation d'ampleur . montant
+    - ampleur . prime individuelle copropriété . montant
 
 ampleur . tous les dispositifs:
-  note: Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
+  note: |
+    Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
+
+    Elle nous sert simplement à regrouper les aides d'ampleur dans une variable, notamment pour la page d'éligibilité et pour le parcours ampleur. 
+
+    Attention, ses membres doivent avoir un chemin absolu, pour useAides.ts.
+
+    Note : le [chéque énergie](https://www.economie.gouv.fr/particuliers/tout-savoir-cheque-energie) peut être considéré comme une aide, mais une aide à la consommation d'énergie, pas à la réduction de consommation. En outre, il est normalement automatiquement versé aux personnes éligibles, donc sa publicité sur Mes Aides Réno n'est pas prioritaire.
   somme:
     - ampleur . montant
     - ampleur . prêt
     - denormandie . montant
     - taxe foncière . montant
 
+ampleur . prime individuelle copropriété:
+  marque: MaPrimeRénov' copro
+  complément de marque: prime individuelle
+  note: |
+    Cette variable recontextualise la variable prime individuelle du point de vue du ménage, sans parler encore de sa copropriété.
+  type: remboursement
+  description: |
+    MaPrimeRénov' Copropriété est une aide de l'État pour la rénovation énergétique des copropriétés. 
+  conditions éligibilités: |
+    - Cette aide est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarés d'intérêt collectif.
+    - Les travaux doivent être votés lors des assemblées générales de copropriétés.
+    - Seul le représentant légal (syndic professionnel ou bénévole, administrateur provisoire) de la copropriété peut déposer une demande d'aide.
+    - L'attribution de l'aide MaPrimeRénov' Copropriété est subordonnée à la production d'une évaluation énergétique.
+    
+    Pour être éligible, la copropriété doit :
+    - avoir été construite il y a au moins 15 ans
+    - avoir au moins 75% des lots (65% pour les copropriétés de 20 lots ou moins) ou à défaut des tantièmes dédiés à l'usage d'habitation principale
+    - être à jour de son immatriculation au registre national des copropriétés.      
+  comment faire: Contactez votre conseiller France Rénov'. Il vous fournira des conseils selon votre situation.
+  lien: https://france-renov.gouv.fr/aides/maprimerenov-copropriete
+ampleur . prime individuelle copropriété . montant:
+  applicable si:
+    toutes ces conditions:
+      - logement . type = "appartement"
+      - logement . au moins 15 ans
+
+  formule: copropriété . prime individuelle
+
 ampleur . prêt:
   somme:
     - PTZ . montant
+    - PAR . montant
 
 ampleur . montant écrêté:
   description: |
@@ -43,7 +80,7 @@ ampleur . montant écrêté:
   valeur:
     somme:
       - MPR . accompagnée . montant
-      - aides locales . angers . aides
+      - aides locales . montant
   plafond: pourcent d'écrêtement * projet . travaux . TTC
 
 ampleur . pourcent d'écrêtement:
@@ -60,3 +97,8 @@ ampleur . pourcent d'écrêtement:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 60 %
     - sinon: 40 %
+
+ampleur . synthèse:
+  description: Quels sont les aides dont l'utilisateur souhaite avoir la synthèse
+  par défaut: "''"
+  

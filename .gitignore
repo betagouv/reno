@@ -39,3 +39,9 @@ next-env.d.ts
 
 .contentlayer
 .contentlayer/*
+
+data/*
+!data/README.md
+!data/exonération-taxe-foncière-population.csv
+
+deno.lock

@@ -12,10 +12,3 @@ nouvelle-aquitaine:
 nouvelle-aquitaine . montant:
   description: 800 à 1200 € sans conditions de ressources, déclenchées par les conseillers France Rénov'
   note: Brouillon d'implémentation. Nous n'avons trouvé aucun site officiel qui validerait cette aide et qui en décrirait les valeurs. Elle ne nous a pas non plus été confirmée par les agents de la collectivité.
-
-rennes:
-  description: |
-    Ce règlement date de 2021, plusieurs indices ("sous les plafonds ANAH", "conventionnement ANAH pour les bailleurs") semblent aller dans le sens du fait qu'il est périmé. 
-
-    Nous l'avons confirmé le 14 juin 2024 avec l'ADIL de Rennes : si ces aides courent toujours pour les dossiers MPR déposés en 2023, ce n'est plus le cas aujourd'hui.
-rennes . conditions géo: logement . EPCI = '243500139'

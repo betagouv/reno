@@ -21,6 +21,8 @@ export const getSituation = (searchParams, rules) => {
       .map(([k, v, rule]) => {
         const stringValue = v.endsWith(validValueMark) ? v.slice(0, -1) : v
 
+        if (!rule)
+          console.error('rule is null in getSituation, please inspect : ', k, v)
         // Remove trailing zeros for numeric values
         // TODO this is brittle : some values can be numeric without an explicité yaml unit, it can be defined on the go in the value itself like blabla: 23 dogs
         const isNumberRule =

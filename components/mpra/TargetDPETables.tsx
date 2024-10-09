@@ -1,6 +1,6 @@
 import { useMediaQuery } from 'usehooks-ts'
 import DPELabel from '../DPELabel'
-import { Value } from '../ScenariosSelector'
+import Value from '@/components/Value'
 import { encodeSituation } from '../publicodes/situationUtils'
 import data from '@/components/DPE.yaml'
 

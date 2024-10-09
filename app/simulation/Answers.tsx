@@ -87,10 +87,11 @@ export default function Answers({
               css={`
                 cursor: pointer;
                 width: max-content;
+                font-weight: 500;
                 display:block;
               `}
             >
-              {isOpen ? 'Cacher' : 'Voir'} mes réponses
+              {isOpen ? 'Cacher' : 'Modifier'} mes réponses
             </LinkStyleButton>
           </div>
       </summary>
@@ -175,7 +176,7 @@ export default function Answers({
                                   ...encodeSituation(
                                     situation,
                                     false,
-                                    answeredQuestions.filter((q) => q !== answer),
+                                    rawAnsweredQuestions.filter((q) => q !== answer),
                                   ),
                                 },
                                 'url',

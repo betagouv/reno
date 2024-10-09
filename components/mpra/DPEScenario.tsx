@@ -2,12 +2,13 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import DPELabel from '../DPELabel'
 import Input from '../Input'
-import { Value } from '../ScenariosSelector'
+import Value from '@/components/Value'
 import { Card, PrimeStyle } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 
 import calculatorIcon from '@/public/calculator-empty.svg'
 import ExplicationsMPRA from './ExplicationsMPRA'
+import { formatValue } from 'publicodes'
 
 export default function DPEScenario({
   rules,
@@ -34,6 +35,7 @@ export default function DPEScenario({
       >
         <Card
           css={`
+            background: #f7f8f8;
             padding: 1rem;
             margin: 0;
             margin: -0.25rem 0 0 0 !important; /* hack */
@@ -63,13 +65,12 @@ export default function DPEScenario({
             }
           `}
         >
-          <div css={``}>
-            <h3>
-              Vers un DPE <DPELabel index={choice} />
-            </h3>
-
+          <div>
+            <h3>Vers un DPE <DPELabel index={choice} /></h3>
             <p>
-              Jusqu'à{' '}
+              Vous touchez une aide de{' '}
+              <strong> {formatValue(engine.setSituation(situation).evaluate("MPR . accompagnée . pourcent dont bonus"))}</strong>
+              {' '}du coût de vos travaux, jusqu'à{' '}
               <Value
                 {...{
                   engine,
@@ -79,11 +80,10 @@ export default function DPEScenario({
                     'projet . travaux': 999999,
                     'projet . DPE visé': choice + 1,
                   },
-                  dottedName: 'ampleur . montant',
-                  state: 'prime',
+                  dottedName: 'projet . travaux . plafond',
+                  state: 'prime-black',
                 }}
-              />{' '}
-              d'aides.
+              />.
             </p>
             <div
               css={`
@@ -99,15 +99,6 @@ export default function DPEScenario({
                   margin-top: 1rem;
                 `}
               >
-                <Image
-                  src={calculatorIcon}
-                  alt="Icône calculette"
-                  css={`
-                    width: 3rem !important;
-                    height: auto !important;
-                    margin-right: 0.8rem !important;
-                  `}
-                />
                 <p
                   css={`
                     line-height: 1.9rem;
@@ -125,7 +116,7 @@ export default function DPEScenario({
                       autoFocus={false}
                       value={exampleSituation['projet . travaux']}
                       placeholder="mes travaux"
-                      min="0"
+                      min="1000"
                       onChange={(rawValue) => {
                         const value = +rawValue === 0 ? undefined : rawValue
                         setSearchParams(
@@ -136,7 +127,7 @@ export default function DPEScenario({
                           false,
                         )
                       }}
-                      step="100"
+                      step="1000"
                       css={`
                         border-bottom: 2px solid #d1d1fb !important;
                       `}
@@ -156,9 +147,14 @@ export default function DPEScenario({
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: 'projet . travaux . TTC',
-                      state: 'final',
+                      state: 'prime-black',
                     }}
-                  /><span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA"> TTC</span><span>, je toucherai un total d'aides de </span>
+                  />
+                  <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                    {' '}
+                    TTC
+                  </span>
+                  <span>, je toucherai un total d'aides de </span>
                   <Value
                     {...{
                       engine,
@@ -168,7 +164,7 @@ export default function DPEScenario({
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: 'ampleur . montant',
-                      state: 'final',
+                      state: 'prime-black',
                     }}
                   />
                   , ce qui me laissera un reste à charge de{' '}
@@ -181,7 +177,7 @@ export default function DPEScenario({
                         'projet . DPE visé': choice + 1,
                       },
                       dottedName: 'projet . investissement',
-                      state: 'final',
+                      state: 'prime-black',
                     }}
                   />
                   .
@@ -189,10 +185,11 @@ export default function DPEScenario({
               </div>
             </div>
           </div>
+          {/* <ExplicationsMPRA
+            {...{ engine, situation, choice, setSearchParams }}
+          /> */}
         </Card>
       </motion.div>
-
-      <ExplicationsMPRA {...{ engine, situation, choice, setSearchParams }} />
     </>
   )
 }
