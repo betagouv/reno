@@ -92,6 +92,10 @@ export default function AideAmpleur({
               )}
             </div>
           </header>
+          <div
+            css={`margin-top: 1rem;`} 
+            dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }} />
+          
           {children}
           <h3>Pour aller plus loin</h3>
           <p>
@@ -131,12 +135,6 @@ export default function AideAmpleur({
               justify-content: space-between;
             `}
           >
-            {false && isFavorite && (
-              <Image
-                src={starIcon}
-                alt="Icône étoile signalant le parcours recommandé"
-              />
-            )}
             <div>
               <h3 css={`
                   margin: 0 0 0.5rem 0;
@@ -174,6 +172,9 @@ export default function AideAmpleur({
               </div>
             )}
           </header>
+          <div
+            css={`margin-top: 1rem;`} 
+            dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }} />
           {children}
           <AideCTAs {...{
               dottedName, 

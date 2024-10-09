@@ -25,7 +25,6 @@ export default function AideMAR({
       level: 2,
       expanded
     }}>
-      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
       { !expanded && (
         <Card $background="#f7f8f8">
           <div

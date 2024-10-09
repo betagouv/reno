@@ -31,7 +31,6 @@ export default function Copro({
       situation,
       expanded
     }}>
-      <p dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }}></p>
       <Card $background="#f7f8f8">
         <p
         >

@@ -31,7 +31,6 @@ export default function TaxeFoncière({
       situation,
       expanded
     }}>
-      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
       {
         (!communeEligible ? (
           <p>

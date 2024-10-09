@@ -40,7 +40,6 @@ export default function MPRA({
       answeredQuestions,
       expanded
     }}>
-      <p dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }}></p>
       <DPEQuickSwitch oldIndex={oldIndex} />
       <TargetDPETabs
         {...{

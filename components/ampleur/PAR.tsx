@@ -25,7 +25,6 @@ export default function PAR({
       situation,
       expanded
     }}>
-      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
       { expanded && (
         <>
           <p>{rule.paiement}</p>

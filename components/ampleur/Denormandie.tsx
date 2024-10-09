@@ -38,7 +38,6 @@ export default function Denormandie({
       situation,
       expanded
     }}>
-      <p dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }}></p>
       { expanded && (
         <>
           <h3>Comment est calculée l'aide ?</h3>
