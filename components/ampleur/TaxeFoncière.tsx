@@ -14,9 +14,11 @@ export default function TaxeFoncière({
 }) {
   engine.setSituation(exampleSituation)
 
-  const communeName = situation['logement . commune . nom'],
-    communeEligible = situation['taxe foncière . commune . éligible'] === 'oui',
-    taux = situation['taxe foncière . commune . taux']
+  const communeName = situation['logement . commune . nom']
+  const communeEligible = situation['taxe foncière . commune . éligible . logement'] === 'oui' ? 
+      true :
+      situation['taxe foncière . commune . éligible . ménage'] === 'oui'
+  const taux = situation['taxe foncière . commune . taux']
 
   const dottedName = 'taxe foncière'
   const rule = rules[dottedName]
@@ -30,12 +32,32 @@ export default function TaxeFoncière({
       expanded
     }}>
       <p>Certaines collectivités (communes, départements…) exonèrent temporairement de taxe foncière les foyers qui réalisent des travaux d'économie d'énergie. </p>
+      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
+      {
+        (!communeEligible ? (
+          <p>
+            La commune {communeName} de votre logement{' '}<No>n'est pas éligible</No> à l'exonération.
+          </p>
+        ) : (
+          <p>
+            La commune {communeName} de votre logement est <Yes>éligible</Yes>,{' '}
+            {taux ? (
+              <>pour une exonération de {taux}.</>
+            ) : (
+              <>
+                mais nous ne connaissons pas son taux (50 ou 100 %) d'exonération.
+              </>
+            )}
+          </p>
+        ))}
       { expanded && (
         <>
+
           <h3>Comment est calculée l'aide?</h3>
           <p>L'exonération peut être totale ou partielle (50% du montant de la taxe foncière), pour une durée de 3 ans ou plus.</p>
           <h3>Les principales conditions d'éligibilité ?</h3>
           <p>Il existe des conditions d'éligibilité en fonction de l'année d'achèvement de votre logement (avant le 1er janvier 1989, ou après le 1er janvier 2009).</p>
+          <div dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }} />
           <h3>Comment toucher cette aide</h3>
           <p>Cette exonération peut être demandée par le propriétaire auprès du service des impôts du lieu de situation du logement.</p>
           <h3>Pour aller plus loin</h3>
@@ -47,41 +69,8 @@ export default function TaxeFoncière({
               ce lien
             </ExternalLink>
           </p>
-          { false && (
+          {  (
             <>
-              <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
-              {communeEligible}
-              {communeName != null &&
-                (!communeEligible ? (
-                  <p>
-                    La commune {communeName} de votre logement{' '}
-                    <No>n'est pas éligible</No> à l'exonération.
-                  </p>
-                ) : (
-                  <p>
-                    La commune {communeName} de votre logement est <Yes>éligible</Yes>
-                    ,{' '}
-                    {taux ? (
-                      <p>pour une exonération de {taux}.</p>
-                    ) : (
-                      <p>
-                        mais nous ne connaissons pas son taux (50 ou 100 %)
-                        d'exonération.
-                      </p>
-                    )}
-                  </p>
-                ))}
-              <InformationBlock>
-                <div
-                  dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }}
-                />
-              </InformationBlock>
-              <PaymentTypeBlock>
-                <p>
-                  Cette aide est une exonération de taxe locale, une fois par an
-                  pendant 3 ans.
-                </p>
-              </PaymentTypeBlock>
               <AideCTA text="Obtenir l'exonération">
                 <p>
                   Vous devez adresser au service des impôts correspondant au lieu de

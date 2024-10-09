@@ -13,6 +13,7 @@ export default function PAR({
   answeredQuestions, 
   expanded
 }) {
+  const rule = rules['PAR']
   return (
     <AideAmpleur {...{
       engine,
@@ -34,43 +35,48 @@ export default function PAR({
               ce lien
             </ExternalLink>
           </p>
-          { false && (
+          {  (
             <>
+              <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
               <InformationBlock>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: rules[dottedName].informationsUtilesHtml,
+                    __html: rules['PAR'].informationsUtilesHtml,
                   }}
                 />
               </InformationBlock>
               <PaymentTypeBlock>
-                <Avance
-                  {...{
-                    engine,
-                    rules,
-                    situation,
-                    choice,
-                    exampleSituation,
-                  }}
-                />
-              </PaymentTypeBlock> 
-              <section>
-                <MapBehindCTA
-                  {...{
-                    situation,
-                    searchParams,
-                    what: 'trouver-conseiller-renov',
-                    text: 'Obtenir cette aide',
-                    importance: 'secondary',
-                  }}
-                />
-              </section>
+                <p>{rule.paiement}</p>
+              </PaymentTypeBlock>
+              <AideCTA text="Demander le PAR 0 %">
+                <p>
+                  Assurez-vous d'abord que vos travaux de rénovation{' '}
+                  <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
+                    sont couverts
+                  </a>{' '}
+                  par ce dispositif. Dans le cas d'un dossier MaPrimeRénov'
+                  accompagnée, ce sera probablement le cas.
+                </p>
+                <p>
+                  Le PAR est disponible auprès de{' '}
+                  <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">
+                    ces établissements de crédits
+                  </a>
+                  , colonne "Prêts avance mutation".{' '}
+                </p>
+                <p>
+                  Découvrir{' '}
+                  <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
+                    la démarche étape par étape
+                  </a>
+                  .
+                </p>
+              </AideCTA>
             </>
           )}
         </>
       )}
       {/* 
-      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
       <Card $background="#f7f8f8">
         <div
           css={`
@@ -90,41 +96,7 @@ export default function PAR({
           />
           <p>{rule.montant}</p>
         </div>
-      </Card>
-      <InformationBlock>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: rule.informationsUtilesHtml,
-          }}
-        />
-      </InformationBlock>
-      <PaymentTypeBlock>
-        <p>{rule.paiement}</p>
-      </PaymentTypeBlock>
-      <AideCTA text="Demander le PAR 0 %">
-        <p>
-          Assurez-vous d'abord que vos travaux de rénovation{' '}
-          <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
-            sont couverts
-          </a>{' '}
-          par ce dispositif. Dans le cas d'un dossier MaPrimeRénov'
-          accompagnée, ce sera probablement le cas.
-        </p>
-        <p>
-          Le PAR est disponible auprès de{' '}
-          <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">
-            ces établissements de crédits
-          </a>
-          , colonne "Prêts avance mutation".{' '}
-        </p>
-        <p>
-          Découvrir{' '}
-          <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
-            la démarche étape par étape
-          </a>
-          .
-        </p>
-      </AideCTA> */}
+      </Card>*/}
     </AideAmpleur>
   )
 }
