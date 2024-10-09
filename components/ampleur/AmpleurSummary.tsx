@@ -81,13 +81,6 @@ export default function AmpleurSummary({
           justify-content: space-between;
         `}>
           <ProfessionnelLabel />
-          <PrimeStyle
-              css={`
-                font-size: 110%;
-              `}
-            >
-              {value}
-          </PrimeStyle>
         </div>
         <h3>Pour une rénovation performante</h3>
         <p>La garantie d'un gain en performance, en confort et d'une réduction de vos factures d'énergie</p>

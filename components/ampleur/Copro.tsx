@@ -75,6 +75,29 @@ export default function Copro({
             <li>avoir au moins 75% des lots (65% pour les copropriétés de 20 lots ou moins) ou à défaut des tantièmes dédiés à l'usage d'habitation principale</li>
             <li>être à jour de son immatriculation au registre national des copropriétés.</li>
           </ul>
+          <p>
+            Nous avons mis en place un parcours dédié pour les copropriétés. Il
+            vous permettra de <BlueEm>vérifier en quelques minutes</BlueEm> si
+            votre copro est éligible et le montant de votre prime individuelle
+            additionnelle.
+          </p>
+          <p>
+            Le lien s'ouvrira dans un nouvel onglet.{' '}
+            <BlueEm>Vous ne perdrez pas votre simulation actuelle</BlueEm>.
+          </p>
+          <CTAWrapper $justify="left">
+            <CTA>
+              <Link
+                target="_blank"
+                href={
+                  '/copropriete/?' +
+                  new URLSearchParams(encodeSituation(situation))
+                }
+              >
+                Tester le parcours copro
+              </Link>
+            </CTA>
+          </CTAWrapper>
           <h3>Comment toucher cette aide</h3>
           <p>
             Contactez votre conseiller France Rénov'. Il vous fournira des conseils selon votre situation.
