@@ -22,7 +22,7 @@ export default function BtnBackToParcoursChoice({
   )
 
   return (
-    <CTAWrapper $justify="start">
+    <CTAWrapper $justify="start" css={`margin-top: 0;`}>
       <CTA
         $fontSize="normal"
         $importance="emptyBackground"

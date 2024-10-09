@@ -21,7 +21,7 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
 import LogoCompact from '@/components/LogoCompact'
-import Answers from './Answers'
+import Answers, { firstLevelCategory } from './Answers'
 import Image from 'next/image'
 
 function Form({ rules }) {
@@ -82,7 +82,8 @@ function Form({ rules }) {
             />
           </>
         )}
-        {!isCompact && (
+        {!isCompact && 
+         !(firstLevelCategory(currentQuestion) === 'projet') && (
           <div>
             <Answers
               {...{
