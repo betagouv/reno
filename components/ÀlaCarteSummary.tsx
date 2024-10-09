@@ -7,6 +7,7 @@ import GestesPreview from './mprg/GestesPreview'
 import { ExplicationMPRG, InapplicableBlock } from './explications/Éligibilité'
 import { push } from '@socialgouv/matomo-next'
 import { Labels } from '@/app/LandingUI'
+import DPELabel from './DPELabel'
 
 export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
   const eligibleMPRG = engine.evaluate('conditions communes').nodeValue
@@ -24,8 +25,8 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
         `}
       >
         <GesteLabel />
-        <h3>Pour des rénovations par gestes</h3>
-        <p>Je rénove mon logement en réalisant des gestes spécifiques.</p>
+        <h3>Pour une rénovation par gestes</h3>
+        <p>Rénover votre logement à votre rythme en choississant librement parmi les travaux subventionnés</p>
         
         <CTAWrapper $justify="center">
           <CTA $fontSize="normal">
@@ -49,7 +50,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
         `}>
           <li>
             <Image src={checkIcon} alt="icone check" />
-            Votre logement est déjà performant (indice DPE supérieur à C)
+            Votre logement est déjà performant (DPE classe&nbsp;<DPELabel index="0" />&nbsp;ou&nbsp;<DPELabel index="1" />)
           </li>
           <li>
             <Image src={checkIcon} alt="icone check" />

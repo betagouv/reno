@@ -89,12 +89,12 @@ export default function AmpleurSummary({
               {value}
           </PrimeStyle>
         </div>
-        <h3>Pour une rénovation d'ampleur</h3>
-        <p>Je me fais accompagner dans mes travaux de rénovation d'ampleur.</p>
+        <h3>Pour une rénovation performante</h3>
+        <p>La garantie d'un gain en performance, en confort et d'une réduction de vos factures d'énergie</p>
 
         <CTAWrapper $justify="center">
           <CTA $fontSize="normal">
-            <Link href={url}>Voir le parcours en détail</Link>
+            <Link href={url}>Le parcours ampleur en détails</Link>
           </CTA>
         </CTAWrapper>
 
@@ -117,26 +117,19 @@ export default function AmpleurSummary({
           </li>
           <li>
             <Image src={checkIcon} alt="icone check" />
-            Un montant d'aide plus important  
-          </li>  
-          <li>
-            <Image src={checkIcon} alt="icone check" />
-            L'accès à un prêt à taux 0 jusqu'à 50 000 € et à des exonérations fiscales
+            Des aides souvent plus avantageuses
           </li>
         </ul>
         <p css={`margin-top: 1rem;`}><em>Parmi les aides ?</em></p>
         {aides
           .filter((aide) => {
             if (aide.status !== true) return false
-            const isChild = aide['aide parente']
-            if (!isChild) return true
-            return false
+            return !['ampleur . prime individuelle copropriété', 'MPR . accompagnée . prise en charge MAR'].includes(aide.baseDottedName)
           })
           .slice(0,3)
           .map((aide) => {
             const text = aide.marque,
               text2 = aide['complément de marque']
-
             return (
               <AideSummary
                 key={aide.dottedName}
