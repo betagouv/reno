@@ -14,20 +14,17 @@ export default function AutresAides() {
 
       detailsElements.forEach((details) => {
         if (isMobile) {
-          details.removeAttribute('open') // Close <details> on mobile
+          details.removeAttribute('open')
         } else {
-          details.setAttribute('open', true) // Keep <details> open on larger screens
+          details.setAttribute('open', true)
         }
       })
     }
 
-    // Attach resize listener
     window.addEventListener('resize', handleResize)
 
-    // Call it once to apply the logic on initial render
     handleResize()
 
-    // Cleanup the event listener on component unmount
     return () => window.removeEventListener('resize', handleResize)
   }, [sectionRef])
 

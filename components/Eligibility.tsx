@@ -200,7 +200,6 @@ export default function Eligibility({
           />
         </div>
         <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
-        <AutresAides />
       </CustomQuestionWrapper>
     </section>
   )
