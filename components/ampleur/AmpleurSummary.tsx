@@ -1,5 +1,4 @@
 import { Labels } from '@/app/LandingUI'
-import Image from 'next/image'
 import checkIcon from '@/public/check.svg'
 import Link from 'next/link'
 import { formatValue } from 'publicodes'

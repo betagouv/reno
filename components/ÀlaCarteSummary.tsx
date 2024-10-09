@@ -45,7 +45,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           Vous souhaitez choisir librement parmi les aides disponibles
         </li>
       </ul>
-      <p css={`margin: 1rem 0 0 0;`}><em>Des exemples de gestes:</em></p>
+      <p css={`margin: 1rem 0 0 0;`}><em>Des exemples de gestes :</em></p>
       <GestesPreview
         {...{
           rules,

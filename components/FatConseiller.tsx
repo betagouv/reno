@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import conseillerIcon from '@/public/conseiller.png'
+import checkIcon from '@/public/check.svg'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import { CTA, CTAWrapper } from './UI'
 
@@ -55,42 +56,42 @@ export default function FatConseiller({ situation, margin }) {
             </span>
           </h3>
           <p>Avant la réalisation de vos travaux, un conseiller France Rénov’ vous accompagne gratuitement.</p>
+        </div>
+        <div css={`
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+          align-items: center;
+          `}>
           <Image
             src={conseillerIcon}
             alt="illustration espace conseiller France Rénov'"
           />
+          <ul
+            css={`
+              list-style-type: none;
+              padding: 0;
+              li {
+                list-style-image: url(${checkIcon.src});
+                margin: 1rem 0;
+              }
+              img {
+                width: 1.2rem;
+                height: auto;
+                vertical-align: sub;
+              }
+            `}
+          >
+            {' '}
+            {[
+              'Service indépendant, neutre et gratuit!',
+              'Conseils personnalisés pour votre projet',
+              'Toutes les réponses à vos questions !',
+            ].map((text) => (
+              <li key={text}>{text}</li>
+            ))}
+          </ul>
         </div>
-        <ul
-          css={`
-            list-style-type: none;
-            padding: 0;
-            li {
-              margin: 1rem 0;
-            }
-            img {
-              width: 1.2rem;
-              height: auto;
-              vertical-align: sub;
-            }
-          `}
-        >
-          {' '}
-          {[
-            'Service indépendant, neutre et gratuit!',
-            'Conseils personnalisés pour votre projet',
-            'Toutes les réponses à vos questions !',
-          ].map((text) => (
-            <li key={text}>
-              <Image
-                src={'/check.svg'}
-                alt="coche verte"
-                width="10"
-                height="10"
-              />{' '}
-              {text}
-            </li>
-          ))}
-        </ul>
         <CTAWrapper $justify="center">
           <CTA
             css={`
