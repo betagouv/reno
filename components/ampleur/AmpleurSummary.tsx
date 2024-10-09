@@ -6,6 +6,7 @@ import { formatValue } from 'publicodes'
 import { CTA, CTAWrapper, Card, PrimeStyle } from '@/components/UI'
 import { roundToThousands, sortBy } from '@/components/utils'
 import { useAides } from './useAides'
+import { AideSummary } from './AideSummary'
 
 export const computeAideStatus = (evaluation) => {
   const value = formatValue(evaluation, { precision: 0 })
@@ -90,97 +91,6 @@ export default function AmpleurSummary({
         </div>
         <h3>Pour une rénovation d'ampleur</h3>
         <p>Je me fais accompagner dans mes travaux de rénovation d'ampleur.</p>
-        {/* {aides
-          .filter((aide) => {
-            if (aide.status !== true) return false
-            const isChild = aide['aide parente']
-            if (!isChild) return true
-            if (expanded) return true
-            return false
-          })
-          .map((aide) => {
-            const text = aide.marque,
-              text2 = aide['complément de marque']
-
-            return (
-              <AideSummary
-                key={aide.dottedName}
-                {...{
-                  ...aide,
-                  icon: aide.icône,
-                  text,
-                  text2,
-                  type: aide.type,
-                  expanded,
-                  engine,
-                }}
-              />
-            )
-          })
-        }
-
-        <div
-          css={`
-            margin-top: ${expanded ? '3rem' : '1.6rem'};
-            display: flex;
-            align-items: center;
-            justify-content: end;
-            span {
-              margin: 0 0.15rem;
-            }
-            strong {
-              font-weight: normal;
-              text-decoration: underline;
-              text-decoration-color: var(--color);
-            }
-          `}
-        >
-          <span>
-            {expanded ? (
-              <span>
-                <strong>Au total</strong> jusqu'à
-              </span>
-            ) : (
-              <span>Des aides jusqu'à</span>
-            )}
-          </span>
-          <PrimeStyle
-            css={`
-              font-size: 110%;
-            `}
-          >
-            {value}
-          </PrimeStyle>
-        </div>
-
-        <button
-          css={`
-            border: none;
-            background: none;
-            text-align: right;
-            display: block;
-            margin: 0.5rem 0 0 auto;
-            color: gray;
-            img {
-              width: 0.7rem;
-              height: auto;
-            }
-          `}
-        >
-          <small onClick={() => expand()}>
-            {expanded ? (
-              <span>
-                <Image src={removeIcon} alt="Icône signe moins entouré" />{' '}
-                Cacher
-              </span>
-            ) : (
-              <span>
-                <Image src={addIcon} alt="Icône signe plus entouré" /> Voir
-              </span>
-            )}{' '}
-            les montants aide par aide
-          </small>
-        </button> */}
 
         <CTAWrapper $justify="center">
           <CTA $fontSize="normal">
@@ -214,6 +124,36 @@ export default function AmpleurSummary({
             L'accès à un prêt à taux 0 jusqu'à 50 000 € et à des exonérations fiscales
           </li>
         </ul>
+        <p css={`margin-top: 1rem;`}><em>Parmi les aides ?</em></p>
+        {aides
+          .filter((aide) => {
+            if (aide.status !== true) return false
+            const isChild = aide['aide parente']
+            if (!isChild) return true
+            return false
+          })
+          .slice(0,3)
+          .map((aide) => {
+            const text = aide.marque,
+              text2 = aide['complément de marque']
+
+            return (
+              <AideSummary
+                key={aide.dottedName}
+                {...{
+                  ...aide,
+                  icon: aide.icône,
+                  text,
+                  text2,
+                  type: aide.type,
+                  expanded: true,
+                  display: "ampleur-card",
+                  engine,
+                }}
+              />
+            )
+          })
+        }
         {/* {neSaisPasEtNonEligibles.length > 0 && (
           <div>
             {neSaisPasEtNonEligibles.map((aide) => {

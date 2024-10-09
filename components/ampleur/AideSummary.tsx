@@ -19,6 +19,7 @@ export const AideSummary = ({
   type,
   status,
   value,
+  display,
   expanded,
   small = false,
   engine,
@@ -49,7 +50,7 @@ export const AideSummary = ({
         >
           <span
             css={`
-              display: flex;
+              display: ${display == "ampleur-card" ? "none" : "flex"};
               align-items: center;
               img {
                 width: 1.4rem;
@@ -104,7 +105,7 @@ export const AideSummary = ({
         <div
           css={`
             display: flex;
-            justify-content: end;
+            justify-content: ${display == "ampleur-card" ? "start" : "end"};
           `}
         >
           {' '}
@@ -116,31 +117,41 @@ export const AideSummary = ({
               display: none; /* not convinced by this, to iterate*/
             `}
           ></span>
-          <small
-            css={`
-              display: flex;
-              align-items: center;
-              span {
-                margin: 0 0.15rem;
-              }
-            `}
-          >
-            <span>{type} jusqu'à </span>
-            <PrimeStyle
-              $dashed={type === 'prêt'}
-              css={
-                type === 'prêt'
-                  ? `
-                background: #d2eafc !important;
-				color: #216090; border-color: #98b5cb; 
-              `
-                  : ''
-              }
-            >
-              {value}
-            </PrimeStyle>
-            <AideDurée engine={engine} dottedName={dottedName} />
-          </small>
+            {display == "ampleur-card" ? (
+              <PrimeStyle
+                  css={`font-size: 90%;`}
+                  
+              >
+                Jusqu'à <strong>{value} </strong>
+                <AideDurée engine={engine} dottedName={dottedName} />
+              </PrimeStyle>
+            ) : (
+              <small
+                  css={`
+                    display: flex;
+                    align-items: center;
+                    span {
+                      margin: 0 0.15rem;
+                    }
+                  `}
+                >
+                <span>{type} jusqu'à </span>
+                <PrimeStyle
+                  $dashed={type === 'prêt'}
+                  css={
+                    type === 'prêt'
+                      ? `
+                    background: #d2eafc !important;
+            color: #216090; border-color: #98b5cb; 
+                  `
+                      : ''
+                  }
+                >
+                  {value}
+                </PrimeStyle>
+                <AideDurée engine={engine} dottedName={dottedName} />
+              </small>
+            )}
         </div>
       )}
       {!status && <p>{computeStatusTitle(status)}</p>}
