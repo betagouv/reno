@@ -35,7 +35,7 @@ export default function EcoPTZ({
           <p>Le montant maximum du prêt dépend du nombre de travaux engagés, pour un montant maximal de <Key $state="prime-black">50 000 €</Key>.</p>
           <p>La durée du remboursement est de 20 ans maximum.</p>
           <h3>Les principales conditions d'éligibilité ?</h3>
-          <ul css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0;}`}>
+          <ul css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0; ul { list-style-image: none; } }`}>
             <li>Votre logement doit avoir été construit il y a au moins de 2 ans (à la date du début des travaux)</li>
             <li>Le logement doit être déclaré comme résidence principale ou destiné à l’être</li>
             <li>Un seul éco-prêt à taux zéro peut être accordé par logement (sauf exception)</li>

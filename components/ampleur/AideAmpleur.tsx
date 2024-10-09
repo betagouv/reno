@@ -10,6 +10,7 @@ import AideCTAs from './AideCTAs'
 import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
 import { formatValue } from 'publicodes'
+import FatConseiller from '../FatConseiller'
 
 export default function AideAmpleur({ 
   engine,
@@ -99,6 +100,12 @@ export default function AideAmpleur({
               answeredQuestions,
               expanded
             }} 
+          />
+          <FatConseiller 
+            {...{
+              situation,
+              margin: "small"
+            }}
           />
         </>
       ) : (        
