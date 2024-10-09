@@ -79,8 +79,12 @@ export default function AideCTAs({
   const isSelected = searchParams["ampleur.synthèse"]?.split(",").find(item => item === '"'+encodeDottedName(dottedName)+'"')
 
   return (
-    <CTAWrapper $justify="center" css={`flex-wrap: wrap;`}>
-      <CTA css={`margin: 0.5rem 0.2rem !important;`} $fontSize="normal" $importance="emptyBackground">
+    <CTAWrapper $justify="center" css={`flex-wrap: wrap;flex-direction: column;`}>
+      <CTA css={`
+        margin: 0.5rem 0.2rem !important;
+        width: 100%;
+        text-align: center;
+        `} $fontSize="normal" $importance="emptyBackground">
         <Link href={expanded ? backUrl : detailUrl}>
           { expanded ? 
             (<>← Revenir aux aides</>) :
@@ -90,6 +94,8 @@ export default function AideCTAs({
       </CTA>
       <CTA css={`
           margin: 0.5rem 0.2rem !important;
+          width: 100%;
+          text-align: center;
           ${isSelected && `
             background: rgba(190, 242, 197, 0.20);
             border: 1px dashed var(--validColor);
@@ -104,6 +110,8 @@ export default function AideCTAs({
       {isSelected && 
         <CTA css={`
           margin: 0.5rem 0.2rem;
+          width: 100%;
+          text-align: center;
           color: #721c24;
           background-color: #f8d7da;
           border: 1px dashed #721c24;

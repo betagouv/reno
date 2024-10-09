@@ -87,8 +87,8 @@ export default function MPRA({
           }
           { expanded && (
             <>
-              <h3>Comment est calculée l'aide?</h3>
-              <p>Vous êtes éligibles à une aide de <Value
+              <h3>Comment est calculée l'aide ?</h3>
+              <p>Vous êtes éligible à une aide de <Value
                     {...{
                       engine,
                       situation,

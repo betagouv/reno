@@ -92,7 +92,7 @@ export default function AidesAmpleur({
             }
           `}
         >
-          Vous êtes éligibles à <Key $state={'final'}>{eligibles.length}</Key> dispositifs cumulables entre eux:
+          Vous êtes éligible à <Key $state={'final'}>{eligibles.length}</Key> dispositifs cumulables entre eux :
         </p>
       )}
 

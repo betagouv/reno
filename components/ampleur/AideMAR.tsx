@@ -55,7 +55,7 @@ export default function AideMAR({
       )}
       { expanded && (
           <>
-            <h3>Comment est calculée l'aide?</h3>
+            <h3>Comment est calculée l'aide ?</h3>
             <AideMontant {...{
               engine,
               situation,

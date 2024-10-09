@@ -30,7 +30,7 @@ export default function EcoPTZ({
       <p>Il est cumulable avec d'autres aides financières, et il est accessible à tous sans condition de ressources.</p>
       { expanded && (
         <>
-          <h3>Comment est calculée l'aide?</h3>
+          <h3>Comment est calculée l'aide ?</h3>
           <p>L'éco-prêt à taux zéro est accessible à tous, sans condition de ressources.</p>
           <p>Le montant maximum du prêt dépend du nombre de travaux engagés, pour un montant maximal de <Key $state="prime-black">50 000 €</Key>.</p>
           <p>La durée du remboursement est de 20 ans maximum.</p>

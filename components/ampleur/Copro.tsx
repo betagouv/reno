@@ -53,7 +53,7 @@ export default function Copro({
       </Card>
       { expanded && (
         <>
-          <h3>Comment est calculée l'aide?</h3>
+          <h3>Comment est calculée l'aide ?</h3>
           <p>L'aide MaPrimeRénov' Copropriété finance 30 % ou 45 % du montant des travaux selon l'ambition de la rénovation énergétique, 
             dans un plafond de 25 000 € par logement :</p>
           <ul>

@@ -53,7 +53,7 @@ export default function TaxeFoncière({
       { expanded && (
         <>
 
-          <h3>Comment est calculée l'aide?</h3>
+          <h3>Comment est calculée l'aide ?</h3>
           <p>L'exonération peut être totale ou partielle (50% du montant de la taxe foncière), pour une durée de 3 ans ou plus.</p>
           <h3>Les principales conditions d'éligibilité ?</h3>
           <p>Il existe des conditions d'éligibilité en fonction de l'année d'achèvement de votre logement (avant le 1er janvier 1989, ou après le 1er janvier 2009).</p>

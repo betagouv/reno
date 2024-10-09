@@ -29,7 +29,7 @@ export default function CEEAmpleur({
       <p>Ce dispositif s’inscrit dans le cadre du dispositif des certificats d’économies d’énergie (CEE). Il s’adresse aux ménages non-éligibles aux aides de l’Anah (propriétaires de résidence secondaire, personnes morales…)</p>
       { expanded && (
         <>
-          <h3>Comment est calculée l'aide?</h3>
+          <h3>Comment est calculée l'aide ?</h3>
           <p>Nous estimons votre prime CEE coup de pouce ampleur à <Value
                 {...{
                   engine,

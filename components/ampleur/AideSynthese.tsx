@@ -80,7 +80,7 @@ export default function AideSynthese({
           }
         `}
       >
-        Vous avez sélectionné <Key $state={'final'}>{count}</Key> dispositifs cumulables entre eux:
+        Vous avez sélectionné <Key $state={'final'}>{count}</Key> dispositifs cumulables entre eux :
       </p>
       <Card css={`
         display: flex;

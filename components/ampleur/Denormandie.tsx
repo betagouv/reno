@@ -42,7 +42,7 @@ export default function Denormandie({
       <p>L'investisseur réalise les travaux de rénovation énergétiques, et en retour il bénéficie d'une réduction d’impôts.</p>
       { expanded && (
         <>
-          <h3>Comment est calculée l'aide?</h3>
+          <h3>Comment est calculée l'aide ?</h3>
           <ul css={`li { margin: 0.5rem 0;}`}>
             <li>Pour une période de location de <Key $state={"prime-black"}>six ans</Key> : la réduction d'impôt s'élève à <Key $state={"prime-black"}>12 %</Key> du prix du bien.</li>
             <li>Pour une période de location de <Key $state={"prime-black"}>neuf ans</Key> : la réduction d'impôt s'élève à <Key $state={"prime-black"}>18 %</Key> du prix du bien</li>
