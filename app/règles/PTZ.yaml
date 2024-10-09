@@ -4,20 +4,35 @@ PTZ:
   type: 'prêt'
   icône: 'ptz-bleu.svg'
   titre: Éco-prêt à taux zéro
+  description: |
+    L'éco-prêt à taux zéro est un prêt à 0% qui permet de financer des travaux d'amélioration de la performance énergétique d'un logement.
+
+    Il est cumulable avec d'autres aides financières, et il est accessible à tous sans condition de ressources.
   informations utiles: |
     - L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
     - L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
     - Son montant dépendra de votre endettement et de votre capacité à le rembourser.
-  description: |
+  conditions éligibilités: |
+      - Votre logement doit avoir été construit il y a au moins de 2 ans (à la date du début des travaux)
+      - Le logement doit être déclaré comme résidence principale ou destiné à l'être
+      - Un seul éco-prêt à taux zéro peut être accordé par logement (sauf exception)
+      - Vous devez réaliser des travaux par un professionnel RGE qui remplissent l'une des conditions suivantes :
+        - correspondent à au moins une action efficace d'amélioration de la performance énergétique
+        - ouvrent droit à l'aide MaPrimeRénov' Parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle
+        - permettent d'améliorer d'au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux
+        - constituent des travaux de réhabilitation de systèmes d'assainissement non collectifs par des dispositifs ne consommant pas d'énergie et respectant certains critères techniques
+  comment faire: |
+    Contactez votre conseiller France Rénov’. Il vous fournira des conseils selon votre situation.
+  description détaillé: |
 
     L'éco-PTZ est disponible pour une [liste de types de travaux](https://www.economie.gouv.fr/particuliers/eco-pret-a-taux-zero-ptz-renovation-performance-energetique#quels-sont-les-travaux-ligibles-_1).
 
-    En fonction des travaux que vous réalisez, vous pouvez obtenir **jusqu'à 50 000 € de prêt**. La durée de remboursement de ce prêt **peut aller jusqu’à 20 ans**.
+    En fonction des travaux que vous réalisez, vous pouvez obtenir **jusqu'à 50 000 € de prêt**. La durée de remboursement de ce prêt **peut aller jusqu'à 20 ans**.
 
 
     Vous devez réaliser des travaux qui répondent à l'une des trois conditions suivantes.
 
-    A) Soit correspondent à au moins une action efficace d’amélioration de la performance énergétique. 
+    A) Soit correspondent à au moins une action efficace d'amélioration de la performance énergétique. 
     <details><summary>Voir la liste</summary>
       - isolation thermique de la toiture
       - isolation thermique des murs donnant sur l'extérieur
@@ -29,9 +44,9 @@ PTZ:
 
     </details>
 
-    B) soit ouvrent droit à l’aide MaPrimeRénov’ Parcours accompagné ou à MaPrimeRénov’ mobilisée en parallèle ;
+    B) soit ouvrent droit à l'aide MaPrimeRénov' Parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle ;
 
-    C) soit permettent d’améliorer d’au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux. Un audit énergétique réalisé par un diagnostiqueur qualifié doit être effectué au préalable pour déterminer les travaux nécessaires.
+    C) soit permettent d'améliorer d'au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux. Un audit énergétique réalisé par un diagnostiqueur qualifié doit être effectué au préalable pour déterminer les travaux nécessaires.
 
     Voici le montant maximum d'un prêt par logement : 
       
@@ -40,11 +55,12 @@ PTZ:
       | 7 000 €               | 15 000 €            | 25 000 €  |  30 000 € |     50 000 € | 50 000 €                 |
       |                       |                     |           |           |              |                          |
 
-    > Si vous bénéficiez de MaPrimeRénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov’ auprès de votre banque simplement sur la base de la notification d’accord transmise par l’Agence nationale de l’habitat (Anah).
+    > Si vous bénéficiez de MaPrimeRénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov' auprès de votre banque simplement sur la base de la notification d'accord transmise par l'Agence nationale de l'habitat (Anah).
 
     Il existe aussi un éco-PTZ [pour les copropriétaires](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
 
     Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
+  lien: https://www.economie.gouv.fr/cedef/eco-pret-a-taux-zero
 PTZ . montant:
   titre: Montant du PTZ
   applicable si:

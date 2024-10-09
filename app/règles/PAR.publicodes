@@ -6,7 +6,7 @@ PAR:
   type: 'prêt'
   icône: 'pam-plus-bleu.svg'
   titre: Prêt avance rénovation à taux zéro
-  informations utiles: |
+  conditions éligibilités: |
     - Ce prêt s'appuie sur la garantie d'une hypothèque réalisée sur la valeur de votre logement à rénover 
     -  À taux zéro pendant 10 ans grâce à l'État, puis au taux négocié
     - Vous le remboursez lors de la vente du bien ou de votre succession
@@ -16,7 +16,16 @@ PAR:
     L'établissement prêteur peut décider de verser le prêt en une ou plusieurs fois sur la base du descriptif et des devis détaillés des travaux à réaliser, ou bien à la fin des travaux.
 
     Dans ce cas, vous devrez avancer les frais pour les réaliser.
+  comment faire: |
+    Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
+                    sont couverts</a> par ce dispositif.
 
+    Dans le cas d'un dossier MaPrimeRénov'accompagnée, ce sera probablement le cas.
+
+    Le PAR est disponible auprès de 
+    <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">ces établissements de crédits</a>, colonne "Prêts avance mutation".
+
+    Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">la démarche étape par étape</a>.
   montant: |
     Jusqu'à 50 000 € d'emprunt pour une rénovation d'ampleur : viser un DPE E au minimum et un gain énergétique de 35%.
   description: |

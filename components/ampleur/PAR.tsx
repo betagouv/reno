@@ -4,6 +4,7 @@ import { Card, ExternalLink, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import rules from '@/app/règles/rules'
 import Image from 'next/image'
+import checkIcon from '@/public/check.svg'
 // Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 
 export default function PAR({ 
@@ -13,7 +14,8 @@ export default function PAR({
   answeredQuestions, 
   expanded
 }) {
-  const rule = rules['PAR']
+  const dottedName = 'PAR'
+  const rule = rules[dottedName]
   return (
     <AideAmpleur {...{
       engine,
@@ -23,57 +25,17 @@ export default function PAR({
       situation,
       expanded
     }}>
-      <p>Vous pouvez obtenir sous certaines conditions un prêt avance mutation avec <strong>un taux zéro pendant 10 ans</strong>.</p>
+      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
       { expanded && (
         <>
-          <h3>Pour aller plus loin</h3>
-          <p>
-            Retrouvez plus d'info sur <ExternalLink 
-              href="https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux"
-              target="_blank"
-            >
-              ce lien
-            </ExternalLink>
-          </p>
-          {  (
-            <>
-              <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}></p>
-              <InformationBlock>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: rules['PAR'].informationsUtilesHtml,
-                  }}
-                />
-              </InformationBlock>
-              <PaymentTypeBlock>
-                <p>{rule.paiement}</p>
-              </PaymentTypeBlock>
-              <AideCTA text="Demander le PAR 0 %">
-                <p>
-                  Assurez-vous d'abord que vos travaux de rénovation{' '}
-                  <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
-                    sont couverts
-                  </a>{' '}
-                  par ce dispositif. Dans le cas d'un dossier MaPrimeRénov'
-                  accompagnée, ce sera probablement le cas.
-                </p>
-                <p>
-                  Le PAR est disponible auprès de{' '}
-                  <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">
-                    ces établissements de crédits
-                  </a>
-                  , colonne "Prêts avance mutation".{' '}
-                </p>
-                <p>
-                  Découvrir{' '}
-                  <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
-                    la démarche étape par étape
-                  </a>
-                  .
-                </p>
-              </AideCTA>
-            </>
-          )}
+          <p>{rule.paiement}</p>
+          <h3>Les principales conditions d'éligibilité ?</h3>
+          <div
+            css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0; ul {list-style-image: none;}}`}
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].conditionsEligibilitesHTML,
+            }}
+          />
         </>
       )}
       {/* 

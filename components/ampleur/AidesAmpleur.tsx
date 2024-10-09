@@ -198,9 +198,14 @@ export default function AidesAmpleur({
         </div>
       )}
       <div>
-        <h3>Comment toucher ces aides ?</h3>
-        <p>Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !</p>        
-        <FatConseiller situation={situation} margin="small" />
+        <FatConseiller 
+            {...{
+              situation,
+              margin: "small",
+              titre: "Comment toucher ces aides ?",
+              texte: "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !"
+            }}
+        />
       </div>
 
       {/* <QuestionsRéponses

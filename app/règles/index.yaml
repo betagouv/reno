@@ -34,7 +34,7 @@ ménage . revenu:
   description: |
     Saisissez le revenu fiscal de référence des personnes composant votre ménage. 
 
-    Si ces dernières ont des avis d’imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
+    Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
 
   par défaut:
     variations:
@@ -72,9 +72,9 @@ vous . propriétaire . condition:
 
     Vous êtes : 
       - usufruitier
-      - titulaires (occupants et bailleurs) d’un droit réel conférant l’usage du bien 
-      - preneurs (occupants et bailleurs) d’un bail emphytéotique ou d’un bail à construction 
-      - propriétaires en indivision si l’ensemble des propriétaires indivisaires ont signé l’[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l’honneur qui désigne le demandeur pour porter les travaux au nom de l’indivision.
+      - titulaires (occupants et bailleurs) d'un droit réel conférant l'usage du bien 
+      - preneurs (occupants et bailleurs) d'un bail emphytéotique ou d'un bail à construction 
+      - propriétaires en indivision si l'ensemble des propriétaires indivisaires ont signé l'[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l'honneur qui désigne le demandeur pour porter les travaux au nom de l'indivision.
     </details>
 
     <details><summary>Situations non éligibles</summary>
@@ -698,7 +698,7 @@ MPR . non accompagnée:
   illustration: mpg.svg
   alias: Parcours par geste
   interface:
-    motivation: J’ai une idée précise des travaux à réaliser
+    motivation: J'ai une idée précise des travaux à réaliser
     avantages:
       - Un choix à la carte dans un bouquet de travaux subventionnés
 
@@ -735,20 +735,32 @@ MPR . accompagnée:
   favorite: oui
   type: remboursement
   informations utiles: |
-    - Votre conseiller local France Rénov’ vous accompagne <strong>gratuitement</strong> pour vous guider dans les premières étapes de votre projet.
-    - Vous devrez payer un <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">Accompagnateur Rénov’</a> pour réaliser un audit énergétique de votre logement qui définira les travaux vous permettant d’atteindre le DPE visé.
+    - Votre conseiller local France Rénov' vous accompagne <strong>gratuitement</strong> pour vous guider dans les premières étapes de votre projet.
+    - Vous devrez payer un <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">Accompagnateur Rénov'</a> pour réaliser un audit énergétique de votre logement qui définira les travaux vous permettant d'atteindre le DPE visé.
   interface:
     motivation: Je veux améliorer significativement la performance de mon logement.
     avantages:
       - Un accompagnement renforcé pour des gains réels après travaux
       - Un financement plus important
+  conditions éligibilités: |
+      - Vous devrez faire appel à un Accompagnateur Rénov', qui réalisera un audit énergétique de votre logement pour définir le projet de travaux vous permettant d'atteindre le DPE visé.
+      - Il est également demandé d'inclure deux gestes d'isolation (toiture, fenêtre/menuiserie, sols ou murs) dans le programme de travaux.
+      - Pour réaliser les travaux vous devez faire appel à des artisans labellisés RGE
+      - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
+  comment faire: |
+    Contactez votre conseiller France Rénov'. 
+    Il vous fournira des conseils selon votre situation et vous orientera vers [**Mon Accompagnateur Rénov'**](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov).
   description: |
+    C'est la principale aide. Elle est versée après vos travaux de rénovation.
+
+    Vous devez viser un saut d'au moins deux classes DPE.
+  description détaillé: |
     L'aide principale en 2024 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
 
     Vous serez [accompagné](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov), pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
 
     [Tous les détails](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
-
+  lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
 MPR . accompagnée . bénéficiaire:
   applicable si: éligible
   titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
@@ -774,7 +786,7 @@ MPR . accompagnée . bonus . condition:
 MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
   description: |
-    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
+    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s'applique que si l'étiquette D est atteinte à minima.
   applicable si: condition
   valeur: 10 %
 MPR . accompagnée . montant si assiette maximum:
@@ -811,22 +823,29 @@ MPR . accompagnée . pourcent brut:
 
 MPR . accompagnée . prise en charge MAR:
   description: |
-    L'aide MaPrimeRénov' accompagnée est conditionnée à la réalisation d'un audit energétique avec un professionnel labellisé **"Mon Accompagnateur Rénov"**. 
-
-    Cet audit est payant, mais l'État vous aide à le payer en fonction de votre revenu. Certaines collectivités proposent de financer le reste à charge.
+    L'audit énergétique permet de connaître les performances d'un bien immobilier, et de définir les scénarios de travaux pour atteindre les performance visé.
+    
+    Il est obligatoire pour bénéficier de Ma Prime Rénov', parcours accompagné.
+  conditions éligibilités: |
+    - L'audit doit être réalisé par un auditeur certifié. Il peut être réalisé par votre **Accompagnateur Rénov'**
+    - Pour bénéficier de MaPrimeRénov' pour une rénovation d'ampleur, vous devez obligatoirement suivre l'un des scénarios de travaux proposés suite à l'audit
+  comment faire: |
+    Contactez votre conseiller France Rénov'. 
+    Il vous fournira des conseils selon votre situation et vous orientera vers [**Mon Accompagnateur Rénov'**](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov).
   applicable si: MPR . accompagnée . éligible
   icône: maprimerenov.svg
   marque: MaPrimeRénov'
   complément de marque: Audit et accompagnement
   aide parente: MPR . accompagnée
   type: remboursement
+  lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
 MPR . accompagnée . prise en charge MAR . montant:
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond
 MPR . accompagnée . prise en charge MAR . plafond:
   description: |
-    Le prix de Mon Accompagnateur Rénov couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d’habitat indigne).
+    Le prix de Mon Accompagnateur Rénov couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d'habitat indigne).
   note: Nous n'avons pas encore intégré les logements jugés indignes ou la précarité énergétique qui augmente le plafond à 4000 €
   valeur: 2000 €
 MPR . accompagnée . prise en charge MAR . prix moyen:
@@ -834,9 +853,9 @@ MPR . accompagnée . prise en charge MAR . prix moyen:
   description: |
     Comme expliqué sur la page [Mon Accompagnateur Rénov'](https://www.ecologie.gouv.fr/mon-accompagnateur-renov) du site du Ministère de l'Écologie : 
 
-    > Les tarifs de l’accompagnement sont libres et non réglementés.
+    > Les tarifs de l'accompagnement sont libres et non réglementés.
 
-    > Chaque accompagnateur devra développer une offre concurrentielle sur le marché de l’accompagnement.
+    > Chaque accompagnateur devra développer une offre concurrentielle sur le marché de l'accompagnement.
 
     Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésitez à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
 MPR . accompagnée . prise en charge MAR . pourcent:

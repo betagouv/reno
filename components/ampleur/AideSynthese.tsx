@@ -164,9 +164,16 @@ export default function AideSynthese({
           })
         }
       </div>
-      <h3>🚀 Et maintenant, que faire ?</h3>
-      <p>Vous avez identifié les dispositifs d’aides auxquels vous êtes éligibles. Pour aller plus loin dans vos démarches et préparer votre projet, contactez un conseiller France Renov.</p>
-      <FatConseiller situation={situation} margin={"small"}/>
+      <div>
+        <FatConseiller 
+            {...{
+              situation,
+              margin: "small",
+              titre: "🚀 Et maintenant, que faire ?",
+              texte: "Vous avez identifié les dispositifs d’aides auxquels vous êtes éligibles. Pour aller plus loin dans vos démarches et préparer votre projet, contactez un conseiller France Renov."
+            }}
+        />
+      </div>
     </CustomQuestionWrapper>
   )
 }

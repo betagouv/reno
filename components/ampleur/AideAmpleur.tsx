@@ -2,7 +2,7 @@ import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
 import starIcon from '@/public/star-full-gold.svg'
 import Image from 'next/image'
-import { CTA, Card, PrimeStyle } from '../UI'
+import { CTA, Card, ExternalLink, PrimeStyle } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0, aideStyles } from '../utils'
 import chainIcon from '@/public/link-chain.svg'
@@ -74,25 +74,42 @@ export default function AideAmpleur({
             `}
           >
             <small>En détails</small>
-            <h2 css={`
-              font-size: 120%;
-              margin: 0.5rem 0 !important;
-            `}>
-              {title}
-            </h2>
+            <div css={`display: flex; justify-content: space-between;`}>
+              <h2 css={`
+                font-size: 120%;
+                margin: 0.5rem 0 !important;
+              `}>
+                {title}
+              </h2>
+              {rule["type"] && (
+                <PictoTypeAide
+                  $style={style}
+                  $expanded={expanded}
+                >
+                  <span className="icon"></span>
+                  <span>{rule["type"]}</span>
+                </PictoTypeAide>
+              )}
+            </div>
           </header>
-          <Card css={`width: fit-content`}>
-            {rule["type"] && (
-              <PictoTypeAide
-                $style={style}
-                $expanded={expanded}
-              >
-                <span className="icon"></span>
-                <span>{rule["type"]}</span>
-              </PictoTypeAide>
-            )}
-          </Card>
           {children}
+          <h3>Pour aller plus loin</h3>
+          <p>
+            Retrouvez plus d'info sur <ExternalLink 
+              href={rules[dottedName]['lien']}
+              target="_blank"
+            >
+              ce lien
+            </ExternalLink>
+          </p>
+          <FatConseiller 
+            {...{
+              situation,
+              margin: "small",
+              titre: "Comment toucher cette aide ?",
+              texte: rule.commentFaireHtml
+            }}
+          />
           <AideCTAs {...{
               dottedName, 
               setSearchParams,
@@ -100,12 +117,6 @@ export default function AideAmpleur({
               answeredQuestions,
               expanded
             }} 
-          />
-          <FatConseiller 
-            {...{
-              situation,
-              margin: "small"
-            }}
           />
         </>
       ) : (        

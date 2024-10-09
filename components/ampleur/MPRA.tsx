@@ -40,8 +40,7 @@ export default function MPRA({
       answeredQuestions,
       expanded
     }}>
-      <p>C'est la principale aide. Elle est versée après vos travaux de rénovation.</p>
-      <p>Vous devez viser un saut d'au moins deux classes DPE.</p>
+      <p dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }}></p>
       <DPEQuickSwitch oldIndex={oldIndex} />
       <TargetDPETabs
         {...{
@@ -119,59 +118,12 @@ export default function MPRA({
                   /> vous pouvez demander une avance de <strong>70 %</strong></p>
               )}
               <h3>Les principales conditions d'éligibilité ?</h3>
-              <ul css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0;}`}>
-                <li>Vous devrez faire appel à un Accompagnateur Rénov’, qui réalisera un audit énergétique de votre logement pour définir le projet de travaux vous permettant d’atteindre le DPE visé.</li>
-                <li>Il est également demandé d’inclure deux gestes d’isolation (toiture, fenêtre/menuiserie, sols ou murs) dans le programme de travaux.</li>
-                <li>Pour réaliser les travaux vous devez faire appel à des artisans labellisés RGE</li>
-                <li>Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l’accord de l’Anah avant de signer le devis et commencer vos travaux avec l’artisan sélectionné.</li>
-              </ul>
-              <h3>Comment toucher cette aide</h3>
-              <p>
-                Contactez votre conseiller France Rénov’. 
-                Il vous fournira des conseils selon votre situation et vous orientera vers Mon Accompagnateur Rénov’.
-              </p>
-              <h3>Pour aller plus loin</h3>
-              <p>
-                Retrouvez plus d'info sur <ExternalLink 
-                  href="https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide"
-                  target="_blank"
-                >
-                    ce lien
-                </ExternalLink>
-              </p>
-              { false && (
-                <>
-                  <InformationBlock>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: rules[dottedName].informationsUtilesHtml,
-                      }}
-                    />
-                  </InformationBlock>
-                  <PaymentTypeBlock>
-                    <Avance
-                      {...{
-                        engine,
-                        rules,
-                        situation,
-                        choice,
-                        exampleSituation,
-                      }}
-                    />
-                  </PaymentTypeBlock> 
-                  <section>
-                    <MapBehindCTA
-                      {...{
-                        situation,
-                        searchParams,
-                        what: 'trouver-conseiller-renov',
-                        text: 'Obtenir cette aide',
-                        importance: 'secondary',
-                      }}
-                    />
-                  </section>
-                </>
-              )}
+              <div
+                css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0; ul {list-style-image: none;}}`}
+                dangerouslySetInnerHTML={{
+                  __html: rules[dottedName].conditionsEligibilitesHTML,
+                }}
+              />
             </>
           )}
         </>

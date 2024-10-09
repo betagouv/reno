@@ -196,12 +196,12 @@ export default function Eligibility({
           />
         </div>
         <div>
-          <h3>Vous ne savez pas quel parcours choisir pour votre projet ?</h3>
-          <p>Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !</p>
           <FatConseiller 
             {...{
               situation,
-              margin: "small"
+              margin: "small",
+              titre: "Vous ne savez pas quel parcours choisir pour votre projet ?",
+              texte: "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !"
             }}
           />
         </div>

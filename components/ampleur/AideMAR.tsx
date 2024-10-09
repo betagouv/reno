@@ -25,9 +25,7 @@ export default function AideMAR({
       level: 2,
       expanded
     }}>
-      { false && <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} /> }
-      <p>L'audit énergétique permet de connaître les performances d'un bien immobilier, et de définir les scénarios de travaux pour atteindre les performance visé.</p> 
-      <p>Il est obligatoire pour bénéficier de Ma Prime Rénov', parcours accompagné.</p>
+      <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
       { !expanded && (
         <Card $background="#f7f8f8">
           <div
@@ -36,15 +34,6 @@ export default function AideMAR({
               align-items: center;
             `}
           >
-            {/* <Image
-              src={calculatorIcon}
-              alt="Icône calculette"
-              css={`
-                width: 3rem !important;
-                height: auto !important;
-                margin-right: 0.8rem !important;
-              `}
-            /> */}
             <AideMontant {...{
               engine,
               situation,
@@ -54,57 +43,22 @@ export default function AideMAR({
         </Card>
       )}
       { expanded && (
-          <>
-            <h3>Comment est calculée l'aide ?</h3>
-            <AideMontant {...{
-              engine,
-              situation,
-              dottedName
-            }} />
-            <h3>Les principales conditions d'éligibilité ?</h3>
-            <ul css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0;}`}>
-              <li>L'audit doit être réalisé par un auditeur certifié. Il peut être réalisé par votre Accompagnateur Rénov'</li>
-              <li>Pour bénéficier de MaPrimeRénov' pour une rénovation d'ampleur, vous devez obligatoirement suivre l'un des scénarios de travaux proposés suite à l'audit</li>
-            </ul>
-            <h3>Comment toucher cette aide</h3>
-            <p>
-              Contactez votre conseiller France Rénov’. 
-              Il vous fournira des conseils selon votre situation et vous orientera vers Mon Accompagnateur Rénov’.
-            </p>
-            <h3>Pour aller plus loin</h3>
-            <p>
-              Retrouvez plus d'info sur <ExternalLink 
-                href="https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide"
-                target="_blank"
-              >
-                  ce lien
-              </ExternalLink>
-            </p>
-            { false && (
-              <>
-                <PaymentTypeBlock>
-                  <p>
-                    Nous ne savons pas s'il sagit d'une avance ou d'un remboursement
-                    après paiement de l'Accompagnateur Rénov'.
-                  </p>
-                </PaymentTypeBlock>
-                <AideCTA text="Trouver mon Accompagnateur">
-                  <p>
-                    Vous pourrez notamment consulter l'annuaire des Accompagnateurs
-                    Rénov'.
-                  </p>
-                  <CTAWrapper $justify="left">
-                    <CTA>
-                      <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
-                        Documentation France-Rénov
-                      </a>
-                    </CTA>
-                  </CTAWrapper>
-                </AideCTA>
-              </>
-            )}
-          </>
-        )}
+        <>
+          <h3>Comment est calculée l'aide ?</h3>
+          <AideMontant {...{
+            engine,
+            situation,
+            dottedName
+          }} />
+          <h3>Les principales conditions d'éligibilité ?</h3>
+          <div
+            css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0; ul {list-style-image: none;}}`}
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].conditionsEligibilitesHTML,
+            }}
+          />
+        </>
+      )}
     </AideAmpleur>
   )
 }

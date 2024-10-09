@@ -70,8 +70,11 @@ function transformRuleObject(v) {
     descriptionHtml: v.description && parse(v.description),
     titreHtml: v.titre && parse(v.titre),
     sousTitreHtml: v['sous-titre'] && parse(v['sous-titre']),
+    conditionsEligibilitesHTML: v['conditions éligibilités'] && parse(v['conditions éligibilités']),
     informationsUtilesHtml:
       v['informations utiles'] && parse(v['informations utiles']),
+    commentFaireHtml:
+        v['comment faire'] && parse(v['comment faire']),
   }
   return newV
 }
