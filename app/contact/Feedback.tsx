@@ -103,8 +103,9 @@ export default function Feedback({ title, fromLocation }) {
                 <label htmlFor='commentaire'>Comment pouvons-nous améliorer cet outil?</label>
                 <textarea
                   css={`
-                    margin-top: 0.5rem;
-                    background: #EEEEEE;
+                    margin: 1rem 0;
+                    background: white;
+                    padding: 0.5rem;
                     border-bottom: 3px solid #3A3A3A;
                     height: 100px;
                     width: 100%;
