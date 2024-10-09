@@ -1,4 +1,5 @@
 import { createExampleSituation } from './ampleur/AmpleurSummary'
+import VoirSynthese from './ampleur/VoirSynthese'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { decodeDottedName } from './publicodes/situationUtils'
@@ -39,6 +40,12 @@ export default function AideDetails({
             expanded: true,
             rules,
           }}
+        />
+        <VoirSynthese {...{
+            answeredQuestions,
+            searchParams, 
+            setSearchParams
+          }} 
         />
       </CustomQuestionWrapper>
     )

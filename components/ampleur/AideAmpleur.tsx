@@ -73,7 +73,7 @@ export default function AideAmpleur({
               margin: 0;
             `}
           >
-            <small>En détail</small>
+            <small>En détails</small>
             <h2 css={`
               font-size: 120%;
               margin: 0.5rem 0 !important;
