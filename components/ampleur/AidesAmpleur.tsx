@@ -252,8 +252,11 @@ export default function AidesAmpleur({
           </Card>
         </div>
       )}
-      <FatConseiller situation={situation} />
-      
+      <div>
+        <h3>Comment toucher ces aides ?</h3>
+        <p>Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !</p>        
+        <FatConseiller situation={situation} margin="small" />
+      </div>
 
       {/* <QuestionsRéponses
         {...{
