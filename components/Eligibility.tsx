@@ -164,17 +164,16 @@ export default function Eligibility({
           }
           justify-content: center;
         `}>
-          <div id="parcours-ampleur">
-            <AmpleurSummary
-              {...{
-                engine,
-                url: nextLink('ampleur'),
-                situation,
-                expanded,
-                setSearchParams,
-              }}
-            />
-          </div>
+          <AmpleurSummary
+            id="parcours-ampleur"
+            {...{
+              engine,
+              url: nextLink('ampleur'),
+              situation,
+              expanded,
+              setSearchParams,
+            }}
+          />
           <div css={`
             padding: 0 1rem;
             align-self:center;
@@ -186,16 +185,15 @@ export default function Eligibility({
               font-size: 130%;
             `}>ou</strong>
           </div>
-          <div id="parcours-gestes">
-            <ÀlaCarteSummary
-              {...{
-                engine,
-                rules,
-                url: nextLink('à la carte'),
-                situation,
-              }}
-            />
-          </div>
+          <ÀlaCarteSummary
+            id="parcours-gestes"
+            {...{
+              engine,
+              rules,
+              url: nextLink('à la carte'),
+              situation,
+            }}
+          />
         </div>
         <div>
           <h3>Vous ne savez pas quel parcours choisir pour votre projet ?</h3>

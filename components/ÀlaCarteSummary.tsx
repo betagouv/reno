@@ -15,42 +15,80 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
   const eligibleCEE = engine.evaluate('CEE . conditions').nodeValue
 
   return (
-    <section>
-      <Card
-        css={`
-          min-height: 10rem;
-        `}
-      >
-        <GesteLabel />
-        <h3 css={`font-size: 120%;`}>Pour une rénovation par gestes</h3>
-        <p>Rénover votre logement à votre rythme en choississant librement parmi les travaux subventionnés</p>
-        
-        <CTAWrapper $justify="center">
-          <CTA $fontSize="normal">
-            <Link href={url}>Voir les 20 aides disponibles</Link>
-          </CTA>
-        </CTAWrapper>
+    <Card
+      css={`
+        min-height: 10rem;
+        margin: 0;
+      `}
+    >
+      <GesteLabel />
+      <h3 css={`font-size: 120%;`}>Pour une rénovation par gestes</h3>
+      <p>Rénover votre logement à votre rythme en choississant librement parmi les travaux subventionnés</p>
+      
+      <CTAWrapper $justify="center">
+        <CTA $fontSize="normal" css={`width: 100%;text-align: center;`}>
+          <Link href={url}>Voir les 20 aides disponibles</Link>
+        </CTA>
+      </CTAWrapper>
 
-        
-        <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
-        <ul css={`
-          li {
-            list-style-image: url(${checkIcon.src});
-            margin: 0.5rem 0;
-          }
-        `}>
-          <li>
-            Votre logement est déjà performant (DPE classe&nbsp;<DPELabel index="0" />&nbsp;ou&nbsp;<DPELabel index="1" />)
-          </li>
-          <li>
-            Vous souhaitez choisir librement parmi les aides disponibles
-          </li>
-        </ul>
-        <p css={`margin: 1rem 0 0 0;`}><em>Des exemples de gestes:</em></p>
+      <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
+      <ul css={`
+        li {
+          list-style-image: url(${checkIcon.src});
+          margin: 0.5rem 0;
+        }
+      `}>
+        <li>
+          Votre logement est déjà performant (DPE classe&nbsp;<DPELabel index="0" />&nbsp;ou&nbsp;<DPELabel index="1" />)
+        </li>
+        <li>
+          Vous souhaitez choisir librement parmi les aides disponibles
+        </li>
+      </ul>
+      <p css={`margin: 1rem 0 0 0;`}><em>Des exemples de gestes:</em></p>
+      <GestesPreview
+        {...{
+          rules,
+          dottedNames: [
+            'gestes . chauffage . PAC . air-eau',
+            'gestes . isolation . murs extérieurs',
+          ],
+          engine,
+          situation,
+        }}
+      />
+      {/* {revenuNonEligibleMPRG && (
+        <ExplicationMPRG {...{ engine, situation }} />
+      )}
+      {!eligibleMPRG && (
+        <InapplicableBlock>
+          <Image src={crossIcon} alt="Icône d'une croix" />
+          <div>
+            <p>Vous n'êtes pas éligible à MaPrimeRénov' par geste.</p>
+            <small>
+              Il faut être propriétaire du logement, construit il y a au moins
+              15 ans et occupé ou loué comme résidence principale.
+            </small>
+          </div>
+        </InapplicableBlock>
+      )}
+      {!eligibleCEE && (
+        <InapplicableBlock>
+          <Image src={crossIcon} alt="Icône d'une croix" />
+          <div>
+            <p>Vous n'êtes pas éligible aux aides CEE.</p>
+            <small>
+              Il faut que le logement ait été construit il y a plus de 2 ans.
+            </small>
+          </div>
+        </InapplicableBlock>
+      )}
+      {eligibleMPRG && (
         <GestesPreview
           {...{
             rules,
             dottedNames: [
+              'gestes . recommandés . audit',
               'gestes . chauffage . PAC . air-eau',
               'gestes . isolation . murs extérieurs',
             ],
@@ -58,133 +96,93 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
             situation,
           }}
         />
-        {/* {revenuNonEligibleMPRG && (
-          <ExplicationMPRG {...{ engine, situation }} />
-        )}
-        {!eligibleMPRG && (
+      )}
+      {!eligibleMPRG && eligibleCEE && (
+        <>
           <InapplicableBlock>
-            <Image src={crossIcon} alt="Icône d'une croix" />
+            <Image src={checkIcon} alt="Icône d'un check" />
             <div>
-              <p>Vous n'êtes pas éligible à MaPrimeRénov' par geste.</p>
+              <p
+                css={`
+                  text-decoration-color: green !important;
+                `}
+              >
+                En revanche, vous êtes éligibles aux aides CEE.
+              </p>
               <small>
-                Il faut être propriétaire du logement, construit il y a au moins
-                15 ans et occupé ou loué comme résidence principale.
+                Il faut que le logement ait été construit il y a plus de 2
+                ans.
               </small>
             </div>
           </InapplicableBlock>
-        )}
-        {!eligibleCEE && (
-          <InapplicableBlock>
-            <Image src={crossIcon} alt="Icône d'une croix" />
-            <div>
-              <p>Vous n'êtes pas éligible aux aides CEE.</p>
-              <small>
-                Il faut que le logement ait été construit il y a plus de 2 ans.
-              </small>
-            </div>
-          </InapplicableBlock>
-        )}
-        {eligibleMPRG && (
           <GestesPreview
             {...{
               rules,
               dottedNames: [
-                'gestes . recommandés . audit',
                 'gestes . chauffage . PAC . air-eau',
+                'gestes . chauffage . bois . chaudière . automatique',
                 'gestes . isolation . murs extérieurs',
               ],
               engine,
               situation,
             }}
           />
-        )}
-        {!eligibleMPRG && eligibleCEE && (
-          <>
-            <InapplicableBlock>
-              <Image src={checkIcon} alt="Icône d'un check" />
-              <div>
-                <p
-                  css={`
-                    text-decoration-color: green !important;
-                  `}
+        </>
+      )}
+      {(eligibleMPRG || eligibleCEE) && (
+        <>
+          <div
+            css={`
+              display: 'visible' > div {
+                margin-bottom: 0.3rem;
+                margin-top: 1.6rem;
+              }
+            `}
+          >
+            <CTAWrapper $justify="end">
+              <CTA $fontSize="normal">
+                <Link
+                  href={url}
+                  onClick={() =>
+                    push([
+                      'trackEvent',
+                      'Simulateur Principal',
+                      'Clic',
+                      'parcours par geste',
+                    ])
+                  }
                 >
-                  En revanche, vous êtes éligibles aux aides CEE.
-                </p>
-                <small>
-                  Il faut que le logement ait été construit il y a plus de 2
-                  ans.
-                </small>
-              </div>
-            </InapplicableBlock>
-            <GestesPreview
-              {...{
-                rules,
-                dottedNames: [
-                  'gestes . chauffage . PAC . air-eau',
-                  'gestes . chauffage . bois . chaudière . automatique',
-                  'gestes . isolation . murs extérieurs',
-                ],
-                engine,
-                situation,
-              }}
-            />
-          </>
-        )}
-        {(eligibleMPRG || eligibleCEE) && (
-          <>
-            <div
+                  <span>Choisir ce parcours</span>
+                </Link>
+              </CTA>
+            </CTAWrapper>
+            <p
               css={`
-                display: 'visible' > div {
-                  margin-bottom: 0.3rem;
-                  margin-top: 1.6rem;
-                }
+                display: flex;
+                justify-content: end;
+                color: #666;
+                font-size: 90%;
               `}
             >
-              <CTAWrapper $justify="end">
-                <CTA $fontSize="normal">
-                  <Link
-                    href={url}
-                    onClick={() =>
-                      push([
-                        'trackEvent',
-                        'Simulateur Principal',
-                        'Clic',
-                        'parcours par geste',
-                      ])
-                    }
-                  >
-                    <span>Choisir ce parcours</span>
-                  </Link>
-                </CTA>
-              </CTAWrapper>
-              <p
-                css={`
-                  display: flex;
-                  justify-content: end;
-                  color: #666;
-                  font-size: 90%;
-                `}
+              {eligibleMPRG
+                ? "MaPrimeRénov' par gestes + CEE"
+                : eligibleCEE
+                  ? 'CEE'
+                  : ''}
+            </p>
+            <span>
+              <a
+                target="_blank"
+                href="https://www.service-public.fr/particuliers/vosdroits/F35083"
               >
-                {eligibleMPRG
-                  ? "MaPrimeRénov' par gestes + CEE"
-                  : eligibleCEE
-                    ? 'CEE'
-                    : ''}
-              </p>
-              <span>
-                <a
-                  target="_blank"
-                  href="https://www.service-public.fr/particuliers/vosdroits/F35083"
-                >
-                  En savoir plus sur ce parcours
-                </a>
-                .
-              </span>
-            </div>
-          </>
-        )} */}
-      </Card>
-    </section>
+                En savoir plus sur ce parcours
+              </a>
+              .
+            </span>
+          </div>
+        </>
+      )} */}
+    </Card>
   )
 }
 
