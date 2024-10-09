@@ -6,5 +6,5 @@ export default function ({ engine, dottedName }) {
 
   if (!duréeRule) return null
   const evaluation = engine.evaluate(duréeName)
-  return <span>sur {evaluation.nodeValue} ans</span>
+  return <span> sur {evaluation.nodeValue} ans</span>
 }

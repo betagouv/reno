@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
 import { formatValue } from 'publicodes'
 import FatConseiller from '../FatConseiller'
+import AideDurée from './AideDurée'
 
 export default function AideAmpleur({ 
   engine,
@@ -36,7 +37,9 @@ export default function AideAmpleur({
                           .nodeValue
                           .includes("modeste")
   const isSelected = searchParams["ampleur.synthèse"]?.split(",").find(item => item === '"'+encodeDottedName(dottedName)+'"')
-  const montant = engine && engine.setSituation(situation).evaluate(dottedName + " . montant")
+  const montant = engine && engine.setSituation({ ...situation,   'taxe foncière . condition de dépenses': 'oui'})
+                                  .evaluate(dottedName + " . montant")
+  
   return (
     <section
       id={'aide-' + encodeDottedName(dottedName)}
@@ -92,6 +95,11 @@ export default function AideAmpleur({
               )}
             </div>
           </header>
+          <strong>Estimation du montant : </strong> {montant.nodeValue ? (
+          <PrimeStyle css={`font-size: 1rem;`}>
+            Jusqu'à <strong>{formatValue(montant)}</strong>
+            <AideDurée engine={engine} dottedName={dottedName} />
+          </PrimeStyle>) : ''}
           <div
             css={`margin-top: 1rem;`} 
             dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }} />
@@ -143,7 +151,11 @@ export default function AideAmpleur({
               >
                 {title}
               </h3>
-              {montant.nodeValue ? <PrimeStyle css={`font-size: 1rem;`}>Jusqu'à <strong>{formatValue(montant)}</strong></PrimeStyle> : ''}
+              {montant.nodeValue ? (
+                <PrimeStyle css={`font-size: 1rem;`}>
+                  Jusqu'à <strong>{formatValue(montant)}</strong>
+                  <AideDurée engine={engine} dottedName={dottedName} />
+                </PrimeStyle>) : ''}
             </div>
             {rule["type"] && (
               <div css={`
@@ -195,13 +207,12 @@ export const PictoTypeAide = styled.div`
   color: ${(p) => p.$style.color};
   display: flex;
   flex-direction: column;
-  align-items: ${(p) => p.$expanded ? "flex-start": "flex-end"};
+  align-items: flex-end;
   .icon {
     padding: 1rem;
     background: url('${(p) => p.$style.icon.src}') ${(p) => p.$style.backgroundColor} no-repeat center;
     border: 1px solid ${(p) => p.$style.borderColor};
     border-radius: 5px;
-    ${(p) => p.$expanded ? "margin: auto;" : ""}
   }
   .type {
     display: inline-block;

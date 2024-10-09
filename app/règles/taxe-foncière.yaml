@@ -87,6 +87,7 @@ taxe foncière . commune . éligible . logement:
       Cette variable est normalement remplie automatiquement par Mes Aides Réno.
 taxe foncière . commune . taux:
   par défaut: 0
+  unité: "%"
   description: |
     C'est l'exonération de la taxe foncière pour rénovation energétique, il faut que la commune ait voté cette exonération. 
 

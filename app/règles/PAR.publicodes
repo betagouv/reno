@@ -77,5 +77,5 @@ PAR . montant:
       - si: parcours d'aide = "ampleur"
         alors: 50000 €
       - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
-
+PAR . durée: 10 an
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
