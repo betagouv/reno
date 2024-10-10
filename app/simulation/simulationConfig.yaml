@@ -1,5 +1,5 @@
 prioritaires:
-  - vous . propriétaire . condition
+  - vous . propriétaire . statut
   - logement . propriétaire occupant
   - logement . résidence principale propriétaire
   - logement . résidence principale locataire

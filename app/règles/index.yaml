@@ -52,14 +52,13 @@ ménage . revenu:
 
 vous:
   titre: Votre situation
+
 vous . propriétaire:
-vous . propriétaire . condition:
-  titre: Propriétaire ?
+vous . propriétaire . statut:
   question: Êtes-vous propriétaire ?
-  par défaut: oui
   description: |
 
-    Pour bénéficier des aides à la rénovation, il faut être dans l'une de ces situations. 
+    Pour bénéficier de MaPrimeRénov', la principale aide à la rénovation, il faut être dans l'une de ces situations. 
 
     Situations simples : 
       - **Propriétaire occupant** (vous vivez dans votre logement)
@@ -82,13 +81,36 @@ vous . propriétaire . condition:
       - les nus-propriétaires
       - les personnes morales (par exemple les sociétés civiles immobilières)
     </details>
+  une possibilité parmi:
+    possibilités:
+      - 'propriétaire'
+      - 'acquéreur'
+      - 'non propriétaire'
+  par défaut: "'propriétaire'"
+
+vous . propriétaire . statut . propriétaire:
+  valeur: "'propriétaire'"
+  titre: Je suis propriétaire
+vous . propriétaire . statut . acquéreur:
+  valeur: "'acquéreur'"
+  titre: Je m'apprête à acheter
+vous . propriétaire . statut . non propriétaire:
+  valeur: "'non propriétaire'"
+  titre: Je suis locataire
+
+vous . propriétaire . condition:
+  titre: Propriétaire ?
+  formule:
+    une de ces conditions:
+      - statut = 'propriétaire'
+      - statut = 'acquéreur'
 
 vous . propriétaire . astuce:
   type: notification
   sévérité: information
   formule: condition = non
   description: |
-    Si vous êtes locataire, vous n'êtes pas éligible aux aides à la rénovation. 
+    Si vous êtes locataire, vous aurez peu ou pas d'aide à la rénovation. 
 
     **Cependant**, n'hésitez pas à faire cette simulation comme si vous étiez propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides 2024.
 
