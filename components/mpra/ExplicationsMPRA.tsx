@@ -7,7 +7,7 @@ export default function ExplicationsMPRA({
   engine,
   situation,
   choice,
-  setSearchParams,
+  setSearchParams
 }) {
   return (
     <section
@@ -41,24 +41,25 @@ export default function ExplicationsMPRA({
             Explications
           </h4>
         </summary>
-        <Etat {...{ engine, situation, choice }} />
-        <Link
-          title="Comprendre le calcul en détail"
-          css={`
-            position: absolute;
-            right: 0.4rem;
-            bottom: 0.2rem;
-            color: #ccc;
-          `}
-          href={setSearchParams(
-            encodeSituation(situation),
-            'url',
-            true,
-            'documentation/aides',
-          )}
-        >
-          ?
-        </Link>
+          
+          <Etat {...{ engine, situation, choice }} />
+          <Link
+            title="Comprendre le calcul en détail"
+            css={`
+              position: absolute;
+              right: 0.4rem;
+              bottom: 0.2rem;
+              color: #ccc;
+            `}
+            href={setSearchParams(
+              encodeSituation(situation),
+              'url',
+              true,
+              'documentation/aides',
+            )}
+          >
+            ?
+          </Link> 
       </details>
     </section>
   )

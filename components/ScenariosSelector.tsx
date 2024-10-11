@@ -224,8 +224,15 @@ export const Avance = ({
     )
   return (
     <p>
-      En tant que ménage au revenu{' '}
-      <ExplanationValue {...{ evaluation, state: 'none' }} />, vous pourrez
+      En tant que ménage au revenu{' '}<Value
+        {...{
+          engine,
+          choice,
+          situation: { ...exampleSituation },
+          dottedName: 'ménage . revenu . classe',
+          state: 'prime-black',
+        }}
+      />, vous pourrez
       bénéficier d'une avance de <strong>70&nbsp;%</strong> de la prime, soit{' '}
       <Value
         {...{
@@ -233,7 +240,7 @@ export const Avance = ({
           choice,
           situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
           dottedName: 'MPR . accompagnée . avance',
-          state: 'final',
+          state: 'prime-black',
         }}
       />
       , le reste sera un remboursement.

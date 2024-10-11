@@ -1,11 +1,8 @@
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import DPEScenario from '@/components/mpra/DPEScenario'
 import TargetDPETabs from '@/components/mpra/TargetDPETabs'
-import AideAmpleur, { InformationBlock } from './AideAmpleur'
-import { Card, ExternalLink } from '../UI'
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import Avance from '@/components/mpra/Avance'
-import MapBehindCTA from '../MapBehindCTA'
+import AideAmpleur from './AideAmpleur'
+import { Card } from '../UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import Value from '../Value'
@@ -18,7 +15,6 @@ export default function MPRA({
   engine,
   situation,
   exampleSituation,
-  searchParams,
   expanded
 }) {
   const dottedName = 'MPR . accompagnée'
@@ -71,6 +67,7 @@ export default function MPRA({
               situation,
               setSearchParams,
               exampleSituation,
+              expanded
             }}
           />
           { isModeste &&

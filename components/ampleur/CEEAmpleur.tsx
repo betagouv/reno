@@ -34,45 +34,14 @@ export default function CEEAmpleur({
                   engine,
                   situation,
                   dottedName: dottedName + ' . montant',
-                  state: 'final',
+                  state: 'prime-black',
                 }}
               />.
           </p>
         </>
       )}
-      { false && (
+      {  (
         <>
-          <Card $background="#f7f8f8">
-            <div
-              css={`
-                display: flex;
-                align-items: center;
-                margin-top: 1rem;
-              `}
-            >
-              <Image
-                src={calculatorIcon}
-                alt="Icône calculette"
-                css={`
-                  width: 3rem !important;
-                  height: auto !important;
-                  margin-right: 0.8rem !important;
-                `}
-              />{' '}
-              <p>
-                Nous estimons votre prime CEE coup de pouce ampleur à{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: dottedName + ' . montant',
-                    state: 'final',
-                  }}
-                />
-                .
-              </p>
-            </div>
-          </Card>
           <InformationBlock>
             <div
               dangerouslySetInnerHTML={{

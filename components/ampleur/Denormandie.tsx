@@ -38,6 +38,17 @@ export default function Denormandie({
       situation,
       expanded
     }}>
+      {communeName && communeEligible && (
+        <p>
+          La commune <Key $state={"prime-black"}>{communeName}</Key> de votre logement{' '}
+          {communeEligible === 'oui' ? (
+            <Yes>est éligible Denormandie</Yes>
+          ) : (
+            <No>n'est pas éligible</No>
+          )}
+          .
+        </p>
+      )}
       { expanded && (
         <>
           <h3>Comment est calculée l'aide ?</h3>
@@ -133,9 +144,7 @@ export default function Denormandie({
                         <li
                           key={si || 'default'}
                           css={
-
-                            années == situation[dottedName] &&
-                            `background: var(--lighterColor); width: fit-content`
+                            années == situation[dottedName] && `padding: 0.5rem;background: #e9e9e9; border: 1px dashed black;  width: fit-content`
                           }
                           onClick={() =>
                             setSearchParams({
@@ -143,8 +152,8 @@ export default function Denormandie({
                             })
                           }
                         >
-                          Pour une période de location de <Key $state={"prime-black"}> {années} ans </Key> :{' '}
-                          la réduction d'impôt s'élève à <Key $state={"prime-black"}>{alors || sinon}</Key> du prix du bien
+                          Pour une période de location de <strong> {années} ans </strong> :{' '}
+                          la réduction d'impôt s'élève à <strong>{alors || sinon}</strong> du prix du bien
                         </li>
                       )
                     })}
@@ -164,17 +173,11 @@ export default function Denormandie({
           <h3>Comment toucher cette aide</h3>
           <p>Pour bénéficier de la réduction d'impôts, vous devez déclarer cet investissement locatif au moment de la déclaration annuelle de revenus.
           </p>
-          {communeName && communeEligible && (
-            <p>
-              La commune {communeName} de votre logement{' '}
-              {communeEligible === 'oui' ? (
-                <Yes>est éligible Denormandie</Yes>
-              ) : (
-                <No>n'est pas éligible</No>
-              )}
-              .
-            </p>
-          )}
+          <InformationBlock>
+            <div
+              dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }}
+            />
+          </InformationBlock>
           <iframe
             css={`
               border-radius: 0.3rem;
@@ -186,16 +189,6 @@ export default function Denormandie({
             allow="geolocation"
             src="//umap.openstreetmap.fr/fr/map/le-dispositif-denormandie-une-aide-fiscale-dans-vo_289689?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=false&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=false&onLoadPanel=none&captionBar=false&captionMenus=true"
           ></iframe>
-    
-          <p>{rule.description}</p>
-          <InformationBlock>
-            <div
-              dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }}
-            />
-          </InformationBlock>
-          <PaymentTypeBlock>
-            <p>Une réduction sur vos impôts chaque année pendant 6 à 12 ans.</p>
-          </PaymentTypeBlock>
         </>
       )}
     </AideAmpleur>
@@ -229,7 +222,7 @@ const Result = ({ engine, situation }) => {
               engine,
               situation,
               dottedName: 'denormandie . montant',
-              state: 'final',
+              state: 'prime-black',
             }}
           />
           .

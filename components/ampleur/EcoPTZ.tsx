@@ -1,12 +1,13 @@
 import { Key } from '../explications/ExplicationUI'
 import MapBehindCTA from '../MapBehindCTA'
 import PaymentTypeBlock from '../PaymentTypeBlock'
-import { Avance } from '../ScenariosSelector'
-import { ExternalLink } from '../UI'
+import { Avance, getAmpleurDPEChoice } from '../ScenariosSelector'
+import { Card, ExternalLink, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import Image from 'next/image'
+import { roundToThousands } from '../utils'
 
 export default function EcoPTZ({ 
   engine,
@@ -16,6 +17,15 @@ export default function EcoPTZ({
   expanded
 }) {
   const dottedName = 'PTZ'
+  const choice = getAmpleurDPEChoice(situation)
+
+  const exampleSituation = {
+    'projet . travaux': roundToThousands(
+      engine.evaluate('projet . enveloppe estimée').nodeValue,
+      5,
+    ),
+    ...situation,
+  }
   return (
     <AideAmpleur {...{
         engine,
@@ -32,72 +42,31 @@ export default function EcoPTZ({
           <p>L'éco-prêt à taux zéro est accessible à tous, sans condition de ressources.</p>
           <p>Le montant maximum du prêt dépend du nombre de travaux engagés, pour un montant maximal de <Key $state="prime-black">50 000 €</Key>.</p>
           <p>La durée du remboursement est de 20 ans maximum.</p>
+          <Card $background="#f7f8f8" css={`padding: 1rem;`}>
+            <div
+              css={`
+                display: flex;
+                align-items: center;
+              `}
+            >
+              <p>
+                Par rapport à un prêt à la consommation de 50 000 € affecté aux
+                travaux à un taux de 5 % sur 20 ans, l'éco-PTZ peut vous faire économiser{' '}
+                <Key $state="prime-black">
+                  <a href="https://www.lafinancepourtous.com/outils/calculateurs/calculateur-de-credit-immobilier/">
+                    30 000 € d'intérêts
+                  </a>
+                </Key>.
+              </p>
+            </div>
+          </Card>
           <h3>Les principales conditions d'éligibilité ?</h3>
           <div
             css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0; ul {list-style-image: none;}}`}
             dangerouslySetInnerHTML={{
               __html: rules[dottedName].conditionsEligibilitesHTML,
             }}
-          />
-          { false && (
-            <>
-              <InformationBlock>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: rules[dottedName].informationsUtilesHtml,
-                  }}
-                />
-              </InformationBlock>
-              <PaymentTypeBlock>
-                <Avance
-                  {...{
-                    engine,
-                    rules,
-                    situation,
-                    choice,
-                    exampleSituation,
-                  }}
-                />
-              </PaymentTypeBlock> 
-            </>
-          )}
-        </>
-      )}
-      {false && (
-        <>
-          <p>
-            Vous pouvez emprunter jusqu'à 50 000 € sur 20 ans sans devoir
-            rembourser d'intérêts pour financer vos travaux de rénovation
-            energétique.
-          </p>
-          <Card $background="#f7f8f8">
-            <div
-              css={`
-                display: flex;
-                align-items: center;
-                margin-top: 1rem;
-              `}
-            >
-              <Image
-                src={calculatorIcon}
-                alt="Icône calculette"
-                css={`
-                  width: 3rem !important;
-                  height: auto !important;
-                  margin-right: 0.8rem !important;
-                `}
-              />
-              <p>
-                Par rapport à un prêt à la consommation de 50 000 € affecté aux
-                travaux à un taux de 5 % sur 20 ans,
-                <br /> l'éco-PTZ peut vous faire économiser{' '}
-                <a href="https://www.lafinancepourtous.com/outils/calculateurs/calculateur-de-credit-immobilier/">
-                  <PrimeStyle>30 000 € d'intérêts</PrimeStyle>
-                </a>
-                .
-              </p>
-            </div>
-          </Card>
+          />      
           <InformationBlock>
             <div
               dangerouslySetInnerHTML={{
@@ -105,6 +74,11 @@ export default function EcoPTZ({
               }}
             />
           </InformationBlock>
+          <p>
+            Vous pouvez emprunter jusqu'à 50 000 € sur 20 ans sans devoir
+            rembourser d'intérêts pour financer vos travaux de rénovation
+            energétique.
+          </p>
           <PaymentTypeBlock>
             <p>Le prêt sera à rembourser mensuellement.</p>
           </PaymentTypeBlock>

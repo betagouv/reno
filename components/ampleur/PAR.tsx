@@ -37,27 +37,6 @@ export default function PAR({
           />
         </>
       )}
-      {/* 
-      <Card $background="#f7f8f8">
-        <div
-          css={`
-            display: flex;
-            align-items: center;
-            margin-top: 1rem;
-          `}
-        >
-          <Image
-            src={calculatorIcon}
-            alt="Icône calculette"
-            css={`
-              width: 3rem !important;
-              height: auto !important;
-              margin-right: 0.8rem !important;
-            `}
-          />
-          <p>{rule.montant}</p>
-        </div>
-      </Card>*/}
     </AideAmpleur>
   )
 }

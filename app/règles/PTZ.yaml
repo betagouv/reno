@@ -74,4 +74,4 @@ PTZ . montant:
     - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
 
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
-PTZ . durée: 15 an
+PTZ . durée: 20 an
