@@ -12,6 +12,7 @@ import { useSearchParams } from 'next/navigation'
 import { formatValue } from 'publicodes'
 import FatConseiller from '../FatConseiller'
 import AideDurée from './AideDurée'
+import { createExampleSituation } from './AmpleurSummary'
 
 export default function AideAmpleur({ 
   engine,
@@ -37,7 +38,8 @@ export default function AideAmpleur({
                           .nodeValue
                           .includes("modeste")
   const isSelected = searchParams["ampleur.synthèse"]?.split(",").find(item => item === '"'+encodeDottedName(dottedName)+'"')
-  const montant = engine && engine.setSituation({ ...situation,   'taxe foncière . condition de dépenses': 'oui'})
+  const extremeSituation = createExampleSituation(engine, situation, true)
+  const montant = engine && engine.setSituation(extremeSituation)
                                   .evaluate(dottedName + " . montant")
   
   return (
@@ -95,11 +97,11 @@ export default function AideAmpleur({
               )}
             </div>
           </header>
-          <strong>Estimation du montant : </strong> {montant.nodeValue ? (
-          <PrimeStyle css={`font-size: 1rem;`}>
-            Jusqu'à <strong>{formatValue(montant)}</strong>
-            <AideDurée engine={engine} dottedName={dottedName} />
-          </PrimeStyle>) : ''}
+          <strong>Estimation du montant : </strong> <PrimeWithLabel {...{
+                montant, 
+                engine, 
+                dottedName
+              }} />
           <div
             css={`margin-top: 1rem;`} 
             dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }} />
@@ -151,11 +153,11 @@ export default function AideAmpleur({
               >
                 {title}
               </h3>
-              {montant.nodeValue ? (
-                <PrimeStyle css={`font-size: 1rem;`}>
-                  Jusqu'à <strong>{formatValue(montant)}</strong>
-                  <AideDurée engine={engine} dottedName={dottedName} />
-                </PrimeStyle>) : ''}
+              <PrimeWithLabel {...{
+                montant, 
+                engine, 
+                dottedName
+              }} />
             </div>
             {rule["type"] && (
               <div css={`
@@ -201,6 +203,17 @@ export default function AideAmpleur({
     </section>
   )
 }
+
+export const PrimeWithLabel = ({montant,engine, dottedName}) => (
+    montant.nodeValue ? (
+      <PrimeStyle css={`font-size: 1rem;`}>
+        {['MPR . accompagnée . prise en charge MAR',
+          'ampleur . prime individuelle copropriété'
+        ].includes(dottedName) ? "Prime de " : ("Jusqu'à") } <strong>{formatValue(montant)}</strong>
+        <AideDurée engine={engine} dottedName={dottedName} />
+      </PrimeStyle>
+    ) : ''
+)
 
 export const PictoTypeAide = styled.div`
   width: fit-content;

@@ -28,6 +28,7 @@ export const createExampleSituation = (engine, situation, extreme = false) => {
     ...(extreme
       ? {
           'projet . travaux': 999999,
+          'projet . DPE visé': 1,
         }
       : {}),
     'vous . propriétaire . condition': 'oui',
