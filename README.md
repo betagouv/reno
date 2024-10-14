@@ -1,20 +1,23 @@
 # Aides et coût d'une rénovation thermique en 2024
 
-
 > [!IMPORTANT]
 > 🚧 Ce projet est en plein développement.
 > De nouvelles versions sont publiées fréquemment, potentiellement toutes les semaines.
-> En particulier, le modèle de calcul évolue en fonction de la loi et des améliorations métier, selon le [versionage sémantique](https://github.com/betagouv/reno/issues/41)
-> Si vous l'intégrez, il est de votre responsabilité de le maintenir à jour régulièrement.
+> En particulier, le modèle de calcul évolue en fonction de la loi et des améliorations métier, selon le versionage sémantique.
+> Si vous l'intégrez, il est de votre responsabilité de le maintenir à jour régulièrement en suivant les changements de ce dépôt dont la publicité est faite via **ce fichier [CHANGELOG](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/CHANGELOG.md)**.
 
 ## Le calcul des aides
 
-Sur /, dans un premier temps, les aides nationales : MPR accompagnée, et MPR non accompagnée (dit aussi gestes). Nous y avons ajouté les CEE, et de nombreuses aides à la rénovation d'ampleur viendront les compléter. 
+Sur /, dans un premier temps, les aides nationales : MPR accompagnée, et MPR non accompagnée (dit aussi gestes). Nous y avons ajouté les CEE, l'aide copropriété, et de nombreuses aides à la rénovation d'ampleur.
 
 ## Le coût des travaux
 
 Sur /couts, des statistiques sur le coût des travaux. Nécessite une clef d'accès, les données étant pour l'instant privées.
 
-## Tech
+## Côté technologie
 
-Site en NextJS et publicodes. [API basique](https://mar2024.vercel.app/api-doc). Intégrable facilement dans toute application JS, ou dans n'importe quel environnement via des [fonctions lambda](https://github.com/betagouv/reno/blob/master/app/api/route.ts). 
+C'est un site en NextJS et [Publicodes](https://publi.codes).
+
+Nous proposons une version beta d'une [API de calcul hébergée chez nous](https://mesaidesreno.beta.gouv.fr/api-doc) et déployable facilement chez vous, pour en maitriser les versions.
+
+Un premier [module NPM](https://www.npmjs.com/package/mesaidesreno) est intégrable facilement dans toute application JS, ou dans n'importe quel environnement via des [fonctions lambda](https://github.com/betagouv/reno/blob/master/app/api/route.ts).

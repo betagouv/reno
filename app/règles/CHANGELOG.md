@@ -30,7 +30,7 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
-### v1.0.0-beta.1
+### v1.0.0-beta1
 
 Dans cette nouvelle version du modèle Mes Aides Réno, de nombreuses aides d'ampleur font leur apparition, dans le but de proposer le calcul de la plupart des aides nationales d'ampleur.
 
@@ -48,6 +48,14 @@ Comme changements importants, nous pouvons citer ceux-ci :
 - nous transformons progressivement les fichiers .yaml en .publicodes pour clarifier leur type et profiter de la nouvelle [coloration syntaxique](https://github.com/publicodes/language-server) publicodes
 
 Vu l'ampleur des changements de cette version, nous vous conseillons de l'explorer en détail dans le [jeu de changement](https://github.com/betagouv/reno/pull/187/files), en choisissant dans le menu de gauche le dossier "règles" pour vous concentrer sur la sous-section modèle de ce jeu de changement qui concerne également l'interface.
+
+### v0.7.0
+
+Dans le parcours par gestes, les CEE font leur apparition, aussi bien les primes coup de pouce qu'une partie (réservée aux particuliers) des aides CEE normales.
+
+Un nouveau parcours pour les copropriétés a également [fait sont apparition](https://mesaidesreno.beta.gouv.fr/copropriete).
+
+Ces deux grosses nouveautés sont donc naturellement disponible dans le modèle de calcul global Mes Aides Réno.
 
 ### v0.6.0
 
