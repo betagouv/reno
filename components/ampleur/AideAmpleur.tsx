@@ -101,6 +101,7 @@ export default function AideAmpleur({
           <strong>Estimation du montant : </strong> <PrimeWithLabel {...{
                 montant, 
                 engine, 
+                situation,
                 dottedName
               }} />
           <div
@@ -155,7 +156,8 @@ export default function AideAmpleur({
               </h3>
               <PrimeWithLabel {...{
                 montant, 
-                engine, 
+                engine,
+                situation,
                 dottedName
               }} />
             </div>
@@ -205,12 +207,20 @@ export default function AideAmpleur({
   )
 }
 
-export const PrimeWithLabel = ({montant,engine, dottedName}) => (
+export const PrimeWithLabel = ({montant,engine, dottedName, situation}) => (
     montant.nodeValue ? (
       <PrimeStyle css={`font-size: 1rem;`}>
         {['MPR . accompagnée . prise en charge MAR',
           'ampleur . prime individuelle copropriété'
-        ].includes(dottedName) ? "Prime de " : ("Jusqu'à") } <strong>{formatValue(montant)}</strong>
+        ].includes(dottedName) ? 
+          "Prime de " : 
+          ['taxe foncière'].includes(dottedName) ? "" : "Jusqu'à " } 
+          <strong>
+          {['taxe foncière'].includes(dottedName) ? 
+            situation["taxe foncière . commune . taux"] :
+            formatValue(montant)
+          }
+        </strong>
         <AideDurée engine={engine} dottedName={dottedName} />
       </PrimeStyle>
     ) : ''
