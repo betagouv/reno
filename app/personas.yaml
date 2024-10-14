@@ -226,7 +226,6 @@
     ménage . revenu: 25000
     ménage . commune: "'25056'"
     DPE . actuel: 3
-    projet . DPE visé: 1
     ménage . code région: "'52'"
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
