@@ -463,6 +463,8 @@ essonne . gros travaux . travaux plafonnés:
   valeur: projet . travaux
   plafond: 20000 €
 
+# nancy : nouvelle aide publiée à la rentrée 2024 https://alec-nancy.fr/metropole-grand-nancy-aides-renovation-energetique/
+
 ############
 # Collectivités pour lesquelles nous sommes certains qu'il n'y a pas d'aide
 # Elles doivent alors définir une non éligibilté explicitement via un "non applicable", plutôt qu'un simple 0 €, valeur par défaut pour garder les sommes
