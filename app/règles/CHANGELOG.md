@@ -30,6 +30,10 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
+### v0.6.0
+
+Nous avons déplacé l'écrètement depuis la règle MaPrimeRénov' accompagnée vers la nouvelle règle "aides globales". En effet, même si l'écrêtement pouvait agir sur cette première seule (semblerait-il du fait d'une erreur de conception de l'aide sur la tranche revenus supérieurs), il prend surtout son sens sur un ensemble cumulatif d'aides, dont les aides locales.
+
 ### v0.5.0
 
 Changement cassant : nous avons trouvé des bugs dans nos barèmes de revenu, qui sont maintenant corrigés.
