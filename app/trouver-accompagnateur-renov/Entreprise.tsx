@@ -91,9 +91,9 @@ export default function Entreprise({ data }) {
               border-left: 3px solid var(--color);
             `}
           >
-            {horaires.map((horaire) => {
+            {horaires.map((horaire, i) => {
               return (
-                <li key={JSON.stringify(horaire)}>
+                <li key={i}>
                   <div>{horaire}</div>
                 </li>
               )
