@@ -55,6 +55,7 @@ export default function AideAmpleur({
 		  `
       }
     >
+      <Card css={`background: ${isSelected ? "rgba(205, 228, 255, 0.20);" : ""}`}>
       {false && level === 2 && (
         <span>
           <Image
@@ -105,7 +106,6 @@ export default function AideAmpleur({
           <div
             css={`margin-top: 1rem;`} 
             dangerouslySetInnerHTML={{ __html: rules[dottedName].descriptionHtml }} />
-          
           {children}
           <h3>Pour aller plus loin</h3>
           <p>
@@ -133,8 +133,8 @@ export default function AideAmpleur({
             }} 
           />
         </>
-      ) : (        
-        <Card css={`background: ${isSelected ? "rgba(205, 228, 255, 0.20);" : ""}`}>
+      ) : (      
+        <>  
           <header
             css={`
               margin: 0 0 1rem 0;
@@ -198,8 +198,9 @@ export default function AideAmpleur({
               expanded
             }} 
           />
-        </Card>
+        </>
       )}
+      </Card>
     </section>
   )
 }
