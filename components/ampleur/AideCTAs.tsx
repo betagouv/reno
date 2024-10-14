@@ -96,7 +96,7 @@ export default function AideCTAs({
           }
         </Link>
       </CTA>
-      <CTA css={`
+      {/* <CTA css={`
           ${isSelected && `
             background: rgba(190, 242, 197, 0.20);
             border: 1px dashed var(--validColor);
@@ -119,7 +119,7 @@ export default function AideCTAs({
               ✖ Retirer de ma synthèse
           </button>
         </CTA>
-      }
+      } */}
     </CTAWrapper>
   )
 }
