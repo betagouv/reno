@@ -49,6 +49,8 @@ Comme changements importants, nous pouvons citer ceux-ci :
 
 Vu l'ampleur des changements de cette version, nous vous conseillons de l'explorer en détail dans le [jeu de changement](https://github.com/betagouv/reno/pull/187/files), en choisissant dans le menu de gauche le dossier "règles" pour vous concentrer sur la sous-section modèle de ce jeu de changement qui concerne également l'interface.
 
+Dernier point : un [paquet NPM](https://www.npmjs.com/package/mesaidesreno) fait son apparition. Il n'a pour l'instant qu'un but : exposer une compilation JSON de l'ensemble des aides du modèle pour être intégré en quelques lignes de code dans un projet Javascript. Un guide sera publié sur la page /api-doc bientôt.
+
 ### v0.7.0
 
 Dans le parcours par gestes, les CEE font leur apparition, aussi bien les primes coup de pouce qu'une partie (réservée aux particuliers) des aides CEE normales.
