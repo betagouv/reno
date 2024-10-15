@@ -1,14 +1,9 @@
+import Value from '@/components/Value'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import DPELabel from '../DPELabel'
 import Input from '../Input'
-import Value from '@/components/Value'
-import { Card, PrimeStyle } from '../UI'
+import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
-
-import calculatorIcon from '@/public/calculator-empty.svg'
-import ExplicationsMPRA from './ExplicationsMPRA'
-import { formatValue } from 'publicodes'
 
 export default function DPEScenario({
   rules,
@@ -186,11 +181,6 @@ export default function DPEScenario({
             </div>
           </div>
         </div>
-        {expanded && (
-          <ExplicationsMPRA
-            {...{ engine, situation, choice, setSearchParams }}
-          />
-        )}
       </Card>
     </motion.div>
   )

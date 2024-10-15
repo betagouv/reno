@@ -2,9 +2,8 @@ import calculatorIcon from '@/public/calculator-empty.svg'
 import Image from 'next/image'
 import { No, Yes } from '../ResultUI'
 import { Card } from '../UI'
-import { InformationBlock } from './AideAmpleur'
-import ExplicationsMPRA from '../mpra/ExplicationsMPRA'
 import ExplicationAngers from '../mpra/locales/ExplicationAngers'
+import { InformationBlock } from './AideAmpleur'
 
 export default function AidesLocalesByLevel({
   aides,
