@@ -24,10 +24,11 @@ export default function MPRA({
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
-  const isModeste = engine
+  const revenuClasseValue = engine
     .setSituation(situation)
-    .evaluate('ménage . revenu . classe')
-    .nodeValue.includes('modeste')
+    .evaluate('ménage . revenu . classe').nodeValue
+
+  const isModeste = revenuClasseValue.includes('modeste')
 
   return (
     <AideAmpleur
@@ -82,9 +83,9 @@ export default function MPRA({
                 margin: 1rem 0;
               `}
             >
-              🍀<strong>Bonus:</strong> En tant que <u>ménage modeste</u>,{' '}
-              <strong>70 %</strong> de cette aide peut vous être versée en
-              avance de vos travaux.
+              🍀 <strong>Bonus :</strong> En tant que{' '}
+              <u>ménage&nbsp;{revenuClasseValue}</u>, <strong>70 %</strong> de
+              cette aide peut vous être versée en avance de vos travaux.
             </div>
           )}
           {expanded && (
@@ -120,20 +121,6 @@ export default function MPRA({
                 minimum.
               </p>
               <Écrêtement {...{ engine, rules, situation }} />
-              {isModeste && (
-                <p>
-                  En temps que ménage{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'ménage . revenu . classe',
-                      state: 'prime-black',
-                    }}
-                  />{' '}
-                  vous pouvez demander une avance de <strong>70 %</strong>
-                </p>
-              )}
               <h3>Les principales conditions d'éligibilité ?</h3>
               <div
                 css={`
