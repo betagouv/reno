@@ -224,7 +224,8 @@ export const Avance = ({
     )
   return (
     <p>
-      En tant que ménage au revenu{' '}<Value
+      En tant que ménage au revenu{' '}
+      <Value
         {...{
           engine,
           choice,
@@ -232,8 +233,9 @@ export const Avance = ({
           dottedName: 'ménage . revenu . classe',
           state: 'prime-black',
         }}
-      />, vous pourrez
-      bénéficier d'une avance de <strong>70&nbsp;%</strong> de la prime, soit{' '}
+      />
+      , vous pourrez bénéficier d'une avance de <strong>70&nbsp;%</strong> de la
+      prime, soit{' '}
       <Value
         {...{
           engine,
