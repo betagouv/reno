@@ -152,15 +152,17 @@ export default function AideAmpleur({
         {children}
         {expanded && (
           <>
-            <p
-              css={`
-                margin-top: 1.6rem;
-              `}
-            >
-              <ExternalLink href={rules[dottedName]['lien']} target="_blank">
-                Plus d'infos sur cette aide
-              </ExternalLink>
-            </p>
+            {dottedName != 'ampleur . prime individuelle copropriété' && (
+              <p
+                css={`
+                  margin-top: 1.6rem;
+                `}
+              >
+                <ExternalLink href={rules[dottedName]['lien']} target="_blank">
+                  Plus d'infos sur cette aide
+                </ExternalLink>
+              </p>
+            )}
             <FatConseiller
               {...{
                 situation,

@@ -87,6 +87,15 @@ export default function Copro({
               __html: rules[dottedName].conditionsEligibilitesHTML,
             }}
           />
+          <p
+            css={`
+              margin-top: 1.6rem;
+            `}
+          >
+            <ExternalLink href={rules[dottedName]['lien']} target="_blank">
+              Plus d'infos sur cette aide
+            </ExternalLink>
+          </p>
           <h3>Notre parcours dédié aux copropriétés</h3>
           <p>
             Simulez l'éligibilité de votre copropriété à MaPrimeRénov'
