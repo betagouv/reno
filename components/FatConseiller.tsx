@@ -5,16 +5,17 @@ import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import { CTA, CTAWrapper } from './UI'
 
 export default function FatConseiller({ situation, margin, titre, texte }) {
-  return (<>
+  return (
+    <>
       <h3>{titre}</h3>
       <p dangerouslySetInnerHTML={{ __html: texte }} />
       <details
         css={`
           margin: 3rem auto;
-          ${margin && margin == "small" && `margin: 1rem auto;`}
+          ${margin && margin == 'small' && `margin: 1rem auto;`}
           background: var(--lightestColor);
           padding: 1rem;
-          border: 1px solid #D0D0ED;
+          border: 1px solid #d0d0ed;
           summary {
             margin: 0 auto;
             border-radius: 0.4rem;
@@ -34,14 +35,14 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
           <div
             css={`
               > img {
-              margin: auto;
-              display: block;
-              padding: 1rem;
+                margin: auto;
+                display: block;
+                padding: 1rem;
               }
               h3 {
                 text-align: left;
                 font-size: 100%;
-                margin: 0;
+                margin: 0.6rem 0;
               }
               p {
                 margin: 0;
@@ -52,19 +53,22 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
               Contacter un conseiller{' '}
               <span>
                 <strong>France</strong>&nbsp;
-                <strong css="color: #d83a34; margin-bottom: -.1rem">
-                  Rénov'
-                </strong>
+                <strong css=" margin-bottom: -.1rem">Rénov'</strong>
               </span>
             </h3>
-            <p>Avant la réalisation de vos travaux, un conseiller France Rénov’ vous accompagne gratuitement.</p>
+            <p>
+              Avant la réalisation de vos travaux, un conseiller France Rénov’
+              vous accompagne gratuitement.
+            </p>
           </div>
-          <div css={`
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            align-items: center;
-            `}>
+          <div
+            css={`
+              display: flex;
+              justify-content: space-around;
+              flex-wrap: wrap;
+              align-items: center;
+            `}
+          >
             <Image
               src={conseillerIcon}
               alt="illustration espace conseiller France Rénov'"
