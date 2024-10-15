@@ -112,7 +112,6 @@ export default function AideAmpleur({
                 )}
               </div>
             </header>
-            <strong>Estimation du montant : </strong>{' '}
             <PrimeWithLabel
               {...{
                 montant,
