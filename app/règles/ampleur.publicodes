@@ -77,11 +77,19 @@ ampleur . montant écrêté:
 
     L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
 
-  valeur:
-    somme:
-      - MPR . accompagnée . montant
-      - aides locales . montant
-  plafond: pourcent d'écrêtement * projet . travaux . TTC
+  valeur: soumises à écrêtement
+  plafond: plafond d'écrêtement
+
+ampleur . soumises à écrêtement:
+  somme:
+    - MPR . accompagnée . montant
+    - aides locales . montant
+
+ampleur . plafond d'écrêtement:
+  valeur: pourcent d'écrêtement * projet . travaux . TTC
+
+ampleur . est écrêté:
+  valeur: soumises à écrêtement > plafond d'écrêtement
 
 ampleur . pourcent d'écrêtement:
   titre: Taux maximum toutes aides sur enveloppe TTC
@@ -101,4 +109,3 @@ ampleur . pourcent d'écrêtement:
 ampleur . synthèse:
   description: Quels sont les aides dont l'utilisateur souhaite avoir la synthèse
   par défaut: "''"
-

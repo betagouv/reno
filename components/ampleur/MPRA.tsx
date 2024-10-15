@@ -8,6 +8,7 @@ import checkIcon from '@/public/check.svg'
 import Value from '../Value'
 import DPELabel from '../DPELabel'
 import { Key } from '../explications/ExplicationUI'
+import { Écrêtement } from '@/components/explications/Écrêtement'
 
 export default function MPRA({
   setSearchParams,
@@ -27,6 +28,7 @@ export default function MPRA({
     .setSituation(situation)
     .evaluate('ménage . revenu . classe')
     .nodeValue.includes('modeste')
+
   return (
     <AideAmpleur
       {...{
@@ -117,6 +119,7 @@ export default function MPRA({
                 permet d’atteindre une étiquette <DPELabel index="3" /> au
                 minimum.
               </p>
+              <Écrêtement {...{ engine, rules, situation }} />
               {isModeste && (
                 <p>
                   En temps que ménage{' '}
