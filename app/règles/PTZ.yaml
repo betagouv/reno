@@ -1,12 +1,11 @@
 PTZ:
-  marque: Éco-prêt à taux zéro
+  marque: Éco-prêt à taux zéro (Éco-PTZ)
   type: 'prêt'
   icône: 'ptz-bleu.svg'
   titre: Éco-prêt à taux zéro
   description: |
-    L'éco-prêt à taux zéro est un prêt à 0% qui permet de financer des travaux d'amélioration de la performance énergétique d'un logement.
+    L'éco-prêt à taux zéro est un prêt à 0 % qui permet de financer des travaux d'amélioration de la performance énergétique d'un logement.
 
-    Il est cumulable avec d'autres aides financières, et il est accessible à tous sans condition de ressources.
   informations utiles: |
     - L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
     - L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
@@ -15,11 +14,10 @@ PTZ:
     - Votre logement doit avoir été construit il y a au moins de 2 ans (à la date du début des travaux)
     - Le logement doit être déclaré comme résidence principale ou destiné à l'être
     - Un seul éco-prêt à taux zéro peut être accordé par logement (sauf exception)
+    - Son montant dépendra de votre endettement et de votre capacité à le rembourser.
     - Vous devez réaliser des travaux par un professionnel RGE qui remplissent l'une des conditions suivantes :
-      - correspondent à au moins une action efficace d'amélioration de la performance énergétique
       - ouvrent droit à l'aide MaPrimeRénov' Parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle
       - permettent d'améliorer d'au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux
-      - constituent des travaux de réhabilitation de systèmes d'assainissement non collectifs par des dispositifs ne consommant pas d'énergie et respectant certains critères techniques
   comment faire: |
     Contactez votre conseiller France Rénov’. Il vous fournira des conseils selon votre situation.
   description détaillé: |
@@ -74,4 +72,3 @@ PTZ . montant:
 
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
 PTZ . durée: 20 an
-
