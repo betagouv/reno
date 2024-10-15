@@ -18,7 +18,7 @@ export default function DPEScenario({
   situation,
   setSearchParams,
   exampleSituation,
-  expanded
+  expanded,
 }) {
   if (choice == null) return null
 
@@ -150,7 +150,12 @@ export default function DPEScenario({
                     dottedName: 'projet . travaux . TTC',
                     state: 'prime-black',
                   }}
-                /><span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA"> TTC</span><span>, je toucherai un total d'aides de </span>
+                />
+                <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                  {' '}
+                  TTC
+                </span>
+                <span>, je toucherai un total d'aides de </span>
                 <Value
                   {...{
                     engine,
@@ -159,7 +164,7 @@ export default function DPEScenario({
                       ...exampleSituation,
                       'projet . DPE visé': choice + 1,
                     },
-                    dottedName: 'ampleur . montant',
+                    dottedName: 'MPR . accompagnée . montant écrêté',
                     state: 'prime-black',
                   }}
                 />
@@ -172,18 +177,18 @@ export default function DPEScenario({
                       ...exampleSituation,
                       'projet . DPE visé': choice + 1,
                     },
-                    dottedName: 'projet . investissement',
+                    dottedName: 'MPR . accompagnée . reste à charge',
                     state: 'prime-black',
                   }}
-                />
-                .
+                />{' '}
+                TTC.
               </p>
             </div>
           </div>
         </div>
-        { expanded && (
+        {expanded && (
           <ExplicationsMPRA
-          {...{ engine, situation, choice, setSearchParams }}
+            {...{ engine, situation, choice, setSearchParams }}
           />
         )}
       </Card>

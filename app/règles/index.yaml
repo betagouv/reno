@@ -618,6 +618,11 @@ MPR . accompagnée . montant écrêté:
 MPR . accompagnée . montant avant écrêtement:
   formule: pourcent dont bonus * projet . travaux . plafonnés
 
+MPR . accompagnée . reste à charge:
+  titre: Reste à charge après MaPrimeRénov' ampleur
+  description: Votre reste à charge, c'est-à-dire la portion des travaux que vous devrez payer de votre poche ou via d'autres aides après application de l'aide MaPrimeRénov' ampleur.
+  formule: projet . travaux . TTC - montant écrêté
+
 projet . investissement:
   titre: Votre investissement
   description: |
@@ -765,10 +770,10 @@ MPR . accompagnée:
       - Un accompagnement renforcé pour des gains réels après travaux
       - Un financement plus important
   conditions éligibilités: |
-      - Vous devrez faire appel à un Accompagnateur Rénov', qui réalisera un audit énergétique de votre logement pour définir le projet de travaux vous permettant d'atteindre le DPE visé.
-      - Il est également demandé d'inclure deux gestes d'isolation (toiture, fenêtre/menuiserie, sols ou murs) dans le programme de travaux.
-      - Pour réaliser les travaux vous devez faire appel à des artisans labellisés RGE
-      - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
+    - Vous devrez faire appel à un Accompagnateur Rénov', qui réalisera un audit énergétique de votre logement pour définir le projet de travaux vous permettant d'atteindre le DPE visé.
+    - Il est également demandé d'inclure deux gestes d'isolation (toiture, fenêtre/menuiserie, sols ou murs) dans le programme de travaux.
+    - Pour réaliser les travaux vous devez faire appel à des artisans labellisés RGE
+    - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
   comment faire: |
     Contactez votre conseiller France Rénov'. 
     Il vous fournira des conseils selon votre situation et vous orientera vers [**Mon Accompagnateur Rénov'**](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov).
@@ -846,7 +851,7 @@ MPR . accompagnée . pourcent brut:
 MPR . accompagnée . prise en charge MAR:
   description: |
     L'audit énergétique permet de connaître les performances d'un bien immobilier, et de définir les scénarios de travaux pour atteindre les performance visé.
-    
+
     Il est obligatoire pour bénéficier de Ma Prime Rénov', parcours accompagné.
   conditions éligibilités: |
     - L'audit doit être réalisé par un auditeur certifié. Il peut être réalisé par votre **Accompagnateur Rénov'**
