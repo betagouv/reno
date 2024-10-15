@@ -805,7 +805,6 @@ MPR . accompagnée . condition de sauts:
       - DPE . actuel > 2
       - sauts >= sauts minimum
 
-MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition:
   toutes ces conditions:
     - projet . DPE visé <= 4

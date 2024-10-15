@@ -110,10 +110,10 @@ export default function MPRA({
                 de travaux.
               </p>
               <p>
-                Une bonification de <Key state="prime-black">10 %</Key> peut
-                être appliquée à ce taux si votre logement est une passoire
-                énergétique (logements avec une étiquette <DPELabel index="5" />{' '}
-                ou <DPELabel index="6" />) et que le programme de travaux vous
+                Une bonification de <Key state="prime-black">10 %</Key> s'ajoute
+                à ce taux si votre logement est une passoire énergétique
+                (logements avec une étiquette <DPELabel index="5" /> ou{' '}
+                <DPELabel index="6" />) et que le programme de travaux vous
                 permet d’atteindre une étiquette <DPELabel index="3" /> au
                 minimum.
               </p>
