@@ -777,7 +777,7 @@ MPR . accompagnée:
     - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
   comment faire: |
     Contactez votre conseiller France Rénov'. 
-    Il vous fournira des conseils selon votre situation et vous orientera vers [**Mon Accompagnateur Rénov'**](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov).
+    Il vous fournira des conseils selon votre situation et vous orientera vers Mon Accompagnateur Rénov'.
   description: |
     Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux classes DPE.
   description détaillé: |
@@ -852,11 +852,11 @@ MPR . accompagnée . prise en charge MAR:
 
     Cet audit est obligatoire pour bénéficier de MaPrimeRénov' parcours accompagné.
   conditions éligibilités: |
-    - L'audit doit être réalisé par un auditeur certifié. Il peut être réalisé par votre **Accompagnateur Rénov'**
+    - L'audit doit être réalisé par un auditeur certifié. Il peut être réalisé par votre Accompagnateur Rénov'
     - Pour bénéficier de MaPrimeRénov' pour une rénovation d'ampleur, vous devez obligatoirement suivre l'un des scénarios de travaux proposés suite à l'audit
   comment faire: |
     Contactez votre conseiller France Rénov'. 
-    Il vous fournira des conseils selon votre situation et vous orientera vers [**Mon Accompagnateur Rénov'**](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov).
+    Il vous fournira des conseils selon votre situation et vous orientera vers Mon Accompagnateur Rénov'.
   applicable si: MPR . accompagnée . éligible
   icône: maprimerenov.svg
   marque: MaPrimeRénov'
