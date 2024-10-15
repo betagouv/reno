@@ -61,6 +61,11 @@ export default function AideAmpleur({
 		  `
       }
     >
+      {expanded && (
+        <header>
+          <small>En détails</small>
+        </header>
+      )}
       <Card
         css={`
           background: ${isSelected ? 'rgba(205, 228, 255, 0.20);' : ''};
@@ -82,36 +87,25 @@ export default function AideAmpleur({
             />
           </span>
         )}
-        {expanded ? (
-          <>
-            <header
+        <header
+          css={`
+            margin: 0 0 1rem 0;
+            ${level === 2 && 'font-size: 110%;'}
+            font-size: 130%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+          `}
+        >
+          <div>
+            <h3
               css={`
-                margin: 0;
+                margin: 0 0 0.5rem 0;
+                color: var(--darkColor0);
               `}
             >
-              <small>En détails</small>
-              <div
-                css={`
-                  display: flex;
-                  justify-content: space-between;
-                `}
-              >
-                <h2
-                  css={`
-                    font-size: 120%;
-                    margin: 0.5rem 0 !important;
-                  `}
-                >
-                  {title}
-                </h2>
-                {rule['type'] && (
-                  <PictoTypeAide $style={style} $expanded={expanded}>
-                    <span className="icon"></span>
-                    <span>{rule['type']}</span>
-                  </PictoTypeAide>
-                )}
-              </div>
-            </header>
+              {title}
+            </h3>
             <PrimeWithLabel
               {...{
                 montant,
@@ -120,15 +114,44 @@ export default function AideAmpleur({
                 dottedName,
               }}
             />
+          </div>
+          {rule['type'] && (
             <div
               css={`
-                margin-top: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-end;
               `}
-              dangerouslySetInnerHTML={{
-                __html: rules[dottedName].descriptionHtml,
-              }}
-            />
-            {children}
+            >
+              <PictoTypeAide $style={style} $expanded={expanded}>
+                <span className="icon"></span>
+                <span className="type">{rule['type']}</span>
+              </PictoTypeAide>
+              {isModeste &&
+                dottedName == 'MPR . accompagnée' && ( // Petite exception pour MPRA qui peut être de 2 formes
+                  <PictoTypeAide
+                    $style={aideStyles['avance']}
+                    $expanded={expanded}
+                  >
+                    <span className="icon"></span>
+                    <span className="type">avance</span>
+                  </PictoTypeAide>
+                )}
+            </div>
+          )}
+        </header>
+        <div
+          css={`
+            margin-top: 1rem;
+          `}
+          dangerouslySetInnerHTML={{
+            __html: rules[dottedName].descriptionHtml,
+          }}
+        />
+        {children}
+        {expanded && (
+          <>
             <p
               css={`
                 margin-top: 1.6rem;
@@ -146,92 +169,17 @@ export default function AideAmpleur({
                 texte: rule.commentFaireHtml,
               }}
             />
-            <AideCTAs
-              {...{
-                dottedName,
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                expanded,
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <header
-              css={`
-                margin: 0 0 1rem 0;
-                ${level === 2 && 'font-size: 110%;'}
-                font-size: 130%;
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-              `}
-            >
-              <div>
-                <h3
-                  css={`
-                    margin: 0 0 0.5rem 0;
-                    color: var(--darkColor0);
-                  `}
-                >
-                  {title}
-                </h3>
-                <PrimeWithLabel
-                  {...{
-                    montant,
-                    engine,
-                    situation,
-                    dottedName,
-                  }}
-                />
-              </div>
-              {rule['type'] && (
-                <div
-                  css={`
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    align-items: flex-end;
-                  `}
-                >
-                  <PictoTypeAide $style={style} $expanded={expanded}>
-                    <span className="icon"></span>
-                    <span className="type">{rule['type']}</span>
-                  </PictoTypeAide>
-                  {isModeste &&
-                    dottedName == 'MPR . accompagnée' && ( // Petite exception pour MPRA qui peut être de 2 formes
-                      <PictoTypeAide
-                        $style={aideStyles['avance']}
-                        $expanded={expanded}
-                      >
-                        <span className="icon"></span>
-                        <span className="type">70 % versés avant travaux</span>
-                      </PictoTypeAide>
-                    )}
-                </div>
-              )}
-            </header>
-            <div
-              css={`
-                margin-top: 1rem;
-              `}
-              dangerouslySetInnerHTML={{
-                __html: rules[dottedName].descriptionHtml,
-              }}
-            />
-            {children}
-            <AideCTAs
-              {...{
-                dottedName,
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                expanded,
-              }}
-            />
           </>
         )}
+        <AideCTAs
+          {...{
+            dottedName,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            expanded,
+          }}
+        />
       </Card>
     </section>
   )
@@ -281,7 +229,7 @@ export const PictoTypeAide = styled.div`
     margin-top: 0.3rem;
   }
   span {
-    font-size: ${(p) => (p.$expanded ? '80%' : '60%')};
+    font-size: 60%;
   }
 `
 
