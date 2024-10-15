@@ -31,23 +31,31 @@ ampleur . tous les dispositifs:
     - taxe foncière . montant
 
 ampleur . prime individuelle copropriété:
-  marque: MaPrimeRénov' copro
+  marque: MaPrimeRénov' copropriété
   complément de marque: prime individuelle
   note: |
     Cette variable recontextualise la variable prime individuelle du point de vue du ménage, sans parler encore de sa copropriété.
   type: remboursement
   description: |
-    MaPrimeRénov' Copropriété est une aide de l'État pour la rénovation énergétique des copropriétés.
+    MaPrimeRénov’ Copropriété vous aide à réaliser des travaux au sein des parties communes de votre copropriété. 
+
+    En complément de cette aide à destination des copropriétés, les copropriétaires aux ressources modestes et très modestes peuvent bénéficier d'une prime individuelle.
+
   conditions éligibilités: |
-    - Cette aide est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarés d'intérêt collectif.
-    - Les travaux doivent être votés lors des assemblées générales de copropriétés.
-    - Seul le représentant légal (syndic professionnel ou bénévole, administrateur provisoire) de la copropriété peut déposer une demande d'aide.
-    - L'attribution de l'aide MaPrimeRénov' Copropriété est subordonnée à la production d'une évaluation énergétique.
+
+    Seul le représentant légal (syndic professionnel ou bénévole, administrateur provisoire) de la copropriété peut déposer une demande d’aide.
+
+    Parmi les conditions d'éligibilité, nous pouvons mentionner les suivantes : 
+
+    - Cette aide est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarés d’intérêt collectif. 
+    - L’attribution de l’aide MaPrimeRénov’ Copropriété est subordonnée à la production d’une évaluation énergétique.
 
     Pour être éligible, la copropriété doit :
-    - avoir été construite il y a au moins 15 ans
-    - avoir au moins 75% des lots (65% pour les copropriétés de 20 lots ou moins) ou à défaut des tantièmes dédiés à l'usage d'habitation principale
-    - être à jour de son immatriculation au registre national des copropriétés.
+
+    - Avoir été construite il y a au moins 15 ans.
+    - Avoir au moins 75 % des lots (65 % pour les copropriétés de 20 lots ou moins) ou à défaut des tantièmes dédiés à l’usage d’habitation principale. 
+    - Être à jour de son immatriculation au registre national des copropriétés.
+
   comment faire: Contactez votre conseiller France Rénov'. Il vous fournira des conseils selon votre situation.
   lien: https://france-renov.gouv.fr/aides/maprimerenov-copropriete
 ampleur . prime individuelle copropriété . montant:
