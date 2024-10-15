@@ -79,9 +79,8 @@ export default function Ampleur() {
     <div
       css={`
         background: white;
-        padding: 1.6rem;
+        padding: 1rem;
         height: 800px;
-        width: 720px;
         position: relative;
         h2 + hr {
           width: 4rem;
@@ -101,7 +100,6 @@ export default function Ampleur() {
           font-weight: 600;
         }
         h3 {
-          margin-top: 2.5rem;
           margin-bottom: 0.6rem;
         }
       `}
@@ -122,69 +120,49 @@ export default function Ampleur() {
       <ul
         css={`
           list-style-type: none;
+          @media (max-width: 420px) {
+            padding-left: 0;
+          }
           li {
             margin: 1.2rem 0;
+            display: flex;
+            align-items: center;
+            input {
+              min-width: 1.4rem;
+              min-height: 1.4rem;
+              margin-right: 0.6rem;
+            }
+            label {
+              cursor: pointer;
+            }
           }
         `}
       >
         <li>
-          <label
-            css={`
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              margin-bottom: 0.6rem;
-              small {
-                margin-left: 0.1rem;
-              }
-            `}
-          >
-            <input
-              css={`
-                width: 1.4rem;
-                height: 1.4rem;
-                cursor: pointer;
-                margin-right: 0.6rem;
-              `}
-              type="checkbox"
-              name={'residenceprincipale'}
-              defaultChecked={
-                situation['logement . résidence principale'] === 'oui'
-              }
-              onChange={onChange('logement . résidence principale', 'checkbox')}
-            />
-            <div>
-              <div>
-                Le logement sera votre résidence principale ou celle de votre
-                locataire
-              </div>
-            </div>
+          <input
+            type="checkbox"
+            id="residenceprincipale"
+            name={'residenceprincipale'}
+            defaultChecked={
+              situation['logement . résidence principale'] === 'oui'
+            }
+            onChange={onChange('logement . résidence principale', 'checkbox')}
+          />
+          <label htmlFor="residenceprincipale">
+            Le logement sera votre résidence principale ou celle de votre
+            locataire
           </label>
         </li>
         <li>
-          <label
-            css={`
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              margin-bottom: 0.6rem;
-            `}
-          >
-            <input
-              css={`
-                width: 1.4rem;
-                height: 1.4rem;
-                cursor: pointer;
-                margin-right: 0.6rem;
-              `}
-              type="checkbox"
-              name={'IDF'}
-              defaultChecked={situation['ménage . région . IdF'] === 'non'}
-              onChange={onChange('ménage . région . IdF', 'checkbox')}
-            />
-            <div>
-              <div>Vous habitez actuellement hors Île-de-France</div>
-            </div>
+          <input
+            type="checkbox"
+            id="idf"
+            name={'IDF'}
+            defaultChecked={situation['ménage . région . IdF'] === 'non'}
+            onChange={onChange('ménage . région . IdF', 'checkbox')}
+          />
+          <label htmlFor="idf">
+            Vous habitez actuellement hors Île-de-France
           </label>
         </li>
         <li key="personnes">
@@ -212,6 +190,9 @@ export default function Ampleur() {
               min="0"
               placeholder={defaultSituation['ménage . revenu']}
               onChange={onChange('ménage . revenu')}
+              css={`
+                width: 5rem !important;
+              `}
             />{' '}
             €
           </label>
@@ -243,7 +224,12 @@ export default function Ampleur() {
         <div>
           <div>
             {mpra > 0 && <span>Jusqu'à </span>}
-            <PrimeStyle>
+            <PrimeStyle
+              css={`
+                margin: 0.2rem 0;
+                display: inline-block;
+              `}
+            >
               {typeof mpra === 'string' ? (
                 mpra
               ) : (
@@ -271,13 +257,16 @@ export default function Ampleur() {
         css={`
           margin-bottom: 0;
           display: flex;
+          @media (max-width: 420px) {
+            flex-wrap: wrap;
+          }
           align-items: center;
           background: var(--lightestColor);
           justify-content: space-evenly;
           padding: 1.2rem 1rem;
           p {
             margin: 0;
-            margin-right: 2rem;
+            margin-bottom: 0.5rem;
           }
           margin-top: 2rem;
         `}
