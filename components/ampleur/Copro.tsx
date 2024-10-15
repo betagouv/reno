@@ -33,32 +33,33 @@ export default function Copro({
         expanded,
       }}
     >
-      <Card $background="#f7f8f8">
-        <p>
-          En tant que ménage{' '}
-          <Value
-            {...{
-              engine,
-              situation,
-              dottedName: 'ménage . revenu . classe',
-              state: 'prime-black',
-            }}
-          />
-          , vous êtes éligible à une prime individuelle de{' '}
-          <Value
-            {...{
-              engine,
-              situation,
-              dottedName: 'ampleur . prime individuelle copropriété . montant',
-              state: 'prime-black',
-            }}
-          />
-          .
-        </p>
-      </Card>
       {expanded && (
         <>
           <h3>Comment est calculée l'aide ?</h3>
+          <Card $background="#f7f8f8">
+            <p>
+              En tant que ménage{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'ménage . revenu . classe',
+                  state: 'prime-black',
+                }}
+              />
+              , vous êtes éligible à une prime individuelle de{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName:
+                    'ampleur . prime individuelle copropriété . montant',
+                  state: 'prime-black',
+                }}
+              />
+              .
+            </p>
+          </Card>
 
           <p>
             L’aide MaPrimeRénov’ Copropriété finance 30 % ou 45 % du montant des
