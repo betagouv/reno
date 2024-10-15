@@ -22,30 +22,60 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
       `}
     >
       <GesteLabel />
-      <h3 css={`font-size: 120%;`}>Pour une rénovation par gestes</h3>
-      <p>Rénover votre logement à votre rythme en choississant librement parmi les travaux subventionnés</p>
-      
+      <h3
+        css={`
+          font-size: 120%;
+        `}
+      >
+        Rénovation par gestes
+      </h3>
+      <p>
+        Rénover votre logement à votre rythme en choississant librement parmi
+        les travaux subventionnés
+      </p>
+
       <CTAWrapper $justify="center">
-        <CTA $fontSize="normal" css={`width: 100%;text-align: center;`}>
+        <CTA
+          $fontSize="normal"
+          css={`
+            width: 100%;
+            text-align: center;
+          `}
+        >
           <Link href={url}>Voir les 20 aides disponibles</Link>
         </CTA>
       </CTAWrapper>
 
-      <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
-      <ul css={`
-        li {
-          list-style-image: url(${checkIcon.src});
-          margin: 0.5rem 0;
-        }
-      `}>
+      <p
+        css={`
+          margin-top: 1rem;
+        `}
+      >
+        <em>Pourquoi choisir ce parcours ?</em>
+      </p>
+      <ul
+        css={`
+          li {
+            list-style-image: url(${checkIcon.src});
+            margin: 0.5rem 0;
+          }
+        `}
+      >
         <li>
-          Votre logement est déjà performant (DPE classe&nbsp;<DPELabel index="0" />&nbsp;ou&nbsp;<DPELabel index="1" />)
+          Votre logement est déjà performant (DPE classe&nbsp;
+          <DPELabel index="0" />
+          &nbsp;ou&nbsp;
+          <DPELabel index="1" />)
         </li>
-        <li>
-          Vous souhaitez choisir librement parmi les aides disponibles
-        </li>
+        <li>Vous souhaitez choisir librement parmi les aides disponibles</li>
       </ul>
-      <p css={`margin: 1rem 0 0 0;`}><em>Des exemples de gestes :</em></p>
+      <p
+        css={`
+          margin: 1rem 0 0 0;
+        `}
+      >
+        <em>Des exemples de gestes :</em>
+      </p>
       <GestesPreview
         {...{
           rules,
@@ -194,8 +224,6 @@ export const GesteLabel = () => (
       margin-top: 0.3rem;
     `}
   >
-    <li key="carte">
-      🧩️ Parcours à la carte
-    </li>
+    <li key="carte">🧩️ Parcours à la carte</li>
   </Labels>
 )

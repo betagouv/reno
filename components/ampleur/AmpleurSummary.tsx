@@ -73,38 +73,72 @@ export default function AmpleurSummary({
         margin: 0;
       `}
     >
-      <div css={`
-        display: flex; 
-        justify-content: space-between;
-      `}>
+      <div
+        css={`
+          display: flex;
+          justify-content: space-between;
+        `}
+      >
         <ProfessionnelLabel />
       </div>
-      <h3 css={`font-size: 120%;`}>Pour une rénovation performante</h3>
-      <p>La garantie d'un gain en performance, en confort et d'une réduction de vos factures d'énergie</p>
+      <h3
+        css={`
+          font-size: 120%;
+        `}
+      >
+        Rénovation performante
+      </h3>
+      <p>
+        La garantie d'un gain en performance, en confort et d'une réduction de
+        vos factures d'énergie
+      </p>
 
       <CTAWrapper $justify="center">
-        <CTA $fontSize="normal" css={`width: 100%;text-align: center;`}>
+        <CTA
+          $fontSize="normal"
+          css={`
+            width: 100%;
+            text-align: center;
+          `}
+        >
           <Link href={url}>Voir le parcours en détails</Link>
         </CTA>
       </CTAWrapper>
 
-      <p css={`margin-top: 1rem;`}><em>Pourquoi choisir ce parcours ?</em></p>
-      <ul css={`
-        li {
-          list-style-image: url(${checkIcon.src});
-          margin: 0.5rem 0;
-        }
-      `}>
+      <p
+        css={`
+          margin-top: 1rem;
+        `}
+      >
+        <em>Pourquoi choisir ce parcours ?</em>
+      </p>
+      <ul
+        css={`
+          li {
+            list-style-image: url(${checkIcon.src});
+            margin: 0.5rem 0;
+          }
+        `}
+      >
         <li>La garantie d'un gain de performance important</li>
         <li>Des aides souvent plus avantageuses</li>
       </ul>
-      <p css={`margin-top: 1rem;`}><em>Parmi les aides ?</em></p>
+      <p
+        css={`
+          margin-top: 1rem;
+        `}
+      >
+        <em>Parmi les aides ?</em>
+      </p>
       {aides
         .filter((aide) => {
           if (aide.status !== true) return false
-          return !['ampleur . prime individuelle copropriété', 'MPR . accompagnée . prise en charge MAR'].includes(aide.baseDottedName)
+          return ![
+            'ampleur . prime individuelle copropriété',
+            'MPR . accompagnée . prise en charge MAR',
+          ].includes(aide.baseDottedName)
         })
-        .slice(0,3)
+        .slice(0, 3)
         .map((aide) => {
           const text = aide.marque,
             text2 = aide['complément de marque']
@@ -118,13 +152,12 @@ export default function AmpleurSummary({
                 text2,
                 type: aide.type,
                 expanded: true,
-                display: "ampleur-card",
+                display: 'ampleur-card',
                 engine,
               }}
             />
           )
-        })
-      }
+        })}
       {/* {neSaisPasEtNonEligibles.length > 0 && (
         <div>
           {neSaisPasEtNonEligibles.map((aide) => {
