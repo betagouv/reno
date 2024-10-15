@@ -64,15 +64,6 @@ export default function AidesLocalesByLevel({
               )}
             </div>
           </Card>
-          {false && (
-            <InformationBlock>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: rules[dottedName].informationsUtilesHtml,
-                }}
-              />
-            </InformationBlock>
-          )}
         </section>
       ) : (
         <p>

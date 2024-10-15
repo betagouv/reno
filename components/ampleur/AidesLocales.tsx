@@ -85,40 +85,14 @@ export default function AidesLocales({
       situation,
       expanded
     }}>
-      <p>Certaines collectivités territoriales encouragent les démarches de rénovation par le biais de dispositifs locaux.</p>
-      { false && (
-        <>
-          <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
-          <ul>
-            {levels.map((level) => (
-              <AidesLocalesByLevel
-                {...{ aides, level, situation, engine, rules }}
-                key={level}
-              />
-            ))}
-          </ul>
-
-          <AideCTA text="Découvrir les aides locales">
-            <p>
-              N'hésitez pas à consulter la{' '}
-              <a href="https://www.anil.org/aides-locales-travaux/">
-                base des aides locale de l'ANIL
-              </a>
-              , les sites d'information de vos collectivités, ou votre conseiller
-              France Rénov'.
-            </p>
-            <MapBehindCTA
-              {...{
-                situation,
-                searchParams,
-                what: 'trouver-conseiller-renov',
-                text: 'Trouver mon conseiller',
-                importance: 'secondary',
-              }}
-            />
-          </AideCTA>
-        </>
-      )}
+      <ul>
+        {levels.map((level) => (
+          <AidesLocalesByLevel
+            {...{ aides, level, situation, engine, rules }}
+            key={level}
+          />
+        ))}
+      </ul>
     </AideAmpleur>
   )
 }
