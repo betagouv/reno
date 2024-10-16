@@ -31,7 +31,6 @@ export const createExampleSituation = (engine, situation, extreme = false) => {
           'projet . DPE visé': 1,
         }
       : {}),
-    'vous . propriétaire . condition': 'oui',
     'taxe foncière . condition de dépenses': 'oui',
   }
   return exampleSituation
