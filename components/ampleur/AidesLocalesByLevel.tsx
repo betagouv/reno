@@ -25,9 +25,9 @@ export default function AidesLocalesByLevel({
         }
       `}
     >
-      <header>{level} :</header>
+      <header>{level.charAt(0).toUpperCase() + level.substring(1)} :</header>
       {!activeAide ? (
-        <p>Aucune aide trouvée</p>
+        <p>aucune aide trouvée</p>
       ) : activeAide.nodeValue > 0 ? (
         <section>
           <p>
