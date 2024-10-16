@@ -14,19 +14,16 @@ export default function Feedback({ title, fromLocation }) {
   const [sent, setSent] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  const createIssue = (
-    body: string,
-    labels = ['💁 contribution externe'],
-  ) => {
-    if (body == null || body =='') {
+  const createIssue = (body: string, labels = ['💁 contribution externe']) => {
+    if (body == null || body == '') {
       return null
     }
-  
+
     fetch(
       '/faq/api?' +
         Object.entries({
           repo: 'mesaidesreno/feedback-utilisateur',
-          title: "Retour utilisateurs",
+          title: 'Retour utilisateurs',
           body,
           labels,
         })
@@ -41,72 +38,82 @@ export default function Feedback({ title, fromLocation }) {
   }
 
   return (
-    <ContactForm css={`
-          background: #FDF8DB;
-          align-items: center;
-          padding: 1rem;
-          text-align: center;
+    <ContactForm
+      css={`
+        background: #fdf8db;
+        align-items: center;
+        padding: 1rem;
+        text-align: center;
       `}
     >
-      <div css={`font-weight: bold`}>
+      <div
+        css={`
+          font-weight: bold;
+        `}
+      >
         👋 {title}
       </div>
       <VoteBox>
         <div
-          className={vote == "unhappy" ? 'unhappy-active' : 'unhappy'}
+          className={vote == 'unhappy' ? 'unhappy-active' : 'unhappy'}
           onClick={() => {
-            setVote("unhappy")
-            push(["trackEvent", "Feedback vote satisfait", "Clic", "Non"])
+            setVote('unhappy')
+            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Non'])
           }}
         >
-          <Image 
-            src={iconSmileyNo}
-            alt="smiley unhappy"
-          />
+          <Image src={iconSmileyNo} alt="smiley unhappy" />
           <div>Non</div>
         </div>
         <div
-          className={vote == "normal" ? 'normal-active' : 'normal'}
+          className={vote == 'normal' ? 'normal-active' : 'normal'}
           onClick={() => {
-            setVote("normal")
-            push(["trackEvent", "Feedback vode satisfait", "Clic", "En partie"]) 
-          }}>
-          <Image 
-            alt="smiley normal"
-            src={iconSmileyMaybe} 
-            />
+            setVote('normal')
+            push(['trackEvent', 'Feedback vode satisfait', 'Clic', 'En partie'])
+          }}
+        >
+          <Image alt="smiley normal" src={iconSmileyMaybe} />
           <div>En partie</div>
         </div>
-        <div 
-          className={vote == "happy" ? 'happy-active' : 'happy'}
+        <div
+          className={vote == 'happy' ? 'happy-active' : 'happy'}
           onClick={() => {
-            setVote("happy")
-            push(["trackEvent", "Feedback vode satisfait", "Clic", "Oui"]) 
-          }}>
-          <Image 
-            alt="smiley happy"
-            src={iconSmileyYes} 
-            />
+            setVote('happy')
+            push(['trackEvent', 'Feedback vode satisfait', 'Clic', 'Oui'])
+          }}
+        >
+          <Image alt="smiley happy" src={iconSmileyYes} />
           <div>Oui</div>
         </div>
       </VoteBox>
-      { (vote || sent) && (<div css={`margin-bottom: 1rem;font-weight: bold`}>✅ Merci pour votre retour</div>)}
+      {(vote || sent) && (
+        <div
+          css={`
+            margin-bottom: 1rem;
+            font-weight: bold;
+          `}
+        >
+          ✅ Merci pour votre retour
+        </div>
+      )}
       <div className="active">
         {sent ? (
           <p>
-            Vos suggestions nous aident à améliorer l'outil et à rendre l'expérience plus efficace pour tous·tes. 🙏
+            Vos suggestions nous aident à améliorer l'outil et à rendre
+            l'expérience plus efficace pour tous·tes. 🙏
           </p>
         ) : (
           <form>
-            { isOpen && (
+            {isOpen && (
               <>
-                <label htmlFor='commentaire'>Comment pouvons-nous améliorer cet outil?</label>
+                <label htmlFor="commentaire">
+                  Comment pouvons-nous améliorer cet outil?
+                </label>
                 <textarea
                   css={`
                     margin: 1rem 0;
                     background: white;
                     padding: 0.5rem;
-                    border-bottom: 3px solid #3A3A3A;
+                    border-bottom: 3px solid #3a3a3a;
                     height: 100px;
                     width: 100%;
                   `}
@@ -121,18 +128,18 @@ export default function Feedback({ title, fromLocation }) {
             )}
             <CTA
               $fontSize="normal"
-              $importance='emptyBackground'
+              $importance="emptyBackground"
               css={`
                 width: fit-content;
                 margin: auto;
               `}
               onClick={(e) => {
-                if(!isOpen) {
-                  setIsOpen(true);
-                  push(["trackEvent", "Feedback", "Clic", "donne son avis"])
-                  return;
+                if (!isOpen) {
+                  setIsOpen(true)
+                  push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
+                  return
                 }
-                push(["trackEvent", "Feedback", "Clic", "valide son avis"])
+                push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
                 e.preventDefault()
                 const augmentedComment =
                   comment +
@@ -143,7 +150,13 @@ export default function Feedback({ title, fromLocation }) {
               }}
               title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
             >
-              <span css={`font-weight: bold`}>Je donne mon avis</span>
+              <span
+                css={`
+                  font-weight: bold;
+                `}
+              >
+                Je donne mon avis
+              </span>
             </CTA>
           </form>
         )}
@@ -153,34 +166,41 @@ export default function Feedback({ title, fromLocation }) {
 }
 
 export const ContactForm = styled.div`
-.slide-up {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 2s ease-out;
-}
+  .slide-up {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 2s ease-out;
+  }
 
-.slide-up.active {
-  max-height: 500px; /* Ajuste cette valeur en fonction de la taille du contenu */
-}
+  .slide-up.active {
+    max-height: 500px; /* Ajuste cette valeur en fonction de la taille du contenu */
+  }
 `
 
 export const VoteBox = styled.div`
   display: flex;
-  justify-content:space-evenly;
-  padding: 1rem 0;  
+  justify-content: center;
+  padding: 1rem 0;
+  margin: 1rem 0;
+  > div {
+    margin: 0 1.5rem;
+  }
   .unhappy-active,
-  .unhappy:hover { 
+  .unhappy:hover {
     cursor: pointer;
-    filter: invert(19%) sepia(84%) saturate(7173%) hue-rotate(358deg) brightness(101%) contrast(114%);
+    filter: invert(19%) sepia(84%) saturate(7173%) hue-rotate(358deg)
+      brightness(101%) contrast(114%);
   }
   .normal-active,
-  .normal:hover { 
+  .normal:hover {
     cursor: pointer;
-    filter: invert(72%) sepia(50%) saturate(3873%) hue-rotate(356deg) brightness(103%) contrast(102%);
+    filter: invert(72%) sepia(50%) saturate(3873%) hue-rotate(356deg)
+      brightness(103%) contrast(102%);
   }
-  .happy-active,  
-  .happy:hover { 
+  .happy-active,
+  .happy:hover {
     cursor: pointer;
-    filter: invert(31%) sepia(78%) saturate(468%) hue-rotate(90deg) brightness(98%) contrast(89%);
+    filter: invert(31%) sepia(78%) saturate(468%) hue-rotate(90deg)
+      brightness(98%) contrast(89%);
   }
 `
