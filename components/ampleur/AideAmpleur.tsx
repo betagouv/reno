@@ -203,7 +203,7 @@ export const PrimeWithLabel = ({ montant, engine, dottedName, situation }) =>
           ? ''
           : "Jusqu'à "}
       <strong>
-        {['taxe foncière'].includes(dottedName)
+        {dottedName.includes('taxe foncière')
           ? situation['taxe foncière . commune . taux']
           : formatValue(montant)}
       </strong>

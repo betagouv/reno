@@ -7,7 +7,11 @@ import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
 import QuestionsRéponses from '../mpra/QuestionsRéponses'
-import { encodeDottedName, encodeSituation, getSituation } from '../publicodes/situationUtils'
+import {
+  encodeDottedName,
+  encodeSituation,
+  getSituation,
+} from '../publicodes/situationUtils'
 import { useAides } from './useAides'
 import { AideSummary } from './AideSummary'
 import { Key } from '../explications/ExplicationUI'
@@ -22,10 +26,8 @@ export default function AidesAmpleur({
   engine,
   rules,
   searchParams,
-  correspondance
+  correspondance,
 }) {
-
-  
   const situation = //omit(['projet . travaux'], givenSituation)
     givenSituation
 
@@ -45,13 +47,15 @@ export default function AidesAmpleur({
           answeredQuestions,
         }}
       />
-      
+
       <header>
         <small>Aides disponibles</small>
-        <h2 css={`
-          font-size: 120%;
-          margin: 0.5rem 0 !important;
-        `}>
+        <h2
+          css={`
+            font-size: 120%;
+            margin: 0.5rem 0 !important;
+          `}
+        >
           Financer une rénovation d’ampleur
         </h2>
       </header>
@@ -78,7 +82,8 @@ export default function AidesAmpleur({
             }
           `}
         >
-          Vous êtes éligible à <Key $state={'final'}>{eligibles.length}</Key> dispositifs cumulables entre eux :
+          Vous êtes éligible à <Key $state={'final'}>{eligibles.length}</Key>{' '}
+          dispositifs cumulables entre eux :
         </p>
       )}
 
@@ -98,7 +103,7 @@ export default function AidesAmpleur({
                   exampleSituation,
                   searchParams,
                   rules,
-                  expanded: false
+                  expanded: false,
                 }}
               />
             )
@@ -109,11 +114,12 @@ export default function AidesAmpleur({
           )
         })}
       </section>
-      <VoirSynthese {...{
+      <VoirSynthese
+        {...{
           answeredQuestions,
-          searchParams, 
-          setSearchParams
-        }} 
+          searchParams,
+          setSearchParams,
+        }}
       />
       {neSaisPas.length > 0 && (
         <div title="Aides pour lesquelles nous n'avons pu déterminer votre éligibilité">
@@ -146,7 +152,7 @@ export default function AidesAmpleur({
                     exampleSituation,
                     searchParams,
                     rules,
-                    expanded: false
+                    expanded: false,
                   }}
                 />
               )
@@ -185,6 +191,7 @@ export default function AidesAmpleur({
                   {...{
                     ...aide,
                     icon: aide.icône,
+                    situation,
                     text,
                     text2,
                     type: aide.type,
@@ -198,13 +205,14 @@ export default function AidesAmpleur({
         </div>
       )}
       <div>
-        <FatConseiller 
-            {...{
-              situation,
-              margin: "small",
-              titre: "Comment toucher ces aides ?",
-              texte: "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !"
-            }}
+        <FatConseiller
+          {...{
+            situation,
+            margin: 'small',
+            titre: 'Comment toucher ces aides ?',
+            texte:
+              "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
+          }}
         />
       </div>
 

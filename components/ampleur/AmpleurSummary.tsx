@@ -149,6 +149,7 @@ export default function AmpleurSummary({
                 icon: aide.icône,
                 text,
                 text2,
+                situation,
                 type: aide.type,
                 expanded: true,
                 display: 'ampleur-card',

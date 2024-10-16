@@ -48,7 +48,6 @@ export default function Eligibility({
     mpra = mpraEvaluation.nodeValue,
     mprg = mprgEvaluation.nodeValue,
     ceeConditions = ceeConditionsEvaluation.nodeValue
-
   const both = mpra && mprg,
     noMpr = !mpra && !mprg,
     some = mpra || mprg || ceeConditions
@@ -77,19 +76,22 @@ export default function Eligibility({
             }}
           />
         )}
-        <BtnBackToParcoursChoice {...{
+        <BtnBackToParcoursChoice
+          {...{
             setSearchParams,
-            situation: omit(["DPE . actuel"], situation),
-            answeredQuestions
+            situation: omit(['DPE . actuel'], situation),
+            answeredQuestions,
           }}
         />
         <header>
           <small>Eligibilité</small>
-          <h2 css={`
-            font-size: 120%;
-            margin: 0.5rem 0 !important;
-          `}>
-            {some && (<>Bonne nouvelle 🥳</>)}
+          <h2
+            css={`
+              font-size: 120%;
+              margin: 0.5rem 0 !important;
+            `}
+          >
+            {some && <>Bonne nouvelle 🥳</>}
           </h2>
         </header>
         {noMpr && !ceeConditions && (
@@ -143,11 +145,13 @@ export default function Eligibility({
         )}
         {both && (
           <>
-            <h3 css={`
-              margin: 0;
-              font-size: 110%;
-              font-weight: 500;
-            `}>
+            <h3
+              css={`
+                margin: 0;
+                font-size: 110%;
+                font-weight: 500;
+              `}
+            >
               Vous êtes éligible à plusieurs aides !
             </h3>
             <Avis {...{ situation, engine }} />
@@ -155,15 +159,17 @@ export default function Eligibility({
           </>
         )}
 
-        <div css={`
-          display: flex;
-          flex-wrap:nowrap;
-          @media (max-width: 700px) {
-            flex-wrap: wrap;
-            flex-direction: column;
-          }
-          justify-content: center;
-        `}>
+        <div
+          css={`
+            display: flex;
+            flex-wrap: nowrap;
+            @media (max-width: 700px) {
+              flex-wrap: wrap;
+              flex-direction: column;
+            }
+            justify-content: center;
+          `}
+        >
           <AmpleurSummary
             id="parcours-ampleur"
             {...{
@@ -174,16 +180,22 @@ export default function Eligibility({
               setSearchParams,
             }}
           />
-          <div css={`
-            padding: 0 1rem;
-            align-self:center;
-            `}>
-            <strong css={`
-              display: block;
-              text-align: center;
-              margin: 1rem auto;
-              font-size: 130%;
-            `}>ou</strong>
+          <div
+            css={`
+              padding: 0 1rem;
+              align-self: center;
+            `}
+          >
+            <strong
+              css={`
+                display: block;
+                text-align: center;
+                margin: 1rem auto;
+                font-size: 130%;
+              `}
+            >
+              ou
+            </strong>
           </div>
           <ÀlaCarteSummary
             id="parcours-gestes"
@@ -196,12 +208,14 @@ export default function Eligibility({
           />
         </div>
         <div>
-          <FatConseiller 
+          <FatConseiller
             {...{
               situation,
-              margin: "small",
-              titre: "Vous ne savez pas quel parcours choisir pour votre projet ?",
-              texte: "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !"
+              margin: 'small',
+              titre:
+                'Vous ne savez pas quel parcours choisir pour votre projet ?',
+              texte:
+                "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
             }}
           />
         </div>
