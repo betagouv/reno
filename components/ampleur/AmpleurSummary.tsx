@@ -107,6 +107,7 @@ export default function AmpleurSummary({
       <p
         css={`
           margin-top: 1rem;
+          font-weight: bold;
         `}
       >
         Pourquoi choisir ce parcours ?
@@ -125,6 +126,7 @@ export default function AmpleurSummary({
       <p
         css={`
           margin-top: 1rem;
+          font-weight: bold;
         `}
       >
         Parmi les aides ?

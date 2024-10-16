@@ -49,6 +49,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
       <p
         css={`
           margin-top: 1rem;
+          font-weight: bold;
         `}
       >
         Pourquoi choisir ce parcours ?
@@ -72,6 +73,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
       <p
         css={`
           margin: 1rem 0 0 0;
+          font-weight: bold;
         `}
       >
         Des exemples de gestes :
