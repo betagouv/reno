@@ -194,10 +194,7 @@ export const PrimeWithLabel = ({ montant, engine, dottedName, situation }) =>
         font-size: 1rem;
       `}
     >
-      {[
-        'MPR . accompagnée . prise en charge MAR',
-        'ampleur . prime individuelle copropriété',
-      ].includes(dottedName)
+      {['ampleur . prime individuelle copropriété'].includes(dottedName)
         ? 'Prime de '
         : ['taxe foncière'].includes(dottedName)
           ? ''
