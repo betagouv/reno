@@ -187,21 +187,22 @@ logement . résidence principale:
 
 logement . résidence principale propriétaire:
   applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
-  question: Le logement est-il votre résidence principale ?
+  question: Le logement sera-t-il votre résidence principale ?
   par défaut: oui
   description: |
-    Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
+    Pour qu'il soit votre résidence principale, vous devrez occuper le logement **au moins 8 mois par an** après la rénovation, et vous engager à ce qu'il le reste pendant un certain temps. 
+    La plupart des aides ne ciblent que les résidence principales, et excluent donc les résidences secondaires. 
 
-    Si vous comptez mettre en location votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
+    Le logement pourra devenir la résidence principale d'une autre personne que vous, par exemple un locataire.
 
 logement . résidence principale locataire:
   non applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
-  question: Le logement est-il la résidence principale du locataire ?
+  question: Le logement sera-t-il la résidence principale du locataire ?
   par défaut: oui
   description: |
-    Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
+    Pour qu'il soit résidence principale, quelqu'un devra occuper le logement **au moins 8 mois par an** après la rénovation, et vous devrez vous engager à ce qu'il le reste pendant un certain temps. 
 
-    Si vous comptez continuer de louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
+    La plupart des aides ne ciblent que les résidence principales, et excluent donc les résidences secondaires.
 
 logement . année de construction:
   titre: Année de construction
