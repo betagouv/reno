@@ -1,19 +1,26 @@
-import Link from 'next/link';
+import Link from 'next/link'
 import rules from '@/app/règles/rules'
-import { CTAWrapper, CTA } from '../UI';
-import { encodeDottedName, encodeSituation, getSituation } from '../publicodes/situationUtils';
-import { omit } from '@/components/utils'
-import { useSearchParams } from 'next/navigation';
+import { CTAWrapper, CTA } from '../UI'
+import {
+  encodeDottedName,
+  encodeSituation,
+  getSituation,
+} from '../publicodes/situationUtils'
 
-export default function AideCTAs({ 
-  dottedName, 
-  situation, 
+import eyeIcon from '@/public/eye.svg'
+import { omit } from '@/components/utils'
+import { useSearchParams } from 'next/navigation'
+import Image from 'next/image'
+
+export default function AideCTAs({
+  dottedName,
+  situation,
   answeredQuestions,
   setSearchParams,
-  expanded
+  expanded,
 }) {
   const rawSearchParams = useSearchParams(),
-  searchParams = Object.fromEntries(rawSearchParams.entries())
+    searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const detailUrl = setSearchParams(
     {
@@ -30,25 +37,31 @@ export default function AideCTAs({
     true,
   )
 
-  const backUrl = situation && setSearchParams(
-    {
-      ...encodeSituation(
-        omit(['details'], situation),
-        false,
-        answeredQuestions,
-      ),
-    },
-    'url',
-    true,
-  )
+  const backUrl =
+    situation &&
+    setSearchParams(
+      {
+        ...encodeSituation(
+          omit(['details'], situation),
+          false,
+          answeredQuestions,
+        ),
+      },
+      'url',
+      true,
+    )
 
   const addToSynthese = (dottedName) => {
     const encodedSituation = encodeSituation(
       {
         ...situation,
-        "ampleur.synthèse": (searchParams["ampleur.synthèse"] ? 
-            searchParams["ampleur.synthèse"] + ',' :  "")  + 
-            '"'+encodeDottedName(dottedName)+'"',
+        'ampleur.synthèse':
+          (searchParams['ampleur.synthèse']
+            ? searchParams['ampleur.synthèse'] + ','
+            : '') +
+          '"' +
+          encodeDottedName(dottedName) +
+          '"',
       },
       false,
       answeredQuestions,
@@ -58,42 +71,62 @@ export default function AideCTAs({
   }
 
   const removeFromSynthese = (dottedName) => {
-    const newSynthese = searchParams["ampleur.synthèse"]
-                          .split(",")
-                          .filter(item => item != '"'+encodeDottedName(dottedName)+'"')
+    const newSynthese = searchParams['ampleur.synthèse']
+      .split(',')
+      .filter((item) => item != '"' + encodeDottedName(dottedName) + '"')
     const encodedSituation = encodeSituation(
-      (newSynthese.length > 0 ?
-        {
-          ...situation,
-          "ampleur.synthèse": newSynthese
-        } :
-        omit(["ampleur . synthèse"], situation)
-      ),
+      newSynthese.length > 0
+        ? {
+            ...situation,
+            'ampleur.synthèse': newSynthese,
+          }
+        : omit(['ampleur . synthèse'], situation),
       false,
       answeredQuestions,
     )
-    
+
     setSearchParams(encodedSituation, 'push', true)
   }
 
-  const isSelected = searchParams["ampleur.synthèse"]?.split(",").find(item => item === '"'+encodeDottedName(dottedName)+'"')
+  const isSelected = searchParams['ampleur.synthèse']
+    ?.split(',')
+    .find((item) => item === '"' + encodeDottedName(dottedName) + '"')
 
   return (
-    <CTAWrapper $justify="center" css={`
-      flex-wrap: wrap;
-      flex-direction: ${expanded ? "row": "column"};
-      div {
-        margin: 0.5rem 0.2rem !important; 
-        ${!expanded && "width: 100%;"}
-        text-align: center;
-      }`
-      }>
+    <CTAWrapper
+      $justify="center"
+      css={`
+        flex-wrap: wrap;
+        flex-direction: ${expanded ? 'row' : 'column'};
+        div {
+          margin: 0.5rem 0.2rem !important;
+          ${!expanded && 'width: 100%;'}
+          text-align: center;
+        }
+      `}
+    >
       <CTA $fontSize="normal" $importance="emptyBackground">
         <Link href={expanded ? backUrl : detailUrl}>
-          { expanded ? 
-            (<>← Revenir aux aides</>) :
-            (<>Voir le détail sur l'aide</>)
-          }
+          {expanded ? (
+            <>← Revenir aux aides</>
+          ) : (
+            <span
+              css={`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              `}
+            >
+              <Image
+                src={eyeIcon}
+                alt="icon oeil"
+                css={`
+                  margin-right: 0.5rem;
+                `}
+              />
+              Voir le détail sur l'aide
+            </span>
+          )}
         </Link>
       </CTA>
       {/* <CTA css={`
@@ -123,4 +156,3 @@ export default function AideCTAs({
     </CTAWrapper>
   )
 }
-
