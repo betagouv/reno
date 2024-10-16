@@ -34,82 +34,97 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
         <summary>
           <div
             css={`
-              > img {
-                margin: auto;
-                display: block;
-                padding: 1rem;
-              }
-              h3 {
-                text-align: left;
-                font-size: 100%;
-                margin: 0.6rem 0;
-              }
-              p {
-                margin: 0;
-              }
-            `}
-          >
-            <h3>
-              Contacter un conseiller{' '}
-              <span>
-                <strong>France</strong>&nbsp;
-                <strong css=" margin-bottom: -.1rem">Rénov'</strong>
-              </span>
-            </h3>
-            <p>
-              Avant la réalisation de vos travaux, un conseiller France Rénov’
-              vous accompagne gratuitement.
-            </p>
-          </div>
-          <div
-            css={`
               display: flex;
               justify-content: space-around;
-              flex-wrap: wrap;
               align-items: center;
             `}
           >
             <Image
               src={conseillerIcon}
               alt="illustration espace conseiller France Rénov'"
+              css={`
+                height: 100%;
+                padding: 1rem 2rem 1rem 0;
+                object-fit: cover;
+                @media (max-width: 600px) {
+                  display: none;
+                }
+              `}
             />
-            <ul
+            <div
               css={`
-                list-style-type: none;
-                padding: 0;
-                li {
-                  list-style-image: url(${checkIcon.src});
-                  margin: 1rem 0;
+                > img {
+                  margin: auto;
+                  display: block;
+                  padding: 1rem;
                 }
-                img {
-                  width: 1.2rem;
-                  height: auto;
-                  vertical-align: sub;
+                h3 {
+                  text-align: left;
+                  font-size: 110%;
+                  margin: 0 0 0.6rem 0;
+                }
+                p {
+                  margin: 0;
+                  font-size: 100%;
                 }
               `}
             >
-              {' '}
-              {[
-                'Service indépendant, neutre et gratuit!',
-                'Conseils personnalisés pour votre projet',
-                'Toutes les réponses à vos questions !',
-              ].map((text) => (
-                <li key={text}>{text}</li>
-              ))}
-            </ul>
+              <h3>
+                Contacter un conseiller{' '}
+                <span>
+                  <strong>France</strong>&nbsp;
+                  <strong css=" margin-bottom: -.1rem">Rénov'</strong>
+                </span>
+              </h3>
+              <p>
+                Avant la réalisation de vos travaux, un conseiller France Rénov’
+                vous accompagne gratuitement.
+              </p>
+              <ul
+                css={`
+                  list-style-type: none;
+                  padding: 0;
+                  li {
+                    list-style-image: url(${checkIcon.src});
+                    margin: 1rem 0;
+                  }
+                  img {
+                    width: 1.2rem;
+                    height: auto;
+                    vertical-align: sub;
+                  }
+                `}
+              >
+                {' '}
+                {[
+                  'Service indépendant, neutre et gratuit!',
+                  'Conseils personnalisés pour votre projet',
+                  'Toutes les réponses à vos questions !',
+                ].map((text) => (
+                  <li key={text}>{text}</li>
+                ))}
+              </ul>
+              <CTAWrapper
+                $justify="center"
+                css={`
+                  margin-bottom: 0;
+                `}
+              >
+                <CTA
+                  css={`
+                    padding: 1rem;
+                    text-wrap: wrap;
+                    text-align: center;
+                    width: 100%;
+                  `}
+                  $fontSize="normal"
+                >
+                  Afficher les coordonnées
+                  <br /> de mon conseiller local
+                </CTA>
+              </CTAWrapper>
+            </div>
           </div>
-          <CTAWrapper $justify="center">
-            <CTA
-              css={`
-                padding: 1rem;
-                text-wrap: wrap;
-                text-align: center;
-              `}
-              $fontSize="normal"
-            >
-              Afficher les coordonnées de mon conseiller local
-            </CTA>
-          </CTAWrapper>
         </summary>
         <section>
           <MarSearch situation={situation} what={'trouver-conseiller-renov'} />
