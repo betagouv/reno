@@ -43,9 +43,10 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
               src={conseillerIcon}
               alt="illustration espace conseiller France Rénov'"
               css={`
-                height: 100%;
-                padding: 3rem;
-                object-fit: cover;
+                max-width: 9rem;
+                height: auto;
+                margin: 1.6rem 3rem 1.6rem 0rem;
+
                 @media (max-width: 600px) {
                   display: none;
                 }
@@ -60,7 +61,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
                 }
                 h3 {
                   text-align: left;
-                  font-size: 110%;
+                  font-size: 140%;
                   margin: 0 0 0.6rem 0;
                 }
                 p {
@@ -70,16 +71,8 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
               `}
             >
               <h3>
-                Contacter un conseiller{' '}
-                <span>
-                  <strong>France</strong>&nbsp;
-                  <strong css=" margin-bottom: -.1rem">Rénov'</strong>
-                </span>
+                Contacter votre conseiller <span>France&nbsp;Rénov'</span>
               </h3>
-              <p>
-                Avant la réalisation de vos travaux, un conseiller
-                France&nbsp;Rénov’ vous accompagne gratuitement.
-              </p>
               <ul
                 css={`
                   list-style-type: none;
