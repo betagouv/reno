@@ -92,32 +92,14 @@ export default function AideAmpleur({
             margin: 0 0 1rem 0;
             ${level === 2 && 'font-size: 110%;'}
             font-size: 130%;
-            display: flex;
             align-items: flex-start;
             justify-content: space-between;
           `}
         >
-          <div>
-            <h3
-              css={`
-                margin: 0 0 0.5rem 0;
-                color: var(--darkColor0);
-              `}
-            >
-              {title}
-            </h3>
-            <PrimeWithLabel
-              {...{
-                montant,
-                engine,
-                situation,
-                dottedName,
-              }}
-            />
-          </div>
           {rule['type'] && (
             <div
               css={`
+                float: right;
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
@@ -140,6 +122,24 @@ export default function AideAmpleur({
                 )}
             </div>
           )}
+          <div>
+            <h3
+              css={`
+                margin: 0 0 0.5rem 0;
+                color: var(--darkColor0);
+              `}
+            >
+              {title}
+            </h3>
+            <PrimeWithLabel
+              {...{
+                montant,
+                engine,
+                situation,
+                dottedName,
+              }}
+            />
+          </div>
         </header>
         <div
           css={`
