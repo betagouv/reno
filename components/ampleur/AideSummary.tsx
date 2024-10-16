@@ -68,7 +68,7 @@ export const AideSummary = ({
           <h4
             css={`
               font-weight: 400;
-              margin: 0;
+              margin: 0 0 0.2rem 0;
               font-size: 100%;
               span {
                 margin: 0 0.2rem;
