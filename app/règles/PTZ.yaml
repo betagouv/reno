@@ -62,6 +62,7 @@ PTZ . montant:
   titre: Montant du PTZ
   applicable si:
     toutes ces conditions:
+      - vous . propriétaire . condition
       - logement . résidence principale
       - condition d'ancienneté
   note: Impléméntation imparfaite du montant, voir la description de la règle PTZ.

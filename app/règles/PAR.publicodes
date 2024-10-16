@@ -35,6 +35,7 @@ PAR . conditions:
 PAR . conditions . communes:
   valeur:
     toutes ces conditions:
+      - vous . propriétaire . condition
       - résidence principale
       - ancienneté
       - revenu
@@ -79,3 +80,4 @@ PAR . montant:
       - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
 PAR . durée: 10 an
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
+

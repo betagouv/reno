@@ -61,6 +61,7 @@ ampleur . prime individuelle copropriété:
 ampleur . prime individuelle copropriété . montant:
   applicable si:
     toutes ces conditions:
+      - vous . propriétaire . condition
       - logement . type = "appartement"
       - logement . au moins 15 ans
 
