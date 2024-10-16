@@ -44,7 +44,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
               alt="illustration espace conseiller France Rénov'"
               css={`
                 height: 100%;
-                padding: 1rem 2rem 1rem 0;
+                padding: 3rem;
                 object-fit: cover;
                 @media (max-width: 600px) {
                   display: none;
@@ -77,8 +77,8 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
                 </span>
               </h3>
               <p>
-                Avant la réalisation de vos travaux, un conseiller France Rénov’
-                vous accompagne gratuitement.
+                Avant la réalisation de vos travaux, un conseiller
+                France&nbsp;Rénov’ vous accompagne gratuitement.
               </p>
               <ul
                 css={`
@@ -99,7 +99,6 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
                 {[
                   'Service indépendant, neutre et gratuit!',
                   'Conseils personnalisés pour votre projet',
-                  'Toutes les réponses à vos questions !',
                 ].map((text) => (
                   <li key={text}>{text}</li>
                 ))}
@@ -119,8 +118,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
                   `}
                   $fontSize="normal"
                 >
-                  Afficher les coordonnées
-                  <br /> de mon conseiller local
+                  Trouver mon conseiller local
                 </CTA>
               </CTAWrapper>
             </div>
