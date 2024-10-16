@@ -19,7 +19,7 @@ PTZ:
       - ouvrent droit à l'aide MaPrimeRénov' Parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle
       - permettent d'améliorer d'au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux
   comment faire: |
-    Contactez votre conseiller France Rénov’. Il vous fournira des conseils selon votre situation.
+    Prenez contact avec [une banque ayant signé une convention avec l'État](https://www2.sgfgas.fr/web/site-public/etablissements-affilies). En cas de doute, contactez votre conseiller France Rénov’.
   description détaillé: |
 
     L'éco-PTZ est disponible pour une [liste de types de travaux](https://www.economie.gouv.fr/particuliers/eco-pret-a-taux-zero-ptz-renovation-performance-energetique#quels-sont-les-travaux-ligibles-_1).
@@ -57,7 +57,7 @@ PTZ:
     Il existe aussi un éco-PTZ [pour les copropriétaires](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
 
     Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
-  lien: https://www.economie.gouv.fr/cedef/eco-pret-a-taux-zero
+  lien: https://www.service-public.fr/particuliers/vosdroits/F19905
 PTZ . montant:
   titre: Montant du PTZ
   applicable si:

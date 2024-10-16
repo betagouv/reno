@@ -101,22 +101,6 @@ export default function EcoPTZ({
               __html: rules[dottedName].conditionsEligibilitesHTML,
             }}
           />
-          <PaymentTypeBlock>
-            <p>Le prêt sera à rembourser mensuellement.</p>
-          </PaymentTypeBlock>
-          <AideCTA text="Demander le prêt à taux zéro">
-            <p>
-              L'éco-PTZ est disponible auprès de{' '}
-              <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">
-                ces établissements de crédits
-              </a>
-              . Découvrir{' '}
-              <a href="https://www.service-public.fr/particuliers/vosdroits/F19905">
-                la démarche étape par étape
-              </a>
-              .
-            </p>
-          </AideCTA>
         </>
       )}
     </AideAmpleur>
