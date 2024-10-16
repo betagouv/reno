@@ -51,7 +51,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           margin-top: 1rem;
         `}
       >
-        <em>Pourquoi choisir ce parcours ?</em>
+        Pourquoi choisir ce parcours ?
       </p>
       <ul
         css={`
@@ -74,7 +74,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           margin: 1rem 0 0 0;
         `}
       >
-        <em>Des exemples de gestes :</em>
+        Des exemples de gestes :
       </p>
       <GestesPreview
         {...{

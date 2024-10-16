@@ -110,7 +110,7 @@ export default function AmpleurSummary({
           margin-top: 1rem;
         `}
       >
-        <em>Pourquoi choisir ce parcours ?</em>
+        Pourquoi choisir ce parcours ?
       </p>
       <ul
         css={`
@@ -128,7 +128,7 @@ export default function AmpleurSummary({
           margin-top: 1rem;
         `}
       >
-        <em>Parmi les aides ?</em>
+        Parmi les aides ?
       </p>
       {aides
         .filter((aide) => {
