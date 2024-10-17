@@ -522,7 +522,7 @@
     DPE . actuel: 4
     projet . DPE visé: 1
     ménage . code région: "'73'"
-    logement . commune: "'73065'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
+    logement . commune: "'73065'"
     logement . EPCI: "'200069110'"
     logement . propriétaire occupant: non
     taxe foncière . condition de dépenses: oui
