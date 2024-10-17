@@ -26,6 +26,15 @@ export default function AideMAR({
         expanded,
       }}
     >
+      {' '}
+      {expanded && (
+        <p>
+          Votre Accompagnateur Rénov' évalue avec vous vos besoins, vous aide à
+          mobiliser les aides, dont MaPrimeRénov', pour financer vos travaux et
+          s'assure de leur qualité et de leur concordance par rapport à l'audit
+          énergétique.
+        </p>
+      )}
       {expanded && (
         <>
           <h3>Comment est calculée l'aide ?</h3>
