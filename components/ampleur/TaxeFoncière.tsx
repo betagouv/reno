@@ -44,7 +44,7 @@ export default function TaxeFoncière({
           taxe foncière au taux de {taux} l'année dernière.
         </p>
       )}
-      {expanded && (
+      {false && expanded && (
         <>
           <h3>Comment est calculée l'aide ?</h3>
           <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
@@ -65,6 +65,21 @@ export default function TaxeFoncière({
           />
         </>
       )}
+      <h3>Les principales conditions d'éligibilité ?</h3>
+      <div
+        css={`
+          list-style-image: url(${checkIcon.src});
+          li {
+            margin: 1rem 0;
+            ul {
+              list-style-image: none;
+            }
+          }
+        `}
+        dangerouslySetInnerHTML={{
+          __html: rule.conditionsEligibilitesHTML,
+        }}
+      />
     </AideAmpleur>
   )
 }
