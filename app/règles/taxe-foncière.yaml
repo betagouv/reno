@@ -1,7 +1,7 @@
 taxe foncière:
   marque: Exonération de taxe foncière
   description: |
-    Certaines collectivités (communes, départements…) exonèrent temporairement de taxe foncière les foyers qui réalisent des travaux d'économie d'énergie.
+    Certaines collectivités exonèrent temporairement de taxe foncière les foyers qui réalisent des travaux d'économie d'énergie.
   type: exonération fiscale
   conditions éligibilités: |
     - Votre logement doit avoir été construit avant le 1er janvier 1989
@@ -81,13 +81,13 @@ taxe foncière . commune . éligible:
   description: La commune du logement a-t-elle voté une exonération de taxe foncière ?
 taxe foncière . commune . éligible . ménage:
   note: |
-      Cette variable est normalement remplie automatiquement par Mes Aides Réno.
+    Cette variable est normalement remplie automatiquement par Mes Aides Réno.
 taxe foncière . commune . éligible . logement:
   note: |
-      Cette variable est normalement remplie automatiquement par Mes Aides Réno.
+    Cette variable est normalement remplie automatiquement par Mes Aides Réno.
 taxe foncière . commune . taux:
   par défaut: 0
-  unité: "%"
+  unité: '%'
   description: |
     C'est l'exonération de la taxe foncière pour rénovation energétique, il faut que la commune ait voté cette exonération. 
 

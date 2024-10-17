@@ -35,19 +35,13 @@ export default function TaxeFoncière({
     >
       {!communeEligible ? (
         <p>
-          La commune {communeName} de votre logement <No>n'est pas éligible</No>{' '}
-          à l'exonération.
+          La commune de {communeName} <No>n'a pas appliqué</No> l'exonération de
+          taxe foncière l'année dernière.
         </p>
       ) : (
         <p>
-          La commune {communeName} de votre logement est <Yes>éligible</Yes>,{' '}
-          {taux ? (
-            <>pour une exonération de {taux}.</>
-          ) : (
-            <>
-              mais nous ne connaissons pas son taux (50 ou 100 %) d'exonération.
-            </>
-          )}
+          La commune de {communeName} <Yes>a appliqué</Yes> l'éxonération de
+          taxe foncière au taux de {taux} l'année dernière.
         </p>
       )}
       {expanded && (
