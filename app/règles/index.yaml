@@ -848,10 +848,9 @@ MPR . accompagnée . pourcent brut:
 
 MPR . accompagnée . prise en charge MAR:
   description: |
-    Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ Parcours Accompagné et de Loc’Avantages. 
-
     Mon Accompagnateur Rénov’ est l’interlocuteur de confiance, qui accompagne les projets de travaux de rénovation globale des ménages, depuis l’élaboration du projet (audit énergétique, choix du scénario de travaux, etc.) jusqu’à la fin des travaux.
 
+    Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ Parcours Accompagné et de Loc’Avantages.
   conditions éligibilités: |
     - L'audit doit être réalisé par un auditeur certifié. Il peut être réalisé par votre Accompagnateur Rénov'
     - Pour bénéficier de MaPrimeRénov' pour une rénovation d'ampleur, vous devez obligatoirement suivre l'un des scénarios de travaux proposés suite à l'audit
