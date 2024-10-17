@@ -18,6 +18,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [clicked, setClicked] = useState(false)
   const validInput = input && input.length >= 3
 
+  // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
     if (situation && 
         ["ménage . commune", "logement . commune"].includes(type) && 

@@ -21,7 +21,7 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
 import LogoCompact from '@/components/LogoCompact'
-import Answers from './Answers'
+import Answers, { firstLevelCategory } from './Answers'
 import Image from 'next/image'
 
 function Form({ rules }) {
@@ -69,19 +69,22 @@ function Form({ rules }) {
     <div>
       <Section>
         {isInIframe && isCompact && (
-          <LogoCompact css={`float: right;`} />
+          <>
+            <LogoCompact css={`float: right;`} />
+            <Stepper
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+          </>
         )}
-        <Stepper
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            situation,
-          }}
-        />
-        {!isCompact && (
-          <div css={`padding-top: 1rem;`}>
+        {!isCompact && 
+         !(firstLevelCategory(currentQuestion) === 'projet') && (
+          <div>
             <Answers
               {...{
                 answeredQuestions,
@@ -108,14 +111,14 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      {(!isInIframe || !isCompact) && (
+      {false && (!isInIframe || !isCompact) && (
         <>
           <br />
           <UserProblemBanner />
           <Share searchParams={searchParams} />
         </>
       )}
-      {!isInIframe && (
+      {false && !isInIframe && (
         <Section>
           <h2>Documentation</h2>
           <p>

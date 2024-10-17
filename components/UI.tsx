@@ -18,7 +18,7 @@ export const Section = styled.section`
 `
 export const cardBorder = `
 
-  padding: 1.2vh calc(.5rem + 1vw);
+  padding: calc(.3rem + .7vw) calc(.5rem + 1vw);
   border: 2px solid #dfdff1;
   border-radius: 0.3rem;
 `
@@ -184,6 +184,8 @@ export const CTAWrapper = styled.div`
   ${(p) => p.$customCss}
 `
 export const CTA = styled.div`
+  width: fit-content;
+
   > button {
     border: none;
     background: none;
@@ -200,6 +202,7 @@ export const CTA = styled.div`
     p.$importance === 'emptyBackground'
       ? `
   background: none;
+  cursor: pointer;
   border: 1px solid var(--color);
   color: var(--color) !important;
 

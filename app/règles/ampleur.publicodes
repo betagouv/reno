@@ -1,0 +1,120 @@
+ampleur:
+  diminutif: Aides globales
+  titre: Aides à la rénovation d'ampleur
+
+ampleur . montant:
+  description: |
+    Toutes les aides qui concernent une rénovation d'ampleur, par opposition aux rénovations par geste.
+
+    Le PTZ n'y est pas inclus car on ne somme pas des aides (avances ou remboursements) et des prêts, qui ne sont qu'un décalage dans le temps d'un paiement des travaux.
+  note: On suppose pour l'instant que toutes les aides locales sont pour des rénovations d'ampleur, mais ce ne sera pas le cas !
+  somme:
+    - MPR . accompagnée . montant
+    - MPR . accompagnée . prise en charge MAR . montant
+    - aides locales . montant
+    - CEE . rénovation d'ampleur . montant
+    - ampleur . prime individuelle copropriété . montant
+
+ampleur . tous les dispositifs:
+  note: |
+    Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
+
+    Elle nous sert simplement à regrouper les aides d'ampleur dans une variable, notamment pour la page d'éligibilité et pour le parcours ampleur. 
+
+    Attention, ses membres doivent avoir un chemin absolu, pour useAides.ts.
+
+    Note : le [chéque énergie](https://www.economie.gouv.fr/particuliers/tout-savoir-cheque-energie) peut être considéré comme une aide, mais une aide à la consommation d'énergie, pas à la réduction de consommation. En outre, il est normalement automatiquement versé aux personnes éligibles, donc sa publicité sur Mes Aides Réno n'est pas prioritaire.
+  somme:
+    - ampleur . montant
+    - ampleur . prêt
+    - denormandie . montant
+    - taxe foncière . montant
+
+ampleur . prime individuelle copropriété:
+  marque: MaPrimeRénov' copropriété
+  complément de marque: prime individuelle
+  note: |
+    Cette variable recontextualise la variable prime individuelle du point de vue du ménage, sans parler encore de sa copropriété.
+  type: remboursement
+  description: |
+    MaPrimeRénov’ Copropriété vous aide à réaliser des travaux au sein des parties communes de votre copropriété. 
+
+    En complément de cette aide à destination des copropriétés, les copropriétaires aux ressources modestes et très modestes peuvent bénéficier d'une prime individuelle.
+
+  conditions éligibilités: |
+
+    Seul le représentant légal (syndic professionnel ou bénévole, administrateur provisoire) de la copropriété peut déposer une demande d’aide.
+
+    Parmi les conditions d'éligibilité, nous pouvons mentionner les suivantes : 
+
+    - Cette aide est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarés d’intérêt collectif. 
+    - L’attribution de l’aide MaPrimeRénov’ Copropriété est subordonnée à la production d’une évaluation énergétique.
+
+    Pour être éligible, la copropriété doit :
+
+    - Avoir été construite il y a au moins 15 ans.
+    - Avoir au moins 75 % des lots (65 % pour les copropriétés de 20 lots ou moins) ou à défaut des tantièmes dédiés à l’usage d’habitation principale. 
+    - Être à jour de son immatriculation au registre national des copropriétés.
+
+  comment faire: Contactez votre conseiller France Rénov'. Il vous fournira des conseils selon votre situation.
+  lien: https://france-renov.gouv.fr/aides/maprimerenov-copropriete
+ampleur . prime individuelle copropriété . montant:
+  applicable si:
+    toutes ces conditions:
+      - vous . propriétaire . condition
+      - logement . type = "appartement"
+      - logement . au moins 15 ans
+
+  formule: copropriété . prime individuelle
+
+ampleur . prêt:
+  somme:
+    - PTZ . montant
+    - PAR . montant
+
+ampleur . montant écrêté:
+  description: |
+    L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux *toutes taxes comprises (TTC)*.
+
+    Si le montant total des aides était amené à dépasser le pourcentage d'écrêtement, alors c'est MaPrimeRénov' accompagnée qui serait réduite pour ne pas le dépasser, comme cela est expliqué dans les notes de bas de page de [ce tableau expliquant les cumuls](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=25).
+
+    > Cela dit, le modèle actuel Mes Aides Réno ne donne pas encore la possibilité de calculer les autres aides, hors MPR (MaPrimeRénov'). 
+
+    Prenons l'exemple simple sans cumul, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
+
+    L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC des dépenses*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
+
+    L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
+
+  valeur: soumises à écrêtement
+  plafond: plafond d'écrêtement
+
+ampleur . soumises à écrêtement:
+  somme:
+    - MPR . accompagnée . montant
+    - aides locales . montant
+
+ampleur . plafond d'écrêtement:
+  valeur: pourcent d'écrêtement * projet . travaux . TTC
+
+ampleur . est écrêté:
+  valeur: soumises à écrêtement > plafond d'écrêtement
+
+ampleur . pourcent d'écrêtement:
+  titre: Taux maximum toutes aides sur enveloppe TTC
+  description: |
+    Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
+
+    Il se calcule sur l'enveloppe **TTC**.
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 100 %
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 80 %
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 60 %
+    - sinon: 40 %
+
+ampleur . synthèse:
+  description: Quels sont les aides dont l'utilisateur souhaite avoir la synthèse
+  par défaut: "''"

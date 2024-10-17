@@ -32,11 +32,6 @@ export default function Travaux({ engine, rules, situation }) {
     rules,
   )
 
-  const sautsMinBonus = compute(
-    'MPR . accompagnée . bonus . sauts minimum',
-    upEngine,
-    rules,
-  )
   const écrêté = compute('MPR . accompagnée . pourcent écrêté', upEngine, rules)
   const brut = compute('MPR . accompagnée . pourcent brut', upEngine, rules)
   const écrêtement = compute(

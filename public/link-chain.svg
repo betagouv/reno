@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg152"
+   sodipodi:docname="link-chain.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs156" />
+  <sodipodi:namedview
+     id="namedview154"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.43200345"
+     inkscape:cx="769.66978"
+     inkscape:cy="417.82074"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg152" />
+  <path
+     d="m 14.183832,11.989037 c 0.01198,2.41211 -1.933609,4.377256 -4.3456676,4.389353 l -4.36754,0.02178 c -2.412073,0.01208 -4.377261,-1.933546 -4.389303,-4.345619 -0.01204,-2.4120743 1.93356,-4.3772343 4.345606,-4.3892893 l 2.183801,-0.01092"
+     stroke="#000000"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="path148"
+     style="stroke:#8181af;stroke-opacity:1" />
+  <path
+     d="M 9.8162294,12.010881 C 9.8041694,9.598828 11.749796,7.63364 14.161849,7.621578 l 4.367532,-0.02177 c 2.412116,-0.012143 4.377275,1.933459 4.389289,4.345603 0.01208,2.412074 -1.933545,4.377262 -4.345619,4.389303 l -2.183703,0.01088"
+     stroke="#000000"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="path150"
+     style="stroke:#8181af;stroke-opacity:1" />
+</svg>

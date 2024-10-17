@@ -14,7 +14,9 @@ export default function Entreprise({ data }) {
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
   const horaires = JSON.parse(data.Horaires_Structure)
   const telephone = data.Telephone_Structure
-  const site = data.Site_Internet_Structure
+  
+  const siteRaw = data.Site_Internet_Structure,
+    site = siteRaw ? siteRaw?.startsWith('http') ? siteRaw : 'https://' + siteRaw : false
 
   return (
     <Card
@@ -73,7 +75,7 @@ export default function Entreprise({ data }) {
           </a>
         </div>
       )}
-      {horaires[0] != "" && (
+      {horaires[0] != '' && (
         <div
           css={`
             display: flex;
@@ -89,12 +91,10 @@ export default function Entreprise({ data }) {
               border-left: 3px solid var(--color);
             `}
           >
-            {horaires.map((horaire) => {
+            {horaires.map((horaire, i) => {
               return (
-                <li key={JSON.stringify(horaire)}>
-                  <div>
-                    {horaire}
-                  </div>
+                <li key={i}>
+                  <div>{horaire}</div>
                 </li>
               )
             })}

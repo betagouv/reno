@@ -106,7 +106,7 @@ export default function ExplicationCopropriete() {
                   }
                 `}
             >
-              <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle!
+              <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle
             </h3>
             <p>Votre copropriété est <PrimeStyle><strong>éligible</strong></PrimeStyle> au dispositif <strong>MaPrimeRénov' Copropriété</strong>.</p>
             <div

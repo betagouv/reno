@@ -21,7 +21,9 @@ export default function Geste({
   const relevant = rules[dottedName + ' . MPR . barème']
     ? dottedName + ' . MPR . barème'
     : dottedName + ' . montant'
-  const eligibleMPRG = engineSituation.evaluate('MPR . non accompagnée . éligible').nodeValue
+  const eligibleMPRG = engineSituation.evaluate(
+    'MPR . non accompagnée . éligible',
+  ).nodeValue
 
   const dottedNameCee = dottedName + ' . CEE'
   if (typeof rules[dottedNameCee] !== 'undefined') {
@@ -34,12 +36,11 @@ export default function Geste({
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
       questions: rules[dottedNameCee + ' . question']?.valeurs.map((q) =>
-        rules[dottedNameCee + ' . ' + q] ? 
-          dottedNameCee + ' . ' + q :
-          (rules[dottedName + ' . ' + q] ? 
-            dottedName + ' . ' + q :
-            q
-          )
+        rules[dottedNameCee + ' . ' + q]
+          ? dottedNameCee + ' . ' + q
+          : rules[dottedName + ' . ' + q]
+            ? dottedName + ' . ' + q
+            : q,
       ),
     }
   }
@@ -89,26 +90,45 @@ export default function Geste({
   // Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
   const PrimeDisplay = ({ montantTotal, isExactTotal, rules, dottedName }) => (
     <>
-      <div css={`margin: 0 0 0.6rem 0;`}>{rules[dottedName].titre || getRuleName(dottedName)}</div>
-      <PrimeStyle css={`display: block;text-align:left;text-wrap: wrap;`} $inactive={montantTotal === "Non applicable"}>
-        {montantTotal === "Non applicable" ? (
-          <>Prime <strong>non applicable</strong> dans votre situation</>
+      <div
+        css={`
+          margin: 0 0 0.2rem 0;
+        `}
+      >
+        {rules[dottedName].titre || getRuleName(dottedName)}
+      </div>
+      <PrimeStyle
+        css={`
+          display: block;
+          text-align: left;
+          text-wrap: wrap;
+        `}
+        $inactive={montantTotal === 'Non applicable'}
+      >
+        {montantTotal === 'Non applicable' ? (
+          <>
+            Prime <strong>non applicable</strong> dans votre situation
+          </>
+        ) : !eligibleMPRG && !infoCoupDePouce && !isExactTotal ? (
+          <>Prime existante</>
         ) : (
-          (!eligibleMPRG && !infoCoupDePouce && !isExactTotal) ?
-          <>Prime existante</> :
-          <>{isExactTotal ? 
-              (!infoCoupDePouce && !eligibleMPRG ? 'Prime indicative de ' : 'Prime de ') : 
-              "Jusqu'à "
-            }<strong>{montantTotal}</strong></>
+          <>
+            {isExactTotal
+              ? !infoCoupDePouce && !eligibleMPRG
+                ? 'Prime indicative de '
+                : 'Prime de '
+              : "Jusqu'à "}
+            <strong>{montantTotal}</strong>
+          </>
         )}
       </PrimeStyle>
     </>
-  );
+  )
 
   if (!expanded)
     return (
       <div>
-        <PrimeDisplay {...{montantTotal, isExactTotal, rules, dottedName }} />
+        <PrimeDisplay {...{ montantTotal, isExactTotal, rules, dottedName }} />
       </div>
     )
 
@@ -138,7 +158,9 @@ export default function Geste({
     >
       <summary>
         <div>
-          <PrimeDisplay {...{montantTotal, isExactTotal, rules, dottedName }} />
+          <PrimeDisplay
+            {...{ montantTotal, isExactTotal, rules, dottedName }}
+          />
         </div>
       </summary>
       {infoMPR && (
@@ -149,7 +171,7 @@ export default function Geste({
             engine,
             situation,
             answeredQuestions,
-            setSearchParams
+            setSearchParams,
           }}
         />
       )}
@@ -161,7 +183,7 @@ export default function Geste({
             engine,
             situation,
             answeredQuestions,
-            setSearchParams
+            setSearchParams,
           }}
         />
       )}
@@ -173,7 +195,7 @@ export default function Geste({
             engine,
             situation,
             answeredQuestions,
-            setSearchParams
+            setSearchParams,
           }}
         />
       )}
