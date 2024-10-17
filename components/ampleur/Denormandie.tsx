@@ -18,7 +18,7 @@ export default function Denormandie({
   exampleSituation,
   answeredQuestions,
   setSearchParams,
-  expanded
+  expanded,
 }) {
   const situation = {
     ...exampleSituation,
@@ -30,17 +30,20 @@ export default function Denormandie({
   const rule = rules[dottedName]
 
   return (
-    <AideAmpleur {...{
-      engine,
-      dottedName: 'denormandie',
-      setSearchParams,
-      answeredQuestions,
-      situation,
-      expanded
-    }}>
+    <AideAmpleur
+      {...{
+        engine,
+        dottedName: 'denormandie',
+        setSearchParams,
+        answeredQuestions,
+        situation,
+        expanded,
+      }}
+    >
       {communeName && communeEligible && (
         <p>
-          La commune <Key $state={"prime-black"}>{communeName}</Key> de votre logement{' '}
+          La commune <Key $state={'prime-black'}>{communeName}</Key> de votre
+          logement{' '}
           {communeEligible === 'oui' ? (
             <Yes>est éligible Denormandie</Yes>
           ) : (
@@ -49,7 +52,7 @@ export default function Denormandie({
           .
         </p>
       )}
-      { expanded && (
+      {expanded && (
         <>
           <h3>Comment est calculée l'aide ?</h3>
           <Card $background="#f7f8f8">
@@ -95,35 +98,35 @@ export default function Denormandie({
                   </span>
                 </label>{' '}
                 pour un logement acheté aux prix de{' '}
-                  <Input
-                    css={`
-                      vertical-align: text-bottom;
-                      padding: 0.2rem 0.3rem 0 0;
-                      max-width: 8rem !important;
-                    `}
-                    autoFocus={false}
-                    value={situation["logement . prix d'achat"]}
-                    placeholder="250000"
-                    min="1000"
-                    onChange={(rawValue) => {
-                      const value = +rawValue === 0 ? undefined : rawValue
-                      setSearchParams(
-                        encodeSituation({
-                          "logement . prix d'achat": value,
-                        }),
-                        'replace',
-                        false,
-                      )
-                    }}
-                    step="1000"
-                    css={`
-                      border-bottom: 2px solid #d1d1fb !important;
-                    `}
-                  />
-                  €{' '}
-                  <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                    HT
-                  </span>
+                <Input
+                  css={`
+                    vertical-align: text-bottom;
+                    padding: 0.2rem 0.3rem 0 0;
+                    max-width: 8rem !important;
+                  `}
+                  autoFocus={false}
+                  value={situation["logement . prix d'achat"]}
+                  placeholder="250000"
+                  min="1000"
+                  onChange={(rawValue) => {
+                    const value = +rawValue === 0 ? undefined : rawValue
+                    setSearchParams(
+                      encodeSituation({
+                        "logement . prix d'achat": value,
+                      }),
+                      'replace',
+                      false,
+                    )
+                  }}
+                  step="1000"
+                  css={`
+                    border-bottom: 2px solid #d1d1fb !important;
+                  `}
+                />
+                €{' '}
+                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                  HT
+                </span>
                 <ol
                   css={`
                     list-style-type: none;
@@ -144,7 +147,8 @@ export default function Denormandie({
                         <li
                           key={si || 'default'}
                           css={
-                            années == situation[dottedName] && `padding: 0.5rem;background: #e9e9e9; border: 1px dashed black;  width: fit-content`
+                            années == situation[dottedName] &&
+                            `padding: 0.5rem;background: #e9e9e9; border: 1px dashed black;  width: fit-content`
                           }
                           onClick={() =>
                             setSearchParams({
@@ -152,8 +156,10 @@ export default function Denormandie({
                             })
                           }
                         >
-                          Pour une période de location de <strong> {années} ans </strong> :{' '}
-                          la réduction d'impôt s'élève à <strong>{alors || sinon}</strong> du prix du bien
+                          Pour une période de location de{' '}
+                          <strong> {années} ans </strong> : la réduction d'impôt
+                          s'élève à <strong>{alors || sinon}</strong> du prix du
+                          bien
                         </li>
                       )
                     })}
@@ -162,22 +168,47 @@ export default function Denormandie({
               </section>
             </div>
           </Card>
+          <p>
+            La réduction d'impôt est appliquée à un investissement maximum de
+            300 000 euros (et de 5 500 m2 de surface habitable). Si vous achetez
+            un logement plus cher, la fraction dépassant ce montant ne sera pas
+            prise en compte dans la base de calcul de votre réduction d'impôt.
+          </p>
+          <p>
+            Vous devez aussi prendre en compte le plafonnement global des
+            avantages fiscaux.
+          </p>
           <p>L'avantage fiscal est étalé sur la durée de location.</p>
           <h3>Les principales conditions d'éligibilité ?</h3>
-          <p>Trois types de conditions se cumulent :</p> 
-          <ul css={`list-style-image: url(${checkIcon.src}); li { margin: 1rem 0;}`}>
-            <li>Les conditions liées au logement à rénover (logement ancien, situé dans certaines communes uniquement,...)</li>
-            <li>Les conditions liées aux travaux à réaliser (les travaux doivent représenter au moins 25 % du coût total de l'opération,...)</li>
-            <li>Les conditions liées au(x) locataire(s) du logement</li>
+          <p>Trois types de conditions se cumulent :</p>
+          <ul
+            css={`
+              list-style-image: url(${checkIcon.src});
+              li {
+                margin: 1rem 0;
+              }
+            `}
+          >
+            <li>
+              Les conditions liées au logement à rénover (logement ancien, situé
+              dans l'une des 454 communes éligibles, loué non meublé pendant au
+              moins 6 ans...)
+            </li>
+            <li>
+              Les conditions liées aux travaux à réaliser (les travaux doivent
+              représenter au moins 25 % du coût total de l'opération, et doivent
+              être terminés dans les 2 ans après l'achat...)
+            </li>
+            <li>
+              Les conditions liées au(x) locataire(s) du logement : leur revenu
+              doit être sous un seuil, et le loyer du logement{' '}
+              <a href="https://www.service-public.fr/particuliers/vosdroits/F35011#fiche-item-aria-2">
+                plafonné
+              </a>
+              , ...)
+            </li>
           </ul>
-          <h3>Comment toucher cette aide</h3>
-          <p>Pour bénéficier de la réduction d'impôts, vous devez déclarer cet investissement locatif au moment de la déclaration annuelle de revenus.
-          </p>
-          <InformationBlock>
-            <div
-              dangerouslySetInnerHTML={{ __html: rule.informationsUtilesHtml }}
-            />
-          </InformationBlock>
+          <h4>Carte des villes éligibles au dispositif Denormandie</h4>
           <iframe
             css={`
               border-radius: 0.3rem;
