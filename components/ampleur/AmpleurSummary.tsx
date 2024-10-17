@@ -29,6 +29,7 @@ export const createExampleSituation = (engine, situation, extreme = false) => {
       ? {
           'projet . travaux': 999999,
           'projet . DPE visé': 1,
+          'denormandie . années de location': 12,
         }
       : {}),
     'taxe foncière . condition de dépenses': 'oui',
