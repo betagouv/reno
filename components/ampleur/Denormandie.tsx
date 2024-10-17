@@ -143,24 +143,32 @@ export default function Denormandie({
                     .map(({ si, alors, sinon }) => {
                       const années = si.split(' = ')[1]
                       const dottedName = 'denormandie . années de location'
+                      const selected = années == situation[dottedName]
                       return (
-                        <li
+                        <label
                           key={si || 'default'}
-                          css={
-                            années == situation[dottedName] &&
-                            `padding: 0.5rem;background: #e9e9e9; border: 1px dashed black;  width: fit-content`
-                          }
+                          css={`
+                            ${selected &&
+                            `
+
+								  padding: 0.5rem;background: #e9e9e9; border: 1px dashed black;  width: fit-content;
+								  
+
+								  `}
+                            display: block
+                          `}
                           onClick={() =>
                             setSearchParams({
                               [encodeDottedName(dottedName)]: années,
                             })
                           }
                         >
+                          <input type="radio" checked={selected} />
                           Pour une période de location de{' '}
                           <strong> {années} ans </strong> : la réduction d'impôt
                           s'élève à <strong>{alors || sinon}</strong> du prix du
                           bien
-                        </li>
+                        </label>
                       )
                     })}
                 </ol>
@@ -247,7 +255,7 @@ const Result = ({ engine, situation }) => {
     >
       {value.nodeValue != null ? (
         <p>
-          La réduction d'impôt Denormandie s'élève à un total de{' '}
+          Je peux bénéficier d'une réduction d'impôt maximum de{' '}
           <Value
             {...{
               engine,
@@ -255,8 +263,17 @@ const Result = ({ engine, situation }) => {
               dottedName: 'denormandie . montant',
               state: 'prime-black',
             }}
-          />
-          .
+          />{' '}
+          au total sur{' '}
+          <Value
+            {...{
+              engine,
+              situation,
+              dottedName: 'denormandie . années de location',
+              state: 'prime-black',
+            }}
+          />{' '}
+          ans.
         </p>
       ) : !thresholdCondition.nodeValue ? (
         <p>
