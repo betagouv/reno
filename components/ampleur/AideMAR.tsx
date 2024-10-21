@@ -75,28 +75,54 @@ export default function AideMAR({
   )
 }
 
+// "Par exemple, pour une prestation MAR à 4 000 €, x % plafonné à 2000 € soit dans votre cas xxx €
 export function AideMontant({ engine, situation, dottedName }) {
   return (
-    <p>
-      En tant que ménage{' '}
-      <Value
-        {...{
-          engine,
-          situation,
-          dottedName: 'ménage . revenu . classe',
-          state: 'prime-black',
-        }}
-      />
-      , vous bénéficiez d'une aide de{' '}
-      <Value
-        {...{
-          engine,
-          situation,
-          dottedName: dottedName + ' . montant',
-          state: 'prime-black',
-        }}
-      />{' '}
-      pour l'accompagnement MaPrimeRénov'.
-    </p>
+    <section>
+      <p>
+        Par exemple : pour une prestation Mon Accompagnateur Rénov' de 4 000 €,
+        en tant que ménage{' '}
+        <Value
+          {...{
+            engine,
+            situation,
+            dottedName: 'ménage . revenu . classe',
+            state: 'prime-black',
+          }}
+        />{' '}
+        vous bénéficiez d'une aide de{' '}
+        <Value
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . pourcent',
+            state: 'prime-black',
+          }}
+        />{' '}
+        plafonné à{' '}
+        <Value
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . plafond',
+            state: 'prime-black',
+          }}
+        />
+        .
+      </p>
+
+      <p>
+        Soit{' '}
+        <Value
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . montant',
+            state: 'prime-black',
+          }}
+        />{' '}
+        d'aide.
+      </p>
+    </section>
   )
 }
