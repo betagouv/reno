@@ -363,7 +363,7 @@ ménage . région:
 ménage . région . IdF: code région = "11"
 
 DPE:
-  titre: Diagnostic de Performance Énergétique.
+  titre: Diagnostic de Performance Énergétique
 
 DPE . actuel . passoire:
   type: notification
