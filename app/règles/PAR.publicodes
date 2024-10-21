@@ -7,10 +7,12 @@ PAR:
   icône: 'pam-plus-bleu.svg'
   titre: Prêt avance rénovation à taux zéro
   conditions éligibilités: |
-    - Ce prêt s'appuie sur la garantie d'une hypothèque réalisée sur la valeur de votre logement à rénover 
-    -  À taux zéro pendant 10 ans grâce à l'État, puis au taux négocié
-    - Vous le remboursez lors de la vente du bien ou de votre succession
-    - Cumul possible avec l'éco-PTZ à condition de financer des postes de travaux différents.
+    Pour bénéficier du plafond maximum à 50 000€, ce prêt est soumis à audit énergétique et gain de performance :
+
+    - Un audit énergétique du logement est réalisé avant le démarrage des travaux
+    - Les travaux engagés à la suite de cet audit doivent vous permettre d'atteindre au minimum une classe DPE E en énergie et un gain énergétique d'au moins 35 %.  
+    - Les travaux doivent concerner votre résidence principale, construite depuis plus de 2 ans.
+    - Vous devez faire réaliser les travaux par un professionnel RGE.
 
   comment faire: |
     Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
@@ -34,6 +36,7 @@ PAR . conditions . communes:
   valeur:
     toutes ces conditions:
       - vous . propriétaire . condition
+      - logement . propriétaire occupant
       - résidence principale
       - ancienneté
       - revenu
