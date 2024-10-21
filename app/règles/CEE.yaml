@@ -33,12 +33,11 @@ CEE . projet . remplacement chaudière thermique:
 
 CEE . rénovation d'ampleur:
   icône: 'cee.svg'
-  marque: CEE
-  complément de marque: Rénovation d'ampleur
+  marque: CEE coup de pouce « Rénovation d’ampleur »
   description: |
-    Ce dispositif s'inscrit dans le cadre du dispositif des certificats d'économies d'énergie (CEE) . 
+    Le coup de pouce « Rénovation d’ampleur des maisons et appartements individuels » s'inscrit dans le cadre du dispositif des certificats d'économies d'énergie (CEE).
 
-    Il s'adresse aux ménages non-éligibles aux aides de l'ANAH ou de France Rénov', notamment les propriétaires de résidence secondaire et les personnes morales.
+    Il s'adresse aux ménages non éligibles aux aides de l'ANAH ou de France Rénov', notamment les propriétaires de résidence secondaire et les personnes morales.
   conditions éligibilités: |
     Les travaux sont définis par une étude énergétique préalable et s'inscrivent dans le cadre d'une rénovation thermique d'ampleur des logements relevant de fiche d'opération standardisée, consistant à mettre en œuvre un bouquet de travaux optimal sur le plan technico-économique.
   comment faire: |
