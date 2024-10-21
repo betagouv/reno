@@ -271,7 +271,6 @@ angers . conditions de base:
     - conditions géo
 
 angers . montant:
-  titre: Aides totales
   remplace: intercommunalité
   somme:
     - aides socles . montant
