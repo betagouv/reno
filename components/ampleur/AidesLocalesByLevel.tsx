@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { No, Yes } from '../ResultUI'
 import { Card } from '../UI'
 import ExplicationAngers from '../mpra/locales/ExplicationAngers'
-import { InformationBlock } from './AideAmpleur'
 
 export default function AidesLocalesByLevel({
   aides,
@@ -11,6 +10,7 @@ export default function AidesLocalesByLevel({
   engine,
   situation,
   rules,
+  expanded,
 }) {
   const activeAide = aides.find((aide) => aide.level === level)
 
@@ -23,46 +23,61 @@ export default function AidesLocalesByLevel({
           display: inline-block;
           margin-right: 0.6rem;
         }
+        header {
+          font-weight: bold;
+          font-size: 90%;
+          color: var(--color);
+        }
+        header + section {
+          display: inline-block;
+        }
+        em {
+          text-wrap: wrap;
+        }
       `}
     >
-      <header>{level.charAt(0).toUpperCase() + level.substring(1)} :</header>
+      <header>{level.charAt(0).toUpperCase() + level.substring(1)}</header>
       {!activeAide ? (
         <p>aucune aide trouvée</p>
       ) : activeAide.nodeValue > 0 ? (
         <section>
           <p>
-            <Yes>Il y a une aide pour {activeAide.name}</Yes>
+            <Yes>{activeAide.name}</Yes>
           </p>
-          <Card $background="#f7f8f8">
-            <div
-              css={`
-                display: flex;
-                align-items: center;
-                margin-top: 1rem;
-              `}
-            >
-              <Image
-                src={calculatorIcon}
-                alt="Icône calculette"
+          {expanded && (
+            <Card $background="#f7f8f8">
+              <div
                 css={`
-                  width: 3rem !important;
-                  height: auto !important;
-                  margin-right: 0.8rem !important;
+                  display: flex;
+                  align-items: center;
+                  margin-top: 1rem;
                 `}
-              />
-              {activeAide.dottedName.startsWith('aides locales . angers') ? (
-                <ExplicationAngers {...{ engine, situation }} />
-              ) : (
-                // TODO connect the locale/Place component here, injecting the user situation and handling the fast that it's a wide explanation that should be folded by default, giving only the total amount before click
-                <div>
-                  <p>Nous n'avons pas encore le détail de cette aide.</p>
-                  <p
-                    dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
-                  />
-                </div>
-              )}
-            </div>
-          </Card>
+              >
+                <Image
+                  src={calculatorIcon}
+                  alt="Icône calculette"
+                  css={`
+                    width: 3rem !important;
+                    height: auto !important;
+                    margin-right: 0.8rem !important;
+                  `}
+                />
+                {activeAide.dottedName.startsWith('aides locales . angers') ? (
+                  <ExplicationAngers {...{ engine, situation }} />
+                ) : (
+                  // TODO connect the locale/Place component here, injecting the user situation and handling the fast that it's a wide explanation that should be folded by default, giving only the total amount before click
+                  <div>
+                    <p>
+                      Nous n'avons pas encore le détail du calcul de cette aide.
+                    </p>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+                    />
+                  </div>
+                )}
+              </div>
+            </Card>
+          )}
         </section>
       ) : (
         <p>

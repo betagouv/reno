@@ -27,8 +27,7 @@ export default function AideAmpleur({
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const rule = rules[dottedName]
-  const isFavorite = rule.favorite === 'oui',
-    marque2 = rule['complément de marque'],
+  const marque2 = rule['complément de marque'],
     title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
   const style = aideStyles[rule['type']] || {}
 

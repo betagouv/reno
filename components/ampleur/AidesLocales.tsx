@@ -94,11 +94,18 @@ export default function AidesLocales({
         <p>
           <strong>Nous ne disposons pas d'informations</strong> sur les aides
           locales de votre commune{' '}
-          <Key $state={'prime-black'}>{communeName}</Key>.
+          <Key $state={'prime-black'}>{communeName || commune}</Key>.
         </p>
       </AideAmpleur>
     )
 
+  const activeLevels = levels.filter((level) => {
+    const activeAide = aides.find((aide) => aide.level === level)
+    const rule = activeAide && rules[activeAide.dottedName]
+    return rule != null
+  })
+  const num = activeLevels.length,
+    plural = num > 1 ? 's' : ''
   return (
     <AideAmpleur
       {...{
@@ -110,13 +117,21 @@ export default function AidesLocales({
         expanded,
       }}
     >
+      <p>
+        Il existe au moins {num} aide{plural} locale{plural} sur votre
+        territoire.
+      </p>
       <ul>
-        {levels.map((level) => (
-          <AidesLocalesByLevel
-            {...{ aides, level, situation, engine, rules }}
-            key={level}
-          />
-        ))}
+        {activeLevels
+          .map((level) => {
+            return (
+              <AidesLocalesByLevel
+                {...{ aides, level, situation, engine, rules, expanded }}
+                key={level}
+              />
+            )
+          })
+          .filter(Boolean)}
       </ul>
     </AideAmpleur>
   )
