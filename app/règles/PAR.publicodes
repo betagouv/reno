@@ -11,11 +11,7 @@ PAR:
     -  À taux zéro pendant 10 ans grâce à l'État, puis au taux négocié
     - Vous le remboursez lors de la vente du bien ou de votre succession
     - Cumul possible avec l'éco-PTZ à condition de financer des postes de travaux différents.
-  paiement: |
 
-    L'établissement prêteur peut décider de verser le prêt en une ou plusieurs fois sur la base du descriptif et des devis détaillés des travaux à réaliser, ou bien à la fin des travaux.
-
-    Dans ce cas, vous devrez avancer les frais pour les réaliser.
   comment faire: |
     Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
                     sont couverts</a> par ce dispositif.
@@ -29,7 +25,9 @@ PAR:
   montant: |
     Jusqu'à 50 000 € d'emprunt pour une rénovation d'ampleur : viser un DPE E au minimum et un gain énergétique de 35%.
   description: |
-    Vous pouvez obtenir sous certaines conditions un prêt avance mutation avec **un taux zéro pendant 10 ans**.
+    Le Prêt Avance Rénovation à taux zéro (PAR+) est un prêt hypothécaire permettant aux propriétaires de financer des travaux de rénovation énergétique dans leur logement.
+
+    Son remboursement s’effectue in fine, c'est-à-dire en une seule fois, lors de la revente du bien ou au moment de la succession.
 
 PAR . conditions:
 PAR . conditions . communes:
@@ -80,4 +78,3 @@ PAR . montant:
       - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
 PAR . durée: 10 an
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
-
