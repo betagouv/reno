@@ -10,8 +10,6 @@ import Answers from '@/app/simulation/Answers'
 import { useIsCompact } from './useIsInIframe'
 import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
-import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
-import { omit } from './utils'
 import BackToLastQuestion from './BackToLastQuestion'
 
 export default function Eligibility({
@@ -95,50 +93,12 @@ export default function Eligibility({
         {noMpr && !ceeConditions && (
           <p>
             Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
-            éligible, mais vous pouvez explorer les aides listées ci-dessous qui
-            ne sont pas encore calculées par Mes Aides Réno.
+            éligible.
           </p>
         )}
-        {noMpr && ceeConditions && (
+        {some && (
           <p>
-            <Yes>
-              <a href="#parcours-gestes">Vous êtes éligible</a>
-            </Yes>{' '}
-            au parcours par geste via le dispositif CEE.
-            <br />
-            Cependant, vous n'êtes{' '}
-            <No>
-              <a href="#parcours-ampleur">pas éligible</a>
-            </No>{' '}
-            à MaPrimeRénov'.
-          </p>
-        )}
-        {!noMpr && !mpra && (
-          <p>
-            <Yes>
-              <a href="#parcours-gestes">Vous êtes éligible</a>
-            </Yes>{' '}
-            au parcours par geste (MaPrimeRénov' et CEE).
-            <br />
-            Cependant, vous n'êtes{' '}
-            <No>
-              <a href="#parcours-ampleur">pas éligible</a>
-            </No>{' '}
-            au parcours accompagné.
-          </p>
-        )}
-        {!noMpr && !mprg && (
-          <p>
-            Vous êtes{' '}
-            <Yes>
-              <a href="#parcours-ampleur">éligible</a>
-            </Yes>{' '}
-            au parcours accompagné, vous êtes aussi{' '}
-            <Yes>
-              <a href="#parcours-gestes">éligible</a>
-            </Yes>{' '}
-            au parcours par geste mais seulement via le dispositif CEE. Vous
-            devez choisir l'un des deux parcours.
+            <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
           </p>
         )}
         {both && (

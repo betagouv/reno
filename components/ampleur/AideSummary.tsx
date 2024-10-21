@@ -89,12 +89,7 @@ export const AideSummary = ({
                 height="25"
               />
             )}
-            {text &&
-              (text === "MaPrimeRénov'" ? (
-                <strong css="color: var(--darkColor0)">{text}</strong>
-              ) : (
-                <span>{text}</span>
-              ))}
+            {text && <span>{text}</span>}
             {text2 && (
               <>
                 {text && <span css="color: #aaa">-</span>}
@@ -162,7 +157,9 @@ export const AideSummary = ({
           )}
         </div>
       )}
-      {!status && <p>{computeStatusTitle(status)}</p>}
+      {!status && (
+        <PrimeStyle $inactive={true}>{computeStatusTitle(status)}</PrimeStyle>
+      )}
     </details>
   )
 }

@@ -37,32 +37,11 @@ export const createExampleSituation = (engine, situation, extreme = false) => {
   return exampleSituation
 }
 
-export const getNeSaisPasEtNonEligibles = (aides) =>
-  sortBy((aide) => (aide.status === null ? 1 : 2))(
-    aides.filter((aide) => aide.status !== true),
-  )
-
-export default function AmpleurSummary({
-  engine,
-  url,
-  situation,
-  expanded,
-  setSearchParams,
-}) {
+export default function AmpleurSummary({ engine, url, situation }) {
   const extremeSituation = createExampleSituation(engine, situation, true)
 
-  const evaluation = engine
-    .setSituation(extremeSituation)
-    .evaluate('ampleur . montant')
-
-  const value = formatValue(evaluation, { precision: 0 })
-
   const aides = useAides(engine, extremeSituation)
-
-  const expand = () =>
-    setSearchParams({ details: expanded ? undefined : 'oui' })
-
-  const neSaisPasEtNonEligibles = getNeSaisPasEtNonEligibles(aides)
+  const hasAides = aides.filter((aide) => aide.status === true).length > 0
 
   return (
     <Card
@@ -96,12 +75,13 @@ export default function AmpleurSummary({
       <CTAWrapper $justify="center">
         <CTA
           $fontSize="normal"
+          $importance={!hasAides ? 'inactive' : ''}
           css={`
             width: 100%;
             text-align: center;
           `}
         >
-          <Link href={url}>Voir le parcours en détails</Link>
+          <Link href={hasAides ? url : ''}>Voir le parcours en détails</Link>
         </CTA>
       </CTAWrapper>
 
@@ -134,7 +114,11 @@ export default function AmpleurSummary({
       </p>
       {aides
         .filter((aide) => {
-          if (aide.status !== true) return false
+          if (
+            aide.status !== true &&
+            aide.baseDottedName !== 'MPR . accompagnée'
+          )
+            return false
           return ![
             'ampleur . prime individuelle copropriété',
             'MPR . accompagnée . prise en charge MAR',

@@ -2,8 +2,6 @@ import Link from 'next/link'
 import { CTA, CTAWrapper, Card } from './UI'
 import checkIcon from '@/public/check.svg'
 import GestesPreview from './mprg/GestesPreview'
-import { ExplicationMPRG, InapplicableBlock } from './explications/Éligibilité'
-import { push } from '@socialgouv/matomo-next'
 import { Labels } from '@/app/LandingUI'
 import DPELabel from './DPELabel'
 
@@ -13,7 +11,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
     'MPR . non accompagnée . conditions excluantes',
   ).nodeValue
   const eligibleCEE = engine.evaluate('CEE . conditions').nodeValue
-
+  const hasAide = (eligibleMPRG && !revenuNonEligibleMPRG) || eligibleCEE
   return (
     <Card
       css={`
@@ -37,12 +35,13 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
       <CTAWrapper $justify="center">
         <CTA
           $fontSize="normal"
+          $importance={!hasAide ? 'inactive' : ''}
           css={`
             width: 100%;
             text-align: center;
           `}
         >
-          <Link href={url}>Voir les 20 aides disponibles</Link>
+          <Link href={hasAide ? url : ''}>Voir les 20 travaux disponibles</Link>
         </CTA>
       </CTAWrapper>
 
@@ -70,25 +69,29 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
         </li>
         <li>Vous souhaitez choisir librement parmi les aides disponibles</li>
       </ul>
-      <p
-        css={`
-          margin: 1rem 0 0 0;
-          font-weight: bold;
-        `}
-      >
-        Des exemples de gestes :
-      </p>
-      <GestesPreview
-        {...{
-          rules,
-          dottedNames: [
-            'gestes . chauffage . PAC . air-eau',
-            'gestes . isolation . murs extérieurs',
-          ],
-          engine,
-          situation,
-        }}
-      />
+      {hasAide && (
+        <>
+          <p
+            css={`
+              margin: 1rem 0 0 0;
+              font-weight: bold;
+            `}
+          >
+            Des exemples de gestes :
+          </p>
+          <GestesPreview
+            {...{
+              rules,
+              dottedNames: [
+                'gestes . chauffage . PAC . air-eau',
+                'gestes . isolation . murs extérieurs',
+              ],
+              engine,
+              situation,
+            }}
+          />
+        </>
+      )}
       {/* {revenuNonEligibleMPRG && (
         <ExplicationMPRG {...{ engine, situation }} />
       )}
