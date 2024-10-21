@@ -21,12 +21,14 @@ chauffage . pilotage connecté:
   description: |
     Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
 chauffage . pilotage connecté . montant: CEE . montant
-chauffage . pilotage connecté . surface chauffée: logement . surface
+chauffage . pilotage connecté . surface chauffée:
+  logement . surface
   #question: Quelle est la surface chauffée de votre logement ?
   #par défaut: 100 m2 # estimation sur base de "surface" + ~10 % pour les escaliers, les combles habitées, etc
   #description: |
   #  Nous faisons dans un premier temps la simplification surface chauffée = surface habitable. Dans un second temps pour calculer cette aide précise, il faudra renseigner la surface chauffée.
 chauffage . pilotage connecté . CEE:
+  applicable si: CEE . conditions
   code: BAR-TH-173
   titre: Système de régulation par programmation horaire pièce par pièce
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-173%20vA56-1%20à%20compter%20du%2030-11-2023.pdf
@@ -38,7 +40,7 @@ chauffage . pilotage connecté . CEE:
     - **tous les réglages**, y compris les programmations horaires par pièce et l'exécution de ces programmes, peuvent **s'effectuer en local** a minima. Les équipements permettent à l'occupant de déroger localement à ces consignes. Le dispositif de régulation continue de fonctionner en cas de perte de connexion Internet.  
       
     <br />On entend par **classe B** au sens de la norme NF EN ISO 52120-1, une régulation modulante individuelle par pièce du signal de régulation et communication entre les régulateurs et l'appareil central.  
-    On entend par **classe A** au sens de la norme NF EN ISO 52120-1, une régulation modulante individuelle par pièce du signal de régulation entre les régulateurs et l'appareil central, **avec une détection d'occupation par pièce**.  
+    On entend par **classe A** au sens de la norme NF EN ISO 52120-1, une régulation modulante individuelle par pièce du signal de régulation entre les régulateurs et l'appareil central, **avec une détection d'occupation par pièce**.
 chauffage . pilotage connecté . CEE . montant:
   produit:
     - facteur correctif région
@@ -62,10 +64,10 @@ chauffage . pilotage connecté . CEE . classe:
       - A
 chauffage . pilotage connecté . CEE . classe . A:
   valeur: "'A'"
-  titre: "A (avec détecteur de présence)"
+  titre: 'A (avec détecteur de présence)'
 chauffage . pilotage connecté . CEE . classe . B:
   valeur: "'B'"
-  titre: "B (sans détecteur de présence)"
+  titre: 'B (sans détecteur de présence)'
 chauffage . pilotage connecté . CEE . facteur correctif région:
   variations:
     - si:
@@ -162,9 +164,13 @@ chauffage . chauffe-eau thermodynamique:
   par défaut: oui
   titre: Chauffe-eau thermodynamique
 chauffage . chauffe-eau thermodynamique . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 chauffage . chauffe-eau thermodynamique . MPR:
 chauffage . chauffe-eau thermodynamique . MPR . plafond:
   valeur: 3500 €
@@ -185,8 +191,9 @@ chauffage . chauffe-eau thermodynamique . CEE:
   technique: |
     Le **COP** de l'équipement mesuré conformément aux conditions de la norme EN 16147 est :
       - **supérieur à 2,5** pour une **installation sur air extrait** ; 
-      - **supérieur à 2,4** pour **toutes autres installations**. 
+      - **supérieur à 2,4** pour **toutes autres installations**.
 chauffage . chauffe-eau thermodynamique . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac

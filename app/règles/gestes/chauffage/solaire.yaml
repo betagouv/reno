@@ -1,4 +1,3 @@
-
 chauffage . solaire:
   titre: Solaire
 chauffage . solaire . chauffe-eau solaire:
@@ -7,9 +6,13 @@ chauffage . solaire . chauffe-eau solaire:
   description: |
     Et dispositifs solaires pour le chauffage de l'eau.
 chauffage . solaire . chauffe-eau solaire . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 chauffage . solaire . chauffe-eau solaire . MPR:
 chauffage . solaire . chauffe-eau solaire . MPR . plafond: 7000 €
 chauffage . solaire . chauffe-eau solaire . MPR . montant:
@@ -28,11 +31,12 @@ chauffage . solaire . chauffe-eau solaire . CEE:
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-101.pdf
   technique: |
     Les capteurs hybrides sont exclus. 
-    
+
     Les capteurs solaires ont : 
       - une certification **CSTBat** ou **SolarKeymark** ; 
-      - ou des caractéristiques de performances et de qualité équivalentes, établies par un organisme établi dans l'Espace Economique Européen et accrédité selon les normes **NF EN ISO/CEI 17025** et **NF EN 45011** par le Comité Français d'Accréditation (COFRAC) ou tout autre organisme d'accréditation signataire de l'accord européen multilatéral pertinent pris dans le cadre de European co-operation for Accreditation (EA), coordination européenne des organismes d'accréditation. 
+      - ou des caractéristiques de performances et de qualité équivalentes, établies par un organisme établi dans l'Espace Economique Européen et accrédité selon les normes **NF EN ISO/CEI 17025** et **NF EN 45011** par le Comité Français d'Accréditation (COFRAC) ou tout autre organisme d'accréditation signataire de l'accord européen multilatéral pertinent pris dans le cadre de European co-operation for Accreditation (EA), coordination européenne des organismes d'accréditation.
 chauffage . solaire . chauffe-eau solaire . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac
@@ -54,6 +58,10 @@ chauffage . solaire . solaire combiné:
 
     Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d'un chauffage central. Quand il fait également la production d'eau chaude, il est appelé  système solaire combiné (SSC)
 chauffage . solaire . solaire combiné . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - Coup de pouce . montant
@@ -72,7 +80,10 @@ chauffage . solaire . solaire combiné . MPR . montant:
     - sinon: 0 €
 chauffage . solaire . solaire combiné . Coup de pouce:
 chauffage . solaire . solaire combiné . Coup de pouce . montant:
-  applicable si: CEE . projet . remplacement chaudière thermique
+  applicable si:
+    toutes ces conditions:
+      - CEE . projet . remplacement chaudière thermique
+      - CEE . conditions
   rend non applicable: CEE . montant
   valeur: 5000 €
 chauffage . solaire . solaire combiné . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
@@ -90,8 +101,9 @@ chauffage . solaire . solaire combiné . CEE:
       
     La **surface** hors tout de capteurs installés est **supérieure ou égale à 8 m²**.  
       
-    Les capteurs installés sont associés à un ou plusieurs ballon(s) d'eau chaude solaire(s). La **capacité de stockage** du ou des ballons d'eau chaude solaires est strictement **supérieure à 400 litres**. 
+    Les capteurs installés sont associés à un ou plusieurs ballon(s) d'eau chaude solaire(s). La **capacité de stockage** du ou des ballons d'eau chaude solaires est strictement **supérieure à 400 litres**.
 chauffage . solaire . solaire combiné . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac
@@ -111,9 +123,13 @@ chauffage . solaire . partie thermique PVT eau:
   description: |
     Et dispositifs solaires pour le chauffage des locaux.
 chauffage . solaire . partie thermique PVT eau . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 chauffage . solaire . partie thermique PVT eau . MPR:
 chauffage . solaire . partie thermique PVT eau . MPR . plafond: 4000 €
 chauffage . solaire . partie thermique PVT eau . MPR . montant:
@@ -137,8 +153,9 @@ chauffage . solaire . partie thermique PVT eau . CEE:
       
     Ils possèdent une certification **CSTBat ou SolarKeymark**, ou une certification des caractéristiques de performances et de qualité équivalentes dès lors que cette certification repose sur les normes NF EN 12975 ou NF EN 12976 et qu'elle est mentionnée comme telle sur la facture ou une attestation fournie par l'entreprise.  
       
-    La **surface totale** de capteurs installés est **au minimum de 6 m²**. 
+    La **surface totale** de capteurs installés est **au minimum de 6 m²**.
 chauffage . solaire . partie thermique PVT eau . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - 20900
     - CEE . prix kWh Cumac

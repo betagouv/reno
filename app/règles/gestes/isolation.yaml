@@ -12,6 +12,10 @@ isolation . vitres:
   description: Isolation thermique des parois vitrées (fenêtres et portes-fenêtres) en remplacement de simple vitrage
   par défaut: oui
 isolation . vitres . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - CEE . montant
@@ -59,6 +63,7 @@ isolation . vitres . CEE . surface:
   par défaut: 4 m2
   unité: m2
 isolation . vitres . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - surface
@@ -77,6 +82,10 @@ isolation . murs extérieurs:
   titre: Isolation des murs par l'extérieur
   par défaut: oui
 isolation . murs extérieurs . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - CEE . montant
@@ -90,8 +99,8 @@ isolation . murs extérieurs . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   produit:
     - le minimum de:
-      - surface
-      - 100 m2
+        - surface
+        - 100 m2
     - barème
 isolation . murs extérieurs . MPR . question: surface
 isolation . murs extérieurs . MPR . barème:
@@ -106,14 +115,15 @@ isolation . murs extérieurs . MPR . barème:
 isolation . murs extérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
-  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
   technique: |
-    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m2.K/W**. 
+    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m2.K/W**.
 isolation . murs extérieurs . CEE . question:
   type: liste
   valeurs:
-  - MPR . surface
+    - MPR . surface
 isolation . murs extérieurs . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - MPR . surface
     - barème
@@ -132,6 +142,10 @@ isolation . murs intérieurs:
   titre: Isolation des murs par l'intérieur
   par défaut: oui
 isolation . murs intérieurs . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - CEE . montant
@@ -159,14 +173,15 @@ isolation . murs intérieurs . MPR . barème:
 isolation . murs intérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
-  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
   technique: |
-    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m².K/W**. 
+    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m².K/W**.
 isolation . murs intérieurs . CEE . question:
   type: liste
   valeurs:
-  - MPR . surface
+    - MPR . surface
 isolation . murs intérieurs . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - MPR . surface
     - barème
@@ -185,6 +200,10 @@ isolation . rampants:
   titre: Isolation des rampants de toiture ou plafonds de combles
   par défaut: oui
 isolation . rampants . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - CEE . montant
@@ -194,7 +213,7 @@ isolation . rampants . MPR . surface:
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . rampants . MPR . plafond: 75 €/m2
-isolation . rampants . MPR . montant: 
+isolation . rampants . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   produit:
     - surface
@@ -216,8 +235,9 @@ isolation . rampants . CEE:
   technique: |
     La résistance thermique **R** de l'isolation installée est supérieure ou égale à : 
       - 7 m².K/W en comble perdu ; 
-      - 6 m².K/W en rampant de toiture. 
+      - 6 m².K/W en rampant de toiture.
 isolation . rampants . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - MPR . surface
     - barème
@@ -236,9 +256,13 @@ isolation . toitures terrasses:
   titre: Isolation thermique des toitures terrasses
   par défaut: oui
 isolation . toitures terrasses . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 isolation . toitures terrasses . MPR:
 isolation . toitures terrasses . MPR . question: surface
 isolation . toitures terrasses . MPR . surface:
@@ -246,7 +270,7 @@ isolation . toitures terrasses . MPR . surface:
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . toitures terrasses . MPR . plafond: 180 €/m2
-isolation . toitures terrasses . MPR . montant: 
+isolation . toitures terrasses . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   produit:
     - surface
@@ -262,11 +286,12 @@ isolation . toitures terrasses . MPR . barème:
     - sinon: 0 €
 isolation . toitures terrasses . CEE:
   code: BAR-EN-105
-  titre: Isolation des toitures terrasses 
+  titre: Isolation des toitures terrasses
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-105%20vA39-3%20%C3%A0%20compter%20du%2001-05-2022.pdf
   technique: |
-    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **4,5 m².K/W**. 
+    La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **4,5 m².K/W**.
 isolation . toitures terrasses . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - MPR . surface
     - barème
@@ -291,16 +316,17 @@ isolation . plancher bas . CEE:
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-103%20vA39-5%20%C3%A0%20compter%20du%2001-05-2022.pdf
   technique: |
     La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3 m².K/W**.
-isolation . plancher bas . CEE . montant: 
+isolation . plancher bas . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - surface
     - CEE . prix kWh Cumac
   unité: €
-isolation . plancher bas . CEE . question: 
+isolation . plancher bas . CEE . question:
   type: liste
-  valeurs: 
-  - surface
+  valeurs:
+    - surface
 isolation . plancher bas . CEE . surface:
   question: Quelle surface de plancher voulez-vous isoler ?
   par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
@@ -313,7 +339,6 @@ isolation . plancher bas . CEE . barème:
       alors: 890
     - si: CEE . région = 'H3'
       alors: 590
-
 #TODO Outre-mer
 # Protection des parois vitrées ou opaques contre le rayonnement solaire
 

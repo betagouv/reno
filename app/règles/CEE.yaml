@@ -18,7 +18,7 @@ CEE . conditions:
   toutes ces conditions:
     # propriétaires ou locataires
     # résidence principales ou secondaire
-    - CEE . logement . condition d'ancienneté
+    - logement . condition d'ancienneté
 
 CEE . projet:
 CEE . projet . remplacement chaudière thermique:
