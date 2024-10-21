@@ -48,6 +48,10 @@ export default function CEEAmpleurScenario({
         damping: 20,
       }}
     >
+      <DPEQuickSwitch
+        oldIndex={situation['DPE . actuel'] - 1}
+        situation={situation}
+      />
       <Card
         css={`
           padding: 1rem;
@@ -60,7 +64,6 @@ export default function CEEAmpleurScenario({
           img {
             width: 1.5rem;
             height: auto;
-            margin-right: 1rem;
           }
 
           text-align: left;
@@ -74,12 +77,7 @@ export default function CEEAmpleurScenario({
         `}
       >
         <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
-          situation={situation}
-        />
-        ,{' '}
-        <DPEQuickSwitch
-          prefixText={'en visant un '}
+          prefixText={'En visant un '}
           dottedName="projet . DPE visé"
           possibilities={possibilities}
           oldIndex={
