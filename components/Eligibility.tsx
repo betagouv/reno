@@ -12,6 +12,7 @@ import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import { omit } from './utils'
+import BackToLastQuestion from './BackToLastQuestion'
 
 export default function Eligibility({
   setSearchParams,
@@ -53,6 +54,7 @@ export default function Eligibility({
     some = mpra || mprg || ceeConditions
 
   const showPersonaBar = searchParams.personas != null
+
   return (
     <section
       css={`
@@ -76,12 +78,8 @@ export default function Eligibility({
             }}
           />
         )}
-        <BtnBackToParcoursChoice
-          {...{
-            setSearchParams,
-            situation: omit(['DPE . actuel'], situation),
-            answeredQuestions,
-          }}
+        <BackToLastQuestion
+          {...{ setSearchParams, situation, answeredQuestions }}
         />
         <header>
           <small>Eligibilité</small>

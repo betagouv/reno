@@ -70,7 +70,11 @@ function Form({ rules }) {
       <Section>
         {isInIframe && isCompact && (
           <>
-            <LogoCompact css={`float: right;`} />
+            <LogoCompact
+              css={`
+                float: right;
+              `}
+            />
             <Stepper
               {...{
                 answeredQuestions,
@@ -82,8 +86,7 @@ function Form({ rules }) {
             />
           </>
         )}
-        {!isCompact && 
-         !(firstLevelCategory(currentQuestion) === 'projet') && (
+        {!isCompact && !(firstLevelCategory(currentQuestion) === 'projet') && (
           <div>
             <Answers
               {...{
@@ -135,22 +138,30 @@ function Form({ rules }) {
           </p>
         </Section>
       )}
-      { isCompact && (
-        <div css={`
-          display: flex; 
-          align-items: center;
-        `}>
+      {isCompact && (
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+          `}
+        >
           <a href="https://france-renov.gouv.fr" target="_blank">
-            <Image src={logoFranceRenov} alt="Logo de France Rénov" width="80" />
+            <Image
+              src={logoFranceRenov}
+              alt="Logo de France Rénov"
+              width="80"
+            />
           </a>
-          <p css={`
-            font-size: 0.7rem;
-            margin: 0;
-            margin-left: 10px;
-            line-height: 1rem;
-          `}>
-            Une initiative construite avec France&nbsp;Rénov' pour
-            simplifier l'information sur les aides à la rénovation énergétique.
+          <p
+            css={`
+              font-size: 0.7rem;
+              margin: 0;
+              margin-left: 10px;
+              line-height: 1rem;
+            `}
+          >
+            Une initiative construite avec France&nbsp;Rénov' pour simplifier
+            l'information sur les aides à la rénovation énergétique.
           </p>
         </div>
       )}
