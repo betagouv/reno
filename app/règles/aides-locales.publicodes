@@ -10,7 +10,8 @@
 '':
   marque: Aides locales
   description: |
-    Chaque collectivité française (commune, communauté de communes, métropole, département) est libre d'ajouter sa part aux subventions publiques pour la rénovation energétique.
+    Certaines collectivités encouragent les démarches de rénovation énergétique avec des aides spécifiques, appelées aides locales. Ces aides peuvent être proposées à l'échelle de votre commune, communauté de communes, département, région).
+
   avec:
     commune: 0 €
     intercommunalité: 0 €
