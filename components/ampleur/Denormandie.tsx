@@ -135,6 +135,14 @@ export default function Denormandie({
                     li {
                       cursor: pointer;
                       margin: 0.5rem 0;
+                      display: flex;
+                      align-items: center;
+                      label {
+                        padding: 0.5rem;
+                      }
+                      input {
+                        min-width: 2rem;
+                      }
                     }
                   `}
                 >
@@ -145,30 +153,36 @@ export default function Denormandie({
                       const dottedName = 'denormandie . années de location'
                       const selected = années == situation[dottedName]
                       return (
-                        <label
-                          key={si || 'default'}
-                          css={`
-                            ${selected &&
-                            `
-
-								  padding: 0.5rem;background: #e9e9e9; border: 1px dashed black;  width: fit-content;
-								  
-
-								  `}
-                            display: block
-                          `}
+                        <li
                           onClick={() =>
                             setSearchParams({
                               [encodeDottedName(dottedName)]: années,
                             })
                           }
                         >
-                          <input type="radio" checked={selected} />
-                          Pour une période de location de{' '}
-                          <strong> {années} ans </strong> : la réduction d'impôt
-                          s'élève à <strong>{alors || sinon}</strong> du prix du
-                          bien
-                        </label>
+                          <input
+                            id={`${années}ans`}
+                            type="radio"
+                            checked={selected}
+                          />
+                          <label
+                            key={si || 'default'}
+                            htmlFor={`${années}ans`}
+                            css={`
+                              ${selected &&
+                              `
+                                background: #e9e9e9; 
+                                border: 1px dashed black;  
+                                width: fit-content;
+                              `}
+                              display: block
+                            `}
+                          >
+                            Pour une durée de location de{' '}
+                            <strong> {années} ans </strong> : réduction d'impôt
+                            de <strong>{alors || sinon}</strong> du prix du bien
+                          </label>
+                        </li>
                       )
                     })}
                 </ol>
