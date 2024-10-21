@@ -35,16 +35,16 @@ export default function CEEAmpleur({
           <p>
             Le montant des CEE est calculé en fonction de la performance visé et
             de la surface habitable du logement.
-            <CEEAmpleurScenario
-              {...{
-                rules,
-                engine,
-                situation,
-                setSearchParams,
-                answeredQuestions,
-              }}
-            />
           </p>
+          <CEEAmpleurScenario
+            {...{
+              rules,
+              engine,
+              situation,
+              setSearchParams,
+              answeredQuestions,
+            }}
+          />
 
           <h3>Les principales conditions d'éligibilité ?</h3>
           <div

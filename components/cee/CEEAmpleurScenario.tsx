@@ -37,8 +37,6 @@ export default function CEEAmpleurScenario({
     setSearchParams(newSituation, 'push')
   }
 
-  console.log('possibilities', possibilities)
-
   return (
     <motion.div
       initial={{ x: -30, scale: 1 }}
@@ -58,12 +56,6 @@ export default function CEEAmpleurScenario({
           z-index: 42;
           position: relative;
           text-align: center;
-          input {
-            width: 8rem; /* width of "votre apport"*/
-            height: 1.6rem !important;
-            text-align: right;
-            margin-left: 0.2rem;
-          }
           max-width: 100%;
           img {
             width: 1.5rem;
@@ -81,32 +73,32 @@ export default function CEEAmpleurScenario({
           }
         `}
       >
-        <p>
-          <DPEQuickSwitch
-            oldIndex={situation['DPE . actuel'] - 1}
-            situation={situation}
-          />
-          ,{' '}
-          <DPEQuickSwitch
-            prefixText={'en visant un '}
-            oldIndex={
-              situation['DPE . visé'] - 1
-                ? situation['DPE . visé'] - 1
-                : possibilities.length
-            }
-            situation={situation}
-          />
-          , vous bénéficiez d'une prime estimée de{' '}
-          <Value
-            {...{
-              engine,
-              index: choice,
-              situation,
-              dottedName: "CEE . rénovation d'ampleur . montant",
-              state: 'prime',
-            }}
-          />
-        </p>
+        <DPEQuickSwitch
+          oldIndex={situation['DPE . actuel'] - 1}
+          situation={situation}
+        />
+        ,{' '}
+        <DPEQuickSwitch
+          prefixText={'en visant un '}
+          dottedName="projet . DPE visé"
+          possibilities={possibilities}
+          oldIndex={
+            situation['projet . DPE visé']
+              ? situation['projet . DPE visé'] - 1
+              : possibilities.length - 1
+          }
+          situation={situation}
+        />
+        , vous bénéficiez d'une prime estimée de{' '}
+        <Value
+          {...{
+            engine,
+            index: choice,
+            situation,
+            dottedName: "CEE . rénovation d'ampleur . montant",
+            state: 'prime',
+          }}
+        />
       </Card>
     </motion.div>
   )

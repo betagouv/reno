@@ -14,29 +14,24 @@ export const originKey = 'DPE . actuel',
 export default function ({
   oldIndex,
   prefixText,
+  possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
   situation = null,
 }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
   const text = prefixText === undefined ? 'Vous avez déclaré un ' : prefixText
-
   const newSituation = (index) => {
     const simpleChange = { [dottedName]: index + 1 }
-    if (dottedName === originKey && situation) {
-      const targetDPE = situation[targetKey]
-      if (!targetDPE) return simpleChange
+    const targetDPE = situation[targetKey]
+    if (!targetDPE) return simpleChange
 
-      const newTargetDPE =
-        getAmpleurDPEChoice({
-          ...situation,
-          ...simpleChange,
-        }) + 1
-
-      return { ...simpleChange, [targetKey]: newTargetDPE }
-    }
-
-    return simpleChange
+    const newTargetDPE =
+      getAmpleurDPEChoice({
+        ...situation,
+        ...simpleChange,
+      }) + 1
+    return { ...simpleChange, [targetKey]: newTargetDPE }
   }
 
   return (
@@ -50,7 +45,7 @@ export default function ({
             }
           `}
         >
-          {[0, 1, 2, 3, 4, 5, 6].map((index) => (
+          {possibilities.map((it, index) => (
             <Link
               onClick={() => setEditing(false)}
               scroll={false}
