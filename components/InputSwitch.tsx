@@ -203,12 +203,10 @@ export default function InputSwitch({
                   'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
-                  'taxe foncière . commune . éligible . ménage': result.eligibilite[
-                    'taxe foncière . commune . éligible'
-                  ],
-                  'taxe foncière . commune . taux': result.eligibilite[
-                    'taxe foncière . commune . taux'
-                  ],
+                  'taxe foncière . commune . éligible . ménage':
+                    result.eligibilite['taxe foncière . commune . éligible'],
+                  'taxe foncière . commune . taux':
+                    result.eligibilite['taxe foncière . commune . taux'],
                   'logement . commune . denormandie':
                     result.eligibilite['logement . commune . denormandie'],
                 },
@@ -250,12 +248,10 @@ export default function InputSwitch({
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
                   'logement . commune . nom': `"${result.nom}"`,
-                  'taxe foncière . commune . éligible . logement': result.eligibilite[
-                    'taxe foncière . commune . éligible'
-                  ],
-                  'taxe foncière . commune . taux': result.eligibilite[
-                    'taxe foncière . commune . taux'
-                  ],
+                  'taxe foncière . commune . éligible . logement':
+                    result.eligibilite['taxe foncière . commune . éligible'],
+                  'taxe foncière . commune . taux':
+                    result.eligibilite['taxe foncière . commune . taux'],
                   'logement . commune . denormandie':
                     result.eligibilite['logement . commune . denormandie'],
                 },
@@ -313,43 +309,46 @@ export default function InputSwitch({
       />
     )
   }
-  
-  
-  if(searchParams["details"] && searchParams["details"] == "synthese") {
-    return (<>
-      <AideSynthese
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          correspondance,
-          nextQuestions
-        }}
-      />
-      <Feedback title={"Ce simulateur a-t-il été utile ?"} />
-    </>)
+
+  if (searchParams['details'] && searchParams['details'] == 'synthese') {
+    return (
+      <>
+        <AideSynthese
+          {...{
+            currentQuestion,
+            searchParams,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            correspondance,
+            nextQuestions,
+          }}
+        />
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+      </>
+    )
   }
 
-  if(searchParams["details"]) {
-    return (<>
-      <AideDetails
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          correspondance,
-          nextQuestions
-        }}
-      />
-      <Feedback title={"Ce simulateur a-t-il été utile ?"} />
-    </>)
+  if (searchParams['details']) {
+    return (
+      <>
+        <AideDetails
+          {...{
+            currentQuestion,
+            searchParams,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+            correspondance,
+            nextQuestions,
+          }}
+        />
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+      </>
+    )
   }
 
   if (
@@ -368,7 +367,7 @@ export default function InputSwitch({
             questions: gestesMosaicQuestions,
           }}
         />
-        <Feedback title={"Ce simulateur a-t-il été utile ?"} />
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
       </>
     )
   }
@@ -385,10 +384,10 @@ export default function InputSwitch({
             engine,
             rules,
             searchParams,
-            correspondance
+            correspondance,
           }}
         />
-        <Feedback title={"Ce simulateur a-t-il été utile ?"} />
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
       </>
     )
   }

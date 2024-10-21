@@ -227,6 +227,7 @@ export default function Ampleur() {
                 prefixText={''}
                 dottedName="projet . DPE visé"
               />
+              .
             </span>{' '}
           </label>
         </li>

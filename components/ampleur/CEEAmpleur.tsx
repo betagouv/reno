@@ -1,57 +1,66 @@
 import calculatorIcon from '@/public/calculator-empty.svg'
 import PaymentTypeBlock from '../PaymentTypeBlock'
-import { Card, PrimeStyle } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
 import Value from '../Value'
+import DPESelector from '../DPESelector'
+import checkIcon from '@/public/check.svg'
+import TargetDPETabs from '../mpra/TargetDPETabs'
+import CEEAmpleurScenario from '../cee/CEEAmpleurScenario'
 
-export default function CEEAmpleur({ 
-  rules, 
-  engine, 
-  situation, 
-  setSearchParams, 
-  answeredQuestions, 
-  expanded 
+export default function CEEAmpleur({
+  rules,
+  engine,
+  situation,
+  setSearchParams,
+  answeredQuestions,
+  expanded,
 }) {
   const dottedName = "CEE . rénovation d'ampleur"
 
-  const rule = rules[dottedName]
-
   return (
-    <AideAmpleur {...{
-      engine,
-      dottedName,
-      setSearchParams,
-      answeredQuestions,
-      situation,
-      expanded
-    }}>
-      { expanded && (
+    <AideAmpleur
+      {...{
+        engine,
+        dottedName,
+        setSearchParams,
+        answeredQuestions,
+        situation,
+        expanded,
+      }}
+    >
+      {expanded && (
         <>
           <h3>Comment est calculée l'aide ?</h3>
-          <p>Nous estimons votre prime CEE coup de pouce ampleur à <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: dottedName + ' . montant',
-                  state: 'prime-black',
-                }}
-              />.
-          </p>
-        </>
-      )}
-      {  (
-        <>
-          <InformationBlock>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: rule.informationsUtilesHtml,
+          <p>
+            Le montant des CEE est calculé en fonction de la performance visé et
+            de la surface habitable du logement.
+            <CEEAmpleurScenario
+              {...{
+                rules,
+                engine,
+                situation,
+                setSearchParams,
+                answeredQuestions,
               }}
             />
-          </InformationBlock>
-          <PaymentTypeBlock>
-            <p>{rule.paiement}</p>
-          </PaymentTypeBlock>
+          </p>
+
+          <h3>Les principales conditions d'éligibilité ?</h3>
+          <div
+            css={`
+              list-style-image: url(${checkIcon.src});
+              li {
+                margin: 1rem 0;
+                ul {
+                  list-style-image: none;
+                }
+              }
+            `}
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].conditionsEligibilitesHTML,
+            }}
+          />
         </>
       )}
     </AideAmpleur>

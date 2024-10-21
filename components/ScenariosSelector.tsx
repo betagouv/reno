@@ -64,7 +64,7 @@ export default function ScenariosSelector({
         Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux
         classes DPE.
       </p>
-      <DPEQuickSwitch oldIndex={oldIndex} />
+      <DPEQuickSwitch oldIndex={oldIndex} />.
       <TargetDPETabs
         {...{
           oldIndex,

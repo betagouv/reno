@@ -41,7 +41,7 @@ export default function MPRA({
         expanded,
       }}
     >
-      <DPEQuickSwitch oldIndex={oldIndex} situation={situation} />
+      <DPEQuickSwitch oldIndex={oldIndex} situation={situation} />.
       <TargetDPETabs
         {...{
           oldIndex,

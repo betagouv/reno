@@ -87,7 +87,6 @@ export default function ({
           <Image src={editIcon} alt="Icône crayon" />
         </span>
       )}
-      .
     </span>
   )
 }
