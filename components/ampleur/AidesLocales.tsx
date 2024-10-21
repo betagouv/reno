@@ -12,6 +12,7 @@ import { encodeSituation } from '../publicodes/situationUtils'
 import AidesLocalesByLevel from './AidesLocalesByLevel'
 import { findAidesLocales } from './useAides'
 import MapBehindCTA from '../MapBehindCTA'
+import { Key } from '../explications/ExplicationUI'
 
 const levels = rules['aides locales . montant'].somme
 
@@ -28,7 +29,7 @@ export default function AidesLocales({
   engine,
   setSearchParams,
   answeredQuestions,
-  expanded
+  expanded,
 }) {
   const dottedName = 'aides locales'
   const rule = rules[dottedName]
@@ -43,14 +44,16 @@ export default function AidesLocales({
   const aides = findAidesLocales(rules, engine)
   if (!communeName && !commune)
     return (
-      <AideAmpleur {...{
-        engine,
-        dottedName,
-        setSearchParams,
-        answeredQuestions,
-        situation,
-        expanded
-      }}>
+      <AideAmpleur
+        {...{
+          engine,
+          dottedName,
+          setSearchParams,
+          answeredQuestions,
+          situation,
+          expanded,
+        }}
+      >
         <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
 
         <details>
@@ -76,15 +79,37 @@ export default function AidesLocales({
       </AideAmpleur>
     )
 
+  if (aides.length === 0)
+    return (
+      <AideAmpleur
+        {...{
+          engine,
+          dottedName,
+          setSearchParams,
+          answeredQuestions,
+          situation,
+          expanded,
+        }}
+      >
+        <p>
+          <strong>Nous ne disposons pas d'informations</strong> sur les aides
+          locales de votre commune{' '}
+          <Key $state={'prime-black'}>{communeName}</Key>.
+        </p>
+      </AideAmpleur>
+    )
+
   return (
-    <AideAmpleur {...{
-      engine,
-      dottedName,
-      setSearchParams,
-      answeredQuestions,
-      situation,
-      expanded
-    }}>
+    <AideAmpleur
+      {...{
+        engine,
+        dottedName,
+        setSearchParams,
+        answeredQuestions,
+        situation,
+        expanded,
+      }}
+    >
       <ul>
         {levels.map((level) => (
           <AidesLocalesByLevel
