@@ -151,7 +151,7 @@ chauffage . bois . chaudière . automatique . CEE . barème:
 
 chauffage . bois . foyer et insert:
   par défaut: oui
-  titre: Foyer fermé et insert à buches ou à granulés
+  titre: Foyer fermé et insert à bûches ou à granulés
 chauffage . bois . foyer et insert . montant:
   applicable si:
     une de ces conditions:

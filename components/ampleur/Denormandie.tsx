@@ -293,7 +293,8 @@ const Result = ({ engine, situation }) => {
         <p>
           Pour être éligible, les travaux doivent représenter{' '}
           <BlueEm>au minimum 25 % du prix de revient (achat + travaux)</BlueEm>.
-          Il vous faut au moins {threshold} de travaux.
+          Il vous faut{' '}
+          <Key $state="prime-black">au moins {threshold} de travaux</Key>.
         </p>
       ) : (
         <p>Non applicable.</p>
