@@ -53,6 +53,7 @@ export default function CEEAmpleurScenario({
         situation={situation}
       />
       <Card
+        $background="#f7f8f8"
         css={`
           padding: 1rem;
           margin: 0;
