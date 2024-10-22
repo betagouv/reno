@@ -6,15 +6,34 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
+import { getAmpleurDPEChoice } from './ScenariosSelector'
+
+export const originKey = 'DPE . actuel',
+  targetKey = 'projet . DPE visé'
 
 export default function ({
   oldIndex,
   prefixText,
-  dottedName = 'DPE . actuel',
+  possibilities = [0, 1, 2, 3, 4, 5, 6],
+  dottedName = originKey,
+  situation = null,
 }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
   const text = prefixText === undefined ? 'Vous avez déclaré un ' : prefixText
+  const newSituation = (index) => {
+    const simpleChange = { [dottedName]: index + 1 }
+    const targetDPE = situation[targetKey]
+    if (!targetDPE) return simpleChange
+
+    const newTargetDPE =
+      getAmpleurDPEChoice({
+        ...situation,
+        ...simpleChange,
+      }) + 1
+    return { ...simpleChange, [targetKey]: newTargetDPE }
+  }
+
   return (
     <span>
       {text}
@@ -26,12 +45,15 @@ export default function ({
             }
           `}
         >
-          {[0, 1, 2, 3, 4, 5, 6].map((index) => (
+          {possibilities.map((it, index) => (
             <Link
               onClick={() => setEditing(false)}
               scroll={false}
               href={setSearchParams(
-                encodeSituation({ [dottedName]: index + 1 + '*' }),
+                encodeSituation(newSituation(index), false, [
+                  originKey,
+                  targetKey,
+                ]),
                 'url',
               )}
             >
@@ -60,7 +82,6 @@ export default function ({
           <Image src={editIcon} alt="Icône crayon" />
         </span>
       )}
-      .
     </span>
   )
 }

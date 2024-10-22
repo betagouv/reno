@@ -5,30 +5,35 @@
 # À noter, si certaines règles ici sont des aides, d'autres sont des prêts ou des avances de travaux (c'est pareil), qui vont impacter d'autres variables du calcul
 #
 # Voir aussi le fichier aides-locales.brouillon.yaml pour les aides pas encore implémentées ou qui ne sont plus valides
+# TODO pour activer d'autres aides qu'Angers et Besançon, il faut utiliser le mécanisme de remplacement, et respecter le format [localité] . montant: pour qu'on puisse facilement les lister et déduire leur nom
 
 '':
-  marque: Aide locale
-  icône: 'hexagone-contour.svg'
+  marque: Aides locales
+  description: |
+    Certaines collectivités encouragent les démarches de rénovation énergétique avec des aides spécifiques, appelées aides locales. Ces aides peuvent être proposées à l'échelle de votre commune, communauté de communes, département, région).
+
   avec:
     commune: 0 €
     intercommunalité: 0 €
     département: 0 €
     région: 0 €
-    état: 0 €
+  lien: https://www.anil.org/aides-locales-travaux
 
-total:
+montant:
+  icône: 'hexagone-contour.svg'
   somme:
     - commune
     - intercommunalité
     - département
     - région
-    - état
 
 #########
 
 besançon:
   image wikidata: Besançon
   titre: Grand Besançon Métropole
+
+besançon . montant: besançon . occupant . montant
 
 besançon . conditions géo: logement . EPCI = '242500361'
 
@@ -71,7 +76,7 @@ besançon . occupant . conditions:
   toutes ces conditions:
     - conditions géo
     - conditions de revenu . AAPEL
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
     - seuil minimum travaux
     - travaux recevables
     - projet . DPE visé <= 4 # D
@@ -80,8 +85,7 @@ besançon . occupant . conditions:
 besançon . occupant . montant:
   titre: Dispositif AAPEL propriétaire occupant
   description: |
-    [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement).
-    [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
+    Voici la [Fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement) de l'aide, le dossier [PDF pour le dispositif AAPEL](https://www.grandbesancon.fr/wp-content/uploads/sites/2/2019/06/Aides-financi%C3%A8res-r%C3%A9novation-des-logements-2019.pdf), et la fiche du [registre des aides ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-l-aide-a-l-amelioration-de-la-performance-energetique-des-logements-aapel-3279/)
   note: |
     À étudier : "Clause anti spéculative d'une durée de 5 ans".
   applicable si: conditions
@@ -89,6 +93,7 @@ besançon . occupant . montant:
     - socle
     - objectif BBC rénovation
     - objectif BBC neuf
+  remplace: intercommunalité
 
 besançon . occupant . socle:
   formule:
@@ -96,18 +101,18 @@ besançon . occupant . socle:
       - si: projet . gain energétique < 30 %
         alors:
           valeur: 25 % * projet . travaux
-          plafond: 12000 €
+          plafond: 3000 €
       - si: projet . gain energétique < 35 %
         alors:
           valeur: 30 % * projet . travaux
-          plafond: 14000 €
+          plafond: 4200 €
       - si: projet . gain energétique < 40 %
         alors:
           valeur: 35 % * projet . travaux
-          plafond: 16000 €
+          plafond: 5600 €
       - sinon:
           valeur: 40 % * projet . travaux
-          plafond: 18000 €
+          plafond: 7200 €
 
 besançon . occupant . objectif BBC rénovation:
   applicable si: projet . objectif BBC rénovation
@@ -130,7 +135,7 @@ doubs:
 doubs . conditions géo: logement . département = 'Doubs'
 doubs . bonus passoire . conditions:
   toutes ces conditions:
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
     - logement . résidence principale propriétaire
     - DPE . actuel >= 6
     - MPR . accompagnée . bénéficiaire
@@ -197,7 +202,7 @@ charente-maritime . occupant . conditions:
     - conditions géo
     - ménage . revenu . classe = 'très modeste'
     - logement . résidence principale propriétaire
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
     - projet . gain energétique >= 25 %
 charente-maritime . occupant . montant:
   applicable si: conditions
@@ -266,7 +271,7 @@ angers . conditions de base:
     - logement . propriétaire occupant
     - conditions géo
 
-angers . aides:
+angers . montant:
   remplace: intercommunalité
   somme:
     - aides socles . montant
@@ -368,7 +373,7 @@ essonne . conditions communes:
   toutes ces conditions:
     - conditions géo
     - logement . résidence principale propriétaire
-    - logement . période de construction = 'au moins 15 ans'
+    - logement . au moins 15 ans
 essonne . conditions géo: logement . département = 'Essonne'
 essonne . travaux essentiels:
   description: |
@@ -458,3 +463,22 @@ essonne . gros travaux . montant:
 essonne . gros travaux . travaux plafonnés:
   valeur: projet . travaux
   plafond: 20000 €
+
+# nancy : nouvelle aide publiée à la rentrée 2024 https://alec-nancy.fr/metropole-grand-nancy-aides-renovation-energetique/
+
+############
+# Collectivités pour lesquelles nous sommes certains qu'il n'y a pas d'aide
+# Elles doivent alors définir une non éligibilté explicitement via un "non applicable", plutôt qu'un simple 0 €, valeur par défaut pour garder les sommes
+# cohérentes.
+############
+
+rennes:
+  description: |
+    Ce règlement date de 2021, plusieurs indices ("sous les plafonds ANAH", "conventionnement ANAH pour les bailleurs") semblent aller dans le sens du fait qu'il est périmé. 
+
+    Nous l'avons confirmé le 14 juin 2024 avec l'ADIL de Rennes : si ces aides courent toujours pour les dossiers MPR déposés en 2023, ce n'est plus le cas aujourd'hui.
+rennes . conditions géo: logement . EPCI = '243500139'
+rennes . montant:
+  applicable si: conditions géo
+  remplace: intercommunalité
+  valeur: non

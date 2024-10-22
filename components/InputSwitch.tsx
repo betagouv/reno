@@ -1,6 +1,10 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import { decodeDottedName, encodeSituation, getAnsweredQuestions } from './publicodes/situationUtils'
+import {
+  decodeDottedName,
+  encodeSituation,
+  getAnsweredQuestions,
+} from './publicodes/situationUtils'
 
 import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
@@ -8,16 +12,26 @@ import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 import Answers, { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './DPESelector'
 import GestesBasket from './GestesBasket'
-import GestesMosaic, {
-  gestesMosaicQuestions
-} from './GestesMosaic'
+import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
-import ScenariosSelector from './ScenariosSelector'
+import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import SmartInput from './SmartInput'
 import questionType from './publicodes/questionType'
+import AideDetails from './AideDetails'
+import Feedback from '@/app/contact/Feedback'
+import AideSynthese from './ampleur/AideSynthese'
+import AideMAR from './ampleur/AideMAR'
+import AidesLocales from './ampleur/AidesLocales'
+import CEEAmpleur from './ampleur/CEEAmpleur'
+import Copro from './ampleur/Copro'
+import Denormandie from './ampleur/Denormandie'
+import EcoPTZ from './ampleur/EcoPTZ'
+import MPRA from './ampleur/MPRA'
+import PAR from './ampleur/PAR'
+import TaxeFoncière from './ampleur/TaxeFoncière'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -29,6 +43,17 @@ export default function InputSwitch({
   nextQuestions,
   searchParams,
 }) {
+  const correspondance = {
+    'MPR . accompagnée': MPRA,
+    'MPR . accompagnée . prise en charge MAR': AideMAR,
+    PTZ: EcoPTZ,
+    PAR: PAR,
+    'aides locales': AidesLocales,
+    'ampleur . prime individuelle copropriété': Copro,
+    'taxe foncière': TaxeFoncière,
+    denormandie: Denormandie,
+    "CEE . rénovation d'ampleur": CEEAmpleur,
+  }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -170,7 +195,6 @@ export default function InputSwitch({
           {...{
             type: currentQuestion,
             setChoice: (result) => {
-              console.log('purple result ', result)
               const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
@@ -179,6 +203,12 @@ export default function InputSwitch({
                   'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
+                  'taxe foncière . commune . éligible . ménage':
+                    result.eligibilite['taxe foncière . commune . éligible'],
+                  'taxe foncière . commune . taux':
+                    result.eligibilite['taxe foncière . commune . taux'],
+                  'logement . commune . denormandie':
+                    result.eligibilite['logement . commune . denormandie'],
                 },
                 false,
                 answeredQuestions,
@@ -212,20 +242,18 @@ export default function InputSwitch({
           {...{
             type: currentQuestion,
             setChoice: (result) => {
-              const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
-                  'logement . commune exonérée taxe foncière': result
-                    .eligibilite.taxeFoncière
-                    ? 'oui'
-                    : 'non',
-                  'logement . commune denormandie': result.eligibilite
-                    .denormandie
-                    ? 'oui'
-                    : 'non',
+                  'logement . commune . nom': `"${result.nom}"`,
+                  'taxe foncière . commune . éligible . logement':
+                    result.eligibilite['taxe foncière . commune . éligible'],
+                  'taxe foncière . commune . taux':
+                    result.eligibilite['taxe foncière . commune . taux'],
+                  'logement . commune . denormandie':
+                    result.eligibilite['logement . commune . denormandie'],
                 },
                 false,
                 answeredQuestions,
@@ -266,7 +294,7 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-    
+
   if (currentQuestion === 'MPR . non accompagnée . confirmation') {
     return (
       <GestesBasket
@@ -281,9 +309,54 @@ export default function InputSwitch({
       />
     )
   }
-  if(getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") && 
-     searchParams["parcours d'aide"].includes("à la carte")) {
-      return (
+
+  if (searchParams['details'] && searchParams['details'] == 'synthese') {
+    return (
+      <>
+        <AideSynthese
+          {...{
+            currentQuestion,
+            searchParams,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            correspondance,
+            nextQuestions,
+          }}
+        />
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+      </>
+    )
+  }
+
+  if (searchParams['details']) {
+    return (
+      <>
+        <AideDetails
+          {...{
+            currentQuestion,
+            searchParams,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+            correspondance,
+            nextQuestions,
+          }}
+        />
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+      </>
+    )
+  }
+
+  if (
+    getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
+    searchParams["parcours d'aide"].includes('à la carte')
+  ) {
+    return (
+      <>
         <GestesMosaic
           {...{
             rules,
@@ -294,39 +367,48 @@ export default function InputSwitch({
             questions: gestesMosaicQuestions,
           }}
         />
-      )
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+      </>
+    )
   }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
-      <ScenariosSelector
-        {...{
-          currentQuestion,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          searchParams,
-        }}
-      />
+      <>
+        <AidesAmpleur
+          {...{
+            currentQuestion,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+            searchParams,
+            correspondance,
+          }}
+        />
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+      </>
     )
   }
 
   if (["parcours d'aide"].includes(currentQuestion)) {
     return (
-      <Eligibility
-        {...{
-          currentQuestion,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          nextQuestions,
-          expanded: searchParams.details,
-        }}
-      />
+      <>
+        <Eligibility
+          {...{
+            currentQuestion,
+            searchParams,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+            nextQuestions,
+            expanded: searchParams.details === 'oui',
+          }}
+        />
+      </>
     )
   }
   // We kept the latter component before it got really specialized. TODO not completely functional

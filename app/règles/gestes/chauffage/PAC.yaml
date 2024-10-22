@@ -7,6 +7,10 @@ chauffage . PAC . air-eau:
   description: Pompe à chaleur air/eau (dont PAC hybrides)
   note: La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
 chauffage . PAC . air-eau . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - Coup de pouce . montant
@@ -26,12 +30,12 @@ chauffage . PAC . air-eau . MPR . montant:
     - sinon: 0 €
 chauffage . PAC . air-eau . CEE:
   code: BAR-TH-171
-  titre: Pompe à chaleur de type air/eau 
+  titre: Pompe à chaleur de type air/eau
   lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
   technique: |
     Les PAC **associées à un autre système de chauffage** et les PAC utilisées **uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
       
-    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** «Chauffe-eau thermodynamique à accumulation» si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire. 
+    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** «Chauffe-eau thermodynamique à accumulation» si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire.
 chauffage . PAC . air-eau . CEE . question:
   type: liste
   valeurs:
@@ -39,6 +43,7 @@ chauffage . PAC . air-eau . CEE . question:
     - usage
     - Etas
 chauffage . PAC . air-eau . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - facteur correctif surface
@@ -56,10 +61,10 @@ chauffage . PAC . air-eau . CEE . usage:
       - chauffage seulement
 chauffage . PAC . air-eau . CEE . usage . chauffage et eau chaude:
   valeur: "'chauffage et eau chaude'"
-  titre: "Chauffage et eau chaude"
+  titre: 'Chauffage et eau chaude'
 chauffage . PAC . air-eau . CEE . usage . chauffage seulement:
   valeur: "'chauffage seulement'"
-  titre: "Chauffage uniquement"
+  titre: 'Chauffage uniquement'
 chauffage . PAC . air-eau . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
   titre: Efficacité énergétique saisonnière
@@ -67,22 +72,22 @@ chauffage . PAC . air-eau . CEE . Etas:
   maximum: "'supérieur à 200 %'"
   une possibilité parmi:
     possibilités:
-      - "entre 111 % et 140 %"
-      - "entre 140 % et 170 %"
-      - "entre 170 % et 200 %"
-      - "supérieur à 200 %"
+      - 'entre 111 % et 140 %'
+      - 'entre 140 % et 170 %'
+      - 'entre 170 % et 200 %'
+      - 'supérieur à 200 %'
 chauffage . PAC . air-eau . CEE . Etas . entre 111 % et 140 %:
   valeur: "'entre 111 % et 140 %'"
-  titre: "Entre 111 % et 140 %"
+  titre: 'Entre 111 % et 140 %'
 chauffage . PAC . air-eau . CEE . Etas . entre 140 % et 170 %:
   valeur: "'entre 140 % et 170 %'"
-  titre: "Entre 140 % et 170 %"
+  titre: 'Entre 140 % et 170 %'
 chauffage . PAC . air-eau . CEE . Etas . entre 170 % et 200 %:
   valeur: "'entre 170 % et 200 %'"
-  titre: "Entre 170 % et 200 %"
+  titre: 'Entre 170 % et 200 %'
 chauffage . PAC . air-eau . CEE . Etas . supérieur à 200 %:
   valeur: "'supérieur à 200 %'"
-  titre: "Supérieur à 200 %"
+  titre: 'Supérieur à 200 %'
 chauffage . PAC . air-eau . CEE . surface: logement . surface
 chauffage . PAC . air-eau . CEE . facteur correctif surface:
   variations:
@@ -128,22 +133,22 @@ chauffage . PAC . air-eau . CEE . facteur correctif region:
 chauffage . PAC . air-eau . CEE . barème:
   variations:
     - si:
-        toutes ces conditions :
+        toutes ces conditions:
           - logement . type = 'maison'
           - usage = 'chauffage seulement'
       alors: barème maison chauffage
     - si:
-        toutes ces conditions :
+        toutes ces conditions:
           - logement . type = 'maison'
           - usage = 'chauffage et eau chaude'
       alors: barème maison chauffage et eau
     - si:
-        toutes ces conditions :
+        toutes ces conditions:
           - logement . type = 'appartement'
           - usage = 'chauffage seulement'
       alors: barème appartement chauffage
     - si:
-        toutes ces conditions :
+        toutes ces conditions:
           - logement . type = 'appartement'
           - usage = 'chauffage et eau chaude'
       alors: barème appartement chauffage et eau
@@ -209,6 +214,10 @@ chauffage . PAC . géo:
 
     La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est donc avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
 chauffage . PAC . géo . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - Coup de pouce . montant
@@ -238,8 +247,9 @@ chauffage . PAC . géo . CEE:
   technique: |
     Les PAC **associées à un autre système de chauffage**** et les PAC **utilisées uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
       
-    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** « Chauffe-eau thermodynamique à accumulation » si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire. 
+    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** « Chauffe-eau thermodynamique à accumulation » si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire.
 chauffage . PAC . géo . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - facteur correctif surface
@@ -264,10 +274,10 @@ chauffage . PAC . géo . CEE . usage:
       - chauffage seulement
 chauffage . PAC . géo . CEE . usage . chauffage et eau chaude:
   valeur: "'chauffage et eau chaude'"
-  titre: "Chauffage et eau chaude"
+  titre: 'Chauffage et eau chaude'
 chauffage . PAC . géo . CEE . usage . chauffage seulement:
   valeur: "'chauffage seulement'"
-  titre: "Chauffage uniquement"
+  titre: 'Chauffage uniquement'
 chauffage . PAC . géo . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
   titre: Efficacité énergétique saisonnière
@@ -275,26 +285,26 @@ chauffage . PAC . géo . CEE . Etas:
   maximum: "'supérieur à 230 %'"
   une possibilité parmi:
     possibilités:
-      - "entre 111 % et 140 %"
-      - "entre 140 % et 170 %"
-      - "entre 170 % et 200 %"
-      - "entre 200 % et 230 %"
-      - "supérieur à 230 %"
+      - 'entre 111 % et 140 %'
+      - 'entre 140 % et 170 %'
+      - 'entre 170 % et 200 %'
+      - 'entre 200 % et 230 %'
+      - 'supérieur à 230 %'
 chauffage . PAC . géo . CEE . Etas . entre 111 % et 140 %:
   valeur: "'entre 111 % et 140 %'"
-  titre: "Entre 111 % et 140 %"
+  titre: 'Entre 111 % et 140 %'
 chauffage . PAC . géo . CEE . Etas . entre 140 % et 170 %:
   valeur: "'entre 140 % et 170 %'"
-  titre: "Entre 140 % et 170 %"
+  titre: 'Entre 140 % et 170 %'
 chauffage . PAC . géo . CEE . Etas . entre 170 % et 200 %:
   valeur: "'entre 170 % et 200 %'"
-  titre: "Entre 170 % et 200 %"
+  titre: 'Entre 170 % et 200 %'
 chauffage . PAC . géo . CEE . Etas . entre 200 % et 230 %:
   valeur: "'entre 200 % et 230 %'"
-  titre: "Entre 200 % et 230 %"
+  titre: 'Entre 200 % et 230 %'
 chauffage . PAC . géo . CEE . Etas . supérieur à 230 %:
   valeur: "'supérieur à 230 %'"
-  titre: "Supérieur à 230 %"
+  titre: 'Supérieur à 230 %'
 chauffage . PAC . géo . CEE . barème:
   variations:
     - si: usage = 'chauffage seulement'

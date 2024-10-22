@@ -2,7 +2,8 @@ import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import styled from 'styled-components'
 import DPELabel from '../DPELabel'
-import { Value } from '../ScenariosSelector'
+import Value from '@/components/Value'
+import { MiseEnAvant } from '../UI'
 
 export const InapplicableBlock = styled.div`
   margin: 1rem 0;
@@ -93,11 +94,16 @@ export function Avis({ engine, situation }) {
   const passoire = engine.evaluate('DPE . actuel . passoire')
   if (passoire.nodeValue)
     return (
-      <p>
-        💡 Votre logement est une passoire énergétique (DPE{' '}
-        <DPELabel index={situation['DPE . actuel'] - 1} />
-        ). Il vous est conseillé d'opter pour le{' '}
-        <strong>parcours accompagné</strong>.
-      </p>
+      <MiseEnAvant
+        css={`
+          margin-top: 1rem;
+        `}
+      >
+        <p>
+          Votre logement DPE <DPELabel index={situation['DPE . actuel'] - 1} />{' '}
+          est une passoire énergétique. Il vous est conseillé d'opter pour le{' '}
+          <strong>parcours ampleur</strong>.
+        </p>
+      </MiseEnAvant>
     )
 }

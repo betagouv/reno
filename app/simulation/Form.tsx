@@ -21,7 +21,7 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
 import LogoCompact from '@/components/LogoCompact'
-import Answers from './Answers'
+import Answers, { firstLevelCategory } from './Answers'
 import Image from 'next/image'
 
 function Form({ rules }) {
@@ -69,19 +69,25 @@ function Form({ rules }) {
     <div>
       <Section>
         {isInIframe && isCompact && (
-          <LogoCompact css={`float: right;`} />
+          <>
+            <LogoCompact
+              css={`
+                float: right;
+              `}
+            />
+            <Stepper
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                situation,
+              }}
+            />
+          </>
         )}
-        <Stepper
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            situation,
-          }}
-        />
-        {!isCompact && (
-          <div css={`padding-top: 1rem;`}>
+        {!isCompact && !(firstLevelCategory(currentQuestion) === 'projet') && (
+          <div>
             <Answers
               {...{
                 answeredQuestions,
@@ -108,14 +114,14 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      {(!isInIframe || !isCompact) && (
+      {false && (!isInIframe || !isCompact) && (
         <>
           <br />
           <UserProblemBanner />
           <Share searchParams={searchParams} />
         </>
       )}
-      {!isInIframe && (
+      {false && !isInIframe && (
         <Section>
           <h2>Documentation</h2>
           <p>
@@ -132,22 +138,30 @@ function Form({ rules }) {
           </p>
         </Section>
       )}
-      { isCompact && (
-        <div css={`
-          display: flex; 
-          align-items: center;
-        `}>
+      {isCompact && (
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+          `}
+        >
           <a href="https://france-renov.gouv.fr" target="_blank">
-            <Image src={logoFranceRenov} alt="Logo de France Rénov" width="80" />
+            <Image
+              src={logoFranceRenov}
+              alt="Logo de France Rénov"
+              width="80"
+            />
           </a>
-          <p css={`
-            font-size: 0.7rem;
-            margin: 0;
-            margin-left: 10px;
-            line-height: 1rem;
-          `}>
-            Une initiative construite avec France&nbsp;Rénov' pour
-            simplifier l'information sur les aides à la rénovation énergétique.
+          <p
+            css={`
+              font-size: 0.7rem;
+              margin: 0;
+              margin-left: 10px;
+              line-height: 1rem;
+            `}
+          >
+            Une initiative construite avec France&nbsp;Rénov' pour simplifier
+            l'information sur les aides à la rénovation énergétique.
           </p>
         </div>
       )}

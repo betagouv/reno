@@ -44,6 +44,10 @@ ventilation . double flux:
   titre: Ventilation double flux
   par défaut: oui
 ventilation . double flux . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - CEE . montant
@@ -71,9 +75,10 @@ ventilation . double flux . CEE:
       
     La **puissance électrique absorbée** pondérée du caisson de ventilation est inférieure ou égale à **47,6 WThC** dans une configuration T4 avec une salle de bain et un WC.
 
-    Est réputé **satisfaire aux exigences**, une centrale double flux **certifiée NF 205**.  
-    
+    Est réputé **satisfaire aux exigences**, une centrale double flux **certifiée NF 205**.
+
 ventilation . double flux . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - facteur correctif région
     - facteur correctif surface

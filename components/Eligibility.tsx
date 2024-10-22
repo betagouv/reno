@@ -1,16 +1,16 @@
-import { No, Yes, Results } from '@/components/ResultUI'
-import checkIcon from '@/public/check.svg'
-import Image from 'next/image'
+import { No, Yes } from '@/components/ResultUI'
 import { useMemo } from 'react'
-import AutresAides from './AutresAides'
+import AmpleurSummary from './ampleur/AmpleurSummary'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
-import SimplifiedAmpleurSummary from './SimplifiedAmpleurSummary'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
 import Answers from '@/app/simulation/Answers'
 import { useIsCompact } from './useIsInIframe'
+import Feedback from '@/app/contact/Feedback'
+import FatConseiller from './FatConseiller'
+import BackToLastQuestion from './BackToLastQuestion'
 
 export default function Eligibility({
   setSearchParams,
@@ -21,6 +21,7 @@ export default function Eligibility({
   nextQuestions,
   currentQuestion,
   expanded,
+  searchParams,
 }) {
   const isCompact = useIsCompact()
   const nextLink = (value) => {
@@ -46,126 +47,137 @@ export default function Eligibility({
     mpra = mpraEvaluation.nodeValue,
     mprg = mprgEvaluation.nodeValue,
     ceeConditions = ceeConditionsEvaluation.nodeValue
-
   const both = mpra && mprg,
     noMpr = !mpra && !mprg,
     some = mpra || mprg || ceeConditions
 
+  const showPersonaBar = searchParams.personas != null
+
   return (
-    <section>
-      <PersonaBar />
+    <section
+      css={`
+        ${showPersonaBar && `margin-top: 4rem`}
+      `}
+    >
+      <PersonaBar
+        startShown={showPersonaBar}
+        selectedPersona={searchParams.persona}
+        engine={engine}
+      />
       <CustomQuestionWrapper>
-        { isCompact && (
-            <Answers
-              {...{
-                answeredQuestions,
-                nextQuestions,
-                currentQuestion,
-                rules,
-                situation,
-              }}
-            />
+        {isCompact && (
+          <Answers
+            {...{
+              answeredQuestions,
+              nextQuestions,
+              currentQuestion,
+              rules,
+              situation,
+            }}
+          />
         )}
+        <BackToLastQuestion
+          {...{ setSearchParams, situation, answeredQuestions }}
+        />
         <header>
-          <small>Découvrez vos aides</small>
-          <h2>
-            {some ? (
-              <span
-                css={`
-                  display: flex;
-                  align-items: center;
-                  img {
-                    margin-right: 0.4rem;
-                    width: 1.8rem;
-                    height: auto;
-                  }
-                `}
-              >
-                <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle
-                !
-              </span>
-            ) : (
-              'Votre éligibilité'
-            )}
+          <small>Eligibilité</small>
+          <h2
+            css={`
+              font-size: 120%;
+              margin: 0.5rem 0 !important;
+            `}
+          >
+            {some && <>Bonne nouvelle 🥳</>}
           </h2>
         </header>
         {noMpr && !ceeConditions && (
           <p>
             Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
-            éligible, mais vous pouvez explorer les aides listées ci-dessous qui
-            ne sont pas encore calculées par Mes Aides Réno.
+            éligible.
           </p>
         )}
-        {noMpr && ceeConditions && (
+        {some && (
           <p>
-            <Yes><a href="#parcours-geste">Vous êtes éligible</a></Yes> au parcours par geste via le
-            dispositif CEE.<br />
-            Cependant, vous n'êtes <No><a href="#parcours-ampleur">pas éligible</a></No> à MaPrimeRénov'.
-          </p>
-        )}
-        {!noMpr && !mpra && (
-          <p>
-            <Yes><a href="#parcours-geste">Vous êtes éligible</a></Yes> au parcours par geste (MaPrimeRénov'
-              et CEE).<br />
-            Cependant, vous n'êtes <No><a href="#parcours-ampleur">pas éligible</a></No> au parcours accompagné.
-          </p>
-        )}
-        {!noMpr && !mprg && (
-          <p>
-            Vous êtes <Yes><a href="#parcours-ampleur">éligible</a></Yes> au parcours accompagné, vous êtes
-            aussi <Yes><a href="#parcours-geste">éligible</a></Yes> au parcours par geste mais seulement via
-            le dispositif CEE. Vous devez choisir l'un des deux parcours.
+            <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
           </p>
         )}
         {both && (
           <>
-            <p>
-              Vous pouvez choisir l'un ou l'autre des parcours d'aide, mais pas
-              les deux.
-            </p>
+            <h3
+              css={`
+                margin: 0;
+                font-size: 110%;
+                font-weight: 500;
+              `}
+            >
+              Vous êtes éligible à plusieurs aides !
+            </h3>
             <Avis {...{ situation, engine }} />
+            <p>Sélectionnez le parcours adapté à vos besoins :</p>
           </>
         )}
 
-        <Results>
-          { mpra && (
-            <li id="parcours-ampleur">
-              <SimplifiedAmpleurSummary
-                {...{
-                  engine,
-                  url: nextLink('ampleur'),
-                  situation,
-                  expanded,
-                  setSearchParams,
-                }}
-              />
-            </li>
-          )}
-          <li id="parcours-geste">
-            <ÀlaCarteSummary
-              {...{
-                engine,
-                rules,
-                url: nextLink('à la carte'),
-                situation,
-              }}
-            />
-          </li>
-          { !mpra && (
-            <li id="parcours-ampleur">
-              <SimplifiedAmpleurSummary
-                {...{
-                  engine,
-                  url: nextLink('ampleur'),
-                  situation,
-                  expanded,
-                  setSearchParams,
-                }}
-              />
-            </li>
-          )}
-        </Results>
-        <AutresAides />
+        <div
+          css={`
+            display: flex;
+            flex-wrap: nowrap;
+            @media (max-width: 700px) {
+              flex-wrap: wrap;
+              flex-direction: column;
+            }
+            justify-content: center;
+          `}
+        >
+          <AmpleurSummary
+            id="parcours-ampleur"
+            {...{
+              engine,
+              url: nextLink('ampleur'),
+              situation,
+              expanded,
+              setSearchParams,
+            }}
+          />
+          <div
+            css={`
+              padding: 0 1rem;
+              align-self: center;
+            `}
+          >
+            <strong
+              css={`
+                display: block;
+                text-align: center;
+                margin: 1rem auto;
+                font-size: 130%;
+              `}
+            >
+              ou
+            </strong>
+          </div>
+          <ÀlaCarteSummary
+            id="parcours-gestes"
+            {...{
+              engine,
+              rules,
+              url: nextLink('à la carte'),
+              situation,
+            }}
+          />
+        </div>
+        <div>
+          <FatConseiller
+            {...{
+              situation,
+              margin: 'small',
+              titre:
+                'Vous ne savez pas quel parcours choisir pour votre projet ?',
+              texte:
+                "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
+            }}
+          />
+        </div>
+        <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
       </CustomQuestionWrapper>
     </section>
   )

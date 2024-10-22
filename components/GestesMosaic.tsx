@@ -104,7 +104,7 @@ export default function GestesMosaic({
     <CustomQuestionWrapper>
       <BtnBackToParcoursChoice {...{
           setSearchParams,
-          situation,
+          situation: omit(["parcours d'aide"], situation),
           answeredQuestions
         }}
       />
@@ -193,7 +193,7 @@ export default function GestesMosaic({
             <span
               css={`
                 img {
-                  filter: invert(1);
+                  filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(194deg) brightness(105%) contrast(101%);;
                   width: 1.6rem;
                   margin-right: 0.6rem;
                   height: auto;

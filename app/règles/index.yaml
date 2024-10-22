@@ -34,7 +34,7 @@ ménage . revenu:
   description: |
     Saisissez le revenu fiscal de référence des personnes composant votre ménage. 
 
-    Si ces dernières ont des avis d’imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
+    Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
 
   par défaut:
     variations:
@@ -52,14 +52,13 @@ ménage . revenu:
 
 vous:
   titre: Votre situation
+
 vous . propriétaire:
-vous . propriétaire . condition:
-  titre: Propriétaire ?
+vous . propriétaire . statut:
   question: Êtes-vous propriétaire ?
-  par défaut: oui
   description: |
 
-    Pour bénéficier des aides à la rénovation, il faut être dans l'une de ces situations. 
+    Pour bénéficier de MaPrimeRénov', la principale aide à la rénovation, il faut être dans l'une de ces situations. 
 
     Situations simples : 
       - **Propriétaire occupant** (vous vivez dans votre logement)
@@ -72,23 +71,47 @@ vous . propriétaire . condition:
 
     Vous êtes : 
       - usufruitier
-      - titulaires (occupants et bailleurs) d’un droit réel conférant l’usage du bien 
-      - preneurs (occupants et bailleurs) d’un bail emphytéotique ou d’un bail à construction 
-      - propriétaires en indivision si l’ensemble des propriétaires indivisaires ont signé l’[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l’honneur qui désigne le demandeur pour porter les travaux au nom de l’indivision.
+      - titulaires (occupants et bailleurs) d'un droit réel conférant l'usage du bien 
+      - preneurs (occupants et bailleurs) d'un bail emphytéotique ou d'un bail à construction 
+      - propriétaires en indivision si l'ensemble des propriétaires indivisaires ont signé l'[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l'honneur qui désigne le demandeur pour porter les travaux au nom de l'indivision.
     </details>
 
     <details><summary>Situations non éligibles</summary>
+
     Vous êtes : 
-      - les nus-propriétaires
-      - les personnes morales (par exemple les sociétés civiles immobilières)
+      - nu-propriétaire
+      - vous faites la simulation en tant que personne morale (par exemple une société civile immobilière)
     </details>
+  une possibilité parmi:
+    possibilités:
+      - 'propriétaire'
+      - 'acquéreur'
+      - 'non propriétaire'
+  par défaut: "'propriétaire'"
+
+vous . propriétaire . statut . propriétaire:
+  valeur: "'propriétaire'"
+  titre: Je suis propriétaire
+vous . propriétaire . statut . acquéreur:
+  valeur: "'acquéreur'"
+  titre: Je m'apprête à acheter
+vous . propriétaire . statut . non propriétaire:
+  valeur: "'non propriétaire'"
+  titre: Je suis locataire
+
+vous . propriétaire . condition:
+  titre: Propriétaire ?
+  formule:
+    une de ces conditions:
+      - statut = 'propriétaire'
+      - statut = 'acquéreur'
 
 vous . propriétaire . astuce:
   type: notification
   sévérité: information
   formule: condition = non
   description: |
-    Si vous êtes locataire, vous n'êtes pas éligible aux aides à la rénovation. 
+    Si vous êtes locataire, vous aurez peu ou pas d'aide à la rénovation. 
 
     **Cependant**, n'hésitez pas à faire cette simulation comme si vous étiez propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides 2024.
 
@@ -98,6 +121,8 @@ logement:
 logement . type:
   titre: Type de logement
   question: Le logement est-il une maison ou un appartement ?
+  description: |
+    Par maison, nous entendons maison individuelle hors copropriété.
   une possibilité parmi:
     possibilités:
       - 'maison'
@@ -144,12 +169,14 @@ logement . surface:
 
 logement . propriétaire occupant:
   applicable si: vous . propriétaire . condition
-  question: Vivez-vous dans le logement à rénover (propriétaire occupant) ?
+  question: Allez-vous vivre dans le logement à rénover (propriétaire occupant) ?
+  note: |
+    Je pense que les aides qui se basent sur le booléen "propriétaire occupant" ne s'occupent pas du fait que le propriétaire soit occupant avant les travaux, mais seulement après. Ainsi cette formulation de la question permet de coller aussi bien aux propriétaires actuels qu'au acquéreurs.
   par défaut: non
   description: |
     Cette question nous aide à déterminer les aides qui vous sont applicables : certaines sont réservées aux propriétaires occupants, d'autres aux propriétaires bailleurs.
 
-    > Vous possédez plusieurs logements ? N'hésitez pas à faire une autre simulation dans un nouvel onglet du navigateur.
+    > Vous possédez plusieurs logements ? N'hésitez pas à faire plusieurs simulations dans plusieurs onglets de votre navigateur.
 
 logement . résidence principale:
   description: |
@@ -161,21 +188,22 @@ logement . résidence principale:
 
 logement . résidence principale propriétaire:
   applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
-  question: Le logement est-il votre résidence principale ?
+  question: Le logement sera-t-il votre résidence principale ?
   par défaut: oui
   description: |
-    Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
+    Pour qu'il soit votre résidence principale, vous devrez occuper le logement **au moins 8 mois par an** après la rénovation, et vous engager à ce qu'il le reste pendant un certain temps. 
+    La plupart des aides ne ciblent que les résidence principales, et excluent donc les résidences secondaires. 
 
-    Si vous comptez mettre en location votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
+    Le logement pourra devenir la résidence principale d'une autre personne que vous, par exemple un locataire.
 
 logement . résidence principale locataire:
   non applicable si: logement . propriétaire occupant # seulement "propriétaire occupant" fait crasher le simulateur MPR
-  question: Le logement est-il la résidence principale du locataire ?
+  question: Le logement sera-t-il la résidence principale du locataire ?
   par défaut: oui
   description: |
-    Le logement doit **être occupée au moins 8 mois par an**, maintenant et dans les 3 prochaines années au moins qui suivent la rénovation. Les résidences secondaires sont donc exclues.
+    Pour qu'il soit résidence principale, quelqu'un devra occuper le logement **au moins 8 mois par an** après la rénovation, et vous devrez vous engager à ce qu'il le reste pendant un certain temps. 
 
-    Si vous comptez continuer de louer votre logement rénové, vous devrez le faire dans un délai d'un an et pendant **au moins 6 ans**.
+    La plupart des aides ne ciblent que les résidence principales, et excluent donc les résidences secondaires.
 
 logement . année de construction:
   titre: Année de construction
@@ -275,11 +303,19 @@ logement . département:
   par défaut: '"Finistère"'
 
 logement . commune:
+  # TODO attention, cette condition peut faire sauter cette variable, donc ses sous variables
+  # la remplacer par une formule, si propriétaire occupant = non alors ça vaut foyer . commune ?
   applicable si: propriétaire occupant = non
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides locales.
   par défaut: "'29200'"
+
+logement . commune . nom:
+  par défaut:
+    texte: Brest
+
+# logement . commune . denormandie: voir le fichier denormandie
 
 ménage:
   titre: Votre ménage
@@ -328,7 +364,7 @@ ménage . région:
 ménage . région . IdF: code région = "11"
 
 DPE:
-  titre: Diagnostic de Performance Énergétique.
+  titre: Diagnostic de Performance Énergétique
 
 DPE . actuel . passoire:
   type: notification
@@ -452,16 +488,9 @@ projet . travaux . notification:
   description: |
     Pour atteindre 2 sauts de DPE, il est en général nécessaire de prévoir une enveloppe de travaux de plusieurs milliers d'€.
 
-taux d'aides relatives:
-  somme:
-    - aides locales . angers . aides socles . taux
-    - MPR . accompagnée . pourcent dont bonus
-
-montant d'aides absolues:
-  formule: aides locales . angers . prime basse consommation . montant
-
 projet . enveloppe estimée:
   formule: par surface * logement . surface
+
 projet . enveloppe estimée . par surface:
   variations:
     - si: logement . type = 'maison'
@@ -576,6 +605,8 @@ MPR . accompagnée . avance:
       - ménage . revenu . classe = 'modeste'
   formule: 0.7 * montant
 
+MPR . accompagnée . remboursement: montant - avance
+
 MPR . accompagnée . montant:
   titre: Aide accompagnée
   applicable si: éligible
@@ -590,6 +621,11 @@ MPR . accompagnée . montant écrêté:
 
 MPR . accompagnée . montant avant écrêtement:
   formule: pourcent dont bonus * projet . travaux . plafonnés
+
+MPR . accompagnée . reste à charge:
+  titre: Reste à charge après MaPrimeRénov' ampleur
+  description: Votre reste à charge, c'est-à-dire la portion des travaux que vous devrez payer de votre poche ou via d'autres aides après application de l'aide MaPrimeRénov' ampleur.
+  formule: projet . travaux . TTC - montant écrêté
 
 projet . investissement:
   titre: Votre investissement
@@ -693,7 +729,7 @@ MPR . non accompagnée:
   illustration: mpg.svg
   alias: Parcours par geste
   interface:
-    motivation: J’ai une idée précise des travaux à réaliser
+    motivation: J'ai une idée précise des travaux à réaliser
     avantages:
       - Un choix à la carte dans un bouquet de travaux subventionnés
 
@@ -727,18 +763,31 @@ MPR . accompagnée:
   alias: Parcours accompagné
   marque: MaPrimeRénov'
   complément de marque: accompagnée
+  favorite: oui
+  type: remboursement
+  informations utiles: |
+    - Votre conseiller local France Rénov' vous accompagne <strong>gratuitement</strong> pour vous guider dans les premières étapes de votre projet.
+    - Vous devrez payer un <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">Accompagnateur Rénov'</a> pour réaliser un audit énergétique de votre logement qui définira les travaux vous permettant d'atteindre le DPE visé.
   interface:
     motivation: Je veux améliorer significativement la performance de mon logement.
     avantages:
       - Un accompagnement renforcé pour des gains réels après travaux
       - Un financement plus important
+  conditions éligibilités: |
+    - Vous devrez faire appel à un Accompagnateur Rénov', qui réalisera un audit énergétique de votre logement pour définir le projet de travaux vous permettant d'atteindre le DPE visé.
+    - Il est également demandé d'inclure deux gestes d'isolation (toiture, fenêtre/menuiserie, sols ou murs) dans le programme de travaux.
+    - Le projet ne doit pas prévoir d’installer un chauffage fonctionnant majoritairement aux énergies fossiles. Il est également interdit de garder un chauffage fonctionnant majoritairement au fioul.
+    - Pour réaliser les travaux vous devez faire appel à des artisans labellisés reconnu garant de l'environnement (RGE).
+    - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
   description: |
+    Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux classes DPE.
+  description détaillé: |
     L'aide principale en 2024 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
 
     Vous serez [accompagné](https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov), pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
 
     [Tous les détails](https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne).
-
+  lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
 MPR . accompagnée . bénéficiaire:
   applicable si: éligible
   titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
@@ -756,7 +805,6 @@ MPR . accompagnée . condition de sauts:
       - DPE . actuel > 2
       - sauts >= sauts minimum
 
-MPR . accompagnée . bonus . sauts minimum: 3
 MPR . accompagnée . bonus . condition:
   toutes ces conditions:
     - projet . DPE visé <= 4
@@ -764,7 +812,7 @@ MPR . accompagnée . bonus . condition:
 MPR . accompagnée . bonus:
   titre: Bonus sortie de passoire
   description: |
-    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s’applique que si l’étiquette D est atteinte à minima.
+    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s'applique que si l'étiquette D est atteinte à minima.
   applicable si: condition
   valeur: 10 %
 MPR . accompagnée . montant si assiette maximum:
@@ -800,15 +848,26 @@ MPR . accompagnée . pourcent brut:
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
 
 MPR . accompagnée . prise en charge MAR:
+  description: |
+    Mon Accompagnateur Rénov’ est l’interlocuteur de confiance, qui accompagne les projets de travaux de rénovation globale des ménages, depuis l’élaboration du projet (audit énergétique, choix du scénario de travaux, etc.) jusqu’à la fin des travaux.
+
+    Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ Parcours Accompagné et de Loc’Avantages.
+  conditions éligibilités: |
+    - Seuls les professionnels ayant obtenu l'agrément délivré par l’État peuvent intervenir comme Mon Accompagnateur Rénov’. Consultez l'[annuaire officiel](https://france-renov.gouv.fr/annuaires-professionnels/mon-accompagnateur-renov) pour trouver un Mon Accompagnateur Rénov’ agréé.
+  applicable si: MPR . accompagnée . éligible
   icône: maprimerenov.svg
-  marque: MaPrimeRénov'
-  complément de marque: audit énergétique
+  marque: Mon Accompagnateur Rénov'
+  complément de marque: Subvention
+  aide parente: MPR . accompagnée
+  type: remboursement
+  lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
+MPR . accompagnée . prise en charge MAR . montant:
   formule:
     valeur: prix moyen * pourcent
     plafond: plafond
 MPR . accompagnée . prise en charge MAR . plafond:
   description: |
-    Le prix de Mon Accompagnateur Rénov couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d’habitat indigne).
+    Le prix de Mon Accompagnateur Rénov couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d'habitat indigne).
   note: Nous n'avons pas encore intégré les logements jugés indignes ou la précarité énergétique qui augmente le plafond à 4000 €
   valeur: 2000 €
 MPR . accompagnée . prise en charge MAR . prix moyen:
@@ -816,9 +875,9 @@ MPR . accompagnée . prise en charge MAR . prix moyen:
   description: |
     Comme expliqué sur la page [Mon Accompagnateur Rénov'](https://www.ecologie.gouv.fr/mon-accompagnateur-renov) du site du Ministère de l'Écologie : 
 
-    > Les tarifs de l’accompagnement sont libres et non réglementés.
+    > Les tarifs de l'accompagnement sont libres et non réglementés.
 
-    > Chaque accompagnateur devra développer une offre concurrentielle sur le marché de l’accompagnement.
+    > Chaque accompagnateur devra développer une offre concurrentielle sur le marché de l'accompagnement.
 
     Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésitez à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
 MPR . accompagnée . prise en charge MAR . pourcent:

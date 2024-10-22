@@ -10,6 +10,10 @@ chauffage . bois . chaudière . manuelle:
   description: Chaudière bois à alimentation manuelle (bûches)
   par défaut: oui
 chauffage . bois . chaudière . manuelle . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - CEE . montant
@@ -27,8 +31,11 @@ chauffage . bois . chaudière . manuelle . MPR . montant:
       alors: 2000 €
     - sinon: 0 €
 chauffage . bois . chaudière . manuelle . Coup de pouce:
-chauffage . bois . chaudière . manuelle . Coup de pouce . montant :
-  applicable si: CEE . projet . remplacement chaudière thermique
+chauffage . bois . chaudière . manuelle . Coup de pouce . montant:
+  applicable si:
+    toutes ces conditions:
+      - CEE . conditions
+      - CEE . projet . remplacement chaudière thermique
   rend non applicable: CEE . montant
   variations:
     - si:
@@ -39,9 +46,9 @@ chauffage . bois . chaudière . manuelle . Coup de pouce . montant :
     - sinon: 2500 €
 chauffage . bois . chaudière . manuelle . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . bois . chaudière . manuelle . CEE:
-  code : BAR-TH-113
+  code: BAR-TH-113
   titre: Chaudière biomasse individuelle
-  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
   technique: |
     La **puissance thermique nominale** de la chaudière est inférieure ou égale à **70 kW**.  
       
@@ -56,6 +63,7 @@ chauffage . bois . chaudière . manuelle . CEE:
 
     <br />Une chaudière possédant le **label Flamme verte 7*** est réputée **satisfaire les conditions** relatives aux émissions atmosphériques.
 chauffage . bois . chaudière . manuelle . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac
@@ -73,7 +81,11 @@ chauffage . bois . chaudière . automatique:
   titre: Chaudière bois auto (granulés, plaquettes)
   description: Chaudière bois à alimentation automatique (granulés, plaquettes)
   par défaut: oui
-chauffage . bois . chaudière . automatique . montant :
+chauffage . bois . chaudière . automatique . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - CEE . montant
@@ -91,8 +103,11 @@ chauffage . bois . chaudière . automatique . MPR . montant:
       alors: 3000 €
     - sinon: 0 €
 chauffage . bois . chaudière . automatique . Coup de pouce:
-chauffage . bois . chaudière . automatique . Coup de pouce . montant :
-  applicable si: CEE . projet . remplacement chaudière thermique
+chauffage . bois . chaudière . automatique . Coup de pouce . montant:
+  applicable si:
+    toutes ces conditions:
+      - CEE . projet . remplacement chaudière thermique
+      - CEE . conditions
   rend non applicable: CEE . montant
   variations:
     - si:
@@ -103,9 +118,9 @@ chauffage . bois . chaudière . automatique . Coup de pouce . montant :
     - sinon: 2500 €
 chauffage . bois . chaudière . automatique . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
 chauffage . bois . chaudière . automatique . CEE:
-  code : BAR-TH-113
+  code: BAR-TH-113
   titre: Chaudière biomasse individuelle
-  lien : https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-113%20vA41-3%20%C3%A0%20compter%20du%2001-04-2022.pdf
   technique: |
     La **puissance thermique nominale** de la chaudière est inférieure ou égale à **70 kW**.  
       
@@ -120,6 +135,7 @@ chauffage . bois . chaudière . automatique . CEE:
 
     <br />Une chaudière possédant le **label Flamme verte 7*** est réputée satisfaire les conditions relatives aux émissions atmosphériques.
 chauffage . bois . chaudière . automatique . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac
@@ -135,11 +151,15 @@ chauffage . bois . chaudière . automatique . CEE . barème:
 
 chauffage . bois . foyer et insert:
   par défaut: oui
-  titre: Foyer fermé et insert à buches ou à granulés
+  titre: Foyer fermé et insert à bûches ou à granulés
 chauffage . bois . foyer et insert . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 chauffage . bois . foyer et insert . MPR:
 chauffage . bois . foyer et insert . MPR . plafond: 4000 €
 chauffage . bois . foyer et insert . MPR . montant:
@@ -164,7 +184,7 @@ chauffage . bois . foyer et insert . CEE:
       - les **émissions de monoxyde de carbone** (CO) sont **inférieures ou égales à 1 500 mg/Nm3** (soit 0,12 %) ;
       - les **émissions d'oxydes d'azote** (NOx) sont **inférieures ou égales à 200 mg/Nm3** ;  
         
-    <br />Un appareil de chauffage au bois possédant le **label Flamme verte** est réputé **satisfaire les conditions** relatives aux émissions de polluants. 
+    <br />Un appareil de chauffage au bois possédant le **label Flamme verte** est réputé **satisfaire les conditions** relatives aux émissions de polluants.
 chauffage . bois . foyer et insert . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de l'insert ?
   titre: Efficacité énergétique saisonnière
@@ -172,19 +192,20 @@ chauffage . bois . foyer et insert . CEE . Etas:
   maximum: "'supérieur à 80 %'"
   une possibilité parmi:
     possibilités:
-      - "entre 66 % et 72 %"
-      - "entre 72 % et 80 %"
-      - "supérieur à 80 %"
+      - 'entre 66 % et 72 %'
+      - 'entre 72 % et 80 %'
+      - 'supérieur à 80 %'
 chauffage . bois . foyer et insert . CEE . Etas . entre 66 % et 72 %:
   valeur: "'entre 66 % et 72 %'"
-  titre: "Entre 66 % et 72 %"
+  titre: 'Entre 66 % et 72 %'
 chauffage . bois . foyer et insert . CEE . Etas . entre 72 % et 80 %:
   valeur: "'entre 72 % et 80 %'"
-  titre: "Entre 72 % et 80 %"
+  titre: 'Entre 72 % et 80 %'
 chauffage . bois . foyer et insert . CEE . Etas . supérieur à 80 %:
   valeur: "'supérieur à 80 %'"
-  titre: "Supérieur à 80 %"
+  titre: 'Supérieur à 80 %'
 chauffage . bois . foyer et insert . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac
@@ -232,9 +253,13 @@ chauffage . bois . poêle . à bûches:
   par défaut: oui
   titre: Poêle et cuisinière à bûches
 chauffage . bois . poêle . à bûches . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 chauffage . bois . poêle . à bûches . MPR:
 chauffage . bois . poêle . à bûches . MPR . plafond: 4000 €
 chauffage . bois . poêle . à bûches . MPR . montant:
@@ -258,7 +283,7 @@ chauffage . bois . poêle . à bûches . CEE:
       - les émissions de composés organiques gazeux (COG) sont inférieures ou égales à 120 mgC/Nm3 ;
       - les émissions de monoxyde de carbone (CO) sont inférieures ou égales à 1 500 mg/Nm3 (soit 0,12 %) ;
       - les émissions d'oxydes d'azote (NOx) sont inférieures ou égales à 200 mg/Nm3 ;
-    Un appareil de chauffage au bois possédant le label Flamme verte est réputé satisfaire les conditions relatives aux émissions de polluants. 
+    Un appareil de chauffage au bois possédant le label Flamme verte est réputé satisfaire les conditions relatives aux émissions de polluants.
 
 chauffage . bois . poêle . à bûches . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à bûches ?
@@ -267,19 +292,20 @@ chauffage . bois . poêle . à bûches . CEE . Etas:
   maximum: "'supérieur à 80 %'"
   une possibilité parmi:
     possibilités:
-      - "entre 66 % et 72 %"
-      - "entre 72 % et 80 %"
-      - "supérieur à 80 %"
+      - 'entre 66 % et 72 %'
+      - 'entre 72 % et 80 %'
+      - 'supérieur à 80 %'
 chauffage . bois . poêle . à bûches . CEE . Etas . entre 66 % et 72 %:
   valeur: "'entre 66 % et 72 %'"
-  titre: "Entre 66 % et 72 %"
+  titre: 'Entre 66 % et 72 %'
 chauffage . bois . poêle . à bûches . CEE . Etas . entre 72 % et 80 %:
   valeur: "'entre 72 % et 80 %'"
-  titre: "Entre 72 % et 80 %"
+  titre: 'Entre 72 % et 80 %'
 chauffage . bois . poêle . à bûches . CEE . Etas . supérieur à 80 %:
   valeur: "'supérieur à 80 %'"
-  titre: "Supérieur à 80 %"
+  titre: 'Supérieur à 80 %'
 chauffage . bois . poêle . à bûches . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac
@@ -322,9 +348,13 @@ chauffage . bois . poêle . à granulés:
   par défaut: oui
   titre: Poêle et cuisinière à granulés
 chauffage . bois . poêle . à granulés . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
-  - MPR . montant
-  - CEE . montant
+    - MPR . montant
+    - CEE . montant
 chauffage . bois . poêle . à granulés . MPR:
 chauffage . bois . poêle . à granulés . MPR . plafond: 5000 €
 chauffage . bois . poêle . à granulés . MPR . montant:
@@ -347,7 +377,7 @@ chauffage . bois . poêle . à granulés . CEE:
       - les émissions de particules sont inférieures ou égales à 20 mg/Nm3 ;
       - les émissions de composés organiques gazeux (COG) sont inférieures ou égales à 60 mgC/Nm3 ;
       - les émissions de monoxyde de carbone (CO) sont inférieures ou égales à 300 mg/Nm3 (soit 0,02 %) ;
-      - les émissions d'oxydes d'azote (NOx) sont inférieures ou égales à 200 mg/Nm3. 
+      - les émissions d'oxydes d'azote (NOx) sont inférieures ou égales à 200 mg/Nm3.
 chauffage . bois . poêle . à granulés . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) du poêle à granulés ?
   titre: Efficacité énergétique saisonnière
@@ -355,19 +385,20 @@ chauffage . bois . poêle . à granulés . CEE . Etas:
   maximum: "'supérieur à 80 %'"
   une possibilité parmi:
     possibilités:
-      - "entre 66 % et 72 %"
-      - "entre 72 % et 80 %"
-      - "supérieur à 80 %"
+      - 'entre 66 % et 72 %'
+      - 'entre 72 % et 80 %'
+      - 'supérieur à 80 %'
 chauffage . bois . poêle . à granulés . CEE . Etas . entre 66 % et 72 %:
   valeur: "'entre 66 % et 72 %'"
-  titre: "Entre 66 % et 72 %"
+  titre: 'Entre 66 % et 72 %'
 chauffage . bois . poêle . à granulés . CEE . Etas . entre 72 % et 80 %:
   valeur: "'entre 72 % et 80 %'"
-  titre: "Entre 72 % et 80 %"
+  titre: 'Entre 72 % et 80 %'
 chauffage . bois . poêle . à granulés . CEE . Etas . supérieur à 80 %:
   valeur: "'supérieur à 80 %'"
-  titre: "Supérieur à 80 %"
+  titre: 'Supérieur à 80 %'
 chauffage . bois . poêle . à granulés . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - CEE . prix kWh Cumac

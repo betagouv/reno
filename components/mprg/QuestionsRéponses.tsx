@@ -1,5 +1,6 @@
 import { BlocQuestionRéponse } from '../BlocQuestionRéponse'
-import { Value } from '../ScenariosSelector'
+import Value from '@/components/Value'
+
 export default function QuestionsRéponses() {
   return (
     <BlocQuestionRéponse>

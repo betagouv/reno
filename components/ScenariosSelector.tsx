@@ -2,6 +2,8 @@ import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
+import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import { CustomQuestionWrapper } from './CustomQuestionUI'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
 import { Card } from './UI'
@@ -11,9 +13,15 @@ import DPEScenario from './mpra/DPEScenario'
 import QuestionsRéponses from './mpra/QuestionsRéponses'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { omit, roundToThousands } from './utils'
-import { Number } from '@/app/simulation/Answers'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
-import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import Feedback from '@/app/contact/Feedback'
+
+export const getAmpleurDPEChoice = (situation) => {
+  const value = situation['projet . DPE visé'],
+    oldIndex = +situation['DPE . actuel'] - 1,
+    automaticChoice = Math.max(oldIndex - 2, 0),
+    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+  return choice
+}
 
 export default function ScenariosSelector({
   setSearchParams,
@@ -28,10 +36,8 @@ export default function ScenariosSelector({
   const situation = //omit(['projet . travaux'], givenSituation)
     givenSituation
 
-  const value = situation['projet . DPE visé'],
-    oldIndex = +situation['DPE . actuel'] - 1,
-    automaticChoice = Math.max(oldIndex - 2, 0),
-    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+  const oldIndex = +situation['DPE . actuel'] - 1,
+    choice = getAmpleurDPEChoice(situation)
 
   const exampleSituation = {
     'projet . travaux': roundToThousands(
@@ -46,7 +52,7 @@ export default function ScenariosSelector({
       <BtnBackToParcoursChoice
         {...{
           setSearchParams,
-          situation,
+          situation: omit(["parcours d'aide"], situation),
           answeredQuestions,
         }}
       />
@@ -58,7 +64,7 @@ export default function ScenariosSelector({
         Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux
         classes DPE.
       </p>
-      <DPEQuickSwitch oldIndex={oldIndex} />
+      <DPEQuickSwitch oldIndex={oldIndex} />.
       <TargetDPETabs
         {...{
           oldIndex,
@@ -166,10 +172,10 @@ export default function ScenariosSelector({
             situation,
             what: 'trouver-conseiller-renov',
             text: 'Trouver mon conseiller',
-            link: 'https://france-renov.gouv.fr/preparer-projet/trouver-conseiller#trouver-un-espace-conseil-france-renov',
           }}
         />
       </section>
+      <Feedback title="Ce simulateur a-t-il été utile ?" />
       <QuestionsRéponses
         {...{
           engine,
@@ -219,15 +225,24 @@ export const Avance = ({
   return (
     <p>
       En tant que ménage au revenu{' '}
-      <ExplanationValue {...{ evaluation, state: 'none' }} />, vous pourrez
-      bénéficier d'une avance de <strong>70&nbsp;%</strong> de la prime, soit{' '}
+      <Value
+        {...{
+          engine,
+          choice,
+          situation: { ...exampleSituation },
+          dottedName: 'ménage . revenu . classe',
+          state: 'prime-black',
+        }}
+      />
+      , vous pourrez bénéficier d'une avance de <strong>70&nbsp;%</strong> de la
+      prime, soit{' '}
       <Value
         {...{
           engine,
           choice,
           situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
           dottedName: 'MPR . accompagnée . avance',
-          state: 'final',
+          state: 'prime-black',
         }}
       />
       , le reste sera un remboursement.

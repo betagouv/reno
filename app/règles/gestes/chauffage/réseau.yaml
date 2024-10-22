@@ -10,6 +10,10 @@ chauffage . raccordement réseau . chaleur:
   description: |
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 chauffage . raccordement réseau . chaleur . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
     - Coup de pouce . montant
@@ -33,8 +37,9 @@ chauffage . raccordement réseau . chaleur . CEE:
   technique: |
     L'opération respecte les conditions cumulatives suivantes : 
     - le bâtiment n'a jamais été raccordé à un réseau de chaleur dans le délai de cinq ans précédant la date de l'engagement de l'opération ; 
-    - le cas échéant, le ou les raccordements précédents n'ont pas fait l'objet d'une demande de certificats d'économies d'énergie. 
+    - le cas échéant, le ou les raccordements précédents n'ont pas fait l'objet d'une demande de certificats d'économies d'énergie.
 chauffage . raccordement réseau . chaleur . CEE . montant:
+  applicable si: CEE . conditions
   produit:
     - barème
     - facteur correctif surface
@@ -63,7 +68,10 @@ chauffage . raccordement réseau . chaleur . CEE . facteur correctif surface:
       alors: 1.6
 chauffage . raccordement réseau . chaleur . Coup de pouce:
 chauffage . raccordement réseau . chaleur . Coup de pouce . montant:
-  applicable si: CEE . projet . remplacement chaudière thermique
+  applicable si:
+    toutes ces conditions:
+      - CEE . projet . remplacement chaudière thermique
+      - CEE . conditions
   rend non applicable: CEE . montant
   variations:
     - si:
