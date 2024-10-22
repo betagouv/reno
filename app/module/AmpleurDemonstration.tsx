@@ -91,7 +91,7 @@ export default function () {
             text-align: center;
           `}
         >
-          <h3>Le module de simulation que verra l'usager</h3>
+          <h3>Le module de simulation que verra l'usager sur écran large</h3>
           <iframe
             src={
               getAppUrl() +
@@ -104,6 +104,29 @@ export default function () {
               margin: 3rem auto;
               height: 800px;
               width: 40rem;
+              max-width: 90vw;
+              --shadow-color: 0deg 0% 63%;
+              --shadow-elevation-medium: 0.3px 0.5px 0.7px
+                  hsl(var(--shadow-color) / 0.36),
+                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+              box-shadow: var(--shadow-elevation-medium);
+            `}
+          ></iframe>
+          <h3>... et sur écran mobile</h3>
+          <iframe
+            src={
+              getAppUrl() +
+              '/module/integration?' +
+              new URLSearchParams(searchParams).toString()
+            }
+            css={`
+              border: none;
+              border-radius: 0.4rem;
+              margin: 3rem auto;
+              height: 800px;
+              width: 370px;
               max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
