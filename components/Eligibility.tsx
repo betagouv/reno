@@ -101,22 +101,7 @@ export default function Eligibility({
             <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
           </p>
         )}
-        {both && (
-          <>
-            <h3
-              css={`
-                margin: 0;
-                font-size: 110%;
-                font-weight: 500;
-              `}
-            >
-              Vous êtes éligible à plusieurs aides !
-            </h3>
-            <Avis {...{ situation, engine }} />
-            <p>Sélectionnez le parcours adapté à vos besoins :</p>
-          </>
-        )}
-
+        <Avis {...{ situation, engine }} />
         <div
           css={`
             display: flex;
