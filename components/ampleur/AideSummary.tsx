@@ -1,10 +1,9 @@
 'use client'
 
 import { PrimeStyle } from '@/components/UI'
-import Image from 'next/image'
+import { PrimeWithLabel } from './AideAmpleur'
 import AideDurée from './AideDurée'
 import StatusIcon from './StatusIcon'
-import { PrimeWithLabel } from './AideAmpleur'
 
 export const computeStatusTitle = (status) =>
   status
@@ -81,14 +80,6 @@ export const AideSummary = ({
               }
             `}
           >
-            {false && (
-              <Image
-                src={`/${icon}`}
-                alt={`Icône ${text}`}
-                width="25"
-                height="25"
-              />
-            )}
             {text && <span>{text}</span>}
             {text2 && (
               <>
