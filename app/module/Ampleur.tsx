@@ -5,6 +5,7 @@ import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import { CTA, PrimeStyle, Card } from '@/components/UI'
 import {
   encodeDottedName,
+  encodeSituation,
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
@@ -19,6 +20,8 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 import { BlueEm, Labels } from '../LandingUI'
 import personas from './examplePersonas.yaml'
+import Select from '@/components/Select'
+import { usageLogement, usageLogementValues } from './AmpleurInputs'
 
 const engine = new Publicodes(rules)
 
@@ -139,18 +142,25 @@ export default function Ampleur() {
         `}
       >
         <li>
-          <input
-            type="checkbox"
-            id="residenceprincipale"
-            name={'residenceprincipale'}
-            defaultChecked={
-              situation['logement . résidence principale'] === 'oui'
-            }
-            onChange={onChange('logement . résidence principale', 'checkbox')}
-          />
-          <label htmlFor="residenceprincipale">
-            Le logement sera votre résidence principale ou celle de votre
-            locataire
+          <label htmlFor="">
+            Ce logement sera :
+            <Select
+              onChange={(e) => {
+                alert(e)
+                const encodedSituation = encodeSituation(
+                  {
+                    ...situation,
+                    ...usageLogementValues.find(({ valeur }) => valeur == e)
+                      .situation,
+                  },
+                  false,
+                  //answeredQuestions,
+                )
+                setSearchParams(encodedSituation, 'replace', false)
+              }}
+              value={usageLogement(situation)}
+              values={usageLogementValues}
+            />
           </label>
         </li>
         <li>
