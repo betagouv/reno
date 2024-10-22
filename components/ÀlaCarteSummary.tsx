@@ -61,8 +61,8 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           }
         `}
       >
-        <li>Votre logement n'est pas une passoire thermique</li>
         <li>Vous souhaitez choisir librement parmi les aides disponibles</li>
+        <li>Votre logement n'est pas une passoire thermique</li>
       </ul>
       {hasAide && (
         <>
