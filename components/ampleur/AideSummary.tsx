@@ -36,6 +36,9 @@ export const AideSummary = ({
         summary {
           list-style-type: none;
         }
+        summary::-webkit-details-marker {
+          display: none;
+        }
         ${small
           ? 'font-size: 85%; margin-bottom: .2rem'
           : 'margin-bottom: .6rem'}
