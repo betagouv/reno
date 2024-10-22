@@ -266,8 +266,6 @@ const Result = ({ engine, situation }) => {
     { precision: 0 },
   )
 
-  console.log('lightgreen', { value, thresholdCondition })
-
   return (
     <section
       css={`
