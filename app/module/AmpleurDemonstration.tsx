@@ -103,7 +103,8 @@ export default function () {
               border-radius: 0.4rem;
               margin: 3rem auto;
               height: 800px;
-              width: 370px;
+              width: 40rem;
+              max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
                   hsl(var(--shadow-color) / 0.36),
