@@ -143,6 +143,13 @@ export default function Denormandie({
                       input {
                         min-width: 2rem;
                       }
+                      input[type='radio'],
+                      input[type='radio'] + label {
+                        cursor: pointer;
+                        &:hover {
+                          background: var(--lighterColor);
+                        }
+                      }
                     }
                   `}
                 >
