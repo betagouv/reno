@@ -72,11 +72,10 @@ export default function Ampleur() {
   }, [situation])
 
   const onChange =
-    (dottedName, type) =>
-    ({ target: { value, checked } }) =>
+    (dottedName) =>
+    ({ target: { value } }) =>
       setSearchParams({
-        [encodeDottedName(dottedName)]:
-          (type === 'checkbox' ? (checked ? 'oui' : 'non') : value) + '*',
+        [encodeDottedName(dottedName)]: value + '*',
       })
 
   return (
@@ -148,7 +147,7 @@ export default function Ampleur() {
         `}
       >
         <li>
-          <Image src={rightArrow} alt="Icône d'une flèche vers la droite" />
+          <Dot />
           <label htmlFor="">
             Ce logement sera :{' '}
             <Select
@@ -168,18 +167,6 @@ export default function Ampleur() {
               value={usageLogement(situation)}
               values={usageLogementValues}
             />
-          </label>
-        </li>
-        <li>
-          <input
-            type="checkbox"
-            id="idf"
-            name={'IDF'}
-            defaultChecked={situation['ménage . région . IdF'] === 'non'}
-            onChange={onChange('ménage . région . IdF', 'checkbox')}
-          />
-          <label htmlFor="idf">
-            Vous habitez actuellement hors Île-de-France
           </label>
         </li>
         <li key="personnes">
@@ -213,6 +200,60 @@ export default function Ampleur() {
             />{' '}
             €
           </label>
+        </li>
+        <li
+          css={`
+            > section {
+              margin-left: 1rem;
+              label {
+                display: inline-flex;
+                align-items: center;
+                margin-right: 1rem;
+              }
+              input[type='radio'] {
+                width: 1.2rem !important;
+                height: 1.2rem !important;
+              }
+              input[type='radio'],
+              input[type='radio'] + label {
+                cursor: pointer;
+                &:hover {
+                  background: var(--lighterColor);
+                }
+              }
+            }
+          `}
+        >
+          <Dot />
+          <span>Vous habitez actuellement hors Île-de-France</span>
+          <section>
+            <label>
+              <input
+                id={`idf`}
+                type="radio"
+                checked={situation['ménage . région . IdF'] === 'oui'}
+                onChange={() =>
+                  setSearchParams({
+                    [encodeDottedName('ménage . région . IdF')]: 'oui*',
+                  })
+                }
+              />
+              <span>Oui</span>
+            </label>
+            <label>
+              <input
+                id={`idf`}
+                type="radio"
+                checked={situation['ménage . région . IdF'] === 'non'}
+                onChange={() =>
+                  setSearchParams({
+                    [encodeDottedName('ménage . région . IdF')]: 'non*',
+                  })
+                }
+              />
+              <span>Non</span>
+            </label>
+          </section>
         </li>
         <li key="DPE">
           <Dot />
@@ -354,20 +395,7 @@ export default function Ampleur() {
 }
 
 const Dot = () => (
-  <Image
-    src={dotIcon}
-    alt=""
-    width="10"
-    height="10"
-    css={`
-      display: none;
-      margin-right: 1rem;
-      margin-left: 0.25rem;
-      height: 1rem;
-      width: auto;
-      vertical-align: sub;
-    `}
-  />
+  <Image src={rightArrow} alt="Icône d'une flèche vers la droite" />
 )
 
 export const EvaluationValue = styled.div`
