@@ -5,6 +5,5 @@ export default function enrichSituationServer(situation) {
   const codeInsee = extractCleanCodeInsee(situation)
 
   const éligibilité = buildEligilityObject(codeInsee)
-  console.log('SALUT', éligibilité)
   return { ...situation, ...éligibilité }
 }

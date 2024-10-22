@@ -14,7 +14,7 @@ const topList = rules['ampleur . tous les dispositifs'].somme,
     .map((dottedName) => {
       const rule = rules[dottedName]
       const split = dottedName.split(' . montant')
-      
+
       if (split.length > 1) {
         const parentRule = rules[split[0]]
         return {
@@ -54,7 +54,6 @@ export const findAidesLocales = (rules, engine) => {
           `${place} ${titre ? ` : ${rule.titre}` : ''}` ||
             aideLocalePart.split(' . ').join(' - '),
         )
-      console.log('cerise', name)
       return {
         ...evaluation,
         name,

@@ -50,7 +50,6 @@ export default function Tests() {
                 }[test['ressource ménage']]
               }"`,
             }
-            console.log(situation)
             const evaluation = engine
               .setSituation(situation)
               .evaluate('MPR . accompagnée . montant écrêté')

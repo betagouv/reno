@@ -52,7 +52,6 @@ export default function Personas({}) {
 
 const PersonaCard = ({ engine, persona, personaIndex }) => {
   const enrichedSituation = enrichSituationServer(persona.situation)
-  console.log('enriched', enrichedSituation)
 
   engine.setSituation({
     'simulation . mode': '"max"',

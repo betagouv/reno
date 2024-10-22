@@ -7,7 +7,6 @@ export function personaTest(persona, nom, engine, dottedName, expectedValue) {
     formattedValue = formatValue(evaluation, {
       precision: 0,
     })
-  console.log(nom, dottedName, expectedValue, computedValue, formattedValue)
   const correct =
     typeof expectedValue === 'number'
       ? Math.round(computedValue) === Math.round(expectedValue)
