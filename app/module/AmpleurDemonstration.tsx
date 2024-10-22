@@ -85,7 +85,12 @@ export default function () {
             ))}
           </ul>
         </div>
-        <section>
+        <section
+          css={`
+            margin: auto;
+            text-align: center;
+          `}
+        >
           <h3>Le module de simulation que verra l'usager</h3>
           <iframe
             src={
@@ -98,7 +103,8 @@ export default function () {
               border-radius: 0.4rem;
               margin: 3rem auto;
               height: 800px;
-              width: 720px;
+              width: 40rem;
+              max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
                   hsl(var(--shadow-color) / 0.36),
