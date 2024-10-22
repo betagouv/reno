@@ -22,6 +22,7 @@ import { BlueEm, Labels } from '../LandingUI'
 import personas from './examplePersonas.yaml'
 import Select from '@/components/Select'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
+import rightArrow from '@/public/flèche-vers-droite.svg'
 
 const engine = new Publicodes(rules)
 
@@ -138,12 +139,18 @@ export default function Ampleur() {
             label {
               cursor: pointer;
             }
+            img {
+              width: 1rem;
+              height: auto;
+              margin-right: 0.6rem;
+            }
           }
         `}
       >
         <li>
+          <Image src={rightArrow} alt="Icône d'une flèche vers la droite" />
           <label htmlFor="">
-            Ce logement sera :
+            Ce logement sera :{' '}
             <Select
               onChange={(e) => {
                 alert(e)
