@@ -120,6 +120,17 @@ export default function Ampleur() {
         Quelles <BlueEm>aides</BlueEm> pour une rénovation d'ampleur ?
       </h2>
       <hr />
+      <p>
+        Pour bénéficier des aides pour une rénovation d'ampleur, vous devez
+        viser un saut d'au moins 2 classes de DPE, soit passer d'un DPE actuel{' '}
+        <DPELabel index={currentDPE - 1} /> à un{' '}
+        <DPEQuickSwitch
+          oldIndex={targetDPE - 1}
+          prefixText={''}
+          dottedName="projet . DPE visé"
+        />
+        .
+      </p>
       <ul
         css={`
           list-style-type: none;
@@ -135,9 +146,6 @@ export default function Ampleur() {
               min-height: 1.4rem;
               margin-right: 0.6rem;
             }
-            label {
-              cursor: pointer;
-            }
             img {
               width: 1rem;
               height: auto;
@@ -151,8 +159,10 @@ export default function Ampleur() {
           <label htmlFor="">
             Ce logement sera :{' '}
             <Select
+              css={`
+                background: #f5f5fe;
+              `}
               onChange={(e) => {
-                alert(e)
                 const encodedSituation = encodeSituation(
                   {
                     ...situation,
@@ -255,23 +265,8 @@ export default function Ampleur() {
             </label>
           </section>
         </li>
-        <li key="DPE">
-          <Dot />
-          <label>
-            <span>
-              Les travaux de rénovation font passer le DPE actuel{' '}
-              <DPELabel index={currentDPE - 1} /> vers un{' '}
-              <DPEQuickSwitch
-                oldIndex={targetDPE - 1}
-                prefixText={''}
-                dottedName="projet . DPE visé"
-              />
-              .
-            </span>{' '}
-          </label>
-        </li>
       </ul>
-      <h3>Pour ce bien immobilier, vous pouvez toucher :</h3>
+      <h3>Pour ce logement, vous êtes notamment éligible à :</h3>
       <EvaluationValue>
         <Image
           src={'/investissement.svg'}
@@ -311,28 +306,7 @@ export default function Ampleur() {
           </small>{' '}
         </div>
       </EvaluationValue>
-      <section
-        css={`
-          margin-bottom: 0;
-          display: flex;
-          @media (max-width: 420px) {
-            flex-wrap: wrap;
-          }
-          align-items: center;
-          background: var(--lightestColor);
-          justify-content: space-evenly;
-          padding: 1.2rem 1rem;
-          p {
-            margin: 0;
-            margin-bottom: 0.5rem;
-          }
-          margin-top: 2rem;
-        `}
-      >
-        <p>
-          Découvrez toutes les aides pour une rénovation énergétique de votre
-          logement
-        </p>
+      <section>
         <CTA
           css={`
             margin-bottom: 0;
@@ -352,7 +326,7 @@ export default function Ampleur() {
             target="_blank"
             href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(situationSearchParams).toString()}`}
           >
-            <span>➞&nbsp;&nbsp;J'affine ma simulation</span>
+            <span>Découvrir toutes les aides&nbsp;&nbsp;➞</span>
           </a>
         </CTA>
       </section>
@@ -372,15 +346,23 @@ export default function Ampleur() {
           }
           p {
             margin: 0;
-            margin-left: 2rem;
+            margin-right: 2rem;
           }
           margin-top: 1rem;
         `}
       >
-        <Image
-          src={marianne}
-          alt="Iconographie officielle Marianne, symbole de la république française"
-        />
+        <p>
+          <small
+            css={`
+              line-height: 1rem;
+              color: gray;
+              display: block;
+            `}
+          >
+            Une initiative construite avec France Rénov' pour simplifier
+            l'information sur les aides à la rénovation énergétique.
+          </small>
+        </p>
 
         <Image
           src={logoFranceRenov}
