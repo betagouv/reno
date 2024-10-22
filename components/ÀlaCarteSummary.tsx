@@ -28,8 +28,8 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
         Rénovation par gestes
       </h3>
       <p>
-        Rénover votre logement à votre rythme en choississant librement parmi
-        les travaux subventionnés
+        La liberté de rénover votre logement à votre rythme en choississant
+        parmi les travaux subventionnés.
       </p>
 
       <CTAWrapper $justify="center">
@@ -61,9 +61,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           }
         `}
       >
-        <li>
-          Vous souhaitez choisir librement parmi les travaux subventionnés
-        </li>
+        <li>Vous souhaitez choisir librement les travaux à réaliser</li>
         <li>Votre logement n'est pas une passoire thermique</li>
       </ul>
       {hasAide && (

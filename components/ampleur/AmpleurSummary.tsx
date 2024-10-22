@@ -68,8 +68,8 @@ export default function AmpleurSummary({ engine, url, situation }) {
         Rénovation performante
       </h3>
       <p>
-        La garantie d'un gain en performance, en confort et d'une réduction de
-        vos factures d'énergie
+        La garantie d'une réduction de vos factures d'énergie et d'un gain de
+        confort.
       </p>
 
       <CTAWrapper $justify="center">
