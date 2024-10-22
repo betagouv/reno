@@ -23,6 +23,9 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
             max-width: 100%;
             list-style-type: none;
           }
+          summary::-webkit-details-marker {
+            display: none;
+          }
           > section {
             margin: 0;
             > div {
