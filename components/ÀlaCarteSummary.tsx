@@ -61,7 +61,9 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
           }
         `}
       >
-        <li>Vous souhaitez choisir librement parmi les aides disponibles</li>
+        <li>
+          Vous souhaitez choisir librement parmi les travaux subventionnés
+        </li>
         <li>Votre logement n'est pas une passoire thermique</li>
       </ul>
       {hasAide && (
