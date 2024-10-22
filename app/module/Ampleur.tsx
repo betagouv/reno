@@ -2,7 +2,8 @@
 import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
-import { CTA, PrimeStyle, Card } from '@/components/UI'
+import Select from '@/components/Select'
+import { CTA, PrimeStyle } from '@/components/UI'
 import {
   encodeDottedName,
   encodeSituation,
@@ -10,19 +11,18 @@ import {
 } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import { roundToThousands } from '@/components/utils'
+import rightArrow from '@/public/flèche-vers-droite.svg'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
-import marianne from '@/public/marianne.svg'
-import dotIcon from '@/public/point.svg'
+import logo from '@/public/logo.svg'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import { BlueEm, Labels } from '../LandingUI'
-import personas from './examplePersonas.yaml'
-import Select from '@/components/Select'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
-import rightArrow from '@/public/flèche-vers-droite.svg'
+import personas from './examplePersonas.yaml'
+import { Title } from '../LayoutUI'
 
 const engine = new Publicodes(rules)
 
@@ -85,41 +85,67 @@ export default function Ampleur() {
         padding: 1rem;
         height: 800px;
         position: relative;
-        h2 + hr {
-          width: 4rem;
-          background: var(--color);
-          height: 4px;
-          margin-bottom: 2.6rem;
-        }
+
         h2,
         h3 {
-          font-size: 140%;
+          font-size: 120%;
           font-weight: 500;
         }
         h2 {
           margin-top: 0.6rem;
           margin-bottom: 0.8rem;
-          font-size: 160%;
+          font-size: 130%;
           font-weight: 600;
         }
         h3 {
           margin-bottom: 0.6rem;
         }
+        header {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          img {
+          }
+        }
       `}
     >
-      <Labels
-        css={`
-          margin: 0;
-        `}
-      >
-        {['⚡️ En 2024, les aides évoluent'].map((text) => (
-          <li key={text}>{text}</li>
-        ))}
-      </Labels>
-      <h2>
-        Quelles <BlueEm>aides</BlueEm> pour une rénovation d'ampleur ?
-      </h2>
-      <hr />
+      <header>
+        <div>
+          <Labels
+            css={`
+              margin: 0;
+              li  {
+                background: #fdf8db;
+
+                color: #6e4444;
+              }
+            `}
+          >
+            {[' ⭐️ Aides à la rénovation énergétique'].map((text) => (
+              <li key={text}>{text}</li>
+            ))}
+          </Labels>
+          <h2>Vos aides pour une rénovation d'ampleur</h2>
+        </div>
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+            font-size: 90%;
+          `}
+        >
+          <Image
+            src={logo}
+            alt="Logo de Mes Aides Réno"
+            css={`
+              width: 2.6rem !important;
+            `}
+          />
+          <Title>
+            Mes <strong>Aides Réno</strong>
+          </Title>
+        </div>
+      </header>
       <p>
         Pour bénéficier des aides pour une rénovation d'ampleur, vous devez
         viser un saut d'au moins 2 classes de DPE, soit passer d'un DPE actuel{' '}

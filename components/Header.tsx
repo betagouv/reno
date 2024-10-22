@@ -12,7 +12,8 @@ export default function Header() {
   const isInIframe = useIsInIframe()
   const isCompact = useIsCompact()
   const pathname = usePathname()
-  const isBareIframe = pathname === '/module/integration' || (isInIframe && isCompact)
+  const isBareIframe =
+    pathname === '/module/integration' || (isInIframe && isCompact)
 
   if (isBareIframe) return null
   return (
@@ -74,4 +75,3 @@ export default function Header() {
     </HeaderWrapper>
   )
 }
-
