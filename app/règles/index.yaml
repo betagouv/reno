@@ -77,9 +77,10 @@ vous . propriétaire . statut:
     </details>
 
     <details><summary>Situations non éligibles</summary>
+
     Vous êtes : 
-      - les nus-propriétaires
-      - les personnes morales (par exemple les sociétés civiles immobilières)
+      - nu-propriétaire
+      - vous faites la simulation en tant que personne morale (par exemple une société civile immobilière)
     </details>
   une possibilité parmi:
     possibilités:
