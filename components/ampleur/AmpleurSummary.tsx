@@ -101,7 +101,7 @@ export default function AmpleurSummary({ engine, url, situation }) {
           }
         `}
       >
-        <li>La garantie d'un gain de performance important</li>
+        <li>Un accompagnement renforcé</li>
         <li>Des aides souvent plus avantageuses</li>
       </ul>
       <p
