@@ -6,6 +6,7 @@ import { CTA, CTAWrapper, Card, PrimeStyle } from '@/components/UI'
 import { roundToThousands, sortBy } from '@/components/utils'
 import { useAides } from './useAides'
 import { AideSummary } from './AideSummary'
+import { push } from '@socialgouv/matomo-next'
 
 export const computeAideStatus = (evaluation) => {
   const value = formatValue(evaluation, { precision: 0 })
@@ -81,7 +82,19 @@ export default function AmpleurSummary({ engine, url, situation }) {
             text-align: center;
           `}
         >
-          <Link href={hasAides ? url : ''}>Voir le parcours en détails</Link>
+          <Link
+            href={hasAides ? url : ''}
+            onClick={() =>
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                'Clic',
+                'parcours ampleur',
+              ])
+            }
+          >
+            Voir le parcours en détails
+          </Link>
         </CTA>
       </CTAWrapper>
 
