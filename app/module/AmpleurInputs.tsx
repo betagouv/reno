@@ -3,7 +3,7 @@ export const usageLogementValues = [
     valeur: 1,
     titre: 'Votre résidence principale',
     situation: {
-      'vous . propriétaire . statut': 'acquéreur',
+      'vous . propriétaire . statut': '"acquéreur"',
       'logement . résidence principale propriétaire': 'oui',
     },
   },
@@ -11,7 +11,7 @@ export const usageLogementValues = [
     valeur: 2,
     titre: 'La résidence principale de votre locataire',
     situation: {
-      'vous . propriétaire . statut': 'acquéreur',
+      'vous . propriétaire . statut': '"acquéreur"',
       'logement . résidence principale locataire': 'oui',
     },
   },
@@ -19,7 +19,7 @@ export const usageLogementValues = [
     valeur: 3,
     titre: 'Votre résidence secondaire',
     situation: {
-      'vous . propriétaire . statut': 'acquéreur',
+      'vous . propriétaire . statut': '"acquéreur"',
       'logement . résidence principale locataire': 'non',
       'logement . résidence principale propriétaire': 'non',
     },

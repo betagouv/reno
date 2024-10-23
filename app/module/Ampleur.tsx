@@ -49,7 +49,6 @@ export default function Ampleur() {
     'ménage . revenu': 25000, // Le revenu médian est de 20 000, mais le mettre à 25 000 permet de faire en sorte qu'il y ait une différence entre IdF et hors IdF pour que la case à cocher ait un effet
     'ménage . personnes': 2,
     'ménage . région . IdF': 'non',
-    'logement . résidence principale': 'oui',
     'projet . travaux': 999999,
   }
 
@@ -249,7 +248,7 @@ export default function Ampleur() {
                       ...usageLogementValues.find(({ valeur }) => valeur == e)
                         .situation,
                     },
-                    false,
+                    true,
                     //answeredQuestions,
                   )
                   setSearchParams(encodedSituation, 'replace', false)
@@ -364,47 +363,7 @@ export default function Ampleur() {
           </li>
         </ul>
         <h3>Parmi vos aides :</h3>
-        <EvaluationValue {...{ engine, situation }}>
-          <Image
-            src={'/investissement.svg'}
-            alt="Icône argent dans la main"
-            width="10"
-            height="10"
-          />
-          <div>
-            <div>
-              {mpra > 0 && <span>Jusqu'à </span>}
-              <PrimeStyle
-                css={`
-                  margin: 0.2rem 0;
-                  display: inline-block;
-                `}
-              >
-                {typeof mpra === 'string' ? (
-                  mpra
-                ) : (
-                  <span>
-                    {roundToThousands(mpra).toLocaleString('fr-FR')} €
-                  </span>
-                )}
-              </PrimeStyle>{' '}
-              d'aides
-            </div>
-            <small
-              css={`
-                display: block;
-                font-size: 70%;
-                margin: 0 auto;
-                margin-top: 0.4rem;
-              `}
-            >
-              avec{' '}
-              <BlueEm>
-                <strong>MaPrimeRénov'</strong>
-              </BlueEm>{' '}
-            </small>{' '}
-          </div>
-        </EvaluationValue>
+        <EvaluationValue {...{ engine, situation }} />
         <section>
           <CTA
             css={`
