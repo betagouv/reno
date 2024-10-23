@@ -106,9 +106,16 @@ export default function Eligibility({
           css={`
             display: flex;
             flex-wrap: nowrap;
+            > div:nth-child(1),
+            > div:nth-child(3) {
+              width: 45%;
+            }
             @media (max-width: 700px) {
               flex-wrap: wrap;
               flex-direction: column;
+              > div {
+                width: 100% !important;
+              }
             }
             justify-content: center;
           `}
