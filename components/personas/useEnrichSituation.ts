@@ -7,7 +7,6 @@ export default function useEnrichSituation(situation) {
   useEffect(() => {
     const asyncEnrich = async () => {
       const newSituation = await enrichSituation(situation)
-      console.log('red', newSituation)
       setEnrichedSituation(newSituation)
     }
     asyncEnrich()

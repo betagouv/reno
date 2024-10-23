@@ -3,10 +3,8 @@ import Ampleur from '../Ampleur'
 
 export default function Integration() {
   return (
-    <div>
-      <Suspense>
-        <Ampleur />
-      </Suspense>
-    </div>
+    <Suspense>
+      <Ampleur />
+    </Suspense>
   )
 }
