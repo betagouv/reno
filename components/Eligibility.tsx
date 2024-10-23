@@ -110,6 +110,9 @@ export default function Eligibility({
             > div:nth-child(3) {
               width: 45%;
             }
+            > div:nth-child(2) {
+              width: 10%;
+            }
             @media (max-width: 700px) {
               flex-wrap: wrap;
               flex-direction: column;
