@@ -14,6 +14,7 @@ export const originKey = 'DPE . actuel',
 export default function ({
   oldIndex,
   prefixText,
+  prefixDPE = true,
   possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
   situation = null,
@@ -77,7 +78,7 @@ export default function ({
           onClick={() => setEditing(true)}
           title="Cliquez pour choisir un autre DPE actuel de votre logement, dans le cas où vous n'êtes pas certain de votre DPE."
         >
-          DPE&nbsp;
+          {prefixDPE ? 'DPE' : ''}&nbsp;
           <DPELabel index={oldIndex} />
           <Image src={editIcon} alt="Icône crayon" />
         </span>

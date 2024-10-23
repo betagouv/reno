@@ -18,12 +18,12 @@ import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
-import styled from 'styled-components'
+import { useMediaQuery } from 'usehooks-ts'
 import { BlueEm, Labels } from '../LandingUI'
+import { Title } from '../LayoutUI'
+import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import personas from './examplePersonas.yaml'
-import { Title } from '../LayoutUI'
-import { useMediaQuery } from 'usehooks-ts'
 
 const engine = new Publicodes(rules)
 
@@ -95,6 +95,9 @@ export default function Ampleur() {
           header,
           footer {
             margin-left: 4rem;
+          }
+          footer {
+            margin-top: 1rem;
           }
         }
         > div {
@@ -194,11 +197,13 @@ export default function Ampleur() {
           {!isMobile
             ? "Pour bénéficier des aides pour une rénovation d'ampleur, v"
             : 'V'}
-          ous devez viser un saut d'au moins 2 classes de DPE, soit passer du
-          DPE actuel <DPELabel index={currentDPE - 1} /> à un{' '}
+          ous devez viser un saut d'au moins 2{' '}
+          {isMobile ? 'DPE' : 'classes de DPE'}, soit passer du DPE actuel{' '}
+          <DPELabel index={currentDPE - 1} /> à{isMobile ? '' : ' un '}
           <DPEQuickSwitch
             oldIndex={targetDPE - 1}
             prefixText={''}
+            prefixDPE={isMobile ? false : true}
             dottedName="projet . DPE visé"
           />
           .
@@ -359,7 +364,7 @@ export default function Ampleur() {
           </li>
         </ul>
         <h3>Parmi vos aides :</h3>
-        <EvaluationValue>
+        <EvaluationValue {...{ engine, situation }}>
           <Image
             src={'/investissement.svg'}
             alt="Icône argent dans la main"
@@ -431,7 +436,6 @@ export default function Ampleur() {
           align-items: center;
           justify-content: center;
           margin-bottom: -1rem;
-          margin-top: 1rem;
 
           > img {
             height: 5.5rem;
@@ -442,7 +446,6 @@ export default function Ampleur() {
             margin: 0;
             margin-right: 1rem;
           }
-          margin-top: 1rem;
         `}
       >
         <p>
@@ -484,27 +487,3 @@ const Dot = () => (
     `}
   />
 )
-
-export const EvaluationValue = styled.div`
-  img {
-    width: 4rem;
-    height: auto;
-    margin-right: 1rem;
-  }
-  margin: 1.6rem auto;
-  @media (max-width: 400px) {
-    margin-top: 0.8rem;
-  }
-  display: flex;
-  align-items: center;
-  font-size: 150%;
-  width: fit-content;
-  background: var(--lightestColor);
-  border-bottom: 4px solid var(--color);
-
-  padding: 1rem 2rem;
-  text-align: center;
-  small {
-    margin-bottom: 0.4rem;
-  }
-`
