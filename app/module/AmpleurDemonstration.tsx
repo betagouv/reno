@@ -21,6 +21,7 @@ export default function AmpleurDemonstration() {
     getAppUrl() +
     '/module/integration?' +
     new URLSearchParams(iframeSearchParams).toString()
+
   return (
     <section>
       <h2>Démonstration</h2>
@@ -121,11 +122,7 @@ export default function AmpleurDemonstration() {
           ></iframe>
           <h3>... et sur écran mobile</h3>
           <iframe
-            src={
-              getAppUrl() +
-              '/module/integration?' +
-              new URLSearchParams(searchParams).toString()
-            }
+            src={iframeUrl}
             css={`
               border: none;
               border-radius: 0.4rem;

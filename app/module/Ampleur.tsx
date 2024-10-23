@@ -4,6 +4,7 @@ import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import Select from '@/components/Select'
 import { CTA } from '@/components/UI'
+import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
 import {
   encodeDottedName,
   encodeSituation,
@@ -16,12 +17,13 @@ import logo from '@/public/logo.svg'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
-import { useMemo } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
+import { useState } from 'react'
+import useEnrichSituation from '@/components/personas/useEnrichSituation'
 
 const engine = new Publicodes(rules)
 
@@ -40,20 +42,33 @@ export default function Ampleur() {
   const targetDPE =
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
 
+  const extremeSituation = createExampleSituation(engine, {}, true)
+
   const defaultSituation = {
-    'logement . période de construction': "'de 15 à 25 ans'",
+    ...extremeSituation, // pour déclencher Denormandie, taxe foncière, etc
+    ...usageLogementValues[0].situation,
     'vous . propriétaire . condition': 'oui',
     'ménage . revenu': 25000, // Le revenu médian est de 20 000, mais le mettre à 25 000 permet de faire en sorte qu'il y ait une différence entre IdF et hors IdF pour que la case à cocher ait un effet
     'ménage . personnes': 2,
     'ménage . région . IdF': 'non',
-    'projet . travaux': 999999,
   }
 
-  const situation = {
+  const rawSituation = {
     ...defaultSituation,
     'projet . DPE visé': targetDPE,
     ...userSituation,
   }
+
+  const enrichedSituation = useEnrichSituation(rawSituation)
+  const situation = enrichedSituation || rawSituation
+
+  if (!currentDPE || isNaN(currentDPE))
+    return (
+      <p>
+        Un DPE est nécessaire pour utiliser estimer les aides à la rénovation
+        d'ampleur.
+      </p>
+    )
 
   const onChange =
     (dottedName) =>
@@ -61,6 +76,11 @@ export default function Ampleur() {
       setSearchParams({
         [encodeDottedName(dottedName)]: value + '*',
       })
+
+  console.log(
+    'denormandie eval',
+    engine.setSituation(situation).evaluate('denormandie . conditions'),
+  )
 
   return (
     <div
