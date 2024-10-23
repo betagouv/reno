@@ -122,10 +122,12 @@ export default function Ampleur() {
         }
         h3 {
           margin-bottom: 0.6rem;
+          @media (max-width: 400px) {
+            margin-top: 0.6rem;
+          }
         }
       `}
     >
-      {' '}
       <header>
         <div>
           <Labels
@@ -490,6 +492,9 @@ export const EvaluationValue = styled.div`
     margin-right: 1rem;
   }
   margin: 1.6rem auto;
+  @media (max-width: 400px) {
+    margin-top: 0.8rem;
+  }
   display: flex;
   align-items: center;
   font-size: 150%;
