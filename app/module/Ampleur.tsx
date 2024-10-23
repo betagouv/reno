@@ -23,11 +23,13 @@ import { BlueEm, Labels } from '../LandingUI'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import personas from './examplePersonas.yaml'
 import { Title } from '../LayoutUI'
+import { useMediaQuery } from 'usehooks-ts'
 
 const engine = new Publicodes(rules)
 
 export default function Ampleur() {
   const setSearchParams = useSetSearchParams()
+  const isMobile = useMediaQuery('(max-width: 400px)')
 
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -86,7 +88,7 @@ export default function Ampleur() {
         height: 800px;
         position: relative;
 
-        @media (min-width: 800px) {
+        @media (min-width: 400px) {
           > div {
             padding-left: 4rem;
           }
@@ -101,7 +103,8 @@ export default function Ampleur() {
         header {
           display: flex;
           align-items: center;
-          gap: 2rem;
+          gap: 4vw;
+
           justify-content: space-between;
           img {
           }
@@ -135,36 +138,62 @@ export default function Ampleur() {
               }
             `}
           >
-            {[' ⭐️ Aides à la rénovation énergétique'].map((text) => (
+            {[' ⭐️ Rénovation énergétique'].map((text) => (
               <li key={text}>{text}</li>
             ))}
           </Labels>
           <h2>Vos aides pour une rénovation d'ampleur</h2>
         </div>
-        <div
+        <a
+          href="https://mesaidesreno.beta.gouv.fr"
           css={`
-            display: flex;
-            align-items: center;
-            font-size: 90%;
+            text-decoration: none;
+            color: inherit;
+            > div {
+              @media (max-width: 400px) {
+                top: 0rem;
+                right: 0.4rem;
+                img {
+                  width: 2rem !important;
+                }
+                h1 {
+                  line-height: 0.8rem;
+                  font-size: 80%;
+                  width: 2rem;
+                }
+
+                position: absolute;
+              }
+            }
           `}
         >
-          <Image
-            src={logo}
-            alt="Logo de Mes Aides Réno"
+          <div
             css={`
-              width: 2.6rem !important;
+              display: flex;
+              align-items: center;
+              font-size: 90%;
             `}
-          />
-          <Title>
-            Mes <strong>Aides Réno</strong>
-          </Title>
-        </div>
+          >
+            <Image
+              src={logo}
+              alt="Logo de Mes Aides Réno"
+              css={`
+                width: 2.6rem !important;
+              `}
+            />
+            <Title>
+              Mes <strong>Aides Réno</strong>
+            </Title>
+          </div>
+        </a>
       </header>
       <div>
         <p>
-          Pour bénéficier des aides pour une rénovation d'ampleur, vous devez
-          viser un saut d'au moins 2 classes de DPE, soit passer d'un DPE actuel{' '}
-          <DPELabel index={currentDPE - 1} /> à un{' '}
+          {!isMobile
+            ? "Pour bénéficier des aides pour une rénovation d'ampleur, v"
+            : 'V'}
+          ous devez viser un saut d'au moins 2 classes de DPE, soit passer d'un
+          DPE actuel <DPELabel index={currentDPE - 1} /> à un{' '}
           <DPEQuickSwitch
             oldIndex={targetDPE - 1}
             prefixText={''}
@@ -186,6 +215,9 @@ export default function Ampleur() {
                 min-height: 1.4rem;
                 margin-right: 0.6rem;
               }
+              input[type='number'] {
+                height: 1.75rem !important;
+              }
               img {
                 width: 1rem;
                 height: auto;
@@ -201,7 +233,7 @@ export default function Ampleur() {
               <Select
                 css={`
                   background: #f5f5fe;
-                  max-width: 80vw;
+                  max-width: 90vw;
                 `}
                 onChange={(e) => {
                   const encodedSituation = encodeSituation(
@@ -233,23 +265,20 @@ export default function Ampleur() {
                   width: 3rem !important;
                 `}
               />{' '}
-              personnes
-            </label>
-          </li>
-          <li key="revenu">
-            <Dot />
-            <label>
-              <span>Le revenu fiscal de votre ménage est de </span>{' '}
-              <input
-                type="number"
-                min="0"
-                placeholder={defaultSituation['ménage . revenu']}
-                onChange={onChange('ménage . revenu')}
-                css={`
-                  width: 5rem !important;
-                `}
-              />{' '}
-              €
+              personnes{' '}
+              <label>
+                <span>pour un revenu fiscal de </span>{' '}
+                <input
+                  type="number"
+                  min="0"
+                  placeholder={defaultSituation['ménage . revenu']}
+                  onChange={onChange('ménage . revenu')}
+                  css={`
+                    width: 5rem !important;
+                  `}
+                />{' '}
+                €.
+              </label>
             </label>
           </li>
           <li
@@ -307,7 +336,7 @@ export default function Ampleur() {
             </section>
           </li>
         </ul>
-        <h3>Pour ce logement, vous êtes notamment éligible à :</h3>
+        <h3>Parmi vos aides :</h3>
         <EvaluationValue>
           <Image
             src={'/investissement.svg'}
@@ -402,8 +431,11 @@ export default function Ampleur() {
               display: block;
             `}
           >
-            Une initiative construite avec France Rénov' pour simplifier
-            l'information sur les aides à la rénovation énergétique.
+            Une initiative construite avec France Rénov{"'"}
+            {isMobile
+              ? '.'
+              : ` pour simplifier
+            l'information sur les aides à la rénovation énergétique.`}
           </small>
         </p>
 
@@ -420,7 +452,15 @@ export default function Ampleur() {
 }
 
 const Dot = () => (
-  <Image src={rightArrow} alt="Icône d'une flèche vers la droite" />
+  <Image
+    src={rightArrow}
+    alt="Icône d'une flèche vers la droite"
+    css={`
+      @media (max-width: 400px) {
+        display: none;
+      }
+    `}
+  />
 )
 
 export const EvaluationValue = styled.div`
