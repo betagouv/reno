@@ -86,6 +86,26 @@ export default function Ampleur() {
         height: 800px;
         position: relative;
 
+        @media (min-width: 800px) {
+          > div {
+            padding-left: 4rem;
+          }
+          header,
+          footer {
+            margin-left: 4rem;
+          }
+        }
+        > div {
+          max-width: 40rem;
+        }
+        header {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          justify-content: space-between;
+          img {
+          }
+        }
         h2,
         h3 {
           font-size: 120%;
@@ -100,15 +120,9 @@ export default function Ampleur() {
         h3 {
           margin-bottom: 0.6rem;
         }
-        header {
-          display: flex;
-          align-items: center;
-          gap: 2rem;
-          img {
-          }
-        }
       `}
     >
+      {' '}
       <header>
         <div>
           <Labels
@@ -146,217 +160,220 @@ export default function Ampleur() {
           </Title>
         </div>
       </header>
-      <p>
-        Pour bénéficier des aides pour une rénovation d'ampleur, vous devez
-        viser un saut d'au moins 2 classes de DPE, soit passer d'un DPE actuel{' '}
-        <DPELabel index={currentDPE - 1} /> à un{' '}
-        <DPEQuickSwitch
-          oldIndex={targetDPE - 1}
-          prefixText={''}
-          dottedName="projet . DPE visé"
-        />
-        .
-      </p>
-      <ul
-        css={`
-          list-style-type: none;
-          @media (max-width: 420px) {
+      <div>
+        <p>
+          Pour bénéficier des aides pour une rénovation d'ampleur, vous devez
+          viser un saut d'au moins 2 classes de DPE, soit passer d'un DPE actuel{' '}
+          <DPELabel index={currentDPE - 1} /> à un{' '}
+          <DPEQuickSwitch
+            oldIndex={targetDPE - 1}
+            prefixText={''}
+            dottedName="projet . DPE visé"
+          />
+          .
+        </p>
+        <ul
+          css={`
+            list-style-type: none;
             padding-left: 0;
-          }
-          li {
-            margin: 1.2rem 0;
-            display: flex;
-            align-items: center;
-            input {
-              min-width: 1.4rem;
-              min-height: 1.4rem;
-              margin-right: 0.6rem;
-            }
-            img {
-              width: 1rem;
-              height: auto;
-              margin-right: 0.6rem;
-            }
-          }
-        `}
-      >
-        <li>
-          <Dot />
-          <label htmlFor="">
-            Ce logement sera :{' '}
-            <Select
-              css={`
-                background: #f5f5fe;
-              `}
-              onChange={(e) => {
-                const encodedSituation = encodeSituation(
-                  {
-                    ...situation,
-                    ...usageLogementValues.find(({ valeur }) => valeur == e)
-                      .situation,
-                  },
-                  false,
-                  //answeredQuestions,
-                )
-                setSearchParams(encodedSituation, 'replace', false)
-              }}
-              value={usageLogement(situation)}
-              values={usageLogementValues}
-            />
-          </label>
-        </li>
-        <li key="personnes">
-          <Dot />
-          <label>
-            <span>Votre ménage est composé de </span>{' '}
-            <input
-              type="number"
-              min="1"
-              placeholder={defaultSituation['ménage . personnes']}
-              onChange={onChange('ménage . personnes')}
-              css={`
-                width: 4rem !important;
-              `}
-            />{' '}
-            personnes
-          </label>
-        </li>
-        <li key="revenu">
-          <Dot />
-          <label>
-            <span>Le revenu fiscal de votre ménage est de </span>{' '}
-            <input
-              type="number"
-              min="0"
-              placeholder={defaultSituation['ménage . revenu']}
-              onChange={onChange('ménage . revenu')}
-              css={`
-                width: 5rem !important;
-              `}
-            />{' '}
-            €
-          </label>
-        </li>
-        <li
-          css={`
-            > section {
-              margin-left: 1rem;
-              label {
-                display: inline-flex;
-                align-items: center;
-                margin-right: 1rem;
-              }
-              input[type='radio'] {
-                width: 1.2rem !important;
-                height: 1.2rem !important;
-              }
-              input[type='radio'],
-              input[type='radio'] + label {
-                cursor: pointer;
-                &:hover {
-                  background: var(--lighterColor);
-                }
-              }
-            }
-          `}
-        >
-          <Dot />
-          <span>Vous habitez actuellement hors Île-de-France</span>
-          <section>
-            <label>
-              <input
-                id={`idf`}
-                type="radio"
-                checked={situation['ménage . région . IdF'] === 'oui'}
-                onChange={() =>
-                  setSearchParams({
-                    [encodeDottedName('ménage . région . IdF')]: 'oui*',
-                  })
-                }
-              />
-              <span>Oui</span>
-            </label>
-            <label>
-              <input
-                id={`idf`}
-                type="radio"
-                checked={situation['ménage . région . IdF'] === 'non'}
-                onChange={() =>
-                  setSearchParams({
-                    [encodeDottedName('ménage . région . IdF')]: 'non*',
-                  })
-                }
-              />
-              <span>Non</span>
-            </label>
-          </section>
-        </li>
-      </ul>
-      <h3>Pour ce logement, vous êtes notamment éligible à :</h3>
-      <EvaluationValue>
-        <Image
-          src={'/investissement.svg'}
-          alt="Icône argent dans la main"
-          width="10"
-          height="10"
-        />
-        <div>
-          <div>
-            {mpra > 0 && <span>Jusqu'à </span>}
-            <PrimeStyle
-              css={`
-                margin: 0.2rem 0;
-                display: inline-block;
-              `}
-            >
-              {typeof mpra === 'string' ? (
-                mpra
-              ) : (
-                <span>{roundToThousands(mpra).toLocaleString('fr-FR')} €</span>
-              )}
-            </PrimeStyle>{' '}
-            d'aides
-          </div>
-          <small
-            css={`
-              display: block;
-              font-size: 70%;
-              margin: 0 auto;
-              margin-top: 0.4rem;
-            `}
-          >
-            avec{' '}
-            <BlueEm>
-              <strong>MaPrimeRénov'</strong>
-            </BlueEm>{' '}
-          </small>{' '}
-        </div>
-      </EvaluationValue>
-      <section>
-        <CTA
-          css={`
-            margin-bottom: 0;
-            a  {
+            li {
+              margin: 1.2rem 0;
               display: flex;
-              font-size: 85% !important;
               align-items: center;
+              line-height: 1.7rem;
+              input {
+                min-width: 1.4rem;
+                min-height: 1.4rem;
+                margin-right: 0.6rem;
+              }
               img {
-                height: 2rem;
-                width: auto;
+                width: 1rem;
+                height: auto;
                 margin-right: 0.6rem;
               }
             }
           `}
         >
-          <a
-            target="_blank"
-            href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(situationSearchParams).toString()}`}
+          <li>
+            <Dot />
+            <label htmlFor="">
+              Ce logement sera :{' '}
+              <Select
+                css={`
+                  background: #f5f5fe;
+                  max-width: 80vw;
+                `}
+                onChange={(e) => {
+                  const encodedSituation = encodeSituation(
+                    {
+                      ...situation,
+                      ...usageLogementValues.find(({ valeur }) => valeur == e)
+                        .situation,
+                    },
+                    false,
+                    //answeredQuestions,
+                  )
+                  setSearchParams(encodedSituation, 'replace', false)
+                }}
+                value={usageLogement(situation)}
+                values={usageLogementValues}
+              />
+            </label>
+          </li>
+          <li key="personnes">
+            <Dot />
+            <label>
+              <span>Votre ménage est composé de </span>{' '}
+              <input
+                type="number"
+                min="1"
+                placeholder={defaultSituation['ménage . personnes']}
+                onChange={onChange('ménage . personnes')}
+                css={`
+                  width: 3rem !important;
+                `}
+              />{' '}
+              personnes
+            </label>
+          </li>
+          <li key="revenu">
+            <Dot />
+            <label>
+              <span>Le revenu fiscal de votre ménage est de </span>{' '}
+              <input
+                type="number"
+                min="0"
+                placeholder={defaultSituation['ménage . revenu']}
+                onChange={onChange('ménage . revenu')}
+                css={`
+                  width: 5rem !important;
+                `}
+              />{' '}
+              €
+            </label>
+          </li>
+          <li
+            css={`
+              > section {
+                margin-left: 1rem;
+                label {
+                  display: inline-flex;
+                  align-items: center;
+                  margin-right: 1rem;
+                }
+                input[type='radio'] {
+                  width: 1.2rem !important;
+                  height: 1.2rem !important;
+                }
+                input[type='radio'],
+                input[type='radio'] + label {
+                  cursor: pointer;
+                  &:hover {
+                    background: var(--lighterColor);
+                  }
+                }
+              }
+            `}
           >
-            <span>Découvrir toutes les aides&nbsp;&nbsp;➞</span>
-          </a>
-        </CTA>
-      </section>
-
+            <Dot />
+            <span>Vous habitez actuellement hors Île-de-France</span>
+            <section>
+              <label>
+                <input
+                  id={`idf`}
+                  type="radio"
+                  checked={situation['ménage . région . IdF'] === 'oui'}
+                  onChange={() =>
+                    setSearchParams({
+                      [encodeDottedName('ménage . région . IdF')]: 'oui*',
+                    })
+                  }
+                />
+                <span>Oui</span>
+              </label>
+              <label>
+                <input
+                  id={`idf`}
+                  type="radio"
+                  checked={situation['ménage . région . IdF'] === 'non'}
+                  onChange={() =>
+                    setSearchParams({
+                      [encodeDottedName('ménage . région . IdF')]: 'non*',
+                    })
+                  }
+                />
+                <span>Non</span>
+              </label>
+            </section>
+          </li>
+        </ul>
+        <h3>Pour ce logement, vous êtes notamment éligible à :</h3>
+        <EvaluationValue>
+          <Image
+            src={'/investissement.svg'}
+            alt="Icône argent dans la main"
+            width="10"
+            height="10"
+          />
+          <div>
+            <div>
+              {mpra > 0 && <span>Jusqu'à </span>}
+              <PrimeStyle
+                css={`
+                  margin: 0.2rem 0;
+                  display: inline-block;
+                `}
+              >
+                {typeof mpra === 'string' ? (
+                  mpra
+                ) : (
+                  <span>
+                    {roundToThousands(mpra).toLocaleString('fr-FR')} €
+                  </span>
+                )}
+              </PrimeStyle>{' '}
+              d'aides
+            </div>
+            <small
+              css={`
+                display: block;
+                font-size: 70%;
+                margin: 0 auto;
+                margin-top: 0.4rem;
+              `}
+            >
+              avec{' '}
+              <BlueEm>
+                <strong>MaPrimeRénov'</strong>
+              </BlueEm>{' '}
+            </small>{' '}
+          </div>
+        </EvaluationValue>
+        <section>
+          <CTA
+            css={`
+              margin-bottom: 0;
+              a  {
+                display: flex;
+                font-size: 85% !important;
+                align-items: center;
+                img {
+                  height: 2rem;
+                  width: auto;
+                  margin-right: 0.6rem;
+                }
+              }
+            `}
+          >
+            <a
+              target="_blank"
+              href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(situationSearchParams).toString()}`}
+            >
+              <span>Découvrir toutes les aides&nbsp;&nbsp;➞</span>
+            </a>
+          </CTA>
+        </section>
+      </div>
       <footer
         css={`
           display: flex;
@@ -372,7 +389,7 @@ export default function Ampleur() {
           }
           p {
             margin: 0;
-            margin-right: 2rem;
+            margin-right: 1rem;
           }
           margin-top: 1rem;
         `}
