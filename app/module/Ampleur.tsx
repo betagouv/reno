@@ -385,7 +385,7 @@ export default function Ampleur() {
           >
             <a
               target="_blank"
-              href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(situationSearchParams).toString()}`}
+              href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(encodeSituation(situation, true)).toString()}`}
             >
               <span>Découvrir toutes les aides&nbsp;&nbsp;➞</span>
             </a>
