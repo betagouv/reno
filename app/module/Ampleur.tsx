@@ -85,7 +85,7 @@ export default function Ampleur() {
         background: white;
         padding: 1rem;
         position: relative;
-        height: 750px;
+        height: 100%;
 
         @media (min-width: 400px) {
           > div {
