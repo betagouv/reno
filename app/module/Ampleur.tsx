@@ -3,14 +3,13 @@ import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import Select from '@/components/Select'
-import { CTA, PrimeStyle } from '@/components/UI'
+import { CTA } from '@/components/UI'
 import {
   encodeDottedName,
   encodeSituation,
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import { roundToThousands } from '@/components/utils'
 import rightArrow from '@/public/flèche-vers-droite.svg'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import logo from '@/public/logo.svg'
@@ -19,11 +18,10 @@ import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
-import { BlueEm, Labels } from '../LandingUI'
+import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
-import personas from './examplePersonas.yaml'
 
 const engine = new Publicodes(rules)
 
@@ -38,8 +36,7 @@ export default function Ampleur() {
     searchParams
 
   const userSituation = getSituation(situationSearchParams, rules)
-  const personaSituation = personas[selectedPersona].situation
-  const currentDPE = +personaSituation['DPE . actuel']
+  const currentDPE = +userSituation['DPE . actuel']
   const targetDPE =
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
 
@@ -54,23 +51,9 @@ export default function Ampleur() {
 
   const situation = {
     ...defaultSituation,
-    ...personaSituation,
     'projet . DPE visé': targetDPE,
     ...userSituation,
   }
-  console.log('blue', situation)
-
-  const mpra = useMemo(() => {
-    try {
-      const evaluation = engine
-        .setSituation(situation)
-        .evaluate('MPR . accompagnée . montant')
-      return evaluation.nodeValue
-    } catch (e) {
-      console.log(e)
-      return e
-    }
-  }, [situation])
 
   const onChange =
     (dottedName) =>
