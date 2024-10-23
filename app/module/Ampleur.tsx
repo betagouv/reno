@@ -396,11 +396,6 @@ export default function Ampleur() {
           justify-content: center;
           margin-bottom: -1rem;
 
-          > img {
-            height: 5.5rem;
-            width: auto;
-            margin-right: 1rem;
-          }
           p {
             margin: 0;
             margin-right: 1rem;
@@ -415,7 +410,7 @@ export default function Ampleur() {
               display: block;
             `}
           >
-            Une initiative construite avec France Rénov{"'"}
+            Une initiative construite avec France&nbsp;Rénov{"'"}
             {isMobile
               ? '.'
               : ` pour simplifier
@@ -428,6 +423,11 @@ export default function Ampleur() {
           alt="Logo de France Rénov"
           css={`
             width: 6.5rem !important;
+            margin-right: 1rem;
+            @media (max-width: 400px) {
+              width: 5rem !important;
+              margin: 0;
+            }
           `}
         />
       </footer>
