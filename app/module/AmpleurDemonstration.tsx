@@ -102,7 +102,7 @@ export default function () {
               border: none;
               border-radius: 0.4rem;
               margin: 3rem auto;
-              height: 800px;
+              height: 750px;
               width: 50rem;
               max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
@@ -125,7 +125,7 @@ export default function () {
               border: none;
               border-radius: 0.4rem;
               margin: 3rem auto;
-              height: 800px;
+              height: 750px;
               width: 370px;
               max-width: 90vw;
               --shadow-color: 0deg 0% 63%;

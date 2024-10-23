@@ -85,8 +85,8 @@ export default function Ampleur() {
       css={`
         background: white;
         padding: 1rem;
-        height: 800px;
         position: relative;
+        height: 750px;
 
         @media (min-width: 400px) {
           > div {
@@ -192,7 +192,7 @@ export default function Ampleur() {
           {!isMobile
             ? "Pour bénéficier des aides pour une rénovation d'ampleur, v"
             : 'V'}
-          ous devez viser un saut d'au moins 2 classes de DPE, soit passer d'un
+          ous devez viser un saut d'au moins 2 classes de DPE, soit passer du
           DPE actuel <DPELabel index={currentDPE - 1} /> à un{' '}
           <DPEQuickSwitch
             oldIndex={targetDPE - 1}
@@ -209,7 +209,7 @@ export default function Ampleur() {
               margin: 1.2rem 0;
               display: flex;
               align-items: center;
-              line-height: 1.7rem;
+              line-height: 1.6rem;
               input {
                 min-width: 1.4rem;
                 min-height: 1.4rem;
@@ -305,35 +305,55 @@ export default function Ampleur() {
             `}
           >
             <Dot />
-            <span>Vous habitez actuellement hors Île-de-France</span>
-            <section>
-              <label>
-                <input
-                  id={`idf`}
-                  type="radio"
-                  checked={situation['ménage . région . IdF'] === 'oui'}
-                  onChange={() =>
-                    setSearchParams({
-                      [encodeDottedName('ménage . région . IdF')]: 'oui*',
-                    })
-                  }
-                />
-                <span>Oui</span>
-              </label>
-              <label>
-                <input
-                  id={`idf`}
-                  type="radio"
-                  checked={situation['ménage . région . IdF'] === 'non'}
-                  onChange={() =>
-                    setSearchParams({
-                      [encodeDottedName('ménage . région . IdF')]: 'non*',
-                    })
-                  }
-                />
-                <span>Non</span>
-              </label>
-            </section>
+            {isMobile && (
+              <input
+                type="checkbox"
+                id="idf"
+                name={'IDF'}
+                defaultChecked={situation['ménage . région . IdF'] === 'non'}
+                onChange={() =>
+                  setSearchParams({
+                    [encodeDottedName('ménage . région . IdF')]:
+                      (situation['ménage . région . IdF'] === 'oui'
+                        ? 'non'
+                        : 'oui') + '*',
+                  })
+                }
+              />
+            )}
+            <span>
+              Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
+            </span>
+            {!isMobile && (
+              <section>
+                <label>
+                  <input
+                    id={`idf`}
+                    type="radio"
+                    checked={situation['ménage . région . IdF'] === 'oui'}
+                    onChange={() =>
+                      setSearchParams({
+                        [encodeDottedName('ménage . région . IdF')]: 'oui*',
+                      })
+                    }
+                  />
+                  <span>Oui</span>
+                </label>
+                <label>
+                  <input
+                    id={`idf`}
+                    type="radio"
+                    checked={situation['ménage . région . IdF'] === 'non'}
+                    onChange={() =>
+                      setSearchParams({
+                        [encodeDottedName('ménage . région . IdF')]: 'non*',
+                      })
+                    }
+                  />
+                  <span>Non</span>
+                </label>
+              </section>
+            )}
           </li>
         </ul>
         <h3>Parmi vos aides :</h3>
