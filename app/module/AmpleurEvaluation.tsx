@@ -51,7 +51,8 @@ export const EvaluationValueWrapper = styled.div`
   }
   display: flex;
   align-items: center;
-  width: fit-content;
+  min-width: 20rem;
+  max-width: 85vw;
   background: var(--lightestColor);
   border-bottom: 4px solid var(--color);
 
