@@ -4,6 +4,7 @@ import checkIcon from '@/public/check.svg'
 import GestesPreview from './mprg/GestesPreview'
 import { Labels } from '@/app/LandingUI'
 import DPELabel from './DPELabel'
+import { push } from '@socialgouv/matomo-next'
 
 export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
   const eligibleMPRG = engine.evaluate('conditions communes').nodeValue
@@ -41,7 +42,19 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
             text-align: center;
           `}
         >
-          <Link href={hasAide ? url : ''}>Voir les 20 travaux disponibles</Link>
+          <Link
+            href={hasAide ? url : ''}
+            onClick={() =>
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                'Clic',
+                'parcours par geste',
+              ])
+            }
+          >
+            Voir les 20 travaux disponibles
+          </Link>
         </CTA>
       </CTAWrapper>
 
