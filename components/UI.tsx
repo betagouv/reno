@@ -209,22 +209,22 @@ export const CTA = styled.div`
 		  `
       : p.$importance === 'secondary'
         ? `
-  background: var(--lightestColor);
-  border: 1px solid var(--lighterColor);
-  color: var(--color);
-  line-height: 1.1rem;
-  `
+          background: var(--lightestColor);
+          border: 1px solid var(--lighterColor);
+          color: var(--color);
+          line-height: 1.1rem;
+          `
         : p.$importance === 'inactive'
           ? `
-	background: lightgrey; color: white;
-
-		  `
+              background: lightgrey; color: white;
+              border: 1px solid lightgrey;
+              color: #929292;
+            `
           : `
-
-  background: var(--color);
-  border: 1px solid var(--color);
-  color: white;
-  `}
+              background: var(--color);
+              border: 1px solid var(--color);
+              color: white;
+            `}
   ${(p) =>
     p.$fontSize === 'normal'
       ? ''
@@ -663,4 +663,3 @@ export const AccordionTitle = styled.button`
     width: 1rem;
   }
 `
-
