@@ -90,15 +90,14 @@ export default function Eligibility({
             {some && <>Bonne nouvelle 🥳</>}
           </h2>
         </header>
-        {noMpr && !ceeConditions && (
+        {some ? (
+          <p>
+            <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
+          </p>
+        ) : (
           <p>
             Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
             éligible.
-          </p>
-        )}
-        {some && (
-          <p>
-            <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
           </p>
         )}
         <Avis {...{ situation, engine }} />
