@@ -41,33 +41,29 @@ export default function PAR({
             plusieurs fois sur la base du descriptif et des devis détaillés des
             travaux à réaliser, ou bien à la fin des travaux.
           </p>
-          {expanded && (
-            <>
-              <h3>Comment est calculée l'aide ?</h3>
-              <Card $background="#f7f8f8">
-                <div
-                  css={`
-                    display: flex;
-                    align-items: center;
-                  `}
-                >
-                  <section>
-                    En tant que ménage{' '}
-                    <Value
-                      {...{
-                        engine,
-                        situation,
-                        dottedName: 'ménage . revenu . classe',
-                        state: 'prime-black',
-                      }}
-                    />{' '}
-                    , vous êtes éligible à une avance d'un montant maximum de 50
-                    000 € sans intérêt pendant 10 ans.
-                  </section>
-                </div>
-              </Card>
-            </>
-          )}
+          <h3>Comment est calculée l'aide ?</h3>
+          <Card $background="#f7f8f8">
+            <div
+              css={`
+                display: flex;
+                align-items: center;
+              `}
+            >
+              <section>
+                En tant que ménage{' '}
+                <Value
+                  {...{
+                    engine,
+                    situation,
+                    dottedName: 'ménage . revenu . classe',
+                    state: 'prime-black',
+                  }}
+                />{' '}
+                , vous êtes éligible à un prêt d'un montant maximum de 50 000 €
+                sans intérêt pendant 10 ans.
+              </section>
+            </div>
+          </Card>
           <h3>Les principales conditions d'éligibilité ?</h3>
           <div
             css={`
