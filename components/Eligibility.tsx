@@ -1,5 +1,4 @@
 import { No, Yes } from '@/components/ResultUI'
-import { useMemo } from 'react'
 import AmpleurSummary from './ampleur/AmpleurSummary'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
@@ -11,6 +10,7 @@ import { useIsCompact } from './useIsInIframe'
 import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
 import BackToLastQuestion from './BackToLastQuestion'
+import { useAides } from './ampleur/useAides'
 
 export default function Eligibility({
   setSearchParams,
@@ -34,23 +34,8 @@ export default function Eligibility({
     )
     return url
   }
-
-  const [mpraEvaluation, mprgEvaluation, ceeConditionsEvaluation] =
-      useMemo(() => {
-        const newEngine = engine.setSituation(situation)
-        return [
-          newEngine.evaluate('MPR . accompagnée . éligible'),
-          newEngine.evaluate('MPR . non accompagnée . éligible'),
-          newEngine.evaluate('CEE . conditions'),
-        ]
-      }, [situation, engine]),
-    mpra = mpraEvaluation.nodeValue,
-    mprg = mprgEvaluation.nodeValue,
-    ceeConditions = ceeConditionsEvaluation.nodeValue
-  const both = mpra && mprg,
-    noMpr = !mpra && !mprg,
-    some = mpra || mprg || ceeConditions
-
+  const aides = useAides(engine, situation)
+  const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const showPersonaBar = searchParams.personas != null
 
   return (
@@ -87,10 +72,10 @@ export default function Eligibility({
               margin: 0.5rem 0 !important;
             `}
           >
-            {some && <>Bonne nouvelle 🥳</>}
+            {hasAides && <>Bonne nouvelle 🥳</>}
           </h2>
         </header>
-        {some ? (
+        {hasAides ? (
           <p>
             <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
           </p>
