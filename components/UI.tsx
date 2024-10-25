@@ -41,7 +41,6 @@ export const FooterWrapper = styled.footer`
     margin: 0 auto;
   }
   .fr-footer__top {
-    background-color: #f6f6f6;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
