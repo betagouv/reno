@@ -93,7 +93,8 @@ export default function Input({
             padding: calc(0.3rem + 0.7vw) calc(0.5rem + 1vw);
             border: 2px solid #dfdff1;
             border-radius: 0.3rem;
-            &:hover {
+            &:hover,
+            &:has(input:checked) {
               border: 2px solid #004396;
             }
             display: flex;

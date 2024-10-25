@@ -74,9 +74,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
           margin: 0;
           padding-left: 1.5rem !important;
           text-align: left !important;
+          outline: none;
+          box-shadow: none !important;
+          height: 2.8rem !important;
+          border-bottom: 2px solid #3a3a3a !important;
           ${clicked &&
           input &&
-          `border-bottom: 2px solid var(--validColor) !important;`}
+          `border-bottom: 2px solid var(--validColor) !important;`};
         `}
         type="text"
         autoFocus={true}

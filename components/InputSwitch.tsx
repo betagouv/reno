@@ -500,6 +500,8 @@ export default function InputSwitch({
           box-shadow: none !important;
           background: white !important;
           width: 6rem !important;
+          height: 2.8rem !important;
+          outline: none;
         `}
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
