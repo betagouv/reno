@@ -39,34 +39,45 @@ export default function Stepper({
 }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) => !['simulation . mode', "ménage . code région", "ménage . code département"].includes(el)
+    (el) =>
+      ![
+        'simulation . mode',
+        'ménage . code région',
+        'ménage . code département',
+      ].includes(el),
   )
 
-  const { isLastCategory } = categoryData(nextQuestions, currentQuestion, answeredQuestions, rules)
-  
+  const { isLastCategory } = categoryData(
+    nextQuestions,
+    currentQuestion,
+    answeredQuestions,
+    rules,
+  )
+
   // Dans le cas du simulateur principale, on considère que le questionnaire s'arrête au moment du choix du parcours d'aide
-  const nbQuestionTotal = answeredQuestions.indexOf('parcours d\'aide') !== -1 ?
-                            answeredQuestions.indexOf('parcours d\'aide') :
-                            (answeredQuestions.length + 
-                              (nextQuestions.indexOf('parcours d\'aide') !== -1 ?
-                                nextQuestions.indexOf('parcours d\'aide') :
-                                nextQuestions.length
-                              )
-                            )
-                            
+  const nbQuestionTotal =
+    answeredQuestions.indexOf("parcours d'aide") !== -1
+      ? answeredQuestions.indexOf("parcours d'aide")
+      : answeredQuestions.length +
+        (nextQuestions.indexOf("parcours d'aide") !== -1
+          ? nextQuestions.indexOf("parcours d'aide")
+          : nextQuestions.length)
+
   const indexQuestionActuel = answeredQuestions.length + 1
   return (
-    <Wrapper css={`
-      float: left;
-      width: 100%;
-      height: 55px;
-      min-height: 55px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      margin: 0 0 0.6rem 0;
-    `}>
-      <div
+    <Wrapper
+      css={`
+        float: left;
+        width: 100%;
+        height: 55px;
+        min-height: 55px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin: 0 0 1.5rem 0;
+      `}
+    >
+      {/* <div
         css={`
           display: flex;
           align-items: center;
@@ -90,8 +101,10 @@ export default function Stepper({
             )}
           </small>
         }
-      </div>
-      <ProgressBar $ratio={Math.min((indexQuestionActuel) / nbQuestionTotal, 1)} />
+      </div> */}
+      <ProgressBar
+        $ratio={Math.min(indexQuestionActuel / nbQuestionTotal, 1)}
+      />
     </Wrapper>
   )
 }

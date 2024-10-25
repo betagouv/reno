@@ -8,7 +8,7 @@ export const QuestionHeader = styled.header`
   margin: 0.4rem 0.2rem 0.4rem 0.2rem;
   > small {
     color: var(--color);
-    font-weight: 500;
+    font-weight: 600;
   }
   h3 {
     margin: 0;
