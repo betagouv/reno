@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
 import iconReduire from '@/public/reduire.svg'
 import Image from 'next/image'
@@ -7,7 +7,15 @@ import { useMediaQuery } from 'usehooks-ts'
 export default function QuestionDescription({ currentQuestion, rule }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
 
-  const [isOpen, setIsOpen] = useState(!isMobile)
+  const [isOpen, setIsOpen] = useState(() => {
+    const savedState = localStorage.getItem('isOpen')
+    return savedState !== null ? JSON.parse(savedState) : !isMobile
+  })
+
+  useEffect(() => {
+    localStorage.setItem('isOpen', JSON.stringify(isOpen))
+  }, [isOpen])
+
   const handleSummaryClick = (e) => {
     e.preventDefault()
     push(['trackEvent', 'Simulateur principal', 'Clic', 'comment répondre'])
