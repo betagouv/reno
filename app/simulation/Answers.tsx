@@ -9,6 +9,8 @@ import Link from '@/node_modules/next/link'
 import { push } from '@socialgouv/matomo-next'
 import { useState } from 'react'
 import styled from 'styled-components'
+import iconEclair from '@/public/eclair.svg'
+import Image from 'next/image'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -79,32 +81,11 @@ export default function Answers({
   return (
     answeredQuestions.length !== 0 && (
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
-        <summary
-          css={`
-            justify-content: flex-end;
-          `}
-          onClick={preventSummaryClick}
-        >
-          <div
-            css={`
-              display: flex;
-              visibility: ${answeredQuestions.length > 0
-                ? 'visible'
-                : 'hidden'};
-            `}
-          >
-            <LinkStyleButton
-              onClick={handleSummaryClick}
-              css={`
-                cursor: pointer;
-                width: max-content;
-                font-weight: 500;
-                display: block;
-              `}
-            >
-              {isOpen ? 'Cacher' : 'Modifier'} mes réponses
-            </LinkStyleButton>
-          </div>
+        <summary onClick={preventSummaryClick}>
+          <LinkStyleButton onClick={handleSummaryClick}>
+            <Image src={iconEclair} />
+            {isOpen ? 'Cacher' : 'Modifier'} mes réponses
+          </LinkStyleButton>
         </summary>
         {isOpen && (
           <Card
@@ -263,10 +244,8 @@ const Details = styled.details`
   summary{
     cursor: default;
     display: flex;
-    justify-content: flex-end;
     margin-top: 1vh;
     align-items: center;
-    color: #555;
     > span {color:inherit}       
     h2 {
       font-size: 100%;

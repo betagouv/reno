@@ -250,11 +250,21 @@ export const CTA = styled.div`
 `
 // Could not make it a button cause it traps the click for the outside details summary
 export const LinkStyleButton = styled.span`
-  background: none;
-  text-decoration: underline;
-  color: var(--color);
-  border: none;
-  font-size: inherit;
+  font-size: 85%;
+  cursor: pointer;
+  width: max-content;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: #716043 !important;
+  border-radius: 5px;
+  padding: 0.5rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #feecc2;
+  img {
+    margin-right: 0.25rem;
+  }
 `
 export const Intro = styled.div`
   margin: 1vh 0 1rem;
