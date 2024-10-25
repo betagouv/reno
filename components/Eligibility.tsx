@@ -5,8 +5,6 @@ import PersonaBar from './PersonaBar'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
-import Answers from '@/app/simulation/Answers'
-import { useIsCompact } from './useIsInIframe'
 import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
 import BackToLastQuestion from './BackToLastQuestion'
@@ -18,12 +16,9 @@ export default function Eligibility({
   rules,
   engine,
   answeredQuestions,
-  nextQuestions,
-  currentQuestion,
   expanded,
   searchParams,
 }) {
-  const isCompact = useIsCompact()
   const nextLink = (value) => {
     const url = setSearchParams(
       {
@@ -50,17 +45,6 @@ export default function Eligibility({
         engine={engine}
       />
       <CustomQuestionWrapper>
-        {isCompact && (
-          <Answers
-            {...{
-              answeredQuestions,
-              nextQuestions,
-              currentQuestion,
-              rules,
-              situation,
-            }}
-          />
-        )}
         <BackToLastQuestion
           {...{ setSearchParams, situation, answeredQuestions }}
         />
