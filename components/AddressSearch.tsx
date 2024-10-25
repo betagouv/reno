@@ -96,8 +96,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           src={checkIcon}
           alt="Icône d'un check"
           css={`
-            position: relative;
-            transform: translateY(-170%);
+            position: absolute;
             width: 20px;
             height: 20px;
           `}

@@ -137,7 +137,7 @@ export default function ClassicQuestionWrapper({
         }}
       />
       <Notifications {...{ currentQuestion, engine }} />
-      {(!isInIframe || !isCompact) && (
+      {false && (!isInIframe || !isCompact) && (
         <>
           <br />
           <UserProblemBanner />
