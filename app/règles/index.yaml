@@ -158,15 +158,9 @@ logement . surface:
 
     Source : https://fr.wikipedia.org/wiki/Surface_habitable_(France)
     </details>
-  suggestions:
-    studio: 25 m2
-    2 pièces: 45 m2
-    3 pièces: 70 m2
-    maison: 120 m2
-    château 🏰: 1000 m2
   notes: |
     Pour le calcul de la surface moyenne, voir la [documentation Nos Gestes Climat](https://nosgestesclimat.fr/documentation/parc-fran%C3%A7ais/surface-moyenne).
-
+  unité: m²
 logement . propriétaire occupant:
   applicable si: vous . propriétaire . condition
   question: Allez-vous vivre dans le logement à rénover (propriétaire occupant) ?
@@ -272,8 +266,8 @@ ménage . personnes:
         alors: 1 personne
       - sinon: 5 personne
   suggestions:
-    seul: 1 personne
-    seul + enfant: 2 personne
+    seul.e: 1 personne
+    seul.e + enfant: 2 personne
     couple: 2 personne
     couple + enfant: 3 personne
     couple + 2 enfants: 4 personne
