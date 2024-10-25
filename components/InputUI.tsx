@@ -8,7 +8,6 @@ export const InputWrapper = styled.div`
 `
 export const AnswerWrapper = styled.div`
   display: flex;
-  align-items: end;
   flex-direction: column;
   margin-top: 3vh;
 `
