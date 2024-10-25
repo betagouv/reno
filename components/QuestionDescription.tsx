@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { useIsCompact } from './useIsInIframe'
 import { push } from '@socialgouv/matomo-next'
 import iconReduire from '@/public/reduire.svg'
 import Image from 'next/image'
+import { useMediaQuery } from 'usehooks-ts'
 
 export default function QuestionDescription({ currentQuestion, rule }) {
-  const isCompact = useIsCompact()
-  const [isOpen, setIsOpen] = useState(false)
-  const handleSummaryClick = () => {
+  const isMobile = useMediaQuery('(max-width: 800px)')
+
+  const [isOpen, setIsOpen] = useState(!isMobile)
+  const handleSummaryClick = (e) => {
+    e.preventDefault()
     push(['trackEvent', 'Simulateur principal', 'Clic', 'comment répondre'])
     setIsOpen((prevIsOpen) => !prevIsOpen)
   }
@@ -15,6 +17,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
     currentQuestion &&
     rule.description && (
       <details
+        open={isOpen}
         css={`
           border-radius: 5px;
           background: #e8edff;
