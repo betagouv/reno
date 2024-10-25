@@ -100,8 +100,8 @@ function Form({ rules }) {
             line-height: 1rem;
           `}
         >
-          Ceci est une initiative construite avec France&nbsp;Rénov' pour
-          simplifier l'information sur les aides à la rénovation énergétique.
+          Un simulateur construit avec France&nbsp;Rénov' pour simplifier
+          l'information sur les aides à la rénovation énergétique.
         </p>
       )}
     </div>
