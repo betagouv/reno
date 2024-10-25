@@ -20,9 +20,10 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
-    if (situation && 
-        ["ménage . commune", "logement . commune"].includes(type) && 
-        situation[type]
+    if (
+      situation &&
+      ['ménage . commune', 'logement . commune'].includes(type) &&
+      situation[type]
     ) {
       fetch(
         `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
@@ -63,17 +64,19 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   return (
     <div
-      style={css`
+      css={`
         display: flex;
         flex-direction: column;
-        align-items: end;
       `}
     >
       <input
         css={`
           margin: 0;
-          padding-right: 1.5rem !important;
-          ${clicked && input && `border-bottom: 2px solid var(--validColor) !important;`}
+          padding-left: 1.5rem !important;
+          text-align: left !important;
+          ${clicked &&
+          input &&
+          `border-bottom: 2px solid var(--validColor) !important;`}
         `}
         type="text"
         autoFocus={true}
@@ -84,18 +87,18 @@ export default function AddressSearch({ setChoice, situation, type }) {
           setInput(e.target.value)
         }}
       />
-      { clicked && input && 
+      {clicked && input && (
         <Image
-            src={checkIcon}
-            alt="Icône d'un check"
-            css={`
-              position: relative;
-              transform: translateY(-170%);
-              width: 20px;
-              height: 20px;
-            `}
-          />
-      }
+          src={checkIcon}
+          alt="Icône d'un check"
+          css={`
+            position: relative;
+            transform: translateY(-170%);
+            width: 20px;
+            height: 20px;
+          `}
+        />
+      )}
       <CityList>
         {validInput && !results && (
           <li
@@ -111,10 +114,22 @@ export default function AddressSearch({ setChoice, situation, type }) {
         )}
         {results && !clicked && (
           <>
-            <li css={`color: #929292;`}>Sélectionnez une ville</li>
+            <li
+              css={`
+                color: #929292;
+              `}
+            >
+              Sélectionnez une ville
+            </li>
             {results.map((result) => (
               <li
-                className={situation && situation[type] && situation[type].replace(/"/g, '') == result.code ? "selected" : ""}
+                className={
+                  situation &&
+                  situation[type] &&
+                  situation[type].replace(/"/g, '') == result.code
+                    ? 'selected'
+                    : ''
+                }
                 key={result.code}
                 onClick={() => {
                   setChoice(result)
@@ -134,23 +149,26 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
 export const CityList = styled.ul`
   padding: 0;
-  background: #F5F5FE;
+  background: #f5f5fe;
   border-radius: 0 0 5px 5px;
-  border: 1px solid #DFDFF0;
+  border: 1px solid #dfdff0;
   list-style-type: none;
   position: absolute;
   margin-top: 35px;
   li {
     padding: 8px 24px 8px 35px;
     line-height: 1.2rem;
-    &::before, &.selected::before {
+    &::before,
+    &.selected::before {
       content: '';
     }
-    &:not(:first-child):hover, &.selected {
-      background: rgba(0, 0, 145, 0.10);
+    &:not(:first-child):hover,
+    &.selected {
+      background: rgba(0, 0, 145, 0.1);
       color: var(--color);
     }
-    &:not(:first-child):hover::before, &.selected::before {
+    &:not(:first-child):hover::before,
+    &.selected::before {
       content: '✔';
       margin-left: -20px;
       margin-right: 7px;

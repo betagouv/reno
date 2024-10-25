@@ -19,6 +19,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
           border-radius: 5px;
           background: #e8edff;
           padding: 0.5rem 1rem;
+          margin-top: 1rem;
         `}
       >
         <summary

@@ -15,13 +15,11 @@ export default function Suggestions({ rule, onClick }) {
 
   return (
     <SuggestionsList>
-      <ul>
-        {suggestions.map(([k, v]) => (
-          <li key={k}>
-            <Link href={onClick(getValue(v))}>{k}</Link>
-          </li>
-        ))}
-      </ul>
+      {suggestions.map(([k, v]) => (
+        <li key={k}>
+          <Link href={onClick(getValue(v))}>{k}</Link>
+        </li>
+      ))}
     </SuggestionsList>
   )
 }

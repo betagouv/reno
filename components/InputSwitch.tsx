@@ -494,6 +494,13 @@ export default function InputSwitch({
       }}
     >
       <Input
+        css={`
+          border: 2px solid #dfdff1 !important;
+          border-radius: 0.3rem !important;
+          box-shadow: none !important;
+          background: white !important;
+          width: 6rem !important;
+        `}
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
         value={currentValue == null ? '' : currentValue}

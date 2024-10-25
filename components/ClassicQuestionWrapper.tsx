@@ -114,7 +114,6 @@ export default function ClassicQuestionWrapper({
         )}
         {children}
       </AnswerWrapper>
-      <QuestionDescription {...{ currentQuestion, rule }} />
       <FormButtons
         {...{
           currentValue,
@@ -127,6 +126,7 @@ export default function ClassicQuestionWrapper({
           situation,
         }}
       />
+      <QuestionDescription {...{ currentQuestion, rule }} />
       <Answers
         {...{
           answeredQuestions,
