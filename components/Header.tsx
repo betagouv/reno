@@ -64,12 +64,12 @@ export default function Header() {
           </div>
         </Link>
         <div>
-          {/* <Link href="/blog">Blog</Link>
+          <Link href="/blog">Blog</Link>
           <Link href="/aides">Les aides</Link>
           <Link href="/a-propos">À propos</Link>
-          <Link href="/contact">Contact</Link> */}
-
-          <CTAWrapper $justify="left">
+          <Link href="/contact">Contact</Link>
+          <Link href="/devenir-partenaire">Devenir Partenaire</Link>
+          {/* <CTAWrapper $justify="left">
             <CTA
               $fontSize="normal"
               $importance="secondary"
@@ -92,7 +92,7 @@ export default function Header() {
             >
               <Link href="/simulation">→ Calculez vos aides</Link>
             </CTA>
-          </CTAWrapper>
+          </CTAWrapper> */}
         </div>
       </nav>
     </HeaderWrapper>
