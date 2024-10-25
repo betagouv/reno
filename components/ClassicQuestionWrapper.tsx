@@ -114,7 +114,6 @@ export default function ClassicQuestionWrapper({
             />
           )}
           {children}
-
           <FormButtons
             {...{
               currentValue,
@@ -128,23 +127,18 @@ export default function ClassicQuestionWrapper({
             }}
           />
         </AnswerWrapper>
-        {isCompact && (
-          <>
-            <QuestionDescription {...{ currentQuestion, rule }} />
-            <Answers
-              {...{
-                answeredQuestions,
-                nextQuestions,
-                currentQuestion,
-                rules,
-                situation,
-              }}
-            />
-          </>
-        )}
       </Card>
+      <QuestionDescription {...{ currentQuestion, rule }} />
+      <Answers
+        {...{
+          answeredQuestions,
+          nextQuestions,
+          currentQuestion,
+          rules,
+          situation,
+        }}
+      />
       <Notifications {...{ currentQuestion, engine }} />
-      {!isCompact && <QuestionDescription {...{ currentQuestion, rule }} />}
       {(!isInIframe || !isCompact) && (
         <>
           <br />
