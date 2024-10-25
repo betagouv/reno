@@ -86,19 +86,6 @@ function Form({ rules }) {
             />
           </>
         )}
-        {!isCompact && !(firstLevelCategory(currentQuestion) === 'projet') && (
-          <div>
-            <Answers
-              {...{
-                answeredQuestions,
-                nextQuestions,
-                currentQuestion,
-                rules,
-                situation,
-              }}
-            />
-          </div>
-        )}
         {rule && (
           <InputSwitch
             {...{
@@ -114,30 +101,6 @@ function Form({ rules }) {
           />
         )}
       </Section>
-      {false && (!isInIframe || !isCompact) && (
-        <>
-          <br />
-          <UserProblemBanner />
-          <Share searchParams={searchParams} />
-        </>
-      )}
-      {false && !isInIframe && (
-        <Section>
-          <h2>Documentation</h2>
-          <p>
-            Si vous êtes experts, vous pouvez parcourir notre{' '}
-            <Link
-              href={
-                '/documentation/MPR/?' +
-                new URLSearchParams(situationSearchParams).toString()
-              }
-            >
-              documentation complète du calcul
-            </Link>
-            .
-          </p>
-        </Section>
-      )}
       {isCompact && (
         <div
           css={`

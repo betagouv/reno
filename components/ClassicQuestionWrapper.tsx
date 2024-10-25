@@ -64,71 +64,69 @@ export default function ClassicQuestionWrapper({
         clear: both;
       `}
     >
-      <Card>
-        {(!rule.type || !rule.type === 'question rhétorique') && (
-          <QuestionHeader>
-            <small>{categoryTitle}</small>
-            <h3>
-              <QuestionText
-                {...{
-                  rule,
-                  question: currentQuestion,
-                  rules,
-                  situation,
-                  engine,
-                }}
-              />
-            </h3>
-            {rule['sous-titre'] && (
-              <div
-                css={`
-                  p {
-                    color: #666;
-                    font-size: 90%;
-                    line-height: 1.25rem;
-                  }
-                `}
-                dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-              ></div>
-            )}
-          </QuestionHeader>
-        )}
-        <AnswerWrapper>
-          {!noSuggestions && (
-            <Suggestions
-              rule={rule}
-              onClick={(value) =>
-                setSearchParams(
-                  encodeSituation(
-                    {
-                      ...situation,
-                      [currentQuestion]: value,
-                    },
-                    false,
-                    answeredQuestions,
-                  ),
-                  'url',
-                  false,
-                )
-              }
+      {(!rule.type || !rule.type === 'question rhétorique') && (
+        <QuestionHeader>
+          <small>{categoryTitle}</small>
+          <h3>
+            <QuestionText
+              {...{
+                rule,
+                question: currentQuestion,
+                rules,
+                situation,
+                engine,
+              }}
             />
+          </h3>
+          {rule['sous-titre'] && (
+            <div
+              css={`
+                p {
+                  color: #666;
+                  font-size: 90%;
+                  line-height: 1.25rem;
+                }
+              `}
+              dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+            ></div>
           )}
-          {children}
-          <FormButtons
-            {...{
-              currentValue,
-              rules,
-              setSearchParams,
-              encodeSituation,
-              answeredQuestions,
-              questionsToSubmit,
-              currentQuestion,
-              situation,
-            }}
+        </QuestionHeader>
+      )}
+      <AnswerWrapper>
+        {!noSuggestions && (
+          <Suggestions
+            rule={rule}
+            onClick={(value) =>
+              setSearchParams(
+                encodeSituation(
+                  {
+                    ...situation,
+                    [currentQuestion]: value,
+                  },
+                  false,
+                  answeredQuestions,
+                ),
+                'url',
+                false,
+              )
+            }
           />
-        </AnswerWrapper>
-      </Card>
+        )}
+        {children}
+      </AnswerWrapper>
       <QuestionDescription {...{ currentQuestion, rule }} />
+      <FormButtons
+        {...{
+          currentValue,
+          rules,
+          setSearchParams,
+          encodeSituation,
+          answeredQuestions,
+          questionsToSubmit,
+          currentQuestion,
+          situation,
+        }}
+      />
       <Answers
         {...{
           answeredQuestions,
