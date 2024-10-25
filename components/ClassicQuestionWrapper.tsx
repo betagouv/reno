@@ -8,10 +8,9 @@ import { encodeSituation } from './publicodes/situationUtils'
 import { isMosaicQuestion } from './BooleanMosaic'
 import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
-import { Card } from './UI'
 import { getRuleName } from './publicodes/utils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
-import useIsInIframe, { useIsCompact } from './useIsInIframe'
+import useIsInIframe from './useIsInIframe'
 import UserProblemBanner from './UserProblemBanner'
 import Share from '@/app/simulation/Share'
 import { useSearchParams } from 'next/navigation'
@@ -49,7 +48,6 @@ export default function ClassicQuestionWrapper({
   nextQuestions,
 }) {
   const isInIframe = useIsInIframe()
-  const isCompact = useIsCompact()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { categoryTitle } = categoryData(
@@ -126,6 +124,7 @@ export default function ClassicQuestionWrapper({
           situation,
         }}
       />
+      <Notifications {...{ currentQuestion, engine }} />
       <QuestionDescription {...{ currentQuestion, rule }} />
       <Answers
         {...{
@@ -136,7 +135,6 @@ export default function ClassicQuestionWrapper({
           situation,
         }}
       />
-      <Notifications {...{ currentQuestion, engine }} />
       {!isInIframe && (
         <>
           <br />
