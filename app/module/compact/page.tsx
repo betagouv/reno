@@ -8,12 +8,14 @@ import { Suspense } from 'react'
 import getAppUrl from '@/components/getAppUrl'
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
 export const metadata: Metadata = {
-  title: 'Widget de calcul des aides à la rénovation énergétique - Mes aides réno',
-  description: "Intégration d'une iframe de calcul des aides à la rénovation énergétique",
+  title:
+    'Widget de calcul des aides à la rénovation énergétique - Mes aides réno',
+  description:
+    "Intégration d'une iframe de calcul des aides à la rénovation énergétique",
 }
 
 const iframeCode = `
-<iframe src="${getAppUrl()}/simulation?display=compact" style="width: 400px; height: 500px; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
+<iframe src="${getAppUrl()}/simulation" style="width: 400px; height: 500px; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
                   hsl(var(--shadow-color) / 0.36),
                 0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
@@ -64,10 +66,15 @@ export default function Compact({}) {
         </HeaderWrapper>
 
         <Wrapper>
-          <Content style={css`margin: 1rem auto;text-align: center;`}>
+          <Content
+            style={css`
+              margin: 1rem auto;
+              text-align: center;
+            `}
+          >
             <Suspense>
               <iframe
-                src={getAppUrl() + '/simulation?display=compact'}
+                src={getAppUrl() + '/simulation'}
                 style={css`
                   border-radius: 0.4rem;
                   height: 500px;
