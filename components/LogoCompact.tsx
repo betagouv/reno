@@ -14,10 +14,11 @@ export default function LogoCompact() {
   return (
     <div
       css={`
-        position: absolute;
-        right: 10px;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: end;
+        padding: 0.5rem;
+        border-bottom: 1px solid #dddddd;
       `}
     >
       <a
@@ -32,11 +33,11 @@ export default function LogoCompact() {
         onClick={() => push(['trackEvent', 'Iframe', 'Clic', 'Affiner'])}
         href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(omit(['display'], searchParams)).toString()}`}
       >
-        <Image src={mesAidesReno} width="40" alt="Logo Mes aides Réno" />
+        <Image src={mesAidesReno} height="30" alt="Logo Mes aides Réno" />
         <Title
           css={`
-            font-size: 90%;
-            line-height: 0.8rem;
+            font-size: 70%;
+            line-height: 0.6rem;
             margin: 0 0 0 0.5rem;
             width: 3rem;
           `}
@@ -48,10 +49,11 @@ export default function LogoCompact() {
         href="https://france-renov.gouv.fr"
         target="_blank"
         css={`
-          margin-top: 10px;
+          display: flex;
+          align-items: center;
         `}
       >
-        <Image src={logoFranceRenov} alt="Logo de France Rénov" width="60" />
+        <Image src={logoFranceRenov} alt="Logo de France Rénov" height="40" />
       </a>
     </div>
   )
