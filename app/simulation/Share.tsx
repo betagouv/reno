@@ -50,12 +50,11 @@ export default function Share() {
           <CTA
             $importance="emptyBackground"
             css={`
-              padding: 0.25rem 3rem;
               ${clicked &&
               `
-                    background: #BEF2C53;
-                    border: 1px dashed var(--validColor);
-                  `}
+                background: #BEF2C53;
+                border: 1px dashed var(--validColor);
+              `}
             `}
             $fontSize="normal"
             title="Cliquez pour partager le lien"
@@ -72,7 +71,11 @@ export default function Share() {
                 : copyToClipboard
             }}
           >
-            <span css={clicked && 'color: var(--validColor) !important;'}>
+            <span
+              css={`
+                ${clicked && 'color: var(--validColor) !important;'}
+              `}
+            >
               {!clicked ? '🔗 Copier le lien' : '✔ Lien copié'}
             </span>
           </CTA>

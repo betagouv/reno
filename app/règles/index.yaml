@@ -58,30 +58,22 @@ vous . propriétaire . statut:
   question: Êtes-vous propriétaire ?
   description: |
 
-    Pour bénéficier de MaPrimeRénov', la principale aide à la rénovation, il faut être dans l'une de ces situations. 
-
-    Situations simples : 
+    Pour bénéficier de MaPrimeRénov', la principale aide à la rénovation, il faut être dans l'une de ces situations:
       - **Propriétaire occupant** (vous vivez dans votre logement)
       - **Propriétaire bailleur** (un locataire vit dans votre logement)
-
-
-    <br/>
-    <details>
-    <summary>Autres situations éligibles</summary> 
-
-    Vous êtes : 
       - usufruitier
       - titulaires (occupants et bailleurs) d'un droit réel conférant l'usage du bien 
       - preneurs (occupants et bailleurs) d'un bail emphytéotique ou d'un bail à construction 
       - propriétaires en indivision si l'ensemble des propriétaires indivisaires ont signé l'[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l'honneur qui désigne le demandeur pour porter les travaux au nom de l'indivision.
-    </details>
+      
 
-    <details><summary>Situations non éligibles</summary>
+    <br/>
+    Vous n'êtes pas éligible en tant que :
+    <ul>
+      <li>nu-propriétaire</li>
+      <li>personne morale (par exemple une société civile immobilière)</li>
+    </ul>
 
-    Vous êtes : 
-      - nu-propriétaire
-      - vous faites la simulation en tant que personne morale (par exemple une société civile immobilière)
-    </details>
   une possibilité parmi:
     possibilités:
       - 'propriétaire'
@@ -345,7 +337,7 @@ ménage . commune:
 
     Cette question nous permet de déterminer votre région, un paramètre clef de l'éligibilité de l'aide.
 
-    > 🕵️ Les réponses que vous donnez à ce questionnaire *ne sont pas stockées* sur nos serveur, elles servent uniquement à calculer vos aides réno.
+    > 🕵️ Les réponses que vous donnez à ce questionnaire *ne sont pas stockées* sur nos serveur, elles servent uniquement à calculer vos aides à la rénovation énergétique.
 
 ménage . id ban:
   titre: Identifiant base nationale des adresses (BAN)

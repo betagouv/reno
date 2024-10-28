@@ -33,8 +33,8 @@ export default function CEEAmpleur({
         <>
           <h3>Comment est calculée l'aide ?</h3>
           <p>
-            Le montant des CEE est calculé en fonction de la performance visé et
-            de la surface habitable du logement.
+            Le montant des CEE est calculé en fonction de la performance visée
+            et de la surface habitable du logement.
           </p>
           <CEEAmpleurScenario
             {...{

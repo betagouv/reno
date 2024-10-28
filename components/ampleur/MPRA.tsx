@@ -83,9 +83,17 @@ export default function MPRA({
                 margin: 1rem 0;
               `}
             >
-              🍀 <strong>Bonus :</strong> En tant que{' '}
-              <u>ménage&nbsp;{revenuClasseValue}</u>, <strong>70 %</strong> de
-              cette aide peut vous être versée en avance de vos travaux.
+              🍀 <strong>Bonus :</strong> En tant que en tant que ménage{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'ménage . revenu . classe',
+                  state: 'prime-black',
+                }}
+              />{' '}
+              , <strong>70 %</strong> de cette aide peut vous être versée en
+              avance de vos travaux.
             </div>
           )}
           {expanded && (
