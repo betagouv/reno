@@ -259,6 +259,7 @@ export const LinkStyleButton = styled.span`
   color: #716043 !important;
   border-radius: 5px;
   padding: 0.5rem;
+  margin-top: 0.5rem;
   text-transform: uppercase;
   text-decoration: none;
   background: #feecc2;
