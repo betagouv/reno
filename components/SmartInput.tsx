@@ -121,7 +121,7 @@ export default function Input({
     })
   )
 }
-const displayRevenuLabel = (threshold, lastThreshold) =>
+export const displayRevenuLabel = (threshold, lastThreshold) =>
   threshold === Infinity
     ? 'supérieur à ' + formatNumber(lastThreshold) + '€'
     : 'inférieur à ' + formatNumber(threshold) + '€'

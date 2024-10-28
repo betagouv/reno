@@ -1,12 +1,25 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
-import css from './css/convertToJs'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
-import checkIcon from '@/public/check-green.svg'
-import Image from 'next/image'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
+}
+
+export async function getCommune(situation, type) {
+  if (
+    situation &&
+    ['ménage . commune', 'logement . commune'].includes(type) &&
+    situation[type]
+  ) {
+    const response = await fetch(
+      `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
+    )
+    const json = await response.json()
+
+    return json[0]
+  }
+  return null
 }
 
 export default function AddressSearch({ setChoice, situation, type }) {
@@ -20,20 +33,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
-    if (
-      situation &&
-      ['ménage . commune', 'logement . commune'].includes(type) &&
-      situation[type]
-    ) {
-      fetch(
-        `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
-      )
-        .then((response) => response.json())
-        .then((json) => {
-          setInput(json[0].nom + ' ' + json[0].codeDepartement)
-          setClicked(true)
-        })
+    async function fetchCommune() {
+      const commune = await getCommune(situation, type)
+      if (commune) {
+        setInput(commune.nom + ' ' + commune.codeDepartement)
+      }
     }
+    fetchCommune()
   }, [situation, setInput])
 
   useEffect(() => {

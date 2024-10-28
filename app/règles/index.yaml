@@ -35,7 +35,7 @@ ménage . revenu:
     Saisissez le revenu fiscal de référence des personnes composant votre ménage. 
 
     Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
-
+  unité: €
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
@@ -386,7 +386,7 @@ DPE . actuel:
 
     Si votre logement n'a pas de DPE, ou s'il date d'avant septembre 2021, date de mise en place du nouveau DPE, [il vous faudra le faire réaliser](https://www.economie.gouv.fr/particuliers/immobilier-diagnostic-performance-energetique-dpe) pour obtenir une aide MaPrimeRénov'. Son prix n'est pas réglementé mais varie entre 120 et 300 €.
 
-    Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoique ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
+    Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoi que ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
   par défaut:
     variations:
       - si: simulation . mode = 'moyen'
