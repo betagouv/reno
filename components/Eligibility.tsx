@@ -9,6 +9,7 @@ import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
 import BackToLastQuestion from './BackToLastQuestion'
 import { useAides } from './ampleur/useAides'
+import { Main, PageBlock, Section } from './UI'
 
 export default function Eligibility({
   setSearchParams,
@@ -34,7 +35,7 @@ export default function Eligibility({
   const showPersonaBar = searchParams.personas != null
 
   return (
-    <section
+    <Section
       css={`
         ${showPersonaBar && `margin-top: 4rem`}
       `}
@@ -128,20 +129,18 @@ export default function Eligibility({
             }}
           />
         </div>
-        <div>
-          <FatConseiller
-            {...{
-              situation,
-              margin: 'small',
-              titre:
-                'Vous ne savez pas quel parcours choisir pour votre projet ?',
-              texte:
-                "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
-            }}
-          />
-        </div>
+        <FatConseiller
+          {...{
+            situation,
+            margin: 'small',
+            titre:
+              'Vous ne savez pas quel parcours choisir pour votre projet ?',
+            texte:
+              "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
+          }}
+        />
         <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
       </CustomQuestionWrapper>
-    </section>
+    </Section>
   )
 }

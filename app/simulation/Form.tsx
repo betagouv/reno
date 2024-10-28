@@ -11,7 +11,6 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import Stepper from './Stepper'
 import simulationConfig from './simulationConfig.yaml'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
@@ -56,47 +55,27 @@ function Form({ rules }) {
   const setSearchParams = useSetSearchParams()
 
   return (
-    <div>
-      <Section>
-        {isInIframe && (
-          <>
-            <LogoCompact
-              css={`
-                float: right;
-              `}
-            />
-            <Stepper
-              {...{
-                answeredQuestions,
-                nextQuestions,
-                currentQuestion,
-                rules,
-                situation,
-              }}
-            />
-          </>
-        )}
-        {rule && (
-          <InputSwitch
-            {...{
-              rules,
-              currentQuestion,
-              situation,
-              answeredQuestions,
-              setSearchParams,
-              engine,
-              nextQuestions,
-              searchParams,
-            }}
-          />
-        )}
-      </Section>
+    <>
+      {isInIframe && <LogoCompact />}
+      {rule && (
+        <InputSwitch
+          {...{
+            rules,
+            currentQuestion,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            engine,
+            nextQuestions,
+            searchParams,
+          }}
+        />
+      )}
       {isInIframe && (
         <p
           css={`
             font-size: 0.7rem;
-            margin: 0;
-            margin-top: 1rem;
+            margin: 1rem;
             line-height: 1rem;
           `}
         >
@@ -104,7 +83,7 @@ function Form({ rules }) {
           l'information sur les aides à la rénovation énergétique.
         </p>
       )}
-    </div>
+    </>
   )
 }
 

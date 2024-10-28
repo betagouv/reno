@@ -14,6 +14,7 @@ import useIsInIframe from './useIsInIframe'
 import UserProblemBanner from './UserProblemBanner'
 import Share from '@/app/simulation/Share'
 import { useSearchParams } from 'next/navigation'
+import ProgressBar from '@/app/simulation/ProgressBar'
 
 export const QuestionText = ({
   rule,
@@ -57,91 +58,106 @@ export default function ClassicQuestionWrapper({
     rules,
   )
   return (
-    <div
-      css={`
-        clear: both;
-      `}
-    >
-      {(!rule.type || !rule.type === 'question rhétorique') && (
-        <QuestionHeader>
-          <small>{categoryTitle}</small>
-          <h3>
-            <QuestionText
-              {...{
-                rule,
-                question: currentQuestion,
-                rules,
-                situation,
-                engine,
-              }}
-            />
-          </h3>
-          {rule['sous-titre'] && (
-            <div
-              css={`
-                p {
-                  color: #666;
-                  font-size: 90%;
-                  line-height: 1.25rem;
-                }
-              `}
-              dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-            ></div>
-          )}
-        </QuestionHeader>
-      )}
-      <AnswerWrapper>
-        {!noSuggestions && (
-          <Suggestions
-            rule={rule}
-            onClick={(value) =>
-              setSearchParams(
-                encodeSituation(
-                  {
-                    ...situation,
-                    [currentQuestion]: value,
-                  },
-                  false,
-                  answeredQuestions,
-                ),
-                'url',
-                false,
-              )
-            }
-          />
-        )}
-        {children}
-      </AnswerWrapper>
-      <FormButtons
-        {...{
-          currentValue,
-          rules,
-          setSearchParams,
-          encodeSituation,
-          answeredQuestions,
-          questionsToSubmit,
-          currentQuestion,
-          situation,
-        }}
-      />
-      <Notifications {...{ currentQuestion, engine }} />
-      <QuestionDescription {...{ currentQuestion, rule }} />
-      <Answers
+    <>
+      <ProgressBar
         {...{
           answeredQuestions,
           nextQuestions,
           currentQuestion,
           rules,
           situation,
+          searchParams,
         }}
       />
-      {!isInIframe && (
-        <>
-          <br />
-          <UserProblemBanner />
-          <Share searchParams={searchParams} />
-        </>
-      )}
-    </div>
+      <div
+        css={`
+          max-width: 800px;
+          min-height: 100%;
+          padding: 1vw;
+          margin: 0 auto;
+        `}
+      >
+        {(!rule.type || !rule.type === 'question rhétorique') && (
+          <QuestionHeader>
+            <small>{categoryTitle}</small>
+            <h3>
+              <QuestionText
+                {...{
+                  rule,
+                  question: currentQuestion,
+                  rules,
+                  situation,
+                  engine,
+                }}
+              />
+            </h3>
+            {rule['sous-titre'] && (
+              <div
+                css={`
+                  p {
+                    color: #666;
+                    font-size: 90%;
+                    line-height: 1.25rem;
+                  }
+                `}
+                dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+              ></div>
+            )}
+          </QuestionHeader>
+        )}
+        <AnswerWrapper>
+          {!noSuggestions && (
+            <Suggestions
+              rule={rule}
+              onClick={(value) =>
+                setSearchParams(
+                  encodeSituation(
+                    {
+                      ...situation,
+                      [currentQuestion]: value,
+                    },
+                    false,
+                    answeredQuestions,
+                  ),
+                  'url',
+                  false,
+                )
+              }
+            />
+          )}
+          {children}
+        </AnswerWrapper>
+        <FormButtons
+          {...{
+            currentValue,
+            rules,
+            setSearchParams,
+            encodeSituation,
+            answeredQuestions,
+            questionsToSubmit,
+            currentQuestion,
+            situation,
+          }}
+        />
+        <Notifications {...{ currentQuestion, engine }} />
+        <QuestionDescription {...{ currentQuestion, rule }} />
+        <Answers
+          {...{
+            answeredQuestions,
+            nextQuestions,
+            currentQuestion,
+            rules,
+            situation,
+          }}
+        />
+        {!isInIframe && (
+          <>
+            <br />
+            <UserProblemBanner />
+            <Share searchParams={searchParams} />
+          </>
+        )}
+      </div>
+    </>
   )
 }

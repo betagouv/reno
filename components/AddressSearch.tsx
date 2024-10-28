@@ -138,7 +138,7 @@ export const AddressInput = styled.div`
     outline: none;
     box-shadow: none !important;
     height: 2.8rem !important;
-    border-bottom: 2px solid #3a3a3a !important;
+    border-bottom: 2px solid #3a3a3a;
   }
   p {
     margin: 0.5rem 0;

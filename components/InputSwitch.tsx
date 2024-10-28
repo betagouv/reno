@@ -312,42 +312,36 @@ export default function InputSwitch({
 
   if (searchParams['details'] && searchParams['details'] == 'synthese') {
     return (
-      <>
-        <AideSynthese
-          {...{
-            currentQuestion,
-            searchParams,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            correspondance,
-            nextQuestions,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <AideSynthese
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          correspondance,
+          nextQuestions,
+        }}
+      />
     )
   }
 
   if (searchParams['details']) {
     return (
-      <>
-        <AideDetails
-          {...{
-            currentQuestion,
-            searchParams,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            rules,
-            correspondance,
-            nextQuestions,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <AideDetails
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          correspondance,
+          nextQuestions,
+        }}
+      />
     )
   }
 
@@ -356,59 +350,51 @@ export default function InputSwitch({
     searchParams["parcours d'aide"].includes('à la carte')
   ) {
     return (
-      <>
-        <GestesMosaic
-          {...{
-            rules,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: gestesMosaicQuestions,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <GestesMosaic
+        {...{
+          rules,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          questions: gestesMosaicQuestions,
+        }}
+      />
     )
   }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
-      <>
-        <AidesAmpleur
-          {...{
-            currentQuestion,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            rules,
-            searchParams,
-            correspondance,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <AidesAmpleur
+        {...{
+          currentQuestion,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          searchParams,
+          correspondance,
+        }}
+      />
     )
   }
 
   if (["parcours d'aide"].includes(currentQuestion)) {
     return (
-      <>
-        <Eligibility
-          {...{
-            currentQuestion,
-            searchParams,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            rules,
-            nextQuestions,
-            expanded: searchParams.details === 'oui',
-          }}
-        />
-      </>
+      <Eligibility
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          nextQuestions,
+          expanded: searchParams.details === 'oui',
+        }}
+      />
     )
   }
   // We kept the latter component before it got really specialized. TODO not completely functional

@@ -5,10 +5,9 @@ import Link from 'next/link'
 export const Main = styled.main`
   width: 98vw;
   max-width: 100%; // pour éviter la barre de défilement horizontal dans les iframe
-  padding: 0 1vw;
+  padding: 1vw;
   padding-bottom: 6vh;
   margin: 0 auto;
-  padding-top: calc(1.5vh + 1.5vw);
 `
 
 export const Section = styled.section`
@@ -35,6 +34,7 @@ export const FooterWrapper = styled.footer`
     border-top: 3px solid var(--color);
     padding: 2rem 0.4rem 0;
     width: 100%;
+    margin-top: 3vh;
   }
   > div {
     max-width: 1200px;
