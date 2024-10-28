@@ -1,4 +1,5 @@
 import { CTA, CTAWrapper, Section } from '@/components/UI'
+import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
 
@@ -59,6 +60,7 @@ export default function Share() {
             $fontSize="normal"
             title="Cliquez pour partager le lien"
             onClick={() => {
+              push(['trackEvent', 'Partage', 'Clic', navigator.share])
               navigator.share
                 ? navigator
                     .share({
