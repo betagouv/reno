@@ -18,7 +18,7 @@ import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
-import SmartInput from './SmartInput'
+import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import AideDetails from './AideDetails'
 import Feedback from '@/app/contact/Feedback'
@@ -83,7 +83,7 @@ export default function InputSwitch({
           noSuggestions: true,
         }}
       >
-        <SmartInput
+        <RevenuInput
           type={ruleQuestionType}
           rule={rule}
           engine={engine}

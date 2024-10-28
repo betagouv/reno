@@ -45,6 +45,7 @@ export default function Answers({
   nextQuestions,
   currentQuestion,
   rules,
+  engine,
   situation,
 }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -195,6 +196,7 @@ export default function Answers({
                           {...{
                             answer,
                             rules,
+                            engine,
                             situation,
                             setSearchParams,
                             rawAnsweredQuestions,

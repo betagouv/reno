@@ -5,12 +5,13 @@ import {
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
 import { getRuleTitle } from '@/components/publicodes/utils'
-import { displayRevenuLabel } from '@/components/SmartInput'
+import { displayRevenuLabel } from '@/components/RevenuInput'
 import DPELabel from '@/components/DPELabel'
 
 export default function AnswerItem({
   answer,
   rules,
+  engine,
   situation,
   setSearchParams,
   rawAnsweredQuestions,
@@ -56,6 +57,7 @@ export default function AnswerItem({
               {...{
                 answer,
                 situation,
+                engine,
                 communes,
                 rules,
               }}
@@ -67,13 +69,14 @@ export default function AnswerItem({
   )
 }
 
-function FormattedAnswer({ answer, situation, communes, rules }) {
-  const unit = rules[answer]?.unité
+function FormattedAnswer({ answer, situation, engine, communes, rules }) {
+  let unit = rules[answer]?.unité
   const value = situation[answer]
 
   let formattedValue
   if (answer === 'ménage . revenu') {
-    formattedValue = value // TODO: améliorer l'affichage dont la gestion du inférieur/supérieur via l'utilisation de displayRevenuLabel(value)
+    formattedValue = displayRevenuLabel(situation, engine, parseInt(value) + 1)
+    unit = ''
   } else if (['ménage . commune', 'logement . commune'].includes(answer)) {
     formattedValue = communes[answer]?.nom
       ? `${communes[answer].nom} (${communes[answer].codeDepartement})`

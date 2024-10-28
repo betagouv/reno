@@ -147,6 +147,7 @@ export default function ClassicQuestionWrapper({
             nextQuestions,
             currentQuestion,
             rules,
+            engine,
             situation,
           }}
         />
