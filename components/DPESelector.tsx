@@ -29,18 +29,12 @@ export default function DPESelector({
     oldLetter = isNew && data[+situation['DPE . actuel'] - 1].lettre
 
   return (
-    <div
-      style={css`
-        margin-top: 0.6rem;
-      `}
-    >
-      <DPE
-        newLetter={newLetter}
-        letter={isNew ? oldLetter : newLetter}
-        onClick={(value) =>
-          console.log('setDPE', value) || doSetSearchParams(value + 1)
-        }
-      />
-    </div>
+    <DPE
+      newLetter={newLetter}
+      letter={isNew ? oldLetter : newLetter}
+      onClick={(value) =>
+        console.log('setDPE', value) || doSetSearchParams(value + 1)
+      }
+    />
   )
 }

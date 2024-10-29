@@ -5,14 +5,14 @@ import logo from '@/public/logo.svg'
 import css from '@/components/css/convertToJs'
 import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper, Title } from '@/app/LayoutUI'
-import useIsInIframe, { useIsCompact } from '@/components/useIsInIframe'
+import useIsInIframe from '@/components/useIsInIframe'
 import { usePathname } from 'next/navigation'
+import { CTA, CTAWrapper } from './UI'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
-  const isCompact = useIsCompact()
   const pathname = usePathname()
-  const isBareIframe = pathname === '/module/integration' || (isInIframe && isCompact)
+  const isBareIframe = pathname === '/module/integration' || isInIframe
 
   if (isBareIframe) return null
   return (
@@ -55,7 +55,7 @@ export default function Header() {
                   padding: 0.1rem 0.3rem;
                   border-radius: 0.1rem;
                   margin-left: 0.6rem;
-                  font-size: 110%;
+                  font-size: 80%;
                 `}
               >
                 BETA
@@ -69,9 +69,32 @@ export default function Header() {
           <Link href="/a-propos">À propos</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/devenir-partenaire">Devenir Partenaire</Link>
+          {/* <CTAWrapper $justify="left">
+            <CTA
+              $fontSize="normal"
+              $importance="secondary"
+              css={`
+                line-height: 1;
+                padding: 0.5rem 0;
+              `}
+            >
+              <Link href="/devenir-partenaire">Devenir Partenaire</Link>
+            </CTA>
+            <CTA
+              $fontSize="normal"
+              css={`
+                line-height: 1;
+                a {
+                  padding: 0.2rem 1rem;
+                }
+                padding: 0.5rem 0;
+              `}
+            >
+              <Link href="/simulation">→ Calculez vos aides</Link>
+            </CTA>
+          </CTAWrapper> */}
         </div>
       </nav>
     </HeaderWrapper>
   )
 }
-

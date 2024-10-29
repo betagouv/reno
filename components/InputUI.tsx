@@ -8,9 +8,8 @@ export const InputWrapper = styled.div`
 `
 export const AnswerWrapper = styled.div`
   display: flex;
-  align-items: end;
   flex-direction: column;
-  margin-top: 3vh;
+  margin-top: 2vh;
 `
 
 export const FormLinkButton = styled(Link)`
@@ -27,24 +26,27 @@ export const FormButtonsWrapper = styled.div`
   height: calc(1.2rem + 1vw);
 `
 
-export const SuggestionsList = styled.div`
-  margin-top: 0.8rem;
-  margin-bottom: 0.15rem;
-  overflow: scroll hidden;
-  white-space: nowrap;
-  max-width: 90vw;
-  height: 2rem;
-  scrollbar-width: none;
-  ul {
-    display: flex;
-    list-style-type: none;
-    margin: 0.2rem 0;
-    align-items: center;
-    li {
-      margin: 0 0.4rem;
-      a {
-        text-decoration-style: dashed;
-        text-underline-offset: 4px;
+export const SuggestionsList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0.2rem 0;
+  padding: 0;
+  li {
+    margin: 1rem 0.3rem;
+    &:first-child {
+      margin-left: 0;
+    }
+    a {
+      text-decoration: none;
+      color: #004396;
+      font-weight: bold;
+      background: #a5d1ff;
+      padding: 0.5rem 0.8rem;
+      border-radius: 1.5rem;
+      border: 2px solid #a5d1ff;
+      &:hover {
+        border: 2px solid #004396;
       }
     }
   }

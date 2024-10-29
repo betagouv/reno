@@ -13,11 +13,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return (
-    <PageBlock>
-      <Main>
-        <Form rules={rules} />
-      </Main>
-    </PageBlock>
-  )
+  return <Form rules={rules} />
 }

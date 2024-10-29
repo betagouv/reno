@@ -5,10 +5,11 @@ import { Details, Fieldset } from './BooleanMosaicUI'
 import css from './css/convertToJs'
 import Geste from './Geste'
 import { encodeSituation } from './publicodes/situationUtils'
-import { CTA, CTAWrapper } from './UI'
+import { CTA, CTAWrapper, Section } from './UI'
 import { omit } from './utils'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import Feedback from '@/app/contact/Feedback'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -101,118 +102,124 @@ export default function GestesMosaic({
   const safeEngine = engine.setSituation(resetSituation)
 
   return (
-    <CustomQuestionWrapper>
-      <BtnBackToParcoursChoice {...{
-          setSearchParams,
-          situation: omit(["parcours d'aide"], situation),
-          answeredQuestions
-        }}
-      />
-      <header>
-        <small>Les aides à la carte</small>
-        <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
-      </header>
-      <Fieldset>
-        <ul>
-          {categories.map(([category, dottedNames]) => (
-            <li key={category}>
-              <Details open={true}>
-                <summary>
-                  <h4>{rules[category].titre}</h4>
-                </summary>
+    <Section>
+      <CustomQuestionWrapper>
+        <BtnBackToParcoursChoice
+          {...{
+            setSearchParams,
+            situation: omit(["parcours d'aide"], situation),
+            answeredQuestions,
+          }}
+        />
+        <header>
+          <small>Les aides à la carte</small>
+          <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
+        </header>
+        <Fieldset>
+          <ul>
+            {categories.map(([category, dottedNames]) => (
+              <li key={category}>
+                <Details open={true}>
+                  <summary>
+                    <h4>{rules[category].titre}</h4>
+                  </summary>
 
-                <ul>
-                  <Checkboxes
-                    {...{
-                      questions: dottedNames,
-                      rules,
-                      onChange,
-                      situation,
-                      engine: safeEngine,
-                    }}
-                  />
-                  {entries
-                    .filter(
-                      ([k, v]) => k.startsWith(category) && k !== category,
-                    )
-                    .map(([subCategory, dottedNames2]) => {
-                      const categoryTitle = rules[subCategory].titre
-
-                      return (
-                        <li key={subCategory}>
-                          <h5>{categoryTitle}</h5>
-                          <ul>
-                            <Checkboxes
-                              {...{
-                                questions: dottedNames2,
-                                rules,
-                                onChange,
-                                situation,
-                                engine: safeEngine,
-                              }}
-                            />
-                          </ul>
-                        </li>
+                  <ul>
+                    <Checkboxes
+                      {...{
+                        questions: dottedNames,
+                        rules,
+                        onChange,
+                        situation,
+                        engine: safeEngine,
+                      }}
+                    />
+                    {entries
+                      .filter(
+                        ([k, v]) => k.startsWith(category) && k !== category,
                       )
-                    })}
-                </ul>
-              </Details>
-            </li>
-          ))}
-        </ul>
-      </Fieldset>
+                      .map(([subCategory, dottedNames2]) => {
+                        const categoryTitle = rules[subCategory].titre
 
-      <CTAWrapper
-        css={`
-          @media (max-width: 800px) {
-            position: fixed;
-            text-align: center;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            margin: 0;
-            background: white;
-            padding: 1rem 0;
-            --shadow-color: 180deg 2% 61%;
-            --shadow-elevation-medium: 0px -0.4px 0.5px hsl(var(--shadow-color) /
-                    0.36),
-              0px -1.2px 1.3px -0.8px hsl(var(--shadow-color) / 0.36),
-              0.1px -2.9px 3.3px -1.7px hsl(var(--shadow-color) / 0.36),
-              0.2px -7.1px 8px -2.5px hsl(var(--shadow-color) / 0.36);
+                        return (
+                          <li key={subCategory}>
+                            <h5>{categoryTitle}</h5>
+                            <ul>
+                              <Checkboxes
+                                {...{
+                                  questions: dottedNames2,
+                                  rules,
+                                  onChange,
+                                  situation,
+                                  engine: safeEngine,
+                                }}
+                              />
+                            </ul>
+                          </li>
+                        )
+                      })}
+                  </ul>
+                </Details>
+              </li>
+            ))}
+          </ul>
+        </Fieldset>
 
-            box-shadow: var(--shadow-elevation-medium);
-            > div {
-              width: 90%;
-              margin: 0 auto !important;
+        <CTAWrapper
+          css={`
+            @media (max-width: 800px) {
+              position: fixed;
+              text-align: center;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              margin: 0;
+              background: white;
+              padding: 1rem 0;
+              --shadow-color: 180deg 2% 61%;
+              --shadow-elevation-medium: 0px -0.4px 0.5px hsl(var(
+                        --shadow-color
+                      ) / 0.36),
+                0px -1.2px 1.3px -0.8px hsl(var(--shadow-color) / 0.36),
+                0.1px -2.9px 3.3px -1.7px hsl(var(--shadow-color) / 0.36),
+                0.2px -7.1px 8px -2.5px hsl(var(--shadow-color) / 0.36);
+
+              box-shadow: var(--shadow-elevation-medium);
+              > div {
+                width: 90%;
+                margin: 0 auto !important;
+              }
             }
-          }
-        `}
-      >
-        <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
-          <Link href={nextUrl}>
-            <span
-              css={`
-                img {
-                  filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(194deg) brightness(105%) contrast(101%);;
-                  width: 1.6rem;
-                  margin-right: 0.6rem;
-                  height: auto;
-                  vertical-align: bottom;
-                }
-              `}
-            >
-              <Image
-                src="/check.svg"
-                width="10"
-                height="10"
-                alt="Icône coche pleine"
-              />
-              Valider ma sélection ({count})
-            </span>
-          </Link>
-        </CTA>
-      </CTAWrapper>
-    </CustomQuestionWrapper>
+          `}
+        >
+          <CTA $importance={count === 0 ? 'inactive' : 'primary'}>
+            <Link href={nextUrl}>
+              <span
+                css={`
+                  img {
+                    filter: invert(100%) sepia(100%) saturate(1%)
+                      hue-rotate(194deg) brightness(105%) contrast(101%);
+                    width: 1.6rem;
+                    margin-right: 0.6rem;
+                    height: auto;
+                    vertical-align: bottom;
+                  }
+                `}
+              >
+                <Image
+                  src="/check.svg"
+                  width="10"
+                  height="10"
+                  alt="Icône coche pleine"
+                />
+                Valider ma sélection ({count})
+              </span>
+            </Link>
+          </CTA>
+        </CTAWrapper>
+        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+      </CustomQuestionWrapper>
+    </Section>
   )
 }
 

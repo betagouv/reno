@@ -24,13 +24,10 @@ const getDefaultSituation = (
   const defaultSituationEntries = sortBy(([, score]) => score)(
     Object.entries(allMissingVariables),
   )
-    .map(
-      ([dottedName]) =>
-        dottedName !== 'simulation . mode' && [
-          dottedName,
-          engineWithDefaults.evaluate(dottedName).nodeValue,
-        ],
-    )
+    .map(([dottedName]) => [
+      dottedName,
+      engineWithDefaults.evaluate(dottedName).nodeValue,
+    ])
     .filter(Boolean)
     // The situation was evaluted from the evaluation of default values
     // the result is not compatible with the object we need to inject in Engine.setSituation
@@ -41,8 +38,6 @@ const getDefaultSituation = (
           dottedName,
           { true: 'oui', true: 'oui', false: 'non', false: 'non' }[value],
         ]
-
-      if (dottedName === 'simulation . mode') return
 
       return [dottedName, value]
     })

@@ -3,7 +3,7 @@ import Select from './Select'
 import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
-import SmartInput from './SmartInput'
+import RevenuInput from './RevenuInput'
 
 export default function GesteQuestion({
   rules,
@@ -11,11 +11,12 @@ export default function GesteQuestion({
   engine,
   situation,
   setSearchParams,
-  answeredQuestions
+  answeredQuestions,
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
-  const evaluation = currentQuestion && engine.setSituation(situation).evaluate(question)
+  const evaluation =
+    currentQuestion && engine.setSituation(situation).evaluate(question)
   let currentValue = situation[question]
   const onChange = (value) => {
     const encodedSituation = encodeSituation(
@@ -27,7 +28,6 @@ export default function GesteQuestion({
       answeredQuestions,
     )
     setSearchParams(encodedSituation, 'push', false)
-
   }
 
   return (
@@ -105,7 +105,7 @@ const InputComponent = ({
   ) : question === 'ménage . commune' ? (
     <AddressSearch
       {...{
-        type: "ménage . commune",
+        type: 'ménage . commune',
         setChoice: (result) => {
           const codeRegion = result.codeRegion
           const encodedSituation = encodeSituation(
@@ -128,13 +128,13 @@ const InputComponent = ({
       }}
     />
   ) : question === 'ménage . revenu' ? (
-    <SmartInput
-        type='select'
-        engine={engine}
-        situation={situation}
-        value={currentValue == null ? '' : currentValue}
-        onChange={onChange}
-      />
+    <RevenuInput
+      type="select"
+      engine={engine}
+      situation={situation}
+      value={currentValue == null ? '' : currentValue}
+      onChange={onChange}
+    />
   ) : (
     <Input
       type={'number'}

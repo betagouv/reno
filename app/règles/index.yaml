@@ -1,19 +1,6 @@
 simulation:
   description: Sont ici définies les options de simulation. Ce ne sont en général pas des questions à poser à l'utilisateur, mais des choix d'interface à faire.
 
-simulation . mode:
-  titre: Mode de simulation
-  description: |
-    En fonction de votre interface, vous pouvez présenter les valeurs maximum de simulation, ou les valeurs moyennes. 
-
-    Vous pouvez aussi afficher les deux. 
-
-    Dans notre cas ici, la valeur minimum est la plupart du temps zéro, nous ne l'avons donc pas considérée.
-  par défaut: "'moyen'"
-  possibilités:
-    - 'max'
-    - 'moyen'
-
 # C'est la variable qui lance le simulateur principal mes aides réno
 # Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig.ts
 # Nous réservons les questions précises telles que la liste des gestes pour la suite, après l'écran d'éligibilité, elles sont déclenchées via le paramètre d'URL `objectif = à la carte . montant` ou `ampleur . montant` et la condition dans gestes.yaml `applicable si: parcours d'aide = 'à la carte'`
@@ -35,12 +22,8 @@ ménage . revenu:
     Saisissez le revenu fiscal de référence des personnes composant votre ménage. 
 
     Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
-
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 23000 €
-      - sinon: 0 €
+  unité: €
+  par défaut: 0 €
   suggestions:
     #Très modeste 1 personne: 15000 €
     #modeste 2 personnes: 26000 €
@@ -58,30 +41,22 @@ vous . propriétaire . statut:
   question: Êtes-vous propriétaire ?
   description: |
 
-    Pour bénéficier de MaPrimeRénov', la principale aide à la rénovation, il faut être dans l'une de ces situations. 
-
-    Situations simples : 
+    Pour bénéficier de MaPrimeRénov', la principale aide à la rénovation, il faut être dans l'une de ces situations:
       - **Propriétaire occupant** (vous vivez dans votre logement)
       - **Propriétaire bailleur** (un locataire vit dans votre logement)
-
-
-    <br/>
-    <details>
-    <summary>Autres situations éligibles</summary> 
-
-    Vous êtes : 
       - usufruitier
       - titulaires (occupants et bailleurs) d'un droit réel conférant l'usage du bien 
       - preneurs (occupants et bailleurs) d'un bail emphytéotique ou d'un bail à construction 
       - propriétaires en indivision si l'ensemble des propriétaires indivisaires ont signé l'[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l'honneur qui désigne le demandeur pour porter les travaux au nom de l'indivision.
-    </details>
+      
 
-    <details><summary>Situations non éligibles</summary>
+    <br/>
+    Vous n'êtes pas éligible en tant que :
+    <ul>
+      <li>nu-propriétaire</li>
+      <li>personne morale (par exemple une société civile immobilière)</li>
+    </ul>
 
-    Vous êtes : 
-      - nu-propriétaire
-      - vous faites la simulation en tant que personne morale (par exemple une société civile immobilière)
-    </details>
   une possibilité parmi:
     possibilités:
       - 'propriétaire'
@@ -149,24 +124,15 @@ logement . surface:
   question: Quelle est la surface habitable du logement ?
   par défaut: 91 m2
   description: |
-
-    <details><summary>Définition de la surface habitable</summary>
     « La surface habitable d'un logement est la surface de plancher construite, après déduction des surfaces occupées par les murs, cloisons, marches et cages d'escaliers, gaines, embrasures de portes et de fenêtres. Le volume habitable correspond au total des surfaces habitables ainsi définies multipliées par les hauteurs sous plafond.
     Il n'est pas tenu compte de la superficie des combles non aménagés, caves, sous-sols, remises, garages, terrasses, loggias, balcons, séchoirs extérieurs au logement, vérandas, volumes vitrés prévus à l'article R. 155-1, locaux communs et autres dépendances des logements, ni des parties de locaux d'une hauteur inférieure à 1,80 mètre1 »
 
     *Article R156-1 du Code de la construction et de l'habitation*
 
-    Source : https://fr.wikipedia.org/wiki/Surface_habitable_(France)
-    </details>
-  suggestions:
-    studio: 25 m2
-    2 pièces: 45 m2
-    3 pièces: 70 m2
-    maison: 120 m2
-    château 🏰: 1000 m2
+    Source : <span style="word-break: break-all;">https://fr.wikipedia.org/wiki/Surface_habitable_(France)</span>
   notes: |
     Pour le calcul de la surface moyenne, voir la [documentation Nos Gestes Climat](https://nosgestesclimat.fr/documentation/parc-fran%C3%A7ais/surface-moyenne).
-
+  unité: m²
 logement . propriétaire occupant:
   applicable si: vous . propriétaire . condition
   question: Allez-vous vivre dans le logement à rénover (propriétaire occupant) ?
@@ -266,21 +232,17 @@ ménage . personnes:
   titre: La composition de votre ménage
   question: Quelle est la composition de votre ménage ?
   unité: personne
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 1 personne
-      - sinon: 5 personne
+  par défaut: 2 personne
   suggestions:
-    seul: 1 personne
-    seul + enfant: 2 personne
+    seul.e: 1 personne
+    seul.e + enfant: 2 personne
     couple: 2 personne
     couple + enfant: 3 personne
     couple + 2 enfants: 4 personne
   description: |
     Répondez pour votre ménage, pas le ménage occupant votre logement dans le cas où il serait en location.
 
-    💡 La composition de votre ménage nous permet d'appliquer le bon barème de revenus : vos aides sont conditionnées à votre revenu, pas celui de vos locataires.
+    La composition de votre ménage nous permet d'appliquer le bon barème de revenus : vos aides sont conditionnées à votre revenu, pas celui de vos locataires.
 
 ménage . personnes plus:
   titre: Personnes de plus qu'un ménage de 5
@@ -354,7 +316,11 @@ ménage . commune:
 
     Cette question nous permet de déterminer votre région, un paramètre clef de l'éligibilité de l'aide.
 
-    > 🕵️ Les réponses que vous donnez à ce questionnaire *ne sont pas stockées* sur nos serveur, elles servent uniquement à calculer vos aides réno.
+    > 🕵️ Les réponses que vous donnez à ce questionnaire *ne sont pas stockées* sur nos serveur, elles servent uniquement à calculer vos aides à la rénovation énergétique.
+
+ménage . commune . nom:
+  par défaut:
+    texte: Brest
 
 ménage . id ban:
   titre: Identifiant base nationale des adresses (BAN)
@@ -395,12 +361,8 @@ DPE . actuel:
 
     Si votre logement n'a pas de DPE, ou s'il date d'avant septembre 2021, date de mise en place du nouveau DPE, [il vous faudra le faire réaliser](https://www.economie.gouv.fr/particuliers/immobilier-diagnostic-performance-energetique-dpe) pour obtenir une aide MaPrimeRénov'. Son prix n'est pas réglementé mais varie entre 120 et 300 €.
 
-    Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoique ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 4
-      - sinon: 5 # Ce DPE de départ maximise les deux aides MPR, pratique !
+    Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoi que ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
+  par défaut: 5 # Ce DPE de départ maximise les deux aides MPR, pratique !
   aide:
     G: 7
     F: 6
@@ -437,11 +399,7 @@ projet . objectif BBC neuf:
 projet . DPE visé:
   titre: Votre futur DPE visé
   question: Quel DPE visé après rénovation ?
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 2
-      - sinon: 1
+  par défaut: 2
   aide:
     E: 5
     D: 4
@@ -631,11 +589,7 @@ projet . investissement:
   titre: Votre investissement
   description: |
     Le budget dont vous disposez pour investir dans votre projet de rénovation, et qui sera bonifié par les aides si vous y êtes éligible.
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 25000 €
-      - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
+  par défaut: 25000 €
   formule: travaux . TTC - ampleur . montant
 
 projet . travaux . plafonnés:

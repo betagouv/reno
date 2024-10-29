@@ -94,7 +94,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
               >
                 {' '}
                 {[
-                  'Service indépendant, neutre et gratuit!',
+                  'Service indépendant, neutre et gratuit !',
                   'Conseils personnalisés pour votre projet',
                 ].map((text) => (
                   <li key={text}>{text}</li>

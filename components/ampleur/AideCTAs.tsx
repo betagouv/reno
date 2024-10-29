@@ -100,7 +100,6 @@ export default function AideCTAs({
         flex-wrap: wrap;
         flex-direction: ${expanded ? 'row' : 'column'};
         div {
-          margin: 0.5rem 0.2rem !important;
           ${!expanded && 'width: 100%;'}
           text-align: center;
         }

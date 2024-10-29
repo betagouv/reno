@@ -99,7 +99,7 @@ export function AideMontant({ engine, situation, dottedName }) {
             state: 'prime-black',
           }}
         />{' '}
-        plafonné à{' '}
+        plafonnée à{' '}
         <Value
           {...{
             engine,

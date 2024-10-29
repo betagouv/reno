@@ -152,34 +152,11 @@ export default function AmpleurSummary({ engine, url, situation }) {
                 situation,
                 type: aide.type,
                 expanded: true,
-                display: 'ampleur-card',
                 engine,
               }}
             />
           )
         })}
-      {/* {neSaisPasEtNonEligibles.length > 0 && (
-        <div>
-          {neSaisPasEtNonEligibles.map((aide) => {
-            const text = aide.marque,
-              text2 = aide['complément de marque']
-            return (
-              <AideSummary
-                key={aide.dottedName}
-                {...{
-                  ...aide,
-                  icon: aide.icône,
-                  text,
-                  text2,
-                  type: aide.type,
-                  expanded,
-                  small: true,
-                }}
-              />
-            )
-          })}
-        </div>
-      )} */}
     </Card>
   )
 }

@@ -54,7 +54,6 @@ const PersonaCard = ({ engine, persona, personaIndex }) => {
   const enrichedSituation = enrichSituationServer(persona.situation)
 
   engine.setSituation({
-    'simulation . mode': '"max"',
     ...enrichedSituation,
   })
 
