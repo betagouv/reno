@@ -146,7 +146,7 @@ logement . surface:
 
     *Article R156-1 du Code de la construction et de l'habitation*
 
-    Source : https://fr.wikipedia.org/wiki/Surface_habitable_(France)
+    Source : <span style="word-break: break-all;">https://fr.wikipedia.org/wiki/Surface_habitable_(France)</span>
   notes: |
     Pour le calcul de la surface moyenne, voir la [documentation Nos Gestes Climat](https://nosgestesclimat.fr/documentation/parc-fran%C3%A7ais/surface-moyenne).
   unité: m²
