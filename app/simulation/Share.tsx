@@ -61,7 +61,7 @@ export default function Share() {
             title="Cliquez pour partager le lien"
             onClick={() => {
               push(['trackEvent', 'Partage', 'Clic', navigator.share])
-              navigator.share
+              !navigator.share
                 ? navigator
                     .share({
                       text: 'Voici ma simulation Mes Aides Réno',
