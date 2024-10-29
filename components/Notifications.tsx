@@ -88,6 +88,8 @@ export default function Notifications({ currentQuestion, engine, objectives }) {
                     ? '🚫'
                     : '💁🏻'}
                 <Card className="notificationText" $fullWidth>
+                  <strong>Astuce : </strong>
+                  <br />
                   <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
                   {sévérité !== 'invalide' && false && (
                     <button
