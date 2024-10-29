@@ -151,13 +151,9 @@ export default function ClassicQuestionWrapper({
             situation,
           }}
         />
-        {!isInIframe && (
-          <>
-            <br />
-            <UserProblemBanner />
-            <Share searchParams={searchParams} />
-          </>
-        )}
+        <br />
+        <UserProblemBanner />
+        <Share searchParams={searchParams} />
       </div>
     </>
   )
