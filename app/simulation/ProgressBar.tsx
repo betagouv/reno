@@ -43,10 +43,12 @@ const ProgressBarStyle = styled.div`
   margin-bottom: 1rem;
   > div {
     background: var(--color);
-    border-radius: 0.25rem;
+
+    border-radius: ${(p) => (p.$ratio == 1 ? '0' : '0.25rem')};
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     width: ${(p) => p.$ratio * 100}%;
     height: 100%;
+    transition: width 1s ease-in-out;
   }
 `

@@ -3,7 +3,6 @@ import Select from './Select'
 
 export const displayRevenuLabel = (situation, engine, threshold) => {
   const list = getRevenusList(situation, engine)
-  console.log('threshold', threshold)
   const lastThreshold = list.slice(-1)[0]
   return threshold > lastThreshold
     ? 'supérieur à ' + formatNumber(lastThreshold) + '€'
@@ -49,7 +48,6 @@ export default function RevenuInput({
   const revenu = situation['ménage . revenu']
   const list = getRevenusList(situation, engine)
   const lastThreshold = list.slice(-1)[0]
-  console.log('list', list)
   // Generate selectable items for the list
   const selectValues = [...list, lastThreshold + 1].map((threshold) => ({
     valeur: threshold === lastThreshold + 1 ? lastThreshold + 1 : threshold - 1,
