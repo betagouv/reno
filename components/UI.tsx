@@ -418,11 +418,19 @@ export const InternalLink = styled(Link)`
   }
 `
 export const MiseEnAvant = styled.div`
-  background-image: linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb);
+  ${(p) =>
+    p.$type == 'warning'
+      ? `background-image: linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000);`
+      : `background-image: linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb);`}
+
   background-position:
     0 0,
     100% 0,
@@ -438,8 +446,11 @@ export const MiseEnAvant = styled.div`
   padding: 1rem 2.25rem 0.75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
-  border-radius: 10px;
-  border: 1px solid #0063cb;
+  ${(p) => !p.$noradius && `border-radius: 10px;`}
+  ${(p) =>
+    p.$type == 'warning'
+      ? `border: 1px solid #b34000;`
+      : `border: 1px solid #0063cb;`}
   background-color: white;
   h3 {
     margin: 0 0 1rem 0;
