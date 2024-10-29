@@ -141,7 +141,7 @@ export default function Denormandie({
                 </p>
                 <p
                   css={`
-                    line-height: 2rem;
+                    line-height: 2.2rem;
                   `}
                 >
                   Pour une période de location de{' '}
@@ -197,10 +197,14 @@ export default function Denormandie({
                 </p>
                 {!isEligible && (
                   <MiseEnAvant $type="warning" $noradius={true}>
-                    <h3>
-                      Attention: les conditions d'éligibilité ne sont pas
+                    <h4
+                      css={`
+                        margin: 0 0 1rem;
+                      `}
+                    >
+                      Attention : les conditions d'éligibilité ne sont pas
                       remplies.
-                    </h3>
+                    </h4>
                     Pour être éligible, les travaux doivent représenter au
                     minimum{' '}
                     <Value

@@ -73,7 +73,7 @@ export default function ClassicQuestionWrapper({
         css={`
           max-width: 800px;
           min-height: 100%;
-          padding: 1vw;
+          padding: 0 1rem;
           margin: 0 auto;
         `}
       >
