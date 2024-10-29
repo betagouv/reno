@@ -54,7 +54,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
               border-radius: 50px;
               border: 1px solid #0974f6;
               color: #0974f6;
-              padding: 0.5rem 1rem;
+              padding: 0.5rem 0.8rem;
               display: flex;
               align-items: center;
             `}
