@@ -25,47 +25,21 @@ export const AideSummary = ({
     <>
       <h4
         css={`
-          ${!status && 'display: flex'};
+          display: flex;
           align-items: center;
           opacity: ${!status ? '.65' : '1'};
           font-weight: 400;
-          margin: 0 0 0.2rem 0;
+          margin: 0 0 0.4rem 0;
           font-size: 100%;
         `}
       >
-        {!status && (
-          <span
-            css={`
-              display: flex;
-              align-items: center;
-              img {
-                filter: grayscale(1);
-                width: 1.4rem;
-                height: auto;
-                vertical: middle;
-                margin-right: 0.4rem;
-              }
-            `}
-          >
-            <StatusIcon status={status} />
-          </span>
-        )}
-        {text && <span>{text}</span>}
-        {text2 && (
+        {text && (
           <>
-            {text && (
-              <span
-                css="
-                    display: inline-block; 
-                    margin: 0 0.25rem;
-                    color: #aaa;"
-              >
-                -
-              </span>
-            )}
-            {text2}
+            {!status && <StatusIcon status={status} />}
+            {text}
           </>
         )}
+        {text2 && <>&nbsp;-&nbsp;{text2}</>}
       </h4>
       {expanded &&
         (status ? (
