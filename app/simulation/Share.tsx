@@ -82,7 +82,7 @@ export default function Share() {
             </span>
           </CTA>
         </CTAWrapper>
-        {!navigator.share && (
+        {navigator.share && (
           <input
             css={`
               vertical-align: middle;
