@@ -339,6 +339,10 @@ ménage . commune:
 
     > 🕵️ Les réponses que vous donnez à ce questionnaire *ne sont pas stockées* sur nos serveur, elles servent uniquement à calculer vos aides à la rénovation énergétique.
 
+ménage . commune . nom:
+  par défaut:
+    texte: Brest
+
 ménage . id ban:
   titre: Identifiant base nationale des adresses (BAN)
 

@@ -67,9 +67,6 @@ taxe foncière . condition de dépenses:
 
     Les délibérations antérieures à 2020 ayant institué l’exonération avec un taux de 50 % ou de 100 % restent applicables pour 5 ans.
 
-plop:
-  question: Ploupi
-
 taxe foncière . commune:
   # Dans le cas où logement . commune n'est pas définie,
   # C'est qu'on est dans le cas d'un propriétaire occupant --> ménage . commune = logement . commune

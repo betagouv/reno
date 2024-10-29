@@ -203,6 +203,7 @@ export default function InputSwitch({
                   'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
+                  'ménage . commune . nom': `"${result.nom}"`,
                   'taxe foncière . commune . éligible . ménage':
                     result.eligibilite['taxe foncière . commune . éligible'],
                   'taxe foncière . commune . taux':
