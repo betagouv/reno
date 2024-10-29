@@ -83,7 +83,7 @@ export default function MPRA({
                 margin: 1rem 0;
               `}
             >
-              🍀 <strong>Bonus :</strong> En tant que en tant que ménage{' '}
+              🍀 <strong>Bonus :</strong> En tant que ménage{' '}
               <Value
                 {...{
                   engine,
