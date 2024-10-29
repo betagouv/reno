@@ -152,8 +152,8 @@ export default function ClassicQuestionWrapper({
           }}
         />
         <br />
-        <UserProblemBanner />
         <Share searchParams={searchParams} />
+        <UserProblemBanner />
       </div>
     </>
   )
