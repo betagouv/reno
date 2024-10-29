@@ -42,7 +42,7 @@ export const SuggestionsList = styled.ul`
       color: #004396;
       font-weight: bold;
       background: #a5d1ff;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.8rem;
       border-radius: 1.5rem;
       border: 2px solid #a5d1ff;
       &:hover {
