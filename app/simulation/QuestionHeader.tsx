@@ -5,7 +5,7 @@ export const QuestionHeader = styled.header`
   flex-wrap: wrap;
   align-items: start;
   flex-direction: column;
-  margin: 0.4rem 0.2rem 0.4rem 0.2rem;
+  margin: 0.4rem 0rem;
   > small {
     color: var(--color);
     font-weight: 600;
