@@ -612,6 +612,7 @@
     ménage . personnes: 2
     ménage . revenu: 54072
     DPE . actuel: 3
+    projet . DPE visé: 1
     logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 30
