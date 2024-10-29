@@ -40,7 +40,6 @@ export default function Compact({}) {
             src={illustrationAccueil}
             alt="Des ouvriers peignent et réparent la facade d'une maison"
           />
-
           <div>
             <h1
               style={css`
@@ -77,7 +76,7 @@ export default function Compact({}) {
                 src={getAppUrl() + '/simulation'}
                 style={css`
                   border-radius: 0.4rem;
-                  height: 500px;
+                  height: 600px;
                   width: 400px;
                   --shadow-color: 0deg 0% 63%;
                   --shadow-elevation-medium: 0.3px 0.5px 0.7px
