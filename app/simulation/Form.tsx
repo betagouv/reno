@@ -75,7 +75,7 @@ function Form({ rules }) {
         <p
           css={`
             font-size: 0.7rem;
-            margin: 1rem;
+            padding: 1vw;
             line-height: 1rem;
           `}
         >
