@@ -37,11 +37,6 @@ denormandie . montant:
   applicable si: conditions
   formule: taux * assiette
 
-# Introduction de cette variable pour avoir une idée du montant de l'aide
-# si l'on réalise le minimum de travaux necessaire pour être éligible
-# sans avoir à toucher à projet . travaux
-denormandie . montant minimum:
-  formule: taux * assiette minimum
 denormandie . conditions:
   toutes ces conditions:
     - vous . propriétaire . condition
@@ -135,9 +130,6 @@ denormandie . assiette:
   valeur: logement . prix d'achat + projet . travaux
   plafond: plafond
 
-denormandie . assiette minimum:
-  valeur: logement . prix d'achat + travaux minimum
-  plafond: plafond
 denormandie . années de location:
   applicable si: logement . location longue durée
   question: Combien d'années allez-vous louer votre logement ?

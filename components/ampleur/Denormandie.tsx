@@ -1,6 +1,6 @@
 import calculatorIcon from '@/public/calculator-empty.svg'
 import PaymentTypeBlock from '../PaymentTypeBlock'
-import { Card, ExternalLink } from '../UI'
+import { Card, ExternalLink, MiseEnAvant } from '../UI'
 import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
 import Image from 'next/image'
 import { No, Yes } from '../ResultUI'
@@ -34,6 +34,8 @@ export default function Denormandie({
   const dottedName = 'denormandie'
   const communeName = situation['logement . commune . nom'],
     communeEligible = situation['logement . commune . denormandie']
+
+  const isEligible = engine.evaluate('denormandie . montant').nodeValue
 
   return (
     <AideAmpleur
@@ -104,24 +106,7 @@ export default function Denormandie({
                   <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
                     HT
                   </span>{' '}
-                  dans lequel je dois réaliser des travaux de rénovation d'un
-                  minimum de{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'denormandie . travaux minimum',
-                      state: 'prime-black',
-                    }}
-                  />{' '}
-                  HT.
-                </p>
-                <p
-                  css={`
-                    line-height: 2rem;
-                  `}
-                >
-                  {/* Pour une enveloppe de travaux de rénovation énergétique de{' '}
+                  dans lequel je réalise des travaux de rénovation de{' '}
                   <label>
                     <Input
                       css={`
@@ -150,9 +135,15 @@ export default function Denormandie({
                     />
                     €{' '}
                     <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                      HT
+                      HT.
                     </span>
-                  </label>{' '} */}
+                  </label>
+                </p>
+                <p
+                  css={`
+                    line-height: 2rem;
+                  `}
+                >
                   Pour une période de location de{' '}
                   <Select
                     defaultValue={'12'}
@@ -176,7 +167,7 @@ export default function Denormandie({
                     <option value="9">9 ans</option>
                     <option value="12">12 ans</option>
                   </Select>{' '}
-                  : la réduction d'impôt s'élève à{' '}
+                  : la réduction d'impôt s'élèverait à{' '}
                   <Value
                     {...{
                       engine,
@@ -185,24 +176,44 @@ export default function Denormandie({
                       state: 'prime-black',
                     }}
                   />{' '}
-                  du prix du bien soit un total de{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'denormandie . montant minimum',
-                      state: 'prime-black',
-                    }}
-                  />{' '}
-                  de réduction d'impôt étalée sur la durée de location.
+                  du prix du bien
+                  {isEligible ? (
+                    <>
+                      {' '}
+                      soit un total de{' '}
+                      <Value
+                        {...{
+                          engine,
+                          situation,
+                          dottedName: 'denormandie . montant',
+                          state: 'prime-black',
+                        }}
+                      />{' '}
+                      de réduction d'impôt étalée sur la durée de location.
+                    </>
+                  ) : (
+                    '.'
+                  )}
                 </p>
-                {/* <p>
-                  Pour être éligible, les travaux doivent représenter{' '}
-                  <BlueEm>
-                    au minimum 25 % du prix de revient (achat + travaux)
-                  </BlueEm>
-                  .
-                </p> */}
+                {!isEligible && (
+                  <MiseEnAvant $type="warning" $noradius={true}>
+                    <h3>
+                      Attention: les conditions d'éligibilité ne sont pas
+                      remplies.
+                    </h3>
+                    Pour être éligible, les travaux doivent représenter au
+                    minimum{' '}
+                    <Value
+                      {...{
+                        engine,
+                        situation,
+                        dottedName: 'denormandie . travaux minimum',
+                        state: 'prime-black',
+                      }}
+                    />{' '}
+                    HT (25 % du prix de revient: achat + travaux).
+                  </MiseEnAvant>
+                )}
               </section>
             </div>
           </Card>
