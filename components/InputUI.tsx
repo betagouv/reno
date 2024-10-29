@@ -33,21 +33,21 @@ export const SuggestionsList = styled.ul`
   margin: 0.2rem 0;
   padding: 0;
   li {
-    margin: 0.25rem 0.3rem;
+    margin: 1rem 0.3rem;
     &:first-child {
       margin-left: 0;
-    }
-    background: #a5d1ff;
-    padding: 0.5rem 1rem;
-    border-radius: 1.5rem;
-    border: 2px solid #a5d1ff;
-    &:hover {
-      border: 2px solid #004396;
     }
     a {
       text-decoration: none;
       color: #004396;
       font-weight: bold;
+      background: #a5d1ff;
+      padding: 0.5rem 1rem;
+      border-radius: 1.5rem;
+      border: 2px solid #a5d1ff;
+      &:hover {
+        border: 2px solid #004396;
+      }
     }
   }
 `
