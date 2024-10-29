@@ -1,19 +1,6 @@
 simulation:
   description: Sont ici définies les options de simulation. Ce ne sont en général pas des questions à poser à l'utilisateur, mais des choix d'interface à faire.
 
-simulation . mode:
-  titre: Mode de simulation
-  description: |
-    En fonction de votre interface, vous pouvez présenter les valeurs maximum de simulation, ou les valeurs moyennes. 
-
-    Vous pouvez aussi afficher les deux. 
-
-    Dans notre cas ici, la valeur minimum est la plupart du temps zéro, nous ne l'avons donc pas considérée.
-  par défaut: "'moyen'"
-  possibilités:
-    - 'max'
-    - 'moyen'
-
 # C'est la variable qui lance le simulateur principal mes aides réno
 # Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig.ts
 # Nous réservons les questions précises telles que la liste des gestes pour la suite, après l'écran d'éligibilité, elles sont déclenchées via le paramètre d'URL `objectif = à la carte . montant` ou `ampleur . montant` et la condition dans gestes.yaml `applicable si: parcours d'aide = 'à la carte'`
@@ -36,11 +23,7 @@ ménage . revenu:
 
     Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
   unité: €
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 23000 €
-      - sinon: 0 €
+  par défaut: 0 €
   suggestions:
     #Très modeste 1 personne: 15000 €
     #modeste 2 personnes: 26000 €
@@ -249,11 +232,7 @@ ménage . personnes:
   titre: La composition de votre ménage
   question: Quelle est la composition de votre ménage ?
   unité: personne
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 1 personne
-      - sinon: 5 personne
+  par défaut: 2 personne
   suggestions:
     seul.e: 1 personne
     seul.e + enfant: 2 personne
@@ -383,11 +362,7 @@ DPE . actuel:
     Si votre logement n'a pas de DPE, ou s'il date d'avant septembre 2021, date de mise en place du nouveau DPE, [il vous faudra le faire réaliser](https://www.economie.gouv.fr/particuliers/immobilier-diagnostic-performance-energetique-dpe) pour obtenir une aide MaPrimeRénov'. Son prix n'est pas réglementé mais varie entre 120 et 300 €.
 
     Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoi que ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service [Go Renov](https://particulier.gorenove.fr).
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 4
-      - sinon: 5 # Ce DPE de départ maximise les deux aides MPR, pratique !
+  par défaut: 5 # Ce DPE de départ maximise les deux aides MPR, pratique !
   aide:
     G: 7
     F: 6
@@ -424,11 +399,7 @@ projet . objectif BBC neuf:
 projet . DPE visé:
   titre: Votre futur DPE visé
   question: Quel DPE visé après rénovation ?
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 2
-      - sinon: 1
+  par défaut: 2
   aide:
     E: 5
     D: 4
@@ -618,11 +589,7 @@ projet . investissement:
   titre: Votre investissement
   description: |
     Le budget dont vous disposez pour investir dans votre projet de rénovation, et qui sera bonifié par les aides si vous y êtes éligible.
-  par défaut:
-    variations:
-      - si: simulation . mode = 'moyen'
-        alors: 25000 €
-      - sinon: 100000 € # bien supérieurs aux plafonds de l'assiette de l'aide
+  par défaut: 25000 €
   formule: travaux . TTC - ampleur . montant
 
 projet . travaux . plafonnés:

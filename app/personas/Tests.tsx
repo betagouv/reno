@@ -37,7 +37,6 @@ export default function Tests() {
             const situation = {
               'projet . travaux': test['montant de travaux HT'],
               'projet . travaux . TTC': test['montant de travaux TTC'],
-              'simulation . mode': '"max"',
               sauts: test['saut de classe'],
               'MPR . accompagnée . bonus . condition':
                 test['bonus passoire'] === '0,1' ? 'oui' : 'non',

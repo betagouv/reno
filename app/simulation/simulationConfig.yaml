@@ -15,6 +15,3 @@ prioritaires:
   # Le reste est non-linéaire, en fonction du choix
 non prioritaires:
   -
-
-situation:
-  simulation . mode: "'max'"

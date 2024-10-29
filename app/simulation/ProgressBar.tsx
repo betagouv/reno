@@ -7,12 +7,7 @@ export default function ProgressBar({
 }) {
   const isInIframe = useIsInIframe()
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) =>
-      ![
-        'simulation . mode',
-        'ménage . code région',
-        'ménage . code département',
-      ].includes(el),
+    (el) => !['ménage . code région', 'ménage . code département'].includes(el),
   )
 
   // Dans le cas du simulateur principale, on considère que le questionnaire s'arrête au moment du choix du parcours d'aide
