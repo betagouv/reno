@@ -24,6 +24,7 @@ import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { useMemo, useState } from 'react'
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
+import Link from 'next/link'
 
 const engine = new Publicodes(rules)
 
@@ -395,12 +396,11 @@ export default function Ampleur() {
               }
             `}
           >
-            <a
-              target="_blank"
-              href={`https://mesaidesreno.beta.gouv.fr/simulation?${new URLSearchParams(encodeSituation(situation, true)).toString()}`}
+            <Link
+              href={`/simulation?${new URLSearchParams(encodeSituation(situation, true)).toString()}`}
             >
               <span>Découvrir toutes les aides&nbsp;&nbsp;➞</span>
-            </a>
+            </Link>
           </CTA>
         </section>
       </div>
