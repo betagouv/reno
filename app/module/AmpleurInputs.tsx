@@ -5,6 +5,7 @@ export const usageLogementValues = [
     situation: {
       'vous . propriétaire . statut': '"acquéreur"',
       'logement . résidence principale propriétaire': 'oui',
+      'vous . propriétaire occupant': 'oui',
     },
   },
   {
