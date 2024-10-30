@@ -10,9 +10,7 @@ export default function useEnrichSituation(situation) {
       setEnrichedSituation(newSituation)
     }
     asyncEnrich()
-  }, [situation['logement . commune'], setEnrichedSituation])
-  // Pour l'instant, on précise logement . commune pour éviter des appels intempestifs à /api/communes
-  // Il faudra améliorer ce système pour enrichir la situation lors de la modification d'autres valeurs de situation 
-  
+  }, [situation, setEnrichedSituation])
+
   return enrichedSituation
 }
