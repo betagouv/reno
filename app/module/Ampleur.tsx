@@ -272,8 +272,16 @@ export default function Ampleur() {
               <input
                 type="number"
                 min="1"
+                inputmode="numeric"
+                pattern="[1-9]+"
                 placeholder={defaultSituation['ménage . personnes']}
-                onChange={onChange('ménage . personnes')}
+                onChange={(e) => {
+                  const { value } = e.target
+                  const invalid = isNaN(value) || value <= 0
+                  if (invalid) return
+
+                  onChange('ménage . personnes')(e)
+                }}
                 css={`
                   width: 3rem !important;
                 `}
