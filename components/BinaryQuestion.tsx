@@ -2,9 +2,8 @@ import { styled } from 'styled-components'
 
 // If needed, use a more advanced component that handles non boolean and nested propositions like https://github.com/laem/futureco/blob/master/components/conversation/Question.tsx
 export default function BinaryQuestion({ value, onChange }) {
-
   return (
-    <div>
+    <>
       <Label>
         <input
           type="radio"
@@ -25,13 +24,19 @@ export default function BinaryQuestion({ value, onChange }) {
         />
         <span>Non</span>
       </Label>
-    </div>
+    </>
   )
 }
 
 const Label = styled.label`
   cursor: pointer;
-  margin-right: 0.6rem;
+  padding: calc(0.3rem + 0.7vw) calc(0.5rem + 1vw);
+  border: 2px solid #dfdff1;
+  border-radius: 0.3rem;
+  &:hover,
+  &:has(input:checked) {
+    border: 2px solid #004396;
+  }
   input {
     cursor: pointer;
     margin: 0 0.2rem;

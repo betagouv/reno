@@ -3,6 +3,7 @@ import conseillerIcon from '@/public/conseiller.png'
 import checkIcon from '@/public/check.svg'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import { CTA, CTAWrapper } from './UI'
+import { push } from '@socialgouv/matomo-next'
 
 export default function FatConseiller({ situation, margin, titre, texte }) {
   return (
@@ -93,7 +94,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
               >
                 {' '}
                 {[
-                  'Service indépendant, neutre et gratuit!',
+                  'Service indépendant, neutre et gratuit !',
                   'Conseils personnalisés pour votre projet',
                 ].map((text) => (
                   <li key={text}>{text}</li>
@@ -113,6 +114,14 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
                     width: 100%;
                   `}
                   $fontSize="normal"
+                  onClick={() =>
+                    push([
+                      'trackEvent',
+                      'Simulateur Principal',
+                      'Clic',
+                      'trouver conseiller',
+                    ])
+                  }
                 >
                   Trouver mon conseiller local
                 </CTA>

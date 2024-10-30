@@ -2,6 +2,10 @@ import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { CTA, CTAWrapper } from '@/components/UI'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
+import iconFlecheGauche from '@/public/fleche-gauche.svg'
+import iconFlecheDroite from '@/public/fleche-droite.svg'
+import iconFlecheDroiteBlanc from '@/public/fleche-droite-blanc.svg'
 import { push } from '@socialgouv/matomo-next'
 
 export default function FormButtons({
@@ -26,16 +30,46 @@ export default function FormButtons({
     (mosaicQuestions && mosaicQuestions.find(([q]) => situation[q] != null))
 
   return (
-    <CTAWrapper>
-      <CTA $importance="secondary" title="Retour en arrière">
-        <button onClick={() => {
-          push(["trackEvent", "Simulateur Principal", "Précédent", currentQuestion]);
-          router.back()
-        }}>←</button>
+    <CTAWrapper $justify="flex-start">
+      <CTA
+        $fontSize="normal"
+        $importance="emptyBackground"
+        title="Retour en arrière"
+      >
+        <span
+          css={`
+            display: flex !important;
+            align-items: center !important;
+          `}
+          onClick={() => {
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Précédent',
+              currentQuestion,
+            ])
+            router.back()
+          }}
+        >
+          <Image
+            css={`
+              margin-right: 0.5rem;
+            `}
+            src={iconFlecheGauche}
+          />
+          Précédent
+        </span>
       </CTA>
-      <CTA $importance={showValidation ? 'primary' : 'inactive'}>
+      <CTA
+        $fontSize="normal"
+        $importance={showValidation ? 'primary' : 'inactive'}
+      >
         {showValidation ? (
           <Link
+            css={`
+              display: flex !important;
+              align-items: center !important;
+            `}
             href={setSearchParams(
               {
                 ...encodeSituation(
@@ -51,14 +85,39 @@ export default function FormButtons({
               'url',
               false,
             )}
-            onClick={() => push(["trackEvent", "Simulateur Principal", "Valide", currentQuestion]) }
+            onClick={() =>
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                'Valide',
+                currentQuestion,
+              ])
+            }
             title="Aller à l'étape suivante"
           >
             Suivant
+            <Image
+              css={`
+                margin-left: 0.5rem;
+              `}
+              src={iconFlecheDroiteBlanc}
+            />
           </Link>
         ) : (
-          <span title="Répondez à la question pour avancer dans le questionnaire">
+          <span
+            css={`
+              display: flex !important;
+              align-items: center !important;
+            `}
+            title="Répondez à la question pour avancer dans le questionnaire"
+          >
             Suivant
+            <Image
+              css={`
+                margin-left: 0.5rem;
+              `}
+              src={iconFlecheDroite}
+            />
           </span>
         )}
       </CTA>

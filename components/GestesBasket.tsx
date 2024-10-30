@@ -3,10 +3,11 @@ import { formatValue } from 'publicodes'
 import Geste from './Geste'
 import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
 import MapBehindCTA from './MapBehindCTA'
-import { Card, CTA, CTAWrapper } from './UI'
+import { Card, CTA, CTAWrapper, Section } from './UI'
 import { encodeDottedName } from './publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
 import Feedback from '@/app/contact/Feedback'
+import FatConseiller from './FatConseiller'
 
 export default function GestesBasket({
   rules,
@@ -30,8 +31,17 @@ export default function GestesBasket({
     ([dottedName, rule]) => isGestesMosaicQuestion(dottedName, rule),
   )[0]
   return (
-    <div css={`clear: both;`}>
-      <CTAWrapper $justify="end" css={`margin-bottom: 1vh;`}>
+    <Section
+      css={`
+        padding-bottom: 6vh;
+      `}
+    >
+      <CTAWrapper
+        $justify="end"
+        css={`
+          margin-bottom: 1vh;
+        `}
+      >
         <CTA
           $fontSize="normal"
           $importance="secondary"
@@ -42,7 +52,14 @@ export default function GestesBasket({
           `}
         >
           <Link
-            onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "retour sélection geste"]) } 
+            onClick={() =>
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                'Clic',
+                'retour sélection geste',
+              ])
+            }
             href={setSearchParams(
               {
                 question: encodeDottedName(firstGestesMosaicDottedName),
@@ -54,7 +71,13 @@ export default function GestesBasket({
           </Link>
         </CTA>
       </CTAWrapper>
-      <h2 css={`margin-top: 0;`}>Votre sélection d'aides</h2>
+      <h2
+        css={`
+          margin-top: 0;
+        `}
+      >
+        Votre sélection d'aides
+      </h2>
       <ul
         css={`
           list-style-type: none;
@@ -110,17 +133,16 @@ export default function GestesBasket({
         </a>
         .
       </small>
-
-      <MapBehindCTA
+      <FatConseiller
         {...{
-          codeInsee: situation['ménage . commune']?.replace(/'/g, ''),
-          searchParams,
           situation,
-          what: 'trouver-conseiller-renov',
-          text: 'Trouver mon conseiller',
+          margin: 'small',
+          titre: 'Trouver mon conseiller',
+          texte:
+            "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
         }}
       />
       <Feedback title="Ce simulateur a-t-il été utile ?" />
-    </div>
+    </Section>
   )
 }

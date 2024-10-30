@@ -1,103 +1,101 @@
-import informationIcon from '@/public/information.svg'
+import { useEffect, useState } from 'react'
+import { push } from '@socialgouv/matomo-next'
+import iconReduire from '@/public/reduire.svg'
 import Image from 'next/image'
-import css from './css/convertToJs'
-import { Card } from './UI'
-import { useIsCompact } from './useIsInIframe'
+import { useMediaQuery } from 'usehooks-ts'
+
 export default function QuestionDescription({ currentQuestion, rule }) {
-  
-  const isCompact = useIsCompact()
+  const isMobile = useMediaQuery('(max-width: 800px)')
+
+  const [isOpen, setIsOpen] = useState(() => {
+    const savedState = localStorage.getItem('isOpen')
+    return savedState !== null ? JSON.parse(savedState) : !isMobile
+  })
+
+  useEffect(() => {
+    localStorage.setItem('isOpen', JSON.stringify(isOpen))
+  }, [isOpen])
+
+  const handleSummaryClick = (e) => {
+    e.preventDefault()
+    push(['trackEvent', 'Simulateur principal', 'Clic', 'comment répondre'])
+    setIsOpen((prevIsOpen) => !prevIsOpen)
+  }
   return (
     currentQuestion &&
     rule.description && (
-      <div
-        style={css`
-          display: flex;
-          align-items: center;
+      <details
+        open={isOpen}
+        css={`
+          border-radius: 5px;
+          background: #e8edff;
+          padding: 0.5rem 1rem;
+          margin-top: 1rem;
         `}
       >
-        { isCompact ? 
-            <details>
-              <summary 
-                css={`
-                  outline: none;
-                  list-style: none;
-                  text-align: justify;
-                  &::-webkit-details-marker {
-                    display: none;
-                  }
-                  &::marker {
-                    display: none;
-                  }`}
-              >
-                <span
-                  css={`
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 0.8rem;
-                    color: #2a82dd;
-                    font-weight: 500;
-                  `}
-                >
-                  <Image
-                    src={informationIcon}
-                    width="25"
-                    style={css`
-                      margin-right: 0.4rem;
-                    `}
-                  />{' '}
-                  <small>Plus d'informations</small>
-                </span>
-              </summary>
-              <div
-                dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
-                css={`
-                  blockquote {
-                    margin-top: 0.8rem;
-                    border-left: 4px solid var(--lighterColor);
-                    padding: 0 0.6rem;
-                    color: #333;
-                  }
-                `}
-              ></div>
-            </details>
-          :
-            <Card
-              css={`
-                width: 100%;
-              `}
-            >
-              <span
-                css={`
-                  display: flex;
-                  align-items: center;
-                  margin-bottom: 0.8rem;
-                  color: #2a82dd;
-                  font-weight: 500;
-                `}
-              >
+        <summary
+          css={`
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &::-webkit-details-marker {
+              display: none;
+            }
+            &::marker {
+              display: none;
+            }
+          `}
+          onClick={handleSummaryClick}
+        >
+          <span>💡 Comment répondre ?</span>
+          <span
+            css={`
+              border-radius: 50px;
+              border: 1px solid #0974f6;
+              color: #0974f6;
+              padding: 0.5rem 0.8rem;
+              display: flex;
+              align-items: center;
+            `}
+          >
+            {isOpen ? (
+              <>
+                Fermer{' '}
                 <Image
-                  src={informationIcon}
-                  width="25"
-                  style={css`
-                    margin-right: 0.4rem;
+                  src={iconReduire}
+                  css={`
+                    margin-left: 0.5rem;
                   `}
-                />{' '}
-                <small>Plus d'informations</small>
-              </span>
-              <div
-                dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
-                css={`
-                  blockquote {
-                    margin-top: 0.8rem;
-                    border-left: 4px solid var(--lighterColor);
-                    padding: 0 0.6rem;
-                    color: #333;
-                  }
-                `}
-              ></div>
-            </Card>
-        }
-      </div>
+                />
+              </>
+            ) : (
+              <>
+                &nbsp;Ouvrir{' '}
+                <Image
+                  src={iconReduire}
+                  css={`
+                    margin-left: 0.5rem;
+                    transform: rotate(180deg);
+                  `}
+                />
+              </>
+            )}
+          </span>
+        </summary>
+        <div
+          dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+          css={`
+            margin-top: 1rem;
+            blockquote {
+              margin-top: 0.8rem;
+              border-left: 4px solid var(--lighterColor);
+              padding: 0 0.6rem;
+              color: #333;
+            }
+          `}
+        ></div>
+      </details>
     )
   )
 }

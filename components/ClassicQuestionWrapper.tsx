@@ -8,13 +8,13 @@ import { encodeSituation } from './publicodes/situationUtils'
 import { isMosaicQuestion } from './BooleanMosaic'
 import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
-import { Card } from './UI'
 import { getRuleName } from './publicodes/utils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
-import useIsInIframe, { useIsCompact } from './useIsInIframe'
+import useIsInIframe from './useIsInIframe'
 import UserProblemBanner from './UserProblemBanner'
 import Share from '@/app/simulation/Share'
 import { useSearchParams } from 'next/navigation'
+import ProgressBar from '@/app/simulation/ProgressBar'
 
 export const QuestionText = ({
   rule,
@@ -49,7 +49,6 @@ export default function ClassicQuestionWrapper({
   nextQuestions,
 }) {
   const isInIframe = useIsInIframe()
-  const isCompact = useIsCompact()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { categoryTitle } = categoryData(
@@ -59,12 +58,25 @@ export default function ClassicQuestionWrapper({
     rules,
   )
   return (
-    <div
-      css={`
-        clear: both;
-      `}
-    >
-      <Card>
+    <>
+      <ProgressBar
+        {...{
+          answeredQuestions,
+          nextQuestions,
+          currentQuestion,
+          rules,
+          situation,
+          searchParams,
+        }}
+      />
+      <div
+        css={`
+          max-width: 800px;
+          min-height: 100%;
+          padding: 0 1rem;
+          margin: 0 auto;
+        `}
+      >
         {(!rule.type || !rule.type === 'question rhétorique') && (
           <QuestionHeader>
             <small>{categoryTitle}</small>
@@ -114,44 +126,35 @@ export default function ClassicQuestionWrapper({
             />
           )}
           {children}
-
-          <FormButtons
-            {...{
-              currentValue,
-              rules,
-              setSearchParams,
-              encodeSituation,
-              answeredQuestions,
-              questionsToSubmit,
-              currentQuestion,
-              situation,
-            }}
-          />
         </AnswerWrapper>
-        {isCompact && (
-          <>
-            <QuestionDescription {...{ currentQuestion, rule }} />
-            <Answers
-              {...{
-                answeredQuestions,
-                nextQuestions,
-                currentQuestion,
-                rules,
-                situation,
-              }}
-            />
-          </>
-        )}
-      </Card>
-      <Notifications {...{ currentQuestion, engine }} />
-      {!isCompact && <QuestionDescription {...{ currentQuestion, rule }} />}
-      {(!isInIframe || !isCompact) && (
-        <>
-          <br />
-          <UserProblemBanner />
-          <Share searchParams={searchParams} />
-        </>
-      )}
-    </div>
+        <FormButtons
+          {...{
+            currentValue,
+            rules,
+            setSearchParams,
+            encodeSituation,
+            answeredQuestions,
+            questionsToSubmit,
+            currentQuestion,
+            situation,
+          }}
+        />
+        <Notifications {...{ currentQuestion, engine }} />
+        <QuestionDescription {...{ currentQuestion, rule }} />
+        <Answers
+          {...{
+            answeredQuestions,
+            nextQuestions,
+            currentQuestion,
+            rules,
+            engine,
+            situation,
+          }}
+        />
+        <br />
+        <Share searchParams={searchParams} />
+        <UserProblemBanner />
+      </div>
+    </>
   )
 }

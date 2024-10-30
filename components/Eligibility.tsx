@@ -1,16 +1,15 @@
 import { No, Yes } from '@/components/ResultUI'
-import { useMemo } from 'react'
 import AmpleurSummary from './ampleur/AmpleurSummary'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
-import Answers from '@/app/simulation/Answers'
-import { useIsCompact } from './useIsInIframe'
 import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
 import BackToLastQuestion from './BackToLastQuestion'
+import { useAides } from './ampleur/useAides'
+import { Main, PageBlock, Section } from './UI'
 
 export default function Eligibility({
   setSearchParams,
@@ -18,12 +17,9 @@ export default function Eligibility({
   rules,
   engine,
   answeredQuestions,
-  nextQuestions,
-  currentQuestion,
   expanded,
   searchParams,
 }) {
-  const isCompact = useIsCompact()
   const nextLink = (value) => {
     const url = setSearchParams(
       {
@@ -34,27 +30,12 @@ export default function Eligibility({
     )
     return url
   }
-
-  const [mpraEvaluation, mprgEvaluation, ceeConditionsEvaluation] =
-      useMemo(() => {
-        const newEngine = engine.setSituation(situation)
-        return [
-          newEngine.evaluate('MPR . accompagnée . éligible'),
-          newEngine.evaluate('MPR . non accompagnée . éligible'),
-          newEngine.evaluate('CEE . conditions'),
-        ]
-      }, [situation, engine]),
-    mpra = mpraEvaluation.nodeValue,
-    mprg = mprgEvaluation.nodeValue,
-    ceeConditions = ceeConditionsEvaluation.nodeValue
-  const both = mpra && mprg,
-    noMpr = !mpra && !mprg,
-    some = mpra || mprg || ceeConditions
-
+  const aides = useAides(engine, situation)
+  const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const showPersonaBar = searchParams.personas != null
 
   return (
-    <section
+    <Section
       css={`
         ${showPersonaBar && `margin-top: 4rem`}
       `}
@@ -65,17 +46,6 @@ export default function Eligibility({
         engine={engine}
       />
       <CustomQuestionWrapper>
-        {isCompact && (
-          <Answers
-            {...{
-              answeredQuestions,
-              nextQuestions,
-              currentQuestion,
-              rules,
-              situation,
-            }}
-          />
-        )}
         <BackToLastQuestion
           {...{ setSearchParams, situation, answeredQuestions }}
         />
@@ -87,18 +57,17 @@ export default function Eligibility({
               margin: 0.5rem 0 !important;
             `}
           >
-            {some && <>Bonne nouvelle 🥳</>}
+            {hasAides && <>Bonne nouvelle 🥳</>}
           </h2>
         </header>
-        {noMpr && !ceeConditions && (
+        {hasAides ? (
+          <p>
+            <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
+          </p>
+        ) : (
           <p>
             Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
             éligible.
-          </p>
-        )}
-        {some && (
-          <p>
-            <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
           </p>
         )}
         <Avis {...{ situation, engine }} />
@@ -106,9 +75,19 @@ export default function Eligibility({
           css={`
             display: flex;
             flex-wrap: nowrap;
+            > div:nth-child(1),
+            > div:nth-child(3) {
+              width: 45%;
+            }
+            > div:nth-child(2) {
+              width: 10%;
+            }
             @media (max-width: 700px) {
               flex-wrap: wrap;
               flex-direction: column;
+              > div {
+                width: 100% !important;
+              }
             }
             justify-content: center;
           `}
@@ -150,20 +129,18 @@ export default function Eligibility({
             }}
           />
         </div>
-        <div>
-          <FatConseiller
-            {...{
-              situation,
-              margin: 'small',
-              titre:
-                'Vous ne savez pas quel parcours choisir pour votre projet ?',
-              texte:
-                "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
-            }}
-          />
-        </div>
+        <FatConseiller
+          {...{
+            situation,
+            margin: 'small',
+            titre:
+              'Vous ne savez pas quel parcours choisir pour votre projet ?',
+            texte:
+              "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
+          }}
+        />
         <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
       </CustomQuestionWrapper>
-    </section>
+    </Section>
   )
 }

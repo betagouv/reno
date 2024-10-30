@@ -18,7 +18,7 @@ import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import RhetoricalQuestion from './RhetoricalQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
-import SmartInput from './SmartInput'
+import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import AideDetails from './AideDetails'
 import Feedback from '@/app/contact/Feedback'
@@ -83,7 +83,7 @@ export default function InputSwitch({
           noSuggestions: true,
         }}
       >
-        <SmartInput
+        <RevenuInput
           type={ruleQuestionType}
           rule={rule}
           engine={engine}
@@ -203,6 +203,7 @@ export default function InputSwitch({
                   'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
+                  'ménage . commune . nom': `"${result.nom}"`,
                   'taxe foncière . commune . éligible . ménage':
                     result.eligibilite['taxe foncière . commune . éligible'],
                   'taxe foncière . commune . taux':
@@ -312,42 +313,36 @@ export default function InputSwitch({
 
   if (searchParams['details'] && searchParams['details'] == 'synthese') {
     return (
-      <>
-        <AideSynthese
-          {...{
-            currentQuestion,
-            searchParams,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            correspondance,
-            nextQuestions,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <AideSynthese
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          correspondance,
+          nextQuestions,
+        }}
+      />
     )
   }
 
   if (searchParams['details']) {
     return (
-      <>
-        <AideDetails
-          {...{
-            currentQuestion,
-            searchParams,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            rules,
-            correspondance,
-            nextQuestions,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <AideDetails
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          correspondance,
+          nextQuestions,
+        }}
+      />
     )
   }
 
@@ -356,59 +351,51 @@ export default function InputSwitch({
     searchParams["parcours d'aide"].includes('à la carte')
   ) {
     return (
-      <>
-        <GestesMosaic
-          {...{
-            rules,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: gestesMosaicQuestions,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <GestesMosaic
+        {...{
+          rules,
+          engine,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          questions: gestesMosaicQuestions,
+        }}
+      />
     )
   }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
-      <>
-        <AidesAmpleur
-          {...{
-            currentQuestion,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            rules,
-            searchParams,
-            correspondance,
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
-      </>
+      <AidesAmpleur
+        {...{
+          currentQuestion,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          searchParams,
+          correspondance,
+        }}
+      />
     )
   }
 
   if (["parcours d'aide"].includes(currentQuestion)) {
     return (
-      <>
-        <Eligibility
-          {...{
-            currentQuestion,
-            searchParams,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            engine,
-            rules,
-            nextQuestions,
-            expanded: searchParams.details === 'oui',
-          }}
-        />
-      </>
+      <Eligibility
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          nextQuestions,
+          expanded: searchParams.details === 'oui',
+        }}
+      />
     )
   }
   // We kept the latter component before it got really specialized. TODO not completely functional
@@ -494,6 +481,15 @@ export default function InputSwitch({
       }}
     >
       <Input
+        css={`
+          border: 2px solid #dfdff1 !important;
+          border-radius: 0.3rem !important;
+          box-shadow: none !important;
+          background: white !important;
+          width: 6rem !important;
+          height: 2.8rem !important;
+          outline: none;
+        `}
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
         value={currentValue == null ? '' : currentValue}

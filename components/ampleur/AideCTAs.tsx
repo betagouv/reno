@@ -11,6 +11,7 @@ import eyeIcon from '@/public/eye.svg'
 import { omit } from '@/components/utils'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
+import { push } from '@socialgouv/matomo-next'
 
 export default function AideCTAs({
   dottedName,
@@ -99,14 +100,19 @@ export default function AideCTAs({
         flex-wrap: wrap;
         flex-direction: ${expanded ? 'row' : 'column'};
         div {
-          margin: 0.5rem 0.2rem !important;
           ${!expanded && 'width: 100%;'}
           text-align: center;
         }
       `}
     >
       <CTA $fontSize="normal" $importance="emptyBackground">
-        <Link href={expanded ? backUrl : detailUrl}>
+        <Link
+          href={expanded ? backUrl : detailUrl}
+          onClick={() =>
+            !expanded &&
+            push(['trackEvent', 'Simulateur Principal', 'Détails', dottedName])
+          }
+        >
           {expanded ? (
             <>← Revenir aux aides</>
           ) : (

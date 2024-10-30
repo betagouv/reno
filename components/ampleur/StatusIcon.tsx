@@ -16,7 +16,10 @@ export default function StatusIcon({ status }) {
       src={crossIcon}
       alt="Icône d'une croix"
       css={`
-        filter: grayscale(0.7);
+        filter: grayscale(1);
+        width: 1.4rem;
+        height: auto;
+        margin-right: 0.4rem;
       `}
     />
   )

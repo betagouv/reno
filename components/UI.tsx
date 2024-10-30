@@ -5,10 +5,9 @@ import Link from 'next/link'
 export const Main = styled.main`
   width: 98vw;
   max-width: 100%; // pour éviter la barre de défilement horizontal dans les iframe
-  padding: 0 1vw;
+  padding: 1vw;
   padding-bottom: 6vh;
   margin: 0 auto;
-  padding-top: calc(1.5vh + 1.5vw);
 `
 
 export const Section = styled.section`
@@ -35,13 +34,13 @@ export const FooterWrapper = styled.footer`
     border-top: 3px solid var(--color);
     padding: 2rem 0.4rem 0;
     width: 100%;
+    margin-top: 3vh;
   }
   > div {
     max-width: 1200px;
     margin: 0 auto;
   }
   .fr-footer__top {
-    background-color: #f6f6f6;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -209,22 +208,22 @@ export const CTA = styled.div`
 		  `
       : p.$importance === 'secondary'
         ? `
-  background: var(--lightestColor);
-  border: 1px solid var(--lighterColor);
-  color: var(--color);
-  line-height: 1.1rem;
-  `
+          background: var(--lightestColor);
+          border: 1px solid var(--lighterColor);
+          color: var(--color);
+          line-height: 1.1rem;
+          `
         : p.$importance === 'inactive'
           ? `
-	background: lightgrey; color: white;
-
-		  `
+              background: lightgrey; color: white;
+              border: 1px solid lightgrey;
+              color: #929292;
+            `
           : `
-
-  background: var(--color);
-  border: 1px solid var(--color);
-  color: white;
-  `}
+              background: var(--color);
+              border: 1px solid var(--color);
+              color: white;
+            `}
   ${(p) =>
     p.$fontSize === 'normal'
       ? ''
@@ -251,11 +250,22 @@ export const CTA = styled.div`
 `
 // Could not make it a button cause it traps the click for the outside details summary
 export const LinkStyleButton = styled.span`
-  background: none;
-  text-decoration: underline;
-  color: var(--color);
-  border: none;
-  font-size: inherit;
+  font-size: 85%;
+  cursor: pointer;
+  width: max-content;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: #716043 !important;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #feecc2;
+  img {
+    margin-right: 0.25rem;
+  }
 `
 export const Intro = styled.div`
   margin: 1vh 0 1rem;
@@ -408,11 +418,19 @@ export const InternalLink = styled(Link)`
   }
 `
 export const MiseEnAvant = styled.div`
-  background-image: linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb),
-    linear-gradient(0deg, #0063cb, #0063cb);
+  ${(p) =>
+    p.$type == 'warning'
+      ? `background-image: linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000),
+      linear-gradient(0deg, #b34000, #b34000);`
+      : `background-image: linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb),
+      linear-gradient(0deg, #0063cb, #0063cb);`}
+
   background-position:
     0 0,
     100% 0,
@@ -428,8 +446,11 @@ export const MiseEnAvant = styled.div`
   padding: 1rem 2.25rem 0.75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
-  border-radius: 10px;
-  border: 1px solid #0063cb;
+  ${(p) => !p.$noradius && `border-radius: 10px;`}
+  ${(p) =>
+    p.$type == 'warning'
+      ? `border: 1px solid #b34000;`
+      : `border: 1px solid #0063cb;`}
   background-color: white;
   h3 {
     margin: 0 0 1rem 0;
@@ -448,9 +469,16 @@ export const MiseEnAvant = styled.div`
     top: 0;
     vertical-align: calc(0.375em - 0.75rem);
     width: 1.5rem;
-    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
-    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
-  }
+    ${(p) =>
+      p.$type == 'warning'
+        ? `
+          -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyLjg2NiAzIDkuNTI2IDE2LjVhMSAxIDAgMCAxLS44NjYgMS41SDIuNDc0YTEgMSAwIDAgMS0uODY2LTEuNUwxMS4xMzQgM2ExIDEgMCAwIDEgMS43MzIgMFpNMTEgMTZ2Mmgydi0yaC0yWm0wLTd2NWgyVjloLTJaIi8+PC9zdmc+);
+          mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyLjg2NiAzIDkuNTI2IDE2LjVhMSAxIDAgMCAxLS44NjYgMS41SDIuNDc0YTEgMSAwIDAgMS0uODY2LTEuNUwxMS4xMzQgM2ExIDEgMCAwIDEgMS43MzIgMFpNMTEgMTZ2Mmgydi0yaC0yWm0wLTd2NWgyVjloLTJaIi8+PC9zdmc+);
+          `
+        : `
+        -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
+        `}
 `
 export const Badge = styled.span`
   align-items: center;
@@ -663,4 +691,3 @@ export const AccordionTitle = styled.button`
     width: 1rem;
   }
 `
-

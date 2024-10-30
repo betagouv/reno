@@ -1,12 +1,25 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
-import css from './css/convertToJs'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
-import checkIcon from '@/public/check-green.svg'
-import Image from 'next/image'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
+}
+
+export async function getCommune(situation, type) {
+  if (
+    situation &&
+    ['ménage . commune', 'logement . commune'].includes(type) &&
+    situation[type]
+  ) {
+    const response = await fetch(
+      `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
+    )
+    const json = await response.json()
+
+    return json[0]
+  }
+  return null
 }
 
 export default function AddressSearch({ setChoice, situation, type }) {
@@ -20,19 +33,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
-    if (situation && 
-        ["ménage . commune", "logement . commune"].includes(type) && 
-        situation[type]
-    ) {
-      fetch(
-        `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
-      )
-        .then((response) => response.json())
-        .then((json) => {
-          setInput(json[0].nom + ' ' + json[0].codeDepartement)
-          setClicked(true)
-        })
+    async function fetchCommune() {
+      const commune = await getCommune(situation, type)
+      if (commune) {
+        setInput(commune.nom + ' ' + commune.codeDepartement)
+      }
     }
+    fetchCommune()
   }, [situation, setInput])
 
   useEffect(() => {
@@ -62,18 +69,12 @@ export default function AddressSearch({ setChoice, situation, type }) {
   }, [input, validInput])
 
   return (
-    <div
-      style={css`
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-      `}
-    >
+    <AddressInput>
       <input
         css={`
-          margin: 0;
-          padding-right: 1.5rem !important;
-          ${clicked && input && `border-bottom: 2px solid var(--validColor) !important;`}
+          ${clicked &&
+          input &&
+          `border-bottom: 2px solid var(--validColor) !important;`};
         `}
         type="text"
         autoFocus={true}
@@ -84,18 +85,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           setInput(e.target.value)
         }}
       />
-      { clicked && input && 
-        <Image
-            src={checkIcon}
-            alt="Icône d'un check"
-            css={`
-              position: relative;
-              transform: translateY(-170%);
-              width: 20px;
-              height: 20px;
-            `}
-          />
-      }
+      {clicked && input && <p>Commune valide</p>}
       <CityList>
         {validInput && !results && (
           <li
@@ -111,10 +101,22 @@ export default function AddressSearch({ setChoice, situation, type }) {
         )}
         {results && !clicked && (
           <>
-            <li css={`color: #929292;`}>Sélectionnez une ville</li>
+            <li
+              css={`
+                color: #929292;
+              `}
+            >
+              Sélectionnez une ville
+            </li>
             {results.map((result) => (
               <li
-                className={situation && situation[type] && situation[type].replace(/"/g, '') == result.code ? "selected" : ""}
+                className={
+                  situation &&
+                  situation[type] &&
+                  situation[type].replace(/"/g, '') == result.code
+                    ? 'selected'
+                    : ''
+                }
                 key={result.code}
                 onClick={() => {
                   setChoice(result)
@@ -128,29 +130,63 @@ export default function AddressSearch({ setChoice, situation, type }) {
           </>
         )}
       </CityList>
-    </div>
+    </AddressInput>
   )
 }
 
+export const AddressInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  input {
+    margin: 0;
+    padding-left: 1.5rem !important;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none !important;
+    height: 2.8rem !important;
+    border-bottom: 2px solid #3a3a3a;
+  }
+  p {
+    margin: 0.5rem 0;
+    color: var(--validColor);
+    &::before {
+      background-color: currentColor;
+      content: '';
+      display: inline-block;
+      height: 1rem;
+      margin-right: 0.25rem;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      vertical-align: -0.125rem;
+      width: 1rem;
+      -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
+      mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
+    }
+  }
+`
+
 export const CityList = styled.ul`
   padding: 0;
-  background: #F5F5FE;
+  background: #f5f5fe;
   border-radius: 0 0 5px 5px;
-  border: 1px solid #DFDFF0;
+  border: 1px solid #dfdff0;
   list-style-type: none;
   position: absolute;
   margin-top: 35px;
   li {
     padding: 8px 24px 8px 35px;
     line-height: 1.2rem;
-    &::before, &.selected::before {
+    &::before,
+    &.selected::before {
       content: '';
     }
-    &:not(:first-child):hover, &.selected {
-      background: rgba(0, 0, 145, 0.10);
+    &:not(:first-child):hover,
+    &.selected {
+      background: rgba(0, 0, 145, 0.1);
       color: var(--color);
     }
-    &:not(:first-child):hover::before, &.selected::before {
+    &:not(:first-child):hover::before,
+    &.selected::before {
       content: '✔';
       margin-left: -20px;
       margin-right: 7px;

@@ -106,7 +106,7 @@ export default function Feedback({ title, fromLocation }) {
             {isOpen && (
               <>
                 <label htmlFor="commentaire">
-                  Comment pouvons-nous améliorer cet outil?
+                  Comment pouvons-nous améliorer ce simulateur ?
                 </label>
                 <textarea
                   css={`
