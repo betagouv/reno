@@ -17,7 +17,7 @@ export default function ({
   prefixDPE = true,
   possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
-  situation = null,
+  situation = {},
 }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()

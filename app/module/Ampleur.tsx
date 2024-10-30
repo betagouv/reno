@@ -207,6 +207,7 @@ export default function Ampleur() {
             prefixText={''}
             prefixDPE={isMobile ? false : true}
             dottedName="projet . DPE visé"
+            situation={situation}
           />
           .
         </p>
