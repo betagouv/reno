@@ -22,7 +22,7 @@ import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
 
 const engine = new Publicodes(rules)
@@ -53,11 +53,14 @@ export default function Ampleur() {
     'ménage . région . IdF': 'non',
   }
 
-  const rawSituation = {
-    ...defaultSituation,
-    'projet . DPE visé': targetDPE,
-    ...userSituation,
-  }
+  const rawSituation = useMemo(
+    () => ({
+      ...defaultSituation,
+      'projet . DPE visé': targetDPE,
+      ...userSituation,
+    }),
+    [rawSearchParams.toString()],
+  )
 
   const enrichedSituation = useEnrichSituation(rawSituation)
   const situation = enrichedSituation || rawSituation
