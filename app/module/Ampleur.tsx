@@ -81,11 +81,6 @@ export default function Ampleur() {
         [encodeDottedName(dottedName)]: value + '*',
       })
 
-  console.log(
-    'denormandie eval',
-    engine.setSituation(situation).evaluate('denormandie . conditions'),
-  )
-
   return (
     <div
       css={`
