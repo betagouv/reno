@@ -45,7 +45,7 @@ export function EvaluationValue({ engine, situation }) {
 }
 export const EvaluationValueWrapper = styled.div`
   img {
-    width: 4rem;
+    width: 1.6rem;
     height: auto;
     margin-right: 1rem;
   }
