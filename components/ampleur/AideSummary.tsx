@@ -41,15 +41,15 @@ export const AideSummary = ({
         )}
         {text2 && <>&nbsp;-&nbsp;{text2}</>}
       </h4>
-      {expanded &&
-        (status ? (
-          <div
-            css={`
-              display: flex;
-              justify-content: start;
-              margin-bottom: 0.8rem;
-            `}
-          >
+      {expanded && (
+        <div
+          css={`
+            display: flex;
+            justify-content: start;
+            margin-bottom: 0.8rem;
+          `}
+        >
+          {status ? (
             <PrimeWithLabel
               css={`
                 font-size: 90%;
@@ -62,10 +62,13 @@ export const AideSummary = ({
                 dottedName,
               }}
             ></PrimeWithLabel>
-          </div>
-        ) : (
-          <PrimeStyle $inactive={true}>{computeStatusTitle(status)}</PrimeStyle>
-        ))}
+          ) : (
+            <PrimeStyle $inactive={true}>
+              {computeStatusTitle(status)}
+            </PrimeStyle>
+          )}
+        </div>
+      )}
     </>
   )
 }
