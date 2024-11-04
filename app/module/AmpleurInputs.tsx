@@ -5,7 +5,7 @@ export const usageLogementValues = [
     situation: {
       'vous . propriétaire . statut': '"acquéreur"',
       'logement . résidence principale propriétaire': 'oui',
-      'vous . propriétaire occupant': 'oui',
+      'logement . propriétaire occupant': 'oui',
     },
   },
   {
@@ -15,7 +15,7 @@ export const usageLogementValues = [
       'vous . propriétaire . statut': '"acquéreur"',
       'logement . résidence principale locataire': 'oui',
       'logement . résidence principale propriétaire': 'non',
-      'vous . propriétaire occupant': 'non',
+      'logement . propriétaire occupant': 'non',
     },
   },
   {
@@ -25,7 +25,7 @@ export const usageLogementValues = [
       'vous . propriétaire . statut': '"acquéreur"',
       'logement . résidence principale locataire': 'non',
       'logement . résidence principale propriétaire': 'non',
-      'vous . propriétaire occupant': 'oui',
+      'logement . propriétaire occupant': 'oui',
     },
   },
 ]
