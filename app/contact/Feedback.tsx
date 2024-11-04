@@ -68,7 +68,7 @@ export default function Feedback({ title, fromLocation }) {
           className={vote == 'normal' ? 'normal-active' : 'normal'}
           onClick={() => {
             setVote('normal')
-            push(['trackEvent', 'Feedback vode satisfait', 'Clic', 'En partie'])
+            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'En partie'])
           }}
         >
           <Image alt="smiley normal" src={iconSmileyMaybe} />
@@ -78,7 +78,7 @@ export default function Feedback({ title, fromLocation }) {
           className={vote == 'happy' ? 'happy-active' : 'happy'}
           onClick={() => {
             setVote('happy')
-            push(['trackEvent', 'Feedback vode satisfait', 'Clic', 'Oui'])
+            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Oui'])
           }}
         >
           <Image alt="smiley happy" src={iconSmileyYes} />

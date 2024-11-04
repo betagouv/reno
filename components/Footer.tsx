@@ -173,6 +173,14 @@ export default function Footer() {
                     Personas
                   </InternalLink>
                 </li>
+                <li>
+                  <InternalLink
+                    className="fr-footer__top-link"
+                    href="/statistiques"
+                  >
+                    Statistiques
+                  </InternalLink>
+                </li>
               </ul>
             </div>
           </div>
