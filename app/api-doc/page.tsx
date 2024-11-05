@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Metadata } from 'next/types'
 import AccordionComponent from './AccordionComponent'
 import NPM from './NPM'
+import ApiExampleProject from './ApiExampleProject'
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
@@ -56,6 +57,7 @@ export default function APIDoc() {
             <small>Plus d'informations</small>
           </div>
           <div
+            id="accompagnement"
             css={`
               blockquote {
                 margin-top: 0.8rem;
@@ -180,6 +182,20 @@ export default function APIDoc() {
           de facto de la publication de module de code Javascript.{' '}
         </p>
         <NPM />
+        <h3>Démonstration d'intégration</h3>
+        <p>
+          Ci-dessous, un exemple très basique d'intégration du modèle de calcul
+          dans une maquette de projet NextJS.
+        </p>
+        <br />
+        <ApiExampleProject />
+        <br />
+        <br />
+        <p>
+          N'hésitez pas à{' '}
+          <Link href="/api-doc#accompagnement">nous contacter</Link> si vous
+          estimez que ce paquet NPM ne répond pas à vos besoins.
+        </p>
       </Section>
     </Main>
   )
