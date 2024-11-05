@@ -1,6 +1,6 @@
 {
-  "name": "mes-aides-reno",
-  "version": "1.0.0-beta1",
+  "name": "mesaidesreno",
+  "version": "1.0.0-beta2",
   "scripts": {
     "build": "next build",
     "dev": "next dev -p 8080",
@@ -10,6 +10,15 @@
     "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
     "start": "node .next/standalone/server.js"
   },
+  "main": "index.js",
+  "files": [
+    "README.md",
+    "mesaidesreno.model.json",
+    "index.js",
+    "index.d.ts"
+  ],
+  "module": "index.js",
+  "types": "index.d.ts",
   "dependencies": {
     "@adobe/css-tools": "^4.3.3",
     "@mdx-js/loader": "^3.0.1",
@@ -66,5 +75,6 @@
   "engines": {
     "node": "20"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "license": "MIT"
 }

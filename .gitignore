@@ -45,3 +45,7 @@ data/*
 !data/exonération-taxe-foncière-population.csv
 
 deno.lock
+public/mesaidesreno.model.json
+mesaidesreno.model.json
+index.d.ts
+index.js
