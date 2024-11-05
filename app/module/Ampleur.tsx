@@ -25,6 +25,7 @@ import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { useMemo, useState } from 'react'
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
 import Link from 'next/link'
+import AmpleurCTA from './AmpleurCTA'
 
 const engine = new Publicodes(rules)
 
@@ -397,11 +398,7 @@ export default function Ampleur() {
               }
             `}
           >
-            <Link
-              href={`/simulation?${new URLSearchParams(encodeSituation(situation, true)).toString()}`}
-            >
-              <span>Découvrir toutes les aides&nbsp;&nbsp;➞</span>
-            </Link>
+            <AmpleurCTA {...{ userSituation, targetDPE }} />
           </CTA>
         </section>
       </div>
