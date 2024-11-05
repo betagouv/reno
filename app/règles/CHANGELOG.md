@@ -30,6 +30,12 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
+### v1.0.0-beta2
+
+Cette version beta2 nous sert à publier le modèle sur NPM, modèle que l'on a déjà mis en ligne il y a plus d'une semaine sans retour de bug important pour l'instant.
+
+Attention, le fichier publicodes exposé par le module NPM se nomme maintenant `mesaidesreno.model.json`. Cela permet à l'[outil d'import officiel](https://github.com/publicodes/tools) de publicodes de le reconnaitre.
+
 ### v1.0.0-beta1
 
 Dans cette nouvelle version du modèle Mes Aides Réno, de nombreuses aides d'ampleur font leur apparition, dans le but de proposer le calcul de la plupart des aides nationales d'ampleur.
