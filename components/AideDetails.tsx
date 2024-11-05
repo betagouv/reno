@@ -6,6 +6,7 @@ import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { decodeDottedName } from './publicodes/situationUtils'
 import { Section } from './UI'
 import { omit } from './utils'
+import { push } from '@socialgouv/matomo-next'
 
 export default function AideDetails({
   setSearchParams,
@@ -16,8 +17,14 @@ export default function AideDetails({
   searchParams,
   correspondance,
 }) {
-  const exampleSituation = createExampleSituation(engine, situation, false)
   const dottedName = decodeDottedName(searchParams['details'])
+  push([
+    'trackEvent',
+    'Simulateur Principal',
+    'Page',
+    'Aide Détails ' + dottedName,
+  ])
+  const exampleSituation = createExampleSituation(engine, situation, false)
   const AideComponent = correspondance[dottedName]
 
   if (AideComponent)

@@ -126,6 +126,7 @@ export default function ScenariosSelector({
                 css={`
                   margin-right: 0.4rem;
                 `}
+                alt="Icone d'information"
               />
               <h4>Informations utiles</h4>
             </header>

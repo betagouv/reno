@@ -26,6 +26,7 @@ import { useMemo, useState } from 'react'
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
 import Link from 'next/link'
 import AmpleurCTA from './AmpleurCTA'
+import { push } from '@socialgouv/matomo-next'
 
 const engine = new Publicodes(rules)
 
@@ -81,6 +82,8 @@ export default function Ampleur() {
       setSearchParams({
         [encodeDottedName(dottedName)]: value + '*',
       })
+
+  push(['trackEvent', 'Iframe', 'Page', 'Module Ampleur DPE' + currentDPE])
 
   return (
     <div

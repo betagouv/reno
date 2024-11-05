@@ -67,6 +67,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
                   css={`
                     margin-left: 0.5rem;
                   `}
+                  alt="icone réduire"
                 />
               </>
             ) : (
@@ -78,6 +79,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
                     margin-left: 0.5rem;
                     transform: rotate(180deg);
                   `}
+                  alt="icone réduire"
                 />
               </>
             )}
