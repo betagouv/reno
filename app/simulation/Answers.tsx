@@ -90,7 +90,7 @@ export default function Answers({
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
         <summary onClick={preventSummaryClick}>
           <LinkStyleButton onClick={handleSummaryClick}>
-            <Image src={iconEclair} />
+            <Image src={iconEclair} alt="Icone éclair" />
             {isOpen ? 'Cacher' : 'Modifier'} mes réponses
           </LinkStyleButton>
         </summary>

@@ -56,6 +56,7 @@ export default function FormButtons({
               margin-right: 0.5rem;
             `}
             src={iconFlecheGauche}
+            alt="icone fleche fauche"
           />
           Précédent
         </span>
@@ -101,6 +102,7 @@ export default function FormButtons({
                 margin-left: 0.5rem;
               `}
               src={iconFlecheDroiteBlanc}
+              alt="icone fleche droite"
             />
           </Link>
         ) : (
@@ -117,6 +119,7 @@ export default function FormButtons({
                 margin-left: 0.5rem;
               `}
               src={iconFlecheDroite}
+              alt="icone fleche droite"
             />
           </span>
         )}

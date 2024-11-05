@@ -1,9 +1,5 @@
-import {
-  Main,
-  Section,
-  Card,
-} from '@/components/UI'
-import css from '@/components/css/convertToJs';
+import { Main, Section, Card } from '@/components/UI'
+import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
@@ -55,6 +51,7 @@ export default function APIDoc() {
               style={css`
                 margin-right: 0.4rem;
               `}
+              alt="Icône information"
             />{' '}
             <small>Plus d'informations</small>
           </div>
@@ -69,12 +66,37 @@ export default function APIDoc() {
               }
             `}
           >
-            <p>Nous sommes actuellement en train de revoir notre documentation technique. En attendant, voici notre proposition :</p>
+            <p>
+              Nous sommes actuellement en train de revoir notre documentation
+              technique. En attendant, voici notre proposition :
+            </p>
             <ul>
-              <li style={css`margin: 1rem 0;`}><strong><u>Accompagnement sur-mesure</u></strong>:<br /> L'un des développeurs de l'équipe, Morgan ou Maël, peut se rendre disponible pour vous assister en live dans l'intégration. 
-              D'expérience, 45 minutes suffisent. C'est votre souhait ? Merci d’adresser votre demande <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons contact avec vous sous 3 jours ouvrés.
+              <li
+                style={css`
+                  margin: 1rem 0;
+                `}
+              >
+                <strong>
+                  <u>Accompagnement sur-mesure</u>
+                </strong>
+                :<br /> L'un des développeurs de l'équipe, Morgan ou Maël, peut
+                se rendre disponible pour vous assister en live dans
+                l'intégration. D'expérience, 45 minutes suffisent. C'est votre
+                souhait ? Merci d’adresser votre demande{' '}
+                <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons
+                contact avec vous sous 3 jours ouvrés.
               </li>
-              <li style={css`margin: 1rem 0;`}><strong><u>Intégration en autonomie</u></strong>:<br /> Vous préférez mettre les mains dans la documentation existante ? Elle est accessible juste en-dessous.</li>
+              <li
+                style={css`
+                  margin: 1rem 0;
+                `}
+              >
+                <strong>
+                  <u>Intégration en autonomie</u>
+                </strong>
+                :<br /> Vous préférez mettre les mains dans la documentation
+                existante ? Elle est accessible juste en-dessous.
+              </li>
             </ul>
             <p>À votre disposition pour avancer ensemble !</p>
           </div>
