@@ -56,7 +56,6 @@ function Form({ rules }) {
 
   return (
     <>
-      {isInIframe && <LogoCompact />}
       {rule && (
         <InputSwitch
           {...{
