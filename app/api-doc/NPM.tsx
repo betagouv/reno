@@ -14,7 +14,12 @@ export default function NPM() {
     doFetch()
   }, [])
   return (
-    <section>
+    <section
+      css={`
+        max-width: 30rem;
+        margin-top: 2rem;
+      `}
+    >
       <div
         css={`
           background: linear-gradient(
@@ -33,7 +38,7 @@ export default function NPM() {
       <div
         css={`
           background: white;
-          border: 2px solid #c12127;
+          border: 2px solid #ea2039;
           border-top: none;
           padding: 0.6rem 1rem;
           h4 {
