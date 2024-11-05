@@ -10,6 +10,8 @@
 
 Sur /, dans un premier temps, les aides nationales : MPR accompagnée, et MPR non accompagnée (dit aussi gestes). Nous y avons ajouté les CEE, l'aide copropriété, et de nombreuses aides à la rénovation d'ampleur.
 
+Suivez les changements du modèle via le [fichier CHANGELOG](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/CHANGELOG.md)\*\*.
+
 ## Le coût des travaux
 
 Sur /couts, des statistiques sur le coût des travaux. Nécessite une clef d'accès, les données étant pour l'instant privées.
