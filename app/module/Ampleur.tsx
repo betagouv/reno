@@ -398,7 +398,7 @@ export default function Ampleur() {
               }
             `}
           >
-            <AmpleurCTA {...{ userSituation, targetDPE }} />
+            <AmpleurCTA {...{ situation }} />
           </CTA>
         </section>
       </div>
