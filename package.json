@@ -12,6 +12,7 @@
   },
   "main": "index.js",
   "files": [
+    "README.md",
     "mesaidesreno.model.json",
     "index.js",
     "index.d.ts"
