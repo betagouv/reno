@@ -7,15 +7,16 @@ import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper, Title } from '@/app/LayoutUI'
 import useIsInIframe from '@/components/useIsInIframe'
 import { usePathname } from 'next/navigation'
-import { CTA, CTAWrapper } from './UI'
+import LogoCompact from './LogoCompact'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
   const pathname = usePathname()
-  const isBareIframe = pathname === '/module/integration' || isInIframe
+  if (pathname === '/module/integration') return
 
-  if (isBareIframe) return null
-  return (
+  return isInIframe ? (
+    <LogoCompact />
+  ) : (
     <HeaderWrapper>
       <nav>
         <Link
