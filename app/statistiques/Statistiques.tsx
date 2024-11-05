@@ -1,6 +1,6 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { Line } from 'react-chartjs-2'
+import { useEffect, useRef, useState } from 'react'
+import { Bar, Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,6 +15,16 @@ import {
 } from 'chart.js'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import 'chartjs-adapter-date-fns'
+import logoBonPote from '@/public/logo-partenaire/logo-bon-pote.jpg'
+import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
+import logoTf1Info from '@/public/logo-partenaire/logo-tf1-info.svg'
+import logoActualImmo from '@/public/logo-partenaire/logo-actual-immo.png'
+import logoOuestFranceImmo from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
+import { Content, Wrapper } from '@/components/explications/ExplicationUI'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
 
 ChartJS.register(
   CategoryScale,
@@ -30,7 +40,10 @@ ChartJS.register(
 )
 
 export default function Statistiques() {
-  const [weeklySimulationEnded, setWeeklySimulationEnded] = useState(null)
+  const [weeklyData, setWeeklyData] = useState(null)
+  const [transfoRateSimulation, setTransfoRateSimulation] = useState(0)
+  const [transfoRateFranceRenov, setTransfoRateFranceRenov] = useState(0)
+  const swiperRef = useRef(null)
 
   useEffect(() => {
     const fetchVisitData = async () => {
@@ -38,24 +51,30 @@ export default function Statistiques() {
         const response = await fetch('/api/matomo')
         if (!response.ok) throw new Error('Failed to fetch visit data')
         const data = await response.json()
-
-        // Parse data
-        const weeklySimuEnded = []
-        Object.entries(data).forEach(([dateRange, steps]) => {
-          const startDate = dateRange.split(',')[1] // Extract the starting date
-          weeklySimuEnded.push({
+        const tmpWeeklyData = []
+        let nbSimuEndedTotal = 0
+        let nbSimuStartedTotal = 0
+        let nbClickFranceRenov = 0
+        Object.entries(data).forEach(([dateRange, weekData]) => {
+          const startDate = dateRange.split(',')[1]
+          tmpWeeklyData.push({
             date: new Date(startDate),
-            visits: steps[2].step_nb_visits_actual,
-            transfoRate:
-              Math.round(
-                (steps[2].step_nb_visits_actual /
-                  steps[1].step_nb_visits_actual) *
-                  10000,
-              ) / 100,
+            visits: weekData[2].step_nb_visits_actual,
+            uniqVisitors: weekData.nb_uniq_visitors,
           })
+
+          nbClickFranceRenov += weekData[4].step_nb_visits_actual
+          nbSimuEndedTotal += weekData[2].step_nb_visits_actual
+          nbSimuStartedTotal += weekData[1].step_nb_visits_actual
         })
-        console.log('weeklySimuEnded', weeklySimuEnded)
-        setWeeklySimulationEnded(weeklySimuEnded)
+
+        setTransfoRateSimulation(
+          Math.round((nbSimuEndedTotal / nbSimuStartedTotal) * 10000) / 100,
+        )
+        setTransfoRateFranceRenov(
+          Math.round((nbClickFranceRenov / nbSimuEndedTotal) * 10000) / 100,
+        )
+        setWeeklyData(tmpWeeklyData)
       } catch (error) {
         console.error('Error fetching visit data:', error)
       }
@@ -65,15 +84,11 @@ export default function Statistiques() {
   }, [])
 
   const chartData = {
-    labels: weeklySimulationEnded
-      ? weeklySimulationEnded.map((entry) => entry.date)
-      : [],
+    labels: weeklyData ? weeklyData.map((entry) => entry.date) : [],
     datasets: [
       {
         label: 'Nombre de simulation terminées',
-        data: weeklySimulationEnded
-          ? weeklySimulationEnded.map((entry) => entry.visits)
-          : [],
+        data: weeklyData ? weeklyData.map((entry) => entry.visits) : [],
         borderColor: '#000091',
         borderWidth: 1,
         backgroundColor: '#2a82dd',
@@ -81,16 +96,13 @@ export default function Statistiques() {
         yAxisID: 'y',
       },
       {
-        type: 'bar',
-        label: 'Taux de transformation (%)',
-        data: weeklySimulationEnded
-          ? weeklySimulationEnded.map((entry) => entry.transfoRate)
-          : [],
-        borderColor: '#FF5733',
+        label: 'Nombre de visiteurs uniques',
+        data: weeklyData ? weeklyData.map((entry) => entry.uniqVisitors) : [],
+        borderColor: '#ff5c8d',
         borderWidth: 1,
-        backgroundColor: 'rgba(255, 87, 51, 0.2)',
+        backgroundColor: '#ff97b5',
         fill: true,
-        yAxisID: 'y1',
+        yAxisID: 'y',
       },
     ],
   }
@@ -109,16 +121,16 @@ export default function Statistiques() {
             borderWidth: 2,
             label: {
               display: true,
-              content: 'Objectif: 25k',
+              content: 'Objectif de simulation par semaine: 25 000',
               enabled: true,
-              position: 'center',
+              position: 'end',
               color: 'white',
-              backgroundColor: 'red',
+              backgroundColor: 'rgba(255, 0, 0, 0.5)',
               font: {
                 size: 14,
               },
               padding: { top: 5, bottom: 5, left: 5, right: 5 },
-              margin: { top: -8 },
+              yAdjust: -20,
             },
           },
         },
@@ -129,9 +141,9 @@ export default function Statistiques() {
         type: 'time',
         time: {
           unit: 'week',
-          tooltipFormat: 'yyyy-MM-dd',
+          tooltipFormat: 'dd/MM/yyyy',
           displayFormats: {
-            week: 'yyyy-MM-dd',
+            week: 'dd/MM/yyyy',
           },
         },
       },
@@ -143,26 +155,289 @@ export default function Statistiques() {
           text: 'Nombre de simulation',
         },
       },
-      y1: {
-        type: 'linear',
-        position: 'right',
+    },
+  }
+
+  const chartDataTransfoSimulation = {
+    labels: ['Pourcentage de simulations terminées'],
+    datasets: [
+      {
+        data: [transfoRateSimulation],
+        backgroundColor: ['#2a82dd'],
+      },
+    ],
+  }
+
+  const chartDataTransfoFranceRenov = {
+    labels: ["Pourcentage d'utilisateurs redirigés vers France Renov"],
+    datasets: [
+      {
+        data: [transfoRateFranceRenov],
+        backgroundColor: ['#2a82dd'],
+      },
+    ],
+  }
+
+  const optionsTransfoSimulation = {
+    responsive: true,
+    aspectRatio: 1.5,
+    plugins: {
+      legend: { display: false },
+    },
+    scales: {
+      y: {
         beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Taux de transformation (%)',
-        },
+        max: 100,
       },
     },
   }
 
+  const optionsTransfoFranceRenov = {
+    responsive: true,
+    aspectRatio: 1.5,
+    plugins: {
+      legend: { display: false },
+      annotation: {
+        annotations: {
+          objectifLine: {
+            type: 'line',
+            yMin: 10,
+            yMax: 10,
+            borderColor: 'red',
+            borderWidth: 2,
+            label: {
+              display: true,
+              content: 'Objectif de transformation: 10 %',
+              enabled: true,
+              position: 'center',
+              color: 'white',
+              backgroundColor: 'rgba(255, 0, 0, 0.5)',
+              font: {
+                size: 14,
+              },
+              padding: { top: 5, bottom: 5, left: 5, right: 5 },
+              yAdjust: -20,
+            },
+          },
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  }
+
+  const ChartWrapper = ({ data, children }) => {
+    return data ? children : <p>Chargement des données...</p>
+  }
+
   return (
-    <div>
-      <h2>Statistiques</h2>
-      {weeklySimulationEnded ? (
-        <Line data={chartData} options={options} />
-      ) : (
-        <p>Loading visit data...</p>
-      )}
-    </div>
+    <>
+      <Wrapper $background="white" $noMargin={true}>
+        <Content>
+          <h2>Statistiques</h2>
+          <p
+            css={`
+              margin: 1rem 0;
+            `}
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+          <ChartWrapper data={weeklyData}>
+            <Line data={chartData} options={options} />
+          </ChartWrapper>
+        </Content>
+      </Wrapper>
+      <Wrapper $background="white" $noMargin={true}>
+        <Content>
+          <h2>Taux de transformation</h2>
+          <p
+            css={`
+              margin: 1rem 0;
+            `}
+          >
+            Le taux de transformation des utilisateurs redirigés vers France
+            Rénov' correspond au pourcentage d'utilisateur qui ont cliqués sur
+            le bouton "Trouver mon conseiller local".
+          </p>
+          <div
+            css={`
+              display: flex;
+              gap: 2rem;
+              > div {
+                width: 50%;
+              }
+            `}
+          >
+            <div>
+              <ChartWrapper data={weeklyData}>
+                <Bar
+                  data={chartDataTransfoSimulation}
+                  options={optionsTransfoSimulation}
+                />
+              </ChartWrapper>
+            </div>
+            <div>
+              <ChartWrapper data={weeklyData}>
+                <Bar
+                  data={chartDataTransfoFranceRenov}
+                  options={optionsTransfoFranceRenov}
+                />
+              </ChartWrapper>
+            </div>
+          </div>
+        </Content>
+      </Wrapper>
+      <Wrapper>
+        <Content>
+          <h3>En chiffre</h3>
+          <div
+            css={`
+              background: #e8edff;
+              border: 1px solid black;
+              font-size: 5rem;
+              width: 50%;
+              margin: auto;
+              padding: 3rem;
+              border-radius: 0.5rem;
+              display: flex;
+              align-items: center;
+              color: #0063cb;
+            `}
+          >
+            <div>8</div>
+            <div
+              css={`
+                font-size: 1rem;
+                margin-left: 1rem;
+              `}
+            >
+              intégrations du simulateur mes aides réno
+            </div>
+          </div>
+        </Content>
+      </Wrapper>
+      <Wrapper $background="white" $noMargin={true}>
+        <Content>
+          <h3
+            css={`
+              margin-bottom: 0;
+            `}
+          >
+            Parmi eux
+          </h3>
+          <div
+            css={`
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+              position: relative;
+              top: 120px;
+              button {
+                background-color: var(--lightColor);
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 1rem;
+                &:hover {
+                  background-color: var(--color);
+                }
+              }
+            `}
+          >
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              className="prevButton"
+            >
+              &lt;
+            </button>
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              className="nextButton"
+            >
+              &gt;
+            </button>
+          </div>
+          <Swiper
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            spaceBetween={30}
+            slidesPerView={4}
+            loop={true}
+            breakpoints={{
+              640: { slidesPerView: 1, spaceBetween: 10 },
+              768: { slidesPerView: 2, spaceBetween: 20 },
+              1024: { slidesPerView: 3, spaceBetween: 30 },
+            }}
+            css={`
+              position: relative;
+              margin: 0 60px;
+              .swiper-slide {
+                align-self: center;
+              }
+              .swiper-button-next,
+              .swiper-button-prev {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #000;
+              }
+
+              img {
+                width: 100%;
+                height: auto;
+              }
+            `}
+          >
+            <SwiperSlide>
+              <Link
+                href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
+                target="_blank"
+              >
+                <Image src={logoOuestFranceImmo} alt="Logo Ouest France Immo" />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link
+                href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
+                target="_blank"
+              >
+                <Image src={logoFranceInfo} alt="Logo France Info" />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link
+                href="https://www.tf1info.fr/immobilier/bouilloires-thermiques-comment-adapter-son-logement-aux-vagues-de-chaleur-2315763.html"
+                target="_blank"
+              >
+                <Image src={logoTf1Info} alt="Logo TF1 Info" />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link
+                href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
+                target="_blank"
+              >
+                <Image src={logoActualImmo} alt="Logo Actual Immo" />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link
+                href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
+                target="_blank"
+              >
+                <Image src={logoBonPote} alt="Logo Bon Pote" />
+              </Link>
+            </SwiperSlide>
+          </Swiper>
+        </Content>
+      </Wrapper>
+    </>
   )
 }

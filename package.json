@@ -49,6 +49,7 @@
     "rss": "^1.2.2",
     "sharp": "^0.33.4",
     "styled-components": "^6.1.8",
+    "swiper": "^11.1.14",
     "typescript": "5.4.3",
     "use-debounce": "^10.0.0",
     "usehooks-ts": "^3.0.2",

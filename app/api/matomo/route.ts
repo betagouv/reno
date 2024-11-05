@@ -1,31 +1,61 @@
 export async function GET() {
-  const siteId = '101';
-  const apiToken = process.env.MATOMO_API_TOKEN;
-  const startDate = '2024-08-15';
-  const funnelId = 113
-  const matomoUrl = `https://stats.beta.gouv.fr/?module=API&method=Funnels.getFunnelFlow&idSite=${siteId}&idFunnel=${funnelId}&period=week&date=last10&format=JSON`;
-  try {
-    const response = await fetch(
-      matomoUrl,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token_auth: apiToken,
-          date: startDate
-        }),
-      }
-    );
-    if (!response.ok) throw new Error('Failed to fetch data from Matomo');
-    const data = await response.json();
-    console.log("data", data)
-    return new Response(JSON.stringify(data), { status: 200, headers: { 'Content-Type': 'application/json' } });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: 'An error occurred', details: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  const apiToken = process.env.MATOMO_API_TOKEN
+  const idSite = '101'
+  const startDate = '2024-08-15'
+  const idFunnel = 113
+  const baseUrl = `https://stats.beta.gouv.fr/?module=API&idSite=${idSite}&period=week&date=last10&format=JSON`
+  const matomoUrlFunnel =
+    baseUrl + `&method=Funnels.getFunnelFlow&idFunnel=${idFunnel}`
+
+  const matomoUrlVisitor = baseUrl + `&method=VisitsSummary.get`
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token_auth: apiToken,
+      date: startDate,
+    }),
   }
+
+  try {
+    const data = await fetchMatomoData(matomoUrlFunnel, options)
+    const dataVisitor = await fetchMatomoData(matomoUrlVisitor, options)
+
+    const mergedData = mergeDataFunnelAndVisitor(data, dataVisitor)
+
+    return new Response(JSON.stringify(mergedData), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ error: 'An error occurred', details: error.message }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    )
+  }
+}
+
+async function fetchMatomoData(url, options) {
+  const response = await fetch(url, options)
+  if (!response.ok) {
+    throw new Error(`Erreur lors de la récupération des données Matomo: ${url}`)
+  }
+  return response.json()
+}
+function mergeDataFunnelAndVisitor(data, dataVisitor) {
+  const merged = {}
+
+  Object.entries(data).forEach(([funnelDateRange, funnelData]) => {
+    merged[funnelDateRange] = {
+      ...funnelData,
+      ...dataVisitor[funnelDateRange],
+    }
+  })
+
+  return merged
 }
