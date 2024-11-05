@@ -1,8 +1,8 @@
 # Aides et coût d'une rénovation thermique en 2024
 
 > [!IMPORTANT]
-> 🚧 Ce projet est en plein développement.
-> De nouvelles versions sont publiées fréquemment, potentiellement toutes les semaines.
+> 💡 Ce projet est en développement actif.
+> En tant que seul modèle ouvert et officiel des aides à la rénovation énergétique françaises, de nouvelles versions sont publiées fréquemment, potentiellement toutes les semaines.
 > En particulier, le modèle de calcul évolue en fonction de la loi et des améliorations métier, selon le versionage sémantique.
 > Si vous l'intégrez, il est de votre responsabilité de le maintenir à jour régulièrement en suivant les changements de ce dépôt dont la publicité est faite via **ce fichier [CHANGELOG](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/CHANGELOG.md)**.
 
