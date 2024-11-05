@@ -12,9 +12,9 @@ import LogoCompact from './LogoCompact'
 export default function Header() {
   const isInIframe = useIsInIframe()
   const pathname = usePathname()
-  const isBareIframe = pathname === '/module/integration' || isInIframe
+  if (pathname === '/module/integration') return
 
-  return isBareIframe ? (
+  return isInIframe ? (
     <LogoCompact />
   ) : (
     <HeaderWrapper>
