@@ -10,6 +10,7 @@ import { omit } from './utils'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
+import { push } from '@socialgouv/matomo-next'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -37,6 +38,7 @@ export default function GestesMosaic({
   questions,
   engine,
 }) {
+  push(['trackEvent', 'Simulateur Principal', 'Page', 'Aides Geste'])
   const grouped = questions.reduce(
       (memo, [q]) => {
         const categoryDottedName = q.split(' . ').slice(0, -1).join(' . ')

@@ -10,6 +10,7 @@ import FatConseiller from './FatConseiller'
 import BackToLastQuestion from './BackToLastQuestion'
 import { useAides } from './ampleur/useAides'
 import { Main, PageBlock, Section } from './UI'
+import { push } from '@socialgouv/matomo-next'
 
 export default function Eligibility({
   setSearchParams,
@@ -20,6 +21,7 @@ export default function Eligibility({
   expanded,
   searchParams,
 }) {
+  push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   const nextLink = (value) => {
     const url = setSearchParams(
       {
