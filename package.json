@@ -10,7 +10,14 @@
     "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
     "start": "node .next/standalone/server.js"
   },
-  "main": "public/mesaidesreno.json",
+  "main": "index.js",
+  "files": [
+    "mesaidesreno.model.json",
+    "index.js",
+    "index.d.ts"
+  ],
+  "module": "index.js",
+  "types": "index.d.ts",
   "dependencies": {
     "@adobe/css-tools": "^4.3.3",
     "@mdx-js/loader": "^3.0.1",

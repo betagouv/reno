@@ -34,7 +34,9 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 Cette version beta2 nous sert à publier le modèle sur NPM, modèle que l'on a déjà mis en ligne il y a plus d'une semaine sans retour de bug important pour l'instant.
 
-Attention, le fichier publicodes exposé par le module NPM se nomme maintenant `mesaidesreno.model.json`. Cela permet à l'[outil d'import officiel](https://github.com/publicodes/tools) de publicodes de le reconnaitre.
+Attention, le fichier publicodes exposé par le module NPM se nomme maintenant `mesaidesreno.model.json`, à la racine du projet. Cela permet à l'[outil d'import officiel](https://github.com/publicodes/tools) de publicodes de le reconnaitre.
+
+Il est dispo aussi directement sur le Web via https://mesaidesreno.beta.gouv.fr/modèle.json.
 
 ### v1.0.0-beta1
 

@@ -46,3 +46,6 @@ data/*
 
 deno.lock
 public/mesaidesreno.json
+mesaidesreno.model.js
+index.d.ts
+index.js
