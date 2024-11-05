@@ -14,8 +14,8 @@ export default function Feedback({ title, fromLocation }) {
   const [sent, setSent] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  const createIssue = (body: string, labels = ['💁 contribution externe']) => {
-    if (body == null || body == '') {
+  const createIssue = (body, vote, labels = ['💁 contribution externe']) => {
+    if (!body) {
       return null
     }
 
@@ -25,14 +25,14 @@ export default function Feedback({ title, fromLocation }) {
           repo: 'mesaidesreno/feedback-utilisateur',
           title: 'Retour utilisateurs',
           body,
-          labels,
+          labels: vote ? [...labels, vote] : labels,
         })
           .map(([k, v]) => k + '=' + encodeURIComponent(v))
           .join('&'),
       { mode: 'cors' },
     )
       .then((response) => response.json())
-      .then((json) => {
+      .then(() => {
         setSent(true)
       })
   }
@@ -55,9 +55,9 @@ export default function Feedback({ title, fromLocation }) {
       </div>
       <VoteBox>
         <div
-          className={vote == 'unhappy' ? 'unhappy-active' : 'unhappy'}
+          className={vote == 'insatisfait' ? 'unhappy-active' : 'unhappy'}
           onClick={() => {
-            setVote('unhappy')
+            setVote('insatisfait')
             push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Non'])
           }}
         >
@@ -68,17 +68,17 @@ export default function Feedback({ title, fromLocation }) {
           className={vote == 'normal' ? 'normal-active' : 'normal'}
           onClick={() => {
             setVote('normal')
-            push(['trackEvent', 'Feedback vode satisfait', 'Clic', 'En partie'])
+            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'En partie'])
           }}
         >
           <Image alt="smiley normal" src={iconSmileyMaybe} />
           <div>En partie</div>
         </div>
         <div
-          className={vote == 'happy' ? 'happy-active' : 'happy'}
+          className={vote == 'satisfait' ? 'happy-active' : 'happy'}
           onClick={() => {
-            setVote('happy')
-            push(['trackEvent', 'Feedback vode satisfait', 'Clic', 'Oui'])
+            setVote('satisfait')
+            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Oui'])
           }}
         >
           <Image alt="smiley happy" src={iconSmileyYes} />
@@ -141,12 +141,11 @@ export default function Feedback({ title, fromLocation }) {
                 }
                 push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
                 e.preventDefault()
-                const augmentedComment =
-                  comment +
-                  (fromLocation
-                    ? '\n> ' + 'Depuis la page' + ': `' + fromLocation + '`'
-                    : '')
-                createIssue(augmentedComment)
+
+                createIssue(
+                  comment + '\n> ' + 'Depuis la page: ' + window.location.href,
+                  vote,
+                )
               }}
               title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
             >
