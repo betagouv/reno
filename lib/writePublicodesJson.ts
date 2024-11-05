@@ -7,7 +7,7 @@ const engine = new Publicodes(rules)
 
 const filename = 'mesaidesreno.model.json' // this is a standard for the publicodes import tool https://github.com/publicodes/tools
 const publicDestinationPath = './public/' + 'modèle.json'
-const destinationPath = './public/' + filename
+const destinationPath = filename
 
 export default function writePublicodesJson() {
   writeFileSync(destinationPath, JSON.stringify(json))
