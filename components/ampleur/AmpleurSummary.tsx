@@ -125,18 +125,7 @@ export default function AmpleurSummary({ engine, url, situation }) {
       >
         Parmi les aides ?
       </p>
-      {aides
-        .filter((aide) => {
-          if (
-            aide.status !== true &&
-            aide.baseDottedName !== 'MPR . accompagnée'
-          )
-            return false
-          return ![
-            'ampleur . prime individuelle copropriété',
-            'MPR . accompagnée . prise en charge MAR',
-          ].includes(aide.baseDottedName)
-        })
+      {filterAidesToDisplay(aides)
         .slice(0, 3)
         .map((aide) => {
           const text = aide.marque,
@@ -173,3 +162,13 @@ export const ProfessionnelLabel = () => (
     ))}
   </Labels>
 )
+
+export const filterAidesToDisplay = (aides) =>
+  aides.filter((aide) => {
+    if (aide.status !== true && aide.baseDottedName !== 'MPR . accompagnée')
+      return false
+    return ![
+      'ampleur . prime individuelle copropriété',
+      'MPR . accompagnée . prise en charge MAR',
+    ].includes(aide.baseDottedName)
+  })

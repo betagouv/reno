@@ -1,21 +1,27 @@
 'use client'
 
-import personas from './examplePersonas.yaml'
-import Ampleur from './Ampleur'
-import { Suspense } from 'react'
+import DPELabel from '@/components/DPELabel'
+import { Card } from '@/components/UI'
 import getAppUrl from '@/components/getAppUrl'
+import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from 'next/link'
-import { Card } from '@/components/UI'
-import DPELabel from '@/components/DPELabel'
 import { useSearchParams } from 'next/navigation'
+import personas from './examplePersonas.yaml'
 
-export default function () {
+export default function AmpleurDemonstration() {
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const { persona: selectedPersona = 0 } = searchParams
+  const personaSituation = personas[selectedPersona].situation
+  const iframeSearchParams = encodeSituation(personaSituation, true)
+  const iframeUrl =
+    getAppUrl() +
+    '/module/integration?' +
+    new URLSearchParams(iframeSearchParams).toString()
+
   return (
     <section>
       <h2>Démonstration</h2>
@@ -75,7 +81,10 @@ export default function () {
                     `}
                   >
                     <div>{nom}</div>
-                    <small>Logement de plus de 15 ans</small>
+                    <small>
+                      Construit en :{' '}
+                      {situation['logement . année de construction'] || '?'}
+                    </small>
                     <div>
                       DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
                     </div>
@@ -85,25 +94,41 @@ export default function () {
             ))}
           </ul>
         </div>
+        <h3>L'URL de l'iframe à injecter de votre côté</h3>
+        <code>{iframeUrl}</code>
         <section
           css={`
             margin: auto;
-            text-align: center;
           `}
         >
-          <h3>Le module de simulation que verra l'usager</h3>
+          <h3>Le module de simulation que verra l'usager sur écran large</h3>
           <iframe
-            src={
-              getAppUrl() +
-              '/module/integration?' +
-              new URLSearchParams(searchParams).toString()
-            }
+            src={iframeUrl}
             css={`
               border: none;
               border-radius: 0.4rem;
               margin: 3rem auto;
-              height: 800px;
-              width: 40rem;
+              height: 780px;
+              width: 50rem;
+              max-width: 90vw;
+              --shadow-color: 0deg 0% 63%;
+              --shadow-elevation-medium: 0.3px 0.5px 0.7px
+                  hsl(var(--shadow-color) / 0.36),
+                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+              box-shadow: var(--shadow-elevation-medium);
+            `}
+          ></iframe>
+          <h3>... et sur écran mobile</h3>
+          <iframe
+            src={iframeUrl}
+            css={`
+              border: none;
+              border-radius: 0.4rem;
+              margin: 3rem auto;
+              height: 750px;
+              width: 370px;
               max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px

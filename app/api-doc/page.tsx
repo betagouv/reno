@@ -1,14 +1,12 @@
-import {
-  Main,
-  Section,
-  Card,
-} from '@/components/UI'
-import css from '@/components/css/convertToJs';
+import { Main, Section, Card } from '@/components/UI'
+import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import AccordionComponent from './AccordionComponent'
+import NPM from './NPM'
+import ApiExampleProject from './ApiExampleProject'
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
@@ -55,10 +53,12 @@ export default function APIDoc() {
               style={css`
                 margin-right: 0.4rem;
               `}
+              alt="Icône information"
             />{' '}
             <small>Plus d'informations</small>
           </div>
           <div
+            id="accompagnement"
             css={`
               blockquote {
                 margin-top: 0.8rem;
@@ -69,12 +69,37 @@ export default function APIDoc() {
               }
             `}
           >
-            <p>Nous sommes actuellement en train de revoir notre documentation technique. En attendant, voici notre proposition :</p>
+            <p>
+              Nous sommes actuellement en train de revoir notre documentation
+              technique. En attendant, voici notre proposition :
+            </p>
             <ul>
-              <li style={css`margin: 1rem 0;`}><strong><u>Accompagnement sur-mesure</u></strong>:<br /> L'un des développeurs de l'équipe, Morgan ou Maël, peut se rendre disponible pour vous assister en live dans l'intégration. 
-              D'expérience, 45 minutes suffisent. C'est votre souhait ? Merci d’adresser votre demande <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons contact avec vous sous 3 jours ouvrés.
+              <li
+                style={css`
+                  margin: 1rem 0;
+                `}
+              >
+                <strong>
+                  <u>Accompagnement sur-mesure</u>
+                </strong>
+                :<br /> L'un des développeurs de l'équipe, Morgan ou Maël, peut
+                se rendre disponible pour vous assister en live dans
+                l'intégration. D'expérience, 45 minutes suffisent. C'est votre
+                souhait ? Merci d’adresser votre demande{' '}
+                <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons
+                contact avec vous sous 3 jours ouvrés.
               </li>
-              <li style={css`margin: 1rem 0;`}><strong><u>Intégration en autonomie</u></strong>:<br /> Vous préférez mettre les mains dans la documentation existante ? Elle est accessible juste en-dessous.</li>
+              <li
+                style={css`
+                  margin: 1rem 0;
+                `}
+              >
+                <strong>
+                  <u>Intégration en autonomie</u>
+                </strong>
+                :<br /> Vous préférez mettre les mains dans la documentation
+                existante ? Elle est accessible juste en-dessous.
+              </li>
             </ul>
             <p>À votre disposition pour avancer ensemble !</p>
           </div>
@@ -154,8 +179,23 @@ export default function APIDoc() {
           tourner une API en 30 minutes sur vos serveurs.
         </p>
         <p>
-          Nous publierons bientôt un paquet NPM tout prêt, n'hésitez pas à nous
-          contacter pour que l'on priorise sa publication.
+          Pour ce faire, nous vous proposons un paquet NPM. NPM est le standard
+          de facto de la publication de module de code Javascript.{' '}
+        </p>
+        <NPM />
+        <h3>Démonstration d'intégration</h3>
+        <p>
+          Ci-dessous, un exemple très basique d'intégration du modèle de calcul
+          dans une maquette de projet NextJS.
+        </p>
+        <br />
+        <ApiExampleProject />
+        <br />
+        <br />
+        <p>
+          N'hésitez pas à{' '}
+          <Link href="/api-doc#accompagnement">nous contacter</Link> si vous
+          estimez que ce paquet NPM ne répond pas à vos besoins.
         </p>
       </Section>
     </Main>

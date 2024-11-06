@@ -19,6 +19,7 @@ import { omit } from '@/components/utils'
 import { Card, CTA, CTAWrapper, Section } from '../UI'
 import VoirSynthese from './VoirSynthese'
 import Feedback from '@/app/contact/Feedback'
+import { push } from '@socialgouv/matomo-next'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -29,8 +30,8 @@ export default function AidesAmpleur({
   searchParams,
   correspondance,
 }) {
-  const situation = //omit(['projet . travaux'], givenSituation)
-    givenSituation
+  push(['trackEvent', 'Simulateur Principal', 'Page', 'Aides Ampleur'])
+  const situation = givenSituation
 
   const exampleSituation = createExampleSituation(engine, situation, false)
   const extremeSituation = createExampleSituation(engine, situation, true)

@@ -260,6 +260,7 @@ export const InformationBlock = ({ children }) => (
         css={`
           margin-right: 0.4rem;
         `}
+        alt="icone d'information"
       />
       <h4>Informations utiles</h4>
     </header>
