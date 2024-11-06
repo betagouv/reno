@@ -15,10 +15,6 @@ export default function Feedback({ title, fromLocation }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const createIssue = (body, vote, labels = ['💁 contribution externe']) => {
-    if (!body) {
-      return null
-    }
-
     fetch(
       '/faq/api?' +
         Object.entries({
@@ -141,7 +137,9 @@ export default function Feedback({ title, fromLocation }) {
                 }
                 push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
                 e.preventDefault()
-
+                if (!comment) {
+                  return
+                }
                 createIssue(
                   comment + '\n> ' + 'Depuis la page: ' + window.location.href,
                   vote,
@@ -172,7 +170,7 @@ export const ContactForm = styled.div`
   }
 
   .slide-up.active {
-    max-height: 500px; /* Ajuste cette valeur en fonction de la taille du contenu */
+    max-height: 500px;
   }
 `
 
