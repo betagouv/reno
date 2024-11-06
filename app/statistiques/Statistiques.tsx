@@ -59,14 +59,16 @@ export default function Statistiques() {
           const startDate = dateRange.split(',')[1]
           tmpWeeklyData.push({
             date: new Date(startDate),
-            visits: weekData[2].step_nb_visits_actual,
+            visits: weekData[1].step_nb_visits_actual,
             uniqVisitors: weekData.nb_uniq_visitors,
           })
 
-          nbClickFranceRenov += weekData[4].step_nb_visits_actual
-          nbSimuEndedTotal += weekData[2].step_nb_visits_actual
-          nbSimuStartedTotal += weekData[1].step_nb_visits_actual
+          nbClickFranceRenov += weekData[2].step_nb_visits_actual
+          nbSimuEndedTotal += weekData[1].step_nb_visits_actual
+          nbSimuStartedTotal += weekData[0].step_nb_visits_actual
         })
+
+        setWeeklyData(tmpWeeklyData)
 
         setTransfoRateSimulation(
           Math.round((nbSimuEndedTotal / nbSimuStartedTotal) * 10000) / 100,
@@ -74,7 +76,6 @@ export default function Statistiques() {
         setTransfoRateFranceRenov(
           Math.round((nbClickFranceRenov / nbSimuEndedTotal) * 10000) / 100,
         )
-        setWeeklyData(tmpWeeklyData)
       } catch (error) {
         console.error('Error fetching visit data:', error)
       }
@@ -87,7 +88,7 @@ export default function Statistiques() {
     labels: weeklyData ? weeklyData.map((entry) => entry.date) : [],
     datasets: [
       {
-        label: 'Nombre de simulation terminées',
+        label: 'Nombre de simulations terminées',
         data: weeklyData ? weeklyData.map((entry) => entry.visits) : [],
         borderColor: '#000091',
         borderWidth: 1,
@@ -121,7 +122,7 @@ export default function Statistiques() {
             borderWidth: 2,
             label: {
               display: true,
-              content: 'Objectif de simulation par semaine: 25 000',
+              content: 'Objectif de simulations par semaine : 25 000',
               enabled: true,
               position: 'end',
               color: 'white',
@@ -237,16 +238,15 @@ export default function Statistiques() {
     <>
       <Wrapper $background="white" $noMargin={true}>
         <Content>
-          <h2>Statistiques</h2>
+          <h2>Indicateurs d'impact Mes Aides Réno</h2>
           <p
             css={`
               margin: 1rem 0;
             `}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Notre mission: Simplifier l'accès à l'information sur les aides à la
+            rénovation énergétique pour augmenter le nombre de personnes qui
+            engagent des travaux de rénovation.
           </p>
           <ChartWrapper data={weeklyData}>
             <Line data={chartData} options={options} />
@@ -262,8 +262,9 @@ export default function Statistiques() {
             `}
           >
             Le taux de transformation des utilisateurs redirigés vers France
-            Rénov' correspond au pourcentage d'utilisateur qui ont cliqués sur
-            le bouton "Trouver mon conseiller local".
+            Rénov' correspond au pourcentage d'utilisateurs qui ont cliqué sur
+            le bouton "Trouver mon conseiller local" parmi ceux qui ont terminé
+            leur simulation.
           </p>
           <div
             css={`
@@ -295,7 +296,7 @@ export default function Statistiques() {
       </Wrapper>
       <Wrapper>
         <Content>
-          <h3>En chiffre</h3>
+          <h3>En chiffres</h3>
           <div
             css={`
               background: #e8edff;

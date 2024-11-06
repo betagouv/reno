@@ -2,8 +2,8 @@ export async function GET() {
   const apiToken = process.env.MATOMO_API_TOKEN
   const idSite = '101'
   const startDate = '2024-08-15'
-  const idFunnel = 113
-  const baseUrl = `https://stats.beta.gouv.fr/?module=API&idSite=${idSite}&period=week&date=last10&format=JSON`
+  const idFunnel = 122
+  const baseUrl = `https://stats.beta.gouv.fr/?module=API&idSite=${idSite}&period=week&date=last9&format=JSON`
   const matomoUrlFunnel =
     baseUrl + `&method=Funnels.getFunnelFlow&idFunnel=${idFunnel}`
 
@@ -22,8 +22,11 @@ export async function GET() {
   try {
     const data = await fetchMatomoData(matomoUrlFunnel, options)
     const dataVisitor = await fetchMatomoData(matomoUrlVisitor, options)
-
     const mergedData = mergeDataFunnelAndVisitor(data, dataVisitor)
+
+    // On enlève la semaine en cours pour ne pas avoir de données partielles qui dénature le graph
+    const lastWeek = Object.keys(mergedData).pop()
+    delete mergedData[lastWeek]
 
     return new Response(JSON.stringify(mergedData), {
       status: 200,
