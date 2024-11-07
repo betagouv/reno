@@ -1,4 +1,6 @@
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const type = searchParams.get('type')
   const apiToken = process.env.MATOMO_API_TOKEN
   const idSite = '101'
   const startDate = '2024-08-15'
@@ -8,6 +10,9 @@ export async function GET() {
     baseUrl + `&method=Funnels.getFunnelFlow&idFunnel=${idFunnel}`
 
   const matomoUrlVisitor = baseUrl + `&method=VisitsSummary.get`
+  const matomoUrlEvents =
+    baseUrl + `&period=range&date=${startDate},today&method=Events.getName`
+
   const options = {
     method: 'POST',
     headers: {
@@ -20,15 +25,32 @@ export async function GET() {
   }
 
   try {
-    const data = await fetchMatomoData(matomoUrlFunnel, options)
-    const dataVisitor = await fetchMatomoData(matomoUrlVisitor, options)
-    const mergedData = mergeDataFunnelAndVisitor(data, dataVisitor)
+    let data
+    if (type == 'events') {
+      data = (await fetchMatomoData(matomoUrlEvents, options))
+        .filter((elt) => ['Oui', 'Non', 'En partie'].includes(elt.label))
+        .reduce((acc, curr) => {
+          acc[curr.label.toLowerCase()] = curr.sum_daily_nb_uniq_visitors
+          return acc
+        }, {})
+      const total = Object.values(data).reduce((acc, curr) => {
+        return acc + curr
+      }, 0)
+      data.oui = Math.round((data.oui / total) * 100)
+      data['en partie'] = Math.round((data['en partie'] / total) * 100)
+      // Pour être sûr d'être à 100% et pas 99% avec les arrondis
+      data.non = 100 - (data.oui + data['en partie'])
+    } else if (type == 'visitors') {
+      const dataFunnel = await fetchMatomoData(matomoUrlFunnel, options)
+      const dataVisitor = await fetchMatomoData(matomoUrlVisitor, options)
+      data = mergeData(dataFunnel, dataVisitor)
 
-    // On enlève la semaine en cours pour ne pas avoir de données partielles qui dénature le graph
-    const lastWeek = Object.keys(mergedData).pop()
-    delete mergedData[lastWeek]
+      // On enlève la semaine en cours pour ne pas avoir de données partielles qui dénature le graph
+      const lastWeek = Object.keys(data).pop()
+      delete data[lastWeek]
+    }
 
-    return new Response(JSON.stringify(mergedData), {
+    return new Response(JSON.stringify(data), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     })
@@ -50,7 +72,7 @@ async function fetchMatomoData(url, options) {
   }
   return response.json()
 }
-function mergeDataFunnelAndVisitor(data, dataVisitor) {
+function mergeData(data, dataVisitor) {
   const merged = {}
 
   Object.entries(data).forEach(([funnelDateRange, funnelData]) => {
