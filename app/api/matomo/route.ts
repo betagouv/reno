@@ -48,6 +48,11 @@ export async function GET(request: Request) {
       // On enlève la semaine en cours pour ne pas avoir de données partielles qui dénature le graph
       const lastWeek = Object.keys(data).pop()
       delete data[lastWeek]
+    } else if (type == 'lastMonth') {
+      data = await fetchMatomoData(
+        matomoUrlFunnel + '&period=day&date=last30',
+        options,
+      )
     }
 
     return new Response(JSON.stringify(data), {
