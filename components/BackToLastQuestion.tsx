@@ -9,7 +9,11 @@ import simulationConfig from '@/app/simulation/simulationConfig.yaml'
 
 const questions = simulationConfig.prioritaires
 
-export default function ({ setSearchParams, situation, answeredQuestions }) {
+export default function BackToLastQuestion({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+}) {
   const [url, setUrl] = useState(null)
 
   useEffect(() => {
