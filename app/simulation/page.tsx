@@ -1,5 +1,4 @@
 import rules from '@/app/règles/rules'
-import { Main, PageBlock } from '@/components/UI'
 import Form from './Form'
 
 const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
