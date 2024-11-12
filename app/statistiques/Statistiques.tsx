@@ -16,7 +16,10 @@ import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
 import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
 import logoTf1Info from '@/public/logo-partenaire/logo-tf1-info.svg'
 import logoActualImmo from '@/public/logo-partenaire/logo-actual-immo.png'
+import logoMoneyVox from '@/public/logo-partenaire/logo-moneyvox.webp'
+import logoJDN from '@/public/logo-partenaire/logo-jdn.png'
 import logoOuestFranceImmo from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
+import logoLeProgres from '@/public/logo-partenaire/logo-le-progres.svg'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -262,9 +265,9 @@ export default function Statistiques() {
           >
             <StatCard
               label="intégrations du simulateur<br /> mes aides réno"
-              value={8}
+              value={12}
             />
-            <StatCard label="mentions par des médias<br />&nbsp;" value={10} />
+            <StatCard label="mentions par des médias<br />&nbsp;" value="30+" />
           </div>
           <div>
             <h5
@@ -339,6 +342,14 @@ export default function Statistiques() {
               </SwiperSlide>
               <SwiperSlide>
                 <Link
+                  href="https://www.moneyvox.fr/immobilier/actualites/99663/renovation-energetique-ce-simulateur-officiel-gratuit-revele-les-aides-que-vous-ignorez"
+                  target="_blank"
+                >
+                  <Image src={logoMoneyVox} alt="Logo Money Vox" />
+                </Link>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Link
                   href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
                   target="_blank"
                 >
@@ -351,6 +362,22 @@ export default function Statistiques() {
                   target="_blank"
                 >
                   <Image src={logoTf1Info} alt="Logo TF1 Info" />
+                </Link>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Link
+                  href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
+                  target="_blank"
+                >
+                  <Image src={logoLeProgres} alt="Logo Le Progrès" />
+                </Link>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Link
+                  href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
+                  target="_blank"
+                >
+                  <Image src={logoJDN} alt="Logo Journal du net" />
                 </Link>
               </SwiperSlide>
             </Swiper>
