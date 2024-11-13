@@ -1,41 +1,16 @@
+import dpeValues from '@/components/DPE.yaml'
 import Value from '@/components/Value'
 import { motion } from 'framer-motion'
-import DPELabel from '../DPELabel'
-import Input from '../Input'
-import { Card } from '../UI'
-import { encodeSituation } from '../publicodes/situationUtils'
-import { Key } from '../explications/ExplicationUI'
-import rules from '@/app/règles/rules'
 import DPEQuickSwitch from '../DPEQuickSwitch'
-import dpeValues from '@/components/DPE.yaml'
+import { Card } from '../UI'
 
-export default function CEEAmpleurScenario({
-  engine,
-  situation,
-  setSearchParams,
-  answeredQuestions,
-}) {
+export default function CEEAmpleurScenario({ engine, situation }) {
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
-  const rule = rules["CEE . rénovation d'ampleur"]
-
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
-
-  const doSetSearchParams = (question, value) => {
-    const newSituation = encodeSituation(
-      {
-        ...situation,
-        [question]: value,
-      },
-      false,
-      answeredQuestions,
-    )
-    console.log('girafe', newSituation)
-    setSearchParams(newSituation, 'push')
-  }
 
   return (
     <motion.div
