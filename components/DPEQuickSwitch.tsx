@@ -11,7 +11,7 @@ import { getAmpleurDPEChoice } from './ScenariosSelector'
 export const originKey = 'DPE . actuel',
   targetKey = 'projet . DPE visé'
 
-export default function ({
+export default function DPEQuickSwitch({
   oldIndex,
   prefixText,
   prefixDPE = true,

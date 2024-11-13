@@ -1,12 +1,6 @@
-import calculatorIcon from '@/public/calculator-empty.svg'
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
-import Image from 'next/image'
-import Value from '../Value'
-import DPESelector from '../DPESelector'
 import checkIcon from '@/public/check.svg'
-import TargetDPETabs from '../mpra/TargetDPETabs'
 import CEEAmpleurScenario from '../cee/CEEAmpleurScenario'
+import AideAmpleur from './AideAmpleur'
 
 export default function CEEAmpleur({
   rules,
