@@ -6,7 +6,7 @@ import { Card, Section } from '../UI'
 import Value from '../Value'
 import checkIcon from '@/public/check.svg'
 
-export default function MaPrimeAdaptOccupant({
+export default function MaPrimeAdaptCopro({
   engine,
   situation,
   setSearchParams,
@@ -14,8 +14,7 @@ export default function MaPrimeAdaptOccupant({
   rules,
   expanded,
 }) {
-  const dottedName = 'mpa . occupant'
-
+  const dottedName = 'mpa . copropriété'
   const exampleSituation = createExampleSituation(engine, situation, false)
   const extremeSituation = createExampleSituation(engine, situation, true)
 
@@ -27,25 +26,16 @@ export default function MaPrimeAdaptOccupant({
           dottedName,
           setSearchParams,
           situation,
-          answeredQuestions,
           exampleSituation,
           extremeSituation,
+          answeredQuestions,
           expanded,
         }}
       >
         <h3>Comment est calculée l'aide ?</h3>
         <Card $background="#f7f8f8">
           <p>
-            En tant que ménage{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: 'ménage . revenu . classe',
-                state: 'prime-black',
-              }}
-            />{' '}
-            vous bénéficiez d'une aide de{' '}
+            En tant que syndicat de copropriété vous bénéficiez d'une aide de{' '}
             <Value
               {...{
                 engine,
@@ -54,12 +44,12 @@ export default function MaPrimeAdaptOccupant({
                 state: 'prime-black',
               }}
             />{' '}
-            plafonnée à{' '}
+            avec un plafond de dépenses subventionnables de{' '}
             <Value
               {...{
                 engine,
                 situation,
-                dottedName: dottedName + ' . plafond',
+                dottedName: dottedName + ' . montant travaux . plafond',
                 state: 'prime-black',
               }}
             />

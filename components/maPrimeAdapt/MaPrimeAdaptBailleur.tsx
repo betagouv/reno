@@ -15,9 +15,6 @@ export default function MaPrimeAdaptBailleur({
   expanded,
 }) {
   const dottedName = 'mpa . bailleur'
-  console.log(
-    engine.setSituation(situation).evaluate('mpa . bailleur . montant'),
-  )
   const exampleSituation = createExampleSituation(engine, situation, false)
   const extremeSituation = createExampleSituation(engine, situation, true)
 

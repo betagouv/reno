@@ -9,6 +9,7 @@ mpa . montant:
   somme:
   - occupant . montant
   - bailleur . montant
+  - copropriété . montant
 mpa . situation demandeur:
   question: Quelle est votre situation ?
   description: |
@@ -17,7 +18,7 @@ mpa . situation demandeur:
     possibilités:
       - 'occupant'
       - 'bailleur'
-      - 'syndicat de copropriété'
+      - 'copropriété'
   par défaut: "'occupant'"
 mpa . situation demandeur . occupant:
   valeur: "'occupant'"
@@ -25,7 +26,7 @@ mpa . situation demandeur . occupant:
 mpa . situation demandeur . bailleur: 
   valeur: "'bailleur'"
   titre: Propriétaire d'un logement que vous louez ou que vous souhaitez mettre en location
-mpa . situation demandeur . syndicat de copropriété: 
+mpa . situation demandeur . copropriété: 
   valeur: "'copropriété'"
   titre: Syndicat de copropriété
 
@@ -146,3 +147,29 @@ mpa . bailleur . montant . plafond:
     - 750 €
   unité: €
 mpa . bailleur . pourcentage d'aide: 35 %
+
+
+mpa . copropriété:
+  titre: MaPrime Adapt' pour les syndicats de copropriété 
+  marque: MaPrime Adapt'
+  type: remboursement
+  description: |
+    MaPrimeAdapt' subventionne les travaux améliorant l'accessibilité de l'immeuble et portant sur les parties communes et équipements communs des copropriétés. Tous les travaux concourant à l'accessibilité des parties communes sont recevables.
+  conditions éligibilités: |
+    - Les travaux doivent être votés en assemblée générale et payés par l’ensemble des copropriétaires en fonction de leur quote-part.
+    - La demande d’aide doit être déposée par le syndicat des copropriétaires.
+  lien: https://france-renov.gouv.fr/aides/maprimeadapt
+mpa . copropriété . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'copropriété'
+mpa . copropriété . montant:
+  applicable si: condition éligibilité
+  produit:
+    - montant travaux
+    - pourcentage d'aide
+  plafond: plafond
+  unité: €
+mpa . copropriété . montant . plafond: 10000 €
+mpa . copropriété . montant travaux: montant travaux
+mpa . copropriété . montant travaux . plafond: 20000 €
+mpa . copropriété . pourcentage d'aide: 50 %

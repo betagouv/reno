@@ -33,6 +33,8 @@ import PAR from './ampleur/PAR'
 import TaxeFoncière from './ampleur/TaxeFoncière'
 import MaPrimeAdaptOccupant from './maPrimeAdapt/MaPrimeAdaptOccupant'
 import MaPrimeAdaptBailleur from './maPrimeAdapt/MaPrimeAdaptBailleur'
+import MaPrimeAdaptCopro from './maPrimeAdapt/MaPrimeAdaptCopropriété'
+import MaPrimeAdaptCopropriété from './maPrimeAdapt/MaPrimeAdaptCopropriété'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -56,6 +58,7 @@ export default function InputSwitch({
     "CEE . rénovation d'ampleur": CEEAmpleur,
     'mpa . occupant': MaPrimeAdaptOccupant,
     'mpa . bailleur': MaPrimeAdaptBailleur,
+    'mpa . copropriété': MaPrimeAdaptCopropriété,
   }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
@@ -372,7 +375,9 @@ export default function InputSwitch({
     const dottedName =
       situation['mpa . situation demandeur'] == '"bailleur"'
         ? 'mpa . bailleur'
-        : 'mpa . occupant'
+        : situation['mpa . situation demandeur'] == '"occupant"'
+          ? 'mpa . occupant'
+          : 'mpa . copropriété'
     const AideComponent = correspondance[dottedName]
     return (
       <AideComponent
