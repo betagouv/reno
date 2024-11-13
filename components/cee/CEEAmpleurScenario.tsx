@@ -12,6 +12,8 @@ export default function CEEAmpleurScenario({ engine, situation }) {
 
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
+  const targetSituation = { ...situation, 'projet . DPE visé': choice + 1 }
+
   return (
     <motion.div
       initial={{ x: -30, scale: 1 }}
@@ -67,8 +69,7 @@ export default function CEEAmpleurScenario({ engine, situation }) {
         <Value
           {...{
             engine,
-            index: choice,
-            situation,
+            situation: targetSituation,
             dottedName: "CEE . rénovation d'ampleur . montant",
             state: 'prime',
           }}
