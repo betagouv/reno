@@ -273,7 +273,11 @@ export default function Statistiques() {
             />
             <StatCard label="mentions par des médias<br />&nbsp;" value="30+" />
           </div>
-          <div>
+          <div
+            css={`
+              margin-top: 1rem;
+            `}
+          >
             <Swiper
               modules={[Navigation]}
               navigation
