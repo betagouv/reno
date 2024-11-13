@@ -205,8 +205,8 @@ export default function Statistiques() {
         <Content>
           <h2>Statistiques</h2>
           <p>
-            Notre mission: Simplifier l'accès à l'information sur les aides à la
-            rénovation énergétique pour augmenter le nombre de personnes qui
+            Notre mission : simplifier l'accès à l'information sur les aides à
+            la rénovation énergétique pour augmenter le nombre de personnes qui
             engagent des travaux de rénovation.
           </p>
           <p>
@@ -222,7 +222,7 @@ export default function Statistiques() {
             <li>Rediriger vers des agents conseillers,</li>
             <li>Tout en nous assurant de la satisfaction de nos usagers.</li>
           </ol>
-          <h3>Exposer les informations d'aides à la rénovation énergétique</h3>
+
           <h4>Visibilité et engagement du simulateur Mes Aides Réno</h4>
           <p>Sur les 30 derniers jours : </p>
           <div
@@ -239,7 +239,7 @@ export default function Statistiques() {
               target="pour une cible à <strong>100 000</strong>"
             />
             <StatCard
-              label="taux de transformation"
+              label="taux de conversion<br />vers France Rénov'"
               value={`${Math.round(data.transfoRateFranceRenov)}%`}
               target="pour une cible à <strong>10%</strong>"
             />
@@ -255,6 +255,10 @@ export default function Statistiques() {
           </h4>
           {data.weeklyData && <Line data={chartData} options={options} />}
           <h4>Intégrations partenaires</h4>
+          <p>
+            MesAidesRéno a été conçu pour être distribué sur le parcours des
+            usagers.
+          </p>
           <div
             css={`
               display: flex;
@@ -270,13 +274,6 @@ export default function Statistiques() {
             <StatCard label="mentions par des médias<br />&nbsp;" value="30+" />
           </div>
           <div>
-            <h5
-              css={`
-                margin: 1rem 0;
-              `}
-            >
-              Parmi eux
-            </h5>
             <Swiper
               modules={[Navigation]}
               navigation
