@@ -31,6 +31,8 @@ import EcoPTZ from './ampleur/EcoPTZ'
 import MPRA from './ampleur/MPRA'
 import PAR from './ampleur/PAR'
 import TaxeFoncière from './ampleur/TaxeFoncière'
+import MaPrimeAdaptOccupant from './maPrimeAdapt/MaPrimeAdaptOccupant'
+import MaPrimeAdaptBailleur from './maPrimeAdapt/MaPrimeAdaptBailleur'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -52,6 +54,8 @@ export default function InputSwitch({
     'taxe foncière': TaxeFoncière,
     denormandie: Denormandie,
     "CEE . rénovation d'ampleur": CEEAmpleur,
+    'mpa . occupant': MaPrimeAdaptOccupant,
+    'mpa . bailleur': MaPrimeAdaptBailleur,
   }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)

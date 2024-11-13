@@ -1,0 +1,7 @@
+prioritaires:
+  - mpa . situation demandeur
+  - logement . période de construction
+  - ménage . personnes
+  - ménage . commune
+  - ménage . revenu
+  - logement . surface

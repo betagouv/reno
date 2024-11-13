@@ -17,6 +17,7 @@ import denormandie from '@/app/règles/denormandie.yaml'
 import taxeFoncière from '@/app/règles/taxe-foncière.yaml'
 import aidesLocales from '@/app/règles/aides-locales.publicodes'
 import copropriete from '@/app/règles/copropriete.publicodes'
+import mpa from '@/app/règles/ma-prime-adapt.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -53,6 +54,7 @@ const rules = {
   ...PTZ,
   ...PAR,
   ...copropriete,
+  ...mpa,
 }
 
 const rulesWithMarkdown = Object.fromEntries(
