@@ -1,0 +1,80 @@
+locavantage:
+  titre: Loc'Avantages
+  marque: Loc'Avantages
+  type: exonération fiscale
+  description: |
+    Loc'Avantages (ex-Louer abordable) est un dispositif qui vise à encourager les propriétaires bailleurs à produire du logement abordable pour les ménages modestes, grâce à une réduction d'impôt importante (et optionnellement, une aide financière aux travaux).
+  conditions éligibilités: |
+    - Louer un bien non meublé pour une durée minimale de 6 ans ;
+    - Louer, en tant que résidence principale, à un locataire ayant des ressources inférieures à des plafonds fixés par l'État ;
+    - Le locataire ne doit pas être un membre de votre famille ;
+    - Ne pas louer une passoire thermique, soit tout logement classé en étiquette F et G ;
+    - Il est possible de louer plusieurs logements via Loc'Avantages (une convention est obligatoire pour chaque logement). La réduction d'impôt suit les mêmes règles que les autres réductions d'impôt en faveur de l'investissement locatif : elle peut aller jusqu'à 10 000 € par an au plus.
+    - Loc'Avantages n'est pas cumulable pour un même logement avec d'autres dispositifs en faveur de l'investissement locatif tels que le « Pinel », le « Denormandie dans l'ancien » ou le « Louer abordable » (abattement forfaitaire sur les revenus fonciers) ;
+  lien: https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location
+locavantage . montant:
+  applicable si: condition éligibilité
+  formule: niveau loyer * loyer
+locavantage . condition éligibilité:
+  toutes ces conditions:
+    - mpa . situation demandeur = 'bailleur'
+locavantage . loyer: 500€
+locavantage . intermédiation locative:
+  par défaut: oui
+locavantage . niveau loyer:
+  une possibilité parmi:
+    possibilités:
+      - 'loc 1'
+      - 'loc 2'
+      - 'loc 3'
+  par défaut: "'loc 1'"
+locavantage . niveau loyer . loc 1:
+  titre: Loc 1
+  plafond loyer: 15 %
+locavantage . niveau loyer . loc 2:
+  titre: Loc 2
+  plafond loyer: 30 %
+locavantage . niveau loyer . loc 3:
+  titre: Loc 3
+  plafond loyer: 45 %
+
+locavantage . taux:
+  variations:
+    - si: niveau loyer = 'loc 1'
+      alors:
+        variations:
+          - si: intermédiation locative
+            alors: 20 %
+          - sinon: 15 %
+    - si: niveau loyer = 'loc 2'
+      alors:
+        variations:
+          - si: intermédiation locative
+            alors: 40 %
+          - sinon: 35 %
+    - si: niveau loyer = 'loc 3'
+      alors:
+        variations:
+          - si: intermédiation locative
+            alors: 65 %
+          - sinon: 0
+
+locavantage . prime location:
+  applicable si:
+    toutes ces conditions:
+      - intermédiation locative
+      - une de ces conditions:
+          - niveau loyer = 'loc 2'
+          - niveau loyer = 'loc 3'
+  valeur: 1000 €
+locavantage . prime mandat gestion:
+  applicable si:
+    toutes ces conditions:
+      - intermédiation locative
+      - une de ces conditions:
+          - niveau loyer = 'loc 2'
+          - niveau loyer = 'loc 3'
+  valeur: 2000 €
+locavantage . prime petite surface:
+  applicable si: logement . surface < 40
+  valeur: 1000 €

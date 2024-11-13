@@ -33,8 +33,8 @@ import PAR from './ampleur/PAR'
 import TaxeFoncière from './ampleur/TaxeFoncière'
 import MaPrimeAdaptOccupant from './maPrimeAdapt/MaPrimeAdaptOccupant'
 import MaPrimeAdaptBailleur from './maPrimeAdapt/MaPrimeAdaptBailleur'
-import MaPrimeAdaptCopro from './maPrimeAdapt/MaPrimeAdaptCopropriété'
 import MaPrimeAdaptCopropriété from './maPrimeAdapt/MaPrimeAdaptCopropriété'
+import LocAvantage from './LocAvantage'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -59,6 +59,7 @@ export default function InputSwitch({
     'mpa . occupant': MaPrimeAdaptOccupant,
     'mpa . bailleur': MaPrimeAdaptBailleur,
     'mpa . copropriété': MaPrimeAdaptCopropriété,
+    locavantage: LocAvantage,
   }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
@@ -380,18 +381,34 @@ export default function InputSwitch({
           : 'mpa . copropriété'
     const AideComponent = correspondance[dottedName]
     return (
-      <AideComponent
-        {...{
-          dottedName,
-          setSearchParams,
-          answeredQuestions,
-          engine,
-          situation,
-          searchParams,
-          rules,
-          expanded: false,
-        }}
-      />
+      <>
+        <AideComponent
+          {...{
+            dottedName,
+            setSearchParams,
+            answeredQuestions,
+            engine,
+            situation,
+            searchParams,
+            rules,
+            expanded: false,
+          }}
+        />
+        {situation['mpa . situation demandeur'] == '"bailleur"' && (
+          <LocAvantage
+            {...{
+              dottedName: 'locavantage',
+              setSearchParams,
+              answeredQuestions,
+              engine,
+              situation,
+              searchParams,
+              rules,
+              expanded: false,
+            }}
+          />
+        )}
+      </>
     )
   }
 

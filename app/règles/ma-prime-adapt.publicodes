@@ -96,8 +96,8 @@ mpa . occupant . montant:
   produit:
     - montant travaux
     - pourcentage d'aide
-  plafond: plafond
   unité: €
+  plafond: 15400€
 mpa . occupant . pourcentage d'aide:
   unité: '%'
   variations:
@@ -106,7 +106,8 @@ mpa . occupant . pourcentage d'aide:
     - si: ménage . revenu . classe = 'modeste'
       alors: 50 %
     - sinon: 0 %
-mpa . occupant . plafond: 22000
+mpa . occupant . montant travaux: montant travaux
+mpa . occupant . montant travaux . plafond: 22000 €
 
 mpa . bailleur:
   titre: MaPrime Adapt' pour les propriétaires bailleurs 

@@ -57,7 +57,7 @@ export default function MaPrimeAdaptBailleur({
                 state: 'prime-black',
               }}
             />{' '}
-            (750€/m²
+            par logement (750€/m²{' '}
             {situation['logement . surface'] > 80 ? (
               ' limité à 80m²'
             ) : (

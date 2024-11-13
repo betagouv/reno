@@ -54,12 +54,12 @@ export default function MaPrimeAdaptOccupant({
                 state: 'prime-black',
               }}
             />{' '}
-            plafonnée à{' '}
+            dans la limite d'un plafond de travaux subventionnables de{' '}
             <Value
               {...{
                 engine,
                 situation,
-                dottedName: dottedName + ' . plafond',
+                dottedName: dottedName + ' . montant travaux . plafond',
                 state: 'prime-black',
               }}
             />
@@ -95,7 +95,7 @@ export default function MaPrimeAdaptOccupant({
               />
               €{' '}
               <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                HT.
+                HT
               </span>
             </label>
             , je peux bénéficier de{' '}
