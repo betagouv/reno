@@ -97,7 +97,10 @@ mpa . occupant . montant:
     - montant travaux
     - pourcentage d'aide
   unité: €
-  plafond: 15400€
+  plafond:
+    produit:
+      - pourcentage d'aide
+      - montant travaux . plafond
 mpa . occupant . pourcentage d'aide:
   unité: '%'
   variations:

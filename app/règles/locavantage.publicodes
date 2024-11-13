@@ -57,7 +57,7 @@ locavantage . taux:
         variations:
           - si: intermédiation locative
             alors: 65 %
-          - sinon: 0
+          - sinon: 0 %
 
 locavantage . prime location:
   applicable si:

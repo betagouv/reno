@@ -17,7 +17,6 @@ export default function MaPrimeAdaptOccupant({
   const dottedName = 'mpa . occupant'
 
   const exampleSituation = createExampleSituation(engine, situation, false)
-  const extremeSituation = createExampleSituation(engine, situation, true)
 
   return (
     <Section>
@@ -29,7 +28,6 @@ export default function MaPrimeAdaptOccupant({
           situation,
           answeredQuestions,
           exampleSituation,
-          extremeSituation,
           expanded,
         }}
       >

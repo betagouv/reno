@@ -21,16 +21,16 @@ export default function LocAvantage({
 
   const exampleSituation = createExampleSituation(engine, situation, false)
   const extremeSituation = createExampleSituation(engine, situation, true)
-  const primeLocation = engine
-    .setSituation(situation)
-    .evaluate('locavantage . prime location')
-  const primeGestion = engine
-    .setSituation(situation)
-    .evaluate('locavantage . prime mandat gestion')
-  const primeSurface = engine
-    .setSituation(situation)
-    .evaluate('locavantage . prime petite surface')
-  console.log('primeSurface', primeSurface)
+  const engineSituation = engine.setSituation(situation)
+  const primeLocation = engineSituation.evaluate(
+    dottedName + ' . prime location',
+  )
+  const primeGestion = engineSituation.evaluate(
+    dottedName + ' . prime mandat gestion',
+  )
+  const primeSurface = engineSituation.evaluate(
+    dottedName + ' . prime petite surface',
+  )
   return (
     <Section>
       <AideAmpleur

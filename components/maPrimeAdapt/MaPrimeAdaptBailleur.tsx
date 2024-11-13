@@ -16,7 +16,6 @@ export default function MaPrimeAdaptBailleur({
 }) {
   const dottedName = 'mpa . bailleur'
   const exampleSituation = createExampleSituation(engine, situation, false)
-  const extremeSituation = createExampleSituation(engine, situation, true)
 
   return (
     <Section>
@@ -27,7 +26,6 @@ export default function MaPrimeAdaptBailleur({
           setSearchParams,
           situation,
           exampleSituation,
-          extremeSituation,
           answeredQuestions,
           expanded,
         }}
