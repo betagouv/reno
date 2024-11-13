@@ -815,9 +815,15 @@ MPR . accompagnée . prise en charge MAR:
   aide parente: MPR . accompagnée
   type: remboursement
   lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
+
 MPR . accompagnée . prise en charge MAR . montant:
+  formule: base plafonnée * pourcent
+  note: |
+    Le guide de l'ANAH à date du 13 novembre 2024 adopte une description ambigue du plafonnement de cette aide. Or d'après nos informations, le plafonnement s'applique bien à l'assiette, pas au résultat du calcul de la subvention.
+
+MPR . accompagnée . prise en charge MAR . base plafonnée:
   formule:
-    valeur: prix moyen * pourcent
+    valeur: prix moyen
     plafond: plafond
 MPR . accompagnée . prise en charge MAR . plafond:
   description: |
