@@ -1,7 +1,7 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import { Section } from '@/components/UI'
+import { CTA, CTAWrapper, Section } from '@/components/UI'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
@@ -16,7 +16,9 @@ import simulationConfigAdapt from './simulationConfigAdapt.yaml'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe from '@/components/useIsInIframe'
-import LogoCompact from '@/components/LogoCompact'
+import { No } from '@/components/ResultUI'
+import { CustomQuestionWrapper } from '@/components/CustomQuestionUI'
+import Link from 'next/link'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
@@ -60,6 +62,37 @@ function Form({ rules }) {
 
   return (
     <>
+      {
+        // Hack pour MPA: il est préférable de gérer l'inéligibilité autrement
+        target == 'mpa . montant' && !rule && (
+          <CustomQuestionWrapper>
+            <CTAWrapper
+              $justify="start"
+              css={`
+                margin-top: 0;
+              `}
+            >
+              <CTA
+                $fontSize="normal"
+                $importance="emptyBackground"
+                css={`
+                  a {
+                    padding: 0.5rem 0.8rem;
+                  }
+                `}
+              >
+                <span onClick={() => history.back()}>⬅ Retour</span>
+              </CTA>
+            </CTAWrapper>
+            <header>
+              <small>Eligibilité</small>
+            </header>
+            <p>
+              Vous n'êtes <No>pas éligible</No> au dispositif MaPrimeAdapt'.
+            </p>
+          </CustomQuestionWrapper>
+        )
+      }
       {rule && (
         <InputSwitch
           {...{
