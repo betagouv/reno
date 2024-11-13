@@ -64,6 +64,7 @@ export default function CEEAmpleurScenario({ engine, situation }) {
               : possibilities.length - 1
           }
           situation={situation}
+          validateTargetKey={false}
         />
         , vous bénéficiez d'une prime estimée de{' '}
         <Value
