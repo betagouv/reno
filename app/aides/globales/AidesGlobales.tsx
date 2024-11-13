@@ -59,7 +59,9 @@ export default function AidesGlobales() {
           </div>
         </ChoixParcours>
         <ChoixParcours
-          onClick={() => (window.location.href = '/simulation/ma-prime-adapt')}
+          onClick={() =>
+            (window.location.href = '/simulation?objectif=mpa.montant')
+          }
         >
           <h3>
             <input type="radio" name="parcours" />

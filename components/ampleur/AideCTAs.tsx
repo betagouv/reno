@@ -22,20 +22,14 @@ export default function AideCTAs({
 }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+  const { objectif, ...situationSearchParams } = searchParams
 
   const detailUrl = setSearchParams(
-    {
-      ...encodeSituation(
-        {
-          ...getSituation(searchParams, rules),
-          ['details']: encodeDottedName(dottedName),
-        },
-        false,
-        answeredQuestions,
-      ),
-    },
+    encodeSituation({
+      ['details']: encodeDottedName(dottedName),
+    }),
     'url',
-    true,
+    false,
   )
 
   const backUrl =
@@ -47,6 +41,7 @@ export default function AideCTAs({
           false,
           answeredQuestions,
         ),
+        ['objectif']: objectif,
       },
       'url',
       true,

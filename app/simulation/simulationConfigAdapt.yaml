@@ -1,5 +1,8 @@
 prioritaires:
   - mpa . situation demandeur
+  - mpa . bailleur . condition locataire
+  - mpa . occupant . condition age ou handicap
+  - mpa . occupant . condition 15 ans
   - logement . période de construction
   - ménage . personnes
   - ménage . commune

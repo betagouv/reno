@@ -1,6 +1,8 @@
-import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
+import index from '@/app/règles/index.yaml'
+import revenus from '@/app/règles/revenus.yaml'
+import mpa from '@/app/règles/ma-prime-adapt.publicodes'
 import { Metadata } from 'next'
-import { Suspense } from 'react'
+import Form from '../Form'
 
 const description = `Calculez les aides Ma Prime Adapt pour la rénovation de votre logement.`
 
@@ -14,8 +16,12 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <Suspense>
-      <MaPrimeAdapt />
-    </Suspense>
+    <Form
+      rules={{
+        ...index,
+        ...revenus,
+        ...mpa,
+      }}
+    />
   )
 }

@@ -25,10 +25,12 @@ export const createExampleSituation = (engine, situation, extreme = false) => {
       engine.evaluate('projet . enveloppe estimée').nodeValue,
       5,
     ),
+    'mpa . montant travaux': 30000,
     ...situation,
     ...(extreme
       ? {
           'projet . travaux': 999999,
+          'mpa . montant travaux': 999999,
           'projet . DPE visé': 1,
           'denormandie . années de location': 12,
         }

@@ -12,6 +12,7 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
 import simulationConfig from './simulationConfig.yaml'
+import simulationConfigAdapt from './simulationConfigAdapt.yaml'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe from '@/components/useIsInIframe'
@@ -26,14 +27,18 @@ function Form({ rules }) {
   const { objectif, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
+  const config =
+    target == 'mpa . montant'
+      ? simulationConfigAdapt.situation || {}
+      : simulationConfig.situation || {}
 
   const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
-    ...Object.keys(simulationConfig.situation || {}),
+    ...Object.keys(config),
     ...getAnsweredQuestions(situationSearchParams, rules),
   ]
   const situation = {
-    ...(simulationConfig.situation || {}),
+    ...config,
     ...getSituation(situationSearchParams, rules),
   }
 
@@ -45,13 +50,12 @@ function Form({ rules }) {
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
-      simulationConfig,
+      target == 'mpa . montant' ? simulationConfigAdapt : simulationConfig,
       rules,
     )
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
-
   const setSearchParams = useSetSearchParams()
 
   return (

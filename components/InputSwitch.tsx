@@ -367,6 +367,29 @@ export default function InputSwitch({
     )
   }
 
+  // TODO: remove this Hack for MPA
+  if (currentQuestion === 'mpa . montant travaux') {
+    const dottedName =
+      situation['mpa . situation demandeur'] == '"bailleur"'
+        ? 'mpa . bailleur'
+        : 'mpa . occupant'
+    const AideComponent = correspondance[dottedName]
+    return (
+      <AideComponent
+        {...{
+          dottedName,
+          setSearchParams,
+          answeredQuestions,
+          engine,
+          situation,
+          searchParams,
+          rules,
+          expanded: false,
+        }}
+      />
+    )
+  }
+
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
       <AidesAmpleur
