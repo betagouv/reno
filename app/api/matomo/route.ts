@@ -50,9 +50,12 @@ export async function GET(request: Request) {
       delete data[lastWeek]
     } else if (type == 'lastMonth') {
       data = await fetchMatomoData(
-        matomoUrlFunnel + '&period=day&date=last30',
+        matomoUrlFunnel + '&period=day&date=last31',
         options,
       )
+      let today = new Date()
+
+      delete data[today.toISOString().split('T')[0]]
     }
 
     return new Response(JSON.stringify(data), {
