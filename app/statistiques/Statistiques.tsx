@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+import annotationPlugin from 'chartjs-plugin-annotation'
 import 'chartjs-adapter-date-fns'
 import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
 import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
@@ -36,6 +37,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
+  annotationPlugin,
 )
 
 const formatter = new Intl.NumberFormat('fr-FR', {})
@@ -134,7 +136,33 @@ export default function Statistiques() {
   const options = useMemo(
     () => ({
       responsive: true,
-      plugins: { legend: { position: 'bottom' } },
+      plugins: {
+        legend: { position: 'bottom' },
+        annotation: {
+          annotations: {
+            objectifLine: {
+              type: 'line',
+              yMin: 25000,
+              yMax: 25000,
+              borderColor: 'red',
+              borderWidth: 2,
+              label: {
+                display: true,
+                content: 'Objectif de simulations par semaine : 25 000',
+                enabled: true,
+                position: 'end',
+                color: 'white',
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                font: {
+                  size: 14,
+                },
+                padding: { top: 5, bottom: 5, left: 5, right: 5 },
+                yAdjust: -20,
+              },
+            },
+          },
+        },
+      },
       scales: {
         x: {
           type: 'time',
@@ -145,7 +173,7 @@ export default function Statistiques() {
           },
         },
         y: {
-          max: 25000,
+          max: 35000,
           beginAtZero: true,
           title: { display: true, text: 'Nombre de simulation' },
         },
@@ -154,7 +182,7 @@ export default function Statistiques() {
     [],
   )
 
-  const StatCard = ({ label, value, target }) => (
+  const StatCard = ({ label, value, target, type = 'none' }) => (
     <div
       css={`
         padding: 1rem;
@@ -166,6 +194,7 @@ export default function Statistiques() {
           display: block;
           font-size: 2rem;
           padding: 1rem;
+          color: #000091;
         }
         span {
           font-size: 0.9rem;
@@ -178,18 +207,30 @@ export default function Statistiques() {
           __html: label,
         }}
       />
-      <div
-        css={`
-          text-align: left;
-          margin-top: 1rem;
-        `}
-      >
-        <small
-          dangerouslySetInnerHTML={{
-            __html: target,
-          }}
-        />
-      </div>
+      {target && (
+        <div
+          css={`
+            width: fit-content;
+            border-radius: 1rem;
+            padding: 0.2rem 0.5rem;
+            margin: auto;
+            font-weight: bold;
+            margin-top: 1rem;
+            ${type == 'success' &&
+            `
+              background: #DCFFDC;
+              color: #1A4F23;
+            `}
+            ${type == 'warning' &&
+            `
+              background: #FDF8DB;
+              color: #6E4444;
+            `}
+          `}
+        >
+          🎯cible: {target}
+        </div>
+      )}
     </div>
   )
 
@@ -202,29 +243,28 @@ export default function Statistiques() {
       `}
     >
       <Wrapper $background="white" $noMargin={true}>
-        <Content>
+        <Content
+          css={`
+            h3 {
+              font-size: 1.1rem;
+            }
+          `}
+        >
           <h2>Statistiques</h2>
           <p>
-            Notre mission: Simplifier l'accès à l'information sur les aides à la
-            rénovation énergétique pour augmenter le nombre de personnes qui
-            engagent des travaux de rénovation.
+            <strong>Notre mission</strong> : simplifier l'accès à l'information
+            sur les aides à la rénovation énergétique pour augmenter le nombre
+            de personnes qui engagent des travaux de rénovation.
           </p>
-          <p>
-            Nous mesurons les données qui visent à répondre à trois grands
-            objectifs :
-          </p>
-          <ol
+          <h3>Données d'interaction avec le simulateur</h3>
+          <p
             css={`
-              color: #333;
+              color: #0974f6 !important;
+              font-weight: bold;
             `}
           >
-            <li>Rendre accessible et lisible les informations aux usagers,</li>
-            <li>Rediriger vers des agents conseillers,</li>
-            <li>Tout en nous assurant de la satisfaction de nos usagers.</li>
-          </ol>
-          <h3>Exposer les informations d'aides à la rénovation énergétique</h3>
-          <h4>Visibilité et engagement du simulateur Mes Aides Réno</h4>
-          <p>Sur les 30 derniers jours : </p>
+            Sur les 30 derniers jours :{' '}
+          </p>
           <div
             css={`
               display: flex;
@@ -236,12 +276,14 @@ export default function Statistiques() {
             <StatCard
               label="simulations terminées"
               value={formatter.format(data.nbSimuEndedMonth)}
-              target="pour une cible à <strong>100 000</strong>"
+              type="warning"
+              target="100 000"
             />
             <StatCard
-              label="taux de transformation"
+              label="taux de conversion*"
               value={`${Math.round(data.transfoRateFranceRenov)}%`}
-              target="pour une cible à <strong>10%</strong>"
+              target="10%"
+              type="success"
             />
             <StatCard
               label="durée moyenne<br />
@@ -249,12 +291,32 @@ export default function Statistiques() {
               value={data.avgTimeOnSite}
             />
           </div>
-          <h4>
-            Evolution hebdomadaire du nombre de visiteurs uniques et simulations
-            terminées
-          </h4>
+          <p
+            css={`
+              font-style: italic;
+              margin-top: 1rem;
+            `}
+          >
+            *taux de conversion : pourcentage de simulations pendant lesquelles
+            l'usager clique sur le bouton "Trouver mon conseiller local" par
+            rapport aux simulations terminées.
+          </p>
+          <h3>
+            Evolution des visiteurs uniques et simulations terminées
+            (hebdomadaire)
+          </h3>
           {data.weeklyData && <Line data={chartData} options={options} />}
-          <h4>Intégrations partenaires</h4>
+          <h3>Intégration du simulateur par des tiers</h3>
+          <p
+            css={`
+              margin: 1rem 0;
+            `}
+          >
+            Le simulateur Mes Aides Réno a été construit sur un modèle de calcul
+            open-source, documenté et à jour, disponible pour être intégré
+            (iframe, API ou paquet NPM) dans des parcours usagers de partenaires
+            tiers lorsque la question d'une rénovation énergétique se pose.
+          </p>
           <div
             css={`
               display: flex;
@@ -264,19 +326,16 @@ export default function Statistiques() {
             `}
           >
             <StatCard
-              label="intégrations du simulateur<br /> mes aides réno"
+              label="intégrations du simulateur<br />Mes aides réno"
               value={12}
             />
             <StatCard label="mentions par des médias<br />&nbsp;" value="30+" />
           </div>
-          <div>
-            <h5
-              css={`
-                margin: 1rem 0;
-              `}
-            >
-              Parmi eux
-            </h5>
+          <div
+            css={`
+              margin-top: 1rem;
+            `}
+          >
             <Swiper
               modules={[Navigation]}
               navigation
@@ -386,8 +445,16 @@ export default function Statistiques() {
       </Wrapper>
       <Wrapper $background="white" $noMargin={true}>
         <Content>
-          <h3>Satisfaire nos utilisateurs</h3>
-          <h4>Taux de satisfaction</h4>
+          <h3>Satisfaction des usagers</h3>
+          <p
+            css={`
+              margin: 1rem 0;
+            `}
+          >
+            Les taux de satisfaction ci-dessous correspondent aux pourcentages
+            d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
+            l'ensemble des usagers ayant répondu au module de satisfaction.
+          </p>
           <div
             css={`
               display: flex;
