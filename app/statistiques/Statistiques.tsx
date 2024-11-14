@@ -315,7 +315,7 @@ export default function Statistiques() {
             Le simulateur Mes Aides Réno a été construit sur un modèle de calcul
             open-source, documenté et à jour, disponible pour être intégré
             (iframe, API ou paquet NPM) dans des parcours usagers de partenaires
-            tiers lorsque la question d'une rénovation énergétique se pos
+            tiers lorsque la question d'une rénovation énergétique se pose.
           </p>
           <div
             css={`
