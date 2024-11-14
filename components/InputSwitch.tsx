@@ -31,6 +31,10 @@ import EcoPTZ from './ampleur/EcoPTZ'
 import MPRA from './ampleur/MPRA'
 import PAR from './ampleur/PAR'
 import TaxeFoncière from './ampleur/TaxeFoncière'
+import MaPrimeAdaptOccupant from './maPrimeAdapt/MaPrimeAdaptOccupant'
+import MaPrimeAdaptBailleur from './maPrimeAdapt/MaPrimeAdaptBailleur'
+import MaPrimeAdaptCopropriété from './maPrimeAdapt/MaPrimeAdaptCopropriété'
+import LocAvantage from './LocAvantage'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -52,6 +56,10 @@ export default function InputSwitch({
     'taxe foncière': TaxeFoncière,
     denormandie: Denormandie,
     "CEE . rénovation d'ampleur": CEEAmpleur,
+    'mpa . occupant': MaPrimeAdaptOccupant,
+    'mpa . bailleur': MaPrimeAdaptBailleur,
+    'mpa . copropriété': MaPrimeAdaptCopropriété,
+    locavantage: LocAvantage,
   }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
@@ -360,6 +368,47 @@ export default function InputSwitch({
           questions: gestesMosaicQuestions,
         }}
       />
+    )
+  }
+
+  // TODO: remove this Hack for MPA
+  if (currentQuestion === 'mpa . montant travaux') {
+    const dottedName =
+      situation['mpa . situation demandeur'] == '"bailleur"'
+        ? 'mpa . bailleur'
+        : situation['mpa . situation demandeur'] == '"occupant"'
+          ? 'mpa . occupant'
+          : 'mpa . copropriété'
+    const AideComponent = correspondance[dottedName]
+    return (
+      <>
+        <AideComponent
+          {...{
+            dottedName,
+            setSearchParams,
+            answeredQuestions,
+            engine,
+            situation,
+            searchParams,
+            rules,
+            expanded: false,
+          }}
+        />
+        {situation['mpa . situation demandeur'] == '"bailleur"' && (
+          <LocAvantage
+            {...{
+              dottedName: 'locavantage',
+              setSearchParams,
+              answeredQuestions,
+              engine,
+              situation,
+              searchParams,
+              rules,
+              expanded: false,
+            }}
+          />
+        )}
+      </>
     )
   }
 
