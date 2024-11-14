@@ -30,6 +30,12 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
+### v1.0.0-beta3
+
+Nous avons pris en compte les premiers retours critiques. En particulier, un changement important pour le modèle : la subvention de l'État pour l'Accompagnateur Rénov' a son _assiette_ plafonnée, et pas son _résultat_. Nous nous étions basés sur la description ambigue de cette aide sur les supports officiels, qui parlaient par erreur d'une _subvention plafonnée_. C'est corrigé.
+
+Le reste des modifications concerne essentiellement les descriptions et les conditions d'applicabilité des aides.
+
 ### v1.0.0-beta2
 
 Cette version beta2 nous sert à publier le modèle sur NPM, modèle que l'on a déjà mis en ligne il y a plus d'une semaine sans retour de bug important pour l'instant.

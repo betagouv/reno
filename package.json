@@ -1,6 +1,6 @@
 {
   "name": "mesaidesreno",
-  "version": "1.0.0-beta2",
+  "version": "1.0.0-beta3",
   "scripts": {
     "build": "next build",
     "dev": "next dev -p 8080",
