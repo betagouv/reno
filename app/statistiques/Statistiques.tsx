@@ -298,7 +298,7 @@ export default function Statistiques() {
             `}
           >
             *taux de conversion : pourcentage de simulations pendant lesquelles
-            l'usager clique sur le bouton “Trouver mon conseiller local” par
+            l'usager clique sur le bouton "Trouver mon conseiller local" par
             rapport aux simulations terminées.
           </p>
           <h3>
@@ -452,7 +452,7 @@ export default function Statistiques() {
             `}
           >
             Les taux de satisfaction ci-dessous correspondent aux pourcentages
-            d'usagers ayant cliqué sur “Oui” / “En partie” / “Non” sur
+            d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
             l'ensemble des usagers ayant répondu au module de satisfaction.
           </p>
           <div
