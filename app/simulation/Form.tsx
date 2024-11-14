@@ -52,6 +52,8 @@ function Form({ rules }) {
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 
+  console.log({ nextQuestions })
+
   const setSearchParams = useSetSearchParams()
 
   return (

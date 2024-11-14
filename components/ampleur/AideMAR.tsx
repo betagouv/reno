@@ -77,11 +77,26 @@ export default function AideMAR({
 
 // "Par exemple, pour une prestation MAR à 4 000 €, x % plafonné à 2000 € soit dans votre cas xxx €
 export function AideMontant({ engine, situation, dottedName }) {
+  console.log(
+    'indigo',
+    dottedName,
+    situation,
+    engine
+      .setSituation(situation)
+      .evaluate('MPR . accompagnée . prise en charge MAR . montant'),
+  )
   return (
     <section>
       <p>
-        Par exemple : pour une prestation Mon Accompagnateur Rénov' de 4 000 €,
-        en tant que ménage{' '}
+        Par exemple : pour une prestation Mon Accompagnateur Rénov' de{' '}
+        <Value
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . prix moyen',
+          }}
+        />
+        , en tant que ménage{' '}
         <Value
           {...{
             engine,
@@ -99,7 +114,7 @@ export function AideMontant({ engine, situation, dottedName }) {
             state: 'prime-black',
           }}
         />{' '}
-        plafonnée à{' '}
+        appliquée à une assiette de subvention plafonnée à{' '}
         <Value
           {...{
             engine,

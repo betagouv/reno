@@ -11,13 +11,14 @@ import { getAmpleurDPEChoice } from './ScenariosSelector'
 export const originKey = 'DPE . actuel',
   targetKey = 'projet . DPE visé'
 
-export default function ({
+export default function DPEQuickSwitch({
   oldIndex,
   prefixText,
   prefixDPE = true,
   possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
   situation = {},
+  validateTargetKey = true, // not sure about the necessity of this param, it could be used as "false" for all instances of DPEQuickSwitch. But what I know is that for CEEAmpleurScenario we need it to false else Form.tsx has no "nextQuestions"
 }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
@@ -48,13 +49,15 @@ export default function ({
         >
           {possibilities.map((it, index) => (
             <Link
+              key={index}
               onClick={() => setEditing(false)}
               scroll={false}
               href={setSearchParams(
-                encodeSituation(newSituation(index), false, [
-                  originKey,
-                  targetKey,
-                ]),
+                encodeSituation(
+                  newSituation(index),
+                  false,
+                  [originKey, validateTargetKey && targetKey].filter(Boolean),
+                ),
                 'url',
               )}
             >
