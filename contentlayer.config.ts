@@ -13,6 +13,7 @@ export const Article = defineDocumentType(() => ({
     date: { type: 'date', required: true },
     description: { type: 'string', required: true },
     image: { type: 'string', required: false },
+    'image verticale': { type: 'boolean', required: false },
     tags: { type: 'list', of: { type: 'string' }, required: false },
     cta: { type: 'string', required: false },
   },

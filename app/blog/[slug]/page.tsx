@@ -40,6 +40,7 @@ export default async function Post({ params }: Props) {
 
   const sameEditDate =
     !lastEdit || post.date.slice(0, 10) === lastEdit.slice(0, 10)
+  const verticalImage = post['image verticale']
   return (
     <Article>
       <header>
@@ -60,7 +61,8 @@ export default async function Post({ params }: Props) {
             style={css`
               position: relative;
               width: 100%;
-              height: 20rem;
+              height: ${verticalImage ? '30rem' : '20rem'};
+
               padding-bottom: 4vh;
             `}
           >
