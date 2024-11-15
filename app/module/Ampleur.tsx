@@ -83,7 +83,7 @@ export default function Ampleur() {
         [encodeDottedName(dottedName)]: value + '*',
       })
 
-  push(['trackEvent', 'Iframe', 'Page', 'Module Ampleur DPE' + currentDPE])
+  push(['trackEvent', 'Iframe', 'Page', 'Module Ampleur DPE ' + currentDPE])
 
   return (
     <div
@@ -249,6 +249,7 @@ export default function Ampleur() {
                   max-width: 90vw;
                 `}
                 onChange={(e) => {
+                  push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
                   const encodedSituation = encodeSituation(
                     {
                       ...situation,
@@ -279,7 +280,12 @@ export default function Ampleur() {
                   const { value } = e.target
                   const invalid = isNaN(value) || value <= 0
                   if (invalid) return
-
+                  push([
+                    'trackEvent',
+                    'Iframe',
+                    'Interaction',
+                    'personne ' + value,
+                  ])
                   onChange('ménage . personnes')(e)
                 }}
                 css={`
@@ -298,6 +304,12 @@ export default function Ampleur() {
                     const { value } = e.target
                     const invalid = isNaN(value) || value <= 0
                     if (invalid) return
+                    push([
+                      'trackEvent',
+                      'Iframe',
+                      'Interaction',
+                      'revenu ' + value,
+                    ])
                     onChange('ménage . revenu')(e)
                   }}
                   css={`
@@ -338,14 +350,20 @@ export default function Ampleur() {
                 id="idf"
                 name={'IDF'}
                 defaultChecked={situation['ménage . région . IdF'] === 'non'}
-                onChange={() =>
+                onChange={() => {
+                  push([
+                    'trackEvent',
+                    'Iframe',
+                    'Interaction',
+                    'idf mobile ' + situation['ménage . région . IdF'],
+                  ])
                   setSearchParams({
                     [encodeDottedName('ménage . région . IdF')]:
                       (situation['ménage . région . IdF'] === 'oui'
                         ? 'non'
                         : 'oui') + '*',
                   })
-                }
+                }}
               />
             )}
             <span>
@@ -358,11 +376,17 @@ export default function Ampleur() {
                     id={`idf`}
                     type="radio"
                     checked={situation['ménage . région . IdF'] === 'oui'}
-                    onChange={() =>
+                    onChange={() => {
+                      push([
+                        'trackEvent',
+                        'Iframe',
+                        'Interaction',
+                        'idf desktop oui',
+                      ])
                       setSearchParams({
                         [encodeDottedName('ménage . région . IdF')]: 'oui*',
                       })
-                    }
+                    }}
                   />
                   <span>Oui</span>
                 </label>
@@ -371,11 +395,17 @@ export default function Ampleur() {
                     id={`idf`}
                     type="radio"
                     checked={situation['ménage . région . IdF'] === 'non'}
-                    onChange={() =>
+                    onChange={() => {
+                      push([
+                        'trackEvent',
+                        'Iframe',
+                        'Interaction',
+                        'idf desktop non',
+                      ])
                       setSearchParams({
                         [encodeDottedName('ménage . région . IdF')]: 'non*',
                       })
-                    }
+                    }}
                   />
                   <span>Non</span>
                 </label>
