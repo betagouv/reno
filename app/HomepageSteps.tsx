@@ -6,7 +6,7 @@ import { push } from '@socialgouv/matomo-next'
 
 export default function HomepageSteps() {
   const isInIFrame = useIsInIframe()
-  if (isInIframe) {
+  if (isInIFrame) {
     push(['trackEvent', 'Iframe', 'Page', 'Home'])
   }
   return (
