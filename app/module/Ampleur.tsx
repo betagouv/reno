@@ -26,6 +26,7 @@ import { Title } from '../LayoutUI'
 import AmpleurCTA from './AmpleurCTA'
 import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
+import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituation'
 
 const engine = new Publicodes(rules)
 
@@ -66,6 +67,8 @@ export default function Ampleur() {
 
   const enrichedSituation = useEnrichSituation(rawSituation)
   const situation = enrichedSituation || rawSituation
+
+  const savedSituation = useSyncAmpleurSituation(situation)
 
   if (!currentDPE || isNaN(currentDPE))
     return (
