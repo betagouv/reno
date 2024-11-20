@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { encodeSituation } from './publicodes/situationUtils'
 import { CTA, CTAWrapper } from './UI'
-import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
 
 export default function BtnBackToParcoursChoice({
@@ -11,18 +10,19 @@ export default function BtnBackToParcoursChoice({
 }) {
   const backUrl = setSearchParams(
     {
-      ...encodeSituation(
-        situation,
-        false,
-        answeredQuestions,
-      ),
+      ...encodeSituation(situation, false, answeredQuestions),
     },
     'url',
     true,
   )
 
   return (
-    <CTAWrapper $justify="start" css={`margin-top: 0;`}>
+    <CTAWrapper
+      $justify="start"
+      css={`
+        margin-top: 0;
+      `}
+    >
       <CTA
         $fontSize="normal"
         $importance="emptyBackground"
@@ -32,12 +32,20 @@ export default function BtnBackToParcoursChoice({
           }
         `}
       >
-        <Link 
-          href={backUrl}  
-          onClick={() => push(["trackEvent", "Simulateur Principal", "Clic", "retour choix parcours"]) } 
-        >⬅ Retour</Link>
+        <Link
+          href={backUrl}
+          onClick={() =>
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Clic',
+              'retour choix parcours',
+            ])
+          }
+        >
+          ⬅ Retour
+        </Link>
       </CTA>
     </CTAWrapper>
   )
 }
-
