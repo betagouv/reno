@@ -1,6 +1,6 @@
 'use client'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import { useEffect } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
 export default function useSyncUrlLocalStorage() {

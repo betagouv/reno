@@ -5,6 +5,7 @@ import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import Select from '@/components/Select'
 import { CTA } from '@/components/UI'
 import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
+import useEnrichSituation from '@/components/personas/useEnrichSituation'
 import {
   encodeDottedName,
   encodeSituation,
@@ -14,19 +15,17 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import rightArrow from '@/public/flèche-vers-droite.svg'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import logo from '@/public/logo.svg'
+import { push } from '@socialgouv/matomo-next'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
+import { useMemo } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
+import AmpleurCTA from './AmpleurCTA'
 import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
-import { useMemo, useState } from 'react'
-import useEnrichSituation from '@/components/personas/useEnrichSituation'
-import Link from 'next/link'
-import AmpleurCTA from './AmpleurCTA'
-import { push } from '@socialgouv/matomo-next'
 
 const engine = new Publicodes(rules)
 
