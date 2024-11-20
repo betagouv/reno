@@ -11,19 +11,6 @@ export default function DPESelector({
 }) {
   const numericalValue = situation[currentQuestion]
 
-  console.log(situation, numericalValue, currentQuestion)
-
-  const doSetSearchParams = (value) => {
-    const newSituation = encodeSituation(
-      {
-        ...situation,
-        [currentQuestion]: value,
-      },
-      false,
-      answeredQuestions,
-    )
-    const url = setSearchParams(newSituation, 'push', false)
-  }
   const isNew = currentQuestion === 'projet . DPE visé' ? numericalValue : null,
     newLetter = numericalValue && data[+numericalValue - 1].lettre,
     oldLetter = isNew && data[+situation['DPE . actuel'] - 1].lettre
@@ -32,9 +19,17 @@ export default function DPESelector({
     <DPE
       newLetter={newLetter}
       letter={isNew ? oldLetter : newLetter}
-      onClick={(value) =>
-        console.log('setDPE', value) || doSetSearchParams(value + 1)
-      }
+      onClick={(value) => {
+        const encodedSituation = encodeSituation(
+          {
+            ...situation,
+            [currentQuestion]: value + 1,
+          },
+          false,
+          answeredQuestions,
+        )
+        setSearchParams(encodedSituation, 'replace', false)
+      }}
     />
   )
 }

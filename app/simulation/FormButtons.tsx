@@ -1,6 +1,5 @@
 import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { CTA, CTAWrapper } from '@/components/UI'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import iconFlecheGauche from '@/public/fleche-gauche.svg'
@@ -18,11 +17,18 @@ export default function FormButtons({
   situation,
   rules,
 }) {
-  const router = useRouter()
   const mosaicQuestions = isMosaicQuestion(
     currentQuestion,
     rules[currentQuestion],
     rules,
+  )
+
+  const backUrl = setSearchParams(
+    {
+      ...encodeSituation(situation, false, answeredQuestions.slice(0, -1)),
+    },
+    'url',
+    true,
   )
 
   const showValidation =
@@ -36,11 +42,12 @@ export default function FormButtons({
         $importance="emptyBackground"
         title="Retour en arrière"
       >
-        <span
+        <Link
           css={`
             display: flex !important;
             align-items: center !important;
           `}
+          href={backUrl}
           onClick={() => {
             push([
               'trackEvent',
@@ -48,7 +55,6 @@ export default function FormButtons({
               'Précédent',
               currentQuestion,
             ])
-            router.back()
           }}
         >
           <Image
@@ -59,7 +65,7 @@ export default function FormButtons({
             alt="icone fleche fauche"
           />
           Précédent
-        </span>
+        </Link>
       </CTA>
       <CTA
         $fontSize="normal"
