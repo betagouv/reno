@@ -7,7 +7,11 @@ import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { push } from '@socialgouv/matomo-next'
 import styled from 'styled-components'
 
-export const TypeResidence = ({ setSearchParams, situation }) => (
+export const TypeResidence = ({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+}) => (
   <label htmlFor="">
     Ce logement sera :{' '}
     <Select
@@ -16,14 +20,17 @@ export const TypeResidence = ({ setSearchParams, situation }) => (
         max-width: 90vw;
       `}
       onChange={(e) => {
+        const additionalSituation = usageLogementValues.find(
+          ({ valeur }) => valeur == e,
+        ).situation
         push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
         const encodedSituation = encodeSituation(
           {
             ...situation,
-            ...usageLogementValues.find(({ valeur }) => valeur == e).situation,
+            ...additionalSituation,
           },
           true,
-          //answeredQuestions,
+          [...answeredQuestions, ...Object.keys(additionalSituation)],
         )
         setSearchParams(encodedSituation, 'replace', false)
       }}
@@ -185,4 +192,11 @@ export const QuestionList = styled.ul`
       margin-right: 0.6rem;
     }
   }
+`
+
+export const Li = styled.li`
+  border-left: 3px solid #ddd;
+  padding-left: 0.6rem;
+  margin-left: -0.4rem !important;
+  ${({ $touched }) => $touched && `border-left: 3px solid var(--lightColor)`}
 `

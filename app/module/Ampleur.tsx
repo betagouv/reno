@@ -8,6 +8,7 @@ import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituatio
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
 import {
   encodeDottedName,
+  getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
@@ -27,11 +28,13 @@ import { EvaluationValue } from './AmpleurEvaluation'
 import { usageLogementValues } from './AmpleurInputs'
 import {
   IdFQuestion,
+  Li,
   PersonnesQuestion,
   QuestionList,
   RevenuQuestion,
   TypeResidence,
 } from './AmpleurQuestions'
+import { AmpleurWrapper } from './AmpleurUI'
 
 const engine = new Publicodes(rules)
 
@@ -46,6 +49,9 @@ export default function Ampleur() {
     searchParams
 
   const userSituation = getSituation(situationSearchParams, rules)
+  const answeredQuestions = getAnsweredQuestions(situationSearchParams, rules)
+  console.log('cyan answeredQuestions', answeredQuestions)
+
   const currentDPE = +userSituation['DPE . actuel']
   const targetDPE =
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
@@ -93,56 +99,7 @@ export default function Ampleur() {
   push(['trackEvent', 'Iframe', 'Page', 'Module Ampleur DPE ' + currentDPE])
 
   return (
-    <div
-      css={`
-        background: white;
-        padding: 1rem;
-        position: relative;
-        height: 100%;
-
-        @media (min-width: 400px) {
-          > div {
-            padding-left: 4rem;
-          }
-          header,
-          footer {
-            margin-left: 4rem;
-          }
-          footer {
-            margin-top: 1rem;
-          }
-        }
-        > div {
-          max-width: 40rem;
-        }
-        header {
-          display: flex;
-          align-items: center;
-          gap: 4vw;
-
-          justify-content: space-between;
-          img {
-          }
-        }
-        h2,
-        h3 {
-          font-size: 120%;
-          font-weight: 500;
-        }
-        h2 {
-          margin-top: 0.6rem;
-          margin-bottom: 0.8rem;
-          font-size: 130%;
-          font-weight: 600;
-        }
-        h3 {
-          margin-bottom: 0.6rem;
-          @media (max-width: 400px) {
-            margin-top: 0.6rem;
-          }
-        }
-      `}
-    >
+    <AmpleurWrapper>
       <header>
         <div>
           <Labels
@@ -222,11 +179,21 @@ export default function Ampleur() {
           .
         </p>
         <QuestionList>
-          <li>
+          <Li
+            key="typeResidence"
+            $touched={answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            )}
+          >
             <Dot />
-            <TypeResidence {...{ setSearchParams, situation }} />
-          </li>
-          <li>
+            <TypeResidence
+              {...{ setSearchParams, situation, answeredQuestions }}
+            />
+          </Li>
+          <Li
+            $touched={answeredQuestions.includes('ménage . région . IdF')}
+            key="IdF"
+          >
             <Dot />
 
             <IdFQuestion
@@ -236,8 +203,11 @@ export default function Ampleur() {
                 situation,
               }}
             />
-          </li>
-          <li key="personnes">
+          </Li>
+          <Li
+            key="personnes"
+            $touched={answeredQuestions.includes('ménage . personnes')}
+          >
             <Dot />
             <PersonnesQuestion
               {...{
@@ -245,11 +215,14 @@ export default function Ampleur() {
                 onChange,
               }}
             />
-          </li>
-          <li key="revenu">
+          </Li>
+          <Li
+            key="revenu"
+            $touched={answeredQuestions.includes('ménage . revenu')}
+          >
             <Dot />
             <RevenuQuestion {...{ defaultSituation, onChange }} />
-          </li>
+          </Li>
         </QuestionList>
         <h3>Parmi vos aides :</h3>
         <EvaluationValue {...{ engine, situation }} />
@@ -315,7 +288,7 @@ export default function Ampleur() {
           `}
         />
       </footer>
-    </div>
+    </AmpleurWrapper>
   )
 }
 

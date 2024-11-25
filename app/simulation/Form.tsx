@@ -1,21 +1,19 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import { Section } from '@/components/UI'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
+import useIsInIframe from '@/components/useIsInIframe'
 import useSetSearchParams from '@/components/useSetSearchParams'
+import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
 import simulationConfig from './simulationConfig.yaml'
-import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
-import { useSearchParams } from 'next/navigation'
-import useIsInIframe from '@/components/useIsInIframe'
-import LogoCompact from '@/components/LogoCompact'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
