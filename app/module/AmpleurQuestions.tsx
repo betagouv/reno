@@ -48,7 +48,11 @@ export const TypeResidence = ({
   </label>
 )
 
-export const PersonnesQuestion = ({ defaultSituation, onChange }) => (
+export const PersonnesQuestion = ({
+  defaultSituation,
+  situation,
+  onChange,
+}) => (
   <label>
     <span>Votre ménage est composé de </span>{' '}
     <input
@@ -57,6 +61,7 @@ export const PersonnesQuestion = ({ defaultSituation, onChange }) => (
       inputMode="numeric"
       pattern="[1-9]+"
       placeholder={defaultSituation['ménage . personnes']}
+      defaultValue={situation['ménage . personnes']}
       onChange={(e) => {
         const { value } = e.target
         const invalid = isNaN(value) || value <= 0

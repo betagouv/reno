@@ -49,7 +49,26 @@ export default function Ampleur() {
     searchParams
 
   const userSituation = getSituation(situationSearchParams, rules)
-  const answeredQuestions = getAnsweredQuestions(situationSearchParams, rules)
+
+  const answeredQuestionsFromUrl = getAnsweredQuestions(
+    situationSearchParams,
+    rules,
+  )
+  const answeredSituation = Object.fromEntries(
+    answeredQuestionsFromUrl.map((dottedName) => [
+      dottedName,
+      userSituation[dottedName],
+    ]),
+  )
+
+  console.log('cyan aq', answeredSituation)
+  const savedSituation = useSyncAmpleurSituation(answeredSituation)
+  console.log('cyan ss', savedSituation, userSituation)
+
+  const answeredQuestions = savedSituation
+    ? Object.keys(savedSituation)
+    : answeredQuestionsFromUrl
+
   console.log('cyan answeredQuestions', answeredQuestions)
 
   const currentDPE = +userSituation['DPE . actuel']
@@ -71,15 +90,14 @@ export default function Ampleur() {
     () => ({
       ...defaultSituation,
       'projet . DPE visé': targetDPE,
+      ...savedSituation,
       ...userSituation,
     }),
-    [rawSearchParams.toString()],
+    [rawSearchParams.toString(), JSON.stringify(savedSituation)],
   )
 
   const enrichedSituation = useEnrichSituation(rawSituation)
   const situation = enrichedSituation || rawSituation
-
-  const savedSituation = useSyncAmpleurSituation(situation)
 
   if (!currentDPE || isNaN(currentDPE))
     return (
@@ -214,6 +232,7 @@ export default function Ampleur() {
               {...{
                 defaultSituation,
                 onChange,
+                situation,
               }}
             />
           </Li>

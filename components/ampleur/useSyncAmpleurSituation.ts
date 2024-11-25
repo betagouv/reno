@@ -19,18 +19,19 @@ import { useLocalStorage } from 'usehooks-ts'
  *
  * */
 
-export default function useSyncAmpleurSituation(situation) {
-  const [savedSimulation, setSavedSimulation] = useLocalStorage(
-    'simulation',
+export default function useSyncAmpleurSituation(answeredSituation) {
+  const [savedSituation, setSavedSituation] = useLocalStorage(
+    'ampleurSituation',
     null,
   )
 
-  const url = situationToCtaUrl(situation)
-
+  const answeredSituationHash = JSON.stringify(answeredSituation)
   useEffect(() => {
-    setSavedSimulation(url)
-  }, [url, setSavedSimulation])
+    if (Object.keys(answeredSituation).length === 0) return
 
-  console.log('indigo', savedSimulation)
-  return savedSimulation
+    setSavedSituation(answeredSituation)
+  }, [answeredSituationHash, setSavedSituation])
+
+  console.log('indigo', savedSituation)
+  return savedSituation
 }
