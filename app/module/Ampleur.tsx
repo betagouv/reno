@@ -2,13 +2,12 @@
 import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
-import Select from '@/components/Select'
 import { CTA } from '@/components/UI'
 import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
+import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituation'
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
 import {
   encodeDottedName,
-  encodeSituation,
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
@@ -25,8 +24,14 @@ import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 import AmpleurCTA from './AmpleurCTA'
 import { EvaluationValue } from './AmpleurEvaluation'
-import { usageLogement, usageLogementValues } from './AmpleurInputs'
-import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituation'
+import { usageLogementValues } from './AmpleurInputs'
+import {
+  IdFQuestion,
+  PersonnesQuestion,
+  QuestionList,
+  RevenuQuestion,
+  TypeResidence,
+} from './AmpleurQuestions'
 
 const engine = new Publicodes(rules)
 
@@ -216,208 +221,36 @@ export default function Ampleur() {
           />
           .
         </p>
-        <ul
-          css={`
-            list-style-type: none;
-            padding-left: 0;
-            li {
-              margin: 1.2rem 0;
-              display: flex;
-              align-items: center;
-              line-height: 1.6rem;
-              input {
-                min-width: 1.4rem;
-                min-height: 1.4rem;
-                margin-right: 0.6rem;
-              }
-              input[type='number'] {
-                height: 1.75rem !important;
-              }
-              img {
-                width: 1rem;
-                height: auto;
-                margin-right: 0.6rem;
-              }
-            }
-          `}
-        >
+        <QuestionList>
           <li>
             <Dot />
-            <label htmlFor="">
-              Ce logement sera :{' '}
-              <Select
-                css={`
-                  background: #f5f5fe;
-                  max-width: 90vw;
-                `}
-                onChange={(e) => {
-                  push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
-                  const encodedSituation = encodeSituation(
-                    {
-                      ...situation,
-                      ...usageLogementValues.find(({ valeur }) => valeur == e)
-                        .situation,
-                    },
-                    true,
-                    //answeredQuestions,
-                  )
-                  setSearchParams(encodedSituation, 'replace', false)
-                }}
-                value={usageLogement(situation)}
-                values={usageLogementValues}
-              />
-            </label>
+            <TypeResidence {...{ setSearchParams, situation }} />
           </li>
-          <li
-            css={`
-              > section {
-                margin-left: 1rem;
-                label {
-                  display: inline-flex;
-                  align-items: center;
-                  margin-right: 1rem;
-                }
-                input[type='radio'] {
-                  width: 1.2rem !important;
-                  height: 1.2rem !important;
-                }
-                input[type='radio'],
-                input[type='radio'] + label {
-                  cursor: pointer;
-                  &:hover {
-                    background: var(--lighterColor);
-                  }
-                }
-              }
-            `}
-          >
+          <li>
             <Dot />
-            {isMobile && (
-              <input
-                type="checkbox"
-                id="idf"
-                name={'IDF'}
-                defaultChecked={situation['ménage . région . IdF'] === 'non'}
-                onChange={() => {
-                  push([
-                    'trackEvent',
-                    'Iframe',
-                    'Interaction',
-                    'idf mobile ' + situation['ménage . région . IdF'],
-                  ])
-                  setSearchParams({
-                    [encodeDottedName('ménage . région . IdF')]:
-                      (situation['ménage . région . IdF'] === 'oui'
-                        ? 'non'
-                        : 'oui') + '*',
-                  })
-                }}
-              />
-            )}
-            <span>
-              Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
-            </span>
-            {!isMobile && (
-              <section>
-                <label>
-                  <input
-                    id={`idf`}
-                    type="radio"
-                    checked={situation['ménage . région . IdF'] === 'oui'}
-                    onChange={() => {
-                      push([
-                        'trackEvent',
-                        'Iframe',
-                        'Interaction',
-                        'idf desktop oui',
-                      ])
-                      setSearchParams({
-                        [encodeDottedName('ménage . région . IdF')]: 'oui*',
-                      })
-                    }}
-                  />
-                  <span>Oui</span>
-                </label>
-                <label>
-                  <input
-                    id={`idf`}
-                    type="radio"
-                    checked={situation['ménage . région . IdF'] === 'non'}
-                    onChange={() => {
-                      push([
-                        'trackEvent',
-                        'Iframe',
-                        'Interaction',
-                        'idf desktop non',
-                      ])
-                      setSearchParams({
-                        [encodeDottedName('ménage . région . IdF')]: 'non*',
-                      })
-                    }}
-                  />
-                  <span>Non</span>
-                </label>
-              </section>
-            )}
+
+            <IdFQuestion
+              {...{
+                setSearchParams,
+                isMobile,
+                situation,
+              }}
+            />
           </li>
           <li key="personnes">
             <Dot />
-            <label>
-              <span>Votre ménage est composé de </span>{' '}
-              <input
-                type="number"
-                min="1"
-                inputMode="numeric"
-                pattern="[1-9]+"
-                placeholder={defaultSituation['ménage . personnes']}
-                onChange={(e) => {
-                  const { value } = e.target
-                  const invalid = isNaN(value) || value <= 0
-                  if (invalid) return
-                  push([
-                    'trackEvent',
-                    'Iframe',
-                    'Interaction',
-                    'personne ' + value,
-                  ])
-                  onChange('ménage . personnes')(e)
-                }}
-                css={`
-                  width: 3rem !important;
-                `}
-              />{' '}
-              personnes.
-            </label>
+            <PersonnesQuestion
+              {...{
+                defaultSituation,
+                onChange,
+              }}
+            />
           </li>
           <li key="revenu">
             <Dot />
-            <label>
-              <span>Pour un revenu fiscal de</span>{' '}
-              <input
-                type="number"
-                min="0"
-                inputMode="numeric"
-                placeholder={defaultSituation['ménage . revenu']}
-                onChange={(e) => {
-                  const { value } = e.target
-                  const invalid = isNaN(value) || value <= 0
-                  if (invalid) return
-                  push([
-                    'trackEvent',
-                    'Iframe',
-                    'Interaction',
-                    'revenu ' + value,
-                  ])
-                  onChange('ménage . revenu')(e)
-                }}
-                css={`
-                  width: 5rem !important;
-                `}
-              />{' '}
-              €.
-            </label>
+            <RevenuQuestion {...{ defaultSituation, onChange }} />
           </li>
-        </ul>
+        </QuestionList>
         <h3>Parmi vos aides :</h3>
         <EvaluationValue {...{ engine, situation }} />
         <section>
