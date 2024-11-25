@@ -201,6 +201,7 @@ export default function Ampleur() {
                 setSearchParams,
                 isMobile,
                 situation,
+                answeredQuestions,
               }}
             />
           </Li>

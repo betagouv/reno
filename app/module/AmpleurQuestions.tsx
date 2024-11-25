@@ -12,42 +12,41 @@ export const TypeResidence = ({
   setSearchParams,
   situation,
   answeredQuestions,
-}) =>
-  console.log('cyan situ', situation) || (
-    <label htmlFor="">
-      Ce logement sera :{' '}
-      <Select
-        css={`
-          background: #f5f5fe;
-          max-width: 90vw;
-        `}
-        disableInstruction={false}
-        onChange={(e) => {
-          const additionalSituation = usageLogementValues.find(
-            ({ valeur }) => valeur == e,
-          ).situation
-          push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
-          const encodedSituation = encodeSituation(
-            {
-              ...situation,
-              ...additionalSituation,
-            },
-            true,
-            [...answeredQuestions, ...Object.keys(additionalSituation)],
-          )
-          setSearchParams(encodedSituation, 'replace', false)
-        }}
-        value={
-          answeredQuestions.includes(
-            Object.keys(usageLogementValues[0].situation)[0],
-          )
-            ? usageLogement(situation)
-            : ''
-        }
-        values={usageLogementValues}
-      />
-    </label>
-  )
+}) => (
+  <label htmlFor="">
+    Ce logement sera :{' '}
+    <Select
+      css={`
+        background: #f5f5fe;
+        max-width: 90vw;
+      `}
+      disableInstruction={false}
+      onChange={(e) => {
+        const additionalSituation = usageLogementValues.find(
+          ({ valeur }) => valeur == e,
+        ).situation
+        push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
+        const encodedSituation = encodeSituation(
+          {
+            ...situation,
+            ...additionalSituation,
+          },
+          true,
+          [...answeredQuestions, ...Object.keys(additionalSituation)],
+        )
+        setSearchParams(encodedSituation, 'replace', false)
+      }}
+      value={
+        answeredQuestions.includes(
+          Object.keys(usageLogementValues[0].situation)[0],
+        )
+          ? usageLogement(situation)
+          : ''
+      }
+      values={usageLogementValues}
+    />
+  </label>
+)
 
 export const PersonnesQuestion = ({ defaultSituation, onChange }) => (
   <label>
@@ -134,88 +133,96 @@ export const RevenuQuestion = ({
   }
 }
 
-export const IdFQuestion = ({ setSearchParams, isMobile, situation }) => (
-  <div
-    css={`
-      > section {
-        margin-left: 1rem;
-        label {
-          display: inline-flex;
-          align-items: center;
-          margin-right: 1rem;
-        }
-        input[type='radio'] {
-          width: 1.2rem !important;
-          height: 1.2rem !important;
-        }
-        input[type='radio'],
-        input[type='radio'] + label {
-          cursor: pointer;
-          &:hover {
-            background: var(--lighterColor);
+export const IdFQuestion = ({
+  setSearchParams,
+  isMobile,
+  situation,
+  answeredQuestions,
+}) => {
+  const answered = answeredQuestions.includes('ménage . région . IdF')
+  return (
+    <div
+      css={`
+        > section {
+          margin-left: 1rem;
+          label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1rem;
+          }
+          input[type='radio'] {
+            width: 1.2rem !important;
+            height: 1.2rem !important;
+          }
+          input[type='radio'],
+          input[type='radio'] + label {
+            cursor: pointer;
+            &:hover {
+              background: var(--lighterColor);
+            }
           }
         }
-      }
-    `}
-  >
-    {isMobile && (
-      <input
-        type="checkbox"
-        id="idf"
-        name={'IDF'}
-        defaultChecked={situation['ménage . région . IdF'] === 'non'}
-        onChange={() => {
-          push([
-            'trackEvent',
-            'Iframe',
-            'Interaction',
-            'idf mobile ' + situation['ménage . région . IdF'],
-          ])
-          setSearchParams({
-            [encodeDottedName('ménage . région . IdF')]:
-              (situation['ménage . région . IdF'] === 'oui' ? 'non' : 'oui') +
-              '*',
-          })
-        }}
-      />
-    )}
-    <span>
-      Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
-    </span>
-    {!isMobile && (
-      <section>
-        <label>
-          <input
-            id={`idf`}
-            type="radio"
-            checked={situation['ménage . région . IdF'] === 'oui'}
-            onChange={() => {
-              push(['trackEvent', 'Iframe', 'Interaction', 'idf desktop oui'])
-              setSearchParams({
-                [encodeDottedName('ménage . région . IdF')]: 'oui*',
-              })
-            }}
-          />
-          <span>Oui</span>
-        </label>
-        <label>
-          <input
-            id={`idf`}
-            type="radio"
-            checked={situation['ménage . région . IdF'] === 'non'}
-            onChange={() => {
-              push(['trackEvent', 'Iframe', 'Interaction', 'idf desktop non'])
-              setSearchParams({
-                [encodeDottedName('ménage . région . IdF')]: 'non*',
-              })
-            }}
-          />
-          <span>Non</span>
-        </label>
-      </section>
-    )}
-  </div>
-)
+      `}
+    >
+      {false && (
+        <input
+          type="checkbox"
+          id="idf"
+          name={'IDF'}
+          defaultChecked={situation['ménage . région . IdF'] === 'non'}
+          onChange={() => {
+            push([
+              'trackEvent',
+              'Iframe',
+              'Interaction',
+              'idf mobile ' + situation['ménage . région . IdF'],
+            ])
+            setSearchParams({
+              [encodeDottedName('ménage . région . IdF')]:
+                (situation['ménage . région . IdF'] === 'oui' ? 'non' : 'oui') +
+                '*',
+            })
+          }}
+        />
+      )}
+      <span>
+        Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
+      </span>
+      {true && (
+        <section>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation['ménage . région . IdF'] === 'oui'}
+              onChange={() => {
+                push(['trackEvent', 'Iframe', 'Interaction', 'idf desktop oui'])
+                setSearchParams({
+                  [encodeDottedName('ménage . région . IdF')]: 'oui*',
+                })
+              }}
+            />
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation['ménage . région . IdF'] === 'non'}
+              onChange={() => {
+                push(['trackEvent', 'Iframe', 'Interaction', 'idf desktop non'])
+                setSearchParams({
+                  [encodeDottedName('ménage . région . IdF')]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
+          </label>
+        </section>
+      )}
+    </div>
+  )
+}
 
 export const QuestionList = styled.ul`
   list-style-type: none;
