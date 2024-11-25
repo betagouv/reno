@@ -268,60 +268,6 @@ export default function Ampleur() {
               />
             </label>
           </li>
-          <li key="personnes">
-            <Dot />
-            <label>
-              <span>Votre ménage est composé de </span>{' '}
-              <input
-                type="number"
-                min="1"
-                inputMode="numeric"
-                pattern="[1-9]+"
-                placeholder={defaultSituation['ménage . personnes']}
-                onChange={(e) => {
-                  const { value } = e.target
-                  const invalid = isNaN(value) || value <= 0
-                  if (invalid) return
-                  push([
-                    'trackEvent',
-                    'Iframe',
-                    'Interaction',
-                    'personne ' + value,
-                  ])
-                  onChange('ménage . personnes')(e)
-                }}
-                css={`
-                  width: 3rem !important;
-                `}
-              />{' '}
-              personnes{' '}
-              <label>
-                <span>pour un revenu fiscal de </span>{' '}
-                <input
-                  type="number"
-                  min="0"
-                  inputMode="numeric"
-                  placeholder={defaultSituation['ménage . revenu']}
-                  onChange={(e) => {
-                    const { value } = e.target
-                    const invalid = isNaN(value) || value <= 0
-                    if (invalid) return
-                    push([
-                      'trackEvent',
-                      'Iframe',
-                      'Interaction',
-                      'revenu ' + value,
-                    ])
-                    onChange('ménage . revenu')(e)
-                  }}
-                  css={`
-                    width: 5rem !important;
-                  `}
-                />{' '}
-                €.
-              </label>
-            </label>
-          </li>
           <li
             css={`
               > section {
@@ -413,6 +359,63 @@ export default function Ampleur() {
                 </label>
               </section>
             )}
+          </li>
+          <li key="personnes">
+            <Dot />
+            <label>
+              <span>Votre ménage est composé de </span>{' '}
+              <input
+                type="number"
+                min="1"
+                inputMode="numeric"
+                pattern="[1-9]+"
+                placeholder={defaultSituation['ménage . personnes']}
+                onChange={(e) => {
+                  const { value } = e.target
+                  const invalid = isNaN(value) || value <= 0
+                  if (invalid) return
+                  push([
+                    'trackEvent',
+                    'Iframe',
+                    'Interaction',
+                    'personne ' + value,
+                  ])
+                  onChange('ménage . personnes')(e)
+                }}
+                css={`
+                  width: 3rem !important;
+                `}
+              />{' '}
+              personnes.
+            </label>
+          </li>
+          <li key="revenu">
+            <Dot />
+            <label>
+              <span>Pour un revenu fiscal de</span>{' '}
+              <input
+                type="number"
+                min="0"
+                inputMode="numeric"
+                placeholder={defaultSituation['ménage . revenu']}
+                onChange={(e) => {
+                  const { value } = e.target
+                  const invalid = isNaN(value) || value <= 0
+                  if (invalid) return
+                  push([
+                    'trackEvent',
+                    'Iframe',
+                    'Interaction',
+                    'revenu ' + value,
+                  ])
+                  onChange('ménage . revenu')(e)
+                }}
+                css={`
+                  width: 5rem !important;
+                `}
+              />{' '}
+              €.
+            </label>
           </li>
         </ul>
         <h3>Parmi vos aides :</h3>
