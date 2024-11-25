@@ -1,5 +1,5 @@
 mpra:
-  vous . propriétaire . condition: oui
+  vous . propriétaire . statut: 'propriétaire'
   ménage . personnes: 3
   ménage . revenu: 25000
   DPE . actuel: 6
@@ -10,27 +10,53 @@ mpra:
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'de 15 à 25 ans'"
 mprg:
-  vous . propriétaire . condition: oui
+  vous . propriétaire . statut: 'propriétaire'
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'de 15 à 25 ans'"
   ménage . personnes: 2
-  ménage . commune: "75056"
+  ménage . commune: '75056'
   ménage . revenu: 42058
   gestes . chauffage . PAC . air-eau: oui
 copropriete:
- copropriété . condition 15 ans: oui
- copropriété . nombre de logement: 30
- copropriété . condition résidence principale: oui
- copropriété . gain énergétique: "entre 35 % et 50 %"
- copropriété . bonus sortie passoire: oui
- copropriété . bonus copropriété fragile: non
- copropriété . montant travaux: 60000
+  copropriété . condition 15 ans: oui
+  copropriété . nombre de logement: 30
+  copropriété . condition résidence principale: oui
+  copropriété . gain énergétique: 'entre 35 % et 50 %'
+  copropriété . bonus sortie passoire: oui
+  copropriété . bonus copropriété fragile: non
+  copropriété . montant travaux: 60000
 cee:
-  ménage . commune: "75056"
+  ménage . commune: '75056'
   gestes . isolation . murs extérieurs . MPR . surface: 50
-  gestes . isolation . murs extérieurs : oui
+  gestes . isolation . murs extérieurs: oui
 category-mpr:
-  ménage . commune: "75056"
+  ménage . commune: '75056'
   ménage . personnes: 2
   ménage . revenu: 50002
+ptz:
+  vous . propriétaire . statut: 'propriétaire'
+  logement . résidence principale: oui
+  logement . période de construction: 'de 15 à 25 ans'
+  parcours d'aide: "'ampleur'"
+par:
+  vous . propriétaire . statut: 'propriétaire'
+  logement . propriétaire occupant: oui
+  logement . résidence principale propriétaire: oui
+  logement . période de construction: 'de 15 à 25 ans'
+  ménage . commune: '75056'
+  ménage . personnes: 2
+  ménage . revenu: 20002
+  parcours d'aide: "'ampleur'"
+denormandie:
+  vous . propriétaire . statut: 'propriétaire'
+  logement . propriétaire occupant: non
+  logement . location longue durée: oui
+  denormandie . années de location: 12
+  denormandie . gestes minimum: oui
+  ménage . revenu: 20000
+  logement . commune . denormandie: oui
+  logement . commune: '75056'
+  logement . prix d'achat: 250000
+  projet . travaux: 85000
+  projet . gain énergétique: 35

@@ -30,6 +30,9 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     cee: `${gesteCee} . CEE . montant`,
     'category-mpr': 'ménage . revenu . classe',
     mpra: 'MPR . accompagnée . montant',
+    ptz: 'PTZ . montant',
+    par: 'PAR . montant',
+    denormandie: 'denormandie . montant',
   }
 
   const typeGeste = type == 'mprg' ? 'MPR' : 'CEE'
@@ -57,7 +60,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     domain +
     '/api/?' +
     new URLSearchParams(method === 'GET' ? searchParams : fields).toString() +
-    (evaluationGlobale ? ",evaluation" : "")
+    (evaluationGlobale ? ',evaluation' : '')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -70,8 +73,8 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     if (method === 'POST') {
       params['body'] = JSON.stringify(situation)
     }
+    console.log('apiUrl', apiUrl)
     const response = await fetch(apiUrl, params)
-
     setResult(JSON.stringify(await response.json(), null, '\t'))
   }
 
@@ -136,14 +139,24 @@ export default function APIDemoRest({ type, method = 'POST' }) {
         <strong>URL: </strong>
         {method.toUpperCase() + ' ' + apiUrl}
       </div>
-      <div css={`display: flex; align-items: center;margin-bottom: 1rem;`}>
+      <div
+        css={`
+          display: flex;
+          align-items: center;
+          margin-bottom: 1rem;
+        `}
+      >
         <input
-          css={`margin-right: 1rem;`}
+          css={`
+            margin-right: 1rem;
+          `}
           type="checkbox"
           id="evaluationGlobale"
-          onClick={() => setEvaluationGlobale(!evaluationGlobale) }
+          onClick={() => setEvaluationGlobale(!evaluationGlobale)}
         />
-        <label htmlFor="evaluationGlobale">Retourner l'évaluation globale</label>
+        <label htmlFor="evaluationGlobale">
+          Retourner l'évaluation globale
+        </label>
       </div>
       {method === 'GET' && (
         <MiseEnAvant>
