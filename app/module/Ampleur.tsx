@@ -221,7 +221,9 @@ export default function Ampleur() {
             $touched={answeredQuestions.includes('ménage . revenu')}
           >
             <Dot />
-            <RevenuQuestion {...{ defaultSituation, onChange }} />
+            <RevenuQuestion
+              {...{ defaultSituation, onChange, answeredQuestions }}
+            />
           </Li>
         </QuestionList>
         <h3>Parmi vos aides :</h3>

@@ -3,9 +3,9 @@ import {
   encodeDottedName,
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
-import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { push } from '@socialgouv/matomo-next'
 import styled from 'styled-components'
+import { usageLogement, usageLogementValues } from './AmpleurInputs'
 
 export const TypeResidence = ({
   setSearchParams,
@@ -64,28 +64,60 @@ export const PersonnesQuestion = ({ defaultSituation, onChange }) => (
   </label>
 )
 
-export const RevenuQuestion = ({ defaultSituation, onChange }) => (
-  <label>
-    <span>Pour un revenu fiscal de</span>{' '}
-    <input
-      type="number"
-      min="0"
-      inputMode="numeric"
-      placeholder={defaultSituation['ménage . revenu']}
-      onChange={(e) => {
-        const { value } = e.target
-        const invalid = isNaN(value) || value <= 0
-        if (invalid) return
-        push(['trackEvent', 'Iframe', 'Interaction', 'revenu ' + value])
-        onChange('ménage . revenu')(e)
-      }}
-      css={`
-        width: 5rem !important;
-      `}
-    />{' '}
-    €.
-  </label>
-)
+const revenuQuestionDependencies = [
+  'ménage . personnes',
+  'ménage . région . IdF',
+]
+const revenuQuestionDependenciesSatisfied = (answeredQuestions) => {
+  return revenuQuestionDependencies.every((dottedName) =>
+    answeredQuestions.includes(dottedName),
+  )
+}
+export const RevenuQuestion = ({
+  defaultSituation,
+  onChange,
+  answeredQuestions,
+}) => {
+  const thisQuestionSatisfied = answeredQuestions.includes('ménage . revenu')
+  if (revenuQuestionDependenciesSatisfied(answeredQuestions))
+    return (
+      <section>
+        {!thisQuestionSatisfied && (
+          <div>
+            <small>
+              <strong
+                css={`
+                  color: var(--lightColor);
+                `}
+              >
+                Dernière question !
+              </strong>
+            </small>
+          </div>
+        )}
+        <label>
+          <span>Pour un revenu fiscal de</span>{' '}
+          <input
+            type="number"
+            min="0"
+            inputMode="numeric"
+            placeholder={defaultSituation['ménage . revenu']}
+            onChange={(e) => {
+              const { value } = e.target
+              const invalid = isNaN(value) || value <= 0
+              if (invalid) return
+              push(['trackEvent', 'Iframe', 'Interaction', 'revenu ' + value])
+              onChange('ménage . revenu')(e)
+            }}
+            css={`
+              width: 5rem !important;
+            `}
+          />{' '}
+          €.
+        </label>
+      </section>
+    )
+}
 
 export const IdFQuestion = ({ setSearchParams, isMobile, situation }) => (
   <div
