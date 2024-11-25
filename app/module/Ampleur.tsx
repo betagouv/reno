@@ -2,7 +2,7 @@
 import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
-import { CTA } from '@/components/UI'
+import { CTA, PrimeStyle } from '@/components/UI'
 import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
 import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituation'
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
@@ -233,25 +233,33 @@ export default function Ampleur() {
           </Li>
         </QuestionList>
         <h3>Parmi vos aides :</h3>
-        <EvaluationValue {...{ engine, situation }} />
+        {answeredQuestions.length < 6 ? (
+          <p>
+            <PrimeStyle>Vos aides ici</PrimeStyle>
+          </p>
+        ) : (
+          <EvaluationValue {...{ engine, situation }} />
+        )}
         <section>
-          <CTA
-            css={`
-              margin-bottom: 0;
-              a  {
-                display: flex;
-                font-size: 85% !important;
-                align-items: center;
-                img {
-                  height: 2rem;
-                  width: auto;
-                  margin-right: 0.6rem;
+          {answeredQuestions.length < 6 && (
+            <CTA
+              css={`
+                margin-bottom: 0;
+                a  {
+                  display: flex;
+                  font-size: 85% !important;
+                  align-items: center;
+                  img {
+                    height: 2rem;
+                    width: auto;
+                    margin-right: 0.6rem;
+                  }
                 }
-              }
-            `}
-          >
-            <AmpleurCTA {...{ situation }} />
-          </CTA>
+              `}
+            >
+              <AmpleurCTA {...{ situation }} />
+            </CTA>
+          )}
         </section>
       </div>
       <footer
