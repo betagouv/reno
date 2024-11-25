@@ -12,34 +12,42 @@ export const TypeResidence = ({
   setSearchParams,
   situation,
   answeredQuestions,
-}) => (
-  <label htmlFor="">
-    Ce logement sera :{' '}
-    <Select
-      css={`
-        background: #f5f5fe;
-        max-width: 90vw;
-      `}
-      onChange={(e) => {
-        const additionalSituation = usageLogementValues.find(
-          ({ valeur }) => valeur == e,
-        ).situation
-        push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
-        const encodedSituation = encodeSituation(
-          {
-            ...situation,
-            ...additionalSituation,
-          },
-          true,
-          [...answeredQuestions, ...Object.keys(additionalSituation)],
-        )
-        setSearchParams(encodedSituation, 'replace', false)
-      }}
-      value={usageLogement(situation)}
-      values={usageLogementValues}
-    />
-  </label>
-)
+}) =>
+  console.log('cyan situ', situation) || (
+    <label htmlFor="">
+      Ce logement sera :{' '}
+      <Select
+        css={`
+          background: #f5f5fe;
+          max-width: 90vw;
+        `}
+        disableInstruction={false}
+        onChange={(e) => {
+          const additionalSituation = usageLogementValues.find(
+            ({ valeur }) => valeur == e,
+          ).situation
+          push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
+          const encodedSituation = encodeSituation(
+            {
+              ...situation,
+              ...additionalSituation,
+            },
+            true,
+            [...answeredQuestions, ...Object.keys(additionalSituation)],
+          )
+          setSearchParams(encodedSituation, 'replace', false)
+        }}
+        value={
+          answeredQuestions.includes(
+            Object.keys(usageLogementValues[0].situation)[0],
+          )
+            ? usageLogement(situation)
+            : ''
+        }
+        values={usageLogementValues}
+      />
+    </label>
+  )
 
 export const PersonnesQuestion = ({ defaultSituation, onChange }) => (
   <label>
