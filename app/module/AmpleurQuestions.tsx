@@ -6,6 +6,7 @@ import {
 import { push } from '@socialgouv/matomo-next'
 import styled from 'styled-components'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
+import RevenuInput from '@/components/RevenuInput'
 
 export const TypeResidence = ({
   setSearchParams,
@@ -73,13 +74,27 @@ const revenuQuestionDependenciesSatisfied = (answeredQuestions) => {
     answeredQuestions.includes(dottedName),
   )
 }
+
 export const RevenuQuestion = ({
-  defaultSituation,
-  onChange,
   answeredQuestions,
+  setSearchParams,
+  engine,
+  situation,
 }) => {
   const thisQuestionSatisfied = answeredQuestions.includes('ménage . revenu')
-  if (revenuQuestionDependenciesSatisfied(answeredQuestions))
+  if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
+    const currentValue = situation['ménage . revenu']
+    const onChange = (value) => {
+      const encodedSituation = encodeSituation(
+        {
+          ...situation,
+          ['ménage . revenu']: value == undefined ? undefined : value,
+        },
+        false,
+        [...answeredQuestions, 'ménage . revenu'],
+      )
+      setSearchParams(encodedSituation, 'push', false)
+    }
     return (
       <section>
         {!thisQuestionSatisfied && (
@@ -97,26 +112,18 @@ export const RevenuQuestion = ({
         )}
         <label>
           <span>Pour un revenu fiscal de</span>{' '}
-          <input
-            type="number"
-            min="0"
-            inputMode="numeric"
-            placeholder={defaultSituation['ménage . revenu']}
-            onChange={(e) => {
-              const { value } = e.target
-              const invalid = isNaN(value) || value <= 0
-              if (invalid) return
-              push(['trackEvent', 'Iframe', 'Interaction', 'revenu ' + value])
-              onChange('ménage . revenu')(e)
-            }}
-            css={`
-              width: 5rem !important;
-            `}
-          />{' '}
+          <RevenuInput
+            type="select"
+            engine={engine}
+            situation={situation}
+            value={currentValue == null ? '' : currentValue}
+            onChange={onChange}
+          />
           €.
         </label>
       </section>
     )
+  }
 }
 
 export const IdFQuestion = ({ setSearchParams, isMobile, situation }) => (

@@ -222,7 +222,12 @@ export default function Ampleur() {
           >
             <Dot />
             <RevenuQuestion
-              {...{ defaultSituation, onChange, answeredQuestions }}
+              {...{
+                answeredQuestions,
+                situation,
+                engine,
+                setSearchParams,
+              }}
             />
           </Li>
         </QuestionList>
