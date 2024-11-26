@@ -1,3 +1,10 @@
+export const userInputDottedNames = [
+  'vous . propriétaire . statut',
+  'logement . résidence principale locataire',
+  'logement . résidence principale propriétaire',
+  'logement . propriétaire occupant',
+]
+
 export const usageLogementValues = [
   {
     valeur: 1,

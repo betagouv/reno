@@ -35,6 +35,7 @@ import {
   TypeResidence,
 } from './AmpleurQuestions'
 import { AmpleurWrapper } from './AmpleurUI'
+import UserData from './UserData'
 
 const engine = new Publicodes(rules)
 
@@ -251,6 +252,7 @@ export default function Ampleur() {
             />
           </Li>
         </QuestionList>
+        <UserData {...{ setSearchParams, situation }} />
         <h3>Parmi vos aides :</h3>
         {answeredQuestions.length < 6 ? (
           <p>
