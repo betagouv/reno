@@ -195,6 +195,9 @@ export default function Ampleur() {
             prefixDPE={isMobile ? false : true}
             dottedName="projet . DPE visé"
             situation={situation}
+            possibilities={[0, 1, 2, 3, 4, 5, 6].filter(
+              (index) => index < currentDPE - 2,
+            )}
           />
           .
         </p>
