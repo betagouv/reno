@@ -50,33 +50,37 @@ const engine = new Publicodes(rules)
 async function apiResponse(method: string, request: Request) {
   const params = Object.fromEntries(request.nextUrl.searchParams.entries())
 
-  const situation = method === "POST" ? 
-    await request.json() : 
-    getSituation(params, rules)
+  const situation =
+    method === 'POST' ? await request.json() : getSituation(params, rules)
 
-  let fields = params["fields"].split(',')
-  const fullEvaluation = fields.includes("evaluation")
+  let fields = params['fields'].split(',')
+  const fullEvaluation = fields.includes('evaluation')
+
+  // On enrichi
 
   engine.setSituation(situation)
-  return Response.json(fields.filter((f) => f !== "evaluation").reduce((acc, field) => {
-    const evaluation = engine.evaluate(decodeDottedName(field))
-      acc[field] = { 
-        rawValue: evaluation.nodeValue,
-        formattedValue: formatValue(evaluation),
-        missingVariables: Object.keys(evaluation.missingVariables)
-      }
-      if(fullEvaluation) {
-        acc[field]["evaluation"] = evaluation
-      }
-      return acc;
-    }, {})
-  );
+  return Response.json(
+    fields
+      .filter((f) => f !== 'evaluation')
+      .reduce((acc, field) => {
+        const evaluation = engine.evaluate(decodeDottedName(field))
+        acc[field] = {
+          rawValue: evaluation.nodeValue,
+          formattedValue: formatValue(evaluation),
+          missingVariables: Object.keys(evaluation.missingVariables),
+        }
+        if (fullEvaluation) {
+          acc[field]['evaluation'] = evaluation
+        }
+        return acc
+      }, {}),
+  )
 }
 
 export async function GET(request: Request) {
-  return apiResponse("GET", request)
+  return apiResponse('GET', request)
 }
 
 export async function POST(request: Request) {
-  return apiResponse("POST", request)
+  return apiResponse('POST', request)
 }
