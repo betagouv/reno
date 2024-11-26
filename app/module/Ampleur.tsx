@@ -24,11 +24,7 @@ import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 import AmpleurCTA from './AmpleurCTA'
 import { EvaluationValue } from './AmpleurEvaluation'
-import {
-  ampleurQuestionsAnswered,
-  usageLogementValues,
-  userInputDottedNames,
-} from './AmpleurInputs'
+import { ampleurQuestionsAnswered, usageLogementValues } from './AmpleurInputs'
 import {
   IdFQuestion,
   Li,
@@ -239,6 +235,7 @@ export default function Ampleur() {
               {...{
                 defaultSituation,
                 onChange,
+                answeredQuestions,
                 situation,
               }}
             />

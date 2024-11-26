@@ -10,6 +10,7 @@ import { push } from '@socialgouv/matomo-next'
 import styled from 'styled-components'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import RevenuInput from '@/components/RevenuInput'
+import { defaults } from 'marked'
 
 export const TypeResidence = ({
   setSearchParams,
@@ -54,6 +55,7 @@ export const PersonnesQuestion = ({
   defaultSituation,
   situation,
   onChange,
+  answeredQuestions,
 }) => (
   <section>
     <Dot />
@@ -65,6 +67,11 @@ export const PersonnesQuestion = ({
         inputMode="numeric"
         pattern="[1-9]+"
         placeholder={defaultSituation['ménage . personnes']}
+        defaultValue={
+          answeredQuestions.includes('ménage . personnes')
+            ? situation['ménage . personnes']
+            : undefined
+        }
         onChange={(e) => {
           const { value } = e.target
           const invalid = isNaN(value) || value <= 0
