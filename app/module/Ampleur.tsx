@@ -12,7 +12,6 @@ import {
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import rightArrow from '@/public/flèche-vers-droite.svg'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import logo from '@/public/logo.svg'
 import { push } from '@socialgouv/matomo-next'
@@ -204,7 +203,6 @@ export default function Ampleur() {
               'logement . résidence principale propriétaire',
             )}
           >
-            <Dot />
             <TypeResidence
               {...{ setSearchParams, situation, answeredQuestions }}
             />
@@ -213,8 +211,6 @@ export default function Ampleur() {
             $touched={answeredQuestions.includes('ménage . région . IdF')}
             key="IdF"
           >
-            <Dot />
-
             <IdFQuestion
               {...{
                 setSearchParams,
@@ -228,7 +224,6 @@ export default function Ampleur() {
             key="personnes"
             $touched={answeredQuestions.includes('ménage . personnes')}
           >
-            <Dot />
             <PersonnesQuestion
               {...{
                 defaultSituation,
@@ -241,7 +236,6 @@ export default function Ampleur() {
             key="revenu"
             $touched={answeredQuestions.includes('ménage . revenu')}
           >
-            <Dot />
             <RevenuQuestion
               {...{
                 answeredQuestions,
@@ -328,15 +322,3 @@ export default function Ampleur() {
     </AmpleurWrapper>
   )
 }
-
-const Dot = () => (
-  <Image
-    src={rightArrow}
-    alt="Icône d'une flèche vers la droite"
-    css={`
-      @media (max-width: 400px) {
-        display: none;
-      }
-    `}
-  />
-)
