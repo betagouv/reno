@@ -3,6 +3,9 @@ export const userInputDottedNames = [
   'logement . résidence principale locataire',
   'logement . résidence principale propriétaire',
   'logement . propriétaire occupant',
+  'ménage . personnes',
+  'ménage . région . IdF',
+  'ménage . revenu',
 ]
 
 export const usageLogementValues = [
@@ -11,6 +14,7 @@ export const usageLogementValues = [
     titre: 'Votre résidence principale',
     situation: {
       'vous . propriétaire . statut': '"acquéreur"',
+      'logement . résidence principale locataire': 'non',
       'logement . résidence principale propriétaire': 'oui',
       'logement . propriétaire occupant': 'oui',
     },

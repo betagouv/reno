@@ -1,12 +1,15 @@
+import { encodeSituation } from '@/components/publicodes/situationUtils'
+import { omit } from '@/components/utils'
 import Link from 'next/link'
 import { userInputDottedNames } from './AmpleurInputs'
-import { omit } from '@/components/utils'
-import { encodeSituation } from '@/components/publicodes/situationUtils'
-import { useLocalStorage } from 'usehooks-ts'
 
 export default function UserData({ setSearchParams, situation }) {
   const baseSituation = omit(userInputDottedNames, situation)
-  const url = setSearchParams(encodeSituation(baseSituation, true, []), 'url')
+  const url = setSearchParams(
+    encodeSituation(baseSituation, true, []),
+    'url',
+    true,
+  )
 
   return (
     <p
@@ -19,7 +22,7 @@ export default function UserData({ setSearchParams, situation }) {
       `}
     >
       <small>
-        <Link
+        <a
           href={url}
           onClick={() => {
             try {
@@ -30,7 +33,7 @@ export default function UserData({ setSearchParams, situation }) {
           }}
         >
           Recommencer
-        </Link>
+        </a>
       </small>
     </p>
   )

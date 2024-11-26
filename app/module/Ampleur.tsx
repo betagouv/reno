@@ -24,7 +24,7 @@ import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 import AmpleurCTA from './AmpleurCTA'
 import { EvaluationValue } from './AmpleurEvaluation'
-import { usageLogementValues } from './AmpleurInputs'
+import { usageLogementValues, userInputDottedNames } from './AmpleurInputs'
 import {
   IdFQuestion,
   Li,
@@ -253,16 +253,22 @@ export default function Ampleur() {
           </Li>
         </QuestionList>
         <UserData {...{ setSearchParams, situation }} />
-        <h3>Parmi vos aides :</h3>
-        {answeredQuestions.length < 6 ? (
-          <p>
-            <PrimeStyle>Vos aides ici</PrimeStyle>
-          </p>
+        {answeredQuestions.length < userInputDottedNames.length ? (
+          <section>
+            {false && (
+              <p>
+                <PrimeStyle>Jusqu'à 57 000 €</PrimeStyle>
+              </p>
+            )}
+          </section>
         ) : (
-          <EvaluationValue {...{ engine, situation }} />
+          <section>
+            <h3>Parmi vos aides :</h3>
+            <EvaluationValue {...{ engine, situation }} />
+          </section>
         )}
         <section>
-          {answeredQuestions.length < 6 && (
+          {answeredQuestions.length >= userInputDottedNames.length && (
             <CTA
               css={`
                 margin-bottom: 0;
