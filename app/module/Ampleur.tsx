@@ -199,6 +199,7 @@ export default function Ampleur() {
         <QuestionList>
           <Li
             key="typeResidence"
+            $next={true}
             $touched={answeredQuestions.includes(
               'logement . résidence principale propriétaire',
             )}
@@ -208,6 +209,9 @@ export default function Ampleur() {
             />
           </Li>
           <Li
+            $next={answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            )}
             $touched={answeredQuestions.includes('ménage . région . IdF')}
             key="IdF"
           >
@@ -222,6 +226,7 @@ export default function Ampleur() {
           </Li>
           <Li
             key="personnes"
+            $next={answeredQuestions.includes('ménage . région . IdF')}
             $touched={answeredQuestions.includes('ménage . personnes')}
           >
             <PersonnesQuestion
@@ -234,6 +239,7 @@ export default function Ampleur() {
           </Li>
           <Li
             key="revenu"
+            $next={answeredQuestions.includes('ménage . personnes')}
             $touched={answeredQuestions.includes('ménage . revenu')}
           >
             <RevenuQuestion

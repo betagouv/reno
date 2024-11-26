@@ -160,7 +160,9 @@ export const RevenuQuestion = ({
         src={sablier}
         alt="Un icône sablier représentant une question en attente"
         css={`
-          vertical-align: sub;
+          @media (max-width: 400px) {
+            margin-right: 0.5rem !important;
+          }
         `}
       />
       Votre niveau de revenu
@@ -312,7 +314,14 @@ export const Li = styled.li`
   border-left: 3px solid #ddd;
   padding-left: 0.6rem;
   margin-left: -0.4rem !important;
-  ${({ $touched }) => $touched && `border-left: 3px solid var(--lightColor)`}
+
+  filter: none;
+  ${({ $next, $touched }) =>
+    $touched
+      ? `border-left: 3px solid var(--lightColor);`
+      : $next
+        ? ''
+        : `filter: grayscale(0.9) opacity(0.4)`};
 `
 const Dot = () => (
   <Image
