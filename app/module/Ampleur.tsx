@@ -96,10 +96,18 @@ export default function Ampleur() {
     [rawSearchParams.toString(), JSON.stringify(savedSituation)],
   )
 
-  const noDefaultSituation = { ...savedSituation, ...userSituation }
-
   const enrichedSituation = useEnrichSituation(rawSituation)
   const situation = enrichedSituation || rawSituation
+
+  const communeKey = 'logement . commune . nom'
+  const commune = situation[communeKey]
+  const noDefaultSituation = {
+    ...savedSituation,
+    ...userSituation,
+    ...(commune ? { [communeKey]: commune } : {}),
+  }
+
+  console.log('cyan si', enrichedSituation)
 
   if (!currentDPE || isNaN(currentDPE))
     return (

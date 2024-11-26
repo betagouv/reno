@@ -15,6 +15,8 @@ import UserProblemBanner from './UserProblemBanner'
 import Share from '@/app/simulation/Share'
 import { useSearchParams } from 'next/navigation'
 import ProgressBar from '@/app/simulation/ProgressBar'
+import DPELabel from './DPELabel'
+import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 
 export const QuestionText = ({
   rule,
@@ -51,6 +53,7 @@ export default function ClassicQuestionWrapper({
   const isInIframe = useIsInIframe()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+  const { depuisModule } = searchParams
   const { categoryTitle } = categoryData(
     nextQuestions,
     currentQuestion,
@@ -69,6 +72,7 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
+      <AmpleurModuleBanner {...{ depuisModule, situation }} />
       <div
         css={`
           max-width: 800px;
