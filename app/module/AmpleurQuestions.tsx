@@ -69,7 +69,6 @@ export const PersonnesQuestion = ({
         inputMode="numeric"
         pattern="[1-9]+"
         placeholder={defaultSituation['ménage . personnes']}
-        defaultValue={situation['ménage . personnes']}
         onChange={(e) => {
           const { value } = e.target
           const invalid = isNaN(value) || value <= 0

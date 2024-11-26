@@ -263,7 +263,13 @@ export default function Ampleur() {
           </section>
         ) : (
           <section>
-            <h3>Parmi vos aides :</h3>
+            <h3
+              css={`
+                margin: 0;
+              `}
+            >
+              Parmi vos aides :
+            </h3>
             <EvaluationValue {...{ engine, situation }} />
           </section>
         )}
