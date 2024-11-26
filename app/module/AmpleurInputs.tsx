@@ -1,3 +1,8 @@
+export const ampleurQuestionsAnswered = (answeredQuestions) =>
+  userInputDottedNames.every((dottedName) =>
+    answeredQuestions.includes(dottedName),
+  )
+
 export const userInputDottedNames = [
   'vous . propriétaire . statut',
   'logement . résidence principale locataire',
