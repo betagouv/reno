@@ -1,7 +1,6 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import { Section } from '@/components/UI'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
@@ -15,10 +14,14 @@ import simulationConfig from './simulationConfig.yaml'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import useIsInIframe from '@/components/useIsInIframe'
-import LogoCompact from '@/components/LogoCompact'
+import { push } from '@socialgouv/matomo-next'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
+  if (isInIframe) {
+    push(['trackEvent', 'Iframe', 'Page', 'Simulation'])
+  }
+
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
