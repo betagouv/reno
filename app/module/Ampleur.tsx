@@ -96,6 +96,8 @@ export default function Ampleur() {
     [rawSearchParams.toString(), JSON.stringify(savedSituation)],
   )
 
+  const noDefaultSituation = { ...savedSituation, ...userSituation }
+
   const enrichedSituation = useEnrichSituation(rawSituation)
   const situation = enrichedSituation || rawSituation
 
@@ -290,7 +292,7 @@ export default function Ampleur() {
                 }
               `}
             >
-              <AmpleurCTA {...{ situation }} />
+              <AmpleurCTA {...{ situation: noDefaultSituation }} />
             </CTA>
           )}
         </section>
