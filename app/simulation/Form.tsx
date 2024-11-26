@@ -14,6 +14,9 @@ import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
 import simulationConfig from './simulationConfig.yaml'
+import Answers from './Answers'
+import { CTA, CTAWrapper } from '@/components/UI'
+import Link from 'next/link'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
@@ -21,7 +24,7 @@ function Form({ rules }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   // this param `objectif` lets us optionally build the form to target one specific publicode rule
-  const { objectif, ...situationSearchParams } = searchParams
+  const { objectif, depuisModule, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
 
@@ -30,6 +33,7 @@ function Form({ rules }) {
     ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(situationSearchParams, rules),
   ]
+
   const situation = {
     ...(simulationConfig.situation || {}),
     ...getSituation(situationSearchParams, rules),
@@ -53,6 +57,37 @@ function Form({ rules }) {
   console.log({ nextQuestions })
 
   const setSearchParams = useSetSearchParams()
+
+  if (depuisModule)
+    return (
+      <section
+        css={`
+          margin: 0 auto;
+          padding: 0 2rem;
+          max-width: 800px;
+        `}
+      >
+        <CTAWrapper $justify="left">
+          <CTA $fontSize="normal">
+            <Link href={setSearchParams({ depuisModule: undefined }, 'url')}>
+              ➞&nbsp;&nbsp;Continuer ma simulation
+            </Link>
+          </CTA>
+        </CTAWrapper>
+        <Answers
+          {...{
+            answeredQuestions,
+            nextQuestions,
+            currentQuestion,
+            rules,
+            engine,
+            situation,
+            startsOpen: true,
+            closedTitle: 'Votre simulation en cours :',
+          }}
+        />
+      </section>
+    )
 
   return (
     <>

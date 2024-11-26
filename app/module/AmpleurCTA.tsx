@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const situationToCtaUrl = (situation) => {
   // was probably a fix, should be removed from above now
   const notExtremeSituation = omit(['projet . travaux'], situation)
-  return `/simulation?${new URLSearchParams(encodeSituation(notExtremeSituation, true, Object.keys(situation))).toString()}`
+  return `/simulation?${new URLSearchParams(encodeSituation(notExtremeSituation, true, Object.keys(situation))).toString()}&depuisModule=oui`
 }
 
 export default function AmpleurCTA({ situation }) {
