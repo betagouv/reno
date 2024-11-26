@@ -31,15 +31,11 @@ export const TypeResidence = ({
             ({ valeur }) => valeur == e,
           ).situation
           push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
-          const encodedSituation = encodeSituation(
-            {
-              ...situation,
-              ...additionalSituation,
-            },
-            true,
-            [...answeredQuestions, ...Object.keys(additionalSituation)],
-          )
-          setSearchParams(encodedSituation, 'replace', false)
+
+          const encodedSituation = encodeSituation(additionalSituation, true, [
+            ...Object.keys(additionalSituation),
+          ])
+          setSearchParams(encodedSituation)
         }}
         value={
           answeredQuestions.includes(
@@ -107,13 +103,12 @@ export const RevenuQuestion = ({
     const onChange = (value) => {
       const encodedSituation = encodeSituation(
         {
-          ...situation,
-          ['ménage . revenu']: value == undefined ? undefined : value,
+          'ménage . revenu': value == undefined ? undefined : value,
         },
         false,
-        [...answeredQuestions, 'ménage . revenu'],
+        ['ménage . revenu'],
       )
-      setSearchParams(encodedSituation, 'push', false)
+      setSearchParams(encodedSituation)
     }
     return (
       <section
