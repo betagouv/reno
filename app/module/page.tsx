@@ -90,8 +90,73 @@ export default function Module({}) {
             <p>
               En intégrant dès maintenant le calculateur sur votre site, vous
               profiterez automatiquement des mises à jour qui auront lieu très
-              prochainement pendant l'été et à la rentrée 2024 et ajouteront
-              progressivement toutes les aides à la rénovation energétique.
+              prochainement en janvier 2025.
+            </p>
+            <h2>Historique des versions</h2>
+            <h3>v1 (été 2024)</h3>
+            <p>
+              La première version "preuve de concept" du module. Elle n'intègre
+              que le dispositif principal MaPrimeRénov' parcours ampleur.{' '}
+            </p>
+            <h3>v2 (septembre 2024)</h3>
+            <p>
+              Le module est redesigné suite aux premiers retours du premier
+              intégrateur. Les saisies utilisateur sont améliorées avec un choix
+              simple dans un menu déroulant pour décrire la situation de
+              l'acheter : résidence principale, résidence secondaire ou
+              résidence principale d'un locataire.
+            </p>
+            <p>
+              Il inclut non seulement MaPrimeRénov' ampleur mais aussi les
+              autres aides principales dont l'éco-PTZ, le Prêt Avance Rénovation
+              à zéro %, le dispositif Denormandie, etc.
+            </p>
+            <h3>v3 (fin novembre 2024)</h3>
+            <p>
+              Dans cette nouvelle version, nous réduisons la charge de
+              l'utilisateur pour l'aider à remplir les questions :{' '}
+              <strong>les 4 questions s'affichent désormais une par une</strong>
+              , tout en gardant les 4 visibles dès le départ pour qu'il n'y ait
+              aucune surprise.{' '}
+            </p>
+            <p>
+              La saisie du revenu ne se fait plus à l'euro près de façon libre,
+              mais via des <strong>seuils de revenu calculés</strong> en
+              fonction des 3 réponses précédentes, pour éviter ainsi à
+              l'utilisateur de devoir aller chercher sa déclaration d'impôt et
+              craindre cette saisie sensible quand elle est trop précise.
+            </p>
+            <p>
+              Autre nouveauté : les 4 réponses utilisateur sont mises en
+              mémoire, pour qu'il ou elle n'ait pas à répéter ces informations
+              d'une annonce à l'autre.{' '}
+            </p>
+            <p>
+              Enfin, au clic sur "Découvrir toutes les aides" :{' '}
+              <ul>
+                <li>
+                  les données injectées par l'annonce (m2, ville, maison/appart)
+                  et le module (motif d'achat, revenu, etc.) sont auto-remplies
+                  pour raccourcir la simulation et amener l'utilisateur au plus
+                  vite vers la page de bilan des aides
+                </li>
+                <li>
+                  un message l'avertit de ce procédé pour lui faire comprendre
+                  que ces données sont bien prises en compte dans la simulation
+                </li>
+              </ul>
+            </p>
+            <p>
+              <small>
+                Pour tous les détails, c'est{' '}
+                <a href="https://github.com/betagouv/reno/pull/281">par ici</a>{' '}
+                : tout notre développement est ouvert.
+              </small>
+            </p>
+            <h4>v4 (à venir)</h4>
+            <p>
+              Pour la v4, à nouveau suite à des tests utilisateurs, nous allons
+              travailler l'affichage des résultats chiffrés dans le module.
             </p>
           </Content>
         </Wrapper>
