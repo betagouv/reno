@@ -8,9 +8,8 @@ import { BlueEm, HeaderWrapper } from '../LandingUI'
 import AmpleurDemonstration from './AmpleurDemonstration'
 import { Suspense } from 'react'
 export const metadata: Metadata = {
-  title: 'API - Mes aides réno',
-  description:
-    "Découvrez la documentation de l'API de calcul des aides à la rénovation",
+  title: 'Module passoire thermique - Mes aides réno',
+  description: `Découvrez le module de calcul "passoire thermique" de Mes Aides Réno"`,
 }
 
 const iframeCode = `
