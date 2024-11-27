@@ -58,7 +58,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
   const searchParams = encodeSituation({ ...situation, ...fields })
   const apiUrl =
     domain +
-    '/api/?' +
+    '/api/v1/?' +
     new URLSearchParams(method === 'GET' ? searchParams : fields).toString() +
     (evaluationGlobale ? ',evaluation' : '')
 
