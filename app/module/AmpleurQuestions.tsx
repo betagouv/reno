@@ -66,7 +66,6 @@ export const PersonnesQuestion = ({
         min="1"
         inputMode="numeric"
         pattern="[1-9]+"
-        placeholder={defaultSituation['ménage . personnes']}
         defaultValue={
           answeredQuestions.includes('ménage . personnes')
             ? situation['ménage . personnes']
