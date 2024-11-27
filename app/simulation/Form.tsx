@@ -14,9 +14,6 @@ import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
 import simulationConfig from './simulationConfig.yaml'
-import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
-import { useSearchParams } from 'next/navigation'
-import useIsInIframe from '@/components/useIsInIframe'
 import { push } from '@socialgouv/matomo-next'
 
 function Form({ rules }) {
