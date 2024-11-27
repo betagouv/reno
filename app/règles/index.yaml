@@ -201,6 +201,7 @@ logement . période de construction calculée:
       - si: âge < 25
         alors: '"de 15 à 25 ans"'
       - sinon: '"au moins 25 ans"'
+
 logement . période de construction:
   par défaut: "'au moins 25 ans'"
   question: De quand date la construction du logement à rénover ?

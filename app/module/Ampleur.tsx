@@ -35,6 +35,7 @@ import {
 } from './AmpleurQuestions'
 import { AmpleurWrapper } from './AmpleurUI'
 import UserData from './UserData'
+import { enrichSituationWithConstructionYear } from '@/components/personas/enrichSituation'
 
 const engine = new Publicodes(rules)
 
@@ -48,7 +49,12 @@ export default function Ampleur() {
   const { persona: selectedPersona = 0, ...situationSearchParams } =
     searchParams
 
-  const userSituation = getSituation(situationSearchParams, rules)
+  const rawUserSituation = getSituation(situationSearchParams, rules)
+
+  const userSituation = useMemo(
+    () => enrichSituationWithConstructionYear(rawUserSituation, engine),
+    [rawUserSituation],
+  )
 
   const answeredQuestionsFromUrl = getAnsweredQuestions(
     situationSearchParams,
