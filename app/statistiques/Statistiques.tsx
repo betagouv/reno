@@ -61,9 +61,10 @@ export default function Statistiques() {
     try {
       const responseVisitors = await fetch('/api/matomo?type=visitors')
       const data = await responseVisitors.json()
+
       const weeklyData = Object.entries(data).map(([dateRange, weekData]) => ({
         date: new Date(dateRange.split(',')[1]),
-        visits: weekData[1].step_nb_visits_actual,
+        visits: weekData[1] ? weekData[1].step_nb_visits_actual : 0,
         uniqVisitors: weekData.nb_uniq_visitors,
       }))
       const totalTimeOnSite = Object.entries(data)
