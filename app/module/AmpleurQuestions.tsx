@@ -1,16 +1,15 @@
-import rightArrow from '@/public/flèche-vers-droite.svg'
-import sablier from '@/public/sablier.svg'
-import Image from 'next/image'
+import RevenuInput from '@/components/RevenuInput'
 import Select from '@/components/Select'
 import {
   encodeDottedName,
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
+import rightArrow from '@/public/flèche-vers-droite.svg'
+import sablier from '@/public/sablier.svg'
 import { push } from '@socialgouv/matomo-next'
+import Image from 'next/image'
 import styled from 'styled-components'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
-import RevenuInput from '@/components/RevenuInput'
-import { defaults } from 'marked'
 
 export const TypeResidence = ({
   setSearchParams,
@@ -107,6 +106,7 @@ export const RevenuQuestion = ({
   if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
     const currentValue = situation['ménage . revenu']
     const onChange = (value) => {
+      if (value === '') return
       const encodedSituation = encodeSituation(
         {
           'ménage . revenu': value == undefined ? undefined : value,
@@ -147,6 +147,7 @@ export const RevenuQuestion = ({
               situation={situation}
               value={currentValue == null ? '' : currentValue}
               onChange={onChange}
+              disableInstruction={false}
             />
             €.
           </label>
