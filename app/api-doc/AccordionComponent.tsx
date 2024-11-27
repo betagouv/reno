@@ -1,26 +1,64 @@
 'use client'
+import rules from '@/app/règles/rules'
 import React, { useState } from 'react'
 import { AccordionTitle } from '@/components/UI'
 import APIDemo from './APIDemo'
+import { parse } from 'marked'
 
 const parametresData = [
   {
     title: 'vous . propriétaire . statut',
-    description: 'Valeurs possibles:',
     values: ['propriétaire', 'acquéreur', 'non propriétaire'],
   },
   {
-    title: 'logement . type',
-    description: 'Valeurs possibles:',
-    values: ['maison', 'appartement'],
+    title: 'logement . période de construction',
+    values: [
+      'moins de 2 ans',
+      'de 2 à 15 ans',
+      'de 15 à 25 ans',
+      'au moins 25 ans',
+    ],
   },
   {
     title: 'logement . surface',
-    description: 'Valeurs possibles: entier numérique',
+    values: ['entier numérique'],
   },
   {
-    title: 'DPE . actuel et projet . DPE visé',
-    description: 'Valeurs possibles:',
+    title: 'logement . type',
+    values: ['maison', 'appartement'],
+  },
+  {
+    title: 'logement . commune, ménage . commune',
+    description:
+      'Code INSEE de la commune de résidence (<em>ménage . commune</em>) ou du logement (<em>logement . commune</em>)',
+    values: ['75056 (pour Paris)'],
+  },
+  {
+    title: 'ménage . personnes',
+    description: 'Le nombre de personne composant le ménage',
+    values: ['entier numérique'],
+  },
+  {
+    title: 'ménage . revenus',
+    description:
+      'Le revenu fiscal de référence des personnes composant le ménage',
+    values: ['entier numérique'],
+  },
+  {
+    title: 'ménage . revenu . classe',
+    description:
+      'La classe de revenu au sens "MaPrimeRénov\'", si vous ne la connaissez pas, elle sera calculée automatiquement \
+       grâce aux variables <em>ménage . commune</em>, <em>ménage . revenus</em> et <em>ménage . personnes</em>',
+    values: ['très modeste', 'modeste', 'intermédiaire', 'supérieure'],
+  },
+  {
+    title: 'projet . travaux',
+    description:
+      'Le montant des travaux (HT) envisagé pour le projet de rénovation',
+    values: ['entier numérique'],
+  },
+  {
+    title: 'DPE . actuel, projet . DPE visé',
     values: [
       '1 (pour un DPE A)',
       '2 (pour un DPE B)',
@@ -33,8 +71,14 @@ const parametresData = [
   },
   {
     title: "parcours d'aide",
-    description: 'Valeurs possibles:',
     values: ['ampleur', 'à la carte'],
+  },
+  {
+    title: 'taxe foncière . condition de dépenses',
+    description: parse(
+      rules['taxe foncière . condition de dépenses'].description,
+    ),
+    values: ['oui', 'non'],
   },
 ]
 
@@ -124,9 +168,16 @@ function ParametresSection({ data }) {
           `}
         >
           <p>
-            Paramètres: <strong>{title}</strong>
+            Paramètre: <strong>{title}</strong>
             <br />
-            {description}
+            {description && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: 'Description: ' + description,
+                }}
+              />
+            )}
+            Valeurs possibles:
           </p>
           {values && (
             <ul>

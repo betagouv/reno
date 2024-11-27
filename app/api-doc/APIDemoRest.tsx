@@ -74,7 +74,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     if (method === 'POST') {
       params['body'] = JSON.stringify(situation)
     }
-    console.log('apiUrl', apiUrl)
+
     const response = await fetch(apiUrl, params)
     setResult(JSON.stringify(await response.json(), null, '\t'))
   }
