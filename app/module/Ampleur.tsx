@@ -75,8 +75,6 @@ export default function Ampleur() {
     ? Object.keys(savedSituation)
     : answeredQuestionsFromUrl
 
-  console.log('cyan answeredQuestions', answeredQuestions)
-
   const currentDPE = +userSituation['DPE . actuel']
   const targetDPE =
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
