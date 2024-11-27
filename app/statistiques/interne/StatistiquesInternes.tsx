@@ -1,7 +1,5 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import rules from '@/app/règles/rules'
-import Publicodes from 'publicodes'
 import {
   Chart as ChartJS,
   LinearScale,
@@ -17,8 +15,7 @@ import 'chartjs-adapter-date-fns'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { dataInternes } from './pageData'
-import { getSituation } from '@/components/publicodes/situationUtils'
+import { Line } from 'react-chartjs-2'
 
 ChartJS.register(
   LinearScale,
@@ -30,79 +27,205 @@ ChartJS.register(
   Legend,
   annotationPlugin,
 )
-export default function Statistiques() {
-  const engine = new Publicodes(rules)
-  const fetchTypeLogement = async () => {
-    let maison = dataInternes.filter((d) => d.label.endsWith('maison"*'))
-    let maisonTotal = maison.reduce((acc, cur) => acc + cur.nb_visits, 0)
-    let appartement = dataInternes.filter((d) =>
-      d.label.endsWith('appartement"*'),
-    )
-    let appartementTotal = appartement.reduce(
-      (acc, cur) => acc + cur.nb_visits,
-      0,
-    )
-  }
+export default function StatistiquesInternes() {
+  const [data, setData] = useState({
+    globalData: null,
+    siteData: null,
+    iframeData: null,
+    moduleData: null,
+  })
 
-  const fetchCategorieRevenu = async () => {
-    dataInternes
-      .filter((d) => d.label.startsWith('/simulation') && d.label.endsWith('*'))
-      .map((d) => {
-        const url = new URL('https://mesaidesreno.beta.gouv.fr/' + d.label)
-        console.log('url', url)
-        const params = Object.fromEntries(new URLSearchParams(url.search))
+  const fetchData = async () => {
+    let res
+    try {
+      res = await fetch('/api/matomo?type=internes')
+      const globalData = Object.entries(await res.json()).map(
+        ([date, dayData]) => ({
+          date: new Date(date),
+          simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
+          uniqVisitors: dayData.nb_uniq_visitors,
+        }),
+      )
 
-        const keys = Object.keys(params)
-        const lastKey = keys[keys.length - 1]
-        // On ne considère que les users qui viennent de valider leur revenu pour éviter d'avoir des doublons
-        console.log('lastKey', lastKey)
-        console.log('params', params)
-        if (lastKey != 'ménage.revenu') {
-          return
-        }
+      res = await fetch('/api/matomo?type=internes&segment=site')
+      const siteData = Object.entries(await res.json()).map(
+        ([date, dayData]) => ({
+          date: new Date(date),
+          simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
+          uniqVisitors: dayData.nb_uniq_visitors,
+        }),
+      )
 
-        let situation = getSituation(params, rules)
-        let result = engine
-          .setSituation(situation)
-          .evaluate('ménage . revenu . classe')
-        if (!result.missingVariables.length) {
-          console.log('result', result)
-          console.log('classe', result.nodeValue)
-        }
-        return d
+      res = await fetch('/api/matomo?type=internes&segment=iframe')
+      const iframeData = Object.entries(await res.json()).map(
+        ([date, dayData]) => ({
+          date: new Date(date),
+          simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
+          uniqVisitors: dayData.nb_uniq_visitors,
+        }),
+      )
+
+      const moduleData = null
+      // const totalTimeOnSite = Object.entries(data)
+      //   .slice(-4)
+      //   .reduce((acc, [, weekData]) => acc + weekData.avg_time_on_site, 0)
+
+      // const transfoRateFranceRenov =
+      //   (Object.values(dataLastMonth).reduce(
+      //     (acc, curr) => acc + curr[2].step_nb_visits_actual,
+      //     0,
+      //   ) /
+      //     nbSimuEndedMonth) *
+      //   100
+
+      // const avgTimeOnSite = formatTime(totalTimeOnSite / 4)
+      setData({
+        globalData,
+        siteData,
+        iframeData,
+        moduleData,
       })
+    } catch (error) {
+      console.error('Error fetching visit data:', error)
+    }
   }
 
   useEffect(() => {
-    fetchTypeLogement()
-    fetchCategorieRevenu()
+    fetchData()
   }, [])
 
+  const globalChart = useMemo(
+    () => ({
+      labels: data.globalData ? data.globalData.map((entry) => entry.date) : [],
+      datasets: [
+        {
+          label: 'Nombre de simulations terminées',
+          data: data.globalData
+            ? data.globalData.map((entry) => entry.simuEnded)
+            : [],
+          borderColor: '#000091',
+          borderWidth: 1,
+          backgroundColor: '#2a82dd',
+          yAxisID: 'y',
+        },
+        {
+          label: 'Nombre de visiteurs uniques',
+          data: data.globalData
+            ? data.globalData.map((entry) => entry.uniqVisitors)
+            : [],
+          borderColor: '#ff5c8d',
+          borderWidth: 1,
+          backgroundColor: '#ff97b5',
+          yAxisID: 'y',
+        },
+      ],
+    }),
+    [data.globalData],
+  )
+
+  const siteChart = useMemo(
+    () => ({
+      labels: data.siteData ? data.siteData.map((entry) => entry.date) : [],
+      datasets: [
+        {
+          label: 'Nombre de simulations terminées',
+          data: data.siteData
+            ? data.siteData.map((entry) => entry.simuEnded)
+            : [],
+          borderColor: '#000091',
+          borderWidth: 1,
+          backgroundColor: '#2a82dd',
+          yAxisID: 'y',
+        },
+        {
+          label: 'Nombre de visiteurs uniques',
+          data: data.siteData
+            ? data.siteData.map((entry) => entry.uniqVisitors)
+            : [],
+          borderColor: '#ff5c8d',
+          borderWidth: 1,
+          backgroundColor: '#ff97b5',
+          yAxisID: 'y',
+        },
+      ],
+    }),
+    [data.siteData],
+  )
+
+  const iframeChart = useMemo(
+    () => ({
+      labels: data.iframeData ? data.iframeData.map((entry) => entry.date) : [],
+      datasets: [
+        {
+          label: 'Nombre de simulations terminées',
+          data: data.iframeData
+            ? data.iframeData.map((entry) => entry.simuEnded)
+            : [],
+          borderColor: '#000091',
+          borderWidth: 1,
+          backgroundColor: '#2a82dd',
+          yAxisID: 'y',
+        },
+        {
+          label: 'Nombre de visiteurs uniques',
+          data: data.iframeData
+            ? data.iframeData.map((entry) => entry.uniqVisitors)
+            : [],
+          borderColor: '#ff5c8d',
+          borderWidth: 1,
+          backgroundColor: '#ff97b5',
+          yAxisID: 'y',
+        },
+      ],
+    }),
+    [data.iframeData],
+  )
+
+  const options = useMemo(
+    () => ({
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'week',
+            tooltipFormat: 'dd/MM/yyyy',
+            displayFormats: { week: 'dd/MM/yyyy' },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'Nombre de simulation' },
+        },
+      },
+    }),
+    [],
+  )
+
   return (
-    <div
-      css={`
-        h4 {
-          font-size: 1rem;
-        }
-      `}
-    >
-      <Wrapper $background="white" $noMargin={true}>
-        <Content
-          css={`
-            h3 {
-              font-size: 1.1rem;
-            }
-          `}
-        >
-          <h2>Statistiques</h2>
-          <p>
-            <strong>Notre mission</strong> : simplifier l'accès à l'information
-            sur les aides à la rénovation énergétique pour augmenter le nombre
-            de personnes qui engagent des travaux de rénovation.
-          </p>
-          <h3>Données d'interaction avec le simulateur</h3>
-        </Content>
-      </Wrapper>
-    </div>
+    <Wrapper $background="white" $noMargin={true}>
+      <Content
+        css={`
+          h3 {
+            font-size: 1.1rem;
+          }
+        `}
+      >
+        <h2>Statistiques Internes</h2>
+        <h3>Global</h3>
+        {data.globalData && <Line data={globalChart} options={options} />}
+        <h3>Site</h3>
+        {data.siteData && <Line data={siteChart} options={options} />}
+
+        <h3>Iframe</h3>
+        {data.iframeData && <Line data={iframeChart} options={options} />}
+
+        <h3>Module</h3>
+        {data.weeklyData && <Line data={chartData} options={options} />}
+      </Content>
+    </Wrapper>
   )
 }

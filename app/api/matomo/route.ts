@@ -1,11 +1,13 @@
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const type = searchParams.get('type')
+  const segment = searchParams.get('segment')
   const apiToken = process.env.MATOMO_API_TOKEN
   const idSite = '101'
   const startDate = '2024-08-15'
   const idFunnel = 122
   const baseUrl = `https://stats.beta.gouv.fr/?module=API&idSite=${idSite}&period=week&date=last9&format=JSON`
+  const baseUrlInterne = `https://stats.beta.gouv.fr/?module=API&idSite=${idSite}&period=day&date=last30&format=JSON`
   const matomoUrlFunnel =
     baseUrl + `&method=Funnels.getFunnelFlow&idFunnel=${idFunnel}`
 
@@ -56,6 +58,26 @@ export async function GET(request: Request) {
       let today = new Date()
 
       delete data[today.toISOString().split('T')[0]]
+    } else if (type == 'internes') {
+      const segmentQuery =
+        segment == 'iframe'
+          ? '&segment=eventCategory==Iframe;eventName==Simulation'
+          : segment == 'site'
+            ? '&segment=eventCategory!=Iframe'
+            : ''
+
+      const dataFunnel = await fetchMatomoData(
+        baseUrlInterne +
+          `&method=Funnels.getFunnelFlow&idFunnel=${idFunnel}${segmentQuery}`,
+        options,
+      )
+      segment
+      const dataVisitor = await fetchMatomoData(
+        baseUrlInterne + `&method=VisitsSummary.get${segmentQuery}`,
+        options,
+      )
+
+      data = mergeData(dataFunnel, dataVisitor)
     }
 
     return new Response(JSON.stringify(data), {
