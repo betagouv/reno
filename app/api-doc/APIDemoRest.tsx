@@ -33,6 +33,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     ptz: 'PTZ . montant',
     par: 'PAR . montant',
     denormandie: 'denormandie . montant',
+    eligibilite: 'eligibilite',
   }
 
   const typeGeste = type == 'mprg' ? 'MPR' : 'CEE'

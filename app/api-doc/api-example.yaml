@@ -1,3 +1,14 @@
+eligibilite:
+  vous . propriétaire . statut: 'propriétaire'
+  ménage . personnes: 3
+  ménage . revenu: 25000
+  DPE . actuel: 6
+  projet . DPE visé: 2
+  projet . travaux: 50000
+  ménage . commune: "'25388'" # code insee
+  logement . propriétaire occupant: oui
+  logement . résidence principale propriétaire: oui
+  logement . période de construction: "'de 15 à 25 ans'"
 mpra:
   vous . propriétaire . statut: 'propriétaire'
   ménage . personnes: 3
