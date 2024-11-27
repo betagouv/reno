@@ -187,9 +187,8 @@ logement . âge:
   titre: Âge du logement
   formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
 
-logement . période de construction:
-  par défaut: "'au moins 25 ans'"
-  question: De quand date la construction du logement à rénover ?
+  # Il faudrait pouvoir injecter cela dans la période de construction
+logement . période de construction calculée:
   formule:
     variations:
       - si: âge < 2
@@ -199,6 +198,9 @@ logement . période de construction:
       - si: âge < 25
         alors: '"de 15 à 25 ans"'
       - sinon: '"au moins 25 ans"'
+logement . période de construction:
+  par défaut: "'au moins 25 ans'"
+  question: De quand date la construction du logement à rénover ?
   une possibilité parmi:
     possibilités:
       - moins de 2 ans
