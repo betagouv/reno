@@ -72,7 +72,14 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
-      <AmpleurModuleBanner {...{ depuisModule, situation }} />
+      <AmpleurModuleBanner
+        {...{
+          depuisModule,
+          setSearchParams,
+          situation,
+          remaining: nextQuestions.length,
+        }}
+      />
       <div
         css={`
           max-width: 800px;

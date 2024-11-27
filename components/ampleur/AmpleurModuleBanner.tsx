@@ -2,10 +2,16 @@ import DPELabel from '../DPELabel'
 import checkIcon from '@/public/check.svg'
 import flag from '@/public/flag-filled.svg'
 import Image from 'next/image'
+import { CTA, CTAWrapper } from '../UI'
+import Link from 'next/link'
 
-export default function AmpleurModuleBanner({ depuisModule, situation }) {
+export default function AmpleurModuleBanner({
+  depuisModule,
+  situation,
+  setSearchParams,
+  remaining,
+}) {
   if (!depuisModule) return null
-  const remaining = 4
 
   return (
     <section
@@ -19,7 +25,7 @@ export default function AmpleurModuleBanner({ depuisModule, situation }) {
             font-size: 120%;
           }
           > section  {
-            padding: 1rem 1rem;
+            padding: 0.8rem 1rem;
             background: #e8edff;
             border-radius: 5px;
           }
@@ -56,6 +62,12 @@ export default function AmpleurModuleBanner({ depuisModule, situation }) {
             Il reste seulement <strong>{remaining} questions</strong> pour
             calculer vos aides.
           </p>
+
+          <CTA $fontSize="normal" $importance="secondary">
+            <Link href={setSearchParams({ depuisModule: undefined }, 'url')}>
+              OK
+            </Link>
+          </CTA>
         </section>
       </div>
     </section>
