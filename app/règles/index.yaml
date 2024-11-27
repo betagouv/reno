@@ -103,6 +103,7 @@ logement . type:
       - 'maison'
       - 'appartement'
   maximum: "'maison'"
+  schema module: Optionnel.
 logement . type . maison:
   valeur: "'maison'"
   titre: Une maison
@@ -133,6 +134,7 @@ logement . surface:
   notes: |
     Pour le calcul de la surface moyenne, voir la [documentation Nos Gestes Climat](https://nosgestesclimat.fr/documentation/parc-fran%C3%A7ais/surface-moyenne).
   unité: m²
+  schema module: Optionnel. Utile pour les aides par geste seulement.
 logement . propriétaire occupant:
   applicable si: vous . propriétaire . condition
   question: Allez-vous vivre dans le logement à rénover (propriétaire occupant) ?
@@ -182,6 +184,7 @@ logement . année de construction:
     choc pétrolier: 1975
     récent: 2000
     neuf: 2020
+  schema module: Optionnel.
 
 logement . âge:
   titre: Âge du logement
@@ -283,8 +286,10 @@ logement . commune:
   question: Dans quelle commune se situe le logement ?
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides locales.
   par défaut: "'29200'"
+  schema module: Optionnel. Peut déclencher des aides. C'est le code INSEE, pas le code postal.
 
 logement . commune . nom:
+  schema module: Optionnel.
   par défaut:
     texte: Brest
 
@@ -381,6 +386,7 @@ DPE . actuel:
     D: 4
     C: 3
     B: 2
+  schema module: Nécessaire. Un entier de 1 (A) à 7 (G).
 
 projet:
   titre: Votre projet de rénovation
