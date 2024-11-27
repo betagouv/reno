@@ -10,6 +10,7 @@ import { useSearchParams } from 'next/navigation'
 import personas from './examplePersonas.yaml'
 import css from '@/components/css/convertToJs'
 import { mobileIframeStyle } from './ExampleIframe'
+import Schema from './AmpleurSchema'
 
 export default function AmpleurDemonstration() {
   const setSearchParams = useSetSearchParams()
@@ -96,6 +97,10 @@ export default function AmpleurDemonstration() {
             ))}
           </ul>
         </div>
+        <p>
+          Voici la liste des champs qui peuvent être injectés dans l'iframe :
+        </p>
+        <Schema examplePersonas={personas} />
         <h3>L'URL de l'iframe à injecter de votre côté</h3>
         <code>{iframeUrl}</code>
         <section
