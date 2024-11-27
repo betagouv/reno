@@ -267,14 +267,8 @@ export default function Ampleur() {
           </Li>
         </QuestionList>
         <UserData {...{ setSearchParams, situation }} />
-        {!ampleurQuestionsAnswered(answeredQuestions) ? (
-          <section>
-            {false && (
-              <p>
-                <PrimeStyle>Jusqu'à 57 000 €</PrimeStyle>
-              </p>
-            )}
-          </section>
+        {false && !ampleurQuestionsAnswered(answeredQuestions) ? (
+          <section>Vos aides ici</section>
         ) : (
           <section>
             <h3
