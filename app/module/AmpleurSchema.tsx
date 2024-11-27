@@ -1,6 +1,15 @@
+import examplePersonas from './examplePersonas.yaml'
 import rules from '@/app/règles/rules'
 
-export default function Schema({ examplePersonas }) {
+const getValues = (dottedName) => {
+  const values = examplePersonas
+    .map((persona) => persona.situation[dottedName])
+    .filter(Boolean)
+
+  const unique = new Set(values)
+  return [...unique]
+}
+export default function Schema({}) {
   const dottedNamesList = examplePersonas
     .map((persona) => Object.keys(persona.situation))
     .flat()
@@ -10,7 +19,7 @@ export default function Schema({ examplePersonas }) {
     <ul
       css={`
         list-style-type: none;
-        li {
+        > li {
           margin: 0.1rem 0;
         }
         em {
@@ -19,6 +28,13 @@ export default function Schema({ examplePersonas }) {
           border: 1px solid var(--lighterColor);
           background: var(--lightestColor);
           border-radius: 0.2rem;
+        }
+        ul {
+          display: inline-flex;
+          list-style-type: none;
+          li {
+            margin: 0 0.4rem;
+          }
         }
       `}
     >
@@ -29,13 +45,12 @@ export default function Schema({ examplePersonas }) {
             <span>
               <em>{dottedName}</em>
             </span>{' '}
-            Exemples :{' '}
-            <span>
-              {examplePersonas
-                .map((persona) => persona.situation[dottedName])
-                .filter(Boolean)
-                .join(', ')}
-            </span>
+            Ex. :{' '}
+            <ul>
+              {getValues(dottedName).map((value) => (
+                <li key={value}>{value}</li>
+              ))}
+            </ul>
           </li>
         )
       })}

@@ -100,7 +100,7 @@ export default function AmpleurDemonstration() {
         <p>
           Voici la liste des champs qui peuvent être injectés dans l'iframe :
         </p>
-        <Schema examplePersonas={personas} />
+        <Schema />
         <h3>L'URL de l'iframe à injecter de votre côté</h3>
         <code>{iframeUrl}</code>
         <section
