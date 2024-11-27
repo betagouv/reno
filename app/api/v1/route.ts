@@ -93,13 +93,7 @@ async function apiResponse(method: string, request: Request) {
       }, {})
   }
 
-  return Response.json(response, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
-  })
+  return Response.json(response)
 }
 
 export async function GET(request: Request) {
