@@ -190,6 +190,15 @@ logement . âge:
 logement . période de construction:
   par défaut: "'au moins 25 ans'"
   question: De quand date la construction du logement à rénover ?
+  formule:
+    variations:
+      - si: âge < 2
+        alors: '"moins de 2 ans"'
+      - si: âge < 15
+        alors: '"de 2 à 15 ans"'
+      - si: âge < 25
+        alors: '"de 15 à 25 ans"'
+      - sinon: '"au moins 25 ans"'
   une possibilité parmi:
     possibilités:
       - moins de 2 ans
