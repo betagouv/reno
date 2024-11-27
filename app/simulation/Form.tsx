@@ -14,9 +14,17 @@ import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
 import simulationConfig from './simulationConfig.yaml'
+import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import { useSearchParams } from 'next/navigation'
+import useIsInIframe from '@/components/useIsInIframe'
+import { push } from '@socialgouv/matomo-next'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
+  if (isInIframe) {
+    push(['trackEvent', 'Iframe', 'Page', 'Simulation'])
+  }
+
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -50,8 +58,6 @@ function Form({ rules }) {
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
-
-  console.log({ nextQuestions })
 
   const setSearchParams = useSetSearchParams()
 

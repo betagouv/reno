@@ -50,46 +50,34 @@ export default function Copropriete() {
   const setSearchParams = useSetSearchParams()
 
   return (
-    <div>
-      <Section>
-        <Answers
+    <>
+      {rule ? (
+        <InputSwitch
           {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
             rules,
-            engine,
+            currentQuestion,
             situation,
+            answeredQuestions,
+            setSearchParams,
+            engine,
+            nextQuestions,
+            searchParams,
           }}
         />
-        {rule ? (
-          <InputSwitch
-            {...{
-              rules,
-              currentQuestion,
-              situation,
-              answeredQuestions,
-              setSearchParams,
-              engine,
-              nextQuestions,
-              searchParams,
-            }}
-          />
-        ) : (
-          <ExplicationCopropriete
-            {...{
-              rules,
-              currentQuestion,
-              situation,
-              answeredQuestions,
-              setSearchParams,
-              engine,
-              nextQuestions,
-              searchParams,
-            }}
-          />
-        )}
-      </Section>
-    </div>
+      ) : (
+        <ExplicationCopropriete
+          {...{
+            rules,
+            currentQuestion,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            engine,
+            nextQuestions,
+            searchParams,
+          }}
+        />
+      )}
+    </>
   )
 }

@@ -22,6 +22,8 @@ import informationIcon from '@/public/information.svg'
 import Link from 'next/link'
 import MprCategory from '../MprCategory'
 import { omit } from '@/components/utils'
+import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
+import { CustomQuestionWrapper } from '../CustomQuestionUI'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
@@ -64,7 +66,14 @@ export default function ExplicationCopropriete() {
   )
 
   return (
-    <Section>
+    <CustomQuestionWrapper>
+      <BtnBackToParcoursChoice
+        {...{
+          setSearchParams,
+          situation,
+          answeredQuestions: answeredQuestions.slice(0, -1),
+        }}
+      />
       <header>
         <small>MaPrimeRénov’ Copropriété</small>
         <h2>Financer une rénovation d’ampleur de votre copropriété</h2>
@@ -123,16 +132,10 @@ export default function ExplicationCopropriete() {
           </CTAWrapper>
         </>
       ) : (
-        <>
+        <Card>
           <h3
             css={`
-              display: flex;
-              align-items: center;
-              img {
-                margin-right: 0.4rem;
-                width: 1.8rem;
-                height: auto;
-              }
+              margin-top: 1rem;
             `}
           >
             <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle
@@ -387,8 +390,8 @@ export default function ExplicationCopropriete() {
               answeredQuestions,
             }}
           ></MprCategory>
-        </>
+        </Card>
       )}
-    </Section>
+    </CustomQuestionWrapper>
   )
 }
