@@ -30,6 +30,14 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
+### v1.0.0-beta4
+
+Le module ampleur passe en version 3. Ses évolutions sont décrites en bas de la [page dédiée](https://mesaidesreno.beta.gouv.fr/module).
+
+Une nouvelle variable est introduite dans le module pour passer de l'année de construction du logement à l'une des quelques périodes de construction utilisées par les aides à la rénovation.
+
+Elle n'est pour l'instant pas utilisée pour pouvoir injecter dans le modèle l'année de construction.
+
 ### v1.0.0-beta3
 
 Nous avons pris en compte les premiers retours critiques. En particulier, un changement important pour le modèle : la subvention de l'État pour l'Accompagnateur Rénov' a son _assiette_ plafonnée, et pas son _résultat_. Nous nous étions basés sur la description ambigue de cette aide sur les supports officiels, qui parlaient par erreur d'une _subvention plafonnée_. C'est corrigé.
