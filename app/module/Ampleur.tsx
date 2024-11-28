@@ -116,8 +116,7 @@ export default function Ampleur() {
   if (!currentDPE || isNaN(currentDPE))
     return (
       <p>
-        Un DPE est nécessaire pour utiliser estimer les aides à la rénovation
-        d'ampleur.
+        Un DPE est nécessaire pour estimer les aides à la rénovation d'ampleur.
       </p>
     )
 
