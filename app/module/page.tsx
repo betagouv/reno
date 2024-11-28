@@ -103,7 +103,7 @@ export default function Module({}) {
               Le module est redesigné suite aux premiers retours du premier
               intégrateur. Les saisies utilisateur sont améliorées avec un choix
               simple dans un menu déroulant pour décrire la situation de
-              l'acheter : résidence principale, résidence secondaire ou
+              l'acheteur : résidence principale, résidence secondaire ou
               résidence principale d'un locataire.
             </p>
             <p>
