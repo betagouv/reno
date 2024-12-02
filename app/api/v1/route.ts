@@ -62,8 +62,6 @@ async function apiResponse(method: string, request: Request) {
     let fields = params['fields'].split(',')
     const fullEvaluation = fields.includes('evaluation')
 
-    engine.setSituation(situation)
-
     let response
     if (fields == 'eligibilite') {
       const aides = useAides(engine, situation)
@@ -82,23 +80,58 @@ async function apiResponse(method: string, request: Request) {
           taux:
             aide['baseDottedName'] == 'taxe foncière'
               ? situation['taxe foncière . commune . taux']
-              : undefined,
+              : aide['baseDottedName'] == 'denormandie'
+                ? formatValue(
+                    engine
+                      .setSituation(situation)
+                      .evaluate('denormandie . taux'),
+                  )
+                : undefined,
           durée:
             aide['baseDottedName'] == 'taxe foncière'
               ? rules['taxe foncière . durée'] + 's'
-              : undefined,
+              : aide['baseDottedName'] == 'denormandie'
+                ? formatValue(
+                    engine
+                      .setSituation(situation)
+                      .evaluate('denormandie . durée'),
+                  ) + ' ans'
+                : undefined,
           missingVariables: Object.keys(aide['evaluation']['missingVariables']),
         }))
     } else {
       response = fields
         .filter((f) => f !== 'evaluation')
         .reduce((acc, field) => {
-          const evaluation = engine.evaluate(decodeDottedName(field))
+          const evaluation = engine
+            .setSituation(situation)
+            .evaluate(decodeDottedName(field))
           acc[field] = {
             rawValue: evaluation.nodeValue,
             formattedValue: formatValue(evaluation),
             missingVariables: Object.keys(evaluation.missingVariables),
           }
+
+          if (field.startsWith('gestes')) {
+            // On détaille dans une variable le calcul (MPR+(CP ou CEE))
+            acc[field]['details'] = rules[decodeDottedName(field)]['somme'].map(
+              (subAide) => {
+                const subEvaluation = engine.evaluate(
+                  decodeDottedName(field).replace('montant', subAide),
+                )
+                return {
+                  [subAide.replace(' . montant', '')]: {
+                    rawValue: subEvaluation.nodeValue,
+                    formattedValue: formatValue(subEvaluation),
+                    missingVariables: Object.keys(
+                      subEvaluation.missingVariables,
+                    ),
+                  },
+                }
+              },
+            )
+          }
+
           if (fullEvaluation) {
             acc[field]['evaluation'] = evaluation
           }
