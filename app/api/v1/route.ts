@@ -1,54 +1,13 @@
 import {
   decodeDottedName,
-  getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import { useAides } from '@/components/ampleur/useAides'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
-import { omit } from '@/components/utils'
 import enrichSituation from '@/components/personas/enrichSituation'
 
 const engine = new Publicodes(rules)
-// const questionsConfig = { prioritaires: [], 'non prioritaires': [] }
-
-// const targets = rules.aides.somme
-
-// export async function GET(request: Request) {
-//   const searchParams = request.nextUrl.searchParams
-//   const searchParamsObject = Object.fromEntries(searchParams.entries())
-
-//   const answeredQuestions = getAnsweredQuestions(searchParamsObject, rules)
-//   const situation = getSituation(searchParamsObject, rules),
-//     validatedSituation = Object.fromEntries(
-//       Object.entries(situation).filter(([k, v]) =>
-//         answeredQuestions.includes(k),
-//       ),
-//     )
-
-//   engine.setSituation(validatedSituation)
-//   const resultsArray = targets.map((target) => {
-//     const evaluation = engine.evaluate(target),
-//       value = formatValue(evaluation),
-//       nextQuestions = getNextQuestions(
-//         evaluation,
-//         answeredQuestions,
-//         questionsConfig,
-//         rules,
-//       )
-//     return [target, { evaluation, value, nextQuestions }]
-//   })
-
-//   const results = Object.fromEntries(resultsArray)
-
-//   return Response.json({
-//     situation,
-//     validatedSituation,
-//     answeredQuestions,
-//     results,
-//   })
-// }
 async function apiResponse(method: string, request: Request) {
   try {
     const params = Object.fromEntries(request.nextUrl.searchParams.entries())
@@ -111,8 +70,10 @@ async function apiResponse(method: string, request: Request) {
             formattedValue: formatValue(evaluation),
             missingVariables: Object.keys(evaluation.missingVariables),
           }
-
-          if (field.startsWith('gestes')) {
+          if (
+            field.startsWith('gestes') &&
+            !(field.includes('MPR') || field.includes('CEE'))
+          ) {
             // On détaille dans une variable le calcul (MPR+(CP ou CEE))
             acc[field]['details'] = rules[decodeDottedName(field)]['somme'].map(
               (subAide) => {
