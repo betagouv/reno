@@ -18,7 +18,7 @@ const accordionSections = [
   {
     id: 'mpr-geste',
     title: "MaPrimeRénov' - Parcours par geste",
-    componentType: 'mprg',
+    componentType: 'MPR',
   },
   {
     id: 'copro',
@@ -37,15 +37,11 @@ const accordionSections = [
     title: "Denormandie - Réduction d'impôt location",
     componentType: 'denormandie',
   },
-  { id: 'cee', title: 'CEE', componentType: 'cee' },
+  { id: 'cee', title: 'CEE', componentType: 'CEE' },
 ]
 
 export default function AccordionComponent() {
   const [activeSection, setActiveSection] = useState('eligibilite')
-
-  const toggleSection = (section) => {
-    setActiveSection(activeSection === section ? null : section)
-  }
 
   return (
     <>
@@ -54,22 +50,18 @@ export default function AccordionComponent() {
           <AccordionTitle
             aria-expanded={activeSection === id}
             aria-controls={`accordion-${id}`}
-            onClick={() => toggleSection(id)}
+            onClick={() => setActiveSection(activeSection === id ? null : id)}
           >
             {title}
           </AccordionTitle>
-          {activeSection === id && (
-            <div
-              id={`accordion-${id}`}
-              css={
-                id === 'parametres'
-                  ? 'border: 1px solid #ddd; padding: 2rem;'
-                  : ''
-              }
-            >
-              {content || <APIDemo type={componentType} />}
-            </div>
-          )}
+          <div
+            id={`accordion-${id}`}
+            css={`
+              display: ${activeSection === id ? 'block' : 'none'};
+            `}
+          >
+            <APIDemo type={componentType} />
+          </div>
         </section>
       ))}
     </>

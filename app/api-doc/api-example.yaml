@@ -6,10 +6,12 @@ eligibilite:
   projet . DPE visé: 2
   projet . travaux: 50000
   ménage . commune: '44109' # code insee
+  logement . type: 'maison'
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'au moins 25 ans'"
   parcours d'aide: "'ampleur'"
+  taxe foncière . condition de dépenses: oui
 mpra:
   vous . propriétaire . statut: 'propriétaire'
   ménage . personnes: 3
@@ -21,7 +23,7 @@ mpra:
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'de 15 à 25 ans'"
-mprg:
+MPR:
   vous . propriétaire . statut: 'propriétaire'
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
@@ -38,7 +40,7 @@ copropriete:
   copropriété . bonus sortie passoire: oui
   copropriété . bonus copropriété fragile: non
   copropriété . montant travaux: 60000
-cee:
+CEE:
   ménage . commune: '75056'
   gestes . isolation . murs extérieurs . MPR . surface: 50
   gestes . isolation . murs extérieurs: oui
@@ -67,8 +69,22 @@ denormandie:
   denormandie . années de location: 12
   denormandie . gestes minimum: oui
   ménage . revenu: 20000
-  logement . commune . denormandie: oui
-  logement . commune: '75056'
+  logement . commune: '29019'
   logement . prix d'achat: 250000
   projet . travaux: 85000
   projet . gain énergétique: 35
+geste:
+  vous . propriétaire . statut: 'propriétaire'
+  logement . période de construction: "'au moins 25 ans'"
+  logement . propriétaire occupant: oui
+  logement . résidence principale propriétaire: oui
+  logement . résidence principale locataire: non
+  ménage . commune: '44109'
+  ménage . personnes: 2
+  ménage . revenu: 25000
+  gestes . chauffage . PAC . air-eau: oui
+  CEE . projet . remplacement chaudière thermique: non
+  logement . type: 'maison'
+  logement . surface: 135
+  gestes . chauffage . PAC . air-eau . CEE . usage: 'chauffage et eau chaude'
+  gestes . chauffage . PAC . air-eau . CEE . Etas: 'supérieur à 200 %'

@@ -9,6 +9,7 @@ import {
   encodeDottedName,
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
+import Publicodes from 'publicodes'
 import { CTA, InternalLink, MiseEnAvant } from '@/components/UI'
 import { omit } from '@/components/utils'
 import iconDocumentation from '@/public/documentation.svg'
@@ -18,18 +19,15 @@ import { Select } from '@/components/InputUI'
 export default function APIDemoRest({ type, method = 'POST' }) {
   const [result, setResult] = useState('')
   const [yaml, setYaml] = useState(stringify(example[type]))
-  const [gestes, setGestes] = useState({
-    MPR: 'gestes . chauffage . PAC . air-eau',
-    CEE: 'gestes . chauffage . PAC . air-eau',
-    globale: 'gestes . isolation . murs extérieurs',
-  })
+  const [geste, setGeste] = useState('gestes . chauffage . PAC . air-eau')
   const [evaluationGlobale, setEvaluationGlobale] = useState(false)
+  const engine = new Publicodes(rules)
 
   const ruleToEvaluate = {
     eligibilite: 'eligibilite',
-    geste: `${gestes['globale']} . montant`,
-    mprg: `${gestes['MPR']} . MPR . montant`,
-    cee: `${gestes['CEE']} . CEE . montant`,
+    geste: `${geste} . montant`,
+    MPR: `${geste} . MPR . montant`,
+    CEE: `${geste} . CEE . montant`,
     copropriete: 'copropriété . montant',
     'category-mpr': 'ménage . revenu . classe',
     mpra: 'MPR . accompagnée . montant',
@@ -38,14 +36,14 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     denormandie: 'denormandie . montant',
   }
 
-  const typeAide = type == 'mprg' ? 'MPR' : type == 'geste' ? 'globale' : 'CEE'
   const distinctRules = useMemo(() => {
     return Object.keys(rules)
       .filter(
         (item) =>
           item.startsWith('gestes') &&
-          ((typeAide !== 'globale' && item.endsWith(typeAide)) ||
-            (typeAide === 'globale' &&
+          ((type !== 'geste' && item.endsWith(type)) ||
+            (type === 'geste' &&
+              item !== 'gestes . montant' &&
               item.endsWith('montant') &&
               !(
                 item.includes('MPR') ||
@@ -54,21 +52,17 @@ export default function APIDemoRest({ type, method = 'POST' }) {
               ))),
       )
       .map((item) => {
-        const rule = item.replace(
-          ` . ${typeAide == 'globale' ? 'montant' : typeAide}`,
-          '',
-        )
+        const rule = item.replace(` . ${type}`, '').replace(' . montant', '')
         return {
           valeur: rule,
-          titre: rules[rule]?.titre || 'erreur',
+          titre: rules[rule].titre,
         }
       })
-  }, [typeAide])
+  }, [type])
 
   const situation = useMemo(() => {
     try {
-      const json = parse(yaml)
-      return json
+      return parse(yaml)
     } catch (e) {
       console.log(e)
       return {}
@@ -99,9 +93,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     setResult(JSON.stringify(await response.json(), null, '\t'))
   }
 
-  const updateYamlForGeste = (yaml, gesteType, newValue) => {
-    console.log('gesteType', gesteType)
-
+  const updateYamlForGeste = (yaml, newGeste) => {
     const parsedYaml = yaml.split('\n').reduce((acc, line) => {
       const [key, value] = line.split(':')
       if (key && value)
@@ -109,17 +101,24 @@ export default function APIDemoRest({ type, method = 'POST' }) {
       return acc
     }, {})
 
-    const updatedYaml = omit([gesteType], parsedYaml)
-    updatedYaml[newValue] = 'oui'
+    const updatedYaml = omit([geste], parsedYaml)
+    updatedYaml[newGeste] = 'oui'
+    const missingVariable = engine
+      .setSituation(updatedYaml)
+      .evaluate(ruleToEvaluate[type].replace(geste, newGeste)).missingVariables
+    Object.keys(missingVariable).map((missingVariable) => {
+      return (updatedYaml[missingVariable] =
+        engine.evaluate(missingVariable).nodeValue)
+    })
 
     return stringify(updatedYaml)
   }
-  const changeGeste = (e, typeAide) => {
-    setGestes((prev) => ({
-      ...prev,
-      [typeAide]: e.target.value,
-    }))
-    setYaml(updateYamlForGeste(yaml, gestes[typeAide], e.target.value))
+
+  const changeGeste = (e) => {
+    const newGeste = e.target.value
+    const updatedYaml = updateYamlForGeste(yaml, newGeste)
+    setGeste(newGeste)
+    setYaml(updatedYaml)
   }
 
   const documentationUrl =
@@ -175,17 +174,14 @@ export default function APIDemoRest({ type, method = 'POST' }) {
           .
         </MiseEnAvant>
       )}
-      {['mprg', 'cee', 'geste'].includes(type) && (
+      {['MPR', 'CEE', 'geste'].includes(type) && (
         <div
           css={`
             margin-bottom: 1rem;
           `}
         >
           Geste : {` `}
-          <Select
-            onChange={(e) => changeGeste(e, typeAide)}
-            value={gestes[typeAide]}
-          >
+          <Select onChange={(e) => changeGeste(e)} value={geste}>
             {distinctRules.map((item, index) => (
               <option
                 key={index}
