@@ -18,33 +18,53 @@ import { Select } from '@/components/InputUI'
 export default function APIDemoRest({ type, method = 'POST' }) {
   const [result, setResult] = useState('')
   const [yaml, setYaml] = useState(stringify(example[type]))
-  const [geste, setGeste] = useState('gestes . chauffage . PAC . air-eau')
-  const [gesteCee, setGesteCee] = useState(
-    'gestes . isolation . murs extérieurs',
-  )
+  const [gestes, setGestes] = useState({
+    MPR: 'gestes . chauffage . PAC . air-eau',
+    CEE: 'gestes . chauffage . PAC . air-eau',
+    globale: 'gestes . isolation . murs extérieurs',
+  })
   const [evaluationGlobale, setEvaluationGlobale] = useState(false)
 
   const ruleToEvaluate = {
-    mprg: `${geste} . MPR . montant`,
+    eligibilite: 'eligibilite',
+    geste: `${gestes['globale']} . montant`,
+    mprg: `${gestes['MPR']} . MPR . montant`,
+    cee: `${gestes['CEE']} . CEE . montant`,
     copropriete: 'copropriété . montant',
-    cee: `${gesteCee} . CEE . montant`,
     'category-mpr': 'ménage . revenu . classe',
     mpra: 'MPR . accompagnée . montant',
     ptz: 'PTZ . montant',
     par: 'PAR . montant',
     denormandie: 'denormandie . montant',
-    eligibilite: 'eligibilite',
   }
 
-  const typeGeste = type == 'mprg' ? 'MPR' : 'CEE'
-  const distinctRules = Object.keys(rules)
-    .filter((item) => item.startsWith('gestes') && item.endsWith(typeGeste))
-    .map((item) => ({
-      valeur: item.replace(` . ${typeGeste}`, ''),
-      titre: rules[item.replace(` . ${typeGeste}`, '')].titre,
-    }))
+  const typeAide = type == 'mprg' ? 'MPR' : type == 'geste' ? 'globale' : 'CEE'
+  const distinctRules = useMemo(() => {
+    return Object.keys(rules)
+      .filter(
+        (item) =>
+          item.startsWith('gestes') &&
+          ((typeAide !== 'globale' && item.endsWith(typeAide)) ||
+            (typeAide === 'globale' &&
+              item.endsWith('montant') &&
+              !(
+                item.includes('MPR') ||
+                item.includes('CEE') ||
+                item.includes('Coup de pouce')
+              ))),
+      )
+      .map((item) => {
+        const rule = item.replace(
+          ` . ${typeAide == 'globale' ? 'montant' : typeAide}`,
+          '',
+        )
+        return {
+          valeur: rule,
+          titre: rules[rule]?.titre || 'erreur',
+        }
+      })
+  }, [typeAide])
 
-  const domain = getAppUrl()
   const situation = useMemo(() => {
     try {
       const json = parse(yaml)
@@ -58,7 +78,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
   const fields = { fields: encodeDottedName(ruleToEvaluate[type]) }
   const searchParams = encodeSituation({ ...situation, ...fields })
   const apiUrl =
-    domain +
+    getAppUrl() +
     '/api/v1/?' +
     new URLSearchParams(method === 'GET' ? searchParams : fields).toString() +
     (evaluationGlobale ? ',evaluation' : '')
@@ -79,57 +99,43 @@ export default function APIDemoRest({ type, method = 'POST' }) {
     setResult(JSON.stringify(await response.json(), null, '\t'))
   }
 
-  const changeGeste = (e) => {
-    if (typeGeste == 'MPR') {
-      setGeste(e.target.value)
-    } else {
-      setGesteCee(e.target.value)
-    }
+  const updateYamlForGeste = (yaml, gesteType, newValue) => {
+    console.log('gesteType', gesteType)
 
-    let newYaml = Object.values(
-      yaml.split('\n').map((line) => line.split(':')),
-    ).reduce((acc, [key, value]) => {
-      if (!value) {
-        return acc
-      }
-      acc[key.trim()] = value.trim().replace(/^["\s]+|["\s]+$/g, '')
+    const parsedYaml = yaml.split('\n').reduce((acc, line) => {
+      const [key, value] = line.split(':')
+      if (key && value)
+        acc[key.trim()] = value.trim().replace(/^["\s]+|["\s]+$/g, '')
       return acc
     }, {})
 
-    newYaml = omit([typeGeste == 'MPR' ? geste : gesteCee], newYaml)
-    newYaml[e.target.value] = 'oui'
+    const updatedYaml = omit([gesteType], parsedYaml)
+    updatedYaml[newValue] = 'oui'
 
-    setYaml(stringify(newYaml))
+    return stringify(updatedYaml)
+  }
+  const changeGeste = (e, typeAide) => {
+    setGestes((prev) => ({
+      ...prev,
+      [typeAide]: e.target.value,
+    }))
+    setYaml(updateYamlForGeste(yaml, gestes[typeAide], e.target.value))
   }
 
-  const documentationPath =
+  const documentationUrl =
     'documentation/' +
     ruleToEvaluate[type]
       .split(' . ')
       // Problème d'encodage sur les tirets (ex: PAC "air-eau" non reconnu)
       .map((e) => e.replace(/-/g, '%E2%80%91'))
       .join('/')
+
   return (
     <>
-      <InternalLink
-        href={documentationPath}
-        target="_blank"
-        css={`
-          display: inline-flex;
-          align-items: center;
-          margin-bottom: 1rem;
-        `}
-      >
-        <Image
-          src={iconDocumentation}
-          alt="Icône documentation"
-          width="24"
-          css={`
-            margin-right: 0.5rem;
-          `}
-        />
+      <DocumentationLink href={documentationUrl} target="_blank">
+        <Image src={iconDocumentation} alt="Icône documentation" width="24" />
         Documentation
-      </InternalLink>
+      </DocumentationLink>
 
       <div
         css={`
@@ -169,7 +175,7 @@ export default function APIDemoRest({ type, method = 'POST' }) {
           .
         </MiseEnAvant>
       )}
-      {['mprg', 'cee'].includes(type) && (
+      {['mprg', 'cee', 'geste'].includes(type) && (
         <div
           css={`
             margin-bottom: 1rem;
@@ -177,8 +183,8 @@ export default function APIDemoRest({ type, method = 'POST' }) {
         >
           Geste : {` `}
           <Select
-            onChange={(e) => changeGeste(e)}
-            value={typeGeste == 'MPR' ? geste : gesteCee}
+            onChange={(e) => changeGeste(e, typeAide)}
+            value={gestes[typeAide]}
           >
             {distinctRules.map((item, index) => (
               <option
@@ -221,7 +227,6 @@ export default function APIDemoRest({ type, method = 'POST' }) {
             onChange={(e) => setYaml(e.target.value)}
           />
         </div>
-
         <CTA
           onClick={(e) => handleSubmit(e, method)}
           css={`
@@ -241,24 +246,30 @@ export default function APIDemoRest({ type, method = 'POST' }) {
         >
           Résultat:
         </strong>
-        <code
-          css={`
-            display: block;
-            padding: 1rem;
-            background: black;
-            color: white;
-            min-width: 100%;
-            max-height: 15rem;
-            overflow: auto;
-          `}
-        >
+        <Code>
           <pre>{result ? result : '{}'}</pre>
-        </code>
+        </Code>
       </div>
     </>
   )
 }
-
+export const DocumentationLink = styled(InternalLink)`
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  img {
+    margin-right: 0.5rem;
+  }
+`
+export const Code = styled.code`
+  display: block;
+  padding: 1rem;
+  background: black;
+  color: white;
+  min-width: 100%;
+  max-height: 15rem;
+  overflow: auto;
+`
 export const TextArea = styled.textarea`
   padding: 0.6rem;
   font-size: 100%;
