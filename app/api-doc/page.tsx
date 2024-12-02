@@ -7,6 +7,7 @@ import { Metadata } from 'next/types'
 import AccordionComponent from './AccordionComponent'
 import NPM from './NPM'
 import ApiExampleProject from './ApiExampleProject'
+import ParametersList from './ParametersList'
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
@@ -116,6 +117,8 @@ export default function APIDoc() {
           sur le bouton
           <em> "Executer"</em> pour voir le résultat.
         </p>
+        <h3>Liste des Paramètres</h3>
+        <ParametersList />
         <AccordionComponent />
         <h3>Que permet l'API ?</h3>
         <p>
