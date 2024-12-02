@@ -5,12 +5,12 @@ import { AccordionTitle } from '@/components/UI'
 import { parse } from 'marked'
 
 export default function ParametersList() {
-  const [activeParam, setActiveParam] = useState(1)
+  const [activeParam, setActiveParam] = useState(null)
   const parametresData = [
     {
       title: 'denormandie . années de location',
       description: parse(rules['denormandie . années de location'].description),
-      values: ['6', '9', '12'],
+      values: ['entier numérique'],
     },
     {
       title: 'denormandie . gestes minimum',
