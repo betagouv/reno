@@ -6,12 +6,17 @@ import APIDemo from './APIDemo'
 const accordionSections = [
   { id: 'eligibilite', title: 'Eligibilité', componentType: 'eligibilite' },
   {
-    id: 'accompagne',
+    id: 'mpr-accompagne',
     title: "MaPrimeRénov' - Parcours accompagné",
     componentType: 'mpra',
   },
   {
     id: 'geste',
+    title: 'Aides par geste',
+    componentType: 'geste',
+  },
+  {
+    id: 'mpr-geste',
     title: "MaPrimeRénov' - Parcours par geste",
     componentType: 'mprg',
   },
@@ -68,49 +73,5 @@ export default function AccordionComponent() {
         </section>
       ))}
     </>
-  )
-}
-
-function ParametresSection({ data, activeParam }) {
-  return (
-    <div>
-      {data.map(({ title, description, values }, index) => (
-        <div
-          key={index}
-          css={`
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
-          `}
-        >
-          <AccordionTitle
-            aria-expanded={activeParam === index}
-            aria-controls={`accordion-param-${id}`}
-            onClick={() => toggleSection(index)}
-          >
-            <strong>{title}</strong>
-          </AccordionTitle>
-          {activeParam === index && (
-            <div id={`accordion-param-${index}`}>
-              {description && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: 'Description: ' + description,
-                  }}
-                />
-              )}
-              Valeurs possibles:
-              {values && (
-                <ul>
-                  {values.map((value, idx) => (
-                    <li key={idx}>{value}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
   )
 }
