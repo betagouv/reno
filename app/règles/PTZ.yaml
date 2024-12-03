@@ -71,7 +71,31 @@ PTZ . montant:
   variations:
     - si: parcours d'aide = "ampleur"
       alors: 50000 €
-    - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
-
+    - si: parcours d'aide = "à la carte"
+      alors:
+        variations:
+          - si: nombre travaux = 1
+            alors:
+              variations:
+                - si: changement parois vitrées
+                  alors: 7000 €
+                - sinon: 15000 €
+          - si: nombre travaux = 2
+            alors: 25000 €
+          - sinon: 30000 €
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
-PTZ . durée: 20 an
+PTZ . durée:
+  variations:
+    - si: parcours d'aide = "ampleur"
+      alors: 20 an
+    - si: parcours d'aide = "à la carte"
+      alors: 15 an
+PTZ . nombre travaux:
+  question: Combien de travaux différents seront réalisés?
+  description: Le nombre de travaux différent réalisé dans le cadre d'une rénovation par geste
+  par défaut: 1
+PTZ . changement parois vitrées:
+  question: La prestation réalisée concerne-t-elle le changement de parois vitrées?
+  description: |
+    En cas de seul changement des parois vitrées, le montant maximal du prêt est de 7000 €, pour les autres gestes, le montant maximal est de 15000€.
+  par défaut: non

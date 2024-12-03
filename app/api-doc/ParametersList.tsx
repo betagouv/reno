@@ -105,6 +105,7 @@ export default function ParametersList() {
     },
     {
       title: "parcours d'aide",
+      description: parse(rules["parcours d'aide"].description),
       values: ['ampleur', 'à la carte'],
     },
     {
@@ -129,6 +130,16 @@ export default function ParametersList() {
       description:
         'Le montant des travaux (HT) envisagé pour le projet de rénovation',
       values: ['entier numérique'],
+    },
+    {
+      title: 'PTZ . nombre travaux',
+      description: parse(rules['PTZ . nombre travaux'].description),
+      values: ['entier numérique'],
+    },
+    {
+      title: 'PTZ . changement parois vitrées',
+      description: parse(rules['PTZ . changement parois vitrées'].description),
+      values: ['oui', 'non'],
     },
     {
       title: 'taxe foncière . condition de dépenses',

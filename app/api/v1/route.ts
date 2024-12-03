@@ -20,6 +20,9 @@ function getTaux(
       engine.setSituation(situation).evaluate('denormandie . taux'),
     )
   }
+  if (baseDottedName.includes('PTZ')) {
+    return formatValue(0)
+  }
 
   return undefined
 }
@@ -37,6 +40,12 @@ function getDuree(
     return `${formatValue(
       engine.setSituation(situation).evaluate('denormandie . durée'),
     )} ans`
+  }
+
+  if (baseDottedName.includes('PTZ')) {
+    return `${formatValue(
+      engine.setSituation(situation).evaluate('PTZ . durée'),
+    )}s`
   }
 
   return undefined
