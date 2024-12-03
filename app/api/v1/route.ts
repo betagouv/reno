@@ -12,39 +12,29 @@ function getTaux(
   situation: any,
   engine: Publicodes,
 ): string | undefined {
-  if (['taxe foncière', 'taxe foncière.montant'].includes(baseDottedName)) {
+  let dottedName = baseDottedName.replace('.montant', '')
+  if (['taxe foncière'].includes(dottedName)) {
     return situation['taxe foncière . commune . taux']
   }
-  if (baseDottedName.includes('denormandie')) {
+  if (['denormandie', 'PTZ', 'PAR'].includes(dottedName)) {
     return formatValue(
-      engine.setSituation(situation).evaluate('denormandie . taux'),
+      engine.setSituation(situation).evaluate(dottedName + ' . taux'),
     )
   }
-  if (baseDottedName.includes('PTZ')) {
-    return formatValue(0)
-  }
-
   return undefined
 }
 
 function getDuree(
   baseDottedName: string,
-  rules: any,
-  engine: Publicodes,
   situation: any,
+  engine: Publicodes,
 ): string | undefined {
-  if (baseDottedName == 'taxe foncière') {
-    return `${rules['taxe foncière . durée']}s`
-  }
-  if (baseDottedName == 'denormandie') {
+  let dottedName = baseDottedName
+    .replace(' . montant', '')
+    .replace('.montant', '')
+  if (['PTZ', 'PAR', 'denormandie', 'taxe foncière'].includes(dottedName)) {
     return `${formatValue(
-      engine.setSituation(situation).evaluate('denormandie . durée'),
-    )} ans`
-  }
-
-  if (baseDottedName.includes('PTZ')) {
-    return `${formatValue(
-      engine.setSituation(situation).evaluate('PTZ . durée'),
+      engine.setSituation(situation).evaluate(dottedName + ' . durée'),
     )}s`
   }
 
@@ -81,7 +71,7 @@ async function apiResponse(method: string, request: Request) {
           status: aide['status'],
           value: aide['value'],
           taux: getTaux(aide['baseDottedName'], situation, engine),
-          durée: getDuree(aide['baseDottedName'], rules, engine, situation),
+          durée: getDuree(aide['baseDottedName'], situation, engine),
           missingVariables: Object.keys(aide['evaluation']['missingVariables']),
         }))
     } else {
@@ -95,7 +85,7 @@ async function apiResponse(method: string, request: Request) {
             rawValue: evaluation.nodeValue,
             formattedValue: formatValue(evaluation),
             taux: getTaux(field, situation, engine),
-            durée: getDuree(field, rules, engine, situation),
+            durée: getDuree(field, situation, engine),
             missingVariables: Object.keys(evaluation.missingVariables),
           }
           if (

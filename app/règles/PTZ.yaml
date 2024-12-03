@@ -84,6 +84,7 @@ PTZ . montant:
             alors: 25000 €
           - sinon: 30000 €
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
+PTZ . taux: 0 %
 PTZ . durée:
   variations:
     - si: parcours d'aide = "ampleur"

@@ -32,7 +32,7 @@ denormandie . durée:
   description: |
     L'avantage fiscal est étalé sur la durée de location. Son montant est calculé en appliquant au prix net de revient du logement un pourcentage variant en fonction de la durée de location (pour les logements situés en métropole). [Source](https://www.economie.gouv.fr/particuliers/reduction-impot-denormandie).
   valeur: années de location
-
+  unité: an
 denormandie . montant:
   applicable si: conditions
   formule: taux * assiette
