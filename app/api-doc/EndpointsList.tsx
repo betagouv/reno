@@ -6,14 +6,14 @@ import Endpoint from './Endpoint'
 const accordionSections = [
   { id: 'eligibilite', title: 'Eligibilité', componentType: 'eligibilite' },
   {
-    id: 'mpr-accompagne',
-    title: "MaPrimeRénov' - Parcours accompagné",
-    componentType: 'mpra',
-  },
-  {
     id: 'geste',
     title: 'Aides par geste',
     componentType: 'geste',
+  },
+  {
+    id: 'mpr-accompagne',
+    title: "MaPrimeRénov' - Parcours accompagné",
+    componentType: 'mpra',
   },
   {
     id: 'mpr-geste',
@@ -38,6 +38,11 @@ const accordionSections = [
     componentType: 'denormandie',
   },
   { id: 'cee', title: 'CEE', componentType: 'CEE' },
+  {
+    id: 'taxe-fonciere',
+    title: 'Taxe foncière',
+    componentType: 'taxe fonciere',
+  },
 ]
 
 export default function EndpointsList() {
@@ -45,7 +50,7 @@ export default function EndpointsList() {
 
   return (
     <>
-      {accordionSections.map(({ id, title, content, componentType }) => (
+      {accordionSections.map(({ id, title, componentType }) => (
         <section key={id}>
           <AccordionTitle
             aria-expanded={activeSection === id}

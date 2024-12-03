@@ -88,3 +88,8 @@ geste:
   logement . surface: 135
   gestes . chauffage . PAC . air-eau . CEE . usage: 'chauffage et eau chaude'
   gestes . chauffage . PAC . air-eau . CEE . Etas: 'supérieur à 200 %'
+taxe fonciere:
+  taxe foncière . condition de dépenses: oui
+  logement . période de construction: 'au moins 25 ans'
+  ménage . commune: '75056'
+  logement . type: 'maison'

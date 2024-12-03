@@ -7,6 +7,41 @@ import Publicodes, { formatValue } from 'publicodes'
 import { useAides } from '@/components/ampleur/useAides'
 import enrichSituation from '@/components/personas/enrichSituation'
 
+function getTaux(
+  baseDottedName: string,
+  situation: any,
+  engine: Publicodes,
+): string | undefined {
+  if (['taxe foncière', 'taxe foncière.montant'].includes(baseDottedName)) {
+    return situation['taxe foncière . commune . taux']
+  }
+  if (baseDottedName.includes('denormandie')) {
+    return formatValue(
+      engine.setSituation(situation).evaluate('denormandie . taux'),
+    )
+  }
+
+  return undefined
+}
+
+function getDuree(
+  baseDottedName: string,
+  rules: any,
+  engine: Publicodes,
+  situation: any,
+): string | undefined {
+  if (baseDottedName == 'taxe foncière') {
+    return `${rules['taxe foncière . durée']}s`
+  }
+  if (baseDottedName == 'denormandie') {
+    return `${formatValue(
+      engine.setSituation(situation).evaluate('denormandie . durée'),
+    )} ans`
+  }
+
+  return undefined
+}
+
 const engine = new Publicodes(rules)
 async function apiResponse(method: string, request: Request) {
   try {
@@ -36,26 +71,8 @@ async function apiResponse(method: string, request: Request) {
           type: aide['type'],
           status: aide['status'],
           value: aide['value'],
-          taux:
-            aide['baseDottedName'] == 'taxe foncière'
-              ? situation['taxe foncière . commune . taux']
-              : aide['baseDottedName'] == 'denormandie'
-                ? formatValue(
-                    engine
-                      .setSituation(situation)
-                      .evaluate('denormandie . taux'),
-                  )
-                : undefined,
-          durée:
-            aide['baseDottedName'] == 'taxe foncière'
-              ? rules['taxe foncière . durée'] + 's'
-              : aide['baseDottedName'] == 'denormandie'
-                ? formatValue(
-                    engine
-                      .setSituation(situation)
-                      .evaluate('denormandie . durée'),
-                  ) + ' ans'
-                : undefined,
+          taux: getTaux(aide['baseDottedName'], situation, engine),
+          durée: getDuree(aide['baseDottedName'], rules, engine, situation),
           missingVariables: Object.keys(aide['evaluation']['missingVariables']),
         }))
     } else {
@@ -68,6 +85,8 @@ async function apiResponse(method: string, request: Request) {
           acc[field] = {
             rawValue: evaluation.nodeValue,
             formattedValue: formatValue(evaluation),
+            taux: getTaux(field, situation, engine),
+            durée: getDuree(field, rules, engine, situation),
             missingVariables: Object.keys(evaluation.missingVariables),
           }
           if (

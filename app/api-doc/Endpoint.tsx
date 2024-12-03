@@ -35,6 +35,7 @@ export default function Endpoint({ type }) {
     ptz: 'PTZ . montant',
     par: 'PAR . montant',
     denormandie: 'denormandie . montant',
+    'taxe fonciere': 'taxe foncière . montant',
   }
 
   const distinctRules = useMemo(() => {
@@ -212,7 +213,6 @@ export default function Endpoint({ type }) {
           align-items: end;
           justify-content: space-between;
           width: 100%;
-          margin-bottom: 1rem;
         `}
       >
         <div
@@ -234,9 +234,6 @@ export default function Endpoint({ type }) {
             value={yaml}
             onChange={(e) => setYaml(e.target.value)}
           />
-          <InternalLink href="#parametres">
-            Voir la liste des paramètres
-          </InternalLink>
         </div>
         <CTA
           onClick={(e) => handleSubmit(e, method)}
@@ -249,6 +246,15 @@ export default function Endpoint({ type }) {
           Exécuter
         </CTA>
       </div>
+      <InternalLink
+        href="#parametres"
+        css={`
+          display: inline-block;
+          margin-bottom: 1rem;
+        `}
+      >
+        Voir la liste des paramètres
+      </InternalLink>
       <div>
         <strong
           css={`
