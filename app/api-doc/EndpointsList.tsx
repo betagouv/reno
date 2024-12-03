@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { AccordionTitle } from '@/components/UI'
-import APIDemo from './APIDemo'
+import Endpoint from './Endpoint'
 
 const accordionSections = [
   { id: 'eligibilite', title: 'Eligibilité', componentType: 'eligibilite' },
@@ -40,7 +40,7 @@ const accordionSections = [
   { id: 'cee', title: 'CEE', componentType: 'CEE' },
 ]
 
-export default function AccordionComponent() {
+export default function EndpointsList() {
   const [activeSection, setActiveSection] = useState('eligibilite')
 
   return (
@@ -58,9 +58,13 @@ export default function AccordionComponent() {
             id={`accordion-${id}`}
             css={`
               display: ${activeSection === id ? 'block' : 'none'};
+              border: 1px solid #ddd;
+              padding: 1rem;
+              border-top: 0px;
+              background: white;
             `}
           >
-            <APIDemo type={componentType} />
+            <Endpoint type={componentType} />
           </div>
         </section>
       ))}

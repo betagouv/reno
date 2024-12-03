@@ -16,7 +16,8 @@ import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
 import { Select } from '@/components/InputUI'
 
-export default function APIDemoRest({ type, method = 'POST' }) {
+export default function Endpoint({ type }) {
+  const [method, setMethod] = useState('POST')
   const [result, setResult] = useState('')
   const [yaml, setYaml] = useState(stringify(example[type]))
   const [geste, setGeste] = useState('gestes . chauffage . PAC . air-eau')
@@ -131,11 +132,6 @@ export default function APIDemoRest({ type, method = 'POST' }) {
 
   return (
     <>
-      <DocumentationLink href={documentationUrl} target="_blank">
-        <Image src={iconDocumentation} alt="Icône documentation" width="24" />
-        Documentation
-      </DocumentationLink>
-
       <div
         css={`
           word-wrap: break-word;
@@ -143,26 +139,42 @@ export default function APIDemoRest({ type, method = 'POST' }) {
         `}
       >
         <strong>URL: </strong>
-        {method.toUpperCase() + ' ' + apiUrl}
+        <Select onChange={(e) => setMethod(e.target.value)} value={method}>
+          <option value="POST">POST</option>
+          <option value="GET">GET</option>
+        </Select>
+        {' ' + apiUrl}
       </div>
       <div
         css={`
           display: flex;
           align-items: center;
+          justify-content: space-between;
           margin-bottom: 1rem;
         `}
       >
-        <input
+        <div
           css={`
-            margin-right: 1rem;
+            display: flex;
+            align-items: center;
           `}
-          type="checkbox"
-          id="evaluationGlobale"
-          onClick={() => setEvaluationGlobale(!evaluationGlobale)}
-        />
-        <label htmlFor="evaluationGlobale">
-          Retourner l'évaluation globale
-        </label>
+        >
+          <input
+            css={`
+              margin-right: 0.5rem;
+            `}
+            type="checkbox"
+            id="evaluationGlobale"
+            onClick={() => setEvaluationGlobale(!evaluationGlobale)}
+          />
+          <label htmlFor="evaluationGlobale">
+            Retourner l'évaluation globale
+          </label>
+        </div>
+        <DocumentationLink href={documentationUrl} target="_blank">
+          <Image src={iconDocumentation} alt="Icône documentation" width="24" />
+          Documentation
+        </DocumentationLink>
       </div>
       {method === 'GET' && (
         <MiseEnAvant>
@@ -222,6 +234,9 @@ export default function APIDemoRest({ type, method = 'POST' }) {
             value={yaml}
             onChange={(e) => setYaml(e.target.value)}
           />
+          <InternalLink href="#parametres">
+            Voir la liste des paramètres
+          </InternalLink>
         </div>
         <CTA
           onClick={(e) => handleSubmit(e, method)}
@@ -252,7 +267,6 @@ export default function APIDemoRest({ type, method = 'POST' }) {
 export const DocumentationLink = styled(InternalLink)`
   display: inline-flex;
   align-items: center;
-  margin-bottom: 1rem;
   img {
     margin-right: 0.5rem;
   }

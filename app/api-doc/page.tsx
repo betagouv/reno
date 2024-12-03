@@ -4,10 +4,10 @@ import Link from '@/node_modules/next/link'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
-import AccordionComponent from './AccordionComponent'
 import NPM from './NPM'
 import ApiExampleProject from './ApiExampleProject'
 import ParametersList from './ParametersList'
+import EndpointsList from './EndpointsList'
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
@@ -117,9 +117,9 @@ export default function APIDoc() {
           sur le bouton
           <em> "Executer"</em> pour voir le résultat.
         </p>
-        <h3>Liste des Paramètres</h3>
+        <EndpointsList />
+        <h3 id="parametres">Liste des Paramètres</h3>
         <ParametersList />
-        <AccordionComponent />
         <h3>Que permet l'API ?</h3>
         <p>
           Calculer les deux parcours Ma Prime Rénov' 2024, accompagné et non
@@ -152,15 +152,6 @@ export default function APIDoc() {
           d'explorer les calculs de façon granulaire. Pour la découvrir, suivez
           les liens "Inspection" de la{' '}
           <a href="/personas#tests">section "Tests" de la page personas</a>.
-        </p>
-        <h4>Mode de simulation</h4>
-        <p>
-          Le modèle de calcul offre deux modes de simulation : le mode "max" qui
-          maximise les aides, et le mode "moyen". Ce mode ne vous importe que si
-          vous voulez afficher un résultat à l'utilisateur avant qu'il finisse
-          de répondre à toutes les questions. Les réponses manquantes (appelées{' '}
-          <em>missing variables</em> dans Publicodes) seront remplacées par au
-          choix, des valeurs maximales ou des valeurs moyennes estimées.
         </p>
         <h3>Le code</h3>
         <p>
