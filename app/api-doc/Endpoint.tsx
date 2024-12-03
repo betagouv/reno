@@ -15,6 +15,7 @@ import { omit } from '@/components/utils'
 import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
 import { Select } from '@/components/InputUI'
+import { No, Yes } from '@/components/ResultUI'
 
 export default function Endpoint({ type }) {
   const [method, setMethod] = useState('POST')
@@ -172,10 +173,16 @@ export default function Endpoint({ type }) {
             Retourner l'évaluation globale
           </label>
         </div>
-        <DocumentationLink href={documentationUrl} target="_blank">
-          <Image src={iconDocumentation} alt="Icône documentation" width="24" />
-          Documentation
-        </DocumentationLink>
+        {type != 'eligibilite' && (
+          <DocumentationLink href={documentationUrl} target="_blank">
+            <Image
+              src={iconDocumentation}
+              alt="Icône documentation"
+              width="24"
+            />
+            Documentation
+          </DocumentationLink>
+        )}
       </div>
       {method === 'GET' && (
         <MiseEnAvant>
@@ -255,6 +262,40 @@ export default function Endpoint({ type }) {
       >
         Voir la liste des paramètres
       </InternalLink>
+      {type == 'eligibilite' && result && (
+        <MiseEnAvant $type="warning" $noradius={true}>
+          <h4
+            css={`
+              margin: 0 0 1rem;
+            `}
+          >
+            La propriété <strong>"status"</strong> est primordiale.
+          </h4>
+          Trois valeurs sont possibles:
+          <ul
+            css={`
+              li {
+                line-height: 1.6rem;
+              }
+            `}
+          >
+            <li>
+              <strong>true</strong> : La situation soumise{' '}
+              <Yes>remplit les critères d'éligibilité</Yes> pour ce dispositif.
+            </li>
+            <li>
+              <strong>false</strong> : La situation soumise{' '}
+              <No>ne remplit pas les critères d'éligibilité</No> pour ce
+              dispositif
+            </li>
+            <li>
+              <strong>null</strong> : Il manque des informations (probablement
+              les variables dans la propriété <em>missingVariables</em>) pour
+              pouvoir déterminer l'éligibilité
+            </li>
+          </ul>
+        </MiseEnAvant>
+      )}
       <div>
         <strong
           css={`

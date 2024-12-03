@@ -6,7 +6,6 @@ eligibilite:
   projet . DPE visé: 2
   projet . travaux: 50000
   ménage . commune: '44109' # code insee
-  logement . type: 'maison'
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'au moins 25 ans'"
