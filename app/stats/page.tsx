@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Statistiques Mes Aides Réno',
   description,
   alternates: {
-    canonical: '/statistiques',
+    canonical: '/stats',
   },
 }
 
