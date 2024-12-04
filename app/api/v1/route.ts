@@ -6,7 +6,6 @@ import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import { useAides } from '@/components/ampleur/useAides'
 import enrichSituation from '@/components/personas/enrichSituation'
-import { push } from '@socialgouv/matomo-next'
 
 function getTaux(
   baseDottedName: string,
@@ -46,7 +45,13 @@ const engine = new Publicodes(rules)
 async function apiResponse(method: string, request: Request) {
   try {
     const params = Object.fromEntries(request.nextUrl.searchParams.entries())
-    push(['trackEvent', 'API', params['fields']])
+    const matomoParams = new URLSearchParams({
+      idsite: 101,
+      rec: '1',
+      e_c: 'API',
+      e_a: params['fields'],
+    })
+    await fetch(`https://stats.beta.gouv.fr?${matomoParams.toString()}`)
 
     // On récupére l'éligibilité de la commune à Denormandie et exonération taxe foncière
     // Pour ne pas demander ses variables lors de l'appel API
