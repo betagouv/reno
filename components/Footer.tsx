@@ -174,10 +174,7 @@ export default function Footer() {
                   </InternalLink>
                 </li>
                 <li>
-                  <InternalLink
-                    className="fr-footer__top-link"
-                    href="/statistiques"
-                  >
+                  <InternalLink className="fr-footer__top-link" href="/stats">
                     Statistiques
                   </InternalLink>
                 </li>
