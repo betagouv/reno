@@ -40,9 +40,9 @@ ChartJS.register(
   annotationPlugin,
 )
 
-const formatter = new Intl.NumberFormat('fr-FR', {})
+export const formatter = new Intl.NumberFormat('fr-FR', {})
 
-const formatTime = (seconds) => {
+export const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60)
   return `${minutes}:${Math.round(seconds % 60)
     .toString()
@@ -181,58 +181,6 @@ export default function Statistiques() {
       },
     }),
     [],
-  )
-
-  const StatCard = ({ label, value, target, type = 'none' }) => (
-    <div
-      css={`
-        padding: 1rem;
-        min-width: 250px;
-        text-align: center;
-        border: 1px solid #d9d9ee;
-        border-radius: 5px;
-        > strong {
-          display: block;
-          font-size: 2rem;
-          padding: 1rem;
-          color: #000091;
-        }
-        span {
-          font-size: 0.9rem;
-        }
-      `}
-    >
-      <strong>{value}</strong>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: label,
-        }}
-      />
-      {target && (
-        <div
-          css={`
-            width: fit-content;
-            border-radius: 1rem;
-            padding: 0.2rem 0.5rem;
-            margin: auto;
-            font-weight: bold;
-            margin-top: 1rem;
-            ${type == 'success' &&
-            `
-              background: #DCFFDC;
-              color: #1A4F23;
-            `}
-            ${type == 'warning' &&
-            `
-              background: #FDF8DB;
-              color: #6E4444;
-            `}
-          `}
-        >
-          🎯cible: {target}
-        </div>
-      )}
-    </div>
   )
 
   return (
@@ -478,3 +426,61 @@ export default function Statistiques() {
     </div>
   )
 }
+
+export const StatCard = ({
+  label,
+  value,
+  target = null,
+  type = 'none',
+  noMinWidth,
+}) => (
+  <div
+    css={`
+      padding: 1rem;
+      ${!noMinWidth && 'min-width: 250px;'}
+      text-align: center;
+      border: 1px solid #d9d9ee;
+      border-radius: 5px;
+      > strong {
+        display: block;
+        font-size: 2rem;
+        padding: 1rem;
+        color: #000091;
+      }
+      span {
+        font-size: 0.9rem;
+      }
+    `}
+  >
+    <strong>{value}</strong>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: label,
+      }}
+    />
+    {target && (
+      <div
+        css={`
+          width: fit-content;
+          border-radius: 1rem;
+          padding: 0.2rem 0.5rem;
+          margin: auto;
+          font-weight: bold;
+          margin-top: 1rem;
+          ${type == 'success' &&
+          `
+              background: #DCFFDC;
+              color: #1A4F23;
+            `}
+          ${type == 'warning' &&
+          `
+              background: #FDF8DB;
+              color: #6E4444;
+            `}
+        `}
+      >
+        🎯cible: {target}
+      </div>
+    )}
+  </div>
+)
