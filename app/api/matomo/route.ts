@@ -1,13 +1,16 @@
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const type = searchParams.get('type')
+  const segment = searchParams.get('segment')
   const apiToken = process.env.MATOMO_API_TOKEN
   const idSite = '101'
   const startDate = '2024-08-15'
-  const idFunnel = 122
+  const idFunnelSimulateur = 122
+  const idFunnelModule = 127
   const baseUrl = `https://stats.beta.gouv.fr/?module=API&idSite=${idSite}&period=week&date=last9&format=JSON`
+  const baseUrlInterne = `https://stats.beta.gouv.fr/?module=API&idSite=${idSite}&period=day&date=last30&format=JSON`
   const matomoUrlFunnel =
-    baseUrl + `&method=Funnels.getFunnelFlow&idFunnel=${idFunnel}`
+    baseUrl + `&method=Funnels.getFunnelFlow&idFunnel=${idFunnelSimulateur}`
 
   const matomoUrlVisitor = baseUrl + `&method=VisitsSummary.get`
   const matomoUrlEvents =
@@ -56,6 +59,37 @@ export async function GET(request: Request) {
       let today = new Date()
 
       delete data[today.toISOString().split('T')[0]]
+    } else if (type == 'internes') {
+      const segmentQuery =
+        segment == 'iframe'
+          ? '&segment=eventCategory==Iframe'
+          : segment == 'site'
+            ? '&segment=eventCategory!=Iframe'
+            : ''
+
+      const dataFunnel = await fetchMatomoData(
+        baseUrlInterne +
+          `&method=Funnels.getFunnelFlow&idFunnel=${idFunnelSimulateur}${segmentQuery}`,
+        options,
+      )
+
+      const dataVisitor = await fetchMatomoData(
+        baseUrlInterne + `&method=VisitsSummary.get${segmentQuery}`,
+        options,
+      )
+
+      data =
+        segment == 'module'
+          ? await fetchMatomoData(
+              baseUrlInterne +
+                `&method=Funnels.getFunnelFlow&idFunnel=${idFunnelModule}`,
+              options,
+            )
+          : mergeData(dataFunnel, dataVisitor)
+
+      // On enlève la semaine en cours pour ne pas avoir de données partielles qui dénature le graph
+      const lastDay = Object.keys(data).pop()
+      delete data[lastDay]
     }
 
     return new Response(JSON.stringify(data), {
