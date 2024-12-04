@@ -1,7 +1,8 @@
 import getAppUrl from '../getAppUrl'
 
 export const extractCleanCodeInsee = (situation) => {
-  const codeInseeRaw = situation['logement . commune']
+  const codeInseeRaw =
+    situation['logement . commune'] || situation['ménage . commune']
   if (!codeInseeRaw) return situation
   const codeInsee = codeInseeRaw.replace(/'/g, '')
   return codeInsee

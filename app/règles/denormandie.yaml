@@ -32,7 +32,7 @@ denormandie . durée:
   description: |
     L'avantage fiscal est étalé sur la durée de location. Son montant est calculé en appliquant au prix net de revient du logement un pourcentage variant en fonction de la durée de location (pour les logements situés en métropole). [Source](https://www.economie.gouv.fr/particuliers/reduction-impot-denormandie).
   valeur: années de location
-
+  unité: an
 denormandie . montant:
   applicable si: conditions
   formule: taux * assiette
@@ -98,6 +98,7 @@ denormandie . travaux minimum: logement . prix d'achat / 3
 
 projet . gain énergétique:
   question: Quel est le gain énergétique prévu par les travaux ?
+  description: 'Le gain énergétique prévu suite aux travaux de rénovation du logement'
   par défaut: 30 %
 
 denormandie . gain énergétique minimum:
@@ -120,6 +121,8 @@ denormandie . gestes minimum:
 logement . location longue durée:
   question: Avez-vous prévu de louer votre logement à long-terme ?
   par défaut: oui
+  description: |
+    Pour bénéficier du dispositif Denormandie, le propriétaire doit s'engager à louer le logement pour une durée minimum de 6 ans
 
 logement . prix d'achat:
   question: Quel est le prix d'achat du bien ?
@@ -133,6 +136,8 @@ denormandie . assiette:
 denormandie . années de location:
   applicable si: logement . location longue durée
   question: Combien d'années allez-vous louer votre logement ?
+  description: |
+    Le nombre d'années durant lequel le propriétaire s'engage à louer le logement
   par défaut: 9
 
 denormandie . taux:
