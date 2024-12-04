@@ -29,17 +29,17 @@ ChartJS.register(
 )
 export default function StatistiquesInternes() {
   const [data, setData] = useState({
-    globalData: null,
-    siteData: null,
-    iframeData: null,
-    moduleData: null,
+    global: null,
+    site: null,
+    iframe: null,
+    module: null,
   })
 
   const fetchData = async () => {
     let res
     try {
       res = await fetch('/api/matomo?type=internes')
-      const globalData = Object.entries(await res.json()).map(
+      const global = Object.entries(await res.json()).map(
         ([date, dayData]) => ({
           date: new Date(date),
           simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
@@ -48,16 +48,14 @@ export default function StatistiquesInternes() {
       )
 
       res = await fetch('/api/matomo?type=internes&segment=site')
-      const siteData = Object.entries(await res.json()).map(
-        ([date, dayData]) => ({
-          date: new Date(date),
-          simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
-          uniqVisitors: dayData.nb_uniq_visitors,
-        }),
-      )
+      const site = Object.entries(await res.json()).map(([date, dayData]) => ({
+        date: new Date(date),
+        simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
+        uniqVisitors: dayData.nb_uniq_visitors,
+      }))
 
       res = await fetch('/api/matomo?type=internes&segment=iframe')
-      const iframeData = Object.entries(await res.json()).map(
+      const iframe = Object.entries(await res.json()).map(
         ([date, dayData]) => ({
           date: new Date(date),
           simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
@@ -65,7 +63,15 @@ export default function StatistiquesInternes() {
         }),
       )
 
-      const moduleData = null
+      res = await fetch('/api/matomo?type=internes&segment=module')
+      const module = Object.entries(await res.json()).map(
+        ([date, dayData]) => ({
+          date: new Date(date),
+          nbDisplay: dayData[0] ? dayData[0].step_nb_visits_actual : 0,
+          nbInteraction: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
+          nbClick: dayData[2] ? dayData[2].step_nb_visits_actual : 0,
+        }),
+      )
       // const totalTimeOnSite = Object.entries(data)
       //   .slice(-4)
       //   .reduce((acc, [, weekData]) => acc + weekData.avg_time_on_site, 0)
@@ -80,10 +86,10 @@ export default function StatistiquesInternes() {
 
       // const avgTimeOnSite = formatTime(totalTimeOnSite / 4)
       setData({
-        globalData,
-        siteData,
-        iframeData,
-        moduleData,
+        global,
+        site,
+        iframe,
+        module,
       })
     } catch (error) {
       console.error('Error fetching visit data:', error)
@@ -96,13 +102,11 @@ export default function StatistiquesInternes() {
 
   const globalChart = useMemo(
     () => ({
-      labels: data.globalData ? data.globalData.map((entry) => entry.date) : [],
+      labels: data.global ? data.global.map((entry) => entry.date) : [],
       datasets: [
         {
           label: 'Nombre de simulations terminées',
-          data: data.globalData
-            ? data.globalData.map((entry) => entry.simuEnded)
-            : [],
+          data: data.global ? data.global.map((entry) => entry.simuEnded) : [],
           borderColor: '#000091',
           borderWidth: 1,
           backgroundColor: '#2a82dd',
@@ -110,8 +114,8 @@ export default function StatistiquesInternes() {
         },
         {
           label: 'Nombre de visiteurs uniques',
-          data: data.globalData
-            ? data.globalData.map((entry) => entry.uniqVisitors)
+          data: data.global
+            ? data.global.map((entry) => entry.uniqVisitors)
             : [],
           borderColor: '#ff5c8d',
           borderWidth: 1,
@@ -120,18 +124,16 @@ export default function StatistiquesInternes() {
         },
       ],
     }),
-    [data.globalData],
+    [data.global],
   )
 
   const siteChart = useMemo(
     () => ({
-      labels: data.siteData ? data.siteData.map((entry) => entry.date) : [],
+      labels: data.site ? data.site.map((entry) => entry.date) : [],
       datasets: [
         {
           label: 'Nombre de simulations terminées',
-          data: data.siteData
-            ? data.siteData.map((entry) => entry.simuEnded)
-            : [],
+          data: data.site ? data.site.map((entry) => entry.simuEnded) : [],
           borderColor: '#000091',
           borderWidth: 1,
           backgroundColor: '#2a82dd',
@@ -139,9 +141,7 @@ export default function StatistiquesInternes() {
         },
         {
           label: 'Nombre de visiteurs uniques',
-          data: data.siteData
-            ? data.siteData.map((entry) => entry.uniqVisitors)
-            : [],
+          data: data.site ? data.site.map((entry) => entry.uniqVisitors) : [],
           borderColor: '#ff5c8d',
           borderWidth: 1,
           backgroundColor: '#ff97b5',
@@ -149,18 +149,16 @@ export default function StatistiquesInternes() {
         },
       ],
     }),
-    [data.siteData],
+    [data.site],
   )
 
   const iframeChart = useMemo(
     () => ({
-      labels: data.iframeData ? data.iframeData.map((entry) => entry.date) : [],
+      labels: data.iframe ? data.iframe.map((entry) => entry.date) : [],
       datasets: [
         {
           label: 'Nombre de simulations terminées',
-          data: data.iframeData
-            ? data.iframeData.map((entry) => entry.simuEnded)
-            : [],
+          data: data.iframe ? data.iframe.map((entry) => entry.simuEnded) : [],
           borderColor: '#000091',
           borderWidth: 1,
           backgroundColor: '#2a82dd',
@@ -168,8 +166,8 @@ export default function StatistiquesInternes() {
         },
         {
           label: 'Nombre de visiteurs uniques',
-          data: data.iframeData
-            ? data.iframeData.map((entry) => entry.uniqVisitors)
+          data: data.iframe
+            ? data.iframe.map((entry) => entry.uniqVisitors)
             : [],
           borderColor: '#ff5c8d',
           borderWidth: 1,
@@ -178,7 +176,48 @@ export default function StatistiquesInternes() {
         },
       ],
     }),
-    [data.iframeData],
+    [data.iframe],
+  )
+
+  const moduleChart = useMemo(
+    () => ({
+      labels: data.module ? data.module.map((entry) => entry.date) : [],
+      datasets: [
+        {
+          label: "Nombre d'affichage du module OFI",
+          data: data.module ? data.module.map((entry) => entry.nbDisplay) : [],
+          borderColor: '#ff5c8d',
+          borderWidth: 1,
+          backgroundColor: '#ff97b5',
+          yAxisID: 'y',
+        },
+        {
+          label: "% d'interaction",
+          data: data.module
+            ? data.module.map((entry) =>
+                Math.round((entry.nbInteraction / entry.nbDisplay) * 100),
+              )
+            : [],
+          borderColor: '#000091',
+          borderWidth: 1,
+          backgroundColor: '#2a82dd',
+          yAxisID: 'y2',
+        },
+        {
+          label: '% de clic',
+          data: data.module
+            ? data.module.map((entry) =>
+                Math.round((entry.nbClick / entry.nbInteraction) * 100),
+              )
+            : [],
+          borderColor: '#00FF00',
+          borderWidth: 1,
+          backgroundColor: '#00FF00',
+          yAxisID: 'y2',
+        },
+      ],
+    }),
+    [data.module],
   )
 
   const options = useMemo(
@@ -205,6 +244,34 @@ export default function StatistiquesInternes() {
     [],
   )
 
+  const optionsModule = useMemo(
+    () => ({
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'week',
+            tooltipFormat: 'dd/MM/yyyy',
+            displayFormats: { week: 'dd/MM/yyyy' },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'Nombre de simulation' },
+        },
+        y2: {
+          beginAtZero: true,
+          title: { display: true, text: 'Pourcentage' },
+        },
+      },
+    }),
+    [],
+  )
+
   return (
     <Wrapper $background="white" $noMargin={true}>
       <Content
@@ -216,15 +283,13 @@ export default function StatistiquesInternes() {
       >
         <h2>Statistiques Internes</h2>
         <h3>Global</h3>
-        {data.globalData && <Line data={globalChart} options={options} />}
+        {data.global && <Line data={globalChart} options={options} />}
         <h3>Site</h3>
-        {data.siteData && <Line data={siteChart} options={options} />}
-
+        {data.site && <Line data={siteChart} options={options} />}
         <h3>Iframe</h3>
-        {data.iframeData && <Line data={iframeChart} options={options} />}
-
-        <h3>Module</h3>
-        {data.weeklyData && <Line data={chartData} options={options} />}
+        {data.iframe && <Line data={iframeChart} options={options} />}
+        <h3>Module OFI</h3>
+        {data.module && <Line data={moduleChart} options={optionsModule} />}
       </Content>
     </Wrapper>
   )
