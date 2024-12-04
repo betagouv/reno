@@ -83,7 +83,7 @@ export default function Ampleur() {
         [encodeDottedName(dottedName)]: value + '*',
       })
 
-  push(['trackEvent', 'Iframe', 'Page', 'Module Ampleur DPE ' + currentDPE])
+  push(['trackEvent', 'Module', 'Page', 'Module Ampleur DPE ' + currentDPE])
 
   return (
     <div
@@ -249,7 +249,7 @@ export default function Ampleur() {
                   max-width: 90vw;
                 `}
                 onChange={(e) => {
-                  push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
+                  push(['trackEvent', 'Module', 'Interaction', 'usage ' + e])
                   const encodedSituation = encodeSituation(
                     {
                       ...situation,
@@ -282,7 +282,7 @@ export default function Ampleur() {
                   if (invalid) return
                   push([
                     'trackEvent',
-                    'Iframe',
+                    'Module',
                     'Interaction',
                     'personne ' + value,
                   ])
@@ -306,7 +306,7 @@ export default function Ampleur() {
                     if (invalid) return
                     push([
                       'trackEvent',
-                      'Iframe',
+                      'Module',
                       'Interaction',
                       'revenu ' + value,
                     ])
@@ -353,7 +353,7 @@ export default function Ampleur() {
                 onChange={() => {
                   push([
                     'trackEvent',
-                    'Iframe',
+                    'Module',
                     'Interaction',
                     'idf mobile ' + situation['ménage . région . IdF'],
                   ])
@@ -379,7 +379,7 @@ export default function Ampleur() {
                     onChange={() => {
                       push([
                         'trackEvent',
-                        'Iframe',
+                        'Module',
                         'Interaction',
                         'idf desktop oui',
                       ])
@@ -398,7 +398,7 @@ export default function Ampleur() {
                     onChange={() => {
                       push([
                         'trackEvent',
-                        'Iframe',
+                        'Module',
                         'Interaction',
                         'idf desktop non',
                       ])
