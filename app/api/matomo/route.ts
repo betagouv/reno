@@ -91,7 +91,7 @@ export async function GET(request: Request) {
 
       // On enlève le jour en cours pour ne pas dénaturer le graph
       const lastDay = Object.keys(data).pop()
-      //delete data[lastDay]
+      delete data[lastDay]
     }
 
     return new Response(JSON.stringify(data), {
