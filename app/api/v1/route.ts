@@ -58,6 +58,12 @@ async function apiResponse(method: string, request: Request) {
       method === 'POST' ? await request.json() : getSituation(params, rules)
 
     // On récupère code région/code département pour déterminer le barème MPR et les zones H1,H2,H3 des CEE
+
+    if (typeof rawSituation['ménage . commune'] === 'number') {
+      // L'utilisateur a surement oublié les guillemets, on transforme en string
+      rawSituation['ménage . commune'] =
+        rawSituation['ménage . commune'].toString()
+    }
     const commune = await getCommune(rawSituation, 'ménage . commune')
     if (rawSituation['ménage . commune'] && !commune) {
       throw new Error(

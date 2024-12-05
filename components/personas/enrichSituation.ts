@@ -4,7 +4,7 @@ export const extractCleanCodeInsee = (situation) => {
   const codeInseeRaw =
     situation['logement . commune'] || situation['ménage . commune']
   if (!codeInseeRaw) return situation
-  const codeInsee = codeInseeRaw.toString().replace(/'/g, '')
+  const codeInsee = codeInseeRaw.replace(/'/g, '')
   return codeInsee
 }
 
@@ -23,10 +23,9 @@ export async function getCommune(situation, type) {
     situation[type]
   ) {
     const response = await fetch(
-      `https://geo.api.gouv.fr/communes?code=${situation[type].toString().replace(/"/g, '')}`,
+      `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
     )
     const json = await response.json()
-
     return json[0]
   }
   return null
