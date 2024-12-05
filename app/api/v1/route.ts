@@ -5,7 +5,9 @@ import {
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import { useAides } from '@/components/ampleur/useAides'
-import enrichSituation from '@/components/personas/enrichSituation'
+import enrichSituation, {
+  getCommune,
+} from '@/components/personas/enrichSituation'
 
 function getTaux(
   baseDottedName: string,
@@ -52,12 +54,25 @@ async function apiResponse(method: string, request: Request) {
       e_a: params['fields'],
     })
     await fetch(`https://stats.beta.gouv.fr?${matomoParams.toString()}`)
+    const rawSituation =
+      method === 'POST' ? await request.json() : getSituation(params, rules)
 
-    // On récupére l'éligibilité de la commune à Denormandie et exonération taxe foncière
+    // On récupère code région/code département pour déterminer le barème MPR et les zones H1,H2,H3 des CEE
+    const commune = await getCommune(rawSituation, 'ménage . commune')
+    if (rawSituation['ménage . commune'] && !commune) {
+      throw new Error(
+        'Le code INSEE ' +
+          rawSituation['ménage . commune'] +
+          " n'existe pas. Attention à ne pas confondre avec le code postal.",
+      )
+    }
+    rawSituation['ménage . code région'] = `"${commune.codeRegion}"`
+    rawSituation['ménage . code département'] = `"${commune.codeDepartement}"`
+    rawSituation['ménage . EPCI'] = `"${commune.codeEpci}"`
+
+    // De même, on récupère automatiquement l'éligibilité de la commune à Denormandie et exonération taxe foncière
     // Pour ne pas demander ses variables lors de l'appel API
-    const situation = await enrichSituation(
-      method === 'POST' ? await request.json() : getSituation(params, rules),
-    )
+    const situation = await enrichSituation(rawSituation)
 
     let fields = params['fields'].split(',')
     const fullEvaluation = fields.includes('evaluation')
@@ -127,7 +142,7 @@ async function apiResponse(method: string, request: Request) {
 
     return Response.json(response)
   } catch (error) {
-    return Response.json({ error: error }, { status: 500 })
+    return Response.json({ error: error.message }, { status: 500 })
   }
 }
 
