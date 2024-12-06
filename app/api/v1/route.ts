@@ -72,9 +72,11 @@ async function apiResponse(method: string, request: Request) {
           " n'existe pas. Attention à ne pas confondre avec le code postal.",
       )
     }
-    rawSituation['ménage . code région'] = `"${commune.codeRegion}"`
-    rawSituation['ménage . code département'] = `"${commune.codeDepartement}"`
-    rawSituation['ménage . EPCI'] = `"${commune.codeEpci}"`
+    if (commune) {
+      rawSituation['ménage . code région'] = `"${commune.codeRegion}"`
+      rawSituation['ménage . code département'] = `"${commune.codeDepartement}"`
+      rawSituation['ménage . EPCI'] = `"${commune.codeEpci}"`
+    }
 
     // De même, on récupère automatiquement l'éligibilité de la commune à Denormandie et exonération taxe foncière
     // Pour ne pas demander ses variables lors de l'appel API
