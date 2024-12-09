@@ -1,11 +1,7 @@
 import { BlocQuestionRéponse } from '../BlocQuestionRéponse'
+import { ExternalLink } from '../UI'
 
-export default function QuestionsRéponses({
-  engine,
-  situation,
-  oldIndex,
-  choice,
-}) {
+export default function QuestionsRéponses() {
   return (
     <section>
       <h2>Questions fréquentes</h2>
@@ -69,19 +65,21 @@ export default function QuestionsRéponses({
             <li>
               Vous choisissez un scenario et vous contactez des artisans, qui
               doivent être{' '}
-              <a
+              <ExternalLink
                 href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
                 target="_blank"
               >
                 certifiés RGE
-              </a>
+              </ExternalLink>
               , pour obtenir des devis. Votre Accompagnateur Rénov’ vous aide a
               choisir des artisans, à sélectionner les devis et à définir un
               plan de financement.
             </li>
             <li>
               Votre Accompagnateur Rénov’ vous accompagne dans le dossier de{' '}
-              <a href="http://maprimerenov.gouv.fr/">dépot de demande d’aide</a>
+              <ExternalLink href="http://maprimerenov.gouv.fr/">
+                dépot de demande d’aide
+              </ExternalLink>
               .
             </li>
             <li>
@@ -127,12 +125,12 @@ export default function QuestionsRéponses({
             </li>
             <li>
               Vos artisans doivent être{' '}
-              <a
+              <ExternalLink
                 href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
                 target="_blank"
               >
                 certifiés RGE
-              </a>
+              </ExternalLink>
               .
             </li>
           </ul>

@@ -10,7 +10,7 @@ import {
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
 import Publicodes from 'publicodes'
-import { CTA, InternalLink, MiseEnAvant } from '@/components/UI'
+import { CTA, InternalLink, ExternalLink, MiseEnAvant } from '@/components/UI'
 import { omit } from '@/components/utils'
 import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
@@ -188,9 +188,9 @@ export default function Endpoint({ type }) {
         <MiseEnAvant>
           Il faut sérialiser les paramètres passés via l'url en utilisant la
           fonction{' '}
-          <a href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55">
+          <ExternalLink href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55">
             encodeSituation
-          </a>
+          </ExternalLink>
           .
         </MiseEnAvant>
       )}

@@ -721,7 +721,7 @@ MPR . accompagnée:
   type: remboursement
   informations utiles: |
     - Votre conseiller local France Rénov' vous accompagne <strong>gratuitement</strong> pour vous guider dans les premières étapes de votre projet.
-    - Vous devrez payer un <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">Accompagnateur Rénov'</a> pour réaliser un audit énergétique de votre logement qui définira les travaux vous permettant d'atteindre le DPE visé.
+    - Vous devrez payer un <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov" target="_blank">Accompagnateur Rénov'</a> pour réaliser un audit énergétique de votre logement qui définira les travaux vous permettant d'atteindre le DPE visé.
   interface:
     motivation: Je veux améliorer significativement la performance de mon logement.
     avantages:

@@ -3,7 +3,7 @@ import { formatValue } from 'publicodes'
 import Geste from './Geste'
 import { gestesMosaicQuestions, isGestesMosaicQuestion } from './GestesMosaic'
 import MapBehindCTA from './MapBehindCTA'
-import { Card, CTA, CTAWrapper, Section } from './UI'
+import { Card, CTA, CTAWrapper, ExternalLink, Section } from './UI'
 import { encodeDottedName } from './publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
 import Feedback from '@/app/contact/Feedback'
@@ -125,12 +125,12 @@ export default function GestesBasket({
         `}
       >
         Plus d'infos à propos des CEE sur{' '}
-        <a
+        <ExternalLink
           href="https://www.service-public.fr/particuliers/vosdroits/F35584"
           target="_blank"
         >
           service-public.fr
-        </a>
+        </ExternalLink>
         .
       </small>
       <FatConseiller

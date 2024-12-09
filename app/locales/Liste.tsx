@@ -1,8 +1,7 @@
 'use client'
 import aides from '@/app/règles/aides-locales.publicodes'
-import { Section } from '@/components/UI'
+import { ExternalLink, InternalLink, Section } from '@/components/UI'
 import Image from 'next/image'
-import Link from 'next/link'
 import { description } from './description'
 import PlaceSummary from './PlaceSummary'
 import Breadcrumb from '@/components/Breadcrumb'
@@ -25,10 +24,12 @@ export default function () {
   return (
     <div>
       <Section>
-        <Breadcrumb links={[
-          {"Les aides": "/aides"},
-          {"Les aides locales à la rénovation en France": "/locales"}
-        ]} />
+        <Breadcrumb
+          links={[
+            { 'Les aides': '/aides' },
+            { 'Les aides locales à la rénovation en France': '/locales' },
+          ]}
+        />
         <h1>Les aides locales à la rénovation en France</h1>
         <p>{description}</p>
 
@@ -63,11 +64,12 @@ export default function () {
             <em css="background: yellow">
               pas encore validée par les collectivités.
             </em>{' '}
-            t Vous disposez d'informations sourcées sur une aide locale ?{' '}
-            <Link href="/faq">Contactez-nous</Link> ! En attendant, la{' '}
-            <a href="https://www.anil.org/aides-locales-travaux">
+            Vous disposez d'informations sourcées sur une aide locale ?{' '}
+            <InternalLink href="/faq">Contactez-nous</InternalLink> ! En
+            attendant, la{' '}
+            <ExternalLink href="https://www.anil.org/aides-locales-travaux">
               base de l'ANIL
-            </a>{' '}
+            </ExternalLink>{' '}
             est la source la plus complète.
           </p>
         </div>

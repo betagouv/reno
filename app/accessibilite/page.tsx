@@ -1,5 +1,4 @@
-import Footer from '@/components/Footer'
-import { Main, Section } from '@/components/UI'
+import { ExternalLink, Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 
 export const metadata: Metadata = {
@@ -22,15 +21,17 @@ export default function APIDoc() {
         </p>
         <p>
           Ils sont exposés par exemple via le guide{' '}
-          <a href="https://design-accessible.fr/checklist">Design accessible</a>
+          <ExternalLink href="https://design-accessible.fr/checklist">
+            Design accessible
+          </ExternalLink>
           .
         </p>
         <p>
           Cependant, le site est récent, en phase de développement, il n'a donc
           pas encore été audité pour tester son respect des exigences du{' '}
-          <a href="https://accessibilite.numerique.gouv.fr/">
+          <ExternalLink href="https://accessibilite.numerique.gouv.fr/">
             référentiel public d'accessibilité RGAA
-          </a>
+          </ExternalLink>
           , d'où la mention "non conforme" dans le pied de page.
         </p>
         <p>
@@ -39,9 +40,9 @@ export default function APIDoc() {
         </p>
         <p>
           Le code du site{' '}
-          <a href="https://github.com/betagouv/reno">
+          <ExternalLink href="https://github.com/betagouv/reno">
             est intégralement ouvert
-          </a>
+          </ExternalLink>
           , n'hésitez pas à nous faire des retours.
         </p>
       </Section>

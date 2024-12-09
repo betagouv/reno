@@ -1,10 +1,5 @@
 import rules from '@/app/règles/rules'
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import { compute } from '../explications/Aide'
-import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
-import DPELabel from '../DPELabel'
-import MapBehindCTA from '../MapBehindCTA'
-import { BlueEm } from '@/app/LandingUI'
+import AideAmpleur from './AideAmpleur'
 import { Card, CTA, CTAWrapper, ExternalLink } from '../UI'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
@@ -19,8 +14,6 @@ export default function Copro({
   expanded,
 }) {
   const dottedName = 'ampleur . prime individuelle copropriété'
-  const evaluation = compute('ménage . revenu . classe', engine, rules)
-  const isTrèsModeste = evaluation.value === 'très modeste'
 
   return (
     <AideAmpleur

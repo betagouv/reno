@@ -1,11 +1,10 @@
 import css from '@/components/css/convertToJs'
-import Link from 'next/link'
 import { repo } from './utils'
+import { ExternalLink } from '@/components/UI'
 
 export default function Contribution({ slug }) {
   return (
-    <Link
-      href={`https://github.com/${repo}/edit/master/articles/${slug}.mdx`}
+    <div
       style={css`
         display: block;
         margin: 0 0 0 auto;
@@ -13,7 +12,11 @@ export default function Contribution({ slug }) {
         margin-top: 2rem;
       `}
     >
-      ✏️ Signaler une erreur
-    </Link>
+      <ExternalLink
+        href={`https://github.com/${repo}/edit/master/articles/${slug}.mdx`}
+      >
+        ✏️ Signaler une erreur
+      </ExternalLink>
+    </div>
   )
 }

@@ -1,5 +1,5 @@
 import rules from '@/app/règles/rules'
-import { Card, Main, Section } from '@/components/UI'
+import { Card, ExternalLink, Main, Section } from '@/components/UI'
 import quoteIcon from '@/public/quote-remix.svg'
 import Image from 'next/image'
 import Publicodes from 'publicodes'
@@ -16,7 +16,6 @@ import personas from './personas.yaml'
 import css from '@/components/css/convertToJs'
 import { personaTest } from '@/components/tests/personaTest'
 import { getRuleTitle } from '@/components/publicodes/utils'
-import Link from 'next/link'
 import enrichSituationServer from '@/components/personas/enrichSituationServer'
 
 const engine = new Publicodes(rules)
@@ -147,9 +146,9 @@ const PersonaCard = ({ engine, persona, personaIndex }) => {
             personaIndex={personaIndex}
             enrichedSituation={enrichedSituation}
           />
-          <Link href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
+          <ExternalLink href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
             Inspecter
-          </Link>
+          </ExternalLink>
         </div>
       </Card>
     </li>

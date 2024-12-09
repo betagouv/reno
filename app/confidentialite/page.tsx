@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer'
-import { Main, Section } from '@/components/UI'
+import { ExternalLink, Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 
 export const metadata: Metadata = {
@@ -38,11 +38,11 @@ export default function APIDoc() {
         <h3>Serveur</h3>
         <p>
           Notre serveur est géré par la société française{' '}
-          <a href="https://scalingo.com/">Scalingo</a>, et est physiquement
-          localisés en France. Voici la{' '}
-          <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">
+          <ExternalLink href="https://scalingo.com/">Scalingo</ExternalLink>, et
+          est physiquement localisés en France. Voici la{' '}
+          <ExternalLink href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">
             fiche entreprise
-          </a>{' '}
+          </ExternalLink>{' '}
           de Scalingo.
         </p>
       </Section>

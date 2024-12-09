@@ -1,6 +1,5 @@
 import autresAides from '@/app/règles/autres-aides.yaml'
-import Link from 'next/link'
-import { CTA, CTAWrapper, Card } from './UI'
+import { CTA, CTAWrapper, ExternalLink } from './UI'
 import { useEffect, useRef } from 'react'
 
 export default function AutresAides() {
@@ -96,7 +95,7 @@ export default function AutresAides() {
                   `}
                 >
                   <CTA $fontSize="normal" $importance="secondary">
-                    <Link href={aide.lien}>En savoir plus</Link>
+                    <ExternalLink href={aide.lien}>En savoir plus</ExternalLink>
                   </CTA>
                 </CTAWrapper>
               </div>

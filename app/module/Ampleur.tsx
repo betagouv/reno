@@ -3,7 +3,7 @@ import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import Select from '@/components/Select'
-import { CTA } from '@/components/UI'
+import { CTA, InternalLink } from '@/components/UI'
 import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
 import {
   encodeDottedName,
@@ -154,7 +154,7 @@ export default function Ampleur() {
           </Labels>
           <h2>Vos aides pour une rénovation d'ampleur</h2>
         </div>
-        <a
+        <InternalLink
           href="https://mesaidesreno.beta.gouv.fr"
           css={`
             text-decoration: none;
@@ -195,7 +195,7 @@ export default function Ampleur() {
               Mes <strong>Aides Réno</strong>
             </Title>
           </div>
-        </a>
+        </InternalLink>
       </header>
       <div>
         <p>
