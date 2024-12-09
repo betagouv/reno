@@ -39,6 +39,12 @@ export default function HomepageTalkAboutUs() {
                   width: 100%;
                   height: auto;
                 }
+                &:hover {
+                  background-size: 0;
+                }
+                &::after {
+                  width: 0;
+                }
               }
             `}
           >
