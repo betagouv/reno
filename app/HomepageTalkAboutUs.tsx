@@ -6,7 +6,6 @@ import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
 import logoTf1Info from '@/public/logo-partenaire/logo-tf1-info.svg'
 import logoActualImmo from '@/public/logo-partenaire/logo-actual-immo.png'
 import Image from 'next/image'
-import Link from 'next/link'
 import { ExternalLink } from '@/components/UI'
 
 export default function HomepageTalkAboutUs() {
