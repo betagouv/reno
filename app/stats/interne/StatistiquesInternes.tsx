@@ -140,7 +140,7 @@ export default function StatistiquesInternes() {
           borderColor: '#000091',
           backgroundColor: '#2a82dd',
           yAxisID: 'y2',
-          type: 'bar',
+          type: 'line',
         },
         {
           label: '% de clic',
@@ -149,7 +149,7 @@ export default function StatistiquesInternes() {
           borderColor: '#00FF00',
           backgroundColor: '#00FF00',
           yAxisID: 'y2',
-          type: 'bar',
+          type: 'line',
         },
         {
           label: 'Durée de la visite',
