@@ -1,7 +1,6 @@
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import { CTA, CTAWrapper, Card, ExternalLink } from '../UI'
+import { Card } from '../UI'
 import Value from '../Value'
-import AideAmpleur, { AideCTA } from './AideAmpleur'
+import AideAmpleur from './AideAmpleur'
 import checkIcon from '@/public/check.svg'
 
 export default function AideMAR({

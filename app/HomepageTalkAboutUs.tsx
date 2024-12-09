@@ -7,6 +7,7 @@ import logoTf1Info from '@/public/logo-partenaire/logo-tf1-info.svg'
 import logoActualImmo from '@/public/logo-partenaire/logo-actual-immo.png'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ExternalLink } from '@/components/UI'
 
 export default function HomepageTalkAboutUs() {
   const isInIFrame = useIsInIframe()
@@ -41,31 +42,30 @@ export default function HomepageTalkAboutUs() {
               }
             `}
           >
-            <Link
+            <ExternalLink
               href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
               target="_blank"
-              css={``}
             >
               <Image src={logoFranceInfo} alt="Logo France Info" />
-            </Link>
-            <Link
+            </ExternalLink>
+            <ExternalLink
               href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
               target="_blank"
             >
               <Image src={logoBonPote} alt="Logo Bon Pote" />
-            </Link>
-            <Link
+            </ExternalLink>
+            <ExternalLink
               href="https://www.tf1info.fr/immobilier/bouilloires-thermiques-comment-adapter-son-logement-aux-vagues-de-chaleur-2315763.html"
               target="_blank"
             >
               <Image src={logoTf1Info} alt="Logo TF1 Info" />
-            </Link>
-            <Link
+            </ExternalLink>
+            <ExternalLink
               href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
               target="_blank"
             >
               <Image src={logoActualImmo} alt="Logo Actual Immo" />
-            </Link>
+            </ExternalLink>
           </div>
         </Content>
       </Wrapper>
