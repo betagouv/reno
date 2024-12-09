@@ -244,67 +244,71 @@ export default function StatistiquesInternes() {
             chart: moduleChart,
             options: optionsModule,
           },
-        ].map(({ title, data, chart, options }, index) => (
-          <section key={index}>
-            <h3>{title}</h3>
-            <p
-              css={`
-                color: #0974f6 !important;
-                font-weight: bold;
-              `}
-            >
-              Sur les 30 derniers jours :{' '}
-            </p>
-            {data && (
-              <>
-                <div
-                  css={`
-                    display: flex;
-                    gap: 1rem;
-                  `}
-                >
-                  <StatCard
-                    label={
-                      title == 'Module'
-                        ? 'Clic sur<br />Découvrir mes aides'
-                        : 'Simulations terminées'
-                    }
-                    value={formatter.format(
-                      data.reduce((a, c) => a + c.simuEnded, 0),
-                    )}
-                    noMinWidth
-                  />
-                  <StatCard
-                    label="Durée moyenne<br />des sessions"
-                    value={formatTime(
-                      data.reduce((a, c) => a + (c.avgTime || 0), 0) / 30,
-                    )}
-                    noMinWidth
-                  />
-                  <StatCard
-                    label="Nombre d'action"
-                    value={Math.round(
-                      data.reduce((a, c) => a + (c.nbActions || 0), 0) / 30,
-                    )}
-                    noMinWidth
-                  />
-                  <StatCard
-                    label="Taux de transformation"
-                    value={
-                      Math.round(
-                        (data.reduce((a, c) => a + c.nbClick, 0) /
-                          data.reduce((a, c) => a + c.simuEnded, 0)) *
-                          100,
-                      ) + '%'
-                    }
-                    noMinWidth
-                  />
-                </div>
-                <Line data={chart} options={options} />
-              </>
-            )}
-          </section>
-        ))}
+        ].map(({ title, data, chart, options }, index) => {
+          return (
+            <section key={index}>
+              <h3>{title}</h3>
+              <p
+                css={`
+                  color: #0974f6 !important;
+                  font-weight: bold;
+                `}
+              >
+                Sur les 30 derniers jours :
+              </p>
+              {data && (
+                <>
+                  <div
+                    css={`
+                      display: flex;
+                      gap: 1rem;
+                    `}
+                  >
+                    <StatCard
+                      label={
+                        title === 'Module'
+                          ? 'Clic sur<br />Découvrir mes aides'
+                          : 'Simulations terminées'
+                      }
+                      value={formatter.format(
+                        data.reduce((a, c) => a + c.simuEnded, 0),
+                      )}
+                      noMinWidth
+                    />
+                    <StatCard
+                      label="Durée moyenne<br />des sessions"
+                      value={formatTime(
+                        data.reduce((a, c) => a + (c.avgTime || 0), 0) /
+                          data.filter((e) => e.uniqVisitors > 0).length,
+                      )}
+                      noMinWidth
+                    />
+                    <StatCard
+                      label="Nombre d'action"
+                      value={Math.round(
+                        data.reduce((a, c) => a + (c.nbActions || 0), 0) /
+                          data.filter((e) => e.uniqVisitors > 0).length,
+                      )}
+                      noMinWidth
+                    />
+                    <StatCard
+                      label="Taux de transformation"
+                      value={
+                        Math.round(
+                          (data.reduce((a, c) => a + c.nbClick, 0) /
+                            data.reduce((a, c) => a + c.simuEnded, 0)) *
+                            100,
+                        ) + '%'
+                      }
+                      noMinWidth
+                    />
+                  </div>
+                  <Line data={chart} options={options} />
+                </>
+              )}
+            </section>
+          )
+        })}
       </Content>
     </Wrapper>
   )
