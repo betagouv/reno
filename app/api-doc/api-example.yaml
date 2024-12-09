@@ -41,8 +41,13 @@ copropriete:
   copropriété . montant travaux: 60000
 CEE:
   ménage . commune: '75056'
-  gestes . isolation . murs extérieurs . MPR . surface: 50
-  gestes . isolation . murs extérieurs: oui
+  CEE . projet . remplacement chaudière thermique: non
+  logement . période de construction: "'au moins 25 ans'"
+  logement . type: maison
+  logement . surface: 100
+  gestes . chauffage . PAC . air-eau: oui
+  gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
+  gestes . chauffage . PAC . air-eau . CEE . Etas: "'entre 170 % et 200 %'"
 category-mpr:
   ménage . commune: '75056'
   ménage . personnes: 2

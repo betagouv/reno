@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import iconEclair from '@/public/eclair.svg'
 import Image from 'next/image'
-import { getCommune } from '@/components/AddressSearch'
 import AnswerItem from './AnswerItem'
+import { getCommune } from '@/components/personas/enrichSituation'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
