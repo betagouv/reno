@@ -382,7 +382,6 @@ export const ExternalLinkStyle = styled.a`
         background-repeat: no-repeat,no-repeat;
         background-size: 0 .125em,0 .0625em;
         transition: background-size 0s;
-        width: fit-content;
     }
     &:not(:has(img))::after {
       background-color: currentColor;
