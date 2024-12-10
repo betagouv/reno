@@ -1,6 +1,6 @@
 'use client'
 
-import { FooterWrapper, ExternalLink, InternalLink } from './UI'
+import { ExternalLink, FooterWrapper, InternalLink } from './UI'
 import useIsInIframe from '@/components/useIsInIframe'
 import { allArticles } from '@/.contentlayer/generated'
 import { sortBy } from './utils'
@@ -81,7 +81,6 @@ export default function Footer() {
               <ul className="fr-footer__top-list">
                 <li>
                   <ExternalLink
-                    target="_blank"
                     className="fr-footer__top-link"
                     title="France Rénov'"
                     href="https://france-renov.gouv.fr"
@@ -91,7 +90,6 @@ export default function Footer() {
                 </li>
                 <li>
                   <ExternalLink
-                    target="_blank"
                     className="fr-footer__top-link"
                     title="Dossier Facile"
                     href="https://www.dossierfacile.logement.gouv.fr"
@@ -101,7 +99,6 @@ export default function Footer() {
                 </li>
                 <li>
                   <ExternalLink
-                    target="_blank"
                     className="fr-footer__top-link"
                     title="France Chaleur Urbaine"
                     href="https://france-chaleur-urbaine.beta.gouv.fr"
@@ -111,7 +108,6 @@ export default function Footer() {
                 </li>
                 <li>
                   <ExternalLink
-                    target="_blank"
                     className="fr-footer__top-link"
                     title="Pacoupa"
                     href="https://pacoupa.ademe.fr"
@@ -121,7 +117,6 @@ export default function Footer() {
                 </li>
                 <li>
                   <ExternalLink
-                    target="_blank"
                     className="fr-footer__top-link"
                     title="Zéro Logement Vacant"
                     href="https://zerologementvacant.beta.gouv.fr"

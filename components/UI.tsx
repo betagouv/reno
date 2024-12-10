@@ -1,6 +1,7 @@
 'use client'
 import styled from 'styled-components'
 import Link from 'next/link'
+import useIsInIframe from '@/components/useIsInIframe'
 
 export const Main = styled.main`
   width: 98vw;
@@ -361,7 +362,16 @@ export const PrimeStyle = styled.span`
   ${(p) => p.$red && `background: #ffe9e9; color: #ce0500`}
 `
 
-export const ExternalLink = styled.a`
+export const ExternalLink = ({ children, href, target }) => {
+  const isInIFrame = useIsInIframe()
+  return (
+    <ExternalLinkStyle href={href} target={isInIFrame ? '_blank' : target}>
+      {children}
+    </ExternalLinkStyle>
+  )
+}
+
+export const ExternalLinkStyle = styled.a`
     color: inherit;
     text-decoration: none;
     -webkit-text-decoration: none;
@@ -373,7 +383,7 @@ export const ExternalLink = styled.a`
         background-size: 0 .125em,0 .0625em;
         transition: background-size 0s;
     }
-    &::after {
+    &:not(:has(img))::after {
       background-color: currentColor;
       content: "";
       display: inline-block;
@@ -387,7 +397,7 @@ export const ExternalLink = styled.a`
       vertical-align: calc(.375em - .5rem);
       width: 1rem;
     }
-    &:hover {
+    &:not(:has(img)):hover {
       background-color: transparent;
       background-size: 100% calc(0.0625em * 2), 100% 0.0625em;
     }
