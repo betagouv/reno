@@ -16,10 +16,12 @@ import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
 import { Select } from '@/components/InputUI'
 import { No, Yes } from '@/components/ResultUI'
+import { Loader } from '@/components/UI'
 
 export default function Endpoint({ type }) {
   const [method, setMethod] = useState('POST')
   const [result, setResult] = useState('')
+  const [showLoader, setShowLoader] = useState(false)
   const [yaml, setYaml] = useState(stringify(example[type]))
   const [geste, setGeste] = useState('gestes . chauffage . PAC . air-eau')
   const [evaluationGlobale, setEvaluationGlobale] = useState(false)
@@ -81,6 +83,7 @@ export default function Endpoint({ type }) {
     (evaluationGlobale ? ',evaluation' : '')
 
   const handleSubmit = async (e) => {
+    setShowLoader(true)
     e.preventDefault()
     let params = {
       method: method,
@@ -93,6 +96,7 @@ export default function Endpoint({ type }) {
     }
 
     const response = await fetch(apiUrl, params)
+    setShowLoader(false)
     setResult(JSON.stringify(await response.json(), null, '\t'))
   }
 
@@ -305,7 +309,7 @@ export default function Endpoint({ type }) {
           Résultat:
         </strong>
         <Code>
-          <pre>{result ? result : '{}'}</pre>
+          {showLoader ? <Loader></Loader> : <pre>{result ? result : '{}'}</pre>}{' '}
         </Code>
       </div>
     </>
