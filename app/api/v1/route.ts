@@ -54,11 +54,16 @@ async function apiResponse(method: string, request: Request) {
       e_a: params['fields'],
     })
     await fetch(`https://stats.beta.gouv.fr?${matomoParams.toString()}`)
+
+    if (!params['fields']) {
+      throw new Error(
+        "Le paramètre fields dans l'url n'est pas précisé. Il permet d'évaluer une variable à partir d'une situation donnée. Vous pouvez trouver des exemples d'utilisation dans la documentation: https://mesaidesreno.beta.gouv.fr/api-doc",
+      )
+    }
     const rawSituation =
       method === 'POST' ? await request.json() : getSituation(params, rules)
 
     // On récupère code région/code département pour déterminer le barème MPR et les zones H1,H2,H3 des CEE
-
     if (typeof rawSituation['ménage . commune'] === 'number') {
       // L'utilisateur a surement oublié les guillemets, on transforme en string
       rawSituation['ménage . commune'] =
