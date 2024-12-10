@@ -58,8 +58,6 @@ export default function PlaceSummary({ place, placeRules }) {
 
   if (!montant) return null
 
-  const value = formatValue(montant)
-
   const href = '/locales/' + place
   return (
     <li

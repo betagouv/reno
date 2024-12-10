@@ -28,6 +28,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { ExternalLink } from '@/components/UI'
+import { Loader } from '@/components/UI'
 
 ChartJS.register(
   LinearScale,
@@ -40,9 +42,9 @@ ChartJS.register(
   annotationPlugin,
 )
 
-const formatter = new Intl.NumberFormat('fr-FR', {})
+export const formatter = new Intl.NumberFormat('fr-FR', {})
 
-const formatTime = (seconds) => {
+export const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60)
   return `${minutes}:${Math.round(seconds % 60)
     .toString()
@@ -100,9 +102,20 @@ export default function Statistiques() {
       console.error('Error fetching visit data:', error)
     }
   }
+  const fetchSatisficationData = async () => {
+    try {
+      const responseEvents = await fetch('/api/matomo?type=events')
+      const satisfied = await responseEvents.json()
+
+      setData({ ...data, satisfied })
+    } catch (error) {
+      console.error('Error fetching events data:', error)
+    }
+  }
 
   useEffect(() => {
     fetchVisitData()
+    fetchSatisficationData()
   }, [])
 
   const chartData = useMemo(
@@ -181,58 +194,6 @@ export default function Statistiques() {
       },
     }),
     [],
-  )
-
-  const StatCard = ({ label, value, target, type = 'none' }) => (
-    <div
-      css={`
-        padding: 1rem;
-        min-width: 250px;
-        text-align: center;
-        border: 1px solid #d9d9ee;
-        border-radius: 5px;
-        > strong {
-          display: block;
-          font-size: 2rem;
-          padding: 1rem;
-          color: #000091;
-        }
-        span {
-          font-size: 0.9rem;
-        }
-      `}
-    >
-      <strong>{value}</strong>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: label,
-        }}
-      />
-      {target && (
-        <div
-          css={`
-            width: fit-content;
-            border-radius: 1rem;
-            padding: 0.2rem 0.5rem;
-            margin: auto;
-            font-weight: bold;
-            margin-top: 1rem;
-            ${type == 'success' &&
-            `
-              background: #DCFFDC;
-              color: #1A4F23;
-            `}
-            ${type == 'warning' &&
-            `
-              background: #FDF8DB;
-              color: #6E4444;
-            `}
-          `}
-        >
-          🎯cible: {target}
-        </div>
-      )}
-    </div>
   )
 
   return (
@@ -377,68 +338,71 @@ export default function Statistiques() {
               `}
             >
               <SwiperSlide>
-                <Link
+                <ExternalLink
                   href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
                   target="_blank"
                 >
                   <Image src={logoBonPote} alt="Logo Bon Pote" />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
               <SwiperSlide>
-                <Link href="https://www.ouestfrance-immo.com/" target="_blank">
+                <ExternalLink
+                  href="https://www.ouestfrance-immo.com/"
+                  target="_blank"
+                >
                   <Image
                     src={logoOuestFranceImmo}
                     alt="Logo Ouest France Immo"
                   />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
               <SwiperSlide>
-                <Link
+                <ExternalLink
                   href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
                   target="_blank"
                 >
                   <Image src={logoFranceInfo} alt="Logo France Info" />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
               <SwiperSlide>
-                <Link
+                <ExternalLink
                   href="https://www.moneyvox.fr/immobilier/actualites/99663/renovation-energetique-ce-simulateur-officiel-gratuit-revele-les-aides-que-vous-ignorez"
                   target="_blank"
                 >
                   <Image src={logoMoneyVox} alt="Logo Money Vox" />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
               <SwiperSlide>
-                <Link
+                <ExternalLink
                   href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
                   target="_blank"
                 >
                   <Image src={logoActualImmo} alt="Logo Actual Immo" />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
               <SwiperSlide>
-                <Link
+                <ExternalLink
                   href="https://www.tf1info.fr/immobilier/bouilloires-thermiques-comment-adapter-son-logement-aux-vagues-de-chaleur-2315763.html"
                   target="_blank"
                 >
                   <Image src={logoTf1Info} alt="Logo TF1 Info" />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
               <SwiperSlide>
-                <Link
+                <ExternalLink
                   href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
                   target="_blank"
                 >
                   <Image src={logoLeProgres} alt="Logo Le Progrès" />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
               <SwiperSlide>
-                <Link
+                <ExternalLink
                   href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
                   target="_blank"
                 >
                   <Image src={logoJDN} alt="Logo Journal du net" />
-                </Link>
+                </ExternalLink>
               </SwiperSlide>
             </Swiper>
           </div>
@@ -478,3 +442,63 @@ export default function Statistiques() {
     </div>
   )
 }
+
+export const StatCard = ({
+  label,
+  value,
+  target = null,
+  type = 'none',
+  noMinWidth,
+}) => (
+  <div
+    css={`
+      padding: 1rem;
+      ${!noMinWidth && 'min-width: 250px;'}
+      text-align: center;
+      border: 1px solid #d9d9ee;
+      border-radius: 5px;
+      > strong {
+        display: block;
+        font-size: 2rem;
+        padding: 1rem;
+        color: #000091;
+      }
+      span {
+        font-size: 0.9rem;
+      }
+    `}
+  >
+    <strong>
+      {value && value !== '0%' && value != 0 ? value : <Loader></Loader>}
+    </strong>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: label,
+      }}
+    />
+    {target && (
+      <div
+        css={`
+          width: fit-content;
+          border-radius: 1rem;
+          padding: 0.2rem 0.5rem;
+          margin: auto;
+          font-weight: bold;
+          margin-top: 1rem;
+          ${type == 'success' &&
+          `
+              background: #DCFFDC;
+              color: #1A4F23;
+            `}
+          ${type == 'warning' &&
+          `
+              background: #FDF8DB;
+              color: #6E4444;
+            `}
+        `}
+      >
+        🎯cible: {target}
+      </div>
+    )}
+  </div>
+)

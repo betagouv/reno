@@ -18,7 +18,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
 
   const handleSummaryClick = (e) => {
     e.preventDefault()
-    push(['trackEvent', 'Simulateur principal', 'Clic', 'comment répondre'])
+    push(['trackEvent', 'Simulateur Principal', 'Clic', 'comment répondre'])
     setIsOpen((prevIsOpen) => !prevIsOpen)
   }
   return (

@@ -1,4 +1,10 @@
-import { Main, Section, Card, ExternalLink } from '@/components/UI'
+import {
+  Main,
+  Section,
+  Card,
+  ExternalLink,
+  InternalLink,
+} from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
 import informationIcon from '@/public/information.svg'
@@ -138,10 +144,14 @@ export default function APIDoc() {
         <ParametersList />
         <h3>Spécification</h3>
         <p>
-          Notre API est basée sur <a href="https://publi.codes">Publicodes</a>.
+          Notre API est basée sur{' '}
+          <ExternalLink href="https://publi.codes">Publicodes</ExternalLink>.
           Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la
-          <a href="https://publi.codes/docs"> documentation</a> de Publicodes
-          pour mieux comprendre ses fondamentaux.
+          <ExternalLink href="https://publi.codes/docs">
+            {' '}
+            documentation
+          </ExternalLink>{' '}
+          de Publicodes pour mieux comprendre ses fondamentaux.
         </p>
         <p>
           Pour découvrir l'API, le plus simple est de faire votre simulation sur
@@ -153,15 +163,20 @@ export default function APIDoc() {
           Publicodes offre nativement une documentation Web qui vous permet
           d'explorer les calculs de façon granulaire. Pour la découvrir, suivez
           les liens "Inspection" de la{' '}
-          <a href="/personas#tests">section "Tests" de la page personas</a>.
+          <InternalLink href="/personas#tests">
+            section "Tests" de la page personas
+          </InternalLink>
+          .
         </p>
         <h3>Le code</h3>
         <p>
           Tout le code du calculateur (site en NextJS), l'API (Route handler
           NextJS) ainsi que les règles de calcul complètes sont disponibles sur{' '}
-          <Link href="https://github.com/betagouv/reno">Github</Link>. Les
-          règles sont aussi accessibles en JSON à{' '}
-          <Link href="/api/rules">cette adresse</Link>.
+          <InternalLink href="https://github.com/betagouv/reno">
+            Github
+          </InternalLink>
+          . Les règles sont aussi accessibles en JSON à{' '}
+          <InternalLink href="/api/rules">cette adresse</InternalLink>.
         </p>
         <h3>Privilégiez l'intégration directe du modèle si vous le pouvez</h3>
         <p>
@@ -190,7 +205,7 @@ export default function APIDoc() {
         <br />
         <p>
           N'hésitez pas à{' '}
-          <Link href="/api-doc#accompagnement">nous contacter</Link> si vous
+          <InternalLink href="/contact">nous contacter</InternalLink> si vous
           estimez que ce paquet NPM ne répond pas à vos besoins.
         </p>
       </Section>

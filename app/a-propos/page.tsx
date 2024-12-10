@@ -1,6 +1,4 @@
-import Footer from '@/components/Footer'
 import { Main, Section } from '@/components/UI'
-import Link from 'next/link'
 import { Metadata } from 'next/types'
 import { parse } from 'marked'
 
@@ -8,7 +6,7 @@ const content = `
 
 ### À propos
 
-Mes Aides Réno est un service conçu par la [Direction Interministérielle du Numérique](https://www.numerique.gouv.fr/dinum/) en partenariat avec [France Rénov'](https://france-renov.gouv.fr/) et le [Secrétariat général à la planification écologique (SGPE)](https://www.info.gouv.fr/france-nation-verte).
+Mes Aides Réno est un service conçu par la [Direction Interministérielle du Numérique](https://www.numerique.gouv.fr/dinum/) en partenariat avec <a href="https://france-renov.gouv.fr/" target="_blank">France Rénov'</a> et le [Secrétariat général à la planification écologique (SGPE)](https://www.info.gouv.fr/france-nation-verte).
 
 Ce service a pour objectif de simplifier l’accès à l’information sur les aides à la rénovation énergétique. Il est incubé par l'incubateur des services numériques de l'État, [beta.gouv](https://beta.gouv.fr). 
 
@@ -26,7 +24,7 @@ Le code métier est basé sur le langage [Publicodes](https://publi.codes/) po
 
 #### Mentions légales
 
-Ce site Web est opéré par la [Direction Interministérielle du Numériques](https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265). Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
+Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numériques</a>. Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
 `
 
 export const metadata: Metadata = {
