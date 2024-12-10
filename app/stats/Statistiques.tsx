@@ -101,9 +101,20 @@ export default function Statistiques() {
       console.error('Error fetching visit data:', error)
     }
   }
+  const fetchSatisficationData = async () => {
+    try {
+      const responseEvents = await fetch('/api/matomo?type=events')
+      const satisfied = await responseEvents.json()
+
+      setData({ ...data, satisfied })
+    } catch (error) {
+      console.error('Error fetching events data:', error)
+    }
+  }
 
   useEffect(() => {
     fetchVisitData()
+    fetchSatisficationData()
   }, [])
 
   const chartData = useMemo(
