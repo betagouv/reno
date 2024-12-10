@@ -1,6 +1,6 @@
 PAR:
   notes: |
-    Nous ignorons pour l'instant le [PAR "pas plus"](https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux) original, qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
+    Nous ignorons pour l'instant le <a href="https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux" target="_blank">PAR "pas plus"</a> original, qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
   marque: Prêt avance rénovation
   complément de marque: '0 %'
   type: 'prêt'

@@ -63,16 +63,10 @@ export default rulesWithMarkdown
 
 function transformRuleObject(v) {
   if (!v || !typeof v === 'object' || !v.description) return v
-  const isInIframe = typeof window !== 'undefined' && window.self !== window.top
 
   const transformMarkdown = (text) => {
     if (!text) return undefined
-    const parsedText = parse(text)
-    // On ajoute target="_blank" pour les liens en iframe
-    //(possiblement vers des sources externes qui n'autorisent pas l'affichage)
-    return isInIframe
-      ? parsedText.replace(/<a href="([^"]+)"/g, '<a href="$1" target="_blank"')
-      : parsedText
+    return parse(text)
   }
 
   const newV = {
