@@ -28,6 +28,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { Loader } from '@/components/UI'
 
 ChartJS.register(
   LinearScale,
@@ -452,7 +453,9 @@ export const StatCard = ({
       }
     `}
   >
-    <strong>{value}</strong>
+    <strong>
+      {value && value !== '0%' && value != 0 ? value : <Loader></Loader>}
+    </strong>
     <div
       dangerouslySetInnerHTML={{
         __html: label,
