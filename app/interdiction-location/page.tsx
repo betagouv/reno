@@ -1,5 +1,11 @@
 import DPELabel from '@/components/DPELabel'
-import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
+import {
+  CTA,
+  CTAWrapper,
+  ExternalLink,
+  Intro,
+  PageBlock,
+} from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
@@ -120,9 +126,9 @@ export default function Page() {
               </small>
             </p>
             <p>
-              <a href="https://www.ecologie.gouv.fr/interdiction-location-et-gel-des-loyers-des-passoires-energetiques">
+              <ExternalLink href="https://www.ecologie.gouv.fr/interdiction-location-et-gel-des-loyers-des-passoires-energetiques">
                 En savoir plus
-              </a>
+              </ExternalLink>
               .
             </p>
           </Content>

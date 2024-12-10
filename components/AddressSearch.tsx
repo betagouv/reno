@@ -2,24 +2,9 @@ import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
+import { getCommune } from './personas/enrichSituation'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
-}
-
-export async function getCommune(situation, type) {
-  if (
-    situation &&
-    ['ménage . commune', 'logement . commune'].includes(type) &&
-    situation[type]
-  ) {
-    const response = await fetch(
-      `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
-    )
-    const json = await response.json()
-
-    return json[0]
-  }
-  return null
 }
 
 export default function AddressSearch({ setChoice, situation, type }) {

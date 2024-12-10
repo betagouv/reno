@@ -1,6 +1,5 @@
 import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
-import starIcon from '@/public/star-full-gold.svg'
 import Image from 'next/image'
 import { CTA, Card, ExternalLink, PrimeStyle } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'

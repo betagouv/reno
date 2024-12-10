@@ -1,4 +1,4 @@
-import { Card } from '@/components/UI'
+import { Card, ExternalLink } from '@/components/UI'
 import { getAdresse } from './MarSearch'
 
 export default function Entreprise({ data }) {
@@ -14,9 +14,13 @@ export default function Entreprise({ data }) {
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
   const horaires = JSON.parse(data.Horaires_Structure)
   const telephone = data.Telephone_Structure
-  
+
   const siteRaw = data.Site_Internet_Structure,
-    site = siteRaw ? siteRaw?.startsWith('http') ? siteRaw : 'https://' + siteRaw : false
+    site = siteRaw
+      ? siteRaw?.startsWith('http')
+        ? siteRaw
+        : 'https://' + siteRaw
+      : false
 
   return (
     <Card
@@ -39,12 +43,12 @@ export default function Entreprise({ data }) {
       </div>
       {latitude && longitude && (
         <div>
-          <a
+          <ExternalLink
             href={`https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=17/${latitude}/${longitude}`}
             target="_blank"
           >
             Voir sur une carte
-          </a>
+          </ExternalLink>
         </div>
       )}
       <br />
@@ -70,9 +74,9 @@ export default function Entreprise({ data }) {
       )}
       {site && (
         <div>
-          <a href={site} target="_blank">
+          <ExternalLink href={site} target="_blank">
             {site}
-          </a>
+          </ExternalLink>
         </div>
       )}
       {horaires[0] != '' && (

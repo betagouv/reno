@@ -1,4 +1,3 @@
-import ExplanationValue from '@/components/explications/Value'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
@@ -6,7 +5,7 @@ import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import DPEQuickSwitch from './DPEQuickSwitch'
 import MapBehindCTA from './MapBehindCTA'
-import { Card } from './UI'
+import { Card, ExternalLink } from './UI'
 import { compute } from './explications/Aide'
 import { Key } from './explications/ExplicationUI'
 import DPEScenario from './mpra/DPEScenario'
@@ -135,9 +134,9 @@ export default function ScenariosSelector({
                 Un Accompagnateur Rénov’ réalisera un audit énergétique de votre
                 logement pour définir le projet de travaux vous permettant
                 d’atteindre le DPE visé.{' '}
-                <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
+                <ExternalLink href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov">
                   En savoir plus
-                </a>
+                </ExternalLink>
                 .
               </li>
               <li>
@@ -148,9 +147,9 @@ export default function ScenariosSelector({
               <li>
                 <p>
                   Vous êtes éligible à l'
-                  <a href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
+                  <ExternalLink href="https://france-renov.gouv.fr/aides/eco-pret-taux-zero">
                     éco-prêt à taux zéro
-                  </a>{' '}
+                  </ExternalLink>{' '}
                   pour emprunter jusqu'à 50 000 € sur 20 ans.
                 </p>
               </li>
@@ -188,25 +187,6 @@ export default function ScenariosSelector({
     </CustomQuestionWrapper>
   )
 }
-
-const AuditStyle = ({ children }) => (
-  <span
-    css={`
-      width: 6rem;
-      position: relative;
-      background: linear-gradient(to right, #eb8235, #52b153);
-      padding: 0;
-      padding-bottom: 0.15rem;
-      > span {
-        background: white;
-        color: black;
-        padding: 0 0.3rem;
-      }
-    `}
-  >
-    <span>{children}</span>
-  </span>
-)
 
 export const Avance = ({
   engine,
