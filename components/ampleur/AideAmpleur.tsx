@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { CTA, Card, ExternalLink, PrimeStyle } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0, aideStyles } from '../utils'
-import chainIcon from '@/public/link-chain.svg'
 import AideCTAs from './AideCTAs'
 import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
@@ -69,22 +68,6 @@ export default function AideAmpleur({
           background: ${isSelected ? 'rgba(205, 228, 255, 0.20);' : ''};
         `}
       >
-        {false && level === 2 && (
-          <span>
-            <Image
-              css={`
-                position: absolute;
-                top: -1.1rem;
-                left: 50%;
-                transform: translateX(-60%);
-                width: 3rem;
-                height: auto;
-              `}
-              src={chainIcon}
-              alt="Icône représentant le lien chainé entre l'aide MaPrimeRénov' parcours accompagnée, et l'aide à l'audit energétique"
-            />
-          </span>
-        )}
         <header
           css={`
             margin: 0 0 1rem 0;
