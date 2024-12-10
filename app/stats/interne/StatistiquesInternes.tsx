@@ -6,6 +6,8 @@ import {
   TimeScale,
   PointElement,
   LineElement,
+  BarElement,
+  BarController,
   Title,
   Tooltip,
   Legend,
@@ -16,12 +18,14 @@ import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Line } from 'react-chartjs-2'
-
+import { formatter, formatTime, StatCard } from '../Statistiques'
 ChartJS.register(
   LinearScale,
   TimeScale,
   PointElement,
   LineElement,
+  BarController,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -35,240 +39,188 @@ export default function StatistiquesInternes() {
     module: null,
   })
 
-  const fetchData = async () => {
-    let res
-    try {
-      res = await fetch('/api/matomo?type=internes')
-      const global = Object.entries(await res.json()).map(
-        ([date, dayData]) => ({
-          date: new Date(date),
-          simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
-          uniqVisitors: dayData.nb_uniq_visitors,
-        }),
-      )
+  const fetchSegmentData = async (segment: string = '') => {
+    const response = await fetch(`/api/matomo?type=internes&segment=${segment}`)
+    const json = await response.json()
 
-      res = await fetch('/api/matomo?type=internes&segment=site')
-      const site = Object.entries(await res.json()).map(([date, dayData]) => ({
-        date: new Date(date),
-        simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
-        uniqVisitors: dayData.nb_uniq_visitors,
-      }))
-
-      res = await fetch('/api/matomo?type=internes&segment=iframe')
-      const iframe = Object.entries(await res.json()).map(
-        ([date, dayData]) => ({
-          date: new Date(date),
-          simuEnded: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
-          uniqVisitors: dayData.nb_uniq_visitors,
-        }),
-      )
-
-      res = await fetch('/api/matomo?type=internes&segment=module')
-      const module = Object.entries(await res.json()).map(
-        ([date, dayData]) => ({
-          date: new Date(date),
-          nbDisplay: dayData[0] ? dayData[0].step_nb_visits_actual : 0,
-          nbInteraction: dayData[1] ? dayData[1].step_nb_visits_actual : 0,
-          nbClick: dayData[2] ? dayData[2].step_nb_visits_actual : 0,
-        }),
-      )
-      // const totalTimeOnSite = Object.entries(data)
-      //   .slice(-4)
-      //   .reduce((acc, [, weekData]) => acc + weekData.avg_time_on_site, 0)
-
-      // const transfoRateFranceRenov =
-      //   (Object.values(dataLastMonth).reduce(
-      //     (acc, curr) => acc + curr[2].step_nb_visits_actual,
-      //     0,
-      //   ) /
-      //     nbSimuEndedMonth) *
-      //   100
-
-      // const avgTimeOnSite = formatTime(totalTimeOnSite / 4)
-      setData({
-        global,
-        site,
-        iframe,
-        module,
-      })
-    } catch (error) {
-      console.error('Error fetching visit data:', error)
-    }
+    return Object.entries(json).map(([date, dayData]: [string, any]) => ({
+      date: new Date(date),
+      simuEnded: dayData[1]?.step_nb_visits_actual || 0,
+      uniqVisitors: dayData.nb_uniq_visitors,
+      avgTime: dayData.avg_time_on_site,
+      nbActions: dayData.nb_actions_per_visit,
+      nbDisplay: dayData[0]?.step_nb_visits_actual || 0,
+      nbInteraction: dayData[1]?.step_nb_visits_actual || 0,
+      nbClick: dayData[2]?.step_nb_visits_actual || 0,
+    }))
   }
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const global = await fetchSegmentData()
+        setData((prev) => ({ ...prev, global }))
+        const site = await fetchSegmentData('site')
+        setData((prev) => ({ ...prev, site }))
+        const iframe = await fetchSegmentData('iframe')
+        setData((prev) => ({ ...prev, iframe }))
+        const module = await fetchSegmentData('module')
+        setData((prev) => ({ ...prev, module }))
+      } catch (error) {
+        console.error('Error fetching visit data:', error)
+      }
+    }
     fetchData()
   }, [])
 
+  const generateChartConfig = (data, labels, yAxisConfig = {}) => ({
+    labels: data ? data.map((entry) => entry.date) : [],
+    datasets: labels.map((labelConfig) => ({
+      label: labelConfig.label,
+      data: data ? data.map((entry) => labelConfig.getData(entry)) : [],
+      borderColor: labelConfig.borderColor,
+      backgroundColor: labelConfig.backgroundColor,
+      borderWidth: 1,
+      type: labelConfig.type,
+      yAxisID: labelConfig.yAxisID || 'y',
+    })),
+    ...yAxisConfig,
+  })
+
+  const dataSets = [
+    {
+      label: 'Nombre de simulations terminées',
+      getData: (entry) => entry.simuEnded,
+      borderColor: '#000091',
+      backgroundColor: '#2a82dd',
+    },
+    {
+      label: 'Nombre de visiteurs uniques',
+      getData: (entry) => entry.uniqVisitors,
+      borderColor: '#ff5c8d',
+      backgroundColor: '#ff97b5',
+    },
+    {
+      label: 'Durée de la visite',
+      getData: (entry) => entry.avgTime,
+      borderColor: '#CCC',
+      backgroundColor: '#CCC',
+      yAxisID: 'y2',
+      type: 'bar',
+    },
+  ]
+
   const globalChart = useMemo(
-    () => ({
-      labels: data.global ? data.global.map((entry) => entry.date) : [],
-      datasets: [
-        {
-          label: 'Nombre de simulations terminées',
-          data: data.global ? data.global.map((entry) => entry.simuEnded) : [],
-          borderColor: '#000091',
-          borderWidth: 1,
-          backgroundColor: '#2a82dd',
-          yAxisID: 'y',
-        },
-        {
-          label: 'Nombre de visiteurs uniques',
-          data: data.global
-            ? data.global.map((entry) => entry.uniqVisitors)
-            : [],
-          borderColor: '#ff5c8d',
-          borderWidth: 1,
-          backgroundColor: '#ff97b5',
-          yAxisID: 'y',
-        },
-      ],
-    }),
+    () => generateChartConfig(data.global, dataSets),
     [data.global],
   )
 
   const siteChart = useMemo(
-    () => ({
-      labels: data.site ? data.site.map((entry) => entry.date) : [],
-      datasets: [
-        {
-          label: 'Nombre de simulations terminées',
-          data: data.site ? data.site.map((entry) => entry.simuEnded) : [],
-          borderColor: '#000091',
-          borderWidth: 1,
-          backgroundColor: '#2a82dd',
-          yAxisID: 'y',
-        },
-        {
-          label: 'Nombre de visiteurs uniques',
-          data: data.site ? data.site.map((entry) => entry.uniqVisitors) : [],
-          borderColor: '#ff5c8d',
-          borderWidth: 1,
-          backgroundColor: '#ff97b5',
-          yAxisID: 'y',
-        },
-      ],
-    }),
+    () => generateChartConfig(data.site, dataSets),
     [data.site],
   )
 
   const iframeChart = useMemo(
-    () => ({
-      labels: data.iframe ? data.iframe.map((entry) => entry.date) : [],
-      datasets: [
-        {
-          label: 'Nombre de simulations terminées',
-          data: data.iframe ? data.iframe.map((entry) => entry.simuEnded) : [],
-          borderColor: '#000091',
-          borderWidth: 1,
-          backgroundColor: '#2a82dd',
-          yAxisID: 'y',
-        },
-        {
-          label: 'Nombre de visiteurs uniques',
-          data: data.iframe
-            ? data.iframe.map((entry) => entry.uniqVisitors)
-            : [],
-          borderColor: '#ff5c8d',
-          borderWidth: 1,
-          backgroundColor: '#ff97b5',
-          yAxisID: 'y',
-        },
-      ],
-    }),
+    () => generateChartConfig(data.iframe, dataSets),
     [data.iframe],
   )
 
   const moduleChart = useMemo(
-    () => ({
-      labels: data.module ? data.module.map((entry) => entry.date) : [],
-      datasets: [
+    () =>
+      generateChartConfig(data.module, [
         {
           label: "Nombre d'affichage du module OFI",
-          data: data.module ? data.module.map((entry) => entry.nbDisplay) : [],
+          getData: (entry) => entry.nbDisplay,
           borderColor: '#ff5c8d',
-          borderWidth: 1,
           backgroundColor: '#ff97b5',
-          yAxisID: 'y',
         },
         {
           label: "% d'interaction",
-          data: data.module
-            ? data.module.map((entry) =>
-                Math.round((entry.nbInteraction / entry.nbDisplay) * 100),
-              )
-            : [],
+          getData: (entry) =>
+            Math.round((entry.nbInteraction / entry.nbDisplay) * 100),
           borderColor: '#000091',
-          borderWidth: 1,
           backgroundColor: '#2a82dd',
           yAxisID: 'y2',
+          type: 'line',
         },
         {
           label: '% de clic',
-          data: data.module
-            ? data.module.map((entry) =>
-                Math.round((entry.nbClick / entry.nbInteraction) * 100),
-              )
-            : [],
+          getData: (entry) =>
+            Math.round((entry.nbClick / entry.nbDisplay) * 100),
           borderColor: '#00FF00',
-          borderWidth: 1,
           backgroundColor: '#00FF00',
           yAxisID: 'y2',
+          type: 'line',
         },
-      ],
-    }),
+        {
+          label: 'Durée de la visite',
+          getData: (entry) => entry.avgTime,
+          borderColor: '#CCC',
+          backgroundColor: '#CCC',
+        },
+      ]),
     [data.module],
   )
 
-  const options = useMemo(
-    () => ({
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom' },
-      },
-      scales: {
-        x: {
-          type: 'time',
-          time: {
-            unit: 'week',
-            tooltipFormat: 'dd/MM/yyyy',
-            displayFormats: { week: 'dd/MM/yyyy' },
-          },
-        },
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: 'Nombre de simulation' },
-        },
-      },
-    }),
-    [],
-  )
+  const createChartOptions = (customScales = {}) => ({
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.dataset.label || ''
+            const value = context.raw
 
-  const optionsModule = useMemo(
-    () => ({
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom' },
-      },
-      scales: {
-        x: {
-          type: 'time',
-          time: {
-            unit: 'week',
-            tooltipFormat: 'dd/MM/yyyy',
-            displayFormats: { week: 'dd/MM/yyyy' },
+            if (label === 'Durée de la visite') {
+              return `${label}: ${formatTime(value)}`
+            }
+            return `${label}: ${value}`
           },
         },
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: 'Nombre de simulation' },
+      },
+    },
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'week',
+          tooltipFormat: 'dd/MM/yyyy',
+          displayFormats: { week: 'dd/MM/yyyy' },
         },
+      },
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: 'Nombre de simulation' },
+      },
+      ...customScales,
+    },
+  })
+
+  const options = useMemo(
+    () =>
+      createChartOptions({
         y2: {
           beginAtZero: true,
-          title: { display: true, text: 'Pourcentage' },
+          position: 'right',
+          title: { display: true, text: 'Durée de la visite' },
+          grid: { display: false },
+          ticks: {
+            callback: (value) => formatTime(value),
+          },
         },
-      },
-    }),
+      }),
+    [],
+  )
+  const optionsModule = useMemo(
+    () =>
+      createChartOptions({
+        y2: {
+          beginAtZero: true,
+          position: 'right',
+          title: { display: true, text: 'Taux de transfo' },
+          grid: { display: false },
+        },
+      }),
     [],
   )
 
@@ -282,14 +234,81 @@ export default function StatistiquesInternes() {
         `}
       >
         <h2>Statistiques Internes</h2>
-        <h3>Global</h3>
-        {data.global && <Line data={globalChart} options={options} />}
-        <h3>Site</h3>
-        {data.site && <Line data={siteChart} options={options} />}
-        <h3>Iframe</h3>
-        {data.iframe && <Line data={iframeChart} options={options} />}
-        <h3>Module OFI</h3>
-        {data.module && <Line data={moduleChart} options={optionsModule} />}
+        {[
+          { title: 'Global', data: data.global, chart: globalChart, options },
+          { title: 'Site', data: data.site, chart: siteChart, options },
+          { title: 'Iframe', data: data.iframe, chart: iframeChart, options },
+          {
+            title: 'Module',
+            data: data.module,
+            chart: moduleChart,
+            options: optionsModule,
+          },
+        ].map(({ title, data, chart, options }, index) => {
+          return (
+            <section key={index}>
+              <h3>{title}</h3>
+              <p
+                css={`
+                  color: #0974f6 !important;
+                  font-weight: bold;
+                `}
+              >
+                Sur les 30 derniers jours :
+              </p>
+              {data && (
+                <>
+                  <div
+                    css={`
+                      display: flex;
+                      gap: 1rem;
+                    `}
+                  >
+                    <StatCard
+                      label={
+                        title === 'Module'
+                          ? 'Clic sur<br />Découvrir mes aides'
+                          : 'Simulations terminées'
+                      }
+                      value={formatter.format(
+                        data.reduce((a, c) => a + c.simuEnded, 0),
+                      )}
+                      noMinWidth
+                    />
+                    <StatCard
+                      label="Durée moyenne<br />des sessions"
+                      value={formatTime(
+                        data.reduce((a, c) => a + (c.avgTime || 0), 0) /
+                          data.filter((e) => e.uniqVisitors > 0).length,
+                      )}
+                      noMinWidth
+                    />
+                    <StatCard
+                      label="Nombre d'action"
+                      value={Math.round(
+                        data.reduce((a, c) => a + (c.nbActions || 0), 0) /
+                          data.filter((e) => e.uniqVisitors > 0).length,
+                      )}
+                      noMinWidth
+                    />
+                    <StatCard
+                      label="Taux de transformation"
+                      value={
+                        Math.round(
+                          (data.reduce((a, c) => a + c.nbClick, 0) /
+                            data.reduce((a, c) => a + c.simuEnded, 0)) *
+                            100,
+                        ) + '%'
+                      }
+                      noMinWidth
+                    />
+                  </div>
+                  <Line data={chart} options={options} />
+                </>
+              )}
+            </section>
+          )
+        })}
       </Content>
     </Wrapper>
   )

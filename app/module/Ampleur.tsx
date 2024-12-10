@@ -159,6 +159,9 @@ export default function Ampleur() {
           css={`
             text-decoration: none;
             color: inherit;
+            &:hover {
+              background: 0;
+            }
             > div {
               @media (max-width: 400px) {
                 top: 0rem;

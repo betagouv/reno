@@ -64,7 +64,7 @@ export default function Answers({
     fetchCommunes()
   }, [rawAnsweredQuestions, situation])
   const handleSummaryClick = () => {
-    push(['trackEvent', 'Simulateur principal', 'Clic', 'voir mes reponses'])
+    push(['trackEvent', 'Simulateur Principal', 'Clic', 'voir mes reponses'])
     setIsOpen((prevIsOpen) => !prevIsOpen) // Toggle the state using React
   }
 
