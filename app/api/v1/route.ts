@@ -54,7 +54,11 @@ async function apiResponse(method: string, request: Request) {
         'API' +
         (request.headers.get('referer')?.includes('api-doc') ? ' test' : ''),
       e_a: params['fields'],
+      e_n: request.headers.get('host'),
+      ua: request.headers.get('user-agent'),
+      urlref: request.headers.get('referer'),
     })
+
     await fetch(
       `https://stats.beta.gouv.fr/matomo.php?${matomoParams.toString()}`,
     )
