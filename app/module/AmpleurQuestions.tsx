@@ -59,7 +59,7 @@ export const PersonnesQuestion = ({
   <section>
     <Dot />
     <label>
-      <span>Votre ménage est composé de </span>{' '}
+      <span>Dans un ménage de </span>{' '}
       <input
         type="number"
         min="1"
