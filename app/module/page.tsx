@@ -12,18 +12,6 @@ export const metadata: Metadata = {
   description: `Découvrez le module de calcul "passoire thermique" de Mes Aides Réno"`,
 }
 
-const iframeCode = `
-<iframe src="https://mesaidesreno.beta.gouv.fr/module/integration" style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
-              --shadow-elevation-medium: 0.3px 0.5px 0.7px
-                  hsl(var(--shadow-color) / 0.36),
-                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
-              box-shadow: var(--shadow-elevation-medium);
-
-"></iframe>
-`
-
 export default function Module({}) {
   return (
     <main
@@ -69,19 +57,6 @@ export default function Module({}) {
             <Suspense>
               <AmpleurDemonstration />
             </Suspense>
-          </Content>
-        </Wrapper>
-        <Wrapper $background="white" $noMargin={true} $last={true}>
-          <Content>
-            <h2>Comment l'intégrer ?</h2>
-            <p>
-              Voici{' '}
-              <BlueEm>
-                <strong>le code à intégrer</strong>
-              </BlueEm>{' '}
-              dans votre HTML ou votre contenu Wordpress :
-            </p>
-            <code>{iframeCode}</code>
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
