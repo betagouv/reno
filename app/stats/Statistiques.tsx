@@ -408,7 +408,7 @@ export default function Statistiques() {
           </div>
         </Content>
       </Wrapper>
-      {satisfaction?.non != 100 && (
+      {satisfaction?.oui > 0 && (
         <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h3>Satisfaction des usagers</h3>
