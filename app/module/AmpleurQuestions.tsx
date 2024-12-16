@@ -140,7 +140,7 @@ export const RevenuQuestion = ({
             </div>
           )}
           <label>
-            <span>Pour un revenu fiscal de</span>{' '}
+            <span>Pour un revenu fiscal </span>{' '}
             <RevenuInput
               type="select"
               engine={engine}
@@ -149,7 +149,7 @@ export const RevenuQuestion = ({
               onChange={onChange}
               disableInstruction={false}
             />
-            €.
+            .
           </label>
         </div>
       </section>
