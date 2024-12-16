@@ -3,6 +3,17 @@
 import dpeData from '@/components/DPE.yaml'
 
 export default function DPELabel({ index }) {
+  if (+index > 6 || index < 0)
+    return (
+      <em
+        title={`Le DPE d'index ${index} est invalide, il doit être entre 0 (A) et 6 (G)`}
+        css={`
+          cursor: help;
+        `}
+      >
+        DPE invalide
+      </em>
+    )
   const { couleur, lettre, 'couleur du texte': textColor } = dpeData[+index]
   return (
     <span

@@ -87,7 +87,7 @@ const DPE = ({ situation }) => {
   return (
     <span>
       {' '}
-      de DPE <DPELabel index={value} />
+      de DPE <DPELabel index={value - 1} />
     </span>
   )
 }

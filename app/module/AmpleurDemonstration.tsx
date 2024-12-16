@@ -10,6 +10,28 @@ import { useSearchParams } from 'next/navigation'
 import Schema from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
+import { BlueEm } from '../LandingUI'
+
+const iframeCode = (
+  src = 'https://mesaidesreno.beta.gouv.fr/module/integration',
+  cssExample = false,
+) => `
+<iframe src="${src}" ${
+  cssExample
+    ? `
+style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
+              --shadow-elevation-medium: 0.3px 0.5px 0.7px
+                  hsl(var(--shadow-color) / 0.36),
+                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+              box-shadow: var(--shadow-elevation-medium);
+
+"
+`
+    : ''
+}></iframe>
+`
 
 export default function AmpleurDemonstration() {
   const setSearchParams = useSetSearchParams()
@@ -101,7 +123,23 @@ export default function AmpleurDemonstration() {
         </p>
         <Schema />
         <h3>L'URL de l'iframe à injecter de votre côté</h3>
-        <code>{iframeUrl}</code>
+        <p>
+          Voici{' '}
+          <BlueEm>
+            <strong>le code à intégrer</strong>
+          </BlueEm>{' '}
+          dans votre HTML ou votre contenu Wordpress :
+        </p>
+        <code>{iframeCode(iframeUrl, false)}</code>
+        <p
+          css={`
+            margin-top: 1rem;
+          `}
+        >
+          Vous pouvez habiller le module en CSS avec par exemple une ombre
+          portée, voici un exemple :{' '}
+        </p>
+        <code>{iframeCode(undefined, true)}</code>
         <section
           css={`
             margin: auto;
