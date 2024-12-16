@@ -32,11 +32,19 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ### v1.0.0-beta4
 
+#### Nouveau design pour le module Ampleur
+
 Le module ampleur passe en version 3. Ses évolutions sont décrites en bas de la [page dédiée](https://mesaidesreno.beta.gouv.fr/module).
 
 Une nouvelle variable est introduite dans le module pour passer de l'année de construction du logement à l'une des quelques périodes de construction utilisées par les aides à la rénovation.
 
 Elle n'est pour l'instant pas utilisée pour pouvoir injecter dans le modèle l'année de construction.
+
+#### Nouvelle API et documentation plus complète
+
+Sur la page [api-doc](https://mesaidesreno.beta.gouv.fr/api-doc), on expose une nouvelle route "Éligibilité" qui permet de calculer toutes les aides d'ampleur. D'autres aides sont ensuites ajoutées individuellement.
+
+La liste des paramètres fait également son apparition. Ce sont les questions à poser à vos utilisateurs.
 
 ### v1.0.0-beta3
 
