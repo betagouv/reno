@@ -7,8 +7,8 @@ PTZ:
     L'éco-prêt à taux zéro est un prêt à 0 % qui permet de financer des travaux d'amélioration de la performance énergétique d'un logement.
 
   informations utiles: |
-    - L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
-    - L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
+    - L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448" target="_blank"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
+    - L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905" target="_blank"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
     - Son montant dépendra de votre endettement et de votre capacité à le rembourser.
   conditions éligibilités: |
     - Votre logement doit avoir été construit il y a au moins de 2 ans (à la date du début des travaux)
@@ -24,7 +24,7 @@ PTZ:
     En cas de doute, contactez votre conseiller France Rénov’.
   description détaillé: |
 
-    L'éco-PTZ est disponible pour une [liste de types de travaux](https://www.economie.gouv.fr/particuliers/eco-pret-a-taux-zero-ptz-renovation-performance-energetique#quels-sont-les-travaux-ligibles-_1).
+    L'éco-PTZ est disponible pour une <a href="https://www.economie.gouv.fr/particuliers/eco-pret-a-taux-zero-ptz-renovation-performance-energetique#quels-sont-les-travaux-ligibles-_1" target="_blank">liste de types de travaux</a>.
 
     En fonction des travaux que vous réalisez, vous pouvez obtenir **jusqu'à 50 000 € de prêt**. La durée de remboursement de ce prêt **peut aller jusqu'à 20 ans**.
 
@@ -71,7 +71,32 @@ PTZ . montant:
   variations:
     - si: parcours d'aide = "ampleur"
       alors: 50000 €
-    - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
-
+    - si: parcours d'aide = "à la carte"
+      alors:
+        variations:
+          - si: nombre travaux = 1
+            alors:
+              variations:
+                - si: changement parois vitrées
+                  alors: 7000 €
+                - sinon: 15000 €
+          - si: nombre travaux = 2
+            alors: 25000 €
+          - sinon: 30000 €
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
-PTZ . durée: 20 an
+PTZ . taux: 0 %
+PTZ . durée:
+  variations:
+    - si: parcours d'aide = "ampleur"
+      alors: 20 an
+    - si: parcours d'aide = "à la carte"
+      alors: 15 an
+PTZ . nombre travaux:
+  question: Combien de travaux différents seront réalisés?
+  description: Le nombre de travaux différent réalisé dans le cadre d'une rénovation par geste
+  par défaut: 1
+PTZ . changement parois vitrées:
+  question: La prestation réalisée concerne-t-elle le changement de parois vitrées?
+  description: |
+    En cas de seul changement des parois vitrées, le montant maximal du prêt est de 7000 €, pour les autres gestes, le montant maximal est de 15000€.
+  par défaut: non

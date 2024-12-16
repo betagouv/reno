@@ -30,7 +30,7 @@ export const TypeResidence = ({
           const additionalSituation = usageLogementValues.find(
             ({ valeur }) => valeur == e,
           ).situation
-          push(['trackEvent', 'Iframe', 'Interaction', 'usage ' + e])
+          push(['trackEvent', 'Module', 'Interaction', 'usage ' + e])
 
           const encodedSituation = encodeSituation(additionalSituation, true, [
             ...Object.keys(additionalSituation),
@@ -74,7 +74,7 @@ export const PersonnesQuestion = ({
           const { value } = e.target
           const invalid = isNaN(value) || value <= 0
           if (invalid) return
-          push(['trackEvent', 'Iframe', 'Interaction', 'personne ' + value])
+          push(['trackEvent', 'Module', 'Interaction', 'personne ' + value])
           onChange('ménage . personnes')(e)
         }}
         css={`
@@ -218,7 +218,7 @@ export const IdFQuestion = ({
             onChange={() => {
               push([
                 'trackEvent',
-                'Iframe',
+                'Module',
                 'Interaction',
                 'idf mobile ' + situation['ménage . région . IdF'],
               ])
@@ -246,7 +246,7 @@ export const IdFQuestion = ({
                 onChange={() => {
                   push([
                     'trackEvent',
-                    'Iframe',
+                    'Module',
                     'Interaction',
                     'idf desktop oui',
                   ])
@@ -267,7 +267,7 @@ export const IdFQuestion = ({
                 onChange={() => {
                   push([
                     'trackEvent',
-                    'Iframe',
+                    'Module',
                     'Interaction',
                     'idf desktop non',
                   ])

@@ -2,9 +2,10 @@
 import rules from '@/app/règles/rules'
 import DPELabel from '@/components/DPELabel'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
-import { CTA, PrimeStyle } from '@/components/UI'
+import { CTA, InternalLink } from '@/components/UI'
 import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
 import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituation'
+import { enrichSituationWithConstructionYear } from '@/components/personas/enrichSituation'
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
 import {
   encodeDottedName,
@@ -35,7 +36,6 @@ import {
 } from './AmpleurQuestions'
 import { AmpleurWrapper } from './AmpleurUI'
 import UserData from './UserData'
-import { enrichSituationWithConstructionYear } from '@/components/personas/enrichSituation'
 
 const engine = new Publicodes(rules)
 
@@ -127,7 +127,7 @@ export default function Ampleur() {
         [encodeDottedName(dottedName)]: value + '*',
       })
 
-  push(['trackEvent', 'Iframe', 'Page', 'Module Ampleur DPE ' + currentDPE])
+  push(['trackEvent', 'Module', 'Page', 'Module Ampleur DPE ' + currentDPE])
 
   return (
     <AmpleurWrapper>
@@ -149,11 +149,14 @@ export default function Ampleur() {
           </Labels>
           <h2>Vos aides pour une rénovation d'ampleur</h2>
         </div>
-        <a
+        <InternalLink
           href="https://mesaidesreno.beta.gouv.fr"
           css={`
             text-decoration: none;
             color: inherit;
+            &:hover {
+              background: 0;
+            }
             > div {
               @media (max-width: 400px) {
                 top: 0rem;
@@ -190,7 +193,7 @@ export default function Ampleur() {
               Mes <strong>Aides Réno</strong>
             </Title>
           </div>
-        </a>
+        </InternalLink>
       </header>
       <div>
         <p>

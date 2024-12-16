@@ -1,6 +1,6 @@
 PAR:
   notes: |
-    Nous ignorons pour l'instant le [PAR "pas plus"](https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux) original, qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
+    Nous ignorons pour l'instant le <a href="https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux" target="_blank">PAR "pas plus"</a> original, qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
   marque: Prêt avance rénovation
   complément de marque: '0 %'
   type: 'prêt'
@@ -15,14 +15,14 @@ PAR:
     - Vous devez faire réaliser les travaux par un professionnel RGE.
 
   comment faire: |
-    Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
+    Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">
                     sont couverts</a> par ce dispositif.
 
     Dans le cas d'un dossier MaPrimeRénov' accompagnée, ce sera probablement le cas.
 
     > La liste des établissements distribuant le Prêt Avance Rénovation ne portant pas intérêt n'est pas encore disponible. 
 
-    Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">la démarche étape par étape</a>.
+    Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">la démarche étape par étape</a>.
   montant: |
     Jusqu'à 50 000 € d'emprunt pour une rénovation d'ampleur : viser un DPE E au minimum et un gain énergétique de 35%.
   description: |
@@ -78,5 +78,6 @@ PAR . montant:
       - si: parcours d'aide = "ampleur"
         alors: 50000 €
       - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
+PAR . taux: 0 %
 PAR . durée: 10 an
 PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'

@@ -20,7 +20,9 @@ chauffage . pilotage connecté:
   titre: Pilotage connecté pièce par pièce
   description: |
     Il s'agit de la prime minimum prévue par la charte CEE "coup de pouce".
-chauffage . pilotage connecté . montant: CEE . montant
+chauffage . pilotage connecté . montant:
+  somme:
+    - CEE . montant
 chauffage . pilotage connecté . surface chauffée:
   logement . surface
   #question: Quelle est la surface chauffée de votre logement ?

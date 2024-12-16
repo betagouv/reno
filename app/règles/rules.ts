@@ -64,16 +64,23 @@ export default rulesWithMarkdown
 function transformRuleObject(v) {
   if (!v || !typeof v === 'object' || !v.description) return v
 
+  const transformMarkdown = (text) => {
+    if (!text) return undefined
+    return parse(text)
+  }
+
   const newV = {
     ...v,
-    descriptionHtml: v.description && parse(v.description),
-    titreHtml: v.titre && parse(v.titre),
-    sousTitreHtml: v['sous-titre'] && parse(v['sous-titre']),
+    descriptionHtml: v.description && transformMarkdown(v.description),
+    titreHtml: v.titre && transformMarkdown(v.titre),
+    sousTitreHtml: v['sous-titre'] && transformMarkdown(v['sous-titre']),
     conditionsEligibilitesHTML:
-      v['conditions éligibilités'] && parse(v['conditions éligibilités']),
+      v['conditions éligibilités'] &&
+      transformMarkdown(v['conditions éligibilités']),
     informationsUtilesHtml:
-      v['informations utiles'] && parse(v['informations utiles']),
-    commentFaireHtml: v['comment faire'] && parse(v['comment faire']),
+      v['informations utiles'] && transformMarkdown(v['informations utiles']),
+    commentFaireHtml:
+      v['comment faire'] && transformMarkdown(v['comment faire']),
   }
   return newV
 }
