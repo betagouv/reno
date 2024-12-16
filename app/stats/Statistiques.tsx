@@ -23,7 +23,6 @@ import logoOuestFranceImmo from '@/public/logo-partenaire/logo-ouestfrance-immo.
 import logoLeProgres from '@/public/logo-partenaire/logo-le-progres.svg'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
@@ -56,7 +55,11 @@ export default function Statistiques() {
     transfoRateFranceRenov: 0,
     nbSimuEndedMonth: 0,
     avgTimeOnSite: '',
-    satisfied: { oui: 0, 'en partie': 0, non: 0 },
+  })
+  const [satisfaction, setSatisfaction] = useState({
+    oui: 0,
+    'en partie': 0,
+    non: 0,
   })
 
   const fetchVisitData = async () => {
@@ -88,15 +91,12 @@ export default function Statistiques() {
         100
 
       const avgTimeOnSite = formatTime(totalTimeOnSite / 4)
-      const responseEvents = await fetch('/api/matomo?type=events')
-      const satisfied = await responseEvents.json()
 
       setData({
         weeklyData,
         transfoRateFranceRenov,
         nbSimuEndedMonth,
         avgTimeOnSite,
-        satisfied,
       })
     } catch (error) {
       console.error('Error fetching visit data:', error)
@@ -107,7 +107,7 @@ export default function Statistiques() {
       const responseEvents = await fetch('/api/matomo?type=events')
       const satisfied = await responseEvents.json()
 
-      setData({ ...data, satisfied })
+      setSatisfaction(satisfied)
     } catch (error) {
       console.error('Error fetching events data:', error)
     }
@@ -408,37 +408,39 @@ export default function Statistiques() {
           </div>
         </Content>
       </Wrapper>
-      <Wrapper $background="white" $noMargin={true}>
-        <Content>
-          <h3>Satisfaction des usagers</h3>
-          <p
-            css={`
-              margin: 1rem 0;
-            `}
-          >
-            Les taux de satisfaction ci-dessous correspondent aux pourcentages
-            d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
-            l'ensemble des usagers ayant répondu au module de satisfaction.
-          </p>
-          <div
-            css={`
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-between;
-              gap: 1rem;
-            `}
-          >
-            <StatCard label="Oui" value={`${data.satisfied['oui']}%`} />
+      {satisfaction?.non != 100 && (
+        <Wrapper $background="white" $noMargin={true}>
+          <Content>
+            <h3>Satisfaction des usagers</h3>
+            <p
+              css={`
+                margin: 1rem 0;
+              `}
+            >
+              Les taux de satisfaction ci-dessous correspondent aux pourcentages
+              d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
+              l'ensemble des usagers ayant répondu au module de satisfaction.
+            </p>
+            <div
+              css={`
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: 1rem;
+              `}
+            >
+              <StatCard label="Oui" value={`${satisfaction['oui']}%`} />
 
-            <StatCard
-              label="En partie"
-              value={`${data.satisfied['en partie']}%`}
-            />
+              <StatCard
+                label="En partie"
+                value={`${satisfaction['en partie']}%`}
+              />
 
-            <StatCard label="Non" value={`${data.satisfied['non']}%`} />
-          </div>
-        </Content>
-      </Wrapper>
+              <StatCard label="Non" value={`${satisfaction['non']}%`} />
+            </div>
+          </Content>
+        </Wrapper>
+      )}
     </div>
   )
 }
