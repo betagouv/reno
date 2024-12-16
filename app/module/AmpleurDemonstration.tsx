@@ -17,8 +17,8 @@ const iframeCode = (
   cssExample = false,
 ) => `
 <iframe src="${src}" ${
-  cssExample &&
-  `
+  cssExample
+    ? `
 style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
                   hsl(var(--shadow-color) / 0.36),
@@ -29,6 +29,7 @@ style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-ra
 
 "
 `
+    : ''
 }></iframe>
 `
 
