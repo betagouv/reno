@@ -5,6 +5,7 @@ export default function Select({
   onChange: serverOnChange,
   value,
   values,
+  disableInstruction = true,
   ...props
 }) {
   const [state, setState] = useState(value)
@@ -40,11 +41,17 @@ export default function Select({
       {...props}
       defaultValue={value}
     >
-      {[{valeur:'', titre: 'Choisir une réponse'},...values].map((item, index) => (
-        <option key={index} value={item.valeur} disabled={item.valeur === ""}>
-          {item.titre}
-        </option>
-      ))}
+      {[{ valeur: '', titre: 'Choisir une réponse' }, ...values].map(
+        (item, index) => (
+          <option
+            key={index}
+            value={item.valeur}
+            disabled={disableInstruction && item.valeur === ''}
+          >
+            {item.titre}
+          </option>
+        ),
+      )}
     </select>
   )
 }

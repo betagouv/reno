@@ -1,9 +1,25 @@
+export const ampleurQuestionsAnswered = (answeredQuestions) =>
+  userInputDottedNames.every((dottedName) =>
+    answeredQuestions.includes(dottedName),
+  )
+
+export const userInputDottedNames = [
+  'vous . propriétaire . statut',
+  'logement . résidence principale locataire',
+  'logement . résidence principale propriétaire',
+  'logement . propriétaire occupant',
+  'ménage . personnes',
+  'ménage . région . IdF',
+  'ménage . revenu',
+]
+
 export const usageLogementValues = [
   {
     valeur: 1,
     titre: 'Votre résidence principale',
     situation: {
       'vous . propriétaire . statut': '"acquéreur"',
+      'logement . résidence principale locataire': 'non',
       'logement . résidence principale propriétaire': 'oui',
       'logement . propriétaire occupant': 'oui',
     },
