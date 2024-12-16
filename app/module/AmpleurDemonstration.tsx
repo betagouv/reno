@@ -7,10 +7,9 @@ import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import personas from './examplePersonas.yaml'
-import css from '@/components/css/convertToJs'
-import { mobileIframeStyle } from './ExampleIframe'
 import Schema from './AmpleurSchema'
+import { mobileIframeStyle } from './ExampleIframe'
+import personas from './examplePersonas.yaml'
 
 export default function AmpleurDemonstration() {
   const setSearchParams = useSetSearchParams()

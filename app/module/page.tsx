@@ -131,7 +131,7 @@ export default function Module({}) {
               mémoire, pour qu'il ou elle n'ait pas à répéter ces informations
               d'une annonce à l'autre.{' '}
             </p>
-            <p>
+            <div>
               Enfin, au clic sur "Découvrir toutes les aides" :{' '}
               <ul>
                 <li>
@@ -145,7 +145,7 @@ export default function Module({}) {
                   que ces données sont bien prises en compte dans la simulation
                 </li>
               </ul>
-            </p>
+            </div>
             <p>
               <small>
                 Pour tous les détails, c'est{' '}
