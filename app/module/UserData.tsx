@@ -15,7 +15,9 @@ export default function UserData({ setSearchParams, situation }) {
     <p
       css={`
         text-align: right;
+
         margin: 0;
+        margin-top: -1.8rem;
         a {
           color: var(--lightColor);
         }

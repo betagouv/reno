@@ -60,7 +60,7 @@ export const EvaluationValueWrapper = styled.div`
   background: var(--lightestColor);
   border-bottom: 4px solid var(--color);
 
-  padding: 1rem 2rem;
+  padding: .8rem 2rem .2rem;
   @media (max-width: 400px){padding: .6rem 1rem;}
   text-align: center;
   small {
