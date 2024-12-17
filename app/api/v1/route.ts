@@ -54,9 +54,7 @@ async function apiResponse(method: string, request: Request) {
         'API' +
         (request.headers.get('referer')?.includes('api-doc') ? ' test' : ''),
       e_a: params['fields'],
-      e_n: request.headers.get('host'),
-      ua: request.headers.get('user-agent'),
-      urlref: request.headers.get('referer'),
+      e_n: request.headers.get('user-agent'),
     })
 
     await fetch(
