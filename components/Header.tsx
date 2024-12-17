@@ -8,6 +8,7 @@ import { HeaderWrapper, Title } from '@/app/LayoutUI'
 import useIsInIframe from '@/components/useIsInIframe'
 import { usePathname } from 'next/navigation'
 import LogoCompact from './LogoCompact'
+import { CTA, CTAWrapper } from './UI'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
@@ -64,36 +65,28 @@ export default function Header() {
             </div>
           </div>
         </Link>
-        <div>
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+          `}
+        >
           <Link href="/blog">Blog</Link>
           <Link href="/aides">Les aides</Link>
-          <Link href="/a-propos">À propos</Link>
           <Link href="/contact">Contact</Link>
-          <Link href="/devenir-partenaire">Devenir Partenaire</Link>
-          {/* <CTAWrapper $justify="left">
-            <CTA
-              $fontSize="normal"
-              $importance="secondary"
-              css={`
-                line-height: 1;
-                padding: 0.5rem 0;
-              `}
-            >
-              <Link href="/devenir-partenaire">Devenir Partenaire</Link>
-            </CTA>
-            <CTA
-              $fontSize="normal"
-              css={`
-                line-height: 1;
-                a {
-                  padding: 0.2rem 1rem;
-                }
-                padding: 0.5rem 0;
-              `}
-            >
-              <Link href="/simulation">→ Calculez vos aides</Link>
-            </CTA>
-          </CTAWrapper> */}
+          <CTA
+            $fontSize="normal"
+            css={`
+              line-height: 1;
+              margin-left: 1rem;
+              a {
+                padding: 0.2rem 1rem;
+              }
+              padding: 0.5rem 0;
+            `}
+          >
+            <Link href="/devenir-partenaire">Devenir partenaire</Link>
+          </CTA>
         </div>
       </nav>
     </HeaderWrapper>
