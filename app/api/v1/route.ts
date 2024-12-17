@@ -9,63 +9,29 @@ import enrichSituation, {
   getCommune,
 } from '@/components/personas/enrichSituation'
 
-function getTaux(
-  baseDottedName: string,
-  situation: any,
-  engine: Publicodes,
-): string | undefined {
-  let dottedName = baseDottedName.replace('.montant', '')
-  if (['taxe foncière'].includes(dottedName)) {
-    return situation['taxe foncière . commune . taux']
-  }
-  if (['denormandie', 'PTZ', 'PAR'].includes(dottedName)) {
-    return formatValue(
-      engine.setSituation(situation).evaluate(dottedName + ' . taux'),
-    )
-  }
-  return undefined
-}
-
-function getDuree(
-  baseDottedName: string,
-  situation: any,
-  engine: Publicodes,
-): string | undefined {
-  let dottedName = baseDottedName
-    .replace(' . montant', '')
-    .replace('.montant', '')
-  if (['PTZ', 'PAR', 'denormandie', 'taxe foncière'].includes(dottedName)) {
-    return `${formatValue(
-      engine.setSituation(situation).evaluate(dottedName + ' . durée'),
-    )}s`
-  }
-
-  return undefined
-}
-
 const engine = new Publicodes(rules)
 async function apiResponse(method: string, request: Request) {
+  const params = Object.fromEntries(request.nextUrl.searchParams.entries())
+  const isTest = request.headers.get('referer')?.includes('api-doc')
+  const tokenList = JSON.parse(process.env.API_TOKEN_LIST)
   try {
-    const params = Object.fromEntries(request.nextUrl.searchParams.entries())
-    const matomoParams = new URLSearchParams({
-      idsite: 101,
-      rec: '1',
-      e_c:
-        'API' +
-        (request.headers.get('referer')?.includes('api-doc') ? ' test' : ''),
-      e_a: params['fields'],
-      e_n: request.headers.get('user-agent'),
-    })
+    logRequest(request.headers.get('user-agent'), params['fields'], isTest)
 
-    await fetch(
-      `https://stats.beta.gouv.fr/matomo.php?${matomoParams.toString()}`,
-    )
+    if (!params['token'] && !isTest) {
+      throw new Error(
+        "Le paramètre token est manquant. N'hésitez pas à adresser une demande de token à l'adresse: contact@mesaidesreno.fr",
+      )
+    }
+    if (!tokenList[params['token']] && !isTest) {
+      throw new Error(`Le token "${params['token']}" est inconnu`)
+    }
 
     if (!params['fields']) {
       throw new Error(
         "Le paramètre fields dans l'url n'est pas précisé. Il permet d'évaluer une variable à partir d'une situation donnée. Vous pouvez trouver des exemples d'utilisation dans la documentation: https://mesaidesreno.beta.gouv.fr/api-doc",
       )
     }
+
     const rawSituation =
       method === 'POST' ? await request.json() : getSituation(params, rules)
 
@@ -171,4 +137,52 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   return apiResponse('POST', request)
+}
+
+function getTaux(
+  baseDottedName: string,
+  situation: any,
+  engine: Publicodes,
+): string | undefined {
+  let dottedName = baseDottedName.replace('.montant', '')
+  if (['taxe foncière'].includes(dottedName)) {
+    return situation['taxe foncière . commune . taux']
+  }
+  if (['denormandie', 'PTZ', 'PAR'].includes(dottedName)) {
+    return formatValue(
+      engine.setSituation(situation).evaluate(dottedName + ' . taux'),
+    )
+  }
+  return undefined
+}
+
+function getDuree(
+  baseDottedName: string,
+  situation: any,
+  engine: Publicodes,
+): string | undefined {
+  let dottedName = baseDottedName
+    .replace(' . montant', '')
+    .replace('.montant', '')
+  if (['PTZ', 'PAR', 'denormandie', 'taxe foncière'].includes(dottedName)) {
+    return `${formatValue(
+      engine.setSituation(situation).evaluate(dottedName + ' . durée'),
+    )}s`
+  }
+
+  return undefined
+}
+
+async function logRequest(userAgent, fields, isTest) {
+  const matomoParams = new URLSearchParams({
+    idsite: 101,
+    rec: '1',
+    e_c: 'API' + (isTest ? ' test' : ''),
+    e_a: fields,
+    e_n: userAgent,
+  })
+
+  await fetch(
+    `https://stats.beta.gouv.fr/matomo.php?${matomoParams.toString()}`,
+  )
 }
