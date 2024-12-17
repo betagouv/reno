@@ -1,4 +1,3 @@
-
 import css from '@/components/css/convertToJs'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import DevenirPartenaire from '@/components/DevenirPartenaire'
@@ -11,11 +10,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return (
-    <main
-      style={css`background: white;`}
-    >
-        <DevenirPartenaire />
-    </main>
-  )
+  return <DevenirPartenaire />
 }
