@@ -1,4 +1,5 @@
 import { situationToCtaUrl } from '@/app/module/AmpleurCTA'
+import { userInputDottedNames } from '@/app/module/AmpleurInputs'
 import { useEffect } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 /*
@@ -24,12 +25,19 @@ export default function useSyncAmpleurSituation(answeredSituation) {
     'ampleurSituation',
     null,
   )
+  // On stocke dans le local storage les variables de l'utilisateur, pas de son logement ou projet
+  const userSituation = Object.fromEntries(
+    Object.entries(answeredSituation).filter(([dottedName]) =>
+      userInputDottedNames.includes(dottedName),
+    ),
+  )
 
-  const answeredSituationHash = JSON.stringify(answeredSituation)
+  const answeredSituationHash = JSON.stringify(userSituation)
   useEffect(() => {
     if (Object.keys(answeredSituation).length === 0) return
 
-    setSavedSituation(answeredSituation)
+    // on ne fait qu'ajouter des variables au local storage, ce qui évite d'écraser d'emblée celles stockées à l'origine
+    setSavedSituation({ ...savedSituation, ...answeredSituation })
   }, [answeredSituationHash, setSavedSituation])
 
   console.log('indigo', savedSituation)
