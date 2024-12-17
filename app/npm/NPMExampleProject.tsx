@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function ApiExampleProject() {
+export default function NPMExampleProject() {
   const [isOpen, setOpen] = useState()
   if (!isOpen)
     return (

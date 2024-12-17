@@ -10,8 +10,8 @@ import Link from '@/node_modules/next/link'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
-import NPM from './NPM'
-import ApiExampleProject from './ApiExampleProject'
+import NPM from '../npm/NPM'
+import ApiExampleProject from '../npm/NPMExampleProject'
 import ParametersList from './ParametersList'
 import EndpointsList from './EndpointsList'
 
@@ -158,55 +158,6 @@ export default function APIDoc() {
           la page d'accueil, ou de cliquer directement sur un persona pour
           charger une des simulations pré-remplies, puis de préfixer l'URL de
           simulation par `/api?PARAMÈTRES`.
-        </p>
-        <p>
-          Publicodes offre nativement une documentation Web qui vous permet
-          d'explorer les calculs de façon granulaire. Pour la découvrir, suivez
-          les liens "Inspection" de la{' '}
-          <InternalLink href="/personas#tests">
-            section "Tests" de la page personas
-          </InternalLink>
-          .
-        </p>
-        <h3>Le code</h3>
-        <p>
-          Tout le code du calculateur (site en NextJS), l'API (Route handler
-          NextJS) ainsi que les règles de calcul complètes sont disponibles sur{' '}
-          <InternalLink href="https://github.com/betagouv/reno">
-            Github
-          </InternalLink>
-          . Les règles sont aussi accessibles en JSON à{' '}
-          <InternalLink href="/api/rules">cette adresse</InternalLink>.
-        </p>
-        <h3>Privilégiez l'intégration directe du modèle si vous le pouvez</h3>
-        <p>
-          Plutôt que de dépendre d'une API tierce, si vous avez confiance dans
-          votre capacité à mettre des services en ligne, le mieux reste
-          d'intégrer le moteur de calcul publicodes chez vous. C'est ce qui rend
-          la démonstration plus haut si fluide, les calculs sont faits{' '}
-          <em>dans votre navigateur, sans appel réseau</em>. Si vous êtes dans
-          un environnement Javascript, il suffit de quelques lignes de code.
-          Sinon, un simple projet Javascript avec ExpressJs permet de faire
-          tourner une API en 30 minutes sur vos serveurs.
-        </p>
-        <p>
-          Pour ce faire, nous vous proposons un paquet NPM. NPM est le standard
-          de facto de la publication de module de code Javascript.{' '}
-        </p>
-        <NPM />
-        <h3>Démonstration d'intégration</h3>
-        <p>
-          Ci-dessous, un exemple très basique d'intégration du modèle de calcul
-          dans une maquette de projet NextJS.
-        </p>
-        <br />
-        <ApiExampleProject />
-        <br />
-        <br />
-        <p>
-          N'hésitez pas à{' '}
-          <InternalLink href="/contact">nous contacter</InternalLink> si vous
-          estimez que ce paquet NPM ne répond pas à vos besoins.
         </p>
       </Section>
     </Main>

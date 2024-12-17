@@ -241,11 +241,16 @@ export default function DevenirPartenaire() {
         </Content>
       </Wrapper>
       <Wrapper $background="white" $noMargin={true} $last={true}>
-        <Content>
+        <Content
+          css={`
+            text-align: center;
+            margin: 4vh auto;
+          `}
+        >
           <h2
             css={`
               text-align: center;
-              margin-top: 0;
+              margin: 0;
             `}
           >
             Ils nous font déjà confiance
