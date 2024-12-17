@@ -13,18 +13,20 @@ const engine = new Publicodes(rules)
 async function apiResponse(method: string, request: Request) {
   const params = Object.fromEntries(request.nextUrl.searchParams.entries())
   const isTest = request.headers.get('referer')?.includes('api-doc')
+  const token = params['token']
   const tokenList = JSON.parse(process.env.API_TOKEN_LIST)
   try {
-    logRequest(request.headers.get('user-agent'), params['fields'], isTest)
+    logRequest(token, params['fields'], isTest)
 
-    if (!params['token'] && !isTest) {
-      throw new Error(
-        "Le paramètre token est manquant. N'hésitez pas à adresser une demande de token à l'adresse: contact@mesaidesreno.fr",
-      )
-    }
-    if (!tokenList[params['token']] && !isTest) {
-      throw new Error(`Le token "${params['token']}" est inconnu`)
-    }
+    // Pour l'instant on ne contrôle pas les tokens le temps que la transition se fasse
+    // if (!token && !isTest) {
+    //   throw new Error(
+    //     "Le paramètre token est manquant. N'hésitez pas à adresser une demande de token à l'adresse: contact@mesaidesreno.fr",
+    //   )
+    // }
+    // if (!tokenList[token] && !isTest) {
+    //   throw new Error(`Le token "${token}" est inconnu`)
+    // }
 
     if (!params['fields']) {
       throw new Error(
@@ -173,13 +175,13 @@ function getDuree(
   return undefined
 }
 
-async function logRequest(userAgent, fields, isTest) {
+async function logRequest(token, fields, isTest) {
   const matomoParams = new URLSearchParams({
     idsite: 101,
     rec: '1',
     e_c: 'API' + (isTest ? ' test' : ''),
     e_a: fields,
-    e_n: userAgent,
+    e_n: token,
   })
 
   await fetch(
