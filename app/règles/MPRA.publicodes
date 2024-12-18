@@ -133,6 +133,8 @@ MPR . accompagnée . prise en charge MAR . prix moyen:
 MPR . accompagnée . prise en charge MAR . pourcent:
   description: |
     L'État prend en charge tout ou une partie de la prestation du MAR (Mon accompagnateur rénov').
+
+	Source ANAH : [Panorama des Aides 2025](https://www.anah.gouv.fr/document/panorama-des-aides-2025#page=7), page 7.
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
