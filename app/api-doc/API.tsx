@@ -5,6 +5,7 @@ import {
   Card,
   ExternalLink,
   Main,
+  MiseEnAvant,
   Section,
 } from '@/components/UI'
 import { useState } from 'react'
@@ -95,6 +96,29 @@ export default function API() {
               <p>À votre disposition pour avancer ensemble !</p>
             </div>
           </Card>
+          <MiseEnAvant $type="warning" $noradius={true}>
+            <h4
+              css={`
+                margin: 0 0 1rem;
+              `}
+            >
+              Demandez votre token!
+            </h4>
+            <p>
+              Notre API est entièrement gratuite, libre d'accès et sans aucun
+              quota d'utilisation. Nous vous demandons simplement de nous{' '}
+              <a href="mailto:contact@mesaidesreno.fr?subject=Demande de token API">
+                informer de son utilisation
+              </a>
+              .
+            </p>
+            <p>
+              Cela nous permettra de vous transmettre un token d'identification
+              et de vous avertir en amont en cas de modifications majeures liées
+              à d'éventuelles évolutions légales concernant les dispositifs
+              d'aides à la rénovation.
+            </p>
+          </MiseEnAvant>
           <h3>Que permet l'API ?</h3>
           <p>
             L'API permet, à partir d'une situation d'entrée, d'évaluer
