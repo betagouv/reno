@@ -22,7 +22,7 @@ export default function NewsBanner() {
     >
       <NewsBannerWrapper>
         <p>
-          Vous utilisez la version 2025.{' '}
+          💫 Vous utilisez la version 2025.{' '}
           <Link href="/blog">En savoir plus</Link>
         </p>
         <Image
