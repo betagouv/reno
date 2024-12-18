@@ -72,24 +72,22 @@ MPR . accompagnée . pourcent brut:
       - si: sauts < sauts minimum
         alors: 0 %
       - si: ménage . revenu . classe = 'très modeste'
-        alors: 60 % + 20 %
+        alors: 80 %
       - si: ménage . revenu . classe = 'modeste'
-        alors: 40 % + 20 %
+        alors: 60 % 
       - si: ménage . revenu . classe = 'intermédiaire'
         alors:
           variations:
             - si: sauts < 3
-              alors: 30 % + 15 %
-            - sinon: 30 % + 20 %
+              alors: 45 %
+            - sinon: 50 % 
       - sinon:
           variations:
             - si: sauts < 3
-              alors: 15 % + 15 %
-            - sinon: 15 % + 20 %
+              alors: 30 % 
+            - sinon: 35 %
   description: |
-    Dans cette formule, on somme deux pourcentages : l'un correspond au budget de l'État, l'autre aux CEE. 
-
-    En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen.
+    En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
 
 MPR . accompagnée . prise en charge MAR:
   description: |
