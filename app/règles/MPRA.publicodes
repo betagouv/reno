@@ -74,19 +74,19 @@ MPR . accompagnée . pourcent brut:
       - si: ménage . revenu . classe = 'très modeste'
         alors: 80 %
       - si: ménage . revenu . classe = 'modeste'
-        alors: 60 % 
+        alors: 60 %
       - si: ménage . revenu . classe = 'intermédiaire'
         alors:
           variations:
             - si: sauts < 3
               alors: 45 %
-            - sinon: 50 % 
+            - sinon: 50 %
       - sinon:
           variations:
             - si: sauts < 3
-              alors: 10 % 
+              alors: 10 %
             - si: sauts < 4
-              alors: 15 % 
+              alors: 15 %
             - sinon: 20 %
   description: |
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
@@ -136,7 +136,7 @@ MPR . accompagnée . prise en charge MAR . pourcent:
   description: |
     L'État prend en charge tout ou une partie de la prestation du MAR (Mon accompagnateur rénov').
 
-	Source ANAH : [Panorama des Aides 2025](https://www.anah.gouv.fr/document/panorama-des-aides-2025#page=7), page 7.
+    Source ANAH : [Panorama des Aides 2025](https://www.anah.gouv.fr/document/panorama-des-aides-2025#page=7), page 7.
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
