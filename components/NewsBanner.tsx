@@ -23,7 +23,7 @@ export default function NewsBanner() {
       <NewsBannerWrapper>
         <p>💫 Vous utilisez la version 2025. </p>
         <p>
-          <Link href="/blog">En savoir plus</Link>
+          <Link href="/blog/aides-renovation-2025">En savoir plus</Link>
         </p>
         <Image
           src={crossIcon}
