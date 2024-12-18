@@ -196,31 +196,31 @@ logement . période de construction calculée:
     variations:
       - si: âge < 2
         alors: '"moins de 2 ans"'
+      - si: âge < 10
+        alors: '"moins de 10 ans"'
       - si: âge < 15
-        alors: '"de 2 à 15 ans"'
-      - si: âge < 25
-        alors: '"de 15 à 25 ans"'
-      - sinon: '"au moins 25 ans"'
+        alors: '"de 10 à 15 ans"'
+      - sinon: '"au moins 15 ans"'
 
 logement . période de construction:
-  par défaut: "'au moins 25 ans'"
+  par défaut: "'au moins 15 ans'"
   question: De quand date la construction du logement à rénover ?
   une possibilité parmi:
     possibilités:
       - moins de 2 ans
-      - de 2 à 15 ans
-      - de 15 à 25 ans
-      - au moins 25 ans
+      - de 2 à 10 ans
+      - de 10 à 15 ans
+      - au moins 15 ans
 
-logement . période de construction . au moins 25 ans:
-  valeur: "'au moins 25 ans'"
-  titre: au moins 25 ans
-logement . période de construction . de 15 à 25 ans:
-  valeur: "'de 15 à 25 ans'"
-  titre: de 15 à 25 ans
-logement . période de construction . de 2 à 15 ans:
-  valeur: "'de 2 à 15 ans'"
-  titre: de 2 à 15 ans
+logement . période de construction . au moins 15 ans:
+  valeur: "'au moins 15 ans'"
+  titre: au moins 15 ans
+logement . période de construction . de 10 à 15 ans:
+  valeur: "'de 10 à 15 ans'"
+  titre: de 10 à 15 ans
+logement . période de construction . de 2 à 10 ans:
+  valeur: "'de 2 à 10 ans'"
+  titre: de 2 à 10 ans
 logement . période de construction . moins de 2 ans:
   valeur: "'moins de 2 ans'"
   titre: moins de 2 ans
@@ -228,11 +228,11 @@ logement . période de construction . moins de 2 ans:
 logement . au moins 2 ans:
   une de ces conditions:
     - au moins 15 ans
-    - période de construction = 'de 2 à 15 ans'
+    - période de construction = 'de 2 à 10 ans'
+    - période de construction = 'de 10 à 15 ans'
 logement . au moins 15 ans:
   une de ces conditions:
-    - période de construction = 'au moins 25 ans'
-    - période de construction = 'de 15 à 25 ans'
+    - période de construction = 'au moins 15 ans'
 
   # Si l'on a besoin dans un second temps d'avoir l'âge exact
   # âge >= 15

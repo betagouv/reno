@@ -15,7 +15,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 91
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -91,7 +91,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -231,7 +231,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 55
-    logement . période de construction: "'de 2 à 15 ans'"
+    logement . période de construction: "'de 10 à 15 ans'"
   valeurs attendues:
     conditions communes: non
     MPR . accompagnée . éligible: non
@@ -297,7 +297,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 91
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -348,7 +348,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -633,7 +633,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 78
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
     aides locales . angers . aides socles . taux: 10
     aides locales . angers . prime basse consommation . montant: 1500
@@ -657,7 +657,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 78
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     #projet . objectif BBC rénovation: oui
     #projet . objectif BBC neuf: oui
   valeurs attendues:
