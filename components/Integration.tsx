@@ -16,12 +16,12 @@ export default function Integration() {
   const [module, setModule] = useState('/module/integration?DPE.actuel=6')
   const listeModule = [
     {
-      titre: 'Module Passoire',
-      valeur: '/module/integration?DPE.actuel=6',
-    },
-    {
       titre: 'Module Principal',
       valeur: '/',
+    },
+    {
+      titre: 'Module Ampleur',
+      valeur: '/module/integration?DPE.actuel=6',
     },
     {
       titre: 'Module Copropriété',
