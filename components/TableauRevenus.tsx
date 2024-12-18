@@ -1,13 +1,19 @@
 import rules from '@/app/règles/rules'
-import { Small } from './TableauRevenusUI'
+import { Small, Table } from './TableauRevenusUI'
 
 const dottedName = 'ménage . revenu . barème'
 
+const colors = {
+  bleu: { color: '#0063cb', label: 'très modestes' },
+  jaune: { color: '#b34000', label: 'modestes' },
+  violet: { color: '#a558a0', label: 'intermédiaires' },
+  rose: { color: '#a94645', label: 'supérieurs' },
+}
 export default function TableauRevenus() {
   const rule = rules[dottedName]
 
   return (
-    <table>
+    <Table>
       <thead>
         <tr>
           <td></td>
@@ -17,31 +23,27 @@ export default function TableauRevenus() {
       <tbody>
         <tr>
           <th scope="row">Nombre de personnes composant le foyer</th>
-          <th scope="col">
-            <span>BLEU</span>
-            (revenus très modestes)
-          </th>
-          <th scope="col">
-            <span>JAUNE</span>
-            (revenus modestes)
-          </th>
-          <th scope="col">
-            <span>VIOLET</span>
-            (revenus intermédiaires)
-          </th>
-          <th scope="col">
-            <span>ROSE</span>
-            (revenus supérieurs)
-          </th>
+          {Object.entries(colors).map(([colorName, { color, label }]) => (
+            <th scope="col">
+              <span style={{ color, textTransform: 'uppercase' }}>
+                {colorName}
+              </span>
+              <div>revenus {label}</div>
+            </th>
+          ))}
         </tr>
         {rule.formule.variations.map((variation) => {
           if (!variation.si) {
             const list = variation.sinon.variations
             return (
               <tr>
-                {list.map((element, i) => (
-                  <td>{element.si}</td>
-                ))}
+                <th scope="row">Par personne supplémentaire</th>
+                {list.map((element, i) => {
+                  const si = i < list.length - 1 ? element.si : list[i - 1].si
+                  const num = si.match(/\d\d\d\d/)
+                  const formatted = formatter(num)
+                  return <td>{formatted} €</td>
+                })}
               </tr>
             )
           }
@@ -56,7 +58,7 @@ export default function TableauRevenus() {
                   const threshold = variations2[i - 1].si.match(/\d\d\d\d\d/)
                   const formatted = formatter(threshold)
                   return (
-                    <td>
+                    <td key={'apartir' + threshold}>
                       <Small>À partir de</Small> {formatted} €
                     </td>
                   )
@@ -64,7 +66,7 @@ export default function TableauRevenus() {
                 const threshold = variation2.si.match(/\d\d\d\d\d/)
                 const formatted = formatter(threshold)
                 return (
-                  <td>
+                  <td key={'jusqua' + threshold}>
                     <Small>Jusqu'à</Small> {formatted} €
                   </td>
                 )
@@ -73,7 +75,7 @@ export default function TableauRevenus() {
           )
         })}
       </tbody>
-    </table>
+    </Table>
   )
 }
 
