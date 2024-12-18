@@ -4,11 +4,12 @@ import styled from 'styled-components'
 export const NewsBannerWrapper = styled.section`
   position: relative;
   margin: 1rem auto;
-  width: 16rem;
+  width: 17rem;
   background: var(--lightestColor);
   text-align: center;
   padding: 0.4rem;
   padding-right: 2rem;
+  padding-left: 1rem;
   border-radius: 0.6rem;
   p {
     display: inline-block;
