@@ -7,7 +7,7 @@ import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import getAppUrl from './getAppUrl'
-import { PageBlock, Intro, CTAWrapper, CTA } from './UI'
+import { PageBlock, Intro, CTAWrapper, CTA, InternalLink } from './UI'
 import { useState } from 'react'
 import { Select } from './InputUI'
 import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
@@ -166,41 +166,13 @@ export default function Integration() {
         </Content>
       </Wrapper>
       <HistoriqueVersion />
-      <Wrapper $noMargin={true} $last={true}>
-        <Content>
-          <h2>Un besoin particulier ? Un retour ? Contactez-nous</h2>
-          <p>
-            Nous sommes à l'écoute de vos besoins, que vous soyez une
-            administration publique, une collectivité, une entreprise (banque,
-            courtier, agence immobilière, etc.) ou un professionnel du secteur
-            (conseiller France Rénov', Mon Accompagnateur Rénov, ADIL, etc).
-          </p>
-          <p>
-            Nouvelles fonctionnalités, personnalisation de l'intégration,
-            partenariat spécifique : discutons de vos besoins.
-          </p>
-          <p>
-            Découvrez aussi{' '}
-            <Link href="/api-doc">
-              notre API de calcul des aides à la rénovation
-            </Link>
-            .
-          </p>
-          <CTAWrapper $justify="center">
-            <CTA $fontSize="normal">
-              <Link href="mailto:contact@mesaidesreno.fr">
-                ✉️ Nous contacter
-              </Link>
-            </CTA>
-          </CTAWrapper>
-        </Content>
-      </Wrapper>
+      <ContactIntegration type="iframe" />
     </PageBlock>
   )
 }
 
 export const HistoriqueVersion = () => (
-  <Wrapper $background="white" $noMargin={true} $last={true}>
+  <Wrapper $background="white" $noMargin={true}>
     <Content>
       <h2>Toujours à jour</h2>
       <p>
@@ -274,6 +246,44 @@ export const HistoriqueVersion = () => (
         Pour la v4, à nouveau suite à des tests utilisateurs, nous allons
         travailler l'affichage des résultats chiffrés dans le module.
       </p>
+    </Content>
+  </Wrapper>
+)
+
+export const ContactIntegration = ({ type }) => (
+  <Wrapper $noMargin={true} $last={true}>
+    <Content>
+      <h2>Un besoin particulier ? Un retour ? Contactez-nous</h2>
+      <p>
+        Nous sommes à l'écoute de vos besoins, que vous soyez une administration
+        publique, une collectivité, une entreprise (banque, courtier, agence
+        immobilière, etc.) ou un professionnel du secteur (conseiller France
+        Rénov', Mon Accompagnateur Rénov, ADIL, etc).
+      </p>
+      <p>
+        Nouvelles fonctionnalités, personnalisation de l'intégration,
+        partenariat spécifique : discutons de vos besoins.
+      </p>
+      <p>
+        Découvrez aussi notre{' '}
+        {type == 'iframe' && (
+          <Link href="/api-doc">API de calcul des aides à la rénovation</Link>
+        )}
+        {type == 'api' && (
+          <Link href="/npm">
+            paquet NPM de calcul des aides à la rénovation
+          </Link>
+        )}
+        {type == 'npm' && (
+          <Link href="/api-doc">API de calcul des aides à la rénovation</Link>
+        )}
+        .
+      </p>
+      <CTAWrapper $justify="center">
+        <CTA $fontSize="normal">
+          <Link href="mailto:contact@mesaidesreno.fr">✉️ Nous contacter</Link>
+        </CTA>
+      </CTAWrapper>
     </Content>
   </Wrapper>
 )

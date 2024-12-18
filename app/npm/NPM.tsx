@@ -1,6 +1,6 @@
 'use client'
 
-import { ExternalLink } from '@/components/UI'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function NPM() {
@@ -56,12 +56,12 @@ export default function NPM() {
           }
         `}
       >
-        <ExternalLink href="https://www.npmjs.com/mesaidesreno">
+        <Link href="https://www.npmjs.com/mesaidesreno">
           <h4>
             <NpmLogo />
             mesaidesreno
           </h4>
-        </ExternalLink>
+        </Link>
         {data && <div>Dernière version : v{data['dist-tags'].latest}</div>}
       </div>
     </section>

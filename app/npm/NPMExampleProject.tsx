@@ -1,15 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-
 export default function NPMExampleProject() {
-  const [isOpen, setOpen] = useState()
-  if (!isOpen)
-    return (
-      <button onClick={() => setOpen(true)}>
-        ⚙️ Afficher l'example CodeSandbox
-      </button>
-    )
   return (
     <iframe
       src="https://codesandbox.io/p/devbox/reno-demo-xzs68w?embed=1&file=%2Fapp%2Fpage.tsx"
