@@ -84,10 +84,14 @@ MPR . accompagnée . pourcent brut:
       - sinon:
           variations:
             - si: sauts < 3
-              alors: 30 % 
-            - sinon: 35 %
+              alors: 10 % 
+            - si: sauts < 4
+              alors: 15 % 
+            - sinon: 20 %
   description: |
     En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
+
+    En 2025, le tableau est inchangé mis à part pour la colonne de revenu supérieur, qui vois les montants largement baisser.
 
 MPR . accompagnée . prise en charge MAR:
   description: |
