@@ -5,7 +5,7 @@ const dottedName = 'ménage . revenu . barème'
 
 const colors = {
   bleu: { color: '#0063cb', label: 'très modestes' },
-  jaune: { color: '#b34000', label: 'modestes' },
+  jaune: { color: '#a36b00', label: 'modestes' },
   violet: { color: '#a558a0', label: 'intermédiaires' },
   rose: { color: '#a94645', label: 'supérieurs' },
 }

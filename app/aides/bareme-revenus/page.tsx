@@ -3,7 +3,7 @@ import TableauRevenus from '@/components/TableauRevenus'
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
+import illustrationAccueil from '@/public/bareme-revenu-illustration.jpeg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 
@@ -13,7 +13,7 @@ export const title = "Quelle est ma classe de revenu dans le barème de l'ANAH"
 export const metadata: Metadata = {
   title,
   description,
-  //openGraph: { images: ['/jaquette.png'] },
+  openGraph: { images: ['/bareme-revenu-illustration.jpeg'] },
 }
 
 export default function Page() {
