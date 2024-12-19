@@ -24,7 +24,6 @@ export default function Endpoint({ type }) {
   const [showLoader, setShowLoader] = useState(false)
   const [yaml, setYaml] = useState(stringify(example[type]))
   const [geste, setGeste] = useState('gestes . chauffage . PAC . air-eau')
-  const [evaluationGlobale, setEvaluationGlobale] = useState(false)
   const engine = new Publicodes(rules)
 
   const ruleToEvaluate = {
@@ -79,8 +78,7 @@ export default function Endpoint({ type }) {
   const apiUrl =
     getAppUrl() +
     '/api/v1/?' +
-    new URLSearchParams(method === 'GET' ? searchParams : fields).toString() +
-    (evaluationGlobale ? ',evaluation' : '')
+    new URLSearchParams(method === 'GET' ? searchParams : fields).toString()
 
   const handleSubmit = async (e) => {
     setShowLoader(true)
@@ -144,7 +142,6 @@ export default function Endpoint({ type }) {
           margin-bottom: 1rem;
         `}
       >
-        <strong>URL: </strong>
         <Select onChange={(e) => setMethod(e.target.value)} value={method}>
           <option value="POST">POST</option>
           <option value="GET">GET</option>
@@ -159,24 +156,6 @@ export default function Endpoint({ type }) {
           margin-bottom: 1rem;
         `}
       >
-        <div
-          css={`
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <input
-            css={`
-              margin-right: 0.5rem;
-            `}
-            type="checkbox"
-            id="evaluationGlobale"
-            onClick={() => setEvaluationGlobale(!evaluationGlobale)}
-          />
-          <label htmlFor="evaluationGlobale">
-            Retourner l'évaluation globale
-          </label>
-        </div>
         {type != 'eligibilite' && (
           <DocumentationLink href={documentationUrl} target="_blank">
             <Image
