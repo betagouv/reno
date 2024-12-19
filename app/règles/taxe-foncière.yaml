@@ -52,7 +52,7 @@ taxe foncière . condition d'ancienneté:
     Les logements éligibles sont ceux achevés avant le 1er janvier 1989. Nous simplifions en "au moins 25 ans" pour cette première condition de test.
 
     En 2025, cette condition est largement changée et passe à "plus de 10 ans" d'après [cette fiche Service-Public.fr](https://www.service-public.fr/particuliers/vosdroits/F59/personnalisation/resultat?lang=&quest=) onglet "Quelles sont les propriétés exonérées, en totalité ou partiellement, de taxe foncière ?".
-  valeur: logement . période de construction = 'moins de 10 ans'
+  valeur: logement . au moins 10 ans
 
 taxe foncière . conditions:
   toutes ces conditions:

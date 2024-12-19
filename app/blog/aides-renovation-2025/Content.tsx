@@ -1,4 +1,4 @@
-import TableauRevenus from '@/components/TableauRevenus.tsx'
+import TableauRevenus from '@/components/TableauRevenus'
 import Questions from '@/components/TableauRevenusQuestions'
 import { Parcours } from './UI'
 import { Card } from '@/components/UI'
