@@ -7,6 +7,7 @@ import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueil from '@/public/bareme-revenu-illustration.jpeg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
+import { Suspense } from 'react'
 
 export const description = `Déterminez votre classe de revenu dans le tableau des seuils MaPrimeRénov', qui conditionne la plupart des aides à la rénovation énergétique.`
 export const title = "Quelle est ma classe de revenu dans le barème de l'ANAH"
@@ -47,9 +48,11 @@ export default function Page({ searchParams }) {
         </HeaderWrapper>
         <Wrapper>
           <Content>
-            <Questions />
-            <TableauRevenus dottedName={'ménage . revenu . barème'} />
-            <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
+            <Suspense>
+              <Questions />
+              <TableauRevenus dottedName={'ménage . revenu . barème'} />
+              <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
+            </Suspense>
           </Content>
         </Wrapper>
       </PageBlock>

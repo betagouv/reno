@@ -3,6 +3,7 @@ import Questions from '@/components/TableauRevenusQuestions'
 import { Parcours } from './UI'
 import { Card } from '@/components/UI'
 import DPELabel from '@/components/DPELabel'
+import { Suspense } from 'react'
 
 export default function Content() {
   return (
@@ -56,9 +57,11 @@ export default function Content() {
       </p>
       <p>Découvrez ici le tableau des barèmes de revenu MaPrimeRénov' 2025.</p>
 
-      <Questions />
-      <TableauRevenus dottedName={'ménage . revenu . barème'} />
-      <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
+      <Suspense>
+        <Questions />
+        <TableauRevenus dottedName={'ménage . revenu . barème'} />
+        <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
+      </Suspense>
       <h2>Toujours autant d'aides, sauf pour les ménages aisés</h2>
       <p>TODO : ici le tableau des aides MPRA</p>
       <h2>Mais des plafonds maximum relevés</h2>
