@@ -46,6 +46,20 @@ Sur la page [api-doc](https://mesaidesreno.beta.gouv.fr/api-doc), on expose une 
 
 La liste des paramètres fait également son apparition. Ce sont les questions à poser à vos utilisateurs.
 
+### v2.0.0-beta3
+
+Nous passons à la version 2 de Mes Aides Réno pour 2025 : en effet, des changements 💥 **cassants** sont à prévoir.
+
+En particulier, le changement de nomenclature de la période de construction du logement.
+
+Cette nomenclature sert à éviter de connaitre la date de construction précise du logement. Auparavant, pour la taxe foncière, nous avions introduit la période "plus de 25 ans". Elle est maintenant caduque en 2025, remplacée par un "plus de 10 ans".
+
+De nombreux autres changements interviennent en 2025, concernant les taux MaPrimeRénov' ampleur, les taux d'écrêtement, certains montants d'aide pour le parcours par geste.
+
+Veuillez consulter le détail des changements dans la [PR 2025](https://github.com/betagouv/reno/pull/305).
+
+Note : certains éléments sont toujours incertains en cette fin décembre 2025, attendez-vous à des version de correction dans les semaines qui viennent.
+
 ### v1.0.0-beta3
 
 Nous avons pris en compte les premiers retours critiques. En particulier, un changement important pour le modèle : la subvention de l'État pour l'Accompagnateur Rénov' a son _assiette_ plafonnée, et pas son _résultat_. Nous nous étions basés sur la description ambigue de cette aide sur les supports officiels, qui parlaient par erreur d'une _subvention plafonnée_. C'est corrigé.

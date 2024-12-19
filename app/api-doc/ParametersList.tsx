@@ -67,9 +67,9 @@ export default function ParametersList() {
       title: 'logement . période de construction',
       values: [
         'moins de 2 ans',
-        'de 2 à 15 ans',
-        'de 15 à 25 ans',
-        'au moins 25 ans',
+        'de 2 à 10 ans',
+        'de 10 à 15 ans',
+        'au moins 15 ans',
       ],
     },
     {
