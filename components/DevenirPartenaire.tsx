@@ -20,12 +20,13 @@ import apiIcon from '@/public/icon-api.png'
 import npmIcon from '@/public/icon-npm.png'
 
 import logoOFI from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
+import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
+import logoAdeme from '@/public/logo-partenaire/logo-ademe.svg'
 
 import Image from 'next/image'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { HeaderWrapper } from '@/app/LandingUI'
-import { Li } from '@/app/module/AmpleurQuestions'
 
 export default function DevenirPartenaire() {
   return (
@@ -266,7 +267,7 @@ export default function DevenirPartenaire() {
           <h2
             css={`
               text-align: center;
-              margin: 0;
+              margin: 2rem;
             `}
           >
             Ils nous font déjà confiance
@@ -294,6 +295,24 @@ export default function DevenirPartenaire() {
           >
             <ExternalLink href="https://ouest-france-immo.com/" target="_blank">
               <Image src={logoOFI} alt="Logo Ouest France Immo" />
+            </ExternalLink>
+            <ExternalLink
+              href="https://agirpourlatransition.ademe.fr/"
+              target="_blank"
+            >
+              <Image src={logoAdeme} alt="Logo Ademe" />
+            </ExternalLink>
+            <ExternalLink
+              href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
+              target="_blank"
+            >
+              <Image
+                src={logoBonPote}
+                alt="Logo Bon Pote"
+                css={`
+                  height: auto;
+                `}
+              />
             </ExternalLink>
           </div>
         </Content>
