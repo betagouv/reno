@@ -7,13 +7,20 @@ import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import getAppUrl from './getAppUrl'
-import { PageBlock, Intro, CTAWrapper, CTA, InternalLink } from './UI'
+import {
+  PageBlock,
+  Intro,
+  CTAWrapper,
+  CTA,
+  InternalLink,
+  MiseEnAvant,
+} from './UI'
 import { useState } from 'react'
 import { Select } from './InputUI'
 import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
 
 export default function Integration() {
-  const [module, setModule] = useState('/module/integration?DPE.actuel=6')
+  const [module, setModule] = useState('/')
   const listeModule = [
     {
       titre: 'Module Principal',
@@ -81,6 +88,7 @@ export default function Integration() {
             style={css`
               margin-top: 0.6rem;
               margin-bottom: 1rem;
+              font-size: 180%;
             `}
           >
             Intégrer le calculateur des aides à la rénovation sur votre site.
@@ -101,6 +109,27 @@ export default function Integration() {
       </HeaderWrapper>
       <Wrapper>
         <Content>
+          <MiseEnAvant $type="success" $noradius={true}>
+            <h3
+              css={`
+                font-size: 1.5rem;
+                padding: 2rem 0 0 0;
+                color: black;
+              `}
+            >
+              Nouveau Module Ampleur
+            </h3>
+            <p>
+              Découvrez notre nouveau module de calcul spécialement conçu et
+              optimisé pour proposer simplement les aides à la rénovation
+              énergétique d'ampleur.
+            </p>
+            <CTAWrapper>
+              <CTA>
+                <Link href="/module">Découvrir le module</Link>
+              </CTA>
+            </CTAWrapper>
+          </MiseEnAvant>
           <h2
             css={`
               margin-bottom: 1rem;
@@ -165,7 +194,6 @@ export default function Integration() {
           )}
         </Content>
       </Wrapper>
-      <HistoriqueVersion />
       <ContactIntegration type="iframe" />
     </PageBlock>
   )
