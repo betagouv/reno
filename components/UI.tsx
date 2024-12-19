@@ -512,6 +512,7 @@ export const Badge = styled.span`
 export const CardLink = styled(Card)`
   &:hover {
     background: #e8edff;
+    cursor: pointer;
   }
   a {
     display: flex;

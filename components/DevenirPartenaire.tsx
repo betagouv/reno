@@ -1,9 +1,10 @@
 'use client'
 import {
+  Card,
+  CardLink,
   CTA,
   CTAWrapper,
   ExternalLink,
-  InternalLink,
   PageBlock,
 } from '@/components/UI'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
@@ -24,6 +25,7 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { HeaderWrapper } from '@/app/LandingUI'
+import { Li } from '@/app/module/AmpleurQuestions'
 
 export default function DevenirPartenaire() {
   return (
@@ -94,63 +96,77 @@ export default function DevenirPartenaire() {
             Dans un article, sur votre site web ou dans vos logiciels métiers,
             via une iframe, un paquet NPM ou une API.
           </p>
-          <List
+          <div
             css={`
+              display: flex;
+              flex-wrap: wrap;
               justify-content: center;
               gap: 1rem;
               > div {
-                text-align: center;
-                min-width: 200px;
-                ul {
-                  li {
-                    list-style-type: none;
-                    text-align: left;
+                min-width: 250px;
+                flex: 1;
+                &:hover {
+                  background: #e8edff;
+                  cursor: pointer;
+                }
+                a {
+                  text-decoration: none;
+                  img {
+                    display: block;
+                    object-fit: cover;
+                    width: 100%;
+                    height: auto;
+                    padding: 1rem;
+                  }
+                  h3 {
+                    font-size: 1.375rem;
+                    line-height: 1.75rem;
+                    margin: 2rem 0 1rem 0;
+                    color: var(--color);
+                  }
+                  p {
+                    color: black;
+                  }
+                  &:after {
+                    right: 2rem;
+                    background-color: var(--color);
+                    content: '';
+                    display: block;
+                    float: right;
+                    flex: 0 0 auto;
+                    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
+                    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
+                    -webkit-mask-size: 100% 100%;
+                    mask-size: 100% 100%;
+                    height: 1.5rem;
+                    width: 1.5rem;
                   }
                 }
               }
             `}
           >
-            <div>
-              <div className="img-container">
+            <Card>
+              <Link href="/integration">
                 <Image src={iframeIcon} alt="icone iframe" />
-              </div>
-              <p>
-                <strong>Iframe</strong> pour s'intégrer sur votre site web
-              </p>
-              <CTAWrapper $justify="center">
-                <CTA $fontSize="normal">
-                  <Link href="/integration">➔&nbsp;&nbsp;En savoir plus</Link>
-                </CTA>
-              </CTAWrapper>
-            </div>
-            <div>
-              <div className="img-container">
+                <h3>Iframe</h3>
+                <p>pour s'intégrer sur votre site web.</p>
+              </Link>
+            </Card>
+            <Card>
+              <Link href="/api-doc">
                 <Image src={apiIcon} alt="icone API" />
-              </div>
-              <p>
-                <strong>API</strong>pour communiquer avec notre logiciel
-                <CTAWrapper $justify="center">
-                  <CTA $fontSize="normal">
-                    <Link href="/api-doc">➔&nbsp;&nbsp;En savoir plus</Link>
-                  </CTA>
-                </CTAWrapper>
-              </p>
-            </div>
-            <div>
-              <div className="img-container">
+                <h3>API</h3>
+                <p>pour communiquer avec notre logiciel.</p>
+              </Link>
+            </Card>
+            <Card>
+              <Link href="/npm">
                 <Image src={npmIcon} alt="icone NPM" />
-              </div>
-              <p>
-                <strong>Paquet NPM</strong>pour utiliser le modèle au sein de
-                votre logiciel
-                <CTAWrapper $justify="center">
-                  <CTA $fontSize="normal">
-                    <Link href="/npm">➔&nbsp;&nbsp;En savoir plus</Link>
-                  </CTA>
-                </CTAWrapper>
-              </p>
-            </div>
-          </List>
+                <h3>Paquet NPM</h3>
+                <p>pour utiliser le modèle au sein de votre logiciel.</p>
+              </Link>
+            </Card>
+          </div>
         </Content>
       </Wrapper>
       <Wrapper $background="white" $noMargin={true}>
@@ -295,22 +311,6 @@ export const List = styled.div`
   list-style-type: none;
   padding-left: 0;
   text-align: center;
-  .img-container {
-    margin: auto;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 150px;
-    height: 150px;
-    border: 2px solid #3375e0;
-    border-radius: 1rem;
-    padding: 1rem;
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
   > div {
     width: 19%;
     @media (max-width: 600px) {
