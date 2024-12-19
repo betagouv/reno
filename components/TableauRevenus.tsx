@@ -1,5 +1,7 @@
+'use client'
 import rules from '@/app/règles/rules'
-import { Small, Table } from './TableauRevenusUI'
+import { Small, Table, Tr } from './TableauRevenusUI'
+import { useSearchParams } from 'next/navigation'
 
 const colors = {
   bleu: { color: '#0063cb', label: 'très modestes' },
@@ -10,6 +12,9 @@ const colors = {
 export default function TableauRevenus({ dottedName }) {
   const rule = rules[dottedName]
 
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
+  const personnes = +searchParams['ménage.personnes']
   return (
     <section>
       <h2>{rule.titre}</h2>
@@ -35,11 +40,11 @@ export default function TableauRevenus({ dottedName }) {
               </th>
             ))}
           </tr>
-          {rule.formule.variations.map((variation) => {
+          {rule.formule.variations.map((variation, i) => {
             if (!variation.si) {
               const list = variation.sinon.variations
               return (
-                <tr>
+                <Tr $active={personnes > 5}>
                   <th scope="row">Par personne supplémentaire</th>
                   {list.map((element, i) => {
                     const si = i < list.length - 1 ? element.si : list[i - 1].si
@@ -47,15 +52,15 @@ export default function TableauRevenus({ dottedName }) {
                     const formatted = formatter(num)
                     return <td>+ {formatted} €</td>
                   })}
-                </tr>
+                </Tr>
               )
             }
             const variations2 = variation.alors.variations
 
-            const personnes = variation.si.match(/\d/)
+            const tablePersonnes = variation.si.match(/\d/)
             return (
-              <tr>
-                <th scope="row">{personnes}</th>
+              <Tr $active={personnes === i + 1}>
+                <th scope="row">{tablePersonnes}</th>
                 {variations2.map((variation2, i) => {
                   if (!variation2.si) {
                     const threshold = variations2[i - 1].si.match(/\d\d\d\d\d/)
@@ -74,7 +79,7 @@ export default function TableauRevenus({ dottedName }) {
                     </td>
                   )
                 })}
-              </tr>
+              </Tr>
             )
           })}
         </tbody>

@@ -24,3 +24,7 @@ export const Table = styled.table`
     }
   }
 `
+
+export const Tr = styled.tr`
+  ${(p) => p.$active && `background: var(--lighterColor)`}
+`
