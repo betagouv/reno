@@ -1,4 +1,5 @@
 ménage . revenu . barème IdF:
+  titre: Barème pour l'Île-de-France
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
@@ -69,6 +70,7 @@ ménage . revenu . barème IdF:
             - sinon: '"supérieure"'
 
 ménage . revenu . barème:
+  titre: Barème pour la France hors Île-de-France
   description: |
     Source Web : https://france-renov.gouv.fr/bareme
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5

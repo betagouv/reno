@@ -46,7 +46,8 @@ export default function Page() {
         </HeaderWrapper>
         <Wrapper>
           <Content>
-            <TableauRevenus />
+            <TableauRevenus dottedName={'ménage . revenu . barème'} />
+            <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
           </Content>
         </Wrapper>
       </PageBlock>
