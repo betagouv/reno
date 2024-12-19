@@ -48,14 +48,8 @@ export default function Page({ searchParams }) {
         <Wrapper>
           <Content>
             <Questions />
-            <TableauRevenus
-              dottedName={'ménage . revenu . barème'}
-              searchParams={searchParams}
-            />
-            <TableauRevenus
-              dottedName={'ménage . revenu . barème IdF'}
-              searchParams={searchParams}
-            />
+            <TableauRevenus dottedName={'ménage . revenu . barème'} />
+            <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
           </Content>
         </Wrapper>
       </PageBlock>

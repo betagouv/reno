@@ -12,6 +12,8 @@ export default function Questions() {
     <Wrapper>
       <PersonnesQuestion
         {...{
+          dot: false,
+          text: 'Pour un ménage de',
           defaultSituation: {},
           situation: {},
           onChange: (dottedName) => (e) =>
