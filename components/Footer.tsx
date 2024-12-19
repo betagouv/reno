@@ -51,6 +51,14 @@ export default function Footer() {
                 <li>
                   <InternalLink
                     className="fr-footer__top-link"
+                    href="/aides/bareme-revenus"
+                  >
+                    Tableau des revenus
+                  </InternalLink>
+                </li>
+                <li>
+                  <InternalLink
+                    className="fr-footer__top-link"
                     href="/aides/coup-de-pouce"
                   >
                     Les Coups de pouce
