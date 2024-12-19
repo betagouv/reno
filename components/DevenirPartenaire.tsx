@@ -15,7 +15,7 @@ import iconIntegration from '@/public/integration.svg'
 import iconPaper from '@/public/paper.svg'
 
 import iframeIcon from '@/public/icon-iframe.svg'
-import apiIcon from '@/public/icon-api.svg'
+import apiIcon from '@/public/icon-api.png'
 import npmIcon from '@/public/icon-npm.png'
 
 import logoOFI from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
