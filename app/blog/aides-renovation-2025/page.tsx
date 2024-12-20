@@ -48,7 +48,7 @@ export default function Blog2025() {
               alt="Illustration de l'article"
             />
           </div>
-          <h1>{title}</h1>
+          <h1 style={css``}>{title}</h1>
           <p>{description}</p>
           <small>
             publié le <time dateTime={date}>{dateCool(date)}</time>
@@ -62,14 +62,6 @@ export default function Blog2025() {
             margin-top: 1rem;
           `}
         >
-          <p
-            style={css`
-              text-wrap: nowrap;
-            `}
-          >
-            Calculer mes aides en 2025
-          </p>
-
           <CTAWrapper
             $justify="center"
             $customCss={`

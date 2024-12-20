@@ -21,7 +21,11 @@ export default function Questions() {
           answeredQuestions: [],
         }}
       />
-      <p>{rules['ménage . personnes'].description}</p>
+      <p>
+        Il s'agit des revenus fiscaux de référence des personnes composant votre
+        ménage. Si ces dernières ont des avis d’imposition distincts, le montant
+        à prendre en compte est la somme de leurs revenus.
+      </p>
     </Wrapper>
   )
 }
