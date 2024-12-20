@@ -6,7 +6,10 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Link from 'next/link'
 import Publicodes from 'publicodes'
 import { GreenCell, Table } from './TestsUI'
-import { throwIfFailingTest } from '@/components/tests/dangerouslyDisactiveFailingTests'
+import {
+  logFailingTest,
+  throwIfFailingTest,
+} from '@/components/tests/dangerouslyDisactiveFailingTests'
 
 const tests = rawTests.filter((test) => test['aide complémentaire'] === 0)
 
@@ -65,7 +68,7 @@ export default function Tests() {
                   : expectedValue,
               )
             if (!valid) {
-              console.log('Failing test object ', test)
+              if (logFailingTest) console.log('Failing test object ', test)
               if (throwIfFailingTest)
                 throw new Error(
                   'Failing test !! See log above ; test index in filtered tests.csv : ' +

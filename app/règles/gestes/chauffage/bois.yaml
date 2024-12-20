@@ -24,11 +24,11 @@ chauffage . bois . chaudière . manuelle . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 5500 €
+      alors: 3750 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 4500 €
+      alors: 3150 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 2000 €
+      alors: 1400 €
     - sinon: 0 €
 chauffage . bois . chaudière . manuelle . Coup de pouce:
 chauffage . bois . chaudière . manuelle . Coup de pouce . montant:
@@ -96,11 +96,11 @@ chauffage . bois . chaudière . automatique . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 7000 €
+      alors: 5000 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 5500 €
+      alors: 3850 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 3000 €
+      alors: 2100 €
     - sinon: 0 €
 chauffage . bois . chaudière . automatique . Coup de pouce:
 chauffage . bois . chaudière . automatique . Coup de pouce . montant:
@@ -166,11 +166,11 @@ chauffage . bois . foyer et insert . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
+      alors: 1250 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 1000 €
+      alors: 750 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 600 €
+      alors: 500 €
     - sinon: 0 €
 chauffage . bois . foyer et insert . CEE:
   code: BAR-TH-112
@@ -266,11 +266,11 @@ chauffage . bois . poêle . à bûches . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
+      alors: 1250 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
+      alors: 1000 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 700 €
+      alors: 500 €
     - sinon: 0 €
 chauffage . bois . poêle . à bûches . CEE:
   code: BAR-TH-112
@@ -361,11 +361,11 @@ chauffage . bois . poêle . à granulés . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
+      alors: 1250 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 750 €
     - sinon: 0 €
 chauffage . bois . poêle . à granulés . CEE:
   code: BAR-TH-112
