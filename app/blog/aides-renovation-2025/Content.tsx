@@ -1,6 +1,6 @@
 import TableauRevenus from '@/components/TableauRevenus'
 import Questions from '@/components/TableauRevenusQuestions'
-import { Parcours } from './UI'
+import { Parcours, Tables } from './UI'
 import { Card } from '@/components/UI'
 import DPELabel from '@/components/DPELabel'
 import { Suspense } from 'react'
@@ -23,7 +23,7 @@ export default function Content() {
         bénéficier d'un bouquet d'aides à la rénovation.
       </p>
 
-      <p>Pour s'y retrouver, suivez ce guide !</p>
+      <p>Suivez notre guide !</p>
       <h2>Des aides globalement stables en 2025</h2>
       <p>
         Dans l'ensemble, les aides à la rénovation ne sont que peu modifiées en
@@ -59,8 +59,16 @@ export default function Content() {
 
       <Suspense>
         <Questions />
-        <TableauRevenus dottedName={'ménage . revenu . barème'} />
-        <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
+        <Tables>
+          <TableauRevenus
+            dottedName={'ménage . revenu . barème'}
+            headerTag="h3"
+          />
+          <TableauRevenus
+            dottedName={'ménage . revenu . barème IdF'}
+            headerTag="h3"
+          />
+        </Tables>
       </Suspense>
       <h2>Toujours autant d'aides, sauf pour les ménages aisés</h2>
       <p>TODO : ici le tableau des aides MPRA</p>

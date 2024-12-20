@@ -6,6 +6,7 @@ export const Small = styled.small`
 `
 
 export const Table = styled.table`
+  min-width: 50rem;
   background: white;
   padding: 0.6rem 1rem;
   border-radius: 0.6rem;
@@ -23,6 +24,11 @@ export const Table = styled.table`
       white-space: nowrap;
     }
   }
+`
+export const TableWrapper = styled.div`
+  max-width: 100vw;
+  width: 100vw;
+  overflow-x: scroll;
 `
 
 export const Tr = styled.tr`

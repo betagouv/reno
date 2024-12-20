@@ -39,8 +39,6 @@ export default function Blog2025() {
               position: relative;
               width: 100%;
               height: '30rem';
-
-              padding-bottom: 4vh;
             `}
           >
             <Image

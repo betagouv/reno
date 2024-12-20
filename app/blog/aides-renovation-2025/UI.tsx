@@ -22,3 +22,9 @@ export const Parcours = styled.ol`
     font-size: 120%;
   }
 `
+
+export const Tables = styled.div`
+  table {
+    background: var(--lightestColor);
+  }
+`
