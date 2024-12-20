@@ -22,6 +22,15 @@ export default function Content() {
         bénéficier d'un bouquet d'aides à la rénovation.
       </p>
       <p>Suivez notre guide !</p>
+      <p style={{ color: '#666', fontSize: '105%' }}>
+        <small>
+          Note : vous pouvez toujours accéder à la{' '}
+          <a target="_blank" href="https://2024.mesaidesreno.beta.gouv.fr">
+            version 2024
+          </a>{' '}
+          des aides à la rénovation.
+        </small>
+      </p>
       <h2>Des aides globalement stables en 2025</h2>
       <p>
         Dans l'ensemble, les aides à la rénovation ne sont que peu modifiées en
