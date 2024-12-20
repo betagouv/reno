@@ -14,7 +14,18 @@ const title = 'Quelles aides à la rénovation en 2025 ?',
   description =
     "Découvrez les changements qui touchent les aides à la rénovation énergétique en 2025. L'essentiel des aides, dont MaPrimeRénov', est maintenu. On fait le point."
 
-const date = '2024-12-18'
+const date = '2024-12-20'
+
+export const metadata = {
+  title,
+  description,
+  openGraph: {
+    images: ['/blog-images/2025.jpg'],
+    type: 'article',
+    publishedTime: date + 'T00:00:00.000Z',
+    url: 'https://mesaidesreno.beta.gouv.fr/blog/aides-renovation-2025',
+  },
+}
 
 // On code à la main cet article fortement intéractif, car contentlayer n'arrive pas à importer nos composants. Décidément, je suis déçu par contentlayer.
 export default function Blog2025() {
