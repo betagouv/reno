@@ -1,3 +1,5 @@
+import { testPublicodesStringContent } from '@/components/publicodes/situationUtils'
+
 /* D'une version à l'autre, nous faisons évoluer le modèle.
  * En 2024, les valeurs possibles pour la période de construction du logement évoluent.
  * Pour que le modèle reste le plus simple possible et adapté à la période en cours, nous ne gardons pas les anciennes valeurs.
@@ -12,9 +14,11 @@ export default function migrate(situation) {
     .map(([k, v]) => {
       if (k === 'logement . période de construction') {
         console.log('migration', k, v)
-        if (v === "'au moins 25 ans'") return [k, "'au moins 15 ans'"]
-        if (v === "'de 15 à 25 ans'") return [k, "'au moins 15 ans'"]
-        if (v === "'de 2 à 15 ans'") return [k, undefined]
+        if (testPublicodesStringContent(v, 'au moins 25 ans'))
+          return [k, "'au moins 15 ans'"]
+        if (testPublicodesStringContent(v, 'de 15 à 25 ans'))
+          return [k, "'au moins 15 ans'"]
+        if (testPublicodesStringContent(v, 'de 2 à 15 ans')) return undefined
       }
       return [k, v]
     })

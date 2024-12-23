@@ -38,6 +38,7 @@ export const getSituation = (searchParams, rules) => {
       }),
   ) //should be changed to clearly handle defaultValues
   const upToDateSituation = migrate(parsedSituation)
+  console.log('migration', { upToDateSituation })
   return upToDateSituation
 }
 
@@ -69,3 +70,12 @@ export const encodeSituation = (situation, doEncodeValue = false, valid = []) =>
   )
 
 export const validValueMark = '*'
+
+export const testPublicodesStringContent = (value, test) => {
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    return value.slice(1, -1) === test
+  } else return null
+}
