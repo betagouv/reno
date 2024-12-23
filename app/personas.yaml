@@ -615,7 +615,7 @@
     projet . DPE visé: 1
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 30
+    MPR . accompagnée . pourcent dont bonus: 10
     MPR . non accompagnée . éligible: non
     ménage . revenu . classe: 'supérieure'
 
