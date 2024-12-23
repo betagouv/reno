@@ -450,7 +450,7 @@
     logement . surface: 50
     logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 35
+    MPR . accompagnée . pourcent dont bonus: 15
     MPR . non accompagnée . éligible: non
 - description: |
     Propriétaire éligible MPR, mais pas d'autres infos
