@@ -545,19 +545,19 @@
     aides locales . angers . revenu très très modeste: oui
     MPR . non accompagnée . éligible: oui
 - description: |
-    Personne seule au revenu 28567.8 juste avant le seuil modeste en IdF.
+    Personne seule au revenu juste avant le seuil modeste en IdF.
   situation:
     ménage . personnes: 1
-    ménage . revenu: 28657.8
+    ménage . revenu: 28933.8
     ménage . code région: "'11'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     ménage . revenu . classe: modeste
 - description: |
-    Personne seule au revenu 28568 juste avant le seuil modeste en IdF.
+    Personne seule au revenu juste après le seuil modeste en IdF.
   situation:
     ménage . personnes: 1
-    ménage . revenu: 28658
+    ménage . revenu: 28934.2
     ménage . code région: "'11'"
     logement . propriétaire occupant: oui
   valeurs attendues:
