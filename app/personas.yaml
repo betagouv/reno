@@ -52,17 +52,17 @@
     gestes . isolation . rampants . CEE . montant: 816
     gestes . isolation . toitures terrasses . MPR . montant: 4500
     gestes . isolation . toitures terrasses . CEE . montant: 576
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 5500
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3750
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 0
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 7000
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 5000
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . automatique . CEE . montant: 0
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 1800
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 1250
     gestes . chauffage . bois . foyer et insert . CEE . montant: 75.2
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1800
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1250
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 188
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1800
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1250
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 282.4
     gestes . chauffage . PAC . air-eau . MPR . montant: 5000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 4000
@@ -130,15 +130,15 @@
     gestes . isolation . rampants . MPR . montant: 900
     gestes . isolation . rampants . CEE . montant: 672
     gestes . isolation . toitures terrasses . MPR . montant: 2400
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 2000
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 1400
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 2500
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 3000
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 2100
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 2500
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 600
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 500
     gestes . chauffage . bois . foyer et insert . CEE . montant: 154.4
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 700
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 500
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 61.6
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1000
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 750
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 231.2
     gestes . chauffage . PAC . air-eau . MPR . montant: 3000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 2500
@@ -200,15 +200,15 @@
     gestes . isolation . rampants . MPR . montant: 1200
     gestes . isolation . rampants . CEE . montant: 432
     gestes . isolation . toitures terrasses . MPR . montant: 3600
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 4500
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3150
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 5500
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 3850
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 1000
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 750
     gestes . chauffage . bois . foyer et insert . CEE . montant: 40.8
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1500
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1000
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 102.4
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1500
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1000
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 153.6
     gestes . chauffage . PAC . air-eau . MPR . montant: 4000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 4000
