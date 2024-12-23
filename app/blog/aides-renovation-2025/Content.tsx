@@ -104,9 +104,9 @@ export default function Content() {
         culumant toutes, le taux de subvention ne peut pas dépasser un maximum.
       </p>
       <p>
-        En 2025, ce maximum augmente pour les ménages aux revenus intérmédaires,
-        passant de 60 à 80 %, et pour les revenus supérieurs, passant de 40 à 50
-        %.
+        En 2025, ce maximum augmente pour les ménages aux revenus
+        intermédiaires, passant de 60 à 80 %, et pour les revenus supérieurs,
+        passant de 40 à 50 %.
       </p>
       <blockquote>
         Ces hausses du taux d'écrêtement pourront être l'occasion pour les
@@ -117,7 +117,7 @@ export default function Content() {
       <p>
         Les aides MaPrimeRénov' sont des remboursements : une fois le dossier de
         subvention effectué, les ménages peuvent lancer les travaux, et les
-        subventions seront versées par la suite .
+        subventions seront versées par la suite.
       </p>
       <p>
         Mais pour aider les ménages modestes à payer les factures, une avance
@@ -150,7 +150,7 @@ export default function Content() {
         <PrimeStyle>5 000 €</PrimeStyle> pour les ménages aux revenus très
         modestes.
       </blockquote>
-      <h2>Interdiction de location de passoire G</h2>
+      <h2>Interdiction à la location des passoires classées G</h2>
       <p>
         Enfin rappelons qu'au 1er janvier 2025, il est interdit de mettre en
         nouvelle location (nouveau contrat de bail ou renouvellement et
@@ -176,7 +176,7 @@ export default function Content() {
         dispositif Denormandie... les aides à la rénovation sont nombreuses.
       </p>
       <p>
-        Mes Aides Réno vous aide à calculez vos aides et choisir le parcours le
+        Mes Aides Réno vous aide à calculer vos aides et choisir le parcours le
         plus adapté pour votre projet.
       </p>
     </section>
