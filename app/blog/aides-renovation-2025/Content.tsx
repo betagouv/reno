@@ -101,7 +101,7 @@ export default function Content() {
       <h2>Mais des plafonds maximum relevés</h2>
       <p>
         Les aides publiques sont dites "écrêtées", c'est-à-dire qu'en les
-        culumant toutes, le taux de subvention ne peut pas dépasser un maximum.
+        cumulant toutes, le taux de subvention ne peut pas dépasser un maximum.
       </p>
       <p>
         En 2025, ce maximum augmente pour les ménages aux revenus
