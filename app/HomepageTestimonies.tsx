@@ -53,7 +53,7 @@ export default function HomepageSteps() {
       moreText: (
         <>
           Ces appartements sont proposés à des prix bien inférieurs au marché.
-          Elle renseigne son revenu fiscal (<Key $state={'final'}>41 000 €</Key>
+          Elle renseigne son revenu fiscal (<Key $state={'final'}>30 000 €</Key>
           ) dans le simulateur Mes Aides Réno. Elle constate qu'elle pourrait
           bénéficier de <Key $state={'prime'}>42 000 €</Key> d'aides (dont une
           avance) pour faire une rénovation d'ampleur, et ainsi louer un
