@@ -6,6 +6,7 @@ import DPELabel from '@/components/DPELabel'
 import { Suspense } from 'react'
 import Link from 'next/link'
 import ExampleBlock from './ExampleBlock'
+import { BlueEm } from '@/app/LandingUI'
 
 export default function Content() {
   return (
@@ -17,20 +18,20 @@ export default function Content() {
         prioritaire.
       </p>
       <p>
-        Le dispositif phare MaPrimeRénov' est reconduit. C'est pourtant loin
-        d'être le seul : prêts à taux zéro, exonérations d'impôt et de taxe
+        Le dispositif phare MaPrimeRénov' est reconduit, et l'enveloppe globale
+        d'intervention de l'Agence Nationale de l'Habitat est augmentée de{' '}
+        <em>600&nbsp;millions</em> d'€ par rapport aux moyens consommés en 2024.{' '}
+      </p>
+      <p>
+        De plus, MaPrimeRénov' est loin d'être le seul dispositif d'aide à la
+        rénovation : prêts à taux zéro, exonérations d'impôt et de taxe
         foncière... tous les propriétaires de logements anciens peuvent
         bénéficier d'un bouquet d'aides à la rénovation.
       </p>
-      <p>Suivez notre guide !</p>
-      <p style={{ color: '#666', fontSize: '105%' }}>
-        <small>
-          Note : vous pouvez toujours accéder à la{' '}
-          <a target="_blank" href="https://2024.mesaidesreno.beta.gouv.fr">
-            version 2024
-          </a>{' '}
-          des aides à la rénovation.
-        </small>
+      <p>
+        <BlueEm>
+          <strong>Suivez notre guide ⤵️ !</strong>
+        </BlueEm>
       </p>
       <h2>Des aides globalement stables en 2025</h2>
       <p>
