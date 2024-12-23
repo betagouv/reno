@@ -51,11 +51,7 @@ export default function Condition({ conditionValue }) {
       `}
     >
       <Image
-        src={
-          '/information.svg'
-
-          //valid ? '/check.svg' : trigger ? `/attention.svg` : '/information.svg'
-        }
+        src={'/information.svg'}
         width="10"
         height="10"
         alt="Icône d'information"

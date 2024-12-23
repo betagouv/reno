@@ -48,7 +48,7 @@ besançon . conditions de revenu . AAPEL:
 
 besançon . conditions de revenu . PAMELA:
   note: |
-    Sur [la fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement), le barème cite des seuils de revenu très proches de [la catégorie "intermédiaire" de l'ANAH](https://france-renov.gouv.fr/bareme#fr_idf-threshold). Nous faisons donc cette simplification. Nous supposons que c'est une erreur de mise à jour de la part du Grand Besançon, les seuils de revenu évoluant chaque année.
+    Sur [la fiche officielle](https://www.grandbesancon.fr/demarche-administrative/le-grand-besancon-vous-aide-a-renover-votre-logement), le barème cite des seuils de revenu très proches de <a href="https://france-renov.gouv.fr/bareme#fr_idf-threshold" target="_blank">la catégorie "intermédiaire" de l'ANAH</a>. Nous faisons donc cette simplification. Nous supposons que c'est une erreur de mise à jour de la part du Grand Besançon, les seuils de revenu évoluant chaque année.
   une de ces conditions:
     - ménage . revenu . classe = 'intermédiaire'
     - ménage . revenu . classe = 'modeste'

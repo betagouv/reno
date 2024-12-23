@@ -1,6 +1,7 @@
 'use client'
 import styled from 'styled-components'
 import Link from 'next/link'
+import useIsInIframe from '@/components/useIsInIframe'
 
 export const Main = styled.main`
   width: 98vw;
@@ -361,7 +362,16 @@ export const PrimeStyle = styled.span`
   ${(p) => p.$red && `background: #ffe9e9; color: #ce0500`}
 `
 
-export const ExternalLink = styled.a`
+export const ExternalLink = ({ children, href, target }) => {
+  const isInIFrame = useIsInIframe()
+  return (
+    <ExternalLinkStyle href={href} target={isInIFrame ? '_blank' : target}>
+      {children}
+    </ExternalLinkStyle>
+  )
+}
+
+export const ExternalLinkStyle = styled.a`
     color: inherit;
     text-decoration: none;
     -webkit-text-decoration: none;
@@ -373,7 +383,7 @@ export const ExternalLink = styled.a`
         background-size: 0 .125em,0 .0625em;
         transition: background-size 0s;
     }
-    &::after {
+    &:not(:has(img))::after {
       background-color: currentColor;
       content: "";
       display: inline-block;
@@ -387,7 +397,7 @@ export const ExternalLink = styled.a`
       vertical-align: calc(.375em - .5rem);
       width: 1rem;
     }
-    &:hover {
+    &:not(:has(img)):hover {
       background-color: transparent;
       background-size: 100% calc(0.0625em * 2), 100% 0.0625em;
     }
@@ -425,7 +435,10 @@ export const MiseEnAvant = styled.div`
       linear-gradient(0deg, #b34000, #b34000),
       linear-gradient(0deg, #b34000, #b34000),
       linear-gradient(0deg, #b34000, #b34000);`
-      : `background-image: linear-gradient(0deg, #0063cb, #0063cb),
+      : p.$type == 'success'
+        ? `background-color: var(--background-contrast-green-emeraude);
+            background-image: linear-gradient(0deg, #00a95f, #00a95f);`
+        : `background-image: linear-gradient(0deg, #0063cb, #0063cb),
       linear-gradient(0deg, #0063cb, #0063cb),
       linear-gradient(0deg, #0063cb, #0063cb),
       linear-gradient(0deg, #0063cb, #0063cb),
@@ -450,14 +463,19 @@ export const MiseEnAvant = styled.div`
   ${(p) =>
     p.$type == 'warning'
       ? `border: 1px solid #b34000;`
-      : `border: 1px solid #0063cb;`}
-  background-color: white;
+      : p.$type == 'success'
+        ? `border-left: 5px solid #00a95f;`
+        : `border: 1px solid #0063cb;`}
+  ${(p) =>
+    p.$type == 'success'
+      ? `background-color: #c3fad5;`
+      : `background-color: white;`}
   h3 {
     margin: 0 0 1rem 0;
   }
   &::before {
     content: '';
-    background: #fff;
+    ${(p) => (p.$type == 'success' ? `background: #000;` : `background: #fff;`)}
     display: inline-block;
     flex: 0 0 auto;
     height: 1.5rem;
@@ -475,7 +493,10 @@ export const MiseEnAvant = styled.div`
           -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyLjg2NiAzIDkuNTI2IDE2LjVhMSAxIDAgMCAxLS44NjYgMS41SDIuNDc0YTEgMSAwIDAgMS0uODY2LTEuNUwxMS4xMzQgM2ExIDEgMCAwIDEgMS43MzIgMFpNMTEgMTZ2Mmgydi0yaC0yWm0wLTd2NWgyVjloLTJaIi8+PC9zdmc+);
           mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyLjg2NiAzIDkuNTI2IDE2LjVhMSAxIDAgMCAxLS44NjYgMS41SDIuNDc0YTEgMSAwIDAgMS0uODY2LTEuNUwxMS4xMzQgM2ExIDEgMCAwIDEgMS43MzIgMFpNMTEgMTZ2Mmgydi0yaC0yWm0wLTd2NWgyVjloLTJaIi8+PC9zdmc+);
           `
-        : `
+        : p.$type == 'success'
+          ? `    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwWm0wLTJhOCA4IDAgMSAwIDAtMTYgOCA4IDAgMCAwIDAgMTZaTTExIDdoMnYyaC0yVjdabTAgNGgydjZoLTJ2LTZaIi8+PC9zdmc+);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwWm0wLTJhOCA4IDAgMSAwIDAtMTYgOCA4IDAgMCAwIDAgMTZaTTExIDdoMnYyaC0yVjdabTAgNGgydjZoLTJ2LTZaIi8+PC9zdmc+);`
+          : `
         -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
         mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
         `}
@@ -502,6 +523,7 @@ export const Badge = styled.span`
 export const CardLink = styled(Card)`
   &:hover {
     background: #e8edff;
+    cursor: pointer;
   }
   a {
     display: flex;
@@ -691,3 +713,28 @@ export const AccordionTitle = styled.button`
     width: 1rem;
   }
 `
+
+export const Loader = () => (
+  <div
+    css={`
+      margin: auto;
+      width: 30px;
+      padding: 8px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #000091;
+      --_m: conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+      -webkit-mask: var(--_m);
+      mask: var(--_m);
+      -webkit-mask-composite: source-out;
+      mask-composite: subtract;
+      animation: l3 1s infinite linear;
+      @keyframes l3 {
+        to {
+          transform: rotate(1turn);
+        }
+      }
+    `}
+  ></div>
+)

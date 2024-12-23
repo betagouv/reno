@@ -7,13 +7,13 @@ import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
+import useIsInIframe from '@/components/useIsInIframe'
 import useSetSearchParams from '@/components/useSetSearchParams'
+import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
 import simulationConfig from './simulationConfig.yaml'
-import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
-import { useSearchParams } from 'next/navigation'
-import useIsInIframe from '@/components/useIsInIframe'
 import { push } from '@socialgouv/matomo-next'
 
 function Form({ rules }) {
@@ -26,7 +26,7 @@ function Form({ rules }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   // this param `objectif` lets us optionally build the form to target one specific publicode rule
-  const { objectif, ...situationSearchParams } = searchParams
+  const { objectif, depuisModule, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
 
@@ -35,6 +35,7 @@ function Form({ rules }) {
     ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(situationSearchParams, rules),
   ]
+
   const situation = {
     ...(simulationConfig.situation || {}),
     ...getSituation(situationSearchParams, rules),

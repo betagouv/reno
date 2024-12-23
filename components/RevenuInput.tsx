@@ -44,6 +44,7 @@ export default function RevenuInput({
   value,
   engine,
   type,
+  disableInstruction = true,
 }) {
   const revenu = situation['ménage . revenu']
   const list = getRevenusList(situation, engine)
@@ -55,7 +56,12 @@ export default function RevenuInput({
   }))
 
   return type === 'select' ? (
-    <Select value={value} values={selectValues} onChange={onChange} />
+    <Select
+      value={value}
+      values={selectValues}
+      onChange={onChange}
+      disableInstruction={disableInstruction}
+    />
   ) : (
     selectValues.map(({ valeur, titre }, index) => (
       <label

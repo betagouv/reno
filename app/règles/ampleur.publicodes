@@ -23,7 +23,7 @@ ampleur . tous les dispositifs:
 
     Attention, ses membres doivent avoir un chemin absolu, pour useAides.ts.
 
-    Note : le [chéque énergie](https://www.economie.gouv.fr/particuliers/tout-savoir-cheque-energie) peut être considéré comme une aide, mais une aide à la consommation d'énergie, pas à la réduction de consommation. En outre, il est normalement automatiquement versé aux personnes éligibles, donc sa publicité sur Mes Aides Réno n'est pas prioritaire.
+    Note : le <a href="https://www.economie.gouv.fr/particuliers/tout-savoir-cheque-energie" target="_blank">chéque énergie</a> peut être considéré comme une aide, mais une aide à la consommation d'énergie, pas à la réduction de consommation. En outre, il est normalement automatiquement versé aux personnes éligibles, donc sa publicité sur Mes Aides Réno n'est pas prioritaire.
   somme:
     - ampleur . montant
     - ampleur . prêt

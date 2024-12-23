@@ -1,5 +1,6 @@
 import { BlocQuestionRéponse } from '../BlocQuestionRéponse'
 import Value from '@/components/Value'
+import { ExternalLink } from '../UI'
 
 export default function QuestionsRéponses() {
   return (
@@ -48,12 +49,12 @@ export default function QuestionsRéponses() {
           Les entreprises qui feront les travaux{' '}
           <strong>
             doivent être{' '}
-            <a
+            <ExternalLink
               href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
               target="_blank"
             >
               certifiées RGE
-            </a>
+            </ExternalLink>
           </strong>{' '}
           pour que vous puissiez rentrer dans le parcours MaPrimeRénov' et
           bénéficier des primes ci-dessus.

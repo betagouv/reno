@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import iconEclair from '@/public/eclair.svg'
 import Image from 'next/image'
-import { getCommune } from '@/components/AddressSearch'
 import AnswerItem from './AnswerItem'
+import { getCommune } from '@/components/personas/enrichSituation'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -47,8 +47,10 @@ export default function Answers({
   rules,
   engine,
   situation,
+  startsOpen = false,
+  closedTitle,
 }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(startsOpen)
   const [communes, setCommunes] = useState({})
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export default function Answers({
     fetchCommunes()
   }, [rawAnsweredQuestions, situation])
   const handleSummaryClick = () => {
-    push(['trackEvent', 'Simulateur principal', 'Clic', 'voir mes reponses'])
+    push(['trackEvent', 'Simulateur Principal', 'Clic', 'voir mes reponses'])
     setIsOpen((prevIsOpen) => !prevIsOpen) // Toggle the state using React
   }
 
@@ -91,7 +93,9 @@ export default function Answers({
         <summary onClick={preventSummaryClick}>
           <LinkStyleButton onClick={handleSummaryClick}>
             <Image src={iconEclair} alt="Icone éclair" />
-            {isOpen ? 'Cacher' : 'Modifier'} mes réponses
+            {isOpen
+              ? closedTitle || 'Cacher mes réponses'
+              : 'Modifier mes réponses'}
           </LinkStyleButton>
         </summary>
         {isOpen && (

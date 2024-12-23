@@ -1,6 +1,5 @@
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
-import { ExternalLink } from '../UI'
 import checkIcon from '@/public/check.svg'
 import { Key } from '../explications/ExplicationUI'
 
