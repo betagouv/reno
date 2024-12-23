@@ -72,7 +72,7 @@ export default function CsvTable() {
             'DPE visé': 'etiquette_finale',
             'Montant travaux TTC': 'ttmtttcplanfin',
             'Montant aide ANAH': 'ttmtwp',
-            'Montant aide MAR': 'montant aide calculée',
+            'Montant aide MesAidesRéno': 'montant aide calculée',
             Ecart: 'ecart',
           }
 
