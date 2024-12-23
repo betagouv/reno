@@ -81,15 +81,14 @@ export default function HomepageSteps() {
           pensaient n'être éligibles à aucune aide. Après avoir fait le test sur
           le simulateur Mes Aides Réno, ils constatent qu'ils peuvent prétendre
           à des aides de l'État importantes :{' '}
-          <Key $state={`prime`}>45 % du coût des travaux</Key> en cas d'une
+          <Key $state={`prime`}>30 % du coût des travaux</Key> en cas d'une
           rénovation d'ampleur avec un plafond de{' '}
           <Key $state={`final`}>70 000 €</Key> de travaux. C'est donc{' '}
-          <Key $state={`prime`}>31 500 €</Key> auxquels ils ont droit pour
-          améliorer l'efficacité énergétique de leur future maison, dont{' '}
-          <strong>une partie peut être versée en avance</strong>. Ils ont aussi
-          droit à un accompagnement par un professionnel, en partie financé par
-          les aides. Le DPE de leur maison passerait ainsi de la classe{' '}
-          <DPELabel index="5" /> à la classe <DPELabel index="1" />.
+          <Key $state={`prime`}>21 000 €</Key> auxquels ils ont droit pour
+          améliorer l'efficacité énergétique de leur future maison. Ils ont
+          aussi droit à un accompagnement par un professionnel, en partie
+          financé par les aides. Le DPE de leur maison passerait ainsi de la
+          classe <DPELabel index="5" /> à la classe <DPELabel index="1" />.
         </>
       ),
       matomoAnchor: 'renover passoire',
