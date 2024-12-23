@@ -163,7 +163,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 65
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -254,7 +254,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
     MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
@@ -273,7 +273,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 130
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     projet . travaux: 82000
     logement . prix d'achat: 230000
   valeurs attendues:
@@ -399,7 +399,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 65
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -448,7 +448,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 50
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 35
     MPR . non accompagnée . éligible: non
@@ -493,7 +493,7 @@
     logement . type: "'appartement'"
     logement . résidence principale propriétaire: oui
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
@@ -516,7 +516,7 @@
     logement . type: "'appartement'"
     logement . résidence principale locataire: oui
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
@@ -693,7 +693,7 @@
     vous . propriétaire . condition: oui
     logement . type: "'appartement'"
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
