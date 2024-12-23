@@ -1,3 +1,5 @@
+import migrate from '@/app/règles/compatibility'
+
 export const encodeDottedName = (decoded) => decoded.replace(/\s\.\s/g, '.')
 export const decodeDottedName = (encoded) => encoded.replace(/\./g, ' . ')
 
@@ -35,7 +37,8 @@ export const getSituation = (searchParams, rules) => {
         return [k, value]
       }),
   ) //should be changed to clearly handle defaultValues
-  return parsedSituation
+  const upToDateSituation = migrate(parsedSituation)
+  return upToDateSituation
 }
 
 export const encodeValue = (value) => {

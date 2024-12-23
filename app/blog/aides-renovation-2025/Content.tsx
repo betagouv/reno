@@ -5,6 +5,7 @@ import { Card, PrimeStyle } from '@/components/UI'
 import DPELabel from '@/components/DPELabel'
 import { Suspense } from 'react'
 import Link from 'next/link'
+import ExampleBlock from './ExampleBlock'
 
 export default function Content() {
   return (
@@ -54,6 +55,7 @@ export default function Content() {
           </li>
         </Parcours>
       </p>
+      <ExampleBlock />
       <h2>Votre classe de revenu MaPrimeRénov' en 2025</h2>
       <p>
         Tous les ménages peuvent prétendre à des aides, même les plus aisés. Il
