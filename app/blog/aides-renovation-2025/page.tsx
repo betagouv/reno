@@ -14,7 +14,7 @@ const title = 'Quelles aides à la rénovation en 2025 ?',
   description =
     "Découvrez les changements qui touchent les aides à la rénovation énergétique en 2025. L'essentiel des aides, dont MaPrimeRénov', est maintenu. On fait le point."
 
-const date = '2024-12-20'
+const date = '2024-12-23'
 
 export const metadata = {
   title,
