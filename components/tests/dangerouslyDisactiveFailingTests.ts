@@ -1,3 +1,3 @@
 // switch to false ONLY FOR LOCAL TESTING
-export const throwIfFailingTest = false
-export const logFailingTest = false
+export const throwIfFailingTest = true
+export const logFailingTest = true
