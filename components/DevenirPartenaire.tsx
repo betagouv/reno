@@ -97,55 +97,7 @@ export default function DevenirPartenaire() {
             Dans un article, sur votre site web ou dans vos logiciels métiers,
             via une iframe, un paquet NPM ou une API.
           </p>
-          <div
-            css={`
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-              gap: 1rem;
-              > div {
-                min-width: 250px;
-                flex: 1;
-                &:hover {
-                  background: #e8edff;
-                  cursor: pointer;
-                }
-                a {
-                  text-decoration: none;
-                  img {
-                    display: block;
-                    object-fit: cover;
-                    width: 100%;
-                    height: auto;
-                    padding: 1rem;
-                  }
-                  h3 {
-                    font-size: 1.375rem;
-                    line-height: 1.75rem;
-                    margin: 2rem 0 1rem 0;
-                    color: var(--color);
-                  }
-                  p {
-                    color: black;
-                  }
-                  &:after {
-                    right: 2rem;
-                    background-color: var(--color);
-                    content: '';
-                    display: block;
-                    float: right;
-                    flex: 0 0 auto;
-                    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
-                    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
-                    -webkit-mask-size: 100% 100%;
-                    mask-size: 100% 100%;
-                    height: 1.5rem;
-                    width: 1.5rem;
-                  }
-                }
-              }
-            `}
-          >
+          <CardMosaic>
             <Card>
               <Link href="/integration">
                 <Image src={iframeIcon} alt="icone iframe" />
@@ -167,7 +119,7 @@ export default function DevenirPartenaire() {
                 <p>pour utiliser le modèle au sein de votre logiciel.</p>
               </Link>
             </Card>
-          </div>
+          </CardMosaic>
         </Content>
       </Wrapper>
       <Wrapper $background="white" $noMargin={true}>
@@ -320,6 +272,53 @@ export default function DevenirPartenaire() {
     </PageBlock>
   )
 }
+
+export const CardMosaic = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  > div {
+    min-width: 250px;
+    flex: 1;
+    &:hover {
+      background: #e8edff;
+      cursor: pointer;
+    }
+    a {
+      text-decoration: none;
+      img {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: auto;
+        padding: 2rem;
+      }
+      h3 {
+        margin: 0 0 1rem 0;
+        color: var(--color);
+        font-size: ${(p) => (p.$smallTitle ? '1.2rem' : '130%')};
+      }
+      p {
+        color: black;
+      }
+      &:after {
+        right: 2rem;
+        background-color: var(--color);
+        content: '';
+        display: block;
+        float: right;
+        flex: 0 0 auto;
+        -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+  }
+`
 
 export const List = styled.div`
   display: flex;
