@@ -76,17 +76,17 @@ PAR . montant:
   titre: Montant du pret avance rénovation 0 %
   applicable si: conditions . communes
   variations:
-    - si: parcours d'aide = "ampleur"
-      alors: 50000 €
-    - si: type travaux . parois vitrées
+    - si: type travaux = "parois vitrées"
       alors: 7000 €
-    - si: type travaux . un poste
+    - si: type travaux = "un poste"
       alors: 15000 €
-    - si: type travaux . deux postes
+    - si: type travaux = "deux postes"
       alors: 25000 €
-    - si: type travaux . trois postes
+    - si: type travaux = "trois postes"
       alors: 30000 €
-    - si: type travaux . rénovation globale
+    - si: type travaux = "rénovation globale"
+      alors: 50000 €
+    - si: parcours d'aide = "ampleur"
       alors: 50000 €
 PAR . taux: 0 %
 PAR . durée: 10 an

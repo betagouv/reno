@@ -1,9 +1,10 @@
 'use client'
 
-import { Card } from '@/components/UI'
+import { Card, CTA, CTAWrapper, PrimeStyle } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
-import Publicodes from 'publicodes'
+import investissementIcon from '@/public/investissement.svg'
+import Publicodes, { formatValue } from 'publicodes'
 import Value from '@/components/Value'
 import parImage from '@/public/par.png'
 import Image from 'next/image'
@@ -24,6 +25,8 @@ import {
 } from '@/components/publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useMediaQuery } from 'usehooks-ts'
+import AmpleurCTA from '@/app/module/AmpleurCTA'
+import { Key } from '@/components/explications/ExplicationUI'
 
 export default function PAR() {
   const isMobile = useMediaQuery('(max-width: 400px)')
@@ -34,14 +37,22 @@ export default function PAR() {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const situation = getSituation(searchParams, rules)
-
+  console.log(
+    "situation['PAR . type travaux']",
+    situation['PAR . type travaux'],
+  )
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
+  const result = formatValue(
+    engine.setSituation(situation).evaluate('PAR . montant'),
+  )
+
   const onChange =
     (dottedName) =>
     ({ target: { value } }) =>
       setSearchParams({
         [encodeDottedName(dottedName)]: value + '*',
       })
+
   return (
     <>
       <div
@@ -59,101 +70,121 @@ export default function PAR() {
           <Image src={parImage} alt="logo PAR+" width="120" />
         </div>
       </div>
-      <h3>Etes-vous éligible au PAR+ ?</h3>
-      <QuestionList>
-        <Li
-          key="typeResidence"
-          $next={true}
-          $touched={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-        >
-          <TypeResidence
-            {...{ setSearchParams, situation, answeredQuestions }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-          $touched={answeredQuestions.includes('ménage . région . IdF')}
-          key="IdF"
-        >
-          <IdFQuestion
-            {...{
-              setSearchParams,
-              isMobile,
-              situation,
-              answeredQuestions,
-            }}
-          />
-        </Li>
-        <Li
-          key="personnes"
-          $next={answeredQuestions.includes('ménage . région . IdF')}
-          $touched={answeredQuestions.includes('ménage . personnes')}
-        >
-          <PersonnesQuestion
-            {...{
-              onChange,
-              answeredQuestions,
-              situation,
-            }}
-          />
-        </Li>
-        <Li
-          key="revenu"
-          $next={answeredQuestions.includes('ménage . personnes')}
-          $touched={answeredQuestions.includes('ménage . revenu . classe')}
-        >
-          <RevenuMaxQuestion
-            {...{
-              engine,
-              onChange,
-              answeredQuestions,
-              situation,
-              setSearchParams,
-            }}
-          />
-        </Li>
-        <Li
-          key="typeTravaux"
-          $next={answeredQuestions.includes('ménage . revenu . classe')}
-        >
-          <TypeTravaux
-            {...{
-              engine,
-              onChange,
-              answeredQuestions,
-              situation,
-              rules,
-              setSearchParams,
-            }}
-          />
-        </Li>
-      </QuestionList>
-      <h3>Comment est calculée l'aide ?</h3>
-      <Card $background="#f7f8f8">
-        <div
+      <Card>
+        <h3
           css={`
-            display: flex;
-            align-items: center;
+            margin-top: 1rem;
           `}
         >
-          <section>
-            En tant que ménage{' '}
-            <Value
+          Etes-vous éligible au PAR+ ?
+        </h3>
+        <QuestionList>
+          <Li
+            key="typeResidence"
+            $next={true}
+            $touched={answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            )}
+          >
+            <TypeResidence
+              {...{ setSearchParams, situation, answeredQuestions }}
+            />
+          </Li>
+          <Li
+            $next={answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            )}
+            $touched={answeredQuestions.includes('ménage . région . IdF')}
+            key="IdF"
+          >
+            <IdFQuestion
+              {...{
+                setSearchParams,
+                isMobile,
+                situation,
+                answeredQuestions,
+              }}
+            />
+          </Li>
+          <Li
+            key="personnes"
+            $next={answeredQuestions.includes('ménage . région . IdF')}
+            $touched={answeredQuestions.includes('ménage . personnes')}
+          >
+            <PersonnesQuestion
+              {...{
+                onChange,
+                answeredQuestions,
+                situation,
+              }}
+            />
+          </Li>
+          <Li
+            key="revenu"
+            $next={answeredQuestions.includes('ménage . personnes')}
+            $touched={answeredQuestions.includes('ménage . revenu . classe')}
+          >
+            <RevenuMaxQuestion
               {...{
                 engine,
+                onChange,
+                answeredQuestions,
                 situation,
-                dottedName: 'ménage . revenu . classe',
-                state: 'prime-black',
+                setSearchParams,
               }}
-            />{' '}
-            , vous êtes éligible à un prêt d'un montant maximum de 50 000 € sans
-            intérêt pendant 10 ans.
-          </section>
-        </div>
+            />
+          </Li>
+          <Li
+            key="typeTravaux"
+            $next={answeredQuestions.includes('ménage . revenu . classe')}
+          >
+            <TypeTravaux
+              {...{
+                setSearchParams,
+                situation,
+                rules,
+              }}
+            />
+          </Li>
+        </QuestionList>
+        {result != 'Pas encore défini' && (
+          <div
+            css={`
+              background: var(--lightestColor);
+              border-bottom: 4px solid var(--color);
+              padding: 1rem;
+              display: flex;
+              gap: 1rem;
+              justify-content: space-between;
+              align-items: center;
+              flex-wrap: wrap;
+            `}
+          >
+            <Image src={investissementIcon} css />
+            <p>
+              <strong>Vous êtes éligible</strong>
+              <br />à un prêt d'un montant maximum de
+              <br />
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'PAR . montant',
+                  state: 'prime-black',
+                }}
+              />{' '}
+              sans intérêt pendant{' '}
+              <Key $state="in-progress">
+                {formatValue(engine.evaluate('PAR . durée'))}s
+              </Key>
+            </p>
+            <CTAWrapper $justify="left">
+              <CTA $importance="primary" css="font-size: 100%">
+                <AmpleurCTA {...{ situation: situation }} />
+              </CTA>
+            </CTAWrapper>
+          </div>
+        )}
       </Card>
       <h3>Comment cela fonctionne?</h3>
       <div

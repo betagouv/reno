@@ -210,7 +210,7 @@ export const RevenuMaxQuestion = ({
         <YesNoQuestion>
           <span>
             Votre revenu fiscal est-il inférieur à{' '}
-            <strong>{formatValue(revenuMax)}€</strong>?
+            <strong>{formatValue(revenuMax)}€</strong> ?
           </span>
           <section>
             <label>
@@ -330,12 +330,7 @@ export const IdFQuestion = ({
   )
 }
 
-export const TypeTravaux = ({
-  setSearchParams,
-  situation,
-  answeredQuestions,
-  rules,
-}) => (
+export const TypeTravaux = ({ setSearchParams, situation, rules }) => (
   <section>
     <Dot />
     <label htmlFor="">
@@ -347,21 +342,12 @@ export const TypeTravaux = ({
         `}
         disableInstruction={false}
         onChange={(e) => {
-          console.log('e', e)
           push(['trackEvent', 'PAR', 'Interaction', 'travaux ' + e])
-
-          const encodedSituation = encodeSituation(additionalSituation, true, [
-            ...Object.keys(additionalSituation),
-          ])
-          setSearchParams(encodedSituation)
+          setSearchParams({
+            [encodeDottedName('PAR . type travaux')]: '"' + e + '"*',
+          })
         }}
-        value={
-          answeredQuestions.includes(
-            Object.keys(usageLogementValues[0].situation)[0],
-          )
-            ? usageLogement(situation)
-            : ''
-        }
+        value={situation['PAR . type travaux'].replaceAll('"', '')}
         values={rules['PAR . type travaux']['une possibilité parmi'][
           'possibilités'
         ].map((i) => rules['PAR . ' + i])}
