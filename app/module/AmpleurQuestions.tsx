@@ -9,7 +9,9 @@ import sablier from '@/public/sablier.svg'
 import { push } from '@socialgouv/matomo-next'
 import Image from 'next/image'
 import styled from 'styled-components'
+import { getRevenusList } from '@/components/RevenuInput'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
+import { formatValue } from 'publicodes'
 
 export const TypeResidence = ({
   setSearchParams,
@@ -171,6 +173,109 @@ export const RevenuQuestion = ({
   )
 }
 
+// Cette question se pose pour le PAR+ uniquement accessible au ménage très modeste et modeste
+// On leur facilite un maximum la tâche en posant une question Oui/Non sur le montant max du ménage modeste
+// plutôt que la liste déroulante de choix des revenus
+export const RevenuMaxQuestion = ({
+  answeredQuestions,
+  setSearchParams,
+  engine,
+  situation,
+}) => {
+  const answered = answeredQuestions.includes('ménage . revenu . classe')
+  // On doit trouver la valeur pour la classe modeste
+  const revenuMax = getRevenusList(situation, engine)[1]
+  if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
+    const currentValue = situation['ménage . revenu']
+    const onChange = (value) => {
+      if (value === '') return
+      const encodedSituation = encodeSituation(
+        {
+          'ménage . revenu': value == undefined ? undefined : value,
+        },
+        false,
+        ['ménage . revenu'],
+      )
+      setSearchParams(encodedSituation)
+    }
+
+    return (
+      <div
+        css={`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <Dot />
+        <YesNoQuestion>
+          <span>
+            Votre revenu fiscal est-il inférieur à{' '}
+            <strong>{formatValue(revenuMax)}€</strong>?
+          </span>
+          <section>
+            <label>
+              <input
+                id="rfr"
+                type="radio"
+                checked={
+                  answered &&
+                  situation['ménage . revenu . classe'] === '"modeste"'
+                }
+                onChange={() => {
+                  push(['trackEvent', 'PAR', 'Interaction', 'classe éligible'])
+                  setSearchParams({
+                    [encodeDottedName('ménage . revenu . classe')]:
+                      '"modeste"*',
+                  })
+                }}
+              />
+              <span>Oui</span>
+            </label>
+            <label>
+              <input
+                id="rfr"
+                type="radio"
+                checked={
+                  answered &&
+                  situation['ménage . revenu . classe'] === '"intermédiaire"'
+                }
+                onChange={() => {
+                  push([
+                    'trackEvent',
+                    'PAR',
+                    'Interaction',
+                    'classe non éligible',
+                  ])
+                  setSearchParams({
+                    [encodeDottedName('ménage . revenu . classe')]:
+                      '"intermédiaire"*',
+                  })
+                }}
+              />
+              <span>Non</span>
+            </label>
+          </section>
+        </YesNoQuestion>
+      </div>
+    )
+  }
+
+  return (
+    <section>
+      <Image
+        src={sablier}
+        alt="Un icône sablier représentant une question en attente"
+        css={`
+          @media (max-width: 400px) {
+            margin-right: 0.5rem !important;
+          }
+        `}
+      />
+      Votre niveau de revenu
+    </section>
+  )
+}
+
 export const IdFQuestion = ({
   setSearchParams,
   isMobile,
@@ -186,104 +291,84 @@ export const IdFQuestion = ({
       `}
     >
       <Dot />
-      <div
-        css={`
-          > section {
-            margin-left: 1rem;
-            label {
-              display: inline-flex;
-              align-items: center;
-              margin-right: 1rem;
-            }
-            input[type='radio'] {
-              width: 1.2rem !important;
-              height: 1.2rem !important;
-            }
-            input[type='radio'],
-            input[type='radio'] + label {
-              cursor: pointer;
-              &:hover {
-                background: var(--lighterColor);
-              }
-            }
-          }
-        `}
-      >
-        {false && (
-          <input
-            type="checkbox"
-            id="idf"
-            name={'IDF'}
-            defaultChecked={situation['ménage . région . IdF'] === 'non'}
-            onChange={() => {
-              push([
-                'trackEvent',
-                'Module',
-                'Interaction',
-                'idf mobile ' + situation['ménage . région . IdF'],
-              ])
-              setSearchParams({
-                [encodeDottedName('ménage . région . IdF')]:
-                  (situation['ménage . région . IdF'] === 'oui'
-                    ? 'non'
-                    : 'oui') + '*',
-              })
-            }}
-          />
-        )}
+      <YesNoQuestion>
         <span>
           Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
         </span>
-        {true && (
-          <section>
-            <label>
-              <input
-                id={`idf`}
-                type="radio"
-                checked={
-                  answered && situation['ménage . région . IdF'] === 'oui'
-                }
-                onChange={() => {
-                  push([
-                    'trackEvent',
-                    'Module',
-                    'Interaction',
-                    'idf desktop oui',
-                  ])
-                  setSearchParams({
-                    [encodeDottedName('ménage . région . IdF')]: 'oui*',
-                  })
-                }}
-              />
-              <span>Oui</span>
-            </label>
-            <label>
-              <input
-                id={`idf`}
-                type="radio"
-                checked={
-                  answered && situation['ménage . région . IdF'] === 'non'
-                }
-                onChange={() => {
-                  push([
-                    'trackEvent',
-                    'Module',
-                    'Interaction',
-                    'idf desktop non',
-                  ])
-                  setSearchParams({
-                    [encodeDottedName('ménage . région . IdF')]: 'non*',
-                  })
-                }}
-              />
-              <span>Non</span>
-            </label>
-          </section>
-        )}
-      </div>
+        <section>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation['ménage . région . IdF'] === 'oui'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', 'idf desktop oui'])
+                setSearchParams({
+                  [encodeDottedName('ménage . région . IdF')]: 'oui*',
+                })
+              }}
+            />
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation['ménage . région . IdF'] === 'non'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', 'idf desktop non'])
+                setSearchParams({
+                  [encodeDottedName('ménage . région . IdF')]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
+          </label>
+        </section>
+      </YesNoQuestion>
     </div>
   )
 }
+
+export const TypeTravaux = ({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+  rules,
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      Quels travaux envisagez-vous:{' '}
+      <Select
+        css={`
+          background: #f5f5fe;
+          max-width: 90vw;
+        `}
+        disableInstruction={false}
+        onChange={(e) => {
+          console.log('e', e)
+          push(['trackEvent', 'PAR', 'Interaction', 'travaux ' + e])
+
+          const encodedSituation = encodeSituation(additionalSituation, true, [
+            ...Object.keys(additionalSituation),
+          ])
+          setSearchParams(encodedSituation)
+        }}
+        value={
+          answeredQuestions.includes(
+            Object.keys(usageLogementValues[0].situation)[0],
+          )
+            ? usageLogement(situation)
+            : ''
+        }
+        values={rules['PAR . type travaux']['une possibilité parmi'][
+          'possibilités'
+        ].map((i) => rules['PAR . ' + i])}
+      />
+    </label>
+  </section>
+)
 
 export const QuestionList = styled.ul`
   list-style-type: none;
@@ -324,6 +409,29 @@ export const Li = styled.li`
         ? ''
         : `filter: grayscale(0.9) opacity(0.4)`};
 `
+
+export const YesNoQuestion = styled.div`
+  > section {
+    margin-left: 1rem;
+    label {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 1rem;
+    }
+    input[type='radio'] {
+      width: 1.2rem !important;
+      height: 1.2rem !important;
+    }
+    input[type='radio'],
+    input[type='radio'] + label {
+      cursor: pointer;
+      &:hover {
+        background: var(--lighterColor);
+      }
+    }
+  }
+`
+
 const Dot = () => (
   <Image
     src={rightArrow}

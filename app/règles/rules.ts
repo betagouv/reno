@@ -77,6 +77,7 @@ function transformRuleObject(v) {
     conditionsEligibilitesHTML:
       v['conditions éligibilités'] &&
       transformMarkdown(v['conditions éligibilités']),
+    explicationHTML: v['explication'] && transformMarkdown(v['explication']),
     informationsUtilesHtml:
       v['informations utiles'] && transformMarkdown(v['informations utiles']),
     commentFaireHtml:

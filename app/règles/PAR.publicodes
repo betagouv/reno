@@ -29,7 +29,10 @@ PAR:
     Le Prêt Avance Rénovation à taux zéro (PAR+) est un prêt hypothécaire permettant aux propriétaires de financer des travaux de rénovation énergétique dans leur logement.
 
     Son remboursement s’effectue in fine, c'est-à-dire en une seule fois, lors de la revente du bien ou au moment de la succession.
-
+  explication: |
+    Pendant les 10 premières années du prêt, l'État prend en charge l'intégralité des intérêts. À l'expiration de cette période, des intérêts au taux fixé librement par l'établissement prêteur au moment de la signature du contrat de prêt seront appliqués.
+          
+    L'établissement prêteur peut décider de verser le prêt en une ou plusieurs fois sur la base du descriptif et des devis détaillés des travaux à réaliser, ou bien à la fin des travaux.
 PAR . conditions:
 PAR . conditions . communes:
   valeur:
