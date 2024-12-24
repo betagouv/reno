@@ -55,11 +55,13 @@ export const PersonnesQuestion = ({
   situation,
   onChange,
   answeredQuestions,
+  dot = true,
+  text = 'Dans un ménage de',
 }) => (
   <section>
-    <Dot />
+    {dot && <Dot />}
     <label>
-      <span>Dans un ménage de </span>{' '}
+      <span>{text}</span>{' '}
       <input
         type="number"
         min="1"

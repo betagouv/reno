@@ -92,8 +92,18 @@ export default function MPRA({
                   state: 'prime-black',
                 }}
               />{' '}
-              , <strong>70 %</strong> de cette aide peut vous être versée en
-              avance de vos travaux.
+              ,{' '}
+              <strong>
+                <Value
+                  {...{
+                    engine,
+                    situation,
+                    dottedName: 'MPR . accompagnée . pourcentage avance',
+                    state: 'prime-black',
+                  }}
+                />
+              </strong>{' '}
+              de cette aide peut vous être versée en avance de vos travaux.
             </div>
           )}
           {expanded && (
