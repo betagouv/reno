@@ -7,6 +7,7 @@ import Publicodes from 'publicodes'
 import Papa from 'papaparse'
 import { StatCard } from '../stats/Statistiques'
 import { Loader, PageBlock } from '@/components/UI'
+import { useSearchParams } from 'next/navigation'
 
 const engine = new Publicodes(rules)
 
@@ -17,6 +18,8 @@ const incomeClasses = {
 }
 
 export default function DataAnah() {
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
   const subsetLength = 1000
   const [tableData, setTableData] = useState([])
   const [columns, setColumns] = useState([])
@@ -92,7 +95,13 @@ export default function DataAnah() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/combined.csv')
+        // const response = await fetch(
+        //   `https://mardata.osc-fr1.scalingo.io/file/` +
+        //     searchParams.key +
+        //     '/2024/mpra_tmo_mo_2024_10',
+        // )
+
+        const response = await fetch('/mpra_tmo_mo_2024_10.csv')
         if (!response.ok) throw new Error('Failed to fetch CSV data')
 
         Papa.parse(await response.text(), {
@@ -118,7 +127,7 @@ export default function DataAnah() {
             const filteredData = results.data
               .slice(0, subsetLength)
               .map(calculateRowData)
-              .filter((r) => r.Ecart != 0) // On n'affiche que les lignes en erreur
+              .filter((r) => r.ecart) // On n'affiche que les lignes en erreur
             setTableData(filteredData)
           },
         })

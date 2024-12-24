@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react'
 import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
 import Papa from 'papaparse'
+import { useSearchParams } from 'next/navigation'
 
-export default function CsvTable() {
+export default function DataAnah2() {
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
   const [tableData, setTableData] = useState([])
   const [columns, setColumns] = useState([])
   const engine = new Publicodes(rules)
@@ -57,7 +60,12 @@ export default function CsvTable() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/InstructionNat_engt_2024M10_Dossier.csv')
+      // const response = await fetch(
+      //   `https://mardata.osc-fr1.scalingo.io/file/` +
+      //     searchParams.key +
+      //     '/2024/mpra_int_sup_2024_10',
+      // )
+      const response = await fetch('/mpra_int_sup_2024_10.csv')
       const csvText = await response.text()
 
       Papa.parse(csvText, {
