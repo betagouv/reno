@@ -70,7 +70,7 @@ PAR . conditions . ancienneté:
     Pour bénéficier du prêt, vous devez être propriétaire occupant d'un logement construit il y a plus de 2 ans à la date du début des travaux faisant l'objet du prêt.
 
     Le logement ne **peut pas** être en cours d’acquisition au moment de la demande de prêt.
-  valeur: logement . période de construction != 'moins de 2 ans'
+  valeur: logement . au moins 2 ans
 
 PAR . montant:
   titre: Montant du pret avance rénovation 0 %
@@ -103,16 +103,16 @@ PAR . type travaux:
 
 PAR . type travaux . parois vitrées: 
   valeur: "parois vitrées"
-  titre: "Une action de travaux sur les parois vitrées"
+  titre: "une action de travaux concernant les parois vitrées"
 PAR . type travaux . un poste: 
   valeur: "un poste"
-  titre: "Une action de travaux hors parois vitrées"
+  titre: "une action de travaux hors parois vitrées"
 PAR . type travaux . deux postes: 
   valeur: "deux postes"
-  titre: "Un bouquet de 2 postes de travaux"
+  titre: "un bouquet de 2 postes de travaux"
 PAR . type travaux . trois postes: 
   valeur: "trois postes"
   titre: "un bouquet de 3 postes de travaux ou plus"
 PAR . type travaux . rénovation globale: 
   valeur: "rénovation globale"
-  titre: "Une rénovation d'ampleur"
+  titre: "une rénovation d'ampleur"

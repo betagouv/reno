@@ -5,12 +5,12 @@ import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import investissementIcon from '@/public/investissement.svg'
 import Publicodes, { formatValue } from 'publicodes'
-import Value from '@/components/Value'
 import parImage from '@/public/par.png'
 import Image from 'next/image'
 import {
   IdFQuestion,
   Li,
+  PeriodeConstructionQuestion,
   PersonnesQuestion,
   QuestionList,
   RevenuMaxQuestion,
@@ -37,14 +37,9 @@ export default function PAR() {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const situation = getSituation(searchParams, rules)
-  console.log(
-    "situation['PAR . type travaux']",
-    situation['PAR . type travaux'],
-  )
+
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  const result = formatValue(
-    engine.setSituation(situation).evaluate('PAR . montant'),
-  )
+  const evaluation = engine.setSituation(situation).evaluate('PAR . montant')
 
   const onChange =
     (dottedName) =>
@@ -52,7 +47,6 @@ export default function PAR() {
       setSearchParams({
         [encodeDottedName(dottedName)]: value + '*',
       })
-
   return (
     <>
       <div
@@ -91,9 +85,18 @@ export default function PAR() {
             />
           </Li>
           <Li
+            key="periodeConstruction"
             $next={answeredQuestions.includes(
               'logement . résidence principale propriétaire',
             )}
+            $touched={answeredQuestions.includes('logement . au moins 2 ans')}
+          >
+            <PeriodeConstructionQuestion
+              {...{ setSearchParams, situation, answeredQuestions }}
+            />
+          </Li>
+          <Li
+            $next={answeredQuestions.includes('logement . au moins 2 ans')}
             $touched={answeredQuestions.includes('ménage . région . IdF')}
             key="IdF"
           >
@@ -147,7 +150,7 @@ export default function PAR() {
             />
           </Li>
         </QuestionList>
-        {result != 'Pas encore défini' && (
+        {!Object.keys(evaluation.missingVariables).length && (
           <div
             css={`
               background: var(--lightestColor);
@@ -160,23 +163,35 @@ export default function PAR() {
               flex-wrap: wrap;
             `}
           >
-            <Image src={investissementIcon} css />
+            {!isMobile && (
+              <Image src={investissementIcon} alt="icone montant en euro" />
+            )}
             <p>
-              <strong>Vous êtes éligible</strong>
-              <br />à un prêt d'un montant maximum de
-              <br />
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: 'PAR . montant',
-                  state: 'prime-black',
-                }}
-              />{' '}
-              sans intérêt pendant{' '}
-              <Key $state="in-progress">
-                {formatValue(engine.evaluate('PAR . durée'))}s
-              </Key>
+              {evaluation.nodeValue ? (
+                <>
+                  <strong>Vous êtes éligible</strong>
+                  <br />à un prêt d'un montant maximum de
+                  <br />
+                  <Key $state="in-progress">{formatValue(evaluation)}</Key> sans
+                  intérêt pendant{' '}
+                  <Key $state="in-progress">
+                    {formatValue(engine.evaluate('PAR . durée'))}s
+                  </Key>
+                </>
+              ) : (
+                <>
+                  <span
+                    css={`
+                      color: red;
+                    `}
+                  >
+                    Vous n'êtes pas éligible au Prêt avance mutation
+                  </span>
+                  <br />
+                  <span>⚠️ Vous êtes peut-être éligible à d'autres aides!</span>
+                  <br />
+                </>
+              )}
             </p>
             <CTAWrapper $justify="left">
               <CTA $importance="primary" css="font-size: 100%">

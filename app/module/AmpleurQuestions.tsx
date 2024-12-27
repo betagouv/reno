@@ -211,7 +211,7 @@ export const RevenuMaxQuestion = ({
         <Dot />
         <YesNoQuestion>
           <span>
-            Votre revenu fiscal est-il inférieur à{' '}
+            Avec un revenu fiscal inférieur à{' '}
             <strong>{formatValue(revenuMax)}€</strong> ?
           </span>
           <section>
@@ -264,17 +264,74 @@ export const RevenuMaxQuestion = ({
 
   return (
     <section>
-      <Image
-        src={sablier}
-        alt="Un icône sablier représentant une question en attente"
-        css={`
-          @media (max-width: 400px) {
-            margin-right: 0.5rem !important;
-          }
-        `}
-      />
-      Votre niveau de revenu
+      <Dot />
+      Avec un revenu fiscal inférieur à
     </section>
+  )
+}
+
+export const PeriodeConstructionQuestion = ({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+}) => {
+  const answered = answeredQuestions.includes('logement . au moins 2 ans')
+  return (
+    <div
+      css={`
+        display: flex;
+        align-items: center;
+      `}
+    >
+      <Dot />
+      <YesNoQuestion>
+        <span>Il a été achevé il y a plus de 2 ans</span>
+        <section>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={
+                answered && situation['logement . au moins 2 ans'] === 'oui'
+              }
+              onChange={() => {
+                push([
+                  'trackEvent',
+                  'PAR',
+                  'Interaction',
+                  'période construction oui',
+                ])
+                setSearchParams({
+                  [encodeDottedName('logement . au moins 2 ans')]: 'oui*',
+                })
+              }}
+            />
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={
+                answered && situation['logement . au moins 2 ans'] === 'non'
+              }
+              onChange={() => {
+                push([
+                  'trackEvent',
+                  'PAR',
+                  'Interaction',
+                  'période construction non',
+                ])
+                setSearchParams({
+                  [encodeDottedName('logement . au moins 2 ans')]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
+          </label>
+        </section>
+      </YesNoQuestion>
+    </div>
   )
 }
 
@@ -349,7 +406,7 @@ export const TypeTravaux = ({ setSearchParams, situation, rules }) => (
             [encodeDottedName('PAR . type travaux')]: '"' + e + '"*',
           })
         }}
-        value={situation['PAR . type travaux'].replaceAll('"', '')}
+        value={situation['PAR . type travaux']?.replaceAll('"', '')}
         values={rules['PAR . type travaux']['une possibilité parmi'][
           'possibilités'
         ].map((i) => rules['PAR . ' + i])}
