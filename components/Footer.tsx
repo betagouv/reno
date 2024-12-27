@@ -67,6 +67,22 @@ export default function Footer() {
                 <li>
                   <InternalLink
                     className="fr-footer__top-link"
+                    href="/aides/pret-taux-0"
+                  >
+                    Les prêts à taux zéro
+                  </InternalLink>
+                </li>
+                <li>
+                  <InternalLink
+                    className="fr-footer__top-link"
+                    href="/aides/exoneration-fiscale"
+                  >
+                    Les exonérations fiscales
+                  </InternalLink>
+                </li>
+                <li>
+                  <InternalLink
+                    className="fr-footer__top-link"
                     href="/aides/cee"
                   >
                     Certificats d'économie d'énergie (CEE)
