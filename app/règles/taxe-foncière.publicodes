@@ -98,4 +98,4 @@ taxe foncière . commune . taux:
 
     Nous construisons donc notre propre fichier de communes éligibles. C'est à ce jour (septembre 2024) la base de données la plus complète et sourcée disponible. 
 
-    [La liste des communes éligibles est ici](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/communes-taxe-fonci%C3%A8re.yaml).
+    [La liste des communes éligibles est ici](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/communes-taxe-fonci%C3%A8re.publicodes).
