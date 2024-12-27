@@ -13,7 +13,6 @@ export default function PAR({
   expanded,
 }) {
   const dottedName = 'PAR'
-  const rule = rules[dottedName]
   return (
     <AideAmpleur
       {...{

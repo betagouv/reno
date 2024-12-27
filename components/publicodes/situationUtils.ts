@@ -38,7 +38,6 @@ export const getSituation = (searchParams, rules) => {
       }),
   ) //should be changed to clearly handle defaultValues
   const upToDateSituation = migrate(parsedSituation)
-  console.log('migration', { upToDateSituation })
   return upToDateSituation
 }
 
