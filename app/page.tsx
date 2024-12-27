@@ -20,11 +20,12 @@ import dynamic from 'next/dynamic'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
+import NewsBanner from '@/components/NewsBanner'
 
-export const description = `Calculez les aides MaPrimeRénov' 2024 pour la rénovation de votre logement.`
+export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement.`
 
 export const metadata: Metadata = {
-  title: 'Mes aides réno 2024',
+  title: 'Mes aides réno 2025',
   description,
   openGraph: { images: ['/jaquette.png'] },
 }
@@ -38,6 +39,7 @@ export default function Page() {
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
+      <NewsBanner />
       <PageBlock>
         <HeaderWrapper>
           <Image
@@ -46,9 +48,7 @@ export default function Page() {
           />
           <div>
             <Labels>
-              {['⚡️ En 2024, les aides évoluent'].map((text) => (
-                <li key={text}>{text}</li>
-              ))}
+              <li key={'réno'}>⚡️ Rénovation Énergétique</li>
             </Labels>
             <h1
               style={css`

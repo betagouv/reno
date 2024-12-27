@@ -106,14 +106,16 @@ ampleur . pourcent d'écrêtement:
     Le taux maximum toutes aides confondu ne peut pas dépasser un certain pourcentage de l'enveloppe de travaux, et ce pourcentage dépend de votre classe de revenu.
 
     Il se calcule sur l'enveloppe **TTC**.
+  note: |
+    Pour la classe modeste, une évolution est prévue à date du 11 décembre 2024 vers 90%, en attente des textes d’application. [Source ANAH](https://www.anah.gouv.fr/document/panorama-des-aides-2025#page=6).
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
     - si: ménage . revenu . classe = 'modeste'
       alors: 80 %
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 60 %
-    - sinon: 40 %
+      alors: 80 %
+    - sinon: 50 %
 
 ampleur . synthèse:
   description: Quels sont les aides dont l'utilisateur souhaite avoir la synthèse
