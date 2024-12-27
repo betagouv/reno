@@ -1,14 +1,16 @@
-import { Card, CardLink, Main, Section } from '@/components/UI'
+import { Card, Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 import mprImage from '@/public/maprimerenov.svg'
 import ceeImage from '@/public/cee.svg'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
-import ptzImage from '@/public/eco-ptz.png'
+import ptzImage from '@/public/ptz-bleu.svg'
+import exoFiscaleImage from '@/public/exoneration-fiscale.svg'
 import localeImage from '@/public/locale-logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import { CardMosaic } from '@/components/DevenirPartenaire'
+import css from '@/components/css/convertToJs'
 
 export const metadata: Metadata = {
   title: 'Les aides à la rénovation énergétique en ' + new Date().getFullYear(),
@@ -40,8 +42,7 @@ export default function Aides() {
                 </p>
                 <p>
                   Les sommes sont importantes et vous êtes{' '}
-                  <strong>accompagné par un professionnel agréé</strong> tout au
-                  long de votre parcours.
+                  <strong>accompagné par un professionnel agréé</strong>.
                 </p>
               </div>
             </Link>
@@ -53,10 +54,12 @@ export default function Aides() {
                 <h3>MaPrimeRénov' - Parcours par geste</h3>
                 <p>
                   Le parcours par geste est{' '}
-                  <strong>accessible sous condition de revenus</strong> pour les
-                  propriétaires souhaitant réalisés des travaux de rénovation
-                  effectués par <strong>des professionnels agréés RGE</strong>{' '}
-                  (pompe à chaleur, poêle à granulés, isolation...).
+                  <strong>accessible sous condition de revenus</strong>.
+                </p>
+                <p>
+                  Les travaux de rénovation effectués par{' '}
+                  <strong>des professionnels agréés RGE</strong> (pompe à
+                  chaleur, poêle à granulés, isolation...).
                 </p>
               </div>
             </Link>
@@ -67,13 +70,35 @@ export default function Aides() {
               <div>
                 <h3>Les prêts à taux 0</h3>
                 <p>
-                  <strong>L'éco-prêt à taux zéro</strong> (éco-PTZ) ainsi que le{' '}
-                  <strong>prêt avance rénovation</strong> sont accessibles{' '}
-                  <strong>sans condition de ressources</strong>
+                  <strong>L'éco-prêt à taux zéro</strong> (ou éco-PTZ) ainsi que
+                  le <strong>prêt avance rénovation</strong> (PAR+) sont
+                  accessibles <strong>sans condition de ressources</strong>
                 </p>
                 <p>
-                  Ces dispositifs visent à financer des travaux d'amélioration
-                  de la performance énergétique des logements.
+                  Ces dispositifs visent à financer des travaux de rénovation
+                  énergétique des logements.
+                </p>
+              </div>
+            </Link>
+          </Card>
+          <Card>
+            <Link href="/aides/exoneration-fiscale">
+              <Image
+                src={exoFiscaleImage}
+                alt="Logo Exonération Fiscale"
+                width="100"
+              />
+              <div>
+                <h3>Les exonérations fiscales</h3>
+                <p>
+                  Les collectivités locales peuvent proposer une{' '}
+                  <strong>exonération de taxe foncière</strong> pour certains
+                  logements rénovés.
+                </p>
+                <p>
+                  Le <strong>dispositif Denormandie</strong> s'adresse quant à
+                  lui au propriétaire bailleur. Il a été prolongé jusqu'au 31
+                  décembre 2027.
                 </p>
               </div>
             </Link>
@@ -85,12 +110,14 @@ export default function Aides() {
                 <h3>Les Certificats d'économies d'énergie</h3>
                 <p>
                   Le dispositif des certificats d’économies d’énergie (CEE) est{' '}
-                  <strong>accessible pour tous</strong>.<br /> Des fournisseurs
-                  d'énergie (électricité, gaz, fioul domestique) vous proposent
-                  des aides pour rénover votre logement.
+                  <strong>accessible pour tous</strong>.
                 </p>
                 <p>
-                  Il s'agit pour elles d'une{' '}
+                  Des fournisseurs d'énergie proposent des aides pour rénover
+                  votre logement.
+                </p>
+                <p>
+                  Il s'agit d'une{' '}
                   <strong>obligation encadrée par l’État</strong>.
                 </p>
               </div>
@@ -107,15 +134,22 @@ export default function Aides() {
                 <h3>Les Coups de pouce Chauffage</h3>
                 <p>
                   Les primes dites <em>"Coup de pouce"</em> sont{' '}
-                  <strong>accessibles à tous les ménages</strong> qui
-                  entreprennent le{' '}
+                  <strong>accessibles à tous les ménages</strong>
+                </p>
+                <p>
+                  Ils financent le{' '}
                   <strong>remplacement d'un mode de chauffage polluant</strong>{' '}
-                  (chaudière au charbon, au fioul ou au gaz).
+                  (chaudière au charbon, au fioul ou au gaz) par une
+                  installation moins énergivore.
                 </p>
               </div>
             </Link>
           </Card>
-          <Card>
+          <Card
+            style={css`
+              max-width: min-content;
+            `}
+          >
             <Link href="/locales">
               <Image src={localeImage} alt="Logo Locale" width="100" />
               <div>

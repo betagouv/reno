@@ -30,8 +30,7 @@ export default function Aides() {
           ]}
         />
         <h2>
-          Aides pour financer vos travaux de rénovation: Les prêts à taux 0 en{' '}
-          {new Date().getFullYear()}
+          Aides pour financer vos travaux de rénovation: Les prêts à taux 0
         </h2>
         <p>
           Les prêts à taux zéro sont des moyens avantageux de réaliser vos
