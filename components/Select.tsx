@@ -9,7 +9,7 @@ export default function Select({
   ...props
 }) {
   const [state, setState] = useState(value)
-
+  console.log('value', value)
   useEffect(() => {
     setState(value)
   }, [value, setState])
