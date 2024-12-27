@@ -1,6 +1,6 @@
 import { parse } from 'marked'
 
-import PTZ from '@/app/règles/PTZ.yaml'
+import PTZ from '@/app/règles/PTZ.publicodes'
 import PAR from '@/app/règles/PAR.publicodes'
 import ampleur from '@/app/règles/ampleur.publicodes'
 import gestes from '@/app/règles/gestes.yaml'
