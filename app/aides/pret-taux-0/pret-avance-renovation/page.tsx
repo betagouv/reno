@@ -2,6 +2,7 @@ import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 import Breadcrumb from '@/components/Breadcrumb'
 import PAR from './PAR'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'PAR+: Le prêt avance mutation (ou rénovation)',
@@ -24,7 +25,9 @@ export default function PagePAR() {
           ]}
         />
         <h2>Le Prêt avance mutation ou rénovation sans intérêt</h2>
-        <PAR />
+        <Suspense>
+          <PAR />
+        </Suspense>
       </Section>
     </Main>
   )
