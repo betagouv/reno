@@ -76,43 +76,17 @@ PAR . montant:
   titre: Montant du pret avance rénovation 0 %
   applicable si: conditions . communes
   variations:
-    - si: type travaux = "parois vitrées"
-      alors: 7000 €
-    - si: type travaux = "un poste"
-      alors: 15000 €
-    - si: type travaux = "deux postes"
-      alors: 25000 €
-    - si: type travaux = "trois postes"
-      alors: 30000 €
-    - si: type travaux = "rénovation globale"
-      alors: 50000 €
     - si: parcours d'aide = "ampleur"
       alors: 50000 €
+    - si: logement . type travaux = "parois vitrées"
+      alors: 7000 €
+    - si: logement . type travaux = "un poste"
+      alors: 15000 €
+    - si: logement . type travaux = "deux postes"
+      alors: 25000 €
+    - si: logement . type travaux = "trois postes"
+      alors: 30000 €
+    - si: logement . type travaux = "rénovation globale"
+      alors: 50000 €
 PAR . taux: 0 %
-PAR . durée: 10 an
-PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
-PAR . type travaux:
-  question: Quel type de travaux souhaitez-vous réaliser
-  une possibilité parmi:
-    possibilités:
-      - 'type travaux . parois vitrées'
-      - 'type travaux . un poste'
-      - 'type travaux . deux postes'
-      - 'type travaux . trois postes'
-      - 'type travaux . rénovation globale'
-
-PAR . type travaux . parois vitrées: 
-  valeur: "parois vitrées"
-  titre: "une action de travaux concernant les parois vitrées"
-PAR . type travaux . un poste: 
-  valeur: "un poste"
-  titre: "une action de travaux hors parois vitrées"
-PAR . type travaux . deux postes: 
-  valeur: "deux postes"
-  titre: "un bouquet de 2 postes de travaux"
-PAR . type travaux . trois postes: 
-  valeur: "trois postes"
-  titre: "un bouquet de 3 postes de travaux ou plus"
-PAR . type travaux . rénovation globale: 
-  valeur: "rénovation globale"
-  titre: "une rénovation d'ampleur"
+PAR . durée: 10 ans

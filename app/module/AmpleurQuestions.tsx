@@ -401,15 +401,15 @@ export const TypeTravaux = ({ setSearchParams, situation, rules }) => (
         `}
         disableInstruction={false}
         onChange={(e) => {
-          push(['trackEvent', 'PAR', 'Interaction', 'travaux ' + e])
+          push(['trackEvent', 'Module', 'Interaction', 'travaux ' + e])
           setSearchParams({
-            [encodeDottedName('PAR . type travaux')]: '"' + e + '"*',
+            [encodeDottedName('logement . type travaux')]: '"' + e + '"*',
           })
         }}
-        value={situation['PAR . type travaux']?.replaceAll('"', '')}
-        values={rules['PAR . type travaux']['une possibilité parmi'][
+        value={situation['logement . type travaux']?.replaceAll('"', '')}
+        values={rules['logement . type travaux']['une possibilité parmi'][
           'possibilités'
-        ].map((i) => rules['PAR . ' + i])}
+        ].map((i) => rules['logement . ' + i])}
       />
     </label>
   </section>
