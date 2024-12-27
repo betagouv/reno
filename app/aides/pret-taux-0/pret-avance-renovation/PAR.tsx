@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CTA, CTAWrapper, PrimeStyle } from '@/components/UI'
+import { Card, CTA, CTAWrapper } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import investissementIcon from '@/public/investissement.svg'
@@ -37,6 +37,7 @@ export default function PAR() {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const situation = getSituation(searchParams, rules)
+  situation["parcours d'aide"] = "'à la carte'"
 
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
   const evaluation = engine.setSituation(situation).evaluate('PAR . montant')
@@ -140,6 +141,7 @@ export default function PAR() {
           <Li
             key="typeTravaux"
             $next={answeredQuestions.includes('ménage . revenu . classe')}
+            $touched={answeredQuestions.includes('logement . type travaux')}
           >
             <TypeTravaux
               {...{
@@ -166,16 +168,19 @@ export default function PAR() {
             {!isMobile && (
               <Image src={investissementIcon} alt="icone montant en euro" />
             )}
-            <p>
+            <p
+              css={`
+                flex: 1;
+              `}
+            >
               {evaluation.nodeValue ? (
                 <>
                   <strong>Vous êtes éligible</strong>
-                  <br />à un prêt d'un montant maximum de
-                  <br />
+                  <br />à un prêt d'un montant maximum de{' '}
                   <Key $state="in-progress">{formatValue(evaluation)}</Key> sans
                   intérêt pendant{' '}
                   <Key $state="in-progress">
-                    {formatValue(engine.evaluate('PAR . durée'))}s
+                    {formatValue(engine.evaluate('PAR . durée'))}
                   </Key>
                 </>
               ) : (
@@ -193,7 +198,7 @@ export default function PAR() {
                 </>
               )}
             </p>
-            <CTAWrapper $justify="left">
+            <CTAWrapper $justify="left" $customCss="margin: 0;">
               <CTA $importance="primary" css="font-size: 100%">
                 <AmpleurCTA {...{ situation: situation }} />
               </CTA>
