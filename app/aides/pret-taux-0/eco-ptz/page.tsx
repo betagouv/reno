@@ -1,20 +1,14 @@
-import { Card, Main, Section } from '@/components/UI'
+import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
-import ptzImage from '@/public/eco-ptz.png'
-import parImage from '@/public/par.png'
-import Image from 'next/image'
-import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
-import { CardMosaic } from '@/components/DevenirPartenaire'
+import { Suspense } from 'react'
+import PTZ from './PTZ'
 
 export const metadata: Metadata = {
-  title:
-    'Les prêts à taux 0 destinées à la rénovation énergétique en ' +
-    new Date().getFullYear(),
+  title: "Eco-PTZ: L'éco-prêt à taux 0 en" + new Date().getFullYear(),
   description:
-    'Les prêts à taux 0 destinées à la rénovation énergétique en ' +
-    new Date().getFullYear() +
-    ": L'éco-prêt à taux 0 (éco-PTZ) et le Prêt avance mutation (PAR+)",
+    "L'éco-PTZ: Un prêt à taux 0 sans conditions de ressource destinées à financer la rénovation énergétique de votre logement en " +
+    new Date().getFullYear(),
 }
 
 export default function Aides() {
@@ -26,11 +20,14 @@ export default function Aides() {
             { 'Les aides': '/aides' },
             { 'Les prêts à taux 0': '/aides/pret-taux-0' },
             {
-              "L'eco-ptz": '/aides/pret-taux-0/eco-ptz',
+              "L'éco-ptz": '/aides/pret-taux-0/eco-ptz',
             },
           ]}
         />
-        <h2>L'eco-PTZ</h2>
+        <h2>L'éco-prêt à taux zéro ou éco-PTZ</h2>
+        <Suspense>
+          <PTZ />
+        </Suspense>
       </Section>
     </Main>
   )
