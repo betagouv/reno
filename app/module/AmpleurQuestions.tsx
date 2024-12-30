@@ -12,6 +12,32 @@ import styled from 'styled-components'
 import { getRevenusList } from '@/components/RevenuInput'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { formatValue } from 'publicodes'
+import AddressSearch from '@/components/AddressSearch'
+
+export const CommuneLogement = ({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+  onChange,
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      Ce logement sera situé sur la commune de :{' '}
+      <AddressSearch
+        {...{
+          type: 'logement . commune',
+          setChoice: (result) => {
+            onChange(result)
+          },
+          setSearchParams,
+          situation,
+          answeredQuestions,
+        }}
+      />
+    </label>
+  </section>
+)
 
 export const TypeResidence = ({
   setSearchParams,
@@ -320,7 +346,60 @@ export const PeriodeConstructionQuestion = ({
                   'période construction non',
                 ])
                 setSearchParams({
-                  [encodeDottedName('logement . au moins 2 ans')]: 'non*',
+                  [encodeDottedName('logement . ' + periode)]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
+          </label>
+        </section>
+      </YesNoQuestion>
+    </div>
+  )
+}
+
+export const TFDepenseQuestion = ({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+  rules,
+  rule = 'taxe foncière . condition de dépenses',
+}) => {
+  const answered = answeredQuestions.includes(rule)
+  return (
+    <div
+      css={`
+        display: flex;
+        align-items: center;
+      `}
+    >
+      <Dot />
+      <YesNoQuestion>
+        <span>{rules[rule]['question']}</span>
+        <section>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation[rule] === 'oui'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', 'tf dépense oui'])
+                setSearchParams({
+                  [encodeDottedName(rule)]: 'oui*',
+                })
+              }}
+            />
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation[rule] === 'non'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', 'tf dépense non'])
+                setSearchParams({
+                  [encodeDottedName(rule)]: 'non*',
                 })
               }}
             />
