@@ -274,8 +274,9 @@ export const PeriodeConstructionQuestion = ({
   setSearchParams,
   situation,
   answeredQuestions,
+  periode,
 }) => {
-  const answered = answeredQuestions.includes('logement . au moins 2 ans')
+  const answered = answeredQuestions.includes('logement . ' + periode)
   return (
     <div
       css={`
@@ -285,15 +286,13 @@ export const PeriodeConstructionQuestion = ({
     >
       <Dot />
       <YesNoQuestion>
-        <span>Il a été achevé il y a plus de 2 ans</span>
+        <span>Il a été achevé depuis {periode}</span>
         <section>
           <label>
             <input
               id={`idf`}
               type="radio"
-              checked={
-                answered && situation['logement . au moins 2 ans'] === 'oui'
-              }
+              checked={answered && situation['logement . ' + periode] === 'oui'}
               onChange={() => {
                 push([
                   'trackEvent',
@@ -302,7 +301,7 @@ export const PeriodeConstructionQuestion = ({
                   'période construction oui',
                 ])
                 setSearchParams({
-                  [encodeDottedName('logement . au moins 2 ans')]: 'oui*',
+                  [encodeDottedName('logement . ' + periode)]: 'oui*',
                 })
               }}
             />
@@ -312,9 +311,7 @@ export const PeriodeConstructionQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={
-                answered && situation['logement . au moins 2 ans'] === 'non'
-              }
+              checked={answered && situation['logement . ' + periode] === 'non'}
               onChange={() => {
                 push([
                   'trackEvent',
@@ -340,8 +337,9 @@ export const IdFQuestion = ({
   isMobile,
   situation,
   answeredQuestions,
+  rule = 'ménage . région . IdF',
 }) => {
-  const answered = answeredQuestions.includes('ménage . région . IdF')
+  const answered = answeredQuestions.includes(rule)
   return (
     <div
       css={`
@@ -359,11 +357,11 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation['ménage . région . IdF'] === 'oui'}
+              checked={answered && situation[rule] === 'oui'}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf desktop oui'])
                 setSearchParams({
-                  [encodeDottedName('ménage . région . IdF')]: 'oui*',
+                  [encodeDottedName(rule)]: 'oui*',
                 })
               }}
             />
@@ -373,11 +371,11 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation['ménage . région . IdF'] === 'non'}
+              checked={answered && situation[rule] === 'non'}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf desktop non'])
                 setSearchParams({
-                  [encodeDottedName('ménage . région . IdF')]: 'non*',
+                  [encodeDottedName(rule)]: 'non*',
                 })
               }}
             />
@@ -389,7 +387,12 @@ export const IdFQuestion = ({
   )
 }
 
-export const TypeTravaux = ({ setSearchParams, situation, rules }) => (
+export const TypeTravaux = ({
+  setSearchParams,
+  situation,
+  rules,
+  rule = 'logement . type travaux',
+}) => (
   <section>
     <Dot />
     <label htmlFor="">
@@ -403,13 +406,13 @@ export const TypeTravaux = ({ setSearchParams, situation, rules }) => (
         onChange={(e) => {
           push(['trackEvent', 'Module', 'Interaction', 'travaux ' + e])
           setSearchParams({
-            [encodeDottedName('logement . type travaux')]: '"' + e + '"*',
+            [encodeDottedName(rule)]: '"' + e + '"*',
           })
         }}
-        value={situation['logement . type travaux']?.replaceAll('"', '')}
-        values={rules['logement . type travaux']['une possibilité parmi'][
-          'possibilités'
-        ].map((i) => rules['logement . ' + i])}
+        value={situation[rule]?.replaceAll('"', '')}
+        values={rules[rule]['une possibilité parmi']['possibilités'].map(
+          (i) => rules['logement . ' + i],
+        )}
       />
     </label>
   </section>

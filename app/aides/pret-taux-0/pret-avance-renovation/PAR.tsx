@@ -40,8 +40,9 @@ export default function PAR() {
   situation["parcours d'aide"] = "'à la carte'"
 
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  const evaluation = engine.setSituation(situation).evaluate('PAR . montant')
-
+  const evaluation = engine
+    .setSituation(situation)
+    .evaluate(dottedName + ' . montant')
   const onChange =
     (dottedName) =>
     ({ target: { value } }) =>
@@ -93,7 +94,12 @@ export default function PAR() {
             $touched={answeredQuestions.includes('logement . au moins 2 ans')}
           >
             <PeriodeConstructionQuestion
-              {...{ setSearchParams, situation, answeredQuestions }}
+              {...{
+                setSearchParams,
+                situation,
+                answeredQuestions,
+                periode: 'au moins 2 ans',
+              }}
             />
           </Li>
           <Li
