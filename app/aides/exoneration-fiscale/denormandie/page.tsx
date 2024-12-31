@@ -2,14 +2,12 @@ import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 import Breadcrumb from '@/components/Breadcrumb'
 import { Suspense } from 'react'
-import PTZ from './PTZ'
 import Denormandie from './Denormandie'
 
 export const metadata: Metadata = {
-  title: "Eco-PTZ: L'éco-prêt à taux 0 en" + new Date().getFullYear(),
+  title: 'Le dispositif Denormandie en' + new Date().getFullYear(),
   description:
-    "L'éco-PTZ: Un prêt à taux 0 sans conditions de ressource destinées à financer la rénovation énergétique de votre logement en " +
-    new Date().getFullYear(),
+    "Le dispositif Denormandie: Une réduction d'impôts à destination des propriétaires bailleurs",
 }
 
 export default function Aides() {
