@@ -42,7 +42,6 @@ denormandie . conditions:
     - vous . propriétaire . condition
     - logement . propriétaire occupant = non
     - années de location >= 6
-    - soumis à l'impôt
     - amélioration énergétique
     - logement . commune . denormandie
 
@@ -148,7 +147,3 @@ denormandie . taux:
     - si: années de location = 12
       alors: 21 %
     - sinon: 0
-
-soumis à l'impôt:
-  description: Cette condition est potentiellement contestable mais elle nous sert à ne pas afficher cette aide totalement inintéressante pour des foyers trop modestes.
-  formule: ménage . revenu > 11295 €
