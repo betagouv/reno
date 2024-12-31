@@ -11,10 +11,11 @@ import {
   Li,
   PeriodeConstructionQuestion,
   QuestionList,
-  TFDepenseQuestion,
+  YesNoQuestion,
 } from '@/app/module/AmpleurQuestions'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import {
+  encodeDottedName,
   encodeSituation,
   getAnsweredQuestions,
   getSituation,
@@ -36,7 +37,7 @@ export default function TaxeFonciere() {
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
   const evaluation = engine
     .setSituation(situation)
-    .evaluate(dottedName + ' . taux')
+    .evaluate(dottedName + ' . conditions')
 
   return (
     <>
@@ -74,20 +75,23 @@ export default function TaxeFonciere() {
                 situation,
                 answeredQuestions,
                 onChange: (result) => {
-                  const encodedSituation = encodeSituation(
-                    {
-                      ...situation,
-                      'taxe foncière . commune . éligible':
-                        result.eligibilite[
-                          'taxe foncière . commune . éligible'
-                        ] + '*',
-                      'taxe foncière . commune . taux':
-                        result.eligibilite['taxe foncière . commune . taux'],
-                    },
-                    false,
-                  )
-
-                  setSearchParams(encodedSituation, 'replace', false)
+                  setSearchParams({
+                    [encodeDottedName('logement . commune')]:
+                      `"${result.code}"*`,
+                    [encodeDottedName('logement . commune . nom')]:
+                      `"${result.nom}"*`,
+                    [encodeDottedName('taxe foncière . commune . éligible')]:
+                      result.eligibilite['taxe foncière . commune . éligible'] +
+                      '*',
+                    ...(result.eligibilite['taxe foncière . commune . taux']
+                      ? {
+                          [encodeDottedName('taxe foncière . commune . taux')]:
+                            result.eligibilite[
+                              'taxe foncière . commune . taux'
+                            ] + '*',
+                        }
+                      : {}),
+                  })
                 },
               }}
             />
@@ -115,17 +119,18 @@ export default function TaxeFonciere() {
               'taxe foncière . condition de dépenses',
             )}
           >
-            <TFDepenseQuestion
+            <YesNoQuestion
               {...{
                 setSearchParams,
                 situation,
                 answeredQuestions,
                 rules,
+                rule: 'taxe foncière . condition de dépenses',
               }}
             />
           </Li>
         </QuestionList>
-        {answeredQuestions.length == 3 && (
+        {!Object.keys(evaluation.missingVariables).length && (
           <div
             css={`
               background: var(--lightestColor);
@@ -144,16 +149,25 @@ export default function TaxeFonciere() {
             <p
               css={`
                 flex: 1;
+                text-align: center;
               `}
             >
               {evaluation.nodeValue ? (
                 <>
-                  <strong>Vous êtes éligible</strong>
-                  <br />à une exonération de{' '}
-                  <Key $state="in-progress">
+                  <strong>Vous êtes éligible à une exonération de </strong>
+                  <Key
+                    $state="prime"
+                    css={`
+                      display: block;
+                      margin: 0.5rem auto;
+                      width: fit-content;
+                      font-size: 1.5rem;
+                      padding: 0.5rem;
+                    `}
+                  >
                     {formatValue(engine.evaluate(dottedName + ' . taux'))}
                   </Key>{' '}
-                  du montant de votre Taxe Foncière pendant{' '}
+                  de Taxe Foncière pendant{' '}
                   <Key $state="in-progress">
                     {formatValue(engine.evaluate(dottedName + ' . durée'))}
                   </Key>
