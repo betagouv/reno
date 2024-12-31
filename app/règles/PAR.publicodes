@@ -88,5 +88,7 @@ PAR . montant:
       alors: 30000 €
     - si: logement . type travaux = "rénovation globale"
       alors: 50000 €
+    - si: logement . type travaux = "assainissement"
+      alors: 10000 €
 PAR . taux: 0 %
 PAR . durée: 10 ans
