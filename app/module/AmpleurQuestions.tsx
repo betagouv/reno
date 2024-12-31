@@ -79,7 +79,6 @@ export const TypeResidence = ({
 )
 
 export const PersonnesQuestion = ({
-  defaultSituation,
   situation,
   onChange,
   answeredQuestions,
@@ -112,6 +111,40 @@ export const PersonnesQuestion = ({
         `}
       />{' '}
       personnes.
+    </label>
+  </section>
+)
+export const MontantQuestion = ({
+  situation,
+  setSearchParams,
+  answeredQuestions,
+  rule,
+  text,
+  dot = true,
+}) => (
+  <section>
+    {dot && <Dot />}
+    <label>
+      <span>{text}</span>{' '}
+      <input
+        type="number"
+        min="1"
+        inputMode="numeric"
+        pattern="[1-9]+"
+        defaultValue={
+          answeredQuestions.includes(rule) ? situation[rule] : undefined
+        }
+        onChange={(e) => {
+          const { value } = e.target
+          const invalid = isNaN(value) || value <= 1000
+          if (invalid) return
+          push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + value])
+          setSearchParams({
+            [encodeDottedName(rule)]: value + '*',
+          })
+        }}
+      />{' '}
+      €.
     </label>
   </section>
 )
@@ -235,7 +268,7 @@ export const RevenuMaxQuestion = ({
         `}
       >
         <Dot />
-        <YesNoQuestion>
+        <YesNoQuestionStyle>
           <span>
             Avec un revenu fiscal inférieur à{' '}
             <strong>{formatValue(revenuMax)}€</strong> ?
@@ -283,7 +316,7 @@ export const RevenuMaxQuestion = ({
               <span>Non</span>
             </label>
           </section>
-        </YesNoQuestion>
+        </YesNoQuestionStyle>
       </div>
     )
   }
@@ -311,7 +344,7 @@ export const PeriodeConstructionQuestion = ({
       `}
     >
       <Dot />
-      <YesNoQuestion>
+      <YesNoQuestionStyle>
         <span>Il a été achevé depuis {periode}</span>
         <section>
           <label>
@@ -353,17 +386,18 @@ export const PeriodeConstructionQuestion = ({
             <span>Non</span>
           </label>
         </section>
-      </YesNoQuestion>
+      </YesNoQuestionStyle>
     </div>
   )
 }
 
-export const TFDepenseQuestion = ({
+export const YesNoQuestion = ({
   setSearchParams,
   situation,
   answeredQuestions,
   rules,
-  rule = 'taxe foncière . condition de dépenses',
+  rule,
+  text,
 }) => {
   const answered = answeredQuestions.includes(rule)
   return (
@@ -374,8 +408,8 @@ export const TFDepenseQuestion = ({
       `}
     >
       <Dot />
-      <YesNoQuestion>
-        <span>{rules[rule]['question']}</span>
+      <YesNoQuestionStyle>
+        <span>{text || rules[rule]['question']}</span>
         <section>
           <label>
             <input
@@ -383,7 +417,7 @@ export const TFDepenseQuestion = ({
               type="radio"
               checked={answered && situation[rule] === 'oui'}
               onChange={() => {
-                push(['trackEvent', 'Module', 'Interaction', 'tf dépense oui'])
+                push(['trackEvent', 'Module', 'Interaction', rule + ' oui'])
                 setSearchParams({
                   [encodeDottedName(rule)]: 'oui*',
                 })
@@ -397,7 +431,7 @@ export const TFDepenseQuestion = ({
               type="radio"
               checked={answered && situation[rule] === 'non'}
               onChange={() => {
-                push(['trackEvent', 'Module', 'Interaction', 'tf dépense non'])
+                push(['trackEvent', 'Module', 'Interaction', rule + ' non'])
                 setSearchParams({
                   [encodeDottedName(rule)]: 'non*',
                 })
@@ -406,7 +440,7 @@ export const TFDepenseQuestion = ({
             <span>Non</span>
           </label>
         </section>
-      </YesNoQuestion>
+      </YesNoQuestionStyle>
     </div>
   )
 }
@@ -427,7 +461,7 @@ export const IdFQuestion = ({
       `}
     >
       <Dot />
-      <YesNoQuestion>
+      <YesNoQuestionStyle>
         <span>
           Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
         </span>
@@ -461,7 +495,7 @@ export const IdFQuestion = ({
             <span>Non</span>
           </label>
         </section>
-      </YesNoQuestion>
+      </YesNoQuestionStyle>
     </div>
   )
 }
@@ -475,7 +509,7 @@ export const TypeTravaux = ({
   <section>
     <Dot />
     <label htmlFor="">
-      Quels travaux envisagez-vous:{' '}
+      {rules[rule]['question']}:{' '}
       <Select
         css={`
           background: #f5f5fe;
@@ -491,6 +525,38 @@ export const TypeTravaux = ({
         value={situation[rule]?.replaceAll('"', '')}
         values={rules[rule]['une possibilité parmi']['possibilités'].map(
           (i) => rules['logement . ' + i],
+        )}
+      />
+    </label>
+  </section>
+)
+
+export const DureeLocation = ({
+  setSearchParams,
+  situation,
+  rules,
+  rule = 'denormandie . années de location',
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      {rules[rule]['question']}{' '}
+      <Select
+        css={`
+          background: #f5f5fe;
+          max-width: 90vw;
+        `}
+        onChange={(e) => {
+          if (!e) return
+          push(['trackEvent', 'Module', 'Interaction', 'travaux ' + e])
+          setSearchParams({
+            [encodeDottedName(rule)]: e + '*',
+          })
+        }}
+        disableInstruction={false}
+        value={situation[rule]?.replaceAll('"', '')}
+        values={rules[rule]['une possibilité parmi']['possibilités'].map(
+          (i) => ({ titre: i + ' ans', valeur: i }),
         )}
       />
     </label>
@@ -537,7 +603,7 @@ export const Li = styled.li`
         : `filter: grayscale(0.9) opacity(0.4)`};
 `
 
-export const YesNoQuestion = styled.div`
+export const YesNoQuestionStyle = styled.div`
   > section {
     margin-left: 1rem;
     label {
