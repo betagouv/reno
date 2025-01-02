@@ -27,6 +27,7 @@ import { useSearchParams } from 'next/navigation'
 import { useMediaQuery } from 'usehooks-ts'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import { Key } from '@/components/explications/ExplicationUI'
+import FatConseiller from '@/components/FatConseiller'
 
 export default function PAR() {
   const isMobile = useMediaQuery('(max-width: 400px)')
@@ -168,6 +169,7 @@ export default function PAR() {
               gap: 1rem;
               justify-content: space-between;
               align-items: center;
+              text-align: center;
               flex-wrap: wrap;
             `}
           >
@@ -181,13 +183,31 @@ export default function PAR() {
             >
               {evaluation.nodeValue ? (
                 <>
-                  <strong>Vous êtes éligible</strong>
-                  <br />à un prêt d'un montant maximum de{' '}
-                  <Key $state="in-progress">{formatValue(evaluation)}</Key> sans
-                  intérêt pendant{' '}
-                  <Key $state="in-progress">
-                    {formatValue(engine.evaluate('PAR . durée'))}
-                  </Key>
+                  <strong>Vous êtes éligible à un prêt d'un montant</strong>
+                  <span
+                    css={`
+                      display: block;
+                      margin: 0.5rem 0;
+                    `}
+                  >
+                    de{' '}
+                    <Key
+                      $state="prime"
+                      css={`
+                        font-size: 1.5rem;
+                        padding: 0.4rem;
+                      `}
+                    >
+                      {formatValue(engine.evaluate(dottedName + ' . montant'))}
+                    </Key>{' '}
+                    maximum
+                  </span>
+                  <small>
+                    sans intérêt pendant{' '}
+                    <Key $state="in-progress">
+                      {formatValue(engine.evaluate(dottedName + ' . durée'))}
+                    </Key>
+                  </small>
                 </>
               ) : (
                 <>
@@ -231,6 +251,14 @@ export default function PAR() {
         `}
         dangerouslySetInnerHTML={{
           __html: rules[dottedName].conditionsEligibilitesHTML,
+        }}
+      />
+      <FatConseiller
+        {...{
+          situation,
+          margin: 'small',
+          titre: 'Comment toucher cette aide ?',
+          texte: rules[dottedName].commentFaireHtml,
         }}
       />
     </>
