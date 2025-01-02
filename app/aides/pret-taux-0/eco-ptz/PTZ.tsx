@@ -138,17 +138,15 @@ export default function PTZ() {
               </Li>
             )}
         </QuestionList>
-        {!Object.keys(evaluation.missingVariables).length && (
-          <EligibilityResult
-            {...{
-              evaluation,
-              engine,
-              dottedName,
-              situation,
-              text: "à l'éco-PTZ",
-            }}
-          />
-        )}
+        <EligibilityResult
+          {...{
+            evaluation,
+            engine,
+            dottedName,
+            situation,
+            text: "à l'éco-PTZ",
+          }}
+        />
       </Card>
       <h3>Comment cela fonctionne?</h3>
       <div

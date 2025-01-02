@@ -160,18 +160,15 @@ export default function Denormandie() {
             </>
           )}
         </QuestionList>
-        {(!Object.keys(evaluation.missingVariables).length ||
-          situation['logement . commune . denormandie'] == 'non') && (
-          <EligibilityResult
-            {...{
-              evaluation,
-              engine,
-              dottedName,
-              situation,
-              text: 'au dispositif Denormandie',
-            }}
-          />
-        )}
+        <EligibilityResult
+          {...{
+            evaluation,
+            engine,
+            dottedName,
+            situation,
+            text: 'au dispositif Denormandie',
+          }}
+        />
       </Card>
       <h3>Les principales conditions d'éligibilité ?</h3>
       <div

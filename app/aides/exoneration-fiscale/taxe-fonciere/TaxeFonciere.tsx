@@ -129,18 +129,15 @@ export default function TaxeFonciere() {
             </>
           )}
         </QuestionList>
-        {(!Object.keys(evaluation.missingVariables).length ||
-          situation['taxe foncière . commune . éligible'] == 'non') && (
-          <EligibilityResult
-            {...{
-              evaluation,
-              engine,
-              dottedName,
-              situation,
-              text: "à l'exonération de taxe foncière",
-            }}
-          />
-        )}
+        <EligibilityResult
+          {...{
+            evaluation,
+            engine,
+            dottedName,
+            situation,
+            text: "à l'exonération de taxe foncière",
+          }}
+        />
       </Card>
       <h3>Comment cela fonctionne?</h3>
       <div

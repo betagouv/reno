@@ -25,8 +25,10 @@ import {
 import { useSearchParams } from 'next/navigation'
 import FatConseiller from '@/components/FatConseiller'
 import { EligibilityResult } from '@/components/EligibilityResult'
+import { useMediaQuery } from 'usehooks-ts'
 
 export default function PAR() {
+  const isMobile = useMediaQuery('(max-width: 400px)')
   const engine = new Publicodes(rules)
   const dottedName = 'PAR'
   const setSearchParams = useSetSearchParams()
@@ -149,17 +151,15 @@ export default function PAR() {
             />
           </Li>
         </QuestionList>
-        {!Object.keys(evaluation.missingVariables).length && (
-          <EligibilityResult
-            {...{
-              evaluation,
-              engine,
-              dottedName,
-              situation,
-              text: 'au PAR+',
-            }}
-          />
-        )}
+        <EligibilityResult
+          {...{
+            evaluation,
+            engine,
+            dottedName,
+            situation,
+            text: 'au PAR+',
+          }}
+        />
       </Card>
       <h3>Comment cela fonctionne?</h3>
       <div
