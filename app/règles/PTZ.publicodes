@@ -6,9 +6,9 @@ PTZ:
   description: |
     L'éco-prêt à taux zéro est un prêt à 0 % qui permet de financer des travaux d'amélioration de la performance énergétique d'un logement.
   informations utiles: |
-    - L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448" target="_blank"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
-    - L'éco-PTZ est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905" target="_blank"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
-    - Son montant dépendra de votre endettement et de votre capacité à le rembourser.
+    L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448" target="_blank"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
+    Il est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905" target="_blank"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
+    Son montant dépendra de votre endettement et de votre capacité à le rembourser.
   conditions éligibilités: |
     - Votre logement doit avoir été construit il y a au moins de 2 ans (à la date du début des travaux)
     - Le logement doit être déclaré comme résidence principale ou destiné à l'être
@@ -30,30 +30,32 @@ PTZ:
 
     Vous devez réaliser des travaux qui répondent à l'une des trois conditions suivantes.
 
-    A) Soit correspondent à au moins une action efficace d'amélioration de la performance énergétique. 
-    <details><summary>Voir la liste</summary>
-      - isolation thermique de la toiture
-      - isolation thermique des murs donnant sur l'extérieur
-      - remplacement d'au moins la moitié des fenêtres en simple vitrage par du double vitrage et remplacement des portes donnant sur l'extérieur
-      - isolation des planchers bas
-      - installation ou remplacement d'un système de chauffage ou de production d'eau chaude sanitaire
-      - installation d'équipements de chauffage utilisant une source d'énergie renouvelable
-      - installation d'équipements de production d'eau chaude sanitaire utilisant une source d'énergie renouvelable.
-
-    </details>
+    A) soit correspondent à au moins une action efficace d'amélioration de la performance énergétique parmi la liste suivante:
+      <ul>
+        <li>isolation thermique de la toiture</li>
+        <li>isolation thermique des murs donnant sur l'extérieur</li>
+        <li>remplacement d'au moins la moitié des fenêtres en simple vitrage par du double vitrage et remplacement des portes donnant sur l'extérieur</li>
+        <li>isolation des planchers bas</li>
+        <li>installation ou remplacement d'un système de chauffage ou de production d'eau chaude sanitaire</li>
+        <li>installation d'équipements de chauffage utilisant une source d'énergie renouvelable</li>
+        <li>installation d'équipements de production d'eau chaude sanitaire utilisant une source d'énergie renouvelable.</li>
+      </ul>
 
     B) soit ouvrent droit à l'aide MaPrimeRénov' Parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle ;
 
     C) soit permettent d'améliorer d'au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux. Un audit énergétique réalisé par un diagnostiqueur qualifié doit être effectué au préalable pour déterminer les travaux nécessaires.
 
+    D) soit constituent des travaux de réhabilitation de systèmes d’assainissement non collectifs par des dispositifs ne consommant pas d’énergie et respectant certains critères techniques
+
     Voici le montant maximum d'un prêt par logement : 
       
-      | Action parois vitrées | Autre  action seule | 2 actions | 3 actions | Prime Rénov' | Performance globale +35% |
-      |-----------------------|:-------------------:|:---------:|:---------:|:------------:|--------------------------|
-      | 7 000 €               | 15 000 €            | 25 000 €  |  30 000 € |     50 000 € | 50 000 €                 |
-      |                       |                     |           |           |              |                          |
+      | Action parois vitrées | Autre  action seule | 2 actions | 3 actions | Prime Rénov' | Performance globale +35% | Assainissement non collectif |
+      |-----------------------|:-------------------:|:---------:|:---------:|:------------:|--------------------------|------------------------------|
+      | 7 000 €               | 15 000 €            | 25 000 €  |  30 000 € |     50 000 € | 50 000 €                 |10 000 €                      |
+     
 
-    > Si vous bénéficiez de MaPrimeRénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov' auprès de votre banque simplement sur la base de la notification d'accord transmise par l'Agence nationale de l'habitat (Anah).
+
+    Si vous bénéficiez de MaPrimeRénov', vous pourrez demander un éco-prêt un taux zéro Prime Rénov' auprès de votre banque simplement sur la base de la notification d'accord transmise par l'Agence nationale de l'habitat (Anah).
 
     Il existe aussi un éco-PTZ [pour les copropriétaires](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
 

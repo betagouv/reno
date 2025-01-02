@@ -20,7 +20,7 @@ export default function Aides() {
             { 'Les aides': '/aides' },
             { 'Les prêts à taux 0': '/aides/pret-taux-0' },
             {
-              "L'éco-ptz": '/aides/pret-taux-0/eco-ptz',
+              "L'éco-PTZ": '/aides/pret-taux-0/eco-ptz',
             },
           ]}
         />

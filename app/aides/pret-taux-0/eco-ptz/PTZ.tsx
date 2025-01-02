@@ -152,7 +152,7 @@ export default function PTZ() {
                       color: red;
                     `}
                   >
-                    Vous n'êtes pas éligible au Prêt avance mutation
+                    Vous n'êtes pas éligible à l'éco-PTZ
                   </span>
                   <br />
                   <span>⚠️ Vous êtes peut-être éligible à d'autres aides!</span>
@@ -170,23 +170,31 @@ export default function PTZ() {
       </Card>
       <h3>Comment cela fonctionne?</h3>
       <div
-        dangerouslySetInnerHTML={{
-          __html: rules[dottedName].explicationHTML,
-        }}
-      />
-      <h3>Les principales conditions d'éligibilité ?</h3>
-      <div
         css={`
-          list-style-image: url(${checkIcon.src});
-          li {
-            margin: 1rem 0;
-            ul {
-              list-style-image: none;
+          table {
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            td,
+            th {
+              border: 1px solid black;
+              text-align: center;
+              padding: 0.5rem;
+            }
+            td {
+              white-space: nowrap;
             }
           }
         `}
         dangerouslySetInnerHTML={{
-          __html: rules[dottedName].conditionsEligibilitesHTML,
+          __html: parse(rules[dottedName]['description détaillé']),
+        }}
+      />
+      <FatConseiller
+        {...{
+          situation,
+          margin: 'small',
+          titre: 'Comment toucher cette aide ?',
+          texte: rules[dottedName].commentFaireHtml,
         }}
       />
     </>
