@@ -24,7 +24,7 @@ import {
   YesNoQuestion,
 } from '@/app/module/AmpleurQuestions'
 import { Key } from '@/components/explications/ExplicationUI'
-import Value from '@/components/Value'
+import FatConseiller from '@/components/FatConseiller'
 
 export default function Denormandie() {
   const isMobile = useMediaQuery('(max-width: 400px)')
@@ -63,21 +63,7 @@ export default function Denormandie() {
         </h3>
         <QuestionList>
           <Li
-            key="typeResidence"
             $next={true}
-            $touched={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
-          >
-            <TypeResidence
-              {...{ setSearchParams, situation, answeredQuestions }}
-            />
-          </Li>
-          <Li
-            key="communeLogement"
-            $next={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
             $touched={answeredQuestions.includes(
               'denormandie . commune . éligible',
             )}
@@ -101,75 +87,86 @@ export default function Denormandie() {
               }}
             />
           </Li>
-          <Li
-            key="prixAchat"
-            $next={answeredQuestions.includes(
-              'logement . commune . denormandie',
-            )}
-            $touched={answeredQuestions.includes("logement . prix d'achat")}
-          >
-            <MontantQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                rule: "logement . prix d'achat",
-                text: "Le prix d'achat du logement est de",
-              }}
-            />
-          </Li>
-          <Li
-            key="montantTravaux"
-            $next={answeredQuestions.includes("logement . prix d'achat")}
-            $touched={answeredQuestions.includes('projet . travaux')}
-          >
-            <MontantQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                rule: 'projet . travaux',
-                text: 'Le budget travaux est estimé à',
-              }}
-            />
-          </Li>
-          <Li
-            key="dureeLocation"
-            $next={answeredQuestions.includes('projet . travaux')}
-            $touched={answeredQuestions.includes(
-              'denormandie . années de location',
-            )}
-          >
-            <DureeLocation
-              {...{
-                setSearchParams,
-                situation,
-                rules,
-                answeredQuestions,
-                rule: 'denormandie . années de location',
-              }}
-            />
-          </Li>
-          <Li
-            key="ameliorationEnergetique"
-            $next={answeredQuestions.includes('projet . travaux')}
-            $touched={answeredQuestions.includes(
-              'denormandie . amélioration énergétique',
-            )}
-          >
-            <YesNoQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                rules,
-                rule: 'denormandie . amélioration énergétique',
-                text: "Allez-vous améliorer la performance énergétique d'au moins 30% ou réaliser 2 types de travaux parmi: changement de chaudière ; isolation thermique des combles ; isolation thermique des murs ; changement de production d'eau chaude ; isolation thermique des fenêtres. ",
-              }}
-            />
-          </Li>
+          {situation['logement . commune . denormandie'] == 'oui' && (
+            <>
+              <Li
+                $next={true}
+                $touched={answeredQuestions.includes(
+                  'logement . résidence principale propriétaire',
+                )}
+              >
+                <TypeResidence
+                  {...{ setSearchParams, situation, answeredQuestions }}
+                />
+              </Li>
+              <Li
+                $next={answeredQuestions.includes(
+                  'logement . résidence principale propriétaire',
+                )}
+                $touched={answeredQuestions.includes("logement . prix d'achat")}
+              >
+                <MontantQuestion
+                  {...{
+                    setSearchParams,
+                    situation,
+                    answeredQuestions,
+                    rule: "logement . prix d'achat",
+                    text: "Le prix d'achat du logement est de",
+                  }}
+                />
+              </Li>
+              <Li
+                $next={answeredQuestions.includes("logement . prix d'achat")}
+                $touched={answeredQuestions.includes('projet . travaux')}
+              >
+                <MontantQuestion
+                  {...{
+                    setSearchParams,
+                    situation,
+                    answeredQuestions,
+                    rule: 'projet . travaux',
+                    text: 'Le budget travaux est estimé à',
+                  }}
+                />
+              </Li>
+              <Li
+                $next={answeredQuestions.includes('projet . travaux')}
+                $touched={answeredQuestions.includes(
+                  'denormandie . années de location',
+                )}
+              >
+                <DureeLocation
+                  {...{
+                    setSearchParams,
+                    situation,
+                    rules,
+                    answeredQuestions,
+                    rule: 'denormandie . années de location',
+                  }}
+                />
+              </Li>
+              <Li
+                $next={answeredQuestions.includes('projet . travaux')}
+                $touched={answeredQuestions.includes(
+                  'denormandie . amélioration énergétique',
+                )}
+              >
+                <YesNoQuestion
+                  {...{
+                    setSearchParams,
+                    situation,
+                    answeredQuestions,
+                    rules,
+                    rule: 'denormandie . amélioration énergétique',
+                    text: "Allez-vous améliorer la performance énergétique d'au moins 30% ou réaliser 2 types de travaux parmi: changement de chaudière, de production d'eau chaude, isolation thermique des combles, des murs ou des fenêtres.",
+                  }}
+                />
+              </Li>
+            </>
+          )}
         </QuestionList>
-        {!Object.keys(evaluation.missingVariables).length && (
+        {(!Object.keys(evaluation.missingVariables).length ||
+          situation['logement . commune . denormandie'] == 'non') && (
           <div
             css={`
               background: var(--lightestColor);
@@ -197,7 +194,7 @@ export default function Denormandie() {
                     css={`
                       display: block;
                       text-align: center;
-                      margin: 1rem 0;
+                      margin: 0.5rem 0;
                     `}
                   >
                     <Key
@@ -249,7 +246,10 @@ export default function Denormandie() {
                       color: red;
                     `}
                   >
-                    Vous n'êtes pas éligible au dispositif Denormandie
+                    {situation['logement . commune . denormandie'] == 'non'
+                      ? "Cette commune n'est"
+                      : "Vous n'êtes"}{' '}
+                    pas éligible au dispositif Denormandie
                   </span>
                   <br />
                   <span>⚠️ Vous êtes peut-être éligible à d'autres aides!</span>
@@ -265,12 +265,6 @@ export default function Denormandie() {
           </div>
         )}
       </Card>
-      <h3>Comment cela fonctionne?</h3>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: rules[dottedName].explicationHTML,
-        }}
-      />
       <h3>Les principales conditions d'éligibilité ?</h3>
       <div
         css={`
@@ -284,6 +278,14 @@ export default function Denormandie() {
         `}
         dangerouslySetInnerHTML={{
           __html: rules[dottedName].conditionsEligibilitesHTML,
+        }}
+      />
+      <FatConseiller
+        {...{
+          situation,
+          margin: 'small',
+          titre: 'Comment toucher cette aide ?',
+          texte: rules[dottedName].commentFaireHtml,
         }}
       />
     </>

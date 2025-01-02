@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import Denormandie from './Denormandie'
 
 export const metadata: Metadata = {
-  title: 'Le dispositif Denormandie en' + new Date().getFullYear(),
+  title: 'Le dispositif Denormandie en ' + new Date().getFullYear(),
   description:
     "Le dispositif Denormandie: Une réduction d'impôts à destination des propriétaires bailleurs",
 }

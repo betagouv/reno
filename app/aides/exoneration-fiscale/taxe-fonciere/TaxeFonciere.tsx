@@ -16,7 +16,6 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import {
   encodeDottedName,
-  encodeSituation,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
@@ -24,6 +23,8 @@ import { useSearchParams } from 'next/navigation'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import { Key } from '@/components/explications/ExplicationUI'
 import { useMediaQuery } from 'usehooks-ts'
+import FatConseiller from '@/components/FatConseiller'
+import { parse } from 'marked'
 
 export default function TaxeFonciere() {
   const isMobile = useMediaQuery('(max-width: 400px)')
@@ -63,7 +64,6 @@ export default function TaxeFonciere() {
         </h3>
         <QuestionList>
           <Li
-            key="communeLogement"
             $next={true}
             $touched={answeredQuestions.includes(
               'taxe foncière . commune . éligible',
@@ -96,41 +96,46 @@ export default function TaxeFonciere() {
               }}
             />
           </Li>
-          <Li
-            key="periodeConstruction"
-            $next={answeredQuestions.includes(
-              'taxe foncière . commune . éligible',
-            )}
-            $touched={answeredQuestions.includes('logement . au moins 10 ans')}
-          >
-            <PeriodeConstructionQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                periode: 'au moins 10 ans',
-              }}
-            />
-          </Li>
-          <Li
-            key="conditionDepense"
-            $next={answeredQuestions.includes('logement . au moins 10 ans')}
-            $touched={answeredQuestions.includes(
-              'taxe foncière . condition de dépenses',
-            )}
-          >
-            <YesNoQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                rules,
-                rule: 'taxe foncière . condition de dépenses',
-              }}
-            />
-          </Li>
+          {situation['taxe foncière . commune . éligible'] == 'oui' && (
+            <>
+              <Li
+                $next={answeredQuestions.includes(
+                  'taxe foncière . commune . éligible',
+                )}
+                $touched={answeredQuestions.includes(
+                  'logement . au moins 10 ans',
+                )}
+              >
+                <PeriodeConstructionQuestion
+                  {...{
+                    setSearchParams,
+                    situation,
+                    answeredQuestions,
+                    periode: 'au moins 10 ans',
+                  }}
+                />
+              </Li>
+              <Li
+                $next={answeredQuestions.includes('logement . au moins 10 ans')}
+                $touched={answeredQuestions.includes(
+                  'taxe foncière . condition de dépenses',
+                )}
+              >
+                <YesNoQuestion
+                  {...{
+                    setSearchParams,
+                    situation,
+                    answeredQuestions,
+                    rules,
+                    rule: 'taxe foncière . condition de dépenses',
+                  }}
+                />
+              </Li>
+            </>
+          )}
         </QuestionList>
-        {!Object.keys(evaluation.missingVariables).length && (
+        {(!Object.keys(evaluation.missingVariables).length ||
+          situation['taxe foncière . commune . éligible'] == 'non') && (
           <div
             css={`
               background: var(--lightestColor);
@@ -149,7 +154,6 @@ export default function TaxeFonciere() {
             <p
               css={`
                 flex: 1;
-                text-align: center;
               `}
             >
               {evaluation.nodeValue ? (
@@ -179,7 +183,10 @@ export default function TaxeFonciere() {
                       color: red;
                     `}
                   >
-                    Vous n'êtes pas éligible à l'exonération de taxe foncière
+                    {situation['taxe foncière . commune . éligible'] == 'non'
+                      ? "Cette commune n'est"
+                      : "Vous n'êtes"}{' '}
+                    pas éligible à l'exonération de taxe foncière
                   </span>
                   <br />
                   <span>⚠️ Vous êtes peut-être éligible à d'autres aides!</span>
@@ -198,7 +205,7 @@ export default function TaxeFonciere() {
       <h3>Comment cela fonctionne?</h3>
       <div
         dangerouslySetInnerHTML={{
-          __html: rules[dottedName].explicationHTML,
+          __html: parse(rules[dottedName + ' . taux'].description),
         }}
       />
       <h3>Les principales conditions d'éligibilité ?</h3>
@@ -214,6 +221,14 @@ export default function TaxeFonciere() {
         `}
         dangerouslySetInnerHTML={{
           __html: rules[dottedName].conditionsEligibilitesHTML,
+        }}
+      />
+      <FatConseiller
+        {...{
+          situation,
+          margin: 'small',
+          titre: 'Comment toucher cette aide ?',
+          texte: rules[dottedName].commentFaireHtml,
         }}
       />
     </>

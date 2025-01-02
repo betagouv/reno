@@ -77,7 +77,6 @@ export default function PAR() {
         </h3>
         <QuestionList>
           <Li
-            key="typeResidence"
             $next={true}
             $touched={answeredQuestions.includes(
               'logement . résidence principale propriétaire',
@@ -88,7 +87,6 @@ export default function PAR() {
             />
           </Li>
           <Li
-            key="periodeConstruction"
             $next={answeredQuestions.includes(
               'logement . résidence principale propriétaire',
             )}
@@ -106,7 +104,6 @@ export default function PAR() {
           <Li
             $next={answeredQuestions.includes('logement . au moins 2 ans')}
             $touched={answeredQuestions.includes('ménage . région . IdF')}
-            key="IdF"
           >
             <IdFQuestion
               {...{
@@ -118,7 +115,6 @@ export default function PAR() {
             />
           </Li>
           <Li
-            key="personnes"
             $next={answeredQuestions.includes('ménage . région . IdF')}
             $touched={answeredQuestions.includes('ménage . personnes')}
           >
@@ -131,7 +127,6 @@ export default function PAR() {
             />
           </Li>
           <Li
-            key="revenu"
             $next={answeredQuestions.includes('ménage . personnes')}
             $touched={answeredQuestions.includes('ménage . revenu . classe')}
           >
@@ -146,7 +141,6 @@ export default function PAR() {
             />
           </Li>
           <Li
-            key="typeTravaux"
             $next={answeredQuestions.includes('ménage . revenu . classe')}
             $touched={answeredQuestions.includes('logement . type travaux')}
           >

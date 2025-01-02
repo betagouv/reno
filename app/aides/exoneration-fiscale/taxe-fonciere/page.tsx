@@ -2,14 +2,12 @@ import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 import Breadcrumb from '@/components/Breadcrumb'
 import { Suspense } from 'react'
-import PTZ from './PTZ'
 import TaxeFonciere from './TaxeFonciere'
 
 export const metadata: Metadata = {
-  title: "Eco-PTZ: L'éco-prêt à taux 0 en" + new Date().getFullYear(),
+  title: "L'exonération de taxe foncière en " + new Date().getFullYear(),
   description:
-    "L'éco-PTZ: Un prêt à taux 0 sans conditions de ressource destinées à financer la rénovation énergétique de votre logement en " +
-    new Date().getFullYear(),
+    "L'exonération de taxe foncière, un dispositif visant à favoriser la rénovation énergétique de votre logement",
 }
 
 export default function Aides() {
