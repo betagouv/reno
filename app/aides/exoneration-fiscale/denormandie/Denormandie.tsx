@@ -1,14 +1,10 @@
 'use client'
-import AmpleurCTA from '@/app/module/AmpleurCTA'
-import { Card, CTA, CTAWrapper } from '@/components/UI'
+import { Card } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
-import investissementIcon from '@/public/investissement.svg'
 import Publicodes, { formatValue } from 'publicodes'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import { useSearchParams } from 'next/navigation'
-import { useMediaQuery } from 'usehooks-ts'
-import Image from 'next/image'
 import {
   encodeDottedName,
   getAnsweredQuestions,
@@ -23,11 +19,10 @@ import {
   TypeResidence,
   YesNoQuestion,
 } from '@/app/module/AmpleurQuestions'
-import { Key } from '@/components/explications/ExplicationUI'
 import FatConseiller from '@/components/FatConseiller'
+import { EligibilityResult } from '@/components/EligibilityResult'
 
 export default function Denormandie() {
-  const isMobile = useMediaQuery('(max-width: 400px)')
   const engine = new Publicodes(rules)
   const dottedName = 'denormandie'
   const setSearchParams = useSetSearchParams()
@@ -167,102 +162,15 @@ export default function Denormandie() {
         </QuestionList>
         {(!Object.keys(evaluation.missingVariables).length ||
           situation['logement . commune . denormandie'] == 'non') && (
-          <div
-            css={`
-              background: var(--lightestColor);
-              border-bottom: 4px solid var(--color);
-              padding: 1rem;
-              display: flex;
-              gap: 1rem;
-              justify-content: space-between;
-              align-items: center;
-              flex-wrap: wrap;
-            `}
-          >
-            {!isMobile && (
-              <Image src={investissementIcon} alt="icone montant en euro" />
-            )}
-            <p
-              css={`
-                flex: 1;
-              `}
-            >
-              {evaluation.nodeValue ? (
-                <>
-                  <strong>Vous êtes éligible à une réduction d'impôt de</strong>
-                  <span
-                    css={`
-                      display: block;
-                      text-align: center;
-                      margin: 0.5rem 0;
-                    `}
-                  >
-                    <Key
-                      $state="prime"
-                      css={`
-                        font-size: 1.5rem;
-                        padding: 0.4rem;
-                      `}
-                    >
-                      {formatValue(engine.evaluate(dottedName + ' . montant'))}
-                    </Key>{' '}
-                    sur{' '}
-                    <Key $state="in-progress">
-                      {formatValue(engine.evaluate(dottedName + ' . durée'))}
-                    </Key>
-                  </span>
-                  <small>
-                    Détail:{' '}
-                    <Key $state="in-progress">
-                      {formatValue(engine.evaluate(dottedName + ' . taux'))}
-                    </Key>{' '}
-                    du coût du bien{' '}
-                    {engine.evaluate(dottedName + ' . assiette').nodeValue <
-                    engine.evaluate(dottedName + ' . plafond').nodeValue ? (
-                      <>
-                        soit{' '}
-                        <Key $state="in-progress">
-                          {formatValue(
-                            engine.evaluate(dottedName + ' . assiette'),
-                          )}
-                        </Key>
-                      </>
-                    ) : (
-                      <>
-                        plafonné à{' '}
-                        <Key $state="in-progress">
-                          {formatValue(
-                            engine.evaluate(dottedName + ' . plafond'),
-                          )}
-                        </Key>
-                      </>
-                    )}
-                  </small>
-                </>
-              ) : (
-                <>
-                  <span
-                    css={`
-                      color: red;
-                    `}
-                  >
-                    {situation['logement . commune . denormandie'] == 'non'
-                      ? "Cette commune n'est"
-                      : "Vous n'êtes"}{' '}
-                    pas éligible au dispositif Denormandie
-                  </span>
-                  <br />
-                  <span>⚠️ Vous êtes peut-être éligible à d'autres aides!</span>
-                  <br />
-                </>
-              )}
-            </p>
-            <CTAWrapper $justify="left" $customCss="margin: 0;">
-              <CTA $importance="primary" css="font-size: 100%">
-                <AmpleurCTA {...{ situation: situation }} />
-              </CTA>
-            </CTAWrapper>
-          </div>
+          <EligibilityResult
+            {...{
+              evaluation,
+              engine,
+              dottedName,
+              situation,
+              text: 'au dispositif Denormandie',
+            }}
+          />
         )}
       </Card>
       <h3>Les principales conditions d'éligibilité ?</h3>

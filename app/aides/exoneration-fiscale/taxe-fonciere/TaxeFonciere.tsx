@@ -1,11 +1,9 @@
 'use client'
 
-import { Card, CTA, CTAWrapper } from '@/components/UI'
+import { Card } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
-import investissementIcon from '@/public/investissement.svg'
-import Publicodes, { formatValue } from 'publicodes'
-import Image from 'next/image'
+import Publicodes from 'publicodes'
 import {
   CommuneLogement,
   Li,
@@ -20,14 +18,11 @@ import {
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
-import AmpleurCTA from '@/app/module/AmpleurCTA'
-import { Key } from '@/components/explications/ExplicationUI'
-import { useMediaQuery } from 'usehooks-ts'
 import FatConseiller from '@/components/FatConseiller'
 import { parse } from 'marked'
+import { EligibilityResult } from '@/components/EligibilityResult'
 
 export default function TaxeFonciere() {
-  const isMobile = useMediaQuery('(max-width: 400px)')
   const engine = new Publicodes(rules)
   const dottedName = 'taxe foncière'
   const setSearchParams = useSetSearchParams()
@@ -136,70 +131,15 @@ export default function TaxeFonciere() {
         </QuestionList>
         {(!Object.keys(evaluation.missingVariables).length ||
           situation['taxe foncière . commune . éligible'] == 'non') && (
-          <div
-            css={`
-              background: var(--lightestColor);
-              border-bottom: 4px solid var(--color);
-              padding: 1rem;
-              display: flex;
-              gap: 1rem;
-              justify-content: space-between;
-              align-items: center;
-              flex-wrap: wrap;
-            `}
-          >
-            {!isMobile && (
-              <Image src={investissementIcon} alt="icone montant en euro" />
-            )}
-            <p
-              css={`
-                flex: 1;
-              `}
-            >
-              {evaluation.nodeValue ? (
-                <>
-                  <strong>Vous êtes éligible à une exonération de </strong>
-                  <Key
-                    $state="prime"
-                    css={`
-                      display: block;
-                      margin: 0.5rem auto;
-                      width: fit-content;
-                      font-size: 1.5rem;
-                      padding: 0.5rem;
-                    `}
-                  >
-                    {formatValue(engine.evaluate(dottedName + ' . taux'))}
-                  </Key>{' '}
-                  de Taxe Foncière pendant{' '}
-                  <Key $state="in-progress">
-                    {formatValue(engine.evaluate(dottedName + ' . durée'))}
-                  </Key>
-                </>
-              ) : (
-                <>
-                  <span
-                    css={`
-                      color: red;
-                    `}
-                  >
-                    {situation['taxe foncière . commune . éligible'] == 'non'
-                      ? "Cette commune n'est"
-                      : "Vous n'êtes"}{' '}
-                    pas éligible à l'exonération de taxe foncière
-                  </span>
-                  <br />
-                  <span>⚠️ Vous êtes peut-être éligible à d'autres aides!</span>
-                  <br />
-                </>
-              )}
-            </p>
-            <CTAWrapper $justify="left" $customCss="margin: 0;">
-              <CTA $importance="primary" css="font-size: 100%">
-                <AmpleurCTA {...{ situation: situation }} />
-              </CTA>
-            </CTAWrapper>
-          </div>
+          <EligibilityResult
+            {...{
+              evaluation,
+              engine,
+              dottedName,
+              situation,
+              text: "à l'exonération de taxe foncière",
+            }}
+          />
         )}
       </Card>
       <h3>Comment cela fonctionne?</h3>
