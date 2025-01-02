@@ -86,7 +86,7 @@ PAR . montant:
       alors: 25000 €
     - si: logement . type travaux = "trois postes"
       alors: 30000 €
-    - si: logement . type travaux = "rénovation globale"
+    - si: logement . type travaux = "performance énergétique globale"
       alors: 50000 €
     - si: logement . type travaux = "assainissement"
       alors: 10000 €

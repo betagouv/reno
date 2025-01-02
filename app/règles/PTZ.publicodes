@@ -77,7 +77,7 @@ PTZ . montant:
   titre: Montant du PTZ
   applicable si: conditions . communes
   variations:
-    - si: parcours d'aide = "ampleur"
+    - si: condition maprimerenov
       alors: 50000 €
     - si: logement . type travaux = "parois vitrées"
       alors: 7000 €
@@ -87,16 +87,19 @@ PTZ . montant:
       alors: 25000 €
     - si: logement . type travaux = "trois postes"
       alors: 30000 €
-    - si: logement . type travaux = "rénovation globale"
+    - si: logement . type travaux = "performance énergétique globale"
       alors: 50000 €
     - si: logement . type travaux = "assainissement"
       alors: 10000 €
 PTZ . taux: 0 %
 PTZ . durée:
   variations:
-    - si: parcours d'aide = "ampleur"
+    - si: condition maprimerenov
       alors: 20 ans
-    - si: parcours d'aide = "à la carte"
-      alors: 15 ans
-    - si: logement . type travaux = "rénovation globale"
+    - si: logement . type travaux = "performance énergétique globale"
       alors: 20 ans
+    - sinon: 15 ans 
+PTZ . condition maprimerenov:
+  note: Cette condition permet de savoir si le PTZ est demandé en complément de MaPrimeRénov (parcours accompagnée ou par geste)
+  toutes ces conditions:
+    - est défini: parcours d'aide

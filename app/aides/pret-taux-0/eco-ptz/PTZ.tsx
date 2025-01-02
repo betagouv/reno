@@ -2,7 +2,6 @@
 
 import { Card, CTA, CTAWrapper } from '@/components/UI'
 import rules from '@/app/règles/rules'
-import checkIcon from '@/public/check.svg'
 import investissementIcon from '@/public/investissement.svg'
 import Publicodes, { formatValue } from 'publicodes'
 import Image from 'next/image'
@@ -15,6 +14,7 @@ import {
   RevenuMaxQuestion,
   TypeResidence,
   TypeTravaux,
+  YesNoQuestion,
 } from '@/app/module/AmpleurQuestions'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import {
@@ -25,6 +25,8 @@ import { useSearchParams } from 'next/navigation'
 import { useMediaQuery } from 'usehooks-ts'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import { Key } from '@/components/explications/ExplicationUI'
+import FatConseiller from '@/components/FatConseiller'
+import { parse } from 'marked'
 
 export default function PTZ() {
   const isMobile = useMediaQuery('(max-width: 400px)')
@@ -35,13 +37,11 @@ export default function PTZ() {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const situation = getSituation(searchParams, rules)
-  situation["parcours d'aide"] = "'à la carte'"
 
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
   const evaluation = engine
     .setSituation(situation)
     .evaluate(dottedName + ' . montant')
-
   return (
     <>
       <div
@@ -50,11 +50,18 @@ export default function PTZ() {
           gap: 1rem;
         `}
       >
-        <div
-          dangerouslySetInnerHTML={{
-            __html: rules[dottedName].descriptionHtml,
-          }}
-        />
+        <div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].descriptionHtml,
+            }}
+          />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName]['informationsUtilesHtml'],
+            }}
+          />
+        </div>
         <div>
           <Image
             src={'/' + rules[dottedName]['icône']}
@@ -74,7 +81,6 @@ export default function PTZ() {
         </h3>
         <QuestionList>
           <Li
-            key="typeResidence"
             $next={true}
             $touched={answeredQuestions.includes(
               'logement . résidence principale propriétaire',
@@ -85,7 +91,6 @@ export default function PTZ() {
             />
           </Li>
           <Li
-            key="periodeConstruction"
             $next={answeredQuestions.includes(
               'logement . résidence principale propriétaire',
             )}
@@ -101,18 +106,41 @@ export default function PTZ() {
             />
           </Li>
           <Li
-            key="typeTravaux"
             $next={answeredQuestions.includes('logement . au moins 2 ans')}
-            $touched={answeredQuestions.includes('logement . type travaux')}
+            $touched={answeredQuestions.includes(
+              dottedName + ' . condition maprimerenov',
+            )}
           >
-            <TypeTravaux
+            <YesNoQuestion
               {...{
                 setSearchParams,
                 situation,
+                answeredQuestions,
                 rules,
+                rule: dottedName + ' . condition maprimerenov',
+                text: "Sollicitez-vous également l'aide MaPrimeRénov' (parcours accompagné ou par geste)",
               }}
             />
           </Li>
+          {answeredQuestions.includes(
+            dottedName + ' . condition maprimerenov',
+          ) &&
+            situation[dottedName + ' . condition maprimerenov'] == 'non' && (
+              <Li
+                $next={answeredQuestions.includes(
+                  dottedName + ' . condition maprimerenov',
+                )}
+                $touched={answeredQuestions.includes('logement . type travaux')}
+              >
+                <TypeTravaux
+                  {...{
+                    setSearchParams,
+                    situation,
+                    rules,
+                  }}
+                />
+              </Li>
+            )}
         </QuestionList>
         {!Object.keys(evaluation.missingVariables).length && (
           <div
@@ -124,6 +152,7 @@ export default function PTZ() {
               gap: 1rem;
               justify-content: space-between;
               align-items: center;
+              text-align: center;
               flex-wrap: wrap;
             `}
           >
@@ -133,17 +162,36 @@ export default function PTZ() {
             <p
               css={`
                 flex: 1;
+                margin: 0;
               `}
             >
               {evaluation.nodeValue ? (
                 <>
-                  <strong>Vous êtes éligible</strong>
-                  <br />à un prêt d'un montant maximum de{' '}
-                  <Key $state="in-progress">{formatValue(evaluation)}</Key> sans
-                  intérêt pendant{' '}
-                  <Key $state="in-progress">
-                    {formatValue(engine.evaluate('PTZ . durée'))}
-                  </Key>
+                  <strong>Vous êtes éligible à un prêt d'un montant</strong>
+                  <span
+                    css={`
+                      display: block;
+                      margin: 0.5rem 0;
+                    `}
+                  >
+                    de{' '}
+                    <Key
+                      $state="prime"
+                      css={`
+                        font-size: 1.5rem;
+                        padding: 0.4rem;
+                      `}
+                    >
+                      {formatValue(engine.evaluate(dottedName + ' . montant'))}
+                    </Key>{' '}
+                    maximum
+                  </span>
+                  <small>
+                    sans intérêt pendant{' '}
+                    <Key $state="in-progress">
+                      {formatValue(engine.evaluate(dottedName + ' . durée'))}
+                    </Key>
+                  </small>
                 </>
               ) : (
                 <>
