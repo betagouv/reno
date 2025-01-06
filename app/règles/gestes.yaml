@@ -56,7 +56,7 @@ ventilation . double flux . montant:
 ventilation . double flux . MPR:
   description: |
     Cette aide est conditionnée à la réalisation d'un geste d'isolation thermique.
-ventilation . double flux . MPR . plafond: 4000 €
+ventilation . double flux . MPR . plafond: 6000 €
 ventilation . double flux . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
