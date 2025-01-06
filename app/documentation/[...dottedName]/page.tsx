@@ -10,10 +10,8 @@ import { utils } from 'publicodes'
 const parser = new Marked({ gfm: true }).use(markedPlaintify())
 const markdownToPlainText = (markdown) => parser.parse(markdown)
 
-export function generateMetadata(
-  { params: { dottedName: rawDottedName }, searchParams }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props): Promise<Metadata> {
+  const { dottedName: rawDottedName } = await props.params
   const decoded = decodeURIComponent(rawDottedName.join('/'))
   const dottedName = utils.decodeRuleName(decoded)
 
@@ -40,10 +38,9 @@ export function generateMetadata(
   }
 }
 
-export default function RuleDocumentation({
-  params: { dottedName: rawDottedName },
-  searchParams,
-}: Props) {
+export default async function RuleDocumentation(props) {
+  const { dottedName: rawDottedName } = await props.params
+  const searchParams = await props.searchParams
   const dottedName = decodeURIComponent(rawDottedName.join('/'))
 
   return (
