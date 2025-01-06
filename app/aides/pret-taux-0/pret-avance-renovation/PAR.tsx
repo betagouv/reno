@@ -3,53 +3,17 @@
 import { Card } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
-import Publicodes from 'publicodes'
 import parImage from '@/public/par.png'
 import Image from 'next/image'
-import {
-  IdFQuestion,
-  Li,
-  PeriodeConstructionQuestion,
-  PersonnesQuestion,
-  QuestionList,
-  RevenuMaxQuestion,
-  TypeResidence,
-  TypeTravaux,
-} from '@/app/module/AmpleurQuestions'
-import useSetSearchParams from '@/components/useSetSearchParams'
-import {
-  encodeDottedName,
-  getAnsweredQuestions,
-  getSituation,
-} from '@/components/publicodes/situationUtils'
-import { useSearchParams } from 'next/navigation'
 import FatConseiller from '@/components/FatConseiller'
-import { EligibilityResult } from '@/components/EligibilityResult'
-import { useMediaQuery } from 'usehooks-ts'
+import EligibilityPAR from '@/components/par/EligibilityPAR'
 
 export default function PAR() {
-  const isMobile = useMediaQuery('(max-width: 400px)')
-  const engine = new Publicodes(rules)
   const dottedName = 'PAR'
-  const setSearchParams = useSetSearchParams()
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
 
-  const situation = getSituation(searchParams, rules)
-  situation["parcours d'aide"] = "'à la carte'"
-
-  const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  const evaluation = engine
-    .setSituation(situation)
-    .evaluate(dottedName + ' . montant')
-  const onChange =
-    (dottedName) =>
-    ({ target: { value } }) =>
-      setSearchParams({
-        [encodeDottedName(dottedName)]: value + '*',
-      })
   return (
     <>
+      <h2>Le Prêt avance mutation ou rénovation sans intérêt</h2>
       <div
         css={`
           display: flex;
@@ -66,100 +30,7 @@ export default function PAR() {
         </div>
       </div>
       <Card>
-        <h3
-          css={`
-            margin-top: 1rem;
-          `}
-        >
-          Etes-vous éligible au PAR+ ?
-        </h3>
-        <QuestionList>
-          <Li
-            $next={true}
-            $touched={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
-          >
-            <TypeResidence
-              {...{ setSearchParams, situation, answeredQuestions }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
-            $touched={answeredQuestions.includes('logement . au moins 2 ans')}
-          >
-            <PeriodeConstructionQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                periode: 'au moins 2 ans',
-              }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes('logement . au moins 2 ans')}
-            $touched={answeredQuestions.includes('ménage . région . IdF')}
-          >
-            <IdFQuestion
-              {...{
-                setSearchParams,
-                isMobile,
-                situation,
-                answeredQuestions,
-              }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes('ménage . région . IdF')}
-            $touched={answeredQuestions.includes('ménage . personnes')}
-          >
-            <PersonnesQuestion
-              {...{
-                onChange,
-                answeredQuestions,
-                situation,
-              }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes('ménage . personnes')}
-            $touched={answeredQuestions.includes('ménage . revenu . classe')}
-          >
-            <RevenuMaxQuestion
-              {...{
-                engine,
-                onChange,
-                answeredQuestions,
-                situation,
-                setSearchParams,
-              }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes('ménage . revenu . classe')}
-            $touched={answeredQuestions.includes('logement . type travaux')}
-          >
-            <TypeTravaux
-              {...{
-                setSearchParams,
-                situation,
-                rules,
-              }}
-            />
-          </Li>
-        </QuestionList>
-        <EligibilityResult
-          {...{
-            evaluation,
-            engine,
-            dottedName,
-            situation,
-            text: 'au PAR+',
-          }}
-        />
+        <EligibilityPAR dottedName="PAR" />
       </Card>
       <h3>Comment cela fonctionne?</h3>
       <div
@@ -184,7 +55,7 @@ export default function PAR() {
       />
       <FatConseiller
         {...{
-          situation,
+          situation: {},
           margin: 'small',
           titre: 'Comment toucher cette aide ?',
           texte: rules[dottedName].commentFaireHtml,

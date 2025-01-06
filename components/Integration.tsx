@@ -34,6 +34,14 @@ export default function Integration() {
       titre: 'Module Copropriété',
       valeur: '/copropriete',
     },
+    {
+      titre: 'Module Eco-PTZ',
+      valeur: '/module/eco-ptz',
+    },
+    {
+      titre: 'Module PAR+',
+      valeur: '/module/par',
+    },
   ]
 
   Object.keys(rules)
@@ -144,7 +152,7 @@ export default function Integration() {
               </option>
             ))}
           </Select>
-          {module.includes('module') ? (
+          {module.includes('module/integration') ? (
             <AmpleurDemonstration />
           ) : (
             <>

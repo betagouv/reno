@@ -36,6 +36,7 @@ export default function Denormandie() {
     .evaluate(dottedName + ' . montant')
   return (
     <>
+      <h2>Le dispositif Denormandie</h2>
       <div
         css={`
           display: flex;

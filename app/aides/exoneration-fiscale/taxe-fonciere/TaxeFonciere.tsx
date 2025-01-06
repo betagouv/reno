@@ -37,6 +37,7 @@ export default function TaxeFonciere() {
 
   return (
     <>
+      <h2>L'exonération de taxe foncière</h2>
       <div
         css={`
           display: flex;

@@ -24,7 +24,6 @@ export default function Aides() {
             },
           ]}
         />
-        <h2>L'éco-prêt à taux zéro ou éco-PTZ</h2>
         <Suspense>
           <PTZ />
         </Suspense>

@@ -24,7 +24,6 @@ export default function Aides() {
             },
           ]}
         />
-        <h2>Le dispositif Denormandie</h2>
         <Suspense>
           <Denormandie />
         </Suspense>

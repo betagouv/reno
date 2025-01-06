@@ -6,14 +6,12 @@ import investissementIcon from '@/public/investissement.svg'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import { Key } from '@/components/explications/ExplicationUI'
 
-export function EligibilityResult({
-  evaluation,
-  engine,
-  dottedName,
-  situation,
-  text,
-}) {
+export function EligibilityResult({ engine, dottedName, situation, text }) {
+  const evaluation = engine
+    .setSituation(situation)
+    .evaluate(dottedName + ' . montant')
   if (!evaluation) return null
+
   const isMobile = useMediaQuery('(max-width: 400px)')
   const isEligible = evaluation.nodeValue
   const montant = formatValue(engine.evaluate(`${dottedName} . montant`))

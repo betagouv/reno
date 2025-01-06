@@ -2,44 +2,17 @@
 
 import { Card } from '@/components/UI'
 import rules from '@/app/règles/rules'
-import Publicodes from 'publicodes'
 import Image from 'next/image'
-import {
-  IdFQuestion,
-  Li,
-  PeriodeConstructionQuestion,
-  PersonnesQuestion,
-  QuestionList,
-  RevenuMaxQuestion,
-  TypeResidence,
-  TypeTravaux,
-  YesNoQuestion,
-} from '@/app/module/AmpleurQuestions'
-import useSetSearchParams from '@/components/useSetSearchParams'
-import {
-  getAnsweredQuestions,
-  getSituation,
-} from '@/components/publicodes/situationUtils'
-import { useSearchParams } from 'next/navigation'
 import FatConseiller from '@/components/FatConseiller'
 import { parse } from 'marked'
-import { EligibilityResult } from '@/components/EligibilityResult'
+import EligibilityEcoPTZ from '@/components/eco-ptz/EligibilityEcoPTZ'
 
 export default function PTZ() {
-  const engine = new Publicodes(rules)
   const dottedName = 'PTZ'
-  const setSearchParams = useSetSearchParams()
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
 
-  const situation = getSituation(searchParams, rules)
-
-  const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  const evaluation = engine
-    .setSituation(situation)
-    .evaluate(dottedName + ' . montant')
   return (
     <>
+      <h2>L'éco-prêt à taux zéro ou éco-PTZ</h2>
       <div
         css={`
           display: flex;
@@ -68,83 +41,9 @@ export default function PTZ() {
         </div>
       </div>
       <Card>
-        <h3
-          css={`
-            margin-top: 1rem;
-          `}
-        >
-          Etes-vous éligible à l'éco-PTZ ?
-        </h3>
-        <QuestionList>
-          <Li
-            $next={true}
-            $touched={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
-          >
-            <TypeResidence
-              {...{ setSearchParams, situation, answeredQuestions }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
-            $touched={answeredQuestions.includes('logement . au moins 2 ans')}
-          >
-            <PeriodeConstructionQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                periode: 'au moins 2 ans',
-              }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes('logement . au moins 2 ans')}
-            $touched={answeredQuestions.includes(
-              dottedName + ' . condition maprimerenov',
-            )}
-          >
-            <YesNoQuestion
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                rules,
-                rule: dottedName + ' . condition maprimerenov',
-                text: "Sollicitez-vous également l'aide MaPrimeRénov' (parcours accompagné ou par geste)",
-              }}
-            />
-          </Li>
-          {answeredQuestions.includes(
-            dottedName + ' . condition maprimerenov',
-          ) &&
-            situation[dottedName + ' . condition maprimerenov'] == 'non' && (
-              <Li
-                $next={answeredQuestions.includes(
-                  dottedName + ' . condition maprimerenov',
-                )}
-                $touched={answeredQuestions.includes('logement . type travaux')}
-              >
-                <TypeTravaux
-                  {...{
-                    setSearchParams,
-                    situation,
-                    rules,
-                  }}
-                />
-              </Li>
-            )}
-        </QuestionList>
-        <EligibilityResult
+        <EligibilityEcoPTZ
           {...{
-            evaluation,
-            engine,
             dottedName,
-            situation,
-            text: "à l'éco-PTZ",
           }}
         />
       </Card>
@@ -171,7 +70,7 @@ export default function PTZ() {
       />
       <FatConseiller
         {...{
-          situation,
+          situation: {},
           margin: 'small',
           titre: 'Comment toucher cette aide ?',
           texte: rules[dottedName].commentFaireHtml,

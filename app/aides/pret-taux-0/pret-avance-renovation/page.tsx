@@ -24,7 +24,6 @@ export default function PagePAR() {
             },
           ]}
         />
-        <h2>Le Prêt avance mutation ou rénovation sans intérêt</h2>
         <Suspense>
           <PAR />
         </Suspense>

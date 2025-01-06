@@ -24,7 +24,6 @@ export default function Aides() {
             },
           ]}
         />
-        <h2>L'exonération de taxe foncière</h2>
         <Suspense>
           <TaxeFonciere />
         </Suspense>
