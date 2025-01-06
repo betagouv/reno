@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   title: 'Questions fréquentes - Mes aides réno',
 }
 
-export default function FaqPage({ searchParams }) {
+export default async function FaqPage(props) {
+  const searchParams = await props.searchParams
   return (
     <Main>
       <Section>

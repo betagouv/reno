@@ -111,6 +111,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
             <li>
               Recours à un professionnel <strong>RGE</strong>
             </li>
+
             {rules[rule + ' . MPR']?.description && (
               <li>{rules[rule + ' . MPR']?.description}</li>
             )}

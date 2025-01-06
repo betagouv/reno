@@ -7,10 +7,8 @@ import { description } from '../description'
 import LocalePlace from './Place'
 import Breadcrumb from '@/components/Breadcrumb'
 
-export async function generateMetadata(
-  { params: { place: encodedPlace } }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props): Promise<Metadata> {
+  const { place: encodedPlace } = await props.params
   // read route params
   const place = decodeURIComponent(encodedPlace)
 
@@ -20,17 +18,20 @@ export async function generateMetadata(
   }
 }
 
-export default function ({ params: { place: encodedPlace } }) {
+export default async function PlacePage(props) {
+  const { place: encodedPlace } = await props.params
   const place = decodeURIComponent(encodedPlace)
 
   return (
     <Main>
       <Section>
-        <Breadcrumb links={[
-          {"Les aides": "/aides"},
-          {"Les aides locales à la rénovation en France": "/locales"},
-          {[capitalise0(place)]: ""}
-        ]} />
+        <Breadcrumb
+          links={[
+            { 'Les aides': '/aides' },
+            { 'Les aides locales à la rénovation en France': '/locales' },
+            { [capitalise0(place)]: '' },
+          ]}
+        />
         <Link href="/locales" style={css``}>
           ⬅️ Retour aux aides locales
         </Link>

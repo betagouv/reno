@@ -158,7 +158,9 @@ export default function Page() {
             </p>
             <CTAWrapper $justify="center">
               <CTA $fontSize="normal">
-                <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+                <Link href="/simulation" prefetch={false}>
+                  ➞&nbsp;&nbsp;Calculer mes aides
+                </Link>
               </CTA>
             </CTAWrapper>
           </Content>

@@ -36,7 +36,7 @@ export default function FromStorageSimulationButton() {
         }
       `}
     >
-      <Link href={simulation}>
+      <Link href={simulation} prefetch={false}>
         <Image
           src={restoreIcon}
           alt="Icône symbolisant la récupération"
