@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default async function FaqPage(props) {
-  const searchParams = await props.searcParams
+  const searchParams = await props.searchParams
   return (
     <Main>
       <Section>
