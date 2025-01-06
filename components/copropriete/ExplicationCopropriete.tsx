@@ -17,13 +17,13 @@ import Input from '../Input'
 import calculatorIcon from '@/public/calculator-empty.svg'
 import { roundToThousands } from '../utils'
 import checkIcon from '@/public/check.svg'
-import { Value } from '../ScenariosSelector'
 import informationIcon from '@/public/information.svg'
 import Link from 'next/link'
 import MprCategory from '../MprCategory'
 import { omit } from '@/components/utils'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
+import Value from '../Value'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
