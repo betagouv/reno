@@ -2,9 +2,10 @@ import React from 'react'
 import Image from 'next/image'
 import GesteQuestion from './../GesteQuestion'
 import mprImage from '@/public/maprimerenov.svg'
-import { BlocAide, PrimeStyle } from '../UI'
+import { BlocAide, MiseEnAvant, PrimeStyle } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
+import Value from '../Value'
 
 export const BlocAideMPR = ({
   infoMPR,
@@ -84,43 +85,48 @@ export const BlocAideMPR = ({
           />
         )}
         {displayPrime == 'bottom' && (
-          <div
-            css={`
-              justify-content: end;
-              display: flex;
-            `}
-          >
-            <PrimeStyle
+          <>
+            <div
               css={`
-                padding: 0.75rem;
+                justify-content: end;
+                display: flex;
               `}
-              $inactive={!isEligible}
             >
-              {isEligible ? (
-                <>
-                  Prime de{' '}
+              <PrimeStyle
+                css={`
+                  padding: 0.75rem;
+                  margin-bottom: 1rem;
+                `}
+                $inactive={!isEligible}
+              >
+                {isEligible ? (
+                  <>
+                    Prime de{' '}
+                    <strong
+                      css={`
+                        font-size: 1.5rem;
+                      `}
+                    >
+                      {isExactTotal ? infoMPR.montant : '...'}
+                    </strong>
+                  </>
+                ) : (
                   <strong
                     css={`
-                      font-size: 1.5rem;
+                      font-size: 1.25rem;
                     `}
                   >
-                    {isExactTotal ? infoMPR.montant : '...'}
+                    Non Éligible
                   </strong>
-                </>
-              ) : (
-                <strong
-                  css={`
-                    font-size: 1.25rem;
-                  `}
-                >
-                  Non Éligible
-                </strong>
-              )}
-            </PrimeStyle>
-          </div>
+                )}
+              </PrimeStyle>
+            </div>
+            <AvanceTMO {...{ engine, situation }} />
+          </>
         )}
         {displayPrime === 'top' && (
           <div className="details">
+            <AvanceTMO {...{ engine, situation }} />
             Précisions:
             <ul>
               <li>
@@ -139,5 +145,41 @@ export const BlocAideMPR = ({
         )}
       </div>
     </BlocAide>
+  )
+}
+
+export const AvanceTMO = ({ engine, situation }) => {
+  const isEligible =
+    engine.evaluate('ménage . revenu').nodeValue != 0 &&
+    engine.evaluate('ménage . revenu . classe').nodeValue === 'très modeste'
+  if (!isEligible) {
+    return null
+  }
+
+  return (
+    <MiseEnAvant>
+      <h3>Bon à savoir</h3>
+      <p>
+        En tant que ménage au revenu{' '}
+        <Value
+          {...{
+            engine,
+            situation,
+            dottedName: 'ménage . revenu . classe',
+            state: 'prime-black',
+          }}
+        />
+        , vous pourrez <strong>bénéficier d'une avance</strong> allant jusqu'à{' '}
+        <Value
+          {...{
+            engine,
+            situation,
+            dottedName: 'gestes . pourcentage avance',
+            state: 'prime-black',
+          }}
+        />{' '}
+        maximum du montant de la prime.
+      </p>
+    </MiseEnAvant>
   )
 }

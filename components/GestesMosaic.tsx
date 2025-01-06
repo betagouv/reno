@@ -11,6 +11,7 @@ import { CustomQuestionWrapper } from './CustomQuestionUI'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
+import { AvanceTMO } from './mprg/BlocAideMPR'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -96,11 +97,6 @@ export default function GestesMosaic({
     situation,
   )
 
-  const resetUrl = setSearchParams(
-    encodeSituation(resetSituation, false, answeredQuestions),
-    'url',
-    false,
-  )
   const safeEngine = engine.setSituation(resetSituation)
 
   return (
@@ -117,6 +113,7 @@ export default function GestesMosaic({
           <small>Les aides à la carte</small>
           <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
         </header>
+        <AvanceTMO {...{ engine, situation }} />
         <Fieldset>
           <ul>
             {categories.map(([category, dottedNames]) => (

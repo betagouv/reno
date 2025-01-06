@@ -8,6 +8,11 @@ montant:
     - ventilation
     - isolation
 
+avance:
+  applicable si: ménage . revenu . classe = 'très modeste'
+  formule: pourcentage avance * montant
+pourcentage avance: 50%
+
 recommandés:
   titre: Recommandés
   somme:
