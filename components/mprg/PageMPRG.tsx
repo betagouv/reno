@@ -111,6 +111,10 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
             <li>
               Recours à un professionnel <strong>RGE</strong>
             </li>
+
+            {rules[rule + ' . MPR']?.description && (
+              <li>{rules[rule + ' . MPR']?.description}</li>
+            )}
             <li>
               Le dépôt du dossier de demande d'aide s'effectue{' '}
               <strong>avant le démarrage des travaux</strong>.

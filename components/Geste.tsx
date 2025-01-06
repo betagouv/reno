@@ -48,6 +48,7 @@ export default function Geste({
   const dottedNameMpr = dottedName + ' . MPR'
   if (eligibleMPRG && typeof rules[dottedNameMpr] !== 'undefined') {
     infoMPR = {
+      dottedName: dottedNameMpr,
       montant: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . montant'),
       ),
