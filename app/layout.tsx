@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
 import { description } from './page'
+import FooterContent from '@/components/FooterContent'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -67,7 +68,9 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <Header />
           {children}
-          <Footer />
+          <Footer>
+            <FooterContent />
+          </Footer>
         </StyledComponentsRegistry>
         <Matomo />
       </body>
