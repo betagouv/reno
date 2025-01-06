@@ -1,8 +1,5 @@
-const FromStorageSimulationButton = dynamic(
-  () => import('@/components/FromStorageSimulationButton'),
-  { ssr: false },
-)
-
+import FromStorageSimulationButtonLoader from '@/components/FromStorageSimulationButtonLoader'
+import NewsBanner from '@/components/NewsBanner'
 import {
   CTA,
   CTAWrapper,
@@ -16,12 +13,10 @@ import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
-import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
-import dynamic from 'next/dynamic'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
-import NewsBanner from '@/components/NewsBanner'
+import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
 
 export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement.`
 
@@ -97,7 +92,7 @@ export default function Page() {
                 <Link href="/copropriete">Je représente une copropriété</Link>
               </CTA>
             </CTAWrapper>
-            <FromStorageSimulationButton />
+            <FromStorageSimulationButtonLoader />
           </div>
         </HeaderWrapper>
         <LandingGreenBanner>

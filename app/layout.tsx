@@ -1,9 +1,9 @@
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 import Matomo from '@/utils/Matomo'
+import localFont from 'next/font/local'
 import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import localFont from 'next/font/local'
 import { description } from './page'
 
 export async function generateMetadata(
@@ -61,7 +61,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
   return (
     <html lang="fr">
       <body className={marianneFont.className}>
