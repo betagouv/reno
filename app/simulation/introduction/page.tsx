@@ -24,7 +24,11 @@ export default function Introduction() {
               </Link>
             </CTA>
             <CTA>
-              <Link href="/simulation" title="Aller à l'étape suivante">
+              <Link
+                href="/simulation"
+                title="Aller à l'étape suivante"
+                prefetch={false}
+              >
                 Suivant
               </Link>
             </CTA>

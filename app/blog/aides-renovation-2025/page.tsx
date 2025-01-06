@@ -87,7 +87,9 @@ export default function Blog2025() {
               `}
           >
             <CTA $fontSize="normal">
-              <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+              <Link href="/simulation" prefetch={false}>
+                ➞&nbsp;&nbsp;Calculer mes aides
+              </Link>
             </CTA>
           </CTAWrapper>
         </div>
