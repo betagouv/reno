@@ -78,7 +78,7 @@ export default function Page() {
             </p>
             <CTAWrapper $justify="left">
               <CTA $fontSize="normal">
-                <a href="/simulation">➞&nbsp;&nbsp;C'est parti !</a>
+                <Link href="/simulation">➞&nbsp;&nbsp;C'est parti !</Link>
               </CTA>
             </CTAWrapper>
             <CTAWrapper $justify="left">
