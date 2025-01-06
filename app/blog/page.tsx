@@ -9,6 +9,7 @@ import { BlueEm, HeaderWrapper } from '../LandingUI'
 import { Badge, List } from './UI'
 import { dateCool } from './utils'
 import { articles } from './[slug]/page'
+import { article as article2025 } from './aides-renovation-2025/page'
 
 const title = `Le blog des aides à la rénovation energétique`
 const description =
@@ -22,9 +23,9 @@ export const metadata: metadata = {
 
 const Page = () => {
   const sortedArticles = [
-    ...sortBy((article) => article.date)(articles).reverse(),
+    ...sortBy((article) => article.date)([...articles, article2025]).reverse(),
   ]
-  
+
   return (
     <main
       style={css`
@@ -75,7 +76,14 @@ const Page = () => {
                 <li key={url}>
                   <div>
                     <Link href={url}>
-                      <h2>{titre} {tags?.map((tag) => (<Badge><small>{tag}</small></Badge>))}</h2>
+                      <h2>
+                        {titre}{' '}
+                        {tags?.map((tag) => (
+                          <Badge>
+                            <small>{tag}</small>
+                          </Badge>
+                        ))}
+                      </h2>
                     </Link>
                   </div>
                   <small

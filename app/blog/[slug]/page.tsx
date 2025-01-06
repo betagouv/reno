@@ -12,6 +12,7 @@ import { mdxComponents } from '../mdxComponents'
 import { dateCool, getLastEdit } from '../utils'
 
 export const articles = allArticles.filter((article) => !article.brouillon)
+console.log('YO', articles)
 
 export const generateMetadata = async ({ params }) => {
   const post = allArticles.find(

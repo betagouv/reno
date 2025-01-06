@@ -27,6 +27,13 @@ export const metadata = {
   },
 }
 
+export const article = {
+  titre: title,
+  url: 'blog/aides-renovation-2025',
+  description,
+  date,
+}
+
 // On code à la main cet article fortement intéractif, car contentlayer n'arrive pas à importer nos composants. Décidément, je suis déçu par contentlayer.
 export default function Blog2025() {
   return (
