@@ -6,11 +6,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
-import { getAmpleurDPEChoice } from './ScenariosSelector'
 
 export const originKey = 'DPE . actuel',
   targetKey = 'projet . DPE visé'
-
+export const getAmpleurDPEChoice = (situation) => {
+  const value = situation['projet . DPE visé'],
+    oldIndex = +situation['DPE . actuel'] - 1,
+    automaticChoice = Math.max(oldIndex - 2, 0),
+    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+  return choice
+}
 export default function DPEQuickSwitch({
   oldIndex,
   prefixText,
