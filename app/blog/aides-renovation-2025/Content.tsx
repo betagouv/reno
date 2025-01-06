@@ -122,7 +122,7 @@ export default function Content() {
       <p>
         Mais pour aider les ménages modestes à payer les factures, une avance
         des aides de l'État peut être demandée. Elle était de 70 % de
-        MaPrimeRénov' en 2024, mais diminue à 50 % en 2025.
+        MaPrimeRénov' en 2024, mais diminue à 30 % en 2025.
       </p>
       <p>
         Cela dit, en 2025 l'éco-prêt à taux zéro (éco-PTZ) reste l'une des
