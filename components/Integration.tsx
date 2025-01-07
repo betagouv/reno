@@ -7,20 +7,21 @@ import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import getAppUrl from './getAppUrl'
-import {
-  PageBlock,
-  Intro,
-  CTAWrapper,
-  CTA,
-  InternalLink,
-  MiseEnAvant,
-} from './UI'
+import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant } from './UI'
 import { useState } from 'react'
 import { Select } from './InputUI'
 import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function Integration() {
-  const [module, setModule] = useState('/')
+  const router = useRouter()
+  const rawSearchParams = useSearchParams()
+  const searchParams = Object.fromEntries(rawSearchParams.entries())
+  const handleModuleChange = (selectedModule) => {
+    setModule(selectedModule)
+    router.push(`/integration?module=${encodeURIComponent(selectedModule)}`)
+  }
+
   const listeModule = [
     {
       titre: 'Module Principal',
@@ -89,6 +90,11 @@ export default function Integration() {
           encodeURIComponent(rules[item.replace(' . Coup de pouce', '')].titre),
       }),
     )
+  const [module, setModule] = useState(
+    searchParams.module
+      ? listeModule.find((i) => i.valeur.includes(searchParams.module)).valeur
+      : '/',
+  )
 
   const iframeCode = `<iframe src="${getAppUrl() + module}" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
 
@@ -153,7 +159,10 @@ export default function Integration() {
           >
             Choisissez le module à intégrer:
           </h2>
-          <Select onChange={(e) => setModule(e.target.value)} value={module}>
+          <Select
+            onChange={(e) => handleModuleChange(e.target.value)}
+            value={module}
+          >
             {listeModule.map((item, index) => (
               <option key={index} value={item.valeur}>
                 {item.titre}

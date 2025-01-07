@@ -6,6 +6,7 @@ import Image from 'next/image'
 import FatConseiller from '@/components/FatConseiller'
 import { parse } from 'marked'
 import EligibilityEcoPTZ from '@/components/module/EligibilityEcoPTZ'
+import ShareModule from '@/app/module/ShareModule'
 
 export default function PTZ() {
   const dottedName = 'PTZ'
@@ -47,6 +48,7 @@ export default function PTZ() {
           }}
         />
       </Card>
+      <ShareModule titre="eco-ptz" />
       <h3>Comment cela fonctionne?</h3>
       <div
         css={`

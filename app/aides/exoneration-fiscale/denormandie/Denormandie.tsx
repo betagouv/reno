@@ -4,6 +4,7 @@ import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import FatConseiller from '@/components/FatConseiller'
 import EligibilityDenormandie from '@/components/module/EligibilityDenormandie'
+import ShareModule from '@/app/module/ShareModule'
 
 export default function Denormandie() {
   const dottedName = 'denormandie'
@@ -26,6 +27,7 @@ export default function Denormandie() {
       <Card>
         <EligibilityDenormandie dottedName="denormandie" />
       </Card>
+      <ShareModule titre="denormandie" />
       <h3>Les principales conditions d'éligibilité ?</h3>
       <div
         css={`

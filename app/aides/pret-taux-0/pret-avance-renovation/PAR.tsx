@@ -7,6 +7,7 @@ import parImage from '@/public/par.png'
 import Image from 'next/image'
 import FatConseiller from '@/components/FatConseiller'
 import EligibilityPAR from '@/components/module/EligibilityPAR'
+import ShareModule from '@/app/module/ShareModule'
 
 export default function PAR() {
   const dottedName = 'PAR'
@@ -32,6 +33,7 @@ export default function PAR() {
       <Card>
         <EligibilityPAR dottedName="PAR" />
       </Card>
+      <ShareModule titre="par" />
       <h3>Comment cela fonctionne?</h3>
       <div
         dangerouslySetInnerHTML={{

@@ -6,7 +6,7 @@ import checkIcon from '@/public/check.svg'
 import FatConseiller from '@/components/FatConseiller'
 import { parse } from 'marked'
 import EligibilityTaxeFonciere from '@/components/module/EligibilityTaxeFonciere'
-
+import ShareModule from '@/app/module/ShareModule'
 export default function TaxeFonciere() {
   const dottedName = 'taxe foncière'
 
@@ -28,6 +28,7 @@ export default function TaxeFonciere() {
       <Card>
         <EligibilityTaxeFonciere dottedName="taxe foncière" />
       </Card>
+      <ShareModule titre="taxe-fonciere" />
       <h3>Comment cela fonctionne?</h3>
       <div
         dangerouslySetInnerHTML={{

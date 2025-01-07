@@ -2,6 +2,8 @@ taxe foncière:
   marque: Exonération de taxe foncière
   description: |
     Certaines collectivités exonèrent temporairement de taxe foncière les foyers qui réalisent des travaux d'économie d'énergie.
+    
+    Cette exonération peut être totale ou partielle et s'applique pendant 3 années.
   type: exonération fiscale
   conditions éligibilités: |
     - Votre logement doit avoir été construit avant le 1er janvier 1989
