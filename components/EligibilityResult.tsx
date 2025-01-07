@@ -9,7 +9,12 @@ import { Key } from '@/components/explications/ExplicationUI'
 export function EligibilityResult({ engine, dottedName, situation, text }) {
   const evaluation = engine
     .setSituation(situation)
-    .evaluate(dottedName + ' . montant')
+    .evaluate(
+      dottedName +
+        ' . ' +
+        (dottedName == 'taxe foncière' ? 'conditions' : 'montant'),
+    )
+
   if (!evaluation) return null
 
   const isMobile = useMediaQuery('(max-width: 400px)')
@@ -156,7 +161,7 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
             </>
           )}
         </p>
-        <CTAWrapper $justify="left" $customCss="margin: 0;">
+        <CTAWrapper $justify="left" $customCss="margin: 0 auto;">
           <CTA $importance="primary" css="font-size: 100%;">
             <AmpleurCTA situation={situation} />
           </CTA>

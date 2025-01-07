@@ -42,6 +42,14 @@ export default function Integration() {
       titre: 'Module PAR+',
       valeur: '/module/par',
     },
+    {
+      titre: 'Module Taxe foncière',
+      valeur: '/module/taxe-fonciere',
+    },
+    {
+      titre: 'Module Denormandie',
+      valeur: '/module/denormandie',
+    },
   ]
 
   Object.keys(rules)

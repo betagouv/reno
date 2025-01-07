@@ -3,37 +3,12 @@
 import { Card } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
-import Publicodes from 'publicodes'
-import {
-  CommuneLogement,
-  Li,
-  PeriodeConstructionQuestion,
-  QuestionList,
-  YesNoQuestion,
-} from '@/app/module/AmpleurQuestions'
-import useSetSearchParams from '@/components/useSetSearchParams'
-import {
-  encodeDottedName,
-  getAnsweredQuestions,
-  getSituation,
-} from '@/components/publicodes/situationUtils'
-import { useSearchParams } from 'next/navigation'
 import FatConseiller from '@/components/FatConseiller'
 import { parse } from 'marked'
-import { EligibilityResult } from '@/components/EligibilityResult'
+import EligibilityTaxeFonciere from '@/components/module/EligibilityTaxeFonciere'
 
 export default function TaxeFonciere() {
-  const engine = new Publicodes(rules)
   const dottedName = 'taxe foncière'
-  const setSearchParams = useSetSearchParams()
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
-
-  const situation = getSituation(searchParams, rules)
-  const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  const evaluation = engine
-    .setSituation(situation)
-    .evaluate(dottedName + ' . conditions')
 
   return (
     <>
@@ -51,94 +26,7 @@ export default function TaxeFonciere() {
         />
       </div>
       <Card>
-        <h3
-          css={`
-            margin-top: 1rem;
-          `}
-        >
-          Etes-vous éligible à l'exonération de Taxe Foncière ?
-        </h3>
-        <QuestionList>
-          <Li
-            $next={true}
-            $touched={answeredQuestions.includes(
-              'taxe foncière . commune . éligible',
-            )}
-          >
-            <CommuneLogement
-              {...{
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                onChange: (result) => {
-                  setSearchParams({
-                    [encodeDottedName('logement . commune')]:
-                      `"${result.code}"*`,
-                    [encodeDottedName('logement . commune . nom')]:
-                      `"${result.nom}"*`,
-                    [encodeDottedName('taxe foncière . commune . éligible')]:
-                      result.eligibilite['taxe foncière . commune . éligible'] +
-                      '*',
-                    ...(result.eligibilite['taxe foncière . commune . taux']
-                      ? {
-                          [encodeDottedName('taxe foncière . commune . taux')]:
-                            result.eligibilite[
-                              'taxe foncière . commune . taux'
-                            ] + '*',
-                        }
-                      : {}),
-                  })
-                },
-              }}
-            />
-          </Li>
-          {situation['taxe foncière . commune . éligible'] == 'oui' && (
-            <>
-              <Li
-                $next={answeredQuestions.includes(
-                  'taxe foncière . commune . éligible',
-                )}
-                $touched={answeredQuestions.includes(
-                  'logement . au moins 10 ans',
-                )}
-              >
-                <PeriodeConstructionQuestion
-                  {...{
-                    setSearchParams,
-                    situation,
-                    answeredQuestions,
-                    periode: 'au moins 10 ans',
-                  }}
-                />
-              </Li>
-              <Li
-                $next={answeredQuestions.includes('logement . au moins 10 ans')}
-                $touched={answeredQuestions.includes(
-                  'taxe foncière . condition de dépenses',
-                )}
-              >
-                <YesNoQuestion
-                  {...{
-                    setSearchParams,
-                    situation,
-                    answeredQuestions,
-                    rules,
-                    rule: 'taxe foncière . condition de dépenses',
-                  }}
-                />
-              </Li>
-            </>
-          )}
-        </QuestionList>
-        <EligibilityResult
-          {...{
-            evaluation,
-            engine,
-            dottedName,
-            situation,
-            text: "à l'exonération de taxe foncière",
-          }}
-        />
+        <EligibilityTaxeFonciere dottedName="taxe foncière" />
       </Card>
       <h3>Comment cela fonctionne?</h3>
       <div
@@ -163,7 +51,7 @@ export default function TaxeFonciere() {
       />
       <FatConseiller
         {...{
-          situation,
+          situation: {},
           margin: 'small',
           titre: 'Comment toucher cette aide ?',
           texte: rules[dottedName].commentFaireHtml,
