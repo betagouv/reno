@@ -5,7 +5,7 @@ import rules from '@/app/règles/rules'
 import Image from 'next/image'
 import FatConseiller from '@/components/FatConseiller'
 import { parse } from 'marked'
-import EligibilityEcoPTZ from '@/components/eco-ptz/EligibilityEcoPTZ'
+import EligibilityEcoPTZ from '@/components/module/EligibilityEcoPTZ'
 
 export default function PTZ() {
   const dottedName = 'PTZ'

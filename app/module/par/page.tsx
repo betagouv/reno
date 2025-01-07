@@ -1,11 +1,10 @@
 'use client'
 import { Suspense } from 'react'
-import EligibilityEcoPTZ from '@/components/eco-ptz/EligibilityEcoPTZ'
 import { FooterModule } from '../Ampleur'
 import { AmpleurWrapper } from '../AmpleurUI'
-import EligibilityPAR from '@/components/par/EligibilityPAR'
+import EligibilityPAR from '@/components/module/EligibilityPAR'
 
-export default function ModuleEcoPTZ() {
+export default function ModulePAR() {
   return (
     <Suspense>
       <AmpleurWrapper>

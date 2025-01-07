@@ -6,7 +6,7 @@ import checkIcon from '@/public/check.svg'
 import parImage from '@/public/par.png'
 import Image from 'next/image'
 import FatConseiller from '@/components/FatConseiller'
-import EligibilityPAR from '@/components/par/EligibilityPAR'
+import EligibilityPAR from '@/components/module/EligibilityPAR'
 
 export default function PAR() {
   const dottedName = 'PAR'
