@@ -7,7 +7,7 @@ import { Suspense } from 'react'
 export const metadata: Metadata = {
   title: 'PAR+: Le prêt avance mutation (ou rénovation)',
   description:
-    'Le prêt avance mutation (ou rénovation): Un prêt hypothécaire dédié à financer vos travuax de rénovation énergétique',
+    'Le prêt avance mutation (ou rénovation): Un prêt hypothécaire dédié à financer vos travaux de rénovation énergétique',
 }
 
 export default function PagePAR() {
