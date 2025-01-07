@@ -1,8 +1,6 @@
-import rules from '@/app/règles/rules'
-import { Main, PageBlock } from '@/components/UI'
-import Form from './Form'
-import Eligibility from '@/components/Eligibility'
 import PersonaBar from '@/components/PersonaBar'
+import { Main, PageBlock } from '@/components/UI'
+import { Metadata } from 'next'
 
 const description = `Vos aides pour la rénovation energétique`
 
@@ -14,7 +12,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Page({ searchParams }) {
+export default async function Page(props) {
+  const searchParams = await props.searchParams
   return (
     <PageBlock>
       <Main>

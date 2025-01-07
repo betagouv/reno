@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     'Les aides à la rénovation énergétique en ' +
     new Date().getFullYear() +
     ": MaPrimeRénov', CEE, Coup de pouce chauffage.",
+  title: 'Les aides à la rénovation énergétique en ' + new Date().getFullYear(),
+  description:
+    'Les aides à la rénovation énergétique en ' +
+    new Date().getFullYear() +
+    ": MaPrimeRénov', CEE, Coup de pouce chauffage.",
 }
 
 export default function Aides() {

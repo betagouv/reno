@@ -12,8 +12,11 @@ import { mdxComponents } from '../mdxComponents'
 import { dateCool, getLastEdit } from '../utils'
 
 export const articles = allArticles.filter((article) => !article.brouillon)
+console.log('YO', articles)
 
-export const generateMetadata = async ({ params }) => {
+export const generateMetadata = async (props) => {
+  const params = await props.params
+
   const post = allArticles.find(
     (post) => post._raw.flattenedPath === params.slug,
   )
@@ -32,7 +35,8 @@ export const generateMetadata = async ({ params }) => {
   }
 }
 
-export default async function Post({ params }: Props) {
+export default async function Post(props: Props) {
+  const params = await props.params
   const post = articles.find((post) => post._raw.flattenedPath === params.slug)
 
   const MDXContent = useMDXComponent(post.body.code)
@@ -111,7 +115,9 @@ export default async function Post({ params }: Props) {
               `}
             >
               <CTA $fontSize="normal">
-                <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+                <Link href="/simulation" prefetch={false}>
+                  ➞&nbsp;&nbsp;Calculer mes aides
+                </Link>
               </CTA>
             </CTAWrapper>
           </div>
