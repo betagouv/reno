@@ -240,10 +240,9 @@ export const ComparatifPretConso = ({ engine, situation, montant, duree }) => {
               })
             }
           }}
-          unit="%"
           step="0.1"
-        />{' '}
-        sur
+        />
+        % sur
         <Value
           {...{
             engine,
