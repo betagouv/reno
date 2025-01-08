@@ -18,10 +18,11 @@ import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
 import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
 
-export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement.`
+export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
 export const metadata: Metadata = {
-  title: 'Mes aides réno 2025',
+  title:
+    'Mes aides réno : simulateur officiel des aides à la rénovation energétique 2025',
   description,
   openGraph: { images: ['/jaquette.png'] },
 }
