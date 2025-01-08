@@ -55,7 +55,7 @@ export const FooterWrapper = styled.footer`
 
   @media (max-width: 600px) {
     .fr-footer__top {
-      justify-content: none;
+      justify-content: normal;
     }
     .footer-col {
       width: 50%;
@@ -63,7 +63,7 @@ export const FooterWrapper = styled.footer`
   }
   @media (max-width: 400px) {
     .fr-footer__top {
-      justify-content: none;
+      justify-content: normal;
     }
     .footer-col {
       width: 100%;
