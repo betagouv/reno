@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import rules from '@/app/règles/rules'
 import generateBlogSitemap from '@/blogSitemap'
 import writePublicodesJson from '@/lib/writePublicodesJson'
+import postBingIndexNow from '@/lib/postBingIndexNow'
 
 writePublicodesJson()
 
@@ -87,6 +88,9 @@ const paths = [
 export default async function sitemap(): MetadataRoute.Sitemap {
   const blogSitemap = await generateBlogSitemap()
   console.log(blogSitemap)
+
+  await postBingIndexNow(paths)
+
   return [
     ...paths.map((path) => ({
       url: domain + path,
