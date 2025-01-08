@@ -153,7 +153,7 @@ export default function HomepageSteps() {
                     `}
                   >
                     <span>{testimonial.shortText}</span>
-                    <div
+                    <span
                       css={`
                         display: flex;
                         justify-content: flex-end;
@@ -174,7 +174,7 @@ export default function HomepageSteps() {
                       >
                         Voir ses aides €
                       </CTA>
-                    </div>
+                    </span>
                   </summary>
                   <p className="see-more">{testimonial.moreText}</p>
                 </details>
