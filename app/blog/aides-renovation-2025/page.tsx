@@ -56,7 +56,7 @@ export default function Blog2025() {
             style={css`
               position: relative;
               width: 100%;
-              height: '30rem';
+              height: 30rem;
             `}
           >
             <Image
