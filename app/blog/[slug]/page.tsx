@@ -11,7 +11,6 @@ import { ArticleCta, BlogBackButton } from '../UI'
 import { dateCool, getLastEdit } from '../utils'
 
 export const articles = allArticles.filter((article) => !article.brouillon)
-console.log('YO', articles)
 
 export const generateMetadata = async (props) => {
   const params = await props.params
