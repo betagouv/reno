@@ -247,6 +247,35 @@ logement . au moins 15 ans:
   ## alors: âge >= 2
   ## - sinon:
 
+logement . type travaux:
+  question: Quel type de travaux souhaitez-vous réaliser
+  une possibilité parmi:
+    possibilités:
+      - 'type travaux . parois vitrées'
+      - 'type travaux . un poste'
+      - 'type travaux . deux postes'
+      - 'type travaux . trois postes'
+      - 'type travaux . performance énergétique globale'
+      - 'type travaux . assainissement'
+logement . type travaux . parois vitrées:
+  valeur: 'parois vitrées'
+  titre: 'une action de travaux concernant les parois vitrées'
+logement . type travaux . un poste:
+  valeur: 'un poste'
+  titre: 'une action de travaux hors parois vitrées'
+logement . type travaux . deux postes:
+  valeur: 'deux postes'
+  titre: 'un bouquet de 2 postes de travaux'
+logement . type travaux . trois postes:
+  valeur: 'trois postes'
+  titre: 'un bouquet de 3 postes de travaux ou plus'
+logement . type travaux . performance énergétique globale:
+  valeur: 'performance énergétique globale'
+  titre: "des travaux entrainant un gain énergétique d'au moins 35%"
+logement . type travaux . assainissement:
+  valeur: 'assainissement'
+  titre: 'un assainissement non collectif'
+
 ménage . personnes:
   titre: La composition de votre ménage
   question: Quelle est la composition de votre ménage ?

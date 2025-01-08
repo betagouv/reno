@@ -1,6 +1,6 @@
 import { parse } from 'marked'
 
-import PTZ from '@/app/règles/PTZ.yaml'
+import PTZ from '@/app/règles/PTZ.publicodes'
 import PAR from '@/app/règles/PAR.publicodes'
 import ampleur from '@/app/règles/ampleur.publicodes'
 import gestes from '@/app/règles/gestes.yaml'
@@ -12,9 +12,9 @@ import solaire from '@/app/règles/gestes/chauffage/solaire.yaml'
 import isolation from '@/app/règles/gestes/isolation.yaml'
 import index from '@/app/règles/index.yaml'
 import revenus from '@/app/règles/revenus.yaml'
-import CEE from '@/app/règles/CEE.yaml'
-import denormandie from '@/app/règles/denormandie.yaml'
-import taxeFoncière from '@/app/règles/taxe-foncière.yaml'
+import CEE from '@/app/règles/CEE.publicodes'
+import denormandie from '@/app/règles/denormandie.publicodes'
+import taxeFoncière from '@/app/règles/taxe-foncière.publicodes'
 import aidesLocales from '@/app/règles/aides-locales.publicodes'
 import copropriete from '@/app/règles/copropriete.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
@@ -79,6 +79,7 @@ function transformRuleObject(v) {
     conditionsEligibilitesHTML:
       v['conditions éligibilités'] &&
       transformMarkdown(v['conditions éligibilités']),
+    explicationHTML: v['explication'] && transformMarkdown(v['explication']),
     informationsUtilesHtml:
       v['informations utiles'] && transformMarkdown(v['informations utiles']),
     commentFaireHtml:

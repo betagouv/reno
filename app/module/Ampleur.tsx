@@ -309,48 +309,55 @@ export default function Ampleur() {
           )}
         </section>
       </div>
-      <footer
-        css={`
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: -1rem;
+      <FooterModule isMobile={isMobile} />
+    </AmpleurWrapper>
+  )
+}
 
-          p {
+export const FooterModule = () => {
+  const isMobile = useMediaQuery('(max-width: 400px)')
+  return (
+    <footer
+      css={`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: -1rem;
+
+        p {
+          margin: 0;
+          margin-right: 1rem;
+        }
+      `}
+    >
+      <p>
+        <small
+          css={`
+            line-height: 1rem;
+            color: gray;
+            display: block;
+          `}
+        >
+          Une initiative construite avec France&nbsp;Rénov{"'"}
+          {isMobile
+            ? '.'
+            : ` pour simplifier
+            l'information sur les aides à la rénovation énergétique.`}
+        </small>
+      </p>
+
+      <Image
+        src={logoFranceRenov}
+        alt="Logo de France Rénov"
+        css={`
+          width: 6.5rem !important;
+          margin-right: 1rem;
+          @media (max-width: 400px) {
+            width: 5rem !important;
             margin: 0;
-            margin-right: 1rem;
           }
         `}
-      >
-        <p>
-          <small
-            css={`
-              line-height: 1rem;
-              color: gray;
-              display: block;
-            `}
-          >
-            Une initiative construite avec France&nbsp;Rénov{"'"}
-            {isMobile
-              ? '.'
-              : ` pour simplifier
-            l'information sur les aides à la rénovation énergétique.`}
-          </small>
-        </p>
-
-        <Image
-          src={logoFranceRenov}
-          alt="Logo de France Rénov"
-          css={`
-            width: 6.5rem !important;
-            margin-right: 1rem;
-            @media (max-width: 400px) {
-              width: 5rem !important;
-              margin: 0;
-            }
-          `}
-        />
-      </footer>
-    </AmpleurWrapper>
+      />
+    </footer>
   )
 }

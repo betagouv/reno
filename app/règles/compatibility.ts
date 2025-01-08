@@ -13,7 +13,6 @@ export default function migrate(situation) {
   const newEntries = entries
     .map(([k, v]) => {
       if (k === 'logement . période de construction') {
-        console.log('migration', k, v)
         if (testPublicodesStringContent(v, 'au moins 25 ans'))
           return [k, "'au moins 15 ans'"]
         if (testPublicodesStringContent(v, 'de 15 à 25 ans'))
