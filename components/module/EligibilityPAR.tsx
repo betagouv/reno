@@ -11,6 +11,7 @@ import {
   TypeTravaux,
 } from '@/app/module/AmpleurQuestions'
 import rules from '@/app/règles/rules'
+import rulesInteretEmprunt from '@/app/règles/intérêt-emprunt.publicodes'
 import Publicodes from 'publicodes'
 import { EligibilityResult } from '@/components/EligibilityResult'
 import useSetSearchParams from '@/components/useSetSearchParams'
@@ -24,18 +25,21 @@ import { useMediaQuery } from 'usehooks-ts'
 
 export default function EligibilityPAR({ dottedName }) {
   const isMobile = useMediaQuery('(max-width: 400px)')
-  const engine = new Publicodes(rules)
+  const rulesWithInterets = {
+    ...rules,
+    ...rulesInteretEmprunt,
+  }
+  const engine = new Publicodes(rulesWithInterets)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-  const situation = getSituation(searchParams, rules)
+  const situation = getSituation(searchParams, rulesWithInterets)
   situation["parcours d'aide"] = '"à la carte"'
 
-  const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-
-  const evaluation = engine
-    .setSituation(situation)
-    .evaluate(dottedName + ' . montant')
+  const answeredQuestions = getAnsweredQuestions(
+    searchParams,
+    rulesWithInterets,
+  )
   const onChange =
     (dottedName) =>
     ({ target: { value } }) =>
@@ -131,7 +135,6 @@ export default function EligibilityPAR({ dottedName }) {
       </QuestionList>
       <EligibilityResult
         {...{
-          evaluation,
           engine,
           dottedName,
           situation,

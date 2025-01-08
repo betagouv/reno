@@ -9,6 +9,7 @@ import {
   TypeTravaux,
 } from '@/app/module/AmpleurQuestions'
 import rules from '@/app/règles/rules'
+import rulesInteretEmprunt from '@/app/règles/intérêt-emprunt.publicodes'
 import Publicodes from 'publicodes'
 import { EligibilityResult } from '@/components/EligibilityResult'
 import useSetSearchParams from '@/components/useSetSearchParams'
@@ -19,13 +20,20 @@ import {
 import { useSearchParams } from 'next/navigation'
 
 export default function EligibilityEcoPTZ({ dottedName }) {
-  const engine = new Publicodes(rules)
+  const rulesWithInterets = {
+    ...rules,
+    ...rulesInteretEmprunt,
+  }
+  const engine = new Publicodes(rulesWithInterets)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-  const situation = getSituation(searchParams, rules)
+  const situation = getSituation(searchParams, rulesWithInterets)
 
-  const answeredQuestions = getAnsweredQuestions(searchParams, rules)
+  const answeredQuestions = getAnsweredQuestions(
+    searchParams,
+    rulesWithInterets,
+  )
 
   return (
     <div>

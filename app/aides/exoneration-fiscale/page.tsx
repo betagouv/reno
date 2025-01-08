@@ -1,7 +1,5 @@
 import { Card, Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
-import Image from 'next/image'
-import calculatorIcon from '@/public/calculator-empty.svg'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import { CardMosaic } from '@/components/DevenirPartenaire'
