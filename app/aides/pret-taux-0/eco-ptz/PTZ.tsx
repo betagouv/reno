@@ -1,5 +1,3 @@
-'use client'
-
 import { Card } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Image from 'next/image'

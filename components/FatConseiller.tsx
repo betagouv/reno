@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import conseillerIcon from '@/public/conseiller.png'
-import checkIcon from '@/public/check.svg'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
-import { CTA, CTAWrapper } from './UI'
-import { push } from '@socialgouv/matomo-next'
+import checkIcon from '@/public/check.svg'
+import conseillerIcon from '@/public/conseiller.png'
+import Image from 'next/image'
+import FatConseillerCTA from './FatConseillerCTA'
+import { CTAWrapper } from './UI'
 
 export default function FatConseiller({ situation, margin, titre, texte }) {
   return (
@@ -106,25 +106,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
                   margin-bottom: 0;
                 `}
               >
-                <CTA
-                  css={`
-                    padding: 1rem;
-                    text-wrap: wrap;
-                    text-align: center;
-                    width: 100%;
-                  `}
-                  $fontSize="normal"
-                  onClick={() =>
-                    push([
-                      'trackEvent',
-                      'Simulateur Principal',
-                      'Clic',
-                      'trouver conseiller',
-                    ])
-                  }
-                >
-                  Trouver mon conseiller local
-                </CTA>
+                <FatConseillerCTA />
               </CTAWrapper>
             </div>
           </div>

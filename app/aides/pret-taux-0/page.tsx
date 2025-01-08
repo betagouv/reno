@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     ": L'éco-prêt à taux 0 (éco-PTZ) et le Prêt avance mutation (PAR+)",
 }
 
-export default function Aides() {
+export default async function Aides() {
   return (
     <Main>
       <Section>
