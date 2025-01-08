@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Le dispositif Denormandie en ' + new Date().getFullYear(),
   description:
     "Le dispositif Denormandie: Une réduction d'impôts à destination des propriétaires bailleurs",
+  alternates: {
+    canonical: '/aides/exoneration-fiscale/denormandie',
+  },
 }
 
 export default function Aides() {

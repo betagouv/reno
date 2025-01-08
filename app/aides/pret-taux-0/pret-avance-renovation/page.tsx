@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'PAR+: Le prêt avance mutation (ou rénovation)',
   description:
     'Le prêt avance mutation (ou rénovation): Un prêt hypothécaire dédié à financer vos travaux de rénovation énergétique',
+  alternates: {
+    canonical: '/aides/pret-taux-0/pret-avance-renovation',
+  },
 }
 
 export default function PagePAR() {

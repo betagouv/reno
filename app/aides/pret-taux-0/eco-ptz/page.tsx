@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description:
     "L'éco-PTZ: Un prêt à taux 0 sans conditions de ressource destinées à financer la rénovation énergétique de votre logement en " +
     new Date().getFullYear(),
+  alternates: {
+    canonical: '/aides/pret-taux-0/eco-ptz',
+  },
 }
 
 export default function Aides() {

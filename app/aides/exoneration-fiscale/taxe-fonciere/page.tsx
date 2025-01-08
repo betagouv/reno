@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "L'exonération de taxe foncière en " + new Date().getFullYear(),
   description:
     "L'exonération de taxe foncière: un dispositif visant à favoriser la rénovation énergétique de votre logement",
+  alternates: {
+    canonical: '/aides/exoneration-fiscale/taxe-fonciere',
+  },
 }
 
 export default function Aides() {
