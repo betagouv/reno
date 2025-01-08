@@ -4,7 +4,7 @@ import { parse } from 'marked'
 
 const content = `
 
-### À propos
+# À propos de Mes Aides Réno
 
 Mes Aides Réno est un service conçu par la [Direction Interministérielle du Numérique](https://www.numerique.gouv.fr/dinum/) en partenariat avec <a href="https://france-renov.gouv.fr/" target="_blank">France Rénov'</a> et le [Secrétariat général à la planification écologique (SGPE)](https://www.info.gouv.fr/france-nation-verte).
 
@@ -14,7 +14,7 @@ Mes Aides Réno a été lancé en version beta. L’objectif est de le confronte
 
 Vous pouvez en apprendre davantage sur le problème que nous souhaitons résoudre, les solutions que nous expérimentons et comment nous comptons en étudier l'impact en lisant notre [fiche produit](https://www.beta.gouv.fr/startups/mesaidesreno.html).
 
-#### Partenaires et développeurs
+## Partenaires et développeurs
 
 Mes Aides Réno a été conçu pour être facilement réutilisable et intégrable par des services tiers. 
 
@@ -22,7 +22,7 @@ Le code du site [est intégralement ouvert](https://github.com/betagouv/reno), 
 
 Le code métier est basé sur le langage [Publicodes](https://publi.codes/) pour maximiser son ouverture et sa lisibilité. [Une API](https://mesaidesreno.beta.gouv.fr/api-doc) est disponible pour comprendre notre modèle métier et réutiliser les données.
 
-#### Mentions légales
+## Mentions légales
 
 Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numériques</a>. Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
 `

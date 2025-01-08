@@ -1,14 +1,14 @@
 'use client'
-import Link from 'next/link'
-import Image from 'next/image'
-import logo from '@/public/logo.svg'
-import css from '@/components/css/convertToJs'
 import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper, Title } from '@/app/LayoutUI'
+import css from '@/components/css/convertToJs'
 import useIsInIframe from '@/components/useIsInIframe'
+import logo from '@/public/logo.svg'
+import Image from 'next/image'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import LogoCompact from './LogoCompact'
-import { CTA, CTAWrapper } from './UI'
+import { CTA } from './UI'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
