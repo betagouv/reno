@@ -38,9 +38,12 @@ export default function Content() {
         Dans l'ensemble, les aides à la rénovation ne sont que peu modifiées en
         2025.
       </p>
-      <p>
-        Concernant MaPrimeRénov', le dispositif phare des aides à la rénovation
-        energétique, la logique de choix entre deux parcours est inchangée :
+      <div>
+        <p>
+          Concernant MaPrimeRénov', le dispositif phare des aides à la
+          rénovation energétique, la logique de choix entre deux parcours est
+          inchangée :
+        </p>
         <Parcours>
           <li>
             <Card>
@@ -55,7 +58,7 @@ export default function Content() {
             </Card>
           </li>
         </Parcours>
-      </p>
+      </div>
       <ExampleBlock />
       <h2>Votre classe de revenu MaPrimeRénov' en 2025</h2>
       <p>
@@ -120,9 +123,11 @@ export default function Content() {
         subventions seront versées par la suite.
       </p>
       <p>
-        Mais pour aider les ménages modestes et très modestes à payer les factures, une avance
-        des aides de l'État peut être demandée. Elle était de 70 % de
-        MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour le parcours ampleur, et à 50 % pour le parcours par gestes où l'avance est réservée aux ménages très modestes uniquement.
+        Mais pour aider les ménages modestes et très modestes à payer les
+        factures, une avance des aides de l'État peut être demandée. Elle était
+        de 70 % de MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour le
+        parcours ampleur, et à 50 % pour le parcours par gestes où l'avance est
+        réservée aux ménages très modestes uniquement.
       </p>
       <p>
         Cela dit, en 2025 l'éco-prêt à taux zéro (éco-PTZ) reste l'une des

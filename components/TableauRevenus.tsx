@@ -30,10 +30,10 @@ export default function TableauRevenus({ dottedName, headerTag = 'h2' }) {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr key="personnes">
               <th scope="row">Nombre de personnes composant le foyer</th>
               {Object.entries(colors).map(([colorName, { color, label }]) => (
-                <th scope="col">
+                <th scope="col" key={label}>
                   <span style={{ color, textTransform: 'uppercase' }}>
                     <strong>{colorName}</strong>
                   </span>
@@ -47,14 +47,14 @@ export default function TableauRevenus({ dottedName, headerTag = 'h2' }) {
               if (!variation.si) {
                 const list = variation.sinon.variations
                 return (
-                  <Tr $active={personnes > 5}>
+                  <Tr $active={personnes > 5} key={'personne sup'}>
                     <th scope="row">Par personne supplémentaire</th>
                     {list.map((element, i) => {
                       const si =
                         i < list.length - 1 ? element.si : list[i - 1].si
                       const num = si.match(/(\d+)\s€/)[1]
                       const formatted = formatter(num)
-                      return <td>+ {formatted} €</td>
+                      return <td key={formatted + i}>+ {formatted} €</td>
                     })}
                   </Tr>
                 )
@@ -63,7 +63,7 @@ export default function TableauRevenus({ dottedName, headerTag = 'h2' }) {
 
               const tablePersonnes = variation.si.match(/\d/)
               return (
-                <Tr $active={personnes === i + 1}>
+                <Tr $active={personnes === i + 1} key={i + 1}>
                   <th scope="row">{tablePersonnes}</th>
                   {variations2.map((variation2, i) => {
                     if (!variation2.si) {

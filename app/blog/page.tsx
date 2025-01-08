@@ -79,7 +79,7 @@ const Page = () => {
                       <h2>
                         {titre}{' '}
                         {tags?.map((tag) => (
-                          <Badge>
+                          <Badge key={tag}>
                             <small>{tag}</small>
                           </Badge>
                         ))}
