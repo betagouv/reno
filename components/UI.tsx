@@ -15,6 +15,22 @@ export const Section = styled.section`
   margin: 0 auto;
   width: 800px;
   max-width: 100%;
+
+  .content-with-table {
+    table {
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      td,
+      th {
+        border: 1px solid black;
+        text-align: center;
+        padding: 0.5rem;
+      }
+      td {
+        white-space: nowrap;
+      }
+    }
+  }
 `
 export const cardBorder = `
 

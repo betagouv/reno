@@ -5,6 +5,7 @@ import FatConseiller from '@/components/FatConseiller'
 import { parse } from 'marked'
 import EligibilityEcoPTZ from '@/components/module/EligibilityEcoPTZ'
 import ShareModule from '@/app/module/ShareModule'
+import css from '@/components/css/convertToJs'
 
 export default function PTZ() {
   const dottedName = 'PTZ'
@@ -13,7 +14,7 @@ export default function PTZ() {
     <>
       <h2>L'éco-prêt à taux zéro ou éco-PTZ</h2>
       <div
-        css={`
+        style={css`
           display: flex;
           gap: 1rem;
         `}
@@ -49,21 +50,7 @@ export default function PTZ() {
       <ShareModule titre="eco-ptz" />
       <h3>Comment cela fonctionne?</h3>
       <div
-        css={`
-          table {
-            border-collapse: collapse;
-            margin-bottom: 1rem;
-            td,
-            th {
-              border: 1px solid black;
-              text-align: center;
-              padding: 0.5rem;
-            }
-            td {
-              white-space: nowrap;
-            }
-          }
-        `}
+        className="content-with-table"
         dangerouslySetInnerHTML={{
           __html: parse(rules[dottedName]['description détaillé']),
         }}
