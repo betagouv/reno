@@ -1,12 +1,13 @@
 import { InternalLink } from '@/components/UI'
 import Image from 'next/image'
 import codeIcon from '@/public/icon-code.png'
+import css from '@/components/css/convertToJs'
 
 export default function ShareModule({ titre }) {
   return (
     <InternalLink
       href={`/integration?module=${encodeURIComponent('/module/' + titre)}`}
-      css={`
+      style={css`
         display: flex;
         align-items: center;
         width: fit-content;
