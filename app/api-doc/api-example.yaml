@@ -71,7 +71,6 @@ par:
 denormandie:
   vous . propriétaire . statut: 'propriétaire'
   logement . propriétaire occupant: non
-  logement . location longue durée: oui
   denormandie . années de location: 12
   denormandie . gestes minimum: oui
   ménage . revenu: 20000

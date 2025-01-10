@@ -59,11 +59,6 @@ export default function ParametersList() {
       values: ['75056 (pour Paris)'],
     },
     {
-      title: 'logement . location longue durée',
-      description: parse(rules['logement . location longue durée'].description),
-      values: ['oui', 'non'],
-    },
-    {
       title: 'logement . période de construction',
       values: [
         'moins de 2 ans',
