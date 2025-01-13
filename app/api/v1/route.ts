@@ -169,7 +169,7 @@ function getDuree(
   if (['PTZ', 'PAR', 'denormandie', 'taxe foncière'].includes(dottedName)) {
     return `${formatValue(
       engine.setSituation(situation).evaluate(dottedName + ' . durée'),
-    )}s`
+    )}`
   }
 
   return undefined
