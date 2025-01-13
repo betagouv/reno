@@ -8,7 +8,7 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import getAppUrl from './getAppUrl'
 import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant } from './UI'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Select } from './InputUI'
 import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -17,10 +17,21 @@ export default function Integration() {
   const router = useRouter()
   const rawSearchParams = useSearchParams()
   const searchParams = Object.fromEntries(rawSearchParams.entries())
+  const [module, setModule] = useState(searchParams.module || '/')
+
   const handleModuleChange = (selectedModule) => {
     setModule(selectedModule)
-    router.push(`/integration?module=${encodeURIComponent(selectedModule)}`)
+    router.push(`/integration?module=${encodeURIComponent(selectedModule)}`, {
+      shallow: true,
+      scroll: false,
+    })
   }
+
+  useEffect(() => {
+    if (searchParams.module) {
+      setModule(searchParams.module)
+    }
+  }, [searchParams])
 
   const listeModule = [
     {
@@ -90,11 +101,6 @@ export default function Integration() {
           encodeURIComponent(rules[item.replace(' . Coup de pouce', '')].titre),
       }),
     )
-  const [module, setModule] = useState(
-    searchParams.module
-      ? listeModule.find((i) => i.valeur.includes(searchParams.module)).valeur
-      : '/',
-  )
 
   const iframeCode = `<iframe src="${getAppUrl() + module}" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
 
