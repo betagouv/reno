@@ -324,9 +324,11 @@ export const BlocAide = styled.div`
       height: auto;
     }
   }
+  h2,
   h3 {
     color: var(--color);
     margin: 1rem 0rem;
+    font-size: 130%;
   }
   .aide-details {
     font-size: 0.9rem;
@@ -495,8 +497,9 @@ export const MiseEnAvant = styled.div`
     p.$type == 'success'
       ? `background-color: #c3fad5;`
       : `background-color: white;`}
-  h3 {
+  h2, h3 {
     margin: 0 0 1rem 0;
+    font-size: 130%;
   }
   &::before {
     content: '';

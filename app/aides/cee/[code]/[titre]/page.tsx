@@ -10,7 +10,7 @@ export async function generateMetadata(props): Promise<Metadata> {
   )[0]
 
   return {
-    title: 'CEE - ' + rules[rule].code + ' : ' + rules[rule].titre,
+    title: 'Aide CEE - ' + rules[rule].code + ' : ' + rules[rule].titre,
     description:
       'Calculateur de la prime CEE ' +
       rules[rule].code +

@@ -12,9 +12,9 @@ export default function APIDoc() {
   return (
     <Main>
       <Section>
-        <h2>Confidentialité</h2>
+        <h1>Confidentialité</h1>
 
-        <h3>Traceurs</h3>
+        <h2>Traceurs</h2>
         <p>
           Nous utilisons le traceur libre Matomo, via l'instance hébergée par
           les services de l'État sur stats.beta.gouv.fr.
@@ -35,7 +35,7 @@ export default function APIDoc() {
           L'outil de suivi Matomo est configuré pour un suivi qui ne nécessite
           pas de bannière de consentement RGPD (dite "cookies").
         </p>
-        <h3>Serveur</h3>
+        <h2>Serveur</h2>
         <p>
           Notre serveur est géré par la société française{' '}
           <ExternalLink href="https://scalingo.com/">Scalingo</ExternalLink>, et

@@ -51,9 +51,9 @@ export const BlocAideMPR = ({
               <strong>{infoMPR.montant}</strong>
             </PrimeStyle>
           )}
-          <h3>
+          <h2>
             {displayPrime !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'
-          </h3>
+          </h2>
         </div>
       </div>
       <div className="aide-details">

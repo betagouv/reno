@@ -88,21 +88,21 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
             </CTA>
           </CTAWrapper>
         )}
-        <h2
+        <h1
           style={css`
             margin: 0 0 1rem;
           `}
         >
           {infoMPR.titre}
-        </h2>
+        </h1>
         <MiseEnAvant>
-          <h3
+          <h2
             style={css`
               color: #0063cb;
             `}
           >
             Informations sur les conditions d'obtention:
-          </h3>
+          </h2>
           <ul>
             <li>
               La prestation doit être inférieure à{' '}

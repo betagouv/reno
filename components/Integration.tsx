@@ -138,15 +138,14 @@ export default function Integration() {
       <Wrapper>
         <Content>
           <MiseEnAvant $type="success" $noradius={true}>
-            <h3
+            <h2
               css={`
                 font-size: 1.5rem;
-                padding: 2rem 0 0 0;
                 color: black;
               `}
             >
               Nouveau Module Ampleur
-            </h3>
+            </h2>
             <p>
               Découvrez notre nouveau module de calcul spécialement conçu et
               optimisé pour proposer simplement les aides à la rénovation
@@ -163,7 +162,7 @@ export default function Integration() {
               margin-bottom: 1rem;
             `}
           >
-            Choisissez le module à intégrer:
+            Sélectionnez le module à intégrer:
           </h2>
           <Select
             onChange={(e) => handleModuleChange(e.target.value)}
