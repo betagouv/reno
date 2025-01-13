@@ -21,10 +21,15 @@ import {
   getSituation,
 } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
-import { useMediaQuery } from 'usehooks-ts'
+import { EligibiliyTitle } from '../UI'
+import { AmpleurWrapper } from '@/app/module/AmpleurUI'
+import { push } from '@socialgouv/matomo-next'
+import { useEffect } from 'react'
 
 export default function EligibilityPAR({ dottedName }) {
-  const isMobile = useMediaQuery('(max-width: 400px)')
+  useEffect(() => {
+    push(['trackEvent', 'Module', 'Page', 'Module PAR'])
+  }, [])
   const rulesWithInterets = {
     ...rules,
     ...rulesInteretEmprunt,
@@ -47,14 +52,8 @@ export default function EligibilityPAR({ dottedName }) {
         [encodeDottedName(dottedName)]: value + '*',
       })
   return (
-    <>
-      <h3
-        css={`
-          margin-top: 1rem;
-        `}
-      >
-        Etes-vous éligible au PAR+ ?
-      </h3>
+    <AmpleurWrapper>
+      <EligibiliyTitle>Êtes-vous éligible au PAR+ ?</EligibiliyTitle>
       <QuestionList>
         <Li
           $next={true}
@@ -88,7 +87,6 @@ export default function EligibilityPAR({ dottedName }) {
           <IdFQuestion
             {...{
               setSearchParams,
-              isMobile,
               situation,
               answeredQuestions,
             }}
@@ -141,6 +139,6 @@ export default function EligibilityPAR({ dottedName }) {
           text: 'au PAR+',
         }}
       />
-    </>
+    </AmpleurWrapper>
   )
 }

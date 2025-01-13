@@ -11,7 +11,7 @@ export default function Denormandie() {
 
   return (
     <>
-      <h2>Le dispositif Denormandie</h2>
+      <h1>Le dispositif Denormandie</h1>
       <div
         css={`
           display: flex;
@@ -28,7 +28,7 @@ export default function Denormandie() {
         <EligibilityDenormandie dottedName="denormandie" />
       </Card>
       <ShareModule titre="denormandie" />
-      <h3>Les principales conditions d'éligibilité ?</h3>
+      <h2>Les principales conditions d'éligibilité</h2>
       <div
         css={`
           list-style-image: url(${checkIcon.src});

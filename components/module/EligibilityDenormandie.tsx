@@ -19,8 +19,15 @@ import {
   getSituation,
 } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
+import { EligibiliyTitle } from '../UI'
+import { AmpleurWrapper } from '@/app/module/AmpleurUI'
+import { push } from '@socialgouv/matomo-next'
+import { useEffect } from 'react'
 
 export default function EligibilityDenormandie({ dottedName }) {
+  useEffect(() => {
+    push(['trackEvent', 'Module', 'Page', 'Module Denormandie'])
+  }, [])
   const engine = new Publicodes(rules)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
@@ -28,19 +35,12 @@ export default function EligibilityDenormandie({ dottedName }) {
   const situation = getSituation(searchParams, rules)
 
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
-  const evaluation = engine
-    .setSituation(situation)
-    .evaluate(dottedName + ' . montant')
 
   return (
-    <>
-      <h3
-        css={`
-          margin-top: 1rem;
-        `}
-      >
-        Etes-vous éligible au dispositif Denormandie ?
-      </h3>
+    <AmpleurWrapper>
+      <EligibiliyTitle>
+        Êtes-vous éligible au dispositif Denormandie ?
+      </EligibiliyTitle>
       <QuestionList>
         <Li
           $next={true}
@@ -169,13 +169,12 @@ export default function EligibilityDenormandie({ dottedName }) {
       </QuestionList>
       <EligibilityResult
         {...{
-          evaluation,
           engine,
           dottedName,
           situation,
           text: 'au dispositif Denormandie',
         }}
       />
-    </>
+    </AmpleurWrapper>
   )
 }

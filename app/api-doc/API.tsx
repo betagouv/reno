@@ -25,7 +25,7 @@ export default function API() {
             margin-bottom: 3vh;
           `}
         >
-          <h2>API Mes Aides Réno</h2>
+          <h1>API Mes Aides Réno</h1>
           <p>
             Notre API vous permet d'intégrer Mes Aides Réno au coeur de votre
             service. Si votre objectif est simplement de l'intégrer dans une
@@ -97,13 +97,13 @@ export default function API() {
             </div>
           </Card>
           <MiseEnAvant $type="warning" $noradius={true}>
-            <h4
+            <h3
               css={`
                 margin: 0 0 1rem;
               `}
             >
               Demandez votre token!
-            </h4>
+            </h3>
             <p>
               Notre API est entièrement gratuite, libre d'accès et sans aucun
               quota d'utilisation. Nous vous demandons simplement de nous{' '}
@@ -119,7 +119,7 @@ export default function API() {
               d'aides à la rénovation.
             </p>
           </MiseEnAvant>
-          <h3>Que permet l'API ?</h3>
+          <h2>Que permet l'API ?</h2>
           <p>
             L'API permet, à partir d'une situation d'entrée, d'évaluer
             l'éligibilité ainsi que le montant d'aides auxquels l'utilisateur
@@ -144,7 +144,7 @@ export default function API() {
               /api/v1/?ménage.revenu.classe="modeste"&fields=ampleur.pourcent%20d%27écrêtement
             </ExternalLink>
           </p>
-          <h3>Démonstration</h3>
+          <h2>Démonstration</h2>
           <p>
             Modifier la <em>situation</em> (les paramètres à gauche), puis
             cliquer sur le bouton

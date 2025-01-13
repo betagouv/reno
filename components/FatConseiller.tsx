@@ -9,7 +9,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
   return (
     <FatConseillerWrapper $margin={margin}>
       <h3>{titre}</h3>
-      <p dangerouslySetInnerHTML={{ __html: texte }} />
+      <div dangerouslySetInnerHTML={{ __html: texte }} />
       <details>
         <summary>
           <div>

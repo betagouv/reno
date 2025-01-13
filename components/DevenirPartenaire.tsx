@@ -278,43 +278,56 @@ export const CardMosaic = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
   > div {
     min-width: 250px;
+    position: relative;
     flex: 1;
     &:hover {
       background: #e8edff;
       cursor: pointer;
     }
+    &:after {
+      right: 2rem;
+      background-color: var(--color);
+      content: '';
+      display: block;
+      float: right;
+      flex: 0 0 auto;
+      -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
+      mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+    img {
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+      padding: 2rem;
+    }
+    h2 {
+      margin: 0 0 1rem 0;
+      color: var(--color);
+      font-size: ${(p) => (p.$smallTitle ? '1.2rem' : '130%')};
+    }
+    p {
+      color: black;
+    }
     a {
       text-decoration: none;
-      img {
-        display: block;
-        object-fit: cover;
-        width: 100%;
-        height: auto;
-        padding: 2rem;
-      }
-      h3 {
-        margin: 0 0 1rem 0;
-        color: var(--color);
-        font-size: ${(p) => (p.$smallTitle ? '1.2rem' : '130%')};
-      }
-      p {
-        color: black;
-      }
-      &:after {
-        right: 2rem;
-        background-color: var(--color);
+      color: var(--color);
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
         content: '';
-        display: block;
-        float: right;
-        flex: 0 0 auto;
-        -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
-        mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTE2LjE3MiAxMS01LjM2NC01LjM2NCAxLjQxNC0xLjQxNEwyMCAxMmwtNy43NzggNy43NzgtMS40MTQtMS40MTRMMTYuMTcyIDEzSDR2LTJoMTIuMTcyWiIvPjwvc3ZnPg==);
-        -webkit-mask-size: 100% 100%;
-        mask-size: 100% 100%;
-        height: 1.5rem;
-        width: 1.5rem;
       }
     }
   }

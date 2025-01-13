@@ -18,6 +18,10 @@ import {
   getSituation,
 } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
+import { EligibiliyTitle } from '../UI'
+import { AmpleurWrapper } from '@/app/module/AmpleurUI'
+import { push } from '@socialgouv/matomo-next'
+import { useEffect } from 'react'
 
 export default function EligibilityEcoPTZ({ dottedName }) {
   const rulesWithInterets = {
@@ -35,15 +39,13 @@ export default function EligibilityEcoPTZ({ dottedName }) {
     rulesWithInterets,
   )
 
+  useEffect(() => {
+    push(['trackEvent', 'Module', 'Page', 'Module Eco-PTZ'])
+  }, [])
+
   return (
-    <div>
-      <h3
-        css={`
-          margin-top: 1rem;
-        `}
-      >
-        Etes-vous éligible à l'éco-PTZ ?
-      </h3>
+    <AmpleurWrapper>
+      <EligibiliyTitle>Êtes-vous éligible à l'éco-PTZ ?</EligibiliyTitle>
       <QuestionList>
         <Li
           $next={true}
@@ -113,6 +115,6 @@ export default function EligibilityEcoPTZ({ dottedName }) {
           text: "à l'éco-PTZ",
         }}
       />
-    </div>
+    </AmpleurWrapper>
   )
 }

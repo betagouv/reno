@@ -10,7 +10,7 @@ export default function APIDoc() {
   return (
     <Main>
       <Section>
-        <h2>Accessibilité</h2>
+        <h1>Accessibilité</h1>
 
         <p>
           L'interface <strong>Mes Aides Réno</strong> respecte au mieux les

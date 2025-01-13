@@ -29,9 +29,7 @@ export default async function Aides() {
             { 'Les prêts à taux 0': '/aides/pret-taux-0' },
           ]}
         />
-        <h2>
-          Aides pour financer vos travaux de rénovation: Les prêts à taux 0
-        </h2>
+        <h1>Les prêts à taux 0 pour financer vos travaux de rénovation</h1>
         <p>
           Les prêts à taux zéro sont des moyens avantageux de réaliser vos
           travaux de rénovation. Ils peuvent être sollicités seuls ou en
@@ -57,46 +55,46 @@ export default async function Aides() {
         >
           <CardMosaic>
             <Card>
-              <Link href="/aides/pret-taux-0/eco-ptz">
-                <Image
-                  src={ptzImage}
-                  alt="Logo Eco-PTZ"
-                  style={css`
-                    padding: 0rem;
-                    max-width: 230px;
-                    margin: auto;
-                  `}
-                />
-                <div>
-                  <h3>{rules['PTZ'].titre}</h3>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: rules['PTZ'].descriptionHtml,
-                    }}
-                  />
-                </div>
-              </Link>
+              <Image
+                src={ptzImage}
+                alt="Logo Eco-PTZ"
+                style={css`
+                  padding: 0rem;
+                  max-width: 230px;
+                  margin: auto;
+                `}
+              />
+              <h2>
+                <Link href="/aides/pret-taux-0/eco-ptz">
+                  {rules['PTZ'].titre}
+                </Link>
+              </h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: rules['PTZ'].descriptionHtml,
+                }}
+              />
             </Card>
             <Card>
-              <Link href="/aides/pret-taux-0/pret-avance-renovation">
-                <Image
-                  src={parImage}
-                  alt="Logo PAR"
-                  style={css`
-                    padding: 0rem;
-                    max-width: 230px;
-                    margin: auto;
-                  `}
-                />
-                <div>
-                  <h3>{rules['PAR'].titre}</h3>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: rules['PAR'].descriptionHtml,
-                    }}
-                  />
-                </div>
-              </Link>
+              <Image
+                src={parImage}
+                alt="Logo PAR"
+                style={css`
+                  padding: 0rem;
+                  max-width: 230px;
+                  margin: auto;
+                `}
+              />
+              <h2>
+                <Link href="/aides/pret-taux-0/pret-avance-renovation">
+                  {rules['PAR'].titre}
+                </Link>
+              </h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: rules['PAR'].descriptionHtml,
+                }}
+              />
             </Card>
           </CardMosaic>
         </div>

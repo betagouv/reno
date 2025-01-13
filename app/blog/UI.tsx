@@ -59,7 +59,7 @@ export const OtherArticlesList = styled.div`
     height: 12rem;
     display: flex;
     align-items: center;
-    overflow: scroll;
+    overflow-x: scroll;
     list-style-type: none;
     padding-left: 0;
     li {

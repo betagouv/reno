@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-export const Title = styled.h1`
+export const Title = styled.span`
   margin: 1vh 0;
   margin-left: 0.6rem;
   font-weight: normal;

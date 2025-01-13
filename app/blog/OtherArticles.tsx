@@ -4,6 +4,7 @@ import { OtherArticlesList, OtherArticlesSection } from './UI'
 import { dateCool } from './utils'
 import { sortBy } from '@/components/utils'
 import { articles } from './[slug]/page'
+import { InternalLink } from '@/components/UI'
 
 export default function ({ excludeUrl }) {
   return (
@@ -16,11 +17,9 @@ export default function ({ excludeUrl }) {
             .filter(({ url }) => url !== excludeUrl)
             .map(({ url, titre, date }) => (
               <li key={url}>
-                <div>
-                  <Link href={url}>
-                    <h3>{titre}</h3>
-                  </Link>
-                </div>
+                <h3>
+                  <InternalLink href={url}>{titre}</InternalLink>
+                </h3>
                 <small
                   style={css`
                     color: var(--color);

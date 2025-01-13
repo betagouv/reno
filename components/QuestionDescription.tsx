@@ -48,7 +48,14 @@ export default function QuestionDescription({ currentQuestion, rule }) {
           `}
           onClick={handleSummaryClick}
         >
-          <span>💡 Comment répondre ?</span>
+          <h2
+            css={`margin: 0;
+                  font-size: 100%;
+                  font-weight: normal;
+            }`}
+          >
+            💡 Comment répondre ?
+          </h2>
           <span
             css={`
               border-radius: 50px;
