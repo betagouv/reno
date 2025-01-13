@@ -78,7 +78,7 @@ const simulateurCoupDePouce = Object.keys(rules)
 
 const paths = [
   ...basePaths,
-  ...documentationPaths,
+  //...documentationPaths, // We're trying a version of the site where search engines don't see the documentation, to avoid duplicate content with our simulators and half-empty non optimized pages
   ...aidesLocales,
   ...[...new Set(simulateurCEE)], // pour éviter les doublons
   ...[...new Set(simulateurMPR)], // pour éviter les doublons
