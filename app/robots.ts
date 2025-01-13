@@ -5,6 +5,7 @@ const robots: MetadataRoute.Robots = () => {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: '/documentation/',
     },
     sitemap: 'https://mesaidesreno.beta.gouv.fr/sitemap.xml',
   }
