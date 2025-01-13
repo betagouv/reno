@@ -8,10 +8,10 @@ import rules from '@/app/règles/rules'
 
 export const metadata: Metadata = {
   title:
-    'Les exonérations fiscales 0 destinées à la rénovation énergétique en ' +
+    'Les exonérations fiscales et réu destinées à la rénovation énergétique en ' +
     new Date().getFullYear(),
   description:
-    'Les exonérations fiscales 0 destinées à la rénovation énergétique en ' +
+    "Les exonérations fiscales et réductions d'impôts destinées à financer votre rénovation énergétique en " +
     new Date().getFullYear() +
     ": L'exonération de taxe foncière et le dispositif Denormandie",
 }
@@ -26,10 +26,10 @@ export default function ExonerationFiscale() {
             { 'Les exonérations fiscales': '/aides/exoneration-fiscale' },
           ]}
         />
-        <h2>
+        <h1>
           Aides pour financer vos travaux de rénovation: Les exonérations
           fiscales
-        </h2>
+        </h1>
         <p>
           Les exonérations fiscales sont des incitations à destination des
           propriétaires occupants ou bailleurs mises en oeuvre par l'état afin
@@ -55,28 +55,28 @@ export default function ExonerationFiscale() {
         >
           <CardMosaic>
             <Card>
-              <Link href="/aides/exoneration-fiscale/taxe-fonciere">
-                <div>
-                  <h3>{rules['taxe foncière'].marque}</h3>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: rules['taxe foncière'].descriptionHtml,
-                    }}
-                  />
-                </div>
-              </Link>
+              <h2>
+                <Link href="/aides/exoneration-fiscale/taxe-fonciere">
+                  {rules['taxe foncière'].marque}
+                </Link>
+              </h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: rules['taxe foncière'].descriptionHtml,
+                }}
+              />
             </Card>
             <Card>
-              <Link href="/aides/exoneration-fiscale/denormandie">
-                <div>
-                  <h3>{rules['denormandie'].marque}</h3>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: rules['denormandie'].descriptionHtml,
-                    }}
-                  />
-                </div>
-              </Link>
+              <h2>
+                <Link href="/aides/exoneration-fiscale/denormandie">
+                  {rules['denormandie'].marque}
+                </Link>
+              </h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: rules['denormandie'].descriptionHtml,
+                }}
+              />
             </Card>
           </CardMosaic>
         </div>

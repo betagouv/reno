@@ -12,7 +12,7 @@ export default function PTZ() {
 
   return (
     <>
-      <h2>L'éco-prêt à taux zéro ou éco-PTZ</h2>
+      <h1>L'éco-prêt à taux zéro ou éco-PTZ</h1>
       <div
         style={css`
           display: flex;
@@ -48,7 +48,7 @@ export default function PTZ() {
         />
       </Card>
       <ShareModule titre="eco-ptz" />
-      <h3>Comment cela fonctionne?</h3>
+      <h2>Comment cela fonctionne?</h2>
       <div
         className="content-with-table"
         dangerouslySetInnerHTML={{

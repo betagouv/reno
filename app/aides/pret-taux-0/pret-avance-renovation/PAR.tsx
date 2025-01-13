@@ -14,7 +14,7 @@ export default function PAR() {
 
   return (
     <>
-      <h2>Le Prêt avance mutation ou rénovation sans intérêt</h2>
+      <h1>Le Prêt avance mutation ou rénovation sans intérêt - PAR+</h1>
       <div
         css={`
           display: flex;
@@ -34,13 +34,13 @@ export default function PAR() {
         <EligibilityPAR dottedName="PAR" />
       </Card>
       <ShareModule titre="par" />
-      <h3>Comment cela fonctionne?</h3>
+      <h2>Comment cela fonctionne?</h2>
       <div
         dangerouslySetInnerHTML={{
           __html: rules[dottedName].explicationHTML,
         }}
       />
-      <h3>Les principales conditions d'éligibilité ?</h3>
+      <h2>Les principales conditions d'éligibilité ?</h2>
       <div
         css={`
           list-style-image: url(${checkIcon.src});
