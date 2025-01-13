@@ -1,7 +1,7 @@
 'use client'
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
+import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import logo from '@/public/logo.svg'
 import Image from 'next/image'
 import { HeaderWrapper, Labels } from '../LandingUI'

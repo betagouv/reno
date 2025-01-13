@@ -2,7 +2,7 @@ import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import { sortBy } from '@/components/utils'
-import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
+import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
@@ -18,7 +18,7 @@ const description =
 export const metadata: metadata = {
   title,
   description,
-  openGraph: { images: ['/illustration-accueil.resized.jpg'] },
+  openGraph: { images: ['/illustration-accueil.resized.webp'] },
 }
 
 const Page = () => {
@@ -75,16 +75,16 @@ const Page = () => {
               {sortedArticles.map(({ url, date, titre, tags }) => (
                 <li key={url}>
                   <div>
-                    <Link href={url}>
-                      <h2>
+                    <h2>
+                      <Link href={url}>
                         {titre}{' '}
                         {tags?.map((tag) => (
                           <Badge key={tag}>
                             <small>{tag}</small>
                           </Badge>
                         ))}
-                      </h2>
-                    </Link>
+                      </Link>
+                    </h2>
                   </div>
                   <small
                     style={css`
