@@ -10,14 +10,15 @@ export const QuestionHeader = styled.header`
     color: var(--color);
     font-weight: 600;
   }
-  h3 {
+  h1 {
     margin: 0;
     margin-top: 0.2rem;
+    font-size: 130%;
     @media (max-width: 800px) {
       font-size: 110%;
     }
   }
-  h3 + p {
+  h1 + p {
     margin-left: 0.2rem;
   }
 `

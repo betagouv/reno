@@ -87,7 +87,6 @@ const paths = [
 
 export default async function sitemap(): MetadataRoute.Sitemap {
   const blogSitemap = await generateBlogSitemap()
-  console.log(blogSitemap)
 
   await postBingIndexNow(paths)
 

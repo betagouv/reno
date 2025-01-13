@@ -127,8 +127,6 @@ export default function Ampleur() {
         [encodeDottedName(dottedName)]: value + '*',
       })
 
-  push(['trackEvent', 'Module', 'Page', 'Module Ampleur DPE ' + currentDPE])
-
   return (
     <AmpleurWrapper>
       <header>
@@ -164,7 +162,7 @@ export default function Ampleur() {
                 img {
                   width: 2rem !important;
                 }
-                h1 {
+                span {
                   line-height: 0.8rem;
                   font-size: 80%;
                   width: 2rem;

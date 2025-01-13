@@ -15,7 +15,6 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
-import useIsInIframe from './useIsInIframe'
 
 export const QuestionText = ({
   rule,
@@ -31,9 +30,10 @@ export const QuestionText = ({
   const text = rule.question.texte
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
-  if (text.endsWith(' ?'))
-    return <span>{text.replace(/\s\?$/, '')}&nbsp;?</span>
-  return <span>{text}</span>
+
+  return (
+    <h1>{text.endsWith(' ?') ? text.replace(/\s\?$/, '') : text}&nbsp;?</h1>
+  )
 }
 export default function ClassicQuestionWrapper({
   children,
@@ -49,7 +49,6 @@ export default function ClassicQuestionWrapper({
   noSuggestions,
   nextQuestions,
 }) {
-  const isInIframe = useIsInIframe()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { depuisModule } = searchParams
@@ -90,17 +89,15 @@ export default function ClassicQuestionWrapper({
         {(!rule.type || !rule.type === 'question rhétorique') && (
           <QuestionHeader>
             <small>{categoryTitle}</small>
-            <h3>
-              <QuestionText
-                {...{
-                  rule,
-                  question: currentQuestion,
-                  rules,
-                  situation,
-                  engine,
-                }}
-              />
-            </h3>
+            <QuestionText
+              {...{
+                rule,
+                question: currentQuestion,
+                rules,
+                situation,
+                engine,
+              }}
+            />
             {rule['sous-titre'] && (
               <div
                 css={`

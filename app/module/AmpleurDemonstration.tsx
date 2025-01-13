@@ -130,7 +130,13 @@ export default function AmpleurDemonstration() {
           </BlueEm>{' '}
           dans votre HTML ou votre contenu Wordpress :
         </p>
-        <code>{iframeCode(iframeUrl, false)}</code>
+        <code
+          css={`
+            word-break: break-all;
+          `}
+        >
+          {iframeCode(iframeUrl, false)}
+        </code>
         <p
           css={`
             margin-top: 1rem;
@@ -139,7 +145,13 @@ export default function AmpleurDemonstration() {
           Vous pouvez habiller le module en CSS avec par exemple une ombre
           portée, voici un exemple :{' '}
         </p>
-        <code>{iframeCode(undefined, true)}</code>
+        <code
+          css={`
+            word-break: break-all;
+          `}
+        >
+          {iframeCode(undefined, true)}
+        </code>
         <section
           css={`
             margin: auto;

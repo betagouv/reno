@@ -184,7 +184,13 @@ export default function Integration() {
                 </BlueEm>{' '}
                 dans votre HTML ou votre contenu Wordpress :
               </p>
-              <code>{iframeCode}</code>
+              <code
+                css={`
+                  word-break: break-all;
+                `}
+              >
+                {iframeCode}
+              </code>
               <h2>Le résultat</h2>
 
               <div

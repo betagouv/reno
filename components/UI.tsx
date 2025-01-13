@@ -11,11 +11,19 @@ export const Main = styled.main`
   margin: 0 auto;
 `
 
+export const EligibiliyTitle = styled.h2`
+  margin-top: 0.5rem;
+  font-size: 130%;
+  color: var(--color);
+`
+
 export const Section = styled.section`
   margin: 0 auto;
   width: 800px;
   max-width: 100%;
-
+  h1 {
+    font-size: 175%;
+  }
   .content-with-table {
     table {
       border-collapse: collapse;
@@ -39,6 +47,7 @@ export const cardBorder = `
   border-radius: 0.3rem;
 `
 export const Card = styled.div`
+  position: relative;
   background: white;
   margin: 0.6rem 0;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
