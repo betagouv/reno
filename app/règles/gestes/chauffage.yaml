@@ -5,6 +5,7 @@ chauffage:
     - raccordement réseau
     - chauffe-eau thermodynamique . montant
     - PAC . air-eau . montant
+    - PAC . air-air . montant
     - PAC . géo . montant
     - PAC . solaire . montant
     - solaire . chauffe-eau solaire . montant
