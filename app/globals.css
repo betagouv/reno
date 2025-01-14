@@ -6,6 +6,7 @@
   --lighterColor0: #c0c0fb;
   --lighterColor: #d1d1fb;
   --lighterColor2: #e4e4f8;
+  --lighterColor3: #dfdff1;
   --lightestColor: #f5f5fe;
   --mutedColor: #666666;
   --validColor: #18753C;
@@ -150,4 +151,8 @@ input[type='radio']:not(:checked):not(:disabled) {
   background: white;
   border: 2px solid var(--color);
   border-radius: 50%;
+}
+
+input::placeholder {
+  color: var(--lighterColor3);
 }
