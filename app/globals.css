@@ -154,5 +154,5 @@ input[type='radio']:not(:checked):not(:disabled) {
 }
 
 input::placeholder {
-  color: var(--lighterColor3);
+  color: lightgrey;
 }
