@@ -14,6 +14,14 @@ export default function FooterContent() {
               </InternalLink>
             </h3>
             <ul className="fr-footer__top-list">
+              <li key={'2025'}>
+                <InternalLink
+                  className="fr-footer__top-link"
+                  href={'/blog/aides-renovation-2025'}
+                >
+                  Quelles aides à la rénovation en 2025 ?
+                </InternalLink>
+              </li>
               {articles
                 .filter(
                   ({ tags, brouillon }) =>
