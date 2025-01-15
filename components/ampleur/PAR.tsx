@@ -13,7 +13,6 @@ export default function PAR({
   expanded,
 }) {
   const dottedName = 'PAR'
-  const rule = rules[dottedName]
   return (
     <AideAmpleur
       {...{
@@ -27,17 +26,11 @@ export default function PAR({
     >
       {expanded && (
         <>
-          <p>
-            Pendant les 10 premières années du prêt, l'État prend en charge
-            l'intégralité des intérêts. À l'expiration de cette période, des
-            intérêts au taux fixé librement par l'établissement prêteur au
-            moment de la signature du contrat de prêt seront appliqués.
-          </p>
-          <p>
-            L'établissement prêteur peut décider de verser le prêt en une ou
-            plusieurs fois sur la base du descriptif et des devis détaillés des
-            travaux à réaliser, ou bien à la fin des travaux.
-          </p>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].explicationHTML,
+            }}
+          />
           <h3>Comment est calculée l'aide ?</h3>
           <Card $background="#f7f8f8">
             <div

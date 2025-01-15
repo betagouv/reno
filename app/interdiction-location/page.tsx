@@ -8,7 +8,7 @@ import {
 } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
+import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -158,7 +158,9 @@ export default function Page() {
             </p>
             <CTAWrapper $justify="center">
               <CTA $fontSize="normal">
-                <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+                <Link href="/simulation" prefetch={false}>
+                  ➞&nbsp;&nbsp;Calculer mes aides
+                </Link>
               </CTA>
             </CTAWrapper>
           </Content>

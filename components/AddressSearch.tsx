@@ -158,7 +158,10 @@ export const CityList = styled.ul`
   list-style-type: none;
   position: absolute;
   margin-top: 35px;
+  z-index: 999999;
   li {
+    display: block !important;
+    margin: 0 !important;
     padding: 8px 24px 8px 35px;
     line-height: 1.2rem;
     &::before,

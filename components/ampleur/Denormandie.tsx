@@ -18,7 +18,6 @@ export default function Denormandie({
 }) {
   const situation = {
     ...exampleSituation,
-    'logement . location longue durée': 'oui',
   }
 
   if (!situation['denormandie . années de location']) {

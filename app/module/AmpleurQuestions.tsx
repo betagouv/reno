@@ -9,7 +9,35 @@ import sablier from '@/public/sablier.svg'
 import { push } from '@socialgouv/matomo-next'
 import Image from 'next/image'
 import styled from 'styled-components'
+import { getRevenusList } from '@/components/RevenuInput'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
+import { formatValue } from 'publicodes'
+import AddressSearch from '@/components/AddressSearch'
+
+export const CommuneLogement = ({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+  onChange,
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      Ce logement sera situé sur la commune de :{' '}
+      <AddressSearch
+        {...{
+          type: 'logement . commune',
+          setChoice: (result) => {
+            onChange(result)
+          },
+          setSearchParams,
+          situation,
+          answeredQuestions,
+        }}
+      />
+    </label>
+  </section>
+)
 
 export const TypeResidence = ({
   setSearchParams,
@@ -51,15 +79,16 @@ export const TypeResidence = ({
 )
 
 export const PersonnesQuestion = ({
-  defaultSituation,
   situation,
   onChange,
   answeredQuestions,
+  dot = true,
+  text = 'Dans un ménage de',
 }) => (
   <section>
-    <Dot />
+    {dot && <Dot />}
     <label>
-      <span>Dans un ménage de </span>{' '}
+      <span>{text}</span>{' '}
       <input
         type="number"
         min="1"
@@ -82,6 +111,40 @@ export const PersonnesQuestion = ({
         `}
       />{' '}
       personnes.
+    </label>
+  </section>
+)
+export const MontantQuestion = ({
+  situation,
+  setSearchParams,
+  answeredQuestions,
+  rule,
+  text,
+  dot = true,
+}) => (
+  <section>
+    {dot && <Dot />}
+    <label>
+      <span>{text}</span>{' '}
+      <input
+        type="number"
+        min="1"
+        inputMode="numeric"
+        pattern="[1-9]+"
+        defaultValue={
+          answeredQuestions.includes(rule) ? situation[rule] : undefined
+        }
+        onChange={(e) => {
+          const { value } = e.target
+          const invalid = isNaN(value) || value <= 1000
+          if (invalid) return
+          push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + value])
+          setSearchParams({
+            [encodeDottedName(rule)]: value + '*',
+          })
+        }}
+      />{' '}
+      €.
     </label>
   </section>
 )
@@ -171,13 +234,108 @@ export const RevenuQuestion = ({
   )
 }
 
-export const IdFQuestion = ({
+// Cette question se pose pour le PAR+ uniquement accessible au ménage très modeste et modeste
+// On leur facilite un maximum la tâche en posant une question Oui/Non sur le montant max du ménage modeste
+// plutôt que la liste déroulante de choix des revenus
+export const RevenuMaxQuestion = ({
+  answeredQuestions,
   setSearchParams,
-  isMobile,
+  engine,
+  situation,
+}) => {
+  const answered = answeredQuestions.includes('ménage . revenu . classe')
+  // On doit trouver la valeur pour la classe modeste
+  const revenuMax = getRevenusList(situation, engine)[1]
+  if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
+    const currentValue = situation['ménage . revenu']
+    const onChange = (value) => {
+      if (value === '') return
+      const encodedSituation = encodeSituation(
+        {
+          'ménage . revenu': value == undefined ? undefined : value,
+        },
+        false,
+        ['ménage . revenu'],
+      )
+      setSearchParams(encodedSituation)
+    }
+
+    return (
+      <div
+        css={`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <Dot />
+        <YesNoQuestionStyle>
+          <span>
+            Avec un revenu fiscal inférieur à{' '}
+            <strong>{formatValue(revenuMax)}€</strong> ?
+          </span>
+          <section>
+            <label>
+              <input
+                id="rfr"
+                type="radio"
+                checked={
+                  answered &&
+                  situation['ménage . revenu . classe'] === '"modeste"'
+                }
+                onChange={() => {
+                  push(['trackEvent', 'PAR', 'Interaction', 'classe éligible'])
+                  setSearchParams({
+                    [encodeDottedName('ménage . revenu . classe')]:
+                      '"modeste"*',
+                  })
+                }}
+              />
+              <span>Oui</span>
+            </label>
+            <label>
+              <input
+                id="rfr"
+                type="radio"
+                checked={
+                  answered &&
+                  situation['ménage . revenu . classe'] === '"intermédiaire"'
+                }
+                onChange={() => {
+                  push([
+                    'trackEvent',
+                    'PAR',
+                    'Interaction',
+                    'classe non éligible',
+                  ])
+                  setSearchParams({
+                    [encodeDottedName('ménage . revenu . classe')]:
+                      '"intermédiaire"*',
+                  })
+                }}
+              />
+              <span>Non</span>
+            </label>
+          </section>
+        </YesNoQuestionStyle>
+      </div>
+    )
+  }
+
+  return (
+    <section>
+      <Dot />
+      Avec un revenu fiscal inférieur à
+    </section>
+  )
+}
+
+export const PeriodeConstructionQuestion = ({
+  setSearchParams,
   situation,
   answeredQuestions,
+  periode,
 }) => {
-  const answered = answeredQuestions.includes('ménage . région . IdF')
+  const answered = answeredQuestions.includes('logement . ' + periode)
   return (
     <div
       css={`
@@ -186,104 +344,224 @@ export const IdFQuestion = ({
       `}
     >
       <Dot />
-      <div
-        css={`
-          > section {
-            margin-left: 1rem;
-            label {
-              display: inline-flex;
-              align-items: center;
-              margin-right: 1rem;
-            }
-            input[type='radio'] {
-              width: 1.2rem !important;
-              height: 1.2rem !important;
-            }
-            input[type='radio'],
-            input[type='radio'] + label {
-              cursor: pointer;
-              &:hover {
-                background: var(--lighterColor);
-              }
-            }
-          }
-        `}
-      >
-        {false && (
-          <input
-            type="checkbox"
-            id="idf"
-            name={'IDF'}
-            defaultChecked={situation['ménage . région . IdF'] === 'non'}
-            onChange={() => {
-              push([
-                'trackEvent',
-                'Module',
-                'Interaction',
-                'idf mobile ' + situation['ménage . région . IdF'],
-              ])
-              setSearchParams({
-                [encodeDottedName('ménage . région . IdF')]:
-                  (situation['ménage . région . IdF'] === 'oui'
-                    ? 'non'
-                    : 'oui') + '*',
-              })
-            }}
-          />
-        )}
-        <span>
-          Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
-        </span>
-        {true && (
-          <section>
-            <label>
-              <input
-                id={`idf`}
-                type="radio"
-                checked={
-                  answered && situation['ménage . région . IdF'] === 'oui'
-                }
-                onChange={() => {
-                  push([
-                    'trackEvent',
-                    'Module',
-                    'Interaction',
-                    'idf desktop oui',
-                  ])
-                  setSearchParams({
-                    [encodeDottedName('ménage . région . IdF')]: 'oui*',
-                  })
-                }}
-              />
-              <span>Oui</span>
-            </label>
-            <label>
-              <input
-                id={`idf`}
-                type="radio"
-                checked={
-                  answered && situation['ménage . région . IdF'] === 'non'
-                }
-                onChange={() => {
-                  push([
-                    'trackEvent',
-                    'Module',
-                    'Interaction',
-                    'idf desktop non',
-                  ])
-                  setSearchParams({
-                    [encodeDottedName('ménage . région . IdF')]: 'non*',
-                  })
-                }}
-              />
-              <span>Non</span>
-            </label>
-          </section>
-        )}
-      </div>
+      <YesNoQuestionStyle>
+        <span>Il a été achevé depuis {periode}</span>
+        <section>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation['logement . ' + periode] === 'oui'}
+              onChange={() => {
+                push([
+                  'trackEvent',
+                  'PAR',
+                  'Interaction',
+                  'période construction oui',
+                ])
+                setSearchParams({
+                  [encodeDottedName('logement . ' + periode)]: 'oui*',
+                })
+              }}
+            />
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation['logement . ' + periode] === 'non'}
+              onChange={() => {
+                push([
+                  'trackEvent',
+                  'PAR',
+                  'Interaction',
+                  'période construction non',
+                ])
+                setSearchParams({
+                  [encodeDottedName('logement . ' + periode)]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
+          </label>
+        </section>
+      </YesNoQuestionStyle>
     </div>
   )
 }
+
+export const YesNoQuestion = ({
+  setSearchParams,
+  situation,
+  answeredQuestions,
+  rules,
+  rule,
+  text,
+}) => {
+  const answered = answeredQuestions.includes(rule)
+  return (
+    <div
+      css={`
+        display: flex;
+        align-items: center;
+      `}
+    >
+      <Dot />
+      <YesNoQuestionStyle>
+        <span>{text || rules[rule]['question']}</span>
+        <section>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation[rule] === 'oui'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', rule + ' oui'])
+                setSearchParams({
+                  [encodeDottedName(rule)]: 'oui*',
+                })
+              }}
+            />
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation[rule] === 'non'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', rule + ' non'])
+                setSearchParams({
+                  [encodeDottedName(rule)]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
+          </label>
+        </section>
+      </YesNoQuestionStyle>
+    </div>
+  )
+}
+
+export const IdFQuestion = ({
+  setSearchParams,
+  isMobile,
+  situation,
+  answeredQuestions,
+  rule = 'ménage . région . IdF',
+}) => {
+  const answered = answeredQuestions.includes(rule)
+  return (
+    <div
+      css={`
+        display: flex;
+        align-items: center;
+      `}
+    >
+      <Dot />
+      <YesNoQuestionStyle>
+        <span>
+          Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
+        </span>
+        <section>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation[rule] === 'oui'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', 'idf desktop oui'])
+                setSearchParams({
+                  [encodeDottedName(rule)]: 'oui*',
+                })
+              }}
+            />
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation[rule] === 'non'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', 'idf desktop non'])
+                setSearchParams({
+                  [encodeDottedName(rule)]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
+          </label>
+        </section>
+      </YesNoQuestionStyle>
+    </div>
+  )
+}
+
+export const TypeTravaux = ({
+  setSearchParams,
+  situation,
+  rules,
+  rule = 'logement . type travaux',
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      {rules[rule]['question']}:{' '}
+      <Select
+        css={`
+          background: #f5f5fe;
+          max-width: 90vw;
+        `}
+        disableInstruction={false}
+        onChange={(e) => {
+          push(['trackEvent', 'Module', 'Interaction', 'travaux ' + e])
+          setSearchParams({
+            [encodeDottedName(rule)]: '"' + e + '"*',
+          })
+        }}
+        value={situation[rule]?.replaceAll('"', '')}
+        values={rules[rule]['une possibilité parmi']['possibilités'].map(
+          (i) => rules['logement . ' + i],
+        )}
+      />
+    </label>
+  </section>
+)
+
+export const DureeLocation = ({
+  setSearchParams,
+  situation,
+  rules,
+  rule = 'denormandie . années de location',
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      {rules[rule]['question']}{' '}
+      <Select
+        css={`
+          background: #f5f5fe;
+          max-width: 90vw;
+        `}
+        onChange={(e) => {
+          if (!e) return
+          push(['trackEvent', 'Module', 'Interaction', 'travaux ' + e])
+          setSearchParams({
+            [encodeDottedName(rule)]: e + '*',
+          })
+        }}
+        disableInstruction={false}
+        value={situation[rule]?.replaceAll('"', '')}
+        values={rules[rule]['une possibilité parmi']['possibilités'].map(
+          (i) => ({ titre: i + ' ans', valeur: i }),
+        )}
+      />
+    </label>
+  </section>
+)
 
 export const QuestionList = styled.ul`
   list-style-type: none;
@@ -324,6 +602,29 @@ export const Li = styled.li`
         ? ''
         : `filter: grayscale(0.9) opacity(0.4)`};
 `
+
+export const YesNoQuestionStyle = styled.div`
+  > section {
+    margin-left: 1rem;
+    label {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 1rem;
+    }
+    input[type='radio'] {
+      width: 1.2rem !important;
+      height: 1.2rem !important;
+    }
+    input[type='radio'],
+    input[type='radio'] + label {
+      cursor: pointer;
+      &:hover {
+        background: var(--lighterColor);
+      }
+    }
+  }
+`
+
 const Dot = () => (
   <Image
     src={rightArrow}

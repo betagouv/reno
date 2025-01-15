@@ -11,10 +11,34 @@ export const Main = styled.main`
   margin: 0 auto;
 `
 
+export const EligibiliyTitle = styled.h2`
+  margin-top: 0.5rem;
+  font-size: 130%;
+  color: var(--color);
+`
+
 export const Section = styled.section`
   margin: 0 auto;
   width: 800px;
   max-width: 100%;
+  h1 {
+    font-size: 175%;
+  }
+  .content-with-table {
+    table {
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      td,
+      th {
+        border: 1px solid black;
+        text-align: center;
+        padding: 0.5rem;
+      }
+      td {
+        white-space: nowrap;
+      }
+    }
+  }
 `
 export const cardBorder = `
 
@@ -23,6 +47,7 @@ export const cardBorder = `
   border-radius: 0.3rem;
 `
 export const Card = styled.div`
+  position: relative;
   background: white;
   margin: 0.6rem 0;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
@@ -55,7 +80,7 @@ export const FooterWrapper = styled.footer`
 
   @media (max-width: 600px) {
     .fr-footer__top {
-      justify-content: none;
+      justify-content: normal;
     }
     .footer-col {
       width: 50%;
@@ -63,7 +88,7 @@ export const FooterWrapper = styled.footer`
   }
   @media (max-width: 400px) {
     .fr-footer__top {
-      justify-content: none;
+      justify-content: normal;
     }
     .footer-col {
       width: 100%;
@@ -299,9 +324,11 @@ export const BlocAide = styled.div`
       height: auto;
     }
   }
+  h2,
   h3 {
     color: var(--color);
     margin: 1rem 0rem;
+    font-size: 130%;
   }
   .aide-details {
     font-size: 0.9rem;
@@ -470,8 +497,9 @@ export const MiseEnAvant = styled.div`
     p.$type == 'success'
       ? `background-color: #c3fad5;`
       : `background-color: white;`}
-  h3 {
+  h2, h3 {
     margin: 0 0 1rem 0;
+    font-size: 130%;
   }
   &::before {
     content: '';

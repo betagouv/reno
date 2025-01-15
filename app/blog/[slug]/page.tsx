@@ -2,18 +2,19 @@ import { allArticles } from '@/.contentlayer/generated'
 import Article from '@/components/Article'
 import { CTA, CTAWrapper } from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import { useMDXComponent } from 'next-contentlayer2/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
+import ArticleContent from '../ArticleContent'
 import Contribution from '../Contribution'
 import OtherArticles from '../OtherArticles'
 import { ArticleCta, BlogBackButton } from '../UI'
-import { mdxComponents } from '../mdxComponents'
 import { dateCool, getLastEdit } from '../utils'
 
 export const articles = allArticles.filter((article) => !article.brouillon)
 
-export const generateMetadata = async ({ params }) => {
+export const generateMetadata = async (props) => {
+  const params = await props.params
+
   const post = allArticles.find(
     (post) => post._raw.flattenedPath === params.slug,
   )
@@ -32,10 +33,10 @@ export const generateMetadata = async ({ params }) => {
   }
 }
 
-export default async function Post({ params }: Props) {
+export default async function Post(props: Props) {
+  const params = await props.params
   const post = articles.find((post) => post._raw.flattenedPath === params.slug)
 
-  const MDXContent = useMDXComponent(post.body.code)
   const lastEdit = await getLastEdit(params.slug)
 
   const sameEditDate =
@@ -89,7 +90,7 @@ export default async function Post({ params }: Props) {
         </section>
       </header>
       <section>
-        <MDXContent components={mdxComponents} />
+        <ArticleContent post={post} />
         {post.cta && (
           <div
             style={css`
@@ -111,7 +112,9 @@ export default async function Post({ params }: Props) {
               `}
             >
               <CTA $fontSize="normal">
-                <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+                <Link href="/simulation" prefetch={false}>
+                  ➞&nbsp;&nbsp;Calculer mes aides
+                </Link>
               </CTA>
             </CTAWrapper>
           </div>

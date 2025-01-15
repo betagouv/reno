@@ -59,7 +59,7 @@ export const OtherArticlesList = styled.div`
     height: 12rem;
     display: flex;
     align-items: center;
-    overflow: scroll;
+    overflow-x: scroll;
     list-style-type: none;
     padding-left: 0;
     li {
@@ -147,7 +147,9 @@ export const ArticleCta = () => (
       </p>
       <CTAWrapper $justify="center">
         <CTA $fontSize="normal">
-          <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+          <Link href="/simulation" prefetch={false}>
+            ➞&nbsp;&nbsp;Calculer mes aides
+          </Link>
         </CTA>
       </CTAWrapper>
     </section>

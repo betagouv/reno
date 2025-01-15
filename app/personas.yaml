@@ -15,7 +15,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 91
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -52,17 +52,17 @@
     gestes . isolation . rampants . CEE . montant: 816
     gestes . isolation . toitures terrasses . MPR . montant: 4500
     gestes . isolation . toitures terrasses . CEE . montant: 576
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 5500
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3750
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 0
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 7000
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 5000
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . automatique . CEE . montant: 0
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 1800
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 1250
     gestes . chauffage . bois . foyer et insert . CEE . montant: 75.2
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1800
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1250
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 188
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1800
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1250
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 282.4
     gestes . chauffage . PAC . air-eau . MPR . montant: 5000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 4000
@@ -91,7 +91,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -130,15 +130,15 @@
     gestes . isolation . rampants . MPR . montant: 900
     gestes . isolation . rampants . CEE . montant: 672
     gestes . isolation . toitures terrasses . MPR . montant: 2400
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 2000
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 1400
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 2500
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 3000
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 2100
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 2500
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 600
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 500
     gestes . chauffage . bois . foyer et insert . CEE . montant: 154.4
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 700
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 500
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 61.6
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1000
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 750
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 231.2
     gestes . chauffage . PAC . air-eau . MPR . montant: 3000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 2500
@@ -153,7 +153,7 @@
   situation:
     vous . propriétaire . condition: oui
     ménage . personnes: 2
-    ménage . revenu: 25000
+    ménage . revenu: 25116
     DPE . actuel: 5
     projet . DPE visé: 4
     ménage . code région: '"52"'
@@ -163,7 +163,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 65
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -200,15 +200,15 @@
     gestes . isolation . rampants . MPR . montant: 1200
     gestes . isolation . rampants . CEE . montant: 432
     gestes . isolation . toitures terrasses . MPR . montant: 3600
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 4500
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3150
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 5500
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 3850
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 1000
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 750
     gestes . chauffage . bois . foyer et insert . CEE . montant: 40.8
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1500
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1000
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 102.4
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1500
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1000
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 153.6
     gestes . chauffage . PAC . air-eau . MPR . montant: 4000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 4000
@@ -231,7 +231,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 55
-    logement . période de construction: "'de 2 à 15 ans'"
+    logement . période de construction: "'de 10 à 15 ans'"
   valeurs attendues:
     conditions communes: non
     MPR . accompagnée . éligible: non
@@ -254,7 +254,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
     MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
@@ -273,11 +273,11 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 130
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     projet . travaux: 82000
     logement . prix d'achat: 230000
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 45
+    MPR . accompagnée . pourcent dont bonus: 30
     MPR . non accompagnée . éligible: non
     logement . commune . denormandie: oui
 
@@ -297,7 +297,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 91
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -348,7 +348,7 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -399,7 +399,7 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 65
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
@@ -448,9 +448,9 @@
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 50
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 35
+    MPR . accompagnée . pourcent dont bonus: 15
     MPR . non accompagnée . éligible: non
 - description: |
     Propriétaire éligible MPR, mais pas d'autres infos
@@ -493,7 +493,7 @@
     logement . type: "'appartement'"
     logement . résidence principale propriétaire: oui
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
@@ -516,7 +516,7 @@
     logement . type: "'appartement'"
     logement . résidence principale locataire: oui
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
@@ -545,19 +545,19 @@
     aides locales . angers . revenu très très modeste: oui
     MPR . non accompagnée . éligible: oui
 - description: |
-    Personne seule au revenu 28567.8 juste avant le seuil modeste en IdF.
+    Personne seule au revenu juste avant le seuil modeste en IdF.
   situation:
     ménage . personnes: 1
-    ménage . revenu: 28657.8
+    ménage . revenu: 28933.8
     ménage . code région: "'11'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     ménage . revenu . classe: modeste
 - description: |
-    Personne seule au revenu 28568 juste avant le seuil modeste en IdF.
+    Personne seule au revenu juste après le seuil modeste en IdF.
   situation:
     ménage . personnes: 1
-    ménage . revenu: 28658
+    ménage . revenu: 28934.2
     ménage . code région: "'11'"
     logement . propriétaire occupant: oui
   valeurs attendues:
@@ -615,7 +615,7 @@
     projet . DPE visé: 1
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 30
+    MPR . accompagnée . pourcent dont bonus: 10
     MPR . non accompagnée . éligible: non
     ménage . revenu . classe: 'supérieure'
 
@@ -633,7 +633,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 78
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
     aides locales . angers . aides socles . taux: 10
     aides locales . angers . prime basse consommation . montant: 1500
@@ -657,7 +657,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 78
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     #projet . objectif BBC rénovation: oui
     #projet . objectif BBC neuf: oui
   valeurs attendues:
@@ -693,7 +693,7 @@
     vous . propriétaire . condition: oui
     logement . type: "'appartement'"
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4

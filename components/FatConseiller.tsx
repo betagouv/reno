@@ -1,97 +1,27 @@
-import Image from 'next/image'
-import conseillerIcon from '@/public/conseiller.png'
-import checkIcon from '@/public/check.svg'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
-import { CTA, CTAWrapper } from './UI'
-import { push } from '@socialgouv/matomo-next'
+import conseillerIcon from '@/public/conseiller.png'
+import Image from 'next/image'
+import FatConseillerCTA from './FatConseillerCTA'
+import { CTAWrapper } from './UI'
+import { FatConseillerWrapper } from './FatConseillerUI'
 
 export default function FatConseiller({ situation, margin, titre, texte }) {
   return (
-    <>
+    <FatConseillerWrapper $margin={margin}>
       <h3>{titre}</h3>
-      <p dangerouslySetInnerHTML={{ __html: texte }} />
-      <details
-        css={`
-          margin: 3rem auto;
-          ${margin && margin == 'small' && `margin: 1rem auto;`}
-          background: var(--lightestColor);
-          padding: 1rem;
-          border: 1px solid #d0d0ed;
-          summary {
-            margin: 0 auto;
-            border-radius: 0.4rem;
-            width: fit-content;
-            max-width: 100%;
-            list-style-type: none;
-          }
-          summary::-webkit-details-marker {
-            display: none;
-          }
-          > section {
-            margin: 0;
-            > div {
-              margin-top: 0;
-            }
-          }
-        `}
-      >
+      <div dangerouslySetInnerHTML={{ __html: texte }} />
+      <details>
         <summary>
-          <div
-            css={`
-              display: flex;
-              justify-content: space-around;
-              align-items: center;
-            `}
-          >
+          <div>
             <Image
               src={conseillerIcon}
               alt="illustration espace conseiller France Rénov'"
-              css={`
-                max-width: 9rem;
-                height: auto;
-                margin: 1.6rem 3rem 1.6rem 0rem;
-
-                @media (max-width: 600px) {
-                  display: none;
-                }
-              `}
             />
-            <div
-              css={`
-                > img {
-                  margin: auto;
-                  display: block;
-                  padding: 1rem;
-                }
-                h3 {
-                  text-align: left;
-                  font-size: 140%;
-                  margin: 0 0 0.6rem 0;
-                }
-                p {
-                  margin: 0;
-                  font-size: 100%;
-                }
-              `}
-            >
+            <div>
               <h3>
                 Contacter votre conseiller <span>France&nbsp;Rénov'</span>
               </h3>
-              <ul
-                css={`
-                  list-style-type: none;
-                  padding: 0;
-                  li {
-                    list-style-image: url(${checkIcon.src});
-                    margin: 1rem 0;
-                  }
-                  img {
-                    width: 1.2rem;
-                    height: auto;
-                    vertical-align: sub;
-                  }
-                `}
-              >
+              <ul>
                 {' '}
                 {[
                   'Service indépendant, neutre et gratuit !',
@@ -102,29 +32,11 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
               </ul>
               <CTAWrapper
                 $justify="center"
-                css={`
-                  margin-bottom: 0;
-                `}
+                style={{
+                  marginBottom: '0',
+                }}
               >
-                <CTA
-                  css={`
-                    padding: 1rem;
-                    text-wrap: wrap;
-                    text-align: center;
-                    width: 100%;
-                  `}
-                  $fontSize="normal"
-                  onClick={() =>
-                    push([
-                      'trackEvent',
-                      'Simulateur Principal',
-                      'Clic',
-                      'trouver conseiller',
-                    ])
-                  }
-                >
-                  Trouver mon conseiller local
-                </CTA>
+                <FatConseillerCTA />
               </CTAWrapper>
             </div>
           </div>
@@ -133,6 +45,6 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
           <MarSearch situation={situation} what={'trouver-conseiller-renov'} />
         </section>
       </details>
-    </>
+    </FatConseillerWrapper>
   )
 }

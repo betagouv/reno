@@ -1,72 +1,149 @@
-import { CardLink, Main, MiseEnAvant, Section } from '@/components/UI'
+import { Card, Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 import mprImage from '@/public/maprimerenov.svg'
 import ceeImage from '@/public/cee.svg'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
+import ptzImage from '@/public/ptz-bleu.svg'
+import exoFiscaleImage from '@/public/exoneration-fiscale.svg'
 import localeImage from '@/public/locale-logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import { CardMosaic } from '@/components/DevenirPartenaire'
+import css from '@/components/css/convertToJs'
 
 export const metadata: Metadata = {
-  title: "Les aides à la rénovation énergétique en "+new Date().getFullYear(),
-  description: "Les aides à la rénovation énergétique en "+new Date().getFullYear()+": MaPrimeRénov', CEE, Coup de pouce chauffage.",
+  title: 'Les aides à la rénovation énergétique en ' + new Date().getFullYear(),
+  description:
+    'Les aides à la rénovation énergétique en ' +
+    new Date().getFullYear() +
+    ": MaPrimeRénov', Mon accompagnateur Rénov', CEE, Coup de pouce chauffage, prêt à taux 0, exonération de taxe foncière et dispositif Denormandie.",
 }
 
 export default function Aides() {
-    return (
-      <Main>
-        <Section>
-          <Breadcrumb links={[{"Les aides": "/aides"}]} />
-          <h2>Les principaux dispositifs d'aides à la rénovation énergétique en {new Date().getFullYear()}</h2>
-          <CardLink>
-            <Link href="/simulation">
-              <Image src={mprImage} alt="Logo MaPrimeRénov" width="100" />
-              <div>
-                <h3>MaPrimeRénov' - Parcours accompagné</h3>
-                <p>Le parcours accompagné est <strong>accessible pour tous</strong>, il vise à encourager des <strong>rénovations d'ampleurs</strong> permettant un gain minimum de 2 classes énergétiques.</p>
-                <p>Les sommes sont importantes et vous êtes <strong>accompagné par un professionnel agréé</strong> MAR (Mon Accompagnateur Rénov') tout au long de votre parcours</p>
-              </div>
-            </Link>
-          </CardLink>
-          <CardLink>
-            <Link href="/aides/ma-prime-renov">
-              <Image src={mprImage} alt="Logo MaPrimeRénov" width="100" />
-              <div>
-                <h3>MaPrimeRénov' - Parcours par geste</h3>
-                <p>Le parcours par geste est <strong>accessible sous condition de revenus</strong> pour les propriétaires souhaitant entreprendre des travaux de rénovation effectués <strong>par des professionnels agréés RGE</strong> dans leur logement (installation de pompe à chaleur, poêle à granulés, isolation des combles...).</p>
-              </div>
-            </Link>
-          </CardLink>
-          <CardLink>
-            <Link href="/aides/cee">
-              <Image src={ceeImage} alt="Logo CEE" width="100" />
-              <div>
-                <h3>Les Certificats d'économies d'énergie (CEE)</h3>
-                <p>Le dispositif des certificats d’économies d’énergie est <strong>accessible pour tous</strong>.<br /> Des fournisseurs d'énergie (électricité, gaz, fioul domestique, carburants pour véhicules) vous proposent des aides pour rénover votre logement. Il s'agit pour elles d'une <strong>obligation encadrée par l’État</strong>.</p>
-              </div>
-            </Link>
-          </CardLink>
-          <CardLink>
-            <Link href="/aides/coup-de-pouce">
-              <Image src={coupDePouceImage} alt="Logo Coup de pouce" width="100" />
-              <div>
-                <h3>Les Coups de pouce Chauffage</h3>
-                <p>Les primes dites <em>"Coup de pouce"</em> sont <strong>accessibles à tous les ménages</strong> qui entreprennent le <strong>remplacement d'un mode de chauffage polluant</strong> (chaudière au charbon, au fioul ou au gaz).</p>
-              </div>
-            </Link>
-          </CardLink>
-          <CardLink>
-            <Link href="/locales">
-              <Image src={localeImage} alt="Logo Locale" width="100" />
-              <div>
-                <h3>Les aides des collectivités locales</h3>
-                <p>Certaines régions, départements, intercommunalités ou communes peuvent accorder des aides <strong>complémentaires aux aides nationales</strong> dans le cadre de la réalisation de travaux d’amélioration  de la performance énergétique.</p>
-              </div>
-            </Link>
-          </CardLink>
-        </Section>
-      </Main>
-    )
-}
+  return (
+    <Main>
+      <Section>
+        <Breadcrumb links={[{ 'Les aides': '/aides' }]} />
+        <h1>
+          Les principaux dispositifs d'aides à la rénovation énergétique en{' '}
+          {new Date().getFullYear()}
+        </h1>
+        <CardMosaic $smallTitle>
+          <Card>
+            <Image src={mprImage} alt="Logo MaPrimeRénov" width="100" />
+            <h2>
+              <Link href="/simulation">
+                MaPrimeRénov' - Parcours accompagné
+              </Link>
+            </h2>
+            <p>
+              Le parcours accompagné est <strong>accessible pour tous</strong>,
+              il vise à encourager des <strong>rénovations d'ampleurs</strong>.
+            </p>
+            <p>
+              Les sommes sont importantes et vous êtes{' '}
+              <strong>accompagné par un professionnel agréé</strong>.
+            </p>
+          </Card>
+          <Card>
+            <Image src={mprImage} alt="Logo MaPrimeRénov" width="100" />
 
+            <h2>
+              <Link href="/aides/ma-prime-renov">
+                MaPrimeRénov' - Parcours par geste
+              </Link>
+            </h2>
+            <p>
+              Le parcours par geste est{' '}
+              <strong>accessible sous condition de revenus</strong>.
+            </p>
+            <p>
+              Les travaux de rénovation effectués par{' '}
+              <strong>des professionnels agréés RGE</strong> (pompe à chaleur,
+              poêle à granulés, isolation...).
+            </p>
+          </Card>
+          <Card>
+            <Image src={ptzImage} alt="Logo Eco-ptz" width="100" />
+            <h2>
+              <Link href="/aides/pret-taux-0">Les prêts à taux 0</Link>
+            </h2>
+            <p>
+              <strong>L'éco-prêt à taux zéro</strong> (ou éco-PTZ) ainsi que le{' '}
+              <strong>prêt avance rénovation</strong> (PAR+) sont accessibles{' '}
+              <strong>sans condition de ressources</strong>
+            </p>
+            <p>
+              Ces dispositifs visent à financer des travaux de rénovation
+              énergétique des logements.
+            </p>
+          </Card>
+          <Card>
+            <Image
+              src={exoFiscaleImage}
+              alt="Logo Exonération Fiscale"
+              width="100"
+            />
+            <h2>
+              <Link href="/aides/exoneration-fiscale">
+                Les exonérations fiscales
+              </Link>
+            </h2>
+            <p>
+              Les collectivités locales peuvent proposer une{' '}
+              <strong>exonération de taxe foncière</strong> pour certains
+              logements rénovés.
+            </p>
+            <p>
+              Le <strong>dispositif Denormandie</strong> s'adresse quant à lui
+              au propriétaire bailleur. Il a été prolongé jusqu'au 31 décembre
+              2027.
+            </p>
+          </Card>
+          <Card>
+            <Image src={ceeImage} alt="Logo CEE" width="100" />
+            <h2>
+              <Link href="/aides/cee">
+                Les Certificats d'économies d'énergie
+              </Link>
+            </h2>
+            <p>
+              Le dispositif des certificats d’économies d’énergie (CEE) est{' '}
+              <strong>accessible pour tous</strong>.
+            </p>
+            <p>
+              Des fournisseurs d'énergie proposent des aides pour rénover votre
+              logement.
+            </p>
+            <p>
+              Il s'agit d'une <strong>obligation encadrée par l’État</strong>.
+            </p>
+          </Card>
+          <Card>
+            <Image
+              src={coupDePouceImage}
+              alt="Logo Coup de pouce"
+              width="100"
+            />
+            <h2>
+              <Link href="/aides/coup-de-pouce">
+                Les Coups de pouce Chauffage
+              </Link>
+            </h2>
+            <p>
+              Les primes dites <em>"Coup de pouce"</em> sont{' '}
+              <strong>accessibles à tous les ménages</strong>
+            </p>
+            <p>
+              Ils financent le{' '}
+              <strong>remplacement d'un mode de chauffage polluant</strong>{' '}
+              (chaudière au charbon, au fioul ou au gaz) par une installation
+              moins énergivore.
+            </p>
+          </Card>
+        </CardMosaic>
+      </Section>
+    </Main>
+  )
+}
