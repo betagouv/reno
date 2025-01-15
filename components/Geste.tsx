@@ -119,7 +119,7 @@ export default function Geste({
                 ? 'Prime indicative de '
                 : 'Prime de '
               : "Jusqu'à "}
-            <strong>{montantTotal}</strong>
+            <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>
           </>
         )}
       </PrimeStyle>
