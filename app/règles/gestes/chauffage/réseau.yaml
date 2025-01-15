@@ -89,7 +89,9 @@ chauffage . raccordement réseau . froid:
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 
     Il n'y a pas de prime coup de pouce CEE pour les réseaux de froid, contrairement au cas des réseaux de chaleur !
-chauffage . raccordement réseau . froid . montant: MPR . montant
+chauffage . raccordement réseau . froid . montant:
+  somme:
+    - MPR . montant
 chauffage . raccordement réseau . froid . MPR:
 chauffage . raccordement réseau . froid . MPR . plafond: 1800 €
 chauffage . raccordement réseau . froid . MPR . montant:

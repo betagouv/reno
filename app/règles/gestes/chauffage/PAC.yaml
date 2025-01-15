@@ -360,7 +360,9 @@ chauffage . PAC . solaire:
   par défaut: oui
   titre: Pompe à chaleur solarothermique
   description: Pompe à chaleur solarothermique
-chauffage . PAC . solaire . montant: MPR . montant
+chauffage . PAC . solaire . montant:
+  somme:
+    - MPR . montant
 chauffage . PAC . solaire . MPR:
 chauffage . PAC . solaire . MPR . plafond: 18000 €
 chauffage . PAC . solaire . MPR . montant:

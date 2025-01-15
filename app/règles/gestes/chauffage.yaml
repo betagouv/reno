@@ -212,7 +212,9 @@ chauffage . fioul:
 chauffage . fioul . dépose cuve:
   par défaut: oui
   titre: Dépose de cuve à fioul
-chauffage . fioul . dépose cuve . montant: MPR . montant
+chauffage . fioul . dépose cuve . montant:
+  somme:
+    - MPR . montant
 chauffage . fioul . dépose cuve . MPR:
 chauffage . fioul . dépose cuve . MPR . plafond: 4000 €
 chauffage . fioul . dépose cuve . MPR . montant:
