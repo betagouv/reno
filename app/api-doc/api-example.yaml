@@ -57,8 +57,6 @@ ptz:
   logement . résidence principale: oui
   logement . période de construction: 'au moins 15 ans'
   parcours d'aide: "'à la carte'"
-  PTZ . nombre travaux: 1
-  PTZ . changement parois vitrées: non
 par:
   vous . propriétaire . statut: 'propriétaire'
   logement . propriétaire occupant: oui

@@ -127,16 +127,6 @@ export default function ParametersList() {
       values: ['entier numérique'],
     },
     {
-      title: 'PTZ . nombre travaux',
-      description: parse(rules['PTZ . nombre travaux'].description),
-      values: ['entier numérique'],
-    },
-    {
-      title: 'PTZ . changement parois vitrées',
-      description: parse(rules['PTZ . changement parois vitrées'].description),
-      values: ['oui', 'non'],
-    },
-    {
       title: 'taxe foncière . condition de dépenses',
       description: parse(
         rules['taxe foncière . condition de dépenses'].description,
