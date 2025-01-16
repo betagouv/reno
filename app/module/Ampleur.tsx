@@ -15,7 +15,6 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import logo from '@/public/logo.svg'
-import { push } from '@socialgouv/matomo-next'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
