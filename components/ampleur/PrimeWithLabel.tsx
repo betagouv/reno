@@ -20,7 +20,7 @@ export default function PrimeWithLabel({
       css={`
         font-size: 1rem;
         ${trackedValueRef.current !== montant.nodeValue
-          ? 'background: red !important'
+          ? 'background: var(--color) !important; color: white !important;'
           : ''}
       `}
     >
