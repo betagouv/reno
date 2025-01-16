@@ -1,16 +1,15 @@
 import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
-import { CTA, Card, ExternalLink, PrimeStyle } from '../UI'
-import { encodeDottedName } from '../publicodes/situationUtils'
-import { uncapitalise0, aideStyles } from '../utils'
-import AideCTAs from './AideCTAs'
-import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
-import { formatValue } from 'publicodes'
+import styled from 'styled-components'
 import FatConseiller from '../FatConseiller'
-import AideDurée from './AideDurée'
+import { CTA, Card, ExternalLink } from '../UI'
+import { encodeDottedName } from '../publicodes/situationUtils'
+import { aideStyles, uncapitalise0 } from '../utils'
+import AideCTAs from './AideCTAs'
 import { createExampleSituation } from './AmpleurSummary'
+import PrimeWithLabel from './PrimeWithLabel'
 
 export default function AideAmpleur({
   engine,
@@ -167,29 +166,6 @@ export default function AideAmpleur({
     </section>
   )
 }
-
-export const PrimeWithLabel = ({ montant, engine, dottedName, situation }) =>
-  montant.nodeValue ? (
-    <PrimeStyle
-      css={`
-        font-size: 1rem;
-      `}
-    >
-      {['ampleur . prime individuelle copropriété'].includes(dottedName)
-        ? 'Prime de '
-        : ['taxe foncière'].includes(dottedName)
-          ? ''
-          : "Jusqu'à "}
-      <strong>
-        {dottedName.includes('taxe foncière')
-          ? situation['taxe foncière . commune . taux']
-          : formatValue(montant)}
-      </strong>
-      <AideDurée engine={engine} dottedName={dottedName} />
-    </PrimeStyle>
-  ) : (
-    ''
-  )
 
 export const PictoTypeAide = styled.div`
   width: fit-content;

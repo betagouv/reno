@@ -1,8 +1,8 @@
 'use client'
 
 import { PrimeStyle } from '@/components/UI'
-import { PrimeWithLabel } from './AideAmpleur'
 import StatusIcon from './StatusIcon'
+import PrimeWithLabel from './PrimeWithLabel'
 
 export const computeStatusTitle = (status) =>
   status
