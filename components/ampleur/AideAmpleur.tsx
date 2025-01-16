@@ -11,7 +11,6 @@ import { formatValue } from 'publicodes'
 import FatConseiller from '../FatConseiller'
 import AideDurée from './AideDurée'
 import { createExampleSituation } from './AmpleurSummary'
-import AnimatedNumbers from 'react-animated-numbers'
 
 export default function AideAmpleur({
   engine,
@@ -170,7 +169,7 @@ export default function AideAmpleur({
 }
 
 export const PrimeWithLabel = ({ montant, engine, dottedName, situation }) =>
-  console.log('you', montant.nodeValue) || montant.nodeValue ? (
+  montant.nodeValue ? (
     <PrimeStyle
       css={`
         font-size: 1rem;
@@ -186,18 +185,6 @@ export const PrimeWithLabel = ({ montant, engine, dottedName, situation }) =>
           ? situation['taxe foncière . commune . taux']
           : formatValue(montant)}
       </strong>
-      <AnimatedNumbers
-        includeComma
-        transitions={(index) => ({
-          type: 'spring',
-          duration: index + 0.1,
-        })}
-        animateToNumber={montant.nodeValue}
-        fontStyle={{
-          fontSize: 40,
-          color: 'black',
-        }}
-      />
       <AideDurée engine={engine} dottedName={dottedName} />
     </PrimeStyle>
   ) : (
