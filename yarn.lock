@@ -3629,6 +3629,15 @@ framer-motion@^11.0.22:
   dependencies:
     tslib "^2.4.0"
 
+framer-motion@^11.18.0:
+  version "11.18.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.18.0.tgz#574f311dd91333fad59214cc8e2dee0f5bab99c4"
+  integrity sha512-Vmjl5Al7XqKHzDFnVqzi1H9hzn5w4eN/bdqXTymVpU2UuMQuz9w6UPdsL9dFBeH7loBlnu4qcEXME+nvbkcIOw==
+  dependencies:
+    motion-dom "^11.16.4"
+    motion-utils "^11.16.0"
+    tslib "^2.4.0"
+
 fs-minipass@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/fs-minipass/-/fs-minipass-2.1.0.tgz#7f5036fdbf12c63c169190cbe4199c852271f9fb"
@@ -5537,6 +5546,26 @@ mkdirp@^1.0.3:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
+motion-dom@^11.16.4:
+  version "11.16.4"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-11.16.4.tgz#7c18dbe8f8b0d4210a89992cda30f5926f003777"
+  integrity sha512-2wuCie206pCiP2K23uvwJeci4pMFfyQKpWI0Vy6HrCTDzDCer4TsYtT7IVnuGbDeoIV37UuZiUr6SZMHEc1Vww==
+  dependencies:
+    motion-utils "^11.16.0"
+
+motion-utils@^11.16.0:
+  version "11.16.0"
+  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-11.16.0.tgz#e75865442278be49e411ca9105c9139edc572811"
+  integrity sha512-ngdWPjg31rD4WGXFi0eZ00DQQqKKu04QExyv/ymlC+3k+WIgYVFbt6gS5JsFPbJODTF/r8XiE/X+SsoT9c0ocw==
+
+motion@^11.16.0:
+  version "11.18.0"
+  resolved "https://registry.yarnpkg.com/motion/-/motion-11.18.0.tgz#23552208fd634c58e774cb84b58e54010f7ab9ea"
+  integrity sha512-uJ4zNXh/4K9C5wftxHKlXLHC0Rc9dHSHPyO1P6T9XE2bTn2z8C2lOZX/M8vAmFp0gtJTJ3aYkv44lTtJSfv6+A==
+  dependencies:
+    framer-motion "^11.18.0"
+    tslib "^2.4.0"
+
 ms@^2.1.1, ms@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
@@ -6016,6 +6045,13 @@ raw-loader@^4.0.2:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
+
+react-animated-numbers@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-animated-numbers/-/react-animated-numbers-1.0.0.tgz#0b14f9fe7c66809faffdd6ecd9b46408d8a6dcb6"
+  integrity sha512-YB48GhyYdZIXbmwYLc+2aqyeh6ar+yyuGycv7N4KQZwf0ZjUN2GhCbvZHLdHuTI/Sqbe+cXvHGTf4q26oN9rbw==
+  dependencies:
+    motion "^11.16.0"
 
 react-chartjs-2@^5.2.0:
   version "5.2.0"
