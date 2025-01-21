@@ -12,9 +12,7 @@ export const AmpleurWrapper = styled.div`
     }
     header,
     footer {
-      padding-left: 4rem;
-      max-width: 40rem;
-      margin-left: 0;
+      margin-left: 4rem;
     }
     footer {
       margin-top: 1rem;
