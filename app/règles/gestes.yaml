@@ -22,9 +22,16 @@ recommandés . audit:
   par défaut: oui
   titre: Audit énergétique
   description: |
-    Cet audit est conditionné à la réalisation d'un geste de travaux.
 
-    À noter, pour les appartements en copro de 50 lots ou plus et équipés d'un chauffage ou refroidissement collectif, construits avant 2001, l'audit est obligatoire et ne sera pas financé par Ma Prime Rénov'. Voir [cet article de loi](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000022493232/2019-11-10).
+    L'audit énergétique peut être vu comme un DPE bien plus fourni. Les possibilités de rénovation déjà présentées dans le DPE sont développées à travers plusieurs scénarios complets. 
+
+    Il est réalisé par un cabinet d'études thermiques, et prend la forme d'un rapport de plusieurs dizaines de pages. 
+
+    Les différents scénarios ont des niveaux d'ambition complémentaires pour guider le propriétaire dans les différentes possibilités de rénovation de son logement.
+
+    À noter : cette subvention MaPrimeRénov' de l'audit est conditionnée à la réalisation d'un geste de travaux.
+
+    Pour les appartements en copro de 50 lots ou plus et équipés d'un chauffage ou refroidissement collectif, construits avant 2001, l'audit est obligatoire et ne sera pas financé par Ma Prime Rénov'. Voir [cet article de loi](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000022493232/2019-11-10).
 recommandés . audit . montant:
   somme:
     - MPR . montant

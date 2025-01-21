@@ -165,6 +165,12 @@ chauffage . pilotage connecté . CEE . facteur correctif surface appartement:
 chauffage . chauffe-eau thermodynamique:
   par défaut: oui
   titre: Chauffe-eau thermodynamique
+  description: |
+    Il s'agit d'un ballon d'eau chaude équipé d'une pompe à chaleur.
+
+    Source [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/chauffe-eau-thermodynamique-maison).
+    Source [Wikipedia](https://fr.wikipedia.org/wiki/Chauffe-eau_thermodynamique).
+
 chauffage . chauffe-eau thermodynamique . montant:
   applicable si:
     une de ces conditions:
