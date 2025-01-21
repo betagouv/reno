@@ -9,7 +9,7 @@
   --lighterColor3: #dfdff1;
   --lightestColor: #f5f5fe;
   --mutedColor: #666666;
-  --validColor: #18753C;
+  --validColor: #18753c;
   --shadow-color: 180deg 2% 70%;
   --shadow-elevation-medium: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.31),
     0.7px 1.3px 1.6px -1px hsl(var(--shadow-color) / 0.29),
@@ -154,5 +154,6 @@ input[type='radio']:not(:checked):not(:disabled) {
 }
 
 input::placeholder {
-  color: lightgrey;
+  color: var(--lighterColor3);
 }
+
