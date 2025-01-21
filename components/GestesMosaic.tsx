@@ -243,7 +243,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
             ${checked && `border: 2px solid var(--color);`}
             border-radius: 0.2rem;
             > div {
-              max-width: calc(100% - 4rem);
+              width: 100%;
             }
           `}
         >
@@ -252,6 +252,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
               width: 1.6rem;
               height: 1.6rem;
               margin-right: 1rem;
+              margin-left: 1vw;
               cursor: pointer;
             `}
             type="checkbox"

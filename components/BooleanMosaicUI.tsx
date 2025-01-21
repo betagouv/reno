@@ -43,7 +43,7 @@ export const Fieldset = styled.fieldset`
 `
 
 export const Details = styled.details`
-  summary {
+  > summary {
     padding-left: 0.6rem;
     background: #e3e3fd;
     padding-right: 0.6rem;
@@ -55,10 +55,10 @@ export const Details = styled.details`
       font-weight: 400;
     }
   }
-  summary::-webkit-details-marker {
+  > summary::-webkit-details-marker {
     color: var(--color);
   }
-  summary::marker {
+  > summary::marker {
     color: var(--color);
   }
   > ul {
