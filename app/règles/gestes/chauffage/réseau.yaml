@@ -7,7 +7,7 @@ chauffage . raccordement réseau:
 chauffage . raccordement réseau . chaleur:
   par défaut: oui
   titre: Raccordement à un réseau de chaleur
-  description: |
+  note: |
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 chauffage . raccordement réseau . chaleur . montant:
   applicable si:
@@ -85,10 +85,11 @@ chauffage . raccordement réseau . chaleur . Coup de pouce . question: CEE . pro
 chauffage . raccordement réseau . froid:
   par défaut: oui
   titre: Raccordement à un réseau de froid
-  description: |
+  description complète: |
+    Il n'y a pas de prime coup de pouce CEE pour les réseaux de froid, contrairement au cas des réseaux de chaleur !
+  note: |
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 
-    Il n'y a pas de prime coup de pouce CEE pour les réseaux de froid, contrairement au cas des réseaux de chaleur !
 chauffage . raccordement réseau . froid . montant: MPR . montant
 chauffage . raccordement réseau . froid . MPR:
 chauffage . raccordement réseau . froid . MPR . plafond: 1800 €
