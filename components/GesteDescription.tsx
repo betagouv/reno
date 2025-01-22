@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 export default function GesteDescription({ rule }) {
   const { completeDescriptionHtml, descriptionHtml } = rule
+  const hasDetails = completeDescriptionHtml != null
   const [open, setOpen] = useState(false)
   return (
     <Details open={open}>
@@ -23,10 +24,10 @@ export default function GesteDescription({ rule }) {
             }
           `}
         >
-          <Image src={iconReduire} alt="icone réduire" />
+          {' '}
+          {hasDetails && <Image src={iconReduire} alt="icone réduire" />}
         </button>
       </summary>
-
       <div dangerouslySetInnerHTML={{ __html: completeDescriptionHtml }} />
     </Details>
   )
