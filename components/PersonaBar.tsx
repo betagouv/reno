@@ -191,12 +191,14 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
       >
         <ol>
           {matrixLines
-            .map((dottedName) => rules[dottedName])
-            .map((rule) => (
-              <li key={rule.dottedName}>
-                <small>{rule.marque}</small>
-              </li>
-            ))}
+            .map((dottedName) => ({ ...rules[dottedName], dottedName }))
+            .map((rule) => {
+              return (
+                <li key={rule.dottedName}>
+                  <small>{rule.marque}</small>
+                </li>
+              )
+            })}
         </ol>
       </section>
       <div css="position: absolute; bottom: -2.4rem; left: 50%; transform: translateX(-50%); padding: .2rem 1rem; border-radius: .4rem; background: yellow; width: 20rem">
