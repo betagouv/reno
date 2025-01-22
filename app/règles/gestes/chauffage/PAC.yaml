@@ -208,7 +208,12 @@ chauffage . PAC . air-eau . Coup de pouce . question: CEE . projet . remplacemen
 chauffage . PAC . géo:
   par défaut: oui
   titre: Pompe à chaleur géothermique
-  description: Pompe à chaleur géothermique
+  description: |
+    La pompe à chaleur (aussi appelée PAC) géothermique va puiser la chaleur de la terre pour chauffer votre logement et son eau chaude sanitaire.
+
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
+
   note: |
     Le guide Anah parle de PAC géo ou solarothermique *dont hybride*. Ça me semble étonnant. D'après les ressources disponibles en ligne, l'hybridation avec une chaudière à combustile est surtout utilisée pour palier à la baisse de température de l'air, ce qui ne semble pas etre utile pour une PAC qui va puiser la chaleur dans le sol qui a pour particularité de garder une température plus constante toute l'année. Peut-etre est-ce utile pour palier à l'augmentation de la chaleur nécessaire à cause de la baisse de température ? À creuser, pour l'instant on ignore cette option.
 
@@ -359,7 +364,12 @@ chauffage . PAC . géo . CEE . facteur correctif région:
 chauffage . PAC . solaire:
   par défaut: oui
   titre: Pompe à chaleur solarothermique
-  description: Pompe à chaleur solarothermique
+  description: |
+    La pompe à chaleur (aussi appelée PAC) solarothermique chauffe votre logement et votre eau chaude, en utilisant l’énergie solaire grâce à des panneaux qui captent l'énergie du soleil quand il est disponible, et ne fait intervenir la PAC air/eau qu'en période de faible ensoleillement.
+
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
+
 chauffage . PAC . solaire . montant: MPR . montant
 chauffage . PAC . solaire . MPR:
 chauffage . PAC . solaire . MPR . plafond: 18000 €
