@@ -52,11 +52,12 @@ chauffage . solaire . chauffe-eau solaire . CEE . barème:
 
 chauffage . solaire . solaire combiné:
   par défaut: oui
-  titre: Système solaire combiné
+  titre: Chauffage solaire combiné
   description: |
-    ...et dispositifs solaires pour le chauffage des locaux.
+    Il utilise le soleil pour chauffer un logement équipé d'un chauffage central. S'il chauffe aussi l'eau, il est appelé système solaire combiné (SSC).
+  description complète: |
+    La partie MaPrimeRénov' de cette prime s'applique également aux dispositifs solaires pour le chauffage des locaux.
 
-    Le chauffage solaire se sert du rayonnement solaire pour chauffer un habitat équipé d'un chauffage central. Quand il fait également la production d'eau chaude, il est appelé  système solaire combiné (SSC)
 chauffage . solaire . solaire combiné . montant:
   applicable si:
     une de ces conditions:
@@ -121,7 +122,7 @@ chauffage . solaire . partie thermique PVT eau:
   titre: Partie thermique d'un équipement PVT eau
   par défaut: oui
   description: |
-    Et dispositifs solaires pour le chauffage des locaux.
+    ... et dispositifs solaires pour le chauffage des locaux.
 chauffage . solaire . partie thermique PVT eau . montant:
   applicable si:
     une de ces conditions:
