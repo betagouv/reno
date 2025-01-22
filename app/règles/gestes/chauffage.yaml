@@ -21,6 +21,9 @@ chauffage . chauffe-eau thermodynamique:
   description: |
     Il s'agit d'un ballon d'eau chaude équipé d'une pompe à chaleur.
 
+  description complète:
+    C'est un chauffe-eau qui chauffe l'eau non pas avec une simple résistance électrique, mais via une pompe à chaleur, en puisant l'énergie disponible dans l'air ambiant ou extérieur, ou dans le sol.
+
     Source [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/chauffe-eau-thermodynamique-maison).
     Source [Wikipedia](https://fr.wikipedia.org/wiki/Chauffe-eau_thermodynamique).
 
@@ -67,10 +70,17 @@ chauffage . chauffe-eau thermodynamique . CEE . barème:
       alors: 11900
 
 chauffage . fioul:
-  titre: Suppression du fioul
+  titre: Aides concernant le chauffage au fioul
 chauffage . fioul . dépose cuve:
   par défaut: oui
-  titre: Dépose de cuve à fioul
+  titre: Suppression du chauffage au fioul
+  description: Les chauffages au fioul sont polluants et souvent vieillissants, ils ne sont plus les bienvenus. Pour "déposer" votre cuve, il faut faire appel à un professionnel. Ce geste est subventionné.
+
+  description complète: |
+    Le fioul est une source d'énergie fossile directement issue du pétrole qui contribue fortement au réchauffement climatique. De plus, le fioul est onéreux et son prix est lié au cours du pétrole.
+
+    La dépose de la cuve est une opération compliquée, [décrite ici](https://france-renov.gouv.fr/renovation/chauffage/depose-cuve-fioul), à réaliser par un professionnel.
+
 chauffage . fioul . dépose cuve . montant: MPR . montant
 chauffage . fioul . dépose cuve . MPR:
 chauffage . fioul . dépose cuve . MPR . plafond: 4000 €
