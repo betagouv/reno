@@ -6,8 +6,15 @@ chauffage . bois . chaudière:
     Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poême n'est souvent qu'un chauffage d'appoint.
 
 chauffage . bois . chaudière . manuelle:
-  titre: Chaudière bois manuelle (bûches)
-  description: Chaudière bois à alimentation manuelle (bûches)
+  titre: Chaudière à bûches (allumage manuel)
+  description: |
+    Une chaudière qui brûle des bûches et qui doit être allumée manuellement.
+  description complète: |
+    Le chargement des bûches se fait manuellement, ce qui peut être une contrainte.
+
+    La chaudière chauffe de l'eau stockée dans un ballon d'eau chaude, qui va diffuser la chaleur dans les radiateurs de votre logement, et éventuellement l'eau chaude sanitaire.
+
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/chaudiere-buches).
   par défaut: oui
 chauffage . bois . chaudière . manuelle . montant:
   applicable si:
@@ -78,7 +85,7 @@ chauffage . bois . chaudière . manuelle . CEE . barème:
       alors: 26300
 
 chauffage . bois . chaudière . automatique:
-  titre: Chaudière bois auto (granulés, plaquettes)
+  titre: Chaudière bois auto
   description: Chaudière bois à alimentation automatique (granulés, plaquettes)
   par défaut: oui
 chauffage . bois . chaudière . automatique . montant:
