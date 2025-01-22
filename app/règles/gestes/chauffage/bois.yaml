@@ -159,6 +159,10 @@ chauffage . bois . chaudière . automatique . CEE . barème:
 chauffage . bois . foyer et insert:
   par défaut: oui
   titre: Foyer fermé et insert à bûches ou à granulés
+  description: |
+    Permet d’accroître la performance d'une cheminée. On l'alimente manuellement avec des bûches ou des granulés.
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/insert-foyer-ferme).
 chauffage . bois . foyer et insert . montant:
   applicable si:
     une de ces conditions:
@@ -259,6 +263,10 @@ chauffage . bois . poêle:
 chauffage . bois . poêle . à bûches:
   par défaut: oui
   titre: Poêle et cuisinière à bûches
+  description: |
+    Un appareil de chauffage (et de cuisson pour la cuisinière) alimenté manuellement avec des bûches.
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/poele-buches).
 chauffage . bois . poêle . à bûches . montant:
   applicable si:
     une de ces conditions:
@@ -354,6 +362,10 @@ chauffage . bois . poêle . à bûches . CEE . question:
 chauffage . bois . poêle . à granulés:
   par défaut: oui
   titre: Poêle et cuisinière à granulés
+  description: |
+    Un appareil de chauffage (et de cuisson pour la cuisinière) alimenté avec des granulés.
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/poele-granules).
 chauffage . bois . poêle . à granulés . montant:
   applicable si:
     une de ces conditions:
