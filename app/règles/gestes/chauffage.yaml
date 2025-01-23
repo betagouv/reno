@@ -5,6 +5,7 @@ chauffage:
     - raccordement réseau
     - chauffe-eau thermodynamique . montant
     - PAC . air-eau . montant
+    - PAC . air-air . montant
     - PAC . géo . montant
     - PAC . solaire . montant
     - solaire . chauffe-eau solaire . montant
@@ -81,7 +82,10 @@ chauffage . fioul . dépose cuve:
 
     La dépose de la cuve est une opération compliquée, [décrite ici](https://france-renov.gouv.fr/renovation/chauffage/depose-cuve-fioul), à réaliser par un professionnel.
 
-chauffage . fioul . dépose cuve . montant: MPR . montant
+chauffage . fioul . dépose cuve . montant:
+  somme:
+    - MPR . montant
+
 chauffage . fioul . dépose cuve . MPR:
 chauffage . fioul . dépose cuve . MPR . plafond: 4000 €
 chauffage . fioul . dépose cuve . MPR . montant:

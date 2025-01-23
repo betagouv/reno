@@ -98,7 +98,11 @@ chauffage . raccordement réseau . froid:
   note: |
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 
-chauffage . raccordement réseau . froid . montant: MPR . montant
+chauffage . raccordement réseau . froid . montant:
+  somme:
+    - MPR . montant
+
+
 chauffage . raccordement réseau . froid . MPR:
 chauffage . raccordement réseau . froid . MPR . plafond: 1800 €
 chauffage . raccordement réseau . froid . MPR . montant:
