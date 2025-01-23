@@ -4,7 +4,11 @@ chauffage . PAC:
 chauffage . PAC . air-eau:
   par défaut: oui
   titre: Pompe à chaleur air/eau
-  description: Pompe à chaleur air/eau (dont PAC hybrides)
+  description: Elle puise l'énergie de l'air autour de votre logement pour en chauffer l'intérieur et l'eau sanitaire.
+
+  description complète: |
+    Les PAC hybrides sont également subventionnées : elles combinent une pompe à chaleur et une chaudière à condensation fossile.
+
   note: La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
 chauffage . PAC . air-eau . montant:
   applicable si:
@@ -208,7 +212,12 @@ chauffage . PAC . air-eau . Coup de pouce . question: CEE . projet . remplacemen
 chauffage . PAC . géo:
   par défaut: oui
   titre: Pompe à chaleur géothermique
-  description: Pompe à chaleur géothermique
+  description: |
+    Elle puiser la chaleur de la terre pour chauffer votre logement et son eau chaude sanitaire.
+
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
+
   note: |
     Le guide Anah parle de PAC géo ou solarothermique *dont hybride*. Ça me semble étonnant. D'après les ressources disponibles en ligne, l'hybridation avec une chaudière à combustile est surtout utilisée pour palier à la baisse de température de l'air, ce qui ne semble pas etre utile pour une PAC qui va puiser la chaleur dans le sol qui a pour particularité de garder une température plus constante toute l'année. Peut-etre est-ce utile pour palier à l'augmentation de la chaleur nécessaire à cause de la baisse de température ? À creuser, pour l'instant on ignore cette option.
 
@@ -359,7 +368,15 @@ chauffage . PAC . géo . CEE . facteur correctif région:
 chauffage . PAC . solaire:
   par défaut: oui
   titre: Pompe à chaleur solarothermique
-  description: Pompe à chaleur solarothermique
+  description: |
+    Elle chauffe votre logement et votre eau chaude en utilisant l’énergie solaire quand elle est disponible grâce à des panneaux sur le toit.
+
+  description complète: |
+
+    Elle ne fait intervenir la PAC air/eau qu'en période de faible ensoleillement.
+
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
+
 chauffage . PAC . solaire . montant:
   somme:
     - MPR . montant

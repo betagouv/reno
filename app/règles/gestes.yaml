@@ -22,9 +22,16 @@ recommandés . audit:
   par défaut: oui
   titre: Audit énergétique
   description: |
-    Cet audit est conditionné à la réalisation d'un geste de travaux.
 
-    À noter, pour les appartements en copro de 50 lots ou plus et équipés d'un chauffage ou refroidissement collectif, construits avant 2001, l'audit est obligatoire et ne sera pas financé par Ma Prime Rénov'. Voir [cet article de loi](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000022493232/2019-11-10).
+    Il peut être vu comme un DPE bien plus fourni. Les possibilités de rénovation sont développées à travers plusieurs scénarios complets.
+  description complète: |
+    Il est réalisé par un cabinet d'études thermiques, et prend la forme d'un rapport de plusieurs dizaines de pages. 
+
+    Les différents scénarios ont des niveaux d'ambition complémentaires pour guider le propriétaire dans les différentes possibilités de rénovation de son logement.
+
+    À noter : cette subvention MaPrimeRénov' de l'audit est conditionnée à la réalisation d'un geste de travaux.
+
+    Pour les appartements en copro de 50 lots ou plus et équipés d'un chauffage ou refroidissement collectif, construits avant 2001, l'audit est obligatoire et ne sera pas financé par Ma Prime Rénov'. Voir [cet article de loi](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000022493232/2019-11-10).
 recommandés . audit . montant:
   somme:
     - MPR . montant
@@ -49,6 +56,17 @@ ventilation:
 
 ventilation . double flux:
   titre: Ventilation double flux
+  description: |
+    La VMC double flux conserve la chaleur qui est serait perdue par une VMC classique, tout en renouvelant efficacement l'air de votre logement.
+
+  description complète: |
+    Comme toutes les VMC, elle permet crée une circulation d'air depuis les fenêtres de vos chambres qui sortira vers l'extérieur par la cuisine et la salle de bain.
+
+    Mais elle diffère en captant la chaleur de cet air pour réchauffer l'air froid entrant depuis l'extérieur. Ainsi, votre chaudière n'aura pas à réchauffer l'air froid entrant. De plus, elle peut automatiquement apporter l'air frais extérieur les nuits d'été.
+
+    De tous les types de VMC, la VMC double flux est donc la plus performante, mais néanmoins la plus coûteuse.
+
+    Plus d'informations sur [France-Rénov](https://france-renov.gouv.fr/ventilation/ventilation-double-flux).
   par défaut: oui
 ventilation . double flux . montant:
   applicable si:

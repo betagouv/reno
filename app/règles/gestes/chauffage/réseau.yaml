@@ -8,6 +8,10 @@ chauffage . raccordement réseau . chaleur:
   par défaut: oui
   titre: Raccordement à un réseau de chaleur
   description: |
+    Système de chauffage urbain collectif qui permet d'acheminer de la chaleur par des canalisations souterraines.
+  description complète: |
+    Testez votre éligibilité sur [France Chaleur Urbaine](https://france-chaleur-urbaine.beta.gouv.fr/reseaux-chaleur).
+  note: |
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 chauffage . raccordement réseau . chaleur . montant:
   applicable si:
@@ -86,12 +90,19 @@ chauffage . raccordement réseau . froid:
   par défaut: oui
   titre: Raccordement à un réseau de froid
   description: |
-    Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
+    Système de refroidissement urbain collectif qui permet d'acheminer du froid par des canalisations souterraines.
+  description complète: |
+    Informez-vous et testez votre éligibilité sur [France Chaleur Urbaine](https://france-chaleur-urbaine.beta.gouv.fr/ressources/reseau-de-froid).
 
     Il n'y a pas de prime coup de pouce CEE pour les réseaux de froid, contrairement au cas des réseaux de chaleur !
+  note: |
+    Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
+
 chauffage . raccordement réseau . froid . montant:
   somme:
     - MPR . montant
+
+
 chauffage . raccordement réseau . froid . MPR:
 chauffage . raccordement réseau . froid . MPR . plafond: 1800 €
 chauffage . raccordement réseau . froid . MPR . montant:
