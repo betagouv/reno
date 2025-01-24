@@ -58,6 +58,7 @@ taxe foncière . condition d'ancienneté:
 
 taxe foncière . conditions:
   toutes ces conditions:
+    - vous . propriétaire . condition
     - condition d'ancienneté
     - condition de dépenses
     - commune . éligible
