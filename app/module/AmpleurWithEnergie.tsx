@@ -1,0 +1,434 @@
+'use client'
+import rules from '@/app/règles/rules'
+import DPELabel from '@/components/DPELabel'
+import DPEQuickSwitch from '@/components/DPEQuickSwitch'
+import { CTA, InternalLink } from '@/components/UI'
+import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
+import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituation'
+import { enrichSituationWithConstructionYear } from '@/components/personas/enrichSituation'
+import useEnrichSituation from '@/components/personas/useEnrichSituation'
+import {
+  encodeDottedName,
+  getAnsweredQuestions,
+  getSituation,
+} from '@/components/publicodes/situationUtils'
+import useSetSearchParams from '@/components/useSetSearchParams'
+import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
+import electriciteIcon from '@/public/chauffage.svg'
+import logo from '@/public/logo.svg'
+import { DOMParser } from 'xmldom'
+import * as xpath from 'xpath'
+import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
+import Publicodes from 'publicodes'
+import { useEffect, useMemo, useState } from 'react'
+import { useMediaQuery } from 'usehooks-ts'
+import { Labels } from '../LandingUI'
+import { Title } from '../LayoutUI'
+import AmpleurCTA from './AmpleurCTA'
+import { EvaluationValue, EvaluationValueWrapper } from './AmpleurEvaluation'
+import { ampleurQuestionsAnswered, usageLogementValues } from './AmpleurInputs'
+import {
+  IdFQuestion,
+  Li,
+  PersonnesQuestion,
+  QuestionList,
+  RevenuQuestion,
+  TypeResidence,
+} from './AmpleurQuestions'
+import { AmpleurWrapper } from './AmpleurUI'
+import UserData from './UserData'
+import data from '@/components/DPE.yaml'
+import { format } from '../couts/Geste'
+import { Key } from '@/components/explications/ExplicationUI'
+
+const engine = new Publicodes(rules)
+
+export default function Ampleur() {
+  const [montantFactureActuelle, setMontantFactureActuelle] = useState(null)
+  const [montantFactureEstime, setMontantFactureEstime] = useState(null)
+  const setSearchParams = useSetSearchParams()
+  const isMobile = useMediaQuery('(max-width: 400px)')
+
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
+
+  const numDpe = searchParams['numDpe']
+
+  const { persona: selectedPersona = 0, ...situationSearchParams } =
+    searchParams
+
+  const rawUserSituation = getSituation(situationSearchParams, rules)
+
+  const userSituation = useMemo(
+    () => enrichSituationWithConstructionYear(rawUserSituation, engine),
+    [rawUserSituation],
+  )
+
+  const answeredQuestionsFromUrl = getAnsweredQuestions(
+    situationSearchParams,
+    rules,
+  )
+  const answeredSituation = Object.fromEntries(
+    answeredQuestionsFromUrl.map((dottedName) => [
+      dottedName,
+      userSituation[dottedName],
+    ]),
+  )
+
+  const savedSituation = useSyncAmpleurSituation(answeredSituation)
+
+  const answeredQuestions = savedSituation
+    ? Object.keys(savedSituation)
+    : answeredQuestionsFromUrl
+
+  const currentDPE = +userSituation['DPE . actuel']
+  const targetDPE =
+    +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
+
+  const extremeSituation = createExampleSituation(engine, {}, true)
+
+  const defaultSituation = {
+    ...extremeSituation, // pour déclencher Denormandie, taxe foncière, etc
+    ...usageLogementValues[0].situation,
+    'vous . propriétaire . condition': 'oui',
+    'ménage . revenu': 25000, // Le revenu médian est de 20 000, mais le mettre à 25 000 permet de faire en sorte qu'il y ait une différence entre IdF et hors IdF pour que la case à cocher ait un effet
+    'ménage . personnes': 2,
+    'ménage . région . IdF': 'non',
+  }
+
+  const rawSituation = useMemo(
+    () => ({
+      ...defaultSituation,
+      'projet . DPE visé': targetDPE,
+      ...savedSituation,
+      ...userSituation,
+    }),
+    [rawSearchParams.toString(), JSON.stringify(savedSituation)],
+  )
+
+  const enrichedSituation = useEnrichSituation(rawSituation)
+  const situation = enrichedSituation || rawSituation
+
+  const communeKey = 'logement . commune . nom'
+  const commune = situation[communeKey]
+  const noDefaultSituation = {
+    ...savedSituation,
+    ...userSituation,
+    ...(commune ? { [communeKey]: commune } : {}),
+  }
+
+  if (!currentDPE || isNaN(currentDPE))
+    return (
+      <p>
+        Un DPE est nécessaire pour estimer les aides à la rénovation d'ampleur.
+      </p>
+    )
+
+  useEffect(() => {
+    if (!numDpe) return
+
+    const fetchDPEData = async () => {
+      try {
+        const response = await fetch(`/api/dpe?numDpe=${numDpe}`)
+        if (!response.ok) throw new Error('Failed to fetch DPE data')
+
+        const xml = await response.text()
+        const doc = new DOMParser().parseFromString(xml, 'text/xml')
+
+        const montantFactureActuelle = xpath.select(
+          '//cout/cout_5_usages',
+          doc,
+        )[0]?.textContent
+
+        const consoActuelle = xpath.select(
+          '//ep_conso/ep_conso_5_usages_m2',
+          doc,
+        )[0]?.textContent
+
+        if (!montantFactureActuelle || !consoActuelle) {
+          throw new Error('Invalid XML structure or missing data')
+        }
+
+        const moyenneConsoClasseDPE =
+          (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
+
+        const pourcentageEconomieVise = consoActuelle / moyenneConsoClasseDPE
+        const montantFactureEstime =
+          montantFactureActuelle / pourcentageEconomieVise
+
+        setMontantFactureActuelle(montantFactureActuelle)
+        setMontantFactureEstime(montantFactureEstime)
+      } catch (err) {
+        console.error('Error fetching DPE data:', err)
+      }
+    }
+
+    fetchDPEData()
+  }, [numDpe, targetDPE])
+  const onChange =
+    (dottedName) =>
+    ({ target: { value } }) =>
+      setSearchParams({
+        [encodeDottedName(dottedName)]: value + '*',
+      })
+
+  return (
+    <AmpleurWrapper>
+      <header>
+        <div>
+          <Labels
+            css={`
+              margin: 0;
+              li  {
+                background: #fdf8db;
+
+                color: #6e4444;
+              }
+            `}
+          >
+            {[' ⭐️ Rénovation énergétique'].map((text) => (
+              <li key={text}>{text}</li>
+            ))}
+          </Labels>
+          <h2>Vos aides pour une rénovation d'ampleur</h2>
+        </div>
+        <InternalLink
+          href="https://mesaidesreno.beta.gouv.fr"
+          css={`
+            text-decoration: none;
+            color: inherit;
+            &:hover {
+              background: 0;
+            }
+            > div {
+              @media (max-width: 400px) {
+                top: 0rem;
+                right: 0.4rem;
+                img {
+                  width: 2rem !important;
+                }
+                span {
+                  line-height: 0.8rem;
+                  font-size: 80%;
+                  width: 2rem;
+                }
+
+                position: absolute;
+              }
+            }
+          `}
+        >
+          <div
+            css={`
+              display: flex;
+              align-items: center;
+              font-size: 90%;
+            `}
+          >
+            <Image
+              src={logo}
+              alt="Logo de Mes Aides Réno"
+              css={`
+                width: 2.6rem !important;
+              `}
+            />
+            <Title>
+              Mes <strong>Aides Réno</strong>
+            </Title>
+          </div>
+        </InternalLink>
+      </header>
+      <div>
+        <p>
+          {!isMobile
+            ? "Pour bénéficier des aides pour une rénovation d'ampleur, v"
+            : 'V'}
+          ous devez viser un saut d'au moins 2{' '}
+          {isMobile ? 'DPE' : 'classes de DPE'}, soit passer du DPE actuel{' '}
+          <DPELabel index={currentDPE - 1} /> à{isMobile ? '' : ' un '}
+          <DPEQuickSwitch
+            oldIndex={targetDPE - 1}
+            prefixText={''}
+            prefixDPE={isMobile ? false : true}
+            dottedName="projet . DPE visé"
+            situation={situation}
+            possibilities={[0, 1, 2, 3, 4, 5, 6].filter(
+              (index) => index < currentDPE - 2,
+            )}
+          />
+          .
+        </p>
+        <QuestionList>
+          <Li
+            key="typeResidence"
+            $next={true}
+            $touched={answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            )}
+          >
+            <TypeResidence
+              {...{ setSearchParams, situation, answeredQuestions }}
+            />
+          </Li>
+          <Li
+            $next={answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            )}
+            $touched={answeredQuestions.includes('ménage . région . IdF')}
+            key="IdF"
+          >
+            <IdFQuestion
+              {...{
+                setSearchParams,
+                isMobile,
+                situation,
+                answeredQuestions,
+              }}
+            />
+          </Li>
+          <Li
+            key="personnes"
+            $next={answeredQuestions.includes('ménage . région . IdF')}
+            $touched={answeredQuestions.includes('ménage . personnes')}
+          >
+            <PersonnesQuestion
+              {...{
+                defaultSituation,
+                onChange,
+                answeredQuestions,
+                situation,
+              }}
+            />
+          </Li>
+          <Li
+            key="revenu"
+            $next={answeredQuestions.includes('ménage . personnes')}
+            $touched={answeredQuestions.includes('ménage . revenu')}
+          >
+            <RevenuQuestion
+              {...{
+                answeredQuestions,
+                situation,
+                engine,
+                setSearchParams,
+              }}
+            />
+          </Li>
+        </QuestionList>
+        <UserData {...{ setSearchParams, situation }} />
+        {false && !ampleurQuestionsAnswered(answeredQuestions) ? (
+          <section>Vos aides ici</section>
+        ) : (
+          <>
+            <section>
+              <h3
+                css={`
+                  margin: 0 !important;
+                `}
+              >
+                Parmi vos aides :
+              </h3>
+              <EvaluationValue {...{ engine, situation }} />
+              {montantFactureActuelle && (
+                <EvaluationValueWrapper>
+                  <div>
+                    <Image src={electriciteIcon} alt="Icone électricité" />
+                  </div>
+                  <div
+                    css={`
+                      width: 100%;
+                    `}
+                  >
+                    {/* La facture énergétique annuelle actuelle est estimée à{' '}
+                    <Key $state={'final'}>
+                      {format(montantFactureActuelle)}€
+                    </Key>
+                    <br /> */}
+                    En visant un DPE <DPELabel index={targetDPE - 1} />, le
+                    montant estimé de votre facture d'énergie annuelle se
+                    situera{' '}
+                    <Key $state={'prime'}>
+                      entre {format(0.9 * montantFactureEstime)}€ et{' '}
+                      {format(1.1 * montantFactureEstime)}€
+                    </Key>
+                  </div>
+                </EvaluationValueWrapper>
+              )}
+            </section>
+          </>
+        )}
+        <section>
+          {ampleurQuestionsAnswered(answeredQuestions) && (
+            <CTA
+              css={`
+                margin-bottom: 0;
+                a  {
+                  display: flex;
+                  font-size: 85% !important;
+                  align-items: center;
+                  img {
+                    height: 2rem;
+                    width: auto;
+                    margin-right: 0.6rem;
+                  }
+                }
+              `}
+            >
+              <AmpleurCTA {...{ situation: noDefaultSituation }} />
+            </CTA>
+          )}
+        </section>
+      </div>
+      <FooterModule isMobile={isMobile} />
+    </AmpleurWrapper>
+  )
+}
+
+export const FooterModule = () => {
+  const isMobile = useMediaQuery('(max-width: 400px)')
+  return (
+    <footer
+      css={`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: -1rem;
+
+        p {
+          margin: 0;
+          margin-right: 1rem;
+        }
+      `}
+    >
+      <p>
+        <small
+          css={`
+            line-height: 1rem;
+            color: gray;
+            display: block;
+          `}
+        >
+          Une initiative construite avec France&nbsp;Rénov{"'"}
+          {isMobile
+            ? '.'
+            : ` pour simplifier
+            l'information sur les aides à la rénovation énergétique.`}
+        </small>
+      </p>
+
+      <Image
+        src={logoFranceRenov}
+        alt="Logo de France Rénov"
+        css={`
+          width: 6.5rem !important;
+          margin-right: 1rem;
+          @media (max-width: 400px) {
+            width: 5rem !important;
+            margin: 0;
+          }
+        `}
+      />
+    </footer>
+  )
+}
