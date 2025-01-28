@@ -127,11 +127,6 @@ export default function Ampleur() {
         [encodeDottedName(dottedName)]: value + '*',
       })
 
-  const numDpe = searchParams['numDpe']
-  fetch(`/api/dpe?numDpe=${numDpe}`)
-    .then((response) => response.text())
-    .then((xml) => console.log(xml))
-
   return (
     <AmpleurWrapper>
       <header>
