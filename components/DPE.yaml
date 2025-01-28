@@ -1,12 +1,12 @@
-- énergie: 70
+- énergie: 0
   climat: 6
   couleur: '#009c6d'
   lettre: A
-- énergie: 110
+- énergie: 70
   climat: 11
   couleur: '#52b153'
   lettre: B
-- énergie: 180
+- énergie: 110
   climat: 30
   couleur: '#78bd76'
   lettre: C
