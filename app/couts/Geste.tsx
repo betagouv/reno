@@ -70,5 +70,5 @@ export default function Geste({
   )
 }
 
-const format = (val) =>
+export const format = (val) =>
   Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(val)
