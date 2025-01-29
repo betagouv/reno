@@ -9,6 +9,7 @@ import { enrichSituationWithConstructionYear } from '@/components/personas/enric
 import useEnrichSituation from '@/components/personas/useEnrichSituation'
 import {
   encodeDottedName,
+  encodeSituation,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
@@ -42,6 +43,8 @@ import data from '@/components/DPE.yaml'
 import { format } from '../couts/Geste'
 import { Key } from '@/components/explications/ExplicationUI'
 import { Select } from '@/components/InputUI'
+import { userInputDottedNames } from './AmpleurInputs'
+import { omit } from '@/components/utils'
 
 const engine = new Publicodes(rules)
 
@@ -103,6 +106,7 @@ export default function Ampleur() {
   const rawSituation = useMemo(
     () => ({
       ...defaultSituation,
+      'DPE . actuel': currentDPE,
       'projet . DPE visé': targetDPE,
       ...savedSituation,
       ...userSituation,
@@ -147,6 +151,12 @@ export default function Ampleur() {
   useEffect(() => {
     console.log('selectedDpe', selectedDpe)
     if (!selectedDpe) return
+
+    setSearchParams(
+      encodeSituation(omit(userInputDottedNames, situation), true, []),
+      'url',
+      true,
+    )
 
     const fetchDPEData = async () => {
       try {
@@ -205,7 +215,7 @@ export default function Ampleur() {
     }
 
     fetchDPEData()
-  }, [selectedDpe, targetDPE])
+  }, [selectedDpe, targetDPE, situation])
   const onChange =
     (dottedName) =>
     ({ target: { value } }) =>
@@ -215,235 +225,231 @@ export default function Ampleur() {
 
   return (
     <>
-      <div>
+      <div
+        css={`
+          margin: 1rem;
+        `}
+      >
         Choisir un DPE:{' '}
         <Select onChange={(e) => setSelectedDpe(e.target.value)}>
           {dpeList.map((dpe) => (
-            <option value={dpe}>{dpe}</option>
+            <option key={dpe} value={dpe}>
+              {dpe}
+            </option>
           ))}
         </Select>
       </div>
-      {currentDPE <= 2 ? (
-        <div>Ce logement n'est pas éligible à une rénovation d'ampleur</div>
-      ) : (
-        targetDPE && (
-          <AmpleurWrapper>
-            <header>
-              <div>
-                <Labels
-                  css={`
-                    margin: 0;
-                    li  {
-                      background: #fdf8db;
-
-                      color: #6e4444;
-                    }
-                  `}
-                >
-                  {[' ⭐️ Rénovation énergétique'].map((text) => (
-                    <li key={text}>{text}</li>
-                  ))}
-                </Labels>
-                <h2>Vos aides pour une rénovation d'ampleur</h2>
-              </div>
-              <InternalLink
-                href="https://mesaidesreno.beta.gouv.fr"
+      {targetDPE && (
+        <AmpleurWrapper
+          css={`
+            max-width: 800px;
+          `}
+        >
+          <header>
+            <div>
+              <Labels
                 css={`
-                  text-decoration: none;
-                  color: inherit;
-                  &:hover {
-                    background: 0;
-                  }
-                  > div {
-                    @media (max-width: 400px) {
-                      top: 0rem;
-                      right: 0.4rem;
-                      img {
-                        width: 2rem !important;
-                      }
-                      span {
-                        line-height: 0.8rem;
-                        font-size: 80%;
-                        width: 2rem;
-                      }
+                  margin: 0;
+                  li  {
+                    background: #fdf8db;
 
-                      position: absolute;
-                    }
+                    color: #6e4444;
                   }
                 `}
               >
-                <div
+                {[' ⭐️ Rénovation énergétique'].map((text) => (
+                  <li key={text}>{text}</li>
+                ))}
+              </Labels>
+              <h2>Vos aides pour une rénovation d'ampleur</h2>
+            </div>
+            <InternalLink
+              href="https://mesaidesreno.beta.gouv.fr"
+              css={`
+                text-decoration: none;
+                color: inherit;
+                &:hover {
+                  background: 0;
+                }
+                > div {
+                  @media (max-width: 400px) {
+                    top: 0rem;
+                    right: 0.4rem;
+                    img {
+                      width: 2rem !important;
+                    }
+                    span {
+                      line-height: 0.8rem;
+                      font-size: 80%;
+                      width: 2rem;
+                    }
+
+                    position: absolute;
+                  }
+                }
+              `}
+            >
+              <div
+                css={`
+                  display: flex;
+                  align-items: center;
+                  font-size: 90%;
+                `}
+              >
+                <Image
+                  src={logo}
+                  alt="Logo de Mes Aides Réno"
                   css={`
-                    display: flex;
-                    align-items: center;
-                    font-size: 90%;
+                    width: 2.6rem !important;
                   `}
-                >
-                  <Image
-                    src={logo}
-                    alt="Logo de Mes Aides Réno"
-                    css={`
-                      width: 2.6rem !important;
-                    `}
-                  />
-                  <Title>
-                    Mes <strong>Aides Réno</strong>
-                  </Title>
-                </div>
-              </InternalLink>
-            </header>
-            <div>
-              <p>
-                {!isMobile
-                  ? "Pour bénéficier des aides pour une rénovation d'ampleur, v"
-                  : 'V'}
-                ous devez viser un saut d'au moins 2{' '}
-                {isMobile ? 'DPE' : 'classes de DPE'}, soit passer du DPE actuel{' '}
-                {currentDPE && (
-                  <>
-                    <DPELabel index={currentDPE - 1} /> à
-                    {isMobile ? '' : ' un '}
-                    <DPEQuickSwitch
-                      oldIndex={targetDPE - 1}
-                      prefixText={''}
-                      prefixDPE={isMobile ? false : true}
-                      dottedName="projet . DPE visé"
-                      situation={situation}
-                      possibilities={[0, 1, 2, 3, 4, 5, 6].filter(
-                        (index) => index < currentDPE - 2,
-                      )}
-                    />
-                  </>
-                )}
-                .
-              </p>
-              <QuestionList>
-                <Li
-                  key="typeResidence"
-                  $next={true}
-                  $touched={answeredQuestions.includes(
-                    'logement . résidence principale propriétaire',
-                  )}
-                >
-                  <TypeResidence
-                    {...{ setSearchParams, situation, answeredQuestions }}
-                  />
-                </Li>
-                <Li
-                  $next={answeredQuestions.includes(
-                    'logement . résidence principale propriétaire',
-                  )}
-                  $touched={answeredQuestions.includes('ménage . région . IdF')}
-                  key="IdF"
-                >
-                  <IdFQuestion
-                    {...{
-                      setSearchParams,
-                      isMobile,
-                      situation,
-                      answeredQuestions,
-                    }}
-                  />
-                </Li>
-                <Li
-                  key="personnes"
-                  $next={answeredQuestions.includes('ménage . région . IdF')}
-                  $touched={answeredQuestions.includes('ménage . personnes')}
-                >
-                  <PersonnesQuestion
-                    {...{
-                      defaultSituation,
-                      onChange,
-                      answeredQuestions,
-                      situation,
-                    }}
-                  />
-                </Li>
-                <Li
-                  key="revenu"
-                  $next={answeredQuestions.includes('ménage . personnes')}
-                  $touched={answeredQuestions.includes('ménage . revenu')}
-                >
-                  <RevenuQuestion
-                    {...{
-                      answeredQuestions,
-                      situation,
-                      engine,
-                      setSearchParams,
-                    }}
-                  />
-                </Li>
-              </QuestionList>
-              <UserData {...{ setSearchParams, situation }} />
-              {false && !ampleurQuestionsAnswered(answeredQuestions) ? (
-                <section>Vos aides ici</section>
-              ) : (
+                />
+                <Title>
+                  Mes <strong>Aides Réno</strong>
+                </Title>
+              </div>
+            </InternalLink>
+          </header>
+          <div>
+            <p>
+              {!isMobile
+                ? "Pour bénéficier des aides pour une rénovation d'ampleur, v"
+                : 'V'}
+              ous devez viser un saut d'au moins 2{' '}
+              {isMobile ? 'DPE' : 'classes de DPE'}, soit passer du DPE actuel{' '}
+              {currentDPE && (
                 <>
-                  <section>
-                    <h3
-                      css={`
-                        margin: 0 !important;
-                      `}
-                    >
-                      Parmi vos aides :
-                    </h3>
-                    <EvaluationValue {...{ engine, situation }} />
-                    {montantFactureActuelle && (
-                      <EvaluationValueWrapper>
-                        <div>
-                          <Image
-                            src={electriciteIcon}
-                            alt="Icone électricité"
-                          />
-                        </div>
-                        <div
-                          css={`
-                            width: 100%;
-                          `}
-                        >
-                          {/* La facture énergétique annuelle actuelle est estimée à{' '}
+                  <DPELabel index={currentDPE - 1} /> à{isMobile ? '' : ' un '}
+                  <DPEQuickSwitch
+                    oldIndex={targetDPE - 1}
+                    prefixText={''}
+                    prefixDPE={isMobile ? false : true}
+                    dottedName="projet . DPE visé"
+                    situation={situation}
+                    possibilities={[0, 1, 2, 3, 4, 5, 6].filter(
+                      (index) => index < currentDPE - 2,
+                    )}
+                  />
+                </>
+              )}
+              .
+            </p>
+            <QuestionList>
+              <Li
+                key="typeResidence"
+                $next={true}
+                $touched={answeredQuestions.includes(
+                  'logement . résidence principale propriétaire',
+                )}
+              >
+                <TypeResidence
+                  {...{ setSearchParams, situation, answeredQuestions }}
+                />
+              </Li>
+              <Li
+                $next={answeredQuestions.includes(
+                  'logement . résidence principale propriétaire',
+                )}
+                $touched={answeredQuestions.includes('ménage . région . IdF')}
+                key="IdF"
+              >
+                <IdFQuestion
+                  {...{
+                    setSearchParams,
+                    isMobile,
+                    situation,
+                    answeredQuestions,
+                  }}
+                />
+              </Li>
+              <Li
+                key="personnes"
+                $next={answeredQuestions.includes('ménage . région . IdF')}
+                $touched={answeredQuestions.includes('ménage . personnes')}
+              >
+                <PersonnesQuestion
+                  {...{
+                    defaultSituation,
+                    onChange,
+                    answeredQuestions,
+                    situation,
+                  }}
+                />
+              </Li>
+              <Li
+                key="revenu"
+                $next={answeredQuestions.includes('ménage . personnes')}
+                $touched={answeredQuestions.includes('ménage . revenu')}
+              >
+                <RevenuQuestion
+                  {...{
+                    answeredQuestions,
+                    situation,
+                    engine,
+                    setSearchParams,
+                  }}
+                />
+              </Li>
+            </QuestionList>
+            <UserData {...{ setSearchParams, situation }} />
+            <section>
+              <h3
+                css={`
+                  margin: 0 !important;
+                `}
+              >
+                Parmi vos aides :
+              </h3>
+              <EvaluationValue {...{ engine, situation }} />
+              {montantFactureActuelle && (
+                <EvaluationValueWrapper>
+                  <div>
+                    <Image src={electriciteIcon} alt="Icone électricité" />
+                  </div>
+                  <div
+                    css={`
+                      width: 100%;
+                    `}
+                  >
+                    {/* La facture énergétique annuelle actuelle est estimée à{' '}
                     <Key $state={'final'}>
                       {format(montantFactureActuelle)}€
                     </Key>
                     <br /> */}
-                          En visant un DPE <DPELabel index={targetDPE - 1} />,
-                          le montant estimé de votre facture d'énergie annuelle
-                          se situera{' '}
-                          <Key $state={'prime'}>
-                            entre {format(0.9 * montantFactureEstime)}€ et{' '}
-                            {format(1.1 * montantFactureEstime)}€
-                          </Key>
-                        </div>
-                      </EvaluationValueWrapper>
-                    )}
-                  </section>
-                </>
+                    En visant un DPE <DPELabel index={targetDPE - 1} />, le
+                    montant estimé de votre facture d'énergie annuelle se
+                    situera{' '}
+                    <Key $state={'prime'}>
+                      entre {format(0.9 * montantFactureEstime)}€ et{' '}
+                      {format(1.1 * montantFactureEstime)}€
+                    </Key>
+                  </div>
+                </EvaluationValueWrapper>
               )}
-              <section>
-                {ampleurQuestionsAnswered(answeredQuestions) && (
-                  <CTA
-                    css={`
-                      margin-bottom: 0;
-                      a  {
-                        display: flex;
-                        font-size: 85% !important;
-                        align-items: center;
-                        img {
-                          height: 2rem;
-                          width: auto;
-                          margin-right: 0.6rem;
-                        }
+            </section>
+            <section>
+              {ampleurQuestionsAnswered(answeredQuestions) && (
+                <CTA
+                  css={`
+                    margin-bottom: 0;
+                    a  {
+                      display: flex;
+                      font-size: 85% !important;
+                      align-items: center;
+                      img {
+                        height: 2rem;
+                        width: auto;
+                        margin-right: 0.6rem;
                       }
-                    `}
-                  >
-                    <AmpleurCTA {...{ situation: noDefaultSituation }} />
-                  </CTA>
-                )}
-              </section>
-            </div>
-            <FooterModule isMobile={isMobile} />
-          </AmpleurWrapper>
-        )
+                    }
+                  `}
+                >
+                  <AmpleurCTA {...{ situation: noDefaultSituation }} />
+                </CTA>
+              )}
+            </section>
+          </div>
+          <FooterModule isMobile={isMobile} />
+        </AmpleurWrapper>
       )}
     </>
   )
