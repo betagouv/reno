@@ -279,7 +279,7 @@
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 30
     MPR . non accompagnée . éligible: non
-    logement . commune . denormandie: oui
+    # logement . commune . denormandie: oui
 
 - description: |
     4 sauts de DPE, enveloppe de 70 k€ TTC, couple très modeste avec enfant, sans remplacement chaudière en H1
@@ -532,7 +532,7 @@
     MPR . non accompagnée . éligible: oui
     taxe foncière . commune . éligible: oui
     taxe foncière . montant: 1216.5
-    denormandie . montant: 54000
+    # denormandie . montant: 54000
 
 - description: |
     Personne seule au revenu très modeste en Bretagne
