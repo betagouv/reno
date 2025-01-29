@@ -160,30 +160,17 @@ export default function Ampleur() {
 
     const fetchDPEData = async () => {
       try {
-        const response = await fetch(`/api/dpe?numDpe=${selectedDpe}`)
-        if (!response.ok) throw new Error('Failed to fetch DPE data')
-
-        const xml = await response.text()
-        const doc = new DOMParser().parseFromString(xml, 'text/xml')
-
-        const montantFactureActuelle = xpath.select(
-          '//cout/cout_5_usages',
-          doc,
-        )[0]?.textContent
-
-        const consoActuelle = xpath.select(
-          '//ep_conso/ep_conso_5_usages_m2',
-          doc,
-        )[0]?.textContent
-
-        const classeEnergie = xpath.select(
-          '//ep_conso/classe_bilan_dpe',
-          doc,
-        )[0]?.textContent
-        const classeGes = xpath.select(
-          '//emission_ges/classe_emission_ges',
-          doc,
-        )[0]?.textContent
+        const response = await fetch(
+          'https://koumoul.com/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?q_mode=simple&truncate=200&&qs=N°DPE:"' +
+            selectedDpe +
+            '"',
+        )
+        const result = (await response.json()).results[0]
+        console.log('result', result)
+        const montantFactureActuelle = result['Coût_total_5_usages']
+        const consoActuelle = result['Conso_5_usages_par_m²_é_primaire']
+        const classeEnergie = result['Etiquette_DPE']
+        const classeGes = result['Etiquette_GES']
 
         const classeRetenu =
           classeEnergie.charCodeAt(0) > classeGes.charCodeAt(0)
@@ -195,7 +182,6 @@ export default function Ampleur() {
         )
         setCurrentDPE(currentDPE)
         userSituation['DPE . actuel'] = currentDPE
-        console.log('currentDPE', currentDPE)
         const targetDPE =
           +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
 
