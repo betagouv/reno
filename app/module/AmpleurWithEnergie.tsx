@@ -131,11 +131,13 @@ export default function Ampleur() {
   useEffect(() => {
     const fetchDPEList = async () => {
       const response = await fetch(
-        `https://koumoul.com/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?size=20&page=1&q_mode=simple&truncate=200&select=N°DPE`,
+        `https://koumoul.com/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?size=20&page=1&q_mode=simple&truncate=200&select=N°DPE,Etiquette_DPE`,
       )
 
       const json = await response.json()
-      const dpeList = json.results.map((elt) => elt['N°DPE'])
+      const dpeList = json.results
+        .filter((elt) => !['A', 'B', 'C'].includes(elt['Etiquette_DPE']))
+        .map((elt) => elt['N°DPE'])
       setDpeList(dpeList)
       setSelectedDpe(dpeList[0])
     }
