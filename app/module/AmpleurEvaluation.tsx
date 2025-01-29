@@ -6,14 +6,10 @@ import { useAides } from '@/components/ampleur/useAides'
 import styled from 'styled-components'
 
 export function EvaluationValue({ engine, situation }) {
-  console.log('ampleur module situation', situation)
-
   engine.setSituation(situation)
   const aides = useAides(engine, situation)
-  console.log('ampleur module aides', aides)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const aidesToDisplay = filterAidesToDisplay(aides)
-  console.log({ aides, aidesToDisplay })
   return (
     <EvaluationValueWrapper>
       <ol>
