@@ -40,6 +40,5 @@ export default function useSyncAmpleurSituation(answeredSituation) {
     setSavedSituation({ ...savedSituation, ...answeredSituation })
   }, [answeredSituationHash, setSavedSituation])
 
-  console.log('indigo', savedSituation)
   return savedSituation
 }
