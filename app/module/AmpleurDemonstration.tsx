@@ -16,7 +16,7 @@ const iframeCode = (
   src = 'https://mesaidesreno.beta.gouv.fr/module/integration',
   cssExample = false,
 ) => `
-<iframe src="${src}" ${
+<iframe src="${src}" allow="clipboard-read; clipboard-write" ${
   cssExample
     ? `
 style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
