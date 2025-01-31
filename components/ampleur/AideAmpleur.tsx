@@ -1,16 +1,16 @@
 import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
-import { CTA, Card, ExternalLink, PrimeStyle } from '../UI'
+import { CTA, ExternalLink, PrimeStyle } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
-import { uncapitalise0, aideStyles } from '../utils'
+import { uncapitalise0 } from '../utils'
 import AideCTAs from './AideCTAs'
 import styled from 'styled-components'
-import { useSearchParams } from 'next/navigation'
 import { formatValue } from 'publicodes'
 import FatConseiller from '../FatConseiller'
 import AideDurée from './AideDurée'
 import { createExampleSituation } from './AmpleurSummary'
+import { useEffect, useRef, useState } from 'react'
 
 export default function AideAmpleur({
   engine,
@@ -22,138 +22,94 @@ export default function AideAmpleur({
   expanded,
   level = null,
 }) {
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
+  const [isOpen, setIsOpen] = useState(false)
+  const contentRef = useRef(null)
   const rule = rules[dottedName]
   const marque2 = rule['complément de marque'],
     title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
-  const style = aideStyles[rule['type']] || {}
-
-  const isModeste =
-    engine &&
-    engine
-      .setSituation(situation)
-      .evaluate('ménage . revenu . classe')
-      .nodeValue.includes('modeste')
-  const isSelected = searchParams['ampleur.synthèse']
-    ?.split(',')
-    .find((item) => item === '"' + encodeDottedName(dottedName) + '"')
   const extremeSituation = createExampleSituation(engine, situation, true)
   const montant =
     engine &&
     engine.setSituation(extremeSituation).evaluate(dottedName + ' . montant')
 
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.style.maxHeight = isOpen
+        ? `${contentRef.current.scrollHeight}px`
+        : '0px'
+    }
+  }, [isOpen])
   return (
     <section
       id={'aide-' + encodeDottedName(dottedName)}
-      css={
-        false &&
-        level === 2 &&
-        !expanded &&
-        `
-		  border-left: 2px dashed #dfdff1;
-		  padding-top: .6rem;
-		  padding-left: 1rem;
-		  position: relative;
-		  `
-      }
+      css={`
+        border-bottom: 1px solid var(--lighterColor2);
+        margin-bottom: 1rem;
+      `}
     >
-      {expanded && (
-        <header>
-          <small>En détails</small>
-        </header>
-      )}
-      <Card
+      <header
         css={`
-          background: ${isSelected ? 'rgba(205, 228, 255, 0.20);' : ''};
+          margin: 0 0 1rem 0;
+          ${level === 2 && 'font-size: 110%;'}
+          font-size: 130%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          &:hover {
+            cursor: pointer;
+          }
         `}
+        onClick={() => setIsOpen(!isOpen)}
       >
-        <header
-          css={`
-            margin: 0 0 1rem 0;
-            ${level === 2 && 'font-size: 110%;'}
-            font-size: 130%;
-            align-items: flex-start;
-            justify-content: space-between;
-          `}
-        >
-          {rule['type'] && (
-            <div
-              css={`
-                float: right;
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: flex-end;
-              `}
-            >
-              <PictoTypeAide $style={style} $expanded={expanded}>
-                <span className="icon"></span>
-                <span className="type">{rule['type']}</span>
-              </PictoTypeAide>
-              {isModeste &&
-                dottedName == 'MPR . accompagnée' && ( // Petite exception pour MPRA qui peut être de 2 formes
-                  <PictoTypeAide
-                    $style={aideStyles['avance']}
-                    $expanded={expanded}
-                  >
-                    <span className="icon"></span>
-                    <span className="type">avance</span>
-                  </PictoTypeAide>
-                )}
-            </div>
-          )}
-          <div>
-            <h3
-              css={`
-                margin: 0 0 0.5rem 0;
-                color: var(--darkColor0);
-              `}
-            >
-              {title}
-            </h3>
-            <PrimeWithLabel
-              {...{
-                montant,
-                engine,
-                situation,
-                dottedName,
-              }}
-            />
-          </div>
-        </header>
+        <div>
+          <h3
+            css={`
+              margin: 0 0 0.5rem 0;
+              color: var(--darkColor0);
+            `}
+          >
+            {title}
+          </h3>
+          <PrimeWithLabel
+            {...{
+              montant,
+              engine,
+              situation,
+              dottedName,
+            }}
+          />
+        </div>
         <div
           css={`
-            margin-top: 1rem;
+            &::after {
+              content: '';
+              display: inline-block;
+              width: 10px;
+              height: 10px;
+              border-bottom: 2px solid var(--color);
+              border-right: 2px solid var(--color);
+              transform: rotate(${isOpen ? '225deg' : '45deg'});
+              transition: transform 0.3s ease-in-out;
+            }
           `}
+        />
+      </header>
+      <div
+        ref={contentRef}
+        css={`
+          max-height: 0;
+          opacity: ${isOpen ? '1' : '0'};
+          overflow: hidden;
+          transition:
+            max-height 0.4s ease-out,
+            opacity 0.3s ease-out;
+        `}
+      >
+        <div
           dangerouslySetInnerHTML={{
             __html: rules[dottedName].descriptionHtml,
           }}
         />
-        {children}
-        {expanded && (
-          <>
-            {dottedName != 'ampleur . prime individuelle copropriété' && (
-              <p
-                css={`
-                  margin-top: 1.6rem;
-                `}
-              >
-                <ExternalLink href={rules[dottedName]['lien']} target="_blank">
-                  Plus d'infos sur cette aide
-                </ExternalLink>
-              </p>
-            )}
-            <FatConseiller
-              {...{
-                situation,
-                margin: 'small',
-                titre: 'Comment toucher cette aide ?',
-                texte: rule.commentFaireHtml,
-              }}
-            />
-          </>
-        )}
         <AideCTAs
           {...{
             dottedName,
@@ -163,7 +119,31 @@ export default function AideAmpleur({
             expanded,
           }}
         />
-      </Card>
+      </div>
+      {expanded && (
+        <>
+          {children}
+          {dottedName != 'ampleur . prime individuelle copropriété' && (
+            <p
+              css={`
+                margin-top: 1.6rem;
+              `}
+            >
+              <ExternalLink href={rules[dottedName]['lien']} target="_blank">
+                Plus d'infos sur cette aide
+              </ExternalLink>
+            </p>
+          )}
+          <FatConseiller
+            {...{
+              situation,
+              margin: 'small',
+              titre: 'Comment toucher cette aide ?',
+              texte: rule.commentFaireHtml,
+            }}
+          />
+        </>
+      )}
     </section>
   )
 }

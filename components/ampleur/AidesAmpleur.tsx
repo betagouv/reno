@@ -1,22 +1,10 @@
-import Link from 'next/link'
-import {
-  createExampleSituation,
-  getNeSaisPasEtNonEligibles,
-} from './AmpleurSummary'
+import { createExampleSituation } from './AmpleurSummary'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
-import QuestionsRéponses from '../mpra/QuestionsRéponses'
-import {
-  encodeDottedName,
-  encodeSituation,
-  getSituation,
-} from '../publicodes/situationUtils'
 import { useAides } from './useAides'
-import { AideSummary } from './AideSummary'
-import { Key } from '../explications/ExplicationUI'
 import { omit } from '@/components/utils'
-import { Card, CTA, CTAWrapper, Section } from '../UI'
+import { Section } from '../UI'
 import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
 
@@ -39,8 +27,82 @@ export default function AidesAmpleur({
   const eligibles = aides.filter((aide) => aide.status === true)
   const nonEligibles = aides.filter((aide) => aide.status === false)
   const neSaisPas = aides.filter((aide) => aide.status === null)
+
+  const renderAides = (aidesList, title, isEligible) => {
+    if (aidesList.length === 0) return null
+
+    return (
+      <>
+        <h2 title={title}>
+          {title}&nbsp;
+          {isEligible !== null && (
+            <>
+              <strong
+                css={`
+                  color: var(--color);
+                `}
+              >
+                {aidesList.length}
+              </strong>
+              &nbsp;aides
+            </>
+          )}
+        </h2>
+        {isEligible === null && (
+          <p>
+            C'est à vous de vous renseigner pour ces aides, car nous n'avons pas
+            pu déterminer votre éligibilité :
+          </p>
+        )}
+        {isEligible === false && (
+          <p>
+            D'après les informations que vous avez renseignées, vous n'êtes pas
+            éligible à ces aides :
+          </p>
+        )}
+        <section>
+          {aidesList.map((aide) => {
+            const AideComponent = correspondance[aide.baseDottedName]
+            return AideComponent ? (
+              <AideComponent
+                key={aide.baseDottedName}
+                {...{
+                  dottedName: aide.baseDottedName,
+                  setSearchParams,
+                  answeredQuestions,
+                  engine,
+                  situation,
+                  exampleSituation,
+                  searchParams,
+                  rules,
+                  expanded: false,
+                }}
+              />
+            ) : (
+              <p>
+                Composant pas trouvé pour {aide.baseDottedName}{' '}
+                {aide.dottedName}
+              </p>
+            )
+          })}
+        </section>
+      </>
+    )
+  }
+
   return (
-    <Section>
+    <Section
+      css={`
+        h2 {
+          font-size: 110%;
+          display: flex;
+          align-items: center;
+        }
+        h3 {
+          font-size: 100%;
+        }
+      `}
+    >
       <CustomQuestionWrapper>
         <BtnBackToParcoursChoice
           {...{
@@ -49,172 +111,22 @@ export default function AidesAmpleur({
             answeredQuestions,
           }}
         />
+        <h1
+          css={`
+            font-size: 120%;
+            margin: 0.5rem 0 !important;
+          `}
+        >
+          Financer une rénovation d’ampleur
+        </h1>
 
-        <header>
-          <small>Aides disponibles</small>
-          <h2
-            css={`
-              font-size: 120%;
-              margin: 0.5rem 0 !important;
-            `}
-          >
-            Financer une rénovation d’ampleur
-          </h2>
-        </header>
-        {false && ( // on pourra mettre un sommaire si besoin
-          <ul>
-            {eligibles.map((aide) => {
-              return (
-                <li key={aide.dottedName}>
-                  <Link
-                    href={'#' + 'aide-' + encodeDottedName(aide.dottedName)}
-                  >
-                    {aide.marque || aide['complément de marque']}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        )}
-
-        {eligibles.length > 0 && (
-          <p
-            css={`
-              margin: 1rem 0 0 0;
-              em {
-                min-width: 0;
-              }
-            `}
-          >
-            Vous êtes éligible à <Key $state={'final'}>{eligibles.length}</Key>{' '}
-            dispositifs cumulables entre eux :
-          </p>
-        )}
-
-        <section>
-          {eligibles.map((aide) => {
-            const AideComponent = correspondance[aide.baseDottedName]
-            if (AideComponent)
-              return (
-                <AideComponent
-                  key={aide.baseDottedName}
-                  {...{
-                    dottedName: aide.baseDottedName,
-                    setSearchParams,
-                    answeredQuestions,
-                    engine,
-                    situation,
-                    exampleSituation,
-                    searchParams,
-                    rules,
-                    expanded: false,
-                  }}
-                />
-              )
-            return (
-              <p>
-                Composant pas trouvé pour {aide.baseDottedName}{' '}
-                {aide.dottedName}
-              </p>
-            )
-          })}
-        </section>
-          {...{
-            answeredQuestions,
-            searchParams,
-            setSearchParams,
-          }}
-        />
-        {neSaisPas.length > 0 && (
-          <div title="Aides pour lesquelles nous n'avons pu déterminer votre éligibilité">
-            <header
-              css={`
-                display: flex;
-                align-items: center;
-                margin: 2rem 0 0 0;
-              `}
-            >
-              <small>Aides potentielles</small>
-            </header>
-            <p>
-              Nous n'avons pas pu déterminer votre éligibilité à ces aides,
-              c'est à vous de vous renseigner.
-            </p>
-            {neSaisPas.map((aide) => {
-              const AideComponent = correspondance[aide.baseDottedName]
-
-              if (AideComponent)
-                return (
-                  <AideComponent
-                    key={aide.dottedName}
-                    {...{
-                      dottedName: aide.dottedName,
-                      setSearchParams,
-                      answeredQuestions,
-                      engine,
-                      situation,
-                      exampleSituation,
-                      searchParams,
-                      rules,
-                      expanded: false,
-                    }}
-                  />
-                )
-              return (
-                <p>
-                  Composant pas trouvé pour {aide.baseDottedName}{' '}
-                  {aide.dottedName}
-                </p>
-              )
-            })}
-          </div>
-        )}
-        {nonEligibles.length > 0 && (
-          <div title="Aides auxquelles vous n'êtes pas éligible">
-            <header
-              css={`
-                display: flex;
-                align-items: center;
-                margin: 2rem 0 0 0;
-              `}
-            >
-              <small>Aides non disponibles</small>
-            </header>
-            <p>
-              Nous avons déterminé que vous n'êtes pas éligible à ces aides. Si
-              vous avez un doute, n'hésitez pas à contacter gratuitement votre
-              conseiller France Rénov'.
-            </p>
-            <Card>
-              {nonEligibles.map((aide) => {
-                const text = aide.marque,
-                  text2 = aide['complément de marque']
-                return (
-                  <AideSummary
-                    key={aide.dottedName}
-                    {...{
-                      ...aide,
-                      icon: aide.icône,
-                      situation,
-                      text,
-                      text2,
-                      type: aide.type,
-                      expanded: false,
-                      small: true,
-                    }}
-                  />
-                )
-              })}
-            </Card>
-          </div>
-        )}
+        {renderAides(eligibles, 'Éligible à', true)}
+        {renderAides(neSaisPas, 'Aides potentielles', null)}
+        {renderAides(nonEligibles, 'Non éligible à', false)}
         <FatConseiller
           {...{
             situation,
             margin: 'small',
-            titre: 'Comment toucher ces aides ?',
-            texte:
-              "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
           }}
         />
         <Feedback title={'Ce simulateur a-t-il été utile ?'} />
