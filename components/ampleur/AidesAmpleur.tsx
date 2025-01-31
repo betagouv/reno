@@ -17,7 +17,6 @@ import { AideSummary } from './AideSummary'
 import { Key } from '../explications/ExplicationUI'
 import { omit } from '@/components/utils'
 import { Card, CTA, CTAWrapper, Section } from '../UI'
-import VoirSynthese from './VoirSynthese'
 import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
 
@@ -120,7 +119,6 @@ export default function AidesAmpleur({
             )
           })}
         </section>
-        <VoirSynthese
           {...{
             answeredQuestions,
             searchParams,

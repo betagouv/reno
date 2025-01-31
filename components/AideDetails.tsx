@@ -1,6 +1,5 @@
 import Feedback from '@/app/contact/Feedback'
 import { createExampleSituation } from './ampleur/AmpleurSummary'
-import VoirSynthese from './ampleur/VoirSynthese'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { decodeDottedName } from './publicodes/situationUtils'
@@ -49,13 +48,6 @@ export default function AideDetails({
               searchParams,
               expanded: true,
               rules,
-            }}
-          />
-          <VoirSynthese
-            {...{
-              answeredQuestions,
-              searchParams,
-              setSearchParams,
             }}
           />
           <Feedback title={'Ce simulateur a-t-il été utile ?'} />
