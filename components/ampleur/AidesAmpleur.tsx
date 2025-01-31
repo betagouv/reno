@@ -4,9 +4,10 @@ import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
 import { useAides } from './useAides'
 import { omit } from '@/components/utils'
-import { Section } from '../UI'
+import { CTA, CTAWrapper, Section } from '../UI'
 import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
+import CopyButton from '../CopyButton'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -104,13 +105,21 @@ export default function AidesAmpleur({
       `}
     >
       <CustomQuestionWrapper>
-        <BtnBackToParcoursChoice
-          {...{
-            setSearchParams,
-            situation: omit(["parcours d'aide"], situation),
-            answeredQuestions,
-          }}
-        />
+        <div
+          css={`
+            display: flex;
+            justify-content: space-between;
+          `}
+        >
+          <BtnBackToParcoursChoice
+            {...{
+              setSearchParams,
+              situation: omit(["parcours d'aide"], situation),
+              answeredQuestions,
+            }}
+          />
+          <CopyButton searchParams={searchParams} />
+        </div>
         <h1
           css={`
             font-size: 120%;
@@ -119,7 +128,6 @@ export default function AidesAmpleur({
         >
           Financer une rénovation d’ampleur
         </h1>
-
         {renderAides(eligibles, 'Éligible à', true)}
         {renderAides(neSaisPas, 'Aides potentielles', null)}
         {renderAides(nonEligibles, 'Non éligible à', false)}
