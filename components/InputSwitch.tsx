@@ -21,7 +21,6 @@ import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import AideDetails from './AideDetails'
-import AideSynthese from './ampleur/AideSynthese'
 import AideMAR from './ampleur/AideMAR'
 import AidesLocales from './ampleur/AidesLocales'
 import CEEAmpleur from './ampleur/CEEAmpleur'
@@ -305,23 +304,6 @@ export default function InputSwitch({
           answeredQuestions,
           setSearchParams,
           searchParams,
-        }}
-      />
-    )
-  }
-
-  if (searchParams['details'] && searchParams['details'] == 'synthese') {
-    return (
-      <AideSynthese
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          correspondance,
-          nextQuestions,
         }}
       />
     )
