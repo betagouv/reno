@@ -49,7 +49,6 @@ export default function Share() {
             align-items: center;
             display: flex;
             flex-direction: column;
-            font-weight: bold;
             ${copied &&
             `
                 border: 1px dashed var(--color);

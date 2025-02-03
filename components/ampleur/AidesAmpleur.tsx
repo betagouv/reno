@@ -31,7 +31,7 @@ export default function AidesAmpleur({
 
   const renderAides = (aidesList, title, isEligible) => {
     if (aidesList.length === 0) return null
-
+    let lastType = null
     return (
       <>
         <h2 title={title}>
@@ -64,21 +64,33 @@ export default function AidesAmpleur({
         <section>
           {aidesList.map((aide) => {
             const AideComponent = correspondance[aide.baseDottedName]
+            const currentType = rules[aide.baseDottedName].type
+            const showType = currentType !== lastType
+            lastType = currentType
             return AideComponent ? (
-              <AideComponent
-                key={aide.baseDottedName}
-                {...{
-                  dottedName: aide.baseDottedName,
-                  setSearchParams,
-                  answeredQuestions,
-                  engine,
-                  situation,
-                  exampleSituation,
-                  searchParams,
-                  rules,
-                  expanded: false,
-                }}
-              />
+              <>
+                {showType && rules[aide.baseDottedName].type}
+                <div
+                  css={`
+                    margin-left: 1rem;
+                  `}
+                >
+                  <AideComponent
+                    key={aide.baseDottedName}
+                    {...{
+                      dottedName: aide.baseDottedName,
+                      setSearchParams,
+                      answeredQuestions,
+                      engine,
+                      situation,
+                      exampleSituation,
+                      searchParams,
+                      rules,
+                      expanded: false,
+                    }}
+                  />
+                </div>
+              </>
             ) : (
               <p>
                 Composant pas trouvé pour {aide.baseDottedName}{' '}
