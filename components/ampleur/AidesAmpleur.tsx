@@ -62,17 +62,29 @@ export default function AidesAmpleur({
           </p>
         )}
         <section>
-          {aidesList.map((aide) => {
+          {aidesList.map((aide, i) => {
             const AideComponent = correspondance[aide.baseDottedName]
             const currentType = rules[aide.baseDottedName].type
             const showType = currentType !== lastType
             lastType = currentType
             return AideComponent ? (
-              <>
-                {showType && rules[aide.baseDottedName].type}
+              <div key={i}>
+                {showType && (
+                  <div
+                    css={`
+                      color: var(--mutedColor);
+                      margin: 1rem 0;
+                      text-transform: capitalize;
+                    `}
+                  >
+                    {rules[aide.baseDottedName].type}
+                  </div>
+                )}
                 <div
                   css={`
-                    margin-left: 1rem;
+                    > section {
+                      padding-left: 1rem;
+                    }
                   `}
                 >
                   <AideComponent
@@ -90,7 +102,7 @@ export default function AidesAmpleur({
                     }}
                   />
                 </div>
-              </>
+              </div>
             ) : (
               <p>
                 Composant pas trouvé pour {aide.baseDottedName}{' '}
