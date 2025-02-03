@@ -67,10 +67,9 @@ export default function AideAmpleur({
           </h3>
           <PrimeWithLabel
             {...{
-              montant,
               engine,
               situation,
-              dottedName,
+              dottedName: dottedName + ' . montant',
             }}
           />
         </div>
@@ -155,21 +154,36 @@ export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
         font-size: 1rem;
       `}
     >
-      {['ampleur . prime individuelle copropriété'].includes(dottedName)
-        ? 'Prime de '
-        : ['taxe foncière'].includes(dottedName)
-          ? ''
-          : "Jusqu'à "}
-      <strong>
-        {dottedName.includes('taxe foncière')
-          ? situation['taxe foncière . commune . taux']
-          : formatValue(montant)}
-      </strong>
+      {dottedName.includes('taxe foncière') ? (
+        <strong>{situation['taxe foncière . commune . taux']}</strong>
+      ) : montantMax.nodeValue == montantMin.nodeValue ? (
+        <>
+          {rules[dottedName.replace(' . montant', '')].type == 'prêt'
+            ? "Jusqu'à"
+            : 'Prime de'}{' '}
+          <strong>{formatValue(montantMin)}</strong>
+        </>
+      ) : (
+        <>
+          De <strong>{formatValue(montantMin)}</strong> à{` `}
+          <strong>{formatValue(montantMax)}</strong>
+        </>
+      )}
       <AideDurée engine={engine} dottedName={dottedName} />
+    </PrimeStyle>
+  ) : dottedName != 'aides locales' ? (
+    <PrimeStyle
+      css={`
+        font-size: 1rem;
+      `}
+      $inactive
+    >
+      Non éligible
     </PrimeStyle>
   ) : (
     ''
   )
+}
 
 export const PictoTypeAide = styled.div`
   width: fit-content;
