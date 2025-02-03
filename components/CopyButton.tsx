@@ -6,6 +6,7 @@ import shareIcon from '@/public/share.svg'
 import Image from 'next/image'
 
 export default function Share() {
+  const isMobile = window.innerWidth <= 600
   const pathname = usePathname(),
     searchParams = useSearchParams()
 
@@ -16,6 +17,23 @@ export default function Share() {
   useEffect(() => {
     setCopied(false)
   }, [searchParams])
+
+  const share = async () => {
+    try {
+      await navigator.share({
+        title: 'Simulation MesAidesRéno',
+        text: "Simulation d'aide à la rénovation énergétique",
+        url:
+          'https://mesaidesreno.beta.gouv.fr' +
+          pathname +
+          '?' +
+          searchParamsString,
+      })
+      setCopied(true)
+    } catch (error) {
+      console.error('Failed to copy:', error)
+    }
+  }
 
   const copyToClipboard = async () => {
     try {
@@ -61,7 +79,7 @@ export default function Share() {
           title="Cliquez pour partager le lien"
           onClick={() => {
             push(['trackEvent', 'Partage', 'Clic'])
-            copyToClipboard()
+            isMobile && navigator.share ? share() : copyToClipboard()
           }}
         >
           <Image src={shareIcon} alt="Icon copier" className="icon" />
