@@ -27,11 +27,6 @@ export default function AideAmpleur({
   const rule = rules[dottedName]
   const marque2 = rule['complément de marque'],
     title = rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
-  const extremeSituation = createExampleSituation(engine, situation, true)
-  const montant =
-    engine &&
-    engine.setSituation(extremeSituation).evaluate(dottedName + ' . montant')
-
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.style.maxHeight = isOpen
@@ -148,8 +143,13 @@ export default function AideAmpleur({
   )
 }
 
-export const PrimeWithLabel = ({ montant, engine, dottedName, situation }) =>
-  montant.nodeValue ? (
+export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
+  const bestSituation = createExampleSituation(engine, situation, 'best')
+  const worstSituation = createExampleSituation(engine, situation, 'worst')
+  const montantMax = engine.setSituation(bestSituation).evaluate(dottedName)
+  const montantMin = engine.setSituation(worstSituation).evaluate(dottedName)
+
+  return montantMax.nodeValue ? (
     <PrimeStyle
       css={`
         font-size: 1rem;
