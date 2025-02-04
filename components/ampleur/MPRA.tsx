@@ -1,15 +1,15 @@
-import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import DPEScenario from '@/components/mpra/DPEScenario'
-import TargetDPETabs from '@/components/mpra/TargetDPETabs'
 import AideAmpleur from './AideAmpleur'
-import { Card } from '../UI'
+import { Card, CTA } from '../UI'
 import rules from '@/app/règles/rules'
-import checkIcon from '@/public/check.svg'
+import checkIcon from '@/public/check-square.png'
 import Value from '../Value'
 import DPELabel from '../DPELabel'
 import { Key } from '../explications/ExplicationUI'
 import { Écrêtement } from '@/components/explications/Écrêtement'
-
+import Image from 'next/image'
+import Link from 'next/link'
+import { encodeSituation } from '../publicodes/situationUtils'
 export default function MPRA({
   setSearchParams,
   answeredQuestions,
@@ -24,12 +24,6 @@ export default function MPRA({
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
-  const revenuClasseValue = engine
-    .setSituation(situation)
-    .evaluate('ménage . revenu . classe').nodeValue
-
-  const isModeste = revenuClasseValue.includes('modeste')
-
   return (
     <AideAmpleur
       {...{
@@ -41,95 +35,78 @@ export default function MPRA({
         expanded,
       }}
     >
-      <DPEQuickSwitch oldIndex={oldIndex} situation={situation} />.
-      <TargetDPETabs
-        {...{
-          oldIndex,
-          setSearchParams,
-          answeredQuestions,
-          choice,
-          engine,
-          situation,
-        }}
-      />
-      {oldIndex < 2 ? (
+      <>
+        <DPEScenario
+          {...{
+            rules,
+            choice,
+            oldIndex,
+            engine,
+            situation,
+            setSearchParams,
+            answeredQuestions,
+            exampleSituation,
+          }}
+        />
         <Card
           css={`
-            margin: 0.6rem 0;
+            background: #f4efff;
+            h3 {
+              margin: 0.5rem 0;
+            }
           `}
         >
-          👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
-          bénéficier du parcours accompagné.
-        </Card>
-      ) : (
-        <>
-          <DPEScenario
-            {...{
-              rules,
-              choice,
-              oldIndex,
-              engine,
-              situation,
-              setSearchParams,
-              exampleSituation,
-              expanded,
-            }}
-          />
-          {isModeste && (
-            <div
-              css={`
-                background: #fdf8db;
-                padding: 1rem;
-                margin: 1rem 0;
-              `}
+          <h3>
+            <span aria-hidden="true">🔎</span> Un audit énergétique nécessaire
+            pour MaPrimeRénov'
+          </h3>
+          <p>
+            Obligatoire, avec une aide partielle pour le financer, cet audit est
+            essentiel pour définir un projet adapté et maximiser vos aides.
+          </p>
+          <p>
+            <strong>Coût moyen</strong> : Entre <strong>2 000 €</strong> et{' '}
+            <strong>4 000 €</strong> (selon votre situation).
+          </p>
+          <p
+            css={`
+              margin-bottom: 1rem;
+            `}
+          >
+            <strong>Aides disponibles</strong> : Une prise en charge partielle
+            allant jusqu'à{' '}
+            <Value
+              {...{
+                engine,
+                situation,
+                state: 'prime',
+                dottedName: 'MPR . accompagnée . prise en charge MAR . montant',
+              }}
+            />{' '}
+            d'aides.
+          </p>
+          <CTA $fontSize="normal" $importance="emptyBackground">
+            <Link
+              href={setSearchParams(
+                {
+                  ...encodeSituation(
+                    {
+                      ...situation,
+                      ['details']: 'MPR.accompagnée.prise en charge MAR',
+                    },
+                    false,
+                    answeredQuestions,
+                  ),
+                },
+                'url',
+                true,
+              )}
             >
-              🍀 <strong>Bonus :</strong> En tant que ménage{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: 'ménage . revenu . classe',
-                  state: 'prime-black',
-                }}
-              />{' '}
-              ,{' '}
-              <strong>
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'MPR . accompagnée . pourcentage avance',
-                    state: 'prime-black',
-                  }}
-                />
-              </strong>{' '}
-              de cette aide peut vous être versée en avance de vos travaux.
-            </div>
-          )}
-          {expanded && (
-            <>
-              <h3>Comment est calculée l'aide ?</h3>
-              <p>
-                Vous êtes éligible à une aide de{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'MPR . accompagnée . pourcent brut',
-                    state: 'prime-black',
-                  }}
-                />{' '}
-                du coût de vos travaux avec un plafond de{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'projet . travaux . plafond',
-                    state: 'prime-black',
-                  }}
-                />{' '}
-                de travaux.
-              </p>
+              En savoir plus sur l'aide ➞
+            </Link>
+          </CTA>
+        </Card>
+        {/* <h3>Comment est calculée l'aide ?</h3>
               <p>
                 Une bonification de <Key state="prime-black">10 %</Key> s'ajoute
                 à ce taux si votre logement est une passoire énergétique
@@ -138,26 +115,27 @@ export default function MPRA({
                 permet d’atteindre une étiquette <DPELabel index="3" /> au
                 minimum.
               </p>
-              <Écrêtement {...{ engine, rules, situation }} />
-              <h3>Les principales conditions d'éligibilité ?</h3>
-              <div
-                css={`
-                  list-style-image: url(${checkIcon.src});
-                  li {
-                    margin: 1rem 0;
-                    ul {
-                      list-style-image: none;
-                    }
-                  }
-                `}
-                dangerouslySetInnerHTML={{
-                  __html: rules[dottedName].conditionsEligibilitesHTML,
-                }}
-              />
-            </>
-          )}
-        </>
-      )}
+              <Écrêtement {...{ engine, rules, situation }} /> */}
+        <h3>Les principales conditions d'éligibilité ?</h3>
+        <div
+          css={`
+            list-style-image: url(${checkIcon.src});
+            list-style-position: inside;
+            ul {
+              padding: 0;
+            }
+            li {
+              margin: 1rem 0;
+              ul {
+                list-style-image: none;
+              }
+            }
+          `}
+          dangerouslySetInnerHTML={{
+            __html: rules[dottedName].conditionsEligibilitesHTML,
+          }}
+        />
+      </>
     </AideAmpleur>
   )
 }

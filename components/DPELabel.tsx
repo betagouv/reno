@@ -18,10 +18,11 @@ export default function DPELabel({ index }) {
   return (
     <span
       css={`
+        display: inline-block;
         background: ${couleur};
-        line-height: 1.5rem;
         text-align: center;
-        padding: 0.05rem 0.45rem;
+        padding: 0.7rem 1rem;
+        font-weight: bold;
         color: ${textColor || 'black'};
         border-radius: 0.3rem;
       `}
