@@ -4,10 +4,12 @@ import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
 import { useAides } from './useAides'
 import { omit } from '@/components/utils'
-import { CTA, CTAWrapper, Section } from '../UI'
+import { Section } from '../UI'
 import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
 import CopyButton from '../CopyButton'
+import Breadcrumb from '../Breadcrumb'
+import { encodeSituation } from '../publicodes/situationUtils'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -65,7 +67,7 @@ export default function AidesAmpleur({
           {aidesList.map((aide, i) => {
             const AideComponent = correspondance[aide.baseDottedName]
             const currentType = rules[aide.baseDottedName].type
-            const showType = currentType !== lastType
+            const showType = currentType !== lastType && isEligible
             lastType = currentType
             return AideComponent ? (
               <div key={i}>
@@ -77,13 +79,17 @@ export default function AidesAmpleur({
                       text-transform: capitalize;
                     `}
                   >
-                    {rules[aide.baseDottedName].type}
+                    {rules[aide.baseDottedName].type == 'remboursement'
+                      ? '💶 Subventions'
+                      : rules[aide.baseDottedName].type == 'prêt'
+                        ? '🏦 Prêts'
+                        : '✂ Exonérations fiscales'}
                   </div>
                 )}
                 <div
                   css={`
                     > section {
-                      padding-left: 1rem;
+                      padding-left: 1.5rem;
                     }
                   `}
                 >
@@ -124,11 +130,37 @@ export default function AidesAmpleur({
           align-items: center;
         }
         h3 {
-          font-size: 100%;
+          font-size: 90%;
         }
       `}
     >
       <CustomQuestionWrapper>
+        <Breadcrumb
+          links={[
+            {
+              Eligibilité: setSearchParams(
+                {
+                  ...encodeSituation(
+                    omit(["parcours d'aide"], situation),
+                    false,
+                    answeredQuestions,
+                  ),
+                },
+                'url',
+                true,
+              ),
+            },
+            {
+              Ampleur: setSearchParams(
+                {
+                  ...encodeSituation(situation, false, answeredQuestions),
+                },
+                'url',
+                true,
+              ),
+            },
+          ]}
+        />
         <div
           css={`
             display: flex;
@@ -152,9 +184,9 @@ export default function AidesAmpleur({
         >
           Financer une rénovation d’ampleur
         </h1>
-        {renderAides(eligibles, 'Éligible à', true)}
-        {renderAides(neSaisPas, 'Aides potentielles', null)}
-        {renderAides(nonEligibles, 'Non éligible à', false)}
+        {renderAides(eligibles, '🥳 Éligible à', true)}
+        {renderAides(neSaisPas, '🤔 Aides potentielles', null)}
+        {renderAides(nonEligibles, '⛔ Non éligible à', false)}
         <FatConseiller
           {...{
             situation,
