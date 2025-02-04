@@ -18,7 +18,6 @@ export const getAmpleurDPEChoice = (situation) => {
 }
 export default function DPEQuickSwitch({
   oldIndex,
-  prefixText,
   prefixDPE = true,
   possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
@@ -27,7 +26,7 @@ export default function DPEQuickSwitch({
 }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
-  const text = prefixText === undefined ? 'Vous avez déclaré un ' : prefixText
+  const text = 'Votre DPE actuel :'
   const newSituation = (index) => {
     const simpleChange = { [dottedName]: index + 1 }
     const targetDPE = situation[targetKey]
@@ -42,8 +41,8 @@ export default function DPEQuickSwitch({
   }
 
   return (
-    <span>
-      {text}
+    <div css={'display: flex; flex-direction: column;gap: 0.5rem;'}>
+      <div>{text}</div>
       {editing ? (
         <span
           css={`
@@ -71,26 +70,20 @@ export default function DPEQuickSwitch({
           ))}
         </span>
       ) : (
-        <span
+        <div
           css={`
-            text-decoration: underline dotted var(--color);
             cursor: pointer;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            img {
-              margin-left: 0.3rem;
-              height: 1.2rem;
-              width: auto;
-            }
+            gap: 1rem;
           `}
           onClick={() => setEditing(true)}
           title="Cliquez pour choisir un autre DPE actuel de votre logement, dans le cas où vous n'êtes pas certain de votre DPE."
         >
-          {prefixDPE ? 'DPE' : ''}&nbsp;
           <DPELabel index={oldIndex} />
           <Image src={editIcon} alt="Icône crayon" />
-        </span>
+        </div>
       )}
-    </span>
+    </div>
   )
 }

@@ -55,7 +55,6 @@ export default function CEEAmpleurScenario({ engine, situation }) {
         `}
       >
         <DPEQuickSwitch
-          prefixText={'En visant un '}
           dottedName="projet . DPE visé"
           possibilities={possibilities}
           oldIndex={

@@ -203,7 +203,6 @@ export default function Ampleur() {
           <DPELabel index={currentDPE - 1} /> à{isMobile ? '' : ' un '}
           <DPEQuickSwitch
             oldIndex={targetDPE - 1}
-            prefixText={''}
             prefixDPE={isMobile ? false : true}
             dottedName="projet . DPE visé"
             situation={situation}
