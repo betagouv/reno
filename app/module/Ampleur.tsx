@@ -79,7 +79,7 @@ export default function Ampleur() {
   const targetDPE =
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
 
-  const extremeSituation = createExampleSituation(engine, {}, true)
+  const extremeSituation = createExampleSituation(engine, {}, 'best')
 
   const defaultSituation = {
     ...extremeSituation, // pour déclencher Denormandie, taxe foncière, etc
@@ -203,7 +203,6 @@ export default function Ampleur() {
           <DPELabel index={currentDPE - 1} /> à{isMobile ? '' : ' un '}
           <DPEQuickSwitch
             oldIndex={targetDPE - 1}
-            prefixText={''}
             prefixDPE={isMobile ? false : true}
             dottedName="projet . DPE visé"
             situation={situation}

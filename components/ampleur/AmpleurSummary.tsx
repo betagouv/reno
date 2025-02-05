@@ -19,27 +19,32 @@ export const computeAideStatus = (evaluation) => {
   throw new Error(message)
 }
 
-export const createExampleSituation = (engine, situation, extreme = false) => {
+export const createExampleSituation = (engine, situation, type = 'normal') => {
   const exampleSituation = {
     'projet . travaux': roundToThousands(
       engine.evaluate('projet . enveloppe estimée').nodeValue,
       5,
     ),
     ...situation,
-    ...(extreme
+    ...(type == 'best'
       ? {
           'projet . travaux': 999999,
           'projet . DPE visé': 1,
           'denormandie . années de location': 12,
         }
-      : {}),
+      : type == 'worst'
+        ? {
+            'projet . DPE visé': Math.max(situation['DPE . actuel'] - 2, 1),
+            'denormandie . années de location': 6,
+          }
+        : {}),
     'taxe foncière . condition de dépenses': 'oui',
   }
   return exampleSituation
 }
 
 export default function AmpleurSummary({ engine, url, situation }) {
-  const extremeSituation = createExampleSituation(engine, situation, true)
+  const extremeSituation = createExampleSituation(engine, situation, 'best')
 
   const aides = useAides(engine, extremeSituation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0

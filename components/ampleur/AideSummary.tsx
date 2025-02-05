@@ -56,7 +56,6 @@ export const AideSummary = ({
                 margin-top: 0.5rem;
               `}
               {...{
-                montant: evaluation,
                 engine,
                 situation,
                 dottedName,
