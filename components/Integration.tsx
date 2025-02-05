@@ -110,11 +110,9 @@ export default function Integration() {
   const [noScroll, setNoScroll] = useState(false)
   useEffect(() => {
     if (!noScroll) return
-    console.log('listening to iframe height', 'initialize')
 
     const handleHeightChange = function (evt) {
       if (evt.data.kind === 'mesaidesreno-resize-height') {
-        console.log('listening to iframe height', evt.data.value)
         iframeRef.current.style.height = evt.data.value + 'px'
       }
     }
@@ -252,7 +250,6 @@ export default function Integration() {
 <script>
     const handleHeightChange = function (evt) {
       if (evt.data.kind === 'mesaidesreno-resize-height') {
-        console.log('listening to iframe height', evt.data.value)
         document.querySelector('iframe#mesaidesreno').current.style.height = evt.data.value + 'px'
       }
     }
