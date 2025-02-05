@@ -405,4 +405,5 @@ const IframeCodeWrapper = styled.div`
   background: white;
   padding: 0.2rem 0.6rem;
   border-radius: 0.4rem;
+  border: 1px solid #eee;
 `
