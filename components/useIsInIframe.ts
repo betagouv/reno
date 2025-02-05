@@ -16,7 +16,7 @@ export default function useIsInIframe() {
       // change.
       const minHeight = 700
       observer = new ResizeObserver(([entry]) => {
-        const value = Math.max(minHeight, entry.contentRect.height)
+        const value = Math.max(minHeight, entry.contentRect.height + 10) // without this 6 padding, the scroll bar will still be present
         window.parent?.postMessage(
           { kind: 'mesaidesreno-resize-height', value },
           '*',
