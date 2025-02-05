@@ -106,7 +106,10 @@ export default function Integration() {
   const iframeCode = `<iframe id="mesaidesreno" src="${getAppUrl() + module}" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
 
   const iframeRef = useRef()
+
+  const [noScroll, setNoScroll] = useState(false)
   useEffect(() => {
+    if (!noScroll) return
     console.log('listening to iframe height', 'initialize')
 
     const handleHeightChange = function (evt) {
@@ -117,7 +120,7 @@ export default function Integration() {
     }
     window.addEventListener('message', handleHeightChange)
     return () => window.removeEventListener('message', handleHeightChange)
-  }, [iframeRef])
+  }, [iframeRef, noScroll])
 
   return (
     <PageBlock>
@@ -224,6 +227,21 @@ export default function Integration() {
                   n'est pas nécessaire mais c'est possible : l'iframe prendra
                   alors une hauteur dynamique en fonction de chaque page.
                 </p>
+                <label
+                  css={`
+                    display: flex;
+                    align-items: center;
+                    gap: 0.6rem;
+                    padding: 0.6rem 0;
+                  `}
+                >
+                  <input
+                    type="checkbox"
+                    value={noScroll}
+                    onChange={() => setNoScroll(!noScroll)}
+                  />
+                  <span>Tester le redimensionnement automatique</span>
+                </label>
                 <p>
                   Cela nécessite ce petit bout de code Javascript à ajouter de
                   votre côté sur votre page hôte.
