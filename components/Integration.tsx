@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Select } from './InputUI'
 import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
 import { useRouter, useSearchParams } from 'next/navigation'
+import styled from 'styled-components'
 
 export default function Integration() {
   const router = useRouter()
@@ -102,7 +103,7 @@ export default function Integration() {
       }),
     )
 
-  const iframeCode = `<iframe src="${getAppUrl() + module}" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
+  const iframeCode = `<iframe id="mesaidesreno" src="${getAppUrl() + module}" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
 
   const iframeRef = useRef()
   useEffect(() => {
@@ -117,6 +118,7 @@ export default function Integration() {
     window.addEventListener('message', handleHeightChange)
     return () => window.removeEventListener('message', handleHeightChange)
   }, [iframeRef])
+
   return (
     <PageBlock>
       <HeaderWrapper>
@@ -202,13 +204,46 @@ export default function Integration() {
                 </BlueEm>{' '}
                 dans votre HTML ou votre contenu Wordpress :
               </p>
-              <code
-                css={`
-                  word-break: break-all;
-                `}
-              >
-                {iframeCode}
-              </code>
+              <IframeCodeWrapper>
+                <code
+                  css={`
+                    word-break: break-all;
+                  `}
+                >
+                  {iframeCode}
+                </code>
+              </IframeCodeWrapper>
+              <br />
+              <br />
+              <details>
+                <summary>
+                  Comment cacher la barre de défilement verticale ?
+                </summary>
+                <p>
+                  Si vous désirez supprimer la barre de défilement verticale, ce
+                  n'est pas nécessaire mais c'est possible : l'iframe prendra
+                  alors une hauteur dynamique en fonction de chaque page.
+                </p>
+                <p>
+                  Cela nécessite ce petit bout de code Javascript à ajouter de
+                  votre côté sur votre page hôte.
+                </p>
+                <IframeCodeWrapper>
+                  <code>{` 
+
+<script>
+    const handleHeightChange = function (evt) {
+      if (evt.data.kind === 'mesaidesreno-resize-height') {
+        console.log('listening to iframe height', evt.data.value)
+        document.querySelector('iframe#mesaidesreno').current.style.height = evt.data.value + 'px'
+      }
+    }
+
+    window.addEventListener('message', handleHeightChange)
+	</script>
+					  `}</code>
+                </IframeCodeWrapper>
+              </details>
               <h2>Le résultat</h2>
 
               <div
@@ -365,3 +400,9 @@ export const ContactIntegration = ({ type }) => (
     </Content>
   </Wrapper>
 )
+
+const IframeCodeWrapper = styled.div`
+  background: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+`
