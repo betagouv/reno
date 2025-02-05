@@ -57,6 +57,7 @@ export default function AideCTAs({
       $fontSize="normal"
       $importance="emptyBackground"
       css={`
+        ${expanded && 'margin: auto;'}
         margin-bottom: 1rem;
       `}
     >
@@ -67,39 +68,41 @@ export default function AideCTAs({
           push(['trackEvent', 'Simulateur Principal', 'Détails', dottedName])
         }
       >
-        {expanded ? (
-          <>← Revenir aux aides</>
-        ) : (
-          <span
-            css={`
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            `}
-          >
-            {['MPR . accompagnée', 'denormandie'].includes(dottedName) ? (
-              <>
-                <Image
-                  src={iconCalculator}
-                  alt="icone calculatrice"
-                  css={`
-                    margin-right: 0.5rem;
-                  `}
-                />
-                Calculer le montant d'aides
-              </>
-            ) : (
-              <>En savoir plus sur {rules[dottedName].titre}</>
-            )}
-            <Image
-              src={iconFlecheDroite}
-              alt="icone calculatrice"
-              css={`
-                margin-left: 0.5rem;
-              `}
-            />
-          </span>
-        )}
+        <span
+          css={`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+        >
+          {expanded ? (
+            <>Revenir à la liste des aides</>
+          ) : (
+            <>
+              {['MPR . accompagnée', 'denormandie'].includes(dottedName) ? (
+                <>
+                  <Image
+                    src={iconCalculator}
+                    alt="icone calculatrice"
+                    css={`
+                      margin-right: 0.5rem;
+                    `}
+                  />
+                  Calculer le montant d'aides
+                </>
+              ) : (
+                <>En savoir plus sur {rules[dottedName].titre}</>
+              )}
+              <Image
+                src={iconFlecheDroite}
+                alt="icone fleche"
+                css={`
+                  margin-left: 0.5rem;
+                `}
+              />
+            </>
+          )}
+        </span>
       </Link>
     </CTA>
   )

@@ -22,13 +22,8 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
                 Contacter votre conseiller <span>France&nbsp;Rénov'</span>
               </h3>
               <ul>
-                {' '}
-                {[
-                  'Service indépendant, neutre et gratuit !',
-                  'Conseils personnalisés pour votre projet',
-                ].map((text) => (
-                  <li key={text}>{text}</li>
-                ))}
+                <li>Service indépendant, neutre et gratuit !</li>
+                <li>Conseils personnalisés pour votre projet</li>
               </ul>
               <CTAWrapper
                 $justify="center"

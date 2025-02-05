@@ -51,7 +51,7 @@ export default function MarSearch({
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 6vh;
+        margin-top: 2vh;
       `}
     >
       {!codeInsee ? (
