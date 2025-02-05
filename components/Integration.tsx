@@ -107,12 +107,15 @@ export default function Integration() {
   const iframeRef = useRef()
   useEffect(() => {
     console.log('listening to iframe height', 'initialize')
-    window.addEventListener('message', function (evt) {
+
+    const handleHeightChange = function (evt) {
       if (evt.data.kind === 'mesaidesreno-resize-height') {
         console.log('listening to iframe height', evt.data.value)
         iframeRef.current.style.height = evt.data.value + 'px'
       }
-    })
+    }
+    window.addEventListener('message', handleHeightChange)
+    return () => window.removeEventListener('message', handleHeightChange)
   }, [iframeRef])
   return (
     <PageBlock>
