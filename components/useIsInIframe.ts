@@ -23,6 +23,7 @@ export default function useIsInIframe() {
         )
       })
       observer.observe(window.document.body)
+      // TODO return observer.disconnect this triggers an error, I don't know why
     } else {
       setIsInIframe(false)
     }
@@ -50,4 +51,3 @@ export function useIsCompact() {
 
   return isCompact
 }
-
