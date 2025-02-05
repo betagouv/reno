@@ -8,7 +8,7 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import getAppUrl from './getAppUrl'
 import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant } from './UI'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Select } from './InputUI'
 import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -104,6 +104,16 @@ export default function Integration() {
 
   const iframeCode = `<iframe src="${getAppUrl() + module}" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
 
+  const iframeRef = useRef()
+  useEffect(() => {
+    console.log('listening to iframe height', 'initialize')
+    window.addEventListener('message', function (evt) {
+      if (evt.data.kind === 'mesaidesreno-resize-height') {
+        console.log('listening to iframe height', evt.data.value)
+        iframeRef.current.style.height = evt.data.value + 'px'
+      }
+    })
+  }, [iframeRef])
   return (
     <PageBlock>
       <HeaderWrapper>
@@ -211,6 +221,7 @@ export default function Integration() {
               >
                 <p>[votre contenu]</p>
                 <iframe
+                  ref={iframeRef}
                   src={getAppUrl() + module}
                   style={css`
                     width: 400px;
