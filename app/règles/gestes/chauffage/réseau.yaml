@@ -10,7 +10,7 @@ chauffage . raccordement réseau . chaleur:
   description: |
     Système de chauffage urbain collectif qui permet d'acheminer de la chaleur par des canalisations souterraines.
   description complète: |
-    Testez votre éligibilité sur [France Chaleur Urbaine](https://france-chaleur-urbaine.beta.gouv.fr/reseaux-chaleur).
+    Testez votre éligibilité sur [France Chaleur Urbaine](https://france-chaleur-urbaine.beta.gouv.fr).
   note: |
     Dans le cas d'un raccordement à un réseau de chaleur et de froid, le guide des aides ne dit pas si la prime est unique ou se voit etre doublée.
 chauffage . raccordement réseau . chaleur . montant:
@@ -101,7 +101,6 @@ chauffage . raccordement réseau . froid:
 chauffage . raccordement réseau . froid . montant:
   somme:
     - MPR . montant
-
 
 chauffage . raccordement réseau . froid . MPR:
 chauffage . raccordement réseau . froid . MPR . plafond: 1800 €
