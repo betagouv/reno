@@ -256,7 +256,7 @@ export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
       )}
       <AideDurée engine={engine} dottedName={dottedName} />
     </PrimeStyle>
-  ) : dottedName != 'aides locales' ? (
+  ) : dottedName != 'aides locales . montant' ? (
     <PrimeStyle
       css={`
         font-size: 1rem;

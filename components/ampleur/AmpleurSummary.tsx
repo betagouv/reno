@@ -162,9 +162,9 @@ export const ProfessionnelLabel = () => (
       margin-top: 0.3rem;
     `}
   >
-    {['⭐ Parcours ampleur'].map((text) => (
-      <li key={text}>{text}</li>
-    ))}
+    <li>
+      <span aria-hidden="true">⭐</span> Parcours ampleur
+    </li>
   </Labels>
 )
 

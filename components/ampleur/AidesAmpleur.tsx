@@ -37,19 +37,16 @@ export default function AidesAmpleur({
     return (
       <>
         <h2 title={title}>
-          {title}&nbsp;
-          {isEligible !== null && (
-            <>
-              <strong
-                css={`
-                  color: var(--color);
-                `}
-              >
-                {aidesList.length}
-              </strong>
-              &nbsp;aides
-            </>
-          )}
+          <span
+            dangerouslySetInnerHTML={{
+              __html:
+                title +
+                '&nbsp;' +
+                (isEligible !== null
+                  ? `<strong style="color: var(--color);">${aidesList.length}</strong>&nbsp;aides`
+                  : ''),
+            }}
+          />
         </h2>
         {isEligible === null && (
           <p>
@@ -79,11 +76,19 @@ export default function AidesAmpleur({
                       text-transform: capitalize;
                     `}
                   >
-                    {rules[aide.baseDottedName].type == 'remboursement'
-                      ? '💶 Subventions'
-                      : rules[aide.baseDottedName].type == 'prêt'
-                        ? '🏦 Prêts'
-                        : '✂ Exonérations fiscales'}
+                    {rules[aide.baseDottedName].type === 'remboursement' ? (
+                      <>
+                        <span aria-hidden="true">💶</span> Subventions
+                      </>
+                    ) : rules[aide.baseDottedName].type === 'prêt' ? (
+                      <>
+                        <span aria-hidden="true">🏦</span> Prêts
+                      </>
+                    ) : (
+                      <>
+                        <span aria-hidden="true">✂</span> Exonérations fiscales
+                      </>
+                    )}
                   </div>
                 )}
                 <div
@@ -184,9 +189,21 @@ export default function AidesAmpleur({
         >
           Financer une rénovation d’ampleur
         </h1>
-        {renderAides(eligibles, '🥳 Éligible à', true)}
-        {renderAides(neSaisPas, '🤔 Aides potentielles', null)}
-        {renderAides(nonEligibles, '⛔ Non éligible à', false)}
+        {renderAides(
+          eligibles,
+          '<span aria-hidden="true">🥳</span> Éligible à',
+          true,
+        )}
+        {renderAides(
+          neSaisPas,
+          '<span aria-hidden="true">🤔</span> Aides potentielles',
+          null,
+        )}
+        {renderAides(
+          nonEligibles,
+          '<span aria-hidden="true">⛔</span> Non éligible à',
+          false,
+        )}
         <FatConseiller
           {...{
             situation,

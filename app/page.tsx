@@ -45,7 +45,9 @@ export default function Page() {
           />
           <div>
             <Labels>
-              <li key={'réno'}>⚡️ Rénovation Énergétique</li>
+              <li key={'réno'}>
+                <span aria-hidden="true">⚡️</span> Rénovation Énergétique
+              </li>
             </Labels>
             <h1
               style={css`

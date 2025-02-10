@@ -110,7 +110,8 @@ export default function PageCoupDePouce({
               `}
             >
               <Link href="/aides/coup-de-pouce">
-                ⬅ Retour à la liste des aides Coup de pouce
+                <span aria-hidden="true">⬅</span> Retour à la liste des aides
+                Coup de pouce
               </Link>
             </CTA>
           </CTAWrapper>

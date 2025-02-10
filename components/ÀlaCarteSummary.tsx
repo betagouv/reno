@@ -237,6 +237,8 @@ export const GesteLabel = () => (
       margin-top: 0.3rem;
     `}
   >
-    <li key="carte">🧩️ Parcours à la carte</li>
+    <li key="carte">
+      <span aria-hidden="true">🧩️</span> Parcours à la carte
+    </li>
   </Labels>
 )
