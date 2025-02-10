@@ -1,4 +1,4 @@
-import { Card, MiseEnAvant } from '../UI'
+import { Card, ConditionEligibiliteUI, MiseEnAvant } from '../UI'
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
 import Input from '../Input'
@@ -55,8 +55,7 @@ export default function Denormandie({
       )}
       {expanded && (
         <>
-          <h3>Comment est calculée l'aide ?</h3>
-          <Card $background="#f7f8f8">
+          <Card $background="#EEEEFF">
             <div
               css={`
                 display: flex;
@@ -214,22 +213,7 @@ export default function Denormandie({
               </section>
             </div>
           </Card>
-          <h3>Les principales conditions d'éligibilité ?</h3>
-          <div
-            css={`
-              list-style-image: url(${checkIcon.src});
-              li {
-                margin: 1rem 0;
-                ul {
-                  list-style-image: none;
-                }
-              }
-            `}
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].conditionsEligibilitesHTML,
-            }}
-          />
-          <h4>Carte des villes éligibles au dispositif Denormandie</h4>
+          <h3>Carte des villes éligibles au dispositif Denormandie</h3>
           <iframe
             css={`
               border-radius: 0.3rem;

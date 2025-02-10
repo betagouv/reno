@@ -1,4 +1,4 @@
-import { Card } from '../UI'
+import { Card, ConditionEligibiliteUI } from '../UI'
 import Value from '../Value'
 import AideAmpleur from './AideAmpleur'
 import checkIcon from '@/public/check.svg'
@@ -12,7 +12,6 @@ export default function AideMAR({
   rules,
   expanded,
 }) {
-  const rule = rules[dottedName]
   return (
     <AideAmpleur
       {...{
@@ -21,7 +20,6 @@ export default function AideMAR({
         setSearchParams,
         situation,
         answeredQuestions,
-        level: 2,
         expanded,
       }}
     >
@@ -35,46 +33,28 @@ export default function AideMAR({
         </p>
       )}
       {expanded && (
-        <>
-          <h3>Comment est calculée l'aide ?</h3>
-          <Card $background="#f7f8f8">
-            <div
-              css={`
-                display: flex;
-                align-items: center;
-              `}
-            >
-              <AideMontant
-                {...{
-                  engine,
-                  situation,
-                  dottedName,
-                }}
-              />
-            </div>
-          </Card>
-          <h3>Les principales conditions d'éligibilité ?</h3>
+        <Card $background="#EEEEFF">
           <div
             css={`
-              list-style-image: url(${checkIcon.src});
-              li {
-                margin: 1rem 0;
-                ul {
-                  list-style-image: none;
-                }
-              }
+              display: flex;
+              align-items: center;
             `}
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].conditionsEligibilitesHTML,
-            }}
-          />
-        </>
+          >
+            <AideMontant
+              {...{
+                engine,
+                situation,
+                dottedName,
+              }}
+            />
+          </div>
+        </Card>
       )}
     </AideAmpleur>
   )
 }
 
-// "Par exemple, pour une prestation MAR à 4 000 €, x % plafonné à 2000 € soit dans votre cas xxx €
+// "Par exemple, pour une prestation MAR à 1 500 €, x % plafonné à 2000 € soit dans votre cas xxx €
 export function AideMontant({ engine, situation, dottedName }) {
   console.log(
     'indigo',
@@ -119,20 +99,15 @@ export function AideMontant({ engine, situation, dottedName }) {
             engine,
             situation,
             dottedName: dottedName + ' . plafond',
-            state: 'prime-black',
           }}
         />
-        .
-      </p>
-
-      <p>
-        Soit{' '}
+        soit{' '}
         <Value
           {...{
             engine,
             situation,
             dottedName: dottedName + ' . montant',
-            state: 'prime-black',
+            state: 'prime',
           }}
         />{' '}
         d'aide.

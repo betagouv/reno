@@ -2,6 +2,7 @@ import rules from '@/app/règles/rules'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
 import { CTA, ExternalLink, PrimeStyle } from '../UI'
+import { ConditionEligibiliteUI, CTA, ExternalLink, PrimeStyle } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
 import AideCTAs from './AideCTAs'
@@ -136,6 +137,9 @@ export default function AideAmpleur({
       {expanded && (
         <>
           {children}
+          <ConditionEligibiliteUI>
+            {rules[dottedName].conditionsEligibilitesHTML}
+          </ConditionEligibiliteUI>
           {dottedName != 'ampleur . prime individuelle copropriété' && (
             <p
               css={`

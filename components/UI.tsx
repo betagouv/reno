@@ -1,6 +1,7 @@
 'use client'
 import styled from 'styled-components'
 import Link from 'next/link'
+import checkIcon from '@/public/check-square.png'
 import useIsInIframe from '@/components/useIsInIframe'
 
 export const Main = styled.main`
@@ -336,6 +337,38 @@ export const BlocAide = styled.div`
     color: #3a3a3a;
   }
 `
+
+export const ConditionEligibiliteUI = ({ children }) => {
+  return (
+    <>
+      <h2
+        css={`
+          margin: 2vh 0;
+        `}
+      >
+        Les principales conditions d'éligibilité ?
+      </h2>
+      <div
+        css={`
+          list-style-image: url(${checkIcon.src});
+          list-style-position: inside;
+          ul {
+            padding: 0;
+          }
+          li {
+            margin: 1rem 0;
+            ul {
+              list-style-image: none;
+            }
+          }
+        `}
+        dangerouslySetInnerHTML={{
+          __html: children,
+        }}
+      />
+    </>
+  )
+}
 
 // Style repris du design système FR pour le lien externe
 // https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/lien

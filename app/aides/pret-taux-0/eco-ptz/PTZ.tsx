@@ -1,4 +1,4 @@
-import { Card } from '@/components/UI'
+import { Card, ConditionEligibiliteUI } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Image from 'next/image'
 import FatConseiller from '@/components/FatConseiller'
@@ -55,6 +55,9 @@ export default function PTZ() {
           __html: parse(rules[dottedName]['description détaillé']),
         }}
       />
+      <ConditionEligibiliteUI>
+        {rules[dottedName].conditionsEligibilitesHTML}
+      </ConditionEligibiliteUI>
       <FatConseiller
         {...{
           situation: {},

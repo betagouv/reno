@@ -1,8 +1,7 @@
 import DPEScenario from '@/components/mpra/DPEScenario'
 import AideAmpleur from './AideAmpleur'
-import { Card, CTA } from '../UI'
+import { Card, ConditionEligibiliteUI, CTA } from '../UI'
 import rules from '@/app/règles/rules'
-import checkIcon from '@/public/check-square.png'
 import Value from '../Value'
 import DPELabel from '../DPELabel'
 import { Key } from '../explications/ExplicationUI'
@@ -65,8 +64,8 @@ export default function MPRA({
             essentiel pour définir un projet adapté et maximiser vos aides.
           </p>
           <p>
-            <strong>Coût moyen</strong> : Entre <strong>2 000 €</strong> et{' '}
-            <strong>4 000 €</strong> (selon votre situation).
+            <strong>Coût moyen</strong> : Entre <strong>700 €</strong> et{' '}
+            <strong>1 500 €</strong> (selon votre situation).
           </p>
           <p
             css={`
@@ -102,7 +101,7 @@ export default function MPRA({
                 true,
               )}
             >
-              En savoir plus sur l'aide ➞
+              En savoir plus sur l'aide <span aria-hidden="true">➞</span>
             </Link>
           </CTA>
         </Card>
@@ -116,25 +115,6 @@ export default function MPRA({
                 minimum.
               </p>
               <Écrêtement {...{ engine, rules, situation }} /> */}
-        <h3>Les principales conditions d'éligibilité ?</h3>
-        <div
-          css={`
-            list-style-image: url(${checkIcon.src});
-            list-style-position: inside;
-            ul {
-              padding: 0;
-            }
-            li {
-              margin: 1rem 0;
-              ul {
-                list-style-image: none;
-              }
-            }
-          `}
-          dangerouslySetInnerHTML={{
-            __html: rules[dottedName].conditionsEligibilitesHTML,
-          }}
-        />
       </>
     </AideAmpleur>
   )
