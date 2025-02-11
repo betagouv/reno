@@ -30,18 +30,18 @@ export const AmpleurWrapper = styled.div`
     img {
     }
   }
-  h2,
-  h3 {
+  h1,
+  h2 {
     font-size: 120%;
     font-weight: 500;
   }
-  h2 {
+  h1 {
     margin-top: 0.6rem;
     margin-bottom: 0.8rem;
     font-size: 130%;
     font-weight: 600;
   }
-  h3 {
+  h2 {
     margin-bottom: 0.6rem;
     @media (max-width: 400px) {
       margin-top: 0.6rem;

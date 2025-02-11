@@ -131,7 +131,7 @@ export default function Ampleur() {
     <AmpleurWrapper>
       <header>
         <div>
-          <h2>Vos aides pour une rénovation d'ampleur</h2>
+          <h1>Vos aides pour une rénovation d'ampleur</h1>
         </div>
       </header>
       <div>
@@ -216,13 +216,13 @@ export default function Ampleur() {
           <section>Vos aides ici</section>
         ) : (
           <section>
-            <h3
+            <h2
               css={`
                 margin: 0 !important;
               `}
             >
               Parmi vos aides :
-            </h3>
+            </h2>
             <EvaluationValue {...{ engine, situation }} />
           </section>
         )}
