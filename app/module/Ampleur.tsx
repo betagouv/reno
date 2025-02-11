@@ -124,6 +124,8 @@ export default function Ampleur() {
         [encodeDottedName(dottedName)]: value + '*',
       })
 
+  const shouldDisplay = ampleurQuestionsAnswered(answeredQuestions)
+
   return (
     <AmpleurWrapper>
       <header>
@@ -193,20 +195,13 @@ export default function Ampleur() {
           </Li>
         </QuestionList>
         <UserData {...{ setSearchParams, situation }} />
-        {false && !ampleurQuestionsAnswered(answeredQuestions) ? (
-          <section>Vos aides ici</section>
-        ) : (
-          <section>
-            <h2
-              css={`
-                margin: 0 !important;
-              `}
-            >
-              Parmi vos aides :
-            </h2>
-            <EvaluationValue {...{ engine, situation }} />
-          </section>
-        )}
+        <EvaluationValue
+          {...{
+            engine,
+            situation,
+            shouldDisplay,
+          }}
+        />
         <section>
           {ampleurQuestionsAnswered(answeredQuestions) && (
             <CTA
