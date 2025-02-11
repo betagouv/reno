@@ -1,21 +1,13 @@
 import rules from '@/app/règles/rules'
-import informationIcon from '@/public/information.svg'
-import Image from 'next/image'
-import { CTA, ExternalLink, PrimeStyle } from '../UI'
 import { ConditionEligibiliteUI, CTA, ExternalLink, PrimeStyle } from '../UI'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
 import AideCTAs from './AideCTAs'
-import styled from 'styled-components'
 import { formatValue } from 'publicodes'
-import FatConseiller from '../FatConseiller'
-import conseillerIcon from '@/public/conseiller.png'
 import AideDurée from './AideDurée'
 import { createExampleSituation } from './AmpleurSummary'
 import { useEffect, useRef, useState } from 'react'
-import FatConseillerCTA from '../FatConseillerCTA'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
-import { FatConseillerWrapper } from '../FatConseillerUI'
 
 export default function AideAmpleur({
   engine,
@@ -113,9 +105,23 @@ export default function AideAmpleur({
         `}
       >
         {expanded && (
-          <strong>
-            De quoi s’agit-il ?<span aria-hidden="true">🤓</span>
-          </strong>
+          <h2
+            css={`
+              font-size: 130%;
+              margin: 0 0 1rem 0 !important;
+            `}
+          >
+            <span
+              aria-hidden="true"
+              css={`
+                display: inline-block;
+                margin-right: 0.5rem;
+              `}
+            >
+              🤓
+            </span>
+            De quoi s’agit-il ?
+          </h2>
         )}
         <div
           dangerouslySetInnerHTML={{
@@ -140,17 +146,15 @@ export default function AideAmpleur({
           <ConditionEligibiliteUI>
             {rules[dottedName].conditionsEligibilitesHTML}
           </ConditionEligibiliteUI>
-          {dottedName != 'ampleur . prime individuelle copropriété' && (
-            <p
-              css={`
-                margin-top: 1.6rem;
-              `}
-            >
-              <ExternalLink href={rules[dottedName]['lien']} target="_blank">
-                Plus d'infos sur cette aide
-              </ExternalLink>
-            </p>
-          )}
+          <p
+            css={`
+              margin-top: 1.6rem;
+            `}
+          >
+            <ExternalLink href={rules[dottedName]['lien']} target="_blank">
+              Plus d'infos sur cette aide
+            </ExternalLink>
+          </p>
           <CTA
             css={`
               padding: 1rem;
@@ -189,33 +193,12 @@ export default function AideAmpleur({
                 }
               `}
             >
-              <Image
-                src={conseillerIcon}
-                alt="illustration espace conseiller France Rénov'"
-                width="200"
+              <MarSearch
+                situation={situation}
+                what={'trouver-conseiller-renov'}
               />
-              <div>
-                <h3>
-                  Contacter votre conseiller <span>France&nbsp;Rénov'</span>
-                </h3>
-                <ul>
-                  <li>Service indépendant, neutre et gratuit !</li>
-                  <li>Conseils personnalisés pour votre projet</li>
-                </ul>
-                <MarSearch
-                  situation={situation}
-                  what={'trouver-conseiller-renov'}
-                />
-              </div>
             </div>
           )}
-          {/* <FatConseiller
-            {...{
-              situation,
-              margin: 'small',
-              texte: rules[dottedName].commentFaireHtml,
-            }}
-          /> */}
           <AideCTAs
             {...{
               dottedName,
@@ -233,9 +216,7 @@ export default function AideAmpleur({
 
 export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
   const bestSituation = createExampleSituation(engine, situation, 'best')
-  const worstSituation = createExampleSituation(engine, situation, 'worst')
   const montantMax = engine.setSituation(bestSituation).evaluate(dottedName)
-  const montantMin = engine.setSituation(worstSituation).evaluate(dottedName)
 
   return montantMax.nodeValue ? (
     <PrimeStyle
@@ -243,95 +224,35 @@ export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
         font-size: 1rem;
       `}
     >
-      {dottedName.includes('taxe foncière') ? (
-        <strong>{situation['taxe foncière . commune . taux']}</strong>
-      ) : montantMax.nodeValue == montantMin.nodeValue ? (
-        <>
-          {rules[dottedName.replace(' . montant', '')].type == 'prêt'
-            ? "Jusqu'à"
-            : 'Prime de'}{' '}
-          <strong>{formatValue(montantMin)}</strong>
-        </>
-      ) : (
-        <>
-          De <strong>{formatValue(montantMin)}</strong> à{` `}
-          <strong>{formatValue(montantMax)}</strong>
-        </>
-      )}
-      <AideDurée engine={engine} dottedName={dottedName} />
-    </PrimeStyle>
-  ) : dottedName != 'aides locales . montant' ? (
-    <PrimeStyle
-      css={`
-        font-size: 1rem;
-      `}
-      $inactive
-    >
-      Non éligible
+      <AideMontant
+        {...{
+          engine,
+          situation: bestSituation,
+          dottedName,
+        }}
+      />
+      <AideDurée
+        {...{
+          engine,
+          situation: bestSituation,
+          dottedName,
+        }}
+      />
     </PrimeStyle>
   ) : (
-    ''
+    dottedName != 'aides locales . montant' && (
+      <PrimeStyle
+        css={`
+          font-size: 1rem;
+        `}
+        $inactive
+      >
+        Non éligible
+      </PrimeStyle>
+    )
   )
 }
 
-export const PictoTypeAide = styled.div`
-  width: fit-content;
-  color: ${(p) => p.$style.color};
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  .icon {
-    padding: 1rem;
-    background: url('${(p) => p.$style.icon.src}')
-      ${(p) => p.$style.backgroundColor} no-repeat center;
-    border: 1px solid ${(p) => p.$style.borderColor};
-    border-radius: 5px;
-  }
-  .type {
-    display: inline-block;
-    margin-top: 0.3rem;
-  }
-  span {
-    font-size: 60%;
-  }
-`
-
-export const InformationBlock = ({ children }) => (
-  <section
-    css={`
-      margin-top: 2vh !important;
-
-      header {
-        display: flex;
-        align-items: center;
-        h4 {
-          color: #0359bf;
-          margin: 0;
-
-          font-weight: 500;
-        }
-        margin-bottom: 1.5vh !important;
-      }
-      ol li {
-        margin: 0.6rem 0;
-        list-style-type: disc;
-      }
-    `}
-  >
-    <header>
-      <Image
-        src={informationIcon}
-        width="25"
-        css={`
-          margin-right: 0.4rem;
-        `}
-        alt="icone d'information"
-      />
-      <h4>Informations utiles</h4>
-    </header>
-    <ol>{children}</ol>
-  </section>
-)
 export function AideCTA({ children, text }) {
   return (
     <details
@@ -378,4 +299,33 @@ export const aideTitle = (dottedName) => {
   const rule = rules[dottedName]
   const marque2 = rule['complément de marque']
   return rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
+}
+export function AideMontant({ engine, situation, dottedName }) {
+  const montantMax = engine.setSituation(situation).evaluate(dottedName)
+  const worstSituation = createExampleSituation(engine, situation, 'worst')
+  const montantMin = engine.setSituation(worstSituation).evaluate(dottedName)
+  return dottedName.includes('taxe foncière') ? (
+    <strong>{situation['taxe foncière . commune . taux']}</strong>
+  ) : dottedName.includes('denormandie') ? (
+    <>
+      Jusqu'à{' '}
+      <strong>
+        {formatValue(
+          engine.setSituation(situation).evaluate('denormandie . taux'),
+        )}
+      </strong>
+    </>
+  ) : montantMax.nodeValue == montantMin.nodeValue ? (
+    <>
+      {rules[dottedName.replace(' . montant', '')].type == 'prêt'
+        ? "Jusqu'à"
+        : 'Prime de'}{' '}
+      <strong>{formatValue(montantMin)}</strong>
+    </>
+  ) : (
+    <>
+      De <strong>{formatValue(montantMin)}</strong> à{` `}
+      <strong>{formatValue(montantMax)}</strong>
+    </>
+  )
 }

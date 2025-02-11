@@ -344,6 +344,7 @@ export const ConditionEligibiliteUI = ({ children }) => {
       <h2
         css={`
           margin: 2vh 0;
+          font-size: 130%;
         `}
       >
         Les principales conditions d'éligibilité ?

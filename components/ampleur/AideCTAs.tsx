@@ -73,6 +73,7 @@ export default function AideCTAs({
             display: flex;
             justify-content: center;
             align-items: center;
+            text-wrap: auto;
           `}
         >
           {expanded ? (
@@ -91,7 +92,7 @@ export default function AideCTAs({
                   Calculer le montant d'aides
                 </>
               ) : (
-                <>En savoir plus sur {rules[dottedName].titre}</>
+                <>En savoir plus sur {rules[dottedName].marque}</>
               )}
               <Image
                 src={iconFlecheDroite}
