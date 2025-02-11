@@ -19,7 +19,7 @@ const iframeCode = (
 <iframe src="${src}" ${
   cssExample
     ? `
-style="width: 720px; height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
+style="height: 800px; margin: 3rem auto; display: block; border-radius: 0.4rem; --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
                   hsl(var(--shadow-color) / 0.36),
                 0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
@@ -165,7 +165,7 @@ export default function AmpleurDemonstration() {
               border-radius: 0.4rem;
               margin: 3rem auto;
               height: 780px;
-              width: 50rem;
+              width: 600px;
               max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
