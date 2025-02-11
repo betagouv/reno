@@ -18,15 +18,14 @@ export const getAmpleurDPEChoice = (situation) => {
 }
 export default function DPEQuickSwitch({
   oldIndex,
-  prefixDPE = true,
   possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
   situation = {},
   validateTargetKey = true, // not sure about the necessity of this param, it could be used as "false" for all instances of DPEQuickSwitch. But what I know is that for CEEAmpleurScenario we need it to false else Form.tsx has no "nextQuestions"
+  isMobile,
 }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
-  const text = 'Votre DPE actuel :'
   const newSituation = (index) => {
     const simpleChange = { [dottedName]: index + 1 }
     const targetDPE = situation[targetKey]
@@ -41,14 +40,21 @@ export default function DPEQuickSwitch({
   }
 
   return (
-    <div css={'display: flex; flex-direction: column;gap: 0.5rem;'}>
-      <div>{text}</div>
+    <div
+      css={`
+        display: flex;
+        ${!isMobile && 'flex-direction: column;'}
+        align-items: center;
+        gap: 0.5rem;
+      `}
+    >
+      <div>Votre DPE actuel :</div>
       {editing ? (
         <span
           css={`
-            a {
-              margin: 0 0.1rem;
-            }
+            display: flex;
+            gap: 0.1rem;
+            flex-wrap: wrap;
           `}
         >
           {possibilities.map((it, index) => (
@@ -65,7 +71,7 @@ export default function DPEQuickSwitch({
                 'url',
               )}
             >
-              <DPELabel index={index} />
+              <DPELabel index={index} small={false} />
             </Link>
           ))}
         </span>
@@ -80,7 +86,7 @@ export default function DPEQuickSwitch({
           onClick={() => setEditing(true)}
           title="Cliquez pour choisir un autre DPE actuel de votre logement, dans le cas où vous n'êtes pas certain de votre DPE."
         >
-          <DPELabel index={oldIndex} />
+          <DPELabel index={oldIndex} small={false} />
           <Image src={editIcon} alt="Icône crayon" />
         </div>
       )}

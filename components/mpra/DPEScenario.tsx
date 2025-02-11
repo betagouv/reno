@@ -1,12 +1,11 @@
 import Value from '@/components/Value'
-import DPELabel from '../DPELabel'
 import calculatorIcon from '@/public/calculator-black.svg'
-import Input from '../Input'
 import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Image from 'next/image'
 import DPEQuickSwitch from '../DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
+import editIcon from '@/public/crayon.svg'
 
 export default function DPEScenario({
   choice,
@@ -18,6 +17,9 @@ export default function DPEScenario({
   answeredQuestions,
 }) {
   if (choice == null) return null
+
+  const isMobile = window.innerWidth <= 600
+
   const revenuClasseValue = engine
     .setSituation(situation)
     .evaluate('ménage . revenu . classe').nodeValue
@@ -49,11 +51,16 @@ export default function DPEScenario({
       <div
         css={`
           display: flex;
+          ${isMobile && 'flex-direction: column;'}
           justify-content: space-between;
           gap: 1rem;
         `}
       >
-        <DPEQuickSwitch oldIndex={oldIndex} situation={situation} />
+        <DPEQuickSwitch
+          oldIndex={oldIndex}
+          situation={situation}
+          isMobile={isMobile}
+        />
         <TargetDPETabs
           {...{
             oldIndex,
@@ -62,11 +69,18 @@ export default function DPEScenario({
             choice,
             engine,
             situation,
+            isMobile,
           }}
         />
-        <div css={'display: flex; flex-direction: column;gap: 0.5rem;'}>
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          `}
+        >
           <div>Votre budget de travaux de rénovation:</div>
-          <label
+          <div
             css={`
               margin: auto;
               border: 2px solid var(--color);
@@ -76,47 +90,69 @@ export default function DPEScenario({
               border-radius: 0.3rem;
               padding: 0.7rem;
               box-shadow: var(--shadow-elevation-medium);
+              display: flex;
+              align-items: center;
+              justify-content: center;
             `}
           >
-            <input
+            <div
               css={`
-                border: none;
-                background: transparent;
-                -webkit-appearance: none;
-                outline: none;
-                color: var(--color);
-                font-size: 110%;
-                max-width: 4rem;
+                flex-grow: 1;
               `}
-              autoFocus={false}
-              value={exampleSituation['projet . travaux']}
-              placeholder="mes travaux"
-              min="0"
-              max="999999"
-              onChange={(e) => {
-                const rawValue = e.target.value
-                const value = +rawValue === 0 ? undefined : rawValue
-                setSearchParams(
-                  encodeSituation({
-                    'projet . travaux': value,
-                  }),
-                  'replace',
-                  false,
-                )
-              }}
-              step="100"
+            >
+              <input
+                id="budget-travaux"
+                css={`
+                  border: none;
+                  background: transparent;
+                  -webkit-appearance: none;
+                  outline: none;
+                  color: var(--color);
+                  font-size: 110%;
+                  max-width: 4rem;
+                `}
+                autoFocus={false}
+                value={exampleSituation['projet . travaux']}
+                placeholder="mes travaux"
+                min="0"
+                max="999999"
+                onChange={(e) => {
+                  const rawValue = e.target.value
+                  const value = +rawValue === 0 ? undefined : rawValue
+                  setSearchParams(
+                    encodeSituation({
+                      'projet . travaux': value + '*',
+                    }),
+                    'replace',
+                    false,
+                  )
+                }}
+                step="100"
+              />
+              <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                € HT
+              </span>
+            </div>
+            <Image
+              css={`
+                cursor: pointer;
+                margin-left: auto;
+              `}
+              src={editIcon}
+              alt="Icône crayon pour éditer"
+              onClick={() => document.querySelector('#budget-travaux').focus()}
             />
-
-            <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-              € HT
-            </span>
-          </label>
+          </div>
           <div
             css={`
               text-align: center;
+              font-style: italic;
+              em {
+                font-weight: normal !important;
+              }
             `}
           >
-            soit
+            (soit
             <Value
               {...{
                 engine,
@@ -132,6 +168,7 @@ export default function DPEScenario({
               {' '}
               TTC
             </span>
+            )
           </div>
         </div>
       </div>
@@ -205,14 +242,16 @@ export default function DPEScenario({
             css={`
               display: flex;
               justify-content: space-between;
-            `}
-          >
-            <div
-              css={`
+              gap: 1rem;
+              ${isMobile && 'flex-direction: column;'}
+              > div {
                 display: flex;
                 flex-direction: column;
-              `}
-            >
+                width: 100%;
+              }
+            `}
+          >
+            <div>
               <div>Vous toucherez un total d'aides de :</div>
               <div
                 css={`
@@ -236,12 +275,7 @@ export default function DPEScenario({
                 />
               </div>
             </div>
-            <div
-              css={`
-                display: flex;
-                flex-direction: column;
-              `}
-            >
+            <div>
               <div>Il restera donc à votre charge :</div>
               <div
                 css={`

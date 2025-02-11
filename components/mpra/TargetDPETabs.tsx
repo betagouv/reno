@@ -1,5 +1,4 @@
 import dpeValues from '@/components/DPE.yaml'
-import { useMediaQuery } from 'usehooks-ts'
 import DPELabel from '../DPELabel'
 import { encodeSituation } from '../publicodes/situationUtils'
 
@@ -8,10 +7,9 @@ export default function TargetDPETabs({
   setSearchParams,
   answeredQuestions,
   choice,
-  engine,
   situation,
+  isMobile,
 }) {
-  const isMobile = useMediaQuery('(max-width: 800px)')
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
   const doSetSearchParams = (question, value) => {
@@ -75,7 +73,7 @@ export default function TargetDPETabs({
                     doSetSearchParams('projet . DPE visé', index + 1)
                   }
                 />
-                <DPELabel index={index} />
+                <DPELabel index={index} small={false} />
               </label>
             </li>
           ))}
