@@ -462,22 +462,10 @@ export const IdFQuestion = ({
     >
       <Dot />
       <YesNoQuestionStyle>
-        <span>Votre résidence principale est située :</span>
+        <span>
+          Vous habitez {isMobile ? '' : 'actuellement'} hors Île-de-France
+        </span>
         <section>
-          <label>
-            <input
-              id={`idf`}
-              type="radio"
-              checked={answered && situation[rule] === 'non'}
-              onChange={() => {
-                push(['trackEvent', 'Module', 'Interaction', 'idf desktop non'])
-                setSearchParams({
-                  [encodeDottedName(rule)]: 'non*',
-                })
-              }}
-            />
-            <span>En Île-de-France</span>
-          </label>
           <label>
             <input
               id={`idf`}
@@ -490,7 +478,21 @@ export const IdFQuestion = ({
                 })
               }}
             />
-            <span>Dans une autre région</span>
+            <span>Oui</span>
+          </label>
+          <label>
+            <input
+              id={`idf`}
+              type="radio"
+              checked={answered && situation[rule] === 'non'}
+              onChange={() => {
+                push(['trackEvent', 'Module', 'Interaction', 'idf desktop non'])
+                setSearchParams({
+                  [encodeDottedName(rule)]: 'non*',
+                })
+              }}
+            />
+            <span>Non</span>
           </label>
         </section>
       </YesNoQuestionStyle>
