@@ -10,12 +10,8 @@ export const AmpleurWrapper = styled.div`
   border-radius: 0.3rem;
 
   @media (min-width: 400px) {
+    padding: 1rem 1.6rem;
     > div {
-      padding-left: 4rem;
-    }
-    header,
-    footer {
-      margin-left: 4rem;
     }
     footer {
       margin-top: 1rem;
@@ -24,10 +20,11 @@ export const AmpleurWrapper = styled.div`
   header {
     display: flex;
     align-items: center;
-    gap: 4vw;
-
-    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
     img {
+      width: 5rem;
+      height: auto;
     }
   }
   h1,

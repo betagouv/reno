@@ -15,13 +15,12 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import logo from '@/public/logo.svg'
-import { push } from '@socialgouv/matomo-next'
+import marianne from '@/public/marianne.svg'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
-import { Labels } from '../LandingUI'
 import { Title } from '../LayoutUI'
 import AmpleurCTA from './AmpleurCTA'
 import { EvaluationValue } from './AmpleurEvaluation'
@@ -111,8 +110,6 @@ export default function Ampleur() {
     ...(commune ? { [communeKey]: commune } : {}),
   }
 
-  console.log('cyan si', enrichedSituation)
-
   if (!currentDPE || isNaN(currentDPE))
     return (
       <p>
@@ -130,9 +127,8 @@ export default function Ampleur() {
   return (
     <AmpleurWrapper>
       <header>
-        <div>
-          <h1>Vos aides pour une rénovation d'ampleur</h1>
-        </div>
+        <Image src={marianne} alt="Logo de la République Française" />
+        <h1>Vos aides pour une rénovation d'ampleur</h1>
       </header>
       <div>
         <p>
