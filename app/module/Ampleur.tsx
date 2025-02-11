@@ -132,23 +132,8 @@ export default function Ampleur() {
       </header>
       <div>
         <p>
-          {!isMobile
-            ? "Pour bénéficier des aides pour une rénovation d'ampleur, v"
-            : 'V'}
-          ous devez viser un saut d'au moins 2{' '}
-          {isMobile ? 'DPE' : 'classes de DPE'}, soit passer du DPE actuel{' '}
-          <DPELabel index={currentDPE - 1} /> à{isMobile ? '' : ' un '}
-          <DPEQuickSwitch
-            oldIndex={targetDPE - 1}
-            prefixText={''}
-            prefixDPE={isMobile ? false : true}
-            dottedName="projet . DPE visé"
-            situation={situation}
-            possibilities={[0, 1, 2, 3, 4, 5, 6].filter(
-              (index) => index < currentDPE - 2,
-            )}
-          />
-          .
+          L’État vous aide à financer votre rénovation énergétique : faites le
+          calcul !
         </p>
         <QuestionList>
           <Li
