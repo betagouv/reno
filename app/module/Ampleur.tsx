@@ -131,67 +131,8 @@ export default function Ampleur() {
     <AmpleurWrapper>
       <header>
         <div>
-          <Labels
-            css={`
-              margin: 0;
-              li  {
-                background: #fdf8db;
-
-                color: #6e4444;
-              }
-            `}
-          >
-            {[' ⭐️ Rénovation énergétique'].map((text) => (
-              <li key={text}>{text}</li>
-            ))}
-          </Labels>
           <h2>Vos aides pour une rénovation d'ampleur</h2>
         </div>
-        <InternalLink
-          href="https://mesaidesreno.beta.gouv.fr"
-          css={`
-            text-decoration: none;
-            color: inherit;
-            &:hover {
-              background: 0;
-            }
-            > div {
-              @media (max-width: 400px) {
-                top: 0rem;
-                right: 0.4rem;
-                img {
-                  width: 2rem !important;
-                }
-                span {
-                  line-height: 0.8rem;
-                  font-size: 80%;
-                  width: 2rem;
-                }
-
-                position: absolute;
-              }
-            }
-          `}
-        >
-          <div
-            css={`
-              display: flex;
-              align-items: center;
-              font-size: 90%;
-            `}
-          >
-            <Image
-              src={logo}
-              alt="Logo de Mes Aides Réno"
-              css={`
-                width: 2.6rem !important;
-              `}
-            />
-            <Title>
-              Mes <strong>Aides Réno</strong>
-            </Title>
-          </div>
-        </InternalLink>
       </header>
       <div>
         <p>
@@ -324,10 +265,54 @@ export const FooterModule = () => {
 
         p {
           margin: 0;
-          margin-right: 1rem;
+          margin-left: 1rem;
         }
       `}
     >
+      <InternalLink
+        href="https://mesaidesreno.beta.gouv.fr"
+        css={`
+          text-decoration: none;
+          color: inherit;
+          &:hover {
+            background: 0;
+          }
+          > div {
+            @media (max-width: 400px) {
+          }
+        `}
+      >
+        <div
+          css={`
+            display: flex;
+            align-items: center;
+            font-size: 90%;
+          `}
+        >
+          <Image
+            src={logo}
+            alt="Logo de Mes Aides Réno"
+            css={`
+              width: 2.6rem !important;
+            `}
+          />
+          <Title>
+            Mes <strong>Aides Réno</strong>
+          </Title>
+        </div>
+      </InternalLink>
+      <Image
+        src={logoFranceRenov}
+        alt="Logo de France Rénov"
+        css={`
+          width: 6.5rem !important;
+          margin-right: 1rem;
+          @media (max-width: 400px) {
+            width: 5rem !important;
+            margin: 0;
+          }
+        `}
+      />
       <p>
         <small
           css={`
@@ -343,19 +328,6 @@ export const FooterModule = () => {
             l'information sur les aides à la rénovation énergétique.`}
         </small>
       </p>
-
-      <Image
-        src={logoFranceRenov}
-        alt="Logo de France Rénov"
-        css={`
-          width: 6.5rem !important;
-          margin-right: 1rem;
-          @media (max-width: 400px) {
-            width: 5rem !important;
-            margin: 0;
-          }
-        `}
-      />
     </footer>
   )
 }
