@@ -1,7 +1,5 @@
 'use client'
 import rules from '@/app/règles/rules'
-import DPELabel from '@/components/DPELabel'
-import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import { CTA, InternalLink } from '@/components/UI'
 import { createExampleSituation } from '@/components/ampleur/AmpleurSummary'
 import useSyncAmpleurSituation from '@/components/ampleur/useSyncAmpleurSituation'
@@ -200,29 +198,11 @@ export default function Ampleur() {
             engine,
             situation,
             shouldDisplay,
+            noDefaultSituation,
+            currentDPE,
+            targetDPE,
           }}
         />
-        <section>
-          {ampleurQuestionsAnswered(answeredQuestions) && (
-            <CTA
-              css={`
-                margin-bottom: 0;
-                a  {
-                  display: flex;
-                  font-size: 85% !important;
-                  align-items: center;
-                  img {
-                    height: 2rem;
-                    width: auto;
-                    margin-right: 0.6rem;
-                  }
-                }
-              `}
-            >
-              <AmpleurCTA {...{ situation: noDefaultSituation }} />
-            </CTA>
-          )}
-        </section>
       </div>
       <FooterModule isMobile={isMobile} />
     </AmpleurWrapper>

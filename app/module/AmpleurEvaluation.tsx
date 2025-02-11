@@ -4,8 +4,18 @@ import { filterAidesToDisplay } from '@/components/ampleur/AmpleurSummary'
 import { useAides } from '@/components/ampleur/useAides'
 import styled from 'styled-components'
 import { AmpleurAideSummary } from './AmpleurAideSummary'
+import AmpleurCTA from './AmpleurCTA'
+import { CTA } from '@/components/UI'
+import DPELabel from '@/components/DPELabel'
 
-export function EvaluationValue({ engine, situation, shouldDisplay }) {
+export function EvaluationValue({
+  engine,
+  situation,
+  shouldDisplay,
+  noDefaultSituation,
+  currentDPE,
+  targetDPE,
+}) {
   console.log('ampleur module situation', situation)
 
   engine.setSituation(situation)
@@ -56,6 +66,36 @@ export function EvaluationValue({ engine, situation, shouldDisplay }) {
           })}
         </ol>
       </div>
+      <CTA
+        css={`
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          a  {
+            display: flex;
+            font-size: 85% !important;
+            align-items: center;
+            img {
+              height: 2rem;
+              width: auto;
+              margin-right: 0.6rem;
+            }
+          }
+        `}
+      >
+        <AmpleurCTA {...{ situation: noDefaultSituation }} />
+      </CTA>
+      <p
+        css={`
+          line-height: 1.3rem;
+        `}
+      >
+        <small>
+          Pour bénéficier des aides pour une rénovation d'ampleur, vous devez
+          viser un saut d'au moins 2 classes de DPE, soit passer du DPE actuel{' '}
+          <DPELabel index={currentDPE - 1} /> à un DPE{' '}
+          <DPELabel index={targetDPE - 1} />.
+        </small>
+      </p>
     </EvaluationValueWrapper>
   )
 }
