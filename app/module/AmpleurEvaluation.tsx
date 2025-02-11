@@ -1,9 +1,9 @@
 'use client'
 
-import { AideSummary } from '@/components/ampleur/AideSummary'
 import { filterAidesToDisplay } from '@/components/ampleur/AmpleurSummary'
 import { useAides } from '@/components/ampleur/useAides'
 import styled from 'styled-components'
+import { AmpleurAideSummary } from './AmpleurAideSummary'
 
 export function EvaluationValue({ engine, situation, shouldDisplay }) {
   console.log('ampleur module situation', situation)
@@ -30,6 +30,7 @@ export function EvaluationValue({ engine, situation, shouldDisplay }) {
   return (
     <EvaluationValueWrapper $active={shouldDisplay}>
       <h2>🥳 Résultats</h2>
+      <p>Vous êtes éligible à :</p>
       <div>
         <ol>
           {aidesToDisplay.slice(0, 3).map((aide) => {
@@ -37,7 +38,7 @@ export function EvaluationValue({ engine, situation, shouldDisplay }) {
               text2 = aide['complément de marque']
             return (
               <li key={aide.dottedName}>
-                <AideSummary
+                <AmpleurAideSummary
                   key={aide.dottedName}
                   {...{
                     ...aide,
@@ -47,7 +48,6 @@ export function EvaluationValue({ engine, situation, shouldDisplay }) {
                     situation,
                     type: aide.type,
                     expanded: true,
-                    display: 'ampleur-card',
                     engine,
                   }}
                 />
@@ -60,7 +60,7 @@ export function EvaluationValue({ engine, situation, shouldDisplay }) {
   )
 }
 export const EvaluationValueWrapper = styled.section`
-h2 {margin: 0 0 .6rem 0 }
+h2 {margin: 0 0 .8rem 0 }
   img {
     width: 1.6rem;
     height: auto;
@@ -74,16 +74,31 @@ h2 {margin: 0 0 .6rem 0 }
   display: flex;
   align-items: center;
   }
-  min-width: 20rem;
-  max-width: 85vw;
+  width: 100%;
   background:  ${(p) => (p.$active ? 'var(--lightestColor)' : '#fdf8db')};
   border-bottom: 4px solid var(--color);
 
-  padding: .8rem 1.6rem;
+  padding: .8rem 1.3rem;
   @media (max-width: 400px){padding: .6rem 1rem;}
   small {
     margin-bottom: 0.4rem;
   }
   h4 {font-size: 100%; font-weight: normal: margin: 0}
-  ol{padding: 0.2rem; list-style-type: circle; color: var(--color); details {color: black}}
+  ol{padding: 0.2rem; list-style-type: none; 
+  li {
+
+display: flex; justify-content: start; 
+flex-wrap: wrap;
+align-items: center;
+margin-bottom: .3rem;
+@media (max-width: 800px){margin-bottom: .5rem}
+
+> h3 {
+width: 17rem;
+white-space: nowrap;
+margin-bottom: 0;
+
+
+}
+  }}
 `
