@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const AmpleurWrapper = styled.div`
+  max-width: 600px;
   background: white;
   padding: 1rem;
   position: relative;
@@ -17,9 +18,6 @@ export const AmpleurWrapper = styled.div`
     footer {
       margin-top: 1rem;
     }
-  }
-  > div {
-    max-width: 40rem;
   }
   header {
     display: flex;
