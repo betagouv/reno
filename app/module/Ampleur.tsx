@@ -13,7 +13,7 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import logo from '@/public/logo.svg'
-import marianne from '@/public/marianne.svg'
+import marianne from '@/public/marianne-sans-devise.svg'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
