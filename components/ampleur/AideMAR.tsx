@@ -1,7 +1,6 @@
-import { Card, ConditionEligibiliteUI } from '../UI'
+import { Card } from '../UI'
 import Value from '../Value'
 import AideAmpleur from './AideAmpleur'
-import checkIcon from '@/public/check.svg'
 
 export default function AideMAR({
   engine,
