@@ -126,85 +126,87 @@ export default function Ampleur() {
 
   return (
     <AmpleurWrapper>
-      <header>
-        <Image src={marianne} alt="Logo de la République Française" />
-        <h1>Vos aides pour une rénovation d'ampleur</h1>
-      </header>
       <div>
-        <p>
-          L’État vous aide à financer votre rénovation énergétique : faites le
-          calcul !
-        </p>
-        <QuestionList>
-          <Li
-            key="typeResidence"
-            $next={true}
-            $touched={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
-          >
-            <TypeResidence
-              {...{ setSearchParams, situation, answeredQuestions }}
-            />
-          </Li>
-          <Li
-            $next={answeredQuestions.includes(
-              'logement . résidence principale propriétaire',
-            )}
-            $touched={answeredQuestions.includes('ménage . région . IdF')}
-            key="IdF"
-          >
-            <IdFQuestion
-              {...{
-                setSearchParams,
-                isMobile,
-                situation,
-                answeredQuestions,
-              }}
-            />
-          </Li>
-          <Li
-            key="personnes"
-            $next={answeredQuestions.includes('ménage . région . IdF')}
-            $touched={answeredQuestions.includes('ménage . personnes')}
-          >
-            <PersonnesQuestion
-              {...{
-                defaultSituation,
-                onChange,
-                answeredQuestions,
-                situation,
-              }}
-            />
-          </Li>
-          <Li
-            key="revenu"
-            $next={answeredQuestions.includes('ménage . personnes')}
-            $touched={answeredQuestions.includes('ménage . revenu')}
-          >
-            <RevenuQuestion
-              {...{
-                answeredQuestions,
-                situation,
-                engine,
-                setSearchParams,
-              }}
-            />
-          </Li>
-        </QuestionList>
-        <UserData {...{ setSearchParams, situation }} />
-        <EvaluationValue
-          {...{
-            engine,
-            situation,
-            shouldDisplay,
-            noDefaultSituation,
-            currentDPE,
-            targetDPE,
-          }}
-        />
+        <header>
+          <Image src={marianne} alt="Logo de la République Française" />
+          <h1>Vos aides pour une rénovation d'ampleur</h1>
+        </header>
+        <div>
+          <p>
+            L’État vous aide à financer votre rénovation énergétique : faites le
+            calcul !
+          </p>
+          <QuestionList>
+            <Li
+              key="typeResidence"
+              $next={true}
+              $touched={answeredQuestions.includes(
+                'logement . résidence principale propriétaire',
+              )}
+            >
+              <TypeResidence
+                {...{ setSearchParams, situation, answeredQuestions }}
+              />
+            </Li>
+            <Li
+              $next={answeredQuestions.includes(
+                'logement . résidence principale propriétaire',
+              )}
+              $touched={answeredQuestions.includes('ménage . région . IdF')}
+              key="IdF"
+            >
+              <IdFQuestion
+                {...{
+                  setSearchParams,
+                  isMobile,
+                  situation,
+                  answeredQuestions,
+                }}
+              />
+            </Li>
+            <Li
+              key="personnes"
+              $next={answeredQuestions.includes('ménage . région . IdF')}
+              $touched={answeredQuestions.includes('ménage . personnes')}
+            >
+              <PersonnesQuestion
+                {...{
+                  defaultSituation,
+                  onChange,
+                  answeredQuestions,
+                  situation,
+                }}
+              />
+            </Li>
+            <Li
+              key="revenu"
+              $next={answeredQuestions.includes('ménage . personnes')}
+              $touched={answeredQuestions.includes('ménage . revenu')}
+            >
+              <RevenuQuestion
+                {...{
+                  answeredQuestions,
+                  situation,
+                  engine,
+                  setSearchParams,
+                }}
+              />
+            </Li>
+          </QuestionList>
+          <UserData {...{ setSearchParams, situation }} />
+          <EvaluationValue
+            {...{
+              engine,
+              situation,
+              shouldDisplay,
+              noDefaultSituation,
+              currentDPE,
+              targetDPE,
+            }}
+          />
+        </div>
+        <FooterModule isMobile={isMobile} />
       </div>
-      <FooterModule isMobile={isMobile} />
     </AmpleurWrapper>
   )
 }
