@@ -34,6 +34,7 @@ CEE . projet . remplacement chaudière thermique:
 CEE . rénovation d'ampleur:
   icône: 'cee.svg'
   marque: CEE coup de pouce « Rénovation d’ampleur »
+  type: remboursement # en réalité, cela peut être bon d'achat, etc...
   description: |
     Le coup de pouce « Rénovation d’ampleur des maisons et appartements individuels » s'inscrit dans le cadre du dispositif des certificats d'économies d'énergie (CEE).
 
