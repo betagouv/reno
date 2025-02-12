@@ -1,6 +1,6 @@
 import DPEScenario from '@/components/mpra/DPEScenario'
 import AideAmpleur from './AideAmpleur'
-import { Card, ConditionEligibiliteUI, CTA } from '../UI'
+import { Card, CTA } from '../UI'
 import rules from '@/app/règles/rules'
 import Value from '../Value'
 import DPELabel from '../DPELabel'
@@ -18,6 +18,7 @@ export default function MPRA({
   expanded,
 }) {
   const dottedName = 'MPR . accompagnée'
+  const isMobile = window.innerWidth <= 600
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
@@ -50,8 +51,9 @@ export default function MPRA({
         <Card
           css={`
             background: #f4efff;
+            padding: calc(0.5rem + 1vw);
             h3 {
-              margin: 0.5rem 0;
+              margin: 0 0 0.5rem 0;
             }
           `}
         >
@@ -72,8 +74,7 @@ export default function MPRA({
               margin-bottom: 1rem;
             `}
           >
-            <strong>Aides disponibles</strong> : Une prise en charge partielle
-            allant jusqu'à{' '}
+            <strong>Aides disponibles</strong> : Une prise en charge de{' '}
             <Value
               {...{
                 engine,
@@ -81,10 +82,20 @@ export default function MPRA({
                 state: 'prime',
                 dottedName: 'MPR . accompagnée . prise en charge MAR . montant',
               }}
-            />{' '}
-            d'aides.
+            />
+            .
           </p>
-          <CTA $fontSize="normal" $importance="emptyBackground">
+          <CTA
+            $fontSize="normal"
+            $importance="emptyBackground"
+            css={
+              isMobile &&
+              `
+              width: 100%;
+              text-align: center;
+            `
+            }
+          >
             <Link
               href={setSearchParams(
                 {
