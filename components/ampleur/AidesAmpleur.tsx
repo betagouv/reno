@@ -74,7 +74,7 @@ export default function AidesAmpleur({
             const currentType = rules[aide.baseDottedName].type
             const showType = currentType !== lastType && isEligible
             lastType = currentType
-            return AideComponent ? (
+            return (
               <div key={i}>
                 {showType && (
                   <div
@@ -109,6 +109,7 @@ export default function AidesAmpleur({
                   <AideComponent
                     key={aide.baseDottedName}
                     {...{
+                      isEligible,
                       dottedName: aide.baseDottedName,
                       setSearchParams,
                       answeredQuestions,
@@ -122,11 +123,6 @@ export default function AidesAmpleur({
                   />
                 </div>
               </div>
-            ) : (
-              <p>
-                Composant pas trouvé pour {aide.baseDottedName}{' '}
-                {aide.dottedName}
-              </p>
             )
           })}
         </section>

@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 
 export default function AideAmpleur({
+  isEligible,
   engine,
   dottedName,
   setSearchParams,
@@ -127,7 +128,7 @@ export default function AideAmpleur({
             __html: rules[dottedName].descriptionHtml,
           }}
         />
-        {!expanded && (
+        {!expanded && isEligible && (
           <AideCTAs
             {...{
               dottedName,
