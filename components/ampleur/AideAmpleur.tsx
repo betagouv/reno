@@ -4,7 +4,6 @@ import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
 import AideCTAs from './AideCTAs'
 import { formatValue } from 'publicodes'
-import AideDurée from './AideDurée'
 import { createExampleSituation } from './AmpleurSummary'
 import { useEffect, useRef, useState } from 'react'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
@@ -325,7 +324,18 @@ export function AideMontant({ engine, situation, dottedName }) {
   ) : (
     <>
       De <strong>{formatValue(montantMin)}</strong> à{` `}
-      <strong>{formatValue(montantMax)}</strong>
+      <strong>{formatValue(montantMax)}</strong> d'aides
     </>
   )
+}
+export function AideDurée({ engine, situation, dottedName }) {
+  const rules = engine.getParsedRules()
+  const duréeName =
+    dottedName.replace(/\s.\smontant$/, ' . ') +
+    (dottedName.includes('denormandie') ? 'années de location' : 'durée')
+  const duréeRule = rules[duréeName]
+
+  if (!duréeRule) return null
+  const evaluation = engine.setSituation(situation).evaluate(duréeName)
+  return <span> de prêt sur {evaluation.nodeValue} ans</span>
 }
