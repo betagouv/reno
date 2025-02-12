@@ -22,7 +22,11 @@ export const computeAideStatus = (evaluation) => {
 export const createExampleSituation = (engine, situation, type = 'normal') => {
   const exampleSituation = {
     'projet . travaux': roundToThousands(
-      engine.evaluate('projet . enveloppe estimée').nodeValue,
+      engine.evaluate('projet . enveloppe estimée').nodeValue
+        ? engine.evaluate('projet . enveloppe estimée').nodeValue
+        : type == 'best'
+          ? 999999
+          : 0,
       5,
     ),
     ...situation,
