@@ -49,13 +49,21 @@ export default function AidesAmpleur({
           />
         </h2>
         {isEligible === null && (
-          <p>
+          <p
+            css={`
+              margin-bottom: 1.5rem;
+            `}
+          >
             C'est à vous de vous renseigner pour ces aides, car nous n'avons pas
             pu déterminer votre éligibilité :
           </p>
         )}
         {isEligible === false && (
-          <p>
+          <p
+            css={`
+              margin-bottom: 1.5rem;
+            `}
+          >
             D'après les informations que vous avez renseignées, vous n'êtes pas
             éligible à ces aides :
           </p>

@@ -57,8 +57,7 @@ export default function AideCTAs({
       $fontSize="normal"
       $importance="emptyBackground"
       css={`
-        ${expanded && 'margin: auto;'}
-        margin-bottom: 1rem;
+        margin: ${expanded ? 'auto' : '1rem 0 2rem 0'};
       `}
     >
       <Link
@@ -80,7 +79,11 @@ export default function AideCTAs({
             <>Revenir à la liste des aides</>
           ) : (
             <>
-              {['MPR . accompagnée', 'denormandie'].includes(dottedName) ? (
+              {[
+                'MPR . accompagnée',
+                'denormandie',
+                "CEE . rénovation d'ampleur",
+              ].includes(dottedName) ? (
                 <>
                   <Image
                     src={iconCalculator}

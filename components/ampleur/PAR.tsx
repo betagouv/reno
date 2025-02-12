@@ -31,26 +31,35 @@ export default function PAR({
             }}
           />
           <Card $background="#EEEEFF">
-            <div
-              css={`
-                display: flex;
-                align-items: center;
-              `}
-            >
-              <section>
-                En tant que ménage{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'ménage . revenu . classe',
-                    state: 'prime-black',
-                  }}
-                />{' '}
-                , vous êtes éligible à un prêt d'un montant maximum de 50 000 €
-                sans intérêt pendant 10 ans.
-              </section>
-            </div>
+            <p>
+              En tant que ménage{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'ménage . revenu . classe',
+                  state: 'prime-black',
+                }}
+              />{' '}
+              , vous êtes éligible à un prêt d'un montant maximum de{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'PAR . montant',
+                  state: 'prime',
+                }}
+              />{' '}
+              sans intérêt pendant
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'PAR . durée',
+                }}
+              />
+              .
+            </p>
           </Card>
         </>
       )}
