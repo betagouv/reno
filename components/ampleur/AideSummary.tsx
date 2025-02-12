@@ -16,7 +16,6 @@ export const AideSummary = ({
   text2,
   status,
   expanded,
-  evaluation,
   engine,
   situation,
   dottedName,
@@ -56,12 +55,11 @@ export const AideSummary = ({
                 margin-top: 0.5rem;
               `}
               {...{
-                montant: evaluation,
                 engine,
                 situation,
                 dottedName,
               }}
-            ></PrimeWithLabel>
+            />
           ) : (
             <PrimeStyle $inactive={true}>
               {computeStatusTitle(status)}

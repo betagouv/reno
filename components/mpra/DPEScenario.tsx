@@ -1,156 +1,269 @@
 import Value from '@/components/Value'
-import { motion } from 'framer-motion'
-import DPELabel from '../DPELabel'
-import Input from '../Input'
+import calculatorIcon from '@/public/calculator-black.svg'
 import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
+import Image from 'next/image'
+import DPEQuickSwitch from '../DPEQuickSwitch'
+import TargetDPETabs from './TargetDPETabs'
+import editIcon from '@/public/crayon.svg'
+import ConditionsWarning from '../ampleur/ConditionsWarning'
 
 export default function DPEScenario({
-  rules,
   choice,
   oldIndex,
   engine,
   situation,
+  dottedName,
   setSearchParams,
   exampleSituation,
-  expanded,
+  answeredQuestions,
 }) {
   if (choice == null) return null
 
-  return (
-    <motion.div
-      initial={{ x: -30, scale: 1 }}
-      animate={{ x: 0, scale: 1 }}
-      key={choice}
-      transition={{
-        type: 'spring',
-        stiffness: 120,
-        damping: 20,
-      }}
-    >
-      <Card
-        css={`
-          padding: 1rem;
-          margin: 0;
-          margin: -0.25rem 0 0 0 !important; /* hack */
-          z-index: 42;
-          position: relative;
-          text-align: center;
-          input {
-            width: 8rem; /* width of "votre apport"*/
-            height: 1.6rem !important;
-            text-align: right;
-            margin-left: 0.2rem;
-          }
-          max-width: 100%;
-          img {
-            width: 3.5rem;
-            height: auto;
-            margin-right: 1rem;
-          }
+  const isMobile = window.innerWidth <= 600
 
-          text-align: left;
-          margin: 0 1rem;
-          p {
-            margin: 0.6rem 0;
-          }
+  const revenuClasseValue = engine
+    .setSituation(situation)
+    .evaluate('ménage . revenu . classe').nodeValue
+
+  const isModeste = revenuClasseValue.includes('modeste')
+
+  return (
+    <Card
+      css={`
+        background: linear-gradient(180deg, #f7f7f7 0%, #e6f7fb 100%);
+        box-shadow: 1px 4px 6px 0px #ccd0d5;
+        margin-bottom: 1rem;
+      `}
+    >
+      <div
+        css={`
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
           h3 {
-            margin-top: 0.6rem;
+            margin: 0.5rem 0;
           }
         `}
       >
-        <div>
-          <h3>
-            Vers un DPE <DPELabel index={choice} />
-          </h3>
-
-          <p>
-            Jusqu'à{' '}
-            <Value
-              {...{
-                engine,
-                index: choice,
-                situation: {
-                  ...situation,
-                  'projet . travaux': 999999,
-                  'projet . DPE visé': choice + 1,
-                },
-                dottedName: 'MPR . accompagnée . montant',
-                state: 'prime',
-              }}
-            />{' '}
-            d'aides.
-          </p>
+        <Image src={calculatorIcon} alt="icone calculatrice" />{' '}
+        <h3>À vos calculs !</h3>
+      </div>
+      <div
+        css={`
+          display: flex;
+          ${isMobile && 'flex-direction: column;'}
+          justify-content: space-between;
+          gap: 1rem;
+        `}
+      >
+        <DPEQuickSwitch
+          oldIndex={oldIndex}
+          situation={situation}
+          isMobile={isMobile}
+        />
+        <TargetDPETabs
+          {...{
+            oldIndex,
+            setSearchParams,
+            answeredQuestions,
+            choice,
+            engine,
+            situation,
+            isMobile,
+          }}
+        />
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          `}
+        >
+          <div>Votre budget de travaux de rénovation:</div>
           <div
             css={`
-              label {
-                white-space: nowrap;
-              }
+              margin: auto;
+              border: 2px solid var(--color);
+              width: 100%;
+              color: var(--color);
+              text-align: center;
+              border-radius: 0.3rem;
+              padding: 0.7rem;
+              box-shadow: var(--shadow-elevation-medium);
+              display: flex;
+              align-items: center;
+              justify-content: center;
             `}
           >
             <div
               css={`
-                display: flex;
-                align-items: center;
-                margin-top: 1rem;
+                flex-grow: 1;
               `}
             >
-              <p
+              <input
+                id="budget-travaux"
                 css={`
-                  line-height: 1.9rem;
+                  border: none;
+                  background: transparent;
+                  -webkit-appearance: none;
+                  outline: none;
+                  color: var(--color);
+                  font-size: 110%;
+                  max-width: 4rem;
                 `}
-              >
-                Par exemple : pour une enveloppe de travaux de rénovation
-                énergétique de{' '}
-                <label>
-                  <Input
-                    css={`
-                      vertical-align: text-bottom;
-                      padding: 0.2rem 0.3rem 0 0;
-                      max-width: 6rem !important;
-                    `}
-                    autoFocus={false}
-                    value={exampleSituation['projet . travaux']}
-                    placeholder="mes travaux"
-                    min="0"
-                    onChange={(rawValue) => {
-                      const value = +rawValue === 0 ? undefined : rawValue
-                      setSearchParams(
-                        encodeSituation({
-                          'projet . travaux': value,
-                        }),
-                        'replace',
-                        false,
-                      )
-                    }}
-                    step="100"
-                    css={`
-                      border-bottom: 2px solid #d1d1fb !important;
-                    `}
-                  />
-                  €{' '}
-                  <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                    HT
-                  </span>
-                </label>
-                <span>, soit </span>
+                autoFocus={false}
+                value={exampleSituation['projet . travaux']}
+                placeholder="mes travaux"
+                min="0"
+                max="999999"
+                onChange={(e) => {
+                  const rawValue = e.target.value
+                  const value = +rawValue === 0 ? undefined : rawValue
+                  setSearchParams(
+                    encodeSituation({
+                      'projet . travaux': value + '*',
+                    }),
+                    'replace',
+                    false,
+                  )
+                }}
+                step="100"
+              />
+              <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                € HT
+              </span>
+            </div>
+            <Image
+              css={`
+                cursor: pointer;
+                margin-left: auto;
+              `}
+              src={editIcon}
+              alt="Icône crayon pour éditer"
+              onClick={() => document.querySelector('#budget-travaux').focus()}
+            />
+          </div>
+          <div
+            css={`
+              text-align: center;
+              font-style: italic;
+              em {
+                font-weight: normal !important;
+              }
+            `}
+          >
+            (soit
+            <Value
+              {...{
+                engine,
+                choice,
+                situation: {
+                  ...exampleSituation,
+                  'projet . DPE visé': choice + 1,
+                },
+                dottedName: 'projet . travaux . TTC',
+              }}
+            />
+            <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+              {' '}
+              TTC
+            </span>
+            )
+          </div>
+        </div>
+      </div>
+      {oldIndex < 2 ? (
+        <Card
+          css={`
+            margin: 0.6rem 0;
+          `}
+        >
+          👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
+          bénéficier du parcours accompagné.
+        </Card>
+      ) : (
+        <>
+          <div
+            css={`
+              margin: 1rem 0;
+            `}
+          >
+            🥳 <strong>Bonne nouvelle</strong> : Vous êtes éligible à une aide
+            de 
+            <Value
+              {...{
+                engine,
+                situation,
+                dottedName: 'MPR . accompagnée . pourcent brut',
+              }}
+            />
+             du coût de vos travaux avec un plafond de 
+            <Value
+              {...{
+                engine,
+                situation,
+                dottedName: 'projet . travaux . plafond',
+              }}
+            />
+             de travaux.
+          </div>
+          {isModeste && (
+            <div
+              css={`
+                background: #fdf8db;
+                padding: 1rem;
+                margin: 1rem 0;
+              `}
+            >
+              🍀 <strong>Bonus :</strong> En tant que ménage{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'ménage . revenu . classe',
+                  state: 'prime-black',
+                }}
+              />{' '}
+              ,{' '}
+              <strong>
                 <Value
                   {...{
                     engine,
-                    choice,
-                    situation: {
-                      ...exampleSituation,
-                      'projet . DPE visé': choice + 1,
-                    },
-                    dottedName: 'projet . travaux . TTC',
+                    situation,
+                    dottedName: 'MPR . accompagnée . pourcentage avance',
                     state: 'prime-black',
                   }}
                 />
-                <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                  {' '}
-                  TTC
-                </span>
-                <span>, je toucherai un total d'aides de </span>
+              </strong>{' '}
+              de cette aide peut vous être versée en avance de vos travaux.
+            </div>
+          )}
+          <div
+            css={`
+              display: flex;
+              justify-content: space-between;
+              gap: 1rem;
+              ${isMobile && 'flex-direction: column;'}
+              > div {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+              }
+            `}
+          >
+            <div>
+              <div>Vous toucherez un total d'aides de :</div>
+              <div
+                css={`
+                  margin-top: 0.5rem;
+                  text-align: center;
+                  background: var(--validColor1);
+                  color: var(--validColor);
+                  padding: 0.5rem;
+                `}
+              >
                 <Value
                   {...{
                     engine,
@@ -160,10 +273,20 @@ export default function DPEScenario({
                       'projet . DPE visé': choice + 1,
                     },
                     dottedName: 'MPR . accompagnée . montant écrêté',
-                    state: 'prime-black',
                   }}
                 />
-                , ce qui me laissera un reste à charge de{' '}
+              </div>
+            </div>
+            <div>
+              <div>Il restera donc à votre charge :</div>
+              <div
+                css={`
+                  margin-top: 0.5rem;
+                  text-align: center;
+                  background: var(--warningColor);
+                  padding: 0.5rem;
+                `}
+              >
                 <Value
                   {...{
                     engine,
@@ -173,15 +296,23 @@ export default function DPEScenario({
                       'projet . DPE visé': choice + 1,
                     },
                     dottedName: 'MPR . accompagnée . reste à charge',
-                    state: 'prime-black',
                   }}
                 />{' '}
                 TTC.
-              </p>
+              </div>
             </div>
           </div>
-        </div>
-      </Card>
-    </motion.div>
+        </>
+      )}
+      <ConditionsWarning
+        {...{
+          engine,
+          dottedName,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+        }}
+      />
+    </Card>
   )
 }

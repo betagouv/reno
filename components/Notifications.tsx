@@ -82,11 +82,13 @@ export default function Notifications({ currentQuestion, engine, objectives }) {
                   damping: 20,
                 }}
               >
-                {sévérité == 'avertissement'
-                  ? '⚠️'
-                  : sévérité == 'invalide'
-                    ? '🚫'
-                    : '💁🏻'}
+                {sévérité == 'avertissement' ? (
+                  <span aria-hidden="true">⚠️</span>
+                ) : sévérité == 'invalide' ? (
+                  <span aria-hidden="true">🚫</span>
+                ) : (
+                  <span aria-hidden="true">💁🏻</span>
+                )}
                 <Card className="notificationText" $fullWidth>
                   <strong>Astuce : </strong>
                   <br />

@@ -2,7 +2,7 @@ import DPELabel from '../DPELabel'
 import checkIcon from '@/public/check.svg'
 import flag from '@/public/flag-filled.svg'
 import Image from 'next/image'
-import { CTA, CTAWrapper } from '../UI'
+import { CTA } from '../UI'
 import Link from 'next/link'
 
 export default function AmpleurModuleBanner({

@@ -67,11 +67,7 @@ PTZ . conditions . communes:
     toutes ces conditions:
       - vous . propriétaire . condition
       - logement . résidence principale
-      - ancienneté
-PTZ . conditions . ancienneté:
-  description: |
-    Pour bénéficier du prêt, vous devez être propriétaire occupant ou mettre à disposition en tant que résidence principale, un logement achevé il y a plus de 2 ans à la date du début des travaux faisant l'objet du prêt.
-  valeur: logement . au moins 2 ans
+      - logement . au moins 2 ans
 
 PTZ . montant:
   titre: Montant du PTZ

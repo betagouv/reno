@@ -83,7 +83,8 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               `}
             >
               <Link href="/aides/ma-prime-renov">
-                ⬅ Retour à la liste des aides MaPrimeRénov'
+                <span aria-hidden="true">⬅</span> Retour à la liste des aides
+                MaPrimeRénov'
               </Link>
             </CTA>
           </CTAWrapper>

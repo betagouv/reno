@@ -1,31 +1,17 @@
-import calculatorIcon from '@/public/calculator-empty.svg'
-import Image from 'next/image'
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import { Card } from '../UI'
-import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
-
+import AideAmpleur from './AideAmpleur'
 import { BlueEm } from '@/app/LandingUI'
 import rules from '@/app/règles/rules'
-import hexagoneIcon from '@/public/hexagone-contour.svg'
 import AddressSearch from '../AddressSearch'
 import { encodeSituation } from '../publicodes/situationUtils'
 import AidesLocalesByLevel from './AidesLocalesByLevel'
 import { findAidesLocales } from './useAides'
-import MapBehindCTA from '../MapBehindCTA'
 import { Key } from '../explications/ExplicationUI'
 
 const levels = rules['aides locales . montant'].somme
 
-const Hexagone = () => (
-  <Image
-    src={hexagoneIcon}
-    alt="Icône représentant le territoire français métropolitaine"
-  />
-)
 export default function AidesLocales({
   rules,
   situation,
-  searchParams,
   engine,
   setSearchParams,
   answeredQuestions,

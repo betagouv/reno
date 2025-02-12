@@ -54,7 +54,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
                   font-weight: normal;
             }`}
           >
-            💡 Comment répondre ?
+            <span aria-hidden="true">💡</span> Comment répondre ?
           </h2>
           <span
             css={`

@@ -1,4 +1,3 @@
-import checkIcon from '@/public/check.svg'
 import CEEAmpleurScenario from '../cee/CEEAmpleurScenario'
 import AideAmpleur from './AideAmpleur'
 
@@ -11,6 +10,10 @@ export default function CEEAmpleur({
   expanded,
 }) {
   const dottedName = "CEE . rénovation d'ampleur"
+  const value = situation['projet . DPE visé'],
+    oldIndex = +situation['DPE . actuel'] - 1,
+    automaticChoice = Math.max(oldIndex - 2, 0),
+    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   return (
     <AideAmpleur
@@ -25,7 +28,6 @@ export default function CEEAmpleur({
     >
       {expanded && (
         <>
-          <h3>Comment est calculée l'aide ?</h3>
           <p>
             Le montant des CEE est calculé en fonction de la performance visée
             et de la surface habitable du logement.
@@ -33,26 +35,12 @@ export default function CEEAmpleur({
           <CEEAmpleurScenario
             {...{
               rules,
+              choice,
+              oldIndex,
               engine,
               situation,
               setSearchParams,
               answeredQuestions,
-            }}
-          />
-
-          <h3>Les principales conditions d'éligibilité ?</h3>
-          <div
-            css={`
-              list-style-image: url(${checkIcon.src});
-              li {
-                margin: 1rem 0;
-                ul {
-                  list-style-image: none;
-                }
-              }
-            `}
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].conditionsEligibilitesHTML,
             }}
           />
         </>

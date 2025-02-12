@@ -1,12 +1,5 @@
 'use client'
-import {
-  Card,
-  CardLink,
-  CTA,
-  CTAWrapper,
-  ExternalLink,
-  PageBlock,
-} from '@/components/UI'
+import { Card, CTA, CTAWrapper, ExternalLink, PageBlock } from '@/components/UI'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationIntegration from '@/public/illustration-integration.png'
 import iconChrono from '@/public/chrono.svg'
@@ -60,7 +53,8 @@ export default function DevenirPartenaire() {
               padding: 0 1rem;
             `}
           >
-            ⭐️ Aides à la rénovation énergétique
+            <span aria-hidden="true">⭐️</span> Aides à la rénovation
+            énergétique
           </p>
           <h1
             css={`
@@ -74,7 +68,9 @@ export default function DevenirPartenaire() {
           </h1>
           <CTAWrapper $justify="left">
             <CTA $fontSize="normal">
-              <Link href="/contact">➔&nbsp;&nbsp;Demandez une démo</Link>
+              <Link href="/contact">
+                <span aria-hidden="true">➔</span>&nbsp;&nbsp;Demandez une démo
+              </Link>
             </CTA>
           </CTAWrapper>
         </div>
@@ -144,7 +140,9 @@ export default function DevenirPartenaire() {
           </p>
           <CTAWrapper $justify="center">
             <CTA $fontSize="normal">
-              <Link href="/contact">✉&nbsp;&nbsp;Prendre contact</Link>
+              <Link href="/contact">
+                <span aria-hidden="true">✉</span> Prendre contact
+              </Link>
             </CTA>
           </CTAWrapper>
         </Content>

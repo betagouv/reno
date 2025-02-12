@@ -59,7 +59,11 @@ export default function Eligibility({
               margin: 0.5rem 0 !important;
             `}
           >
-            {hasAides && <>Bonne nouvelle 🥳</>}
+            {hasAides && (
+              <>
+                Bonne nouvelle <span aria-hidden="true">🥳</span>
+              </>
+            )}
           </h2>
         </header>
         {hasAides ? (

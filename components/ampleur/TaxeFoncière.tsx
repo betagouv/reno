@@ -1,7 +1,7 @@
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
-import checkIcon from '@/public/check.svg'
 import { Key } from '../explications/ExplicationUI'
+import ConditionsWarning from './ConditionsWarning'
 
 export default function TaxeFoncière({
   setSearchParams,
@@ -35,40 +35,28 @@ export default function TaxeFoncière({
         expanded,
       }}
     >
-      <p>
-        La commune <Key $state={'prime-black'}>{communeName}</Key> de votre
-        logement{' '}
-        {!communeEligible ? (
+      {communeEligible.nodeValue && (
+        <p>
+          La commune <Key $state={'prime-black'}>{communeName}</Key> de votre
+          logement{' '}
           <>
-            <No>n'a pas appliqué</No> l'exonération de taxe foncière l'année
-            dernière.
-          </>
-        ) : (
-          <>
-            <Yes>a appliqué</Yes> l'éxonération de taxe foncière au taux de{' '}
+            <Yes>a appliqué</Yes> l'exonération de taxe foncière au taux de{' '}
             <Key $state={'prime-black'}>{taux}</Key> l'année dernière.
           </>
-        )}
-      </p>
+        </p>
+      )}
       {expanded && (
         <>
-          <h3>Comment est calculée l'aide ?</h3>
-          <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
-          <h3>Les principales conditions d'éligibilité ?</h3>
-          <div
-            css={`
-              list-style-image: url(${checkIcon.src});
-              li {
-                margin: 1rem 0;
-                ul {
-                  list-style-image: none;
-                }
-              }
-            `}
-            dangerouslySetInnerHTML={{
-              __html: rule.conditionsEligibilitesHTML,
+          <ConditionsWarning
+            {...{
+              engine,
+              dottedName,
+              setSearchParams,
+              situation,
+              answeredQuestions,
             }}
           />
+          <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
         </>
       )}
     </AideAmpleur>

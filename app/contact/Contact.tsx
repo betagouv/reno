@@ -125,28 +125,16 @@ export const GithubContributionForm = ({ fromLocation }) => {
           ])
         }}
       >
-        ✉️ Nous contacter
+        <span aria-hidden="true">✉️</span> Nous contacter
       </Button>
     </form>
   ) : (
     <section>
       <p role="status">
-        Merci 😍 ! Vos suggestions nous aident à améliorer l'outil et à rendre
-        l'expérience plus efficace pour tous·tes. 🙏.
+        Merci <span aria-hidden="true">😍</span> ! Vos suggestions nous aident à
+        améliorer l'outil et à rendre l'expérience plus efficace pour tous·tes.
+        <span aria-hidden="true">🙏</span>.
       </p>
-      <p></p>
-      {/* <p>
-        Suivez l'avancement de votre suggestion en cliquant sur{' '}
-        <ExternalLink href={URL}>ce lien</ExternalLink>.
-        Si vous désirez être notifié de nos réponses,
-        <strong>
-          vous pouvez{' '}
-          <ExternalLink href="https://github.com/betagouv/reno/issues/new?assignees=&labels=contribution&template=retour-utilisateur.md&title=">
-            créer un compte sur la plateforme Github
-          </ExternalLink>
-        </strong>{' '}
-        afin de suivre les échanges et discuter avec nous.
-      </p> */}
     </section>
   )
 }
@@ -154,7 +142,9 @@ export const GithubContributionForm = ({ fromLocation }) => {
 export default function Contact({ fromLocation }) {
   return (
     <div className="ui__ container" css="padding-bottom: 1rem">
-      <h2>🙋 J'ai une question</h2>
+      <h2>
+        <span aria-hidden="true">🙋</span> J'ai une question
+      </h2>
       <p>
         Nous sommes preneurs de toutes vos remarques, questions, suggestions et
         avis.

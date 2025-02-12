@@ -67,7 +67,7 @@ export default function GestesBasket({
               'url',
             )}
           >
-            ⬅ Retour à la sélection des gestes
+            <span aria-hidden="true">⬅</span> Retour à la sélection des gestes
           </Link>
         </CTA>
       </CTAWrapper>

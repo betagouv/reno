@@ -69,7 +69,15 @@ export default function Share() {
                 ${copied && 'color: var(--validColor) !important;'}
               `}
             >
-              {!copied ? '🔗 Copier le lien' : '✔ Lien copié'}
+              {!copied ? (
+                <>
+                  <span aria-hidden="true">🔗</span> Copier le lien
+                </>
+              ) : (
+                <>
+                  <span aria-hidden="true">✔</span> Lien copié
+                </>
+              )}
             </span>
           </CTA>
         </CTAWrapper>

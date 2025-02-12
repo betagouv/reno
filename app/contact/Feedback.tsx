@@ -47,7 +47,7 @@ export default function Feedback({ title, fromLocation }) {
           font-weight: bold;
         `}
       >
-        👋 {title}
+        <span aria-hidden="true">👋</span> {title}
       </div>
       <VoteBox>
         <div
