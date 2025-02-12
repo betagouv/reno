@@ -90,9 +90,9 @@ export function EvaluationValue({
         `}
       >
         <small>
-          Pour bénéficier des aides pour une rénovation d'ampleur, vous devez
-          viser un saut d'au moins 2 classes de DPE, soit passer du DPE actuel{' '}
-          <DPELabel index={currentDPE - 1} /> à un DPE{' '}
+          Pour bénéficier de ces aides d'ampleur, des gains énergétiques seront
+          à réaliser, par exemple un saut d'au moins 2 classes de DPE, soit
+          passer du DPE actuel <DPELabel index={currentDPE - 1} /> à un DPE{' '}
           <DPELabel index={targetDPE - 1} />.
         </small>
       </p>
