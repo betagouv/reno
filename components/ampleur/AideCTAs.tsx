@@ -20,6 +20,7 @@ export default function AideCTAs({
   setSearchParams,
   expanded,
 }) {
+  const isMobile = window.innerWidth <= 600
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
@@ -57,7 +58,7 @@ export default function AideCTAs({
       $fontSize="normal"
       $importance="emptyBackground"
       css={`
-        margin: ${expanded ? 'auto' : '1rem 0 2rem 0'};
+        margin: ${expanded ? 'auto' : '1rem 0'};
       `}
     >
       <Link
@@ -95,7 +96,10 @@ export default function AideCTAs({
                   Calculer le montant d'aides
                 </>
               ) : (
-                <>En savoir plus sur {rules[dottedName].marque}</>
+                <>
+                  En savoir plus{' '}
+                  {!isMobile && <>sur {rules[dottedName].marque}</>}
+                </>
               )}
               <Image
                 src={iconFlecheDroite}

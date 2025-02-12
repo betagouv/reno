@@ -9,7 +9,7 @@ import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
 import CopyButton from '../CopyButton'
 import Breadcrumb from '../Breadcrumb'
-import { encodeSituation } from '../publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -100,10 +100,11 @@ export default function AidesAmpleur({
                   </div>
                 )}
                 <div
+                  id={'aide-' + encodeDottedName(aide.baseDottedName)}
                   css={`
-                    > section {
-                      padding-left: 1.5rem;
-                    }
+                    border-bottom: 1px solid var(--lighterColor2);
+                    margin-bottom: 1rem;
+                    padding-left: 1.5rem;
                   `}
                 >
                   <AideComponent

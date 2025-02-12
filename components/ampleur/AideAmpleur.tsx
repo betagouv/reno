@@ -1,6 +1,5 @@
 import rules from '@/app/règles/rules'
 import { ConditionEligibiliteUI, CTA, ExternalLink, PrimeStyle } from '../UI'
-import { encodeDottedName } from '../publicodes/situationUtils'
 import { uncapitalise0 } from '../utils'
 import AideCTAs from './AideCTAs'
 import { formatValue } from 'publicodes'
@@ -29,13 +28,7 @@ export default function AideAmpleur({
     }
   }, [isOpen])
   return (
-    <section
-      id={'aide-' + encodeDottedName(dottedName)}
-      css={`
-        ${!expanded && 'border-bottom: 1px solid var(--lighterColor2);'}
-        margin-bottom: 1rem;
-      `}
-    >
+    <>
       <header
         css={`
           margin: 0 0 1rem 0;
@@ -98,6 +91,7 @@ export default function AideAmpleur({
         css={`
           ${!expanded && 'max-height: 0;'}
           opacity: ${isOpen || expanded ? '1' : '0'};
+          ${isOpen && 'margin-bottom: 1rem;'};
           overflow: hidden;
           transition:
             max-height 0.4s ease-out,
@@ -210,7 +204,7 @@ export default function AideAmpleur({
           />
         </>
       )}
-    </section>
+    </>
   )
 }
 
