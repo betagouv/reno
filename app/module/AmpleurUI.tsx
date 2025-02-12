@@ -4,7 +4,7 @@ export const AmpleurWrapper = styled.div`
   border: 2px solid var(--color);
   border-radius: 0.3rem;
   max-width: 600px;
-  max-height: 100vh;
+  height: 100vh;
   padding: 1rem;
   @media (min-width: 400px) {
     padding: 1rem 1.6rem;
