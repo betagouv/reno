@@ -1,7 +1,6 @@
 import { Card } from '../UI'
 import AideAmpleur from './AideAmpleur'
 import rules from '@/app/règles/rules'
-import checkIcon from '@/public/check.svg'
 import Value from '../Value'
 // Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 

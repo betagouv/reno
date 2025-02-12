@@ -1,16 +1,8 @@
-import rules from '@/app/règles/rules'
 import AideAmpleur from './AideAmpleur'
-import {
-  Card,
-  ConditionEligibiliteUI,
-  CTA,
-  CTAWrapper,
-  ExternalLink,
-} from '../UI'
+import { Card, CTA, CTAWrapper } from '../UI'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
-import checkIcon from '@/public/check.svg'
 
 export default function Copro({
   engine,
@@ -68,16 +60,13 @@ export default function Copro({
             ressources modestes et très modestes. Le montant de cette prime est
             respectivement de 1 500 € et de 3 000 €.
           </p>
-          <p
+          <h2
             css={`
-              margin-top: 1.6rem;
+              margin: 1rem 0;
             `}
           >
-            <ExternalLink href={rules[dottedName]['lien']} target="_blank">
-              Plus d'infos sur cette aide
-            </ExternalLink>
-          </p>
-          <h3>Notre parcours dédié aux copropriétés</h3>
+            Notre parcours dédié aux copropriétés
+          </h2>
           <p>
             Simulez l'éligibilité de votre copropriété à MaPrimeRénov'
             Coproprieté grace a ce simulateur.

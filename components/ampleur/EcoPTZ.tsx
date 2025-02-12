@@ -1,8 +1,6 @@
 import { Key } from '../explications/ExplicationUI'
-import { Card, ConditionEligibiliteUI, ExternalLink } from '../UI'
+import { Card, ExternalLink } from '../UI'
 import AideAmpleur from './AideAmpleur'
-import rules from '@/app/règles/rules'
-import checkIcon from '@/public/check.svg'
 
 export default function EcoPTZ({
   engine,

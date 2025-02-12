@@ -1,6 +1,5 @@
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
-import checkIcon from '@/public/check.svg'
 import { Key } from '../explications/ExplicationUI'
 
 export default function TaxeFoncière({

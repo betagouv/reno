@@ -8,7 +8,6 @@ export default function AideMAR({
   dottedName,
   setSearchParams,
   answeredQuestions,
-  rules,
   expanded,
 }) {
   return (

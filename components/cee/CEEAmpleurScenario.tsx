@@ -1,4 +1,3 @@
-import dpeValues from '@/components/DPE.yaml'
 import Value from '@/components/Value'
 import calculatorIcon from '@/public/calculator-black.svg'
 import Image from 'next/image'
@@ -19,10 +18,6 @@ export default function CEEAmpleurScenario({
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
-
-  const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
-
-  const targetSituation = { ...situation, 'projet . DPE visé': choice + 1 }
 
   return (
     <Card

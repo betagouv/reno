@@ -1,7 +1,5 @@
-import checkIcon from '@/public/check.svg'
 import CEEAmpleurScenario from '../cee/CEEAmpleurScenario'
 import AideAmpleur from './AideAmpleur'
-import { ConditionEligibiliteUI } from '../UI'
 
 export default function CEEAmpleur({
   rules,
