@@ -2,6 +2,7 @@ import CEEAmpleurScenario from '../cee/CEEAmpleurScenario'
 import AideAmpleur from './AideAmpleur'
 
 export default function CEEAmpleur({
+  isEligible,
   rules,
   engine,
   situation,
@@ -18,6 +19,7 @@ export default function CEEAmpleur({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,

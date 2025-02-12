@@ -3,6 +3,7 @@ import { Card, ExternalLink } from '../UI'
 import AideAmpleur from './AideAmpleur'
 
 export default function EcoPTZ({
+  isEligible,
   engine,
   situation,
   setSearchParams,
@@ -14,6 +15,7 @@ export default function EcoPTZ({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,

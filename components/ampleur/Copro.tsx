@@ -5,6 +5,7 @@ import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
 
 export default function Copro({
+  isEligible,
   engine,
   situation,
   setSearchParams,
@@ -16,6 +17,7 @@ export default function Copro({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,

@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 export default function MPRA({
+  isEligible,
   setSearchParams,
   answeredQuestions,
   engine,
@@ -27,6 +28,7 @@ export default function MPRA({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,

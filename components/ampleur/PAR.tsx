@@ -5,6 +5,7 @@ import Value from '../Value'
 // Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 
 export default function PAR({
+  isEligible,
   engine,
   situation,
   setSearchParams,
@@ -15,8 +16,9 @@ export default function PAR({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
-        dottedName: 'PAR',
+        dottedName: dottedName,
         setSearchParams,
         answeredQuestions,
         situation,

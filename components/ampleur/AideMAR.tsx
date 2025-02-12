@@ -3,6 +3,7 @@ import Value from '../Value'
 import AideAmpleur from './AideAmpleur'
 
 export default function AideMAR({
+  isEligible,
   engine,
   situation,
   dottedName,
@@ -13,6 +14,7 @@ export default function AideMAR({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,

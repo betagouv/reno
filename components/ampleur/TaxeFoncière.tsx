@@ -3,6 +3,7 @@ import { No, Yes } from '../ResultUI'
 import { Key } from '../explications/ExplicationUI'
 
 export default function TaxeFoncière({
+  isEligible,
   setSearchParams,
   answeredQuestions,
   engine,
@@ -26,6 +27,7 @@ export default function TaxeFoncière({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName: 'taxe foncière',
         setSearchParams,

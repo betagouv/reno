@@ -30,6 +30,7 @@ export default function Denormandie({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName: 'denormandie',
         setSearchParams,
