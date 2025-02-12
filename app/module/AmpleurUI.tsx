@@ -37,8 +37,8 @@ export const AmpleurWrapper = styled.div`
       font-weight: 500;
     }
     h1 {
-      margin-top: 0.6rem;
-      margin-bottom: 0.8rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.5rem;
       font-size: 130%;
       font-weight: 600;
     }
