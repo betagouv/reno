@@ -25,7 +25,7 @@ export default function IframeIntegrator({ iframeUrl }) {
         >
           {iframeCode}
         </code>
-        <h3>Le résultato</h3>
+        <h3>Le résultat</h3>
         <div
           css={`
             text-align: center;
@@ -42,4 +42,3 @@ export default function IframeIntegrator({ iframeUrl }) {
     )
   )
 }
-
