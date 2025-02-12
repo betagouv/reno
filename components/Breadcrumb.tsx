@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 export default function Breadcrumb({ links }) {
   const isInIframe = useIsInIframe()
-  const isMobile = window.innerWidth <= 600
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600
   return (
     !isInIframe && (
       <BreadcrumbNav $isMobile={isMobile}>
