@@ -6,6 +6,7 @@ import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
 import TargetDPETabs from '../mpra/TargetDPETabs'
+import ConditionsWarning from '../ampleur/ConditionsWarning'
 
 export default function CEEAmpleurScenario({
   engine,
@@ -166,6 +167,15 @@ export default function CEEAmpleurScenario({
             }}
           />
         </div>
+        <ConditionsWarning
+          {...{
+            engine,
+            dottedName: "CEE . rénovation d'ampleur",
+            setSearchParams,
+            situation,
+            answeredQuestions,
+          }}
+        />
       </div>
     </Card>
   )

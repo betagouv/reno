@@ -1,6 +1,7 @@
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
 import { Key } from '../explications/ExplicationUI'
+import ConditionsWarning from './ConditionsWarning'
 
 export default function TaxeFoncière({
   setSearchParams,
@@ -34,23 +35,27 @@ export default function TaxeFoncière({
         expanded,
       }}
     >
-      <p>
-        La commune <Key $state={'prime-black'}>{communeName}</Key> de votre
-        logement{' '}
-        {!communeEligible ? (
-          <>
-            <No>n'a pas appliqué</No> l'exonération de taxe foncière l'année
-            dernière.
-          </>
-        ) : (
+      {communeEligible.nodeValue && (
+        <p>
+          La commune <Key $state={'prime-black'}>{communeName}</Key> de votre
+          logement{' '}
           <>
             <Yes>a appliqué</Yes> l'exonération de taxe foncière au taux de{' '}
             <Key $state={'prime-black'}>{taux}</Key> l'année dernière.
           </>
-        )}
-      </p>
+        </p>
+      )}
       {expanded && (
         <>
+          <ConditionsWarning
+            {...{
+              engine,
+              dottedName,
+              setSearchParams,
+              situation,
+              answeredQuestions,
+            }}
+          />
           <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
         </>
       )}

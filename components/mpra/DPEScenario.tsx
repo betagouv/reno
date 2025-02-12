@@ -6,12 +6,14 @@ import Image from 'next/image'
 import DPEQuickSwitch from '../DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import editIcon from '@/public/crayon.svg'
+import ConditionsWarning from '../ampleur/ConditionsWarning'
 
 export default function DPEScenario({
   choice,
   oldIndex,
   engine,
   situation,
+  dottedName,
   setSearchParams,
   exampleSituation,
   answeredQuestions,
@@ -302,6 +304,15 @@ export default function DPEScenario({
           </div>
         </>
       )}
+      <ConditionsWarning
+        {...{
+          engine,
+          dottedName,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+        }}
+      />
     </Card>
   )
 }

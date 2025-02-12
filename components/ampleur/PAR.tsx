@@ -2,6 +2,7 @@ import { Card } from '../UI'
 import AideAmpleur from './AideAmpleur'
 import rules from '@/app/règles/rules'
 import Value from '../Value'
+import ConditionsWarning from './ConditionsWarning'
 // Note : Nous ignorons pour l'instant le PAR "pas plus", qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
 
 export default function PAR({
@@ -31,6 +32,15 @@ export default function PAR({
             }}
           />
           <Card $background="#EEEEFF">
+            <ConditionsWarning
+              {...{
+                engine,
+                dottedName,
+                setSearchParams,
+                situation,
+                answeredQuestions,
+              }}
+            />
             <p>
               En tant que ménage{' '}
               <Value

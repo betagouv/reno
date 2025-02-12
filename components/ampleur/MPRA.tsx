@@ -39,6 +39,7 @@ export default function MPRA({
         <DPEScenario
           {...{
             rules,
+            dottedName,
             choice,
             oldIndex,
             engine,

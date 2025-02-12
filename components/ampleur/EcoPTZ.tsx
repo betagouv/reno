@@ -1,6 +1,7 @@
 import { Key } from '../explications/ExplicationUI'
 import { Card, ExternalLink } from '../UI'
 import AideAmpleur from './AideAmpleur'
+import ConditionsWarning from './ConditionsWarning'
 
 export default function EcoPTZ({
   engine,
@@ -51,6 +52,15 @@ export default function EcoPTZ({
               padding: 1rem;
             `}
           >
+            <ConditionsWarning
+              {...{
+                engine,
+                dottedName,
+                setSearchParams,
+                situation,
+                answeredQuestions,
+              }}
+            />
             <div
               css={`
                 display: flex;

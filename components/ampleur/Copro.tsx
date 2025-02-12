@@ -1,8 +1,10 @@
+import rules from '@/app/règles/rules'
 import AideAmpleur from './AideAmpleur'
 import { Card, CTA, CTAWrapper } from '../UI'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
+import ConditionsWarning from './ConditionsWarning'
 
 export default function Copro({
   engine,
@@ -26,6 +28,15 @@ export default function Copro({
     >
       {expanded && (
         <>
+          <ConditionsWarning
+            {...{
+              engine,
+              dottedName,
+              setSearchParams,
+              situation,
+              answeredQuestions,
+            }}
+          />
           <Card $background="#EEEEFF">
             <p>
               En tant que ménage{' '}
