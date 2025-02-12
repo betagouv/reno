@@ -9,7 +9,7 @@ export const computeStatusTitle = (status) =>
     ? 'Nous avons déterminé que vous êtes éligible à cette aide.'
     : status === null
       ? 'Nous ne pouvons pas encore vous dire si vous êtes éligible à cette aide.'
-      : "Vous n'êtes pas éligible à cette aide"
+      : 'Non éligible'
 
 export const AmpleurAideSummary = ({
   text,
@@ -32,12 +32,7 @@ export const AmpleurAideSummary = ({
           font-size: 100%;
         `}
       >
-        {text && (
-          <>
-            {!status && <StatusIcon status={status} />}
-            {text}
-          </>
-        )}
+        {text && <>{text}</>}
         {text2 && <>&nbsp;-&nbsp;{text2}</>}
       </h3>
       <div

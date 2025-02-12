@@ -135,7 +135,6 @@ margin-bottom: .3rem;
 
 > h3 {
 width: 17rem;
-white-space: nowrap;
 margin-bottom: 0;
 
 
