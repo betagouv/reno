@@ -23,8 +23,8 @@ export default function AidesAmpleur({
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Aides Ampleur'])
   const situation = givenSituation
 
-  const exampleSituation = createExampleSituation(engine, situation, false)
-  const extremeSituation = createExampleSituation(engine, situation, true)
+  const extremeSituation = createExampleSituation(situation, 'best')
+
   const aides = useAides(engine, extremeSituation) // TODO which situation
 
   const eligibles = aides.filter((aide) => aide.status === true)
@@ -116,7 +116,6 @@ export default function AidesAmpleur({
                       answeredQuestions,
                       engine,
                       situation,
-                      exampleSituation,
                       searchParams,
                       rules,
                       expanded: false,

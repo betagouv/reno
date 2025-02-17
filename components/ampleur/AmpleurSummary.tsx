@@ -19,16 +19,8 @@ export const computeAideStatus = (evaluation) => {
   throw new Error(message)
 }
 
-export const createExampleSituation = (engine, situation, type = 'normal') => {
+export const createExampleSituation = (situation, type = 'normal') => {
   const exampleSituation = {
-    'projet . travaux': roundToThousands(
-      engine.evaluate('projet . enveloppe estimée').nodeValue
-        ? engine.evaluate('projet . enveloppe estimée').nodeValue
-        : type == 'best'
-          ? 999999
-          : 0,
-      5,
-    ),
     ...situation,
     ...(type == 'best'
       ? {
@@ -48,7 +40,7 @@ export const createExampleSituation = (engine, situation, type = 'normal') => {
 }
 
 export default function AmpleurSummary({ engine, url, situation }) {
-  const extremeSituation = createExampleSituation(engine, situation, 'best')
+  const extremeSituation = createExampleSituation(situation, 'best')
 
   const aides = useAides(engine, extremeSituation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0

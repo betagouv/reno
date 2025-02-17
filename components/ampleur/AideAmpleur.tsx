@@ -210,7 +210,7 @@ export default function AideAmpleur({
 }
 
 export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
-  const bestSituation = createExampleSituation(engine, situation, 'best')
+  const bestSituation = createExampleSituation(situation, 'best')
   const montantMax = engine.setSituation(bestSituation).evaluate(dottedName)
 
   return montantMax.nodeValue ? (
@@ -297,7 +297,7 @@ export const aideTitle = (dottedName) => {
 }
 export function AideMontant({ engine, situation, dottedName }) {
   const montantMax = engine.setSituation(situation).evaluate(dottedName)
-  const worstSituation = createExampleSituation(engine, situation, 'worst')
+  const worstSituation = createExampleSituation(situation, 'worst')
   const montantMin = engine.setSituation(worstSituation).evaluate(dottedName)
   return dottedName.includes('taxe foncière') ? (
     <strong>{situation['taxe foncière . commune . taux']}</strong>

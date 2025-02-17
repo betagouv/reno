@@ -9,15 +9,11 @@ import { Select } from '../InputUI'
 
 export default function Denormandie({
   engine,
-  exampleSituation,
+  situation,
   answeredQuestions,
   setSearchParams,
   expanded,
 }) {
-  const situation = {
-    ...exampleSituation,
-  }
-
   if (!situation['denormandie . années de location']) {
     situation['denormandie . années de location'] = 12
   }

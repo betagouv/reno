@@ -8,12 +8,9 @@ export default function TaxeFoncière({
   answeredQuestions,
   engine,
   situation,
-  exampleSituation,
   rules,
   expanded,
 }) {
-  engine.setSituation(exampleSituation)
-
   const communeName =
     situation['logement . commune . nom'] || situation['ménage . commune . nom']
 

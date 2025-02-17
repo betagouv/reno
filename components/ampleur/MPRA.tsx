@@ -9,17 +9,28 @@ import { Écrêtement } from '@/components/explications/Écrêtement'
 import Image from 'next/image'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
+import { roundToThousands } from '../utils'
 export default function MPRA({
   isEligible,
   setSearchParams,
   answeredQuestions,
   engine,
   situation,
-  exampleSituation,
   expanded,
 }) {
   const dottedName = 'MPR . accompagnée'
   const isMobile = window.innerWidth <= 600
+
+  // Si le montant des travaux n'est pas précisé, on l'estime
+  if (!situation['projet . travaux']) {
+    situation['projet . travaux'] = roundToThousands(
+      engine.evaluate('projet . enveloppe estimée').nodeValue
+        ? engine.evaluate('projet . enveloppe estimée').nodeValue
+        : 0,
+      5,
+    )
+  }
+
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
@@ -47,7 +58,6 @@ export default function MPRA({
             situation,
             setSearchParams,
             answeredQuestions,
-            exampleSituation,
           }}
         />
         <Card

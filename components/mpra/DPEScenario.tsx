@@ -13,7 +13,6 @@ export default function DPEScenario({
   engine,
   situation,
   setSearchParams,
-  exampleSituation,
   answeredQuestions,
 }) {
   if (choice == null) return null
@@ -112,7 +111,7 @@ export default function DPEScenario({
                   max-width: 4rem;
                 `}
                 autoFocus={false}
-                value={exampleSituation['projet . travaux']}
+                value={situation['projet . travaux']}
                 placeholder="mes travaux"
                 min="0"
                 max="999999"
@@ -158,7 +157,7 @@ export default function DPEScenario({
                 engine,
                 choice,
                 situation: {
-                  ...exampleSituation,
+                  ...situation,
                   'projet . DPE visé': choice + 1,
                 },
                 dottedName: 'projet . travaux . TTC',
@@ -267,7 +266,7 @@ export default function DPEScenario({
                     engine,
                     choice,
                     situation: {
-                      ...exampleSituation,
+                      ...situation,
                       'projet . DPE visé': choice + 1,
                     },
                     dottedName: 'MPR . accompagnée . montant écrêté',
@@ -290,7 +289,7 @@ export default function DPEScenario({
                     engine,
                     choice,
                     situation: {
-                      ...exampleSituation,
+                      ...situation,
                       'projet . DPE visé': choice + 1,
                     },
                     dottedName: 'MPR . accompagnée . reste à charge',
