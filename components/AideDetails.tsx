@@ -26,7 +26,6 @@ export default function AideDetails({
     'Page',
     'Aide Détails ' + dottedName,
   ])
-  const exampleSituation = createExampleSituation(engine, situation, false)
   const AideComponent = correspondance[dottedName]
 
   if (AideComponent)
@@ -88,7 +87,6 @@ export default function AideDetails({
               answeredQuestions,
               engine,
               situation,
-              exampleSituation,
               searchParams,
               expanded: true,
               rules,
