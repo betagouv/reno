@@ -58,7 +58,7 @@ export default function AideCTAs({
       $fontSize="normal"
       $importance="emptyBackground"
       css={`
-        margin: ${expanded ? 'auto' : '1rem 0'};
+        margin: ${expanded ? '1rem auto' : '1rem 0'};
       `}
     >
       <Link
