@@ -30,10 +30,7 @@ export const QuestionText = ({
   const text = rule.question.texte
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
-
-  return (
-    <h1>{text.endsWith(' ?') ? text.replace(/\s\?$/, '') : text}&nbsp;?</h1>
-  )
+  return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
 }
 export default function ClassicQuestionWrapper({
   children,
