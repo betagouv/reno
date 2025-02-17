@@ -117,7 +117,7 @@ export default function DPEScenario({
                 max="999999"
                 onChange={(e) => {
                   const rawValue = e.target.value
-                  const value = +rawValue === 0 ? undefined : rawValue
+                  const value = +rawValue === 0 ? 0 : rawValue
                   setSearchParams(
                     encodeSituation({
                       'projet . travaux': value + '*',
