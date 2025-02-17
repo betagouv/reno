@@ -6,6 +6,7 @@ import { formatValue } from 'publicodes'
 import { createExampleSituation } from './AmpleurSummary'
 import { useEffect, useRef, useState } from 'react'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
+import { push } from '@socialgouv/matomo-next'
 
 export default function AideAmpleur({
   isEligible,
