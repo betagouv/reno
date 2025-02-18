@@ -34,10 +34,9 @@ export default function Denormandie({
   const communeName = situation['logement . commune . nom'],
     communeEligible = situation['logement . commune . denormandie']
 
-  const isEligible = engine
-    .setSituation(situation)
-    .evaluate('denormandie . montant').nodeValue
-
+  const isEligible =
+    engine.setSituation(situation).evaluate('denormandie . montant')
+      .nodeValue !== false
   return (
     <AideAmpleur
       {...{
