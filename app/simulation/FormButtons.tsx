@@ -16,6 +16,7 @@ export default function FormButtons({
   questionsToSubmit,
   situation,
   rules,
+  depuisModule,
 }) {
   const mosaicQuestions = isMosaicQuestion(
     currentQuestion,
@@ -49,6 +50,7 @@ export default function FormButtons({
           `}
           href={backUrl}
           onClick={() => {
+            if (depuisModule) history.back() // retour direct vers le module passoire au sein de l'iframe, pas vers une question précédente que l'utilisateur n'aurait pas renseignée tout seul
             push([
               'trackEvent',
               'Simulateur Principal',

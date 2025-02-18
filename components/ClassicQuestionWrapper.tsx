@@ -141,6 +141,7 @@ export default function ClassicQuestionWrapper({
             questionsToSubmit,
             currentQuestion,
             situation,
+            depuisModule,
           }}
         />
         <Notifications {...{ currentQuestion, engine }} />

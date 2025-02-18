@@ -12,7 +12,7 @@ export default function AmpleurCTA({ situation }) {
   const url = situationToCtaUrl(situation)
   return (
     <Link href={url}>
-      <span>Découvrir toutes les aides&nbsp;&nbsp;➞</span>
+      <span>Affinez vos aides en 3 min&nbsp;⚡️&nbsp;➞</span>
     </Link>
   )
 }
