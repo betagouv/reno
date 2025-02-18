@@ -86,7 +86,7 @@ export default function AidesAmpleur({
                   >
                     {rules[aide.baseDottedName].type === 'remboursement' ? (
                       <>
-                        <span aria-hidden="true">💶</span> Subventions
+                        <span aria-hidden="true">💶</span> Remboursements
                       </>
                     ) : rules[aide.baseDottedName].type === 'prêt' ? (
                       <>
