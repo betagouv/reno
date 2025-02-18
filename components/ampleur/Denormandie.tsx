@@ -6,6 +6,7 @@ import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
 import { Key } from '../explications/ExplicationUI'
 import { Select } from '../InputUI'
+import { roundToThousands } from '../utils'
 
 export default function Denormandie({
   engine,
@@ -16,6 +17,18 @@ export default function Denormandie({
 }) {
   if (!situation['denormandie . années de location']) {
     situation['denormandie . années de location'] = 12
+  }
+  if (!situation["logement . prix d'achat"]) {
+    situation["logement . prix d'achat"] = 150000
+  }
+  // Si le montant des travaux n'est pas précisé, on l'estime
+  if (!situation['projet . travaux']) {
+    situation['projet . travaux'] = roundToThousands(
+      engine.evaluate('projet . enveloppe estimée').nodeValue
+        ? engine.evaluate('projet . enveloppe estimée').nodeValue
+        : 0,
+      5,
+    )
   }
 
   const communeName = situation['logement . commune . nom'],
