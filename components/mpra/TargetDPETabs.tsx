@@ -31,7 +31,7 @@ export default function TargetDPETabs({
         gap: 0.5rem;
       `}
     >
-      <div>Votre DPE visé :</div>
+      <div>Votre DPE visé&nbsp;:</div>
       <nav>
         <ol
           css={`

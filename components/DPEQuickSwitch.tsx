@@ -48,7 +48,7 @@ export default function DPEQuickSwitch({
         gap: 0.5rem;
       `}
     >
-      <div>Votre DPE actuel :</div>
+      <div>Votre DPE actuel&nbsp;:</div>
       {editing ? (
         <span
           css={`
