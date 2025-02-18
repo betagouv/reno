@@ -34,7 +34,9 @@ export default function Denormandie({
   const communeName = situation['logement . commune . nom'],
     communeEligible = situation['logement . commune . denormandie']
 
-  const isEligible = engine.evaluate('denormandie . montant').nodeValue
+  const isEligible = engine
+    .setSituation(situation)
+    .evaluate('denormandie . montant').nodeValue
 
   return (
     <AideAmpleur
@@ -107,10 +109,10 @@ export default function Denormandie({
                   `}
                   autoFocus={false}
                   value={situation['projet . travaux']}
-                  placeholder="mes travaux"
+                  placeholder="0"
                   min="1000"
                   onChange={(rawValue) => {
-                    const value = +rawValue === 0 ? undefined : rawValue
+                    const value = +rawValue === 0 ? 0 : rawValue
                     setSearchParams(
                       encodeSituation({
                         'projet . travaux': value,
