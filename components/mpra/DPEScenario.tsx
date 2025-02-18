@@ -6,6 +6,7 @@ import Image from 'next/image'
 import DPEQuickSwitch from '../DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import editIcon from '@/public/crayon.svg'
+import { Key } from '../explications/ExplicationUI'
 
 export default function DPEScenario({
   choice,
@@ -24,6 +25,9 @@ export default function DPEScenario({
     .evaluate('ménage . revenu . classe').nodeValue
 
   const isModeste = revenuClasseValue.includes('modeste')
+  const bonusSortiePassoire = engine
+    .setSituation(situation)
+    .evaluate('MPR . accompagnée . bonus').nodeValue
 
   return (
     <Card
@@ -188,15 +192,21 @@ export default function DPEScenario({
             `}
           >
             🥳 <strong>Bonne nouvelle</strong> : Vous êtes éligible à une aide
-            de 
+            de
             <Value
               {...{
                 engine,
                 situation,
-                dottedName: 'MPR . accompagnée . pourcent brut',
+                dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
             />
-             du coût de vos travaux avec un plafond de 
+            {bonusSortiePassoire && (
+              <>
+                (dont <strong>{bonusSortiePassoire} %</strong> de bonus Sortie
+                de passoire)
+              </>
+            )}
+             du coût de vos travaux avec un plafond de
             <Value
               {...{
                 engine,
@@ -204,7 +214,7 @@ export default function DPEScenario({
                 dottedName: 'projet . travaux . plafond',
               }}
             />
-             de travaux.
+            de travaux.
           </div>
           {isModeste && (
             <div
