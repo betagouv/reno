@@ -1,50 +1,52 @@
 import styled from 'styled-components'
 
 export const AmpleurWrapper = styled.div`
-  background: white;
+  border: 2px solid var(--color);
+  border-radius: 0.3rem;
+  max-width: 600px;
+  height: 100vh;
   padding: 1rem;
-  position: relative;
-  height: 100%;
-
   @media (min-width: 400px) {
-    > div {
-      padding-left: 4rem;
-    }
-    header,
-    footer {
-      margin-left: 4rem;
-    }
-    footer {
-      margin-top: 1rem;
-    }
+    padding: 1rem 1.6rem;
   }
-  > div {
-    max-width: 40rem;
-  }
-  header {
-    display: flex;
-    align-items: center;
-    gap: 4vw;
 
-    justify-content: space-between;
-    img {
+  overflow: scroll;
+  > div {
+    width: 100%;
+    height: 100%;
+    background: white;
+
+    @media (min-width: 400px) {
+      footer {
+        margin-top: 1rem;
+      }
     }
-  }
-  h2,
-  h3 {
-    font-size: 120%;
-    font-weight: 500;
-  }
-  h2 {
-    margin-top: 0.6rem;
-    margin-bottom: 0.8rem;
-    font-size: 130%;
-    font-weight: 600;
-  }
-  h3 {
-    margin-bottom: 0.6rem;
-    @media (max-width: 400px) {
-      margin-top: 0.6rem;
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+      img {
+        width: 5rem;
+        height: auto;
+      }
+    }
+    h1,
+    h2 {
+      font-size: 120%;
+      font-weight: 500;
+    }
+    h1 {
+      margin-top: 0.25rem;
+      margin-bottom: 0.5rem;
+      font-size: 130%;
+      font-weight: 600;
+    }
+    h2 {
+      margin-bottom: 0.6rem;
+      @media (max-width: 400px) {
+        margin-top: 0.6rem;
+      }
     }
   }
 `
