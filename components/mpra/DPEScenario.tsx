@@ -121,6 +121,7 @@ export default function DPEScenario({
                 max="999999"
                 onChange={(e) => {
                   const rawValue = e.target.value
+                  const startPos = e.target.selectionStart
                   const value = +rawValue === 0 ? 0 : rawValue
                   setSearchParams(
                     encodeSituation({
@@ -129,6 +130,12 @@ export default function DPEScenario({
                     'replace',
                     false,
                   )
+                  requestAnimationFrame(() => {
+                    const inputBudget =
+                      document.querySelector('#budget-travaux')
+                    inputBudget.selectionStart = startPos
+                    inputBudget.selectionEnd = startPos
+                  })
                 }}
                 step="100"
               />
