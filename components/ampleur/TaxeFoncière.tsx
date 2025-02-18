@@ -50,7 +50,7 @@ export default function TaxeFoncière({
       </p>
       {expanded && (
         <>
-          <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
+          <p dangerouslySetInnerHTML={{ __html: rule.commentFaireHtml }} />
         </>
       )}
     </AideAmpleur>
