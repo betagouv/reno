@@ -11,7 +11,7 @@
   marque: Aides locales
   description: |
     Certaines collectivités encouragent les démarches de rénovation énergétique avec des aides spécifiques, appelées aides locales. Ces aides peuvent être proposées à l'échelle de votre commune, communauté de communes, département, région).
-
+  type: remboursement
   avec:
     commune: 0 €
     intercommunalité: 0 €

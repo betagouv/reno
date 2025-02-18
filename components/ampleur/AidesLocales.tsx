@@ -10,6 +10,7 @@ import { Key } from '../explications/ExplicationUI'
 const levels = rules['aides locales . montant'].somme
 
 export default function AidesLocales({
+  isEligible,
   rules,
   situation,
   engine,
@@ -95,6 +96,7 @@ export default function AidesLocales({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,

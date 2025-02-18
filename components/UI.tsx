@@ -339,7 +339,7 @@ export const BlocAide = styled.div`
 `
 
 export const ConditionEligibiliteUI = ({ children }) => {
-  return (
+  return children && (
     <>
       <h2
         css={`
@@ -367,7 +367,7 @@ export const ConditionEligibiliteUI = ({ children }) => {
           __html: children,
         }}
       />
-    </>
+    </>,
   )
 }
 
