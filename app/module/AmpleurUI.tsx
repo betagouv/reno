@@ -18,7 +18,7 @@ export const AmpleurWrapper = styled.div`
   }
   &::-webkit-scrollbar-track {
     /* Background */
-    background: cyan;
+    background: transparent;
   }
 
   @media (min-width: 400px) {
