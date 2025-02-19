@@ -10,7 +10,15 @@ export const AmpleurWrapper = styled.div`
   &::-webkit-scrollbar {
     width: 3px; /* Mostly for vertical scrollbars */
     height: 0px; /* Mostly for horizontal scrollbars */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    /* Foreground */
     background: var(--color);
+  }
+  &::-webkit-scrollbar-track {
+    /* Background */
+    background: cyan;
   }
 
   @media (min-width: 400px) {
