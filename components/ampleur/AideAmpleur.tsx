@@ -7,7 +7,6 @@ import { createExampleSituation } from './AmpleurSummary'
 import { useEffect, useRef, useState } from 'react'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import { push } from '@socialgouv/matomo-next'
-import Value from '../Value'
 
 export default function AideAmpleur({
   isEligible,
@@ -19,11 +18,6 @@ export default function AideAmpleur({
   children,
   expanded,
 }) {
-  const isModeste = engine
-    .setSituation(situation)
-    .evaluate('ménage . revenu . classe')
-    .nodeValue.includes('modeste')
-
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenConseiller, setIsOpenConseiller] = useState(false)
   const contentRef = useRef(null)
@@ -75,29 +69,6 @@ export default function AideAmpleur({
               dottedName: dottedName + ' . montant',
             }}
           />
-          {isModeste &&
-            dottedName == 'MPR . accompagnée' && ( // Petite exception pour MPRA qui peut être de 2 formes
-              <span
-                css={`
-                  font-size: 1rem;
-                  em {
-                    padding: 0;
-                    min-width: 1rem;
-                  }
-                `}
-              >
-                {' '}
-                (dont{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'MPR . accompagnée . pourcentage avance',
-                  }}
-                />{' '}
-                d'avance)
-              </span>
-            )}
         </div>
         {!expanded && (
           <div
