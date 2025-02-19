@@ -7,7 +7,7 @@ export const AmpleurWrapper = styled.div`
   height: 100vh;
   padding: 1rem;
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 3px; /* Mostly for vertical scrollbars */
     height: 0px; /* Mostly for horizontal scrollbars */
     background: var(--color);
