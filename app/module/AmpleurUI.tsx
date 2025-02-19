@@ -6,6 +6,8 @@ export const AmpleurWrapper = styled.div`
   max-width: 600px;
   height: 100vh;
   padding: 1rem;
+
+  scrollbar-color: red;
   @media (min-width: 400px) {
     padding: 1rem 1.6rem;
   }
