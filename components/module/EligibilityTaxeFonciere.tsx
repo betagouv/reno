@@ -5,6 +5,7 @@ import {
   Li,
   PeriodeConstructionQuestion,
   QuestionList,
+  TypeResidence,
   YesNoQuestion,
 } from '@/app/module/AmpleurQuestions'
 import rules from '@/app/règles/rules'
@@ -79,8 +80,18 @@ export default function EligibilityTaxeFonciere({ dottedName }) {
         {situation['taxe foncière . commune . éligible'] == 'oui' && (
           <>
             <Li
+              $next={true}
+              $touched={answeredQuestions.includes(
+                'logement . résidence principale propriétaire',
+              )}
+            >
+              <TypeResidence
+                {...{ setSearchParams, situation, answeredQuestions }}
+              />
+            </Li>
+            <Li
               $next={answeredQuestions.includes(
-                'taxe foncière . commune . éligible',
+                'logement . résidence principale propriétaire',
               )}
               $touched={answeredQuestions.includes(
                 'logement . au moins 10 ans',
