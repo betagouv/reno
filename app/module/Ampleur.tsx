@@ -13,7 +13,6 @@ import {
 import useSetSearchParams from '@/components/useSetSearchParams'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import logo from '@/public/logo.svg'
-import marianne from '@/public/marianne-sans-devise.svg'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
@@ -30,7 +29,7 @@ import {
   RevenuQuestion,
   TypeResidence,
 } from './AmpleurQuestions'
-import { AmpleurWrapper } from './AmpleurUI'
+import { ModuleWrapper } from './ModuleWrapper'
 import UserData from './UserData'
 
 const engine = new Publicodes(rules)
@@ -124,89 +123,83 @@ export default function Ampleur() {
   const shouldDisplay = ampleurQuestionsAnswered(answeredQuestions)
 
   return (
-    <AmpleurWrapper>
-      <div>
-        <header>
-          <Image src={marianne} alt="Logo de la République Française" />
-          <h1>Vos aides pour une rénovation d'ampleur</h1>
-        </header>
-        <div>
-          <p>
-            L’État vous aide à financer votre rénovation énergétique : faites le
-            calcul !
-          </p>
-          <QuestionList>
-            <Li
-              key="typeResidence"
-              $next={true}
-              $touched={answeredQuestions.includes(
-                'logement . résidence principale propriétaire',
-              )}
-            >
-              <TypeResidence
-                {...{ setSearchParams, situation, answeredQuestions }}
-              />
-            </Li>
-            <Li
-              $next={answeredQuestions.includes(
-                'logement . résidence principale propriétaire',
-              )}
-              $touched={answeredQuestions.includes('ménage . région . IdF')}
-              key="IdF"
-            >
-              <IdFQuestion
-                {...{
-                  setSearchParams,
-                  isMobile,
-                  situation,
-                  answeredQuestions,
-                }}
-              />
-            </Li>
-            <Li
-              key="personnes"
-              $next={answeredQuestions.includes('ménage . région . IdF')}
-              $touched={answeredQuestions.includes('ménage . personnes')}
-            >
-              <PersonnesQuestion
-                {...{
-                  defaultSituation,
-                  onChange,
-                  answeredQuestions,
-                  situation,
-                }}
-              />
-            </Li>
-            <Li
-              key="revenu"
-              $next={answeredQuestions.includes('ménage . personnes')}
-              $touched={answeredQuestions.includes('ménage . revenu')}
-            >
-              <RevenuQuestion
-                {...{
-                  answeredQuestions,
-                  situation,
-                  engine,
-                  setSearchParams,
-                }}
-              />
-            </Li>
-          </QuestionList>
-          <UserData {...{ setSearchParams, situation }} />
-          <EvaluationValue
+    <ModuleWrapper
+      isMobile={isMobile}
+      title="Vos aides pour une rénovation d'ampleur"
+    >
+      <p>
+        L’État vous aide à financer votre rénovation énergétique : faites le
+        calcul !
+      </p>
+      <QuestionList>
+        <Li
+          key="typeResidence"
+          $next={true}
+          $touched={answeredQuestions.includes(
+            'logement . résidence principale propriétaire',
+          )}
+        >
+          <TypeResidence
+            {...{ setSearchParams, situation, answeredQuestions }}
+          />
+        </Li>
+        <Li
+          $next={answeredQuestions.includes(
+            'logement . résidence principale propriétaire',
+          )}
+          $touched={answeredQuestions.includes('ménage . région . IdF')}
+          key="IdF"
+        >
+          <IdFQuestion
             {...{
-              engine,
+              setSearchParams,
+              isMobile,
               situation,
-              shouldDisplay,
-              noDefaultSituation,
-              currentDPE,
-              targetDPE,
+              answeredQuestions,
             }}
           />
-        </div>
-        <FooterModule isMobile={isMobile} />
-      </div>
-    </AmpleurWrapper>
+        </Li>
+        <Li
+          key="personnes"
+          $next={answeredQuestions.includes('ménage . région . IdF')}
+          $touched={answeredQuestions.includes('ménage . personnes')}
+        >
+          <PersonnesQuestion
+            {...{
+              defaultSituation,
+              onChange,
+              answeredQuestions,
+              situation,
+            }}
+          />
+        </Li>
+        <Li
+          key="revenu"
+          $next={answeredQuestions.includes('ménage . personnes')}
+          $touched={answeredQuestions.includes('ménage . revenu')}
+        >
+          <RevenuQuestion
+            {...{
+              answeredQuestions,
+              situation,
+              engine,
+              setSearchParams,
+            }}
+          />
+        </Li>
+      </QuestionList>
+      <UserData {...{ setSearchParams, situation }} />
+      <EvaluationValue
+        {...{
+          engine,
+          situation,
+          shouldDisplay,
+          noDefaultSituation,
+          currentDPE,
+          targetDPE,
+        }}
+      />
+    </ModuleWrapper>
   )
 }
 
