@@ -19,9 +19,7 @@ export default function TaxeFonciere() {
           __html: rules[dottedName].descriptionHtml,
         }}
       />
-      <Card>
-        <EligibilityTaxeFonciere dottedName="taxe foncière" />
-      </Card>
+      <EligibilityTaxeFonciere dottedName="taxe foncière" />
       <ShareModule titre="taxe-fonciere" />
       <h2>Comment cela fonctionne?</h2>
       <div

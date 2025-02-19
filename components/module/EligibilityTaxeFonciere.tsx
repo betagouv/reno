@@ -17,12 +17,13 @@ import {
   getSituation,
 } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
-import { EligibiliyTitle } from '../UI'
-import { AmpleurWrapper } from '@/app/module/AmpleurUI'
+import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { useEffect } from 'react'
 import { push } from '@socialgouv/matomo-next'
+import { useMediaQuery } from 'usehooks-ts'
 
 export default function EligibilityTaxeFonciere({ dottedName }) {
+  const isMobile = useMediaQuery('(max-width: 400px)')
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module Taxe fonciere'])
   }, [])
@@ -39,10 +40,10 @@ export default function EligibilityTaxeFonciere({ dottedName }) {
     .evaluate(dottedName + ' . conditions')
 
   return (
-    <AmpleurWrapper>
-      <EligibiliyTitle>
-        Êtes-vous éligible à l'exonération de Taxe Foncière ?
-      </EligibiliyTitle>
+    <ModuleWrapper
+      isMobile={isMobile}
+      title="Êtes-vous éligible à l'exonération de Taxe Foncière ?"
+    >
       <QuestionList>
         <Li
           $next={true}
@@ -122,6 +123,6 @@ export default function EligibilityTaxeFonciere({ dottedName }) {
           text: "à l'exonération de taxe foncière",
         }}
       />
-    </AmpleurWrapper>
+    </ModuleWrapper>
   )
 }
