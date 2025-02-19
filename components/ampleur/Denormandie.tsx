@@ -9,6 +9,7 @@ import { Select } from '../InputUI'
 import { roundToThousands } from '../utils'
 
 export default function Denormandie({
+  isEligible,
   engine,
   situation,
   answeredQuestions,
@@ -34,9 +35,9 @@ export default function Denormandie({
   const communeName = situation['logement . commune . nom'],
     communeEligible = situation['logement . commune . denormandie']
 
-  const isEligible =
-    engine.setSituation(situation).evaluate('denormandie . montant')
-      .nodeValue !== false
+  const isSeuilTravauxAtteint = engine
+    .setSituation(situation)
+    .evaluate('denormandie . seuil travaux minimum').nodeValue
   return (
     <AideAmpleur
       {...{
@@ -165,11 +166,10 @@ export default function Denormandie({
                   engine,
                   situation,
                   dottedName: 'denormandie . taux',
-                  state: 'prime-black',
                 }}
               />{' '}
               du prix du bien
-              {isEligible && (
+              {isSeuilTravauxAtteint && (
                 <>
                   {' '}
                   soit un total de{' '}
@@ -178,7 +178,7 @@ export default function Denormandie({
                       engine,
                       situation,
                       dottedName: 'denormandie . montant',
-                      state: 'prime-black',
+                      state: 'prime',
                     }}
                   />{' '}
                   de réduction d'impôt étalée sur la durée de location
@@ -186,7 +186,7 @@ export default function Denormandie({
               )}
               .
             </p>
-            {!isEligible && (
+            {!isSeuilTravauxAtteint && (
               <MiseEnAvant $type="warning" $noradius={true}>
                 <h4
                   css={`
