@@ -22,9 +22,9 @@ MPR . accompagnée:
     - Pour réaliser les travaux vous devez faire appel à des artisans labellisés reconnu garant de l'environnement (RGE).
     - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
   description: |
-    Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux classes DPE.
+    Pour bénéficier de cette aide, vous devez viser un saut d’au moins deux classes DPE, effectuer des travaux d'isolation et ne pas garder un chauffage fonctionnant majoritairement au fioul. Vous serez conseillé par un professionnel agréé : Mon Accompagnateur Rénov'.
   description détaillé: |
-    L'aide principale en 2024 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
+    L'aide principale en 2025 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
 
     Vous serez <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov" target="_blank">accompagné</a>, pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
 
@@ -123,7 +123,7 @@ MPR . accompagnée . prise en charge MAR . plafond:
   note: Nous n'avons pas encore intégré les logements jugés indignes ou la précarité énergétique qui augmente le plafond à 4000 €
   valeur: 2000 €
 MPR . accompagnée . prise en charge MAR . prix moyen:
-  valeur: 4000 €
+  valeur: 1500 €
   description: |
     Comme expliqué sur la page [Mon Accompagnateur Rénov'](https://www.ecologie.gouv.fr/mon-accompagnateur-renov) du site du Ministère de l'Écologie : 
 

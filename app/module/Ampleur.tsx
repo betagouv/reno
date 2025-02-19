@@ -75,7 +75,7 @@ export default function Ampleur() {
   const targetDPE =
     +userSituation['projet . DPE visé'] || Math.max(currentDPE - 2, 1)
 
-  const extremeSituation = createExampleSituation(engine, {}, true)
+  const extremeSituation = createExampleSituation({}, 'best')
 
   const defaultSituation = {
     ...extremeSituation, // pour déclencher Denormandie, taxe foncière, etc

@@ -103,7 +103,7 @@ export default function Integration() {
       }),
     )
 
-  const iframeCode = `<iframe id="mesaidesreno" src="${getAppUrl() + module}" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
+  const iframeCode = `<iframe id="mesaidesreno" src="${getAppUrl() + module}" allow="clipboard-read; clipboard-write" style="width: 400px; height: 700px; margin: 3rem auto; display: block; border: 0.2rem solid black; border-radius: 1rem;"></iframe>`
 
   const iframeRef = useRef()
 

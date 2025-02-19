@@ -1,4 +1,4 @@
-# Aides et coût d'une rénovation thermique en 2024
+# Aides et coût d'une rénovation thermique en 2025
 
 > [!IMPORTANT]
 > 💡 Ce projet est en développement actif.
