@@ -62,9 +62,9 @@ export default function Page() {
               </strong>
             </div>
             <Labels>
-              {['⚡️ En 2024, les aides évoluent'].map((text) => (
-                <li key={text}>{text}</li>
-              ))}
+              <li key={'réno'}>
+                <span aria-hidden="true">⚡️</span> Rénovation Énergétique
+              </li>
             </Labels>
             <h1
               style={css`
