@@ -40,13 +40,11 @@ export default function PTZ() {
           />
         </div>
       </div>
-      <Card>
-        <EligibilityEcoPTZ
-          {...{
-            dottedName,
-          }}
-        />
-      </Card>
+      <EligibilityEcoPTZ
+        {...{
+          dottedName,
+        }}
+      />
       <ShareModule titre="eco-ptz" />
       <h2>Comment cela fonctionne?</h2>
       <div

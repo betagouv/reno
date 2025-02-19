@@ -100,7 +100,12 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
                   de{' '}
                 </strong>
                 {['denormandie', 'taxe foncière'].includes(dottedName) && (
-                  <>
+                  <span
+                    css={`
+                      display: block;
+                      margin: 0.5rem 0;
+                    `}
+                  >
                     <Key
                       $state="prime"
                       css={`
@@ -115,42 +120,42 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
                     {dottedName === 'taxe foncière' ? (
                       <>
                         de Taxe Foncière pendant{' '}
-                        <Key $state="in-progress">{dureeFormattee}</Key>
+                        <strong>{dureeFormattee}</strong>
                       </>
                     ) : (
                       <>
                         sur <Key $state="in-progress">{dureeFormattee}</Key>
                       </>
                     )}
-                  </>
+                  </span>
                 )}
                 {dottedName === 'denormandie' && (
                   <>
                     <small
                       css={`
                         display: block;
+                        margin: 0.5rem 0;
                       `}
                     >
-                      Détail: <Key $state="in-progress">{taux}</Key> du coût du
-                      bien{' '}
+                      Détail: <strong>{taux}</strong> du coût du bien{' '}
                       {engine.evaluate(dottedName + ' . assiette').nodeValue <
                       engine.evaluate(dottedName + ' . plafond').nodeValue ? (
                         <>
                           soit{' '}
-                          <Key $state="in-progress">
+                          <strong>
                             {formatValue(
                               engine.evaluate(dottedName + ' . assiette'),
                             )}
-                          </Key>
+                          </strong>
                         </>
                       ) : (
                         <>
                           plafonné à{' '}
-                          <Key $state="in-progress">
+                          <strong>
                             {formatValue(
                               engine.evaluate(dottedName + ' . plafond'),
                             )}
-                          </Key>
+                          </strong>
                         </>
                       )}
                     </small>
@@ -174,12 +179,9 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
                       >
                         {montantFormatte}
                       </Key>{' '}
-                      maximum
+                      maximum{' '}
+                      <small>sans intérêt pendant {dureeFormattee}</small>
                     </span>
-                    <small>
-                      sans intérêt pendant{' '}
-                      <Key $state="in-progress">{dureeFormattee}</Key>
-                    </small>
                   </>
                 )}
               </>
@@ -197,19 +199,26 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
                     : "Vous n'êtes"}{' '}
                   pas éligible {text}
                 </span>
-                <span>⚠️ Vous êtes peut-être éligible à d'autres aides!</span>
+                <span
+                  css={`
+                    display: inline-block;
+                    margin: 0.5rem 0;
+                  `}
+                >
+                  ⚠️ Vous êtes peut-être éligible à d'autres aides!
+                </span>
               </>
             )}
           </p>
-          <CTAWrapper $justify="left" $customCss="margin: 0 auto;">
-            <CTA $importance="primary" css="font-size: 100%;">
-              <AmpleurCTA situation={situation} />
-            </CTA>
-          </CTAWrapper>
         </div>
         {isEligible && ['PAR', 'PTZ'].includes(dottedName) && (
           <ComparatifPretConso {...{ engine, situation, montant, duree }} />
         )}
+        <CTAWrapper $justify="left" $customCss="margin: 0 auto;">
+          <CTA $importance="primary" css="font-size: 100%;">
+            <AmpleurCTA situation={situation} />
+          </CTA>
+        </CTAWrapper>
       </div>
     </>
   )

@@ -24,9 +24,7 @@ export default function Denormandie() {
           }}
         />
       </div>
-      <Card>
-        <EligibilityDenormandie dottedName="denormandie" />
-      </Card>
+      <EligibilityDenormandie dottedName="denormandie" />
       <ShareModule titre="denormandie" />
       <ConditionEligibiliteUI>
         {rules[dottedName].conditionsEligibilitesHTML}

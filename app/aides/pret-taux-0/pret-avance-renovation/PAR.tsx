@@ -30,9 +30,7 @@ export default function PAR() {
           <Image src={parImage} alt="logo PAR+" width="120" />
         </div>
       </div>
-      <Card>
-        <EligibilityPAR dottedName="PAR" />
-      </Card>
+      <EligibilityPAR dottedName="PAR" />
       <ShareModule titre="par" />
       <h2>Comment cela fonctionne?</h2>
       <div
