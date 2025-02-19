@@ -15,6 +15,16 @@ import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
 import simulationConfig from './simulationConfig.yaml'
 import { push } from '@socialgouv/matomo-next'
+import AideDetails from '@/components/AideDetails'
+import MPRA from '@/components/ampleur/MPRA'
+import AideMAR from '@/components/ampleur/AideMAR'
+import CEEAmpleur from '@/components/ampleur/CEEAmpleur'
+import Copro from '@/components/ampleur/Copro'
+import Denormandie from '@/components/ampleur/Denormandie'
+import EcoPTZ from '@/components/ampleur/EcoPTZ'
+import PAR from '@/components/ampleur/PAR'
+import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
+import AidesLocales from '@/components/ampleur/AidesLocales'
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
@@ -58,6 +68,35 @@ function Form({ rules }) {
 
   const setSearchParams = useSetSearchParams()
 
+  const correspondance = {
+    'MPR . accompagnée': MPRA,
+    'MPR . accompagnée . prise en charge MAR': AideMAR,
+    PTZ: EcoPTZ,
+    PAR: PAR,
+    'aides locales': AidesLocales,
+    'ampleur . prime individuelle copropriété': Copro,
+    'taxe foncière': TaxeFoncière,
+    denormandie: Denormandie,
+    "CEE . rénovation d'ampleur": CEEAmpleur,
+  }
+
+  if (searchParams['details']) {
+    return (
+      <AideDetails
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          correspondance,
+          nextQuestions,
+        }}
+      />
+    )
+  }
   return (
     <>
       {rule && (
@@ -71,6 +110,7 @@ function Form({ rules }) {
             engine,
             nextQuestions,
             searchParams,
+            correspondance,
           }}
         />
       )}

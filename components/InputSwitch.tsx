@@ -20,16 +20,6 @@ import RhetoricalQuestion from './RhetoricalQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
-import AideDetails from './AideDetails'
-import AideMAR from './ampleur/AideMAR'
-import AidesLocales from './ampleur/AidesLocales'
-import CEEAmpleur from './ampleur/CEEAmpleur'
-import Copro from './ampleur/Copro'
-import Denormandie from './ampleur/Denormandie'
-import EcoPTZ from './ampleur/EcoPTZ'
-import MPRA from './ampleur/MPRA'
-import PAR from './ampleur/PAR'
-import TaxeFoncière from './ampleur/TaxeFoncière'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -40,18 +30,8 @@ export default function InputSwitch({
   rules,
   nextQuestions,
   searchParams,
+  correspondance,
 }) {
-  const correspondance = {
-    'MPR . accompagnée': MPRA,
-    'MPR . accompagnée . prise en charge MAR': AideMAR,
-    PTZ: EcoPTZ,
-    PAR: PAR,
-    'aides locales': AidesLocales,
-    'ampleur . prime individuelle copropriété': Copro,
-    'taxe foncière': TaxeFoncière,
-    denormandie: Denormandie,
-    "CEE . rénovation d'ampleur": CEEAmpleur,
-  }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -304,24 +284,6 @@ export default function InputSwitch({
           answeredQuestions,
           setSearchParams,
           searchParams,
-        }}
-      />
-    )
-  }
-
-  if (searchParams['details']) {
-    return (
-      <AideDetails
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          correspondance,
-          nextQuestions,
         }}
       />
     )
