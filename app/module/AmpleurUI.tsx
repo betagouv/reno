@@ -8,6 +8,20 @@ export const AmpleurWrapper = styled.div`
   padding: 1rem;
 
   scrollbar-color: red;
+  &::-webkit-scrollbar {
+    width: 3px; /* Mostly for vertical scrollbars */
+    height: 3px; /* Mostly for horizontal scrollbars */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    /* Foreground */
+    background: chartreuse;
+  }
+  &::webkit-scrollbar-track {
+    /* Background */
+    background: blue;
+  }
+
   @media (min-width: 400px) {
     padding: 1rem 1.6rem;
   }
