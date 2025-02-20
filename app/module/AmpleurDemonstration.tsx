@@ -49,10 +49,6 @@ export default function AmpleurDemonstration() {
     '/module/integration?' +
     new URLSearchParams(iframeSearchParams).toString()
 
-  const iframeRef = useRef()
-
-  const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
-
   return (
     <section>
       <h2>Démonstration</h2>
@@ -159,7 +155,7 @@ export default function AmpleurDemonstration() {
         >
           {iframeCode(undefined, true)}
         </code>
-        <IntegrationQuestions {...{ noScroll, setNoScroll }} />
+        <IntegrationQuestions />
         <section
           css={`
             margin: auto;
@@ -168,7 +164,6 @@ export default function AmpleurDemonstration() {
           <h3>Le module de simulation que verra l'usager sur écran large</h3>
           <iframe
             src={iframeUrl}
-            ref={iframeRef}
             css={`
               border: none;
               margin: 3rem auto;

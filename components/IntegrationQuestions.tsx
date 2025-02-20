@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 import { IframeCodeWrapper } from './Integration'
 
-export default function IntegrationQuestions({ noScroll, setNoScroll }) {
+export default function IntegrationQuestions({
+  noScroll = null,
+  setNoScroll = null,
+}) {
   return (
     <Wrapper>
       <details>
@@ -21,35 +24,36 @@ export default function IntegrationQuestions({ noScroll, setNoScroll }) {
           </p>
         </div>
       </details>
-      <details>
-        <summary>Comment cacher la barre de défilement verticale ?</summary>
-        <div>
-          <p>
-            Si vous désirez supprimer la barre de défilement verticale, ce n'est
-            pas nécessaire mais c'est possible : l'iframe prendra alors une
-            hauteur dynamique en fonction de chaque page.
-          </p>
-          <label
-            css={`
-              display: flex;
-              align-items: center;
-              gap: 0.6rem;
-              padding: 0.6rem 0;
-            `}
-          >
-            <input
-              type="checkbox"
-              value={noScroll}
-              onChange={() => setNoScroll(!noScroll)}
-            />
-            <span>Tester le redimensionnement automatique</span>
-          </label>
-          <p>
-            Cela nécessite ce petit bout de code Javascript à ajouter de votre
-            côté sur votre page hôte.
-          </p>
-          <IframeCodeWrapper>
-            <code>{` 
+      {noScroll && setNoScroll && (
+        <details>
+          <summary>Comment cacher la barre de défilement verticale ?</summary>
+          <div>
+            <p>
+              Si vous désirez supprimer la barre de défilement verticale, ce
+              n'est pas nécessaire mais c'est possible : l'iframe prendra alors
+              une hauteur dynamique en fonction de chaque page.
+            </p>
+            <label
+              css={`
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                padding: 0.6rem 0;
+              `}
+            >
+              <input
+                type="checkbox"
+                value={noScroll}
+                onChange={() => setNoScroll(!noScroll)}
+              />
+              <span>Tester le redimensionnement automatique</span>
+            </label>
+            <p>
+              Cela nécessite ce petit bout de code Javascript à ajouter de votre
+              côté sur votre page hôte.
+            </p>
+            <IframeCodeWrapper>
+              <code>{` 
 
 <script>
     const handleHeightChange = function (evt) {
@@ -61,9 +65,10 @@ export default function IntegrationQuestions({ noScroll, setNoScroll }) {
     window.addEventListener('message', handleHeightChange)
 	</script>
 					  `}</code>
-          </IframeCodeWrapper>
-        </div>
-      </details>
+            </IframeCodeWrapper>
+          </div>
+        </details>
+      )}
     </Wrapper>
   )
 }

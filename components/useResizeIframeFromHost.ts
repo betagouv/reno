@@ -7,6 +7,7 @@ export default function useResizeIframeFromHost(iframeRef) {
 
     const handleHeightChange = function (evt) {
       if (evt.data.kind === 'mesaidesreno-resize-height') {
+        console.log('plop', evt.data.value)
         iframeRef.current.style.height = evt.data.value + 'px'
       }
     }
