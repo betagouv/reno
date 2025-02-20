@@ -11,6 +11,9 @@ import Schema from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
 import { BlueEm } from '../LandingUI'
+import IntegrationQuestions from '@/components/IntegrationQuestions'
+import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
+import { useRef } from 'react'
 
 const iframeCode = (
   src = 'https://mesaidesreno.beta.gouv.fr/module/integration',
@@ -45,6 +48,10 @@ export default function AmpleurDemonstration() {
     getAppUrl() +
     '/module/integration?' +
     new URLSearchParams(iframeSearchParams).toString()
+
+  const iframeRef = useRef()
+
+  const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
 
   return (
     <section>
@@ -152,6 +159,7 @@ export default function AmpleurDemonstration() {
         >
           {iframeCode(undefined, true)}
         </code>
+        <IntegrationQuestions {...{ noScroll, setNoScroll }} />
         <section
           css={`
             margin: auto;
@@ -160,6 +168,7 @@ export default function AmpleurDemonstration() {
           <h3>Le module de simulation que verra l'usager sur écran large</h3>
           <iframe
             src={iframeUrl}
+            ref={iframeRef}
             css={`
               border: none;
               margin: 3rem auto;

@@ -68,6 +68,7 @@ export default function IntegrationQuestions({ noScroll, setNoScroll }) {
   )
 }
 const Wrapper = styled.div`
+  margin-top: 1.8rem;
   details {
     margin: 0.2rem 0;
     summary {

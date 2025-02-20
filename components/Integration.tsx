@@ -14,6 +14,7 @@ import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styled from 'styled-components'
 import IntegrationQuestions from './IntegrationQuestions'
+import useResizeIframeFromHost from './useResizeIframeFromHost'
 
 export default function Integration() {
   const router = useRouter()
@@ -108,18 +109,7 @@ export default function Integration() {
 
   const iframeRef = useRef()
 
-  const [noScroll, setNoScroll] = useState(false)
-  useEffect(() => {
-    if (!noScroll) return
-
-    const handleHeightChange = function (evt) {
-      if (evt.data.kind === 'mesaidesreno-resize-height') {
-        iframeRef.current.style.height = evt.data.value + 'px'
-      }
-    }
-    window.addEventListener('message', handleHeightChange)
-    return () => window.removeEventListener('message', handleHeightChange)
-  }, [iframeRef, noScroll])
+  const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
 
   return (
     <PageBlock>
@@ -215,8 +205,6 @@ export default function Integration() {
                   {iframeCode}
                 </code>
               </IframeCodeWrapper>
-              <br />
-              <br />
               <IntegrationQuestions {...{ noScroll, setNoScroll }} />
               <h2>Le résultat</h2>
 
