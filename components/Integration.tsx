@@ -216,36 +216,57 @@ export default function Integration() {
               </IframeCodeWrapper>
               <br />
               <br />
-              <details>
-                <summary>
-                  Comment cacher la barre de défilement verticale ?
-                </summary>
-                <p>
-                  Si vous désirez supprimer la barre de défilement verticale, ce
-                  n'est pas nécessaire mais c'est possible : l'iframe prendra
-                  alors une hauteur dynamique en fonction de chaque page.
-                </p>
-                <label
-                  css={`
-                    display: flex;
-                    align-items: center;
-                    gap: 0.6rem;
-                    padding: 0.6rem 0;
-                  `}
-                >
-                  <input
-                    type="checkbox"
-                    value={noScroll}
-                    onChange={() => setNoScroll(!noScroll)}
-                  />
-                  <span>Tester le redimensionnement automatique</span>
-                </label>
-                <p>
-                  Cela nécessite ce petit bout de code Javascript à ajouter de
-                  votre côté sur votre page hôte.
-                </p>
-                <IframeCodeWrapper>
-                  <code>{` 
+              <IntegrationQuestions>
+                <details>
+                  <summary>
+                    Besoin d'un tutoriel pour l'intégration dans votre outil de
+                    gestion de contenu (Wordpress ou autre CMS) ?
+                  </summary>
+                  <div>
+                    <p>
+                      Certains outils vous permettent de coller le bloc HTML
+                      ci-dessus directement dans un article, et ça fonctionne.
+                    </p>
+                    <p>
+                      Pour d'autres, il faut intégrer un bloc spécial pour y
+                      intégrer ce bout de code. C'est le cas de Wordpress :
+                      ajoutez un "bloc HTML personnalisé" à partir de l'outil
+                      d'insertion de blocs.
+                    </p>
+                  </div>
+                </details>
+                <details>
+                  <summary>
+                    Comment cacher la barre de défilement verticale ?
+                  </summary>
+                  <div>
+                    <p>
+                      Si vous désirez supprimer la barre de défilement
+                      verticale, ce n'est pas nécessaire mais c'est possible :
+                      l'iframe prendra alors une hauteur dynamique en fonction
+                      de chaque page.
+                    </p>
+                    <label
+                      css={`
+                        display: flex;
+                        align-items: center;
+                        gap: 0.6rem;
+                        padding: 0.6rem 0;
+                      `}
+                    >
+                      <input
+                        type="checkbox"
+                        value={noScroll}
+                        onChange={() => setNoScroll(!noScroll)}
+                      />
+                      <span>Tester le redimensionnement automatique</span>
+                    </label>
+                    <p>
+                      Cela nécessite ce petit bout de code Javascript à ajouter
+                      de votre côté sur votre page hôte.
+                    </p>
+                    <IframeCodeWrapper>
+                      <code>{` 
 
 <script>
     const handleHeightChange = function (evt) {
@@ -257,8 +278,10 @@ export default function Integration() {
     window.addEventListener('message', handleHeightChange)
 	</script>
 					  `}</code>
-                </IframeCodeWrapper>
-              </details>
+                    </IframeCodeWrapper>
+                  </div>
+                </details>
+              </IntegrationQuestions>
               <h2>Le résultat</h2>
 
               <div
@@ -421,4 +444,16 @@ const IframeCodeWrapper = styled.div`
   padding: 0.2rem 0.6rem;
   border-radius: 0.4rem;
   border: 1px solid #eee;
+`
+
+const IntegrationQuestions = styled.div`
+  details {
+    margin: 0.2rem 0;
+    summary {
+      margin-bottom: 0.8rem;
+    }
+    summary + * {
+      margin-left: 1rem;
+    }
+  }
 `
