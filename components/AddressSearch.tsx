@@ -11,7 +11,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [immediateInput, setInput] = useState('')
 
   const [input] = useDebounce(immediateInput, 300)
-
+  const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
   const [clicked, setClicked] = useState(false)
   const validInput = input && input.length >= 3
@@ -33,6 +33,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
     if (onlyNumbers(input) && input.length !== 5) return
 
     const asyncFetch = async () => {
+      setIsLoading(true)
       const request = await fetch(
         onlyNumbers(input)
           ? `https://geo.api.gouv.fr/communes?codePostal=${input}`
@@ -47,6 +48,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
             .then((json) => ({ ...commune, eligibilite: json })),
         ),
       )
+      setIsLoading(false)
       setResults(enrichedResults)
     }
 
@@ -72,7 +74,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
       />
       {clicked && input && <p>Commune valide</p>}
       <CityList>
-        {validInput && !results && (
+        {isLoading && (
           <li
             css={`
               margin: 0.8rem 0;
@@ -91,7 +93,9 @@ export default function AddressSearch({ setChoice, situation, type }) {
                 color: #929292;
               `}
             >
-              Sélectionnez une ville
+              {results.length > 0
+                ? 'Sélectionnez une ville'
+                : 'Aucune ville trouvée'}
             </li>
             {results.map((result) => (
               <li
