@@ -11,6 +11,9 @@ import Schema from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
 import { BlueEm } from '../LandingUI'
+import IntegrationQuestions from '@/components/IntegrationQuestions'
+import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
+import { useRef } from 'react'
 
 const iframeCode = (
   src = 'https://mesaidesreno.beta.gouv.fr/module/integration',
@@ -152,6 +155,7 @@ export default function AmpleurDemonstration() {
         >
           {iframeCode(undefined, true)}
         </code>
+        <IntegrationQuestions />
         <section
           css={`
             margin: auto;

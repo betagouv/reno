@@ -325,7 +325,6 @@ export function AideMontant({ engine, situation, dottedName }) {
   )
 }
 export function AideDurée({ engine, situation, dottedName }) {
-  const rules = engine.getParsedRules()
   const duréeName =
     dottedName.replace(/\s.\smontant$/, ' . ') +
     (dottedName.includes('denormandie') ? 'années de location' : 'durée')
@@ -333,5 +332,12 @@ export function AideDurée({ engine, situation, dottedName }) {
 
   if (!duréeRule) return null
   const evaluation = engine.setSituation(situation).evaluate(duréeName)
-  return <span> de prêt sur {evaluation.nodeValue} ans</span>
+  return (
+    <span>
+      {rules[dottedName.replace(' . montant', '')].type == 'prêt' && (
+        <> de prêt</>
+      )}{' '}
+      sur {evaluation.nodeValue} ans
+    </span>
+  )
 }

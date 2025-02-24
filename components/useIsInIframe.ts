@@ -11,7 +11,7 @@ export default function useIsInIframe() {
     if (typeof window !== 'undefined' && window.self !== window.top) {
       setIsInIframe(true)
 
-      // The code below communicate with the iframe.js script on a host site
+      // The code below communicates with a script on a host site
       // to automatically resize the iframe when its inner content height
       // change.
       const minHeight = 700

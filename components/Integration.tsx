@@ -13,6 +13,8 @@ import { Select } from './InputUI'
 import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styled from 'styled-components'
+import IntegrationQuestions from './IntegrationQuestions'
+import useResizeIframeFromHost from './useResizeIframeFromHost'
 
 export default function Integration() {
   const router = useRouter()
@@ -107,18 +109,7 @@ export default function Integration() {
 
   const iframeRef = useRef()
 
-  const [noScroll, setNoScroll] = useState(false)
-  useEffect(() => {
-    if (!noScroll) return
-
-    const handleHeightChange = function (evt) {
-      if (evt.data.kind === 'mesaidesreno-resize-height') {
-        iframeRef.current.style.height = evt.data.value + 'px'
-      }
-    }
-    window.addEventListener('message', handleHeightChange)
-    return () => window.removeEventListener('message', handleHeightChange)
-  }, [iframeRef, noScroll])
+  const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
 
   return (
     <PageBlock>
@@ -214,51 +205,7 @@ export default function Integration() {
                   {iframeCode}
                 </code>
               </IframeCodeWrapper>
-              <br />
-              <br />
-              <details>
-                <summary>
-                  Comment cacher la barre de défilement verticale ?
-                </summary>
-                <p>
-                  Si vous désirez supprimer la barre de défilement verticale, ce
-                  n'est pas nécessaire mais c'est possible : l'iframe prendra
-                  alors une hauteur dynamique en fonction de chaque page.
-                </p>
-                <label
-                  css={`
-                    display: flex;
-                    align-items: center;
-                    gap: 0.6rem;
-                    padding: 0.6rem 0;
-                  `}
-                >
-                  <input
-                    type="checkbox"
-                    value={noScroll}
-                    onChange={() => setNoScroll(!noScroll)}
-                  />
-                  <span>Tester le redimensionnement automatique</span>
-                </label>
-                <p>
-                  Cela nécessite ce petit bout de code Javascript à ajouter de
-                  votre côté sur votre page hôte.
-                </p>
-                <IframeCodeWrapper>
-                  <code>{` 
-
-<script>
-    const handleHeightChange = function (evt) {
-      if (evt.data.kind === 'mesaidesreno-resize-height') {
-        document.querySelector('iframe#mesaidesreno').current.style.height = evt.data.value + 'px'
-      }
-    }
-
-    window.addEventListener('message', handleHeightChange)
-	</script>
-					  `}</code>
-                </IframeCodeWrapper>
-              </details>
+              <IntegrationQuestions {...{ noScroll, setNoScroll }} />
               <h2>Le résultat</h2>
 
               <div
@@ -416,7 +363,7 @@ export const ContactIntegration = ({ type }) => (
   </Wrapper>
 )
 
-const IframeCodeWrapper = styled.div`
+export const IframeCodeWrapper = styled.div`
   background: white;
   padding: 0.2rem 0.6rem;
   border-radius: 0.4rem;
