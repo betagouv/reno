@@ -301,6 +301,7 @@ export default function InputSwitch({
           situation,
           answeredQuestions,
           setSearchParams,
+          searchParams,
           questions: gestesMosaicQuestions,
         }}
       />
