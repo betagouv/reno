@@ -47,15 +47,14 @@ export default function CopyButton() {
           z-index: 100;
           border-radius: 5px;
           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-          min-width: 350px;
-          transform: translateX(calc(-115%)) translateY(-50px);
-
+          min-width: 330px;
+          transform: translateX(calc(-110%)) translateY(-50px);
           transition:
             transform 0.5s ease-in-out,
             opacity 0.5s ease-in-out;
           opacity: 0;
           ${open &&
-          `opacity: 1;transform: translateX(calc(-105%)) translateY(-50px);`}
+          `opacity: 1;transform: translateX(calc(-102%)) translateY(-50px);`}
           &::after {
             content: '';
             position: absolute;
@@ -84,7 +83,6 @@ export default function CopyButton() {
         >
           x
         </button>
-
         <Share />
       </div>
     </>

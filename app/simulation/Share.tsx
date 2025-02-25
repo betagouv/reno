@@ -1,7 +1,7 @@
-import { CTA, CTAWrapper, Section } from '@/components/UI'
+import { CTA, CTAWrapper } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Share() {
   const isMobile = window.innerWidth <= 600
@@ -68,9 +68,6 @@ export default function Share() {
                 background: rgba(190, 242, 197, 0.2);
                 border: 1px dashed var(--validColor);
               `}
-              @media (max-width: 600px) {
-                width: 100%;
-              }
             `}
             $fontSize="normal"
             title="Cliquez pour partager le lien"
@@ -101,6 +98,7 @@ export default function Share() {
             css={`
               display: flex;
               align-items: center;
+              justify-content: space-between;
             `}
           >
             <input
