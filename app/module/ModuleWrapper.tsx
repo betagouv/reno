@@ -10,11 +10,26 @@ export const ModuleWrapper = ({ children, isMobile, title }) => (
       max-width: 600px;
       height: 100vh;
       padding: 1rem;
+      scrollbar-color: var(--color) transparent;
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+        width: 3px; /* Mostly for vertical scrollbars */
+        height: 0px; /* Mostly for horizontal scrollbars */
+      }
+
+      &::-webkit-scrollbar-thumb {
+        /* Foreground */
+        background: var(--color);
+      }
+      &::-webkit-scrollbar-track {
+        /* Background */
+        background: transparent;
+      }
       @media (min-width: 400px) {
         padding: 1rem 1.6rem;
       }
 
-      overflow: scroll;
+      overflow: auto;
       > div {
         width: 100%;
         height: 100%;
