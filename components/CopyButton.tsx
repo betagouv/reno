@@ -10,7 +10,11 @@ export default function CopyButton() {
   const [open, setOpen] = useState(false)
 
   return (
-    <>
+    <div
+      css={`
+        position: relative;
+      `}
+    >
       <CTAWrapper
         css={`
           margin: 0;
@@ -48,13 +52,15 @@ export default function CopyButton() {
           border-radius: 5px;
           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
           min-width: 330px;
-          transform: translateX(calc(-110%)) translateY(-50px);
+          left: auto;
+          right: 100%;
+          margin-right: 7px;
+          transform: translateY(-50px);
           transition:
             transform 0.5s ease-in-out,
             opacity 0.5s ease-in-out;
           opacity: 0;
-          ${open &&
-          `opacity: 1;transform: translateX(calc(-102%)) translateY(-50px);`}
+          ${open && `opacity: 1;transform: translateY(-50px);`}
           &::after {
             content: '';
             position: absolute;
@@ -85,6 +91,6 @@ export default function CopyButton() {
         </button>
         <Share />
       </div>
-    </>
+    </div>
   )
 }
