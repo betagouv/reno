@@ -47,13 +47,15 @@ export default function CopyButton() {
           z-index: 100;
           border-radius: 5px;
           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-          min-width: 200px;
-          transform: translateX(120%);
+          min-width: 350px;
+          transform: translateX(calc(-115%)) translateY(-50px);
+
           transition:
             transform 0.5s ease-in-out,
             opacity 0.5s ease-in-out;
           opacity: 0;
-          ${open && `opacity: 1;transform: translateX(114%);`}
+          ${open &&
+          `opacity: 1;transform: translateX(calc(-105%)) translateY(-50px);`}
           &::after {
             content: '';
             position: absolute;
