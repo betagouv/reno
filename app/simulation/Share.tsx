@@ -4,6 +4,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
 
 export default function Share() {
+  const isMobile = window.innerWidth <= 600
   const pathname = usePathname(),
     searchParams = useSearchParams()
 
@@ -14,6 +15,23 @@ export default function Share() {
   useEffect(() => {
     setCopied(false)
   }, [searchParams])
+
+  const share = async () => {
+    try {
+      await navigator.share({
+        title: 'Simulation MesAidesRéno',
+        text: "Simulation d'aide à la rénovation énergétique",
+        url:
+          'https://mesaidesreno.beta.gouv.fr' +
+          pathname +
+          '?' +
+          searchParamsString,
+      })
+      setCopied(true)
+    } catch (error) {
+      console.error('Failed to copy:', error)
+    }
+  }
 
   const copyToClipboard = async () => {
     try {
@@ -29,11 +47,8 @@ export default function Share() {
   }
 
   return (
-    <Section>
-      <p>
-        Pour ne pas perdre votre simulation en cours, sauvegardez-la en cliquant
-        ici :
-      </p>
+    <>
+      <p>Partagez votre simulation en cliquant ici :</p>
       <form
         css={`
           text-align: center;
@@ -61,7 +76,7 @@ export default function Share() {
             title="Cliquez pour partager le lien"
             onClick={() => {
               push(['trackEvent', 'Partage', 'Clic'])
-              copyToClipboard()
+              isMobile && navigator.share ? share() : copyToClipboard()
             }}
           >
             <span
@@ -99,6 +114,6 @@ export default function Share() {
           </div>
         )}
       </form>
-    </Section>
+    </>
   )
 }
