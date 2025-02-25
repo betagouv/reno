@@ -48,7 +48,7 @@ export default function Share() {
 
   return (
     <>
-      <p>Partagez votre simulation en cliquant ici :</p>
+      <p>Partagez la simulation en cliquant ici :</p>
       <form
         css={`
           text-align: center;
@@ -97,7 +97,12 @@ export default function Share() {
           </CTA>
         </CTAWrapper>
         {searchParamsString && (
-          <div>
+          <div
+            css={`
+              display: flex;
+              align-items: center;
+            `}
+          >
             <input
               type="checkbox"
               id="withAnswers"
@@ -109,7 +114,7 @@ export default function Share() {
               }}
             />{' '}
             <label htmlFor="withAnswers">
-              Partager mes données de simulation
+              Intégrer mes données de simulation
             </label>
           </div>
         )}

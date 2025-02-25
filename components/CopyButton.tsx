@@ -50,8 +50,8 @@ export default function CopyButton() {
           min-width: 200px;
           transform: translateX(120%);
           transition:
-            transform 1s ease-in-out,
-            opacity 1s ease-in-out;
+            transform 0.5s ease-in-out,
+            opacity 0.5s ease-in-out;
           opacity: 0;
           ${open && `opacity: 1;transform: translateX(114%);`}
           &::after {
