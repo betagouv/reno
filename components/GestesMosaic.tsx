@@ -12,6 +12,7 @@ import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
 import { AvanceTMO } from './mprg/BlocAideMPR'
+import CopyButton from './CopyButton'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -36,6 +37,7 @@ export default function GestesMosaic({
   setSearchParams,
   situation,
   answeredQuestions,
+  searchParams,
   questions,
   engine,
 }) {
@@ -102,13 +104,21 @@ export default function GestesMosaic({
   return (
     <Section>
       <CustomQuestionWrapper>
-        <BtnBackToParcoursChoice
-          {...{
-            setSearchParams,
-            situation: omit(["parcours d'aide"], situation),
-            answeredQuestions,
-          }}
-        />
+        <div
+          css={`
+            display: flex;
+            justify-content: space-between;
+          `}
+        >
+          <BtnBackToParcoursChoice
+            {...{
+              setSearchParams,
+              situation: omit(["parcours d'aide"], situation),
+              answeredQuestions,
+            }}
+          />
+          <CopyButton searchParams={searchParams} />
+        </div>
         <header>
           <small>Les aides à la carte</small>
           <h2>Quels travaux souhaitez-vous entreprendre ?</h2>

@@ -2,11 +2,10 @@ import { styled } from 'styled-components'
 
 export const QuestionHeader = styled.header`
   display: flex;
-  flex-wrap: wrap;
   align-items: start;
-  flex-direction: column;
+  justify-content: space-between;
   margin: 0.4rem 0rem;
-  > small {
+  div > small {
     color: var(--color);
     font-weight: 600;
   }

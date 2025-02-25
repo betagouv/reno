@@ -16,7 +16,6 @@ import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
-import RhetoricalQuestion from './RhetoricalQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
@@ -119,31 +118,6 @@ export default function InputSwitch({
               answeredQuestions,
             )
             setSearchParams(encodedSituation, 'replace', false)
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-  if (rule.type === 'question rhétorique')
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <RhetoricalQuestion
-          {...{
-            effect: () => setSearchParams({ [currentQuestion]: 'oui' }),
-            situation,
-            answeredQuestions,
-            html: rule.descriptionHtml,
           }}
         />
       </ClassicQuestionWrapper>
@@ -301,6 +275,7 @@ export default function InputSwitch({
           situation,
           answeredQuestions,
           setSearchParams,
+          searchParams,
           questions: gestesMosaicQuestions,
         }}
       />

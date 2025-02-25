@@ -11,6 +11,7 @@ import BackToLastQuestion from './BackToLastQuestion'
 import { useAides } from './ampleur/useAides'
 import { Main, PageBlock, Section } from './UI'
 import { push } from '@socialgouv/matomo-next'
+import CopyButton from './CopyButton'
 
 export default function Eligibility({
   setSearchParams,
@@ -48,9 +49,17 @@ export default function Eligibility({
         engine={engine}
       />
       <CustomQuestionWrapper>
-        <BackToLastQuestion
-          {...{ setSearchParams, situation, answeredQuestions }}
-        />
+        <div
+          css={`
+            display: flex;
+            justify-content: space-between;
+          `}
+        >
+          <BackToLastQuestion
+            {...{ setSearchParams, situation, answeredQuestions }}
+          />
+          <CopyButton searchParams={searchParams} />
+        </div>
         <header>
           <small>Eligibilité</small>
           <h2

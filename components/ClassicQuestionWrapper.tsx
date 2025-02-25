@@ -15,6 +15,7 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
+import CopyButton from './CopyButton'
 
 export const QuestionText = ({
   rule,
@@ -83,30 +84,35 @@ export default function ClassicQuestionWrapper({
           margin: 0 auto;
         `}
       >
-        {(!rule.type || !rule.type === 'question rhétorique') && (
+        {!rule.type && (
           <QuestionHeader>
-            <small>{categoryTitle}</small>
-            <QuestionText
-              {...{
-                rule,
-                question: currentQuestion,
-                rules,
-                situation,
-                engine,
-              }}
-            />
-            {rule['sous-titre'] && (
-              <div
-                css={`
-                  p {
-                    color: #666;
-                    font-size: 90%;
-                    line-height: 1.25rem;
-                  }
-                `}
-                dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-              ></div>
-            )}
+            <div>
+              <small>{categoryTitle}</small>
+              <QuestionText
+                {...{
+                  rule,
+                  question: currentQuestion,
+                  rules,
+                  situation,
+                  engine,
+                }}
+              />
+              {rule['sous-titre'] && (
+                <div
+                  css={`
+                    p {
+                      color: #666;
+                      font-size: 90%;
+                      line-height: 1.25rem;
+                    }
+                  `}
+                  dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+                ></div>
+              )}
+            </div>
+            <div>
+              <CopyButton searchParams={searchParams} />
+            </div>
           </QuestionHeader>
         )}
         <AnswerWrapper>
@@ -157,7 +163,6 @@ export default function ClassicQuestionWrapper({
           }}
         />
         <br />
-        <Share searchParams={searchParams} />
         <UserProblemBanner />
       </div>
     </>
