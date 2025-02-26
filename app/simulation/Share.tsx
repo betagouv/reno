@@ -1,9 +1,10 @@
-import { CTA, CTAWrapper, Section } from '@/components/UI'
+import { CTA, CTAWrapper } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Share() {
+  const isMobile = window.innerWidth <= 600
   const pathname = usePathname(),
     searchParams = useSearchParams()
 
@@ -14,6 +15,23 @@ export default function Share() {
   useEffect(() => {
     setCopied(false)
   }, [searchParams])
+
+  const share = async () => {
+    try {
+      await navigator.share({
+        title: 'Simulation MesAidesRéno',
+        text: "Simulation d'aide à la rénovation énergétique",
+        url:
+          'https://mesaidesreno.beta.gouv.fr' +
+          pathname +
+          '?' +
+          searchParamsString,
+      })
+      setCopied(true)
+    } catch (error) {
+      console.error('Failed to copy:', error)
+    }
+  }
 
   const copyToClipboard = async () => {
     try {
@@ -29,11 +47,8 @@ export default function Share() {
   }
 
   return (
-    <Section>
-      <p>
-        Pour ne pas perdre votre simulation en cours, sauvegardez-la en cliquant
-        ici :
-      </p>
+    <>
+      <p>Partagez la simulation en cliquant ici :</p>
       <form
         css={`
           text-align: center;
@@ -53,15 +68,12 @@ export default function Share() {
                 background: rgba(190, 242, 197, 0.2);
                 border: 1px dashed var(--validColor);
               `}
-              @media (max-width: 600px) {
-                width: 100%;
-              }
             `}
             $fontSize="normal"
             title="Cliquez pour partager le lien"
             onClick={() => {
               push(['trackEvent', 'Partage', 'Clic'])
-              copyToClipboard()
+              isMobile && navigator.share ? share() : copyToClipboard()
             }}
           >
             <span
@@ -82,7 +94,13 @@ export default function Share() {
           </CTA>
         </CTAWrapper>
         {searchParamsString && (
-          <div>
+          <div
+            css={`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            `}
+          >
             <input
               type="checkbox"
               id="withAnswers"
@@ -94,11 +112,11 @@ export default function Share() {
               }}
             />{' '}
             <label htmlFor="withAnswers">
-              Partager mes données de simulation
+              Intégrer mes données de simulation
             </label>
           </div>
         )}
       </form>
-    </Section>
+    </>
   )
 }
