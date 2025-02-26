@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
 import EligibilityEcoPTZ from '@/components/module/EligibilityEcoPTZ'
-import { FooterModule } from '../FooterModule'
 
 export default function ModuleEcoPTZ() {
   return (
@@ -10,7 +9,6 @@ export default function ModuleEcoPTZ() {
           dottedName: 'PTZ',
         }}
       />
-      <FooterModule />
     </Suspense>
   )
 }
