@@ -1,5 +1,5 @@
+'use client'
 import PageErreur from '@/components/PageErreur'
-
-export default function NotFound() {
+export default function Error() {
   return <PageErreur />
 }
