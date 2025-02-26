@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import logo404 from '@/public/logo404.png'
 
-export default function PageErreur() {
+export default function PageErreur({ codeErreur }) {
   return (
     <Main>
       <Section>
@@ -20,8 +20,9 @@ export default function PageErreur() {
             <h1>Oups, cette page est mal isolée !</h1>
             <p>
               Il semblerait qu'un pont thermique se soit glissé dans notre
-              maison… Résultat : cette page s'est évaporée dans la nature !
+              maison… (Erreur {codeErreur})
             </p>
+            <p> Résultat : cette page s'est évaporée dans la nature !</p>
             <p> Ce que vous pouvez faire :</p>
             <ul
               css={`
@@ -35,8 +36,8 @@ export default function PageErreur() {
                 trop d'énergie ne se perde.
               </li>
               <li>
-                <Link href="/contact">Contacter l'artisan</Link> pour lui
-                expliquer votre problème
+                <Link href="/contact">Contactez-nous</Link>. Un artisan du code
+                vous viendra en aide.
               </li>
             </ul>
             <br />
