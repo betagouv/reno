@@ -56,11 +56,8 @@ export default function CopyButton() {
           right: 100%;
           margin-right: 7px;
           transform: translateY(-50px);
-          transition:
-            transform 0.5s ease-in-out,
-            opacity 0.5s ease-in-out;
-          opacity: 0;
-          ${open && `opacity: 1;transform: translateY(-50px);`}
+          display: none;
+          ${open && `display: block;`}
           &::after {
             content: '';
             position: absolute;
