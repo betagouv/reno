@@ -8,8 +8,8 @@ import { BlueEm, HeaderWrapper } from '../LandingUI'
 import AmpleurDemonstration from './AmpleurDemonstration'
 import { Suspense } from 'react'
 export const metadata: Metadata = {
-  title: 'Module passoire thermique - Mes aides réno',
-  description: `Découvrez le module de calcul "passoire thermique" de Mes Aides Réno"`,
+  title: "Module d'aide à la rénovation énergétique - Mes aides réno",
+  description: `Découvrez le module de calcul des aides à la rénovation énergétique de Mes Aides Réno"`,
 }
 
 export default function Module({}) {
@@ -34,8 +34,8 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Module de calcul</BlueEm> d'aide pour un achat de passoire
-              thermique
+              <BlueEm>Module de calcul</BlueEm> des aides à la rénovation
+              énergétique
             </h1>
             <Intro>
               <p>
