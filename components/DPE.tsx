@@ -6,7 +6,7 @@ import data from './DPE.yaml'
 export default function DPE({
   letter,
   newLetter,
-  onClick,
+  onClick = undefined,
   avecGES = false,
   gesLetter = undefined,
 }) {
@@ -26,9 +26,9 @@ export default function DPE({
             <Li
               key={el.lettre}
               $selected={el.lettre === letter}
-              onClick={() => onClick(index)}
+              onClick={() => onClick && onClick(index)}
             >
-              <input type="radio" checked={el.lettre === letter} />
+              {onClick && <input type="radio" checked={el.lettre === letter} />}
               <Bar
                 $background={el.couleur}
                 $index={index}
@@ -55,52 +55,65 @@ export default function DPE({
         </ul>
       </Bars>
       {avecGES && (
-        <Bars>
-          <ul>
-            {data.map((el, index) => {
-              const color = el['couleur GES']
-              return (
-                <Li
-                  key={el.lettre}
-                  $selected={el.lettre === gesLetter}
-                  onClick={() => onClick(index)}
-                >
-                  <input type="radio" checked={el.lettre === letter} />
-                  <Bar
-                    $background={color}
-                    $index={index}
-                    $selected={el.lettre === letter}
-                    $selected2={el.lettre === newLetter}
+        <GESWrapper>
+          <Bars>
+            <ul>
+              {data.map((el, index) => {
+                const color = el['couleur GES']
+                return (
+                  <Li
+                    $size={sizeGES}
+                    key={el.lettre}
+                    $selected={el.lettre === gesLetter}
                   >
-                    {' '}
-                    <span>{el.lettre}</span>
-                    <small>
-                      {el.lettre === letter
-                        ? 'Votre DPE'
-                        : el.lettre === newLetter
-                          ? 'visé'
-                          : ''}
-                    </small>
-                  </Bar>
-                  <SemiRound
-                    background={color}
-                    selected={el.lettre === letter}
-                    selected2={el.lettre === newLetter}
-                  />
-                </Li>
-              )
-            })}
-          </ul>
-        </Bars>
+                    {onClick && (
+                      <input type="radio" checked={el.lettre === letter} />
+                    )}
+                    <Bar
+                      $size={sizeGES}
+                      $background={color}
+                      $index={index}
+                      $selected={el.lettre === letter}
+                      $selected2={el.lettre === newLetter}
+                    >
+                      {' '}
+                      <span>{el.lettre}</span>
+                      <small>
+                        {el.lettre === letter
+                          ? 'Votre DPE'
+                          : el.lettre === newLetter
+                            ? 'visé'
+                            : ''}
+                      </small>
+                    </Bar>
+                    <SemiRound
+                      background={color}
+                      selected={el.lettre === letter}
+                      selected2={el.lettre === newLetter}
+                    />
+                  </Li>
+                )
+              })}
+            </ul>
+          </Bars>
+        </GESWrapper>
       )}
     </Section>
   )
 }
 
+const sizeGES = '1.6rem'
+
 const Section = styled.section`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 2rem;
+`
+const GESWrapper = styled.div`
+  border: 3px solid #a5dbfa;
+  border-radius: 1rem;
+  padding: 0.8rem;
 `
 
 const Bars = styled.div`
@@ -114,8 +127,8 @@ const Li = styled.li`
   display: flex;
   align-items: center;
   svg {
-    width: ${size};
-    height: ${size};
+    width: ${(p) => p.$size || size};
+    height: ${(p) => p.$size || size};
   }
   input {
     margin-right: 0.6rem;
@@ -135,7 +148,7 @@ const Bar = styled.label`
     font-weight: bold;
     font-size: 150%;
     margin-right: 0.6rem;
-    line-height: ${size};
+    line-height: ${(p) => p.$size || size};
   }
   small {
     font-size: 80%;
@@ -143,7 +156,7 @@ const Bar = styled.label`
     text-shadow: 1px 1px 2px black;
   }
 
-  height: ${size};
+  height: ${(p) => p.$size || size};
   border: ${(p) =>
     p.$selected
       ? `2px solid var(--color)`
