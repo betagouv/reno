@@ -14,6 +14,7 @@ import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import simulationConfigCopropriete from '../../app/copropriete/simulationConfigCopro.yaml'
 import ExplicationCopropriete from './ExplicationCopropriete'
+import { Main, Section } from '../UI'
 
 export default function Copropriete() {
   useSyncUrlLocalStorage()
@@ -48,34 +49,36 @@ export default function Copropriete() {
   const setSearchParams = useSetSearchParams()
 
   return (
-    <>
-      {rule ? (
-        <InputSwitch
-          {...{
-            rules,
-            currentQuestion,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            engine,
-            nextQuestions,
-            searchParams,
-          }}
-        />
-      ) : (
-        <ExplicationCopropriete
-          {...{
-            rules,
-            currentQuestion,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            engine,
-            nextQuestions,
-            searchParams,
-          }}
-        />
-      )}
-    </>
+    <Main>
+      <Section>
+        {rule ? (
+          <InputSwitch
+            {...{
+              rules,
+              currentQuestion,
+              situation,
+              answeredQuestions,
+              setSearchParams,
+              engine,
+              nextQuestions,
+              searchParams,
+            }}
+          />
+        ) : (
+          <ExplicationCopropriete
+            {...{
+              rules,
+              currentQuestion,
+              situation,
+              answeredQuestions,
+              setSearchParams,
+              engine,
+              nextQuestions,
+              searchParams,
+            }}
+          />
+        )}
+      </Section>
+    </Main>
   )
 }
