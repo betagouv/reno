@@ -1,7 +1,6 @@
+import data from '@/components/DPE.yaml'
 import DPE from './DPE'
 import { encodeSituation } from './publicodes/situationUtils'
-import data from '@/components/DPE.yaml'
-import css from './css/convertToJs'
 
 export default function DPESelector({
   setSearchParams,
