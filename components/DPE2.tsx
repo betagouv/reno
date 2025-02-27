@@ -3,53 +3,105 @@ import { styled } from 'styled-components'
 import css from './css/convertToJs'
 import data from './DPE.yaml'
 
-export default function DPE({ letter, newLetter, onClick }) {
+export default function DPE({
+  letter,
+  newLetter,
+  onClick,
+  avecGES = false,
+  gesLetter = undefined,
+}) {
   /*
-		 *
+   * data's format
 - énergie: 420
   climat: 100
   couleur: '#d7221f'
   lettre: G
-		 * */
+*/
 
-  const found = data.find((el) => el.letter === letter)
   return (
-    <Bars>
-      <ul>
-        {data.map((el, index) => (
-          <Li
-            key={el.lettre}
-            $selected={el.lettre === letter}
-            onClick={() => onClick(index)}
-          >
-            <input type="radio" checked={el.lettre === letter} />
-            <Bar
-              $background={el.couleur}
-              $index={index}
+    <Section>
+      <Bars>
+        <ul>
+          {data.map((el, index) => (
+            <Li
+              key={el.lettre}
               $selected={el.lettre === letter}
-              $selected2={el.lettre === newLetter}
+              onClick={() => onClick(index)}
             >
-              {' '}
-              <span>{el.lettre}</span>
-              <small>
-                {el.lettre === letter
-                  ? 'Votre DPE'
-                  : el.lettre === newLetter
-                    ? 'visé'
-                    : ''}
-              </small>
-            </Bar>
-            <Triangle
-              background={el.couleur}
-              selected={el.lettre === letter}
-              selected2={el.lettre === newLetter}
-            />
-          </Li>
-        ))}
-      </ul>
-    </Bars>
+              <input type="radio" checked={el.lettre === letter} />
+              <Bar
+                $background={el.couleur}
+                $index={index}
+                $selected={el.lettre === letter}
+                $selected2={el.lettre === newLetter}
+              >
+                {' '}
+                <span>{el.lettre}</span>
+                <small>
+                  {el.lettre === letter
+                    ? 'Votre DPE'
+                    : el.lettre === newLetter
+                      ? 'visé'
+                      : ''}
+                </small>
+              </Bar>
+              <Triangle
+                background={el.couleur}
+                selected={el.lettre === letter}
+                selected2={el.lettre === newLetter}
+              />
+            </Li>
+          ))}
+        </ul>
+      </Bars>
+      {avecGES && (
+        <Bars>
+          <ul>
+            {data.map((el, index) => {
+              const color = el['couleur GES']
+              return (
+                <Li
+                  key={el.lettre}
+                  $selected={el.lettre === gesLetter}
+                  onClick={() => onClick(index)}
+                >
+                  <input type="radio" checked={el.lettre === letter} />
+                  <Bar
+                    $background={color}
+                    $index={index}
+                    $selected={el.lettre === letter}
+                    $selected2={el.lettre === newLetter}
+                  >
+                    {' '}
+                    <span>{el.lettre}</span>
+                    <small>
+                      {el.lettre === letter
+                        ? 'Votre DPE'
+                        : el.lettre === newLetter
+                          ? 'visé'
+                          : ''}
+                    </small>
+                  </Bar>
+                  <SemiRound
+                    background={color}
+                    selected={el.lettre === letter}
+                    selected2={el.lettre === newLetter}
+                  />
+                </Li>
+              )
+            })}
+          </ul>
+        </Bars>
+      )}
+    </Section>
   )
 }
+
+const Section = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+`
 
 const Bars = styled.div`
   ul {
@@ -135,6 +187,41 @@ const Triangle = ({ background, selected, selected2 }) => (
 
   
 		  `)}
+    />
+  </svg>
+)
+
+const SemiRound = ({ background, selected, selected2 }) => (
+  <svg
+    viewBox="0 0 400 400"
+    style={css(`
+
+  margin-left: -1px
+		  `)}
+  >
+    <path
+      style={css(`
+
+  fill: ${background};
+  ${
+    selected
+      ? `
+  stroke-width: 20px;
+  stroke: var(--color);
+  `
+      : selected2
+        ? `
+  stroke-width: 20px;
+  stroke-dasharray: 55;
+  stroke: var(--color);
+
+		  `
+        : ``
+  }
+
+  
+		  `)}
+      d="M 0.02153,0.18293901 V 398.82896 c 0,0 180.20833,-4.3195 180.20833,-199.39978 C 180.22986,4.2041291 0.02153,0.18293901 0.02153,0.18293901 Z"
     />
   </svg>
 )
