@@ -3,16 +3,19 @@ export const timeIsRunningOut = (to) => {
   const now = new Date()
   const months = monthDiff(now, toDate)
 
-  if (months < 12) return months + ' mois'
-  if (months < 12 + 3) return '1 an'
-  if (months < 12 + 8) return '1 an et demi'
-  if (months < 12 + 12) return 'moins de 2 ans'
+  const monthsAbs = Math.abs(months)
 
-  const years = Math.floor(months / 12),
-    reminder = months % 12
-  if (years > 8) return years + ' ans'
-  if (reminder > 6) return `moins de ${years + 1} ans`
-  return `${years} ans`
+  const prefix = months < 0 ? 'Depuis' : 'Dans'
+  if (months < 12) return `${prefix} ${monthsAbs} mois`
+  if (months < 12 + 3) return `${prefix} 1 an`
+  if (months < 12 + 8) return `${prefix} 1 an et demi`
+  if (months < 12 + 12) return `${prefix} moins de 2 ans`
+
+  const years = Math.floor(monthsAbs / 12),
+    reminder = monthsAbs % 12
+  if (years > 8) return `${prefix} ${years} ans`
+  if (reminder > 6) return `${prefix} moins de ${years + 1} ans`
+  return `${prefix} ${years} ans`
 }
 
 function monthDiff(dateFrom, dateTo) {

@@ -11,7 +11,7 @@ export default function InterdictionTable() {
                 Au 1er janvier <strong>2025</strong>
               </div>
               <TimeIndication>
-                (dans {timeIsRunningOut('2025-01-01')})
+                ({timeIsRunningOut('2025-01-01')})
               </TimeIndication>
             </td>
             <td style={{ paddingBottom: '1rem' }}>
@@ -35,7 +35,7 @@ export default function InterdictionTable() {
                 Au 1er janvier <strong>2028</strong>
               </div>
               <TimeIndication>
-                (dans {timeIsRunningOut('2028-01-01')})
+                ({timeIsRunningOut('2028-01-01')})
               </TimeIndication>
             </td>
             <td style={{ paddingBottom: '1rem' }}>
@@ -59,7 +59,7 @@ export default function InterdictionTable() {
                 Au 1er janvier <strong>2034</strong>
               </div>
               <TimeIndication>
-                (dans {timeIsRunningOut('2034-01-01')})
+                ({timeIsRunningOut('2034-01-01')})
               </TimeIndication>
             </td>
             <td style={{ paddingBottom: '1rem' }}>
