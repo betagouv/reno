@@ -84,7 +84,14 @@ export default function InterdictionTable() {
 }
 
 const TimeIndication = ({ children }) => (
-  <small style={{ textAlign: 'right', width: '9rem', display: 'block' }}>
+  <small
+    style={{
+      textAlign: 'right',
+      width: '9rem',
+      display: 'block',
+      color: 'var(--color)',
+    }}
+  >
     {children}
   </small>
 )
