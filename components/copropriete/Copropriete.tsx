@@ -1,20 +1,18 @@
 'use client'
 
-import InputSwitch from '@/components/InputSwitch'
-import { Section } from '@/components/UI'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import rules from '@/app/règles/rules'
+import InputSwitch from '@/components/InputSwitch'
+import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import Publicodes from 'publicodes'
-import simulationConfigCopropriete from '../../app/copropriete/simulationConfigCopro.yaml'
-import { useMemo } from 'react'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
-import Answers from '@/app/simulation/Answers'
+import Publicodes from 'publicodes'
+import { useMemo } from 'react'
+import simulationConfigCopropriete from '../../app/copropriete/simulationConfigCopro.yaml'
 import ExplicationCopropriete from './ExplicationCopropriete'
 
 export default function Copropriete() {
