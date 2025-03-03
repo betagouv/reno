@@ -35,8 +35,13 @@ export default function ExplicationCopropriete() {
   const situation = {
     ...getSituation(searchParams, rules),
   }
+  const setSearchParams = useSetSearchParams()
 
-  const exampleSituation = {
+  const isEligibile = engine
+    .setSituation(situation)
+    .evaluate('copropriété . condition éligibilité').nodeValue
+
+  const exampleSituation = isEligibile && {
     ...situation,
     'copropriété . montant travaux': roundToThousands(
       engine
@@ -48,23 +53,20 @@ export default function ExplicationCopropriete() {
       5,
     ),
   }
-  const evaluation = engine.setSituation(exampleSituation)
-  const setSearchParams = useSetSearchParams()
-  const isFragile = evaluation.evaluate(
-    'copropriété . bonus copropriété fragile',
-  ).nodeValue
-  const isPassoire = evaluation.evaluate(
-    'copropriété . bonus sortie passoire',
-  ).nodeValue
-  const isEligibile = evaluation.evaluate(
-    'copropriété . condition éligibilité',
-  ).nodeValue
-
-  const primeMaxCoproIndividuelle = formatValue(
-    engine
-      .setSituation(omit(['ménage . revenu'], situation))
-      .evaluate('copropriété . prime individuelle totale'),
-  )
+  const evaluation = isEligibile && engine.setSituation(exampleSituation)
+  const isFragile =
+    isEligibile &&
+    evaluation.evaluate('copropriété . bonus copropriété fragile').nodeValue
+  const isPassoire =
+    isEligibile &&
+    evaluation.evaluate('copropriété . bonus sortie passoire').nodeValue
+  const primeMaxCoproIndividuelle =
+    isEligibile &&
+    formatValue(
+      engine
+        .setSituation(omit(['ménage . revenu'], situation))
+        .evaluate('copropriété . prime individuelle totale'),
+    )
 
   return (
     <Section>
