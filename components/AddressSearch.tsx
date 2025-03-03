@@ -1,5 +1,5 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
@@ -13,6 +13,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [input] = useDebounce(immediateInput, 300)
 
   const [results, setResults] = useState(null)
+
   const [clicked, setClicked] = useState(false)
   const validInput = input && input.length >= 3
 

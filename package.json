@@ -40,7 +40,7 @@
     "date-fns": "^4.1.0",
     "follow-redirects": "^1.15.9",
     "framer-motion": "^11.0.22",
-    "maplibre-gl": "^4.1.1",
+    "maplibre-gl": "5.1.1",
     "marked": "^12.0.1",
     "marked-plaintify": "^1.0.1",
     "micromark": "^4.0.0",
@@ -80,7 +80,7 @@
     "prettier": "^3.2.5"
   },
   "engines": {
-    "node": "20"
+    "node": ">20"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "license": "MIT"
