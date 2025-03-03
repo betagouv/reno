@@ -1,8 +1,10 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useEffect, useState } from 'react'
-import { useDebounce } from 'use-debounce'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import { useDebounce } from 'use-debounce'
+import MapMarkers from './AddressSearchMapMarkers'
 import { getCommune } from './personas/enrichSituation'
+import useAddAddressMap from './useAddAddressMap'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
@@ -13,6 +15,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [input] = useDebounce(immediateInput, 300)
 
   const [results, setResults] = useState(null)
+  const mapContainerRef = useRef(null)
+  const selectMarker = useCallback((marker) => console.log(marker), [])
+  const setLocation = useCallback((location) => console.log(location), [])
+
+  const active = results?.length > 0
+  const map = useAddAddressMap(mapContainerRef, setLocation, active)
+
   const [clicked, setClicked] = useState(false)
   const validInput = input && input.length >= 5
 
@@ -61,53 +70,68 @@ export default function AddressSearch({ setChoice, situation, type }) {
         }}
       />
       {clicked && input && <p>Adresse validée</p>}
+      {validInput && !results && (
+        <small
+          css={`
+            margin: 0.2rem 0;
+            display: flex;
+            align-items: center;
+          `}
+        >
+          <Loader />
+          Chargement...
+        </small>
+      )}
+      {results && !clicked && (
+        <small
+          css={`
+            margin: 0.2rem 0 0.2rem 0.6rem;
+            color: #929292;
+          `}
+        >
+          Sélectionnez une adresse :
+        </small>
+      )}
       <CityList>
-        {validInput && !results && (
-          <li
-            css={`
-              margin: 0.8rem 0;
-              display: flex;
-              align-items: center;
-            `}
-          >
-            <Loader />
-            Chargement...
-          </li>
-        )}
-        {results && !clicked && (
-          <>
-            <li
-              css={`
-                color: #929292;
-              `}
-            >
-              Sélectionnez une adresse :
-            </li>
-            {results.map((result) => {
-              const { label, id } = result.properties
-              return (
-                <li
-                  className={
-                    situation &&
-                    situation[type] &&
-                    situation[type].replace(/"/g, '') == id
-                      ? 'selected'
-                      : ''
-                  }
-                  key={id}
-                  onClick={() => {
-                    setChoice(result)
-                    setInput(label)
-                    setClicked(true)
-                  }}
-                >
-                  {label}
-                </li>
-              )
-            })}
-          </>
-        )}
+        {results &&
+          !clicked &&
+          results.map((result) => {
+            const { label, id } = result.properties
+            return (
+              <li
+                className={
+                  situation &&
+                  situation[type] &&
+                  situation[type].replace(/"/g, '') == id
+                    ? 'selected'
+                    : ''
+                }
+                key={id}
+                onClick={() => {
+                  setChoice(result)
+                  setInput(label)
+                  setClicked(true)
+                }}
+              >
+                {label}
+              </li>
+            )
+          })}
       </CityList>
+      {map && active && (
+        <MapMarkers map={map} data={results} selectMarker={selectMarker} />
+      )}
+      {active && (
+        <div
+          ref={mapContainerRef}
+          css={`
+            width: 100%;
+            min-height: 400px;
+            height: 100%;
+            border-radius: 0.3rem;
+          `}
+        />
+      )}
     </AddressInput>
   )
 }
@@ -149,9 +173,8 @@ export const CityList = styled.ul`
   border-radius: 0 0 5px 5px;
   border: 1px solid #dfdff0;
   list-style-type: none;
-  position: absolute;
-  margin-top: 35px;
   z-index: 999999;
+  margin-bottom: 0.6rem;
   li {
     display: block !important;
     margin: 0 !important;
