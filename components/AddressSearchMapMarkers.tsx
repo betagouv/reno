@@ -25,7 +25,10 @@ export default function MapMarkers({
           selectMarker(feature)
         })
 
-        const coordinates = [feature.geometry.coordinates].reverse()
+        const coordinates = [...feature.geometry.coordinates]
+          .reverse()
+          .map((l) => +l)
+        console.log('cyan3', feature.geometry, coordinates)
         const marker = new Marker({ element: el })
           .setLngLat(coordinates)
           .addTo(map)
@@ -34,7 +37,7 @@ export default function MapMarkers({
         return marker
       })
 
-    map.fitBounds(bounds, { maxZoom: 12 })
+    map.fitBounds(bounds, { maxZoom: 17 })
     return () => {
       markers.map((marker) => marker.remove())
     }
