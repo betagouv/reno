@@ -1,17 +1,35 @@
 import { useEffect } from 'react'
 import { Marker, LngLatBounds } from 'maplibre-gl'
 
-export default function MapMarkers({ map, data, selectMarker }) {
+const iconSize = '30'
+export default function MapMarkers({
+  map,
+  data,
+  selectMarker,
+  icon = 'map-marker.png',
+}) {
   useEffect(() => {
+    if (!data.length) return
     const bounds = new LngLatBounds()
     const markers = data
-      .filter((el) => el.geometry)
-      .map((el) => {
-        const marker = new Marker()
-          .setLngLat(el.geometry.coordinates)
+      .filter((feature) => feature.geometry)
+      .map((feature) => {
+        // create a DOM element for the marker
+        const el = document.createElement('div')
+        el.className = 'marker'
+        el.style.backgroundImage = `url(/${icon})`
+        el.style.width = `${iconSize}px`
+        el.style.height = `${iconSize}px`
+
+        el.addEventListener('click', () => {
+          selectMarker(feature)
+        })
+
+        const marker = new Marker({ element: el })
+          .setLngLat(feature.geometry.coordinates)
           .addTo(map)
-        marker.getElement().addEventListener('click', () => selectMarker(el))
-        bounds.extend(el.geometry.coordinates)
+
+        bounds.extend(feature.geometry.coordinates)
         return marker
       })
 

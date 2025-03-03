@@ -16,6 +16,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [input] = useDebounce(immediateInput, 300)
 
   const [results, setResults] = useState(null)
+  const [copros, setCopros] = useState(null)
   const mapContainerRef = useRef(null)
   const selectMarker = useCallback((marker) => console.log(marker), [])
   const setLocation = useCallback((location) => console.log(location), [])
@@ -36,9 +37,10 @@ export default function AddressSearch({ setChoice, situation, type }) {
       const request = await fetch(url)
       const json = await request.json()
       console.log('cyan', json)
+      setCopros(json)
     }
     fetchCopros()
-  }, [clicked])
+  }, [clicked, setCopros])
 
   useEffect(() => {
     if (!validInput) return
@@ -120,8 +122,49 @@ export default function AddressSearch({ setChoice, situation, type }) {
             )
           })}
       </CityList>
+      {copros?.length > 0 && (
+        <CityList>
+          {copros.map((copro) => {
+            const {
+              'Nom d’usage de la copropriété': name,
+              "Numéro d'immatriculation": id,
+            } = copro
+
+            console.log('cyan2', copro)
+
+            return (
+              <li
+                className={
+                  situation &&
+                  situation[type] &&
+                  situation[type].replace(/"/g, '') == id
+                    ? 'selected'
+                    : ''
+                }
+                key={id}
+                onClick={() => {
+                  setChoice(copro)
+                }}
+              >
+                {name}
+              </li>
+            )
+          })}
+        </CityList>
+      )}
       {map && active && (
         <MapMarkers map={map} data={results} selectMarker={selectMarker} />
+      )}
+      {copros && (
+        <MapMarkers
+          icon="copro.png"
+          map={map}
+          data={copros.map((copro) => {
+            const { long: lon, lat } = copro
+            return { geometry: { coordinates: [lat, lon] } }
+          })}
+          selectMarker={selectMarker}
+        />
       )}
       {active && (
         <div
