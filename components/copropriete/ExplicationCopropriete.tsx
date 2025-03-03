@@ -14,7 +14,7 @@ import Image from 'next/image'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Input from '../Input'
-import calculatorIcon from '@/public/calculator-empty.svg'
+import calculatorIcon from '@/public/calculator-black.svg'
 import { roundToThousands } from '../utils'
 import checkIcon from '@/public/check.svg'
 import informationIcon from '@/public/information.svg'
@@ -25,9 +25,12 @@ import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import Value from '../Value'
 import CopyButton from '../CopyButton'
+import editIcon from '@/public/crayon.svg'
+import Select from '../Select'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
+  const isMobile = window.innerWidth <= 600
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const engine = useMemo(() => new Publicodes(rules), [rules])
@@ -68,6 +71,13 @@ export default function ExplicationCopropriete() {
         .evaluate('copropriété . prime individuelle totale'),
     )
 
+  // Si le montant des travaux n'est pas précisé, on l'estime
+  if (!situation['copropriété . montant travaux']) {
+    situation['copropriété . montant travaux'] = roundToThousands(
+      engine.evaluate('copropriété . montant travaux').nodeValue,
+    )
+  }
+
   return (
     <Section>
       <CustomQuestionWrapper>
@@ -90,61 +100,8 @@ export default function ExplicationCopropriete() {
           <small>MaPrimeRénov’ Copropriété</small>
           <h2>Financer une rénovation d’ampleur de votre copropriété</h2>
         </header>
-        {!isEligibile ? (
+        {isEligibile ? (
           <>
-            <p>
-              Votre copropriété{' '}
-              <PrimeStyle $red={true}>
-                <strong>n'est pas éligible</strong>
-              </PrimeStyle>{' '}
-              au dispositif <strong>MaPrimeRénov' Copropriété</strong>
-            </p>
-            <div
-              css={`
-                background-image: linear-gradient(0deg, #2a82dd, #2a82dd);
-                background-position: 0 0;
-                background-repeat: no-repeat;
-                background-size: 0.25rem 100%;
-                font-size: 1rem;
-                line-height: 1.5rem;
-                padding-left: 1.25rem;
-                margin-bottom: 0.8rem;
-              `}
-            >
-              <div
-                css={`
-                  display: flex;
-                  align-items: center;
-                  margin-bottom: 0.4rem;
-                  color: #2a82dd;
-                  font-weight: 500;
-                  img {
-                    margin-right: 0.4rem;
-                  }
-                `}
-              >
-                <Image src={informationIcon} alt="infobulle" width="25" />
-                <span>Ce n'est pas fini!</span>
-              </div>
-              <p>
-                Les copropriétaires sont{' '}
-                <strong>peut-être éligibles individuellement</strong> à d'autres
-                aides à la rénovation.
-                <br />
-                C'est pourquoi, nous vous invitons à refaire une simulation pour
-                avoir un aperçu de l'ensemble de vos aides.
-              </p>
-            </div>
-            <CTAWrapper $justify="center">
-              <CTA $fontSize="normal">
-                <Link href="/simulation">
-                  ➞&nbsp;&nbsp;Simulez l'ensemble de vos aides
-                </Link>
-              </CTA>
-            </CTAWrapper>
-          </>
-        ) : (
-          <Card>
             <h3
               css={`
                 margin-top: 1rem;
@@ -159,253 +116,483 @@ export default function ExplicationCopropriete() {
               </PrimeStyle>{' '}
               au dispositif <strong>MaPrimeRénov' Copropriété</strong>.
             </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Votre copropriété{' '}
+              <PrimeStyle $red={true}>
+                <strong>n'est pas éligible</strong>
+              </PrimeStyle>{' '}
+              au dispositif <strong>MaPrimeRénov' Copropriété</strong>
+            </p>
+          </>
+        )}
+        <>
+          <Card
+            css={`
+              background: linear-gradient(180deg, #f7f7f7 0%, #e6f7fb 100%);
+              box-shadow: 1px 4px 6px 0px #ccd0d5;
+              margin-bottom: 2rem;
+            `}
+          >
             <div
               css={`
                 display: flex;
                 align-items: center;
-                margin-top: 1rem;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                h3 {
+                  margin: 0.5rem 0;
+                }
               `}
             >
-              <Image
-                src={calculatorIcon}
-                alt="Icône calculette"
-                css={`
-                  width: 3rem !important;
-                  height: auto !important;
-                  margin-right: 0.8rem !important;
-                `}
-              />
-              <p
-                css={`
-                  line-height: 1.9rem;
-                `}
-              >
-                Par exemple : pour une enveloppe de travaux de rénovation
-                énergétique de{' '}
-                <label>
-                  <Input
-                    css={`
-                      vertical-align: text-bottom;
-                      padding: 0.2rem 0.3rem 0 0;
-                      max-width: 6rem !important;
-                    `}
-                    autoFocus={false}
-                    value={exampleSituation['copropriété . montant travaux']}
-                    placeholder="mes travaux"
-                    min="0"
-                    onChange={(rawValue) => {
-                      const value = +rawValue === 0 ? undefined : rawValue
-                      setSearchParams(
-                        encodeSituation({
-                          'copropriété . montant travaux': value,
-                        }),
-                        'replace',
-                        false,
-                      )
-                    }}
-                    step="100"
-                    css={`
-                      border-bottom: 2px solid #d1d1fb !important;
-                    `}
-                  />
-                  €{' '}
-                </label>
-                <span>, la copropriété touchera un total d'aides de </span>
-                <PrimeStyle>
-                  <strong>
-                    {formatValue(engine.evaluate('copropriété . montant'))}
-                  </strong>
-                </PrimeStyle>
-              </p>
+              <Image src={calculatorIcon} alt="icone calculatrice" />{' '}
+              <h3>À vos calculs !</h3>
             </div>
-            <Card
-              css={`
-                background: transparent;
-                border: none;
-                border-left: 3px solid #dfdff1;
-                border-radius: 0;
-                padding: 0rem 0 0rem 0.8rem;
-                margin: 2vh 0 3vh;
-              `}
-            >
-              <h4
-                css={`
-                  text-align: left;
-                  margin: 0rem 0 0.8rem 0;
-                  color: gray;
-                  font-weight: 400;
-                `}
-              >
-                Explications
-              </h4>
-              L'aide de l'état financera{' '}
-              <PrimeStyle>
-                <strong>
-                  {formatValue(
-                    evaluation.evaluate("copropriété . pourcentage d'aide"),
-                  )}
-                </strong>
-              </PrimeStyle>{' '}
-              du montant total de vos travaux. Ce pourcentage se décompose de la
-              manière suivante:
-              <ul
-                css={`
-                  margin: 1.1rem 0;
-                `}
-              >
-                <li
-                  css={`
-                    margin: 5px 0;
-                  `}
-                >
-                  <Value
-                    {...{
-                      engine,
-                      situation: exampleSituation,
-                      dottedName: 'copropriété . pourcentage gain énergétique',
-                      state: 'final',
-                    }}
-                  />{' '}
-                  car votre gain énergétique est estimé à{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation: exampleSituation,
-                      dottedName: 'copropriété . gain énergétique',
-                      state: 'final',
-                    }}
-                  />
-                </li>
-                <li
-                  css={`
-                    margin: 5px 0;
-                  `}
-                >
-                  <Value
-                    {...{
-                      engine,
-                      situation: exampleSituation,
-                      dottedName: 'copropriété . pourcentage sortie passoire',
-                      state: 'final',
-                    }}
-                  />{' '}
-                  car{' '}
-                  <PrimeStyle $red={!isPassoire}>
-                    {!isPassoire
-                      ? 'vous ne bénéficieriez pas'
-                      : 'vous bénéficieriez'}
-                  </PrimeStyle>{' '}
-                  du bonus <strong>"Sortie de passoire"</strong>
-                </li>
-                <li
-                  css={`
-                    margin: 5px 0;
-                  `}
-                >
-                  <Value
-                    {...{
-                      engine,
-                      situation: exampleSituation,
-                      dottedName:
-                        'copropriété . pourcentage copropriété fragile',
-                      state: 'final',
-                    }}
-                  />{' '}
-                  car{' '}
-                  <PrimeStyle $red={!isFragile}>
-                    {!isFragile
-                      ? 'vous ne bénéficieriez pas'
-                      : 'vous bénéficieriez'}
-                  </PrimeStyle>{' '}
-                  du bonus{' '}
-                  <strong>"Copropriété fragile ou en difficulté"</strong>
-                </li>
-              </ul>
-              <p>
-                Elle est plafonnée à{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation: exampleSituation,
-                    dottedName: 'copropriété . montant . plafond par logement',
-                    state: 'final',
-                  }}
-                />{' '}
-                par logement. Pour votre copropriété de{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation: exampleSituation,
-                    dottedName: 'copropriété . nombre de logement',
-                    state: 'final',
-                  }}
-                />{' '}
-                logements, cela représente un montant de{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation: exampleSituation,
-                    dottedName: 'copropriété . montant . plafond',
-                    state: 'final',
-                  }}
-                />
-              </p>
-            </Card>
             <div
               css={`
-                background-image: linear-gradient(0deg, #2a82dd, #2a82dd);
-                background-position: 0 0;
-                background-repeat: no-repeat;
-                background-size: 0.25rem 100%;
-                font-size: 1rem;
-                line-height: 1.5rem;
-                padding-left: 1.25rem;
-                margin-bottom: 0.8rem;
+                display: flex;
+                ${isMobile && 'flex-direction: column;'}
+                justify-content: space-between;
+                gap: 1rem;
               `}
             >
               <div
                 css={`
                   display: flex;
-                  align-items: center;
-                  margin-bottom: 0.4rem;
-                  color: #2a82dd;
-                  font-weight: 500;
-                  img {
-                    margin-right: 0.4rem;
+                  flex-direction: column;
+                  gap: 0.5rem;
+                `}
+              >
+                <div>Nombre de logement:</div>
+                <div>
+                  <Input
+                    css={`
+                      line-height: 1.5rem;
+                      border: 2px solid var(--color) !important;
+                      border-radius: 0.3rem !important;
+                      padding: 0.7rem !important;
+                      box-shadow: var(--shadow-elevation-medium) !important;
+                      font-weight: bold;
+                      font-size: 100% !important;
+                      height: auto !important;
+                      color: #000;
+                    `}
+                    autoFocus={false}
+                    value={situation['copropriété . nombre de logement']}
+                    placeholder="0"
+                    min="1"
+                    onChange={(rawValue) => {
+                      const value = rawValue !== 'undefined' ? rawValue : 0
+                      setSearchParams(
+                        encodeSituation({
+                          'copropriété . nombre de logement': value + '*',
+                        }),
+                        'replace',
+                        false,
+                      )
+                    }}
+                    step="1"
+                  />
+                </div>
+              </div>
+              <div
+                css={`
+                  display: flex;
+                  flex-direction: column;
+                  gap: 0.5rem;
+                `}
+              >
+                <div>Gain énergétique:</div>
+                <div>
+                  <Select
+                    value={situation[
+                      'copropriété . gain énergétique'
+                    ].replaceAll('"', "'")}
+                    values={rules['copropriété . gain énergétique'][
+                      'une possibilité parmi'
+                    ]['possibilités'].map(
+                      (i) => rules['copropriété . gain énergétique . ' + i],
+                    )}
+                    onChange={(e) =>
+                      setSearchParams(
+                        encodeSituation({
+                          'copropriété . gain énergétique': e + '*',
+                        }),
+                        'replace',
+                        false,
+                      )
+                    }
+                    css={`
+                      border: 2px solid var(--color);
+                      border-radius: 0.3rem;
+                      padding: 0.7rem;
+                      box-shadow: var(--shadow-elevation-medium);
+                      font-weight: bold;
+                      font-size: 100%;
+                      color: #000;
+                    `}
+                  />{' '}
+                </div>
+              </div>
+              <div
+                css={`
+                  display: flex;
+                  flex-direction: column;
+                  gap: 0.5rem;
+                `}
+              >
+                <div>Votre budget de travaux de rénovation:</div>
+                <div
+                  css={`
+                    margin: auto;
+                    border: 2px solid var(--color);
+                    width: 100%;
+                    color: var(--color);
+                    text-align: center;
+                    border-radius: 0.3rem;
+                    padding: 0.7rem;
+                    box-shadow: var(--shadow-elevation-medium);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  `}
+                >
+                  <div
+                    css={`
+                      flex-grow: 1;
+                    `}
+                  >
+                    <input
+                      id="budget-travaux"
+                      css={`
+                        border: none;
+                        background: transparent;
+                        -webkit-appearance: none;
+                        outline: none;
+                        color: var(--color);
+                        font-size: 110%;
+                        max-width: 4rem;
+                      `}
+                      autoFocus={false}
+                      value={situation['copropriété . montant travaux']}
+                      placeholder="mes travaux"
+                      min="0"
+                      max="999999"
+                      onChange={(e) => {
+                        const rawValue = e.target.value
+                        const startPos = e.target.selectionStart
+                        const value = +rawValue === 0 ? 0 : rawValue
+                        setSearchParams(
+                          encodeSituation({
+                            'copropriété . montant travaux': value + '*',
+                          }),
+                          'replace',
+                          false,
+                        )
+                        requestAnimationFrame(() => {
+                          const inputBudget =
+                            document.querySelector('#budget-travaux')
+                          inputBudget.selectionStart = startPos
+                          inputBudget.selectionEnd = startPos
+                        })
+                      }}
+                      step="100"
+                    />
+                    <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                      € HT
+                    </span>
+                  </div>
+                  <Image
+                    css={`
+                      cursor: pointer;
+                      margin-left: auto;
+                    `}
+                    src={editIcon}
+                    alt="Icône crayon pour éditer"
+                    onClick={() =>
+                      document.querySelector('#budget-travaux').focus()
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              css={`
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+              `}
+            >
+              <div>Vous toucherez un total d'aides de :</div>
+              <div
+                css={`
+                  margin-top: 0.5rem;
+                  text-align: center;
+                  background: var(
+                    ${isEligibile ? '--validColor1' : '--warningColor'}
+                  );
+                  color: var(
+                    ${isEligibile ? '--validColor' : '--warningColor'}
+                  );
+                  padding: 0.5rem;
+                  em {
+                    color: black;
                   }
                 `}
               >
-                <Image src={informationIcon} alt="infobulle" width="25" />
-                <span>Ce n'est pas tout!</span>
+                <Value
+                  {...{
+                    engine,
+                    situation: situation,
+                    dottedName: 'copropriété . montant',
+                  }}
+                />
               </div>
-              <p>
-                Les copropriétaires sont potentiellement éligibles à{' '}
-                <PrimeStyle>
-                  <strong>{primeMaxCoproIndividuelle}</strong>
-                </PrimeStyle>{' '}
-                d'aide supplémentaire.
-              </p>
-              <p>
-                En effet, chaque copropriétaire peut bénéficier individuellement
-                d'une prime pouvant s'élever à{' '}
+            </div>
+          </Card>
+          {isEligibile ? (
+            <>
+              <Card
+                css={`
+                  background: transparent;
+                  border: none;
+                  border-left: 3px solid #dfdff1;
+                  border-radius: 0;
+                  padding: 0rem 0 0rem 0.8rem;
+                  margin: 2vh 0 3vh;
+                `}
+              >
+                <h4
+                  css={`
+                    text-align: left;
+                    margin: 0rem 0 0.8rem 0;
+                    color: gray;
+                    font-weight: 400;
+                  `}
+                >
+                  Explications
+                </h4>
+                L'aide de l'état financera{' '}
                 <PrimeStyle>
                   <strong>
-                    {rules['copropriété . prime individuelle']['par défaut']}
+                    {formatValue(
+                      evaluation.evaluate("copropriété . pourcentage d'aide"),
+                    )}
                   </strong>
                 </PrimeStyle>{' '}
-                par logement en fonction de ses revenus.
-              </p>
-            </div>
-            <MprCategory
-              {...{
-                engine,
-                situation,
-                setSearchParams,
-                answeredQuestions,
-              }}
-            ></MprCategory>
-          </Card>
-        )}
+                du montant total de vos travaux. Ce pourcentage se décompose de
+                la manière suivante:
+                <ul
+                  css={`
+                    margin: 1.1rem 0;
+                  `}
+                >
+                  <li
+                    css={`
+                      margin: 5px 0;
+                    `}
+                  >
+                    <Value
+                      {...{
+                        engine,
+                        situation: exampleSituation,
+                        dottedName:
+                          'copropriété . pourcentage gain énergétique',
+                        state: 'final',
+                      }}
+                    />{' '}
+                    car votre gain énergétique est estimé à{' '}
+                    <Value
+                      {...{
+                        engine,
+                        situation: exampleSituation,
+                        dottedName: 'copropriété . gain énergétique',
+                        state: 'final',
+                      }}
+                    />
+                  </li>
+                  <li
+                    css={`
+                      margin: 5px 0;
+                    `}
+                  >
+                    <Value
+                      {...{
+                        engine,
+                        situation: exampleSituation,
+                        dottedName: 'copropriété . pourcentage sortie passoire',
+                        state: 'final',
+                      }}
+                    />{' '}
+                    car{' '}
+                    <PrimeStyle $red={!isPassoire}>
+                      {!isPassoire
+                        ? 'vous ne bénéficieriez pas'
+                        : 'vous bénéficieriez'}
+                    </PrimeStyle>{' '}
+                    du bonus <strong>"Sortie de passoire"</strong>
+                  </li>
+                  <li
+                    css={`
+                      margin: 5px 0;
+                    `}
+                  >
+                    <Value
+                      {...{
+                        engine,
+                        situation: exampleSituation,
+                        dottedName:
+                          'copropriété . pourcentage copropriété fragile',
+                        state: 'final',
+                      }}
+                    />{' '}
+                    car{' '}
+                    <PrimeStyle $red={!isFragile}>
+                      {!isFragile
+                        ? 'vous ne bénéficieriez pas'
+                        : 'vous bénéficieriez'}
+                    </PrimeStyle>{' '}
+                    du bonus{' '}
+                    <strong>"Copropriété fragile ou en difficulté"</strong>
+                  </li>
+                </ul>
+                <p>
+                  Elle est plafonnée à{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation: exampleSituation,
+                      dottedName:
+                        'copropriété . montant . plafond par logement',
+                      state: 'final',
+                    }}
+                  />{' '}
+                  par logement. Pour votre copropriété de{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation: exampleSituation,
+                      dottedName: 'copropriété . nombre de logement',
+                      state: 'final',
+                    }}
+                  />{' '}
+                  logements, cela représente un montant de{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation: exampleSituation,
+                      dottedName: 'copropriété . montant . plafond',
+                      state: 'final',
+                    }}
+                  />
+                </p>
+              </Card>
+              <div
+                css={`
+                  background-image: linear-gradient(0deg, #2a82dd, #2a82dd);
+                  background-position: 0 0;
+                  background-repeat: no-repeat;
+                  background-size: 0.25rem 100%;
+                  font-size: 1rem;
+                  line-height: 1.5rem;
+                  padding-left: 1.25rem;
+                  margin-bottom: 0.8rem;
+                `}
+              >
+                <div
+                  css={`
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 0.4rem;
+                    color: #2a82dd;
+                    font-weight: 500;
+                    img {
+                      margin-right: 0.4rem;
+                    }
+                  `}
+                >
+                  <Image src={informationIcon} alt="infobulle" width="25" />
+                  <span>Ce n'est pas tout!</span>
+                </div>
+                <p>
+                  Les copropriétaires sont potentiellement éligibles à{' '}
+                  <PrimeStyle>
+                    <strong>{primeMaxCoproIndividuelle}</strong>
+                  </PrimeStyle>{' '}
+                  d'aide supplémentaire.
+                </p>
+                <p>
+                  En effet, chaque copropriétaire peut bénéficier
+                  individuellement d'une prime pouvant s'élever à{' '}
+                  <PrimeStyle>
+                    <strong>
+                      {rules['copropriété . prime individuelle']['par défaut']}
+                    </strong>
+                  </PrimeStyle>{' '}
+                  par logement en fonction de ses revenus.
+                </p>
+              </div>
+              <MprCategory
+                {...{
+                  engine,
+                  situation,
+                  setSearchParams,
+                  answeredQuestions,
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <div
+                css={`
+                  background-image: linear-gradient(0deg, #2a82dd, #2a82dd);
+                  background-position: 0 0;
+                  background-repeat: no-repeat;
+                  background-size: 0.25rem 100%;
+                  font-size: 1rem;
+                  line-height: 1.5rem;
+                  padding-left: 1.25rem;
+                  margin-bottom: 0.8rem;
+                `}
+              >
+                <div
+                  css={`
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 0.4rem;
+                    color: #2a82dd;
+                    font-weight: 500;
+                    img {
+                      margin-right: 0.4rem;
+                    }
+                  `}
+                >
+                  <Image src={informationIcon} alt="infobulle" width="25" />
+                  <span>Ce n'est pas fini!</span>
+                </div>
+                <p>
+                  Les copropriétaires sont{' '}
+                  <strong>peut-être éligibles individuellement</strong> à
+                  d'autres aides à la rénovation.
+                  <br />
+                  C'est pourquoi, nous vous invitons à refaire une simulation
+                  pour avoir un aperçu de l'ensemble de vos aides.
+                </p>
+              </div>
+              <CTAWrapper $justify="center">
+                <CTA $fontSize="normal">
+                  <Link href="/simulation">
+                    ➞&nbsp;&nbsp;Simulez l'ensemble de vos aides
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+            </>
+          )}
+        </>
       </CustomQuestionWrapper>
     </Section>
   )
