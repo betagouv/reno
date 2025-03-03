@@ -11,6 +11,9 @@ export default function PageErreur({ codeErreur }) {
         <div
           css={`
             display: flex;
+            @media (max-width: 600px) {
+              flex-direction: column;
+            }
             justify-content: center;
             align-items: center;
             gap: 2rem;
@@ -47,7 +50,7 @@ export default function PageErreur({ codeErreur }) {
             </p>
           </div>
           <div>
-            <Image src={logo404} />
+            <Image src={logo404} alt="logo maison avec déperdition thermique" />
           </div>
         </div>
       </Section>
