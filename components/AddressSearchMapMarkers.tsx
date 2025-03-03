@@ -20,6 +20,7 @@ export default function MapMarkers({
         el.style.backgroundImage = `url(/${icon})`
         el.style.width = `${iconSize}px`
         el.style.height = `${iconSize}px`
+        el.style.cursor = 'pointer'
         el.style.position = 'absolute'
         el.innerHTML = `<div style="position: absolute;   top: -0.7rem;   right: -0.5rem;   font-weight: bold;   background: var(--color);   color: white;   border-radius: 30px;   width: 1.2rem;   text-align: center;   height: 1.2rem;   line-height: 1.2rem;   border: 2px solid white;">${i + 1}</div>`
 
