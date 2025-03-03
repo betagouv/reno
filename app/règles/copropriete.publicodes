@@ -126,3 +126,10 @@ copropriété . prime individuelle:
     - si: ménage . revenu . classe = 'modeste'
       alors: 1500 €
     - sinon: non
+
+copropriété . adresse:
+  question: Quelle est l'adresse de la copropriété ?
+  note: |
+    Cette question déclenche la recherche de copropriété par adresse.
+  titre: L'adresse de la copropriété
+  par défaut: "'3 rue Victor Hugo Rennes'"

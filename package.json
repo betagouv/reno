@@ -4,6 +4,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev -p 8080",
+    "dev-local-server": "NEXT_PUBLIC_LOCAL_SERVER=3000 next dev -p 8080",
     "prettier": "prettier --write --ignore-unknown .",
     "prebuild": "node lib/downloadData.mjs",
     "prettier:check": "prettier --check --ignore-unknown .",
