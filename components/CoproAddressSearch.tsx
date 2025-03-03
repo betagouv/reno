@@ -161,7 +161,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           map={map}
           data={copros.map((copro) => {
             const { long: lon, lat } = copro
-            return { geometry: { coordinates: [lat, lon] } }
+            return { geometry: { coordinates: [+lon, +lat] } }
           })}
           selectMarker={selectMarker}
         />
@@ -212,23 +212,17 @@ export const AddressInput = styled.div`
   }
 `
 
-export const CityList = styled.ul`
+export const CityList = styled.ol`
   padding: 0;
   background: #f5f5fe;
   border-radius: 0 0 5px 5px;
   border: 1px solid #dfdff0;
-  list-style-type: none;
   z-index: 999999;
   margin-bottom: 0.6rem;
   li {
-    display: block !important;
-    margin: 0 !important;
-    padding: 8px 24px 8px 35px;
+    margin: 0.2rem 0 0.2rem 1.6rem;
+    padding: 0.1rem 0 0.1rem 0.2rem;
     line-height: 1.2rem;
-    &::before,
-    &.selected::before {
-      content: '';
-    }
     &.selected {
       background: rgba(0, 0, 145, 0.1);
       color: var(--color);
