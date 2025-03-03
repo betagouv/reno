@@ -149,6 +149,51 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
+  if (currentQuestion === 'copropriété . adresse')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          questionsToSubmit: [
+            'copropriété . adresse',
+            'copropriété . nombre de logements',
+          ],
+          currentValue,
+          engine,
+        }}
+      >
+        <CoproAddressSearch
+          {...{
+            type: currentQuestion,
+            setChoice: (result) => {
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  'logement . code région': `"${result['Code Officiel Région']}"`,
+                  'logement . code département': `"${result['Code Officiel Département']}}"`,
+                  'logement . EPCI': `"${result['Code Officiel EPCI']}"`,
+                  'logement . commune': `"${result['Commune']}"`,
+                  'logement . commune . nom': `"${result['Nom officiel commune']}"`,
+                },
+                false,
+                answeredQuestions,
+              )
+
+              setSearchParams(encodedSituation, 'push', false)
+            },
+            setSearchParams,
+            situation,
+            answeredQuestions,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
   if (currentQuestion === 'ménage . commune')
     return (
       <ClassicQuestionWrapper
