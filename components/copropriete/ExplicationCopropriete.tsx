@@ -92,13 +92,6 @@ export default function ExplicationCopropriete() {
         </header>
         {isEligibile ? (
           <>
-            <h3
-              css={`
-                margin-top: 1rem;
-              `}
-            >
-              <Image src={checkIcon} alt="Icône case cochée" /> Bonne nouvelle
-            </h3>
             <p>
               Votre copropriété est{' '}
               <PrimeStyle>
@@ -291,7 +284,7 @@ export default function ExplicationCopropriete() {
                       step="100"
                     />
                     <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                      € HT
+                      €
                     </span>
                   </div>
                   <Image
@@ -307,6 +300,46 @@ export default function ExplicationCopropriete() {
                   />
                 </div>
               </div>
+            </div>
+            <div
+              css={`
+                margin: 1rem 0;
+              `}
+            >
+              🥳 <strong>Bonne nouvelle</strong> : Vous êtes éligible à une aide
+              de
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: "copropriété . pourcentage d'aide",
+                }}
+              />
+              du coût de vos travaux avec un plafond de
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'copropriété . montant . plafond par logement',
+                }}
+              />
+              par logement.
+              {(bonusSortiePassoire || bonusFragile) &&
+                ' Ce pourcentage inclus '}
+              {bonusSortiePassoire && (
+                <>
+                  <strong>{bonusSortiePassoire}%</strong> de bonus{' '}
+                  <em>"Sortie de passoire"</em>
+                </>
+              )}
+              {bonusFragile && (
+                <>
+                  {bonusSortiePassoire && ' et '}
+                  <strong>{bonusFragile}%</strong> de bonus{' '}
+                  <em>"Copropriété fragile ou en difficulté"</em>
+                </>
+              )}
+              {(bonusSortiePassoire || bonusFragile) && '.'}
             </div>
             <div
               css={`
@@ -367,32 +400,30 @@ export default function ExplicationCopropriete() {
                   Explications
                 </h4>
                 L'aide de l'état financera{' '}
-                <PrimeStyle>
-                  <strong>
-                    {formatValue(
-                      evaluation.evaluate("copropriété . pourcentage d'aide"),
-                    )}
-                  </strong>
-                </PrimeStyle>{' '}
+                <Value
+                  {...{
+                    engine,
+                    situation,
+                    dottedName: "copropriété . pourcentage d'aide",
+                  }}
+                />
                 du montant total de vos travaux. Ce pourcentage se décompose de
                 la manière suivante:
                 <ul
                   css={`
                     margin: 1.1rem 0;
+                    li {
+                      margin: 5px 0;
+                    }
                   `}
                 >
-                  <li
-                    css={`
-                      margin: 5px 0;
-                    `}
-                  >
+                  <li>
                     <Value
                       {...{
                         engine,
                         situation,
                         dottedName:
                           'copropriété . pourcentage gain énergétique',
-                        state: 'final',
                       }}
                     />{' '}
                     car votre gain énergétique est estimé à{' '}
@@ -401,48 +432,37 @@ export default function ExplicationCopropriete() {
                         engine,
                         situation,
                         dottedName: 'copropriété . gain énergétique',
-                        state: 'final',
                       }}
                     />
                   </li>
-                  <li
-                    css={`
-                      margin: 5px 0;
-                    `}
-                  >
+                  <li>
                     <Value
                       {...{
                         engine,
                         situation,
                         dottedName: 'copropriété . pourcentage sortie passoire',
-                        state: 'final',
                       }}
                     />{' '}
                     car{' '}
-                    <PrimeStyle $red={!isPassoire}>
-                      {!isPassoire
+                    <PrimeStyle $red={!bonusSortiePassoire}>
+                      {!bonusSortiePassoire
                         ? 'vous ne bénéficieriez pas'
                         : 'vous bénéficieriez'}
                     </PrimeStyle>{' '}
                     du bonus <strong>"Sortie de passoire"</strong>
                   </li>
-                  <li
-                    css={`
-                      margin: 5px 0;
-                    `}
-                  >
+                  <li>
                     <Value
                       {...{
                         engine,
                         situation,
                         dottedName:
                           'copropriété . pourcentage copropriété fragile',
-                        state: 'final',
                       }}
                     />{' '}
                     car{' '}
-                    <PrimeStyle $red={!isFragile}>
-                      {!isFragile
+                    <PrimeStyle $red={!bonusFragile}>
+                      {!bonusFragile
                         ? 'vous ne bénéficieriez pas'
                         : 'vous bénéficieriez'}
                     </PrimeStyle>{' '}
@@ -451,26 +471,24 @@ export default function ExplicationCopropriete() {
                   </li>
                 </ul>
                 <p>
-                  Elle est plafonnée à{' '}
+                  Elle est plafonnée à
                   <Value
                     {...{
                       engine,
                       situation,
                       dottedName:
                         'copropriété . montant . plafond par logement',
-                      state: 'final',
                     }}
-                  />{' '}
-                  par logement. Pour votre copropriété de{' '}
+                  />
+                  par logement. Pour votre copropriété de
                   <Value
                     {...{
                       engine,
                       situation,
                       dottedName: 'copropriété . nombre de logement',
-                      state: 'final',
                     }}
-                  />{' '}
-                  logements, cela représente un montant de{' '}
+                  />
+                  logements, cela représente un plafond de
                   <Value
                     {...{
                       engine,
