@@ -6,6 +6,10 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 const defaultCenter = [1.86, 46.67]
 export const defaultZoom = 4.8
 const defaultHash = `#${defaultZoom}/${defaultCenter[1]}/${defaultCenter[0]}`
+const maxBoundsHexagone = [
+  [-6, 41], // Southwest coordinates
+  [9.5, 52], // Northeast coordinates
+]
 
 export default function useAddAddressMap(mapContainerRef, setLocation, active) {
   const [map, setMap] = useState(null)
@@ -20,6 +24,7 @@ export default function useAddAddressMap(mapContainerRef, setLocation, active) {
       center: defaultCenter,
       zoom: defaultZoom,
       hash: true,
+      maxBounds: maxBoundsHexagone,
     })
     newMap.addControl(
       new maplibregl.NavigationControl({
