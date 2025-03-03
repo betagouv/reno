@@ -19,6 +19,7 @@ import RadioQuestion from './RadioQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
+import CoproAddressSearch from './CoproAddressSearch'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,

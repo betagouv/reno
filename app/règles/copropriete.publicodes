@@ -8,6 +8,7 @@ copropriété:
         
     L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
 copropriété . nombre de logement:
+  formule: adresse # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
   question: Combien de logements composent la copropriété ?
   suggestions:
     10 logements: 10

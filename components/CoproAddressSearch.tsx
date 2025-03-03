@@ -14,10 +14,11 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   const [results, setResults] = useState(null)
   const [clicked, setClicked] = useState(false)
-  const validInput = input && input.length >= 3
+  const validInput = input && input.length >= 5
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
+    return
     async function fetchCommune() {
       const commune = await getCommune(situation, type)
       if (commune) {
@@ -29,25 +30,14 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   useEffect(() => {
     if (!validInput) return
-    // Le code postal en France est une suite de cinq chiffres https://fr.wikipedia.org/wiki/Code_postal_en_France
-    if (onlyNumbers(input) && input.length !== 5) return
 
     const asyncFetch = async () => {
       const request = await fetch(
-        onlyNumbers(input)
-          ? `https://geo.api.gouv.fr/communes?codePostal=${input}`
-          : `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
+        `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=3`,
       )
-      const json = await request.json()
+      const { features } = await request.json()
 
-      const enrichedResults = await Promise.all(
-        json.map((commune) =>
-          fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
-            .then((response) => response.json())
-            .then((json) => ({ ...commune, eligibilite: json })),
-        ),
-      )
-      setResults(enrichedResults)
+      setResults(features)
     }
 
     asyncFetch()
@@ -64,13 +54,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
         type="text"
         autoFocus={true}
         value={immediateInput}
-        placeholder={'commune ou code postal'}
+        placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
           setClicked(false)
           setInput(e.target.value)
         }}
       />
-      {clicked && input && <p>Commune valide</p>}
+      {clicked && input && <p>Adresse validée</p>}
       <CityList>
         {validInput && !results && (
           <li
@@ -91,27 +81,30 @@ export default function AddressSearch({ setChoice, situation, type }) {
                 color: #929292;
               `}
             >
-              Sélectionnez une ville
+              Sélectionnez une adresse :
             </li>
-            {results.map((result) => (
-              <li
-                className={
-                  situation &&
-                  situation[type] &&
-                  situation[type].replace(/"/g, '') == result.code
-                    ? 'selected'
-                    : ''
-                }
-                key={result.code}
-                onClick={() => {
-                  setChoice(result)
-                  setInput(result.nom + ' ' + result.codeDepartement)
-                  setClicked(true)
-                }}
-              >
-                {result.nom} <small>{result?.codesPostaux[0]}</small>
-              </li>
-            ))}
+            {results.map((result) => {
+              const { label, id } = result.properties
+              return (
+                <li
+                  className={
+                    situation &&
+                    situation[type] &&
+                    situation[type].replace(/"/g, '') == id
+                      ? 'selected'
+                      : ''
+                  }
+                  key={id}
+                  onClick={() => {
+                    setChoice(result)
+                    setInput(label)
+                    setClicked(true)
+                  }}
+                >
+                  {label}
+                </li>
+              )
+            })}
           </>
         )}
       </CityList>
