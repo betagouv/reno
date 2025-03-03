@@ -326,15 +326,15 @@ export default function ExplicationCopropriete() {
               par logement.
               {(bonusSortiePassoire || bonusFragile) &&
                 ' Ce pourcentage inclus '}
-              {bonusSortiePassoire && (
+              {bonusSortiePassoire !== 0 && (
                 <>
                   <strong>{bonusSortiePassoire}%</strong> de bonus{' '}
                   <em>"Sortie de passoire"</em>
                 </>
               )}
-              {bonusFragile && (
+              {bonusFragile !== 0 && (
                 <>
-                  {bonusSortiePassoire && ' et '}
+                  {bonusSortiePassoire ? ' et ' : ''}
                   <strong>{bonusFragile}%</strong> de bonus{' '}
                   <em>"Copropriété fragile ou en difficulté"</em>
                 </>
