@@ -20,22 +20,18 @@ export default function MapMarkers({
         el.style.backgroundImage = `url(/${icon})`
         el.style.width = `${iconSize}px`
         el.style.height = `${iconSize}px`
-        el.style.position = 'relative'
-        el.innerHTML = `<div style="position: absolute;   top: -0.7rem;   right: -0.5rem;   font-weight: bold;   background: var(--color);   color: white;   border-radius: 30px;   width: 1.2rem;   text-align: center;   height: 1.2rem;   line-height: 1.2rem;   border: 2px solid white;">${i}</div>`
+        el.style.position = 'absolute'
+        el.innerHTML = `<div style="position: absolute;   top: -0.7rem;   right: -0.5rem;   font-weight: bold;   background: var(--color);   color: white;   border-radius: 30px;   width: 1.2rem;   text-align: center;   height: 1.2rem;   line-height: 1.2rem;   border: 2px solid white;">${i + 1}</div>`
 
         el.addEventListener('click', () => {
           selectMarker(feature)
         })
 
-        const coordinates = [...feature.geometry.coordinates]
-          .reverse()
-          .map((l) => +l)
-        console.log('cyan3', feature.geometry, coordinates)
         const marker = new Marker({ element: el })
-          .setLngLat(coordinates)
+          .setLngLat(feature.geometry.coordinates)
           .addTo(map)
 
-        bounds.extend(coordinates)
+        bounds.extend(feature.geometry.coordinates)
         return marker
       })
 
