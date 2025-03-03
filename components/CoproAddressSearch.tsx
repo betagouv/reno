@@ -31,7 +31,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   useEffect(() => {
     if (!clicked) return
 
-    const [lon, lat] = clicked.geometry.coordinates
+    const [lat, lon] = clicked.geometry.coordinates
     async function fetchCopros() {
       const url = `${getServerUrl()}/findCopro/${lon}/${lat}`
       const request = await fetch(url)

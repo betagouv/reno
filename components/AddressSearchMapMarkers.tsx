@@ -25,11 +25,12 @@ export default function MapMarkers({
           selectMarker(feature)
         })
 
+        const coordinates = [feature.geometry.coordinates].reverse()
         const marker = new Marker({ element: el })
-          .setLngLat(feature.geometry.coordinates)
+          .setLngLat(coordinates)
           .addTo(map)
 
-        bounds.extend(feature.geometry.coordinates)
+        bounds.extend(coordinates)
         return marker
       })
 
