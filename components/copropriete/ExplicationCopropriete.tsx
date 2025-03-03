@@ -44,39 +44,29 @@ export default function ExplicationCopropriete() {
     .setSituation(situation)
     .evaluate('copropriété . condition éligibilité').nodeValue
 
-  const exampleSituation = isEligibile && {
-    ...situation,
-    'copropriété . montant travaux': roundToThousands(
-      engine
-        .setSituation({
-          'copropriété . nombre de logement':
-            situation['copropriété . nombre de logement'],
-        })
-        .evaluate('copropriété . montant travaux').nodeValue,
-      5,
-    ),
-  }
-  const evaluation = isEligibile && engine.setSituation(exampleSituation)
-  const isFragile =
-    isEligibile &&
-    evaluation.evaluate('copropriété . bonus copropriété fragile').nodeValue
-  const isPassoire =
-    isEligibile &&
-    evaluation.evaluate('copropriété . bonus sortie passoire').nodeValue
-  const primeMaxCoproIndividuelle =
-    isEligibile &&
-    formatValue(
-      engine
-        .setSituation(omit(['ménage . revenu'], situation))
-        .evaluate('copropriété . prime individuelle totale'),
-    )
-
   // Si le montant des travaux n'est pas précisé, on l'estime
   if (!situation['copropriété . montant travaux']) {
     situation['copropriété . montant travaux'] = roundToThousands(
       engine.evaluate('copropriété . montant travaux').nodeValue,
     )
   }
+  let bonusFragile = null
+  let bonusSortiePassoire = null
+  if (isEligibile) {
+    const evaluation = engine.setSituation(situation)
+    bonusFragile = evaluation.evaluate(
+      'copropriété . pourcentage copropriété fragile',
+    ).nodeValue
+    bonusSortiePassoire = evaluation.evaluate(
+      'copropriété . pourcentage sortie passoire',
+    ).nodeValue
+  }
+
+  const primeMaxCoproIndividuelle = formatValue(
+    engine
+      .setSituation(omit(['ménage . revenu'], situation))
+      .evaluate('copropriété . prime individuelle totale'),
+  )
 
   return (
     <Section>
@@ -399,7 +389,7 @@ export default function ExplicationCopropriete() {
                     <Value
                       {...{
                         engine,
-                        situation: exampleSituation,
+                        situation,
                         dottedName:
                           'copropriété . pourcentage gain énergétique',
                         state: 'final',
@@ -409,7 +399,7 @@ export default function ExplicationCopropriete() {
                     <Value
                       {...{
                         engine,
-                        situation: exampleSituation,
+                        situation,
                         dottedName: 'copropriété . gain énergétique',
                         state: 'final',
                       }}
@@ -423,7 +413,7 @@ export default function ExplicationCopropriete() {
                     <Value
                       {...{
                         engine,
-                        situation: exampleSituation,
+                        situation,
                         dottedName: 'copropriété . pourcentage sortie passoire',
                         state: 'final',
                       }}
@@ -444,7 +434,7 @@ export default function ExplicationCopropriete() {
                     <Value
                       {...{
                         engine,
-                        situation: exampleSituation,
+                        situation,
                         dottedName:
                           'copropriété . pourcentage copropriété fragile',
                         state: 'final',
@@ -465,7 +455,7 @@ export default function ExplicationCopropriete() {
                   <Value
                     {...{
                       engine,
-                      situation: exampleSituation,
+                      situation,
                       dottedName:
                         'copropriété . montant . plafond par logement',
                       state: 'final',
@@ -475,7 +465,7 @@ export default function ExplicationCopropriete() {
                   <Value
                     {...{
                       engine,
-                      situation: exampleSituation,
+                      situation,
                       dottedName: 'copropriété . nombre de logement',
                       state: 'final',
                     }}
@@ -484,9 +474,8 @@ export default function ExplicationCopropriete() {
                   <Value
                     {...{
                       engine,
-                      situation: exampleSituation,
+                      situation,
                       dottedName: 'copropriété . montant . plafond',
-                      state: 'final',
                     }}
                   />
                 </p>
