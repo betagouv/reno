@@ -18,7 +18,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [results, setResults] = useState(null)
   const [copros, setCopros] = useState(null)
   const mapContainerRef = useRef(null)
-  const selectMarker = useCallback((marker) => console.log(marker), [])
   const setLocation = useCallback((location) => console.log(location), [])
 
   const active = results?.length > 0
@@ -117,7 +116,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
                   setClicked(result)
                 }}
               >
-                {label}
+                <span>{label}</span>
               </li>
             )
           })}
@@ -146,14 +145,14 @@ export default function AddressSearch({ setChoice, situation, type }) {
                   setChoice(copro)
                 }}
               >
-                {name}
+                <span>{name}</span>
               </li>
             )
           })}
         </CityList>
       )}
       {map && active && (
-        <MapMarkers map={map} data={results} selectMarker={selectMarker} />
+        <MapMarkers map={map} data={results} selectMarker={setClicked} />
       )}
       {copros && (
         <MapMarkers
@@ -161,9 +160,9 @@ export default function AddressSearch({ setChoice, situation, type }) {
           map={map}
           data={copros.map((copro) => {
             const { long: lon, lat } = copro
-            return { geometry: { coordinates: [+lon, +lat] } }
+            return { ...copro, geometry: { coordinates: [+lon, +lat] } }
           })}
-          selectMarker={selectMarker}
+          selectMarker={setChoice}
         />
       )}
       {active && (
@@ -220,9 +219,17 @@ export const CityList = styled.ol`
   z-index: 999999;
   margin-bottom: 0.6rem;
   li {
+    width: fit-content;
     margin: 0.2rem 0 0.2rem 1.6rem;
-    padding: 0.1rem 0 0.1rem 0.2rem;
     line-height: 1.2rem;
+    span {
+      padding: 0.1rem 0.2rem;
+    }
+    span:hover {
+      background: var(--color);
+      color: white;
+      border-radius: 0.2rem;
+    }
     &.selected {
       background: rgba(0, 0, 145, 0.1);
       color: var(--color);
