@@ -147,6 +147,13 @@ export default function InputSwitch({
           {...{
             type: currentQuestion,
             setChoice: (result) => {
+              const constructionPeriod = result['Période de construction']
+              const lessThan15Years = constructionPeriod === 'A_COMPTER_DE_2011'
+              // these are the possible values, obtained with the server route /periodes-construction
+              // ["AVANT_1949","A_COMPTER_DE_2011","DE_1949_A_1960","DE_1961_A_1974","DE_1975_A_1993","DE_1994_A_2000","DE_2001_A_2010","NON_CONNUE","non renseigné"]
+              const moreThan15Years =
+                !lessThan15Years && constructionPeriod.match(/\d\d\d\d/)
+
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
@@ -157,6 +164,11 @@ export default function InputSwitch({
                   'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
                   'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
                   'copropriété . nombre de lots habitation': `"${result['Nombre de lots à usage d’habitation']}"`,
+                  ...(lessThan15Years
+                    ? { 'copropriété . condition 15 ans': 'non' }
+                    : moreThan15Years
+                      ? { 'copropriété . condition 15 ans': 'oui' }
+                      : {}),
                 },
                 false,
                 answeredQuestions,
