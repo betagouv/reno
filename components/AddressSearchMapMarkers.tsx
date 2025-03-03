@@ -13,13 +13,15 @@ export default function MapMarkers({
     const bounds = new LngLatBounds()
     const markers = data
       .filter((feature) => feature.geometry)
-      .map((feature) => {
+      .map((feature, i) => {
         // create a DOM element for the marker
         const el = document.createElement('div')
         el.className = 'marker'
         el.style.backgroundImage = `url(/${icon})`
         el.style.width = `${iconSize}px`
         el.style.height = `${iconSize}px`
+        el.style.position = 'relative'
+        el.innerHTML = `<div style="position: absolute;   top: -0.7rem;   right: -0.5rem;   font-weight: bold;   background: var(--color);   color: white;   border-radius: 30px;   width: 1.2rem;   text-align: center;   height: 1.2rem;   line-height: 1.2rem;   border: 2px solid white;">${i}</div>`
 
         el.addEventListener('click', () => {
           selectMarker(feature)
