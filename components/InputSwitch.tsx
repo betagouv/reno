@@ -151,7 +151,7 @@ export default function InputSwitch({
                 {
                   ...situation,
                   'logement . code région': `"${result['Code Officiel Région']}"`,
-                  'logement . code département': `"${result['Code Officiel Département']}}"`,
+                  'logement . code département': `"${result['Code Officiel Département']}"`,
                   'logement . EPCI': `"${result['Code Officiel EPCI']}"`,
                   'logement . commune': `"${result['Commune']}"`,
                   'logement . commune . nom': `"${result['Nom officiel commune']}"`,

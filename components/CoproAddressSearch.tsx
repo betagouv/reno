@@ -5,6 +5,7 @@ import { useDebounce } from 'use-debounce'
 import MapMarkers from './AddressSearchMapMarkers'
 import { getCommune } from './personas/enrichSituation'
 import useAddAddressMap from './useAddAddressMap'
+import { getServerUrl } from './getAppUrl'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
@@ -27,15 +28,17 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
-    return
-    async function fetchCommune() {
-      const commune = await getCommune(situation, type)
-      if (commune) {
-        setInput(commune.nom + ' ' + commune.codeDepartement)
-      }
+    if (!clicked) return
+
+    const [lon, lat] = clicked.geometry.coordinates
+    async function fetchCopros() {
+      const url = `${getServerUrl()}/findCopro/${lon}/${lat}`
+      const request = await fetch(url)
+      const json = await request.json()
+      console.log('cyan', json)
     }
-    fetchCommune()
-  }, [situation, setInput])
+    fetchCopros()
+  }, [clicked])
 
   useEffect(() => {
     if (!validInput) return
@@ -108,9 +111,8 @@ export default function AddressSearch({ setChoice, situation, type }) {
                 }
                 key={id}
                 onClick={() => {
-                  setChoice(result)
                   setInput(label)
-                  setClicked(true)
+                  setClicked(result)
                 }}
               >
                 {label}
@@ -184,19 +186,15 @@ export const CityList = styled.ul`
     &.selected::before {
       content: '';
     }
-    &:not(:first-child):hover,
     &.selected {
       background: rgba(0, 0, 145, 0.1);
       color: var(--color);
     }
-    &:not(:first-child):hover::before,
     &.selected::before {
       content: '✔';
       margin-left: -20px;
       margin-right: 7px;
     }
-    &:not(:first-child) {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `
