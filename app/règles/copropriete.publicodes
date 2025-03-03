@@ -7,6 +7,11 @@ copropriété:
     La subvention est versée directement au syndicat de copropriétaires puis répartie selon la règle des tantièmes.  
         
     L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
+copropriété . nombre de lots:
+  formule: adresse # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
+  question: Combien de lots composent la copropriété ?
+  unité: lots
+
 copropriété . nombre de logement:
   formule: adresse # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
   question: Combien de logements composent la copropriété ?
@@ -15,6 +20,7 @@ copropriété . nombre de logement:
     30 logements: 30
     60 logements: 60
   unité: logements
+
 copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
   par défaut:
@@ -32,7 +38,7 @@ copropriété . condition résidence principale:
     avec:
       pourcent:
         variations:
-          - si: copropriété . nombre de logement > 20
+          - si: copropriété . nombre de lots > 20
             alors: 75 %
           - sinon: 65 %
   description: |
