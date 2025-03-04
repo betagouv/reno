@@ -8,6 +8,7 @@ export default function DPE({
   newLetter,
   onClick = undefined,
   avecGES = false,
+  avecLegend = false,
   gesLetter = undefined,
 }) {
   /*
@@ -21,8 +22,12 @@ export default function DPE({
   return (
     <Section>
       <ClasseWrapper>
-        <h3>Classe Energétique</h3>
-        <p>Consommation d'énergie</p>
+        {avecLegend && (
+          <>
+            <h3>Classe Energétique</h3>
+            <p>Consommation d'énergie</p>
+          </>
+        )}
         <Bars>
           <ul>
             {data.map((el, index) => (
@@ -43,13 +48,15 @@ export default function DPE({
                   {' '}
                   <span>
                     {el.lettre}{' '}
-                    <small>
-                      {index == 0
-                        ? '<= ' + data[index + 1].énergie
-                        : index == 6
-                          ? '> ' + el.énergie
-                          : el.énergie + 1 + ' à ' + data[index + 1].énergie}
-                    </small>
+                    {avecLegend && (
+                      <small>
+                        {index == 0
+                          ? '<= ' + data[index + 1].énergie
+                          : index == 6
+                            ? '> ' + el.énergie
+                            : el.énergie + 1 + ' à ' + data[index + 1].énergie}
+                      </small>
+                    )}
                   </span>
                 </Bar>
                 <Triangle
@@ -61,7 +68,7 @@ export default function DPE({
             ))}
           </ul>
         </Bars>
-        <small>en kWhEP/m².an</small>
+        {avecLegend && <small>en kWhEP/m².an</small>}
       </ClasseWrapper>
       {avecGES && (
         <ClasseWrapper>
