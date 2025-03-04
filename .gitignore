@@ -44,6 +44,8 @@ data/*
 !data/README.md
 !data/exonération-taxe-foncière-population.csv
 !data/ort.csv
+!data/valeur-verte-maison.csv
+!data/valeur-verte-appartement.csv
 
 deno.lock
 public/mesaidesreno.model.json
