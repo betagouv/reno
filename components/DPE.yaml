@@ -1,15 +1,15 @@
-- énergie: 70
-  climat: 6
+- énergie: 0
+  climat: 0
   couleur: '#009c6d'
   lettre: A
   couleur GES: '#a5dbfa'
-- énergie: 110
-  climat: 11
+- énergie: 70
+  climat: 6
   couleur: '#52b153'
   couleur GES: '#8bb4d1'
   lettre: B
-- énergie: 180
-  climat: 30
+- énergie: 110
+  climat: 11
   couleur: '#78bd76'
   couleur GES: '#7992ae'
   lettre: C

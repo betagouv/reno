@@ -20,89 +20,93 @@ export default function DPE({
 
   return (
     <Section>
-      <Bars>
-        <ul>
-          {data.map((el, index) => (
-            <Li
-              key={el.lettre}
-              $selected={el.lettre === letter}
-              onClick={() => onClick && onClick(index)}
-            >
-              {onClick && <input type="radio" checked={el.lettre === letter} />}
-              <Bar
-                $background={el.couleur}
-                $index={index}
+      <ClasseWrapper>
+        <h3>Classe Energétique</h3>
+        <p>Consommation d'énergie</p>
+        <Bars>
+          <ul>
+            {data.map((el, index) => (
+              <Li
+                key={el.lettre}
                 $selected={el.lettre === letter}
-                $selected2={el.lettre === newLetter}
+                onClick={() => onClick && onClick(index)}
               >
-                {' '}
-                <span>{el.lettre}</span>
-                <small>
-                  {el.lettre === letter
-                    ? 'Votre DPE'
-                    : el.lettre === newLetter
-                      ? 'visé'
-                      : ''}
-                </small>
-              </Bar>
-              <Triangle
-                background={el.couleur}
-                selected={el.lettre === letter}
-                selected2={el.lettre === newLetter}
-              />
-            </Li>
-          ))}
-        </ul>
-      </Bars>
+                {onClick && (
+                  <input type="radio" checked={el.lettre === letter} />
+                )}
+                <Bar
+                  $background={el.couleur}
+                  $index={index}
+                  $selected={el.lettre === letter}
+                  $selected2={el.lettre === newLetter}
+                >
+                  {' '}
+                  <span>
+                    {el.lettre}{' '}
+                    <small>
+                      {index == 0
+                        ? '<= ' + data[index + 1].énergie
+                        : index == 6
+                          ? '> ' + el.énergie
+                          : el.énergie + 1 + ' à ' + data[index + 1].énergie}
+                    </small>
+                  </span>
+                </Bar>
+                <Triangle
+                  background={el.couleur}
+                  selected={el.lettre === letter}
+                  selected2={el.lettre === newLetter}
+                />
+              </Li>
+            ))}
+          </ul>
+        </Bars>
+        <small>en kWhEP/m².an</small>
+      </ClasseWrapper>
       {avecGES && (
-        <GESWrapper>
+        <ClasseWrapper>
+          <h3>Classe GES</h3>
+          <p>Emissions de gaz à effet de serre</p>
           <Bars>
             <ul>
-              {data.map((el, index) => {
-                const color = el['couleur GES']
-                return (
-                  <Li
-                    $size={sizeGES}
-                    key={el.lettre}
-                    $selected={el.lettre === gesLetter}
+              {data.map((el, index) => (
+                <Li key={el.lettre} $selected={el.lettre === gesLetter}>
+                  {onClick && (
+                    <input type="radio" checked={el.lettre === letter} />
+                  )}
+                  <Bar
+                    $background={el['couleur GES']}
+                    $index={index}
+                    $selected={el.lettre === letter}
+                    $selected2={el.lettre === newLetter}
                   >
-                    {onClick && (
-                      <input type="radio" checked={el.lettre === letter} />
-                    )}
-                    <Bar
-                      $size={sizeGES}
-                      $background={color}
-                      $index={index}
-                      $selected={el.lettre === letter}
-                      $selected2={el.lettre === newLetter}
-                    >
-                      {' '}
-                      <span>{el.lettre}</span>
+                    {' '}
+                    <span>
+                      {el.lettre}{' '}
                       <small>
-                        {el.lettre === letter
-                          ? 'Votre DPE'
-                          : el.lettre === newLetter
-                            ? 'visé'
-                            : ''}
+                        {index == 0
+                          ? '<= ' + data[index + 1].climat
+                          : index == 6
+                            ? '> ' + el.climat
+                            : el.climat + 1 + ' à ' + data[index + 1].climat}
                       </small>
-                    </Bar>
-                    <SemiRound
-                      background={color}
-                      selected={el.lettre === letter}
-                      selected2={el.lettre === newLetter}
-                    />
-                  </Li>
-                )
-              })}
+                    </span>
+                  </Bar>
+                  <Triangle
+                    background={el['couleur GES']}
+                    selected={el.lettre === letter}
+                    selected2={el.lettre === newLetter}
+                  />
+                </Li>
+              ))}
             </ul>
           </Bars>
-        </GESWrapper>
+          <small>en kgeqCO²/m².an</small>
+        </ClasseWrapper>
       )}
     </Section>
   )
 }
-
-const sizeGES = '1.6rem'
 
 const Section = styled.section`
   display: flex;
@@ -110,10 +114,13 @@ const Section = styled.section`
   align-items: center;
   gap: 2rem;
 `
-const GESWrapper = styled.div`
+const ClasseWrapper = styled.div`
   border: 3px solid #a5dbfa;
   border-radius: 1rem;
   padding: 0.8rem;
+  h3 {
+    margin: 0;
+  }
 `
 
 const Bars = styled.div`
@@ -137,7 +144,7 @@ const Li = styled.li`
 `
 const Bar = styled.label`
   background: ${(p) => p.$background};
-  width: ${(p) => 3 + (p.$index + 1) * 1.5}rem;
+  width: ${(p) => 3 + (p.$index + 2) * 1.5}rem;
   margin: 0.2rem 0;
   padding-left: 0.6rem;
   color: white;
@@ -147,11 +154,10 @@ const Bar = styled.label`
   > span:first-child {
     font-weight: bold;
     font-size: 150%;
-    margin-right: 0.6rem;
     line-height: ${(p) => p.$size || size};
   }
   small {
-    font-size: 80%;
+    font-size: 60%;
     white-space: nowrap;
     text-shadow: 1px 1px 2px black;
   }
@@ -200,41 +206,6 @@ const Triangle = ({ background, selected, selected2 }) => (
 
   
 		  `)}
-    />
-  </svg>
-)
-
-const SemiRound = ({ background, selected, selected2 }) => (
-  <svg
-    viewBox="0 0 400 400"
-    style={css(`
-
-  margin-left: -1px
-		  `)}
-  >
-    <path
-      style={css(`
-
-  fill: ${background};
-  ${
-    selected
-      ? `
-  stroke-width: 20px;
-  stroke: var(--color);
-  `
-      : selected2
-        ? `
-  stroke-width: 20px;
-  stroke-dasharray: 55;
-  stroke: var(--color);
-
-		  `
-        : ``
-  }
-
-  
-		  `)}
-      d="M 0.02153,0.18293901 V 398.82896 c 0,0 180.20833,-4.3195 180.20833,-199.39978 C 180.22986,4.2041291 0.02153,0.18293901 0.02153,0.18293901 Z"
     />
   </svg>
 )
