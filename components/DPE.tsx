@@ -110,14 +110,10 @@ export default function DPE({
 
 const Section = styled.section`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 2rem;
+  gap: 0.5rem;
 `
 const ClasseWrapper = styled.div`
-  border: 3px solid #a5dbfa;
-  border-radius: 1rem;
-  padding: 0.8rem;
   h3 {
     margin: 0;
   }
@@ -144,7 +140,7 @@ const Li = styled.li`
 `
 const Bar = styled.label`
   background: ${(p) => p.$background};
-  width: ${(p) => 3 + (p.$index + 2) * 1.5}rem;
+  width: ${(p) => 3 + (p.$index + 1.5) * 1.5}rem;
   margin: 0.2rem 0;
   padding-left: 0.6rem;
   color: white;
