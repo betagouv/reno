@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
 import Papa from 'papaparse'
 import { useSearchParams } from 'next/navigation'
 
-export default function DataAnah2() {
+function DataAnah2Content() {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const [tableData, setTableData] = useState([])
@@ -60,12 +60,11 @@ export default function DataAnah2() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const response = await fetch(
-      //   `https://mardata.osc-fr1.scalingo.io/file/` +
-      //     searchParams.key +
-      //     '/2024/mpra_int_sup_2024_10',
-      // )
-      const response = await fetch('/mpra_int_sup_2024_10.csv')
+      const response = await fetch(
+        `https://mardata.osc-fr1.scalingo.io/file/` +
+          searchParams.key +
+          '/2024/mpra_int_sup_2024_10',
+      )
       const csvText = await response.text()
 
       Papa.parse(csvText, {
@@ -102,8 +101,9 @@ export default function DataAnah2() {
 
     fetchData()
   }, [])
+
   return (
-    <div>
+    <>
       <h1>Vérification MPRA Nat</h1>
       <table border="1">
         <thead>
@@ -136,6 +136,14 @@ export default function DataAnah2() {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
+  )
+}
+
+export default function DataAnah2() {
+  return (
+    <Suspense fallback={<div>Chargement...</div>}>
+      <DataAnah2Content />
+    </Suspense>
   )
 }

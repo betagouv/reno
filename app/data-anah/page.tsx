@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import css from '@/components/css/convertToJs'
 import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
@@ -17,7 +17,7 @@ const incomeClasses = {
   MO: 'modeste',
 }
 
-export default function DataAnah() {
+function DataAnahContent() {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const subsetLength = 1000
@@ -95,13 +95,12 @@ export default function DataAnah() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await fetch(
-        //   `https://mardata.osc-fr1.scalingo.io/file/` +
-        //     searchParams.key +
-        //     '/2024/mpra_tmo_mo_2024_10',
-        // )
+        const response = await fetch(
+          `https://mardata.osc-fr1.scalingo.io/file/` +
+            searchParams.key +
+            '/2024/mpra_tmo_mo_2024_10',
+        )
 
-        const response = await fetch('/mpra_tmo_mo_2024_10.csv')
         if (!response.ok) throw new Error('Failed to fetch CSV data')
 
         Papa.parse(await response.text(), {
@@ -142,106 +141,117 @@ export default function DataAnah() {
   }, [])
 
   return (
-    <main
-      style={css`
-        padding: 2rem;
-      `}
-    >
-      <PageBlock>
-        <h1>Vérification MPRA Locale</h1>
-        {loading ? (
-          <Loader></Loader>
-        ) : (
-          <>
-            <div
-              css={`
-                display: flex;
-                gap: 1rem;
-                justify-content: center;
-                margin-bottom: 1rem;
-              `}
-            >
-              <StatCard
-                label={`% d'erreur sur les diffus (${error?.diffus} / ${tableData.filter((r) => r['stc_code'] == 'DIFFUS').length})`}
-                value={Math.round(
-                  (error?.diffus /
-                    tableData.filter((r) => r['stc_code'] == 'DIFFUS').length) *
-                    100,
-                )}
-              />
-              <StatCard
-                label={`% d'erreur sur les bailleurs (${error?.bailleur} / ${tableData.filter((r) => r['tdm_code'] == 'PB').length})`}
-                value={Math.round(
-                  (error?.bailleur /
-                    tableData.filter((r) => r['tdm_code'] == 'PB').length) *
-                    100,
-                )}
-              />
-              <StatCard
-                label="% d'erreur sur le reste"
-                value={Math.round((error?.autre / subsetLength) * 100)}
-              />
-            </div>
-            <table
-              css={`
-                width: 100%;
-                border-collapse: collapse;
-                margin: 1rem 0;
-                font-size: 1rem;
-                text-align: left;
+    <Suspense>
+      <main
+        style={css`
+          padding: 2rem;
+        `}
+      >
+        <PageBlock>
+          <h1>Vérification MPRA Locale</h1>
+          {loading ? (
+            <Loader></Loader>
+          ) : (
+            <>
+              <div
+                css={`
+                  display: flex;
+                  gap: 1rem;
+                  justify-content: center;
+                  margin-bottom: 1rem;
+                `}
+              >
+                <StatCard
+                  label={`% d'erreur sur les diffus (${error?.diffus} / ${tableData.filter((r) => r['stc_code'] == 'DIFFUS').length})`}
+                  value={Math.round(
+                    (error?.diffus /
+                      tableData.filter((r) => r['stc_code'] == 'DIFFUS')
+                        .length) *
+                      100,
+                  )}
+                />
+                <StatCard
+                  label={`% d'erreur sur les bailleurs (${error?.bailleur} / ${tableData.filter((r) => r['tdm_code'] == 'PB').length})`}
+                  value={Math.round(
+                    (error?.bailleur /
+                      tableData.filter((r) => r['tdm_code'] == 'PB').length) *
+                      100,
+                  )}
+                />
+                <StatCard
+                  label="% d'erreur sur le reste"
+                  value={Math.round((error?.autre / subsetLength) * 100)}
+                />
+              </div>
+              <table
+                css={`
+                  width: 100%;
+                  border-collapse: collapse;
+                  margin: 1rem 0;
+                  font-size: 1rem;
+                  text-align: left;
 
-                th,
-                td {
-                  padding: 0.75rem 1rem;
-                  border: 1px solid #ddd;
-                }
+                  th,
+                  td {
+                    padding: 0.75rem 1rem;
+                    border: 1px solid #ddd;
+                  }
 
-                th {
-                  background-color: #f4f4f4;
-                  font-weight: bold;
-                }
+                  th {
+                    background-color: #f4f4f4;
+                    font-weight: bold;
+                  }
 
-                tr:nth-child(even) {
-                  background-color: #f9f9f9;
-                }
+                  tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                  }
 
-                tr:hover {
-                  background-color: #f1f1f1;
-                }
-              `}
-            >
-              <thead>
-                <tr>
-                  {Object.keys(columns).map((col, i) => (
-                    <th key={col}>{col}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Object.values(columns).map((col) => (
-                      <td
-                        key={col}
-                        className={
-                          col === 'ecart' && row['ecart'] !== 0
-                            ? 'error'
-                            : col !== 'mt_subv_anah' &&
-                                row[col] === row['mt_subv_anah']
-                              ? 'highlight'
-                              : ''
-                        }
-                      >
-                        {row[col]}
-                      </td>
+                  tr:hover {
+                    background-color: #f1f1f1;
+                  }
+                `}
+              >
+                <thead>
+                  <tr>
+                    {Object.keys(columns).map((col, i) => (
+                      <th key={col}>{col}</th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )}
-      </PageBlock>
-    </main>
+                </thead>
+                <tbody>
+                  {tableData.map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                      {Object.values(columns).map((col) => (
+                        <td
+                          key={col}
+                          className={
+                            col === 'ecart' && row['ecart'] !== 0
+                              ? 'error'
+                              : col !== 'mt_subv_anah' &&
+                                  row[col] === row['mt_subv_anah']
+                                ? 'highlight'
+                                : ''
+                          }
+                        >
+                          {row[col]}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+        </PageBlock>
+      </main>
+    </Suspense>
+  )
+}
+
+export default function DataAnah() {
+  return (
+    <Suspense fallback={<div>Chargement...</div>}>
+      <DataAnahContent />
+    </Suspense>
   )
 }
