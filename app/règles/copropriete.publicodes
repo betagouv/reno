@@ -42,9 +42,11 @@ copropriété . montant travaux:
       - 10000€ # Nombre arbitraire pour le montant moyen des travaux par logement
   unité: '€'
 copropriété . condition 15 ans:
+  titre: Construite il y a plus de 15 ans
   question: La copropriété a-t-elle été construite il y a plus de 15 ans ?
   par défaut: oui
 copropriété . condition résidence principale:
+  titre: Quota d'habitations principales
   question:
     texte: >
       La copropriété est-elle composée de minimum {{ pourcent }} de logement dédié à l'usage d'habitation principale ?
@@ -68,6 +70,13 @@ copropriété . gain énergétique:
       - 'entre 35 % et 50 %'
       - 'plus de 50 %'
   description: Bien sûr, il y a peu de chance que vous ayez ce chiffre en tête, n'hésitez pas à faire plusieurs simulations
+
+copropriété . gain énergétique . condition:
+  titre: Gain énergétique suffisant
+  une de ces conditions:
+    - gain énergétique = gain énergétique . entre 35 % et 50 %
+    - gain énergétique = gain énergétique . plus de 50 %
+
 copropriété . gain énergétique . moins de 35 %:
   valeur: "'moins de 35 %'"
   titre: moins de 35 %
@@ -117,11 +126,10 @@ copropriété . condition éligibilité:
   toutes ces conditions:
     - condition résidence principale
     - condition 15 ans
-    - une de ces conditions:
-        - gain énergétique = gain énergétique . entre 35 % et 50 %
-        - gain énergétique = gain énergétique . plus de 50 %
+    - gain énergétique . condition
     - est défini: bonus sortie passoire
     - est défini: bonus copropriété fragile
+
 copropriété . montant:
   applicable si: condition éligibilité
   produit:
