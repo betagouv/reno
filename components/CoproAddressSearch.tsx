@@ -24,8 +24,12 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const map = useAddAddressMap(mapContainerRef, setLocation, active)
 
   const [clicked, setClicked] = useState(false)
+
   const validInput = input && input.length >= 5
   const [error, setError] = useState()
+
+  const selectedCoproIdRaw = situation['copropriété . id'],
+    selectedCoproId = selectedCoproIdRaw?.replace(/"/g, '')
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
@@ -106,8 +110,9 @@ export default function AddressSearch({ setChoice, situation, type }) {
       {results && !clicked && (
         <small
           css={`
-            margin: 0.2rem 0 0.2rem 0.6rem;
             color: #929292;
+            margin: 0.2rem 0 0.2rem 0.1rem;
+            font-size: 90%;
           `}
         >
           Sélectionnez une adresse :
@@ -138,6 +143,17 @@ export default function AddressSearch({ setChoice, situation, type }) {
             )
           })}
       </CityList>
+      {copros?.length && selectedCoproId == null && (
+        <small
+          css={`
+            margin: 0.2rem 0 0.2rem 0.1rem;
+            font-size: 90%;
+            color: #929292;
+          `}
+        >
+          Sélectionnez une copropriété :
+        </small>
+      )}
       {copros?.length > 0 && (
         <CityList>
           {copros.map((copro) => {
@@ -146,17 +162,11 @@ export default function AddressSearch({ setChoice, situation, type }) {
               "Numéro d'immatriculation": id,
             } = copro
 
-            console.log('cyan2', copro)
+            console.log('cyan2', selectedCoproId, id)
 
             return (
               <li
-                className={
-                  situation &&
-                  situation[type] &&
-                  situation[type].replace(/"/g, '') == id
-                    ? 'selected'
-                    : ''
-                }
+                className={selectedCoproId === id ? 'selected' : ''}
                 key={id}
                 onClick={() => {
                   setChoice(copro)
@@ -251,6 +261,7 @@ export const CityList = styled.ol`
     &.selected {
       background: rgba(0, 0, 145, 0.1);
       color: var(--color);
+      list-style: none;
     }
     &.selected::before {
       content: '✔';

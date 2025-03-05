@@ -124,7 +124,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (currentQuestion === 'copropriété . adresse')
+  if (currentQuestion === 'copropriété . id')
     return (
       <ClassicQuestionWrapper
         {...{
@@ -136,8 +136,10 @@ export default function InputSwitch({
           situation,
           setSearchParams,
           questionsToSubmit: [
-            'copropriété . adresse',
-            'copropriété . nombre de logements',
+            'copropriété . id',
+            'copropriété . nombre de lots principaux',
+            'copropriété . nombre de lots habitation',
+            'copropriété . condition 15 ans',
           ],
           currentValue,
           engine,
@@ -154,6 +156,8 @@ export default function InputSwitch({
               const moreThan15Years =
                 !lessThan15Years && constructionPeriod.match(/\d\d\d\d/)
 
+              const id = result["Numéro d'immatriculation"]
+              console.log('cyan id', id)
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
@@ -162,6 +166,7 @@ export default function InputSwitch({
                   'logement . EPCI': `"${result['Code Officiel EPCI']}"`,
                   'logement . commune': `"${result['Commune']}"`,
                   'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
+                  'copropriété . id': `"${id}"`,
                   'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
                   'copropriété . nombre de lots habitation': `"${result['Nombre de lots à usage d’habitation']}"`,
                   ...(lessThan15Years
