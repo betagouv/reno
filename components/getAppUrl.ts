@@ -12,6 +12,6 @@ export function getServerUrl() {
   const urlBase =
     process.env.NEXT_PUBLIC_NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'https://TODO'
+      : `https://mardata.osc-fr1.scalingo.io`
   return urlBase
 }
