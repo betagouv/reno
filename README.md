@@ -28,4 +28,6 @@ Un premier [module NPM](https://www.npmjs.com/package/mesaidesreno) est intégra
 
 À chaque `yarn build`, la fonction `writePublicodeJson` est executée. Le modèle est donc écrit en JSON consolidé dans le fichier mesaidesreno.model.json, un standard dans le monde publicodes. Ce fichier est ignoré par .gitignore, mais sera mis en ligne sur notre module NPM.
 
-Pour le faire, il suffit de faire `npm publish`.
+Pour chaque nouvelle version, il faut mettre à jour le numéro de version dans le `package.json` en suivant le [versionage sémantique](https://github.com/betagouv/reno/issues/41).
+
+Pour publier la nouvelle version après ces deux étapes, il suffit de faire `npm publish`.
