@@ -60,6 +60,8 @@ export default function ExplicationCopropriete() {
       'copropriété . pourcentage sortie passoire',
     ).nodeValue
   }
+  const nom = situation['copropriété . nom'],
+    nomContent = nom ? nom + ' ' : null
 
   return (
     <Section>
@@ -86,7 +88,7 @@ export default function ExplicationCopropriete() {
         {isEligibile ? (
           <>
             <p>
-              Votre copropriété est{' '}
+              Votre copropriété {nomContent}est{' '}
               <PrimeStyle>
                 <strong>éligible</strong>
               </PrimeStyle>{' '}

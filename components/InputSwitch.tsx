@@ -167,6 +167,7 @@ export default function InputSwitch({
                   'logement . commune': `"${result['Commune']}"`,
                   'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
                   'copropriété . id': `"${id}"`,
+                  'copropriété . nom': `"${result['Nom d’usage de la copropriété']}"`,
                   'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
                   'copropriété . nombre de logement': `"${result['Nombre de lots à usage d’habitation']}"`,
                   ...(lessThan15Years

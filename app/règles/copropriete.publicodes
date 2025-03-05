@@ -11,6 +11,8 @@ copropriété . id:
   description: |
     Cette question va déclencher une recherche dans le [registre national des copros](https://www.registre-coproprietes.gouv.fr).
   question: Quelle est l'adresse de la copropriété ?
+copropriété . nom:
+  question: Quelle est le nom de la copropriété ?
 
 copropriété . nombre de lots principaux:
   formule: id # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
