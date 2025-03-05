@@ -63,7 +63,11 @@ export default function Entreprise({ data }) {
         </div>
       )}
       {data.Email_Structure && (
-        <div>
+        <div
+          css={`
+            word-break: break-all;
+          `}
+        >
           <a
             href={`mailto:${data.Email_Structure}`}
             title="Contacter cette entreprise par courriel"
@@ -73,7 +77,11 @@ export default function Entreprise({ data }) {
         </div>
       )}
       {site && (
-        <div>
+        <div
+          css={`
+            word-break: break-all;
+          `}
+        >
           <ExternalLink href={site} target="_blank">
             {site}
           </ExternalLink>

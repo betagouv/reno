@@ -15,6 +15,7 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
+import CopyButton from './CopyButton'
 
 export const QuestionText = ({
   rule,
@@ -30,10 +31,7 @@ export const QuestionText = ({
   const text = rule.question.texte
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
-
-  return (
-    <h1>{text.endsWith(' ?') ? text.replace(/\s\?$/, '') : text}&nbsp;?</h1>
-  )
+  return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
 }
 export default function ClassicQuestionWrapper({
   children,
@@ -86,30 +84,35 @@ export default function ClassicQuestionWrapper({
           margin: 0 auto;
         `}
       >
-        {(!rule.type || !rule.type === 'question rhétorique') && (
+        {!rule.type && (
           <QuestionHeader>
-            <small>{categoryTitle}</small>
-            <QuestionText
-              {...{
-                rule,
-                question: currentQuestion,
-                rules,
-                situation,
-                engine,
-              }}
-            />
-            {rule['sous-titre'] && (
-              <div
-                css={`
-                  p {
-                    color: #666;
-                    font-size: 90%;
-                    line-height: 1.25rem;
-                  }
-                `}
-                dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-              ></div>
-            )}
+            <div>
+              <small>{categoryTitle}</small>
+              <QuestionText
+                {...{
+                  rule,
+                  question: currentQuestion,
+                  rules,
+                  situation,
+                  engine,
+                }}
+              />
+              {rule['sous-titre'] && (
+                <div
+                  css={`
+                    p {
+                      color: #666;
+                      font-size: 90%;
+                      line-height: 1.25rem;
+                    }
+                  `}
+                  dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+                ></div>
+              )}
+            </div>
+            <div>
+              <CopyButton searchParams={searchParams} />
+            </div>
           </QuestionHeader>
         )}
         <AnswerWrapper>
@@ -144,6 +147,7 @@ export default function ClassicQuestionWrapper({
             questionsToSubmit,
             currentQuestion,
             situation,
+            depuisModule,
           }}
         />
         <Notifications {...{ currentQuestion, engine }} />
@@ -159,7 +163,6 @@ export default function ClassicQuestionWrapper({
           }}
         />
         <br />
-        <Share searchParams={searchParams} />
         <UserProblemBanner />
       </div>
     </>

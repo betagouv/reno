@@ -8,7 +8,7 @@ copropriété:
         
     L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
 copropriété . nombre de logement:
-  question: Combien de logements composent la copropriété?
+  question: Combien de logements composent la copropriété ?
   suggestions:
     10 logements: 10
     30 logements: 30
@@ -22,7 +22,7 @@ copropriété . montant travaux:
       - 10000€ # Nombre arbitraire pour le montant moyen des travaux par logement
   unité: '€'
 copropriété . condition 15 ans:
-  question: La copropriété a-t-elle été construite il y a plus de 15 ans?
+  question: La copropriété a-t-elle été construite il y a plus de 15 ans ?
   par défaut: oui
 copropriété . condition résidence principale:
   question:
@@ -39,7 +39,7 @@ copropriété . condition résidence principale:
   par défaut: oui
 
 copropriété . gain énergétique:
-  question: 'Quel est le gain énergétique envisagé dans le cadre de cette rénovation?'
+  question: Quel est le gain énergétique envisagé dans le cadre de cette rénovation ?
   une possibilité parmi:
     possibilités:
       - 'moins de 35 %'
@@ -71,7 +71,7 @@ copropriété . pourcentage sortie passoire:
       alors: 10%
     - sinon: 0%
 copropriété . bonus copropriété fragile:
-  question: Votre copropriété est-elle considérée comme fragile ou en difficulté?
+  question: Votre copropriété est-elle considérée comme fragile ou en difficulté ?
   par défaut: oui
   description: |
     Une copropriété est considérée fragile ou en difficulté si:

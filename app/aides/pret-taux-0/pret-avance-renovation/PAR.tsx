@@ -1,6 +1,6 @@
 'use client'
 
-import { Card } from '@/components/UI'
+import { Card, ConditionEligibiliteUI } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import parImage from '@/public/par.png'
@@ -30,9 +30,7 @@ export default function PAR() {
           <Image src={parImage} alt="logo PAR+" width="120" />
         </div>
       </div>
-      <Card>
-        <EligibilityPAR dottedName="PAR" />
-      </Card>
+      <EligibilityPAR dottedName="PAR" />
       <ShareModule titre="par" />
       <h2>Comment cela fonctionne?</h2>
       <div
@@ -40,21 +38,9 @@ export default function PAR() {
           __html: rules[dottedName].explicationHTML,
         }}
       />
-      <h2>Les principales conditions d'éligibilité ?</h2>
-      <div
-        css={`
-          list-style-image: url(${checkIcon.src});
-          li {
-            margin: 1rem 0;
-            ul {
-              list-style-image: none;
-            }
-          }
-        `}
-        dangerouslySetInnerHTML={{
-          __html: rules[dottedName].conditionsEligibilitesHTML,
-        }}
-      />
+      <ConditionEligibiliteUI>
+        {rules[dottedName].conditionsEligibilitesHTML}
+      </ConditionEligibiliteUI>
       <FatConseiller
         {...{
           situation: {},

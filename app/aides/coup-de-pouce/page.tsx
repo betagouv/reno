@@ -31,6 +31,7 @@ export default function CoupDePouce() {
         <div
           style={css`
             display: flex;
+            align-items: center;
             margin: 1rem 0;
           `}
         >

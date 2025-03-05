@@ -1,10 +1,9 @@
 import { Key } from '../explications/ExplicationUI'
 import { Card, ExternalLink } from '../UI'
 import AideAmpleur from './AideAmpleur'
-import rules from '@/app/règles/rules'
-import checkIcon from '@/public/check.svg'
 
 export default function EcoPTZ({
+  isEligible,
   engine,
   situation,
   setSearchParams,
@@ -16,6 +15,7 @@ export default function EcoPTZ({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,
@@ -37,7 +37,6 @@ export default function EcoPTZ({
       )}
       {expanded && (
         <>
-          <h3>Comment est calculée l'aide ?</h3>
           <p>
             L'éco-prêt à taux zéro est accessible à tous, sans condition de
             ressources.
@@ -49,7 +48,7 @@ export default function EcoPTZ({
           </p>
           <p>La durée du remboursement est de 20 ans maximum.</p>
           <Card
-            $background="#f7f8f8"
+            $background="#EEEEFF"
             css={`
               padding: 1rem;
             `}
@@ -73,21 +72,6 @@ export default function EcoPTZ({
               </p>
             </div>
           </Card>
-          <h3>Les principales conditions d'éligibilité ?</h3>
-          <div
-            css={`
-              list-style-image: url(${checkIcon.src});
-              li {
-                margin: 1rem 0;
-                ul {
-                  list-style-image: none;
-                }
-              }
-            `}
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].conditionsEligibilitesHTML,
-            }}
-          />
         </>
       )}
     </AideAmpleur>

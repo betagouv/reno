@@ -12,6 +12,8 @@ import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
 import { AvanceTMO } from './mprg/BlocAideMPR'
+import CopyButton from './CopyButton'
+import Breadcrumb from './Breadcrumb'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -36,6 +38,7 @@ export default function GestesMosaic({
   setSearchParams,
   situation,
   answeredQuestions,
+  searchParams,
   questions,
   engine,
 }) {
@@ -102,13 +105,47 @@ export default function GestesMosaic({
   return (
     <Section>
       <CustomQuestionWrapper>
-        <BtnBackToParcoursChoice
-          {...{
-            setSearchParams,
-            situation: omit(["parcours d'aide"], situation),
-            answeredQuestions,
-          }}
+        <Breadcrumb
+          links={[
+            {
+              Eligibilité: setSearchParams(
+                {
+                  ...encodeSituation(
+                    omit(["parcours d'aide", 'question'], situation),
+                    false,
+                    answeredQuestions,
+                  ),
+                },
+                'url',
+                true,
+              ),
+            },
+            {
+              Gestes: setSearchParams(
+                {
+                  ...encodeSituation(situation, false, answeredQuestions),
+                },
+                'url',
+                true,
+              ),
+            },
+          ]}
         />
+        <div
+          css={`
+            display: flex;
+            justify-content: space-between;
+          `}
+        >
+          <BtnBackToParcoursChoice
+            {...{
+              setSearchParams,
+              situation: omit(["parcours d'aide"], situation),
+              answeredQuestions,
+            }}
+          />
+          <CopyButton searchParams={searchParams} />
+        </div>
         <header>
           <small>Les aides à la carte</small>
           <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
@@ -243,7 +280,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
             ${checked && `border: 2px solid var(--color);`}
             border-radius: 0.2rem;
             > div {
-              max-width: calc(100% - 4rem);
+              width: 100%;
             }
           `}
         >
@@ -252,6 +289,7 @@ const Checkboxes = ({ questions, rules, onChange, situation, engine }) => {
               width: 1.6rem;
               height: 1.6rem;
               margin-right: 1rem;
+              margin-left: 1vw;
               cursor: pointer;
             `}
             type="checkbox"

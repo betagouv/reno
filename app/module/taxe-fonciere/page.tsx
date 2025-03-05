@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-import { FooterModule } from '../FooterModule'
 import EligibilityTaxeFonciere from '@/components/module/EligibilityTaxeFonciere'
 
 export default function ModuleTaxeFonciere() {
@@ -10,7 +9,6 @@ export default function ModuleTaxeFonciere() {
           dottedName: 'taxe foncière',
         }}
       />
-      <FooterModule />
     </Suspense>
   )
 }

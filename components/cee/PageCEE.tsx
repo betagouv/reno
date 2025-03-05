@@ -94,7 +94,10 @@ export default function PageCEE({ params }: { params: { code: string } }) {
                 }
               `}
             >
-              <Link href="/aides/cee">⬅ Retour à la liste des aides CEE</Link>
+              <Link href="/aides/cee">
+                <span aria-hidden="true">⬅</span> Retour à la liste des aides
+                CEE
+              </Link>
             </CTA>
           </CTAWrapper>
         )}

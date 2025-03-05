@@ -74,6 +74,8 @@ function transformRuleObject(v) {
   const newV = {
     ...v,
     descriptionHtml: v.description && transformMarkdown(v.description),
+    completeDescriptionHtml:
+      v['description complète'] && transformMarkdown(v['description complète']),
     titreHtml: v.titre && transformMarkdown(v.titre),
     sousTitreHtml: v['sous-titre'] && transformMarkdown(v['sous-titre']),
     conditionsEligibilitesHTML:

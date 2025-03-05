@@ -1,12 +1,5 @@
 'use client'
-import {
-  Card,
-  CardLink,
-  CTA,
-  CTAWrapper,
-  ExternalLink,
-  PageBlock,
-} from '@/components/UI'
+import { Card, CTA, CTAWrapper, ExternalLink, PageBlock } from '@/components/UI'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationIntegration from '@/public/illustration-integration.png'
 import iconChrono from '@/public/chrono.svg'
@@ -22,6 +15,7 @@ import npmIcon from '@/public/icon-npm.png'
 import logoOFI from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
 import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
 import logoAdeme from '@/public/logo-partenaire/logo-ademe.svg'
+import logoProReno from '@/public/logo-partenaire/logo-pro-reno.webp'
 
 import Image from 'next/image'
 import styled from 'styled-components'
@@ -60,7 +54,8 @@ export default function DevenirPartenaire() {
               padding: 0 1rem;
             `}
           >
-            ⭐️ Aides à la rénovation énergétique
+            <span aria-hidden="true">⭐️</span> Aides à la rénovation
+            énergétique
           </p>
           <h1
             css={`
@@ -74,7 +69,9 @@ export default function DevenirPartenaire() {
           </h1>
           <CTAWrapper $justify="left">
             <CTA $fontSize="normal">
-              <Link href="/contact">➔&nbsp;&nbsp;Demandez une démo</Link>
+              <Link href="/contact">
+                <span aria-hidden="true">➔</span>&nbsp;&nbsp;Demandez une démo
+              </Link>
             </CTA>
           </CTAWrapper>
         </div>
@@ -144,7 +141,9 @@ export default function DevenirPartenaire() {
           </p>
           <CTAWrapper $justify="center">
             <CTA $fontSize="normal">
-              <Link href="/contact">✉&nbsp;&nbsp;Prendre contact</Link>
+              <Link href="/contact">
+                <span aria-hidden="true">✉</span> Prendre contact
+              </Link>
             </CTA>
           </CTAWrapper>
         </Content>
@@ -233,7 +232,8 @@ export default function DevenirPartenaire() {
               text-align: center;
               gap: 1rem;
               img {
-                max-width: 300px;
+                max-width: 200px;
+                height: auto;
               }
               a {
                 &:hover {
@@ -258,11 +258,18 @@ export default function DevenirPartenaire() {
               href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
               target="_blank"
             >
+              <Image src={logoBonPote} alt="Logo Bon Pote" />
+            </ExternalLink>
+            <ExternalLink
+              href="https://www.proreno.fr/services/mes-aides-reno"
+              target="_blank"
+            >
               <Image
-                src={logoBonPote}
-                alt="Logo Bon Pote"
+                src={logoProReno}
+                alt="Logo Pro Réno"
                 css={`
-                  height: auto;
+                  background: lightgrey;
+                  padding: 8px;
                 `}
               />
             </ExternalLink>

@@ -16,7 +16,7 @@ ménage . revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
   sous-titre: |
-    Votre revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
+    Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
   bornes intelligentes: oui
   description: |
     Saisissez le revenu fiscal de référence des personnes composant votre ménage. 
@@ -88,7 +88,7 @@ vous . propriétaire . astuce:
   description: |
     Si vous êtes locataire, vous aurez peu ou pas d'aide à la rénovation. 
 
-    **Cependant**, n'hésitez pas à faire cette simulation comme si vous étiez propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides 2024.
+    **Cependant**, n'hésitez pas à faire cette simulation comme si vous étiez propriétaire. Cela peut constituer une base de discussion factuelle intéressante : votre propriétaire n'est peut-être pas au courant des nouvelles aides.
 
 logement:
   titre: Votre logement
@@ -401,7 +401,7 @@ DPE . actuel . efficace:
 DPE . actuel:
   titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
-  sous-titre: Si vous ne le connaissez pas, n'hésitez pas à faire des tests, cela ne vous engage pas.
+  sous-titre: Si vous l'ignorez, nous vous conseillons de choisir la lettre qui vous semble la plus conforme à la réalité. Vous pourrez la changer plus tard dans la simulation et voir ainsi l'impact sur le montant des aides.
   description: |
     Le DPE, c'est le Diagnostic de Performance Énergétique de votre logement. 
 

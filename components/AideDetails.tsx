@@ -1,12 +1,14 @@
 import Feedback from '@/app/contact/Feedback'
 import { createExampleSituation } from './ampleur/AmpleurSummary'
-import VoirSynthese from './ampleur/VoirSynthese'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
-import { decodeDottedName } from './publicodes/situationUtils'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { Section } from './UI'
 import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
+import Breadcrumb from './Breadcrumb'
+import { aideTitle } from './ampleur/AideAmpleur'
+import CopyButton from './CopyButton'
 
 export default function AideDetails({
   setSearchParams,
@@ -24,20 +26,60 @@ export default function AideDetails({
     'Page',
     'Aide Détails ' + dottedName,
   ])
-  const exampleSituation = createExampleSituation(engine, situation, false)
   const AideComponent = correspondance[dottedName]
 
   if (AideComponent)
     return (
       <Section>
         <CustomQuestionWrapper>
-          <BtnBackToParcoursChoice
-            {...{
-              setSearchParams,
-              situation: omit(['details'], situation),
-              answeredQuestions,
-            }}
+          <Breadcrumb
+            links={[
+              {
+                Eligibilité: setSearchParams(
+                  {
+                    ...encodeSituation(
+                      omit(["parcours d'aide", 'details'], situation),
+                      false,
+                      answeredQuestions,
+                    ),
+                  },
+                  'url',
+                  true,
+                ),
+              },
+              {
+                Ampleur: setSearchParams(
+                  {
+                    ...encodeSituation(
+                      omit(['details'], situation),
+                      false,
+                      answeredQuestions,
+                    ),
+                  },
+                  'url',
+                  true,
+                ),
+              },
+              {
+                [aideTitle(dottedName)]: '',
+              },
+            ]}
           />
+          <div
+            css={`
+              display: flex;
+              justify-content: space-between;
+            `}
+          >
+            <BtnBackToParcoursChoice
+              {...{
+                setSearchParams,
+                situation: omit(['details'], situation),
+                answeredQuestions,
+              }}
+            />
+            <CopyButton searchParams={searchParams} />
+          </div>
           <AideComponent
             {...{
               dottedName: dottedName,
@@ -45,17 +87,9 @@ export default function AideDetails({
               answeredQuestions,
               engine,
               situation,
-              exampleSituation,
               searchParams,
               expanded: true,
               rules,
-            }}
-          />
-          <VoirSynthese
-            {...{
-              answeredQuestions,
-              searchParams,
-              setSearchParams,
             }}
           />
           <Feedback title={'Ce simulateur a-t-il été utile ?'} />

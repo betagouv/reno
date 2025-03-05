@@ -8,8 +8,8 @@ import { BlueEm, HeaderWrapper } from '../LandingUI'
 import AmpleurDemonstration from './AmpleurDemonstration'
 import { Suspense } from 'react'
 export const metadata: Metadata = {
-  title: 'Module passoire thermique - Mes aides réno',
-  description: `Découvrez le module de calcul "passoire thermique" de Mes Aides Réno"`,
+  title: "Module d'aide à la rénovation énergétique - Mes aides réno",
+  description: `Découvrez le module de calcul des aides à la rénovation énergétique de Mes Aides Réno"`,
 }
 
 export default function Module({}) {
@@ -34,8 +34,8 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Module de calcul</BlueEm> d'aide pour un achat de passoire
-              thermique
+              <BlueEm>Module de calcul</BlueEm> des aides à la rénovation
+              énergétique
             </h1>
             <Intro>
               <p>
@@ -128,10 +128,47 @@ export default function Module({}) {
                 : tout notre développement est ouvert.
               </small>
             </p>
-            <h4>v4 (à venir)</h4>
+            <h4>v4 (mi-février 2025)</h4>
             <p>
-              Pour la v4, à nouveau suite à des tests utilisateurs, nous allons
-              travailler l'affichage des résultats chiffrés dans le module.
+              Dans cette nouvelle version, le changement majeur est la fin de
+              l'affichage de résultats <em>avant</em> une première réponse à
+              toutes les questions du module.
+            </p>
+            <p>
+              En effet, nos tests utilisateurs nous avaient permi d'identifier
+              que l'utilisateur ne comprenait souvent pas que ses réponses
+              changeaient les chiffres car ils se mettaient à jour
+              instantanément, donc discrètement.
+            </p>
+            <p>
+              Au passage, fini le risque de mal informer l'utilisateur distrait,
+              l'oeil attiré par les résultats verts en milliers d'€, avec des
+              aides moyennes auxquelles il n'a pas accès donc avec un potentiel
+              de déception important.
+            </p>
+            <p>
+              Autre changement notable : nous ne posons plus la question du DPE
+              cible. Nous prenons une hypothèse d'un saut de DPE suffisant pour
+              obtenir MaPrimeRénov' et mentionnons cela tout en bas : la
+              simulation complète permettra à l'utilisateur de comprendre ces
+              enjeux dans un second temps, peu pertinent pendant la phase de
+              recherche de logement.
+            </p>
+            <p>
+              Nous avons également ajouté le logo officiel de la République
+              Française en-tête pour donner confiance aux utilisateurs, et
+              relégé les logos secondaires en bas. Un liseré bleu vient mieux
+              segmenter le module du reste de la page hôte.
+            </p>
+            <p>
+              Finalement, nous avons corrigé quelques problèmes subsidiaires :
+              l'utilisateur peut maintenant revenir sur le module quand il
+              l'avait quitté via le bouton "Affiner" ; la couleur de l'un des
+              champs de saisie différait des autres ; l'affichage des résultats
+              était moins lisible sans organisation de type tableau à deux
+              colonnes ; nous avons clarifié la question "Île de France" en
+              évitant l'approche par la négative, même si cela occupe une
+              nouvelle ligne verticale.
             </p>
           </Content>
         </Wrapper>

@@ -1,5 +1,5 @@
 'use client'
-import { Card } from '@/components/UI'
+import { Card, ConditionEligibiliteUI } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import FatConseiller from '@/components/FatConseiller'
@@ -24,25 +24,11 @@ export default function Denormandie() {
           }}
         />
       </div>
-      <Card>
-        <EligibilityDenormandie dottedName="denormandie" />
-      </Card>
+      <EligibilityDenormandie dottedName="denormandie" />
       <ShareModule titre="denormandie" />
-      <h2>Les principales conditions d'éligibilité</h2>
-      <div
-        css={`
-          list-style-image: url(${checkIcon.src});
-          li {
-            margin: 1rem 0;
-            ul {
-              list-style-image: none;
-            }
-          }
-        `}
-        dangerouslySetInnerHTML={{
-          __html: rules[dottedName].conditionsEligibilitesHTML,
-        }}
-      />
+      <ConditionEligibiliteUI>
+        {rules[dottedName].conditionsEligibilitesHTML}
+      </ConditionEligibiliteUI>
       <FatConseiller
         {...{
           situation: {},

@@ -1,5 +1,4 @@
 import dpeValues from '@/components/DPE.yaml'
-import { useMediaQuery } from 'usehooks-ts'
 import DPELabel from '../DPELabel'
 import { encodeSituation } from '../publicodes/situationUtils'
 
@@ -8,11 +7,9 @@ export default function TargetDPETabs({
   setSearchParams,
   answeredQuestions,
   choice,
-  engine,
   situation,
+  isMobile,
 }) {
-  const isMobile = useMediaQuery('(max-width: 800px)')
-
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
   const doSetSearchParams = (question, value) => {
@@ -24,46 +21,31 @@ export default function TargetDPETabs({
       false,
       answeredQuestions,
     )
-    console.log('girafe', newSituation)
     setSearchParams(newSituation, 'push')
   }
   return (
-    <section>
-      <p
-        css={`
-          margin-top: 1.5vh;
-          text-align: right;
-          line-height: 1rem;
-        `}
-      >
-        <small>
-          <em></em>
-        </small>
-      </p>
+    <div
+      css={`
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      `}
+    >
+      <div>Votre DPE visé&nbsp;:</div>
       <nav>
         <ol
           css={`
+            padding: 0;
             display: flex;
-            justify-content: start;
             list-style-type: none;
-            padding-left: 0.8rem;
             input {
               display: none;
             }
             li  {
-              padding: 0.4rem;
               margin: 0.1rem;
-              background: #e4e7e7;
-              border: 1px solid #aaa;
-              border-top-right-radius: 0.3rem;
-              border-top-left-radius: 0.3rem;
-
-              cursor: pointer;
               label {
                 cursor: pointer;
-                font-size: 130%;
               }
-              z-index: 41;
             }
           `}
         >
@@ -72,12 +54,8 @@ export default function TargetDPETabs({
               key={el.lettre}
               css={
                 choice === index
-                  ? `
-				  background: white !important; 
-				  border-bottom: none !important; 
-			  z-index: 43 !important;
-					  `
-                  : ``
+                  ? 'border: 2px solid var(--color); border-radius: 0.4rem;'
+                  : 'border: 2px solid transparent; opacity: 0.5'
               }
             >
               <label>
@@ -95,12 +73,12 @@ export default function TargetDPETabs({
                     doSetSearchParams('projet . DPE visé', index + 1)
                   }
                 />
-                <DPELabel index={index} />
+                <DPELabel index={index} small={false} />
               </label>
             </li>
           ))}
         </ol>
       </nav>
-    </section>
+    </div>
   )
 }

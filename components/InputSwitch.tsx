@@ -16,21 +16,9 @@ import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
-import RhetoricalQuestion from './RhetoricalQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
-import AideDetails from './AideDetails'
-import AideSynthese from './ampleur/AideSynthese'
-import AideMAR from './ampleur/AideMAR'
-import AidesLocales from './ampleur/AidesLocales'
-import CEEAmpleur from './ampleur/CEEAmpleur'
-import Copro from './ampleur/Copro'
-import Denormandie from './ampleur/Denormandie'
-import EcoPTZ from './ampleur/EcoPTZ'
-import MPRA from './ampleur/MPRA'
-import PAR from './ampleur/PAR'
-import TaxeFoncière from './ampleur/TaxeFoncière'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -41,18 +29,8 @@ export default function InputSwitch({
   rules,
   nextQuestions,
   searchParams,
+  correspondance,
 }) {
-  const correspondance = {
-    'MPR . accompagnée': MPRA,
-    'MPR . accompagnée . prise en charge MAR': AideMAR,
-    PTZ: EcoPTZ,
-    PAR: PAR,
-    'aides locales': AidesLocales,
-    'ampleur . prime individuelle copropriété': Copro,
-    'taxe foncière': TaxeFoncière,
-    denormandie: Denormandie,
-    "CEE . rénovation d'ampleur": CEEAmpleur,
-  }
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -140,31 +118,6 @@ export default function InputSwitch({
               answeredQuestions,
             )
             setSearchParams(encodedSituation, 'replace', false)
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-  if (rule.type === 'question rhétorique')
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <RhetoricalQuestion
-          {...{
-            effect: () => setSearchParams({ [currentQuestion]: 'oui' }),
-            situation,
-            answeredQuestions,
-            html: rule.descriptionHtml,
           }}
         />
       </ClassicQuestionWrapper>
@@ -310,41 +263,6 @@ export default function InputSwitch({
     )
   }
 
-  if (searchParams['details'] && searchParams['details'] == 'synthese') {
-    return (
-      <AideSynthese
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          correspondance,
-          nextQuestions,
-        }}
-      />
-    )
-  }
-
-  if (searchParams['details']) {
-    return (
-      <AideDetails
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          correspondance,
-          nextQuestions,
-        }}
-      />
-    )
-  }
-
   if (
     getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
     searchParams["parcours d'aide"].includes('à la carte')
@@ -357,6 +275,7 @@ export default function InputSwitch({
           situation,
           answeredQuestions,
           setSearchParams,
+          searchParams,
           questions: gestesMosaicQuestions,
         }}
       />

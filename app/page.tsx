@@ -1,5 +1,4 @@
 import FromStorageSimulationButtonLoader from '@/components/FromStorageSimulationButtonLoader'
-import NewsBanner from '@/components/NewsBanner'
 import {
   CTA,
   CTAWrapper,
@@ -36,7 +35,6 @@ export default function Page() {
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
-      <NewsBanner />
       <PageBlock>
         <HeaderWrapper>
           <Image
@@ -45,7 +43,9 @@ export default function Page() {
           />
           <div>
             <Labels>
-              <li key={'réno'}>⚡️ Rénovation Énergétique</li>
+              <li key={'réno'}>
+                <span aria-hidden="true">⚡️</span> Rénovation Énergétique
+              </li>
             </Labels>
             <h1
               style={css`

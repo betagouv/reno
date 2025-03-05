@@ -1,4 +1,4 @@
-import { Card } from '@/components/UI'
+import { Card, ConditionEligibiliteUI } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Image from 'next/image'
 import FatConseiller from '@/components/FatConseiller'
@@ -40,13 +40,11 @@ export default function PTZ() {
           />
         </div>
       </div>
-      <Card>
-        <EligibilityEcoPTZ
-          {...{
-            dottedName,
-          }}
-        />
-      </Card>
+      <EligibilityEcoPTZ
+        {...{
+          dottedName,
+        }}
+      />
       <ShareModule titre="eco-ptz" />
       <h2>Comment cela fonctionne?</h2>
       <div
@@ -55,6 +53,9 @@ export default function PTZ() {
           __html: parse(rules[dottedName]['description détaillé']),
         }}
       />
+      <ConditionEligibiliteUI>
+        {rules[dottedName].conditionsEligibilitesHTML}
+      </ConditionEligibiliteUI>
       <FatConseiller
         {...{
           situation: {},

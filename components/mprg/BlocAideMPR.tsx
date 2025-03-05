@@ -178,7 +178,8 @@ export const AvanceTMO = ({ engine, situation }) => {
             state: 'prime-black',
           }}
         />{' '}
-        maximum du montant de la prime.
+        maximum de la part MaPrimeRénov' des primes par gestes. Le reste sera
+        remboursé après travaux.
       </p>
     </MiseEnAvant>
   )

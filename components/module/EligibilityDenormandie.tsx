@@ -19,12 +19,13 @@ import {
   getSituation,
 } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
-import { EligibiliyTitle } from '../UI'
-import { AmpleurWrapper } from '@/app/module/AmpleurUI'
+import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
+import { useMediaQuery } from 'usehooks-ts'
 
 export default function EligibilityDenormandie({ dottedName }) {
+  const isMobile = useMediaQuery('(max-width: 400px)')
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module Denormandie'])
   }, [])
@@ -37,10 +38,10 @@ export default function EligibilityDenormandie({ dottedName }) {
   const answeredQuestions = getAnsweredQuestions(searchParams, rules)
 
   return (
-    <AmpleurWrapper>
-      <EligibiliyTitle>
-        Êtes-vous éligible au dispositif Denormandie ?
-      </EligibiliyTitle>
+    <ModuleWrapper
+      isMobile={isMobile}
+      title="Êtes-vous éligible au dispositif Denormandie ?"
+    >
       <QuestionList>
         <Li
           $next={true}
@@ -175,6 +176,6 @@ export default function EligibilityDenormandie({ dottedName }) {
           text: 'au dispositif Denormandie',
         }}
       />
-    </AmpleurWrapper>
+    </ModuleWrapper>
   )
 }

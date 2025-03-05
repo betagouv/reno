@@ -265,6 +265,13 @@ export default function StatistiquesInternes() {
                     `}
                   >
                     <StatCard
+                      label={'Visiteurs uniques'}
+                      value={formatter.format(
+                        data.reduce((a, c) => a + c.uniqVisitors, 0),
+                      )}
+                      noMinWidth
+                    />
+                    <StatCard
                       label={
                         title === 'Module'
                           ? 'Clic sur<br />Découvrir mes aides'

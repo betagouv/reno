@@ -22,7 +22,6 @@
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -39,7 +38,6 @@
     gestes . chauffage . solaire . partie thermique PVT eau . MPR . montant: 2500
     gestes . chauffage . chauffe-eau thermodynamique . MPR . montant: 1200
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 262
     gestes . chauffage . fioul . dépose cuve . MPR . montant: 1200
     gestes . ventilation . double flux . MPR . montant: 2500
     gestes . isolation . vitres . MPR . montant: 500
@@ -98,7 +96,6 @@
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'B'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -118,7 +115,6 @@
     gestes . chauffage . solaire . partie thermique PVT eau . CEE . montant: 167
     gestes . chauffage . chauffe-eau thermodynamique . MPR . montant: 400
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 164.6
     gestes . chauffage . fioul . dépose cuve . MPR . montant: 400
     gestes . ventilation . double flux . MPR . montant: 1500
     gestes . isolation . vitres . MPR . montant: 200
@@ -170,7 +166,6 @@
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -188,7 +183,6 @@
     gestes . chauffage . solaire . partie thermique PVT eau . CEE . montant: 167
     gestes . chauffage . chauffe-eau thermodynamique . MPR . montant: 800
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 95.2
-    gestes . chauffage . pilotage connecté . CEE . montant: 61.6
     gestes . chauffage . fioul . dépose cuve . MPR . montant: 800
     gestes . ventilation . double flux . MPR . montant: 2000
     gestes . isolation . vitres . MPR . montant: 400
@@ -304,7 +298,6 @@
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -322,7 +315,6 @@
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 1078.4
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 262
     gestes . ventilation . double flux . CEE . montant: 336
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 330.4
@@ -355,7 +347,6 @@
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'B'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -373,7 +364,6 @@
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 968
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 164.5
     gestes . ventilation . double flux . CEE . montant: 302.7
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 270.4
@@ -406,7 +396,6 @@
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -423,7 +412,6 @@
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 804
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 95.2
-    gestes . chauffage . pilotage connecté . CEE . montant: 61.6
     gestes . ventilation . double flux . CEE . montant: 103.7
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 210.4
@@ -500,6 +488,7 @@
     projet . DPE visé: 1
     projet . travaux: 49000
     ménage . code région: "'11'"
+    ménage . commune: "'75056'"
     logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
     logement . propriétaire occupant: oui
     taxe foncière . condition de dépenses: oui

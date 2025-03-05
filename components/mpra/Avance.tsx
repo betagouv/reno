@@ -2,7 +2,7 @@ import ExplanationValue from '@/components/explications/Value'
 import Value from '@/components/Value'
 import { compute } from '@/components/explications/Aide'
 
-export default ({ engine, rules, choice, situation, exampleSituation }) => {
+export default ({ engine, rules, choice, situation }) => {
   const evaluation = compute('ménage . revenu . classe', engine, rules)
   if (!['modeste', 'très modeste'].includes(evaluation.value))
     return (
@@ -19,7 +19,7 @@ export default ({ engine, rules, choice, situation, exampleSituation }) => {
           {...{
             engine,
             choice,
-            situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
+            situation: { ...situation, 'projet . DPE visé': choice + 1 },
             dottedName: 'MPR . accompagnée . avance',
             state: 'final',
           }}
@@ -35,7 +35,7 @@ export default ({ engine, rules, choice, situation, exampleSituation }) => {
           {...{
             engine,
             choice,
-            situation: { ...exampleSituation, 'projet . DPE visé': choice + 1 },
+            situation: { ...situation, 'projet . DPE visé': choice + 1 },
             dottedName: 'MPR . accompagnée . remboursement',
             state: 'final',
           }}

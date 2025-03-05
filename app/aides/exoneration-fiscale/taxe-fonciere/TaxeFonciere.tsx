@@ -1,6 +1,6 @@
 'use client'
 
-import { Card } from '@/components/UI'
+import { Card, ConditionEligibiliteUI } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import checkIcon from '@/public/check.svg'
 import FatConseiller from '@/components/FatConseiller'
@@ -19,9 +19,7 @@ export default function TaxeFonciere() {
           __html: rules[dottedName].descriptionHtml,
         }}
       />
-      <Card>
-        <EligibilityTaxeFonciere dottedName="taxe foncière" />
-      </Card>
+      <EligibilityTaxeFonciere dottedName="taxe foncière" />
       <ShareModule titre="taxe-fonciere" />
       <h2>Comment cela fonctionne?</h2>
       <div
@@ -29,21 +27,9 @@ export default function TaxeFonciere() {
           __html: parse(rules[dottedName + ' . taux'].description),
         }}
       />
-      <h2>Les principales conditions d'éligibilité ?</h2>
-      <div
-        css={`
-          list-style-image: url(${checkIcon.src});
-          li {
-            margin: 1rem 0;
-            ul {
-              list-style-image: none;
-            }
-          }
-        `}
-        dangerouslySetInnerHTML={{
-          __html: rules[dottedName].conditionsEligibilitesHTML,
-        }}
-      />
+      <ConditionEligibiliteUI>
+        {rules[dottedName].conditionsEligibilitesHTML}
+      </ConditionEligibiliteUI>
       <FatConseiller
         {...{
           situation: {},

@@ -1,19 +1,16 @@
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
-import checkIcon from '@/public/check.svg'
 import { Key } from '../explications/ExplicationUI'
 
 export default function TaxeFoncière({
+  isEligible,
   setSearchParams,
   answeredQuestions,
   engine,
   situation,
-  exampleSituation,
   rules,
   expanded,
 }) {
-  engine.setSituation(exampleSituation)
-
   const communeName =
     situation['logement . commune . nom'] || situation['ménage . commune . nom']
 
@@ -27,6 +24,7 @@ export default function TaxeFoncière({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName: 'taxe foncière',
         setSearchParams,
@@ -45,30 +43,14 @@ export default function TaxeFoncière({
           </>
         ) : (
           <>
-            <Yes>a appliqué</Yes> l'éxonération de taxe foncière au taux de{' '}
+            <Yes>a appliqué</Yes> l'exonération de taxe foncière au taux de{' '}
             <Key $state={'prime-black'}>{taux}</Key> l'année dernière.
           </>
         )}
       </p>
       {expanded && (
         <>
-          <h3>Comment est calculée l'aide ?</h3>
-          <p dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }} />
-          <h3>Les principales conditions d'éligibilité ?</h3>
-          <div
-            css={`
-              list-style-image: url(${checkIcon.src});
-              li {
-                margin: 1rem 0;
-                ul {
-                  list-style-image: none;
-                }
-              }
-            `}
-            dangerouslySetInnerHTML={{
-              __html: rule.conditionsEligibilitesHTML,
-            }}
-          />
+          <p dangerouslySetInnerHTML={{ __html: rule.commentFaireHtml }} />
         </>
       )}
     </AideAmpleur>

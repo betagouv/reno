@@ -5,6 +5,7 @@ import { BlocAideCEE } from './cee/BlocAideCee'
 import { BlocAideCoupDePouce } from './cee/BlocAideCoupDePouce'
 import { BlocAideMPR } from './mprg/BlocAideMPR'
 import { PrimeStyle } from './UI'
+import GesteDescription from './GesteDescription'
 
 export default function Geste({
   dottedName,
@@ -16,6 +17,8 @@ export default function Geste({
   situation,
 }) {
   let infoCEE, infoMPR, infoCoupDePouce, montantTotal, isExactTotal
+
+  const rule = rules[dottedName]
 
   const engineSituation = engine.setSituation(situation)
   const relevant = rules[dottedName + ' . MPR . barème']
@@ -91,13 +94,16 @@ export default function Geste({
   // Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
   const PrimeDisplay = ({ montantTotal, isExactTotal, rules, dottedName }) => (
     <>
-      <div
+      <h5
         css={`
-          margin: 0 0 0.2rem 0;
+          margin: 0 0 0.2rem 0 !important;
+          font-size: 100%;
         `}
       >
         {rules[dottedName].titre || getRuleName(dottedName)}
-      </div>
+      </h5>
+      <GesteDescription rule={rule} />
+
       <PrimeStyle
         css={`
           display: block;
@@ -119,7 +125,7 @@ export default function Geste({
                 ? 'Prime indicative de '
                 : 'Prime de '
               : "Jusqu'à "}
-            <strong>{montantTotal}</strong>
+            <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>
           </>
         )}
       </PrimeStyle>

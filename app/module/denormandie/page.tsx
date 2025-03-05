@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
 import EligibilityDenormandie from '@/components/module/EligibilityDenormandie'
-import { FooterModule } from '../FooterModule'
 
 export default function ModuleDenormandie() {
   return (
@@ -10,7 +9,6 @@ export default function ModuleDenormandie() {
           dottedName: 'denormandie',
         }}
       />
-      <FooterModule />
     </Suspense>
   )
 }
