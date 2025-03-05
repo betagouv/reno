@@ -25,6 +25,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   const [clicked, setClicked] = useState(false)
   const validInput = input && input.length >= 5
+  const [error, setError] = useState()
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
@@ -32,14 +33,20 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
     const [lat, lon] = clicked.geometry.coordinates
     async function fetchCopros() {
-      const url = `${getServerUrl()}/findCopro/${lon}/${lat}`
-      const request = await fetch(url)
-      const json = await request.json()
-      console.log('cyan', json)
-      setCopros(json)
+      try {
+        const url = `${getServerUrl()}/findCopro/${lon}/${lat}`
+        const request = await fetch(url)
+        const json = await request.json()
+        console.log('cyan', json)
+        setCopros(json)
+        setError(null)
+      } catch (e) {
+        console.error(e)
+        setError({ message: 'Erreur pendant la récupération des copropriétés' })
+      }
     }
     fetchCopros()
-  }, [clicked, setCopros])
+  }, [clicked, setCopros, setError])
 
   useEffect(() => {
     if (!validInput) return
@@ -58,6 +65,16 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   return (
     <AddressInput>
+      {error && (
+        <p
+          css={`
+            background: #f9e2e2;
+            padding: 0.1rem 0.6rem;
+          `}
+        >
+          {error.message}{' '}
+        </p>
+      )}
       <input
         css={`
           ${clicked &&
@@ -73,7 +90,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           setInput(e.target.value)
         }}
       />
-      {clicked && input && <p>Adresse validée</p>}
+      {clicked && input && <Validated>Adresse validée</Validated>}
       {validInput && !results && (
         <small
           css={`
@@ -192,22 +209,23 @@ export const AddressInput = styled.div`
     height: 2.8rem !important;
     border-bottom: 2px solid #3a3a3a;
   }
-  p {
-    margin: 0.5rem 0;
-    color: var(--validColor);
-    &::before {
-      background-color: currentColor;
-      content: '';
-      display: inline-block;
-      height: 1rem;
-      margin-right: 0.25rem;
-      -webkit-mask-size: 100% 100%;
-      mask-size: 100% 100%;
-      vertical-align: -0.125rem;
-      width: 1rem;
-      -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
-      mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
-    }
+`
+
+const Validated = styled.p`
+  margin: 0.5rem 0;
+  color: var(--validColor);
+  &::before {
+    background-color: currentColor;
+    content: '';
+    display: inline-block;
+    height: 1rem;
+    margin-right: 0.25rem;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    vertical-align: -0.125rem;
+    width: 1rem;
+    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
   }
 `
 
