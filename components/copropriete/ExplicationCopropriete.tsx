@@ -591,8 +591,8 @@ export default function ExplicationCopropriete() {
                   <span>Ce n'est pas fini!</span>
                 </div>
                 <p>
-                  Les copropriétaires sont{' '}
-                  <strong>peut-être éligibles individuellement</strong> à
+                  Les copropriétaires{' '}
+                  <strong>peuvent être éligibles individuellement</strong> à
                   d'autres aides à la rénovation.
                   <br />
                   C'est pourquoi, nous vous invitons à refaire une simulation
