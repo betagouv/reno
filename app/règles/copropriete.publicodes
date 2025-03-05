@@ -10,6 +10,8 @@ copropriété:
 copropriété . id:
   description: |
     Cette question va déclencher une recherche dans le [registre national des copros](https://www.registre-coproprietes.gouv.fr).
+
+    **Vos données resteront confidentielles**, elles ne seront utilisées que pour obtenir le montant des aides à la rénovation.
   question: Quelle est l'adresse de la copropriété ?
 copropriété . nom:
   question: Quelle est le nom de la copropriété ?
