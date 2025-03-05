@@ -1,12 +1,14 @@
 copropriété:
   titre: MaPrimeRénov' Copropriété
   description: |
-    Cette aide est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarées d’intérêt collectif.  
+    L'aide MaPrimeRénov' Copropriété est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarées d’intérêt collectif.  
+
+    > Il s'agit par exemple d'isolation par l'extérieur des murs de l'immeuble, d'une isolation des combles, ou encore d'un changement de chauffage collectif.
         
-    Ces travaux sont votés lors des assemblées générales de copropriétés. Cette prime est demandée par le syndic de copropriété au titre du syndicat des copropriétaires.  
+    Ces travaux sont votés lors des assemblées générales de la copropriété. La prime est demandée par le syndic de copropriété au titre du syndicat des copropriétaires.  
     La subvention est versée directement au syndicat de copropriétaires puis répartie selon la règle des tantièmes.  
         
-    L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
+    L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements. Ce simulateur vous aide à saisir ces données et vous donne un résultat chiffré que vous pourrez communiquer au reste des copropriétaires et au syndic.
 copropriété . id:
   description: |
     Cette question va déclencher une recherche dans le [registre national des copros](https://www.registre-coproprietes.gouv.fr).

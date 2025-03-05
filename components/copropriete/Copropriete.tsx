@@ -16,6 +16,8 @@ import simulationConfigCopropriete from '../../app/copropriete/simulationConfigC
 import ExplicationCopropriete from './ExplicationCopropriete'
 import { Main, Section } from '../UI'
 
+const content = rules['copropriété'].descriptionHtml
+
 export default function Copropriete() {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
@@ -55,18 +57,22 @@ export default function Copropriete() {
     <Main>
       <Section>
         {rule ? (
-          <InputSwitch
-            {...{
-              rules,
-              currentQuestion,
-              situation,
-              answeredQuestions,
-              setSearchParams,
-              engine,
-              nextQuestions,
-              searchParams,
-            }}
-          />
+          <div>
+            <InputSwitch
+              {...{
+                rules,
+                currentQuestion,
+                situation,
+                answeredQuestions,
+                setSearchParams,
+                engine,
+                nextQuestions,
+                searchParams,
+              }}
+            />
+
+            <div dangerouslySetInnerHTML={{ __html: content }} />
+          </div>
         ) : (
           <ExplicationCopropriete
             {...{
