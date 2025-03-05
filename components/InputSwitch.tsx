@@ -138,7 +138,7 @@ export default function InputSwitch({
           questionsToSubmit: [
             'copropriété . id',
             'copropriété . nombre de lots principaux',
-            'copropriété . nombre de lots habitation',
+            'copropriété . nombre de logement',
             'copropriété . condition 15 ans',
           ],
           currentValue,
@@ -168,7 +168,7 @@ export default function InputSwitch({
                   'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
                   'copropriété . id': `"${id}"`,
                   'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
-                  'copropriété . nombre de lots habitation': `"${result['Nombre de lots à usage d’habitation']}"`,
+                  'copropriété . nombre de logement': `"${result['Nombre de lots à usage d’habitation']}"`,
                   ...(lessThan15Years
                     ? { 'copropriété . condition 15 ans': 'non' }
                     : moreThan15Years
