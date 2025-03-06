@@ -1,15 +1,12 @@
-'use client'
 import css from '@/components/css/convertToJs'
 import dynamic from '@/node_modules/next/dynamic'
 import logo from '@/app/icon.svg'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
 const Couts = dynamic(() => import('./Couts'), { ssr: false })
 
 export default function Page() {
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
   return (
     <main
       style={css`
@@ -38,7 +35,9 @@ export default function Page() {
         <h1>Prix des gestes de réno</h1>
       </header>
       <p>Une analyse des coûts des gestes d'isolation</p>
-      <Couts searchParams={searchParams} />
+      <Suspense>
+        <Couts />
+      </Suspense>
     </main>
   )
 }
