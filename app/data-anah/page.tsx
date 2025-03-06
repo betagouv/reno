@@ -21,13 +21,25 @@ function DataAnahContent() {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const [tableData, setTableData] = useState([])
-  const [columns, setColumns] = useState([])
+  const [columns, setColumns] = useState({
+    'N° dossier': 'dos_numero',
+    Propriétaire: 'tdm_code',
+    DPE: 'lgt_etiquette_dpe',
+    'DPE visé': 'lgt_etiquette_dpe_proj',
+    'Montant travaux': 'mt_tvx_eligibles',
+    '% aide réel': '% aide réel',
+    Catégorie: 'Catégorie',
+    'Montant officiel ANAH': 'mt_subv_anah',
+    'Montant MesAidesRéno': 'Montant MesAidesRéno',
+    Ecart: 'ecart',
+    'Type de programme': 'stc_code',
+  })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState({ diffus: 0, bailleur: 0, autre: 0 })
   const calculateRowData = (row) => {
     const situation = {
       'logement . propriétaire occupant': 'oui',
-      'logement . période de construction': 'de 15 à 25 ans',
+      'logement . période de construction': 'au moins 15 ans',
       'logement . résidence principale propriétaire': 'oui',
       'logement . surface': '150',
       'logement . type': 'maison',
@@ -57,7 +69,7 @@ function DataAnahContent() {
       )
       row[`montant aide ${incomeClass}`] = calculatedAid
 
-      const difference = Math.abs(row['mt_subv_anah'] - calculatedAid)
+      const difference = row['mt_subv_anah'] - calculatedAid
       if (difference === 0) {
         row[`Catégorie`] = incomeClass
         row[`Montant MesAidesRéno`] = calculatedAid
@@ -84,6 +96,10 @@ function DataAnahContent() {
     }
     return row
   }
+  const formatNumber = (n) =>
+    new Intl.NumberFormat('fr-FR', {
+      maximumFractionDigits: 0,
+    }).format(n)
 
   const updateErrorCounts = (type) => {
     setError((prev) => ({
@@ -101,35 +117,8 @@ function DataAnahContent() {
         )
 
         if (!response.ok) throw new Error('Failed to fetch CSV data')
-        console.log('on a bien les données')
-        Papa.parse(await response.text(), {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            console.log('on a fini de parser')
-            setError({ diffus: 0, bailleur: 0, autre: 0 })
-            const selectedColumns = {
-              'N° dossier': 'dos_numero',
-              Propriétaire: 'tdm_code',
-              DPE: 'lgt_etiquette_dpe',
-              'DPE visé': 'lgt_etiquette_dpe_proj',
-              'Montant travaux': 'mt_tvx_eligibles',
-              '% aide réel': '% aide réel',
-              Catégorie: 'Catégorie',
-              'Montant ANAH': 'mt_subv_anah',
-              'Montant MesAidesRéno': 'Montant MesAidesRéno',
-              Ecart: 'ecart',
-              stc_code: 'stc_code',
-            }
-
-            setColumns(selectedColumns)
-            const filteredData = results.data
-              .map(calculateRowData)
-              .filter((r) => r.ecart) // On n'affiche que les lignes en erreur
-            setTableData(filteredData)
-          },
-        })
-        console.log('on a bien tout parsé')
+        const lines = await response.json()
+        setTableData(lines['data'].map(calculateRowData).filter((r) => r.ecart)) // On n'affiche que les lignes en erreur
       } catch (err) {
         console.log(err.message)
       } finally {
@@ -148,7 +137,7 @@ function DataAnahContent() {
         `}
       >
         <PageBlock>
-          <h1>Vérification MPRA Locale</h1>
+          <h1>Vérification MPRA pour ménage très modestes et modeste</h1>
           {loading ? (
             <Loader></Loader>
           ) : (
@@ -179,10 +168,11 @@ function DataAnahContent() {
                   )}
                 />
                 <StatCard
-                  label="% d'erreur sur le reste"
+                  label={`% d'erreur sur le reste (${error?.autre} / 1000)`}
                   value={Math.round((error?.autre / 1000) * 100)}
                 />
               </div>
+              <h3>Liste des lignes en erreur</h3>
               <table
                 css={`
                   width: 100%;
@@ -209,6 +199,13 @@ function DataAnahContent() {
                   tr:hover {
                     background-color: #f1f1f1;
                   }
+
+                  .green {
+                    color: green;
+                  }
+                  .red {
+                    color: red;
+                  }
                 `}
               >
                 <thead>
@@ -225,15 +222,23 @@ function DataAnahContent() {
                         <td
                           key={col}
                           className={
-                            col === 'ecart' && row['ecart'] !== 0
-                              ? 'error'
+                            col === 'ecart'
+                              ? row['ecart'] > 0
+                                ? 'green'
+                                : 'red'
                               : col !== 'mt_subv_anah' &&
                                   row[col] === row['mt_subv_anah']
                                 ? 'highlight'
                                 : ''
                           }
                         >
-                          {row[col]}
+                          {[
+                            'mt_subv_anah',
+                            'Montant MesAidesRéno',
+                            'ecart',
+                          ].includes(col)
+                            ? formatNumber(row[col]) + '€'
+                            : row[col]}
                         </td>
                       ))}
                     </tr>
