@@ -20,7 +20,6 @@ const incomeClasses = {
 function DataAnahContent() {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-  const subsetLength = 1000
   const [tableData, setTableData] = useState([])
   const [columns, setColumns] = useState([])
   const [loading, setLoading] = useState(true)
@@ -98,15 +97,16 @@ function DataAnahContent() {
         const response = await fetch(
           `https://mardata.osc-fr1.scalingo.io/file/` +
             searchParams.key +
-            '/2024/mpra_tmo_mo_2024_10',
+            '/2024/mpra_tmo_mo_2024_10_extract',
         )
 
         if (!response.ok) throw new Error('Failed to fetch CSV data')
-
+        console.log('on a bien les données')
         Papa.parse(await response.text(), {
           header: true,
           skipEmptyLines: true,
           complete: (results) => {
+            console.log('on a fini de parser')
             setError({ diffus: 0, bailleur: 0, autre: 0 })
             const selectedColumns = {
               'N° dossier': 'dos_numero',
@@ -124,12 +124,12 @@ function DataAnahContent() {
 
             setColumns(selectedColumns)
             const filteredData = results.data
-              .slice(0, subsetLength)
               .map(calculateRowData)
               .filter((r) => r.ecart) // On n'affiche que les lignes en erreur
             setTableData(filteredData)
           },
         })
+        console.log('on a bien tout parsé')
       } catch (err) {
         console.log(err.message)
       } finally {
