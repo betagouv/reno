@@ -4,26 +4,20 @@ import DPELabel from '@/components/DPELabel'
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import dpeData from '@/components/DPE.yaml'
-import Image from 'next/image'
+import ValeurVerteWidget from '@/components/ValeurVerteWidget'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { lettre: string }
-}) {
+export async function generateMetadata({ params }) {
   return {
     title: `Les informations importantes pour les logements avec un DPE ${params.lettre}`,
     description: `Pour les logements classés ${params.lettre} : quelles sont les aides à la rénovation? y a-t-il une interdiction de location? quel est l'impact sur le prix à la revente?`,
     openGraph: { images: ['/jaquette.png'] },
   }
 }
+
 export default async function Page(props: Props) {
   const lettre = (await props.params).lettre
-  const index = dpeData.findIndex((c) => {
-    return c.lettre == lettre
-  })
+  const index = dpeData.findIndex((c) => c.lettre == lettre)
 
   const interdictionLocation = {
     G: 2025,
@@ -57,11 +51,11 @@ export default async function Page(props: Props) {
               <p>
                 Il vise à renseigner sur la performance énergétique et
                 climatique en se basant sur:
-                <ul>
-                  <li>la consommation en énergie primaire</li>
-                  <li>les émissions de gaz à effet de serre</li>
-                </ul>
               </p>
+              <ul>
+                <li>la consommation en énergie primaire</li>
+                <li>les émissions de gaz à effet de serre</li>
+              </ul>
               <p>
                 Ce diagnostic est un élément clé à prendre en compte lorsque
                 l'on cherche à acheter, louer, vendre ou encore rénover un
@@ -69,9 +63,14 @@ export default async function Page(props: Props) {
               </p>
             </Intro>
           </div>
-          <DPE avecGES={true} letter={lettre} gesLetter={lettre} />
+          <DPE
+            avecGES={true}
+            letter={lettre}
+            gesLetter={lettre}
+            avecLegend={true}
+          />
         </HeaderWrapper>
-        <Wrapper $background="white">
+        <Wrapper>
           <Content>
             <h2>Comprendre son DPE</h2>
             <p>
@@ -109,9 +108,10 @@ export default async function Page(props: Props) {
             <div></div>
           </Content>
         </Wrapper>
-        <Wrapper $noMargin={true}>
+        <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h2>Quel impact sur la valeur de mon logement ?</h2>
+            <ValeurVerteWidget lettre={lettre} />
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>

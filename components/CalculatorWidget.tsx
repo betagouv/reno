@@ -4,6 +4,9 @@ import Image from 'next/image'
 import { Card } from './UI'
 
 export default function CalculatorWidget({ isMobile, children }) {
+  if (!isMobile) {
+    isMobile = window.innerWidth <= 600
+  }
   return (
     <Card
       css={`
