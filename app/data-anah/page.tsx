@@ -180,7 +180,7 @@ function DataAnahContent() {
                 />
                 <StatCard
                   label="% d'erreur sur le reste"
-                  value={Math.round((error?.autre / subsetLength) * 100)}
+                  value={Math.round((error?.autre / 1000) * 100)}
                 />
               </div>
               <table
