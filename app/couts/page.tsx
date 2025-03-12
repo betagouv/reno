@@ -5,7 +5,8 @@ import Image from 'next/image'
 
 const Couts = dynamic(() => import('./Couts'), { ssr: false })
 
-export default function Page({ searchParams }) {
+export default async function Page(props) {
+  const searchParams = await props.searchParams
   return (
     <main
       style={css`
