@@ -1,6 +1,5 @@
 const apiConfig = {
   token: process.env.MATOMO_API_TOKEN,
-  startDate: '2024-08-15',
   funnels: {
     simulateur: 122,
     module: 127,
@@ -37,7 +36,7 @@ export async function GET(request: Request) {
 }
 
 async function fetchMatomoData(url) {
-  const options = createFetchOptions(apiConfig.token, apiConfig.startDate)
+  const options = createFetchOptions(apiConfig.token)
 
   const response = await fetch(url, options)
   if (!response.ok) {
@@ -47,17 +46,21 @@ async function fetchMatomoData(url) {
 }
 
 async function getEventData() {
-  const { baseUrl, startDate } = apiConfig
+  const { baseUrl } = apiConfig
+  const today = new Date()
+  const startDate = new Date(new Date().setDate(today.getDate() - 30))
   const data = await Promise.all(
     [40, 41, 42].map((idGoal) =>
       fetchMatomoData(
-        `${baseUrl}&period=range&date=${startDate},today&method=Goals.get&idGoal=${idGoal}`,
+        `${baseUrl}&period=week&date=${startDate.toISOString().split('T')[0]},today&method=Goals.get&idGoal=${idGoal}`,
       ),
     ),
   )
-
   const [dataOui, dataEnPartie, dataNon] = data.map(
-    (goal) => goal.nb_conversions || 0,
+    (goal) =>
+      Object.values(goal)
+        .map((dataGoal) => dataGoal.nb_conversions)
+        .reduce((p, acc) => p + acc) || 0,
   )
   const total = dataOui + dataEnPartie + dataNon || 1
 
@@ -126,10 +129,11 @@ async function getInternalData(segment) {
 }
 
 function createFetchOptions(token, date) {
+  let formData = new FormData()
+  formData.append('token_auth', token)
   return {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token_auth: token, date }),
+    body: formData,
   }
 }
 
