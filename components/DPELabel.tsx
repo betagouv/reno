@@ -2,8 +2,9 @@
 
 import dpeData from '@/components/DPE.yaml'
 
+export const conversionLettreIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+
 export default function DPELabel({ index, label = null, small = true }) {
-  const conversionLettreIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
   if (label) {
     index = conversionLettreIndex.indexOf(label)
   }
