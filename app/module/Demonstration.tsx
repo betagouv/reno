@@ -13,12 +13,8 @@ import personas from './examplePersonas.yaml'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
-import { useRef } from 'react'
 
-const iframeCode = (
-  src = 'https://mesaidesreno.beta.gouv.fr/module/integration',
-  cssExample = false,
-) => `
+const iframeCode = (src, cssExample = false) => `
 <iframe src="${src}" allow="clipboard-read; clipboard-write" ${
   cssExample
     ? `
@@ -36,7 +32,7 @@ style="height: 750px; margin: 3rem auto; display: block; --shadow-color: 0deg 0%
 }></iframe>
 `
 
-export default function AmpleurDemonstration() {
+export default function Demonstration({ moduleName }) {
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -46,7 +42,7 @@ export default function AmpleurDemonstration() {
   const iframeSearchParams = encodeSituation(personaSituation, true)
   const iframeUrl =
     getAppUrl() +
-    '/module/integration?' +
+    `/module/${moduleName == 'ampleur' ? 'integration' : 'valeur-verte/integration'}?` +
     new URLSearchParams(iframeSearchParams).toString()
 
   return (
@@ -138,7 +134,7 @@ export default function AmpleurDemonstration() {
             word-break: break-all;
           `}
         >
-          {iframeCode(iframeUrl, false)}
+          {iframeCode(iframeUrl, moduleName, false)}
         </code>
         <p
           css={`
@@ -153,7 +149,7 @@ export default function AmpleurDemonstration() {
             word-break: break-all;
           `}
         >
-          {iframeCode(undefined, true)}
+          {iframeCode(iframeUrl, moduleName, true)}
         </code>
         <IntegrationQuestions />
         <section
