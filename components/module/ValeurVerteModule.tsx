@@ -6,8 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import rules from '@/app/règles/rules'
 import listeDepartementRegion from '@/app/règles/liste-departement-region.publicodes'
 import Publicodes from 'publicodes'
-import dataMaison from '@/data/valeur-verte-maison.csv'
-import dataAppartement from '@/data/valeur-verte-appartement.csv'
+import dataValeurVerte from '@/data/valeur-verte.csv'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { getCommune } from '../personas/enrichSituation'
@@ -58,17 +57,16 @@ export default function ValeurVerteModule() {
   }, [situation['logement . commune']])
 
   useEffect(() => {
-    const file =
-      situation['logement . type'] === 'maison' ? dataMaison : dataAppartement
     if (!situation['logement . code département']) return
     const region =
       listeDepartementRegion['régions']['valeurs'][
         listeDepartementRegion['départements']['valeurs'][
           situation['logement . code département'].replaceAll('"', '')
         ].codeRegion
-      ]
-
-    const row = file.find((r) => r.Région === region)
+      region = listeDepartementRegion['régions']['valeurs'][codeRegion]
+    }
+    const row = dataValeurVerte.find((r) => r.Région === region && r.Type == situation['logement . type'].replaceAll('"',''))
+    
     if (!row) return
 
     const getPourcentage = (key) => {
