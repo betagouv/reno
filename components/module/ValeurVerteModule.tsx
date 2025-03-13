@@ -23,6 +23,8 @@ import DPELabel, { conversionLettreIndex } from '../DPELabel'
 import { EvaluationValueWrapper } from '@/app/module/AmpleurEvaluation'
 import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
+import { CTA, CTAWrapper } from '../UI'
+import AmpleurCTA from '@/app/module/AmpleurCTA'
 
 export default function ValeurVerteModule() {
   const engine = new Publicodes(rules)
@@ -76,11 +78,14 @@ export default function ValeurVerteModule() {
         ].codeRegion
       region = listeDepartementRegion['régions']['valeurs'][codeRegion]
     }
-    const row = dataValeurVerte.find((r) => r.Région === region && r.Type == situation['logement . type'].replaceAll('"',''))
-    
+    // on teste avec includes pour éviter les problèmes d'apostrophes/guillemet
+    const row = dataValeurVerte.find((r) => r.Région === region && situation['logement . type'].includes(r.Type))
     if (!row) return
 
     const getPourcentage = (key) => {
+      if(situation[key] == 4) // Le DPE D est la référence donc 0
+        return 0
+
       const col = Object.keys(row).find((c) =>
         c.includes(conversionLettreIndex[situation[key] - 1]),
       )
@@ -214,7 +219,7 @@ export default function ValeurVerteModule() {
                 </Key>
               </div>
               <small>
-                Dans votre région, la valeur d'un bien classé{' '}
+                Dans votre région, la valeur {situation['logement . type'].includes("appartement") ? "d'un appartement": "d'une maison"} classé{' '}
                 <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> est
                 en moyenne{' '}
                 <strong>{pourcentageAppreciation.toFixed(1)}%</strong>{' '}
