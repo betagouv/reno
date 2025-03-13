@@ -5,7 +5,7 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
-import AmpleurDemonstration from './AmpleurDemonstration'
+import Demonstration from './Demonstration'
 import { Suspense } from 'react'
 export const metadata: Metadata = {
   title: "Module d'aide à la rénovation énergétique - Mes aides réno",
@@ -55,7 +55,7 @@ export default function Module({}) {
         <Wrapper>
           <Content>
             <Suspense>
-              <AmpleurDemonstration />
+              <Demonstration moduleName="ampleur" />
             </Suspense>
           </Content>
         </Wrapper>

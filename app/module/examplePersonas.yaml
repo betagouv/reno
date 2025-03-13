@@ -2,6 +2,7 @@
   situation:
     DPE . actuel: 5
     logement . année de construction: 1972
+    logement . prix d'achat: 200000
     logement . commune: 35238
     logement . commune . nom: '"Rennes"'
     logement . surface: 67
@@ -10,6 +11,7 @@
 - nom: Appartement passoire thermique à Épinal
   situation:
     DPE . actuel: 6
+    logement . prix d'achat: 100000
     logement . année de construction: 1955
     logement . commune: 88160
     logement . type: '"appartement"'
@@ -17,6 +19,7 @@
   situation:
     DPE . actuel: 3
     # année de construction inconnue
+    logement . prix d'achat: 350000
     logement . commune: 01033
     logement . commune . nom: '"Valserhône"'
     logement . type: '"maison"'

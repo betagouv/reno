@@ -1,11 +1,10 @@
 import Value from '@/components/Value'
-import calculatorIcon from '@/public/calculator-black.svg'
 import Image from 'next/image'
 import DPEQuickSwitch from '../DPEQuickSwitch'
-import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
 import TargetDPETabs from '../mpra/TargetDPETabs'
+import CalculatorWidget from '../CalculatorWidget'
 
 export default function CEEAmpleurScenario({
   engine,
@@ -20,35 +19,8 @@ export default function CEEAmpleurScenario({
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   return (
-    <Card
-      css={`
-        background: linear-gradient(180deg, #f7f7f7 0%, #e6f7fb 100%);
-        box-shadow: 1px 4px 6px 0px #ccd0d5;
-        margin-bottom: 1rem;
-      `}
-    >
-      <div
-        css={`
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1rem;
-          h3 {
-            margin: 0.5rem 0;
-          }
-        `}
-      >
-        <Image src={calculatorIcon} alt="icone calculatrice" />{' '}
-        <h3>À vos calculs !</h3>
-      </div>
-      <div
-        css={`
-          display: flex;
-          ${isMobile && 'flex-direction: column;'}
-          justify-content: space-between;
-          gap: 1rem;
-        `}
-      >
+    <CalculatorWidget isMobile={isMobile}>
+      <div>
         <DPEQuickSwitch
           oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
@@ -167,6 +139,6 @@ export default function CEEAmpleurScenario({
           />
         </div>
       </div>
-    </Card>
+    </CalculatorWidget>
   )
 }

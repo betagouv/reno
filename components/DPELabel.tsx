@@ -2,7 +2,13 @@
 
 import dpeData from '@/components/DPE.yaml'
 
-export default function DPELabel({ index, small = true }) {
+export const conversionLettreIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+
+export default function DPELabel({ index, label = null, small = true }) {
+  if (label) {
+    index = conversionLettreIndex.indexOf(label)
+  }
+
   if (+index > 6 || index < 0)
     return (
       <em

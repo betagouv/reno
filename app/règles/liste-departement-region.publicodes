@@ -1,0 +1,305 @@
+régions:
+  valeurs:
+    "84": "Auvergne-Rhône-Alpes"
+    "27": "Bourgogne-Franche-Comté"
+    "53": "Bretagne"
+    "24": "Centre-Val de Loire"
+    "94": "Corse"
+    "44": "Grand Est"
+    "32": "Hauts-de-France"
+    "11": "Île-de-France"
+    "28": "Normandie"
+    "75": "Nouvelle-Aquitaine"
+    "76": "Occitanie"
+    "52": "Pays de la Loire"
+    "93": "Provence-Alpes-Côte d'Azur"
+départements:
+  valeurs:
+    "01":
+      nomDepartement: "Ain"
+      codeRegion: "84"
+    "02":
+      nomDepartement: "Aisne"
+      codeRegion: "32"
+    "03":
+      nomDepartement: "Allier"
+      codeRegion: "84"
+    "04":
+      nomDepartement: "Alpes-de-Haute-Provence"
+      codeRegion: "93"
+    "05":
+      nomDepartement: "Hautes-Alpes"
+      codeRegion: "93"
+    "06":
+      nomDepartement: "Alpes-Maritimes"
+      codeRegion: "93"
+    "07":
+      nomDepartement: "Ardèche"
+      codeRegion: "84"
+    "08":
+      nomDepartement: "Ardennes"
+      codeRegion: "44"
+    "09":
+      nomDepartement: "Ariège"
+      codeRegion: "76"
+    "10":
+      nomDepartement: "Aube"
+      codeRegion: "44"
+    "11":
+      nomDepartement: "Aude"
+      codeRegion: "76"
+    "12":
+      nomDepartement: "Aveyron"
+      codeRegion: "76"
+    "13":
+      nomDepartement: "Bouches-du-Rhône"
+      codeRegion: "93"
+    "14":
+      nomDepartement: "Calvados"
+      codeRegion: "28"
+    "15":
+      nomDepartement: "Cantal"
+      codeRegion: "84"
+    "16":
+      nomDepartement: "Charente"
+      codeRegion: "75"
+    "17":
+      nomDepartement: "Charente-Maritime"
+      codeRegion: "75"
+    "18":
+      nomDepartement: "Cher"
+      codeRegion: "24"
+    "19":
+      nomDepartement: "Corrèze"
+      codeRegion: "75"
+    "21":
+      nomDepartement: "Côte-d'Or"
+      codeRegion: "27"
+    "22":
+      nomDepartement: "Côtes-d'Armor"
+      codeRegion: "53"
+    "23":
+      nomDepartement: "Creuse"
+      codeRegion: "75"
+    "24":
+      nomDepartement: "Dordogne"
+      codeRegion: "75"
+    "25":
+      nomDepartement: "Doubs"
+      codeRegion: "27"
+    "26":
+      nomDepartement: "Drôme"
+      codeRegion: "84"
+    "27":
+      nomDepartement: "Eure"
+      codeRegion: "28"
+    "28":
+      nomDepartement: "Eure-et-Loir"
+      codeRegion: "24"
+    "29":
+      nomDepartement: "Finistère"
+      codeRegion: "53"
+    "2A":
+      nomDepartement: "Corse-du-Sud"
+      codeRegion: "94"
+    "2B":
+      nomDepartement: "Haute-Corse"
+      codeRegion: "94"
+    "30":
+      nomDepartement: "Gard"
+      codeRegion: "76"
+    "31":
+      nomDepartement: "Haute-Garonne"
+      codeRegion: "76"
+    "32":
+      nomDepartement: "Gers"
+      codeRegion: "76"
+    "33":
+      nomDepartement: "Gironde"
+      codeRegion: "75"
+    "34":
+      nomDepartement: "Hérault"
+      codeRegion: "76"
+    "35":
+      nomDepartement: "Ille-et-Vilaine"
+      codeRegion: "53"
+    "36":
+      nomDepartement: "Indre"
+      codeRegion: "24"
+    "37":
+      nomDepartement: "Indre-et-Loire"
+      codeRegion: "24"
+    "38":
+      nomDepartement: "Isère"
+      codeRegion: "84"
+    "39":
+      nomDepartement: "Jura"
+      codeRegion: "27"
+    "40":
+      nomDepartement: "Landes"
+      codeRegion: "75"
+    "41":
+      nomDepartement: "Loir-et-Cher"
+      codeRegion: "24"
+    "42":
+      nomDepartement: "Loire"
+      codeRegion: "84"
+    "43":
+      nomDepartement: "Haute-Loire"
+      codeRegion: "84"
+    "44":
+      nomDepartement: "Loire-Atlantique"
+      codeRegion: "52"
+    "45":
+      nomDepartement: "Loiret"
+      codeRegion: "24"
+    "46":
+      nomDepartement: "Lot"
+      codeRegion: "76"
+    "47":
+      nomDepartement: "Lot-et-Garonne"
+      codeRegion: "75"
+    "48":
+      nomDepartement: "Lozère"
+      codeRegion: "76"
+    "49":
+      nomDepartement: "Maine-et-Loire"
+      codeRegion: "52"
+    "50":
+      nomDepartement: "Manche"
+      codeRegion: "28"
+    "51":
+      nomDepartement: "Marne"
+      codeRegion: "44"
+    "52":
+      nomDepartement: "Haute-Marne"
+      codeRegion: "44"
+    "53":
+      nomDepartement: "Mayenne"
+      codeRegion: "52"
+    "54":
+      nomDepartement: "Meurthe-et-Moselle"
+      codeRegion: "44"
+    "55":
+      nomDepartement: "Meuse"
+      codeRegion: "44"
+    "56":
+      nomDepartement: "Morbihan"
+      codeRegion: "53"
+    "57":
+      nomDepartement: "Moselle"
+      codeRegion: "44"
+    "58":
+      nomDepartement: "Nièvre"
+      codeRegion: "27"
+    "59":
+      nomDepartement: "Nord"
+      codeRegion: "32"
+    "60":
+      nomDepartement: "Oise"
+      codeRegion: "32"
+    "61":
+      nomDepartement: "Orne"
+      codeRegion: "28"
+    "62":
+      nomDepartement: "Pas-de-Calais"
+      codeRegion: "32"
+    "63":
+      nomDepartement: "Puy-de-Dôme"
+      codeRegion: "84"
+    "64":
+      nomDepartement: "Pyrénées-Atlantiques"
+      codeRegion: "75"
+    "65":
+      nomDepartement: "Hautes-Pyrénées"
+      codeRegion: "76"
+    "66":
+      nomDepartement: "Pyrénées-Orientales"
+      codeRegion: "76"
+    "67":
+      nomDepartement: "Bas-Rhin"
+      codeRegion: "44"
+    "68":
+      nomDepartement: "Haut-Rhin"
+      codeRegion: "44"
+    "69":
+      nomDepartement: "Rhône"
+      codeRegion: "84"
+    "70":
+      nomDepartement: "Haute-Saône"
+      codeRegion: "27"
+    "71":
+      nomDepartement: "Saône-et-Loire"
+      codeRegion: "27"
+    "72":
+      nomDepartement: "Sarthe"
+      codeRegion: "52"
+    "73":
+      nomDepartement: "Savoie"
+      codeRegion: "84"
+    "74":
+      nomDepartement: "Haute-Savoie"
+      codeRegion: "84"
+    "75":
+      nomDepartement: "Paris"
+      codeRegion: "11"
+    "76":
+      nomDepartement: "Seine-Maritime"
+      codeRegion: "28"
+    "77":
+      nomDepartement: "Seine-et-Marne"
+      codeRegion: "11"
+    "78":
+      nomDepartement: "Yvelines"
+      codeRegion: "11"
+    "79":
+      nomDepartement: "Deux-Sèvres"
+      codeRegion: "75"
+    "80":
+      nomDepartement: "Somme"
+      codeRegion: "32"
+    "81":
+      nomDepartement: "Tarn"
+      codeRegion: "76"
+    "82":
+      nomDepartement: "Tarn-et-Garonne"
+      codeRegion: "76"
+    "83":
+      nomDepartement: "Var"
+      codeRegion: "93"
+    "84":
+      nomDepartement: "Vaucluse"
+      codeRegion: "93"
+    "85":
+      nomDepartement: "Vendée"
+      codeRegion: "52"
+    "86":
+      nomDepartement: "Vienne"
+      codeRegion: "75"
+    "87":
+      nomDepartement: "Haute-Vienne"
+      codeRegion: "75"
+    "88":
+      nomDepartement: "Vosges"
+      codeRegion: "44"
+    "89":
+      nomDepartement: "Yonne"
+      codeRegion: "27"
+    "90":
+      nomDepartement: "Territoire de Belfort"
+      codeRegion: "27"
+    "91":
+      nomDepartement: "Essonne"
+      codeRegion: "11"
+    "92":
+      nomDepartement: "Hauts-de-Seine"
+      codeRegion: "11"
+    "93":
+      nomDepartement: "Seine-Saint-Denis"
+      codeRegion: "11"
+    "94":
+      nomDepartement: "Val-de-Marne"
+      codeRegion: "11"
+    "95":
+      nomDepartement: "Val-d'Oise"
+      codeRegion: "11"

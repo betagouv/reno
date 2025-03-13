@@ -327,6 +327,9 @@ logement . commune . nom:
   par défaut:
     texte: Brest
 
+logement . code département: # Necessaire pour déterminer le module valeur verte
+  par défaut: '"35"'
+
 # logement . commune . denormandie: voir le fichier denormandie
 
 ménage:

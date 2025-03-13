@@ -8,6 +8,7 @@ export default function TargetDPETabs({
   answeredQuestions,
   choice,
   situation,
+  text = 'Votre DPE visé',
   isMobile,
 }) {
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
@@ -27,11 +28,11 @@ export default function TargetDPETabs({
     <div
       css={`
         display: flex;
-        flex-direction: column;
+        ${isMobile && 'flex-direction: column;'}
         gap: 0.5rem;
       `}
     >
-      <div>Votre DPE visé&nbsp;:</div>
+      <div>{text}&nbsp;:</div>
       <nav>
         <ol
           css={`

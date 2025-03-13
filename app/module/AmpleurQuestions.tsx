@@ -1,5 +1,6 @@
 import RevenuInput from '@/components/RevenuInput'
 import Select from '@/components/Select'
+import rules from '@/app/règles/rules'
 import {
   encodeDottedName,
   encodeSituation,
@@ -19,11 +20,12 @@ export const CommuneLogement = ({
   situation,
   answeredQuestions,
   onChange,
+  text = 'Ce logement sera situé sur la commune de',
 }) => (
   <section>
     <Dot />
     <label htmlFor="">
-      Ce logement sera situé sur la commune de :{' '}
+      {text} :{' '}
       <AddressSearch
         {...{
           type: 'logement . commune',
@@ -73,6 +75,37 @@ export const TypeResidence = ({
             : ''
         }
         values={usageLogementValues}
+      />
+    </label>
+  </section>
+)
+
+export const LogementType = ({
+  setSearchParams,
+  situation,
+  text,
+  rule = 'logement . type',
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      {text ? text : rules[rule]['question']}:{' '}
+      <Select
+        css={`
+          background: #f5f5fe;
+          max-width: 90vw;
+        `}
+        disableInstruction={false}
+        onChange={(e) => {
+          push(['trackEvent', 'Module', 'Interaction', 'type logement ' + e])
+          setSearchParams({
+            [encodeDottedName(rule)]: '"' + e + '"*',
+          })
+        }}
+        value={situation[rule]?.replaceAll('"', "'")}
+        values={rules[rule]['une possibilité parmi']['possibilités'].map(
+          (i) => rules['logement . type . ' + i],
+        )}
       />
     </label>
   </section>

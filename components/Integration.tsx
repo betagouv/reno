@@ -10,7 +10,7 @@ import getAppUrl from './getAppUrl'
 import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant } from './UI'
 import { useEffect, useRef, useState } from 'react'
 import { Select } from './InputUI'
-import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
+import AmpleurDemonstration from '@/app/module/Demonstration'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styled from 'styled-components'
 import IntegrationQuestions from './IntegrationQuestions'
@@ -182,7 +182,7 @@ export default function Integration() {
             ))}
           </Select>
           {module.includes('module/integration') ? (
-            <AmpleurDemonstration />
+            <Demonstration moduleName="ampleu" />
           ) : (
             <>
               <p
