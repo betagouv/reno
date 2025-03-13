@@ -21,8 +21,10 @@ export default function DPEQuickSwitch({
   possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
   situation = {},
+  text = 'Votre DPE actuel',
   validateTargetKey = true, // not sure about the necessity of this param, it could be used as "false" for all instances of DPEQuickSwitch. But what I know is that for CEEAmpleurScenario we need it to false else Form.tsx has no "nextQuestions"
   isMobile,
+  small = false,
 }) {
   const [editing, setEditing] = useState(false)
   const setSearchParams = useSetSearchParams()
@@ -48,7 +50,7 @@ export default function DPEQuickSwitch({
         gap: 0.5rem;
       `}
     >
-      <div>Votre DPE actuel&nbsp;:</div>
+      <div>{text}&nbsp;:</div>
       {editing ? (
         <span
           css={`
@@ -71,7 +73,7 @@ export default function DPEQuickSwitch({
                 'url',
               )}
             >
-              <DPELabel index={index} small={false} />
+              <DPELabel index={index} small={small} />
             </Link>
           ))}
         </span>
@@ -86,7 +88,7 @@ export default function DPEQuickSwitch({
           onClick={() => setEditing(true)}
           title="Cliquez pour choisir un autre DPE actuel de votre logement, dans le cas où vous n'êtes pas certain de votre DPE."
         >
-          <DPELabel index={oldIndex} small={false} />
+          <DPELabel index={oldIndex} small={small} />
           <Image src={editIcon} alt="Icône crayon" />
         </div>
       )}
