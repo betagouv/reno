@@ -13,7 +13,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [input] = useDebounce(immediateInput, 300)
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
-  const [clicked, setClicked] = useState(false)
+  const [clicked, setClicked] = useState(situation[type])
   const validInput = input && input.length >= 3
 
   // Get the commune name from the code if it exists to display it in the search box
