@@ -2,8 +2,7 @@
 import rules from '@/app/règles/rules'
 import CalculatorWidget from '../../../components/CalculatorWidget'
 import Publicodes from 'publicodes'
-import dataMaison from '@/data/valeur-verte-maison.csv'
-import dataAppartement from '@/data/valeur-verte-appartement.csv'
+import dataValeurVerte from '@/data/valeur-verte.csv'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import { useEffect, useState } from 'react'
 import dpeData from '@/components/DPE.yaml'
@@ -45,8 +44,7 @@ export default function ValeurVerteWidget({ lettre }) {
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   useEffect(() => {
-    const file = typeBien == 'maison' ? dataMaison : dataAppartement
-    const row = file.find((r) => r.Région == region)
+    const row = dataValeurVerte.find((r) => r.Région == region)
 
     const pourcentageDpeActuel =
       row[Object.keys(row).find((c) => c.includes(dpeActuel))]
