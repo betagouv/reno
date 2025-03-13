@@ -30,7 +30,7 @@ import AmpleurCTA from '@/app/module/AmpleurCTA'
 export default function ValeurVerteModule() {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth <= 600,
+    () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
@@ -175,7 +175,7 @@ export default function ValeurVerteModule() {
           <DPEQuickSwitch
             oldIndex={situation['DPE . actuel'] - 1}
             situation={situation}
-            isMobile={isMobile}
+            columnDisplay={isMobile}
             text={'Ayant une étiquette'}
           />
         </Li>
@@ -184,6 +184,7 @@ export default function ValeurVerteModule() {
           $touched={answeredQuestions.includes('projet . DPE visé')}
         >
           <Dot />
+          <span css={`li { margin: 0}`}>
           <TargetDPETabs
             {...{
               oldIndex: situation['DPE . actuel'] - 1,
@@ -192,7 +193,7 @@ export default function ValeurVerteModule() {
               choice: situation['projet . DPE visé'] - 1,
               engine,
               situation,
-              isMobile,
+              columnDisplay: isMobile,
               text: 'En visant une étiquette',
             }}
           />

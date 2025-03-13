@@ -21,9 +21,9 @@ export default function DPEQuickSwitch({
   possibilities = [0, 1, 2, 3, 4, 5, 6],
   dottedName = originKey,
   situation = {},
-  text = 'Votre DPE actuel',
+  text = 'DPE actuel',
   validateTargetKey = true, // not sure about the necessity of this param, it could be used as "false" for all instances of DPEQuickSwitch. But what I know is that for CEEAmpleurScenario we need it to false else Form.tsx has no "nextQuestions"
-  isMobile,
+  columnDisplay,
   small = false,
 }) {
   const [editing, setEditing] = useState(false)
@@ -45,8 +45,8 @@ export default function DPEQuickSwitch({
     <div
       css={`
         display: flex;
-        ${!isMobile && 'flex-direction: column;'}
         align-items: center;
+        ${columnDisplay && 'flex-direction: column; align-items: baseline;'}
         gap: 0.5rem;
       `}
     >

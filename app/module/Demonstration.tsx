@@ -15,6 +15,7 @@ import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
 import { formatNumber } from '@/components/RevenuInput'
+import { IframeCodeWrapper } from '@/components/Integration'
 
 const iframeCode = (src, cssExample = false) => `
 <iframe src="${src}" allow="clipboard-read; clipboard-write" ${
@@ -54,7 +55,6 @@ export default function Demonstration({ moduleName }) {
       <h2>Démonstration</h2>
       <div
         css={`
-          margin: 2rem 0;
           display: flex;
           flex-direction: column;
           justify-content: start;
@@ -142,13 +142,15 @@ export default function Demonstration({ moduleName }) {
           </BlueEm>{' '}
           dans votre HTML ou votre contenu Wordpress :
         </p>
-        <code
-          css={`
-            word-break: break-all;
-          `}
-        >
-          {iframeCode(iframeUrl, moduleName, false)}
-        </code>
+        <IframeCodeWrapper>
+          <code
+            css={`
+              word-break: break-all;
+            `}
+          >
+            {iframeCode(iframeUrl, false)}
+          </code>
+        </IframeCodeWrapper>
         <p
           css={`
             margin-top: 1rem;
@@ -157,13 +159,15 @@ export default function Demonstration({ moduleName }) {
           Vous pouvez habiller le module en CSS avec par exemple une ombre
           portée, voici un exemple :{' '}
         </p>
-        <code
-          css={`
-            word-break: break-all;
-          `}
-        >
-          {iframeCode(iframeUrl, moduleName, true)}
-        </code>
+        <IframeCodeWrapper>
+          <code
+            css={`
+              word-break: break-all;
+            `}
+          >
+            {iframeCode(iframeUrl, true)}
+          </code>
+        </IframeCodeWrapper>
         <IntegrationQuestions />
         <section
           css={`
@@ -188,7 +192,13 @@ export default function Demonstration({ moduleName }) {
               box-shadow: var(--shadow-elevation-medium);
             `}
           ></iframe>
-          <h3>... et sur écran mobile</h3>
+          <h3
+            css={`
+              margin: 0;
+            `}
+          >
+            ... et sur écran mobile
+          </h3>
           <iframe src={iframeUrl} css={mobileIframeStyle}></iframe>
         </section>
       </div>

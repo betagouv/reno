@@ -8,8 +8,8 @@ export default function TargetDPETabs({
   answeredQuestions,
   choice,
   situation,
-  text = 'Votre DPE visé',
-  isMobile,
+  text = 'DPE visé',
+  columnDisplay,
 }) {
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
@@ -28,7 +28,8 @@ export default function TargetDPETabs({
     <div
       css={`
         display: flex;
-        ${isMobile && 'flex-direction: column;'}
+        align-items: center;
+        ${columnDisplay && 'flex-direction: column; align-items: baseline;'}
         gap: 0.5rem;
       `}
     >

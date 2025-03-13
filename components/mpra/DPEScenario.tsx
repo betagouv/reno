@@ -35,7 +35,7 @@ export default function DPEScenario({
         <DPEQuickSwitch
           oldIndex={oldIndex}
           situation={situation}
-          isMobile={isMobile}
+          columnDisplay={true}
         />
         <TargetDPETabs
           {...{
@@ -45,7 +45,7 @@ export default function DPEScenario({
             choice,
             engine,
             situation,
-            isMobile,
+            columnDisplay: true,
           }}
         />
         <div
@@ -55,7 +55,7 @@ export default function DPEScenario({
             gap: 0.5rem;
           `}
         >
-          <div>Votre budget de travaux de rénovation:</div>
+          <div>Budget de travaux de rénovation:</div>
           <div
             css={`
               margin: auto;

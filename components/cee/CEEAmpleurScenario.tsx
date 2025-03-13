@@ -24,7 +24,7 @@ export default function CEEAmpleurScenario({
         <DPEQuickSwitch
           oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
-          isMobile={isMobile}
+          columnDisplay={true}
         />
         <TargetDPETabs
           {...{
@@ -34,7 +34,7 @@ export default function CEEAmpleurScenario({
             choice,
             engine,
             situation,
-            isMobile,
+            columnDisplay: true,
           }}
         />
         <div
