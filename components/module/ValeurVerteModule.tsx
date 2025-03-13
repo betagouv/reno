@@ -99,7 +99,6 @@ export default function ValeurVerteModule() {
 
     const pourcentageDpeActuel = getPourcentage('DPE . actuel')
     const pourcentageDpeVise = getPourcentage('projet . DPE visé')
-
     const appreciation =
       ((100 + pourcentageDpeVise - (100 + pourcentageDpeActuel)) /
         (100 + pourcentageDpeActuel)) *
@@ -229,6 +228,11 @@ export default function ValeurVerteModule() {
             </>,
           )}
           {isNaN(plusValue) && (<>Nous n'avons pas assez de données concernant ce type de bien pour vous proposer une estimation précise.</>)}
+          <CTAWrapper $justify="left" $customCss="margin: 0.5rem auto;">
+            <CTA $importance="primary" css="font-size: 100%;">
+              <AmpleurCTA situation={situation} />
+            </CTA>
+          </CTAWrapper>
       </EvaluationValueWrapper>
     </ModuleWrapper>
   )
