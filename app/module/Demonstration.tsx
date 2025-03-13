@@ -10,6 +10,7 @@ import { useSearchParams } from 'next/navigation'
 import Schema from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
+import personasValeurVerte from './valeur-verte/examplePersonasValeurVerte.yaml'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
@@ -39,7 +40,9 @@ export default function Demonstration({ moduleName }) {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const { persona: selectedPersona = 0 } = searchParams
-  const personaSituation = personas[selectedPersona].situation
+  const personaFile = moduleName == 'ampleur' ? personas : personasValeurVerte
+
+  const personaSituation = personaFile[selectedPersona].situation
   const iframeSearchParams = encodeSituation(personaSituation, true)
   const iframeUrl =
     getAppUrl() +
@@ -92,7 +95,7 @@ export default function Demonstration({ moduleName }) {
           `}
         >
           <ul>
-            {personas.map(({ nom, situation }, i) => (
+            {personaFile.map(({ nom, situation }, i) => (
               <li key={nom}>
                 <Link
                   href={setSearchParams({ persona: i }, 'url')}
