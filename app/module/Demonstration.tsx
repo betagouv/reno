@@ -13,6 +13,7 @@ import personas from './examplePersonas.yaml'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
+import { formatNumber } from '@/components/RevenuInput'
 
 const iframeCode = (src, cssExample = false) => `
 <iframe src="${src}" allow="clipboard-read; clipboard-write" ${
@@ -105,8 +106,17 @@ export default function Demonstration({ moduleName }) {
                   >
                     <div>{nom}</div>
                     <small>
-                      Construit en :{' '}
-                      {situation['logement . année de construction'] || '?'}
+                      {moduleName == 'ampleur' ? (
+                        <>
+                          Construit en :{' '}
+                          {situation['logement . année de construction'] || '?'}
+                        </>
+                      ) : (
+                        <>
+                          Mise à prix:{' '}
+                          {formatNumber(situation["logement . prix d'achat"])}€
+                        </>
+                      )}
                     </small>
                     <div>
                       DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
