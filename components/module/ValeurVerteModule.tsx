@@ -13,6 +13,7 @@ import { getCommune } from '../personas/enrichSituation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import {
   CommuneLogement,
+  Dot,
   Li,
   LogementType,
   MontantQuestion,
@@ -170,6 +171,7 @@ export default function ValeurVerteModule() {
           $next={answeredQuestions.includes("logement . prix d'achat")}
           $touched={answeredQuestions.includes('DPE . actuel')}
         >
+          <Dot />
           <DPEQuickSwitch
             oldIndex={situation['DPE . actuel'] - 1}
             situation={situation}
@@ -181,6 +183,7 @@ export default function ValeurVerteModule() {
           $next={answeredQuestions.includes('DPE . actuel')}
           $touched={answeredQuestions.includes('projet . DPE visé')}
         >
+          <Dot />
           <TargetDPETabs
             {...{
               oldIndex: situation['DPE . actuel'] - 1,
@@ -193,6 +196,7 @@ export default function ValeurVerteModule() {
               text: 'En visant une étiquette',
             }}
           />
+          </span>
         </Li>
       </QuestionList>
       <EvaluationValueWrapper $active={plusValue != 0 && !isNaN(plusValue)}>

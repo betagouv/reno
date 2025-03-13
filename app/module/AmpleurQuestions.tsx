@@ -656,7 +656,7 @@ export const YesNoQuestionStyle = styled.div`
   }
 `
 
-const Dot = () => (
+export const Dot = () => (
   <Image
     src={rightArrow}
     alt="Icône d'une flèche vers la droite"
