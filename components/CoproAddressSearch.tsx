@@ -6,6 +6,7 @@ import MapMarkers from './AddressSearchMapMarkers'
 import { getCommune } from './personas/enrichSituation'
 import useAddAddressMap from './useAddAddressMap'
 import { getServerUrl } from './getAppUrl'
+import DpeMarkers from './DpeMarkers'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
@@ -17,6 +18,9 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   const [results, setResults] = useState(null)
   const [copros, setCopros] = useState(null)
+  const [dpes, setDpes] = useState(null)
+
+  console.log('cyan dpes', dpes)
   const mapContainerRef = useRef(null)
   const setLocation = useCallback((location) => console.log(location), [])
 
@@ -31,7 +35,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const selectedCoproIdRaw = situation['copropriété . id'],
     selectedCoproId = selectedCoproIdRaw?.replace(/"/g, '')
 
-  // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
     if (!clicked) return
 
@@ -51,6 +54,26 @@ export default function AddressSearch({ setChoice, situation, type }) {
     }
     fetchCopros()
   }, [clicked, setCopros, setError])
+
+  useEffect(() => {
+    if (!clicked) return
+
+    const [lat, lon] = clicked.geometry.coordinates
+    async function fetchDPE() {
+      try {
+        const url = `${getServerUrl()}/findDPE/${lon}/${lat}`
+        const request = await fetch(url)
+        const json = await request.json()
+        console.log('cyan', json)
+        setDpes(json)
+        setError(null)
+      } catch (e) {
+        console.error(e)
+        setError({ message: 'Erreur pendant la récupération des DPEs' })
+      }
+    }
+    fetchDPE()
+  }, [clicked, setDpes, setError])
 
   useEffect(() => {
     if (!validInput) return
@@ -190,6 +213,27 @@ export default function AddressSearch({ setChoice, situation, type }) {
             return { ...copro, geometry: { coordinates: [+lon, +lat] } }
           })}
           selectMarker={setChoice}
+        />
+      )}
+      {dpes && (
+        <DpeMarkers
+          map={map}
+          featureCollection={{
+            type: 'FeatureCollection',
+
+            features: dpes.map((dpe) => {
+              const { lon, lat, 'N°_étage_appartement': etage } = dpe
+              return {
+                type: 'Feature',
+                geometry: {
+                  coordinates: [+lon, +lat],
+                  type: 'Point',
+                },
+                properties: { ...dpe, etage: +etage, height: 3 },
+              }
+            }),
+          }}
+          selectMarker={() => null}
         />
       )}
       {active && (
