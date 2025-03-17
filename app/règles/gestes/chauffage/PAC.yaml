@@ -425,15 +425,15 @@ chauffage . PAC . air-air . CEE . SCOP:
   une possibilité parmi:
     possibilités:
       - 'inferieur à 4'
-      - 'inferieur à 4.3'
-      - 'superieur à 4.3'
+      - 'inferieur à 4point3'
+      - 'superieur à 4point3'
 chauffage . PAC . air-air . CEE . SCOP . inferieur à 4:
   valeur: '3'
   titre: 'Inférieur à 3.9'
-chauffage . PAC . air-air . CEE . SCOP . inferieur à 4.3:
+chauffage . PAC . air-air . CEE . SCOP . inferieur à 4point3:
   valeur: '4'
   titre: 'Inférieur à 4.3'
-chauffage . PAC . air-air . CEE . SCOP . superieur à 4.3:
+chauffage . PAC . air-air . CEE . SCOP . superieur à 4point3:
   valeur: '5'
   titre: 'Supérieur à 4.3'
 chauffage . PAC . air-air . CEE . surface: logement . surface
