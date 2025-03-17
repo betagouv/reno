@@ -1,10 +1,13 @@
 import Engine from 'publicodes'
 import rules from 'mesaidesreno'
 
+// Initialiser le moteur publicodes une seule fois avec les règles de mesaidesreno
+const engine = new Engine(rules)
+
 // Fonction utilitaire pour évaluer une règle publicodes
 function evaluatePublicodesRule(ruleName: string, situation: Record<string, any>) {
-  // Initialiser le moteur publicodes avec les règles de mesaidesreno
-  const engine = new Engine(rules)
+  // Réinitialiser la situation pour éviter les effets de bord
+  engine.resetSituation()
   
   // Définir la situation
   engine.setSituation(situation)
