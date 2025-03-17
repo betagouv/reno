@@ -1,5 +1,6 @@
-import Engine from 'publicodes'
+import Engine, { formatValue } from 'publicodes'
 import rules from '@/app/règles/rules'
+import baseSituation from '@/app/analyses/baseSituation.yaml'
 
 // Initialize the publicodes engine once with mesaidesreno rules
 const engine = new Engine(rules)
@@ -19,10 +20,7 @@ function evaluatePublicodesRule(
 
   return {
     value: evaluation.nodeValue,
-    formatted:
-      evaluation.nodeValue !== null
-        ? `${evaluation.nodeValue} ${evaluation.unit || ''}`
-        : 'Rule not applicable',
+    formatted: formatValue(evaluation),
     missingVariables: evaluation.missingVariables,
   }
 }
@@ -33,6 +31,7 @@ export default function Analyses() {
 
   // Evaluate the rule "MPR . accompagnée . montant" with the random income
   const result = evaluatePublicodesRule('MPR . accompagnée . montant', {
+    ...baseSituation,
     'ménage . revenu': randomRevenu,
   })
 
