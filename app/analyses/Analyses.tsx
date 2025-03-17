@@ -1,20 +1,20 @@
 import Engine from 'publicodes'
 import rules from '@/app/règles/rules'
 
-// Initialiser le moteur publicodes une seule fois avec les règles de mesaidesreno
+// Initialize the publicodes engine once with mesaidesreno rules
 const engine = new Engine(rules)
 
-// Fonction utilitaire pour évaluer une règle publicodes
+// Utility function to evaluate a publicodes rule
 function evaluatePublicodesRule(
   ruleName: string,
   situation: Record<string, any>,
 ) {
-  // Réinitialiser la situation pour éviter les effets de bord
+  // Reset the situation to avoid side effects
 
-  // Définir la situation
+  // Set the situation
   engine.setSituation(situation)
 
-  // Évaluer la règle
+  // Evaluate the rule
   const evaluation = engine.evaluate(ruleName)
 
   return {
@@ -22,28 +22,28 @@ function evaluatePublicodesRule(
     formatted:
       evaluation.nodeValue !== null
         ? `${evaluation.nodeValue} ${evaluation.unit || ''}`
-        : 'Règle non applicable',
+        : 'Rule not applicable',
     missingVariables: evaluation.missingVariables,
   }
 }
 
 export default function Analyses() {
-  // Générer un revenu aléatoire entre 10000 et 100000
+  // Generate a random income between 10000 and 100000
   const randomRevenu = Math.floor(Math.random() * 90000) + 10000
 
-  // Évaluer la règle "MPR . accompagnée . montant" avec le revenu aléatoire
+  // Evaluate the rule "MPR . accompagnée . montant" with the random income
   const result = evaluatePublicodesRule('MPR . accompagnée . montant', {
     'ménage . revenu': randomRevenu,
   })
 
   return (
     <section>
-      <h2>Analyse de la règle "MPR . accompagnée . montant"</h2>
-      <p>Revenu aléatoire utilisé: {randomRevenu} €</p>
-      <p>Résultat de l'évaluation: {result.formatted}</p>
+      <h2>Analysis of the rule "MPR . accompagnée . montant"</h2>
+      <p>Random income used: {randomRevenu} €</p>
+      <p>Evaluation result: {result.formatted}</p>
       {Object.keys(result.missingVariables).length > 0 && (
         <div>
-          <p>Variables manquantes pour le calcul complet:</p>
+          <p>Missing variables for complete calculation:</p>
           <ul>
             {Object.keys(result.missingVariables).map((variable) => (
               <li key={variable}>{variable}</li>
