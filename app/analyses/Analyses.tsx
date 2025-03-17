@@ -39,38 +39,66 @@ function generateRevenueValues(count: number) {
 function evaluateRuleForMultipleRevenues(
   ruleName: string,
   revenueValues: number[],
+  dpeValues: number[] = [1],
 ) {
-  return revenueValues.map((revenue) => {
-    const result = evaluatePublicodesRule(ruleName, {
-      ...baseSituation,
-      'ménage . revenu': revenue,
-    })
+  const results = [];
+  
+  for (const dpe of dpeValues) {
+    const dpeResults = revenueValues.map((revenue) => {
+      const result = evaluatePublicodesRule(ruleName, {
+        ...baseSituation,
+        'ménage . revenu': revenue,
+        'DPE . actuel': dpe,
+      })
 
-    return {
-      revenue: revenue,
-      montant: typeof result.value === 'number' ? result.value : 0,
-      formatted: result.formatted,
-    }
-  })
+      return {
+        revenue: revenue,
+        montant: typeof result.value === 'number' ? result.value : 0,
+        formatted: result.formatted,
+        dpe: dpe,
+      }
+    });
+    
+    results.push(...dpeResults);
+  }
+  
+  return results;
+}
+
+// Get DPE label (A-G) from numeric value (1-7)
+function getDpeLabel(dpeValue: number): string {
+  const labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+  return labels[dpeValue - 1] || `DPE ${dpeValue}`;
 }
 
 export default function Analyses() {
   // Generate 10 revenue values from 1000 to 100000
   const revenueValues = generateRevenueValues(10)
+  
+  // DPE values from 1 to 7 (A to G)
+  const dpeValues = [1, 2, 3, 4, 5, 6, 7]
 
-  // Evaluate the rule for each revenue value
+  // Evaluate the rule for each revenue value and each DPE value
   const results = evaluateRuleForMultipleRevenues(
     'MPR . accompagnée . montant',
     revenueValues,
+    dpeValues
   )
+
+  // Group results by DPE for the chart
+  const groupedByDpe = dpeValues.map(dpe => ({
+    id: dpe,
+    label: getDpeLabel(dpe),
+    data: results.filter(r => r.dpe === dpe)
+  }))
 
   return (
     <section>
       <h2>Analyse de la règle "MPR . accompagnée . montant"</h2>
-      <p>Montant de l'aide en fonction du revenu du ménage</p>
+      <p>Montant de l'aide en fonction du revenu du ménage et du DPE</p>
 
       <div style={{ width: '100%', height: 450, marginTop: 20 }}>
-        <OurLineChart data={results} />
+        <OurLineChart data={groupedByDpe} />
       </div>
 
       <h3>Données détaillées</h3>
@@ -95,6 +123,15 @@ export default function Analyses() {
                 textAlign: 'left',
               }}
             >
+              DPE
+            </th>
+            <th
+              style={{
+                border: '1px solid #ddd',
+                padding: '8px',
+                textAlign: 'left',
+              }}
+            >
               Montant de l'aide
             </th>
           </tr>
@@ -104,6 +141,9 @@ export default function Analyses() {
             <tr key={index}>
               <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                 {result.revenue.toLocaleString('fr-FR')} €
+              </td>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                {getDpeLabel(result.dpe)}
               </td>
               <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                 {result.formatted}
