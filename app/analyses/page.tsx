@@ -1,6 +1,5 @@
-import css from '@/components/css/convertToJs'
-import dynamic from '@/node_modules/next/dynamic'
 import logo from '@/app/icon.svg'
+import css from '@/components/css/convertToJs'
 import Image from 'next/image'
 import Analyses from './Analyses'
 
