@@ -5,7 +5,7 @@ import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import dpeData from '@/components/DPE.yaml'
-import ValeurVerteWidget from '@/app/module/valeur-verte/ValeurVerteWidget'
+import ValeurVerteModule from '@/components/module/ValeurVerteModule'
 
 export async function generateMetadata({ params }) {
   return {
@@ -111,7 +111,7 @@ export default async function Page(props: Props) {
         <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h2>Quel impact sur la valeur de mon logement ?</h2>
-            <ValeurVerteWidget lettre={lettre} />
+            <ValeurVerteModule type={'widget'} />
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>

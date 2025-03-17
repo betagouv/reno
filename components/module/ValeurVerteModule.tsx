@@ -26,8 +26,13 @@ import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
 import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
+import CalculatorWidget from '../CalculatorWidget'
+import AddressSearch from '../AddressSearch'
+import Select from '../Select'
+import editIcon from '@/public/crayon.svg'
+import Image from 'next/image'
 
-export default function ValeurVerteModule() {
+export default function ValeurVerteModule({ type, lettre }) {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
@@ -39,6 +44,15 @@ export default function ValeurVerteModule() {
   const [plusValue, setPlusValue] = useState(0)
   const situation = getSituation(searchParams, rules)
   const answeredQuestions = Object.keys(situation)
+
+  if (!situation['DPE . actuel']) {
+    situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre)
+
+    setSearchParams({
+      [encodeDottedName('DPE . actuel')]:
+        `${conversionLettreIndex.indexOf(lettre)}*`,
+    })
+  }
 
   if (!situation['projet . DPE visé']) {
     setSearchParams({
@@ -63,58 +77,15 @@ export default function ValeurVerteModule() {
   }, [situation['logement . commune']])
 
   useEffect(() => {
-    if (!situation['logement . code département']) return
-    let region = null
-    // Règle spécifique pour la petite couronne qui n'est pas réellement une région
-    if (75 == parseInt(situation['logement . code département'])) {
-      region = 'Paris'
-    } else if (
-      [92, 93, 94].includes(parseInt(situation['logement . code département']))
-    ) {
-      region = 'Île-de-France - Petite Couronne'
-    } else {
-      const codeRegion =
-        listeDepartementRegion['départements']['valeurs'][
-          situation['logement . code département'].replaceAll('"', '')
-        ].codeRegion
-      region = listeDepartementRegion['régions']['valeurs'][codeRegion]
+    const result = calculateAppreciationAndPlusValue(situation)
+
+    if (result) {
+      setPourcentageAppreciation(result.appreciation)
+      setPlusValue(result.plusValue)
     }
-    // on teste avec includes pour éviter les problèmes d'apostrophes/guillemet
-    const row = dataValeurVerte.find((r) => r.Région === region && situation['logement . type'].includes(r.Type))
-    if (!row) return
-
-    const getPourcentage = (key) => {
-      if(situation[key] == 4) // Le DPE D est la référence donc 0
-        return 0
-
-      const col = Object.keys(row).find((c) =>
-        c.includes(conversionLettreIndex[situation[key] - 1]),
-      )
-      return row[col]
-        ? row[col]
-            .replaceAll('%', '')
-            .split(' à ')
-            .reduce((p, c) => p + parseFloat(c), 0) / 2
-        : 'error'
-    }
-
-    const pourcentageDpeActuel = getPourcentage('DPE . actuel')
-    const pourcentageDpeVise = getPourcentage('projet . DPE visé')
-    const appreciation =
-      ((100 + pourcentageDpeVise - (100 + pourcentageDpeActuel)) /
-        (100 + pourcentageDpeActuel)) *
-      100
-
-    setPourcentageAppreciation(appreciation)
-    setPlusValue(
-      Math.round(
-        situation["logement . prix d'achat"] * (1 + appreciation / 100) -
-          situation["logement . prix d'achat"],
-      ),
-    )
   }, [situation])
 
-  return (
+  return type == 'module' ? (
     <ModuleWrapper
       isMobile={isMobile}
       title="Quelle est la valeur verte du logement ?"
@@ -184,61 +155,313 @@ export default function ValeurVerteModule() {
           $touched={answeredQuestions.includes('projet . DPE visé')}
         >
           <Dot />
-          <span css={`li { margin: 0}`}>
-          <TargetDPETabs
-            {...{
-              oldIndex: situation['DPE . actuel'] - 1,
-              setSearchParams,
-              answeredQuestions,
-              choice: situation['projet . DPE visé'] - 1,
-              engine,
-              situation,
-              columnDisplay: isMobile,
-              text: 'En visant une étiquette',
-            }}
-          />
+          <span
+            css={`
+              li {
+                margin: 0;
+              }
+            `}
+          >
+            <TargetDPETabs
+              {...{
+                oldIndex: situation['DPE . actuel'] - 1,
+                setSearchParams,
+                answeredQuestions,
+                choice: situation['projet . DPE visé'] - 1,
+                engine,
+                situation,
+                columnDisplay: isMobile,
+                text: 'En visant une étiquette',
+              }}
+            />
           </span>
         </Li>
       </QuestionList>
       <EvaluationValueWrapper $active={plusValue != 0 && !isNaN(plusValue)}>
         <h2>💶 Plus-value estimée 💶</h2>
-        {plusValue != 0 &&
-          !isNaN(plusValue) && (
-            <>
-              <div
+        {plusValue != 0 && !isNaN(plusValue) && (
+          <>
+            <div
+              css={`
+                width: 100%;
+              `}
+            >
+              <Key
+                $state="prime"
                 css={`
                   width: 100%;
+                  margin: 0.5rem 0;
+                  font-size: 120%;
+                  padding: 0.5rem 0;
                 `}
               >
-                <Key
-                  $state="prime"
-                  css={`
-                    width: 100%;
-                    margin: 0.5rem 0;
-                    font-size: 120%;
-                    padding: 0.5rem 0;
-                  `}
-                >
-                  {formatNumber(plusValue)} €
-                </Key>
-              </div>
-              <small>
-                Dans votre région, la valeur {situation['logement . type'].includes("appartement") ? "d'un appartement": "d'une maison"} classé{' '}
-                <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> est
-                en moyenne{' '}
-                <strong>{pourcentageAppreciation.toFixed(1)}%</strong>{' '}
-                supérieure à un bien classé{' '}
-                <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
-              </small>
-            </>,
-          )}
-          {isNaN(plusValue) && (<>Nous n'avons pas assez de données concernant ce type de bien pour vous proposer une estimation précise.</>)}
-          <CTAWrapper $justify="left" $customCss="margin: 0.5rem auto;">
-            <CTA $importance="primary" css="font-size: 100%;">
-              <AmpleurCTA situation={situation} />
-            </CTA>
-          </CTAWrapper>
+                {formatNumber(plusValue)} €
+              </Key>
+            </div>
+            <DPEAppreciationInfo
+              situation={situation}
+              pourcentageAppreciation={pourcentageAppreciation}
+            />
+          </>
+        )}
+        {isNaN(plusValue) && (
+          <>
+            Nous n'avons pas assez de données concernant ce type de bien pour
+            vous proposer une estimation précise.
+          </>
+        )}
+        <CTAWrapper $justify="left" $customCss="margin: 0.5rem auto;">
+          <CTA $importance="primary" css="font-size: 100%;">
+            <AmpleurCTA situation={situation} />
+          </CTA>
+        </CTAWrapper>
       </EvaluationValueWrapper>
     </ModuleWrapper>
+  ) : (
+    <CalculatorWidget>
+      <div>
+        <div>
+          <div>Ville:</div>
+          <AddressSearch
+            {...{
+              type: 'logement . commune',
+              setChoice: (result) => {
+                onChange(result)
+              },
+              setSearchParams,
+              situation,
+              answeredQuestions,
+            }}
+          />
+        </div>
+        <div>
+          <div>Type de bien:</div>
+          <Select
+            css={`
+              background: #f5f5fe;
+              max-width: 90vw;
+            `}
+            disableInstruction={false}
+            onChange={(e) => {
+              push([
+                'trackEvent',
+                'Module',
+                'Interaction',
+                'type logement ' + e,
+              ])
+              setSearchParams({
+                [encodeDottedName('logement . type')]: '"' + e + '"*',
+              })
+            }}
+            value={situation['logement . type']?.replaceAll('"', "'")}
+            values={[
+              { valeur: 'maison', titre: 'Une maison' },
+              { valeur: 'appartement', titre: 'Un appartement' },
+            ]}
+          />
+        </div>
+        <DPEQuickSwitch
+          oldIndex={situation['DPE . actuel'] - 1}
+          situation={situation}
+          columnDisplay={true}
+        />
+      </div>
+      <div
+        css={`
+          display: flex;
+          ${isMobile && 'flex-direction: column;'}
+          justify-content: space-between;
+          gap: 1rem;
+        `}
+      >
+        <div>
+          <div>Valeur du bien:</div>
+          <div
+            css={`
+              margin: auto;
+              border: 2px solid var(--color);
+              width: 100%;
+              color: var(--color);
+              text-align: center;
+              border-radius: 0.3rem;
+              padding: 0.7rem;
+              box-shadow: var(--shadow-elevation-medium);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            `}
+          >
+            <div
+              css={`
+                flex-grow: 1;
+              `}
+            >
+              <input
+                id="prix-bien"
+                css={`
+                  border: none;
+                  background: transparent;
+                  -webkit-appearance: none;
+                  outline: none;
+                  color: var(--color);
+                  font-size: 110%;
+                  max-width: 4rem;
+                `}
+                autoFocus={false}
+                value={situation["logement . prix d'achat"]}
+                placeholder="Prix du bien"
+                min="0"
+                max="9999999"
+                onChange={(e) => {
+                  const rawValue = e.target.value
+                  const startPos = e.target.selectionStart
+                  const value = +rawValue === 0 ? 0 : rawValue
+                  setSearchParams(
+                    encodeSituation({
+                      "logement . prix d'achat": value + '*',
+                    }),
+                    'replace',
+                    false,
+                  )
+                  requestAnimationFrame(() => {
+                    const inputBudget = document.querySelector('#prix-bien')
+                    inputBudget.selectionStart = startPos
+                    inputBudget.selectionEnd = startPos
+                  })
+                }}
+                step="100"
+              />
+            </div>
+            <Image
+              css={`
+                cursor: pointer;
+                margin-left: auto;
+              `}
+              src={editIcon}
+              alt="Icône crayon pour éditer"
+              onClick={() => document.querySelector('#prix-bien').focus()}
+            />
+          </div>
+        </div>
+        <TargetDPETabs
+          {...{
+            oldIndex: situation['DPE . actuel'] - 1,
+            setSearchParams,
+            answeredQuestions,
+            choice: situation['projet . DPE visé'] - 1,
+            engine,
+            situation,
+            columnDisplay: true,
+          }}
+        />
+      </div>
+      <div
+        css={`
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 1rem;
+        `}
+      >
+        <div>
+          <DPEAppreciationInfo
+            situation={situation}
+            pourcentageAppreciation={pourcentageAppreciation}
+          />
+        </div>
+        <div
+          css={`
+            margin-top: 0.5rem;
+            text-align: center;
+            background: var(--validColor1);
+            color: var(--validColor);
+            padding: 0.5rem;
+            font-weight: bold;
+          `}
+        >
+          {plusValue} €
+        </div>
+      </div>
+    </CalculatorWidget>
+  )
+}
+
+const calculateAppreciationAndPlusValue = (situation) => {
+  if (!situation['logement . code département']) return null
+
+  // Règle spécifique pour paris et la petite couronne qui ne sont pas réellement des régions
+  const departmentCode = parseInt(situation['logement . code département'])
+  let region = null
+  if (departmentCode === 75) {
+    region = 'Paris'
+  } else if ([92, 93, 94].includes(departmentCode)) {
+    region = 'Île-de-France - Petite Couronne'
+  } else {
+    const codeRegion =
+      listeDepartementRegion['départements']['valeurs'][
+        situation['logement . code département'].replaceAll('"', '')
+      ].codeRegion
+
+    region = listeDepartementRegion['régions']['valeurs'][codeRegion]
+  }
+
+  // Trouver la ligne correspondante dans dataValeurVerte
+  const row = dataValeurVerte.find(
+    (r) => r.Région === region && situation['logement . type'].includes(r.Type),
+  )
+
+  if (!row) return null
+
+  const getPourcentage = (key) => {
+    if (situation[key] == 4) return 0 // Le DPE D est la référence donc 0
+
+    const col = Object.keys(row).find((c) =>
+      c.includes(conversionLettreIndex[situation[key] - 1]),
+    )
+
+    return row[col]
+      ? row[col]
+          .replaceAll('%', '')
+          .split(' à ')
+          .reduce((p, c) => p + parseFloat(c), 0) / 2
+      : 'error'
+  }
+
+  const pourcentageDpeActuel = getPourcentage('DPE . actuel')
+  const pourcentageDpeVise = getPourcentage('projet . DPE visé')
+
+  if (pourcentageDpeActuel === 'error' || pourcentageDpeVise === 'error') {
+    return null
+  }
+
+  const appreciation =
+    ((100 + pourcentageDpeVise - (100 + pourcentageDpeActuel)) /
+      (100 + pourcentageDpeActuel)) *
+    100
+
+  const plusValue = Math.round(
+    situation["logement . prix d'achat"] * (1 + appreciation / 100) -
+      situation["logement . prix d'achat"],
+  )
+
+  return { appreciation, plusValue }
+}
+
+const DPEAppreciationInfo = ({ situation, pourcentageAppreciation }) => {
+  if (!situation['logement . type'] || pourcentageAppreciation == null)
+    return null
+
+  const logementType = situation['logement . type'].includes('appartement')
+    ? "d'un appartement"
+    : "d'une maison"
+
+  return (
+    <small>
+      Dans votre région, la valeur {logementType} classé{' '}
+      <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> est en
+      moyenne <strong>{pourcentageAppreciation.toFixed(1)}%</strong> supérieure
+      à un bien classé <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
+    </small>
   )
 }
