@@ -165,33 +165,41 @@ export const MontantQuestion = ({
   rule,
   text,
   dot = true,
-}) => (
-  <section>
-    {dot && <Dot />}
-    <label>
-      <span>{text}</span>{' '}
-      <input
-        type="number"
-        min="1"
-        inputMode="numeric"
-        pattern="[1-9]+"
-        defaultValue={
-          answeredQuestions.includes(rule) ? situation[rule] : undefined
-        }
-        onChange={(e) => {
-          const { value } = e.target
-          const invalid = isNaN(value) || value <= 1000
-          if (invalid) return
-          push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + value])
-          setSearchParams({
-            [encodeDottedName(rule)]: value + '*',
-          })
-        }}
-      />{' '}
-      €.
-    </label>
-  </section>
-)
+}) => {
+  const formatNumberWithSpaces = (num: string) => {
+    return num.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  }
+
+  return (
+    <section>
+      {dot && <Dot />}
+      <label>
+        <span>{text}&nbsp;:&nbsp;</span>
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="\d+"
+          defaultValue={
+            answeredQuestions.includes(rule)
+              ? formatNumberWithSpaces(situation[rule])
+              : undefined
+          }
+          onChange={(e) => {
+            const price = e.target.value.replace(/\s/g, '')
+            const invalid = isNaN(price) || price <= 0
+            if (invalid) return
+            push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + price])
+            setSearchParams({
+              [encodeDottedName(rule)]: price + '*',
+            })
+            e.target.value = formatNumberWithSpaces(price)
+          }}
+        />{' '}
+        €.
+      </label>
+    </section>
+  )
+}
 
 const revenuQuestionDependencies = [
   'ménage . personnes',
