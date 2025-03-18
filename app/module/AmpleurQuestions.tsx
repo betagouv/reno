@@ -22,10 +22,21 @@ export const CommuneLogement = ({
   onChange,
   text = 'Ce logement sera situé sur la commune de',
 }) => (
-  <section>
+  <section
+    css={`
+      display: flex;
+      align-items: center;
+    `}
+  >
     <Dot />
-    <label htmlFor="">
-      {text} :{' '}
+    <label
+      htmlFor=""
+      css={`
+        display: flex;
+        align-items: center;
+      `}
+    >
+      {text} :&nbsp;{' '}
       <AddressSearch
         {...{
           type: 'logement . commune',
