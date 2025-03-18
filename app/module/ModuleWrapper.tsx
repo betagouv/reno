@@ -50,18 +50,16 @@ export const ModuleWrapper = ({ children, isMobile, title }) => (
             height: auto;
           }
         }
-        h1,
-        h2 {
-          font-size: 120%;
-          font-weight: 500;
-        }
+
         h1 {
           margin-top: 0.25rem;
           margin-bottom: 0.5rem;
-          font-size: 130%;
+          font-size: 120%;
           font-weight: 600;
         }
         h2 {
+          font-size: 120%;
+          font-weight: 500;
           margin-bottom: 0.6rem;
           @media (max-width: 400px) {
             margin-top: 0.6rem;
