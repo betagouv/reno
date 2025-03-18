@@ -56,6 +56,11 @@ export default function ClassicQuestionWrapper({
     answeredQuestions,
     rules,
   )
+  const remaining =
+    nextQuestions.indexOf("parcours d'aide") !== -1
+      ? nextQuestions.indexOf("parcours d'aide")
+      : nextQuestions.length
+
   return (
     <>
       <ProgressBar
@@ -73,7 +78,7 @@ export default function ClassicQuestionWrapper({
           depuisModule,
           setSearchParams,
           situation,
-          remaining: nextQuestions.length,
+          remaining,
         }}
       />
       <div
