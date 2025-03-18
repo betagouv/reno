@@ -40,6 +40,7 @@ export default function ValeurVerteModule({ type, lettre }) {
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+  const [region, setRegion] = useState('')
   const [pourcentageAppreciation, setPourcentageAppreciation] = useState(0)
   const [plusValue, setPlusValue] = useState(0)
   const situation = getSituation(searchParams, rules)
@@ -78,7 +79,7 @@ export default function ValeurVerteModule({ type, lettre }) {
 
   useEffect(() => {
     const result = calculateAppreciationAndPlusValue(situation)
-
+    setRegion(result?.region)
     if (result) {
       setPourcentageAppreciation(result.appreciation)
       setPlusValue(result.plusValue)
@@ -88,31 +89,11 @@ export default function ValeurVerteModule({ type, lettre }) {
   return type == 'module' ? (
     <ModuleWrapper
       isMobile={isMobile}
-      title="Quelle est la valeur verte du logement ?"
+      title="Après rénovation, combien vaudra mon bien ?"
     >
       <QuestionList>
         <Li
           $next={true}
-          $touched={answeredQuestions.includes('logement . commune')}
-        >
-          <CommuneLogement
-            {...{
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              text: 'Ce logement est situé à',
-              onChange: (result) => {
-                setSearchParams({
-                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                  [encodeDottedName('logement . commune . nom')]:
-                    `"${result.nom}"*`,
-                })
-              },
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('logement . commune')}
           $touched={answeredQuestions.includes('logement . type')}
         >
           <LogementType
@@ -120,7 +101,27 @@ export default function ValeurVerteModule({ type, lettre }) {
               setSearchParams,
               situation,
               answeredQuestions,
-              text: "Il s'agit ",
+              text: 'Mon logement est ',
+            }}
+          />
+        </Li>
+        <Li
+          $next={answeredQuestions.includes('logement . type')}
+          $touched={answeredQuestions.includes('logement . commune')}
+        >
+          <CommuneLogement
+            {...{
+              setSearchParams,
+              situation,
+              answeredQuestions,
+              text: 'Il est situé à',
+              onChange: (result) => {
+                setSearchParams({
+                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                  [encodeDottedName('logement . commune . nom')]:
+                    `"${result.nom}"*`,
+                })
+              },
             }}
           />
         </Li>
@@ -134,7 +135,7 @@ export default function ValeurVerteModule({ type, lettre }) {
               situation,
               answeredQuestions,
               rule: "logement . prix d'achat",
-              text: 'Proposé au prix de : ',
+              text: "Aujourd'hui estimé à",
             }}
           />
         </Li>
@@ -147,7 +148,7 @@ export default function ValeurVerteModule({ type, lettre }) {
             oldIndex={situation['DPE . actuel'] - 1}
             situation={situation}
             columnDisplay={isMobile}
-            text={'Ayant une étiquette'}
+            text={'Et il a une étiquette DPE'}
           />
         </Li>
         <Li
@@ -171,14 +172,16 @@ export default function ValeurVerteModule({ type, lettre }) {
                 engine,
                 situation,
                 columnDisplay: isMobile,
-                text: 'En visant une étiquette',
+                text: 'Après les travaux, je vise',
               }}
             />
           </span>
         </Li>
       </QuestionList>
       <EvaluationValueWrapper $active={plusValue != 0 && !isNaN(plusValue)}>
-        <h2>💶 Plus-value estimée 💶</h2>
+        <h2>
+          <span aria-hidden="true">💶</span> Après rénovation, mon bien vaudra :{' '}
+        </h2>
         {plusValue != 0 && !isNaN(plusValue) && (
           <>
             <div
@@ -199,8 +202,11 @@ export default function ValeurVerteModule({ type, lettre }) {
               </Key>
             </div>
             <DPEAppreciationInfo
-              situation={situation}
-              pourcentageAppreciation={pourcentageAppreciation}
+              {...{
+                situation,
+                pourcentageAppreciation,
+                region,
+              }}
             />
           </>
         )}
@@ -215,8 +221,9 @@ export default function ValeurVerteModule({ type, lettre }) {
             <AmpleurCTA
               situation={situation}
               isMobile={isMobile}
-              text={'Simuler mes aides pour rénover en 3 min'}
-              textMobile={'Simuler mes aides pour rénover'}
+              target="_blank"
+              text={'Découvrir vos aides à la réno'}
+              textMobile={'Découvrir vos aides à la réno'}
             />
           </CTA>
         </CTAWrapper>
@@ -446,27 +453,31 @@ const calculateAppreciationAndPlusValue = (situation) => {
     100
 
   const plusValue = Math.round(
-    situation["logement . prix d'achat"] * (1 + appreciation / 100) -
-      situation["logement . prix d'achat"],
+    situation["logement . prix d'achat"] * (1 + appreciation / 100),
   )
 
-  return { appreciation, plusValue }
+  return { appreciation, plusValue, region }
 }
 
-const DPEAppreciationInfo = ({ situation, pourcentageAppreciation }) => {
+const DPEAppreciationInfo = ({
+  situation,
+  pourcentageAppreciation,
+  region,
+}) => {
   if (!situation['logement . type'] || pourcentageAppreciation == null)
     return null
 
   const logementType = situation['logement . type'].includes('appartement')
-    ? "d'un appartement"
-    : "d'une maison"
+    ? 'un appartement'
+    : 'une maison'
 
   return (
     <small>
-      Dans votre région, la valeur {logementType} classé{' '}
-      <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> est en
-      moyenne <strong>{pourcentageAppreciation.toFixed(1)}%</strong> supérieure
-      à un bien classé <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
+      En région {region}, {logementType} classé{logementType == 'maison' && 'e'}{' '}
+      <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> a en moyenne
+      une valeur <strong>{pourcentageAppreciation.toFixed(1)}%</strong> plus
+      élevée qu'un bien classé{' '}
+      <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
     </small>
   )
 }
