@@ -212,7 +212,12 @@ export default function ValeurVerteModule({ type, lettre }) {
         )}
         <CTAWrapper $justify="left" $customCss="margin: 0.5rem auto;">
           <CTA $importance="primary" css="font-size: 100%;">
-            <AmpleurCTA situation={situation} />
+            <AmpleurCTA
+              situation={situation}
+              isMobile={isMobile}
+              text={'Simuler mes aides pour rénover en 3 min'}
+              textMobile={'Simuler mes aides pour rénover'}
+            />
           </CTA>
         </CTAWrapper>
       </EvaluationValueWrapper>
