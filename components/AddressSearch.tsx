@@ -133,7 +133,6 @@ export const AddressInput = styled.div`
     padding-left: 1.5rem !important;
     text-align: left !important;
     outline: none;
-    box-shadow: none !important;
     height: 2.8rem !important;
   }
 `

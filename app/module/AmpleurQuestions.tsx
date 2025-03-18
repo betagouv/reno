@@ -20,7 +20,7 @@ export const CommuneLogement = ({
   situation,
   answeredQuestions,
   onChange,
-  text = 'Ce logement sera situé sur la commune de',
+  text = 'Ce logement est situé à',
 }) => (
   <section
     css={`
@@ -35,7 +35,6 @@ export const CommuneLogement = ({
         display: flex;
         align-items: center;
         input {
-          box-shadow: none !important;
           height: 2.4rem !important;
           border-bottom: 2px solid var(--color);
         }
