@@ -65,6 +65,7 @@ export default function MarSearch({
         >
           <span>Saisissez votre ville</span>
           <AddressSearch
+            situation={situation}
             type={'ménage . commune'}
             setChoice={(result) => {
               setData(null)
