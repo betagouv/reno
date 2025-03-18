@@ -400,7 +400,8 @@ chauffage . PAC . air-air:
   technique: 'La puissance nominale de la PAC air/air est inférieure ou égale à 12 kW et son coefficient de performance saisonnier (SCOP) est supérieur ou égal à 3,9.'
 chauffage . PAC . air-air . montant:
   applicable si: CEE . conditions
-  valeur: CEE . montant
+  somme:
+    - CEE . montant
 chauffage . PAC . air-air . CEE:
   code: BAR-TH-129
   titre: Pompe à chaleur de type de type air/air
