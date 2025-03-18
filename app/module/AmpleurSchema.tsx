@@ -17,12 +17,11 @@ const schema = (dottedName) => {
 }
 export default function Schema({ moduleName }) {
   const dottedNamesList =
-    moduleName == 'ampleur'
-      ? examplePersonas
-      : examplePersonasValeurVerte
-          .map((persona) => Object.keys(persona.situation))
-          .flat()
-  const dottedNames = new Set(dottedNamesList)
+    moduleName == 'ampleur' ? examplePersonas : examplePersonasValeurVerte
+
+  const dottedNames = new Set(
+    dottedNamesList.map((persona) => Object.keys(persona.situation)).flat(),
+  )
 
   return (
     <ul

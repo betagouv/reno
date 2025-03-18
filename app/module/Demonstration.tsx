@@ -133,7 +133,7 @@ export default function Demonstration({ moduleName }) {
         <p>
           Voici la liste des champs qui peuvent être injectés dans l'iframe :
         </p>
-        <Schema />
+        <Schema moduleName={moduleName} />
         <h3>L'URL de l'iframe à injecter de votre côté</h3>
         <p>
           Voici{' '}
