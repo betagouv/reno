@@ -34,6 +34,11 @@ export const CommuneLogement = ({
       css={`
         display: flex;
         align-items: center;
+        input {
+          box-shadow: none !important;
+          height: 2.4rem !important;
+          border-bottom: 2px solid var(--color);
+        }
       `}
     >
       {text} :&nbsp;{' '}
@@ -176,6 +181,9 @@ export const MontantQuestion = ({
       <label>
         <span>{text}&nbsp;:&nbsp;</span>
         <input
+          css={`
+            width: 8rem;
+          `}
           type="text"
           inputMode="numeric"
           pattern="\d+"

@@ -159,7 +159,7 @@ export default function ValeurVerteModule({ type, lettre }) {
           <span
             css={`
               li {
-                margin: 0;
+                margin: 0 !important;
               }
             `}
           >
@@ -179,8 +179,13 @@ export default function ValeurVerteModule({ type, lettre }) {
         </Li>
       </QuestionList>
       <EvaluationValueWrapper $active={plusValue != 0 && !isNaN(plusValue)}>
-        <h2>
-          <span aria-hidden="true">💶</span> Après rénovation, mon bien vaudra :{' '}
+        <h2
+          css={`
+            ${isMobile && 'font-size: 105% !important;'}
+          `}
+        >
+          <span aria-hidden="true">💶</span> Après rénovation, mon bien vaudra
+          {!isMobile && ' :'}{' '}
         </h2>
         {plusValue != 0 && !isNaN(plusValue) && (
           <>

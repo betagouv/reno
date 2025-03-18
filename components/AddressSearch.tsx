@@ -127,6 +127,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
 export const AddressInput = styled.div`
   display: flex;
+  flex-direction: column;
   input {
     margin: 0;
     padding-left: 1.5rem !important;
@@ -134,7 +135,6 @@ export const AddressInput = styled.div`
     outline: none;
     box-shadow: none !important;
     height: 2.8rem !important;
-    border-bottom: 2px solid #3a3a3a;
   }
 `
 
