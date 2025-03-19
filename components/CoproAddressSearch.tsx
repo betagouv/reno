@@ -3,14 +3,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 import MapMarkers from './AddressSearchMapMarkers'
-import { getCommune } from './personas/enrichSituation'
-import useAddAddressMap from './useAddAddressMap'
-import { getServerUrl } from './getAppUrl'
-import DpeMarkers from './DpeMarkers'
 import CoproBlock from './CoproBlock'
-function onlyNumbers(str) {
-  return /^\d+/.test(str)
-}
+import DpeMarkers from './DpeMarkers'
+import { getServerUrl } from './getAppUrl'
+import useAddAddressMap from './useAddAddressMap'
+import CoproNotFound from './copropriete/CoproNotFound'
 
 export default function AddressSearch({ setChoice, situation, type }) {
   const [immediateInput, setInput] = useState('')
@@ -254,6 +251,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           `}
         />
       )}
+      {copros != null && <CoproNotFound />}
     </AddressInput>
   )
 }
