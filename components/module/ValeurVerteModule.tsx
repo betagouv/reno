@@ -31,6 +31,7 @@ import AddressSearch from '../AddressSearch'
 import Select from '../Select'
 import editIcon from '@/public/crayon.svg'
 import Image from 'next/image'
+import { formatNumberWithSpaces } from '../utils'
 
 export default function ValeurVerteModule({ type, lettre }) {
   const engine = new Publicodes(rules)

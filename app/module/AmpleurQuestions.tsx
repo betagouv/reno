@@ -14,6 +14,7 @@ import { getRevenusList } from '@/components/RevenuInput'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { formatValue } from 'publicodes'
 import AddressSearch from '@/components/AddressSearch'
+import { formatNumberWithSpaces } from '@/components/utils'
 
 export const CommuneLogement = ({
   setSearchParams,
@@ -170,10 +171,6 @@ export const MontantQuestion = ({
   text,
   dot = true,
 }) => {
-  const formatNumberWithSpaces = (num: string) => {
-    return num.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-  }
-
   return (
     <section>
       {dot && <Dot />}
