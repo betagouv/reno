@@ -1,4 +1,3 @@
-import css from '@/components/css/convertToJs'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import DevenirPartenaire from '@/components/DevenirPartenaire'
 import illustrationAmpleur from '@/public/illustration-ampleur.png'

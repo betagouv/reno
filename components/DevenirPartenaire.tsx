@@ -15,6 +15,7 @@ import npmIcon from '@/public/icon-npm.png'
 import logoOFI from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
 import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
 import logoAdeme from '@/public/logo-partenaire/logo-ademe.svg'
+import logoProReno from '@/public/logo-partenaire/logo-pro-reno.webp'
 
 import Image from 'next/image'
 import styled from 'styled-components'
@@ -231,7 +232,8 @@ export default function DevenirPartenaire() {
               text-align: center;
               gap: 1rem;
               img {
-                max-width: 300px;
+                max-width: 200px;
+                height: auto;
               }
               a {
                 &:hover {
@@ -256,11 +258,18 @@ export default function DevenirPartenaire() {
               href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
               target="_blank"
             >
+              <Image src={logoBonPote} alt="Logo Bon Pote" />
+            </ExternalLink>
+            <ExternalLink
+              href="https://www.proreno.fr/services/mes-aides-reno"
+              target="_blank"
+            >
               <Image
-                src={logoBonPote}
-                alt="Logo Bon Pote"
+                src={logoProReno}
+                alt="Logo Pro Réno"
                 css={`
-                  height: auto;
+                  background: lightgrey;
+                  padding: 8px;
                 `}
               />
             </ExternalLink>

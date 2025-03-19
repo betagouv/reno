@@ -30,7 +30,11 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
-### v1.0.0-beta4
+### v2.1.0
+
+TODO
+
+### v2.0.0-beta4
 
 #### Nouveau design pour le module Ampleur
 
