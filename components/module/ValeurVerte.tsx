@@ -26,12 +26,6 @@ import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
 import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
-import CalculatorWidget from '../CalculatorWidget'
-import AddressSearch from '../AddressSearch'
-import Select from '../Select'
-import editIcon from '@/public/crayon.svg'
-import Image from 'next/image'
-import { formatNumberWithSpaces } from '../utils'
 import ValeurVerteWidget from '../valeurVerte/ValeurVerteWidget'
 
 export default function ValeurVerteModule({ type, lettre }) {
