@@ -532,7 +532,8 @@ const DPEAppreciationInfo = ({
 
   return (
     <small>
-      En région {region}, {logementType} classé{logementType == 'maison' && 'e'}{' '}
+      En région {region}, {logementType} classé
+      {logementType == 'une maison' && 'e'}{' '}
       <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> a en moyenne
       une valeur <strong>{pourcentageAppreciation.toFixed(1)}%</strong> plus
       élevée qu'un bien classé{' '}
