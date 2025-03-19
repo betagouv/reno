@@ -25,8 +25,9 @@ export default function DPEQuickSwitch({
   validateTargetKey = true, // not sure about the necessity of this param, it could be used as "false" for all instances of DPEQuickSwitch. But what I know is that for CEEAmpleurScenario we need it to false else Form.tsx has no "nextQuestions"
   columnDisplay,
   small = false,
+  editMode = false,
 }) {
-  const [editing, setEditing] = useState(false)
+  const [editing, setEditing] = useState(editMode)
   const setSearchParams = useSetSearchParams()
   const newSituation = (index) => {
     const simpleChange = { [dottedName]: index + 1 }
@@ -62,8 +63,12 @@ export default function DPEQuickSwitch({
           {possibilities.map((it, index) => (
             <Link
               key={index}
-              onClick={() => setEditing(false)}
+              onClick={() => !editMode && setEditing(false)}
               scroll={false}
+              css={
+                oldIndex === index &&
+                'border: 2px solid var(--color); border-radius: 0.4rem;'
+              }
               href={setSearchParams(
                 encodeSituation(
                   newSituation(index),
