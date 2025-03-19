@@ -111,7 +111,7 @@ export default async function Page(props: Props) {
         <Wrapper $background="white" $noMargin={true}>
           <Content>
             <h2>Quel impact sur la valeur de mon logement ?</h2>
-            <ValeurVerteModule type={'widget'} />
+            <ValeurVerteModule type={'widget'} lettre={lettre} />
           </Content>
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>

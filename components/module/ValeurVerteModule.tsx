@@ -48,11 +48,10 @@ export default function ValeurVerteModule({ type, lettre }) {
   const answeredQuestions = Object.keys(situation)
 
   if (!situation['DPE . actuel']) {
-    situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre)
+    situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre) + 1
 
     setSearchParams({
-      [encodeDottedName('DPE . actuel')]:
-        `${conversionLettreIndex.indexOf(lettre)}*`,
+      [encodeDottedName('DPE . actuel')]: `${situation['DPE . actuel']}*`,
     })
   }
 
@@ -80,8 +79,8 @@ export default function ValeurVerteModule({ type, lettre }) {
 
   useEffect(() => {
     const result = calculateAppreciationAndPlusValue(situation)
-    setRegion(result?.region)
     if (result) {
+      setRegion(result.region)
       setPourcentageAppreciation(result.appreciation)
       setPlusValue(result.plusValue)
     }
@@ -237,14 +236,27 @@ export default function ValeurVerteModule({ type, lettre }) {
     </ModuleWrapper>
   ) : (
     <CalculatorWidget>
-      <div>
+      <div
+        css={`
+          margin-bottom: 1rem;
+          > div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+        `}
+      >
         <div>
           <div>Ville:</div>
           <AddressSearch
             {...{
               type: 'logement . commune',
               setChoice: (result) => {
-                onChange(result)
+                setSearchParams({
+                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                  [encodeDottedName('logement . commune . nom')]:
+                    `"${result.nom}"*`,
+                })
               },
               setSearchParams,
               situation,
@@ -256,6 +268,7 @@ export default function ValeurVerteModule({ type, lettre }) {
           <div>Type de bien:</div>
           <Select
             css={`
+              height: 2.8rem;
               background: #f5f5fe;
               max-width: 90vw;
             `}
@@ -272,33 +285,19 @@ export default function ValeurVerteModule({ type, lettre }) {
               })
             }}
             value={situation['logement . type']?.replaceAll('"', "'")}
-            values={[
-              { valeur: 'maison', titre: 'Une maison' },
-              { valeur: 'appartement', titre: 'Un appartement' },
-            ]}
+            values={rules['logement . type']['une possibilité parmi'][
+              'possibilités'
+            ].map((i) => rules['logement . type . ' + i])}
           />
         </div>
-        <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
-          situation={situation}
-          columnDisplay={true}
-        />
-      </div>
-      <div
-        css={`
-          display: flex;
-          ${isMobile && 'flex-direction: column;'}
-          justify-content: space-between;
-          gap: 1rem;
-        `}
-      >
         <div>
           <div>Valeur du bien:</div>
           <div
             css={`
+              height: 2.8rem;
               margin: auto;
               border: 2px solid var(--color);
-              width: 100%;
+              width: 10rem;
               color: var(--color);
               text-align: center;
               border-radius: 0.3rem;
@@ -317,37 +316,48 @@ export default function ValeurVerteModule({ type, lettre }) {
               <input
                 id="prix-bien"
                 css={`
-                  border: none;
-                  background: transparent;
-                  -webkit-appearance: none;
-                  outline: none;
+                  border: none !important;
+                  background: transparent !important;
+                  -webkit-appearance: none !important;
+                  outline: none !important;
                   color: var(--color);
-                  font-size: 110%;
-                  max-width: 4rem;
+                  font-size: 110% !important;
+                  max-width: 6rem !important;
+                  box-shadow: none !important;
                 `}
                 autoFocus={false}
-                value={situation["logement . prix d'achat"]}
                 placeholder="Prix du bien"
-                min="0"
-                max="9999999"
+                type="text"
+                inputMode="numeric"
+                pattern="\d+"
+                defaultValue={
+                  answeredQuestions.includes("logement . prix d'achat")
+                    ? formatNumberWithSpaces(
+                        situation["logement . prix d'achat"],
+                      )
+                    : undefined
+                }
                 onChange={(e) => {
-                  const rawValue = e.target.value
+                  const price = e.target.value.replace(/\s/g, '')
                   const startPos = e.target.selectionStart
-                  const value = +rawValue === 0 ? 0 : rawValue
-                  setSearchParams(
-                    encodeSituation({
-                      "logement . prix d'achat": value + '*',
-                    }),
-                    'replace',
-                    false,
-                  )
+                  const invalid = isNaN(price) || price <= 0
+                  if (invalid) return
+                  push([
+                    'trackEvent',
+                    'Module',
+                    'Interaction',
+                    'prix achat ' + price,
+                  ])
+                  setSearchParams({
+                    [encodeDottedName("logement . prix d'achat")]: price + '*',
+                  })
+                  e.target.value = formatNumberWithSpaces(price)
                   requestAnimationFrame(() => {
                     const inputBudget = document.querySelector('#prix-bien')
                     inputBudget.selectionStart = startPos
                     inputBudget.selectionEnd = startPos
                   })
                 }}
-                step="100"
               />
             </div>
             <Image
@@ -361,6 +371,21 @@ export default function ValeurVerteModule({ type, lettre }) {
             />
           </div>
         </div>
+      </div>
+      <div
+        css={`
+          display: flex;
+          ${isMobile && 'flex-direction: column;'}
+          justify-content: space-between;
+          gap: 1rem;
+        `}
+      >
+        <DPEQuickSwitch
+          oldIndex={situation['DPE . actuel'] - 1}
+          situation={situation}
+          columnDisplay={true}
+          editMode={true}
+        />
         <TargetDPETabs
           {...{
             oldIndex: situation['DPE . actuel'] - 1,
@@ -383,22 +408,45 @@ export default function ValeurVerteModule({ type, lettre }) {
         `}
       >
         <div>
+          🥳 <strong>Bonne nouvelle</strong> :{' '}
           <DPEAppreciationInfo
-            situation={situation}
-            pourcentageAppreciation={pourcentageAppreciation}
+            {...{ situation, pourcentageAppreciation, region }}
           />
         </div>
         <div
           css={`
-            margin-top: 0.5rem;
-            text-align: center;
-            background: var(--validColor1);
-            color: var(--validColor);
-            padding: 0.5rem;
-            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            ${isMobile && 'flex-direction: column;'}
+            > div {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+            }
           `}
         >
-          {plusValue} €
+          <div>
+            <div
+              css={`
+                margin: auto;
+              `}
+            >
+              <span aria-hidden="true">💶</span> Après rénovation, le bien
+              vaudra:
+            </div>
+            <div
+              css={`
+                margin-top: 0.5rem;
+                text-align: center;
+                background: var(--validColor1);
+                color: var(--validColor);
+                padding: 0.5rem;
+              `}
+            >
+              <strong>{formatNumberWithSpaces(plusValue)} €</strong>
+            </div>
+          </div>
         </div>
       </div>
     </CalculatorWidget>
@@ -406,7 +454,12 @@ export default function ValeurVerteModule({ type, lettre }) {
 }
 
 const calculateAppreciationAndPlusValue = (situation) => {
-  if (!situation['logement . code département']) return null
+  if (
+    !situation['logement . code département'] ||
+    !situation['logement . type'] ||
+    !situation["logement . prix d'achat"]
+  )
+    return null
 
   // Règle spécifique pour paris et la petite couronne qui ne sont pas réellement des régions
   const departmentCode = parseInt(situation['logement . code département'])
