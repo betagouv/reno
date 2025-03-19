@@ -5,7 +5,7 @@ import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import dpeData from '@/components/DPE.yaml'
-import ValeurVerteModule from '@/components/module/ValeurVerteModule'
+import ValeurVerteModule from '@/components/module/ValeurVerte'
 
 export async function generateMetadata({ params }) {
   return {
