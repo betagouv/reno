@@ -42,3 +42,16 @@ export function pointToRectangle(point, distance, aspectRatio) {
 
   return rectangle
 }
+
+// This is very scientific haha
+const latDifferenceOfRennes = 0.07,
+  lonDifferenceOfRennes = 0.15,
+  latDiff = latDifferenceOfRennes / 2,
+  lonDiff = lonDifferenceOfRennes / 2
+
+export const computeBbox = ({ lat, lon, factor = 2 }) => [
+  lat - latDiff / factor,
+  lon - lonDiff / factor,
+  lat + latDiff / factor,
+  lon + lonDiff / factor,
+]

@@ -9,6 +9,7 @@ import DpeMarkers from './DpeMarkers'
 import { getServerUrl } from './getAppUrl'
 import useAddAddressMap from './useAddAddressMap'
 import useSetSearchParams from './useSetSearchParams'
+import { computeBbox } from './geoUtils'
 
 export default function AddressSearch({ searchParams }) {
   const setSearchParams = useSetSearchParams()
@@ -37,11 +38,14 @@ export default function AddressSearch({ searchParams }) {
     const [lat, lon] = clicked.geometry.coordinates
     async function fetchDPE() {
       try {
-        const url = `${getServerUrl()}/findDPE/${lon}/${lat}`
+        const ourUrl = `${getServerUrl()}/findDPE/${lon}/${lat}`
+
+        const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?bbox=${computeBbox({ lat, lon, factor: 20 })}`
+
         const request = await fetch(url)
         const json = await request.json()
         console.log('cyan', json)
-        setDpes(json)
+        setDpes(json.results)
         setError(null)
       } catch (e) {
         console.error(e)
@@ -147,11 +151,12 @@ export default function AddressSearch({ searchParams }) {
 
             features: dpes.map((dpe) => {
               const {
-                lon,
-                lat,
+                _geopoint: geopoint,
                 'N°_étage_appartement': etage,
                 Etiquette_DPE: etiquette,
               } = dpe
+
+              const [lat, lon] = geopoint.split(',')
 
               const color = dpeColors.find(
                 (dpe) => dpe.lettre === etiquette,
