@@ -9,12 +9,16 @@ copropriété:
     La subvention est versée directement au syndicat de copropriétaires puis répartie selon la règle des tantièmes.  
         
     L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements. Ce simulateur vous aide à saisir ces données et vous donne un résultat chiffré que vous pourrez communiquer au reste des copropriétaires et au syndic.
+
 copropriété . id:
   description: |
     Cette question va déclencher une recherche dans le [registre national des copros](https://www.registre-coproprietes.gouv.fr).
 
     **Vos données resteront confidentielles**, elles ne seront utilisées que pour obtenir le montant des aides à la rénovation.
   question: Quelle est l'adresse de la copropriété ?
+  note: |
+    Sa valeur sera mise à "évitée" si l'utilisateur décide de passer cette question.
+
 copropriété . nom:
   question: Quelle est le nom de la copropriété ?
 

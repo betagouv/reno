@@ -1,15 +1,21 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
+import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 import MapMarkers from './AddressSearchMapMarkers'
 import CoproBlock from './CoproBlock'
 import DpeMarkers from './DpeMarkers'
+import CoproNotFound from './copropriete/CoproNotFound'
 import { getServerUrl } from './getAppUrl'
 import useAddAddressMap from './useAddAddressMap'
-import CoproNotFound from './copropriete/CoproNotFound'
+import { encodeSituation } from './publicodes/situationUtils'
+import useSetSearchParams from './useSetSearchParams'
 
+const noAddressDottedName = 'copropriété . id'
 export default function AddressSearch({ setChoice, situation, type }) {
+  const setSearchParams = useSetSearchParams()
+
   const [immediateInput, setInput] = useState('')
 
   const [input] = useDebounce(immediateInput, 300)
@@ -252,6 +258,24 @@ export default function AddressSearch({ setChoice, situation, type }) {
         />
       )}
       {copros != null && <CoproNotFound />}
+      <Link
+        css={`
+          display: flex !important;
+          align-items: center !important;
+        `}
+        href={setSearchParams(
+          encodeSituation(
+            {
+              [noAddressDottedName]: '"evitee"',
+            },
+            false,
+            [noAddressDottedName],
+          ),
+          'url',
+        )}
+      >
+        Continuer sans saisir l'adresse
+      </Link>
     </AddressInput>
   )
 }
