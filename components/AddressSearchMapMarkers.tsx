@@ -9,7 +9,7 @@ export default function MapMarkers({
   icon = 'map-marker.png',
 }) {
   useEffect(() => {
-    if (!data.length) return
+    if (!data.length || !map) return
     const bounds = new LngLatBounds()
     const markers = data
       .filter((feature) => feature.geometry)

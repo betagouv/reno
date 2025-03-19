@@ -25,7 +25,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [copro, setCopro] = useState(null)
   const [dpes, setDpes] = useState(null)
 
-  console.log('cyan dpes', dpes)
+  console.log('cyan dpes', results, copros, copro, dpes, input)
   const mapContainerRef = useRef(null)
   const setLocation = useCallback((location) => console.log(location), [])
 
@@ -135,7 +135,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           Chargement...
         </small>
       )}
-      {results && !clicked && (
+      {active && !clicked && (
         <small
           css={`
             color: #929292;
@@ -147,7 +147,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
         </small>
       )}
       <CityList>
-        {results &&
+        {active &&
           !clicked &&
           results.map((result) => {
             const { label, id } = result.properties
