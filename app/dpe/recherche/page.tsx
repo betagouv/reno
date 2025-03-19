@@ -17,7 +17,7 @@ export default async function Page(props) {
     <main
       style={css`
         background: white;
-        padding-top: calc(1.5vh + 1.5vw);
+        padding: calc(1.5vh + 1.5vw) 0.6rem;
       `}
     >
       <Section>
