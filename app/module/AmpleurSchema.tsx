@@ -1,4 +1,5 @@
 import examplePersonas from './examplePersonas.yaml'
+import examplePersonasValeurVerte from './valeur-verte/examplePersonasValeurVerte.yaml'
 import rules from '@/app/règles/rules'
 
 const getValues = (dottedName) => {
@@ -14,11 +15,13 @@ const schema = (dottedName) => {
   const rule = rules[dottedName]
   return rule['schema module']
 }
-export default function Schema({}) {
-  const dottedNamesList = examplePersonas
-    .map((persona) => Object.keys(persona.situation))
-    .flat()
-  const dottedNames = new Set(dottedNamesList)
+export default function Schema({ moduleName }) {
+  const dottedNamesList =
+    moduleName == 'ampleur' ? examplePersonas : examplePersonasValeurVerte
+
+  const dottedNames = new Set(
+    dottedNamesList.map((persona) => Object.keys(persona.situation)).flat(),
+  )
 
   return (
     <ul
@@ -45,7 +48,6 @@ export default function Schema({}) {
       `}
     >
       {[...dottedNames].map((dottedName) => {
-        const rule = rules[dottedName]
         const values = getValues(dottedName)
         return (
           <li key={dottedName}>

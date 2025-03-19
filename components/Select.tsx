@@ -24,9 +24,9 @@ export default function Select({
     <select
       css={`
         appearance: none;
+        height: 2.4rem;
         line-height: 1.5rem;
         padding: 0.5rem 2rem 0.5rem 0.5rem;
-        box-shadow: inset 0 -2px 0 0 #3a3a3a;
         border: none;
         background-color: rgb(245, 245, 254);
         color: #3a3a3a;
@@ -35,6 +35,11 @@ export default function Select({
         background-repeat: no-repeat;
         background-size: 1rem 1rem;
         border-radius: 0.25rem 0.25rem 0 0;
+        border-bottom: 2px solid var(--color);
+        box-shadow:
+          rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
+          rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
+          rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
       `}
       onChange={onChange}
       {...props}

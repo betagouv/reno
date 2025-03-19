@@ -7,6 +7,13 @@ import pretIcon from '@/public/icon-pret.svg'
 import avanceIcon from '@/public/icon-avance.svg'
 import exonerationIcon from '@/public/icon-exoneration-fiscale.svg'
 
+export const formatNumberWithSpaces = (num) => {
+  return num
+    .toString()
+    .replace(/\D/g, '')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+}
+
 export const sortBy = (f) => (list) =>
   list.sort((a, b) => {
     const fa = f(a),
@@ -68,28 +75,27 @@ export const categoriesGeste = [
 
 export const aideStyles = {
   prêt: {
-    color: "#79A5DB",
-    backgroundColor: "#CDE4FF",
-    borderColor: "#79A5DB",
-    icon: pretIcon
+    color: '#79A5DB',
+    backgroundColor: '#CDE4FF',
+    borderColor: '#79A5DB',
+    icon: pretIcon,
   },
-  "exonération fiscale": {
-    color: "#CD9C5D",
-    backgroundColor: "#FFE9CD",
-    borderColor: "#CD9C5D",
-    icon: exonerationIcon
+  'exonération fiscale': {
+    color: '#CD9C5D',
+    backgroundColor: '#FFE9CD',
+    borderColor: '#CD9C5D',
+    icon: exonerationIcon,
   },
   remboursement: {
-    color: "#8484D0",
-    backgroundColor: "#E3E3FD",
-    borderColor: "#8484D0",
-    icon: remboursementIcon
+    color: '#8484D0',
+    backgroundColor: '#E3E3FD',
+    borderColor: '#8484D0',
+    icon: remboursementIcon,
   },
   avance: {
-    color: "#97AA7A",
-    backgroundColor: "#FDF8DB",
-    borderColor: "#97AA7A",
-    icon: avanceIcon
-
-  }
+    color: '#97AA7A',
+    backgroundColor: '#FDF8DB',
+    borderColor: '#97AA7A',
+    icon: avanceIcon,
+  },
 }

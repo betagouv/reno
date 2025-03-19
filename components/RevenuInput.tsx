@@ -9,7 +9,7 @@ export const displayRevenuLabel = (situation, engine, threshold) => {
     : 'inférieur à ' + formatNumber(threshold) + '€'
 }
 
-const formatNumber = (n) =>
+export const formatNumber = (n) =>
   new Intl.NumberFormat('fr-FR', {
     maximumFractionDigits: 0,
   }).format(n)

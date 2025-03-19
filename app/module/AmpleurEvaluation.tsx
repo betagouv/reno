@@ -106,7 +106,7 @@ h2 {margin: 0 0 .8rem 0 }
     height: auto;
     margin-right: 1rem;
   }
-  margin: 1.6rem 0;
+  margin: 1.6rem 0 0 0;
   @media (max-width: 400px) {
     margin: 0.8rem 0;
   }

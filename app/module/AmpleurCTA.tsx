@@ -8,11 +8,19 @@ export const situationToCtaUrl = (situation) => {
   return `/simulation?${new URLSearchParams(encodeSituation(notExtremeSituation, true, Object.keys(situation))).toString()}&depuisModule=oui`
 }
 
-export default function AmpleurCTA({ situation }) {
+export default function AmpleurCTA({
+  situation,
+  isMobile = false,
+  target = '_self',
+  text = 'Affinez vos aides en 3 min',
+  textMobile = 'Affinez vos aides en 3 min',
+}) {
   const url = situationToCtaUrl(situation)
   return (
-    <Link href={url}>
-      <span>Affinez vos aides en 3 min&nbsp;⚡️&nbsp;➞</span>
+    <Link href={url} target={target}>
+      <span>
+        {isMobile ? textMobile : text}&nbsp;{!isMobile && <>⚡️&nbsp;</>}➞
+      </span>
     </Link>
   )
 }
