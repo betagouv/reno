@@ -7,6 +7,7 @@ import { getCommune } from './personas/enrichSituation'
 import useAddAddressMap from './useAddAddressMap'
 import { getServerUrl } from './getAppUrl'
 import DpeMarkers from './DpeMarkers'
+import CoproBlock from './CoproBlock'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
@@ -18,6 +19,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   const [results, setResults] = useState(null)
   const [copros, setCopros] = useState(null)
+  const [copro, setCopro] = useState(null)
   const [dpes, setDpes] = useState(null)
 
   console.log('cyan dpes', dpes)
@@ -41,7 +43,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
     const [lat, lon] = clicked.geometry.coordinates
     async function fetchCopros() {
       try {
-        const url = `${getServerUrl()}/findCopro/${lon}/${lat}`
+        const url = `${getServerUrl()}/findCopro/${lon}/${lat}/6`
         const request = await fetch(url)
         const json = await request.json()
         console.log('cyan', json)
@@ -177,7 +179,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           Sélectionnez une copropriété :
         </small>
       )}
-      {copros?.length > 0 && (
+      {copros?.length > 0 && !copro && (
         <CityList>
           {copros.map((copro) => {
             const {
@@ -193,6 +195,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
                 key={id}
                 onClick={() => {
                   setChoice(copro)
+                  setCopro(copro)
                 }}
               >
                 <span>{name}</span>
@@ -201,6 +204,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           })}
         </CityList>
       )}
+      {copro && <CoproBlock copro={copro} setCopro={setCopro} />}
       {map && active && (
         <MapMarkers map={map} data={results} selectMarker={setClicked} />
       )}
@@ -212,7 +216,10 @@ export default function AddressSearch({ setChoice, situation, type }) {
             const { long: lon, lat } = copro
             return { ...copro, geometry: { coordinates: [+lon, +lat] } }
           })}
-          selectMarker={setChoice}
+          selectMarker={(arg) => {
+            setChoice(arg)
+            setCopro(arg)
+          }}
         />
       )}
       {dpes && (
