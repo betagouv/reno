@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Geste from './Geste'
 import TrimestreSelector, { trimestres } from './TrimestreSelector'
+import { getServerUrl } from '@/components/getAppUrl'
 
 export const isValidMontant = (gestePrice) =>
   gestePrice !== 'NA' && gestePrice != 0
@@ -10,6 +11,7 @@ export const keyPrice = 'mtttcplanfinsolde',
   keyGeste = 'subtypename',
   keyNumEquipement = 'wpequipement',
   keySurface = 'wpsurface'
+
 export default function Couts({ searchParams }) {
   const [trimestre, setTrimestre] = useState(trimestres.slice(-1)[0])
   const [data, setData] = useState(null)
@@ -17,10 +19,7 @@ export default function Couts({ searchParams }) {
   useEffect(() => {
     if (!searchParams.key) return
     const doFetch = async () => {
-      const url =
-        `https://mardata.osc-fr1.scalingo.io/data/` +
-        //`http://localhost:3000/data/`
-        searchParams.key
+      const url = getServerUrl() + '/data/' + searchParams.key
       const req = await fetch(url)
       const json = await req.json()
 
