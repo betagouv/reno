@@ -7,13 +7,28 @@ copropriété:
     La subvention est versée directement au syndicat de copropriétaires puis répartie selon la règle des tantièmes.  
         
     L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
+copropriété . nombre de lots principaux:
+  formule: adresse # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
+  question: |
+    Combien de lots composent la copropriété ?
+
+	Il est question ici de "lots principaux" : les appartements, les bureaux professionnels, les commerces, etc; par opposition aux lots secondaires, les parkings, caves, etc.
+  note: |
+    Nous retenons le fait qu'il s'agisse de lots principaux grâce au document suivant : 
+    ["Instruction MPR Copro"](<https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8>)
+  unité: lots
+
 copropriété . nombre de logement:
+  formule: adresse # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
   question: Combien de logements composent la copropriété ?
+  description: |
+    Nous appelons ici "logement" les lots à usage d'habitation.
   suggestions:
     10 logements: 10
     30 logements: 30
     60 logements: 60
   unité: logements
+
 copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
   par défaut:
@@ -31,11 +46,13 @@ copropriété . condition résidence principale:
     avec:
       pourcent:
         variations:
-          - si: copropriété . nombre de logement > 20
+          - si: copropriété . nombre de lots principaux > 20
             alors: 75 %
           - sinon: 65 %
   description: |
     Si votre copropriété a une majorité de volets fermés la plupart de l'année, notamment hors saison estivale, il est probable qu'elle ne soit pas éligible à l'aide.
+
+    D'après [ce document de 2023](https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8), "Ne sont pas considérés comme lots d'habitation principale les locaux commerciaux, les bureaux". Nous comprenons qu'une copro avec plus de 25 ou 35 % de lots principaux de cet usage sont inéligible d'office, sans même regarder le pourcentage des lots d'habitation qui sont habitation principale.
   par défaut: oui
 
 copropriété . gain énergétique:
@@ -126,3 +143,10 @@ copropriété . prime individuelle:
     - si: ménage . revenu . classe = 'modeste'
       alors: 1500 €
     - sinon: non
+
+copropriété . adresse:
+  question: Quelle est l'adresse de la copropriété ?
+  note: |
+    Cette question déclenche la recherche de copropriété par adresse.
+  titre: L'adresse de la copropriété
+  par défaut: "'3 rue Victor Hugo Rennes'"
