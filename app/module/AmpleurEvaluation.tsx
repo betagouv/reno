@@ -15,13 +15,13 @@ export function EvaluationValue({
   noDefaultSituation,
   currentDPE,
   targetDPE,
+  disclaimer = true,
 }) {
   console.log('ampleur module situation', situation)
 
   engine.setSituation(situation)
   const aides = useAides(engine, situation)
   console.log('ampleur module aides', aides)
-  const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const aidesToDisplay = filterAidesToDisplay(aides)
   console.log({ aides, aidesToDisplay })
 
@@ -84,18 +84,20 @@ export function EvaluationValue({
       >
         <AmpleurCTA {...{ situation: noDefaultSituation }} />
       </CTA>
-      <p
-        css={`
-          line-height: 1.3rem;
-        `}
-      >
-        <small>
-          Pour bénéficier de ces aides d'ampleur, des gains énergétiques seront
-          à réaliser, par exemple un saut d'au moins 2 classes de DPE, soit
-          passer du DPE actuel <DPELabel index={currentDPE - 1} /> à un DPE{' '}
-          <DPELabel index={targetDPE - 1} />.
-        </small>
-      </p>
+      {disclaimer && (
+        <p
+          css={`
+            line-height: 1.3rem;
+          `}
+        >
+          <small>
+            Pour bénéficier de ces aides d'ampleur, des gains énergétiques
+            seront à réaliser, par exemple un saut d'au moins 2 classes de DPE,
+            soit passer du DPE actuel <DPELabel index={currentDPE - 1} /> à un
+            DPE <DPELabel index={targetDPE - 1} />.
+          </small>
+        </p>
+      )}
     </EvaluationValueWrapper>
   )
 }
