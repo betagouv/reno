@@ -8,10 +8,3 @@ export default function () {
       : 'https://' + domain
   return urlBase
 }
-export function getServerUrl() {
-  const urlBase =
-    process.env.NEXT_PUBLIC_NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://TODO'
-  return urlBase
-}

@@ -1,5 +1,5 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
