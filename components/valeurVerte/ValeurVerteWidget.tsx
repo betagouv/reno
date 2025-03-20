@@ -1,6 +1,6 @@
 import { push } from '@socialgouv/matomo-next'
 import { formatNumberWithSpaces } from '../utils'
-import DPEQuickSwitch from '../DPEQuickSwitch'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
 import AddressSearch from '../AddressSearch'

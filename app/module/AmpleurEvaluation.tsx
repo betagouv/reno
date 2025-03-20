@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { AmpleurAideSummary } from './AmpleurAideSummary'
 import AmpleurCTA from './AmpleurCTA'
 import { CTA } from '@/components/UI'
-import DPELabel from '@/components/DPELabel'
+import DPELabel from '@/components/dpe/DPELabel'
 
 export function EvaluationValue({
   engine,

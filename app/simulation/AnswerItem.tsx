@@ -6,7 +6,7 @@ import {
 } from '@/components/publicodes/situationUtils'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import { displayRevenuLabel } from '@/components/RevenuInput'
-import DPELabel from '@/components/DPELabel'
+import DPELabel from '@/components/dpe/DPELabel'
 
 export default function AnswerItem({
   answer,

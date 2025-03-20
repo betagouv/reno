@@ -1,5 +1,5 @@
-import dpeValues from '@/components/DPE.yaml'
-import DPELabel from '../DPELabel'
+import dpeValues from '@/components/dpe/DPE.yaml'
+import DPELabel from '../dpe/DPELabel'
 import { encodeSituation } from '../publicodes/situationUtils'
 
 export default function TargetDPETabs({

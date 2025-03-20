@@ -1,6 +1,6 @@
 import Value from '@/components/Value'
 import Image from 'next/image'
-import DPEQuickSwitch from '../DPEQuickSwitch'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import { encodeSituation } from '../publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
 import TargetDPETabs from '../mpra/TargetDPETabs'

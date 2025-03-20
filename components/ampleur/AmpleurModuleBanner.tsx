@@ -1,4 +1,4 @@
-import DPELabel from '../DPELabel'
+import DPELabel from '../dpe/DPELabel'
 import checkIcon from '@/public/check.svg'
 import flag from '@/public/flag-filled.svg'
 import Image from 'next/image'

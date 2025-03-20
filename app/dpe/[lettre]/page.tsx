@@ -1,10 +1,10 @@
 import { HeaderWrapper } from '@/app/LandingUI'
-import DPE from '@/components/DPE'
-import DPELabel from '@/components/DPELabel'
+import DPE from '@/components/dpe/DPE'
+import DPELabel, { conversionLettreIndex } from '@/components/dpe/DPELabel'
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import dpeData from '@/components/DPE.yaml'
+import dpeData from '@/components/dpe/DPE.yaml'
 import ValeurVerteModule from '@/components/module/ValeurVerte'
 
 export async function generateMetadata({ params }) {
