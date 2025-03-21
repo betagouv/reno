@@ -1,14 +1,21 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
 export default function useIsInIframe() {
   const [isInIframe, setIsInIframe] = useState(false)
 
+  const params = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : '/',
+  )
+  const hasIframeParam = params.has('iframe') && params.get('iframe') == 'true'
+
   useEffect(() => {
     let observer
-    if (typeof window !== 'undefined' && window.self !== window.top) {
+    if (
+      typeof window !== 'undefined' &&
+      (hasIframeParam || window.self !== window.top)
+    ) {
       setIsInIframe(true)
 
       // The code below communicates with a script on a host site
@@ -36,9 +43,10 @@ export default function useIsInIframe() {
 // On propose cette version en rajoutant ?display=compact dans l'url
 export function useIsCompact() {
   const [isCompact, setIsCompact] = useState(false)
-  let params = new URLSearchParams(
+  const params = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : '/',
   )
+
   useEffect(() => {
     setIsCompact(params.has('display') && params.get('display') == 'compact')
     if (params.has('color')) {
