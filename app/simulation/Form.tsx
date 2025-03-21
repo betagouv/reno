@@ -40,7 +40,17 @@ function Form({ rules }) {
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
 
-  const engine = useMemo(() => new Publicodes(rules), [rules])
+  const engine = useMemo(
+    () =>
+      new Publicodes(rules, {
+        logger: {
+          warn: () => {},
+          log: () => {},
+          error: (message) => console.error(message),
+        },
+      }),
+    [rules],
+  )
   const answeredQuestions = [
     ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(situationSearchParams, rules),
