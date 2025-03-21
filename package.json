@@ -42,6 +42,7 @@
     "maplibre-gl": "^4.1.1",
     "marked": "^12.0.1",
     "marked-plaintify": "^1.0.1",
+    "mesaidesreno": "^2.1.0",
     "micromark": "^4.0.0",
     "next": "^15.1.3",
     "next-contentlayer2": "^0.5.3",
