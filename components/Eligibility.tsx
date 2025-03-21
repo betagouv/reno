@@ -9,9 +9,11 @@ import Feedback from '@/app/contact/Feedback'
 import FatConseiller from './FatConseiller'
 import BackToLastQuestion from './BackToLastQuestion'
 import { useAides } from './ampleur/useAides'
-import { Main, PageBlock, Section } from './UI'
 import { push } from '@socialgouv/matomo-next'
 import CopyButton from './CopyButton'
+import useIsInIframe from './useIsInIframe'
+import * as iframe from '@/utils/iframe'
+import { Section } from './UI'
 
 export default function Eligibility({
   setSearchParams,
@@ -23,6 +25,7 @@ export default function Eligibility({
   searchParams,
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+  const isInIframe = useIsInIframe()
   const nextLink = (value) => {
     const url = setSearchParams(
       {
@@ -36,6 +39,10 @@ export default function Eligibility({
   const aides = useAides(engine, situation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const showPersonaBar = searchParams.personas != null
+
+  if (isInIframe) {
+    iframe.postMessageSimulationDone()
+  }
 
   return (
     <Section

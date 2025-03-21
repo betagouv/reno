@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import * as iframe from '@/utils/iframe'
 
 export default function useIsInIframe() {
   const [isInIframe, setIsInIframe] = useState(false)
@@ -8,14 +9,11 @@ export default function useIsInIframe() {
   const params = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : '/',
   )
-  const hasIframeParam = params.has('iframe') && params.get('iframe') == 'true'
 
   useEffect(() => {
     let observer
-    if (
-      typeof window !== 'undefined' &&
-      (hasIframeParam || window.self !== window.top)
-    ) {
+
+    if (iframe.isInIframe(params)) {
       setIsInIframe(true)
 
       // The code below communicates with a script on a host site
@@ -24,10 +22,8 @@ export default function useIsInIframe() {
       const minHeight = 700
       observer = new ResizeObserver(([entry]) => {
         const value = Math.max(minHeight, entry.contentRect.height + 10) // without this 6 padding, the scroll bar will still be present
-        window.parent?.postMessage(
-          { kind: 'mesaidesreno-resize-height', value },
-          '*',
-        )
+
+        iframe.postMessageResizeHeight(value)
       })
       observer.observe(window.document.body)
       // TODO return observer.disconnect this triggers an error, I don't know why
