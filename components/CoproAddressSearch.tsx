@@ -61,6 +61,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
   }, [clicked, setCopros, setError])
 
   useEffect(() => {
+    return //TODO disactivated for now in the copro route
     if (!clicked) return
 
     const [lat, lon] = clicked.geometry.coordinates
@@ -215,6 +216,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
         <MapMarkers
           icon="copro.png"
           map={map}
+          selected={copro}
           data={copros.map((copro) => {
             const { long: lon, lat } = copro
             return { ...copro, geometry: { coordinates: [+lon, +lat] } }
@@ -344,3 +346,6 @@ export const CityList = styled.ol`
     cursor: pointer;
   }
 `
+
+export const getCoproId = (selected) =>
+  selected && selected["Numéro d'immatriculation"]
