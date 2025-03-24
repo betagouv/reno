@@ -255,7 +255,7 @@ export default function GestesMosaic({
             </Link>
           </CTA>
         </CTAWrapper>
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+        {/* <Feedback title={'Ce simulateur a-t-il été utile ?'} /> */}
       </CustomQuestionWrapper>
     </Section>
   )

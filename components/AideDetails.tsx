@@ -81,6 +81,7 @@ export default function AideDetails({
             />
             <CopyButton searchParams={searchParams} />
           </div>
+          <Enquete />
           <AideComponent
             {...{
               dottedName: dottedName,
@@ -93,7 +94,6 @@ export default function AideDetails({
               rules,
             }}
           />
-          <Enquete />
           {/* <Feedback title={'Ce simulateur a-t-il été utile ?'} /> */}
         </CustomQuestionWrapper>
       </Section>
