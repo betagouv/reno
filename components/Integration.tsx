@@ -14,6 +14,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import styled from 'styled-components'
 import IntegrationQuestions from './IntegrationQuestions'
 import useResizeIframeFromHost from './useResizeIframeFromHost'
+import Demonstration from '@/app/module/Demonstration'
 
 export default function Integration() {
   const router = useRouter()
@@ -208,7 +209,7 @@ export default function Integration() {
             ))}
           </Select>
           {module.includes('module/integration') ? (
-            <Demonstration moduleName="ampleu" />
+            <Demonstration moduleName="ampleur" />
           ) : (
             <>
               <p
