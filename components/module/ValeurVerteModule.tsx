@@ -184,7 +184,8 @@ export default function ValeurVerteModule({ type, lettre }) {
             ${isMobile && 'font-size: 105% !important;'}
           `}
         >
-          <span aria-hidden="true">💶</span> Après rénovation, mon bien vaudra
+          <span aria-hidden="true">💶</span> Après rénovation
+          {!isMobile ? ' énergétique' : ''}, mon bien vaudra
           {!isMobile && ' :'}{' '}
         </h2>
         {plusValue != 0 && !isNaN(plusValue) && (

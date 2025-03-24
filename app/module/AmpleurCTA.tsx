@@ -18,9 +18,7 @@ export default function AmpleurCTA({
   const url = situationToCtaUrl(situation)
   return (
     <Link href={url} target={target}>
-      <span>
-        {isMobile ? textMobile : text}&nbsp;{!isMobile && <>⚡️&nbsp;</>}➞
-      </span>
+      <span>{isMobile ? textMobile : text}&nbsp;⚡️&nbsp;➞</span>
     </Link>
   )
 }
