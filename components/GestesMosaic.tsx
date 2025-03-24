@@ -147,11 +147,11 @@ export default function GestesMosaic({
           />
           <CopyButton searchParams={searchParams} />
         </div>
+        <Enquete />
         <header>
           <small>Les aides à la carte</small>
           <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
         </header>
-        <Enquete />
         <AvanceTMO {...{ engine, situation }} />
         <Fieldset>
           <ul>
