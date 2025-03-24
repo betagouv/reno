@@ -147,7 +147,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
           Sélectionnez une adresse :
         </small>
       )}
-      <CityList>
+      <ResultsList>
         {active &&
           !clicked &&
           results.map((result) => {
@@ -171,7 +171,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
               </li>
             )
           })}
-      </CityList>
+      </ResultsList>
       {copros?.length && selectedCoproId == null && (
         <small
           css={`
@@ -184,14 +184,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
         </small>
       )}
       {copros?.length > 0 && !copro && (
-        <CityList>
+        <ResultsList>
           {copros.map((copro) => {
             const {
               'Nom d’usage de la copropriété': name,
               "Numéro d'immatriculation": id,
+              distance,
             } = copro
-
-            console.log('cyan2', selectedCoproId, id)
 
             return (
               <li
@@ -203,10 +202,17 @@ export default function AddressSearch({ setChoice, situation, type }) {
                 }}
               >
                 <span>{name}</span>
+                <small>
+                  à{' '}
+                  {Math.round(
+                    distance * 10000, // why this factor ? Dunno, I've estimated it
+                  ) * 10}{' '}
+                  m
+                </small>
               </li>
             )
           })}
-        </CityList>
+        </ResultsList>
       )}
       {copro && <CoproBlock copro={copro} setCopro={setCopro} />}
       {map && active && (
@@ -314,7 +320,7 @@ const Validated = styled.p`
   }
 `
 
-export const CityList = styled.ol`
+export const ResultsList = styled.ol`
   padding: 0;
   background: #f5f5fe;
   border-radius: 0 0 5px 5px;
