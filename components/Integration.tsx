@@ -10,7 +10,6 @@ import getAppUrl from './getAppUrl'
 import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant } from './UI'
 import { useEffect, useRef, useState } from 'react'
 import { Select } from './InputUI'
-import AmpleurDemonstration from '@/app/module/AmpleurDemonstration'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styled from 'styled-components'
 import IntegrationQuestions from './IntegrationQuestions'
@@ -144,26 +143,53 @@ export default function Integration() {
       </HeaderWrapper>
       <Wrapper>
         <Content>
-          <MiseEnAvant $type="success" $noradius={true}>
-            <h2
-              css={`
-                font-size: 1.5rem;
-                color: black;
-              `}
-            >
-              Nouveau Module Ampleur
-            </h2>
-            <p>
-              Découvrez notre nouveau module de calcul spécialement conçu et
-              optimisé pour proposer simplement les aides à la rénovation
-              énergétique d'ampleur.
-            </p>
-            <CTAWrapper>
-              <CTA>
-                <Link href="/module">Découvrir le module</Link>
-              </CTA>
-            </CTAWrapper>
-          </MiseEnAvant>
+          <div
+            css={`
+              display: flex;
+              gap: 1rem;
+              flex-wrap: wrap;
+            `}
+          >
+            <MiseEnAvant $type="success" $noradius={true}>
+              <h2
+                css={`
+                  font-size: 1.5rem;
+                  color: black;
+                `}
+              >
+                Module Valeur Verte
+              </h2>
+              <p>
+                Découvrez notre module de calcul dédie au calcul de la
+                plus-value d'un bien suite à une rénovation.
+              </p>
+              <CTAWrapper>
+                <CTA>
+                  <Link href="/module/valeur-verte">Découvrir le module</Link>
+                </CTA>
+              </CTAWrapper>
+            </MiseEnAvant>
+            <MiseEnAvant $noradius={true}>
+              <h2
+                css={`
+                  font-size: 1.5rem;
+                  color: black;
+                `}
+              >
+                Module Ampleur
+              </h2>
+              <p>
+                Découvrez notre module de calcul spécialement conçu et optimisé
+                pour proposer simplement les aides à la rénovation énergétique
+                d'ampleur.
+              </p>
+              <CTAWrapper>
+                <CTA>
+                  <Link href="/module">Découvrir le module</Link>
+                </CTA>
+              </CTAWrapper>
+            </MiseEnAvant>
+          </div>
           <h2
             css={`
               margin-bottom: 1rem;
@@ -182,7 +208,7 @@ export default function Integration() {
             ))}
           </Select>
           {module.includes('module/integration') ? (
-            <AmpleurDemonstration />
+            <Demonstration moduleName="ampleu" />
           ) : (
             <>
               <p

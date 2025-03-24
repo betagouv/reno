@@ -23,13 +23,6 @@ export default function Page() {
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
-      <div
-        style={css`
-          border: 2px solid red;
-        `}
-      >
-        Page en réflection
-      </div>
       <PageBlock>
         <HeaderWrapper>
           <Image

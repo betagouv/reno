@@ -10,19 +10,18 @@ import { useSearchParams } from 'next/navigation'
 import Schema from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
+import personasValeurVerte from './valeur-verte/examplePersonasValeurVerte.yaml'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
-import { useRef } from 'react'
+import { formatNumber } from '@/components/RevenuInput'
+import { IframeCodeWrapper } from '@/components/Integration'
 
-const iframeCode = (
-  src = 'https://mesaidesreno.beta.gouv.fr/module/integration',
-  cssExample = false,
-) => `
+const iframeCode = (src, cssExample = false) => `
 <iframe src="${src}" allow="clipboard-read; clipboard-write" ${
   cssExample
     ? `
-style="height: 750px; margin: 3rem auto; display: block; --shadow-color: 0deg 0% 63%;
+style="height: 750px; min-width: 395px; margin: 3rem auto; display: block; --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px
                   hsl(var(--shadow-color) / 0.36),
                 0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
@@ -36,17 +35,19 @@ style="height: 750px; margin: 3rem auto; display: block; --shadow-color: 0deg 0%
 }></iframe>
 `
 
-export default function AmpleurDemonstration() {
+export default function Demonstration({ moduleName }) {
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const { persona: selectedPersona = 0 } = searchParams
-  const personaSituation = personas[selectedPersona].situation
+  const personaFile = moduleName == 'ampleur' ? personas : personasValeurVerte
+
+  const personaSituation = personaFile[selectedPersona].situation
   const iframeSearchParams = encodeSituation(personaSituation, true)
   const iframeUrl =
     getAppUrl() +
-    '/module/integration?' +
+    `/module/${moduleName == 'ampleur' ? 'integration' : 'valeur-verte/integration'}?` +
     new URLSearchParams(iframeSearchParams).toString()
 
   return (
@@ -54,7 +55,6 @@ export default function AmpleurDemonstration() {
       <h2>Démonstration</h2>
       <div
         css={`
-          margin: 2rem 0;
           display: flex;
           flex-direction: column;
           justify-content: start;
@@ -95,7 +95,7 @@ export default function AmpleurDemonstration() {
           `}
         >
           <ul>
-            {personas.map(({ nom, situation }, i) => (
+            {personaFile.map(({ nom, situation }, i) => (
               <li key={nom}>
                 <Link
                   href={setSearchParams({ persona: i }, 'url')}
@@ -109,8 +109,17 @@ export default function AmpleurDemonstration() {
                   >
                     <div>{nom}</div>
                     <small>
-                      Construit en :{' '}
-                      {situation['logement . année de construction'] || '?'}
+                      {moduleName == 'ampleur' ? (
+                        <>
+                          Construit en :{' '}
+                          {situation['logement . année de construction'] || '?'}
+                        </>
+                      ) : (
+                        <>
+                          Mise à prix:{' '}
+                          {formatNumber(situation["logement . prix d'achat"])}€
+                        </>
+                      )}
                     </small>
                     <div>
                       DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
@@ -124,7 +133,7 @@ export default function AmpleurDemonstration() {
         <p>
           Voici la liste des champs qui peuvent être injectés dans l'iframe :
         </p>
-        <Schema />
+        <Schema moduleName={moduleName} />
         <h3>L'URL de l'iframe à injecter de votre côté</h3>
         <p>
           Voici{' '}
@@ -133,13 +142,15 @@ export default function AmpleurDemonstration() {
           </BlueEm>{' '}
           dans votre HTML ou votre contenu Wordpress :
         </p>
-        <code
-          css={`
-            word-break: break-all;
-          `}
-        >
-          {iframeCode(iframeUrl, false)}
-        </code>
+        <IframeCodeWrapper>
+          <code
+            css={`
+              word-break: break-all;
+            `}
+          >
+            {iframeCode(iframeUrl, false)}
+          </code>
+        </IframeCodeWrapper>
         <p
           css={`
             margin-top: 1rem;
@@ -148,13 +159,15 @@ export default function AmpleurDemonstration() {
           Vous pouvez habiller le module en CSS avec par exemple une ombre
           portée, voici un exemple :{' '}
         </p>
-        <code
-          css={`
-            word-break: break-all;
-          `}
-        >
-          {iframeCode(undefined, true)}
-        </code>
+        <IframeCodeWrapper>
+          <code
+            css={`
+              word-break: break-all;
+            `}
+          >
+            {iframeCode(iframeUrl, true)}
+          </code>
+        </IframeCodeWrapper>
         <IntegrationQuestions />
         <section
           css={`
@@ -179,7 +192,13 @@ export default function AmpleurDemonstration() {
               box-shadow: var(--shadow-elevation-medium);
             `}
           ></iframe>
-          <h3>... et sur écran mobile</h3>
+          <h3
+            css={`
+              margin: 0;
+            `}
+          >
+            ... et sur écran mobile
+          </h3>
           <iframe src={iframeUrl} css={mobileIframeStyle}></iframe>
         </section>
       </div>

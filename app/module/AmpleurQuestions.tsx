@@ -1,5 +1,6 @@
 import RevenuInput from '@/components/RevenuInput'
 import Select from '@/components/Select'
+import rules from '@/app/règles/rules'
 import {
   encodeDottedName,
   encodeSituation,
@@ -13,17 +14,34 @@ import { getRevenusList } from '@/components/RevenuInput'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { formatValue } from 'publicodes'
 import AddressSearch from '@/components/AddressSearch'
+import { formatNumberWithSpaces } from '@/components/utils'
 
 export const CommuneLogement = ({
   setSearchParams,
   situation,
   answeredQuestions,
   onChange,
+  text = 'Ce logement est situé à',
 }) => (
-  <section>
+  <section
+    css={`
+      display: flex;
+      align-items: center;
+    `}
+  >
     <Dot />
-    <label htmlFor="">
-      Ce logement sera situé sur la commune de :{' '}
+    <label
+      htmlFor=""
+      css={`
+        display: flex;
+        align-items: center;
+        input {
+          height: 2.4rem !important;
+          border-bottom: 2px solid var(--color);
+        }
+      `}
+    >
+      {text} :&nbsp;{' '}
       <AddressSearch
         {...{
           type: 'logement . commune',
@@ -78,6 +96,37 @@ export const TypeResidence = ({
   </section>
 )
 
+export const LogementType = ({
+  setSearchParams,
+  situation,
+  text,
+  rule = 'logement . type',
+}) => (
+  <section>
+    <Dot />
+    <label htmlFor="">
+      {text ? text : rules[rule]['question']}:{' '}
+      <Select
+        css={`
+          background: #f5f5fe;
+          max-width: 90vw;
+        `}
+        disableInstruction={false}
+        onChange={(e) => {
+          push(['trackEvent', 'Module', 'Interaction', 'type logement ' + e])
+          setSearchParams({
+            [encodeDottedName(rule)]: '"' + e + '"*',
+          })
+        }}
+        value={situation[rule]?.replaceAll('"', "'")}
+        values={rules[rule]['une possibilité parmi']['possibilités'].map(
+          (i) => rules['logement . type . ' + i],
+        )}
+      />
+    </label>
+  </section>
+)
+
 export const PersonnesQuestion = ({
   situation,
   onChange,
@@ -121,33 +170,40 @@ export const MontantQuestion = ({
   rule,
   text,
   dot = true,
-}) => (
-  <section>
-    {dot && <Dot />}
-    <label>
-      <span>{text}</span>{' '}
-      <input
-        type="number"
-        min="1"
-        inputMode="numeric"
-        pattern="[1-9]+"
-        defaultValue={
-          answeredQuestions.includes(rule) ? situation[rule] : undefined
-        }
-        onChange={(e) => {
-          const { value } = e.target
-          const invalid = isNaN(value) || value <= 1000
-          if (invalid) return
-          push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + value])
-          setSearchParams({
-            [encodeDottedName(rule)]: value + '*',
-          })
-        }}
-      />{' '}
-      €.
-    </label>
-  </section>
-)
+}) => {
+  return (
+    <section>
+      {dot && <Dot />}
+      <label>
+        <span>{text}&nbsp;:&nbsp;</span>
+        <input
+          css={`
+            width: 8rem;
+          `}
+          type="text"
+          inputMode="numeric"
+          pattern="\d+"
+          defaultValue={
+            answeredQuestions.includes(rule)
+              ? formatNumberWithSpaces(situation[rule])
+              : undefined
+          }
+          onChange={(e) => {
+            const price = e.target.value.replace(/\s/g, '')
+            const invalid = isNaN(price) || price <= 0
+            if (invalid) return
+            push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + price])
+            setSearchParams({
+              [encodeDottedName(rule)]: price + '*',
+            })
+            e.target.value = formatNumberWithSpaces(price)
+          }}
+        />{' '}
+        €.
+      </label>
+    </section>
+  )
+}
 
 const revenuQuestionDependencies = [
   'ménage . personnes',
@@ -623,7 +679,7 @@ export const YesNoQuestionStyle = styled.div`
   }
 `
 
-const Dot = () => (
+export const Dot = () => (
   <Image
     src={rightArrow}
     alt="Icône d'une flèche vers la droite"

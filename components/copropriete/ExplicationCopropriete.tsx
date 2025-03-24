@@ -8,24 +8,32 @@ import {
 } from '@/components/publicodes/situationUtils'
 import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import calculatorIcon from '@/public/calculator-black.svg'
-import editIcon from '@/public/crayon.svg'
+
+import Publicodes from 'publicodes'
+import { useMemo } from 'react'
+import Image from 'next/image'
+import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import { useSearchParams } from 'next/navigation'
+import Input from '../Input'
+import { roundToThousands } from '../utils'
 import informationIcon from '@/public/information.svg'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import Publicodes from 'publicodes'
-import { useMemo } from 'react'
+
+import MprCategory from '../MprCategory'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import Input from '../Input'
 import MprCategory from '../MprCategory'
 import Select from '../Select'
-import { roundToThousands } from '../utils'
+
 import Value from '../Value'
 import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
+
+import CalculatorWidget from '../CalculatorWidget'
+
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
@@ -110,35 +118,8 @@ export default function ExplicationCopropriete() {
         <>
           {isEligibile ? (
             <>
-              <Card
-                css={`
-                  background: linear-gradient(180deg, #f7f7f7 0%, #e6f7fb 100%);
-                  box-shadow: 1px 4px 6px 0px #ccd0d5;
-                  margin-bottom: 2rem;
-                `}
-              >
-                <div
-                  css={`
-                    display: flex;
-                    align-items: center;
-                    gap: 1rem;
-                    margin-bottom: 1rem;
-                    h3 {
-                      margin: 0.5rem 0;
-                    }
-                  `}
-                >
-                  <Image src={calculatorIcon} alt="icone calculatrice" />{' '}
-                  <h3>À vos calculs !</h3>
-                </div>
-                <div
-                  css={`
-                    display: flex;
-                    ${isMobile && 'flex-direction: column;'}
-                    justify-content: space-between;
-                    gap: 1rem;
-                  `}
-                >
+              <CalculatorWidget isMobile={isMobile}>
+                <div>
                   <div
                     css={`
                       display: flex;
@@ -385,8 +366,7 @@ export default function ExplicationCopropriete() {
                     />
                   </div>
                 </div>
-              </Card>
-
+              </CalculatorWidget>
               <Card
                 css={`
                   background: transparent;

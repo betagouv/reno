@@ -15,7 +15,7 @@ export const mobileIframeStyle = `
               border-radius: 0.4rem;
               margin: 3rem auto;
               height: 750px;
-              width: 370px;
+              width: 395px;
               max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
               --shadow-elevation-medium: 0.3px 0.5px 0.7px

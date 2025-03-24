@@ -1,5 +1,4 @@
 import Value from '@/components/Value'
-import calculatorIcon from '@/public/calculator-black.svg'
 import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Image from 'next/image'
@@ -7,6 +6,7 @@ import DPEQuickSwitch from '../DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import editIcon from '@/public/crayon.svg'
 import { Key } from '../explications/ExplicationUI'
+import CalculatorWidget from '../CalculatorWidget'
 
 export default function DPEScenario({
   choice,
@@ -30,39 +30,12 @@ export default function DPEScenario({
     .evaluate('MPR . accompagnée . bonus').nodeValue
 
   return (
-    <Card
-      css={`
-        background: linear-gradient(180deg, #f7f7f7 0%, #e6f7fb 100%);
-        box-shadow: 1px 4px 6px 0px #ccd0d5;
-        margin-bottom: 1rem;
-      `}
-    >
-      <div
-        css={`
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1rem;
-          h3 {
-            margin: 0.5rem 0;
-          }
-        `}
-      >
-        <Image src={calculatorIcon} alt="icone calculatrice" />{' '}
-        <h3>À vos calculs !</h3>
-      </div>
-      <div
-        css={`
-          display: flex;
-          ${isMobile && 'flex-direction: column;'}
-          justify-content: space-between;
-          gap: 1rem;
-        `}
-      >
+    <CalculatorWidget isMobile={isMobile}>
+      <div>
         <DPEQuickSwitch
           oldIndex={oldIndex}
           situation={situation}
-          isMobile={isMobile}
+          columnDisplay={true}
         />
         <TargetDPETabs
           {...{
@@ -72,7 +45,7 @@ export default function DPEScenario({
             choice,
             engine,
             situation,
-            isMobile,
+            columnDisplay: true,
           }}
         />
         <div
@@ -82,7 +55,7 @@ export default function DPEScenario({
             gap: 0.5rem;
           `}
         >
-          <div>Votre budget de travaux de rénovation:</div>
+          <div>Budget de travaux de rénovation:</div>
           <div
             css={`
               margin: auto;
@@ -318,6 +291,6 @@ export default function DPEScenario({
           </div>
         </>
       )}
-    </Card>
+    </CalculatorWidget>
   )
 }
