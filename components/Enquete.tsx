@@ -22,7 +22,14 @@ export default function Enquete({}) {
       en 1 minute pour mieux connaître vos attentes.
       <CTAWrapper $justify="left">
         <CTA $fontSize="normal">
-          <span onClick={() => setDisplayEnquete(true)}>Je participe! ️⬇</span>
+          <span
+            css={`
+              cursor: pointer;
+            `}
+            onClick={() => setDisplayEnquete(true)}
+          >
+            Je participe! ️⬇
+          </span>
         </CTA>
       </CTAWrapper>
       {displayEnquete && (
