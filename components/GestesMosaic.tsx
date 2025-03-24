@@ -14,6 +14,7 @@ import { push } from '@socialgouv/matomo-next'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import CopyButton from './CopyButton'
 import Breadcrumb from './Breadcrumb'
+import Enquete from './Enquete'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -150,6 +151,7 @@ export default function GestesMosaic({
           <small>Les aides à la carte</small>
           <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
         </header>
+        <Enquete />
         <AvanceTMO {...{ engine, situation }} />
         <Fieldset>
           <ul>
