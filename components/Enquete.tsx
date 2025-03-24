@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { CTA, CTAWrapper } from './UI'
 import Script from 'next/script'
 import { useState } from 'react'

@@ -216,7 +216,7 @@ export default function AidesAmpleur({
             margin: 'small',
           }}
         />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+        {/* <Feedback title={'Ce simulateur a-t-il été utile ?'} /> */}
       </CustomQuestionWrapper>
     </Section>
   )
