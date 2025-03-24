@@ -7,25 +7,23 @@ import {
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
-import useSetSearchParams from '@/components/useSetSearchParams'
 
-import Publicodes from 'publicodes'
-import { useMemo } from 'react'
-import Image from 'next/image'
-import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
-import { useSearchParams } from 'next/navigation'
-import Input from '../Input'
-import { roundToThousands } from '../utils'
+import useSetSearchParams from '@/components/useSetSearchParams'
+import editIcon from '@/public/crayon.svg'
+
 import informationIcon from '@/public/information.svg'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import Publicodes from 'publicodes'
+import { useMemo } from 'react'
+import Input from '../Input'
+import { roundToThousands } from '../utils'
 
-import MprCategory from '../MprCategory'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import Input from '../Input'
 import MprCategory from '../MprCategory'
 import Select from '../Select'
 
@@ -33,7 +31,6 @@ import Value from '../Value'
 import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
 
 import CalculatorWidget from '../CalculatorWidget'
-
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
