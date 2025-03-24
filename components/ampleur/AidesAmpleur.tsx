@@ -10,6 +10,7 @@ import { push } from '@socialgouv/matomo-next'
 import CopyButton from '../CopyButton'
 import Breadcrumb from '../Breadcrumb'
 import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
+import Enquete from '../Enquete'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -185,6 +186,7 @@ export default function AidesAmpleur({
           />
           <CopyButton searchParams={searchParams} />
         </div>
+        <Enquete />
         <h1
           css={`
             font-size: 120%;
