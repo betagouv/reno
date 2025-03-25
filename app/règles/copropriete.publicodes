@@ -1,19 +1,49 @@
 copropriété:
   titre: MaPrimeRénov' Copropriété
   description: |
-    Cette aide est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarées d’intérêt collectif.  
+    L'aide MaPrimeRénov' Copropriété est réservée aux travaux effectués sur les parties communes de copropriétés et sur les parties privatives déclarées d’intérêt collectif.  
+
+    > Il s'agit par exemple d'isolation par l'extérieur des murs de l'immeuble, d'une isolation des combles, ou encore d'un changement de chauffage collectif.
         
-    Ces travaux sont votés lors des assemblées générales de copropriétés. Cette prime est demandée par le syndic de copropriété au titre du syndicat des copropriétaires.  
+    Ces travaux sont votés lors des assemblées générales de la copropriété. La prime est demandée par le syndic de copropriété au titre du syndicat des copropriétaires.  
     La subvention est versée directement au syndicat de copropriétaires puis répartie selon la règle des tantièmes.  
         
-    L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements
+    L'aide dépend du coût des travaux, de la situation de la copropriété et du nombre de logements. Ce simulateur vous aide à saisir ces données et vous donne un résultat chiffré que vous pourrez communiquer au reste des copropriétaires et au syndic.
+
+copropriété . id:
+  description: |
+    Cette question va déclencher une recherche dans le [registre national des copros](https://www.registre-coproprietes.gouv.fr).
+
+    **Vos données resteront confidentielles**, elles ne seront utilisées que pour obtenir le montant des aides à la rénovation.
+  question: Quelle est l'adresse de la copropriété ?
+  note: |
+    Sa valeur sera mise à "évitée" si l'utilisateur décide de passer cette question.
+
+copropriété . nom:
+  question: Quelle est le nom de la copropriété ?
+
+copropriété . nombre de lots principaux:
+  formule: id # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
+  question: |
+    Combien de lots composent la copropriété ?
+
+    Il est question ici de "lots principaux" : les appartements, les bureaux professionnels, les commerces, etc; par opposition aux lots secondaires, les parkings, caves, etc.
+  note: |
+    Nous retenons le fait qu'il s'agisse de lots principaux grâce au document suivant : 
+    ["Instruction MPR Copro"](<https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8>)
+  unité: lots
+
 copropriété . nombre de logement:
+  formule: id # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
   question: Combien de logements composent la copropriété ?
+  description: |
+    Nous appelons ici "logement" les lots à usage d'habitation.
   suggestions:
     10 logements: 10
     30 logements: 30
     60 logements: 60
   unité: logements
+
 copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
   par défaut:
@@ -22,20 +52,24 @@ copropriété . montant travaux:
       - 10000€ # Nombre arbitraire pour le montant moyen des travaux par logement
   unité: '€'
 copropriété . condition 15 ans:
+  titre: Construite il y a plus de 15 ans
   question: La copropriété a-t-elle été construite il y a plus de 15 ans ?
   par défaut: oui
 copropriété . condition résidence principale:
+  titre: Quota d'habitations principales
   question:
     texte: >
       La copropriété est-elle composée de minimum {{ pourcent }} de logement dédié à l'usage d'habitation principale ?
     avec:
       pourcent:
         variations:
-          - si: copropriété . nombre de logement > 20
+          - si: copropriété . nombre de lots principaux > 20
             alors: 75 %
           - sinon: 65 %
   description: |
     Si votre copropriété a une majorité de volets fermés la plupart de l'année, notamment hors saison estivale, il est probable qu'elle ne soit pas éligible à l'aide.
+
+    D'après [ce document de 2023](https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8), "Ne sont pas considérés comme lots d'habitation principale les locaux commerciaux, les bureaux". Nous comprenons qu'une copro avec plus de 25 ou 35 % de lots principaux de cet usage sont inéligible d'office, sans même regarder le pourcentage des lots d'habitation qui sont habitation principale.
   par défaut: oui
 
 copropriété . gain énergétique:
@@ -46,6 +80,13 @@ copropriété . gain énergétique:
       - 'entre 35 % et 50 %'
       - 'plus de 50 %'
   description: Bien sûr, il y a peu de chance que vous ayez ce chiffre en tête, n'hésitez pas à faire plusieurs simulations
+
+copropriété . gain énergétique . condition:
+  titre: Gain énergétique suffisant
+  une de ces conditions:
+    - gain énergétique = gain énergétique . entre 35 % et 50 %
+    - gain énergétique = gain énergétique . plus de 50 %
+
 copropriété . gain énergétique . moins de 35 %:
   valeur: "'moins de 35 %'"
   titre: moins de 35 %
@@ -95,11 +136,10 @@ copropriété . condition éligibilité:
   toutes ces conditions:
     - condition résidence principale
     - condition 15 ans
-    - une de ces conditions:
-        - gain énergétique = gain énergétique . entre 35 % et 50 %
-        - gain énergétique = gain énergétique . plus de 50 %
+    - gain énergétique . condition
     - est défini: bonus sortie passoire
     - est défini: bonus copropriété fragile
+
 copropriété . montant:
   applicable si: condition éligibilité
   produit:
