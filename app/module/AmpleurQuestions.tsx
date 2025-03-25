@@ -61,9 +61,10 @@ export const TypeResidence = ({
   setSearchParams,
   situation,
   answeredQuestions,
+  dot = true,
 }) => (
   <section>
-    <Dot />
+    {dot && <Dot />}
     <label htmlFor="">
       Ce logement sera :{' '}
       <Select
@@ -220,6 +221,7 @@ export const RevenuQuestion = ({
   setSearchParams,
   engine,
   situation,
+  dot = true,
 }) => {
   const thisQuestionSatisfied = answeredQuestions.includes('ménage . revenu')
   if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
@@ -242,7 +244,7 @@ export const RevenuQuestion = ({
           align-items: center;
         `}
       >
-        <Dot />
+        {dot && <Dot />}
         <div>
           {!thisQuestionSatisfied && (
             <div>
@@ -507,6 +509,7 @@ export const IdFQuestion = ({
   situation,
   answeredQuestions,
   rule = 'ménage . région . IdF',
+  dot = true,
 }) => {
   const answered = answeredQuestions.includes(rule)
   return (
@@ -516,9 +519,9 @@ export const IdFQuestion = ({
         align-items: center;
       `}
     >
-      <Dot />
+      {dot && <Dot />}
       <YesNoQuestionStyle>
-        <span>Vous résidence actuelle est située&nbsp;:</span>
+        <span>Votre résidence actuelle est située&nbsp;:</span>
         <section>
           <label>
             <input

@@ -425,18 +425,18 @@ chauffage . PAC . air-air . CEE . SCOP:
   maximum: 5
   une possibilité parmi:
     possibilités:
-      - 'inferieur à 4'
-      - 'inferieur à 4.3'
-      - 'superieur à 4.3'
-chauffage . PAC . air-air . CEE . SCOP . inferieur à 4:
+      - 'peu efficace'
+      - 'efficace'
+      - 'très efficace'
+chauffage . PAC . air-air . CEE . SCOP . peu efficace:
   valeur: '3'
-  titre: 'Inférieur à 3.9'
-chauffage . PAC . air-air . CEE . SCOP . inferieur à 4.3:
+  titre: 'Inférieur à 3,9'
+chauffage . PAC . air-air . CEE . SCOP . efficace:
   valeur: '4'
-  titre: 'Inférieur à 4.3'
-chauffage . PAC . air-air . CEE . SCOP . superieur à 4.3:
+  titre: 'Inférieur à 4,3'
+chauffage . PAC . air-air . CEE . SCOP . très efficace:
   valeur: '5'
-  titre: 'Supérieur à 4.3'
+  titre: 'Supérieur à 4,3'
 chauffage . PAC . air-air . CEE . surface: logement . surface
 chauffage . PAC . air-air . CEE . facteur correctif surface:
   variations:

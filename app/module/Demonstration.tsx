@@ -1,6 +1,6 @@
 'use client'
 
-import DPELabel from '@/components/DPELabel'
+import DPELabel from '@/components/dpe/DPELabel'
 import { Card } from '@/components/UI'
 import getAppUrl from '@/components/getAppUrl'
 import { encodeSituation } from '@/components/publicodes/situationUtils'

@@ -1,6 +1,6 @@
 'use client'
 import { styled } from 'styled-components'
-import css from './css/convertToJs'
+import css from '../css/convertToJs'
 import data from './DPE.yaml'
 
 export default function DPE({

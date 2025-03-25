@@ -31,10 +31,11 @@ import {
 } from './AmpleurQuestions'
 import { ModuleWrapper } from './ModuleWrapper'
 import UserData from './UserData'
+import AmpleurWidget from '@/components/ampleur/AmpleurWidget'
 
 const engine = new Publicodes(rules)
 
-export default function Ampleur() {
+export default function Ampleur({ type }) {
   const setSearchParams = useSetSearchParams()
   const isMobile = useMediaQuery('(max-width: 400px)')
 
@@ -122,7 +123,7 @@ export default function Ampleur() {
 
   const shouldDisplay = ampleurQuestionsAnswered(answeredQuestions)
 
-  return (
+  return type == 'module' ? (
     <ModuleWrapper
       isMobile={isMobile}
       title="Vos aides pour une rénovation d'ampleur"
@@ -200,6 +201,18 @@ export default function Ampleur() {
         }}
       />
     </ModuleWrapper>
+  ) : (
+    <AmpleurWidget
+      {...{
+        onChange,
+        engine,
+        shouldDisplay,
+        situation,
+        setSearchParams,
+        answeredQuestions,
+        isMobile,
+      }}
+    />
   )
 }
 

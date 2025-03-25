@@ -1,30 +1,32 @@
 'use client'
 
-import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import {
   encodeSituation,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
+import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
 import useSetSearchParams from '@/components/useSetSearchParams'
+import calculatorIcon from '@/public/calculator-black.svg'
+import editIcon from '@/public/crayon.svg'
+import informationIcon from '@/public/information.svg'
+import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
-import Image from 'next/image'
-import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
-import { useSearchParams } from 'next/navigation'
 import Input from '../Input'
 import { roundToThousands } from '../utils'
-import informationIcon from '@/public/information.svg'
-import Link from 'next/link'
 import MprCategory from '../MprCategory'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
-import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import Value from '../Value'
 import CopyButton from '../CopyButton'
-import editIcon from '@/public/crayon.svg'
+import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import Select from '../Select'
 import CalculatorWidget from '../CalculatorWidget'
+import Value from '../Value'
+import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
@@ -59,6 +61,8 @@ export default function ExplicationCopropriete() {
       'copropriété . pourcentage sortie passoire',
     ).nodeValue
   }
+  const nom = situation['copropriété . nom'],
+    nomContent = nom ? nom + ' ' : null
 
   return (
     <Section>
@@ -85,7 +89,7 @@ export default function ExplicationCopropriete() {
         {isEligibile ? (
           <>
             <p>
-              Votre copropriété est{' '}
+              Votre copropriété {nomContent}est{' '}
               <PrimeStyle>
                 <strong>éligible</strong>
               </PrimeStyle>{' '}
@@ -101,6 +105,7 @@ export default function ExplicationCopropriete() {
               </PrimeStyle>{' '}
               au dispositif <strong>MaPrimeRénov' Copropriété</strong>
             </p>
+            <ExplicationsCoproIneligible {...{ situation, engine }} />
           </>
         )}
         <>
@@ -562,8 +567,8 @@ export default function ExplicationCopropriete() {
                   <span>Ce n'est pas fini!</span>
                 </div>
                 <p>
-                  Les copropriétaires sont{' '}
-                  <strong>peut-être éligibles individuellement</strong> à
+                  Les copropriétaires{' '}
+                  <strong>peuvent être éligibles individuellement</strong> à
                   d'autres aides à la rénovation.
                   <br />
                   C'est pourquoi, nous vous invitons à refaire une simulation
