@@ -14,6 +14,7 @@ import { push } from '@socialgouv/matomo-next'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import CopyButton from './CopyButton'
 import Breadcrumb from './Breadcrumb'
+import Enquete from './Enquete'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -146,6 +147,7 @@ export default function GestesMosaic({
           />
           <CopyButton searchParams={searchParams} />
         </div>
+        <Enquete />
         <header>
           <small>Les aides à la carte</small>
           <h2>Quels travaux souhaitez-vous entreprendre ?</h2>
@@ -253,7 +255,7 @@ export default function GestesMosaic({
             </Link>
           </CTA>
         </CTAWrapper>
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+        {/* <Feedback title={'Ce simulateur a-t-il été utile ?'} /> */}
       </CustomQuestionWrapper>
     </Section>
   )
