@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Marker, LngLatBounds } from 'maplibre-gl'
 
-import dpeColors from '@/components/DPE.yaml'
+import dpeColors from '@/components/dpe/DPE.yaml'
 import { pointToRectangle } from './geoUtils'
 
 const pointsToPolygons = (featureCollection) => {
@@ -95,11 +95,25 @@ export default function DpeMarkers({ map, featureCollection, selectMarker }) {
         },
         //'discs',
       )
+      map.on('click', 'discs', (e) => {
+        if (!e.features?.length) return
+        const feature = e.features[0]
+        selectMarker(feature.properties)
+      })
+
+      map.on('click', 'dpe-markers', (e) => {
+        if (!e.features?.length) return
+        const feature = e.features[0]
+        selectMarker(feature.properties)
+      })
     }
 
     draw()
     return () => {
       try {
+        map.off('click', 'discs', selectMarker)
+        map.off('click', 'dpe-markers', selectMarker)
+
         map.removeLayer('dpe-markers')
         map.removeLayer('3d-dpe')
         map.removeLayer('discs')
@@ -145,6 +159,7 @@ export default function DpeMarkers({ map, featureCollection, selectMarker }) {
   }, [
     map,
     featureCollection?.features.map((f) => f.properties['N°DPE']).join('|'),
+    selectMarker,
   ])
   return <div></div>
 }

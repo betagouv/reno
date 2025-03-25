@@ -1,5 +1,5 @@
 'use client'
-import dpeColors from '@/components/DPE.yaml'
+import dpeColors from '@/components/dpe/DPE.yaml'
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
@@ -11,7 +11,7 @@ import useAddAddressMap from './useAddAddressMap'
 import useSetSearchParams from './useSetSearchParams'
 import { computeBbox } from './geoUtils'
 
-export default function AddressSearch({ searchParams }) {
+export default function DPEAddressSearch({ searchParams, onSelectDpe }) {
   const setSearchParams = useSetSearchParams()
 
   const [immediateInput, setInput] = useState('')
@@ -182,7 +182,9 @@ export default function AddressSearch({ searchParams }) {
               }
             }),
           }}
-          selectMarker={() => null}
+          selectMarker={(feature) => {
+            onSelectDpe?.(feature)
+          }}
         />
       )}
       {active && (

@@ -1,18 +1,18 @@
 import DpeAddressSearch from '@/components/DpeAddressSearch'
 import { PageBlock, Section } from '@/components/UI'
 import css from '@/components/css/convertToJs'
+import DPEAnalyzer from '@/components/dpe/DPEAnalyzer'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 
 export const description = `Chercher dans l'annuaire des Diagnostics de performance énergétique (DPE).`
 
 export const metadata: Metadata = {
-  title: "Trouver le DPE d'un logement",
+  title: "Trouver et analyser le DPE d'un logement",
   description,
   openGraph: { images: ['/jaquette.png'] },
 }
 
 export default async function Page(props) {
-  const searchParams = await props.searchParams
   return (
     <main
       style={css`
@@ -22,8 +22,8 @@ export default async function Page(props) {
     >
       <Section>
         <PageBlock>
-          <h1>Trouver un DPE</h1>
-          <DpeAddressSearch searchParams={searchParams} />
+          <h1>Trouver et analyser un DPE</h1>
+          <DPEAnalyzer {...{ props }} />
         </PageBlock>
       </Section>
     </main>
