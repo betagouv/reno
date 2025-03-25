@@ -22,6 +22,20 @@ export default function IntegrationQuestions({
             bout de code. C'est le cas de Wordpress : ajoutez un "bloc HTML
             personnalisé" à partir de l'outil d'insertion de blocs.
           </p>
+          <iframe
+            width="560"
+            height="315"
+            css={`
+              display: block;
+              margin: 1rem auto;
+            `}
+            src="https://www.youtube.com/embed/FkmPfbuDOrA?si=e_o_FEOkOePT2iLl"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
         </div>
       </details>
       {noScroll && setNoScroll && (
