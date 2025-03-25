@@ -233,6 +233,26 @@ export default function ValeurVerteModule({ type, lettre }) {
           </CTA>
         </CTAWrapper>
       </EvaluationValueWrapper>
+      <small
+        css={`
+          display: inline-block;
+          margin-top: 0.5rem;
+          @media (max-width: 400px) {
+            margin: 0rem;
+          }
+        `}
+      >
+        Source:{' '}
+        <em>
+          <a
+            href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
+            title="Notaires de France"
+            target="_blank"
+          >
+            Notaires de France
+          </a>
+        </em>
+      </small>
     </ModuleWrapper>
   ) : (
     <CalculatorWidget>
