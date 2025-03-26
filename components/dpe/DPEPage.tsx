@@ -138,6 +138,8 @@ export default function DPEPage({ lettre }) {
           <Content>
             <h2>Quelles aides sont mobilisables ?</h2>
             <Ampleur type="widget" />
+            <h2>Quels impact sur votre facture ?</h2>
+            <h2>Quels travaux privilégiés ?</h2>
             <h2>Une interdiction de location est-elle prévue?</h2>
             {Object.keys(interdictionLocation).includes(lettre) ? (
               <>

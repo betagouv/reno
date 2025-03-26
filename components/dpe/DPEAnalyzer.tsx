@@ -1,15 +1,32 @@
 'use client'
 
+import rules from '@/app/règles/rules'
+import Publicodes from 'publicodes'
 import { useEffect, useState } from 'react'
 import DpeAddressSearch from '../DpeAddressSearch'
 import { useSearchParams } from 'next/navigation'
 import DPELabel from './DPELabel'
 import { Card } from '../UI'
 import { formatNumber } from '../RevenuInput'
+import data from './DPE.yaml'
+import Value from '../Value'
+import { Key } from '../explications/ExplicationUI'
+import DPEFacture from './DPEFacture'
+
+export function obtenirLettre(valeur, type) {
+  for (let i = 0; i < data.length - 1; i++) {
+    if (data[i][type] <= valeur && valeur < data[i + 1][type]) {
+      return data[i].lettre
+    }
+  }
+  return data[data.length - 1].lettre
+}
 
 export default function DPEAnalyzer() {
+  const engine = new Publicodes(rules)
   const [dpe, setDpe] = useState()
   const [xml, setXml] = useState()
+  const [situation, setSituation] = useState()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
@@ -18,6 +35,12 @@ export default function DPEAnalyzer() {
   useEffect(() => {
     if (!dpe) return
     console.log('dpe', dpe)
+    setSituation({
+      'MPR . non accompagnée . éligible': 'oui',
+      'CEE . conditions': 'oui',
+      'gestes . isolation . murs intérieurs . MPR . surface': 50,
+      'ménage . revenu . classe': "'très modeste'",
+    })
     async function fetchDPE() {
       try {
         const response = await fetch(`/api/dpe?dpeNumber=${dpe['N°DPE']}`)
@@ -516,6 +539,11 @@ export default function DPEAnalyzer() {
               </Card>
             </div>
           </div>
+          <DPEFacture
+            montantFactureActuelle={dpe['Coût_total_5_usages']}
+            consoActuelle={dpe['Conso_5_usages_par_m²_é_primaire']}
+            etiquette={dpe['etiquette']}
+          />
           <hr />
           <h2>Données du XML brut (informations moins structurées)</h2>
           <div
@@ -551,20 +579,49 @@ export default function DPEAnalyzer() {
               {xml?.travaux?.map((pack, i) => (
                 <div key={i}>
                   <h4>Scénario {i + 1}:</h4>
-                  <p>
-                    <strong>Consommation après travaux:</strong>{' '}
-                    {Math.round(pack.conso)}
-                  </p>
-                  <p>
-                    <strong>Émissions GES après travaux:</strong>{' '}
-                    {Math.round(pack.emission)
-                      ? Math.round(pack.emission)
-                      : '/'}
-                  </p>
+                  <div
+                    css={`
+                      display: flex;
+                      gap: 1rem;
+                    `}
+                  >
+                    <p>
+                      <strong>Consommation:</strong>{' '}
+                      <DPELabel
+                        label={obtenirLettre(Math.round(pack.conso), 'énergie')}
+                      />
+                    </p>
+                    <p>
+                      <strong>Émissions GES:</strong>
+                      {Math.round(pack.emission) ? (
+                        <DPELabel
+                          label={obtenirLettre(
+                            Math.round(pack.emission),
+                            'climat',
+                          )}
+                        />
+                      ) : (
+                        '/'
+                      )}
+                    </p>
+                  </div>
                   <ul>
                     {pack.travaux.map((trav, idx) => (
                       <li key={idx}>
                         <p>{trav.description}</p>
+                        {trav.description.includes("murs par l'intérieur") && (
+                          <Key $state="prime">
+                            Mes aides:
+                            <Value
+                              {...{
+                                engine,
+                                situation,
+                                dottedName:
+                                  'gestes . isolation . murs intérieurs . montant',
+                              }}
+                            />
+                          </Key>
+                        )}
                       </li>
                     ))}
                   </ul>
