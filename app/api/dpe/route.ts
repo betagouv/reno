@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   try {
     const response = await fetch(url)
     if (!response.ok) {
-      return new Response(JSON.stringify({ error: error.message }), {
+      return new Response(JSON.stringify({ error: response }), {
         status: response.status,
         headers: { 'Content-Type': 'application/json' },
       })
