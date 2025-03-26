@@ -20,7 +20,8 @@ export default function Content() {
       <p>
         Le dispositif phare MaPrimeRénov' est reconduit, et l'enveloppe globale
         d'intervention de l'Agence Nationale de l'Habitat est augmentée de{' '}
-        <em>600&nbsp;millions</em> d'€ par rapport aux moyens consommés en 2024.{' '}
+        <em>600&nbsp;millions</em> d'€ par rapport aux moyens consommés en
+        2024.{' '}
       </p>
       <p>
         De plus, MaPrimeRénov' est loin d'être le seul dispositif d'aide à la
@@ -164,7 +165,7 @@ export default function Content() {
       </p>
       <p>
         La prochaine échéance sera dans 3 ans, en 2028. Consultez le{' '}
-        <Link href="/interdiction-location">
+        <Link href="/blog/interdiction-location-passoire-thermique">
           calendrier des interdictions de location
         </Link>
         .

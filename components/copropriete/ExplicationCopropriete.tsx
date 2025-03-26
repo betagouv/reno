@@ -7,9 +7,10 @@ import {
   getSituation,
 } from '@/components/publicodes/situationUtils'
 import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
+
 import useSetSearchParams from '@/components/useSetSearchParams'
-import calculatorIcon from '@/public/calculator-black.svg'
 import editIcon from '@/public/crayon.svg'
+
 import informationIcon from '@/public/information.svg'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import Image from 'next/image'
@@ -27,6 +28,7 @@ import Select from '../Select'
 import CalculatorWidget from '../CalculatorWidget'
 import Value from '../Value'
 import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
+import CalculatorWidget from '../CalculatorWidget'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Marker, LngLatBounds } from 'maplibre-gl'
+import { getCoproId } from './CoproAddressSearch'
 
 const iconSize = '30'
 export default function MapMarkers({
@@ -7,7 +8,10 @@ export default function MapMarkers({
   data,
   selectMarker,
   icon = 'map-marker.png',
+  selected,
 }) {
+  const selectedId = getCoproId(selected)
+  console.log('selected', getCoproId(selected))
   useEffect(() => {
     if (!data.length || !map) return
     const bounds = new LngLatBounds()
@@ -22,7 +26,12 @@ export default function MapMarkers({
         el.style.height = `${iconSize}px`
         el.style.cursor = 'pointer'
         el.style.position = 'absolute'
-        el.innerHTML = `<div style="position: absolute;   top: -0.7rem;   right: -0.5rem;   font-weight: bold;   background: var(--color);   color: white;   border-radius: 30px;   width: 1.2rem;   text-align: center;   height: 1.2rem;   line-height: 1.2rem;   border: 2px solid white;">${i + 1}</div>`
+
+        el.style.filter =
+          selectedId && selectedId === getCoproId(feature)
+            ? 'invert(1)'
+            : 'invert(0)'
+        el.innerHTML = `<div style="position: absolute;   top: -0.7rem;   right: -0.5rem;   font-weight: bold;   background: var(--color);   color: white;   border-radius: 30px;   width: 1.2rem;   text-align: center;   height: 1.2rem;   line-height: 1.2rem;   border: 2px solid white; ">${i + 1}</div>`
 
         el.addEventListener('click', () => {
           selectMarker(feature)
@@ -40,6 +49,6 @@ export default function MapMarkers({
     return () => {
       markers.map((marker) => marker.remove())
     }
-  }, [map, data])
+  }, [map, data, selectedId])
   return <div></div>
 }
