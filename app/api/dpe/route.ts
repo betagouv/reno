@@ -12,7 +12,12 @@ export async function GET(request: Request) {
 
   const url = `https://observatoire-dpe-audit.ademe.fr/pub/dpe/${dpeNumber}/xml`
 
-  const response = await fetch(url, { mode: 'no-cors' })
+  const response = await fetch(url, {
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+    },
+  })
   if (!response.ok) {
     return new Response(
       JSON.stringify({
