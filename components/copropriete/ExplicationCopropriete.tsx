@@ -28,7 +28,6 @@ import Select from '../Select'
 import CalculatorWidget from '../CalculatorWidget'
 import Value from '../Value'
 import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
-import CalculatorWidget from '../CalculatorWidget'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
@@ -186,6 +185,7 @@ export default function ExplicationCopropriete() {
                           )
                         }
                         css={`
+                          height: auto;
                           border: 2px solid var(--color);
                           border-radius: 0.3rem;
                           padding: 0.7rem;
