@@ -79,6 +79,9 @@ async function apiResponse(method: string, request: Request) {
           type: aide['type'],
           status: aide['status'],
           value: aide['value'],
+          rawValue: aide['evaluation'].nodeValue
+            ? aide['evaluation'].nodeValue
+            : null,
           taux: getTaux(aide['baseDottedName'], situation, engine),
           durée: getDuree(aide['baseDottedName'], situation, engine),
           missingVariables: Object.keys(aide['evaluation']['missingVariables']),
