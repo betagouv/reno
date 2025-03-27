@@ -158,7 +158,7 @@ export default function DpeMarkers({ map, featureCollection, selectMarker }) {
     }
   }, [
     map,
-    featureCollection?.features.map((f) => f.properties['N°DPE']).join('|'),
+    featureCollection?.features?.map((f) => f.properties['N°DPE']).join('|'),
     selectMarker,
   ])
   return <div></div>

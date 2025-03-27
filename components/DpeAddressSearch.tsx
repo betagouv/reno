@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 import MapMarkers from './AddressSearchMapMarkers'
 import DpeMarkers from './DpeMarkers'
-import { getServerUrl } from './getAppUrl'
 import useAddAddressMap from './useAddAddressMap'
 import useSetSearchParams from './useSetSearchParams'
 import { computeBbox } from './geoUtils'
@@ -38,13 +37,10 @@ export default function DPEAddressSearch({ searchParams, onSelectDpe }) {
     const [lat, lon] = clicked.geometry.coordinates
     async function fetchDPE() {
       try {
-        const ourUrl = `${getServerUrl()}/findDPE/${lon}/${lat}`
-
         const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?bbox=${computeBbox({ lat, lon, factor: 20 })}`
 
         const request = await fetch(url)
         const json = await request.json()
-        console.log('cyan', json)
         setDpes(json.results)
         setError(null)
       } catch (e) {
@@ -71,134 +67,144 @@ export default function DPEAddressSearch({ searchParams, onSelectDpe }) {
   }, [input, validInput])
 
   return (
-    <AddressInput>
-      {error && (
-        <p
+    <div
+      css={`
+        display: flex;
+        gap: 1rem;
+        > div {
+          width: 50%;
+        }
+      `}
+    >
+      <AddressInput>
+        {error && (
+          <p
+            css={`
+              background: #f9e2e2;
+              padding: 0.1rem 0.6rem;
+            `}
+          >
+            {error.message}{' '}
+          </p>
+        )}
+        <input
           css={`
-            background: #f9e2e2;
-            padding: 0.1rem 0.6rem;
+            ${clicked &&
+            input &&
+            `border-bottom: 2px solid var(--validColor) !important;`};
           `}
-        >
-          {error.message}{' '}
-        </p>
-      )}
-      <input
-        css={`
-          ${clicked &&
-          input &&
-          `border-bottom: 2px solid var(--validColor) !important;`};
-        `}
-        type="text"
-        autoFocus={true}
-        value={immediateInput}
-        placeholder={'12 rue Victor Hugo Rennes'}
-        onChange={(e) => {
-          setClicked(false)
-          setInput(e.target.value)
-        }}
-      />
-      {clicked && input && <Validated>Adresse validée</Validated>}
-      {validInput && !results && (
-        <small
-          css={`
-            margin: 0.2rem 0;
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <Loader />
-          Chargement...
-        </small>
-      )}
-      {results && !clicked && (
-        <small
-          css={`
-            color: #929292;
-            margin: 0.2rem 0 0.2rem 0.1rem;
-            font-size: 90%;
-          `}
-        >
-          Sélectionnez une adresse :
-        </small>
-      )}
-      <CityList>
-        {results &&
-          !clicked &&
-          results.map((result) => {
-            const { label, id } = result.properties
-            return (
-              <li
-                className={searchParams['id'] == id ? 'selected' : ''}
-                key={id}
-                onClick={() => {
-                  setInput(label)
-                  setClicked(result)
-                }}
-              >
-                <span>{label}</span>
-              </li>
-            )
-          })}
-      </CityList>
-      {map && active && (
-        <MapMarkers map={map} data={results} selectMarker={setClicked} />
-      )}
-      {map && dpes && (
-        <DpeMarkers
-          map={map}
-          featureCollection={{
-            type: 'FeatureCollection',
-
-            features: dpes.map((dpe) => {
-              const {
-                _geopoint: geopoint,
-                'N°_étage_appartement': etage,
-                Etiquette_DPE: etiquette,
-              } = dpe
-
-              const [lat, lon] = geopoint.split(',')
-
-              const color = dpeColors.find(
-                (dpe) => dpe.lettre === etiquette,
-              ).couleur
-              const fakeFloor = Math.round(Math.random() * 6)
-
-              return {
-                type: 'Feature',
-                geometry: {
-                  coordinates: [+lon, +lat],
-                  type: 'Point',
-                },
-                properties: {
-                  ...dpe,
-                  etage: +etage,
-                  top: (fakeFloor + 1) * 3,
-                  base: fakeFloor * 3,
-                  height: 3,
-                  etiquette,
-                  surface: +dpe['Surface_habitable_logement'],
-                  color,
-                },
-              }
-            }),
-          }}
-          selectMarker={(feature) => {
-            onSelectDpe?.(feature)
+          type="text"
+          autoFocus={true}
+          value={immediateInput}
+          placeholder={'12 rue Victor Hugo Rennes'}
+          onChange={(e) => {
+            setClicked(false)
+            setInput(e.target.value)
           }}
         />
-      )}
-      {active && (
+        {clicked && input && <Validated>Adresse validée</Validated>}
+        {validInput && !results && (
+          <small
+            css={`
+              margin: 0.2rem 0;
+              display: flex;
+              align-items: center;
+            `}
+          >
+            <Loader />
+            Chargement...
+          </small>
+        )}
+        {results && !clicked && (
+          <small
+            css={`
+              color: #929292;
+              margin: 0.2rem 0 0.2rem 0.1rem;
+              font-size: 90%;
+            `}
+          >
+            Sélectionnez une adresse :
+          </small>
+        )}
+        <CityList>
+          {results &&
+            !clicked &&
+            results.map((result) => {
+              const { label, id } = result.properties
+              return (
+                <li
+                  className={searchParams['id'] == id ? 'selected' : ''}
+                  key={id}
+                  onClick={() => {
+                    setInput(label)
+                    setClicked(result)
+                  }}
+                >
+                  <span>{label}</span>
+                </li>
+              )
+            })}
+        </CityList>
+      </AddressInput>
+      <div>
+        {map && (
+          <>
+            <MapMarkers map={map} data={results} selectMarker={setClicked} />
+            <DpeMarkers
+              map={map}
+              featureCollection={{
+                type: 'FeatureCollection',
+
+                features: dpes?.map((dpe) => {
+                  const {
+                    _geopoint: geopoint,
+                    'N°_étage_appartement': etage,
+                    Etiquette_DPE: etiquette,
+                  } = dpe
+
+                  const [lat, lon] = geopoint.split(',')
+
+                  const color = dpeColors.find(
+                    (dpe) => dpe.lettre === etiquette,
+                  ).couleur
+                  const fakeFloor = Math.round(Math.random() * 6)
+
+                  return {
+                    type: 'Feature',
+                    geometry: {
+                      coordinates: [+lon, +lat],
+                      type: 'Point',
+                    },
+                    properties: {
+                      ...dpe,
+                      etage: +etage,
+                      top: (fakeFloor + 1) * 3,
+                      base: fakeFloor * 3,
+                      height: 3,
+                      etiquette,
+                      surface: +dpe['Surface_habitable_logement'],
+                      color,
+                    },
+                  }
+                }),
+              }}
+              selectMarker={(feature) => {
+                onSelectDpe?.(feature)
+              }}
+            />
+          </>
+        )}
         <div
           ref={mapContainerRef}
           css={`
             width: 100%;
-            min-height: 700px;
+            min-height: 400px;
             height: 100%;
             border-radius: 0.3rem;
           `}
         />
-      )}
-    </AddressInput>
+      </div>
+    </div>
   )
 }
 

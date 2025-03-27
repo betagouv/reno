@@ -15,7 +15,6 @@ export default function useAddAddressMap(mapContainerRef, setLocation, active) {
   const [map, setMap] = useState(null)
   const mobile = false
   useEffect(() => {
-    if (!active) return
     if (!mapContainerRef.current) return undefined
 
     const newMap = new maplibregl.Map({

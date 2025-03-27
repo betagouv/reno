@@ -9,11 +9,9 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page(props: Props) {
-  const lettre = (await props.params).lettre
-
   return (
     <Suspense>
-      <DPEPage lettre={lettre} />
+      <DPEPage />
     </Suspense>
   )
 }
