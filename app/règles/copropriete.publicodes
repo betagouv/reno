@@ -23,7 +23,6 @@ copropriété . nom:
   question: Quelle est le nom de la copropriété ?
 
 copropriété . nombre de lots principaux:
-  formule: id # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
   question: |
     Combien de lots composent la copropriété ?
 
@@ -34,7 +33,6 @@ copropriété . nombre de lots principaux:
   unité: lots
 
 copropriété . nombre de logement:
-  formule: id # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
   question: Combien de logements composent la copropriété ?
   description: |
     Nous appelons ici "logement" les lots à usage d'habitation.
