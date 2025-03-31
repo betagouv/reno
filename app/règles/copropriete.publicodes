@@ -44,7 +44,7 @@ copropriété . nombre de logements:
   unité: logements
 
 copropriété . montant travaux:
-  question: Quel est le montant estimé de travaux pour cette rénovation?
+  question: Quel est le montant HT estimé de travaux pour cette rénovation ?
   par défaut:
     produit:
       - nombre de logements

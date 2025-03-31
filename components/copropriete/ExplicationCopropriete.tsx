@@ -215,7 +215,9 @@ export default function ExplicationCopropriete() {
                       flex-wrap: wrap;
                     `}
                   >
-                    <label id="budget-travaux">Votre budget travaux :</label>
+                    <label id="budget-travaux">
+                      Votre budget travaux (HT) :
+                    </label>
                     <div
                       css={`
                         margin: auto;
