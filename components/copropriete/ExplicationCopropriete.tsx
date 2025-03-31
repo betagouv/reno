@@ -122,11 +122,17 @@ export default function ExplicationCopropriete() {
                       display: flex;
                       flex-direction: column;
                       gap: 0.5rem;
+                      label {
+                        white-space: nowrap;
+                      }
                     `}
                   >
-                    <div>Nombre de logements :</div>
+                    <label htmlFor="nombre-logements">
+                      Nombre de logements :
+                    </label>
                     <div>
                       <Input
+                        id="nombre-logements"
                         css={`
                           line-height: 1.5rem;
                           border: 2px solid var(--color) !important;
@@ -164,9 +170,10 @@ export default function ExplicationCopropriete() {
                       gap: 0.5rem;
                     `}
                   >
-                    <div>Gain énergétique:</div>
+                    <label htmlFor="gain-énergétique">Gain énergétique :</label>
                     <div>
                       <Select
+                        id="gain-énergétique"
                         value={situation[
                           'copropriété . gain énergétique'
                         ].replaceAll('"', "'")}
@@ -207,7 +214,7 @@ export default function ExplicationCopropriete() {
                       gap: 0.5rem;
                     `}
                   >
-                    <div>Votre budget de travaux de rénovation:</div>
+                    <label id="budget-travaux">Votre budget travaux :</label>
                     <div
                       css={`
                         margin: auto;
