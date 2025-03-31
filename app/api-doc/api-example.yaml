@@ -33,7 +33,7 @@ MPR:
   gestes . chauffage . PAC . air-eau: oui
 copropriete:
   copropriété . condition 15 ans: oui
-  copropriété . nombre de logement: 30
+  copropriété . nombre de logements: 30
   copropriété . condition résidence principale: oui
   copropriété . gain énergétique: 'entre 35 % et 50 %'
   copropriété . bonus sortie passoire: oui
