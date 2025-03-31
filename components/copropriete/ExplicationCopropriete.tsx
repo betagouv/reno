@@ -244,7 +244,7 @@ export default function ExplicationCopropriete() {
                             outline: none;
                             color: var(--color);
                             font-size: 110%;
-                            max-width: 4rem;
+                            max-width: 6.5rem;
                           `}
                           autoFocus={false}
                           value={situation['copropriété . montant travaux']}
