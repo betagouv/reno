@@ -30,9 +30,17 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
+### v2.2.0
+
+:bug: Nous avons corrigé un bug important dans le modèle de calcul copropriété.
+
+Nous pensions que le plafond s'appliquait à la subvention, or il s'applique à l'assiette, c'est-à-dire au montant des travaux. C'est un cas classique de confusion qui intervient à chaque fois qu'un plafond s'applique : il faut être complètement explicite sur le sujet du plafond.
+
+Voir [les changements](https://github.com/betagouv/reno/pull/372).
+
 ### v2.1.0
 
-TODO
+Nous avons acté la sortie de beta après plusieurs mois d'utilisation.
 
 ### v2.0.0-beta4
 
