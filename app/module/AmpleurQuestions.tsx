@@ -527,7 +527,7 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'oui'}
+              checked={answered && situation[rule].includes('oui')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf oui'])
                 setSearchParams({
@@ -541,7 +541,7 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'non'}
+              checked={answered && situation[rule].includes('non')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf non'])
                 setSearchParams({
