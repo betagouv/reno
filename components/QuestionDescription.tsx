@@ -52,9 +52,10 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             css={`margin: 0;
                   font-size: 100%;
                   font-weight: normal;
+				  @media (max-width: 800px){font-size: 90%}
             }`}
           >
-            <span aria-hidden="true">💡</span> Comment répondre ?
+            <span aria-hidden="true">💡</span> Comment répondre&nbsp;?
           </h2>
           <span
             css={`
