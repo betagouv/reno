@@ -92,7 +92,7 @@ copropriété . gain énergétique:
       - 'moins de 35 %'
       - 'entre 35 % et 50 %'
       - 'plus de 50 %'
-  description: Bien sûr, il y a peu de chance que vous ayez ce chiffre en tête, n'hésitez pas à faire plusieurs simulations
+  description: Bien sûr, il y a peu de chance que vous ayez ce chiffre en tête, n'hésitez pas à faire plusieurs simulations.
 
 copropriété . gain énergétique . condition:
   titre: Gain énergétique suffisant
@@ -119,6 +119,18 @@ copropriété . pourcentage gain énergétique:
 copropriété . bonus sortie passoire:
   question: Votre immeuble est-il classe F ou G et atteindra-t-il après rénovation à minima une classe D ?
   par défaut: oui
+  description: |
+    Tout comme les logements individuels, les immeubles ont leur DPE dit "collectif". 
+
+    Si l'immeuble est une passoire énergétique, les copropriétaires pourront bénéficier d'un "bonus passoire" qui bonifie l'aide de l'État de 10 %.
+
+    Si vous ne connaissez pas cette information, n'hésitez pas à continuer avec la réponse qui vous semble le plus probable : par la suite [un diagnostic](https://www.service-public.fr/particuliers/vosdroits/F37504) pourra être voté par la copropriété.
+
+    👉️ Le DPE collectif est en train de devenir **obligatoire** selon le calendrier suivant : 
+      - le 1er janvier 2024 pour les copropriétés de plus de 200 lots
+      - le 1er janvier 2025 pour les copropriétés entre 50 et 200 lots
+      - le 1er janvier 2026 pour les copropriétés jusqu’à 50 lots.
+
 copropriété . pourcentage sortie passoire:
   variations:
     - si: bonus sortie passoire
