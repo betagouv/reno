@@ -20,6 +20,7 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import DpeAddressSearch from '../DpeAddressSearch'
 import { useState } from 'react'
 import enrichSituation from '../personas/enrichSituation'
+import DPEFacture from './DPEFacture'
 
 export default function DPEPage({ lettre }) {
   const [dpe, setDpe] = useState()
@@ -34,23 +35,23 @@ export default function DPEPage({ lettre }) {
 
     let situation = await enrichSituation({
       'logement . commune': `"${dpe['Code_INSEE_(BAN)']}"*`,
+      'logement . département': `"${dpe['N°_département_(BAN)']}"*`,
       'logement . commune . nom': `"${dpe['Nom__commune_(BAN)']}"*`,
-      'projet . DPE actuel':
-        conversionLettreIndex.indexOf(dpe['etiquette']) + 1,
+      'DPE . actuel': conversionLettreIndex.indexOf(dpe['etiquette']) + 1,
       'logement . type': `"${dpe['Type_bâtiment']}"`,
+      'ménage . région . IdF': `"${
+        ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
+          dpe['N°_département_(BAN)'],
+        )
+          ? 'oui'
+          : 'non'
+      }"*`,
     })
 
     setSearchParams(encodeSituation({ ...situation }))
 
     setDpe(dpe)
   }
-
-  // if (!situation['projet . DPE visé']) {
-  //   setSearchParams({
-  //     [encodeDottedName('projet . DPE visé')]:
-  //       `${Math.max(situation['DPE . actuel'] - 2, 0)}*`,
-  //   })
-  // }
 
   const interdictionLocation = {
     G: 2025,
@@ -125,14 +126,29 @@ export default function DPEPage({ lettre }) {
             <Wrapper $background="white" $noMargin={true}>
               <Content>
                 <h2>Quel impact sur la valeur de mon logement ?</h2>
-                <ValeurVerteModule type="widget" situation={situation} />
+                <ValeurVerteModule type="widget" />
               </Content>
             </Wrapper>
             <Wrapper $background="white" $noMargin={true} $last={true}>
               <Content>
                 <h2>Quelles aides sont mobilisables ?</h2>
-                {situation['projet . DPE visé'] && <Ampleur type="widget" />}
+                <div
+                  css={`
+                    h2 {
+                      font-size: 130% !important;
+                    }
+                  `}
+                >
+                  <Ampleur type="widget" />
+                </div>
                 <h2>Quels impact sur votre facture ?</h2>
+                <DPEFacture
+                  {...{
+                    setSearchParams,
+                    situation,
+                    dpe,
+                  }}
+                />
                 <h2>Quels travaux privilégiés ?</h2>
                 <h2>Une interdiction de location est-elle prévue?</h2>
                 {Object.keys(interdictionLocation).includes(lettre) ? (

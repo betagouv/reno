@@ -539,11 +539,6 @@ export default function DPEAnalyzer() {
               </Card>
             </div>
           </div>
-          <DPEFacture
-            montantFactureActuelle={dpe['Coût_total_5_usages']}
-            consoActuelle={dpe['Conso_5_usages_par_m²_é_primaire']}
-            etiquette={dpe['etiquette']}
-          />
           <hr />
           <h2>Données du XML brut (informations moins structurées)</h2>
           <div
