@@ -12,6 +12,7 @@ export default function GesteQuestion({
   situation,
   setSearchParams,
   answeredQuestions,
+  autoFocus,
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
@@ -71,6 +72,7 @@ export default function GesteQuestion({
           answeredQuestions,
           setSearchParams,
           evaluation,
+          autoFocus,
         }}
       />
     </div>
@@ -87,6 +89,7 @@ const InputComponent = ({
   answeredQuestions,
   setSearchParams,
   evaluation,
+  autoFocus,
 }) =>
   ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
     <SegmentedControl
@@ -125,6 +128,7 @@ const InputComponent = ({
         setSearchParams,
         situation,
         answeredQuestions,
+        autoFocus,
       }}
     />
   ) : question === 'ménage . revenu' ? (
@@ -143,5 +147,6 @@ const InputComponent = ({
       name={question}
       unit={evaluation.unit}
       onChange={onChange}
+      autoFocus={autoFocus}
     />
   )

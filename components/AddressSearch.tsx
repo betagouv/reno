@@ -7,7 +7,12 @@ function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
 
-export default function AddressSearch({ setChoice, situation, type }) {
+export default function AddressSearch({
+  setChoice,
+  situation,
+  type,
+  autoFocus = true,
+}) {
   const [immediateInput, setInput] = useState('')
 
   const [input] = useDebounce(immediateInput, 300)
@@ -69,7 +74,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
             `}
         `}
         type="text"
-        autoFocus={true}
+        autoFocus={autoFocus}
         value={immediateInput}
         placeholder={'commune ou code postal'}
         onChange={(e) => {
