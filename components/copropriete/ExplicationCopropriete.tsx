@@ -124,7 +124,7 @@ export default function ExplicationCopropriete() {
                       gap: 0.5rem;
                     `}
                   >
-                    <div>Nombre de logement:</div>
+                    <div>Nombre de logements :</div>
                     <div>
                       <Input
                         css={`
@@ -139,7 +139,7 @@ export default function ExplicationCopropriete() {
                           color: #000;
                         `}
                         autoFocus={false}
-                        value={situation['copropriété . nombre de logement']}
+                        value={situation['copropriété . nombre de logements']}
                         placeholder="0"
                         min="1"
                         onChange={(value) => {
@@ -147,7 +147,7 @@ export default function ExplicationCopropriete() {
                           if (!Number.isInteger(parseInt(value))) return
                           setSearchParams(
                             encodeSituation({
-                              'copropriété . nombre de logement': value + '*',
+                              'copropriété . nombre de logements': value + '*',
                             }),
                             'replace',
                             false,
@@ -308,7 +308,7 @@ export default function ExplicationCopropriete() {
                       engine,
                       situation,
                       dottedName:
-                        'copropriété . montant . plafond par logement',
+                        'copropriété . montant travaux . plafond par logement',
                     }}
                   />
                   par logement.
@@ -463,7 +463,7 @@ export default function ExplicationCopropriete() {
                       engine,
                       situation,
                       dottedName:
-                        'copropriété . montant . plafond par logement',
+                        'copropriété . montant travaux . plafond par logement',
                     }}
                   />
                   par logement. Pour votre copropriété de
@@ -471,7 +471,7 @@ export default function ExplicationCopropriete() {
                     {...{
                       engine,
                       situation,
-                      dottedName: 'copropriété . nombre de logement',
+                      dottedName: 'copropriété . nombre de logements',
                     }}
                   />
                   logements, cela représente un plafond de
@@ -479,7 +479,7 @@ export default function ExplicationCopropriete() {
                     {...{
                       engine,
                       situation,
-                      dottedName: 'copropriété . montant . plafond',
+                      dottedName: 'copropriété . montant travaux . plafond',
                     }}
                   />
                 </p>

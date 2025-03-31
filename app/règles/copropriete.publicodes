@@ -32,8 +32,9 @@ copropriété . nombre de lots principaux:
     ["Instruction MPR Copro"](<https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8>)
   unité: lots
 
-copropriété . nombre de logement:
+copropriété . nombre de logements:
   question: Combien de logements composent la copropriété ?
+  par défaut: 30 # valeur à la louche
   description: |
     Nous appelons ici "logement" les lots à usage d'habitation.
   suggestions:
@@ -46,7 +47,7 @@ copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
   par défaut:
     produit:
-      - nombre de logement
+      - nombre de logements
       - 10000€ # Nombre arbitraire pour le montant moyen des travaux par logement
   unité: '€'
 copropriété . condition 15 ans:
@@ -57,17 +58,31 @@ copropriété . condition résidence principale:
   titre: Quota d'habitations principales
   question:
     texte: >
-      La copropriété est-elle composée de minimum {{ pourcent }} de logement dédié à l'usage d'habitation principale ?
+      La copropriété a-t-elle au moins {{ pourcent }} de ses lots principaux ou de ses tantièmes dédiés à l'usage d'habitation principale ?
     avec:
       pourcent:
         variations:
-          - si: copropriété . nombre de lots principaux > 20
+          - si: copropriété . nombre de logements > 20
             alors: 75 %
           - sinon: 65 %
   description: |
     Si votre copropriété a une majorité de volets fermés la plupart de l'année, notamment hors saison estivale, il est probable qu'elle ne soit pas éligible à l'aide.
 
+    Un lot est dit principal s'il est un logement ou un commerce par exemple, et secondaire s'il est une cave ou un cellier.
+
+    Un lot est dit d'habitation principale s'il est l'habitation principale du propriétaire, ou d'un locataire en place.
+
+    Si la condition n'est pas satisfaite en comptant les lots, le calcul en tantième permet de pondérer la taille de certains logements par rapport à des lots commerciaux, ou par rapport à de petits lots mis en location saisonnière (donc qui ne sont pas considérés comme l'habitation principale de quelqu'un).
+
+  note: |
+
+    Nous notons une ambiguité sur le dénominateur du pourcentage : est-ce le nombre de lots principaux, ou le nombre de logements ?
+
     D'après [ce document de 2023](https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8), "Ne sont pas considérés comme lots d'habitation principale les locaux commerciaux, les bureaux". Nous comprenons qu'une copro avec plus de 25 ou 35 % de lots principaux de cet usage sont inéligible d'office, sans même regarder le pourcentage des lots d'habitation qui sont habitation principale.
+
+    C'est aussi ce que l'on comprend sur [cette page](https://www.economiedenergie.fr/actualites/maprimerenov-experimente-de-nouveaux-criteres-pour-les-petites-coproprietes) qui dit "Les immeubles qui comptent au minimum 65% de lots d'habitation principale peuvent bénéficier de MaPrimeRénov’ Copropriété, contre 75% aujourd’hui. En effet, en centre-ville, les rez-de-chaussée sont souvent occupés par des commerces, à savoir de l’espace non résidentiel."
+
+    À l'inverse, le booléen "> 20" est bien calculé sur le nombre de logements, et non pas sur le nombre de lots principaux, comme en atteste la [délibération n° 2023-49 : art. 2](https://www.anah.gouv.fr/sites/default/files/2023-12/CA-du-6-decembre-2023_2.1.2_Deliberation-2023-49_Experimentation-petites-copros.pdf).
   par défaut: oui
 
 copropriété . gain énergétique:
@@ -141,21 +156,29 @@ copropriété . condition éligibilité:
 copropriété . montant:
   applicable si: condition éligibilité
   produit:
-    - montant travaux
+    - montant travaux . plafonné
     - pourcentage d'aide
-  plafond: plafond
 
-copropriété . montant . plafond:
+copropriété . montant travaux . plafonné:
+  valeur: montant travaux
+  plafond: plafond
+  description: |
+    C'est le montant des travaux qui est plafonné, et non pas le montant de l'aide.
+
+    > Guide des aides financières de l'ANAH 2025-03
+    > L’ a i d e M a P r i m e R é n o v ’ Copropriété finance de 30 % à 45 % du montant des travaux selon l’ambition de rénovation énergétique (plafonné à un montant de travaux de 25 000 € par logement).
+
+copropriété . montant travaux . plafond:
   produit:
     - plafond par logement
-    - nombre de logement
+    - nombre de logements
   unité: €
-copropriété . montant . plafond par logement: 25000€
+copropriété . montant travaux . plafond par logement: 25000€
 copropriété . prime individuelle totale:
   unité: €
   produit:
     - prime individuelle
-    - nombre de logement
+    - nombre de logements
 copropriété . prime individuelle:
   par défaut: 3000 €
   variations:
