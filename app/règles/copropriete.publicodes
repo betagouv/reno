@@ -34,6 +34,7 @@ copropriété . nombre de lots principaux:
 
 copropriété . nombre de logements:
   question: Combien de logements composent la copropriété ?
+  par défaut: 30 # valeur à la louche
   description: |
     Nous appelons ici "logement" les lots à usage d'habitation.
   suggestions:
