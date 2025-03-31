@@ -39,10 +39,9 @@ export async function getCommune(situation, type) {
     situation[type]
   ) {
     const response = await fetch(
-      `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
+      `https://geo.api.gouv.fr/communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
     )
-    const json = await response.json()
-    return json[0]
+    return await response.json()
   }
   return null
 }
