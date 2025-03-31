@@ -61,7 +61,7 @@ copropriété . condition résidence principale:
     avec:
       pourcent:
         variations:
-          - si: copropriété . nombre de lots principaux > 20
+          - si: copropriété . nombre de logements > 20
             alors: 75 %
           - sinon: 65 %
   description: |
@@ -71,11 +71,13 @@ copropriété . condition résidence principale:
 
   note: |
 
-    Nous notons une ambiguité sur le dénominateur : est-ce le nombre de lots principaux, ou le nombre de logements ?
+    Nous notons une ambiguité sur le dénominateur du pourcentage : est-ce le nombre de lots principaux, ou le nombre de logements ?
 
     D'après [ce document de 2023](https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8), "Ne sont pas considérés comme lots d'habitation principale les locaux commerciaux, les bureaux". Nous comprenons qu'une copro avec plus de 25 ou 35 % de lots principaux de cet usage sont inéligible d'office, sans même regarder le pourcentage des lots d'habitation qui sont habitation principale.
 
     C'est aussi ce que l'on comprend sur [cette page](https://www.economiedenergie.fr/actualites/maprimerenov-experimente-de-nouveaux-criteres-pour-les-petites-coproprietes) qui dit "Les immeubles qui comptent au minimum 65% de lots d'habitation principale peuvent bénéficier de MaPrimeRénov’ Copropriété, contre 75% aujourd’hui. En effet, en centre-ville, les rez-de-chaussée sont souvent occupés par des commerces, à savoir de l’espace non résidentiel."
+
+    À l'inverse, le booléen "> 20" est bien calculé sur le nombre de logements, et non pas sur le nombre de lots principaux, comme en atteste la [délibération n° 2023-49 : art. 2](https://www.anah.gouv.fr/sites/default/files/2023-12/CA-du-6-decembre-2023_2.1.2_Deliberation-2023-49_Experimentation-petites-copros.pdf).
   par défaut: oui
 
 copropriété . gain énergétique:
