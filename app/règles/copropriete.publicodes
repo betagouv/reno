@@ -32,7 +32,7 @@ copropriété . nombre de lots principaux:
     ["Instruction MPR Copro"](<https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8>)
   unité: lots
 
-copropriété . nombre de logement:
+copropriété . nombre de logements:
   question: Combien de logements composent la copropriété ?
   description: |
     Nous appelons ici "logement" les lots à usage d'habitation.
@@ -46,7 +46,7 @@ copropriété . montant travaux:
   question: Quel est le montant estimé de travaux pour cette rénovation?
   par défaut:
     produit:
-      - nombre de logement
+      - nombre de logements
       - 10000€ # Nombre arbitraire pour le montant moyen des travaux par logement
   unité: '€'
 copropriété . condition 15 ans:
@@ -158,14 +158,14 @@ copropriété . montant:
 copropriété . montant . plafond:
   produit:
     - plafond par logement
-    - nombre de logement
+    - nombre de logements
   unité: €
 copropriété . montant . plafond par logement: 25000€
 copropriété . prime individuelle totale:
   unité: €
   produit:
     - prime individuelle
-    - nombre de logement
+    - nombre de logements
 copropriété . prime individuelle:
   par défaut: 3000 €
   variations:
