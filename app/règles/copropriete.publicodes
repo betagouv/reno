@@ -70,6 +70,10 @@ copropriété . condition résidence principale:
 
     Un lot est dit principal s'il est un logement ou un commerce par exemple, et secondaire s'il est une cave ou un cellier.
 
+    Un lot est dit d'habitation principale s'il est l'habitation principale du propriétaire, ou d'un locataire en place.
+
+    Si la condition n'est pas satisfaite en comptant les lots, le calcul en tantième permet de pondérer la taille de certains logements par rapport à des lots commerciaux, ou par rapport à de petits lots mis en location saisonnière (donc qui ne sont pas considérés comme l'habitation principale de quelqu'un).
+
   note: |
 
     Nous notons une ambiguité sur le dénominateur du pourcentage : est-ce le nombre de lots principaux, ou le nombre de logements ?
