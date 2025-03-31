@@ -321,7 +321,7 @@ export default function ExplicationCopropriete() {
                   />
                   par logement.
                   {(bonusSortiePassoire !== 0 || bonusFragile !== 0) &&
-                    ' Ce pourcentage inclus '}
+                    ' Ce pourcentage inclut '}
                   {bonusSortiePassoire !== 0 && (
                     <>
                       <strong>{bonusSortiePassoire}%</strong> de bonus{' '}
@@ -482,7 +482,7 @@ export default function ExplicationCopropriete() {
                       dottedName: 'copropriété . nombre de logements',
                     }}
                   />
-                  logements, cela représente un plafond de
+                  , cela représente un plafond de
                   <Value
                     {...{
                       engine,
