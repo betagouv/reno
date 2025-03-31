@@ -57,7 +57,7 @@ copropriété . condition résidence principale:
   titre: Quota d'habitations principales
   question:
     texte: >
-      La copropriété est-elle composée de minimum {{ pourcent }} de logement dédié à l'usage d'habitation principale ?
+      La copropriété a-t-elle au moins {{ pourcent }} de ses lots principaux ou de ses tantièmes dédiés à l'usage d'habitation principale ?
     avec:
       pourcent:
         variations:
@@ -67,7 +67,15 @@ copropriété . condition résidence principale:
   description: |
     Si votre copropriété a une majorité de volets fermés la plupart de l'année, notamment hors saison estivale, il est probable qu'elle ne soit pas éligible à l'aide.
 
+    Un lot est dit principal s'il est un logement ou un commerce par exemple, et secondaire s'il est une cave ou un cellier.
+
+  note: |
+
+    Nous notons une ambiguité sur le dénominateur : est-ce le nombre de lots principaux, ou le nombre de logements ?
+
     D'après [ce document de 2023](https://www.anah.gouv.fr/sites/default/files/2023-09/instruction_mpr_copro_fusion.pdf#page=8), "Ne sont pas considérés comme lots d'habitation principale les locaux commerciaux, les bureaux". Nous comprenons qu'une copro avec plus de 25 ou 35 % de lots principaux de cet usage sont inéligible d'office, sans même regarder le pourcentage des lots d'habitation qui sont habitation principale.
+
+    C'est aussi ce que l'on comprend sur [cette page](https://www.economiedenergie.fr/actualites/maprimerenov-experimente-de-nouveaux-criteres-pour-les-petites-coproprietes) qui dit "Les immeubles qui comptent au minimum 65% de lots d'habitation principale peuvent bénéficier de MaPrimeRénov’ Copropriété, contre 75% aujourd’hui. En effet, en centre-ville, les rez-de-chaussée sont souvent occupés par des commerces, à savoir de l’espace non résidentiel."
   par défaut: oui
 
 copropriété . gain énergétique:
