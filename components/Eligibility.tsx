@@ -12,7 +12,6 @@ import { useAides } from './ampleur/useAides'
 import { Section } from './UI'
 import { push } from '@socialgouv/matomo-next'
 import CopyButton from './CopyButton'
-import Enquete from './Enquete'
 
 export default function Eligibility({
   setSearchParams,
@@ -87,7 +86,6 @@ export default function Eligibility({
           </p>
         )}
         <Avis {...{ situation, engine }} />
-        <Enquete />
         <div
           css={`
             display: flex;
@@ -156,7 +154,7 @@ export default function Eligibility({
               "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
           }}
         />
-        {/* <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" /> */}
+        <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
       </CustomQuestionWrapper>
     </Section>
   )
