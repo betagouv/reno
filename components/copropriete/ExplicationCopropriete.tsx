@@ -212,6 +212,7 @@ export default function ExplicationCopropriete() {
                       display: flex;
                       flex-direction: column;
                       gap: 0.5rem;
+                      flex-wrap: wrap;
                     `}
                   >
                     <label id="budget-travaux">Votre budget travaux :</label>
