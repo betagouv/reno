@@ -36,10 +36,6 @@ const AmpleurWidget = ({
   isMobile,
   shouldDisplay,
 }) => {
-  engine.setSituation(situation)
-  const aides = useAides(engine, situation)
-  const aidesToDisplay = filterAidesToDisplay(aides)
-
   return (
     <CalculatorWidget>
       <div
