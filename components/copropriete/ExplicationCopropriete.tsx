@@ -308,7 +308,7 @@ export default function ExplicationCopropriete() {
                       engine,
                       situation,
                       dottedName:
-                        'copropriété . montant . plafond par logement',
+                        'copropriété . montant travaux . plafond par logement',
                     }}
                   />
                   par logement.
@@ -463,7 +463,7 @@ export default function ExplicationCopropriete() {
                       engine,
                       situation,
                       dottedName:
-                        'copropriété . montant . plafond par logement',
+                        'copropriété . montant travaux . plafond par logement',
                     }}
                   />
                   par logement. Pour votre copropriété de
@@ -479,7 +479,7 @@ export default function ExplicationCopropriete() {
                     {...{
                       engine,
                       situation,
-                      dottedName: 'copropriété . montant . plafond',
+                      dottedName: 'copropriété . montant travaux . plafond',
                     }}
                   />
                 </p>
