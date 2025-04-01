@@ -16,12 +16,14 @@ export default function useIsInIframe() {
     if (iframe.isInIframe(params)) {
       setIsInIframe(true)
 
+      // NOTE: should we really want a minimum height for the iframe? Why?
+      // const minHeight = 700
+
       // The code below communicates with a script on a host site
       // to automatically resize the iframe when its inner content height
       // change.
-      const minHeight = 700
       observer = new ResizeObserver(([entry]) => {
-        const value = Math.max(minHeight, entry.contentRect.height + 10) // without this 6 padding, the scroll bar will still be present
+        const value = entry.contentRect.height + 10 // without this 6 padding, the scroll bar will still be present
 
         iframe.postMessageResizeHeight(value)
       })
