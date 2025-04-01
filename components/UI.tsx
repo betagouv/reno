@@ -51,6 +51,7 @@ export const Card = styled.div`
   position: relative;
   background: white;
   margin: 0.6rem 0;
+  padding: 1rem 1.5rem;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
   ${cardBorder}
   ${(p) => p.$noBorder && `border: none;`}
@@ -61,7 +62,7 @@ export const FooterWrapper = styled.footer`
     border-top: 3px solid var(--color);
     padding: 2rem 0.4rem 0;
     width: 100%;
-    margin-top: 3vh;
+    margin-top: 1rem;
   }
   > div {
     max-width: 1200px;
@@ -196,7 +197,7 @@ export const TopBanner = styled.p`
 `
 
 export const CTAWrapper = styled.div`
-  margin: 3vh 0;
+  margin: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: ${(p) => p.$justify || 'right'};
@@ -295,7 +296,7 @@ export const LinkStyleButton = styled.span`
   }
 `
 export const Intro = styled.div`
-  margin: 1vh 0 1rem;
+  margin: 0.5rem 0 1rem;
   width: 30rem;
   max-width: 90vw;
 `
@@ -343,7 +344,6 @@ export const ConditionEligibiliteUI = ({ children }) => {
     <>
       <h2
         css={`
-          margin: 2vh 0;
           font-size: 130%;
         `}
       >

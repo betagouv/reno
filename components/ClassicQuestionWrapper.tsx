@@ -33,6 +33,7 @@ export const QuestionText = ({
     : rule.question || rule.titre || ruleName
   return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
 }
+
 export default function ClassicQuestionWrapper({
   children,
   rule,

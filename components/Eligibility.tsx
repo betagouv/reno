@@ -14,7 +14,6 @@ import { push } from '@socialgouv/matomo-next'
 import CopyButton from './CopyButton'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
-import { Section } from './UI'
 
 export default function Eligibility({
   setSearchParams,
@@ -162,7 +161,9 @@ export default function Eligibility({
               "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
           }}
         />
-        <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+        {isInIframe ? null : (
+          <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+        )}
       </CustomQuestionWrapper>
     </Section>
   )
