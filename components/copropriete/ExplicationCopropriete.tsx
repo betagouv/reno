@@ -1,29 +1,35 @@
 'use client'
 
-import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import {
   encodeSituation,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
+import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
+
 import useSetSearchParams from '@/components/useSetSearchParams'
+import editIcon from '@/public/crayon.svg'
+
+import informationIcon from '@/public/information.svg'
+import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
-import Image from 'next/image'
-import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
-import { useSearchParams } from 'next/navigation'
 import Input from '../Input'
 import { roundToThousands } from '../utils'
-import informationIcon from '@/public/information.svg'
-import Link from 'next/link'
-import MprCategory from '../MprCategory'
+
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
-import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import Value from '../Value'
 import CopyButton from '../CopyButton'
-import editIcon from '@/public/crayon.svg'
+import { CustomQuestionWrapper } from '../CustomQuestionUI'
+import MprCategory from '../MprCategory'
 import Select from '../Select'
+
+import Value from '../Value'
+import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
+
 import CalculatorWidget from '../CalculatorWidget'
 
 export default function ExplicationCopropriete() {
@@ -59,6 +65,8 @@ export default function ExplicationCopropriete() {
       'copropriété . pourcentage sortie passoire',
     ).nodeValue
   }
+  const nom = situation['copropriété . nom'],
+    nomContent = nom ? nom + ' ' : null
 
   return (
     <Section>
@@ -85,7 +93,7 @@ export default function ExplicationCopropriete() {
         {isEligibile ? (
           <>
             <p>
-              Votre copropriété est{' '}
+              Votre copropriété {nomContent}est{' '}
               <PrimeStyle>
                 <strong>éligible</strong>
               </PrimeStyle>{' '}
@@ -101,6 +109,7 @@ export default function ExplicationCopropriete() {
               </PrimeStyle>{' '}
               au dispositif <strong>MaPrimeRénov' Copropriété</strong>
             </p>
+            <ExplicationsCoproIneligible {...{ situation, engine }} />
           </>
         )}
         <>
@@ -113,11 +122,17 @@ export default function ExplicationCopropriete() {
                       display: flex;
                       flex-direction: column;
                       gap: 0.5rem;
+                      label {
+                        white-space: nowrap;
+                      }
                     `}
                   >
-                    <div>Nombre de logement:</div>
+                    <label htmlFor="nombre-logements">
+                      Nombre de logements :
+                    </label>
                     <div>
                       <Input
+                        id="nombre-logements"
                         css={`
                           line-height: 1.5rem;
                           border: 2px solid var(--color) !important;
@@ -130,7 +145,7 @@ export default function ExplicationCopropriete() {
                           color: #000;
                         `}
                         autoFocus={false}
-                        value={situation['copropriété . nombre de logement']}
+                        value={situation['copropriété . nombre de logements']}
                         placeholder="0"
                         min="1"
                         onChange={(value) => {
@@ -138,7 +153,7 @@ export default function ExplicationCopropriete() {
                           if (!Number.isInteger(parseInt(value))) return
                           setSearchParams(
                             encodeSituation({
-                              'copropriété . nombre de logement': value + '*',
+                              'copropriété . nombre de logements': value + '*',
                             }),
                             'replace',
                             false,
@@ -155,9 +170,10 @@ export default function ExplicationCopropriete() {
                       gap: 0.5rem;
                     `}
                   >
-                    <div>Gain énergétique:</div>
+                    <label htmlFor="gain-énergétique">Gain énergétique :</label>
                     <div>
                       <Select
+                        id="gain-énergétique"
                         value={situation[
                           'copropriété . gain énergétique'
                         ].replaceAll('"', "'")}
@@ -179,6 +195,7 @@ export default function ExplicationCopropriete() {
                           )
                         }
                         css={`
+                          height: auto;
                           border: 2px solid var(--color);
                           border-radius: 0.3rem;
                           padding: 0.7rem;
@@ -195,9 +212,12 @@ export default function ExplicationCopropriete() {
                       display: flex;
                       flex-direction: column;
                       gap: 0.5rem;
+                      flex-wrap: wrap;
                     `}
                   >
-                    <div>Votre budget de travaux de rénovation:</div>
+                    <label id="budget-travaux">
+                      Votre budget travaux (HT) :
+                    </label>
                     <div
                       css={`
                         margin: auto;
@@ -227,9 +247,9 @@ export default function ExplicationCopropriete() {
                             outline: none;
                             color: var(--color);
                             font-size: 110%;
-                            max-width: 4rem;
+                            max-width: 6.5rem;
                           `}
-                          autoFocus={false}
+                          autoFocus={true}
                           value={situation['copropriété . montant travaux']}
                           placeholder="mes travaux"
                           min="0"
@@ -298,12 +318,12 @@ export default function ExplicationCopropriete() {
                       engine,
                       situation,
                       dottedName:
-                        'copropriété . montant . plafond par logement',
+                        'copropriété . montant travaux . plafond par logement',
                     }}
                   />
                   par logement.
                   {(bonusSortiePassoire !== 0 || bonusFragile !== 0) &&
-                    ' Ce pourcentage inclus '}
+                    ' Ce pourcentage inclut '}
                   {bonusSortiePassoire !== 0 && (
                     <>
                       <strong>{bonusSortiePassoire}%</strong> de bonus{' '}
@@ -453,7 +473,7 @@ export default function ExplicationCopropriete() {
                       engine,
                       situation,
                       dottedName:
-                        'copropriété . montant . plafond par logement',
+                        'copropriété . montant travaux . plafond par logement',
                     }}
                   />
                   par logement. Pour votre copropriété de
@@ -461,15 +481,15 @@ export default function ExplicationCopropriete() {
                     {...{
                       engine,
                       situation,
-                      dottedName: 'copropriété . nombre de logement',
+                      dottedName: 'copropriété . nombre de logements',
                     }}
                   />
-                  logements, cela représente un plafond de
+                  , cela représente un plafond de
                   <Value
                     {...{
                       engine,
                       situation,
-                      dottedName: 'copropriété . montant . plafond',
+                      dottedName: 'copropriété . montant travaux . plafond',
                     }}
                   />
                 </p>
@@ -562,8 +582,8 @@ export default function ExplicationCopropriete() {
                   <span>Ce n'est pas fini!</span>
                 </div>
                 <p>
-                  Les copropriétaires sont{' '}
-                  <strong>peut-être éligibles individuellement</strong> à
+                  Les copropriétaires{' '}
+                  <strong>peuvent être éligibles individuellement</strong> à
                   d'autres aides à la rénovation.
                   <br />
                   C'est pourquoi, nous vous invitons à refaire une simulation

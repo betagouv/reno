@@ -1,5 +1,5 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
@@ -7,13 +7,20 @@ function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
 
-export default function AddressSearch({ setChoice, situation, type }) {
+export default function AddressSearch({
+  setChoice,
+  situation,
+  type,
+  autoFocus = true,
+}) {
   const [immediateInput, setInput] = useState('')
 
   const [input] = useDebounce(immediateInput, 300)
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
+
   const [clicked, setClicked] = useState(situation[type])
+
   const validInput = input && input.length >= 3
 
   // Get the commune name from the code if it exists to display it in the search box
@@ -67,7 +74,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
             `}
         `}
         type="text"
-        autoFocus={true}
+        autoFocus={autoFocus}
         value={immediateInput}
         placeholder={'commune ou code postal'}
         onChange={(e) => {

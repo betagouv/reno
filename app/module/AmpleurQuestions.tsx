@@ -524,11 +524,11 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'non'}
+              checked={answered && situation[rule] === 'oui'}
               onChange={() => {
-                push(['trackEvent', 'Module', 'Interaction', 'idf desktop non'])
+                push(['trackEvent', 'Module', 'Interaction', 'idf oui'])
                 setSearchParams({
-                  [encodeDottedName(rule)]: 'non*',
+                  [encodeDottedName(rule)]: 'oui*',
                 })
               }}
             />
@@ -538,11 +538,11 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'oui'}
+              checked={answered && situation[rule] === 'non'}
               onChange={() => {
-                push(['trackEvent', 'Module', 'Interaction', 'idf desktop oui'])
+                push(['trackEvent', 'Module', 'Interaction', 'idf non'])
                 setSearchParams({
-                  [encodeDottedName(rule)]: 'oui*',
+                  [encodeDottedName(rule)]: 'non*',
                 })
               }}
             />

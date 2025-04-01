@@ -14,5 +14,5 @@
   situation:
     DPE . actuel: 5
     logement . prix d'achat: 350000
-    logement . commune: 01033
+    logement . commune: '01033'
     logement . type: '"maison"'

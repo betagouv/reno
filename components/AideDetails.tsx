@@ -1,5 +1,4 @@
 import Feedback from '@/app/contact/Feedback'
-import { createExampleSituation } from './ampleur/AmpleurSummary'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'

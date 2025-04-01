@@ -186,6 +186,7 @@ const Triangle = ({ background, selected, selected2 }) => (
   margin-left: -1px
 		  `)}
   >
+
     <polygon
       points="0,0 180,200 0,400"
       style={css(`

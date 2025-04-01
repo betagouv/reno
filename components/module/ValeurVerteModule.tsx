@@ -151,32 +151,34 @@ export default function ValeurVerteModule({ type, lettre }) {
             text={'Et il a une étiquette DPE'}
           />
         </Li>
-        <Li
-          $next={answeredQuestions.includes('DPE . actuel')}
-          $touched={answeredQuestions.includes('projet . DPE visé')}
-        >
-          <Dot />
-          <span
-            css={`
-              li {
-                margin: 0 !important;
-              }
-            `}
+        {situation['DPE . actuel'] > 2 && (
+          <Li
+            $next={answeredQuestions.includes('DPE . actuel')}
+            $touched={answeredQuestions.includes('projet . DPE visé')}
           >
-            <TargetDPETabs
-              {...{
-                oldIndex: situation['DPE . actuel'] - 1,
-                setSearchParams,
-                answeredQuestions,
-                choice: situation['projet . DPE visé'] - 1,
-                engine,
-                situation,
-                columnDisplay: isMobile,
-                text: 'Après les travaux, je vise',
-              }}
-            />
-          </span>
-        </Li>
+            <Dot />
+            <span
+              css={`
+                li {
+                  margin: 0 !important;
+                }
+              `}
+            >
+              <TargetDPETabs
+                {...{
+                  oldIndex: situation['DPE . actuel'] - 1,
+                  setSearchParams,
+                  answeredQuestions,
+                  choice: Math.max(1, situation['projet . DPE visé'] - 1),
+                  engine,
+                  situation,
+                  columnDisplay: isMobile,
+                  text: 'Après les travaux, je vise',
+                }}
+              />
+            </span>
+          </Li>
+        )}
       </QuestionList>
       <EvaluationValueWrapper $active={plusValue != 0 && !isNaN(plusValue)}>
         <h2
@@ -184,10 +186,16 @@ export default function ValeurVerteModule({ type, lettre }) {
             ${isMobile && 'font-size: 105% !important;'}
           `}
         >
-          <span aria-hidden="true">💶</span> Après rénovation, mon bien vaudra
+          <span aria-hidden="true">💶</span> Après rénovation
+          {!isMobile ? ' énergétique' : ''}, mon bien vaudra
           {!isMobile && ' :'}{' '}
         </h2>
-        {plusValue != 0 && !isNaN(plusValue) && (
+        {situation['DPE . actuel'] <= 2 ? (
+          <>
+            🤔 Nous ne pouvons estimer l'impact d'une rénovation sur les biens
+            classés <DPELabel index="0" /> ou <DPELabel index="1" />
+          </>
+        ) : plusValue != 0 && !isNaN(plusValue) ? (
           <>
             <div
               css={`
@@ -214,6 +222,11 @@ export default function ValeurVerteModule({ type, lettre }) {
               }}
             />
           </>
+        ) : (
+          <>
+            🤔 Répondez aux questions pour connaître la valeur verte de votre
+            bien
+          </>
         )}
         {isNaN(plusValue) && (
           <>
@@ -233,6 +246,26 @@ export default function ValeurVerteModule({ type, lettre }) {
           </CTA>
         </CTAWrapper>
       </EvaluationValueWrapper>
+      <small
+        css={`
+          display: inline-block;
+          margin-top: 0.5rem;
+          @media (max-width: 400px) {
+            margin: 0rem;
+          }
+        `}
+      >
+        Source:{' '}
+        <em>
+          <a
+            href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
+            title="Notaires de France"
+            target="_blank"
+          >
+            Notaires de France
+          </a>
+        </em>
+      </small>
     </ModuleWrapper>
   ) : (
     <CalculatorWidget>
