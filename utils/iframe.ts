@@ -26,9 +26,12 @@ export function postMessageResizeHeight(
   )
 }
 
-export function postMessageSimulationDone(targetOrigin: string = '*'): void {
+export function postMessageEligibilityDone(
+  situation: object,
+  targetOrigin: string = '*',
+): void {
   window.parent?.postMessage(
-    { kind: 'mesaidesreno-simulation-done' },
+    { kind: 'mesaidesreno-eligibility-done', situation },
     targetOrigin,
   )
 }

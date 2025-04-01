@@ -41,7 +41,7 @@ export default function Eligibility({
   const showPersonaBar = searchParams.personas != null
 
   if (isInIframe) {
-    iframe.postMessageSimulationDone()
+    iframe.postMessageEligibilityDone(situation)
   }
 
   return (
