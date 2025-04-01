@@ -11,6 +11,18 @@ import editIcon from '@/public/crayon.svg'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+
+const energies = [
+  { valeur: '', titre: 'Aucune', prixMoyen: 0 },
+  { valeur: 'électricité', titre: 'Électricité', prixMoyen: 0.2276 },
+  { valeur: 'gaz', titre: 'Gaz naturel', prixMoyen: 0.0968 },
+  { valeur: 'fioul', titre: 'Fioul', prixMoyen: 0.1 },
+  { valeur: 'bois', titre: 'Bois – Bûches', prixMoyen: 0.04 },
+  { valeur: 'granulés', titre: 'Granulés', prixMoyen: 0.07 },
+  { valeur: 'propane', titre: 'Propane', prixMoyen: 0.13 },
+  { valeur: 'charbon', titre: 'Charbon', prixMoyen: 0.072 },
+]
 
 const FactureWidget = ({
   engine,
@@ -19,40 +31,58 @@ const FactureWidget = ({
   answeredQuestions,
   isMobile,
 }) => {
-  const energies = [
-    { valeur: '', titre: 'Aucune', prixMoyen: 0 },
-    { valeur: 'électricité', titre: 'Électricité', prixMoyen: 0.2276 },
-    { valeur: 'gaz', titre: 'Gaz naturel', prixMoyen: 0.0968 },
-    { valeur: 'fioul', titre: 'Fioul', prixMoyen: 0.1 },
-    { valeur: 'bois', titre: 'Bois', prixMoyen: 0.04 },
-    { valeur: 'granulés', titre: 'Granulés', prixMoyen: 0.07 },
-    { valeur: 'propane', titre: 'Propane', prixMoyen: 0.13 },
-    { valeur: 'charbon', titre: 'Charbon', prixMoyen: 0.072 },
-  ]
+  const [pourcentagesAvantReno, setPourcentagesAvantReno] = useState([])
+  const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
+  const [energiesUtilisees, setEnergiesUtilisees] = useState([])
+  const [montantFactureActuelle, setMontantFactureActuelle] = useState()
+  const updatePourcentage = (index, value, setter) => {
+    setter((prev) => prev.map((p, i) => (i === index ? value : p)))
+  }
+
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
 
-  const energie = energies.find((e) => e.titre == dpe['Type_énergie_n°1'])
-  const energie2 = energies.find((e) => e.titre == dpe['Type_énergie_n°2'])
-  let montantFactureActuelle = Math.round(
-    energie?.prixMoyen * dpe['Conso_5_usages_é_finale'],
-  )
-  let percentEnergie1 =
-    (dpe['Conso_5_usages_é_finale_énergie_n°1'] /
-      dpe['Conso_5_usages_é_finale']) *
-    100
-  let percentEnergie2 = 0
-  if (dpe['Conso_5_usages_é_finale_énergie_n°2']) {
-    montantFactureActuelle = Math.round(
-      energie?.prixMoyen * dpe['Conso_5_usages_é_finale_énergie_n°1'] +
-        energie2?.prixMoyen * dpe['Conso_5_usages_é_finale_énergie_n°2'],
+  useEffect(() => {
+    setEnergiesUtilisees(
+      [1, 2, 3].map((i) =>
+        energies.find((e) => e.titre === dpe[`Type_énergie_n°${i}`]),
+      ),
     )
-    percentEnergie2 =
-      (dpe['Conso_5_usages_é_finale_énergie_n°2'] /
-        dpe['Conso_5_usages_é_finale']) *
-      100
-  }
+
+    const noDetail =
+      dpe['Conso_5_usages_é_finale'] ===
+        dpe['Conso_5_usages_é_finale_énergie_n°1'] &&
+      dpe['Conso_5_usages_é_finale_énergie_n°1'] ===
+        dpe['Conso_5_usages_é_finale_énergie_n°2']
+
+    const pourcentageInitial = [1, 2, 3].map((i) =>
+      dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] > 0 && !noDetail
+        ? Math.round(
+            ((dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] || 0) /
+              dpe['Conso_5_usages_é_finale']) *
+              100,
+          )
+        : '?',
+    )
+    console.log('pourcentageInitial', pourcentageInitial)
+    setPourcentagesAvantReno(pourcentageInitial)
+    setPourcentagesApresReno(pourcentageInitial)
+    setMontantFactureActuelle(
+      noDetail
+        ? dpe['Coût_total_5_usages']
+        : Math.round(
+            energiesUtilisees.reduce(
+              (total, energie, i) =>
+                total +
+                (energie?.prixMoyen || 0) *
+                  (dpe[`Conso_5_usages_é_finale_énergie_n°${i + 1}`] || 0),
+              0,
+            ),
+          ),
+    )
+  }, [dpe])
+
   const targetDPE = situation['projet . DPE visé']
   const moyenneConsoClasseDPE =
     (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
@@ -61,23 +91,90 @@ const FactureWidget = ({
     dpe['Conso_5_usages_par_m²_é_primaire'] / moyenneConsoClasseDPE
   const montantFactureEstime = montantFactureActuelle / pourcentageEconomieVise
 
+  const EnergieTable = ({
+    title,
+    pourcentages,
+    setPourcentages,
+    energies,
+    editable,
+  }) => (
+    <div>
+      <div
+        css={`
+          font-weight: bold;
+          text-align: center;
+        `}
+      >
+        {title}
+      </div>
+      <table>
+        {/* <thead>
+          <tr>
+            <th>Type</th>
+            <th>Proportion</th>
+          </tr>
+        </thead> */}
+        <tbody>
+          {pourcentages.map((_, index) => {
+            if (!energiesUtilisees[index]) return
+            return (
+              <tr key={index}>
+                <td>
+                  <Select
+                    disableInstruction={false}
+                    disabled={!editable}
+                    value={energiesUtilisees[index]?.valeur}
+                    values={energies}
+                    onChange={() => {}}
+                  />
+                </td>
+                <td>
+                  {pourcentages[index] != '?' && (
+                    <div className="input-wrapper">
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        disabled={!editable}
+                        value={pourcentages[index]}
+                        onChange={(e) =>
+                          updatePourcentage(
+                            index,
+                            Math.max(0, Math.min(100, Number(e.target.value))),
+                            setPourcentages,
+                          )
+                        }
+                      />
+                    </div>
+                  )}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
+
   return (
     <CalculatorWidget>
       <div
         css={`
-          margin-bottom: 1rem;
+          display: flex;
           > div {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 1rem;
+            width: 50%;
           }
-
           table {
+            margin: auto;
             th {
               font-weight: normal;
             }
             td {
               text-align: center;
+              padding: 0.2rem;
             }
             input {
               height: 2.8em !important;
@@ -92,290 +189,135 @@ const FactureWidget = ({
               transform: translateY(55%) translateX(-150%);
               pointer-events: none;
             }
+            select {
+              height: 2.8rem;
+              background: #f5f5fe;
+              max-width: 90vw;
+            }
           }
         `}
       >
         <div>
-          <div>Facture actuelle estimée:</div>
-          <div
-            css={`
-              height: 2.8rem;
-              margin: auto;
-              border: 2px solid var(--color);
-              width: 10rem;
-              color: var(--color);
-              text-align: center;
-              border-radius: 0.3rem;
-              padding: 0.7rem;
-              box-shadow: var(--shadow-elevation-medium);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
+          <div>
+            <EnergieTable
+              title="Actuellement :"
+              pourcentages={pourcentagesAvantReno}
+              setPourcentages={setPourcentagesAvantReno}
+              energies={energies}
+            />
+          </div>
+          <DPEQuickSwitch
+            oldIndex={situation['DPE . actuel'] - 1}
+            situation={situation}
+            columnDisplay={true}
+            editMode={true}
+          />
+          <div>
+            <div>
+              <span aria-hidden="true">💶</span> Facture actuelle estimée :
+            </div>
             <div
               css={`
-                flex-grow: 1;
+                margin: auto;
+                margin-top: 0.5rem;
+                border: 2px solid var(--color);
+                width: 100%;
+                color: var(--color);
+                text-align: center;
+                border-radius: 0.3rem;
+                padding: 0.4rem;
+                box-shadow: var(--shadow-elevation-medium);
+                display: flex;
+                align-items: center;
+                justify-content: center;
               `}
             >
-              <input
-                id="facture-actuelle"
+              <div
                 css={`
-                  border: none !important;
-                  background: transparent !important;
-                  -webkit-appearance: none !important;
-                  outline: none !important;
-                  color: var(--color);
-                  font-size: 110% !important;
-                  max-width: 6rem !important;
-                  box-shadow: none !important;
+                  flex-grow: 1;
                 `}
-                autoFocus={false}
-                placeholder="Facture actuelle annuelle estimée"
-                type="text"
-                inputMode="numeric"
-                pattern="\d+"
-                value={montantFactureActuelle}
-                onChange={(e) => {
-                  const price = e.target.value.replace(/\s/g, '')
-                  const startPos = e.target.selectionStart
-                  const invalid = isNaN(price) || price <= 0
-                  if (invalid) return
-                  setSearchParams({
-                    [encodeDottedName('facture . actuelle')]: price + '*',
-                  })
-                  e.target.value = formatNumberWithSpaces(price)
-                  requestAnimationFrame(() => {
-                    const inputFacture =
-                      document.querySelector('#facture-actuelle')
-                    inputFacture.selectionStart = startPos
-                    inputFacture.selectionEnd = startPos
-                  })
-                }}
+              >
+                <input
+                  id="facture-actuelle"
+                  css={`
+                    border: none !important;
+                    background: transparent !important;
+                    box-shadow: none !important;
+                    -webkit-appearance: none;
+                    outline: none;
+                    color: var(--color);
+                    font-size: 110% !important;
+                    max-width: 4rem;
+                  `}
+                  autoFocus={false}
+                  placeholder="Facture actuelle annuelle estimée"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="\d+"
+                  value={montantFactureActuelle}
+                  onChange={(e) => {
+                    const price = e.target.value.replace(/\s/g, '')
+                    const startPos = e.target.selectionStart
+                    const invalid = isNaN(price) || price <= 0
+                    if (invalid) return
+                    setSearchParams({
+                      [encodeDottedName('facture . actuelle')]: price + '*',
+                    })
+                    e.target.value = formatNumberWithSpaces(price)
+                    requestAnimationFrame(() => {
+                      const inputFacture =
+                        document.querySelector('#facture-actuelle')
+                      inputFacture.selectionStart = startPos
+                      inputFacture.selectionEnd = startPos
+                    })
+                  }}
+                />
+                <span title="Ce montant est estimée sur la base des informations fournies dans le DPE, vous pouvez l'ajuster à votre convenance">
+                  €
+                </span>
+              </div>
+              <Image
+                css={`
+                  cursor: pointer;
+                  margin-left: auto;
+                `}
+                src={editIcon}
+                alt="Icône crayon pour éditer"
+                onClick={() =>
+                  document.querySelector('#facture-actuelle').focus()
+                }
               />
             </div>
-            <Image
-              css={`
-                cursor: pointer;
-                margin-left: auto;
-              `}
-              src={editIcon}
-              alt="Icône crayon pour éditer"
-              onClick={() =>
-                document.querySelector('#facture-actuelle').focus()
-              }
-            />
           </div>
         </div>
         <div>
-          <div>Energie actuelle:</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Proportion</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <Select
-                    css={`
-                      height: 2.8rem;
-                      background: #f5f5fe;
-                      max-width: 90vw;
-                    `}
-                    disableInstruction={false}
-                    onChange={(e) => {
-                      setSearchParams({
-                        [encodeDottedName('logement . type')]:
-                          '"' + e.replaceAll("'", '') + '"*',
-                      })
-                    }}
-                    value={energie?.valeur}
-                    values={energies}
-                  />
-                </td>
-                <td>
-                  <div className="input-wrapper">
-                    <input
-                      value={formatNumber(percentEnergie1)}
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="1"
-                    />
-                  </div>
-                </td>
-              </tr>
-              {energie2 && (
-                <tr>
-                  <td>
-                    <Select
-                      css={`
-                        height: 2.8rem;
-                        background: #f5f5fe;
-                        max-width: 90vw;
-                      `}
-                      disableInstruction={false}
-                      onChange={(e) => {
-                        setSearchParams({
-                          [encodeDottedName('logement . type')]:
-                            '"' + e.replaceAll("'", '') + '"*',
-                        })
-                      }}
-                      value={energie2?.valeur}
-                      values={energies}
-                    />
-                  </td>
-                  <td>
-                    <div className="input-wrapper">
-                      <input
-                        value={formatNumber(percentEnergie2)}
-                        type="number"
-                        min="0"
-                        max="100"
-                        step="1"
-                      />
-                    </div>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <div>Après rénovation:</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Proportion</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <Select
-                    css={`
-                      height: 2.8rem;
-                      background: #f5f5fe;
-                      max-width: 90vw;
-                    `}
-                    disableInstruction={false}
-                    onChange={(e) => {
-                      setSearchParams({
-                        [encodeDottedName('logement . type')]:
-                          '"' + e.replaceAll("'", '') + '"*',
-                      })
-                    }}
-                    value={energie?.valeur}
-                    values={energies}
-                  />
-                </td>
-                <td>
-                  <div className="input-wrapper">
-                    <input
-                      value={formatNumber(percentEnergie1)}
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="1"
-                    />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Select
-                    css={`
-                      height: 2.8rem;
-                      background: #f5f5fe;
-                      max-width: 90vw;
-                    `}
-                    disableInstruction={false}
-                    onChange={(e) => {
-                      setSearchParams({
-                        [encodeDottedName('logement . type')]:
-                          '"' + e.replaceAll("'", '') + '"*',
-                      })
-                    }}
-                    value={energie2?.valeur}
-                    values={energies}
-                  />
-                </td>
-                <td>
-                  <div className="input-wrapper">
-                    <input
-                      value={formatNumber(percentEnergie2)}
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="1"
-                    />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div
-        css={`
-          display: flex;
-          ${isMobile && 'flex-direction: column;'}
-          justify-content: space-between;
-          gap: 1rem;
-        `}
-      >
-        <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
-          situation={situation}
-          columnDisplay={true}
-          editMode={true}
-        />
-        <TargetDPETabs
-          {...{
-            oldIndex: situation['DPE . actuel'] - 1,
-            setSearchParams,
-            answeredQuestions,
-            choice: situation['projet . DPE visé'] - 1,
-            engine,
-            situation,
-            columnDisplay: true,
-          }}
-        />
-      </div>
-      <div
-        css={`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 0.5rem;
-          margin-top: 1rem;
-        `}
-      >
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            ${isMobile && 'flex-direction: column;'}
-            > div {
-              display: flex;
-              flex-direction: column;
-              width: 100%;
-            }
-          `}
-        >
+          <div>
+            <EnergieTable
+              title="Après rénovation :"
+              pourcentages={pourcentagesApresReno}
+              setPourcentages={setPourcentagesApresReno}
+              energies={energies}
+              editable={true}
+            />
+          </div>
+          <TargetDPETabs
+            {...{
+              oldIndex: situation['DPE . actuel'] - 1,
+              setSearchParams,
+              answeredQuestions,
+              choice: situation['projet . DPE visé'] - 1,
+              engine,
+              situation,
+              columnDisplay: true,
+            }}
+          />
           <div>
             <div
               css={`
                 margin: auto;
               `}
             >
-              <span aria-hidden="true">💶</span> Après rénovation, vous pourriez
-              estimer une facture d'énergie:
+              <span aria-hidden="true">💶</span> Après rénovation:
             </div>
             <div
               css={`
@@ -386,10 +328,13 @@ const FactureWidget = ({
                     ? '--validColor1'
                     : '--warningColor'}
                 );
+                border: 2px solid var(--validColor) !important;
+                border-radius: 0.3rem;
                 color: var(
                   ${montantFactureEstime > 0 ? '--validColor' : '--darkColor'}
                 );
-                padding: 0.5rem;
+                padding: 0.8rem;
+                font-size: 110%;
               `}
             >
               {montantFactureEstime > 0 ? (

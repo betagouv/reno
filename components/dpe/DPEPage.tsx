@@ -31,13 +31,13 @@ export default function DPEPage({ lettre }) {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const handleSelectDpe = async (dpe) => {
-    console.log('dpe', dpe)
-
+    const indexEtiquette = conversionLettreIndex.indexOf(dpe['etiquette']) + 1
     let situation = await enrichSituation({
       'logement . commune': `"${dpe['Code_INSEE_(BAN)']}"*`,
       'logement . département': `"${dpe['N°_département_(BAN)']}"*`,
       'logement . commune . nom': `"${dpe['Nom__commune_(BAN)']}"*`,
-      'DPE . actuel': conversionLettreIndex.indexOf(dpe['etiquette']) + 1,
+      'DPE . actuel': indexEtiquette + '*',
+      'projet . DPE visé': Math.max(indexEtiquette - 2, 0) + '*',
       'logement . type': `"${dpe['Type_bâtiment']}"`,
       'ménage . région . IdF': `"${
         ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
@@ -141,7 +141,7 @@ export default function DPEPage({ lettre }) {
                 >
                   <Ampleur type="widget" />
                 </div>
-                <h2>Quels impact sur votre facture ?</h2>
+                <h2>Quels impact sur votre facture énergétique?</h2>
                 <DPEFacture
                   {...{
                     setSearchParams,

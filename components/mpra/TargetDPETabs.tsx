@@ -44,7 +44,6 @@ export default function TargetDPETabs({
               display: none;
             }
             li  {
-              margin: 0.1rem;
               label {
                 cursor: pointer;
               }
