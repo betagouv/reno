@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import ValeurVerteModule from '@/components/module/ValeurVerteModule'
+import ValeurVerteModule from '@/components/module/ValeurVerte'
 
 export default function Integration() {
   return (

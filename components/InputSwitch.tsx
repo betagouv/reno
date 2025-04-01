@@ -10,7 +10,7 @@ import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 
 import { firstLevelCategory } from '@/app/simulation/Answers'
-import DPESelector from './DPESelector'
+import DPESelector from './dpe/DPESelector'
 import GestesBasket from './GestesBasket'
 import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'

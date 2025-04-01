@@ -1,11 +1,11 @@
 'use client'
 import { useState } from 'react'
 import DPELabel from './DPELabel'
-import useSetSearchParams from './useSetSearchParams'
+import useSetSearchParams from '../useSetSearchParams'
 import Link from 'next/link'
 import Image from 'next/image'
-import { encodeSituation } from './publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
+import { encodeSituation } from '../publicodes/situationUtils'
 
 export const originKey = 'DPE . actuel',
   targetKey = 'projet . DPE visé'

@@ -1,6 +1,6 @@
 'use client'
 
-import dpeData from '@/components/DPE.yaml'
+import dpeData from '@/components/dpe/DPE.yaml'
 
 export const conversionLettreIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 

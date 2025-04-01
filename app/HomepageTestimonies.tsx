@@ -3,7 +3,7 @@ import { Content, Key, Wrapper } from '@/components/explications/ExplicationUI'
 import useIsInIframe from '@/components/useIsInIframe'
 import { HomeTestimonies } from './LandingUI'
 import { useState } from 'react'
-import DPELabel from '@/components/DPELabel'
+import DPELabel from '@/components/dpe/DPELabel'
 import { CTA } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
 
