@@ -200,11 +200,7 @@ export default function InputSwitch({
           answeredQuestions,
           situation,
           setSearchParams,
-          questionsToSubmit: [
-            'ménage . code région',
-            'ménage . code département',
-            'ménage . commune',
-          ],
+          questionsToSubmit: ['ménage . commune'],
           currentValue,
           engine,
         }}
@@ -213,11 +209,10 @@ export default function InputSwitch({
           {...{
             type: currentQuestion,
             setChoice: (result) => {
-              const codeRegion = result.codeRegion
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
-                  'ménage . code région': `"${codeRegion}"`,
+                  'ménage . code région': `"${result.codeRegion}"`,
                   'ménage . code département': `"${result.codeDepartement}"`,
                   'ménage . EPCI': `"${result.codeEpci}"`,
                   'ménage . commune': `"${result.code}"`,
@@ -264,6 +259,8 @@ export default function InputSwitch({
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
+                  'logement . code région': `"${result.codeRegion}"`,
+                  'logement . code département': `"${result.codeDepartement}"`,
                   'logement . EPCI': `"${result.codeEpci}"`,
                   'logement . commune': `"${result.code}"`,
                   'logement . commune . nom': `"${result.nom}"`,
