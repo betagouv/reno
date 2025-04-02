@@ -6,7 +6,7 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
-import { Badge, List } from './UI'
+import { ArticleCard, ArticleContent, ArticleImageContainer, Badge, List } from './UI'
 import { dateCool } from './utils'
 import { articles } from './[slug]/page'
 import { article as article2025 } from './aides-renovation-2025/page'
@@ -71,29 +71,48 @@ const Page = () => {
         <Wrapper>
           <Content>
             <List>
-              {sortedArticles.map(({ url, date, titre, tags }) => (
-                <li key={url}>
-                  <div>
-                    <h2>
-                      <Link href={url}>
-                        {titre}{' '}
-                        {tags?.map((tag) => (
-                          <Badge key={tag}>
-                            <small>{tag}</small>
-                          </Badge>
-                        ))}
-                      </Link>
-                    </h2>
-                  </div>
-                  <small
-                    style={css`
-                      color: var(--color);
-                      font-size: 90%;
-                    `}
-                  >
-                    Publié le {dateCool(date)}
-                  </small>
-                </li>
+              {sortedArticles.map(({ url, date, titre, tags, image }) => (
+                <ArticleCard key={url}>
+                  <Link href={url}>
+                    <ArticleImageContainer>
+                      {image && (
+                        <Image
+                          src={image.startsWith('/') ? image : `/blog-images/${image}`}
+                          alt={titre}
+                          fill
+                          style={{ objectFit: 'cover' }}
+                        />
+                      )}
+                      {!image && (
+                        <div style={css`
+                          background: #f0f0f0;
+                          width: 100%;
+                          height: 100%;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        `}>
+                          <span>📝</span>
+                        </div>
+                      )}
+                    </ArticleImageContainer>
+                    <ArticleContent>
+                      <div>
+                        <h2>
+                          {titre}{' '}
+                          {tags?.map((tag) => (
+                            <Badge key={tag}>
+                              <small>{tag}</small>
+                            </Badge>
+                          ))}
+                        </h2>
+                      </div>
+                      <small>
+                        Publié le {dateCool(date)}
+                      </small>
+                    </ArticleContent>
+                  </Link>
+                </ArticleCard>
               ))}
             </List>
           </Content>

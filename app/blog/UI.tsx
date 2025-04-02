@@ -7,24 +7,70 @@ import styled, { css } from 'styled-components'
 
 export const List = styled.ol`
   margin-top: 2rem;
-  padding-left: 1rem;
-  list-style-type: circle;
-  li {
-    margin: 2rem 0;
-    a {
-    }
-    h2 {
-      margin: 0;
-    }
-    small {
-      color: var(--darkestColor);
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
+  padding-left: 0;
+  list-style-type: none;
+  margin-bottom: 10vh;
+`
+
+export const ArticleCard = styled.li`
+  display: flex;
+  margin: 2rem 0;
+  background: white;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  a {
+    display: flex;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+`
+
+export const ArticleImageContainer = styled.div`
+  flex: 0 0 200px;
+  height: 150px;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    flex: 0 0 120px;
+    height: 120px;
+  }
+  
+  @media (max-width: 480px) {
+    flex: 0 0 100px;
+    height: 100px;
+  }
+`
+
+export const ArticleContent = styled.div`
+  flex: 1;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
     }
   }
-  margin-bottom: 10vh;
+  
+  small {
+    color: var(--darkestColor);
+    font-size: 90%;
+  }
 `
 export const BlogBackButton = ({ children }) => (
   <CTAWrapper
