@@ -46,7 +46,7 @@ export const ArticleImageContainer = styled.div`
   
   @media (max-width: 480px) {
     flex: 0 0 100px;
-    height: 100px;
+    height: 100%;
   }
 `
 
@@ -64,6 +64,10 @@ export const ArticleContent = styled.div`
     
     @media (max-width: 768px) {
       font-size: 1.2rem;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 1rem;
     }
   }
   

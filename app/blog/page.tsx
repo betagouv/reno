@@ -80,7 +80,7 @@ const Page = () => {
                           src={image.startsWith('/') ? image : `/blog-images/${image}`}
                           alt={titre}
                           fill
-                          style={{ objectFit: 'cover' }}
+                          style={{ objectFit: 'cover', objectPosition: 'center' }}
                         />
                       )}
                       {!image && (
