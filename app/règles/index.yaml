@@ -297,28 +297,39 @@ ménage . personnes plus:
   formule: personnes - 5
 
 ménage . revenu . classe:
-  formule:
-    variations:
-      # Ici j'avais pensé à faire un court-circuit pour éviter de poser la question des personnes. Si > 94845 € vous êtes supérieur. Mais en fait non, car pour un ménage de 8 personnes le seuil 94845 € est dépassé même pour un revenu modeste !
-      - si: région . IdF
-        alors: barème IdF
-      - sinon: barème
+  variations:
+    - si: logement . propriétaire occupant
+      alors:
+        variations:
+          - si: logement . région . IdF
+            alors: barème IdF
+          - sinon: barème
+    - sinon:
+        variations:
+          - si: ménage . région . IdF
+            alors: barème IdF
+          - sinon: barème
 
 logement . EPCI:
   formule: commune
   par défaut: '"242900314"'
+
+logement . code région:
+  formule: commune
+  par défaut: '"53"'
+  suggestions:
+    Bretagne: '"53"'
+    Pays de la Loire: '"52"'
+    IdF: "'11'"
 
 logement . département:
   formule: commune
   par défaut: '"Finistère"'
 
 logement . commune:
-  # TODO attention, cette condition peut faire sauter cette variable, donc ses sous variables
-  # la remplacer par une formule, si propriétaire occupant = non alors ça vaut foyer . commune ?
-  applicable si: propriétaire occupant = non
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?
-  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides locales.
+  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides.
   par défaut: "'29200'"
   schema module: Optionnel. Peut déclencher des aides. C'est le code INSEE, pas le code postal.
 
@@ -329,6 +340,10 @@ logement . commune . nom:
 
 logement . code département: # Necessaire pour déterminer le module valeur verte
   par défaut: '"35"'
+
+logement . région:
+
+logement . région . IdF: code région = "11"
 
 # logement . commune . denormandie: voir le fichier denormandie
 
@@ -359,6 +374,7 @@ ménage . département:
   par défaut: '"Finistère"'
 
 ménage . commune:
+  non applicable si: logement . propriétaire occupant
   titre: Votre commune
   question: Dans quelle commune habitez-vous ?
   sous-titre: Renseignez bien votre **adresse personnelle**. Elle définit votre éligibilité et le montant de l'aide.
