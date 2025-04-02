@@ -15,14 +15,16 @@ import { useEffect, useState } from 'react'
 
 const energies = [
   { valeur: '', titre: 'Aucune', prixMoyen: 0 },
-  { valeur: 'électricité', titre: 'Électricité', prixMoyen: 0.2276 },
+  { valeur: 'électricité', titre: 'Électricité', prixMoyen: 0.2016 },
   { valeur: 'gaz', titre: 'Gaz naturel', prixMoyen: 0.0968 },
-  { valeur: 'fioul', titre: 'Fioul', prixMoyen: 0.1 },
+  { valeur: 'fioul', titre: 'Fioul domestique', prixMoyen: 0.1 },
   { valeur: 'bois', titre: 'Bois – Bûches', prixMoyen: 0.04 },
   { valeur: 'granulés', titre: 'Granulés', prixMoyen: 0.07 },
   { valeur: 'propane', titre: 'Propane', prixMoyen: 0.13 },
   { valeur: 'charbon', titre: 'Charbon', prixMoyen: 0.072 },
 ]
+
+const prixAbonnementElectricite = 160
 
 const FactureWidget = ({
   engine,
@@ -35,8 +37,17 @@ const FactureWidget = ({
   const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
   const [energiesUtilisees, setEnergiesUtilisees] = useState([])
   const [montantFactureActuelle, setMontantFactureActuelle] = useState()
-  const updatePourcentage = (index, value, setter) => {
-    setter((prev) => prev.map((p, i) => (i === index ? value : p)))
+  const [montantFactureEstimee, setMontantFactureEstimee] = useState()
+  const updatePourcentage = (index, value) => {
+    setPourcentagesApresReno((prev) => {
+      if (prev.length == 1) {
+        return [value]
+      }
+      if (prev.length == 3) {
+        return prev.map((p, i) => (i === index ? value : p))
+      }
+      return prev.map((p, i) => (i === index ? value : 100 - value))
+    })
   }
 
   const rawSearchParams = useSearchParams(),
@@ -45,9 +56,11 @@ const FactureWidget = ({
 
   useEffect(() => {
     setEnergiesUtilisees(
-      [1, 2, 3].map((i) =>
-        energies.find((e) => e.titre === dpe[`Type_énergie_n°${i}`]),
-      ),
+      [1, 2, 3]
+        .map((i) =>
+          energies.find((e) => e.titre === dpe[`Type_énergie_n°${i}`]),
+        )
+        .filter(Boolean),
     )
 
     const noDetail =
@@ -56,18 +69,36 @@ const FactureWidget = ({
       dpe['Conso_5_usages_é_finale_énergie_n°1'] ===
         dpe['Conso_5_usages_é_finale_énergie_n°2']
 
-    const pourcentageInitial = [1, 2, 3].map((i) =>
-      dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] > 0 && !noDetail
-        ? Math.round(
-            ((dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] || 0) /
-              dpe['Conso_5_usages_é_finale']) *
-              100,
-          )
-        : '?',
-    )
-    console.log('pourcentageInitial', pourcentageInitial)
+    const pourcentageInitial = [1, 2, 3]
+      .map((i) =>
+        noDetail
+          ? '?'
+          : dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] > 0
+            ? Math.round(
+                ((dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] || 0) /
+                  dpe['Conso_5_usages_é_finale']) *
+                  100,
+              )
+            : undefined,
+      )
+      .filter(Boolean)
+
     setPourcentagesAvantReno(pourcentageInitial)
-    setPourcentagesApresReno(pourcentageInitial)
+    setPourcentagesApresReno(pourcentageInitial.map((e) => (e == '?' ? 0 : e)))
+    console.log('noDetail', noDetail)
+    console.log('cout 5', dpe['Coût_total_5_usages'])
+    console.log(
+      'cout calculé',
+      Math.round(
+        energiesUtilisees.reduce(
+          (total, energie, i) =>
+            total +
+            (energie?.prixMoyen || 0) *
+              (dpe[`Conso_5_usages_é_finale_énergie_n°${i + 1}`] || 0),
+          0,
+        ) + prixAbonnementElectricite,
+      ),
+    )
     setMontantFactureActuelle(
       noDetail
         ? dpe['Coût_total_5_usages']
@@ -83,13 +114,41 @@ const FactureWidget = ({
     )
   }, [dpe])
 
-  const targetDPE = situation['projet . DPE visé']
-  const moyenneConsoClasseDPE =
-    (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
+  useEffect(() => {
+    const targetDPE = situation['projet . DPE visé']
+    const moyenneConsoClasseDPE =
+      (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
 
-  const pourcentageEconomieVise =
-    dpe['Conso_5_usages_par_m²_é_primaire'] / moyenneConsoClasseDPE
-  const montantFactureEstime = montantFactureActuelle / pourcentageEconomieVise
+    const pourcentageEconomieVise =
+      dpe['Conso_5_usages_par_m²_é_primaire'] / moyenneConsoClasseDPE
+
+    console.log('dpe', dpe)
+
+    // On calcule la répartition de la conso EF par énergie après rénovation
+    const detailParEnergieEF = energiesUtilisees.map(
+      (_, i) =>
+        (dpe['Conso_5_usages_é_finale'] * pourcentagesApresReno[i]) / 100,
+    )
+    // On convertit en EP pour appliquer le pourcentage de gain inhérent au changement de classe
+    const detailParEnergieEP = detailParEnergieEF.map(
+      (value, i) =>
+        (energiesUtilisees[i].valeur === 'électricité' ? value * 2.3 : value) /
+        pourcentageEconomieVise,
+    )
+    // On reconvertit en EF pour appliquer le prix au kWh de l'énergie
+    setMontantFactureEstimee(
+      Math.round(
+        detailParEnergieEP
+          .map((val, i) => {
+            return (
+              (energiesUtilisees[i].valeur == 'électricité' ? val / 2.3 : val) *
+              energiesUtilisees[i].prixMoyen
+            )
+          })
+          .reduce((a, c) => a + c, 0) + prixAbonnementElectricite,
+      ),
+    )
+  }, [pourcentagesApresReno, situation])
 
   const EnergieTable = ({
     title,
@@ -129,7 +188,7 @@ const FactureWidget = ({
                   />
                 </td>
                 <td>
-                  {pourcentages[index] != '?' && (
+                  {(pourcentages[index] != '?' || editable) && (
                     <div className="input-wrapper">
                       <input
                         type="number"
@@ -141,7 +200,6 @@ const FactureWidget = ({
                           updatePourcentage(
                             index,
                             Math.max(0, Math.min(100, Number(e.target.value))),
-                            setPourcentages,
                           )
                         }
                       />
@@ -197,12 +255,16 @@ const FactureWidget = ({
           }
         `}
       >
-        <div>
+        <div
+          css={`
+            border-right: 1px solid black;
+            padding-right: 1rem; /* Ajoute un espace à droite pour éviter que le contenu ne touche la bordure */
+          `}
+        >
           <div>
             <EnergieTable
               title="Actuellement :"
               pourcentages={pourcentagesAvantReno}
-              setPourcentages={setPourcentagesAvantReno}
               energies={energies}
             />
           </div>
@@ -295,7 +357,6 @@ const FactureWidget = ({
             <EnergieTable
               title="Après rénovation :"
               pourcentages={pourcentagesApresReno}
-              setPourcentages={setPourcentagesApresReno}
               energies={energies}
               editable={true}
             />
@@ -324,23 +385,23 @@ const FactureWidget = ({
                 margin-top: 0.5rem;
                 text-align: center;
                 background: var(
-                  ${montantFactureEstime > 0
+                  ${montantFactureEstimee > 0
                     ? '--validColor1'
                     : '--warningColor'}
                 );
                 border: 2px solid var(--validColor) !important;
                 border-radius: 0.3rem;
                 color: var(
-                  ${montantFactureEstime > 0 ? '--validColor' : '--darkColor'}
+                  ${montantFactureEstimee > 0 ? '--validColor' : '--darkColor'}
                 );
                 padding: 0.8rem;
                 font-size: 110%;
               `}
             >
-              {montantFactureEstime > 0 ? (
+              {montantFactureEstimee > 0 ? (
                 <strong>
-                  entre {formatNumber(0.9 * montantFactureEstime)}€ et{' '}
-                  {formatNumber(1.1 * montantFactureEstime)}€
+                  entre {formatNumber(0.9 * montantFactureEstimee)}€ et{' '}
+                  {formatNumber(1.1 * montantFactureEstimee)}€
                 </strong>
               ) : (
                 <small>
