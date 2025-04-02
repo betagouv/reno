@@ -110,16 +110,14 @@ const Page = () => {
                     </ArticleImageContainer>
                     <ArticleContent>
                       <div>
-                        <h2>
-                          {titre}{' '}
-                          {tags?.map((tag) => (
-                            <Badge key={tag}>
-                              <small>{tag}</small>
-                            </Badge>
-                          ))}
-                        </h2>
+                        <h2>{titre} </h2>
+                        {tags?.map((tag) => (
+                          <Badge key={tag}>
+                            <small>{tag}</small>
+                          </Badge>
+                        ))}
                       </div>
-                      <small>Publié le {dateCool(date)}</small>
+                      <small>{dateCool(date)}</small>
                     </ArticleContent>
                   </Link>
                 </ArticleCard>

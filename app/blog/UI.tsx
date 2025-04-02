@@ -37,6 +37,7 @@ export const ArticleCard = styled.li`
     text-decoration: none;
   }
   width: 22rem;
+  min-height: 8rem;
 `
 
 export const ArticleImageContainer = styled.div`
@@ -47,7 +48,7 @@ export const ArticleImageContainer = styled.div`
 
 export const ArticleContent = styled.div`
   flex: 1;
-  padding: 1.2rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -60,7 +61,7 @@ export const ArticleContent = styled.div`
 
   small {
     color: var(--darkestColor);
-    font-size: 90%;
+    font-size: 85%;
   }
 `
 export const BlogBackButton = ({ children }) => (
@@ -130,14 +131,16 @@ export const Badge = styled.span`
   color: #3a3a3a;
   display: inline-flex;
   flex-direction: row;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  line-height: 1.5rem;
   max-height: none;
   max-width: 100%;
   min-height: 1.5rem;
   overflow: initial;
   padding: 0 0.5rem;
+  margin-bottom: 0.8rem;
+  margin-left: -0.1rem;
+
   text-transform: uppercase;
   width: -moz-fit-content;
   width: fit-content;
