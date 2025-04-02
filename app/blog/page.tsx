@@ -6,7 +6,13 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
-import { ArticleCard, ArticleContent, ArticleImageContainer, Badge, List } from './UI'
+import {
+  ArticleCard,
+  ArticleContent,
+  ArticleImageContainer,
+  Badge,
+  List,
+} from './UI'
 import { dateCool } from './utils'
 import { articles } from './[slug]/page'
 import { article as article2025 } from './aides-renovation-2025/page'
@@ -35,6 +41,7 @@ const Page = () => {
       <PageBlock>
         <HeaderWrapper>
           <Image
+            style={{ margin: '.6rem 3rem' }}
             src={illustrationAccueil}
             alt="Des ouvriers peignent et réparent la facade d'une maison"
           />
@@ -61,10 +68,6 @@ const Page = () => {
                 Mes Aides Réno est le calculateur de référence des aides à la
                 rénovation energétique pour les particuliers en France.
               </p>
-              <p>
-                On vous raconte ici les étapes de la construction de ce{' '}
-                <strong>service public</strong> numérique.
-              </p>
             </Intro>
           </div>
         </HeaderWrapper>
@@ -77,21 +80,30 @@ const Page = () => {
                     <ArticleImageContainer>
                       {image && (
                         <Image
-                          src={image.startsWith('/') ? image : `/blog-images/${image}`}
+                          src={
+                            image.startsWith('/')
+                              ? image
+                              : `/blog-images/${image}`
+                          }
                           alt={titre}
                           fill
-                          style={{ objectFit: 'cover', objectPosition: 'center' }}
+                          style={{
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                          }}
                         />
                       )}
                       {!image && (
-                        <div style={css`
-                          background: #f0f0f0;
-                          width: 100%;
-                          height: 100%;
-                          display: flex;
-                          align-items: center;
-                          justify-content: center;
-                        `}>
+                        <div
+                          style={css`
+                            background: #f0f0f0;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                          `}
+                        >
                           <span>📝</span>
                         </div>
                       )}
@@ -107,9 +119,7 @@ const Page = () => {
                           ))}
                         </h2>
                       </div>
-                      <small>
-                        Publié le {dateCool(date)}
-                      </small>
+                      <small>Publié le {dateCool(date)}</small>
                     </ArticleContent>
                   </Link>
                 </ArticleCard>
