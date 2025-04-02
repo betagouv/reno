@@ -10,44 +10,39 @@ export const List = styled.ol`
   padding-left: 0;
   list-style-type: none;
   margin-bottom: 10vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
 `
 
 export const ArticleCard = styled.li`
   display: flex;
-  margin: 2rem 0;
   background: white;
   border-radius: 0.8rem;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
-  
+
   a {
     display: flex;
     width: 100%;
     color: inherit;
     text-decoration: none;
   }
+  width: 22rem;
 `
 
 export const ArticleImageContainer = styled.div`
-  flex: 0 0 200px;
-  height: 150px;
   position: relative;
-  
-  @media (max-width: 768px) {
-    flex: 0 0 120px;
-    height: 120px;
-  }
-  
-  @media (max-width: 480px) {
-    flex: 0 0 100px;
-    height: 100%;
-  }
+  flex: 0 0 100px;
+  height: 100%;
 `
 
 export const ArticleContent = styled.div`
@@ -56,21 +51,13 @@ export const ArticleContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
   h2 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.4rem;
     line-height: 1.3;
-    
-    @media (max-width: 768px) {
-      font-size: 1.2rem;
-    }
-    
-    @media (max-width: 480px) {
-      font-size: 1rem;
-    }
+    font-size: 1rem;
   }
-  
+
   small {
     color: var(--darkestColor);
     font-size: 90%;
