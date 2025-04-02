@@ -15,6 +15,9 @@ const title = `Le blog des aides à la rénovation energétique`
 const description =
   "Découvrez l'histoire, les nouveautés et le futur de Mes Aides Réno"
 
+export const sortedArticles = [
+  ...sortBy((article) => article.date)([...articles, article2025]).reverse(),
+]
 export const metadata: metadata = {
   title,
   description,
@@ -22,10 +25,6 @@ export const metadata: metadata = {
 }
 
 const Page = () => {
-  const sortedArticles = [
-    ...sortBy((article) => article.date)([...articles, article2025]).reverse(),
-  ]
-
   return (
     <main
       style={css`
@@ -101,7 +100,8 @@ const Page = () => {
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
           <Content>
-            📨 Vous pourrez bientôt vous abonner à notre lettre d'information.{' '}
+            📨 Vous pourrez bientôt vous abonner à notre lettre
+            d'information.{' '}
           </Content>
         </Wrapper>
       </PageBlock>
