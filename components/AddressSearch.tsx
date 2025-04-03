@@ -25,6 +25,7 @@ export default function AddressSearch({
 
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
+    setInput('')
     async function fetchCommune() {
       const commune = await getCommune(situation, type)
       if (commune) {
