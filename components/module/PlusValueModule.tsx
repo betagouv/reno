@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import rules from '@/app/règles/rules'
 import listeDepartementRegion from '@/app/règles/liste-departement-region.publicodes'
 import Publicodes from 'publicodes'
-import dataValeurVerte from '@/data/valeur-verte.csv'
+import dataPlusValue from '@/data/valeur-verte.csv'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { getCommune } from '../personas/enrichSituation'
@@ -510,8 +510,8 @@ const calculateAppreciationAndPlusValue = (situation) => {
     region = listeDepartementRegion['régions']['valeurs'][codeRegion]
   }
 
-  // Trouver la ligne correspondante dans dataValeurVerte
-  const row = dataValeurVerte.find(
+  // Trouver la ligne correspondante dans dataPlusValue
+  const row = dataPlusValue.find(
     (r) => r.Région === region && situation['logement . type'].includes(r.Type),
   )
 

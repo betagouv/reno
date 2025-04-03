@@ -27,7 +27,7 @@ export default function HomepageModules() {
             <Card>
               <Image src={plusValueImage} alt="Logo MaPrimeRénov" />
               <h3>
-                <Link href="/module/valeur-verte">Ma Plus-Value Réno</Link>
+                <Link href="/module/plus-value">Ma Plus-Value Réno</Link>
               </h3>
               <p>
                 Notre calculatrice spécialement dédiée à l'estimation de la
