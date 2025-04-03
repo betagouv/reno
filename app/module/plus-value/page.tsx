@@ -8,8 +8,9 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import Demonstration from '../Demonstration'
 export const metadata: Metadata = {
-  title: "Module de calcul de la valeur verte d'un logement - Mes aides réno",
-  description: `Découvrez le module de calcul de la valeur verte d'un logement de Mes Aides Réno"`,
+  title:
+    "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",
+  description: `Découvrez le module de calcul de la plus value d'un logement suite à une rénovation énergétique proposé par Mes Aides Réno"`,
 }
 
 export default function Module({}) {
@@ -34,7 +35,7 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Module de calcul</BlueEm> de la valeur verte d'un logement
+              <BlueEm>Module de calcul</BlueEm> de la plus value d'un logement
             </h1>
             <Intro>
               <p>
@@ -54,7 +55,7 @@ export default function Module({}) {
         <Wrapper>
           <Content>
             <Suspense>
-              <Demonstration moduleName="valeur-verte" />
+              <Demonstration moduleName="plus-value" />
             </Suspense>
           </Content>
         </Wrapper>

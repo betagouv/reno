@@ -314,10 +314,15 @@ export const CardMosaic = styled.div`
       object-fit: cover;
       width: 100%;
       height: auto;
-      padding: 2rem;
+      padding: ${(p) => (p.$noPadding ? '0rem' : '2rem')};
     }
     h2 {
       margin: 0 0 1rem 0;
+      color: var(--color);
+      font-size: ${(p) => (p.$smallTitle ? '1.2rem' : '130%')};
+    }
+    h3 {
+      margin: 1rem 0;
       color: var(--color);
       font-size: ${(p) => (p.$smallTitle ? '1.2rem' : '130%')};
     }

@@ -166,7 +166,7 @@ export default function Integration() {
               </p>
               <CTAWrapper>
                 <CTA>
-                  <Link href="/module/valeur-verte">Découvrir le module</Link>
+                  <Link href="/module/plus-value">Découvrir le module</Link>
                 </CTA>
               </CTAWrapper>
             </MiseEnAvant>

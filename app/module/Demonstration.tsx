@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation'
 import Schema from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
-import personasValeurVerte from './valeur-verte/examplePersonasValeurVerte.yaml'
+import personasValeurVerte from './plus-value/examplePersonasValeurVerte.yaml'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
@@ -47,7 +47,7 @@ export default function Demonstration({ moduleName }) {
   const iframeSearchParams = encodeSituation(personaSituation, true)
   const iframeUrl =
     getAppUrl() +
-    `/module/${moduleName == 'ampleur' ? 'integration' : 'valeur-verte/integration'}?` +
+    `/module/${moduleName == 'ampleur' ? 'integration' : 'plus-value/integration'}?` +
     new URLSearchParams(iframeSearchParams).toString()
 
   return (
