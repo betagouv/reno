@@ -75,7 +75,13 @@ export default function Answers({
   }
 
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) => !['ménage . code région', 'ménage . code département'].includes(el),
+    (el) =>
+      ![
+        'ménage . code région',
+        'ménage . code département',
+        'logement . code région',
+        'logement . code département',
+      ].includes(el),
   )
 
   const { pastCategories } = categoryData(
