@@ -203,11 +203,15 @@ export const MontantQuestion = ({
 
 const revenuQuestionDependencies = [
   'ménage . personnes',
-  'ménage . région . IdF',
+  'logement . propriétaire occupant',
 ]
 const revenuQuestionDependenciesSatisfied = (answeredQuestions) => {
-  return revenuQuestionDependencies.every((dottedName) =>
-    answeredQuestions.includes(dottedName),
+  return (
+    revenuQuestionDependencies.every((dottedName) =>
+      answeredQuestions.includes(dottedName),
+    ) &&
+    (answeredQuestions.includes('ménage . région . IdF') ||
+      answeredQuestions.includes('logement . région . IdF'))
   )
 }
 
@@ -502,8 +506,12 @@ export const IdFQuestion = ({
   isMobile,
   situation,
   answeredQuestions,
-  rule = 'ménage . région . IdF',
 }) => {
+  // Ici, il faut savoir si l'on parle du ménage ou du logement
+  let rule = 'logement . région . IdF'
+  if (situation['logement . résidence principale propriétaire'] == 'non') {
+    rule = 'ménage . région . IdF'
+  }
   const answered = answeredQuestions.includes(rule)
   return (
     <div
@@ -514,7 +522,12 @@ export const IdFQuestion = ({
     >
       <Dot />
       <YesNoQuestionStyle>
-        <span>Vous résidence actuelle est située&nbsp;:</span>
+        <span>
+          {rule == 'ménage . région . IdF'
+            ? 'Votre résidence principale est située'
+            : 'Il est situé'}
+          &nbsp;:
+        </span>
         <section>
           <label>
             <input
