@@ -37,11 +37,14 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   }
 
   const questions = getNextQuestions(
-    engine.evaluate(rule + ' . MPR . montant'),
+    engine.setSituation(situation).evaluate(rule + ' . MPR . montant'),
     [],
     simulationConfig,
     rules,
   )
+  // On ajoute les questions déja répondues
+  questions.unshift(...Object.keys(situation))
+
   const infoMPR = {
     montant: formatValue(
       engine.setSituation(situation).evaluate(rule + ' . MPR . montant'),

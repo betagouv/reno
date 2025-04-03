@@ -105,19 +105,27 @@ const InputComponent = ({
       )}
       onChange={onChange}
     />
-  ) : question === 'ménage . commune' ? (
+  ) : ['ménage . commune', 'logement . commune'].includes(question) ? (
     <AddressSearch
       {...{
-        type: 'ménage . commune',
+        type: question,
         setChoice: (result) => {
-          const codeRegion = result.codeRegion
           const encodedSituation = encodeSituation(
             {
               ...situation,
-              'ménage . code région': `"${codeRegion}"`,
-              'ménage . code département': `"${result.codeDepartement}"`,
-              'ménage . EPCI': `"${result.codeEpci}"`,
-              'ménage . commune': `"${result.code}"`,
+              ...(question === 'ménage . commune'
+                ? {
+                    'ménage . code région': `"${result.codeRegion}"`,
+                    'ménage . code département': `"${result.codeDepartement}"`,
+                    'ménage . EPCI': `"${result.codeEpci}"`,
+                    'ménage . commune': `"${result.code}"`,
+                  }
+                : {
+                    'logement . code région': `"${result.codeRegion}"`,
+                    'logement . code département': `"${result.codeDepartement}"`,
+                    'logement . EPCI': `"${result.codeEpci}"`,
+                    'logement . commune': `"${result.code}"`,
+                  }),
             },
             false,
             answeredQuestions,
