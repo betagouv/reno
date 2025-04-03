@@ -518,7 +518,7 @@ export const IdFQuestion = ({
     >
       <Dot />
       <YesNoQuestionStyle>
-        <span>Vous résidence actuelle est située&nbsp;:</span>
+        <span>Votre résidence actuelle est située&nbsp;:</span>
         <section>
           <label>
             <input
