@@ -33,7 +33,7 @@ import editIcon from '@/public/crayon.svg'
 import Image from 'next/image'
 import { formatNumberWithSpaces } from '../utils'
 
-export default function ValeurVerteModule({ type, lettre }) {
+export default function ValeurVerteModule({ type }) {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
@@ -47,23 +47,23 @@ export default function ValeurVerteModule({ type, lettre }) {
   const situation = getSituation(searchParams, rules)
   const answeredQuestions = Object.keys(situation)
 
-  if (!situation['DPE . actuel']) {
-    situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre) + 1
+  // if (!situation['DPE . actuel']) {
+  //   situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre) + 1
 
-    setSearchParams({
-      [encodeDottedName('DPE . actuel')]: `${situation['DPE . actuel']}*`,
-    })
-  }
+  //   setSearchParams({
+  //     [encodeDottedName('DPE . actuel')]: `${situation['DPE . actuel']}*`,
+  //   })
+  // }
 
-  if (!situation['projet . DPE visé']) {
-    setSearchParams({
-      [encodeDottedName('projet . DPE visé')]:
-        `${Math.max(situation['DPE . actuel'] - 2, 0)}*`,
-    })
-  }
+  // if (!situation['projet . DPE visé']) {
+  //   setSearchParams({
+  //     [encodeDottedName('projet . DPE visé')]:
+  //       `${Math.max(situation['DPE . actuel'] - 2, 0)}*`,
+  //   })
+  // }
 
   useEffect(() => {
-    push(['trackEvent', 'Module', 'Page', 'Module Valeur Verte'])
+    push(['trackEvent', 'Module', 'Page', 'Module Plus Value'])
   }, [])
 
   useEffect(() => {

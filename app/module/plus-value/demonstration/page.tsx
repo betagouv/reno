@@ -1,13 +1,12 @@
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
-import { InternalLink, Intro, PageBlock } from '@/components/UI'
+import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationCalculette from '@/public/calculette.png'
+import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
-import PlusValueModule from '@/components/module/PlusValueModule'
-import codeIcon from '@/public/icon-code.png'
+import Demonstration from '../../Demonstration'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",
@@ -18,14 +17,15 @@ export default function Module({}) {
   return (
     <main
       style={css`
+        background: white;
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
       <PageBlock>
         <HeaderWrapper>
           <Image
-            src={illustrationCalculette}
-            alt="une personne travaille sur son bureau avec une calculatrice"
+            src={illustrationAccueil}
+            alt="Des ouvriers peignent et réparent la facade d'une maison"
           />
 
           <div>
@@ -35,7 +35,7 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Plus value d'un logement</BlueEm> après rénovation
+              <BlueEm>Module de calcul</BlueEm> de la plus value d'un logement
             </h1>
             <Intro>
               <p>
@@ -43,31 +43,19 @@ export default function Module({}) {
                 rénovation energétique. Le sujet est complexe, les aides sont
                 multiples, les règles sont mouvantes.
               </p>
+              <p>
+                En intégrant directement notre calculateur sous forme d'iframe
+                chez vous, vous permettez à vos utilisateurs de calculer leurs
+                aides sans qu'ils quittent votre site.
+              </p>
             </Intro>
           </div>
         </HeaderWrapper>
-        <Wrapper $background="white">
+
+        <Wrapper>
           <Content>
             <Suspense>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <PlusValueModule type={'module'} />
-              </div>
-              <InternalLink
-                href={`/module/plus-value/demonstration`}
-                style={css`
-                  display: flex;
-                  align-items: center;
-                  width: fit-content;
-                  gap: 0.5rem;
-                `}
-              >
-                <Image
-                  src={codeIcon}
-                  alt="icone intégration iframe"
-                  width="24"
-                />
-                Intégrer ce widget à mon site
-              </InternalLink>
+              <Demonstration moduleName="plus-value" />
             </Suspense>
           </Content>
         </Wrapper>
