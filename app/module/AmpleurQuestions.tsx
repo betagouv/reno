@@ -17,9 +17,7 @@ import AddressSearch from '@/components/AddressSearch'
 import { formatNumberWithSpaces } from '@/components/utils'
 
 export const CommuneLogement = ({
-  setSearchParams,
   situation,
-  answeredQuestions,
   onChange,
   text = 'Ce logement est situé à',
 }) => (
@@ -48,9 +46,7 @@ export const CommuneLogement = ({
           setChoice: (result) => {
             onChange(result)
           },
-          setSearchParams,
           situation,
-          answeredQuestions,
         }}
       />
     </label>

@@ -133,9 +133,7 @@ const InputComponent = ({
 
           setSearchParams(encodedSituation, 'push', false)
         },
-        setSearchParams,
         situation,
-        answeredQuestions,
         autoFocus,
       }}
     />

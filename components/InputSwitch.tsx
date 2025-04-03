@@ -182,9 +182,7 @@ export default function InputSwitch({
 
               setSearchParams(encodedSituation, 'push', false)
             },
-            setSearchParams,
             situation,
-            answeredQuestions,
           }}
         />
       </ClassicQuestionWrapper>
@@ -230,9 +228,7 @@ export default function InputSwitch({
 
               setSearchParams(encodedSituation, 'push', false)
             },
-            setSearchParams,
             situation,
-            answeredQuestions,
           }}
         />
       </ClassicQuestionWrapper>
@@ -277,9 +273,7 @@ export default function InputSwitch({
 
               setSearchParams(encodedSituation, 'push', false)
             },
-            setSearchParams,
             situation,
-            answeredQuestions,
           }}
         />
       </ClassicQuestionWrapper>

@@ -111,9 +111,7 @@ export default function ValeurVerteModule({ type, lettre }) {
         >
           <CommuneLogement
             {...{
-              setSearchParams,
               situation,
-              answeredQuestions,
               text: 'Il est situé à',
               onChange: (result) => {
                 setSearchParams({
@@ -291,9 +289,7 @@ export default function ValeurVerteModule({ type, lettre }) {
                     `"${result.nom}"*`,
                 })
               },
-              setSearchParams,
               situation,
-              answeredQuestions,
             }}
           />
         </div>
