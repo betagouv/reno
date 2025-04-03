@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
 export const AnswerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 2vh;
+  margin-top: 1rem;
 `
 
 export const FormLinkButton = styled(Link)`
