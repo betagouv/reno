@@ -339,6 +339,7 @@ logement . commune . nom:
     texte: Brest
 
 logement . code département: # Necessaire pour déterminer le module valeur verte
+  formule: commune # Juste pour appeler cette question, qui lui donnera sa valeur via l'UI
   par défaut: '"35"'
 
 logement . région:
