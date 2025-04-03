@@ -29,20 +29,14 @@ export default function HomepageModules() {
               <h3>
                 <Link href="/module/plus-value">Ma Plus-Value Réno</Link>
               </h3>
-              <p>
-                Notre calculatrice spécialement dédiée à l'estimation de la
-                plus-value d'un bien suite à des travaux de rénovation.
-              </p>
+              <p>Estimez la valeur de votre logement après sa rénovation.</p>
             </Card>
             <Card>
               <Image src={ampleurImage} alt="Logo MaPrimeRénov" />
               <h3>
                 <Link href="/module">Rénovation d'ampleur</Link>
               </h3>
-              <p>
-                Notre calculatrice conçue et optimisée pour proposer simplement
-                les aides à la rénovation énergétique d'ampleur.
-              </p>
+              <p>Calculez vos aides pour une rénovation importante.</p>
             </Card>
             <Card>
               <Image
@@ -56,8 +50,8 @@ export default function HomepageModules() {
                 <Link href="/integration">Et bien plus encore...</Link>
               </h3>
               <p>
-                Retrouver l'ensemble de nos calculatrices spécifiques (Pompe à
-                Chaleur, éco-PTZ, ...) prêtes à utilisation.
+                Pompe à chaleur, éco-PTZ... Retrouvez toutes nos calculettes
+                spécifiques.
               </p>
             </Card>
           </CardMosaic>
