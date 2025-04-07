@@ -47,27 +47,13 @@ export default function ValeurVerteModule({ type }) {
   const situation = getSituation(searchParams, rules)
   const answeredQuestions = Object.keys(situation)
 
-  // if (!situation['DPE . actuel']) {
-  //   situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre) + 1
-
-  //   setSearchParams({
-  //     [encodeDottedName('DPE . actuel')]: `${situation['DPE . actuel']}*`,
-  //   })
-  // }
-
-  // if (!situation['projet . DPE visé']) {
-  //   setSearchParams({
-  //     [encodeDottedName('projet . DPE visé')]:
-  //       `${Math.max(situation['DPE . actuel'] - 2, 0)}*`,
-  //   })
-  // }
-
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module Plus Value'])
   }, [])
 
   useEffect(() => {
     async function fetchCommune() {
+      if (!situation['logement . commune']) return
       const result = await getCommune(situation, 'logement . commune')
       setSearchParams({
         [encodeDottedName('logement . code département')]:
