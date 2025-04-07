@@ -51,9 +51,7 @@ export default function EligibilityDenormandie({ dottedName }) {
         >
           <CommuneLogement
             {...{
-              setSearchParams,
               situation,
-              answeredQuestions,
               onChange: (result) => {
                 setSearchParams({
                   [encodeDottedName('logement . commune . denormandie')]:

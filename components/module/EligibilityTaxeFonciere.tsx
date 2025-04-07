@@ -54,9 +54,7 @@ export default function EligibilityTaxeFonciere({ dottedName }) {
         >
           <CommuneLogement
             {...{
-              setSearchParams,
               situation,
-              answeredQuestions,
               onChange: (result) => {
                 setSearchParams({
                   [encodeDottedName('logement . commune')]: `"${result.code}"*`,
