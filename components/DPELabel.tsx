@@ -13,11 +13,11 @@ export default function DPELabel({ index, label = null, small = true }) {
       <span
         css={`
           display: inline-block;
-          background: 'grey';
+          background: lightgrey;
           text-align: center;
           padding: ${small ? '0.05rem 0.45rem' : '0.7rem 1rem'};
           font-weight: bold;
-          color: 'black'};
+          color: black;
           border-radius: 0.3rem;
         `}
       >
