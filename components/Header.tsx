@@ -13,7 +13,7 @@ import { CTA } from './UI'
 export default function Header() {
   const isInIframe = useIsInIframe()
   const pathname = usePathname()
-  if (pathname.startsWith('/module/') && !pathname.endsWith('plus-value'))
+  if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
     return
 
   return isInIframe ? (
