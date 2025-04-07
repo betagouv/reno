@@ -39,9 +39,12 @@ export default function Module({}) {
             </h1>
             <Intro>
               <p>
-                Mes Aides Réno est un service public de calcul des aides à la
-                rénovation energétique. Le sujet est complexe, les aides sont
-                multiples, les règles sont mouvantes.
+                Saviez-vous que la performance énergétique de votre logement
+                influe fortement sur sa valeur immobilière ?
+              </p>
+              <p>
+                Grâce à cette calculette, estimez facilement l'impact de vos
+                travaux de rénovation sur la valeur de votre bien.
               </p>
             </Intro>
           </div>
@@ -49,25 +52,32 @@ export default function Module({}) {
         <Wrapper $background="white">
           <Content>
             <Suspense>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <PlusValueModule type={'module'} />
-              </div>
-              <InternalLink
-                href={`/module/plus-value/demonstration`}
-                style={css`
-                  display: flex;
-                  align-items: center;
-                  width: fit-content;
-                  gap: 0.5rem;
-                `}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
               >
-                <Image
-                  src={codeIcon}
-                  alt="icone intégration iframe"
-                  width="24"
-                />
-                Intégrer ce widget à mon site
-              </InternalLink>
+                <PlusValueModule type={'module'} />
+                <InternalLink
+                  href={`/module/plus-value/demonstration`}
+                  style={css`
+                    display: flex;
+                    align-items: center;
+                    width: fit-content;
+                    margin-top: 1rem;
+                    gap: 0.5rem;
+                  `}
+                >
+                  <Image
+                    src={codeIcon}
+                    alt="icone intégration iframe"
+                    width="24"
+                  />
+                  Intégrer ce widget à mon site
+                </InternalLink>
+              </div>
             </Suspense>
           </Content>
         </Wrapper>
