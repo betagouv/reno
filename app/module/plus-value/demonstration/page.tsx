@@ -45,8 +45,8 @@ export default function Module({}) {
               </p>
               <p>
                 En intégrant directement notre calculateur sous forme d'iframe
-                chez vous, vous permettez à vos utilisateurs de calculer leurs
-                aides sans qu'ils quittent votre site.
+                chez vous, vous permettez à vos utilisateurs de calculer la
+                plus-value sur leur logement sans qu'ils quittent votre site.
               </p>
             </Intro>
           </div>
