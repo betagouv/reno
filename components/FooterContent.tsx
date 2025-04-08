@@ -1,8 +1,7 @@
-import { allArticles } from '@/.contentlayer/generated'
+import { sortedArticles } from '@/app/blog/page'
 import { ExternalLink, FooterWrapper, InternalLink } from './UI'
-import { sortBy } from './utils'
+
 export default function FooterContent() {
-  const articles = [...sortBy((article) => article.date)(allArticles).reverse()]
   return (
     <FooterWrapper className="fr-footer" role="contentinfo">
       <div>
@@ -14,15 +13,7 @@ export default function FooterContent() {
               </InternalLink>
             </h3>
             <ul className="fr-footer__top-list">
-              <li key={'2025'}>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href={'/blog/aides-renovation-2025'}
-                >
-                  Quelles aides à la rénovation en 2025 ?
-                </InternalLink>
-              </li>
-              {articles
+              {sortedArticles
                 .filter(
                   ({ tags, brouillon }) =>
                     !tags?.includes('notes de version') && !brouillon,

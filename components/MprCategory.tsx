@@ -39,6 +39,7 @@ export default function MprCategory({
               situation,
               setSearchParams,
               answeredQuestions,
+              autoFocus: false,
             }}
           />
         ))}
