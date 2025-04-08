@@ -14,6 +14,7 @@ export const HeaderWrapper = styled(Content)`
   > img {
     display: none;
   }
+  position: relative;
   @media (min-width: 800px) {
     flex-direction: row;
     > img {
@@ -129,9 +130,9 @@ export const HomeTestimonies = styled.div`
     }
     &:before {
       color: #6a6af4;
-      content: "";
+      content: '';
       display: block;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       background-color: currentColor;
       display: inline-block;
       flex: 0 0 auto;
@@ -140,7 +141,7 @@ export const HomeTestimonies = styled.div`
       mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE0IDNhOCA4IDAgMSAxIDAgMTZ2My41Yy01LTItMTItNS0xMi0xMS41YTggOCAwIDAgMSA4LThoNFptMCAyaC00YTYgNiAwIDAgMC02IDZjMCAzLjYxIDIuNDYyIDUuOTY2IDggOC40OFYxN2gyYTYgNiAwIDEgMCAwLTEyWm0tMiAyLjUtMi41MDYgMy43NUwxMiAxNUg5LjI5NUw2Ljc1IDExLjI1IDkuMjk1IDcuNUgxMlptNC41IDAtMi41MDYgMy43NUwxNi41IDE1aC0yLjcwNWwtMi41NDUtMy43NSAyLjU0NS0zLjc1SDE2LjVaIi8+PC9zdmc+);
       -webkit-mask-size: 100% 100%;
       mask-size: 100% 100%;
-      vertical-align: calc(.375em - 1rem);
+      vertical-align: calc(0.375em - 1rem);
       width: 2rem;
     }
     .see-more {
@@ -155,16 +156,16 @@ export const HomeTestimonies = styled.div`
       max-height: 500px;
     }
     .see-more-click {
-        cursor: pointer;
-        display: block;
-        margin-bottom: 1rem;
-        text-align: right;
-        text-decoration: none;
-        padding: 0.5rem 0.8rem;
-        &:hover {
-          color: white;
-          background-color: var(--color);
-        }
+      cursor: pointer;
+      display: block;
+      margin-bottom: 1rem;
+      text-align: right;
+      text-decoration: none;
+      padding: 0.5rem 0.8rem;
+      &:hover {
+        color: white;
+        background-color: var(--color);
+      }
     }
   }
 `

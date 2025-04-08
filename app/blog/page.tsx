@@ -2,7 +2,6 @@ import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import { sortBy } from '@/components/utils'
-import illustrationBlog from '@/public/illustration-blog.webp'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
@@ -16,6 +15,8 @@ import {
 import { dateCool } from './utils'
 import { articles } from './[slug]/page'
 import { article as article2025 } from './aides-renovation-2025/page'
+import BlogImage from './BlogImage'
+import { Suspense } from 'react'
 
 const title = `Le blog des aides à la rénovation energétique`
 const description =
@@ -40,11 +41,9 @@ const Page = () => {
     >
       <PageBlock>
         <HeaderWrapper>
-          <Image
-            style={{ margin: '.6rem 3rem' }}
-            src={illustrationBlog}
-            alt="Des ouvriers peignent et réparent la facade d'une maison"
-          />
+          <Suspense>
+            <BlogImage />
+          </Suspense>
           <div>
             {false && ( // Not sure this is useful since the header is big
               <nav
