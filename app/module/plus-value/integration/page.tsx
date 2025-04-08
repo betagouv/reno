@@ -1,10 +1,10 @@
 import { Suspense } from 'react'
-import ValeurVerteModule from '@/components/module/ValeurVerte'
+import PlusValueModule from '@/components/module/PlusValueModule'
 
 export default function Integration() {
   return (
     <Suspense>
-      <ValeurVerteModule type={'module'} />
+      <PlusValueModule type={'module'} />
     </Suspense>
   )
 }

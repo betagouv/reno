@@ -1,5 +1,5 @@
 import examplePersonas from './examplePersonas.yaml'
-import examplePersonasValeurVerte from './valeur-verte/examplePersonasValeurVerte.yaml'
+import examplePersonasValeurVerte from './plus-value/examplePersonasValeurVerte.yaml'
 import rules from '@/app/règles/rules'
 
 const getValues = (dottedName) => {
