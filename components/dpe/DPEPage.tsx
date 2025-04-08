@@ -21,23 +21,25 @@ import DpeAddressSearch from '../DpeAddressSearch'
 import { useState } from 'react'
 import enrichSituation from '../personas/enrichSituation'
 import DPEFacture from './DPEFacture'
+import DPETravaux from './DPETravaux'
 
-export default function DPEPage({ lettre }) {
+export default function DPEPage() {
   const [dpe, setDpe] = useState()
   const [situation, setSituation] = useState({})
-  const index = dpeData.findIndex((c) => c.lettre == lettre)
+  const [indexEtiquette, setIndexEtiquette] = useState({})
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const handleSelectDpe = async (dpe) => {
-    const indexEtiquette = conversionLettreIndex.indexOf(dpe['etiquette']) + 1
+    const index = conversionLettreIndex.indexOf(dpe['etiquette']) + 1
+    setIndexEtiquette(index)
     let situation = await enrichSituation({
       'logement . commune': `"${dpe['Code_INSEE_(BAN)']}"*`,
       'logement . département': `"${dpe['N°_département_(BAN)']}"*`,
       'logement . commune . nom': `"${dpe['Nom__commune_(BAN)']}"*`,
-      'DPE . actuel': indexEtiquette + '*',
-      'projet . DPE visé': Math.max(indexEtiquette - 2, 0) + '*',
+      'DPE . actuel': index + '*',
+      'projet . DPE visé': Math.max(index - 2, 0) + '*',
       'logement . type': `"${dpe['Type_bâtiment']}"`,
       'ménage . région . IdF': `"${
         ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
@@ -95,26 +97,28 @@ export default function DPEPage({ lettre }) {
                 <p>
                   Un logement classé <DPELabel label={dpe['etiquette']} />{' '}
                   consomme au pire{' '}
-                  {index == 6 ? (
+                  {indexEtiquette == 6 ? (
                     <>
-                      plus de <strong>{dpeData[index]['énergie']}</strong>
+                      plus de{' '}
+                      <strong>{dpeData[indexEtiquette]['énergie']}</strong>
                       <sub>kWhEP/m².an</sub>
                     </>
                   ) : (
                     <>
-                      <strong>{dpeData[index + 1]['énergie']}</strong>
+                      <strong>{dpeData[indexEtiquette + 1]['énergie']}</strong>
                       <sub>kWhEP/m².an</sub>
                     </>
                   )}{' '}
                   et émet au pire{' '}
-                  {index == 6 ? (
+                  {indexEtiquette == 6 ? (
                     <>
-                      plus de <strong>{dpeData[index]['climat']}</strong>
+                      plus de{' '}
+                      <strong>{dpeData[indexEtiquette]['climat']}</strong>
                       <sub>kgeqCO²/m².an</sub>
                     </>
                   ) : (
                     <>
-                      <strong>{dpeData[index + 1]['climat']}</strong>
+                      <strong>{dpeData[indexEtiquette + 1]['climat']}</strong>
                       <sub>kgeqCO²/m².an</sub>
                     </>
                   )}
@@ -141,17 +145,19 @@ export default function DPEPage({ lettre }) {
                 >
                   <Ampleur type="widget" />
                 </div>
+                <h2>Quels travaux privilégiés ?</h2>
+                <DPETravaux {...{ setSearchParams, dpe }} />
                 <h2>Quels impact sur votre facture énergétique?</h2>
                 <DPEFacture
                   {...{
                     setSearchParams,
-                    situation,
                     dpe,
                   }}
                 />
-                <h2>Quels travaux privilégiés ?</h2>
                 <h2>Une interdiction de location est-elle prévue?</h2>
-                {Object.keys(interdictionLocation).includes(lettre) ? (
+                {Object.keys(interdictionLocation).includes(
+                  dpe['etiquette'],
+                ) ? (
                   <>
                     Une interdiction de location est prévue à partir du{' '}
                     <strong>

@@ -26,13 +26,7 @@ const energies = [
 
 const prixAbonnementElectricite = 160
 
-const FactureWidget = ({
-  engine,
-  dpe,
-  setSearchParams,
-  answeredQuestions,
-  isMobile,
-}) => {
+const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
   const [pourcentagesAvantReno, setPourcentagesAvantReno] = useState([])
   const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
   const [energiesUtilisees, setEnergiesUtilisees] = useState([])
@@ -365,9 +359,7 @@ const FactureWidget = ({
             {...{
               oldIndex: situation['DPE . actuel'] - 1,
               setSearchParams,
-              answeredQuestions,
               choice: situation['projet . DPE visé'] - 1,
-              engine,
               situation,
               columnDisplay: true,
             }}

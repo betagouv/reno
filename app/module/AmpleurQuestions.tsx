@@ -512,11 +512,10 @@ export const IdFQuestion = ({
   isMobile,
   situation,
   answeredQuestions,
-  rule = 'ménage . région . IdF',
+  rule = 'logement . région . IdF',
   dot = true,
 }) => {
   // Ici, il faut savoir si l'on parle du ménage ou du logement
-  let rule = 'logement . région . IdF'
   if (situation['logement . résidence principale propriétaire'] == 'non') {
     rule = 'ménage . région . IdF'
   }
