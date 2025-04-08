@@ -2,7 +2,7 @@ import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import { sortBy } from '@/components/utils'
-import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
+import illustrationBlog from '@/public/illustration-blog.webp'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
@@ -42,7 +42,7 @@ const Page = () => {
         <HeaderWrapper>
           <Image
             style={{ margin: '.6rem 3rem' }}
-            src={illustrationAccueil}
+            src={illustrationBlog}
             alt="Des ouvriers peignent et réparent la facade d'une maison"
           />
           <div>
