@@ -9,6 +9,7 @@ import iconEclair from '@/public/eclair.svg'
 import Image from 'next/image'
 import AnswerItem from './AnswerItem'
 import { getCommune } from '@/components/personas/enrichSituation'
+import rules from '@/app/règles/rules'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -59,6 +60,7 @@ export default function Answers({
       for (const answer of rawAnsweredQuestions) {
         if (['ménage . commune', 'logement . commune'].includes(answer)) {
           communesData[answer] = await getCommune(situation, answer)
+          console.log("on appel l'API", communesData)
         }
       }
       setCommunes(communesData)
@@ -75,15 +77,8 @@ export default function Answers({
   }
 
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) =>
-      ![
-        'ménage . code région',
-        'ménage . code département',
-        'logement . code région',
-        'logement . code département',
-      ].includes(el),
+    (el) => rules[el]?.question,
   )
-
   const { pastCategories } = categoryData(
     nextQuestions,
     currentQuestion,
