@@ -16,11 +16,12 @@ const title = 'Quelles aides à la rénovation en 2025 ?',
 
 const date = '2024-12-23'
 
+const image = '/blog-images/2025.jpg'
 export const metadata = {
   title,
   description,
   openGraph: {
-    images: ['/blog-images/2025.jpg'],
+    images: [image],
     type: 'article',
     publishedTime: date + 'T00:00:00.000Z',
     url: 'https://mesaidesreno.beta.gouv.fr/blog/aides-renovation-2025',
@@ -31,6 +32,7 @@ export const article = {
   titre: title,
   url: 'blog/aides-renovation-2025',
   description,
+  image,
   date,
 }
 

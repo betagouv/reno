@@ -11,6 +11,7 @@ import { omit } from './utils'
 import Breadcrumb from './Breadcrumb'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { encodeSituation } from './publicodes/situationUtils'
+import Enquete from './Enquete'
 
 export default function GestesBasket({
   rules,
@@ -85,6 +86,7 @@ export default function GestesBasket({
         >
           Votre sélection d'aides
         </h2>
+        <Enquete />
         <ul
           css={`
             list-style-type: none;
