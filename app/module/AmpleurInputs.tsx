@@ -1,7 +1,14 @@
 export const ampleurQuestionsAnswered = (answeredQuestions) =>
-  userInputDottedNames.every((dottedName) =>
-    answeredQuestions.includes(dottedName),
-  )
+  userInputDottedNames
+    .filter(
+      (dottedName) =>
+        !['ménage . région . IdF', 'logement . région . IdF'].includes(
+          dottedName,
+        ),
+    )
+    .every((dottedName) => answeredQuestions.includes(dottedName)) &&
+  (answeredQuestions.includes('ménage . région . IdF') ||
+    answeredQuestions.includes('logement . région . IdF'))
 
 export const userInputDottedNames = [
   'vous . propriétaire . statut',
@@ -10,6 +17,7 @@ export const userInputDottedNames = [
   'logement . propriétaire occupant',
   'ménage . personnes',
   'ménage . région . IdF',
+  'logement . région . IdF',
   'ménage . revenu',
 ]
 

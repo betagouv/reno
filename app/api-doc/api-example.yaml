@@ -5,7 +5,7 @@ eligibilite:
   DPE . actuel: 6
   projet . DPE visé: 2
   projet . travaux: 50000
-  ménage . commune: "'44109'" # code insee
+  logement . commune: "'44109'" # code insee
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'au moins 15 ans'"
@@ -18,7 +18,7 @@ mpra:
   DPE . actuel: 6
   projet . DPE visé: 2
   projet . travaux: 50000
-  ménage . commune: "'25388'" # code insee
+  logement . commune: "'25388'" # code insee
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'au moins 15 ans'"
@@ -28,7 +28,7 @@ MPR:
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'au moins 15 ans'"
   ménage . personnes: 2
-  ménage . commune: "'75056'"
+  logement . commune: "'75056'"
   ménage . revenu: 42058
   gestes . chauffage . PAC . air-eau: oui
 copropriete:
@@ -49,7 +49,8 @@ CEE:
   gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
   gestes . chauffage . PAC . air-eau . CEE . Etas: "'entre 170 % et 200 %'"
 category-mpr:
-  ménage . commune: "'75056'"
+  logement . propriétaire occupant: oui
+  logement . commune: "'75056'"
   ménage . personnes: 2
   ménage . revenu: 50002
 ptz:
@@ -62,7 +63,7 @@ par:
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: 'au moins 15 ans'
-  ménage . commune: "'75056'"
+  logement . commune: "'75056'"
   ménage . personnes: 2
   ménage . revenu: 20002
   parcours d'aide: "'ampleur'"
@@ -72,6 +73,7 @@ denormandie:
   denormandie . années de location: 12
   denormandie . gestes minimum: oui
   ménage . revenu: 20000
+  ménage . commune: "'75056'"
   logement . commune: "'29019'"
   logement . prix d'achat: 250000
   projet . travaux: 85000
@@ -82,7 +84,7 @@ geste:
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . résidence principale locataire: non
-  ménage . commune: "'44109'"
+  logement . commune: "'44109'"
   ménage . personnes: 2
   ménage . revenu: 25000
   gestes . chauffage . PAC . air-eau: oui
@@ -94,5 +96,5 @@ geste:
 taxe fonciere:
   taxe foncière . condition de dépenses: oui
   logement . période de construction: 'au moins 15 ans'
-  ménage . commune: "'75056'"
+  logement . commune: "'75056'"
   logement . type: 'maison'

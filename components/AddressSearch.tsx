@@ -1,5 +1,5 @@
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
@@ -18,13 +18,12 @@ export default function AddressSearch({
   const [input] = useDebounce(immediateInput, 300)
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
-
   const [clicked, setClicked] = useState(situation[type])
 
   const validInput = input && input.length >= 3
-
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
+    setInput('')
     async function fetchCommune() {
       const commune = await getCommune(situation, type)
       if (commune) {

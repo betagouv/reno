@@ -31,10 +31,11 @@ import {
 } from './AmpleurQuestions'
 import { ModuleWrapper } from './ModuleWrapper'
 import UserData from './UserData'
+import AmpleurWidget from '@/components/ampleur/AmpleurWidget'
 
 const engine = new Publicodes(rules)
 
-export default function Ampleur() {
+export default function Ampleur({ type }) {
   const setSearchParams = useSetSearchParams()
   const isMobile = useMediaQuery('(max-width: 400px)')
 
@@ -122,7 +123,7 @@ export default function Ampleur() {
 
   const shouldDisplay = ampleurQuestionsAnswered(answeredQuestions)
 
-  return (
+  return type == 'module' ? (
     <ModuleWrapper
       isMobile={isMobile}
       title="Vos aides pour une rénovation d'ampleur"
@@ -147,7 +148,10 @@ export default function Ampleur() {
           $next={answeredQuestions.includes(
             'logement . résidence principale propriétaire',
           )}
-          $touched={answeredQuestions.includes('ménage . région . IdF')}
+          $touched={
+            answeredQuestions.includes('ménage . région . IdF') ||
+            answeredQuestions.includes('logement . région . IdF')
+          }
           key="IdF"
         >
           <IdFQuestion
@@ -161,7 +165,10 @@ export default function Ampleur() {
         </Li>
         <Li
           key="personnes"
-          $next={answeredQuestions.includes('ménage . région . IdF')}
+          $next={
+            answeredQuestions.includes('ménage . région . IdF') ||
+            answeredQuestions.includes('logement . région . IdF')
+          }
           $touched={answeredQuestions.includes('ménage . personnes')}
         >
           <PersonnesQuestion
@@ -200,6 +207,18 @@ export default function Ampleur() {
         }}
       />
     </ModuleWrapper>
+  ) : (
+    <AmpleurWidget
+      {...{
+        onChange,
+        engine,
+        shouldDisplay,
+        situation,
+        setSearchParams,
+        answeredQuestions,
+        isMobile,
+      }}
+    />
   )
 }
 

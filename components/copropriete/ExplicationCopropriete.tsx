@@ -20,17 +20,14 @@ import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import Input from '../Input'
 import { roundToThousands } from '../utils'
-
+import MprCategory from '../MprCategory'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import MprCategory from '../MprCategory'
 import Select from '../Select'
-
+import CalculatorWidget from '../CalculatorWidget'
 import Value from '../Value'
 import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
-
-import CalculatorWidget from '../CalculatorWidget'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()

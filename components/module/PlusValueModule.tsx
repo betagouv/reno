@@ -6,8 +6,13 @@ import { useSearchParams } from 'next/navigation'
 import rules from '@/app/règles/rules'
 import listeDepartementRegion from '@/app/règles/liste-departement-region.publicodes'
 import Publicodes from 'publicodes'
+<<<<<<<< HEAD:components/module/ValeurVerte.tsx
 import dataValeurVerte from '@/data/valeur-verte.csv'
+import DPEQuickSwitch from '@/components/dpe/DPEQuickSwitch'
+========
+import dataPlusValue from '@/data/valeur-verte.csv'
 import DPEQuickSwitch from '@/components/DPEQuickSwitch'
+>>>>>>>> mise-en-avant-modules:components/module/PlusValueModule.tsx
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { getCommune } from '../personas/enrichSituation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
@@ -20,20 +25,15 @@ import {
   QuestionList,
 } from '@/app/module/AmpleurQuestions'
 import TargetDPETabs from '../mpra/TargetDPETabs'
-import DPELabel, { conversionLettreIndex } from '../DPELabel'
+import DPELabel, { conversionLettreIndex } from '../dpe/DPELabel'
 import { EvaluationValueWrapper } from '@/app/module/AmpleurEvaluation'
 import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
 import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
-import CalculatorWidget from '../CalculatorWidget'
-import AddressSearch from '../AddressSearch'
-import Select from '../Select'
-import editIcon from '@/public/crayon.svg'
-import Image from 'next/image'
-import { formatNumberWithSpaces } from '../utils'
+import ValeurVerteWidget from '../valeurVerte/ValeurVerteWidget'
 
-export default function ValeurVerteModule({ type, lettre }) {
+export default function ValeurVerteModule({ type }) {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
@@ -47,27 +47,13 @@ export default function ValeurVerteModule({ type, lettre }) {
   const situation = getSituation(searchParams, rules)
   const answeredQuestions = Object.keys(situation)
 
-  if (!situation['DPE . actuel']) {
-    situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre) + 1
-
-    setSearchParams({
-      [encodeDottedName('DPE . actuel')]: `${situation['DPE . actuel']}*`,
-    })
-  }
-
-  if (!situation['projet . DPE visé']) {
-    setSearchParams({
-      [encodeDottedName('projet . DPE visé')]:
-        `${Math.max(situation['DPE . actuel'] - 2, 0)}*`,
-    })
-  }
-
   useEffect(() => {
-    push(['trackEvent', 'Module', 'Page', 'Module Valeur Verte'])
+    push(['trackEvent', 'Module', 'Page', 'Module Plus Value'])
   }, [])
 
   useEffect(() => {
     async function fetchCommune() {
+      if (!situation['logement . commune']) return
       const result = await getCommune(situation, 'logement . commune')
       setSearchParams({
         [encodeDottedName('logement . code département')]:
@@ -111,9 +97,7 @@ export default function ValeurVerteModule({ type, lettre }) {
         >
           <CommuneLogement
             {...{
-              setSearchParams,
               situation,
-              answeredQuestions,
               text: 'Il est situé à',
               onChange: (result) => {
                 setSearchParams({
@@ -268,6 +252,19 @@ export default function ValeurVerteModule({ type, lettre }) {
       </small>
     </ModuleWrapper>
   ) : (
+<<<<<<<< HEAD:components/module/ValeurVerte.tsx
+    <ValeurVerteWidget
+      {...{
+        situation,
+        setSearchParams,
+        answeredQuestions,
+        isMobile,
+        plusValue,
+        pourcentageAppreciation,
+        region,
+      }}
+    />
+========
     <CalculatorWidget>
       <div
         css={`
@@ -291,9 +288,7 @@ export default function ValeurVerteModule({ type, lettre }) {
                     `"${result.nom}"*`,
                 })
               },
-              setSearchParams,
               situation,
-              answeredQuestions,
             }}
           />
         </div>
@@ -483,16 +478,17 @@ export default function ValeurVerteModule({ type, lettre }) {
         </div>
       </div>
     </CalculatorWidget>
+>>>>>>>> mise-en-avant-modules:components/module/PlusValueModule.tsx
   )
 }
 
+export const hasResult = (situation) =>
+  situation['logement . code département'] &&
+  situation['logement . type'] &&
+  situation["logement . prix d'achat"]
+
 const calculateAppreciationAndPlusValue = (situation) => {
-  if (
-    !situation['logement . code département'] ||
-    !situation['logement . type'] ||
-    !situation["logement . prix d'achat"]
-  )
-    return null
+  if (!hasResult(situation)) return null
 
   // Règle spécifique pour paris et la petite couronne qui ne sont pas réellement des régions
   const departmentCode = parseInt(situation['logement . code département'])
@@ -510,8 +506,8 @@ const calculateAppreciationAndPlusValue = (situation) => {
     region = listeDepartementRegion['régions']['valeurs'][codeRegion]
   }
 
-  // Trouver la ligne correspondante dans dataValeurVerte
-  const row = dataValeurVerte.find(
+  // Trouver la ligne correspondante dans dataPlusValue
+  const row = dataPlusValue.find(
     (r) => r.Région === region && situation['logement . type'].includes(r.Type),
   )
 
@@ -551,7 +547,7 @@ const calculateAppreciationAndPlusValue = (situation) => {
   return { appreciation, plusValue, region }
 }
 
-const DPEAppreciationInfo = ({
+export const DPEAppreciationInfo = ({
   situation,
   pourcentageAppreciation,
   region,

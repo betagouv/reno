@@ -3,7 +3,7 @@ import { CTA, CTAWrapper, Card } from './UI'
 import checkIcon from '@/public/check.svg'
 import GestesPreview from './mprg/GestesPreview'
 import { Labels } from '@/app/LandingUI'
-import DPELabel from './DPELabel'
+import DPELabel from './dpe/DPELabel'
 import { push } from '@socialgouv/matomo-next'
 
 export default function ÀlaCarteSummary({ engine, rules, url, situation }) {

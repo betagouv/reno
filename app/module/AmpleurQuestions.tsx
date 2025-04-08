@@ -17,9 +17,7 @@ import AddressSearch from '@/components/AddressSearch'
 import { formatNumberWithSpaces } from '@/components/utils'
 
 export const CommuneLogement = ({
-  setSearchParams,
   situation,
-  answeredQuestions,
   onChange,
   text = 'Ce logement est situé à',
 }) => (
@@ -48,9 +46,7 @@ export const CommuneLogement = ({
           setChoice: (result) => {
             onChange(result)
           },
-          setSearchParams,
           situation,
-          answeredQuestions,
         }}
       />
     </label>
@@ -61,9 +57,10 @@ export const TypeResidence = ({
   setSearchParams,
   situation,
   answeredQuestions,
+  dot = true,
 }) => (
   <section>
-    <Dot />
+    {dot && <Dot />}
     <label htmlFor="">
       Ce logement sera :{' '}
       <Select
@@ -115,12 +112,16 @@ export const LogementType = ({
         onChange={(e) => {
           push(['trackEvent', 'Module', 'Interaction', 'type logement ' + e])
           setSearchParams({
-            [encodeDottedName(rule)]: '"' + e + '"*',
+            [encodeDottedName(rule)]: `"${e}"*`,
           })
         }}
-        value={situation[rule]?.replaceAll('"', "'")}
+        value={situation[rule]?.replaceAll('"', '')}
         values={rules[rule]['une possibilité parmi']['possibilités'].map(
-          (i) => rules['logement . type . ' + i],
+          (i) => {
+            const ruleEntry = rules[`logement . type . ${i}`]
+            ruleEntry.valeur = ruleEntry.valeur.replaceAll("'", '')
+            return ruleEntry
+          },
         )}
       />
     </label>
@@ -207,11 +208,15 @@ export const MontantQuestion = ({
 
 const revenuQuestionDependencies = [
   'ménage . personnes',
-  'ménage . région . IdF',
+  'logement . propriétaire occupant',
 ]
 const revenuQuestionDependenciesSatisfied = (answeredQuestions) => {
-  return revenuQuestionDependencies.every((dottedName) =>
-    answeredQuestions.includes(dottedName),
+  return (
+    revenuQuestionDependencies.every((dottedName) =>
+      answeredQuestions.includes(dottedName),
+    ) &&
+    (answeredQuestions.includes('ménage . région . IdF') ||
+      answeredQuestions.includes('logement . région . IdF'))
   )
 }
 
@@ -220,6 +225,7 @@ export const RevenuQuestion = ({
   setSearchParams,
   engine,
   situation,
+  dot = true,
 }) => {
   const thisQuestionSatisfied = answeredQuestions.includes('ménage . revenu')
   if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
@@ -242,7 +248,7 @@ export const RevenuQuestion = ({
           align-items: center;
         `}
       >
-        <Dot />
+        {dot && <Dot />}
         <div>
           {!thisQuestionSatisfied && (
             <div>
@@ -506,8 +512,13 @@ export const IdFQuestion = ({
   isMobile,
   situation,
   answeredQuestions,
-  rule = 'ménage . région . IdF',
+  rule = 'logement . région . IdF',
+  dot = true,
 }) => {
+  // Ici, il faut savoir si l'on parle du ménage ou du logement
+  if (situation['logement . résidence principale propriétaire'] == 'non') {
+    rule = 'ménage . région . IdF'
+  }
   const answered = answeredQuestions.includes(rule)
   return (
     <div
@@ -516,15 +527,20 @@ export const IdFQuestion = ({
         align-items: center;
       `}
     >
-      <Dot />
+      {dot && <Dot />}
       <YesNoQuestionStyle>
-        <span>Votre résidence actuelle est située&nbsp;:</span>
+        <span>
+          {rule == 'ménage . région . IdF'
+            ? 'Votre résidence principale est située'
+            : 'Il est situé'}
+          &nbsp;:
+        </span>
         <section>
           <label>
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'oui'}
+              checked={answered && situation[rule].includes('oui')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf oui'])
                 setSearchParams({
@@ -538,7 +554,7 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'non'}
+              checked={answered && situation[rule].includes('non')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf non'])
                 setSearchParams({
