@@ -30,13 +30,13 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
-### v2.3.0
+### v2.3.1
 
 :bug: Nous avons corrigé un bug important dans le modèle de calcul de la catégorie MaPrimeRénov.
 
-Nous pensions que le choix du barème (Île-de-France ou hors Île-de-France) à appliquer pour déterminer la catégorie de revenu MaPrimeRénov' (très modeste, modeste, intermédiaire ou aisé) était déterminé en fonction de l'adresse de la résidence principale du propriétaire. 
+Nous pensions que le choix du barème (Île-de-France ou hors Île-de-France) à appliquer pour déterminer la catégorie de revenu MaPrimeRénov' (très modeste, modeste, intermédiaire ou aisé) était déterminé en fonction de l'adresse de la résidence principale du propriétaire.
 
-Or, ce n'est le cas que pour les propriétaires bailleurs, pour les propriétaires occupants, c'est l'adresse du logement rénové qu'il faut prendre en compte dans le calcul. D'une certaine manière, le législateur se projette dans la future résidence principale pour déterminer l'éligibilité aux différents montants d'aide. 
+Or, ce n'est le cas que pour les propriétaires bailleurs, pour les propriétaires occupants, c'est l'adresse du logement rénové qu'il faut prendre en compte dans le calcul. D'une certaine manière, le législateur se projette dans la future résidence principale pour déterminer l'éligibilité aux différents montants d'aide.
 
 Concrètement, cela signifie qu'il faut maintenant renseigner "logement . commune" plutôt que "ménage . commune" pour les propriétaires occupants.
 
