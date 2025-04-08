@@ -215,14 +215,6 @@ export default function InputSwitch({
                       'ménage . EPCI': `"${result.codeEpci}"`,
                       'ménage . commune': `"${result.code}"`,
                       'ménage . commune . nom': `"${result.nom}"`,
-                      'taxe foncière . commune . éligible . ménage':
-                        result.eligibilite[
-                          'taxe foncière . commune . éligible'
-                        ],
-                      'taxe foncière . commune . taux':
-                        result.eligibilite['taxe foncière . commune . taux'],
-                      'logement . commune . denormandie':
-                        result.eligibilite['logement . commune . denormandie'],
                     }
                   : {
                       'logement . code région': `"${result.codeRegion}"`,
@@ -230,7 +222,7 @@ export default function InputSwitch({
                       'logement . EPCI': `"${result.codeEpci}"`,
                       'logement . commune': `"${result.code}"`,
                       'logement . commune . nom': `"${result.nom}"`,
-                      'taxe foncière . commune . éligible . logement':
+                      'taxe foncière . commune . éligible':
                         result.eligibilite[
                           'taxe foncière . commune . éligible'
                         ],
