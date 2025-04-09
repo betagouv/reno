@@ -43,3 +43,11 @@ Nous devons bien sûr l'ouvrir conformément à la loi française, il nous faut 
 Nous utilisons Scalingo côté production pour servir nos utilisateurs depuis un centre de données français. Pour le dev, étant donné les temps de compilation trop longs de Scalingo (5 à 15 minutes par compilation du site NextJS), nous utilisons Vercel en compte gratuit, pour que chaque PR donne lieu à un lien de déploiement à montrer à l'équipe en 1 minute.
 
 Une possibilité sera un jour de passer à Dokploy, un projet très prometteur qui nous permettrait également de déployer facilement base de donnée, services annexes (statistiques, suivi des bugs, etc.).
+
+### Services annexes
+
+Nous utilisons l'instance Matomo de l'incubateur, stats.beta.gouv.fr.
+
+### Sécurité
+
+Nous ne stockons pas de donnés utilisateur pour l'instant chez Mes Aides Réno, si ce n'est les stats utilisateur anonymisées. Ainsi le périmètre d'attaque se limite à une compromission de notre déploiement (force ou hébergement).
