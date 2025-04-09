@@ -158,15 +158,15 @@ export default function Integration() {
                   color: black;
                 `}
               >
-                Module Valeur Verte
+                Calculette Ma Plus-value Réno
               </h2>
               <p>
-                Découvrez notre module de calcul dédie au calcul de la
-                plus-value d'un bien suite à une rénovation.
+                Découvrez notre calculette dédiée au calcul de la plus-value
+                d'un bien suite à une rénovation.
               </p>
               <CTAWrapper>
                 <CTA>
-                  <Link href="/module/valeur-verte">Découvrir le module</Link>
+                  <Link href="/module/plus-value">Découvrir le module</Link>
                 </CTA>
               </CTAWrapper>
             </MiseEnAvant>

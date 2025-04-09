@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation'
 import Schema from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
-import personasValeurVerte from './valeur-verte/examplePersonasValeurVerte.yaml'
+import personasPlusValue from './plus-value/examplePersonasValeurVerte.yaml'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
@@ -41,14 +41,17 @@ export default function Demonstration({ moduleName }) {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const { persona: selectedPersona = 0 } = searchParams
-  const personaFile = moduleName == 'ampleur' ? personas : personasValeurVerte
+  const personaFile = moduleName == 'ampleur' ? personas : personasPlusValue
 
   const personaSituation = personaFile[selectedPersona].situation
   const iframeSearchParams = encodeSituation(personaSituation, true)
   const iframeUrl =
     getAppUrl() +
-    `/module/${moduleName == 'ampleur' ? 'integration' : 'valeur-verte/integration'}?` +
-    new URLSearchParams(iframeSearchParams).toString()
+    `/module/${
+      moduleName == 'ampleur'
+        ? 'integration?' + new URLSearchParams(iframeSearchParams).toString()
+        : 'plus-value/integration'
+    }`
 
   return (
     <section>
@@ -61,75 +64,84 @@ export default function Demonstration({ moduleName }) {
           align-items: start;
         `}
       >
-        <h3>La situation d'entrée de votre plateforme d'annonce</h3>
-        <div
-          css={`
-            max-width: 90vw;
-            overflow: scroll hidden;
-            white-space: nowrap;
-            height: 12rem;
-            scrollbar-width: none;
-            ul {
-              list-style-type: none;
+        {moduleName == 'ampleur' && (
+          <>
+            <h3>La situation d'entrée de votre plateforme d'annonce</h3>
+            <div
+              css={`
+                max-width: 90vw;
+                overflow: scroll hidden;
+                white-space: nowrap;
+                height: 12rem;
+                scrollbar-width: none;
+                ul {
+                  list-style-type: none;
 
-              display: flex;
-              align-items: center;
-              gap: 1rem;
-              li {
-                min-width: 12rem;
-                height: 10rem;
-                white-space: wrap;
-                a {
-                  text-decoration: none;
-                  color: inherit;
-                  > div {
-                    height: 100%;
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
+                  display: flex;
+                  align-items: center;
+                  gap: 1rem;
+                  li {
+                    min-width: 12rem;
+                    height: 10rem;
+                    white-space: wrap;
+                    a {
+                      text-decoration: none;
+                      color: inherit;
+                      > div {
+                        height: 100%;
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                      }
+                    }
                   }
                 }
-              }
-            }
-          `}
-        >
-          <ul>
-            {personaFile.map(({ nom, situation }, i) => (
-              <li key={nom}>
-                <Link
-                  href={setSearchParams({ persona: i }, 'url')}
-                  scroll={false}
-                >
-                  <Card
-                    css={`
-                      ${selectedPersona == i &&
-                      `border: 2px solid var(--color)`}
-                    `}
-                  >
-                    <div>{nom}</div>
-                    <small>
-                      {moduleName == 'ampleur' ? (
-                        <>
-                          Construit en :{' '}
-                          {situation['logement . année de construction'] || '?'}
-                        </>
-                      ) : (
-                        <>
-                          Mise à prix:{' '}
-                          {formatNumber(situation["logement . prix d'achat"])}€
-                        </>
-                      )}
-                    </small>
-                    <div>
-                      DPE : <DPELabel index={situation['DPE . actuel'] - 1} />
-                    </div>
-                  </Card>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+              `}
+            >
+              <ul>
+                {personaFile.map(({ nom, situation }, i) => (
+                  <li key={nom}>
+                    <Link
+                      href={setSearchParams({ persona: i }, 'url')}
+                      scroll={false}
+                    >
+                      <Card
+                        css={`
+                          ${selectedPersona == i &&
+                          `border: 2px solid var(--color)`}
+                        `}
+                      >
+                        <div>{nom}</div>
+                        <small>
+                          {moduleName == 'ampleur' ? (
+                            <>
+                              Construit en :{' '}
+                              {situation['logement . année de construction'] ||
+                                '?'}
+                            </>
+                          ) : (
+                            <>
+                              Mise à prix:{' '}
+                              {formatNumber(
+                                situation["logement . prix d'achat"],
+                              )}
+                              €
+                            </>
+                          )}
+                        </small>
+                        <div>
+                          DPE :{' '}
+                          <DPELabel index={situation['DPE . actuel'] - 1} />
+                        </div>
+                      </Card>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
         <p>
           Voici la liste des champs qui peuvent être injectés dans l'iframe :
         </p>

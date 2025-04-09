@@ -182,67 +182,12 @@ export default function InputSwitch({
 
               setSearchParams(encodedSituation, 'push', false)
             },
-            setSearchParams,
             situation,
-            answeredQuestions,
           }}
         />
       </ClassicQuestionWrapper>
     )
-  if (currentQuestion === 'ménage . commune')
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          questionsToSubmit: [
-            'ménage . code région',
-            'ménage . code département',
-            'ménage . commune',
-          ],
-          currentValue,
-          engine,
-        }}
-      >
-        <AddressSearch
-          {...{
-            type: currentQuestion,
-            setChoice: (result) => {
-              const codeRegion = result.codeRegion
-              const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  'ménage . code région': `"${codeRegion}"`,
-                  'ménage . code département': `"${result.codeDepartement}"`,
-                  'ménage . EPCI': `"${result.codeEpci}"`,
-                  'ménage . commune': `"${result.code}"`,
-                  'ménage . commune . nom': `"${result.nom}"`,
-                  'taxe foncière . commune . éligible . ménage':
-                    result.eligibilite['taxe foncière . commune . éligible'],
-                  'taxe foncière . commune . taux':
-                    result.eligibilite['taxe foncière . commune . taux'],
-                  'logement . commune . denormandie':
-                    result.eligibilite['logement . commune . denormandie'],
-                },
-                false,
-                answeredQuestions,
-              )
-
-              setSearchParams(encodedSituation, 'push', false)
-            },
-            setSearchParams,
-            situation,
-            answeredQuestions,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-  if (currentQuestion === 'logement . commune')
+  if (['ménage . commune', 'logement . commune'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
         {...{
@@ -262,27 +207,45 @@ export default function InputSwitch({
             type: currentQuestion,
             setChoice: (result) => {
               const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  'logement . EPCI': `"${result.codeEpci}"`,
-                  'logement . commune': `"${result.code}"`,
-                  'logement . commune . nom': `"${result.nom}"`,
-                  'taxe foncière . commune . éligible . logement':
-                    result.eligibilite['taxe foncière . commune . éligible'],
-                  'taxe foncière . commune . taux':
-                    result.eligibilite['taxe foncière . commune . taux'],
-                  'logement . commune . denormandie':
-                    result.eligibilite['logement . commune . denormandie'],
-                },
+                currentQuestion == 'ménage . commune'
+                  ? {
+                      ...situation,
+                      'ménage . code région': `"${result.codeRegion}"`,
+                      'ménage . code département': `"${result.codeDepartement}"`,
+                      'ménage . EPCI': `"${result.codeEpci}"`,
+                      'ménage . commune': `"${result.code}"`,
+                      'ménage . commune . nom': `"${result.nom}"`,
+                      'taxe foncière . commune . éligible . ménage':
+                        result.eligibilite[
+                          'taxe foncière . commune . éligible'
+                        ],
+                      'taxe foncière . commune . taux':
+                        result.eligibilite['taxe foncière . commune . taux'],
+                      'logement . commune . denormandie':
+                        result.eligibilite['logement . commune . denormandie'],
+                    }
+                  : {
+                      'logement . code région': `"${result.codeRegion}"`,
+                      'logement . code département': `"${result.codeDepartement}"`,
+                      'logement . EPCI': `"${result.codeEpci}"`,
+                      'logement . commune': `"${result.code}"`,
+                      'logement . commune . nom': `"${result.nom}"`,
+                      'taxe foncière . commune . éligible . logement':
+                        result.eligibilite[
+                          'taxe foncière . commune . éligible'
+                        ],
+                      'taxe foncière . commune . taux':
+                        result.eligibilite['taxe foncière . commune . taux'],
+                      'logement . commune . denormandie':
+                        result.eligibilite['logement . commune . denormandie'],
+                    },
                 false,
                 answeredQuestions,
               )
 
               setSearchParams(encodedSituation, 'push', false)
             },
-            setSearchParams,
             situation,
-            answeredQuestions,
           }}
         />
       </ClassicQuestionWrapper>
