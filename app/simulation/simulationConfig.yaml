@@ -6,11 +6,11 @@ prioritaires:
   - logement . type
   - logement . surface
   - logement . période de construction
-  - ménage . personnes
+  - logement . commune
   - ménage . commune
+  - ménage . personnes
   - ménage . revenu
   - DPE . actuel
-  - logement . commune
   - parcours d'aide
   # Le reste est non-linéaire, en fonction du choix
 non prioritaires:

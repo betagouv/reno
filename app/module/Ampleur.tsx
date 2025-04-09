@@ -147,7 +147,10 @@ export default function Ampleur() {
           $next={answeredQuestions.includes(
             'logement . résidence principale propriétaire',
           )}
-          $touched={answeredQuestions.includes('ménage . région . IdF')}
+          $touched={
+            answeredQuestions.includes('ménage . région . IdF') ||
+            answeredQuestions.includes('logement . région . IdF')
+          }
           key="IdF"
         >
           <IdFQuestion
@@ -161,7 +164,10 @@ export default function Ampleur() {
         </Li>
         <Li
           key="personnes"
-          $next={answeredQuestions.includes('ménage . région . IdF')}
+          $next={
+            answeredQuestions.includes('ménage . région . IdF') ||
+            answeredQuestions.includes('logement . région . IdF')
+          }
           $touched={answeredQuestions.includes('ménage . personnes')}
         >
           <PersonnesQuestion

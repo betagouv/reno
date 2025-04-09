@@ -1,5 +1,6 @@
 import useIsInIframe from '@/components/useIsInIframe'
 import styled from 'styled-components'
+import rules from '@/app/règles/rules'
 
 export default function ProgressBar({
   answeredQuestions: rawAnsweredQuestions,
@@ -7,7 +8,7 @@ export default function ProgressBar({
 }) {
   const isInIframe = useIsInIframe()
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) => !['ménage . code région', 'ménage . code département'].includes(el),
+    (el) => rules[el]?.question,
   )
 
   // Dans le cas du simulateur principale, on considère que le questionnaire s'arrête au moment du choix du parcours d'aide

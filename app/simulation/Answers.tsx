@@ -3,12 +3,11 @@ import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { push } from '@socialgouv/matomo-next'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import iconEclair from '@/public/eclair.svg'
 import Image from 'next/image'
 import AnswerItem from './AnswerItem'
-import { getCommune } from '@/components/personas/enrichSituation'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -51,20 +50,6 @@ export default function Answers({
   closedTitle,
 }) {
   const [isOpen, setIsOpen] = useState(startsOpen)
-  const [communes, setCommunes] = useState({})
-
-  useEffect(() => {
-    const fetchCommunes = async () => {
-      const communesData = {}
-      for (const answer of rawAnsweredQuestions) {
-        if (['ménage . commune', 'logement . commune'].includes(answer)) {
-          communesData[answer] = await getCommune(situation, answer)
-        }
-      }
-      setCommunes(communesData)
-    }
-    fetchCommunes()
-  }, [rawAnsweredQuestions, situation])
   const handleSummaryClick = () => {
     push(['trackEvent', 'Simulateur Principal', 'Clic', 'voir mes reponses'])
     setIsOpen((prevIsOpen) => !prevIsOpen) // Toggle the state using React
@@ -75,9 +60,8 @@ export default function Answers({
   }
 
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) => !['ménage . code région', 'ménage . code département'].includes(el),
+    (el) => rules[el]?.question,
   )
-
   const { pastCategories } = categoryData(
     nextQuestions,
     currentQuestion,
@@ -199,7 +183,6 @@ export default function Answers({
                             situation,
                             setSearchParams,
                             rawAnsweredQuestions,
-                            communes,
                             setIsOpen,
                           }}
                         />
