@@ -79,20 +79,6 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
 
     setPourcentagesAvantReno(pourcentageInitial)
     setPourcentagesApresReno(pourcentageInitial.map((e) => (e == '?' ? 0 : e)))
-    console.log('noDetail', noDetail)
-    console.log('cout 5', dpe['Coût_total_5_usages'])
-    console.log(
-      'cout calculé',
-      Math.round(
-        energiesUtilisees.reduce(
-          (total, energie, i) =>
-            total +
-            (energie?.prixMoyen || 0) *
-              (dpe[`Conso_5_usages_é_finale_énergie_n°${i + 1}`] || 0),
-          0,
-        ) + prixAbonnementElectricite,
-      ),
-    )
     setMontantFactureActuelle(
       noDetail
         ? dpe['Coût_total_5_usages']

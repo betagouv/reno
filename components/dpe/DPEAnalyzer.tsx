@@ -34,7 +34,6 @@ export default function DPEAnalyzer() {
     formatNumber((value / dpe['Conso_5_usages_é_primaire']) * 100) + '%'
   useEffect(() => {
     if (!dpe) return
-    console.log('dpe', dpe)
     setSituation({
       'MPR . non accompagnée . éligible': 'oui',
       'CEE . conditions': 'oui',

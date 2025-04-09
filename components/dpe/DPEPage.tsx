@@ -1,21 +1,14 @@
 'use client'
-import { HeaderWrapper } from '@/app/LandingUI'
-import DPE from '@/components/dpe/DPE'
+
 import DPELabel, { conversionLettreIndex } from '@/components/dpe/DPELabel'
-import { Intro, PageBlock, Section } from '@/components/UI'
+import { Section } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import dpeData from '@/components/dpe/DPE.yaml'
 import PlusValueModule from '@/components/module/ValeurVerte'
 import Ampleur from '@/app/module/Ampleur'
 import { useSearchParams } from 'next/navigation'
-import {
-  encodeDottedName,
-  encodeSituation,
-  getSituation,
-} from '@/components/publicodes/situationUtils'
-import rules from '@/app/règles/rules'
-import useEnrichSituation from '@/components/personas/useEnrichSituation'
+import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import DpeAddressSearch from '../DpeAddressSearch'
 import { useState } from 'react'
@@ -25,7 +18,6 @@ import DPETravaux from './DPETravaux'
 
 export default function DPEPage() {
   const [dpe, setDpe] = useState()
-  const [situation, setSituation] = useState({})
   const [indexEtiquette, setIndexEtiquette] = useState({})
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
