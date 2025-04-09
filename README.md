@@ -20,7 +20,7 @@ Sur /couts, des statistiques sur le coût des travaux. Nécessite une clef d'acc
 
 C'est un site en NextJS et [Publicodes](https://publi.codes).
 
-Plus d'infos dans ce [document d'architecture](https://github.com/betagouv/reno/blog/master/architecture.md).
+Plus d'infos dans ce [document d'architecture](https://github.com/betagouv/reno/blob/master/architecture.mdx).
 
 ## Le module NPM
 
