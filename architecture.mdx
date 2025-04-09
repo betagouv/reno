@@ -1,0 +1,45 @@
+## Architecture du service Mes Aides Reno
+
+### Le site Web (et +)
+
+L'essentiel de notre application est un service Web qui tourne sur NextJS. Ce framework fait tourner à la fois le site, qui est un mélange entre des pages HTML pré-rendues côté serveur, des pages rendues à la volée côté serveur, et des pages de type "SPA" côté client.
+
+NextJS fait aussi office de "serveur Express" via ses "route handlers" qui nous permettent de fournir plusieurs API au site Web et aux réutilisateurs, dans `/app/api`.
+
+Côté Web, nous utilisons en CSS Styled-Components, ainsi que d'autres bibliothèques classiques du Web.
+
+### Le modèle de calcul - Publicodes
+
+Nous utilisons Publicodes pour construire les modèle de calcul Mes Aides Réno et l'utiliser à la fois dans le navigateur de l'utilisateur (pas d'aller-retour serveur à chaque calcul) et côté serveur pour l'API ou le pré-rendu de pages.
+
+Le modèle est segmenté en fichiers .yaml ou la nouvelle extension .publicodes. L'utilisation de l'extension de coloration syntaxique ["language server"](https://github.com/publicodes/language-server) est recommandée.
+
+Nous y avons aussi initié un modèle des aides locales, il est incomplet.
+
+### Les fichiers de données des aides
+
+Publicodes n'est pas adapté (ou ne l'est pas encore) pour gérer de grandes collections de paramètres, comme nous en avons besoin pour avoir des centaines de taux d'exonération de taxe foncière en fonction de la commune par exemple.
+
+Nous les téléchargeons via l'appel "sitemap" de NextJS depuis des sources data.gouv.fr, elles sont ensuite lues via une API NextJS.
+
+### Le serveur node
+
+Nous utilisons un serveur pour essentiellement 3 tâches aujourd'hui.
+
+- l'expérimentation "cout des travaux" qui expose au client authentifié les couts des travaux, des données pas encore publiques (même si légalement, elles le sont déjà)
+- mise en place et requêtage d'une base de données DuckDB pour chercher une copropriété pour notre v2 du parcours copro
+- gestion des token de notre API
+
+Ce serveur pourra un jour nous service pour d'autres tâches diverses.
+
+C'est un serveur ExpressJs tout simple, déployé sur Scalingo lui aussi.
+
+Le code est hébergé sur la forge de l'ANCT, car nous avions travaillé avec un collaborateur proche de l'ANCT qui nous a proposé cette solution pour stocker les données de coûts de travaux sur leurs serveurs français plutôt que sur Microsoft's Github.
+
+Nous devons bien sûr l'ouvrir conformément à la loi française, il nous faut pour ça séparées données et serveur.
+
+### Hébergement
+
+Nous utilisons Scalingo côté production pour servir nos utilisateurs depuis un centre de données français. Pour le dev, étant donné les temps de compilation trop longs de Scalingo (5 à 15 minutes par compilation du site NextJS), nous utilisons Vercel en compte gratuit, pour que chaque PR donne lieu à un lien de déploiement à montrer à l'équipe en 1 minute.
+
+Une possibilité sera un jour de passer à Dokploy, un projet très prometteur qui nous permettrait également de déployer facilement base de donnée, services annexes (statistiques, suivi des bugs, etc.).
