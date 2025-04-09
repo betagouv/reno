@@ -6,7 +6,7 @@ import { Intro, PageBlock, Section } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import dpeData from '@/components/dpe/DPE.yaml'
-import ValeurVerteModule from '@/components/module/ValeurVerte'
+import PlusValueModule from '@/components/module/ValeurVerte'
 import Ampleur from '@/app/module/Ampleur'
 import { useSearchParams } from 'next/navigation'
 import {
@@ -130,7 +130,7 @@ export default function DPEPage() {
             <Wrapper $background="white" $noMargin={true}>
               <Content>
                 <h2>Quel impact sur la valeur de mon logement ?</h2>
-                <ValeurVerteModule type="widget" />
+                <PlusValueModule type="widget" />
               </Content>
             </Wrapper>
             <Wrapper $background="white" $noMargin={true} $last={true}>

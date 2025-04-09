@@ -6,13 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import rules from '@/app/règles/rules'
 import listeDepartementRegion from '@/app/règles/liste-departement-region.publicodes'
 import Publicodes from 'publicodes'
-<<<<<<<< HEAD:components/module/ValeurVerte.tsx
-import dataValeurVerte from '@/data/valeur-verte.csv'
-import DPEQuickSwitch from '@/components/dpe/DPEQuickSwitch'
-========
 import dataPlusValue from '@/data/valeur-verte.csv'
-import DPEQuickSwitch from '@/components/DPEQuickSwitch'
->>>>>>>> mise-en-avant-modules:components/module/PlusValueModule.tsx
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { getCommune } from '../personas/enrichSituation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
@@ -32,8 +26,9 @@ import { formatNumber } from '../RevenuInput'
 import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import ValeurVerteWidget from '../valeurVerte/ValeurVerteWidget'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 
-export default function ValeurVerteModule({ type }) {
+export default function PlusValueModule({ type }) {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
@@ -252,7 +247,6 @@ export default function ValeurVerteModule({ type }) {
       </small>
     </ModuleWrapper>
   ) : (
-<<<<<<<< HEAD:components/module/ValeurVerte.tsx
     <ValeurVerteWidget
       {...{
         situation,
@@ -264,221 +258,6 @@ export default function ValeurVerteModule({ type }) {
         region,
       }}
     />
-========
-    <CalculatorWidget>
-      <div
-        css={`
-          margin-bottom: 1rem;
-          > div {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-          }
-        `}
-      >
-        <div>
-          <div>Ville:</div>
-          <AddressSearch
-            {...{
-              type: 'logement . commune',
-              setChoice: (result) => {
-                setSearchParams({
-                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                  [encodeDottedName('logement . commune . nom')]:
-                    `"${result.nom}"*`,
-                })
-              },
-              situation,
-            }}
-          />
-        </div>
-        <div>
-          <div>Type de bien:</div>
-          <Select
-            css={`
-              height: 2.8rem;
-              background: #f5f5fe;
-              max-width: 90vw;
-            `}
-            disableInstruction={false}
-            onChange={(e) => {
-              push([
-                'trackEvent',
-                'Module',
-                'Interaction',
-                'type logement ' + e,
-              ])
-              setSearchParams({
-                [encodeDottedName('logement . type')]: '"' + e + '"*',
-              })
-            }}
-            value={situation['logement . type']?.replaceAll('"', "'")}
-            values={rules['logement . type']['une possibilité parmi'][
-              'possibilités'
-            ].map((i) => rules['logement . type . ' + i])}
-          />
-        </div>
-        <div>
-          <div>Valeur du bien:</div>
-          <div
-            css={`
-              height: 2.8rem;
-              margin: auto;
-              border: 2px solid var(--color);
-              width: 10rem;
-              color: var(--color);
-              text-align: center;
-              border-radius: 0.3rem;
-              padding: 0.7rem;
-              box-shadow: var(--shadow-elevation-medium);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
-            <div
-              css={`
-                flex-grow: 1;
-              `}
-            >
-              <input
-                id="prix-bien"
-                css={`
-                  border: none !important;
-                  background: transparent !important;
-                  -webkit-appearance: none !important;
-                  outline: none !important;
-                  color: var(--color);
-                  font-size: 110% !important;
-                  max-width: 6rem !important;
-                  box-shadow: none !important;
-                `}
-                autoFocus={false}
-                placeholder="Prix du bien"
-                type="text"
-                inputMode="numeric"
-                pattern="\d+"
-                defaultValue={
-                  answeredQuestions.includes("logement . prix d'achat")
-                    ? formatNumberWithSpaces(
-                        situation["logement . prix d'achat"],
-                      )
-                    : undefined
-                }
-                onChange={(e) => {
-                  const price = e.target.value.replace(/\s/g, '')
-                  const startPos = e.target.selectionStart
-                  const invalid = isNaN(price) || price <= 0
-                  if (invalid) return
-                  push([
-                    'trackEvent',
-                    'Module',
-                    'Interaction',
-                    'prix achat ' + price,
-                  ])
-                  setSearchParams({
-                    [encodeDottedName("logement . prix d'achat")]: price + '*',
-                  })
-                  e.target.value = formatNumberWithSpaces(price)
-                  requestAnimationFrame(() => {
-                    const inputBudget = document.querySelector('#prix-bien')
-                    inputBudget.selectionStart = startPos
-                    inputBudget.selectionEnd = startPos
-                  })
-                }}
-              />
-            </div>
-            <Image
-              css={`
-                cursor: pointer;
-                margin-left: auto;
-              `}
-              src={editIcon}
-              alt="Icône crayon pour éditer"
-              onClick={() => document.querySelector('#prix-bien').focus()}
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        css={`
-          display: flex;
-          ${isMobile && 'flex-direction: column;'}
-          justify-content: space-between;
-          gap: 1rem;
-        `}
-      >
-        <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
-          situation={situation}
-          columnDisplay={true}
-          editMode={true}
-        />
-        <TargetDPETabs
-          {...{
-            oldIndex: situation['DPE . actuel'] - 1,
-            setSearchParams,
-            answeredQuestions,
-            choice: situation['projet . DPE visé'] - 1,
-            engine,
-            situation,
-            columnDisplay: true,
-          }}
-        />
-      </div>
-      <div
-        css={`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 0.5rem;
-          margin-top: 1rem;
-        `}
-      >
-        <div>
-          🥳 <strong>Bonne nouvelle</strong> :{' '}
-          <DPEAppreciationInfo
-            {...{ situation, pourcentageAppreciation, region }}
-          />
-        </div>
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            ${isMobile && 'flex-direction: column;'}
-            > div {
-              display: flex;
-              flex-direction: column;
-              width: 100%;
-            }
-          `}
-        >
-          <div>
-            <div
-              css={`
-                margin: auto;
-              `}
-            >
-              <span aria-hidden="true">💶</span> Après rénovation, le bien
-              vaudra:
-            </div>
-            <div
-              css={`
-                margin-top: 0.5rem;
-                text-align: center;
-                background: var(--validColor1);
-                color: var(--validColor);
-                padding: 0.5rem;
-              `}
-            >
-              <strong>{formatNumberWithSpaces(plusValue)} €</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </CalculatorWidget>
->>>>>>>> mise-en-avant-modules:components/module/PlusValueModule.tsx
   )
 }
 

@@ -28,7 +28,7 @@ import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import ValeurVerteWidget from '../valeurVerte/ValeurVerteWidget'
 
-export default function ValeurVerteModule({ type, lettre }) {
+export default function PlusValueModule({ type, lettre }) {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
