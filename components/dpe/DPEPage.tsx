@@ -26,10 +26,19 @@ export default function DPEPage() {
   const handleSelectDpe = async (dpe) => {
     const index = conversionLettreIndex.indexOf(dpe['etiquette']) + 1
     setIndexEtiquette(index)
+    const anneeConstruction = dpe['Période_construction'].split('-')[1]
     let situation = await enrichSituation({
       'logement . commune': `"${dpe['Code_INSEE_(BAN)']}"*`,
       'logement . département': `"${dpe['N°_département_(BAN)']}"*`,
       'logement . commune . nom': `"${dpe['Nom__commune_(BAN)']}"*`,
+      'logement . surface': `${dpe['surface']}*`,
+      'logement . période de construction': `"${
+        anneeConstruction < new Date().getFullYear() - 15
+          ? 'au moins 15 ans'
+          : anneeConstruction < new Date().getFullYear() - 2
+            ? 'de 2 à 10 ans'
+            : 'moins de 2 ans'
+      }"*`,
       'DPE . actuel': index + '*',
       'projet . DPE visé': Math.max(index - 2, 0) + '*',
       'logement . type': `"${dpe['Type_bâtiment']}"`,
