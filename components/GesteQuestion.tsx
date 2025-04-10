@@ -4,6 +4,7 @@ import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
 import RevenuInput from './RevenuInput'
+import { Dot } from '@/app/module/AmpleurQuestions'
 
 export default function GesteQuestion({
   rules,
@@ -13,6 +14,7 @@ export default function GesteQuestion({
   setSearchParams,
   answeredQuestions,
   autoFocus,
+  dot = false,
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
@@ -35,11 +37,12 @@ export default function GesteQuestion({
     <div
       css={`
         display: flex;
-        justify-content: space-between;
+        ${!dot && 'justify-content: space-between;'}
+        ${dot && 'gap: 1rem;'}
         align-items: center;
-        margin: 0.8rem 0;
+        margin: ${!dot ? '0.8rem' : '0'} 0;
         padding: 0.4rem 0 1rem;
-        border-bottom: 1px solid var(--lighterColor);
+        ${!dot && `border-bottom: 1px solid var(--lighterColor);`}
         &:last-child {
           border: none;
           margin-bottom: 0;
@@ -57,8 +60,13 @@ export default function GesteQuestion({
             margin: 0 0 0 auto;
           }
         }
+        img {
+          width: 1rem;
+          height: auto;
+        }
       `}
     >
+      {dot && <Dot css={``} />}
       <div>{currentQuestion.question}</div>
       <InputComponent
         {...{
