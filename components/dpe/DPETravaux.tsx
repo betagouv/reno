@@ -10,8 +10,7 @@ import {
 } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { CTA, PrimeStyle } from '../UI'
-import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
+import { Card, CTA, PrimeStyle } from '../UI'
 import getNextQuestions from '../publicodes/getNextQuestions'
 import GesteQuestion from '../GesteQuestion'
 import { AvanceTMO } from '../mprg/BlocAideMPR'
@@ -21,40 +20,6 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
   const [visibleDivs, setVisibleDivs] = useState({})
   const [questions, setQuestions] = useState([])
   const [isEligible, setIsEligible] = useState(false)
-  const [lastQuestionAnswered, setLastQuestionAnswered] = useState({})
-
-  const handleEstimateClick = (index, rule) => {
-    console.log('rule', rule)
-    // Le setSituation est nécessaire pour que les nextQuestions soient à jour
-    const questions = getNextQuestions(
-      engine.setSituation(situation).evaluate(rule + ' . MPR . montant'),
-      [],
-      simulationConfig,
-      rules,
-    )
-    // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
-    questions.unshift(...Object.keys(situation))
-    // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
-    const questionsAnswered = Object.keys(situation).filter(
-      (q) =>
-        questions.includes(q) &&
-        !getAnsweredQuestions(searchParams, rules).includes(q),
-    )
-
-    for (let i = questions.length - 1; i >= 0; i--) {
-      if (questionsAnswered.includes(questions[i])) {
-        setLastQuestionAnswered(i)
-        break
-      }
-    }
-    console.log('questions', questions)
-    setIsEligible(formatValue(engine.evaluate(rule + ' . MPR . montant')))
-    setQuestions(questions)
-    setVisibleDivs((prevState) => ({
-      ...prevState,
-      [index]: !prevState[index],
-    }))
-  }
   const associationTravauxDpe = {
     'gestes . isolation . vitres': 'Qualité_isolation_menuiseries',
     'gestes . isolation . murs extérieurs': 'Qualité_isolation_murs',
@@ -73,29 +38,55 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
 
-  useEffect(() => {
-    console.log('dpe', dpe)
-  }, [dpe])
+  const handleEstimateClick = (index, rule) => {
+    // Le setSituation est nécessaire pour que les nextQuestions soient à jour
+    const questions = getNextQuestions(
+      engine
+        .setSituation({
+          ...situation,
+          'MPR . non accompagnée . éligible': 'oui',
+          [rule]: 'oui',
+        })
+        .evaluate(rule + ' . montant'),
+      [],
+      [],
+      rules,
+    )
+    // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
+    //questions.unshift(...Object.keys(situation))
+    // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
+    const questionsAnswered = Object.keys(situation).filter(
+      (q) =>
+        questions.includes(q) &&
+        !getAnsweredQuestions(searchParams, rules).includes(q),
+    )
+    console.log('questionsAnswered', questionsAnswered)
+    console.log('questions', questions)
+    setIsEligible(formatValue(engine.evaluate(rule + ' . montant')))
+    setQuestions(questions)
+    setVisibleDivs((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }))
+  }
 
   return (
     <CalculatorWidget>
       <table
         css={`
           width: 100%;
-          tr td:last-of-type {
-            span:hover {
-              background: var(--color);
-              color: white;
-            }
+          .estimer:hover {
+            background: var(--color);
+            color: white;
           }
           .slide-down {
             overflow: hidden;
             max-height: 0;
-            transition: max-height 0.5s ease-out;
+            transition: max-height 1s ease-out;
           }
 
           .slide-down.active {
-            max-height: 100px; /* Ajustez cette valeur en fonction de la hauteur maximale du contenu */
+            max-height: fit-content;
           }
         `}
       >
@@ -138,9 +129,10 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
                       <CTA
                         $fontSize="normal"
                         $importance="secondary"
+                        className="estimer"
                         onClick={() => handleEstimateClick(i, e[0])}
                       >
-                        <span>{visibleDivs[i] ? 'Estimer' : 'Fermer'}</span>
+                        <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
                       </CTA>
                     </td>
                   </tr>
@@ -149,9 +141,8 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
                       <div
                         className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
                       >
-                        {questions
-                          .slice(0, lastQuestionAnswered + 1)
-                          .map((question, index) => (
+                        <Card>
+                          {questions.map((question, index) => (
                             <GesteQuestion
                               key={index}
                               {...{
@@ -160,61 +151,58 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
                                 engine,
                                 situation,
                                 setSearchParams,
+                                dot: true,
                               }}
                             />
                           ))}
-                        {questions[lastQuestionAnswered + 1] && (
-                          <GesteQuestion
-                            {...{
-                              rules,
-                              question: questions[lastQuestionAnswered + 1],
-                              engine,
-                              situation,
-                              setSearchParams,
-                            }}
-                          />
-                        )}
-                        <div
-                          css={`
-                            justify-content: end;
-                            display: flex;
-                          `}
-                        >
-                          <PrimeStyle
+                          <div
                             css={`
-                              padding: 0.75rem;
-                              margin-bottom: 1rem;
+                              justify-content: end;
+                              display: flex;
                             `}
-                            $inactive={isEligible !== 'Non applicable'}
                           >
-                            {isEligible !== 'Non applicable' ? (
-                              <>
-                                Prime de{' '}
-                                <strong
-                                  css={`
-                                    font-size: 1.5rem;
-                                  `}
-                                >
-                                  {Array.isArray(questions) &&
+                            <PrimeStyle
+                              css={`
+                                padding: 0.75rem;
+                              `}
+                              $inactive={
+                                !(
+                                  Array.isArray(questions) &&
                                   questions.every(
                                     (question) => question in situation,
                                   )
-                                    ? isEligible
-                                    : '...'}
+                                )
+                              }
+                            >
+                              {isEligible !== 'Non applicable' ? (
+                                <>
+                                  Prime de{' '}
+                                  <strong
+                                    css={`
+                                      font-size: 1.5rem;
+                                    `}
+                                  >
+                                    {Array.isArray(questions) &&
+                                    questions.every(
+                                      (question) => question in situation,
+                                    )
+                                      ? isEligible
+                                      : '...'}
+                                  </strong>
+                                </>
+                              ) : (
+                                <strong
+                                  css={`
+                                    font-size: 1.25rem;
+                                  `}
+                                >
+                                  Non Éligible
                                 </strong>
-                              </>
-                            ) : (
-                              <strong
-                                css={`
-                                  font-size: 1.25rem;
-                                `}
-                              >
-                                Non Éligible
-                              </strong>
-                            )}
-                          </PrimeStyle>
-                        </div>
-                        <AvanceTMO {...{ engine, situation }} />
+                              )}
+                            </PrimeStyle>
+                          </div>
+                          <AvanceTMO {...{ engine, situation }} />
+                        </Card>
                       </div>
                     </td>
                   </tr>
