@@ -5,6 +5,8 @@ import { mdxComponents } from './mdxComponents'
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
 
 import CoproCTA from '@/components/CoproCTA'
+import InterdictionTable from '@/components/InterdictionTable'
+import ExampleIframe from '@/app/module/ExampleIframe.tsx'
 
 export default function ArticleContent({ post }) {
   //  const MDXContent = useMDXComponent(post.body.code)
@@ -16,7 +18,12 @@ export default function ArticleContent({ post }) {
   return (
     <MDXRemote
       source={source}
-      components={{ ...mdxComponents, CoproCTA }}
+      components={{
+        ...mdxComponents,
+        CoproCTA,
+        InterdictionTable,
+        ExampleIframe,
+      }}
       options={{
         parseFrontmatter: true,
         mdxOptions: {
