@@ -4,6 +4,7 @@ import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
+import rssIcon from '@/public/rss-simple.svg'
 import {
   ArticleCard,
   ArticleContent,
@@ -123,8 +124,18 @@ const Page = async () => {
         </Wrapper>
         <Wrapper $background="white" $noMargin={true} $last={true}>
           <Content>
-            📨 Vous pourrez bientôt vous abonner à notre lettre
-            d'information.{' '}
+            <p>
+              <Image
+                src={rssIcon}
+                alt="Icône représentant un flux RSS"
+                style={{ width: '1rem', height: 'auto' }}
+              />
+              &nbsp; Abonnez-vous à <a href="/feed.xml">notre flux RSS</a>.
+            </p>
+            <p>
+              📨 Vous pourrez bientôt vous abonner à notre lettre
+              d'information.{' '}
+            </p>
           </Content>
         </Wrapper>
       </PageBlock>
