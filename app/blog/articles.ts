@@ -1,6 +1,6 @@
 import { sortBy } from '@/components/utils'
 import { article as article2025 } from '@/app/blog/aides-renovation-2025/page'
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'next-mdx-remote-client/serialize'
 import fs from 'fs'
 import path from 'path'
 
@@ -31,7 +31,10 @@ export async function getAllArticles() {
 
     // serialize the MDX content to a React-compatible format
     // and parse the frontmatter
-    const serializedPost = await serialize(postFile, { parseFrontmatter: true })
+    const serializedPost = await serialize({
+      source: postFile,
+      options: { parseFrontmatter: true },
+    })
 
     const slug = postFilePath.replace('.mdx', '')
 
