@@ -1,12 +1,13 @@
+import { getAllArticles } from '@/app/blog/articles'
 import { writeFileSync } from 'fs'
 import RSS from 'rss'
-import { articles } from '@/app/blog/[slug]/page.tsx'
 
 // Credits :
 // https://notebook.lachlanjc.com/2022-08-18_set_up_rss_with_contentlayer_and_mdx
 //
 const domain = 'https://mesaidesreno.beta.gouv.fr'
 export async function generateFeed() {
+  const articles = await getAllArticles()
   const feed = new RSS({
     title: 'Mes Aides Réno - le blog',
     site_url: domain,
