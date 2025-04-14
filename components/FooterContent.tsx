@@ -25,7 +25,7 @@ export default function FooterContent() {
                     </InternalLink>
                   </li>
                 ))
-                .slice(0, 6)}
+                .slice(0, 5)}
             </ul>
           </div>
           <div className="footer-col">
@@ -143,6 +143,15 @@ export default function FooterContent() {
                   href="https://jagis.beta.gouv.fr"
                 >
                   Jagis
+                </ExternalLink>
+              </li>
+              <li>
+                <ExternalLink
+                  className="fr-footer__top-link"
+                  title="Nos Gestes Climat"
+                  href="https://nosgestesclimat.fr/"
+                >
+                  Nos Gestes Climat
                 </ExternalLink>
               </li>
             </ul>
