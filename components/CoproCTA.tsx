@@ -9,7 +9,7 @@ export default function CoproCTA() {
     <CTAWrapper $justify="left">
       <CTA $fontSize="normal">
         <Link
-          href="/simulation"
+          href="/copropriete"
           prefetch={false}
           style={css`
             display: flex;
