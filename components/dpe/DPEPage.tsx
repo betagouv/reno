@@ -77,7 +77,7 @@ export default function DPEPage() {
               margin-bottom: 1rem;
             `}
           >
-            Faire parler mon DPE
+            Ma Bonne Réno
           </h1>
           <DpeAddressSearch
             searchParams={searchParams}
@@ -88,42 +88,33 @@ export default function DPEPage() {
           <>
             <Wrapper>
               <Content>
-                <h2>Comprendre son DPE</h2>
+                <h2>Analyse globale du bien</h2>
                 <p>
-                  L'étiquette énergétique finale est définie selon la méthode
-                  des double seuils: un logement étant classé selon sa plus
-                  mauvaise performance, en énergie primaire ou en gaz à effet de
-                  serre.
+                  {dpe['Type_bâtiment'] == 'maison'
+                    ? 'Cette maison constuite'
+                    : 'Cet appartement construit'}{' '}
+                  durant la période{' '}
+                  <strong>{dpe['Période_construction']}</strong> a une surface
+                  de habitable de{' '}
+                  <strong>{dpe['Surface_habitable_logement']}m²</strong> et une
+                  classe de consommation d'énergie{' '}
+                  <DPELabel label={dpe['Etiquette_DPE']} /> et une classe
+                  d'émission de gaz à effet de serre{' '}
+                  <DPELabel label={dpe['Etiquette_GES']} />.
                 </p>
                 <p>
-                  Un logement classé <DPELabel label={dpe['etiquette']} />{' '}
-                  consomme au pire{' '}
-                  {indexEtiquette == 6 ? (
-                    <>
-                      plus de{' '}
-                      <strong>{dpeData[indexEtiquette]['énergie']}</strong>
-                      <sub>kWhEP/m².an</sub>
-                    </>
-                  ) : (
-                    <>
-                      <strong>{dpeData[indexEtiquette + 1]['énergie']}</strong>
-                      <sub>kWhEP/m².an</sub>
-                    </>
-                  )}{' '}
-                  et émet au pire{' '}
-                  {indexEtiquette == 6 ? (
-                    <>
-                      plus de{' '}
-                      <strong>{dpeData[indexEtiquette]['climat']}</strong>
-                      <sub>kgeqCO²/m².an</sub>
-                    </>
-                  ) : (
-                    <>
-                      <strong>{dpeData[indexEtiquette + 1]['climat']}</strong>
-                      <sub>kgeqCO²/m².an</sub>
-                    </>
-                  )}
+                  Mode de chauffage :{' '}
+                  <strong>
+                    {dpe['Description_installation_chauffage_n°1']}
+                  </strong>
+                  <strong>
+                    {dpe['Description_installation_chauffage_n°2']}
+                  </strong>
                   .
+                </p>
+                <p>
+                  Système assurant l'eau chaude sanitaire :{' '}
+                  <strong>{dpe['Type_générateur_ECS_n°1']}</strong>
                 </p>
                 <div></div>
               </Content>
