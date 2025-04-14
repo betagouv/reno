@@ -4,6 +4,8 @@ import { mdxComponents } from './mdxComponents'
 
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
 
+import CoproCTA from '@/components/CoproCTA'
+
 export default function ArticleContent({ post }) {
   //  const MDXContent = useMDXComponent(post.body.code)
   // return <MDXContent components={mdxComponents} />
@@ -14,9 +16,12 @@ export default function ArticleContent({ post }) {
   return (
     <MDXRemote
       source={source}
-      components={mdxComponents}
+      components={{ ...mdxComponents, CoproCTA }}
       options={{
         parseFrontmatter: true,
+        mdxOptions: {
+          baseUrl: import.meta.url,
+        },
       }}
     />
   )

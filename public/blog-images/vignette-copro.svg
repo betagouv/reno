@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="500mm"
+   width="210mm"
    height="210mm"
-   viewBox="0 0 500 210"
+   viewBox="0 0 210 210"
    version="1.1"
    id="svg5"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
@@ -24,11 +24,11 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.54017925"
-     inkscape:cx="685.88343"
-     inkscape:cy="363.76814"
+     inkscape:zoom="0.68633381"
+     inkscape:cx="293.58892"
+     inkscape:cy="171.19949"
      inkscape:window-width="1920"
-     inkscape:window-height="1175"
+     inkscape:window-height="1055"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -41,88 +41,68 @@
      id="layer1">
     <g
        id="g310"
-       transform="matrix(0.83286976,0,0,0.83286976,9.4331092,20.436405)">
+       transform="matrix(1.0655114,0,0,1.0655114,-49.838898,2.4863145)">
       <rect
-         style="fill:#5267b2;fill-opacity:0.0705831;stroke:#000091;stroke-width:7.20401;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#5267b2;fill-opacity:0.0705831;stroke:#000000;stroke-width:7.20401;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="rect234"
          width="103.6072"
          height="158.71121"
-         x="109.66232"
-         y="37.943314"
+         x="95.784149"
+         y="29.929699"
          ry="0" />
       <rect
-         style="fill:none;fill-opacity:1;stroke:#000091;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="rect3149-3"
          width="19.404186"
          height="18.924496"
-         x="129.63783"
-         y="68.022881"
+         x="115.75966"
+         y="60.009266"
          ry="1.6977816" />
       <rect
-         style="fill:none;fill-opacity:1;stroke:#000091;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="rect3149-3-7"
          width="19.404186"
          height="18.924496"
-         x="174.12741"
-         y="68.022881"
+         x="160.24924"
+         y="60.009266"
          ry="1.6977816" />
       <rect
-         style="fill:none;fill-opacity:1;stroke:#000091;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="rect3149-3-5"
          width="19.404186"
          height="18.924496"
-         x="130.72873"
-         y="107.47978"
+         x="116.44167"
+         y="100.28397"
          ry="1.6977816" />
       <rect
-         style="fill:none;fill-opacity:1;stroke:#000091;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="rect3149-3-7-3"
          width="19.404186"
          height="18.924496"
-         x="175.21829"
-         y="107.47978"
+         x="160.93123"
+         y="100.28397"
          ry="1.6977816" />
       <rect
-         style="fill:none;fill-opacity:1;stroke:#000091;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="rect3149-3-5-5"
          width="21.7715"
          height="46.89106"
-         x="129.18201"
-         y="149.22839"
+         x="115.71273"
+         y="141.21478"
          ry="1.6977816" />
       <rect
-         style="fill:none;fill-opacity:1;stroke:#000091;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
          id="rect3149-3-7-3-6"
          width="19.404186"
          height="18.924496"
-         x="174.3381"
-         y="152.14354"
+         x="160.45993"
+         y="144.12993"
          ry="1.6977816" />
       <path
-         style="fill:#000091;fill-opacity:1;stroke:#000091;stroke-width:5.56928;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
-         d="m 110.43462,32.34224 8.41656,-21.233895 h 86.30788 l 7.825,21.289795 z"
-         id="path5778" />
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:7.96337;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         d="M 86.181072,40.785015 96.559898,4.0935075 H 199.89288 l 9.36856,37.2177425 z"
+         id="path5778"
+         sodipodi:nodetypes="ccccc" />
     </g>
-    <text
-       xml:space="preserve"
-       style="font-weight:100;font-size:33.508px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Thin';text-align:center;text-anchor:middle;fill:#000091;stroke:#000091;stroke-width:1;stroke-linecap:round;stroke-dasharray:none"
-       x="214.36174"
-       y="77.889549"
-       id="text366"><tspan
-         sodipodi:role="line"
-         id="tspan364"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.508px;font-family:Marianne;-inkscape-font-specification:Marianne;text-align:start;text-anchor:start;stroke-width:1;stroke-dasharray:none"
-         x="214.36174"
-         y="77.889549">Calculer </tspan><tspan
-         sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.508px;font-family:Marianne;-inkscape-font-specification:Marianne;text-align:start;text-anchor:start;stroke-width:1;stroke-dasharray:none"
-         x="214.36174"
-         y="122.50212"
-         id="tspan1822">mes </tspan><tspan
-         sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.508px;font-family:Marianne;-inkscape-font-specification:Marianne;text-align:start;text-anchor:start;stroke-width:1;stroke-dasharray:none"
-         x="214.36174"
-         y="167.11469"
-         id="tspan1698">aides copro'</tspan></text>
   </g>
 </svg>
