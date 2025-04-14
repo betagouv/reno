@@ -22,16 +22,16 @@ export default function BlogImage() {
 
   return (
     <Image
-      style={{ margin: '.6rem 3rem' }}
       src={!isMobile ? illustrationBlog : illustrationMobile}
-      style={
-        isMobile
+      style={{
+        margin: '.6rem 3rem',
+        ...(isMobile
           ? {
               ...css(mobileStyle),
               filter: color ? `hue-rotate(${color}deg)` : '',
             }
-          : ''
-      }
+          : ''),
+      }}
       alt={alt}
       onClick={() => setColor((color) => Math.random() * 180)}
     />
