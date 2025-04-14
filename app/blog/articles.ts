@@ -17,7 +17,11 @@ import path from 'path'
   },
   */
 
-export async function getAllArticles() {
+import newsRaw from '@/articles/brèves.yaml'
+
+export async function getAllArticles(
+  filter: 'news' | 'both' | 'articles' = 'articles',
+) {
   // get all MDX files
   const postFilePaths = fs.readdirSync('articles').filter((postFilePath) => {
     return path.extname(postFilePath).toLowerCase() === '.mdx'
@@ -56,8 +60,16 @@ export async function getAllArticles() {
     ...sortBy((article) => article.date)([
       ...mdxArticles,
       article2025,
+      ...newsRaw.map((el) => ({ ...el, url: '/breves', image: '/brève.svg' })),
     ]).reverse(),
   ]
 
-  return sortedArticles
+  const filtered =
+    filter === 'both'
+      ? sortedArticles
+      : filter === 'news'
+        ? sortedArticles.filter((item) => item.url.startsWith('/breves'))
+        : sortedArticles.filter((item) => !item.url.startsWith('/breves'))
+
+  return filtered
 }
