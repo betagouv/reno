@@ -1,7 +1,6 @@
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import { sortBy } from '@/components/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
@@ -13,8 +12,6 @@ import {
   List,
 } from './UI'
 import { dateCool } from './utils'
-import { articles } from './[slug]/page'
-import { article as article2025 } from './aides-renovation-2025/page'
 import BlogImage from './BlogImage'
 import { Suspense } from 'react'
 
@@ -22,16 +19,16 @@ const title = `Le blog des aides à la rénovation energétique`
 const description =
   "Découvrez l'histoire, les nouveautés et le futur de Mes Aides Réno"
 
-export const sortedArticles = [
-  ...sortBy((article) => article.date)([...articles, article2025]).reverse(),
-]
+import { getAllArticles } from './articles'
+
 export const metadata: metadata = {
   title,
   description,
   openGraph: { images: ['/illustration-accueil.resized.webp'] },
 }
 
-const Page = () => {
+const Page = async () => {
+  const sortedArticles = await getAllArticles()
   return (
     <main
       style={css`

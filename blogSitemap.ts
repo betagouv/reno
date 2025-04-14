@@ -6,7 +6,7 @@ import { domain } from './app/sitemap'
 export default async function generateBlogSitemap() {
   const sitemap = await Promise.all(
     articles.map(async (article) => {
-      const lastEdit = await getLastEdit(article._raw.flattenedPath)
+      const lastEdit = await getLastEdit(article.slug)
       return {
         url: domain + article.url,
         lastModified: new Date(lastEdit), //TODO not sure of the format here

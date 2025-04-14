@@ -1,4 +1,4 @@
-import { sortedArticles } from '@/app/blog/page'
+const sortedArticles = []
 import { ExternalLink, FooterWrapper, InternalLink } from './UI'
 
 export default function FooterContent() {
