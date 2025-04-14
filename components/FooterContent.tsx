@@ -1,7 +1,8 @@
-const sortedArticles = []
+import { getAllArticles } from '@/app/blog/articles'
 import { ExternalLink, FooterWrapper, InternalLink } from './UI'
 
-export default function FooterContent() {
+export default async function FooterContent() {
+  const sortedArticles = await getAllArticles()
   return (
     <FooterWrapper className="fr-footer" role="contentinfo">
       <div>
