@@ -56,9 +56,5 @@ export async function getAllArticles() {
     ]).reverse(),
   ]
 
-  console.log(
-    'BLOG2',
-    sortedArticles.map((article) => article.slug),
-  )
   return sortedArticles
 }

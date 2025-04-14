@@ -1,9 +1,10 @@
-import { articles } from './app/blog/[slug]/page'
 import { generateFeed } from '@/lib/rss'
 import { getLastEdit } from './app/blog/utils'
 import { domain } from './app/sitemap'
+import { getAllArticles } from './app/blog/articles'
 
 export default async function generateBlogSitemap() {
+  const articles = await getAllArticles()
   const sitemap = await Promise.all(
     articles.map(async (article) => {
       const lastEdit = await getLastEdit(article.slug)
