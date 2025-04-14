@@ -41,6 +41,9 @@ const AmpleurWidget = ({
       <div
         css={`
           display: flex;
+          > div {
+            flex: 1;
+          }
         `}
       >
         <div
