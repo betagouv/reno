@@ -52,6 +52,7 @@
     "react": "19.0.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "19.0.0",
+    "react-tooltip": "^5.28.1",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",

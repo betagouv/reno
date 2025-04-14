@@ -15,10 +15,13 @@ import getNextQuestions from '../publicodes/getNextQuestions'
 import GesteQuestion from '../GesteQuestion'
 import { AvanceTMO } from '../mprg/BlocAideMPR'
 import React from 'react'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css'
 
 export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
   const [visibleDivs, setVisibleDivs] = useState({})
   const [questions, setQuestions] = useState([])
+  const [xml, setXml] = useState()
   const [isEligible, setIsEligible] = useState(false)
   const associationTravauxDpe = {
     'gestes . isolation . vitres': 'Qualité_isolation_menuiseries',
@@ -33,6 +36,81 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
     'gestes . isolation . rampants':
       'Qualité_isolation_plancher_haut_comble_aménagé',
   }
+  useEffect(() => {
+    if (!dpe) return
+    async function fetchDPE() {
+      try {
+        const response = await fetch(`/api/dpe?dpeNumber=${dpe['N°DPE']}`)
+        if (!response.ok) throw new Error(`Error ${response.status}`)
+
+        const text = await response.text()
+
+        const parser = new DOMParser()
+        const xmlDoc = parser.parseFromString(text, 'application/xml')
+        setXml((prev) => ({
+          ...prev,
+          descriptionMurs: Array.from(
+            xmlDoc.querySelectorAll('mur donnee_entree description'),
+          ).map((node) => node.textContent),
+          plancher: Array.from(
+            xmlDoc.querySelectorAll('plancher_bas donnee_entree description'),
+          ).map((node) => node.textContent),
+          plafond: Array.from(
+            xmlDoc.querySelectorAll('plancher_haut donnee_entree description'),
+          ).map((node) => node.textContent),
+          baieVitree: Array.from(
+            xmlDoc.querySelectorAll('baie_vitree donnee_entree description'),
+          ).map((node) => node.textContent),
+          porte: Array.from(
+            xmlDoc.querySelectorAll('porte donnee_entree description'),
+          ).map((node) => node.textContent),
+          ventilation: Array.from(
+            xmlDoc.querySelectorAll('ventilation donnee_entree description'),
+          ).map((node) => node.textContent),
+          travaux: Array.from(xmlDoc.querySelectorAll('pack_travaux')).map(
+            (pack) => {
+              const travauxNodes = Array.from(pack.querySelectorAll('travaux'))
+              const uniqueTravauxMap = new Map()
+
+              travauxNodes.forEach((trav) => {
+                const lotId =
+                  trav.querySelector('enum_lot_travaux_id')?.textContent ||
+                  'N/A'
+                if (
+                  !uniqueTravauxMap.has(lotId) &&
+                  trav.querySelector('description_travaux')?.textContent !=
+                    'Sans'
+                ) {
+                  uniqueTravauxMap.set(lotId, {
+                    id: lotId,
+                    description: trav.querySelector('description_travaux')
+                      ?.textContent,
+                    performance: trav.querySelector('performance_recommande')
+                      ?.textContent,
+                    warning: trav.querySelector('avertissement_travaux')
+                      ?.textContent,
+                  })
+                }
+              })
+              return {
+                conso: pack.querySelector('conso_5_usages_apres_travaux')
+                  ?.textContent,
+                emission: pack.querySelector(
+                  'emission_ges_5_usages_apres_travaux',
+                )?.textContent,
+                travaux: Array.from(uniqueTravauxMap.values()),
+              }
+            },
+          ),
+        }))
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    }
+
+    fetchDPE()
+  }, [dpe])
+
   const engine = new Publicodes(rules)
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -117,13 +195,7 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
                         text-align: center;
                       `}
                     >
-                      <span title="XXX">
-                        <Image
-                          src={informationIcon}
-                          width="25"
-                          alt="Icône information"
-                        />
-                      </span>
+                      <Explication geste={e[0]} dpe={dpe} xml={xml} index={i} />
                     </td>
                     <td>
                       <CTA
@@ -224,4 +296,95 @@ export function Priorité({ valeur }) {
     'très bonne': '⭐',
   }
   return <span>{star[valeur]}</span>
+}
+export function Explication({ geste, dpe, xml, index }) {
+  if (!dpe) return
+
+  function pourcentageDeperdition(pourcentage) {
+    return (
+      ((dpe[pourcentage] / dpe['Deperditions_enveloppe']) * 100).toFixed(0) +
+      '%'
+    )
+  }
+
+  let explication = ''
+  if (geste == 'gestes . isolation . vitres') {
+    explication = `En moyenne, 10 à 15% des déperditions d'énergie se font par les fenêtres. Dans ce bien, la part de déperdition dûe au fenêtre est de <strong>${pourcentageDeperdition('Deperditions_baies_vitrées')}</strong>.`
+    if (xml?.baieVitree?.length) {
+      explication +=
+        'Voici les informations concernant les menuiseries de ce bien:'
+      explication += '<ul>'
+      xml?.baieVitree?.map(
+        (baieVitree) => (explication += `<li>${baieVitree}</li>`),
+      )
+      explication += '</ul>'
+    }
+  }
+  if (geste == 'ventilation . double flux') {
+    explication = `
+      En moyenne, 20 à 25% des déperditions d'énergie proviennent de la ventilation et des ponts thermiques. 
+      Dans ce bien, la part de déperdition dûe à la ventilation est de <strong>${pourcentageDeperdition('Déperditions_renouvellement_air')}</strong>.`
+  }
+  if (
+    [
+      'gestes . isolation . toitures terrasses',
+      'gestes . isolation . rampants',
+    ].includes(geste)
+  ) {
+    explication = `
+      En moyenne, 20 à 25% des déperditions d'énergie proviennent de la toiture. 
+      Dans ce bien, la part de déperdition par la toiture est de <strong>${pourcentageDeperdition('Deperditions_planchers_hauts')}</strong>.`
+    if (xml?.plafond?.length) {
+      explication +=
+        '<p>Voici les informations concernant la toiture de ce bien:</p>'
+      explication += '<ul>'
+      xml?.plafond?.map((plafond) => (explication += `<li>${plafond}</li>`))
+      explication += '</ul>'
+    }
+  }
+  if (
+    [
+      'gestes . isolation . murs extérieurs',
+      'gestes . isolation . murs intérieurs',
+    ].includes(geste)
+  ) {
+    explication = `
+      En moyenne, 20 à 25% des déperditions d'énergie proviennent des murs. 
+      Dans ce bien, la part de déperdition par les murs est de <strong>${pourcentageDeperdition('Déperditions_murs')}</strong>.`
+    if (xml?.descriptionMurs?.length) {
+      explication +=
+        '<p>Voici les informations concernant les murs de ce bien:</p>'
+      explication += '<ul>'
+      xml?.descriptionMurs?.map((mur) => (explication += `<li>${mur}</li>`))
+      explication += '</ul>'
+    }
+  }
+  if (geste == 'gestes . isolation . plancher bas') {
+    explication = `
+      En moyenne, 7 à 10% des déperditions d'énergie proviennent du plancher. 
+      Dans ce bien, la part de déperdition par le plancher est de <strong>${pourcentageDeperdition('Deperditions_planchers_bas')}</strong>.`
+    if (xml?.plancher?.length) {
+      explication +=
+        '<p>Voici les informations concernant le plancher de ce bien:</p>'
+      explication += '<ul>'
+      xml?.plancher?.map((plancher) => (explication += `<li>${plancher}</li>`))
+      explication += '</ul>'
+    }
+  }
+  return (
+    <>
+      <span data-tooltip-id={index.toString()}>
+        <Image src={informationIcon} width="25" alt="Icône information" />
+      </span>
+      <ReactTooltip id={index.toString()} place="top">
+        <div
+          style={{
+            maxWidth: 500,
+            textAlign: 'left',
+          }}
+          dangerouslySetInnerHTML={{ __html: explication }}
+        ></div>
+      </ReactTooltip>
+    </>
+  )
 }
