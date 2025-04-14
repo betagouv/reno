@@ -1,12 +1,12 @@
-import css from '@/components/css/convertToJs'
-import Link from 'next/link'
-import { OtherArticlesList, OtherArticlesSection } from './UI'
-import { dateCool } from './utils'
-import { sortBy } from '@/components/utils'
-import { articles } from './[slug]/page'
 import { InternalLink } from '@/components/UI'
+import css from '@/components/css/convertToJs'
+import { sortBy } from '@/components/utils'
+import { OtherArticlesList, OtherArticlesSection } from './UI'
+import { getAllArticles } from './articles'
+import { dateCool } from './utils'
 
-export default function ({ excludeUrl }) {
+export default async function OtherArticles({ excludeUrl }) {
+  const articles = await getAllArticles()
   return (
     <OtherArticlesSection>
       <h2>Nos derniers articles</h2>

@@ -38,6 +38,8 @@ export const ArticleCard = styled.li`
   }
   width: 22rem;
   min-height: 8rem;
+  border: 1px solid var(--lighterColor);
+  border-radius: 1rem;
 `
 
 export const ArticleImageContainer = styled.div`

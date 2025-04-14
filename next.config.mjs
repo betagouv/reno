@@ -1,5 +1,4 @@
 import createMDX from '@next/mdx'
-import { withContentlayer } from 'next-contentlayer2'
 import mdxOptions from './mdxOptions.mjs'
 
 /** @type {import('next').NextConfig} */
@@ -42,14 +41,21 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/api/:path*",
+        source: '/api/:path*',
         headers: [
-          { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "DELETE, GET, PATCH, POST, PUT, OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, Authorization, X-Api-Version" },
-        ]
-      }
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'DELETE, GET, PATCH, POST, PUT, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, Authorization, X-Api-Version',
+          },
+        ],
+      },
     ]
   },
   async rewrites() {
@@ -68,14 +74,21 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/api/:path*",
+        source: '/api/:path*',
         headers: [
-          { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "DELETE, GET, PATCH, POST, PUT, OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, Authorization, X-Api-Version" },
-        ]
-      }
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'DELETE, GET, PATCH, POST, PUT, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, Authorization, X-Api-Version',
+          },
+        ],
+      },
     ]
   },
   output: 'standalone',
@@ -91,5 +104,6 @@ const nextConfig = {
 
 const withMDX = createMDX({ options: mdxOptions })
 
-const finalConfig = withContentlayer(withMDX(nextConfig))
+const finalConfig = withMDX(nextConfig)
+
 export default finalConfig
