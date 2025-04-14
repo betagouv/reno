@@ -11,16 +11,16 @@ import {
   ArticleImageContainer,
   Badge,
   List,
-} from './UI'
-import { dateCool } from './utils'
-import BlogImage from './BlogImage'
+} from '@/app/blog/UI'
+import { dateCool } from '@/app/blog/utils'
+import breveIcon from '@/public/brève.svg'
 import { Suspense } from 'react'
 
-const title = `Le blog des aides à la rénovation energétique`
+const title = `Les dernières nouveautés de Mes Aides Réno`
 const description =
-  "Découvrez l'histoire, les nouveautés et le futur de Mes Aides Réno"
+  "Découvrez ici toutes les notes de version de Mes Aides Réno, un calculateur constamment mis à jour pour suivre les évolutions règlementaires des aides de l'État et les expliquer au mieux."
 
-import { getAllArticles } from './articles'
+import { getAllArticles } from '@/app/blog/articles'
 
 export const metadata: metadata = {
   title,
@@ -29,7 +29,7 @@ export const metadata: metadata = {
 }
 
 const Page = async () => {
-  const sortedArticles = await getAllArticles('articles')
+  const sortedArticles = await getAllArticles('news')
   return (
     <main
       style={css`
@@ -39,9 +39,10 @@ const Page = async () => {
     >
       <PageBlock>
         <HeaderWrapper>
-          <Suspense>
-            <BlogImage />
-          </Suspense>
+          <Image
+            src={breveIcon}
+            alt="Icône illustrant une nouveauté avec des étoiles scintillantes"
+          />
           <div>
             {false && ( // Not sure this is useful since the header is big
               <nav
@@ -58,7 +59,7 @@ const Page = async () => {
                 margin-bottom: 1rem;
               `}
             >
-              Le <BlueEm>blog</BlueEm> des aides à la rénovation energétique
+              Les <BlueEm>nouveautés</BlueEm> de Mes&nbsp;Aides&nbsp;Réno
             </h1>
             <Intro>
               <p>

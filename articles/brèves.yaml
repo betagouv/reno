@@ -1,0 +1,10 @@
+- date: 2025-04-14
+  titre: Correction des barèmes pour les futurs propriétaires occupant de logement rénové
+  contenu: |
+    🐛 Nous avons corrigé un bug important dans le modèle de calcul de la catégorie MaPrimeRénov.
+
+    Nous pensions que le choix du barème (Île-de-France ou hors Île-de-France) à appliquer pour déterminer la catégorie de revenu MaPrimeRénov' (très modeste, modeste, intermédiaire ou aisé) était déterminé en fonction de l'adresse de la résidence principale du propriétaire.
+
+    Or, ce n'est le cas que pour les propriétaires bailleurs, pour les propriétaires occupants, c'est l'adresse du logement rénové qu'il faut prendre en compte dans le calcul. D'une certaine manière, le législateur se projette dans la future résidence principale pour déterminer l'éligibilité aux différents montants d'aide.
+
+    Concrètement, cela signifie qu'il faut maintenant renseigner "logement . commune" plutôt que "ménage . commune" pour les propriétaires occupants.

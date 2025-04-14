@@ -16,6 +16,7 @@ import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
 import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
+import NewsBanner from '@/components/NewsBanner'
 
 export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
@@ -31,10 +32,10 @@ export default function Page() {
     <main
       style={css`
         background: white;
-
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
+      <NewsBanner />
       <PageBlock>
         <HeaderWrapper>
           <Image
