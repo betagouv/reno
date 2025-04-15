@@ -126,3 +126,8 @@ export default async function Post(props: Props) {
     </Article>
   )
 }
+
+export async function generateStaticParams() {
+  const articles = await getAllArticles()
+  return articles
+}
