@@ -17,6 +17,7 @@ import path from 'path'
   },
   */
 
+/* Warning : use this function in server components or build functions ! Else, use a generateStaticParams as in /blog/[slug].tsx */
 export async function getAllArticles() {
   // get all MDX files
   const postFilePaths = fs.readdirSync('articles').filter((postFilePath) => {
