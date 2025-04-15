@@ -11,7 +11,6 @@ import { formatNumber } from '../RevenuInput'
 import data from './DPE.yaml'
 import Value from '../Value'
 import { Key } from '../explications/ExplicationUI'
-import DPEFacture from './DPEFacture'
 
 export function obtenirLettre(valeur, type) {
   for (let i = 0; i < data.length - 1; i++) {

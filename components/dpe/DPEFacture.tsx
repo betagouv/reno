@@ -47,30 +47,26 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
-
   useEffect(() => {
     setEnergiesUtilisees(
       [1, 2, 3]
-        .map((i) =>
-          energies.find((e) => e.titre === dpe[`Type_énergie_n°${i}`]),
-        )
+        .map((i) => energies.find((e) => e.titre === dpe[`type_energie_n${i}`]))
         .filter(Boolean),
     )
 
     const noDetail =
-      dpe['Conso_5_usages_é_finale'] ===
-        dpe['Conso_5_usages_é_finale_énergie_n°1'] &&
-      dpe['Conso_5_usages_é_finale_énergie_n°1'] ===
-        dpe['Conso_5_usages_é_finale_énergie_n°2']
+      dpe['conso_5_usages_ef'] === dpe['conso_5_usages_ef_energie_n1'] &&
+      dpe['conso_5_usages_ef_energie_n1'] ===
+        dpe['conso_5_usages_ef_energie_n2']
 
     const pourcentageInitial = [1, 2, 3]
       .map((i) =>
         noDetail
           ? '?'
-          : dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] > 0
+          : dpe[`conso_5_usages_ef_energie_n${i}`] > 0
             ? Math.round(
-                ((dpe[`Conso_5_usages_é_finale_énergie_n°${i}`] || 0) /
-                  dpe['Conso_5_usages_é_finale']) *
+                ((dpe[`conso_5_usages_ef_energie_n${i}`] || 0) /
+                  dpe['conso_5_usages_ef']) *
                   100,
               )
             : undefined,
@@ -81,13 +77,13 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
     setPourcentagesApresReno(pourcentageInitial.map((e) => (e == '?' ? 0 : e)))
     setMontantFactureActuelle(
       noDetail
-        ? dpe['Coût_total_5_usages']
+        ? dpe['cout_total_5_usages']
         : Math.round(
             energiesUtilisees.reduce(
               (total, energie, i) =>
                 total +
                 (energie?.prixMoyen || 0) *
-                  (dpe[`Conso_5_usages_é_finale_énergie_n°${i + 1}`] || 0),
+                  (dpe[`conso_5_usages_ef_energie_n${i + 1}`] || 0),
               0,
             ),
           ),
@@ -96,18 +92,16 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
 
   useEffect(() => {
     const targetDPE = situation['projet . DPE visé']
+    console.log('situation', situation)
     const moyenneConsoClasseDPE =
       (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
 
     const pourcentageEconomieVise =
-      dpe['Conso_5_usages_par_m²_é_primaire'] / moyenneConsoClasseDPE
-
-    console.log('dpe', dpe)
+      dpe['conso_5_usages_par_m2_ep'] / moyenneConsoClasseDPE
 
     // On calcule la répartition de la conso EF par énergie après rénovation
     const detailParEnergieEF = energiesUtilisees.map(
-      (_, i) =>
-        (dpe['Conso_5_usages_é_finale'] * pourcentagesApresReno[i]) / 100,
+      (_, i) => (dpe['conso_5_usages_ef'] * pourcentagesApresReno[i]) / 100,
     )
     // On convertit en EP pour appliquer le pourcentage de gain inhérent au changement de classe
     const detailParEnergieEP = detailParEnergieEF.map(
@@ -130,13 +124,7 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
     )
   }, [pourcentagesApresReno, situation])
 
-  const EnergieTable = ({
-    title,
-    pourcentages,
-    setPourcentages,
-    energies,
-    editable,
-  }) => (
+  const EnergieTable = ({ title, pourcentages, energies, editable }) => (
     <div>
       <div
         css={`

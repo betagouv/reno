@@ -9,9 +9,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page(props: Props) {
+  const params = await props.params
   return (
     <Suspense>
-      <DPEPage />
+      <DPEPage numDpe={params.numDpe} />
     </Suspense>
   )
 }

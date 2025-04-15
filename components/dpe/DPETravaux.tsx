@@ -24,23 +24,24 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
   const [xml, setXml] = useState()
   const [isEligible, setIsEligible] = useState(false)
   const associationTravauxDpe = {
-    'gestes . isolation . vitres': 'Qualité_isolation_menuiseries',
-    'gestes . isolation . murs extérieurs': 'Qualité_isolation_murs',
-    'gestes . isolation . murs intérieurs': 'Qualité_isolation_murs',
-    'gestes . isolation . plancher bas': 'Qualité_isolation_plancher_bas',
+    'gestes . isolation . vitres': 'qualite_isolation_menuiseries',
+    'gestes . isolation . murs extérieurs': 'qualite_isolation_murs',
+    'gestes . isolation . murs intérieurs': 'qualite_isolation_murs',
+    'gestes . isolation . plancher bas': 'qualite_isolation_plancher_bas',
     'gestes . isolation . toitures terrasses':
-      'Qualité_isolation_plancher_haut_toit_terrase',
+      'qualite_isolation_plancher_haut_toit_terrase',
     'gestes . isolation . rampants':
-      'Qualité_isolation_plancher_haut_comble_perdu',
+      'qualite_isolation_plancher_haut_comble_perdu',
     //TODO PB ici cf message coloration syntaxique
     'gestes . isolation . rampants':
-      'Qualité_isolation_plancher_haut_comble_aménagé',
+      'qualite_isolation_plancher_haut_comble_amenage',
+    'gestes . ventilation . double flux': 'test',
   }
   useEffect(() => {
     if (!dpe) return
     async function fetchDPE() {
       try {
-        const response = await fetch(`/api/dpe?dpeNumber=${dpe['N°DPE']}`)
+        const response = await fetch(`/api/dpe?dpeNumber=${dpe['numero_dpe']}`)
         if (!response.ok) throw new Error(`Error ${response.status}`)
 
         const text = await response.text()
@@ -141,7 +142,7 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
     console.log('questionsAnswered', questionsAnswered)
     console.log('questions', questions)
     setIsEligible(formatValue(engine.evaluate(rule + ' . montant')))
-    setQuestions(questions)
+    setQuestions(questionsAnswered)
     setVisibleDivs((prevState) => ({
       ...prevState,
       [index]: !prevState[index],
@@ -301,15 +302,16 @@ export function Explication({ geste, dpe, xml, index }) {
   if (!dpe) return
 
   function pourcentageDeperdition(pourcentage) {
+    console.log('dpe', dpe)
     return (
-      ((dpe[pourcentage] / dpe['Deperditions_enveloppe']) * 100).toFixed(0) +
+      ((dpe[pourcentage] / dpe['deperditions_enveloppe']) * 100).toFixed(0) +
       '%'
     )
   }
 
   let explication = ''
   if (geste == 'gestes . isolation . vitres') {
-    explication = `En moyenne, 10 à 15% des déperditions d'énergie se font par les fenêtres. Dans ce bien, la part de déperdition dûe au fenêtre est de <strong>${pourcentageDeperdition('Deperditions_baies_vitrées')}</strong>.`
+    explication = `En moyenne, 10 à 15% des déperditions d'énergie se font par les fenêtres.<br /> Dans ce bien, la part de déperdition dûe au fenêtre est de <strong>${pourcentageDeperdition('deperditions_baies_vitrees')}</strong>.<br /><br />`
     if (xml?.baieVitree?.length) {
       explication +=
         'Voici les informations concernant les menuiseries de ce bien:'
@@ -322,8 +324,8 @@ export function Explication({ geste, dpe, xml, index }) {
   }
   if (geste == 'ventilation . double flux') {
     explication = `
-      En moyenne, 20 à 25% des déperditions d'énergie proviennent de la ventilation et des ponts thermiques. 
-      Dans ce bien, la part de déperdition dûe à la ventilation est de <strong>${pourcentageDeperdition('Déperditions_renouvellement_air')}</strong>.`
+      En moyenne, 20 à 25% des déperditions d'énergie proviennent de la ventilation et des ponts thermiques.<br /> 
+      Dans ce bien, la part de déperdition dûe à la ventilation est de <strong>${pourcentageDeperdition('deperditions_renouvellement_air')}</strong>.`
   }
   if (
     [
@@ -332,11 +334,10 @@ export function Explication({ geste, dpe, xml, index }) {
     ].includes(geste)
   ) {
     explication = `
-      En moyenne, 20 à 25% des déperditions d'énergie proviennent de la toiture. 
-      Dans ce bien, la part de déperdition par la toiture est de <strong>${pourcentageDeperdition('Deperditions_planchers_hauts')}</strong>.`
+      En moyenne, 20 à 25% des déperditions d'énergie proviennent de la toiture.<br /> 
+      Dans ce bien, la part de déperdition par la toiture est de <strong>${pourcentageDeperdition('deperditions_planchers_hauts')}</strong>.<br /><br />`
     if (xml?.plafond?.length) {
-      explication +=
-        '<p>Voici les informations concernant la toiture de ce bien:</p>'
+      explication += 'Voici les informations concernant la toiture de ce bien:'
       explication += '<ul>'
       xml?.plafond?.map((plafond) => (explication += `<li>${plafond}</li>`))
       explication += '</ul>'
@@ -349,11 +350,10 @@ export function Explication({ geste, dpe, xml, index }) {
     ].includes(geste)
   ) {
     explication = `
-      En moyenne, 20 à 25% des déperditions d'énergie proviennent des murs. 
-      Dans ce bien, la part de déperdition par les murs est de <strong>${pourcentageDeperdition('Déperditions_murs')}</strong>.`
+      En moyenne, 20 à 25% des déperditions d'énergie proviennent des murs.<br />
+      Dans ce bien, la part de déperdition par les murs est de <strong>${pourcentageDeperdition('deperditions_murs')}</strong>.<br /><br />`
     if (xml?.descriptionMurs?.length) {
-      explication +=
-        '<p>Voici les informations concernant les murs de ce bien:</p>'
+      explication += 'Voici les informations concernant les murs de ce bien:'
       explication += '<ul>'
       xml?.descriptionMurs?.map((mur) => (explication += `<li>${mur}</li>`))
       explication += '</ul>'
@@ -361,11 +361,10 @@ export function Explication({ geste, dpe, xml, index }) {
   }
   if (geste == 'gestes . isolation . plancher bas') {
     explication = `
-      En moyenne, 7 à 10% des déperditions d'énergie proviennent du plancher. 
-      Dans ce bien, la part de déperdition par le plancher est de <strong>${pourcentageDeperdition('Deperditions_planchers_bas')}</strong>.`
+      En moyenne, 7 à 10% des déperditions d'énergie proviennent du plancher.<br />
+      Dans ce bien, la part de déperdition par le plancher est de <strong>${pourcentageDeperdition('deperditions_planchers_bas')}</strong>.<br /><br />`
     if (xml?.plancher?.length) {
-      explication +=
-        '<p>Voici les informations concernant le plancher de ce bien:</p>'
+      explication += 'Voici les informations concernant le plancher de ce bien:'
       explication += '<ul>'
       xml?.plancher?.map((plancher) => (explication += `<li>${plancher}</li>`))
       explication += '</ul>'

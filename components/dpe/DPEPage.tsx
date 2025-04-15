@@ -11,27 +11,47 @@ import { useSearchParams } from 'next/navigation'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import DpeAddressSearch from '../DpeAddressSearch'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import enrichSituation from '../personas/enrichSituation'
 import DPEFacture from './DPEFacture'
 import DPETravaux from './DPETravaux'
 
-export default function DPEPage() {
-  const [dpe, setDpe] = useState()
-  const [indexEtiquette, setIndexEtiquette] = useState({})
+export default function DPEPage({ numDpe }) {
+  const [dpe, setDpe] = useState(null)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
+  useEffect(() => {
+    async function fetchDPE() {
+      try {
+        const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?q=numero_dpe%3D${numDpe}`
+        const request = await fetch(url)
+        const json = await request.json()
+        handleSelectDpe(json.results[0]).then(() => setDpe(json.results[0]))
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    fetchDPE()
+  }, [numDpe])
+
   const handleSelectDpe = async (dpe) => {
-    const index = conversionLettreIndex.indexOf(dpe['etiquette']) + 1
-    setIndexEtiquette(index)
-    const anneeConstruction = dpe['Période_construction'].split('-')[1]
+    if (!dpe) return
+
+    const lettre =
+      conversionLettreIndex.indexOf(dpe['etiquette_dpe']) >
+      conversionLettreIndex.indexOf(dpe['etiquette_ges'])
+        ? dpe['etiquette_dpe']
+        : dpe['etiquette_ges']
+    const index = conversionLettreIndex.indexOf(lettre) + 1
+    console.log('dpe', dpe)
+    const anneeConstruction = dpe['periode_construction'].split('-')[1]
     let situation = await enrichSituation({
-      'logement . commune': `"${dpe['Code_INSEE_(BAN)']}"*`,
-      'logement . département': `"${dpe['N°_département_(BAN)']}"*`,
-      'logement . commune . nom': `"${dpe['Nom__commune_(BAN)']}"*`,
-      'logement . surface': `${dpe['surface']}*`,
+      'logement . commune': `"${dpe['code_insee_ban']}"*`,
+      'logement . département': `"${dpe['code_departement_ban']}"*`,
+      'logement . commune . nom': `"${dpe['nom_commune_ban']}"*`,
+      'logement . surface': `${dpe['surface_habitable_logement']}*`,
       'logement . période de construction': `"${
         anneeConstruction < new Date().getFullYear() - 15
           ? 'au moins 15 ans'
@@ -41,10 +61,10 @@ export default function DPEPage() {
       }"*`,
       'DPE . actuel': index + '*',
       'projet . DPE visé': Math.max(index - 2, 0) + '*',
-      'logement . type': `"${dpe['Type_bâtiment']}"`,
+      'logement . type': `"${dpe['type_batiment']}"`,
       'ménage . région . IdF': `"${
         ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
-          dpe['N°_département_(BAN)'],
+          dpe['code_departement_ban'],
         )
           ? 'oui'
           : 'non'
@@ -52,8 +72,6 @@ export default function DPEPage() {
     })
 
     setSearchParams(encodeSituation({ ...situation }))
-
-    setDpe(dpe)
   }
 
   const interdictionLocation = {
@@ -90,31 +108,31 @@ export default function DPEPage() {
               <Content>
                 <h2>Analyse globale du bien</h2>
                 <p>
-                  {dpe['Type_bâtiment'] == 'maison'
+                  {dpe['type_batiment'] == 'maison'
                     ? 'Cette maison constuite'
                     : 'Cet appartement construit'}{' '}
                   durant la période{' '}
-                  <strong>{dpe['Période_construction']}</strong> a une surface
+                  <strong>{dpe['periode_construction']}</strong> a une surface
                   de habitable de{' '}
-                  <strong>{dpe['Surface_habitable_logement']}m²</strong> et une
+                  <strong>{dpe['surface_habitable_logement']}m²</strong> et une
                   classe de consommation d'énergie{' '}
-                  <DPELabel label={dpe['Etiquette_DPE']} /> et une classe
+                  <DPELabel label={dpe['etiquette_dpe']} /> et une classe
                   d'émission de gaz à effet de serre{' '}
-                  <DPELabel label={dpe['Etiquette_GES']} />.
+                  <DPELabel label={dpe['etiquette_ges']} />.
                 </p>
                 <p>
                   Mode de chauffage :{' '}
                   <strong>
-                    {dpe['Description_installation_chauffage_n°1']}
+                    {dpe['description_installation_chauffage_n1']}
                   </strong>
                   <strong>
-                    {dpe['Description_installation_chauffage_n°2']}
+                    {dpe['description_installation_chauffage_n2']}
                   </strong>
                   .
                 </p>
                 <p>
                   Système assurant l'eau chaude sanitaire :{' '}
-                  <strong>{dpe['Type_générateur_ECS_n°1']}</strong>
+                  <strong>{dpe['type_generateur_n1_ecs_n1']}</strong>
                 </p>
                 <div></div>
               </Content>
@@ -153,7 +171,8 @@ export default function DPEPage() {
                   <>
                     Une interdiction de location est prévue à partir du{' '}
                     <strong>
-                      1<sup>er</sup> janvier {interdictionLocation[lettre]}
+                      1<sup>er</sup> janvier{' '}
+                      {interdictionLocation[dpe['etiquette']]}
                     </strong>{' '}
                     pour les logements avec un DPE{' '}
                     <DPELabel label={dpe['etiquette']} />
