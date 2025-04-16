@@ -48,11 +48,10 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
   useEffect(() => {
-    setEnergiesUtilisees(
-      [1, 2, 3]
-        .map((i) => energies.find((e) => e.titre === dpe[`type_energie_n${i}`]))
-        .filter(Boolean),
-    )
+    const energiesUtilisees = [1, 2, 3]
+      .map((i) => energies.find((e) => e.titre === dpe[`type_energie_n${i}`]))
+      .filter(Boolean)
+    setEnergiesUtilisees(energiesUtilisees)
 
     const noDetail =
       dpe['conso_5_usages_ef'] === dpe['conso_5_usages_ef_energie_n1'] &&
@@ -92,7 +91,6 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
 
   useEffect(() => {
     const targetDPE = situation['projet . DPE visé']
-    console.log('situation', situation)
     const moyenneConsoClasseDPE =
       (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
 
