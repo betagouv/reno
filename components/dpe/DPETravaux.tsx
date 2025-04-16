@@ -124,7 +124,16 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
     let conseil = ''
     let priorite = 1
     let gestes = []
-
+    const typeChauffage = dpe['type_generateur_chauffage_principal']
+    const typeEmetteur = dpe['type_emetteur_installation_chauffage_n1']
+    // On veut absolument remplacer les chauffages au fioul et au charbon
+    if (['Fioul domestique', 'Charbon'].includes(dpe['type_energie_n1'])) {
+      if (dpe['type_energie_n1'] == 'Fioul domestique') {
+        gestes.push('gestes . chauffage . fioul . dépose cuve')
+      }
+      conseil = `le chauffage au ${dpe['type_energie_n1']} est très polluant, remplacer le par un système performant.`
+      priorite = 3
+    }
     // Test raccordement réseau chaleur, via FCU
     isEligibleReseauChaleur(dpe).then((eligibility) => {
       if (eligibility) {
@@ -132,6 +141,52 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
         gestes.push('gestes . chauffage . raccordement réseau . chaleur')
       }
     })
+    if (typeChauffage.startsWith('Chaudière')) {
+      const anneeInstallation = typeChauffage.slice(-4)
+      if (anneeInstallation < new Date().getFullYear() - 20) {
+        // Si la chaudière a plus de 20 ans, on peut la remplacer
+        conseil =
+          'la chaudière a plus de 20 ans, remplacez-la par un système performant'
+        priorite = 3
+      }
+      if (anneeInstallation < new Date().getFullYear() - 10) {
+        // Si la chaudière a plus de 10 ans, on peut la remplacer
+        conseil =
+          'la chaudière a plus de 10 ans, remplacer la par un système performant'
+        priorite = 2
+      }
+    }
+    // S'il y a des vieux radiateurs, on peut proposer des radiateurs à chaleur douce connectés
+    if (typeChauffage == 'Chaudière électrique') {
+      conseil =
+        'La chaudière électrique est très énergivore, remplace-la par un système performant'
+      priorite = 3
+    }
+    // Horizontal = peu efficace, il faut changer
+    if (typeChauffage == 'Ballon électrique à accumulation horizontal') {
+      conseil =
+        'Les ballons à accumulation horizontal sont peu performants, il est préférable de les remplacer.'
+      gestes.push('chauffage . chauffe-eau thermodynamique')
+      gestes.push('gestes . chauffage . chauffe-eau solaire')
+      priorite = 3
+    }
+    // Vieux chauffe-eau
+    if (
+      typeChauffage ==
+      'Ballon électrique à accumulation vertical Catégorie B ou 2 étoiles'
+    ) {
+      conseil =
+        'Votre chauffe-eau est peu performant, il est préférable de le remplacer.'
+      priorite = 3
+      gestes.push('gestes . chauffage . chauffe-eau thermodynamique')
+      gestes.push('gestes . chauffage . chauffe-eau solaire')
+    }
+    if (typeEmetteur == 'Convecteur électrique NFC, NF** et NF***') {
+      //TODO: Implémenter BAR-TH-158 pour les radiateurs à chaleurs douce connectés
+      conseil =
+        'Les convecteurs électriques sont peu efficaces, il est préférable de changer ce système.'
+      priorite = 3
+    }
 
     fetchDPE()
   }, [dpe])
@@ -166,7 +221,7 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
     console.log('questionsAnswered', questionsAnswered)
     console.log('questions', questions)
     setIsEligible(formatValue(engine.evaluate(rule + ' . montant')))
-    setQuestions(questionsAnswered)
+    setQuestions(questions)
     setVisibleDivs((prevState) => ({
       ...prevState,
       [index]: !prevState[index],
@@ -222,7 +277,13 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
                     >
                       <Explication geste={e[0]} dpe={dpe} xml={xml} index={i} />
                     </td>
-                    <td>
+                    <td
+                      css={`
+                        div {
+                          margin: auto;
+                        }
+                      `}
+                    >
                       <CTA
                         $fontSize="normal"
                         $importance="secondary"
