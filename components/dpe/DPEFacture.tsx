@@ -16,12 +16,32 @@ import { useEffect, useState } from 'react'
 const energies = [
   { valeur: '', titre: 'Aucune', prixMoyen: 0 },
   { valeur: 'électricité', titre: 'Électricité', prixMoyen: 0.2016 },
-  { valeur: 'gaz', titre: 'Gaz naturel', prixMoyen: 0.0968 },
-  { valeur: 'fioul', titre: 'Fioul domestique', prixMoyen: 0.1 },
+  { valeur: 'gaz', titre: 'Gaz naturel', prixMoyen: 0.13 },
+  { valeur: 'fioul', titre: 'Fioul domestique', prixMoyen: 0.13 },
   { valeur: 'bois', titre: 'Bois – Bûches', prixMoyen: 0.04 },
-  { valeur: 'granulés', titre: 'Granulés', prixMoyen: 0.07 },
-  { valeur: 'propane', titre: 'Propane', prixMoyen: 0.13 },
+  {
+    valeur: 'boisForest',
+    titre: 'Bois – Plaquettes forestières',
+    prixMoyen: 0.04,
+  },
+  {
+    valeur: 'boisIndus',
+    titre: 'Bois – Plaquettes d’industrie',
+    prixMoyen: 0.04,
+  },
+  {
+    valeur: 'granulés',
+    titre: 'Bois – Granulés (pellets) ou briquettes',
+    prixMoyen: 0.07,
+  },
+  { valeur: 'gpl', titre: 'GPL', prixMoyen: 0.2 },
+  { valeur: 'propane', titre: 'Propane', prixMoyen: 0.2 },
   { valeur: 'charbon', titre: 'Charbon', prixMoyen: 0.072 },
+  {
+    valeur: 'reseauChaleur',
+    titre: 'Réseau de Chauffage urbain',
+    prixMoyen: 0.08,
+  },
 ]
 
 const prixAbonnementElectricite = 160
