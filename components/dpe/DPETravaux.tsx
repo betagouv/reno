@@ -37,6 +37,15 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
       'qualite_isolation_plancher_haut_comble_amenage',
     'gestes . ventilation . double flux': 'test',
   }
+  async function isEligibleReseauChaleur(dpe) {
+    const [lat, lon] = dpe['_geopoint'].split(',')
+    const response = await fetch(`/api/fcu?lat=${lat}&lon=${lon}`)
+    if (!response.ok) return false
+
+    const json = await response.json()
+    return json.isEligible
+  }
+
   useEffect(() => {
     if (!dpe) return
     async function fetchDPE() {
@@ -108,6 +117,21 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
         console.error('Error:', error)
       }
     }
+
+    // Les règles métiers:
+    // TODO: Est-ce possible de raccorder à un réseau de chaleur, FCU?
+    // On veut absolument remplacer les chauffages au fioul
+    let conseil = ''
+    let priorite = 1
+    let gestes = []
+
+    // Test raccordement réseau chaleur, via FCU
+    isEligibleReseauChaleur(dpe).then((eligibility) => {
+      if (eligibility) {
+        conseil = 'Votre domicile peut se raccorder à un réseau de chaleur'
+        gestes.push('gestes . chauffage . raccordement réseau . chaleur')
+      }
+    })
 
     fetchDPE()
   }, [dpe])
