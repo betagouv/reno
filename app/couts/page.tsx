@@ -6,6 +6,7 @@ import { Suspense } from 'react'
 
 const Couts = dynamic(() => import('./Couts'), { ssr: false })
 
+// Using searchParams here will opt this route to dynamic rendering
 export default async function Page(props) {
   const searchParams = await props.searchParams
   return (
