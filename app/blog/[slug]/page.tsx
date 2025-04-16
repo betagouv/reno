@@ -127,6 +127,7 @@ export default async function Post(props: Props) {
   )
 }
 
+/* Without this function, getAllArticles would be run without the context of the directory to parse */
 export async function generateStaticParams() {
   const articles = await getAllArticles()
   return articles

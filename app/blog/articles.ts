@@ -17,9 +17,14 @@ import path from 'path'
   },
   */
 
+/* Warning : use this function in server components or build functions ! Else, use a generateStaticParams as in /blog/[slug].tsx */
 export async function getAllArticles() {
+  console.log(
+    'getAllArticles called : if done outside of the build step, it could fail',
+  )
   // get all MDX files
-  const postFilePaths = fs.readdirSync('articles').filter((postFilePath) => {
+  const articlesDir = path.join(process.cwd(), 'articles')
+  const postFilePaths = fs.readdirSync(articlesDir).filter((postFilePath) => {
     return path.extname(postFilePath).toLowerCase() === '.mdx'
   })
 
@@ -27,7 +32,7 @@ export async function getAllArticles() {
 
   // read the frontmatter for each file
   for (const postFilePath of postFilePaths) {
-    const postFile = fs.readFileSync(`articles/${postFilePath}`, 'utf8')
+    const postFile = fs.readFileSync(`${articlesDir}/${postFilePath}`, 'utf8')
 
     // serialize the MDX content to a React-compatible format
     // and parse the frontmatter

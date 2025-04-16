@@ -92,6 +92,9 @@ const nextConfig = {
     ]
   },
   output: 'standalone',
+  outputFileTracingIncludes: {
+    '/*': ['./articles/*.mdx'],
+  },
   images: {
     remotePatterns: [
       {
