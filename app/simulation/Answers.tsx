@@ -219,7 +219,7 @@ const Details = styled.details`
   summary{
     cursor: default;
     display: flex;
-    margin-top: 1vh;
+    margin-top: 0.5rem;
     align-items: center;
     > span {color:inherit}       
     h2 {

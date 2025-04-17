@@ -12,6 +12,8 @@ import { useAides } from './ampleur/useAides'
 import { Section } from './UI'
 import { push } from '@socialgouv/matomo-next'
 import CopyButton from './CopyButton'
+import useIsInIframe from './useIsInIframe'
+import * as iframe from '@/utils/iframe'
 
 export default function Eligibility({
   setSearchParams,
@@ -23,6 +25,7 @@ export default function Eligibility({
   searchParams,
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+  const isInIframe = useIsInIframe()
   const nextLink = (value) => {
     const url = setSearchParams(
       {
@@ -36,6 +39,10 @@ export default function Eligibility({
   const aides = useAides(engine, situation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const showPersonaBar = searchParams.personas != null
+
+  if (isInIframe) {
+    iframe.postMessageEligibilityDone(situation)
+  }
 
   return (
     <Section
@@ -154,7 +161,9 @@ export default function Eligibility({
               "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
           }}
         />
-        <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+        {isInIframe ? null : (
+          <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+        )}
       </CustomQuestionWrapper>
     </Section>
   )
