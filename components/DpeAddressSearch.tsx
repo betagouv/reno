@@ -37,7 +37,7 @@ export default function DPEAddressSearch({ searchParams, onSelectDpe }) {
     const [lat, lon] = clicked.geometry.coordinates
     async function fetchDPE() {
       try {
-        const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?bbox=${computeBbox({ lat, lon, factor: 20 })}`
+        const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?bbox=${computeBbox({ lat, lon, factor: 20 })}`
 
         const request = await fetch(url)
         const json = await request.json()
@@ -158,8 +158,8 @@ export default function DPEAddressSearch({ searchParams, onSelectDpe }) {
                 features: dpes?.map((dpe) => {
                   const {
                     _geopoint: geopoint,
-                    'N°_étage_appartement': etage,
-                    Etiquette_DPE: etiquette,
+                    n_etage_appartement: etage,
+                    etiquette_dpe: etiquette,
                   } = dpe
 
                   const [lat, lon] = geopoint.split(',')
@@ -182,7 +182,7 @@ export default function DPEAddressSearch({ searchParams, onSelectDpe }) {
                       base: fakeFloor * 3,
                       height: 3,
                       etiquette,
-                      surface: +dpe['Surface_habitable_logement'],
+                      surface: +dpe['surface_habitable_logement'],
                       color,
                     },
                   }
