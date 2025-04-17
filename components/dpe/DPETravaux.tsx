@@ -4,47 +4,20 @@ import informationIcon from '@/public/information.svg'
 import Publicodes, { formatValue } from 'publicodes'
 import rules from '@/app/règles/rules'
 import CalculatorWidget from '../CalculatorWidget'
-import {
-  getAnsweredQuestions,
-  getSituation,
-} from '../publicodes/situationUtils'
+import { getSituation } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Card, CTA, PrimeStyle } from '../UI'
-import getNextQuestions from '../publicodes/getNextQuestions'
-import GesteQuestion from '../GesteQuestion'
-import { AvanceTMO } from '../mprg/BlocAideMPR'
 import React from 'react'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
+import styled from 'styled-components'
+import { DPETravauxIsolation } from './travaux/DPETravauxIsolation'
+import { DPETravauxChauffage } from './travaux/DPETravauxChauffage'
+import { PrimeStyle } from '../UI'
 
 export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
-  const [visibleDivs, setVisibleDivs] = useState({})
-  const [questions, setQuestions] = useState([])
+  const [visibleWork, setVisibleWork] = useState({})
   const [xml, setXml] = useState()
-  const [isEligible, setIsEligible] = useState(false)
-  const associationTravauxDpe = {
-    'gestes . isolation . vitres': 'qualite_isolation_menuiseries',
-    'gestes . isolation . murs extérieurs': 'qualite_isolation_murs',
-    'gestes . isolation . murs intérieurs': 'qualite_isolation_murs',
-    'gestes . isolation . plancher bas': 'qualite_isolation_plancher_bas',
-    'gestes . isolation . toitures terrasses':
-      'qualite_isolation_plancher_haut_toit_terrase',
-    'gestes . isolation . rampants':
-      'qualite_isolation_plancher_haut_comble_perdu',
-    //TODO PB ici cf message coloration syntaxique
-    'gestes . isolation . rampants':
-      'qualite_isolation_plancher_haut_comble_amenage',
-    'gestes . ventilation . double flux': 'test',
-  }
-  async function isEligibleReseauChaleur(dpe) {
-    const [lat, lon] = dpe['_geopoint'].split(',')
-    const response = await fetch(`/api/fcu?lat=${lat}&lon=${lon}`)
-    if (!response.ok) return false
-
-    const json = await response.json()
-    return json.isEligible
-  }
 
   useEffect(() => {
     if (!dpe) return
@@ -118,76 +91,6 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
       }
     }
 
-    // Les règles métiers:
-    // TODO: Est-ce possible de raccorder à un réseau de chaleur, FCU?
-    // On veut absolument remplacer les chauffages au fioul
-    let conseil = ''
-    let priorite = 1
-    let gestes = []
-    const typeChauffage = dpe['type_generateur_chauffage_principal']
-    const typeEmetteur = dpe['type_emetteur_installation_chauffage_n1']
-    // On veut absolument remplacer les chauffages au fioul et au charbon
-    if (['Fioul domestique', 'Charbon'].includes(dpe['type_energie_n1'])) {
-      if (dpe['type_energie_n1'] == 'Fioul domestique') {
-        gestes.push('gestes . chauffage . fioul . dépose cuve')
-      }
-      conseil = `le chauffage au ${dpe['type_energie_n1']} est très polluant, remplacer le par un système performant.`
-      priorite = 3
-    }
-    // Test raccordement réseau chaleur, via FCU
-    isEligibleReseauChaleur(dpe).then((eligibility) => {
-      if (eligibility) {
-        conseil = 'Votre domicile peut se raccorder à un réseau de chaleur'
-        gestes.push('gestes . chauffage . raccordement réseau . chaleur')
-      }
-    })
-    if (typeChauffage.startsWith('Chaudière')) {
-      const anneeInstallation = typeChauffage.slice(-4)
-      if (anneeInstallation < new Date().getFullYear() - 20) {
-        // Si la chaudière a plus de 20 ans, on peut la remplacer
-        conseil =
-          'la chaudière a plus de 20 ans, remplacez-la par un système performant'
-        priorite = 3
-      }
-      if (anneeInstallation < new Date().getFullYear() - 10) {
-        // Si la chaudière a plus de 10 ans, on peut la remplacer
-        conseil =
-          'la chaudière a plus de 10 ans, remplacer la par un système performant'
-        priorite = 2
-      }
-    }
-    // S'il y a des vieux radiateurs, on peut proposer des radiateurs à chaleur douce connectés
-    if (typeChauffage == 'Chaudière électrique') {
-      conseil =
-        'La chaudière électrique est très énergivore, remplace-la par un système performant'
-      priorite = 3
-    }
-    // Horizontal = peu efficace, il faut changer
-    if (typeChauffage == 'Ballon électrique à accumulation horizontal') {
-      conseil =
-        'Les ballons à accumulation horizontal sont peu performants, il est préférable de les remplacer.'
-      gestes.push('chauffage . chauffe-eau thermodynamique')
-      gestes.push('gestes . chauffage . chauffe-eau solaire')
-      priorite = 3
-    }
-    // Vieux chauffe-eau
-    if (
-      typeChauffage ==
-      'Ballon électrique à accumulation vertical Catégorie B ou 2 étoiles'
-    ) {
-      conseil =
-        'Votre chauffe-eau est peu performant, il est préférable de le remplacer.'
-      priorite = 3
-      gestes.push('gestes . chauffage . chauffe-eau thermodynamique')
-      gestes.push('gestes . chauffage . chauffe-eau solaire')
-    }
-    if (typeEmetteur == 'Convecteur électrique NFC, NF** et NF***') {
-      //TODO: Implémenter BAR-TH-158 pour les radiateurs à chaleurs douce connectés
-      conseil =
-        'Les convecteurs électriques sont peu efficaces, il est préférable de changer ce système.'
-      priorite = 3
-    }
-
     fetchDPE()
   }, [dpe])
 
@@ -196,198 +99,138 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
 
-  const handleEstimateClick = (index, rule) => {
-    // Le setSituation est nécessaire pour que les nextQuestions soient à jour
-    const questions = getNextQuestions(
-      engine
-        .setSituation({
-          ...situation,
-          'MPR . non accompagnée . éligible': 'oui',
-          [rule]: 'oui',
-        })
-        .evaluate(rule + ' . montant'),
-      [],
-      [],
-      rules,
-    )
-    // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
-    //questions.unshift(...Object.keys(situation))
-    // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
-    const questionsAnswered = Object.keys(situation).filter(
-      (q) =>
-        questions.includes(q) &&
-        !getAnsweredQuestions(searchParams, rules).includes(q),
-    )
-    console.log('questionsAnswered', questionsAnswered)
-    console.log('questions', questions)
-    setIsEligible(formatValue(engine.evaluate(rule + ' . montant')))
-    setQuestions(questions)
-    setVisibleDivs((prevState) => ({
-      ...prevState,
-      [index]: !prevState[index],
-    }))
+  const getPriorite = (type) => {
+    if (type == 'chauffage') return 'insuffisante'
+    if (type == 'isolation') {
+      return 'insuffisante'
+      return Object.entries(associationTravauxDpe).find(
+        (e, i) => dpe[e[1]] == 'insuffisante',
+      )
+        ? 'insuffisante'
+        : Object.entries(associationTravauxDpe).find(
+              (e, i) => dpe[e[1]] == 'moyenne',
+            )
+          ? 'moyenne'
+          : 'bonne'
+    }
   }
 
   return (
     <CalculatorWidget>
-      <table
-        css={`
-          width: 100%;
-          .estimer:hover {
-            background: var(--color);
-            color: white;
-          }
-          .slide-down {
-            overflow: hidden;
-            max-height: 0;
-            transition: max-height 1s ease-out;
-          }
-
-          .slide-down.active {
-            max-height: fit-content;
-          }
-        `}
-      >
-        <thead>
+      <Table>
+        {/* <thead>
           <tr>
             <th>Travaux</th>
             <th>Priorité</th>
             <th>Explication</th>
             <th>Aides</th>
           </tr>
-        </thead>
+        </thead> */}
         <tbody>
-          {Object.entries(associationTravauxDpe).map((e, i) => {
-            return (
-              dpe[e[1]] && (
-                <React.Fragment key={i}>
-                  <tr>
-                    <td>{rules[e[0]].titre}</td>
-                    <td
-                      css={`
-                        text-align: center;
-                      `}
-                    >
-                      <Priorité valeur={dpe[e[1]]} />
-                    </td>
-                    <td
-                      css={`
-                        text-align: center;
-                      `}
-                    >
-                      <Explication geste={e[0]} dpe={dpe} xml={xml} index={i} />
-                    </td>
-                    <td
-                      css={`
-                        div {
-                          margin: auto;
-                        }
-                      `}
-                    >
-                      <CTA
-                        $fontSize="normal"
-                        $importance="secondary"
-                        className="estimer"
-                        onClick={() => handleEstimateClick(i, e[0])}
-                      >
-                        <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
-                      </CTA>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan={4}>
-                      <div
-                        className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
-                      >
-                        <Card>
-                          {questions.map((question, index) => (
-                            <GesteQuestion
-                              key={index}
-                              {...{
-                                rules,
-                                question,
-                                engine,
-                                situation,
-                                setSearchParams,
-                                dot: true,
-                              }}
-                            />
-                          ))}
-                          <div
-                            css={`
-                              justify-content: end;
-                              display: flex;
-                            `}
-                          >
-                            <PrimeStyle
-                              css={`
-                                padding: 0.75rem;
-                              `}
-                              $inactive={
-                                !(
-                                  Array.isArray(questions) &&
-                                  questions.every(
-                                    (question) => question in situation,
-                                  )
-                                )
-                              }
-                            >
-                              {isEligible !== 'Non applicable' ? (
-                                <>
-                                  Prime de{' '}
-                                  <strong
-                                    css={`
-                                      font-size: 1.5rem;
-                                    `}
-                                  >
-                                    {Array.isArray(questions) &&
-                                    questions.every(
-                                      (question) => question in situation,
-                                    )
-                                      ? isEligible
-                                      : '...'}
-                                  </strong>
-                                </>
-                              ) : (
-                                <strong
-                                  css={`
-                                    font-size: 1.25rem;
-                                  `}
-                                >
-                                  Non Éligible
-                                </strong>
-                              )}
-                            </PrimeStyle>
-                          </div>
-                          <AvanceTMO {...{ engine, situation }} />
-                        </Card>
-                      </div>
-                    </td>
-                  </tr>
-                </React.Fragment>
-              )
-            )
-          })}
+          <tr>
+            <td>Isoler mon logement</td>
+            <td>
+              <Priorité valeur={getPriorite('isolation')} />
+            </td>
+            <td>
+              <Explication geste="isolation" dpe={dpe} xml={xml} />
+            </td>
+            <td>
+              <span
+                onClick={() =>
+                  setVisibleWork((prevState) => ({
+                    ...prevState,
+                    ['isolation']: !prevState['isolation'],
+                  }))
+                }
+                title="Voir le détail"
+              >
+                🔎
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={4}>
+              <div
+                className={`slide-down ${visibleWork['isolation'] ? 'active' : ''}`}
+              >
+                <DPETravauxIsolation
+                  {...{
+                    dpe,
+                    xml,
+                    rules,
+                    engine,
+                    situation,
+                    setSearchParams,
+                  }}
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Changer mon système de chauffage</td>
+            <td>
+              <Priorité valeur={getPriorite('chauffage')} />
+            </td>
+            <td>
+              <Explication geste="chauffage" dpe={dpe} xml={xml} />
+            </td>
+            <td>
+              <span
+                onClick={() =>
+                  setVisibleWork((prevState) => ({
+                    ...prevState,
+                    ['chauffage']: !prevState['chauffage'],
+                  }))
+                }
+                title="Voir le détail"
+              >
+                🔎
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={4}>
+              <div
+                className={`slide-down ${visibleWork['chauffage'] ? 'active' : ''}`}
+              >
+                <DPETravauxChauffage
+                  {...{
+                    dpe,
+                    xml,
+                    rules,
+                    engine,
+                    situation,
+                    setSearchParams,
+                  }}
+                />
+              </div>
+            </td>
+          </tr>
         </tbody>
-      </table>
+      </Table>
     </CalculatorWidget>
   )
 }
 
 export function Priorité({ valeur }) {
+  const niveau = {
+    1: '⭐',
+    2: '⭐⭐',
+    3: '⭐⭐⭐',
+  }
   const star = {
     insuffisante: '⭐⭐⭐',
     moyenne: '⭐⭐',
     bonne: '⭐',
     'très bonne': '⭐',
   }
-  return <span>{star[valeur]}</span>
+  return <span>{star[valeur] ? star[valeur] : niveau[valeur]}</span>
 }
 export function Explication({ geste, dpe, xml, index }) {
   if (!dpe) return
 
   function pourcentageDeperdition(pourcentage) {
-    console.log('dpe', dpe)
     return (
       ((dpe[pourcentage] / dpe['deperditions_enveloppe']) * 100).toFixed(0) +
       '%'
@@ -395,6 +238,14 @@ export function Explication({ geste, dpe, xml, index }) {
   }
 
   let explication = ''
+  if (geste == 'chauffage') {
+    explication =
+      "Le système de chauffage est la première source de consommation énergétique de votre logement. Pour réduire ces dépenses, il est tout d'abord nécessaire de bien isoler votre logement ensuite, de changer votre système de chauffage."
+  }
+  if (geste == 'isolation') {
+    explication =
+      "Un logement mal isolé génère des pertes conséquentes de chaleur en hiver et de fraîcheur en été par le toit, les murs, les portes, les fenêtres et le sol. Grâce à des travaux d'isolation, vous diminuez vos factures d'énergie et améliorez votre confort tout au long de l'année."
+  }
   if (geste == 'gestes . isolation . vitres') {
     explication = `En moyenne, 10 à 15% des déperditions d'énergie se font par les fenêtres.<br /> Dans ce bien, la part de déperdition dûe au fenêtre est de <strong>${pourcentageDeperdition('deperditions_baies_vitrees')}</strong>.<br /><br />`
     if (xml?.baieVitree?.length) {
@@ -457,10 +308,10 @@ export function Explication({ geste, dpe, xml, index }) {
   }
   return (
     <>
-      <span data-tooltip-id={index.toString()}>
+      <span data-tooltip-id={index ? index.toString() : geste}>
         <Image src={informationIcon} width="25" alt="Icône information" />
       </span>
-      <ReactTooltip id={index.toString()} place="top">
+      <ReactTooltip id={index ? index.toString() : geste} place="top">
         <div
           style={{
             maxWidth: 500,
@@ -472,3 +323,83 @@ export function Explication({ geste, dpe, xml, index }) {
     </>
   )
 }
+export function MontantPrimeTravaux({ questions, evaluation, situation }) {
+  console.log('evaluation', evaluation)
+  const isEligible = formatValue(evaluation)
+  return (
+    <div
+      css={`
+        justify-content: end;
+        display: flex;
+      `}
+    >
+      <PrimeStyle
+        css={`
+          padding: 0.75rem;
+        `}
+        $inactive={
+          !(
+            Array.isArray(questions) &&
+            questions.every((question) => question in situation)
+          )
+        }
+      >
+        {isEligible !== 'Non applicable' ? (
+          <>
+            Prime de{' '}
+            <strong
+              css={`
+                font-size: 1.5rem;
+              `}
+            >
+              {Array.isArray(questions) &&
+              questions.every((question) => question in situation)
+                ? isEligible
+                : '...'}
+            </strong>
+          </>
+        ) : (
+          <strong
+            css={`
+              font-size: 1.25rem;
+            `}
+          >
+            Non Éligible
+          </strong>
+        )}
+      </PrimeStyle>
+    </div>
+  )
+}
+
+const Table = styled.table`
+  width: 100%;
+
+  .estimer:hover {
+    background: var(--color);
+    color: white;
+  }
+  .slide-down {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 1s ease-out;
+  }
+
+  .slide-down.active {
+    max-height: fit-content;
+  }
+  tr:hover {
+    cursor: pointer;
+  }
+  tr td:not(:first-of-type) {
+    text-align: center;
+  }
+  img {
+    width: 1rem;
+    height: auto;
+    margin: 0 1rem 0 0;
+  }
+  table {
+    width: 100%;
+  }
+`
