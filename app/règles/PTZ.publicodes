@@ -62,6 +62,7 @@ PTZ:
     Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
   lien: https://www.service-public.fr/particuliers/vosdroits/F19905
   temporel:
+    signe: positif
     dépendances:
       - devis
 PTZ . conditions:
