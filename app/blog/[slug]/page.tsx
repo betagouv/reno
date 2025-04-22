@@ -130,5 +130,6 @@ export default async function Post(props: Props) {
 /* Without this function, getAllArticles would be run without the context of the directory to parse */
 export async function generateStaticParams() {
   const articles = await getAllArticles()
-  return articles
+  // This article has its own route, don't rewrite it here
+  return articles.filter((a) => a.slug !== 'aides-renovation-2025')
 }
