@@ -158,7 +158,7 @@ MPR . accompagnée . avance:
   formule: pourcentage avance * montant
   temporel:
     dépendances:
-      - devis
+      - acceptation
 
 MPR . accompagnée . pourcentage avance:
   valeur: 30 %
