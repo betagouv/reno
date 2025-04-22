@@ -1,7 +1,16 @@
 import styled from 'styled-components'
+import data from '@/components/frise.yaml'
 
 export default function Frise() {
-  return <Container>salut</Container>
+  return (
+    <Container>
+      <ol>
+        {data.map((element) => (
+          <li key={element.nom}>{element.titre || element.nom}</li>
+        ))}
+      </ol>
+    </Container>
+  )
 }
 
 const Container = styled.section`
