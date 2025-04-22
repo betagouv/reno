@@ -46,7 +46,7 @@ export default function DPEPage({ numDpe }) {
         : dpe['etiquette_ges']
     const index = conversionLettreIndex.indexOf(lettre) + 1
     console.log('dpe', dpe)
-    const anneeConstruction = dpe['periode_construction'].split('-')[1]
+    const anneeConstruction = dpe['periode_construction'].slice(-4)
     let situation = await enrichSituation({
       'logement . commune': `"${dpe['code_insee_ban']}"*`,
       'logement . département': `"${dpe['code_departement_ban']}"*`,

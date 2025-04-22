@@ -4,6 +4,18 @@ chauffage . bois . chaudière:
   titre: Chaudière bois
   description: |
     Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poêle n'est souvent qu'un chauffage d'appoint.
+chauffage . bois . chaudière . type:
+  question: 'Quel type de chaudière vous intéresse ?'
+  une possibilité parmi:
+    possibilités:
+      - manuelle
+      - automatique
+chauffage . bois . chaudière . type . manuelle:
+  valeur: manuelle
+  titre: Manuelle (à bûches)
+chauffage . bois . chaudière . type . automatique:
+  valeur: automatique
+  titre: Automatique (à granulés ou plaquettes)
 
 chauffage . bois . chaudière . manuelle:
   titre: Chaudière à bûches (allumage manuel)
@@ -155,6 +167,24 @@ chauffage . bois . chaudière . automatique . CEE . barème:
       alors: 33800
     - si: CEE . région = 'H3'
       alors: 26300
+
+chauffage . bois . type:
+  question: 'Quel type de chauffage au bois vous intéresse ?'
+  une possibilité parmi:
+    possibilités:
+      - poêle . à bûches
+      - poêle . à granulés
+      - foyer et insert
+chauffage . bois . type . poêle:
+chauffage . bois . type . poêle . à bûches:
+  valeur: poêle . à bûches
+  titre: Poêle à bûches
+chauffage . bois . type . poêle . à granulés:
+  valeur: poêle . à granulés
+  titre: Poêle à grânulés
+chauffage . bois . type . foyer et insert:
+  valeur: foyer et insert
+  titre: Insert pour cheminées
 
 chauffage . bois . foyer et insert:
   par défaut: oui

@@ -137,7 +137,13 @@ export function DPETravauxIsolation({
                             situation,
                           }}
                         />
-                        <AvanceTMO {...{ engine, situation }} />
+                        <div
+                          css={`
+                            margin-top: 0.5rem;
+                          `}
+                        >
+                          <AvanceTMO {...{ engine, situation }} />
+                        </div>
                       </Card>
                     </div>
                   </td>

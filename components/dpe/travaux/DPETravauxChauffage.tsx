@@ -2,7 +2,6 @@ import { Dot } from '@/app/module/AmpleurQuestions'
 import GesteQuestion from '@/components/GesteQuestion'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import { Card, CTA } from '@/components/UI'
-import { formatValue } from 'publicodes'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { MontantPrimeTravaux } from '../DPETravaux'
@@ -15,6 +14,7 @@ export function DPETravauxChauffage({
   situation,
   setSearchParams,
 }) {
+  const [selectedGeste, setSelectedGeste] = useState(null)
   const [visibleDivs, setVisibleDivs] = useState({})
   const [questions, setQuestions] = useState([])
   async function isEligibleReseauChaleur(dpe) {
@@ -93,35 +93,49 @@ export function DPETravauxChauffage({
     priorite = 3
   }
 
-  gestes.push({ code: 'pac', titre: 'Installer une PAC' })
-  gestes.push({ code: 'appoint', titre: "Ajouter un chauffage d'appoint" })
-  gestes.push({ code: 'chaudiere', titre: 'Installer une chaudière' })
+  gestes.push({
+    code: 'gestes . chauffage . PAC',
+    titre: 'Les Pompes à Chaleur',
+  })
+  gestes.push({
+    code: 'gestes . chauffage . bois . chaudière',
+    titre: 'Les Chaudières',
+  })
+  gestes.push({
+    code: 'gestes . chauffage . bois',
+    titre: 'Les Poêles et inserts',
+  })
+  gestes.push({
+    code: 'gestes . chauffage . chauffe-eau thermodynamique',
+    titre: 'Chauffe-eau thermodynamique',
+  })
+  gestes.push({
+    code: 'gestes . chauffage . solaire',
+    titre: 'Les solutions solaires',
+  })
 
   useEffect(() => {
-    if (!situation['gestes . chauffage . PAC . type']) return
-    const rule =
-      'gestes . chauffage . PAC . ' +
-      situation['gestes . chauffage . PAC . type']
+    if (!selectedGeste) return
     const questions = getNextQuestions(
       engine
         .setSituation({
           ...situation,
           'MPR . non accompagnée . éligible': 'oui',
-          [rule]: 'oui',
+          [selectedGeste]: 'oui',
         })
-        .evaluate(rule + ' . montant'),
+        .evaluate(selectedGeste + ' . montant'),
       [],
       [],
       rules,
     )
     setQuestions(questions)
-  }, [situation['gestes . chauffage . PAC . type']])
+  }, [selectedGeste])
 
   const handleClick = (index, geste) => {
-    if (geste == 'PAC') {
-      console.log('handle PAC')
+    console.log('geste', geste)
+    if (geste.code.includes('chauffe-eau thermodynamique')) {
+      setSelectedGeste(geste.code)
     }
-
     setVisibleDivs((prevState) => ({
       ...prevState,
       [index]: !prevState[index],
@@ -145,7 +159,7 @@ export function DPETravauxChauffage({
               <tr>
                 <td>
                   <Dot />
-                  {rules[geste.code] ? rules[geste.code].titre : geste.titre}
+                  {geste.titre}
                 </td>
                 {/* <td
                   css={`
@@ -170,7 +184,7 @@ export function DPETravauxChauffage({
                     className="estimer"
                     onClick={() => handleClick(i, geste)}
                   >
-                    <span>{visibleDivs[i] ? '-' : '+'}</span>
+                    <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
                   </CTA>
                 </td>
               </tr>
@@ -183,36 +197,39 @@ export function DPETravauxChauffage({
                       <GesteQuestion
                         {...{
                           rules,
-                          question: 'gestes . chauffage . PAC . type',
+                          question: geste.code + ' . type',
                           engine,
                           situation,
+                          onChangeEvent: (value) =>
+                            setSelectedGeste(geste.code + ' . ' + value),
                           setSearchParams,
                         }}
                       />
-                      {questions?.map((question, index) => (
-                        <GesteQuestion
-                          key={index}
-                          {...{
-                            rules,
-                            question,
-                            engine,
-                            situation,
-                            setSearchParams,
-                          }}
-                        />
-                      ))}
-
-                      <MontantPrimeTravaux
-                        {...{
-                          questions,
-                          evaluation: engine.evaluate(
-                            'gestes . chauffage . PAC . ' +
-                              situation['gestes . chauffage . PAC . type'] +
-                              ' . montant',
-                          ),
-                          situation,
-                        }}
-                      />
+                      {selectedGeste && (
+                        <>
+                          {questions?.map((question, index) => (
+                            <GesteQuestion
+                              key={index}
+                              {...{
+                                rules,
+                                question,
+                                engine,
+                                situation,
+                                setSearchParams,
+                              }}
+                            />
+                          ))}
+                          <MontantPrimeTravaux
+                            {...{
+                              questions,
+                              evaluation: engine.evaluate(
+                                selectedGeste + ' . montant',
+                              ),
+                              situation,
+                            }}
+                          />
+                        </>
+                      )}
                     </Card>
                   </div>
                 </td>

@@ -13,6 +13,7 @@ export default function GesteQuestion({
   situation,
   setSearchParams,
   answeredQuestions,
+  onChangeEvent,
   autoFocus,
   dot = false,
 }) {
@@ -31,6 +32,7 @@ export default function GesteQuestion({
       answeredQuestions,
     )
     setSearchParams(encodedSituation, 'push', false)
+    onChangeEvent && onChangeEvent(value)
   }
 
   return (
