@@ -35,3 +35,9 @@ Pour publier la nouvelle version après ces deux étapes, il suffit de faire `np
 ## L'API
 
 Nous proposons une version beta d'une [API de calcul hébergée chez nous](https://mesaidesreno.beta.gouv.fr/api-doc) et déployable facilement chez vous, pour en maitriser les versions.
+
+## Déployer sur Scalingo
+
+Il semble que Scalingo ne lise pas automatiquement noter .env.
+
+Ainsi, il faut mettre à la main les variables dans l'interface.
