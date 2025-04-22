@@ -8,6 +8,51 @@ console.log(temporalRules)
 
 const elements = [...data, ...temporalRules]
 
+// Composant pour un élément de la timeline
+const TimelineElement = ({ element, position }) => {
+  const title = element.titre || element.nom;
+  const description = element.description;
+
+  if (position === 'left') {
+    return (
+      <>
+        <TimelineContent>
+          <h3>{title}</h3>
+          {description && <p>{description}</p>}
+        </TimelineContent>
+        <TimelineDot />
+        <div style={{ flex: 1 }}></div>
+      </>
+    );
+  }
+
+  if (position === 'center') {
+    return (
+      <>
+        <div style={{ flex: 1 }}></div>
+        <TimelineDot />
+        <TimelineContent style={{ textAlign: 'center' }}>
+          <h3>{title}</h3>
+          {description && <p>{description}</p>}
+        </TimelineContent>
+        <div style={{ flex: 1 }}></div>
+      </>
+    );
+  }
+
+  // position === 'right'
+  return (
+    <>
+      <div style={{ flex: 1 }}></div>
+      <TimelineDot />
+      <TimelineContent>
+        <h3>{title}</h3>
+        {description && <p>{description}</p>}
+      </TimelineContent>
+    </>
+  );
+};
+
 export default function Frise() {
   return (
     <Container>
@@ -22,39 +67,7 @@ export default function Frise() {
 
           return (
             <TimelineItem key={element.nom}>
-              {position === 'left' && (
-                <>
-                  <TimelineContent>
-                    <h3>{element.titre || element.nom}</h3>
-                    {element.description && <p>{element.description}</p>}
-                  </TimelineContent>
-                  <TimelineDot />
-                  <div style={{ flex: 1 }}></div>
-                </>
-              )}
-
-              {position === 'center' && (
-                <>
-                  <div style={{ flex: 1 }}></div>
-                  <TimelineDot />
-                  <TimelineContent style={{ textAlign: 'center' }}>
-                    <h3>{element.titre || element.nom}</h3>
-                    {element.description && <p>{element.description}</p>}
-                  </TimelineContent>
-                  <div style={{ flex: 1 }}></div>
-                </>
-              )}
-
-              {position === 'right' && (
-                <>
-                  <div style={{ flex: 1 }}></div>
-                  <TimelineDot />
-                  <TimelineContent>
-                    <h3>{element.titre || element.nom}</h3>
-                    {element.description && <p>{element.description}</p>}
-                  </TimelineContent>
-                </>
-              )}
+              <TimelineElement element={element} position={position} />
             </TimelineItem>
           )
         })}
