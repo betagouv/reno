@@ -8,8 +8,8 @@ import {
   getQuestions,
   MontantPrimeTravaux,
   Priorité,
-} from '../DPETravaux'
-import { Card, CTA, PrimeStyle } from '@/components/UI'
+} from './DPETravaux'
+import { Card, CTA, MiseEnAvant, PrimeStyle } from '@/components/UI'
 import GesteQuestion from '@/components/GesteQuestion'
 import React from 'react'
 import { AvanceTMO } from '@/components/mprg/BlocAideMPR'
@@ -39,98 +39,110 @@ export function DPETravauxIsolation({
   }
 
   const handleIsolationClick = (rule) => {
-    console.log('situation', situation)
     const questions = getQuestions(rule, situation, engine)
     setQuestions(questions)
   }
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Travaux</th>
-          <th>Priorité</th>
-          <th>Explication</th>
-          <th>Aides</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.entries(associationTravauxDpe).map((e, i) => {
-          return (
-            dpe[e[1]] && (
-              <React.Fragment key={i}>
-                <tr>
-                  <td>
-                    <Dot />
-                    {rules[e[0]].titre}
-                  </td>
-                  <td
-                    css={`
-                      text-align: center;
-                    `}
-                  >
-                    <Priorité valeur={dpe[e[1]]} />
-                  </td>
-                  <td>
-                    <Explication geste={e[0]} dpe={dpe} xml={xml} index={i} />
-                  </td>
-                  <td
-                    css={`
-                      div {
-                        margin: auto;
-                      }
-                    `}
-                  >
-                    <CTA
-                      $fontSize="normal"
-                      $importance="secondary"
-                      className="estimer"
-                      onClick={() => {
-                        setVisibleDivs((prevState) => ({
-                          ...prevState,
-                          [i]: !prevState[i],
-                        }))
-                        handleIsolationClick(e[0])
-                      }}
+    <>
+      <MiseEnAvant>
+        <Explication geste="isolation" dpe={dpe} xml={xml} />
+      </MiseEnAvant>
+      <table>
+        <thead>
+          <tr>
+            <th>Travaux</th>
+            <th>Priorité</th>
+            <th>Aides</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(associationTravauxDpe).map((e, i) => {
+            return (
+              dpe[e[1]] && (
+                <React.Fragment key={i}>
+                  <tr>
+                    <td
+                      css={`
+                        display: flex;
+                        align-items: center;
+                      `}
                     >
-                      <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
-                    </CTA>
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={4}>
-                    <div
-                      className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
+                      <Dot />
+                      {rules[e[0]].titre}
+                      <Explication
+                        geste={e[0]}
+                        dpe={dpe}
+                        xml={xml}
+                        index={i}
+                        type="tooltip"
+                      />
+                    </td>
+                    <td
+                      css={`
+                        text-align: center;
+                      `}
                     >
-                      <Card>
-                        {questions.map((question, index) => (
-                          <GesteQuestion
-                            key={i + '' + index}
+                      <Priorité valeur={dpe[e[1]]} />
+                    </td>
+                    <td
+                      css={`
+                        div {
+                          margin: auto;
+                        }
+                      `}
+                    >
+                      <CTA
+                        $fontSize="normal"
+                        $importance="secondary"
+                        className="estimer"
+                        onClick={() => {
+                          setVisibleDivs((prevState) => ({
+                            ...prevState,
+                            [i]: !prevState[i],
+                          }))
+                          handleIsolationClick(e[0])
+                        }}
+                      >
+                        <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
+                      </CTA>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={4}>
+                      <div
+                        className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
+                      >
+                        <Card>
+                          {questions.map((question, index) => (
+                            <GesteQuestion
+                              key={i + '' + index}
+                              {...{
+                                rules,
+                                question,
+                                engine,
+                                situation,
+                                setSearchParams,
+                              }}
+                            />
+                          ))}
+                          <MontantPrimeTravaux
                             {...{
-                              rules,
-                              question,
+                              questions,
                               engine,
+                              rule: e[0],
                               situation,
-                              setSearchParams,
                             }}
                           />
-                        ))}
-                        <MontantPrimeTravaux
-                          {...{
-                            questions,
-                            engine,
-                            rule: e[0],
-                            situation,
-                          }}
-                        />
-                      </Card>
-                    </div>
-                  </td>
-                </tr>
-              </React.Fragment>
+                        </Card>
+                      </div>
+                    </td>
+                  </tr>
+                </React.Fragment>
+              )
             )
-          )
-        })}
-      </tbody>
-    </table>
+          })}
+        </tbody>
+      </table>
+    </>
   )
 }

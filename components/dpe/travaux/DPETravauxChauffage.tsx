@@ -1,9 +1,9 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
 import GesteQuestion from '@/components/GesteQuestion'
-import { Card, CTA } from '@/components/UI'
+import { Card, CTA, MiseEnAvant } from '@/components/UI'
 import { useEffect, useState } from 'react'
 import React from 'react'
-import { getQuestions, MontantPrimeTravaux } from '../DPETravaux'
+import { Explication, getQuestions, MontantPrimeTravaux } from './DPETravaux'
 
 export function DPETravauxChauffage({
   dpe,
@@ -122,7 +122,6 @@ export function DPETravauxChauffage({
   }, [selectedGeste])
 
   const handleClick = (index, geste) => {
-    console.log('geste', geste)
     if (geste.code.includes('chauffe-eau thermodynamique')) {
       setSelectedGeste(geste.code)
     }
@@ -133,100 +132,91 @@ export function DPETravauxChauffage({
   }
 
   return (
-    <table>
-      {/* <thead>
-        <tr>
-          <th>Travaux</th>
-          <th>Priorité</th>
-          <th>Explication</th>
-          <th>Aides</th>
-        </tr>
-      </thead> */}
-      <tbody>
-        {Object.values(gestes).map((geste, i) => {
-          return (
-            <React.Fragment key={i}>
-              <tr>
-                <td>
-                  <Dot />
-                  {geste.titre}
-                </td>
-                {/* <td
-                  css={`
-                    text-align: center;
-                  `}
-                >
-                  <Priorité valeur={priorite} />
-                </td> */}
-                <td>
-                  {/* <Explication geste={geste} dpe={dpe} xml={xml} index={i} /> */}
-                </td>
-                <td
-                  css={`
-                    div {
-                      margin: auto;
-                    }
-                  `}
-                >
-                  <CTA
-                    $fontSize="normal"
-                    $importance="secondary"
-                    className="estimer"
-                    onClick={() => handleClick(i, geste)}
+    <>
+      <MiseEnAvant>
+        <Explication geste="chauffage" dpe={dpe} xml={xml} />
+      </MiseEnAvant>
+      <table>
+        <tbody>
+          {Object.values(gestes).map((geste, i) => {
+            return (
+              <React.Fragment key={i}>
+                <tr>
+                  <td>
+                    <Dot />
+                    {geste.titre}
+                  </td>
+                  <td>
+                    <Explication geste={geste} dpe={dpe} xml={xml} index={i} />
+                  </td>
+                  <td
+                    css={`
+                      div {
+                        margin: auto;
+                      }
+                    `}
                   >
-                    <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
-                  </CTA>
-                </td>
-              </tr>
-              <tr>
-                <td colSpan={4}>
-                  <div
-                    className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
-                  >
-                    <Card>
-                      <GesteQuestion
-                        {...{
-                          rules,
-                          question: geste.code + ' . type',
-                          engine,
-                          situation,
-                          onChangeEvent: (value) =>
-                            setSelectedGeste(geste.code + ' . ' + value),
-                          setSearchParams,
-                        }}
-                      />
-                      {selectedGeste && (
-                        <>
-                          {questions?.map((question, index) => (
-                            <GesteQuestion
-                              key={selectedGeste.code + '' + index}
+                    <CTA
+                      $fontSize="normal"
+                      $importance="secondary"
+                      className="estimer"
+                      onClick={() => handleClick(i, geste)}
+                    >
+                      <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
+                    </CTA>
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={4}>
+                    <div
+                      className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
+                    >
+                      <Card>
+                        <GesteQuestion
+                          {...{
+                            rules,
+                            question: geste.code + ' . type',
+                            engine,
+                            situation,
+                            onChangeEvent: (value) =>
+                              setSelectedGeste(geste.code + ' . ' + value),
+                            setSearchParams,
+                            noMargin: true,
+                          }}
+                        />
+                        {selectedGeste && (
+                          <>
+                            {questions?.map((question, index) => (
+                              <GesteQuestion
+                                key={selectedGeste.code + '' + index}
+                                {...{
+                                  rules,
+                                  question,
+                                  engine,
+                                  situation,
+                                  setSearchParams,
+                                }}
+                              />
+                            ))}
+                            <MontantPrimeTravaux
                               {...{
-                                rules,
-                                question,
+                                questions,
                                 engine,
+                                rule: selectedGeste,
                                 situation,
-                                setSearchParams,
                               }}
                             />
-                          ))}
-                          <MontantPrimeTravaux
-                            {...{
-                              questions,
-                              engine,
-                              rule: selectedGeste,
-                              situation,
-                            }}
-                          />
-                        </>
-                      )}
-                    </Card>
-                  </div>
-                </td>
-              </tr>
-            </React.Fragment>
-          )
-        })}
-      </tbody>
-    </table>
+                          </>
+                        )}
+                      </Card>
+                    </div>
+                  </td>
+                </tr>
+              </React.Fragment>
+            )
+          })}
+        </tbody>
+      </table>
+    </>
   )
 }
