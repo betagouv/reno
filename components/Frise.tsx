@@ -1,17 +1,25 @@
 import styled from 'styled-components'
 import data from '@/components/frise.yaml'
+import rules from '@/app/règles/rules'
+
+const rulesList = Object.values(rules)
+const temporalRules = rulesList.filter((el) => el && el.temporel)
+console.log(temporalRules)
+
+const elements = [...data, ...temporalRules]
 
 export default function Frise() {
   return (
     <Container>
       <Timeline>
-        {data.map((element) => {
-          const position = element.temporel?.signe === 'négatif' 
-            ? 'left' 
-            : element.temporel?.signe === 'positif' 
-              ? 'right' 
-              : 'center';
-          
+        {elements.map((element) => {
+          const position =
+            element.temporel?.signe === 'négatif'
+              ? 'left'
+              : element.temporel?.signe === 'positif'
+                ? 'right'
+                : 'center'
+
           return (
             <TimelineItem key={element.nom}>
               {position === 'left' && (
@@ -24,7 +32,7 @@ export default function Frise() {
                   <div style={{ flex: 1 }}></div>
                 </>
               )}
-              
+
               {position === 'center' && (
                 <>
                   <div style={{ flex: 1 }}></div>
@@ -36,7 +44,7 @@ export default function Frise() {
                   <div style={{ flex: 1 }}></div>
                 </>
               )}
-              
+
               {position === 'right' && (
                 <>
                   <div style={{ flex: 1 }}></div>
@@ -48,7 +56,7 @@ export default function Frise() {
                 </>
               )}
             </TimelineItem>
-          );
+          )
         })}
       </Timeline>
     </Container>
@@ -68,7 +76,7 @@ const Timeline = styled.div`
   position: relative;
   max-width: 100%;
   margin: 0 auto;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -89,7 +97,7 @@ const TimelineItem = styled.div`
   display: flex;
   align-items: center;
   min-height: 50px;
-  
+
   &::after {
     content: '';
     clear: both;
@@ -103,13 +111,15 @@ const TimelineContent = styled.div`
   background-color: #f8f9fa;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+
   h3 {
     margin: 0 0 0.5rem 0;
     font-size: 1.2rem;
   }
-  
+
   p {
     margin: 0;
     font-size: 0.9rem;
