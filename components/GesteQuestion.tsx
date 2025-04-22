@@ -5,6 +5,7 @@ import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
 import RevenuInput from './RevenuInput'
 import { Dot } from '@/app/module/AmpleurQuestions'
+import TargetDPETabs from './mpra/TargetDPETabs'
 
 export default function GesteQuestion({
   rules,
@@ -154,6 +155,18 @@ const InputComponent = ({
       situation={situation}
       value={currentValue == null ? '' : currentValue}
       onChange={onChange}
+    />
+  ) : question === 'projet . DPE visé' ? (
+    <TargetDPETabs
+      {...{
+        oldIndex: situation['DPE . actuel'] - 1,
+        choice: Math.max(1, situation['projet . DPE visé'] - 1),
+        setSearchParams,
+        answeredQuestions,
+        engine,
+        situation,
+        text: '',
+      }}
     />
   ) : (
     <Input

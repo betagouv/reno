@@ -33,7 +33,7 @@ export default function TargetDPETabs({
         gap: 0.5rem;
       `}
     >
-      <div>{text}&nbsp;:</div>
+      {text != '' && <div>{text}&nbsp;:</div>}
       <nav>
         <ol
           css={`
