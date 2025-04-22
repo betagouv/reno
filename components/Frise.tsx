@@ -13,12 +13,40 @@ export default function Frise() {
               : 'center';
           
           return (
-            <TimelineItem key={element.nom} $position={position}>
-              <TimelineContent>
-                <h3>{element.titre || element.nom}</h3>
-                {element.description && <p>{element.description}</p>}
-              </TimelineContent>
-              <TimelineDot />
+            <TimelineItem key={element.nom}>
+              {position === 'left' && (
+                <>
+                  <TimelineContent>
+                    <h3>{element.titre || element.nom}</h3>
+                    {element.description && <p>{element.description}</p>}
+                  </TimelineContent>
+                  <TimelineDot />
+                  <div style={{ flex: 1 }}></div>
+                </>
+              )}
+              
+              {position === 'center' && (
+                <>
+                  <div style={{ flex: 1 }}></div>
+                  <TimelineDot />
+                  <TimelineContent style={{ textAlign: 'center' }}>
+                    <h3>{element.titre || element.nom}</h3>
+                    {element.description && <p>{element.description}</p>}
+                  </TimelineContent>
+                  <div style={{ flex: 1 }}></div>
+                </>
+              )}
+              
+              {position === 'right' && (
+                <>
+                  <div style={{ flex: 1 }}></div>
+                  <TimelineDot />
+                  <TimelineContent>
+                    <h3>{element.titre || element.nom}</h3>
+                    {element.description && <p>{element.description}</p>}
+                  </TimelineContent>
+                </>
+              )}
             </TimelineItem>
           );
         })}
@@ -56,47 +84,26 @@ const Timeline = styled.div`
 
 const TimelineItem = styled.div`
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
   
   &::after {
     content: '';
     clear: both;
     display: table;
   }
-  
-  ${props => {
-    if (props.$position === 'left') {
-      return `
-        & > div {
-          left: 0;
-          text-align: right;
-          padding-right: 2rem;
-        }
-      `;
-    } else if (props.$position === 'right') {
-      return `
-        & > div {
-          left: 50%;
-          text-align: left;
-          padding-left: 2rem;
-        }
-      `;
-    } else {
-      return `
-        & > div {
-          left: 25%;
-          width: 50%;
-          text-align: center;
-        }
-      `;
-    }
-  }}
 `
 
 const TimelineContent = styled.div`
   position: relative;
-  width: 50%;
+  width: 45%;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   
   h3 {
     margin: 0 0 0.5rem 0;
@@ -111,13 +118,11 @@ const TimelineContent = styled.div`
 `
 
 const TimelineDot = styled.div`
-  position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background-color: #4a89dc;
   border-radius: 50%;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 1;
+  margin: 0 10px;
+  flex-shrink: 0;
 `
