@@ -3,20 +3,21 @@ import Image from 'next/image'
 import informationIcon from '@/public/information.svg'
 import Publicodes, { formatValue } from 'publicodes'
 import rules from '@/app/règles/rules'
-import CalculatorWidget from '../CalculatorWidget'
-import { getSituation } from '../publicodes/situationUtils'
+import CalculatorWidget from '../../CalculatorWidget'
+import { getSituation } from '../../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 import styled from 'styled-components'
-import { DPETravauxIsolation } from './travaux/DPETravauxIsolation'
-import { DPETravauxChauffage } from './travaux/DPETravauxChauffage'
-import { PrimeStyle } from '../UI'
-import getNextQuestions from '../publicodes/getNextQuestions'
+import { DPETravauxIsolation } from './DPETravauxIsolation'
+import { DPETravauxChauffage } from './DPETravauxChauffage'
+import { PrimeStyle } from '../../UI'
+import getNextQuestions from '../../publicodes/getNextQuestions'
 import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
-import { AvanceTMO } from '../mprg/BlocAideMPR'
+import { AvanceTMO } from '../../mprg/BlocAideMPR'
+import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 
 export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
   const [visibleWork, setVisibleWork] = useState({})
@@ -100,7 +101,10 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
   const engine = new Publicodes(rules)
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-  const situation = getSituation(searchParams, rules)
+  const situation = {
+    ...getSituation(searchParams, rules),
+    'vous . propriétaire . statut': 'propriétaire',
+  }
 
   const getPriorite = (type) => {
     if (type == 'chauffage') return 'insuffisante'
@@ -116,101 +120,106 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
           ? 'moyenne'
           : 'bonne'
     }
+    if (type == 'ampleur') {
+      if (['F', 'G'].includes(dpe['etiquette_dpe'])) {
+        return 'insuffisante'
+      }
+      if (['D', 'E'].includes(dpe['etiquette_dpe'])) {
+        return 'moyenne'
+      }
+      return 'bonne'
+    }
+  }
+
+  const displayBloc = (type) => {
+    setVisibleWork((prevState) => ({
+      ...prevState,
+      [type]: !prevState[type],
+    }))
   }
 
   return (
     <CalculatorWidget>
-      <Table>
-        {/* <thead>
-          <tr>
-            <th>Travaux</th>
-            <th>Priorité</th>
-            <th>Explication</th>
-            <th>Aides</th>
-          </tr>
-        </thead> */}
-        <tbody>
-          <tr>
-            <td>
-              {' '}
-              <span onClick={() => displayBloc('isolation')}>
-                Isoler mon logement
-              </span>
-            </td>
-            <td>
+      <Accordion>
+        <section>
+          <h3
+            onClick={() => displayBloc('isolation')}
+            className={visibleWork['isolation'] ? 'active' : ''}
+          >
+            Isoler mon logement
+            <span>
               <Priorité valeur={getPriorite('isolation')} />
-            </td>
-            <td>
-              <Explication geste="isolation" dpe={dpe} xml={xml} />
-            </td>
-            <td>
-              <span
-                onClick={() => displayBloc('isolation')}
-                title="Voir le détail"
-              >
-                🔎
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={4}>
-              <div
-                className={`slide-down ${visibleWork['isolation'] ? 'active' : ''}`}
-              >
-                <DPETravauxIsolation
-                  {...{
-                    dpe,
-                    xml,
-                    rules,
-                    engine,
-                    situation,
-                    setSearchParams,
-                  }}
-                />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span onClick={() => displayBloc('chauffage')}>
-                Changer mon système de chauffage
-              </span>
-            </td>
-            <td>
+              <span title="Voir le détail">🔎</span>
+            </span>
+          </h3>
+          <div
+            className={`slide-down ${visibleWork['isolation'] ? 'active' : ''}`}
+          >
+            <DPETravauxIsolation
+              {...{
+                dpe,
+                xml,
+                rules,
+                engine,
+                situation,
+                setSearchParams,
+              }}
+            />
+          </div>
+        </section>
+        <section>
+          <h3
+            onClick={() => displayBloc('chauffage')}
+            className={visibleWork['chauffage'] ? 'active' : ''}
+          >
+            <span>Changer mon système de chauffage</span>
+            <span>
               <Priorité valeur={getPriorite('chauffage')} />
-            </td>
-            <td>
-              <Explication geste="chauffage" dpe={dpe} xml={xml} />
-            </td>
-            <td>
-              <span
-                onClick={() => displayBloc('chauffage')}
-                title="Voir le détail"
-              >
-                🔎
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={4}>
-              <div
-                className={`slide-down ${visibleWork['chauffage'] ? 'active' : ''}`}
-              >
-                <DPETravauxChauffage
-                  {...{
-                    dpe,
-                    xml,
-                    rules,
-                    engine,
-                    situation,
-                    setSearchParams,
-                  }}
-                />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+              <span title="Voir le détail">🔎</span>
+            </span>
+          </h3>
+          <div
+            className={`slide-down ${visibleWork['chauffage'] ? 'active' : ''}`}
+          >
+            <DPETravauxChauffage
+              {...{
+                dpe,
+                xml,
+                rules,
+                engine,
+                situation,
+                setSearchParams,
+              }}
+            />
+          </div>
+        </section>
+        <section>
+          <h3
+            onClick={() => displayBloc('ampleur')}
+            className={visibleWork['ampleur'] ? 'active' : ''}
+          >
+            <span>Rénovation globale</span>
+            <span>
+              <Priorité valeur={getPriorite('ampleur')} />
+              <span title="Voir le détail">🔎</span>
+            </span>
+          </h3>
+          <div
+            className={`slide-down ${visibleWork['ampleur'] ? 'active' : ''}`}
+          >
+            <DPETravauxAmpleur
+              {...{
+                dpe,
+                xml,
+                rules,
+                engine,
+                situation,
+                setSearchParams,
+              }}
+            />
+          </div>
+        </section>
+      </Accordion>
     </CalculatorWidget>
   )
 }
@@ -221,7 +230,6 @@ export const getQuestions = (rule, situation, engine) => {
       .setSituation({
         ...situation,
         'MPR . non accompagnée . éligible': 'oui',
-        'vous . propriétaire . statut': 'propriétaire',
         [rule]: 'oui',
       })
       .evaluate(rule + ' . montant'),
@@ -236,7 +244,6 @@ export const getQuestions = (rule, situation, engine) => {
     engine
       .setSituation({
         'MPR . non accompagnée . éligible': 'oui',
-        'vous . propriétaire . statut': 'propriétaire',
         [rule]: 'oui',
       })
       .evaluate(rule + ' . montant'),
@@ -249,6 +256,10 @@ export const getQuestions = (rule, situation, engine) => {
   const unwantedQuestion = [
     'logement . période de construction',
     'logement . commune',
+    'logement . surface',
+    'DPE . actuel',
+    'logement . type',
+    'vous . propriétaire . statut', // On part du principe qu'on s'adresse uniquement à des (futurs)proprios
   ]
   questions.unshift(
     ...Object.keys(situation).filter((q) =>
@@ -272,7 +283,7 @@ export function Priorité({ valeur }) {
   }
   return <span>{star[valeur] ? star[valeur] : niveau[valeur]}</span>
 }
-export function Explication({ geste, dpe, xml, index }) {
+export function Explication({ geste, dpe, xml, index, type }) {
   if (!dpe) return
 
   function pourcentageDeperdition(pourcentage) {
@@ -283,6 +294,10 @@ export function Explication({ geste, dpe, xml, index }) {
   }
 
   let explication = ''
+  if (geste == 'ampleur') {
+    explication =
+      "En entreprenant plusieurs travaux à la fois, vous bénéficierez d'aides plus avantageuses et serez mieux accompagné dans le suivi de votre projet"
+  }
   if (geste == 'chauffage') {
     explication =
       "Le système de chauffage est la première source de consommation énergétique de votre logement. Pour réduire ces dépenses, il est tout d'abord nécessaire de bien isoler votre logement ensuite, de changer votre système de chauffage."
@@ -351,13 +366,12 @@ export function Explication({ geste, dpe, xml, index }) {
       explication += '</ul>'
     }
   }
-  return (
+  return type == 'tooltip' ? (
     <>
       <span
         css={`
           display: flex;
-          justify-content: center;
-          align-items: center;
+          margin-left: 0.5rem;
         `}
         data-tooltip-id={index ? index.toString() : geste}
       >
@@ -373,6 +387,8 @@ export function Explication({ geste, dpe, xml, index }) {
         ></div>
       </ReactTooltip>
     </>
+  ) : (
+    <div dangerouslySetInnerHTML={{ __html: explication }} />
   )
 }
 export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
@@ -434,9 +450,32 @@ export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
   )
 }
 
-const Table = styled.table`
+const Accordion = styled.div`
+  display: block !important;
   width: 100%;
-  border-collapse: collapse;
+  section > h3 {
+    margin: 0;
+    font-size: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: var(--color);
+    font-weight: normal;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid grey;
+    > span:last-of-type {
+      display: flex;
+      width: 30%;
+      justify-content: space-between;
+    }
+    &:hover {
+      cursor: pointer;
+      background: white;
+    }
+    &.active {
+      border-bottom: 0px;
+      background: white;
+    }
+  }
   .estimer:hover {
     background: var(--color);
     color: white;
@@ -446,32 +485,25 @@ const Table = styled.table`
     max-height: 0;
     transition: max-height 1s ease-out;
   }
-
   .slide-down.active {
     max-height: fit-content;
+    background: white;
   }
-  > tbody > tr:nth-child(odd) > td {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid grey;
+  section > .slide-down.active {
+    padding: 1rem;
   }
-  tr {
-    td:not(:first-of-type) {
-      text-align: center;
+  table {
+    width: 100%;
+    td {
+      border: none;
     }
-
-    table {
-      width: 100%;
-      td {
-        border: none;
-      }
-    }
-    tr td:first-of-type img {
-      width: 1rem;
-      height: auto;
-      margin: 0 1rem;
-    }
-    span {
-      cursor: pointer;
-    }
+  }
+  tr td:first-of-type > img {
+    width: 1rem;
+    height: auto;
+    margin: 0 0.5rem;
+  }
+  span {
+    cursor: pointer;
   }
 `

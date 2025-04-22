@@ -14,14 +14,13 @@ import DpeAddressSearch from '../DpeAddressSearch'
 import { useEffect, useState } from 'react'
 import enrichSituation from '../personas/enrichSituation'
 import DPEFacture from './DPEFacture'
-import DPETravaux from './DPETravaux'
+import DPETravaux from './travaux/DPETravaux'
 
 export default function DPEPage({ numDpe }) {
   const [dpe, setDpe] = useState(null)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-
   useEffect(() => {
     async function fetchDPE() {
       try {
@@ -38,14 +37,12 @@ export default function DPEPage({ numDpe }) {
 
   const handleSelectDpe = async (dpe) => {
     if (!dpe) return
-
     const lettre =
       conversionLettreIndex.indexOf(dpe['etiquette_dpe']) >
       conversionLettreIndex.indexOf(dpe['etiquette_ges'])
         ? dpe['etiquette_dpe']
         : dpe['etiquette_ges']
     const index = conversionLettreIndex.indexOf(lettre) + 1
-    console.log('dpe', dpe)
     const anneeConstruction = dpe['periode_construction'].slice(-4)
     let situation = await enrichSituation({
       'logement . commune': `"${dpe['code_insee_ban']}"*`,
