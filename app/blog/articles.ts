@@ -19,9 +19,11 @@ import path from 'path'
 
 /* Warning : use this function in server components or build functions ! Else, use a generateStaticParams as in /blog/[slug].tsx */
 export async function getAllArticles() {
+  /* This should be unecessary now, it's solved 
   console.log(
     'getAllArticles called : if done outside of the build step, it could fail',
   )
+  */
   // get all MDX files
   const articlesDir = path.join(process.cwd(), 'articles')
   const postFilePaths = fs.readdirSync(articlesDir).filter((postFilePath) => {
