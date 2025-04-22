@@ -10,6 +10,7 @@ import { push } from '@socialgouv/matomo-next'
 import CopyButton from '../CopyButton'
 import Breadcrumb from '../Breadcrumb'
 import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
+import Frise from '../Frise'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -193,6 +194,7 @@ export default function AidesAmpleur({
         >
           Financer une rénovation d’ampleur
         </h1>
+        <Frise />
         {renderAides(
           eligibles,
           '<span aria-hidden="true">🥳</span> Éligible à',

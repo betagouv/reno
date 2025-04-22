@@ -1,0 +1,19 @@
+# Idée : un premier item "faire ma simulation mes aides réno" qui débouche sur "parcours d'aide"
+- nom: audit énergétique
+  applicable si: parcours d'aide = 'ampleur'
+- nom: devis
+  description: |
+    Contacter des artisans et obtenir des devis pour préciser le projet et chiffrer le montant des travaux.
+  temporel:
+    dépendances:
+      - parcours d'aide
+      - audit énergétique
+
+- nom: acceptation
+  temporel:
+    dépendances:
+      - devis
+- nom: fin des travaux
+  temporel:
+    dépendances:
+      - devis

@@ -30,6 +30,9 @@ MPR . accompagnée:
 
     <a href="https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne" target="_blank">Tous les détails</a>.
   lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
+temporel:
+  dépendances:
+    - fin des travaux
 
 MPR . accompagnée . bénéficiaire:
   applicable si: éligible
@@ -153,6 +156,9 @@ MPR . accompagnée . avance:
       - ménage . revenu . classe = 'très modeste'
       - ménage . revenu . classe = 'modeste'
   formule: pourcentage avance * montant
+  temporel:
+    dépendances:
+      - devis
 
 MPR . accompagnée . pourcentage avance:
   valeur: 30 %
@@ -161,7 +167,7 @@ MPR . accompagnée . pourcentage avance:
 
     Mais le décrêt consolidé ne parle d'avance que pour le parcours par geste.
 
-    Le guide de l'ANAH 2025 version 3 janvier évoque lui une avance de 30 % seulement pour les ménages MO/TMO. 
+    Le guide de l'ANAH 2025 version 3 janvier évoque lui une avance de 30 % seulement pour les ménages MO/TMO.
 
   note: Intégrer l'avance dans le modèle aussi pour le parcours par geste, et l'intégrer dans l'interface du site.
 

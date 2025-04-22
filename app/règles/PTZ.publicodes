@@ -61,6 +61,9 @@ PTZ:
 
     Concrètement, voici [la démarche pour obtenir l'éco-PTZ](https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=41).
   lien: https://www.service-public.fr/particuliers/vosdroits/F19905
+  temporel:
+    dépendances:
+      - devis
 PTZ . conditions:
 PTZ . conditions . communes:
   valeur:
@@ -98,7 +101,7 @@ PTZ . durée:
       alors: 20 ans
     - si: logement . type travaux = "performance énergétique globale"
       alors: 20 ans
-    - sinon: 15 ans 
+    - sinon: 15 ans
 PTZ . condition maprimerenov:
   note: Cette condition permet de savoir si le PTZ est demandé en complément de MaPrimeRénov (parcours accompagnée ou par geste)
   toutes ces conditions:
