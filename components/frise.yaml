@@ -1,7 +1,7 @@
 # Idée : un premier item "faire ma simulation mes aides réno" qui débouche sur "parcours d'aide"
 - nom: audit énergétique
   applicable si: parcours d'aide = 'ampleur'
-  temporal:
+  temporel:
     signe: négatif
 - nom: devis
   description: |
