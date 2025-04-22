@@ -14,6 +14,9 @@ import styled from 'styled-components'
 import { DPETravauxIsolation } from './travaux/DPETravauxIsolation'
 import { DPETravauxChauffage } from './travaux/DPETravauxChauffage'
 import { PrimeStyle } from '../UI'
+import getNextQuestions from '../publicodes/getNextQuestions'
+import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
+import { AvanceTMO } from '../mprg/BlocAideMPR'
 
 export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
   const [visibleWork, setVisibleWork] = useState({})
@@ -128,7 +131,12 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
         </thead> */}
         <tbody>
           <tr>
-            <td>Isoler mon logement</td>
+            <td>
+              {' '}
+              <span onClick={() => displayBloc('isolation')}>
+                Isoler mon logement
+              </span>
+            </td>
             <td>
               <Priorité valeur={getPriorite('isolation')} />
             </td>
@@ -137,12 +145,7 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
             </td>
             <td>
               <span
-                onClick={() =>
-                  setVisibleWork((prevState) => ({
-                    ...prevState,
-                    ['isolation']: !prevState['isolation'],
-                  }))
-                }
+                onClick={() => displayBloc('isolation')}
                 title="Voir le détail"
               >
                 🔎
@@ -168,7 +171,11 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
             </td>
           </tr>
           <tr>
-            <td>Changer mon système de chauffage</td>
+            <td>
+              <span onClick={() => displayBloc('chauffage')}>
+                Changer mon système de chauffage
+              </span>
+            </td>
             <td>
               <Priorité valeur={getPriorite('chauffage')} />
             </td>
@@ -177,12 +184,7 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
             </td>
             <td>
               <span
-                onClick={() =>
-                  setVisibleWork((prevState) => ({
-                    ...prevState,
-                    ['chauffage']: !prevState['chauffage'],
-                  }))
-                }
+                onClick={() => displayBloc('chauffage')}
                 title="Voir le détail"
               >
                 🔎
@@ -211,6 +213,49 @@ export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
       </Table>
     </CalculatorWidget>
   )
+}
+export const getQuestions = (rule, situation, engine) => {
+  // Le setSituation est nécessaire pour que les nextQuestions soient à jour
+  let questions = getNextQuestions(
+    engine
+      .setSituation({
+        ...situation,
+        'MPR . non accompagnée . éligible': 'oui',
+        'vous . propriétaire . statut': 'propriétaire',
+        [rule]: 'oui',
+      })
+      .evaluate(rule + ' . montant'),
+    [],
+    simulationConfig,
+    rules,
+  )
+
+  // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
+  // et qui sont utiles pour évaluer le montant du geste
+  const usefulQuestionsForGeste = getNextQuestions(
+    engine
+      .setSituation({
+        'MPR . non accompagnée . éligible': 'oui',
+        'vous . propriétaire . statut': 'propriétaire',
+        [rule]: 'oui',
+      })
+      .evaluate(rule + ' . montant'),
+    [],
+    simulationConfig,
+    rules,
+  )
+  // Il y a certaines questions que l'on ne souhaite pas voir à des fins ergonomiques
+  // Par exemple, on est sûr de l'adresse du logement et de sa période de construction, on ne veut pas surcharger l'interface avec ça
+  const unwantedQuestion = [
+    'logement . période de construction',
+    'logement . commune',
+  ]
+  questions.unshift(
+    ...Object.keys(situation).filter((q) =>
+      usefulQuestionsForGeste.includes(q),
+    ),
+  )
+  return questions.filter((q) => !unwantedQuestion.includes(q))
 }
 
 export function Priorité({ valeur }) {
@@ -308,7 +353,14 @@ export function Explication({ geste, dpe, xml, index }) {
   }
   return (
     <>
-      <span data-tooltip-id={index ? index.toString() : geste}>
+      <span
+        css={`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        `}
+        data-tooltip-id={index ? index.toString() : geste}
+      >
         <Image src={informationIcon} width="25" alt="Icône information" />
       </span>
       <ReactTooltip id={index ? index.toString() : geste} place="top">
@@ -323,58 +375,68 @@ export function Explication({ geste, dpe, xml, index }) {
     </>
   )
 }
-export function MontantPrimeTravaux({ questions, evaluation, situation }) {
-  console.log('evaluation', evaluation)
-  const isEligible = formatValue(evaluation)
+export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
+  const isEligible = formatValue(
+    engine.setSituation(situation).evaluate(rule + ' . montant'),
+  )
   return (
-    <div
-      css={`
-        justify-content: end;
-        display: flex;
-      `}
-    >
-      <PrimeStyle
+    <>
+      <div
         css={`
-          padding: 0.75rem;
+          justify-content: end;
+          display: flex;
         `}
-        $inactive={
-          !(
-            Array.isArray(questions) &&
-            questions.every((question) => question in situation)
-          )
-        }
       >
-        {isEligible !== 'Non applicable' ? (
-          <>
-            Prime de{' '}
+        <PrimeStyle
+          css={`
+            padding: 0.75rem;
+          `}
+          $inactive={
+            !(
+              Array.isArray(questions) &&
+              questions.every((question) => question in situation)
+            )
+          }
+        >
+          {isEligible !== 'Non applicable' ? (
+            <>
+              Prime de{' '}
+              <strong
+                css={`
+                  font-size: 1.5rem;
+                `}
+              >
+                {Array.isArray(questions) &&
+                questions.every((question) => question in situation)
+                  ? isEligible
+                  : '...'}
+              </strong>
+            </>
+          ) : (
             <strong
               css={`
-                font-size: 1.5rem;
+                font-size: 1.25rem;
               `}
             >
-              {Array.isArray(questions) &&
-              questions.every((question) => question in situation)
-                ? isEligible
-                : '...'}
+              Non Éligible
             </strong>
-          </>
-        ) : (
-          <strong
-            css={`
-              font-size: 1.25rem;
-            `}
-          >
-            Non Éligible
-          </strong>
-        )}
-      </PrimeStyle>
-    </div>
+          )}
+        </PrimeStyle>
+      </div>
+      <div
+        css={`
+          margin-top: 0.5rem;
+        `}
+      >
+        <AvanceTMO {...{ engine, situation }} />
+      </div>
+    </>
   )
 }
 
 const Table = styled.table`
   width: 100%;
-
+  border-collapse: collapse;
   .estimer:hover {
     background: var(--color);
     color: white;
@@ -388,18 +450,28 @@ const Table = styled.table`
   .slide-down.active {
     max-height: fit-content;
   }
-  tr:hover {
-    cursor: pointer;
+  > tbody > tr:nth-child(odd) > td {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid grey;
   }
-  tr td:not(:first-of-type) {
-    text-align: center;
-  }
-  img {
-    width: 1rem;
-    height: auto;
-    margin: 0 1rem 0 0;
-  }
-  table {
-    width: 100%;
+  tr {
+    td:not(:first-of-type) {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      td {
+        border: none;
+      }
+    }
+    tr td:first-of-type img {
+      width: 1rem;
+      height: auto;
+      margin: 0 1rem;
+    }
+    span {
+      cursor: pointer;
+    }
   }
 `

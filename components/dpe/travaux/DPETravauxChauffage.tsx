@@ -1,10 +1,9 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
 import GesteQuestion from '@/components/GesteQuestion'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import { Card, CTA } from '@/components/UI'
 import { useEffect, useState } from 'react'
 import React from 'react'
-import { MontantPrimeTravaux } from '../DPETravaux'
+import { getQuestions, MontantPrimeTravaux } from '../DPETravaux'
 
 export function DPETravauxChauffage({
   dpe,
@@ -93,41 +92,32 @@ export function DPETravauxChauffage({
     priorite = 3
   }
 
-  gestes.push({
-    code: 'gestes . chauffage . PAC',
-    titre: 'Les Pompes à Chaleur',
-  })
-  gestes.push({
-    code: 'gestes . chauffage . bois . chaudière',
-    titre: 'Les Chaudières',
-  })
-  gestes.push({
-    code: 'gestes . chauffage . bois',
-    titre: 'Les Poêles et inserts',
-  })
-  gestes.push({
-    code: 'gestes . chauffage . chauffe-eau thermodynamique',
-    titre: 'Chauffe-eau thermodynamique',
-  })
-  gestes.push({
-    code: 'gestes . chauffage . solaire',
-    titre: 'Les solutions solaires',
-  })
+  gestes.push(
+    {
+      code: 'gestes . chauffage . PAC',
+      titre: 'Les Pompes à Chaleur',
+    },
+    {
+      code: 'gestes . chauffage . bois . chaudière',
+      titre: 'Les Chaudières',
+    },
+    {
+      code: 'gestes . chauffage . bois',
+      titre: 'Les Poêles et inserts',
+    },
+    {
+      code: 'gestes . chauffage . chauffe-eau thermodynamique',
+      titre: 'Chauffe-eau thermodynamique',
+    },
+    {
+      code: 'gestes . chauffage . solaire',
+      titre: 'Les solutions solaires',
+    },
+  )
 
   useEffect(() => {
     if (!selectedGeste) return
-    const questions = getNextQuestions(
-      engine
-        .setSituation({
-          ...situation,
-          'MPR . non accompagnée . éligible': 'oui',
-          [selectedGeste]: 'oui',
-        })
-        .evaluate(selectedGeste + ' . montant'),
-      [],
-      [],
-      rules,
-    )
+    const questions = getQuestions(selectedGeste, situation, engine)
     setQuestions(questions)
   }, [selectedGeste])
 
@@ -209,7 +199,7 @@ export function DPETravauxChauffage({
                         <>
                           {questions?.map((question, index) => (
                             <GesteQuestion
-                              key={index}
+                              key={selectedGeste.code + '' + index}
                               {...{
                                 rules,
                                 question,
@@ -222,9 +212,8 @@ export function DPETravauxChauffage({
                           <MontantPrimeTravaux
                             {...{
                               questions,
-                              evaluation: engine.evaluate(
-                                selectedGeste + ' . montant',
-                              ),
+                              engine,
+                              rule: selectedGeste,
                               situation,
                             }}
                           />

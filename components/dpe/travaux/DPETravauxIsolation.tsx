@@ -3,7 +3,12 @@ import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import { getAnsweredQuestions } from '@/components/publicodes/situationUtils'
 import { formatValue } from 'publicodes'
 import { useState } from 'react'
-import { Explication, MontantPrimeTravaux, Priorité } from '../DPETravaux'
+import {
+  Explication,
+  getQuestions,
+  MontantPrimeTravaux,
+  Priorité,
+} from '../DPETravaux'
 import { Card, CTA, PrimeStyle } from '@/components/UI'
 import GesteQuestion from '@/components/GesteQuestion'
 import React from 'react'
@@ -34,29 +39,8 @@ export function DPETravauxIsolation({
   }
 
   const handleIsolationClick = (rule) => {
-    // Le setSituation est nécessaire pour que les nextQuestions soient à jour
-    const questions = getNextQuestions(
-      engine
-        .setSituation({
-          ...situation,
-          'MPR . non accompagnée . éligible': 'oui',
-          [rule]: 'oui',
-        })
-        .evaluate(rule + ' . montant'),
-      [],
-      [],
-      rules,
-    )
-    // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
-    //questions.unshift(...Object.keys(situation))
-    // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
-    const questionsAnswered = Object.keys(situation).filter(
-      (q) =>
-        questions.includes(q) &&
-        !getAnsweredQuestions(searchParams, rules).includes(q),
-    )
-    console.log('questionsAnswered', questionsAnswered)
-    console.log('questions', questions)
+    console.log('situation', situation)
+    const questions = getQuestions(rule, situation, engine)
     setQuestions(questions)
   }
   return (
@@ -120,7 +104,7 @@ export function DPETravauxIsolation({
                       <Card>
                         {questions.map((question, index) => (
                           <GesteQuestion
-                            key={index}
+                            key={i + '' + index}
                             {...{
                               rules,
                               question,
@@ -133,17 +117,11 @@ export function DPETravauxIsolation({
                         <MontantPrimeTravaux
                           {...{
                             questions,
-                            evaluation: engine.evaluate(e[0] + ' . montant'),
+                            engine,
+                            rule: e[0],
                             situation,
                           }}
                         />
-                        <div
-                          css={`
-                            margin-top: 0.5rem;
-                          `}
-                        >
-                          <AvanceTMO {...{ engine, situation }} />
-                        </div>
                       </Card>
                     </div>
                   </td>
