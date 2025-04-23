@@ -3,7 +3,7 @@
 import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
 import { useEffect, useState } from 'react'
-import DpeAddressSearch from '../DpeAddressSearch'
+import DpeAddressSearch from './DPEAddressSearch'
 import { useSearchParams } from 'next/navigation'
 import DPELabel from './DPELabel'
 import { Card } from '../UI'

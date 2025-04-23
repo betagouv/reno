@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Marker, LngLatBounds } from 'maplibre-gl'
 
 import dpeColors from '@/components/dpe/DPE.yaml'
-import { pointToRectangle } from './geoUtils'
+import { pointToRectangle } from '../geoUtils'
 
 const pointsToPolygons = (featureCollection) => {
   const { features } = featureCollection
@@ -18,12 +18,12 @@ const pointsToPolygons = (featureCollection) => {
 
     return { ...polygon, properties }
   })
-  console.log('indigo surf', polygons)
+  //console.log('indigo surf', polygons)
   return { ...featureCollection, features: [...polygons, ...features] }
 }
 
 const iconSize = '30'
-export default function DpeMarkers({ map, featureCollection, selectMarker }) {
+export default function DPEMarkers({ map, featureCollection, selectMarker }) {
   useEffect(() => {
     if (!featureCollection?.features?.length) return
 
