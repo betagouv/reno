@@ -33,7 +33,10 @@ export function DPETravauxChauffage({
   // On veut absolument remplacer les chauffages au fioul et au charbon
   if (['Fioul domestique', 'Charbon'].includes(dpe['type_energie_n1'])) {
     if (dpe['type_energie_n1'] == 'Fioul domestique') {
-      gestes.push('gestes . chauffage . fioul . dépose cuve')
+      gestes.push({
+        code: 'gestes . chauffage . fioul . dépose cuve',
+        titre: 'Suppression du chauffage au fioul',
+      })
     }
     conseil = `le chauffage au ${dpe['type_energie_n1']} est très polluant, remplacer le par un système performant.`
     priorite = 3

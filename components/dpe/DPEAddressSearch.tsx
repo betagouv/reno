@@ -3,8 +3,6 @@ import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
-import useSetSearchParams from '../useSetSearchParams'
-import { computeBbox } from '../geoUtils'
 
 export default function DPEAddressSearch({
   searchParams,
@@ -22,18 +20,14 @@ export default function DPEAddressSearch({
   const [error, setError] = useState()
 
   useEffect(() => {
-    if (!clicked) return
-
-    const [lat, lon] = dpe
-      ? dpe['_geopoint'].split(',')
-      : clicked.geometry.coordinates
+    if (!clicked || !clicked.geometry) return
+    const [lon, lat] = clicked.geometry.coordinates
     async function fetchDPE() {
       try {
-        const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?bbox=${computeBbox({ lat, lon, factor: 20 })}`
-
-        const request = await fetch(url)
+        const request = await fetch(
+          `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?geo_distance=${lon}%3A${lat}%3A3000&size=100`,
+        )
         const json = await request.json()
-        console.log('setDpes', json.results)
         setError(null)
       } catch (e) {
         console.error(e)
@@ -85,7 +79,6 @@ export default function DPEAddressSearch({
           setInput(e.target.value)
         }}
       />
-      {clicked && input && <Validated>Adresse validée</Validated>}
       {validInput && !results && (
         <small
           css={`

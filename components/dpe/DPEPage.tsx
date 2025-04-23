@@ -32,7 +32,7 @@ export default function DPEPage({ numDpe }) {
         const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?q=numero_dpe%3D${numDpe}`
         const request = await fetch(url)
         const json = await request.json()
-        handleSelectDpe(json.results[0]).then(() => setDpe(json.results[0]))
+        handleSelectDpe(json.results[0])
       } catch (e) {
         console.error(e)
       }
@@ -42,6 +42,7 @@ export default function DPEPage({ numDpe }) {
 
   const handleSelectDpe = async (dpe) => {
     if (!dpe) return
+    setDpe(dpe)
     const lettre =
       conversionLettreIndex.indexOf(dpe['etiquette_dpe']) >
       conversionLettreIndex.indexOf(dpe['etiquette_ges'])
