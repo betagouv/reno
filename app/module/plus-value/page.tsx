@@ -2,7 +2,7 @@ import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
 import { InternalLink, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationCalculette from '@/public/calculette.png'
+import plusValueImage from '@/public/illuPlusValue.png'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
@@ -23,11 +23,7 @@ export default function Module({}) {
     >
       <PageBlock>
         <HeaderWrapper>
-          <Image
-            src={illustrationCalculette}
-            alt="une personne travaille sur son bureau avec une calculatrice"
-          />
-
+          <Image src={plusValueImage} alt="Illustration du module plus value" />
           <div>
             <h1
               style={css`

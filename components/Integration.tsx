@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import IntegrationQuestions from './IntegrationQuestions'
 import useResizeIframeFromHost from './useResizeIframeFromHost'
 import Demonstration from '@/app/module/Demonstration'
+import calculetteImage from '@/public/illuModule.png'
 
 export default function Integration() {
   const router = useRouter()
@@ -115,8 +116,8 @@ export default function Integration() {
     <PageBlock>
       <HeaderWrapper>
         <Image
-          src={illustrationAccueil}
-          alt="Des ouvriers peignent et réparent la facade d'une maison"
+          src={calculetteImage}
+          alt="Une personne utilise une calculatrice sur son bureau"
         />
         <div>
           <h1
@@ -126,7 +127,7 @@ export default function Integration() {
               font-size: 180%;
             `}
           >
-            Intégrer le calculateur des aides à la rénovation sur votre site.
+            Intégrer les calculateurs des aides à la rénovation sur votre site.
           </h1>
           <Intro>
             <p>
@@ -135,9 +136,9 @@ export default function Integration() {
               multiples, les règles sont mouvantes.
             </p>
             <p>
-              En intégrant directement notre calculateur sous forme d'iframe
-              chez vous, vous permettez à vos utilisateurs de calculer leurs
-              aides sans qu'ils quittent votre site.
+              En intégrant directement nos calculatettes sous forme d'iframe
+              chez vous, vous permettez à vos utilisateurs d'estimer leurs aides
+              sans qu'ils quittent votre site.
             </p>
           </Intro>
         </div>
