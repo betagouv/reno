@@ -46,7 +46,7 @@ const energies = [
 
 const prixAbonnementElectricite = 160
 
-const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
+export default function DPEFactureModule({ dpe, setSearchParams }) {
   const [pourcentagesAvantReno, setPourcentagesAvantReno] = useState([])
   const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
   const [energiesUtilisees, setEnergiesUtilisees] = useState([])
@@ -400,5 +400,3 @@ const FactureWidget = ({ dpe, setSearchParams, isMobile }) => {
     </CalculatorWidget>
   )
 }
-
-export default FactureWidget

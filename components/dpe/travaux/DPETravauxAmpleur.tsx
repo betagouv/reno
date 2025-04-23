@@ -1,4 +1,8 @@
-import { Explication, getQuestions, MontantPrimeTravaux } from './DPETravaux'
+import {
+  Explication,
+  getQuestions,
+  MontantPrimeTravaux,
+} from './DPETravauxModule'
 import { MiseEnAvant } from '@/components/UI'
 import GesteQuestion from '@/components/GesteQuestion'
 import React from 'react'

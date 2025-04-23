@@ -3,7 +3,11 @@ import GesteQuestion from '@/components/GesteQuestion'
 import { Card, CTA, MiseEnAvant } from '@/components/UI'
 import { useEffect, useState } from 'react'
 import React from 'react'
-import { Explication, getQuestions, MontantPrimeTravaux } from './DPETravaux'
+import {
+  Explication,
+  getQuestions,
+  MontantPrimeTravaux,
+} from './DPETravauxModule'
 
 export function DPETravauxChauffage({
   dpe,

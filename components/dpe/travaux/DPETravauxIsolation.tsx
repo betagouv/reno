@@ -8,7 +8,7 @@ import {
   getQuestions,
   MontantPrimeTravaux,
   Priorité,
-} from './DPETravaux'
+} from './DPETravauxModule'
 import { Card, CTA, MiseEnAvant, PrimeStyle } from '@/components/UI'
 import GesteQuestion from '@/components/GesteQuestion'
 import React from 'react'

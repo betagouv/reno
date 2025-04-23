@@ -19,7 +19,7 @@ import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
 import { AvanceTMO } from '../../mprg/BlocAideMPR'
 import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 
-export default function DPETravaux({ dpe, setSearchParams, isMobile }) {
+export default function DPETravauxModule({ dpe, setSearchParams }) {
   const [visibleWork, setVisibleWork] = useState({})
   const [xml, setXml] = useState()
 

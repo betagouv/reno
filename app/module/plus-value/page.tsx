@@ -8,7 +8,6 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import PlusValueModule from '@/components/module/PlusValueModule'
 import codeIcon from '@/public/icon-code.png'
-import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",

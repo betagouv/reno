@@ -13,8 +13,8 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import DPEAddressSearch from './DPEAddressSearch'
 import { useEffect, useState } from 'react'
 import enrichSituation from '../personas/enrichSituation'
-import DPEFacture from './DPEFacture'
-import DPETravaux from './travaux/DPETravaux'
+import DPEFactureModule from './DPEFactureModule'
+import DPETravauxModule from './travaux/DPETravauxModule'
 import DPEMap from './DPEMap'
 import iconChauffage from '@/public/chauffage.svg'
 import iconEauChaude from '@/public/eauChaude.png'
@@ -220,9 +220,9 @@ export default function DPEPage({ numDpe }) {
                     <Ampleur type="widget" />
                   </div>
                   <h2>Quels travaux privilégiés ?</h2>
-                  <DPETravaux {...{ setSearchParams, dpe }} />
+                  <DPETravauxModule {...{ setSearchParams, dpe }} />
                   <h2>Quels impact sur votre facture énergétique?</h2>
-                  <DPEFacture
+                  <DPEFactureModule
                     {...{
                       setSearchParams,
                       dpe,
