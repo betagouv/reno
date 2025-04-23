@@ -75,21 +75,9 @@ taxe foncière . condition de dépenses:
     Les délibérations antérieures à 2020 ayant institué l’exonération avec un taux de 50 % ou de 100 % restent applicables pour 5 ans.
 
 taxe foncière . commune:
-  # Dans le cas où logement . commune n'est pas définie,
-  # C'est qu'on est dans le cas d'un propriétaire occupant --> ménage . commune = logement . commune
 taxe foncière . commune . éligible:
-  variations:
-    - si: logement . commune
-      alors: logement
-    - sinon: ménage
   par défaut: non
   description: La commune du logement a-t-elle voté une exonération de taxe foncière ?
-taxe foncière . commune . éligible . ménage:
-  note: |
-    Cette variable est normalement remplie automatiquement par Mes Aides Réno.
-taxe foncière . commune . éligible . logement:
-  note: |
-    Cette variable est normalement remplie automatiquement par Mes Aides Réno.
 taxe foncière . commune . taux:
   par défaut: 0
   unité: '%'

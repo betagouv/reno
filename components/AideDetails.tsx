@@ -8,7 +8,6 @@ import { push } from '@socialgouv/matomo-next'
 import Breadcrumb from './Breadcrumb'
 import { aideTitle } from './ampleur/AideAmpleur'
 import CopyButton from './CopyButton'
-import Enquete from './Enquete'
 
 export default function AideDetails({
   setSearchParams,
@@ -80,7 +79,6 @@ export default function AideDetails({
             />
             <CopyButton searchParams={searchParams} />
           </div>
-          <Enquete />
           <AideComponent
             {...{
               dottedName: dottedName,
@@ -93,7 +91,7 @@ export default function AideDetails({
               rules,
             }}
           />
-          {/* <Feedback title={'Ce simulateur a-t-il été utile ?'} /> */}
+          <Feedback title={'Ce simulateur a-t-il été utile ?'} />
         </CustomQuestionWrapper>
       </Section>
     )
