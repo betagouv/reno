@@ -6,7 +6,9 @@ import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
+import plusValueImage from '@/public/illuPlusValue.png'
 import Demonstration from '../../Demonstration'
+import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",
@@ -22,12 +24,23 @@ export default function Module({}) {
       `}
     >
       <PageBlock>
+        <Content>
+          <Breadcrumb
+            links={[
+              { 'Devenir partenaire': '/devenir-partenaire' },
+              { 'Les iframes': '/integration' },
+              { 'Ma Plus-Value Réno': '/module/plus-value/demonstration' },
+            ]}
+          />
+        </Content>
         <HeaderWrapper>
           <Image
-            src={illustrationAccueil}
-            alt="Des ouvriers peignent et réparent la facade d'une maison"
+            src={plusValueImage}
+            alt="Illustration du module plus value"
+            style={css`
+              margin: 1rem;
+            `}
           />
-
           <div>
             <h1
               style={css`
@@ -35,7 +48,7 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Module de calcul</BlueEm> de la plus value d'un logement
+              Calculette concernant la <BlueEm>plus value</BlueEm> d'un logement
             </h1>
             <Intro>
               <p>

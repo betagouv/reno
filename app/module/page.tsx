@@ -7,6 +7,7 @@ import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
 import Demonstration from './Demonstration'
 import { Suspense } from 'react'
+import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
   title: "Module d'aide à la rénovation énergétique - Mes aides réno",
   description: `Découvrez le module de calcul des aides à la rénovation énergétique de Mes Aides Réno"`,
@@ -21,8 +22,23 @@ export default function Module({}) {
       `}
     >
       <PageBlock>
+        <Content>
+          <Breadcrumb
+            links={[
+              { 'Devenir partenaire': '/devenir-partenaire' },
+              { 'Les iframes': '/integration' },
+              { "Rénovation d'ampleur": '/module' },
+            ]}
+          />
+        </Content>
         <HeaderWrapper>
-          <Image src={ampleurImage} alt="Illustration du module ampleur" />
+          <Image
+            src={ampleurImage}
+            alt="Illustration du module ampleur"
+            style={css`
+              margin: 1rem;
+            `}
+          />
           <div>
             <h1
               style={css`
