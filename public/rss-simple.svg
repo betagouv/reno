@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="RSSicon"
+   viewBox="0 0 8 8"
+   width="256"
+   height="256"
+   version="1.1"
+   sodipodi:docname="rss-simple.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs33281" />
+  <sodipodi:namedview
+     id="namedview33279"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.2726892"
+     inkscape:cx="93.941575"
+     inkscape:cy="141.02236"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="RSSicon" />
+  <title
+     id="title33266">RSS feed icon</title>
+  <style
+     type="text/css"
+     id="style33268">
+    .button {stroke: none; fill: orange;}
+    .symbol {stroke: none; fill: white;}
+  </style>
+  <rect
+     class="button"
+     width="8"
+     height="8"
+     rx="1.5"
+     id="rect33270"
+     style="fill:#e98604;fill-opacity:1" />
+  <circle
+     class="symbol"
+     cx="2.4710174"
+     cy="5.6318021"
+     r="0.8810966"
+     id="circle33272"
+     style="stroke-width:0.881097" />
+  <path
+     class="symbol"
+     d="M 1.5899209,3.8696094 A 2.6432898,2.6432898 0 0 1 4.2332107,6.5128992 H 5.1143074 A 3.5243864,3.5243864 0 0 0 1.5899209,2.9885128 Z"
+     id="path33274"
+     style="stroke-width:0.881097" />
+  <path
+     class="symbol"
+     d="m 1.5899209,2.1074162 a 4.405483,4.405483 0 0 1 4.405483,4.405483 H 6.8765006 A 5.2865797,5.2865797 0 0 0 1.5899209,1.2263195 Z"
+     id="path33276"
+     style="stroke-width:0.881097" />
+</svg>

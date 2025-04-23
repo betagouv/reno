@@ -1,4 +1,3 @@
-import { allArticles } from '@/.contentlayer/generated'
 import Article from '@/components/Article'
 import { CTA, CTAWrapper } from '@/components/UI'
 import css from '@/components/css/convertToJs'
@@ -9,15 +8,13 @@ import Contribution from '../Contribution'
 import OtherArticles from '../OtherArticles'
 import { ArticleCta, BlogBackButton } from '../UI'
 import { dateCool, getLastEdit } from '../utils'
-
-export const articles = allArticles.filter((article) => !article.brouillon)
+import { getAllArticles } from '../articles'
 
 export const generateMetadata = async (props) => {
   const params = await props.params
 
-  const post = allArticles.find(
-    (post) => post._raw.flattenedPath === params.slug,
-  )
+  const articles = await getAllArticles()
+  const post = articles.find((post) => post.slug === params.slug)
   const lastEdit = await getLastEdit(params.slug)
 
   return {
@@ -35,7 +32,8 @@ export const generateMetadata = async (props) => {
 
 export default async function Post(props: Props) {
   const params = await props.params
-  const post = articles.find((post) => post._raw.flattenedPath === params.slug)
+  const articles = await getAllArticles()
+  const post = articles.find((post) => post.slug === params.slug)
 
   const lastEdit = await getLastEdit(params.slug)
 
@@ -127,4 +125,11 @@ export default async function Post(props: Props) {
       <ArticleCta />
     </Article>
   )
+}
+
+/* Without this function, getAllArticles would be run without the context of the directory to parse */
+export async function generateStaticParams() {
+  const articles = await getAllArticles()
+  // This article has its own route, don't rewrite it here
+  return articles.filter((a) => a.slug !== 'aides-renovation-2025')
 }

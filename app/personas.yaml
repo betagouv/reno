@@ -696,7 +696,7 @@
     ménage . commune: "'75056'"
     logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
     taxe foncière . condition de dépenses: oui
-    taxe foncière . commune . éligible . logement: oui
+    taxe foncière . commune . éligible: oui
   valeurs attendues:
     MPR . accompagnée . éligible: non
     taxe foncière . commune . éligible: oui

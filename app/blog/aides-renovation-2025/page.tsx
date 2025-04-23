@@ -17,6 +17,7 @@ const title = 'Quelles aides à la rénovation en 2025 ?',
 const date = '2024-12-23'
 
 const image = '/blog-images/2025.jpg'
+
 export const metadata = {
   title,
   description,
@@ -31,6 +32,7 @@ export const metadata = {
 export const article = {
   titre: title,
   url: 'blog/aides-renovation-2025',
+  slug: 'aides-renovation-2025',
   description,
   image,
   date,
