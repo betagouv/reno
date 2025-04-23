@@ -2,12 +2,13 @@ import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
 import { InternalLink, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationCalculette from '@/public/calculette.png'
+import plusValueImage from '@/public/illuPlusValue.png'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import PlusValueModule from '@/components/module/PlusValueModule'
 import codeIcon from '@/public/icon-code.png'
+import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",
@@ -18,16 +19,18 @@ export default function Module({}) {
   return (
     <main
       style={css`
-        padding-top: calc(1.5vh + 1.5vw);
+        padding-top: 1.5vh;
       `}
     >
       <PageBlock>
         <HeaderWrapper>
           <Image
-            src={illustrationCalculette}
-            alt="une personne travaille sur son bureau avec une calculatrice"
+            src={plusValueImage}
+            alt="Illustration du module plus value"
+            style={css`
+              margin: 1rem;
+            `}
           />
-
           <div>
             <h1
               style={css`
@@ -35,7 +38,7 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              <BlueEm>Plus value d'un logement</BlueEm> après rénovation
+              <BlueEm>Plus value</BlueEm> d'un logement après rénovation
             </h1>
             <Intro>
               <p>
