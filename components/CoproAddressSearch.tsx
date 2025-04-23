@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 import MapMarkers from './AddressSearchMapMarkers'
 import CoproBlock from './CoproBlock'
-import DpeMarkers from './DpeMarkers'
+import DPEMarkers from './dpe/DPEMarkers'
 import CoproNotFound from './copropriete/CoproNotFound'
 import { getServerUrl } from './getAppUrl'
 import useAddAddressMap from './useAddAddressMap'
@@ -234,7 +234,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
         />
       )}
       {dpes && (
-        <DpeMarkers
+        <DPEMarkers
           map={map}
           featureCollection={{
             type: 'FeatureCollection',

@@ -1,4 +1,4 @@
-import DpeAddressSearch from '@/components/DpeAddressSearch'
+import DpeAddressSearch from '@/components/dpe/DPEAddressSearch'
 import { PageBlock, Section } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import DPEAnalyzer from '@/components/dpe/DPEAnalyzer'
