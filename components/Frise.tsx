@@ -10,20 +10,17 @@ const elements = [...data, ...temporalRules]
 
 // Composant pour un élément de la timeline
 const TimelineElement = ({ element, position }) => {
-  const title = element.titre || element.nom;
-  const description = element.description;
+  const title = element.titre || element.nom
+  const description = element.description
 
   if (position === 'left') {
     return (
       <>
-        <TimelineContent>
-          <h3>{title}</h3>
-          {description && <p>{description}</p>}
-        </TimelineContent>
+        <TimelineContent {...{ title, description }} />
         <TimelineDot />
         <div style={{ flex: 1 }}></div>
       </>
-    );
+    )
   }
 
   if (position === 'center') {
@@ -31,13 +28,10 @@ const TimelineElement = ({ element, position }) => {
       <>
         <div style={{ flex: 1 }}></div>
         <TimelineDot />
-        <TimelineContent style={{ textAlign: 'center' }}>
-          <h3>{title}</h3>
-          {description && <p>{description}</p>}
-        </TimelineContent>
+        <TimelineContent {...{ title, description }} />
         <div style={{ flex: 1 }}></div>
       </>
-    );
+    )
   }
 
   // position === 'right'
@@ -45,13 +39,19 @@ const TimelineElement = ({ element, position }) => {
     <>
       <div style={{ flex: 1 }}></div>
       <TimelineDot />
-      <TimelineContent>
-        <h3>{title}</h3>
-        {description && <p>{description}</p>}
-      </TimelineContent>
+      <TimelineContent {...{ title, description }} />
     </>
-  );
-};
+  )
+}
+
+const TimelineContent = ({ title, description }) => {
+  return (
+    <TimelineContentWrapper>
+      <h3>{title}</h3>
+      {description && <p>{description}</p>}
+    </TimelineContentWrapper>
+  )
+}
 
 export default function Frise() {
   return (
@@ -118,7 +118,7 @@ const TimelineItem = styled.div`
   }
 `
 
-const TimelineContent = styled.div`
+const TimelineContentWrapper = styled.div`
   position: relative;
   width: 45%;
   background-color: #f8f9fa;
