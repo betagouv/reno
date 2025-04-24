@@ -24,13 +24,13 @@ const dependsOn = (element, dependency, visited = new Set()) => {
   visited.add(element.dottedName)
 
   const deps = element.temporel?.dépendances || []
-  
+
   // Dépendance directe
   if (deps.includes(dependency.dottedName)) return true
-  
+
   // Dépendance indirecte (transitive)
-  return deps.some(depName => {
-    const depElement = elements.find(el => el.dottedName === depName)
+  return deps.some((depName) => {
+    const depElement = elements.find((el) => el.dottedName === depName)
     return depElement && dependsOn(depElement, dependency, visited)
   })
 }
@@ -38,10 +38,10 @@ const dependsOn = (element, dependency, visited = new Set()) => {
 const sorted = [...elements].sort((a, b) => {
   // Si A dépend de B, A doit venir après B
   if (dependsOn(a, b)) return 1
-  
+
   // Si B dépend de A, B doit venir après A
   if (dependsOn(b, a)) return -1
-  
+
   // Sinon, pas de relation de dépendance
   return 0
 })
@@ -58,32 +58,32 @@ const TimelineElement = ({ element, position }) => {
 
   if (position === 'left') {
     return (
-      <>
+      <div>
         <TimelineContent {...{ title, description }} />
-        <TimelineDot />
+        <TimelineDot $position={position} />
         <div style={{ flex: 1 }}></div>
-      </>
+      </div>
     )
   }
 
   if (position === 'center') {
     return (
-      <>
+      <div>
         <div style={{ flex: 1 }}></div>
-        <TimelineDot />
+        <TimelineDot $position={position} />
         <TimelineContent {...{ title, description }} />
         <div style={{ flex: 1 }}></div>
-      </>
+      </div>
     )
   }
 
   // position === 'right'
   return (
-    <>
+    <div>
       <div style={{ flex: 1 }}></div>
-      <TimelineDot />
+      <TimelineDot $position={position} />
       <TimelineContent {...{ title, description }} />
-    </>
+    </div>
   )
 }
 
@@ -160,9 +160,12 @@ const TimelineItem = styled.div`
   position: relative;
   margin-bottom: 3rem;
   width: 100%;
-  display: flex;
-  align-items: center;
-  min-height: 50px;
+  > div {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    position: relative;
+  }
 
   &::after {
     content: '';
@@ -195,11 +198,24 @@ const TimelineContentWrapper = styled.div`
 `
 
 const TimelineDot = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: #4a89dc;
+  width: 1.3rem;
+  height: 1.3rem;
+  background-color: ${(p) =>
+    p.$position === 'center'
+      ? 'var(--color)'
+      : p.$position === 'left'
+        ? 'orange'
+        : 'green'};
   border-radius: 50%;
   z-index: 1;
   margin: 0 10px;
   flex-shrink: 0;
+  ${(p) =>
+    p.$position === 'center' &&
+    ` 
+  position: absolute;
+  top: -2rem;
+  left: calc(50% - 1.3rem);
+  z-index: 20
+  `}
 `
