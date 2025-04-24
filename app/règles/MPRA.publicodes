@@ -30,10 +30,10 @@ MPR . accompagnée:
 
     <a href="https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne" target="_blank">Tous les détails</a>.
   lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
-temporel:
-  signe: positif
-  dépendances:
-    - fin des travaux
+  temporel:
+    signe: positif
+    dépendances:
+      - fin des travaux
 
 MPR . accompagnée . bénéficiaire:
   applicable si: éligible

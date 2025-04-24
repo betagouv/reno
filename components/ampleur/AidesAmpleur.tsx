@@ -1,16 +1,15 @@
-import { createExampleSituation } from './AmpleurSummary'
+import Feedback from '@/app/contact/Feedback'
+import { omit } from '@/components/utils'
+import { push } from '@socialgouv/matomo-next'
+import Breadcrumb from '../Breadcrumb'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
+import CopyButton from '../CopyButton'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import FatConseiller from '../FatConseiller'
-import { useAides } from './useAides'
-import { omit } from '@/components/utils'
 import { Section } from '../UI'
-import Feedback from '@/app/contact/Feedback'
-import { push } from '@socialgouv/matomo-next'
-import CopyButton from '../CopyButton'
-import Breadcrumb from '../Breadcrumb'
 import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
-import Frise from '../Frise'
+import { createExampleSituation } from './AmpleurSummary'
+import { useAides } from './useAides'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -194,7 +193,6 @@ export default function AidesAmpleur({
         >
           Financer une rénovation d’ampleur
         </h1>
-        <Frise />
         {renderAides(
           eligibles,
           '<span aria-hidden="true">🥳</span> Éligible à',

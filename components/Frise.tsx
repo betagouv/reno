@@ -1,3 +1,4 @@
+'use client'
 import styled from 'styled-components'
 import data from '@/components/frise.yaml'
 import rules from '@/app/règles/rules'
@@ -130,11 +131,8 @@ export default function Frise() {
 }
 
 const Container = styled.section`
-  position: absolute;
-  left: 0;
-  top: 20vh;
-  height: 80vh;
-  width: 40vw;
+  width: 45vw;
+  margin: 0 auto;
   padding: 2rem;
 `
 

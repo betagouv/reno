@@ -24,8 +24,23 @@
     dépendances:
       - devis
 - nom: fin des travaux
+  titre: Fin des travaux et paiement
   description: Fin des travaux et paiement de la facture finale aux artisans.
   temporel:
     signe: négatif
     dépendances:
       - devis
+      - MPR . accompagnée . avance
+      - PTZ
+- nom: remboursement PTZ
+  description: Chaque mois, le prêt à taux zéro doit être remboursé
+  temporel:
+    signe: négatif
+    dépendances:
+      - MPR . accompagnée
+- nom: rendement des travaux
+  description: Chaque mois, et d'autant plus l'hiver, vos travaux auront réduit vos factures énergétiques.
+  temporel:
+    signe: positif
+    dépendances:
+      - remboursement PTZ
