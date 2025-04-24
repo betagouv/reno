@@ -28,14 +28,14 @@ export default function Module({}) {
             links={[
               { 'Devenir partenaire': '/devenir-partenaire' },
               { 'Les iframes': '/integration' },
-              { 'Ma Facture Réno': '/module/facture/demonstration' },
+              { "Facture d'énergie": '/module/facture/demonstration' },
             ]}
           />
         </Content>
         <HeaderWrapper>
           <Image
             src={plusValueImage}
-            alt="Illustration du module plus value"
+            alt="Illustration de la calculette Facture d'énergie"
             style={css`
               margin: 1rem;
             `}
@@ -47,18 +47,17 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              Calculette concernant la <BlueEm>plus value</BlueEm> d'un logement
+              Calculette de la <BlueEm>facture d'énergie</BlueEm> d'un logement
             </h1>
             <Intro>
               <p>
-                Mes Aides Réno est un service public de calcul des aides à la
-                rénovation energétique. Le sujet est complexe, les aides sont
-                multiples, les règles sont mouvantes.
+                Outre un gain de confort indéniable, avez-vous pensé aux
+                économies réalisées sur la facture d'énergie de votre logement
+                après rénovation ?
               </p>
               <p>
-                En intégrant directement notre calculateur sous forme d'iframe
-                chez vous, vous permettez à vos utilisateurs de calculer la
-                plus-value sur leur logement sans qu'ils quittent votre site.
+                Grâce à cette calculette, estimez facilement l'impact de vos
+                travaux de rénovation sur la facture d'énergie de votre bien.
               </p>
             </Intro>
           </div>
@@ -67,7 +66,7 @@ export default function Module({}) {
         <Wrapper>
           <Content>
             <Suspense>
-              <Demonstration moduleName="plus-value" />
+              <Demonstration moduleName="facture" />
             </Suspense>
           </Content>
         </Wrapper>

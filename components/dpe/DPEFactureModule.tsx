@@ -9,9 +9,15 @@ import rules from '@/app/règles/rules'
 import Select from '../Select'
 import editIcon from '@/public/crayon.svg'
 import CalculatorWidget from '../CalculatorWidget'
-import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
+import {
+  encodeDottedName,
+  encodeSituation,
+  getSituation,
+} from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import useSetSearchParams from '../useSetSearchParams'
+import { conversionLettreIndex } from './DPELabel'
 
 const energies = [
   { valeur: '', titre: 'Aucune', prixMoyen: 0 },
@@ -107,9 +113,17 @@ export default function DPEFactureModule({ dpe, setSearchParams }) {
             ),
           ),
     )
+    setSearchParams(
+      encodeSituation({
+        'DPE . actuel': conversionLettreIndex.indexOf(dpe['etiquette_dpe']),
+        'projet . DPE visé':
+          conversionLettreIndex.indexOf(dpe['etiquette_dpe']) - 2,
+      }),
+    )
   }, [dpe])
 
   useEffect(() => {
+    if (!situation['projet . DPE visé']) return
     const targetDPE = situation['projet . DPE visé']
     const moyenneConsoClasseDPE =
       (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2

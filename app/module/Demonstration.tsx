@@ -7,10 +7,11 @@ import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import Schema from './AmpleurSchema'
+import Schema, { getPersonas } from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import personas from './examplePersonas.yaml'
 import personasPlusValue from './plus-value/examplePersonasValeurVerte.yaml'
+import personasDpe from '@/components/dpe/exampleDpe.yaml'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
@@ -41,16 +42,21 @@ export default function Demonstration({ moduleName }) {
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
   const { persona: selectedPersona = 0 } = searchParams
-  const personaFile = moduleName == 'ampleur' ? personas : personasPlusValue
+  const personaFile = getPersonas(moduleName)
 
   const personaSituation = personaFile[selectedPersona].situation
   const iframeSearchParams = encodeSituation(personaSituation, true)
+
   const iframeUrl =
     getAppUrl() +
     `/module/${
       moduleName == 'ampleur'
         ? 'integration?' + new URLSearchParams(iframeSearchParams).toString()
-        : 'plus-value/integration'
+        : moduleName +
+          '/integration' +
+          (moduleName != 'plus-value'
+            ? '?' + new URLSearchParams(iframeSearchParams).toString()
+            : '')
     }`
 
   return (
@@ -196,8 +202,8 @@ export default function Demonstration({ moduleName }) {
               width: 600px;
               max-width: 90vw;
               --shadow-color: 0deg 0% 63%;
-              --shadow-elevation-medium: 0.3px 0.5px 0.7px
-                  hsl(var(--shadow-color) / 0.36),
+              --shadow-elevation-medium:
+                0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
                 0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
                 2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
                 5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
