@@ -17,18 +17,33 @@ console.log(
   elements.map((el) => el.dottedName),
 )
 
-const sorted = elements.sort((a, b) => {
-  const depsA = a.temporel?.dépendances || []
-  const depsB = b.temporel?.dépendances || []
+// Fonction pour vérifier si un élément dépend d'un autre (directement ou indirectement)
+const dependsOn = (element, dependency, visited = new Set()) => {
+  // Éviter les boucles infinies
+  if (visited.has(element.dottedName)) return false
+  visited.add(element.dottedName)
 
-  let result
-  if (depsA.includes(b.dottedName)) {
-    result = 1
-  } else if (depsB.includes(a.dottedName)) {
-    result = -1
-  } else result = 0
-  console.log('cyan result', a.dottedName, '|', b.dottedName, result)
-  return result
+  const deps = element.temporel?.dépendances || []
+  
+  // Dépendance directe
+  if (deps.includes(dependency.dottedName)) return true
+  
+  // Dépendance indirecte (transitive)
+  return deps.some(depName => {
+    const depElement = elements.find(el => el.dottedName === depName)
+    return depElement && dependsOn(depElement, dependency, visited)
+  })
+}
+
+const sorted = [...elements].sort((a, b) => {
+  // Si A dépend de B, A doit venir après B
+  if (dependsOn(a, b)) return 1
+  
+  // Si B dépend de A, B doit venir après A
+  if (dependsOn(b, a)) return -1
+  
+  // Sinon, pas de relation de dépendance
+  return 0
 })
 
 console.log(
