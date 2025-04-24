@@ -5,7 +5,7 @@ import { truncateDescription } from '@/utils/stringUtils'
 
 const rulesList = Object.values(rules)
 const temporalRules = rulesList.filter((el) => el && el.temporel)
-console.log(temporalRules)
+console.log('cyan frise', temporalRules)
 
 const elements = [...data, ...temporalRules]
 

@@ -152,6 +152,9 @@ MPR . accompagnée . prise en charge MAR . pourcent:
       alors: 20 %
 
 MPR . accompagnée . avance:
+  titre: Avance MaPrimeRénov'
+  description: |
+    Les ménages modestes peuvent demander une avance pour faciliter le paiement des travaux.
   applicable si:
     une de ces conditions:
       - ménage . revenu . classe = 'très modeste'

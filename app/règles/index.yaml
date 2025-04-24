@@ -671,6 +671,7 @@ MPR:
 
 parcours d'aide:
   question: Votre choix du parcours d'aide
+  titre: Ampleur ou par geste
   description: |
 
     Les aides à la rénovation énergétique sont séparées en deux grands parcours, qui sont exclusifs l'un à l'autre. 
