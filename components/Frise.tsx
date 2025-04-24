@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import data from '@/components/frise.yaml'
 import rules from '@/app/règles/rules'
 import { truncateDescription } from '@/utils/stringUtils'
+import { capitalise0 } from './utils'
 
 const rulesList = Object.values(rules)
 const temporalRules = rulesList.filter((el) => el && el.temporel)
@@ -50,7 +51,7 @@ const TimelineContent = ({ title, description = '' }) => {
     truncated = rest != null
   return (
     <TimelineContentWrapper>
-      <h3>{title}</h3>
+      <h3>{capitalise0(title)}</h3>
       {description !== '' &&
         (truncated ? (
           <details>
@@ -92,7 +93,7 @@ const Container = styled.section`
   left: 0;
   top: 20vh;
   height: 80vh;
-  width: 30vw;
+  width: 40vw;
   padding: 2rem;
 `
 
@@ -105,7 +106,7 @@ const Timeline = styled.div`
     content: '';
     position: absolute;
     width: 4px;
-    background-color: #e0e0e0;
+    background-color: #d7d7f7;
     top: 0;
     bottom: 0;
     left: 50%;
@@ -130,6 +131,7 @@ const TimelineItem = styled.div`
 `
 
 const TimelineContentWrapper = styled.div`
+  z-index: 10;
   position: relative;
   width: 45%;
   background-color: #f8f9fa;
