@@ -16,11 +16,13 @@
       - audit énergétique
 
 - nom: acceptation
+  description: |
+    Votre demande d'aide est acceptée. Vous pouvez lancer les travaux.
   temporel:
     dépendances:
       - devis
 - nom: fin des travaux
-  description: Fin des travaux et paiement de la facture finale.
+  description: Fin des travaux et paiement de la facture finale aux artisans.
   temporel:
     signe: négatif
     dépendances:
