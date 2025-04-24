@@ -4,11 +4,37 @@ import rules from '@/app/règles/rules'
 import { truncateDescription } from '@/utils/stringUtils'
 import { capitalise0 } from './utils'
 
-const rulesList = Object.values(rules)
-const temporalRules = rulesList.filter((el) => el && el.temporel)
-console.log('cyan frise', temporalRules)
+const temporalRules = Object.entries(rules)
+  .filter(([, el]) => el && el.temporel)
+  .map(([dottedName, rule]) => ({ ...rule, dottedName }))
 
-const elements = [...data, ...temporalRules]
+const elements = [
+  ...data.map((el) => ({ ...el, dottedName: el.nom })),
+  ...temporalRules,
+]
+console.log(
+  'cyan frise',
+  elements.map((el) => el.dottedName),
+)
+
+const sorted = elements.sort((a, b) => {
+  const depsA = a.temporel?.dépendances || []
+  const depsB = b.temporel?.dépendances || []
+
+  let result
+  if (depsA.includes(b.dottedName)) {
+    result = 1
+  } else if (depsB.includes(a.dottedName)) {
+    result = -1
+  } else result = 0
+  console.log('cyan result', a.dottedName, '|', b.dottedName, result)
+  return result
+})
+
+console.log(
+  'cyan frise sorted',
+  sorted.map((el) => [el.dottedName, el.temporel?.dépendances?.join(' | ')]),
+)
 
 // Composant pour un élément de la timeline
 const TimelineElement = ({ element, position }) => {
@@ -47,7 +73,7 @@ const TimelineElement = ({ element, position }) => {
 }
 
 const TimelineContent = ({ title, description = '' }) => {
-  const [shortDescription, rest] = truncateDescription(description, 200),
+  const [shortDescription, rest] = truncateDescription(description, 120),
     truncated = rest != null
   return (
     <TimelineContentWrapper>
@@ -69,7 +95,7 @@ export default function Frise() {
   return (
     <Container>
       <Timeline>
-        {elements.map((element) => {
+        {sorted.map((element) => {
           const position =
             element.temporel?.signe === 'négatif'
               ? 'left'
@@ -78,7 +104,7 @@ export default function Frise() {
                 : 'center'
 
           return (
-            <TimelineItem key={element.nom}>
+            <TimelineItem key={element.dottedName}>
               <TimelineElement element={element} position={position} />
             </TimelineItem>
           )
