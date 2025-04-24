@@ -9,12 +9,12 @@
 export function truncateDescription(
   text: string,
   maxLength: number = 100,
-): string {
-  if (!text) return ''
+): Array<string | null> {
+  if (!text) return ['', null]
 
   if (text.length <= maxLength) {
-    return text
+    return [text, null]
   }
 
-  return text.substring(0, maxLength) + '...'
+  return [text.substring(0, maxLength), text.substring(maxLength)]
 }

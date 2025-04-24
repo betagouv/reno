@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import data from '@/components/frise.yaml'
 import rules from '@/app/règles/rules'
+import { truncateDescription } from '@/utils/stringUtils'
 
 const rulesList = Object.values(rules)
 const temporalRules = rulesList.filter((el) => el && el.temporel)
@@ -44,11 +45,21 @@ const TimelineElement = ({ element, position }) => {
   )
 }
 
-const TimelineContent = ({ title, description }) => {
+const TimelineContent = ({ title, description = '' }) => {
+  const [shortDescription, rest] = truncateDescription(description, 200),
+    truncated = rest != null
   return (
     <TimelineContentWrapper>
       <h3>{title}</h3>
-      {description && <p>{description}</p>}
+      {description !== '' &&
+        (truncated ? (
+          <details>
+            <summary>{shortDescription}...</summary>
+            {rest}
+          </details>
+        ) : (
+          <p>{description}</p>
+        ))}
     </TimelineContentWrapper>
   )
 }
