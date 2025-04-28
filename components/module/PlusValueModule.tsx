@@ -239,6 +239,7 @@ export default function ValeurVerteModule({ type }) {
           }
         `}
       >
+        {/* TODO: rajouter l'année de l'étude */}
         Source:{' '}
         <em>
           <a
