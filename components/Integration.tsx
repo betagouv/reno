@@ -180,7 +180,7 @@ export default function Integration() {
                 <Image src={plusValueImage} alt="Logo Plus Value" />
                 <h3>
                   <Link href="/module/plus-value/demonstration">
-                    Ma Plus-Value Réno
+                    Ma plus-value Réno
                   </Link>
                 </h3>
                 <p>

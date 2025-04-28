@@ -199,7 +199,7 @@ export const MontantQuestion = ({
             e.target.value = formatNumberWithSpaces(price)
           }}
         />{' '}
-        €.
+        €
       </label>
     </section>
   )

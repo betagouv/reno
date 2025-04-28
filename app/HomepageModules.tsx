@@ -27,7 +27,7 @@ export default function HomepageModules() {
             <Card>
               <Image src={plusValueImage} alt="Logo Plus Value" />
               <h3>
-                <Link href="/module/plus-value">Ma Plus-Value Réno</Link>
+                <Link href="/module/plus-value">Ma plus-value Réno</Link>
               </h3>
               <p>
                 Estimez la plus-value de votre logement après sa rénovation.

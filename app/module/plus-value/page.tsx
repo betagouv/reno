@@ -44,8 +44,9 @@ export default function Module({}) {
                 influe fortement sur sa valeur immobilière ?
               </p>
               <p>
-                Grâce à cette calculette, estimez facilement l'impact de vos
-                travaux de rénovation sur la valeur de votre bien.
+                Grâce à la calculette Ma plus-value Réno, estimez facilement
+                l'impact de vos travaux de rénovation sur la valeur de votre
+                bien.
               </p>
             </Intro>
           </div>
@@ -86,14 +87,14 @@ export default function Module({}) {
                   usagers et des professionnels.
                 </p>
                 <h2>
-                  Comment intégrer la calculette Ma Plus-Value Réno sur une page
+                  Comment intégrer la calculette Ma plus-value Réno sur une page
                   web ?
                 </h2>
                 <p>
                   La calculette peut être{' '}
                   <a href={`/module/plus-value/demonstration`}>intégrée</a> sur
                   n'importe quelle page web ou article en 3 minutes. Le
-                  communiqué de presse sur la calculette Ma Plus-Value Réno est{' '}
+                  communiqué de presse sur la calculette Ma plus-value Réno est{' '}
                   <a href="https://mesaidesreno.notion.site/" target="_blank">
                     disponible ici
                   </a>
