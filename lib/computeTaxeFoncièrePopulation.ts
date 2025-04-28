@@ -8,7 +8,7 @@ const rawData = await Deno.readTextFile('./data/exonération-taxe-foncière.csv'
 
 // Here we harcode modifications to the original file when we receive a message telling us the exoneration should not be there
 const removeTheseLines = [
-  54138, //'COSNES-ET-ROMAIN'
+  '54138', //'COSNES-ET-ROMAIN'
 ]
 
 let data = parse(rawData, {
