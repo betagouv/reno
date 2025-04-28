@@ -28,7 +28,7 @@ export default function Module({}) {
             links={[
               { 'Devenir partenaire': '/devenir-partenaire' },
               { 'Les iframes': '/integration' },
-              { 'Ma Plus-Value Réno': '/module/plus-value/demonstration' },
+              { 'Ma plus-value Réno': '/module/plus-value/demonstration' },
             ]}
           />
         </Content>

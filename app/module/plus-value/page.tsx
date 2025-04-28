@@ -1,5 +1,5 @@
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
-import { InternalLink, Intro, PageBlock } from '@/components/UI'
+import { ExternalLink, InternalLink, Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import plusValueImage from '@/public/illuPlusValue.png'
@@ -7,7 +7,6 @@ import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import PlusValueModule from '@/components/module/PlusValueModule'
-import codeIcon from '@/public/icon-code.png'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",
@@ -45,8 +44,9 @@ export default function Module({}) {
                 influe fortement sur sa valeur immobilière ?
               </p>
               <p>
-                Grâce à cette calculette, estimez facilement l'impact de vos
-                travaux de rénovation sur la valeur de votre bien.
+                Grâce à la calculette Ma plus-value Réno, estimez facilement
+                l'impact de vos travaux de rénovation sur la valeur de votre
+                bien.
               </p>
             </Intro>
           </div>
@@ -61,24 +61,45 @@ export default function Module({}) {
                   justifyContent: 'center',
                 }}
               >
-                <PlusValueModule type={'module'} />
-                <InternalLink
-                  href={`/module/plus-value/demonstration`}
-                  style={css`
-                    display: flex;
-                    align-items: center;
-                    width: fit-content;
-                    margin-top: 1rem;
-                    gap: 0.5rem;
-                  `}
-                >
-                  <Image
-                    src={codeIcon}
-                    alt="icone intégration iframe"
-                    width="24"
-                  />
-                  Intégrer ce widget à mon site
-                </InternalLink>
+                <div style={{ margin: 'auto' }}>
+                  <PlusValueModule type={'module'} />
+                </div>
+                <h2>Combien vaut mon logement après rénovation ?</h2>
+                <p>
+                  C'est pour répondre à cette question que le service public
+                  numérique Mes Aides Réno propose la première calculette Ma
+                  Plus-Value Réno, basée sur{' '}
+                  <a
+                    href="https://www.calameo.com/read/005125198fb2a3760f9e5"
+                    target="_blank"
+                  >
+                    la dernière étude
+                  </a>{' '}
+                  Valeur verte des logements des Notaires de France.
+                </p>
+                <h2>Comment est financé cet outil ?</h2>
+                <p>
+                  L'équipe derrière la calculette, c'est l'équipe de Mes Aides
+                  Réno. Il s'agit d'un simulateur officiel des aides à la
+                  rénovation des logements, financé exclusivement sur fonds
+                  publics (Anah, DINUM, SGPE). Ce financement public permet de
+                  proposer des outils neutres et gratuits, au service des
+                  usagers et des professionnels.
+                </p>
+                <h2>
+                  Comment intégrer la calculette Ma plus-value Réno sur une page
+                  web ?
+                </h2>
+                <p>
+                  La calculette peut être{' '}
+                  <a href={`/module/plus-value/demonstration`}>intégrée</a> sur
+                  n'importe quelle page web ou article en 3 minutes. Le
+                  communiqué de presse sur la calculette Ma plus-value Réno est{' '}
+                  <a href="https://mesaidesreno.notion.site/" target="_blank">
+                    disponible ici
+                  </a>
+                  .
+                </p>
               </div>
             </Suspense>
           </Content>
