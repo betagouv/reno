@@ -111,12 +111,16 @@ export const LogementType = ({
         onChange={(e) => {
           push(['trackEvent', 'Module', 'Interaction', 'type logement ' + e])
           setSearchParams({
-            [encodeDottedName(rule)]: '"' + e + '"*',
+            [encodeDottedName(rule)]: `"${e}"*`,
           })
         }}
-        value={situation[rule]?.replaceAll('"', "'")}
+        value={situation[rule]?.replaceAll('"', '')}
         values={rules[rule]['une possibilité parmi']['possibilités'].map(
-          (i) => rules['logement . type . ' + i],
+          (i) => {
+            const ruleEntry = rules[`logement . type . ${i}`]
+            ruleEntry.valeur = ruleEntry.valeur.replaceAll("'", '')
+            return ruleEntry
+          },
         )}
       />
     </label>
@@ -195,7 +199,7 @@ export const MontantQuestion = ({
             e.target.value = formatNumberWithSpaces(price)
           }}
         />{' '}
-        €.
+        €
       </label>
     </section>
   )

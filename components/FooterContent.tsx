@@ -25,7 +25,8 @@ export default async function FooterContent() {
                       {titre}
                     </InternalLink>
                   </li>
-                ))}
+                ))
+                .slice(0, 6)}
             </ul>
           </div>
           <div className="footer-col">
@@ -134,6 +135,15 @@ export default async function FooterContent() {
                   href="https://zerologementvacant.beta.gouv.fr"
                 >
                   Zéro Logement Vacant
+                </ExternalLink>
+              </li>
+              <li>
+                <ExternalLink
+                  className="fr-footer__top-link"
+                  title="Jagis"
+                  href="https://jagis.beta.gouv.fr"
+                >
+                  Jagis
                 </ExternalLink>
               </li>
             </ul>
