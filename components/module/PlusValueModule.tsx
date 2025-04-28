@@ -239,15 +239,14 @@ export default function ValeurVerteModule({ type }) {
           }
         `}
       >
-        {/* TODO: rajouter l'année de l'étude */}
-        Source:{' '}
+        Source :{' '}
         <em>
           <a
             href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
             title="Notaires de France"
             target="_blank"
           >
-            Notaires de France
+            Notaires de France, étude 2024 (données 2023)
           </a>
         </em>
       </small>
