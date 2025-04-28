@@ -6,6 +6,11 @@ import { delay } from 'jsr:@std/async/delay'
 
 const rawData = await Deno.readTextFile('./data/exonération-taxe-foncière.csv')
 
+// Here we harcode modifications to the original file when we receive a message telling us the exoneration should not be there
+const removeTheseLines = [
+  '54138', //'COSNES-ET-ROMAIN'
+]
+
 let data = parse(rawData, {
   skipFirstRow: true,
   strip: true,
@@ -13,20 +18,22 @@ let data = parse(rawData, {
 
 const newCsvLines = await Promise.all(
   data
+    .map((line) => ({
+      ...line,
+      code: line['CODE DEPARTEMENT'] + line['Code Collectivité'], // code INSEE qui est construit de cette manière et identifie une commune
+    }))
+    .filter(({ code }) => !removeTheseLines.includes(code))
     //	.slice(0, 10)
     .map(async (line, i) => {
-      const codeInsee = line['CODE DEPARTEMENT'] + line['Code Collectivité']
-
       await delay(100 * i)
       const request = await fetch(
-        `https://geo.api.gouv.fr/communes/${codeInsee}?fields=population`,
+        `https://geo.api.gouv.fr/communes/${line.code}?fields=population`,
       )
       const json = await request.json()
       const { population } = json
       return {
         ...line,
         population,
-        code: codeInsee,
         taux: line[
           'FB - Exonération partielle VL log. anciens économes en énergie (art. 1383 OB CGI) - Taux'
         ],
