@@ -94,7 +94,7 @@ export default function AddressSearch({
             Chargement...
           </li>
         )}
-        {results && !clicked && (
+        {results && typeof clicked === 'undefined' && (
           <>
             <li
               css={`
