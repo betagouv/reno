@@ -1,3 +1,5 @@
+import { isValidDpeNumber } from '@/app/dpe/[numDpe]/page'
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const dpeNumber = searchParams.get('dpeNumber')
@@ -5,6 +7,14 @@ export async function GET(request: Request) {
     return new Response(
       JSON.stringify({
         status: 'Pas de DPE',
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+  }
+  if (!isValidDpeNumber(dpeNumber)) {
+    return new Response(
+      JSON.stringify({
+        status: 'Numéro de DPE invalide',
         headers: { 'Content-Type': 'application/json' },
       }),
     )
