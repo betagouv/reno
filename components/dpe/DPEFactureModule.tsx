@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import data from '@/components/dpe/DPE.yaml'
+import listeEnergies from '@/app/règles/dpe/energies.publicodes'
 import { formatNumberWithSpaces } from '../utils'
 import { formatNumber } from '../RevenuInput'
 import DPEQuickSwitch from './DPEQuickSwitch'
@@ -20,41 +21,13 @@ import useSetSearchParams from '../useSetSearchParams'
 import { conversionLettreIndex } from './DPELabel'
 import { fetchDPE } from './DPEPage'
 
-const energies = [
-  { valeur: '', titre: 'Aucune', prixMoyen: 0 },
-  { valeur: 'électricité', titre: 'Électricité', prixMoyen: 0.2016 },
-  { valeur: 'gaz', titre: 'Gaz naturel', prixMoyen: 0.13 },
-  { valeur: 'fioul', titre: 'Fioul domestique', prixMoyen: 0.13 },
-  { valeur: 'bois', titre: 'Bois – Bûches', prixMoyen: 0.04 },
-  {
-    valeur: 'granulés',
-    titre: 'Bois – Granulés (pellets)',
-    prixMoyen: 0.07,
-  },
-  {
-    valeur: 'boisForest',
-    titre: 'Bois – Plaquettes forestières',
-    prixMoyen: 0.04,
-  },
-  {
-    valeur: 'boisIndus',
-    titre: 'Bois – Plaquettes d’industrie',
-    prixMoyen: 0.04,
-  },
-  { valeur: 'gpl', titre: 'GPL', prixMoyen: 0.2 },
-  { valeur: 'propane', titre: 'Propane', prixMoyen: 0.2 },
-  { valeur: 'charbon', titre: 'Charbon', prixMoyen: 0.072 },
-  {
-    valeur: 'reseauChaleur',
-    titre: 'Réseau de Chauffage urbain',
-    prixMoyen: 0.08,
-  },
-]
-
 const prixAbonnementElectricite = 160
 
 export default function DPEFactureModule({ numDpe }) {
   const setSearchParams = useSetSearchParams()
+  const energies = listeEnergies['énergies . type']['une possibilité parmi'][
+    'possibilités'
+  ].map((e) => listeEnergies['énergie . ' + e])
   const [dpe, setDpe] = useState()
   const [pourcentagesAvantReno, setPourcentagesAvantReno] = useState([])
   const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
@@ -92,7 +65,16 @@ export default function DPEFactureModule({ numDpe }) {
     if (!dpe) return
     console.log('dpe', dpe)
     const energiesUtilisees = [1, 2, 3]
-      .map((i) => energies.find((e) => e.titre === dpe[`type_energie_n${i}`]))
+      .map((i) => {
+        const dpeEnergie = dpe[`type_energie_n${i}`]
+        return energies.find(
+          (e) =>
+            e['libellé DPE'] === dpeEnergie ||
+            e['libellé DPE']['une possibilité parmi']?.[
+              'possibilités'
+            ]?.includes(dpeEnergie),
+        )
+      })
       .filter(Boolean)
     setEnergiesUtilisees(energiesUtilisees)
     setEnergiesUtiliseesApresReno(energiesUtilisees)
@@ -125,7 +107,7 @@ export default function DPEFactureModule({ numDpe }) {
             energiesUtilisees.reduce(
               (total, energie, i) =>
                 total +
-                (energie?.prixMoyen || 0) *
+                energie['prix moyen'] *
                   (dpe[`conso_5_usages_ef_energie_n${i + 1}`] || 0),
               0,
             ),
@@ -156,7 +138,7 @@ export default function DPEFactureModule({ numDpe }) {
     // On convertit en EP pour appliquer le pourcentage de gain inhérent au changement de classe
     const detailParEnergieEP = detailParEnergieEF.map(
       (value, i) =>
-        (energiesUtilisees[i].valeur === 'électricité' ? value * 2.3 : value) /
+        (energiesUtilisees[i].titre === 'Électricité' ? value * 2.3 : value) /
         pourcentageEconomieVise,
     )
     // On reconvertit en EF pour appliquer le prix au kWh de l'énergie
@@ -165,9 +147,9 @@ export default function DPEFactureModule({ numDpe }) {
         detailParEnergieEP
           .map((val, i) => {
             return (
-              (energiesUtiliseesApresReno[i].valeur == 'électricité'
+              (energiesUtiliseesApresReno[i].titre == 'Électricité'
                 ? val / 2.3
-                : val) * energiesUtiliseesApresReno[i].prixMoyen
+                : val) * energiesUtiliseesApresReno[i]['prix moyen']
             )
           })
           .reduce((a, c) => a + c, 0) + prixAbonnementElectricite,
@@ -201,13 +183,13 @@ export default function DPEFactureModule({ numDpe }) {
                   <Select
                     disableInstruction={false}
                     disabled={!editable}
-                    value={energiesUtilisees[index]?.valeur}
+                    value={energiesUtilisees[index]?.titre}
                     values={energies}
                     onChange={(e) => {
                       const newEnergiesUtilisees = energiesUtilisees.map(
                         (energieUtilisee, i) =>
                           i === index
-                            ? energies.find((energie) => energie.valeur === e)
+                            ? energies.find((energie) => energie.titre === e)
                             : energieUtilisee,
                       )
                       setEnergiesUtiliseesApresReno(newEnergiesUtilisees)
