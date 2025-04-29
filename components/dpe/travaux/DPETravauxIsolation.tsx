@@ -26,8 +26,7 @@ export function DPETravauxIsolation({
   const [visibleDivs, setVisibleDivs] = useState({})
   const associationTravauxDpe = {
     'gestes . isolation . vitres': 'qualite_isolation_menuiseries',
-    'gestes . isolation . murs extérieurs': 'qualite_isolation_murs',
-    'gestes . isolation . murs intérieurs': 'qualite_isolation_murs',
+    'gestes . isolation . murs': 'qualite_isolation_murs',
     'gestes . isolation . plancher bas': 'qualite_isolation_plancher_bas',
     'gestes . isolation . toitures terrasses':
       'qualite_isolation_plancher_haut_toit_terrase',
