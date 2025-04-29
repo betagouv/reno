@@ -62,7 +62,7 @@ export default async function ModuleFacture({ searchParams }) {
                   justifyContent: 'center',
                 }}
               >
-                <DPEFactureModule numDpe={numDpe} />
+                <DPEFactureModule type="module" numDpe={numDpe} />
                 <InternalLink
                   href={`/module/plus-value/demonstration`}
                   style={css`

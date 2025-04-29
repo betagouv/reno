@@ -3,29 +3,24 @@ import Image from 'next/image'
 import data from '@/components/dpe/DPE.yaml'
 import iconArgent from '@/public/icon-argent.png'
 import listeEnergies from '@/app/règles/dpe/energies.publicodes'
-import { formatNumberWithSpaces } from '../utils'
 import { formatNumber } from '../RevenuInput'
-import DPEQuickSwitch from './DPEQuickSwitch'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
 import Select from '../Select'
-import editIcon from '@/public/crayon.svg'
 import informationIcon from '@/public/information.svg'
 import CalculatorWidget from '../CalculatorWidget'
-import {
-  encodeDottedName,
-  encodeSituation,
-  getSituation,
-} from '../publicodes/situationUtils'
+import { encodeSituation, getSituation } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useSetSearchParams from '../useSetSearchParams'
 import DPELabel, { conversionLettreIndex } from './DPELabel'
 import { fetchDPE } from './DPEPage'
+import { ModuleWrapper } from '@/app/module/ModuleWrapper'
+import styled from 'styled-components'
 
 const prixAbonnementElectricite = 160
 
-export default function DPEFactureModule({ numDpe }) {
+export default function DPEFactureModule({ type, numDpe }) {
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
@@ -250,8 +245,12 @@ export default function DPEFactureModule({ numDpe }) {
     </>
   )
 
-  const MontantFacture = ({ montant, type, isMobile }) => (
-    <div>
+  const MontantFacture = ({ montant, type }) => (
+    <div
+      css={`
+        margin-left: 1rem;
+      `}
+    >
       <div
         css={`
           display: flex;
@@ -262,9 +261,21 @@ export default function DPEFactureModule({ numDpe }) {
         <span aria-hidden="true">
           <Image src={iconArgent} width="20" alt="Icône billet" />
         </span>
-        {type == 'actuel'
-          ? 'Facture estimée'
-          : 'Facture estimée après rénovation'}
+        Facture estimée
+        <span
+          title={
+            type == 'actuel'
+              ? 'Ce montant est estimé sur la base des informations fournies dans le DPE, réajusté sur les prix actuels moyens des énergies'
+              : "Ce montant n'est qu'une estimation"
+          }
+          css={`
+            :hover {
+              cursor: pointer;
+            }
+          `}
+        >
+          <Image src={informationIcon} width="20" alt="Icône information" />
+        </span>
       </div>
       <div
         css={`
@@ -289,28 +300,12 @@ export default function DPEFactureModule({ numDpe }) {
           );
           padding: 0.8rem;
           font-size: 110%;
-          width: ${isMobile ? '100%' : '80%'};
         `}
       >
         {montant > 0 ? (
           <span>
             entre <strong>{formatNumber(0.9 * montant)} €</strong> et{' '}
             <strong>{formatNumber(1.1 * montant)} €</strong>
-            <span
-              title={
-                type == 'actuel'
-                  ? 'Ce montant est estimé sur la base des informations fournies dans le DPE, réajusté sur les prix actuels moyens des énergies'
-                  : "Ce montant n'est qu'une estimation"
-              }
-              css={`
-                margin-left: 0.5rem;
-                :hover {
-                  cursor: pointer;
-                }
-              `}
-            >
-              <Image src={informationIcon} width="20" alt="Icône information" />
-            </span>
           </span>
         ) : (
           <small>
@@ -322,20 +317,21 @@ export default function DPEFactureModule({ numDpe }) {
     </div>
   )
 
-  return (
-    <CalculatorWidget>
-      <div
-        css={`
-          display: flex;
-          ${isMobile && 'flex-direction: column;'}
-          > div {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: ${isMobile ? '100%' : '50%'};
-          }
-        `}
+  const Wrapper = ({ type, children }) =>
+    type === 'module' ? (
+      <ModuleWrapper
+        isMobile={isMobile}
+        title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
       >
+        {children}
+      </ModuleWrapper>
+    ) : (
+      <CalculatorWidget>{children}</CalculatorWidget>
+    )
+
+  return (
+    <Wrapper type={type}>
+      <DeuxColonnes $isMobile={isMobile}>
         <div>
           <div>
             <EnergieTable
@@ -394,7 +390,32 @@ export default function DPEFactureModule({ numDpe }) {
             isMobile={isMobile}
           />
         </div>
-      </div>
-    </CalculatorWidget>
+      </DeuxColonnes>
+    </Wrapper>
   )
 }
+
+export const DeuxColonnes = styled.div`
+  display: flex;
+  ${(p) => p.$isMobile && 'flex-direction: column;'}
+  position: relative;
+  gap: 2rem !important;
+  &::after {
+    content: '';
+    position: absolute;
+    top: ${(p) => (p.$isMobile ? '50%' : '0')};
+    bottom: 0;
+    left: ${(p) => (p.$isMobile ? '0' : '50%')};
+    height: ${(p) => (p.$isMobile ? '1px' : '100%')};
+    width: ${(p) => (p.$isMobile ? '100%' : '1px')};
+    background-color: black;
+    transform: ${(p) =>
+      p.$isMobile ? 'translateY(-50%);' : 'translateX(-50%);'};
+  }
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+  }
+`

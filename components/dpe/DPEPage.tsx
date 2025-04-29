@@ -212,10 +212,6 @@ export default function DPEPage({ numDpe }) {
                 <Content>
                   <h2>Quel impact sur la valeur de mon logement ?</h2>
                   <PlusValueModule type="widget" />
-                </Content>
-              </Wrapper>
-              <Wrapper $background="white" $noMargin={true} $last={true}>
-                <Content>
                   <h2>Quelles aides sont mobilisables ?</h2>
                   <div
                     css={`
@@ -229,7 +225,7 @@ export default function DPEPage({ numDpe }) {
                   <h2>Quels travaux privilégiés ?</h2>
                   <DPETravauxModule {...{ setSearchParams, dpe }} />
                   <h2>Quels impact sur votre facture énergétique?</h2>
-                  <DPEFactureModule numDpe={numDpe} />
+                  <DPEFactureModule numDpe={numDpe} type="widget" />
                   <h2>Une interdiction de location est-elle prévue?</h2>
                   {Object.keys(interdictionLocation).includes(
                     dpe['etiquette'],
