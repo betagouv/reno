@@ -7,19 +7,12 @@ export async function generateMetadata({ params }) {
     openGraph: { images: ['/jaquette.png'] },
   }
 }
-export const isValidDpeNumber = (dpeNumber) => {
-  const regex = /^[a-zA-Z0-9]{13}$/
-  return regex.test(dpeNumber)
-}
-
 export default async function Page(props: Props) {
   const params = await props.params
 
   return (
-    isValidDpeNumber(params.numDpe) && (
-      <Suspense>
-        <DPEPage numDpe={params.numDpe} />
-      </Suspense>
-    )
+    <Suspense>
+      <DPEPage numDpe={params.numDpe} />
+    </Suspense>
   )
 }

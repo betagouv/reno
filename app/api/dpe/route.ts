@@ -1,5 +1,7 @@
-import { isValidDpeNumber } from '@/app/dpe/[numDpe]/page'
-
+export const isValidDpeNumber = (dpeNumber) => {
+  const regex = /^[a-zA-Z0-9]{13}$/
+  return regex.test(dpeNumber)
+}
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const dpeNumber = searchParams.get('dpeNumber')
