@@ -288,6 +288,7 @@ export const CardMosaic = styled.div`
   position: relative;
   z-index: 1;
   > div {
+    max-width: 18rem;
     min-width: 250px;
     position: relative;
     flex: 1;
