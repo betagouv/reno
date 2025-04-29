@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import data from '@/components/dpe/DPE.yaml'
+import iconArgent from '@/public/icon-argent.png'
 import listeEnergies from '@/app/règles/dpe/energies.publicodes'
 import { formatNumberWithSpaces } from '../utils'
 import { formatNumber } from '../RevenuInput'
@@ -9,6 +10,7 @@ import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
 import Select from '../Select'
 import editIcon from '@/public/crayon.svg'
+import informationIcon from '@/public/information.svg'
 import CalculatorWidget from '../CalculatorWidget'
 import {
   encodeDottedName,
@@ -18,12 +20,15 @@ import {
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useSetSearchParams from '../useSetSearchParams'
-import { conversionLettreIndex } from './DPELabel'
+import DPELabel, { conversionLettreIndex } from './DPELabel'
 import { fetchDPE } from './DPEPage'
 
 const prixAbonnementElectricite = 160
 
 export default function DPEFactureModule({ numDpe }) {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= 400,
+  )
   const setSearchParams = useSetSearchParams()
   const energies = listeEnergies['énergies . type']['une possibilité parmi'][
     'possibilités'
@@ -61,9 +66,7 @@ export default function DPEFactureModule({ numDpe }) {
   }, [numDpe])
 
   useEffect(() => {
-    console.log('ici', dpe)
     if (!dpe) return
-    console.log('dpe', dpe)
     const energiesUtilisees = [1, 2, 3]
       .map((i) => {
         const dpeEnergie = dpe[`type_energie_n${i}`]
@@ -76,6 +79,7 @@ export default function DPEFactureModule({ numDpe }) {
         )
       })
       .filter(Boolean)
+
     setEnergiesUtilisees(energiesUtilisees)
     setEnergiesUtiliseesApresReno(energiesUtilisees)
 
@@ -117,14 +121,14 @@ export default function DPEFactureModule({ numDpe }) {
       encodeSituation({
         'DPE . actuel': conversionLettreIndex.indexOf(dpe['etiquette_dpe']),
         'projet . DPE visé':
-          conversionLettreIndex.indexOf(dpe['etiquette_dpe']) - 2,
+          conversionLettreIndex.indexOf(dpe['etiquette_dpe']) - 1,
       }),
     )
   }, [dpe])
 
   useEffect(() => {
-    if (!situation['projet . DPE visé'] || !dpe) return
     const targetDPE = situation['projet . DPE visé']
+    if (!targetDPE || !dpe) return
     const moyenneConsoClasseDPE =
       (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
 
@@ -164,16 +168,39 @@ export default function DPEFactureModule({ numDpe }) {
     energiesUtilisees,
     editable,
   }) => (
-    <div>
+    <>
       <div
         css={`
           font-weight: bold;
-          text-align: center;
         `}
       >
         {title}
       </div>
-      <table>
+      <table
+        css={`
+          margin-left: 1rem;
+          td {
+            padding: 0.2rem;
+          }
+          input {
+            height: 2.8em !important;
+            width: 4rem !important;
+            display: inline-block;
+            margin: auto;
+          }
+          .input-wrapper::after {
+            content: '%';
+            position: absolute;
+            transform: translateY(55%) translateX(-150%);
+            pointer-events: none;
+          }
+          select {
+            height: 2.8rem;
+            background: #f5f5fe;
+            max-width: 90vw;
+          }
+        `}
+      >
         <tbody>
           {pourcentages.map((_, index) => {
             if (!energiesUtilisees[index]) return
@@ -220,6 +247,78 @@ export default function DPEFactureModule({ numDpe }) {
           })}
         </tbody>
       </table>
+    </>
+  )
+
+  const MontantFacture = ({ montant, type, isMobile }) => (
+    <div>
+      <div
+        css={`
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        `}
+      >
+        <span aria-hidden="true">
+          <Image src={iconArgent} width="20" alt="Icône billet" />
+        </span>
+        {type == 'actuel'
+          ? 'Facture estimée'
+          : 'Facture estimée après rénovation'}
+      </div>
+      <div
+        css={`
+          margin-top: 0.5rem;
+          text-align: center;
+          background: var(
+            ${type == 'actuel'
+              ? '--lightestColor'
+              : montant > 0
+                ? '--validColor1'
+                : '--warningColor'}
+          );
+          border: 2px solid
+            var(${type == 'actuel' ? '--color' : '--validColor'}) !important;
+          border-radius: 0.3rem;
+          color: var(
+            ${type == 'actuel'
+              ? '--color'
+              : montant > 0
+                ? '--validColor'
+                : '--darkColor'}
+          );
+          padding: 0.8rem;
+          font-size: 110%;
+          width: ${isMobile ? '100%' : '80%'};
+        `}
+      >
+        {montant > 0 ? (
+          <span>
+            entre <strong>{formatNumber(0.9 * montant)} €</strong> et{' '}
+            <strong>{formatNumber(1.1 * montant)} €</strong>
+            <span
+              title={
+                type == 'actuel'
+                  ? 'Ce montant est estimé sur la base des informations fournies dans le DPE, réajusté sur les prix actuels moyens des énergies'
+                  : "Ce montant n'est qu'une estimation"
+              }
+              css={`
+                margin-left: 0.5rem;
+                :hover {
+                  cursor: pointer;
+                }
+              `}
+            >
+              <Image src={informationIcon} width="20" alt="Icône information" />
+            </span>
+          </span>
+        ) : (
+          <small>
+            Veuillez renseigner les valeurs de la calculatrice pour connaître le
+            montant
+          </small>
+        )}
+      </div>
     </div>
   )
 
@@ -228,48 +327,16 @@ export default function DPEFactureModule({ numDpe }) {
       <div
         css={`
           display: flex;
+          ${isMobile && 'flex-direction: column;'}
           > div {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            width: 50%;
-          }
-          table {
-            margin: auto;
-            th {
-              font-weight: normal;
-            }
-            td {
-              text-align: center;
-              padding: 0.2rem;
-            }
-            input {
-              height: 2.8em !important;
-              width: 4rem !important;
-              padding-right: 1rem !important;
-              display: inline-block;
-              margin: auto;
-            }
-            .input-wrapper::after {
-              content: '%';
-              position: absolute;
-              transform: translateY(55%) translateX(-150%);
-              pointer-events: none;
-            }
-            select {
-              height: 2.8rem;
-              background: #f5f5fe;
-              max-width: 90vw;
-            }
+            width: ${isMobile ? '100%' : '50%'};
           }
         `}
       >
-        <div
-          css={`
-            border-right: 1px solid black;
-            padding-right: 1rem; /* Ajoute un espace à droite pour éviter que le contenu ne touche la bordure */
-          `}
-        >
+        <div>
           <div>
             <EnergieTable
               title="Actuellement :"
@@ -278,89 +345,23 @@ export default function DPEFactureModule({ numDpe }) {
               energiesUtilisees={energiesUtilisees}
             />
           </div>
-          <DPEQuickSwitch
-            oldIndex={situation['DPE . actuel'] - 1}
-            situation={situation}
-            columnDisplay={true}
-            editMode={true}
-          />
-          <div>
-            <div>
-              <span aria-hidden="true">💶</span> Facture actuelle estimée :
-            </div>
-            <div
-              css={`
-                margin: auto;
-                margin-top: 0.5rem;
-                border: 2px solid var(--color);
-                width: 100%;
-                color: var(--color);
-                text-align: center;
-                border-radius: 0.3rem;
-                padding: 0.4rem;
-                box-shadow: var(--shadow-elevation-medium);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              `}
-            >
-              <div
-                css={`
-                  flex-grow: 1;
-                `}
-              >
-                <input
-                  id="facture-actuelle"
-                  css={`
-                    border: none !important;
-                    background: transparent !important;
-                    box-shadow: none !important;
-                    -webkit-appearance: none;
-                    outline: none;
-                    color: var(--color);
-                    font-size: 110% !important;
-                    max-width: 4rem;
-                  `}
-                  autoFocus={false}
-                  placeholder="Facture actuelle annuelle estimée"
-                  type="text"
-                  inputMode="numeric"
-                  pattern="\d+"
-                  value={montantFactureActuelle}
-                  onChange={(e) => {
-                    const price = e.target.value.replace(/\s/g, '')
-                    const startPos = e.target.selectionStart
-                    const invalid = isNaN(price) || price <= 0
-                    if (invalid) return
-                    setSearchParams({
-                      [encodeDottedName('facture . actuelle')]: price + '*',
-                    })
-                    e.target.value = formatNumberWithSpaces(price)
-                    requestAnimationFrame(() => {
-                      const inputFacture =
-                        document.querySelector('#facture-actuelle')
-                      inputFacture.selectionStart = startPos
-                      inputFacture.selectionEnd = startPos
-                    })
-                  }}
-                />
-                <span title="Ce montant est estimée sur la base des informations fournies dans le DPE, vous pouvez l'ajuster à votre convenance">
-                  €
-                </span>
-              </div>
-              <Image
-                css={`
-                  cursor: pointer;
-                  margin-left: auto;
-                `}
-                src={editIcon}
-                alt="Icône crayon pour éditer"
-                onClick={() =>
-                  document.querySelector('#facture-actuelle').focus()
-                }
-              />
-            </div>
+          <div
+            css={`
+              margin-left: 1rem;
+            `}
+          >
+            DPE actuel :{' '}
+            <DPELabel
+              index={situation['DPE . actuel'] - 1}
+              small={false}
+              border={true}
+            />
           </div>
+          <MontantFacture
+            montant={montantFactureActuelle}
+            type="actuel"
+            isMobile={isMobile}
+          />
         </div>
         <div>
           <div>
@@ -372,54 +373,26 @@ export default function DPEFactureModule({ numDpe }) {
               editable={true}
             />
           </div>
-          <TargetDPETabs
-            {...{
-              oldIndex: situation['DPE . actuel'] - 1,
-              setSearchParams,
-              choice: situation['projet . DPE visé'] - 1,
-              situation,
-              columnDisplay: true,
-            }}
-          />
-          <div>
-            <div
-              css={`
-                margin: auto;
-              `}
-            >
-              <span aria-hidden="true">💶</span> Après rénovation:
-            </div>
-            <div
-              css={`
-                margin-top: 0.5rem;
-                text-align: center;
-                background: var(
-                  ${montantFactureEstimee > 0
-                    ? '--validColor1'
-                    : '--warningColor'}
-                );
-                border: 2px solid var(--validColor) !important;
-                border-radius: 0.3rem;
-                color: var(
-                  ${montantFactureEstimee > 0 ? '--validColor' : '--darkColor'}
-                );
-                padding: 0.8rem;
-                font-size: 110%;
-              `}
-            >
-              {montantFactureEstimee > 0 ? (
-                <strong>
-                  entre {formatNumber(0.9 * montantFactureEstimee)}€ et{' '}
-                  {formatNumber(1.1 * montantFactureEstimee)}€
-                </strong>
-              ) : (
-                <small>
-                  Veuillez renseigner les valeurs de la calculatrice pour
-                  connaître le montant
-                </small>
-              )}
-            </div>
+          <div
+            css={`
+              margin-left: 1rem;
+            `}
+          >
+            <TargetDPETabs
+              {...{
+                oldIndex: situation['DPE . actuel'] - 1,
+                setSearchParams,
+                choice: situation['projet . DPE visé'] - 1,
+                situation,
+                columnDisplay: false,
+              }}
+            />
           </div>
+          <MontantFacture
+            montant={montantFactureEstimee}
+            type="futur"
+            isMobile={isMobile}
+          />
         </div>
       </div>
     </CalculatorWidget>

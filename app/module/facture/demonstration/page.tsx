@@ -47,7 +47,8 @@ export default function Module({}) {
                 margin-bottom: 1rem;
               `}
             >
-              Calculette de la <BlueEm>facture d'énergie</BlueEm> d'un logement
+              Calculette pour l'évolution de la{' '}
+              <BlueEm>facture d'énergie</BlueEm> d'un logement
             </h1>
             <Intro>
               <p>

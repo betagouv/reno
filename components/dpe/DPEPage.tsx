@@ -71,7 +71,7 @@ export default function DPEPage({ numDpe }) {
       }'*`,
       'DPE . actuel': index + '*',
       'projet . DPE visé': Math.max(index - 2, 0) + '*',
-      'logement . type': `"${dpe['type_batiment']}*"`,
+      'logement . type': `"${dpe['type_batiment']}"*`,
       'ménage . région . IdF': `"${
         ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
           dpe['code_departement_ban'],
