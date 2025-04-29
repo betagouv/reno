@@ -20,6 +20,20 @@ import iconChauffage from '@/public/chauffage.svg'
 import iconEauChaude from '@/public/eauChaude.png'
 import iconSurface from '@/public/surface.png'
 import Image from 'next/image'
+import { isValidDpeNumber } from '@/app/api/dpe/route'
+
+export const fetchDPE = async (dpe) => {
+  if (!isValidDpeNumber(dpe)) return
+  try {
+    const request = await fetch(
+      `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?q=numero_dpe%3D${dpe}`,
+    )
+    const json = await request.json()
+    return json.results[0]
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 export default function DPEPage({ numDpe }) {
   const [dpe, setDpe] = useState(null)
@@ -27,17 +41,10 @@ export default function DPEPage({ numDpe }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   useEffect(() => {
-    async function fetchDPE() {
-      try {
-        const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?q=numero_dpe%3D${numDpe}`
-        const request = await fetch(url)
-        const json = await request.json()
-        handleSelectDpe(json.results[0])
-      } catch (e) {
-        console.error(e)
-      }
+    async function fetchData() {
+      handleSelectDpe(await fetchDPE(numDpe))
     }
-    fetchDPE()
+    fetchData()
   }, [numDpe])
 
   const handleSelectDpe = async (dpe) => {
@@ -222,12 +229,7 @@ export default function DPEPage({ numDpe }) {
                   <h2>Quels travaux privilégiés ?</h2>
                   <DPETravauxModule {...{ setSearchParams, dpe }} />
                   <h2>Quels impact sur votre facture énergétique?</h2>
-                  <DPEFactureModule
-                    {...{
-                      setSearchParams,
-                      dpe,
-                    }}
-                  />
+                  <DPEFactureModule numDpe={numDpe} />
                   <h2>Une interdiction de location est-elle prévue?</h2>
                   {Object.keys(interdictionLocation).includes(
                     dpe['etiquette'],

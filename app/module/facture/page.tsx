@@ -6,7 +6,6 @@ import plusValueImage from '@/public/illuPlusValue.png'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
-import PlusValueModule from '@/components/module/PlusValueModule'
 import codeIcon from '@/public/icon-code.png'
 import DPEFactureModule from '@/components/dpe/DPEFactureModule'
 export const metadata: Metadata = {
@@ -14,8 +13,8 @@ export const metadata: Metadata = {
     "Module de calcul de la facture d'énergie d'un logement suite à une rénovation - Mes aides réno",
   description: `Découvrez la calculette de facture d'énergie d'un logement suite à une rénovation énergétique proposé par Mes Aides Réno"`,
 }
-
-export default function Module({}) {
+export default async function ModuleFacture({ searchParams }) {
+  const numDpe = searchParams.dpe || null
   return (
     <main
       style={css`
@@ -63,7 +62,7 @@ export default function Module({}) {
                   justifyContent: 'center',
                 }}
               >
-                <DPEFactureModule />
+                <DPEFactureModule numDpe={numDpe} />
                 <InternalLink
                   href={`/module/plus-value/demonstration`}
                   style={css`

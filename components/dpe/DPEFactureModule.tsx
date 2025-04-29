@@ -18,6 +18,7 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useSetSearchParams from '../useSetSearchParams'
 import { conversionLettreIndex } from './DPELabel'
+import { fetchDPE } from './DPEPage'
 
 const energies = [
   { valeur: '', titre: 'Aucune', prixMoyen: 0 },
@@ -52,7 +53,9 @@ const energies = [
 
 const prixAbonnementElectricite = 160
 
-export default function DPEFactureModule({ dpe, setSearchParams }) {
+export default function DPEFactureModule({ numDpe }) {
+  const setSearchParams = useSetSearchParams()
+  const [dpe, setDpe] = useState()
   const [pourcentagesAvantReno, setPourcentagesAvantReno] = useState([])
   const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
   const [energiesUtilisees, setEnergiesUtilisees] = useState([])
@@ -73,6 +76,14 @@ export default function DPEFactureModule({ dpe, setSearchParams }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
+
+  useEffect(() => {
+    async function fetchData() {
+      setDpe(await fetchDPE(numDpe))
+    }
+    fetchData()
+  }, [numDpe])
+
   useEffect(() => {
     const energiesUtilisees = [1, 2, 3]
       .map((i) => energies.find((e) => e.titre === dpe[`type_energie_n${i}`]))
