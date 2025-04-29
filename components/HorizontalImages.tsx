@@ -5,6 +5,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  img {
+    max-width: calc(50% - 1rem);
+  }
 `
 
 export default function HorizontalImages({ images }) {
