@@ -27,6 +27,11 @@ const energies = [
   { valeur: 'fioul', titre: 'Fioul domestique', prixMoyen: 0.13 },
   { valeur: 'bois', titre: 'Bois – Bûches', prixMoyen: 0.04 },
   {
+    valeur: 'granulés',
+    titre: 'Bois – Granulés (pellets)',
+    prixMoyen: 0.07,
+  },
+  {
     valeur: 'boisForest',
     titre: 'Bois – Plaquettes forestières',
     prixMoyen: 0.04,
@@ -35,11 +40,6 @@ const energies = [
     valeur: 'boisIndus',
     titre: 'Bois – Plaquettes d’industrie',
     prixMoyen: 0.04,
-  },
-  {
-    valeur: 'granulés',
-    titre: 'Bois – Granulés (pellets) ou briquettes',
-    prixMoyen: 0.07,
   },
   { valeur: 'gpl', titre: 'GPL', prixMoyen: 0.2 },
   { valeur: 'propane', titre: 'Propane', prixMoyen: 0.2 },
@@ -59,6 +59,9 @@ export default function DPEFactureModule({ numDpe }) {
   const [pourcentagesAvantReno, setPourcentagesAvantReno] = useState([])
   const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
   const [energiesUtilisees, setEnergiesUtilisees] = useState([])
+  const [energiesUtiliseesApresReno, setEnergiesUtiliseesApresReno] = useState(
+    [],
+  )
   const [montantFactureActuelle, setMontantFactureActuelle] = useState()
   const [montantFactureEstimee, setMontantFactureEstimee] = useState()
   const updatePourcentage = (index, value) => {
@@ -85,10 +88,14 @@ export default function DPEFactureModule({ numDpe }) {
   }, [numDpe])
 
   useEffect(() => {
+    console.log('ici', dpe)
+    if (!dpe) return
+    console.log('dpe', dpe)
     const energiesUtilisees = [1, 2, 3]
       .map((i) => energies.find((e) => e.titre === dpe[`type_energie_n${i}`]))
       .filter(Boolean)
     setEnergiesUtilisees(energiesUtilisees)
+    setEnergiesUtiliseesApresReno(energiesUtilisees)
 
     const noDetail =
       dpe['conso_5_usages_ef'] === dpe['conso_5_usages_ef_energie_n1'] &&
@@ -134,7 +141,7 @@ export default function DPEFactureModule({ numDpe }) {
   }, [dpe])
 
   useEffect(() => {
-    if (!situation['projet . DPE visé']) return
+    if (!situation['projet . DPE visé'] || !dpe) return
     const targetDPE = situation['projet . DPE visé']
     const moyenneConsoClasseDPE =
       (data[targetDPE]['énergie'] + data[targetDPE - 1]['énergie']) / 2
@@ -158,16 +165,23 @@ export default function DPEFactureModule({ numDpe }) {
         detailParEnergieEP
           .map((val, i) => {
             return (
-              (energiesUtilisees[i].valeur == 'électricité' ? val / 2.3 : val) *
-              energiesUtilisees[i].prixMoyen
+              (energiesUtiliseesApresReno[i].valeur == 'électricité'
+                ? val / 2.3
+                : val) * energiesUtiliseesApresReno[i].prixMoyen
             )
           })
           .reduce((a, c) => a + c, 0) + prixAbonnementElectricite,
       ),
     )
-  }, [pourcentagesApresReno, situation])
+  }, [pourcentagesApresReno, energiesUtiliseesApresReno, situation])
 
-  const EnergieTable = ({ title, pourcentages, energies, editable }) => (
+  const EnergieTable = ({
+    title,
+    pourcentages,
+    energies,
+    energiesUtilisees,
+    editable,
+  }) => (
     <div>
       <div
         css={`
@@ -178,12 +192,6 @@ export default function DPEFactureModule({ numDpe }) {
         {title}
       </div>
       <table>
-        {/* <thead>
-          <tr>
-            <th>Type</th>
-            <th>Proportion</th>
-          </tr>
-        </thead> */}
         <tbody>
           {pourcentages.map((_, index) => {
             if (!energiesUtilisees[index]) return
@@ -195,7 +203,15 @@ export default function DPEFactureModule({ numDpe }) {
                     disabled={!editable}
                     value={energiesUtilisees[index]?.valeur}
                     values={energies}
-                    onChange={() => {}}
+                    onChange={(e) => {
+                      const newEnergiesUtilisees = energiesUtilisees.map(
+                        (energieUtilisee, i) =>
+                          i === index
+                            ? energies.find((energie) => energie.valeur === e)
+                            : energieUtilisee,
+                      )
+                      setEnergiesUtiliseesApresReno(newEnergiesUtilisees)
+                    }}
                   />
                 </td>
                 <td>
@@ -277,6 +293,7 @@ export default function DPEFactureModule({ numDpe }) {
               title="Actuellement :"
               pourcentages={pourcentagesAvantReno}
               energies={energies}
+              energiesUtilisees={energiesUtilisees}
             />
           </div>
           <DPEQuickSwitch
@@ -369,6 +386,7 @@ export default function DPEFactureModule({ numDpe }) {
               title="Après rénovation :"
               pourcentages={pourcentagesApresReno}
               energies={energies}
+              energiesUtilisees={energiesUtiliseesApresReno}
               editable={true}
             />
           </div>
