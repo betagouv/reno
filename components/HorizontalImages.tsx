@@ -8,7 +8,7 @@ const Container = styled.div`
   gap: 1rem;
   flex-wrap: wrap;
   img {
-    max-width: calc(50% - 1rem);
+    max-width: calc(50% - 1.5rem);
   }
 `
 
