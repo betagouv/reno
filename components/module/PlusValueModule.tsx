@@ -25,7 +25,7 @@ import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
 import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
-import ValeurVerteWidget from '../valeurVerte/ValeurVerteWidget'
+import PlusValueWidget from '../plusValue/PlusValueWidget'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 
 export default function PlusValueModule({ type }) {
@@ -247,7 +247,7 @@ export default function PlusValueModule({ type }) {
       </small>
     </ModuleWrapper>
   ) : (
-    <ValeurVerteWidget
+    <PlusValueWidget
       {...{
         situation,
         setSearchParams,

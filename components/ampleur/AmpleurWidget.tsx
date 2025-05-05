@@ -1,31 +1,11 @@
-import { useState, useEffect } from 'react'
-import { push } from '@socialgouv/matomo-next'
-import { formatNumberWithSpaces } from '../utils'
-import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
-import TargetDPETabs from '../mpra/TargetDPETabs'
-import rules from '@/app/règles/rules'
-import DPELabel, { conversionLettreIndex } from '../dpe/DPELabel'
-import AddressSearch from '../AddressSearch'
-import Select from '../Select'
-import Image from 'next/image'
-import editIcon from '@/public/crayon.svg'
 import CalculatorWidget from '../CalculatorWidget'
-import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
-import { DPEAppreciationInfo, hasResult } from '../module/ValeurVerte'
-import { usageLogement, usageLogementValues } from '@/app/module/AmpleurInputs'
 import {
   IdFQuestion,
   PersonnesQuestion,
   RevenuQuestion,
   TypeResidence,
 } from '@/app/module/AmpleurQuestions'
-import {
-  EvaluationValue,
-  EvaluationValueWrapper,
-} from '@/app/module/AmpleurEvaluation'
-import { useAides } from './useAides'
-import { filterAidesToDisplay } from './AmpleurSummary'
-import { AmpleurAideSummary } from '@/app/module/AmpleurAideSummary'
+import { EvaluationValue } from '@/app/module/AmpleurEvaluation'
 
 const AmpleurWidget = ({
   onChange,

@@ -26,9 +26,9 @@ import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
 import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
-import ValeurVerteWidget from '../valeurVerte/ValeurVerteWidget'
+import PlusValueWidget from '../plusValue/PlusValueWidget'
 
-export default function PlusValueModule({ type, lettre }) {
+export default function PlusValueModule({ type }) {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
@@ -42,23 +42,30 @@ export default function PlusValueModule({ type, lettre }) {
   const situation = getSituation(searchParams, rules)
   const answeredQuestions = Object.keys(situation)
 
-  if (!situation['DPE . actuel']) {
-    situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre) + 1
+  // setSearchParams(
+  //   encodeSituation({
+  //     'DPE . actuel': getIndexLettre(dpe),
+  //     'projet . DPE visé': Math.max(getIndexLettre(dpe) - 2, 1),
+  //   }),
+  // )
 
-    setSearchParams({
-      [encodeDottedName('DPE . actuel')]: `${situation['DPE . actuel']}*`,
-    })
-  }
+  // if (!situation['DPE . actuel']) {
+  //   situation['DPE . actuel'] = conversionLettreIndex.indexOf(lettre) + 1
 
-  if (!situation['projet . DPE visé']) {
-    setSearchParams({
-      [encodeDottedName('projet . DPE visé')]:
-        `${Math.max(situation['DPE . actuel'] - 2, 0)}*`,
-    })
-  }
+  //   setSearchParams({
+  //     [encodeDottedName('DPE . actuel')]: `${situation['DPE . actuel']}*`,
+  //   })
+  // }
+
+  // if (!situation['projet . DPE visé']) {
+  //   setSearchParams({
+  //     [encodeDottedName('projet . DPE visé')]:
+  //       `${Math.max(situation['DPE . actuel'] - 2, 0)}*`,
+  //   })
+  // }
 
   useEffect(() => {
-    push(['trackEvent', 'Module', 'Page', 'Module Valeur Verte'])
+    push(['trackEvent', 'Module', 'Page', 'Module Plus Value'])
   }, [])
 
   useEffect(() => {
@@ -264,7 +271,7 @@ export default function PlusValueModule({ type, lettre }) {
       </small>
     </ModuleWrapper>
   ) : (
-    <ValeurVerteWidget
+    <PlusValueWidget
       {...{
         situation,
         setSearchParams,

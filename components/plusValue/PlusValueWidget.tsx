@@ -9,9 +9,9 @@ import Image from 'next/image'
 import editIcon from '@/public/crayon.svg'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeDottedName } from '../publicodes/situationUtils'
-import { DPEAppreciationInfo, hasResult } from '../module/ValeurVerte'
+import { DPEAppreciationInfo, hasResult } from '../module/PlusValue'
 
-const ValeurVerteWidget = ({
+const PlusValueWidget = ({
   engine,
   situation,
   setSearchParams,
@@ -253,4 +253,4 @@ const ValeurVerteWidget = ({
   )
 }
 
-export default ValeurVerteWidget
+export default PlusValueWidget
