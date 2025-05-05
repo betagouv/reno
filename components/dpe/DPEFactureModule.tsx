@@ -19,6 +19,7 @@ import styled from 'styled-components'
 import useDpe from './useDpe'
 import { getIndexLettre } from './DPEPage'
 import iconReduire from '@/public/reduire.svg'
+import editIcon from '@/public/crayon.svg'
 
 const prixAbonnementElectricite = 160
 
@@ -38,6 +39,7 @@ export default function DPEFactureModule({ type, numDpe }) {
     [],
   )
   const [montantFactureActuelle, setMontantFactureActuelle] = useState()
+  const [montantFactureInitial, setMontantFactureInitial] = useState()
   const [montantFactureEstimee, setMontantFactureEstimee] = useState()
   const updatePourcentage = (index, value) => {
     setPourcentagesApresReno((prev) => {
@@ -94,19 +96,19 @@ export default function DPEFactureModule({ type, numDpe }) {
 
     setPourcentagesAvantReno(pourcentageInitial)
     setPourcentagesApresReno(pourcentageInitial.map((e) => (e == '?' ? 0 : e)))
-    setMontantFactureActuelle(
-      noDetail
-        ? dpe['cout_total_5_usages']
-        : Math.round(
-            energiesUtilisees.reduce(
-              (total, energie, i) =>
-                total +
-                energie['prix moyen'] *
-                  (dpe[`conso_5_usages_ef_energie_n${i + 1}`] || 0),
-              0,
-            ),
+    const montantFactureInitial = noDetail
+      ? dpe['cout_total_5_usages']
+      : Math.round(
+          energiesUtilisees.reduce(
+            (total, energie, i) =>
+              total +
+              energie['prix moyen'] *
+                (dpe[`conso_5_usages_ef_energie_n${i + 1}`] || 0),
+            0,
           ),
-    )
+        )
+    setMontantFactureInitial(montantFactureInitial)
+    setMontantFactureActuelle(montantFactureInitial)
     setSearchParams(
       encodeSituation({
         'DPE . actuel': getIndexLettre(dpe),
@@ -134,6 +136,10 @@ export default function DPEFactureModule({ type, numDpe }) {
         (energiesUtilisees[i].titre === 'Électricité' ? value * 2.3 : value) /
         pourcentageEconomieVise,
     )
+    const coefficientDeCorrection = montantFactureInitial
+      ? montantFactureActuelle / montantFactureInitial
+      : 1
+
     // On reconvertit en EF pour appliquer le prix au kWh de l'énergie
     setMontantFactureEstimee(
       Math.round(
@@ -146,9 +152,14 @@ export default function DPEFactureModule({ type, numDpe }) {
             )
           })
           .reduce((a, c) => a + c, 0) + prixAbonnementElectricite,
-      ),
+      ) * coefficientDeCorrection,
     )
-  }, [pourcentagesApresReno, energiesUtiliseesApresReno, situation])
+  }, [
+    pourcentagesApresReno,
+    energiesUtiliseesApresReno,
+    montantFactureActuelle,
+    situation,
+  ])
 
   const EnergieTable = ({
     title,
@@ -196,7 +207,6 @@ export default function DPEFactureModule({ type, numDpe }) {
         {showTable && (
           <table
             css={`
-              margin-left: 1rem;
               td {
                 padding: 0.2rem;
               }
@@ -276,11 +286,7 @@ export default function DPEFactureModule({ type, numDpe }) {
   }
 
   const MontantFacture = ({ montant, type }) => (
-    <div
-      css={`
-        margin-left: 1rem;
-      `}
-    >
+    <div>
       <div
         css={`
           display: flex;
@@ -333,9 +339,73 @@ export default function DPEFactureModule({ type, numDpe }) {
         `}
       >
         {montant > 0 ? (
-          <span>
-            environ <strong>{formatNumber(montant)} €</strong>
-          </span>
+          <>
+            {type != 'actuel' ? (
+              <span>
+                environ <strong>{formatNumber(montant)} €</strong>
+              </span>
+            ) : (
+              <div
+                css={`
+                  display: flex;
+                `}
+              >
+                <div
+                  css={`
+                    margin: auto;
+                  `}
+                >
+                  environ
+                  <input
+                    id="facture-actuelle"
+                    css={`
+                      border: none;
+                      font-weight: bold;
+                      background: transparent;
+                      -webkit-appearance: none;
+                      outline: none;
+                      color: var(--color);
+                      font-size: 110%;
+                      max-width: 4rem;
+                      margin-left: 0.3rem;
+                      padding: 0;
+                    `}
+                    autoFocus={false}
+                    value={montantFactureActuelle}
+                    placeholder="facture actuelle"
+                    min="0"
+                    max="9999"
+                    onChange={(e) => {
+                      const rawValue = e.target.value
+                      const startPos = e.target.selectionStart
+                      const value = +rawValue === 0 ? 0 : rawValue
+                      setMontantFactureActuelle(value)
+                      requestAnimationFrame(() => {
+                        const inputBudget =
+                          document.querySelector('#facture-actuelle')
+                        inputBudget.selectionStart = startPos
+                        inputBudget.selectionEnd = startPos
+                      })
+                    }}
+                    step="1"
+                  />
+                  €
+                </div>
+                <Image
+                  css={`
+                    cursor: pointer;
+                    width: 20px;
+                    height: 20px;
+                  `}
+                  src={editIcon}
+                  alt="Icône crayon pour éditer"
+                  onClick={() =>
+                    document.querySelector('#facture-actuelle').focus()
+                  }
+                />
+              </div>
+            )}
+          </>
         ) : (
           <small>
             Veuillez renseigner les valeurs de la calculatrice pour connaître le
