@@ -13,14 +13,16 @@ import { encodeSituation, getSituation } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useSetSearchParams from '../useSetSearchParams'
-import DPELabel, { conversionLettreIndex } from './DPELabel'
-import { fetchDPE } from './DPEPage'
+import DPELabel from './DPELabel'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import styled from 'styled-components'
+import useDpe from './useDpe'
+import { getIndexLettre } from './DPEPage'
 
 const prixAbonnementElectricite = 160
 
 export default function DPEFactureModule({ type, numDpe }) {
+  const dpe = useDpe(numDpe)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
@@ -28,7 +30,6 @@ export default function DPEFactureModule({ type, numDpe }) {
   const energies = listeEnergies['énergies . type']['une possibilité parmi'][
     'possibilités'
   ].map((e) => listeEnergies['énergie . ' + e])
-  const [dpe, setDpe] = useState()
   const [pourcentagesAvantReno, setPourcentagesAvantReno] = useState([])
   const [pourcentagesApresReno, setPourcentagesApresReno] = useState([])
   const [energiesUtilisees, setEnergiesUtilisees] = useState([])
@@ -52,13 +53,6 @@ export default function DPEFactureModule({ type, numDpe }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
-
-  useEffect(() => {
-    async function fetchData() {
-      setDpe(await fetchDPE(numDpe))
-    }
-    fetchData()
-  }, [numDpe])
 
   useEffect(() => {
     if (!dpe) return
@@ -114,9 +108,8 @@ export default function DPEFactureModule({ type, numDpe }) {
     )
     setSearchParams(
       encodeSituation({
-        'DPE . actuel': conversionLettreIndex.indexOf(dpe['etiquette_dpe']),
-        'projet . DPE visé':
-          conversionLettreIndex.indexOf(dpe['etiquette_dpe']) - 1,
+        'DPE . actuel': getIndexLettre(dpe),
+        'projet . DPE visé': Math.max(getIndexLettre(dpe) - 2, 1),
       }),
     )
   }, [dpe])

@@ -18,8 +18,12 @@ import getNextQuestions from '../../publicodes/getNextQuestions'
 import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
 import { AvanceTMO } from '../../mprg/BlocAideMPR'
 import { DPETravauxAmpleur } from './DPETravauxAmpleur'
+import useDpe from '../useDpe'
+import useSetSearchParams from '@/components/useSetSearchParams'
 
-export default function DPETravauxModule({ dpe, setSearchParams }) {
+export default function DPETravauxModule({ type, numDpe }) {
+  const setSearchParams = useSetSearchParams()
+  const dpe = useDpe(numDpe)
   const [visibleWork, setVisibleWork] = useState({})
   const [xml, setXml] = useState()
 
@@ -140,86 +144,88 @@ export default function DPETravauxModule({ dpe, setSearchParams }) {
 
   return (
     <CalculatorWidget>
-      <Accordion>
-        <section>
-          <h3
-            onClick={() => displayBloc('isolation')}
-            className={visibleWork['isolation'] ? 'active' : ''}
-          >
-            Isoler mon logement
-            <span>
-              <Priorité valeur={getPriorite('isolation')} />
-              <span title="Voir le détail">🔎</span>
-            </span>
-          </h3>
-          <div
-            className={`slide-down ${visibleWork['isolation'] ? 'active' : ''}`}
-          >
-            <DPETravauxIsolation
-              {...{
-                dpe,
-                xml,
-                rules,
-                engine,
-                situation,
-                setSearchParams,
-              }}
-            />
-          </div>
-        </section>
-        <section>
-          <h3
-            onClick={() => displayBloc('chauffage')}
-            className={visibleWork['chauffage'] ? 'active' : ''}
-          >
-            <span>Changer mon système de chauffage</span>
-            <span>
-              <Priorité valeur={getPriorite('chauffage')} />
-              <span title="Voir le détail">🔎</span>
-            </span>
-          </h3>
-          <div
-            className={`slide-down ${visibleWork['chauffage'] ? 'active' : ''}`}
-          >
-            <DPETravauxChauffage
-              {...{
-                dpe,
-                xml,
-                rules,
-                engine,
-                situation,
-                setSearchParams,
-              }}
-            />
-          </div>
-        </section>
-        <section>
-          <h3
-            onClick={() => displayBloc('ampleur')}
-            className={visibleWork['ampleur'] ? 'active' : ''}
-          >
-            <span>Rénovation globale</span>
-            <span>
-              <Priorité valeur={getPriorite('ampleur')} />
-              <span title="Voir le détail">🔎</span>
-            </span>
-          </h3>
-          <div
-            className={`slide-down ${visibleWork['ampleur'] ? 'active' : ''}`}
-          >
-            <DPETravauxAmpleur
-              {...{
-                dpe,
-                xml,
-                rules,
-                engine,
-                situation,
-                setSearchParams,
-              }}
-            />
-          </div>
-        </section>
-      </Accordion>
+      {dpe && (
+        <Accordion>
+          <section>
+            <h3
+              onClick={() => displayBloc('isolation')}
+              className={visibleWork['isolation'] ? 'active' : ''}
+            >
+              Isoler mon logement
+              <span>
+                <Priorité valeur={getPriorite('isolation')} />
+                <span title="Voir le détail">🔎</span>
+              </span>
+            </h3>
+            <div
+              className={`slide-down ${visibleWork['isolation'] ? 'active' : ''}`}
+            >
+              <DPETravauxIsolation
+                {...{
+                  dpe,
+                  xml,
+                  rules,
+                  engine,
+                  situation,
+                  setSearchParams,
+                }}
+              />
+            </div>
+          </section>
+          <section>
+            <h3
+              onClick={() => displayBloc('chauffage')}
+              className={visibleWork['chauffage'] ? 'active' : ''}
+            >
+              <span>Changer mon système de chauffage</span>
+              <span>
+                <Priorité valeur={getPriorite('chauffage')} />
+                <span title="Voir le détail">🔎</span>
+              </span>
+            </h3>
+            <div
+              className={`slide-down ${visibleWork['chauffage'] ? 'active' : ''}`}
+            >
+              <DPETravauxChauffage
+                {...{
+                  dpe,
+                  xml,
+                  rules,
+                  engine,
+                  situation,
+                  setSearchParams,
+                }}
+              />
+            </div>
+          </section>
+          <section>
+            <h3
+              onClick={() => displayBloc('ampleur')}
+              className={visibleWork['ampleur'] ? 'active' : ''}
+            >
+              <span>Rénovation globale</span>
+              <span>
+                <Priorité valeur={getPriorite('ampleur')} />
+                <span title="Voir le détail">🔎</span>
+              </span>
+            </h3>
+            <div
+              className={`slide-down ${visibleWork['ampleur'] ? 'active' : ''}`}
+            >
+              <DPETravauxAmpleur
+                {...{
+                  dpe,
+                  xml,
+                  rules,
+                  engine,
+                  situation,
+                  setSearchParams,
+                }}
+              />
+            </div>
+          </section>
+        </Accordion>
+      )}
     </CalculatorWidget>
   )
 }

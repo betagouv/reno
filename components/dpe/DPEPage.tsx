@@ -20,74 +20,59 @@ import iconChauffage from '@/public/chauffage.svg'
 import iconEauChaude from '@/public/eauChaude.png'
 import iconSurface from '@/public/surface.png'
 import Image from 'next/image'
-import { isValidDpeNumber } from '@/app/api/dpe/route'
+import useDpe from './useDpe'
 
-export const fetchDPE = async (dpe) => {
-  if (!isValidDpeNumber(dpe)) return
-  try {
-    const request = await fetch(
-      `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?q=numero_dpe%3D${dpe}`,
-    )
-    const json = await request.json()
-    return json.results[0]
-  } catch (e) {
-    console.error(e)
-  }
-}
+export const getIndexLettre = (dpe) =>
+  conversionLettreIndex.indexOf(
+    conversionLettreIndex.indexOf(dpe['etiquette_dpe']) >
+      conversionLettreIndex.indexOf(dpe['etiquette_ges'])
+      ? dpe['etiquette_dpe']
+      : dpe['etiquette_ges'],
+  ) + 1
 
-export default function DPEPage({ numDpe }) {
-  const [dpe, setDpe] = useState(null)
+export default function DPEPage({ numDpe: initialNumDpe }) {
+  const [numDpe, setNumDpe] = useState(initialNumDpe)
+  const dpe = useDpe(numDpe)
   const setSearchParams = useSetSearchParams()
+  useEffect(() => {
+    async function handleSelectDpe() {
+      if (!dpe) return
+      const anneeConstruction = dpe['periode_construction'].slice(-4)
+      let situation = await enrichSituation({
+        'logement . commune': `"${dpe['code_insee_ban']}"*`,
+        'logement . département': `"${dpe['code_departement_ban']}"*`,
+        'logement . commune . nom': `"${dpe['nom_commune_ban']}"*`,
+        'logement . surface': `${dpe['surface_habitable_logement']}*`,
+        'logement . période de construction': `'${
+          anneeConstruction < new Date().getFullYear() - 15
+            ? 'au moins 15 ans'
+            : anneeConstruction < new Date().getFullYear() - 2
+              ? 'de 2 à 10 ans'
+              : 'moins de 2 ans'
+        }'*`,
+        'DPE . actuel': getIndexLettre(dpe) + '*',
+        'projet . DPE visé': Math.max(getIndexLettre(dpe) - 2, 1) + '*',
+        'logement . type': `"${dpe['type_batiment']}"*`,
+        'ménage . région . IdF': `"${
+          ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
+            dpe['code_departement_ban'],
+          )
+            ? 'oui'
+            : 'non'
+        }"*`,
+      })
+
+      setSearchParams(
+        encodeSituation({ ...situation }),
+        'push',
+        true,
+        `/dpe/${dpe['numero_dpe']}`,
+      )
+    }
+    handleSelectDpe()
+  }, [dpe])
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-  useEffect(() => {
-    async function fetchData() {
-      handleSelectDpe(await fetchDPE(numDpe))
-    }
-    fetchData()
-  }, [numDpe])
-
-  const handleSelectDpe = async (dpe) => {
-    if (!dpe) return
-    setDpe(dpe)
-    const lettre =
-      conversionLettreIndex.indexOf(dpe['etiquette_dpe']) >
-      conversionLettreIndex.indexOf(dpe['etiquette_ges'])
-        ? dpe['etiquette_dpe']
-        : dpe['etiquette_ges']
-    const index = conversionLettreIndex.indexOf(lettre) + 1
-    const anneeConstruction = dpe['periode_construction'].slice(-4)
-    let situation = await enrichSituation({
-      'logement . commune': `"${dpe['code_insee_ban']}"*`,
-      'logement . département': `"${dpe['code_departement_ban']}"*`,
-      'logement . commune . nom': `"${dpe['nom_commune_ban']}"*`,
-      'logement . surface': `${dpe['surface_habitable_logement']}*`,
-      'logement . période de construction': `'${
-        anneeConstruction < new Date().getFullYear() - 15
-          ? 'au moins 15 ans'
-          : anneeConstruction < new Date().getFullYear() - 2
-            ? 'de 2 à 10 ans'
-            : 'moins de 2 ans'
-      }'*`,
-      'DPE . actuel': index + '*',
-      'projet . DPE visé': Math.max(index - 2, 0) + '*',
-      'logement . type': `"${dpe['type_batiment']}"*`,
-      'ménage . région . IdF': `"${
-        ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
-          dpe['code_departement_ban'],
-        )
-          ? 'oui'
-          : 'non'
-      }"*`,
-    })
-
-    setSearchParams(
-      encodeSituation({ ...situation }),
-      'push',
-      true,
-      `/dpe/${dpe['numero_dpe']}`,
-    )
-  }
 
   const interdictionLocation = {
     G: 2025,
@@ -123,7 +108,6 @@ export default function DPEPage({ numDpe }) {
             <div>
               <DPEAddressSearch
                 searchParams={searchParams}
-                onSelectDpe={handleSelectDpe}
                 dpe={dpe}
                 click={true}
               />
@@ -202,54 +186,47 @@ export default function DPEPage({ numDpe }) {
             </div>
             <DPEMap
               searchParams={searchParams}
-              onSelectDpe={handleSelectDpe}
+              onSelectDpe={setNumDpe}
               dpe={dpe}
             />
           </div>
-          {dpe && (
-            <>
-              <Wrapper $background="white" $noMargin={true}>
-                <Content>
-                  <h2>Quel impact sur la valeur de mon logement ?</h2>
-                  <PlusValueModule type="widget" />
-                  <h2>Quelles aides sont mobilisables ?</h2>
-                  <div
-                    css={`
-                      h2 {
-                        font-size: 130% !important;
-                      }
-                    `}
-                  >
-                    <Ampleur type="widget" />
-                  </div>
-                  <h2>Quels travaux privilégiés ?</h2>
-                  <DPETravauxModule {...{ setSearchParams, dpe }} />
-                  <h2>Quels impact sur votre facture énergétique?</h2>
-                  <DPEFactureModule numDpe={numDpe} type="widget" />
-                  <h2>Une interdiction de location est-elle prévue?</h2>
-                  {Object.keys(interdictionLocation).includes(
-                    dpe['etiquette'],
-                  ) ? (
-                    <>
-                      Une interdiction de location est prévue à partir du{' '}
-                      <strong>
-                        1<sup>er</sup> janvier{' '}
-                        {interdictionLocation[dpe['etiquette']]}
-                      </strong>{' '}
-                      pour les logements avec un DPE{' '}
-                      <DPELabel label={dpe['etiquette']} />
-                    </>
-                  ) : (
-                    <>
-                      Aucune interdiction de location n'est actuellement prévu
-                      pour un logement avec un DPE{' '}
-                      <DPELabel label={dpe['etiquette']} />
-                    </>
-                  )}
-                </Content>
-              </Wrapper>
-            </>
-          )}
+          <Wrapper $background="white" $noMargin={true}>
+            <Content>
+              <h2>Quel impact sur la valeur de mon logement ?</h2>
+              <PlusValueModule type="widget" />
+              <h2>Quelles aides sont mobilisables ?</h2>
+              <div
+                css={`
+                  h2 {
+                    font-size: 130% !important;
+                  }
+                `}
+              >
+                <Ampleur type="widget" />
+              </div>
+              <h2>Quels travaux privilégiés ?</h2>
+              <DPETravauxModule numDpe={numDpe} type="widget" />
+              <h2>Quels impact sur votre facture énergétique?</h2>
+              <DPEFactureModule numDpe={numDpe} type="widget" />
+              <h2>Une interdiction de location est-elle prévue?</h2>
+              {Object.keys(interdictionLocation).includes(dpe['etiquette']) ? (
+                <>
+                  Une interdiction de location est prévue à partir du{' '}
+                  <strong>
+                    1<sup>er</sup> janvier{' '}
+                    {interdictionLocation[dpe['etiquette']]}
+                  </strong>{' '}
+                  pour les logements avec un DPE{' '}
+                  <DPELabel label={dpe['etiquette']} />
+                </>
+              ) : (
+                <>
+                  Aucune interdiction de location n'est actuellement prévu pour
+                  un logement avec un DPE <DPELabel label={dpe['etiquette']} />
+                </>
+              )}
+            </Content>
+          </Wrapper>
         </Section>
       </main>
     )
