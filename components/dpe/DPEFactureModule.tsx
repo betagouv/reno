@@ -18,6 +18,7 @@ import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import styled from 'styled-components'
 import useDpe from './useDpe'
 import { getIndexLettre } from './DPEPage'
+import iconReduire from '@/public/reduire.svg'
 
 const prixAbonnementElectricite = 160
 
@@ -155,88 +156,124 @@ export default function DPEFactureModule({ type, numDpe }) {
     energies,
     energiesUtilisees,
     editable,
-  }) => (
-    <>
-      <div
-        css={`
-          font-weight: bold;
-        `}
-      >
-        {title}
-      </div>
-      <table
-        css={`
-          margin-left: 1rem;
-          td {
-            padding: 0.2rem;
-          }
-          input {
-            height: 2.8em !important;
-            width: 4rem !important;
-            display: inline-block;
-            margin: auto;
-          }
-          .input-wrapper::after {
-            content: '%';
-            position: absolute;
-            transform: translateY(55%) translateX(-150%);
-            pointer-events: none;
-          }
-          select {
-            height: 2.8rem;
-            background: #f5f5fe;
-            max-width: 90vw;
-          }
-        `}
-      >
-        <tbody>
-          {pourcentages.map((_, index) => {
-            if (!energiesUtilisees[index]) return
-            return (
-              <tr key={index}>
-                <td>
-                  <Select
-                    disableInstruction={false}
-                    disabled={!editable}
-                    value={energiesUtilisees[index]?.titre}
-                    values={energies}
-                    onChange={(e) => {
-                      const newEnergiesUtilisees = energiesUtilisees.map(
-                        (energieUtilisee, i) =>
-                          i === index
-                            ? energies.find((energie) => energie.titre === e)
-                            : energieUtilisee,
-                      )
-                      setEnergiesUtiliseesApresReno(newEnergiesUtilisees)
-                    }}
-                  />
-                </td>
-                <td>
-                  {(pourcentages[index] != '?' || editable) && (
-                    <div className="input-wrapper">
-                      <input
-                        type="number"
-                        min="0"
-                        max="100"
+  }) => {
+    const [showTable, setShowTable] = useState(false)
+    return (
+      <>
+        <div
+          css={`
+            display: flex;
+            justify-content: space-between;
+          `}
+        >
+          <span
+            css={`
+              font-weight: bold;
+            `}
+          >
+            {title}
+          </span>{' '}
+          <span
+            css={`
+              cursor: pointer;
+              color: #0974f6;
+              display: flex;
+              align-items: center;
+            `}
+            onClick={() => setShowTable(!showTable)}
+          >
+            Détail
+            <Image
+              src={iconReduire}
+              css={`
+                margin-left: 0.5rem;
+                ${!showTable && 'transform: rotate(180deg);'}
+              `}
+              alt="icone réduire"
+            />
+          </span>
+        </div>
+        {showTable && (
+          <table
+            css={`
+              margin-left: 1rem;
+              td {
+                padding: 0.2rem;
+              }
+              input {
+                height: 2.8em !important;
+                width: 4rem !important;
+                display: inline-block;
+                margin: auto;
+              }
+              .input-wrapper::after {
+                content: '%';
+                position: absolute;
+                transform: translateY(55%) translateX(-150%);
+                pointer-events: none;
+              }
+              select {
+                height: 2.8rem;
+                background: #f5f5fe;
+                max-width: 90vw;
+              }
+            `}
+          >
+            <tbody>
+              {pourcentages.map((_, index) => {
+                if (!energiesUtilisees[index]) return
+                return (
+                  <tr key={index}>
+                    <td>
+                      <Select
+                        disableInstruction={false}
                         disabled={!editable}
-                        value={pourcentages[index]}
-                        onChange={(e) =>
-                          updatePourcentage(
-                            index,
-                            Math.max(0, Math.min(100, Number(e.target.value))),
+                        value={energiesUtilisees[index]?.titre}
+                        values={energies}
+                        onChange={(e) => {
+                          const newEnergiesUtilisees = energiesUtilisees.map(
+                            (energieUtilisee, i) =>
+                              i === index
+                                ? energies.find(
+                                    (energie) => energie.titre === e,
+                                  )
+                                : energieUtilisee,
                           )
-                        }
+                          setEnergiesUtiliseesApresReno(newEnergiesUtilisees)
+                        }}
                       />
-                    </div>
-                  )}
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    </>
-  )
+                    </td>
+                    <td>
+                      {(pourcentages[index] != '?' || editable) && (
+                        <div className="input-wrapper">
+                          <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            disabled={!editable}
+                            value={pourcentages[index]}
+                            onChange={(e) =>
+                              updatePourcentage(
+                                index,
+                                Math.max(
+                                  0,
+                                  Math.min(100, Number(e.target.value)),
+                                ),
+                              )
+                            }
+                          />
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        )}
+      </>
+    )
+  }
 
   const MontantFacture = ({ montant, type }) => (
     <div
@@ -297,8 +334,7 @@ export default function DPEFactureModule({ type, numDpe }) {
       >
         {montant > 0 ? (
           <span>
-            entre <strong>{formatNumber(0.9 * montant)} €</strong> et{' '}
-            <strong>{formatNumber(1.1 * montant)} €</strong>
+            environ <strong>{formatNumber(montant)} €</strong>
           </span>
         ) : (
           <small>
@@ -410,5 +446,6 @@ export const DeuxColonnes = styled.div`
     flex-direction: column;
     gap: 1rem;
     flex-grow: 1;
+    width: 100%;
   }
 `

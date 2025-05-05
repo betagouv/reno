@@ -18,7 +18,7 @@ import { IframeCodeWrapper } from '@/components/Integration'
 const modules = {
   ampleur: '750px',
   'plus-value': '750px',
-  facture: '510px',
+  facture: '410px',
 }
 
 const iframeCode = (src, moduleName, cssExample = false) => `
