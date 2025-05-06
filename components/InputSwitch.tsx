@@ -327,7 +327,7 @@ export default function InputSwitch({
   if (["parcours d'aide"].includes(currentQuestion)) {
     console.log('indigo consent', sendDataToHost, consent)
     if (sendDataToHost && !consent) {
-      return <Consentement {...{ setConsent, situation }} />
+      return <Consentement {...{ setConsent, situation, sendDataToHost }} />
     }
     return (
       <Eligibility

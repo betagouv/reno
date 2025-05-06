@@ -17,7 +17,11 @@ export function useSendDataToHost() {
 
     console.log('indigo consent bool ', params.get('sendDataToHost'), params)
     if (params.has('sendDataToHost')) {
-      setSendDataToHost(true)
+      const hostName = params.get('hostName')
+      setSendDataToHost({
+        data: 'eligibility', // not used yet, just an idea
+        hostName,
+      })
     }
   }, [setSendDataToHost, isInIframe])
 

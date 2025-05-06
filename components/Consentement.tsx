@@ -1,11 +1,15 @@
-import { QuestionHeader } from '@/app/simulation/QuestionHeader'
-import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
-import { CTA, CTAWrapper, Card } from './UI'
 import { BlueEm } from '@/app/LandingUI'
+import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import { postMessageEligibilityDone } from '@/utils/iframe'
+import { AnswerWrapper, Subtitle } from './InputUI'
+import { CTA, CTAWrapper, Card } from './UI'
 
-export default function Consentement({ setConsent, situation }) {
-  const name = "J'agis"
+export default function Consentement({
+  setConsent,
+  situation,
+  sendDataToHost,
+}) {
+  const { hostName } = sendDataToHost
   return (
     <Card style={{ margin: '1rem 1rem' }}>
       <QuestionHeader>
@@ -14,7 +18,7 @@ export default function Consentement({ setConsent, situation }) {
 
           <h1>
             Acceptez-vous de partager votre simulation avec{' '}
-            <BlueEm>{name}</BlueEm> ?
+            <BlueEm>{hostName}</BlueEm> ?
           </h1>
           <Subtitle>
             <p>
