@@ -5,6 +5,7 @@ import * as iframe from '@/utils/iframe'
 
 export default function useIsInIframe() {
   const [isInIframe, setIsInIframe] = useState(false)
+  const [sendDataToHost, setSendDataToHost] = useState(false)
 
   const params = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : '/',
@@ -31,10 +32,14 @@ export default function useIsInIframe() {
       })
       observer.observe(window.document.body)
       // TODO return observer.disconnect this triggers an error, I don't know why
+
+      if (params.has('sendDataToHost')) {
+        setSendDataToHost(true)
+      }
     } else {
       setIsInIframe(false)
     }
-  }, [])
+  }, [sendDataToHost])
 
   return isInIframe
 }
