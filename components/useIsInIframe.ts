@@ -17,13 +17,15 @@ export default function useIsInIframe() {
       setIsInIframe(true)
 
       // NOTE: should we really want a minimum height for the iframe? Why?
-      // const minHeight = 700
+      // Yes : without a minimum height, the lower border of the iframe would jump on every "short" question
+      // see https://github.com/betagouv/reno/pull/362#issuecomment-2853544949
+      const minHeight = 700
 
       // The code below communicates with a script on a host site
       // to automatically resize the iframe when its inner content height
       // change.
       observer = new ResizeObserver(([entry]) => {
-        const value = entry.contentRect.height + 10 // without this 6 padding, the scroll bar will still be present
+        const value = Math.max(minHeight, entry.contentRect.height + 10) // without this 6 padding, the scroll bar will still be present
 
         iframe.postMessageResizeHeight(value)
       })
