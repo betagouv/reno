@@ -12,9 +12,12 @@ export default function Entreprise({ data }) {
   const [nom, rue, ville] = getAdresse(data)
   // le {nom} de l'entité n'est pas très utile, car c'est toujours empiriquement "Espace France Rénov [ville ou EPCI], le complementx de l'adresse est plus informatif
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
-  const horaires = JSON.parse(data.Horaires_Structure)
-  const telephone = data.Telephone_Structure
 
+  // On supprime quelques caractères qui font échouer le JSON.parse
+  const horaires = JSON.parse(
+    data.Horaires_Structure.replace(/[\u0000-\u001F\u007F-\u009F]/g, ''),
+  )
+  const telephone = data.Telephone_Structure
   const siteRaw = data.Site_Internet_Structure,
     site = siteRaw
       ? siteRaw?.startsWith('http')

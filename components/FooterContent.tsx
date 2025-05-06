@@ -1,8 +1,8 @@
-import { allArticles } from '@/.contentlayer/generated'
+import { getAllArticles } from '@/app/blog/articles'
 import { ExternalLink, FooterWrapper, InternalLink } from './UI'
-import { sortBy } from './utils'
-export default function FooterContent() {
-  const articles = [...sortBy((article) => article.date)(allArticles).reverse()]
+
+export default async function FooterContent() {
+  const sortedArticles = await getAllArticles()
   return (
     <FooterWrapper className="fr-footer" role="contentinfo">
       <div>
@@ -14,15 +14,7 @@ export default function FooterContent() {
               </InternalLink>
             </h3>
             <ul className="fr-footer__top-list">
-              <li key={'2025'}>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href={'/blog/aides-renovation-2025'}
-                >
-                  Quelles aides à la rénovation en 2025 ?
-                </InternalLink>
-              </li>
-              {articles
+              {sortedArticles
                 .filter(
                   ({ tags, brouillon }) =>
                     !tags?.includes('notes de version') && !brouillon,
@@ -33,7 +25,8 @@ export default function FooterContent() {
                       {titre}
                     </InternalLink>
                   </li>
-                ))}
+                ))
+                .slice(0, 6)}
             </ul>
           </div>
           <div className="footer-col">
@@ -142,6 +135,15 @@ export default function FooterContent() {
                   href="https://zerologementvacant.beta.gouv.fr"
                 >
                   Zéro Logement Vacant
+                </ExternalLink>
+              </li>
+              <li>
+                <ExternalLink
+                  className="fr-footer__top-link"
+                  title="Jagis"
+                  href="https://jagis.beta.gouv.fr"
+                >
+                  Jagis
                 </ExternalLink>
               </li>
             </ul>

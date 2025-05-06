@@ -7,7 +7,7 @@ import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import getAppUrl from './getAppUrl'
-import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant } from './UI'
+import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant, Card } from './UI'
 import { useEffect, useRef, useState } from 'react'
 import { Select } from './InputUI'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -15,6 +15,11 @@ import styled from 'styled-components'
 import IntegrationQuestions from './IntegrationQuestions'
 import useResizeIframeFromHost from './useResizeIframeFromHost'
 import Demonstration from '@/app/module/Demonstration'
+import calculetteImage from '@/public/illuModule.png'
+import Breadcrumb from '@/components/Breadcrumb'
+import { CardMosaic } from './DevenirPartenaire'
+import ampleurImage from '@/public/illuAmpleur.png'
+import plusValueImage from '@/public/illuPlusValue.png'
 
 export default function Integration() {
   const router = useRouter()
@@ -42,27 +47,27 @@ export default function Integration() {
       valeur: '/',
     },
     {
-      titre: 'Module Ampleur',
+      titre: 'Calculette Ampleur',
       valeur: '/module/integration?DPE.actuel=6',
     },
     {
-      titre: 'Module Copropriété',
+      titre: 'Calculette Copropriété',
       valeur: '/copropriete',
     },
     {
-      titre: 'Module Eco-PTZ',
+      titre: 'Calculette Eco-PTZ',
       valeur: '/module/eco-ptz',
     },
     {
-      titre: 'Module PAR+',
+      titre: 'Calculette PAR+',
       valeur: '/module/par',
     },
     {
-      titre: 'Module Taxe foncière',
+      titre: 'Calculette Taxe foncière',
       valeur: '/module/taxe-fonciere',
     },
     {
-      titre: 'Module Denormandie',
+      titre: 'Calculette Denormandie',
       valeur: '/module/denormandie',
     },
   ]
@@ -72,7 +77,8 @@ export default function Integration() {
     .forEach((item) =>
       listeModule.push({
         titre:
-          'Module MaPrimeRénov - ' + rules[item.replace(' . MPR', '')].titre,
+          'Calculette MaPrimeRénov - ' +
+          rules[item.replace(' . MPR', '')].titre,
         valeur:
           '/aides/ma-prime-renov/' +
           encodeURIComponent(rules[item.replace(' . MPR', '')].titre),
@@ -82,7 +88,7 @@ export default function Integration() {
     .filter((item) => item.startsWith('gestes') && item.endsWith('CEE'))
     .forEach((item) =>
       listeModule.push({
-        titre: 'Module CEE - ' + rules[item.replace(' . CEE', '')].titre,
+        titre: 'Calculette CEE - ' + rules[item.replace(' . CEE', '')].titre,
         valeur:
           '/aides/cee/' +
           rules[item].code +
@@ -97,7 +103,7 @@ export default function Integration() {
     .forEach((item) =>
       listeModule.push({
         titre:
-          'Module Coup de Pouce - ' +
+          'Calculette Coup de Pouce - ' +
           rules[item.replace(' . Coup de pouce', '')].titre,
         valeur:
           '/aides/coup-de-pouce/' +
@@ -112,164 +118,173 @@ export default function Integration() {
   const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
 
   return (
-    <PageBlock>
-      <HeaderWrapper>
-        <Image
-          src={illustrationAccueil}
-          alt="Des ouvriers peignent et réparent la facade d'une maison"
-        />
-        <div>
-          <h1
-            style={css`
-              margin-top: 0.6rem;
-              margin-bottom: 1rem;
-              font-size: 180%;
-            `}
-          >
-            Intégrer le calculateur des aides à la rénovation sur votre site.
-          </h1>
-          <Intro>
-            <p>
-              Mes Aides Réno est un service public de calcul des aides à la
-              rénovation énergétique. Le sujet est complexe, les aides sont
-              multiples, les règles sont mouvantes.
-            </p>
-            <p>
-              En intégrant directement notre calculateur sous forme d'iframe
-              chez vous, vous permettez à vos utilisateurs de calculer leurs
-              aides sans qu'ils quittent votre site.
-            </p>
-          </Intro>
-        </div>
-      </HeaderWrapper>
-      <Wrapper>
+    <main
+      style={css`
+        background: white;
+        padding-top: calc(1.5vh + 1.5vw);
+      `}
+    >
+      <PageBlock>
         <Content>
-          <div
-            css={`
-              display: flex;
-              gap: 1rem;
-              flex-wrap: wrap;
+          <Breadcrumb
+            links={[
+              { 'Devenir partenaire': '/devenir-partenaire' },
+              { 'Les iframes': '/integration' },
+            ]}
+          />
+        </Content>
+        <HeaderWrapper>
+          <Image
+            src={calculetteImage}
+            alt="Une personne utilise une calculatrice sur son bureau"
+            style={css`
+              margin: 1rem;
             `}
-          >
-            <MiseEnAvant $type="success" $noradius={true}>
-              <h2
-                css={`
-                  font-size: 1.5rem;
-                  color: black;
-                `}
-              >
-                Module Valeur Verte
-              </h2>
+          />
+          <div>
+            <h1
+              style={css`
+                margin-top: 0.6rem;
+                margin-bottom: 1rem;
+                font-size: 180%;
+              `}
+            >
+              Intégrer <BlueEm>les calculettes</BlueEm> des aides à la
+              rénovation sur votre site.
+            </h1>
+            <Intro>
               <p>
-                Découvrez notre module de calcul dédie au calcul de la
-                plus-value d'un bien suite à une rénovation.
+                Mes Aides Réno est un service public de calcul des aides à la
+                rénovation énergétique. Le sujet est complexe, les aides sont
+                multiples, les règles sont mouvantes.
               </p>
-              <CTAWrapper>
-                <CTA>
-                  <Link href="/module/valeur-verte">Découvrir le module</Link>
-                </CTA>
-              </CTAWrapper>
-            </MiseEnAvant>
-            <MiseEnAvant $noradius={true}>
-              <h2
-                css={`
-                  font-size: 1.5rem;
-                  color: black;
-                `}
-              >
-                Module Ampleur
-              </h2>
               <p>
-                Découvrez notre module de calcul spécialement conçu et optimisé
-                pour proposer simplement les aides à la rénovation énergétique
-                d'ampleur.
+                En intégrant directement nos calculatettes sous forme d'iframe
+                chez vous, vous permettez à vos utilisateurs d'estimer leurs
+                aides sans qu'ils quittent votre site.
               </p>
-              <CTAWrapper>
-                <CTA>
-                  <Link href="/module">Découvrir le module</Link>
-                </CTA>
-              </CTAWrapper>
-            </MiseEnAvant>
+            </Intro>
           </div>
-          <h2
-            css={`
-              margin-bottom: 1rem;
-            `}
-          >
-            Sélectionnez le module à intégrer:
-          </h2>
-          <Select
-            onChange={(e) => handleModuleChange(e.target.value)}
-            value={module}
-          >
-            {listeModule.map((item, index) => (
-              <option key={index} value={item.valeur}>
-                {item.titre}
-              </option>
-            ))}
-          </Select>
-          {module.includes('module/integration') ? (
-            <Demonstration moduleName="ampleur" />
-          ) : (
-            <>
-              <p
+        </HeaderWrapper>
+        <Wrapper>
+          <Content>
+            <h2
+              css={`
+                margin-bottom: 1rem;
+              `}
+            >
+              Nos dernières calculettes:
+            </h2>
+            <CardMosaic $smallTitle $noPadding>
+              <Card>
+                <Image src={plusValueImage} alt="Logo Plus Value" />
+                <h3>
+                  <Link href="/module/plus-value/demonstration">
+                    Ma plus-value Réno
+                  </Link>
+                </h3>
+                <p>
+                  Estimez la plus-value de votre logement après sa rénovation.
+                </p>
+              </Card>
+              <Card>
+                <Image src={ampleurImage} alt="Logo Ampleur" />
+                <h3>
+                  <Link href="/module">Rénovation d'ampleur</Link>
+                </h3>
+                <p>
+                  Calculez l'ensemble de vos aides pour une rénovation
+                  d'ampleur.
+                </p>
+              </Card>
+              {/* Petit hack en attendant un 3ème module */}
+              <div
                 css={`
-                  margin-top: 1rem;
+                  opacity: 0;
+                  cursor: auto;
                 `}
-              >
-                Voici{' '}
-                <BlueEm>
-                  <strong>le code à intégrer</strong>
-                </BlueEm>{' '}
-                dans votre HTML ou votre contenu Wordpress :
-              </p>
-              <IframeCodeWrapper>
-                <code
+              ></div>
+            </CardMosaic>
+            <h2
+              css={`
+                margin-bottom: 1rem;
+              `}
+            >
+              Sélectionnez la calculette à intégrer:
+            </h2>
+            <Select
+              onChange={(e) => handleModuleChange(e.target.value)}
+              value={module}
+            >
+              {listeModule.map((item, index) => (
+                <option key={index} value={item.valeur}>
+                  {item.titre}
+                </option>
+              ))}
+            </Select>
+            {module.includes('module/integration') ? (
+              <Demonstration moduleName="ampleur" />
+            ) : (
+              <>
+                <p
                   css={`
-                    word-break: break-all;
+                    margin-top: 1rem;
                   `}
                 >
-                  {iframeCode}
-                </code>
-              </IframeCodeWrapper>
-              <IntegrationQuestions {...{ noScroll, setNoScroll }} />
-              <h2>Le résultat</h2>
+                  Voici{' '}
+                  <BlueEm>
+                    <strong>le code à intégrer</strong>
+                  </BlueEm>{' '}
+                  dans votre HTML ou votre contenu Wordpress :
+                </p>
+                <IframeCodeWrapper>
+                  <code
+                    css={`
+                      word-break: break-all;
+                    `}
+                  >
+                    {iframeCode}
+                  </code>
+                </IframeCodeWrapper>
+                <IntegrationQuestions {...{ noScroll, setNoScroll }} />
+                <h2>Le résultat</h2>
 
-              <div
-                style={css`
-                  text-align: center;
-                  background: radial-gradient(
-                    circle,
-                    rgba(0, 0, 145, 0.2) 0%,
-                    rgba(0, 212, 255, 0) 60%,
-                    rgba(0, 212, 255, 0) 100%
-                  );
-                `}
-              >
-                <p>[votre contenu]</p>
-                <iframe
-                  ref={iframeRef}
-                  src={getAppUrl() + module}
+                <div
                   style={css`
-                    width: 400px;
-                    height: 700px;
-                    margin: 3rem auto;
-                    display: block;
-                    border: 0.2rem solid black;
-                    border-radius: 1rem;
-                    box-shadow:
-                      rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-                      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+                    text-align: center;
+                    background: radial-gradient(
+                      circle,
+                      rgba(0, 0, 145, 0.2) 0%,
+                      rgba(0, 212, 255, 0) 60%,
+                      rgba(0, 212, 255, 0) 100%
+                    );
                   `}
-                ></iframe>
-                <p>[la suite de votre contenu]</p>
-              </div>
-            </>
-          )}
-        </Content>
-      </Wrapper>
-      <ContactIntegration type="iframe" />
-    </PageBlock>
+                >
+                  <p>[votre contenu]</p>
+                  <iframe
+                    ref={iframeRef}
+                    src={getAppUrl() + module}
+                    style={css`
+                      width: 400px;
+                      height: 700px;
+                      margin: 3rem auto;
+                      display: block;
+                      border: 0.2rem solid black;
+                      border-radius: 1rem;
+                      box-shadow:
+                        rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+                        rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+                    `}
+                  ></iframe>
+                  <p>[la suite de votre contenu]</p>
+                </div>
+              </>
+            )}
+          </Content>
+        </Wrapper>
+        <ContactIntegration type="iframe" />
+      </PageBlock>
+    </main>
   )
 }
 

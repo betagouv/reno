@@ -114,6 +114,13 @@ const Article = styled.article`
       margin: 0.6rem 0;
     }
   }
+
+  aside {
+    background: var(--lighterColor3);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 0.1rem 1.2rem;
+  }
 `
 
 export default Article

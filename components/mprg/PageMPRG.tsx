@@ -36,12 +36,16 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
     ...getSituation(situationSearchParams, rules),
   }
 
+  // Le setSituation est nécessaire pour que les nextQuestions soient à jour
   const questions = getNextQuestions(
-    engine.evaluate(rule + ' . MPR . montant'),
+    engine.setSituation(situation).evaluate(rule + ' . MPR . montant'),
     [],
     simulationConfig,
     rules,
   )
+  // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
+  questions.unshift(...Object.keys(situation))
+
   const infoMPR = {
     montant: formatValue(
       engine.setSituation(situation).evaluate(rule + ' . MPR . montant'),

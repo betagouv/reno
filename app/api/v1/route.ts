@@ -34,29 +34,10 @@ async function apiResponse(method: string, request: Request) {
       )
     }
 
-    const rawSituation =
+    let rawSituation =
       method === 'POST' ? await request.json() : getSituation(params, rules)
-
-    // On récupère code région/code département pour déterminer le barème MPR et les zones H1,H2,H3 des CEE
-    if (typeof rawSituation['ménage . commune'] === 'number') {
-      // L'utilisateur a surement oublié les guillemets, on transforme en string
-      rawSituation['ménage . commune'] =
-        rawSituation['ménage . commune'].toString()
-    }
-    const commune = await getCommune(rawSituation, 'ménage . commune')
-    if (rawSituation['ménage . commune'] && !commune) {
-      throw new Error(
-        'Le code INSEE ' +
-          rawSituation['ménage . commune'] +
-          " n'existe pas. Attention à ne pas confondre avec le code postal.",
-      )
-    }
-    if (commune) {
-      rawSituation['ménage . code région'] = `"${commune.codeRegion}"`
-      rawSituation['ménage . code département'] = `"${commune.codeDepartement}"`
-      rawSituation['ménage . EPCI'] = `"${commune.codeEpci}"`
-    }
-
+    rawSituation = await handleCommuneData(rawSituation, 'ménage')
+    rawSituation = await handleCommuneData(rawSituation, 'logement')
     // De même, on récupère automatiquement l'éligibilité de la commune à Denormandie et exonération taxe foncière
     // Pour ne pas demander ses variables lors de l'appel API
     const situation = await enrichSituation(rawSituation)
@@ -176,6 +157,45 @@ function getDuree(
   }
 
   return undefined
+}
+
+export async function handleCommuneData(rawSituation, type) {
+  try {
+    // Vérifie si le code commune est un nombre (problème 06XXX -> 6XXX)
+    if (typeof rawSituation[type + ' . commune'] === 'number') {
+      throw new Error(
+        'Le code INSEE ' +
+          rawSituation[type + ' . commune'] +
+          ' doit être entre guillement.',
+      )
+    }
+    // Récupère les données de la commune
+    const commune = await getCommune(rawSituation, type + ' . commune')
+
+    // Vérifie si le code INSEE est valide
+    if (rawSituation[type + ' . commune'] && !commune) {
+      throw new Error(
+        'Le code INSEE ' +
+          rawSituation[type + ' . commune'] +
+          " n'existe pas. Attention à ne pas confondre avec le code postal.",
+      )
+    }
+
+    // Met à jour les données de la situation avec les informations de la commune
+    if (commune) {
+      rawSituation[type + ' . code région'] = `"${commune.codeRegion}"`
+      rawSituation[type + ' . code département'] =
+        `"${commune.codeDepartement}"`
+      rawSituation[type + ' . EPCI'] = `"${commune.codeEpci}"`
+    }
+    return rawSituation
+  } catch (error) {
+    console.error(
+      'Erreur lors de la récupération des données de la commune:',
+      error,
+    )
+    throw error
+  }
 }
 
 async function logRequest(token, fields, isTest) {

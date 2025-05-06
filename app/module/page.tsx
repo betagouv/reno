@@ -1,12 +1,13 @@
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
+import ampleurImage from '@/public/illuAmpleur.png'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
 import Demonstration from './Demonstration'
 import { Suspense } from 'react'
+import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
   title: "Module d'aide à la rénovation énergétique - Mes aides réno",
   description: `Découvrez le module de calcul des aides à la rénovation énergétique de Mes Aides Réno"`,
@@ -21,12 +22,23 @@ export default function Module({}) {
       `}
     >
       <PageBlock>
+        <Content>
+          <Breadcrumb
+            links={[
+              { 'Devenir partenaire': '/devenir-partenaire' },
+              { 'Les iframes': '/integration' },
+              { "Rénovation d'ampleur": '/module' },
+            ]}
+          />
+        </Content>
         <HeaderWrapper>
           <Image
-            src={illustrationAccueil}
-            alt="Des ouvriers peignent et réparent la facade d'une maison"
+            src={ampleurImage}
+            alt="Illustration du module ampleur"
+            style={css`
+              margin: 1rem;
+            `}
           />
-
           <div>
             <h1
               style={css`

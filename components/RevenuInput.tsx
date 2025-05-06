@@ -16,7 +16,11 @@ export const formatNumber = (n) =>
 
 export function getRevenusList(situation, engine) {
   const targets = ['ménage . revenu . barème IdF', 'ménage . revenu . barème']
-  const idf = engine.evaluate('ménage . région . IdF')
+  const idf = engine.evaluate(
+    (situation['logement . propriétaire occupant'] == 'oui'
+      ? 'logement'
+      : 'ménage') + ' . région . IdF',
+  )
   const activeEvaluation = engine
     .setSituation(omit(['ménage . revenu'], situation))
     .evaluate(targets[idf.nodeValue ? 0 : 1])
