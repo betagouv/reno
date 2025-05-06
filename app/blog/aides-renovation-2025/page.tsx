@@ -31,7 +31,7 @@ export const metadata = {
 
 export const article = {
   titre: title,
-  url: 'blog/aides-renovation-2025',
+  url: '/blog/aides-renovation-2025',
   slug: 'aides-renovation-2025',
   description,
   image,

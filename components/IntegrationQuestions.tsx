@@ -38,7 +38,7 @@ export default function IntegrationQuestions({
           ></iframe>
         </div>
       </details>
-      {noScroll && setNoScroll && (
+      {noScroll != null && setNoScroll && (
         <details>
           <summary>Comment cacher la barre de défilement verticale ?</summary>
           <div>

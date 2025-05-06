@@ -70,7 +70,7 @@ export default function Module({}) {
                   numérique Mes Aides Réno propose la première calculette Ma
                   Plus-Value Réno, basée sur{' '}
                   <a
-                    href="https://www.calameo.com/read/005125198fb2a3760f9e5"
+                    href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
                     target="_blank"
                   >
                     la dernière étude
