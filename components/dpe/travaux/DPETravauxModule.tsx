@@ -11,7 +11,10 @@ import React from 'react'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 import styled from 'styled-components'
-import { DPETravauxIsolation } from './DPETravauxIsolation'
+import {
+  DPETravauxIsolation,
+  getAssociationTravauxDpe,
+} from './DPETravauxIsolation'
 import { DPETravauxChauffage } from './DPETravauxChauffage'
 import { PrimeStyle } from '../../UI'
 import getNextQuestions from '../../publicodes/getNextQuestions'
@@ -21,6 +24,7 @@ import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 import useDpe from '../useDpe'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
+import listeChauffage from '@/app/règles/dpe/chauffage.publicodes'
 
 export default function DPETravauxModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
@@ -115,16 +119,42 @@ export default function DPETravauxModule({ type, numDpe }) {
   }
 
   const getPriorite = (type) => {
-    if (type == 'chauffage') return 'insuffisante'
-    if (type == 'isolation') {
-      return 'insuffisante'
-      return Object.entries(associationTravauxDpe).find(
-        (e, i) => dpe[e[1]] == 'insuffisante',
+    if (type == 'chauffage') {
+      const chauffage = dpe['type_generateur_chauffage_principal']
+      // Si le chauffage à moins de 10 ans
+      // S'il s'agit d'un réseau de chaleur
+      // S'il a le label flamme verte
+      if (
+        (Number.isInteger(chauffage.slice(-4)) &&
+          chauffage.slice(-4) >= new Date().getFullYear() - 10) ||
+        chauffage.includes('réseau de chaleur') ||
+        chauffage.includes('avec label flamme verte')
       )
+        return 'bonne'
+      // S'il s'agit d'un chauffage au fioul
+      // Si le chauffage à plus de 20 ans
+      // S'il s'agit d'une chaudière électrique
+      // S'il n'a pas de label flamme verte
+      // S'il utilise de l'énergie fossile
+      if (
+        chauffage.includes('fioul') ||
+        (Number.isInteger(chauffage.slice(-4)) &&
+          chauffage.slice(-4) < new Date().getFullYear() - 20) ||
+        chauffage == 'Chaudière électrique' ||
+        chauffage.includes('sans label flamme verte') ||
+        chauffage.includes('Convecteur électrique NFC, NF** et NF***') ||
+        chauffage.includes('sans label flamme verte') ||
+        chauffage.includes('energies fossiles')
+      )
+        return 'insuffisante'
+      return 'moyenne'
+    }
+    if (type == 'isolation') {
+      // On prend la pire notation des "sous"-travaux d'isolation
+      const travauxIsolation = Object.entries(getAssociationTravauxDpe(dpe))
+      return travauxIsolation.find((e) => dpe[e[1]] == 'insuffisante')
         ? 'insuffisante'
-        : Object.entries(associationTravauxDpe).find(
-              (e, i) => dpe[e[1]] == 'moyenne',
-            )
+        : travauxIsolation.find((e) => dpe[e[1]] == 'moyenne')
           ? 'moyenne'
           : 'bonne'
     }
@@ -322,7 +352,7 @@ export function Explication({ geste, dpe, xml, index, type }) {
   }
   if (geste == 'chauffage') {
     explication =
-      "Le système de chauffage est la première source de consommation énergétique de votre logement. Pour réduire ces dépenses, il est tout d'abord nécessaire de bien isoler votre logement ensuite, de changer votre système de chauffage."
+      "Le système de chauffage est la première source de consommation énergétique d'un logement. Il est d'abord nécessaire de bien isoler le logement avant de changer le système de chauffage."
   }
   if (geste == 'isolation') {
     explication =

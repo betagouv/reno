@@ -11,7 +11,6 @@ import Schema, { getPersonas } from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
-import useResizeIframeFromHost from '@/components/useResizeIframeFromHost'
 import { formatNumber } from '@/components/RevenuInput'
 import { IframeCodeWrapper } from '@/components/Integration'
 
