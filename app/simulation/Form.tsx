@@ -35,6 +35,7 @@ function Form({ rules }) {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+
   // this param `objectif` lets us optionally build the form to target one specific publicode rule
   const { objectif, depuisModule, ...situationSearchParams } = searchParams
 

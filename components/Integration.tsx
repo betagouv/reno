@@ -116,7 +116,7 @@ export default function Integration() {
   const iframeRef = useRef()
 
   const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
-  const [sendUserDataOption, setSendUserDataOption] = useState(false)
+  const [sendUserDataOption, setSendUserDataOption] = useState(true)
 
   return (
     <main
@@ -274,7 +274,7 @@ export default function Integration() {
                     src={
                       getAppUrl() +
                       module +
-                      (sendUserDataOption ? '?sendDataToHost' : '')
+                      (sendUserDataOption ? '?sendDataToHost=true' : '')
                     }
                     style={css`
                       width: 400px;

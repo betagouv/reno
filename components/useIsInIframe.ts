@@ -3,9 +3,29 @@
 import { useState, useEffect } from 'react'
 import * as iframe from '@/utils/iframe'
 
+export function useSendDataToHost() {
+  const isInIframe = useIsInIframe()
+  const [sendDataToHost, setSendDataToHost] = useState(false)
+  const [consent, setConsent] = useState(false)
+
+  useEffect(() => {
+    console.log('indigo consent isInIframe', isInIframe)
+    if (!isInIframe) return
+    const params = new URLSearchParams(
+      typeof window !== 'undefined' ? window.location.search : '/',
+    )
+
+    console.log('indigo consent bool ', params.get('sendDataToHost'), params)
+    if (params.has('sendDataToHost')) {
+      setSendDataToHost(true)
+    }
+  }, [setSendDataToHost, isInIframe])
+
+  return [sendDataToHost, consent, setConsent]
+}
+
 export default function useIsInIframe() {
   const [isInIframe, setIsInIframe] = useState(false)
-  const [sendDataToHost, setSendDataToHost] = useState(false)
 
   const params = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : '/',
@@ -32,14 +52,10 @@ export default function useIsInIframe() {
       })
       observer.observe(window.document.body)
       // TODO return observer.disconnect this triggers an error, I don't know why
-
-      if (params.has('sendDataToHost')) {
-        setSendDataToHost(true)
-      }
     } else {
       setIsInIframe(false)
     }
-  }, [sendDataToHost])
+  }, [])
 
   return isInIframe
 }

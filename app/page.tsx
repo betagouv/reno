@@ -27,7 +27,10 @@ export const metadata: Metadata = {
   openGraph: { images: ['/jaquette.png'] },
 }
 
-export default function Page() {
+export default async function Page(props) {
+  const searchParams = await props.searchParams
+
+  console.log('indigo consent isInIframe', searchParams)
   return (
     <main
       style={css`
@@ -85,7 +88,13 @@ export default function Page() {
             >
               <CTAWrapper $justify="left">
                 <CTA $fontSize="normal">
-                  <Link href="/simulation" prefetch={false}>
+                  <Link
+                    href={{
+                      pathname: '/simulation',
+                      query: searchParams, // needed to pass "iframe" and "sendDataToHost" params to the simulation
+                    }}
+                    prefetch={false}
+                  >
                     ➞&nbsp;&nbsp;C'est parti !
                   </Link>
                 </CTA>
