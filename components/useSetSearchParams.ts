@@ -1,8 +1,9 @@
 'use client'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
 export default function useSetSearchParams() {
+  const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [hash, setHash] = useState('')
@@ -14,28 +15,32 @@ export default function useSetSearchParams() {
   //TODO move to components
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
-  const createQueryParams = useCallback(
-    (newSearchParams: object, clear: boolean) =>
-      updateSearchParams(searchParams, newSearchParams, clear),
+  const createQueryString = useCallback(
+    (newSearchParams: object, clear: boolean) => {
+      const params = new URLSearchParams(clear ? {} : searchParams)
+
+      Object.entries(newSearchParams).map(([k, v]) => {
+        v === undefined ? params.delete(k) : params.set(k, v)
+      })
+
+      return params.toString()
+    },
     [searchParams],
   )
-
   return (
     newSearchParams: object,
     action: 'url' | 'push' | 'replace' = 'push',
     clear: boolean,
-    newPathname: string = '',
+    newPathname,
   ) => {
-    const oldUrl = pathname + '?' + new URLSearchParams(searchParams).toString()
-    const iframeParam = searchParams.get('iframe')
-    const updatedNewSearchParams = createQueryParams(newSearchParams, clear)
-    if (iframeParam) {
-      updatedNewSearchParams.set('iframe', iframeParam)
-    }
     const newUrl =
-      (newPathname || pathname) + '?' + updatedNewSearchParams.toString() + hash
+      (newPathname || pathname) +
+      '?' +
+      createQueryString(newSearchParams, clear) +
+      hash
 
     if (action === 'url') return newUrl
+    const oldUrl = pathname + '?' + new URLSearchParams(searchParams).toString()
     if (oldUrl === newUrl) return
     console.log('OLD URL', decodeURIComponent(oldUrl))
     console.log('NEW URL', decodeURIComponent(newUrl))
@@ -48,18 +53,4 @@ export default function useSetSearchParams() {
       //      router.replace(newUrl, { scroll: false })
     }
   }
-}
-
-function updateSearchParams(
-  searchParams: URLSearchParams,
-  newSearchParams: object,
-  clear: boolean,
-) {
-  const params = new URLSearchParams(clear ? {} : searchParams)
-
-  for (const [key, value] of Object.entries(newSearchParams)) {
-    value === undefined ? params.delete(key) : params.set(key, value)
-  }
-
-  return params
 }
