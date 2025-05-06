@@ -21,6 +21,7 @@ import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import CoproAddressSearch from './CoproAddressSearch'
 import { useSendDataToHost } from './useIsInIframe'
+import Consentement from './Consentement'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -326,12 +327,7 @@ export default function InputSwitch({
   if (["parcours d'aide"].includes(currentQuestion)) {
     console.log('indigo consent', sendDataToHost, consent)
     if (sendDataToHost && !consent) {
-      return (
-        <div>
-          <p>Consentement ?</p>
-          <button onClick={() => setConsent(true)}>OK</button>
-        </div>
-      )
+      return <Consentement {...{ setConsent, situation }} />
     }
     return (
       <Eligibility

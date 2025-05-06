@@ -65,3 +65,18 @@ export const Select = styled.select`
   background-size: 1rem 1rem;
   border-radius: 0.25rem 0.25rem 0 0;
 `
+
+export const QuestionCard = styled.div`
+  max-width: 800px;
+  min-height: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+`
+
+export const Subtitle = styled.div`
+  p {
+    color: #666;
+    font-size: 90%;
+    line-height: 1.25rem;
+  }
+`
