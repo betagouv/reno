@@ -10,8 +10,8 @@
   --lightestColor: #f5f5fe;
   --mutedColor: #666666;
   --validColor: #18753c;
-  --validColor1: #BFF1C5;
-  --warningColor: #FDF8DB;
+  --validColor1: #bff1c5;
+  --warningColor: #fdf8db;
   --shadow-color: 180deg 2% 70%;
   --shadow-elevation-medium: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.31),
     0.7px 1.3px 1.6px -1px hsl(var(--shadow-color) / 0.29),
@@ -55,7 +55,7 @@ h1,
 h2,
 h3,
 h4 {
-  margin: 4vh 0 3vh;
+  margin: 1.5rem 0 0.5rem;
 }
 
 @media (max-width: 800px) {
@@ -158,4 +158,3 @@ input[type='radio']:not(:checked):not(:disabled) {
 input::placeholder {
   color: var(--lighterColor3);
 }
-

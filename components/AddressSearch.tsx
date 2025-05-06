@@ -43,8 +43,10 @@ export default function AddressSearch({
       setIsLoading(true)
       const request = await fetch(
         onlyNumbers(input)
-          ? `https://geo.api.gouv.fr/communes?codePostal=${input}`
-          : `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
+          ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
+          : `/api/geo/?path=${encodeURIComponent(
+              `communes?nom=${input}&boost=population&limit=5`,
+            )}`,
       )
       const json = await request.json()
 

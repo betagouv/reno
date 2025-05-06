@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
 export const AnswerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 2vh;
+  margin-top: 1rem;
 `
 
 export const FormLinkButton = styled(Link)`
@@ -64,4 +64,19 @@ export const Select = styled.select`
   background-repeat: no-repeat;
   background-size: 1rem 1rem;
   border-radius: 0.25rem 0.25rem 0 0;
+`
+
+export const QuestionCard = styled.div`
+  max-width: 800px;
+  min-height: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+`
+
+export const Subtitle = styled.div`
+  p {
+    color: #666;
+    font-size: 90%;
+    line-height: 1.25rem;
+  }
 `

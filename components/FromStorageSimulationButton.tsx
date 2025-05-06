@@ -3,7 +3,8 @@ import restoreIcon from '@/public/restore.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLocalStorage } from 'usehooks-ts'
-import { CTA } from './UI'
+import { CTA, CTAWrapper } from './UI'
+import css from './css/convertToJs'
 
 export default function FromStorageSimulationButton() {
   const [simulation] = useLocalStorage('simulation', null)
@@ -23,32 +24,36 @@ export default function FromStorageSimulationButton() {
 
   */
   return (
-    <CTA
-      $fontSize="normal"
-      $importance="secondary"
-      css={`
-        margin: 1rem 0;
-        width: fit-content;
-        a {
-          display: flex;
-          align-items: center;
-          padding: 0.5rem 0.8rem;
-        }
-      `}
-    >
-      <Link href={simulation} prefetch={false}>
-        <Image
-          src={restoreIcon}
-          alt="Icône symbolisant la récupération"
+    <CTAWrapper $justify="left">
+      <CTA
+        $fontSize="normal"
+        $importance="secondary"
+        style={css`
+          padding: 0.5rem 0;
+        `}
+      >
+        <Link
+          href={simulation}
+          prefetch={false}
           css={`
-            width: 1rem !important;
-            height: auto !important;
-            margin: 0 !important;
-            margin-right: 0.6rem !important;
+            display: flex !important;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
           `}
-        />
-        Reprendre ma dernière simulation{' '}
-      </Link>
-    </CTA>
+        >
+          <Image
+            src={restoreIcon}
+            alt="Icône symbolisant la récupération"
+            css={`
+              width: 1rem !important;
+              height: 1rem !important;
+              margin-right: 0.6rem !important;
+            `}
+          />
+          <span>Reprendre ma dernière simulation </span>
+        </Link>
+      </CTA>
+    </CTAWrapper>
   )
 }

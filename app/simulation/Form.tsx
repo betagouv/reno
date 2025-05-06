@@ -35,12 +35,23 @@ function Form({ rules }) {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+
   // this param `objectif` lets us optionally build the form to target one specific publicode rule
   const { objectif, depuisModule, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
 
-  const engine = useMemo(() => new Publicodes(rules), [rules])
+  const engine = useMemo(
+    () =>
+      new Publicodes(rules, {
+        logger: {
+          warn: () => {},
+          log: () => {},
+          error: (message) => console.error(message),
+        },
+      }),
+    [rules],
+  )
   const answeredQuestions = [
     ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(situationSearchParams, rules),

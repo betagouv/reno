@@ -1,17 +1,18 @@
+import Feedback from '@/app/contact/Feedback'
 import { No, Yes } from '@/components/ResultUI'
-import AmpleurSummary from './ampleur/AmpleurSummary'
+import { push } from '@socialgouv/matomo-next'
+import BackToLastQuestion from './BackToLastQuestion'
+import CopyButton from './CopyButton'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
+import FatConseiller from './FatConseiller'
 import PersonaBar from './PersonaBar'
+import { Section } from './UI'
+import AmpleurSummary from './ampleur/AmpleurSummary'
+import { useAides } from './ampleur/useAides'
 import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
+import useIsInIframe from './useIsInIframe'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
-import Feedback from '@/app/contact/Feedback'
-import FatConseiller from './FatConseiller'
-import BackToLastQuestion from './BackToLastQuestion'
-import { useAides } from './ampleur/useAides'
-import { Section } from './UI'
-import { push } from '@socialgouv/matomo-next'
-import CopyButton from './CopyButton'
 
 export default function Eligibility({
   setSearchParams,
@@ -23,6 +24,7 @@ export default function Eligibility({
   searchParams,
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+  const isInIframe = useIsInIframe()
   const nextLink = (value) => {
     const url = setSearchParams(
       {
@@ -154,7 +156,9 @@ export default function Eligibility({
               "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
           }}
         />
-        <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+        {isInIframe ? null : (
+          <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+        )}
       </CustomQuestionWrapper>
     </Section>
   )
