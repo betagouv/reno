@@ -116,6 +116,7 @@ export default function Integration() {
   const iframeRef = useRef()
 
   const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
+  const [sendUserDataOption, setSendUserDataOption] = useState(false)
 
   return (
     <main
@@ -246,7 +247,14 @@ export default function Integration() {
                     {iframeCode}
                   </code>
                 </IframeCodeWrapper>
-                <IntegrationQuestions {...{ noScroll, setNoScroll }} />
+                <IntegrationQuestions
+                  {...{
+                    noScroll,
+                    setNoScroll,
+                    sendUserDataOption,
+                    setSendUserDataOption,
+                  }}
+                />
                 <h2>Le résultat</h2>
 
                 <div
@@ -263,7 +271,11 @@ export default function Integration() {
                   <p>[votre contenu]</p>
                   <iframe
                     ref={iframeRef}
-                    src={getAppUrl() + module}
+                    src={
+                      getAppUrl() +
+                      module +
+                      (sendUserDataOption ? '?sendDataToHost' : '')
+                    }
                     style={css`
                       width: 400px;
                       height: 700px;
