@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { IframeCodeWrapper } from './Integration'
 import { BlueEm } from '@/app/LandingUI'
+import { useEffect, useState } from 'react'
 
 export default function IntegrationQuestions({
   noScroll = null,
@@ -8,6 +9,25 @@ export default function IntegrationQuestions({
   sendUserDataOption = null,
   setSendUserDataOption = null,
 }) {
+  const [dataReceived, setDataReceived] = useState(null)
+  useEffect(() => {
+    if (!sendUserDataOption) return
+
+    const handleMesAidesRenoUserData = function (evt) {
+      if (evt.data.kind === 'mesaidesreno-eligibility-done') {
+        console.log('mesaidesreno-eligibility-done event received !')
+        console.log(evt.data)
+        setDataReceived(evt.data)
+        // faire quelque chose avec en respectant la loi
+      }
+    }
+
+    window.addEventListener('message', handleMesAidesRenoUserData)
+
+    return () => {
+      window.removeEventListener('message', handleMesAidesRenoUserData)
+    }
+  }, [sendUserDataOption, setDataReceived])
   return (
     <Wrapper>
       <details>
@@ -135,6 +155,12 @@ export default function IntegrationQuestions({
 	</script>
 					  `}</code>
             </IframeCodeWrapper>
+            {dataReceived && (
+              <section>
+                ✅ données reçues depuis l'iframe : ouvrez la console pour les
+                inspecter
+              </section>
+            )}
           </div>
         </details>
       )}

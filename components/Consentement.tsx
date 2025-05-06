@@ -33,6 +33,9 @@ export default function Consentement({
           <CTA $fontSize="normal" $importance="primary">
             <button
               onClick={() => {
+                console.log(
+                  'should trigger mesaidesreno-eligibility-done event',
+                )
                 postMessageEligibilityDone(situation)
                 // more for user comprehension than real need, postMessage should be synchronous
                 setTimeout(() => {
