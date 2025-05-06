@@ -20,10 +20,14 @@ import { AvanceTMO } from '../../mprg/BlocAideMPR'
 import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 import useDpe from '../useDpe'
 import useSetSearchParams from '@/components/useSetSearchParams'
+import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 
 export default function DPETravauxModule({ type, numDpe }) {
-  const setSearchParams = useSetSearchParams()
   const dpe = useDpe(numDpe)
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= 400,
+  )
+  const setSearchParams = useSetSearchParams()
   const [visibleWork, setVisibleWork] = useState({})
   const [xml, setXml] = useState()
 
@@ -142,8 +146,20 @@ export default function DPETravauxModule({ type, numDpe }) {
     }))
   }
 
+  const Wrapper = ({ type, children }) =>
+    type === 'module' ? (
+      <ModuleWrapper
+        isMobile={isMobile}
+        title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
+      >
+        {children}
+      </ModuleWrapper>
+    ) : (
+      <CalculatorWidget>{children}</CalculatorWidget>
+    )
+
   return (
-    <CalculatorWidget>
+    <Wrapper type={type}>
       {dpe && (
         <Accordion>
           <section>
@@ -226,7 +242,7 @@ export default function DPETravauxModule({ type, numDpe }) {
           </section>
         </Accordion>
       )}
-    </CalculatorWidget>
+    </Wrapper>
   )
 }
 export const getQuestions = (rule, situation, engine) => {
