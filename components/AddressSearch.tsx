@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
+import getAppUrl from './getAppUrl'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
@@ -42,9 +43,12 @@ export default function AddressSearch({
     const asyncFetch = async () => {
       setIsLoading(true)
       const request = await fetch(
-        onlyNumbers(input)
-          ? `https://geo.api.gouv.fr/communes?codePostal=${input}`
-          : `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
+        getAppUrl() +
+          (onlyNumbers(input)
+            ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
+            : `/api/geo/?path=${encodeURIComponent(
+                `communes?nom=${input}&boost=population&limit=5`,
+              )}`),
       )
       const json = await request.json()
 
