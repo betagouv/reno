@@ -45,7 +45,7 @@ export default function MapMarkers({
         return marker
       })
 
-    map.fitBounds(bounds, { maxZoom: 17 })
+    map.fitBounds(bounds, { maxZoom: 17, padding: 160 })
     return () => {
       markers.map((marker) => marker.remove())
     }
