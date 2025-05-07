@@ -441,6 +441,9 @@ DPE . actuel:
     C: 3
     B: 2
   schema module: Nécessaire. Un entier de 1 (A) à 7 (G).
+  temporel:
+    description: |
+      Le DPE n'est pas obligatoire pour toucher les aides MaPrimeRénov', mais il est vivement recommandé.
 
 projet:
   titre: Votre projet de rénovation
@@ -668,6 +671,7 @@ MPR:
 
 parcours d'aide:
   question: Votre choix du parcours d'aide
+  titre: Ampleur ou par geste
   description: |
 
     Les aides à la rénovation énergétique sont séparées en deux grands parcours, qui sont exclusifs l'un à l'autre. 
@@ -683,6 +687,9 @@ parcours d'aide:
   possibilités:
     - 'ampleur'
     - 'à la carte'
+  temporel:
+    dépendances:
+      - DPE . actuel
 
 parcours d'aide . ampleur:
 parcours d'aide . à la carte:
