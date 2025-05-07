@@ -4,6 +4,8 @@ import SegmentedControl from './SegmentedControl'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
 import RevenuInput from './RevenuInput'
+import { Dot } from '@/app/module/AmpleurQuestions'
+import TargetDPETabs from './mpra/TargetDPETabs'
 
 export default function GesteQuestion({
   rules,
@@ -12,7 +14,9 @@ export default function GesteQuestion({
   situation,
   setSearchParams,
   answeredQuestions,
+  onChangeEvent,
   autoFocus,
+  dot = false,
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
@@ -29,17 +33,19 @@ export default function GesteQuestion({
       answeredQuestions,
     )
     setSearchParams(encodedSituation, 'push', false)
+    onChangeEvent && onChangeEvent(value)
   }
 
   return (
     <div
       css={`
         display: flex;
-        justify-content: space-between;
+        ${!dot && 'justify-content: space-between;'}
+        ${dot && 'gap: 1rem;'}
         align-items: center;
-        margin: 0.8rem 0;
+        margin: ${!dot ? '0.8rem' : '0'} 0;
         padding: 0.4rem 0 1rem;
-        border-bottom: 1px solid var(--lighterColor);
+        ${!dot && `border-bottom: 1px solid var(--lighterColor);`}
         &:last-child {
           border: none;
           margin-bottom: 0;
@@ -57,8 +63,13 @@ export default function GesteQuestion({
             margin: 0 0 0 auto;
           }
         }
+        img {
+          width: 1rem;
+          height: auto;
+        }
       `}
     >
+      {dot && <Dot css={``} />}
       <div>{currentQuestion.question}</div>
       <InputComponent
         {...{
@@ -144,6 +155,18 @@ const InputComponent = ({
       situation={situation}
       value={currentValue == null ? '' : currentValue}
       onChange={onChange}
+    />
+  ) : question === 'projet . DPE visé' ? (
+    <TargetDPETabs
+      {...{
+        oldIndex: situation['DPE . actuel'] - 1,
+        choice: Math.max(1, situation['projet . DPE visé'] - 1),
+        setSearchParams,
+        answeredQuestions,
+        engine,
+        situation,
+        text: '',
+      }}
     />
   ) : (
     <Input

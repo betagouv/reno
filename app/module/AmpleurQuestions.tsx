@@ -57,9 +57,10 @@ export const TypeResidence = ({
   setSearchParams,
   situation,
   answeredQuestions,
+  dot = true,
 }) => (
   <section>
-    <Dot />
+    {dot && <Dot />}
     <label htmlFor="">
       Ce logement sera :{' '}
       <Select
@@ -224,6 +225,7 @@ export const RevenuQuestion = ({
   setSearchParams,
   engine,
   situation,
+  dot = true,
 }) => {
   const thisQuestionSatisfied = answeredQuestions.includes('ménage . revenu')
   if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
@@ -246,7 +248,7 @@ export const RevenuQuestion = ({
           align-items: center;
         `}
       >
-        <Dot />
+        {dot && <Dot />}
         <div>
           {!thisQuestionSatisfied && (
             <div>
@@ -510,9 +512,10 @@ export const IdFQuestion = ({
   isMobile,
   situation,
   answeredQuestions,
+  rule = 'logement . région . IdF',
+  dot = true,
 }) => {
   // Ici, il faut savoir si l'on parle du ménage ou du logement
-  let rule = 'logement . région . IdF'
   if (situation['logement . résidence principale propriétaire'] == 'non') {
     rule = 'ménage . région . IdF'
   }
@@ -524,7 +527,7 @@ export const IdFQuestion = ({
         align-items: center;
       `}
     >
-      <Dot />
+      {dot && <Dot />}
       <YesNoQuestionStyle>
         <span>
           {rule == 'ménage . région . IdF'
@@ -537,7 +540,7 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'oui'}
+              checked={answered && situation[rule].includes('oui')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf oui'])
                 setSearchParams({
@@ -551,7 +554,7 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule] === 'non'}
+              checked={answered && situation[rule].includes('non')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf non'])
                 setSearchParams({

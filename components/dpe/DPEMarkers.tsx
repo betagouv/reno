@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { Marker, LngLatBounds } from 'maplibre-gl'
 
-import dpeColors from '@/components/DPE.yaml'
-import { pointToRectangle } from './geoUtils'
+import dpeColors from '@/components/dpe/DPE.yaml'
+import { pointToRectangle } from '../geoUtils'
 
 const pointsToPolygons = (featureCollection) => {
   const { features } = featureCollection
@@ -18,12 +18,12 @@ const pointsToPolygons = (featureCollection) => {
 
     return { ...polygon, properties }
   })
-  console.log('indigo surf', polygons)
+  //console.log('indigo surf', polygons)
   return { ...featureCollection, features: [...polygons, ...features] }
 }
 
 const iconSize = '30'
-export default function DpeMarkers({ map, featureCollection, selectMarker }) {
+export default function DPEMarkers({ map, featureCollection, selectMarker }) {
   useEffect(() => {
     if (!featureCollection?.features?.length) return
 
@@ -95,11 +95,25 @@ export default function DpeMarkers({ map, featureCollection, selectMarker }) {
         },
         //'discs',
       )
+      map.on('click', 'discs', (e) => {
+        if (!e.features?.length) return
+        const feature = e.features[0]
+        selectMarker(feature.properties)
+      })
+
+      map.on('click', 'dpe-markers', (e) => {
+        if (!e.features?.length) return
+        const feature = e.features[0]
+        selectMarker(feature.properties)
+      })
     }
 
     draw()
     return () => {
       try {
+        map.off('click', 'discs', selectMarker)
+        map.off('click', 'dpe-markers', selectMarker)
+
         map.removeLayer('dpe-markers')
         map.removeLayer('3d-dpe')
         map.removeLayer('discs')
@@ -144,7 +158,8 @@ export default function DpeMarkers({ map, featureCollection, selectMarker }) {
     }
   }, [
     map,
-    featureCollection?.features.map((f) => f.properties['N°DPE']).join('|'),
+    featureCollection?.features?.map((f) => f.properties['N°DPE']).join('|'),
+    selectMarker,
   ])
   return <div></div>
 }

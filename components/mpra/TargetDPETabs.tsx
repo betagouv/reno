@@ -1,5 +1,5 @@
-import dpeValues from '@/components/DPE.yaml'
-import DPELabel from '../DPELabel'
+import dpeValues from '@/components/dpe/DPE.yaml'
+import DPELabel from '../dpe/DPELabel'
 import { encodeSituation } from '../publicodes/situationUtils'
 
 export default function TargetDPETabs({
@@ -33,7 +33,7 @@ export default function TargetDPETabs({
         gap: 0.5rem;
       `}
     >
-      <div>{text}&nbsp;:</div>
+      {text != '' && <div>{text}&nbsp;:</div>}
       <nav>
         <ol
           css={`
@@ -44,7 +44,6 @@ export default function TargetDPETabs({
               display: none;
             }
             li  {
-              margin: 0.1rem;
               label {
                 cursor: pointer;
               }

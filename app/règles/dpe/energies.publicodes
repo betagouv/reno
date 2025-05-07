@@ -1,0 +1,69 @@
+énergies:
+énergies . type:
+  une possibilité parmi:
+    possibilités:
+      - électricité
+      - gaz
+      - fioul
+      - bois
+      - granulés
+      - gpl
+      - propane
+      - charbon
+      - reseauChaleur
+      - aucun
+
+énergie . aucun:
+  titre: Aucun
+  libellé DPE: Aucune
+  prix moyen: 0
+
+énergie . électricité:
+  titre: Électricité
+  libellé DPE: Électricité
+  prix moyen: 0.2016
+
+énergie . gaz:
+  titre: Gaz naturel
+  libellé DPE: Gaz naturel
+  prix moyen: 0.13
+
+énergie . fioul:
+  titre: Fioul domestique
+  libellé DPE: Fioul domestique
+  prix moyen: 0.13
+
+énergie . bois:
+  titre: Bois
+  libellé DPE:
+    une possibilité parmi:
+      possibilités:
+      - Bois – Bûches
+      - Bois – Plaquettes forestières
+      - Bois – Plaquettes d’industrie
+  prix moyen: 0.04
+
+énergie . granulés:
+  titre: Granulés
+  libellé DPE: Bois – Granulés (pellets) ou briquettes
+  prix moyen: 0.07
+
+énergie . gpl:
+  titre: GPL
+  libellé DPE: GPL
+  prix moyen: 0.2
+
+énergie . propane:
+  titre: Propane
+  libellé DPE: Propane
+  prix moyen: 0.2
+
+énergie . charbon:
+  titre: Charbon
+  libellé DPE: Charbon
+  prix moyen: 0.072
+
+énergie . reseauChaleur:
+  titre: Réseau de chaleur
+  libellé DPE: Réseau de Chauffage urbain
+  prix moyen: 0.08

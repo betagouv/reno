@@ -78,6 +78,28 @@ isolation . vitres . CEE . barème:
     - si: CEE . région = 'H3'
       alors: 2100
 
+isolation . murs:
+  titre: Isolation des murs
+isolation . murs . montant:
+  variations:
+    - si: type = 'murs extérieurs'
+      alors: murs extérieurs . montant
+    - si: type = 'murs intérieurs'
+      alors: murs intérieurs . montant
+isolation . murs . type:
+  question: "Quel type d'isolation vous intéresse ?"
+  une possibilité parmi:
+    possibilités:
+      - murs extérieurs
+      - murs intérieurs
+  montant:
+isolation . murs . type . murs extérieurs:
+  valeur: murs extérieurs
+  titre: "Par l'extérieur"
+isolation . murs . type . murs intérieurs:
+  valeur: murs intérieurs
+  titre: "Par l'intérieur"
+
 isolation . murs extérieurs:
   titre: Isolation des murs par l'extérieur
   par défaut: oui

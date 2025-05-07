@@ -62,7 +62,7 @@ export default function Module({}) {
                 }}
               >
                 <div style={{ margin: 'auto' }}>
-                  <PlusValueModule type={'module'} />
+                  <PlusValueModule type="module" />
                 </div>
                 <h2>Combien vaut mon logement après rénovation ?</h2>
                 <p>
