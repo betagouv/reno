@@ -10,6 +10,7 @@ import { getServerUrl } from './getAppUrl'
 import useAddAddressMap from './useAddAddressMap'
 import useSetSearchParams from './useSetSearchParams'
 import { computeBbox } from './geoUtils'
+import DpeList from './DpeList'
 
 export default function AddressSearch({ searchParams }) {
   const setSearchParams = useSetSearchParams()
@@ -44,7 +45,19 @@ export default function AddressSearch({ searchParams }) {
 
         const request = await fetch(url)
         const json = await request.json()
-        console.log('cyan', json)
+        const etageKey = 'N°_étage_appartement'
+        console.log(
+          'cyan',
+          json.results.map(
+            (el) =>
+              el[etageKey] +
+              ' ' +
+              el['Type_bâtiment'] +
+              ' | ' +
+              el["Complément_d'adresse_logement"],
+          ),
+          json.results,
+        )
         setDpes(json.results)
         setError(null)
       } catch (e) {
@@ -140,6 +153,7 @@ export default function AddressSearch({ searchParams }) {
             )
           })}
       </CityList>
+      <DpeList dpes={dpes} />
       {map && active && (
         <MapMarkers map={map} data={results} selectMarker={setClicked} />
       )}
