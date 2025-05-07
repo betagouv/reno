@@ -140,9 +140,6 @@ export function DPETravauxChauffage({
 
   return (
     <>
-      <MiseEnAvant>
-        <Explication geste="chauffage" dpe={dpe} xml={xml} />
-      </MiseEnAvant>
       <table>
         <tbody>
           {Object.values(gestes).map((geste, i) => {
@@ -153,14 +150,10 @@ export function DPETravauxChauffage({
                     <Dot />
                     {geste.titre}
                   </td>
-                  <td>
-                    <Explication geste={geste} dpe={dpe} xml={xml} index={i} />
-                  </td>
                   <td
                     css={`
-                      div {
-                        margin: auto;
-                      }
+                      white-space: nowrap;
+                      width: 1px;
                     `}
                   >
                     <CTA

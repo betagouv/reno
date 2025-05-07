@@ -1,18 +1,27 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
-import { getAnsweredQuestions } from '@/components/publicodes/situationUtils'
-import { formatValue } from 'publicodes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Explication,
   getQuestions,
   MontantPrimeTravaux,
   Priorité,
 } from './DPETravauxModule'
-import { Card, CTA, MiseEnAvant, PrimeStyle } from '@/components/UI'
+import { Card, CTA, MiseEnAvant } from '@/components/UI'
 import GesteQuestion from '@/components/GesteQuestion'
 import React from 'react'
-import { AvanceTMO } from '@/components/mprg/BlocAideMPR'
+
+export const getAssociationTravauxDpe = (dpe) => ({
+  'gestes . isolation . vitres': 'qualite_isolation_menuiseries',
+  'gestes . isolation . murs': 'qualite_isolation_murs',
+  'gestes . isolation . plancher bas': 'qualite_isolation_plancher_bas',
+  'gestes . isolation . toitures terrasses':
+    'qualite_isolation_plancher_haut_toit_terrase',
+  'gestes . isolation . rampants': dpe[
+    'qualite_isolation_plancher_haut_comble_perdu'
+  ]
+    ? 'qualite_isolation_plancher_haut_comble_perdu'
+    : 'qualite_isolation_plancher_haut_comble_amenage',
+})
 
 export function DPETravauxIsolation({
   dpe,
@@ -22,30 +31,42 @@ export function DPETravauxIsolation({
   situation,
   setSearchParams,
 }) {
-  const [questions, setQuestions] = useState([])
-  const [visibleDivs, setVisibleDivs] = useState({})
-  const associationTravauxDpe = {
-    'gestes . isolation . vitres': 'qualite_isolation_menuiseries',
-    'gestes . isolation . murs': 'qualite_isolation_murs',
-    'gestes . isolation . plancher bas': 'qualite_isolation_plancher_bas',
-    'gestes . isolation . toitures terrasses':
-      'qualite_isolation_plancher_haut_toit_terrase',
-    'gestes . isolation . rampants': dpe[
-      'qualite_isolation_plancher_haut_comble_perdu'
-    ]
-      ? 'qualite_isolation_plancher_haut_comble_perdu'
-      : 'qualite_isolation_plancher_haut_comble_amenage',
+  const STORAGE_KEY = 'visibleDivsDPE'
+  const QUESTIONS_KEY = 'questionsByIndexDPE'
+  const [visibleDivs, setVisibleDivs] = useState(() => {
+    if (typeof window === 'undefined') return {}
+    const saved = sessionStorage.getItem(STORAGE_KEY)
+    return saved ? JSON.parse(saved) : {}
+  })
+  const [questionsByIndex, setQuestionsByIndex] = useState(() => {
+    if (typeof window === 'undefined') return {}
+    const saved = sessionStorage.getItem(QUESTIONS_KEY)
+    return saved ? JSON.parse(saved) : {}
+  })
+  useEffect(() => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(visibleDivs))
+  }, [visibleDivs])
+  useEffect(() => {
+    sessionStorage.setItem(QUESTIONS_KEY, JSON.stringify(questionsByIndex))
+  }, [questionsByIndex])
+
+  const toggle = (index) => {
+    setVisibleDivs((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }))
   }
 
-  const handleIsolationClick = (rule) => {
-    const questions = getQuestions(rule, situation, engine)
-    setQuestions(questions)
+  const handleIsolationClick = (index, rule) => {
+    const newQuestions = getQuestions(rule, situation, engine)
+    console.log('newQuestions', newQuestions)
+    setQuestionsByIndex((prev) => ({
+      ...prev,
+      [index]: newQuestions,
+    }))
   }
   return (
     <>
-      <MiseEnAvant>
-        <Explication geste="isolation" dpe={dpe} xml={xml} />
-      </MiseEnAvant>
       <table>
         <thead>
           <tr>
@@ -55,7 +76,7 @@ export function DPETravauxIsolation({
           </tr>
         </thead>
         <tbody>
-          {Object.entries(associationTravauxDpe).map((e, i) => {
+          {Object.entries(getAssociationTravauxDpe(dpe)).map((e, i) => {
             return (
               dpe[e[1]] && (
                 <React.Fragment key={i}>
@@ -95,11 +116,8 @@ export function DPETravauxIsolation({
                         $importance="secondary"
                         className="estimer"
                         onClick={() => {
-                          setVisibleDivs((prevState) => ({
-                            ...prevState,
-                            [i]: !prevState[i],
-                          }))
-                          handleIsolationClick(e[0])
+                          toggle(i)
+                          handleIsolationClick(i, e[0])
                         }}
                       >
                         <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
@@ -112,7 +130,7 @@ export function DPETravauxIsolation({
                         className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
                       >
                         <Card>
-                          {questions.map((question, index) => (
+                          {questionsByIndex[i]?.map((question, index) => (
                             <GesteQuestion
                               key={i + '' + index}
                               {...{
@@ -126,7 +144,7 @@ export function DPETravauxIsolation({
                           ))}
                           <MontantPrimeTravaux
                             {...{
-                              questions,
+                              questions: questionsByIndex[i],
                               engine,
                               rule: e[0],
                               situation,

@@ -16,7 +16,7 @@ import {
   getAssociationTravauxDpe,
 } from './DPETravauxIsolation'
 import { DPETravauxChauffage } from './DPETravauxChauffage'
-import { PrimeStyle } from '../../UI'
+import { CTA, PrimeStyle } from '../../UI'
 import getNextQuestions from '../../publicodes/getNextQuestions'
 import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
 import { AvanceTMO } from '../../mprg/BlocAideMPR'
@@ -24,15 +24,14 @@ import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 import useDpe from '../useDpe'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
-import listeChauffage from '@/app/règles/dpe/chauffage.publicodes'
 
 export default function DPETravauxModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
+  const [showMPRA, setShowMPRA] = useState(false)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
   const setSearchParams = useSetSearchParams()
-  const [visibleWork, setVisibleWork] = useState({})
   const [xml, setXml] = useState()
 
   useEffect(() => {
@@ -169,19 +168,9 @@ export default function DPETravauxModule({ type, numDpe }) {
     }
   }
 
-  const displayBloc = (type) => {
-    setVisibleWork((prevState) => ({
-      ...prevState,
-      [type]: !prevState[type],
-    }))
-  }
-
   const Wrapper = ({ type, children }) =>
     type === 'module' ? (
-      <ModuleWrapper
-        isMobile={isMobile}
-        title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
-      >
+      <ModuleWrapper isMobile={isMobile} title="Quels travaux privilégier ?">
         {children}
       </ModuleWrapper>
     ) : (
@@ -193,19 +182,21 @@ export default function DPETravauxModule({ type, numDpe }) {
       {dpe && (
         <Accordion>
           <section>
-            <h3
-              onClick={() => displayBloc('isolation')}
-              className={visibleWork['isolation'] ? 'active' : ''}
-            >
-              Isoler mon logement
+            <h3>
+              <span>
+                Isoler mon logement
+                <Explication
+                  geste="isolation"
+                  dpe={dpe}
+                  xml={xml}
+                  type="tooltip"
+                />
+              </span>
               <span>
                 <Priorité valeur={getPriorite('isolation')} />
-                <span title="Voir le détail">🔎</span>
               </span>
             </h3>
-            <div
-              className={`slide-down ${visibleWork['isolation'] ? 'active' : ''}`}
-            >
+            <div>
               <DPETravauxIsolation
                 {...{
                   dpe,
@@ -219,19 +210,21 @@ export default function DPETravauxModule({ type, numDpe }) {
             </div>
           </section>
           <section>
-            <h3
-              onClick={() => displayBloc('chauffage')}
-              className={visibleWork['chauffage'] ? 'active' : ''}
-            >
-              <span>Changer mon système de chauffage</span>
+            <h3>
+              <span>
+                Changer mon système de chauffage
+                <Explication
+                  geste="chauffage"
+                  dpe={dpe}
+                  xml={xml}
+                  type="tooltip"
+                />
+              </span>
               <span>
                 <Priorité valeur={getPriorite('chauffage')} />
-                <span title="Voir le détail">🔎</span>
               </span>
             </h3>
-            <div
-              className={`slide-down ${visibleWork['chauffage'] ? 'active' : ''}`}
-            >
+            <div>
               <DPETravauxChauffage
                 {...{
                   dpe,
@@ -245,18 +238,32 @@ export default function DPETravauxModule({ type, numDpe }) {
             </div>
           </section>
           <section>
-            <h3
-              onClick={() => displayBloc('ampleur')}
-              className={visibleWork['ampleur'] ? 'active' : ''}
-            >
-              <span>Rénovation globale</span>
+            <h3>
+              <span>
+                Rénovation globale
+                <Explication
+                  geste="ampleur"
+                  dpe={dpe}
+                  xml={xml}
+                  type="tooltip"
+                />
+              </span>
               <span>
                 <Priorité valeur={getPriorite('ampleur')} />
-                <span title="Voir le détail">🔎</span>
               </span>
+              <CTA
+                $fontSize="normal"
+                $importance="secondary"
+                className="estimer"
+                onClick={() => setShowMPRA((prev) => !prev)}
+              >
+                <span>{showMPRA ? 'Fermer' : 'Estimer'}</span>
+              </CTA>
             </h3>
             <div
-              className={`slide-down ${visibleWork['ampleur'] ? 'active' : ''}`}
+              css={`
+                display: ${showMPRA ? 'block' : 'none'};
+              `}
             >
               <DPETravauxAmpleur
                 {...{
@@ -318,7 +325,10 @@ export const getQuestions = (rule, situation, engine) => {
       usefulQuestionsForGeste.includes(q),
     ),
   )
-  return questions.filter((q) => !unwantedQuestion.includes(q))
+  // On filtre également les questions qui n'ont pas de libellé
+  return questions.filter(
+    (q) => !unwantedQuestion.includes(q) && q.question !== undefined,
+  )
 }
 
 export function Priorité({ valeur }) {
@@ -505,32 +515,38 @@ export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
 const Accordion = styled.div`
   display: block !important;
   width: 100%;
-  section > h3 {
-    margin: 0;
-    font-size: 100%;
-    display: flex;
-    justify-content: space-between;
-    color: var(--color);
-    font-weight: normal;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid grey;
-    > span:last-of-type {
+  section {
+    border: 1px solid var(--color);
+    padding: 0.5rem;
+    margin-bottom: 10px;
+    > h3 {
+      margin: 0;
+      font-size: 100%;
       display: flex;
-      width: 30%;
       justify-content: space-between;
-    }
-    &:hover {
-      cursor: pointer;
-      background: white;
-    }
-    &.active {
-      border-bottom: 0px;
-      background: white;
+      > span:first-of-type {
+        display: flex;
+        align-items: center;
+        color: var(--color);
+        font-weight: bold;
+      }
+      > span:last-of-type {
+        display: flex;
+        width: 30%;
+        justify-content: space-between;
+      }
+      &.active {
+        border-bottom: 0px;
+        background: white;
+      }
     }
   }
-  .estimer:hover {
-    background: var(--color);
-    color: white;
+  .estimer {
+    font-weight: normal;
+    &:hover {
+      background: var(--color);
+      color: white;
+    }
   }
   .slide-down {
     overflow: hidden;
