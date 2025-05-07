@@ -53,3 +53,11 @@ Nous utilisons l'instance Matomo de l'incubateur, stats.beta.gouv.fr.
 ### Sécurité
 
 Nous ne stockons pas de donnés utilisateur pour l'instant chez Mes Aides Réno, si ce n'est les stats utilisateur anonymisées. Ainsi le périmètre d'attaque se limite à une compromission de notre déploiement (force ou hébergement).
+
+### Fiabilité
+
+Nous envisageons de mettre en place rapidement un [loggueur d'erreurs client](https://github.com/betagouv/reno/issues/385) ainsi qu'un test de ping régulier du service. 
+
+En termes de fiabilité du modèle, nous avons des tests sours forme de "personas" qui nous permettent de surveiller la non-régression notamment lors des mises à jour du modèle de calcul quand la loi ou les règlements changent. 
+
+Nous n'avons pas encore de tests en réel (via un navigateur factice) des parcours utilisateur.  
