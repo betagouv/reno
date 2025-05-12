@@ -92,8 +92,9 @@ export default function DPEAddressSearch({
             return (
               <li
                 className={
+                  coordinates &&
                   coordinates.join('|') ===
-                  result.geometry.coordinates.join('|')
+                    result.geometry.coordinates.join('|')
                     ? 'selected'
                     : ''
                 }
