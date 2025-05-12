@@ -1,27 +1,46 @@
 import styled from 'styled-components'
+import DPELabel from './DPELabel'
+import { Card } from '../UI'
+
+const spec = {
+  etiquette_dpe: { label: '' },
+  numero_dpe: { label: 'n°' },
+  numero_etage_appartement: { label: 'etage' },
+  type_batiment: { label: '', title: 'maison ou appartement' },
+  complement_adresse_batiment: { label: 'cmplt' },
+}
 
 export default function DpeList({ dpes }) {
   if (!dpes) return
   return (
     <Wrapper>
       <ol>
-        {dpes.slice(0, 6).map((dpe) => (
-          <li key={dpe['N°DPE']}>
+        {dpes.map((dpe) => (
+          <li key={dpe['numero_dpe']}>
             <ol>
-              {[
-                'numero_dpe',
-                'numero_etage_appartement',
-                'etiquette_dpe',
-                'type_batiment',
-                'complement_adresse_batiment',
-              ].map((k) => (
-                <li key={k}>
-                  <small>{k}</small>
-                  {dpe[k]}
+              {Object.entries(spec).map(([k, { label, title }]) => (
+                <li key={k} title={title}>
+                  <small>{label}</small>
+                  {k === 'etiquette_dpe' ? (
+                    <DPELabel label={dpe[k]} />
+                  ) : dpe[k] === 'appartement' ? (
+                    'appt'
+                  ) : (
+                    dpe[k]
+                  )}
                 </li>
               ))}
             </ol>
-            <button onClick={() => console.log(dpe)}>log</button>
+            <button
+              css={`
+                position: absolute;
+                right: 0;
+                bottom: 0;
+              `}
+              onClick={() => console.log(dpe)}
+            >
+              <small>log</small>
+            </button>
           </li>
         ))}
       </ol>
@@ -36,13 +55,20 @@ const Wrapper = styled.section`
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    max-height: 24rem;
+    overflow-y: scroll;
   }
   > ol > li {
     margin: 0.3rem 0 0.7rem;
     width: 16rem;
-  }
-  small {
-    margin-right: 0.4rem;
-    color: gray;
+    padding: 0.4rem 0.4rem;
+    position: relative;
+    li {
+      small {
+        margin-right: 0.4rem;
+        color: gray;
+      }
+    }
+    border: 1px solid lightgray;
   }
 `
