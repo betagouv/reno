@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page(props) {
+  const searchParams = await props.searchParams
   return (
     <main
       style={css`
@@ -23,7 +24,7 @@ export default async function Page(props) {
       <Section>
         <PageBlock>
           <h1>Trouver et analyser un DPE</h1>
-          <DPEAnalyzer {...{ props }} />
+          <DPEAnalyzer searchParams={searchParams} />
         </PageBlock>
       </Section>
     </main>

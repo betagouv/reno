@@ -2,7 +2,7 @@
 
 import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import DPEAddressSearch from './DPEAddressSearch'
 import { useSearchParams } from 'next/navigation'
 import DPELabel from './DPELabel'
@@ -11,6 +11,8 @@ import { formatNumber } from '../RevenuInput'
 import data from './DPE.yaml'
 import Value from '../Value'
 import { Key } from '../explications/ExplicationUI'
+import DPEMap from './DPEMap'
+import useSetSearchParams from '../useSetSearchParams'
 
 export function obtenirLettre(valeur, type) {
   for (let i = 0; i < data.length - 1; i++) {
@@ -22,6 +24,7 @@ export function obtenirLettre(valeur, type) {
 }
 
 export default function DPEAnalyzer() {
+  const setSearchParams = useSetSearchParams()
   const engine = new Publicodes(rules)
   const [dpe, setDpe] = useState()
   const [xml, setXml] = useState()
@@ -122,7 +125,12 @@ export default function DPEAnalyzer() {
         }
       `}
     >
-      <DPEAddressSearch searchParams={searchParams} onSelectDpe={setDpe} />
+      <DPEAddressSearch
+        coordinates={[searchParams.lon, searchParams.lat]}
+        setCoordinates={([lon, lat]) => setSearchParams({ lon, lat })}
+      />
+
+      <DPEMap searchParams={searchParams} onSelectDpe={setDpe} dpe={dpe} />
       {dpe && (
         <>
           <div

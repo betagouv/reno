@@ -12,9 +12,12 @@ export default function DPEMap({ searchParams, onSelectDpe, dpe }) {
   const mapContainerRef = useRef(null)
   const map = useAddAddressMap(mapContainerRef)
   const [clicked, setClicked] = useState(false)
+  const dpeCoordinates = dpe?.['_geopoint'],
+    [lat, lon] = dpeCoordinates
+      ? dpeCoordinates.split(',').map((e) => parseFloat(e))
+      : [searchParams.lat, searchParams.lon]
 
   useEffect(() => {
-    const [lat, lon] = dpe['_geopoint'].split(',').map((e) => parseFloat(e))
     async function fetchDPE() {
       try {
         const request = await fetch(
@@ -36,7 +39,7 @@ export default function DPEMap({ searchParams, onSelectDpe, dpe }) {
       }
     }
     fetchDPE()
-  }, [setDpes, dpe, setError])
+  }, [setDpes, lat, lon, setError])
 
   return (
     <div>

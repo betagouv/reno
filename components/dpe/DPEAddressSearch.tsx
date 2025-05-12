@@ -6,36 +6,18 @@ import { useDebounce } from 'use-debounce'
 
 export default function DPEAddressSearch({
   searchParams,
-  onSelectDpe,
+  setCoordinates,
+  coordinates,
   dpe,
-  click = false,
 }) {
   const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
   const [input] = useDebounce(immediateInput, 300)
   const [results, setResults] = useState(null)
-  const [clicked, setClicked] = useState(click)
-  const [dpes, setDpes] = useState(null)
 
   const validInput = input && input.length >= 5
   const [error, setError] = useState()
 
-  useEffect(() => {
-    if (!clicked || !clicked.geometry) return
-    const [lon, lat] = clicked.geometry.coordinates
-    async function fetchDPE() {
-      try {
-        const request = await fetch(
-          `https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?geo_distance=${lon}%3A${lat}%3A3000&size=100`,
-        )
-        const json = await request.json()
-        setError(null)
-      } catch (e) {
-        console.error(e)
-        setError({ message: 'Erreur pendant la récupération des DPEs' })
-      }
-    }
-    fetchDPE()
-  }, [clicked, setDpes, setError])
+  const validCoordinates = coordinates && coordinates.every(Boolean)
 
   useEffect(() => {
     if (!validInput) return
@@ -66,7 +48,7 @@ export default function DPEAddressSearch({
       )}
       <input
         css={`
-          ${clicked &&
+          ${validCoordinates &&
           input &&
           `border-bottom: 2px solid var(--validColor) !important;`};
         `}
@@ -75,7 +57,7 @@ export default function DPEAddressSearch({
         value={immediateInput || ''}
         placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
-          setClicked(false)
+          setCoordinates([undefined, undefined])
           setInput(e.target.value)
         }}
       />
@@ -91,7 +73,7 @@ export default function DPEAddressSearch({
           Chargement...
         </small>
       )}
-      {results && !clicked && (
+      {results && !validCoordinates && (
         <small
           css={`
             color: #929292;
@@ -104,16 +86,21 @@ export default function DPEAddressSearch({
       )}
       <CityList>
         {results &&
-          !clicked &&
+          !validCoordinates &&
           results.map((result) => {
             const { label, id } = result.properties
             return (
               <li
-                className={searchParams['id'] == id ? 'selected' : ''}
+                className={
+                  coordinates.join('|') ===
+                  result.geometry.coordinates.join('|')
+                    ? 'selected'
+                    : ''
+                }
                 key={id}
                 onClick={() => {
                   setInput(label)
-                  setClicked(result)
+                  setCoordinates(result.geometry.coordinates)
                 }}
               >
                 <span>{label}</span>
