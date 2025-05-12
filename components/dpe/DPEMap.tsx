@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import MapMarkers from '../AddressSearchMapMarkers'
 import useAddAddressMap from '../useAddAddressMap'
 import DPEMarkers from './DPEMarkers'
+import styled from 'styled-components'
 
 export default function DPEMap({ searchParams, onSelectDpe, dpe }) {
   const [dpes, setDpes] = useState()
@@ -45,7 +46,9 @@ export default function DPEMap({ searchParams, onSelectDpe, dpe }) {
     <div>
       {map && (
         <>
-          <MapMarkers map={map} data={[dpes[0]]} selectMarker={setClicked} />
+          {dpes?.[0] && (
+            <MapMarkers map={map} data={[dpes[0]]} selectMarker={setClicked} />
+          )}
           <DPEMarkers
             map={map}
             featureCollection={{
@@ -85,15 +88,14 @@ export default function DPEMap({ searchParams, onSelectDpe, dpe }) {
           />
         </>
       )}
-      <div
-        ref={mapContainerRef}
-        css={`
-          width: 100%;
-          min-height: 400px;
-          height: 100%;
-          border-radius: 0.3rem;
-        `}
-      />
+      <MapContainer ref={mapContainerRef} />
     </div>
   )
 }
+
+export const MapContainer = styled.div`
+  width: 100%;
+  min-height: 400px;
+  height: 100%;
+  border-radius: 0.3rem;
+`

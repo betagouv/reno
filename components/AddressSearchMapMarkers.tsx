@@ -6,7 +6,7 @@ const iconSize = '30'
 export default function MapMarkers({
   map,
   data,
-  selectMarker,
+  selectMarker = ()=>null,
   icon = 'map-marker.png',
   selected,
 }) {

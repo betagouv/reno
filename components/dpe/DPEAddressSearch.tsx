@@ -1,8 +1,11 @@
 'use client'
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
+import useAddAddressMap from '../useAddAddressMap'
+import MapMarkers from '../AddressSearchMapMarkers'
+import { MapContainer } from './DPEMap'
 
 export default function DPEAddressSearch({
   searchParams,
@@ -18,6 +21,9 @@ export default function DPEAddressSearch({
   const [error, setError] = useState()
 
   const validCoordinates = coordinates && coordinates.every(Boolean)
+
+  const mapContainerRef = useRef(null)
+  const map = useAddAddressMap(mapContainerRef)
 
   useEffect(() => {
     if (!validInput) return
@@ -109,6 +115,9 @@ export default function DPEAddressSearch({
             )
           })}
       </CityList>
+
+      <MapContainer ref={mapContainerRef} />
+      {map && <MapMarkers map={map} data={results} />}
     </AddressInput>
   )
 }
