@@ -142,15 +142,25 @@ export default function DPEPage({ numDpe: initialNumDpe }) {
                     > div {
                       text-align: center;
                     }
+                    > div > small {
+                      display: block;
+                    }
                   `}
                 >
                   <div>
                     <div>Consommation d'énergie</div>
                     <DPELabel label={dpe['etiquette_dpe']} small={false} />
+                    <small>
+                      {dpe['conso_5_usages_par_m2_ep']} p -{' '}
+                      {dpe['conso_5_usages_par_m2_ef']} f kWh/m2
+                    </small>
                   </div>
                   <div>
                     <div>Émission Gaz à effet de serre</div>
                     <DPELabel label={dpe['etiquette_ges']} small={false} />
+                    <small>
+                      {dpe['emission_ges_5_usages_par_m2']} kgCO2e/m2
+                    </small>
                   </div>
                 </div>
                 <div>
