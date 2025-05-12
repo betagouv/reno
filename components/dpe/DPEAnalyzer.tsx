@@ -32,6 +32,8 @@ export default function DPEAnalyzer() {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
+  const [addressResults, setAddressResults] = useState(null)
+
   const pourcentConso = (value) =>
     formatNumber((value / dpe['Conso_5_usages_é_primaire']) * 100) + '%'
   useEffect(() => {
@@ -126,11 +128,20 @@ export default function DPEAnalyzer() {
       `}
     >
       <DPEAddressSearch
+        {...{
+          addressResults,
+          setAddressResults,
+        }}
         coordinates={[searchParams.lon, searchParams.lat]}
         setCoordinates={([lon, lat]) => setSearchParams({ lon, lat })}
       />
 
-      <DPEMap searchParams={searchParams} onSelectDpe={setDpe} dpe={dpe} />
+      <DPEMap
+        searchParams={searchParams}
+        onSelectDpe={setDpe}
+        dpe={dpe}
+        addressResults={addressResults}
+      />
       {dpe && (
         <>
           <div

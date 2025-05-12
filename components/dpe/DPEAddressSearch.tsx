@@ -1,29 +1,24 @@
 'use client'
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
-import useAddAddressMap from '../useAddAddressMap'
-import MapMarkers from '../AddressSearchMapMarkers'
-import { MapContainer } from './DPEMap'
 
 export default function DPEAddressSearch({
   searchParams,
   setCoordinates,
   coordinates,
   dpe,
+  addressResults,
+  setAddressResults,
 }) {
   const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
   const [input] = useDebounce(immediateInput, 300)
-  const [results, setResults] = useState(null)
 
   const validInput = input && input.length >= 5
   const [error, setError] = useState()
 
   const validCoordinates = coordinates && coordinates.every(Boolean)
-
-  const mapContainerRef = useRef(null)
-  const map = useAddAddressMap(mapContainerRef)
 
   useEffect(() => {
     if (!validInput) return
@@ -34,7 +29,7 @@ export default function DPEAddressSearch({
       )
       const { features } = await request.json()
 
-      setResults(features)
+      setAddressResults(features)
     }
 
     asyncFetch()
@@ -67,7 +62,7 @@ export default function DPEAddressSearch({
           setInput(e.target.value)
         }}
       />
-      {validInput && !results && (
+      {validInput && !addressResults && (
         <small
           css={`
             margin: 0.2rem 0;
@@ -79,7 +74,7 @@ export default function DPEAddressSearch({
           Chargement...
         </small>
       )}
-      {results && !validCoordinates && (
+      {addressResults && !validCoordinates && (
         <small
           css={`
             color: #929292;
@@ -91,9 +86,9 @@ export default function DPEAddressSearch({
         </small>
       )}
       <CityList>
-        {results &&
+        {addressResults &&
           !validCoordinates &&
-          results.map((result) => {
+          addressResults.map((result) => {
             const { label, id } = result.properties
             return (
               <li
@@ -115,9 +110,6 @@ export default function DPEAddressSearch({
             )
           })}
       </CityList>
-
-      <MapContainer ref={mapContainerRef} />
-      {map && <MapMarkers map={map} data={results} />}
     </AddressInput>
   )
 }

@@ -6,7 +6,12 @@ import useAddAddressMap from '../useAddAddressMap'
 import DPEMarkers from './DPEMarkers'
 import styled from 'styled-components'
 
-export default function DPEMap({ searchParams, onSelectDpe, dpe }) {
+export default function DPEMap({
+  searchParams,
+  onSelectDpe,
+  dpe,
+  addressResults,
+}) {
   const [dpes, setDpes] = useState()
   const [error, setError] = useState()
 
@@ -42,12 +47,18 @@ export default function DPEMap({ searchParams, onSelectDpe, dpe }) {
     fetchDPE()
   }, [setDpes, lat, lon, setError])
 
+  console.log('addressResults', addressResults)
+  const addressesToRender = addressResults || (dpes ? [dpes[0]] : [])
   return (
     <div>
       {map && (
         <>
-          {dpes?.[0] && (
-            <MapMarkers map={map} data={[dpes[0]]} selectMarker={setClicked} />
+          {addressesToRender.length > 0 && (
+            <MapMarkers
+              map={map}
+              data={addressesToRender}
+              selectMarker={setClicked}
+            />
           )}
           <DPEMarkers
             map={map}
