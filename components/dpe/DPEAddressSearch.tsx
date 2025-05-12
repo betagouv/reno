@@ -10,7 +10,7 @@ export default function DPEAddressSearch({
   dpe,
   click = false,
 }) {
-  const [immediateInput, setInput] = useState(dpe['adresse_ban'])
+  const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
   const [input] = useDebounce(immediateInput, 300)
   const [results, setResults] = useState(null)
   const [clicked, setClicked] = useState(click)
