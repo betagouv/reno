@@ -72,7 +72,7 @@ export default function DPEAddressSearch({
         `}
         type="text"
         autoFocus={true}
-        value={immediateInput}
+        value={immediateInput || ''}
         placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
           setClicked(false)
