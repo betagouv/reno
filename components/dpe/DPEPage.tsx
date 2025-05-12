@@ -20,6 +20,8 @@ import iconEauChaude from '@/public/eauChaude.png'
 import iconSurface from '@/public/surface.png'
 import Image from 'next/image'
 import useDpe from './useDpe'
+import styled from 'styled-components'
+import Link from 'next/link'
 
 export const getIndexLettre = (dpe) =>
   conversionLettreIndex.indexOf(
@@ -79,14 +81,21 @@ export default function DPEPage({ numDpe: initialNumDpe }) {
     E: 2032,
   }
 
+  if (!dpe)
+    return (
+      <Main>
+        <Section>
+          <BackToSearch />
+        </Section>
+        <p>Chargement du DPE...</p>
+      </Main>
+    )
   return (
     dpe && (
-      <main
-        style={css`
-          background: white;
-          padding-top: calc(1.5vh + 1.5vw);
-        `}
-      >
+      <Main>
+        <Section>
+          <BackToSearch />
+        </Section>
         <Section>
           <h1
             style={css`
@@ -227,7 +236,16 @@ export default function DPEPage({ numDpe: initialNumDpe }) {
             </Content>
           </Wrapper>
         </Section>
-      </main>
+      </Main>
     )
   )
 }
+
+const BackToSearch = () => (
+  <Link href="/dpe/recherche">⬅ Retour à la recherche d'addresse</Link>
+)
+
+const Main = styled.main`
+  background: white;
+  padding-top: calc(1.5vh + 1.5vw);
+`
