@@ -44,7 +44,7 @@ export default function MapMarkers({
         return marker
       })
     if (markers && markers.length > 0) {
-      map.fitBounds(bounds, { maxZoom: 17 })
+      map.fitBounds(bounds, { maxZoom: 17, padding: 160 })
     } else {
       map.setCenter([2.3522, 48.8566])
       map.setZoom(12)
