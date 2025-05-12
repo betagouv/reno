@@ -3,7 +3,7 @@
 import rules from '@/app/règles/rules'
 import Publicodes from 'publicodes'
 import { useEffect, useState } from 'react'
-import DpeAddressSearch from './DPEAddressSearch'
+import DPEAddressSearch from './DPEAddressSearch'
 import { useSearchParams } from 'next/navigation'
 import DPELabel from './DPELabel'
 import { Card } from '../UI'
@@ -122,7 +122,7 @@ export default function DPEAnalyzer() {
         }
       `}
     >
-      <DpeAddressSearch searchParams={searchParams} onSelectDpe={setDpe} />
+      <DPEAddressSearch searchParams={searchParams} onSelectDpe={setDpe} />
       {dpe && (
         <>
           <div
