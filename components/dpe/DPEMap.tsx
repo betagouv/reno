@@ -36,20 +36,6 @@ export default function DPEMap({
         // On créé une propriété dpe.geometry.coordinates car c'est le format attendu par le MapMarkers
         // aussi utilisé par le module copro, donc je ne veux pas le toucher
 
-        const etageKey = 'numero_etage_appartement'
-        console.log(
-          'cyan',
-          json.results.map(
-            (el) =>
-              el[etageKey] +
-              ' ' +
-              el['type_batiment'] +
-              ' | ' +
-              el['complement_adresse_logement'],
-          ),
-          json.results,
-        )
-
         setDpes(
           json.results.map((dpe) => ({
             ...dpe,

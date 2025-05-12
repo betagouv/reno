@@ -12,6 +12,22 @@ const spec = {
 export default function DpeList({ dpes, startOpen = true }) {
   console.log('plop', startOpen)
   if (!dpes) return
+
+  const etageKey = 'numero_etage_appartement'
+
+  console.log(
+    'cyan',
+    dpes.map(
+      (el) =>
+        el[etageKey] +
+        ' ' +
+        el['type_batiment'] +
+        ' | ' +
+        el['complement_adresse_logement'],
+    ),
+    dpes,
+  )
+
   return (
     <details open={startOpen ? 'true' : ''}>
       <summary>Ouvrir la liste des DPE</summary>
