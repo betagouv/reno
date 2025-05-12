@@ -5,6 +5,7 @@ import MapMarkers from '../AddressSearchMapMarkers'
 import useAddAddressMap from '../useAddAddressMap'
 import DPEMarkers from './DPEMarkers'
 import styled from 'styled-components'
+import DpeList from './DpeList'
 
 export default function DPEMap({
   searchParams,
@@ -24,6 +25,7 @@ export default function DPEMap({
       : [searchParams.lat, searchParams.lon]
 
   useEffect(() => {
+    if (!lon || !lat) return
     async function fetchDPE() {
       try {
         const request = await fetch(
@@ -32,6 +34,21 @@ export default function DPEMap({
         const json = await request.json()
         // On créé une propriété dpe.geometry.coordinates car c'est le format attendu par le MapMarkers
         // aussi utilisé par le module copro, donc je ne veux pas le toucher
+
+        const etageKey = 'numero_etage_appartement'
+        console.log(
+          'cyan',
+          json.results.map(
+            (el) =>
+              el[etageKey] +
+              ' ' +
+              el['type_batiment'] +
+              ' | ' +
+              el['complement_adresse_logement'],
+          ),
+          json.results,
+        )
+
         setDpes(
           json.results.map((dpe) => ({
             ...dpe,
@@ -47,10 +64,11 @@ export default function DPEMap({
     fetchDPE()
   }, [setDpes, lat, lon, setError])
 
-  console.log('addressResults', addressResults)
+  console.log('indigo plop', lon, lat, dpes)
   const addressesToRender = addressResults || (dpes ? [dpes[0]] : [])
   return (
     <div>
+      <DpeList dpes={dpes} />
       {map && (
         <>
           {addressesToRender.length > 0 && (
