@@ -206,6 +206,7 @@ export default function DPEPage({ numDpe: initialNumDpe }) {
               searchParams={searchParams}
               onSelectDpe={setNumDpe}
               dpe={dpe}
+              dpeListStartOpen={false}
             />
           </div>
           <Wrapper $background="white" $noMargin={true}>

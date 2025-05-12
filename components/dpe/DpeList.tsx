@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import DPELabel from './DPELabel'
-import { Card } from '../UI'
 
 const spec = {
   etiquette_dpe: { label: '' },
@@ -10,41 +9,45 @@ const spec = {
   complement_adresse_batiment: { label: 'cmplt' },
 }
 
-export default function DpeList({ dpes }) {
+export default function DpeList({ dpes, startOpen = true }) {
+  console.log('plop', startOpen)
   if (!dpes) return
   return (
-    <Wrapper>
-      <ol>
-        {dpes.map((dpe) => (
-          <li key={dpe['numero_dpe']}>
-            <ol>
-              {Object.entries(spec).map(([k, { label, title }]) => (
-                <li key={k} title={title}>
-                  <small>{label}</small>
-                  {k === 'etiquette_dpe' ? (
-                    <DPELabel label={dpe[k]} />
-                  ) : dpe[k] === 'appartement' ? (
-                    'appt'
-                  ) : (
-                    dpe[k]
-                  )}
-                </li>
-              ))}
-            </ol>
-            <button
-              css={`
-                position: absolute;
-                right: 0;
-                bottom: 0;
-              `}
-              onClick={() => console.log(dpe)}
-            >
-              <small>log</small>
-            </button>
-          </li>
-        ))}
-      </ol>
-    </Wrapper>
+    <details open={startOpen ? 'true' : ''}>
+      <summary>Ouvrir la liste des DPE</summary>
+      <Wrapper>
+        <ol>
+          {dpes.map((dpe) => (
+            <li key={dpe['numero_dpe']}>
+              <ol>
+                {Object.entries(spec).map(([k, { label, title }]) => (
+                  <li key={k} title={title}>
+                    <small>{label}</small>
+                    {k === 'etiquette_dpe' ? (
+                      <DPELabel label={dpe[k]} />
+                    ) : dpe[k] === 'appartement' ? (
+                      'appt'
+                    ) : (
+                      dpe[k]
+                    )}
+                  </li>
+                ))}
+              </ol>
+              <button
+                css={`
+                  position: absolute;
+                  right: 0;
+                  bottom: 0;
+                `}
+                onClick={() => console.log(dpe)}
+              >
+                <small>log</small>
+              </button>
+            </li>
+          ))}
+        </ol>
+      </Wrapper>
+    </details>
   )
 }
 
@@ -55,6 +58,7 @@ const Wrapper = styled.section`
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: center;
     max-height: 24rem;
     overflow-y: scroll;
   }
@@ -68,6 +72,9 @@ const Wrapper = styled.section`
         margin-right: 0.4rem;
         color: gray;
       }
+    }
+    > ol {
+      justify-content: start;
     }
     border: 1px solid lightgray;
   }

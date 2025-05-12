@@ -12,6 +12,7 @@ export default function DPEMap({
   onSelectDpe,
   dpe,
   addressResults,
+  dpeListStartOpen = true,
 }) {
   const [dpes, setDpes] = useState()
   const [error, setError] = useState()
@@ -68,7 +69,7 @@ export default function DPEMap({
   const addressesToRender = addressResults || (dpes ? [dpes[0]] : [])
   return (
     <div>
-      <DpeList dpes={dpes} />
+      <DpeList dpes={dpes} startOpen={dpeListStartOpen} />
       {map && (
         <>
           {addressesToRender.length > 0 && (

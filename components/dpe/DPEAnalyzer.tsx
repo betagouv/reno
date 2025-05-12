@@ -87,6 +87,7 @@ export default function DPEAnalyzer() {
         onSelectDpe={setDpe}
         dpe={dpe}
         addressResults={addressResults}
+        dpeListStartOpen={true}
       />
       {dpe && (
         <>
