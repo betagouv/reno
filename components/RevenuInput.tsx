@@ -5,7 +5,7 @@ export const displayRevenuLabel = (situation, engine, threshold) => {
   const list = getRevenusList(situation, engine)
   const lastThreshold = list.slice(-1)[0]
   return threshold > lastThreshold
-    ? 'supérieur à ' + formatNumber(lastThreshold) + '€'
+    ? 'supérieur ou égal à ' + formatNumber(lastThreshold) + '€'
     : 'inférieur à ' + formatNumber(threshold) + '€'
 }
 
