@@ -5,6 +5,7 @@ eligibilite:
   DPE . actuel: 6
   projet . DPE visé: 2
   projet . travaux: 50000
+  logement . type: "'appartement'"
   logement . commune: "'44109'" # code insee
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
@@ -40,7 +41,7 @@ copropriete:
   copropriété . bonus copropriété fragile: non
   copropriété . montant travaux: 60000
 CEE:
-  ménage . commune: "'75056'"
+  logement . commune: "'75056'"
   CEE . projet . remplacement chaudière thermique: non
   logement . période de construction: "'au moins 15 ans'"
   logement . type: maison
@@ -49,6 +50,7 @@ CEE:
   gestes . chauffage . PAC . air-eau . CEE . usage: "'chauffage et eau chaude'"
   gestes . chauffage . PAC . air-eau . CEE . Etas: "'entre 170 % et 200 %'"
 category-mpr:
+  vous . propriétaire . statut: 'propriétaire'
   logement . propriétaire occupant: oui
   logement . commune: "'75056'"
   ménage . personnes: 2
@@ -94,6 +96,7 @@ geste:
   gestes . chauffage . PAC . air-eau . CEE . usage: 'chauffage et eau chaude'
   gestes . chauffage . PAC . air-eau . CEE . Etas: 'supérieur à 200 %'
 taxe fonciere:
+  vous . propriétaire . statut: 'propriétaire'
   taxe foncière . condition de dépenses: oui
   logement . période de construction: 'au moins 15 ans'
   logement . commune: "'75056'"
