@@ -25,6 +25,7 @@ const prixAbonnementElectricite = 160
 
 export default function DPEFactureModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
+  const [showTable, setShowTable] = useState(false)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
@@ -167,8 +168,9 @@ export default function DPEFactureModule({ type, numDpe }) {
     energies,
     energiesUtilisees,
     editable,
+    showTable,
+    setShowTable,
   }) => {
-    const [showTable, setShowTable] = useState(false)
     return (
       <>
         <div
@@ -434,10 +436,14 @@ export default function DPEFactureModule({ type, numDpe }) {
         <div>
           <div>
             <EnergieTable
-              title="Actuellement :"
-              pourcentages={pourcentagesAvantReno}
-              energies={energies}
-              energiesUtilisees={energiesUtilisees}
+              {...{
+                title: 'Actuellement :',
+                pourcentages: pourcentagesAvantReno,
+                energies,
+                energiesUtilisees,
+                showTable,
+                setShowTable,
+              }}
             />
           </div>
           <div
@@ -461,11 +467,15 @@ export default function DPEFactureModule({ type, numDpe }) {
         <div>
           <div>
             <EnergieTable
-              title="Après rénovation :"
-              pourcentages={pourcentagesApresReno}
-              energies={energies}
-              energiesUtilisees={energiesUtiliseesApresReno}
-              editable={true}
+              {...{
+                title: 'Après rénovation :',
+                pourcentages: pourcentagesApresReno,
+                energies,
+                energiesUtilisees: energiesUtiliseesApresReno,
+                editable: true,
+                showTable,
+                setShowTable,
+              }}
             />
           </div>
           <div
