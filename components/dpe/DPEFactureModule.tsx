@@ -48,15 +48,13 @@ export default function DPEFactureModule({ type, numDpe }) {
   const situation = getSituation(searchParams, rules)
 
   const updatePourcentage = useCallback((index, value) => {
-    setPourcentagesApresReno((prev) => {
-      if (prev.length == 1) {
-        return [value]
-      }
-      if (prev.length == 3) {
-        return prev.map((p, i) => (i === index ? value : p))
-      }
-      return prev.map((p, i) => (i === index ? value : 100 - value))
-    })
+    setPourcentagesApresReno((prev) =>
+      prev.length == 1
+        ? [value]
+        : prev.length == 3
+          ? prev.map((p, i) => (i === index ? value : p))
+          : prev.map((p, i) => (i === index ? value : 100 - value)),
+    )
   }, [])
 
   useEffect(() => {
@@ -461,11 +459,7 @@ export default function DPEFactureModule({ type, numDpe }) {
               }}
             />
           </div>
-          <div
-            css={`
-              margin-left: 1rem;
-            `}
-          >
+          <div>
             DPE actuel :{' '}
             <DPELabel
               index={situation['DPE . actuel'] - 1}
@@ -493,11 +487,7 @@ export default function DPEFactureModule({ type, numDpe }) {
               }}
             />
           </div>
-          <div
-            css={`
-              margin-left: 1rem;
-            `}
-          >
+          <div>
             <TargetDPETabs
               {...{
                 oldIndex: situation['DPE . actuel'] - 1,
@@ -523,18 +513,19 @@ export const DeuxColonnes = styled.div`
   display: flex;
   ${(p) => p.$isMobile && 'flex-direction: column;'}
   position: relative;
-  gap: 2rem !important;
-  &::after {
-    content: '';
-    position: absolute;
-    top: ${(p) => (p.$isMobile ? '50%' : '0')};
-    bottom: 0;
-    left: ${(p) => (p.$isMobile ? '0' : '50%')};
-    height: ${(p) => (p.$isMobile ? '1px' : '100%')};
-    width: ${(p) => (p.$isMobile ? '100%' : '1px')};
-    background-color: black;
-    transform: ${(p) =>
-      p.$isMobile ? 'translateY(-50%);' : 'translateX(-50%);'};
+  > div:first-of-type {
+    ${(p) =>
+      p.$isMobile
+        ? `
+          border-bottom: 1px solid black;
+          padding-bottom: 1rem;
+          margin-bottom: 1rem;
+        `
+        : `
+          border-right: 1px solid black;
+          padding-right: 1rem;
+          margin-right: 1rem;
+        `}
   }
   > div {
     display: flex;
