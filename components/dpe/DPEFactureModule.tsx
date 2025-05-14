@@ -11,7 +11,7 @@ import informationIcon from '@/public/information.svg'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeSituation, getSituation } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import useSetSearchParams from '../useSetSearchParams'
 import DPELabel from './DPELabel'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
@@ -42,7 +42,12 @@ export default function DPEFactureModule({ type, numDpe }) {
   const [montantFactureActuelle, setMontantFactureActuelle] = useState()
   const [montantFactureInitial, setMontantFactureInitial] = useState()
   const [montantFactureEstimee, setMontantFactureEstimee] = useState()
-  const updatePourcentage = (index, value) => {
+
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
+  const situation = getSituation(searchParams, rules)
+
+  const updatePourcentage = useCallback((index, value) => {
     setPourcentagesApresReno((prev) => {
       if (prev.length == 1) {
         return [value]
@@ -52,11 +57,7 @@ export default function DPEFactureModule({ type, numDpe }) {
       }
       return prev.map((p, i) => (i === index ? value : 100 - value))
     })
-  }
-
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
-  const situation = getSituation(searchParams, rules)
+  }, [])
 
   useEffect(() => {
     if (!dpe) return
@@ -162,273 +163,287 @@ export default function DPEFactureModule({ type, numDpe }) {
     situation,
   ])
 
-  const EnergieTable = ({
-    title,
-    pourcentages,
-    energies,
-    energiesUtilisees,
-    editable,
-    showTable,
-    setShowTable,
-  }) => {
-    return (
-      <>
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-          `}
-        >
-          <span
-            css={`
-              font-weight: bold;
-            `}
-          >
-            {title}
-          </span>{' '}
-          <span
-            css={`
-              cursor: pointer;
-              color: #0974f6;
-              display: flex;
-              align-items: center;
-            `}
-            onClick={() => setShowTable(!showTable)}
-          >
-            Détail
-            <Image
-              src={iconReduire}
-              css={`
-                margin-left: 0.5rem;
-                ${!showTable && 'transform: rotate(180deg);'}
-              `}
-              alt="icone réduire"
-            />
-          </span>
-        </div>
-        {showTable && (
-          <table
-            css={`
-              td {
-                padding: 0.2rem;
-              }
-              input {
-                height: 2.8em !important;
-                width: 4rem !important;
-                display: inline-block;
-                margin: auto;
-              }
-              .input-wrapper::after {
-                content: '%';
-                position: absolute;
-                transform: translateY(55%) translateX(-150%);
-                pointer-events: none;
-              }
-              select {
-                height: 2.8rem;
-                background: #f5f5fe;
-                max-width: 90vw;
-              }
-            `}
-          >
-            <tbody>
-              {pourcentages.map((_, index) => {
-                if (!energiesUtilisees[index]) return
-                return (
-                  <tr key={index}>
-                    <td>
-                      <Select
-                        disableInstruction={false}
-                        disabled={!editable}
-                        value={energiesUtilisees[index]?.titre}
-                        values={energies}
-                        onChange={(e) => {
-                          const newEnergiesUtilisees = energiesUtilisees.map(
-                            (energieUtilisee, i) =>
-                              i === index
-                                ? energies.find(
-                                    (energie) => energie.titre === e,
-                                  )
-                                : energieUtilisee,
-                          )
-                          setEnergiesUtiliseesApresReno(newEnergiesUtilisees)
-                        }}
-                      />
-                    </td>
-                    <td>
-                      {(pourcentages[index] != '?' || editable) && (
-                        <div className="input-wrapper">
-                          <input
-                            type="number"
-                            min="0"
-                            max="100"
-                            disabled={!editable}
-                            value={pourcentages[index]}
-                            onChange={(e) =>
-                              updatePourcentage(
-                                index,
-                                Math.max(
-                                  0,
-                                  Math.min(100, Number(e.target.value)),
-                                ),
-                              )
-                            }
-                          />
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        )}
-      </>
-    )
-  }
-
-  const MontantFacture = ({ montant, type }) => (
-    <div>
-      <div
-        css={`
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        `}
-      >
-        <span aria-hidden="true">
-          <Image src={iconArgent} width="20" alt="Icône billet" />
-        </span>
-        Facture estimée
-        <span
-          title={
-            type == 'actuel'
-              ? 'Ce montant est estimé sur la base des informations fournies dans le DPE, réajusté sur les prix actuels moyens des énergies'
-              : "Ce montant n'est qu'une estimation"
-          }
-          css={`
-            :hover {
-              cursor: pointer;
-            }
-          `}
-        >
-          <Image src={informationIcon} width="20" alt="Icône information" />
-        </span>
-      </div>
-      <div
-        css={`
-          margin-top: 0.5rem;
-          text-align: center;
-          background: var(
-            ${type == 'actuel'
-              ? '--lightestColor'
-              : montant > 0
-                ? '--validColor1'
-                : '--warningColor'}
-          );
-          border: 2px solid
-            var(${type == 'actuel' ? '--color' : '--validColor'}) !important;
-          border-radius: 0.3rem;
-          color: var(
-            ${type == 'actuel'
-              ? '--color'
-              : montant > 0
-                ? '--validColor'
-                : '--darkColor'}
-          );
-          padding: 0.8rem;
-          font-size: 110%;
-        `}
-      >
-        {montant > 0 ? (
+  const EnergieTable = useMemo(
+    () =>
+      ({
+        title,
+        pourcentages,
+        energies,
+        energiesUtilisees,
+        editable,
+        showTable,
+        setShowTable,
+      }) => {
+        return (
           <>
-            {type != 'actuel' ? (
-              <span>
-                environ <strong>{formatNumber(montant)} €</strong>
-              </span>
-            ) : (
-              <div
+            <div
+              css={`
+                display: flex;
+                justify-content: space-between;
+              `}
+            >
+              <span
                 css={`
-                  display: flex;
+                  font-weight: bold;
                 `}
               >
-                <div
-                  css={`
-                    margin: auto;
-                  `}
-                >
-                  environ
-                  <input
-                    id="facture-actuelle"
-                    css={`
-                      border: none;
-                      font-weight: bold;
-                      background: transparent;
-                      -webkit-appearance: none;
-                      outline: none;
-                      color: var(--color);
-                      font-size: 110%;
-                      max-width: 4rem;
-                      margin-left: 0.3rem;
-                      padding: 0;
-                    `}
-                    autoFocus={false}
-                    value={montantFactureActuelle}
-                    placeholder="facture actuelle"
-                    min="0"
-                    max="9999"
-                    onChange={(e) => {
-                      const rawValue = e.target.value
-                      const startPos = e.target.selectionStart
-                      const value = +rawValue === 0 ? 0 : rawValue
-                      setMontantFactureActuelle(value)
-                      requestAnimationFrame(() => {
-                        const inputBudget =
-                          document.querySelector('#facture-actuelle')
-                        inputBudget.selectionStart = startPos
-                        inputBudget.selectionEnd = startPos
-                      })
-                    }}
-                    step="1"
-                  />
-                  €
-                </div>
+                {title}
+              </span>{' '}
+              <span
+                css={`
+                  cursor: pointer;
+                  color: #0974f6;
+                  display: flex;
+                  align-items: center;
+                `}
+                onClick={() => setShowTable(!showTable)}
+              >
+                Détail
                 <Image
+                  src={iconReduire}
                   css={`
-                    cursor: pointer;
-                    width: 20px;
-                    height: 20px;
+                    margin-left: 0.5rem;
+                    ${!showTable && 'transform: rotate(180deg);'}
                   `}
-                  src={editIcon}
-                  alt="Icône crayon pour éditer"
-                  onClick={() =>
-                    document.querySelector('#facture-actuelle').focus()
-                  }
+                  alt="icone réduire"
                 />
-              </div>
+              </span>
+            </div>
+            {showTable && (
+              <table
+                css={`
+                  td {
+                    padding: 0.2rem;
+                  }
+                  input {
+                    height: 2.8em !important;
+                    width: 4rem !important;
+                    display: inline-block;
+                    margin: auto;
+                  }
+                  .input-wrapper::after {
+                    content: '%';
+                    position: absolute;
+                    transform: translateY(55%) translateX(-150%);
+                    pointer-events: none;
+                  }
+                  select {
+                    height: 2.8rem;
+                    background: #f5f5fe;
+                    max-width: 90vw;
+                  }
+                `}
+              >
+                <tbody>
+                  {pourcentages.map((_, index) => {
+                    if (!energiesUtilisees[index]) return
+                    return (
+                      <tr key={index}>
+                        <td>
+                          <Select
+                            disableInstruction={false}
+                            disabled={!editable}
+                            value={energiesUtilisees[index]?.titre}
+                            values={energies}
+                            onChange={(e) => {
+                              const newEnergiesUtilisees =
+                                energiesUtilisees.map((energieUtilisee, i) =>
+                                  i === index
+                                    ? energies.find(
+                                        (energie) => energie.titre === e,
+                                      )
+                                    : energieUtilisee,
+                                )
+                              setEnergiesUtiliseesApresReno(
+                                newEnergiesUtilisees,
+                              )
+                            }}
+                          />
+                        </td>
+                        <td>
+                          {(pourcentages[index] != '?' || editable) && (
+                            <div className="input-wrapper">
+                              <input
+                                type="number"
+                                min="0"
+                                max="100"
+                                disabled={!editable}
+                                value={pourcentages[index]}
+                                onChange={(e) =>
+                                  updatePourcentage(
+                                    index,
+                                    Math.max(
+                                      0,
+                                      Math.min(100, Number(e.target.value)),
+                                    ),
+                                  )
+                                }
+                              />
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
             )}
           </>
-        ) : (
-          <small>
-            Veuillez renseigner les valeurs de la calculatrice pour connaître le
-            montant
-          </small>
-        )}
-      </div>
-    </div>
+        )
+      },
+    [updatePourcentage, energiesUtiliseesApresReno],
   )
 
-  const Wrapper = ({ type, children }) =>
-    type === 'module' ? (
-      <ModuleWrapper
-        isMobile={isMobile}
-        title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
-      >
-        {children}
-      </ModuleWrapper>
-    ) : (
-      <CalculatorWidget>{children}</CalculatorWidget>
-    )
+  const MontantFacture = useMemo(
+    () =>
+      ({ montant, type }) => (
+        <div>
+          <div
+            css={`
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+            `}
+          >
+            <span aria-hidden="true">
+              <Image src={iconArgent} width="20" alt="Icône billet" />
+            </span>
+            Facture estimée
+            <span
+              title={
+                type == 'actuel'
+                  ? 'Ce montant est estimé sur la base des informations fournies dans le DPE, réajusté sur les prix actuels moyens des énergies'
+                  : "Ce montant n'est qu'une estimation"
+              }
+              css={`
+                :hover {
+                  cursor: pointer;
+                }
+              `}
+            >
+              <Image src={informationIcon} width="20" alt="Icône information" />
+            </span>
+          </div>
+          <div
+            css={`
+              margin-top: 0.5rem;
+              text-align: center;
+              background: var(
+                ${type == 'actuel'
+                  ? '--lightestColor'
+                  : montant > 0
+                    ? '--validColor1'
+                    : '--warningColor'}
+              );
+              border: 2px solid
+                var(${type == 'actuel' ? '--color' : '--validColor'}) !important;
+              border-radius: 0.3rem;
+              color: var(
+                ${type == 'actuel'
+                  ? '--color'
+                  : montant > 0
+                    ? '--validColor'
+                    : '--darkColor'}
+              );
+              padding: 0.8rem;
+              font-size: 110%;
+            `}
+          >
+            {montant > 0 ? (
+              <>
+                {type != 'actuel' ? (
+                  <span>
+                    environ <strong>{formatNumber(montant)} €</strong>
+                  </span>
+                ) : (
+                  <div
+                    css={`
+                      display: flex;
+                    `}
+                  >
+                    <div
+                      css={`
+                        margin: auto;
+                      `}
+                    >
+                      environ
+                      <input
+                        id="facture-actuelle"
+                        css={`
+                          border: none;
+                          font-weight: bold;
+                          background: transparent;
+                          -webkit-appearance: none;
+                          outline: none;
+                          color: var(--color);
+                          font-size: 110%;
+                          max-width: 4rem;
+                          margin-left: 0.3rem;
+                          padding: 0;
+                        `}
+                        autoFocus={false}
+                        value={montantFactureActuelle}
+                        placeholder="facture actuelle"
+                        min="0"
+                        max="9999"
+                        onChange={(e) => {
+                          const rawValue = e.target.value
+                          const startPos = e.target.selectionStart
+                          const value = +rawValue === 0 ? 0 : rawValue
+                          setMontantFactureActuelle(value)
+                          requestAnimationFrame(() => {
+                            const inputBudget =
+                              document.querySelector('#facture-actuelle')
+                            inputBudget.selectionStart = startPos
+                            inputBudget.selectionEnd = startPos
+                          })
+                        }}
+                        step="1"
+                      />
+                      €
+                    </div>
+                    <Image
+                      css={`
+                        cursor: pointer;
+                        width: 20px;
+                        height: 20px;
+                      `}
+                      src={editIcon}
+                      alt="Icône crayon pour éditer"
+                      onClick={() =>
+                        document.querySelector('#facture-actuelle').focus()
+                      }
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <small>
+                Veuillez renseigner les valeurs de la calculatrice pour
+                connaître le montant
+              </small>
+            )}
+          </div>
+        </div>
+      ),
+    [montantFactureActuelle],
+  )
+
+  const Wrapper = useMemo(
+    () =>
+      ({ type, children }) =>
+        type === 'module' ? (
+          <ModuleWrapper
+            isMobile={isMobile}
+            title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
+          >
+            {children}
+          </ModuleWrapper>
+        ) : (
+          <CalculatorWidget>{children}</CalculatorWidget>
+        ),
+    [isMobile],
+  )
 
   return (
     <Wrapper type={type}>
