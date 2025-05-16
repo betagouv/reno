@@ -1,14 +1,15 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Explication,
   getQuestions,
   MontantPrimeTravaux,
   Priorité,
 } from './DPETravauxModule'
-import { Card, CTA, MiseEnAvant } from '@/components/UI'
+import { Card, CTA } from '@/components/UI'
 import GesteQuestion from '@/components/GesteQuestion'
 import React from 'react'
+import { encodeSituation } from '@/components/publicodes/situationUtils'
 
 export const getAssociationTravauxDpe = (dpe) => ({
   'gestes . isolation . vitres': 'qualite_isolation_menuiseries',
@@ -31,42 +32,30 @@ export function DPETravauxIsolation({
   situation,
   setSearchParams,
 }) {
-  const STORAGE_KEY = 'visibleDivsDPE'
-  const QUESTIONS_KEY = 'questionsByIndexDPE'
-  const [visibleDivs, setVisibleDivs] = useState(() => {
-    if (typeof window === 'undefined') return {}
-    const saved = sessionStorage.getItem(STORAGE_KEY)
-    return saved ? JSON.parse(saved) : {}
-  })
-  const [questionsByIndex, setQuestionsByIndex] = useState(() => {
-    if (typeof window === 'undefined') return {}
-    const saved = sessionStorage.getItem(QUESTIONS_KEY)
-    return saved ? JSON.parse(saved) : {}
-  })
-  useEffect(() => {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(visibleDivs))
-  }, [visibleDivs])
-  useEffect(() => {
-    sessionStorage.setItem(QUESTIONS_KEY, JSON.stringify(questionsByIndex))
-  }, [questionsByIndex])
+  const questionsByRule = useMemo(() => {
+    const entries = Object.entries(getAssociationTravauxDpe(dpe))
+    const qbr = {}
+    for (const [rule] of entries) {
+      if (situation[rule] === 'oui') {
+        qbr[rule] = getQuestions(rule, situation, engine)
+      }
+    }
+    return qbr
+  }, [situation, dpe, engine])
 
-  const toggle = (index) => {
-    setVisibleDivs((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }))
-  }
-
-  const handleIsolationClick = (index, rule) => {
-    const newQuestions = getQuestions(rule, situation, engine)
-    console.log('newQuestions', newQuestions)
-    setQuestionsByIndex((prev) => ({
-      ...prev,
-      [index]: newQuestions,
-    }))
+  const handleIsolationClick = (rule) => {
+    setSearchParams(
+      encodeSituation(
+        {
+          ...situation,
+          [rule]: situation[rule] === 'oui' ? 'non' : 'oui',
+        },
+        false,
+      ),
+    )
   }
   return (
-    <>
+    <div>
       <table>
         <thead>
           <tr>
@@ -116,21 +105,22 @@ export function DPETravauxIsolation({
                         $importance="secondary"
                         className="estimer"
                         onClick={() => {
-                          toggle(i)
-                          handleIsolationClick(i, e[0])
+                          handleIsolationClick(e[0])
                         }}
                       >
-                        <span>{visibleDivs[i] ? 'Fermer' : 'Estimer'}</span>
+                        <span>
+                          {situation[e[0]] === 'oui' ? 'Fermer' : 'Estimer'}
+                        </span>
                       </CTA>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={4}>
                       <div
-                        className={`slide-down ${visibleDivs[i] ? 'active' : ''}`}
+                        className={`slide-down ${situation[e[0]] === 'oui' ? 'active' : ''}`}
                       >
                         <Card>
-                          {questionsByIndex[i]?.map((question, index) => (
+                          {questionsByRule[e[0]]?.map((question, index) => (
                             <GesteQuestion
                               key={i + '' + index}
                               {...{
@@ -144,7 +134,7 @@ export function DPETravauxIsolation({
                           ))}
                           <MontantPrimeTravaux
                             {...{
-                              questions: questionsByIndex[i],
+                              questions: questionsByRule[e[0]],
                               engine,
                               rule: e[0],
                               situation,
@@ -160,6 +150,6 @@ export function DPETravauxIsolation({
           })}
         </tbody>
       </table>
-    </>
+    </div>
   )
 }

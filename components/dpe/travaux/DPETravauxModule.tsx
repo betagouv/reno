@@ -196,18 +196,16 @@ export default function DPETravauxModule({ type, numDpe }) {
                 <Priorité valeur={getPriorite('isolation')} />
               </span>
             </h3>
-            <div>
-              <DPETravauxIsolation
-                {...{
-                  dpe,
-                  xml,
-                  rules,
-                  engine,
-                  situation,
-                  setSearchParams,
-                }}
-              />
-            </div>
+            <DPETravauxIsolation
+              {...{
+                dpe,
+                xml,
+                rules,
+                engine,
+                situation,
+                setSearchParams,
+              }}
+            />
           </section>
           <section>
             <h3>
@@ -224,18 +222,16 @@ export default function DPETravauxModule({ type, numDpe }) {
                 <Priorité valeur={getPriorite('chauffage')} />
               </span>
             </h3>
-            <div>
-              <DPETravauxChauffage
-                {...{
-                  dpe,
-                  xml,
-                  rules,
-                  engine,
-                  situation,
-                  setSearchParams,
-                }}
-              />
-            </div>
+            <DPETravauxChauffage
+              {...{
+                dpe,
+                xml,
+                rules,
+                engine,
+                situation,
+                setSearchParams,
+              }}
+            />
           </section>
           <section>
             <h3>
@@ -326,9 +322,7 @@ export const getQuestions = (rule, situation, engine) => {
     ),
   )
   // On filtre également les questions qui n'ont pas de libellé
-  return questions.filter(
-    (q) => !unwantedQuestion.includes(q) && q.question !== undefined,
-  )
+  return questions.filter((q) => !unwantedQuestion.includes(q))
 }
 
 export function Priorité({ valeur }) {
