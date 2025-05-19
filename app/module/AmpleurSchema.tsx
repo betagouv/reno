@@ -1,9 +1,10 @@
 import examplePersonas from './examplePersonas.yaml'
-import examplePersonasValeurVerte from './plus-value/examplePersonasValeurVerte.yaml'
+import examplePersonasPlusValue from './plus-value/examplePersonasValeurVerte.yaml'
+import exampleDpe from '@/components/dpe/exampleDpe.yaml'
 import rules from '@/app/règles/rules'
 
-const getValues = (dottedName) => {
-  const values = examplePersonas
+const getValues = (dottedName, moduleName) => {
+  const values = getPersonas(moduleName)
     .map((persona) => persona.situation[dottedName])
     .filter(Boolean)
 
@@ -13,14 +14,20 @@ const getValues = (dottedName) => {
 
 const schema = (dottedName) => {
   const rule = rules[dottedName]
-  return rule['schema module']
+  return rule && rule['schema module'] ? rule['schema module'] : ''
 }
-export default function Schema({ moduleName }) {
-  const dottedNamesList =
-    moduleName == 'ampleur' ? examplePersonas : examplePersonasValeurVerte
+export const getPersonas = (moduleName) =>
+  moduleName == 'ampleur'
+    ? examplePersonas
+    : moduleName == 'plus-value'
+      ? examplePersonasPlusValue
+      : exampleDpe
 
+export default function Schema({ moduleName }) {
   const dottedNames = new Set(
-    dottedNamesList.map((persona) => Object.keys(persona.situation)).flat(),
+    getPersonas(moduleName)
+      .map((persona) => Object.keys(persona.situation))
+      .flat(),
   )
 
   return (
@@ -48,7 +55,7 @@ export default function Schema({ moduleName }) {
       `}
     >
       {[...dottedNames].map((dottedName) => {
-        const values = getValues(dottedName)
+        const values = getValues(dottedName, moduleName)
         return (
           <li key={dottedName}>
             <span>
@@ -59,7 +66,7 @@ export default function Schema({ moduleName }) {
               {' '}
               Exemples:
               <ul>
-                {getValues(dottedName).map((value, i) => (
+                {values.map((value, i) => (
                   <li key={value}>
                     {value}
                     {i < values.length - 1 ? ', ' : '.'}

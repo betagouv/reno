@@ -1,4 +1,4 @@
-import DPE from '@/components/DPE'
+import DPE from '@/components/dpe/DPE'
 import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'

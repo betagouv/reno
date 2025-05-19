@@ -1,4 +1,4 @@
-import { getAmpleurDPEChoice } from '@/components/DPEQuickSwitch'
+import { getAmpleurDPEChoice } from '@/components/dpe/DPEQuickSwitch'
 
 import Value from '@/components/Value'
 

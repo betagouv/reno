@@ -1,10 +1,15 @@
 'use client'
 
-import dpeData from '@/components/DPE.yaml'
+import dpeData from '@/components/dpe/DPE.yaml'
 
 export const conversionLettreIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
-export default function DPELabel({ index, label = null, small = true }) {
+export default function DPELabel({
+  index,
+  label = null,
+  small = true,
+  border = false,
+}) {
   if (label) {
     index = conversionLettreIndex.indexOf(label)
   }
@@ -48,6 +53,7 @@ export default function DPELabel({ index, label = null, small = true }) {
         font-weight: bold;
         color: ${textColor || 'black'};
         border-radius: 0.3rem;
+        border: ${border ? '2px solid var(--color)' : ''};
       `}
     >
       {lettre}

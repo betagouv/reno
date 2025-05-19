@@ -4,7 +4,7 @@ import PlusValueModule from '@/components/module/PlusValueModule'
 export default function Integration() {
   return (
     <Suspense>
-      <PlusValueModule type={'module'} />
+      <PlusValueModule type="module" />
     </Suspense>
   )
 }

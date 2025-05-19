@@ -197,13 +197,24 @@ export default function Integration() {
                   d'ampleur.
                 </p>
               </Card>
-              {/* Petit hack en attendant un 3ème module */}
               <div
                 css={`
                   opacity: 0;
                   cursor: auto;
                 `}
               ></div>
+              {/* <Card>
+                <Image src={ampleurImage} alt="Logo Ampleur" />
+                <h3>
+                  <Link href="/module/facture/demonstration">
+                    Facture d'énergie
+                  </Link>
+                </h3>
+                <p>
+                  Calculez les économies d'énergie découlant d'une rénovation
+                  énergétique.
+                </p>
+              </Card> */}
             </CardMosaic>
             <h2
               css={`

@@ -19,7 +19,6 @@ export default function AddressSearch({
   const [input] = useDebounce(immediateInput, 300)
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
-
   const [clicked, setClicked] = useState(situation[type])
 
   const validInput = input && input.length >= 3

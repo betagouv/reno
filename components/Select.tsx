@@ -43,7 +43,7 @@ export default function Select({
       `}
       onChange={onChange}
       {...props}
-      defaultValue={value}
+      value={value}
     >
       {[{ valeur: '', titre: 'Choisir une réponse' }, ...values].map(
         (item, index) => (
