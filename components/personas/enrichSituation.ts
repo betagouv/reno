@@ -38,10 +38,12 @@ export async function getCommune(situation, type) {
     ['ménage . commune', 'logement . commune'].includes(type) &&
     situation[type]
   ) {
-    const response = await fetch(
-      `https://geo.api.gouv.fr/communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
-    )
-    return await response.json()
+    const path = `communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
+      url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
+
+    const response = await fetch(url)
+    const json = await response.json()
+    return json[0]
   }
   return null
 }

@@ -664,8 +664,10 @@ conditions communes:
     - logement . résidence principale
 
 MPR:
+  marque: "MaPrimeRénov'"
   titre: Choix de l'aide
-
+Coup de pouce:
+  marque: 'Coup de pouce Chauffage'
 parcours d'aide:
   question: Votre choix du parcours d'aide
   description: |
