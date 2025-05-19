@@ -1,0 +1,46 @@
+# Idée : un premier item "faire ma simulation mes aides réno" qui débouche sur "parcours d'aide"
+- nom: audit énergétique
+  applicable si: parcours d'aide = 'ampleur'
+  temporel:
+    signe: négatif
+    dépendances:
+      - DPE . actuel
+- nom: devis
+  description: |
+    Contacter des artisans et obtenir des devis pour préciser le projet et chiffrer le montant des travaux.
+
+    Verser l'acompte.
+  # <-- peut-être dans un nouvel item plus tard
+  temporel:
+    signe: négatif
+    dépendances:
+      - parcours d'aide
+      - audit énergétique
+
+- nom: acceptation
+  description: |
+    Votre demande d'aide est acceptée. Vous pouvez lancer les travaux.
+  temporel:
+    dépendances:
+      - devis
+- nom: fin des travaux
+  titre: Fin des travaux et paiement
+  description: Fin des travaux et paiement de la facture finale aux artisans.
+  temporel:
+    signe: négatif
+    dépendances:
+      - devis
+      - MPR . accompagnée . avance
+      - PTZ
+- nom: remboursement PTZ
+  description: Chaque mois, le prêt à taux zéro doit être remboursé
+  temporel:
+    signe: négatif
+    dépendances:
+      - MPR . accompagnée
+- nom: rendement des travaux
+  description: Chaque mois, et d'autant plus l'hiver, vos travaux auront réduit vos factures énergétiques.
+  temporel:
+    signe: positif
+    dépendances:
+      - remboursement PTZ
