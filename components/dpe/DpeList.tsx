@@ -6,7 +6,7 @@ import enrich, { etageKey } from './enrich'
 const spec = {
   etiquette_dpe: { label: '' },
   numero_dpe: { label: 'n°' },
-  numero_etage_appartement: { label: 'etage' },
+  étageEstimé: { label: 'étage' },
   type_batiment: { label: '', title: 'maison ou appartement' },
   complement_adresse_logement: { label: 'cmplt' },
 }

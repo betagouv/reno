@@ -1,9 +1,9 @@
 export const etageKey = 'numero_etage_appartement'
 export default function enrich(dpes) {
   return dpes.map((dpe) => {
-    const étage = guessÉtage(dpe)
-    if (étage == null) return dpe
-    const enriched = { étage }
+    const étageEstimé = guessÉtage(dpe)
+    if (étageEstimé == null) return dpe
+    const enriched = { étageEstimé }
 
     return { ...dpe, ...enriched }
   })

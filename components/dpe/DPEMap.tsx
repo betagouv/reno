@@ -6,6 +6,7 @@ import useAddAddressMap from '../useAddAddressMap'
 import DPEMarkers from './DPEMarkers'
 import styled from 'styled-components'
 import DpeList from './DpeList'
+import enrich from './enrich'
 
 export default function DPEMap({
   searchParams,
@@ -14,7 +15,9 @@ export default function DPEMap({
   addressResults,
   dpeListStartOpen = true,
 }) {
-  const [dpes, setDpes] = useState()
+  const [rawDpes, setDpes] = useState()
+
+  const dpes = rawDpes && enrich(rawDpes)
   const [error, setError] = useState()
 
   const mapContainerRef = useRef(null)
@@ -79,7 +82,8 @@ export default function DPEMap({
                 const color = dpeColors.find(
                   (dpe) => dpe.lettre === etiquette,
                 ).couleur
-                const fakeFloor = Math.round(Math.random() * 6)
+
+                const floor = dpe['étageEstimé'] ?? 20
 
                 return {
                   type: 'Feature',
@@ -90,8 +94,8 @@ export default function DPEMap({
                   properties: {
                     ...dpe,
                     etage: +etage,
-                    top: (fakeFloor + 1) * 3,
-                    base: fakeFloor * 3,
+                    top: (floor + 1) * 3,
+                    base: floor * 3,
                     height: 3,
                     etiquette,
                     surface: +dpe['surface_habitable_logement'],
