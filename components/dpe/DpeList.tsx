@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import DPELabel from './DPELabel'
 import computeDistance from '@turf/distance'
+import enrich, { etageKey } from './enrich'
 
 const spec = {
   etiquette_dpe: { label: '' },
@@ -10,11 +11,11 @@ const spec = {
   complement_adresse_logement: { label: 'cmplt' },
 }
 
-export default function DpeList({ dpes, startOpen = true, latLon }) {
+export default function DpeList({ dpes: rawDpes, startOpen = true, latLon }) {
   console.log('plop', startOpen)
-  if (!dpes) return
+  if (!rawDpes) return
 
-  const etageKey = 'numero_etage_appartement'
+  const dpes = enrich(rawDpes)
 
   console.log(
     'cyan',
@@ -24,7 +25,9 @@ export default function DpeList({ dpes, startOpen = true, latLon }) {
         ' ' +
         el['type_batiment'] +
         ' | ' +
-        el['complement_adresse_logement'],
+        el['complement_adresse_logement'] +
+        '----->' +
+        el['étage'],
     ),
     dpes,
   )
