@@ -1,14 +1,15 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
 import GesteQuestion from '@/components/GesteQuestion'
-import { Card, CTA, MiseEnAvant } from '@/components/UI'
+import { Card, CTA } from '@/components/UI'
 import { useEffect, useMemo, useState } from 'react'
 import React from 'react'
+import { getQuestions, MontantPrimeTravaux } from './DPETravauxModule'
 import {
-  Explication,
-  getQuestions,
-  MontantPrimeTravaux,
-} from './DPETravauxModule'
-import { encodeSituation } from '@/components/publicodes/situationUtils'
+  decodeDottedName,
+  encodeDottedName,
+  encodeSituation,
+} from '@/components/publicodes/situationUtils'
+import { useSearchParams } from 'next/navigation'
 
 export function DPETravauxChauffage({
   dpe,
@@ -18,8 +19,13 @@ export function DPETravauxChauffage({
   situation,
   setSearchParams,
 }) {
+  const rawSearchParams = useSearchParams(),
+    searchParams = Object.fromEntries(rawSearchParams.entries())
+
+  const selectedGeste = searchParams['selectedGeste']
+    ? decodeDottedName(searchParams['selectedGeste'])
+    : null
   const [gestes, setGestes] = useState([])
-  const [selectedGeste, setSelectedGeste] = useState(null)
   const questionsByRule = useMemo(() => {
     const qbr = {}
     gestes.forEach(({ code }) => {
@@ -27,14 +33,12 @@ export function DPETravauxChauffage({
         qbr[code] = getQuestions(code, situation, engine)
       }
     })
-
     if (selectedGeste && !qbr[selectedGeste]) {
       qbr[selectedGeste] = getQuestions(selectedGeste, situation, engine)
     }
-    console.log('selectedGeste', selectedGeste)
-    console.log('qbr', qbr)
+
     return qbr
-  }, [situation, selectedGeste, gestes])
+  }, [situation, gestes])
   useEffect(() => {
     let allGestes = []
     // Les règles métiers:
@@ -138,8 +142,17 @@ export function DPETravauxChauffage({
 
   const handleClick = (geste) => {
     if (geste.code.includes('chauffe-eau thermodynamique')) {
-      setSelectedGeste(geste.code)
+      setSearchParams(
+        encodeSituation(
+          {
+            ...situation,
+            selectedGeste: geste.code,
+          },
+          false,
+        ),
+      )
     }
+
     setSearchParams(
       encodeSituation(
         {
@@ -194,7 +207,15 @@ export function DPETravauxChauffage({
                             engine,
                             situation,
                             onChangeEvent: (value) =>
-                              setSelectedGeste(geste.code + ' . ' + value),
+                              setSearchParams(
+                                encodeSituation({
+                                  ...situation,
+                                  [geste.code + '.type']: value,
+                                  selectedGeste: encodeDottedName(
+                                    geste.code + '.' + value,
+                                  ),
+                                }),
+                              ),
                             setSearchParams,
                             noMargin: true,
                           }}
