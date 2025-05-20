@@ -9,7 +9,7 @@
   description: |
     Contacter des artisans et obtenir des devis pour préciser le projet et chiffrer le montant des travaux.
 
-    Verser l'acompte.
+    Attention : pour obtenir des aides, il ne faut pas signer les devis !
   # <-- peut-être dans un nouvel item plus tard
   temporel:
     signe: négatif
@@ -23,6 +23,17 @@
   temporel:
     dépendances:
       - devis
+
+- nom: signature devis
+  titre: Signer les devis et verser l'acompte
+  description: |
+    Une fois les éventuelles demandes d'aide effectuées, signer les devis avec les entreprises du bâtiment pour lancer les travaux, et verser les acomptes nécessaires.
+  # <-- peut-être dans un nouvel item plus tard
+  temporel:
+    signe: négatif
+    dépendances:
+      - acceptation
+
 - nom: fin des travaux
   titre: Fin des travaux et paiement
   description: Fin des travaux et paiement de la facture finale aux artisans.
