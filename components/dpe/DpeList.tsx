@@ -1,15 +1,16 @@
 import styled from 'styled-components'
 import DPELabel from './DPELabel'
+import computeDistance from '@turf/distance'
 
 const spec = {
   etiquette_dpe: { label: '' },
   numero_dpe: { label: 'n°' },
   numero_etage_appartement: { label: 'etage' },
   type_batiment: { label: '', title: 'maison ou appartement' },
-  complement_adresse_batiment: { label: 'cmplt' },
+  complement_adresse_logement: { label: 'cmplt' },
 }
 
-export default function DpeList({ dpes, startOpen = true }) {
+export default function DpeList({ dpes, startOpen = true, latLon }) {
   console.log('plop', startOpen)
   if (!dpes) return
 
@@ -36,18 +37,39 @@ export default function DpeList({ dpes, startOpen = true }) {
           {dpes.map((dpe) => (
             <li key={dpe['numero_dpe']}>
               <ol>
-                {Object.entries(spec).map(([k, { label, title }]) => (
-                  <li key={k} title={title}>
-                    <small>{label}</small>
-                    {k === 'etiquette_dpe' ? (
-                      <DPELabel label={dpe[k]} />
-                    ) : dpe[k] === 'appartement' ? (
-                      'appt'
-                    ) : (
-                      dpe[k]
-                    )}
-                  </li>
-                ))}
+                <li
+                  key={'id'}
+                  style={{
+                    position: 'absolute',
+                    top: '-.4rem',
+                    right: '-.4rem',
+                  }}
+                >
+                  <small>n°{dpe['numero_dpe']}</small>
+                </li>
+                {Object.entries(spec)
+                  .filter(([k]) => k !== 'numero_dpe')
+                  .map(([k, { label, title }]) => (
+                    <li key={k} title={title}>
+                      <small>{label}</small>
+                      {k === 'etiquette_dpe' ? (
+                        <DPELabel label={dpe[k]} />
+                      ) : dpe[k] === 'appartement' ? (
+                        'appt'
+                      ) : (
+                        dpe[k]
+                      )}
+                    </li>
+                  ))}
+                <li key="distance">
+                  À{' '}
+                  {formatDistance(
+                    computeDistance(dpe['geometry'].coordinates, [
+                      latLon[1],
+                      latLon[0],
+                    ]),
+                  )}
+                </li>
               </ol>
               <button
                 css={`
@@ -67,16 +89,24 @@ export default function DpeList({ dpes, startOpen = true }) {
   )
 }
 
+const formatDistance = (km) => {
+  if (km < 1) return Math.round(km * 1000) + ' m'
+  if (km < 10) return Math.round(km * 10) / 10 + ' km'
+  return Math.round(km) + ' km'
+}
+
 const Wrapper = styled.section`
   ol {
     list-style-type: none;
     padding: 0;
+    padding-top: 0.7rem;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
     max-height: 24rem;
     overflow-y: scroll;
+    position: relative;
   }
   > ol > li {
     margin: 0.3rem 0 0.7rem;

@@ -20,10 +20,12 @@ export default function DPEMap({
   const mapContainerRef = useRef(null)
   const map = useAddAddressMap(mapContainerRef)
   const [clicked, setClicked] = useState(false)
+
+  const latLon = [searchParams.lat, searchParams.lon]
   const dpeCoordinates = dpe?.['_geopoint'],
     [lat, lon] = dpeCoordinates
       ? dpeCoordinates.split(',').map((e) => parseFloat(e))
-      : [searchParams.lat, searchParams.lon]
+      : latLon
 
   useEffect(() => {
     if (!lon || !lat) return
@@ -55,7 +57,7 @@ export default function DPEMap({
   const addressesToRender = addressResults || (dpes ? [dpes[0]] : [])
   return (
     <div>
-      <DpeList dpes={dpes} startOpen={dpeListStartOpen} />
+      <DpeList dpes={dpes} startOpen={dpeListStartOpen} latLon={latLon} />
       {map && (
         <>
           {addressesToRender.length > 0 && (
