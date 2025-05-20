@@ -97,7 +97,9 @@ const TimelineContent = ({ title, description = '' }) => {
       {description !== '' &&
         (truncated ? (
           <details>
-            <summary>{shortDescription}...</summary>
+            <summary style={{ display: 'inline' }}>
+              {shortDescription}...
+            </summary>
             {rest}
           </details>
         ) : (
