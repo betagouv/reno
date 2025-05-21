@@ -4,7 +4,7 @@ import informationIcon from '@/public/information.svg'
 import Publicodes, { formatValue } from 'publicodes'
 import rules from '@/app/règles/rules'
 import CalculatorWidget from '../../CalculatorWidget'
-import { getSituation } from '../../publicodes/situationUtils'
+import { encodeSituation, getSituation } from '../../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import React from 'react'
@@ -24,6 +24,8 @@ import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 import useDpe from '../useDpe'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
+import enrichSituation from '@/components/personas/enrichSituation'
+import { getIndexLettre } from '../DPEPage'
 
 export default function DPETravauxModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
@@ -36,6 +38,35 @@ export default function DPETravauxModule({ type, numDpe }) {
 
   useEffect(() => {
     if (!dpe) return
+
+    async function fetchSituation() {
+      const anneeConstruction = dpe['periode_construction'].slice(-4)
+      let situation = await enrichSituation({
+        'logement . commune': `"${dpe['code_insee_ban']}"*`,
+        'logement . département': `"${dpe['code_departement_ban']}"*`,
+        'logement . commune . nom': `"${dpe['nom_commune_ban']}"*`,
+        'logement . surface': `${dpe['surface_habitable_logement']}*`,
+        'logement . période de construction': `'${
+          anneeConstruction < new Date().getFullYear() - 15
+            ? 'au moins 15 ans'
+            : anneeConstruction < new Date().getFullYear() - 2
+              ? 'de 2 à 10 ans'
+              : 'moins de 2 ans'
+        }'*`,
+        'DPE . actuel': getIndexLettre(dpe) + '*',
+        'projet . DPE visé': Math.max(getIndexLettre(dpe) - 2, 1) + '*',
+        'logement . type': `"${dpe['type_batiment']}"*`,
+        'ménage . région . IdF': `"${
+          ['75', '77', '78', '91', '92', '93', '94', '95'].includes(
+            dpe['code_departement_ban'],
+          )
+            ? 'oui'
+            : 'non'
+        }"*`,
+      })
+      setSearchParams(encodeSituation({ ...situation }))
+    }
+
     async function fetchDPE() {
       try {
         const response = await fetch(`/api/dpe?dpeNumber=${dpe['numero_dpe']}`)
@@ -106,6 +137,7 @@ export default function DPETravauxModule({ type, numDpe }) {
       }
     }
 
+    fetchSituation()
     fetchDPE()
   }, [dpe])
 
@@ -448,9 +480,18 @@ export function Explication({ geste, dpe, xml, index, type }) {
   )
 }
 export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
-  const isEligible = formatValue(
+  const montant = formatValue(
     engine.setSituation(situation).evaluate(rule + ' . montant'),
   )
+  const isEligible =
+    Array.isArray(questions) &&
+    questions.every((question) => question in situation)
+  console.log('situation', situation)
+  console.log(
+    'montant',
+    engine.setSituation(situation).evaluate(rule + ' . montant'),
+  )
+
   return (
     <>
       <div
@@ -462,36 +503,18 @@ export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
         <PrimeStyle
           css={`
             padding: 0.75rem;
+            strong {
+              font-size: 1.5rem;
+            }
           `}
-          $inactive={
-            !(
-              Array.isArray(questions) &&
-              questions.every((question) => question in situation)
-            )
-          }
+          $inactive={!isEligible}
         >
-          {isEligible !== 'Non applicable' ? (
+          {montant !== 'Non applicable' ? (
             <>
-              Prime de{' '}
-              <strong
-                css={`
-                  font-size: 1.5rem;
-                `}
-              >
-                {Array.isArray(questions) &&
-                questions.every((question) => question in situation)
-                  ? isEligible
-                  : '...'}
-              </strong>
+              Prime de <strong>{isEligible ? montant : '...'}</strong>
             </>
           ) : (
-            <strong
-              css={`
-                font-size: 1.25rem;
-              `}
-            >
-              Non Éligible
-            </strong>
+            <strong>Non Éligible</strong>
           )}
         </PrimeStyle>
       </div>

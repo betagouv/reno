@@ -153,15 +153,14 @@ export function DPETravauxChauffage({
       )
     }
 
-    setSearchParams(
-      encodeSituation(
-        {
-          ...situation,
-          [geste.code]: situation[geste.code] === 'oui' ? 'non' : 'oui',
-        },
-        false,
-      ),
-    )
+    const updatedSituation = { ...situation }
+
+    updatedSituation[geste.code] =
+      geste.code in updatedSituation && updatedSituation[geste.code] == 'oui'
+        ? 'non'
+        : 'oui'
+
+    setSearchParams(encodeSituation(updatedSituation))
   }
 
   return (
@@ -238,7 +237,7 @@ export function DPETravauxChauffage({
                             )}
                             <MontantPrimeTravaux
                               {...{
-                                questions: questionsByRule,
+                                questions: questionsByRule[selectedGeste],
                                 engine,
                                 rule: selectedGeste,
                                 situation,

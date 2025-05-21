@@ -1,5 +1,5 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   Explication,
   getQuestions,
