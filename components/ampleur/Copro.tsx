@@ -88,7 +88,7 @@ export default function Copro({
                   new URLSearchParams(encodeSituation(situation))
                 }
               >
-                ➞ &nbsp;Simuler MaPrimeRénov' copropriété
+                ➞ &nbsp;Simuler MaPrimeRénov' Copropriété
               </Link>
             </CTA>
           </CTAWrapper>

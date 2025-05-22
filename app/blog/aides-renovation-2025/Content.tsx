@@ -48,13 +48,13 @@ export default function Content() {
         <Parcours>
           <li>
             <Card>
-              <h3>⭐ Parcours ampleur</h3>
+              <h3>⭐ Parcours Accompagné</h3>
               <p>Des aides conséquentes pour 2 sauts de DPE</p>
             </Card>
           </li>
           <li>
             <Card>
-              <h3>🧩️ Parcours par gestes</h3>
+              <h3>🧩️ Rénovation par gestes</h3>
               <p>Des aides ciblées pour une rénovation plus progressive</p>
             </Card>
           </li>
@@ -84,12 +84,12 @@ export default function Content() {
       </Suspense>
       <h2>Toujours autant d'aides, sauf pour les ménages aisés</h2>
       <p>
-        Concernant le ⭐️ parcours ampleur, les taux d'aide ne changent pas en
+        Concernant le ⭐️ Parcours Accompagné, les taux d'aide ne changent pas en
         2025 <strong>sauf pour les ménages au revenu supérieur</strong>.
       </p>
       <ul>
         <li>
-          Pour 2 sauts de DPE, le financement MaPrimeRénov' accompagnée passe de
+          Pour 2 sauts de DPE, le financement MaPrimeRénov' Parcours Accompagné passe de
           30 à 10 % des travaux.
         </li>
         <li>Pour 3 sauts de DPE, la subvention de 35 % est réduite à 15 %</li>

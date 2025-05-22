@@ -37,7 +37,7 @@ export default function QuestionsRéponses() {
         </details>
         <details>
           <summary open={false}>
-            Quelles sont les grandes étape de MaPrimeRénov’ parcours Accompagné
+            Quelles sont les grandes étape de MaPrimeRénov’ Parcours Accompagné
             ?
           </summary>
           <p>
@@ -96,7 +96,7 @@ export default function QuestionsRéponses() {
         </details>
         <details>
           <summary open={false}>
-            Quels sont les conditions pour bénéfice de MaPrimeRénov' parcours
+            Quels sont les conditions pour bénéfice de MaPrimeRénov' Parcours
             Accompagné ?
           </summary>
 

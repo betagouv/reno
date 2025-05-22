@@ -12,12 +12,12 @@ const accordionSections = [
   },
   {
     id: 'mpr-accompagne',
-    title: "MaPrimeRénov' - Parcours accompagné",
+    title: "MaPrimeRénov' - Parcours Accompagné",
     componentType: 'mpra',
   },
   {
     id: 'mpr-geste',
-    title: "MaPrimeRénov' - Parcours par geste",
+    title: "MaPrimeRénov' - Rénovation par geste",
     componentType: 'MPR',
   },
   {

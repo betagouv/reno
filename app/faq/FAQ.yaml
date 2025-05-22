@@ -10,20 +10,20 @@
 - question: L'aide MaPrimeRénov' est-elle une avance ou un remboursement après travaux ?
   catégorie: finance
   réponse: |
-    En général, c'est un remboursement, mais pour les foyers les plus modestes, dans le parcours MaPrimeRénov' accompagnée, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
+    En général, c'est un remboursement, mais pour les foyers les plus modestes, dans le parcours MaPrimeRénov' Parcours Accompagné, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
 
 - question: Je suis en appartement. Puis-je faire des travaux à côté des décisions de la copro ?
   catégorie: appartement
   réponse: |
-    Oui, les aides MaPrimeRénov accompagnée et par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
+    Oui, les aides MaPrimeRénov Parcours Accompagné et de rénovation par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
 
-    Le dispositif MaPrimeRénov' copropriété pourra venir financer les travaux communs, et il peut être cumulé avec les parcours individuels MaPrimeRénov'.
+    Le dispositif MaPrimeRénov' Copropriété pourra venir financer les travaux communs, et il peut être cumulé avec les parcours individuels MaPrimeRénov'.
 - question: Y a-t-il des aides locales pour ma rénovation ?
   catégorie: local
   réponse: |
     Oui, de nombreuses communes, métropoles et communautés de communes ont voté des aides locales. 
 
-    Elles prennent diverses formes : complément au parcours accompagné MaPrimeRénov', bonus fixe de quelques milliers d'euros pour une rénovation BBC (DPE A ou B), ou encore subvention spécifique d'un geste comme l'installation de panneaux solaires. 
+    Elles prennent diverses formes : complément au Parcours Accompagné de MaPrimeRénov', bonus fixe de quelques milliers d'euros pour une rénovation BBC (DPE A ou B), ou encore subvention spécifique d'un geste comme l'installation de panneaux solaires. 
 
     Nous les integrerons progressivement sur Mes Aides Réno. Si après avoir renseigné votre commune, nous n'en proposons pas, cela ne signifie pas qu'il n'y en a pas.
 
@@ -70,7 +70,7 @@
   désactivée: oui
   réponse: |
     Une fenêtre, dans le parcours gestes, c'est une petite fenêtre ? Une baie vitrée, ça compte pour combien de fenêtres ? Car le coût n'est pas le même entre une lucarne et une baie vitrée !
-- question: Que met-on dans l'enveloppe des travaux MaPrimeRénov' accompagnée ?
+- question: Que met-on dans l'enveloppe des travaux MaPrimeRénov' Parcours Accompagné ?
   catégorie: accompagnée
   désactivée: oui
   id: enveloppe
@@ -81,6 +81,6 @@
 
     La page ["La TVA à taux réduit"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=32) donne des éléments de réponse, à creuser pour donner une réponse claire.
 
-    Le jeu de test ANAH nous donne aussi des indices : il semble bien que MPRA est souvent appliquée sur la totalité d'enveloppes qui comporte plus que 5 % de TVA, par exemple la ligne `32188`, ce qui laisse penser que l'assiette MPRA peut en effet contenir des travaux à la TVA de 10 %, donc des travaux qui ne sont pas strictement de l'amélioration de la performance énergétique !
+    Le jeu de test Anah nous donne aussi des indices : il semble bien que MPRA est souvent appliquée sur la totalité d'enveloppes qui comporte plus que 5 % de TVA, par exemple la ligne `32188`, ce qui laisse penser que l'assiette MPRA peut en effet contenir des travaux à la TVA de 10 %, donc des travaux qui ne sont pas strictement de l'amélioration de la performance énergétique !
 
     Exemple précis : je fais l'isolation par l'intérieur de ma maison sur 2 faces. Je dois donc refaire la peinture, c'est automatique. Est-ce que la peinture est incluse dans l'assiette MPRA ?
