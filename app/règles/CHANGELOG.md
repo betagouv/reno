@@ -56,7 +56,7 @@ Nous avons acté la sortie de beta après plusieurs mois d'utilisation.
 
 ### v2.0.0-beta4
 
-#### Nouveau design pour le module Ampleur
+#### Nouveau design pour le module Parcours Accompagné, pour une rénovation d'ampleur
 
 Le module ampleur passe en version 3. Ses évolutions sont décrites en bas de la [page dédiée](https://mesaidesreno.beta.gouv.fr/module).
 

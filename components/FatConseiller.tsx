@@ -15,7 +15,7 @@ export default function FatConseiller({ situation, margin, titre, texte }) {
           <div>
             <Image
               src={conseillerIcon}
-              alt="illustration espace conseiller France Rénov'"
+              alt="illustration Espace conseil France Rénov'"
             />
             <div>
               <h3>

@@ -50,7 +50,7 @@ export default function SimplifiedAmpleurSummary({ engine, url, situation }) {
               <Image src={crossIcon} alt="Icône d'une croix" />
               <div>
                 <p>
-                  Vous n'êtes pas éligible à MaPrimeRénov' parcours accompagné.
+                  Vous n'êtes pas éligible à MaPrimeRénov' Parcours Accompagné.
                 </p>
                 <small>
                   Il faut être propriétaire du logement, construit il y a au

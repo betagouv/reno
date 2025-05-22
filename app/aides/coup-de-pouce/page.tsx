@@ -87,7 +87,7 @@ export default function CoupDePouce() {
               href="/aides/ma-prime-renov"
               title="Liste des aides MaPrimeRénov'"
             >
-              <strong>MaPrimeRénov (parcours par geste)</strong>
+              <strong>MaPrimeRénov' rénovation par geste</strong>
             </InternalLink>{' '}
             et <strong>l’éco-prêt à taux zéro</strong>. En revanche, il n'est
             pas cumulable avec{' '}

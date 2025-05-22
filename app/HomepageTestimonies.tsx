@@ -33,7 +33,7 @@ export default function HomepageSteps() {
           (<Key $state={'prime'}>3 000 €</Key> d'aides), et peut-être en
           profiter pour isoler les murs par l'extérieur (
           <Key $state={'prime'}>60 €/m² isolé</Key> d'aides). Pour aller plus
-          loin, elle prend contact avec la conseillère France Rénov proche de
+          loin, elle prend contact avec la conseillère France Rénov' proche de
           chez elle qui lui propose un{' '}
           <strong>rendez-vous d'une heure gratuit</strong> et indépendant.
         </>
