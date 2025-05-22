@@ -232,6 +232,7 @@ export const RevenuQuestion = ({
     const currentValue = situation['ménage . revenu']
     const onChange = (value) => {
       if (value === '') return
+      push(['trackEvent', 'Module', 'Interaction', 'revenu ' + value])
       const encodedSituation = encodeSituation(
         {
           'ménage . revenu': value == undefined ? undefined : value,
@@ -540,7 +541,7 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule].includes('oui')}
+              checked={answered && situation[rule]?.includes('oui')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf oui'])
                 setSearchParams({
@@ -554,7 +555,7 @@ export const IdFQuestion = ({
             <input
               id={`idf`}
               type="radio"
-              checked={answered && situation[rule].includes('non')}
+              checked={answered && situation[rule]?.includes('non')}
               onChange={() => {
                 push(['trackEvent', 'Module', 'Interaction', 'idf non'])
                 setSearchParams({
