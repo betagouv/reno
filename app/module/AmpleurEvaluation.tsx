@@ -7,6 +7,7 @@ import { AmpleurAideSummary } from './AmpleurAideSummary'
 import AmpleurCTA from './AmpleurCTA'
 import { CTA } from '@/components/UI'
 import DPELabel from '@/components/dpe/DPELabel'
+import { push } from '@socialgouv/matomo-next'
 
 export function EvaluationValue({
   engine,
@@ -17,13 +18,9 @@ export function EvaluationValue({
   targetDPE,
   disclaimer = true,
 }) {
-  console.log('ampleur module situation', situation)
-
   engine.setSituation(situation)
   const aides = useAides(engine, situation)
-  console.log('ampleur module aides', aides)
   const aidesToDisplay = filterAidesToDisplay(aides)
-  console.log({ aides, aidesToDisplay })
 
   if (!shouldDisplay)
     return (
@@ -37,6 +34,7 @@ export function EvaluationValue({
         </div>
       </EvaluationValueWrapper>
     )
+  push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
   return (
     <EvaluationValueWrapper $active={shouldDisplay}>
       <h2>🥳 Résultats</h2>

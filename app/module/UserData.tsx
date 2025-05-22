@@ -2,6 +2,7 @@ import { encodeSituation } from '@/components/publicodes/situationUtils'
 import { omit } from '@/components/utils'
 import Link from 'next/link'
 import { userInputDottedNames } from './AmpleurInputs'
+import { push } from '@socialgouv/matomo-next'
 
 export default function UserData({ setSearchParams, situation }) {
   const baseSituation = omit(userInputDottedNames, situation)
@@ -27,6 +28,7 @@ export default function UserData({ setSearchParams, situation }) {
         <a
           href={url}
           onClick={() => {
+            push(['trackEvent', 'Module', 'Interaction', 'Recommencer'])
             try {
               localStorage.setItem('ampleurSituation', null)
             } catch (e) {
