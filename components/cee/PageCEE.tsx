@@ -25,13 +25,16 @@ import { Card } from '@/components/UI'
 import useIsInIframe from '@/components/useIsInIframe'
 import IframeIntegrator from '../IframeIntegrator'
 import Breadcrumb from '../Breadcrumb'
+import { push } from '@socialgouv/matomo-next'
 
 export default function PageCEE({ params }: { params: { code: string } }) {
   const isInIframe = useIsInIframe()
   const engine = new Publicodes(rules)
   const rawSearchParams = useSearchParams(),
     situationSearchParams = Object.fromEntries(rawSearchParams.entries())
-
+  if (isInIframe) {
+    push(['trackEvent', 'Module', 'Page', 'Calculette CEE ' + params.code])
+  }
   const allRuleConcerned = Object.keys(rules).filter(
     (rule) => rules[rule] && rules[rule].code == params.code,
   )
