@@ -50,6 +50,7 @@ export default function PlusValueModule({ type }) {
     async function fetchCommune() {
       if (!situation['logement . commune']) return
       const result = await getCommune(situation, 'logement . commune')
+      push(['trackEvent', 'Module', 'Interaction', 'Commune logement'])
       setSearchParams({
         [encodeDottedName('logement . code département')]:
           `"${result.codeDepartement}"*`,
@@ -61,6 +62,7 @@ export default function PlusValueModule({ type }) {
   useEffect(() => {
     const result = calculateAppreciationAndPlusValue(situation)
     if (result) {
+      push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
       setRegion(result.region)
       setPourcentageAppreciation(result.appreciation)
       setPlusValue(result.plusValue)
