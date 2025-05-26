@@ -1,12 +1,10 @@
-import { Card, LinkStyleButton } from '@/components/UI'
+import { Card, CTA } from '@/components/UI'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { push } from '@socialgouv/matomo-next'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconEclair from '@/public/eclair.svg'
-import Image from 'next/image'
 import AnswerItem from './AnswerItem'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
@@ -38,6 +36,9 @@ export const categoryData = (
     pastCategories,
   }
 }
+export const preventSummaryClick = (event) => {
+  event.preventDefault()
+}
 
 export default function Answers({
   answeredQuestions: rawAnsweredQuestions,
@@ -47,16 +48,11 @@ export default function Answers({
   engine,
   situation,
   startsOpen = false,
-  closedTitle,
 }) {
   const [isOpen, setIsOpen] = useState(startsOpen)
   const handleSummaryClick = () => {
     push(['trackEvent', 'Simulateur Principal', 'Clic', 'voir mes reponses'])
     setIsOpen((prevIsOpen) => !prevIsOpen) // Toggle the state using React
-  }
-
-  const preventSummaryClick = (event) => {
-    event.preventDefault()
   }
 
   const answeredQuestions = rawAnsweredQuestions.filter(
@@ -75,12 +71,17 @@ export default function Answers({
     answeredQuestions.length !== 0 && (
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
         <summary onClick={preventSummaryClick}>
-          <LinkStyleButton onClick={handleSummaryClick}>
-            <Image src={iconEclair} alt="Icone pour modifier ses réponses" />
-            {isOpen
-              ? closedTitle || 'Cacher mes réponses'
-              : 'Modifier mes réponses'}
-          </LinkStyleButton>
+          <CTA
+            $fontSize="normal"
+            $importance="emptyBackground"
+            title="Voir mes réponses"
+            onClick={handleSummaryClick}
+          >
+            <span>
+              <span aria-hidden="true">✍️</span>
+              {isOpen ? 'Cacher mes réponses' : 'Modifier mes réponses'}
+            </span>
+          </CTA>
         </summary>
         {isOpen && (
           <Card
@@ -212,10 +213,11 @@ export default function Answers({
   )
 }
 
-const Details = styled.details`
+export const Details = styled.details`
   h3 {
     margin-top: 0.6rem;
   }
+  margin-bottom: 1vh;
   summary{
     cursor: default;
     display: flex;
