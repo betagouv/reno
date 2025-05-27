@@ -128,7 +128,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               Vous pouvez déposer votre dossier en ligne sur{' '}
               <ExternalLink
                 target="_blank"
-                title="site officiel Ma Prime Rénov'"
+                title="site officiel MaPrimeRénov'"
                 href="https://maprimerenov.gouv.fr"
               >
                 maprimerenov.gouv.fr
