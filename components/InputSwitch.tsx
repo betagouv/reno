@@ -20,6 +20,9 @@ import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import CoproAddressSearch from './CoproAddressSearch'
+import DPEMap from './dpe/DPEMap'
+import DPEAddressSearch from './dpe/DPEAddressSearch'
+import { useState } from 'react'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -32,6 +35,7 @@ export default function InputSwitch({
   searchParams,
   correspondance,
 }) {
+  const [addressResults, setAddressResults] = useState(null)
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -241,6 +245,24 @@ export default function InputSwitch({
           }}
         />
       </ClassicQuestionWrapper>
+    )
+  if (currentQuestion === 'logement . adresse')
+    return (
+      <>
+        <DPEAddressSearch
+          {...{
+            addressResults,
+            setAddressResults,
+          }}
+          coordinates={[searchParams.lon, searchParams.lat]}
+          setCoordinates={([lon, lat]) => setSearchParams({ lon, lat })}
+        />
+        <DPEMap
+          searchParams={searchParams}
+          addressResults={addressResults}
+          dpeListStartOpen={true}
+        />
+      </>
     )
 
   if (['DPE . actuel'].includes(currentQuestion))

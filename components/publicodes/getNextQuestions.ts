@@ -58,3 +58,19 @@ export default function getNextQuestions(
 
   return nextQuestions
 }
+
+export function getNextQuestionsMainForm(
+  evaluation,
+  answeredQuestions,
+  questionsConfig,
+  rules,
+) {
+  const prio = questionsConfig.prioritaires
+  const { missingVariables } = evaluation
+
+  const missingEntries = prio
+    .filter((question) => Object.keys(missingVariables).includes(question))
+    .filter(([question]) => !answeredQuestions.includes(question))
+
+  return missingEntries
+}

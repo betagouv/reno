@@ -1,7 +1,9 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
+import getNextQuestions, {
+  getNextQuestionsMainForm,
+} from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
   getAnsweredQuestions,
@@ -13,7 +15,7 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import simulationConfig from './simulationConfig.yaml'
+import simulationConfigMainForm from './simulationConfigMainForm.yaml'
 import { push } from '@socialgouv/matomo-next'
 import AideDetails from '@/components/AideDetails'
 import MPRA from '@/components/ampleur/MPRA'
@@ -42,12 +44,10 @@ function Form({ rules }) {
 
   const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
-    ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(situationSearchParams, rules),
   ]
 
   const situation = {
-    ...(simulationConfig.situation || {}),
     ...getSituation(situationSearchParams, rules),
   }
 
@@ -56,10 +56,10 @@ function Form({ rules }) {
   )
 
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
-    nextQuestions = getNextQuestions(
+    nextQuestions = getNextQuestionsMainForm(
       evaluation,
       answeredQuestions,
-      simulationConfig,
+      simulationConfigMainForm,
       rules,
     )
 

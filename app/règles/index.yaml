@@ -326,6 +326,11 @@ logement . département:
   formule: commune
   par défaut: '"Finistère"'
 
+logement . adresse:
+  titre: L'adresse du logement
+  question: Quelle est l'adresse du logement ?
+  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides.
+
 logement . commune:
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?
