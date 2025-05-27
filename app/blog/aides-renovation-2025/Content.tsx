@@ -119,7 +119,7 @@ export default function Content() {
       </blockquote>
       <h2>Une baisse de l'avance pour les ménages modestes</h2>
       <p>
-        Les aides MaPrimeRénov' sont des remboursements : une fois le dossier de
+        Les aides MaPrimeRénov' sont des subventions versées après travaux : une fois le dossier de
         subvention effectué, les ménages peuvent lancer les travaux, et les
         subventions seront versées par la suite.
       </p>
