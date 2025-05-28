@@ -23,6 +23,7 @@ import CoproAddressSearch from './CoproAddressSearch'
 import DPEMap from './dpe/DPEMap'
 import DPEAddressSearch from './dpe/DPEAddressSearch'
 import { useState } from 'react'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -248,21 +249,53 @@ export default function InputSwitch({
     )
   if (currentQuestion === 'logement . adresse')
     return (
-      <>
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
         <DPEAddressSearch
           {...{
             addressResults,
             setAddressResults,
+            coordinates: [searchParams.lon, searchParams.lat],
+            setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
+            onChange: async (adresse) => {
+              const result = await getCommune(null, null, adresse.citycode)
+              const newSituation = await enrichSituation({
+                ...situation,
+                'logement . adresse': `"${adresse.label}"*`,
+                'logement . code région': `"${result.codeRegion}"*`,
+                'logement . code département': `"${result.codeDepartement}"*`,
+                'logement . EPCI': `"${result.codeEpci}"*`,
+                'logement . commune': `"${result.code}"*`,
+                'logement . commune . nom': `"${result.nom}"*`,
+              })
+              setSearchParams(
+                encodeSituation(newSituation, false, answeredQuestions),
+                'push',
+                false,
+              )
+            },
           }}
-          coordinates={[searchParams.lon, searchParams.lat]}
-          setCoordinates={([lon, lat]) => setSearchParams({ lon, lat })}
         />
         <DPEMap
-          searchParams={searchParams}
-          addressResults={addressResults}
-          dpeListStartOpen={true}
+          {...{
+            searchParams,
+            addressResults,
+            dpeListStartOpen: false,
+            showDpeList: false,
+          }}
         />
-      </>
+      </ClassicQuestionWrapper>
     )
 
   if (['DPE . actuel'].includes(currentQuestion))

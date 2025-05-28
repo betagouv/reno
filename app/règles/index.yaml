@@ -332,6 +332,7 @@ logement . adresse:
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides.
 
 logement . commune:
+  formule: logement . adresse
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides.

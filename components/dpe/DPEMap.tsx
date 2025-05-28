@@ -14,6 +14,7 @@ export default function DPEMap({
   dpe,
   addressResults,
   dpeListStartOpen = true,
+  showDpeList = true,
 }) {
   const [rawDpes, setDpes] = useState()
 
@@ -56,11 +57,18 @@ export default function DPEMap({
     fetchDPE()
   }, [setDpes, lat, lon, setError])
 
-  console.log('indigo plop', lon, lat, dpes)
   const addressesToRender = addressResults || (dpes ? [dpes[0]] : [])
   return (
     <div>
-      <DpeList dpes={dpes} startOpen={dpeListStartOpen} latLon={latLon} />
+      {showDpeList && (
+        <DpeList
+          {...{
+            dpes,
+            startOpen: dpeListStartOpen,
+            latLon,
+          }}
+        />
+      )}
       {map && (
         <>
           {addressesToRender.length > 0 && (

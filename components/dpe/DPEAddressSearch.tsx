@@ -5,12 +5,12 @@ import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 
 export default function DPEAddressSearch({
-  searchParams,
   setCoordinates,
   coordinates,
   dpe,
   addressResults,
   setAddressResults,
+  onChange = null,
 }) {
   const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
   const [input] = useDebounce(immediateInput, 300)
@@ -103,6 +103,7 @@ export default function DPEAddressSearch({
                 onClick={() => {
                   setInput(label)
                   setCoordinates(result.geometry.coordinates)
+                  onChange && onChange(result.properties)
                 }}
               >
                 <span>{label}</span>
