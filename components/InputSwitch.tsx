@@ -341,6 +341,8 @@ export default function InputSwitch({
           rules,
           nextQuestions,
           expanded: searchParams.details === 'oui',
+          consent,
+          sendDataToHost,
         }}
       />
     )

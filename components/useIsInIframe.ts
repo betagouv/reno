@@ -14,18 +14,30 @@ export function useSendDataToHost() {
   console.log('iframe host', host)
 
   useEffect(() => {
-    console.log('indigo consent isInIframe', isInIframe)
     if (!isInIframe) return
 
-    const hostName =
-      window.location != window.parent.location
-        ? document.referrer.split('/')[2]
-        : document.location.hostname
-    setHost(hostName)
+    iframe.postMessageInit()
 
-    console.log('hostName:', hostName)
+    window?.addEventListener('message', (event) => {
+      if (event.data.kind === 'mesaidesreno-init') {
+        console.log(
+          'Received mesaidesreno-init message',
+          JSON.stringify({ data: event.data, origin: event.origin }, null, 2),
+        )
+        const hostName = event.origin.split('/')[2]
+        setHost(hostName)
 
-    if (hostName.endsWith('.gouv.fr')) setConsent(true)
+        // If the host is a .gouv.fr domain, we set consent to true
+        if (
+          hostName.endsWith('.gouv.fr') ||
+          hostName.startsWith('localhost:')
+        ) {
+          setConsent(true)
+        } else {
+          setConsent(false)
+        }
+      }
+    })
 
     const params = new URLSearchParams(
       typeof window !== 'undefined' ? window.location.search : '/',
@@ -39,6 +51,12 @@ export function useSendDataToHost() {
         data: 'eligibility', // not used yet, just an idea
         hostTitle,
       })
+    }
+
+    return () => {
+      if (isInIframe) {
+        window?.removeEventListener('message', () => {})
+      }
     }
   }, [setSendDataToHost, isInIframe, setHost])
 
@@ -71,7 +89,10 @@ export default function useIsInIframe() {
 
         iframe.postMessageResizeHeight(value)
       })
-      observer.observe(window.document.body)
+
+      if (window !== undefined) {
+        observer.observe(window.document.body)
+      }
       // TODO return observer.disconnect this triggers an error, I don't know why
     } else {
       setIsInIframe(false)

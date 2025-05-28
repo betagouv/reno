@@ -4,12 +4,28 @@ import { postMessageEligibilityDone } from '@/utils/iframe'
 import { AnswerWrapper, Subtitle } from './InputUI'
 import { CTA, CTAWrapper, Card } from './UI'
 
+export interface ConsentementProps {
+  setConsent: (consent: boolean) => void
+  situation: object
+  sendDataToHost: {
+    hostTitle: string
+  }
+}
+
 export default function Consentement({
   setConsent,
   situation,
   sendDataToHost,
-}) {
+}: ConsentementProps) {
   const { hostTitle } = sendDataToHost
+  const handleElibilityDone = (consent: boolean) => {
+    postMessageEligibilityDone(consent ? situation : {})
+    // more for user comprehension than real need, postMessage should be synchronous
+    setTimeout(() => {
+      setConsent(consent)
+    }, 300)
+  }
+
   return (
     <Card style={{ margin: '1rem 1rem' }}>
       <QuestionHeader>
@@ -31,23 +47,10 @@ export default function Consentement({
       <AnswerWrapper>
         <CTAWrapper $justify="flex-start">
           <CTA $fontSize="normal" $importance="primary">
-            <button
-              onClick={() => {
-                console.log(
-                  'should trigger mesaidesreno-eligibility-done event',
-                )
-                postMessageEligibilityDone(situation)
-                // more for user comprehension than real need, postMessage should be synchronous
-                setTimeout(() => {
-                  setConsent(true)
-                }, 300)
-              }}
-            >
-              Oui
-            </button>
+            <button onClick={() => handleElibilityDone(true)}>Oui</button>
           </CTA>
           <CTA $fontSize="normal" $importance="primary">
-            <button onClick={() => setConsent(false)}>Non</button>
+            <button onClick={() => handleElibilityDone(false)}>Non</button>
           </CTA>
         </CTAWrapper>
       </AnswerWrapper>

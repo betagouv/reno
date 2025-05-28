@@ -13,6 +13,8 @@ import { Avis } from './explications/Éligibilité'
 import { encodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
+import * as iframe from '@/utils/iframe'
+import { useEffect } from 'react'
 
 export default function Eligibility({
   setSearchParams,
@@ -22,6 +24,8 @@ export default function Eligibility({
   answeredQuestions,
   expanded,
   searchParams,
+  consent = false,
+  sendDataToHost = false,
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   const isInIframe = useIsInIframe()
@@ -38,6 +42,12 @@ export default function Eligibility({
   const aides = useAides(engine, situation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const showPersonaBar = searchParams.personas != null
+
+  useEffect(() => {
+    if (isInIframe && sendDataToHost) {
+      iframe.postMessageEligibilityDone(consent ? situation : {})
+    }
+  }, [isInIframe, consent, situation])
 
   return (
     <Section

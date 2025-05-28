@@ -16,6 +16,10 @@ export function isInIframe(params?: URLSearchParams): boolean {
   )
 }
 
+export function postMessageInit(targetOrigin: string = '*'): void {
+  window.parent?.postMessage({ kind: 'mesaidesreno-init' }, targetOrigin)
+}
+
 export function postMessageResizeHeight(
   value: number,
   targetOrigin: string = '*',
@@ -27,11 +31,19 @@ export function postMessageResizeHeight(
 }
 
 export function postMessageEligibilityDone(
-  situation: object,
+  situation: object | undefined,
   targetOrigin: string = '*',
 ): void {
   window.parent?.postMessage(
     { kind: 'mesaidesreno-eligibility-done', situation },
     targetOrigin,
   )
+}
+
+export function getIframeHostFromEvent(event: MessageEvent): string | null {
+  if (event.data.kind === 'mesaidesreno-init') {
+    return event.origin
+  }
+
+  return null
 }
