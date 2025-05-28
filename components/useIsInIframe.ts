@@ -5,9 +5,12 @@ import * as iframe from '@/utils/iframe'
 
 export function useSendDataToHost() {
   const isInIframe = useIsInIframe()
-  const [sendDataToHost, setSendDataToHost] = useState(false)
-  const [consent, setConsent] = useState(false)
-  const [host, setHost] = useState(null)
+  const [sendDataToHost, setSendDataToHost] = useState<{
+    data: string
+    hostTitle: string | null
+  } | null>(null)
+  const [consent, setConsent] = useState<boolean | undefined>(undefined)
+  const [host, setHost] = useState<string | null>(null)
   console.log('iframe host', host)
 
   useEffect(() => {
@@ -19,6 +22,8 @@ export function useSendDataToHost() {
         ? document.referrer.split('/')[2]
         : document.location.hostname
     setHost(hostName)
+
+    console.log('hostName:', hostName)
 
     if (hostName.endsWith('.gouv.fr')) setConsent(true)
 
