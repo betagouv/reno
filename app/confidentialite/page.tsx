@@ -35,6 +35,10 @@ export default function APIDoc() {
           L'outil de suivi Matomo est configuré pour un suivi qui ne nécessite
           pas de bannière de consentement RGPD (dite "cookies").
         </p>
+        <h2>Refuser le suivi de votre usage du site</h2>
+        <div id="matomo-opt-out"></div>
+        <script src="https://stats.beta.gouv.fr/index.php?module=CoreAdminHome&action=optOutJS&divId=matomo-opt-out&language=auto&showIntro=1"></script>
+
         <h2>Partage des données de simulation à des sites Web tiers</h2>
         <p>
           Dans le cadre de l'intégration de Mes Aides Réno comme un module de
