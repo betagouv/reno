@@ -154,6 +154,13 @@ export default function IntegrationQuestions({
     window.addEventListener('message', handleMesAidesRenoUserData)
 	</script>
 					  `}</code>
+              <p>
+                Voici un exemple de{' '}
+                <a href="https://codesandbox.io/p/sandbox/5t55w6">
+                  bac à sable
+                </a>{' '}
+                qui capte les données.
+              </p>
             </IframeCodeWrapper>
             {dataReceived && (
               <section>

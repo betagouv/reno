@@ -25,6 +25,7 @@ export function useSendDataToHost() {
     )
 
     console.log('indigo consent bool ', params.get('sendDataToHost'), params)
+
     if (params.has('sendDataToHost')) {
       const hostTitle = params.get('hostTitle')
       setSendDataToHost({
