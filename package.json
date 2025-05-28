@@ -9,7 +9,8 @@
     "prettier:check": "prettier --check --ignore-unknown .",
     "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
     "start": "node .next/standalone/server.js",
-    "compute-taxe-foncière": "deno run --allow-read --allow-net --allow-write lib/computeTaxeFoncièrePopulation.ts"
+    "compute-taxe-foncière": "deno run --allow-read --allow-net --allow-write lib/computeTaxeFoncièrePopulation.ts",
+    "build-web-components": "stencil build"
   },
   "main": "index.js",
   "files": [
@@ -27,10 +28,12 @@
     "@next/mdx": "^15.3.0",
     "@publicodes/react-ui": "^1.5.4",
     "@socialgouv/matomo-next": "^1.8.1",
+    "@stencil/core": "^4.31.0",
     "@turf/buffer": "^7.2.0",
     "@turf/distance": "^6.5.0",
     "@types/mdx": "^2.0.13",
     "@types/node": "20.11.30",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
     "autoprefixer": "10.4.19",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.6",
