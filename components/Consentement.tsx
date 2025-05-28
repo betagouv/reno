@@ -9,7 +9,7 @@ export default function Consentement({
   situation,
   sendDataToHost,
 }) {
-  const { hostName } = sendDataToHost
+  const { hostTitle } = sendDataToHost
   return (
     <Card style={{ margin: '1rem 1rem' }}>
       <QuestionHeader>
@@ -18,7 +18,7 @@ export default function Consentement({
 
           <h1>
             Acceptez-vous de partager votre simulation avec{' '}
-            <BlueEm>{hostName}</BlueEm> ?
+            <BlueEm>{hostTitle}</BlueEm> ?
           </h1>
           <Subtitle>
             <p>

@@ -7,23 +7,32 @@ export function useSendDataToHost() {
   const isInIframe = useIsInIframe()
   const [sendDataToHost, setSendDataToHost] = useState(false)
   const [consent, setConsent] = useState(false)
+  const [host, setHost] = useState(null)
+  console.log('iframe host', host)
 
   useEffect(() => {
     console.log('indigo consent isInIframe', isInIframe)
     if (!isInIframe) return
+
+    const hostName =
+      window.location != window.parent.location
+        ? document.referrer.split('/')[2]
+        : document.location.hostname
+    setHost(hostName)
+
     const params = new URLSearchParams(
       typeof window !== 'undefined' ? window.location.search : '/',
     )
 
     console.log('indigo consent bool ', params.get('sendDataToHost'), params)
     if (params.has('sendDataToHost')) {
-      const hostName = params.get('hostName')
+      const hostTitle = params.get('hostTitle')
       setSendDataToHost({
         data: 'eligibility', // not used yet, just an idea
-        hostName,
+        hostTitle,
       })
     }
-  }, [setSendDataToHost, isInIframe])
+  }, [setSendDataToHost, isInIframe, setHost])
 
   return [sendDataToHost, consent, setConsent]
 }

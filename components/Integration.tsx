@@ -275,7 +275,7 @@ export default function Integration() {
                       getAppUrl() +
                       module +
                       (sendUserDataOption
-                        ? '?sendDataToHost=true&hostName=SuperRéno'
+                        ? '?sendDataToHost=true&hostTitle=SuperRéno'
                         : '')
                     }
                     style={css`
