@@ -20,6 +20,8 @@ export function useSendDataToHost() {
         : document.location.hostname
     setHost(hostName)
 
+    if (hostName.endsWith('.gouv.fr')) setConsent(true)
+
     const params = new URLSearchParams(
       typeof window !== 'undefined' ? window.location.search : '/',
     )
