@@ -35,6 +35,36 @@ export default function APIDoc() {
           L'outil de suivi Matomo est configuré pour un suivi qui ne nécessite
           pas de bannière de consentement RGPD (dite "cookies").
         </p>
+        <h2>Partage des données de simulation à des sites Web tiers</h2>
+        <p>
+          Dans le cadre de l'intégration de Mes Aides Réno comme un module de
+          simulation sur d'autres sites Web, les données que vous saisissez dans
+          notre simulateur peuvent être ensuite partagées au site tiers
+          intégrateur du module, dit l'hôte.
+        </p>
+        <p>
+          Dans le cas général, quand l'hôte du module a décidé d'activer le
+          partage de données de simulation, votre consentement au partage des
+          données sera demandé avant le partage effectif. Une fois le partage
+          fait, l'organisation hôte est le responsable du traitement de ces
+          données.
+        </p>
+        <p>
+          Dans le cadre de l'intégration particulière de notre simulateur sur le
+          site jagis.beta.gouv.fr, nous autorisons le partage des données de
+          simulation au système d'information du service J'agis pour
+          l'accomplissement de ses missions de service public, conformément à
+          l'[article
+          premier](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000033202940)
+          de la loi pour une République numérique.
+        </p>
+        <p>
+          Les membres habilités de l’équipe “J’agis” du Secrétariat général à la
+          planification écologique (SGPE) et de la Direction interministérielle
+          du numérique (DINUM) dans le cadre de l’intégration du simulateur
+          d’aides via iFrame sont alors responsables du traitement des données
+          partagées.
+        </p>
         <h2>Serveur</h2>
         <p>
           Notre serveur est géré par la société française{' '}
