@@ -60,7 +60,6 @@ function Form({ rules }) {
       evaluation,
       answeredQuestions,
       simulationConfigMainForm,
-      rules,
     )
 
   const currentQuestion = nextQuestions[0],
