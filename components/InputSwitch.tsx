@@ -24,6 +24,7 @@ import DPEMap from './dpe/DPEMap'
 import DPEAddressSearch from './dpe/DPEAddressSearch'
 import { useState } from 'react'
 import enrichSituation, { getCommune } from './personas/enrichSituation'
+import ChoixTravaux from './ChoixTravaux'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -298,6 +299,24 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
+  if (currentQuestion === 'projet . travaux envisagés')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <ChoixTravaux {...{ situation, rules, engine, setSearchParams }} />
+      </ClassicQuestionWrapper>
+    )
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper

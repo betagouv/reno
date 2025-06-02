@@ -63,7 +63,6 @@ export function getNextQuestionsMainForm(
   evaluation,
   answeredQuestions,
   questionsConfig,
-  rules,
 ) {
   const prio = questionsConfig.prioritaires
   const { missingVariables } = evaluation
