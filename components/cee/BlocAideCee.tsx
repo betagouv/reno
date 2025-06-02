@@ -51,7 +51,7 @@ export const BlocAideCEE = ({
                 </PrimeStyle>
                 <span className="aide-details">
                   {' '}
-                  (non cumulable avec la Prime Coup de pouce)
+                  (non cumulable avec la prime "Coup de Pouce")
                 </span>
               </>
             ) : (

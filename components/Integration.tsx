@@ -47,7 +47,7 @@ export default function Integration() {
       valeur: '/',
     },
     {
-      titre: 'Calculette Ampleur',
+      titre: 'Calculette parcours accompagné',
       valeur: '/module/integration?DPE.actuel=6',
     },
     {
@@ -77,7 +77,7 @@ export default function Integration() {
     .forEach((item) =>
       listeModule.push({
         titre:
-          'Calculette MaPrimeRénov - ' +
+          'Calculette MaPrimeRénov' - ' +
           rules[item.replace(' . MPR', '')].titre,
         valeur:
           '/aides/ma-prime-renov/' +
@@ -98,16 +98,16 @@ export default function Integration() {
     )
   Object.keys(rules)
     .filter(
-      (item) => item.startsWith('gestes') && item.endsWith('Coup de pouce'),
+      (item) => item.startsWith('gestes') && item.endsWith('"Coup de pouce"'),
     )
     .forEach((item) =>
       listeModule.push({
         titre:
-          'Calculette Coup de Pouce - ' +
-          rules[item.replace(' . Coup de pouce', '')].titre,
+          'Calculette "Coup de Pouce" - ' +
+          rules[item.replace(' . "Coup de Pouce"', '')].titre,
         valeur:
           '/aides/coup-de-pouce/' +
-          encodeURIComponent(rules[item.replace(' . Coup de pouce', '')].titre),
+          encodeURIComponent(rules[item.replace(' . "Coup de Pouce"', '')].titre),
       }),
     )
 
@@ -323,7 +323,7 @@ export const HistoriqueVersion = () => (
         locataire.
       </p>
       <p>
-        Il inclut non seulement MaPrimeRénov’ parcours accompagné (pour une rénovation d’ampleur) mais aussi les autres
+        Il inclut non seulement MaPrimeRénov’ parcours accompagné mais aussi les autres
         aides principales dont l'éco-PTZ, le Prêt Avance Rénovation à zéro %, le
         dispositif Denormandie, etc.
       </p>

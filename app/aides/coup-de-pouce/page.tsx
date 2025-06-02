@@ -7,9 +7,9 @@ import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'Aide Coup de Pouce Chauffage',
+  title: 'Aide "Coup de Pouce" Chauffage',
   description:
-    "Les aides des fournisseurs d'énergie pour le Coup de Pouce Chauffage.",
+    "Les aides des fournisseurs d'énergie pour le "Coup de Pouce" Chauffage.",
 }
 
 export default function CoupDePouce() {
@@ -78,7 +78,7 @@ export default function CoupDePouce() {
             `}
           >
             Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
-            mais le montant de l'aide Coup de Pouce varie en fonction de vos
+            mais le montant de l'aide "Coup de Pouce" varie en fonction de vos
             revenus.
           </p>
           <p>
