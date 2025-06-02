@@ -5,19 +5,17 @@ import ceeImage from '@/public/cee.svg'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import ptzImage from '@/public/ptz-bleu.svg'
 import exoFiscaleImage from '@/public/exoneration-fiscale.svg'
-import localeImage from '@/public/locale-logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import { CardMosaic } from '@/components/DevenirPartenaire'
-import css from '@/components/css/convertToJs'
 
 export const metadata: Metadata = {
   title: 'Les aides à la rénovation énergétique en ' + new Date().getFullYear(),
   description:
     'Les aides à la rénovation énergétique en ' +
     new Date().getFullYear() +
-    ": MaPrimeRénov', Mon Accompagnateur Rénov', Les aides des fournisseurs d’énergie (CEE), prime "Coup de Pouce" chauffage, prêt à taux 0, exonération de taxe foncière et dispositif Denormandie.",
+    `: MaPrimeRénov', Mon Accompagnateur Rénov', Les aides des fournisseurs d’énergie (CEE), prime "Coup de Pouce" chauffage, prêt à taux 0, exonération de taxe foncière et dispositif Denormandie.`,
 }
 
 export default function Aides() {
