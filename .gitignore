@@ -57,3 +57,5 @@ webComponents/dist
 webComponents/.stencil
 webComponents/www
 webComponents/loader
+
+dist/
