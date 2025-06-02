@@ -9,41 +9,15 @@ export function useSendDataToHost() {
     data: string
     hostTitle: string | null
   } | null>(null)
-  const [consent, setConsent] = useState<boolean | undefined>(undefined)
+  const [consent, setConsent] = useState<boolean | null>(null)
   const [host, setHost] = useState<string | null>(null)
-  console.log('iframe host', host)
 
   useEffect(() => {
     if (!isInIframe) return
 
-    iframe.postMessageInit()
-
-    window?.addEventListener('message', (event) => {
-      if (event.data.kind === 'mesaidesreno-init') {
-        console.log(
-          'Received mesaidesreno-init message',
-          JSON.stringify({ data: event.data, origin: event.origin }, null, 2),
-        )
-        const hostName = event.origin.split('/')[2]
-        setHost(hostName)
-
-        // If the host is a .gouv.fr domain, we set consent to true
-        if (
-          hostName.endsWith('.gouv.fr') ||
-          hostName.startsWith('localhost:')
-        ) {
-          setConsent(true)
-        } else {
-          setConsent(false)
-        }
-      }
-    })
-
     const params = new URLSearchParams(
       typeof window !== 'undefined' ? window.location.search : '/',
     )
-
-    console.log('indigo consent bool ', params.get('sendDataToHost'), params)
 
     if (params.has('sendDataToHost')) {
       const hostTitle = params.get('hostTitle')
@@ -53,12 +27,16 @@ export function useSendDataToHost() {
       })
     }
 
-    return () => {
-      if (isInIframe) {
-        window?.removeEventListener('message', () => {})
+    if (params.has('hostName')) {
+      const host = params.get('hostName')
+
+      setHost(host)
+
+      if (host?.endsWith('.gouv.fr')) {
+        setConsent(true)
       }
     }
-  }, [setSendDataToHost, isInIframe, setHost])
+  }, [isInIframe, setSendDataToHost, setHost, setConsent])
 
   return [sendDataToHost, consent, setConsent]
 }
@@ -86,7 +64,6 @@ export default function useIsInIframe() {
       // change.
       observer = new ResizeObserver(([entry]) => {
         const value = Math.max(minHeight, entry.contentRect.height + 10) // without this 6 padding, the scroll bar will still be present
-
         iframe.postMessageResizeHeight(value)
       })
 

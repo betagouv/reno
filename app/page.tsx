@@ -30,7 +30,6 @@ export const metadata: Metadata = {
 export default async function Page(props) {
   const searchParams = await props.searchParams
 
-  console.log('indigo consent isInIframe', searchParams)
   return (
     <main
       style={css`
