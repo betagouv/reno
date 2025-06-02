@@ -10,12 +10,12 @@
 - question: L'aide MaPrimeRénov' est-elle une avance ou un suvention versée après travaux ?
   catégorie: finance
   réponse: |
-    En général, c'est un remboursement, mais pour les foyers les plus modestes, dans le parcours MaPrimeRénov' Parcours Accompagné, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
+    En général, c'est un remboursement, mais pour les foyers les plus modestes, dans le parcours MaPrimeRénov' parcours accompagné, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
 
 - question: Je suis en appartement. Puis-je faire des travaux à côté des décisions de la copro ?
   catégorie: appartement
   réponse: |
-    Oui, les aides MaPrimeRénov Parcours Accompagné et de rénovation par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
+    Oui, les aides MaPrimeRénov parcours accompagné et de rénovation par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
 
     Le dispositif MaPrimeRénov' Copropriété pourra venir financer les travaux communs, et il peut être cumulé avec les parcours individuels MaPrimeRénov'.
 - question: Y a-t-il des aides locales pour ma rénovation ?
@@ -70,7 +70,7 @@
   désactivée: oui
   réponse: |
     Une fenêtre, dans le parcours gestes, c'est une petite fenêtre ? Une baie vitrée, ça compte pour combien de fenêtres ? Car le coût n'est pas le même entre une lucarne et une baie vitrée !
-- question: Que met-on dans l'enveloppe des travaux MaPrimeRénov' Parcours Accompagné ?
+- question: Que met-on dans l'enveloppe des travaux MaPrimeRénov' parcours accompagné ?
   catégorie: accompagnée
   désactivée: oui
   id: enveloppe

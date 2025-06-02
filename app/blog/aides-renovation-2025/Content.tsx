@@ -19,7 +19,7 @@ export default function Content() {
       </p>
       <p>
         Le dispositif phare MaPrimeRénov' est reconduit, et l'enveloppe globale
-        d'intervention de l'Agence Nationale de l'Habitat est augmentée de{' '}
+        d'intervention de l'Agence nationale de l'habitat est augmentée de{' '}
         <em>600&nbsp;millions</em> d'€ par rapport aux moyens consommés en
         2024.{' '}
       </p>
@@ -89,7 +89,7 @@ export default function Content() {
       </p>
       <ul>
         <li>
-          Pour 2 sauts de DPE, le financement MaPrimeRénov' Parcours Accompagné passe de
+          Pour 2 sauts de DPE, le financement MaPrimeRénov' parcours accompagné passe de
           30 à 10 % des travaux.
         </li>
         <li>Pour 3 sauts de DPE, la subvention de 35 % est réduite à 15 %</li>
@@ -126,8 +126,8 @@ export default function Content() {
       <p>
         Mais pour aider les ménages modestes et très modestes à payer les
         factures, une avance des aides de l'État peut être demandée. Elle était
-        de 70 % de MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour le
-        parcours ampleur, et à 50 % pour le parcours par gestes où l'avance est
+        de 70 % de MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour 
+        MaPrimeRénov’ parcours accompagné (pour une rénovation d’ampleur), et à 50 % pour MaPrimeRénov’ rénovation par geste où l'avance est
         réservée aux ménages très modestes uniquement.
       </p>
       <p>
@@ -172,7 +172,7 @@ export default function Content() {
       </p>
       <blockquote>
         Votre logement en location est dans une copropriété ? Les aides
-        MaPrimeRénov' pour les copropriétés restent stable en 2025,
+        MaPrimeRénov' Copropriété restent stable en 2025,
         découvrez-les dans notre 🏙️{' '}
         <Link href="/copropriete">parcours copro'</Link>.
       </blockquote>

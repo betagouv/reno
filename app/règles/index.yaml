@@ -479,7 +479,7 @@ projet . DPE visé:
     A: 1
 
 scnénario MPRA:
-  titre: Mon scénario MaPrimeRénov' Parcours Accompagné
+  titre: Mon scénario MaPrimeRénov' parcours accompagné
 projet . DPE visé . insuffisant:
   type: notification
   sévérité: information
@@ -676,7 +676,7 @@ parcours d'aide:
 
     Vous devez choisir entre d'un côté, une rénovation d'ampleur de votre logement et de l'autre une rénovation à la carte d'un ou plusieurs gestes. 
 
-    Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' Parcours Accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'. 
+    Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'. 
 
     Le parcours à la carte propose des gestes via MaPrimeRénov', ainsi que de nombreuses possibilité de subvention via les CEE, dont les primes bonifiées dites "coup de pouce". 
     La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.

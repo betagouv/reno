@@ -28,7 +28,7 @@ CEE . projet . remplacement chaudière thermique:
   description: |
     Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" CEE qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
 
-    À l'inverse, pour le dispositif MaPrimeRénov' par gestes, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
+    À l'inverse, pour le dispositif MaPrimeRénov' rénovation par geste, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
   par défaut: non
   maximum: oui
 
@@ -56,7 +56,7 @@ CEE . rénovation d'ampleur:
   lien: https://www.ecologie.gouv.fr/politiques-publiques/coup-pouce-renovation-dampleur-maisons-appartements-individuels
 CEE . rénovation d'ampleur . conditions:
   description: |
-    Il n'est possible de mobiliser le coup de pouce « Rénovation d'ampleur » que pour les ménages non éligibles à MaPrimeRénov' Parcours accompagné. Ce coup de pouce s'applique en maison individuelle et en appartement.
+    Il n'est possible de mobiliser le coup de pouce « Rénovation d'ampleur » que pour les ménages non éligibles à MaPrimeRénov' parcours accompagné. Ce coup de pouce s'applique en maison individuelle et en appartement.
   toutes ces conditions:
     - MPR . accompagnée . éligible = non
     - sauts >= 2

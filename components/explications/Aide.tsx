@@ -45,7 +45,7 @@ export default function Travaux({ engine, rules, situation }) {
   return (
     <section>
       <h3>Votre aide</h3>
-      <h4>MaPrimeRénov' accompagnée</h4>
+      <h4>MaPrimeRénov' parcours accompagné</h4>
       <P>
         Votre aide MaPrimeRénov' accompagnée s'élèvera à&nbsp;
         <Key $state={montant.hasMissing ? 'inProgress' : 'final'}>

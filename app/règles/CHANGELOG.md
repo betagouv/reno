@@ -78,7 +78,7 @@ En particulier, le changement de nomenclature de la période de construction du 
 
 Cette nomenclature sert à éviter de connaitre la date de construction précise du logement. Auparavant, pour la taxe foncière, nous avions introduit la période "plus de 25 ans". Elle est maintenant caduque en 2025, remplacée par un "plus de 10 ans".
 
-De nombreux autres changements interviennent en 2025, concernant les taux MaPrimeRénov' ampleur, les taux d'écrêtement, certains montants d'aide pour le parcours par geste.
+De nombreux autres changements interviennent en 2025, concernant les taux MaPrimeRénov' parcours accompagné, les taux d'écrêtement, certains montants d'aide pour le parcours par geste.
 
 Veuillez consulter le détail des changements dans la [PR 2025](https://github.com/betagouv/reno/pull/305).
 
@@ -129,7 +129,7 @@ Ces deux grosses nouveautés sont donc naturellement disponible dans le modèle 
 
 ### v0.6.0
 
-Nous avons déplacé l'écrètement depuis la règle MaPrimeRénov' accompagnée vers la nouvelle règle "aides globales". En effet, même si l'écrêtement pouvait agir sur cette première seule (semblerait-il du fait d'une erreur de conception de l'aide sur la tranche revenus supérieurs), il prend surtout son sens sur un ensemble cumulatif d'aides, dont les aides locales.
+Nous avons déplacé l'écrètement depuis la règle MaPrimeRénov' parcours accompagné vers la nouvelle règle "aides globales". En effet, même si l'écrêtement pouvait agir sur cette première seule (semblerait-il du fait d'une erreur de conception de l'aide sur la tranche revenus supérieurs), il prend surtout son sens sur un ensemble cumulatif d'aides, dont les aides locales.
 
 Voici [le commit](https://github.com/betagouv/reno/commit/52e2ba8c267a7df6acc46bc926ea1e30363dd855) principal de cette version.
 

@@ -144,8 +144,8 @@ doubs . bonus passoire:
   description: |
     [Fiche ANIL](https://www.anil.org/aides-locales-travaux/details/doubs-aide-a-la-sortie-de-passoire-energetique-3234/).
 
-    Les travaux éligibles à l'aide départementale sont ceux éligibles à l'aide "MaPrimeRénov' - Parcours accompagné" de l'Anah (ils doivent permettre un saut d'au moins deux classes énergétiques). 
-    Le recours à une assistance à maîtrise d'ouvrage obligatoire réalisé par un prestataire agréé "Mon Accompagnateur Rénov" est obligatoire.
+    Les travaux éligibles à l'aide départementale sont ceux éligibles à l'aide MaPrimeRénov' parcours accompagné de l'Anah (ils doivent permettre un saut d'au moins deux classes énergétiques). 
+    Le recours à une assistance à maîtrise d'ouvrage obligatoire réalisé par un prestataire agréé "Mon Accompagnateur Rénov'" est obligatoire.
 
 doubs . bonus passoire . montant:
   formule: 5 % * projet . travaux . plafonnés
@@ -194,7 +194,7 @@ charente-maritime . bailleur . montant:
 
     > Les ressources des locataires du logement aidé doivent être inférieures ou égales au plafond défini par l’Etat et révisé chaque année.
 
-    Or, l'aide MaPrimeRénov' Parcours Accompagné en 2024 n'a pas de plafond de revenu, seulement un barème. Ainsi nous partons du principe qu'il n'y en a pas pour cette aide.
+    Or, l'aide MaPrimeRénov' parcours accompagné en 2024 n'a pas de plafond de revenu, seulement un barème. Ainsi nous partons du principe qu'il n'y en a pas pour cette aide.
 
 charente-maritime . occupant:
 charente-maritime . occupant . conditions:
@@ -291,7 +291,7 @@ angers . aides socles . conditions:
 angers . aides socles:
   applicable si: conditions
   description: |
-    Etre éligible aux aides de l'Anah, MaPrimeRénov' - Parcours accompagné (sous plafond de ressources "Intermédiaire"), MaPrimeAdapt', Ma Prime Logement Décent, MaPrimeRénov' Copropriété, ou Copropriété en difficulté.
+    Etre éligible aux aides de l'Anah, MaPrimeRénov' parcours accompagné (sous plafond de ressources "Intermédiaire"), MaPrimeAdapt', Ma Prime Logement Décent, MaPrimeRénov' Copropriété, ou Copropriété en difficulté.
   valeur: montant
   # fin prévue: 31/12/2024
   lien: https://www.angersloiremetropole.fr/mon-quotidien/logement/mieux-chez-moi-un-accompagnement-a-la-renovation-de-votre-logement/index.html

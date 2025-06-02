@@ -12,7 +12,7 @@ export default function QuestionsRéponses() {
             Comment choisir les travaux à réaliser ?
           </summary>
           <p>
-            Pas d’inquiétudes, le dispositif MaPrimeRénov’ Parcours Accompagné a
+            Pas d’inquiétudes, le dispositif MaPrimeRénov’ parcours accompagné a
             justement été conçu pour vous guider dans la construction et la mise
             en oeuvre de votre projet de rénovation.
           </p>
@@ -37,7 +37,7 @@ export default function QuestionsRéponses() {
         </details>
         <details>
           <summary open={false}>
-            Quelles sont les grandes étape de MaPrimeRénov’ Parcours Accompagné
+            Quelles sont les grandes étape de MaPrimeRénov’ parcours accompagné
             ?
           </summary>
           <p>
@@ -96,8 +96,8 @@ export default function QuestionsRéponses() {
         </details>
         <details>
           <summary open={false}>
-            Quels sont les conditions pour bénéfice de MaPrimeRénov' Parcours
-            Accompagné ?
+            Quels sont les conditions pour bénéficier de MaPrimeRénov' parcours
+            accompagné ?
           </summary>
 
           <ul>

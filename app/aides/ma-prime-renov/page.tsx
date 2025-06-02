@@ -35,7 +35,7 @@ export default function MaPrimeRenov() {
         <Breadcrumb
           links={[
             { 'Les aides': '/aides' },
-            { "MaPrimeRénov' - Rénovation par geste": '/aides/ma-prime-renov' },
+            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
           ]}
         />
         <div
@@ -50,7 +50,7 @@ export default function MaPrimeRenov() {
               margin-left: 1rem;
             `}
           >
-            MaPrimeRénov' Rénovation par geste
+            MaPrimeRénov' rénovation par geste
           </h2>
         </div>
         <MiseEnAvant>
@@ -62,7 +62,7 @@ export default function MaPrimeRenov() {
             Informations
           </h3>
           <p>
-            Vous êtes éligible à l'aide MaPrimeRénov' Rénovation par geste si:
+            Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si:
           </p>
           <ul>
             <li>
@@ -86,12 +86,12 @@ export default function MaPrimeRenov() {
             `}
           >
             Il existe un dispositif nommé{' '}
-            <strong>MaPrimeRénov' Parcours Accompagné</strong> pour une rénovation
+            <strong>MaPrimeRénov' parcours Accompagné</strong> pour une rénovation
             d'ampleur.
           </p>
         </MiseEnAvant>
 
-        <h3>Calculateurs d'aide MaPrimeRénov' par geste</h3>
+        <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
         {Object.keys(rulesByCategory).map((category) => (
           <Card>
             <div
