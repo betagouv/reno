@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 /*
  * This file is used to create a webcomponent. We couldn't find a way to do this with Nextjs.
@@ -50,4 +51,17 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  plugins: [
+    new webpack.NormalModuleReplacementPlugin(
+      /next\/link/,
+      // Replace with the path to your custom implementation or a simple <a> tag wrapper
+      // For example, you could create a file that exports a simple <a> tag component
+      // and use that path here.
+      // Example: path.resolve(__dirname, './components/MyLink.js')
+      // For demonstration, let's assume you have a custom link component
+      // that you want to use instead of next/link.
+      // Note: You need to provide the actual path to your custom component.
+      require.resolve('./components/Link.webcomponent.tsx'),
+    ),
+  ],
 }
