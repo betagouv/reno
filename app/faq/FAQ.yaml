@@ -7,7 +7,7 @@
   catégorie: revenu
   réponse: |
     Oui, depuis 2024, des aides existent quel que soit le revenu de votre ménage. Faites le test pour voir ce que l'État vous propose.
-- question: L'aide MaPrimeRénov' est-elle une avance ou un suvention versée après travaux ?
+- question: L'aide MaPrimeRénov' est-elle une avance ou un subvention versée après travaux ?
   catégorie: finance
   réponse: |
     En général, c'est un remboursement, mais pour les foyers les plus modestes, dans le parcours MaPrimeRénov' parcours accompagné, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
@@ -23,14 +23,14 @@
   réponse: |
     Oui, de nombreuses communes, métropoles et communautés de communes ont voté des aides locales. 
 
-    Elles prennent diverses formes : complément au Parcours Accompagné de MaPrimeRénov', bonus fixe de quelques milliers d'euros pour une rénovation BBC (DPE A ou B), ou encore subvention spécifique d'un geste comme l'installation de panneaux solaires. 
+    Elles prennent diverses formes : complément à MaPrimeRénov' parcours accompagné, bonus fixe de quelques milliers d'euros pour une rénovation BBC (DPE A ou B), ou encore subvention spécifique d'un geste comme l'installation de panneaux solaires. 
 
     Nous les integrerons progressivement sur Mes Aides Réno. Si après avoir renseigné votre commune, nous n'en proposons pas, cela ne signifie pas qu'il n'y en a pas.
 
 ############################
 #### Questions pas encore assez travaillées
 ############################
-- question: Je suis en collocation
+- question: Je suis en colocation
   catégorie: ménage
   désactivée: oui
   id: ménage

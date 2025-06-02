@@ -285,7 +285,7 @@ angers . montant si assiette maximum:
 angers . aides socles . conditions:
   toutes ces conditions:
     - conditions de base
-    # TODO pour l'instant on ignore les 2 autres dispositifs logement indécent et prime adapt'
+    # TODO pour l'instant on ignore les 2 autres dispositifs logement indécent et MaPrimeAdapt'
     # est-ce différent de la condition de l'Anah ?
     - sauts >= 2
 angers . aides socles:

@@ -77,7 +77,7 @@ export default function CEE() {
           >
             Informations
           </h3>
-          <p>Vous êtes éligible à l'aide CEE si:</p>
+          <p>Vous êtes éligible aux aides des fournisseurs d’énergie (certificats d’économies d’énergie – CEE) si :</p>
           <ul>
             <li>
               vous êtes <strong>propriétaire ou locataire</strong>
@@ -96,7 +96,7 @@ export default function CEE() {
             `}
           >
             Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
-            mais le montant de l'aide CEE peut varier en fonction de vos
+            mais le montant des aides des fournisseurs d’énergie (certificats d’économies d’énergie – CEE) peut varier en fonction de vos
             revenus.
           </p>
         </MiseEnAvant>

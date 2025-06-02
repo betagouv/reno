@@ -92,7 +92,7 @@ export default function CoupDePouce() {
             et <strong>l’éco-prêt à taux zéro</strong>. En revanche, il n'est
             pas cumulable avec{' '}
             <InternalLink href="/aides/cee" title="Liste des aides CEE">
-              <strong>les aides CEE "classiques"</strong>
+              <strong>les aides des fournisseurs d’énergie (certificats d’économies d’énergie – CEE) "classiques"</strong>
             </InternalLink>
           </p>
         </MiseEnAvant>
