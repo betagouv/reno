@@ -11,12 +11,12 @@ import rules from '@/app/règles/rules'
 
 export const metadata: Metadata = {
   title:
-    'Les prêts à taux 0 destinées à la rénovation énergétique en ' +
+    'Les prêts à taux zéro destinés à la rénovation énergétique en ' +
     new Date().getFullYear(),
   description:
-    'Les prêts à taux 0 destinées à la rénovation énergétique en ' +
+    'Les prêts à taux zéro destinés à la rénovation énergétique en ' +
     new Date().getFullYear() +
-    ": L'éco-prêt à taux 0 (éco-PTZ) et le Prêt avance mutation (PAR+)",
+    ": L'éco-prêt à taux zéro (éco-PTZ) et le Prêt avance mutation (PAR+)",
 }
 
 export default async function Aides() {
@@ -115,7 +115,7 @@ export default async function Aides() {
           </li>
           <li>
             <strong>Le prêt à l'amélioration de l'habitat</strong> si vous
-            recevez des allocations de la Caisse d'Allocations familiales.
+            recevez des allocations de la Caisse d'Allocations Familiales.
           </li>
           <li>
             <strong>Les prêts des distributeurs d'énergie</strong>

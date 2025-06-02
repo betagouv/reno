@@ -20,7 +20,7 @@ export default function PagePAR() {
         <Breadcrumb
           links={[
             { 'Les aides': '/aides' },
-            { 'Les prêts à taux 0': '/aides/pret-taux-0' },
+            { 'Les prêts à taux zéro': '/aides/pret-taux-0' },
             {
               'Le Prêt Avance Rénovation':
                 '/aides/pret-taux-0/pret-avance-renovation',
