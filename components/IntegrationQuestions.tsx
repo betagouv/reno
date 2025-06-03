@@ -116,7 +116,7 @@ export default function IntegrationQuestions({
               l'écran d'éligibilité des aides, vous devrez 1) le justifier dans
               vos conditions d'utilisation conformément au RGPD, en expliquant à
               l'utilisateur dans quel but vous le faitent et comment peut-il
-              supprimer ces données; 2) nous devons recueuillir le consentement
+              supprimer ces données; 2) nous devons recueillir le consentement
               de l'utilisateur avant d'envoyer ses données depuis notre domaine
               vers le votre.
             </p>
