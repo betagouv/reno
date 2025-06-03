@@ -51,7 +51,7 @@ export default function Aides() {
 
             <h2>
               <Link href="/aides/ma-prime-renov">
-                MaPrimeRénov' - Parcours par geste
+                MaPrimeRénov' rénovation par geste
               </Link>
             </h2>
             <p>
@@ -105,7 +105,7 @@ export default function Aides() {
             <Image src={ceeImage} alt="Logo CEE" width="100" />
             <h2>
               <Link href="/aides/cee">
-                Les Certificats d'économies d'énergie
+                Les aides des fournisseurs d’énergie (CEE)
               </Link>
             </h2>
             <p>
@@ -128,7 +128,7 @@ export default function Aides() {
             />
             <h2>
               <Link href="/aides/coup-de-pouce">
-                Les Coups de pouce Chauffage
+                Les primes Coup de Pouce Chauffage
               </Link>
             </h2>
             <p>
