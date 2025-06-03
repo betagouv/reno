@@ -318,7 +318,9 @@ export default function InputSwitch({
           engine,
         }}
       >
-        <ChoixTravaux {...{ situation, rules, engine, setSearchParams }} />
+        <ChoixTravaux
+          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+        />
       </ClassicQuestionWrapper>
     )
   if (['DPE . actuel'].includes(currentQuestion))

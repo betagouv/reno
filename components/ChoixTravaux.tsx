@@ -9,20 +9,93 @@ import isolationGeste from '@/public/isolation_geste.svg'
 import ventilationGeste from '@/public/ventilation_geste.svg'
 import chauffageGeste from '@/public/chauffage_geste.svg'
 import Image from 'next/image'
+import {
+  decodeDottedName,
+  encodeDottedName,
+  encodeSituation,
+} from './publicodes/situationUtils'
+import { omit } from './utils'
 
 export default function ChoixTravaux({
   situation,
   rules,
   engine,
+  answeredQuestions,
   setSearchParams,
 }) {
-  const [categorieCochee, setCategorieCochee] = useState({})
-  const [gestesCoches, setGestesCoches] = useState({})
+  const [categoriesCochees, setCategoriesCochees] = useState([])
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+
+  const gestes = {
+    isolation: {
+      'gestes . isolation . murs': 'Murs mal isolés ou froids au toucher',
+      'gestes . isolation . rampants': 'Toiture ou combles mal isolés',
+      'gestes . isolation . toitures terrasses':
+        'Toit plat mal isolé, surchauffe en été',
+      'gestes . isolation . plancher bas': 'Sensation de froid venant du sol',
+      'gestes . isolation . vitres': 'Simple vitrage ou fenêtres anciennes',
+    },
+    chauffage: {
+      'gestes . chauffage . PAC': 'Pompe à chaleur',
+      'gestes . chauffage . bois . chaudière': 'Chaudière',
+      'gestes . chauffage . bois': 'Poêles et insert',
+      'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
+    },
+  }
+
+  let travauxEnvisages =
+    situation['projet . travaux envisagés']
+      ?.split(',')
+      .map((t) => t.replaceAll('"', '')) || []
+
+  const handleCheckCategorie = (categorie) => {
+    if (isCategorieChecked(categorie)) {
+      travauxEnvisages = travauxEnvisages.filter(
+        (t) => !Object.keys(gestes[categorie]).includes(decodeDottedName(t)),
+      )
+      setCategoriesCochees((prev) => prev.filter((c) => c != categorie))
+      updateTravaux()
+    } else {
+      setCategoriesCochees((prev) => [...prev, categorie])
+    }
+  }
+
+  const handleCheckTravaux = (e) => {
+    const geste = encodeDottedName(e.target.value)
+    if (travauxEnvisages && travauxEnvisages.includes(geste)) {
+      travauxEnvisages = travauxEnvisages.filter((travaux) => travaux !== geste)
+    } else {
+      travauxEnvisages.push(geste)
+    }
+    updateTravaux()
+  }
+  const updateTravaux = () => {
+    const encodedSituation = encodeSituation(
+      !travauxEnvisages.length
+        ? omit(['projet . travaux envisagés'], situation)
+        : {
+            ...situation,
+            ['projet . travaux envisagés']: `"${travauxEnvisages.join(',')}"`,
+          },
+      false,
+      answeredQuestions,
+    )
+
+    setSearchParams(encodedSituation, 'replace', true)
+  }
+
+  const isCategorieChecked = (categorie) =>
+    categoriesCochees.includes(categorie) ||
+    Object.keys(gestes[categorie]).filter((value) =>
+      travauxEnvisages.includes(encodeDottedName(value)),
+    ).length > 0
+
+  const isTravailChecked = (value) =>
+    travauxEnvisages.includes(encodeDottedName(value))
 
   return (
     <>
@@ -31,12 +104,8 @@ export default function ChoixTravaux({
           <h3>
             <input
               type="checkbox"
-              onChange={() =>
-                setCategorieCochee((prev) => ({
-                  ...prev,
-                  ['isolation']: !prev['isolation'],
-                }))
-              }
+              onChange={() => handleCheckCategorie('isolation')}
+              checked={isCategorieChecked('isolation')}
             />
             <span>
               Isolation thermique
@@ -49,15 +118,7 @@ export default function ChoixTravaux({
         </section>
         <section>
           <h3>
-            <input
-              type="checkbox"
-              onChange={() =>
-                setCategorieCochee((prev) => ({
-                  ...prev,
-                  ['ventilation']: !prev['ventilation'],
-                }))
-              }
-            />
+            <input type="checkbox" />
             <span>
               Ventilation
               <span className="sousTitre">VMC</span>
@@ -72,12 +133,8 @@ export default function ChoixTravaux({
           <h3>
             <input
               type="checkbox"
-              onChange={() =>
-                setCategorieCochee((prev) => ({
-                  ...prev,
-                  ['chauffage']: !prev['chauffage'],
-                }))
-              }
+              onChange={() => handleCheckCategorie('chauffage')}
+              checked={isCategorieChecked('chauffage')}
             />
             <span>
               Chauffage et eau chaude
@@ -92,32 +149,19 @@ export default function ChoixTravaux({
           />
         </section>
       </Accordion>
-      {categorieCochee && categorieCochee['isolation'] && (
+      {isCategorieChecked('isolation') && (
         <>
           <h4>Isolation : Quels problèmes constatez-vous ?</h4>
-          <Accordion>
-            {Object.entries({
-              'gestes . isolation . murs':
-                'Murs mal isolés ou froids au toucher',
-              'gestes . isolation . rampants': 'Toiture ou combles mal isolés',
-              'gestes . isolation . toitures terrasses':
-                'Toit plat mal isolé, surchauffe en été',
-              'gestes . isolation . plancher bas':
-                'Sensation de froid venant du sol',
-              'gestes . isolation . vitres':
-                'Simple vitrage ou fenêtres anciennes',
-            }).map((item) => {
+          <Accordion geste="true">
+            {Object.entries(gestes['isolation']).map((item) => {
               return (
-                <section>
+                <section key={item[0]}>
                   <h3>
                     <input
                       type="checkbox"
-                      onChange={() =>
-                        setGestesCoches((prev) => ({
-                          ...prev,
-                          [item[0]]: !prev[item[0]],
-                        }))
-                      }
+                      onChange={handleCheckTravaux}
+                      value={item[0]}
+                      checked={isTravailChecked(item[0])}
                     />
                     <span>{item[1]}</span>
                   </h3>
@@ -127,27 +171,19 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
-      {categorieCochee && categorieCochee['chauffage'] && (
+      {isCategorieChecked('chauffage') && (
         <>
           <h4>Chauffages : quelles options vous intéressent ?</h4>
-          <Accordion>
-            {Object.entries({
-              'gestes . chauffage . PAC': 'Pompe à chaleur',
-              'gestes . chauffage . bois . chaudière': 'Chaudière',
-              'gestes . chauffage . bois': 'Poêles et insert',
-              'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
-            }).map((item) => {
+          <Accordion geste="true">
+            {Object.entries(gestes['chauffage']).map((item) => {
               return (
-                <section>
+                <section key={item[0]}>
                   <h3>
                     <input
                       type="checkbox"
-                      onChange={() =>
-                        setGestesCoches((prev) => ({
-                          ...prev,
-                          [item[0]]: !prev[item[0]],
-                        }))
-                      }
+                      onChange={handleCheckTravaux}
+                      value={item[0]}
+                      checked={isTravailChecked(item[0])}
                     />
                     <span>{item[1]}</span>
                   </h3>
@@ -168,19 +204,22 @@ const Accordion = styled.div`
     display: flex;
     gap: 1rem;
     border: 1px solid #dddddd;
-    padding: 1rem;
+    ${(p) =>
+      p.geste &&
+      'border: 2px solid #dfdff0;border-radius: 5px;margin-bottom: 1rem;'}
+    padding: ${(p) => (p.geste ? '0.5rem' : '1rem')};
     > h3 {
       flex-grow: 1;
       font-weight: normal;
       margin: 0;
       font-size: 100%;
       display: flex;
-      border-right: 1px solid #dddddd;
+      align-items: center;
+      border-right: 1px solid #dfdff0;
       input {
         width: 1.6rem;
         height: 1.6rem;
         margin-right: 1rem;
-        margin-left: 1vw;
         cursor: pointer;
       }
       .sousTitre {
