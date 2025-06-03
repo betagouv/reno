@@ -133,7 +133,7 @@ export default function Aides() {
             </h2>
             <p>
               Les primes dites <em>"Coup de pouce"</em> sont{' '}
-              <strong>accessibles à tous les ménages</strong>
+              <strong>accessibles à tous les ménages.</strong>
             </p>
             <p>
               Ils financent le{' '}
