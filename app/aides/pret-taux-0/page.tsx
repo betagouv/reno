@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     'Les prêts à taux zéro destinés à la rénovation énergétique en ' +
     new Date().getFullYear() +
-    ": L'éco-prêt à taux zéro (éco-PTZ) et le Prêt avance rénovation (PAR+)",
+    ": L'éco-prêt à taux zéro (éco-PTZ) et le prêt avance rénovation (PAR+)",
 }
 
 export default async function Aides() {
