@@ -1,7 +1,6 @@
 import maplibregl from 'maplibre-gl'
-import { useEffect, useState } from 'react'
-import { useMediaQuery } from 'usehooks-ts'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import { useEffect, useState } from 'react'
 
 const defaultCenter = [1.86, 46.67]
 export const defaultZoom = 4.8
@@ -15,7 +14,6 @@ export default function useAddAddressMap(mapContainerRef, setLocation, active) {
   const [map, setMap] = useState(null)
   const mobile = false
   useEffect(() => {
-    if (!active) return
     if (!mapContainerRef.current) return undefined
 
     const newMap = new maplibregl.Map({

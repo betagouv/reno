@@ -1,4 +1,4 @@
-import DPELabel from '@/components/DPELabel'
+import DPELabel from '@/components/dpe/DPELabel'
 import { PrimeStyle } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import Link from 'next/link'

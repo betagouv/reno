@@ -74,7 +74,12 @@ async function apiResponse(method: string, request: Request) {
           const evaluation = engine
             .setSituation(situation)
             .evaluate(decodeDottedName(field))
+          const baseRule =
+            rules[
+              decodeDottedName(field.replace(/\.MPR\.montant|\.montant/g, ''))
+            ]
           acc[field] = {
+            label: baseRule['titre'] ? baseRule['titre'] : baseRule['marque'],
             rawValue: evaluation.nodeValue,
             formattedValue: formatValue(evaluation),
             taux: getTaux(field, situation, engine),
@@ -93,6 +98,7 @@ async function apiResponse(method: string, request: Request) {
                 )
                 return {
                   [subAide.replace(' . montant', '')]: {
+                    label: rules[subAide.replace(' . montant', '')]['marque'],
                     rawValue: subEvaluation.nodeValue,
                     formattedValue: formatValue(subEvaluation),
                     missingVariables: Object.keys(

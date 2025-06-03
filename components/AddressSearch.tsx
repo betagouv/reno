@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
+import getAppUrl from './getAppUrl'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
@@ -18,7 +19,6 @@ export default function AddressSearch({
   const [input] = useDebounce(immediateInput, 300)
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
-
   const [clicked, setClicked] = useState(situation[type])
 
   const validInput = input && input.length >= 3

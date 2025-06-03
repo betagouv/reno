@@ -1,7 +1,7 @@
 import crossIcon from '@/public/remix-close-empty.svg'
 import Image from 'next/image'
 import styled from 'styled-components'
-import DPELabel from '../DPELabel'
+import DPELabel from '../dpe/DPELabel'
 import Value from '@/components/Value'
 import { MiseEnAvant } from '../UI'
 

@@ -6,16 +6,15 @@ const iconSize = '30'
 export default function MapMarkers({
   map,
   data,
-  selectMarker,
+  selectMarker = ()=>null,
   icon = 'map-marker.png',
   selected,
 }) {
   const selectedId = getCoproId(selected)
-  console.log('selected', getCoproId(selected))
   useEffect(() => {
-    if (!data.length || !map) return
+    if (!map) return
     const bounds = new LngLatBounds()
-    const markers = data
+    const markers = data?
       .filter((feature) => feature.geometry)
       .map((feature, i) => {
         // create a DOM element for the marker
@@ -44,10 +43,14 @@ export default function MapMarkers({
         bounds.extend(feature.geometry.coordinates)
         return marker
       })
-
-    map.fitBounds(bounds, { maxZoom: 17 })
+    if (markers && markers.length > 0) {
+      map.fitBounds(bounds, { maxZoom: 17, padding: 160, bearing: -30,pitch: 30 })
+    } else {
+      map.setCenter([2.3522, 48.8566])
+      map.setZoom(12)
+    }
     return () => {
-      markers.map((marker) => marker.remove())
+      markers && markers.forEach((marker) => marker.remove())
     }
   }, [map, data, selectedId])
   return <div></div>

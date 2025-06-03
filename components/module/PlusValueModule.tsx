@@ -7,7 +7,6 @@ import rules from '@/app/règles/rules'
 import listeDepartementRegion from '@/app/règles/liste-departement-region.publicodes'
 import Publicodes from 'publicodes'
 import dataPlusValue from '@/data/valeur-verte.csv'
-import DPEQuickSwitch from '@/components/DPEQuickSwitch'
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { getCommune } from '../personas/enrichSituation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
@@ -20,20 +19,16 @@ import {
   QuestionList,
 } from '@/app/module/AmpleurQuestions'
 import TargetDPETabs from '../mpra/TargetDPETabs'
-import DPELabel, { conversionLettreIndex } from '../DPELabel'
+import DPELabel, { conversionLettreIndex } from '../dpe/DPELabel'
 import { EvaluationValueWrapper } from '@/app/module/AmpleurEvaluation'
 import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
 import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
-import CalculatorWidget from '../CalculatorWidget'
-import AddressSearch from '../AddressSearch'
-import Select from '../Select'
-import editIcon from '@/public/crayon.svg'
-import Image from 'next/image'
-import { formatNumberWithSpaces } from '../utils'
+import PlusValueWidget from '../plusValue/PlusValueWidget'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 
-export default function ValeurVerteModule({ type }) {
+export default function PlusValueModule({ type }) {
   const engine = new Publicodes(rules)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
@@ -55,6 +50,7 @@ export default function ValeurVerteModule({ type }) {
     async function fetchCommune() {
       if (!situation['logement . commune']) return
       const result = await getCommune(situation, 'logement . commune')
+      push(['trackEvent', 'Module', 'Interaction', 'Commune logement'])
       setSearchParams({
         [encodeDottedName('logement . code département')]:
           `"${result.codeDepartement}"*`,
@@ -66,6 +62,7 @@ export default function ValeurVerteModule({ type }) {
   useEffect(() => {
     const result = calculateAppreciationAndPlusValue(situation)
     if (result) {
+      push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
       setRegion(result.region)
       setPourcentageAppreciation(result.appreciation)
       setPlusValue(result.plusValue)
@@ -252,229 +249,27 @@ export default function ValeurVerteModule({ type }) {
       </small>
     </ModuleWrapper>
   ) : (
-    <CalculatorWidget>
-      <div
-        css={`
-          margin-bottom: 1rem;
-          > div {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-          }
-        `}
-      >
-        <div>
-          <div>Ville:</div>
-          <AddressSearch
-            {...{
-              type: 'logement . commune',
-              setChoice: (result) => {
-                setSearchParams({
-                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                  [encodeDottedName('logement . commune . nom')]:
-                    `"${result.nom}"*`,
-                })
-              },
-              situation,
-            }}
-          />
-        </div>
-        <div>
-          <div>Type de bien:</div>
-          <Select
-            css={`
-              height: 2.8rem;
-              background: #f5f5fe;
-              max-width: 90vw;
-            `}
-            disableInstruction={false}
-            onChange={(e) => {
-              push([
-                'trackEvent',
-                'Module',
-                'Interaction',
-                'type logement ' + e,
-              ])
-              setSearchParams({
-                [encodeDottedName('logement . type')]: '"' + e + '"*',
-              })
-            }}
-            value={situation['logement . type']?.replaceAll('"', "'")}
-            values={rules['logement . type']['une possibilité parmi'][
-              'possibilités'
-            ].map((i) => rules['logement . type . ' + i])}
-          />
-        </div>
-        <div>
-          <div>Valeur du bien:</div>
-          <div
-            css={`
-              height: 2.8rem;
-              margin: auto;
-              border: 2px solid var(--color);
-              width: 10rem;
-              color: var(--color);
-              text-align: center;
-              border-radius: 0.3rem;
-              padding: 0.7rem;
-              box-shadow: var(--shadow-elevation-medium);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
-            <div
-              css={`
-                flex-grow: 1;
-              `}
-            >
-              <input
-                id="prix-bien"
-                css={`
-                  border: none !important;
-                  background: transparent !important;
-                  -webkit-appearance: none !important;
-                  outline: none !important;
-                  color: var(--color);
-                  font-size: 110% !important;
-                  max-width: 6rem !important;
-                  box-shadow: none !important;
-                `}
-                autoFocus={false}
-                placeholder="Prix du bien"
-                type="text"
-                inputMode="numeric"
-                pattern="\d+"
-                defaultValue={
-                  answeredQuestions.includes("logement . prix d'achat")
-                    ? formatNumberWithSpaces(
-                        situation["logement . prix d'achat"],
-                      )
-                    : undefined
-                }
-                onChange={(e) => {
-                  const price = e.target.value.replace(/\s/g, '')
-                  const startPos = e.target.selectionStart
-                  const invalid = isNaN(price) || price <= 0
-                  if (invalid) return
-                  push([
-                    'trackEvent',
-                    'Module',
-                    'Interaction',
-                    'prix achat ' + price,
-                  ])
-                  setSearchParams({
-                    [encodeDottedName("logement . prix d'achat")]: price + '*',
-                  })
-                  e.target.value = formatNumberWithSpaces(price)
-                  requestAnimationFrame(() => {
-                    const inputBudget = document.querySelector('#prix-bien')
-                    inputBudget.selectionStart = startPos
-                    inputBudget.selectionEnd = startPos
-                  })
-                }}
-              />
-            </div>
-            <Image
-              css={`
-                cursor: pointer;
-                margin-left: auto;
-              `}
-              src={editIcon}
-              alt="Icône crayon pour éditer"
-              onClick={() => document.querySelector('#prix-bien').focus()}
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        css={`
-          display: flex;
-          ${isMobile && 'flex-direction: column;'}
-          justify-content: space-between;
-          gap: 1rem;
-        `}
-      >
-        <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
-          situation={situation}
-          columnDisplay={true}
-          editMode={true}
-        />
-        <TargetDPETabs
-          {...{
-            oldIndex: situation['DPE . actuel'] - 1,
-            setSearchParams,
-            answeredQuestions,
-            choice: situation['projet . DPE visé'] - 1,
-            engine,
-            situation,
-            columnDisplay: true,
-          }}
-        />
-      </div>
-      <div
-        css={`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 0.5rem;
-          margin-top: 1rem;
-        `}
-      >
-        <div>
-          🥳 <strong>Bonne nouvelle</strong> :{' '}
-          <DPEAppreciationInfo
-            {...{ situation, pourcentageAppreciation, region }}
-          />
-        </div>
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            ${isMobile && 'flex-direction: column;'}
-            > div {
-              display: flex;
-              flex-direction: column;
-              width: 100%;
-            }
-          `}
-        >
-          <div>
-            <div
-              css={`
-                margin: auto;
-              `}
-            >
-              <span aria-hidden="true">💶</span> Après rénovation, le bien
-              vaudra:
-            </div>
-            <div
-              css={`
-                margin-top: 0.5rem;
-                text-align: center;
-                background: var(--validColor1);
-                color: var(--validColor);
-                padding: 0.5rem;
-              `}
-            >
-              <strong>{formatNumberWithSpaces(plusValue)} €</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </CalculatorWidget>
+    <PlusValueWidget
+      {...{
+        situation,
+        setSearchParams,
+        answeredQuestions,
+        isMobile,
+        plusValue,
+        pourcentageAppreciation,
+        region,
+      }}
+    />
   )
 }
 
+export const hasResult = (situation) =>
+  situation['logement . code département'] &&
+  situation['logement . type'] &&
+  situation["logement . prix d'achat"]
+
 const calculateAppreciationAndPlusValue = (situation) => {
-  if (
-    !situation['logement . code département'] ||
-    !situation['logement . type'] ||
-    !situation["logement . prix d'achat"]
-  )
-    return null
+  if (!hasResult(situation)) return null
 
   // Règle spécifique pour paris et la petite couronne qui ne sont pas réellement des régions
   const departmentCode = parseInt(situation['logement . code département'])
@@ -533,7 +328,7 @@ const calculateAppreciationAndPlusValue = (situation) => {
   return { appreciation, plusValue, region }
 }
 
-const DPEAppreciationInfo = ({
+export const DPEAppreciationInfo = ({
   situation,
   pourcentageAppreciation,
   region,

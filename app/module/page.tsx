@@ -76,8 +76,7 @@ export default function Module({}) {
             <h2>Toujours à jour</h2>
             <p>
               En intégrant dès maintenant le calculateur sur votre site, vous
-              profiterez automatiquement des mises à jour qui auront lieu très
-              prochainement en janvier 2025.
+              profiterez automatiquement des mises à jour qui ont lieu au cours de l'année et surtout aux importantes mises à jour annuelles.
             </p>
             <h2>Historique des versions</h2>
             <h3>v1 (été 2024)</h3>

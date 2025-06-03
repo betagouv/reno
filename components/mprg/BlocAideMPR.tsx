@@ -6,6 +6,7 @@ import { BlocAide, MiseEnAvant, PrimeStyle } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import Value from '../Value'
+import { push } from '@socialgouv/matomo-next'
 
 export const BlocAideMPR = ({
   infoMPR,
@@ -39,6 +40,9 @@ export const BlocAideMPR = ({
     Array.isArray(infoMPR.questions) &&
     infoMPR.questions.every((question) => question in situation)
   const isEligible = infoMPR.montant !== 'Non applicable'
+  if (isEligible && isExactTotal) {
+    push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
+  }
 
   return (
     <BlocAide>

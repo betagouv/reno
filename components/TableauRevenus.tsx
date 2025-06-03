@@ -69,18 +69,18 @@ export default function TableauRevenus({ dottedName, headerTag = 'h2' }) {
                     if (!variation2.si) {
                       const threshold =
                         variations2[i - 1].si.match(/\d\d\d\d\d/)
-                      const formatted = formatter(threshold)
+                      const formatted = formatter(+threshold + 1)
                       return (
                         <td key={'apartir' + threshold}>
-                          <Small>À partir de</Small> {formatted} €
+                          <Small>Supérieur ou égal à</Small> {formatted} €
                         </td>
                       )
                     }
                     const threshold = variation2.si.match(/\d\d\d\d\d/)
-                    const formatted = formatter(threshold)
+                    const formatted = formatter(+threshold + 1)
                     return (
                       <td key={'jusqua' + threshold}>
-                        <Small>Jusqu'à</Small> {formatted} €
+                        <Small>Inférieur à</Small> {formatted} €
                       </td>
                     )
                   })}

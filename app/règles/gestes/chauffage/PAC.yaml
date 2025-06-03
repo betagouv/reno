@@ -1,6 +1,27 @@
 chauffage . PAC:
   titre: Pompe à chaleur
 
+chauffage . PAC . type:
+  question: 'Quel type de PAC vous intéresse ?'
+  une possibilité parmi:
+    possibilités:
+      - air-eau
+      - géo
+      - solaire
+      - air-air
+chauffage . PAC . type . air-eau:
+  valeur: air-eau
+  titre: Pompe à chaleur air/eau
+chauffage . PAC . type . géo:
+  valeur: géo
+  titre: Pompe à chaleur géothermique
+chauffage . PAC . type . solaire:
+  valeur: solaire
+  titre: Pompe à chaleur solarothermique
+chauffage . PAC . type . air-air:
+  valeur: air-air
+  titre: Pompe à chaleur air/air
+
 chauffage . PAC . air-eau:
   par défaut: oui
   titre: Pompe à chaleur air/eau

@@ -267,7 +267,7 @@ export const CTA = styled.div`
   > a,
   > span {
     display: inline-block;
-
+    cursor: pointer;
     ${(p) =>
       p.$importance === 'secondary'
         ? `padding: 0.2rem 1rem;`

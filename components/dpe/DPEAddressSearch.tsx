@@ -1,59 +1,24 @@
 'use client'
-import dpeColors from '@/components/DPE.yaml'
 import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
-import MapMarkers from './AddressSearchMapMarkers'
-import DpeMarkers from './DpeMarkers'
-import { getServerUrl } from './getAppUrl'
-import useAddAddressMap from './useAddAddressMap'
-import useSetSearchParams from './useSetSearchParams'
-import { computeBbox } from './geoUtils'
 
-export default function AddressSearch({ searchParams }) {
-  const setSearchParams = useSetSearchParams()
-
-  const [immediateInput, setInput] = useState('')
-
+export default function DPEAddressSearch({
+  searchParams,
+  setCoordinates,
+  coordinates,
+  dpe,
+  addressResults,
+  setAddressResults,
+}) {
+  const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
   const [input] = useDebounce(immediateInput, 300)
-
-  const [results, setResults] = useState(null)
-  const [dpes, setDpes] = useState(null)
-
-  const mapContainerRef = useRef(null)
-  const setLocation = useCallback((location) => console.log(location), [])
-
-  const active = results?.length > 0
-  const map = useAddAddressMap(mapContainerRef, setLocation, active)
-
-  const [clicked, setClicked] = useState(false)
 
   const validInput = input && input.length >= 5
   const [error, setError] = useState()
 
-  useEffect(() => {
-    if (!clicked) return
-
-    const [lat, lon] = clicked.geometry.coordinates
-    async function fetchDPE() {
-      try {
-        const ourUrl = `${getServerUrl()}/findDPE/${lon}/${lat}`
-
-        const url = `https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?bbox=${computeBbox({ lat, lon, factor: 20 })}`
-
-        const request = await fetch(url)
-        const json = await request.json()
-        console.log('cyan', json)
-        setDpes(json.results)
-        setError(null)
-      } catch (e) {
-        console.error(e)
-        setError({ message: 'Erreur pendant la récupération des DPEs' })
-      }
-    }
-    fetchDPE()
-  }, [clicked, setDpes, setError])
+  const validCoordinates = coordinates && coordinates.every(Boolean)
 
   useEffect(() => {
     if (!validInput) return
@@ -64,7 +29,7 @@ export default function AddressSearch({ searchParams }) {
       )
       const { features } = await request.json()
 
-      setResults(features)
+      setAddressResults(features)
     }
 
     asyncFetch()
@@ -84,21 +49,20 @@ export default function AddressSearch({ searchParams }) {
       )}
       <input
         css={`
-          ${clicked &&
+          ${validCoordinates &&
           input &&
           `border-bottom: 2px solid var(--validColor) !important;`};
         `}
         type="text"
         autoFocus={true}
-        value={immediateInput}
+        value={immediateInput || ''}
         placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
-          setClicked(false)
+          setCoordinates([undefined, undefined])
           setInput(e.target.value)
         }}
       />
-      {clicked && input && <Validated>Adresse validée</Validated>}
-      {validInput && !results && (
+      {validInput && !addressResults && (
         <small
           css={`
             margin: 0.2rem 0;
@@ -110,7 +74,7 @@ export default function AddressSearch({ searchParams }) {
           Chargement...
         </small>
       )}
-      {results && !clicked && (
+      {addressResults && !validCoordinates && (
         <small
           css={`
             color: #929292;
@@ -122,17 +86,23 @@ export default function AddressSearch({ searchParams }) {
         </small>
       )}
       <CityList>
-        {results &&
-          !clicked &&
-          results.map((result) => {
+        {addressResults &&
+          !validCoordinates &&
+          addressResults.map((result) => {
             const { label, id } = result.properties
             return (
               <li
-                className={searchParams['id'] == id ? 'selected' : ''}
+                className={
+                  coordinates &&
+                  coordinates.join('|') ===
+                    result.geometry.coordinates.join('|')
+                    ? 'selected'
+                    : ''
+                }
                 key={id}
                 onClick={() => {
                   setInput(label)
-                  setClicked(result)
+                  setCoordinates(result.geometry.coordinates)
                 }}
               >
                 <span>{label}</span>
@@ -140,62 +110,6 @@ export default function AddressSearch({ searchParams }) {
             )
           })}
       </CityList>
-      {map && active && (
-        <MapMarkers map={map} data={results} selectMarker={setClicked} />
-      )}
-      {map && dpes && (
-        <DpeMarkers
-          map={map}
-          featureCollection={{
-            type: 'FeatureCollection',
-
-            features: dpes.map((dpe) => {
-              const {
-                _geopoint: geopoint,
-                'N°_étage_appartement': etage,
-                Etiquette_DPE: etiquette,
-              } = dpe
-
-              const [lat, lon] = geopoint.split(',')
-
-              const color = dpeColors.find(
-                (dpe) => dpe.lettre === etiquette,
-              ).couleur
-              const fakeFloor = Math.round(Math.random() * 6)
-
-              return {
-                type: 'Feature',
-                geometry: {
-                  coordinates: [+lon, +lat],
-                  type: 'Point',
-                },
-                properties: {
-                  ...dpe,
-                  etage: +etage,
-                  top: (fakeFloor + 1) * 3,
-                  base: fakeFloor * 3,
-                  height: 3,
-                  etiquette,
-                  surface: +dpe['Surface_habitable_logement'],
-                  color,
-                },
-              }
-            }),
-          }}
-          selectMarker={() => null}
-        />
-      )}
-      {active && (
-        <div
-          ref={mapContainerRef}
-          css={`
-            width: 100%;
-            min-height: 700px;
-            height: 100%;
-            border-radius: 0.3rem;
-          `}
-        />
-      )}
     </AddressInput>
   )
 }

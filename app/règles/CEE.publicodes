@@ -1,4 +1,5 @@
 CEE:
+  marque: Certificats d'économie d'énergie
   note: |
     Les CEE sont intégrés directement dans les règles `gestes`. 
 

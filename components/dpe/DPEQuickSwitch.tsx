@@ -1,11 +1,12 @@
 'use client'
 import { useState } from 'react'
 import DPELabel from './DPELabel'
-import useSetSearchParams from './useSetSearchParams'
+import useSetSearchParams from '../useSetSearchParams'
 import Link from 'next/link'
 import Image from 'next/image'
-import { encodeSituation } from './publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
+import { encodeSituation } from '../publicodes/situationUtils'
+import { push } from '@socialgouv/matomo-next'
 
 export const originKey = 'DPE . actuel',
   targetKey = 'projet . DPE visé'
@@ -90,7 +91,10 @@ export default function DPEQuickSwitch({
             align-items: center;
             gap: 1rem;
           `}
-          onClick={() => setEditing(true)}
+          onClick={() => {
+            push(['trackEvent', 'Module', 'Interaction', 'DPE actuel'])
+            setEditing(true)
+          }}
           title="Cliquez pour choisir un autre DPE actuel de votre logement, dans le cas où vous n'êtes pas certain de votre DPE."
         >
           <DPELabel index={oldIndex} small={small} />

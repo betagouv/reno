@@ -2,7 +2,7 @@ import Value from '@/components/Value'
 import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Image from 'next/image'
-import DPEQuickSwitch from '../DPEQuickSwitch'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import editIcon from '@/public/crayon.svg'
 import { Key } from '../explications/ExplicationUI'
@@ -28,7 +28,10 @@ export default function DPEScenario({
   const bonusSortiePassoire = engine
     .setSituation(situation)
     .evaluate('MPR . accompagnée . bonus').nodeValue
-
+  const futureSituation = {
+    ...situation,
+    'projet . DPE visé': choice + 1,
+  }
   return (
     <CalculatorWidget isMobile={isMobile}>
       <div>
@@ -140,10 +143,7 @@ export default function DPEScenario({
               {...{
                 engine,
                 choice,
-                situation: {
-                  ...situation,
-                  'projet . DPE visé': choice + 1,
-                },
+                situation: futureSituation,
                 dottedName: 'projet . travaux . TTC',
               }}
             />
@@ -176,7 +176,7 @@ export default function DPEScenario({
             <Value
               {...{
                 engine,
-                situation,
+                situation: futureSituation,
                 dottedName: 'MPR . accompagnée . pourcent dont bonus',
               }}
             />
@@ -190,7 +190,7 @@ export default function DPEScenario({
             <Value
               {...{
                 engine,
-                situation,
+                situation: futureSituation,
                 dottedName: 'projet . travaux . plafond',
               }}
             />
@@ -255,10 +255,7 @@ export default function DPEScenario({
                   {...{
                     engine,
                     choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
+                    situation: futureSituation,
                     dottedName: 'MPR . accompagnée . montant écrêté',
                   }}
                 />
@@ -278,10 +275,7 @@ export default function DPEScenario({
                   {...{
                     engine,
                     choice,
-                    situation: {
-                      ...situation,
-                      'projet . DPE visé': choice + 1,
-                    },
+                    situation: futureSituation,
                     dottedName: 'MPR . accompagnée . reste à charge',
                   }}
                 />{' '}
