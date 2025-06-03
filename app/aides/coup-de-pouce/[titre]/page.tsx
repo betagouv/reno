@@ -5,11 +5,8 @@ export async function generateMetadata(props): Promise<Metadata> {
   const params = await props.params
   const titre = decodeURIComponent(params.titre)
   return {
-    title:
-      ""Coup de Pouce" Chauffage - Remplacement d'une chaudière par " + titre,
-    description:
-      "Calculateur de l'aide "Coup de Pouce" pour le remplacement d'une chaudière par " +
-      titre,
+    title: `"Coup de Pouce" Chauffage - Remplacement d'une chaudière par ${titre}`,
+    description: `Calculateur de l'aide "Coup de Pouce" pour le remplacement d'une chaudière par ${titre}`,
   }
 }
 
