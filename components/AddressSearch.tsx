@@ -42,12 +42,11 @@ export default function AddressSearch({
     const asyncFetch = async () => {
       setIsLoading(true)
       const request = await fetch(
-        getAppUrl() +
-          (onlyNumbers(input)
-            ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
-            : `/api/geo/?path=${encodeURIComponent(
-                `communes?nom=${input}&boost=population&limit=5`,
-              )}`),
+        onlyNumbers(input)
+          ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
+          : `/api/geo/?path=${encodeURIComponent(
+              `communes?nom=${input}&boost=population&limit=5`,
+            )}`,
       )
       const json = await request.json()
 
