@@ -77,7 +77,7 @@ export default function Integration() {
     .forEach((item) =>
       listeModule.push({
         titre:
-          'Calculette MaPrimeRénov' - ' +
+          "Calculette MaPrimeRénov' - " +
           rules[item.replace(' . MPR', '')].titre,
         valeur:
           '/aides/ma-prime-renov/' +
@@ -98,16 +98,16 @@ export default function Integration() {
     )
   Object.keys(rules)
     .filter(
-      (item) => item.startsWith('gestes') && item.endsWith('"Coup de pouce"'),
+      (item) => item.startsWith('gestes') && item.endsWith('Coup de pouce'),
     )
     .forEach((item) =>
       listeModule.push({
         titre:
           'Calculette "Coup de Pouce" - ' +
-          rules[item.replace(' . "Coup de Pouce"', '')].titre,
+          rules[item.replace(' . Coup de Pouce', '')].titre,
         valeur:
           '/aides/coup-de-pouce/' +
-          encodeURIComponent(rules[item.replace(' . "Coup de Pouce"', '')].titre),
+          encodeURIComponent(rules[item.replace(' . Coup de Pouce', '')].titre),
       }),
     )
 
@@ -312,7 +312,8 @@ export const HistoriqueVersion = () => (
       <h3>v1 (été 2024)</h3>
       <p>
         La première version "preuve de concept" du module. Elle n'intègre que le
-        dispositif principal MaPrimeRénov’ parcours accompagné (pour une rénovation d’ampleur).{' '}
+        dispositif principal MaPrimeRénov’ parcours accompagné (pour une
+        rénovation d’ampleur).{' '}
       </p>
       <h3>v2 (septembre 2024)</h3>
       <p>
@@ -323,8 +324,8 @@ export const HistoriqueVersion = () => (
         locataire.
       </p>
       <p>
-        Il inclut non seulement MaPrimeRénov’ parcours accompagné mais aussi les autres
-        aides principales dont l'éco-PTZ, le prêt avance rénovation, le
+        Il inclut non seulement MaPrimeRénov’ parcours accompagné mais aussi les
+        autres aides principales dont l'éco-PTZ, le prêt avance rénovation, le
         dispositif Denormandie, etc.
       </p>
       <h3>v3 (fin novembre 2024)</h3>
