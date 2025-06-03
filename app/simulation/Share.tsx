@@ -4,7 +4,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
 export default function Share() {
-  const isMobile = window.innerWidth <= 600
+  const isMobile = window !== undefined ? window.innerWidth <= 600 : false
   const pathname = usePathname(),
     searchParams = useSearchParams()
 

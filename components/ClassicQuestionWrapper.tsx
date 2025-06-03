@@ -1,21 +1,20 @@
 import FormButtons from '@/app/simulation/FormButtons'
 import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import Suggestions from '@/app/simulation/Suggestions'
-import { AnswerWrapper } from './InputUI'
+import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
 
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
-import Share from '@/app/simulation/Share'
 import { useSearchParams } from 'next/navigation'
 import { isMosaicQuestion } from './BooleanMosaic'
+import CopyButton from './CopyButton'
 import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
-import CopyButton from './CopyButton'
 
 export const QuestionText = ({
   rule,
@@ -33,6 +32,7 @@ export const QuestionText = ({
     : rule.question || rule.titre || ruleName
   return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
 }
+
 export default function ClassicQuestionWrapper({
   children,
   rule,
@@ -81,14 +81,7 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
-      <div
-        css={`
-          max-width: 800px;
-          min-height: 100%;
-          padding: 0 1rem;
-          margin: 0 auto;
-        `}
-      >
+      <QuestionCard>
         {!rule.type && (
           <QuestionHeader>
             <div>
@@ -103,16 +96,9 @@ export default function ClassicQuestionWrapper({
                 }}
               />
               {rule['sous-titre'] && (
-                <div
-                  css={`
-                    p {
-                      color: #666;
-                      font-size: 90%;
-                      line-height: 1.25rem;
-                    }
-                  `}
+                <Subtitle
                   dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-                ></div>
+                ></Subtitle>
               )}
             </div>
             <div>
@@ -168,7 +154,7 @@ export default function ClassicQuestionWrapper({
           }}
         />
         <UserProblemBanner />
-      </div>
+      </QuestionCard>
     </>
   )
 }

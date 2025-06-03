@@ -27,7 +27,9 @@ export const metadata: Metadata = {
   openGraph: { images: ['/jaquette.png'] },
 }
 
-export default function Page() {
+export default async function Page(props) {
+  const searchParams = await props.searchParams
+
   return (
     <main
       style={css`
@@ -78,25 +80,37 @@ export default function Page() {
               </strong>{' '}
               et sans inscription.
             </p>
-            <CTAWrapper $justify="left">
-              <CTA $fontSize="normal">
-                <Link href="/simulation" prefetch={false}>
-                  ➞&nbsp;&nbsp;C'est parti !
-                </Link>
-              </CTA>
-            </CTAWrapper>
-            <CTAWrapper $justify="left">
-              <CTA
-                $fontSize="normal"
-                $importance="secondary"
-                style={css`
-                  padding: 0.5rem 0;
-                `}
-              >
-                <Link href="/copropriete">Je représente une copropriété</Link>
-              </CTA>
-            </CTAWrapper>
-            <FromStorageSimulationButtonLoader />
+            <div
+              style={css`
+                padding-top: 1rem;
+              `}
+            >
+              <CTAWrapper $justify="left">
+                <CTA $fontSize="normal">
+                  <Link
+                    href={{
+                      pathname: '/simulation',
+                      query: searchParams, // needed to pass "iframe" and "sendDataToHost" params to the simulation
+                    }}
+                    prefetch={false}
+                  >
+                    ➞&nbsp;&nbsp;C'est parti !
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+              <CTAWrapper $justify="left">
+                <CTA
+                  $fontSize="normal"
+                  $importance="secondary"
+                  style={css`
+                    padding: 0.5rem 0;
+                  `}
+                >
+                  <Link href="/copropriete">Je représente une copropriété</Link>
+                </CTA>
+              </CTAWrapper>
+              <FromStorageSimulationButtonLoader />
+            </div>
           </div>
         </HeaderWrapper>
         <LandingGreenBanner>

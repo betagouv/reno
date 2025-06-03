@@ -25,6 +25,8 @@ import DPEAddressSearch from './dpe/DPEAddressSearch'
 import { useState } from 'react'
 import enrichSituation, { getCommune } from './personas/enrichSituation'
 import ChoixTravaux from './ChoixTravaux'
+import { useSendDataToHost } from './useIsInIframe'
+import Consentement from './Consentement'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -50,6 +52,8 @@ export default function InputSwitch({
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
+
+  const [sendDataToHost, consent, setConsent] = useSendDataToHost()
 
   if (rule['bornes intelligentes'])
     return (
@@ -395,6 +399,10 @@ export default function InputSwitch({
   }
 
   if (["parcours d'aide"].includes(currentQuestion)) {
+    console.debug('indigo consent', sendDataToHost, consent)
+    if (sendDataToHost && consent === null) {
+      return <Consentement {...{ setConsent, situation, sendDataToHost }} />
+    }
     return (
       <Eligibility
         {...{
@@ -407,6 +415,8 @@ export default function InputSwitch({
           rules,
           nextQuestions,
           expanded: searchParams.details === 'oui',
+          consent,
+          sendDataToHost,
         }}
       />
     )
