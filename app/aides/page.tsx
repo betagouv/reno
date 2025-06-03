@@ -34,12 +34,12 @@ export default function Aides() {
             <Image src={mprImage} alt="Logo MaPrimeRénov" width="100" />
             <h2>
               <Link href="/simulation">
-                MaPrimeRénov' - Parcours accompagné
+                MaPrimeRénov' parcours accompagné
               </Link>
             </h2>
             <p>
               Le parcours accompagné est <strong>accessible pour tous</strong>,
-              il vise à encourager des <strong>rénovations d'ampleurs</strong>.
+              il vise à encourager des <strong>rénovations d'ampleur</strong>.
             </p>
             <p>
               Les sommes sont importantes et vous êtes{' '}

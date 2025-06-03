@@ -60,7 +60,7 @@ export default function QuestionsRéponses() {
               Votre Accompagnateur Rénov’ vous propose plusieurs scénarios de
               travaux en fonction de votre bien et de votre projet. Le choix
               d’un des scénarios proposé vous permet de valider votre
-              éligibilité à l’aide MaPrimeRénov' Parcours accompagné.
+              éligibilité à l’aide MaPrimeRénov' parcours accompagné.
             </li>
             <li>
               Vous choisissez un scenario et vous contactez des artisans, qui
@@ -138,14 +138,14 @@ export default function QuestionsRéponses() {
 
         <details>
           <summary open={false}>
-            Peut-on cumuler MaPrimeRénov’ Accompagné avec d’autres aides ?
+            Peut-on cumuler MaPrimeRénov’ parcours accompagné avec d’autres aides ?
           </summary>
           <p>
-            MaPrimeRenov’ Parcours accompagné n’est pas cumulable avec les aides
+            MaPrimeRenov’ parcours accompagné n’est pas cumulable avec les aides
             des fournisseurs d’énergie (CEE).
           </p>
           <p>
-            MaPrimeRenov’ Parcours accompagné est cumulable avec les aides des
+            MaPrimeRenov’ parcours accompagné est cumulable avec les aides des
             collectivité locales et des caisses de retraite.
           </p>
           <p>

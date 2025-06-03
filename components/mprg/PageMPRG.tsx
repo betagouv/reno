@@ -71,7 +71,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
         <Breadcrumb
           links={[
             { 'Les aides': '/aides' },
-            { "MaPrimeRénov' - Parcours par geste": '/aides/ma-prime-renov' },
+            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
             { [infoMPR.titre]: '' },
           ]}
         />

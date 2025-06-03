@@ -20,7 +20,7 @@ export default function OtherSimulateur({mprAssocie = [], ceeAssocie}) {
                     <CardLink key={mpr} css={`&:hover { background: #e8edff; }`}>
                         <LinkSimulateur href={`/aides/ma-prime-renov/${encodeURIComponent(mpr)}`}>
                             <Image src={logoMPR} alt="Logo MaPrimeRénov" width="200" css={`margin: 1rem 0 !important;`} />
-                            Aides MaPrimeRénov pour<br /> 
+                            Aides MaPrimeRénov' pour<br /> 
                             <strong>{mpr}</strong> 
                         </LinkSimulateur>
                     </CardLink>
