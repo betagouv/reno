@@ -324,7 +324,7 @@ export const HistoriqueVersion = () => (
       </p>
       <p>
         Il inclut non seulement MaPrimeRénov’ parcours accompagné mais aussi les autres
-        aides principales dont l'éco-PTZ, le Prêt Avance Rénovation à zéro %, le
+        aides principales dont l'éco-PTZ, le prêt avance rénovation, le
         dispositif Denormandie, etc.
       </p>
       <h3>v3 (fin novembre 2024)</h3>

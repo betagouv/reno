@@ -136,8 +136,8 @@ export default function Content() {
       </p>
       <p>
         Depuis le 1er septembre 2024, en plus de l'éco-PTZ, pour les foyers
-        modestes un nouveau prêt sans intérêts est disponible : le Prêt avance
-        mutation ne portant pas intérêt, aussi nommé{' '}
+        modestes un nouveau prêt sans intérêts est disponible : le prêt avance
+        rénovation, aussi nommé{' '}
         <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
           PAR+
         </a>
@@ -178,7 +178,7 @@ export default function Content() {
       </blockquote>
       <h2>Au-delà de MaPrimeRénov', de multiples aides en 2025</h2>
       <p>
-        Éco-PTZ, Prêt Avance Mutation, exonération de la taxe foncière,
+        Éco-PTZ, prêt avance rénovation, exonération de la taxe foncière,
         dispositif Denormandie... les aides à la rénovation sont nombreuses.
       </p>
       <p>

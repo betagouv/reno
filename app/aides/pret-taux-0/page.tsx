@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     'Les prêts à taux zéro destinés à la rénovation énergétique en ' +
     new Date().getFullYear() +
-    ": L'éco-prêt à taux zéro (éco-PTZ) et le Prêt avance mutation (PAR+)",
+    ": L'éco-prêt à taux zéro (éco-PTZ) et le Prêt avance rénovation (PAR+)",
 }
 
 export default async function Aides() {
@@ -39,7 +39,7 @@ export default async function Aides() {
           Les deux principaux prêts à taux zéro existants en{' '}
           {new Date().getFullYear()} sont{' '}
           <strong>l'éco-prêt à taux zéro</strong> (éco-PTZ) et le{' '}
-          <strong>prêt avance mutation</strong> (PAR+). Il est{' '}
+          <strong>prêt avance rénovation</strong> (PAR+). Il est{' '}
           <strong>possible de les cumuler</strong> à condition de financer des
           postes de travaux différents.
         </p>
