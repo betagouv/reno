@@ -2,14 +2,28 @@
 // a dummy component used to test the export of our simulator to a Web component
 import Link from 'next/link'
 
-import useSetSearchParams from './useSetSearchParams'
+import useSetSearchParams from '@/components/useSetSearchParams'
+import styled from 'styled-components'
+import { useSearchParams } from './useSearchParams.webcomponents'
 
 export default function Dummy({ name }) {
-  //const setSearchParams = useSetSearchParams()
+  const setSearchParams = useSetSearchParams()
+  const searchParams = useSearchParams()
+  const page = searchParams.page
   return (
-    <div>
-      salut {name}
-      <Link href="/plop">plop</Link>
-    </div>
+    <section style={{ border: '2px solid blue', width: '400px' }}>
+      Simulation
+      {page}
+      {!page && (
+        <Link href={setSearchParams({ page: 'simulation' }, 'url')}>
+          Estimer mes aides
+        </Link>
+      )}
+      {page === 'simulation' && <div>Première question</div>}
+    </section>
   )
 }
+
+const Wrapper = styled.section`
+  border: 2px solid blue;
+`

@@ -6396,6 +6396,11 @@ react-tooltip@^5.28.1:
     "@floating-ui/dom" "^1.6.1"
     classnames "^2.3.0"
 
+react-use-search-params-state@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-use-search-params-state/-/react-use-search-params-state-2.0.1.tgz#16b3f796ff137aec91525ecd35154047eba88fb5"
+  integrity sha512-9wqvu6iyHtDaVdPmLhv8VFvqfkXtQ+GBfvjVHzLCCcEZG9z6G9qkfkPSDfq8e3zb5dNr7Z7gzxp4dszuEwf2rg==
+
 react@^19.1.0:
   version "19.1.0"
   resolved "https://registry.yarnpkg.com/react/-/react-19.1.0.tgz#926864b6c48da7627f004795d6cce50e90793b75"
