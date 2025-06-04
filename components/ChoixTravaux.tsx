@@ -16,6 +16,38 @@ import {
 } from './publicodes/situationUtils'
 import { omit } from './utils'
 
+export const getTravauxEnvisages = (situation) =>
+  situation['projet . travaux envisagés']
+    ?.split(',')
+    .map((t) => t.replaceAll('"', '')) || []
+
+export const gestes = {
+  isolation: {
+    'gestes . isolation . murs': 'Murs mal isolés ou froids au toucher',
+    'gestes . isolation . rampants': 'Toiture ou combles mal isolés',
+    'gestes . isolation . toitures terrasses':
+      'Toit plat mal isolé, surchauffe en été',
+    'gestes . isolation . plancher bas': 'Sensation de froid venant du sol',
+    'gestes . isolation . vitres': 'Simple vitrage ou fenêtres anciennes',
+  },
+  chauffage: {
+    'gestes . chauffage . PAC': 'Pompe à chaleur',
+    'gestes . chauffage . bois . chaudière': 'Chaudière',
+    'gestes . chauffage . bois': 'Poêles et insert',
+    'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
+  },
+}
+export const isCategorieChecked = (
+  categorie,
+  travauxEnvisages,
+  categoriesCochees,
+) =>
+  (typeof categoriesCochees !== 'undefined' &&
+    categoriesCochees.includes(categorie)) ||
+  Object.keys(gestes[categorie]).filter((value) =>
+    travauxEnvisages?.includes(encodeDottedName(value)),
+  ).length > 0
+
 export default function ChoixTravaux({
   situation,
   rules,
@@ -30,31 +62,11 @@ export default function ChoixTravaux({
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
-  const gestes = {
-    isolation: {
-      'gestes . isolation . murs': 'Murs mal isolés ou froids au toucher',
-      'gestes . isolation . rampants': 'Toiture ou combles mal isolés',
-      'gestes . isolation . toitures terrasses':
-        'Toit plat mal isolé, surchauffe en été',
-      'gestes . isolation . plancher bas': 'Sensation de froid venant du sol',
-      'gestes . isolation . vitres': 'Simple vitrage ou fenêtres anciennes',
-    },
-    chauffage: {
-      'gestes . chauffage . PAC': 'Pompe à chaleur',
-      'gestes . chauffage . bois . chaudière': 'Chaudière',
-      'gestes . chauffage . bois': 'Poêles et insert',
-      'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
-    },
-  }
-
-  let travauxEnvisages =
-    situation['projet . travaux envisagés']
-      ?.split(',')
-      .map((t) => t.replaceAll('"', '')) || []
+  let travauxEnvisages = getTravauxEnvisages(situation)
 
   const handleCheckCategorie = (categorie) => {
-    if (isCategorieChecked(categorie)) {
-      travauxEnvisages = travauxEnvisages.filter(
+    if (isCategorieChecked(categorie, travauxEnvisages, categoriesCochees)) {
+      travauxEnvisages = travauxEnvisages?.filter(
         (t) => !Object.keys(gestes[categorie]).includes(decodeDottedName(t)),
       )
       setCategoriesCochees((prev) => prev.filter((c) => c != categorie))
@@ -88,12 +100,6 @@ export default function ChoixTravaux({
     setSearchParams(encodedSituation, 'replace', true)
   }
 
-  const isCategorieChecked = (categorie) =>
-    categoriesCochees.includes(categorie) ||
-    Object.keys(gestes[categorie]).filter((value) =>
-      travauxEnvisages.includes(encodeDottedName(value)),
-    ).length > 0
-
   const isTravailChecked = (value) =>
     travauxEnvisages.includes(encodeDottedName(value))
 
@@ -105,7 +111,11 @@ export default function ChoixTravaux({
             <input
               type="checkbox"
               onChange={() => handleCheckCategorie('isolation')}
-              checked={isCategorieChecked('isolation')}
+              checked={isCategorieChecked(
+                'isolation',
+                travauxEnvisages,
+                categoriesCochees,
+              )}
             />
             <span>
               Isolation thermique
@@ -134,7 +144,11 @@ export default function ChoixTravaux({
             <input
               type="checkbox"
               onChange={() => handleCheckCategorie('chauffage')}
-              checked={isCategorieChecked('chauffage')}
+              checked={isCategorieChecked(
+                'chauffage',
+                travauxEnvisages,
+                categoriesCochees,
+              )}
             />
             <span>
               Chauffage et eau chaude
@@ -149,7 +163,7 @@ export default function ChoixTravaux({
           />
         </section>
       </Accordion>
-      {isCategorieChecked('isolation') && (
+      {isCategorieChecked('isolation', travauxEnvisages, categoriesCochees) && (
         <>
           <h4>Isolation : Quels problèmes constatez-vous ?</h4>
           <Accordion geste="true">
@@ -171,7 +185,7 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
-      {isCategorieChecked('chauffage') && (
+      {isCategorieChecked('chauffage', travauxEnvisages, categoriesCochees) && (
         <>
           <h4>Chauffages : quelles options vous intéressent ?</h4>
           <Accordion geste="true">
