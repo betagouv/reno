@@ -28,6 +28,18 @@ import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 
+export const correspondance = {
+  'MPR . accompagnée': MPRA,
+  'MPR . accompagnée . prise en charge MAR': AideMAR,
+  PTZ: EcoPTZ,
+  PAR: PAR,
+  'aides locales': AidesLocales,
+  'ampleur . prime individuelle copropriété': Copro,
+  'taxe foncière': TaxeFoncière,
+  denormandie: Denormandie,
+  "CEE . rénovation d'ampleur": CEEAmpleur,
+}
+
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
   if (isInIframe) {
@@ -77,18 +89,6 @@ function Form({ rules }) {
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-
-  const correspondance = {
-    'MPR . accompagnée': MPRA,
-    'MPR . accompagnée . prise en charge MAR': AideMAR,
-    PTZ: EcoPTZ,
-    PAR: PAR,
-    'aides locales': AidesLocales,
-    'ampleur . prime individuelle copropriété': Copro,
-    'taxe foncière': TaxeFoncière,
-    denormandie: Denormandie,
-    "CEE . rénovation d'ampleur": CEEAmpleur,
-  }
 
   if (searchParams['details']) {
     return (

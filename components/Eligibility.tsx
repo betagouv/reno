@@ -15,6 +15,7 @@ import useIsInIframe from './useIsInIframe'
 import ÀlaCarteSummary from './ÀlaCarteSummary'
 import * as iframe from '@/utils/iframe'
 import { useEffect } from 'react'
+import { correspondance } from '@/app/simulation/Form'
 
 export default function Eligibility({
   setSearchParams,
@@ -99,6 +100,17 @@ export default function Eligibility({
         )}
         <Avis {...{ situation, engine }} />
         <div
+        <AidesAmpleur
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            engine,
+            rules,
+            searchParams,
+            correspondance,
+          }}
+        />
           css={`
             display: flex;
             flex-wrap: nowrap;
