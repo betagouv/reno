@@ -15,7 +15,7 @@ export const BlocAideMPR = ({
   situation,
   answeredQuestions,
   setSearchParams,
-  displayPrime = 'top',
+  display = 'top',
 }) => {
   const rawSearchParams = useSearchParams(),
     situationSearchParams = Object.fromEntries(rawSearchParams.entries())
@@ -49,15 +49,13 @@ export const BlocAideMPR = ({
       <div className="aide-header">
         <Image src={mprImage} alt="logo ma prime renov" width="100" />
         <div>
-          {displayPrime === 'top' && (
+          {display === 'top' && (
             <PrimeStyle>
               {'Prime de '}
               <strong>{infoMPR.montant}</strong>
             </PrimeStyle>
           )}
-          <h2>
-            {displayPrime !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'
-          </h2>
+          <h2>{display !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'</h2>
         </div>
       </div>
       <div className="aide-details">
@@ -88,7 +86,7 @@ export const BlocAideMPR = ({
             }}
           />
         )}
-        {displayPrime == 'bottom' && (
+        {display == 'bottom' && (
           <>
             <div
               css={`
@@ -128,7 +126,7 @@ export const BlocAideMPR = ({
             <AvanceTMO {...{ engine, situation }} />
           </>
         )}
-        {displayPrime === 'top' && (
+        {display === 'top' && (
           <div className="details">
             <AvanceTMO {...{ engine, situation }} />
             Précisions:
