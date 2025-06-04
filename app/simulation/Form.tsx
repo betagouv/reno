@@ -1,7 +1,9 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
+import getNextQuestions, {
+  getNextQuestionsMainForm,
+} from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
   getAnsweredQuestions,
@@ -13,7 +15,7 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import simulationConfig from './simulationConfig.yaml'
+import simulationConfigMainForm from './simulationConfigMainForm.yaml'
 import { push } from '@socialgouv/matomo-next'
 import AideDetails from '@/components/AideDetails'
 import MPRA from '@/components/ampleur/MPRA'
@@ -25,6 +27,18 @@ import EcoPTZ from '@/components/ampleur/EcoPTZ'
 import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
 import AidesLocales from '@/components/ampleur/AidesLocales'
+
+export const correspondance = {
+  'MPR . accompagnée': MPRA,
+  'MPR . accompagnée . prise en charge MAR': AideMAR,
+  PTZ: EcoPTZ,
+  PAR: PAR,
+  'aides locales': AidesLocales,
+  'ampleur . prime individuelle copropriété': Copro,
+  'taxe foncière': TaxeFoncière,
+  denormandie: Denormandie,
+  "CEE . rénovation d'ampleur": CEEAmpleur,
+}
 
 function Form({ rules }) {
   const isInIframe = useIsInIframe()
@@ -53,12 +67,10 @@ function Form({ rules }) {
     [rules],
   )
   const answeredQuestions = [
-    ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(situationSearchParams, rules),
   ]
 
   const situation = {
-    ...(simulationConfig.situation || {}),
     ...getSituation(situationSearchParams, rules),
   }
 
@@ -67,29 +79,16 @@ function Form({ rules }) {
   )
 
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
-    nextQuestions = getNextQuestions(
+    nextQuestions = getNextQuestionsMainForm(
       evaluation,
       answeredQuestions,
-      simulationConfig,
-      rules,
+      simulationConfigMainForm,
     )
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
 
   const setSearchParams = useSetSearchParams()
-
-  const correspondance = {
-    'MPR . accompagnée': MPRA,
-    'MPR . accompagnée . prise en charge MAR': AideMAR,
-    PTZ: EcoPTZ,
-    PAR: PAR,
-    'aides locales': AidesLocales,
-    'ampleur . prime individuelle copropriété': Copro,
-    'taxe foncière': TaxeFoncière,
-    denormandie: Denormandie,
-    "CEE . rénovation d'ampleur": CEEAmpleur,
-  }
 
   if (searchParams['details']) {
     return (

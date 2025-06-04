@@ -153,7 +153,6 @@ export default function ClassicQuestionWrapper({
             situation,
           }}
         />
-        <br />
         <UserProblemBanner />
       </QuestionCard>
     </>
