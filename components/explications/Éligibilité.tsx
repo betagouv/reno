@@ -102,7 +102,7 @@ export function Avis({ engine, situation }) {
         <p>
           Votre logement DPE <DPELabel index={situation['DPE . actuel'] - 1} />{' '}
           est une passoire énergétique. Il vous est conseillé d'opter pour le{' '}
-          <strong>parcours ampleur</strong>.
+          <strong>parcours accompagné</strong>.
         </p>
       </MiseEnAvant>
     )

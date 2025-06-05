@@ -149,7 +149,7 @@ export default function QuestionsRéponses() {
             collectivité locales et des caisses de retraite.
           </p>
           <p>
-            L'aide du parcours accompagnée est limitée par un montant maximum,
+            L'aide du parcours accompagné est limitée par un montant maximum,
             appelé l'écrêtement, calculé ci-dessus.
           </p>
         </details>

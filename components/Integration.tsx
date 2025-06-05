@@ -386,7 +386,7 @@ export const ContactIntegration = ({ type }) => (
         Nous sommes à l'écoute de vos besoins, que vous soyez une administration
         publique, une collectivité, une entreprise (banque, courtier, agence
         immobilière, etc.) ou un professionnel du secteur (conseiller France
-        Rénov', Mon Accompagnateur Rénov, ADIL, etc).
+        Rénov', Mon Accompagnateur Rénov', ADIL, etc).
       </p>
       <p>
         Nouvelles fonctionnalités, personnalisation de l'intégration,
