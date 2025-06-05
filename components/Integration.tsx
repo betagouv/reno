@@ -104,10 +104,10 @@ export default function Integration() {
       listeModule.push({
         titre:
           'Calculette "Coup de Pouce" - ' +
-          rules[item.replace(' . Coup de Pouce', '')].titre,
+          rules[item.replace(' . Coup de pouce', '')].titre,
         valeur:
           '/aides/coup-de-pouce/' +
-          encodeURIComponent(rules[item.replace(' . Coup de Pouce', '')].titre),
+          encodeURIComponent(rules[item.replace(' . Coup de pouce', '')].titre),
       }),
     )
 
