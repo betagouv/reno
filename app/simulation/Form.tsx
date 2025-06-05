@@ -27,6 +27,7 @@ import EcoPTZ from '@/components/ampleur/EcoPTZ'
 import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
 import AidesLocales from '@/components/ampleur/AidesLocales'
+import AideEtapes from '@/components/AideEtapes'
 
 export const correspondance = {
   'MPR . accompagnée': MPRA,
@@ -77,7 +78,21 @@ function Form({ rules }) {
   const validatedSituation = Object.fromEntries(
     Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
   )
-
+  const setSearchParams = useSetSearchParams()
+  if (target == 'etape') {
+    return (
+      <AideEtapes
+        {...{
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+        }}
+      />
+    )
+  }
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestionsMainForm(
       evaluation,
@@ -87,8 +102,6 @@ function Form({ rules }) {
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
-
-  const setSearchParams = useSetSearchParams()
 
   if (searchParams['details']) {
     return (

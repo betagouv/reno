@@ -4,27 +4,20 @@ import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
 import CopyButton from './CopyButton'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
-import FatConseiller from './FatConseiller'
 import PersonaBar from './PersonaBar'
-import { Card, Section } from './UI'
-import AmpleurSummary from './ampleur/AmpleurSummary'
+import { Card, CTA, CTAWrapper, Section } from './UI'
 import { useAides } from './ampleur/useAides'
-import { Avis } from './explications/Éligibilité'
-import {
-  decodeDottedName,
-  encodeDottedName,
-  encodeSituation,
-} from './publicodes/situationUtils'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
-import ÀlaCarteSummary from './ÀlaCarteSummary'
 import * as iframe from '@/utils/iframe'
 import { useEffect, useState } from 'react'
 import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
-import AideAmpleur, { aideTitle, PrimeWithLabel } from './ampleur/AideAmpleur'
+import AideAmpleur from './ampleur/AideAmpleur'
 import { correspondance } from '@/app/simulation/Form'
 import AidesAmpleur from './ampleur/AidesAmpleur'
 import Breadcrumb from './Breadcrumb'
 import AideGeste from './AideGeste'
+import Link from 'next/link'
 
 export default function Eligibility({
   setSearchParams,
@@ -38,24 +31,12 @@ export default function Eligibility({
   sendDataToHost = false,
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
-  const [isOpen, setIsOpen] = useState(false)
   const isInIframe = useIsInIframe()
-  const nextLink = (value) => {
-    const url = setSearchParams(
-      {
-        [encodeDottedName("parcours d'aide")]: `"${encodeDottedName(value)}"*`,
-      },
-      'url',
-      false,
-    )
-    return url
-  }
   const aides = useAides(engine, situation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const showPersonaBar = searchParams.personas != null
 
   const travauxEnvisages = getTravauxEnvisages(situation)
-  console.log('travauxEnvisages', travauxEnvisages)
 
   useEffect(() => {
     if (isInIframe && sendDataToHost) {
@@ -123,7 +104,6 @@ export default function Eligibility({
             )}
           </p>
         </header>
-        {/* <Avis {...{ situation, engine }} /> */}
         <h2>
           <span aria-hidden="true">💶</span> Aides pour vos travaux
         </h2>
@@ -216,78 +196,54 @@ export default function Eligibility({
             correspondance,
           }}
         />
-        {/* <div
-          css={`
-            display: flex;
-            flex-wrap: nowrap;
-            > div:nth-child(1),
-            > div:nth-child(3) {
-              width: 45%;
-            }
-            > div:nth-child(2) {
-              width: 10%;
-            }
-            @media (max-width: 700px) {
-              flex-wrap: wrap;
-              flex-direction: column;
-              > div {
-                width: 100% !important;
-              }
-            }
-            justify-content: center;
-          `}
-        >
-          <AmpleurSummary
-            id="parcours-ampleur"
-            {...{
-              engine,
-              url: nextLink('ampleur'),
-              situation,
-              expanded,
-              setSearchParams,
-            }}
-          />
-          <div
-            css={`
-              padding: 0 1rem;
-              align-self: center;
-            `}
-          >
-            <strong
-              css={`
-                display: block;
-                text-align: center;
-                margin: 1rem auto;
-                font-size: 130%;
-              `}
-            >
-              ou
-            </strong>
-          </div>
-          <ÀlaCarteSummary
-            id="parcours-gestes"
-            {...{
-              engine,
-              rules,
-              url: nextLink('à la carte'),
-              situation,
-            }}
-          />
-        </div>
-        <FatConseiller
-          {...{
-            situation,
-            margin: 'small',
-            titre:
-              'Vous ne savez pas quel parcours choisir pour votre projet ?',
-            texte:
-              "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
-          }}
-        /> */}
         {isInIframe ? null : (
           <Feedback title="Ce simulateur a-t-il été utile ?" />
         )}
+        <ObtenirAideBaniere setSearchParams={setSearchParams} />
       </CustomQuestionWrapper>
     </Section>
+  )
+}
+
+const ObtenirAideBaniere = ({ setSearchParams }) => {
+  const [isVisible, setIsVisible] = useState(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <div
+      css={`
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        color: white;
+        padding: 1rem;
+        border-top: 1px solid #ddd;
+        text-align: center;
+        z-index: 1000;
+        transform: translateY(${isVisible ? '0%' : '100%'});
+        transition: transform 0.3s ease-in-out;
+      `}
+    >
+      <CTAWrapper $justify="center">
+        <CTA $fontSize="normal">
+          <Link href={setSearchParams({ objectif: 'etape' }, 'url')}>
+            Obtenir mes aides
+          </Link>
+        </CTA>
+      </CTAWrapper>
+    </div>
   )
 }
