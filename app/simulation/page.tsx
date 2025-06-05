@@ -3,7 +3,7 @@ import Form from './Form'
 
 export const metadata: Metadata = {
   title: 'Mes aides réno : Simulez vos aides à la rénovation énergétique',
-  description: `Calculez les aides Ma Prime Rénov' 2025 pour la rénovation de votre logement. MaPrimeRénov, CEE, Coup de pouce énergie, eco-ptz, exonération de taxe foncière et dispositif denormandie`,
+  description: `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. MaPrimeRénov', les aides des fournisseurs d’énergie (CEE), primes "Coup de Pouce", éco-ptz, exonération de taxe foncière et dispositif Denormandie`,
   alternates: {
     canonical: '/simulation',
   },

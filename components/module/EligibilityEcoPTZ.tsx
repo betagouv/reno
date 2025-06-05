@@ -86,7 +86,7 @@ export default function EligibilityEcoPTZ({ dottedName }) {
               answeredQuestions,
               rules,
               rule: dottedName + ' . condition maprimerenov',
-              text: "Sollicitez-vous également l'aide MaPrimeRénov' (parcours accompagné ou par geste)",
+              text: "Sollicitez-vous également l'aide MaPrimeRénov' (parcours accompagné ou rénovation par geste)",
             }}
           />
         </Li>

@@ -10,7 +10,7 @@ import Image from 'next/image'
 import { Suspense } from 'react'
 
 export const description = `Déterminez votre classe de revenu dans le tableau des seuils MaPrimeRénov', qui conditionne la plupart des aides à la rénovation énergétique.`
-export const title = "Quelle est ma classe de revenu dans le barème de l'ANAH"
+export const title = "Quelle est ma classe de revenu dans le barème de l'Anah"
 
 export const metadata: Metadata = {
   title,

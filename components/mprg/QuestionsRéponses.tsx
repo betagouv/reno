@@ -77,7 +77,7 @@ export default function QuestionsRéponses() {
           ans.
         </p>
         <p>
-          MaPrimeRénov’ gestes est cumulable avec les aides versées par les
+          MaPrimeRénov’ rénovation par geste est cumulable avec les aides versées par les
           fournisseurs d’énergie (CEE) ainsi que les aides des collectivités
           locales et des caisses de retraite
         </p>

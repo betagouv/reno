@@ -10,7 +10,7 @@ import Demonstration from '../../Demonstration'
 import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
   title:
-    "Module de calcul d'aide pour les travaux de rénovation d'un logement - Mes aides réno",
+    "Module de calcul d'aide pour les travaux de rénovation d'un logement - Mes Aides Réno",
   description: `Découvrez la calculette d'aide pour les travaux de rénovation d'un logement proposé par Mes Aides Réno"`,
 }
 export default function Module({}) {

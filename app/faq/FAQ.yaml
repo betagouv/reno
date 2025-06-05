@@ -7,30 +7,30 @@
   catégorie: revenu
   réponse: |
     Oui, depuis 2024, des aides existent quel que soit le revenu de votre ménage. Faites le test pour voir ce que l'État vous propose.
-- question: L'aide MaPrimeRénov' est-elle une avance ou un remboursement après travaux ?
+- question: L'aide MaPrimeRénov' est-elle une avance ou une subvention versée après travaux ?
   catégorie: finance
   réponse: |
-    En général, c'est un remboursement, mais pour les foyers les plus modestes, dans le parcours MaPrimeRénov' accompagnée, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
+    En général, c'est un remboursement. Pour les foyers les plus modestes qui optent pour MaPrimeRénov' parcours accompagné, une avance peut vous être versée pour vous aider à engager les travaux. Faites le test, l'avance vous sera indiquée sur la page des scénarios.
 
 - question: Je suis en appartement. Puis-je faire des travaux à côté des décisions de la copro ?
   catégorie: appartement
   réponse: |
-    Oui, les aides MaPrimeRénov accompagnée et par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
+    Oui, les aides MaPrimeRénov' parcours accompagné et de rénovation par geste restent disponibles pour les propriétaires de logement en copropriété. Mais bien entendu, il y a des gestes que vous ne pourrez faire sans l'accord de votre copropriété. 
 
-    Le dispositif MaPrimeRénov' copropriété pourra venir financer les travaux communs, et il peut être cumulé avec les parcours individuels MaPrimeRénov'.
+    Le dispositif MaPrimeRénov' Copropriété pourra venir financer les travaux communs, et il peut être cumulé avec les parcours individuels MaPrimeRénov'.
 - question: Y a-t-il des aides locales pour ma rénovation ?
   catégorie: local
   réponse: |
     Oui, de nombreuses communes, métropoles et communautés de communes ont voté des aides locales. 
 
-    Elles prennent diverses formes : complément au parcours accompagné MaPrimeRénov', bonus fixe de quelques milliers d'euros pour une rénovation BBC (DPE A ou B), ou encore subvention spécifique d'un geste comme l'installation de panneaux solaires. 
+    Elles prennent diverses formes : complément à MaPrimeRénov' parcours accompagné, bonus fixe de quelques milliers d'euros pour une rénovation BBC (DPE A ou B), ou encore subvention spécifique d'un geste comme l'installation de panneaux solaires. 
 
     Nous les integrerons progressivement sur Mes Aides Réno. Si après avoir renseigné votre commune, nous n'en proposons pas, cela ne signifie pas qu'il n'y en a pas.
 
 ############################
 #### Questions pas encore assez travaillées
 ############################
-- question: Je suis en collocation
+- question: Je suis en colocation
   catégorie: ménage
   désactivée: oui
   id: ménage
@@ -58,29 +58,29 @@
   réponse: |
     La définition d'un foyer est différente de celle d'un ménage. Le foyer concerne des groupes de personnes ayant des liens de parenté.
 
-- question: Mon DPE a été fait avant 2021, faut-il le refaire pour Ma Prime Rénov' ?
+- question: Mon DPE a été fait avant 2021, faut-il le refaire pour MaPrimeRénov' ?
   désactivée: oui
   catégorie: dpe
   id: vieux-dpe
   réponse: |
-    Nous ne savons pas pour l'instant si les DPE qui étaient calculés sur la consommation du ménage, plutôt que sur des températures standards, sont valides pour prétendre à Ma Prime Rénov'.
+    Nous ne savons pas pour l'instant si les DPE qui étaient calculés sur la consommation du ménage, plutôt que sur des températures standards, sont valides pour prétendre à MaPrimeRénov'.
 - question: Qu'est-ce qu'une fenêtre ?
   catégorie: gestes
   id: fenetre
   désactivée: oui
   réponse: |
     Une fenêtre, dans le parcours gestes, c'est une petite fenêtre ? Une baie vitrée, ça compte pour combien de fenêtres ? Car le coût n'est pas le même entre une lucarne et une baie vitrée !
-- question: Que met-on dans l'enveloppe des travaux MaPrimeRénov' accompagnée ?
+- question: Que met-on dans l'enveloppe des travaux MaPrimeRénov' parcours accompagné ?
   catégorie: accompagnée
   désactivée: oui
   id: enveloppe
   réponse: |
-    Si à l'occasion de mes travaux, j'isole par l'intérieur ma cuisine, et je suis donc plus ou moins contraint à la refaire (ou tout du moins, c'est une bonne ocasion), dois-je écarte de l'enveloppe MPRA (MaPrimeRénov accompagnée) les dépenses concernant la cuisine, qui d'ailleurs ne seront pas assujetties à une TVA de 5,5 % ? 
+    Si à l'occasion de mes travaux, j'isole par l'intérieur ma cuisine, et je suis donc plus ou moins contraint à la refaire (ou tout du moins, c'est une bonne ocasion), dois-je écarte de l'enveloppe MPRA (MaPrimeRénov' parcours accompagnée) les dépenses concernant la cuisine, qui d'ailleurs ne seront pas assujetties à une TVA de 5,5 % ? 
 
     Plus précisément, si des travaux sont partagés entre isolation et confort, où les mettre ? 
 
     La page ["La TVA à taux réduit"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=32) donne des éléments de réponse, à creuser pour donner une réponse claire.
 
-    Le jeu de test ANAH nous donne aussi des indices : il semble bien que MPRA est souvent appliquée sur la totalité d'enveloppes qui comporte plus que 5 % de TVA, par exemple la ligne `32188`, ce qui laisse penser que l'assiette MPRA peut en effet contenir des travaux à la TVA de 10 %, donc des travaux qui ne sont pas strictement de l'amélioration de la performance énergétique !
+    Le jeu de test Anah nous donne aussi des indices : il semble bien que MPRA est souvent appliquée sur la totalité d'enveloppes qui comporte plus que 5 % de TVA, par exemple la ligne `32188`, ce qui laisse penser que l'assiette MPRA peut en effet contenir des travaux à la TVA de 10 %, donc des travaux qui ne sont pas strictement de l'amélioration de la performance énergétique !
 
     Exemple précis : je fais l'isolation par l'intérieur de ma maison sur 2 faces. Je dois donc refaire la peinture, c'est automatique. Est-ce que la peinture est incluse dans l'assiette MPRA ?

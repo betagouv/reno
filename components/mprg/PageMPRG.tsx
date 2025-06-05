@@ -74,7 +74,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
         <Breadcrumb
           links={[
             { 'Les aides': '/aides' },
-            { "MaPrimeRénov' - Parcours par geste": '/aides/ma-prime-renov' },
+            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
             { [infoMPR.titre]: '' },
           ]}
         />
@@ -131,7 +131,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               Vous pouvez déposer votre dossier en ligne sur{' '}
               <ExternalLink
                 target="_blank"
-                title="site officiel Ma Prime Rénov'"
+                title="site officiel MaPrimeRénov'"
                 href="https://maprimerenov.gouv.fr"
               >
                 maprimerenov.gouv.fr
