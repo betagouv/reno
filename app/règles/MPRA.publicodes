@@ -119,7 +119,7 @@ MPR . accompagnée . prise en charge MAR . base plafonnée:
     plafond: plafond
 MPR . accompagnée . prise en charge MAR . plafond:
   description: |
-    Le prix de Mon Accompagnateur Rénov couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d'habitat indigne).
+    Le prix de Mon Accompagnateur Rénov' couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d'habitat indigne).
   note: Nous n'avons pas encore intégré les logements jugés indignes ou la précarité énergétique qui augmente le plafond à 4000 €
   valeur: 2000 €
 MPR . accompagnée . prise en charge MAR . prix moyen:
