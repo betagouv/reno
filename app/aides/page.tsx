@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     'Les aides à la rénovation énergétique en ' +
     new Date().getFullYear() +
-    ": MaPrimeRénov', Mon Accompagnateur Rénov', aides des fournisseurs d’énergie (CEE), prime "Coup de Pouce" chauffage, éco-prêt à taux zéro, exonération de taxe foncière et dispositif Denormandie.",
+    `: MaPrimeRénov', Mon Accompagnateur Rénov', aides des fournisseurs d'énergie (CEE), prime "Coup de Pouce" chauffage, éco-prêt à taux zéro, exonération de taxe foncière et dispositif Denormandie.`,
 }
 
 export default function Aides() {
@@ -33,9 +33,7 @@ export default function Aides() {
           <Card>
             <Image src={mprImage} alt="Logo MaPrimeRénov" width="100" />
             <h2>
-              <Link href="/simulation">
-                MaPrimeRénov' parcours accompagné
-              </Link>
+              <Link href="/simulation">MaPrimeRénov' parcours accompagné</Link>
             </h2>
             <p>
               Le parcours accompagné est <strong>accessible pour tous</strong>,
