@@ -7,11 +7,13 @@ import checkIcon from '@/app/public/check.svg'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import styled from 'styled-components'
 import { useSearchParams } from './navigation.webcomponent'
+import Form from '@/app/simulation/Form'
+import rules from '@/app/règles/rules'
 
 export default function Dummy({ name }) {
   const setSearchParams = useSetSearchParams()
   const searchParams = useSearchParams()
-  const { page, q1, q2 } = searchParams
+  const { page, q1, q2 } = Object.fromEntries(searchParams.entries())
   return (
     <section style={{ border: '2px solid blue', width: '400px' }}>
       <h1
@@ -21,6 +23,7 @@ export default function Dummy({ name }) {
       >
         Simulateuru
       </h1>
+      <Form rules={rules} />
       {page}
       {!page && (
         <Link href={setSearchParams({ page: 'simulation' }, 'url')}>

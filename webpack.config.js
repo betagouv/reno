@@ -17,6 +17,8 @@ module.exports = {
     filename: 'Dummy.webcomponent.js',
     libraryTarget: 'umd',
   },
+
+  resolve: { fallback: { stream: false, zlib: false } },
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
@@ -40,6 +42,10 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /(\.ya?ml$)|\.publicodes/,
         use: 'yaml-loader',
       },
@@ -53,7 +59,7 @@ module.exports = {
         },
       },
       {
-        test: /\.svg$/,
+        test: /\.(svg|png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
     ],
@@ -78,8 +84,12 @@ module.exports = {
       require.resolve('./components/Image.webcomponent.tsx'),
     ),
     new webpack.NormalModuleReplacementPlugin(
+      /@socialgouv\/matomo-next/,
+      require.resolve('./components/matomo.webcomponent.ts'),
+    ),
+    new webpack.NormalModuleReplacementPlugin(
       /next\/navigation/,
-      require.resolve('./components/navigation.webcomponent.tsx'),
+      require.resolve('./components/navigation.webcomponent.ts'),
     ),
     new webpack.NormalModuleReplacementPlugin(
       /@\/components\/useSetSearchParams/,
@@ -90,6 +100,10 @@ module.exports = {
     ) {
       // Replace the original directory with the new directory
       resource.request = resource.request.replace(/@\/app\/public/, '/public') // should resolve() ?
+    }),
+    new webpack.NormalModuleReplacementPlugin(/@\//, function (resource) {
+      // Replace the original directory with the new directory
+      resource.request = resource.request.replace(/@\//, '/') // should resolve() ?
     }),
   ],
 }

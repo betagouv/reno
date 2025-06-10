@@ -339,35 +339,37 @@ export const BlocAide = styled.div`
 `
 
 export const ConditionEligibiliteUI = ({ children }) => {
-  return children && (
-    <>
-      <h2
-        css={`
-          margin: 2vh 0;
-          font-size: 130%;
-        `}
-      >
-        Les principales conditions d'éligibilité ?
-      </h2>
-      <div
-        css={`
-          list-style-image: url(${checkIcon.src});
-          list-style-position: inside;
-          ul {
-            padding: 0;
-          }
-          li {
-            margin: 1rem 0;
+  return (
+    children && (
+      <>
+        <h2
+          css={`
+            margin: 2vh 0;
+            font-size: 130%;
+          `}
+        >
+          Les principales conditions d'éligibilité ?
+        </h2>
+        <div
+          css={`
+            list-style-image: url(${checkIcon.src});
+            list-style-position: inside;
             ul {
-              list-style-image: none;
+              padding: 0;
             }
-          }
-        `}
-        dangerouslySetInnerHTML={{
-          __html: children,
-        }}
-      />
-    </>,
+            li {
+              margin: 1rem 0;
+              ul {
+                list-style-image: none;
+              }
+            }
+          `}
+          dangerouslySetInnerHTML={{
+            __html: children,
+          }}
+        />
+      </>
+    )
   )
 }
 
@@ -376,7 +378,8 @@ export const ConditionEligibiliteUI = ({ children }) => {
 export const InlineLink = styled.a`
   color: #666;
   text-decoration: none;
-  background-image: linear-gradient(0deg, currentColor, currentColor),
+  background-image:
+    linear-gradient(0deg, currentColor, currentColor),
     linear-gradient(0deg, currentColor, currentColor);
   background-position:
     0 100%,
@@ -470,7 +473,8 @@ export const InternalLink = styled(Link)`
   -webkit-text-decoration: none;
   cursor: pointer;
   &[href] {
-    background-image: linear-gradient(0deg, rgb(58, 58, 58), rgb(58, 58, 58)),
+    background-image:
+      linear-gradient(0deg, rgb(58, 58, 58), rgb(58, 58, 58)),
       linear-gradient(0deg, rgb(58, 58, 58), rgb(58, 58, 58));
     background-position:
       0 100%,
@@ -660,7 +664,8 @@ export const TabHeader = styled.li`
         1px calc(100% - 1px),
         1px calc(100% - 1px),
         0 1px;
-      background-image: linear-gradient(0deg, var(--color), var(--color)),
+      background-image:
+        linear-gradient(0deg, var(--color), var(--color)),
         linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd),
         linear-gradient(0deg, #ddd, #ddd);
       &:before {
@@ -785,8 +790,8 @@ export const Loader = () => (
       aspect-ratio: 1;
       border-radius: 50%;
       background: #000091;
-      --_m: conic-gradient(#0000 10%, #000),
-        linear-gradient(#000 0 0) content-box;
+      --_m:
+        conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
       -webkit-mask: var(--_m);
       mask: var(--_m);
       -webkit-mask-composite: source-out;
