@@ -32,6 +32,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            plugins: ['styled-components'],
             presets: [
               '@babel/preset-env',
               ['@babel/preset-react', { runtime: 'automatic' }],
@@ -92,6 +93,10 @@ module.exports = {
       require.resolve('./components/navigation.webcomponent.ts'),
     ),
     new webpack.NormalModuleReplacementPlugin(
+      /@\/components\/getAppUrl/,
+      require.resolve('./components/getAppUrl.webcomponent.ts'),
+    ),
+    new webpack.NormalModuleReplacementPlugin(
       /@\/components\/useSetSearchParams/,
       require.resolve('./components/useSetSearchParams.webcomponent.ts'),
     ),
@@ -104,6 +109,9 @@ module.exports = {
     new webpack.NormalModuleReplacementPlugin(/@\//, function (resource) {
       // Replace the original directory with the new directory
       resource.request = resource.request.replace(/@\//, '/') // should resolve() ?
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     }),
   ],
 }

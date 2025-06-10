@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
-import getAppUrl from './getAppUrl'
+import getAppUrl from '@/components/getAppUrl'
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
