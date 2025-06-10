@@ -6,11 +6,6 @@ import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
 import { description } from './page'
 import FooterContent from '@/components/FooterContent'
-import {
-  getHtmlAttributes,
-  DsfrHead,
-} from '../dsfr-bootstrap/server-only-index'
-import { DsfrProvider } from '../dsfr-bootstrap'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -69,18 +64,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <head>
-        <DsfrHead />
-      </head>
       <body className={marianneFont.className}>
         <StyledComponentsRegistry>
-          <DsfrProvider lang={'fr'}>
-            <Header />
-            {children}
-            <Footer>
-              <FooterContent />
-            </Footer>
-          </DsfrProvider>
+          <Header />
+          {children}
+          <Footer>
+            <FooterContent />
+          </Footer>
         </StyledComponentsRegistry>
         <Matomo />
       </body>
