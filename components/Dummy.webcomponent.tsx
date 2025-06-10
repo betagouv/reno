@@ -7,7 +7,7 @@ class DummyWebComponent extends HTMLElement {
     const name = this.getAttribute('name') || 'World'
 
     // Create a ShadowDOM
-    const dom = this.attachShadow({ mode: 'open' })
+    const dom = this.attachShadow({ mode: 'closed' })
 
     // Create a mount element
     const mountPoint = document.createElement('div')

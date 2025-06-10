@@ -9,17 +9,41 @@ import { useSearchParams } from './useSearchParams.webcomponents'
 export default function Dummy({ name }) {
   const setSearchParams = useSetSearchParams()
   const searchParams = useSearchParams()
-  const page = searchParams.page
+  const { page, q1, q2 } = searchParams
   return (
     <section style={{ border: '2px solid blue', width: '400px' }}>
-      Simulation
+      <h1
+        onClick={() => {
+          document.querySelector('body').style = 'background: chartreuse'
+        }}
+      >
+        Simulateur
+      </h1>
       {page}
       {!page && (
         <Link href={setSearchParams({ page: 'simulation' }, 'url')}>
           Estimer mes aides
         </Link>
       )}
-      {page === 'simulation' && <div>Première question</div>}
+
+      {page === 'simulation' && (
+        <div>
+          Première question{' '}
+          <button onClick={() => setSearchParams({ q1: 'ok' })}>OK</button>
+        </div>
+      )}
+      {q1 === 'ok' && (
+        <div>
+          Deuxième question{' '}
+          <button onClick={() => setSearchParams({ q2: 'ok' })}>OK</button>
+        </div>
+      )}
+      {q2 === 'ok' && (
+        <div>
+          Éligibilité
+          <div>1 milliard</div>
+        </div>
+      )}
     </section>
   )
 }
