@@ -132,6 +132,7 @@ export default function AideGeste({
               dottedName,
               eligibleMPRG,
               infoCoupDePouce,
+              description: false,
             }}
           />
         </div>

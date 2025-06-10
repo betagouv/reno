@@ -37,6 +37,9 @@ export const gestes = {
     'gestes . chauffage . bois': 'Poêles et insert',
     'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
   },
+  ventilation: {
+    'gestes . ventilation . double flux': 'Ventilation double flux',
+  },
 }
 export const isCategorieChecked = (
   categorie,
@@ -77,8 +80,8 @@ export default function ChoixTravaux({
     }
   }
 
-  const handleCheckTravaux = (e) => {
-    const geste = encodeDottedName(e.target.value)
+  const handleCheckTravaux = (aGeste) => {
+    let geste = encodeDottedName(aGeste)
     if (
       travauxEnvisages &&
       geste.split(',').filter((t) => travauxEnvisages.includes(t)).length > 0
@@ -139,7 +142,18 @@ export default function ChoixTravaux({
         </section>
         <section>
           <h3>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={() => {
+                handleCheckCategorie('ventilation')
+                handleCheckTravaux('gestes . ventilation . double flux')
+              }}
+              checked={isCategorieChecked(
+                'ventilation',
+                travauxEnvisages,
+                categoriesCochees,
+              )}
+            />
             <span>
               Ventilation
               <span className="sousTitre">VMC</span>
@@ -184,7 +198,7 @@ export default function ChoixTravaux({
                   <h3>
                     <input
                       type="checkbox"
-                      onChange={handleCheckTravaux}
+                      onChange={() => handleCheckTravaux(item[0])}
                       value={item[0]}
                       checked={isTravailChecked(item[0])}
                     />
@@ -206,7 +220,7 @@ export default function ChoixTravaux({
                   <h3>
                     <input
                       type="checkbox"
-                      onChange={handleCheckTravaux}
+                      onChange={() => handleCheckTravaux(item[0])}
                       value={item[0]}
                       checked={isTravailChecked(item[0])}
                     />

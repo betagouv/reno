@@ -14,6 +14,7 @@ export const PrimeDisplay = ({
   rules,
   dottedName,
   eligibleMPRG,
+  description = true,
 }) => (
   <div>
     <h3
@@ -25,7 +26,7 @@ export const PrimeDisplay = ({
     >
       {rules[dottedName].titre || getRuleName(dottedName)}
     </h3>
-    <GesteDescription rule={rules[dottedName]} />
+    {description && <GesteDescription rule={rules[dottedName]} />}
 
     <PrimeStyle
       css={`

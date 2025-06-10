@@ -135,6 +135,25 @@ export default function Eligibility({
               />
             )
           })}
+
+        {isCategorieChecked('ventilation', travauxEnvisages) && (
+          <h4>Ventilation</h4>
+        )}
+        {travauxEnvisages
+          .filter((travaux) => travaux.includes('ventilation'))
+          .map((travaux) => {
+            return (
+              <AideGeste
+                {...{
+                  engine,
+                  dottedName: decodeDottedName(travaux),
+                  setSearchParams,
+                  answeredQuestions,
+                  situation,
+                }}
+              />
+            )
+          })}
         <Card
           css={`
             background: #f4efff;
