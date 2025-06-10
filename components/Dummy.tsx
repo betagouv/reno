@@ -1,10 +1,12 @@
 //import React from 'react'
 // a dummy component used to test the export of our simulator to a Web component
 import Link from 'next/link'
+import Image from 'next/image'
+import checkIcon from '@/app/public/check.svg'
 
 import useSetSearchParams from '@/components/useSetSearchParams'
 import styled from 'styled-components'
-import { useSearchParams } from './useSearchParams.webcomponents'
+import { useSearchParams } from './useSearchParams.webcomponent'
 
 export default function Dummy({ name }) {
   const setSearchParams = useSetSearchParams()
@@ -42,6 +44,7 @@ export default function Dummy({ name }) {
         <div>
           Éligibilité
           <div>1 milliard</div>
+          <Image src={checkIcon} alt="Icône coche" />
         </div>
       )}
     </section>

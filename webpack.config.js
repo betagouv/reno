@@ -52,6 +52,10 @@ module.exports = {
           skipEmptyLines: true,
         },
       },
+      {
+        test: /\.svg$/,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
@@ -70,15 +74,18 @@ module.exports = {
       require.resolve('./components/Link.webcomponent.tsx'),
     ),
     new webpack.NormalModuleReplacementPlugin(
-      /@\/components\/useSetSearchParams/,
-      // Replace with the path to your custom implementation or a simple <a> tag wrapper
-      // For example, you could create a file that exports a simple <a> tag component
-      // and use that path here.
-      // Example: path.resolve(__dirname, './components/MyLink.js')
-      // For demonstration, let's assume you have a custom link component
-      // that you want to use instead of next/link.
-      // Note: You need to provide the actual path to your custom component.
-      require.resolve('./components/useSetSearchParams.webcomponents.ts'),
+      /next\/image/,
+      require.resolve('./components/Image.webcomponent.tsx'),
     ),
+    new webpack.NormalModuleReplacementPlugin(
+      /@\/components\/useSetSearchParams/,
+      require.resolve('./components/useSetSearchParams.webcomponent.ts'),
+    ),
+    new webpack.NormalModuleReplacementPlugin(/@\/app\/public/, function (
+      resource,
+    ) {
+      // Replace the original directory with the new directory
+      resource.request = resource.request.replace(/@\/app\/public/, '/public') // should resolve() ?
+    }),
   ],
 }
