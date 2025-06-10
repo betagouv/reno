@@ -23,7 +23,8 @@ export const getTravauxEnvisages = (situation) =>
 
 export const gestes = {
   isolation: {
-    'gestes . isolation . murs': 'Murs mal isolés ou froids au toucher',
+    'gestes . isolation . murs extérieurs,gestes . isolation . murs intérieurs':
+      'Murs mal isolés ou froids au toucher',
     'gestes . isolation . rampants': 'Toiture ou combles mal isolés',
     'gestes . isolation . toitures terrasses':
       'Toit plat mal isolé, surchauffe en été',
@@ -78,8 +79,13 @@ export default function ChoixTravaux({
 
   const handleCheckTravaux = (e) => {
     const geste = encodeDottedName(e.target.value)
-    if (travauxEnvisages && travauxEnvisages.includes(geste)) {
-      travauxEnvisages = travauxEnvisages.filter((travaux) => travaux !== geste)
+    if (
+      travauxEnvisages &&
+      geste.split(',').filter((t) => travauxEnvisages.includes(t)).length > 0
+    ) {
+      travauxEnvisages = travauxEnvisages.filter(
+        (travaux) => !geste.split(',').includes(travaux),
+      )
     } else {
       travauxEnvisages.push(geste)
     }
@@ -100,8 +106,13 @@ export default function ChoixTravaux({
     setSearchParams(encodedSituation, 'replace', true)
   }
 
-  const isTravailChecked = (value) =>
-    travauxEnvisages.includes(encodeDottedName(value))
+  const isTravailChecked = (value) => {
+    return (
+      encodeDottedName(value)
+        .split(',')
+        .filter((t) => travauxEnvisages.includes(t)).length > 0
+    )
+  }
 
   return (
     <>
