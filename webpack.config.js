@@ -78,6 +78,10 @@ module.exports = {
       require.resolve('./components/Image.webcomponent.tsx'),
     ),
     new webpack.NormalModuleReplacementPlugin(
+      /next\/navigation/,
+      require.resolve('./components/navigation.webcomponent.tsx'),
+    ),
+    new webpack.NormalModuleReplacementPlugin(
       /@\/components\/useSetSearchParams/,
       require.resolve('./components/useSetSearchParams.webcomponent.ts'),
     ),

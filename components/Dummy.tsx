@@ -6,7 +6,7 @@ import checkIcon from '@/app/public/check.svg'
 
 import useSetSearchParams from '@/components/useSetSearchParams'
 import styled from 'styled-components'
-import { useSearchParams } from './useSearchParams.webcomponent'
+import { useSearchParams } from './navigation.webcomponent'
 
 export default function Dummy({ name }) {
   const setSearchParams = useSetSearchParams()
