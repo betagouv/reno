@@ -28,6 +28,10 @@ const nextConfig = {
       use: 'yaml-loader',
     })
     config.module.rules.push({
+      test: /\.woff2$/,
+      type: 'asset/resource',
+    })
+    config.module.rules.push({
       test: /\.csv$/,
       loader: 'csv-loader',
       options: {
