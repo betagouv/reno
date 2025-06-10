@@ -17,6 +17,12 @@ module.exports = {
     filename: 'Dummy.webcomponent.js',
     libraryTarget: 'umd',
   },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    port: 9000,
+  },
   module: {
     rules: [
       {

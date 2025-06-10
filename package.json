@@ -10,7 +10,9 @@
     "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
     "start": "node .next/standalone/server.js",
     "compute-taxe-foncière": "deno run --allow-read --allow-net --allow-write lib/computeTaxeFoncièrePopulation.ts",
-    "build-web-components": "stencil build"
+    "build-web-components": "stencil build",
+    "webco": "npx webpack --config webpack.config.js && npx http-server -p 8081 dist",
+    "webco-dev": "npx webpack serve --mode development"
   },
   "main": "index.js",
   "files": [
@@ -93,7 +95,8 @@
     "react-use-search-params-state": "^2.0.1",
     "ts-loader": "^9.5.2",
     "webpack": "^5.99.9",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "engines": {
     "node": ">=20"

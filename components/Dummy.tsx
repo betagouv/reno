@@ -17,7 +17,7 @@ export default function Dummy({ name }) {
           document.querySelector('body').style = 'background: chartreuse'
         }}
       >
-        Simulateur
+        Simulateuru
       </h1>
       {page}
       {!page && (
