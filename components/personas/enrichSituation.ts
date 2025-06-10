@@ -32,18 +32,27 @@ export const enrichSituationWithConstructionYear = (situation, engine) => {
   }
 }
 
-export async function getCommune(situation, type) {
+export async function getCommune(
+  situation = null,
+  type = null,
+  codeCommune = null,
+) {
+  let path = null
+  if (codeCommune) {
+    path = `communes?code=${codeCommune}`
+  }
   if (
     situation &&
     ['ménage . commune', 'logement . commune'].includes(type) &&
     situation[type]
   ) {
-    const path = `communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
-      url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
-
-    const response = await fetch(url)
-    const json = await response.json()
-    return json[0]
+    path = `communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`
   }
+  const url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
+
+  const response = await fetch(url)
+  const json = await response.json()
+  return json[0]
+
   return null
 }

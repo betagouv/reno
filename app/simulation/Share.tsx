@@ -3,7 +3,10 @@ import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
-export default function Share() {
+export default function Share({
+  text = 'Partagez la simulation en cliquant ici :',
+  align = 'center',
+}) {
   const isMobile = window !== undefined ? window.innerWidth <= 600 : false
   const pathname = usePathname(),
     searchParams = useSearchParams()
@@ -48,14 +51,14 @@ export default function Share() {
 
   return (
     <>
-      <p>Partagez la simulation en cliquant ici :</p>
+      <p>{text}</p>
       <form
         css={`
-          text-align: center;
+          text-align: ${align};
         `}
       >
         <CTAWrapper
-          $justify="center"
+          $justify={align}
           css={`
             margin: 2vh 0;
           `}
@@ -98,7 +101,7 @@ export default function Share() {
             css={`
               display: flex;
               align-items: center;
-              justify-content: space-between;
+              justify-content: ${align == 'center' ? 'space-between' : 'left'};
             `}
           >
             <input

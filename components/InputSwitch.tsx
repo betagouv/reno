@@ -20,6 +20,11 @@ import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import CoproAddressSearch from './CoproAddressSearch'
+import DPEMap from './dpe/DPEMap'
+import DPEAddressSearch from './dpe/DPEAddressSearch'
+import { useState } from 'react'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
+import ChoixTravaux from './ChoixTravaux'
 import { useSendDataToHost } from './useIsInIframe'
 import Consentement from './Consentement'
 
@@ -34,6 +39,7 @@ export default function InputSwitch({
   searchParams,
   correspondance,
 }) {
+  const [addressResults, setAddressResults] = useState(null)
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -246,7 +252,77 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+  if (currentQuestion === 'logement . adresse')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <DPEAddressSearch
+          {...{
+            addressResults,
+            setAddressResults,
+            coordinates: [searchParams.lon, searchParams.lat],
+            setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
+            onChange: async (adresse) => {
+              const result = await getCommune(null, null, adresse.citycode)
+              const newSituation = await enrichSituation({
+                ...situation,
+                'logement . adresse': `"${adresse.label}"*`,
+                'logement . code région': `"${result.codeRegion}"*`,
+                'logement . code département': `"${result.codeDepartement}"*`,
+                'logement . EPCI': `"${result.codeEpci}"*`,
+                'logement . commune': `"${result.code}"*`,
+                'logement . commune . nom': `"${result.nom}"*`,
+              })
+              setSearchParams(
+                encodeSituation(newSituation, false, answeredQuestions),
+                'push',
+                false,
+              )
+            },
+          }}
+        />
+        <DPEMap
+          {...{
+            searchParams,
+            addressResults,
+            dpeListStartOpen: false,
+            showDpeList: false,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
 
+  if (currentQuestion === 'projet . travaux envisagés')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <ChoixTravaux
+          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+        />
+      </ClassicQuestionWrapper>
+    )
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
@@ -325,7 +401,6 @@ export default function InputSwitch({
   }
 
   if (["parcours d'aide"].includes(currentQuestion)) {
-    console.debug('indigo consent', sendDataToHost, consent)
     if (sendDataToHost && consent === null) {
       return <Consentement {...{ setConsent, situation, sendDataToHost }} />
     }

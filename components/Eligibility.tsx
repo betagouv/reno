@@ -1,20 +1,23 @@
 import Feedback from '@/app/contact/Feedback'
-import { No, Yes } from '@/components/ResultUI'
+import { No } from '@/components/ResultUI'
 import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
 import CopyButton from './CopyButton'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
-import FatConseiller from './FatConseiller'
 import PersonaBar from './PersonaBar'
-import { Section } from './UI'
-import AmpleurSummary from './ampleur/AmpleurSummary'
+import { Card, CTA, CTAWrapper, Section } from './UI'
 import { useAides } from './ampleur/useAides'
-import { Avis } from './explications/Éligibilité'
-import { encodeDottedName } from './publicodes/situationUtils'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
-import ÀlaCarteSummary from './ÀlaCarteSummary'
 import * as iframe from '@/utils/iframe'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
+import AideAmpleur from './ampleur/AideAmpleur'
+import { correspondance } from '@/app/simulation/Form'
+import AidesAmpleur from './ampleur/AidesAmpleur'
+import Breadcrumb from './Breadcrumb'
+import AideGeste from './AideGeste'
+import Link from 'next/link'
 
 export default function Eligibility({
   setSearchParams,
@@ -29,19 +32,11 @@ export default function Eligibility({
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   const isInIframe = useIsInIframe()
-  const nextLink = (value) => {
-    const url = setSearchParams(
-      {
-        [encodeDottedName("parcours d'aide")]: `"${encodeDottedName(value)}"*`,
-      },
-      'url',
-      false,
-    )
-    return url
-  }
   const aides = useAides(engine, situation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const showPersonaBar = searchParams.personas != null
+
+  const travauxEnvisages = getTravauxEnvisages(situation)
 
   useEffect(() => {
     if (isInIframe && sendDataToHost) {
@@ -53,6 +48,10 @@ export default function Eligibility({
     <Section
       css={`
         ${showPersonaBar && `margin-top: 4rem`}
+        h2 {
+          color: var(--color);
+          font-size: 120%;
+        }
       `}
     >
       <PersonaBar
@@ -61,6 +60,19 @@ export default function Eligibility({
         engine={engine}
       />
       <CustomQuestionWrapper>
+        <Breadcrumb
+          links={[
+            {
+              Eligibilité: setSearchParams(
+                {
+                  ...encodeSituation(situation, false, answeredQuestions),
+                },
+                'url',
+                true,
+              ),
+            },
+          ]}
+        />
         <div
           css={`
             display: flex;
@@ -73,103 +85,165 @@ export default function Eligibility({
           <CopyButton searchParams={searchParams} />
         </div>
         <header>
-          <small>Eligibilité</small>
-          <h2
+          <p
             css={`
-              font-size: 120%;
+              font-weight: bold;
               margin: 0.5rem 0 !important;
             `}
           >
-            {hasAides && (
+            {hasAides ? (
               <>
-                Bonne nouvelle <span aria-hidden="true">🥳</span>
+                <span aria-hidden="true">🥳</span> Vous êtes éligible aux aides
+                présentées ci-dessous
+              </>
+            ) : (
+              <>
+                Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
+                éligible.
               </>
             )}
-          </h2>
+          </p>
         </header>
-        {hasAides ? (
-          <p>
-            <Yes>Vous êtes éligible</Yes> aux aides présentées ci-dessous
-          </p>
-        ) : (
-          <p>
-            Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
-            éligible.
-          </p>
-        )}
-        <Avis {...{ situation, engine }} />
-        <div
-          css={`
-            display: flex;
-            flex-wrap: nowrap;
-            > div:nth-child(1),
-            > div:nth-child(3) {
-              width: 45%;
-            }
-            > div:nth-child(2) {
-              width: 10%;
-            }
-            @media (max-width: 700px) {
-              flex-wrap: wrap;
-              flex-direction: column;
-              > div {
-                width: 100% !important;
-              }
-            }
-            justify-content: center;
-          `}
-        >
-          <AmpleurSummary
-            id="parcours-ampleur"
-            {...{
-              engine,
-              url: nextLink('ampleur'),
-              situation,
-              expanded,
-              setSearchParams,
-            }}
-          />
-          <div
-            css={`
-              padding: 0 1rem;
-              align-self: center;
-            `}
-          >
-            <strong
+        <h2>
+          <span aria-hidden="true">💶</span> Aides pour vos travaux
+        </h2>
+        {isCategorieChecked('isolation', travauxEnvisages) && (
+          <h4>
+            Isolation thermique
+            <small
               css={`
                 display: block;
-                text-align: center;
-                margin: 1rem auto;
-                font-size: 130%;
+                font-weight: normal;
               `}
             >
-              ou
-            </strong>
+              Murs, toit, plancher, portes et fenêtres
+            </small>
+          </h4>
+        )}
+        {travauxEnvisages
+          .filter((travaux) => travaux.includes('isolation'))
+          .map((travaux) => {
+            return (
+              <AideGeste
+                {...{
+                  engine,
+                  dottedName: decodeDottedName(travaux),
+                  setSearchParams,
+                  answeredQuestions,
+                  situation,
+                }}
+              />
+            )
+          })}
+        <Card
+          css={`
+            background: #f4efff;
+            padding: calc(0.5rem + 1vw);
+            > strong {
+              font-size: 120%;
+            }
+            ul {
+              list-style-type: none;
+              padding: 1rem 0;
+              li {
+                padding: 0.2rem 0;
+              }
+            }
+          `}
+        >
+          <strong>Avez-vous pensé à une rénovation plus ambitieuse ?</strong>
+          <ul>
+            <li>📉 Réduction des factures d'énergie</li>
+            <li>🧘 Gain de confort hiver comme été</li>
+            <li>
+              👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
+            </li>
+            <li>
+              🥇 Au moins <strong>60%</strong> des travaux financés
+            </li>
+          </ul>
+          <div
+            css={`
+              border-bottom: 1px solid var(--lighterColor2);
+              margin-bottom: 1rem;
+              padding-left: 1.5rem;
+              h3 {
+                font-size: 100%;
+              }
+            `}
+          >
+            <AideAmpleur
+              {...{
+                isEligible: false,
+                engine,
+                dottedName: 'MPR . accompagnée',
+                setSearchParams,
+                situation,
+                answeredQuestions,
+                expanded,
+              }}
+            />
           </div>
-          <ÀlaCarteSummary
-            id="parcours-gestes"
-            {...{
-              engine,
-              rules,
-              url: nextLink('à la carte'),
-              situation,
-            }}
-          />
-        </div>
-        <FatConseiller
+        </Card>
+        <AidesAmpleur
           {...{
+            setSearchParams,
             situation,
-            margin: 'small',
-            titre:
-              'Vous ne savez pas quel parcours choisir pour votre projet ?',
-            texte:
-              "Un conseiller France Rénov' peut répondre à vos questions et vous guider dans votre choix. C'est 100% gratuit !",
+            answeredQuestions,
+            engine,
+            rules,
+            searchParams,
+            correspondance,
           }}
         />
         {isInIframe ? null : (
-          <Feedback title="Avez-vous bien compris les deux parcours d'éligibilité ?" />
+          <Feedback title="Ce simulateur a-t-il été utile ?" />
         )}
+        <ObtenirAideBaniere setSearchParams={setSearchParams} />
       </CustomQuestionWrapper>
     </Section>
+  )
+}
+
+const ObtenirAideBaniere = ({ setSearchParams }) => {
+  const [isVisible, setIsVisible] = useState(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <div
+      css={`
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        color: white;
+        padding: 1rem;
+        border-top: 1px solid #ddd;
+        text-align: center;
+        z-index: 1000;
+        transform: translateY(${isVisible ? '0%' : '100%'});
+        transition: transform 0.3s ease-in-out;
+      `}
+    >
+      <CTAWrapper $justify="center">
+        <CTA $fontSize="normal">
+          <Link href={setSearchParams({ objectif: 'etape' }, 'url')}>
+            Obtenir mes aides
+          </Link>
+        </CTA>
+      </CTAWrapper>
+    </div>
   )
 }
