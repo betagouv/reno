@@ -1,7 +1,3 @@
-import { useCallback, useEffect, useState } from 'react'
-
-console.log('BLABLA')
-
 // TODO this was extracted to a window function from a useCallback, is it ok ?
 const createQueryString = (newSearchParams: object, clear: boolean) => {
   const oldSearchParams = Object.fromEntries(
@@ -49,5 +45,8 @@ export default function useSetSearchParams() {
     if (action === 'replace') {
       window.history.replaceState(null, '', newUrl)
     }
+    //https://stackoverflow.com/questions/58039669/how-to-listen-for-changes-to-window-location-search-in-2019
+    let queryStringChange = new Event('popstate')
+    window.dispatchEvent(queryStringChange)
   }
 }

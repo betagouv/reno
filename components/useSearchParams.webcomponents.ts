@@ -5,6 +5,7 @@ export function useSearchParams() {
 
   useEffect(() => {
     const updateSearchParams = () => {
+      console.log('indigo caught popstate', window.location.search)
       const params = new URLSearchParams(window.location.search)
       const paramObj = {}
       params.forEach((value, key) => {
