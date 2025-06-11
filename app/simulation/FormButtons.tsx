@@ -1,4 +1,3 @@
-import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { CTA, CTAWrapper } from '@/components/UI'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -18,12 +17,6 @@ export default function FormButtons({
   rules,
   depuisModule,
 }) {
-  const mosaicQuestions = isMosaicQuestion(
-    currentQuestion,
-    rules[currentQuestion],
-    rules,
-  )
-
   const backUrl = setSearchParams(
     {
       ...encodeSituation(situation, false, answeredQuestions.slice(0, -1)),
@@ -32,10 +25,7 @@ export default function FormButtons({
     true,
   )
 
-  const showValidation =
-    currentValue != null ||
-    (mosaicQuestions && mosaicQuestions.find(([q]) => situation[q] != null))
-
+  const showValidation = currentValue != null
   return (
     <CTAWrapper $justify="flex-start">
       <CTA

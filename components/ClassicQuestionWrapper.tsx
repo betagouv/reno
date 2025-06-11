@@ -8,9 +8,7 @@ import { encodeSituation } from './publicodes/situationUtils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
 import { useSearchParams } from 'next/navigation'
-import { isMosaicQuestion } from './BooleanMosaic'
 import CopyButton from './CopyButton'
-import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
@@ -23,8 +21,6 @@ export const QuestionText = ({
   situation,
   engine,
 }) => {
-  if (isMosaicQuestion(dottedName, rule, rules))
-    return gestesMosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
 
   const text = rule.question.texte

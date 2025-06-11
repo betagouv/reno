@@ -368,40 +368,6 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
-    return (
-      <GestesBasket
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
-        }}
-      />
-    )
-  }
-
-  if (
-    getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
-    searchParams["parcours d'aide"].includes('à la carte')
-  ) {
-    return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
-          questions: gestesMosaicQuestions,
-        }}
-      />
-    )
-  }
-
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
       <AidesAmpleur
@@ -441,37 +407,6 @@ export default function InputSwitch({
       />
     )
   }
-  // We kept the latter component before it got really specialized. TODO not completely functional
-  const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
-  if (mosaic)
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <BooleanMosaic
-          {...{
-            rules,
-            rule,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: mosaic,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-
   if (ruleQuestionType === 'boolean')
     return (
       <ClassicQuestionWrapper

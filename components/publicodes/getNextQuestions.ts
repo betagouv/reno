@@ -1,4 +1,3 @@
-import { isMosaicQuestion } from '../BooleanMosaic'
 import { sortBy } from '../utils'
 
 export default function getNextQuestions(
@@ -10,26 +9,9 @@ export default function getNextQuestions(
   const { missingVariables } = evaluation
 
   const allMissingEntries = Object.entries(missingVariables),
-    missingEntries = allMissingEntries
-      .filter(([question]) => !answeredQuestions.includes(question))
-      .filter(([question]) => {
-        const mosaicQuestions = isMosaicQuestion(
-          question,
-          rules[question],
-          rules,
-        )
-
-        if (!mosaicQuestions) return true
-
-        if (
-          answeredQuestions.find((q) =>
-            mosaicQuestions.map(([k]) => k).includes(q),
-          )
-        )
-          return false
-
-        return true
-      }),
+    missingEntries = allMissingEntries.filter(
+      ([question]) => !answeredQuestions.includes(question),
+    ),
     orderedEntries = sortBy(([k, v]) => v)(missingEntries).reverse(),
     firstEntry = orderedEntries[0],
     maxScore = firstEntry ? firstEntry[1] : 0,
