@@ -48,9 +48,12 @@ export const isCategorieChecked = (
 ) =>
   (typeof categoriesCochees !== 'undefined' &&
     categoriesCochees.includes(categorie)) ||
-  Object.keys(gestes[categorie]).filter((value) =>
-    travauxEnvisages?.includes(encodeDottedName(value)),
-  ).length > 0
+  Object.keys(gestes[categorie]).filter(
+    (value) =>
+      value
+        .split(',')
+        .filter((t) => travauxEnvisages?.includes(encodeDottedName(t))).length,
+  ).length
 
 export const handleCheckTravaux = (
   geste,
