@@ -4,7 +4,7 @@ export default function ParFranceRénovTexte() {
 
   return (
     <small>
-      Une initiative construite avec France&nbsp;Rénov{"'"}
+      Mes Aides Réno est un service public de France&nbsp;Rénov{"'"}
       {isMobile
         ? '.'
         : ` pour simplifier

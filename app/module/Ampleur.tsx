@@ -291,7 +291,7 @@ export const FooterModule = () => {
   )
 }
 
-const AboutContainer = styled.p`
+export const AboutContainer = styled.p`
   small {
     line-height: 1rem;
     color: gray;

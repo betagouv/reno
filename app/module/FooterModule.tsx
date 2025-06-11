@@ -3,6 +3,7 @@ import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
+
 export const FooterModule = () => {
   const [hydrated, setHydrated] = useState(false)
 
