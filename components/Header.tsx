@@ -1,15 +1,15 @@
 'use client'
 import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
-import { HeaderWrapper, Title } from '@/app/LayoutUI'
+import { HeaderWrapper } from '@/app/LayoutUI'
 import css from '@/components/css/convertToJs'
 import useIsInIframe from '@/components/useIsInIframe'
 import logo from '@/public/logo-service-de-FR.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import styled from 'styled-components'
 import LogoCompact from './LogoCompact'
 import { CTA } from './UI'
-import styled from 'styled-components'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
@@ -44,10 +44,7 @@ export default function Header() {
                 margin-left: 1vw;
               `}
             >
-              <HeaderLogo
-                src={logo}
-                alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"
-              />
+              <HeaderLogo src={logo} alt={logoAlt} />
             </div>
           </div>
         </Link>
@@ -79,8 +76,10 @@ export default function Header() {
   )
 }
 
-const HeaderLogo = styled(Image)`
+export const HeaderLogo = styled(Image)`
   height: 4.5rem;
   width: auto;
   margin-bottom: 1.4rem;
 `
+export const logoAlt =
+  "Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef."

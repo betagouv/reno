@@ -1,17 +1,17 @@
-import styled from 'styled-components'
+import { logoAlt } from '@/components/Header'
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
-import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
-import logo from '@/public/logo.svg'
-import Image from 'next/image'
-import { Title } from '../LayoutUI'
 import { InternalLink } from '@/components/UI'
+import logo from '@/public/logo-service-de-FR.svg'
+import Image from 'next/image'
+import styled from 'styled-components'
 
 export default function FooterModule() {
   return (
     <footer
       css={`
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: start;
         justify-content: center;
         margin-bottom: -1rem;
 
@@ -34,43 +34,20 @@ export default function FooterModule() {
           }
         `}
       >
-        <div
-          css={`
-            display: flex;
-            align-items: center;
-            font-size: 90%;
-          `}
-        >
-          <Image
-            src={logo}
-            alt="Logo de Mes Aides Réno"
-            css={`
-              width: 2.6rem !important;
-            `}
-          />
-          <Title>
-            Mes <strong>Aides Réno</strong>
-          </Title>
-        </div>
+        <HeaderLogo src={logo} alt={logoAlt} />
       </InternalLink>
-      <Image
-        src={logoFranceRenov}
-        alt="Logo de France Rénov"
-        css={`
-          width: 6.5rem !important;
-          margin-right: 1rem;
-          @media (max-width: 400px) {
-            width: 5rem !important;
-            margin: 0;
-          }
-        `}
-      />
       <AboutContainer>
         <ParFranceRénovTexte />
       </AboutContainer>
     </footer>
   )
 }
+const HeaderLogo = styled(Image)`
+  height: 4.5rem;
+  width: auto;
+  margin-top: 0.6rem;
+  margin-bottom: 0.8rem;
+`
 
 export const AboutContainer = styled.p`
   small {
