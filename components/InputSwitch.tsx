@@ -313,6 +313,7 @@ export default function InputSwitch({
           setSearchParams,
           currentValue,
           engine,
+          noButtons: true,
         }}
       >
         <ChoixTravaux

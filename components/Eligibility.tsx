@@ -218,27 +218,23 @@ export default function Eligibility({
         {isInIframe ? null : (
           <Feedback title="Ce simulateur a-t-il été utile ?" />
         )}
-        <ObtenirAideBaniere setSearchParams={setSearchParams} />
+        <ObtenirAideBaniere
+          {...{
+            setSearchParams,
+            isVisible: true,
+            link: setSearchParams({ objectif: 'etape' }, 'url'),
+          }}
+        />
       </CustomQuestionWrapper>
     </Section>
   )
 }
 
-const ObtenirAideBaniere = ({ setSearchParams }) => {
-  const [isVisible, setIsVisible] = useState(false)
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
+export const ObtenirAideBaniere = ({
+  isVisible,
+  label = 'Obtenir mes aides',
+  link,
+}) => {
   return (
     <div
       css={`
@@ -253,14 +249,12 @@ const ObtenirAideBaniere = ({ setSearchParams }) => {
         text-align: center;
         z-index: 1000;
         transform: translateY(${isVisible ? '0%' : '100%'});
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.5s ease-in-out;
       `}
     >
       <CTAWrapper $justify="center">
         <CTA $fontSize="normal">
-          <Link href={setSearchParams({ objectif: 'etape' }, 'url')}>
-            Obtenir mes aides
-          </Link>
+          <Link href={link}>{label}</Link>
         </CTA>
       </CTAWrapper>
     </div>

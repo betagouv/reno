@@ -14,7 +14,6 @@ export default function FormButtons({
   currentQuestion,
   questionsToSubmit,
   situation,
-  rules,
   depuisModule,
 }) {
   const backUrl = setSearchParams(

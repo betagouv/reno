@@ -14,6 +14,7 @@ import {
   encodeSituation,
 } from './publicodes/situationUtils'
 import { omit } from './utils'
+import { ObtenirAideBaniere } from './Eligibility'
 
 export const getTravauxEnvisages = (situation) =>
   situation['projet . travaux envisagés']
