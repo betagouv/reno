@@ -17,6 +17,7 @@ import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
 import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
 import HomepageModules from './HomepageModules'
+import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 
 export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
@@ -103,20 +104,17 @@ export default function Page() {
           <div>
             <Image src={logoFranceRenov} alt="Logo de France Rénov" />
             <p>
-              Une initiative construite avec{' '}
-              <ExternalLink href="https://france-renov.gouv.fr" target="_blank">
-                France&nbsp;Rénov'
-              </ExternalLink>{' '}
-              pour simplifier l’information sur les
-              aides&nbsp;à&nbsp;la&nbsp;rénovation&nbsp;énergétique.{' '}
-              <Link
-                href="/a-propos"
-                style={css`
-                  white-space: nowrap;
-                `}
-              >
-                En savoir plus.
-              </Link>
+              <ParFranceRénovTexte />{' '}
+              <small>
+                <Link
+                  href="/a-propos"
+                  style={css`
+                    white-space: nowrap;
+                  `}
+                >
+                  En savoir plus.
+                </Link>
+              </small>
             </p>
           </div>
         </LandingGreenBanner>
