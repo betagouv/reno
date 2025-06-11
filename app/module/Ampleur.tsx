@@ -32,6 +32,8 @@ import {
 import { ModuleWrapper } from './ModuleWrapper'
 import UserData from './UserData'
 import AmpleurWidget from '@/components/ampleur/AmpleurWidget'
+import styled from 'styled-components'
+import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 
 const engine = new Publicodes(rules)
 
@@ -282,21 +284,17 @@ export const FooterModule = () => {
           }
         `}
       />
-      <p>
-        <small
-          css={`
-            line-height: 1rem;
-            color: gray;
-            display: block;
-          `}
-        >
-          Une initiative construite avec France&nbsp;Rénov{"'"}
-          {isMobile
-            ? '.'
-            : ` pour simplifier
-            l'information sur les aides à la rénovation énergétique.`}
-        </small>
-      </p>
+      <AboutContainer>
+        <ParFranceRénovTexte />
+      </AboutContainer>
     </footer>
   )
 }
+
+const AboutContainer = styled.p`
+  small {
+    line-height: 1rem;
+    color: gray;
+    display: block;
+  }
+`
