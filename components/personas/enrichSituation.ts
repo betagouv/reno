@@ -39,20 +39,18 @@ export async function getCommune(
 ) {
   let path = null
   if (codeCommune) {
-    path = `communes?code=${codeCommune}`
+    path = `communes/${codeCommune}`
   }
   if (
     situation &&
     ['ménage . commune', 'logement . commune'].includes(type) &&
     situation[type]
   ) {
-    path = `communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`
+    path = `communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`
   }
   const url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
 
   const response = await fetch(url)
   const json = await response.json()
-  return json[0]
-
-  return null
+  return json
 }
