@@ -3,12 +3,13 @@ import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper, Title } from '@/app/LayoutUI'
 import css from '@/components/css/convertToJs'
 import useIsInIframe from '@/components/useIsInIframe'
-import logo from '@/public/logo.svg'
+import logo from '@/public/logo-service-de-FR.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import LogoCompact from './LogoCompact'
 import { CTA } from './UI'
+import styled from 'styled-components'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
@@ -43,26 +44,10 @@ export default function Header() {
                 margin-left: 1vw;
               `}
             >
-              <Image
+              <HeaderLogo
                 src={logo}
                 alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"
               />
-              <Title>
-                Mes <strong>Aides Réno</strong>
-              </Title>
-              <strong
-                title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'"
-                style={css`
-                  background: #e8edff;
-                  color: #0063cb;
-                  padding: 0.1rem 0.3rem;
-                  border-radius: 0.1rem;
-                  margin-left: 0.6rem;
-                  font-size: 80%;
-                `}
-              >
-                BETA
-              </strong>
             </div>
           </div>
         </Link>
@@ -93,3 +78,9 @@ export default function Header() {
     </HeaderWrapper>
   )
 }
+
+const HeaderLogo = styled(Image)`
+  height: 4.5rem;
+  width: auto;
+  margin-bottom: 1.4rem;
+`
