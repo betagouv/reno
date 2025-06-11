@@ -2,12 +2,14 @@
 
 import React from 'react'
 import 'react-tooltip/dist/react-tooltip.css'
-import { decodeDottedName, encodeDottedName } from './publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
 import rules from '@/app/règles/rules'
 import { getTravauxEnvisages, handleCheckTravaux } from './ChoixTravaux'
 import Geste from './Geste'
 import styled from 'styled-components'
+import { ObtenirAideBaniere } from './Eligibility'
+import { omit } from './utils'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -27,77 +29,93 @@ export default function ChoixTravauxChauffage({
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Choix chauffage'])
   let travauxEnvisages = getTravauxEnvisages(situation)
-  const questions = gestesMosaicQuestions.filter(
+  const gestes = gestesMosaicQuestions.filter(
     (k) =>
       ['gestes . chauffage . PAC', 'gestes . chauffage . bois'].filter((t) =>
         k[0].startsWith(t),
       ).length,
   )
 
-  const grouped = questions.reduce(
-      (memo, [q]) => {
-        const categoryDottedName = q.split(' . ').slice(0, -1).join(' . ')
+  const grouped = gestes.reduce(
+    (memo, [q]) => {
+      const categoryDottedName = q.split(' . ').slice(0, -1).join(' . ')
 
-        return {
-          ...memo,
-          [categoryDottedName]: [...(memo[categoryDottedName] || []), q],
-        }
-      },
+      return {
+        ...memo,
+        [categoryDottedName]: [...(memo[categoryDottedName] || []), q],
+      }
+    },
 
-      {},
-    ),
-    categories = Object.entries(grouped)
-
-  const count = questions.filter(
-    ([dottedName]) => situation[dottedName] === 'oui',
-  ).length
-
+    {},
+  )
+  const isVisible =
+    gestes.filter((geste) =>
+      travauxEnvisages.includes(encodeDottedName(geste[0])),
+    ).length > 0
   return (
-    <GesteMosaic>
-      {categories.map(([category, entries]) => (
-        <div key={category}>
-          <h2>{rules[category].titre}</h2>
-          <ul>
-            {Object.entries(entries).map(([subCategory, dottedName]) => {
-              const checked = travauxEnvisages.includes(
-                encodeDottedName(dottedName),
-              )
-              return (
-                <li key={subCategory}>
-                  <label
-                    css={`
-                      ${checked && `border: 2px solid var(--color);`}
-                    `}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() =>
-                        handleCheckTravaux(
+    <>
+      <GesteMosaic>
+        {Object.entries(grouped).map(([category, entries]) => (
+          <div key={category}>
+            <h2>{rules[category].titre}</h2>
+            <ul>
+              {Object.entries(entries).map(([subCategory, dottedName]) => {
+                const checked = travauxEnvisages.includes(
+                  encodeDottedName(dottedName),
+                )
+                return (
+                  <li key={subCategory}>
+                    <label
+                      css={`
+                        ${checked && `border: 2px solid var(--color);`}
+                      `}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() =>
+                          handleCheckTravaux(
+                            dottedName,
+                            situation,
+                            setSearchParams,
+                            answeredQuestions,
+                          )
+                        }
+                      />
+                      <Geste
+                        {...{
+                          rules,
                           dottedName,
+                          engine,
                           situation,
-                          setSearchParams,
-                          answeredQuestions,
-                        )
-                      }
-                    />
-                    <Geste
-                      {...{
-                        rules,
-                        dottedName,
-                        engine,
-                        situation,
-                        expanded: false,
-                      }}
-                    />
-                  </label>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      ))}
-    </GesteMosaic>
+                          expanded: false,
+                        }}
+                      />
+                    </label>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        ))}
+      </GesteMosaic>
+      <ObtenirAideBaniere
+        {...{
+          isVisible,
+          label: 'Voir mes aides',
+          link: setSearchParams(
+            {
+              ...encodeSituation(situation, false, [
+                ...answeredQuestions,
+                'projet . travaux envisagés',
+              ]),
+            },
+            'url',
+            true,
+          ),
+        }}
+      />
+    </>
   )
 }
 

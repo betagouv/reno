@@ -99,9 +99,9 @@ function Form({ rules }) {
       answeredQuestions,
       simulationConfigMainForm,
     )
-
-  const currentQuestion = nextQuestions[0],
-    rule = currentQuestion && rules[currentQuestion]
+  const currentQuestion = objectif
+    ? decodeDottedName(objectif)
+    : nextQuestions[0]
 
   if (searchParams['details']) {
     return (

@@ -1,6 +1,5 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import React from 'react'
 import 'react-tooltip/dist/react-tooltip.css'
@@ -53,7 +52,7 @@ export const isCategorieChecked = (
       value
         .split(',')
         .filter((t) => travauxEnvisages?.includes(encodeDottedName(t))).length,
-  ).length
+  ).length > 0
 
 export const handleCheckTravaux = (
   geste,
@@ -95,13 +94,11 @@ export const updateTravaux = (
     answeredQuestions,
   )
 
-  setSearchParams(encodedSituation, 'replace', true)
+  setSearchParams(encodedSituation, 'replace', false)
 }
 
 export default function ChoixTravaux({
   situation,
-  rules,
-  engine,
   answeredQuestions,
   setSearchParams,
 }) {
@@ -135,6 +132,12 @@ export default function ChoixTravaux({
         .filter((t) => travauxEnvisages.includes(t)).length > 0
     )
   }
+
+  const isChauffageChecked = isCategorieChecked(
+    'chauffage',
+    travauxEnvisages,
+    categoriesCochees,
+  )
 
   return (
     <>
@@ -241,7 +244,7 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
-      {isCategorieChecked('chauffage', travauxEnvisages, categoriesCochees) && (
+      {isChauffageChecked && (
         <>
           <h4>Chauffages : quelles options vous intéressent ?</h4>
           <Accordion geste="true">
@@ -270,6 +273,28 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
+      <ObtenirAideBaniere
+        {...{
+          setSearchParams,
+          isVisible: travauxEnvisages.length > 0,
+          label: 'Voir mes aides',
+          link: setSearchParams(
+            isChauffageChecked
+              ? { objectif: 'projet.travaux envisagés chauffage' }
+              : {
+                  ...encodeSituation(
+                    {
+                      ...situation,
+                    },
+                    false,
+                    [...answeredQuestions, 'projet . travaux envisagés'],
+                  ),
+                  question: undefined,
+                },
+            'url',
+          ),
+        }}
+      />
     </>
   )
 }

@@ -320,19 +320,21 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-  if (isCategorieChecked('chauffage', getTravauxEnvisages(situation))) {
+
+  if (currentQuestion === 'projet . travaux envisagés chauffage') {
     return (
       <ClassicQuestionWrapper
         {...{
-          rule: rules['projet . travaux envisagés chauffage'],
+          rule: rules[currentQuestion],
           nextQuestions,
-          currentQuestion: 'projet . travaux envisagés chauffage',
+          currentQuestion,
           rules,
           answeredQuestions,
           situation,
           setSearchParams,
           currentValue,
           noSuggestions: true,
+          noButtons: true,
           engine,
         }}
       >
@@ -385,28 +387,6 @@ export default function InputSwitch({
     )
   }
 
-  if (["parcours d'aide"].includes(currentQuestion)) {
-    if (sendDataToHost && consent === null) {
-      return <Consentement {...{ setConsent, situation, sendDataToHost }} />
-    }
-    return (
-      <Eligibility
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          nextQuestions,
-          expanded: searchParams.details === 'oui',
-          consent,
-          sendDataToHost,
-        }}
-      />
-    )
-  }
   if (ruleQuestionType === 'boolean')
     return (
       <ClassicQuestionWrapper
