@@ -225,7 +225,6 @@ export default function Ampleur({ type }) {
 }
 
 export const FooterModule = () => {
-  const isMobile = useMediaQuery('(max-width: 400px)')
   return (
     <footer
       css={`
