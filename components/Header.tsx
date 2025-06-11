@@ -1,5 +1,4 @@
 'use client'
-import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
 import { HeaderWrapper } from '@/app/LayoutUI'
 import css from '@/components/css/convertToJs'
 import useIsInIframe from '@/components/useIsInIframe'
@@ -10,9 +9,12 @@ import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
 import LogoCompact from './LogoCompact'
 import { CTA } from './UI'
+import MarianneHeaderLogo from '@/app/MarianneHeaderLogo'
+import { useMediaQuery } from 'usehooks-ts'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
+  const isMobile = useMediaQuery('(max-width: 800px)')
   const pathname = usePathname()
   if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
     return
@@ -36,7 +38,7 @@ export default function Header() {
               align-items: center;
             `}
           >
-            <DynamicHeaderIcon />
+            {!isMobile && <MarianneHeaderLogo />}
             <div
               style={css`
                 display: flex;
@@ -44,7 +46,7 @@ export default function Header() {
                 margin-left: 1vw;
               `}
             >
-              <HeaderLogo src={logo} alt={logoAlt} />
+              <HeaderLogo src={logo} alt={logoAlt} $needsMargin={!isMobile} />
             </div>
           </div>
         </Link>
@@ -76,10 +78,10 @@ export default function Header() {
   )
 }
 
-export const HeaderLogo = styled(Image)`
+const HeaderLogo = styled(Image)`
   height: 4.5rem;
   width: auto;
-  margin-bottom: 1.4rem;
+  ${(p) => p.$needsMargin && `margin-bottom: 1.4rem;`}
 `
 export const logoAlt =
   "Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef."

@@ -1,8 +1,8 @@
-'use client'
 import css from '@/components/css/convertToJs'
 import marianneLogo from '@/public/marianne.svg'
 import Image from 'next/image'
-export default function DynamicHeaderIcon() {
+
+export default function MarianneHeaderLogo() {
   return (
     <Image
       src={marianneLogo}
