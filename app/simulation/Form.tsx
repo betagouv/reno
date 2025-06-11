@@ -122,7 +122,7 @@ function Form({ rules }) {
   }
   return (
     <>
-      {rule && (
+      {
         <InputSwitch
           {...{
             rules,
@@ -136,7 +136,7 @@ function Form({ rules }) {
             correspondance,
           }}
         />
-      )}
+      }
       {isInIframe && (
         <p
           css={`

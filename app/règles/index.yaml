@@ -683,6 +683,9 @@ projet . définition . travaux inconnus:
 projet . travaux envisagés:
   applicable si: définition = 'travaux connus'
   question: Sur quoi souhaitez-vous intervenir ?
+projet . travaux envisagés chauffage:
+  applicable si: définition = 'travaux connus'
+  question: 'Chauffages : quelles options vous intéressent ?'
 
 conditions communes:
   titre: Conditions d'éligibilité de base

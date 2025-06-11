@@ -52,6 +52,49 @@ export const isCategorieChecked = (
     travauxEnvisages?.includes(encodeDottedName(value)),
   ).length > 0
 
+export const handleCheckTravaux = (
+  geste,
+  situation,
+  setSearchParams,
+  answeredQuestions,
+) => {
+  let travauxEnvisages = getTravauxEnvisages(situation)
+  let encodedGeste = encodeDottedName(geste)
+  if (
+    travauxEnvisages &&
+    encodedGeste.split(',').filter((t) => travauxEnvisages.includes(t)).length >
+      0
+  ) {
+    travauxEnvisages = travauxEnvisages.filter(
+      (travaux) => !encodedGeste.split(',').includes(travaux),
+    )
+  } else {
+    travauxEnvisages.push(encodedGeste)
+  }
+
+  updateTravaux(situation, setSearchParams, travauxEnvisages, answeredQuestions)
+}
+
+export const updateTravaux = (
+  situation,
+  setSearchParams,
+  travauxEnvisages,
+  answeredQuestions,
+) => {
+  const encodedSituation = encodeSituation(
+    !travauxEnvisages.length
+      ? omit(['projet . travaux envisagés'], situation)
+      : {
+          ...situation,
+          ['projet . travaux envisagés']: `"${travauxEnvisages.join(',')}"`,
+        },
+    false,
+    answeredQuestions,
+  )
+
+  setSearchParams(encodedSituation, 'replace', true)
+}
+
 export default function ChoixTravaux({
   situation,
   rules,
@@ -63,9 +106,6 @@ export default function ChoixTravaux({
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
-
   let travauxEnvisages = getTravauxEnvisages(situation)
 
   const handleCheckCategorie = (categorie) => {
@@ -74,39 +114,15 @@ export default function ChoixTravaux({
         (t) => !Object.keys(gestes[categorie]).includes(decodeDottedName(t)),
       )
       setCategoriesCochees((prev) => prev.filter((c) => c != categorie))
-      updateTravaux()
+      updateTravaux(
+        situation,
+        setSearchParams,
+        travauxEnvisages,
+        answeredQuestions,
+      )
     } else {
       setCategoriesCochees((prev) => [...prev, categorie])
     }
-  }
-
-  const handleCheckTravaux = (aGeste) => {
-    let geste = encodeDottedName(aGeste)
-    if (
-      travauxEnvisages &&
-      geste.split(',').filter((t) => travauxEnvisages.includes(t)).length > 0
-    ) {
-      travauxEnvisages = travauxEnvisages.filter(
-        (travaux) => !geste.split(',').includes(travaux),
-      )
-    } else {
-      travauxEnvisages.push(geste)
-    }
-    updateTravaux()
-  }
-  const updateTravaux = () => {
-    const encodedSituation = encodeSituation(
-      !travauxEnvisages.length
-        ? omit(['projet . travaux envisagés'], situation)
-        : {
-            ...situation,
-            ['projet . travaux envisagés']: `"${travauxEnvisages.join(',')}"`,
-          },
-      false,
-      answeredQuestions,
-    )
-
-    setSearchParams(encodedSituation, 'replace', true)
   }
 
   const isTravailChecked = (value) => {
@@ -146,7 +162,12 @@ export default function ChoixTravaux({
               type="checkbox"
               onChange={() => {
                 handleCheckCategorie('ventilation')
-                handleCheckTravaux('gestes . ventilation . double flux')
+                handleCheckTravaux(
+                  'gestes . ventilation . double flux',
+                  situation,
+                  setSearchParams,
+                  answeredQuestions,
+                )
               }}
               checked={isCategorieChecked(
                 'ventilation',
@@ -198,7 +219,14 @@ export default function ChoixTravaux({
                   <h3>
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckTravaux(item[0])}
+                      onChange={() =>
+                        handleCheckTravaux(
+                          item[0],
+                          situation,
+                          setSearchParams,
+                          answeredQuestions,
+                        )
+                      }
                       value={item[0]}
                       checked={isTravailChecked(item[0])}
                     />
@@ -220,7 +248,14 @@ export default function ChoixTravaux({
                   <h3>
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckTravaux(item[0])}
+                      onChange={() =>
+                        handleCheckTravaux(
+                          item[0],
+                          situation,
+                          setSearchParams,
+                          answeredQuestions,
+                        )
+                      }
                       value={item[0]}
                       checked={isTravailChecked(item[0])}
                     />

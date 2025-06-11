@@ -1,18 +1,9 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import {
-  decodeDottedName,
-  encodeSituation,
-  getAnsweredQuestions,
-} from './publicodes/situationUtils'
-
-import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
-
 import { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './dpe/DPESelector'
-import GestesBasket from './GestesBasket'
-import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
@@ -24,9 +15,13 @@ import DPEMap from './dpe/DPEMap'
 import DPEAddressSearch from './dpe/DPEAddressSearch'
 import { useState } from 'react'
 import enrichSituation, { getCommune } from './personas/enrichSituation'
-import ChoixTravaux from './ChoixTravaux'
+import ChoixTravaux, {
+  getTravauxEnvisages,
+  isCategorieChecked,
+} from './ChoixTravaux'
 import { useSendDataToHost } from './useIsInIframe'
 import Consentement from './Consentement'
+import ChoixTravauxChauffage from './ChoixTravauxChauffage'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -55,7 +50,7 @@ export default function InputSwitch({
 
   const [sendDataToHost, consent, setConsent] = useSendDataToHost()
 
-  if (rule['bornes intelligentes'])
+  if (rule && rule['bornes intelligentes'])
     return (
       <ClassicQuestionWrapper
         {...{
@@ -95,7 +90,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (rule['une possibilité parmi'])
+  if (rule && rule['une possibilité parmi'])
     return (
       <ClassicQuestionWrapper
         {...{
@@ -274,7 +269,9 @@ export default function InputSwitch({
             coordinates: [searchParams.lon, searchParams.lat],
             setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
             onChange: async (adresse) => {
+              console.log('adresse', adresse)
               const result = await getCommune(null, null, adresse.citycode)
+              console.log('result', result)
               const newSituation = await enrichSituation({
                 ...situation,
                 'logement . adresse': `"${adresse.label}"*`,
@@ -323,6 +320,28 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+  if (isCategorieChecked('chauffage', getTravauxEnvisages(situation))) {
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule: rules['projet . travaux envisagés chauffage'],
+          nextQuestions,
+          currentQuestion: 'projet . travaux envisagés chauffage',
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          noSuggestions: true,
+          engine,
+        }}
+      >
+        <ChoixTravauxChauffage
+          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  }
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
@@ -489,6 +508,29 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+
+  if (!currentQuestion) {
+    if (sendDataToHost && consent === null) {
+      return <Consentement {...{ setConsent, situation, sendDataToHost }} />
+    }
+    return (
+      <Eligibility
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          nextQuestions,
+          expanded: searchParams.details === 'oui',
+          consent,
+          sendDataToHost,
+        }}
+      />
+    )
+  }
 
   return (
     <ClassicQuestionWrapper
