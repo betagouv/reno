@@ -1,16 +1,12 @@
-'use client'
+import styled from 'styled-components'
+import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
+import logo from '@/public/logo.svg'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { useMediaQuery } from 'usehooks-ts'
+import { Title } from '../LayoutUI'
+import { InternalLink } from '@/components/UI'
 
-export const FooterModule = () => {
-  const [hydrated, setHydrated] = useState(false)
-
-  useEffect(() => {
-    setHydrated(true)
-  }, [])
-  const isMobile = useMediaQuery('(max-width: 400px)')
+export default function FooterModule() {
   return (
     <footer
       css={`
@@ -18,42 +14,68 @@ export const FooterModule = () => {
         align-items: center;
         justify-content: center;
         margin-bottom: -1rem;
-        padding: 0 1rem;
+
+        p {
+          margin: 0;
+          margin-left: 1rem;
+        }
       `}
     >
-      <p
+      <InternalLink
+        href="https://mesaidesreno.beta.gouv.fr"
         css={`
-          margin: 0;
+          text-decoration: none;
+          color: inherit;
+          &:hover {
+            background: 0;
+          }
+          > div {
+            @media (max-width: 400px) {
+          }
         `}
       >
-        <small
+        <div
           css={`
-            line-height: 1rem;
-            color: gray;
-            display: block;
+            display: flex;
+            align-items: center;
+            font-size: 90%;
           `}
         >
-          Une initiative construite avec France&nbsp;Rénov{"'"}
-          {hydrated && isMobile
-            ? '.'
-            : ` pour simplifier
-            l'information sur les aides à la rénovation énergétique.`}
-        </small>
-      </p>
+          <Image
+            src={logo}
+            alt="Logo de Mes Aides Réno"
+            css={`
+              width: 2.6rem !important;
+            `}
+          />
+          <Title>
+            Mes <strong>Aides Réno</strong>
+          </Title>
+        </div>
+      </InternalLink>
       <Image
         src={logoFranceRenov}
         alt="Logo de France Rénov"
-        css={
-          hydrated &&
-          (isMobile
-            ? `width: 5rem !important;
-                height: auto;
-              `
-            : `width: 6.5rem !important;
-                height: auto;
-              `)
-        }
+        css={`
+          width: 6.5rem !important;
+          margin-right: 1rem;
+          @media (max-width: 400px) {
+            width: 5rem !important;
+            margin: 0;
+          }
+        `}
       />
+      <AboutContainer>
+        <ParFranceRénovTexte />
+      </AboutContainer>
     </footer>
   )
 }
+
+export const AboutContainer = styled.p`
+  small {
+    line-height: 1rem;
+    color: gray;
+    display: block;
+  }
+`
