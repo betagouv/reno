@@ -1,5 +1,6 @@
 'use client'
 import { HeaderWrapper } from '@/app/LayoutUI'
+import MarianneHeaderLogo from '@/app/MarianneHeaderLogo'
 import css from '@/components/css/convertToJs'
 import useIsInIframe from '@/components/useIsInIframe'
 import logo from '@/public/logo-service-de-FR.svg'
@@ -7,10 +8,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
-import LogoCompact from './LogoCompact'
-import { CTA } from './UI'
-import MarianneHeaderLogo from '@/app/MarianneHeaderLogo'
 import { useMediaQuery } from 'usehooks-ts'
+import { CTA } from './UI'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
@@ -19,9 +18,7 @@ export default function Header() {
   if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
     return
 
-  return isInIframe ? (
-    <LogoCompact />
-  ) : (
+  return (
     <HeaderWrapper>
       <nav>
         <Link
