@@ -31,6 +31,7 @@ import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
+import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 const Badge = ({ children, color }) => (
   <div
     css={`
@@ -104,7 +105,7 @@ export default function AideGeste({
             justify-content: space-between;
           `}
         >
-          <BackToLastQuestion
+          <BtnBackToParcoursChoice
             {...{
               setSearchParams,
               situation: omit(['objectif'], situation),
