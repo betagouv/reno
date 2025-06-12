@@ -78,7 +78,7 @@ export default function Header() {
 const HeaderLogo = styled(Image)`
   height: 4.5rem;
   width: auto;
-  ${(p) => p.$needsMargin && `margin-bottom: 1.4rem;`}
+  ${(p) => p.$needsMargin && `margin-left: 0rem;`}
 `
 export const logoAlt =
   "Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef."
