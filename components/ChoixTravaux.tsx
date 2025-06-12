@@ -111,9 +111,11 @@ export default function ChoixTravaux({
 
   const handleCheckCategorie = (categorie) => {
     if (isCategorieChecked(categorie, travauxEnvisages, categoriesCochees)) {
-      travauxEnvisages = travauxEnvisages?.filter(
-        (t) => !Object.keys(gestes[categorie]).includes(decodeDottedName(t)),
-      )
+      travauxEnvisages = travauxEnvisages
+        ?.filter(
+          (t) => !Object.keys(gestes[categorie]).includes(decodeDottedName(t)),
+        )
+        .filter((t) => !t.includes(categorie))
       setCategoriesCochees((prev) => prev.filter((c) => c != categorie))
       updateTravaux(
         situation,
