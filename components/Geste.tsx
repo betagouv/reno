@@ -14,6 +14,7 @@ export const PrimeDisplay = ({
   rules,
   dottedName,
   eligibleMPRG,
+  infoCoupDePouce,
   description = true,
 }) => (
   <div>
@@ -49,7 +50,7 @@ export const PrimeDisplay = ({
               ? 'Prime indicative de '
               : 'Prime de '
             : "Jusqu'à "}
-          <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>
+          <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>{' '}
         </>
       )}
     </PrimeStyle>
