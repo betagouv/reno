@@ -200,9 +200,7 @@ export default function Eligibility({
             correspondance,
           }}
         />
-        {isInIframe ? null : (
-          <Feedback title="Ce simulateur a-t-il été utile ?" />
-        )}
+        {isInIframe ? null : <Feedback />}
         <ObtenirAideBaniere
           {...{
             setSearchParams,

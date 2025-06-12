@@ -91,7 +91,7 @@ export default function AideDetails({
               rules,
             }}
           />
-          <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+          <Feedback />
         </CustomQuestionWrapper>
       </Section>
     )

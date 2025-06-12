@@ -32,6 +32,7 @@ import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
+import Feedback from '@/app/contact/Feedback'
 const Badge = ({ children, color }) => (
   <div
     css={`
@@ -295,6 +296,7 @@ export default function AideGeste({
           </Card>
         </div>
       </CustomQuestionWrapper>
+      <Feedback />
     </Section>
   )
 }
