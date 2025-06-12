@@ -152,7 +152,7 @@ export const ProfessionnelLabel = () => (
     `}
   >
     <li>
-      <span aria-hidden="true">⭐</span> Parcours ampleur
+      <span aria-hidden="true">⭐</span> Parcours accompangé
     </li>
   </Labels>
 )

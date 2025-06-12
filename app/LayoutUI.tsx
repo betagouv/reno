@@ -24,17 +24,6 @@ export const HeaderWrapper = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    > div {
-      @media (max-width: 800px) {
-        display: none;
-      }
-      > a {
-        margin: 0 0.6rem;
-        display: inline-block;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 90%;
-      }
-    }
+    flex-wrap: wrap;
   }
 `

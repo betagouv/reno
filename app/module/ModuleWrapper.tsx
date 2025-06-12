@@ -1,5 +1,5 @@
 import marianne from '@/public/marianne-sans-devise.svg'
-import { FooterModule } from './Ampleur'
+import FooterModule from '@/app/module/FooterModule'
 import Image from 'next/image'
 
 export const ModuleWrapper = ({ children, isMobile, title }) => (
