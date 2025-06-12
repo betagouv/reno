@@ -107,53 +107,38 @@ export default function Eligibility({
         <h2>
           <span aria-hidden="true">💶</span> Aides pour vos travaux
         </h2>
-        {isCategorieChecked('isolation', travauxEnvisages) && (
-          <h4>
-            Isolation thermique
-            <small
-              css={`
-                display: block;
-                font-weight: normal;
-              `}
-            >
-              Murs, toit, plancher, portes et fenêtres
-            </small>
-          </h4>
-        )}
-        {travauxEnvisages
-          .filter((travaux) => travaux.includes('isolation'))
-          .map((travaux) => {
-            return (
-              <AideGeste
-                {...{
-                  engine,
-                  dottedName: decodeDottedName(travaux),
-                  setSearchParams,
-                  answeredQuestions,
-                  situation,
-                }}
-              />
-            )
-          })}
-
-        {isCategorieChecked('ventilation', travauxEnvisages) && (
-          <h4>Ventilation</h4>
-        )}
-        {travauxEnvisages
-          .filter((travaux) => travaux.includes('ventilation'))
-          .map((travaux) => {
-            return (
-              <AideGeste
-                {...{
-                  engine,
-                  dottedName: decodeDottedName(travaux),
-                  setSearchParams,
-                  answeredQuestions,
-                  situation,
-                }}
-              />
-            )
-          })}
+        {Object.entries({
+          isolation: 'Isolation thermique',
+          ventilation: 'Ventilation',
+          chauffage: 'Chauffage',
+        }).map((category) => {
+          return (
+            <>
+              {isCategorieChecked(category[0], travauxEnvisages) && (
+                <h4>{category[1]}</h4>
+              )}
+              {travauxEnvisages
+                .filter(
+                  (travaux) =>
+                    travaux.includes(category[0]) &&
+                    rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
+                )
+                .map((travaux) => {
+                  return (
+                    <AideGeste
+                      {...{
+                        engine,
+                        dottedName: decodeDottedName(travaux),
+                        setSearchParams,
+                        answeredQuestions,
+                        situation,
+                      }}
+                    />
+                  )
+                })}
+            </>
+          )
+        })}
         <Card
           css={`
             background: #f4efff;
