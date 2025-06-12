@@ -9,7 +9,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
 import { useMediaQuery } from 'usehooks-ts'
-import { CTA } from './UI'
 import Menu from './Menu'
 
 export default function Header() {
@@ -48,7 +47,7 @@ export default function Header() {
             </div>
           </div>
         </Link>
-        <Menu />
+        <Menu isMobile={isMobile} />
       </nav>
     </HeaderWrapper>
   )
