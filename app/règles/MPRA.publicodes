@@ -1,5 +1,5 @@
 MPR . accompagnée:
-  titre: MaPrimeRénov' **accompagnée**
+  titre: MaPrimeRénov' **parcours accompagné**
   illustration: mpa.svg
   icône: maprimerenov.svg
   alias: Parcours accompagné
@@ -131,7 +131,7 @@ MPR . accompagnée . prise en charge MAR . prix moyen:
 
     > Chaque accompagnateur devra développer une offre concurrentielle sur le marché de l'accompagnement.
 
-    Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésitez à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
+    Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésiter à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
 MPR . accompagnée . prise en charge MAR . pourcent:
   description: |
     L'État prend en charge tout ou une partie de la prestation du MAR (Mon Accompagnateur Rénov').
