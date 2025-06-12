@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
 import { useMediaQuery } from 'usehooks-ts'
 import { CTA } from './UI'
+import Menu from './Menu'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
@@ -47,29 +48,7 @@ export default function Header() {
             </div>
           </div>
         </Link>
-        <div
-          css={`
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <Link href="/blog">Blog</Link>
-          <Link href="/aides">Les aides</Link>
-          <Link href="/contact">Contact</Link>
-          <CTA
-            $fontSize="normal"
-            css={`
-              line-height: 1;
-              margin-left: 1rem;
-              a {
-                padding: 0.2rem 1rem;
-              }
-              padding: 0.5rem 0;
-            `}
-          >
-            <Link href="/devenir-partenaire">Devenir partenaire</Link>
-          </CTA>
-        </div>
+        <Menu />
       </nav>
     </HeaderWrapper>
   )
