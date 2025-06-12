@@ -2,7 +2,11 @@
 
 import React from 'react'
 import 'react-tooltip/dist/react-tooltip.css'
-import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import {
+  decodeDottedName,
+  encodeDottedName,
+  encodeSituation,
+} from './publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
 import rules from '@/app/règles/rules'
 import { getTravauxEnvisages, handleCheckTravaux } from './ChoixTravaux'
@@ -31,9 +35,11 @@ export default function ChoixTravauxChauffage({
   let travauxEnvisages = getTravauxEnvisages(situation)
   const gestes = gestesMosaicQuestions.filter(
     (k) =>
-      ['gestes . chauffage . PAC', 'gestes . chauffage . bois'].filter((t) =>
-        k[0].startsWith(t),
-      ).length,
+      travauxEnvisages.filter((t) => {
+        return (
+          k[0].startsWith(decodeDottedName(t)) && k[0].includes('chauffage')
+        )
+      }).length,
   )
 
   const grouped = gestes.reduce(
