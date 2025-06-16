@@ -16,6 +16,7 @@ import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
 import CopyButton from './CopyButton'
+import AvertissementSimulation from './AvertissementSimulation'
 
 export const QuestionText = ({
   rule,
@@ -73,6 +74,7 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
+      <AvertissementSimulation />
       <AmpleurModuleBanner
         {...{
           depuisModule,
