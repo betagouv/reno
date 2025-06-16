@@ -269,17 +269,15 @@ export default function InputSwitch({
             coordinates: [searchParams.lon, searchParams.lat],
             setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
             onChange: async (adresse) => {
-              console.log('adresse', adresse)
               const result = await getCommune(null, null, adresse.citycode)
-              console.log('result', result)
               const newSituation = await enrichSituation({
                 ...situation,
-                'logement . adresse': `"${adresse.label}"*`,
-                'logement . code région': `"${result.codeRegion}"*`,
-                'logement . code département': `"${result.codeDepartement}"*`,
-                'logement . EPCI': `"${result.codeEpci}"*`,
-                'logement . commune': `"${result.code}"*`,
-                'logement . commune . nom': `"${result.nom}"*`,
+                'logement . adresse': `"${adresse.label}"`,
+                'logement . code région': `"${result.codeRegion}"`,
+                'logement . code département': `"${result.codeDepartement}"`,
+                'logement . EPCI': `"${result.codeEpci}"`,
+                'logement . commune': `"${result.code}"`,
+                'logement . commune . nom': `"${result.nom}"`,
               })
               setSearchParams(
                 encodeSituation(newSituation, false, answeredQuestions),
