@@ -1,12 +1,25 @@
+import { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 export default function AvertissementSimulation() {
+  const [open, setOpen] = useState(true)
+  const preventSummaryClick = useCallback((event) => {
+    event.preventDefault()
+  }, [])
   return (
     <Section>
-      <details>
-        <summary>
-          <Euro title="Symbole euro entouré">€</Euro> Ceci est une{' '}
-          <strong>simulation...</strong>
+      <details open={open}>
+        <summary
+          onClick={(e) => {
+            preventSummaryClick(e)
+            setOpen(true)
+          }}
+        >
+          <div>
+            <Euro title="Symbole euro entouré">€</Euro> Ceci est une{' '}
+            <strong>simulation</strong>...
+          </div>
+          {!open && <button>Lire +</button>}
         </summary>
         <div>
           <p>
@@ -23,15 +36,20 @@ export default function AvertissementSimulation() {
             Les aides sont susceptibles de changer. Nous mettons à jour le
             simulateur régulièrement.
           </p>
-          <button>
-            J'ai compris{' '}
-            <span
-              style={{ transform: 'scaleX(1) scaleY(-1)' }}
-              title="Flèche à coude pointant vers le haut"
-            >
-              ↵
-            </span>
-          </button>
+          {open && (
+            <button onClick={() => setOpen(false)}>
+              J'ai compris{' '}
+              <span
+                style={{
+                  transform: 'scaleX(-1) scaleY(1) rotate(90deg)',
+                  display: 'inline-block',
+                }}
+                title="Flèche à coude pointant vers le haut"
+              >
+                ↵
+              </span>
+            </button>
+          )}
         </div>
       </details>
     </Section>
@@ -48,17 +66,27 @@ const Euro = styled.span`
   text-align: center;
   font-size: 85%;
   vertical-align: text-top;
+  margin-right: 0.2rem;
 `
 
 const Section = styled.section`
   margin: 0.6rem auto 1rem;
-  max-width: 30rem;
+  width: calc(800px - 2rem);
+  max-width: calc(100% - 2rem);
   background: #feecc2;
   border: 1px solid #c8a519;
   padding: 0.6rem 1rem;
-  details > div {
-    margin-top: 1rem;
-    font-size: 85%;
+  details {
+    summary {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    > div {
+      margin-top: 1rem;
+      font-size: 85%;
+    }
   }
 
   button {
