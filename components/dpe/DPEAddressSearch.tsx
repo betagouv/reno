@@ -59,6 +59,7 @@ export default function DPEAddressSearch({
         value={immediateInput || ''}
         placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
+          setCoordinates([undefined, undefined])
           setClicked(false)
           setInput(e.target.value)
         }}
@@ -104,6 +105,7 @@ export default function DPEAddressSearch({
                 key={id}
                 onClick={() => {
                   setInput(label)
+                  //setCoordinates(result.geometry.coordinates)
                   setClicked(result)
                   onChange && onChange(result.properties)
                 }}
