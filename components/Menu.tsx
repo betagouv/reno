@@ -4,6 +4,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
 import menuIcon from '@/public/menu.svg'
+import closeMenuIcon from '@/public/menu-close.svg'
 
 export default function Menu({ isMobile }) {
   const [state, setState] = useState(isMobile ? 'closed' : 'desktop')
@@ -27,7 +28,7 @@ const BurgerButton = ({ state, setState }) => {
       title={state === 'open' ? 'Ouvrir le menu' : 'Fermer le menu'}
     >
       <Image
-        src={menuIcon}
+        src={state === 'open' ? menuIcon : closeMenuIcon}
         alt="Icône dite burger représentant un menu de navigation"
       />
     </Button>
