@@ -10,9 +10,11 @@ export default function UserProblemBanner() {
         $importance="secondary"
         style={css`
           padding: 0.5rem 0;
+          width: 800px;
+          text-align: center;
         `}
       >
-        <Link href="/faq">Une question, un problème ?</Link>
+        <Link href="/faq">👋 J'ai besoin d'aide</Link>
       </CTA>
     </CTAWrapper>
   )
