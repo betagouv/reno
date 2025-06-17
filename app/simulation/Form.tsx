@@ -88,7 +88,6 @@ function Form({ rules }) {
           situation,
           answeredQuestions,
           engine,
-          rules,
         }}
       />
     )

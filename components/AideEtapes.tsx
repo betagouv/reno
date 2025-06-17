@@ -1,18 +1,4 @@
-import rules from '@/app/règles/rules'
-import {
-  BlocAide,
-  Card,
-  CTA,
-  CTAWrapper,
-  InlineLink,
-  PrimeStyle,
-  Section,
-} from './UI'
-import { formatValue } from 'publicodes'
-import { useEffect, useRef, useState } from 'react'
-import { push } from '@socialgouv/matomo-next'
-import { PrimeDisplay } from './Geste'
-import mprImage from '@/public/maprimerenov.svg'
+import { Card, Section } from './UI'
 import iconConseiller from '@/public/icon-conseiller.svg'
 import iconLampe from '@/public/icon-lampe.svg'
 import iconPaper from '@/public/icon-paper.svg'
@@ -24,7 +10,6 @@ import iconTravaux from '@/public/icon-travaux.svg'
 import iconCard from '@/public/icon-card.svg'
 import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
-import BackToLastQuestion from './BackToLastQuestion'
 import Breadcrumb from './Breadcrumb'
 import CopyButton from './CopyButton'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
@@ -33,6 +18,7 @@ import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
+import { useAides } from './ampleur/useAides'
 const Badge = ({ children, color }) => (
   <div
     css={`
@@ -49,14 +35,17 @@ const Badge = ({ children, color }) => (
     {children}
   </div>
 )
-export default function AideGeste({
+export default function AideEtapes({
   searchParams,
-  engine,
-  dottedName,
   setSearchParams,
   situation,
+  engine,
   answeredQuestions,
 }) {
+  const aides = useAides(engine, situation)
+  const hasMPRA =
+    aides.find((aide) => aide.baseDottedName == 'MPR . accompagnée').status ===
+    true
   return (
     <Section
       css={`
@@ -70,6 +59,10 @@ export default function AideGeste({
           align-items: center;
           font-weight: bold;
           gap: 1rem;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
         }
       `}
     >
@@ -111,6 +104,7 @@ export default function AideGeste({
               setSearchParams,
               situation: omit(['objectif'], situation),
               answeredQuestions,
+              text: 'Revoir mes aides éligibles',
             }}
           />
           <CopyButton searchParams={searchParams} />
@@ -150,12 +144,7 @@ export default function AideGeste({
               Neutres et gratuits, il existe plus de 600 Espaces conseil France
               Rénov' en France pour vous aider à :
             </p>
-            <ul
-              css={`
-                list-style-type: none;
-                padding: 0;
-              `}
-            >
+            <ul>
               <li>👷 élaborer votre projet de rénovation,</li>
               <li>💰 trouver des aides financières pour votre projet,</li>
               <li>🥇 choisir les professionnels compétents.</li>
@@ -180,38 +169,73 @@ export default function AideGeste({
             </h2>
             <p>
               Après votre rendez-vous avec un conseiller, contactez des artisans
-              RGE pour obtenir leurs devis. Votre Accompagnateur Rénov' vous
-              aidera à choisir les plus adaptés pour la suite de votre projet.
+              RGE pour obtenir leurs devis.{' '}
+              {hasMPRA &&
+                "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
             </p>
-            <p>
-              <strong>Important</strong> : ne signez pas encore les devis
-            </p>
+            {hasMPRA && (
+              <p>
+                <strong>Important</strong> : ne signez pas encore les devis
+              </p>
+            )}
           </Card>
-          <Card>
-            <h2>
-              <Image src={iconSend} alt="icone envoyer" />
-              Déposez le dossier auprès de l'Anah
-            </h2>
-            <p>
-              Vous pouvez le faire avec l'aide de votre Accompagnateur Rénov',
-              votre mandataire ou directement depuis la plateforme que vous a
-              communiqué le conseiller.Les dossiers les mieux préparés sont
-              instruits plus rapidement.
-            </p>
-          </Card>
-          <Card>
-            <Badge>3 mois d'attente</Badge>
-            <h2>
-              <Image src={iconValider} alt="icone valider" />
-              L'Anah instruit et valide votre dossier
-            </h2>
-            <p>
-              La période d'instruction varie grandement en fonction de
-              l'affluence et de la lutte contre la fraude.Une fois validé, vous
-              savez de quelles aides vous allez bénéficier et quand vous les
-              recevrez.
-            </p>
-          </Card>
+          {hasMPRA && (
+            <>
+              <Card>
+                <h2>
+                  <Image src={iconSend} alt="icone envoyer" />
+                  Déposez le dossier auprès de l'Anah
+                </h2>
+                <p>
+                  Vous pouvez le faire avec l'aide de votre Accompagnateur
+                  Rénov', votre mandataire ou directement depuis la plateforme
+                  que vous a communiqué le conseiller.Les dossiers les mieux
+                  préparés sont instruits plus rapidement.
+                </p>
+              </Card>
+              <Card>
+                <Badge>3 mois d'attente</Badge>
+                <h2>
+                  <Image src={iconValider} alt="icone valider" />
+                  L'Anah instruit et valide votre dossier
+                </h2>
+                <p>
+                  La période d'instruction varie grandement en fonction de
+                  l'affluence et de la lutte contre la fraude.Une fois validé,
+                  vous savez de quelles aides vous allez bénéficier et quand
+                  vous les recevrez.
+                </p>
+              </Card>
+            </>
+          )}
+          {!hasMPRA && (
+            <>
+              <Card>
+                <h2>
+                  <Image src={iconSend} alt="icone envoyer" />
+                  Contactez votre banque pour faire la demande de prêts 0%
+                </h2>
+                <p>
+                  L'éco-PTZ et le prêt avance rénovation (PAR+) sont proposés
+                  par les établissements de crédit et les sociétés de
+                  financement qui ont signé une convention avec l’État.
+                </p>
+              </Card>
+              <Card>
+                <Badge>selon votre capacité d’endettement</Badge>
+                <h2>
+                  <Image src={iconValider} alt="icone valider" />
+                  L’établissement de crédit examine et valide votre demande
+                </h2>
+                <p>
+                  L'établissement ou la société décidera, comme pour toute
+                  demande de prêt, de vous prêter la somme demandée en fonction
+                  de votre endettement préalable et de votre capacité à
+                  rembourser.
+                </p>
+              </Card>
+            </>
+          )}
           <Card>
             <h2>
               <Image src={iconSign} alt="icone signer" />
@@ -220,20 +244,41 @@ export default function AideGeste({
             <p>C'est parti ! Les travaux vont bientôt commencer.</p>
           </Card>
           <Card>
-            <Badge color="blue">optionnel</Badge>
+            {hasMPRA && <Badge color="blue">optionnel</Badge>}
             <h2>
               <Image src={iconEuro} alt="icone euro" />
               Recevez le prêt et démarrez les travaux
             </h2>
-            <p>
-              Si vous êtes éligible, la banque vous verse le montant de votre
-              Eco-PTZ.
-            </p>
-            <p>L'Anah vous verse l'avance MaPrimeRénov'.</p>
+            {hasMPRA ? (
+              <>
+                <p>
+                  Si vous êtes éligible, la banque vous verse le montant de
+                  votre Eco-PTZ.
+                </p>
+                <p>L'Anah vous verse l'avance MaPrimeRénov'.</p>
+              </>
+            ) : (
+              <p>
+                Le versement de l'éco-PTZ peut s'effectuer en 1 seule fois sur
+                la base des devis ou en plusieurs fois sur la base des factures
+                de travaux transmises au fur et à mesure jusqu'à la date de
+                clôture du prêt.
+              </p>
+            )}
             <p>
               Vous pouvez payer l'acompte aux artisans. Les travaux débutent !
             </p>
           </Card>
+          {!hasMPRA && (
+            <Card>
+              <Badge color="blue">optionnel</Badge>
+              <h2>
+                <Image src={iconEuro} alt="icone euro" />
+                Faire la demande d’autres aides complémentaires
+              </h2>
+              <p>Primes CEE, Exonération de taxe foncière, etc.</p>
+            </Card>
+          )}
           <Card>
             <h2>
               <Image src={iconTravaux} alt="icone travaux" />
@@ -247,20 +292,7 @@ export default function AideGeste({
             </ul>
           </Card>
           <Card>
-            <div
-              css={`
-                display: inline-block;
-                text-transform: uppercase;
-                background: #fee7fc;
-                color: #6e445a;
-                padding: 5px 10px;
-                font-weight: bold;
-                margin-bottom: 1rem;
-                font-size: 85%;
-              `}
-            >
-              1 mois d'attente
-            </div>
+            <Badge>1 mois d'attente</Badge>
             <h2>
               <Image src={iconEuro} alt="icone euro" />
               Recevez vos autres aides
@@ -271,20 +303,7 @@ export default function AideGeste({
             </p>
           </Card>
           <Card>
-            <div
-              css={`
-                display: inline-block;
-                text-transform: uppercase;
-                background: #e8edff;
-                color: #0063cb;
-                padding: 5px 10px;
-                font-weight: bold;
-                margin-bottom: 1rem;
-                font-size: 85%;
-              `}
-            >
-              optionnel
-            </div>
+            {hasMPRA && <Badge color="blue">optionnel</Badge>}
             <h2>
               <Image src={iconCard} alt="icone carte de crédit" />
               Remboursement du prêt
