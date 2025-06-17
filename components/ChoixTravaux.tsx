@@ -98,6 +98,15 @@ export const updateTravaux = (
   setSearchParams(encodedSituation, 'replace', false)
 }
 
+export async function isEligibleReseauChaleur(coordinates) {
+  const [lat, lon] = coordinates.split(',')
+  const response = await fetch(`/api/fcu?lat=${lat}&lon=${lon}`)
+  if (!response.ok) return false
+
+  const json = await response.json()
+  return json.isEligible
+}
+
 export default function ChoixTravaux({
   situation,
   answeredQuestions,
@@ -108,6 +117,17 @@ export default function ChoixTravaux({
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
   let travauxEnvisages = getTravauxEnvisages(situation)
+
+  // Test raccordement réseau chaleur, via FCU
+  isEligibleReseauChaleur(
+    situation['logement . coordonnees'].replaceAll('"', ''),
+  ).then((eligibility) => {
+    console.log('eligibility', eligibility)
+    if (eligibility) {
+      gestes.chauffage['gestes . chauffage . raccordement réseau . chaleur'] =
+        'Raccordement à un réseau de chaleur'
+    }
+  })
 
   const handleCheckCategorie = (categorie) => {
     if (isCategorieChecked(categorie, travauxEnvisages, categoriesCochees)) {

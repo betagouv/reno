@@ -107,7 +107,7 @@ export default function DPEAddressSearch({
                   setInput(label)
                   //setCoordinates(result.geometry.coordinates)
                   setClicked(result)
-                  onChange && onChange(result.properties)
+                  onChange && onChange(result)
                 }}
               >
                 <span>{label}</span>
