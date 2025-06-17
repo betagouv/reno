@@ -27,9 +27,6 @@ export default function QuestionDescription({ currentQuestion, rule }) {
       <details
         open={isOpen}
         css={`
-          border-radius: 5px;
-          background: #e8edff;
-          padding: 0.5rem 1rem;
           margin-top: 1rem;
         `}
       >
@@ -45,6 +42,9 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             &::marker {
               display: none;
             }
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--lighterColor);
+            color: var(--color);
           `}
           onClick={handleSummaryClick}
         >
@@ -60,8 +60,8 @@ export default function QuestionDescription({ currentQuestion, rule }) {
           <span
             css={`
               border-radius: 50px;
-              border: 1px solid #0974f6;
-              color: #0974f6;
+              border: 1px solid var(--color);
+              color: var(--color);
               padding: 0.5rem 0.8rem;
               display: flex;
               align-items: center;
@@ -96,7 +96,9 @@ export default function QuestionDescription({ currentQuestion, rule }) {
         <div
           dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
           css={`
-            margin-top: 1rem;
+            border-radius: 5px;
+            background: #e8edff;
+            padding: 0.5rem 1rem;
             blockquote {
               margin-top: 0.8rem;
               border-left: 4px solid var(--lighterColor);
