@@ -1,14 +1,9 @@
 import { Card, ExternalLink } from '@/components/UI'
 import { getAdresse } from './MarSearch'
+import NotFound from './NotFound'
 
 export default function Entreprise({ data }) {
-  if (!data)
-    return (
-      <p>
-        Conseiller non trouvé, n'hésitez pas à choisir la grande ville près de
-        chez vous.
-      </p>
-    )
+  if (!data) return <NotFound />
   const [nom, rue, ville] = getAdresse(data)
   // le {nom} de l'entité n'est pas très utile, car c'est toujours empiriquement "Espace France Rénov' [ville ou EPCI], le complementx de l'adresse est plus informatif
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
