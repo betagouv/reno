@@ -43,7 +43,7 @@ const Tel = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 2.6rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.4rem;
   width: 23rem;
   a {
     color: inherit;
