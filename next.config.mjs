@@ -24,6 +24,10 @@ const nextConfig = {
   },
   webpack: (config, options) => {
     config.module.rules.push({
+      test: /\.woff2$/,
+      type: 'asset/resource',
+    })
+    config.module.rules.push({
       test: /(\.ya?ml$)|\.publicodes/,
       use: 'yaml-loader',
     })
