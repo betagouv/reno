@@ -19,18 +19,22 @@ export default function DPEScenario({
   if (choice == null) return null
 
   const isMobile = window.innerWidth <= 600
-
-  const revenuClasseValue = engine
-    .setSituation(situation)
-    .evaluate('ménage . revenu . classe').nodeValue
+  const engineSituation = engine.setSituation(situation)
+  const revenuClasseValue = engineSituation.evaluate(
+    'ménage . revenu . classe',
+  ).nodeValue
 
   const isModeste = revenuClasseValue.includes('modeste')
-  const bonusSortiePassoire = engine
-    .setSituation(situation)
-    .evaluate('MPR . accompagnée . bonus').nodeValue
+  const bonusSortiePassoire = engineSituation.evaluate(
+    'MPR . accompagnée . bonus',
+  ).nodeValue
+  const montantTravaux =
+    situation['projet . travaux'] ||
+    engineSituation.evaluate('projet . travaux').nodeValue
   const futureSituation = {
     ...situation,
     'projet . DPE visé': choice + 1,
+    'projet . travaux': montantTravaux,
   }
   return (
     <CalculatorWidget isMobile={isMobile}>
@@ -58,7 +62,7 @@ export default function DPEScenario({
             gap: 0.5rem;
           `}
         >
-          <div>Budget de travaux de rénovation:</div>
+          <div>Budget de travaux de rénovation&nbsp;:</div>
           <div
             css={`
               margin: auto;
@@ -91,7 +95,7 @@ export default function DPEScenario({
                   max-width: 4rem;
                 `}
                 autoFocus={false}
-                value={situation['projet . travaux']}
+                value={montantTravaux}
                 placeholder="mes travaux"
                 min="0"
                 max="999999"
