@@ -35,7 +35,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             outline: none;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             &::-webkit-details-marker {
               display: none;
             }
@@ -45,6 +45,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             padding: 0.5rem 1rem;
             border: 1px solid var(--lighterColor);
             color: var(--color);
+            position: relative;
           `}
           onClick={handleSummaryClick}
         >
@@ -52,7 +53,6 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             css={`margin: 0;
                   font-size: 100%;
                   font-weight: normal;
-				  @media (max-width: 800px){font-size: 90%}
             }`}
           >
             <span aria-hidden="true">💡</span> Comment répondre&nbsp;?
@@ -60,36 +60,38 @@ export default function QuestionDescription({ currentQuestion, rule }) {
           <span
             css={`
               border-radius: 50px;
-              border: 1px solid var(--color);
               color: var(--color);
-              padding: 0.5rem 0.8rem;
+              padding: 0.6rem 0.6rem;
               display: flex;
               align-items: center;
+              position: absolute;
+              right: 0;
+              top: 0.15rem;
             `}
           >
             {isOpen ? (
-              <>
+              <small>
                 Fermer{' '}
                 <Image
                   src={iconReduire}
                   css={`
-                    margin-left: 0.5rem;
+                    margin-left: 0.2rem;
                   `}
                   alt="icone réduire"
                 />
-              </>
+              </small>
             ) : (
-              <>
+              <small>
                 &nbsp;Ouvrir{' '}
                 <Image
                   src={iconReduire}
                   css={`
-                    margin-left: 0.5rem;
+                    margin-left: 0.2rem;
                     transform: rotate(180deg);
                   `}
                   alt="icone réduire"
                 />
-              </>
+              </small>
             )}
           </span>
         </summary>

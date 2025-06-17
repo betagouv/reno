@@ -17,6 +17,7 @@ import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
 import CopyButton from './CopyButton'
 import AvertissementSimulation from './AvertissementSimulation'
+import { CTAWrapper } from './UI'
 
 export const QuestionText = ({
   rule,
@@ -159,18 +160,25 @@ export default function ClassicQuestionWrapper({
         />
         <Notifications {...{ currentQuestion, engine }} />
         <QuestionDescription {...{ currentQuestion, rule }} />
-        <Answers
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            engine,
-            situation,
-          }}
-        />
-        <br />
-        <UserProblemBanner />
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          `}
+        >
+          <Answers
+            {...{
+              answeredQuestions,
+              nextQuestions,
+              currentQuestion,
+              rules,
+              engine,
+              situation,
+            }}
+          />
+          <UserProblemBanner />
+        </div>
       </div>
     </>
   )

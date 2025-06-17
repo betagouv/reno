@@ -1,4 +1,4 @@
-import { Card, LinkStyleButton } from '@/components/UI'
+import { CTA, Card, LinkStyleButton } from '@/components/UI'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import iconEclair from '@/public/eclair.svg'
 import Image from 'next/image'
 import AnswerItem from './AnswerItem'
+import css from '@/components/css/convertToJs'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -75,12 +76,24 @@ export default function Answers({
     answeredQuestions.length !== 0 && (
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
         <summary onClick={preventSummaryClick}>
-          <LinkStyleButton onClick={handleSummaryClick}>
+          <CTA
+            $fontSize="normal"
+            $importance="secondary"
+            style={css`
+              padding: 0.6rem 0;
+              width: 800px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 0.2rem;
+            `}
+            onClick={handleSummaryClick}
+          >
             <Image src={iconEclair} alt="Icone pour modifier ses réponses" />
             {isOpen
               ? closedTitle || 'Cacher mes réponses'
               : 'Modifier mes réponses'}
-          </LinkStyleButton>
+          </CTA>
         </summary>
         {isOpen && (
           <Card
