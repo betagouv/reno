@@ -269,7 +269,12 @@ export default function InputSwitch({
             coordinates: [searchParams.lon, searchParams.lat],
             setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
             onChange: async (adresse) => {
-              const result = await getCommune(null, null, adresse.citycode)
+              const result = await getCommune(
+                null,
+                null,
+                adresse.properties.citycode,
+              )
+
               const newSituation = await enrichSituation({
                 ...situation,
                 'logement . adresse': `"${adresse.label}"`,
@@ -278,6 +283,7 @@ export default function InputSwitch({
                 'logement . EPCI': `"${result.codeEpci}"`,
                 'logement . commune': `"${result.code}"`,
                 'logement . commune . nom': `"${result.nom}"`,
+                'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
               })
               setSearchParams(
                 encodeSituation(newSituation, false, answeredQuestions),

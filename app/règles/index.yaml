@@ -335,6 +335,9 @@ logement . adresse:
   question: Quelle est l'adresse du logement ?
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides.
 
+logement . coordonnees:
+  note: On stocke les coordonnées du logement sous la forme lat,lon afin de pouvoir déterminer son éligibilité au réseau de chaleur grâce à l'API France Chaleur Urbaine
+
 logement . commune:
   formule: logement . adresse
   titre: La commune du logement
