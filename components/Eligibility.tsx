@@ -210,6 +210,19 @@ export default function Eligibility({
                   situation,
                   answeredQuestions,
                   expanded,
+                  addedText: (
+                    <DPEScenario
+                      {...{
+                        rules,
+                        choice: Math.max(situation['DPE . actuel'] - 1 - 2, 0),
+                        oldIndex: situation['DPE . actuel'] - 1,
+                        engine,
+                        situation,
+                        setSearchParams,
+                        answeredQuestions,
+                      }}
+                    />
+                  ),
                 }}
               />
             </div>
