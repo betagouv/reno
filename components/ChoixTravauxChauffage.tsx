@@ -37,7 +37,9 @@ export default function ChoixTravauxChauffage({
     (k) =>
       travauxEnvisages.filter((t) => {
         return (
-          k[0].startsWith(decodeDottedName(t)) && k[0].includes('chauffage')
+          k[0].startsWith(decodeDottedName(t)) &&
+          k[0].includes('chauffage') &&
+          !k[0].includes('solaire')
         )
       }).length,
   )

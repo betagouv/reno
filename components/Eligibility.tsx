@@ -129,33 +129,37 @@ export default function Eligibility({
           isolation: 'Isolation thermique',
           ventilation: 'Ventilation',
           chauffage: 'Chauffage',
+          solaire: 'Solutions solaires',
         }).map((category) => {
           return (
             <div key={category}>
               {isCategorieChecked(category[0], travauxEnvisages) && (
-                <h4>{category[1]}</h4>
+                <>
+                  <h4>{category[1]}</h4>
+
+                  {travauxEnvisages
+                    .filter(
+                      (travaux) =>
+                        travaux.includes(category[0]) &&
+                        rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
+                    )
+                    .map((travaux) => {
+                      return (
+                        <div key={travaux}>
+                          <AideGeste
+                            {...{
+                              engine,
+                              dottedName: decodeDottedName(travaux),
+                              setSearchParams,
+                              answeredQuestions,
+                              situation,
+                            }}
+                          />
+                        </div>
+                      )
+                    })}
+                </>
               )}
-              {travauxEnvisages
-                .filter(
-                  (travaux) =>
-                    travaux.includes(category[0]) &&
-                    rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
-                )
-                .map((travaux) => {
-                  return (
-                    <div key={travaux}>
-                      <AideGeste
-                        {...{
-                          engine,
-                          dottedName: decodeDottedName(travaux),
-                          setSearchParams,
-                          answeredQuestions,
-                          situation,
-                        }}
-                      />
-                    </div>
-                  )
-                })}
             </div>
           )
         })}

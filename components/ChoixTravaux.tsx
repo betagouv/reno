@@ -36,9 +36,17 @@ export const gestes = {
     'gestes . chauffage . bois . chaudière': 'Chaudière',
     'gestes . chauffage . bois': 'Poêles et insert',
     'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
+    'gestes . chauffage . fioul . dépose cuve': 'Dépose de cuve à fioul',
   },
   ventilation: {
     'gestes . ventilation . double flux': 'Ventilation double flux',
+  },
+  solaire: {
+    'gestes . chauffage . solaire . chauffe-eau solaire': 'Chauffe-eau solaire',
+    'gestes . chauffage . solaire . solaire combiné':
+      'Chauffage solaire combiné',
+    'gestes . chauffage . solaire . partie thermique PVT eau':
+      "Partie thermique d'un équipement PVT eau",
   },
 }
 export const isCategorieChecked = (
@@ -122,7 +130,6 @@ export default function ChoixTravaux({
   isEligibleReseauChaleur(
     situation['logement . coordonnees'].replaceAll('"', ''),
   ).then((eligibility) => {
-    console.log('eligibility', eligibility)
     if (eligibility) {
       gestes.chauffage['gestes . chauffage . raccordement réseau . chaleur'] =
         'Raccordement à un réseau de chaleur'
@@ -237,6 +244,24 @@ export default function ChoixTravaux({
             alt="Icone représentant le chauffage d'une maison"
           />
         </section>
+        <section>
+          <h3>
+            <input
+              type="checkbox"
+              onChange={() => handleCheckCategorie('solaire')}
+              checked={isCategorieChecked(
+                'solaire',
+                travauxEnvisages,
+                categoriesCochees,
+              )}
+            />
+            <span>Solutions solaires</span>
+          </h3>
+          <Image
+            src={chauffageGeste}
+            alt="Icone représentant le chauffage d'une maison"
+          />
+        </section>
       </Accordion>
       {isCategorieChecked('isolation', travauxEnvisages, categoriesCochees) && (
         <>
@@ -272,6 +297,35 @@ export default function ChoixTravaux({
           <h4>Chauffages : quelles options vous intéressent ?</h4>
           <Accordion geste="true">
             {Object.entries(gestes['chauffage']).map((item) => {
+              return (
+                <section key={item[0]}>
+                  <h3>
+                    <input
+                      type="checkbox"
+                      onChange={() =>
+                        handleCheckTravaux(
+                          item[0],
+                          situation,
+                          setSearchParams,
+                          answeredQuestions,
+                        )
+                      }
+                      value={item[0]}
+                      checked={isTravailChecked(item[0])}
+                    />
+                    <span>{item[1]}</span>
+                  </h3>
+                </section>
+              )
+            })}
+          </Accordion>
+        </>
+      )}
+      {isCategorieChecked('solaire', travauxEnvisages, categoriesCochees) && (
+        <>
+          <h4>Solutions solaires : quelles options vous intéressent ?</h4>
+          <Accordion geste="true">
+            {Object.entries(gestes['solaire']).map((item) => {
               return (
                 <section key={item[0]}>
                   <h3>
