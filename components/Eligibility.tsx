@@ -18,6 +18,7 @@ import AidesAmpleur from './ampleur/AidesAmpleur'
 import Breadcrumb from './Breadcrumb'
 import AideGeste from './AideGeste'
 import Link from 'next/link'
+import DPEScenario from './mpra/DPEScenario'
 
 export default function Eligibility({
   setSearchParams,
@@ -34,9 +35,13 @@ export default function Eligibility({
   const isInIframe = useIsInIframe()
   const aides = useAides(engine, situation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
+  const hasMPRA =
+    aides.find((aide) => aide.baseDottedName == 'MPR . accompagnée').status ===
+    true
   const showPersonaBar = searchParams.personas != null
 
   const travauxEnvisages = getTravauxEnvisages(situation)
+  const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
 
   useEffect(() => {
     if (isInIframe && sendDataToHost) {
@@ -91,18 +96,31 @@ export default function Eligibility({
               margin: 0.5rem 0 !important;
             `}
           >
-            {hasAides ? (
+            {hasMPRA && (
               <>
                 <span aria-hidden="true">🥳</span> Vous êtes éligible aux aides
                 présentées ci-dessous
               </>
-            ) : (
+            )}
+            {!hasAides && (
               <>
                 Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
                 éligible.
               </>
             )}
+            {!hasMPRA && (
+              <>
+                <span aria-hidden="true">🥳</span> Des prêts et des aides sont
+                disponibles pour vos travaux
+              </>
+            )}
           </p>
+          {hasAides && !hasMPRA && (
+            <p>
+              Si vous n’avez pas encore de plan de travaux, vous pouvez
+              construire votre projet avec un conseiller France Rénov’.
+            </p>
+          )}
         </header>
         <h2>
           <span aria-hidden="true">💶</span> Aides pour vos travaux
@@ -113,7 +131,7 @@ export default function Eligibility({
           chauffage: 'Chauffage',
         }).map((category) => {
           return (
-            <>
+            <div key={category}>
               {isCategorieChecked(category[0], travauxEnvisages) && (
                 <h4>{category[1]}</h4>
               )}
@@ -125,70 +143,78 @@ export default function Eligibility({
                 )
                 .map((travaux) => {
                   return (
-                    <AideGeste
-                      {...{
-                        engine,
-                        dottedName: decodeDottedName(travaux),
-                        setSearchParams,
-                        answeredQuestions,
-                        situation,
-                      }}
-                    />
+                    <div key={travaux}>
+                      <AideGeste
+                        {...{
+                          engine,
+                          dottedName: decodeDottedName(travaux),
+                          setSearchParams,
+                          answeredQuestions,
+                          situation,
+                        }}
+                      />
+                    </div>
                   )
                 })}
-            </>
+            </div>
           )
         })}
-        <Card
-          css={`
-            background: #f4efff;
-            padding: calc(0.5rem + 1vw);
-            > strong {
-              font-size: 120%;
-            }
-            ul {
-              list-style-type: none;
-              padding: 1rem 0;
-              li {
-                padding: 0.2rem 0;
-              }
-            }
-          `}
-        >
-          <strong>Avez-vous pensé à une rénovation plus ambitieuse ?</strong>
-          <ul>
-            <li>📉 Réduction des factures d'énergie</li>
-            <li>🧘 Gain de confort hiver comme été</li>
-            <li>
-              👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
-            </li>
-            <li>
-              🥇 Au moins <strong>60%</strong> des travaux financés
-            </li>
-          </ul>
-          <div
+        {hasMPRA && (
+          <Card
             css={`
-              border-bottom: 1px solid var(--lighterColor2);
-              margin-bottom: 1rem;
-              padding-left: 1.5rem;
-              h3 {
-                font-size: 100%;
+              background: #f4efff;
+              padding: calc(0.5rem + 1vw);
+              > strong {
+                font-size: 120%;
+              }
+              ul {
+                list-style-type: none;
+                padding: 1rem 0;
+                li {
+                  padding: 0.2rem 0;
+                }
               }
             `}
           >
-            <AideAmpleur
-              {...{
-                isEligible: false,
-                engine,
-                dottedName: 'MPR . accompagnée',
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                expanded,
-              }}
-            />
-          </div>
-        </Card>
+            <strong>
+              {travauxConnus
+                ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
+                : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+            </strong>
+            <ul>
+              <li>📉 Réduction des factures d'énergie</li>
+              <li>🧘 Gain de confort hiver comme été</li>
+              <li>
+                👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
+              </li>
+              <li>
+                🥇 Au moins <strong>60%</strong> des travaux financés
+              </li>
+            </ul>
+            <div
+              css={`
+                border-bottom: 1px solid var(--lighterColor2);
+                margin-bottom: 1rem;
+                padding-left: 1.5rem;
+                h3 {
+                  font-size: 100%;
+                }
+              `}
+            >
+              <AideAmpleur
+                {...{
+                  isEligible: false,
+                  engine,
+                  dottedName: 'MPR . accompagnée',
+                  setSearchParams,
+                  situation,
+                  answeredQuestions,
+                  expanded,
+                }}
+              />
+            </div>
+          </Card>
+        )}
         <AidesAmpleur
           {...{
             setSearchParams,
@@ -200,6 +226,26 @@ export default function Eligibility({
             correspondance,
           }}
         />
+        {!hasMPRA && (
+          <>
+            <h4>Et maintenant ?</h4>
+            <p>Un conseiller France Rénov’ peut vous aider à :</p>
+            <ul
+              css={`
+                list-style-type: none;
+                padding: 0;
+                margin-bottom: 2rem;
+              `}
+            >
+              <li>🛠️ Identifier les bons travaux à faire</li>
+              <li>💰 Monter un plan de financement adapté</li>
+              <li>
+                🎯 Accéder aux aides auxquelles vous aurez droit au moment du
+                projet
+              </li>
+            </ul>
+          </>
+        )}
         {isInIframe ? null : <Feedback />}
         <ObtenirAideBaniere
           {...{
