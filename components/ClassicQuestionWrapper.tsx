@@ -172,17 +172,23 @@ export default function ClassicQuestionWrapper({
           />
         )}
         <Notifications {...{ currentQuestion, engine }} />
-        <QuestionDescription {...{ currentQuestion, rule }} />
-        <Answers
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            engine,
-            situation,
-          }}
-        />
+        <div
+          css={`
+            margin-top: 3rem;
+          `}
+        >
+          <QuestionDescription {...{ currentQuestion, rule }} />
+          <Answers
+            {...{
+              answeredQuestions,
+              nextQuestions,
+              currentQuestion,
+              rules,
+              engine,
+              situation,
+            }}
+          />
+        </div>
         <UserProblemBanner />
       </QuestionCard>
     </>

@@ -24,41 +24,35 @@ export default function QuestionDescription({ currentQuestion, rule }) {
   return (
     currentQuestion &&
     rule.description && (
-      <div
-        css={`
-          margin-top: 3rem;
-        `}
-      >
-        <Details open={isOpen}>
-          <summary onClick={preventSummaryClick}>
-            <CTA
-              $fontSize="normal"
-              $importance="emptyBackground"
-              title="Comment répondre"
-              onClick={handleSummaryClick}
-            >
-              <span>
-                <span aria-hidden="true">💡</span> Comment répondre&nbsp;?
-              </span>
-            </CTA>
-          </summary>
-          {isOpen && (
-            <Card>
-              <div
-                dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
-                css={`
-                  blockquote {
-                    margin-top: 0.8rem;
-                    border-left: 4px solid var(--lighterColor);
-                    padding: 0 0.6rem;
-                    color: #333;
-                  }
-                `}
-              />
-            </Card>
-          )}
-        </Details>
-      </div>
+      <Details open={isOpen}>
+        <summary onClick={preventSummaryClick}>
+          <CTA
+            $fontSize="normal"
+            $importance="emptyBackground"
+            title="Comment répondre"
+            onClick={handleSummaryClick}
+          >
+            <span>
+              <span aria-hidden="true">💡</span> Comment répondre&nbsp;?
+            </span>
+          </CTA>
+        </summary>
+        {isOpen && (
+          <Card>
+            <div
+              dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
+              css={`
+                blockquote {
+                  margin-top: 0.8rem;
+                  border-left: 4px solid var(--lighterColor);
+                  padding: 0 0.6rem;
+                  color: #333;
+                }
+              `}
+            />
+          </Card>
+        )}
+      </Details>
     )
   )
 }
