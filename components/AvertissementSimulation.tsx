@@ -28,7 +28,7 @@ export default function AvertissementSimulation() {
             moment de la simulation.
           </p>
           <p>
-             Cette simulation <strong>ne vaut pas pour décision</strong>. Elle
+            Cette simulation <strong>ne vaut pas pour décision</strong>. Elle
             n’engage pas l’Anah, le réseau France Rénov', ou les autres
             organismes financeurs.
           </p>

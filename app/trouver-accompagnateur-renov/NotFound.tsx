@@ -4,11 +4,10 @@ export default function NotFound() {
   return (
     <Section>
       <p>
-        Nous n'avons pas trouvé d'espace Conseil France Rénov' local pour la
-        commune saisie.
+        Nous n'avons pas trouvé d'espace Conseil France Rénov' pour votre territoire.
       </p>
       <p>
-        👉️ Vous pouvez contacter nos téléconseillers pour vous aider dans votre
+        👉️ Appelez un téléconseiller France Rénov' pour vous accompagner dans votre
         démarche :
       </p>
       <Tel>
