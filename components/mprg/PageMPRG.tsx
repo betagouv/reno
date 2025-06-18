@@ -33,7 +33,9 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   }
   const rule = Object.keys(rules).find(
     (rule) =>
-      rules[rule] && rules[rule].titre == decodeURIComponent(params.titre),
+      rules[rule] &&
+      rules[rule].titre == decodeURIComponent(params.titre) &&
+      !rule.includes('type'),
   )
   const situation = {
     ...getSituation(situationSearchParams, rules),
