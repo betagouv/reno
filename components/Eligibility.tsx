@@ -219,8 +219,6 @@ export default function Eligibility({
                     <DPEScenario
                       {...{
                         rules,
-                        choice: Math.max(situation['DPE . actuel'] - 1 - 2, 0),
-                        oldIndex: situation['DPE . actuel'] - 1,
                         engine,
                         situation,
                         setSearchParams,

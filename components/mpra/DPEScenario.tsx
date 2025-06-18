@@ -9,14 +9,15 @@ import { Key } from '../explications/ExplicationUI'
 import CalculatorWidget from '../CalculatorWidget'
 
 export default function DPEScenario({
-  choice,
-  oldIndex,
   engine,
   situation,
   setSearchParams,
   answeredQuestions,
 }) {
-  if (choice == null) return null
+  const value = situation['projet . DPE visé'],
+    oldIndex = +situation['DPE . actuel'] - 1,
+    automaticChoice = Math.max(oldIndex - 2, 0),
+    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   const isMobile = window.innerWidth <= 600
   const engineSituation = engine.setSituation(situation)
