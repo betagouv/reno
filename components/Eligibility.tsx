@@ -90,6 +90,7 @@ export default function Eligibility({
           <CopyButton searchParams={searchParams} />
         </div>
         <header>
+          <h1>Vos résultats</h1>
           <p
             css={`
               font-weight: bold;
