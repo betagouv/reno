@@ -277,7 +277,7 @@ export default function InputSwitch({
 
               const newSituation = await enrichSituation({
                 ...situation,
-                'logement . adresse': `"${adresse.label}"`,
+                'logement . adresse': `"${adresse.properties.label}"`,
                 'logement . code région': `"${result.codeRegion}"`,
                 'logement . code département': `"${result.codeDepartement}"`,
                 'logement . EPCI': `"${result.codeEpci}"`,
