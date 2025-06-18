@@ -32,7 +32,7 @@ export default function EcoPTZ({
             {' '}
             couvrir le reste à charge des travaux{' '}
           </ExternalLink>{' '}
-          du parcours MaPrimeRénov' accompagné.
+          du parcours MaPrimeRénov' parcours accompagné.
         </p>
       )}
       {expanded && (

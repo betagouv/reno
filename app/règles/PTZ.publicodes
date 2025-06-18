@@ -7,7 +7,7 @@ PTZ:
     L'éco-prêt à taux zéro est un prêt à 0 % qui permet de financer des travaux d'amélioration de la performance énergétique d'un logement.
   informations utiles: |
     L'éco-PTZ est particulièrement adapté pour <a href="https://www.service-public.fr/particuliers/vosdroits/F36448" target="_blank"> couvrir le reste à charge des travaux </a> du parcours MaPrimeRénov' accompagné.
-    Il est aussi disponible hors parcours MaPrimeRénov' accompagnée, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905" target="_blank"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
+    Il est aussi disponible hors parcours MaPrimeRénov' parcours accompagné, <a href="https://www.service-public.fr/particuliers/vosdroits/F19905" target="_blank"> de 7 000 € à 30 000 €</a> en fonction du nombre de gestes de rénovation de votre projet.
     Son montant dépendra de votre endettement et de votre capacité à le rembourser.
   conditions éligibilités: |
     - Votre logement doit avoir été construit il y a au moins de 2 ans (à la date du début des travaux)
@@ -15,7 +15,7 @@ PTZ:
     - Un seul éco-prêt à taux zéro peut être accordé par logement (sauf exception)
     - Son montant dépendra de votre endettement et de votre capacité à le rembourser.
     - Vous devez réaliser des travaux par un professionnel RGE qui remplissent l'une des conditions suivantes :
-      - ouvrent droit à l'aide MaPrimeRénov' Parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle
+      - ouvrent droit à l'aide MaPrimeRénov' parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle
       - améliorent d'au moins 35 % la performance énergétique globale du logement et une classe DPE E au minimum pour le volet énergie.
   comment faire: |
     Prenez contact avec [une banque ayant signé une convention avec l'État](https://www2.sgfgas.fr/web/site-public/etablissements-affilies). 
@@ -41,7 +41,7 @@ PTZ:
         <li>installation d'équipements de production d'eau chaude sanitaire utilisant une source d'énergie renouvelable.</li>
       </ul>
 
-    B) soit ouvrent droit à l'aide MaPrimeRénov' Parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle ;
+    B) soit ouvrent droit à l'aide MaPrimeRénov' parcours accompagné ou à MaPrimeRénov' mobilisée en parallèle ;
 
     C) soit permettent d'améliorer d'au moins 35 % la performance énergétique globale du logement, par rapport à la consommation conventionnelle avant travaux. Un audit énergétique réalisé par un diagnostiqueur qualifié doit être effectué au préalable pour déterminer les travaux nécessaires.
 
@@ -100,6 +100,6 @@ PTZ . durée:
       alors: 20 ans
     - sinon: 15 ans 
 PTZ . condition maprimerenov:
-  note: Cette condition permet de savoir si le PTZ est demandé en complément de MaPrimeRénov (parcours accompagnée ou par geste)
+  note: Cette condition permet de savoir si le PTZ est demandé en complément de MaPrimeRénov (parcours accompagné ou rénovation par geste)
   toutes ces conditions:
     - est défini: parcours d'aide

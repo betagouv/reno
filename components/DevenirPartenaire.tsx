@@ -40,7 +40,7 @@ export default function DevenirPartenaire() {
             }
           `}
           src={illustrationIntegration}
-          alt="Simulateur de calcul des aides MaPrimeRénov Parcours Accompagné"
+          alt="Simulateur de calcul des aides MaPrimeRénov parcours accompagné"
         />
         <div>
           <p

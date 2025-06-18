@@ -65,7 +65,7 @@ export function ExplicationMPRG({ situation, engine }) {
       <InapplicableBlock>
         <Image src={crossIcon} alt="Icône d'une croix" />
         <div>
-          <p>Vous n'êtes pas éligible à MaPrimeRénov' par geste.</p>
+          <p>Vous n'êtes pas éligible à MaPrimeRénov' rénovation par geste.</p>
           <small>
             Votre revenu de{' '}
             <span

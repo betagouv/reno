@@ -4,7 +4,7 @@ import { Metadata } from 'next/types'
 export const metadata: Metadata = {
   title: 'Accessibilité - Mes aides réno',
   description:
-    "Le site Mes aides réno respecte les critères de base de l'accessibilité du Web mais n'est pas encore testé face au référentiel d'accessibilité public RGAA",
+    "Le site Mes Aides Réno respecte les critères de base de l'accessibilité du Web mais n'est pas encore testé face au référentiel d'accessibilité public RGAA",
 }
 export default function APIDoc() {
   return (

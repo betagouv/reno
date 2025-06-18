@@ -24,7 +24,7 @@ Le code métier est basé sur le langage [Publicodes](https://publi.codes/) po
 
 ## Mentions légales
 
-Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numériques</a>. Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
+Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numérique</a>. Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
 `
 
 export const metadata: Metadata = {

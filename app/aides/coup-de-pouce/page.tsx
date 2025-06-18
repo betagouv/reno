@@ -7,9 +7,8 @@ import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: 'Aide Coup de Pouce Chauffage',
-  description:
-    "Les aides des fournisseurs d'énergie pour le Coup de Pouce Chauffage.",
+  title: 'Aide "Coup de Pouce" Chauffage',
+  description: `Les aides des fournisseurs d'énergie pour le "Coup de Pouce" Chauffage.`,
 }
 
 export default function CoupDePouce() {
@@ -41,7 +40,7 @@ export default function CoupDePouce() {
               margin-left: 1rem;
             `}
           >
-            Coup de Pouce chauffage
+            "Coup de Pouce" chauffage
           </h1>
         </div>
         <MiseEnAvant>
@@ -78,7 +77,7 @@ export default function CoupDePouce() {
             `}
           >
             Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
-            mais le montant de l'aide Coup de Pouce varie en fonction de vos
+            mais le montant de l'aide "Coup de Pouce" varie en fonction de vos
             revenus.
           </p>
           <p>
@@ -87,12 +86,15 @@ export default function CoupDePouce() {
               href="/aides/ma-prime-renov"
               title="Liste des aides MaPrimeRénov'"
             >
-              <strong>MaPrimeRénov (parcours par geste)</strong>
+              <strong>MaPrimeRénov' rénovation par geste</strong>
             </InternalLink>{' '}
             et <strong>l’éco-prêt à taux zéro</strong>. En revanche, il n'est
             pas cumulable avec{' '}
             <InternalLink href="/aides/cee" title="Liste des aides CEE">
-              <strong>les aides CEE "classiques"</strong>
+              <strong>
+                les aides des fournisseurs d’énergie (certificats d’économies
+                d’énergie – CEE) "classiques"
+              </strong>
             </InternalLink>
           </p>
         </MiseEnAvant>

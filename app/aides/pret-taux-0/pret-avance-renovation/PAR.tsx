@@ -14,7 +14,7 @@ export default function PAR() {
 
   return (
     <>
-      <h1>Le Prêt avance mutation ou rénovation sans intérêt - PAR+</h1>
+      <h1>Le prêt avance rénovation sans intérêt - PAR+</h1>
       <div
         css={`
           display: flex;

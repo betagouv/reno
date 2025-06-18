@@ -98,7 +98,7 @@ MPR . accompagnée . pourcent brut:
               alors: 15 %
             - sinon: 20 %
   description: |
-    En 2024, c'est l'ANAH qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
+    En 2024, c'est l'Anah qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
 
     En 2025, le tableau est inchangé mis à part pour la colonne de revenu supérieur, qui vois les montants largement baisser.
 
@@ -106,7 +106,7 @@ MPR . accompagnée . prise en charge MAR:
   description: |
     Mon Accompagnateur Rénov’ est l’interlocuteur de confiance, qui accompagne les projets de travaux de rénovation globale des ménages, depuis l’élaboration du projet (audit énergétique, choix du scénario de travaux, etc.) jusqu’à la fin des travaux.
 
-    Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ Parcours Accompagné et de la subvention travaux de <a href="https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location" target="_blank">Loc’Avantages</a>.
+    Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ parcours accompagné et de la subvention travaux de <a href="https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location" target="_blank">Loc’Avantages</a>.
   conditions éligibilités: |
     - Seuls les professionnels ayant obtenu l'agrément délivré par l’État peuvent intervenir comme Mon Accompagnateur Rénov’. Consultez l'<a href="https://france-renov.gouv.fr/annuaires-professionnels/mon-accompagnateur-renov" target="_blank">annuaire officiel</a> pour trouver un Mon Accompagnateur Rénov’ agréé.
   applicable si: MPR . accompagnée . éligible
@@ -120,7 +120,7 @@ MPR . accompagnée . prise en charge MAR:
 MPR . accompagnée . prise en charge MAR . montant:
   formule: base plafonnée * pourcent
   note: |
-    Le guide de l'ANAH à date du 13 novembre 2024 adopte une description ambigue du plafonnement de cette aide. Or d'après nos informations, le plafonnement s'applique bien à l'assiette, pas au résultat du calcul de la subvention.
+    Le guide de l'Anah à date du 13 novembre 2024 adopte une description ambigue du plafonnement de cette aide. Or d'après nos informations, le plafonnement s'applique bien à l'assiette, pas au résultat du calcul de la subvention.
 
 MPR . accompagnée . prise en charge MAR . base plafonnée:
   formule:
@@ -143,9 +143,9 @@ MPR . accompagnée . prise en charge MAR . prix moyen:
     Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésitez à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
 MPR . accompagnée . prise en charge MAR . pourcent:
   description: |
-    L'État prend en charge tout ou une partie de la prestation du MAR (Mon accompagnateur rénov').
+    L'État prend en charge tout ou une partie de la prestation du MAR (Mon Accompagnateur Rénov').
 
-    Source ANAH : [Panorama des Aides 2025](https://www.anah.gouv.fr/document/panorama-des-aides-2025#page=7), page 7.
+    Source Anah : [Panorama des Aides 2025](https://www.anah.gouv.fr/document/panorama-des-aides-2025#page=7), page 7.
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
@@ -170,7 +170,7 @@ MPR . accompagnée . pourcentage avance:
 
     Mais le décrêt consolidé ne parle d'avance que pour le parcours par geste.
 
-    Le guide de l'ANAH 2025 version 3 janvier évoque lui une avance de 30 % seulement pour les ménages MO/TMO. 
+    Le guide de l'Anah 2025 version 3 janvier évoque lui une avance de 30 % seulement pour les ménages MO/TMO. 
 
   note: Intégrer l'avance dans le modèle aussi pour le parcours par geste, et l'intégrer dans l'interface du site.
 
@@ -192,6 +192,6 @@ MPR . accompagnée . montant avant écrêtement:
   formule: pourcent dont bonus * projet . travaux . plafonnés
 
 MPR . accompagnée . reste à charge:
-  titre: Reste à charge après MaPrimeRénov' ampleur
-  description: Votre reste à charge, c'est-à-dire la portion des travaux que vous devrez payer de votre poche ou via d'autres aides après application de l'aide MaPrimeRénov' ampleur.
+  titre: Reste à charge après MaPrimeRénov' parcours accompagné
+  description: Votre reste à charge, c'est-à-dire la portion des travaux que vous devrez payer de votre poche ou via d'autres aides après application de l'aide MaPrimeRénov' parcours accompagné.
   formule: projet . travaux . TTC - montant écrêté
