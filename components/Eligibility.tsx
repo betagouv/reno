@@ -202,7 +202,7 @@ export default function Eligibility({
                 margin-bottom: 1rem;
                 padding-left: 1.5rem;
                 h3 {
-                  font-size: 100%;
+                  font-size: 90%;
                 }
               `}
             >
