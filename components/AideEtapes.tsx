@@ -203,7 +203,7 @@ export default function AideEtapes({
                 </h2>
                 <p>
                   La période d'instruction varie grandement en fonction de
-                  l'affluence et de la lutte contre la fraude.Une fois validé,
+                  l'affluence et de la lutte contre la fraude. Une fois validé,
                   vous savez de quelles aides vous allez bénéficier et quand
                   vous les recevrez.
                 </p>
@@ -256,20 +256,27 @@ export default function AideEtapes({
                 <p>
                   Si vous êtes éligible, la banque vous verse le montant de
                   votre Eco-PTZ.
+                  <br />
+                  L'Anah vous verse l'avance MaPrimeRénov'.
+                  <br />
+                  Vous pouvez payer l'acompte aux artisans. Les travaux débutent
+                  !
                 </p>
-                <p>L'Anah vous verse l'avance MaPrimeRénov'.</p>
               </>
             ) : (
-              <p>
-                Le versement de l'éco-PTZ peut s'effectuer en 1 seule fois sur
-                la base des devis ou en plusieurs fois sur la base des factures
-                de travaux transmises au fur et à mesure jusqu'à la date de
-                clôture du prêt.
-              </p>
+              <>
+                <p>
+                  Le versement de l'éco-PTZ peut s'effectuer en 1 seule fois sur
+                  la base des devis ou en plusieurs fois sur la base des
+                  factures de travaux transmises au fur et à mesure jusqu'à la
+                  date de clôture du prêt.
+                </p>
+                <p>
+                  Vous pouvez payer l'acompte aux artisans. Les travaux débutent
+                  !
+                </p>
+              </>
             )}
-            <p>
-              Vous pouvez payer l'acompte aux artisans. Les travaux débutent !
-            </p>
           </Card>
           {!hasMPRA && (
             <Card>
