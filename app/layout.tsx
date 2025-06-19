@@ -6,6 +6,7 @@ import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
 import { description } from './page'
 import FooterContent from '@/components/FooterContent'
+import Banner from '@/components/Banner'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -67,6 +68,7 @@ export default function RootLayout({
       <body className={marianneFont.className}>
         <StyledComponentsRegistry>
           <Header />
+          <Banner />
           {children}
           <Footer>
             <FooterContent />
