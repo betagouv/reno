@@ -37,19 +37,6 @@ export default function AideDetails({
                 Eligibilité: setSearchParams(
                   {
                     ...encodeSituation(
-                      omit(["parcours d'aide", 'details'], situation),
-                      false,
-                      answeredQuestions,
-                    ),
-                  },
-                  'url',
-                  true,
-                ),
-              },
-              {
-                Ampleur: setSearchParams(
-                  {
-                    ...encodeSituation(
                       omit(['details'], situation),
                       false,
                       answeredQuestions,
