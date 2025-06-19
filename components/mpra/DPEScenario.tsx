@@ -5,7 +5,6 @@ import Image from 'next/image'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import editIcon from '@/public/crayon.svg'
-import { Key } from '../explications/ExplicationUI'
 import CalculatorWidget from '../CalculatorWidget'
 
 export default function DPEScenario({
