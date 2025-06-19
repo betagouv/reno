@@ -169,13 +169,15 @@ export default function AideEtapes({
             </h2>
             <p>
               Après votre rendez-vous avec un conseiller, contactez des artisans
-              RGE pour obtenir leurs devis.{' '}
+              RGE pour obtenir leurs devis.
+            </p>
+            <p>
               {hasMPRA &&
                 "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
             </p>
             {hasMPRA && (
               <p>
-                <strong>Important</strong> : ne signez pas encore les devis
+                <strong>Important</strong> : ne signez pas encore les devis.
               </p>
             )}
           </Card>
@@ -189,7 +191,7 @@ export default function AideEtapes({
                 <p>
                   Vous pouvez le faire avec l'aide de votre Accompagnateur
                   Rénov', votre mandataire ou directement depuis la plateforme
-                  que vous a communiqué le conseiller.Les dossiers les mieux
+                  que vous a communiqué le conseiller. Les dossiers les mieux
                   préparés sont instruits plus rapidement.
                 </p>
               </Card>
