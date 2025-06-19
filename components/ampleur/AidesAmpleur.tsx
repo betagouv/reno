@@ -38,30 +38,22 @@ export default function AidesAmpleur({
     let lastType = null
     return (
       <>
-        <h2 title={title}>
-          <span
-            css={`
-              color: var(--color);
-            `}
-            dangerouslySetInnerHTML={{
-              __html:
-                title +
-                '&nbsp;' +
-                (isEligible === false
-                  ? `<strong style="color: var(--color);">${aidesList.length}</strong>&nbsp;aides`
-                  : ''),
-            }}
-          />
-        </h2>
-        {isEligible === null && (
-          <p
-            css={`
-              margin-bottom: 1.5rem;
-            `}
-          >
-            C'est à vous de vous renseigner pour ces aides, car nous n'avons pas
-            pu déterminer votre éligibilité :
-          </p>
+        {isEligible !== null && (
+          <h2 title={title}>
+            <span
+              css={`
+                color: var(--color);
+              `}
+              dangerouslySetInnerHTML={{
+                __html:
+                  title +
+                  '&nbsp;' +
+                  (isEligible === false
+                    ? `<strong style="color: var(--color);">${aidesList.length}</strong>&nbsp;aides`
+                    : ''),
+              }}
+            />
+          </h2>
         )}
         {isEligible === false && (
           <p
@@ -98,6 +90,27 @@ export default function AidesAmpleur({
                       <>Exonérations fiscales</>
                     )}
                   </div>
+                )}
+
+                {isEligible === null && (
+                  <>
+                    <div
+                      css={`
+                        font-weight: bold;
+                        margin: 1rem 0 0 0;
+                      `}
+                    >
+                      {title}
+                    </div>
+                    <p
+                      css={`
+                        margin-bottom: 1.5rem;
+                      `}
+                    >
+                      C'est à vous de vous renseigner pour ces aides, car nous
+                      n'avons pas pu déterminer votre éligibilité :
+                    </p>
+                  </>
                 )}
                 <div
                   id={'aide-' + encodeDottedName(aide.baseDottedName)}
@@ -195,14 +208,10 @@ export default function AidesAmpleur({
         </h1>*/}
         {renderAides(
           eligibles,
-          '<span aria-hidden="true">🏦</span> Avantages et prêts',
+          '<span aria-hidden="true">🏦</span> Autres aides complémentaires',
           true,
         )}
-        {renderAides(
-          neSaisPas,
-          '<span aria-hidden="true">🤔</span> Aides potentielles',
-          null,
-        )}
+        {renderAides(neSaisPas, 'Aides potentielles', null)}
         {renderAides(
           nonEligibles,
           '<span aria-hidden="true">⛔</span> Non éligible à',
