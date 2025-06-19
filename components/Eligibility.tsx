@@ -10,7 +10,7 @@ import { useAides } from './ampleur/useAides'
 import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
 import { correspondance } from '@/app/simulation/Form'
@@ -287,9 +287,9 @@ export const ObtenirAideBaniere = ({
         bottom: 0;
         left: 0;
         right: 0;
-        background: white;
+        background: var(--color);
         color: white;
-        padding: 1rem;
+        padding: 0;
         border-top: 1px solid #ddd;
         text-align: center;
         z-index: 1000;
