@@ -309,17 +309,19 @@ export const ConstraintedParagraphs = styled.div`
 
 export const BlocAide = styled.div`
   text-align: left;
-  padding: 1.5rem 1.5rem 1.75rem;
-  border: 1px solid #ddd;
-  border-bottom: 3px solid var(--color);
+  ${(p) => p.display == "geste" ? 
+    'padding: 0.5rem 0.5rem 0.5rem 1.75rem;border-bottom: 1px solid #ddd;' : 
+    'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
   background: white;
   margin-bottom: 1rem;
   .aide-header {
     display: flex;
     align-items: center;
-    color: #2a82dd;
     font-weight: 500;
-
+    h2 {
+      color: black;
+    }
+    ${(p) => p.display == "geste" && "margin-bottom: 1rem;"}
     > img {
       margin-right: 1.4rem;
       width: 3.5rem;
@@ -333,6 +335,7 @@ export const BlocAide = styled.div`
     font-size: 130%;
   }
   .aide-details {
+    margin-top: 1rem;
     font-size: 0.9rem;
     line-height: 1.25rem;
     color: #3a3a3a;

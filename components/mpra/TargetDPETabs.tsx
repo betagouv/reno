@@ -14,17 +14,15 @@ export default function TargetDPETabs({
 }) {
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
-  const doSetSearchParams = (question, value) => {
+  const doSetSearchParams = (value) => {
     push(['trackEvent', 'Module', 'Interaction', 'DPE visé ' + value])
-    const newSituation = encodeSituation(
-      {
-        ...situation,
-        [question]: value,
-      },
+    setSearchParams(
+      encodeSituation({
+        'projet . DPE visé': value + '*',
+      }),
+      'replace',
       false,
-      answeredQuestions,
     )
-    setSearchParams(newSituation, 'push')
   }
   return (
     <div
@@ -72,9 +70,7 @@ export default function TargetDPETabs({
                   type="radio"
                   name={index}
                   checked={index === choice}
-                  onChange={() =>
-                    doSetSearchParams('projet . DPE visé', index + 1)
-                  }
+                  onChange={() => doSetSearchParams(index + 1)}
                 />
                 <DPELabel index={index} small={false} />
               </label>

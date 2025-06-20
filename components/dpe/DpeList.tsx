@@ -12,7 +12,6 @@ const spec = {
 }
 
 export default function DpeList({ dpes: rawDpes, startOpen = true, latLon }) {
-  console.log('plop', startOpen)
   if (!rawDpes) return
 
   const dpes = enrich(rawDpes)
