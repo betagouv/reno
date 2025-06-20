@@ -57,6 +57,9 @@ export default function Eligibility({
           color: var(--color);
           font-size: 120%;
         }
+        h3 {
+          font-weight: normal;
+        }
       `}
     >
       <PersonaBar
@@ -93,14 +96,13 @@ export default function Eligibility({
           <h1>Vos résultats</h1>
           <p
             css={`
-              font-weight: bold;
               margin: 0.5rem 0 !important;
             `}
           >
             {hasMPRA && (
               <>
                 <span aria-hidden="true">🥳</span> Vous êtes éligible aux aides
-                présentées ci-dessous
+                présentées ci-dessous :
               </>
             )}
             {!hasAides && (
@@ -137,7 +139,9 @@ export default function Eligibility({
               {isCategorieChecked(category[0], travauxEnvisages) && (
                 <>
                   <h4>{category[1]}</h4>
-
+                  {category[0] == 'isolation' && (
+                    <p>Murs, toit, plancher, portes et fenêtres</p>
+                  )}
                   {travauxEnvisages
                     .filter(
                       (travaux) =>
