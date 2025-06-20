@@ -394,7 +394,7 @@ const Accordion = styled.div`
       font-size: 100%;
       display: flex;
       align-items: center;
-      border-right: 1px solid #dfdff0;
+      ${(p) => !p.geste && 'border-right: 1px solid #dfdff0;'}
       input {
         width: 1.6rem;
         height: 1.6rem;
