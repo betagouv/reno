@@ -293,14 +293,14 @@ export default function InputSwitch({
             },
           }}
         />
-        <DPEMap
+        {/* <DPEMap
           {...{
             searchParams,
             addressResults,
             dpeListStartOpen: false,
             showDpeList: false,
           }}
-        />
+        /> */}
       </ClassicQuestionWrapper>
     )
 
