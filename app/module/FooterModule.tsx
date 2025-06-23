@@ -14,10 +14,10 @@ export default function FooterModule() {
         align-items: start;
         justify-content: center;
         margin-bottom: -1rem;
+        gap: 1rem;
 
         p {
           margin: 0;
-          margin-left: 1rem;
         }
       `}
     >
