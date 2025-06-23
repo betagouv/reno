@@ -85,7 +85,7 @@ const Section = styled.section`
     }
     > div {
       margin-top: 1rem;
-      font-size: 85%;
+      font-size: 90%;
     }
   }
 
