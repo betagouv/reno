@@ -12,6 +12,7 @@ export default function UserProblemBanner() {
         width: 800px;
         max-width: 100%;
         text-align: center;
+        border-color: #dddddd;
       `}
     >
       <Link href="/faq">👋 J'ai besoin d'aide</Link>

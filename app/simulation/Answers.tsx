@@ -1,14 +1,14 @@
-import { CTA, Card, LinkStyleButton } from '@/components/UI'
+import { CTA, Card } from '@/components/UI'
+import css from '@/components/css/convertToJs'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
+import iconEclair from '@/public/eclair.svg'
 import { push } from '@socialgouv/matomo-next'
+import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconEclair from '@/public/eclair.svg'
-import Image from 'next/image'
 import AnswerItem from './AnswerItem'
-import css from '@/components/css/convertToJs'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -86,10 +86,11 @@ export default function Answers({
               justify-content: center;
               align-items: center;
               gap: 0.2rem;
+              border-color: #dddddd;
             `}
             onClick={handleSummaryClick}
           >
-            <Image src={iconEclair} alt="Icone pour modifier ses réponses" />
+            ✍️{' '}
             {isOpen
               ? closedTitle || 'Cacher mes réponses'
               : 'Modifier mes réponses'}
