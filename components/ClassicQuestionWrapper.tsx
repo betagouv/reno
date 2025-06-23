@@ -166,26 +166,32 @@ export default function ClassicQuestionWrapper({
           }}
         />
         <Notifications {...{ currentQuestion, engine }} />
-        <QuestionDescription {...{ currentQuestion, rule }} />
-        <div
+        <section
           css={`
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            margin-top: 8vh;
           `}
         >
-          <Answers
-            {...{
-              answeredQuestions,
-              nextQuestions,
-              currentQuestion,
-              rules,
-              engine,
-              situation,
-            }}
-          />
-          <UserProblemBanner />
-        </div>
+          <QuestionDescription {...{ currentQuestion, rule }} />
+          <div
+            css={`
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+            `}
+          >
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                engine,
+                situation,
+              }}
+            />
+            <UserProblemBanner />
+          </div>
+        </section>
       </div>
     </>
   )
