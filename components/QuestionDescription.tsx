@@ -55,45 +55,9 @@ export default function QuestionDescription({ currentQuestion, rule }) {
                   font-weight: normal;
             }`}
           >
-            <span aria-hidden="true">💡</span> Comment répondre&nbsp;?
+            <span aria-hidden="true">💡</span>{' '}
+            {isOpen ? "Cacher l'aide" : 'Comment répondre ?'}
           </h2>
-          <span
-            css={`
-              border-radius: 50px;
-              color: var(--color);
-              padding: 0.6rem 0.6rem;
-              display: flex;
-              align-items: center;
-              position: absolute;
-              right: 0;
-              top: 0.15rem;
-            `}
-          >
-            {isOpen ? (
-              <small>
-                Fermer{' '}
-                <Image
-                  src={iconReduire}
-                  css={`
-                    margin-left: 0.2rem;
-                  `}
-                  alt="icone réduire"
-                />
-              </small>
-            ) : (
-              <small>
-                &nbsp;Ouvrir{' '}
-                <Image
-                  src={iconReduire}
-                  css={`
-                    margin-left: 0.2rem;
-                    transform: rotate(180deg);
-                  `}
-                  alt="icone réduire"
-                />
-              </small>
-            )}
-          </span>
         </summary>
         <div
           dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
