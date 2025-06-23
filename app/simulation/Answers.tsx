@@ -231,7 +231,7 @@ const Details = styled.details`
     margin-top: 0.6rem;
   }
   summary{
-    cursor: default;
+    cursor: pointer;
     display: flex;
     margin-top: 1vh;
     align-items: center;
