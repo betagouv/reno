@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import isolationGeste from '@/public/isolation_geste.svg'
 import ventilationGeste from '@/public/ventilation_geste.svg'
 import chauffageGeste from '@/public/chauffage_geste.svg'
+import solaireGeste from '@/public/solaire_geste.svg'
 import Image from 'next/image'
 import {
   decodeDottedName,
@@ -17,7 +18,7 @@ import { omit } from './utils'
 import { ObtenirAideBaniere } from './Eligibility'
 
 export const getTravauxEnvisages = (situation) =>
-  situation['projet . travaux envisagés']
+  situation['projet . définition . travaux envisagés']
     ?.split(',')
     .map((t) => t.replaceAll('"', '')) || []
 
@@ -94,10 +95,10 @@ export const updateTravaux = (
 ) => {
   const encodedSituation = encodeSituation(
     !travauxEnvisages.length
-      ? omit(['projet . travaux envisagés'], situation)
+      ? omit(['projet . définition . travaux envisagés'], situation)
       : {
           ...situation,
-          ['projet . travaux envisagés']: `"${travauxEnvisages.join(',')}"`,
+          ['projet . définition . travaux envisagés']: `"${travauxEnvisages.join(',')}"`,
         },
     false,
     answeredQuestions,
@@ -120,7 +121,6 @@ export default function ChoixTravaux({
   answeredQuestions,
   setSearchParams,
 }) {
-  const [categoriesCochees, setCategoriesCochees] = useState([])
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 400,
   )
@@ -136,25 +136,6 @@ export default function ChoixTravaux({
     }
   })
 
-  const handleCheckCategorie = (categorie) => {
-    if (isCategorieChecked(categorie, travauxEnvisages, categoriesCochees)) {
-      travauxEnvisages = travauxEnvisages
-        ?.filter(
-          (t) => !Object.keys(gestes[categorie]).includes(decodeDottedName(t)),
-        )
-        .filter((t) => !t.includes(categorie))
-      setCategoriesCochees((prev) => prev.filter((c) => c != categorie))
-      updateTravaux(
-        situation,
-        setSearchParams,
-        travauxEnvisages,
-        answeredQuestions,
-      )
-    } else {
-      setCategoriesCochees((prev) => [...prev, categorie])
-    }
-  }
-
   const isTravailChecked = (value) => {
     return (
       encodeDottedName(value)
@@ -162,110 +143,35 @@ export default function ChoixTravaux({
         .filter((t) => travauxEnvisages.includes(t)).length > 0
     )
   }
-
-  const isChauffageChecked = isCategorieChecked(
-    'chauffage',
-    travauxEnvisages,
-    categoriesCochees,
-  )
+  const categories = situation[
+    'projet . définition . catégories travaux envisagées'
+  ]
+    .replaceAll('"', '')
+    .split(',')
+  console.log('categories', categories)
 
   return (
-    <>
-      <Accordion>
-        <section>
-          <h3>
-            <input
-              type="checkbox"
-              onChange={() => handleCheckCategorie('isolation')}
-              checked={isCategorieChecked(
-                'isolation',
-                travauxEnvisages,
-                categoriesCochees,
-              )}
-            />
-            <span>
-              Isolation thermique
-              <span className="sousTitre">
-                Murs, plancher, toit, portes et fenêtres
-              </span>
-            </span>
-          </h3>
-          <Image src={isolationGeste} alt="Icone d'isolation d'une maison" />
-        </section>
-        <section>
-          <h3>
-            <input
-              type="checkbox"
-              onChange={() => {
-                handleCheckCategorie('ventilation')
-                handleCheckTravaux(
-                  'gestes . ventilation . double flux',
-                  situation,
-                  setSearchParams,
-                  answeredQuestions,
-                )
-              }}
-              checked={isCategorieChecked(
-                'ventilation',
-                travauxEnvisages,
-                categoriesCochees,
-              )}
-            />
-            <span>
-              Ventilation
-              <span className="sousTitre">VMC</span>
-            </span>
-          </h3>
-          <Image
-            src={ventilationGeste}
-            alt="Icone représentant la ventilation d'une maison"
-          />
-        </section>
-        <section>
-          <h3>
-            <input
-              type="checkbox"
-              onChange={() => handleCheckCategorie('chauffage')}
-              checked={isCategorieChecked(
-                'chauffage',
-                travauxEnvisages,
-                categoriesCochees,
-              )}
-            />
-            <span>
-              Chauffage et eau chaude
-              <span className="sousTitre">
-                Pompe à chaleur, poêle, chauffe-eau...
-              </span>
-            </span>
-          </h3>
-          <Image
-            src={chauffageGeste}
-            alt="Icone représentant le chauffage d'une maison"
-          />
-        </section>
-        <section>
-          <h3>
-            <input
-              type="checkbox"
-              onChange={() => handleCheckCategorie('solaire')}
-              checked={isCategorieChecked(
-                'solaire',
-                travauxEnvisages,
-                categoriesCochees,
-              )}
-            />
-            <span>Solutions solaires</span>
-          </h3>
-          <Image
-            src={chauffageGeste}
-            alt="Icone représentant le chauffage d'une maison"
-          />
-        </section>
-      </Accordion>
-      {isCategorieChecked('isolation', travauxEnvisages, categoriesCochees) && (
+    <div
+      css={`
+        h4 {
+          display: flex;
+          gap: 1rem;
+          margin: 2em 0 1em 0;
+          &:first-of-type {
+            margin-top: 1em;
+          }
+        }
+      `}
+    >
+      {categories.includes('isolation') && (
         <>
-          <h4>Isolation : Quels problèmes constatez-vous ?</h4>
+          <h4>
+            <Image
+              src={isolationGeste}
+              alt={`Icone représentant l'isolation d'une maison`}
+            />
+            Isolation :<br /> Quels problèmes constatez-vous ?
+          </h4>
           <Accordion geste="true">
             {Object.entries(gestes['isolation']).map((item) => {
               return (
@@ -292,9 +198,15 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
-      {isChauffageChecked && (
+      {categories.includes('chauffage') && (
         <>
-          <h4>Chauffages : quelles options vous intéressent ?</h4>
+          <h4>
+            <Image
+              src={chauffageGeste}
+              alt={`Icone représentant le chauffage d'une maison`}
+            />
+            Chauffages :<br /> Quelles options vous intéressent ?
+          </h4>
           <Accordion geste="true">
             {Object.entries(gestes['chauffage']).map((item) => {
               return (
@@ -321,9 +233,15 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
-      {isCategorieChecked('solaire', travauxEnvisages, categoriesCochees) && (
+      {categories.includes('solaire') && (
         <>
-          <h4>Solutions solaires : quelles options vous intéressent ?</h4>
+          <h4>
+            <Image
+              src={solaireGeste}
+              alt={`Icone représentant le chauffage d'une maison`}
+            />
+            Solutions solaires :<br /> Quelles options vous intéressent ?
+          </h4>
           <Accordion geste="true">
             {Object.entries(gestes['solaire']).map((item) => {
               return (
@@ -350,29 +268,7 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
-      <ObtenirAideBaniere
-        {...{
-          setSearchParams,
-          isVisible: travauxEnvisages.length > 0,
-          label: 'Voir mes aides',
-          link: setSearchParams(
-            isChauffageChecked
-              ? { objectif: 'projet.travaux envisagés chauffage' }
-              : {
-                  ...encodeSituation(
-                    {
-                      ...situation,
-                    },
-                    false,
-                    [...answeredQuestions, 'projet . travaux envisagés'],
-                  ),
-                  question: undefined,
-                },
-            'url',
-          ),
-        }}
-      />
-    </>
+    </div>
   )
 }
 

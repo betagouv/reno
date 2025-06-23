@@ -9,7 +9,8 @@ aides:
     une de ces conditions:
       - toutes ces conditions:
           - projet . définition = "travaux connus"
-          - est défini: projet . travaux envisagés
+          - est défini: projet . définition . catégories travaux envisagées
+          - est défini: projet . définition . travaux envisagés
       - projet . définition = "travaux inconnus"
   somme:
     - ampleur . tous les dispositifs # ampleur.yaml
@@ -683,10 +684,14 @@ projet . définition . travaux connus:
 projet . définition . travaux inconnus:
   valeur: '"travaux inconnus"'
   titre: 'Je veux voir les aides disponibles, je ne connais pas encore mes travaux'
-projet . travaux envisagés:
+
+projet . définition . catégories travaux envisagées:
   applicable si: définition = 'travaux connus'
   question: Sur quoi souhaitez-vous intervenir ?
-projet . travaux envisagés chauffage:
+projet . définition . travaux envisagés:
+  applicable si: définition = 'travaux connus'
+  question: Sur quoi souhaitez-vous intervenir ?
+projet . définition . travaux envisagés chauffage:
   applicable si: définition = 'travaux connus'
   question: 'Chauffages : quelles options vous intéressent ?'
 

@@ -22,6 +22,7 @@ import ChoixTravaux, {
 import { useSendDataToHost } from './useIsInIframe'
 import Consentement from './Consentement'
 import ChoixTravauxChauffage from './ChoixTravauxChauffage'
+import ChoixCategorieTravaux from './ChoixCategorieTravaux'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -42,7 +43,6 @@ export default function InputSwitch({
   const rule = rules[currentQuestion]
   const evaluation =
     currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
-
   const ruleQuestionType = currentQuestion && questionType(evaluation, rule)
   const rawValue = situation[currentQuestion]
   const currentValue =
@@ -303,8 +303,7 @@ export default function InputSwitch({
         /> */}
       </ClassicQuestionWrapper>
     )
-
-  if (currentQuestion === 'projet . travaux envisagés')
+  if (currentQuestion === 'projet . définition . catégories travaux envisagées')
     return (
       <ClassicQuestionWrapper
         {...{
@@ -317,7 +316,32 @@ export default function InputSwitch({
           setSearchParams,
           currentValue,
           engine,
-          noButtons: true,
+        }}
+      >
+        <ChoixCategorieTravaux
+          {...{
+            situation,
+            rules,
+            engine,
+            setSearchParams,
+            answeredQuestions,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  if (currentQuestion === 'projet . définition . travaux envisagés')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
         }}
       >
         <ChoixTravaux
@@ -326,7 +350,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (currentQuestion === 'projet . travaux envisagés chauffage') {
+  if (currentQuestion === 'projet . définition . travaux envisagés chauffage') {
     return (
       <ClassicQuestionWrapper
         {...{

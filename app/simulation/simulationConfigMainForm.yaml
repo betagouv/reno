@@ -13,4 +13,5 @@ prioritaires:
   - ménage . commune
   - DPE . actuel
   - projet . définition
-  - projet . travaux envisagés
+  - projet . définition . catégories travaux envisagées
+  - projet . définition . travaux envisagés

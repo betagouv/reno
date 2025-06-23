@@ -115,7 +115,7 @@ export default function ChoixTravauxChauffage({
             {
               ...encodeSituation(situation, false, [
                 ...answeredQuestions,
-                'projet . travaux envisagés',
+                'projet . définition . travaux envisagés',
               ]),
             },
             'url',
