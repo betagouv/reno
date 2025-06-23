@@ -17,6 +17,7 @@ export default function FormButtons({
   situation,
   rules,
   depuisModule,
+  setAvertissementState,
 }) {
   const mosaicQuestions = isMosaicQuestion(
     currentQuestion,
@@ -107,6 +108,7 @@ export default function FormButtons({
                 'Valide',
                 currentQuestion,
               ])
+              setAvertissementState(false)
             }}
             title="Aller à l'étape suivante"
           >

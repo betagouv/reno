@@ -16,7 +16,9 @@ import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
 import CopyButton from './CopyButton'
-import AvertissementSimulation from './AvertissementSimulation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
 import { CTAWrapper } from './UI'
 
 export const QuestionText = ({
@@ -63,6 +65,8 @@ export default function ClassicQuestionWrapper({
       ? nextQuestions.indexOf("parcours d'aide")
       : nextQuestions.length
 
+  const [avertissementState, setAvertissementState] = useAvertissementState()
+
   return (
     <>
       <ProgressBar
@@ -75,7 +79,9 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
-      <AvertissementSimulation />
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
+      />
       <AmpleurModuleBanner
         {...{
           depuisModule,
@@ -156,6 +162,7 @@ export default function ClassicQuestionWrapper({
             currentQuestion,
             situation,
             depuisModule,
+            setAvertissementState,
           }}
         />
         <Notifications {...{ currentQuestion, engine }} />

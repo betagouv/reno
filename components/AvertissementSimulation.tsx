@@ -1,11 +1,19 @@
 import { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
-export default function AvertissementSimulation() {
+export const useAvertissementState = () => {
   const [open, setOpen] = useState(true)
+
+  return [open, setOpen]
+}
+export default function AvertissementSimulation({
+  avertissementState: open,
+  setAvertissementState: setOpen,
+}) {
   const preventSummaryClick = useCallback((event) => {
     event.preventDefault()
   }, [])
+
   return (
     <Section>
       <details open={open}>
