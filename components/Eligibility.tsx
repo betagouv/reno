@@ -270,46 +270,30 @@ export default function Eligibility({
             </ul>
           </>
         )}
+        <CTAWrapper $justify="left">
+          <CTA $fontSize="normal" $importance="primary">
+            <Link
+              css={`
+                display: flex !important;
+                align-items: center !important;
+              `}
+              href={setSearchParams({ objectif: 'etape' }, 'url')}
+              onClick={() => {
+                push([
+                  'trackEvent',
+                  'Simulateur Principal',
+                  'Eligibilité',
+                  'Obtenir aides',
+                ])
+              }}
+              title="Obtenir mes aides"
+            >
+              Obtenir mes aides
+            </Link>
+          </CTA>
+        </CTAWrapper>
         {isInIframe ? null : <Feedback />}
-        <ObtenirAideBaniere
-          {...{
-            setSearchParams,
-            isVisible: true,
-            link: setSearchParams({ objectif: 'etape' }, 'url'),
-          }}
-        />
       </CustomQuestionWrapper>
     </Section>
-  )
-}
-
-export const ObtenirAideBaniere = ({
-  isVisible,
-  label = 'Obtenir mes aides',
-  link,
-}) => {
-  return (
-    <div
-      css={`
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: var(--color);
-        color: white;
-        padding: 0;
-        border-top: 1px solid #ddd;
-        text-align: center;
-        z-index: 1000;
-        transform: translateY(${isVisible ? '0%' : '100%'});
-        transition: transform 0.5s ease-in-out;
-      `}
-    >
-      <CTAWrapper $justify="center">
-        <CTA $fontSize="normal">
-          <Link href={link}>{label}</Link>
-        </CTA>
-      </CTAWrapper>
-    </div>
   )
 }
