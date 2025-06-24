@@ -20,6 +20,7 @@ import AideGeste from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
 import { categories } from './ChoixCategorieTravaux'
+import Value from './Value'
 
 export default function Eligibility({
   setSearchParams,
@@ -194,7 +195,15 @@ export default function Eligibility({
                 👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
               </li>
               <li>
-                🥇 Au moins <strong>60%</strong> des travaux financés
+                🥇 Au moins
+                <Value
+                  {...{
+                    engine,
+                    situation,
+                    dottedName: 'MPR . accompagnée . pourcent dont bonus',
+                  }}
+                />
+                des travaux financés
               </li>
             </ul>
             <div
