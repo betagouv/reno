@@ -54,7 +54,7 @@ export default function Header() {
 }
 
 const HeaderLogo = styled(Image)`
-  height: 4.5rem;
+  height: 4rem;
   width: auto;
   ${(p) => p.$needsMargin && `margin-left: 0rem;`}
 `
