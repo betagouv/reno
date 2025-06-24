@@ -57,12 +57,9 @@ export default function Page() {
         <Wrapper>
           <Content>
             <div>
-              <DPE avecGES={true} />
+              <DPE avecGES={true} avecLegend={true} />
             </div>
           </Content>
-        </Wrapper>
-        <Wrapper $background="white" $noMargin={true} $last={true}>
-          <Content>Section 2</Content>
         </Wrapper>
       </PageBlock>
     </main>

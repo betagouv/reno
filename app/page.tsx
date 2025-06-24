@@ -12,11 +12,11 @@ import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
+import HomepageModules from './HomepageModules'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
 import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
-import HomepageModules from './HomepageModules'
 
 export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
@@ -34,7 +34,6 @@ export default async function Page(props) {
     <main
       style={css`
         background: white;
-
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
