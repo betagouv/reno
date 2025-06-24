@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react'
 import styled from 'styled-components'
+import Image from 'next/image'
+import euroIcon from '@/public/euro-entouré.svg'
 
 export const useAvertissementState = () => {
   const [open, setOpen] = useState(true)
@@ -63,19 +65,16 @@ export default function AvertissementSimulation({
     </Section>
   )
 }
-
-const Euro = styled.span`
-  border: 1px solid black;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 1rem;
-  display: inline-block;
-  line-height: 1rem;
-  text-align: center;
-  font-size: 85%;
-  vertical-align: text-top;
-  margin-right: 0.2rem;
-`
+const Euro = () => (
+  <Image
+    src={euroIcon}
+    css={`
+      width: 1.25rem;
+      vertical-align: sub;
+      height: auto;
+    `}
+  />
+)
 
 const Section = styled.section`
   margin: 0.6rem auto 1rem;

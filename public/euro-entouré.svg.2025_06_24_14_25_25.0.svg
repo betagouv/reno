@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="210mm"
+   viewBox="0 0 210 210"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="euro-entouré.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.2541123"
+     inkscape:cx="269.56586"
+     inkscape:cy="670.96319"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:13;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="path250"
+       cx="105.61713"
+       cy="105.77594"
+       r="92.223236" />
+    <g
+       aria-label="€"
+       id="text470"
+       style="font-size:165.207px;-inkscape-font-specification:sans-serif;stroke-width:19.8248;stroke-linecap:round;stroke-linejoin:round">
+      <path
+         d="m 52.123358,122.87844 h 15.199044 c 4.130175,29.24164 19.164012,43.28424 40.640918,43.28424 16.02508,0 26.26792,-6.77349 33.53703,-17.01633 l -7.76473,-6.27786 c -5.61704,8.26035 -13.21656,13.87739 -25.44188,13.87739 -15.52946,0 -26.928743,-9.74722 -30.39809,-33.86744 h 50.22293 v -8.75597 H 77.069615 c -0.165207,-2.80852 -0.330414,-5.94745 -0.330414,-9.08638 0,-2.64332 0,-5.121422 0.165207,-7.43432 H 128.11858 V 88.845799 H 77.730443 c 3.138933,-25.276671 14.538216,-35.684712 30.563297,-35.684712 12.22532,0 19.49442,5.782245 25.44188,14.042595 l 7.76473,-6.277866 C 134.06603,50.848189 123.8232,43.909495 107.96332,43.909495 c -21.80732,0 -37.006364,14.703423 -40.806125,44.936304 H 52.123358 V 97.60177 H 66.33116 c -0.165207,2.312898 -0.165207,4.791 -0.165207,7.43432 0,3.13893 0.165207,6.11265 0.330414,9.08638 H 52.123358 Z"
+         style="font-weight:300;font-family:Marianne;-inkscape-font-specification:'Marianne Light'"
+         id="path1003" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:176.389px;font-family:Marianne;-inkscape-font-specification:'Marianne Light';fill:#000000;stroke-width:13;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="-190.72058"
+       y="0.75716871"
+       id="text1741"><tspan
+         sodipodi:role="line"
+         id="tspan1739"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:Marianne;-inkscape-font-specification:'Marianne Medium';stroke-width:13"
+         x="-190.72058"
+         y="0.75716871">€</tspan></text>
+  </g>
+</svg>
