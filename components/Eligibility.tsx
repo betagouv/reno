@@ -11,7 +11,7 @@ import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
 import { useEffect } from 'react'
-import { gestes, getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
+import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
 import { correspondance } from '@/app/simulation/Form'
 import AidesAmpleur from './ampleur/AidesAmpleur'
@@ -19,6 +19,7 @@ import Breadcrumb from './Breadcrumb'
 import AideGeste from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
+import { categories } from './ChoixCategorieTravaux'
 
 export default function Eligibility({
   setSearchParams,
@@ -128,50 +129,42 @@ export default function Eligibility({
         <h2>
           <span aria-hidden="true">💶</span> Aides pour vos travaux
         </h2>
-        {Object.entries({
-          isolation: 'Isolation thermique',
-          ventilation: 'Ventilation',
-          chauffage: 'Chauffage',
-          solaire: 'Solutions solaires',
-        }).map((category) => {
-          return (
-            <div key={category}>
-              {isCategorieChecked(category[0], situation) && (
-                <>
-                  <h4>{category[1]}</h4>
-                  {category[0] == 'isolation' && (
-                    <p>Murs, toit, plancher, portes et fenêtres</p>
-                  )}
-                  {travauxEnvisages
-                    .filter(
-                      (travaux) =>
-                        Object.keys(gestes[category[0]]).includes(
-                          decodeDottedName(travaux),
-                        ) ||
-                        (travaux.includes(category[0]) &&
-                          rules[decodeDottedName(travaux) + ' . montant']),
-                      // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
-                    )
-                    .map((travaux) => {
-                      return (
-                        <div key={travaux}>
-                          <AideGeste
-                            {...{
-                              engine,
-                              dottedName: decodeDottedName(travaux),
-                              setSearchParams,
-                              answeredQuestions,
-                              situation,
-                            }}
-                          />
-                        </div>
-                      )
-                    })}
-                </>
+        {categories
+          .filter((category) => isCategorieChecked(category['code'], situation))
+          .map((category) => (
+            <div key={category['code']}>
+              <h4>{category['titre']}</h4>
+              {category['code'] == 'isolation' && (
+                <p>{category['sousTitre']}</p>
               )}
+              {travauxEnvisages
+                .filter(
+                  (travaux) =>
+                    (Object.keys(category.gestes).includes(
+                      decodeDottedName(travaux),
+                    ) ||
+                      (category['code'] == 'isolation' && // Cas particulier pour l'ITE/ITI regrouper sous un même geste
+                        travaux.includes(category['code'])) ||
+                      (category['code'] == 'chauffage' && // Condition pour éviter que certains gestes "solaire" soit classé en "chauffage"
+                        !travaux.includes('solaire') &&
+                        travaux.includes(category['code']))) &&
+                    rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
+                )
+                .map((travaux) => (
+                  <div key={travaux}>
+                    <AideGeste
+                      {...{
+                        engine,
+                        dottedName: decodeDottedName(travaux),
+                        setSearchParams,
+                        answeredQuestions,
+                        situation,
+                      }}
+                    />
+                  </div>
+                ))}
             </div>
-          )
-        })}
+          ))}
         {hasMPRA && (
           <Card
             css={`

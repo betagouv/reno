@@ -1,48 +1,16 @@
 'use client'
 
 import styled from 'styled-components'
-import isolationGeste from '@/public/isolation_geste.svg'
-import chauffageGeste from '@/public/chauffage_geste.svg'
-import solaireGeste from '@/public/solaire_geste.svg'
-import ventilationGeste from '@/public/solaire_geste.svg'
 import Image from 'next/image'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import FormButtons from '@/app/simulation/FormButtons'
+import { categories } from './ChoixCategorieTravaux'
 
 export const getTravauxEnvisages = (situation) =>
   situation['projet . définition . travaux envisagés']
     ?.split(',')
     .map((t) => t.replaceAll('"', '')) || []
 
-export const gestes = {
-  isolation: {
-    'gestes . isolation . murs extérieurs,gestes . isolation . murs intérieurs':
-      'Murs mal isolés ou froids au toucher',
-    'gestes . isolation . rampants': 'Toiture ou combles mal isolés',
-    'gestes . isolation . toitures terrasses':
-      'Toit plat mal isolé, surchauffe en été',
-    'gestes . isolation . plancher bas': 'Sensation de froid venant du sol',
-    'gestes . isolation . vitres': 'Simple vitrage ou fenêtres anciennes',
-  },
-  chauffage: {
-    'gestes . chauffage . PAC': 'Pompe à chaleur',
-    'gestes . chauffage . bois . chaudière': 'Chaudière',
-    'gestes . chauffage . bois': 'Poêles et insert',
-    'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
-    'gestes . chauffage . fioul . dépose cuve': 'Dépose de cuve à fioul',
-  },
-  ventilation: {
-    'gestes . ventilation . double flux': 'Ventilation double flux',
-    'gestes . chauffage . PAC . air-air': 'Pompe à chaleur air-air',
-  },
-  solaire: {
-    'gestes . chauffage . solaire . chauffe-eau solaire': 'Chauffe-eau solaire',
-    'gestes . chauffage . solaire . solaire combiné':
-      'Chauffage solaire combiné',
-    'gestes . chauffage . solaire . partie thermique PVT eau':
-      "Partie thermique d'un équipement PVT eau",
-  },
-}
 export const isCategorieChecked = (categorie, situation) =>
   situation['projet . définition . catégories travaux envisagées']
     ?.replaceAll('"', '')
@@ -100,8 +68,9 @@ export default function ChoixTravaux({
     situation['logement . coordonnees'].replaceAll('"', ''),
   ).then((eligibility) => {
     if (eligibility) {
-      gestes.chauffage['gestes . chauffage . raccordement réseau . chaleur'] =
-        'Raccordement à un réseau de chaleur'
+      categories.find((cat) => cat.code == 'chauffage').gestes[
+        'gestes . chauffage . raccordement réseau . chaleur'
+      ] = 'Raccordement à un réseau de chaleur'
     }
   })
 
@@ -112,7 +81,7 @@ export default function ChoixTravaux({
         .filter((t) => travauxEnvisages.includes(t)).length > 0
     )
   }
-  const categories = situation[
+  const selectedCategories = situation[
     'projet . définition . catégories travaux envisagées'
   ]
     .replaceAll('"', '')
@@ -131,136 +100,54 @@ export default function ChoixTravaux({
         }
       `}
     >
-      {categories.includes('isolation') && (
-        <>
-          <h4>
-            <Image
-              src={isolationGeste}
-              alt={`Icone représentant l'isolation d'une maison`}
-            />
-            Isolation :<br /> Quels problèmes constatez-vous ?
-          </h4>
-          <Accordion geste="true">
-            {Object.entries(gestes['isolation']).map((item) => {
-              return (
-                <section key={item[0]}>
-                  <h3>
-                    <input
-                      type="checkbox"
-                      onChange={() =>
-                        handleCheckTravaux(item[0], situation, setSearchParams)
-                      }
-                      value={item[0]}
-                      checked={isTravailChecked(item[0])}
-                    />
-                    <span>{item[1]}</span>
-                  </h3>
-                </section>
-              )
-            })}
-          </Accordion>
-        </>
-      )}
-      {categories.includes('chauffage') && (
-        <>
-          <h4>
-            <Image
-              src={chauffageGeste}
-              alt={`Icone représentant le chauffage d'une maison`}
-            />
-            Chauffages :<br /> Quelles options vous intéressent ?
-          </h4>
-          <Accordion geste="true">
-            {Object.entries(gestes['chauffage']).map((item) => {
-              return (
-                <section key={item[0]}>
-                  <h3>
-                    <input
-                      type="checkbox"
-                      onChange={() =>
-                        handleCheckTravaux(item[0], situation, setSearchParams)
-                      }
-                      value={item[0]}
-                      checked={isTravailChecked(item[0])}
-                    />
-                    <span>{item[1]}</span>
-                  </h3>
-                </section>
-              )
-            })}
-          </Accordion>
-        </>
-      )}
-      {categories.includes('solaire') && (
-        <>
-          <h4>
-            <Image
-              src={solaireGeste}
-              alt={`Icone représentant le chauffage d'une maison`}
-            />
-            Solutions solaires :<br /> Quelles options vous intéressent ?
-          </h4>
-          <Accordion geste="true">
-            {Object.entries(gestes['solaire']).map((item) => {
-              return (
-                <section key={item[0]}>
-                  <h3>
-                    <input
-                      type="checkbox"
-                      onChange={() =>
-                        handleCheckTravaux(item[0], situation, setSearchParams)
-                      }
-                      value={item[0]}
-                      checked={isTravailChecked(item[0])}
-                    />
-                    <span>{item[1]}</span>
-                  </h3>
-                </section>
-              )
-            })}
-          </Accordion>
-        </>
-      )}
-      {categories.includes('ventilation') && (
-        <>
-          <h4>
-            <Image
-              src={ventilationGeste}
-              alt={`Icone représentant la ventilation d'une maison`}
-            />
-            Ventilation :<br /> Quelles options vous intéressent ?
-          </h4>
-          <Accordion geste="true">
-            {Object.entries(gestes['ventilation']).map((item) => {
-              return (
-                <section key={item[0]}>
-                  <h3>
-                    <input
-                      type="checkbox"
-                      onChange={() =>
-                        handleCheckTravaux(item[0], situation, setSearchParams)
-                      }
-                      value={item[0]}
-                      checked={isTravailChecked(item[0])}
-                    />
-                    <span>{item[1]}</span>
-                  </h3>
-                </section>
-              )
-            })}
-          </Accordion>
-        </>
-      )}
+      {categories
+        .filter((categorie) => selectedCategories.includes(categorie['code']))
+        .map((categorie) => (
+          <div key={categorie['code']}>
+            <h4>
+              <Image
+                src={categorie['image']}
+                alt={`Icone représentant l'isolation d'une maison`}
+              />
+              {categorie['titre']} :<br /> {categorie['question']}
+            </h4>
+            <Accordion geste="true">
+              {Object.entries(categorie.gestes).map((item) => {
+                return (
+                  <section key={item[0]}>
+                    <h3>
+                      <input
+                        type="checkbox"
+                        onChange={() =>
+                          handleCheckTravaux(
+                            item[0],
+                            situation,
+                            setSearchParams,
+                          )
+                        }
+                        value={item[0]}
+                        checked={isTravailChecked(item[0])}
+                      />
+                      <span>{item[1]}</span>
+                    </h3>
+                  </section>
+                )
+              })}
+            </Accordion>
+          </div>
+        ))}
       <FormButtons
         {...{
           currentValue: situation[rule],
           setSearchParams,
           encodeSituation,
           answeredQuestions,
-          questionsToSubmit: categories.includes('chauffage') ? [] : [rule],
+          questionsToSubmit: selectedCategories.includes('chauffage')
+            ? []
+            : [rule],
           currentQuestion: rule,
           situation,
-          specificNextUrl: categories.includes('chauffage')
+          specificNextUrl: selectedCategories.includes('chauffage')
             ? setSearchParams(
                 { objectif: 'projet.définition.travaux envisagés chauffage' },
                 'url',
@@ -274,7 +161,7 @@ export default function ChoixTravaux({
 
 const Accordion = styled.div`
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   section {
     display: flex;
     gap: 1rem;
