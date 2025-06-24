@@ -154,6 +154,9 @@ export default function AidesAmpleur({
         h3 {
           font-size: 90%;
         }
+        section {
+          margin: 0;
+        }
       `}
     >
       <CustomQuestionWrapper>
