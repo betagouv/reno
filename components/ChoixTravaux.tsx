@@ -1,15 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-import React from 'react'
-import 'react-tooltip/dist/react-tooltip.css'
 import styled from 'styled-components'
 import isolationGeste from '@/public/isolation_geste.svg'
 import chauffageGeste from '@/public/chauffage_geste.svg'
 import solaireGeste from '@/public/solaire_geste.svg'
+import ventilationGeste from '@/public/solaire_geste.svg'
 import Image from 'next/image'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import { omit } from './utils'
+import FormButtons from '@/app/simulation/FormButtons'
 
 export const getTravauxEnvisages = (situation) =>
   situation['projet . définition . travaux envisagés']
@@ -35,6 +33,7 @@ export const gestes = {
   },
   ventilation: {
     'gestes . ventilation . double flux': 'Ventilation double flux',
+    'gestes . chauffage . PAC . air-air': 'Pompe à chaleur air-air',
   },
   solaire: {
     'gestes . chauffage . solaire . chauffe-eau solaire': 'Chauffe-eau solaire',
@@ -44,26 +43,13 @@ export const gestes = {
       "Partie thermique d'un équipement PVT eau",
   },
 }
-export const isCategorieChecked = (
-  categorie,
-  travauxEnvisages,
-  categoriesCochees,
-) =>
-  (typeof categoriesCochees !== 'undefined' &&
-    categoriesCochees.includes(categorie)) ||
-  Object.keys(gestes[categorie]).filter(
-    (value) =>
-      value
-        .split(',')
-        .filter((t) => travauxEnvisages?.includes(encodeDottedName(t))).length,
-  ).length > 0
+export const isCategorieChecked = (categorie, situation) =>
+  situation['projet . définition . catégories travaux envisagées']
+    ?.replaceAll('"', '')
+    .split(',')
+    .includes(categorie)
 
-export const handleCheckTravaux = (
-  geste,
-  situation,
-  setSearchParams,
-  answeredQuestions,
-) => {
+export const handleCheckTravaux = (geste, situation, setSearchParams) => {
   let travauxEnvisages = getTravauxEnvisages(situation)
   let encodedGeste = encodeDottedName(geste)
   if (
@@ -78,27 +64,18 @@ export const handleCheckTravaux = (
     travauxEnvisages.push(encodedGeste)
   }
 
-  updateTravaux(situation, setSearchParams, travauxEnvisages, answeredQuestions)
+  updateTravaux(setSearchParams, travauxEnvisages)
 }
 
-export const updateTravaux = (
-  situation,
-  setSearchParams,
-  travauxEnvisages,
-  answeredQuestions,
-) => {
-  const encodedSituation = encodeSituation(
-    !travauxEnvisages.length
-      ? omit(['projet . définition . travaux envisagés'], situation)
-      : {
-          ...situation,
-          ['projet . définition . travaux envisagés']: `"${travauxEnvisages.join(',')}"`,
-        },
+export const updateTravaux = (setSearchParams, travauxEnvisages) => {
+  setSearchParams(
+    {
+      [encodeDottedName('projet . définition . travaux envisagés')]:
+        travauxEnvisages.length ? `"${travauxEnvisages.join(',')}"` : undefined,
+    },
+    'push',
     false,
-    answeredQuestions,
   )
-
-  setSearchParams(encodedSituation, 'push', true)
 }
 
 export async function isEligibleReseauChaleur(coordinates) {
@@ -115,9 +92,7 @@ export default function ChoixTravaux({
   answeredQuestions,
   setSearchParams,
 }) {
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth <= 400,
-  )
+  const rule = 'projet . définition . travaux envisagés'
   let travauxEnvisages = getTravauxEnvisages(situation)
 
   // Test raccordement réseau chaleur, via FCU
@@ -173,12 +148,7 @@ export default function ChoixTravaux({
                     <input
                       type="checkbox"
                       onChange={() =>
-                        handleCheckTravaux(
-                          item[0],
-                          situation,
-                          setSearchParams,
-                          answeredQuestions,
-                        )
+                        handleCheckTravaux(item[0], situation, setSearchParams)
                       }
                       value={item[0]}
                       checked={isTravailChecked(item[0])}
@@ -208,12 +178,7 @@ export default function ChoixTravaux({
                     <input
                       type="checkbox"
                       onChange={() =>
-                        handleCheckTravaux(
-                          item[0],
-                          situation,
-                          setSearchParams,
-                          answeredQuestions,
-                        )
+                        handleCheckTravaux(item[0], situation, setSearchParams)
                       }
                       value={item[0]}
                       checked={isTravailChecked(item[0])}
@@ -243,12 +208,7 @@ export default function ChoixTravaux({
                     <input
                       type="checkbox"
                       onChange={() =>
-                        handleCheckTravaux(
-                          item[0],
-                          situation,
-                          setSearchParams,
-                          answeredQuestions,
-                        )
+                        handleCheckTravaux(item[0], situation, setSearchParams)
                       }
                       value={item[0]}
                       checked={isTravailChecked(item[0])}
@@ -261,6 +221,53 @@ export default function ChoixTravaux({
           </Accordion>
         </>
       )}
+      {categories.includes('ventilation') && (
+        <>
+          <h4>
+            <Image
+              src={ventilationGeste}
+              alt={`Icone représentant la ventilation d'une maison`}
+            />
+            Ventilation :<br /> Quelles options vous intéressent ?
+          </h4>
+          <Accordion geste="true">
+            {Object.entries(gestes['ventilation']).map((item) => {
+              return (
+                <section key={item[0]}>
+                  <h3>
+                    <input
+                      type="checkbox"
+                      onChange={() =>
+                        handleCheckTravaux(item[0], situation, setSearchParams)
+                      }
+                      value={item[0]}
+                      checked={isTravailChecked(item[0])}
+                    />
+                    <span>{item[1]}</span>
+                  </h3>
+                </section>
+              )
+            })}
+          </Accordion>
+        </>
+      )}
+      <FormButtons
+        {...{
+          currentValue: situation[rule],
+          setSearchParams,
+          encodeSituation,
+          answeredQuestions,
+          questionsToSubmit: categories.includes('chauffage') ? [] : [rule],
+          currentQuestion: rule,
+          situation,
+          specificNextUrl: categories.includes('chauffage')
+            ? setSearchParams(
+                { objectif: 'projet.définition.travaux envisagés chauffage' },
+                'url',
+              )
+            : null,
+        }}
+      />
     </div>
   )
 }

@@ -339,6 +339,7 @@ export default function InputSwitch({
           setSearchParams,
           currentValue,
           engine,
+          noButtons: true,
         }}
       >
         <ChoixTravaux
@@ -351,17 +352,16 @@ export default function InputSwitch({
     return (
       <ClassicQuestionWrapper
         {...{
-          rule: rules[currentQuestion],
           nextQuestions,
+          rule,
           currentQuestion,
           rules,
           answeredQuestions,
           situation,
           setSearchParams,
           currentValue,
-          noSuggestions: true,
-          noButtons: true,
           engine,
+          noButtons: true,
         }}
       >
         <ChoixTravauxChauffage

@@ -82,34 +82,6 @@ export default function ClassicQuestionWrapper({
         }}
       />
       <QuestionCard>
-        {noButtons && (
-          <CTAWrapper
-            $justify="start"
-            css={`
-              margin-top: 0;
-            `}
-          >
-            <CTA
-              $fontSize="normal"
-              $importance="emptyBackground"
-              css={`
-                a {
-                  padding: 0.5rem 0.8rem;
-                }
-              `}
-            >
-              <Link
-                href="#"
-                onClick={() => {
-                  push(['trackEvent', 'Simulateur Principal', 'Clic', 'retour'])
-                  router.back()
-                }}
-              >
-                ⬅ Retour
-              </Link>
-            </CTA>
-          </CTAWrapper>
-        )}
         {!rule.type && (
           <QuestionHeader>
             <div>

@@ -1,20 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import React from 'react'
-import 'react-tooltip/dist/react-tooltip.css'
 import styled from 'styled-components'
 import isolationGeste from '@/public/isolation_geste.svg'
 import ventilationGeste from '@/public/ventilation_geste.svg'
 import chauffageGeste from '@/public/chauffage_geste.svg'
 import solaireGeste from '@/public/solaire_geste.svg'
 import Image from 'next/image'
-import {
-  decodeDottedName,
-  encodeDottedName,
-  encodeSituation,
-} from './publicodes/situationUtils'
-import { omit } from './utils'
+import { encodeDottedName } from './publicodes/situationUtils'
 
 export const categories = [
   {
@@ -41,11 +34,7 @@ export const categories = [
     image: solaireGeste,
   },
 ]
-export default function ChoixCategorieTravaux({
-  situation,
-  answeredQuestions,
-  setSearchParams,
-}) {
+export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
   const rule = 'projet . définition . catégories travaux envisagées'
   const [categoriesCochees, setCategoriesCochees] = useState(
     situation[rule]?.replaceAll('"', '').split(',') || [],
@@ -55,23 +44,15 @@ export default function ChoixCategorieTravaux({
       const newCategories = prev.includes(categorie)
         ? prev.filter((c) => c !== categorie)
         : [...prev, categorie]
-      if (newCategories.length) {
-        setSearchParams({
-          [encodeDottedName(rule)]: '"' + newCategories.join(',') + '"',
-        })
-      } else {
-        setSearchParams(
-          {
-            ...encodeSituation(
-              omit([rule], situation),
-              false,
-              answeredQuestions,
-            ),
-          },
-          'url',
-          true,
-        )
-      }
+      setSearchParams(
+        {
+          [encodeDottedName(rule)]: newCategories.length
+            ? '"' + newCategories.join(',') + '"'
+            : undefined,
+        },
+        'push',
+        false,
+      )
 
       return newCategories
     })

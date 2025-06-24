@@ -692,7 +692,6 @@ projet . définition . travaux envisagés:
   applicable si: définition = 'travaux connus'
   question: Sur quoi souhaitez-vous intervenir ?
 projet . définition . travaux envisagés chauffage:
-  applicable si: définition = 'travaux connus'
   question: 'Chauffages : quelles options vous intéressent ?'
 
 conditions communes:

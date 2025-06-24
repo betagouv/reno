@@ -11,7 +11,7 @@ import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
 import { useEffect } from 'react'
-import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
+import { gestes, getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
 import { correspondance } from '@/app/simulation/Form'
 import AidesAmpleur from './ampleur/AidesAmpleur'
@@ -136,7 +136,7 @@ export default function Eligibility({
         }).map((category) => {
           return (
             <div key={category}>
-              {isCategorieChecked(category[0], travauxEnvisages) && (
+              {isCategorieChecked(category[0], situation) && (
                 <>
                   <h4>{category[1]}</h4>
                   {category[0] == 'isolation' && (
@@ -145,8 +145,12 @@ export default function Eligibility({
                   {travauxEnvisages
                     .filter(
                       (travaux) =>
-                        travaux.includes(category[0]) &&
-                        rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
+                        Object.keys(gestes[category[0]]).includes(
+                          decodeDottedName(travaux),
+                        ) ||
+                        (travaux.includes(category[0]) &&
+                          rules[decodeDottedName(travaux) + ' . montant']),
+                      // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
                     )
                     .map((travaux) => {
                       return (

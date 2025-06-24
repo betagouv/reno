@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-import 'react-tooltip/dist/react-tooltip.css'
 import {
   decodeDottedName,
   encodeDottedName,
@@ -12,8 +10,7 @@ import rules from '@/app/règles/rules'
 import { getTravauxEnvisages, handleCheckTravaux } from './ChoixTravaux'
 import Geste from './Geste'
 import styled from 'styled-components'
-import { ObtenirAideBaniere } from './Eligibility'
-import { omit } from './utils'
+import FormButtons from '@/app/simulation/FormButtons'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -56,10 +53,7 @@ export default function ChoixTravauxChauffage({
 
     {},
   )
-  const isVisible =
-    gestes.filter((geste) =>
-      travauxEnvisages.includes(encodeDottedName(geste[0])),
-    ).length > 0
+
   return (
     <>
       <GesteMosaic>
@@ -86,7 +80,6 @@ export default function ChoixTravauxChauffage({
                             dottedName,
                             situation,
                             setSearchParams,
-                            answeredQuestions,
                           )
                         }
                       />
@@ -107,20 +100,20 @@ export default function ChoixTravauxChauffage({
           </div>
         ))}
       </GesteMosaic>
-      <ObtenirAideBaniere
+      <FormButtons
         {...{
-          isVisible,
-          label: 'Voir mes aides',
-          link: setSearchParams(
-            {
-              ...encodeSituation(situation, false, [
-                ...answeredQuestions,
-                'projet . définition . travaux envisagés',
-              ]),
-            },
-            'url',
-            true,
-          ),
+          currentValue: gestes.filter((geste) =>
+            travauxEnvisages.includes(encodeDottedName(geste[0])),
+          ).length
+            ? true
+            : null,
+          setSearchParams,
+          encodeSituation,
+          answeredQuestions,
+          questionsToSubmit: ['projet . définition . travaux envisagés'],
+          currentQuestion: 'projet . définition . travaux envisagés',
+          situation,
+          specificBackUrl: setSearchParams({ objectif: undefined }, 'url'),
         }}
       />
     </>

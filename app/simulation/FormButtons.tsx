@@ -15,15 +15,9 @@ export default function FormButtons({
   questionsToSubmit,
   situation,
   depuisModule,
+  specificNextUrl,
+  specificBackUrl,
 }) {
-  const backUrl = setSearchParams(
-    {
-      ...encodeSituation(situation, false, answeredQuestions.slice(0, -1)),
-    },
-    'url',
-    true,
-  )
-
   const showValidation = currentValue != null
   return (
     <CTAWrapper $justify="flex-start">
@@ -37,7 +31,21 @@ export default function FormButtons({
             display: flex !important;
             align-items: center !important;
           `}
-          href={backUrl}
+          href={
+            specificBackUrl
+              ? specificBackUrl
+              : setSearchParams(
+                  {
+                    ...encodeSituation(
+                      situation,
+                      false,
+                      answeredQuestions.slice(0, -1),
+                    ),
+                  },
+                  'url',
+                  true,
+                )
+          }
           onClick={() => {
             if (depuisModule) history.back() // retour direct vers le module passoire au sein de l'iframe, pas vers une question précédente que l'utilisateur n'aurait pas renseignée tout seul
             push([
@@ -68,21 +76,26 @@ export default function FormButtons({
               display: flex !important;
               align-items: center !important;
             `}
-            href={setSearchParams(
-              {
-                ...encodeSituation(
-                  {
-                    ...situation,
-                    [currentQuestion]: situation[currentQuestion],
-                  },
-                  false,
-                  [...answeredQuestions, ...questionsToSubmit],
-                ),
-                question: undefined,
-              },
-              'url',
-              false,
-            )}
+            href={
+              specificNextUrl
+                ? specificNextUrl
+                : setSearchParams(
+                    {
+                      ...encodeSituation(
+                        {
+                          ...situation,
+                          [currentQuestion]: situation[currentQuestion],
+                        },
+                        false,
+                        [...answeredQuestions, ...questionsToSubmit],
+                      ),
+                      question: undefined,
+                      objectif: undefined,
+                    },
+                    'url',
+                    false,
+                  )
+            }
             onClick={() => {
               push([
                 'trackEvent',
