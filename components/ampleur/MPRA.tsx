@@ -3,10 +3,7 @@ import AideAmpleur from './AideAmpleur'
 import { Card, CTA } from '../UI'
 import rules from '@/app/règles/rules'
 import Value from '../Value'
-import DPELabel from '../dpe/DPELabel'
-import { Key } from '../explications/ExplicationUI'
 import { Écrêtement } from '@/components/explications/Écrêtement'
-import Image from 'next/image'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 import { roundToThousands } from '../utils'
@@ -121,16 +118,7 @@ export default function MPRA({
             </Link>
           </CTA>
         </Card>
-        {/* <h3>Comment est calculée l'aide ?</h3>
-              <p>
-                Une bonification de <Key state="prime-black">10 %</Key> s'ajoute
-                à ce taux si votre logement est une passoire énergétique
-                (logements avec une étiquette <DPELabel index="5" /> ou{' '}
-                <DPELabel index="6" />) et que le programme de travaux vous
-                permet d’atteindre une étiquette <DPELabel index="3" /> au
-                minimum.
-              </p>
-              <Écrêtement {...{ engine, rules, situation }} /> */}
+        {/*  <Écrêtement {...{ engine, rules, situation }} /> */}
       </>
     </AideAmpleur>
   )
