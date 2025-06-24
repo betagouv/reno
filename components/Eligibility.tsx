@@ -130,42 +130,45 @@ export default function Eligibility({
         <h2>
           <span aria-hidden="true">💶</span> Aides pour vos travaux
         </h2>
-        {categories
-          .filter((category) => isCategorieChecked(category['code'], situation))
-          .map((category) => (
-            <div key={category['code']}>
-              <h4>{category['titre']}</h4>
-              {category['code'] == 'isolation' && (
-                <p>{category['sousTitre']}</p>
-              )}
-              {travauxEnvisages
-                .filter(
-                  (travaux) =>
-                    (Object.keys(category.gestes).includes(
-                      decodeDottedName(travaux),
-                    ) ||
-                      (category['code'] == 'isolation' && // Cas particulier pour l'ITE/ITI regrouper sous un même geste
-                        travaux.includes(category['code'])) ||
-                      (category['code'] == 'chauffage' && // Condition pour éviter que certains gestes "solaire" soit classé en "chauffage"
-                        !travaux.includes('solaire') &&
-                        travaux.includes(category['code']))) &&
-                    rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
-                )
-                .map((travaux) => (
-                  <div key={travaux}>
-                    <AideGeste
-                      {...{
-                        engine,
-                        dottedName: decodeDottedName(travaux),
-                        setSearchParams,
-                        answeredQuestions,
-                        situation,
-                      }}
-                    />
-                  </div>
-                ))}
-            </div>
-          ))}
+        {travauxConnus &&
+          categories
+            .filter((category) =>
+              isCategorieChecked(category['code'], situation),
+            )
+            .map((category) => (
+              <div key={category['code']}>
+                <h4>{category['titre']}</h4>
+                {category['code'] == 'isolation' && (
+                  <p>{category['sousTitre']}</p>
+                )}
+                {travauxEnvisages
+                  .filter(
+                    (travaux) =>
+                      (Object.keys(category.gestes).includes(
+                        decodeDottedName(travaux),
+                      ) ||
+                        (category['code'] == 'isolation' && // Cas particulier pour l'ITE/ITI regrouper sous un même geste
+                          travaux.includes(category['code'])) ||
+                        (category['code'] == 'chauffage' && // Condition pour éviter que certains gestes "solaire" soit classé en "chauffage"
+                          !travaux.includes('solaire') &&
+                          travaux.includes(category['code']))) &&
+                      rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
+                  )
+                  .map((travaux) => (
+                    <div key={travaux}>
+                      <AideGeste
+                        {...{
+                          engine,
+                          dottedName: decodeDottedName(travaux),
+                          setSearchParams,
+                          answeredQuestions,
+                          situation,
+                        }}
+                      />
+                    </div>
+                  ))}
+              </div>
+            ))}
         {hasMPRA && (
           <Card
             css={`
