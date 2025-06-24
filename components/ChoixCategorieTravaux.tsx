@@ -48,7 +48,7 @@ export default function ChoixCategorieTravaux({
 }) {
   const rule = 'projet . définition . catégories travaux envisagées'
   const [categoriesCochees, setCategoriesCochees] = useState(
-    situation[rule].replaceAll('"', '').split(','),
+    situation[rule]?.replaceAll('"', '').split(',') || [],
   )
   const handleCheckCategorie = (categorie) => {
     setCategoriesCochees((prev) => {
