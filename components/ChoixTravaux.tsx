@@ -5,17 +5,11 @@ import React from 'react'
 import 'react-tooltip/dist/react-tooltip.css'
 import styled from 'styled-components'
 import isolationGeste from '@/public/isolation_geste.svg'
-import ventilationGeste from '@/public/ventilation_geste.svg'
 import chauffageGeste from '@/public/chauffage_geste.svg'
 import solaireGeste from '@/public/solaire_geste.svg'
 import Image from 'next/image'
-import {
-  decodeDottedName,
-  encodeDottedName,
-  encodeSituation,
-} from './publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import { omit } from './utils'
-import { ObtenirAideBaniere } from './Eligibility'
 
 export const getTravauxEnvisages = (situation) =>
   situation['projet . définition . travaux envisagés']
@@ -104,7 +98,7 @@ export const updateTravaux = (
     answeredQuestions,
   )
 
-  setSearchParams(encodedSituation, 'replace', false)
+  setSearchParams(encodedSituation, 'push', true)
 }
 
 export async function isEligibleReseauChaleur(coordinates) {
@@ -148,7 +142,6 @@ export default function ChoixTravaux({
   ]
     .replaceAll('"', '')
     .split(',')
-  console.log('categories', categories)
 
   return (
     <div

@@ -15,14 +15,11 @@ import DPEMap from './dpe/DPEMap'
 import DPEAddressSearch from './dpe/DPEAddressSearch'
 import { useState } from 'react'
 import enrichSituation, { getCommune } from './personas/enrichSituation'
-import ChoixTravaux, {
-  getTravauxEnvisages,
-  isCategorieChecked,
-} from './ChoixTravaux'
 import { useSendDataToHost } from './useIsInIframe'
 import Consentement from './Consentement'
 import ChoixTravauxChauffage from './ChoixTravauxChauffage'
 import ChoixCategorieTravaux from './ChoixCategorieTravaux'
+import ChoixTravaux from './ChoixTravaux'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
