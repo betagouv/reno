@@ -1,4 +1,4 @@
-import { Card, Section } from './UI'
+import { Badge, Card, Section } from './UI'
 import iconConseiller from '@/public/icon-conseiller.svg'
 import iconLampe from '@/public/icon-lampe.svg'
 import iconPaper from '@/public/icon-paper.svg'
@@ -19,22 +19,7 @@ import Share from '@/app/simulation/Share'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
-const Badge = ({ children, color }) => (
-  <div
-    css={`
-      display: inline-block;
-      text-transform: uppercase;
-      background: ${color == 'blue' ? '#e8edff' : '#fee7fc'};
-      color: ${color == 'blue' ? '#0063cb' : '#6e445a'};
-      padding: 5px 10px;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      font-size: 85%;
-    `}
-  >
-    {children}
-  </div>
-)
+
 export default function AideEtapes({
   searchParams,
   setSearchParams,
@@ -125,6 +110,9 @@ export default function AideEtapes({
                 left: 0;
                 margin-left: -1.8rem;
               }
+              > span {
+                margin-bottom: 1rem;
+              }
             }
           `}
         >
@@ -134,7 +122,7 @@ export default function AideEtapes({
               padding: calc(0.5rem + 1vw);
             `}
           >
-            <Badge>prochaine étape</Badge>
+            <Badge color="purple">prochaine étape</Badge>
             <h2>
               <Image src={iconConseiller} alt="icone conseiller" />
               Un conseiller France Rénov' vous accompagne
@@ -195,7 +183,7 @@ export default function AideEtapes({
                 </p>
               </Card>
               <Card>
-                <Badge>3 mois d'attente</Badge>
+                <Badge color="purple">3 mois d'attente</Badge>
                 <h2>
                   <Image src={iconValider} alt="icone valider" />
                   L'Anah instruit et valide votre dossier
@@ -223,7 +211,7 @@ export default function AideEtapes({
                 </p>
               </Card>
               <Card>
-                <Badge>selon votre capacité d’endettement</Badge>
+                <Badge color="purple">selon votre capacité d’endettement</Badge>
                 <h2>
                   <Image src={iconValider} alt="icone valider" />
                   L’établissement de crédit examine et valide votre demande
@@ -300,7 +288,7 @@ export default function AideEtapes({
             </ul>
           </Card>
           <Card>
-            <Badge>1 mois d'attente</Badge>
+            <Badge color="purple">1 mois d'attente</Badge>
             <h2>
               <Image src={iconEuro} alt="icone euro" />
               Recevez vos autres aides

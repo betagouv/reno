@@ -566,25 +566,28 @@ export const MiseEnAvant = styled.div`
         mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
         `}
 `
-export const Badge = styled.span`
-  align-items: center;
-  background-color: #eee;
-  border-radius: 0.25rem;
-  color: #3a3a3a;
-  display: inline-flex;
-  flex-direction: row;
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.5rem;
-  max-height: none;
-  max-width: 100%;
-  min-height: 1.5rem;
-  overflow: initial;
-  padding: 0 0.5rem;
-  text-transform: uppercase;
-  width: -moz-fit-content;
-  width: fit-content;
-`
+export const Badge = ({ children, color }) => (
+  <span css={`
+    align-items: center;
+    background-color: ${color == 'blue' ? '#e8edff' : (color == 'purple' ? '#fee7fc' : '#eee')};
+    border-radius: 0.25rem;
+    color: ${color == 'blue' ? '#0063cb' : (color == 'purple' ? '#6e445a' : '#3a3a3a')};
+    display: inline-flex;
+    flex-direction: row;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    max-height: none;
+    max-width: 100%;
+    min-height: 1.5rem;
+    overflow: initial;
+    padding: 0 0.5rem;
+    text-transform: uppercase;
+    width: -moz-fit-content;
+    width: fit-content;
+    `}
+  >{children}</span>
+)
 export const CardLink = styled(Card)`
   &:hover {
     background: #e8edff;
