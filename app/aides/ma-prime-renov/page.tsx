@@ -3,7 +3,7 @@ import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import mprImage from '@/public/maprimerenov.svg'
-import { categoriesGeste } from '@/components/utils'
+import { categoriesGeste, getRulesByCategory } from '@/components/utils'
 import Image from 'next/image'
 import Breadcrumb from '@/components/Breadcrumb'
 
@@ -13,22 +13,6 @@ export const metadata: Metadata = {
 }
 
 export default function MaPrimeRenov() {
-  const distinctRulesMPR = Object.keys(rules)
-    .filter((item) => item.startsWith('gestes') && item.endsWith('MPR'))
-    .map((item) => item.replace(' . MPR', ''))
-
-  const rulesByCategory = Object.fromEntries(
-    categoriesGeste.map((category) => [category.titre, []]),
-  )
-  distinctRulesMPR.forEach((rule) => {
-    for (const category of categoriesGeste) {
-      if (rule.includes(category.code)) {
-        rulesByCategory[category.titre].push(rule)
-        break
-      }
-    }
-  })
-
   return (
     <Main>
       <Section>
@@ -86,13 +70,13 @@ export default function MaPrimeRenov() {
             `}
           >
             Il existe un dispositif nommé{' '}
-            <strong>MaPrimeRénov' parcours accompagné</strong> pour une rénovation
-            d'ampleur.
+            <strong>MaPrimeRénov' parcours accompagné</strong> pour une
+            rénovation d'ampleur.
           </p>
         </MiseEnAvant>
 
         <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
-        {Object.keys(rulesByCategory).map((category) => (
+        {Object.keys(getRulesByCategory(rules)).map((category) => (
           <Card>
             <div
               style={css`
@@ -119,7 +103,7 @@ export default function MaPrimeRenov() {
                     list-style-position: inside;
                   `}
                 >
-                  {rulesByCategory[category].map((rule, index) => (
+                  {getRulesByCategory(rules)[category].map((rule, index) => (
                     <li
                       style={css`
                         margin: 1rem 0;

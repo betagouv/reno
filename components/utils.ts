@@ -73,6 +73,26 @@ export const categoriesGeste = [
   },
 ]
 
+export const getRulesByCategory = (rules: { [k: string]: any }) => {
+  const distinctRulesMPR = Object.keys(rules)
+
+    .filter((item) => item.startsWith('gestes') && item.endsWith('MPR'))
+    .map((item) => item.replace(' . MPR', ''))
+
+  const rulesByCategory = Object.fromEntries(
+    categoriesGeste.map((category) => [category.titre, []]),
+  )
+  distinctRulesMPR.forEach((rule) => {
+    for (const category of categoriesGeste) {
+      if (rule.includes(category.code)) {
+        rulesByCategory[category.titre].push(rule)
+        break
+      }
+    }
+  })
+  return rulesByCategory
+}
+
 export const aideStyles = {
   prêt: {
     color: '#79A5DB',
