@@ -7,7 +7,11 @@ import { encodeSituation } from './publicodes/situationUtils'
 
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
+import { isMosaicQuestion } from './BooleanMosaic'
 import CopyButton from './CopyButton'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
@@ -61,6 +65,8 @@ export default function ClassicQuestionWrapper({
       ? nextQuestions.indexOf("parcours d'aide")
       : nextQuestions.length
 
+  const [avertissementState, setAvertissementState] = useAvertissementState()
+
   return (
     <>
       <ProgressBar
@@ -72,6 +78,9 @@ export default function ClassicQuestionWrapper({
           situation,
           searchParams,
         }}
+      />
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
       />
       <AmpleurModuleBanner
         {...{
@@ -129,39 +138,50 @@ export default function ClassicQuestionWrapper({
           {children}
         </AnswerWrapper>
         {!noButtons && (
-          <FormButtons
-            {...{
-              currentValue,
-              rules,
-              setSearchParams,
-              encodeSituation,
-              answeredQuestions,
-              questionsToSubmit,
-              currentQuestion,
-              situation,
-              depuisModule,
-            }}
-          />
-        )}
+        <FormButtons
+          {...{
+            currentValue,
+            rules,
+            setSearchParams,
+            encodeSituation,
+            answeredQuestions,
+            questionsToSubmit,
+            currentQuestion,
+            situation,
+            depuisModule,
+            setAvertissementState,
+          }}
+        />
+		)}
         <Notifications {...{ currentQuestion, engine }} />
-        <div
+
+        <section
           css={`
-            margin-top: 3rem;
+            margin-top: 8vh;
           `}
         >
           <QuestionDescription {...{ currentQuestion, rule }} />
-          <Answers
-            {...{
-              answeredQuestions,
-              nextQuestions,
-              currentQuestion,
-              rules,
-              engine,
-              situation,
-            }}
-          />
-        </div>
-        <UserProblemBanner />
+          <div
+            css={`
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              margin-top: 0.5rem; /* C'est du bricolage : on va tout revoir avec le passage au DSFR bientôt */
+            `}
+          >
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                engine,
+                situation,
+              }}
+            />
+            <UserProblemBanner />
+          </div>
+        </section>
       </QuestionCard>
     </>
   )

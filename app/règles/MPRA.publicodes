@@ -1,10 +1,10 @@
 MPR . accompagnée:
-  titre: MaPrimeRénov' **accompagnée**
+  titre: MaPrimeRénov' **parcours accompagné**
   illustration: mpa.svg
   icône: maprimerenov.svg
   alias: Parcours accompagné
   marque: MaPrimeRénov'
-  complément de marque: accompagnée
+  complément de marque: parcours accompagné
   favorite: oui
   type: remboursement
   informations utiles: |
@@ -128,7 +128,7 @@ MPR . accompagnée . prise en charge MAR . base plafonnée:
     plafond: plafond
 MPR . accompagnée . prise en charge MAR . plafond:
   description: |
-    Le prix de Mon Accompagnateur Rénov couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d'habitat indigne).
+    Le prix de Mon Accompagnateur Rénov' couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d'habitat indigne).
   note: Nous n'avons pas encore intégré les logements jugés indignes ou la précarité énergétique qui augmente le plafond à 4000 €
   valeur: 2000 €
 MPR . accompagnée . prise en charge MAR . prix moyen:
@@ -140,7 +140,7 @@ MPR . accompagnée . prise en charge MAR . prix moyen:
 
     > Chaque accompagnateur devra développer une offre concurrentielle sur le marché de l'accompagnement.
 
-    Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésitez à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
+    Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésiter à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
 MPR . accompagnée . prise en charge MAR . pourcent:
   description: |
     L'État prend en charge tout ou une partie de la prestation du MAR (Mon Accompagnateur Rénov').

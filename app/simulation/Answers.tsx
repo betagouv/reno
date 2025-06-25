@@ -1,8 +1,11 @@
-import { Card, CTA } from '@/components/UI'
+import { CTA, Card } from '@/components/UI'
+import css from '@/components/css/convertToJs'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
+import iconEclair from '@/public/eclair.svg'
 import { push } from '@socialgouv/matomo-next'
+import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
 import AnswerItem from './AnswerItem'
@@ -73,14 +76,22 @@ export default function Answers({
         <summary onClick={preventSummaryClick}>
           <CTA
             $fontSize="normal"
-            $importance="emptyBackground"
-            title="Voir mes réponses"
+            $importance="secondary"
+            style={css`
+              padding: 0.6rem 0;
+              width: 800px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 0.2rem;
+              border-color: #dddddd;
+            `}
             onClick={handleSummaryClick}
           >
-            <span>
-              <span aria-hidden="true">✍️</span>
-              {isOpen ? 'Cacher mes réponses' : 'Modifier mes réponses'}
-            </span>
+            ✍️{' '}
+            {isOpen
+              ? closedTitle || 'Cacher mes réponses'
+              : 'Modifier mes réponses'}
           </CTA>
         </summary>
         {isOpen && (
@@ -219,7 +230,7 @@ export const Details = styled.details`
   }
   margin-bottom: 1vh;
   summary{
-    cursor: default;
+    cursor: pointer;
     display: flex;
     margin-top: 0.5rem;
     align-items: center;

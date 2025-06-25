@@ -33,7 +33,12 @@ export default function AidesAmpleur({
   const nonEligibles = aides.filter((aide) => aide.status === false)
   const neSaisPas = aides.filter((aide) => aide.status === null)
 
-  const renderAides = (aidesList, title, isEligible) => {
+  const renderAides = (
+    aidesList,
+    title,
+    isEligible,
+    hardCodedFilter = () => true,
+  ) => {
     if (aidesList.length === 0) return null
     let lastType = null
     return (
@@ -66,7 +71,7 @@ export default function AidesAmpleur({
           </p>
         )}
         <section>
-          {aidesList.map((aide, i) => {
+          {aidesList.filter(hardCodedFilter).map((aide, i) => {
             const AideComponent = correspondance[aide.baseDottedName]
             const currentType = rules[aide.baseDottedName].type
             const showType = currentType !== lastType && isEligible
@@ -219,6 +224,11 @@ export default function AidesAmpleur({
           nonEligibles,
           '<span aria-hidden="true">⛔</span> Non éligible à',
           false,
+          (aide) =>
+            givenSituation['logement . type'] === '"maison"' &&
+            aide.baseDottedName === 'ampleur . prime individuelle copropriété'
+              ? false
+              : true,
         )}
         {/* <FatConseiller
           {...{
