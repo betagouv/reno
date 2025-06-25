@@ -5,7 +5,7 @@ import BackToLastQuestion from './BackToLastQuestion'
 import CopyButton from './CopyButton'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
-import { Card, CTA, CTAWrapper, Section } from './UI'
+import { Badge, Card, CTA, CTAWrapper, Section } from './UI'
 import { useAides } from './ampleur/useAides'
 import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
@@ -21,6 +21,8 @@ import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
 import { categories } from './ChoixCategorieTravaux'
 import Value from './Value'
+import informationIcon from '@/public/information.svg'
+import Image from 'next/image'
 
 export default function Eligibility({
   setSearchParams,
@@ -33,6 +35,9 @@ export default function Eligibility({
   consent = false,
   sendDataToHost = false,
 }) {
+  // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
+  const MPRASuspendue = true
+
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   const isInIframe = useIsInIframe()
   const aides = useAides(engine, situation)
@@ -186,62 +191,122 @@ export default function Eligibility({
               }
             `}
           >
-            <strong>
-              {travauxConnus
-                ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-                : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
-            </strong>
-            <ul>
-              <li>📉 Réduction des factures d'énergie</li>
-              <li>🧘 Gain de confort hiver comme été</li>
-              <li>
-                👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
-              </li>
-              <li>
-                🥇 Au moins
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'MPR . accompagnée . pourcent dont bonus',
-                  }}
-                />
-                des travaux financés
-              </li>
-            </ul>
-            <div
-              css={`
-                border-bottom: 1px solid var(--lighterColor2);
-                margin-bottom: 1rem;
-                padding-left: 1.5rem;
-                h3 {
-                  font-size: 90%;
-                }
-              `}
-            >
-              <AideAmpleur
-                {...{
-                  isEligible: false,
-                  engine,
-                  dottedName: 'MPR . accompagnée',
-                  setSearchParams,
-                  situation,
-                  answeredQuestions,
-                  expanded,
-                  addedText: (
-                    <DPEScenario
+            {MPRASuspendue ? (
+              <>
+                <p>
+                  <Badge color="blue">
+                    <Image
+                      src={informationIcon}
+                      alt="infobulle"
+                      width="20"
+                      css={`
+                        margin: 0 0.2em 0.2em 0;
+                      `}
+                    />
+                    temporairement suspendue
+                  </Badge>
+                </p>
+                <strong>
+                  MaPrimeRénov' parcours accompagné est temporairement suspendue
+                  cet été
+                </strong>
+                <p
+                  css={`
+                    margin: 1rem 0;
+                  `}
+                >
+                  Cet été, les demandes pour les rénovations d'ampleur (parcours
+                  accompagné) sont temporairement suspendues.
+                </p>
+                <div
+                  css={`
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: rgba(0, 0, 145, 0.4);
+                    padding-bottom: 1rem;
+                    padding-left: 1.5rem;
+                    border-bottom: 1px solid var(--lighterColor2);
+                  `}
+                >
+                  <div>MaPrimeRénov’ pour une rénovation d’ampleur</div>
+                  <div
+                    css={`
+                      &::after {
+                        content: '';
+                        display: inline-block;
+                        width: 10px;
+                        height: 10px;
+                        border-bottom: 2px solid rgba(0, 0, 145, 0.4);
+                        border-right: 2px solid rgba(0, 0, 145, 0.4);
+                        transform: rotate(45deg);
+                        transition: transform 0.3s ease-in-out;
+                      }
+                    `}
+                  ></div>
+                </div>
+              </>
+            ) : (
+              <>
+                <strong>
+                  {travauxConnus
+                    ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
+                    : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+                </strong>
+                <ul>
+                  <li>📉 Réduction des factures d'énergie</li>
+                  <li>🧘 Gain de confort hiver comme été</li>
+                  <li>
+                    👷 <strong>Mon accompagnateur rénov'</strong> assure le
+                    suivi
+                  </li>
+                  <li>
+                    🥇 Au moins
+                    <Value
                       {...{
-                        rules,
                         engine,
                         situation,
-                        setSearchParams,
-                        answeredQuestions,
+                        dottedName: 'MPR . accompagnée . pourcent dont bonus',
                       }}
                     />
-                  ),
-                }}
-              />
-            </div>
+                    des travaux financés
+                  </li>
+                </ul>
+                <div
+                  css={`
+                    border-bottom: 1px solid var(--lighterColor2);
+                    margin-bottom: 1rem;
+                    padding-left: 1.5rem;
+                    h3 {
+                      font-size: 90%;
+                    }
+                  `}
+                >
+                  <AideAmpleur
+                    {...{
+                      isEligible: false,
+                      engine,
+                      dottedName: 'MPR . accompagnée',
+                      setSearchParams,
+                      situation,
+                      answeredQuestions,
+                      expanded,
+                      addedText: (
+                        <DPEScenario
+                          {...{
+                            rules,
+                            engine,
+                            situation,
+                            setSearchParams,
+                            answeredQuestions,
+                          }}
+                        />
+                      ),
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </Card>
         )}
         <AidesAmpleur
