@@ -36,7 +36,9 @@ export default function PageCoupDePouce({
 
   const rule = Object.keys(rules).find(
     (rule) =>
-      rules[rule] && rules[rule].titre == decodeURIComponent(params.titre),
+      rules[rule] &&
+      rules[rule].titre == decodeURIComponent(params.titre) &&
+      !rule.includes('type'),
   )
 
   const answeredQuestions = [
