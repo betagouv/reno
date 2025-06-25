@@ -159,7 +159,7 @@ export default function ChoixTravaux({
   )
 }
 
-const Accordion = styled.div`
+export const Accordion = styled.div`
   width: 100%;
   margin-bottom: 3rem;
   section {

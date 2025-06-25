@@ -15,6 +15,7 @@ export const categories = [
     titre: 'Isolation thermique',
     question: 'Quels problèmes constatez-vous ?',
     sousTitre: 'Murs, plancher, toit, portes et fenêtres',
+    suffix: "d'isolation",
     image: isolationGeste,
     gestes: {
       'gestes . isolation . murs extérieurs,gestes . isolation . murs intérieurs':
@@ -42,6 +43,7 @@ export const categories = [
     titre: 'Chauffage',
     question: 'Quelles options vous intéressent ?',
     sousTitre: 'Pompe à chaleur, poêle, chauffe-eau...',
+    suffix: 'de chauffage',
     image: chauffageGeste,
     gestes: {
       'gestes . chauffage . PAC': 'Pompe à chaleur',
@@ -55,6 +57,7 @@ export const categories = [
     code: 'solaire',
     titre: 'Solutions solaires',
     question: 'Quelles options vous intéressent ?',
+    suffix: 'sur le solaire',
     image: solaireGeste,
     gestes: {
       'gestes . chauffage . solaire . chauffe-eau solaire':

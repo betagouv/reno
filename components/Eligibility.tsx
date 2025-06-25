@@ -10,8 +10,12 @@ import { useAides } from './ampleur/useAides'
 import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
-import { useEffect } from 'react'
-import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
+import { useEffect, useState } from 'react'
+import {
+  Accordion,
+  getTravauxEnvisages,
+  isCategorieChecked,
+} from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
 import { correspondance } from '@/app/simulation/Form'
 import AidesAmpleur from './ampleur/AidesAmpleur'
@@ -23,6 +27,7 @@ import { categories } from './ChoixCategorieTravaux'
 import Value from './Value'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
+import { getRulesByCategory } from './utils'
 
 export default function Eligibility({
   setSearchParams,
@@ -39,7 +44,15 @@ export default function Eligibility({
   const MPRASuspendue = true
 
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+
   const isInIframe = useIsInIframe()
+  const [showAllByCategory, setShowAllByCategory] = useState({})
+  const handleShowAll = (category) => {
+    setShowAllByCategory((prev) => ({
+      ...prev,
+      [category]: !prev[category],
+    }))
+  }
   const aides = useAides(engine, situation)
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const hasMPRA =
@@ -55,6 +68,8 @@ export default function Eligibility({
       iframe.postMessageEligibilityDone(consent ? situation : {})
     }
   }, [isInIframe, consent, situation])
+
+  const desiredOrder = ['Isolation', 'Ventilation', 'Chauffage', 'Solaire']
 
   return (
     <Section
@@ -135,45 +150,104 @@ export default function Eligibility({
         <h2>
           <span aria-hidden="true">💶</span> Aides pour vos travaux
         </h2>
-        {travauxConnus &&
-          categories
-            .filter((category) =>
-              isCategorieChecked(category['code'], situation),
-            )
-            .map((category) => (
-              <div key={category['code']}>
-                <h4>{category['titre']}</h4>
-                {category['code'] == 'isolation' && (
-                  <p>{category['sousTitre']}</p>
-                )}
-                {travauxEnvisages
-                  .filter(
-                    (travaux) =>
-                      (Object.keys(category.gestes).includes(
-                        decodeDottedName(travaux),
-                      ) ||
-                        (category['code'] == 'isolation' && // Cas particulier pour l'ITE/ITI regrouper sous un même geste
-                          travaux.includes(category['code'])) ||
-                        (category['code'] == 'chauffage' && // Condition pour éviter que certains gestes "solaire" soit classé en "chauffage"
-                          !travaux.includes('solaire') &&
-                          travaux.includes(category['code']))) &&
-                      rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
-                  )
-                  .map((travaux) => (
-                    <div key={travaux}>
-                      <AideGeste
-                        {...{
-                          engine,
-                          dottedName: decodeDottedName(travaux),
-                          setSearchParams,
-                          answeredQuestions,
-                          situation,
-                        }}
-                      />
-                    </div>
-                  ))}
-              </div>
-            ))}
+        {travauxConnus
+          ? categories
+              .filter((category) =>
+                isCategorieChecked(category['code'], situation),
+              )
+              .map((category) => (
+                <div key={category['code']}>
+                  <h4>{category['titre']}</h4>
+                  {category['code'] == 'isolation' && (
+                    <p>{category['sousTitre']}</p>
+                  )}
+                  {travauxEnvisages
+                    .filter(
+                      (travaux) =>
+                        (Object.keys(category.gestes).includes(
+                          decodeDottedName(travaux),
+                        ) ||
+                          (category['code'] == 'isolation' && // Cas particulier pour l'ITE/ITI regrouper sous un même geste
+                            travaux.includes(category['code'])) ||
+                          (category['code'] == 'chauffage' && // Condition pour éviter que certains gestes "solaire" soit classé en "chauffage"
+                            !travaux.includes('solaire') &&
+                            travaux.includes(category['code']))) &&
+                        rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
+                    )
+                    .map((travaux) => (
+                      <div key={travaux}>
+                        <AideGeste
+                          {...{
+                            engine,
+                            dottedName: decodeDottedName(travaux),
+                            setSearchParams,
+                            answeredQuestions,
+                            situation,
+                          }}
+                        />
+                      </div>
+                    ))}
+                </div>
+              ))
+          : Object.keys(getRulesByCategory(rules))
+              .sort((a, b) => desiredOrder.indexOf(a) - desiredOrder.indexOf(b))
+              .map((category) => (
+                <div key={category}>
+                  <h4>{category}</h4>
+                  <Accordion geste="true">
+                    {getRulesByCategory(rules)[category].map(
+                      (dottedName, index) => {
+                        const shouldShow =
+                          showAllByCategory[category] || index < 2
+                        return (
+                          <div key={dottedName}>
+                            {index == 2 && (
+                              <CTAWrapper $justify="center">
+                                <CTA
+                                  $fontSize="normal"
+                                  $importance="emptyBackground"
+                                  title="Afficher les aides"
+                                  onClick={() => handleShowAll(category)}
+                                >
+                                  <span
+                                    css={`
+                                      display: flex !important;
+                                      align-items: center !important;
+                                    `}
+                                  >
+                                    {showAllByCategory[category]
+                                      ? 'Cacher'
+                                      : 'Afficher'}{' '}
+                                    toutes les aides{' '}
+                                    {
+                                      categories.find(
+                                        (c) =>
+                                          c.code.toLowerCase() ==
+                                          category.toLowerCase(),
+                                      ).suffix
+                                    }
+                                  </span>
+                                </CTA>
+                              </CTAWrapper>
+                            )}
+                            {shouldShow && (
+                              <AideGeste
+                                {...{
+                                  engine,
+                                  dottedName,
+                                  setSearchParams,
+                                  answeredQuestions,
+                                  situation,
+                                }}
+                              />
+                            )}
+                          </div>
+                        )
+                      },
+                    )}
+                  </Accordion>
+                </div>
+              ))}
         {hasMPRA && (
           <Card
             css={`
