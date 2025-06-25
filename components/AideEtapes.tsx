@@ -107,7 +107,6 @@ export default function AideEtapes({
               text: 'Revoir mes aides éligibles',
             }}
           />
-          <CopyButton searchParams={searchParams} />
         </div>
         <h1>Les étapes pour obtenir vos aides</h1>
         <div
