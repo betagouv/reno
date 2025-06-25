@@ -27,7 +27,9 @@ export default function QuestionDescription({ currentQuestion, rule }) {
       <details
         open={isOpen}
         css={`
+
           margin-top: 1rem;
+
         `}
       >
         <summary

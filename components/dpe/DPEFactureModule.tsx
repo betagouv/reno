@@ -20,6 +20,7 @@ import useDpe from './useDpe'
 import { getIndexLettre } from './DPEPage'
 import iconReduire from '@/public/reduire.svg'
 import editIcon from '@/public/crayon.svg'
+import { push } from '@socialgouv/matomo-next'
 
 const prixAbonnementElectricite = 160
 
@@ -47,7 +48,11 @@ export default function DPEFactureModule({ type, numDpe }) {
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rules)
 
+  useEffect(() => {
+    push(['trackEvent', 'Module', 'Page', 'Module Facture'])
+  }, [])
   const updatePourcentage = useCallback((index, value) => {
+    push(['trackEvent', 'Module', 'Interaction', 'Modifie Pourcentage'])
     setPourcentagesApresReno((prev) =>
       prev.length == 1
         ? [value]
@@ -194,7 +199,10 @@ export default function DPEFactureModule({ type, numDpe }) {
                   display: flex;
                   align-items: center;
                 `}
-                onClick={() => setShowTable(!showTable)}
+                onClick={() => {
+                  push(['trackEvent', 'Module', 'Page', 'Affiche détail'])
+                  setShowTable(!showTable)
+                }}
               >
                 Détail
                 <Image
@@ -388,6 +396,12 @@ export default function DPEFactureModule({ type, numDpe }) {
                           const rawValue = e.target.value
                           const startPos = e.target.selectionStart
                           const value = +rawValue === 0 ? 0 : rawValue
+                          push([
+                            'trackEvent',
+                            'Module',
+                            'Interaction',
+                            'Modifie Facture actuelle',
+                          ])
                           setMontantFactureActuelle(value)
                           requestAnimationFrame(() => {
                             const inputBudget =

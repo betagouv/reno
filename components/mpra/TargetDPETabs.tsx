@@ -1,6 +1,7 @@
 import dpeValues from '@/components/dpe/DPE.yaml'
 import DPELabel from '../dpe/DPELabel'
 import { encodeSituation } from '../publicodes/situationUtils'
+import { push } from '@socialgouv/matomo-next'
 
 export default function TargetDPETabs({
   oldIndex,
@@ -14,6 +15,7 @@ export default function TargetDPETabs({
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
   const doSetSearchParams = (question, value) => {
+    push(['trackEvent', 'Module', 'Interaction', 'DPE visé ' + value])
     const newSituation = encodeSituation(
       {
         ...situation,

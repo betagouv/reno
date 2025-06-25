@@ -12,12 +12,14 @@ import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
+import HomepageModules from './HomepageModules'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
 import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
-import HomepageModules from './HomepageModules'
+
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
+
 
 export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
@@ -28,12 +30,13 @@ export const metadata: Metadata = {
   openGraph: { images: ['/jaquette.png'] },
 }
 
-export default function Page() {
+export default async function Page(props) {
+  const searchParams = await props.searchParams
+
   return (
     <main
       style={css`
         background: white;
-
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
@@ -79,25 +82,37 @@ export default function Page() {
               </strong>{' '}
               et sans inscription.
             </p>
-            <CTAWrapper $justify="left">
-              <CTA $fontSize="normal">
-                <Link href="/simulation" prefetch={false}>
-                  ➞&nbsp;&nbsp;C'est parti !
-                </Link>
-              </CTA>
-            </CTAWrapper>
-            <CTAWrapper $justify="left">
-              <CTA
-                $fontSize="normal"
-                $importance="secondary"
-                style={css`
-                  padding: 0.5rem 0;
-                `}
-              >
-                <Link href="/copropriete">Je représente une copropriété</Link>
-              </CTA>
-            </CTAWrapper>
-            <FromStorageSimulationButtonLoader />
+            <div
+              style={css`
+                padding-top: 1rem;
+              `}
+            >
+              <CTAWrapper $justify="left">
+                <CTA $fontSize="normal">
+                  <Link
+                    href={{
+                      pathname: '/simulation',
+                      query: searchParams, // needed to pass "iframe" and "sendDataToHost" params to the simulation
+                    }}
+                    prefetch={false}
+                  >
+                    ➞&nbsp;&nbsp;C'est parti !
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+              <CTAWrapper $justify="left">
+                <CTA
+                  $fontSize="normal"
+                  $importance="secondary"
+                  style={css`
+                    padding: 0.5rem 0;
+                  `}
+                >
+                  <Link href="/copropriete">Je représente une copropriété</Link>
+                </CTA>
+              </CTAWrapper>
+              <FromStorageSimulationButtonLoader />
+            </div>
           </div>
         </HeaderWrapper>
         <LandingGreenBanner>

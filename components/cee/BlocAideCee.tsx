@@ -5,6 +5,7 @@ import ceeImage from '@/public/cee.svg'
 import informationIcon from '@/public/information.svg'
 import { BlocAide, InlineLink, PrimeStyle } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
+import { push } from '@socialgouv/matomo-next'
 
 export const BlocAideCEE = ({
   infoCEE,
@@ -18,7 +19,9 @@ export const BlocAideCEE = ({
   const isExactTotal = infoCEE.questions
     ?.filter((q) => rules[q].question)
     .every((e) => Object.keys(situation).includes(e))
-
+  if (isExactTotal) {
+    push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
+  }
   // Par défaut, on propose les valeurs max (cela sert aussi à sélectionner des valeurs dans les <select>)
   infoCEE.questions?.map((q) => {
     if (!Object.keys(situation).includes(q) && rules[q].maximum) {

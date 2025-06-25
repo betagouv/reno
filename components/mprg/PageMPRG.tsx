@@ -21,16 +21,21 @@ import useSetSearchParams from '../useSetSearchParams'
 import IframeIntegrator from '../IframeIntegrator'
 import useIsInIframe from '@/components/useIsInIframe'
 import Breadcrumb from '../Breadcrumb'
+import { push } from '@socialgouv/matomo-next'
 
 export default function PageMPRG({ params }: { params: { titre: string } }) {
   const isInIframe = useIsInIframe()
   const engine = new Publicodes(rules)
   const rawSearchParams = useSearchParams(),
     situationSearchParams = Object.fromEntries(rawSearchParams.entries())
-
+  if (isInIframe) {
+    push(['trackEvent', 'Module', 'Page', 'Calculette MPR ' + params.titre])
+  }
   const rule = Object.keys(rules).find(
     (rule) =>
-      rules[rule] && rules[rule].titre == decodeURIComponent(params.titre),
+      rules[rule] &&
+      rules[rule].titre == decodeURIComponent(params.titre) &&
+      !rule.includes('type'),
   )
   const situation = {
     ...getSituation(situationSearchParams, rules),

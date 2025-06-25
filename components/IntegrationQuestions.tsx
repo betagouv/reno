@@ -1,10 +1,33 @@
 import styled from 'styled-components'
 import { IframeCodeWrapper } from './Integration'
+import { BlueEm } from '@/app/LandingUI'
+import { useEffect, useState } from 'react'
 
 export default function IntegrationQuestions({
   noScroll = null,
   setNoScroll = null,
+  sendUserDataOption = null,
+  setSendUserDataOption = null,
 }) {
+  const [dataReceived, setDataReceived] = useState(null)
+  useEffect(() => {
+    if (!sendUserDataOption) return
+
+    const handleMesAidesRenoUserData = function (evt) {
+      if (evt.data.kind === 'mesaidesreno-eligibility-done') {
+        console.log('mesaidesreno-eligibility-done event received !')
+        console.log(evt.data)
+        setDataReceived(evt.data)
+        // faire quelque chose avec en respectant la loi
+      }
+    }
+
+    window.addEventListener('message', handleMesAidesRenoUserData)
+
+    return () => {
+      window.removeEventListener('message', handleMesAidesRenoUserData)
+    }
+  }, [sendUserDataOption, setDataReceived])
   return (
     <Wrapper>
       <details>
@@ -80,6 +103,71 @@ export default function IntegrationQuestions({
 	</script>
 					  `}</code>
             </IframeCodeWrapper>
+          </div>
+        </details>
+      )}
+      {sendUserDataOption != null && setSendUserDataOption && (
+        <details>
+          <summary>Comment récupérer les saisies de l'utilisateur ?</summary>
+          <div>
+            <p>
+              Si vous désirez utiliser les saisies que l'utilisateur aura faites
+              sur l'iframe mesaidesreno.beta.gouv.fr, lors de son arrivée sur
+              l'écran d'éligibilité des aides, vous devrez 1) le justifier dans
+              vos conditions d'utilisation conformément au RGPD, en expliquant à
+              l'utilisateur dans quel but vous le faites et comment peut-il
+              supprimer ces données; 2) nous devons recueillir le consentement
+              de l'utilisateur avant d'envoyer ses données depuis notre domaine
+              vers le votre.
+            </p>
+            <label
+              css={`
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                padding: 0.6rem 0;
+              `}
+            >
+              <input
+                type="checkbox"
+                value={sendUserDataOption}
+                onChange={() => setSendUserDataOption(!sendUserDataOption)}
+              />
+              <span>Tester le renvoie de données à l'hôte</span>
+            </label>
+            <p>
+              Deux étapes sont nécessaires : 1) activer l'option dans l'iframe
+              via le paramètre d'URL<BlueEm>?sendDataToHost</BlueEm> ; 2)
+              implémenter la fonction qui écoute cet événement chez vous, dont
+              voici un exemple :
+            </p>
+            <IframeCodeWrapper>
+              <code>{` 
+
+<script>
+    const handleMesAidesRenoUserData = function (evt) {
+      if (evt.data.kind === 'mesaidesreno-eligibility-done') {
+	  // faire quelque chose avec en respectant la loi
+      }
+    }
+
+    window.addEventListener('message', handleMesAidesRenoUserData)
+	</script>
+					  `}</code>
+              <p>
+                Voici un exemple de{' '}
+                <a href="https://codesandbox.io/p/sandbox/5t55w6">
+                  bac à sable
+                </a>{' '}
+                qui capte les données.
+              </p>
+            </IframeCodeWrapper>
+            {dataReceived && (
+              <section>
+                ✅ données reçues depuis l'iframe : ouvrez la console pour les
+                inspecter
+              </section>
+            )}
           </div>
         </details>
       )}
