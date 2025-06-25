@@ -106,6 +106,7 @@ export default function AvertissementSimulation({
 const Euro = () => (
   <Image
     src={euroIcon}
+    alt="icone euro"
     css={`
       width: 1.25rem;
       vertical-align: sub;
