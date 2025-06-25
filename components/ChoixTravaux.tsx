@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import FormButtons from '@/app/simulation/FormButtons'
-import { categories } from './ChoixCategorieTravaux'
+import { categories } from './utils'
 
 export const getTravauxEnvisages = (situation) =>
   situation['projet . définition . travaux envisagés']

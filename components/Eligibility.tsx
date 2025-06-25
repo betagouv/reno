@@ -23,11 +23,10 @@ import Breadcrumb from './Breadcrumb'
 import AideGeste from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
-import { categories } from './ChoixCategorieTravaux'
 import Value from './Value'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
-import { getRulesByCategory } from './utils'
+import { categories, getRulesByCategory } from './utils'
 
 export default function Eligibility({
   setSearchParams,
@@ -69,8 +68,7 @@ export default function Eligibility({
     }
   }, [isInIframe, consent, situation])
 
-  const desiredOrder = ['Isolation', 'Ventilation', 'Chauffage', 'Solaire']
-
+  const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return (
     <Section
       css={`
@@ -189,65 +187,57 @@ export default function Eligibility({
                     ))}
                 </div>
               ))
-          : Object.keys(getRulesByCategory(rules))
-              .sort((a, b) => desiredOrder.indexOf(a) - desiredOrder.indexOf(b))
-              .map((category) => (
-                <div key={category}>
-                  <h4>{category}</h4>
-                  <Accordion geste="true">
-                    {getRulesByCategory(rules)[category].map(
-                      (dottedName, index) => {
-                        const shouldShow =
-                          showAllByCategory[category] || index < 2
-                        return (
-                          <div key={dottedName}>
-                            {index == 2 && (
-                              <CTAWrapper $justify="center">
-                                <CTA
-                                  $fontSize="normal"
-                                  $importance="emptyBackground"
-                                  title="Afficher les aides"
-                                  onClick={() => handleShowAll(category)}
-                                >
-                                  <span
-                                    css={`
-                                      display: flex !important;
-                                      align-items: center !important;
-                                    `}
-                                  >
-                                    {showAllByCategory[category]
-                                      ? 'Cacher'
-                                      : 'Afficher'}{' '}
-                                    toutes les aides{' '}
-                                    {
-                                      categories.find(
-                                        (c) =>
-                                          c.code.toLowerCase() ==
-                                          category.toLowerCase(),
-                                      ).suffix
-                                    }
-                                  </span>
-                                </CTA>
-                              </CTAWrapper>
-                            )}
-                            {shouldShow && (
-                              <AideGeste
-                                {...{
-                                  engine,
-                                  dottedName,
-                                  setSearchParams,
-                                  answeredQuestions,
-                                  situation,
-                                }}
-                              />
-                            )}
-                          </div>
-                        )
-                      },
-                    )}
-                  </Accordion>
-                </div>
-              ))}
+          : Object.keys(rulesByCategory).map((category) => (
+              <div key={category}>
+                <h4>{category}</h4>
+                <Accordion geste="true">
+                  {rulesByCategory[category].map((dottedName, index) => {
+                    const shouldShow = showAllByCategory[category] || index < 2
+                    return (
+                      <div key={dottedName}>
+                        {index == 2 && (
+                          <CTAWrapper $justify="center">
+                            <CTA
+                              $fontSize="normal"
+                              $importance="emptyBackground"
+                              title="Afficher les aides"
+                              onClick={() => handleShowAll(category)}
+                            >
+                              <span
+                                css={`
+                                  display: flex !important;
+                                  align-items: center !important;
+                                `}
+                              >
+                                {showAllByCategory[category]
+                                  ? 'Cacher'
+                                  : 'Afficher'}{' '}
+                                toutes les aides{' '}
+                                {
+                                  categories.find((c) => c.titre == category)
+                                    .suffix
+                                }
+                              </span>
+                            </CTA>
+                          </CTAWrapper>
+                        )}
+                        {shouldShow && (
+                          <AideGeste
+                            {...{
+                              engine,
+                              dottedName,
+                              setSearchParams,
+                              answeredQuestions,
+                              situation,
+                            }}
+                          />
+                        )}
+                      </div>
+                    )
+                  })}
+                </Accordion>
+              </div>
+            ))}
         {hasMPRA && (
           <Card
             css={`

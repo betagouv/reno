@@ -3,7 +3,7 @@ import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import mprImage from '@/public/maprimerenov.svg'
-import { categoriesGeste, getRulesByCategory } from '@/components/utils'
+import { categories, getRulesByCategory } from '@/components/utils'
 import Image from 'next/image'
 import Breadcrumb from '@/components/Breadcrumb'
 
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default function MaPrimeRenov() {
+  const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return (
     <Main>
       <Section>
@@ -76,8 +77,8 @@ export default function MaPrimeRenov() {
         </MiseEnAvant>
 
         <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
-        {Object.keys(getRulesByCategory(rules)).map((category) => (
-          <Card>
+        {Object.keys(rulesByCategory).map((category) => (
+          <Card key={category}>
             <div
               style={css`
                 display: flex;
@@ -85,7 +86,7 @@ export default function MaPrimeRenov() {
               `}
             >
               <Image
-                src={categoriesGeste.find((c) => c.titre == category).icone}
+                src={categories.find((c) => c.titre == category).image}
                 alt={`icone ${category}`}
                 width="60"
               />
@@ -103,7 +104,7 @@ export default function MaPrimeRenov() {
                     list-style-position: inside;
                   `}
                 >
-                  {getRulesByCategory(rules)[category].map((rule, index) => (
+                  {rulesByCategory[category].map((rule, index) => (
                     <li
                       style={css`
                         margin: 1rem 0;

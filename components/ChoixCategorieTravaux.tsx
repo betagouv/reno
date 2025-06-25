@@ -2,73 +2,10 @@
 
 import { useState } from 'react'
 import styled from 'styled-components'
-import isolationGeste from '@/public/isolation_geste.svg'
-import ventilationGeste from '@/public/ventilation_geste.svg'
-import chauffageGeste from '@/public/chauffage_geste.svg'
-import solaireGeste from '@/public/solaire_geste.svg'
 import Image from 'next/image'
 import { encodeDottedName } from './publicodes/situationUtils'
+import { categories } from './utils'
 
-export const categories = [
-  {
-    code: 'isolation',
-    titre: 'Isolation thermique',
-    question: 'Quels problèmes constatez-vous ?',
-    sousTitre: 'Murs, plancher, toit, portes et fenêtres',
-    suffix: "d'isolation",
-    image: isolationGeste,
-    gestes: {
-      'gestes . isolation . murs extérieurs,gestes . isolation . murs intérieurs':
-        'Murs mal isolés ou froids au toucher',
-      'gestes . isolation . rampants': 'Toiture ou combles mal isolés',
-      'gestes . isolation . toitures terrasses':
-        'Toit plat mal isolé, surchauffe en été',
-      'gestes . isolation . plancher bas': 'Sensation de froid venant du sol',
-      'gestes . isolation . vitres': 'Simple vitrage ou fenêtres anciennes',
-    },
-  },
-  {
-    code: 'ventilation',
-    titre: 'Ventilation',
-    question: 'Quelles options vous intéressent ?',
-    sousTitre: 'VMC',
-    image: ventilationGeste,
-    gestes: {
-      'gestes . ventilation . double flux': 'Ventilation double flux',
-      'gestes . chauffage . PAC . air-air': 'Pompe à chaleur air-air',
-    },
-  },
-  {
-    code: 'chauffage',
-    titre: 'Chauffage',
-    question: 'Quelles options vous intéressent ?',
-    sousTitre: 'Pompe à chaleur, poêle, chauffe-eau...',
-    suffix: 'de chauffage',
-    image: chauffageGeste,
-    gestes: {
-      'gestes . chauffage . PAC': 'Pompe à chaleur',
-      'gestes . chauffage . bois . chaudière': 'Chaudière',
-      'gestes . chauffage . bois': 'Poêles et insert',
-      'gestes . chauffage . chauffe-eau thermodynamique': 'Chauffe-eau',
-      'gestes . chauffage . fioul . dépose cuve': 'Dépose de cuve à fioul',
-    },
-  },
-  {
-    code: 'solaire',
-    titre: 'Solutions solaires',
-    question: 'Quelles options vous intéressent ?',
-    suffix: 'sur le solaire',
-    image: solaireGeste,
-    gestes: {
-      'gestes . chauffage . solaire . chauffe-eau solaire':
-        'Chauffe-eau solaire',
-      'gestes . chauffage . solaire . solaire combiné':
-        'Chauffage solaire combiné',
-      'gestes . chauffage . solaire . partie thermique PVT eau':
-        "Partie thermique d'un équipement PVT eau",
-    },
-  },
-]
 export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
   const rule = 'projet . définition . catégories travaux envisagées'
   const [categoriesCochees, setCategoriesCochees] = useState(

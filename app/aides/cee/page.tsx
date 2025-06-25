@@ -11,7 +11,7 @@ import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
 import ceeImage from '@/public/cee.svg'
-import { categoriesGeste } from '@/components/utils'
+import { categories, getRulesByCategory } from '@/components/utils'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
@@ -20,30 +20,7 @@ export const metadata: Metadata = {
 }
 
 export default function CEE() {
-  const allRulesCEE = Object.keys(rules).filter(
-    (item) => item.startsWith('gestes') && item.endsWith('CEE'),
-  )
-  const distinctRulesCEE: string[] = []
-
-  allRulesCEE.forEach((item) => {
-    const value = rules[item].code
-    if (!distinctRulesCEE.find((item) => rules[item].code == value)) {
-      distinctRulesCEE.push(item)
-    }
-  })
-
-  const rulesByCategory = Object.fromEntries(
-    categoriesGeste.map((category) => [category.titre, []]),
-  )
-  distinctRulesCEE.forEach((rule) => {
-    for (const category of categoriesGeste) {
-      if (rule.includes(category.code)) {
-        rulesByCategory[category.titre].push(rule)
-        break
-      }
-    }
-  })
-
+  const rulesByCategory = getRulesByCategory(rules, 'CEE')
   return (
     <Main>
       <Section>
@@ -121,7 +98,7 @@ export default function CEE() {
                 `}
               >
                 <Image
-                  src={categoriesGeste.find((c) => c.titre == category).icone}
+                  src={categories.find((c) => c.titre == category).image}
                   alt={`icone ${category}`}
                   width="60"
                 />
