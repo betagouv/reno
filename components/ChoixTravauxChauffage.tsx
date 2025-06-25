@@ -89,7 +89,6 @@ export default function ChoixTravauxChauffage({
                           dottedName,
                           engine,
                           situation,
-                          expanded: false,
                         }}
                       />
                     </label>

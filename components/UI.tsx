@@ -310,7 +310,7 @@ export const ConstraintedParagraphs = styled.div`
 export const BlocAide = styled.div`
   text-align: left;
   ${(p) => p.display == "geste" ? 
-    'padding: 0.5rem 0.5rem 0.5rem 1.75rem;border-bottom: 1px solid #ddd;' : 
+    'padding: 0.5rem 0.5rem 0.5rem 0;border-bottom: 1px solid #ddd;' : 
     'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
   background: white;
   margin-bottom: 1rem;

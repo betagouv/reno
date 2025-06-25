@@ -7,7 +7,7 @@ import { PrimeDisplay } from './Geste'
 import mprImage from '@/public/maprimerenov.svg'
 import ceeImage from '@/public/cee.svg'
 import Image from 'next/image'
-import { BlocAideCoupDePouce } from './cee/BlocAideCoupDePouce'
+import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import GesteQuestion from './GesteQuestion'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { encodeSituation } from './publicodes/situationUtils'
@@ -20,16 +20,8 @@ export default function AideGeste({
   answeredQuestions,
 }) {
   const [isOpen, setIsOpen] = useState(false)
-  const contentRef = useRef(null)
-  useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current.style.maxHeight = isOpen
-        ? `${contentRef.current.scrollHeight}px`
-        : '0px'
-    }
-  }, [isOpen])
 
-  let infoCEE, infoMPR, infoCoupDePouce, montantTotal, isExactTotal
+  let infoCEE, infoMPR, montantTotal, isExactTotal
 
   const engineSituation = engine.setSituation(situation)
   const relevant = rules[dottedName + ' . MPR . barème']
@@ -40,6 +32,8 @@ export default function AideGeste({
   ).nodeValue
 
   const dottedNameCee = dottedName + ' . CEE'
+  const dottedNameMpr = dottedName + ' . MPR'
+  const dottedNameCP = dottedName + ' . Coup de pouce'
   if (typeof rules[dottedNameCee] !== 'undefined') {
     infoCEE = {
       montant: formatValue(
@@ -49,17 +43,31 @@ export default function AideGeste({
       code: rules[dottedNameCee].code,
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
-      questions: rules[dottedNameCee + ' . question']?.valeurs.map((q) =>
-        rules[dottedNameCee + ' . ' + q]
-          ? dottedNameCee + ' . ' + q
-          : rules[dottedName + ' . ' + q]
-            ? dottedName + ' . ' + q
-            : q,
-      ),
+      questions: rules[dottedNameCee + ' . question']?.valeurs
+        .map((q) =>
+          rules[dottedNameCee + ' . ' + q]
+            ? dottedNameCee + ' . ' + q
+            : rules[dottedName + ' . ' + q]
+              ? dottedName + ' . ' + q
+              : q,
+        )
+        .filter(
+          (q) =>
+            !q.includes('MPR') &&
+            q != 'CEE . projet . remplacement chaudière thermique',
+        ), // On filtre les questions en doublon avec MPR et le remplacement de chaudière
     }
   }
 
-  const dottedNameMpr = dottedName + ' . MPR'
+  const hasCoupDePouce = typeof rules[dottedNameCP] !== 'undefined'
+  const questionRule =
+    dottedNameMpr + ' . ' + rules[dottedNameMpr + ' . question']
+  const question = hasCoupDePouce
+    ? // Pour bénéficier du coup de pouce, il faut forcément Remplacer la chaudière et donc poser la question
+      rules[dottedNameCP + ' . question']
+    : rules[questionRule]
+      ? questionRule
+      : undefined
   if (eligibleMPRG && typeof rules[dottedNameMpr] !== 'undefined') {
     infoMPR = {
       dottedName: dottedNameMpr,
@@ -69,19 +77,12 @@ export default function AideGeste({
       plafond: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . plafond'),
       ),
-      questions: [dottedNameMpr + ' . ' + rules[dottedNameMpr + ' . question']],
     }
   }
 
-  const dottedNameCP = dottedName + ' . Coup de pouce'
-  if (typeof rules[dottedNameCP] !== 'undefined') {
-    infoCoupDePouce = {
-      montant: formatValue(
-        engineSituation.evaluate(dottedNameCP + ' . montant'),
-      ),
-      questions: [rules[dottedNameCP + ' . question']],
-    }
-  }
+  const montantCoupDePouce = hasCoupDePouce
+    ? formatValue(engineSituation.evaluate(dottedNameCP + ' . montant'))
+    : null
 
   const evaluationTotal = engineSituation.evaluate(dottedName + ' . montant')
   isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 0
@@ -131,7 +132,7 @@ export default function AideGeste({
               rules,
               dottedName,
               eligibleMPRG,
-              infoCoupDePouce,
+              hasCoupDePouce,
               description: false,
             }}
           />
@@ -152,38 +153,36 @@ export default function AideGeste({
         />
       </header>
       <div
-        ref={contentRef}
         css={`
-          max-height: 0;
-          opacity: ${isOpen ? '1' : '0'};
-          ${isOpen && 'margin-bottom: 1rem;'};
-          overflow: hidden;
-          transition:
-            max-height 0.4s ease-out,
-            opacity 0.3s ease-out;
+          display: none;
+          ${isOpen && 'display: block;margin-bottom: 1rem;'};
         `}
       >
+        {question && (
+          <GesteQuestion
+            {...{
+              rules,
+              question,
+              engine,
+              situation,
+              setSearchParams,
+              answeredQuestions,
+            }}
+          />
+        )}
         {infoMPR && (
           <BlocAideMPR
             {...{
               infoMPR,
-              rules,
               engine,
               situation,
-              answeredQuestions,
-              setSearchParams,
             }}
           />
         )}
-        {infoCoupDePouce && (
+        {montantCoupDePouce && (
           <BlocAideCoupDePouce
             {...{
-              infoCoupDePouce,
-              rules,
-              engine,
-              situation,
-              answeredQuestions,
-              setSearchParams,
+              montantCoupDePouce,
             }}
           />
         )}
@@ -191,7 +190,6 @@ export default function AideGeste({
           <BlocAideCEE
             {...{
               infoCEE,
-              rules,
               engine,
               situation,
               answeredQuestions,
@@ -204,23 +202,7 @@ export default function AideGeste({
   )
 }
 
-const BlocAideMPR = ({
-  infoMPR,
-  rules,
-  engine,
-  situation,
-  answeredQuestions,
-  setSearchParams,
-}) => {
-  const currentQuestion = infoMPR.questions.slice(-1)
-  const isExactTotal =
-    Array.isArray(infoMPR.questions) &&
-    infoMPR.questions.every((question) => question in situation)
-  const isEligible = infoMPR.montant !== 'Non applicable'
-  if (isEligible && isExactTotal) {
-    push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
-  }
-
+const BlocAideMPR = ({ infoMPR, engine, situation }) => {
   return (
     <BlocAide display="geste">
       <div className="aide-header">
@@ -234,18 +216,6 @@ const BlocAideMPR = ({
         <strong>{infoMPR.montant}</strong>
       </PrimeStyle>
       <div className="aide-details">
-        {currentQuestion && (
-          <GesteQuestion
-            {...{
-              rules,
-              question: currentQuestion,
-              engine,
-              situation,
-              setSearchParams,
-              answeredQuestions,
-            }}
-          />
-        )}
         <div className="details">
           <AvanceTMO {...{ engine, situation }} />
           Précisions:
@@ -267,95 +237,90 @@ const BlocAideMPR = ({
   )
 }
 
+const BlocAideCoupDePouce = ({ montantCoupDePouce }) => {
+  const remplacementChaudiere =
+    rules['CEE . projet . remplacement chaudière thermique'].titre
+
+  return (
+    <BlocAide display="geste">
+      <div className="aide-header">
+        <Image src={coupDePouceImage} alt="logo Coup de Pouce" width="100" />
+        <div>
+          <h2>Prime Coup de pouce</h2>
+        </div>
+      </div>
+      <PrimeStyle $inactive={montantCoupDePouce === 'Non applicable'}>
+        <strong>{montantCoupDePouce}</strong>
+      </PrimeStyle>
+      <span className="aide-details">
+        {' '}
+        {montantCoupDePouce === 'Non applicable' ? 'sans' : 'si'}{' '}
+        {remplacementChaudiere}
+      </span>
+    </BlocAide>
+  )
+}
+
 const BlocAideCEE = ({
   infoCEE,
-  rules,
   engine,
   situation,
   answeredQuestions,
   setSearchParams,
 }) => {
-  const isExactTotal = infoCEE.questions
-    ?.filter((q) => rules[q].question)
-    .every((e) => Object.keys(situation).includes(e))
-  if (isExactTotal) {
-    push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
-  }
-  // Par défaut, on propose les valeurs max (cela sert aussi à sélectionner des valeurs dans les <select>)
-  infoCEE.questions?.map((q) => {
-    if (!Object.keys(situation).includes(q) && rules[q].maximum) {
-      situation[q] = rules[q].maximum
-    }
-  })
-
-  const encodedSituation = encodeSituation(
-    {
-      ...situation,
-    },
-    false,
-    answeredQuestions,
-  )
-
-  useEffect(() => {
-    setSearchParams(encodedSituation, 'push', false)
-  }, [encodedSituation, setSearchParams])
-
+  const isApplicable = infoCEE.montant !== 'Non applicable'
   return (
     <BlocAide display="geste">
       <div className="aide-header">
         <Image src={ceeImage} alt="logo Cee" width="60" />
         <h2>Prime CEE (Certificats d'Économie d'Énergie)</h2>
       </div>
-      {infoCEE.montant === 'Non applicable' ? (
-        <>
-          <PrimeStyle $inactive={true}>
-            <strong>Non applicable</strong>
-          </PrimeStyle>
-          <span className="aide-details">
-            {' '}
-            (non cumulable avec la Prime Coup de pouce)
-          </span>
-        </>
-      ) : (
-        <PrimeStyle>
-          {'Prime indicative de '}
-          <strong>{infoCEE.montant}</strong>
-        </PrimeStyle>
+      <PrimeStyle $inactive={!isApplicable}>
+        {isApplicable && 'Prime indicative de '}
+        <strong>{infoCEE.montant}</strong>
+      </PrimeStyle>
+      {!isApplicable && (
+        <span className="aide-details">
+          {' '}
+          (non cumulable avec la Prime Coup de pouce)
+        </span>
       )}
-      <div className="aide-details">
-        <p>
-          Ce montant vous est donné à titre indicatif, il vous appartient de
-          mettre en concurrence les offres CEE des fournisseurs d'énergie.
-        </p>
-        {infoCEE.questions?.map((question, idx) => (
-          <GesteQuestion
-            key={idx}
-            {...{
-              rules,
-              question,
-              engine,
-              situation,
-              answeredQuestions,
-              setSearchParams,
-            }}
-          />
-        ))}
-        <p
-          css={`
-            color: #666;
-            font-weight: 500;
-          `}
-        >
-          Plus d'infos:{' '}
-          <InlineLink
-            title={`formulaire ${infoCEE.code}`}
-            href={infoCEE.lien}
-            target="_blank"
+      {isApplicable && (
+        <div className="aide-details">
+          <p>
+            Ce montant vous est donné à titre indicatif, il vous appartient de
+            mettre en concurrence les offres CEE des fournisseurs d'énergie.
+          </p>
+          {infoCEE.questions?.map((question, idx) => (
+            <GesteQuestion
+              key={idx}
+              {...{
+                rules,
+                question,
+                engine,
+                situation,
+                answeredQuestions,
+                setSearchParams,
+              }}
+            />
+          ))}
+          <p
+            css={`
+              color: #666;
+              font-weight: 500;
+            `}
           >
-            {infoCEE.code}
-          </InlineLink>
-        </p>
-      </div>
+            Plus d'infos:{' '}
+            <InlineLink
+              title={`formulaire ${infoCEE.code}`}
+              href={infoCEE.lien}
+              target="_blank"
+            >
+              {infoCEE.code}
+            </InlineLink>
+          </p>
+        </div>
+      )}
     </BlocAide>
   )
 }

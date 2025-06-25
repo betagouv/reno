@@ -14,7 +14,7 @@ export const PrimeDisplay = ({
   rules,
   dottedName,
   eligibleMPRG,
-  infoCoupDePouce,
+  hasCoupDePouce,
   description = true,
 }) => (
   <div>
@@ -41,12 +41,12 @@ export const PrimeDisplay = ({
         <>
           Prime <strong>non applicable</strong> dans votre situation
         </>
-      ) : !eligibleMPRG && !infoCoupDePouce && !isExactTotal ? (
+      ) : !eligibleMPRG && !hasCoupDePouce && !isExactTotal ? (
         <>Prime existante</>
       ) : (
         <>
           {isExactTotal
-            ? !infoCoupDePouce && !eligibleMPRG
+            ? !hasCoupDePouce && !eligibleMPRG
               ? 'Prime indicative de '
               : 'Prime de '
             : "Jusqu'à "}
@@ -149,7 +149,7 @@ export default function Geste({
           rules,
           dottedName,
           eligibleMPRG,
-          infoCoupDePouce,
+          hasCoupDePouce: infoCoupDePouce,
         }}
       />
     )
@@ -186,7 +186,7 @@ export default function Geste({
             rules,
             dottedName,
             eligibleMPRG,
-            infoCoupDePouce,
+            hasCoupDePouce: infoCoupDePouce,
           }}
         />
       </summary>
