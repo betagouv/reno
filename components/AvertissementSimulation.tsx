@@ -135,11 +135,13 @@ const Section = styled.section`
   }
 
   button {
-    margin-top: 1rem;
+    margin: 0.5rem 0;
     background: none;
     border: none;
     color: var(--color);
-    margin-bottom: 0.6rem;
     font-size: 110%;
+    @media (max-width: 800px) {
+      margin: 0;
+    }
   }
 `
