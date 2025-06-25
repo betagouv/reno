@@ -107,7 +107,7 @@ export default function ChoixTravaux({
             <h4>
               <Image
                 src={categorie['image']}
-                alt={`Icone représentant l'isolation d'une maison`}
+                alt={`Icone représentant une maison`}
               />
               {categorie['titre']} :<br /> {categorie['question']}
             </h4>

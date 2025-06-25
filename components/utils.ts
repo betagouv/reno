@@ -76,7 +76,6 @@ export const categories = [
     image: ventilationGeste,
     gestes: {
       'gestes . ventilation . double flux': 'Ventilation double flux',
-      'gestes . chauffage . PAC . air-air': 'Pompe à chaleur air-air',
     },
   },
   {
