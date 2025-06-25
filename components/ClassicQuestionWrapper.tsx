@@ -8,6 +8,9 @@ import { encodeSituation } from './publicodes/situationUtils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
 import { useSearchParams } from 'next/navigation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
 import { isMosaicQuestion } from './BooleanMosaic'
 import CopyButton from './CopyButton'
 import { gestesMosaicQuestionText } from './GestesMosaic'
@@ -15,13 +18,6 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
-
-import AvertissementSimulation, {
-  useAvertissementState,
-} from './AvertissementSimulation'
-import { CTAWrapper } from './UI'
-
-
 
 export const QuestionText = ({
   rule,
@@ -167,6 +163,7 @@ export default function ClassicQuestionWrapper({
               display: flex;
               flex-direction: column;
               gap: 1rem;
+              margin-top: 0.5rem; /* C'est du bricolage : on va tout revoir avec le passage au DSFR bientôt */
             `}
           >
             <Answers
@@ -183,7 +180,6 @@ export default function ClassicQuestionWrapper({
           </div>
         </section>
       </QuestionCard>
-
     </>
   )
 }
