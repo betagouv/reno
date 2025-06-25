@@ -8,6 +8,9 @@ import { encodeSituation } from './publicodes/situationUtils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
 import { useSearchParams } from 'next/navigation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
 import { isMosaicQuestion } from './BooleanMosaic'
 import CopyButton from './CopyButton'
 import { gestesMosaicQuestionText } from './GestesMosaic'
@@ -61,6 +64,8 @@ export default function ClassicQuestionWrapper({
       ? nextQuestions.indexOf("parcours d'aide")
       : nextQuestions.length
 
+  const [avertissementState, setAvertissementState] = useAvertissementState()
+
   return (
     <>
       <ProgressBar
@@ -72,6 +77,9 @@ export default function ClassicQuestionWrapper({
           situation,
           searchParams,
         }}
+      />
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
       />
       <AmpleurModuleBanner
         {...{
@@ -139,22 +147,38 @@ export default function ClassicQuestionWrapper({
             currentQuestion,
             situation,
             depuisModule,
+            setAvertissementState,
           }}
         />
         <Notifications {...{ currentQuestion, engine }} />
-        <QuestionDescription {...{ currentQuestion, rule }} />
-        <Answers
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            engine,
-            situation,
-          }}
-        />
-        <br />
-        <UserProblemBanner />
+
+        <section
+          css={`
+            margin-top: 8vh;
+          `}
+        >
+          <QuestionDescription {...{ currentQuestion, rule }} />
+          <div
+            css={`
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              margin-top: 0.5rem; /* C'est du bricolage : on va tout revoir avec le passage au DSFR bientôt */
+            `}
+          >
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                engine,
+                situation,
+              }}
+            />
+            <UserProblemBanner />
+          </div>
+        </section>
       </QuestionCard>
     </>
   )

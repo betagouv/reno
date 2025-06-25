@@ -62,7 +62,7 @@ export default function MaPrimeRenov() {
             Informations
           </h3>
           <p>
-            Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si:
+            Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si :
           </p>
           <ul>
             <li>
@@ -86,7 +86,7 @@ export default function MaPrimeRenov() {
             `}
           >
             Il existe un dispositif nommé{' '}
-            <strong>MaPrimeRénov' parcours Accompagné</strong> pour une rénovation
+            <strong>MaPrimeRénov' parcours accompagné</strong> pour une rénovation
             d'ampleur.
           </p>
         </MiseEnAvant>
