@@ -4,22 +4,17 @@ import Suggestions from '@/app/simulation/Suggestions'
 import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
-
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
 import { useSearchParams } from 'next/navigation'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
-import { isMosaicQuestion } from './BooleanMosaic'
 import CopyButton from './CopyButton'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
-import { push } from '@socialgouv/matomo-next'
-import Link from 'next/link'
-import { CTAWrapper, CTA } from './UI'
 
 export const QuestionText = ({
   rule,
@@ -50,7 +45,6 @@ export default function ClassicQuestionWrapper({
   nextQuestions,
   noButtons = false,
 }) {
-  const router = useRouter()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { depuisModule } = searchParams
@@ -138,21 +132,21 @@ export default function ClassicQuestionWrapper({
           {children}
         </AnswerWrapper>
         {!noButtons && (
-        <FormButtons
-          {...{
-            currentValue,
-            rules,
-            setSearchParams,
-            encodeSituation,
-            answeredQuestions,
-            questionsToSubmit,
-            currentQuestion,
-            situation,
-            depuisModule,
-            setAvertissementState,
-          }}
-        />
-		)}
+          <FormButtons
+            {...{
+              currentValue,
+              rules,
+              setSearchParams,
+              encodeSituation,
+              answeredQuestions,
+              questionsToSubmit,
+              currentQuestion,
+              situation,
+              depuisModule,
+              setAvertissementState,
+            }}
+          />
+        )}
         <Notifications {...{ currentQuestion, engine }} />
 
         <section

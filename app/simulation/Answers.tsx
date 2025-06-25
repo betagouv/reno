@@ -51,6 +51,7 @@ export default function Answers({
   engine,
   situation,
   startsOpen = false,
+  closedTitle,
 }) {
   const [isOpen, setIsOpen] = useState(startsOpen)
   const handleSummaryClick = () => {
