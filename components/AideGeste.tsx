@@ -35,14 +35,13 @@ export default function AideGeste({
   const dottedNameMpr = dottedName + ' . MPR'
   const dottedNameCP = dottedName + ' . Coup de pouce'
   if (typeof rules[dottedNameCee] !== 'undefined') {
+    const evaluationCEE = engineSituation.evaluate(dottedNameCee + ' . montant')
     infoCEE = {
-      montant: formatValue(
-        engineSituation.evaluate(dottedNameCee + ' . montant'),
-        { precision: 0 },
-      ),
+      montant: formatValue(evaluationCEE, { precision: 0 }),
       code: rules[dottedNameCee].code,
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
+      isExactTotal: Object.keys(evaluationCEE.missingVariables).length == 1,
       questions: rules[dottedNameCee + ' . question']?.valeurs
         .map((q) =>
           rules[dottedNameCee + ' . ' + q]
@@ -110,10 +109,7 @@ export default function AideGeste({
         border-bottom: 1px solid var(--lighterColor2);
         margin-bottom: 1rem;
         padding-left: 1.5rem;
-      `}
-    >
-      <header
-        css={`
+        header {
           margin: 0 0 1rem 0;
           display: flex;
           align-items: center;
@@ -121,9 +117,10 @@ export default function AideGeste({
           &:hover {
             cursor: pointer;
           }
-        `}
-        onClick={() => setIsOpen(!isOpen)}
-      >
+        }
+      `}
+    >
+      <header onClick={() => setIsOpen(!isOpen)}>
         <div>
           <PrimeDisplay
             {...{
@@ -202,40 +199,38 @@ export default function AideGeste({
   )
 }
 
-const BlocAideMPR = ({ infoMPR, engine, situation }) => {
-  return (
-    <BlocAide display="geste">
-      <div className="aide-header">
-        <Image src={mprImage} alt="logo ma prime renov" width="100" />
-        <div>
-          <h2>MaPrimeRénov'</h2>
-        </div>
+const BlocAideMPR = ({ infoMPR, engine, situation }) => (
+  <BlocAide display="geste">
+    <div className="aide-header">
+      <Image src={mprImage} alt="logo ma prime renov" width="100" />
+      <div>
+        <h2>MaPrimeRénov'</h2>
       </div>
-      <PrimeStyle>
-        {'Prime de '}
-        <strong>{infoMPR.montant}</strong>
-      </PrimeStyle>
-      <div className="aide-details">
-        <div className="details">
-          <AvanceTMO {...{ engine, situation }} />
-          Précisions:
-          <ul>
-            <li>
-              La prestation doit être inférieure à{' '}
-              <strong>{infoMPR.plafond}</strong>
-            </li>
-            <li>
-              Sous condition de recours à un professionnel <strong>RGE</strong>
-            </li>
-            {rules[infoMPR.dottedName]?.description && (
-              <li>{rules[infoMPR.dottedName].description}</li>
-            )}
-          </ul>
-        </div>
+    </div>
+    <PrimeStyle>
+      {'Prime de '}
+      <strong>{infoMPR.montant}</strong>
+    </PrimeStyle>
+    <div className="aide-details">
+      <div className="details">
+        <AvanceTMO {...{ engine, situation }} />
+        Précisions:
+        <ul>
+          <li>
+            La prestation doit être inférieure à{' '}
+            <strong>{infoMPR.plafond}</strong>
+          </li>
+          <li>
+            Sous condition de recours à un professionnel <strong>RGE</strong>
+          </li>
+          {rules[infoMPR.dottedName]?.description && (
+            <li>{rules[infoMPR.dottedName].description}</li>
+          )}
+        </ul>
       </div>
-    </BlocAide>
-  )
-}
+    </div>
+  </BlocAide>
+)
 
 const BlocAideCoupDePouce = ({ montantCoupDePouce }) => {
   const remplacementChaudiere =
@@ -269,6 +264,7 @@ const BlocAideCEE = ({
   setSearchParams,
 }) => {
   const isApplicable = infoCEE.montant !== 'Non applicable'
+  console.log('infoCEE.isExactTotal', infoCEE.isExactTotal)
   return (
     <BlocAide display="geste">
       <div className="aide-header">
@@ -276,8 +272,14 @@ const BlocAideCEE = ({
         <h2>Prime CEE (Certificats d'Économie d'Énergie)</h2>
       </div>
       <PrimeStyle $inactive={!isApplicable}>
-        {isApplicable && 'Prime indicative de '}
-        <strong>{infoCEE.montant}</strong>
+        {!infoCEE.isExactTotal ? (
+          'Prime existante'
+        ) : (
+          <>
+            {isApplicable && 'Prime indicative de '}
+            <strong>{infoCEE.montant}</strong>
+          </>
+        )}
       </PrimeStyle>
       {!isApplicable && (
         <span className="aide-details">
