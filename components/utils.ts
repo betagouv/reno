@@ -100,6 +100,7 @@ export const categories = [
     suffix: 'sur le solaire',
     image: solaireGeste,
     gestes: {
+      'gestes . chauffage . PAC . solaire': 'Pompe à chaleur solarothermique',
       'gestes . chauffage . solaire . chauffe-eau solaire':
         'Chauffe-eau solaire',
       'gestes . chauffage . solaire . solaire combiné':
