@@ -167,7 +167,11 @@ function getDuree(
 
 export async function handleCommuneData(rawSituation, type) {
   try {
-    // Vérifie si le code commune est un nombre (problème 06XXX -> 6XXX)
+    // Vérifier si la variable est défini
+    if (typeof rawSituation[type + ' . commune'] === 'undefined')
+      return rawSituation
+
+    // Vérifier si le code commune est un nombre (problème 06XXX -> 6XXX)
     if (typeof rawSituation[type + ' . commune'] === 'number') {
       throw new Error(
         'Le code INSEE ' +
@@ -175,10 +179,10 @@ export async function handleCommuneData(rawSituation, type) {
           ' doit être entre guillement.',
       )
     }
-    // Récupère les données de la commune
+    // Récupèrer les données de la commune
     const commune = await getCommune(rawSituation, type + ' . commune')
 
-    // Vérifie si le code INSEE est valide
+    // Vérifier si le code INSEE est valide
     if (rawSituation[type + ' . commune'] && !commune) {
       throw new Error(
         'Le code INSEE ' +
@@ -187,7 +191,7 @@ export async function handleCommuneData(rawSituation, type) {
       )
     }
 
-    // Met à jour les données de la situation avec les informations de la commune
+    // Mettre à jour les données de la situation avec les informations de la commune
     if (commune) {
       rawSituation[type + ' . code région'] = `"${commune.codeRegion}"`
       rawSituation[type + ' . code département'] =
