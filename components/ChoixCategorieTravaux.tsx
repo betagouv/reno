@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
 import { encodeDottedName } from './publicodes/situationUtils'
@@ -8,26 +7,21 @@ import { categories } from './utils'
 
 export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
   const rule = 'projet . définition . catégories travaux envisagées'
-  const [categoriesCochees, setCategoriesCochees] = useState(
-    situation[rule]?.replaceAll('"', '').split(',') || [],
-  )
+  const categoriesCochees =
+    situation[rule]?.replaceAll('"', '').split(',') || []
   const handleCheckCategorie = (categorie) => {
-    setCategoriesCochees((prev) => {
-      const newCategories = prev.includes(categorie)
-        ? prev.filter((c) => c !== categorie)
-        : [...prev, categorie]
-      setSearchParams(
-        {
-          [encodeDottedName(rule)]: newCategories.length
-            ? '"' + newCategories.join(',') + '"'
-            : undefined,
-        },
-        'push',
-        false,
-      )
-
-      return newCategories
-    })
+    const newCategories = categoriesCochees.includes(categorie)
+      ? categoriesCochees.filter((c) => c !== categorie)
+      : [...categoriesCochees, categorie]
+    setSearchParams(
+      {
+        [encodeDottedName(rule)]: newCategories.length
+          ? '"' + newCategories.join(',') + '"'
+          : undefined,
+      },
+      'push',
+      false,
+    )
   }
 
   return (
