@@ -17,6 +17,7 @@ export default function AideAmpleur({
   answeredQuestions,
   children,
   expanded,
+  addedText = null,
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenConseiller, setIsOpenConseiller] = useState(false)
@@ -123,6 +124,7 @@ export default function AideAmpleur({
             __html: rules[dottedName].descriptionHtml,
           }}
         />
+        {addedText}
         {!expanded && isEligible && (
           <AideCTAs
             {...{

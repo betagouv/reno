@@ -5,15 +5,16 @@ import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 
 export default function DPEAddressSearch({
-  searchParams,
   setCoordinates,
   coordinates,
   dpe,
   addressResults,
   setAddressResults,
+  onChange = null,
 }) {
   const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
   const [input] = useDebounce(immediateInput, 300)
+  const [clicked, setClicked] = useState(false)
 
   const validInput = input && input.length >= 5
   const [error, setError] = useState()
@@ -49,7 +50,7 @@ export default function DPEAddressSearch({
       )}
       <input
         css={`
-          ${validCoordinates &&
+          ${clicked &&
           input &&
           `border-bottom: 2px solid var(--validColor) !important;`};
         `}
@@ -59,9 +60,11 @@ export default function DPEAddressSearch({
         placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
           setCoordinates([undefined, undefined])
+          setClicked(false)
           setInput(e.target.value)
         }}
       />
+      {clicked && input && <Validated>Adresse validée</Validated>}
       {validInput && !addressResults && (
         <small
           css={`
@@ -74,7 +77,7 @@ export default function DPEAddressSearch({
           Chargement...
         </small>
       )}
-      {addressResults && !validCoordinates && (
+      {addressResults && !clicked && (
         <small
           css={`
             color: #929292;
@@ -87,7 +90,7 @@ export default function DPEAddressSearch({
       )}
       <CityList>
         {addressResults &&
-          !validCoordinates &&
+          !clicked &&
           addressResults.map((result) => {
             const { label, id } = result.properties
             return (
@@ -102,7 +105,9 @@ export default function DPEAddressSearch({
                 key={id}
                 onClick={() => {
                   setInput(label)
-                  setCoordinates(result.geometry.coordinates)
+                  //setCoordinates(result.geometry.coordinates)
+                  setClicked(result)
+                  onChange && onChange(result)
                 }}
               >
                 <span>{label}</span>
@@ -146,7 +151,7 @@ const Validated = styled.p`
   }
 `
 
-export const CityList = styled.ol`
+export const CityList = styled.ul`
   padding: 0;
   background: #f5f5fe;
   border-radius: 0 0 5px 5px;

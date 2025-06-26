@@ -39,6 +39,9 @@ export const categoryData = (
     pastCategories,
   }
 }
+export const preventSummaryClick = (event) => {
+  event.preventDefault()
+}
 
 export default function Answers({
   answeredQuestions: rawAnsweredQuestions,
@@ -54,10 +57,6 @@ export default function Answers({
   const handleSummaryClick = () => {
     push(['trackEvent', 'Simulateur Principal', 'Clic', 'voir mes reponses'])
     setIsOpen((prevIsOpen) => !prevIsOpen) // Toggle the state using React
-  }
-
-  const preventSummaryClick = (event) => {
-    event.preventDefault()
   }
 
   const answeredQuestions = rawAnsweredQuestions.filter(
@@ -226,10 +225,11 @@ export default function Answers({
   )
 }
 
-const Details = styled.details`
+export const Details = styled.details`
   h3 {
     margin-top: 0.6rem;
   }
+  margin-bottom: 1vh;
   summary{
     cursor: pointer;
     display: flex;
