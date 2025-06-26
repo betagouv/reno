@@ -14,7 +14,10 @@ async function apiResponse(method: string, request: Request) {
   const params = Object.fromEntries(request.nextUrl.searchParams.entries())
   const isTest = request.headers.get('referer')?.includes('api-doc')
   const token = params['token']
-  const tokenList = JSON.parse(process.env.API_TOKEN_LIST)
+  const tokenList = process.env.API_TOKEN_LIST
+    ? JSON.parse(process.env.API_TOKEN_LIST)
+    : null
+
   try {
     logRequest(token, params['fields'], isTest)
 
