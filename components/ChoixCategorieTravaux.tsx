@@ -2,26 +2,41 @@
 
 import styled from 'styled-components'
 import Image from 'next/image'
-import { encodeDottedName } from './publicodes/situationUtils'
+import { decodeDottedName, encodeDottedName } from './publicodes/situationUtils'
 import { categories } from './utils'
+import { getTravauxEnvisages } from './ChoixTravaux'
 
 export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
   const rule = 'projet . définition . catégories travaux envisagées'
   const categoriesCochees =
     situation[rule]?.replaceAll('"', '').split(',') || []
   const handleCheckCategorie = (categorie) => {
+    // Si l'on décoche une catégorie, on enlève également ses travaux associées (cas où l'user fait "retour")
+    let params = {}
+    if (
+      categoriesCochees.includes(categorie) &&
+      getTravauxEnvisages(situation)
+    ) {
+      const travauxEnvisages = getTravauxEnvisages(situation)
+      const newTravauxEnvisages = travauxEnvisages.filter((t) => {
+        return !Object.keys(
+          categories.find((c) => c.code == categorie).gestes,
+        ).find((geste) => geste.includes(decodeDottedName(t)))
+      })
+
+      params[encodeDottedName('projet . définition . travaux envisagés')] =
+        newTravauxEnvisages.length
+          ? '"' + newTravauxEnvisages.join(',') + '"'
+          : undefined
+    }
+
     const newCategories = categoriesCochees.includes(categorie)
       ? categoriesCochees.filter((c) => c !== categorie)
       : [...categoriesCochees, categorie]
-    setSearchParams(
-      {
-        [encodeDottedName(rule)]: newCategories.length
-          ? '"' + newCategories.join(',') + '"'
-          : undefined,
-      },
-      'push',
-      false,
-    )
+    params[encodeDottedName(rule)] = newCategories.length
+      ? '"' + newCategories.join(',') + '"'
+      : undefined
+    setSearchParams(params, 'push', false)
   }
 
   return (

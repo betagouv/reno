@@ -264,7 +264,6 @@ const BlocAideCEE = ({
   setSearchParams,
 }) => {
   const isApplicable = infoCEE.montant !== 'Non applicable'
-  console.log('infoCEE.isExactTotal', infoCEE.isExactTotal)
   return (
     <BlocAide display="geste">
       <div className="aide-header">
