@@ -109,6 +109,15 @@ export const categories = [
         "Partie thermique d'un équipement PVT eau",
     },
   },
+  {
+    code: 'autres',
+    titre: 'Autres travaux',
+    question: 'Quelles options vous intéressent ?',
+    image: ventilationGeste,
+    gestes: {
+      'gestes . recommandés . audit': 'Audit énergétique',
+    },
+  },
 ]
 
 export const getRulesByCategory = (
