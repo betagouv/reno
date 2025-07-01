@@ -153,7 +153,7 @@ export const getRulesByCategory = (
         )
 
       if (ceeDuplicate) continue
-      // Cas particulier du solaire qui contien souvent chauffage dans sa rule
+      // Cas particulier du solaire qui contient souvent chauffage dans sa rule
       if (rule.includes('solaire') && catCode == 'chauffage') continue
       if (!rulesByCategory[catTitle]) {
         rulesByCategory[catTitle] = []
@@ -161,6 +161,7 @@ export const getRulesByCategory = (
       rulesByCategory[catTitle].push(rule)
     }
   })
+  rulesByCategory['Autres travaux'].push('gestes . recommandés . audit')
 
   return rulesByCategory
 }

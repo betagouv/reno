@@ -79,7 +79,7 @@ export default function AidesAmpleur({
             return (
               <div key={i}>
                 {showType && (
-                  <div
+                  <h4
                     css={`
                       font-weight: bold;
                       margin: 1rem 0;
@@ -94,7 +94,7 @@ export default function AidesAmpleur({
                     ) : (
                       <>Exonérations fiscales</>
                     )}
-                  </div>
+                  </h4>
                 )}
 
                 {isEligible === null && (
@@ -103,6 +103,7 @@ export default function AidesAmpleur({
                       css={`
                         font-weight: bold;
                         margin: 1rem 0 0 0;
+                        font-size: 120%;
                       `}
                     >
                       {title}
@@ -165,55 +166,6 @@ export default function AidesAmpleur({
       `}
     >
       <CustomQuestionWrapper>
-        {/* <Breadcrumb
-          links={[
-            {
-              Eligibilité: setSearchParams(
-                {
-                  ...encodeSituation(
-                    omit(["parcours d'aide"], situation),
-                    false,
-                    answeredQuestions,
-                  ),
-                },
-                'url',
-                true,
-              ),
-            },
-            {
-              Ampleur: setSearchParams(
-                {
-                  ...encodeSituation(situation, false, answeredQuestions),
-                },
-                'url',
-                true,
-              ),
-            },
-          ]}
-        /> 
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-          `}
-        >
-          <BtnBackToParcoursChoice
-            {...{
-              setSearchParams,
-              situation: omit(["parcours d'aide"], situation),
-              answeredQuestions,
-            }}
-          />
-          <CopyButton searchParams={searchParams} />
-        </div>
-        <h1
-          css={`
-            font-size: 120%;
-            margin: 0.5rem 0 !important;
-          `}
-        >
-          Financer une rénovation d’ampleur
-        </h1>*/}
         {renderAides(
           eligibles,
           '<span aria-hidden="true">🏦</span> Autres aides complémentaires',
@@ -230,13 +182,6 @@ export default function AidesAmpleur({
               ? false
               : true,
         )}
-        {/* <FatConseiller
-          {...{
-            situation,
-            margin: 'small',
-          }}
-        />
-        <Feedback /> */}
       </CustomQuestionWrapper>
     </Section>
   )

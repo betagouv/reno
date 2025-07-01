@@ -150,8 +150,10 @@ export default function Eligibility({
         </h2>
         {travauxConnus
           ? categories
-              .filter((category) =>
-                isCategorieChecked(category['code'], situation),
+              .filter(
+                (category) =>
+                  isCategorieChecked(category['code'], situation) ||
+                  category['code'] == 'autres',
               )
               .map((category) => (
                 <div key={category['code']}>
@@ -185,6 +187,19 @@ export default function Eligibility({
                         />
                       </div>
                     ))}
+                  {category['code'] == 'autres' && (
+                    <div>
+                      <AideGeste
+                        {...{
+                          engine,
+                          dottedName: 'gestes . recommandés . audit',
+                          setSearchParams,
+                          answeredQuestions,
+                          situation,
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               ))
           : Object.keys(rulesByCategory).map((category) => (

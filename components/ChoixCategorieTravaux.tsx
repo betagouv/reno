@@ -42,27 +42,29 @@ export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
   return (
     <>
       <Accordion>
-        {categories.map((categorie) => (
-          <section key={categorie.code}>
-            <h3>
-              <input
-                type="checkbox"
-                onChange={() => handleCheckCategorie(categorie.code)}
-                checked={categoriesCochees.includes(categorie.code)}
+        {categories
+          .filter((c) => c.code != 'autres')
+          .map((categorie) => (
+            <section key={categorie.code}>
+              <h3>
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckCategorie(categorie.code)}
+                  checked={categoriesCochees.includes(categorie.code)}
+                />
+                <span>
+                  {categorie.titre}
+                  {categorie.sousTitre && (
+                    <span className="sousTitre">{categorie.sousTitre}</span>
+                  )}
+                </span>
+              </h3>
+              <Image
+                src={categorie.image}
+                alt={`Icone ${categorie.titre} d'une maison`}
               />
-              <span>
-                {categorie.titre}
-                {categorie.sousTitre && (
-                  <span className="sousTitre">{categorie.sousTitre}</span>
-                )}
-              </span>
-            </h3>
-            <Image
-              src={categorie.image}
-              alt={`Icone ${categorie.titre} d'une maison`}
-            />
-          </section>
-        ))}
+            </section>
+          ))}
       </Accordion>
     </>
   )
