@@ -4,7 +4,7 @@ export const extractCleanCodeInsee = (situation) => {
   const codeInseeRaw =
     situation['logement . commune'] || situation['ménage . commune']
   if (!codeInseeRaw) return situation
-  const codeInsee = codeInseeRaw.replace(/'/g, '')
+  const codeInsee = codeInseeRaw.replaceAll(/'/g, '').replaceAll('"', '')
   return codeInsee
 }
 
