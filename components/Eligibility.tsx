@@ -242,32 +242,6 @@ export default function Eligibility({
                     const shouldShow = showAllByCategory[category] || index < 2
                     return (
                       <div key={dottedName}>
-                        {index == 2 && (
-                          <CTAWrapper $justify="center">
-                            <CTA
-                              $fontSize="normal"
-                              $importance="emptyBackground"
-                              title="Afficher les aides"
-                              onClick={() => handleShowAll(category)}
-                            >
-                              <span
-                                css={`
-                                  display: flex !important;
-                                  align-items: center !important;
-                                `}
-                              >
-                                {showAllByCategory[category]
-                                  ? 'Cacher'
-                                  : 'Afficher'}{' '}
-                                toutes les aides{' '}
-                                {
-                                  categories.find((c) => c.titre == category)
-                                    .suffix
-                                }
-                              </span>
-                            </CTA>
-                          </CTAWrapper>
-                        )}
                         {shouldShow && (
                           <AideGeste
                             {...{
@@ -282,6 +256,27 @@ export default function Eligibility({
                       </div>
                     )
                   })}
+                  {rulesByCategory[category].length > 2 && (
+                    <CTAWrapper $justify="center">
+                      <CTA
+                        $fontSize="normal"
+                        $importance="emptyBackground"
+                        title="Afficher les aides"
+                        onClick={() => handleShowAll(category)}
+                      >
+                        <span
+                          css={`
+                            display: flex !important;
+                            align-items: center !important;
+                          `}
+                        >
+                          {showAllByCategory[category] ? 'Cacher' : 'Afficher'}{' '}
+                          toutes les aides{' '}
+                          {categories.find((c) => c.titre == category).suffix}
+                        </span>
+                      </CTA>
+                    </CTAWrapper>
+                  )}
                 </Accordion>
               </div>
             ))}
