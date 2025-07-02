@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 export default function Share({
   text = 'Partagez la simulation en cliquant ici :',
   align = 'center',
+  showWithAnswer = true,
 }) {
   const isMobile = window !== undefined ? window.innerWidth <= 600 : false
   const pathname = usePathname(),
@@ -96,7 +97,7 @@ export default function Share({
             </span>
           </CTA>
         </CTAWrapper>
-        {searchParamsString && (
+        {searchParamsString && showWithAnswer && (
           <div
             css={`
               display: flex;
@@ -118,6 +119,12 @@ export default function Share({
               Intégrer mes données de simulation
             </label>
           </div>
+        )}
+        {!showWithAnswer && (
+          <p>
+            Rappel : ce lien contient les données que vous avez saisies
+            (adresse, catégorie de revenus…)
+          </p>
         )}
       </form>
     </>

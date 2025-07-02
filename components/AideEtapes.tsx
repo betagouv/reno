@@ -147,6 +147,7 @@ export default function AideEtapes({
               text="Elle pourra vous être utile pour votre rendez-vous en Espace conseil
             France Rénov'."
               align="left"
+              showWithAnswer={false}
             />
           </Card>
           <Card>
