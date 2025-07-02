@@ -10,6 +10,7 @@ import { useAides } from './ampleur/useAides'
 import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
+import iconFlecheDroiteBlanc from '@/public/fleche-droite-blanc.svg'
 import { useEffect, useState } from 'react'
 import {
   Accordion,
@@ -105,12 +106,43 @@ export default function Eligibility({
           css={`
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            > div {
+              margin: 0;
+            }
           `}
         >
           <BackToLastQuestion
             {...{ setSearchParams, situation, answeredQuestions }}
           />
-          <CopyButton searchParams={searchParams} />
+          <CTA $fontSize="normal" $importance="primary">
+            <Link
+              css={`
+                display: flex !important;
+                align-items: center;
+              `}
+              href={setSearchParams({ objectif: 'etape' }, 'url')}
+              onClick={() => {
+                push([
+                  'trackEvent',
+                  'Simulateur Principal',
+                  'Eligibilité',
+                  'Obtenir aides',
+                ])
+              }}
+              title="Obtenir mes aides"
+            >
+              Obtenir mes aides
+              <Image
+                css={`
+                  margin-left: 0.5rem;
+                `}
+                src={iconFlecheDroiteBlanc}
+                alt="icone fleche droite"
+              />
+            </Link>
+          </CTA>
+          {/* <CopyButton searchParams={searchParams} /> */}
         </div>
         <header>
           <h1>Vos résultats</h1>
@@ -419,13 +451,21 @@ export default function Eligibility({
             </ul>
           </>
         )}
-        <CTAWrapper $justify="left">
+        <CTAWrapper
+          $customCss="
+            display: block; 
+            > div { 
+              width: 100%; 
+              a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              } 
+            }
+          "
+        >
           <CTA $fontSize="normal" $importance="primary">
             <Link
-              css={`
-                display: flex !important;
-                align-items: center !important;
-              `}
               href={setSearchParams({ objectif: 'etape' }, 'url')}
               onClick={() => {
                 push([
@@ -438,6 +478,13 @@ export default function Eligibility({
               title="Obtenir mes aides"
             >
               Obtenir mes aides
+              <Image
+                css={`
+                  margin-left: 0.5rem;
+                `}
+                src={iconFlecheDroiteBlanc}
+                alt="icone fleche droite"
+              />
             </Link>
           </CTA>
         </CTAWrapper>
