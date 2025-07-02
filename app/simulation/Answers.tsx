@@ -3,9 +3,7 @@ import css from '@/components/css/convertToJs'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
-import iconEclair from '@/public/eclair.svg'
 import { push } from '@socialgouv/matomo-next'
-import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
 import AnswerItem from './AnswerItem'
@@ -229,11 +227,10 @@ export const Details = styled.details`
   h3 {
     margin-top: 0.6rem;
   }
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
   summary{
     cursor: pointer;
     display: flex;
-    margin-top: 0.5rem;
     align-items: center;
     > span {color:inherit}       
     h2 {

@@ -155,26 +155,17 @@ export default function ClassicQuestionWrapper({
           `}
         >
           <QuestionDescription {...{ currentQuestion, rule }} />
-          <div
-            css={`
-              display: flex;
-              flex-direction: column;
-              gap: 1rem;
-              margin-top: 0.5rem; /* C'est du bricolage : on va tout revoir avec le passage au DSFR bientôt */
-            `}
-          >
-            <Answers
-              {...{
-                answeredQuestions,
-                nextQuestions,
-                currentQuestion,
-                rules,
-                engine,
-                situation,
-              }}
-            />
-            <UserProblemBanner />
-          </div>
+          <Answers
+            {...{
+              answeredQuestions,
+              nextQuestions,
+              currentQuestion,
+              rules,
+              engine,
+              situation,
+            }}
+          />
+          <UserProblemBanner />
         </section>
       </QuestionCard>
     </>
