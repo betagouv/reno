@@ -8,13 +8,17 @@ export default function DPEAddressSearch({
   setCoordinates,
   coordinates,
   dpe,
+  situation,
   addressResults,
   setAddressResults,
   onChange = null,
 }) {
-  const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
+  const [immediateInput, setInput] = useState(
+    dpe?.['adresse_ban'] ||
+      situation['logement . adresse']?.replaceAll('"', ''),
+  )
   const [input] = useDebounce(immediateInput, 300)
-  const [clicked, setClicked] = useState(false)
+  const [clicked, setClicked] = useState(situation['logement . adresse'] || '')
 
   const validInput = input && input.length >= 5
   const [error, setError] = useState()
@@ -56,7 +60,7 @@ export default function DPEAddressSearch({
         `}
         type="text"
         autoFocus={true}
-        value={immediateInput || ''}
+        value={immediateInput}
         placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
           setCoordinates([undefined, undefined])
@@ -78,42 +82,42 @@ export default function DPEAddressSearch({
         </small>
       )}
       {addressResults && !clicked && (
-        <small
-          css={`
-            color: #929292;
-            margin: 0.2rem 0 0.2rem 0.1rem;
-            font-size: 90%;
-          `}
-        >
-          Sélectionnez une adresse :
-        </small>
-      )}
-      {addressResults && !clicked && (
-        <CityList>
-          {addressResults.map((result) => {
-            const { label, id } = result.properties
-            return (
-              <li
-                className={
-                  coordinates &&
-                  coordinates.join('|') ===
-                    result.geometry.coordinates.join('|')
-                    ? 'selected'
-                    : ''
-                }
-                key={id}
-                onClick={() => {
-                  setInput(label)
-                  //setCoordinates(result.geometry.coordinates)
-                  setClicked(result)
-                  onChange && onChange(result)
-                }}
-              >
-                <span>{label}</span>
-              </li>
-            )
-          })}
-        </CityList>
+        <>
+          <small
+            css={`
+              color: #929292;
+              margin: 0.2rem 0 0.2rem 0.1rem;
+              font-size: 90%;
+            `}
+          >
+            Sélectionnez une adresse :
+          </small>
+          <CityList>
+            {addressResults.map((result) => {
+              const { label, id } = result.properties
+              return (
+                <li
+                  className={
+                    coordinates &&
+                    coordinates.join('|') ===
+                      result.geometry.coordinates.join('|')
+                      ? 'selected'
+                      : ''
+                  }
+                  key={id}
+                  onClick={() => {
+                    setInput(label)
+                    //setCoordinates(result.geometry.coordinates)
+                    setClicked(result)
+                    onChange && onChange(result)
+                  }}
+                >
+                  <span>{label}</span>
+                </li>
+              )
+            })}
+          </CityList>
+        </>
       )}
     </AddressInput>
   )

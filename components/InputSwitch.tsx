@@ -263,6 +263,7 @@ export default function InputSwitch({
           {...{
             addressResults,
             setAddressResults,
+            situation,
             coordinates: [searchParams.lon, searchParams.lat],
             setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
             onChange: async (adresse) => {
