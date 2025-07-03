@@ -523,7 +523,6 @@ export const MiseEnAvant = styled.div`
   padding: 1rem 2.25rem 0.75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
-  ${(p) => !p.$noradius && `border-radius: 10px;`}
   ${(p) =>
     p.$type == 'warning'
       ? `border: 1px solid #b34000;`
