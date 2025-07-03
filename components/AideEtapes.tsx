@@ -11,7 +11,6 @@ import iconCard from '@/public/icon-card.svg'
 import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
 import Breadcrumb from './Breadcrumb'
-import CopyButton from './CopyButton'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
@@ -19,14 +18,16 @@ import Share from '@/app/simulation/Share'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
+import { push } from '@socialgouv/matomo-next'
 
 export default function AideEtapes({
-  searchParams,
   setSearchParams,
   situation,
   engine,
   answeredQuestions,
 }) {
+  push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
+
   const aides = useAides(engine, situation)
   const hasMPRA =
     aides.find((aide) => aide.baseDottedName == 'MPR . accompagnée').status ===
