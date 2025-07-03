@@ -393,9 +393,6 @@ chauffage . PAC . solaire:
     Elle chauffe votre logement et votre eau chaude en utilisant l’énergie solaire quand elle est disponible grâce à des panneaux sur le toit.
 
   description complète: |
-
-    Elle ne fait intervenir la PAC air/eau qu'en période de faible ensoleillement.
-
     En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
 
 chauffage . PAC . solaire . montant:
