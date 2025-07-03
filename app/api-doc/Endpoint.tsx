@@ -246,7 +246,7 @@ export default function Endpoint({ type }) {
         Voir la liste des paramètres
       </InternalLink>
       {type == 'eligibilite' && result && (
-        <MiseEnAvant $type="warning" $noradius={true}>
+        <MiseEnAvant $type="warning">
           <h4
             css={`
               margin: 0 0 1rem;
@@ -288,7 +288,11 @@ export default function Endpoint({ type }) {
           Résultat:
         </strong>
         <Code>
-          {showLoader ? <Loader></Loader> : <pre>{result ? result : '{}'}</pre>}{' '}
+          {showLoader ? (
+            <Loader></Loader>
+          ) : (
+            <pre>{result ? result : '{}'}</pre>
+          )}{' '}
         </Code>
       </div>
     </>

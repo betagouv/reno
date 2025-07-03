@@ -7,6 +7,7 @@ export default function BtnBackToParcoursChoice({
   setSearchParams,
   situation,
   answeredQuestions,
+  text = 'Retour',
 }) {
   const backUrl = setSearchParams(
     {
@@ -43,7 +44,7 @@ export default function BtnBackToParcoursChoice({
             ])
           }
         >
-          ⬅ Retour
+          ⬅ {text}
         </Link>
       </CTA>
     </CTAWrapper>

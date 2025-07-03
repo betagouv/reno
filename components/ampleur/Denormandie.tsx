@@ -187,7 +187,7 @@ export default function Denormandie({
               .
             </p>
             {!isSeuilTravauxAtteint && (
-              <MiseEnAvant $type="warning" $noradius={true}>
+              <MiseEnAvant $type="warning">
                 <h4
                   css={`
                     margin: 0 0 1rem;

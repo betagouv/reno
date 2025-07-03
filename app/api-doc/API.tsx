@@ -96,7 +96,7 @@ export default function API() {
               <p>À votre disposition pour avancer ensemble !</p>
             </div>
           </Card>
-          <MiseEnAvant $type="warning" $noradius={true}>
+          <MiseEnAvant $type="warning">
             <h3
               css={`
                 margin: 0 0 1rem;

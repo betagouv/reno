@@ -3,7 +3,11 @@ import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
-export default function Share() {
+export default function Share({
+  text = 'Partagez la simulation en cliquant ici :',
+  align = 'center',
+  showWithAnswer = true,
+}) {
   const isMobile = window !== undefined ? window.innerWidth <= 600 : false
   const pathname = usePathname(),
     searchParams = useSearchParams()
@@ -48,14 +52,14 @@ export default function Share() {
 
   return (
     <>
-      <p>Partagez la simulation en cliquant ici :</p>
+      <p>{text}</p>
       <form
         css={`
-          text-align: center;
+          text-align: ${align};
         `}
       >
         <CTAWrapper
-          $justify="center"
+          $justify={align}
           css={`
             margin: 2vh 0;
           `}
@@ -93,12 +97,12 @@ export default function Share() {
             </span>
           </CTA>
         </CTAWrapper>
-        {searchParamsString && (
+        {searchParamsString && showWithAnswer && (
           <div
             css={`
               display: flex;
               align-items: center;
-              justify-content: space-between;
+              justify-content: ${align == 'center' ? 'space-between' : 'left'};
             `}
           >
             <input
@@ -115,6 +119,12 @@ export default function Share() {
               Intégrer mes données de simulation
             </label>
           </div>
+        )}
+        {!showWithAnswer && (
+          <p>
+            Rappel : ce lien contient les données que vous avez saisies
+            (adresse, catégorie de revenus…)
+          </p>
         )}
       </form>
     </>

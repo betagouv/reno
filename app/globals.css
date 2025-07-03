@@ -126,6 +126,7 @@ input[type='checkbox'] {
   height: 1.6rem;
   width: 1.6rem;
   vertical-align: middle;
+  flex-shrink: 0;
 }
 input[type='checkbox']:not(:checked):not(:disabled) {
   appearance: none;
@@ -142,6 +143,7 @@ input[type='radio'] {
   height: 2rem;
   width: 2rem;
   vertical-align: middle;
+  flex-shrink: 0;
 }
 
 input[type='radio']:not(:checked):not(:disabled) {

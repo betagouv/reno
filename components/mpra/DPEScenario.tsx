@@ -5,32 +5,36 @@ import Image from 'next/image'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import editIcon from '@/public/crayon.svg'
-import { Key } from '../explications/ExplicationUI'
 import CalculatorWidget from '../CalculatorWidget'
 
 export default function DPEScenario({
-  choice,
-  oldIndex,
   engine,
   situation,
   setSearchParams,
   answeredQuestions,
 }) {
-  if (choice == null) return null
+  const value = situation['projet . DPE visé'],
+    oldIndex = +situation['DPE . actuel'] - 1,
+    automaticChoice = Math.max(oldIndex - 2, 0),
+    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   const isMobile = window.innerWidth <= 600
-
-  const revenuClasseValue = engine
-    .setSituation(situation)
-    .evaluate('ménage . revenu . classe').nodeValue
+  const engineSituation = engine.setSituation(situation)
+  const revenuClasseValue = engineSituation.evaluate(
+    'ménage . revenu . classe',
+  ).nodeValue
 
   const isModeste = revenuClasseValue.includes('modeste')
-  const bonusSortiePassoire = engine
-    .setSituation(situation)
-    .evaluate('MPR . accompagnée . bonus').nodeValue
+  const bonusSortiePassoire = engineSituation.evaluate(
+    'MPR . accompagnée . bonus',
+  ).nodeValue
+  const montantTravaux =
+    situation['projet . travaux'] ||
+    engineSituation.evaluate('projet . travaux').nodeValue
   const futureSituation = {
     ...situation,
     'projet . DPE visé': choice + 1,
+    'projet . travaux': montantTravaux,
   }
   return (
     <CalculatorWidget isMobile={isMobile}>
@@ -58,7 +62,7 @@ export default function DPEScenario({
             gap: 0.5rem;
           `}
         >
-          <div>Budget de travaux de rénovation:</div>
+          <div>Budget de travaux de rénovation&nbsp;:</div>
           <div
             css={`
               margin: auto;
@@ -91,7 +95,7 @@ export default function DPEScenario({
                   max-width: 4rem;
                 `}
                 autoFocus={false}
-                value={situation['projet . travaux']}
+                value={montantTravaux}
                 placeholder="mes travaux"
                 min="0"
                 max="999999"

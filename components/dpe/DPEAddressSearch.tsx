@@ -5,15 +5,20 @@ import styled from 'styled-components'
 import { useDebounce } from 'use-debounce'
 
 export default function DPEAddressSearch({
-  searchParams,
   setCoordinates,
   coordinates,
   dpe,
+  situation,
   addressResults,
   setAddressResults,
+  onChange = null,
 }) {
-  const [immediateInput, setInput] = useState(dpe?.['adresse_ban'])
+  const [immediateInput, setInput] = useState(
+    dpe?.['adresse_ban'] ||
+      situation['logement . adresse']?.replaceAll('"', ''),
+  )
   const [input] = useDebounce(immediateInput, 300)
+  const [clicked, setClicked] = useState(situation['logement . adresse'] || '')
 
   const validInput = input && input.length >= 5
   const [error, setError] = useState()
@@ -25,7 +30,7 @@ export default function DPEAddressSearch({
 
     const asyncFetch = async () => {
       const request = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=3`,
+        `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
       const { features } = await request.json()
 
@@ -49,19 +54,21 @@ export default function DPEAddressSearch({
       )}
       <input
         css={`
-          ${validCoordinates &&
+          ${clicked &&
           input &&
           `border-bottom: 2px solid var(--validColor) !important;`};
         `}
         type="text"
         autoFocus={true}
-        value={immediateInput || ''}
+        value={immediateInput}
         placeholder={'12 rue Victor Hugo Rennes'}
         onChange={(e) => {
           setCoordinates([undefined, undefined])
+          setClicked(false)
           setInput(e.target.value)
         }}
       />
+      {clicked && input && <Validated>Adresse validée</Validated>}
       {validInput && !addressResults && (
         <small
           css={`
@@ -74,42 +81,44 @@ export default function DPEAddressSearch({
           Chargement...
         </small>
       )}
-      {addressResults && !validCoordinates && (
-        <small
-          css={`
-            color: #929292;
-            margin: 0.2rem 0 0.2rem 0.1rem;
-            font-size: 90%;
-          `}
-        >
-          Sélectionnez une adresse :
-        </small>
+      {addressResults && !clicked && (
+        <>
+          <small
+            css={`
+              color: #929292;
+              margin: 0.2rem 0 0.2rem 0.1rem;
+              font-size: 90%;
+            `}
+          >
+            Sélectionnez une adresse :
+          </small>
+          <CityList>
+            {addressResults.map((result) => {
+              const { label, id } = result.properties
+              return (
+                <li
+                  className={
+                    coordinates &&
+                    coordinates.join('|') ===
+                      result.geometry.coordinates.join('|')
+                      ? 'selected'
+                      : ''
+                  }
+                  key={id}
+                  onClick={() => {
+                    setInput(label)
+                    //setCoordinates(result.geometry.coordinates)
+                    setClicked(result)
+                    onChange && onChange(result)
+                  }}
+                >
+                  <span>{label}</span>
+                </li>
+              )
+            })}
+          </CityList>
+        </>
       )}
-      <CityList>
-        {addressResults &&
-          !validCoordinates &&
-          addressResults.map((result) => {
-            const { label, id } = result.properties
-            return (
-              <li
-                className={
-                  coordinates &&
-                  coordinates.join('|') ===
-                    result.geometry.coordinates.join('|')
-                    ? 'selected'
-                    : ''
-                }
-                key={id}
-                onClick={() => {
-                  setInput(label)
-                  setCoordinates(result.geometry.coordinates)
-                }}
-              >
-                <span>{label}</span>
-              </li>
-            )
-          })}
-      </CityList>
     </AddressInput>
   )
 }
@@ -146,7 +155,7 @@ const Validated = styled.p`
   }
 `
 
-export const CityList = styled.ol`
+export const CityList = styled.ul`
   padding: 0;
   background: #f5f5fe;
   border-radius: 0 0 5px 5px;

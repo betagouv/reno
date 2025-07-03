@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
-import iconReduire from '@/public/reduire.svg'
-import Image from 'next/image'
 import { useMediaQuery } from 'usehooks-ts'
 
 export default function QuestionDescription({ currentQuestion, rule }) {
@@ -27,9 +25,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
       <details
         open={isOpen}
         css={`
-
-          margin-top: 1rem;
-
+          margin: 2vh 0;
         `}
       >
         <summary
