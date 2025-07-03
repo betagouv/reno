@@ -26,7 +26,7 @@ export default function DPEAddressSearch({
 
     const asyncFetch = async () => {
       const request = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=3`,
+        `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
       const { features } = await request.json()
 
