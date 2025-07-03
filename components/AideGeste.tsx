@@ -9,7 +9,6 @@ import ceeImage from '@/public/cee.svg'
 import Image from 'next/image'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import GesteQuestion from './GesteQuestion'
-import { AvanceTMO } from './mprg/BlocAideMPR'
 import { encodeSituation } from './publicodes/situationUtils'
 
 export default function AideGeste({
@@ -213,7 +212,6 @@ const BlocAideMPR = ({ infoMPR, engine, situation }) => (
     </PrimeStyle>
     <div className="aide-details">
       <div className="details">
-        <AvanceTMO {...{ engine, situation }} />
         Précisions:
         <ul>
           <li>

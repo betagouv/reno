@@ -2,7 +2,6 @@ import Feedback from '@/app/contact/Feedback'
 import { No } from '@/components/ResultUI'
 import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
-import CopyButton from './CopyButton'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
 import { Badge, Card, CTA, CTAWrapper, Section } from './UI'
@@ -28,6 +27,7 @@ import Value from './Value'
 import informationIcon from '@/public/information.svg'
 import Image from 'next/image'
 import { categories, getRulesByCategory } from './utils'
+import { AvanceTMO } from './mprg/BlocAideMPR'
 
 export default function Eligibility({
   setSearchParams,
@@ -180,6 +180,7 @@ export default function Eligibility({
         <h2>
           <span aria-hidden="true">💶</span> Aides pour vos travaux
         </h2>
+        <AvanceTMO {...{ engine, situation }} />
         {travauxConnus
           ? categories
               .filter(

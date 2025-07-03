@@ -151,37 +151,29 @@ export const BlocAideMPR = ({
 }
 
 export const AvanceTMO = ({ engine, situation }) => {
+  const ménageClasse = engine.evaluate('ménage . revenu . classe').nodeValue
   const isEligible =
     engine.evaluate('ménage . revenu').nodeValue != 0 &&
-    engine.evaluate('ménage . revenu . classe').nodeValue === 'très modeste'
+    ménageClasse === 'très modeste'
   if (!isEligible) {
     return null
   }
 
   return (
     <MiseEnAvant>
-      <h3>Bon à savoir</h3>
       <p>
-        En tant que ménage au revenu{' '}
-        <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'ménage . revenu . classe',
-            state: 'prime-black',
-          }}
-        />
-        , vous pourrez <strong>bénéficier d'une avance</strong> allant jusqu'à{' '}
+        En tant que ménage au revenu <strong>{ménageClasse}</strong>
+        , vous pourrez bénéficier d'une avance allant jusqu'à
         <Value
           {...{
             engine,
             situation,
             dottedName: 'gestes . pourcentage avance',
-            state: 'prime-black',
+            state: 'none',
           }}
-        />{' '}
-        maximum de la part MaPrimeRénov' des primes par gestes. Le reste sera
-        remboursé après travaux.
+        />
+        de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé après
+        travaux.
       </p>
     </MiseEnAvant>
   )
