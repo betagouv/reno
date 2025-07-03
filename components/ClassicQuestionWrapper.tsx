@@ -1,21 +1,23 @@
 import FormButtons from '@/app/simulation/FormButtons'
 import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import Suggestions from '@/app/simulation/Suggestions'
-import { AnswerWrapper } from './InputUI'
+import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
 
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
-import Share from '@/app/simulation/Share'
 import { useSearchParams } from 'next/navigation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
 import { isMosaicQuestion } from './BooleanMosaic'
+import CopyButton from './CopyButton'
 import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
-import CopyButton from './CopyButton'
 
 export const QuestionText = ({
   rule,
@@ -33,6 +35,7 @@ export const QuestionText = ({
     : rule.question || rule.titre || ruleName
   return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
 }
+
 export default function ClassicQuestionWrapper({
   children,
   rule,
@@ -61,6 +64,8 @@ export default function ClassicQuestionWrapper({
       ? nextQuestions.indexOf("parcours d'aide")
       : nextQuestions.length
 
+  const [avertissementState, setAvertissementState] = useAvertissementState()
+
   return (
     <>
       <ProgressBar
@@ -73,6 +78,9 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
+      />
       <AmpleurModuleBanner
         {...{
           depuisModule,
@@ -81,14 +89,7 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
-      <div
-        css={`
-          max-width: 800px;
-          min-height: 100%;
-          padding: 0 1rem;
-          margin: 0 auto;
-        `}
-      >
+      <QuestionCard>
         {!rule.type && (
           <QuestionHeader>
             <div>
@@ -103,16 +104,9 @@ export default function ClassicQuestionWrapper({
                 }}
               />
               {rule['sous-titre'] && (
-                <div
-                  css={`
-                    p {
-                      color: #666;
-                      font-size: 90%;
-                      line-height: 1.25rem;
-                    }
-                  `}
+                <Subtitle
                   dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-                ></div>
+                ></Subtitle>
               )}
             </div>
             <div>
@@ -153,23 +147,39 @@ export default function ClassicQuestionWrapper({
             currentQuestion,
             situation,
             depuisModule,
+            setAvertissementState,
           }}
         />
         <Notifications {...{ currentQuestion, engine }} />
-        <QuestionDescription {...{ currentQuestion, rule }} />
-        <Answers
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            engine,
-            situation,
-          }}
-        />
-        <br />
-        <UserProblemBanner />
-      </div>
+
+        <section
+          css={`
+            margin-top: 8vh;
+          `}
+        >
+          <QuestionDescription {...{ currentQuestion, rule }} />
+          <div
+            css={`
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              margin-top: 0.5rem; /* C'est du bricolage : on va tout revoir avec le passage au DSFR bientôt */
+            `}
+          >
+            <Answers
+              {...{
+                answeredQuestions,
+                nextQuestions,
+                currentQuestion,
+                rules,
+                engine,
+                situation,
+              }}
+            />
+            <UserProblemBanner />
+          </div>
+        </section>
+      </QuestionCard>
     </>
   )
 }

@@ -9,7 +9,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
   title: "MaPrimeRénov'",
-  description: "Les aides MaPrimeRénov' par geste.",
+  description: "Les aides MaPrimeRénov' rénovation par geste.",
 }
 
 export default function MaPrimeRenov() {
@@ -35,7 +35,7 @@ export default function MaPrimeRenov() {
         <Breadcrumb
           links={[
             { 'Les aides': '/aides' },
-            { "MaPrimeRénov' - Parcours par geste": '/aides/ma-prime-renov' },
+            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
           ]}
         />
         <div
@@ -50,7 +50,7 @@ export default function MaPrimeRenov() {
               margin-left: 1rem;
             `}
           >
-            MaPrimeRénov' Parcours par geste
+            MaPrimeRénov' rénovation par geste
           </h2>
         </div>
         <MiseEnAvant>
@@ -62,7 +62,7 @@ export default function MaPrimeRenov() {
             Informations
           </h3>
           <p>
-            Vous êtes éligible à l'aide MaPrimeRénov' Parcours par geste si:
+            Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si :
           </p>
           <ul>
             <li>
@@ -86,12 +86,12 @@ export default function MaPrimeRenov() {
             `}
           >
             Il existe un dispositif nommé{' '}
-            <strong>MaPrimeRénov' Parcours accompagné</strong> pour les travaux
+            <strong>MaPrimeRénov' parcours accompagné</strong> pour une rénovation
             d'ampleur.
           </p>
         </MiseEnAvant>
 
-        <h3>Calculateurs d'aide MaPrimeRénov' par geste</h3>
+        <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
         {Object.keys(rulesByCategory).map((category) => (
           <Card>
             <div

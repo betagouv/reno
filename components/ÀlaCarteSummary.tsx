@@ -107,7 +107,7 @@ export default function ÀlaCarteSummary({ engine, rules, url, situation }) {
         <InapplicableBlock>
           <Image src={crossIcon} alt="Icône d'une croix" />
           <div>
-            <p>Vous n'êtes pas éligible à MaPrimeRénov' par geste.</p>
+            <p>Vous n'êtes pas éligible à MaPrimeRénov' rénovation par geste.</p>
             <small>
               Il faut être propriétaire du logement, construit il y a au moins
               15 ans et occupé ou loué comme résidence principale.

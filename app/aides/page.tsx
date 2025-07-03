@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     'Les aides à la rénovation énergétique en ' +
     new Date().getFullYear() +
-    ": MaPrimeRénov', Mon accompagnateur Rénov', CEE, Coup de pouce chauffage, prêt à taux 0, exonération de taxe foncière et dispositif Denormandie.",
+    `: MaPrimeRénov', Mon Accompagnateur Rénov', aides des fournisseurs d'énergie (CEE), prime "Coup de Pouce" chauffage, éco-prêt à taux zéro, exonération de taxe foncière et dispositif Denormandie.`,
 }
 
 export default function Aides() {
@@ -33,13 +33,11 @@ export default function Aides() {
           <Card>
             <Image src={mprImage} alt="Logo MaPrimeRénov" width="100" />
             <h2>
-              <Link href="/simulation">
-                MaPrimeRénov' - Parcours accompagné
-              </Link>
+              <Link href="/simulation">MaPrimeRénov' parcours accompagné</Link>
             </h2>
             <p>
               Le parcours accompagné est <strong>accessible pour tous</strong>,
-              il vise à encourager des <strong>rénovations d'ampleurs</strong>.
+              il vise à encourager des <strong>rénovations d'ampleur</strong>.
             </p>
             <p>
               Les sommes sont importantes et vous êtes{' '}
@@ -51,7 +49,7 @@ export default function Aides() {
 
             <h2>
               <Link href="/aides/ma-prime-renov">
-                MaPrimeRénov' - Parcours par geste
+                MaPrimeRénov' rénovation par geste
               </Link>
             </h2>
             <p>
@@ -105,7 +103,7 @@ export default function Aides() {
             <Image src={ceeImage} alt="Logo CEE" width="100" />
             <h2>
               <Link href="/aides/cee">
-                Les Certificats d'économies d'énergie
+                Les aides des fournisseurs d’énergie (CEE)
               </Link>
             </h2>
             <p>
@@ -128,12 +126,12 @@ export default function Aides() {
             />
             <h2>
               <Link href="/aides/coup-de-pouce">
-                Les Coups de pouce Chauffage
+                Les primes Coup de Pouce Chauffage
               </Link>
             </h2>
             <p>
               Les primes dites <em>"Coup de pouce"</em> sont{' '}
-              <strong>accessibles à tous les ménages</strong>
+              <strong>accessibles à tous les ménages.</strong>
             </p>
             <p>
               Ils financent le{' '}

@@ -27,10 +27,9 @@ export default function QuestionDescription({ currentQuestion, rule }) {
       <details
         open={isOpen}
         css={`
-          border-radius: 5px;
-          background: #e8edff;
-          padding: 0.5rem 1rem;
+
           margin-top: 1rem;
+
         `}
       >
         <summary
@@ -38,13 +37,17 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             outline: none;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             &::-webkit-details-marker {
               display: none;
             }
             &::marker {
               display: none;
             }
+            padding: 0.5rem 1rem;
+            border: 1px solid #dddddd;
+            color: var(--color);
+            position: relative;
           `}
           onClick={handleSummaryClick}
         >
@@ -52,51 +55,18 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             css={`margin: 0;
                   font-size: 100%;
                   font-weight: normal;
-				  @media (max-width: 800px){font-size: 90%}
             }`}
           >
-            <span aria-hidden="true">💡</span> Comment répondre&nbsp;?
+            <span aria-hidden="true">💡</span>{' '}
+            {isOpen ? "Cacher l'aide" : 'Comment répondre ?'}
           </h2>
-          <span
-            css={`
-              border-radius: 50px;
-              border: 1px solid #0974f6;
-              color: #0974f6;
-              padding: 0.5rem 0.8rem;
-              display: flex;
-              align-items: center;
-            `}
-          >
-            {isOpen ? (
-              <>
-                Fermer{' '}
-                <Image
-                  src={iconReduire}
-                  css={`
-                    margin-left: 0.5rem;
-                  `}
-                  alt="icone réduire"
-                />
-              </>
-            ) : (
-              <>
-                &nbsp;Ouvrir{' '}
-                <Image
-                  src={iconReduire}
-                  css={`
-                    margin-left: 0.5rem;
-                    transform: rotate(180deg);
-                  `}
-                  alt="icone réduire"
-                />
-              </>
-            )}
-          </span>
         </summary>
         <div
           dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
           css={`
-            margin-top: 1rem;
+            border-radius: 5px;
+            background: #e8edff;
+            padding: 0.5rem 1rem;
             blockquote {
               margin-top: 0.8rem;
               border-left: 4px solid var(--lighterColor);

@@ -1,12 +1,13 @@
-import { Card, LinkStyleButton } from '@/components/UI'
+import { CTA, Card } from '@/components/UI'
+import css from '@/components/css/convertToJs'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
+import iconEclair from '@/public/eclair.svg'
 import { push } from '@socialgouv/matomo-next'
+import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconEclair from '@/public/eclair.svg'
-import Image from 'next/image'
 import AnswerItem from './AnswerItem'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
@@ -75,12 +76,25 @@ export default function Answers({
     answeredQuestions.length !== 0 && (
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
         <summary onClick={preventSummaryClick}>
-          <LinkStyleButton onClick={handleSummaryClick}>
-            <Image src={iconEclair} alt="Icone pour modifier ses réponses" />
+          <CTA
+            $fontSize="normal"
+            $importance="secondary"
+            style={css`
+              padding: 0.6rem 0;
+              width: 800px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 0.2rem;
+              border-color: #dddddd;
+            `}
+            onClick={handleSummaryClick}
+          >
+            ✍️{' '}
             {isOpen
               ? closedTitle || 'Cacher mes réponses'
               : 'Modifier mes réponses'}
-          </LinkStyleButton>
+          </CTA>
         </summary>
         {isOpen && (
           <Card
@@ -217,9 +231,9 @@ const Details = styled.details`
     margin-top: 0.6rem;
   }
   summary{
-    cursor: default;
+    cursor: pointer;
     display: flex;
-    margin-top: 1vh;
+    margin-top: 0.5rem;
     align-items: center;
     > span {color:inherit}       
     h2 {

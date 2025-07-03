@@ -36,7 +36,9 @@ export default function PageCoupDePouce({
 
   const rule = Object.keys(rules).find(
     (rule) =>
-      rules[rule] && rules[rule].titre == decodeURIComponent(params.titre),
+      rules[rule] &&
+      rules[rule].titre == decodeURIComponent(params.titre) &&
+      !rule.includes('type'),
   )
 
   const answeredQuestions = [
@@ -169,7 +171,7 @@ export default function PageCoupDePouce({
             font-size: 130%;
           `}
         >
-          Calculer le montant de votre prime Coup de pouce
+          Calculer le montant de votre prime "Coup de Pouce"
         </h2>
         <BlocAideCoupDePouce
           {...{

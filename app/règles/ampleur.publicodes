@@ -31,7 +31,7 @@ ampleur . tous les dispositifs:
     - taxe foncière . montant
 
 ampleur . prime individuelle copropriété:
-  marque: MaPrimeRénov' copropriété
+  marque: MaPrimeRénov' Copropriété
   complément de marque: prime individuelle
   note: |
     Cette variable recontextualise la variable prime individuelle du point de vue du ménage, sans parler encore de sa copropriété.
@@ -39,7 +39,7 @@ ampleur . prime individuelle copropriété:
   description: |
     MaPrimeRénov’ Copropriété est une subvention des travaux qui concernent les parties communes de votre copropriété. 
 
-    Si votre copropriété sollicite et obtient MaPrimeRénov' copropriété, les copropriétaires aux ressources modestes et très modestes bénéficieront automatiquement d'une prime individuelle supplémentaire.
+    Si votre copropriété sollicite et obtient MaPrimeRénov' Copropriété, les copropriétaires aux ressources modestes et très modestes bénéficieront automatiquement d'une prime individuelle supplémentaire.
 
   conditions éligibilités: |
 
@@ -76,11 +76,11 @@ ampleur . montant écrêté:
   description: |
     L'écrêtement fixe une limite maximum de subvention par la puissance publique en % des travaux *toutes taxes comprises (TTC)*.
 
-    Si le montant total des aides était amené à dépasser le pourcentage d'écrêtement, alors c'est MaPrimeRénov' accompagnée qui serait réduite pour ne pas le dépasser, comme cela est expliqué dans les notes de bas de page de [ce tableau expliquant les cumuls](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=25).
+    Si le montant total des aides était amené à dépasser le pourcentage d'écrêtement, alors c'est MaPrimeRénov' parcours accompagné qui serait réduite pour ne pas le dépasser, comme cela est expliqué dans les notes de bas de page de [ce tableau expliquant les cumuls](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=25).
 
     > Cela dit, le modèle actuel Mes Aides Réno ne donne pas encore la possibilité de calculer les autres aides, hors MPR (MaPrimeRénov'). 
 
-    Prenons l'exemple simple sans cumul, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' accompagnée, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov Accompagnée.
+    Prenons l'exemple simple sans cumul, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' parcours accompagné, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov parcours accompagné.
 
     L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC des dépenses*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
 

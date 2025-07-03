@@ -54,14 +54,7 @@ export default function AmpleurSummary({ engine, url, situation }) {
         margin: 0;
       `}
     >
-      <div
-        css={`
-          display: flex;
-          justify-content: space-between;
-        `}
-      >
-        <ProfessionnelLabel />
-      </div>
+      <ProfessionnelLabel />
       <h3
         css={`
           font-size: 120%;
@@ -159,7 +152,7 @@ export const ProfessionnelLabel = () => (
     `}
   >
     <li>
-      <span aria-hidden="true">⭐</span> Parcours ampleur
+      <span aria-hidden="true">⭐</span> Parcours accompangé
     </li>
   </Labels>
 )

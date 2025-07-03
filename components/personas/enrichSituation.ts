@@ -38,12 +38,11 @@ export async function getCommune(situation, type) {
     ['ménage . commune', 'logement . commune'].includes(type) &&
     situation[type]
   ) {
-    const path = `communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
+    const path = `communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
       url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
 
     const response = await fetch(url)
-    const json = await response.json()
-    return json[0]
+    return await response.json()
   }
   return null
 }

@@ -10,8 +10,8 @@ import Demonstration from '../../Demonstration'
 import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
   title:
-    "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",
-  description: `Découvrez le module de calcul de la plus value d'un logement suite à une rénovation énergétique proposé par Mes Aides Réno"`,
+    "Module de calcul de la facture énergétique d'un logement suite à une rénovation - Mes aides réno",
+  description: `Découvrez le module de calcul de la facture énergétique d'un logement suite à une rénovation énergétique proposé par Mes Aides Réno"`,
 }
 
 export default function Module({}) {

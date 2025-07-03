@@ -41,7 +41,9 @@ export const LandingGreenBanner = styled.div`
     margin: 0 auto;
     text-align: center;
     text-align: left;
-    font-size: 90%;
+    small {
+      font-size: 90%;
+    }
     p {
       line-height: 1.3rem;
     }

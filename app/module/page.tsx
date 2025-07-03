@@ -82,7 +82,7 @@ export default function Module({}) {
             <h3>v1 (été 2024)</h3>
             <p>
               La première version "preuve de concept" du module. Elle n'intègre
-              que le dispositif principal MaPrimeRénov' parcours ampleur.{' '}
+              que le dispositif principal MaPrimeRénov' parcours accompagné.{' '}
             </p>
             <h3>v2 (septembre 2024)</h3>
             <p>
@@ -93,9 +93,8 @@ export default function Module({}) {
               résidence principale d'un locataire.
             </p>
             <p>
-              Il inclut non seulement MaPrimeRénov' ampleur mais aussi les
-              autres aides principales dont l'éco-PTZ, le Prêt Avance Rénovation
-              à zéro %, le dispositif Denormandie, etc.
+              Il inclut non seulement MaPrimeRénov' parcours accompagné mais aussi les
+              autres aides principales dont l'éco-PTZ, le prêt avance rénovation, le dispositif Denormandie, etc.
             </p>
             <h3>v3 (fin novembre 2024)</h3>
             <p>

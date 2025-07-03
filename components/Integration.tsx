@@ -47,7 +47,7 @@ export default function Integration() {
       valeur: '/',
     },
     {
-      titre: 'Calculette Ampleur',
+      titre: 'Calculette parcours accompagné',
       valeur: '/module/integration?DPE.actuel=6',
     },
     {
@@ -77,7 +77,7 @@ export default function Integration() {
     .forEach((item) =>
       listeModule.push({
         titre:
-          'Calculette MaPrimeRénov - ' +
+          "Calculette MaPrimeRénov' - " +
           rules[item.replace(' . MPR', '')].titre,
         valeur:
           '/aides/ma-prime-renov/' +
@@ -103,7 +103,7 @@ export default function Integration() {
     .forEach((item) =>
       listeModule.push({
         titre:
-          'Calculette Coup de Pouce - ' +
+          'Calculette "Coup de Pouce" - ' +
           rules[item.replace(' . Coup de pouce', '')].titre,
         valeur:
           '/aides/coup-de-pouce/' +
@@ -116,6 +116,7 @@ export default function Integration() {
   const iframeRef = useRef()
 
   const [noScroll, setNoScroll] = useResizeIframeFromHost(iframeRef)
+  const [sendUserDataOption, setSendUserDataOption] = useState(false)
 
   return (
     <main
@@ -257,7 +258,14 @@ export default function Integration() {
                     {iframeCode}
                   </code>
                 </IframeCodeWrapper>
-                <IntegrationQuestions {...{ noScroll, setNoScroll }} />
+                <IntegrationQuestions
+                  {...{
+                    noScroll,
+                    setNoScroll,
+                    sendUserDataOption,
+                    setSendUserDataOption,
+                  }}
+                />
                 <h2>Le résultat</h2>
 
                 <div
@@ -274,7 +282,13 @@ export default function Integration() {
                   <p>[votre contenu]</p>
                   <iframe
                     ref={iframeRef}
-                    src={getAppUrl() + module}
+                    src={
+                      getAppUrl() +
+                      module +
+                      (sendUserDataOption
+                        ? '?sendDataToHost=true&hostTitle=SuperRéno'
+                        : '')
+                    }
                     style={css`
                       width: 400px;
                       height: 700px;
@@ -312,7 +326,8 @@ export const HistoriqueVersion = () => (
       <h3>v1 (été 2024)</h3>
       <p>
         La première version "preuve de concept" du module. Elle n'intègre que le
-        dispositif principal MaPrimeRénov' parcours ampleur.{' '}
+        dispositif principal MaPrimeRénov’ parcours accompagné (pour une
+        rénovation d’ampleur).{' '}
       </p>
       <h3>v2 (septembre 2024)</h3>
       <p>
@@ -323,8 +338,8 @@ export const HistoriqueVersion = () => (
         locataire.
       </p>
       <p>
-        Il inclut non seulement MaPrimeRénov' ampleur mais aussi les autres
-        aides principales dont l'éco-PTZ, le Prêt Avance Rénovation à zéro %, le
+        Il inclut non seulement MaPrimeRénov’ parcours accompagné mais aussi les
+        autres aides principales dont l'éco-PTZ, le prêt avance rénovation, le
         dispositif Denormandie, etc.
       </p>
       <h3>v3 (fin novembre 2024)</h3>
@@ -386,7 +401,7 @@ export const ContactIntegration = ({ type }) => (
         Nous sommes à l'écoute de vos besoins, que vous soyez une administration
         publique, une collectivité, une entreprise (banque, courtier, agence
         immobilière, etc.) ou un professionnel du secteur (conseiller France
-        Rénov', Mon Accompagnateur Rénov, ADIL, etc).
+        Rénov', Mon Accompagnateur Rénov', ADIL, etc).
       </p>
       <p>
         Nouvelles fonctionnalités, personnalisation de l'intégration,
