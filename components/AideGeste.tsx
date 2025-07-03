@@ -1,7 +1,7 @@
 import rules from '@/app/règles/rules'
 import { BlocAide, InlineLink, PrimeStyle } from './UI'
 import { formatValue } from 'publicodes'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
 import { PrimeDisplay } from './Geste'
 import mprImage from '@/public/maprimerenov.svg'
@@ -9,7 +9,6 @@ import ceeImage from '@/public/cee.svg'
 import Image from 'next/image'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import GesteQuestion from './GesteQuestion'
-import { encodeSituation } from './publicodes/situationUtils'
 
 export default function AideGeste({
   engine,
@@ -119,7 +118,17 @@ export default function AideGeste({
         }
       `}
     >
-      <header onClick={() => setIsOpen(!isOpen)}>
+      <header
+        onClick={() => {
+          push([
+            'trackEvent',
+            'Simulateur Principal',
+            'Page',
+            (!isOpen ? 'Déplie geste' : 'Replie geste') + ' ' + dottedName,
+          ])
+          setIsOpen(!isOpen)
+        }}
+      >
         <div>
           <PrimeDisplay
             {...{
