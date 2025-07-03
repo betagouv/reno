@@ -88,10 +88,9 @@ export default function DPEAddressSearch({
           Sélectionnez une adresse :
         </small>
       )}
-      <CityList>
-        {addressResults &&
-          !clicked &&
-          addressResults.map((result) => {
+      {addressResults && !clicked && (
+        <CityList>
+          {addressResults.map((result) => {
             const { label, id } = result.properties
             return (
               <li
@@ -114,7 +113,8 @@ export default function DPEAddressSearch({
               </li>
             )
           })}
-      </CityList>
+        </CityList>
+      )}
     </AddressInput>
   )
 }
