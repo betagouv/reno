@@ -149,7 +149,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
             engine,
             situation,
             setSearchParams,
-            displayPrime: 'bottom',
+            display: 'bottom',
           }}
         />
         <OtherSimulateur {...{ ceeAssocie }} />

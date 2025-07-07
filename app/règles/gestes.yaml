@@ -57,7 +57,7 @@ ventilation:
 ventilation . double flux:
   titre: Ventilation double flux
   description: |
-    La VMC double flux conserve la chaleur qui est serait perdue par une VMC classique, tout en renouvelant efficacement l'air de votre logement.
+    La VMC double flux conserve la chaleur qui serait perdue par une VMC classique, tout en renouvelant efficacement l'air de votre logement.
 
   description complète: |
     Comme toutes les VMC, elle permet crée une circulation d'air depuis les fenêtres de vos chambres qui sortira vers l'extérieur par la cuisine et la salle de bain.

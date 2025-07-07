@@ -309,17 +309,19 @@ export const ConstraintedParagraphs = styled.div`
 
 export const BlocAide = styled.div`
   text-align: left;
-  padding: 1.5rem 1.5rem 1.75rem;
-  border: 1px solid #ddd;
-  border-bottom: 3px solid var(--color);
+  ${(p) => p.display == "geste" ? 
+    'padding: 0.5rem 0.5rem 0.5rem 0;border-bottom: 1px solid #ddd;' : 
+    'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
   background: white;
   margin-bottom: 1rem;
   .aide-header {
     display: flex;
     align-items: center;
-    color: #2a82dd;
     font-weight: 500;
-
+    h2 {
+      color: black;
+    }
+    ${(p) => p.display == "geste" && "margin-bottom: 1rem;"}
     > img {
       margin-right: 1.4rem;
       width: 3.5rem;
@@ -333,6 +335,7 @@ export const BlocAide = styled.div`
     font-size: 130%;
   }
   .aide-details {
+    margin-top: 1rem;
     font-size: 0.9rem;
     line-height: 1.25rem;
     color: #3a3a3a;
@@ -520,7 +523,6 @@ export const MiseEnAvant = styled.div`
   padding: 1rem 2.25rem 0.75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
-  ${(p) => !p.$noradius && `border-radius: 10px;`}
   ${(p) =>
     p.$type == 'warning'
       ? `border: 1px solid #b34000;`
@@ -563,25 +565,28 @@ export const MiseEnAvant = styled.div`
         mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
         `}
 `
-export const Badge = styled.span`
-  align-items: center;
-  background-color: #eee;
-  border-radius: 0.25rem;
-  color: #3a3a3a;
-  display: inline-flex;
-  flex-direction: row;
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.5rem;
-  max-height: none;
-  max-width: 100%;
-  min-height: 1.5rem;
-  overflow: initial;
-  padding: 0 0.5rem;
-  text-transform: uppercase;
-  width: -moz-fit-content;
-  width: fit-content;
-`
+export const Badge = ({ children, color }) => (
+  <span css={`
+    align-items: center;
+    background-color: ${color == 'blue' ? '#e8edff' : (color == 'purple' ? '#fee7fc' : '#eee')};
+    border-radius: 0.25rem;
+    color: ${color == 'blue' ? '#0063cb' : (color == 'purple' ? '#6e445a' : '#3a3a3a')};
+    display: inline-flex;
+    flex-direction: row;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    max-height: none;
+    max-width: 100%;
+    min-height: 1.5rem;
+    overflow: initial;
+    padding: 0 0.5rem;
+    text-transform: uppercase;
+    width: -moz-fit-content;
+    width: fit-content;
+    `}
+  >{children}</span>
+)
 export const CardLink = styled(Card)`
   &:hover {
     background: #e8edff;

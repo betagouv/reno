@@ -37,19 +37,6 @@ export default function AideDetails({
                 Eligibilité: setSearchParams(
                   {
                     ...encodeSituation(
-                      omit(["parcours d'aide", 'details'], situation),
-                      false,
-                      answeredQuestions,
-                    ),
-                  },
-                  'url',
-                  true,
-                ),
-              },
-              {
-                Ampleur: setSearchParams(
-                  {
-                    ...encodeSituation(
                       omit(['details'], situation),
                       false,
                       answeredQuestions,
@@ -91,7 +78,7 @@ export default function AideDetails({
               rules,
             }}
           />
-          <Feedback title={'Ce simulateur a-t-il été utile ?'} />
+          <Feedback />
         </CustomQuestionWrapper>
       </Section>
     )

@@ -3,7 +3,7 @@ import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import mprImage from '@/public/maprimerenov.svg'
-import { categoriesGeste } from '@/components/utils'
+import { categories, getRulesByCategory } from '@/components/utils'
 import Image from 'next/image'
 import Breadcrumb from '@/components/Breadcrumb'
 
@@ -13,22 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default function MaPrimeRenov() {
-  const distinctRulesMPR = Object.keys(rules)
-    .filter((item) => item.startsWith('gestes') && item.endsWith('MPR'))
-    .map((item) => item.replace(' . MPR', ''))
-
-  const rulesByCategory = Object.fromEntries(
-    categoriesGeste.map((category) => [category.titre, []]),
-  )
-  distinctRulesMPR.forEach((rule) => {
-    for (const category of categoriesGeste) {
-      if (rule.includes(category.code)) {
-        rulesByCategory[category.titre].push(rule)
-        break
-      }
-    }
-  })
-
+  const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return (
     <Main>
       <Section>
@@ -86,14 +71,14 @@ export default function MaPrimeRenov() {
             `}
           >
             Il existe un dispositif nommé{' '}
-            <strong>MaPrimeRénov' parcours accompagné</strong> pour une rénovation
-            d'ampleur.
+            <strong>MaPrimeRénov' parcours accompagné</strong> pour une
+            rénovation d'ampleur.
           </p>
         </MiseEnAvant>
 
         <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
         {Object.keys(rulesByCategory).map((category) => (
-          <Card>
+          <Card key={category}>
             <div
               style={css`
                 display: flex;
@@ -101,7 +86,7 @@ export default function MaPrimeRenov() {
               `}
             >
               <Image
-                src={categoriesGeste.find((c) => c.titre == category).icone}
+                src={categories.find((c) => c.titre == category).image}
                 alt={`icone ${category}`}
                 width="60"
               />

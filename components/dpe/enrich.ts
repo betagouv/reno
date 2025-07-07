@@ -20,7 +20,7 @@ const guessÉtage = (dpe) => {
   const complément = dpe['complement_adresse_logement']
   if (!complément) return null
   const etageMatch = complément.match(/([é|e]ta?ge?) (\d+)/i)
-  console.log({ etageMatch })
+  //console.log({ etageMatch })
   if (etageMatch) return +etageMatch[2]
   const rdcMatch = complément.match(/RDC/i)
   if (rdcMatch) return 0
