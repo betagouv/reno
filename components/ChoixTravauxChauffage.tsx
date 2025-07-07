@@ -121,6 +121,7 @@ export default function ChoixTravauxChauffage({
 
 const GesteMosaic = styled.div`
   label {
+    cursor: pointer;
     margin: 0 0.4rem;
     padding: 0.6rem 0.6rem;
     whitespace: nowrap;

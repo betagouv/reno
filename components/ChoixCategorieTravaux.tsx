@@ -45,7 +45,7 @@ export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
         {categories
           .filter((c) => c.code != 'autres')
           .map((categorie) => (
-            <section key={categorie.code}>
+            <label key={categorie.code}>
               <h3>
                 <input
                   type="checkbox"
@@ -63,7 +63,7 @@ export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
                 src={categorie.image}
                 alt={`Icone ${categorie.titre} d'une maison`}
               />
-            </section>
+            </label>
           ))}
       </Accordion>
     </>
@@ -73,7 +73,8 @@ export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
 const Accordion = styled.div`
   width: 100%;
   margin-bottom: 1rem;
-  section {
+  label {
+    cursor: pointer;
     display: flex;
     gap: 1rem;
     border: 1px solid #dddddd;

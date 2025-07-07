@@ -308,7 +308,7 @@ export default function AideEtapes({
             </h2>
             <p>
               Vous continuez de rembourser votre prêt, tout en réalisant déjà
-              des économies d'énergie ⚡️.
+              des économies d'énergie&nbsp;⚡️.
             </p>
           </Card>
         </div>

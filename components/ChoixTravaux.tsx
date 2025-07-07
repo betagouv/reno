@@ -114,7 +114,7 @@ export default function ChoixTravaux({
             <Accordion geste="true">
               {Object.entries(categorie.gestes).map((item) => {
                 return (
-                  <section key={item[0]}>
+                  <label key={item[0]}>
                     <h3>
                       <input
                         type="checkbox"
@@ -130,7 +130,7 @@ export default function ChoixTravaux({
                       />
                       <span>{item[1]}</span>
                     </h3>
-                  </section>
+                  </label>
                 )
               })}
             </Accordion>
@@ -162,7 +162,8 @@ export default function ChoixTravaux({
 export const Accordion = styled.div`
   width: 100%;
   margin-bottom: 3rem;
-  section {
+  label {
+    cursor: pointer;
     display: flex;
     gap: 1rem;
     border: 1px solid #dddddd;
