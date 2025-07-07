@@ -5,7 +5,7 @@ import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
-import plusValueImage from '@/public/illuPlusValue.png'
+import factureImage from '@/public/illuFacture.png'
 import Demonstration from '../../Demonstration'
 import Breadcrumb from '@/components/Breadcrumb'
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default function Module({}) {
         </Content>
         <HeaderWrapper>
           <Image
-            src={plusValueImage}
+            src={factureImage}
             alt="Illustration de la calculette Facture d'énergie"
             style={css`
               margin: 1rem;

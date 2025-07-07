@@ -18,7 +18,7 @@ const modules = {
   ampleur: '750px',
   'plus-value': '750px',
   travaux: '750px',
-  facture: '410px',
+  facture: '510px',
 }
 
 const iframeCode = (src, moduleName, cssExample = false) => `

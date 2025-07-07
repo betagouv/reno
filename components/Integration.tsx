@@ -20,6 +20,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import { CardMosaic } from './DevenirPartenaire'
 import ampleurImage from '@/public/illuAmpleur.png'
 import plusValueImage from '@/public/illuPlusValue.png'
+import factureImage from '@/public/illuFacture.png'
 
 export default function Integration() {
   const router = useRouter()
@@ -178,7 +179,19 @@ export default function Integration() {
             </h2>
             <CardMosaic $smallTitle $noPadding>
               <Card>
-                <Image src={plusValueImage} alt="Logo Plus Value" />
+                <Image src={factureImage} alt="Illustration Facture" />
+                <h3>
+                  <Link href="/module/facture/demonstration">
+                    Facture énergétique
+                  </Link>
+                </h3>
+                <p>
+                  Evaluez l'impact financier d'une rénovation sur votre facture
+                  d'énergie.
+                </p>
+              </Card>
+              <Card>
+                <Image src={plusValueImage} alt="Illustration Plus Value" />
                 <h3>
                   <Link href="/module/plus-value/demonstration">
                     Ma plus-value Réno
@@ -189,7 +202,7 @@ export default function Integration() {
                 </p>
               </Card>
               <Card>
-                <Image src={ampleurImage} alt="Logo Ampleur" />
+                <Image src={ampleurImage} alt="Illustration Ampleur" />
                 <h3>
                   <Link href="/module">Rénovation d'ampleur</Link>
                 </h3>
