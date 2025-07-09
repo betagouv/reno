@@ -11,19 +11,6 @@ import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import AideDetails from './AideDetails'
-import AideSynthese from './ampleur/AideSynthese'
-import AideMAR from './ampleur/AideMAR'
-import AidesLocales from './ampleur/AidesLocales'
-import CEEAmpleur from './ampleur/CEEAmpleur'
-import Copro from './ampleur/Copro'
-import Denormandie from './ampleur/Denormandie'
-import EcoPTZ from './ampleur/EcoPTZ'
-import MPRA from './ampleur/MPRA'
-import PAR from './ampleur/PAR'
-import TaxeFoncière from './ampleur/TaxeFoncière'
-import MaPrimeAdaptOccupant from './maPrimeAdapt/MaPrimeAdaptOccupant'
-import MaPrimeAdaptBailleur from './maPrimeAdapt/MaPrimeAdaptBailleur'
-import MaPrimeAdaptCopropriété from './maPrimeAdapt/MaPrimeAdaptCopropriété'
 import LocAvantage from './LocAvantage'
 import CoproAddressSearch from './CoproAddressSearch'
 import DPEMap from './dpe/DPEMap'
@@ -47,22 +34,6 @@ export default function InputSwitch({
   searchParams,
   correspondance,
 }) {
-  const correspondance = {
-    'MPR . accompagnée': MPRA,
-    'MPR . accompagnée . prise en charge MAR': AideMAR,
-    PTZ: EcoPTZ,
-    PAR: PAR,
-    'aides locales': AidesLocales,
-    'ampleur . prime individuelle copropriété': Copro,
-    'taxe foncière': TaxeFoncière,
-    denormandie: Denormandie,
-    "CEE . rénovation d'ampleur": CEEAmpleur,
-    'mpa . occupant': MaPrimeAdaptOccupant,
-    'mpa . bailleur': MaPrimeAdaptBailleur,
-    'mpa . copropriété': MaPrimeAdaptCopropriété,
-    locavantage: LocAvantage,
-  }
-  
   const [addressResults, setAddressResults] = useState(null)
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
@@ -402,6 +373,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
   }
+  console.log('currentQuestion', currentQuestion)
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
@@ -428,38 +400,6 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
-    return (
-      <GestesBasket
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
-        }}
-      />
-    )
-  }
-
-  if (searchParams['details'] && searchParams['details'] == 'synthese') {
-    return (
-      <AideSynthese
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          correspondance,
-          nextQuestions,
-        }}
-      />
-    )
-  }
-
   if (searchParams['details']) {
     return (
       <AideDetails
@@ -473,24 +413,6 @@ export default function InputSwitch({
           rules,
           correspondance,
           nextQuestions,
-        }}
-      />
-    )
-  }
-
-  if (
-    getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
-    searchParams["parcours d'aide"].includes('à la carte')
-  ) {
-    return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          questions: gestesMosaicQuestions,
         }}
       />
     )

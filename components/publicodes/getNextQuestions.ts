@@ -4,7 +4,6 @@ export default function getNextQuestions(
   evaluation,
   answeredQuestions,
   questionsConfig,
-  rules,
 ) {
   const { missingVariables } = evaluation
 

@@ -3,7 +3,7 @@
 import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import styled from 'styled-components'
 import Image from 'next/image'
-import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
+import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import logoMPA from '@/public/logo-mpa.png'
 
 export default function AidesGlobales() {

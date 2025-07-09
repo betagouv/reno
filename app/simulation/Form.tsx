@@ -30,6 +30,10 @@ import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
+import MaPrimeAdaptOccupant from '@/components/maPrimeAdapt/MaPrimeAdaptOccupant'
+import MaPrimeAdaptBailleur from '@/components/maPrimeAdapt/MaPrimeAdaptBailleur'
+import MaPrimeAdaptCopropriété from '@/components/maPrimeAdapt/MaPrimeAdaptCopropriété'
+import LocAvantage from '@/components/LocAvantage'
 
 export const correspondance = {
   'MPR . accompagnée': MPRA,
@@ -41,6 +45,10 @@ export const correspondance = {
   'taxe foncière': TaxeFoncière,
   denormandie: Denormandie,
   "CEE . rénovation d'ampleur": CEEAmpleur,
+  'mpa . occupant': MaPrimeAdaptOccupant,
+  'mpa . bailleur': MaPrimeAdaptBailleur,
+  'mpa . copropriété': MaPrimeAdaptCopropriété,
+  locavantage: LocAvantage,
 }
 
 function Form({ rules }) {
@@ -57,10 +65,6 @@ function Form({ rules }) {
   const { objectif, depuisModule, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
-  const config =
-    target == 'mpa . montant'
-      ? simulationConfigAdapt.situation || {}
-      : simulationConfig.situation || {}
 
   const engine = useMemo(
     () =>
@@ -73,14 +77,8 @@ function Form({ rules }) {
       }),
     [rules],
   )
-  const answeredQuestions = [
-    ...getAnsweredQuestions(situationSearchParams, rules),
-  ]
-
-  const situation = {
-    ...getSituation(situationSearchParams, rules),
-  }
-
+  const answeredQuestions = getAnsweredQuestions(situationSearchParams, rules)
+  const situation = getSituation(situationSearchParams, rules)
   const validatedSituation = Object.fromEntries(
     Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
   )
@@ -102,47 +100,40 @@ function Form({ rules }) {
     nextQuestions = getNextQuestionsMainForm(
       evaluation,
       answeredQuestions,
-      target == 'mpa . montant' ? simulationConfigAdapt : simulationConfigMainForm,
-      rules
+      target == 'mpa . montant'
+        ? simulationConfigAdapt
+        : simulationConfigMainForm,
     )
-  const currentQuestion = objectif
-    ? decodeDottedName(objectif)
-    : nextQuestions[0]
+  console.log('nextQuestions', nextQuestions)
+  const currentQuestion = nextQuestions[0]
 
+  // Hack pour MPA: il est préférable de gérer l'inéligibilité autrement
+  // if (target === 'mpa . montant' && !rules['mpa . montant']) {
+  //   return (
+  //     <CustomQuestionWrapper>
+  //       <CTAWrapper>
+  //         <CTA
+  //           $fontSize="normal"
+  //           $importance="emptyBackground"
+  //           css={`
+  //             a {
+  //               padding: 0.5rem 0.8rem;
+  //             }
+  //           `}
+  //         >
+  //           <span onClick={() => history.back()}>⬅ Retour</span>
+  //         </CTA>
+  //       </CTAWrapper>
+  //       <header>
+  //         <small>Eligibilité</small>
+  //       </header>
+  //       <p>
+  //         Vous n'êtes <No>pas éligible</No> au dispositif MaPrimeAdapt'.
+  //       </p>
+  //     </CustomQuestionWrapper>
+  //   )
+  // }
 
-  return (
-	{
-        // Hack pour MPA: il est préférable de gérer l'inéligibilité autrement
-        target == 'mpa . montant' && !rule && (
-          <CustomQuestionWrapper>
-            <CTAWrapper
-              $justify="start"
-              css={`
-                margin-top: 0;
-              `}
-            >
-              <CTA
-                $fontSize="normal"
-                $importance="emptyBackground"
-                css={`
-                  a {
-                    padding: 0.5rem 0.8rem;
-                  }
-                `}
-              >
-                <span onClick={() => history.back()}>⬅ Retour</span>
-              </CTA>
-            </CTAWrapper>
-            <header>
-              <small>Eligibilité</small>
-            </header>
-            <p>
-              Vous n'êtes <No>pas éligible</No> au dispositif MaPrimeAdapt'.
-            </p>
-          </CustomQuestionWrapper>
-        )
-      }
-	)
   if (searchParams['details']) {
     return (
       <AideDetails
