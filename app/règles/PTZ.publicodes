@@ -101,5 +101,6 @@ PTZ . durée:
     - sinon: 15 ans 
 PTZ . condition maprimerenov:
   note: Cette condition permet de savoir si le PTZ est demandé en complément de MaPrimeRénov' (parcours accompagné ou rénovation par geste)
-  toutes ces conditions:
-    - est défini: parcours d'aide
+  une de ces conditions:
+    - MPR . accompagnée . éligible
+    - MPR . non accompagnée . éligible

@@ -221,17 +221,20 @@ export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
         font-size: 1rem;
       `}
     >
-      {['ampleur . prime individuelle copropriété'].includes(dottedName)
-        ? 'Prime de '
-        : ['taxe foncière'].includes(dottedName)
-          ? ''
-          : "Jusqu'à "}
-      <strong>
-        {dottedName.includes('taxe foncière')
-          ? situation['taxe foncière . commune . taux']
-          : formatValue(montant, { precision: 0 })}
-      </strong>
-      <AideDurée engine={engine} dottedName={dottedName} />
+      <AideMontant
+        {...{
+          engine,
+          situation: bestSituation,
+          dottedName,
+        }}
+      />
+      <AideDurée
+        {...{
+          engine,
+          situation: bestSituation,
+          dottedName,
+        }}
+      />
     </PrimeStyle>
   ) : (
     dottedName != 'aides locales . montant' && (

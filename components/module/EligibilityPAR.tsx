@@ -40,7 +40,6 @@ export default function EligibilityPAR({ dottedName }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rulesWithInterets)
-  situation["parcours d'aide"] = '"à la carte"'
 
   const answeredQuestions = getAnsweredQuestions(
     searchParams,
