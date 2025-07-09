@@ -1,6 +1,5 @@
 montant:
   question: Quels gestes envisagez-vous ?
-  applicable si: parcours d'aide = 'rénovation énergétique'
   mosaïque: oui
   somme:
     - recommandés

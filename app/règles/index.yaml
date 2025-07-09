@@ -4,10 +4,22 @@ simulation:
 # C'est la variable qui lance le simulateur principal mes aides réno
 # Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig*.ts
 aides:
-  somme:
-    - ampleur . tous les dispositifs # ampleur.yaml
-    - MPR . non accompagnée . montant
-    - mpa . montant
+  variations:
+    - si:
+        toutes ces conditions:
+          - parcours d'aide = "rénovation énergétique"
+          - une de ces conditions:
+              - toutes ces conditions:
+                  - projet . définition = "travaux connus"
+                  - est défini: projet . définition . catégories travaux envisagées
+                  - est défini: projet . définition . travaux envisagés
+              - projet . définition = "travaux inconnus"
+      alors:
+        somme:
+          - ampleur . tous les dispositifs # ampleur.yaml
+          - MPR . non accompagnée . montant
+    - si: parcours d'aide = "autonomie de la personne"
+      alors: mpa . montant
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -697,7 +709,6 @@ projet . définition . travaux envisagés chauffage:
 conditions communes:
   titre: Conditions d'éligibilité de base
   toutes ces conditions:
-    - parcours d'aide = "rénovation énergétique"
     - vous . propriétaire . condition
     - logement . au moins 15 ans
     - logement . résidence principale
@@ -779,12 +790,6 @@ MPR . non accompagnée . éligible:
     toutes ces conditions:
       - conditions communes
       - conditions excluantes = non
-      - une de ces conditions:
-          - toutes ces conditions:
-              - projet . définition = "travaux connus"
-              - est défini: projet . définition . catégories travaux envisagées
-              - est défini: projet . définition . travaux envisagés
-          - projet . définition = "travaux inconnus"
 
 gestes: # gestes.yaml
   titre: Parcours par gestes
