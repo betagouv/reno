@@ -1,4 +1,5 @@
-import { getAmpleurDPEChoice } from '@/components/ScenariosSelector'
+import { getAmpleurDPEChoice } from '@/components/dpe/DPEQuickSwitch'
+
 import Value from '@/components/Value'
 
 const Base = ({ engine, situation, choice, showTotal }) => (

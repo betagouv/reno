@@ -1,22 +1,24 @@
-import { Card } from '@/components/UI'
+import { Card, ExternalLink } from '@/components/UI'
 import { getAdresse } from './MarSearch'
+import NotFound from './NotFound'
 
 export default function Entreprise({ data }) {
-  if (!data)
-    return (
-      <p>
-        Conseiller non trouvé, n'hésitez pas à choisir la grande ville près de
-        chez vous.
-      </p>
-    )
+  if (!data) return <NotFound />
   const [nom, rue, ville] = getAdresse(data)
-  // le {nom} de l'entité n'est pas très utile, car c'est toujours empiriquement "Espace France Rénov [ville ou EPCI], le complementx de l'adresse est plus informatif
+  // le {nom} de l'entité n'est pas très utile, car c'est toujours empiriquement "Espace France Rénov' [ville ou EPCI], le complementx de l'adresse est plus informatif
   const { latitude, longitude } = JSON.parse(data.adresse || '[{}]')[0]
-  const horaires = JSON.parse(data.Horaires_Structure)
+
+  // On supprime quelques caractères qui font échouer le JSON.parse
+  const horaires = JSON.parse(
+    data.Horaires_Structure.replace(/[\u0000-\u001F\u007F-\u009F]/g, ''),
+  )
   const telephone = data.Telephone_Structure
-  
   const siteRaw = data.Site_Internet_Structure,
-    site = siteRaw ? siteRaw?.startsWith('http') ? siteRaw : 'https://' + siteRaw : false
+    site = siteRaw
+      ? siteRaw?.startsWith('http')
+        ? siteRaw
+        : 'https://' + siteRaw
+      : false
 
   return (
     <Card
@@ -39,12 +41,12 @@ export default function Entreprise({ data }) {
       </div>
       {latitude && longitude && (
         <div>
-          <a
+          <ExternalLink
             href={`https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=17/${latitude}/${longitude}`}
             target="_blank"
           >
             Voir sur une carte
-          </a>
+          </ExternalLink>
         </div>
       )}
       <br />
@@ -59,7 +61,11 @@ export default function Entreprise({ data }) {
         </div>
       )}
       {data.Email_Structure && (
-        <div>
+        <div
+          css={`
+            word-break: break-all;
+          `}
+        >
           <a
             href={`mailto:${data.Email_Structure}`}
             title="Contacter cette entreprise par courriel"
@@ -69,10 +75,14 @@ export default function Entreprise({ data }) {
         </div>
       )}
       {site && (
-        <div>
-          <a href={site} target="_blank">
+        <div
+          css={`
+            word-break: break-all;
+          `}
+        >
+          <ExternalLink href={site} target="_blank">
             {site}
-          </a>
+          </ExternalLink>
         </div>
       )}
       {horaires[0] != '' && (

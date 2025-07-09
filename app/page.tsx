@@ -1,39 +1,42 @@
-const FromStorageSimulationButton = dynamic(
-  () => import('@/components/FromStorageSimulationButton'),
-  { ssr: false },
-)
-import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
+import FromStorageSimulationButtonLoader from '@/components/FromStorageSimulationButtonLoader'
+import {
+  CTA,
+  CTAWrapper,
+  ExternalLink,
+  Intro,
+  PageBlock,
+} from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import illustrationAccueil from '@/public/illustration-accueil.resized.jpg'
+import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
-import {
-  HeaderWrapper,
-  HomeList,
-  Labels,
-  LandingGreenBanner,
-} from './LandingUI'
-import dynamic from 'next/dynamic'
+import HomepageModules from './HomepageModules'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
+import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
 
-export const description = `Calculez les aides MaPrimeRénov' 2024 pour la rénovation de votre logement.`
+import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
+
+
+export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
 export const metadata: Metadata = {
-  title: 'Mes aides réno 2024',
+  title:
+    'Mes aides réno : simulateur officiel des aides à la rénovation energétique 2025',
   description,
   openGraph: { images: ['/jaquette.png'] },
 }
 
-export default function Page() {
+export default async function Page(props) {
+  const searchParams = await props.searchParams
+
   return (
     <main
       style={css`
         background: white;
-
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
@@ -45,9 +48,9 @@ export default function Page() {
           />
           <div>
             <Labels>
-              {['⚡️ En 2024, les aides évoluent'].map((text) => (
-                <li key={text}>{text}</li>
-              ))}
+              <li key={'réno'}>
+                <span aria-hidden="true">⚡️</span> Rénovation Énergétique
+              </li>
             </Labels>
             <h1
               style={css`
@@ -79,39 +82,59 @@ export default function Page() {
               </strong>{' '}
               et sans inscription.
             </p>
-            <CTAWrapper $justify="left">
-              <CTA $fontSize="normal">
-                <Link href="/simulation">➞&nbsp;&nbsp;C'est parti !</Link>
-              </CTA>
-            </CTAWrapper>
-            <CTAWrapper $justify="left">
-              <CTA $fontSize="normal" $importance="secondary" style={css`padding: 0.5rem 0;`}>
-                <Link href="/copropriete">Je représente une copropriété</Link>
-              </CTA>
-            </CTAWrapper>
-            <FromStorageSimulationButton />
+            <div
+              style={css`
+                padding-top: 1rem;
+              `}
+            >
+              <CTAWrapper $justify="left">
+                <CTA $fontSize="normal">
+                  <Link
+                    href={{
+                      pathname: '/simulation',
+                      query: searchParams, // needed to pass "iframe" and "sendDataToHost" params to the simulation
+                    }}
+                    prefetch={false}
+                  >
+                    ➞&nbsp;&nbsp;C'est parti !
+                  </Link>
+                </CTA>
+              </CTAWrapper>
+              <CTAWrapper $justify="left">
+                <CTA
+                  $fontSize="normal"
+                  $importance="secondary"
+                  style={css`
+                    padding: 0.5rem 0;
+                  `}
+                >
+                  <Link href="/copropriete">Je représente une copropriété</Link>
+                </CTA>
+              </CTAWrapper>
+              <FromStorageSimulationButtonLoader />
+            </div>
           </div>
         </HeaderWrapper>
         <LandingGreenBanner>
           <div>
             <Image src={logoFranceRenov} alt="Logo de France Rénov" />
             <p>
-              Une initiative construite avec{' '}
-              <a href="https://france-renov.gouv.fr">France&nbsp;Rénov'</a> pour
-              simplifier l’information sur les
-              aides&nbsp;à&nbsp;la&nbsp;rénovation&nbsp;énergétique.{' '}
-              <Link
-                href="/a-propos"
-                style={css`
-                  white-space: nowrap;
-                `}
-              >
-                En savoir plus.
-              </Link>
+              <ParFranceRénovTexte />{' '}
+              <small>
+                <Link
+                  href="/a-propos"
+                  style={css`
+                    white-space: nowrap;
+                  `}
+                >
+                  En savoir plus.
+                </Link>
+              </small>
             </p>
           </div>
         </LandingGreenBanner>
         <HomepageSteps />
+        <HomepageModules />
         <HomepageTestimonies />
         <HomepageTalkAboutUs />
       </PageBlock>

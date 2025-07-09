@@ -1,39 +1,35 @@
 import FormButtons from '@/app/simulation/FormButtons'
 import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import Suggestions from '@/app/simulation/Suggestions'
-import { AnswerWrapper } from './InputUI'
+import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
-
-import { isMosaicQuestion } from './BooleanMosaic'
-import { gestesMosaicQuestionText } from './GestesMosaic'
-import QuestionDescription from './QuestionDescription'
-import { getRuleName } from './publicodes/utils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
-import useIsInIframe from './useIsInIframe'
-import UserProblemBanner from './UserProblemBanner'
-import Share from '@/app/simulation/Share'
-import { useSearchParams } from 'next/navigation'
 import ProgressBar from '@/app/simulation/ProgressBar'
+import { useSearchParams } from 'next/navigation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
+import CopyButton from './CopyButton'
+import QuestionDescription from './QuestionDescription'
+import UserProblemBanner from './UserProblemBanner'
+import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
+import { getRuleName } from './publicodes/utils'
 
 export const QuestionText = ({
   rule,
   question: dottedName,
-  rules,
   situation,
   engine,
 }) => {
-  if (isMosaicQuestion(dottedName, rule, rules))
-    return gestesMosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
 
   const text = rule.question.texte
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
-  if (text.endsWith(' ?'))
-    return <span>{text.replace(/\s\?$/, '')}&nbsp;?</span>
-  return <span>{text}</span>
+  return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
 }
+
 export default function ClassicQuestionWrapper({
   children,
   rule,
@@ -47,16 +43,24 @@ export default function ClassicQuestionWrapper({
   engine,
   noSuggestions,
   nextQuestions,
+  noButtons = false,
 }) {
-  const isInIframe = useIsInIframe()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+  const { depuisModule } = searchParams
   const { categoryTitle } = categoryData(
     nextQuestions,
     currentQuestion,
     answeredQuestions,
     rules,
   )
+  const remaining =
+    nextQuestions.indexOf("parcours d'aide") !== -1
+      ? nextQuestions.indexOf("parcours d'aide")
+      : nextQuestions.length
+
+  const [avertissementState, setAvertissementState] = useAvertissementState()
+
   return (
     <>
       <ProgressBar
@@ -69,18 +73,22 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
-      <div
-        css={`
-          max-width: 800px;
-          min-height: 100%;
-          padding: 0 1rem;
-          margin: 0 auto;
-        `}
-      >
-        {(!rule.type || !rule.type === 'question rhétorique') && (
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
+      />
+      <AmpleurModuleBanner
+        {...{
+          depuisModule,
+          setSearchParams,
+          situation,
+          remaining,
+        }}
+      />
+      <QuestionCard>
+        {!rule.type && (
           <QuestionHeader>
-            <small>{categoryTitle}</small>
-            <h3>
+            <div>
+              <small>{categoryTitle}</small>
               <QuestionText
                 {...{
                   rule,
@@ -90,19 +98,15 @@ export default function ClassicQuestionWrapper({
                   engine,
                 }}
               />
-            </h3>
-            {rule['sous-titre'] && (
-              <div
-                css={`
-                  p {
-                    color: #666;
-                    font-size: 90%;
-                    line-height: 1.25rem;
-                  }
-                `}
-                dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-              ></div>
-            )}
+              {rule['sous-titre'] && (
+                <Subtitle
+                  dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+                ></Subtitle>
+              )}
+            </div>
+            <div>
+              <CopyButton searchParams={searchParams} />
+            </div>
           </QuestionHeader>
         )}
         <AnswerWrapper>
@@ -127,34 +131,43 @@ export default function ClassicQuestionWrapper({
           )}
           {children}
         </AnswerWrapper>
-        <FormButtons
-          {...{
-            currentValue,
-            rules,
-            setSearchParams,
-            encodeSituation,
-            answeredQuestions,
-            questionsToSubmit,
-            currentQuestion,
-            situation,
-          }}
-        />
+        {!noButtons && (
+          <FormButtons
+            {...{
+              currentValue,
+              rules,
+              setSearchParams,
+              encodeSituation,
+              answeredQuestions,
+              questionsToSubmit,
+              currentQuestion,
+              situation,
+              depuisModule,
+              setAvertissementState,
+            }}
+          />
+        )}
         <Notifications {...{ currentQuestion, engine }} />
-        <QuestionDescription {...{ currentQuestion, rule }} />
-        <Answers
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            engine,
-            situation,
-          }}
-        />
-        <br />
-        <Share searchParams={searchParams} />
-        <UserProblemBanner />
-      </div>
+
+        <section
+          css={`
+            margin-top: 8vh;
+          `}
+        >
+          <QuestionDescription {...{ currentQuestion, rule }} />
+          <Answers
+            {...{
+              answeredQuestions,
+              nextQuestions,
+              currentQuestion,
+              rules,
+              engine,
+              situation,
+            }}
+          />
+          <UserProblemBanner />
+        </section>
+      </QuestionCard>
     </>
   )
 }

@@ -1,10 +1,35 @@
 chauffage . PAC:
   titre: Pompe à chaleur
 
+chauffage . PAC . type:
+  question: 'Quel type de PAC vous intéresse ?'
+  une possibilité parmi:
+    possibilités:
+      - air-eau
+      - géo
+      - solaire
+      - air-air
+chauffage . PAC . type . air-eau:
+  valeur: air-eau
+  titre: Pompe à chaleur air/eau
+chauffage . PAC . type . géo:
+  valeur: géo
+  titre: Pompe à chaleur géothermique
+chauffage . PAC . type . solaire:
+  valeur: solaire
+  titre: Pompe à chaleur solarothermique
+chauffage . PAC . type . air-air:
+  valeur: air-air
+  titre: Pompe à chaleur air/air
+
 chauffage . PAC . air-eau:
   par défaut: oui
   titre: Pompe à chaleur air/eau
-  description: Pompe à chaleur air/eau (dont PAC hybrides)
+  description: Elle puise l'énergie de l'air autour de votre logement pour en chauffer l'intérieur et l'eau sanitaire.
+
+  description complète: |
+    Les PAC hybrides sont également subventionnées : elles combinent une pompe à chaleur et une chaudière à condensation fossile.
+
   note: La ligne "Une pompe à chaleur hybride" des primes coup de pouce CEE est avalée par notre option PAC air/eau (dont hybride), les montants de financement sont les memes.
 chauffage . PAC . air-eau . montant:
   applicable si:
@@ -208,7 +233,12 @@ chauffage . PAC . air-eau . Coup de pouce . question: CEE . projet . remplacemen
 chauffage . PAC . géo:
   par défaut: oui
   titre: Pompe à chaleur géothermique
-  description: Pompe à chaleur géothermique
+  description: |
+    Elle puiser la chaleur de la terre pour chauffer votre logement et son eau chaude sanitaire.
+
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
+
   note: |
     Le guide Anah parle de PAC géo ou solarothermique *dont hybride*. Ça me semble étonnant. D'après les ressources disponibles en ligne, l'hybridation avec une chaudière à combustile est surtout utilisée pour palier à la baisse de température de l'air, ce qui ne semble pas etre utile pour une PAC qui va puiser la chaleur dans le sol qui a pour particularité de garder une température plus constante toute l'année. Peut-etre est-ce utile pour palier à l'augmentation de la chaleur nécessaire à cause de la baisse de température ? À creuser, pour l'instant on ignore cette option.
 
@@ -359,8 +389,18 @@ chauffage . PAC . géo . CEE . facteur correctif région:
 chauffage . PAC . solaire:
   par défaut: oui
   titre: Pompe à chaleur solarothermique
-  description: Pompe à chaleur solarothermique
-chauffage . PAC . solaire . montant: MPR . montant
+  description: |
+    Elle chauffe votre logement et votre eau chaude en utilisant l’énergie solaire quand elle est disponible grâce à des panneaux sur le toit.
+
+  description complète: |
+
+    Elle ne fait intervenir la PAC air/eau qu'en période de faible ensoleillement.
+
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
+
+chauffage . PAC . solaire . montant:
+  somme:
+    - MPR . montant
 chauffage . PAC . solaire . MPR:
 chauffage . PAC . solaire . MPR . plafond: 18000 €
 chauffage . PAC . solaire . MPR . montant:
@@ -373,3 +413,144 @@ chauffage . PAC . solaire . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 6000 €
     - sinon: 0 €
+
+chauffage . PAC . air-air:
+  par défaut: oui
+  titre: Pompe à chaleur air/air
+  description: Pompe à chaleur air/air
+  technique: 'La puissance nominale de la PAC air/air est inférieure ou égale à 12 kW et son coefficient de performance saisonnier (SCOP) est supérieur ou égal à 3,9.'
+chauffage . PAC . air-air . montant:
+  applicable si: CEE . conditions
+  somme:
+    - CEE . montant
+chauffage . PAC . air-air . CEE:
+  code: BAR-TH-129
+  titre: Pompe à chaleur de type de type air/air
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-129%20mod%20A27-3%20%C3%A0%20compter%20du%2001-04-2018.pdf
+  technique: 'La puissance nominale de la PAC air/air est inférieure ou égale à 12 kW et son coefficient de performance saisonnier (SCOP) est supérieur ou égal à 3,9.'
+chauffage . PAC . air-air . CEE . question:
+  type: liste
+  valeurs:
+    - SCOP
+chauffage . PAC . air-air . CEE . montant:
+  applicable si: CEE . conditions
+  produit:
+    - barème
+    - facteur correctif surface
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . PAC . air-air . CEE . SCOP:
+  question: Quelle serait le Coefficient de Performace (COP) de la Pompe à chaleur ?
+  titre: Efficacité énergétique saisonnière
+  par défaut: 4
+  maximum: 5
+  une possibilité parmi:
+    possibilités:
+      - 'peu efficace'
+      - 'efficace'
+      - 'très efficace'
+chauffage . PAC . air-air . CEE . SCOP . peu efficace:
+  valeur: '3'
+  titre: 'Inférieur à 3,9'
+chauffage . PAC . air-air . CEE . SCOP . efficace:
+  valeur: '4'
+  titre: 'Inférieur à 4,3'
+chauffage . PAC . air-air . CEE . SCOP . très efficace:
+  valeur: '5'
+  titre: 'Supérieur à 4,3'
+chauffage . PAC . air-air . CEE . surface: logement . surface
+chauffage . PAC . air-air . CEE . facteur correctif surface:
+  variations:
+    - si: logement . type = 'maison'
+      alors: facteur correctif surface maison
+    - sinon: facteur correctif surface appartement
+chauffage . PAC . air-air . CEE . facteur correctif surface maison:
+  variations:
+    - si: surface < 35
+      alors: 0.3
+    - si: surface < 60
+      alors: 0.5
+    - si: surface < 70
+      alors: 0.6
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
+chauffage . PAC . air-air . CEE . facteur correctif surface appartement:
+  variations:
+    - si: surface < 35
+      alors: 0.5
+    - si: surface < 60
+      alors: 0.7
+    - si: surface < 70
+      alors: 1
+    - si: surface < 90
+      alors: 1.2
+    - si: surface < 110
+      alors: 1.5
+    - si: surface < 130
+      alors: 1.9
+    - si: surface >= 130
+      alors: 2.5
+chauffage . PAC . air-air . CEE . barème:
+  variations:
+    - si: logement . type = 'appartement'
+      alors: barème appartement
+    - si: logement . type = 'maison'
+      alors: barème maison
+chauffage . PAC . air-air . CEE . barème appartement:
+  variations:
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H1'
+          - SCOP >= 3.9
+      alors: 21300
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H2'
+          - SCOP >= 3.9
+      alors: 17400
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H3'
+          - SCOP >= 3.9
+      alors: 11600
+chauffage . PAC . air-air . CEE . barème maison:
+  variations:
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H1'
+          - SCOP >= 3.9
+          - SCOP < 4.3
+      alors: 77900
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H2'
+          - SCOP >= 3.9
+          - SCOP < 4.3
+      alors: 63700
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H3'
+          - SCOP >= 3.9
+          - SCOP < 4.3
+      alors: 42500
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H1'
+          - SCOP >= 4.3
+      alors: 80200
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H2'
+          - SCOP >= 4.3
+      alors: 65600
+    - si:
+        toutes ces conditions:
+          - CEE . région = 'H3'
+          - SCOP >= 4.3
+      alors: 43700

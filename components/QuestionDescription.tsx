@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
-import iconReduire from '@/public/reduire.svg'
-import Image from 'next/image'
 import { useMediaQuery } from 'usehooks-ts'
 
 export default function QuestionDescription({ currentQuestion, rule }) {
@@ -18,7 +16,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
 
   const handleSummaryClick = (e) => {
     e.preventDefault()
-    push(['trackEvent', 'Simulateur principal', 'Clic', 'comment répondre'])
+    push(['trackEvent', 'Simulateur Principal', 'Clic', 'comment répondre'])
     setIsOpen((prevIsOpen) => !prevIsOpen)
   }
   return (
@@ -27,10 +25,7 @@ export default function QuestionDescription({ currentQuestion, rule }) {
       <details
         open={isOpen}
         css={`
-          border-radius: 5px;
-          background: #e8edff;
-          padding: 0.5rem 1rem;
-          margin-top: 1rem;
+          margin: 2vh 0;
         `}
       >
         <summary
@@ -38,57 +33,36 @@ export default function QuestionDescription({ currentQuestion, rule }) {
             outline: none;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             &::-webkit-details-marker {
               display: none;
             }
             &::marker {
               display: none;
             }
+            padding: 0.5rem 1rem;
+            border: 1px solid #dddddd;
+            color: var(--color);
+            position: relative;
           `}
           onClick={handleSummaryClick}
         >
-          <span>💡 Comment répondre ?</span>
-          <span
-            css={`
-              border-radius: 50px;
-              border: 1px solid #0974f6;
-              color: #0974f6;
-              padding: 0.5rem 0.8rem;
-              display: flex;
-              align-items: center;
-            `}
+          <h2
+            css={`margin: 0;
+                  font-size: 100%;
+                  font-weight: normal;
+            }`}
           >
-            {isOpen ? (
-              <>
-                Fermer{' '}
-                <Image
-                  src={iconReduire}
-                  css={`
-                    margin-left: 0.5rem;
-                  `}
-                  alt="icone réduire"
-                />
-              </>
-            ) : (
-              <>
-                &nbsp;Ouvrir{' '}
-                <Image
-                  src={iconReduire}
-                  css={`
-                    margin-left: 0.5rem;
-                    transform: rotate(180deg);
-                  `}
-                  alt="icone réduire"
-                />
-              </>
-            )}
-          </span>
+            <span aria-hidden="true">💡</span>{' '}
+            {isOpen ? "Cacher l'aide" : 'Comment répondre ?'}
+          </h2>
         </summary>
         <div
           dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}
           css={`
-            margin-top: 1rem;
+            border-radius: 5px;
+            background: #e8edff;
+            padding: 0.5rem 1rem;
             blockquote {
               margin-top: 0.8rem;
               border-left: 4px solid var(--lighterColor);

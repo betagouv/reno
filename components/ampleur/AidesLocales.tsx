@@ -1,31 +1,18 @@
-import calculatorIcon from '@/public/calculator-empty.svg'
-import Image from 'next/image'
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import { Card } from '../UI'
-import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
-
+import AideAmpleur from './AideAmpleur'
 import { BlueEm } from '@/app/LandingUI'
 import rules from '@/app/règles/rules'
-import hexagoneIcon from '@/public/hexagone-contour.svg'
 import AddressSearch from '../AddressSearch'
 import { encodeSituation } from '../publicodes/situationUtils'
 import AidesLocalesByLevel from './AidesLocalesByLevel'
 import { findAidesLocales } from './useAides'
-import MapBehindCTA from '../MapBehindCTA'
 import { Key } from '../explications/ExplicationUI'
 
 const levels = rules['aides locales . montant'].somme
 
-const Hexagone = () => (
-  <Image
-    src={hexagoneIcon}
-    alt="Icône représentant le territoire français métropolitaine"
-  />
-)
 export default function AidesLocales({
+  isEligible,
   rules,
   situation,
-  searchParams,
   engine,
   setSearchParams,
   answeredQuestions,
@@ -66,7 +53,6 @@ export default function AidesLocales({
           <AddressSearch
             type="logement . commune"
             setChoice={(result) => {
-              console.log('orange', result)
               setSearchParams(
                 encodeSituation({
                   'logement . commune': `'${result.code}'`,
@@ -109,6 +95,7 @@ export default function AidesLocales({
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,

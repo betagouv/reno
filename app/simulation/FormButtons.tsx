@@ -1,6 +1,4 @@
-import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { CTA, CTAWrapper } from '@/components/UI'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import iconFlecheGauche from '@/public/fleche-gauche.svg'
@@ -16,19 +14,12 @@ export default function FormButtons({
   currentQuestion,
   questionsToSubmit,
   situation,
-  rules,
+  depuisModule,
+  specificNextUrl,
+  specificBackUrl,
+  setAvertissementState,
 }) {
-  const router = useRouter()
-  const mosaicQuestions = isMosaicQuestion(
-    currentQuestion,
-    rules[currentQuestion],
-    rules,
-  )
-
-  const showValidation =
-    currentValue != null ||
-    (mosaicQuestions && mosaicQuestions.find(([q]) => situation[q] != null))
-
+  const showValidation = currentValue != null
   return (
     <CTAWrapper $justify="flex-start">
       <CTA
@@ -36,19 +27,34 @@ export default function FormButtons({
         $importance="emptyBackground"
         title="Retour en arrière"
       >
-        <span
+        <Link
           css={`
             display: flex !important;
             align-items: center !important;
           `}
+          href={
+            specificBackUrl
+              ? specificBackUrl
+              : setSearchParams(
+                  {
+                    ...encodeSituation(
+                      situation,
+                      false,
+                      answeredQuestions.slice(0, -1),
+                    ),
+                  },
+                  'url',
+                  true,
+                )
+          }
           onClick={() => {
+            if (depuisModule) history.back() // retour direct vers le module passoire au sein de l'iframe, pas vers une question précédente que l'utilisateur n'aurait pas renseignée tout seul
             push([
               'trackEvent',
               'Simulateur Principal',
               'Précédent',
               currentQuestion,
             ])
-            router.back()
           }}
         >
           <Image
@@ -59,7 +65,7 @@ export default function FormButtons({
             alt="icone fleche fauche"
           />
           Précédent
-        </span>
+        </Link>
       </CTA>
       <CTA
         $fontSize="normal"
@@ -71,29 +77,41 @@ export default function FormButtons({
               display: flex !important;
               align-items: center !important;
             `}
-            href={setSearchParams(
-              {
-                ...encodeSituation(
-                  {
-                    ...situation,
-                    [currentQuestion]: situation[currentQuestion],
-                  },
-                  false,
-                  [...answeredQuestions, ...questionsToSubmit],
-                ),
-                question: undefined,
-              },
-              'url',
-              false,
-            )}
-            onClick={() =>
+            href={
+              specificNextUrl
+                ? specificNextUrl
+                : setSearchParams(
+                    {
+                      ...encodeSituation(
+                        {
+                          ...situation,
+                          [currentQuestion]: situation[currentQuestion],
+                        },
+                        false,
+                        [...answeredQuestions, ...questionsToSubmit],
+                      ),
+                      question: undefined,
+                      objectif: undefined,
+                    },
+                    'url',
+                    false,
+                  )
+            }
+            onClick={() => {
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                currentQuestion,
+                situation[currentQuestion],
+              ])
               push([
                 'trackEvent',
                 'Simulateur Principal',
                 'Valide',
                 currentQuestion,
               ])
-            }
+              setAvertissementState(false)
+            }}
             title="Aller à l'étape suivante"
           >
             Suivant

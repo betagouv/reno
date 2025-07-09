@@ -12,11 +12,14 @@ export default function Input({
 }) {
   const [state, setState] = useState(value)
 
-  const sendRequest = useCallback((value) => {
-    // send value to the backend
-    // useCallback to not get an infinite loop
-    serverOnChange(value)
-  }, [serverOnChange])
+  const sendRequest = useCallback(
+    (value) => {
+      // send value to the backend
+      // useCallback to not get an infinite loop
+      serverOnChange(value)
+    },
+    [serverOnChange],
+  )
 
   useEffect(() => {
     setState(value)
@@ -48,7 +51,7 @@ export default function Input({
         type="number"
         value={state}
         onChange={onChange}
-        min="0"
+        min="1"
         {...props}
       />
       &nbsp;{pluralUnit}

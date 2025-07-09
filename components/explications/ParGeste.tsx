@@ -7,7 +7,7 @@ export default function ParGeste({ rules, engine }) {
   const passoire = compute('DPE . actuel . passoire', engine, rules)
   return (
     <section>
-      <h4>Ma Prime Rénov' par geste</h4>
+      <h4>MaPrimeRénov' rénovation par geste</h4>
       <P>
         Vous{' '}
         <Value

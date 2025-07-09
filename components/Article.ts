@@ -32,7 +32,7 @@ const Article = styled.article`
     margin-bottom: 1rem;
     line-height: 2.6rem;
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 1rem;
   }
   header + section {
     max-width: 600px;
@@ -40,9 +40,9 @@ const Article = styled.article`
     padding: 0 1rem;
   }
   h2 {
-    font-size: 180%;
+    font-size: 170%;
     font-weight: 600;
-    line-height: 1.6rem;
+    line-height: 2rem;
     margin-top: 2rem;
   }
   img,
@@ -113,6 +113,13 @@ const Article = styled.article`
     li {
       margin: 0.6rem 0;
     }
+  }
+
+  aside {
+    background: var(--lighterColor3);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 0.1rem 1.2rem;
   }
 `
 

@@ -2,37 +2,29 @@ import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
+import { getCommune } from './personas/enrichSituation'
+
 function onlyNumbers(str) {
   return /^\d+/.test(str)
 }
 
-export async function getCommune(situation, type) {
-  if (
-    situation &&
-    ['ménage . commune', 'logement . commune'].includes(type) &&
-    situation[type]
-  ) {
-    const response = await fetch(
-      `https://geo.api.gouv.fr/communes?code=${situation[type].replace(/"/g, '')}`,
-    )
-    const json = await response.json()
-
-    return json[0]
-  }
-  return null
-}
-
-export default function AddressSearch({ setChoice, situation, type }) {
+export default function AddressSearch({
+  setChoice,
+  situation,
+  type,
+  autoFocus = true,
+}) {
   const [immediateInput, setInput] = useState('')
 
   const [input] = useDebounce(immediateInput, 300)
-
+  const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
-  const [clicked, setClicked] = useState(false)
-  const validInput = input && input.length >= 3
+  const [clicked, setClicked] = useState(situation[type])
 
+  const validInput = input && input.length >= 3
   // Get the commune name from the code if it exists to display it in the search box
   useEffect(() => {
+    setInput('')
     async function fetchCommune() {
       const commune = await getCommune(situation, type)
       if (commune) {
@@ -48,10 +40,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
     if (onlyNumbers(input) && input.length !== 5) return
 
     const asyncFetch = async () => {
+      setIsLoading(true)
       const request = await fetch(
         onlyNumbers(input)
-          ? `https://geo.api.gouv.fr/communes?codePostal=${input}`
-          : `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=5`,
+          ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
+          : `/api/geo/?path=${encodeURIComponent(
+              `communes?nom=${input}&boost=population&limit=5`,
+            )}`,
       )
       const json = await request.json()
 
@@ -62,6 +57,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
             .then((json) => ({ ...commune, eligibilite: json })),
         ),
       )
+      setIsLoading(false)
       setResults(enrichedResults)
     }
 
@@ -74,10 +70,13 @@ export default function AddressSearch({ setChoice, situation, type }) {
         css={`
           ${clicked &&
           input &&
-          `border-bottom: 2px solid var(--validColor) !important;`};
+          `border-bottom: 2px solid var(--validColor) !important;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTg3NTNjIiBkPSJNMTIgMjJjLTUuNTIgMC0xMC00LjQ4LTEwLTEwUzYuNDggMiAxMiAyczEwIDQuNDggMTAgMTAtNC40OCAxMC0xMCAxMHptLS45OS02bDcuMDctNy4wNy0xLjQxLTEuNDEtNS42NiA1LjY2LTIuODMtMi44My0xLjQxIDEuNDFMMTEuMDEgMTZ6Ii8+PC9zdmc+') rgb(245, 245, 254) no-repeat top 5px right 5px !important;
+            background-size:  16px !important;
+            `}
         `}
         type="text"
-        autoFocus={true}
+        autoFocus={autoFocus}
         value={immediateInput}
         placeholder={'commune ou code postal'}
         onChange={(e) => {
@@ -85,9 +84,8 @@ export default function AddressSearch({ setChoice, situation, type }) {
           setInput(e.target.value)
         }}
       />
-      {clicked && input && <p>Commune valide</p>}
       <CityList>
-        {validInput && !results && (
+        {isLoading && (
           <li
             css={`
               margin: 0.8rem 0;
@@ -106,7 +104,9 @@ export default function AddressSearch({ setChoice, situation, type }) {
                 color: #929292;
               `}
             >
-              Sélectionnez une ville
+              {results.length > 0
+                ? 'Sélectionnez une ville'
+                : 'Aucune ville trouvée'}
             </li>
             {results.map((result) => (
               <li
@@ -142,26 +142,7 @@ export const AddressInput = styled.div`
     padding-left: 1.5rem !important;
     text-align: left !important;
     outline: none;
-    box-shadow: none !important;
     height: 2.8rem !important;
-    border-bottom: 2px solid #3a3a3a;
-  }
-  p {
-    margin: 0.5rem 0;
-    color: var(--validColor);
-    &::before {
-      background-color: currentColor;
-      content: '';
-      display: inline-block;
-      height: 1rem;
-      margin-right: 0.25rem;
-      -webkit-mask-size: 100% 100%;
-      mask-size: 100% 100%;
-      vertical-align: -0.125rem;
-      width: 1rem;
-      -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
-      mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
-    }
   }
 `
 
@@ -173,7 +154,10 @@ export const CityList = styled.ul`
   list-style-type: none;
   position: absolute;
   margin-top: 35px;
+  z-index: 999999;
   li {
+    display: block !important;
+    margin: 0 !important;
     padding: 8px 24px 8px 35px;
     line-height: 1.2rem;
     &::before,

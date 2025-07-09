@@ -30,6 +30,66 @@ Et prendre les demandes de nos réintégrateurs au fur et à mesure.
 
 ## Versions
 
+### v2.3.1
+
+:bug: Nous avons corrigé un bug important dans le modèle de calcul de la catégorie MaPrimeRénov.
+
+Nous pensions que le choix du barème (Île-de-France ou hors Île-de-France) à appliquer pour déterminer la catégorie de revenu MaPrimeRénov' (très modeste, modeste, intermédiaire ou aisé) était déterminé en fonction de l'adresse de la résidence principale du propriétaire.
+
+Or, ce n'est le cas que pour les propriétaires bailleurs, pour les propriétaires occupants, c'est l'adresse du logement rénové qu'il faut prendre en compte dans le calcul. D'une certaine manière, le législateur se projette dans la future résidence principale pour déterminer l'éligibilité aux différents montants d'aide.
+
+Concrètement, cela signifie qu'il faut maintenant renseigner "logement . commune" plutôt que "ménage . commune" pour les propriétaires occupants.
+
+Voir [les changements](https://github.com/betagouv/reno/pull/377).
+
+### v2.2.0
+
+:bug: Nous avons corrigé un bug important dans le modèle de calcul copropriété.
+
+Nous pensions que le plafond s'appliquait à la subvention, or il s'applique à l'assiette, c'est-à-dire au montant des travaux. C'est un cas classique de confusion qui intervient à chaque fois qu'un plafond s'applique : il faut être complètement explicite sur le sujet du plafond.
+
+Voir [les changements](https://github.com/betagouv/reno/pull/372).
+
+### v2.1.0
+
+Nous avons acté la sortie de beta après plusieurs mois d'utilisation.
+
+### v2.0.0-beta4
+
+#### Nouveau design pour le module Parcours Accompagné, pour une rénovation d'ampleur
+
+Le module ampleur passe en version 3. Ses évolutions sont décrites en bas de la [page dédiée](https://mesaidesreno.beta.gouv.fr/module).
+
+Une nouvelle variable est introduite dans le module pour passer de l'année de construction du logement à l'une des quelques périodes de construction utilisées par les aides à la rénovation.
+
+Elle n'est pour l'instant pas utilisée pour pouvoir injecter dans le modèle l'année de construction.
+
+#### Nouvelle API et documentation plus complète
+
+Sur la page [api-doc](https://mesaidesreno.beta.gouv.fr/api-doc), on expose une nouvelle route "Éligibilité" qui permet de calculer toutes les aides d'ampleur. D'autres aides sont ensuites ajoutées individuellement.
+
+La liste des paramètres fait également son apparition. Ce sont les questions à poser à vos utilisateurs.
+
+### v2.0.0-beta3
+
+Nous passons à la version 2 de Mes Aides Réno pour 2025 : en effet, des changements 💥 **cassants** sont à prévoir.
+
+En particulier, le changement de nomenclature de la période de construction du logement.
+
+Cette nomenclature sert à éviter de connaitre la date de construction précise du logement. Auparavant, pour la taxe foncière, nous avions introduit la période "plus de 25 ans". Elle est maintenant caduque en 2025, remplacée par un "plus de 10 ans".
+
+De nombreux autres changements interviennent en 2025, concernant les taux MaPrimeRénov' parcours accompagné, les taux d'écrêtement, certains montants d'aide pour le parcours par geste.
+
+Veuillez consulter le détail des changements dans la [PR 2025](https://github.com/betagouv/reno/pull/305).
+
+Note : certains éléments sont toujours incertains en cette fin décembre 2025, attendez-vous à des version de correction dans les semaines qui viennent.
+
+### v1.0.0-beta3
+
+Nous avons pris en compte les premiers retours critiques. En particulier, un changement important pour le modèle : la subvention de l'État pour l'Accompagnateur Rénov' a son _assiette_ plafonnée, et pas son _résultat_. Nous nous étions basés sur la description ambigue de cette aide sur les supports officiels, qui parlaient par erreur d'une _subvention plafonnée_. C'est corrigé.
+
+Le reste des modifications concerne essentiellement les descriptions et les conditions d'applicabilité des aides.
+
 ### v1.0.0-beta2
 
 Cette version beta2 nous sert à publier le modèle sur NPM, modèle que l'on a déjà mis en ligne il y a plus d'une semaine sans retour de bug important pour l'instant.
@@ -69,7 +129,7 @@ Ces deux grosses nouveautés sont donc naturellement disponible dans le modèle 
 
 ### v0.6.0
 
-Nous avons déplacé l'écrètement depuis la règle MaPrimeRénov' accompagnée vers la nouvelle règle "aides globales". En effet, même si l'écrêtement pouvait agir sur cette première seule (semblerait-il du fait d'une erreur de conception de l'aide sur la tranche revenus supérieurs), il prend surtout son sens sur un ensemble cumulatif d'aides, dont les aides locales.
+Nous avons déplacé l'écrètement depuis la règle MaPrimeRénov' parcours accompagné vers la nouvelle règle "aides globales". En effet, même si l'écrêtement pouvait agir sur cette première seule (semblerait-il du fait d'une erreur de conception de l'aide sur la tranche revenus supérieurs), il prend surtout son sens sur un ensemble cumulatif d'aides, dont les aides locales.
 
 Voici [le commit](https://github.com/betagouv/reno/commit/52e2ba8c267a7df6acc46bc926ea1e30363dd855) principal de cette version.
 

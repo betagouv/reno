@@ -1,12 +1,9 @@
 import rules from '@/app/règles/rules'
-import { Main, PageBlock } from '@/components/UI'
 import Form from './Form'
 
-const description = `Calculez les aides Ma Prime Rénov' 2024 pour la rénovation de votre logement.`
-
 export const metadata: Metadata = {
-  title: 'Aides réno 2024',
-  description,
+  title: 'Mes Aides Réno : Simulez vos aides à la rénovation énergétique',
+  description: `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. MaPrimeRénov', les aides des fournisseurs d’énergie (CEE), primes "Coup de Pouce", éco-ptz, exonération de taxe foncière et dispositif Denormandie`,
   alternates: {
     canonical: '/simulation',
   },

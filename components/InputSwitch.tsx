@@ -1,22 +1,12 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import {
-  decodeDottedName,
-  encodeSituation,
-  getAnsweredQuestions,
-} from './publicodes/situationUtils'
-
-import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
-
 import { firstLevelCategory } from '@/app/simulation/Answers'
-import DPESelector from './DPESelector'
-import GestesBasket from './GestesBasket'
-import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
+import DPESelector from './dpe/DPESelector'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
-import RhetoricalQuestion from './RhetoricalQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
@@ -35,6 +25,16 @@ import MaPrimeAdaptOccupant from './maPrimeAdapt/MaPrimeAdaptOccupant'
 import MaPrimeAdaptBailleur from './maPrimeAdapt/MaPrimeAdaptBailleur'
 import MaPrimeAdaptCopropriété from './maPrimeAdapt/MaPrimeAdaptCopropriété'
 import LocAvantage from './LocAvantage'
+import CoproAddressSearch from './CoproAddressSearch'
+import DPEMap from './dpe/DPEMap'
+import DPEAddressSearch from './dpe/DPEAddressSearch'
+import { useState } from 'react'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
+import { useSendDataToHost } from './useIsInIframe'
+import Consentement from './Consentement'
+import ChoixTravauxChauffage from './ChoixTravauxChauffage'
+import ChoixCategorieTravaux from './ChoixCategorieTravaux'
+import ChoixTravaux from './ChoixTravaux'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -45,6 +45,7 @@ export default function InputSwitch({
   rules,
   nextQuestions,
   searchParams,
+  correspondance,
 }) {
   const correspondance = {
     'MPR . accompagnée': MPRA,
@@ -61,6 +62,8 @@ export default function InputSwitch({
     'mpa . copropriété': MaPrimeAdaptCopropriété,
     locavantage: LocAvantage,
   }
+  
+  const [addressResults, setAddressResults] = useState(null)
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -68,13 +71,14 @@ export default function InputSwitch({
   const rule = rules[currentQuestion]
   const evaluation =
     currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
-
   const ruleQuestionType = currentQuestion && questionType(evaluation, rule)
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
-  if (rule['bornes intelligentes'])
+  const [sendDataToHost, consent, setConsent] = useSendDataToHost()
+
+  if (rule && rule['bornes intelligentes'])
     return (
       <ClassicQuestionWrapper
         {...{
@@ -114,7 +118,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (rule['une possibilité parmi'])
+  if (rule && rule['une possibilité parmi'])
     return (
       <ClassicQuestionWrapper
         {...{
@@ -152,33 +156,8 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-  if (rule.type === 'question rhétorique')
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <RhetoricalQuestion
-          {...{
-            effect: () => setSearchParams({ [currentQuestion]: 'oui' }),
-            situation,
-            answeredQuestions,
-            html: rule.descriptionHtml,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
 
-  if (currentQuestion === 'ménage . commune')
+  if (currentQuestion === 'copropriété . id')
     return (
       <ClassicQuestionWrapper
         {...{
@@ -190,33 +169,45 @@ export default function InputSwitch({
           situation,
           setSearchParams,
           questionsToSubmit: [
-            'ménage . code région',
-            'ménage . code département',
-            'ménage . commune',
+            'copropriété . id',
+            'copropriété . nombre de lots principaux',
+            'copropriété . nombre de logements',
+            'copropriété . condition 15 ans',
           ],
           currentValue,
           engine,
         }}
       >
-        <AddressSearch
+        <CoproAddressSearch
           {...{
             type: currentQuestion,
             setChoice: (result) => {
-              const codeRegion = result.codeRegion
+              const constructionPeriod = result['Période de construction']
+              const lessThan15Years = constructionPeriod === 'A_COMPTER_DE_2011'
+              // these are the possible values, obtained with the server route /periodes-construction
+              // ["AVANT_1949","A_COMPTER_DE_2011","DE_1949_A_1960","DE_1961_A_1974","DE_1975_A_1993","DE_1994_A_2000","DE_2001_A_2010","NON_CONNUE","non renseigné"]
+              const moreThan15Years =
+                !lessThan15Years && constructionPeriod.match(/\d\d\d\d/)
+
+              const id = result["Numéro d'immatriculation"]
+              console.log('cyan id', id)
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
-                  'ménage . code région': `"${codeRegion}"`,
-                  'ménage . code département': `"${result.codeDepartement}"`,
-                  'ménage . EPCI': `"${result.codeEpci}"`,
-                  'ménage . commune': `"${result.code}"`,
-                  'ménage . commune . nom': `"${result.nom}"`,
-                  'taxe foncière . commune . éligible . ménage':
-                    result.eligibilite['taxe foncière . commune . éligible'],
-                  'taxe foncière . commune . taux':
-                    result.eligibilite['taxe foncière . commune . taux'],
-                  'logement . commune . denormandie':
-                    result.eligibilite['logement . commune . denormandie'],
+                  'logement . code région': `"${result['Code Officiel Région']}"`,
+                  'logement . code département': `"${result['Code Officiel Département']}"`,
+                  'logement . EPCI': `"${result['Code Officiel EPCI']}"`,
+                  'logement . commune': `"${result['Commune']}"`,
+                  'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
+                  'copropriété . id': `"${id}"`,
+                  'copropriété . nom': `"${result['Nom d’usage de la copropriété']}"`,
+                  'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
+                  'copropriété . nombre de logements': `"${result['Nombre de lots à usage d’habitation']}"`,
+                  ...(lessThan15Years
+                    ? { 'copropriété . condition 15 ans': 'non' }
+                    : moreThan15Years
+                      ? { 'copropriété . condition 15 ans': 'oui' }
+                      : {}),
                 },
                 false,
                 answeredQuestions,
@@ -224,14 +215,12 @@ export default function InputSwitch({
 
               setSearchParams(encodedSituation, 'push', false)
             },
-            setSearchParams,
             situation,
-            answeredQuestions,
           }}
         />
       </ClassicQuestionWrapper>
     )
-  if (currentQuestion === 'logement . commune')
+  if (['ménage . commune', 'logement . commune'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
         {...{
@@ -251,32 +240,168 @@ export default function InputSwitch({
             type: currentQuestion,
             setChoice: (result) => {
               const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  'logement . EPCI': `"${result.codeEpci}"`,
-                  'logement . commune': `"${result.code}"`,
-                  'logement . commune . nom': `"${result.nom}"`,
-                  'taxe foncière . commune . éligible . logement':
-                    result.eligibilite['taxe foncière . commune . éligible'],
-                  'taxe foncière . commune . taux':
-                    result.eligibilite['taxe foncière . commune . taux'],
-                  'logement . commune . denormandie':
-                    result.eligibilite['logement . commune . denormandie'],
-                },
+                currentQuestion == 'ménage . commune'
+                  ? {
+                      ...situation,
+                      'ménage . code région': `"${result.codeRegion}"`,
+                      'ménage . code département': `"${result.codeDepartement}"`,
+                      'ménage . EPCI': `"${result.codeEpci}"`,
+                      'ménage . commune': `"${result.code}"`,
+                      'ménage . commune . nom': `"${result.nom}"`,
+                    }
+                  : {
+                      'logement . code région': `"${result.codeRegion}"`,
+                      'logement . code département': `"${result.codeDepartement}"`,
+                      'logement . EPCI': `"${result.codeEpci}"`,
+                      'logement . commune': `"${result.code}"`,
+                      'logement . commune . nom': `"${result.nom}"`,
+                      'taxe foncière . commune . éligible':
+                        result.eligibilite[
+                          'taxe foncière . commune . éligible'
+                        ],
+                      'taxe foncière . commune . taux':
+                        result.eligibilite['taxe foncière . commune . taux'],
+                      'logement . commune . denormandie':
+                        result.eligibilite['logement . commune . denormandie'],
+                    },
                 false,
                 answeredQuestions,
               )
 
               setSearchParams(encodedSituation, 'push', false)
             },
-            setSearchParams,
             situation,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  if (currentQuestion === 'logement . adresse')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <DPEAddressSearch
+          {...{
+            addressResults,
+            setAddressResults,
+            situation,
+            coordinates: [searchParams.lon, searchParams.lat],
+            setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
+            onChange: async (adresse) => {
+              const result = await getCommune(
+                null,
+                null,
+                adresse.properties.citycode,
+              )
+
+              const newSituation = await enrichSituation({
+                ...situation,
+                'logement . adresse': `"${adresse.properties.label}"`,
+                'logement . code région': `"${result.codeRegion}"`,
+                'logement . code département': `"${result.codeDepartement}"`,
+                'logement . EPCI': `"${result.codeEpci}"`,
+                'logement . commune': `"${result.code}"`,
+                'logement . commune . nom': `"${result.nom}"`,
+                'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
+              })
+              setSearchParams(
+                encodeSituation(newSituation, false, answeredQuestions),
+                'push',
+                false,
+              )
+            },
+          }}
+        />
+        {/* <DPEMap
+          {...{
+            searchParams,
+            addressResults,
+            dpeListStartOpen: false,
+            showDpeList: false,
+          }}
+        /> */}
+      </ClassicQuestionWrapper>
+    )
+  if (currentQuestion === 'projet . définition . catégories travaux envisagées')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <ChoixCategorieTravaux
+          {...{
+            situation,
+            rules,
+            engine,
+            setSearchParams,
             answeredQuestions,
           }}
         />
       </ClassicQuestionWrapper>
     )
+  if (currentQuestion === 'projet . définition . travaux envisagés')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+          noButtons: true,
+        }}
+      >
+        <ChoixTravaux
+          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+        />
+      </ClassicQuestionWrapper>
+    )
 
+  if (currentQuestion === 'projet . définition . travaux envisagés chauffage') {
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+          noButtons: true,
+        }}
+      >
+        <ChoixTravauxChauffage
+          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  }
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
@@ -429,54 +554,6 @@ export default function InputSwitch({
     )
   }
 
-  if (["parcours d'aide"].includes(currentQuestion)) {
-    return (
-      <Eligibility
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          nextQuestions,
-          expanded: searchParams.details === 'oui',
-        }}
-      />
-    )
-  }
-  // We kept the latter component before it got really specialized. TODO not completely functional
-  const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
-  if (mosaic)
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <BooleanMosaic
-          {...{
-            rules,
-            rule,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: mosaic,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-
   if (ruleQuestionType === 'boolean')
     return (
       <ClassicQuestionWrapper
@@ -513,6 +590,29 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+
+  if (!currentQuestion) {
+    if (sendDataToHost && consent === null) {
+      return <Consentement {...{ setConsent, situation, sendDataToHost }} />
+    }
+    return (
+      <Eligibility
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          nextQuestions,
+          expanded: searchParams.details === 'oui',
+          consent,
+          sendDataToHost,
+        }}
+      />
+    )
+  }
 
   return (
     <ClassicQuestionWrapper

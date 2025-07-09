@@ -1,9 +1,10 @@
 import getAppUrl from '../getAppUrl'
 
 export const extractCleanCodeInsee = (situation) => {
-  const codeInseeRaw = situation['logement . commune']
+  const codeInseeRaw =
+    situation['logement . commune'] || situation['ménage . commune']
   if (!codeInseeRaw) return situation
-  const codeInsee = codeInseeRaw.replace(/'/g, '')
+  const codeInsee = codeInseeRaw.replaceAll(/'/g, '').replaceAll('"', '')
   return codeInsee
 }
 
@@ -13,4 +14,47 @@ export default async function enrichSituation(situation) {
   const request = await fetch(url)
   const éligibilité = await request.json()
   return { ...situation, ...éligibilité }
+}
+
+// TODO this because I can't figure out an easy way to do this translation in publicodes ! It's only used by the /module for now
+export const enrichSituationWithConstructionYear = (situation, engine) => {
+  const year = situation['logement . année de construction']
+  if (!year) return situation
+
+  const period = engine
+    .setSituation(situation)
+    .evaluate('logement . période de construction calculée')
+
+  if (!period.nodeValue) return situation
+  return {
+    ...situation,
+    'logement . période de construction': `"${period.nodeValue}"`,
+  }
+}
+
+export async function getCommune(
+  situation = null,
+  type = null,
+  codeCommune = null,
+) {
+  let path = null
+  if (codeCommune) {
+    path = `communes/${codeCommune}`
+  }
+  if (
+    situation &&
+    ['ménage . commune', 'logement . commune'].includes(type) &&
+    situation[type]
+  ) {
+    const path = `communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
+      url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
+
+    const response = await fetch(url)
+    return await response.json()
+  }
+  const url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
+
+  const response = await fetch(url)
+  const json = await response.json()
+  return json
 }

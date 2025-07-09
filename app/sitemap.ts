@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import rules from '@/app/règles/rules'
 import generateBlogSitemap from '@/blogSitemap'
 import writePublicodesJson from '@/lib/writePublicodesJson'
+import postBingIndexNow from '@/lib/postBingIndexNow'
 
 writePublicodesJson()
 
@@ -18,6 +19,12 @@ const basePaths = [
   '/aides',
   '/aides/cee',
   '/aides/ma-prime-renov',
+  '/aides/pret-taux-0',
+  '/aides/pret-taux-0/eco-ptz',
+  '/aides/pret-taux-0/pret-avance-renovation',
+  '/aides/exoneration-fiscale',
+  '/aides/exoneration-fiscale/taxe-fonciere',
+  '/aides/exoneration-fiscale/denormandie',
   '/aides/coup-de-pouce',
   '/interdiction-location',
   '/integration',
@@ -71,7 +78,7 @@ const simulateurCoupDePouce = Object.keys(rules)
 
 const paths = [
   ...basePaths,
-  ...documentationPaths,
+  //...documentationPaths, // We're trying a version of the site where search engines don't see the documentation, to avoid duplicate content with our simulators and half-empty non optimized pages
   ...aidesLocales,
   ...[...new Set(simulateurCEE)], // pour éviter les doublons
   ...[...new Set(simulateurMPR)], // pour éviter les doublons
@@ -80,7 +87,9 @@ const paths = [
 
 export default async function sitemap(): MetadataRoute.Sitemap {
   const blogSitemap = await generateBlogSitemap()
-  console.log(blogSitemap)
+
+  await postBingIndexNow(paths)
+
   return [
     ...paths.map((path) => ({
       url: domain + path,

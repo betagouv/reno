@@ -1,4 +1,5 @@
 'use client'
+import { ExternalLink } from '@/components/UI'
 import { useState } from 'react'
 import styled from 'styled-components'
 
@@ -84,8 +85,9 @@ export const GithubContributionForm = ({ fromLocation }) => {
           <small>
             S'il s'agit d'un bug, en indiquant le navigateur que vous utilisez
             (par exemple Firefox version 93, Chrome version 95, Safari, etc.),
-            la plateforme (iPhone, Android, ordinateur Windows, etc.) ainsi que l'url concernée, vous
-            nous aiderez à résoudre le bug plus rapidement.
+            la plateforme (iPhone, Android, ordinateur Windows, etc.) ainsi que
+            l'url concernée, vous nous aiderez à résoudre le bug plus
+            rapidement.
           </small>
         </p>
         <textarea
@@ -98,8 +100,10 @@ export const GithubContributionForm = ({ fromLocation }) => {
       </label>
       <p id="messageAttention">
         <em>
-          Cette contribution sera privée et anonyme : <strong>n'hésitez 
-          pas à vous exprimer</strong> et à nous laisser vos coordonnées <strong>uniquement si vous souhaitez être recontacté</strong>.
+          Cette contribution sera privée et anonyme :{' '}
+          <strong>n'hésitez pas à vous exprimer</strong> et à nous laisser vos
+          coordonnées{' '}
+          <strong>uniquement si vous souhaitez être recontacté</strong>.
         </em>
       </p>
       <Button
@@ -121,56 +125,32 @@ export const GithubContributionForm = ({ fromLocation }) => {
           ])
         }}
       >
-        ✉️ Nous contacter
+        <span aria-hidden="true">✉️</span> Nous contacter
       </Button>
     </form>
   ) : (
     <section>
       <p role="status">
-        Merci 😍 ! Suivez l'avancement de votre suggestion en cliquant sur{' '}
-        <a href={URL}>ce lien</a>.
-      </p>
-      <p>
-        Si vous désirez être notifié de nos réponses,
-        <strong>
-          vous pouvez{' '}
-          <a href="https://github.com/betagouv/reno/issues/new?assignees=&labels=contribution&template=retour-utilisateur.md&title=">
-            créer un compte sur la plateforme Github
-          </a>
-        </strong>{' '}
-        afin de suivre les échanges et discuter avec nous.
+        Merci <span aria-hidden="true">😍</span> ! Vos suggestions nous aident à
+        améliorer l'outil et à rendre l'expérience plus efficace pour tous·tes.
+        <span aria-hidden="true">🙏</span>.
       </p>
     </section>
-  )
-}
-
-export const GithubContributionCard = ({ fromLocation }) => {
-  return (
-    <div className="ui__ card" css="padding: 1rem 0">
-      <p>
-        Pour toute remarque ou question, nous vous invitons à{' '}
-        <a href="https://github.com/betagouv/reno/issues/new?assignees=&labels=contribution&template=retour-utilisateur.md&title=">
-          ouvrir un ticket directement sur GitHub
-        </a>
-        .
-      </p>
-      <details>
-        <summary>
-          🐛 Vous avez un bug qui vous empêche d'utiliser Nos Gestes Climat ?
-        </summary>
-        <GithubContributionForm fromLocation={fromLocation} />
-      </details>
-    </div>
   )
 }
 
 export default function Contact({ fromLocation }) {
   return (
     <div className="ui__ container" css="padding-bottom: 1rem">
-      <h2>🙋 J'ai une question</h2>
+      <h2>
+        <span aria-hidden="true">🙋</span> J'ai une question
+      </h2>
       <p>
-        Nous sommes preneurs de toutes vos remarques, questions, suggestions et avis.<br />
-        <strong>N'hésitez pas</strong> à nous envoyer un message via le formulaire de contact ci-dessous.
+        Nous sommes preneurs de toutes vos remarques, questions, suggestions et
+        avis.
+        <br />
+        <strong>N'hésitez pas</strong> à nous envoyer un message via le
+        formulaire de contact ci-dessous.
       </p>
       <div
         css={`

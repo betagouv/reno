@@ -7,24 +7,64 @@ import styled, { css } from 'styled-components'
 
 export const List = styled.ol`
   margin-top: 2rem;
-  padding-left: 1rem;
-  list-style-type: circle;
-  li {
-    margin: 2rem 0;
-    a {
-    }
-    h2 {
-      margin: 0;
-    }
-    small {
-      color: var(--darkestColor);
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-  }
+  padding-left: 0;
+  list-style-type: none;
   margin-bottom: 10vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+`
+
+export const ArticleCard = styled.li`
+  display: flex;
+  background: white;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  a {
+    display: flex;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+  width: 22rem;
+  min-height: 8rem;
+  border: 1px solid var(--lighterColor);
+  border-radius: 1rem;
+`
+
+export const ArticleImageContainer = styled.div`
+  position: relative;
+  flex: 0 0 100px;
+  height: 100%;
+`
+
+export const ArticleContent = styled.div`
+  flex: 1;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+    font-size: 1rem;
+  }
+
+  small {
+    color: var(--darkestColor);
+    font-size: 85%;
+  }
 `
 export const BlogBackButton = ({ children }) => (
   <CTAWrapper
@@ -59,7 +99,7 @@ export const OtherArticlesList = styled.div`
     height: 12rem;
     display: flex;
     align-items: center;
-    overflow: scroll;
+    overflow-x: scroll;
     list-style-type: none;
     padding-left: 0;
     li {
@@ -93,14 +133,16 @@ export const Badge = styled.span`
   color: #3a3a3a;
   display: inline-flex;
   flex-direction: row;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  line-height: 1.5rem;
   max-height: none;
   max-width: 100%;
   min-height: 1.5rem;
   overflow: initial;
   padding: 0 0.5rem;
+  margin-bottom: 0.8rem;
+  margin-left: -0.1rem;
+
   text-transform: uppercase;
   width: -moz-fit-content;
   width: fit-content;
@@ -147,7 +189,9 @@ export const ArticleCta = () => (
       </p>
       <CTAWrapper $justify="center">
         <CTA $fontSize="normal">
-          <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+          <Link href="/simulation" prefetch={false}>
+            ➞&nbsp;&nbsp;Calculer mes aides
+          </Link>
         </CTA>
       </CTAWrapper>
     </section>

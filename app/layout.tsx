@@ -1,17 +1,19 @@
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 import Matomo from '@/utils/Matomo'
+import localFont from 'next/font/local'
 import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import localFont from 'next/font/local'
 import { description } from './page'
+import FooterContent from '@/components/FooterContent'
+import Banner from '@/components/Banner'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent?: ResolvingMetadata,
 ): Promise<Metadata> {
   return {
-    title: 'Mes aides réno 2024',
+    title: 'Mes aides réno 2025',
     description: description,
     metadataBase: new URL('https://mesaidesreno.beta.gouv.fr'),
     openGraph: {
@@ -61,14 +63,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
   return (
     <html lang="fr">
       <body className={marianneFont.className}>
         <StyledComponentsRegistry>
           <Header />
+          <Banner />
           {children}
-          <Footer />
+          <Footer>
+            <FooterContent />
+          </Footer>
         </StyledComponentsRegistry>
         <Matomo />
       </body>

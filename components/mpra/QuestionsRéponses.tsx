@@ -1,11 +1,7 @@
 import { BlocQuestionRéponse } from '../BlocQuestionRéponse'
+import { ExternalLink } from '../UI'
 
-export default function QuestionsRéponses({
-  engine,
-  situation,
-  oldIndex,
-  choice,
-}) {
+export default function QuestionsRéponses() {
   return (
     <section>
       <h2>Questions fréquentes</h2>
@@ -16,7 +12,7 @@ export default function QuestionsRéponses({
             Comment choisir les travaux à réaliser ?
           </summary>
           <p>
-            Pas d’inquiétudes, le dispositif MaPrimeRénov’ Parcours Accompagné a
+            Pas d’inquiétudes, le dispositif MaPrimeRénov’ parcours accompagné a
             justement été conçu pour vous guider dans la construction et la mise
             en oeuvre de votre projet de rénovation.
           </p>
@@ -41,7 +37,7 @@ export default function QuestionsRéponses({
         </details>
         <details>
           <summary open={false}>
-            Quelles sont les grandes étape de MaPrimeRénov’ parcours Accompagné
+            Quelles sont les grandes étape de MaPrimeRénov’ parcours accompagné
             ?
           </summary>
           <p>
@@ -64,24 +60,26 @@ export default function QuestionsRéponses({
               Votre Accompagnateur Rénov’ vous propose plusieurs scénarios de
               travaux en fonction de votre bien et de votre projet. Le choix
               d’un des scénarios proposé vous permet de valider votre
-              éligibilité à l’aide MaPrimeRénov' Parcours accompagné.
+              éligibilité à l’aide MaPrimeRénov' parcours accompagné.
             </li>
             <li>
               Vous choisissez un scenario et vous contactez des artisans, qui
               doivent être{' '}
-              <a
+              <ExternalLink
                 href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
                 target="_blank"
               >
                 certifiés RGE
-              </a>
+              </ExternalLink>
               , pour obtenir des devis. Votre Accompagnateur Rénov’ vous aide a
               choisir des artisans, à sélectionner les devis et à définir un
               plan de financement.
             </li>
             <li>
               Votre Accompagnateur Rénov’ vous accompagne dans le dossier de{' '}
-              <a href="http://maprimerenov.gouv.fr/">dépot de demande d’aide</a>
+              <ExternalLink href="http://maprimerenov.gouv.fr/">
+                dépot de demande d’aide
+              </ExternalLink>
               .
             </li>
             <li>
@@ -98,8 +96,8 @@ export default function QuestionsRéponses({
         </details>
         <details>
           <summary open={false}>
-            Quels sont les conditions pour bénéfice de MaPrimeRénov' parcours
-            Accompagné ?
+            Quels sont les conditions pour bénéficier de MaPrimeRénov' parcours
+            accompagné ?
           </summary>
 
           <ul>
@@ -127,12 +125,12 @@ export default function QuestionsRéponses({
             </li>
             <li>
               Vos artisans doivent être{' '}
-              <a
+              <ExternalLink
                 href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
                 target="_blank"
               >
                 certifiés RGE
-              </a>
+              </ExternalLink>
               .
             </li>
           </ul>
@@ -140,18 +138,18 @@ export default function QuestionsRéponses({
 
         <details>
           <summary open={false}>
-            Peut-on cumuler MaPrimeRénov’ Accompagné avec d’autres aides ?
+            Peut-on cumuler MaPrimeRénov’ parcours accompagné avec d’autres aides ?
           </summary>
           <p>
-            MaPrimeRenov’ Parcours accompagné n’est pas cumulable avec les aides
+            MaPrimeRenov’ parcours accompagné n’est pas cumulable avec les aides
             des fournisseurs d’énergie (CEE).
           </p>
           <p>
-            MaPrimeRenov’ Parcours accompagné est cumulable avec les aides des
+            MaPrimeRenov’ parcours accompagné est cumulable avec les aides des
             collectivité locales et des caisses de retraite.
           </p>
           <p>
-            L'aide du parcours accompagnée est limitée par un montant maximum,
+            L'aide du parcours accompagné est limitée par un montant maximum,
             appelé l'écrêtement, calculé ci-dessus.
           </p>
         </details>

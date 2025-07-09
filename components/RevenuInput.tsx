@@ -5,18 +5,22 @@ export const displayRevenuLabel = (situation, engine, threshold) => {
   const list = getRevenusList(situation, engine)
   const lastThreshold = list.slice(-1)[0]
   return threshold > lastThreshold
-    ? 'supérieur à ' + formatNumber(lastThreshold) + '€'
-    : 'inférieur à ' + formatNumber(threshold) + '€'
+    ? 'supérieur ou égal à ' + formatNumber(lastThreshold) + ' €'
+    : 'inférieur à ' + formatNumber(threshold) + ' €'
 }
 
-const formatNumber = (n) =>
+export const formatNumber = (n) =>
   new Intl.NumberFormat('fr-FR', {
     maximumFractionDigits: 0,
   }).format(n)
 
 export function getRevenusList(situation, engine) {
   const targets = ['ménage . revenu . barème IdF', 'ménage . revenu . barème']
-  const idf = engine.evaluate('ménage . région . IdF')
+  const idf = engine.evaluate(
+    (situation['logement . propriétaire occupant'] == 'oui'
+      ? 'logement'
+      : 'ménage') + ' . région . IdF',
+  )
   const activeEvaluation = engine
     .setSituation(omit(['ménage . revenu'], situation))
     .evaluate(targets[idf.nodeValue ? 0 : 1])
@@ -44,6 +48,7 @@ export default function RevenuInput({
   value,
   engine,
   type,
+  disableInstruction = true,
 }) {
   const revenu = situation['ménage . revenu']
   const list = getRevenusList(situation, engine)
@@ -55,7 +60,12 @@ export default function RevenuInput({
   }))
 
   return type === 'select' ? (
-    <Select value={value} values={selectValues} onChange={onChange} />
+    <Select
+      value={value}
+      values={selectValues}
+      onChange={onChange}
+      disableInstruction={disableInstruction}
+    />
   ) : (
     selectValues.map(({ valeur, titre }, index) => (
       <label

@@ -1,5 +1,8 @@
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import { throwIfFailingTest } from './dangerouslyDisactiveFailingTests'
+import {
+  logFailingTest,
+  throwIfFailingTest,
+} from './dangerouslyDisactiveFailingTests'
 
 export function personaTest(persona, nom, engine, dottedName, expectedValue) {
   const evaluation = engine.evaluate(dottedName),
@@ -19,7 +22,7 @@ export function personaTest(persona, nom, engine, dottedName, expectedValue) {
   if (correct === undefined)
     throw new Error('Failing test because of incorrect type recognition')
   if (correct === false) {
-    console.log('Failing persona', persona)
+    if (logFailingTest) console.log('Failing persona', persona)
     if (throwIfFailingTest)
       throw new Error(
         `Failing test !! ${nom} ${persona.description},

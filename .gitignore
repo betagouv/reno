@@ -43,9 +43,12 @@ next-env.d.ts
 data/*
 !data/README.md
 !data/exonération-taxe-foncière-population.csv
+!data/ort.csv
+!data/valeur-verte.csv
 
 deno.lock
 public/mesaidesreno.model.json
 mesaidesreno.model.json
 index.d.ts
 index.js
+.aider*

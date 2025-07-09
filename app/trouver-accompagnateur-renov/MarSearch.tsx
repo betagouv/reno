@@ -20,7 +20,10 @@ export default function MarSearch({
   const [data, setData] = useState(null)
   const mapContainerRef = useRef(null)
   const [localCodeInsee, setLocalCodeInsee] = useState(undefined)
-  const [name, setName] = useState(situation['logement . commune . nom'] || situation['ménage . commune . nom'])
+  const [name, setName] = useState(
+    situation['logement . commune . nom'] ||
+      situation['ménage . commune . nom'],
+  )
 
   const rawCodeInsee =
     localCodeInsee === undefined ? givenCodeInsee : localCodeInsee
@@ -48,7 +51,6 @@ export default function MarSearch({
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 6vh;
       `}
     >
       {!codeInsee ? (
@@ -63,9 +65,9 @@ export default function MarSearch({
         >
           <span>Saisissez votre ville</span>
           <AddressSearch
-            type="mar"
+            situation={situation}
+            type={'ménage . commune'}
             setChoice={(result) => {
-              console.log("result", result)
               setData(null)
               setName(result.nom)
               setLocalCodeInsee('' + result.code)
@@ -96,7 +98,7 @@ export default function MarSearch({
           max-width: 90vw;
         `}
       >
-        {data == null ? <MarLoader /> : <Entreprises data={data} />}
+        {<Entreprises data={data} />}
         {/*Anciennement utilisé pour afficher la carte avec surlignage des conseillers sélectionnés */}
         {false && selectedMarker && (
           <Card

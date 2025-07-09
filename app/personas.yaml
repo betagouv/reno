@@ -6,8 +6,8 @@
     DPE . actuel: 6
     projet . DPE visé: 2
     projet . travaux: 70140 / (1.055)
-    ménage . code région: "'27'"
-    ménage . code département: "'25'" # Doubs / Zone climatique H1
+    logement . code région: "'27'"
+    logement . code département: "'25'" # Doubs / Zone climatique H1
     ménage . commune: "'25388'"
     ménage . EPCI: "'200065647'"
     vous . propriétaire . condition: oui
@@ -15,14 +15,13 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 91
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -39,7 +38,6 @@
     gestes . chauffage . solaire . partie thermique PVT eau . MPR . montant: 2500
     gestes . chauffage . chauffe-eau thermodynamique . MPR . montant: 1200
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 262
     gestes . chauffage . fioul . dépose cuve . MPR . montant: 1200
     gestes . ventilation . double flux . MPR . montant: 2500
     gestes . isolation . vitres . MPR . montant: 500
@@ -52,17 +50,17 @@
     gestes . isolation . rampants . CEE . montant: 816
     gestes . isolation . toitures terrasses . MPR . montant: 4500
     gestes . isolation . toitures terrasses . CEE . montant: 576
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 5500
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3750
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 0
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 7000
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 5000
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . automatique . CEE . montant: 0
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 1800
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 1250
     gestes . chauffage . bois . foyer et insert . CEE . montant: 75.2
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1800
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1250
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 188
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1800
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1250
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 282.4
     gestes . chauffage . PAC . air-eau . MPR . montant: 5000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 4000
@@ -82,8 +80,8 @@
     DPE . actuel: 7
     projet . DPE visé: 4
     projet . travaux: 53200 / (1.055)
-    ménage . code région: "'24'"
-    ménage . code département: "'18'" # Cher / Zone climatique H2
+    logement . code région: "'24'"
+    logement . code département: "'18'" # Cher / Zone climatique H2
     ménage . commune: "'18279'"
     logement . commune: "'18279'"
     vous . propriétaire . condition: oui
@@ -91,14 +89,13 @@
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'B'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -118,7 +115,6 @@
     gestes . chauffage . solaire . partie thermique PVT eau . CEE . montant: 167
     gestes . chauffage . chauffe-eau thermodynamique . MPR . montant: 400
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 164.6
     gestes . chauffage . fioul . dépose cuve . MPR . montant: 400
     gestes . ventilation . double flux . MPR . montant: 1500
     gestes . isolation . vitres . MPR . montant: 200
@@ -130,15 +126,15 @@
     gestes . isolation . rampants . MPR . montant: 900
     gestes . isolation . rampants . CEE . montant: 672
     gestes . isolation . toitures terrasses . MPR . montant: 2400
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 2000
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 1400
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 2500
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 3000
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 2100
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 2500
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 600
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 500
     gestes . chauffage . bois . foyer et insert . CEE . montant: 154.4
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 700
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 500
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 61.6
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1000
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 750
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 231.2
     gestes . chauffage . PAC . air-eau . MPR . montant: 3000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 2500
@@ -153,24 +149,24 @@
   situation:
     vous . propriétaire . condition: oui
     ménage . personnes: 2
-    ménage . revenu: 25000
+    ménage . revenu: 25116
     DPE . actuel: 5
     projet . DPE visé: 4
     ménage . code région: '"52"'
     ménage . code département: '"06"' # Zone climatique H3
+    logement . code département: '"06"' # Zone climatique H3
     logement . propriétaire occupant: non
     logement . commune: "'06019'"
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 65
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -188,7 +184,6 @@
     gestes . chauffage . solaire . partie thermique PVT eau . CEE . montant: 167
     gestes . chauffage . chauffe-eau thermodynamique . MPR . montant: 800
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 95.2
-    gestes . chauffage . pilotage connecté . CEE . montant: 61.6
     gestes . chauffage . fioul . dépose cuve . MPR . montant: 800
     gestes . ventilation . double flux . MPR . montant: 2000
     gestes . isolation . vitres . MPR . montant: 400
@@ -200,15 +195,15 @@
     gestes . isolation . rampants . MPR . montant: 1200
     gestes . isolation . rampants . CEE . montant: 432
     gestes . isolation . toitures terrasses . MPR . montant: 3600
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 4500
+    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3150
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 5500
+    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 3850
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
-    gestes . chauffage . bois . foyer et insert . MPR . montant: 1000
+    gestes . chauffage . bois . foyer et insert . MPR . montant: 750
     gestes . chauffage . bois . foyer et insert . CEE . montant: 40.8
-    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1500
+    gestes . chauffage . bois . poêle . à bûches . MPR . montant: 1000
     gestes . chauffage . bois . poêle . à bûches . CEE . montant: 102.4
-    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1500
+    gestes . chauffage . bois . poêle . à granulés . MPR . montant: 1000
     gestes . chauffage . bois . poêle . à granulés . CEE . montant: 153.6
     gestes . chauffage . PAC . air-eau . MPR . montant: 4000
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 4000
@@ -226,12 +221,12 @@
     ménage . revenu: 25000
     ménage . commune: "'25056'"
     DPE . actuel: 3
-    ménage . code région: "'52'"
+    logement . code région: "'52'"
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 55
-    logement . période de construction: "'de 2 à 15 ans'"
+    logement . période de construction: "'de 10 à 15 ans'"
   valeurs attendues:
     conditions communes: non
     MPR . accompagnée . éligible: non
@@ -249,12 +244,12 @@
     DPE . actuel: 4
     projet . DPE visé: 1
     projet . travaux: 49300
-    ménage . code région: "'52'"
+    logement . code région: "'52'"
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
     MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
@@ -267,17 +262,17 @@
     ménage . revenu: 70000
     DPE . actuel: 6
     projet . DPE visé: 2
-    ménage . code région: "'52'"
+    logement . code région: "'52'"
     logement . propriétaire occupant: non
     logement . commune: "'29019'"
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 130
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     projet . travaux: 82000
     logement . prix d'achat: 230000
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 45
+    MPR . accompagnée . pourcent dont bonus: 30
     MPR . non accompagnée . éligible: non
     logement . commune . denormandie: oui
 
@@ -289,22 +284,21 @@
     DPE . actuel: 6
     projet . DPE visé: 2
     projet . travaux: 70140 / (1.055)
-    ménage . code région: "'27'"
-    ménage . code département: "'25'" # Doubs / Zone climatique H1
+    logement . code région: "'27'"
+    logement . code département: "'25'" # Doubs / Zone climatique H1
     ménage . commune: "'25388'"
     ménage . EPCI: "'200065647'"
     logement . propriétaire occupant: oui
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 91
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -322,7 +316,6 @@
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 1078.4
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 262
     gestes . ventilation . double flux . CEE . montant: 336
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 330.4
@@ -342,20 +335,19 @@
     DPE . actuel: 7
     projet . DPE visé: 4
     projet . travaux: 53200 / (1.055)
-    ménage . code région: "'24'"
-    ménage . code département: "'18'" # Cher / Zone climatique H2
+    logement . code région: "'24'"
+    logement . code département: "'18'" # Cher / Zone climatique H2
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
     logement . type: "'maison'"
     logement . surface: 110
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'B'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -373,7 +365,6 @@
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 968
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 124.8
-    gestes . chauffage . pilotage connecté . CEE . montant: 164.5
     gestes . ventilation . double flux . CEE . montant: 302.7
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 270.4
@@ -392,21 +383,19 @@
     ménage . revenu: 25000
     DPE . actuel: 5
     projet . DPE visé: 4
-    ménage . code région: '"52"'
-    ménage . code département: '"06"' # Zone climatique H3
+    logement . code département: '"06"' # Zone climatique H3
     logement . propriétaire occupant: non
     logement . commune: "'06019'"
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 65
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     gestes . isolation . murs extérieurs . MPR . surface: 85
     gestes . isolation . murs intérieurs . MPR . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
     gestes . isolation . vitres . CEE . surface: 6
-    gestes . chauffage . pilotage connecté . CEE . classe: "'A'"
     gestes . chauffage . bois . foyer et insert . CEE . Etas: "'entre 66 % et 72 %'"
     gestes . chauffage . bois . poêle . à bûches . CEE . Etas: "'entre 72 % et 80 %'"
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
@@ -423,7 +412,6 @@
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 804
     gestes . chauffage . solaire . solaire combiné . Coup de pouce . montant: 0
     gestes . chauffage . chauffe-eau thermodynamique . CEE . montant: 95.2
-    gestes . chauffage . pilotage connecté . CEE . montant: 61.6
     gestes . ventilation . double flux . CEE . montant: 103.7
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 210.4
@@ -443,14 +431,14 @@
     ménage . revenu: 80000
     DPE . actuel: 5
     projet . DPE visé: 2
-    ménage . code région: "'52'"
+    logement . code région: "'52'"
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
     logement . type: "'appartement'"
     logement . surface: 50
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 35
+    MPR . accompagnée . pourcent dont bonus: 15
     MPR . non accompagnée . éligible: non
 - description: |
     Propriétaire éligible MPR, mais pas d'autres infos
@@ -460,18 +448,20 @@
     MPR . accompagnée . éligible: oui
     MPR . non accompagnée . éligible: oui
 - description: |
-    Couple moyen, revenu 35k, enveloppe 49k, Bretagne.
+    Couple très modeste, revenu 35k, enveloppe 49k rénove en Bretagne mais habite paris.
   situation:
     ménage . personnes: 2
-    ménage . revenu: 35000
+    ménage . revenu: 20000
     DPE . actuel: 4
     projet . DPE visé: 1
     projet . travaux: 49000
-    ménage . code région: "'53'"
+    logement . code région: "'53'"
     logement . propriétaire occupant: non
     logement . commune: "'29006'"
+    ménage . commune: "'75056'"
   valeurs attendues:
-    MPR . accompagnée . montant: 24500
+    ménage . revenu . classe: 'très modeste'
+    MPR . accompagnée . montant: 39200
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 58k donc plafonnée, Bretagne.
@@ -481,7 +471,7 @@
     DPE . actuel: 4
     projet . DPE visé: 1
     projet . travaux: 58000
-    ménage . code région: "'53'"
+    logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . montant: 27500
@@ -493,13 +483,14 @@
     logement . type: "'appartement'"
     logement . résidence principale propriétaire: oui
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
     projet . DPE visé: 1
     projet . travaux: 49000
-    ménage . code région: "'11'"
+    logement . code région: "'11'"
+    ménage . commune: "'75056'"
     logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
     logement . propriétaire occupant: oui
     taxe foncière . condition de dépenses: oui
@@ -516,13 +507,15 @@
     logement . type: "'appartement'"
     logement . résidence principale locataire: oui
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
     projet . DPE visé: 1
-    ménage . code région: "'73'"
+    logement . code région: "'73'"
     logement . commune: "'73065'"
+    ménage . code région: "'11'"
+    ménage . commune: "'73065'"
     logement . EPCI: "'200069110'"
     logement . propriétaire occupant: non
     taxe foncière . condition de dépenses: oui
@@ -539,26 +532,26 @@
   situation:
     ménage . personnes: 1
     ménage . revenu: 13600
-    ménage . code région: "'53'"
+    logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     aides locales . angers . revenu très très modeste: oui
     MPR . non accompagnée . éligible: oui
 - description: |
-    Personne seule au revenu 28567.8 juste avant le seuil modeste en IdF.
+    Personne seule au revenu juste avant le seuil modeste en IdF.
   situation:
     ménage . personnes: 1
-    ménage . revenu: 28657.8
-    ménage . code région: "'11'"
+    ménage . revenu: 28933.8
+    logement . code région: "'11'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     ménage . revenu . classe: modeste
 - description: |
-    Personne seule au revenu 28568 juste avant le seuil modeste en IdF.
+    Personne seule au revenu juste après le seuil modeste en IdF.
   situation:
     ménage . personnes: 1
-    ménage . revenu: 28658
-    ménage . code région: "'11'"
+    ménage . revenu: 28934.2
+    logement . code région: "'11'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     ménage . revenu . classe: intermédiaire
@@ -568,7 +561,7 @@
     ménage . personnes: 2
     ménage . revenu: 25000
     DPE . actuel: 4
-    ménage . code région: "'53'"
+    logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . éligible: oui
@@ -579,7 +572,7 @@
     ménage . personnes: 2
     ménage . revenu: 80000
     DPE . actuel: 7
-    ménage . code région: "'53'"
+    logement . code région: "'53'"
     logement . propriétaire occupant: 92051
   valeurs attendues:
     MPR . accompagnée . éligible: oui
@@ -590,7 +583,7 @@
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 2
-    ménage . code région: "'53'"
+    logement . code région: "'53'"
   valeurs attendues:
     MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: oui
@@ -601,7 +594,7 @@
     ménage . revenu: 85000
     DPE . actuel: 3
     projet . DPE visé: 2
-    ménage . code région: "'53'"
+    logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
     MPR . accompagnée . pourcent dont bonus: 0
@@ -615,7 +608,7 @@
     projet . DPE visé: 1
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 30
+    MPR . accompagnée . pourcent dont bonus: 10
     MPR . non accompagnée . éligible: non
     ménage . revenu . classe: 'supérieure'
 
@@ -633,7 +626,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 78
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
     aides locales . angers . aides socles . taux: 10
     aides locales . angers . prime basse consommation . montant: 1500
@@ -657,7 +650,7 @@
     logement . résidence principale propriétaire: oui
     logement . type: "'maison'"
     logement . surface: 78
-    logement . période de construction: "'de 15 à 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     #projet . objectif BBC rénovation: oui
     #projet . objectif BBC neuf: oui
   valeurs attendues:
@@ -673,7 +666,7 @@
     ménage . revenu: 25000
     ménage . commune: "'25056'"
     DPE . actuel: 2
-    ménage . code région: "'52'"
+    logement . code région: "'52'"
     logement . propriétaire occupant: oui
     logement . résidence principale: oui
     logement . type: "'appartement'"
@@ -693,17 +686,17 @@
     vous . propriétaire . condition: oui
     logement . type: "'appartement'"
     logement . surface: 47
-    logement . période de construction: "'au moins 25 ans'"
+    logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
     DPE . actuel: 4
     projet . DPE visé: 1
     projet . travaux: 49000
-    ménage . code région: "'11'"
+    logement . code région: "'11'"
     ménage . commune: "'75056'"
     logement . commune: "'75056'" # Paris n'a qu'un code commune dans notre utilisation de l'API commune
     taxe foncière . condition de dépenses: oui
-    taxe foncière . commune . éligible . logement: oui
+    taxe foncière . commune . éligible: oui
   valeurs attendues:
     MPR . accompagnée . éligible: non
     taxe foncière . commune . éligible: oui

@@ -36,7 +36,9 @@ export default function PageCoupDePouce({
 
   const rule = Object.keys(rules).find(
     (rule) =>
-      rules[rule] && rules[rule].titre == decodeURIComponent(params.titre),
+      rules[rule] &&
+      rules[rule].titre == decodeURIComponent(params.titre) &&
+      !rule.includes('type'),
   )
 
   const answeredQuestions = [
@@ -110,26 +112,27 @@ export default function PageCoupDePouce({
               `}
             >
               <Link href="/aides/coup-de-pouce">
-                ⬅ Retour à la liste des aides Coup de pouce
+                <span aria-hidden="true">⬅</span> Retour à la liste des aides
+                Coup de pouce
               </Link>
             </CTA>
           </CTAWrapper>
         )}
-        <h2
+        <h1
           style={css`
             margin: 0 0 1rem;
           `}
         >
           {infoCoupDePouce.titre}
-        </h2>
+        </h1>
         <MiseEnAvant>
-          <h3
+          <h2
             style={css`
               color: #0063cb;
             `}
           >
             Informations
-          </h3>
+          </h2>
           <p>Vous êtes éligible à cette aide si:</p>
           <ul>
             <li>
@@ -163,10 +166,13 @@ export default function PageCoupDePouce({
             .
           </p>
         </MiseEnAvant>
-        <h3>
-          Calculer le montant de votre prime en répondant aux questions
-          ci-dessous:
-        </h3>
+        <h2
+          style={css`
+            font-size: 130%;
+          `}
+        >
+          Calculer le montant de votre prime "Coup de Pouce"
+        </h2>
         <BlocAideCoupDePouce
           {...{
             infoCoupDePouce,

@@ -10,9 +10,10 @@ export default function PageContact() {
   return (
     <Main>
       <Section>
-      <h2>Nous contacter</h2>
+        <h1>Nous contacter</h1>
         <p>
-          Pour des demandes privées ou nécessitant une réponse, vous pouvez écrire directement à l'équipe à{' '}
+          Pour des demandes privées ou nécessitant une réponse, vous pouvez
+          écrire directement à l'équipe à{' '}
           <a href="mailto:contact@mesaidesreno.fr">notre adresse mel</a>.<br />
         </p>
         <Contact />

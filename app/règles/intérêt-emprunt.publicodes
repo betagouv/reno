@@ -1,0 +1,33 @@
+
+
+intérêt:
+intérêt . taux mensuel:
+    formule: taux / 12
+    description: "Taux d'intérêt mensuel"
+intérêt . mensualité:
+  formule: (montant emprunt * taux mensuel) / (1 - ((1 + taux mensuel) ** (0 - durée en mois)))
+  description: "Montant de la mensualité à rembourser chaque mois."
+intérêt . coût total:
+  variations: 
+    - si: taux = 0
+      alors: 0
+    - sinon: mensualité * durée en mois - montant emprunt
+  description: "Coût total de l'emprunt, incluant les intérêts."
+  unité: €
+intérêt . montant emprunt:
+  question: Quel est le montant de l'emprunt ?
+  unité: €
+  par défaut: 100000
+intérêt . taux:
+  question: Quel est le taux d'intérêt annuel ?
+  unité: '%'
+  par défaut: 5
+intérêt . durée:
+  question: Quelle est la durée de l'emprunt ?
+  unité: ans
+  par défaut: 20
+intérêt . durée en mois:
+  produit: 
+    - durée
+    - 12
+  description: "Durée totale de l'emprunt exprimée en mois"

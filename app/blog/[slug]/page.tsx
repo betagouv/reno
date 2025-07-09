@@ -1,22 +1,20 @@
-import { allArticles } from '@/.contentlayer/generated'
 import Article from '@/components/Article'
 import { CTA, CTAWrapper } from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import { useMDXComponent } from 'next-contentlayer2/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
+import ArticleContent from '../ArticleContent'
 import Contribution from '../Contribution'
 import OtherArticles from '../OtherArticles'
 import { ArticleCta, BlogBackButton } from '../UI'
-import { mdxComponents } from '../mdxComponents'
 import { dateCool, getLastEdit } from '../utils'
+import { getAllArticles } from '../articles'
 
-export const articles = allArticles.filter((article) => !article.brouillon)
+export const generateMetadata = async (props) => {
+  const params = await props.params
 
-export const generateMetadata = async ({ params }) => {
-  const post = allArticles.find(
-    (post) => post._raw.flattenedPath === params.slug,
-  )
+  const articles = await getAllArticles()
+  const post = articles.find((post) => post.slug === params.slug)
   const lastEdit = await getLastEdit(params.slug)
 
   return {
@@ -32,14 +30,16 @@ export const generateMetadata = async ({ params }) => {
   }
 }
 
-export default async function Post({ params }: Props) {
-  const post = articles.find((post) => post._raw.flattenedPath === params.slug)
+export default async function Post(props: Props) {
+  const params = await props.params
+  const articles = await getAllArticles()
+  const post = articles.find((post) => post.slug === params.slug)
 
-  const MDXContent = useMDXComponent(post.body.code)
   const lastEdit = await getLastEdit(params.slug)
 
   const sameEditDate =
     !lastEdit || post.date.slice(0, 10) === lastEdit.slice(0, 10)
+  const verticalImage = post['image verticale']
   return (
     <Article>
       <header>
@@ -60,7 +60,8 @@ export default async function Post({ params }: Props) {
             style={css`
               position: relative;
               width: 100%;
-              height: 20rem;
+              height: ${verticalImage ? '30rem' : '20rem'};
+
               padding-bottom: 4vh;
             `}
           >
@@ -87,7 +88,7 @@ export default async function Post({ params }: Props) {
         </section>
       </header>
       <section>
-        <MDXContent components={mdxComponents} />
+        <ArticleContent post={post} />
         {post.cta && (
           <div
             style={css`
@@ -109,7 +110,9 @@ export default async function Post({ params }: Props) {
               `}
             >
               <CTA $fontSize="normal">
-                <Link href="/simulation">➞&nbsp;&nbsp;Calculer mes aides</Link>
+                <Link href="/simulation" prefetch={false}>
+                  ➞&nbsp;&nbsp;Calculer mes aides
+                </Link>
               </CTA>
             </CTAWrapper>
           </div>
@@ -122,4 +125,11 @@ export default async function Post({ params }: Props) {
       <ArticleCta />
     </Article>
   )
+}
+
+/* Without this function, getAllArticles would be run without the context of the directory to parse */
+export async function generateStaticParams() {
+  const articles = await getAllArticles()
+  // This article has its own route, don't rewrite it here
+  return articles.filter((a) => a.slug !== 'aides-renovation-2025')
 }

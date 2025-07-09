@@ -2,10 +2,13 @@ import css from '@/components/css/convertToJs'
 import dynamic from '@/node_modules/next/dynamic'
 import logo from '@/app/icon.svg'
 import Image from 'next/image'
+import { Suspense } from 'react'
 
 const Couts = dynamic(() => import('./Couts'), { ssr: false })
 
-export default function Page({ searchParams }) {
+// Using searchParams here will opt this route to dynamic rendering
+export default async function Page(props) {
+  const searchParams = await props.searchParams
   return (
     <main
       style={css`
@@ -34,7 +37,9 @@ export default function Page({ searchParams }) {
         <h1>Prix des gestes de réno</h1>
       </header>
       <p>Une analyse des coûts des gestes d'isolation</p>
-      <Couts searchParams={searchParams} />
+      <Suspense>
+        <Couts searchParams={searchParams} />
+      </Suspense>
     </main>
   )
 }

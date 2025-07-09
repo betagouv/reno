@@ -1,11 +1,12 @@
+import { InternalLink } from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import Link from 'next/link'
-import { OtherArticlesList, OtherArticlesSection } from './UI'
-import { dateCool } from './utils'
 import { sortBy } from '@/components/utils'
-import { articles } from './[slug]/page'
+import { OtherArticlesList, OtherArticlesSection } from './UI'
+import { getAllArticles } from './articles'
+import { dateCool } from './utils'
 
-export default function ({ excludeUrl }) {
+export default async function OtherArticles({ excludeUrl }) {
+  const articles = await getAllArticles()
   return (
     <OtherArticlesSection>
       <h2>Nos derniers articles</h2>
@@ -16,11 +17,9 @@ export default function ({ excludeUrl }) {
             .filter(({ url }) => url !== excludeUrl)
             .map(({ url, titre, date }) => (
               <li key={url}>
-                <div>
-                  <Link href={url}>
-                    <h3>{titre}</h3>
-                  </Link>
-                </div>
+                <h3>
+                  <InternalLink href={url}>{titre}</InternalLink>
+                </h3>
                 <small
                   style={css`
                     color: var(--color);

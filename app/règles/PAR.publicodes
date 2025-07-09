@@ -1,7 +1,7 @@
 PAR:
   notes: |
-    Nous ignorons pour l'instant le [PAR "pas plus"](https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux) original, qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
-  marque: Prêt avance rénovation
+    Nous ignorons pour l'instant le <a href="https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux" target="_blank">PAR "pas plus"</a> original, qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
+  marque: prêt avance rénovation
   complément de marque: '0 %'
   type: 'prêt'
   icône: 'pam-plus-bleu.svg'
@@ -15,22 +15,24 @@ PAR:
     - Vous devez faire réaliser les travaux par un professionnel RGE.
 
   comment faire: |
-    Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
+    Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">
                     sont couverts</a> par ce dispositif.
 
-    Dans le cas d'un dossier MaPrimeRénov' accompagnée, ce sera probablement le cas.
+    Dans le cas d'un dossier MaPrimeRénov' parcours accompagné, ce sera probablement le cas.
 
-    Le PAR est disponible auprès de 
-    <a href="https://www2.sgfgas.fr/web/site-public/etablissements-affilies">ces établissements de crédits</a>, colonne "Prêts avance mutation".
+    > La liste des établissements distribuant le prêt avance rénovation ne portant pas intérêt n'est pas encore disponible. 
 
-    Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">la démarche étape par étape</a>.
+    Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">la démarche étape par étape</a>.
   montant: |
     Jusqu'à 50 000 € d'emprunt pour une rénovation d'ampleur : viser un DPE E au minimum et un gain énergétique de 35%.
   description: |
-    Le Prêt Avance Rénovation à taux zéro (PAR+) est un prêt hypothécaire permettant aux propriétaires de financer des travaux de rénovation énergétique dans leur logement.
+    Le prêt avance rénovation à taux zéro (PAR+) est un prêt hypothécaire permettant aux propriétaires occupants de financer des travaux de rénovation énergétique.
 
     Son remboursement s’effectue in fine, c'est-à-dire en une seule fois, lors de la revente du bien ou au moment de la succession.
-
+  explication: |
+    Pendant les 10 premières années du prêt, l'État prend en charge l'intégralité des intérêts. À l'expiration de cette période, des intérêts au taux fixé librement par l'établissement prêteur au moment de la signature du contrat de prêt seront appliqués.
+          
+    L'établissement prêteur peut décider de verser le prêt en une ou plusieurs fois sur la base du descriptif et des devis détaillés des travaux à réaliser, ou bien à la fin des travaux.
 PAR . conditions:
 PAR . conditions . communes:
   valeur:
@@ -56,7 +58,7 @@ PAR . conditions . revenu:
 PAR . conditions . résidence principale:
   valeur: logement . résidence principale
   description: |
-    Les travaux doivent être réalisés dans un logement à usage de résidence principaleLogement occupé au moins 8 mois par an sauf obligation professionnelle, raison de santé ou cas de force majeureLogement occupé au moins 8 mois par an sauf obligation professionnelle, raison de santé ou cas de force majeure situé en France métropolitaine. 
+    Les travaux doivent être réalisés dans un logement à usage de résidence principale. Logement occupé au moins 8 mois par an sauf obligation professionnelle, raison de santé ou cas de force majeureLogement occupé au moins 8 mois par an sauf obligation professionnelle, raison de santé ou cas de force majeure situé en France métropolitaine. 
 
     Si le logement ne fait pas encore l'objet d'une telle utilisation, vous devez vous engager à utiliser effectivement le logement en tant que résidence principale dans les 6 mois qui suivent la remise des factures à l'établissement ou société qui finance votre prêt.
 
@@ -68,16 +70,25 @@ PAR . conditions . ancienneté:
     Pour bénéficier du prêt, vous devez être propriétaire occupant d'un logement construit il y a plus de 2 ans à la date du début des travaux faisant l'objet du prêt.
 
     Le logement ne **peut pas** être en cours d’acquisition au moment de la demande de prêt.
-  valeur: logement . période de construction != 'moins de 2 ans'
+  valeur: logement . au moins 2 ans
 
 PAR . montant:
   titre: Montant du pret avance rénovation 0 %
   applicable si: conditions . communes
-  note: Impléméntation imparfaite du montant, voir la description de la règle PTZ.
-  valeur:
-    variations:
-      - si: parcours d'aide = "ampleur"
-        alors: 50000 €
-      - sinon: 30000 € # jusqu'à, fonction du nombre de gestes, à implémenter
-PAR . durée: 10 an
-PTZ . condition d'ancienneté: logement . période de construction != 'moins de 2 ans'
+  variations:
+    - si: parcours d'aide = "ampleur"
+      alors: 50000 €
+    - si: logement . type travaux = "parois vitrées"
+      alors: 7000 €
+    - si: logement . type travaux = "un poste"
+      alors: 15000 €
+    - si: logement . type travaux = "deux postes"
+      alors: 25000 €
+    - si: logement . type travaux = "trois postes"
+      alors: 30000 €
+    - si: logement . type travaux = "performance énergétique globale"
+      alors: 50000 €
+    - si: logement . type travaux = "assainissement"
+      alors: 10000 €
+PAR . taux: 0 %
+PAR . durée: 10 ans

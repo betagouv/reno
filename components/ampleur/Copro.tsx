@@ -1,17 +1,11 @@
-import rules from '@/app/règles/rules'
-import PaymentTypeBlock from '../PaymentTypeBlock'
-import { compute } from '../explications/Aide'
-import AideAmpleur, { AideCTA, InformationBlock } from './AideAmpleur'
-import DPELabel from '../DPELabel'
-import MapBehindCTA from '../MapBehindCTA'
-import { BlueEm } from '@/app/LandingUI'
-import { Card, CTA, CTAWrapper, ExternalLink } from '../UI'
+import AideAmpleur from './AideAmpleur'
+import { Card, CTA, CTAWrapper } from '../UI'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
-import checkIcon from '@/public/check.svg'
 
 export default function Copro({
+  isEligible,
   engine,
   situation,
   setSearchParams,
@@ -19,12 +13,11 @@ export default function Copro({
   expanded,
 }) {
   const dottedName = 'ampleur . prime individuelle copropriété'
-  const evaluation = compute('ménage . revenu . classe', engine, rules)
-  const isTrèsModeste = evaluation.value === 'très modeste'
 
   return (
     <AideAmpleur
       {...{
+        isEligible,
         engine,
         dottedName,
         setSearchParams,
@@ -35,8 +28,7 @@ export default function Copro({
     >
       {expanded && (
         <>
-          <h3>Comment est calculée l'aide ?</h3>
-          <Card $background="#f7f8f8">
+          <Card $background="#EEEEFF">
             <p>
               En tant que ménage{' '}
               <Value
@@ -60,7 +52,6 @@ export default function Copro({
               .
             </p>
           </Card>
-
           <p>
             L’aide MaPrimeRénov’ Copropriété finance 30 % ou 45 % du montant des
             travaux selon l’ambition de la rénovation énergétique, dans un
@@ -71,35 +62,16 @@ export default function Copro({
             ressources modestes et très modestes. Le montant de cette prime est
             respectivement de 1 500 € et de 3 000 €.
           </p>
-
-          <h3>Les principales conditions d'éligibilité ?</h3>
-          <div
+          <h2
             css={`
-              list-style-image: url(${checkIcon.src});
-              li {
-                margin: 1rem 0;
-                ul {
-                  list-style-image: none;
-                }
-              }
-            `}
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].conditionsEligibilitesHTML,
-            }}
-          />
-          <p
-            css={`
-              margin-top: 1.6rem;
+              margin: 1rem 0;
             `}
           >
-            <ExternalLink href={rules[dottedName]['lien']} target="_blank">
-              Plus d'infos sur cette aide
-            </ExternalLink>
-          </p>
-          <h3>Notre parcours dédié aux copropriétés</h3>
+            Notre parcours dédié aux copropriétés
+          </h2>
           <p>
             Simulez l'éligibilité de votre copropriété à MaPrimeRénov'
-            Coproprieté grace a ce simulateur.
+            Coproprieté grâce à ce simulateur.
           </p>
           <CTAWrapper $justify="left">
             <CTA
@@ -116,7 +88,7 @@ export default function Copro({
                   new URLSearchParams(encodeSituation(situation))
                 }
               >
-                ➞ &nbsp;Simuler MaPrimeRénov' copropriété
+                ➞ &nbsp;Simuler MaPrimeRénov' Copropriété
               </Link>
             </CTA>
           </CTAWrapper>

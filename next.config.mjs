@@ -1,5 +1,4 @@
 import createMDX from '@next/mdx'
-import { withContentlayer } from 'next-contentlayer2'
 import mdxOptions from './mdxOptions.mjs'
 
 /** @type {import('next').NextConfig} */
@@ -39,6 +38,26 @@ const nextConfig = {
     })
     return config
   },
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'DELETE, GET, PATCH, POST, PUT, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, Authorization, X-Api-Version',
+          },
+        ],
+      },
+    ]
+  },
   async rewrites() {
     return [{ source: '/feed.xml', destination: '/_next/static/feed.xml' }]
   },
@@ -52,7 +71,30 @@ const nextConfig = {
       },
     ]
   },
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'DELETE, GET, PATCH, POST, PUT, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, Authorization, X-Api-Version',
+          },
+        ],
+      },
+    ]
+  },
   output: 'standalone',
+  outputFileTracingIncludes: {
+    '/*': ['./articles/*.mdx'],
+  },
   images: {
     remotePatterns: [
       {
@@ -65,5 +107,6 @@ const nextConfig = {
 
 const withMDX = createMDX({ options: mdxOptions })
 
-const finalConfig = withContentlayer(withMDX(nextConfig))
+const finalConfig = withMDX(nextConfig)
+
 export default finalConfig

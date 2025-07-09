@@ -1,0 +1,197 @@
+MPR . accompagnée:
+  titre: MaPrimeRénov' **parcours accompagné**
+  illustration: mpa.svg
+  icône: maprimerenov.svg
+  alias: Parcours accompagné
+  marque: MaPrimeRénov'
+  complément de marque: parcours accompagné
+  favorite: oui
+  type: remboursement
+  informations utiles: |
+    - Votre conseiller local France Rénov' vous accompagne <strong>gratuitement</strong> pour vous guider dans les premières étapes de votre projet.
+    - Vous devrez payer un <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov" target="_blank">Accompagnateur Rénov'</a> pour réaliser un audit énergétique de votre logement qui définira les travaux vous permettant d'atteindre le DPE visé.
+  interface:
+    motivation: Je veux améliorer significativement la performance de mon logement.
+    avantages:
+      - Un accompagnement renforcé pour des gains réels après travaux
+      - Un financement plus important
+  conditions éligibilités: |
+    - Vous devrez faire appel à un Accompagnateur Rénov', qui réalisera un audit énergétique de votre logement pour définir le projet de travaux vous permettant d'atteindre le DPE visé.
+    - Il est également demandé d'inclure deux gestes d'isolation (toiture, fenêtre/menuiserie, sols ou murs) dans le programme de travaux.
+    - Le projet ne doit pas prévoir d’installer un chauffage fonctionnant majoritairement aux énergies fossiles. Il est également interdit de garder un chauffage fonctionnant majoritairement au fioul.
+    - Pour réaliser les travaux vous devez faire appel à des artisans labellisés reconnu garant de l'environnement (RGE).
+    - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
+  description: |
+    Recommandé pour les logements ayant une consommation énergétique
+    importante, une rénovation globale consiste à réaliser au moins 2
+    travaux complémentaires d'isolation thermique et ainsi viser 2
+    classes de DPE.
+
+    <small>
+      Ce dispositif n'est pas cumulable avec les primes par gestes de
+      travaux.
+      <strong>Définissez votre projet avec un conseiller France Renov'</strong>
+    </small>
+  description détaillé: |
+    L'aide principale en 2025 pour rénover son logement, elle est accessible quel que soit le revenu du ménage. 
+
+    Vous serez <a href="https://france-renov.gouv.fr/preparer-projet/faire-accompagner/mon-accompagnateur-renov" target="_blank">accompagné</a>, pour rénover de façon ambitieuse votre logement et gagner au minimum deux classes DPE.
+
+    <a href="https://france-renov.gouv.fr/aides/maprimerenov-parcours-accompagne" target="_blank">Tous les détails</a>.
+  lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
+
+MPR . accompagnée . bénéficiaire:
+  applicable si: éligible
+  titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
+  par défaut: oui
+
+MPR . accompagnée . éligible:
+  titre: Éligible parcours accompagné
+  formule:
+    toutes ces conditions:
+      - conditions communes
+      - condition de sauts
+
+MPR . accompagnée . condition de sauts:
+  formule:
+    toutes ces conditions:
+      - DPE . actuel > 2
+      - sauts >= sauts minimum
+
+MPR . accompagnée . bonus . condition:
+  toutes ces conditions:
+    - projet . DPE visé <= 4
+    - DPE . actuel >= 6
+MPR . accompagnée . bonus:
+  titre: Bonus sortie de passoire
+  description: |
+    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s'applique que si l'étiquette D est atteinte à minima.
+  applicable si: condition
+  valeur: 10 %
+MPR . accompagnée . montant si assiette maximum:
+  formule: MPR . accompagnée . pourcent dont bonus * projet . travaux . plafond
+MPR . accompagnée . pourcent dont bonus:
+  titre: '% accompagné dont bonus'
+  formule: pourcent brut + bonus
+
+MPR . accompagnée . sauts minimum: 2
+MPR . accompagnée . pourcent brut:
+  formule:
+    variations:
+      - si: sauts < sauts minimum
+        alors: 0 %
+      - si: ménage . revenu . classe = 'très modeste'
+        alors: 80 %
+      - si: ménage . revenu . classe = 'modeste'
+        alors: 60 %
+      - si: ménage . revenu . classe = 'intermédiaire'
+        alors:
+          variations:
+            - si: sauts < 3
+              alors: 45 %
+            - sinon: 50 %
+      - sinon:
+          variations:
+            - si: sauts < 3
+              alors: 10 %
+            - si: sauts < 4
+              alors: 15 %
+            - sinon: 20 %
+  description: |
+    En 2024, c'est l'Anah qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
+
+    En 2025, le tableau est inchangé mis à part pour la colonne de revenu supérieur, qui vois les montants largement baisser.
+
+MPR . accompagnée . prise en charge MAR:
+  description: |
+    Mon Accompagnateur Rénov’ est l’interlocuteur de confiance, qui accompagne les projets de travaux de rénovation globale des ménages, depuis l’élaboration du projet (audit énergétique, choix du scénario de travaux, etc.) jusqu’à la fin des travaux.
+
+    Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ parcours accompagné et de la subvention travaux de <a href="https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location" target="_blank">Loc’Avantages</a>.
+  conditions éligibilités: |
+    - Seuls les professionnels ayant obtenu l'agrément délivré par l’État peuvent intervenir comme Mon Accompagnateur Rénov’. Consultez l'<a href="https://france-renov.gouv.fr/annuaires-professionnels/mon-accompagnateur-renov" target="_blank">annuaire officiel</a> pour trouver un Mon Accompagnateur Rénov’ agréé.
+  applicable si: MPR . accompagnée . éligible
+  icône: maprimerenov.svg
+  marque: Mon Accompagnateur Rénov'
+  complément de marque: Subvention
+  aide parente: MPR . accompagnée
+  type: remboursement
+  lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
+
+MPR . accompagnée . prise en charge MAR . montant:
+  formule: base plafonnée * pourcent
+  note: |
+    Le guide de l'Anah à date du 13 novembre 2024 adopte une description ambigue du plafonnement de cette aide. Or d'après nos informations, le plafonnement s'applique bien à l'assiette, pas au résultat du calcul de la subvention.
+
+MPR . accompagnée . prise en charge MAR . base plafonnée:
+  formule:
+    valeur: prix moyen
+    plafond: plafond
+MPR . accompagnée . prise en charge MAR . plafond:
+  description: |
+    Le prix de Mon Accompagnateur Rénov' couvert par les aides publiques est néanmoins plafonné à 2 000 € TTC (et par exception à 4 000 € pour les ménages les plus modestes en situation de précarité énergétique ou d'habitat indigne).
+  note: Nous n'avons pas encore intégré les logements jugés indignes ou la précarité énergétique qui augmente le plafond à 4000 €
+  valeur: 2000 €
+MPR . accompagnée . prise en charge MAR . prix moyen:
+  valeur: 1500 €
+  description: |
+    Comme expliqué sur la page [Mon Accompagnateur Rénov'](https://www.ecologie.gouv.fr/mon-accompagnateur-renov) du site du Ministère de l'Écologie : 
+
+    > Les tarifs de l'accompagnement sont libres et non réglementés.
+
+    > Chaque accompagnateur devra développer une offre concurrentielle sur le marché de l'accompagnement.
+
+    Pour notre estimation de prix moyen, nous le tirons d'un article [Le Monde](https://www.lemonde.fr/argent/article/2024/03/13/combien-coute-un-accompagnateur-renov_6221705_1657007.html). Ne pas hésiter à nous signaler une meilleure source si possible réelle basée sur une étude des prix.
+MPR . accompagnée . prise en charge MAR . pourcent:
+  description: |
+    L'État prend en charge tout ou une partie de la prestation du MAR (Mon Accompagnateur Rénov').
+
+    Source Anah : [Panorama des Aides 2025](https://www.anah.gouv.fr/document/panorama-des-aides-2025#page=7), page 7.
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 100 %
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 80 %
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 40 %
+    - si: ménage . revenu . classe = 'supérieure'
+      alors: 20 %
+
+MPR . accompagnée . avance:
+  applicable si:
+    une de ces conditions:
+      - ménage . revenu . classe = 'très modeste'
+      - ménage . revenu . classe = 'modeste'
+  formule: pourcentage avance * montant
+
+MPR . accompagnée . pourcentage avance:
+  valeur: 30 %
+  description: |
+    En 2024, l'avance était de 70 %. Elle est réduite à 50 % en 2025 dans l'[arrêté de mise à jour de MaPrimeRénov'](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000050731904). 
+
+    Mais le décrêt consolidé ne parle d'avance que pour le parcours par geste.
+
+    Le guide de l'Anah 2025 version 3 janvier évoque lui une avance de 30 % seulement pour les ménages MO/TMO. 
+
+  note: Intégrer l'avance dans le modèle aussi pour le parcours par geste, et l'intégrer dans l'interface du site.
+
+MPR . accompagnée . remboursement: montant - avance
+
+MPR . accompagnée . montant:
+  titre: Aide accompagnée
+  applicable si: éligible
+  note: |
+    Nous calculons pour l'instant ici l'écrêtement au niveau de la règle "aides globales". En pratique pourtant, il semblerait que ce soit le montant de MaPrimeRénov' qui soit écrêté avant celui des aides locales et diverses.
+  formule: montant avant écrêtement
+  unité: €
+
+MPR . accompagnée . montant écrêté:
+  valeur: montant
+  plafond: ampleur . montant écrêté
+
+MPR . accompagnée . montant avant écrêtement:
+  formule: pourcent dont bonus * projet . travaux . plafonnés
+
+MPR . accompagnée . reste à charge:
+  titre: Reste à charge après MaPrimeRénov' parcours accompagné
+  description: Votre reste à charge, c'est-à-dire la portion des travaux que vous devrez payer de votre poche ou via d'autres aides après application de l'aide MaPrimeRénov' parcours accompagné.
+  formule: projet . travaux . TTC - montant écrêté

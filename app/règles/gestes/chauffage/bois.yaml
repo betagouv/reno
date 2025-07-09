@@ -3,11 +3,30 @@ chauffage . bois:
 chauffage . bois . chaudière:
   titre: Chaudière bois
   description: |
-    Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poême n'est souvent qu'un chauffage d'appoint.
+    Contrairement au poêle, la chaudière est en mesure de chauffer toute la maison (chauffage principal), dont l'eau chaude. Le poêle n'est souvent qu'un chauffage d'appoint.
+chauffage . bois . chaudière . type:
+  question: 'Quel type de chaudière vous intéresse ?'
+  une possibilité parmi:
+    possibilités:
+      - manuelle
+      - automatique
+chauffage . bois . chaudière . type . manuelle:
+  valeur: manuelle
+  titre: Manuelle (à bûches)
+chauffage . bois . chaudière . type . automatique:
+  valeur: automatique
+  titre: Automatique (à granulés ou plaquettes)
 
 chauffage . bois . chaudière . manuelle:
-  titre: Chaudière bois manuelle (bûches)
-  description: Chaudière bois à alimentation manuelle (bûches)
+  titre: Chaudière à bûches (allumage manuel)
+  description: |
+    Une chaudière qui brûle des bûches et qui doit être allumée manuellement.
+  description complète: |
+    Le chargement des bûches se fait manuellement, ce qui peut être une contrainte.
+
+    La chaudière chauffe de l'eau stockée dans un ballon d'eau chaude, qui va diffuser la chaleur dans les radiateurs de votre logement, et éventuellement l'eau chaude sanitaire.
+
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/chaudiere-buches).
   par défaut: oui
 chauffage . bois . chaudière . manuelle . montant:
   applicable si:
@@ -24,11 +43,11 @@ chauffage . bois . chaudière . manuelle . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 5500 €
+      alors: 3750 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 4500 €
+      alors: 3150 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 2000 €
+      alors: 1400 €
     - sinon: 0 €
 chauffage . bois . chaudière . manuelle . Coup de pouce:
 chauffage . bois . chaudière . manuelle . Coup de pouce . montant:
@@ -78,7 +97,7 @@ chauffage . bois . chaudière . manuelle . CEE . barème:
       alors: 26300
 
 chauffage . bois . chaudière . automatique:
-  titre: Chaudière bois auto (granulés, plaquettes)
+  titre: Chaudière bois auto
   description: Chaudière bois à alimentation automatique (granulés, plaquettes)
   par défaut: oui
 chauffage . bois . chaudière . automatique . montant:
@@ -96,11 +115,11 @@ chauffage . bois . chaudière . automatique . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 7000 €
+      alors: 5000 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 5500 €
+      alors: 3850 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 3000 €
+      alors: 2100 €
     - sinon: 0 €
 chauffage . bois . chaudière . automatique . Coup de pouce:
 chauffage . bois . chaudière . automatique . Coup de pouce . montant:
@@ -149,9 +168,31 @@ chauffage . bois . chaudière . automatique . CEE . barème:
     - si: CEE . région = 'H3'
       alors: 26300
 
+chauffage . bois . type:
+  question: 'Quel type de chauffage au bois vous intéresse ?'
+  une possibilité parmi:
+    possibilités:
+      - poêle . à bûches
+      - poêle . à granulés
+      - foyer et insert
+chauffage . bois . type . poêle:
+chauffage . bois . type . poêle . à bûches:
+  valeur: poêle . à bûches
+  titre: Poêle à bûches
+chauffage . bois . type . poêle . à granulés:
+  valeur: poêle . à granulés
+  titre: Poêle à grânulés
+chauffage . bois . type . foyer et insert:
+  valeur: foyer et insert
+  titre: Insert pour cheminées
+
 chauffage . bois . foyer et insert:
   par défaut: oui
   titre: Foyer fermé et insert à bûches ou à granulés
+  description: |
+    Permet d’accroître la performance d'une cheminée. On l'alimente manuellement avec des bûches ou des granulés.
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/insert-foyer-ferme).
 chauffage . bois . foyer et insert . montant:
   applicable si:
     une de ces conditions:
@@ -166,11 +207,11 @@ chauffage . bois . foyer et insert . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
+      alors: 1250 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 1000 €
+      alors: 750 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 600 €
+      alors: 500 €
     - sinon: 0 €
 chauffage . bois . foyer et insert . CEE:
   code: BAR-TH-112
@@ -252,6 +293,10 @@ chauffage . bois . poêle:
 chauffage . bois . poêle . à bûches:
   par défaut: oui
   titre: Poêle et cuisinière à bûches
+  description: |
+    Un appareil de chauffage (et de cuisson pour la cuisinière) alimenté manuellement avec des bûches.
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/poele-buches).
 chauffage . bois . poêle . à bûches . montant:
   applicable si:
     une de ces conditions:
@@ -266,11 +311,11 @@ chauffage . bois . poêle . à bûches . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
+      alors: 1250 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
+      alors: 1000 €
     - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 700 €
+      alors: 500 €
     - sinon: 0 €
 chauffage . bois . poêle . à bûches . CEE:
   code: BAR-TH-112
@@ -347,6 +392,10 @@ chauffage . bois . poêle . à bûches . CEE . question:
 chauffage . bois . poêle . à granulés:
   par défaut: oui
   titre: Poêle et cuisinière à granulés
+  description: |
+    Un appareil de chauffage (et de cuisson pour la cuisinière) alimenté avec des granulés.
+  description complète: |
+    En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/poele-granules).
 chauffage . bois . poêle . à granulés . montant:
   applicable si:
     une de ces conditions:
@@ -361,11 +410,11 @@ chauffage . bois . poêle . à granulés . MPR . montant:
   applicable si: MPR . non accompagnée . éligible
   variations:
     - si: ménage . revenu . classe = 'très modeste'
-      alors: 1800 €
+      alors: 1250 €
     - si: ménage . revenu . classe = 'modeste'
-      alors: 1500 €
-    - si: ménage . revenu . classe = 'intermédiaire'
       alors: 1000 €
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 750 €
     - sinon: 0 €
 chauffage . bois . poêle . à granulés . CEE:
   code: BAR-TH-112

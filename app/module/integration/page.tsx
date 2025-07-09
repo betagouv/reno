@@ -4,7 +4,7 @@ import Ampleur from '../Ampleur'
 export default function Integration() {
   return (
     <Suspense>
-      <Ampleur />
+      <Ampleur type="module" />
     </Suspense>
   )
 }

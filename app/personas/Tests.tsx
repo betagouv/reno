@@ -6,7 +6,10 @@ import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Link from 'next/link'
 import Publicodes from 'publicodes'
 import { GreenCell, Table } from './TestsUI'
-import { throwIfFailingTest } from '@/components/tests/dangerouslyDisactiveFailingTests'
+import {
+  logFailingTest,
+  throwIfFailingTest,
+} from '@/components/tests/dangerouslyDisactiveFailingTests'
 
 const tests = rawTests.filter((test) => test['aide complémentaire'] === 0)
 
@@ -33,67 +36,72 @@ export default function Tests() {
           </tr>
         </thead>
         <tbody>
-          {tests.map((test, testIndex) => {
-            const situation = {
-              'projet . travaux': test['montant de travaux HT'],
-              'projet . travaux . TTC': test['montant de travaux TTC'],
-              sauts: test['saut de classe'],
-              'MPR . accompagnée . bonus . condition':
-                test['bonus passoire'] === '0,1' ? 'oui' : 'non',
-              'ménage . revenu . classe': `"${
-                {
-                  TMO: 'très modeste',
-                  MO: 'modeste',
-                  INT: 'intermédiaire',
-                  SUP: 'supérieure',
-                }[test['ressource ménage']]
-              }"`,
-            }
-            const evaluation = engine
-              .setSituation(situation)
-              .evaluate('MPR . accompagnée . montant écrêté')
+          {tests
+            // En 2025, les taux des ménages supérieurs changement : les tests de 2024 ne sont plus pertinents, on les filtre
+            .filter((test) => test['ressource ménage'] !== 'SUP')
+            .map((test, testIndex) => {
+              const situation = {
+                'projet . travaux': test['montant de travaux HT'],
+                'projet . travaux . TTC': test['montant de travaux TTC'],
+                sauts: test['saut de classe'],
+                'MPR . accompagnée . bonus . condition':
+                  test['bonus passoire'] === '0,1' ? 'oui' : 'non',
+                'ménage . revenu . classe': `"${
+                  {
+                    TMO: 'très modeste',
+                    MO: 'modeste',
+                    INT: 'intermédiaire',
+                    SUP: 'supérieure',
+                  }[test['ressource ménage']]
+                }"`,
+              }
+              const evaluation = engine
+                .setSituation(situation)
+                .evaluate('MPR . accompagnée . montant écrêté')
 
-            const value = formatValue(evaluation)
+              const value = formatValue(evaluation)
 
-            const expectedValue = test['aide MPR']
+              const expectedValue = test['aide MPR']
 
-            const valid =
-              Math.round(evaluation.nodeValue) ===
-              Math.round(
-                typeof expectedValue === 'string'
-                  ? expectedValue.replace(',', '.')
-                  : expectedValue,
-              )
-            if (!valid) {
-              console.log('Failing test object ', test)
-              if (throwIfFailingTest)
-                throw new Error(
-                  'Failing test !! See log above ; test index in filtered tests.csv : ' +
-                    testIndex,
+              const valid =
+                Math.round(evaluation.nodeValue) ===
+                Math.round(
+                  typeof expectedValue === 'string'
+                    ? expectedValue.replace(',', '.')
+                    : expectedValue,
                 )
-            }
-            return (
-              <tr key={JSON.stringify(test)}>
-                <td>{test['ressource ménage']}</td>
-                <td>{test['saut de classe']}</td>
-                <td>{test['montant de travaux HT']} €</td>
-                <td>{test['bonus passoire']}</td>
-                <td>{expectedValue} €</td>
+              if (!valid) {
+                if (logFailingTest) console.log('Failing test object ', test)
+                if (throwIfFailingTest)
+                  throw new Error(
+                    'Failing test !! See log above ; test index in filtered tests.csv : ' +
+                      testIndex,
+                  )
+              }
+              return (
+                <tr key={JSON.stringify(test)}>
+                  <td>{test['ressource ménage']}</td>
+                  <td>{test['saut de classe']}</td>
+                  <td>{test['montant de travaux HT']} €</td>
+                  <td>{test['bonus passoire']}</td>
+                  <td>{expectedValue} €</td>
 
-                {valid ? <GreenCell>{value}</GreenCell> : <td>{value}</td>}
-                <td>
-                  <Link
-                    href={
-                      '/documentation/MPR/accompagnée/?' +
-                      new URLSearchParams(encodeSituation(situation)).toString()
-                    }
-                  >
-                    Inspection
-                  </Link>
-                </td>
-              </tr>
-            )
-          })}
+                  {valid ? <GreenCell>{value}</GreenCell> : <td>{value}</td>}
+                  <td>
+                    <Link
+                      href={
+                        '/documentation/MPR/accompagnée/?' +
+                        new URLSearchParams(
+                          encodeSituation(situation),
+                        ).toString()
+                      }
+                    >
+                      Inspection
+                    </Link>
+                  </td>
+                </tr>
+              )
+            })}
         </tbody>
       </Table>
     </Section>

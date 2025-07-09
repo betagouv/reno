@@ -21,7 +21,7 @@ export default function writePublicodesJson() {
   // Generate an index.js file to export the model
   writeFileSync(
     'index.js',
-    `import rules from "./${destinationPath}" assert { type: "json" };
+    `import rules from "./${destinationPath}" with { type: "json" };
 
 export default rules;
 `,

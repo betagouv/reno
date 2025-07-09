@@ -1,13 +1,11 @@
-import { Card, LinkStyleButton } from '@/components/UI'
+import { CTA, Card } from '@/components/UI'
+import css from '@/components/css/convertToJs'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { push } from '@socialgouv/matomo-next'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
-import iconEclair from '@/public/eclair.svg'
-import Image from 'next/image'
-import { getCommune } from '@/components/AddressSearch'
 import AnswerItem from './AnswerItem'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
@@ -39,6 +37,9 @@ export const categoryData = (
     pastCategories,
   }
 }
+export const preventSummaryClick = (event) => {
+  event.preventDefault()
+}
 
 export default function Answers({
   answeredQuestions: rawAnsweredQuestions,
@@ -47,35 +48,18 @@ export default function Answers({
   rules,
   engine,
   situation,
+  startsOpen = false,
+  closedTitle,
 }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [communes, setCommunes] = useState({})
-
-  useEffect(() => {
-    const fetchCommunes = async () => {
-      const communesData = {}
-      for (const answer of rawAnsweredQuestions) {
-        if (['ménage . commune', 'logement . commune'].includes(answer)) {
-          communesData[answer] = await getCommune(situation, answer)
-        }
-      }
-      setCommunes(communesData)
-    }
-    fetchCommunes()
-  }, [rawAnsweredQuestions, situation])
+  const [isOpen, setIsOpen] = useState(startsOpen)
   const handleSummaryClick = () => {
-    push(['trackEvent', 'Simulateur principal', 'Clic', 'voir mes reponses'])
+    push(['trackEvent', 'Simulateur Principal', 'Clic', 'voir mes reponses'])
     setIsOpen((prevIsOpen) => !prevIsOpen) // Toggle the state using React
   }
 
-  const preventSummaryClick = (event) => {
-    event.preventDefault()
-  }
-
   const answeredQuestions = rawAnsweredQuestions.filter(
-    (el) => !['ménage . code région', 'ménage . code département'].includes(el),
+    (el) => rules[el]?.question,
   )
-
   const { pastCategories } = categoryData(
     nextQuestions,
     currentQuestion,
@@ -89,10 +73,25 @@ export default function Answers({
     answeredQuestions.length !== 0 && (
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
         <summary onClick={preventSummaryClick}>
-          <LinkStyleButton onClick={handleSummaryClick}>
-            <Image src={iconEclair} alt="Icone éclair" />
-            {isOpen ? 'Cacher' : 'Modifier'} mes réponses
-          </LinkStyleButton>
+          <CTA
+            $fontSize="normal"
+            $importance="secondary"
+            style={css`
+              padding: 0.6rem 0;
+              width: 800px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 0.2rem;
+              border-color: #dddddd;
+            `}
+            onClick={handleSummaryClick}
+          >
+            ✍️{' '}
+            {isOpen
+              ? closedTitle || 'Cacher mes réponses'
+              : 'Modifier mes réponses'}
+          </CTA>
         </summary>
         {isOpen && (
           <Card
@@ -195,7 +194,6 @@ export default function Answers({
                             situation,
                             setSearchParams,
                             rawAnsweredQuestions,
-                            communes,
                             setIsOpen,
                           }}
                         />
@@ -225,14 +223,14 @@ export default function Answers({
   )
 }
 
-const Details = styled.details`
+export const Details = styled.details`
   h3 {
     margin-top: 0.6rem;
   }
+  margin-bottom: 2vh;
   summary{
-    cursor: default;
+    cursor: pointer;
     display: flex;
-    margin-top: 1vh;
     align-items: center;
     > span {color:inherit}       
     h2 {

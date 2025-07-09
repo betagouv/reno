@@ -1,0 +1,158 @@
+CEE:
+  marque: Certificats d'économie d'énergie
+  note: |
+    Les CEE sont intégrés directement dans les règles `gestes`. 
+
+    Par exemple, la règle [pompe à chaleur](/documentation/gestes/chauffage/PAC), qui aura d'un côté des aides via MaPrimeRénov', d'un autre via les CEE.
+
+    À noter, la meilleure plateforme que nous ayons trouvée pour vérifier les calculs avec une source tierces officielle est celle de l'ADEME https://calculateur-cee.ademe.fr. 
+
+    L'interface est austère, c'est comme un tableur Web, mais elle permet après un peu de temps de familiarisation de calculer les montants des primes.
+
+CEE . logement:
+CEE . logement . condition d'ancienneté:
+  titre: Logement de + de 2 ans
+  formule: logement . au moins 2 ans
+
+CEE . conditions:
+  titre: Conditions d'éligibilité de base des CEE
+  toutes ces conditions:
+    # propriétaires ou locataires
+    # résidence principales ou secondaire
+    - logement . condition d'ancienneté
+
+CEE . projet:
+CEE . projet . remplacement chaudière thermique:
+  titre: Remplacement d'une chaudière thermique
+  question: Prévoyez-vous de remplacer une chaudière individuelle au gaz (autres qu'à condensation), au fioul ou au charbon ?
+  description: |
+    Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" des fournisseurs d'énergie qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
+
+    À l'inverse, pour le dispositif MaPrimeRénov' rénovation par geste, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
+  par défaut: non
+  maximum: oui
+
+CEE . rénovation d'ampleur:
+  icône: 'cee.svg'
+  marque: Coup de pouce « Rénovation d’ampleur » des fournisseurs d'énergie
+  type: remboursement # en réalité, cela peut être bon d'achat, etc...
+  description: |
+    Le coup de pouce « Rénovation d’ampleur des maisons et appartements individuels » s'inscrit dans le cadre des aides des fournisseurs d’énergie (certificats d’économies d’énergie – CEE).
+
+    Il s'adresse aux ménages non éligibles aux aides de l'Anah, notamment les propriétaires de résidence secondaire et les personnes morales.
+  conditions éligibilités: |
+    Les travaux sont définis par une étude énergétique préalable et s'inscrivent dans le cadre d'une rénovation thermique d'ampleur des logements relevant de fiche d'opération standardisée, consistant à mettre en œuvre un bouquet de travaux optimal sur le plan technico-économique.
+  comment faire: |
+    Les primes sont versées, dans le cadre des aides des fournisseurs d’énergie (CEE) dispositif des certificats d'économies d'énergie (CEE), par les signataires de la charte « Coup de pouce Rénovation performante d'une maison individuelle ». Il s'agit principalement des vendeurs d'énergie et de leurs délégataires.
+
+    Les signataires de la charte « Coup de pouce Rénovation performante d'une maison individuelle » doivent proposer un accompagnement complet aux bénéficiaires pour la réalisation de leurs travaux.
+
+    La prime peut :
+    - être versée par virement ou par chèque ;
+    - être déduite de la facture ;
+    - ou prendre d'autres formes convenues avec le signataire de la charte lors de la contractualisation de son offre.
+
+    Prenez conseil auprès d'un Espace Conseil France Rénov' pour vérifier si l'offre que l'on vous propose correspond à votre besoin. Ensuite, reprenez contact avec le fournisseur d'énergie choisi ou l'installateur partenaire.
+  lien: https://www.ecologie.gouv.fr/politiques-publiques/coup-pouce-renovation-dampleur-maisons-appartements-individuels
+CEE . rénovation d'ampleur . conditions:
+  description: |
+    Il n'est possible de mobiliser les primes coup de pouce « Rénovation d'ampleur » des fournisseurs d'énergie pour les ménages non éligibles à MaPrimeRénov' parcours accompagné. Ce coup de pouce s'applique en maison individuelle et en appartement.
+  toutes ces conditions:
+    - MPR . accompagnée . éligible = non
+    - sauts >= 2
+    - logement . période de construction != 'moins de 2 ans'
+    # France métropolitaine seulement
+    # Entreprise RGE
+
+CEE . rénovation d'ampleur . montant:
+  applicable si: conditions
+  valeur: montant non corrigé * facteur correctif
+
+CEE . rénovation d'ampleur . montant non corrigé:
+  variations:
+    - si: sauts = 2
+      alors: 4700 €
+    - si: sauts = 3
+      alors: 5800 €
+    - si: sauts >= 4
+      alors: 7400 €
+    - sinon: 0
+
+CEE . rénovation d'ampleur . surface habitable: logement . surface
+CEE . rénovation d'ampleur . facteur correctif:
+  variations:
+    - si: surface habitable < 35
+      alors: 0.4
+    - si: surface habitable < 60
+      alors: 0.5
+    - si: surface habitable < 90
+      alors: 0.8
+    - si: surface habitable < 110
+      alors: 1
+    - si: surface habitable < 130
+      alors: 1.2
+    - sinon: 1.3
+
+# CEE: Questions
+# Comment récupérer automatiquement ce prix?
+# Quid du prix kWh Cumac "précarité/grand précarité, est-ce toujours d'actualité?
+# Ces formules de calcul garantissent-elles réellement le montant minimum obligatoire?
+CEE . prix kWh Cumac: 0.008
+
+CEE . région:
+  variations:
+    - si: departement H3
+      alors: "'H3'"
+    - si: departement H2
+      alors: "'H2'"
+    - sinon: "'H1'"
+
+CEE . région . departement H3:
+  une de ces conditions:
+    - logement . code département = "06"
+    - logement . code département = "11"
+    - logement . code département = "13"
+    - logement . code département = "20"
+    - logement . code département = "30"
+    - logement . code département = "34"
+    - logement . code département = "66"
+    - logement . code département = "83"
+
+CEE . région . departement H2:
+  une de ces conditions:
+    - logement . code département = "04"
+    - logement . code département = "07"
+    - logement . code département = "09"
+    - logement . code département = "12"
+    - logement . code département = "16"
+    - logement . code département = "17"
+    - logement . code département = "18"
+    - logement . code département = "22"
+    - logement . code département = "24"
+    - logement . code département = "26"
+    - logement . code département = "29"
+    - logement . code département = "31"
+    - logement . code département = "32"
+    - logement . code département = "33"
+    - logement . code département = "35"
+    - logement . code département = "36"
+    - logement . code département = "37"
+    - logement . code département = "40"
+    - logement . code département = "41"
+    - logement . code département = "44"
+    - logement . code département = "46"
+    - logement . code département = "47"
+    - logement . code département = "48"
+    - logement . code département = "49"
+    - logement . code département = "50"
+    - logement . code département = "53"
+    - logement . code département = "56"
+    - logement . code département = "64"
+    - logement . code département = "65"
+    - logement . code département = "72"
+    - logement . code département = "79"
+    - logement . code département = "81"
+    - logement . code département = "82"
+    - logement . code département = "84"
+    - logement . code département = "85"
+    - logement . code département = "86"

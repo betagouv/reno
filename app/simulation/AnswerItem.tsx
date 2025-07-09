@@ -6,7 +6,7 @@ import {
 } from '@/components/publicodes/situationUtils'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import { displayRevenuLabel } from '@/components/RevenuInput'
-import DPELabel from '@/components/DPELabel'
+import DPELabel from '@/components/dpe/DPELabel'
 
 export default function AnswerItem({
   answer,
@@ -15,7 +15,6 @@ export default function AnswerItem({
   situation,
   setSearchParams,
   rawAnsweredQuestions,
-  communes,
   setIsOpen,
 }) {
   const handleLinkClick = () => {
@@ -58,7 +57,6 @@ export default function AnswerItem({
                 answer,
                 situation,
                 engine,
-                communes,
                 rules,
               }}
             />
@@ -69,7 +67,7 @@ export default function AnswerItem({
   )
 }
 
-function FormattedAnswer({ answer, situation, engine, communes, rules }) {
+function FormattedAnswer({ answer, situation, engine, rules }) {
   let unit = rules[answer]?.unité
   const value = situation[answer]
 
@@ -78,9 +76,7 @@ function FormattedAnswer({ answer, situation, engine, communes, rules }) {
     formattedValue = displayRevenuLabel(situation, engine, parseInt(value) + 1)
     unit = ''
   } else if (['ménage . commune', 'logement . commune'].includes(answer)) {
-    formattedValue = communes[answer]?.nom
-      ? `${communes[answer].nom} (${communes[answer].codeDepartement})`
-      : 'Chargement...'
+    formattedValue = `${situation[answer + ' . nom'].replaceAll('"', '')}  (${situation[answer.replace('commune', '') + 'code département'].replaceAll('"', '')})`
   } else if (answer === 'DPE . actuel') {
     formattedValue = <DPELabel index={value} />
   } else {

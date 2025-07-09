@@ -1,4 +1,5 @@
 ménage . revenu . barème IdF:
+  titre: Barème pour l'Île-de-France
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
@@ -11,64 +12,65 @@ ménage . revenu . barème IdF:
       - si: personnes = 1
         alors:
           variations:
-            - si: revenu < 23541 + 1 €
+            - si: revenu < 23768 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 28657 + 1 €
+            - si: revenu < 28933 + 1 €
               alors: '"modeste"'
-            - si: revenu < 40018 + 1 €
+            - si: revenu < 40404 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 2
         alors:
           variations:
-            - si: revenu < 34551 + 1 €
+            - si: revenu < 34884 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 42058 + 1 €
+            - si: revenu < 42463 + 1 €
               alors: '"modeste"'
-            - si: revenu < 58827 + 1 €
+            - si: revenu < 59394 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 3
         alors:
           variations:
-            - si: revenu < 41493 + 1 €
+            - si: revenu < 41893 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 50513 + 1 €
+            - si: revenu < 51000 + 1 €
               alors: '"modeste"'
-            - si: revenu < 70382 + 1 €
+            - si: revenu < 71060 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 4
         alors:
           variations:
-            - si: revenu < 48447 + 1 €
+            - si: revenu < 48914 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 58981 + 1 €
+            - si: revenu < 59549 + 1 €
               alors: '"modeste"'
-            - si: revenu < 82839 + 1 €
+            - si: revenu < 83637 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 5
         alors:
           variations:
-            - si: revenu < 55427 + 1 €
+            - si: revenu < 55961 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 67473 + 1 €
+            - si: revenu < 68123 + 1 €
               alors: '"modeste"'
-            - si: revenu < 94844 + 1 €
+            - si: revenu < 95758 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
           variations:
-            - si: revenu < (55427 + 1 + personnes plus * 6970 €)
+            - si: revenu < (55961 + 1 + personnes plus * 7038 €)
               alors: '"très modeste"'
-            - si: revenu < (67473 + 1 + personnes plus * 8486 €)
+            - si: revenu < (68123 + 1 + personnes plus * 8568 €)
               alors: '"modeste"'
-            - si: revenu < (94844 + 1 + personnes plus * 12006 €)
+            - si: revenu < (95758 + 1 + personnes plus * 12122 €)
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
 
 ménage . revenu . barème:
+  titre: Barème pour la France hors Île-de-France
   description: |
     Source Web : https://france-renov.gouv.fr/bareme
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
@@ -77,59 +79,59 @@ ménage . revenu . barème:
       - si: personnes = 1
         alors:
           variations:
-            - si: revenu < 17009 + 1 €
+            - si: revenu < 17173 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 21805 + 1 €
+            - si: revenu < 22015 + 1 €
               alors: '"modeste"'
-            - si: revenu < 30549 + 1 €
+            - si: revenu < 30844 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 2
         alors:
           variations:
-            - si: revenu < 24875 + 1 €
+            - si: revenu < 25115 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 31889 + 1 €
+            - si: revenu < 32197 + 1 €
               alors: '"modeste"'
-            - si: revenu < 44907 + 1 €
+            - si: revenu < 45340 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 3
         alors:
           variations:
-            - si: revenu < 29917 + 1 €
+            - si: revenu < 30206 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 38349 + 1 €
+            - si: revenu < 38719 + 1 €
               alors: '"modeste"'
-            - si: revenu < 54071 + 1 €
+            - si: revenu < 54592 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 4
         alors:
           variations:
-            - si: revenu < 34948 + 1 €
+            - si: revenu < 35285 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 44802 + 1 €
+            - si: revenu < 45234 + 1 €
               alors: '"modeste"'
-            - si: revenu < 63235 + 1 €
+            - si: revenu < 63844 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 5
         alors:
           variations:
-            - si: revenu < 40002 + 1 €
+            - si: revenu < 40388 + 1 €
               alors: '"très modeste"'
-            - si: revenu < 51281 + 1 €
+            - si: revenu < 51775 + 1 €
               alors: '"modeste"'
-            - si: revenu < 72400 + 1 €
+            - si: revenu < 73098 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
           variations:
-            - si: revenu < (40002 + 1 + personnes plus * 5045 €)
+            - si: revenu < (40388 + 1 + personnes plus * 5094 €)
               alors: '"très modeste"'
-            - si: revenu < (51281 + 1 + personnes plus * 6462 €)
+            - si: revenu < (51775 + 1 + personnes plus * 6525 €)
               alors: '"modeste"'
-            - si: revenu < (72400 + 1 + personnes plus * 9165 €)
+            - si: revenu < (73098 + 1 + personnes plus * 9254 €)
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'

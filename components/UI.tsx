@@ -1,6 +1,8 @@
 'use client'
 import styled from 'styled-components'
 import Link from 'next/link'
+import checkIcon from '@/public/check-square.png'
+import useIsInIframe from '@/components/useIsInIframe'
 
 export const Main = styled.main`
   width: 98vw;
@@ -10,10 +12,34 @@ export const Main = styled.main`
   margin: 0 auto;
 `
 
+export const EligibiliyTitle = styled.h2`
+  margin-top: 0.5rem;
+  font-size: 130%;
+  color: var(--color);
+`
+
 export const Section = styled.section`
   margin: 0 auto;
   width: 800px;
   max-width: 100%;
+  h1 {
+    font-size: 175%;
+  }
+  .content-with-table {
+    table {
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      td,
+      th {
+        border: 1px solid black;
+        text-align: center;
+        padding: 0.5rem;
+      }
+      td {
+        white-space: nowrap;
+      }
+    }
+  }
 `
 export const cardBorder = `
 
@@ -22,8 +48,10 @@ export const cardBorder = `
   border-radius: 0.3rem;
 `
 export const Card = styled.div`
+  position: relative;
   background: white;
   margin: 0.6rem 0;
+  padding: 1rem 1.5rem;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
   ${cardBorder}
   ${(p) => p.$noBorder && `border: none;`}
@@ -34,7 +62,7 @@ export const FooterWrapper = styled.footer`
     border-top: 3px solid var(--color);
     padding: 2rem 0.4rem 0;
     width: 100%;
-    margin-top: 3vh;
+    margin-top: 1rem;
   }
   > div {
     max-width: 1200px;
@@ -54,7 +82,7 @@ export const FooterWrapper = styled.footer`
 
   @media (max-width: 600px) {
     .fr-footer__top {
-      justify-content: none;
+      justify-content: normal;
     }
     .footer-col {
       width: 50%;
@@ -62,7 +90,7 @@ export const FooterWrapper = styled.footer`
   }
   @media (max-width: 400px) {
     .fr-footer__top {
-      justify-content: none;
+      justify-content: normal;
     }
     .footer-col {
       width: 100%;
@@ -169,7 +197,7 @@ export const TopBanner = styled.p`
 `
 
 export const CTAWrapper = styled.div`
-  margin: 3vh 0;
+  margin: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: ${(p) => p.$justify || 'right'};
@@ -239,7 +267,7 @@ export const CTA = styled.div`
   > a,
   > span {
     display: inline-block;
-
+    cursor: pointer;
     ${(p) =>
       p.$importance === 'secondary'
         ? `padding: 0.2rem 1rem;`
@@ -268,7 +296,7 @@ export const LinkStyleButton = styled.span`
   }
 `
 export const Intro = styled.div`
-  margin: 1vh 0 1rem;
+  margin: 0.5rem 0 1rem;
   width: 30rem;
   max-width: 90vw;
 `
@@ -281,33 +309,70 @@ export const ConstraintedParagraphs = styled.div`
 
 export const BlocAide = styled.div`
   text-align: left;
-  padding: 1.5rem 1.5rem 1.75rem;
-  border: 1px solid #ddd;
-  border-bottom: 3px solid var(--color);
+  ${(p) => p.display == "geste" ? 
+    'padding: 0.5rem 0.5rem 0.5rem 0;border-bottom: 1px solid #ddd;' : 
+    'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
   background: white;
   margin-bottom: 1rem;
   .aide-header {
     display: flex;
     align-items: center;
-    color: #2a82dd;
     font-weight: 500;
-
+    h2 {
+      color: black;
+    }
+    ${(p) => p.display == "geste" && "margin-bottom: 1rem;"}
     > img {
       margin-right: 1.4rem;
       width: 3.5rem;
       height: auto;
     }
   }
+  h2,
   h3 {
     color: var(--color);
     margin: 1rem 0rem;
+    font-size: 130%;
   }
   .aide-details {
+    margin-top: 1rem;
     font-size: 0.9rem;
     line-height: 1.25rem;
     color: #3a3a3a;
   }
 `
+
+export const ConditionEligibiliteUI = ({ children }) => {
+  return children && (
+    <>
+      <h2
+        css={`
+          font-size: 130%;
+        `}
+      >
+        Les principales conditions d'éligibilité ?
+      </h2>
+      <div
+        css={`
+          list-style-image: url(${checkIcon.src});
+          list-style-position: inside;
+          ul {
+            padding: 0;
+          }
+          li {
+            margin: 1rem 0;
+            ul {
+              list-style-image: none;
+            }
+          }
+        `}
+        dangerouslySetInnerHTML={{
+          __html: children,
+        }}
+      />
+    </>,
+  )
+}
 
 // Style repris du design système FR pour le lien externe
 // https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/lien
@@ -361,7 +426,16 @@ export const PrimeStyle = styled.span`
   ${(p) => p.$red && `background: #ffe9e9; color: #ce0500`}
 `
 
-export const ExternalLink = styled.a`
+export const ExternalLink = ({ children, href, target }) => {
+  const isInIFrame = useIsInIframe()
+  return (
+    <ExternalLinkStyle href={href} target={isInIFrame ? '_blank' : target}>
+      {children}
+    </ExternalLinkStyle>
+  )
+}
+
+export const ExternalLinkStyle = styled.a`
     color: inherit;
     text-decoration: none;
     -webkit-text-decoration: none;
@@ -373,7 +447,7 @@ export const ExternalLink = styled.a`
         background-size: 0 .125em,0 .0625em;
         transition: background-size 0s;
     }
-    &::after {
+    &:not(:has(img))::after {
       background-color: currentColor;
       content: "";
       display: inline-block;
@@ -387,7 +461,7 @@ export const ExternalLink = styled.a`
       vertical-align: calc(.375em - .5rem);
       width: 1rem;
     }
-    &:hover {
+    &:not(:has(img)):hover {
       background-color: transparent;
       background-size: 100% calc(0.0625em * 2), 100% 0.0625em;
     }
@@ -425,7 +499,10 @@ export const MiseEnAvant = styled.div`
       linear-gradient(0deg, #b34000, #b34000),
       linear-gradient(0deg, #b34000, #b34000),
       linear-gradient(0deg, #b34000, #b34000);`
-      : `background-image: linear-gradient(0deg, #0063cb, #0063cb),
+      : p.$type == 'success'
+        ? `background-color: var(--background-contrast-green-emeraude);
+            background-image: linear-gradient(0deg, #00a95f, #00a95f);`
+        : `background-image: linear-gradient(0deg, #0063cb, #0063cb),
       linear-gradient(0deg, #0063cb, #0063cb),
       linear-gradient(0deg, #0063cb, #0063cb),
       linear-gradient(0deg, #0063cb, #0063cb),
@@ -446,18 +523,23 @@ export const MiseEnAvant = styled.div`
   padding: 1rem 2.25rem 0.75rem 3.5rem;
   position: relative;
   margin-bottom: 1rem;
-  ${(p) => !p.$noradius && `border-radius: 10px;`}
   ${(p) =>
     p.$type == 'warning'
       ? `border: 1px solid #b34000;`
-      : `border: 1px solid #0063cb;`}
-  background-color: white;
-  h3 {
+      : p.$type == 'success'
+        ? `border-left: 5px solid #00a95f;`
+        : `border: 1px solid #0063cb;`}
+  ${(p) =>
+    p.$type == 'success'
+      ? `background-color: #c3fad5;`
+      : `background-color: white;`}
+  h2, h3 {
     margin: 0 0 1rem 0;
+    font-size: 130%;
   }
   &::before {
     content: '';
-    background: #fff;
+    ${(p) => (p.$type == 'success' ? `background: #000;` : `background: #fff;`)}
     display: inline-block;
     flex: 0 0 auto;
     height: 1.5rem;
@@ -475,33 +557,40 @@ export const MiseEnAvant = styled.div`
           -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyLjg2NiAzIDkuNTI2IDE2LjVhMSAxIDAgMCAxLS44NjYgMS41SDIuNDc0YTEgMSAwIDAgMS0uODY2LTEuNUwxMS4xMzQgM2ExIDEgMCAwIDEgMS43MzIgMFpNMTEgMTZ2Mmgydi0yaC0yWm0wLTd2NWgyVjloLTJaIi8+PC9zdmc+);
           mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyLjg2NiAzIDkuNTI2IDE2LjVhMSAxIDAgMCAxLS44NjYgMS41SDIuNDc0YTEgMSAwIDAgMS0uODY2LTEuNUwxMS4xMzQgM2ExIDEgMCAwIDEgMS43MzIgMFpNMTEgMTZ2Mmgydi0yaC0yWm0wLTd2NWgyVjloLTJaIi8+PC9zdmc+);
           `
-        : `
+        : p.$type == 'success'
+          ? `    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwWm0wLTJhOCA4IDAgMSAwIDAtMTYgOCA4IDAgMCAwIDAgMTZaTTExIDdoMnYyaC0yVjdabTAgNGgydjZoLTJ2LTZaIi8+PC9zdmc+);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwWm0wLTJhOCA4IDAgMSAwIDAtMTYgOCA4IDAgMCAwIDAgMTZaTTExIDdoMnYyaC0yVjdabTAgNGgydjZoLTJ2LTZaIi8+PC9zdmc+);`
+          : `
         -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
         mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
         `}
 `
-export const Badge = styled.span`
-  align-items: center;
-  background-color: #eee;
-  border-radius: 0.25rem;
-  color: #3a3a3a;
-  display: inline-flex;
-  flex-direction: row;
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.5rem;
-  max-height: none;
-  max-width: 100%;
-  min-height: 1.5rem;
-  overflow: initial;
-  padding: 0 0.5rem;
-  text-transform: uppercase;
-  width: -moz-fit-content;
-  width: fit-content;
-`
+export const Badge = ({ children, color }) => (
+  <span css={`
+    align-items: center;
+    background-color: ${color == 'blue' ? '#e8edff' : (color == 'purple' ? '#fee7fc' : '#eee')};
+    border-radius: 0.25rem;
+    color: ${color == 'blue' ? '#0063cb' : (color == 'purple' ? '#6e445a' : '#3a3a3a')};
+    display: inline-flex;
+    flex-direction: row;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    max-height: none;
+    max-width: 100%;
+    min-height: 1.5rem;
+    overflow: initial;
+    padding: 0 0.5rem;
+    text-transform: uppercase;
+    width: -moz-fit-content;
+    width: fit-content;
+    `}
+  >{children}</span>
+)
 export const CardLink = styled(Card)`
   &:hover {
     background: #e8edff;
+    cursor: pointer;
   }
   a {
     display: flex;
@@ -691,3 +780,28 @@ export const AccordionTitle = styled.button`
     width: 1rem;
   }
 `
+
+export const Loader = () => (
+  <div
+    css={`
+      margin: auto;
+      width: 30px;
+      padding: 8px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #000091;
+      --_m: conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+      -webkit-mask: var(--_m);
+      mask: var(--_m);
+      -webkit-mask-composite: source-out;
+      mask-composite: subtract;
+      animation: l3 1s infinite linear;
+      @keyframes l3 {
+        to {
+          transform: rotate(1turn);
+        }
+      }
+    `}
+  ></div>
+)

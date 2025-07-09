@@ -1,13 +1,10 @@
 import Value from '@/components/Value'
-import { motion } from 'framer-motion'
-import DPELabel from '../DPELabel'
-import Input from '../Input'
-import { Card } from '../UI'
+import Image from 'next/image'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import { encodeSituation } from '../publicodes/situationUtils'
-import { Key } from '../explications/ExplicationUI'
-import rules from '@/app/règles/rules'
-import DPEQuickSwitch from '../DPEQuickSwitch'
-import dpeValues from '@/components/DPE.yaml'
+import editIcon from '@/public/crayon.svg'
+import TargetDPETabs from '../mpra/TargetDPETabs'
+import CalculatorWidget from '../CalculatorWidget'
 
 export default function CEEAmpleurScenario({
   engine,
@@ -15,90 +12,133 @@ export default function CEEAmpleurScenario({
   setSearchParams,
   answeredQuestions,
 }) {
+  const isMobile = window.innerWidth <= 600
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
-  const rule = rules["CEE . rénovation d'ampleur"]
-
-  const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
-
-  const doSetSearchParams = (question, value) => {
-    const newSituation = encodeSituation(
-      {
-        ...situation,
-        [question]: value,
-      },
-      false,
-      answeredQuestions,
-    )
-    console.log('girafe', newSituation)
-    setSearchParams(newSituation, 'push')
-  }
-
   return (
-    <motion.div
-      initial={{ x: -30, scale: 1 }}
-      animate={{ x: 0, scale: 1 }}
-      key={choice}
-      transition={{
-        type: 'spring',
-        stiffness: 120,
-        damping: 20,
-      }}
-    >
-      <DPEQuickSwitch
-        oldIndex={situation['DPE . actuel'] - 1}
-        situation={situation}
-      />
-      <Card
-        $background="#f7f8f8"
-        css={`
-          padding: 1rem;
-          margin: 0;
-          margin: 0.25rem 0 0 0 !important; /* hack */
-          z-index: 42;
-          position: relative;
-          text-align: center;
-          max-width: 100%;
-          img {
-            width: 1.5rem;
-            height: auto;
-          }
-
-          text-align: left;
-          margin: 0 1rem;
-          p {
-            margin: 0.6rem 0;
-          }
-          h3 {
-            margin-top: 0.6rem;
-          }
-        `}
-      >
+    <CalculatorWidget isMobile={isMobile}>
+      <div>
         <DPEQuickSwitch
-          prefixText={'En visant un '}
-          dottedName="projet . DPE visé"
-          possibilities={possibilities}
-          oldIndex={
-            situation['projet . DPE visé']
-              ? situation['projet . DPE visé'] - 1
-              : possibilities.length - 1
-          }
+          oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
+          columnDisplay={true}
         />
-        , vous bénéficiez d'une prime estimée de{' '}
-        <Value
+        <TargetDPETabs
           {...{
+            oldIndex,
+            setSearchParams,
+            answeredQuestions,
+            choice,
             engine,
-            index: choice,
             situation,
-            dottedName: "CEE . rénovation d'ampleur . montant",
-            state: 'prime',
+            columnDisplay: true,
           }}
         />
-      </Card>
-    </motion.div>
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          `}
+        >
+          <div>Surface du logement:</div>
+          <div
+            css={`
+              margin: auto;
+              border: 2px solid var(--color);
+              width: 100%;
+              color: var(--color);
+              text-align: center;
+              border-radius: 0.3rem;
+              padding: 0.7rem;
+              box-shadow: var(--shadow-elevation-medium);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            `}
+          >
+            <div
+              css={`
+                flex-grow: 1;
+              `}
+            >
+              <input
+                id="surface"
+                css={`
+                  border: none;
+                  background: transparent;
+                  -webkit-appearance: none;
+                  outline: none;
+                  color: var(--color);
+                  font-size: 110%;
+                  max-width: 4rem;
+                `}
+                autoFocus={false}
+                value={situation['logement . surface']}
+                min="0"
+                max="9999"
+                onChange={(e) => {
+                  const rawValue = e.target.value
+                  const value = +rawValue === 0 ? undefined : rawValue
+                  setSearchParams(
+                    encodeSituation({
+                      'logement . surface': value + '*',
+                    }),
+                    'replace',
+                    false,
+                  )
+                }}
+                step="100"
+              />
+              <span>m²</span>
+            </div>
+            <Image
+              css={`
+                cursor: pointer;
+                margin-left: auto;
+              `}
+              src={editIcon}
+              alt="Icône crayon pour éditer"
+              onClick={() => document.querySelector('#surface').focus()}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        css={`
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 1rem;
+        `}
+      >
+        <div>Vous toucherez un total d'aides de :</div>
+        <div
+          css={`
+            margin-top: 0.5rem;
+            text-align: center;
+            background: var(--validColor1);
+            color: var(--validColor);
+            padding: 0.5rem;
+          `}
+        >
+          <Value
+            {...{
+              engine,
+              choice,
+              situation: {
+                ...situation,
+                'projet . DPE visé': choice + 1,
+              },
+              dottedName: "CEE . rénovation d'ampleur . montant",
+            }}
+          />
+        </div>
+      </div>
+    </CalculatorWidget>
   )
 }
