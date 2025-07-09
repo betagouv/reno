@@ -4,17 +4,10 @@ simulation:
 # C'est la variable qui lance le simulateur principal mes aides réno
 # Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig*.ts
 aides:
-  applicable si:
-    une de ces conditions:
-      - toutes ces conditions:
-          - projet . définition = "travaux connus"
-          - est défini: projet . définition . catégories travaux envisagées
-          - est défini: projet . définition . travaux envisagés
-      - projet . définition = "travaux inconnus"
   somme:
     - ampleur . tous les dispositifs # ampleur.yaml
     - MPR . non accompagnée . montant
-    - gestes . montant
+    - mpa . montant
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -60,7 +53,9 @@ vous . propriétaire . statut:
       <li>nu-propriétaire</li>
       <li>personne morale (par exemple une société civile immobilière)</li>
     </ul>
-
+  variations:
+    - si: mpa . situation demandeur . occupant
+      alors: "'propriétaire'"
   une possibilité parmi:
     possibilités:
       - 'propriétaire'
@@ -70,6 +65,7 @@ vous . propriétaire . statut:
 
 vous . propriétaire . statut . propriétaire:
   valeur: "'propriétaire'"
+  applicable si: mpa . situation demandeur . occupant
   titre: Je suis propriétaire
 vous . propriétaire . statut . acquéreur:
   valeur: "'acquéreur'"
@@ -142,6 +138,11 @@ logement . surface:
 logement . propriétaire occupant:
   applicable si: vous . propriétaire . condition
   question: Allez-vous vivre dans le logement à rénover (propriétaire occupant) ?
+  variations:
+    - si: mpa . situation demandeur . occupant
+      alors: oui
+    - si: mpa . situation demandeur . bailleur
+      alors: non
   note: |
     Je pense que les aides qui se basent sur le booléen "propriétaire occupant" ne s'occupent pas du fait que le propriétaire soit occupant avant les travaux, mais seulement après. Ainsi cette formulation de la question permet de coller aussi bien aux propriétaires actuels qu'au acquéreurs.
   par défaut: non
@@ -696,6 +697,7 @@ projet . définition . travaux envisagés chauffage:
 conditions communes:
   titre: Conditions d'éligibilité de base
   toutes ces conditions:
+    - parcours d'aide = "rénovation énergétique"
     - vous . propriétaire . condition
     - logement . au moins 15 ans
     - logement . résidence principale
@@ -719,10 +721,11 @@ parcours d'aide:
     Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'.
   par défaut:
     texte: rénovation énergétique
-  possibilités:
-    - 'rénovation énergétique'
-    - 'autonomie de la personne'
-    - 'sécurité salubrité'
+  une possibilité parmi:
+    possibilités:
+      - 'rénovation énergétique'
+      - 'autonomie de la personne'
+      - 'sécurité salubrité'
 
 parcours d'aide . rénovation énergétique:
 parcours d'aide . autonomie de la personne:
@@ -776,6 +779,12 @@ MPR . non accompagnée . éligible:
     toutes ces conditions:
       - conditions communes
       - conditions excluantes = non
+      - une de ces conditions:
+          - toutes ces conditions:
+              - projet . définition = "travaux connus"
+              - est défini: projet . définition . catégories travaux envisagées
+              - est défini: projet . définition . travaux envisagés
+          - projet . définition = "travaux inconnus"
 
 gestes: # gestes.yaml
   titre: Parcours par gestes

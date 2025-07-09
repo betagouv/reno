@@ -12,7 +12,6 @@ import {
 } from '@/components/publicodes/situationUtils'
 import useIsInIframe from '@/components/useIsInIframe'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import simulationConfigAdapt from './simulationConfigAdapt.yaml'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
@@ -100,12 +99,11 @@ function Form({ rules }) {
     nextQuestions = getNextQuestionsMainForm(
       evaluation,
       answeredQuestions,
-      target == 'mpa . montant'
-        ? simulationConfigAdapt
-        : simulationConfigMainForm,
+      simulationConfigMainForm,
     )
-  console.log('nextQuestions', nextQuestions)
-  const currentQuestion = nextQuestions[0]
+  const currentQuestion = objectif
+    ? decodeDottedName(objectif)
+    : nextQuestions[0]
 
   // Hack pour MPA: il est préférable de gérer l'inéligibilité autrement
   // if (target === 'mpa . montant' && !rules['mpa . montant']) {
