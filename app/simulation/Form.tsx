@@ -1,10 +1,7 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import { CTA, CTAWrapper, Section } from '@/components/UI'
-import getNextQuestions, {
-  getNextQuestionsMainForm,
-} from '@/components/publicodes/getNextQuestions'
+import { getNextQuestionsMainForm } from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
   getAnsweredQuestions,
@@ -16,7 +13,7 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import simulationConfigMainForm from './simulationConfigMainForm.yaml'
+import simulationConfig from './simulationConfig.yaml'
 import { push } from '@socialgouv/matomo-next'
 import AideDetails from '@/components/AideDetails'
 import MPRA from '@/components/ampleur/MPRA'
@@ -99,38 +96,11 @@ function Form({ rules }) {
     nextQuestions = getNextQuestionsMainForm(
       evaluation,
       answeredQuestions,
-      simulationConfigMainForm,
+      simulationConfig,
     )
   const currentQuestion = objectif
     ? decodeDottedName(objectif)
     : nextQuestions[0]
-
-  // Hack pour MPA: il est préférable de gérer l'inéligibilité autrement
-  // if (target === 'mpa . montant' && !rules['mpa . montant']) {
-  //   return (
-  //     <CustomQuestionWrapper>
-  //       <CTAWrapper>
-  //         <CTA
-  //           $fontSize="normal"
-  //           $importance="emptyBackground"
-  //           css={`
-  //             a {
-  //               padding: 0.5rem 0.8rem;
-  //             }
-  //           `}
-  //         >
-  //           <span onClick={() => history.back()}>⬅ Retour</span>
-  //         </CTA>
-  //       </CTAWrapper>
-  //       <header>
-  //         <small>Eligibilité</small>
-  //       </header>
-  //       <p>
-  //         Vous n'êtes <No>pas éligible</No> au dispositif MaPrimeAdapt'.
-  //       </p>
-  //     </CustomQuestionWrapper>
-  //   )
-  // }
 
   if (searchParams['details']) {
     return (
