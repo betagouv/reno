@@ -54,10 +54,7 @@ export default function ClassicQuestionWrapper({
     answeredQuestions,
     rules,
   )
-  const remaining =
-    nextQuestions.indexOf("parcours d'aide") !== -1
-      ? nextQuestions.indexOf("parcours d'aide")
-      : nextQuestions.length
+  const remaining = nextQuestions.length
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 

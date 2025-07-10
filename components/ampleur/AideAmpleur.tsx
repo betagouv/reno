@@ -237,7 +237,11 @@ export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
       />
     </PrimeStyle>
   ) : (
-    dottedName != 'aides locales . montant' && (
+    ![
+      'aides locales . montant',
+      'tva réduite . montant',
+      "crédit d'impôt . montant",
+    ].includes(dottedName) && (
       <PrimeStyle
         css={`
           font-size: 1rem;

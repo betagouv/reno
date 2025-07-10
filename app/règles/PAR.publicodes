@@ -76,7 +76,7 @@ PAR . montant:
   titre: Montant du pret avance rénovation 0 %
   applicable si: conditions . communes
   variations:
-    - si: parcours d'aide = "ampleur"
+    - si: MPR . accompagnée . éligible
       alors: 50000 €
     - si: logement . type travaux = "parois vitrées"
       alors: 7000 €

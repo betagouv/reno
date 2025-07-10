@@ -28,10 +28,15 @@ export default function AideEtapes({
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
 
-  const aides = useAides(engine, situation)
-  const hasMPRA =
-    aides.find((aide) => aide.baseDottedName == 'MPR . accompagnée').status ===
-    true
+  const aides = useAides(engine, situation, situation["parcours d'aide"])
+  const hasMPRA = aides.find(
+    (aide) => aide.baseDottedName == 'MPR . accompagnée' && aide.status,
+  )
+  const hasMPA = aides.find(
+    (aide) => aide.baseDottedName == 'mpa' && aide.status,
+  )
+  const hasPret = aides.find((aide) => aide.type == 'prêt' && aide.status)
+
   return (
     <Section
       css={`
@@ -151,26 +156,28 @@ export default function AideEtapes({
               showWithAnswer={false}
             />
           </Card>
-          <Card>
-            <h2>
-              <Image src={iconPaper} alt="icone papier" />
-              Votre projet prend forme. Demandez des devis
-            </h2>
-            <p>
-              Après votre rendez-vous avec un conseiller, contactez des artisans
-              RGE pour obtenir leurs devis.
-            </p>
-            <p>
-              {hasMPRA &&
-                "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
-            </p>
-            {hasMPRA && (
+          {(hasMPRA || hasMPA || hasPret) && (
+            <Card>
+              <h2>
+                <Image src={iconPaper} alt="icone papier" />
+                Votre projet prend forme. Demandez des devis
+              </h2>
               <p>
-                <strong>Important</strong> : ne signez pas encore les devis.
+                Après votre rendez-vous avec un conseiller, contactez des
+                artisans RGE pour obtenir leurs devis.
               </p>
-            )}
-          </Card>
-          {hasMPRA && (
+              <p>
+                {hasMPRA &&
+                  "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
+              </p>
+              {hasMPRA && (
+                <p>
+                  <strong>Important</strong> : ne signez pas encore les devis.
+                </p>
+              )}
+            </Card>
+          )}
+          {(hasMPRA || hasMPA) && (
             <>
               <Card>
                 <h2>
@@ -199,7 +206,7 @@ export default function AideEtapes({
               </Card>
             </>
           )}
-          {!hasMPRA && (
+          {!hasMPRA && hasPret && (
             <>
               <Card>
                 <h2>
@@ -227,46 +234,50 @@ export default function AideEtapes({
               </Card>
             </>
           )}
-          <Card>
-            <h2>
-              <Image src={iconSign} alt="icone signer" />
-              Signez les devis, et planifiez les travaux avec les artisans
-            </h2>
-            <p>C'est parti ! Les travaux vont bientôt commencer.</p>
-          </Card>
-          <Card>
-            {hasMPRA && <Badge color="blue">optionnel</Badge>}
-            <h2>
-              <Image src={iconEuro} alt="icone euro" />
-              Recevez le prêt et démarrez les travaux
-            </h2>
-            {hasMPRA ? (
-              <>
-                <p>
-                  Si vous êtes éligible, la banque vous verse le montant de
-                  votre Eco-PTZ.
-                  <br />
-                  L'Anah vous verse l'avance MaPrimeRénov'.
-                  <br />
-                  Vous pouvez payer l'acompte aux artisans. Les travaux débutent
-                  !
-                </p>
-              </>
-            ) : (
-              <>
-                <p>
-                  Le versement de l'éco-PTZ peut s'effectuer en 1 seule fois sur
-                  la base des devis ou en plusieurs fois sur la base des
-                  factures de travaux transmises au fur et à mesure jusqu'à la
-                  date de clôture du prêt.
-                </p>
-                <p>
-                  Vous pouvez payer l'acompte aux artisans. Les travaux débutent
-                  !
-                </p>
-              </>
-            )}
-          </Card>
+          {hasMPRA && (
+            <Card>
+              <h2>
+                <Image src={iconSign} alt="icone signer" />
+                Signez les devis, et planifiez les travaux avec les artisans
+              </h2>
+              <p>C'est parti ! Les travaux vont bientôt commencer.</p>
+            </Card>
+          )}
+          {hasPret && (
+            <Card>
+              {hasMPRA && <Badge color="blue">optionnel</Badge>}
+              <h2>
+                <Image src={iconEuro} alt="icone euro" />
+                Recevez le prêt et démarrez les travaux
+              </h2>
+              {hasMPRA ? (
+                <>
+                  <p>
+                    Si vous êtes éligible, la banque vous verse le montant de
+                    votre Eco-PTZ.
+                    <br />
+                    L'Anah vous verse l'avance MaPrimeRénov'.
+                    <br />
+                    Vous pouvez payer l'acompte aux artisans. Les travaux
+                    débutent !
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    Le versement de l'éco-PTZ peut s'effectuer en 1 seule fois
+                    sur la base des devis ou en plusieurs fois sur la base des
+                    factures de travaux transmises au fur et à mesure jusqu'à la
+                    date de clôture du prêt.
+                  </p>
+                  <p>
+                    Vous pouvez payer l'acompte aux artisans. Les travaux
+                    débutent !
+                  </p>
+                </>
+              )}
+            </Card>
+          )}
           {!hasMPRA && (
             <Card>
               <Badge color="blue">optionnel</Badge>
@@ -300,17 +311,19 @@ export default function AideEtapes({
               probablement une fois les travaux finis.
             </p>
           </Card>
-          <Card>
-            {hasMPRA && <Badge color="blue">optionnel</Badge>}
-            <h2>
-              <Image src={iconCard} alt="icone carte de crédit" />
-              Remboursement du prêt
-            </h2>
-            <p>
-              Vous continuez de rembourser votre prêt, tout en réalisant déjà
-              des économies d'énergie&nbsp;⚡️.
-            </p>
-          </Card>
+          {hasPret && (
+            <Card>
+              {hasMPRA && <Badge color="blue">optionnel</Badge>}
+              <h2>
+                <Image src={iconCard} alt="icone carte de crédit" />
+                Remboursement du prêt
+              </h2>
+              <p>
+                Vous continuez de rembourser votre prêt, tout en réalisant déjà
+                des économies d'énergie&nbsp;⚡️.
+              </p>
+            </Card>
+          )}
         </div>
       </CustomQuestionWrapper>
       <Feedback />

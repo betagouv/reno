@@ -1,9 +1,7 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import getNextQuestions, {
-  getNextQuestionsMainForm,
-} from '@/components/publicodes/getNextQuestions'
+import { getNextQuestionsMainForm } from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
   getAnsweredQuestions,
@@ -15,7 +13,7 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import simulationConfigMainForm from './simulationConfigMainForm.yaml'
+import simulationConfig from './simulationConfig.yaml'
 import { push } from '@socialgouv/matomo-next'
 import AideDetails from '@/components/AideDetails'
 import MPRA from '@/components/ampleur/MPRA'
@@ -26,8 +24,12 @@ import Denormandie from '@/components/ampleur/Denormandie'
 import EcoPTZ from '@/components/ampleur/EcoPTZ'
 import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
+import TVA from '@/components/autres-aides/TVA'
+import CreditImpot from '@/components/autres-aides/CreditImpot'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
+import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
+import LocAvantage from '@/components/LocAvantage'
 
 export const correspondance = {
   'MPR . accompagnée': MPRA,
@@ -39,6 +41,10 @@ export const correspondance = {
   'taxe foncière': TaxeFoncière,
   denormandie: Denormandie,
   "CEE . rénovation d'ampleur": CEEAmpleur,
+  mpa: MaPrimeAdapt,
+  locavantage: LocAvantage,
+  'tva réduite': TVA,
+  "crédit d'impôt": CreditImpot,
 }
 
 function Form({ rules }) {
@@ -67,14 +73,8 @@ function Form({ rules }) {
       }),
     [rules],
   )
-  const answeredQuestions = [
-    ...getAnsweredQuestions(situationSearchParams, rules),
-  ]
-
-  const situation = {
-    ...getSituation(situationSearchParams, rules),
-  }
-
+  const answeredQuestions = getAnsweredQuestions(situationSearchParams, rules)
+  const situation = getSituation(situationSearchParams, rules)
   const validatedSituation = Object.fromEntries(
     Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
   )
@@ -96,7 +96,7 @@ function Form({ rules }) {
     nextQuestions = getNextQuestionsMainForm(
       evaluation,
       answeredQuestions,
-      simulationConfigMainForm,
+      simulationConfig,
     )
   const currentQuestion = objectif
     ? decodeDottedName(objectif)

@@ -40,86 +40,84 @@ export default function MPRA({
         expanded,
       }}
     >
-      <>
-        <DPEScenario
-          {...{
-            rules,
-            engine,
-            situation,
-            setSearchParams,
-            answeredQuestions,
-          }}
-        />
-        <Card
+      <DPEScenario
+        {...{
+          rules,
+          engine,
+          situation,
+          setSearchParams,
+          answeredQuestions,
+        }}
+      />
+      <Card
+        css={`
+          background: #f4efff;
+          padding: calc(0.5rem + 1vw);
+          h3 {
+            margin: 0 0 0.5rem 0;
+          }
+        `}
+      >
+        <h3>
+          <span aria-hidden="true">🔎</span> Un audit énergétique nécessaire
+          pour MaPrimeRénov'
+        </h3>
+        <p>
+          Obligatoire, avec une aide partielle pour le financer, cet audit est
+          essentiel pour définir un projet adapté et maximiser vos aides.
+        </p>
+        <p>
+          <strong>Coût moyen</strong> : Entre <strong>700 €</strong> et{' '}
+          <strong>1 500 €</strong> (selon votre situation).
+        </p>
+        <p
           css={`
-            background: #f4efff;
-            padding: calc(0.5rem + 1vw);
-            h3 {
-              margin: 0 0 0.5rem 0;
-            }
+            margin-bottom: 1rem;
           `}
         >
-          <h3>
-            <span aria-hidden="true">🔎</span> Un audit énergétique nécessaire
-            pour MaPrimeRénov'
-          </h3>
-          <p>
-            Obligatoire, avec une aide partielle pour le financer, cet audit est
-            essentiel pour définir un projet adapté et maximiser vos aides.
-          </p>
-          <p>
-            <strong>Coût moyen</strong> : Entre <strong>700 €</strong> et{' '}
-            <strong>1 500 €</strong> (selon votre situation).
-          </p>
-          <p
-            css={`
-              margin-bottom: 1rem;
-            `}
-          >
-            <strong>Aides disponibles</strong> : Une prise en charge de{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                state: 'prime',
-                dottedName: 'MPR . accompagnée . prise en charge MAR . montant',
-              }}
-            />
-            .
-          </p>
-          <CTA
-            $fontSize="normal"
-            $importance="emptyBackground"
-            css={
-              isMobile &&
-              `
+          <strong>Aides disponibles</strong> : Une prise en charge de{' '}
+          <Value
+            {...{
+              engine,
+              situation,
+              state: 'prime',
+              dottedName: 'MPR . accompagnée . prise en charge MAR . montant',
+            }}
+          />
+          .
+        </p>
+        <CTA
+          $fontSize="normal"
+          $importance="emptyBackground"
+          css={
+            isMobile &&
+            `
               width: 100%;
               text-align: center;
             `
-            }
+          }
+        >
+          <Link
+            href={setSearchParams(
+              {
+                ...encodeSituation(
+                  {
+                    ...situation,
+                    ['details']: 'MPR.accompagnée.prise en charge MAR',
+                  },
+                  false,
+                  answeredQuestions,
+                ),
+              },
+              'url',
+              true,
+            )}
           >
-            <Link
-              href={setSearchParams(
-                {
-                  ...encodeSituation(
-                    {
-                      ...situation,
-                      ['details']: 'MPR.accompagnée.prise en charge MAR',
-                    },
-                    false,
-                    answeredQuestions,
-                  ),
-                },
-                'url',
-                true,
-              )}
-            >
-              En savoir plus sur l'aide <span aria-hidden="true">➞</span>
-            </Link>
-          </CTA>
-        </Card>
-        {/*  <Écrêtement {...{ engine, rules, situation }} /> */}
-      </>
+            En savoir plus sur l'aide <span aria-hidden="true">➞</span>
+          </Link>
+        </CTA>
+      </Card>
+      {/*  <Écrêtement {...{ engine, rules, situation }} /> */}
     </AideAmpleur>
   )
 }

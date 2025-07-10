@@ -7,9 +7,12 @@ import DPESelector from './dpe/DPESelector'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
+import CheckboxQuestion from './CheckboxQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
+import AideDetails from './AideDetails'
+import LocAvantage from './LocAvantage'
 import CoproAddressSearch from './CoproAddressSearch'
 import DPEMap from './dpe/DPEMap'
 import DPEAddressSearch from './dpe/DPEAddressSearch'
@@ -121,6 +124,33 @@ export default function InputSwitch({
               answeredQuestions,
             )
             setSearchParams(encodedSituation, 'replace', false)
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  if (rule && rule['possibilités'])
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          nextQuestions,
+          currentValue,
+          engine,
+          noSuggestions: true,
+        }}
+      >
+        <CheckboxQuestion
+          {...{
+            rule,
+            engine,
+            situation,
+            setSearchParams,
+            currentQuestion,
           }}
         />
       </ClassicQuestionWrapper>
@@ -371,6 +401,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
   }
+
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
@@ -396,6 +427,24 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+
+  if (searchParams['details']) {
+    return (
+      <AideDetails
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          correspondance,
+          nextQuestions,
+        }}
+      />
+    )
+  }
 
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
@@ -450,7 +499,6 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-
   if (!currentQuestion) {
     if (sendDataToHost && consent === null) {
       return <Consentement {...{ setConsent, situation, sendDataToHost }} />
