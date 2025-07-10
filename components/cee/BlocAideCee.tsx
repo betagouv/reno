@@ -64,7 +64,7 @@ export const BlocAideCEE = ({
               </PrimeStyle>
             ))}
           <h3>
-            Prime CEE (Certificats d'Économie d'Énergie)
+            Aides des fournisseurs d’énergie (certificats d’économies d’énergie – CEE)
             <br />
             <small
               css={`
