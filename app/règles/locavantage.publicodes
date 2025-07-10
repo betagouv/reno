@@ -14,33 +14,34 @@ locavantage:
   lien: https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location
 locavantage . montant:
   applicable si: condition éligibilité
-  formule: niveau loyer * loyer
-locavantage . condition éligibilité:
-  toutes ces conditions:
-    - mpa . situation demandeur = 'bailleur'
+  formule: taux * loyer
+locavantage . condition éligibilité: mpa . situation demandeur = 'bailleur'
 locavantage . loyer: 500€
 locavantage . intermédiation locative:
   par défaut: oui
 locavantage . niveau loyer:
   une possibilité parmi:
     possibilités:
-      - 'loc 1'
-      - 'loc 2'
-      - 'loc 3'
-  par défaut: "'loc 1'"
+      - loc 1
+      - loc 2
+      - loc 3
+  par défaut: '"loc 1"'
 locavantage . niveau loyer . loc 1:
+  valeur: loc 1
   titre: Loc 1
   plafond loyer: 15 %
 locavantage . niveau loyer . loc 2:
+  valeur: loc 2
   titre: Loc 2
   plafond loyer: 30 %
 locavantage . niveau loyer . loc 3:
+  valeur: loc 3
   titre: Loc 3
   plafond loyer: 45 %
 
 locavantage . taux:
   variations:
-    - si: niveau loyer = 'loc 1'
+    - si: niveau loyer = "loc 1"
       alors:
         variations:
           - si: intermédiation locative
