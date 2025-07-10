@@ -27,6 +27,7 @@ tva réduite:
   applicable si:
     toutes ces conditions:
       - parcours d'aide = "autonomie de la personne"
+      - logement . période de construction != 'moins de 2 ans'
 tva réduite . montant:
 
 crédit d'impôt:
@@ -42,5 +43,9 @@ crédit d'impôt:
     - Vous avez un taux d'incapacité supérieur ou égal à 50 % (taux déterminé par décision de la Commission des droits et de l'autonomie des personnes handicapées - CDAPH).
   applicable si:
     toutes ces conditions:
-      - parcours d'aide = "autonomie de la personne"
+      - parcours d'aide = 'autonomie de la personne'
+      - ménage . revenu . classe = 'intermédiaire'
+      - une de ces conditions:
+          - mpa . occupant . condition age ou handicap = 'gir'
+          - mpa . occupant . condition age ou handicap = 'incapacité'
 crédit d'impôt . montant:
