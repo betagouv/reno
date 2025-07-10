@@ -180,7 +180,7 @@ export default function AideEtapes({
                 <p>
                   Vous pouvez le faire avec l'aide de votre Accompagnateur
                   Rénov', votre mandataire ou directement depuis la plateforme
-                  que vous a communiqué le conseiller. Les dossiers les mieux
+                  que vous a communiquée le conseiller. Les dossiers les mieux
                   préparés sont instruits plus rapidement.
                 </p>
               </Card>
@@ -244,7 +244,7 @@ export default function AideEtapes({
               <>
                 <p>
                   Si vous êtes éligible, la banque vous verse le montant de
-                  votre Eco-PTZ.
+                  votre éco-PTZ.
                   <br />
                   L'Anah vous verse l'avance MaPrimeRénov'.
                   <br />
@@ -274,7 +274,7 @@ export default function AideEtapes({
                 <Image src={iconEuro} alt="icone euro" />
                 Faire la demande d’autres aides complémentaires
               </h2>
-              <p>Primes CEE, Exonération de taxe foncière, etc.</p>
+              <p>Aides des fournisseurs d’énergie (CEE), exonération de taxe foncière, etc.</p>
             </Card>
           )}
           <Card>
@@ -296,7 +296,7 @@ export default function AideEtapes({
               Recevez vos autres aides
             </h2>
             <p>
-              Subvention MaPrimeRénov', Primes CEE... Elles arriveront
+              Subvention MaPrimeRénov', Aides des fournisseurs d’énergie (CEE)... Elles arriveront
               probablement une fois les travaux finis.
             </p>
           </Card>
