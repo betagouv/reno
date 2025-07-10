@@ -1,12 +1,4 @@
-import { Labels } from '@/app/LandingUI'
-import checkIcon from '@/public/check.svg'
-import Link from 'next/link'
 import { formatValue } from 'publicodes'
-import { CTA, CTAWrapper, Card } from '@/components/UI'
-import { roundToThousands } from '@/components/utils'
-import { useAides } from './useAides'
-import { AideSummary } from './AideSummary'
-import { push } from '@socialgouv/matomo-next'
 
 export const computeAideStatus = (evaluation) => {
   const value = formatValue(evaluation, { precision: 0 })

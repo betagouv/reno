@@ -47,7 +47,6 @@ export default function Eligibility({
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
 
   const isInIframe = useIsInIframe()
-  const aides = useAides(engine, situation)
   const showPersonaBar = searchParams.personas != null
 
   useEffect(() => {
@@ -138,7 +137,7 @@ export default function Eligibility({
             {...{
               engine,
               situation,
-              aides,
+              aides: useAides(engine, situation),
               answeredQuestions,
               rules,
               setSearchParams,
@@ -152,7 +151,7 @@ export default function Eligibility({
             {...{
               engine,
               situation,
-              aides: aides.filter((aide) => aide.dottedName.startsWith('mpa')),
+              aides: useAides(engine, situation, 'autonomie de la personne'),
               answeredQuestions,
               rules,
               setSearchParams,
@@ -539,10 +538,8 @@ export function EligibilityMPA({
   rules,
   setSearchParams,
   searchParams,
-  expanded,
 }) {
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
-  console.log('aides', aides)
   return (
     <>
       <p
@@ -572,6 +569,7 @@ export function EligibilityMPA({
           return (
             <div
               id={'aide-' + encodeDottedName(aide.baseDottedName)}
+              key={aide.baseDottedName}
               css={`
                 border-bottom: 1px solid var(--lighterColor2);
                 margin-bottom: 1rem;
