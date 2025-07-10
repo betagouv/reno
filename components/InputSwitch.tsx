@@ -7,6 +7,7 @@ import DPESelector from './dpe/DPESelector'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
+import CheckboxQuestion from './CheckboxQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
@@ -123,6 +124,33 @@ export default function InputSwitch({
               answeredQuestions,
             )
             setSearchParams(encodedSituation, 'replace', false)
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  if (rule && rule['possibilités'])
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          nextQuestions,
+          currentValue,
+          engine,
+          noSuggestions: true,
+        }}
+      >
+        <CheckboxQuestion
+          {...{
+            rule,
+            engine,
+            situation,
+            setSearchParams,
+            currentQuestion,
           }}
         />
       </ClassicQuestionWrapper>

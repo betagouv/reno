@@ -71,16 +71,24 @@ mpa . occupant:
 mpa . occupant . condition age ou handicap:
   question: |
     Dans quelle situation se trouve le membre de votre foyer concerné ?
-  une possibilité parmi:
-    possibilités:
-    - Âgé de 60 à 69 ans sur conditions de GIR (groupe iso-ressources de 1 à 6)
-    - Âgé de 70 ans ou plus
-    - A un taux d'incapacité supérieur ou égal à 50%
-    - Bénéficie de la Prestation de Compensation du Handicap (PCH)
-    - 'aucune'
-mpa . occupant . condition age ou handicap . aucune:
-  valeur: "'aucune'"
-  titre: Aucune des propositions ci-dessus
+  possibilités:
+  - gir
+  - age
+  - incapacité
+  - pch
+mpa . occupant . condition age ou handicap . gir:
+  valeur: gir
+  titre: Âgé de 60 à 69 ans sur conditions de GIR (groupe iso-ressources de 1 à 6)
+mpa . occupant . condition age ou handicap . age:
+  valeur: 70 ans
+  titre: Âgé de 70 ans ou plus
+mpa . occupant . condition age ou handicap . incapacité:
+  valeur: incapacité
+  titre: A un taux d'incapacité supérieur ou égal à 50%
+mpa . occupant . condition age ou handicap . pch:
+  valeur: pch
+  titre: Bénéficie de la Prestation de Compensation du Handicap (PCH)
+
 mpa . occupant . conditions de revenu:
   une de ces conditions:
     - ménage . revenu . classe = 'modeste'
@@ -126,15 +134,19 @@ mpa . bailleur . condition éligibilité:
     - est défini: logement . surface
 mpa . bailleur . condition locataire:
   question: Dans quelle situation se trouve votre locataire ?
-  une possibilité parmi:
-    possibilités:
-    - A une perte d'autonomie attestée par un GIR (groupe iso-ressources),
-    - A un taux d’incapacité supérieur ou égal à 50 %
-    - Bénéficie de la Prestation de Compensation du Handicap (PCH)
-    - 'aucune'
-mpa . bailleur . condition locataire . aucune:
-  valeur: "'aucune'"
-  titre: Aucune des propositions ci-dessus
+  possibilités:
+  - gir
+  - incapacité
+  - pch
+mpa . bailleur . condition locataire . gir:
+  valeur: gir
+  titre: A une perte d'autonomie attestée par un GIR (groupe iso-ressources)
+mpa . bailleur . condition locataire . incapacité:
+  valeur: incapacité
+  titre: A un taux d’incapacité supérieur ou égal à 50 %
+mpa . bailleur . condition locataire . pch:
+  valeur: pch
+  titre: Bénéficie de la Prestation de Compensation du Handicap (PCH)
 mpa . bailleur . montant:
   applicable si: condition éligibilité
   produit:
