@@ -373,7 +373,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
   }
-  console.log('currentQuestion', currentQuestion)
+
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
@@ -415,47 +415,6 @@ export default function InputSwitch({
           nextQuestions,
         }}
       />
-    )
-  }
-
-  // TODO: remove this Hack for MPA
-  if (currentQuestion === 'mpa . montant travaux') {
-    const dottedName =
-      situation['mpa . situation demandeur'] == '"bailleur"'
-        ? 'mpa . bailleur'
-        : situation['mpa . situation demandeur'] == '"occupant"'
-          ? 'mpa . occupant'
-          : 'mpa . copropriété'
-    const AideComponent = correspondance[dottedName]
-    return (
-      <>
-        <AideComponent
-          {...{
-            dottedName,
-            setSearchParams,
-            answeredQuestions,
-            engine,
-            situation,
-            searchParams,
-            rules,
-            expanded: false,
-          }}
-        />
-        {situation['mpa . situation demandeur'] == '"bailleur"' && (
-          <LocAvantage
-            {...{
-              dottedName: 'locavantage',
-              setSearchParams,
-              answeredQuestions,
-              engine,
-              situation,
-              searchParams,
-              rules,
-              expanded: false,
-            }}
-          />
-        )}
-      </>
     )
   }
 
@@ -512,7 +471,6 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
-
   if (!currentQuestion) {
     if (sendDataToHost && consent === null) {
       return <Consentement {...{ setConsent, situation, sendDataToHost }} />

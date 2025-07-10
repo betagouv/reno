@@ -1,15 +1,10 @@
 import { createExampleSituation } from './AmpleurSummary'
-import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import FatConseiller from '../FatConseiller'
 import { useAides } from './useAides'
-import { omit } from '@/components/utils'
 import { Section } from '../UI'
-import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
-import CopyButton from '../CopyButton'
-import Breadcrumb from '../Breadcrumb'
-import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
+import { correspondance } from '@/app/simulation/Form'
+import { encodeDottedName } from '../publicodes/situationUtils'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -18,7 +13,6 @@ export default function AidesAmpleur({
   engine,
   rules,
   searchParams,
-  correspondance,
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Aides Ampleur'])
   const situation = givenSituation
@@ -74,11 +68,11 @@ export default function AidesAmpleur({
           {aidesList.filter(hardCodedFilter).map((aide, i) => {
             const AideComponent = correspondance[aide.baseDottedName]
             const currentType = rules[aide.baseDottedName].type
-            const showType = currentType !== lastType && isEligible
+            const showType = currentType !== lastType
             lastType = currentType
             return (
               <div key={i}>
-                {showType && (
+                {showType && isEligible && (
                   <h4
                     css={`
                       font-weight: bold;
@@ -96,8 +90,7 @@ export default function AidesAmpleur({
                     )}
                   </h4>
                 )}
-
-                {isEligible === null && (
+                {showType && isEligible === null && (
                   <>
                     <div
                       css={`

@@ -6,10 +6,13 @@ mpa:
     MaPrimeAdapt' est l'aide dédiée aux personnes souhaitant adapter leur logement à leur perte d'autonomie, dans un contexte de transition démographique.
   lien: https://france-renov.gouv.fr/aides/maprimeadapt
 mpa . montant:
-  somme:
-  - occupant . montant
-  - bailleur . montant
-  - copropriété . montant
+  variations:
+    - si: mpa . situation demandeur = 'occupant'
+      alors: occupant . montant
+    - si: mpa . situation demandeur = 'bailleur'
+      alors: bailleur . montant
+    - si: mpa . situation demandeur = 'copropriété'
+      alors: copropriété . montant
 mpa . situation demandeur:
   question: Quelle est votre situation ?
   description: |
@@ -78,9 +81,6 @@ mpa . occupant . condition age ou handicap:
 mpa . occupant . condition age ou handicap . aucune:
   valeur: "'aucune'"
   titre: Aucune des propositions ci-dessus
-mpa . occupant . condition 15 ans:
-  question: Le logement a-t-il été construit il y a plus de 15 ans?
-  par défaut: oui
 mpa . occupant . conditions de revenu:
   une de ces conditions:
     - ménage . revenu . classe = 'modeste'
@@ -90,7 +90,7 @@ mpa . occupant . condition éligibilité:
     - situation demandeur = 'occupant'
     - condition age ou handicap != 'aucune'
     - conditions de revenu
-    - condition 15 ans
+    - logement . période de construction = "au moins 15 ans"
 mpa . occupant . montant:
   applicable si: condition éligibilité
   produit:

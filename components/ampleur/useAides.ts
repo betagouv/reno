@@ -2,33 +2,38 @@ import rules from '@/app/règles/rules'
 import { capitalise0, formatValue } from 'publicodes'
 import { computeAideStatus } from './AmpleurSummary'
 
-const topList = rules['ampleur . tous les dispositifs'].somme,
-  // unfold the sums with one level only, no recursion yet
-  list = topList
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      if (rule.somme) return rule.somme
-      return dottedName
-    })
-    .flat()
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      const split = dottedName.split(' . montant')
+const topList = [
+  ...rules['ampleur . tous les dispositifs'].somme,
+  'mpa . occupant . montant',
+  'mpa . bailleur . montant',
+  'mpa . copropriété . montant',
+]
+// unfold the sums with one level only, no recursion yet
+const list = topList
+  .map((dottedName) => {
+    const rule = rules[dottedName]
+    if (rule.somme) return rule.somme
+    return dottedName
+  })
+  .flat()
+  .map((dottedName) => {
+    const rule = rules[dottedName]
+    const split = dottedName.split(' . montant')
 
-      if (split.length > 1) {
-        const parentRule = rules[split[0]]
-        return {
-          ...rule,
-          dottedName,
-          baseDottedName: split[0],
-          icône: parentRule.icône,
-          marque: parentRule.marque,
-          'complément de marque': parentRule['complément de marque'],
-          type: parentRule['type'],
-        }
+    if (split.length > 1) {
+      const parentRule = rules[split[0]]
+      return {
+        ...rule,
+        dottedName,
+        baseDottedName: split[0],
+        icône: parentRule.icône,
+        marque: parentRule.marque,
+        'complément de marque': parentRule['complément de marque'],
+        type: parentRule['type'],
       }
-      return { ...rule, dottedName, baseDottedName: dottedName }
-    })
+    }
+    return { ...rule, dottedName, baseDottedName: dottedName }
+  })
 
 const regexp = /aides locales \. (.+) \. montant$/
 

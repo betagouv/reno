@@ -30,7 +30,10 @@ export const createExampleSituation = (situation, type = 'normal') => {
         }
       : type == 'worst'
         ? {
-            'projet . DPE visé': Math.max(situation['DPE . actuel'] - 2, 1),
+            'projet . DPE visé': Math.max(
+              (situation['DPE . actuel'] ? situation['DPE . actuel'] : 7) - 2,
+              1,
+            ),
             'denormandie . années de location': 6,
           }
         : {}),
