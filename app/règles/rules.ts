@@ -20,6 +20,7 @@ import copropriete from '@/app/règles/copropriete.publicodes'
 import mpa from '@/app/règles/ma-prime-adapt.publicodes'
 import locavantage from '@/app/règles/locavantage.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
+import autresAides from '@/app/règles/autres-aides.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -59,6 +60,7 @@ const rules = {
   ...copropriete,
   ...mpa,
   ...locavantage,
+  ...autresAides,
 }
 
 const rulesWithMarkdown = Object.fromEntries(

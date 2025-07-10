@@ -32,6 +32,7 @@ import Image from 'next/image'
 import { categories, getRulesByCategory } from './utils'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
+import React from 'react'
 
 export default function Eligibility({
   setSearchParams,
@@ -540,6 +541,7 @@ export function EligibilityMPA({
   searchParams,
 }) {
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
+  let lastStatus = false
   return (
     <>
       <p
@@ -562,37 +564,50 @@ export function EligibilityMPA({
       <h2>
         <span aria-hidden="true">💶</span> Aides pour vos travaux
       </h2>
-      {aides
-        .filter((aide) => aide.status === true)
-        .map((aide, i) => {
-          const AideComponent = correspondance[aide.baseDottedName]
-          return (
-            <div
-              id={'aide-' + encodeDottedName(aide.baseDottedName)}
-              key={aide.baseDottedName}
-              css={`
-                border-bottom: 1px solid var(--lighterColor2);
-                margin-bottom: 1rem;
-                padding-left: 1.5rem;
-              `}
-            >
-              <AideComponent
+      {aides.map((aide, i) => {
+        const currentStatus = aide.status
+        const updatedLastStatus = lastStatus
+        lastStatus = currentStatus
+        const AideComponent = correspondance[aide.baseDottedName]
+        return (
+          <React.Fragment key={i}>
+            {aide.status === null && updatedLastStatus !== null && (
+              <h2>
+                <span aria-hidden="true">🏦</span> Autres aides complémentaires
+              </h2>
+            )}
+            {aide.status !== false && (
+              <div
+                id={'aide-' + encodeDottedName(aide.baseDottedName)}
                 key={aide.baseDottedName}
-                {...{
-                  isEligible: true,
-                  dottedName: aide.baseDottedName,
-                  setSearchParams,
-                  answeredQuestions,
-                  engine,
-                  situation,
-                  searchParams,
-                  rules,
-                  expanded: false,
-                }}
-              />
-            </div>
-          )
-        })}
+                css={`
+                  border-bottom: 1px solid var(--lighterColor2);
+                  margin-bottom: 1rem;
+                  padding-left: 1.5rem;
+                  h3 {
+                    font-size: 90%;
+                  }
+                `}
+              >
+                <AideComponent
+                  key={aide.baseDottedName}
+                  {...{
+                    isEligible: true,
+                    dottedName: aide.baseDottedName,
+                    setSearchParams,
+                    answeredQuestions,
+                    engine,
+                    situation,
+                    searchParams,
+                    rules,
+                    expanded: false,
+                  }}
+                />
+              </div>
+            )}
+          </React.Fragment>
+        )
+      })}
       <h4>Et maintenant ?</h4>
       <p>Un conseiller France Rénov’ peut vous aider à :</p>
       <ul

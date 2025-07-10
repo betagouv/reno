@@ -24,6 +24,8 @@ import Denormandie from '@/components/ampleur/Denormandie'
 import EcoPTZ from '@/components/ampleur/EcoPTZ'
 import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
+import TVA from '@/components/autres-aides/TVA'
+import CreditImpot from '@/components/autres-aides/CreditImpot'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
 import MaPrimeAdaptOccupant from '@/components/maPrimeAdapt/MaPrimeAdaptOccupant'
@@ -45,6 +47,8 @@ export const correspondance = {
   'mpa . bailleur': MaPrimeAdaptBailleur,
   'mpa . copropriété': MaPrimeAdaptCopropriété,
   locavantage: LocAvantage,
+  'tva réduite': TVA,
+  "crédit d'impôt": CreditImpot,
 }
 
 function Form({ rules }) {

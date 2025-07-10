@@ -51,6 +51,9 @@ export function useAides(
           'mpa . bailleur . montant',
           'mpa . copropriété . montant',
           'locavantage . montant',
+          'tva réduite',
+          "crédit d'impôt",
+          'aides locales',
         ]
   // unfold the sums with one level only, no recursion yet
   const list = topList
@@ -98,6 +101,5 @@ export function useAides(
       'complément de marque': marque2,
     }
   })
-
   return aides
 }
