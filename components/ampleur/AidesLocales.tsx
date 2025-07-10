@@ -64,7 +64,7 @@ export default function AidesLocales({
         </details>
       </AideAmpleur>
     )
-  console.log('ici', aides)
+
   if (aides.length === 0)
     return (
       <AideAmpleur

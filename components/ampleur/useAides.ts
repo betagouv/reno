@@ -47,9 +47,7 @@ export function useAides(
     parcoursAide == 'rénovation énergétique'
       ? [...rules['ampleur . tous les dispositifs'].somme]
       : [
-          'mpa . occupant . montant',
-          'mpa . bailleur . montant',
-          'mpa . copropriété . montant',
+          'mpa . montant',
           'locavantage . montant',
           'tva réduite',
           "crédit d'impôt",

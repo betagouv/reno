@@ -28,9 +28,7 @@ import TVA from '@/components/autres-aides/TVA'
 import CreditImpot from '@/components/autres-aides/CreditImpot'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
-import MaPrimeAdaptOccupant from '@/components/maPrimeAdapt/MaPrimeAdaptOccupant'
-import MaPrimeAdaptBailleur from '@/components/maPrimeAdapt/MaPrimeAdaptBailleur'
-import MaPrimeAdaptCopropriété from '@/components/maPrimeAdapt/MaPrimeAdaptCopropriété'
+import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
 import LocAvantage from '@/components/LocAvantage'
 
 export const correspondance = {
@@ -43,9 +41,7 @@ export const correspondance = {
   'taxe foncière': TaxeFoncière,
   denormandie: Denormandie,
   "CEE . rénovation d'ampleur": CEEAmpleur,
-  'mpa . occupant': MaPrimeAdaptOccupant,
-  'mpa . bailleur': MaPrimeAdaptBailleur,
-  'mpa . copropriété': MaPrimeAdaptCopropriété,
+  mpa: MaPrimeAdapt,
   locavantage: LocAvantage,
   'tva réduite': TVA,
   "crédit d'impôt": CreditImpot,
