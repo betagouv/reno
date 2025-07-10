@@ -556,27 +556,44 @@ export function EligibilityMPA({
           </>
         ) : (
           <>
-            Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
-            éligible.
+            Nous n’avons trouvé aucune aide spécifique pour les critères que
+            vous avez renseignés. N'hésitez pas à contacter l’un de nos
+            conseillers France Rénov’ pour obtenir des conseils personnalisés.
           </>
         )}
       </p>
-      <h2>
-        <span aria-hidden="true">💶</span> Aides pour vos travaux
-      </h2>
-      {aides.map((aide, i) => {
-        const currentStatus = aide.status
-        const updatedLastStatus = lastStatus
-        lastStatus = currentStatus
-        const AideComponent = correspondance[aide.baseDottedName]
-        return (
-          <React.Fragment key={i}>
-            {aide.status === null && updatedLastStatus !== null && (
-              <h2>
-                <span aria-hidden="true">🏦</span> Autres aides complémentaires
-              </h2>
-            )}
-            {aide.status !== false && (
+      {hasAides && (
+        <h2>
+          <span aria-hidden="true">💶</span> Aides pour vos travaux
+        </h2>
+      )}
+      {aides
+        .sort((a, b) => {
+          if (a.status === b.status) return 0
+          if (a.status === true) return -1
+          if (b.status === true) return 1
+          if (a.status === null) return -1
+          if (b.status === null) return 1
+          return 0
+        })
+        .map((aide, i) => {
+          const currentStatus = aide.status
+          const updatedLastStatus = lastStatus
+          lastStatus = currentStatus
+          const AideComponent = correspondance[aide.baseDottedName]
+          return (
+            <React.Fragment key={i}>
+              {aide.status === null && updatedLastStatus !== null && (
+                <h2>
+                  <span aria-hidden="true">🏦</span> Autres aides
+                  complémentaires
+                </h2>
+              )}
+              {aide.status === false && updatedLastStatus !== false && (
+                <h2>
+                  <span aria-hidden="true">⛔</span> Non éligible à
+                </h2>
+              )}
               <div
                 id={'aide-' + encodeDottedName(aide.baseDottedName)}
                 key={aide.baseDottedName}
@@ -592,7 +609,6 @@ export function EligibilityMPA({
                 <AideComponent
                   key={aide.baseDottedName}
                   {...{
-                    isEligible: true,
                     dottedName: aide.baseDottedName,
                     setSearchParams,
                     answeredQuestions,
@@ -604,10 +620,9 @@ export function EligibilityMPA({
                   }}
                 />
               </div>
-            )}
-          </React.Fragment>
-        )
-      })}
+            </React.Fragment>
+          )
+        })}
       <h4>Et maintenant ?</h4>
       <p>Un conseiller France Rénov’ peut vous aider à :</p>
       <ul
