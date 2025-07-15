@@ -591,7 +591,7 @@ export function EligibilityMPA({
               )}
               {aide.status === false && updatedLastStatus !== false && (
                 <h2>
-                  <span aria-hidden="true">⛔</span> Non éligible à
+                  <span aria-hidden="true">⛔</span> Non éligible
                 </h2>
               )}
               <div
