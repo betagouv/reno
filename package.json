@@ -22,6 +22,7 @@
   "types": "index.d.ts",
   "dependencies": {
     "@adobe/css-tools": "^4.3.3",
+    "@codegouvfr/react-dsfr": "^1.26.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.0",
