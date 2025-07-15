@@ -394,10 +394,15 @@ chauffage . PAC . solaire:
 
   description complète: |
     En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/chauffagechauffe-eau/la-pompe-chaleur-solarothermique-ou-geothermique).
-
 chauffage . PAC . solaire . montant:
+  applicable si:
+    une de ces conditions:
+      - MPR . non accompagnée . éligible
+      - CEE . conditions
   somme:
     - MPR . montant
+    - Coup de pouce . montant
+    - CEE . montant
 chauffage . PAC . solaire . MPR:
 chauffage . PAC . solaire . MPR . plafond: 18000 €
 chauffage . PAC . solaire . MPR . montant:
@@ -410,6 +415,127 @@ chauffage . PAC . solaire . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 6000 €
     - sinon: 0 €
+chauffage . PAC . solaire . Coup de pouce:
+chauffage . PAC . solaire . Coup de pouce . montant:
+  applicable si: CEE . projet . remplacement chaudière thermique
+  rend non applicable: CEE . montant
+  valeur: 5000 €
+chauffage . PAC . solaire . Coup de pouce . question: CEE . projet . remplacement chaudière thermique
+chauffage . PAC . solaire . CEE:
+  code: BAR-TH-172
+  titre: Pompe à chaleur de type eau/eau ou sol/eau
+  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  technique: |
+    Les PAC **associées à un autre système de chauffage**** et les PAC **utilisées uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
+      
+    La présente opération **n'est pas cumulable** avec les opérations relevant de la fiche **BAR-TH-148** « Chauffe-eau thermodynamique à accumulation » si la PAC installée est utilisée pour le chauffage et l'eau chaude sanitaire.
+chauffage . PAC . solaire . CEE . montant:
+  applicable si: CEE . conditions
+  produit:
+    - barème
+    - facteur correctif surface
+    - facteur correctif région
+    - CEE . prix kWh Cumac
+  unité: €
+chauffage . PAC . solaire . CEE . question:
+  type: liste
+  valeurs:
+    - CEE . projet . remplacement chaudière thermique
+    - usage
+    - Etas
+chauffage . PAC . solaire . CEE . surface: logement . surface
+chauffage . PAC . solaire . CEE . usage:
+  question: Quel va être l'usage de cette pompe à chaleur ?
+  titre: Usage
+  par défaut: "'chauffage et eau chaude'"
+  maximum: "'chauffage et eau chaude'"
+  une possibilité parmi:
+    possibilités:
+      - chauffage et eau chaude
+      - chauffage seulement
+chauffage . PAC . solaire . CEE . usage . chauffage et eau chaude:
+  valeur: "'chauffage et eau chaude'"
+  titre: 'Chauffage et eau chaude'
+chauffage . PAC . solaire . CEE . usage . chauffage seulement:
+  valeur: "'chauffage seulement'"
+  titre: 'Chauffage uniquement'
+chauffage . PAC . solaire . CEE . Etas:
+  question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
+  titre: Efficacité énergétique saisonnière
+  par défaut: "'entre 111 % et 140 %'"
+  maximum: "'supérieur à 230 %'"
+  une possibilité parmi:
+    possibilités:
+      - 'entre 111 % et 140 %'
+      - 'entre 140 % et 170 %'
+      - 'entre 170 % et 200 %'
+      - 'entre 200 % et 230 %'
+      - 'supérieur à 230 %'
+chauffage . PAC . solaire . CEE . Etas . entre 111 % et 140 %:
+  valeur: "'entre 111 % et 140 %'"
+  titre: 'Entre 111 % et 140 %'
+chauffage . PAC . solaire . CEE . Etas . entre 140 % et 170 %:
+  valeur: "'entre 140 % et 170 %'"
+  titre: 'Entre 140 % et 170 %'
+chauffage . PAC . solaire . CEE . Etas . entre 170 % et 200 %:
+  valeur: "'entre 170 % et 200 %'"
+  titre: 'Entre 170 % et 200 %'
+chauffage . PAC . solaire . CEE . Etas . entre 200 % et 230 %:
+  valeur: "'entre 200 % et 230 %'"
+  titre: 'Entre 200 % et 230 %'
+chauffage . PAC . solaire . CEE . Etas . supérieur à 230 %:
+  valeur: "'supérieur à 230 %'"
+  titre: 'Supérieur à 230 %'
+chauffage . PAC . solaire . CEE . barème:
+  variations:
+    - si: usage = 'chauffage seulement'
+      alors: barème chauffage
+    - si: usage = 'chauffage et eau chaude'
+      alors: barème chauffage et eau
+chauffage . PAC . solaire . CEE . barème chauffage:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 42000
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 67900
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 85200
+    - si: Etas = "entre 200 % et 230 %"
+      alors: 97600
+    - si: Etas = "supérieur à 230 %"
+      alors: 103500
+chauffage . PAC . solaire . CEE . barème chauffage et eau:
+  variations:
+    - si: Etas = "entre 111 % et 140 %"
+      alors: 53400
+    - si: Etas = "entre 140 % et 170 %"
+      alors: 86400
+    - si: Etas = "entre 170 % et 200 %"
+      alors: 108400
+    - si: Etas = "entre 200 % et 230 %"
+      alors: 124200
+    - si: Etas = "supérieur à 230 %"
+      alors: 131600
+chauffage . PAC . solaire . CEE . facteur correctif surface:
+  variations:
+    - si: surface < 70
+      alors: 0.5
+    - si: surface < 90
+      alors: 0.7
+    - si: surface < 110
+      alors: 1
+    - si: surface < 130
+      alors: 1.1
+    - si: surface >= 130
+      alors: 1.6
+chauffage . PAC . solaire . CEE . facteur correctif région:
+  variations:
+    - si: CEE . région = 'H1'
+      alors: 1.2
+    - si: CEE . région = 'H2'
+      alors: 1
+    - si: CEE . région = 'H3'
+      alors: 0.7
 
 chauffage . PAC . air-air:
   par défaut: oui
