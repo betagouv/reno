@@ -1,16 +1,17 @@
 'use client'
 import { Content, Key, Wrapper } from '@/components/explications/ExplicationUI'
 import useIsInIframe from '@/components/useIsInIframe'
-import { HomeTestimonies } from './LandingUI'
 import { useState } from 'react'
 import DPELabel from '@/components/dpe/DPELabel'
-import { CTA } from '@/components/UI'
+import { Tile } from '@codegouvfr/react-dsfr/Tile'
+import { Button } from '@codegouvfr/react-dsfr/Button'
 import { push } from '@socialgouv/matomo-next'
+import React from 'react'
 
-export default function HomepageSteps() {
+export default function HomepageTestimonies() {
   const isInIFrame = useIsInIframe()
   const [expanded, setExpanded] = useState({})
-
+  console.log('expanded', expanded)
   const toggleExpand = (index) => {
     setExpanded((prevState) => ({
       ...prevState,
@@ -133,54 +134,55 @@ export default function HomepageSteps() {
           >
             Histoires d'usagers
           </h2>
-          <HomeTestimonies>
+          <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--top fr-grid-row--center">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="fr-quote">
-                <h3>{testimonial.title}</h3>
-                <details>
-                  <summary
-                    onClick={() => toggleExpand(index)}
-                    css={`
-                      outline: none;
-                      list-style: none;
-                      text-align: justify;
-                      &::-webkit-details-marker {
-                        display: none;
-                      }
-                      &::marker {
-                        display: none;
-                      }
-                    `}
-                  >
-                    <span>{testimonial.shortText}</span>
-                    <span
-                      css={`
-                        display: flex;
-                        justify-content: flex-end;
-                      `}
-                    >
-                      <CTA
-                        $fontSize="normal"
-                        $importance="secondary"
-                        className="see-more-click"
-                        onClick={() =>
-                          push([
-                            'trackEvent',
-                            'Home',
-                            'Clic',
-                            testimonial.matomoAnchor,
-                          ])
-                        }
+              <div
+                className="fr-col-12 fr-col-md-6"
+                key={index}
+                css={`
+                  .fr-tile__detail {
+                    display: block;
+                    text-align: start;
+                  }
+                `}
+              >
+                <Tile
+                  desc={
+                    <>
+                      {testimonial.shortText}
+                      <div
+                        css={`
+                          text-align: end;
+                          margin-top: 1em;
+                        `}
                       >
-                        Voir ses aides €
-                      </CTA>
-                    </span>
-                  </summary>
-                  <p className="see-more">{testimonial.moreText}</p>
-                </details>
+                        <Button
+                          iconId="fr-icon-money-euro-circle-line"
+                          onClick={() => {
+                            toggleExpand(index)
+                            push([
+                              'trackEvent',
+                              'Home',
+                              'Clic',
+                              testimonial.matomoAnchor,
+                            ])
+                          }}
+                          priority="tertiary"
+                        >
+                          Voir ses aides
+                        </Button>
+                      </div>
+                    </>
+                  }
+                  detail={expanded[index] && testimonial.moreText}
+                  enlargeLinkOrButton
+                  orientation="vertical"
+                  title={testimonial.title}
+                  titleAs="h3"
+                />
               </div>
             ))}
-          </HomeTestimonies>
+          </div>
         </Content>
       </Wrapper>
     )

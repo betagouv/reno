@@ -30,87 +30,65 @@ export default async function Page(props) {
   return (
     <>
       <StartDsfrOnHydration />
-      <main
-        style={css`
-          background: white;
-          padding-top: calc(1.5vh + 1.5vw);
-        `}
-      >
+      <main role="main" id="content">
         <PageBlock>
-          <HeaderWrapper>
-            <Image
-              src={illustrationAccueil}
-              alt="Des ouvriers peignent et réparent la facade d'une maison"
-            />
-            <div>
-              <Labels>
-                <li key={'réno'}>
-                  <span aria-hidden="true">⚡️</span> Rénovation Énergétique
-                </li>
-              </Labels>
-              <h1
-                style={css`
-                  margin-top: 0.6rem;
-                  margin-bottom: 1rem;
-                `}
-              >
-                Estimez vos aides pour rénover votre logement
-              </h1>
-              <Intro>
-                <p>
-                  Une rénovation énergétique pour des factures moins élevées
-                  dans un logement plus confortable et plus écologique.
-                </p>
-              </Intro>
-              <p
-                style={css`
-                  margin: 0;
-                  color: #555;
-                  line-height: 1.3rem;
-                `}
-              >
-                <strong
-                  style={css`
-                    color: #da504b;
-                  `}
-                >
-                  5 minutes chrono
-                </strong>{' '}
-                et sans inscription.
+          <HeaderWrapper
+            image={
+              <Image
+                src={illustrationAccueil}
+                alt="Des ouvriers peignent et réparent la facade d'une maison"
+              />
+            }
+          >
+            <h1>Estimez vos aides pour rénover votre logement</h1>
+            <Labels>
+              <li key={'réno'}>
+                <span aria-hidden="true">⚡️</span> Rénovation Énergétique
+              </li>
+            </Labels>
+            <Intro>
+              <p>
+                Une rénovation énergétique pour des factures moins élevées dans
+                un logement plus confortable et plus écologique.
               </p>
-              <div
+            </Intro>
+            <p
+              style={css`
+                margin: 0 0 1em 0;
+                color: #555;
+                line-height: 1.3rem;
+              `}
+            >
+              <strong
                 style={css`
-                  padding-top: 1rem;
+                  color: #da504b;
                 `}
               >
-                <CTAWrapper $justify="left">
-                  <CTA $fontSize="normal">
-                    <Link
-                      href={{
-                        pathname: '/simulation',
-                        query: searchParams, // needed to pass "iframe" and "sendDataToHost" params to the simulation
-                      }}
-                      prefetch={false}
-                    >
-                      ➞&nbsp;&nbsp;C'est parti !
-                    </Link>
-                  </CTA>
-                </CTAWrapper>
-                <CTAWrapper $justify="left">
-                  <CTA
-                    $fontSize="normal"
-                    $importance="secondary"
-                    style={css`
-                      padding: 0.5rem 0;
-                    `}
-                  >
-                    <Link href="/copropriete">
-                      Je représente une copropriété
-                    </Link>
-                  </CTA>
-                </CTAWrapper>
-                <FromStorageSimulationButtonLoader />
-              </div>
+                5 minutes chrono
+              </strong>{' '}
+              et sans inscription.
+            </p>
+            <div
+              style={css`
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+              `}
+            >
+              <Link
+                className="fr-btn"
+                href={{
+                  pathname: '/simulation',
+                  query: searchParams, // needed to pass "iframe" and "sendDataToHost" params to the simulation
+                }}
+                prefetch={false}
+              >
+                ➞&nbsp;&nbsp;C'est parti !
+              </Link>
+              <Link href="/copropriete" className="fr-btn fr-btn--secondary">
+                Je représente une copropriété
+              </Link>
+              <FromStorageSimulationButtonLoader />
             </div>
           </HeaderWrapper>
           <LandingGreenBanner>

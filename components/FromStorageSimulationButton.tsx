@@ -24,36 +24,21 @@ export default function FromStorageSimulationButton() {
 
   */
   return (
-    <CTAWrapper $justify="left">
-      <CTA
-        $fontSize="normal"
-        $importance="secondary"
-        style={css`
-          padding: 0.5rem 0;
+    <Link
+      className="fr-btn fr-btn--secondary"
+      href={simulation}
+      prefetch={false}
+    >
+      <Image
+        src={restoreIcon}
+        alt="Icône symbolisant la récupération"
+        css={`
+          width: 1rem !important;
+          height: 1rem !important;
+          margin-right: 0.6rem !important;
         `}
-      >
-        <Link
-          href={simulation}
-          prefetch={false}
-          css={`
-            display: flex !important;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-          `}
-        >
-          <Image
-            src={restoreIcon}
-            alt="Icône symbolisant la récupération"
-            css={`
-              width: 1rem !important;
-              height: 1rem !important;
-              margin-right: 0.6rem !important;
-            `}
-          />
-          <span>Reprendre ma dernière simulation </span>
-        </Link>
-      </CTA>
-    </CTAWrapper>
+      />
+      <span>Reprendre ma dernière simulation </span>
+    </Link>
   )
 }
