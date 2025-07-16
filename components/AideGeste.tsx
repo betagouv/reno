@@ -3,22 +3,16 @@ import { BlocAide, InlineLink, PrimeStyle } from './UI'
 import { formatValue } from 'publicodes'
 import { useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
-import { PrimeDisplay } from './Geste'
+import { PrimeBadge, PrimeDisplay } from './Geste'
 import mprImage from '@/public/maprimerenov.svg'
 import ceeImage from '@/public/cee.svg'
 import Image from 'next/image'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import GesteQuestion from './GesteQuestion'
+import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
+import { getRuleName } from './publicodes/utils'
 
-export default function AideGeste({
-  engine,
-  dottedName,
-  setSearchParams,
-  situation,
-  answeredQuestions,
-}) {
-  const [isOpen, setIsOpen] = useState(false)
-
+export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
 
   const engineSituation = engine.setSituation(situation)
@@ -32,6 +26,7 @@ export default function AideGeste({
   const dottedNameCee = dottedName + ' . CEE'
   const dottedNameMpr = dottedName + ' . MPR'
   const dottedNameCP = dottedName + ' . Coup de pouce'
+
   if (typeof rules[dottedNameCee] !== 'undefined') {
     const evaluationCEE = engineSituation.evaluate(dottedNameCee + ' . montant')
     infoCEE = {
@@ -39,7 +34,7 @@ export default function AideGeste({
       code: rules[dottedNameCee].code,
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
-      isExactTotal: Object.keys(evaluationCEE.missingVariables).length == 1,
+      isExactTotal: Object.keys(evaluationCEE.missingVariables).length === 1,
       questions: rules[dottedNameCee + ' . question']?.valeurs
         .map((q) =>
           rules[dottedNameCee + ' . ' + q]
@@ -51,8 +46,8 @@ export default function AideGeste({
         .filter(
           (q) =>
             !q.includes('MPR') &&
-            q != 'CEE . projet . remplacement chaudière thermique',
-        ), // On filtre les questions en doublon avec MPR et le remplacement de chaudière
+            q !== 'CEE . projet . remplacement chaudière thermique',
+        ),
     }
   }
 
@@ -60,11 +55,11 @@ export default function AideGeste({
   const questionRule =
     dottedNameMpr + ' . ' + rules[dottedNameMpr + ' . question']
   const question = hasCoupDePouce
-    ? // Pour bénéficier du coup de pouce, il faut forcément Remplacer la chaudière et donc poser la question
-      rules[dottedNameCP + ' . question']
+    ? rules[dottedNameCP + ' . question']
     : rules[questionRule]
       ? questionRule
       : undefined
+
   if (eligibleMPRG && typeof rules[dottedNameMpr] !== 'undefined') {
     infoMPR = {
       dottedName: dottedNameMpr,
@@ -87,123 +82,111 @@ export default function AideGeste({
 
   if (!isExactTotal) {
     const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
-      .map((dn) =>
-        rules[dn].maximum ? { [dn]: rules[dn].maximum } : rules[dn].maximum,
-      )
+      .map((dn) => (rules[dn].maximum ? { [dn]: rules[dn].maximum } : null))
+      .filter(Boolean)
       .reduce((acc, obj) => ({ ...acc, ...obj }), {})
     calculatedMontantTotal = formatValue(
       engine
         .setSituation({ ...situation, ...maximizeAideVariables })
-        .evaluate(engineSituation.evaluate(relevant)),
+        .evaluate(relevant),
       { precision: 0 },
     )
   }
 
   montantTotal = calculatedMontantTotal
+  return {
+    montantTotal,
+    isExactTotal,
+    montantCoupDePouce,
+    infoCEE,
+    infoMPR,
+    eligibleMPRG,
+    question,
+    hasCoupDePouce,
+  }
+}
 
+export default function AideGeste({
+  engine,
+  dottedName,
+  setSearchParams,
+  situation,
+  answeredQuestions,
+}) {
+  const [isOpen, setIsOpen] = useState(false)
+  const { question, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
+    engine,
+    dottedName,
+    situation,
+  })
   return (
-    <div
-      css={`
-        border-bottom: 1px solid var(--lighterColor2);
-        margin-bottom: 1rem;
-        padding-left: 1.5rem;
-        header {
-          margin: 0 0 1rem 0;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      `}
-    >
-      <header
-        onClick={() => {
-          push([
-            'trackEvent',
-            'Simulateur Principal',
-            'Page',
-            (!isOpen ? 'Déplie geste' : 'Replie geste') + ' ' + dottedName,
-          ])
-          setIsOpen(!isOpen)
-        }}
-      >
-        <div>
-          <PrimeDisplay
+    <Accordion
+      label={
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+          `}
+        >
+          {rules[dottedName].titre || getRuleName(dottedName)}
+          <PrimeBadge
             {...{
-              montantTotal,
-              isExactTotal,
-              rules,
+              situation,
+              engine,
               dottedName,
-              eligibleMPRG,
-              hasCoupDePouce,
-              description: false,
             }}
           />
         </div>
-        <div
-          css={`
-            &::after {
-              content: '';
-              display: inline-block;
-              width: 10px;
-              height: 10px;
-              border-bottom: 2px solid var(--color);
-              border-right: 2px solid var(--color);
-              transform: rotate(${isOpen ? '225deg' : '45deg'});
-              transition: transform 0.3s ease-in-out;
-            }
-          `}
+      }
+      onExpandedChange={() => {
+        push([
+          'trackEvent',
+          'Simulateur Principal',
+          'Page',
+          (!isOpen ? 'Déplie geste' : 'Replie geste') + ' ' + dottedName,
+        ])
+      }}
+    >
+      {question && (
+        <GesteQuestion
+          {...{
+            rules,
+            question,
+            engine,
+            situation,
+            setSearchParams,
+            answeredQuestions,
+          }}
         />
-      </header>
-      <div
-        css={`
-          display: none;
-          ${isOpen && 'display: block;margin-bottom: 1rem;'};
-        `}
-      >
-        {question && (
-          <GesteQuestion
-            {...{
-              rules,
-              question,
-              engine,
-              situation,
-              setSearchParams,
-              answeredQuestions,
-            }}
-          />
-        )}
-        {infoMPR && (
-          <BlocAideMPR
-            {...{
-              infoMPR,
-              engine,
-              situation,
-            }}
-          />
-        )}
-        {montantCoupDePouce && (
-          <BlocAideCoupDePouce
-            {...{
-              montantCoupDePouce,
-            }}
-          />
-        )}
-        {infoCEE && (
-          <BlocAideCEE
-            {...{
-              infoCEE,
-              engine,
-              situation,
-              answeredQuestions,
-              setSearchParams,
-            }}
-          />
-        )}
-      </div>
-    </div>
+      )}
+      {infoMPR && (
+        <BlocAideMPR
+          {...{
+            infoMPR,
+            engine,
+            situation,
+          }}
+        />
+      )}
+      {montantCoupDePouce && (
+        <BlocAideCoupDePouce
+          {...{
+            montantCoupDePouce,
+          }}
+        />
+      )}
+      {infoCEE && (
+        <BlocAideCEE
+          {...{
+            infoCEE,
+            engine,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+          }}
+        />
+      )}
+    </Accordion>
   )
 }
 

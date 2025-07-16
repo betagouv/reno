@@ -22,9 +22,6 @@ export const Section = styled.section`
   margin: 0 auto;
   width: 800px;
   max-width: 100%;
-  h1 {
-    font-size: 175%;
-  }
   .content-with-table {
     table {
       border-collapse: collapse;
@@ -230,13 +227,7 @@ export const BlocAide = styled.div`
 export const ConditionEligibiliteUI = ({ children }) => {
   return children && (
     <>
-      <h2
-        css={`
-          font-size: 130%;
-        `}
-      >
-        Les principales conditions d'éligibilité ?
-      </h2>
+      <h2 className='fr-mt-5v'>Les principales conditions d'éligibilité ?</h2>
       <div
         css={`
           list-style-image: url(${checkIcon.src});
@@ -352,30 +343,7 @@ export const ExternalLinkStyle = styled.a`
     }
 }
 `
-export const InternalLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-  -webkit-text-decoration: none;
-  cursor: pointer;
-  &[href] {
-    background-image: linear-gradient(0deg, rgb(58, 58, 58), rgb(58, 58, 58)),
-      linear-gradient(0deg, rgb(58, 58, 58), rgb(58, 58, 58));
-    background-position:
-      0 100%,
-      0 calc(100% - 0.0625em);
-    background-repeat: no-repeat, no-repeat;
-    background-size:
-      0 0.125em,
-      0 0.0625em;
-    transition: background-size 0s;
-  }
-  &:hover {
-    background-color: transparent;
-    background-size:
-      100% calc(0.0625em * 2),
-      100% 0.0625em;
-  }
-`
+
 export const MiseEnAvant = styled.div`
   ${(p) =>
     p.$type == 'warning'

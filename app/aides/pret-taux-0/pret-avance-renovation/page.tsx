@@ -1,8 +1,8 @@
 import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
-import Breadcrumb from '@/components/Breadcrumb'
 import PAR from './PAR'
 import { Suspense } from 'react'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 export const metadata: Metadata = {
   title: 'PAR+: Le prêt avance rénovation',
@@ -18,12 +18,22 @@ export default function PagePAR() {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Les prêts à taux zéro': '/aides/pret-taux-0' },
+          currentPageLabel="Le prêt avance rénovation"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              'Le prêt avance rénovation':
-                '/aides/pret-taux-0/pret-avance-renovation',
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: 'Les prêts à taux 0',
+              linkProps: {
+                href: '/aides/pret-taux-0',
+              },
             },
           ]}
         />

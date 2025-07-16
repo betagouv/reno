@@ -7,7 +7,7 @@ import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
 import Demonstration from './Demonstration'
 import { Suspense } from 'react'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 export const metadata: Metadata = {
   title: "Module d'aide à la rénovation énergétique - Mes aides réno",
   description: `Découvrez le module de calcul des aides à la rénovation énergétique de Mes Aides Réno"`,
@@ -24,10 +24,23 @@ export default function Module({}) {
       <PageBlock>
         <Content>
           <Breadcrumb
-            links={[
-              { 'Devenir partenaire': '/devenir-partenaire' },
-              { 'Les iframes': '/integration' },
-              { "Rénovation d'ampleur": '/module' },
+            currentPageLabel="Rénovation d'ampleur"
+            homeLinkProps={{
+              href: '/',
+            }}
+            segments={[
+              {
+                label: 'Devenir partenaire',
+                linkProps: {
+                  href: '/devenir-partenaire',
+                },
+              },
+              {
+                label: 'Les iframes',
+                linkProps: {
+                  href: '/integration',
+                },
+              },
             ]}
           />
         </Content>

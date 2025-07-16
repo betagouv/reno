@@ -1,5 +1,5 @@
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
-import { InternalLink, Intro, PageBlock } from '@/components/UI'
+import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import plusValueImage from '@/public/illuPlusValue.png'
@@ -63,7 +63,8 @@ export default async function ModuleFacture({ searchParams }) {
                 }}
               >
                 <DPEFactureModule type="module" numDpe={numDpe} />
-                <InternalLink
+                <a
+                  className="fr-link"
                   href={`/module/plus-value/demonstration`}
                   style={css`
                     display: flex;
@@ -79,7 +80,7 @@ export default async function ModuleFacture({ searchParams }) {
                     width="24"
                   />
                   Intégrer ce widget à mon site
-                </InternalLink>
+                </a>
               </div>
             </Suspense>
           </Content>

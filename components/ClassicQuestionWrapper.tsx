@@ -53,6 +53,7 @@ export default function ClassicQuestionWrapper({
   noSuggestions,
   nextQuestions,
   noButtons = false,
+  customButtons,
 }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -140,7 +141,9 @@ export default function ClassicQuestionWrapper({
           )}
           {children}
         </fieldset>
-        {!noButtons && (
+        {noButtons ? (
+          customButtons
+        ) : (
           <FormButtons
             {...{
               currentValue,

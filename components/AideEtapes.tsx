@@ -10,8 +10,6 @@ import iconTravaux from '@/public/icon-travaux.svg'
 import iconCard from '@/public/icon-card.svg'
 import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
-import Breadcrumb from './Breadcrumb'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
@@ -19,6 +17,7 @@ import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
 import { push } from '@socialgouv/matomo-next'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 export default function AideEtapes({
   setSearchParams,
@@ -57,39 +56,32 @@ export default function AideEtapes({
         }
       `}
     >
-      <CustomQuestionWrapper>
+      <section>
         <Breadcrumb
-          links={[
+          currentPageLabel="Obtenir mes aides"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              Eligibilité: setSearchParams(
-                {
-                  ...encodeSituation(
-                    omit(['objectif'], situation),
-                    false,
-                    answeredQuestions,
-                  ),
-                },
-                'url',
-                true,
-              ),
-            },
-            {
-              'Obtenir mes aides': setSearchParams(
-                {
-                  ...encodeSituation(situation, false, answeredQuestions),
-                },
-                'url',
-                true,
-              ),
+              label: 'Eligibilité',
+              linkProps: {
+                href: setSearchParams(
+                  {
+                    ...encodeSituation(
+                      omit(['objectif'], situation),
+                      false,
+                      answeredQuestions,
+                    ),
+                  },
+                  'url',
+                  true,
+                ),
+              },
             },
           ]}
         />
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-          `}
-        >
+        <div className="fr-mb-5v">
           <BtnBackToParcoursChoice
             {...{
               setSearchParams,
@@ -325,7 +317,7 @@ export default function AideEtapes({
             </Card>
           )}
         </div>
-      </CustomQuestionWrapper>
+      </section>
       <Feedback />
     </Section>
   )

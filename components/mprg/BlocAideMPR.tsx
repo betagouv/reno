@@ -162,6 +162,7 @@ export const AvanceTMO = ({ engine, situation }) => {
 
   return (
     <Alert
+      className="fr-my-5v"
       description={
         <p>
           En tant que ménage au revenu <strong>{ménageClasse}</strong>

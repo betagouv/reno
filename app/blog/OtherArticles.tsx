@@ -1,4 +1,3 @@
-import { InternalLink } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { sortBy } from '@/components/utils'
 import { OtherArticlesList, OtherArticlesSection } from './UI'
@@ -18,7 +17,9 @@ export default async function OtherArticles({ excludeUrl }) {
             .map(({ url, titre, date }) => (
               <li key={url}>
                 <h3>
-                  <InternalLink href={url}>{titre}</InternalLink>
+                  <a href={url} className="fr-link">
+                    {titre}
+                  </a>
                 </h3>
                 <small
                   style={css`

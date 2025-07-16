@@ -1,10 +1,11 @@
-import { InternalLink, Main, MiseEnAvant, Section, Card } from '@/components/UI'
+import { Main, Section, Card } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Aide "Coup de Pouce" Chauffage',
@@ -22,11 +23,25 @@ export default function CoupDePouce() {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Coup de Pouce Chauffage': '/aides/coup-de-pouce' },
+          currentPageLabel="Coup de Pouce Chauffage"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
           ]}
         />
+        <Link
+          className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+          href="/aides"
+        >
+          Retour à la liste des aides
+        </Link>
         <div
           style={css`
             display: flex;
@@ -43,21 +58,9 @@ export default function CoupDePouce() {
             "Coup de Pouce" chauffage
           </h1>
         </div>
-        <MiseEnAvant>
-          <h2
-            style={css`
-              color: #0063cb;
-            `}
-          >
-            Informations
-          </h2>
-          <p
-            style={css`
-              margin: 1rem 0;
-            `}
-          >
-            Vous êtes éligible à cette aide si:
-          </p>
+        <div className="fr-callout fr-icon-info-line">
+          <h2>Informations</h2>
+          <p>Vous êtes éligible à cette aide si:</p>
           <ul>
             <li>
               vous êtes <strong>propriétaire ou locataire</strong> d'une{' '}
@@ -71,33 +74,39 @@ export default function CoupDePouce() {
               <strong>au charbon, au fioul ou au gaz</strong>
             </li>
           </ul>
-          <p
-            style={css`
-              margin: 1rem 0;
-            `}
-          >
+          <p>
             Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
             mais le montant de l'aide "Coup de Pouce" varie en fonction de vos
             revenus.
           </p>
           <p>
             Ce dispositif est cumulable avec{' '}
-            <InternalLink
+            <a
+              className="fr-link"
               href="/aides/ma-prime-renov"
               title="Liste des aides MaPrimeRénov'"
             >
-              <strong>MaPrimeRénov' rénovation par geste</strong>
-            </InternalLink>{' '}
-            et <strong>l’éco-prêt à taux zéro</strong>. En revanche, il n'est
-            pas cumulable avec{' '}
-            <InternalLink href="/aides/cee" title="Liste des aides CEE">
-              <strong>
-                les aides des fournisseurs d’énergie (certificats d’économies
-                d’énergie – CEE) "classiques"
-              </strong>
-            </InternalLink>
+              MaPrimeRénov' rénovation par geste
+            </a>{' '}
+            et{' '}
+            <a
+              className="fr-link"
+              href="/aides/pret-taux-0/eco-ptz"
+              title="L'éco-ptz"
+            >
+              l’éco-prêt à taux zéro
+            </a>
+            . En revanche, il n'est pas cumulable avec{' '}
+            <a
+              className="fr-link"
+              href="/aides/cee"
+              title="Liste des aides CEE"
+            >
+              les aides des fournisseurs d’énergie (certificats d’économies
+              d’énergie – CEE)
+            </a>
           </p>
-        </MiseEnAvant>
+        </div>
         <h2>Calculateurs des aides "Coup de pouce Chauffage"</h2>
         <div>
           <Card>
@@ -113,12 +122,13 @@ export default function CoupDePouce() {
                   `}
                   key={index}
                 >
-                  <InternalLink
+                  <a
+                    className="fr-link"
                     href={`/aides/coup-de-pouce/${encodeURIComponent(rules[rule].titre)}`}
                   >
                     Remplacement d'une chaudière par{' '}
                     <strong>{rules[rule].titre}</strong>
-                  </InternalLink>
+                  </a>
                 </li>
               ))}
             </ul>

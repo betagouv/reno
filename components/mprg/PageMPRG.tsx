@@ -1,13 +1,6 @@
 'use client'
 import { getSituation } from '@/components/publicodes/situationUtils'
-import {
-  CTA,
-  CTAWrapper,
-  ExternalLink,
-  Main,
-  MiseEnAvant,
-  Section,
-} from '@/components/UI'
+import { ExternalLink, Main, Section } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import simulationConfig from '../../app/simulation/simulationConfigMPR.yaml'
 import Publicodes, { formatValue } from 'publicodes'
@@ -16,12 +9,12 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { BlocAideMPR } from './BlocAideMPR'
 import OtherSimulateur from '../OtherSimulateur'
-import css from '@/components/css/convertToJs'
 import useSetSearchParams from '../useSetSearchParams'
 import IframeIntegrator from '../IframeIntegrator'
 import useIsInIframe from '@/components/useIsInIframe'
-import Breadcrumb from '../Breadcrumb'
 import { push } from '@socialgouv/matomo-next'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import CallOut from '@codegouvfr/react-dsfr/CallOut'
 
 export default function PageMPRG({ params }: { params: { titre: string } }) {
   const isInIframe = useIsInIframe()
@@ -74,45 +67,39 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
-            { [infoMPR.titre]: '' },
+          currentPageLabel={infoMPR.titre}
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: "MaPrimeRénov' rénovation par geste",
+              linkProps: {
+                href: '/aides/ma-prime-renov',
+              },
+            },
           ]}
         />
         {!isInIframe && (
-          <CTAWrapper $justify="end">
-            <CTA
-              $fontSize="normal"
-              $importance="secondary"
-              css={`
-                a {
-                  padding: 0.5rem 0.8rem;
-                }
-              `}
-            >
-              <Link href="/aides/ma-prime-renov">
-                <span aria-hidden="true">⬅</span> Retour à la liste des aides
-                MaPrimeRénov'
-              </Link>
-            </CTA>
-          </CTAWrapper>
-        )}
-        <h1
-          style={css`
-            margin: 0 0 1rem;
-          `}
-        >
-          {infoMPR.titre}
-        </h1>
-        <MiseEnAvant>
-          <h2
-            style={css`
-              color: #0063cb;
-            `}
+          <Link
+            className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+            href="/aides/ma-prime-renov"
           >
-            Informations sur les conditions d'obtention:
-          </h2>
+            Retour à la liste des aides MaPrimeRénov'
+          </Link>
+        )}
+        <h1>{infoMPR.titre}</h1>
+        <CallOut
+          colorVariant="blue-ecume"
+          iconId="fr-icon-information-line"
+          title="Informations sur les conditions d'obtention"
+        >
           <ul>
             <li>
               La prestation doit être inférieure à{' '}
@@ -141,7 +128,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               .{' '}
             </li>
           </ul>
-        </MiseEnAvant>
+        </CallOut>
         <BlocAideMPR
           {...{
             infoMPR,

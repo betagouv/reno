@@ -1,5 +1,5 @@
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
-import { ExternalLink, InternalLink, Intro, PageBlock } from '@/components/UI'
+import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import plusValueImage from '@/public/illuPlusValue.png'

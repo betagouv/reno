@@ -1,8 +1,8 @@
 import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
-import Breadcrumb from '@/components/Breadcrumb'
 import { Suspense } from 'react'
 import TaxeFonciere from './TaxeFonciere'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 export const metadata: Metadata = {
   title: "L'exonération de taxe foncière en " + new Date().getFullYear(),
@@ -18,12 +18,22 @@ export default function Aides() {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Les exonérations fiscales': '/aides/exoneration-fiscale' },
+          currentPageLabel="L'exonération de taxe foncière"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              "L'exonération de taxe foncière":
-                '/aides/exoneration-fiscale/taxe-fonciere',
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: 'Les exonérations fiscales',
+              linkProps: {
+                href: '/aides/exoneration-fiscale',
+              },
             },
           ]}
         />

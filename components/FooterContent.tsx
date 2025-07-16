@@ -192,33 +192,33 @@ export default async function FooterContent() {
           main: {
             alt: "Logo France Rénov'",
             href: 'https://france-renov.gouv.fr',
-            imgUrl: 'logo-france-renov-blanc.svg',
+            imgUrl: '/logo-france-renov-blanc.svg',
           },
           sub: [
             {
               alt: 'Logo ADEME',
               href: 'https://www.ademe.fr',
-              imgUrl: 'logo-partenaire/logo-ademe.svg',
+              imgUrl: '/logo-partenaire/logo-ademe.svg',
             },
             {
               alt: 'Logo Nos Gestes Climat',
               href: 'https://nosgestesclimat.fr',
-              imgUrl: 'logo-partenaire/logo-nos-gestes-climat.png',
+              imgUrl: '/logo-partenaire/logo-nos-gestes-climat.png',
             },
             {
               alt: 'Logo Jagis',
               href: 'https://jagis.beta.gouv.fr',
-              imgUrl: 'logo-partenaire/logo-jagis.svg',
+              imgUrl: '/logo-partenaire/logo-jagis.svg',
             },
             {
               alt: 'Logo Zéro Logement Vacant',
               href: 'https://zerologementvacant.beta.gouv.fr',
-              imgUrl: 'logo-partenaire/logo-zero-logement-vacant.svg',
+              imgUrl: '/logo-partenaire/logo-zero-logement-vacant.svg',
             },
             {
               alt: 'Logo France Chaleur Urbaine',
               href: 'https://france-chaleur-urbaine.beta.gouv.fr',
-              imgUrl: 'logo-partenaire/logo-fcu.jpg',
+              imgUrl: '/logo-partenaire/logo-fcu.jpg',
             },
           ],
         }}

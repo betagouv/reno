@@ -7,6 +7,8 @@ import { createExampleSituation } from './AmpleurSummary'
 import { useEffect, useRef, useState } from 'react'
 import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import { push } from '@socialgouv/matomo-next'
+import Accordion from '@codegouvfr/react-dsfr/Accordion'
+import { PrimeBadge } from '../Geste'
 
 export default function AideAmpleur({
   isEligible,
@@ -19,124 +21,71 @@ export default function AideAmpleur({
   expanded,
   addedText = null,
 }) {
-  const [isOpen, setIsOpen] = useState(false)
   const [isOpenConseiller, setIsOpenConseiller] = useState(false)
-  const contentRef = useRef(null)
-  useEffect(() => {
-    if (!expanded && contentRef.current) {
-      contentRef.current.style.maxHeight = isOpen
-        ? `${contentRef.current.scrollHeight}px`
-        : '0px'
-    }
-  }, [isOpen])
   return (
-    <>
-      <header
-        css={`
-          margin: 0 0 1rem 0;
-          font-size: 130%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          &:hover {
-            ${!expanded && 'cursor: pointer;'}
-          }
-        `}
-        onClick={() => !expanded && setIsOpen(!isOpen)}
-      >
-        <div>
-          {expanded ? (
-            <h1
-              css={`
-                margin: 0 0 0.5rem 0;
-              `}
-            >
-              {aideTitle(dottedName)}
-            </h1>
-          ) : (
-            <h3
-              css={`
-                margin: 0 0 0.5rem 0;
-                color: var(--color);
-              `}
-            >
-              {aideTitle(dottedName)}
-            </h3>
-          )}
-          <PrimeWithLabel
+    <Accordion
+      label={
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+          `}
+        >
+          {aideTitle(dottedName)}
+          <PrimeBadge
             {...{
-              engine,
               situation,
-              dottedName: dottedName + ' . montant',
+              engine,
+              dottedName,
             }}
           />
         </div>
-        {!expanded && (
-          <div
+      }
+      onExpandedChange={() => {
+        push([
+          'trackEvent',
+          'Simulateur Principal',
+          'Page',
+          'Déplie geste ' + dottedName,
+        ])
+      }}
+    >
+      {expanded && (
+        <h2
+          css={`
+            font-size: 130%;
+            margin: 0 0 1rem 0 !important;
+          `}
+        >
+          <span
+            aria-hidden="true"
             css={`
-              &::after {
-                content: '';
-                display: inline-block;
-                width: 10px;
-                height: 10px;
-                border-bottom: 2px solid var(--color);
-                border-right: 2px solid var(--color);
-                transform: rotate(${isOpen ? '225deg' : '45deg'});
-                transition: transform 0.3s ease-in-out;
-              }
-            `}
-          />
-        )}
-      </header>
-      <div
-        ref={contentRef}
-        css={`
-          ${!expanded && 'max-height: 0;'}
-          opacity: ${isOpen || expanded ? '1' : '0'};
-          ${isOpen && 'margin-bottom: 1rem;'};
-          overflow: hidden;
-          transition:
-            max-height 0.4s ease-out,
-            opacity 0.3s ease-out;
-        `}
-      >
-        {expanded && (
-          <h2
-            css={`
-              font-size: 130%;
-              margin: 0 0 1rem 0 !important;
+              display: inline-block;
+              margin-right: 0.5rem;
             `}
           >
-            <span
-              aria-hidden="true"
-              css={`
-                display: inline-block;
-                margin-right: 0.5rem;
-              `}
-            >
-              🤓
-            </span>
-            De quoi s’agit-il ?
-          </h2>
-        )}
-        <div
-          dangerouslySetInnerHTML={{
-            __html: rules[dottedName].descriptionHtml,
+            🤓
+          </span>
+          De quoi s’agit-il ?
+        </h2>
+      )}
+      <div
+        dangerouslySetInnerHTML={{
+          __html: rules[dottedName].descriptionHtml,
+        }}
+      />
+      {addedText}
+      {!expanded && isEligible && (
+        <AideCTAs
+          {...{
+            dottedName,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            expanded,
           }}
         />
-        {addedText}
-        {!expanded && isEligible && (
-          <AideCTAs
-            {...{
-              dottedName,
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              expanded,
-            }}
-          />
-        )}
-      </div>
+      )}
       {expanded && (
         <>
           {children}
@@ -207,7 +156,7 @@ export default function AideAmpleur({
           />
         </>
       )}
-    </>
+    </Accordion>
   )
 }
 

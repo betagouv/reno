@@ -1,18 +1,12 @@
-import {
-  InternalLink,
-  Main,
-  MiseEnAvant,
-  Section,
-  Badge,
-  Card,
-} from '@/components/UI'
+import { Main, Section, Badge, Card } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
 import ceeImage from '@/public/cee.svg'
 import { categories, getRulesByCategory } from '@/components/utils'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: "Certificats d'économie d'énergie (CEE)",
@@ -25,11 +19,25 @@ export default function CEE() {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { "Certificats d'économie d'énergie (CEE)": '/aides/cee' },
+          currentPageLabel="Certificats d'économie d'énergie (CEE)"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
           ]}
         />
+        <Link
+          className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+          href="/aides"
+        >
+          Retour à la liste des aides
+        </Link>
         <div
           style={css`
             display: flex;
@@ -45,14 +53,9 @@ export default function CEE() {
             Les Certificats d'économie d'énergie (CEE)
           </h1>
         </div>
-        <MiseEnAvant>
-          <h3
-            style={css`
-              color: #0063cb;
-            `}
-          >
-            Informations
-          </h3>
+
+        <div className="fr-callout fr-icon-info-line">
+          <h2>Informations sur les conditions d'obtention</h2>
           <p>
             Vous êtes éligible aux aides des fournisseurs d’énergie (certificats
             d’économies d’énergie – CEE) si :
@@ -69,24 +72,14 @@ export default function CEE() {
               <strong>résidence principale ou secondaire</strong>.
             </li>
           </ul>
-          <p
-            style={css`
-              margin: 1rem 0;
-            `}
-          >
+          <p>
             Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
             mais le montant des aides des fournisseurs d’énergie (certificats
             d’économies d’énergie – CEE) peut varier en fonction de vos revenus.
           </p>
-        </MiseEnAvant>
-
-        <h2
-          style={css`
-            font-size: 130%;
-          `}
-        >
-          Calculateurs d'aide CEE concernant la rénovation énergétique des
-          logements
+        </div>
+        <h2>
+          Calculateurs d'aide CEE pour la rénovation énergétique des logements
         </h2>
         <div>
           {Object.keys(rulesByCategory).map((category, i) => (
@@ -123,11 +116,12 @@ export default function CEE() {
                         `}
                         key={index}
                       >
-                        <InternalLink
+                        <a
+                          className="fr-link"
                           href={`/aides/cee/${rules[rule].code}/${encodeURIComponent(rules[rule].titre)}`}
                         >
                           {rules[rule].titre}
-                        </InternalLink>{' '}
+                        </a>{' '}
                         <Badge>
                           <small>{rules[rule].code}</small>
                         </Badge>

@@ -111,29 +111,20 @@ export default function AidesAmpleur({
                     </p>
                   </>
                 )}
-                <div
-                  id={'aide-' + encodeDottedName(aide.baseDottedName)}
-                  css={`
-                    border-bottom: 1px solid var(--lighterColor2);
-                    margin-bottom: 1rem;
-                    padding-left: 1.5rem;
-                  `}
-                >
-                  <AideComponent
-                    key={aide.baseDottedName}
-                    {...{
-                      isEligible,
-                      dottedName: aide.baseDottedName,
-                      setSearchParams,
-                      answeredQuestions,
-                      engine,
-                      situation,
-                      searchParams,
-                      rules,
-                      expanded: false,
-                    }}
-                  />
-                </div>
+                <AideComponent
+                  key={aide.baseDottedName}
+                  {...{
+                    isEligible,
+                    dottedName: aide.baseDottedName,
+                    setSearchParams,
+                    answeredQuestions,
+                    engine,
+                    situation,
+                    searchParams,
+                    rules,
+                    expanded: false,
+                  }}
+                />
               </div>
             )
           })}
@@ -158,7 +149,7 @@ export default function AidesAmpleur({
         }
       `}
     >
-      <CustomQuestionWrapper>
+      <section>
         {renderAides(
           eligibles,
           '<span aria-hidden="true">🏦</span> Autres aides complémentaires',
@@ -175,7 +166,7 @@ export default function AidesAmpleur({
               ? false
               : true,
         )}
-      </CustomQuestionWrapper>
+      </section>
     </Section>
   )
 }

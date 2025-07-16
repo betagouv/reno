@@ -1,5 +1,4 @@
 'use client'
-import { CTA } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -7,6 +6,7 @@ import styled from 'styled-components'
 import iconSmileyNo from '@/public/smiley-no.svg'
 import iconSmileyMaybe from '@/public/smiley-maybe.svg'
 import iconSmileyYes from '@/public/smiley-yes.svg'
+import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
 
 export default function Feedback({
   title = 'Ce simulateur a-t-il été utile ?',
@@ -36,21 +36,35 @@ export default function Feedback({
   }
 
   return (
-    <ContactForm
-      css={`
-        background: #fdf8db;
-        align-items: center;
-        padding: 1rem;
-        text-align: center;
-      `}
+    <CallOut
+      buttonProps={{
+        children: 'Je donne mon avis',
+        priority: 'secondary',
+        onClick: (e) => {
+          if (!isOpen) {
+            setIsOpen(true)
+            push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
+            return
+          }
+          push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
+          e.preventDefault()
+          if (!comment) {
+            return
+          }
+          createIssue(
+            comment + '\n> ' + 'Depuis la page: ' + window.location.href,
+            vote,
+          )
+        },
+      }}
+      colorVariant="yellow-tournesol"
+      title={
+        <>
+          <span aria-hidden="true">👋</span>
+          {title}
+        </>
+      }
     >
-      <div
-        css={`
-          font-weight: bold;
-        `}
-      >
-        <span aria-hidden="true">👋</span> {title}
-      </div>
       <VoteBox>
         <div
           className={vote == 'insatisfait' ? 'unhappy-active' : 'unhappy'}
@@ -124,43 +138,10 @@ export default function Feedback({
                 />
               </>
             )}
-            <CTA
-              $fontSize="normal"
-              $importance="emptyBackground"
-              css={`
-                width: fit-content;
-                margin: auto;
-              `}
-              onClick={(e) => {
-                if (!isOpen) {
-                  setIsOpen(true)
-                  push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
-                  return
-                }
-                push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
-                e.preventDefault()
-                if (!comment) {
-                  return
-                }
-                createIssue(
-                  comment + '\n> ' + 'Depuis la page: ' + window.location.href,
-                  vote,
-                )
-              }}
-              title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
-            >
-              <span
-                css={`
-                  font-weight: bold;
-                `}
-              >
-                Je donne mon avis
-              </span>
-            </CTA>
           </form>
         )}
       </div>
-    </ContactForm>
+    </CallOut>
   )
 }
 
@@ -182,6 +163,7 @@ export const VoteBox = styled.div`
   padding: 1rem 0;
   margin: 1rem 0;
   > div {
+    text-align: center;
     margin: 0 1.5rem;
   }
   .unhappy-active,

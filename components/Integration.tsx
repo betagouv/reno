@@ -16,11 +16,11 @@ import IntegrationQuestions from './IntegrationQuestions'
 import useResizeIframeFromHost from './useResizeIframeFromHost'
 import Demonstration from '@/app/module/Demonstration'
 import calculetteImage from '@/public/illuModule.png'
-import Breadcrumb from '@/components/Breadcrumb'
 import { CardMosaic } from './DevenirPartenaire'
 import ampleurImage from '@/public/illuAmpleur.png'
 import plusValueImage from '@/public/illuPlusValue.png'
 import factureImage from '@/public/illuFacture.png'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 export default function Integration() {
   const router = useRouter()
@@ -129,9 +129,17 @@ export default function Integration() {
       <PageBlock>
         <Content>
           <Breadcrumb
-            links={[
-              { 'Devenir partenaire': '/devenir-partenaire' },
-              { 'Les iframes': '/integration' },
+            currentPageLabel="Les iframes"
+            homeLinkProps={{
+              href: '/',
+            }}
+            segments={[
+              {
+                label: 'Devenir partenaire',
+                linkProps: {
+                  href: '/devenir-partenaire',
+                },
+              },
             ]}
           />
         </Content>

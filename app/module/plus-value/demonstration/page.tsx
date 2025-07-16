@@ -7,7 +7,7 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import plusValueImage from '@/public/illuPlusValue.png'
 import Demonstration from '../../Demonstration'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",
@@ -25,10 +25,23 @@ export default function Module({}) {
       <PageBlock>
         <Content>
           <Breadcrumb
-            links={[
-              { 'Devenir partenaire': '/devenir-partenaire' },
-              { 'Les iframes': '/integration' },
-              { 'Ma plus-value Réno': '/module/plus-value/demonstration' },
+            currentPageLabel="Ma plus-value Réno"
+            homeLinkProps={{
+              href: '/',
+            }}
+            segments={[
+              {
+                label: 'Devenir partenaire',
+                linkProps: {
+                  href: '/devenir-partenaire',
+                },
+              },
+              {
+                label: 'Les iframes',
+                linkProps: {
+                  href: '/integration',
+                },
+              },
             ]}
           />
         </Content>

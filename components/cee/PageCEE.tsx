@@ -24,8 +24,11 @@ import css from '@/components/css/convertToJs'
 import { Card } from '@/components/UI'
 import useIsInIframe from '@/components/useIsInIframe'
 import IframeIntegrator from '../IframeIntegrator'
-import Breadcrumb from '../Breadcrumb'
 import { push } from '@socialgouv/matomo-next'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import CallOut from '@codegouvfr/react-dsfr/CallOut'
+import Accordion from '@codegouvfr/react-dsfr/Accordion'
+import React from 'react'
 
 export default function PageCEE({ params }: { params: { code: string } }) {
   const isInIframe = useIsInIframe()
@@ -80,53 +83,42 @@ export default function PageCEE({ params }: { params: { code: string } }) {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { "Certificats d'économie d'énergie (CEE)": '/aides/cee' },
-            { [infoCEE.titre]: '' },
+          currentPageLabel={infoCEE.titre}
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: "Certificats d'économie d'énergie (CEE)",
+              linkProps: {
+                href: '/aides/cee',
+              },
+            },
           ]}
         />
         {!isInIframe && (
-          <CTAWrapper $justify="end">
-            <CTA
-              $fontSize="normal"
-              $importance="secondary"
-              css={`
-                a {
-                  padding: 0.5rem 0.8rem;
-                }
-              `}
-            >
-              <Link href="/aides/cee">
-                <span aria-hidden="true">⬅</span> Retour à la liste des aides
-                CEE
-              </Link>
-            </CTA>
-          </CTAWrapper>
+          <Link
+            className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+            href="/aides/cee"
+          >
+            Retour à la liste des aides CEE
+          </Link>
         )}
-        <h1
-          style={css`
-            margin: 0 0 1rem;
-          `}
-        >
+        <h1>
           {infoCEE.titre} <Badge>{infoCEE.code}</Badge>
         </h1>
-        <MiseEnAvant>
-          <h2
-            style={css`
-              color: #0063cb;
-            `}
-          >
-            Informations
-          </h2>
-          <p
-            style={css`
-              margin: 1rem 0;
-            `}
-          >
-            Il n'y a <strong>pas de plafond de ressources à respecter</strong>.
+        <div className="fr-callout fr-icon-info-line">
+          <h3>Informations sur les conditions d'obtention</h3>
+          <p>
+            Vous êtes éligible aux aides des fournisseurs d’énergie (certificats
+            d’économies d’énergie – CEE) si :
           </p>
-          Vous êtes éligible à cette aide si:
           <ul>
             <li>
               vous êtes <strong>propriétaire ou locataire</strong> de votre
@@ -135,13 +127,18 @@ export default function PageCEE({ params }: { params: { code: string } }) {
             <li>
               le logement a été <strong>construit depuis plus de 2 ans.</strong>
             </li>
+            <li>
+              il s'agit de votre{' '}
+              <strong>résidence principale ou secondaire</strong>.
+            </li>
           </ul>
-        </MiseEnAvant>
-        <h2
-          style={css`
-            font-size: 130%;
-          `}
-        >
+          <p>
+            Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
+            mais le montant des aides des fournisseurs d’énergie (certificats
+            d’économies d’énergie – CEE) peut varier en fonction de vos revenus.
+          </p>
+        </div>
+        <h2>
           Calculer le montant de votre prime en répondant aux questions
           ci-dessous:
         </h2>
@@ -156,19 +153,14 @@ export default function PageCEE({ params }: { params: { code: string } }) {
             displayPrime: 'bottom',
           }}
         />
-        <details>
-          <summary
-            style={css`
-              font-size: 1.25rem;
-              font-weight: bold;
-            `}
-          >
-            Détails techniques
-          </summary>
-          <Card
-            dangerouslySetInnerHTML={{ __html: parse(infoCEE.technique) }}
-          ></Card>
-        </details>
+        <Accordion
+          className="fr-mb-5v"
+          label="Détails techniques"
+          onExpandedChange={() => {}}
+        >
+          testertest test
+          <div dangerouslySetInnerHTML={{ __html: parse(infoCEE.technique) }} />
+        </Accordion>
         <OtherSimulateur {...{ mprAssocie }} />
         <IframeIntegrator
           iframeUrl={`/aides/cee/${infoCEE.code}/${encodeURIComponent(infoCEE.titre)}`}

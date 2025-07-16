@@ -41,39 +41,6 @@ header {
 main {
   padding: 0 0 1em 0;
 }
-h1 {
-  font-size: 220%;
-}
-h2 {
-  font-size: 180%;
-}
-h3 {
-  font-size: 130%;
-}
-h4 {
-  font-size: 120%;
-}
-h1,
-h2,
-h3,
-h4 {
-  margin: 1.5rem 0 0.5rem;
-}
-
-@media (max-width: 800px) {
-  h1 {
-    font-size: 150%;
-  }
-  h2 {
-    font-size: 130%;
-  }
-  h3 {
-    font-size: 115%;
-  }
-  h4 {
-    font-size: 105%;
-  }
-}
 
 p {
   margin: 0 0 0.4rem;

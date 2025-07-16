@@ -10,13 +10,14 @@ import {
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
 import Publicodes from 'publicodes'
-import { CTA, InternalLink, ExternalLink, MiseEnAvant } from '@/components/UI'
+import { ExternalLink, MiseEnAvant } from '@/components/UI'
 import { omit } from '@/components/utils'
 import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
 import { Select } from '@/components/InputUI'
 import { No, Yes } from '@/components/ResultUI'
 import { Loader } from '@/components/UI'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function Endpoint({ type }) {
   const [method, setMethod] = useState('POST')
@@ -168,14 +169,18 @@ export default function Endpoint({ type }) {
         )}
       </div>
       {method === 'GET' && (
-        <MiseEnAvant>
+        <div className="fr-callout">
           Il faut sérialiser les paramètres passés via l'url en utilisant la
           fonction{' '}
-          <ExternalLink href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55">
+          <a
+            rel="noopener external"
+            className="fr-link"
+            href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55"
+          >
             encodeSituation
-          </ExternalLink>
+          </a>
           .
-        </MiseEnAvant>
+        </div>
       )}
       {['MPR', 'CEE', 'geste'].includes(type) && (
         <div
@@ -225,7 +230,7 @@ export default function Endpoint({ type }) {
             onChange={(e) => setYaml(e.target.value)}
           />
         </div>
-        <CTA
+        <Button
           onClick={(e) => handleSubmit(e, method)}
           css={`
             padding: 0.8rem 1.2rem;
@@ -234,17 +239,18 @@ export default function Endpoint({ type }) {
           `}
         >
           Exécuter
-        </CTA>
+        </Button>
       </div>
-      <InternalLink
+      <a
         href="#parametres"
+        className="fr-link"
         css={`
           display: inline-block;
           margin-bottom: 1rem;
         `}
       >
         Voir la liste des paramètres
-      </InternalLink>
+      </a>
       {type == 'eligibilite' && result && (
         <MiseEnAvant $type="warning">
           <h4
@@ -298,7 +304,7 @@ export default function Endpoint({ type }) {
     </>
   )
 }
-export const DocumentationLink = styled(InternalLink)`
+export const DocumentationLink = styled.a`
   display: inline-flex;
   align-items: center;
   img {

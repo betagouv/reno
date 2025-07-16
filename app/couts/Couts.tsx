@@ -116,7 +116,7 @@ export default function Couts({ searchParams }) {
         {statistics
           .sort((a, b) => -a.num + b.num)
           .map((geste) => (
-            <Geste {...geste} key={geste[keyGeste]} />
+            // <Geste {...geste} key={geste[keyGeste]} />
           ))}
       </ol>
     </div>

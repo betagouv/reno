@@ -1,4 +1,4 @@
-import { Main, Section, Card, InternalLink } from '@/components/UI'
+import { Main, Section, Card } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import Link from '@/node_modules/next/link'
 import informationIcon from '@/public/information.svg'
@@ -102,9 +102,9 @@ export default function NPMDoc() {
             Publicodes offre nativement une documentation Web qui vous permet
             d'explorer les calculs de façon granulaire. Pour la découvrir,
             suivez les liens "Inspection" de la{' '}
-            <InternalLink href="/personas#tests">
+            <a className="fr-link" href="/personas#tests">
               section "Tests" de la page personas
-            </InternalLink>
+            </a>
             .
           </p>
           <h3>Le code</h3>
@@ -112,11 +112,18 @@ export default function NPMDoc() {
             Tout le code du calculateur (site en NextJS), l'API (Route handler
             NextJS) ainsi que les règles de calcul complètes sont disponibles
             sur{' '}
-            <InternalLink href="https://github.com/betagouv/reno">
+            <a
+              className="fr-link"
+              rel="noopener external"
+              href="https://github.com/betagouv/reno"
+            >
               Github
-            </InternalLink>
+            </a>
             . Les règles sont aussi accessibles en JSON à{' '}
-            <InternalLink href="/api/rules">cette adresse</InternalLink>.
+            <a className="fr-link" href="/api/rules">
+              cette adresse
+            </a>
+            .
           </p>
           <h3>Privilégiez l'intégration directe du modèle si vous le pouvez</h3>
           <p>
@@ -131,7 +138,8 @@ export default function NPMDoc() {
           </p>
           <p>
             Pour ce faire, nous vous proposons un paquet NPM. NPM est le
-            standard de facto de la publication de module de code Javascript.{' '}
+            standard de facto de la publication de module de code
+            Javascript.{' '}
           </p>
           <NPM />
           <h3>Démonstration d'intégration</h3>

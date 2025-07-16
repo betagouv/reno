@@ -1,10 +1,10 @@
 'use client'
 import aides from '@/app/règles/aides-locales.publicodes'
-import { ExternalLink, InternalLink, Section } from '@/components/UI'
+import { ExternalLink, Section } from '@/components/UI'
 import Image from 'next/image'
 import { description } from './description'
 import PlaceSummary from './PlaceSummary'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 const aidesEntries = Object.entries(aides)
 
@@ -25,9 +25,17 @@ export default function () {
     <div>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Les aides locales à la rénovation en France': '/locales' },
+          currentPageLabel="Les aides locales à la rénovation en France"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
           ]}
         />
         <h1>Les aides locales à la rénovation en France</h1>
@@ -65,8 +73,10 @@ export default function () {
               pas encore validée par les collectivités.
             </em>{' '}
             Vous disposez d'informations sourcées sur une aide locale ?{' '}
-            <InternalLink href="/faq">Contactez-nous</InternalLink> ! En
-            attendant, la{' '}
+            <a className="fr-link" href="/faq">
+              Contactez-nous
+            </a>{' '}
+            ! En attendant, la{' '}
             <ExternalLink href="https://www.anil.org/aides-locales-travaux">
               base de l'ANIL
             </ExternalLink>{' '}

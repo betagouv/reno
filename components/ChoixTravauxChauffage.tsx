@@ -85,9 +85,8 @@ export default function ChoixTravauxChauffage({
                     <span className="fr-hint-text">
                       {rules[dottedName].description}
                     </span>
-                    <Geste
+                    <PrimeBadge
                       {...{
-                        rules,
                         dottedName,
                         engine,
                         situation,

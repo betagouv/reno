@@ -1,11 +1,13 @@
-import { Card, InternalLink, Main, MiseEnAvant, Section } from '@/components/UI'
+import { Card, Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import mprImage from '@/public/maprimerenov.svg'
 import { categories, getRulesByCategory } from '@/components/utils'
 import Image from 'next/image'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import CallOut from '@codegouvfr/react-dsfr/CallOut'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: "MaPrimeRénov'",
@@ -18,11 +20,25 @@ export default function MaPrimeRenov() {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
+          currentPageLabel="MaPrimeRénov' rénovation par geste"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
           ]}
         />
+        <Link
+          className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+          href="/aides"
+        >
+          Retour à la liste des aides
+        </Link>
         <div
           style={css`
             display: flex;
@@ -30,22 +46,20 @@ export default function MaPrimeRenov() {
           `}
         >
           <Image src={mprImage} alt="Logo MaPrimeRénov'" width="100" />
-          <h2
+          <h1
             style={css`
               margin-left: 1rem;
             `}
           >
             MaPrimeRénov' rénovation par geste
-          </h2>
+          </h1>
         </div>
-        <MiseEnAvant>
-          <h3
-            style={css`
-              color: #0063cb;
-            `}
-          >
-            Informations
-          </h3>
+
+        <CallOut
+          colorVariant="blue-ecume"
+          iconId="fr-icon-information-line"
+          title="Informations"
+        >
           <p>
             Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si :
           </p>
@@ -74,9 +88,9 @@ export default function MaPrimeRenov() {
             <strong>MaPrimeRénov' parcours accompagné</strong> pour une
             rénovation d'ampleur.
           </p>
-        </MiseEnAvant>
+        </CallOut>
 
-        <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
+        <h2>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h2>
         {Object.keys(rulesByCategory).map((category) => (
           <Card key={category}>
             <div
@@ -111,11 +125,12 @@ export default function MaPrimeRenov() {
                       `}
                       key={index}
                     >
-                      <InternalLink
+                      <a
+                        className="fr-link"
                         href={`/aides/ma-prime-renov/${encodeURIComponent(rules[rule].titre)}`}
                       >
                         {rules[rule].titre}
-                      </InternalLink>
+                      </a>
                     </li>
                   ))}
                 </ul>

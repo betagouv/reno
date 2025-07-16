@@ -4,16 +4,11 @@ import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
 import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
-import { Badge, Card, CTA, CTAWrapper, Section } from './UI'
+import { Badge, Card, Section } from './UI'
 import { useAides } from './ampleur/useAides'
-import {
-  decodeDottedName,
-  encodeDottedName,
-  encodeSituation,
-} from './publicodes/situationUtils'
+import { decodeDottedName, encodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
-import iconFlecheDroiteBlanc from '@/public/fleche-droite-blanc.svg'
 import { useEffect, useState } from 'react'
 import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
@@ -29,6 +24,7 @@ import { categories, getRulesByCategory } from './utils'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function Eligibility({
   setSearchParams,
@@ -58,10 +54,6 @@ export default function Eligibility({
         ${showPersonaBar && `margin-top: 4rem`}
         h2 {
           color: var(--color);
-          font-size: 120%;
-        }
-        h3 {
-          font-weight: normal;
         }
       `}
     >
@@ -70,7 +62,7 @@ export default function Eligibility({
         selectedPersona={searchParams.persona}
         engine={engine}
       />
-      <CustomQuestionWrapper>
+      <section>
         <Breadcrumb
           currentPageLabel="Eligibilité"
           homeLinkProps={{
@@ -79,13 +71,11 @@ export default function Eligibility({
           segments={[]}
         />
         <div
+          className="fr-mb-5v"
           css={`
             display: flex;
             justify-content: space-between;
             align-items: center;
-            > div {
-              margin: 0;
-            }
           `}
         >
           <BackToLastQuestion
@@ -108,9 +98,7 @@ export default function Eligibility({
           </Link>
           {/* <CopyButton searchParams={searchParams} /> */}
         </div>
-        <header>
-          <h1>Vos résultats</h1>
-        </header>
+        <h1>Vos résultats</h1>
         {situation["parcours d'aide"] == '"rénovation énergétique"' && (
           <EligibilityRenovationEnergetique
             {...{
@@ -138,45 +126,29 @@ export default function Eligibility({
             }}
           />
         )}
-        <CTAWrapper
-          $customCss="
-            display: block; 
-            > div { 
-              width: 100%; 
-              a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              } 
-            }
-          "
-        >
-          <CTA $fontSize="normal" $importance="primary">
-            <Link
-              href={setSearchParams({ objectif: 'etape' }, 'url')}
-              onClick={() => {
-                push([
-                  'trackEvent',
-                  'Simulateur Principal',
-                  'Eligibilité',
-                  'Obtenir aides',
-                ])
-              }}
-              title="Obtenir mes aides"
-            >
-              Obtenir mes aides
-              <Image
-                css={`
-                  margin-left: 0.5rem;
-                `}
-                src={iconFlecheDroiteBlanc}
-                alt="icone fleche droite"
-              />
-            </Link>
-          </CTA>
-        </CTAWrapper>
+        <div className="fr-my-5v">
+          <Link
+            className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+            css={`
+              width: 100%;
+              justify-content: center;
+            `}
+            href={setSearchParams({ objectif: 'etape' }, 'url')}
+            onClick={() => {
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                'Eligibilité',
+                'Obtenir aides',
+              ])
+            }}
+            title="Obtenir mes aides"
+          >
+            Obtenir mes aides
+          </Link>
+        </div>
         {isInIframe ? null : <Feedback />}
-      </CustomQuestionWrapper>
+      </section>
     </Section>
   )
 }
@@ -191,13 +163,6 @@ export function EligibilityRenovationEnergetique({
   searchParams,
   expanded,
 }) {
-  const [showAllByCategory, setShowAllByCategory] = useState({})
-  const handleShowAll = (category) => {
-    setShowAllByCategory((prev) => ({
-      ...prev,
-      [category]: !prev[category],
-    }))
-  }
   // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
   const MPRASuspendue = true
   const travauxEnvisages = getTravauxEnvisages(situation)
@@ -205,7 +170,6 @@ export function EligibilityRenovationEnergetique({
   const hasAides = aides.filter((aide) => aide.status === true).length > 0
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée').status === true
-  const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return (
     <>
       <p>
@@ -237,106 +201,30 @@ export function EligibilityRenovationEnergetique({
         <span aria-hidden="true">💶</span> Aides pour vos travaux
       </h2>
       <AvanceTMO {...{ engine, situation }} />
-      {travauxConnus
-        ? categories
-            .filter(
-              (category) =>
-                isCategorieChecked(category['code'], situation) ||
-                category['code'] == 'autres',
-            )
-            .map((category) => (
-              <div key={category['code']}>
-                <h3>{category['titre']}</h3>
-                {category['code'] == 'isolation' && (
-                  <p>{category['sousTitre']}</p>
-                )}
-                {travauxEnvisages
-                  .filter(
-                    (travaux) =>
-                      (Object.keys(category.gestes).includes(
-                        decodeDottedName(travaux),
-                      ) ||
-                        (category['code'] == 'isolation' && // Cas particulier pour l'ITE/ITI regrouper sous un même geste
-                          travaux.includes(category['code'])) ||
-                        (category['code'] == 'chauffage' && // Condition pour éviter que certains gestes "solaire" soit classé en "chauffage"
-                          !travaux.includes('solaire') &&
-                          travaux.includes(category['code']))) &&
-                      rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
-                  )
-                  .map((travaux) => (
-                    <div key={travaux}>
-                      <AideGeste
-                        {...{
-                          engine,
-                          dottedName: decodeDottedName(travaux),
-                          setSearchParams,
-                          answeredQuestions,
-                          situation,
-                        }}
-                      />
-                    </div>
-                  ))}
-                {category['code'] == 'autres' && (
-                  <div>
-                    <AideGeste
-                      {...{
-                        engine,
-                        dottedName: 'gestes . recommandés . audit',
-                        setSearchParams,
-                        answeredQuestions,
-                        situation,
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-            ))
-        : Object.keys(rulesByCategory).map((category) => (
-            <div key={category}>
-              <h3>{category}</h3>
-              <div>
-                {rulesByCategory[category].map((dottedName, index) => {
-                  const shouldShow = showAllByCategory[category] || index < 2
-                  return (
-                    <div key={dottedName}>
-                      {shouldShow && (
-                        <AideGeste
-                          {...{
-                            engine,
-                            dottedName,
-                            setSearchParams,
-                            answeredQuestions,
-                            situation,
-                          }}
-                        />
-                      )}
-                    </div>
-                  )
-                })}
-                {rulesByCategory[category].length > 2 && (
-                  <CTAWrapper $justify="center">
-                    <CTA
-                      $fontSize="normal"
-                      $importance="emptyBackground"
-                      title="Afficher les aides"
-                      onClick={() => handleShowAll(category)}
-                    >
-                      <span
-                        css={`
-                          display: flex !important;
-                          align-items: center !important;
-                        `}
-                      >
-                        {showAllByCategory[category] ? 'Cacher' : 'Afficher'}{' '}
-                        toutes les aides{' '}
-                        {categories.find((c) => c.titre == category).suffix}
-                      </span>
-                    </CTA>
-                  </CTAWrapper>
-                )}
-              </div>
-            </div>
-          ))}
+      {travauxConnus ? (
+        <TravauxConnus
+          {...{
+            categories,
+            situation,
+            travauxEnvisages,
+            rules,
+            answeredQuestions,
+            engine,
+            setSearchParams,
+          }}
+        />
+      ) : (
+        <TravauxInconnus
+          {...{
+            categories,
+            situation,
+            rules,
+            answeredQuestions,
+            engine,
+            setSearchParams,
+          }}
+        />
+      )}
       {hasMPRA && (
         <Card
           css={`
@@ -503,6 +391,124 @@ export function EligibilityRenovationEnergetique({
       )}
     </>
   )
+}
+
+export function TravauxConnus({
+  categories,
+  situation,
+  travauxEnvisages,
+  rules,
+  answeredQuestions,
+  engine,
+  setSearchParams,
+}) {
+  return categories
+    .filter(
+      (c) => isCategorieChecked(c['code'], situation) || c['code'] == 'autres',
+    )
+    .map((category) => (
+      <div key={category['code']}>
+        <h3>{category['titre']}</h3>
+        {category['code'] == 'isolation' && <p>{category['sousTitre']}</p>}
+        {travauxEnvisages
+          .filter(
+            (travaux) =>
+              (Object.keys(category.gestes).includes(
+                decodeDottedName(travaux),
+              ) ||
+                (category['code'] == 'isolation' && // Cas particulier pour l'ITE/ITI regrouper sous un même geste
+                  travaux.includes(category['code'])) ||
+                (category['code'] == 'chauffage' && // Condition pour éviter que certains gestes "solaire" soit classé en "chauffage"
+                  !travaux.includes('solaire') &&
+                  travaux.includes(category['code']))) &&
+              rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
+          )
+          .map((travaux) => (
+            <div key={travaux}>
+              <AideGeste
+                {...{
+                  engine,
+                  dottedName: decodeDottedName(travaux),
+                  setSearchParams,
+                  answeredQuestions,
+                  situation,
+                }}
+              />
+            </div>
+          ))}
+        {category['code'] == 'autres' && (
+          <div>
+            <AideGeste
+              {...{
+                engine,
+                dottedName: 'gestes . recommandés . audit',
+                setSearchParams,
+                answeredQuestions,
+                situation,
+              }}
+            />
+          </div>
+        )}
+      </div>
+    ))
+}
+
+export function TravauxInconnus({
+  categories,
+  situation,
+  rules,
+  answeredQuestions,
+  engine,
+  setSearchParams,
+}) {
+  const [showAllByCategory, setShowAllByCategory] = useState({})
+  const handleShowAll = (category) => {
+    setShowAllByCategory((prev) => ({
+      ...prev,
+      [category]: !prev[category],
+    }))
+  }
+  const rulesByCategory = getRulesByCategory(rules, 'MPR')
+  return Object.keys(rulesByCategory).map((category) => (
+    <div key={category}>
+      <h4 className="fr-mt-5v">{category}</h4>
+      {rulesByCategory[category].map((dottedName, index) => {
+        const shouldShow = showAllByCategory[category] || index < 2
+        return (
+          shouldShow && (
+            <div key={dottedName}>
+              <AideGeste
+                {...{
+                  engine,
+                  dottedName,
+                  setSearchParams,
+                  answeredQuestions,
+                  situation,
+                }}
+              />
+            </div>
+          )
+        )
+      })}
+      {rulesByCategory[category].length > 2 && (
+        <div
+          className="fr-m-3v"
+          css={`
+            text-align: center;
+          `}
+        >
+          <Button
+            priority="secondary"
+            title="Afficher les aides"
+            onClick={() => handleShowAll(category)}
+          >
+            {showAllByCategory[category] ? 'Cacher' : 'Afficher'} toutes les
+            aides {categories.find((c) => c.titre == category).suffix}
+          </Button>
+        </div>
+      )}
+    </div>
+  ))
 }
 
 export function EligibilityMPA({

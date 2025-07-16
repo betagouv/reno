@@ -1,8 +1,8 @@
 import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
-import Breadcrumb from '@/components/Breadcrumb'
 import { Suspense } from 'react'
 import PTZ from './PTZ'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 export const metadata: Metadata = {
   title: "Eco-PTZ : L'éco-prêt à taux zéro en " + new Date().getFullYear(),
@@ -19,11 +19,22 @@ export default function Aides() {
     <Main>
       <Section>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Les prêts à taux 0': '/aides/pret-taux-0' },
+          currentPageLabel="L'éco-PTZ"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              "L'éco-PTZ": '/aides/pret-taux-0/eco-ptz',
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: 'Les prêts à taux 0',
+              linkProps: {
+                href: '/aides/pret-taux-0',
+              },
             },
           ]}
         />

@@ -1,6 +1,5 @@
 import { logoAlt } from '@/components/Header'
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
-import { InternalLink } from '@/components/UI'
 import logo from '@/public/logo-service-de-FR.svg'
 import Image from 'next/image'
 import styled from 'styled-components'
@@ -21,21 +20,9 @@ export default function FooterModule() {
         }
       `}
     >
-      <InternalLink
-        href="https://mesaidesreno.beta.gouv.fr"
-        css={`
-          text-decoration: none;
-          color: inherit;
-          &:hover {
-            background: 0;
-          }
-          > div {
-            @media (max-width: 400px) {
-          }
-        `}
-      >
+      <a className="fr-link" href="https://mesaidesreno.beta.gouv.fr">
         <HeaderLogo src={logo} alt={logoAlt} />
-      </InternalLink>
+      </a>
       <AboutContainer>
         <ParFranceRénovTexte />
       </AboutContainer>
