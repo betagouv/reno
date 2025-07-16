@@ -36,39 +36,23 @@ export default function CheckboxQuestion({
     const questionParams =
       engine.getParsedRules()[currentQuestion + ' . ' + element]
     return (
-      <label
-        key={element}
-        css={`
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.6rem;
-          padding: calc(0.3rem + 0.7vw) calc(0.5rem + 1vw);
-          border: 2px solid #dfdff1;
-          border-radius: 0.3rem;
-          &:hover,
-          &:has(input:checked) {
-            border: 2px solid #004396;
-          }
-        `}
-      >
-        <input
-          css={`
-            width: 1.4rem;
-            height: 1.4rem;
-            cursor: pointer;
-            margin-right: 0.6rem;
-          `}
-          type="checkbox"
-          name={element}
-          value={element}
-          checked={isChecked(element, situation, currentQuestion)}
-          onChange={() =>
-            handleCheck(element, situation, setSearchParams, currentQuestion)
-          }
-        />
-        <span>{questionParams ? questionParams.title : element}</span>
-      </label>
+      <div className="fr-fieldset__element" key={index}>
+        <div className="fr-checkbox-group fr-checkbox-rich">
+          <input
+            type="checkbox"
+            name="checkbox"
+            id={`checkbox-${index}`}
+            aria-describedby={`checkbox-${index}-messages`}
+            checked={isChecked(element, situation, currentQuestion)}
+            onChange={() =>
+              handleCheck(element, situation, setSearchParams, currentQuestion)
+            }
+          />
+          <label className="fr-label" htmlFor={`checkbox-${index}`}>
+            {questionParams ? questionParams.title : element}
+          </label>
+        </div>
+      </div>
     )
   })
 }

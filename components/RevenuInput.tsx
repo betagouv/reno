@@ -68,37 +68,21 @@ export default function RevenuInput({
     />
   ) : (
     selectValues.map(({ valeur, titre }, index) => (
-      <label
-        key={valeur}
-        css={`
-          cursor: pointer;
-          padding: calc(0.3rem + 0.7vw) calc(0.5rem + 1vw);
-          border: 2px solid #dfdff1;
-          border-radius: 0.3rem;
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.6rem;
-          &:hover,
-          &:has(input:checked) {
-            border: 2px solid #004396;
-          }
-        `}
-      >
-        <input
-          css={`
-            width: 1.4rem;
-            height: 1.4rem;
-            cursor: pointer;
-            margin-right: 0.6rem;
-          `}
-          type="radio"
-          name={valeur}
-          value={valeur}
-          checked={revenu > (list[index - 1] || 0) && revenu <= valeur}
-          onChange={() => onChange(valeur)}
-        />
-        <span>{titre}</span>
-      </label>
+      <div className="fr-fieldset__element" key={index}>
+        <div className="fr-radio-group fr-radio-rich">
+          <input
+            type="radio"
+            id={`radio-${index}`}
+            name="radio"
+            value={valeur}
+            checked={revenu > (list[index - 1] || 0) && revenu <= valeur}
+            onChange={() => onChange(valeur)}
+          />
+          <label className="fr-label" htmlFor={`radio-${index}`}>
+            <span>{titre}</span>
+          </label>
+        </div>
+      </div>
     ))
   )
 }

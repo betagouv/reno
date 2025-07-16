@@ -65,86 +65,70 @@ export default function AddressSearch({
   }, [input, validInput])
 
   return (
-    <AddressInput>
-      <input
-        css={`
-          ${clicked &&
-          input &&
-          `border-bottom: 2px solid var(--validColor) !important;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTg3NTNjIiBkPSJNMTIgMjJjLTUuNTIgMC0xMC00LjQ4LTEwLTEwUzYuNDggMiAxMiAyczEwIDQuNDggMTAgMTAtNC40OCAxMC0xMCAxMHptLS45OS02bDcuMDctNy4wNy0xLjQxLTEuNDEtNS42NiA1LjY2LTIuODMtMi44My0xLjQxIDEuNDFMMTEuMDEgMTZ6Ii8+PC9zdmc+') rgb(245, 245, 254) no-repeat top 5px right 5px !important;
-            background-size:  16px !important;
-            `}
-        `}
-        type="text"
-        autoFocus={autoFocus}
-        value={immediateInput}
-        placeholder={'commune ou code postal'}
-        onChange={(e) => {
-          setClicked(false)
-          setInput(e.target.value)
-        }}
-      />
-      <CityList>
-        {isLoading && (
-          <li
-            css={`
-              margin: 0.8rem 0;
-              display: flex;
-              align-items: center;
-            `}
-          >
-            <Loader />
-            Chargement...
-          </li>
-        )}
-        {results && !clicked && (
-          <>
+    <div className="fr-fieldset__element">
+      <div
+        className={`fr-input-group ${clicked && input ? 'fr-input-group--valid' : ''}`}
+      >
+        <input
+          type="text"
+          autoFocus={autoFocus}
+          value={immediateInput}
+          placeholder={'commune ou code postal'}
+          onChange={(e) => {
+            setClicked(false)
+            setInput(e.target.value)
+          }}
+        />
+        <CityList>
+          {isLoading && (
             <li
               css={`
-                color: #929292;
+                margin: 0.8rem 0;
+                display: flex;
+                align-items: center;
               `}
             >
-              {results.length > 0
-                ? 'Sélectionnez une ville'
-                : 'Aucune ville trouvée'}
+              <Loader />
+              Chargement...
             </li>
-            {results.map((result) => (
+          )}
+          {results && !clicked && (
+            <>
               <li
-                className={
-                  situation &&
-                  situation[type] &&
-                  situation[type].replace(/"/g, '') == result.code
-                    ? 'selected'
-                    : ''
-                }
-                key={result.code}
-                onClick={() => {
-                  setChoice(result)
-                  setInput(result.nom + ' ' + result.codeDepartement)
-                  setClicked(true)
-                }}
+                css={`
+                  color: #929292;
+                `}
               >
-                {result.nom} <small>{result?.codesPostaux[0]}</small>
+                {results.length > 0
+                  ? 'Sélectionnez une ville'
+                  : 'Aucune ville trouvée'}
               </li>
-            ))}
-          </>
-        )}
-      </CityList>
-    </AddressInput>
+              {results.map((result) => (
+                <li
+                  className={
+                    situation &&
+                    situation[type] &&
+                    situation[type].replace(/"/g, '') == result.code
+                      ? 'selected'
+                      : ''
+                  }
+                  key={result.code}
+                  onClick={() => {
+                    setChoice(result)
+                    setInput(result.nom + ' ' + result.codeDepartement)
+                    setClicked(true)
+                  }}
+                >
+                  {result.nom} <small>{result?.codesPostaux[0]}</small>
+                </li>
+              ))}
+            </>
+          )}
+        </CityList>
+      </div>
+    </div>
   )
 }
-
-export const AddressInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  input {
-    margin: 0;
-    padding-left: 1.5rem !important;
-    text-align: left !important;
-    outline: none;
-    height: 2.8rem !important;
-  }
-`
 
 export const CityList = styled.ul`
   padding: 0;

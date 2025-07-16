@@ -7,6 +7,7 @@ import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import Value from '../Value'
 import { push } from '@socialgouv/matomo-next'
+import { Alert } from '@codegouvfr/react-dsfr/Alert'
 
 export const BlocAideMPR = ({
   infoMPR,
@@ -160,21 +161,26 @@ export const AvanceTMO = ({ engine, situation }) => {
   }
 
   return (
-    <MiseEnAvant>
-      <p>
-        En tant que ménage au revenu <strong>{ménageClasse}</strong>
-        , vous pourrez bénéficier d'une avance allant jusqu'à
-        <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'gestes . pourcentage avance',
-            state: 'none',
-          }}
-        />
-        de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé après
-        travaux.
-      </p>
-    </MiseEnAvant>
+    <Alert
+      description={
+        <p>
+          En tant que ménage au revenu <strong>{ménageClasse}</strong>
+          , vous pourrez bénéficier d'une avance allant jusqu'à
+          <Value
+            {...{
+              engine,
+              situation,
+              dottedName: 'gestes . pourcentage avance',
+              state: 'none',
+            }}
+          />
+          de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé
+          après travaux.
+        </p>
+      }
+      onClose={function noRefCheck() {}}
+      severity="info"
+      small
+    />
   )
 }

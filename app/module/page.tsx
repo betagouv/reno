@@ -76,13 +76,15 @@ export default function Module({}) {
             <h2>Toujours à jour</h2>
             <p>
               En intégrant dès maintenant le calculateur sur votre site, vous
-              profiterez automatiquement des mises à jour qui ont lieu au cours de l'année et surtout aux importantes mises à jour annuelles.
+              profiterez automatiquement des mises à jour qui ont lieu au cours
+              de l'année et surtout aux importantes mises à jour annuelles.
             </p>
             <h2>Historique des versions</h2>
             <h3>v1 (été 2024)</h3>
             <p>
               La première version "preuve de concept" du module. Elle n'intègre
-              que le dispositif principal MaPrimeRénov' parcours accompagné.{' '}
+              que le dispositif principal MaPrimeRénov' parcours
+              accompagné.{' '}
             </p>
             <h3>v2 (septembre 2024)</h3>
             <p>
@@ -93,8 +95,9 @@ export default function Module({}) {
               résidence principale d'un locataire.
             </p>
             <p>
-              Il inclut non seulement MaPrimeRénov' parcours accompagné mais aussi les
-              autres aides principales dont l'éco-PTZ, le prêt avance rénovation, le dispositif Denormandie, etc.
+              Il inclut non seulement MaPrimeRénov' parcours accompagné mais
+              aussi les autres aides principales dont l'éco-PTZ, le prêt avance
+              rénovation, le dispositif Denormandie, etc.
             </p>
             <h3>v3 (fin novembre 2024)</h3>
             <p>

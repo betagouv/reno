@@ -15,14 +15,10 @@ import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
 import iconFlecheDroiteBlanc from '@/public/fleche-droite-blanc.svg'
 import { useEffect, useState } from 'react'
-import {
-  Accordion,
-  getTravauxEnvisages,
-  isCategorieChecked,
-} from './ChoixTravaux'
+import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
 import AidesAmpleur from './ampleur/AidesAmpleur'
-import Breadcrumb from './Breadcrumb'
+import { Breadcrumb } from '@codegouvfr/react-dsfr/Breadcrumb'
 import AideGeste from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
@@ -76,17 +72,11 @@ export default function Eligibility({
       />
       <CustomQuestionWrapper>
         <Breadcrumb
-          links={[
-            {
-              Eligibilité: setSearchParams(
-                {
-                  ...encodeSituation(situation, false, answeredQuestions),
-                },
-                'url',
-                true,
-              ),
-            },
-          ]}
+          currentPageLabel="Eligibilité"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[]}
         />
         <div
           css={`
@@ -101,33 +91,21 @@ export default function Eligibility({
           <BackToLastQuestion
             {...{ setSearchParams, situation, answeredQuestions }}
           />
-          <CTA $fontSize="normal" $importance="primary">
-            <Link
-              css={`
-                display: flex !important;
-                align-items: center;
-              `}
-              href={setSearchParams({ objectif: 'etape' }, 'url')}
-              onClick={() => {
-                push([
-                  'trackEvent',
-                  'Simulateur Principal',
-                  'Eligibilité',
-                  'Obtenir aides',
-                ])
-              }}
-              title="Obtenir mes aides"
-            >
-              Obtenir mes aides
-              <Image
-                css={`
-                  margin-left: 0.5rem;
-                `}
-                src={iconFlecheDroiteBlanc}
-                alt="icone fleche droite"
-              />
-            </Link>
-          </CTA>
+          <Link
+            className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+            href={setSearchParams({ objectif: 'etape' }, 'url')}
+            onClick={() => {
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                'Eligibilité',
+                'Obtenir aides',
+              ])
+            }}
+            title="Obtenir mes aides"
+          >
+            Obtenir mes aides
+          </Link>
           {/* <CopyButton searchParams={searchParams} /> */}
         </div>
         <header>
@@ -230,11 +208,7 @@ export function EligibilityRenovationEnergetique({
   const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return (
     <>
-      <p
-        css={`
-          margin: 0.5rem 0 !important;
-        `}
-      >
+      <p>
         {hasMPRA ? (
           <>
             <span aria-hidden="true">🥳</span> Vous êtes éligible aux aides
@@ -272,7 +246,7 @@ export function EligibilityRenovationEnergetique({
             )
             .map((category) => (
               <div key={category['code']}>
-                <h4>{category['titre']}</h4>
+                <h3>{category['titre']}</h3>
                 {category['code'] == 'isolation' && (
                   <p>{category['sousTitre']}</p>
                 )}
@@ -319,8 +293,8 @@ export function EligibilityRenovationEnergetique({
             ))
         : Object.keys(rulesByCategory).map((category) => (
             <div key={category}>
-              <h4>{category}</h4>
-              <Accordion geste="true">
+              <h3>{category}</h3>
+              <div>
                 {rulesByCategory[category].map((dottedName, index) => {
                   const shouldShow = showAllByCategory[category] || index < 2
                   return (
@@ -360,7 +334,7 @@ export function EligibilityRenovationEnergetique({
                     </CTA>
                   </CTAWrapper>
                 )}
-              </Accordion>
+              </div>
             </div>
           ))}
       {hasMPRA && (
@@ -509,7 +483,7 @@ export function EligibilityRenovationEnergetique({
       />
       {!hasMPRA && (
         <>
-          <h4>Et maintenant ?</h4>
+          <h3>Et maintenant ?</h3>
           <p>Un conseiller France Rénov’ peut vous aider à :</p>
           <ul
             css={`

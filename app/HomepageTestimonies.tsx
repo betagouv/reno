@@ -11,7 +11,6 @@ import React from 'react'
 export default function HomepageTestimonies() {
   const isInIFrame = useIsInIframe()
   const [expanded, setExpanded] = useState({})
-  console.log('expanded', expanded)
   const toggleExpand = (index) => {
     setExpanded((prevState) => ({
       ...prevState,

@@ -1,5 +1,4 @@
-import { CTA, Card } from '@/components/UI'
-import css from '@/components/css/convertToJs'
+import { Card } from '@/components/UI'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
@@ -7,6 +6,7 @@ import { push } from '@socialgouv/matomo-next'
 import { useState } from 'react'
 import styled from 'styled-components'
 import AnswerItem from './AnswerItem'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -72,26 +72,22 @@ export default function Answers({
   return (
     answeredQuestions.length !== 0 && (
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
-        <summary onClick={preventSummaryClick}>
-          <CTA
-            $fontSize="normal"
-            $importance="secondary"
-            style={css`
-              padding: 0.6rem 0;
-              width: 800px;
-              display: flex;
+        <summary
+          onClick={handleSummaryClick}
+          css={`
+            button {
+              width: 100%;
               justify-content: center;
-              align-items: center;
-              gap: 0.2rem;
-              border-color: #dddddd;
-            `}
-            onClick={handleSummaryClick}
-          >
-            ✍️{' '}
+              padding: 0;
+            }
+          `}
+        >
+          <Button priority="tertiary">
+            <span aria-hidden="true">✍️</span>
             {isOpen
               ? closedTitle || 'Cacher mes réponses'
               : 'Modifier mes réponses'}
-          </CTA>
+          </Button>
         </summary>
         {isOpen && (
           <Card

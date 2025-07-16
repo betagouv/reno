@@ -12,7 +12,6 @@ import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import AideDetails from './AideDetails'
-import LocAvantage from './LocAvantage'
 import CoproAddressSearch from './CoproAddressSearch'
 import DPEMap from './dpe/DPEMap'
 import DPEAddressSearch from './dpe/DPEAddressSearch'
@@ -109,7 +108,7 @@ export default function InputSwitch({
         <RadioQuestion
           rule={rule}
           engine={engine}
-          evaluation={evaluation}
+          currentQuestion={currentQuestion}
           situation={situation}
           placeholder={evaluation.nodeValue}
           value={currentValue == null ? '' : currentValue}
@@ -374,7 +373,13 @@ export default function InputSwitch({
         }}
       >
         <ChoixTravaux
-          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+          {...{
+            situation,
+            rules,
+            engine,
+            setSearchParams,
+            answeredQuestions,
+          }}
         />
       </ClassicQuestionWrapper>
     )
@@ -537,15 +542,6 @@ export default function InputSwitch({
       }}
     >
       <Input
-        css={`
-          border: 2px solid #dfdff1 !important;
-          border-radius: 0.3rem !important;
-          box-shadow: none !important;
-          background: white !important;
-          width: 6rem !important;
-          height: 2.8rem !important;
-          outline: none;
-        `}
         type={ruleQuestionType}
         placeholder={evaluation.nodeValue}
         value={currentValue == null ? '' : currentValue}

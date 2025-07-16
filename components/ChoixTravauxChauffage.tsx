@@ -8,9 +8,12 @@ import {
 import { push } from '@socialgouv/matomo-next'
 import rules from '@/app/règles/rules'
 import { getTravauxEnvisages, handleCheckTravaux } from './ChoixTravaux'
-import Geste from './Geste'
+import Geste, { PrimeBadge } from './Geste'
 import styled from 'styled-components'
 import FormButtons from '@/app/simulation/FormButtons'
+import React from 'react'
+import { getRuleName } from './publicodes/utils'
+import GesteDescription from './GesteDescription'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -56,49 +59,47 @@ export default function ChoixTravauxChauffage({
 
   return (
     <>
-      <GesteMosaic>
-        {Object.entries(grouped).map(([category, entries]) => (
-          <div key={category}>
-            <h2>{rules[category].titre}</h2>
-            <ul>
-              {Object.entries(entries).map(([subCategory, dottedName]) => {
-                const checked = travauxEnvisages.includes(
-                  encodeDottedName(dottedName),
-                )
-                return (
-                  <li key={subCategory}>
-                    <label
-                      css={`
-                        ${checked && `border: 2px solid var(--color);`}
-                      `}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() =>
-                          handleCheckTravaux(
-                            dottedName,
-                            situation,
-                            setSearchParams,
-                          )
-                        }
-                      />
-                      <Geste
-                        {...{
-                          rules,
-                          dottedName,
-                          engine,
-                          situation,
-                        }}
-                      />
-                    </label>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        ))}
-      </GesteMosaic>
+      {Object.entries(grouped).map(([category, entries]) => (
+        <React.Fragment key={category}>
+          <h2>{rules[category].titre}</h2>
+          {Object.entries(entries).map(([subCategory, dottedName]) => {
+            const encodedDottedName = encodeDottedName(dottedName)
+            const checked = travauxEnvisages.includes(encodedDottedName)
+            return (
+              <div className="fr-fieldset__element" key={subCategory}>
+                <div className="fr-checkbox-group fr-checkbox-rich">
+                  <input
+                    type="checkbox"
+                    name={`checkbox-${category}`}
+                    id={`checkbox-${encodedDottedName}`}
+                    checked={checked}
+                    onChange={() =>
+                      handleCheckTravaux(dottedName, situation, setSearchParams)
+                    }
+                  />
+                  <label
+                    className="fr-label"
+                    htmlFor={`checkbox-${encodedDottedName}`}
+                  >
+                    {rules[dottedName].titre || getRuleName(dottedName)}
+                    <span className="fr-hint-text">
+                      {rules[dottedName].description}
+                    </span>
+                    <Geste
+                      {...{
+                        rules,
+                        dottedName,
+                        engine,
+                        situation,
+                      }}
+                    />
+                  </label>
+                </div>
+              </div>
+            )
+          })}
+        </React.Fragment>
+      ))}
       <FormButtons
         {...{
           currentValue: gestes.filter((geste) =>

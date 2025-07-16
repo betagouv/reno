@@ -41,34 +41,52 @@ export default function DPEAddressSearch({
   }, [input, validInput])
 
   return (
-    <AddressInput>
-      {error && (
-        <p
-          css={`
-            background: #f9e2e2;
-            padding: 0.1rem 0.6rem;
-          `}
+    <>
+      <div className="fr-fieldset__element">
+        <div
+          className={`fr-input-group ${error && 'fr-input-group--error'} ${clicked && input && 'fr-input-group--valid'}`}
         >
-          {error.message}{' '}
-        </p>
-      )}
-      <input
-        css={`
-          ${clicked &&
-          input &&
-          `border-bottom: 2px solid var(--validColor) !important;`};
-        `}
-        type="text"
-        autoFocus={true}
-        value={immediateInput}
-        placeholder={'12 rue Victor Hugo Rennes'}
-        onChange={(e) => {
-          setCoordinates([undefined, undefined])
-          setClicked(false)
-          setInput(e.target.value)
-        }}
-      />
-      {clicked && input && <Validated>Adresse validée</Validated>}
+          <input
+            className="fr-input"
+            type="text"
+            aria-describedby="input-0-messages"
+            id="input-0"
+            autoFocus={true}
+            value={immediateInput}
+            placeholder={'12 rue Victor Hugo Rennes'}
+            onChange={(e) => {
+              setCoordinates([undefined, undefined])
+              setClicked(false)
+              setInput(e.target.value)
+            }}
+          />
+          {clicked && input && (
+            <div
+              className="fr-messages-group"
+              id="input-0-messages"
+              aria-live="polite"
+            >
+              <p
+                className="fr-message fr-message--valid"
+                id="input-0-message-valid"
+              >
+                Adresse validée
+              </p>
+            </div>
+          )}
+          {error && (
+            <div
+              className="fr-messages-group"
+              id="input-0-messages"
+              aria-live="polite"
+            >
+              <p className="fr-message input-0-message-error">
+                {error.message}{' '}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
       {validInput && !addressResults && (
         <small
           css={`
@@ -82,7 +100,13 @@ export default function DPEAddressSearch({
         </small>
       )}
       {addressResults && !clicked && (
-        <>
+        <div
+          css={`
+            display: flex;
+            align-items: top;
+            gap: 1em;
+          `}
+        >
           <small
             css={`
               color: #929292;
@@ -117,9 +141,9 @@ export default function DPEAddressSearch({
               )
             })}
           </CityList>
-        </>
+        </div>
       )}
-    </AddressInput>
+    </>
   )
 }
 

@@ -30,7 +30,6 @@ export default function Input({
 
   // onChange is not debounced anymore, it just calls debounced function
   const onChange = (e) => {
-    console.log('vava2', e.target.value)
     const value = e.target.value
 
     // state is updated on every value change, so input will work
@@ -45,16 +44,33 @@ export default function Input({
     serializedUnit === 'personne' && value > 1 ? 'personnes' : serializedUnit
 
   return (
-    <span>
-      <input
-        autoFocus={autoFocus}
-        type="number"
-        value={state}
-        onChange={onChange}
-        min="1"
-        {...props}
-      />
-      &nbsp;{pluralUnit}
-    </span>
+    <div className="fr-fieldset__element">
+      <div
+        className="fr-input-group"
+        css={`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <input
+          autoFocus={autoFocus}
+          className="fr-input"
+          spellCheck="false"
+          id={props.id}
+          type="number"
+          value={state}
+          onChange={onChange}
+          min="1"
+          {...props}
+        />
+        <div
+          className="fr-messages-group"
+          id="input-3-1-messages"
+          aria-live="polite"
+        >
+          &nbsp;{pluralUnit}
+        </div>
+      </div>
+    </div>
   )
 }

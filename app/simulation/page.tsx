@@ -1,5 +1,6 @@
 import rules from '@/app/règles/rules'
 import Form from './Form'
+import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router'
 
 export const metadata: Metadata = {
   title: 'Mes Aides Réno : Simulez vos aides à la rénovation énergétique',
@@ -10,5 +11,12 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <Form rules={rules} />
+  return (
+    <>
+      <StartDsfrOnHydration />
+      <main role="main" id="content">
+        <Form rules={rules} />
+      </main>
+    </>
+  )
 }

@@ -29,32 +29,52 @@ export const PrimeDisplay = ({
     </h3>
     {description && <GesteDescription rule={rules[dottedName]} />}
 
-    <PrimeStyle
-      css={`
-        display: block;
-        text-align: left;
-        text-wrap: wrap;
-      `}
-      $inactive={montantTotal === 'Non applicable'}
-    >
-      {montantTotal === 'Non applicable' ? (
-        <>
-          Prime <strong>non applicable</strong> dans votre situation
-        </>
-      ) : !eligibleMPRG && !hasCoupDePouce && !isExactTotal ? (
-        <>Prime existante</>
-      ) : (
-        <>
-          {isExactTotal
-            ? !hasCoupDePouce && !eligibleMPRG
-              ? 'Prime indicative de '
-              : 'Prime de '
-            : "Jusqu'à "}
-          <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>{' '}
-        </>
-      )}
-    </PrimeStyle>
+    <PrimeBadge
+      {...{
+        montantTotal,
+        isExactTotal,
+        rules,
+        dottedName,
+        eligibleMPRG,
+        hasCoupDePouce,
+      }}
+    />
   </div>
+)
+
+export const PrimeBadge = ({
+  montantTotal,
+  isExactTotal,
+  rules,
+  dottedName,
+  eligibleMPRG,
+  hasCoupDePouce,
+}) => (
+  <PrimeStyle
+    css={`
+      display: block;
+      text-align: left;
+      text-wrap: wrap;
+    `}
+    $inactive={montantTotal === 'Non applicable'}
+  >
+    {montantTotal === 'Non applicable' ? (
+      <>
+        Prime <strong>non applicable</strong> dans votre situation
+      </>
+    ) : !eligibleMPRG && !hasCoupDePouce && !isExactTotal ? (
+      <>Prime existante</>
+    ) : (
+      <>
+        {isExactTotal
+          ? !hasCoupDePouce && !eligibleMPRG
+            ? 'Prime indicative de '
+            : 'Prime de '
+          : "Jusqu'à "}
+        <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>{' '}
+      </>
+    )}
+  </PrimeStyle>
 )
 
 export default function Geste({
@@ -142,7 +162,7 @@ export default function Geste({
 
   if (!expanded)
     return (
-      <PrimeDisplay
+      <PrimeBadge
         {...{
           montantTotal,
           isExactTotal,

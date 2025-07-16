@@ -20,56 +20,94 @@ export default function DPE({
 */
 
   return (
-    <Section>
-      <ClasseWrapper>
-        {avecLegend && (
-          <>
-            <h3>Classe Energétique</h3>
-            <p>Consommation d'énergie</p>
-          </>
-        )}
-        <Bars>
-          <ul>
-            {data.map((el, index) => (
-              <Li
-                key={el.lettre}
-                $selected={el.lettre === letter}
-                onClick={() => onClick && onClick(index)}
-              >
-                {onClick && (
-                  <input type="radio" checked={el.lettre === letter} />
-                )}
-                <Bar
-                  $background={el.couleur}
-                  $index={index}
-                  $selected={el.lettre === letter}
-                  $selected2={el.lettre === newLetter}
-                >
-                  {' '}
-                  <span>
-                    {el.lettre}{' '}
-                    {avecLegend && (
-                      <small>
-                        {index == 0
-                          ? '<= ' + data[index + 1].énergie
-                          : index == 6
-                            ? '> ' + el.énergie
-                            : el.énergie + 1 + ' à ' + data[index + 1].énergie}
-                      </small>
-                    )}
-                  </span>
-                </Bar>
-                <Triangle
-                  background={el.couleur}
-                  selected={el.lettre === letter}
-                  selected2={el.lettre === newLetter}
-                />
-              </Li>
-            ))}
-          </ul>
-        </Bars>
-        {avecLegend && <small>en kWhEP/m².an</small>}
-      </ClasseWrapper>
+    <>
+      {avecLegend && (
+        <>
+          <h3>Classe Energétique</h3>
+          <p>Consommation d'énergie</p>
+        </>
+      )}
+      {data.map((el, index) => (
+        <div
+          className="fr-fieldset__element"
+          key={el.lettre}
+          css={`
+            .dpe-label {
+              display: flex;
+              align-items: center;
+              margin-bottom: 6px;
+              color: white;
+              font-weight: bold;
+              border-radius: 2px;
+              clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 0 100%);
+              padding: 8px 10px;
+            }
+
+            .A {
+              background: #007c59;
+              width: 30%;
+              clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+            }
+            .B {
+              background: #2dae72;
+              width: 40%;
+              clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+            }
+            .C {
+              background: #a8cf45;
+              width: 50%;
+              clip-path: polygon(0 0, 93% 0, 100% 50%, 93% 100%, 0 100%);
+            }
+            .D {
+              background: #ffe039;
+              color: black;
+              width: 60%;
+            }
+            .E {
+              background: #ffb931;
+              color: black;
+              width: 70%;
+            }
+            .F {
+              background: #f97b4c;
+              width: 80%;
+            }
+            .G {
+              background: #e60000;
+              width: 90%;
+            }
+          `}
+        >
+          <div className="fr-radio-group fr-radio-rich">
+            <input
+              type="radio"
+              name="radio"
+              id={`radio-${index}`}
+              value={el.lettre}
+              checked={el.lettre === letter}
+              onChange={() => onClick && onClick(index)}
+            />
+            <label className="fr-label" htmlFor={`radio-${index}`}>
+              <div className={`dpe-label ${el.lettre}`}>
+                {el.lettre}{' '}
+                <span className="range">
+                  {avecLegend && (
+                    <small>
+                      {index == 0
+                        ? '<= ' + data[index + 1].énergie
+                        : index == 6
+                          ? '> ' + el.énergie
+                          : el.énergie + 1 + ' à ' + data[index + 1].énergie}
+                    </small>
+                  )}
+                </span>
+              </div>
+            </label>
+          </div>
+        </div>
+      ))}
+      {avecLegend && <small>en kWhEP/m².an</small>}
+
       {avecGES && (
         <ClasseWrapper>
           <h3>Classe GES</h3>
@@ -111,27 +149,16 @@ export default function DPE({
           <small>en kgeqCO²/m².an</small>
         </ClasseWrapper>
       )}
-    </Section>
+    </>
   )
 }
 
-const Section = styled.section`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`
 const ClasseWrapper = styled.div`
   h3 {
     margin: 0;
   }
 `
 
-const Bars = styled.div`
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-`
 const size = '2.2rem'
 const Li = styled.li`
   display: flex;
@@ -186,7 +213,6 @@ const Triangle = ({ background, selected, selected2 }) => (
   margin-left: -1px
 		  `)}
   >
-
     <polygon
       points="0,0 180,200 0,400"
       style={css(`

@@ -3,23 +3,7 @@ import { Footer } from '@codegouvfr/react-dsfr/Footer'
 
 export default async function FooterContent() {
   const sortedArticles = await getAllArticles()
-  console.log(
-    'test',
-    sortedArticles
-      .filter(
-        ({ tags, brouillon }) =>
-          !tags?.includes('notes de version') && !brouillon,
-      )
-      .map(({ url, titre }) => {
-        return {
-          linkProps: {
-            href: url,
-          },
-          text: titre,
-        }
-      })
-      .slice(0, 5),
-  )
+
   return (
     <>
       <Footer

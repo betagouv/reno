@@ -58,45 +58,38 @@ export default function Share({
           text-align: ${align};
         `}
       >
-        <CTAWrapper
-          $justify={align}
+        <CTA
+          $importance="emptyBackground"
           css={`
-            margin: 2vh 0;
-          `}
-        >
-          <CTA
-            $importance="emptyBackground"
-            css={`
-              ${copied &&
-              `
+            ${copied &&
+            `
                 background: rgba(190, 242, 197, 0.2);
                 border: 1px dashed var(--validColor);
               `}
+          `}
+          $fontSize="normal"
+          title="Cliquez pour partager le lien"
+          onClick={() => {
+            push(['trackEvent', 'Partage', 'Clic'])
+            isMobile && navigator.share ? share() : copyToClipboard()
+          }}
+        >
+          <span
+            css={`
+              ${copied && 'color: var(--validColor) !important;'}
             `}
-            $fontSize="normal"
-            title="Cliquez pour partager le lien"
-            onClick={() => {
-              push(['trackEvent', 'Partage', 'Clic'])
-              isMobile && navigator.share ? share() : copyToClipboard()
-            }}
           >
-            <span
-              css={`
-                ${copied && 'color: var(--validColor) !important;'}
-              `}
-            >
-              {!copied ? (
-                <>
-                  <span aria-hidden="true">🔗</span> Copier le lien
-                </>
-              ) : (
-                <>
-                  <span aria-hidden="true">✔</span> Lien copié
-                </>
-              )}
-            </span>
-          </CTA>
-        </CTAWrapper>
+            {!copied ? (
+              <>
+                <span aria-hidden="true">🔗</span> Copier le lien
+              </>
+            ) : (
+              <>
+                <span aria-hidden="true">✔</span> Lien copié
+              </>
+            )}
+          </span>
+        </CTA>
         {searchParamsString && showWithAnswer && (
           <div
             css={`

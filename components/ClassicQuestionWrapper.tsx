@@ -1,7 +1,5 @@
 import FormButtons from '@/app/simulation/FormButtons'
-import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import Suggestions from '@/app/simulation/Suggestions'
-import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
@@ -15,6 +13,7 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
+import { Content } from './explications/ExplicationUI'
 
 export const QuestionText = ({
   rule,
@@ -27,7 +26,17 @@ export const QuestionText = ({
   const text = rule.question.texte
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
-  return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
+  return (
+    <legend className="fr-fieldset__legend--bold fr-fieldset__legend fr-text--lead fr-pb-0">
+      {text.replace(/\s\?/, '')}&nbsp;?
+      {rule['sous-titre'] && (
+        <div
+          className="fr-hint-text"
+          dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+        />
+      )}
+    </legend>
+  )
 }
 
 export default function ClassicQuestionWrapper({
@@ -70,43 +79,46 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
-      <AvertissementSimulation
-        {...{ avertissementState, setAvertissementState }}
-      />
-      <AmpleurModuleBanner
-        {...{
-          depuisModule,
-          setSearchParams,
-          situation,
-          remaining,
-        }}
-      />
-      <QuestionCard>
-        {!rule.type && (
-          <QuestionHeader>
-            <div>
-              <small>{categoryTitle}</small>
-              <QuestionText
-                {...{
-                  rule,
-                  question: currentQuestion,
-                  rules,
-                  situation,
-                  engine,
-                }}
-              />
-              {rule['sous-titre'] && (
-                <Subtitle
-                  dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-                ></Subtitle>
-              )}
-            </div>
-            <div>
-              <CopyButton searchParams={searchParams} />
-            </div>
-          </QuestionHeader>
-        )}
-        <AnswerWrapper>
+      <Content>
+        <AvertissementSimulation
+          {...{ avertissementState, setAvertissementState }}
+        />
+        <AmpleurModuleBanner
+          {...{
+            depuisModule,
+            setSearchParams,
+            situation,
+            remaining,
+          }}
+        />
+        <CopyButton searchParams={searchParams} />
+        <h2
+          css={`
+            color: var(--color);
+          `}
+          className="fr-text--lg fr-mb-1v"
+        >
+          {categoryTitle}
+        </h2>
+        <fieldset
+          className="fr-fieldset"
+          css={`
+            clear: both;
+          `}
+          id="storybook-form"
+          aria-labelledby="storybook-form-legend storybook-form-messages"
+        >
+          {!rule.type && (
+            <QuestionText
+              {...{
+                rule,
+                question: currentQuestion,
+                rules,
+                situation,
+                engine,
+              }}
+            />
+          )}
           {!noSuggestions && (
             <Suggestions
               rule={rule}
@@ -127,7 +139,7 @@ export default function ClassicQuestionWrapper({
             />
           )}
           {children}
-        </AnswerWrapper>
+        </fieldset>
         {!noButtons && (
           <FormButtons
             {...{
@@ -145,7 +157,6 @@ export default function ClassicQuestionWrapper({
           />
         )}
         <Notifications {...{ currentQuestion, engine }} />
-
         <section
           css={`
             margin-top: 8vh;
@@ -164,7 +175,7 @@ export default function ClassicQuestionWrapper({
           />
           <UserProblemBanner />
         </section>
-      </QuestionCard>
+      </Content>
     </>
   )
 }

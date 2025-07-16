@@ -3,6 +3,7 @@ import Image from 'next/image'
 import logo from '@/public/logo-sans-nom.svg'
 import useIsInIframe from '@/components/useIsInIframe'
 import styled from 'styled-components'
+import { Breadcrumb } from '@codegouvfr/react-dsfr/Breadcrumb'
 
 export default function Breadcrumb({ links }) {
   const isInIframe = useIsInIframe()
@@ -10,14 +11,7 @@ export default function Breadcrumb({ links }) {
   return (
     !isInIframe && (
       <BreadcrumbNav $isMobile={isMobile}>
-        <BreadcrumbLink href="/">
-          <Image
-            src={logo}
-            alt="Logo cliquable Mes Aides Réno redirigeant vers l'accueil"
-            width="32"
-          />
-          {!isMobile && <>Accueil</>}
-        </BreadcrumbLink>
+        <BreadcrumbLink href="/">{!isMobile && <>Accueil</>}</BreadcrumbLink>
         {links.map((link, index) => {
           const titre = Object.keys(link)[0]
           return (
