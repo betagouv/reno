@@ -1,18 +1,9 @@
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
-import {
-  decodeDottedName,
-  encodeSituation,
-  getAnsweredQuestions,
-} from './publicodes/situationUtils'
-
-import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
-
 import { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './dpe/DPESelector'
-import GestesBasket from './GestesBasket'
-import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
 import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
@@ -20,8 +11,15 @@ import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import CoproAddressSearch from './CoproAddressSearch'
+import DPEMap from './dpe/DPEMap'
+import DPEAddressSearch from './dpe/DPEAddressSearch'
+import { useState } from 'react'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
 import { useSendDataToHost } from './useIsInIframe'
 import Consentement from './Consentement'
+import ChoixTravauxChauffage from './ChoixTravauxChauffage'
+import ChoixCategorieTravaux from './ChoixCategorieTravaux'
+import ChoixTravaux from './ChoixTravaux'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -34,6 +32,7 @@ export default function InputSwitch({
   searchParams,
   correspondance,
 }) {
+  const [addressResults, setAddressResults] = useState(null)
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -41,7 +40,6 @@ export default function InputSwitch({
   const rule = rules[currentQuestion]
   const evaluation =
     currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
-
   const ruleQuestionType = currentQuestion && questionType(evaluation, rule)
   const rawValue = situation[currentQuestion]
   const currentValue =
@@ -49,7 +47,7 @@ export default function InputSwitch({
 
   const [sendDataToHost, consent, setConsent] = useSendDataToHost()
 
-  if (rule['bornes intelligentes'])
+  if (rule && rule['bornes intelligentes'])
     return (
       <ClassicQuestionWrapper
         {...{
@@ -89,7 +87,7 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (rule['une possibilité parmi'])
+  if (rule && rule['une possibilité parmi'])
     return (
       <ClassicQuestionWrapper
         {...{
@@ -246,7 +244,133 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+  if (currentQuestion === 'logement . adresse')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <DPEAddressSearch
+          {...{
+            addressResults,
+            setAddressResults,
+            situation,
+            coordinates: [searchParams.lon, searchParams.lat],
+            setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
+            onChange: async (adresse) => {
+              const result = await getCommune(
+                null,
+                null,
+                adresse.properties.citycode,
+              )
 
+              const newSituation = await enrichSituation({
+                ...situation,
+                'logement . adresse': `"${adresse.properties.label}"`,
+                'logement . code région': `"${result.codeRegion}"`,
+                'logement . code département': `"${result.codeDepartement}"`,
+                'logement . EPCI': `"${result.codeEpci}"`,
+                'logement . commune': `"${result.code}"`,
+                'logement . commune . nom': `"${result.nom}"`,
+                'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
+              })
+              setSearchParams(
+                encodeSituation(newSituation, false, answeredQuestions),
+                'push',
+                false,
+              )
+            },
+          }}
+        />
+        {/* <DPEMap
+          {...{
+            searchParams,
+            addressResults,
+            dpeListStartOpen: false,
+            showDpeList: false,
+          }}
+        /> */}
+      </ClassicQuestionWrapper>
+    )
+  if (currentQuestion === 'projet . définition . catégories travaux envisagées')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+        }}
+      >
+        <ChoixCategorieTravaux
+          {...{
+            situation,
+            rules,
+            engine,
+            setSearchParams,
+            answeredQuestions,
+          }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  if (currentQuestion === 'projet . définition . travaux envisagés')
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+          noButtons: true,
+        }}
+      >
+        <ChoixTravaux
+          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+        />
+      </ClassicQuestionWrapper>
+    )
+
+  if (currentQuestion === 'projet . définition . travaux envisagés chauffage') {
+    return (
+      <ClassicQuestionWrapper
+        {...{
+          nextQuestions,
+          rule,
+          currentQuestion,
+          rules,
+          answeredQuestions,
+          situation,
+          setSearchParams,
+          currentValue,
+          engine,
+          noButtons: true,
+        }}
+      >
+        <ChoixTravauxChauffage
+          {...{ situation, rules, engine, setSearchParams, answeredQuestions }}
+        />
+      </ClassicQuestionWrapper>
+    )
+  }
   if (['DPE . actuel'].includes(currentQuestion))
     return (
       <ClassicQuestionWrapper
@@ -273,40 +397,6 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
-    return (
-      <GestesBasket
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
-        }}
-      />
-    )
-  }
-
-  if (
-    getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
-    searchParams["parcours d'aide"].includes('à la carte')
-  ) {
-    return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
-          questions: gestesMosaicQuestions,
-        }}
-      />
-    )
-  }
-
   if (firstLevelCategory(currentQuestion) === 'projet') {
     return (
       <AidesAmpleur
@@ -323,60 +413,6 @@ export default function InputSwitch({
       />
     )
   }
-
-  if (["parcours d'aide"].includes(currentQuestion)) {
-    console.debug('indigo consent', sendDataToHost, consent)
-    if (sendDataToHost && consent === null) {
-      return <Consentement {...{ setConsent, situation, sendDataToHost }} />
-    }
-    return (
-      <Eligibility
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          nextQuestions,
-          expanded: searchParams.details === 'oui',
-          consent,
-          sendDataToHost,
-        }}
-      />
-    )
-  }
-  // We kept the latter component before it got really specialized. TODO not completely functional
-  const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
-  if (mosaic)
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <BooleanMosaic
-          {...{
-            rules,
-            rule,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: mosaic,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
 
   if (ruleQuestionType === 'boolean')
     return (
@@ -414,6 +450,29 @@ export default function InputSwitch({
         />
       </ClassicQuestionWrapper>
     )
+
+  if (!currentQuestion) {
+    if (sendDataToHost && consent === null) {
+      return <Consentement {...{ setConsent, situation, sendDataToHost }} />
+    }
+    return (
+      <Eligibility
+        {...{
+          currentQuestion,
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+          rules,
+          nextQuestions,
+          expanded: searchParams.details === 'oui',
+          consent,
+          sendDataToHost,
+        }}
+      />
+    )
+  }
 
   return (
     <ClassicQuestionWrapper

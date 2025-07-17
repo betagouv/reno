@@ -4,13 +4,13 @@ import Suggestions from '@/app/simulation/Suggestions'
 import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
-
 import Answers, { categoryData } from '@/app/simulation/Answers'
 import ProgressBar from '@/app/simulation/ProgressBar'
 import { useSearchParams } from 'next/navigation'
-import { isMosaicQuestion } from './BooleanMosaic'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
 import CopyButton from './CopyButton'
-import { gestesMosaicQuestionText } from './GestesMosaic'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
@@ -19,12 +19,9 @@ import { getRuleName } from './publicodes/utils'
 export const QuestionText = ({
   rule,
   question: dottedName,
-  rules,
   situation,
   engine,
 }) => {
-  if (isMosaicQuestion(dottedName, rule, rules))
-    return gestesMosaicQuestionText(rules, dottedName)
   const ruleName = getRuleName(dottedName)
 
   const text = rule.question.texte
@@ -46,6 +43,7 @@ export default function ClassicQuestionWrapper({
   engine,
   noSuggestions,
   nextQuestions,
+  noButtons = false,
 }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -61,6 +59,8 @@ export default function ClassicQuestionWrapper({
       ? nextQuestions.indexOf("parcours d'aide")
       : nextQuestions.length
 
+  const [avertissementState, setAvertissementState] = useAvertissementState()
+
   return (
     <>
       <ProgressBar
@@ -72,6 +72,9 @@ export default function ClassicQuestionWrapper({
           situation,
           searchParams,
         }}
+      />
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
       />
       <AmpleurModuleBanner
         {...{
@@ -128,33 +131,42 @@ export default function ClassicQuestionWrapper({
           )}
           {children}
         </AnswerWrapper>
-        <FormButtons
-          {...{
-            currentValue,
-            rules,
-            setSearchParams,
-            encodeSituation,
-            answeredQuestions,
-            questionsToSubmit,
-            currentQuestion,
-            situation,
-            depuisModule,
-          }}
-        />
+        {!noButtons && (
+          <FormButtons
+            {...{
+              currentValue,
+              rules,
+              setSearchParams,
+              encodeSituation,
+              answeredQuestions,
+              questionsToSubmit,
+              currentQuestion,
+              situation,
+              depuisModule,
+              setAvertissementState,
+            }}
+          />
+        )}
         <Notifications {...{ currentQuestion, engine }} />
-        <QuestionDescription {...{ currentQuestion, rule }} />
-        <Answers
-          {...{
-            answeredQuestions,
-            nextQuestions,
-            currentQuestion,
-            rules,
-            engine,
-            situation,
-          }}
-        />
-        <br />
-        <UserProblemBanner />
+
+        <section
+          css={`
+            margin-top: 8vh;
+          `}
+        >
+          <QuestionDescription {...{ currentQuestion, rule }} />
+          <Answers
+            {...{
+              answeredQuestions,
+              nextQuestions,
+              currentQuestion,
+              rules,
+              engine,
+              situation,
+            }}
+          />
+          <UserProblemBanner />
+        </section>
       </QuestionCard>
     </>
   )

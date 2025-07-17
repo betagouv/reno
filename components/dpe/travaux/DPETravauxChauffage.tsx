@@ -9,6 +9,7 @@ import {
   MontantPrimeTravaux,
 } from './DPETravauxModule'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
+import { isEligibleReseauChaleur } from '@/components/ChoixTravaux'
 
 export function DPETravauxChauffage({
   dpe,
@@ -54,7 +55,7 @@ export function DPETravauxChauffage({
       priorite = 3
     }
     // Test raccordement réseau chaleur, via FCU
-    isEligibleReseauChaleur(dpe).then((eligibility) => {
+    isEligibleReseauChaleur(dpe['_geopoint']).then((eligibility) => {
       if (eligibility) {
         conseil = 'Votre domicile peut se raccorder à un réseau de chaleur'
         allGestes.push('gestes . chauffage . raccordement réseau . chaleur')
@@ -127,14 +128,6 @@ export function DPETravauxChauffage({
     )
     setGestes(allGestes)
   }, [dpe])
-  async function isEligibleReseauChaleur(dpe) {
-    const [lat, lon] = dpe['_geopoint'].split(',')
-    const response = await fetch(`/api/fcu?lat=${lat}&lon=${lon}`)
-    if (!response.ok) return false
-
-    const json = await response.json()
-    return json.isEligible
-  }
 
   const handleClick = (geste) => {
     if (geste.code.includes('chauffe-eau thermodynamique')) {

@@ -19,7 +19,7 @@ export default function Content() {
       </p>
       <p>
         Le dispositif phare MaPrimeRénov' est reconduit, et l'enveloppe globale
-        d'intervention de l'Agence Nationale de l'Habitat est augmentée de{' '}
+        d'intervention de l'Agence nationale de l'habitat est augmentée de{' '}
         <em>600&nbsp;millions</em> d'€ par rapport aux moyens consommés en
         2024.{' '}
       </p>
@@ -48,13 +48,13 @@ export default function Content() {
         <Parcours>
           <li>
             <Card>
-              <h3>⭐ Parcours ampleur</h3>
+              <h3>⭐ Parcours Accompagné</h3>
               <p>Des aides conséquentes pour 2 sauts de DPE</p>
             </Card>
           </li>
           <li>
             <Card>
-              <h3>🧩️ Parcours par gestes</h3>
+              <h3>🧩️ Rénovation par gestes</h3>
               <p>Des aides ciblées pour une rénovation plus progressive</p>
             </Card>
           </li>
@@ -84,12 +84,12 @@ export default function Content() {
       </Suspense>
       <h2>Toujours autant d'aides, sauf pour les ménages aisés</h2>
       <p>
-        Concernant le ⭐️ parcours ampleur, les taux d'aide ne changent pas en
+        Concernant le ⭐️ Parcours Accompagné, les taux d'aide ne changent pas en
         2025 <strong>sauf pour les ménages au revenu supérieur</strong>.
       </p>
       <ul>
         <li>
-          Pour 2 sauts de DPE, le financement MaPrimeRénov' accompagnée passe de
+          Pour 2 sauts de DPE, le financement MaPrimeRénov' parcours accompagné passe de
           30 à 10 % des travaux.
         </li>
         <li>Pour 3 sauts de DPE, la subvention de 35 % est réduite à 15 %</li>
@@ -119,15 +119,15 @@ export default function Content() {
       </blockquote>
       <h2>Une baisse de l'avance pour les ménages modestes</h2>
       <p>
-        Les aides MaPrimeRénov' sont des remboursements : une fois le dossier de
+        Les aides MaPrimeRénov' sont des subventions versées après travaux : une fois le dossier de
         subvention effectué, les ménages peuvent lancer les travaux, et les
         subventions seront versées par la suite.
       </p>
       <p>
         Mais pour aider les ménages modestes et très modestes à payer les
         factures, une avance des aides de l'État peut être demandée. Elle était
-        de 70 % de MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour le
-        parcours ampleur, et à 50 % pour le parcours par gestes où l'avance est
+        de 70 % de MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour 
+        MaPrimeRénov’ parcours accompagné (pour une rénovation d’ampleur), et à 50 % pour MaPrimeRénov’ rénovation par geste où l'avance est
         réservée aux ménages très modestes uniquement.
       </p>
       <p>
@@ -136,8 +136,8 @@ export default function Content() {
       </p>
       <p>
         Depuis le 1er septembre 2024, en plus de l'éco-PTZ, pour les foyers
-        modestes un nouveau prêt sans intérêts est disponible : le Prêt avance
-        mutation ne portant pas intérêt, aussi nommé{' '}
+        modestes un nouveau prêt sans intérêts est disponible : le prêt avance
+        rénovation, aussi nommé{' '}
         <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
           PAR+
         </a>
@@ -172,13 +172,13 @@ export default function Content() {
       </p>
       <blockquote>
         Votre logement en location est dans une copropriété ? Les aides
-        MaPrimeRénov' pour les copropriétés restent stable en 2025,
+        MaPrimeRénov' Copropriété restent stable en 2025,
         découvrez-les dans notre 🏙️{' '}
         <Link href="/copropriete">parcours copro'</Link>.
       </blockquote>
       <h2>Au-delà de MaPrimeRénov', de multiples aides en 2025</h2>
       <p>
-        Éco-PTZ, Prêt Avance Mutation, exonération de la taxe foncière,
+        Éco-PTZ, prêt avance rénovation, exonération de la taxe foncière,
         dispositif Denormandie... les aides à la rénovation sont nombreuses.
       </p>
       <p>

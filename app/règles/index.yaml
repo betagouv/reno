@@ -6,7 +6,12 @@ simulation:
 # Nous réservons les questions précises telles que la liste des gestes pour la suite, après l'écran d'éligibilité, elles sont déclenchées via le paramètre d'URL `objectif = à la carte . montant` ou `ampleur . montant` et la condition dans gestes.yaml `applicable si: parcours d'aide = 'à la carte'`
 aides:
   applicable si:
-    est défini: parcours d'aide
+    une de ces conditions:
+      - toutes ces conditions:
+          - projet . définition = "travaux connus"
+          - est défini: projet . définition . catégories travaux envisagées
+          - est défini: projet . définition . travaux envisagés
+      - projet . définition = "travaux inconnus"
   somme:
     - ampleur . tous les dispositifs # ampleur.yaml
     - MPR . non accompagnée . montant
@@ -47,7 +52,7 @@ vous . propriétaire . statut:
       - usufruitier
       - titulaires (occupants et bailleurs) d'un droit réel conférant l'usage du bien 
       - preneurs (occupants et bailleurs) d'un bail emphytéotique ou d'un bail à construction 
-      - propriétaires en indivision si l'ensemble des propriétaires indivisaires ont signé l'[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l'honneur qui désigne le demandeur pour porter les travaux au nom de l'indivision.
+      - propriétaires en indivision, si un représentant unique a signé l'[attestation](https://www.anah.gouv.fr/document/attestation-sur-l-honneur-du-representant-unique-de-l-indivision) sur l'honneur qui désigne le demandeur pour porter les travaux au nom de l'indivision.
       
 
     <br/>
@@ -326,7 +331,16 @@ logement . département:
   formule: commune
   par défaut: '"Finistère"'
 
+logement . adresse:
+  titre: L'adresse du logement
+  question: Quelle est l'adresse du logement ?
+  sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides.
+
+logement . coordonnees:
+  note: On stocke les coordonnées du logement sous la forme lat,lon afin de pouvoir déterminer son éligibilité au réseau de chaleur grâce à l'API France Chaleur Urbaine
+
 logement . commune:
+  formule: logement . adresse
   titre: La commune du logement
   question: Dans quelle commune se situe le logement ?
   sous-titre: Renseignez bien l**adresse du logement à rénover**. Elle définit votre éligibilité aux aides.
@@ -479,7 +493,7 @@ projet . DPE visé:
     A: 1
 
 scnénario MPRA:
-  titre: Mon scénario MaPrimeRénov' accompagnée
+  titre: Mon scénario MaPrimeRénov' parcours accompagné
 projet . DPE visé . insuffisant:
   type: notification
   sévérité: information
@@ -656,6 +670,30 @@ projet . travaux . plafond:
   ## alors: âge >= 2
   ## - sinon:
 
+projet . définition:
+  titre: Votre projet
+  question: Que souhaitez-vous simuler ?
+  sous-titre: On calcule votre éligibilité aux aides, et si vous savez déjà quels travaux faire, on rend cela plus concret !
+  une possibilité parmi:
+    possibilités:
+      - 'travaux connus'
+      - 'travaux inconnus'
+projet . définition . travaux connus:
+  valeur: '"travaux connus"'
+  titre: 'Je veux renseigner mes travaux pour connaître mes aides'
+projet . définition . travaux inconnus:
+  valeur: '"travaux inconnus"'
+  titre: 'Je veux voir les aides disponibles, je ne connais pas encore mes travaux'
+
+projet . définition . catégories travaux envisagées:
+  applicable si: définition = 'travaux connus'
+  question: Sur quoi souhaitez-vous intervenir ?
+projet . définition . travaux envisagés:
+  applicable si: définition = 'travaux connus'
+  question: Sur quoi souhaitez-vous intervenir ?
+projet . définition . travaux envisagés chauffage:
+  question: 'Chauffages : quelles options vous intéressent ?'
+
 conditions communes:
   titre: Conditions d'éligibilité de base
   toutes ces conditions:
@@ -674,11 +712,11 @@ parcours d'aide:
 
     Les aides à la rénovation énergétique sont séparées en deux grands parcours, qui sont exclusifs l'un à l'autre. 
 
-    Vous devez choisir entre d'un côté, une rénovation d'ampleur de votre logement, et de l'autre une rénovation à la carte d'un ou plusieurs gestes. 
+    Vous devez choisir entre d'un côté, une rénovation d'ampleur de votre logement et de l'autre une rénovation à la carte d'un ou plusieurs gestes. 
 
     Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'. 
 
-    Le parcours à la carte propose des gestes via MaPrimeRénov' par geste, ainsi que de nombreuses possibilité de subvention via les CEE, dont les primes bonifiées dites "coup de pouce". 
+    Le parcours à la carte propose des gestes via MaPrimeRénov', ainsi que de nombreuses possibilité de subvention via les CEE, dont les primes bonifiées dites "coup de pouce". 
     La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
   par défaut:
     texte: ampleur
@@ -706,7 +744,7 @@ MPR . non accompagnée . pourcentage d'écrêtement:
   description: |
     Semble s'appliquer sur la dépense HT. Ce n'est pas dit explicitement, mais on le déduit du fait que le TTC est clairement précisé pour l'écrêtement de MPR accompagnée.
 
-    Pour le détail de cet écrêtement, voir [cette page du guide complet PDF ANAH](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24).
+    Pour le détail de cet écrêtement, voir [cette page du guide complet PDF Anah](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24).
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 90 %
@@ -762,4 +800,4 @@ logement . loyer social ou très social:
   question: Le loyer du bail de location est-il "social" ou "très social" ?
   par défaut: non
   description: |
-    Le loyer dit "social" correspond à un loyer de 30 % en dessous des loyers du marché. Voir <a href="https://www.service-public.fr/particuliers/vosdroits/F2541" target="_blank">la fiche service-public.fr à propos du conventionnement ANAH</a>.
+    Le loyer dit "social" correspond à un loyer de 30 % en dessous des loyers du marché. Voir <a href="https://www.service-public.fr/particuliers/vosdroits/F2541" target="_blank">la fiche service-public.fr à propos du conventionnement Anah</a>.

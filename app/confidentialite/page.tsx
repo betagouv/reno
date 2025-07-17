@@ -72,10 +72,11 @@ export default function APIDoc() {
         <h2>Serveur</h2>
         <p>
           Notre serveur est géré par la société française{' '}
-          <ExternalLink href="https://scalingo.com/">Scalingo</ExternalLink>, et
-          est physiquement localisés en France. Voici la{' '}
-          <ExternalLink href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">
-            fiche entreprise
+          <ExternalLink href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">Scalingo
+          </ExternalLink>
+          , et est physiquement localisé en France. Voici le{' '}
+          <ExternalLink href="https://scalingo.com/fr/contrat-gestion-traitements-donnees-personnelles">
+            Contrat de Gestion des Traitements de Données Personnelles
           </ExternalLink>{' '}
           de Scalingo.
         </p>

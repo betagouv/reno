@@ -39,7 +39,7 @@ export default async function FooterContent() {
                   className="fr-footer__top-link"
                   href="/aides/ma-prime-renov"
                 >
-                  MaPrimeRénov
+                  MaPrimeRénov'
                 </InternalLink>
               </li>
               <li>
@@ -185,7 +185,7 @@ export default async function FooterContent() {
                   className="fr-footer__top-link"
                   href="/integration"
                 >
-                  Intégrer notre calculateur
+                  Intégrer nos calculettes
                 </InternalLink>
               </li>
               <li>

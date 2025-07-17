@@ -1,4 +1,3 @@
-import { isMosaicQuestion } from '@/components/BooleanMosaic'
 import { CTA, CTAWrapper } from '@/components/UI'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -15,27 +14,12 @@ export default function FormButtons({
   currentQuestion,
   questionsToSubmit,
   situation,
-  rules,
   depuisModule,
+  specificNextUrl,
+  specificBackUrl,
+  setAvertissementState,
 }) {
-  const mosaicQuestions = isMosaicQuestion(
-    currentQuestion,
-    rules[currentQuestion],
-    rules,
-  )
-
-  const backUrl = setSearchParams(
-    {
-      ...encodeSituation(situation, false, answeredQuestions.slice(0, -1)),
-    },
-    'url',
-    true,
-  )
-
-  const showValidation =
-    currentValue != null ||
-    (mosaicQuestions && mosaicQuestions.find(([q]) => situation[q] != null))
-
+  const showValidation = currentValue != null
   return (
     <CTAWrapper $justify="flex-start">
       <CTA
@@ -48,7 +32,21 @@ export default function FormButtons({
             display: flex !important;
             align-items: center !important;
           `}
-          href={backUrl}
+          href={
+            specificBackUrl
+              ? specificBackUrl
+              : setSearchParams(
+                  {
+                    ...encodeSituation(
+                      situation,
+                      false,
+                      answeredQuestions.slice(0, -1),
+                    ),
+                  },
+                  'url',
+                  true,
+                )
+          }
           onClick={() => {
             if (depuisModule) history.back() // retour direct vers le module passoire au sein de l'iframe, pas vers une question précédente que l'utilisateur n'aurait pas renseignée tout seul
             push([
@@ -79,21 +77,26 @@ export default function FormButtons({
               display: flex !important;
               align-items: center !important;
             `}
-            href={setSearchParams(
-              {
-                ...encodeSituation(
-                  {
-                    ...situation,
-                    [currentQuestion]: situation[currentQuestion],
-                  },
-                  false,
-                  [...answeredQuestions, ...questionsToSubmit],
-                ),
-                question: undefined,
-              },
-              'url',
-              false,
-            )}
+            href={
+              specificNextUrl
+                ? specificNextUrl
+                : setSearchParams(
+                    {
+                      ...encodeSituation(
+                        {
+                          ...situation,
+                          [currentQuestion]: situation[currentQuestion],
+                        },
+                        false,
+                        [...answeredQuestions, ...questionsToSubmit],
+                      ),
+                      question: undefined,
+                      objectif: undefined,
+                    },
+                    'url',
+                    false,
+                  )
+            }
             onClick={() => {
               push([
                 'trackEvent',
@@ -107,6 +110,7 @@ export default function FormButtons({
                 'Valide',
                 currentQuestion,
               ])
+              setAvertissementState(false)
             }}
             title="Aller à l'étape suivante"
           >

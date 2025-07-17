@@ -1,18 +1,21 @@
 import Link from 'next/link'
+import { CTA } from './UI'
+import css from './css/convertToJs'
 
 export default function UserProblemBanner() {
   return (
-    <section
-      css={`
-        margin: 1rem auto;
-        width: 16rem;
-        background: var(--lightestColor);
+    <CTA
+      $fontSize="normal"
+      $importance="secondary"
+      style={css`
+        padding: 0.5rem 0;
+        width: 800px;
+        max-width: 100%;
         text-align: center;
-        padding: 0.4rem;
-        border-radius: 0.6rem;
+        border-color: #dddddd;
       `}
     >
-      <Link href="/faq">Une question, un problème ?</Link>
-    </section>
+      <Link href="/faq">👋 J'ai besoin d'aide</Link>
+    </CTA>
   )
 }

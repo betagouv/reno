@@ -8,7 +8,9 @@ import iconSmileyNo from '@/public/smiley-no.svg'
 import iconSmileyMaybe from '@/public/smiley-maybe.svg'
 import iconSmileyYes from '@/public/smiley-yes.svg'
 
-export default function Feedback({ title, fromLocation }) {
+export default function Feedback({
+  title = 'Ce simulateur a-t-il été utile ?',
+}) {
   const [comment, setComment] = useState('')
   const [vote, setVote] = useState(null)
   const [sent, setSent] = useState(false)

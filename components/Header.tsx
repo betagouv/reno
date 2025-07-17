@@ -1,24 +1,24 @@
 'use client'
-import DynamicHeaderIcon from '@/app/DynamicHeaderIcon'
-import { HeaderWrapper, Title } from '@/app/LayoutUI'
+import { HeaderWrapper } from '@/app/LayoutUI'
+import MarianneHeaderLogo from '@/app/MarianneHeaderLogo'
 import css from '@/components/css/convertToJs'
 import useIsInIframe from '@/components/useIsInIframe'
-import logo from '@/public/logo.svg'
+import logo from '@/public/logo-service-de-FR.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import LogoCompact from './LogoCompact'
-import { CTA } from './UI'
+import styled from 'styled-components'
+import { useMediaQuery } from 'usehooks-ts'
+import Menu from './Menu'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
+  const isMobile = useMediaQuery('(max-width: 800px)')
   const pathname = usePathname()
   if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
     return
 
-  return isInIframe ? (
-    <LogoCompact />
-  ) : (
+  return (
     <HeaderWrapper>
       <nav>
         <Link
@@ -35,7 +35,7 @@ export default function Header() {
               align-items: center;
             `}
           >
-            <DynamicHeaderIcon />
+            {!isMobile && <MarianneHeaderLogo />}
             <div
               style={css`
                 display: flex;
@@ -43,53 +43,20 @@ export default function Header() {
                 margin-left: 1vw;
               `}
             >
-              <Image
-                src={logo}
-                alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge"
-              />
-              <Title>
-                Mes <strong>Aides Réno</strong>
-              </Title>
-              <strong
-                title="Les résultats présentés sur ce site sont une simulation, en version beta : elle est à but d'information mais peut contenir des erreurs. Elle ne remplace ni la loi, ni les informations présentées sur https://france-renov.gouv.fr, ni les conseillers France Rénov'"
-                style={css`
-                  background: #e8edff;
-                  color: #0063cb;
-                  padding: 0.1rem 0.3rem;
-                  border-radius: 0.1rem;
-                  margin-left: 0.6rem;
-                  font-size: 80%;
-                `}
-              >
-                BETA
-              </strong>
+              <HeaderLogo src={logo} alt={logoAlt} $needsMargin={!isMobile} />
             </div>
           </div>
         </Link>
-        <div
-          css={`
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <Link href="/blog">Blog</Link>
-          <Link href="/aides">Les aides</Link>
-          <Link href="/contact">Contact</Link>
-          <CTA
-            $fontSize="normal"
-            css={`
-              line-height: 1;
-              margin-left: 1rem;
-              a {
-                padding: 0.2rem 1rem;
-              }
-              padding: 0.5rem 0;
-            `}
-          >
-            <Link href="/devenir-partenaire">Devenir partenaire</Link>
-          </CTA>
-        </div>
+        <Menu isMobile={isMobile} />
       </nav>
     </HeaderWrapper>
   )
 }
+
+const HeaderLogo = styled(Image)`
+  height: 4rem;
+  width: auto;
+  ${(p) => p.$needsMargin && `margin-left: 0rem;`}
+`
+export const logoAlt =
+  "Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef."

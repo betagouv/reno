@@ -7,6 +7,56 @@ import { BlocAideMPR } from './mprg/BlocAideMPR'
 import { PrimeStyle } from './UI'
 import GesteDescription from './GesteDescription'
 
+// Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
+export const PrimeDisplay = ({
+  montantTotal,
+  isExactTotal,
+  rules,
+  dottedName,
+  eligibleMPRG,
+  hasCoupDePouce,
+  description = true,
+}) => (
+  <div>
+    <h3
+      css={`
+        margin: 0 0 0.5rem 0 !important;
+        font-size: 120%;
+        color: var(--color);
+      `}
+    >
+      {rules[dottedName].titre || getRuleName(dottedName)}
+    </h3>
+    {description && <GesteDescription rule={rules[dottedName]} />}
+
+    <PrimeStyle
+      css={`
+        display: block;
+        text-align: left;
+        text-wrap: wrap;
+      `}
+      $inactive={montantTotal === 'Non applicable'}
+    >
+      {montantTotal === 'Non applicable' ? (
+        <>
+          Prime <strong>non applicable</strong> dans votre situation
+        </>
+      ) : !eligibleMPRG && !hasCoupDePouce && !isExactTotal ? (
+        <>Prime existante</>
+      ) : (
+        <>
+          {isExactTotal
+            ? !hasCoupDePouce && !eligibleMPRG
+              ? 'Prime indicative de '
+              : 'Prime de '
+            : "Jusqu'à "}
+          <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>{' '}
+        </>
+      )}
+    </PrimeStyle>
+  </div>
+)
+
 export default function Geste({
   dottedName,
   answeredQuestions,
@@ -17,8 +67,6 @@ export default function Geste({
   situation,
 }) {
   let infoCEE, infoMPR, infoCoupDePouce, montantTotal, isExactTotal
-
-  const rule = rules[dottedName]
 
   const engineSituation = engine.setSituation(situation)
   const relevant = rules[dottedName + ' . MPR . barème']
@@ -91,52 +139,19 @@ export default function Geste({
   }
 
   montantTotal = calculatedMontantTotal
-  // Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
-  const PrimeDisplay = ({ montantTotal, isExactTotal, rules, dottedName }) => (
-    <>
-      <h5
-        css={`
-          margin: 0 0 0.2rem 0 !important;
-          font-size: 100%;
-        `}
-      >
-        {rules[dottedName].titre || getRuleName(dottedName)}
-      </h5>
-      <GesteDescription rule={rule} />
-
-      <PrimeStyle
-        css={`
-          display: block;
-          text-align: left;
-          text-wrap: wrap;
-        `}
-        $inactive={montantTotal === 'Non applicable'}
-      >
-        {montantTotal === 'Non applicable' ? (
-          <>
-            Prime <strong>non applicable</strong> dans votre situation
-          </>
-        ) : !eligibleMPRG && !infoCoupDePouce && !isExactTotal ? (
-          <>Prime existante</>
-        ) : (
-          <>
-            {isExactTotal
-              ? !infoCoupDePouce && !eligibleMPRG
-                ? 'Prime indicative de '
-                : 'Prime de '
-              : "Jusqu'à "}
-            <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>
-          </>
-        )}
-      </PrimeStyle>
-    </>
-  )
 
   if (!expanded)
     return (
-      <div>
-        <PrimeDisplay {...{ montantTotal, isExactTotal, rules, dottedName }} />
-      </div>
+      <PrimeDisplay
+        {...{
+          montantTotal,
+          isExactTotal,
+          rules,
+          dottedName,
+          eligibleMPRG,
+          hasCoupDePouce: infoCoupDePouce,
+        }}
+      />
     )
 
   return (
@@ -164,11 +179,16 @@ export default function Geste({
       open={true}
     >
       <summary>
-        <div>
-          <PrimeDisplay
-            {...{ montantTotal, isExactTotal, rules, dottedName }}
-          />
-        </div>
+        <PrimeDisplay
+          {...{
+            montantTotal,
+            isExactTotal,
+            rules,
+            dottedName,
+            eligibleMPRG,
+            hasCoupDePouce: infoCoupDePouce,
+          }}
+        />
       </summary>
       {infoMPR && (
         <BlocAideMPR

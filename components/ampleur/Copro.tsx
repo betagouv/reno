@@ -71,7 +71,7 @@ export default function Copro({
           </h2>
           <p>
             Simulez l'éligibilité de votre copropriété à MaPrimeRénov'
-            Coproprieté grace a ce simulateur.
+            Coproprieté grâce à ce simulateur.
           </p>
           <CTAWrapper $justify="left">
             <CTA
@@ -88,7 +88,7 @@ export default function Copro({
                   new URLSearchParams(encodeSituation(situation))
                 }
               >
-                ➞ &nbsp;Simuler MaPrimeRénov' copropriété
+                ➞ &nbsp;Simuler MaPrimeRénov' Copropriété
               </Link>
             </CTA>
           </CTAWrapper>

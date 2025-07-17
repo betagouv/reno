@@ -1,7 +1,7 @@
 PAR:
   notes: |
     Nous ignorons pour l'instant le <a href="https://www.economie.gouv.fr/particuliers/pret-avance-renovation-energetique-financement-travaux" target="_blank">PAR "pas plus"</a> original, qui ne garantit pas un taux zéro, et qui n'est donc pas à propremement parler une aide de l'État.
-  marque: Prêt avance rénovation
+  marque: prêt avance rénovation
   complément de marque: '0 %'
   type: 'prêt'
   icône: 'pam-plus-bleu.svg'
@@ -18,15 +18,15 @@ PAR:
     Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">
                     sont couverts</a> par ce dispositif.
 
-    Dans le cas d'un dossier MaPrimeRénov' accompagnée, ce sera probablement le cas.
+    Dans le cas d'un dossier MaPrimeRénov' parcours accompagné, ce sera probablement le cas.
 
-    > La liste des établissements distribuant le Prêt Avance Rénovation ne portant pas intérêt n'est pas encore disponible. 
+    > La liste des établissements distribuant le prêt avance rénovation ne portant pas intérêt n'est pas encore disponible. 
 
     Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">la démarche étape par étape</a>.
   montant: |
     Jusqu'à 50 000 € d'emprunt pour une rénovation d'ampleur : viser un DPE E au minimum et un gain énergétique de 35%.
   description: |
-    Le Prêt Avance Rénovation à taux zéro (PAR+) est un prêt hypothécaire permettant aux propriétaires occupants de financer des travaux de rénovation énergétique.
+    Le prêt avance rénovation à taux zéro (PAR+) est un prêt hypothécaire permettant aux propriétaires occupants de financer des travaux de rénovation énergétique.
 
     Son remboursement s’effectue in fine, c'est-à-dire en une seule fois, lors de la revente du bien ou au moment de la succession.
   explication: |

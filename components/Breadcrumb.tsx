@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import logo from '@/public/logo.svg'
+import logo from '@/public/logo-sans-nom.svg'
 import useIsInIframe from '@/components/useIsInIframe'
 import styled from 'styled-components'
 

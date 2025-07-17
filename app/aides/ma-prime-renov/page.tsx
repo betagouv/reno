@@ -3,39 +3,24 @@ import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import mprImage from '@/public/maprimerenov.svg'
-import { categoriesGeste } from '@/components/utils'
+import { categories, getRulesByCategory } from '@/components/utils'
 import Image from 'next/image'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
   title: "MaPrimeRénov'",
-  description: "Les aides MaPrimeRénov' par geste.",
+  description: "Les aides MaPrimeRénov' rénovation par geste.",
 }
 
 export default function MaPrimeRenov() {
-  const distinctRulesMPR = Object.keys(rules)
-    .filter((item) => item.startsWith('gestes') && item.endsWith('MPR'))
-    .map((item) => item.replace(' . MPR', ''))
-
-  const rulesByCategory = Object.fromEntries(
-    categoriesGeste.map((category) => [category.titre, []]),
-  )
-  distinctRulesMPR.forEach((rule) => {
-    for (const category of categoriesGeste) {
-      if (rule.includes(category.code)) {
-        rulesByCategory[category.titre].push(rule)
-        break
-      }
-    }
-  })
-
+  const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return (
     <Main>
       <Section>
         <Breadcrumb
           links={[
             { 'Les aides': '/aides' },
-            { "MaPrimeRénov' - Parcours par geste": '/aides/ma-prime-renov' },
+            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
           ]}
         />
         <div
@@ -50,7 +35,7 @@ export default function MaPrimeRenov() {
               margin-left: 1rem;
             `}
           >
-            MaPrimeRénov' Parcours par geste
+            MaPrimeRénov' rénovation par geste
           </h2>
         </div>
         <MiseEnAvant>
@@ -62,7 +47,7 @@ export default function MaPrimeRenov() {
             Informations
           </h3>
           <p>
-            Vous êtes éligible à l'aide MaPrimeRénov' Parcours par geste si:
+            Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si :
           </p>
           <ul>
             <li>
@@ -86,14 +71,14 @@ export default function MaPrimeRenov() {
             `}
           >
             Il existe un dispositif nommé{' '}
-            <strong>MaPrimeRénov' Parcours accompagné</strong> pour les travaux
-            d'ampleur.
+            <strong>MaPrimeRénov' parcours accompagné</strong> pour une
+            rénovation d'ampleur.
           </p>
         </MiseEnAvant>
 
-        <h3>Calculateurs d'aide MaPrimeRénov' par geste</h3>
+        <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
         {Object.keys(rulesByCategory).map((category) => (
-          <Card>
+          <Card key={category}>
             <div
               style={css`
                 display: flex;
@@ -101,7 +86,7 @@ export default function MaPrimeRenov() {
               `}
             >
               <Image
-                src={categoriesGeste.find((c) => c.titre == category).icone}
+                src={categories.find((c) => c.titre == category).image}
                 alt={`icone ${category}`}
                 width="60"
               />

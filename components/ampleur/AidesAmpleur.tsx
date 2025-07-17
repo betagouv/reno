@@ -25,38 +25,40 @@ export default function AidesAmpleur({
 
   const extremeSituation = createExampleSituation(situation, 'best')
 
-  const aides = useAides(engine, extremeSituation) // TODO which situation
-
-  const eligibles = aides.filter((aide) => aide.status === true)
+  const aides = useAides(engine, extremeSituation)
+  // On filtre les remboursements (donc MPRA et subvention MAR) car ils sont affichés différement
+  const eligibles = aides.filter(
+    (aide) => aide.status === true && aide.type !== 'remboursement',
+  )
   const nonEligibles = aides.filter((aide) => aide.status === false)
   const neSaisPas = aides.filter((aide) => aide.status === null)
 
-  const renderAides = (aidesList, title, isEligible) => {
+  const renderAides = (
+    aidesList,
+    title,
+    isEligible,
+    hardCodedFilter = () => true,
+  ) => {
     if (aidesList.length === 0) return null
     let lastType = null
     return (
       <>
-        <h2 title={title}>
-          <span
-            dangerouslySetInnerHTML={{
-              __html:
-                title +
-                '&nbsp;' +
-                (isEligible !== null
-                  ? `<strong style="color: var(--color);">${aidesList.length}</strong>&nbsp;aides`
-                  : ''),
-            }}
-          />
-        </h2>
-        {isEligible === null && (
-          <p
-            css={`
-              margin-bottom: 1.5rem;
-            `}
-          >
-            C'est à vous de vous renseigner pour ces aides, car nous n'avons pas
-            pu déterminer votre éligibilité :
-          </p>
+        {isEligible !== null && (
+          <h2 title={title}>
+            <span
+              css={`
+                color: var(--color);
+              `}
+              dangerouslySetInnerHTML={{
+                __html:
+                  title +
+                  '&nbsp;' +
+                  (isEligible === false
+                    ? `<strong style="color: var(--color);">${aidesList.length}</strong>&nbsp;aides`
+                    : ''),
+              }}
+            />
+          </h2>
         )}
         {isEligible === false && (
           <p
@@ -69,7 +71,7 @@ export default function AidesAmpleur({
           </p>
         )}
         <section>
-          {aidesList.map((aide, i) => {
+          {aidesList.filter(hardCodedFilter).map((aide, i) => {
             const AideComponent = correspondance[aide.baseDottedName]
             const currentType = rules[aide.baseDottedName].type
             const showType = currentType !== lastType && isEligible
@@ -77,11 +79,10 @@ export default function AidesAmpleur({
             return (
               <div key={i}>
                 {showType && (
-                  <div
+                  <h4
                     css={`
-                      color: var(--mutedColor);
+                      font-weight: bold;
                       margin: 1rem 0;
-                      text-transform: capitalize;
                     `}
                   >
                     {rules[aide.baseDottedName].type === 'remboursement' ? (
@@ -89,15 +90,33 @@ export default function AidesAmpleur({
                         <span aria-hidden="true">💶</span> Remboursements
                       </>
                     ) : rules[aide.baseDottedName].type === 'prêt' ? (
-                      <>
-                        <span aria-hidden="true">🏦</span> Prêts
-                      </>
+                      <>Prêts à 0 %</>
                     ) : (
-                      <>
-                        <span aria-hidden="true">✂</span> Exonérations fiscales
-                      </>
+                      <>Exonérations fiscales</>
                     )}
-                  </div>
+                  </h4>
+                )}
+
+                {isEligible === null && (
+                  <>
+                    <div
+                      css={`
+                        font-weight: bold;
+                        margin: 1rem 0 0 0;
+                        font-size: 120%;
+                      `}
+                    >
+                      {title}
+                    </div>
+                    <p
+                      css={`
+                        margin-bottom: 1.5rem;
+                      `}
+                    >
+                      C'est à vous de vous renseigner pour ces aides, car nous
+                      n'avons pas pu déterminer votre éligibilité :
+                    </p>
+                  </>
                 )}
                 <div
                   id={'aide-' + encodeDottedName(aide.baseDottedName)}
@@ -141,80 +160,28 @@ export default function AidesAmpleur({
         h3 {
           font-size: 90%;
         }
+        section {
+          margin: 0;
+        }
       `}
     >
       <CustomQuestionWrapper>
-        <Breadcrumb
-          links={[
-            {
-              Eligibilité: setSearchParams(
-                {
-                  ...encodeSituation(
-                    omit(["parcours d'aide"], situation),
-                    false,
-                    answeredQuestions,
-                  ),
-                },
-                'url',
-                true,
-              ),
-            },
-            {
-              Ampleur: setSearchParams(
-                {
-                  ...encodeSituation(situation, false, answeredQuestions),
-                },
-                'url',
-                true,
-              ),
-            },
-          ]}
-        />
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-          `}
-        >
-          <BtnBackToParcoursChoice
-            {...{
-              setSearchParams,
-              situation: omit(["parcours d'aide"], situation),
-              answeredQuestions,
-            }}
-          />
-          <CopyButton searchParams={searchParams} />
-        </div>
-        <h1
-          css={`
-            font-size: 120%;
-            margin: 0.5rem 0 !important;
-          `}
-        >
-          Financer une rénovation d’ampleur
-        </h1>
         {renderAides(
           eligibles,
-          '<span aria-hidden="true">🥳</span> Éligible à',
+          '<span aria-hidden="true">🏦</span> Autres aides complémentaires',
           true,
         )}
-        {renderAides(
-          neSaisPas,
-          '<span aria-hidden="true">🤔</span> Aides potentielles',
-          null,
-        )}
+        {renderAides(neSaisPas, 'Aides potentielles', null)}
         {renderAides(
           nonEligibles,
           '<span aria-hidden="true">⛔</span> Non éligible à',
           false,
+          (aide) =>
+            givenSituation['logement . type'] === '"maison"' &&
+            aide.baseDottedName === 'ampleur . prime individuelle copropriété'
+              ? false
+              : true,
         )}
-        <FatConseiller
-          {...{
-            situation,
-            margin: 'small',
-          }}
-        />
-        <Feedback title={'Ce simulateur a-t-il été utile ?'} />
       </CustomQuestionWrapper>
     </Section>
   )

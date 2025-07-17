@@ -5,9 +5,9 @@ import { Suspense } from 'react'
 import PTZ from './PTZ'
 
 export const metadata: Metadata = {
-  title: "Eco-PTZ: L'éco-prêt à taux 0 en " + new Date().getFullYear(),
+  title: "Eco-PTZ : L'éco-prêt à taux zéro en " + new Date().getFullYear(),
   description:
-    "L'éco-PTZ: Un prêt à taux 0 sans conditions de ressource destinées à financer la rénovation énergétique de votre logement en " +
+    "L'éco-PTZ : Un prêt à taux zéro sans conditions de ressource destinées à financer la rénovation énergétique de votre logement en " +
     new Date().getFullYear(),
   alternates: {
     canonical: '/aides/pret-taux-0/eco-ptz',

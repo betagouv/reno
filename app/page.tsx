@@ -12,11 +12,14 @@ import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import Image from 'next/image'
 import Link from 'next/link'
+import HomepageModules from './HomepageModules'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
 import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
-import HomepageModules from './HomepageModules'
+
+import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
+
 
 export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
@@ -34,7 +37,6 @@ export default async function Page(props) {
     <main
       style={css`
         background: white;
-
         padding-top: calc(1.5vh + 1.5vw);
       `}
     >
@@ -117,20 +119,17 @@ export default async function Page(props) {
           <div>
             <Image src={logoFranceRenov} alt="Logo de France Rénov" />
             <p>
-              Une initiative construite avec{' '}
-              <ExternalLink href="https://france-renov.gouv.fr" target="_blank">
-                France&nbsp;Rénov'
-              </ExternalLink>{' '}
-              pour simplifier l’information sur les
-              aides&nbsp;à&nbsp;la&nbsp;rénovation&nbsp;énergétique.{' '}
-              <Link
-                href="/a-propos"
-                style={css`
-                  white-space: nowrap;
-                `}
-              >
-                En savoir plus.
-              </Link>
+              <ParFranceRénovTexte />{' '}
+              <small>
+                <Link
+                  href="/a-propos"
+                  style={css`
+                    white-space: nowrap;
+                  `}
+                >
+                  En savoir plus.
+                </Link>
+              </small>
             </p>
           </div>
         </LandingGreenBanner>
