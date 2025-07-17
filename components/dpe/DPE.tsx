@@ -71,10 +71,12 @@ export default function DPE({
             .F {
               background: #f97b4c;
               width: 80%;
+              clip-path: polygon(0 0, 97% 0, 100% 50%, 97% 100%, 0 100%);
             }
             .G {
               background: #e60000;
               width: 90%;
+              clip-path: polygon(0 0, 97% 0, 100% 50%, 97% 100%, 0 100%);
             }
           `}
         >
@@ -112,7 +114,7 @@ export default function DPE({
         <ClasseWrapper>
           <h3>Classe GES</h3>
           <p>Emissions de gaz à effet de serre</p>
-          <Bars>
+          {/* <Bars>
             <ul>
               {data.map((el, index) => (
                 <Li key={el.lettre} $selected={el.lettre === gesLetter}>
@@ -145,7 +147,7 @@ export default function DPE({
                 </Li>
               ))}
             </ul>
-          </Bars>
+          </Bars> */}
           <small>en kgeqCO²/m².an</small>
         </ClasseWrapper>
       )}

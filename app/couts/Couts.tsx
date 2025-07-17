@@ -112,13 +112,13 @@ export default function Couts({ searchParams }) {
   return (
     <div>
       <TrimestreSelector {...{ setTrimestre, trimestre }} />
-      <ol>
+      {/* <ol>
         {statistics
           .sort((a, b) => -a.num + b.num)
           .map((geste) => (
-            // <Geste {...geste} key={geste[keyGeste]} />
+            <Geste {...geste} key={geste[keyGeste]} />
           ))}
-      </ol>
+      </ol> */}
     </div>
   )
 }
