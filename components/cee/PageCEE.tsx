@@ -3,14 +3,7 @@ import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
-import {
-  Badge,
-  CTA,
-  CTAWrapper,
-  Main,
-  MiseEnAvant,
-  Section,
-} from '@/components/UI'
+import { Badge, Main, Section } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
@@ -20,13 +13,10 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from 'next/link'
 import OtherSimulateur from '../OtherSimulateur'
 import { parse } from 'marked'
-import css from '@/components/css/convertToJs'
-import { Card } from '@/components/UI'
 import useIsInIframe from '@/components/useIsInIframe'
 import IframeIntegrator from '../IframeIntegrator'
 import { push } from '@socialgouv/matomo-next'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
-import CallOut from '@codegouvfr/react-dsfr/CallOut'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import React from 'react'
 

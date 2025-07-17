@@ -408,7 +408,7 @@ export function TravauxConnus({
     )
     .map((category) => (
       <div key={category['code']}>
-        <h3>{category['titre']}</h3>
+        <h3 className="fr-mt-5v">{category['titre']}</h3>
         {category['code'] == 'isolation' && <p>{category['sousTitre']}</p>}
         {travauxEnvisages
           .filter(
@@ -424,30 +424,27 @@ export function TravauxConnus({
               rules[decodeDottedName(travaux) + ' . montant'], // Pour éviter qu'on ait la catégorie qui ressorte (ex: gestes . chauffage . PAC)
           )
           .map((travaux) => (
-            <div key={travaux}>
-              <AideGeste
-                {...{
-                  engine,
-                  dottedName: decodeDottedName(travaux),
-                  setSearchParams,
-                  answeredQuestions,
-                  situation,
-                }}
-              />
-            </div>
-          ))}
-        {category['code'] == 'autres' && (
-          <div>
             <AideGeste
+              key={travaux}
               {...{
                 engine,
-                dottedName: 'gestes . recommandés . audit',
+                dottedName: decodeDottedName(travaux),
                 setSearchParams,
                 answeredQuestions,
                 situation,
               }}
             />
-          </div>
+          ))}
+        {category['code'] == 'autres' && (
+          <AideGeste
+            {...{
+              engine,
+              dottedName: 'gestes . recommandés . audit',
+              setSearchParams,
+              answeredQuestions,
+              situation,
+            }}
+          />
         )}
       </div>
     ))

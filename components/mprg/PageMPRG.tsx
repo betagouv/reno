@@ -14,7 +14,6 @@ import IframeIntegrator from '../IframeIntegrator'
 import useIsInIframe from '@/components/useIsInIframe'
 import { push } from '@socialgouv/matomo-next'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
-import CallOut from '@codegouvfr/react-dsfr/CallOut'
 
 export default function PageMPRG({ params }: { params: { titre: string } }) {
   const isInIframe = useIsInIframe()
@@ -95,11 +94,8 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
           </Link>
         )}
         <h1>{infoMPR.titre}</h1>
-        <CallOut
-          colorVariant="blue-ecume"
-          iconId="fr-icon-information-line"
-          title="Informations sur les conditions d'obtention"
-        >
+        <div className="fr-callout fr-icon-info-line">
+          <h2>Informations sur les conditions d'obtention</h2>
           <ul>
             <li>
               La prestation doit être inférieure à{' '}
@@ -128,7 +124,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               .{' '}
             </li>
           </ul>
-        </CallOut>
+        </div>
         <BlocAideMPR
           {...{
             infoMPR,

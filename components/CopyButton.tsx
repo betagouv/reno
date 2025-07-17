@@ -11,24 +11,31 @@ export default function CopyButton() {
 
   return (
     <div
+      className="fr-share"
       css={`
         float: right;
       `}
     >
-      <Button
-        priority="tertiary"
-        aria-describedby="tooltip"
-        title="Cliquez pour partager le lien"
-        onClick={() => {
-          push(['trackEvent', 'Partage', 'Clic'])
-          setOpen(!open)
-        }}
-      >
-        <Image src={shareIcon} alt="Icon copier" className="icon" />
-      </Button>
-      <span className="fr-tooltip fr-placement" id="tooltip" role="tooltip">
-        <Share />
-      </span>
+      <div className="fr-btns-group">
+        <Button
+          iconId="fr-btn--copy"
+          priority="tertiary"
+          // aria-describedby="tooltip"
+          title="Cliquez pour partager le lien"
+          onClick={() => {
+            push(['trackEvent', 'Partage', 'Clic'])
+            navigator.clipboard.writeText(window.location).then(function () {
+              alert('Adresse copiée dans le presse papier.')
+            })
+            //setOpen(!open)
+          }}
+        >
+          Copier dans le presse-papier
+        </Button>
+        <span className="fr-tooltip fr-placement" id="tooltip" role="tooltip">
+          <Share />
+        </span>
+      </div>
     </div>
   )
 }

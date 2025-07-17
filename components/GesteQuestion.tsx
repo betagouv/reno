@@ -1,11 +1,11 @@
 import Input from './Input'
-import Select from './Select'
-import SegmentedControl from './SegmentedControl'
+import { RadioButtons } from '@codegouvfr/react-dsfr/RadioButtons'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
 import RevenuInput from './RevenuInput'
 import { Dot } from '@/app/module/AmpleurQuestions'
 import TargetDPETabs from './mpra/TargetDPETabs'
+import { Select } from '@codegouvfr/react-dsfr/Select'
 
 export default function GesteQuestion({
   rules,
@@ -70,7 +70,7 @@ export default function GesteQuestion({
       `}
     >
       {dot && <Dot css={``} />}
-      <div>{currentQuestion.question}</div>
+      {/* <div>{currentQuestion.question}</div> */}
       <InputComponent
         {...{
           currentQuestion,
@@ -103,20 +103,54 @@ const InputComponent = ({
   autoFocus,
 }) =>
   ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
-    <SegmentedControl
-      value={currentValue}
-      name={question}
-      onChange={onChange}
+    <RadioButtons
+      legend={currentQuestion.question}
+      name="radio"
+      options={[
+        {
+          label: 'Oui',
+          nativeInputProps: {
+            value: 'oui',
+            onChange: onChange,
+          },
+        },
+        {
+          label: 'Non',
+          nativeInputProps: {
+            value: 'non',
+            onChange: onChange,
+          },
+        },
+      ]}
+      orientation="horizontal"
     />
   ) : currentQuestion['une possibilité parmi'] ? (
     <Select
-      value={currentValue == null ? '' : currentValue}
-      values={currentQuestion['une possibilité parmi']['possibilités'].map(
-        (i) => rules[question + ' . ' + i],
-      )}
-      onChange={onChange}
-    />
-  ) : ['ménage . commune', 'logement . commune'].includes(question) ? (
+      label={currentQuestion.question}
+      nativeSelectProps={{
+        onChange: onChange,
+        value: currentValue == null ? '' : currentValue,
+      }}
+    >
+      <option value="" disabled hidden>
+        Selectionnez une option
+      </option>
+      {currentQuestion['une possibilité parmi']['possibilités'].map((i) => {
+        return (
+          <option value={rules[question + ' . ' + i].valeur}>
+            {rules[question + ' . ' + i].titre}
+          </option>
+        )
+      })}
+    </Select>
+  ) : // <Select
+  //   value={currentValue == null ? '' : currentValue}
+  //   values={currentQuestion['une possibilité parmi']['possibilités'].map(
+  //     (i) => rules[question + ' . ' + i],
+  //   )}
+  //   onChange={onChange}
+  // />
+  ['ménage . commune', 'logement . commune'].includes(question) ? (
     <AddressSearch
       {...{
         type: question,

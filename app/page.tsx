@@ -41,11 +41,9 @@ export default async function Page(props) {
             }
           >
             <h1>Estimez vos aides pour rénover votre logement</h1>
-            <Labels>
-              <li key={'réno'}>
-                <span aria-hidden="true">⚡️</span> Rénovation Énergétique
-              </li>
-            </Labels>
+            <p className="fr-tag  fr-tag--success-850">
+              <span aria-hidden="true">⚡️</span> Rénovation Énergétique
+            </p>
             <Intro>
               <p>
                 Une rénovation énergétique pour des factures moins élevées dans
@@ -76,14 +74,14 @@ export default async function Page(props) {
               `}
             >
               <Link
-                className="fr-btn"
+                className="fr-btn fr-icon-arrow-right-line fr-btn--icon-left"
                 href={{
                   pathname: '/simulation',
                   query: searchParams, // needed to pass "iframe" and "sendDataToHost" params to the simulation
                 }}
                 prefetch={false}
               >
-                ➞&nbsp;&nbsp;C'est parti !
+                C'est parti !
               </Link>
               <Link href="/copropriete" className="fr-btn fr-btn--secondary">
                 Je représente une copropriété
@@ -98,6 +96,7 @@ export default async function Page(props) {
                 <ParFranceRénovTexte />{' '}
                 <small>
                   <Link
+                    className="fr-link"
                     href="/a-propos"
                     style={css`
                       white-space: nowrap;

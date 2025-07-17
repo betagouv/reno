@@ -6,7 +6,6 @@ import mprImage from '@/public/maprimerenov.svg'
 import { categories, getRulesByCategory } from '@/components/utils'
 import Image from 'next/image'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
-import CallOut from '@codegouvfr/react-dsfr/CallOut'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -54,12 +53,8 @@ export default function MaPrimeRenov() {
             MaPrimeRénov' rénovation par geste
           </h1>
         </div>
-
-        <CallOut
-          colorVariant="blue-ecume"
-          iconId="fr-icon-information-line"
-          title="Informations"
-        >
+        <div className="fr-callout fr-icon-info-line">
+          <h2>Informations</h2>
           <p>
             Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si :
           </p>
@@ -88,7 +83,7 @@ export default function MaPrimeRenov() {
             <strong>MaPrimeRénov' parcours accompagné</strong> pour une
             rénovation d'ampleur.
           </p>
-        </CallOut>
+        </div>
 
         <h2>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h2>
         {Object.keys(rulesByCategory).map((category) => (

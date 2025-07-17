@@ -123,7 +123,7 @@ export default function ClassicQuestionWrapper({
           {!noSuggestions && (
             <Suggestions
               rule={rule}
-              onClick={(value) =>
+              onClick={(value) => {
                 setSearchParams(
                   encodeSituation(
                     {
@@ -133,10 +133,10 @@ export default function ClassicQuestionWrapper({
                     false,
                     answeredQuestions,
                   ),
-                  'url',
+                  'replace',
                   false,
                 )
-              }
+              }}
             />
           )}
           {children}

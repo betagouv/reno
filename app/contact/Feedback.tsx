@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import iconSmileyNo from '@/public/smiley-no.svg'
 import iconSmileyMaybe from '@/public/smiley-maybe.svg'
 import iconSmileyYes from '@/public/smiley-yes.svg'
-import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function Feedback({
   title = 'Ce simulateur a-t-il été utile ?',
@@ -36,35 +36,11 @@ export default function Feedback({
   }
 
   return (
-    <CallOut
-      buttonProps={{
-        children: 'Je donne mon avis',
-        priority: 'secondary',
-        onClick: (e) => {
-          if (!isOpen) {
-            setIsOpen(true)
-            push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
-            return
-          }
-          push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
-          e.preventDefault()
-          if (!comment) {
-            return
-          }
-          createIssue(
-            comment + '\n> ' + 'Depuis la page: ' + window.location.href,
-            vote,
-          )
-        },
-      }}
-      colorVariant="yellow-tournesol"
-      title={
-        <>
-          <span aria-hidden="true">👋</span>
-          {title}
-        </>
-      }
-    >
+    <div className="fr-callout fr-callout--yellow-tournesol">
+      <h3>
+        <span aria-hidden="true">👋</span>
+        {title}
+      </h3>
       <VoteBox>
         <div
           className={vote == 'insatisfait' ? 'unhappy-active' : 'unhappy'}
@@ -97,6 +73,27 @@ export default function Feedback({
           <div>Oui</div>
         </div>
       </VoteBox>
+      <Button
+        priority="secondary"
+        onClick={(e) => {
+          if (!isOpen) {
+            setIsOpen(true)
+            push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
+            return
+          }
+          push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
+          e.preventDefault()
+          if (!comment) {
+            return
+          }
+          createIssue(
+            comment + '\n> ' + 'Depuis la page: ' + window.location.href,
+            vote,
+          )
+        }}
+      >
+        Je donne mon avis
+      </Button>
       {(vote || sent) && (
         <div
           css={`
@@ -141,21 +138,9 @@ export default function Feedback({
           </form>
         )}
       </div>
-    </CallOut>
+    </div>
   )
 }
-
-export const ContactForm = styled.div`
-  .slide-up {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 2s ease-out;
-  }
-
-  .slide-up.active {
-    max-height: 500px;
-  }
-`
 
 export const VoteBox = styled.div`
   display: flex;
