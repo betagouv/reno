@@ -10,14 +10,14 @@ prioritaires:
   - logement . propriétaire occupant
   - logement . résidence principale propriétaire
   - logement . résidence principale locataire
-  - ménage . personnes
-  - ménage . revenu
   - logement . adresse
   - logement . type
   - logement . surface
   - logement . période de construction
   - logement . commune
   - ménage . commune
+  - ménage . personnes
+  - ménage . revenu
   - DPE . actuel
   - projet . définition
   - projet . définition . catégories travaux envisagées

@@ -10,14 +10,15 @@ import {
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
 import Publicodes from 'publicodes'
-import { ExternalLink, MiseEnAvant } from '@/components/UI'
+import { MiseEnAvant } from '@/components/UI'
 import { omit } from '@/components/utils'
 import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
-import { Select } from '@/components/InputUI'
 import { No, Yes } from '@/components/ResultUI'
 import { Loader } from '@/components/UI'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Select from '@codegouvfr/react-dsfr/Select'
+import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function Endpoint({ type }) {
   const [method, setMethod] = useState('POST')
@@ -143,11 +144,17 @@ export default function Endpoint({ type }) {
           margin-bottom: 1rem;
         `}
       >
-        <Select onChange={(e) => setMethod(e.target.value)} value={method}>
+        Url : {apiUrl}
+        <Select
+          label="Méthode :"
+          nativeSelectProps={{
+            onChange: (e) => setMethod(e.target.value),
+            value: method,
+          }}
+        >
           <option value="POST">POST</option>
           <option value="GET">GET</option>
         </Select>
-        {' ' + apiUrl}
       </div>
       <div
         css={`
@@ -183,24 +190,23 @@ export default function Endpoint({ type }) {
         </div>
       )}
       {['MPR', 'CEE', 'geste'].includes(type) && (
-        <div
-          css={`
-            margin-bottom: 1rem;
-          `}
+        <Select
+          label="Geste :"
+          nativeSelectProps={{
+            onChange: (e) => changeGeste(e.target.value),
+            value: geste,
+          }}
         >
-          Geste : {` `}
-          <Select onChange={(e) => changeGeste(e)} value={geste}>
-            {distinctRules.map((item, index) => (
-              <option
-                key={index}
-                value={item.valeur}
-                disabled={item.valeur === ''}
-              >
-                {item.titre}
-              </option>
-            ))}
-          </Select>
-        </div>
+          {distinctRules.map((item, index) => (
+            <option
+              key={index}
+              value={item.valeur}
+              disabled={item.valeur === ''}
+            >
+              {item.titre}
+            </option>
+          ))}
+        </Select>
       )}
       <div
         css={`
@@ -215,66 +221,48 @@ export default function Endpoint({ type }) {
             width: 80%;
           `}
         >
-          <strong
-            css={`
-              display: block;
-            `}
-          >
-            Paramètres:
-          </strong>
-          <TextArea
-            css={`
-              width: 100%;
-            `}
-            value={yaml}
-            onChange={(e) => setYaml(e.target.value)}
-          />
+          <div className="fr-input-group" id="input-group">
+            <label className="fr-label" htmlFor="yaml">
+              Paramètres :
+              <span className="fr-hint-text">
+                <a href="#parametres" className="fr-link">
+                  Voir la liste des paramètres
+                </a>
+              </span>
+            </label>
+            <textarea
+              rows={12}
+              className="fr-input"
+              aria-describedby="yaml-messages"
+              id="yaml"
+              value={yaml}
+              onChange={(e) => setYaml(e.target.value)}
+            />
+            <div
+              className="fr-messages-group"
+              id="yaml-messages"
+              aria-live="polite"
+            ></div>
+          </div>
         </div>
-        <Button
-          onClick={(e) => handleSubmit(e, method)}
-          css={`
-            padding: 0.8rem 1.2rem;
-            cursor: pointer;
-            height: fit-content;
-          `}
-        >
-          Exécuter
-        </Button>
+        <Button onClick={(e) => handleSubmit(e, method)}>Exécuter</Button>
       </div>
-      <a
-        href="#parametres"
-        className="fr-link"
-        css={`
-          display: inline-block;
-          margin-bottom: 1rem;
-        `}
-      >
-        Voir la liste des paramètres
-      </a>
+
       {type == 'eligibilite' && result && (
-        <MiseEnAvant $type="warning">
-          <h4
-            css={`
-              margin: 0 0 1rem;
-            `}
-          >
-            La propriété <strong>"status"</strong> est primordiale.
+        <div className="fr-callout fr-callout--orange-terre-battue fr-my-5v">
+          <h4>
+            La propriété <em>"status"</em> est primordiale.
           </h4>
           Trois valeurs sont possibles:
-          <ul
-            css={`
-              li {
-                line-height: 1.6rem;
-              }
-            `}
-          >
+          <ul>
             <li>
               <strong>true</strong> : La situation soumise{' '}
-              <Yes>remplit les critères d'éligibilité</Yes> pour ce dispositif.
+              <strong>remplit les critères d'éligibilité</strong> pour ce
+              dispositif.
             </li>
             <li>
               <strong>false</strong> : La situation soumise{' '}
-              <No>ne remplit pas les critères d'éligibilité</No> pour ce
+              <strong>ne remplit pas les critères d'éligibilité</strong> pour ce
               dispositif
             </li>
             <li>
@@ -283,7 +271,7 @@ export default function Endpoint({ type }) {
               pouvoir déterminer l'éligibilité
             </li>
           </ul>
-        </MiseEnAvant>
+        </div>
       )}
       <div>
         <strong
@@ -320,12 +308,7 @@ export const Code = styled.code`
   max-height: 15rem;
   overflow: auto;
 `
-export const TextArea = styled.textarea`
-  padding: 0.6rem;
-  font-size: 100%;
-  height: 11rem;
-  border: 2px solid var(--color);
-`
+
 export const EvaluationValue = styled.div`
   background: var(--color);
   color: white;

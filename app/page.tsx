@@ -1,5 +1,5 @@
 import FromStorageSimulationButtonLoader from '@/components/FromStorageSimulationButtonLoader'
-import { CTA, CTAWrapper, Intro, PageBlock } from '@/components/UI'
+import { Intro, PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
@@ -10,7 +10,7 @@ import HomepageModules from './HomepageModules'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
-import { HeaderWrapper, Labels, LandingGreenBanner } from './LandingUI'
+import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
 
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
@@ -33,12 +33,10 @@ export default async function Page(props) {
       <main role="main" id="content">
         <PageBlock>
           <HeaderWrapper
-            image={
-              <Image
-                src={illustrationAccueil}
-                alt="Des ouvriers peignent et réparent la facade d'une maison"
-              />
-            }
+            image={{
+              src: illustrationAccueil,
+              alt: "Des ouvriers peignent et réparent la facade d'une maison",
+            }}
           >
             <h1>Estimez vos aides pour rénover votre logement</h1>
             <p className="fr-tag  fr-tag--success-850">

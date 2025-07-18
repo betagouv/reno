@@ -11,8 +11,6 @@ import Schema, { getPersonas } from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import { formatNumber } from '@/components/RevenuInput'
-import { IframeCodeWrapper } from '@/components/Integration'
-
 import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 
 const modules = {

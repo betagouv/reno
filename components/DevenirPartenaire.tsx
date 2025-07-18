@@ -1,5 +1,5 @@
 'use client'
-import { Card, CTA, CTAWrapper, ExternalLink, PageBlock } from '@/components/UI'
+import { ExternalLink, PageBlock } from '@/components/UI'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationIntegration from '@/public/illustration-integration.png'
 import iconChrono from '@/public/chrono.svg'
@@ -7,10 +7,6 @@ import iconChiffrage from '@/public/chiffrage.svg'
 import iconMarianne from '@/public/marianne-sans-texte-cropped.svg'
 import iconIntegration from '@/public/integration.svg'
 import iconPaper from '@/public/paper.svg'
-
-import iframeIcon from '@/public/icon-iframe.svg'
-import apiIcon from '@/public/icon-api.png'
-import npmIcon from '@/public/icon-npm.png'
 
 import logoOFI from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
 import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
@@ -21,131 +17,107 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { HeaderWrapper } from '@/app/LandingUI'
+import Badge from '@codegouvfr/react-dsfr/Badge'
+import Card from '@codegouvfr/react-dsfr/Card'
 
 export default function DevenirPartenaire() {
   return (
     <PageBlock>
       <HeaderWrapper
-        css={`
-          margin: 3rem auto;
-          gap: 1rem;
-        `}
+        image={{
+          src: illustrationIntegration,
+          alt: 'Simulateur de calcul des aides MaPrimeRénov parcours accompagné',
+        }}
       >
-        <Image
-          css={`
-            @media (min-width: 800px) {
-              width: 100% !important;
-              height: auto;
-              margin: 0 !important;
-            }
-          `}
-          src={illustrationIntegration}
-          alt="Simulateur de calcul des aides MaPrimeRénov parcours accompagné"
-        />
-        <div>
-          <p
-            css={`
-              margin: 0;
-              background: #fdf8db;
-              color: #6e4444 !important;
-              border-radius: 1rem;
-              font-weight: bold;
-              width: fit-content;
-              padding: 0 1rem;
-            `}
-          >
-            <span aria-hidden="true">⭐️</span> Aides à la rénovation
-            énergétique
-          </p>
-          <h1
-            css={`
-              margin-top: 0.6rem;
-              margin-bottom: 1rem;
-              font-size: 180%;
-            `}
-          >
-            Proposez à vos utilisateurs un calcul personnalisé et actualisé des
-            aides à la rénovation énergétique.
-          </h1>
-          <CTAWrapper $justify="left">
-            <CTA $fontSize="normal">
-              <Link href="/contact">
-                <span aria-hidden="true">➔</span>&nbsp;&nbsp;Demandez une démo
-              </Link>
-            </CTA>
-          </CTAWrapper>
-        </div>
+        <Badge noIcon>
+          <span aria-hidden="true">⭐️</span> Aides à la rénovation énergétique
+        </Badge>
+        <h1>
+          Proposez à vos utilisateurs un calcul personnalisé et actualisé des
+          aides à la rénovation énergétique.
+        </h1>
+        <Link
+          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-left"
+          href="/contact"
+        >
+          Demandez une démo
+        </Link>
       </HeaderWrapper>
       <Wrapper $noMargin={true}>
         <Content>
-          <h2
-            css={`
-              text-align: center;
-              margin: 3vh 0 0 0;
-            `}
-          >
-            Intégrez la solution Mes Aides Réno au bon format
-          </h2>
-          <p
-            css={`
-              font-size: 0.95rem;
-            `}
-          >
+          <h2>Intégrez la solution Mes Aides Réno au bon format</h2>
+          <p>
             Dans un article, sur votre site web ou dans vos logiciels métiers,
             via une iframe, un paquet NPM ou une API.
           </p>
-          <CardMosaic>
-            <Card>
-              <Link href="/integration">
-                <Image src={iframeIcon} alt="icone iframe" />
-                <h3>Iframe</h3>
-                <p>pour s'intégrer sur votre site web.</p>
-              </Link>
-            </Card>
-            <Card>
-              <Link href="/api-doc">
-                <Image src={apiIcon} alt="icone API" />
-                <h3>API</h3>
-                <p>pour communiquer avec notre logiciel.</p>
-              </Link>
-            </Card>
-            <Card>
-              <Link href="/npm">
-                <Image src={npmIcon} alt="icone NPM" />
-                <h3>Paquet NPM</h3>
-                <p>pour utiliser le modèle au sein de votre logiciel.</p>
-              </Link>
-            </Card>
-          </CardMosaic>
+          <div className="fr-grid-row fr-grid-row--gutters">
+            <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
+              <Card
+                background
+                border
+                desc="pour s'intégrer sur votre site web."
+                enlargeLink
+                imageAlt="icone iframe"
+                imageUrl="/icon-iframe.svg"
+                linkProps={{
+                  href: '/integration',
+                }}
+                size="medium"
+                title="Iframe"
+                titleAs="h3"
+              />
+            </div>
+            <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
+              <Card
+                background
+                border
+                desc="pour communiquer avec notre logiciel."
+                enlargeLink
+                imageAlt="icone API"
+                imageUrl="/icon-api.png"
+                linkProps={{
+                  href: '/api-doc',
+                }}
+                size="medium"
+                title="API"
+                titleAs="h3"
+              />
+            </div>
+            <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
+              <Card
+                background
+                border
+                desc="pour utiliser le modèle au sein de votre logiciel."
+                enlargeLink
+                imageAlt="icone NPM"
+                imageUrl="/icon-npm.png"
+                linkProps={{
+                  href: '/npm',
+                }}
+                size="medium"
+                title="Paquet NPM"
+                titleAs="h3"
+              />
+            </div>
+          </div>
         </Content>
       </Wrapper>
       <Wrapper $background="white" $noMargin={true}>
-        <Content
-          css={`
-            text-align: center;
-            margin: 4vh auto;
-          `}
-        >
+        <Content>
           <h2>L’accompagnement sur-mesure</h2>
           <p>
-            <strong
-              css={`
-                display: block;
-                margin: auto;
-              `}
-            >
+            <strong>
               L’équipe vous aide à intégrer les outils adaptés à vos besoins,
               gratuitement.
             </strong>
             Écrivez-nous, nous vous répondrons sous 3 jours ouvrés.
           </p>
-          <CTAWrapper $justify="center">
-            <CTA $fontSize="normal">
-              <Link href="/contact">
-                <span aria-hidden="true">✉</span> Prendre contact
-              </Link>
-            </CTA>
-          </CTAWrapper>
+          <Link
+            className="fr-btn fr-icon-mail-line fr-btn--icon-left"
+            href="/contact"
+          >
+            Prendre contact
+          </Link>
         </Content>
       </Wrapper>
       <Wrapper $noMargin={true}>
@@ -209,20 +181,8 @@ export default function DevenirPartenaire() {
         </Content>
       </Wrapper>
       <Wrapper $background="white" $noMargin={true} $last={true}>
-        <Content
-          css={`
-            text-align: center;
-            margin: 4vh auto;
-          `}
-        >
-          <h2
-            css={`
-              text-align: center;
-              margin: 2rem;
-            `}
-          >
-            Ils nous font déjà confiance
-          </h2>
+        <Content>
+          <h2>Ils nous font déjà confiance</h2>
           <div
             css={`
               display: flex;

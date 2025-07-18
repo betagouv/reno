@@ -20,38 +20,19 @@ export default function API() {
   return (
     <>
       <Main>
-        <Section
-          css={`
-            margin-bottom: 3vh;
-          `}
-        >
+        <Section>
           <h1>API Mes Aides Réno</h1>
           <p>
             Notre API vous permet d'intégrer Mes Aides Réno au coeur de votre
             service. Si votre objectif est simplement de l'intégrer dans une
             page Web ou un article de blog, nous avons{' '}
-            <Link href="/integration">une solution bien plus simple</Link>.
+            <Link className="fr-link" href="/integration">
+              une solution bien plus simple
+            </Link>
+            .
           </p>
-          <Card>
-            <div
-              css={`
-                display: flex;
-                align-items: center;
-                margin-bottom: 0.8rem;
-                color: #2a82dd;
-                font-weight: 500;
-              `}
-            >
-              <Image
-                src={informationIcon}
-                width="25"
-                css={`
-                  margin-right: 0.4rem;
-                `}
-                alt="Icône information"
-              />{' '}
-              <small>Plus d'informations</small>
-            </div>
+          <div className="fr-callout fr-icon-info-line">
+            <h2>Plus d'informations</h2>
             <div
               id="accompagnement"
               css={`
@@ -95,19 +76,16 @@ export default function API() {
               </ul>
               <p>À votre disposition pour avancer ensemble !</p>
             </div>
-          </Card>
-          <MiseEnAvant $type="warning">
-            <h3
-              css={`
-                margin: 0 0 1rem;
-              `}
-            >
-              Demandez votre token!
-            </h3>
+          </div>
+          <div className="fr-callout fr-callout--yellow-moutarde">
+            <h3>Demandez votre token!</h3>
             <p>
               Notre API est entièrement gratuite, libre d'accès et sans aucun
               quota d'utilisation. Nous vous demandons simplement de nous{' '}
-              <a href="mailto:contact@mesaidesreno.fr?subject=Demande de token API">
+              <a
+                className="fr-link"
+                href="mailto:contact@mesaidesreno.fr?subject=Demande de token API"
+              >
                 informer de son utilisation
               </a>
               .
@@ -118,7 +96,7 @@ export default function API() {
               à d'éventuelles évolutions légales concernant les dispositifs
               d'aides à la rénovation.
             </p>
-          </MiseEnAvant>
+          </div>
           <h2>Que permet l'API ?</h2>
           <p>
             L'API permet, à partir d'une situation d'entrée, d'évaluer
@@ -127,22 +105,25 @@ export default function API() {
           </p>
           <p>
             Plus globalement, elle expose l'intégralité de{' '}
-            <ExternalLink
+            <a
+              rel="noopener external"
+              className="fr-link"
               href="https://github.com/betagouv/reno/tree/master/app/r%C3%A8gles"
               target="_blank"
             >
               notre modèle de calcul
-            </ExternalLink>
+            </a>
             , ce qui permet d'accéder via le paramètre <em>"fields"</em> à
             l'ensemble des variables de notre modèle.
             <br />
-            <u>Exemple:</u>{' '}
-            <ExternalLink
+            Exemple :{' '}
+            <a
+              className="fr-link"
               href="/api/v1/?ménage.revenu.classe='modeste'&fields=ampleur.pourcent%20d%27écrêtement"
               target="_blank"
             >
               /api/v1/?ménage.revenu.classe="modeste"&fields=ampleur.pourcent%20d%27écrêtement
-            </ExternalLink>
+            </a>
           </p>
           <h2>Démonstration</h2>
           <p>
@@ -151,58 +132,43 @@ export default function API() {
             <em> "Executer"</em> pour voir le résultat.
           </p>
           <EndpointsList />
-          <AccordionTitle
-            aria-expanded={displayParams}
-            aria-controls={`accordion-params`}
-            onClick={() => setDisplayParams(!displayParams)}
-            css={`
-              margin-top: 2rem;
-              border-bottom: 1px solid #ddd;
-              color: black;
-            `}
-          >
-            <h3
-              id="parametres"
-              css={`
-                margin: 0;
-              `}
+          <h3 className="fr-my-5v" id="parametres">
+            Liste des Paramètres
+          </h3>
+          <p>
+            Notre API est basée sur{' '}
+            <a
+              rel="noopener external"
+              className="fr-link"
+              href="https://publi.codes"
             >
-              Liste des Paramètres
-            </h3>
-          </AccordionTitle>
-          {displayParams && (
-            <div
-              id={`accordion-params`}
-              css={`
-                margin-bottom: 2rem;
-                padding: 1rem;
-                border: 1px solid #ddd;
-              `}
+              Publicodes
+            </a>
+            . Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur
+            la
+            <a
+              rel="noopener external"
+              className="fr-link"
+              href="https://publi.codes/docs"
             >
-              <p>
-                Notre API est basée sur{' '}
-                <ExternalLink href="https://publi.codes">
-                  Publicodes
-                </ExternalLink>
-                . Nous vous conseillons de faire un petit tour (10&nbsp;minutes)
-                sur la
-                <ExternalLink href="https://publi.codes/docs">
-                  {' '}
-                  documentation
-                </ExternalLink>{' '}
-                de Publicodes pour mieux comprendre ses fondamentaux.
-              </p>
-              <p>
-                Vous pouvez aussi consulter notre{' '}
-                <ExternalLink href="https://github.com/betagouv/reno/tree/master/app/r%C3%A8gles">
-                  modèle de calcul{' '}
-                </ExternalLink>
-                qui recense l'entièreté des paramètres disponibles ainsi que
-                davantage de documentation.
-              </p>
-              <ParametersList />
-            </div>
-          )}
+              {' '}
+              documentation
+            </a>{' '}
+            de Publicodes pour mieux comprendre ses fondamentaux.
+          </p>
+          <p>
+            Vous pouvez aussi consulter notre{' '}
+            <a
+              rel="noopener external"
+              className="fr-link"
+              href="https://github.com/betagouv/reno/tree/master/app/r%C3%A8gles"
+            >
+              modèle de calcul
+            </a>
+            qui recense l'entièreté des paramètres disponibles ainsi que
+            davantage de documentation.
+          </p>
+          <ParametersList />
         </Section>
       </Main>
       <ContactIntegration type="api" />

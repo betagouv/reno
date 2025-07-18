@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { IframeCodeWrapper } from './Integration'
 import { BlueEm } from '@/app/LandingUI'
 import { useEffect, useState } from 'react'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 
 export default function IntegrationQuestions({
   noScroll = null,
@@ -70,29 +71,25 @@ export default function IntegrationQuestions({
               n'est pas nécessaire mais c'est possible : l'iframe prendra alors
               une hauteur dynamique en fonction de chaque page.
             </p>
-            <label
-              css={`
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-                padding: 0.6rem 0;
-              `}
-            >
-              <input
-                type="checkbox"
-                value={noScroll}
-                onChange={() => setNoScroll(!noScroll)}
-              />
-              <span>Tester le redimensionnement automatique</span>
-            </label>
+            <Checkbox
+              options={[
+                {
+                  label: 'Tester le redimensionnement automatique',
+                  nativeInputProps: {
+                    name: 'checkboxes-1',
+                    value: noScroll,
+                    onChange: () => setNoScroll(!noScroll),
+                  },
+                },
+              ]}
+            />
             <p>
               Cela nécessite ce petit bout de code Javascript à ajouter de votre
               côté sur votre page hôte.
             </p>
-            <IframeCodeWrapper>
+            <Highlight>
               <code>{` 
-
-<script>
+  <script>
     const handleHeightChange = function (evt) {
       if (evt.data.kind === 'mesaidesreno-resize-height') {
         document.querySelector('iframe#mesaidesreno').current.style.height = evt.data.value + 'px'
@@ -102,7 +99,7 @@ export default function IntegrationQuestions({
     window.addEventListener('message', handleHeightChange)
 	</script>
 					  `}</code>
-            </IframeCodeWrapper>
+            </Highlight>
           </div>
         </details>
       )}
@@ -120,31 +117,28 @@ export default function IntegrationQuestions({
               de l'utilisateur avant d'envoyer ses données depuis notre domaine
               vers le votre.
             </p>
-            <label
-              css={`
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-                padding: 0.6rem 0;
-              `}
-            >
-              <input
-                type="checkbox"
-                value={sendUserDataOption}
-                onChange={() => setSendUserDataOption(!sendUserDataOption)}
-              />
-              <span>Tester le renvoie de données à l'hôte</span>
-            </label>
-            <p>
-              Deux étapes sont nécessaires : 1) activer l'option dans l'iframe
-              via le paramètre d'URL<BlueEm>?sendDataToHost</BlueEm> ; 2)
-              implémenter la fonction qui écoute cet événement chez vous, dont
-              voici un exemple :
+            <Checkbox
+              options={[
+                {
+                  label: "Tester le renvoie de données à l'hôte",
+                  nativeInputProps: {
+                    name: 'checkboxes-2',
+                    value: sendUserDataOption,
+                    onChange: () => setSendUserDataOption(!sendUserDataOption),
+                  },
+                },
+              ]}
+            />
+            <p className="fr-mt-5v">
+              Deux étapes sont nécessaires :<br /> 1) activer l'option dans
+              l'iframe via le paramètre d'URL <strong>?sendDataToHost</strong> ;
+              <br />
+              2) implémenter la fonction qui écoute cet événement chez vous,
+              dont voici un exemple :
             </p>
-            <IframeCodeWrapper>
+            <Highlight>
               <code>{` 
-
-<script>
+  <script>
     const handleMesAidesRenoUserData = function (evt) {
       if (evt.data.kind === 'mesaidesreno-eligibility-done') {
 	  // faire quelque chose avec en respectant la loi
@@ -156,12 +150,16 @@ export default function IntegrationQuestions({
 					  `}</code>
               <p>
                 Voici un exemple de{' '}
-                <a href="https://codesandbox.io/p/sandbox/5t55w6">
+                <a
+                  rel="noopener external"
+                  className="fr-link"
+                  href="https://codesandbox.io/p/sandbox/5t55w6"
+                >
                   bac à sable
                 </a>{' '}
                 qui capte les données.
               </p>
-            </IframeCodeWrapper>
+            </Highlight>
             {dataReceived && (
               <section>
                 ✅ données reçues depuis l'iframe : ouvrez la console pour les

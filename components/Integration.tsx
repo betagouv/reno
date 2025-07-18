@@ -1,26 +1,21 @@
 'use client'
-import { HeaderWrapper, BlueEm } from '@/app/LandingUI'
+import { HeaderWrapper } from '@/app/LandingUI'
 import Link from 'next/link'
-import Image from 'next/image'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
-import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import getAppUrl from './getAppUrl'
-import { PageBlock, Intro, CTAWrapper, CTA, MiseEnAvant, Card } from './UI'
+import { PageBlock, Intro } from './UI'
 import { useEffect, useRef, useState } from 'react'
-import { Select } from './InputUI'
 import { useRouter, useSearchParams } from 'next/navigation'
-import styled from 'styled-components'
 import IntegrationQuestions from './IntegrationQuestions'
 import useResizeIframeFromHost from './useResizeIframeFromHost'
 import Demonstration from '@/app/module/Demonstration'
 import calculetteImage from '@/public/illuModule.png'
-import { CardMosaic } from './DevenirPartenaire'
-import ampleurImage from '@/public/illuAmpleur.png'
-import plusValueImage from '@/public/illuPlusValue.png'
-import factureImage from '@/public/illuFacture.png'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import { Card } from '@codegouvfr/react-dsfr/Card'
+import Select from '@codegouvfr/react-dsfr/Select'
 
 export default function Integration() {
   const router = useRouter()
@@ -120,12 +115,7 @@ export default function Integration() {
   const [sendUserDataOption, setSendUserDataOption] = useState(false)
 
   return (
-    <main
-      style={css`
-        background: white;
-        padding-top: calc(1.5vh + 1.5vw);
-      `}
-    >
+    <main>
       <PageBlock>
         <Content>
           <Breadcrumb
@@ -143,88 +133,80 @@ export default function Integration() {
             ]}
           />
         </Content>
-        <HeaderWrapper>
-          <Image
-            src={calculetteImage}
-            alt="Une personne utilise une calculatrice sur son bureau"
-            style={css`
-              margin: 1rem;
-            `}
-          />
-          <div>
-            <h1
-              style={css`
-                margin-top: 0.6rem;
-                margin-bottom: 1rem;
-                font-size: 180%;
-              `}
-            >
-              Intégrer <BlueEm>les calculettes</BlueEm> des aides à la
-              rénovation sur votre site.
-            </h1>
-            <Intro>
-              <p>
-                Mes Aides Réno est un service public de calcul des aides à la
-                rénovation énergétique. Le sujet est complexe, les aides sont
-                multiples, les règles sont mouvantes.
-              </p>
-              <p>
-                En intégrant directement nos calculatettes sous forme d'iframe
-                chez vous, vous permettez à vos utilisateurs d'estimer leurs
-                aides sans qu'ils quittent votre site.
-              </p>
-            </Intro>
-          </div>
+        <HeaderWrapper
+          image={{
+            src: calculetteImage,
+            alt: 'Une personne utilise une calculatrice sur son bureau',
+          }}
+        >
+          <h1>
+            Intégrer les calculettes des aides à la rénovation sur votre site.
+          </h1>
+          <Intro>
+            <p>
+              Mes Aides Réno est un service public de calcul des aides à la
+              rénovation énergétique. Le sujet est complexe, les aides sont
+              multiples, les règles sont mouvantes.
+            </p>
+            <p>
+              En intégrant directement nos calculatettes sous forme d'iframe
+              chez vous, vous permettez à vos utilisateurs d'estimer leurs aides
+              sans qu'ils quittent votre site.
+            </p>
+          </Intro>
         </HeaderWrapper>
         <Wrapper>
           <Content>
-            <h2
-              css={`
-                margin-bottom: 1rem;
-              `}
-            >
-              Nos dernières calculettes:
-            </h2>
-            <CardMosaic $smallTitle $noPadding>
-              <Card>
-                <Image src={factureImage} alt="Illustration Facture" />
-                <h3>
-                  <Link href="/module/facture/demonstration">
-                    Facture énergétique
-                  </Link>
-                </h3>
-                <p>
-                  Evaluez l'impact financier d'une rénovation sur votre facture
-                  d'énergie.
-                </p>
-              </Card>
-              <Card>
-                <Image src={plusValueImage} alt="Illustration Plus Value" />
-                <h3>
-                  <Link href="/module/plus-value/demonstration">
-                    Ma plus-value Réno
-                  </Link>
-                </h3>
-                <p>
-                  Estimez la plus-value de votre logement après sa rénovation.
-                </p>
-              </Card>
-              <Card>
-                <Image src={ampleurImage} alt="Illustration Ampleur" />
-                <h3>
-                  <Link href="/module">Rénovation d'ampleur</Link>
-                </h3>
-                <p>
-                  Calculez l'ensemble de vos aides pour une rénovation
-                  d'ampleur.
-                </p>
-              </Card>
-              <div
-                css={`
-                  opacity: 0;
-                  cursor: auto;
-                `}
-              ></div>
+            <h2>Nos dernières calculettes:</h2>
+            <div className="fr-grid-row fr-grid-row--gutters">
+              <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
+                <Card
+                  background
+                  border
+                  desc="Evaluez l'impact financier d'une rénovation sur votre facture d'énergie."
+                  enlargeLink
+                  imageAlt="Illustration Facture"
+                  imageUrl="/illuFacture.png"
+                  linkProps={{
+                    href: '/module/facture/demonstration',
+                  }}
+                  size="medium"
+                  title="Facture énergétique"
+                  titleAs="h3"
+                />
+              </div>
+              <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
+                <Card
+                  background
+                  border
+                  desc="Estimez la plus-value de votre logement après sa rénovation."
+                  enlargeLink
+                  imageAlt="Illustration Plus Value"
+                  imageUrl="/illuPlusValue.png"
+                  linkProps={{
+                    href: '/module/plus-value/demonstration',
+                  }}
+                  size="medium"
+                  title="Ma plus-value Réno"
+                  titleAs="h3"
+                />
+              </div>
+              <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
+                <Card
+                  background
+                  border
+                  desc="Calculez l'ensemble de vos aides pour une rénovation d'ampleur."
+                  enlargeLink
+                  imageAlt="Illustration Ampleur"
+                  imageUrl="/illuAmpleur.png"
+                  linkProps={{
+                    href: '/module',
+                  }}
+                  size="medium"
+                  title="Rénovation d'ampleur"
+                  titleAs="h3"
+                />
+              </div>
               {/* <Card>
                 <Image src={ampleurImage} alt="Logo Ampleur" />
                 <h3>
@@ -237,17 +219,13 @@ export default function Integration() {
                   énergétique.
                 </p>
               </Card> */}
-            </CardMosaic>
-            <h2
-              css={`
-                margin-bottom: 1rem;
-              `}
-            >
-              Sélectionnez la calculette à intégrer:
-            </h2>
+            </div>
             <Select
-              onChange={(e) => handleModuleChange(e.target.value)}
-              value={module}
+              nativeSelectProps={{
+                onChange: (e) => handleModuleChange(e.target.value),
+                value: module,
+              }}
+              label="Sélectionnez la calculette à intégrer :"
             >
               {listeModule.map((item, index) => (
                 <option key={index} value={item.valeur}>
@@ -259,15 +237,11 @@ export default function Integration() {
               <Demonstration moduleName="ampleur" />
             ) : (
               <>
-                <p
-                  css={`
-                    margin-top: 1rem;
-                  `}
-                >
+                <p>
                   Voici <strong>le code à intégrer</strong> dans votre HTML ou
                   votre contenu Wordpress :
                 </p>
-                <IframeCodeWrapper>
+                <Highlight>
                   <code
                     css={`
                       word-break: break-all;
@@ -275,7 +249,7 @@ export default function Integration() {
                   >
                     {iframeCode}
                   </code>
-                </IframeCodeWrapper>
+                </Highlight>
                 <IntegrationQuestions
                   {...{
                     noScroll,
@@ -285,7 +259,6 @@ export default function Integration() {
                   }}
                 />
                 <h2>Le résultat</h2>
-
                 <div
                   style={css`
                     text-align: center;
@@ -398,8 +371,14 @@ export const HistoriqueVersion = () => (
       <p>
         <small>
           Pour tous les détails, c'est{' '}
-          <a href="https://github.com/betagouv/reno/pull/281">par ici</a> : tout
-          notre développement est ouvert.
+          <a
+            rel="noopener external"
+            className="fr-link"
+            href="https://github.com/betagouv/reno/pull/281"
+          >
+            par ici
+          </a>{' '}
+          : tout notre développement est ouvert.
         </small>
       </p>
       <h4>v4 (à venir)</h4>
@@ -428,30 +407,28 @@ export const ContactIntegration = ({ type }) => (
       <p>
         Découvrez aussi notre{' '}
         {type == 'iframe' && (
-          <Link href="/api-doc">API de calcul des aides à la rénovation</Link>
+          <Link className="fr-link" href="/api-doc">
+            API de calcul des aides à la rénovation
+          </Link>
         )}
         {type == 'api' && (
-          <Link href="/npm">
+          <Link className="fr-link" href="/npm">
             paquet NPM de calcul des aides à la rénovation
           </Link>
         )}
         {type == 'npm' && (
-          <Link href="/api-doc">API de calcul des aides à la rénovation</Link>
+          <Link className="fr-link" href="/api-doc">
+            API de calcul des aides à la rénovation
+          </Link>
         )}
         .
       </p>
-      <CTAWrapper $justify="center">
-        <CTA $fontSize="normal">
-          <Link href="mailto:contact@mesaidesreno.fr">✉️ Nous contacter</Link>
-        </CTA>
-      </CTAWrapper>
+      <Link
+        className="fr-btn fr-icon-mail-line fr-btn--icon-left"
+        href="mailto:contact@mesaidesreno.fr"
+      >
+        Nous contacter
+      </Link>
     </Content>
   </Wrapper>
 )
-
-export const IframeCodeWrapper = styled.div`
-  background: white;
-  padding: 0.2rem 0.6rem;
-  border-radius: 0.4rem;
-  border: 1px solid #eee;
-`
