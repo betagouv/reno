@@ -31,13 +31,7 @@ export const metadata: metadata = {
 }
 
 const Page = async () => {
-  const isMobile = useMediaQuery('(max-width: 800px)', {
-    initializeWithValue: false,
-  })
   const sortedArticles = await getAllArticles()
-  const alt = !isMobile
-    ? 'Une personne consulte confortablement sur sa tablette un blog sur les aides à la rénovation énergétique'
-    : 'Un chat tranquille sur un sol au bon confort thermique'
   return (
     <>
       <StartDsfrOnHydration />
