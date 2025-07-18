@@ -9,6 +9,7 @@ import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
 import { push } from '@socialgouv/matomo-next'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import { PrimeBadge } from '../Geste'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function AideAmpleur({
   isEligible,
@@ -165,11 +166,7 @@ export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
   const montantMax = engine.setSituation(bestSituation).evaluate(dottedName)
 
   return montantMax.nodeValue ? (
-    <PrimeStyle
-      css={`
-        font-size: 1rem;
-      `}
-    >
+    <Badge noIcon>
       <AideMontant
         {...{
           engine,
@@ -184,22 +181,13 @@ export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
           dottedName,
         }}
       />
-    </PrimeStyle>
+    </Badge>
   ) : (
     ![
       'aides locales . montant',
       'tva réduite . montant',
       "crédit d'impôt . montant",
-    ].includes(dottedName) && (
-      <PrimeStyle
-        css={`
-          font-size: 1rem;
-        `}
-        $inactive
-      >
-        Non éligible
-      </PrimeStyle>
-    )
+    ].includes(dottedName) && <Badge noIcon>Non éligible</Badge>
   )
 }
 
@@ -259,23 +247,21 @@ export function AideMontant({ engine, situation, dottedName }) {
   ) : dottedName.includes('denormandie') ? (
     <>
       Jusqu'à{' '}
-      <strong>
-        {formatValue(
-          engine.setSituation(situation).evaluate('denormandie . taux'),
-        )}
-      </strong>
+      {formatValue(
+        engine.setSituation(situation).evaluate('denormandie . taux'),
+      )}
     </>
   ) : montantMax.nodeValue == montantMin.nodeValue ? (
     <>
       {rules[dottedName.replace(' . montant', '')].type == 'prêt'
         ? "Jusqu'à"
         : 'Prime de'}{' '}
-      <strong>{formatValue(montantMin)}</strong>
+      {formatValue(montantMin)}
     </>
   ) : (
     <>
-      De <strong>{formatValue(montantMin)}</strong> à{` `}
-      <strong>{formatValue(montantMax)}</strong> d'aides
+      De {formatValue(montantMin)} à{` `}
+      {formatValue(montantMax)} d'aides
     </>
   )
 }
@@ -288,11 +274,11 @@ export function AideDurée({ engine, situation, dottedName }) {
   if (!duréeRule) return null
   const evaluation = engine.setSituation(situation).evaluate(duréeName)
   return (
-    <span>
+    <>
       {rules[dottedName.replace(' . montant', '')].type == 'prêt' && (
         <> de prêt</>
       )}{' '}
       sur {evaluation.nodeValue} ans
-    </span>
+    </>
   )
 }

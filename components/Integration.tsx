@@ -264,11 +264,8 @@ export default function Integration() {
                     margin-top: 1rem;
                   `}
                 >
-                  Voici{' '}
-                  <BlueEm>
-                    <strong>le code à intégrer</strong>
-                  </BlueEm>{' '}
-                  dans votre HTML ou votre contenu Wordpress :
+                  Voici <strong>le code à intégrer</strong> dans votre HTML ou
+                  votre contenu Wordpress :
                 </p>
                 <IframeCodeWrapper>
                   <code

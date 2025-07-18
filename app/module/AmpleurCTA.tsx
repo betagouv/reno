@@ -18,7 +18,7 @@ export default function AmpleurCTA({
   const url = situationToCtaUrl(situation)
   return (
     <Link
-      className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+      className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-my-5v"
       href={url}
       target={target}
     >

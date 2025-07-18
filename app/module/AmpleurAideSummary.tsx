@@ -3,6 +3,7 @@
 import { PrimeStyle } from '@/components/UI'
 import { PrimeWithLabel } from '@/components/ampleur/AideAmpleur'
 import StatusIcon from '@/components/ampleur/StatusIcon'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const computeStatusTitle = (status) =>
   status
@@ -55,7 +56,7 @@ export const AmpleurAideSummary = ({
             }}
           ></PrimeWithLabel>
         ) : (
-          <PrimeStyle $inactive={true}>{computeStatusTitle(status)}</PrimeStyle>
+          <Badge noIcon>{computeStatusTitle(status)}</Badge>
         )}
       </div>
     </>

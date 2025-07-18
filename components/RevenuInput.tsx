@@ -48,6 +48,7 @@ export default function RevenuInput({
   value,
   engine,
   type,
+  disabled,
 }) {
   const revenu = situation['ménage . revenu']
   const list = getRevenusList(situation, engine)
@@ -60,6 +61,7 @@ export default function RevenuInput({
   return type === 'select' ? (
     <Select
       label={label}
+      disabled={disabled}
       nativeSelectProps={{
         onChange: onChange,
         value: value,

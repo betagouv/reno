@@ -80,34 +80,54 @@ export const LogementType = ({
   situation,
   text,
   rule = 'logement . type',
+  disabled,
 }) => (
-  <section>
-    <Dot />
-    <label htmlFor="">
-      {text ? text : rules[rule]['question']}:{' '}
-      <Select
-        css={`
-          background: #f5f5fe;
-          max-width: 90vw;
-        `}
-        disableInstruction={false}
-        onChange={(e) => {
-          push(['trackEvent', 'Module', 'Interaction', 'type logement ' + e])
-          setSearchParams({
-            [encodeDottedName(rule)]: `"${e}"*`,
-          })
-        }}
-        value={situation[rule]?.replaceAll('"', '')}
-        values={rules[rule]['une possibilité parmi']['possibilités'].map(
-          (i) => {
-            const ruleEntry = rules[`logement . type . ${i}`]
-            ruleEntry.valeur = ruleEntry.valeur.replaceAll("'", '')
-            return ruleEntry
+  <RadioButtons
+    legend={text ? text : rules[rule]['question']}
+    options={[
+      {
+        label: 'Une maison',
+        nativeInputProps: {
+          value: 'maison',
+          checked: situation[rule] === '"maison"',
+          onChange: () => {
+            push([
+              'trackEvent',
+              'Plus value',
+              'Interaction',
+              'type logement maison',
+            ])
+            setSearchParams({
+              [encodeDottedName(rule)]: '"maison"*',
+            })
           },
-        )}
-      />
-    </label>
-  </section>
+        },
+      },
+      {
+        label: 'Un appartement',
+        nativeInputProps: {
+          value: 'appartement',
+          checked: situation[rule] === '"appartement"',
+          onChange: () => {
+            push([
+              'trackEvent',
+              'Plus value',
+              'Interaction',
+              'type logement appartement',
+            ])
+            setSearchParams({
+              [encodeDottedName(rule)]: '"appartement"*',
+            })
+          },
+        },
+      },
+    ]}
+    name={`radio-${encodeDottedName(rule)}`}
+    disabled={disabled}
+    state={situation[rule] && !disabled && 'success'}
+    stateRelatedMessage=""
+    orientation="horizontal"
+  />
 )
 
 export const PersonnesQuestion = ({
@@ -119,29 +139,27 @@ export const PersonnesQuestion = ({
 }) => {
   const rule = 'ménage . personnes'
   return (
-    <>
-      <Input
-        nativeInputProps={{
-          pattern: '[1-9]+',
-          type: 'number',
-          value: situation[rule],
-          name: 'nbpersonne',
-          onChange: (e) => {
-            const { value } = e.target
-            const invalid = isNaN(value) || value <= 0
-            if (invalid) return
-            push(['trackEvent', 'Module', 'Interaction', 'personne ' + value])
-            onChange(rule)(e)
-          },
-        }}
-        state={answeredQuestions.includes(rule) && 'success'}
-        disabled={disabled}
-        stateRelatedMessage=""
-        label={text}
-        autoFocus={true}
-        addon={situation[rule] > 1 ? 'personnes' : 'personne'}
-      />
-    </>
+    <Input
+      nativeInputProps={{
+        pattern: '[1-9]+',
+        type: 'number',
+        value: situation[rule],
+        name: 'nbpersonne',
+        onChange: (e) => {
+          const { value } = e.target
+          const invalid = isNaN(value) || value <= 0
+          if (invalid) return
+          push(['trackEvent', 'Module', 'Interaction', 'personne ' + value])
+          onChange(rule)(e)
+        },
+      }}
+      state={answeredQuestions.includes(rule) && 'success'}
+      disabled={disabled}
+      stateRelatedMessage=""
+      label={text}
+      autoFocus={true}
+      addon={situation[rule] > 1 ? 'personnes' : 'personne'}
+    />
   )
 }
 export const MontantQuestion = ({
@@ -201,12 +219,13 @@ export const RevenuQuestion = ({
   setSearchParams,
   engine,
   situation,
-  dot = true,
+  disabled,
 }) => {
   const thisQuestionSatisfied = answeredQuestions.includes('ménage . revenu')
   if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
     const currentValue = situation['ménage . revenu']
-    const onChange = (value) => {
+    const onChange = (e) => {
+      const value = e.target.value
       if (value === '') return
       push(['trackEvent', 'Module', 'Interaction', 'revenu ' + value])
       const encodedSituation = encodeSituation(
@@ -219,54 +238,44 @@ export const RevenuQuestion = ({
       setSearchParams(encodedSituation)
     }
     return (
-      <section
-        css={`
-          display: flex;
-          align-items: center;
-        `}
-      >
-        {dot && <Dot />}
-        <div>
-          {!thisQuestionSatisfied && (
-            <div>
-              <small>
-                <strong
-                  css={`
-                    color: var(--lightColor);
-                    line-height: 1rem;
-                  `}
-                >
-                  Dernière question !
-                </strong>
-              </small>
-            </div>
-          )}
-          <label>
-            <span>Pour un revenu fiscal </span>{' '}
-            <RevenuInput
-              type="select"
-              engine={engine}
-              situation={situation}
-              value={currentValue == null ? '' : currentValue}
-              onChange={onChange}
-              disableInstruction={false}
-            />
-            .
-          </label>
-        </div>
-      </section>
+      <div>
+        {!thisQuestionSatisfied && (
+          <div>
+            <small>
+              <strong
+                css={`
+                  color: var(--lightColor);
+                  line-height: 1rem;
+                `}
+              >
+                Dernière question !
+              </strong>
+            </small>
+          </div>
+        )}
+        <RevenuInput
+          label="Pour un revenu fiscal"
+          type="select"
+          disabled={disabled}
+          engine={engine}
+          situation={situation}
+          value={currentValue == null ? '' : currentValue}
+          onChange={onChange}
+        />
+      </div>
     )
   }
   return (
-    <section>
+    <section
+      css={`
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+      `}
+    >
       <Image
         src={sablier}
         alt="Un icône sablier représentant une question en attente"
-        css={`
-          @media (max-width: 400px) {
-            margin-right: 0.5rem !important;
-          }
-        `}
       />
       Votre niveau de revenu
     </section>
