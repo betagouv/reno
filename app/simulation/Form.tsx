@@ -1,7 +1,6 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import { getNextQuestionsMainForm } from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
   getAnsweredQuestions,
@@ -30,6 +29,7 @@ import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
 import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
 import LocAvantage from '@/components/LocAvantage'
+import getNextQuestions from '@/components/publicodes/getNextQuestions'
 
 export const correspondance = {
   'MPR . accompagnée': MPRA,
@@ -93,7 +93,7 @@ function Form({ rules }) {
     )
   }
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
-    nextQuestions = getNextQuestionsMainForm(
+    nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
       simulationConfig,

@@ -70,6 +70,7 @@ vous . propriétaire . statut:
       - 'propriétaire'
       - 'acquéreur'
       - 'non propriétaire'
+  par défaut: "'propriétaire'"
 
 vous . propriétaire . statut . propriétaire:
   valeur: "'propriétaire'"
