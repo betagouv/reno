@@ -198,7 +198,7 @@ export const BlocAide = styled.div`
   margin-bottom: 1rem;
   .aide-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     ${(p) => p.display == "geste" && "margin-bottom: 1rem;"}
     > img {
       margin-right: 1.4rem;

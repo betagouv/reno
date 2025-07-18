@@ -32,12 +32,8 @@ export default function PageCEE({ params }: { params: { code: string } }) {
     (rule) => rules[rule] && rules[rule].code == params.code,
   )
   const rule = allRuleConcerned[0]
-  const answeredQuestions = [
-    ...getAnsweredQuestions(situationSearchParams, rules),
-  ]
-  const situation = {
-    ...getSituation(situationSearchParams, rules),
-  }
+  const answeredQuestions = getAnsweredQuestions(situationSearchParams, rules)
+  const situation = getSituation(situationSearchParams, rules)
 
   // Y a-t-il des MPR associés?
   const mprAssocie = allRuleConcerned
@@ -46,13 +42,7 @@ export default function PageCEE({ params }: { params: { code: string } }) {
     .map((rule) => rule.replace(' . MPR', ''))
     .map((rule) => rules[rule] && rules[rule].titre)
 
-  const questions = getNextQuestions(
-    engine.evaluate(rule + ' . montant'),
-    [],
-    [],
-    rules,
-  )
-
+  const questions = getNextQuestions(engine.evaluate(rule + ' . montant'))
   const infoCEE = {
     montant: formatValue(
       engine.setSituation(situation).evaluate(rule + ' . montant'),
@@ -63,7 +53,11 @@ export default function PageCEE({ params }: { params: { code: string } }) {
     lien: rules[rule].lien,
     technique: rules[rule].technique,
     questions: questions
-      .filter((q) => q !== 'CEE . projet . remplacement chaudière thermique')
+      .filter(
+        (q) =>
+          q !== 'CEE . projet . remplacement chaudière thermique' &&
+          q !== 'logement . adresse',
+      )
       .filter((q) => rules[q].question),
   }
 
@@ -104,7 +98,7 @@ export default function PageCEE({ params }: { params: { code: string } }) {
           {infoCEE.titre} <Badge>{infoCEE.code}</Badge>
         </h1>
         <div className="fr-callout fr-icon-info-line">
-          <h3>Informations sur les conditions d'obtention</h3>
+          <h2>Informations sur les conditions d'obtention</h2>
           <p>
             Vous êtes éligible aux aides des fournisseurs d’énergie (certificats
             d’économies d’énergie – CEE) si :
@@ -143,14 +137,23 @@ export default function PageCEE({ params }: { params: { code: string } }) {
             displayPrime: 'bottom',
           }}
         />
-        <Accordion
-          className="fr-mb-5v"
-          label="Détails techniques"
-          onExpandedChange={() => {}}
-        >
-          testertest test
-          <div dangerouslySetInnerHTML={{ __html: parse(infoCEE.technique) }} />
-        </Accordion>
+        <section className="fr-accordion fr-my-5v">
+          <h3 className="fr-accordion__title">
+            <button
+              type="button"
+              className="fr-accordion__btn"
+              aria-expanded="false"
+              aria-controls="accordion-detail"
+            >
+              Détails techniques
+            </button>
+          </h3>
+          <div
+            className="fr-collapse"
+            id="accordion-detail"
+            dangerouslySetInnerHTML={{ __html: parse(infoCEE.technique) }}
+          />
+        </section>
         <OtherSimulateur {...{ mprAssocie }} />
         <IframeIntegrator
           iframeUrl={`/aides/cee/${infoCEE.code}/${encodeURIComponent(infoCEE.titre)}`}

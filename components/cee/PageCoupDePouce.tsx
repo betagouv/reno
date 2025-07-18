@@ -7,6 +7,7 @@ import { Main, Section } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
+import simulationConfig from '../../app/simulation/simulationConfigCP.yaml'
 import { useSearchParams } from 'next/navigation'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from 'next/link'
@@ -33,30 +34,20 @@ export default function PageCoupDePouce({
       !rule.includes('type'),
   )
 
-  const answeredQuestions = [
-    ...getAnsweredQuestions(situationSearchParams, rules),
-  ]
-  const situation = {
-    ...getSituation(situationSearchParams, rules),
-  }
+  const situation = getSituation(situationSearchParams, rules)
 
   // On simule une situation avec remplacement de chaudière pour avoir accès à toutes les questions
   // Sinon, le applicable si fait que seule la question sur les remplacement de chaudière (et pas les revenus) est posée
   // Il faudrait dans publicode, en plus d'un missingVariables, un "allVariables"
-  const questions = [
-    'CEE . projet . remplacement chaudière thermique',
-    ...getNextQuestions(
-      engine
-        .setSituation({
-          [rule]: 'oui',
-          'CEE . projet . remplacement chaudière thermique': 'oui',
-        })
-        .evaluate(rule + ' . Coup de pouce . montant'),
-      [],
-      [],
-      rules,
-    ),
-  ]
+  const questions = getNextQuestions(
+    engine
+      .setSituation({ ...situation, [rule]: 'oui' })
+      .evaluate(rule + ' . Coup de pouce . montant'),
+    [],
+    simulationConfig,
+  )
+  // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
+  questions.unshift(...Object.keys(situation))
 
   // Y a-t-il des MPR associés?
   const mprAssocie = Object.keys(rules).includes(rule + ' . MPR')
@@ -77,7 +68,7 @@ export default function PageCoupDePouce({
     isEligible:
       situation['CEE . projet . remplacement chaudière thermique'] !== 'non', // On se facilite la tache ici sur l'éligibilité qui est simple sur le coup de pouce
     titre: rules[rule].titre,
-    questions: questions,
+    questions: questions.filter((q) => rules[q].question),
   }
 
   const setSearchParams = useSetSearchParams()
@@ -105,7 +96,6 @@ export default function PageCoupDePouce({
             },
           ]}
         />
-
         {!isInIframe && (
           <Link
             className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
@@ -154,7 +144,6 @@ export default function PageCoupDePouce({
             rules,
             engine,
             situation,
-            answeredQuestions,
             setSearchParams,
             displayPrime: 'bottom',
           }}

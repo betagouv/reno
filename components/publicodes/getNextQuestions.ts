@@ -2,10 +2,15 @@ import { sortBy } from '../utils'
 
 export default function getNextQuestions(
   evaluation,
-  answeredQuestions,
-  questionsConfig,
+  answeredQuestions = [],
+  questionsConfig = [],
 ) {
   const { missingVariables } = evaluation
+
+  if (questionsConfig.length)
+    return questionsConfig.prioritaire
+      .filter((question) => Object.keys(missingVariables).includes(question))
+      .filter(([question]) => !answeredQuestions.includes(question))
 
   const allMissingEntries = Object.entries(missingVariables),
     missingEntries = allMissingEntries.filter(
@@ -29,28 +34,10 @@ export default function getNextQuestions(
   const unansweredArtificialQuestions = (
     questionsConfig['préface'] || []
   ).filter((question) => !answeredQuestions.find((q) => q === question))
-
-  console.log({ unansweredArtificialQuestions })
-
   const nextQuestions = [
     ...unansweredArtificialQuestions,
     ...artificialOrdered.map(([k, v]) => k),
   ]
 
   return nextQuestions
-}
-
-export function getNextQuestionsMainForm(
-  evaluation,
-  answeredQuestions,
-  questionsConfig,
-) {
-  const prio = questionsConfig.prioritaires
-  const { missingVariables } = evaluation
-
-  const missingEntries = prio
-    .filter((question) => Object.keys(missingVariables).includes(question))
-    .filter(([question]) => !answeredQuestions.includes(question))
-
-  return missingEntries
 }

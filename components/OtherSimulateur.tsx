@@ -24,8 +24,8 @@ export default function OtherSimulateur({ mprAssocie = [], ceeAssocie }) {
           />
         </div>
         {mprAssocie &&
-          mprAssocie.map((mpr) => (
-            <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
+          mprAssocie.map((mpr, i) => (
+            <div key={i} className="fr-col-12 fr-col-sm-6 fr-col-md-4">
               <Card
                 background
                 border

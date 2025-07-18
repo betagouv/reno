@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import GesteQuestion from './../GesteQuestion'
 import mprImage from '@/public/maprimerenov.svg'
-import { BlocAide, MiseEnAvant, PrimeStyle } from '../UI'
+import { BlocAide, PrimeStyle } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import Value from '../Value'
@@ -96,7 +96,11 @@ export const BlocAideMPR = ({
                 display: flex;
               `}
             >
-              <Badge noIcon severity={isEligible && 'success'}>
+              <Badge
+                noIcon
+                severity={isEligible && 'success'}
+                className="fr-text--lead"
+              >
                 {isEligible ? (
                   <>Prime de {isExactTotal ? infoMPR.montant : '...'}</>
                 ) : (

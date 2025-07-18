@@ -57,7 +57,6 @@ export default function RevenuInput({
     valeur: threshold === lastThreshold + 1 ? lastThreshold + 1 : threshold - 1,
     titre: displayRevenuLabel(situation, engine, threshold),
   }))
-
   return type === 'select' ? (
     <Select
       label={label}
@@ -65,7 +64,7 @@ export default function RevenuInput({
         onChange: onChange,
         value: value,
       }}
-      state={value !== undefined && 'success'}
+      state={revenu !== undefined ? 'success' : 'default'}
     >
       <option value="" disabled hidden>
         Sélectionnez une option

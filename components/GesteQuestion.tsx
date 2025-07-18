@@ -3,9 +3,9 @@ import { RadioButtons } from '@codegouvfr/react-dsfr/RadioButtons'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
 import RevenuInput from './RevenuInput'
-import { Dot } from '@/app/module/AmpleurQuestions'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { Select } from '@codegouvfr/react-dsfr/Select'
+import { serializeUnit } from 'publicodes'
 
 export default function GesteQuestion({
   rules,
@@ -16,7 +16,6 @@ export default function GesteQuestion({
   answeredQuestions,
   onChangeEvent,
   autoFocus,
-  dot = false,
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
@@ -26,10 +25,11 @@ export default function GesteQuestion({
   const onChange = (e) => {
     const value = e.target.value
     onChangeEvent && onChangeEvent(value)
+    console.log('value', value)
     const encodedSituation = encodeSituation(
       {
         ...situation,
-        [question]: value == undefined ? undefined : value,
+        [question]: value == undefined || value == '' ? undefined : value,
       },
       false,
       answeredQuestions,
@@ -38,41 +38,7 @@ export default function GesteQuestion({
   }
 
   return (
-    <div
-      className="fr-mb-5v"
-      css={`
-        // display: flex;
-        // ${!dot && 'justify-content: space-between;'}
-        // ${dot && 'gap: 1rem;'}
-        // align-items: center;
-        // margin: ${!dot ? '0.8rem' : '0'} 0;
-        // padding: 0.4rem 0 1rem;
-        // ${!dot && `border-bottom: 1px solid var(--lighterColor);`}
-        // &:last-child {
-        //   border: none;
-        //   margin-bottom: 0;
-        //   padding-bottom: 0;
-        // }
-        // @media (max-width: 800px) {
-        //   flex-wrap: wrap;
-        //   justify-content: space-between;
-        //   > div {
-        //     margin-bottom: 0.8rem;
-        //   }
-        //   > select,
-        //   input,
-        //   fieldset {
-        //     margin: 0 0 0 auto;
-        //   }
-        // }
-        // img {
-        //   width: 1rem;
-        //   height: auto;
-        // }
-      `}
-    >
-      {dot && <Dot css={``} />}
-      {/* <div>{currentQuestion.question}</div> */}
+    <div className="fr-mb-5v">
       <InputComponent
         {...{
           currentQuestion,
@@ -137,9 +103,9 @@ const InputComponent = ({
         onChange: onChange,
         value: currentValue == null ? '' : currentValue,
       }}
-      state={currentValue !== undefined && 'success'}
+      state={currentValue !== undefined ? 'success' : 'default'}
     >
-      <option value="" disabled hidden>
+      <option value="" disabled>
         Sélectionnez une option
       </option>
       {currentQuestion['une possibilité parmi']['possibilités'].map((i) => (
@@ -203,20 +169,21 @@ const InputComponent = ({
       }}
     />
   ) : (
-    <>
-      <Input
-        nativeInputProps={{
-          type: 'number',
-          placeholder: evaluation.nodeValue,
-          name: question,
-          onChange: onChange,
-          value: currentValue == null ? '' : currentValue,
-        }}
-        state={currentValue !== undefined && 'success'}
-        stateRelatedMessage=""
-        label={currentQuestion.question}
-        autoFocus={autoFocus}
-      />{' '}
-      {console.log(evaluation)}
-    </>
+    <Input
+      nativeInputProps={{
+        type: 'number',
+        name: question,
+        onChange: onChange,
+        value: currentValue == null ? '' : currentValue,
+      }}
+      addon={
+        serializeUnit(evaluation.unit) === 'personne' && currentValue > 1
+          ? 'personnes'
+          : serializeUnit(evaluation.unit)
+      }
+      state={currentValue !== undefined && 'success'}
+      stateRelatedMessage=""
+      label={currentQuestion.question}
+      autoFocus={autoFocus}
+    />
   )

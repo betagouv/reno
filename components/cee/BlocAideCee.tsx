@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import Image from 'next/image'
 import GesteQuestion from '../GesteQuestion'
 import ceeImage from '@/public/cee.svg'
-import informationIcon from '@/public/information.svg'
-import { BlocAide, InlineLink, PrimeStyle } from '../UI'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import { BlocAide, PrimeStyle } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const BlocAideCEE = ({
   infoCEE,
@@ -66,58 +67,25 @@ export const BlocAideCEE = ({
           <h3>
             Prime CEE (Certificats d'Économie d'Énergie)
             <br />
-            <small
-              css={`
-                color: #666;
-                font-size: 0.6em;
-                font-weight: 500;
-              `}
-            >
+            <span className="fr-hint-text">
               Plus d'infos:{' '}
-              <InlineLink
+              <a
+                className="fr-link"
                 title={`formulaire ${infoCEE.code}`}
                 href={infoCEE.lien}
                 target="_blank"
               >
                 {infoCEE.code}
-              </InlineLink>
-            </small>
+              </a>
+            </span>
           </h3>
         </div>
       </div>
       <div className="aide-details">
-        <div
-          css={`
-            background-image: linear-gradient(0deg, #2a82dd, #2a82dd);
-            background-position: 0 0;
-            background-repeat: no-repeat;
-            background-size: 0.25rem 100%;
-            font-size: 1rem;
-            line-height: 1.5rem;
-            padding-left: 1.25rem;
-            margin-bottom: 0.8rem;
-          `}
-        >
-          <div
-            css={`
-              display: flex;
-              align-items: center;
-              margin-bottom: 0.4rem;
-              color: #2a82dd;
-              font-weight: 500;
-              img {
-                margin-right: 0.4rem;
-              }
-            `}
-          >
-            <Image src={informationIcon} alt="infobulle" width="25" />
-            <span>Informations</span>
-          </div>
-          <p>
-            Ce montant vous est donné à titre indicatif, il vous appartient de
-            mettre en concurrence les offres CEE des fournisseurs d'énergie.
-          </p>
-        </div>
+        <Highlight>
+          Ce montant vous est donné à titre indicatif, il vous appartient de
+          mettre en concurrence les offres CEE des fournisseurs d'énergie.
+        </Highlight>
         {infoCEE.questions?.map((question, idx) => (
           <GesteQuestion
             key={idx}
@@ -138,20 +106,9 @@ export const BlocAideCEE = ({
               display: flex;
             `}
           >
-            <PrimeStyle
-              css={`
-                padding: 0.75rem;
-              `}
-            >
-              {'Prime indicative de '}
-              <strong
-                css={`
-                  font-size: 1.5rem;
-                `}
-              >
-                {isExactTotal ? infoCEE.montant : '...'}
-              </strong>
-            </PrimeStyle>
+            <Badge noIcon severity="success" className="fr-text--lead">
+              Prime indicative de {isExactTotal ? infoCEE.montant : '...'}
+            </Badge>
           </div>
         )}
       </div>

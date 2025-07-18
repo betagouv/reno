@@ -43,7 +43,7 @@ export default function Aides() {
               }
               enlargeLink
               imageAlt="Logo MaPrimeRénov"
-              imageUrl="maprimerenov.svg"
+              imageUrl="/maprimerenov.svg"
               linkProps={{
                 href: '/simulation',
               }}
@@ -68,7 +68,7 @@ export default function Aides() {
               }
               enlargeLink
               imageAlt="Logo MaPrimeRénov"
-              imageUrl="maprimerenov.svg"
+              imageUrl="/maprimerenov.svg"
               linkProps={{
                 href: '/aides/ma-prime-renov',
               }}
@@ -93,7 +93,7 @@ export default function Aides() {
               }
               enlargeLink
               imageAlt="Logo Eco-ptz"
-              imageUrl="ptz-bleu.svg"
+              imageUrl="/ptz-bleu.svg"
               linkProps={{
                 href: '/aides/pret-taux-0',
               }}
@@ -119,7 +119,7 @@ export default function Aides() {
               }
               enlargeLink
               imageAlt="Logo Exonération Fiscale"
-              imageUrl="exoneration-fiscale.svg"
+              imageUrl="/exoneration-fiscale.svg"
               linkProps={{
                 href: '/aides/exoneration-fiscale',
               }}
@@ -146,7 +146,7 @@ export default function Aides() {
               }
               enlargeLink
               imageAlt="Logo CEE"
-              imageUrl="cee.svg"
+              imageUrl="/cee.svg"
               linkProps={{
                 href: '/aides/cee',
               }}
@@ -174,7 +174,7 @@ export default function Aides() {
               }
               enlargeLink
               imageAlt="Logo Coup de pouce"
-              imageUrl="cee-coup-de-pouce.svg"
+              imageUrl="/cee-coup-de-pouce.svg"
               linkProps={{
                 href: '/aides/coup-de-pouce',
               }}

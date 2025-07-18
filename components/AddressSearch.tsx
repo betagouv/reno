@@ -66,86 +66,84 @@ export default function AddressSearch({
   }, [input, validInput])
 
   return (
-    <div className="fr-fieldset__element">
-      <div
-        className={`fr-input-group ${clicked && input ? 'fr-input-group--valid' : ''}`}
-      >
-        <label className="fr-label" htmlFor="city">
-          {label}
-        </label>
-        <input
-          className="fr-input"
-          type="text"
-          id="city"
-          autoFocus={autoFocus}
-          value={immediateInput}
-          placeholder={'commune ou code postal'}
-          onChange={(e) => {
-            setClicked(false)
-            setInput(e.target.value)
-          }}
-        />
-        {clicked && input && (
-          <div
-            className="fr-messages-group"
-            id="input-0-messages"
-            aria-live="polite"
+    <div
+      className={`fr-input-group ${clicked && input ? 'fr-input-group--valid' : ''}`}
+    >
+      <label className="fr-label" htmlFor="city">
+        {label}
+      </label>
+      <input
+        className="fr-input"
+        type="text"
+        id="city"
+        autoFocus={autoFocus}
+        value={immediateInput}
+        placeholder={'commune ou code postal'}
+        onChange={(e) => {
+          setClicked(false)
+          setInput(e.target.value)
+        }}
+      />
+      {clicked && input && (
+        <div
+          className="fr-messages-group"
+          id="input-0-messages"
+          aria-live="polite"
+        >
+          <p
+            className="fr-message fr-message--valid"
+            id="input-0-message-valid"
           >
-            <p
-              className="fr-message fr-message--valid"
-              id="input-0-message-valid"
-            >
-              Adresse validée
-            </p>
-          </div>
+            Adresse validée
+          </p>
+        </div>
+      )}
+      <CityList>
+        {isLoading && (
+          <li
+            css={`
+              margin: 0.8rem 0;
+              display: flex;
+              align-items: center;
+            `}
+          >
+            <Loader />
+            Chargement...
+          </li>
         )}
-        <CityList>
-          {isLoading && (
+        {results && !clicked && (
+          <>
             <li
               css={`
-                margin: 0.8rem 0;
-                display: flex;
-                align-items: center;
+                color: #929292;
               `}
             >
-              <Loader />
-              Chargement...
+              {results.length > 0
+                ? 'Sélectionnez une ville'
+                : 'Aucune ville trouvée'}
             </li>
-          )}
-          {results && !clicked && (
-            <>
+            {results.map((result) => (
               <li
-                css={`
-                  color: #929292;
-                `}
+                className={
+                  situation &&
+                  situation[type] &&
+                  situation[type].replace(/"/g, '') == result.code
+                    ? 'selected'
+                    : ''
+                }
+                key={result.code}
+                onClick={() => {
+                  setChoice(result)
+                  setInput(result.nom + ' ' + result.codeDepartement)
+                  setClicked(true)
+                }}
               >
-                {results.length > 0
-                  ? 'Sélectionnez une ville'
-                  : 'Aucune ville trouvée'}
+                {result.nom} <small>{result?.codesPostaux[0]}</small>
               </li>
-              {results.map((result) => (
-                <li
-                  className={
-                    situation &&
-                    situation[type] &&
-                    situation[type].replace(/"/g, '') == result.code
-                      ? 'selected'
-                      : ''
-                  }
-                  key={result.code}
-                  onClick={() => {
-                    setChoice(result)
-                    setInput(result.nom + ' ' + result.codeDepartement)
-                    setClicked(true)
-                  }}
-                >
-                  {result.nom} <small>{result?.codesPostaux[0]}</small>
-                </li>
-              ))}
-            </>
-          )}
-        </CityList>
-      </div>
+            ))}
+          </>
+        )}
+      </CityList>
     </div>
   )
 }
