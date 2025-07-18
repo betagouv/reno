@@ -1,5 +1,5 @@
 import { formatValue } from 'publicodes'
-import { Key } from './explications/ExplicationUI'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default ({ engine, situation, dottedName, state = 'none' }) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
@@ -8,8 +8,8 @@ export default ({ engine, situation, dottedName, state = 'none' }) => {
   const missing = Object.entries(missingVariables)
 
   return (
-    <Key $state={state || (missing.length > 0 ? 'inProgress' : 'final')}>
+    <Badge severity={state || (missing.length > 0 ? 'inProgress' : 'success')}>
       {value}
-    </Key>
+    </Badge>
   )
 }

@@ -3,7 +3,7 @@
 import { CTA, CTAWrapper } from '@/components/UI'
 import Link from 'next/link'
 
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const List = styled.ol`
   margin-top: 2rem;

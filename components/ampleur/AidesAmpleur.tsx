@@ -38,18 +38,13 @@ export default function AidesAmpleur({
     return (
       <>
         {isEligible !== null && (
-          <h2 title={title}>
+          <h2 className="fr-mt-5v" title={title}>
             <span
-              css={`
-                color: var(--color);
-              `}
               dangerouslySetInnerHTML={{
                 __html:
                   title +
                   '&nbsp;' +
-                  (isEligible === false
-                    ? `<strong style="color: var(--color);">${aidesList.length}</strong>&nbsp;aides`
-                    : ''),
+                  (isEligible === false ? `${aidesList.length} aides` : ''),
               }}
             />
           </h2>
@@ -73,12 +68,7 @@ export default function AidesAmpleur({
             return (
               <div key={i}>
                 {showType && isEligible && (
-                  <h4
-                    css={`
-                      font-weight: bold;
-                      margin: 1rem 0;
-                    `}
-                  >
+                  <h3>
                     {rules[aide.baseDottedName].type === 'remboursement' ? (
                       <>
                         <span aria-hidden="true">💶</span> Remboursements
@@ -88,19 +78,11 @@ export default function AidesAmpleur({
                     ) : (
                       <>Exonérations fiscales</>
                     )}
-                  </h4>
+                  </h3>
                 )}
                 {showType && isEligible === null && (
                   <>
-                    <div
-                      css={`
-                        font-weight: bold;
-                        margin: 1rem 0 0 0;
-                        font-size: 120%;
-                      `}
-                    >
-                      {title}
-                    </div>
+                    <h3 className="fr-mt-5v">{title}</h3>
                     <p
                       css={`
                         margin-bottom: 1.5rem;
@@ -136,14 +118,6 @@ export default function AidesAmpleur({
   return (
     <Section
       css={`
-        h2 {
-          font-size: 110%;
-          display: flex;
-          align-items: center;
-        }
-        h3 {
-          font-size: 90%;
-        }
         section {
           margin: 0;
         }

@@ -9,6 +9,7 @@ function onlyNumbers(str) {
 }
 
 export default function AddressSearch({
+  label,
   setChoice,
   situation,
   type,
@@ -69,8 +70,13 @@ export default function AddressSearch({
       <div
         className={`fr-input-group ${clicked && input ? 'fr-input-group--valid' : ''}`}
       >
+        <label className="fr-label" htmlFor="city">
+          {label}
+        </label>
         <input
+          className="fr-input"
           type="text"
+          id="city"
           autoFocus={autoFocus}
           value={immediateInput}
           placeholder={'commune ou code postal'}
@@ -137,7 +143,6 @@ export const CityList = styled.ul`
   border: 1px solid #dfdff0;
   list-style-type: none;
   position: absolute;
-  margin-top: 35px;
   z-index: 999999;
   li {
     display: block !important;

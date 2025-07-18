@@ -76,8 +76,6 @@ PAR . montant:
   titre: Montant du pret avance rénovation 0 %
   applicable si: conditions . communes
   variations:
-    - si: MPR . accompagnée . éligible
-      alors: 50000 €
     - si: logement . type travaux = "parois vitrées"
       alors: 7000 €
     - si: logement . type travaux = "un poste"
@@ -86,9 +84,12 @@ PAR . montant:
       alors: 25000 €
     - si: logement . type travaux = "trois postes"
       alors: 30000 €
-    - si: logement . type travaux = "performance énergétique globale"
-      alors: 50000 €
     - si: logement . type travaux = "assainissement"
       alors: 10000 €
+    - si: logement . type travaux = "performance énergétique globale"
+      alors: 50000 €
+    - si: MPR . accompagnée . éligible
+      alors: 50000 €
+    
 PAR . taux: 0 %
 PAR . durée: 10 ans

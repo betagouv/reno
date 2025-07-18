@@ -27,7 +27,7 @@ export default function Aides() {
           {new Date().getFullYear()}
         </h1>
         <div className="fr-grid-row fr-grid-row--gutters">
-          <div className="fr-col-12 fr-col-lg-4">
+          <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
             <Card
               background
               border
@@ -52,7 +52,7 @@ export default function Aides() {
               titleAs="h2"
             />
           </div>
-          <div className="fr-col-12 fr-col-lg-4">
+          <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
             <Card
               background
               border
@@ -77,7 +77,7 @@ export default function Aides() {
               titleAs="h2"
             />
           </div>
-          <div className="fr-col-12 fr-col-lg-4">
+          <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
             <Card
               background
               border
@@ -102,7 +102,7 @@ export default function Aides() {
               titleAs="h2"
             />
           </div>
-          <div className="fr-col-12 fr-col-lg-4">
+          <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
             <Card
               background
               border
@@ -128,7 +128,7 @@ export default function Aides() {
               titleAs="h2"
             />
           </div>
-          <div className="fr-col-12 fr-col-lg-4">
+          <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
             <Card
               background
               border
@@ -155,7 +155,7 @@ export default function Aides() {
               titleAs="h2"
             />
           </div>
-          <div className="fr-col-12 fr-col-lg-4">
+          <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
             <Card
               background
               border

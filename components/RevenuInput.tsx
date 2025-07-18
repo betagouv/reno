@@ -1,6 +1,5 @@
+import Select from '@codegouvfr/react-dsfr/Select'
 import { omit } from './utils'
-import Select from './Select'
-
 export const displayRevenuLabel = (situation, engine, threshold) => {
   const list = getRevenusList(situation, engine)
   const lastThreshold = list.slice(-1)[0]
@@ -43,12 +42,12 @@ export function getRevenusList(situation, engine) {
 }
 
 export default function RevenuInput({
+  label,
   situation,
   onChange,
   value,
   engine,
   type,
-  disableInstruction = true,
 }) {
   const revenu = situation['ménage . revenu']
   const list = getRevenusList(situation, engine)
@@ -61,11 +60,22 @@ export default function RevenuInput({
 
   return type === 'select' ? (
     <Select
-      value={value}
-      values={selectValues}
-      onChange={onChange}
-      disableInstruction={disableInstruction}
-    />
+      label={label}
+      nativeSelectProps={{
+        onChange: onChange,
+        value: value,
+      }}
+      state={value !== undefined && 'success'}
+    >
+      <option value="" disabled hidden>
+        Sélectionnez une option
+      </option>
+      {selectValues.map(({ valeur, titre }, index) => (
+        <option key={index} value={valeur}>
+          {titre}
+        </option>
+      ))}
+    </Select>
   ) : (
     selectValues.map(({ valeur, titre }, index) => (
       <div className="fr-fieldset__element" key={index}>

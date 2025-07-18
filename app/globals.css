@@ -42,16 +42,6 @@ main {
   padding: 0 0 1em 0;
 }
 
-p {
-  margin: 0 0 0.4rem;
-  line-height: 1.6rem;
-}
-
-ul,
-ol {
-  padding-left: 1.6rem;
-}
-
 button {
   cursor: pointer;
   padding: 0rem 0.3rem;
@@ -68,6 +58,11 @@ input[type='number'] {
 
 input::placeholder {
   color: var(--lighterColor3);
+}
+
+.fr-input-wrap--addon {
+  align-items: center;
+  gap: 1em;
 }
 
 .fr-checkbox-rich {

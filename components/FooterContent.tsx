@@ -185,7 +185,7 @@ export default async function FooterContent() {
         }
         operatorLogo={{
           alt: 'Logo Mes Aides Réno',
-          imgUrl: 'logo-et-nom.svg',
+          imgUrl: '/logo.svg',
           orientation: 'horizontal',
         }}
         partnersLogos={{

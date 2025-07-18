@@ -4,6 +4,8 @@ import { PrimeStyle } from './UI'
 import GesteDescription from './GesteDescription'
 import { getInfoForPrime } from './AideGeste'
 
+import { Badge } from '@codegouvfr/react-dsfr/Badge'
+
 // Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
 export const PrimeDisplay = ({
   situation,
@@ -42,30 +44,26 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       situation,
     })
   return (
-    <PrimeStyle
-      css={`
-        display: block;
-        text-align: left;
-        text-wrap: wrap;
-      `}
-      $inactive={montantTotal === 'Non applicable'}
-    >
-      {montantTotal === 'Non applicable' ? (
-        <>
-          Prime <strong>non applicable</strong> dans votre situation
-        </>
-      ) : !eligibleMPRG && !hasCoupDePouce && !isExactTotal ? (
-        <>Prime existante</>
-      ) : (
-        <>
-          {isExactTotal
-            ? !hasCoupDePouce && !eligibleMPRG
-              ? 'Prime indicative de '
-              : 'Prime de '
-            : "Jusqu'à "}
-          <strong>{montantTotal == 0 ? '0 €' : montantTotal}</strong>{' '}
-        </>
-      )}
-    </PrimeStyle>
+    montantTotal != '0 €' && (
+      <Badge
+        noIcon
+        severity={montantTotal !== 'Non applicable' ? 'success' : ''}
+      >
+        {montantTotal === 'Non applicable' ? (
+          <>Non applicable dans votre situation</>
+        ) : !eligibleMPRG && !hasCoupDePouce && !isExactTotal ? (
+          <>Prime existante</>
+        ) : (
+          <>
+            {isExactTotal
+              ? !hasCoupDePouce && !eligibleMPRG
+                ? 'Prime indicative de '
+                : 'Prime de '
+              : "Jusqu'à "}
+            {montantTotal == 0 ? '0 €' : montantTotal}
+          </>
+        )}
+      </Badge>
+    )
   )
 }

@@ -199,22 +199,12 @@ export const BlocAide = styled.div`
   .aide-header {
     display: flex;
     align-items: center;
-    font-weight: 500;
-    h2 {
-      color: black;
-    }
     ${(p) => p.display == "geste" && "margin-bottom: 1rem;"}
     > img {
       margin-right: 1.4rem;
       width: 3.5rem;
       height: auto;
     }
-  }
-  h2,
-  h3 {
-    color: var(--color);
-    margin: 1rem 0rem;
-    font-size: 130%;
   }
   .aide-details {
     margin-top: 1rem;

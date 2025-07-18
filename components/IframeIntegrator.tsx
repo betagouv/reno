@@ -1,5 +1,5 @@
 'use client'
-import { BlueEm } from '@/app/LandingUI'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 import getAppUrl from '@/components/getAppUrl'
 import useIsInIframe from '@/components/useIsInIframe'
 
@@ -12,19 +12,19 @@ export default function IframeIntegrator({ iframeUrl }) {
       <>
         <h3>Intégrer ce simulateur à votre site</h3>
         <p>
-          Voici{' '}
-          <BlueEm>
-            <strong>le code à intégrer</strong>
-          </BlueEm>{' '}
-          dans votre HTML ou votre contenu Wordpress :
+          Voici <strong>le code à intégrer</strong> dans votre HTML ou votre
+          contenu Wordpress :
         </p>
-        <code
-          css={`
-            word-break: break-all;
-          `}
-        >
-          {iframeCode}
-        </code>
+
+        <Highlight>
+          <code
+            css={`
+              word-break: break-all;
+            `}
+          >
+            {iframeCode}
+          </code>
+        </Highlight>
         <h3>Le résultat</h3>
         <div
           css={`

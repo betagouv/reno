@@ -63,13 +63,7 @@ export default function Input({
           min="1"
           {...props}
         />
-        <div
-          className="fr-messages-group"
-          id="input-3-1-messages"
-          aria-live="polite"
-        >
-          &nbsp;{pluralUnit}
-        </div>
+        <div>&nbsp;{pluralUnit}</div>
       </div>
     </div>
   )

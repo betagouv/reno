@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation'
 import Value from '../Value'
 import { push } from '@socialgouv/matomo-next'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const BlocAideMPR = ({
   infoMPR,
@@ -95,34 +96,13 @@ export const BlocAideMPR = ({
                 display: flex;
               `}
             >
-              <PrimeStyle
-                css={`
-                  padding: 0.75rem;
-                  margin-bottom: 1rem;
-                `}
-                $inactive={!isEligible}
-              >
+              <Badge noIcon severity={isEligible && 'success'}>
                 {isEligible ? (
-                  <>
-                    Prime de{' '}
-                    <strong
-                      css={`
-                        font-size: 1.5rem;
-                      `}
-                    >
-                      {isExactTotal ? infoMPR.montant : '...'}
-                    </strong>
-                  </>
+                  <>Prime de {isExactTotal ? infoMPR.montant : '...'}</>
                 ) : (
-                  <strong
-                    css={`
-                      font-size: 1.25rem;
-                    `}
-                  >
-                    Non Éligible
-                  </strong>
+                  <>Non Éligible</>
                 )}
-              </PrimeStyle>
+              </Badge>
             </div>
             <AvanceTMO {...{ engine, situation }} />
           </>

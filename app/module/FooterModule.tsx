@@ -19,7 +19,13 @@ export default function FooterModule() {
         }
       `}
     >
-      <a className="fr-link" href="https://mesaidesreno.beta.gouv.fr">
+      <a
+        css={`
+          text-decoration: none;
+          background: none;
+        `}
+        href="https://mesaidesreno.beta.gouv.fr"
+      >
         <HeaderLogo
           src={logo}
           alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef."

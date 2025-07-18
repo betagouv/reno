@@ -2,9 +2,8 @@ import Feedback from '@/app/contact/Feedback'
 import { No } from '@/components/ResultUI'
 import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
 import PersonaBar from './PersonaBar'
-import { Badge, Card, Section } from './UI'
+import { Section } from './UI'
 import { useAides } from './ampleur/useAides'
 import { decodeDottedName, encodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
@@ -18,13 +17,12 @@ import AideGeste from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
 import Value from './Value'
-import informationIcon from '@/public/information.svg'
-import Image from 'next/image'
 import { categories, getRulesByCategory } from './utils'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function Eligibility({
   setSearchParams,
@@ -52,9 +50,6 @@ export default function Eligibility({
     <Section
       css={`
         ${showPersonaBar && `margin-top: 4rem`}
-        h2 {
-          color: var(--color);
-        }
       `}
     >
       <PersonaBar
@@ -226,76 +221,18 @@ export function EligibilityRenovationEnergetique({
         />
       )}
       {hasMPRA && (
-        <Card
-          css={`
-            background: #f4efff;
-            padding: calc(0.5rem + 1vw);
-            > strong {
-              font-size: 120%;
-            }
-            ul {
-              list-style-type: none;
-              padding: 1rem 0;
-              li {
-                padding: 0.2rem 0;
-              }
-            }
-          `}
-        >
+        <div className="fr-callout fr-callout--yellow-moutarde fr-my-5v">
           {MPRASuspendue ? (
             <>
-              <p>
-                <Badge color="blue">
-                  <Image
-                    src={informationIcon}
-                    alt="infobulle"
-                    width="20"
-                    css={`
-                      margin: 0 0.2em 0.2em 0;
-                    `}
-                  />
-                  temporairement suspendue
-                </Badge>
-              </p>
-              <strong>
-                MaPrimeRénov' parcours accompagné est temporairement suspendue
-                cet été
-              </strong>
-              <p
-                css={`
-                  margin: 1rem 0;
-                `}
-              >
+              <Badge severity="warning">temporairement suspendue</Badge>
+              <h3 className="fr-callout__title">
+                MaPrimeRénov&#39; parcours accompagné est temporairement
+                suspendue cet été
+              </h3>
+              <p className="fr-callout__text">
                 Cet été, les demandes pour les rénovations d'ampleur (parcours
                 accompagné) sont temporairement suspendues.
               </p>
-              <div
-                css={`
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  color: rgba(0, 0, 145, 0.4);
-                  padding-bottom: 1rem;
-                  padding-left: 1.5rem;
-                  border-bottom: 1px solid var(--lighterColor2);
-                `}
-              >
-                <div>MaPrimeRénov’ pour une rénovation d’ampleur</div>
-                <div
-                  css={`
-                    &::after {
-                      content: '';
-                      display: inline-block;
-                      width: 10px;
-                      height: 10px;
-                      border-bottom: 2px solid rgba(0, 0, 145, 0.4);
-                      border-right: 2px solid rgba(0, 0, 145, 0.4);
-                      transform: rotate(45deg);
-                      transition: transform 0.3s ease-in-out;
-                    }
-                  `}
-                ></div>
-              </div>
             </>
           ) : (
             <>
@@ -357,7 +294,7 @@ export function EligibilityRenovationEnergetique({
               </div>
             </>
           )}
-        </Card>
+        </div>
       )}
       <AidesAmpleur
         {...{
@@ -468,7 +405,7 @@ export function TravauxInconnus({
   const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return Object.keys(rulesByCategory).map((category) => (
     <div key={category}>
-      <h4 className="fr-mt-5v">{category}</h4>
+      <h3 className="fr-mt-5v">{category}</h3>
       {rulesByCategory[category].map((dottedName, index) => {
         const shouldShow = showAllByCategory[category] || index < 2
         return (
