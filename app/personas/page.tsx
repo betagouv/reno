@@ -2,6 +2,7 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import Personas from '../Personas'
 import Tests from './Tests'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'Personas - Mes aides réno',
@@ -11,9 +12,12 @@ export const metadata: Metadata = {
 
 export default function PersonasPage() {
   return (
-    <Suspense>
-      <Personas />
-      <Tests />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <Suspense>
+        <Personas />
+        <Tests />
+      </Suspense>
+    </>
   )
 }

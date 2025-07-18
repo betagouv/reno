@@ -1,6 +1,7 @@
 import PageCEE from '@/components/cee/PageCEE'
 import { Metadata } from 'next'
 import rules from '@/app/règles/rules'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export async function generateMetadata(props): Promise<Metadata> {
   const params = await props.params
@@ -22,5 +23,10 @@ export async function generateMetadata(props): Promise<Metadata> {
 export default async function CeeCode(props) {
   const params = await props.params
 
-  return <PageCEE {...{ params }} />
+  return (
+    <>
+      <StartDsfrOnHydration />
+      <PageCEE {...{ params }} />
+    </>
+  )
 }

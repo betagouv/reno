@@ -7,14 +7,18 @@ export const HeaderWrapper = ({ children, image }) => {
     <div className="fr-my-7w fr-mt-md-12w fr-mb-md-10w fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-grid-row--center">
       <div className="fr-py-0 fr-col-12 fr-col-md-6">{children}</div>
       <div className="fr-col-12 fr-col-md-3">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          css={`
-            width: 100%;
-            height: auto;
-          `}
-        />
+        {image.src ? (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            css={`
+              width: 100%;
+              height: auto;
+            `}
+          />
+        ) : (
+          image
+        )}
       </div>
     </div>
   )

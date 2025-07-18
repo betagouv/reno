@@ -7,7 +7,7 @@ import { Suspense } from 'react'
 import plusValueImage from '@/public/illuPlusValue.png'
 import Demonstration from '../../Demonstration'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
-import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router/DsfrProvider'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",

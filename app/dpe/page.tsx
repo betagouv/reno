@@ -1,11 +1,10 @@
 import DPE from '@/components/dpe/DPE'
 import { Intro, PageBlock } from '@/components/UI'
-import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
-import Image from 'next/image'
 import { BlueEm, HeaderWrapper } from '../LandingUI'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const description = `Les passoires thermiques seront progressivement interdites à la location. Propriétaire bailleur, découvrez vos aides à la rénovation énergétique.`
 
@@ -17,27 +16,17 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main
-      style={css`
-        background: white;
-        padding-top: calc(1.5vh + 1.5vw);
-      `}
-    >
-      <PageBlock>
-        <HeaderWrapper>
-          <Image
-            src={illustrationAccueil}
-            alt="Des ouvriers peignent et réparent la facade d'une maison"
-          />
-          <div>
-            <h1
-              style={css`
-                margin-top: 0.6rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              Le DPE
-            </h1>
+    <>
+      <StartDsfrOnHydration />
+      <main>
+        <PageBlock>
+          <HeaderWrapper
+            image={{
+              src: illustrationAccueil,
+              alt: "Des ouvriers peignent et réparent la facade d'une maison",
+            }}
+          >
+            <h1>Le DPE</h1>
             <Intro>
               <p>
                 En France hexagonale, le Diagnostic de Performance Énergétique
@@ -52,16 +41,16 @@ export default function Page() {
                 <BlueEm>location</BlueEm> d'un logement .
               </p>
             </Intro>
-          </div>
-        </HeaderWrapper>
-        <Wrapper>
-          <Content>
-            <div>
-              <DPE avecGES={true} avecLegend={true} />
-            </div>
-          </Content>
-        </Wrapper>
-      </PageBlock>
-    </main>
+          </HeaderWrapper>
+          <Wrapper>
+            <Content>
+              <div>
+                <DPE avecGES={true} avecLegend={true} />
+              </div>
+            </Content>
+          </Wrapper>
+        </PageBlock>
+      </main>
+    </>
   )
 }

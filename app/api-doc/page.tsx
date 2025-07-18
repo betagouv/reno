@@ -1,6 +1,6 @@
 import { Metadata } from 'next/types'
 import API from './API'
-import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router/DsfrProvider'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',

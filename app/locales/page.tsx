@@ -2,6 +2,7 @@ import { Main } from '@/components/UI'
 import { Metadata } from 'next/types'
 import Liste from './Liste'
 import { description } from './description'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title:
@@ -9,10 +10,13 @@ export const metadata: Metadata = {
   description,
 }
 
-export default function AidesLocales({ searchParams }) {
+export default function AidesLocales() {
   return (
-    <Main>
-      <Liste />
-    </Main>
+    <>
+      <StartDsfrOnHydration />
+      <Main>
+        <Liste />
+      </Main>
+    </>
   )
 }

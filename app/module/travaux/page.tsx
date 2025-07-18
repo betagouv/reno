@@ -8,6 +8,7 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import codeIcon from '@/public/icon-code.png'
 import DPETravauxModule from '@/components/dpe/travaux/DPETravauxModule'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 export const metadata: Metadata = {
   title:
     "Module de calcul d'aide pour les travaux de rénovation d'un logement - Mes aides réno",
@@ -16,29 +17,18 @@ export const metadata: Metadata = {
 export default async function ModuleTravaux({ searchParams }) {
   const numDpe = searchParams.dpe || null
   return (
-    <main
-      style={css`
-        padding-top: 1.5vh;
-      `}
-    >
-      <PageBlock>
-        <HeaderWrapper>
-          <Image
-            src={plusValueImage}
-            alt="Illustration du module travaux"
-            style={css`
-              margin: 1rem;
-            `}
-          />
-          <div>
-            <h1
-              style={css`
-                margin-top: 0.6rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              Calculette des aides pour les{' '}
-              <BlueEm>travaux de rénovation</BlueEm> d'un logement
+    <>
+      <StartDsfrOnHydration />
+      <main>
+        <PageBlock>
+          <HeaderWrapper
+            image={{
+              src: plusValueImage,
+              alt: 'Illustration du module travaux',
+            }}
+          >
+            <h1>
+              Calculette des aides pour les travaux de rénovation d'un logement
             </h1>
             <Intro>
               <p>
@@ -51,42 +41,42 @@ export default async function ModuleTravaux({ searchParams }) {
                 situation.
               </p>
             </Intro>
-          </div>
-        </HeaderWrapper>
-        <Wrapper $background="white">
-          <Content>
-            <Suspense>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}
-              >
-                <DPETravauxModule type="module" numDpe={numDpe} />
-                <a
-                  className="fr-link"
-                  href={`/module/travaux/demonstration`}
-                  style={css`
-                    display: flex;
-                    align-items: center;
-                    width: fit-content;
-                    margin-top: 1rem;
-                    gap: 0.5rem;
-                  `}
+          </HeaderWrapper>
+          <Wrapper $background="white">
+            <Content>
+              <Suspense>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
                 >
-                  <Image
-                    src={codeIcon}
-                    alt="icone intégration iframe"
-                    width="24"
-                  />
-                  Intégrer ce widget à mon site
-                </a>
-              </div>
-            </Suspense>
-          </Content>
-        </Wrapper>
-      </PageBlock>
-    </main>
+                  <DPETravauxModule type="module" numDpe={numDpe} />
+                  <a
+                    className="fr-link"
+                    href={`/module/travaux/demonstration`}
+                    style={css`
+                      display: flex;
+                      align-items: center;
+                      width: fit-content;
+                      margin-top: 1rem;
+                      gap: 0.5rem;
+                    `}
+                  >
+                    <Image
+                      src={codeIcon}
+                      alt="icone intégration iframe"
+                      width="24"
+                    />
+                    Intégrer ce widget à mon site
+                  </a>
+                </div>
+              </Suspense>
+            </Content>
+          </Wrapper>
+        </PageBlock>
+      </main>
+    </>
   )
 }

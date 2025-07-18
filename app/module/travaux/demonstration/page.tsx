@@ -1,13 +1,12 @@
-import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
+import { HeaderWrapper } from '@/app/LandingUI'
 import { Intro, PageBlock } from '@/components/UI'
-import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import plusValueImage from '@/public/illuPlusValue.png'
 import Demonstration from '../../Demonstration'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 export const metadata: Metadata = {
   title:
     "Module de calcul d'aide pour les travaux de rénovation d'un logement - Mes Aides Réno",
@@ -15,52 +14,40 @@ export const metadata: Metadata = {
 }
 export default function Module({}) {
   return (
-    <main
-      style={css`
-        background: white;
-        padding-top: calc(1.5vh + 1.5vw);
-      `}
-    >
-      <PageBlock>
-        <Content>
-          <Breadcrumb
-            currentPageLabel="Travaux"
-            homeLinkProps={{
-              href: '/',
+    <>
+      <StartDsfrOnHydration />
+      <main>
+        <PageBlock>
+          <Content>
+            <Breadcrumb
+              currentPageLabel="Travaux"
+              homeLinkProps={{
+                href: '/',
+              }}
+              segments={[
+                {
+                  label: 'Devenir partenaire',
+                  linkProps: {
+                    href: '/devenir-partenaire',
+                  },
+                },
+                {
+                  label: 'Les iframes',
+                  linkProps: {
+                    href: '/integration',
+                  },
+                },
+              ]}
+            />
+          </Content>
+          <HeaderWrapper
+            image={{
+              src: plusValueImage,
+              alt: "Illustration de la calculette Facture d'énergie",
             }}
-            segments={[
-              {
-                label: 'Devenir partenaire',
-                linkProps: {
-                  href: '/devenir-partenaire',
-                },
-              },
-              {
-                label: 'Les iframes',
-                linkProps: {
-                  href: '/integration',
-                },
-              },
-            ]}
-          />
-        </Content>
-        <HeaderWrapper>
-          <Image
-            src={plusValueImage}
-            alt="Illustration de la calculette Facture d'énergie"
-            style={css`
-              margin: 1rem;
-            `}
-          />
-          <div>
-            <h1
-              style={css`
-                margin-top: 0.6rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              Calculette des aides pour les{' '}
-              <BlueEm>travaux de rénovation</BlueEm> d'un logement
+          >
+            <h1>
+              Calculette des aides pour les travaux de rénovation d'un logement
             </h1>
             <Intro>
               <p>
@@ -73,17 +60,17 @@ export default function Module({}) {
                 situation.
               </p>
             </Intro>
-          </div>
-        </HeaderWrapper>
+          </HeaderWrapper>
 
-        <Wrapper>
-          <Content>
-            <Suspense>
-              <Demonstration moduleName="travaux" />
-            </Suspense>
-          </Content>
-        </Wrapper>
-      </PageBlock>
-    </main>
+          <Wrapper>
+            <Content>
+              <Suspense>
+                <Demonstration moduleName="travaux" />
+              </Suspense>
+            </Content>
+          </Wrapper>
+        </PageBlock>
+      </main>
+    </>
   )
 }

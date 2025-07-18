@@ -7,6 +7,7 @@ import { Metadata } from 'next/types'
 import NPM from './NPM'
 import NPMExampleProject from './NPMExampleProject'
 import { ContactIntegration } from '@/components/Integration'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'Paquet NPM - Mes aides réno',
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function NPMDoc() {
   return (
     <>
+      <StartDsfrOnHydration />
       <Main>
         <Section>
           <h2>Paquet NPM Mes Aides Réno</h2>

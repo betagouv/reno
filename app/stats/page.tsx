@@ -1,6 +1,7 @@
 import { Main, PageBlock } from '@/components/UI'
 import Statistiques from './Statistiques'
 import { Metadata } from 'next'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 const description = `Statistiques du site Mes Aides Réno.`
 
@@ -14,10 +15,13 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <PageBlock>
-      <Main>
-        <Statistiques />
-      </Main>
-    </PageBlock>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
+        <Main>
+          <Statistiques />
+        </Main>
+      </PageBlock>
+    </>
   )
 }

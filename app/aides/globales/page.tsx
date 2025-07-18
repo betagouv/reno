@@ -1,6 +1,7 @@
 import { Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 import AidesGlobales from './AidesGlobales'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'Estimer mes aides en ' + new Date().getFullYear(),
@@ -12,10 +13,13 @@ export const metadata: Metadata = {
 
 export default function PageAidesGlobales() {
   return (
-    <Main>
-      <Section>
-        <AidesGlobales />
-      </Section>
-    </Main>
+    <>
+      <StartDsfrOnHydration />
+      <Main>
+        <Section>
+          <AidesGlobales />
+        </Section>
+      </Main>
+    </>
   )
 }

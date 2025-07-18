@@ -3,6 +3,7 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import TaxeFonciere from './TaxeFonciere'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: "L'exonération de taxe foncière en " + new Date().getFullYear(),
@@ -15,32 +16,35 @@ export const metadata: Metadata = {
 
 export default function Aides() {
   return (
-    <Main>
-      <Section>
-        <Breadcrumb
-          currentPageLabel="L'exonération de taxe foncière"
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[
-            {
-              label: 'Les aides',
-              linkProps: {
-                href: '/aides',
+    <>
+      <StartDsfrOnHydration />
+      <Main>
+        <Section>
+          <Breadcrumb
+            currentPageLabel="L'exonération de taxe foncière"
+            homeLinkProps={{
+              href: '/',
+            }}
+            segments={[
+              {
+                label: 'Les aides',
+                linkProps: {
+                  href: '/aides',
+                },
               },
-            },
-            {
-              label: 'Les exonérations fiscales',
-              linkProps: {
-                href: '/aides/exoneration-fiscale',
+              {
+                label: 'Les exonérations fiscales',
+                linkProps: {
+                  href: '/aides/exoneration-fiscale',
+                },
               },
-            },
-          ]}
-        />
-        <Suspense>
-          <TaxeFonciere />
-        </Suspense>
-      </Section>
-    </Main>
+            ]}
+          />
+          <Suspense>
+            <TaxeFonciere />
+          </Suspense>
+        </Section>
+      </Main>
+    </>
   )
 }

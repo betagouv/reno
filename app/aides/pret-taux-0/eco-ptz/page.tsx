@@ -3,6 +3,7 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import PTZ from './PTZ'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: "Eco-PTZ : L'éco-prêt à taux zéro en " + new Date().getFullYear(),
@@ -16,32 +17,35 @@ export const metadata: Metadata = {
 
 export default function Aides() {
   return (
-    <Main>
-      <Section>
-        <Breadcrumb
-          currentPageLabel="L'éco-PTZ"
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[
-            {
-              label: 'Les aides',
-              linkProps: {
-                href: '/aides',
+    <>
+      <StartDsfrOnHydration />
+      <Main>
+        <Section>
+          <Breadcrumb
+            currentPageLabel="L'éco-PTZ"
+            homeLinkProps={{
+              href: '/',
+            }}
+            segments={[
+              {
+                label: 'Les aides',
+                linkProps: {
+                  href: '/aides',
+                },
               },
-            },
-            {
-              label: 'Les prêts à taux 0',
-              linkProps: {
-                href: '/aides/pret-taux-0',
+              {
+                label: 'Les prêts à taux 0',
+                linkProps: {
+                  href: '/aides/pret-taux-0',
+                },
               },
-            },
-          ]}
-        />
-        <Suspense>
-          <PTZ />
-        </Suspense>
-      </Section>
-    </Main>
+            ]}
+          />
+          <Suspense>
+            <PTZ />
+          </Suspense>
+        </Section>
+      </Main>
+    </>
   )
 }

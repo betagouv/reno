@@ -1,13 +1,12 @@
-import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
+import { HeaderWrapper } from '@/app/LandingUI'
 import { Intro, PageBlock } from '@/components/UI'
-import css from '@/components/css/convertToJs'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import plusValueImage from '@/public/illuPlusValue.png'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import PlusValueModule from '@/components/module/PlusValueModule'
-import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 export const metadata: Metadata = {
   title:
     "Module de calcul de la plus value d'un logement suite à une rénovation - Mes aides réno",

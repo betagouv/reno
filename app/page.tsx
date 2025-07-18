@@ -39,7 +39,7 @@ export default async function Page(props) {
             }}
           >
             <h1>Estimez vos aides pour rénover votre logement</h1>
-            <p className="fr-tag  fr-tag--success-850">
+            <p className="fr-tag fr-tag--success-850">
               <span aria-hidden="true">⚡️</span> Rénovation Énergétique
             </p>
             <Intro>

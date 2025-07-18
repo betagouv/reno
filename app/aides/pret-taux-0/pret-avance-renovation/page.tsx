@@ -3,6 +3,7 @@ import { Metadata } from 'next/types'
 import PAR from './PAR'
 import { Suspense } from 'react'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'PAR+: Le prêt avance rénovation',
@@ -15,32 +16,35 @@ export const metadata: Metadata = {
 
 export default function PagePAR() {
   return (
-    <Main>
-      <Section>
-        <Breadcrumb
-          currentPageLabel="Le prêt avance rénovation"
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[
-            {
-              label: 'Les aides',
-              linkProps: {
-                href: '/aides',
+    <>
+      <StartDsfrOnHydration />
+      <Main>
+        <Section>
+          <Breadcrumb
+            currentPageLabel="Le prêt avance rénovation"
+            homeLinkProps={{
+              href: '/',
+            }}
+            segments={[
+              {
+                label: 'Les aides',
+                linkProps: {
+                  href: '/aides',
+                },
               },
-            },
-            {
-              label: 'Les prêts à taux 0',
-              linkProps: {
-                href: '/aides/pret-taux-0',
+              {
+                label: 'Les prêts à taux 0',
+                linkProps: {
+                  href: '/aides/pret-taux-0',
+                },
               },
-            },
-          ]}
-        />
-        <Suspense>
-          <PAR />
-        </Suspense>
-      </Section>
-    </Main>
+            ]}
+          />
+          <Suspense>
+            <PAR />
+          </Suspense>
+        </Section>
+      </Main>
+    </>
   )
 }

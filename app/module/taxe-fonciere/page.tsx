@@ -1,14 +1,18 @@
 import { Suspense } from 'react'
 import EligibilityTaxeFonciere from '@/components/module/EligibilityTaxeFonciere'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export default function ModuleTaxeFonciere() {
   return (
-    <Suspense>
-      <EligibilityTaxeFonciere
-        {...{
-          dottedName: 'taxe foncière',
-        }}
-      />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <Suspense>
+        <EligibilityTaxeFonciere
+          {...{
+            dottedName: 'taxe foncière',
+          }}
+        />
+      </Suspense>
+    </>
   )
 }

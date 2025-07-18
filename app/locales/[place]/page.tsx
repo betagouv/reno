@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { description } from '../description'
 import LocalePlace from './Place'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export async function generateMetadata(props): Promise<Metadata> {
   const { place: encodedPlace } = await props.params
@@ -22,31 +23,34 @@ export default async function PlacePage(props) {
   const place = decodeURIComponent(encodedPlace)
 
   return (
-    <Main>
-      <Section>
-        <Breadcrumb
-          currentPageLabel={[capitalise0(place)]}
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[
-            {
-              label: 'Les aides',
-              linkProps: {
-                href: '/aides',
+    <>
+      <StartDsfrOnHydration />
+      <Main>
+        <Section>
+          <Breadcrumb
+            currentPageLabel={[capitalise0(place)]}
+            homeLinkProps={{
+              href: '/',
+            }}
+            segments={[
+              {
+                label: 'Les aides',
+                linkProps: {
+                  href: '/aides',
+                },
               },
-            },
-            {
-              label: 'Les aides locales à la rénovation en France',
-              linkProps: {
-                href: '/locales',
+              {
+                label: 'Les aides locales à la rénovation en France',
+                linkProps: {
+                  href: '/locales',
+                },
               },
-            },
-          ]}
-        />
-        <Link href="/locales">⬅️ Retour aux aides locales</Link>
-      </Section>
-      <LocalePlace place={place} />
-    </Main>
+            ]}
+          />
+          <Link href="/locales">⬅️ Retour aux aides locales</Link>
+        </Section>
+        <LocalePlace place={place} />
+      </Main>
+    </>
   )
 }

@@ -7,6 +7,7 @@ import { Metadata } from 'next/types'
 import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
 import communes from '@/data/exonération-taxe-foncière-population.csv'
 import { sortBy } from '@/components/utils'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 const title =
   "Communes éligibles à l'exonération de taxe foncière pour rénovation"
@@ -20,29 +21,17 @@ export const metadata: Metadata = {
 
 export default function Module({}) {
   return (
-    <main
-      style={css`
-        background: white;
-        padding-top: calc(1.5vh + 1.5vw);
-      `}
-    >
-      <PageBlock>
-        <HeaderWrapper>
-          <Image
-            src={illustrationAccueil}
-            alt="Des ouvriers peignent et réparent la facade d'une maison"
-          />
-
-          <div>
-            <h1
-              style={css`
-                margin-top: 0.6rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              Communes éligibles à l'
-              <BlueEm>exonération rénovation</BlueEm> de la taxe foncière
-            </h1>
+    <>
+      <StartDsfrOnHydration />
+      <main>
+        <PageBlock>
+          <HeaderWrapper
+            image={{
+              src: illustrationAccueil,
+              alt: "Des ouvriers peignent et réparent la facade d'une maison",
+            }}
+          >
+            <h1>Communes éligibles à l'exonération de la taxe foncière</h1>
             <Intro>
               <p>
                 Les collectivités locales peuvent proposer une exonération de la
@@ -55,85 +44,87 @@ export default function Module({}) {
                 titre indicatif.
               </p>
             </Intro>
-          </div>
-        </HeaderWrapper>
+          </HeaderWrapper>
 
-        <Wrapper>
-          <Content>
-            <p>
-              C'est la commune du logement qui ouvre droit à l'exonération de
-              taxe foncière, pas la commune de résidence du propriétaire du
-              logement.
-            </p>
-            <p>
-              Voici une sélection des communes qui sembleraient offrir cette
-              exonération :
-            </p>
-            <ul>
-              {sortBy((c) => c.commune)(communes).map(
-                ({
-                  'Nom de la collectivité': commune,
-                  code,
-                  taux,
-                  population,
-                }) => {
-                  return (
-                    <li
-                      key={commune}
-                      style={css`
-                        margin: 1rem 0;
-                      `}
-                    >
-                      <h3
+          <Wrapper>
+            <Content>
+              <p>
+                C'est la commune du logement qui ouvre droit à l'exonération de
+                taxe foncière, pas la commune de résidence du propriétaire du
+                logement.
+              </p>
+              <p>
+                Voici une sélection des communes qui sembleraient offrir cette
+                exonération :
+              </p>
+              <ul>
+                {sortBy((c) => c.commune)(communes).map(
+                  ({
+                    'Nom de la collectivité': commune,
+                    code,
+                    taux,
+                    population,
+                  }) => {
+                    return (
+                      <li
+                        key={commune}
                         style={css`
-                          font-size: 125%;
-                          margin: 0;
+                          margin: 1rem 0;
                         `}
                       >
-                        {commune}
-                      </h3>
-                      <div>Code commune : {code || <em>à renseigner</em>}</div>
-                      <div>
-                        Taux d'exonération
-                        <span>
-                          {' : '}
-                          <PrimeStyle>{taux} %</PrimeStyle>
-                        </span>
-                      </div>
-                      <div>{formatter.format(population)} habitants</div>
-                    </li>
-                  )
-                },
-              )}
-            </ul>
-            <br />
-          </Content>
-        </Wrapper>
-        <Wrapper $background="white" $noMargin={true} $last={true}>
-          <Content>
-            <h2>Comment vérifier l'éligibilité de votre commune ?</h2>
-            <p>
-              Vous devez
-              <BlueEm>
-                <strong>contacter les services de communes</strong>
-              </BlueEm>{' '}
-              pour vous assurer de votre éligibilité à cette exonération.
-            </p>
-          </Content>
-        </Wrapper>
-        <Wrapper $background="white" $noMargin={true} $last={true}>
-          <Content>
-            <h2>Toujours à jour</h2>
-            <p>
-              En intégrant dès maintenant le calculateur sur votre site, vous
-              profiterez automatiquement des mises à jour qui auront lieu très
-              prochainement pendant l'été et à la rentrée 2024 et ajouteront
-              progressivement toutes les aides à la rénovation energétique.
-            </p>
-          </Content>
-        </Wrapper>
-      </PageBlock>
-    </main>
+                        <h3
+                          style={css`
+                            font-size: 125%;
+                            margin: 0;
+                          `}
+                        >
+                          {commune}
+                        </h3>
+                        <div>
+                          Code commune : {code || <em>à renseigner</em>}
+                        </div>
+                        <div>
+                          Taux d'exonération
+                          <span>
+                            {' : '}
+                            <PrimeStyle>{taux} %</PrimeStyle>
+                          </span>
+                        </div>
+                        <div>{formatter.format(population)} habitants</div>
+                      </li>
+                    )
+                  },
+                )}
+              </ul>
+              <br />
+            </Content>
+          </Wrapper>
+          <Wrapper $background="white" $noMargin={true} $last={true}>
+            <Content>
+              <h2>Comment vérifier l'éligibilité de votre commune ?</h2>
+              <p>
+                Vous devez
+                <BlueEm>
+                  <strong>contacter les services de communes</strong>
+                </BlueEm>{' '}
+                pour vous assurer de votre éligibilité à cette exonération.
+              </p>
+            </Content>
+          </Wrapper>
+          <Wrapper $background="white" $noMargin={true} $last={true}>
+            <Content>
+              <h2>Toujours à jour</h2>
+              <p>
+                En intégrant dès maintenant le calculateur sur votre site, vous
+                profiterez automatiquement des mises à jour qui auront lieu très
+                prochainement pendant l'été et à la rentrée 2024 et ajouteront
+                progressivement toutes les aides à la rénovation energétique.
+              </p>
+            </Content>
+          </Wrapper>
+        </PageBlock>
+      </main>
+    </>
   )
 }
 

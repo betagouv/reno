@@ -1,22 +1,11 @@
 'use client'
 import { ContactIntegration } from '@/components/Integration'
-import {
-  AccordionTitle,
-  Card,
-  ExternalLink,
-  Main,
-  MiseEnAvant,
-  Section,
-} from '@/components/UI'
-import { useState } from 'react'
+import { Main, Section } from '@/components/UI'
 import ParametersList from './ParametersList'
 import EndpointsList from './EndpointsList'
 import Link from '@/node_modules/next/link'
-import informationIcon from '@/public/information.svg'
-import Image from 'next/image'
 
 export default function API() {
-  const [displayParams, setDisplayParams] = useState(false)
   return (
     <>
       <Main>
