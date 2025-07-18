@@ -65,19 +65,14 @@ vous . propriétaire . statut:
       <li>nu-propriétaire</li>
       <li>personne morale (par exemple une société civile immobilière)</li>
     </ul>
-  variations:
-    - si: mpa . situation demandeur . occupant
-      alors: "'propriétaire'"
   une possibilité parmi:
     possibilités:
       - 'propriétaire'
       - 'acquéreur'
       - 'non propriétaire'
-  par défaut: "'propriétaire'"
 
 vous . propriétaire . statut . propriétaire:
   valeur: "'propriétaire'"
-  applicable si: mpa . situation demandeur . occupant
   titre: Je suis propriétaire
 vous . propriétaire . statut . acquéreur:
   valeur: "'acquéreur'"

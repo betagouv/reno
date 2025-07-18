@@ -1,4 +1,4 @@
-import Input from './Input'
+import { Input } from '@codegouvfr/react-dsfr/Input'
 import { RadioButtons } from '@codegouvfr/react-dsfr/RadioButtons'
 import { encodeSituation } from './publicodes/situationUtils'
 import AddressSearch from './AddressSearch'
@@ -23,7 +23,9 @@ export default function GesteQuestion({
   const evaluation =
     currentQuestion && engine.setSituation(situation).evaluate(question)
   let currentValue = situation[question]
-  const onChange = (value) => {
+  const onChange = (e) => {
+    const value = e.target.value
+    onChangeEvent && onChangeEvent(value)
     const encodedSituation = encodeSituation(
       {
         ...situation,
@@ -33,40 +35,40 @@ export default function GesteQuestion({
       answeredQuestions,
     )
     setSearchParams(encodedSituation, 'push', false)
-    onChangeEvent && onChangeEvent(value)
   }
 
   return (
     <div
+      className="fr-mb-5v"
       css={`
-        display: flex;
-        ${!dot && 'justify-content: space-between;'}
-        ${dot && 'gap: 1rem;'}
-        align-items: center;
-        margin: ${!dot ? '0.8rem' : '0'} 0;
-        padding: 0.4rem 0 1rem;
-        ${!dot && `border-bottom: 1px solid var(--lighterColor);`}
-        &:last-child {
-          border: none;
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
-        @media (max-width: 800px) {
-          flex-wrap: wrap;
-          justify-content: space-between;
-          > div {
-            margin-bottom: 0.8rem;
-          }
-          > select,
-          input,
-          fieldset {
-            margin: 0 0 0 auto;
-          }
-        }
-        img {
-          width: 1rem;
-          height: auto;
-        }
+        // display: flex;
+        // ${!dot && 'justify-content: space-between;'}
+        // ${dot && 'gap: 1rem;'}
+        // align-items: center;
+        // margin: ${!dot ? '0.8rem' : '0'} 0;
+        // padding: 0.4rem 0 1rem;
+        // ${!dot && `border-bottom: 1px solid var(--lighterColor);`}
+        // &:last-child {
+        //   border: none;
+        //   margin-bottom: 0;
+        //   padding-bottom: 0;
+        // }
+        // @media (max-width: 800px) {
+        //   flex-wrap: wrap;
+        //   justify-content: space-between;
+        //   > div {
+        //     margin-bottom: 0.8rem;
+        //   }
+        //   > select,
+        //   input,
+        //   fieldset {
+        //     margin: 0 0 0 auto;
+        //   }
+        // }
+        // img {
+        //   width: 1rem;
+        //   height: auto;
+        // }
       `}
     >
       {dot && <Dot css={``} />}
@@ -111,6 +113,7 @@ const InputComponent = ({
           label: 'Oui',
           nativeInputProps: {
             value: 'oui',
+            checked: currentValue === 'oui',
             onChange: onChange,
           },
         },
@@ -118,10 +121,13 @@ const InputComponent = ({
           label: 'Non',
           nativeInputProps: {
             value: 'non',
+            checked: currentValue === 'non',
             onChange: onChange,
           },
         },
       ]}
+      state={currentValue !== undefined && 'success'}
+      stateRelatedMessage=""
       orientation="horizontal"
     />
   ) : currentQuestion['une possibilité parmi'] ? (
@@ -131,28 +137,21 @@ const InputComponent = ({
         onChange: onChange,
         value: currentValue == null ? '' : currentValue,
       }}
+      state={currentValue !== undefined && 'success'}
     >
       <option value="" disabled hidden>
-        Selectionnez une option
+        Sélectionnez une option
       </option>
-      {currentQuestion['une possibilité parmi']['possibilités'].map((i) => {
-        return (
-          <option value={rules[question + ' . ' + i].valeur}>
-            {rules[question + ' . ' + i].titre}
-          </option>
-        )
-      })}
+      {currentQuestion['une possibilité parmi']['possibilités'].map((i) => (
+        <option key={i} value={rules[question + ' . ' + i].valeur}>
+          {rules[question + ' . ' + i].titre}
+        </option>
+      ))}
     </Select>
-  ) : // <Select
-  //   value={currentValue == null ? '' : currentValue}
-  //   values={currentQuestion['une possibilité parmi']['possibilités'].map(
-  //     (i) => rules[question + ' . ' + i],
-  //   )}
-  //   onChange={onChange}
-  // />
-  ['ménage . commune', 'logement . commune'].includes(question) ? (
+  ) : ['ménage . commune', 'logement . commune'].includes(question) ? (
     <AddressSearch
       {...{
+        label: currentQuestion.question,
         type: question,
         setChoice: (result) => {
           const encodedSituation = encodeSituation(
@@ -184,6 +183,7 @@ const InputComponent = ({
     />
   ) : question === 'ménage . revenu' ? (
     <RevenuInput
+      label={currentQuestion.question}
       type="select"
       engine={engine}
       situation={situation}
@@ -203,13 +203,20 @@ const InputComponent = ({
       }}
     />
   ) : (
-    <Input
-      type={'number'}
-      placeholder={evaluation.nodeValue}
-      value={currentValue == null ? '' : currentValue}
-      name={question}
-      unit={evaluation.unit}
-      onChange={onChange}
-      autoFocus={autoFocus}
-    />
+    <>
+      <Input
+        nativeInputProps={{
+          type: 'number',
+          placeholder: evaluation.nodeValue,
+          name: question,
+          onChange: onChange,
+          value: currentValue == null ? '' : currentValue,
+        }}
+        state={currentValue !== undefined && 'success'}
+        stateRelatedMessage=""
+        label={currentQuestion.question}
+        autoFocus={autoFocus}
+      />{' '}
+      {console.log(evaluation)}
+    </>
   )

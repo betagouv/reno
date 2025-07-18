@@ -85,6 +85,20 @@ export default function AddressSearch({
             setInput(e.target.value)
           }}
         />
+        {clicked && input && (
+          <div
+            className="fr-messages-group"
+            id="input-0-messages"
+            aria-live="polite"
+          >
+            <p
+              className="fr-message fr-message--valid"
+              id="input-0-message-valid"
+            >
+              Adresse validée
+            </p>
+          </div>
+        )}
         <CityList>
           {isLoading && (
             <li

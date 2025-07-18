@@ -23,36 +23,16 @@ export const CommuneLogement = ({
   onChange,
   text = 'Ce logement est situé à',
 }) => (
-  <section
-    css={`
-      display: flex;
-      align-items: center;
-    `}
-  >
-    <Dot />
-    <label
-      htmlFor=""
-      css={`
-        display: flex;
-        align-items: center;
-        input {
-          height: 2.4rem !important;
-          border-bottom: 2px solid var(--color);
-        }
-      `}
-    >
-      {text} :&nbsp;{' '}
-      <AddressSearch
-        {...{
-          type: 'logement . commune',
-          setChoice: (result) => {
-            onChange(result)
-          },
-          situation,
-        }}
-      />
-    </label>
-  </section>
+  <AddressSearch
+    {...{
+      label: text + ' :',
+      type: 'logement . commune',
+      setChoice: (result) => {
+        onChange(result)
+      },
+      situation,
+    }}
+  />
 )
 
 export const TypeResidence = ({
@@ -170,39 +150,35 @@ export const MontantQuestion = ({
   answeredQuestions,
   rule,
   text,
-  dot = true,
+  disabled,
 }) => {
   return (
-    <section>
-      {dot && <Dot />}
-      <label>
-        <span>{text}&nbsp;:&nbsp;</span>
-        <input
-          css={`
-            width: 8rem;
-          `}
-          type="text"
-          inputMode="numeric"
-          pattern="\d+"
-          defaultValue={
-            answeredQuestions.includes(rule)
-              ? formatNumberWithSpaces(situation[rule])
-              : undefined
-          }
-          onChange={(e) => {
-            const price = e.target.value.replace(/\s/g, '')
-            const invalid = isNaN(price) || price <= 0
-            if (invalid) return
-            push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + price])
-            setSearchParams({
-              [encodeDottedName(rule)]: price + '*',
-            })
-            e.target.value = formatNumberWithSpaces(price)
-          }}
-        />{' '}
-        €
-      </label>
-    </section>
+    <Input
+      nativeInputProps={{
+        pattern: '\d+',
+        type: 'text',
+        value: answeredQuestions.includes(rule)
+          ? formatNumberWithSpaces(situation[rule])
+          : undefined,
+        name: 'montant',
+        inputMode: 'numeric',
+        onChange: (e) => {
+          const price = e.target.value.replace(/\s/g, '')
+          const invalid = isNaN(price) || price <= 0
+          if (invalid) return
+          push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + price])
+          setSearchParams({
+            [encodeDottedName(rule)]: price + '*',
+          })
+          e.target.value = formatNumberWithSpaces(price)
+        },
+      }}
+      state={answeredQuestions.includes(rule) && 'success'}
+      disabled={disabled}
+      stateRelatedMessage=""
+      label={text + ' :'}
+      addon="€"
+    />
   )
 }
 
@@ -544,6 +520,7 @@ export const TypeTravaux = ({
 }) => (
   <Select
     label={`${rules[rule]['question']} :`}
+    disabled={disabled}
     nativeSelectProps={{
       onChange: (e) => {
         push([
@@ -574,31 +551,30 @@ export const DureeLocation = ({
   situation,
   rules,
   rule = 'denormandie . années de location',
+  disabled,
 }) => (
-  <section>
-    <Dot />
-    <label htmlFor="">
-      {rules[rule]['question']}{' '}
-      <Select
-        css={`
-          background: #f5f5fe;
-          max-width: 90vw;
-        `}
-        onChange={(e) => {
-          if (!e) return
-          push(['trackEvent', 'Module', 'Interaction', 'travaux ' + e])
-          setSearchParams({
-            [encodeDottedName(rule)]: e + '*',
-          })
-        }}
-        disableInstruction={false}
-        value={situation[rule]?.replaceAll('"', '')}
-        values={rules[rule]['une possibilité parmi']['possibilités'].map(
-          (i) => ({ titre: i + ' ans', valeur: i }),
-        )}
-      />
-    </label>
-  </section>
+  <Select
+    label={rules[rule]['question']}
+    disabled={disabled}
+    nativeSelectProps={{
+      onChange: (e) => {
+        if (!e) return
+        push(['trackEvent', 'Module', 'Interaction', 'travaux ' + e])
+        setSearchParams({
+          [encodeDottedName(rule)]: e.target.value + '*',
+        })
+      },
+      value: situation[rule]?.replaceAll('"', ''),
+    }}
+    state={situation[rule] && !disabled && 'success'}
+  >
+    <option value="">Sélectionnez une option</option>
+    {rules[rule]['une possibilité parmi']['possibilités'].map((i) => (
+      <option key={i} value={i}>
+        {i + ' ans'}
+      </option>
+    ))}
+  </Select>
 )
 
 export const QuestionList = styled.form``

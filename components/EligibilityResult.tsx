@@ -42,7 +42,6 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
       ])
     }
   }, [evaluation, dottedName, situation])
-
   if (
     !(
       !Object.keys(evaluation.missingVariables).length ||
@@ -62,11 +61,10 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
           <>
             Vous êtes éligible à{' '}
             {dottedName === 'taxe foncière'
-              ? 'une exonération'
+              ? 'une exonération de Taxe Foncière :'
               : dottedName === 'denormandie'
-                ? "une réduction d'impôt"
-                : 'un prêt'}{' '}
-            de :
+                ? "une réduction d'impôt de :"
+                : 'un prêt de :'}{' '}
           </>
         ) : (
           <>
@@ -81,25 +79,13 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
       {isEligible && (
         <Badge className="fr-callout__title fr-mb-5v">
           {['PAR', 'PTZ', 'denormandie'].includes(dottedName)
-            ? montantFormatte
-            : taux}
+            ? montantFormatte +
+              ('denormandie' == dottedName && ` sur ${dureeFormattee}`)
+            : `${taux} pendant ${dureeFormattee}`}
         </Badge>
       )}
       {isEligible && (
         <p className="fr-callout__text">
-          {['denormandie', 'taxe foncière'].includes(dottedName) && (
-            <React.Fragment>
-              {dottedName === 'taxe foncière' ? (
-                <>
-                  de Taxe Foncière pendant <strong>{dureeFormattee}</strong>
-                </>
-              ) : (
-                <>
-                  sur <Key $state="in-progress">{dureeFormattee}</Key>
-                </>
-              )}
-            </React.Fragment>
-          )}
           {dottedName === 'denormandie' && (
             <>
               <small
