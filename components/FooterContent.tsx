@@ -9,7 +9,7 @@ export default async function FooterContent() {
       <Footer
         accessibility="partially compliant"
         accessibilityLinkProps={{
-          href: '/accessiblite',
+          href: '/accessibilite',
         }}
         websiteMapLinkProps={{
           href: '/sitemap.xml', //TODO: créer un plan de site consultable en non-xml

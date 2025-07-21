@@ -87,9 +87,6 @@ export default function LocalePlace({ place }) {
       ]),
     )
 
-    console.log(
-      'instantiating new publicodes engine for missing variables listing',
-    )
     const noDefaultEngine = new Publicodes({
       ...rulesWithoutDefault,
       'somme des aides locales': sum,
@@ -102,9 +99,6 @@ export default function LocalePlace({ place }) {
       'somme des aides locales': sum,
     }
 
-    console.log(
-      'instantiating new publicodes engine for rules default computation',
-    )
     const engineWithDefaults = new Publicodes(rulesAndTarget)
     const defaultSituation = getDefaultSituation(
       missingVariables,
@@ -119,7 +113,6 @@ export default function LocalePlace({ place }) {
     imageTitle = rule['image wikidata'] || placeTitle
 
   const engine = useMemo(() => {
-    console.log('instantiating new publicodes engine for evaluation')
     return new Publicodes(rulesAndTarget)
   }, [rulesAndTarget])
 
@@ -128,12 +121,11 @@ export default function LocalePlace({ place }) {
     k,
     v.startsWith('0') ? 0 : v,
   ])(userSituation)
-  console.log('safe', userSituation, safeUserSituation)
 
   const situation = { ...defaultSituation, ...safeUserSituation }
 
   return (
-    <div css={``}>
+    <div>
       <Section>
         <IllustratedHeader placeTitle={placeTitle} imageTitle={imageTitle} />
         <p>
@@ -159,111 +151,105 @@ export default function LocalePlace({ place }) {
           <h2>Votre situation</h2>
           <SituationEditor {...{ situation, setUserSituation }} />
         </div>
-        <Section
+        <ul
           css={`
-            margin-top: 2rem;
+            list-style-type: none;
           `}
         >
-          <ul
-            css={`
-              list-style-type: none;
-            `}
-          >
-            {sortBy(
-              ([dottedName]) =>
-                dottedName == place || !dottedName.endsWith('montant'),
-            )(placeRules).map(([dottedName, rule]) => {
-              if (rule == null) return
+          {sortBy(
+            ([dottedName]) =>
+              dottedName == place || !dottedName.endsWith('montant'),
+          )(placeRules).map(([dottedName, rule]) => {
+            if (rule == null) return
 
-              const evaluation = engine
-                .setSituation(situation)
-                .evaluate('aides locales . ' + dottedName)
-              const value = formatValue(evaluation)
+            const evaluation = engine
+              .setSituation(situation)
+              .evaluate('aides locales . ' + dottedName)
+            const value = formatValue(evaluation)
 
-              const isMontant = dottedName.endsWith('montant')
+            const isMontant = dottedName.endsWith('montant')
 
-              return (
-                <li
-                  key={dottedName}
-                  css={`
-                    margin: 0.6rem 0;
-                  `}
-                >
-                  {dottedName !== place && (
-                    <div
-                      css={`
-                        display: flex;
-                        justify-content: space-between;
-                      `}
-                      id={encodeRuleName(dottedName)}
-                    >
-                      <span
-                        css={`
-                          display: flex;
-                          flex-direction: column;
-                        `}
-                      >
-                        <small>
-                          {parentName(dottedName).split(place + ' . ')[1]}
-                        </small>
-                        <h3
-                          css={`
-                            font-size: 100%;
-                            margin: 0;
-                            width: fit-content;
-                            padding: 0 0.4rem;
-                            ${isMontant && `background: var(--lighterColor)`}
-                          `}
-                        >
-                          {getRuleTitle(dottedName, aides)}
-                        </h3>
-                      </span>
-                      <span>{value}</span>
-                    </div>
-                  )}
+            return (
+              <li
+                key={dottedName}
+                css={`
+                  margin: 0.6rem 0;
+                `}
+              >
+                {dottedName !== place && (
                   <div
                     css={`
-                      > div {
-                        border: 1px solid #aaa;
-                        > ul {
-                          padding-left: 0.6rem;
-                          margin: 0.6rem 0;
-                        }
-                      }
+                      display: flex;
+                      justify-content: space-between;
                     `}
+                    id={encodeRuleName(dottedName)}
                   >
-                    {typeof rule === 'string' ? (
-                      <div
+                    <span
+                      css={`
+                        display: flex;
+                        flex-direction: column;
+                      `}
+                    >
+                      <small>
+                        {parentName(dottedName).split(place + ' . ')[1]}
+                      </small>
+                      <h3
                         css={`
-                          padding: 0.6rem 1.2rem;
+                          font-size: 100%;
+                          margin: 0;
+                          width: fit-content;
+                          padding: 0 0.4rem;
+                          ${isMontant && `background: var(--lighterColor)`}
                         `}
                       >
-                        {rule}
-                      </div>
-                    ) : (
-                      <FriendlyObjectViewer
-                        {...{
-                          data: omit(['titre'], rule),
-                          context: {
-                            dottedName,
-                            rules: Object.fromEntries(placeRules),
-                          },
-                          options: {
-                            keyStyle: `
+                        {getRuleTitle(dottedName, aides)}
+                      </h3>
+                    </span>
+                    <span>{value}</span>
+                  </div>
+                )}
+                <div
+                  css={`
+                    > div {
+                      border: 1px solid #aaa;
+                      > ul {
+                        padding-left: 0.6rem;
+                        margin: 0.6rem 0;
+                      }
+                    }
+                  `}
+                >
+                  {typeof rule === 'string' ? (
+                    <div
+                      css={`
+                        padding: 0.6rem 1.2rem;
+                      `}
+                    >
+                      {rule}
+                    </div>
+                  ) : (
+                    <FriendlyObjectViewer
+                      {...{
+                        data: omit(['titre'], rule),
+                        context: {
+                          dottedName,
+                          rules: Object.fromEntries(placeRules),
+                        },
+                        options: {
+                          keyStyle: `
 									color: #41438a
 									`,
-                            computePathname: (encodedDottedName: string) =>
-                              `/locales/${place}/#${encodedDottedName}`,
-                          },
-                        }}
-                      />
-                    )}
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </Section>
+                          computePathname: (encodedDottedName: string) =>
+                            `/locales/${place}/#${encodedDottedName}`,
+                        },
+                      }}
+                    />
+                  )}
+                </div>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </div>
   )

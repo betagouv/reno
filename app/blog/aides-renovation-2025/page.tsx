@@ -1,15 +1,16 @@
 import Article from '@/components/Article'
-import { CTA, CTAWrapper } from '@/components/UI'
-import image from '@/public/blog-images/2025.jpg'
+import blogImage from '@/public/blog-images/2025.jpg'
 import Link from 'next/link'
 import Contribution from '../Contribution'
 import OtherArticles from '../OtherArticles'
-import { ArticleCta, BlogBackButton } from '../UI'
+import { ArticleCta } from '../UI'
 import { dateCool } from '../utils'
 import Content from './Content'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { PageBlock } from '@/components/UI'
 
 const title = 'Quelles aides à la rénovation en 2025 ?',
   description =
@@ -17,13 +18,11 @@ const title = 'Quelles aides à la rénovation en 2025 ?',
 
 const date = '2024-12-23'
 
-const image = '/blog-images/2025.jpg'
-
 export const metadata = {
   title,
   description,
   openGraph: {
-    images: [image],
+    images: ['/blog-images/2025.jpg'],
     type: 'article',
     publishedTime: date + 'T00:00:00.000Z',
     url: 'https://mesaidesreno.beta.gouv.fr/blog/aides-renovation-2025',
@@ -35,7 +34,7 @@ export const article = {
   url: '/blog/aides-renovation-2025',
   slug: 'aides-renovation-2025',
   description,
-  image,
+  image: '/blog-images/2025.jpg',
   date,
 }
 
@@ -44,21 +43,23 @@ export default function Blog2025() {
   return (
     <>
       <StartDsfrOnHydration />
-      <Article>
-        <header>
-          <section>
-            <BlogBackButton>
-              <Link
-                href="/blog"
-                style={css`
-                  margin-top: 0.6rem;
-                  display: inline-block;
-                  padding: 0rem 0.8rem 0.5rem;
-                `}
-              >
-                ← Retour au blog
-              </Link>
-            </BlogBackButton>
+      <PageBlock>
+        <Article>
+          <header>
+            <Breadcrumb
+              currentPageLabel={title}
+              homeLinkProps={{
+                href: '/',
+              }}
+              segments={[
+                {
+                  label: 'Blog',
+                  linkProps: {
+                    href: '/blog',
+                  },
+                },
+              ]}
+            />
             <div
               style={css`
                 position: relative;
@@ -67,46 +68,37 @@ export default function Blog2025() {
               `}
             >
               <Image
-                src={image}
+                src={blogImage}
                 layout="fill"
                 objectFit="contain"
                 alt="Illustration de l'article"
               />
             </div>
-            <h1 style={css``}>{title}</h1>
+            <h1 className="fr-my-5v">{title}</h1>
             <p>{description}</p>
             <small>
               publié le <time dateTime={date}>{dateCool(date)}</time>
             </small>
-          </section>
-        </header>
-        <section>
+          </header>
           <Content />
           <div
             style={css`
               margin-top: 1rem;
             `}
           >
-            <CTAWrapper
-              $justify="center"
-              $customCss={`
-                margin-top: 1rem !important;
-              `}
+            <Link
+              className="fr-btn fr-icon-arrow-right-line fr-btn--icon-left"
+              href="/simulation"
+              prefetch={false}
             >
-              <CTA $fontSize="normal">
-                <Link href="/simulation" prefetch={false}>
-                  ➞&nbsp;&nbsp;Calculer mes aides
-                </Link>
-              </CTA>
-            </CTAWrapper>
+              Calculer mes aides
+            </Link>
           </div>
           <Contribution slug={'aides-renovation-2025'} />
-        </section>
-        <hr />
-
-        <OtherArticles excludeUrl={'aides-renovation-2025'} />
-        <ArticleCta />
-      </Article>
+          <OtherArticles excludeUrl={'aides-renovation-2025'} />
+          <ArticleCta />
+        </Article>
+      </PageBlock>
     </>
   )
 }

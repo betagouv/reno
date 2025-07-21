@@ -1,8 +1,8 @@
 'use client'
 
-import { PrimeStyle } from '@/components/UI'
 import { PrimeWithLabel } from './AideAmpleur'
 import StatusIcon from './StatusIcon'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const computeStatusTitle = (status) =>
   status
@@ -61,9 +61,7 @@ export const AideSummary = ({
               }}
             />
           ) : (
-            <PrimeStyle $inactive={true}>
-              {computeStatusTitle(status)}
-            </PrimeStyle>
+            <Badge noIcon>{computeStatusTitle(status)}</Badge>
           )}
         </div>
       )}

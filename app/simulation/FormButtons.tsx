@@ -1,8 +1,4 @@
-import { CTAWrapper } from '@/components/UI'
-import Link from 'next/link'
-import Image from 'next/image'
 import { Button } from '@codegouvfr/react-dsfr/Button'
-import iconFlecheDroiteBlanc from '@/public/fleche-droite-blanc.svg'
 import { push } from '@socialgouv/matomo-next'
 
 export default function FormButtons({

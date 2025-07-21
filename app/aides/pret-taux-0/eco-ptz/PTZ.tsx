@@ -1,4 +1,4 @@
-import { Card, ConditionEligibiliteUI } from '@/components/UI'
+import { ConditionEligibiliteUI } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Image from 'next/image'
 import FatConseiller from '@/components/FatConseiller'

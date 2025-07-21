@@ -1,4 +1,4 @@
-import { Badge, Card, Section } from './UI'
+import { Card, Section } from './UI'
 import iconConseiller from '@/public/icon-conseiller.svg'
 import iconLampe from '@/public/icon-lampe.svg'
 import iconPaper from '@/public/icon-paper.svg'
@@ -18,6 +18,7 @@ import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
 import { push } from '@socialgouv/matomo-next'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function AideEtapes({
   setSearchParams,
@@ -120,7 +121,7 @@ export default function AideEtapes({
               padding: calc(0.5rem + 1vw);
             `}
           >
-            <Badge color="purple">prochaine étape</Badge>
+            <Badge noIcon>prochaine étape</Badge>
             <h2>
               <Image src={iconConseiller} alt="icone conseiller" />
               Un conseiller France Rénov' vous accompagne
@@ -184,7 +185,7 @@ export default function AideEtapes({
                 </p>
               </Card>
               <Card>
-                <Badge color="purple">3 mois d'attente</Badge>
+                <Badge noIcon>3 mois d'attente</Badge>
                 <h2>
                   <Image src={iconValider} alt="icone valider" />
                   L'Anah instruit et valide votre dossier
@@ -212,7 +213,7 @@ export default function AideEtapes({
                 </p>
               </Card>
               <Card>
-                <Badge color="purple">selon votre capacité d’endettement</Badge>
+                <Badge noIcon>selon votre capacité d’endettement</Badge>
                 <h2>
                   <Image src={iconValider} alt="icone valider" />
                   L’établissement de crédit examine et valide votre demande
@@ -237,7 +238,7 @@ export default function AideEtapes({
           )}
           {hasPret && (
             <Card>
-              {hasMPRA && <Badge color="blue">optionnel</Badge>}
+              {hasMPRA && <Badge noIcon>optionnel</Badge>}
               <h2>
                 <Image src={iconEuro} alt="icone euro" />
                 Recevez le prêt et démarrez les travaux
@@ -272,7 +273,7 @@ export default function AideEtapes({
           )}
           {!hasMPRA && (
             <Card>
-              <Badge color="blue">optionnel</Badge>
+              <Badge noIcon>optionnel</Badge>
               <h2>
                 <Image src={iconEuro} alt="icone euro" />
                 Faire la demande d’autres aides complémentaires
@@ -293,7 +294,7 @@ export default function AideEtapes({
             </ul>
           </Card>
           <Card>
-            <Badge color="purple">1 mois d'attente</Badge>
+            <Badge noIcon>1 mois d'attente</Badge>
             <h2>
               <Image src={iconEuro} alt="icone euro" />
               Recevez vos autres aides
@@ -305,7 +306,7 @@ export default function AideEtapes({
           </Card>
           {hasPret && (
             <Card>
-              {hasMPRA && <Badge color="blue">optionnel</Badge>}
+              {hasMPRA && <Badge noIcon>optionnel</Badge>}
               <h2>
                 <Image src={iconCard} alt="icone carte de crédit" />
                 Remboursement du prêt

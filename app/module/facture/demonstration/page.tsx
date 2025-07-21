@@ -1,7 +1,5 @@
-import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
-import { Intro, PageBlock } from '@/components/UI'
-import css from '@/components/css/convertToJs'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
+import { HeaderWrapper } from '@/app/LandingUI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import factureImage from '@/public/illuFacture.png'
@@ -18,60 +16,50 @@ export default function Module({}) {
   return (
     <>
       <StartDsfrOnHydration />
-      <main>
-        <PageBlock>
-          <Content>
-            <Breadcrumb
-              currentPageLabel="Facture d'énergie"
-              homeLinkProps={{
-                href: '/',
-              }}
-              segments={[
-                {
-                  label: 'Devenir partenaire',
-                  linkProps: {
-                    href: '/devenir-partenaire',
-                  },
-                },
-                {
-                  label: 'Les iframes',
-                  linkProps: {
-                    href: '/integration',
-                  },
-                },
-              ]}
-            />
-          </Content>
-          <HeaderWrapper
-            image={{
-              src: factureImage,
-              alt: "Illustration de la calculette Facture d'énergie",
-            }}
-          >
-            <h1>
-              Calculette pour l'évolution de la facture d'énergie d'un logement
-            </h1>
-            <Intro>
-              <p>
-                Outre un gain de confort indéniable, avez-vous pensé aux
-                économies réalisées sur la facture d'énergie de votre logement
-                après rénovation ?
-              </p>
-              <p>
-                Grâce à cette calculette, estimez facilement l'impact de vos
-                travaux de rénovation sur la facture d'énergie de votre bien.
-              </p>
-            </Intro>
-          </HeaderWrapper>
-          <Wrapper>
-            <Content>
-              <Suspense>
-                <Demonstration moduleName="facture" />
-              </Suspense>
-            </Content>
-          </Wrapper>
-        </PageBlock>
-      </main>
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Facture d'énergie"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Devenir partenaire',
+              linkProps: {
+                href: '/devenir-partenaire',
+              },
+            },
+            {
+              label: 'Les iframes',
+              linkProps: {
+                href: '/integration',
+              },
+            },
+          ]}
+        />
+        <HeaderWrapper
+          image={{
+            src: factureImage,
+            alt: "Illustration de la calculette Facture d'énergie",
+          }}
+        >
+          <h1>
+            Calculette pour l'évolution de la facture d'énergie d'un logement
+          </h1>
+          <p>
+            Outre un gain de confort indéniable, avez-vous pensé aux économies
+            réalisées sur la facture d'énergie de votre logement après
+            rénovation ?
+          </p>
+          <p>
+            Grâce à cette calculette, estimez facilement l'impact de vos travaux
+            de rénovation sur la facture d'énergie de votre bien.
+          </p>
+        </HeaderWrapper>
+        <Suspense>
+          <Demonstration moduleName="facture" />
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

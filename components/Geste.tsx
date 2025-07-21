@@ -1,6 +1,5 @@
 'use client'
 import { getRuleName } from './publicodes/utils'
-import { PrimeStyle } from './UI'
 import GesteDescription from './GesteDescription'
 import { getInfoForPrime } from './AideGeste'
 

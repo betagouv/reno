@@ -3,7 +3,7 @@ import Image from 'next/image'
 import GesteQuestion from '../GesteQuestion'
 import ceeImage from '@/public/cee.svg'
 import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
-import { BlocAide, PrimeStyle } from '../UI'
+import { BlocAide } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
 import Badge from '@codegouvfr/react-dsfr/Badge'
@@ -50,19 +50,18 @@ export const BlocAideCEE = ({
           {displayPrime === 'top' &&
             (infoCEE.montant === 'Non applicable' ? (
               <>
-                <PrimeStyle $inactive={true}>
+                <Badge noIcon>
                   <strong>Non applicable</strong>
-                </PrimeStyle>
+                </Badge>
                 <span className="aide-details">
                   {' '}
                   (non cumulable avec la prime "Coup de Pouce")
                 </span>
               </>
             ) : (
-              <PrimeStyle>
-                {'Prime indicative de '}
-                <strong>{infoCEE.montant}</strong>
-              </PrimeStyle>
+              <Badge noIcon severity="success">
+                Prime indicative de {infoCEE.montant}
+              </Badge>
             ))}
           <h3>
             Prime CEE (Certificats d'Économie d'Énergie)

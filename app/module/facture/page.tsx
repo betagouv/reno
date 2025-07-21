@@ -1,7 +1,6 @@
-import { BlueEm, HeaderWrapper } from '@/app/LandingUI'
-import { Intro, PageBlock } from '@/components/UI'
+import { HeaderWrapper } from '@/app/LandingUI'
+import { PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import factureImage from '@/public/illuFacture.png'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
@@ -19,62 +18,50 @@ export default async function ModuleFacture({ searchParams }) {
   return (
     <>
       <StartDsfrOnHydration />
-      <main>
-        <PageBlock>
-          <HeaderWrapper
-            image={{
-              src: factureImage,
-              alt: 'Illustration de la calculette facture',
+      <PageBlock>
+        <HeaderWrapper
+          image={{
+            src: factureImage,
+            alt: 'Illustration de la calculette facture',
+          }}
+        >
+          <h1>Facture d'énergie d'un logement après rénovation</h1>
+          <p>
+            Outre un gain de confort indéniable, avez-vous pensé aux économies
+            réalisées sur la facture d'énergie de votre logement après
+            rénovation ?
+          </p>
+          <p>
+            Grâce à cette calculette, estimez facilement l'impact de vos travaux
+            de rénovation sur la facture d'énergie de votre bien.
+          </p>
+        </HeaderWrapper>
+        <Suspense>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
             }}
           >
-            <h1>Facture d'énergie d'un logement après rénovation</h1>
-            <Intro>
-              <p>
-                Outre un gain de confort indéniable, avez-vous pensé aux
-                économies réalisées sur la facture d'énergie de votre logement
-                après rénovation ?
-              </p>
-              <p>
-                Grâce à cette calculette, estimez facilement l'impact de vos
-                travaux de rénovation sur la facture d'énergie de votre bien.
-              </p>
-            </Intro>
-          </HeaderWrapper>
-          <Wrapper $background="white">
-            <Content>
-              <Suspense>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <DPEFactureModule type="module" numDpe={numDpe} />
-                  <a
-                    className="fr-link"
-                    href={`/module/plus-value/demonstration`}
-                    style={css`
-                      display: flex;
-                      align-items: center;
-                      width: fit-content;
-                      margin-top: 1rem;
-                      gap: 0.5rem;
-                    `}
-                  >
-                    <Image
-                      src={codeIcon}
-                      alt="icone intégration iframe"
-                      width="24"
-                    />
-                    Intégrer ce widget à mon site
-                  </a>
-                </div>
-              </Suspense>
-            </Content>
-          </Wrapper>
-        </PageBlock>
-      </main>
+            <DPEFactureModule type="module" numDpe={numDpe} />
+            <a
+              className="fr-link"
+              href={`/module/plus-value/demonstration`}
+              style={css`
+                display: flex;
+                align-items: center;
+                width: fit-content;
+                margin-top: 1rem;
+                gap: 0.5rem;
+              `}
+            >
+              <Image src={codeIcon} alt="icone intégration iframe" width="24" />
+              Intégrer ce widget à mon site
+            </a>
+          </div>
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

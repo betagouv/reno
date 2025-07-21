@@ -1,4 +1,4 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import Denormandie from './Denormandie'
@@ -18,33 +18,31 @@ export default function Aides() {
   return (
     <>
       <StartDsfrOnHydration />
-      <Main>
-        <Section>
-          <Breadcrumb
-            currentPageLabel="Le dispositif Denormandie"
-            homeLinkProps={{
-              href: '/',
-            }}
-            segments={[
-              {
-                label: 'Les aides',
-                linkProps: {
-                  href: '/aides',
-                },
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Le dispositif Denormandie"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
               },
-              {
-                label: 'Les exonérations fiscales',
-                linkProps: {
-                  href: '/aides/exoneration-fiscale',
-                },
+            },
+            {
+              label: 'Les exonérations fiscales',
+              linkProps: {
+                href: '/aides/exoneration-fiscale',
               },
-            ]}
-          />
-          <Suspense>
-            <Denormandie />
-          </Suspense>
-        </Section>
-      </Main>
+            },
+          ]}
+        />
+        <Suspense>
+          <Denormandie />
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

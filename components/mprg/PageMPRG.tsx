@@ -1,6 +1,6 @@
 'use client'
 import { getSituation } from '@/components/publicodes/situationUtils'
-import { ExternalLink, Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import simulationConfig from '../../app/simulation/simulationConfigMPR.yaml'
 import Publicodes, { formatValue } from 'publicodes'
@@ -60,83 +60,83 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   const setSearchParams = useSetSearchParams()
 
   return (
-    <Main>
-      <Section>
-        <Breadcrumb
-          currentPageLabel={infoMPR.titre}
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[
-            {
-              label: 'Les aides',
-              linkProps: {
-                href: '/aides',
-              },
+    <PageBlock>
+      <Breadcrumb
+        currentPageLabel={infoMPR.titre}
+        homeLinkProps={{
+          href: '/',
+        }}
+        segments={[
+          {
+            label: 'Les aides',
+            linkProps: {
+              href: '/aides',
             },
-            {
-              label: "MaPrimeRénov' rénovation par geste",
-              linkProps: {
-                href: '/aides/ma-prime-renov',
-              },
+          },
+          {
+            label: "MaPrimeRénov' rénovation par geste",
+            linkProps: {
+              href: '/aides/ma-prime-renov',
             },
-          ]}
-        />
-        {!isInIframe && (
-          <Link
-            className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
-            href="/aides/ma-prime-renov"
-          >
-            Retour à la liste des aides MaPrimeRénov'
-          </Link>
-        )}
-        <h1>{infoMPR.titre}</h1>
-        <div className="fr-callout fr-icon-info-line">
-          <h2>Informations sur les conditions d'obtention</h2>
-          <ul>
-            <li>
-              La prestation doit être inférieure à{' '}
-              <strong>{infoMPR.plafond}</strong>.
-            </li>
-            <li>
-              Recours à un professionnel <strong>RGE</strong>
-            </li>
+          },
+        ]}
+      />
+      {!isInIframe && (
+        <Link
+          className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+          href="/aides/ma-prime-renov"
+        >
+          Retour à la liste des aides MaPrimeRénov'
+        </Link>
+      )}
+      <h1>{infoMPR.titre}</h1>
+      <div className="fr-callout fr-icon-info-line">
+        <h2>Informations sur les conditions d'obtention</h2>
+        <ul>
+          <li>
+            La prestation doit être inférieure à{' '}
+            <strong>{infoMPR.plafond}</strong>.
+          </li>
+          <li>
+            Recours à un professionnel <strong>RGE</strong>
+          </li>
 
-            {rules[rule + ' . MPR']?.description && (
-              <li>{rules[rule + ' . MPR']?.description}</li>
-            )}
-            <li>
-              Le dépôt du dossier de demande d'aide s'effectue{' '}
-              <strong>avant le démarrage des travaux</strong>.
-            </li>
-            <li>
-              Vous pouvez déposer votre dossier en ligne sur{' '}
-              <ExternalLink
-                target="_blank"
-                title="site officiel MaPrimeRénov'"
-                href="https://maprimerenov.gouv.fr"
-              >
-                maprimerenov.gouv.fr
-              </ExternalLink>
-              .{' '}
-            </li>
-          </ul>
-        </div>
-        <BlocAideMPR
-          {...{
-            infoMPR,
-            rules,
-            engine,
-            situation,
-            setSearchParams,
-            display: 'bottom',
-          }}
-        />
-        <OtherSimulateur {...{ ceeAssocie }} />
-        <IframeIntegrator
-          iframeUrl={`/aides/ma-prime-renov/${encodeURIComponent(infoMPR.titre)}`}
-        />
-      </Section>
-    </Main>
+          {rules[rule + ' . MPR']?.description && (
+            <li>{rules[rule + ' . MPR']?.description}</li>
+          )}
+          <li>
+            Le dépôt du dossier de demande d'aide s'effectue{' '}
+            <strong>avant le démarrage des travaux</strong>.
+          </li>
+          <li>
+            Vous pouvez déposer votre dossier en ligne sur{' '}
+            <a
+              rel="noopener external"
+              className="fr-link"
+              target="_blank"
+              title="site officiel MaPrimeRénov'"
+              href="https://maprimerenov.gouv.fr"
+            >
+              maprimerenov.gouv.fr
+            </a>
+            .
+          </li>
+        </ul>
+      </div>
+      <BlocAideMPR
+        {...{
+          infoMPR,
+          rules,
+          engine,
+          situation,
+          setSearchParams,
+          display: 'bottom',
+        }}
+      />
+      <OtherSimulateur {...{ ceeAssocie }} />
+      <IframeIntegrator
+        iframeUrl={`/aides/ma-prime-renov/${encodeURIComponent(infoMPR.titre)}`}
+      />
+    </PageBlock>
   )
 }

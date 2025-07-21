@@ -1,4 +1,4 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import FAQ from './FAQ'
 import { Metadata } from 'next/types'
 import Contact from '../contact/Contact'
@@ -13,22 +13,19 @@ export default async function FaqPage(props) {
   return (
     <>
       <StartDsfrOnHydration />
-      <Main>
-        <Section>
-          <FAQ />
-          <h2>Nous contacter par mail</h2>
-          <p>
-            Pour des demandes privées ou nécessitant une réponse, vous pouvez
-            écrire directement à l'équipe à{' '}
-            <a className="fr-link" href="mailto:contact@mesaidesreno.fr">
-              notre adresse mel
-            </a>
-            .
-            <br />
-          </p>
-          <Contact fromLocation={searchParams.fromLocation} />
-        </Section>
-      </Main>
+      <PageBlock>
+        <FAQ />
+        <h2>Nous contacter par mail</h2>
+        <p>
+          Pour des demandes privées ou nécessitant une réponse, vous pouvez
+          écrire directement à l'équipe à{' '}
+          <a className="fr-link" href="mailto:contact@mesaidesreno.fr">
+            notre adresse mel
+          </a>
+          .
+        </p>
+        <Contact fromLocation={searchParams.fromLocation} />
+      </PageBlock>
     </>
   )
 }

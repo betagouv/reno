@@ -1,6 +1,6 @@
 'use client'
 import { push } from '@socialgouv/matomo-next'
-import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
+import MarSearch from '@/app/trouver-conseiller-france-renov/MarSearch'
 import { useState } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 

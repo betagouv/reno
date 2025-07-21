@@ -10,15 +10,12 @@ import {
   encodeSituation,
 } from '@/components/publicodes/situationUtils'
 import Publicodes from 'publicodes'
-import { MiseEnAvant } from '@/components/UI'
 import { omit } from '@/components/utils'
 import iconDocumentation from '@/public/documentation.svg'
 import Image from 'next/image'
-import { No, Yes } from '@/components/ResultUI'
 import { Loader } from '@/components/UI'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Select from '@codegouvfr/react-dsfr/Select'
-import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function Endpoint({ type }) {
   const [method, setMethod] = useState('POST')

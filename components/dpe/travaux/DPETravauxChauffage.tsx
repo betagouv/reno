@@ -1,15 +1,12 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
 import GesteQuestion from '@/components/GesteQuestion'
-import { Card, CTA, MiseEnAvant } from '@/components/UI'
+import { Card } from '@/components/UI'
 import { useEffect, useMemo, useState } from 'react'
 import React from 'react'
-import {
-  Explication,
-  getQuestions,
-  MontantPrimeTravaux,
-} from './DPETravauxModule'
+import { getQuestions, MontantPrimeTravaux } from './DPETravauxModule'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
 import { isEligibleReseauChaleur } from '@/components/ChoixTravaux'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export function DPETravauxChauffage({
   dpe,
@@ -162,16 +159,13 @@ export function DPETravauxChauffage({
                       width: 1px;
                     `}
                   >
-                    <CTA
-                      $fontSize="normal"
-                      $importance="secondary"
+                    <Button
+                      priority="secondary"
                       className="estimer"
                       onClick={() => handleClick(geste)}
                     >
-                      <span>
-                        {situation[geste.code] === 'oui' ? 'Fermer' : 'Estimer'}
-                      </span>
-                    </CTA>
+                      {situation[geste.code] === 'oui' ? 'Fermer' : 'Estimer'}
+                    </Button>
                   </td>
                 </tr>
                 <tr>

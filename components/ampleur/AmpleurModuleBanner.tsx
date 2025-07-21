@@ -63,11 +63,12 @@ export default function AmpleurModuleBanner({
             calculer vos aides.
           </p>
 
-          <CTA $fontSize="normal" $importance="secondary">
-            <Link href={setSearchParams({ depuisModule: undefined }, 'url')}>
-              OK
-            </Link>
-          </CTA>
+          <Link
+            className="fr-btn fr-btn--secondary"
+            href={setSearchParams({ depuisModule: undefined }, 'url')}
+          >
+            OK
+          </Link>
         </section>
       </div>
     </section>

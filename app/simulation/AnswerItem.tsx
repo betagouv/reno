@@ -25,43 +25,30 @@ export default function AnswerItem({
     <>
       <span>{getRuleTitle(answer, rules)}</span>
       <span>
-        <CTA
-          $fontSize="normal"
-          $importance="emptyBackground"
-          css={`
-            :hover {
-              background: var(--color);
-              color: white;
-            }
-          `}
-        >
-          <Link
-            css={`
-              padding: 0.3rem !important;
-            `}
-            onClick={handleLinkClick}
-            href={setSearchParams(
-              {
-                question: encodeDottedName(answer),
-                ...encodeSituation(
-                  situation,
-                  false,
-                  rawAnsweredQuestions.filter((q) => q !== answer),
-                ),
-              },
-              'url',
-            )}
-          >
-            <FormattedAnswer
-              {...{
-                answer,
+        <Link
+          className="fr-btn fr-btn--secondary"
+          onClick={handleLinkClick}
+          href={setSearchParams(
+            {
+              question: encodeDottedName(answer),
+              ...encodeSituation(
                 situation,
-                engine,
-                rules,
-              }}
-            />
-          </Link>
-        </CTA>
+                false,
+                rawAnsweredQuestions.filter((q) => q !== answer),
+              ),
+            },
+            'url',
+          )}
+        >
+          <FormattedAnswer
+            {...{
+              answer,
+              situation,
+              engine,
+              rules,
+            }}
+          />
+        </Link>
       </span>
     </>
   )

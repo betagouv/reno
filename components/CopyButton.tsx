@@ -1,8 +1,5 @@
-import { CTA, CTAWrapper } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
 import { useState } from 'react'
-import shareIcon from '@/public/share.svg'
-import Image from 'next/image'
 import Share from '@/app/simulation/Share'
 import Button from '@codegouvfr/react-dsfr/Button'
 

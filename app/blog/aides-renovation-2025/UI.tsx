@@ -11,15 +11,6 @@ export const Parcours = styled.ol`
   li > div {
     max-width: 16rem;
     height: 10rem;
-    p {
-      line-height: 1.3rem;
-      color: #444;
-    }
-  }
-  h3 {
-    margin: 0;
-    margin-bottom: 1rem;
-    font-size: 120%;
   }
 `
 

@@ -7,9 +7,7 @@ export default function Page() {
     <>
       <StartDsfrOnHydration />
       <PageBlock>
-        <Main>
-          <StatistiquesInternes />
-        </Main>
+        <StatistiquesInternes />
       </PageBlock>
     </>
   )

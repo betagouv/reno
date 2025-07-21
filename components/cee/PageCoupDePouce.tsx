@@ -1,9 +1,6 @@
 'use client'
-import {
-  getAnsweredQuestions,
-  getSituation,
-} from '@/components/publicodes/situationUtils'
-import { Main, Section } from '@/components/UI'
+import { getSituation } from '@/components/publicodes/situationUtils'
+import { PageBlock } from '@/components/UI'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
@@ -74,85 +71,83 @@ export default function PageCoupDePouce({
   const setSearchParams = useSetSearchParams()
 
   return (
-    <Main>
-      <Section>
-        <Breadcrumb
-          currentPageLabel={infoCoupDePouce.titre}
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[
-            {
-              label: 'Les aides',
-              linkProps: {
-                href: '/aides',
-              },
+    <PageBlock>
+      <Breadcrumb
+        currentPageLabel={infoCoupDePouce.titre}
+        homeLinkProps={{
+          href: '/',
+        }}
+        segments={[
+          {
+            label: 'Les aides',
+            linkProps: {
+              href: '/aides',
             },
-            {
-              label: 'Coup de Pouce Chauffage',
-              linkProps: {
-                href: '/aides/coup-de-pouce',
-              },
+          },
+          {
+            label: 'Coup de Pouce Chauffage',
+            linkProps: {
+              href: '/aides/coup-de-pouce',
             },
-          ]}
-        />
-        {!isInIframe && (
-          <Link
-            className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
-            href="/aides/coup-de-pouce"
+          },
+        ]}
+      />
+      {!isInIframe && (
+        <Link
+          className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+          href="/aides/coup-de-pouce"
+        >
+          Retour à la liste des aides Coup de pouce
+        </Link>
+      )}
+      <h1>{infoCoupDePouce.titre}</h1>
+      <div className="fr-callout fr-icon-info-line">
+        <h2>Informations</h2>
+        <p>Vous êtes éligible à cette aide si:</p>
+        <ul>
+          <li>
+            vous êtes <strong>propriétaire ou locataire</strong> de votre
+            résidence <strong>principale ou secondaire</strong>.
+          </li>
+          <li>
+            le logement a été <strong>construit depuis plus de 2 ans.</strong>
+          </li>
+          <li>
+            vous remplacez une chaudière individuelle{' '}
+            <strong>au charbon, au fioul ou au gaz</strong>
+          </li>
+        </ul>
+        <p>
+          Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
+          mais le montant de l'aide peut varier en fonction de vos revenus.
+        </p>
+        <p>
+          Si vous ne remplacez <strong>pas de chaudière</strong>, vous êtes tout
+          de même éligible à{' '}
+          <a
+            className="fr-link"
+            href={`/cee/${ceeAssocie.code}/${encodeURIComponent(ceeAssocie.titre)}`}
           >
-            Retour à la liste des aides Coup de pouce
-          </Link>
-        )}
-        <h1>{infoCoupDePouce.titre}</h1>
-        <div className="fr-callout fr-icon-info-line">
-          <h2>Informations</h2>
-          <p>Vous êtes éligible à cette aide si:</p>
-          <ul>
-            <li>
-              vous êtes <strong>propriétaire ou locataire</strong> de votre
-              résidence <strong>principale ou secondaire</strong>.
-            </li>
-            <li>
-              le logement a été <strong>construit depuis plus de 2 ans.</strong>
-            </li>
-            <li>
-              vous remplacez une chaudière individuelle{' '}
-              <strong>au charbon, au fioul ou au gaz</strong>
-            </li>
-          </ul>
-          <p>
-            Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
-            mais le montant de l'aide peut varier en fonction de vos revenus.
-          </p>
-          <p>
-            Si vous ne remplacez <strong>pas de chaudière</strong>, vous êtes
-            tout de même éligible à{' '}
-            <a
-              className="fr-link"
-              href={`/cee/${ceeAssocie.code}/${encodeURIComponent(ceeAssocie.titre)}`}
-            >
-              l'aide CEE {ceeAssocie.code}
-            </a>{' '}
-            .
-          </p>
-        </div>
-        <h2>Calculer le montant de votre prime "Coup de Pouce"</h2>
-        <BlocAideCoupDePouce
-          {...{
-            infoCoupDePouce,
-            rules,
-            engine,
-            situation,
-            setSearchParams,
-            displayPrime: 'bottom',
-          }}
-        />
-        <OtherSimulateur {...{ mprAssocie, ceeAssocie }} />
-        <IframeIntegrator
-          iframeUrl={`/aides/coup-de-pouce/${encodeURIComponent(rules[rule].titre)}`}
-        />
-      </Section>
-    </Main>
+            l'aide CEE {ceeAssocie.code}
+          </a>{' '}
+          .
+        </p>
+      </div>
+      <h2>Calculer le montant de votre prime "Coup de Pouce"</h2>
+      <BlocAideCoupDePouce
+        {...{
+          infoCoupDePouce,
+          rules,
+          engine,
+          situation,
+          setSearchParams,
+          displayPrime: 'bottom',
+        }}
+      />
+      <OtherSimulateur {...{ mprAssocie, ceeAssocie }} />
+      <IframeIntegrator
+        iframeUrl={`/aides/coup-de-pouce/${encodeURIComponent(rules[rule].titre)}`}
+      />
+    </PageBlock>
   )
 }

@@ -1,5 +1,5 @@
 import FromStorageSimulationButtonLoader from '@/components/FromStorageSimulationButtonLoader'
-import { Intro, PageBlock } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import logoFranceRenov from '@/public/logo-france-renov-sans-texte.svg'
@@ -42,12 +42,10 @@ export default async function Page(props) {
             <p className="fr-tag fr-tag--success-850">
               <span aria-hidden="true">⚡️</span> Rénovation Énergétique
             </p>
-            <Intro>
-              <p>
-                Une rénovation énergétique pour des factures moins élevées dans
-                un logement plus confortable et plus écologique.
-              </p>
-            </Intro>
+            <p>
+              Une rénovation énergétique pour des factures moins élevées dans un
+              logement plus confortable et plus écologique.
+            </p>
             <p
               style={css`
                 margin: 0 0 1em 0;

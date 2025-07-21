@@ -1,4 +1,4 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { capitalise0 } from '@/components/utils'
 import { Metadata } from 'next'
 import Link from 'next/link'
@@ -25,32 +25,35 @@ export default async function PlacePage(props) {
   return (
     <>
       <StartDsfrOnHydration />
-      <Main>
-        <Section>
-          <Breadcrumb
-            currentPageLabel={[capitalise0(place)]}
-            homeLinkProps={{
-              href: '/',
-            }}
-            segments={[
-              {
-                label: 'Les aides',
-                linkProps: {
-                  href: '/aides',
-                },
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel={[capitalise0(place)]}
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
               },
-              {
-                label: 'Les aides locales à la rénovation en France',
-                linkProps: {
-                  href: '/locales',
-                },
+            },
+            {
+              label: 'Les aides locales à la rénovation en France',
+              linkProps: {
+                href: '/locales',
               },
-            ]}
-          />
-          <Link href="/locales">⬅️ Retour aux aides locales</Link>
-        </Section>
+            },
+          ]}
+        />
+        <Link
+          className="fr-btn fr-icon-arrow-left-line fr-btn--icon-left"
+          href="/locales"
+        >
+          Retour aux aides locales
+        </Link>
         <LocalePlace place={place} />
-      </Main>
+      </PageBlock>
     </>
   )
 }

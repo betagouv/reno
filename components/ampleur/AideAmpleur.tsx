@@ -1,15 +1,16 @@
 import rules from '@/app/règles/rules'
-import { ConditionEligibiliteUI, CTA, ExternalLink, PrimeStyle } from '../UI'
+import { ConditionEligibiliteUI } from '../UI'
 import { uncapitalise0 } from '../utils'
 import AideCTAs from './AideCTAs'
 import { formatValue } from 'publicodes'
 import { createExampleSituation } from './AmpleurSummary'
-import { useEffect, useRef, useState } from 'react'
-import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
+import { useState } from 'react'
+import MarSearch from '@/app/trouver-conseiller-france-renov/MarSearch'
 import { push } from '@socialgouv/matomo-next'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import { PrimeBadge } from '../Geste'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function AideAmpleur({
   isEligible,
@@ -52,12 +53,7 @@ export default function AideAmpleur({
       }}
     >
       {expanded && (
-        <h2
-          css={`
-            font-size: 130%;
-            margin: 0 0 1rem 0 !important;
-          `}
-        >
+        <h2>
           <span
             aria-hidden="true"
             css={`
@@ -93,25 +89,17 @@ export default function AideAmpleur({
           <ConditionEligibiliteUI>
             {rules[dottedName].conditionsEligibilitesHTML}
           </ConditionEligibiliteUI>
-          <p
-            css={`
-              margin-top: 1.6rem;
-            `}
-          >
-            <ExternalLink href={rules[dottedName]['lien']} target="_blank">
+          <p>
+            <a
+              rel="noopener external"
+              className="fr-link"
+              href={rules[dottedName]['lien']}
+              target="_blank"
+            >
               Plus d'infos sur cette aide
-            </ExternalLink>
+            </a>
           </p>
-          <CTA
-            css={`
-              padding: 1rem;
-              text-wrap: wrap;
-              text-align: center;
-              margin: auto;
-              margin-bottom: 1rem;
-              cursor: pointer;
-            `}
-            $fontSize="normal"
+          <Button
             onClick={() => {
               setIsOpenConseiller(!isOpenConseiller)
               push([
@@ -123,7 +111,7 @@ export default function AideAmpleur({
             }}
           >
             Trouver mon conseiller local
-          </CTA>
+          </Button>
           {isOpenConseiller && (
             <div
               css={`
@@ -207,27 +195,25 @@ export function AideCTA({ children, text }) {
       `}
     >
       <summary>
-        <CTA $importance="secondary">
-          <span>
-            <span
-              css={`
-                display: flex;
-                align-items: center;
-                padding: 0.6rem 0;
-                img {
-                  filter: invert(1);
-                  width: 1.8rem;
-                  margin-right: 0.6rem;
-                  height: auto;
-                  vertical-align: bottom;
-                }
-                color: inherit;
-              `}
-            >
-              {text}
-            </span>
+        <Button priority="secondary">
+          <span
+            css={`
+              display: flex;
+              align-items: center;
+              padding: 0.6rem 0;
+              img {
+                filter: invert(1);
+                width: 1.8rem;
+                margin-right: 0.6rem;
+                height: auto;
+                vertical-align: bottom;
+              }
+              color: inherit;
+            `}
+          >
+            {text}
           </span>
-        </CTA>
+        </Button>
       </summary>
       <section>{children}</section>
     </details>

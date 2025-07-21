@@ -1,6 +1,5 @@
 import { HeaderWrapper } from '@/app/LandingUI'
-import { Intro, PageBlock } from '@/components/UI'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
+import { PageBlock } from '@/components/UI'
 import Image from 'next/image'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
@@ -18,61 +17,49 @@ export default function Module({}) {
   return (
     <>
       <StartDsfrOnHydration />
-      <main>
-        <PageBlock>
-          <Content>
-            <Breadcrumb
-              currentPageLabel="Ma plus-value Réno"
-              homeLinkProps={{
-                href: '/',
-              }}
-              segments={[
-                {
-                  label: 'Devenir partenaire',
-                  linkProps: {
-                    href: '/devenir-partenaire',
-                  },
-                },
-                {
-                  label: 'Les iframes',
-                  linkProps: {
-                    href: '/integration',
-                  },
-                },
-              ]}
-            />
-          </Content>
-          <HeaderWrapper
-            image={
-              <Image
-                src={plusValueImage}
-                alt="Illustration du module plus value"
-              />
-            }
-          >
-            <h1>Calculette concernant la plus value d'un logement</h1>
-            <Intro>
-              <p>
-                Mes Aides Réno est un service public de calcul des aides à la
-                rénovation energétique. Le sujet est complexe, les aides sont
-                multiples, les règles sont mouvantes.
-              </p>
-              <p>
-                En intégrant directement notre calculateur sous forme d'iframe
-                chez vous, vous permettez à vos utilisateurs de calculer la
-                plus-value sur leur logement sans qu'ils quittent votre site.
-              </p>
-            </Intro>
-          </HeaderWrapper>
-          <Wrapper>
-            <Content>
-              <Suspense>
-                <Demonstration moduleName="plus-value" />
-              </Suspense>
-            </Content>
-          </Wrapper>
-        </PageBlock>
-      </main>
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Ma plus-value Réno"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Devenir partenaire',
+              linkProps: {
+                href: '/devenir-partenaire',
+              },
+            },
+            {
+              label: 'Les iframes',
+              linkProps: {
+                href: '/integration',
+              },
+            },
+          ]}
+        />
+        <HeaderWrapper
+          image={{
+            src: plusValueImage,
+            alt: 'Illustration du module plus value',
+          }}
+        >
+          <h1>Calculette concernant la plus value d'un logement</h1>
+          <p>
+            Mes Aides Réno est un service public de calcul des aides à la
+            rénovation energétique. Le sujet est complexe, les aides sont
+            multiples, les règles sont mouvantes.
+          </p>
+          <p>
+            En intégrant directement notre calculateur sous forme d'iframe chez
+            vous, vous permettez à vos utilisateurs de calculer la plus-value
+            sur leur logement sans qu'ils quittent votre site.
+          </p>
+        </HeaderWrapper>
+        <Suspense>
+          <Demonstration moduleName="plus-value" />
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

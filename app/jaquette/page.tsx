@@ -1,5 +1,5 @@
 'use client'
-import { Intro, PageBlock } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { HeaderWrapper } from '../LandingUI'
@@ -21,17 +21,15 @@ export default function Page() {
             <p className="fr-tag fr-tag--success-850">
               <span aria-hidden="true">⚡️</span> Rénovation Énergétique
             </p>
-            <Intro>
-              <p>
-                Des factures moins élevées dans un logement plus confortable et
-                plus écologique.
-              </p>
-            </Intro>
+            <p>
+              Des factures moins élevées dans un logement plus confortable et
+              plus écologique.
+            </p>
             <p
               style={css`
                 margin: 0;
                 margin-top: -1rem;
-                color: #555;
+                color: #da504b;
                 line-height: 1.3rem;
               `}
             >

@@ -1,38 +1,34 @@
-import css from '@/components/css/convertToJs'
 import { sortBy } from '@/components/utils'
-import { OtherArticlesList, OtherArticlesSection } from './UI'
 import { getAllArticles } from './articles'
 import { dateCool } from './utils'
+import Tile from '@codegouvfr/react-dsfr/Tile'
 
 export default async function OtherArticles({ excludeUrl }) {
   const articles = await getAllArticles()
   return (
-    <OtherArticlesSection>
+    <>
       <h2>Nos derniers articles</h2>
-      <OtherArticlesList>
-        <ol>
-          {sortBy((article) => article.date)(articles)
-            .reverse()
-            .filter(({ url }) => url !== excludeUrl)
-            .map(({ url, titre, date }) => (
-              <li key={url}>
-                <h3>
-                  <a href={url} className="fr-link">
-                    {titre}
-                  </a>
-                </h3>
-                <small
-                  style={css`
-                    color: var(--color);
-                    font-size: 90%;
-                  `}
-                >
-                  Publié le {dateCool(date)}
-                </small>
-              </li>
-            ))}
-        </ol>
-      </OtherArticlesList>
-    </OtherArticlesSection>
+      <div className="fr-grid-row fr-grid-row--gutters">
+        {sortBy((article) => article.date)(articles)
+          .reverse()
+          .filter(({ url }) => url !== excludeUrl)
+          .slice(0, 4)
+          .map(({ url, titre, date }) => (
+            <div className="fr-col">
+              <Tile
+                key={url}
+                linkProps={{
+                  href: url,
+                }}
+                detail={<>Publié le {dateCool(date)}</>}
+                enlargeLinkOrButton
+                orientation="vertical"
+                title={titre}
+                titleAs="h3"
+              />
+            </div>
+          ))}
+      </div>
+    </>
   )
 }

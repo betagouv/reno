@@ -2,7 +2,6 @@
 
 import Input from '@codegouvfr/react-dsfr/Input'
 import { useState } from 'react'
-import styled from 'styled-components'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 
 export const createIssue = (

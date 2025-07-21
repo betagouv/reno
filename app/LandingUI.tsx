@@ -11,10 +11,7 @@ export const HeaderWrapper = ({ children, image }) => {
           <Image
             src={image.src}
             alt={image.alt}
-            css={`
-              width: 100%;
-              height: auto;
-            `}
+            className="fr-responsive-img"
           />
         ) : (
           image
@@ -78,9 +75,4 @@ export const Labels = styled.ul`
     font-size: 90%;
     border-radius: 0.6rem;
   }
-`
-
-export const BlueEm = styled.em`
-  color: var(--lightColor);
-  font-style: normal;
 `

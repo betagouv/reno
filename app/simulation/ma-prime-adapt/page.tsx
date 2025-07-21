@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'Aides rénovation MaPrimeAdapt 2024',
   description,
   alternates: {
-    canonical: '/ma-prime-aapt',
+    canonical: '/ma-prime-adapt',
   },
 }
 

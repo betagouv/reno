@@ -1,10 +1,10 @@
 import { HeaderWrapper } from '@/app/LandingUI'
 import TableauRevenus from '@/components/TableauRevenus'
 import Questions from '@/components/TableauRevenusQuestions'
-import { Intro, PageBlock } from '@/components/UI'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
+import { PageBlock } from '@/components/UI'
 import illustrationAccueil from '@/public/bareme-revenu-illustration.jpeg'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import { Suspense } from 'react'
 
@@ -21,30 +21,29 @@ export default function Page() {
   return (
     <>
       <StartDsfrOnHydration />
-      <main>
-        <PageBlock>
-          <HeaderWrapper
-            image={{
-              src: illustrationAccueil,
-              alt: 'Image représentant un graphique',
-            }}
-          >
-            <h1>{title}</h1>
-            <Intro>
-              <p>{description}</p>
-            </Intro>
-          </HeaderWrapper>
-          <Wrapper>
-            <Content>
-              <Suspense>
-                <Questions />
-                <TableauRevenus dottedName={'ménage . revenu . barème'} />
-                <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
-              </Suspense>
-            </Content>
-          </Wrapper>
-        </PageBlock>
-      </main>
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Barème de revenus"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[]}
+        />
+        <HeaderWrapper
+          image={{
+            src: illustrationAccueil,
+            alt: 'Image représentant un graphique',
+          }}
+        >
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </HeaderWrapper>
+        <Suspense>
+          <Questions />
+          <TableauRevenus dottedName={'ménage . revenu . barème'} />
+          <TableauRevenus dottedName={'ménage . revenu . barème IdF'} />
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import AidesGlobales from './AidesGlobales'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
@@ -15,11 +15,9 @@ export default function PageAidesGlobales() {
   return (
     <>
       <StartDsfrOnHydration />
-      <Main>
-        <Section>
-          <AidesGlobales />
-        </Section>
-      </Main>
+      <PageBlock>
+        <AidesGlobales />
+      </PageBlock>
     </>
   )
 }

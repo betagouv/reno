@@ -1,6 +1,5 @@
 import { HeaderWrapper } from '@/app/LandingUI'
-import { Intro, PageBlock } from '@/components/UI'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import plusValueImage from '@/public/illuPlusValue.png'
@@ -16,61 +15,49 @@ export default function Module({}) {
   return (
     <>
       <StartDsfrOnHydration />
-      <main>
-        <PageBlock>
-          <Content>
-            <Breadcrumb
-              currentPageLabel="Travaux"
-              homeLinkProps={{
-                href: '/',
-              }}
-              segments={[
-                {
-                  label: 'Devenir partenaire',
-                  linkProps: {
-                    href: '/devenir-partenaire',
-                  },
-                },
-                {
-                  label: 'Les iframes',
-                  linkProps: {
-                    href: '/integration',
-                  },
-                },
-              ]}
-            />
-          </Content>
-          <HeaderWrapper
-            image={{
-              src: plusValueImage,
-              alt: "Illustration de la calculette Facture d'énergie",
-            }}
-          >
-            <h1>
-              Calculette des aides pour les travaux de rénovation d'un logement
-            </h1>
-            <Intro>
-              <p>
-                A partir de votre DPE, visualisez simplement les principaux
-                gestes de rénovation envisageables.
-              </p>
-              <p>
-                Grâce à cette calculette, estimez facilement le montant des
-                aides spécifiques à chaque geste de rénovation pour votre
-                situation.
-              </p>
-            </Intro>
-          </HeaderWrapper>
-
-          <Wrapper>
-            <Content>
-              <Suspense>
-                <Demonstration moduleName="travaux" />
-              </Suspense>
-            </Content>
-          </Wrapper>
-        </PageBlock>
-      </main>
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Travaux"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Devenir partenaire',
+              linkProps: {
+                href: '/devenir-partenaire',
+              },
+            },
+            {
+              label: 'Les iframes',
+              linkProps: {
+                href: '/integration',
+              },
+            },
+          ]}
+        />
+        <HeaderWrapper
+          image={{
+            src: plusValueImage,
+            alt: 'Illustration de la calculette Travaux',
+          }}
+        >
+          <h1>
+            Calculette des aides pour les travaux de rénovation d'un logement
+          </h1>
+          <p>
+            A partir de votre DPE, visualisez simplement les principaux gestes
+            de rénovation envisageables.
+          </p>
+          <p>
+            Grâce à cette calculette, estimez facilement le montant des aides
+            spécifiques à chaque geste de rénovation pour votre situation.
+          </p>
+        </HeaderWrapper>
+        <Suspense>
+          <Demonstration moduleName="travaux" />
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

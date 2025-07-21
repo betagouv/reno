@@ -1,5 +1,4 @@
 import Copropriete from '@/components/copropriete/Copropriete'
-import { Main, PageBlock } from '@/components/UI'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { Metadata } from 'next'
 import { Suspense } from 'react'

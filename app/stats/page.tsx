@@ -1,4 +1,4 @@
-import { Main, PageBlock } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import Statistiques from './Statistiques'
 import { Metadata } from 'next'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
@@ -18,9 +18,7 @@ export default function Page() {
     <>
       <StartDsfrOnHydration />
       <PageBlock>
-        <Main>
-          <Statistiques />
-        </Main>
+        <Statistiques />
       </PageBlock>
     </>
   )

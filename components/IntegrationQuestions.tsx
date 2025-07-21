@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { BlueEm } from '@/app/LandingUI'
 import { useEffect, useState } from 'react'
 import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'

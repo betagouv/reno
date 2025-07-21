@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import GesteQuestion from './../GesteQuestion'
 import mprImage from '@/public/maprimerenov.svg'
-import { BlocAide, PrimeStyle } from '../UI'
+import { BlocAide } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import Value from '../Value'
@@ -52,10 +52,9 @@ export const BlocAideMPR = ({
         <Image src={mprImage} alt="logo ma prime renov" width="100" />
         <div>
           {display === 'top' && (
-            <PrimeStyle>
-              {'Prime de '}
-              <strong>{infoMPR.montant}</strong>
-            </PrimeStyle>
+            <Badge noIcon severity="success">
+              Prime de <strong>{infoMPR.montant}</strong>
+            </Badge>
           )}
           <h2>{display !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'</h2>
         </div>

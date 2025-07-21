@@ -1,4 +1,4 @@
-import { PageBlock, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import DPEAnalyzer from '@/components/dpe/DPEAnalyzer'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
@@ -16,14 +16,10 @@ export default async function Page(props) {
   return (
     <>
       <StartDsfrOnHydration />
-      <main>
-        <Section>
-          <PageBlock>
-            <h1>Trouver et analyser un DPE</h1>
-            <DPEAnalyzer searchParams={searchParams} />
-          </PageBlock>
-        </Section>
-      </main>
+      <PageBlock>
+        <h1>Trouver et analyser un DPE</h1>
+        <DPEAnalyzer searchParams={searchParams} />
+      </PageBlock>
     </>
   )
 }

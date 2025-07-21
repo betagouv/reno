@@ -1,8 +1,6 @@
 'use client'
 
-import { PrimeStyle } from '@/components/UI'
 import { PrimeWithLabel } from '@/components/ampleur/AideAmpleur'
-import StatusIcon from '@/components/ampleur/StatusIcon'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const computeStatusTitle = (status) =>

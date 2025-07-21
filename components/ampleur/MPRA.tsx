@@ -1,6 +1,6 @@
 import DPEScenario from '@/components/mpra/DPEScenario'
 import AideAmpleur from './AideAmpleur'
-import { Card, CTA } from '../UI'
+import { Card } from '../UI'
 import rules from '@/app/règles/rules'
 import Value from '../Value'
 import { Écrêtement } from '@/components/explications/Écrêtement'
@@ -86,36 +86,25 @@ export default function MPRA({
           />
           .
         </p>
-        <CTA
-          $fontSize="normal"
-          $importance="emptyBackground"
-          css={
-            isMobile &&
-            `
-              width: 100%;
-              text-align: center;
-            `
-          }
+        <Link
+          className="fr-btn fr-btn--secondary"
+          href={setSearchParams(
+            {
+              ...encodeSituation(
+                {
+                  ...situation,
+                  ['details']: 'MPR.accompagnée.prise en charge MAR',
+                },
+                false,
+                answeredQuestions,
+              ),
+            },
+            'url',
+            true,
+          )}
         >
-          <Link
-            href={setSearchParams(
-              {
-                ...encodeSituation(
-                  {
-                    ...situation,
-                    ['details']: 'MPR.accompagnée.prise en charge MAR',
-                  },
-                  false,
-                  answeredQuestions,
-                ),
-              },
-              'url',
-              true,
-            )}
-          >
-            En savoir plus sur l'aide <span aria-hidden="true">➞</span>
-          </Link>
-        </CTA>
+          En savoir plus sur l'aide <span aria-hidden="true">➞</span>
+        </Link>
       </Card>
       {/*  <Écrêtement {...{ engine, rules, situation }} /> */}
     </AideAmpleur>

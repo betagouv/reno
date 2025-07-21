@@ -1,4 +1,4 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import PTZ from './PTZ'
@@ -19,33 +19,31 @@ export default function Aides() {
   return (
     <>
       <StartDsfrOnHydration />
-      <Main>
-        <Section>
-          <Breadcrumb
-            currentPageLabel="L'éco-PTZ"
-            homeLinkProps={{
-              href: '/',
-            }}
-            segments={[
-              {
-                label: 'Les aides',
-                linkProps: {
-                  href: '/aides',
-                },
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="L'éco-PTZ"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
               },
-              {
-                label: 'Les prêts à taux 0',
-                linkProps: {
-                  href: '/aides/pret-taux-0',
-                },
+            },
+            {
+              label: 'Les prêts à taux 0',
+              linkProps: {
+                href: '/aides/pret-taux-0',
               },
-            ]}
-          />
-          <Suspense>
-            <PTZ />
-          </Suspense>
-        </Section>
-      </Main>
+            },
+          ]}
+        />
+        <Suspense>
+          <PTZ />
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

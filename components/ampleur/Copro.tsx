@@ -1,5 +1,5 @@
 import AideAmpleur from './AideAmpleur'
-import { Card, CTA, CTAWrapper } from '../UI'
+import { Card } from '../UI'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
@@ -73,25 +73,15 @@ export default function Copro({
             Simulez l'éligibilité de votre copropriété à MaPrimeRénov'
             Coproprieté grâce à ce simulateur.
           </p>
-          <CTAWrapper $justify="left">
-            <CTA
-              $fontSize="normal"
-              $importance="secondary"
-              css={`
-                padding: 0.5rem 0;
-              `}
-            >
-              <Link
-                target="_blank"
-                href={
-                  '/copropriete/?' +
-                  new URLSearchParams(encodeSituation(situation))
-                }
-              >
-                ➞ &nbsp;Simuler MaPrimeRénov' Copropriété
-              </Link>
-            </CTA>
-          </CTAWrapper>
+          <Link
+            className="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-left"
+            target="_blank"
+            href={
+              '/copropriete/?' + new URLSearchParams(encodeSituation(situation))
+            }
+          >
+            Simuler MaPrimeRénov' Copropriété
+          </Link>
         </>
       )}
     </AideAmpleur>

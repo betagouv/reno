@@ -1,4 +1,4 @@
-import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
+import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'

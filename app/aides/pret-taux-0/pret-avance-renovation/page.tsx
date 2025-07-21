@@ -1,4 +1,4 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import PAR from './PAR'
 import { Suspense } from 'react'
@@ -18,33 +18,31 @@ export default function PagePAR() {
   return (
     <>
       <StartDsfrOnHydration />
-      <Main>
-        <Section>
-          <Breadcrumb
-            currentPageLabel="Le prêt avance rénovation"
-            homeLinkProps={{
-              href: '/',
-            }}
-            segments={[
-              {
-                label: 'Les aides',
-                linkProps: {
-                  href: '/aides',
-                },
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Le prêt avance rénovation"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
               },
-              {
-                label: 'Les prêts à taux 0',
-                linkProps: {
-                  href: '/aides/pret-taux-0',
-                },
+            },
+            {
+              label: 'Les prêts à taux 0',
+              linkProps: {
+                href: '/aides/pret-taux-0',
               },
-            ]}
-          />
-          <Suspense>
-            <PAR />
-          </Suspense>
-        </Section>
-      </Main>
+            },
+          ]}
+        />
+        <Suspense>
+          <PAR />
+        </Suspense>
+      </PageBlock>
     </>
   )
 }

@@ -6,7 +6,7 @@ import {
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
-import { Card, CTA, CTAWrapper, PrimeStyle, Section } from '@/components/UI'
+import { Card } from '@/components/UI'
 
 import useSetSearchParams from '@/components/useSetSearchParams'
 import editIcon from '@/public/crayon.svg'
@@ -23,11 +23,11 @@ import { roundToThousands } from '../utils'
 import MprCategory from '../MprCategory'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
-import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import Select from '../Select'
 import CalculatorWidget from '../CalculatorWidget'
 import Value from '../Value'
 import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
@@ -90,9 +90,9 @@ export default function ExplicationCopropriete() {
         <>
           <p>
             Votre copropriété {nomContent}est{' '}
-            <PrimeStyle>
-              <strong>éligible</strong>
-            </PrimeStyle>{' '}
+            <Badge noIcon severity="success">
+              éligible
+            </Badge>{' '}
             au dispositif <strong>MaPrimeRénov' Copropriété</strong>.
           </p>
         </>
@@ -100,9 +100,9 @@ export default function ExplicationCopropriete() {
         <>
           <p>
             Votre copropriété{' '}
-            <PrimeStyle $red={true}>
-              <strong>n'est pas éligible</strong>
-            </PrimeStyle>{' '}
+            <Badge noIcon severity="error">
+              n'est pas éligible
+            </Badge>{' '}
             au dispositif <strong>MaPrimeRénov' Copropriété</strong>
           </p>
           <ExplicationsCoproIneligible {...{ situation, engine }} />
@@ -431,11 +431,14 @@ export default function ExplicationCopropriete() {
                     }}
                   />{' '}
                   car{' '}
-                  <PrimeStyle $red={!bonusSortiePassoire}>
+                  <Badge
+                    noIcon
+                    severity={bonusSortiePassoire ? 'success' : 'error'}
+                  >
                     {!bonusSortiePassoire
                       ? 'vous ne bénéficieriez pas'
                       : 'vous bénéficieriez'}
-                  </PrimeStyle>{' '}
+                  </Badge>{' '}
                   du bonus <strong>"Sortie de passoire"</strong>
                 </li>
                 <li>
@@ -448,11 +451,11 @@ export default function ExplicationCopropriete() {
                     }}
                   />{' '}
                   car{' '}
-                  <PrimeStyle $red={!bonusFragile}>
+                  <Badge noIcon severity={bonusFragile ? 'success' : 'error'}>
                     {!bonusFragile
                       ? 'vous ne bénéficieriez pas'
                       : 'vous bénéficieriez'}
-                  </PrimeStyle>{' '}
+                  </Badge>{' '}
                   du bonus{' '}
                   <strong>"Copropriété fragile ou en difficulté"</strong>
                 </li>
@@ -526,11 +529,9 @@ export default function ExplicationCopropriete() {
               <p>
                 En effet, chaque copropriétaire peut bénéficier individuellement
                 d'une prime pouvant s'élever à{' '}
-                <PrimeStyle>
-                  <strong>
-                    {rules['copropriété . prime individuelle']['par défaut']}
-                  </strong>
-                </PrimeStyle>{' '}
+                <Badge noIcon severity="success">
+                  {rules['copropriété . prime individuelle']['par défaut']}
+                </Badge>{' '}
                 par logement en fonction de ses revenus.
               </p>
             </div>
@@ -581,13 +582,12 @@ export default function ExplicationCopropriete() {
                 avoir un aperçu de l'ensemble de vos aides.
               </p>
             </div>
-            <CTAWrapper $justify="center">
-              <CTA $fontSize="normal">
-                <Link href="/simulation">
-                  ➞&nbsp;&nbsp;Simulez l'ensemble de vos aides
-                </Link>
-              </CTA>
-            </CTAWrapper>
+            <Link
+              className="fr-btn fr-icon-arrow-right-line fr-btn--icon-left"
+              href="/simulation"
+            >
+              Simulez l'ensemble de vos aides
+            </Link>
           </>
         )}
       </>

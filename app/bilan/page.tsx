@@ -1,5 +1,5 @@
 import PersonaBar from '@/components/PersonaBar'
-import { Main, PageBlock } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { Metadata } from 'next'
 
@@ -19,12 +19,7 @@ export default async function Page(props) {
     <>
       <StartDsfrOnHydration />
       <PageBlock>
-        <Main>
-          <PersonaBar
-            startShown={true}
-            selectedPersona={searchParams.persona}
-          />
-        </Main>
+        <PersonaBar startShown={true} selectedPersona={searchParams.persona} />
       </PageBlock>
     </>
   )

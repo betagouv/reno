@@ -1,15 +1,16 @@
 import Article from '@/components/Article'
-import { CTA, CTAWrapper } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import css from '@/components/css/convertToJs'
 import Image from 'next/image'
 import Link from 'next/link'
 import ArticleContent from '../ArticleContent'
 import Contribution from '../Contribution'
 import OtherArticles from '../OtherArticles'
-import { ArticleCta, BlogBackButton } from '../UI'
+import { ArticleCta } from '../UI'
 import { dateCool, getLastEdit } from '../utils'
 import { getAllArticles } from '../articles'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 export const generateMetadata = async (props) => {
   const params = await props.params
@@ -44,21 +45,23 @@ export default async function Post(props: Props) {
   return (
     <>
       <StartDsfrOnHydration />
-      <Article>
-        <header>
-          <section>
-            <BlogBackButton>
-              <Link
-                href="/blog"
-                style={css`
-                  margin-top: 0.6rem;
-                  display: inline-block;
-                  padding: 0rem 0.8rem 0.5rem;
-                `}
-              >
-                ← Retour au blog
-              </Link>
-            </BlogBackButton>
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel={post.titre}
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Blog',
+              linkProps: {
+                href: '/blog',
+              },
+            },
+          ]}
+        />
+        <Article>
+          <header>
             <div
               style={css`
                 position: relative;
@@ -77,7 +80,7 @@ export default async function Post(props: Props) {
                 />
               )}
             </div>
-            <h1>{post.titre}</h1>
+            <h1 className="fr-my-5v">{post.titre}</h1>
             <p dangerouslySetInnerHTML={{ __html: post.description }}></p>
             <small>
               publié le <time dateTime={post.date}>{dateCool(post.date)}</time>
@@ -88,45 +91,25 @@ export default async function Post(props: Props) {
                 </span>
               )}
             </small>
-          </section>
-        </header>
-        <section>
+          </header>
           <ArticleContent post={post} />
           {post.cta && (
-            <div
-              style={css`
-                margin-top: 1rem;
-              `}
-            >
-              <p
-                style={css`
-                  text-wrap: nowrap;
-                `}
+            <div>
+              <p>{post.cta} :</p>
+              <Link
+                className="fr-btn fr-icon-arrow-right-line fr-btn--icon-left"
+                href="/simulation"
+                prefetch={false}
               >
-                {post.cta} :
-              </p>
-
-              <CTAWrapper
-                $justify="center"
-                $customCss={`
-                margin-top: 1rem !important;
-              `}
-              >
-                <CTA $fontSize="normal">
-                  <Link href="/simulation" prefetch={false}>
-                    ➞&nbsp;&nbsp;Calculer mes aides
-                  </Link>
-                </CTA>
-              </CTAWrapper>
+                Calculer mes aides
+              </Link>
             </div>
           )}
           <Contribution slug={params.slug} />
-        </section>
-        <hr />
-
-        <OtherArticles excludeUrl={post.url} />
-        <ArticleCta />
-      </Article>
+          <OtherArticles excludeUrl={post.url} />
+          <ArticleCta />
+        </Article>
+      </PageBlock>
     </>
   )
 }
