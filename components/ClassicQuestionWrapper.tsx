@@ -13,6 +13,7 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
+import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
 
 export const QuestionText = ({
   rule,
@@ -69,15 +70,18 @@ export default function ClassicQuestionWrapper({
 
   return (
     <>
-      <ProgressBar
-        {...{
-          answeredQuestions,
-          nextQuestions,
-          currentQuestion,
-          rules,
-          situation,
-          searchParams,
-        }}
+      <Stepper
+        className="fr-mt-5v"
+        currentStep={currentQuestion.startsWith('projet') ? 2 : 1}
+        nextTitle={
+          currentQuestion.startsWith('projet') ? 'Eligibilité' : 'Votre projet'
+        }
+        stepCount={4}
+        title={
+          currentQuestion.startsWith('projet')
+            ? 'Votre projet'
+            : 'Votre situation'
+        }
       />
       <AvertissementSimulation
         {...{ avertissementState, setAvertissementState }}
