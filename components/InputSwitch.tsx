@@ -10,7 +10,6 @@ import CheckboxQuestion from './CheckboxQuestion'
 import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
-import AideDetails from './AideDetails'
 import CoproAddressSearch from './CoproAddressSearch'
 import DPEMap from './dpe/DPEMap'
 import DPEAddressSearch from './dpe/DPEAddressSearch'
@@ -33,7 +32,6 @@ export default function InputSwitch({
   rules,
   nextQuestions,
   searchParams,
-  correspondance,
 }) {
   const [addressResults, setAddressResults] = useState(null)
   const currentQuestion = searchParams.question
@@ -434,41 +432,6 @@ export default function InputSwitch({
       </ClassicQuestionWrapper>
     )
 
-  if (searchParams['details']) {
-    return (
-      <AideDetails
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          correspondance,
-          nextQuestions,
-        }}
-      />
-    )
-  }
-
-  if (firstLevelCategory(currentQuestion) === 'projet') {
-    return (
-      <AidesAmpleur
-        {...{
-          currentQuestion,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          searchParams,
-          correspondance,
-        }}
-      />
-    )
-  }
-
   if (ruleQuestionType === 'boolean')
     return (
       <ClassicQuestionWrapper
@@ -495,16 +458,13 @@ export default function InputSwitch({
               false,
               answeredQuestions,
             )
-            console.log(
-              'binary question on change will set encodedSituation',
-              encodedSituation,
-            )
 
             setSearchParams(encodedSituation, 'push', false)
           }}
         />
       </ClassicQuestionWrapper>
     )
+
   if (!currentQuestion) {
     if (sendDataToHost && consent === null) {
       return <Consentement {...{ setConsent, situation, sendDataToHost }} />
@@ -542,35 +502,39 @@ export default function InputSwitch({
         engine,
       }}
     >
-      <Input
-        nativeInputProps={{
-          type: ruleQuestionType,
-          name: currentQuestion,
-          onChange: (value) => {
-            const encodedSituation = encodeSituation(
-              {
-                ...situation,
-                [currentQuestion]:
-                  value == undefined
-                    ? undefined
-                    : ruleQuestionType === 'number'
-                      ? value
-                      : `"${value}"`,
-              },
-              false,
-              answeredQuestions,
-            )
+      <div className="fr-fieldset__element">
+        <Input
+          nativeInputProps={{
+            type: ruleQuestionType,
+            name: currentQuestion,
+            autoFocus: true,
+            onChange: (e) => {
+              const value = e.target.value
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  [currentQuestion]:
+                    value == undefined
+                      ? undefined
+                      : ruleQuestionType === 'number'
+                        ? value
+                        : `"${value}"`,
+                },
+                false,
+                answeredQuestions,
+              )
 
-            setSearchParams(encodedSituation, 'replace', false)
-          },
-          value: currentValue == null ? '' : currentValue,
-        }}
-        addon={
-          serializeUnit(evaluation.unit) === 'personne' && currentValue > 1
-            ? 'personnes'
-            : serializeUnit(evaluation.unit)
-        }
-      />
+              setSearchParams(encodedSituation, 'replace', false)
+            },
+            value: currentValue == null ? '' : currentValue,
+          }}
+          addon={
+            serializeUnit(evaluation.unit) === 'personne' && currentValue > 1
+              ? 'personnes'
+              : serializeUnit(evaluation.unit)
+          }
+        />
+      </div>
     </ClassicQuestionWrapper>
   )
 }
