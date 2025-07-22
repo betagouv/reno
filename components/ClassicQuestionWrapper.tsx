@@ -3,7 +3,6 @@ import Suggestions from '@/app/simulation/Suggestions'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
 import Answers, { categoryData } from '@/app/simulation/Answers'
-import ProgressBar from '@/app/simulation/ProgressBar'
 import { useSearchParams } from 'next/navigation'
 import AvertissementSimulation, {
   useAvertissementState,

@@ -90,57 +90,27 @@ export default function Answers({
           </Button>
         </summary>
         {isOpen && (
-          <Card
-            css={`
-              overflow: auto;
-            `}
-          >
+          <div className="fr-callout">
             <div
               css={`
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 1rem;
               `}
             >
-              <h3
-                css={`
-                  margin-bottom: 0;
-                `}
-              >
-                Vos réponses
-              </h3>
-              <div
-                css={`
-                  cursor: pointer;
-                  color: var(--color);
-                  text-decoration: underline;
-                  &:hover {
-                    text-decoration: none;
-                  }
-                `}
+              <h3 className="fr-callout__title">Vos réponses</h3>
+              <Button
+                iconId="fr-icon-close-circle-line"
                 onClick={handleSummaryClick}
-              >
-                Fermer
-              </div>
+                priority="tertiary no outline"
+                title="Fermer"
+              />
             </div>
-            <p
-              css={`
-                color: var(--mutedColor);
-              `}
-            >
+            <p className="fr-hint-text">
               Modifiez en cliquant sur la réponse, ou recommencez la simulation
               (lien en bas de page) :
             </p>
-            <ol
-              css={`
-                list-style-type: none;
-                padding-left: 0;
-                ol {
-                  list-style-type: none;
-                }
-              `}
-            >
+            <ol>
               {pastCategories.map(([category, questions]) => (
                 <li key={category}>
                   <div
@@ -150,14 +120,7 @@ export default function Answers({
                       justify-content: space-between;
                     `}
                   >
-                    <span
-                      css={`
-                        color: var(--color);
-                        font-weight: bold;
-                      `}
-                    >
-                      {getRuleTitle(category, rules)}
-                    </span>
+                    {getRuleTitle(category, rules)}
                     <span
                       css={`
                         color: var(--color);
@@ -166,33 +129,29 @@ export default function Answers({
                       Vos réponses
                     </span>
                   </div>
-                  <ol
-                    css={`
-                      margin: 0.6rem 0;
-                    `}
-                  >
+                  <ol>
                     {questions.map((answer) => (
-                      <li
-                        key={answer}
-                        css={`
-                          display: flex;
-                          align-items: center;
-                          justify-content: space-between;
-                          flex-wrap: nowrap;
-                          margin-bottom: 0.5rem;
-                        `}
-                      >
-                        <AnswerItem
-                          {...{
-                            answer,
-                            rules,
-                            engine,
-                            situation,
-                            setSearchParams,
-                            rawAnsweredQuestions,
-                            setIsOpen,
-                          }}
-                        />
+                      <li key={answer}>
+                        <div
+                          css={`
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            flex-wrap: nowrap;
+                          `}
+                        >
+                          <AnswerItem
+                            {...{
+                              answer,
+                              rules,
+                              engine,
+                              situation,
+                              setSearchParams,
+                              rawAnsweredQuestions,
+                              setIsOpen,
+                            }}
+                          />
+                        </div>
                       </li>
                     ))}
                   </ol>
@@ -212,7 +171,7 @@ export default function Answers({
             >
               Recommencer la simulation
             </Link>
-          </Card>
+          </div>
         )}
       </Details>
     )

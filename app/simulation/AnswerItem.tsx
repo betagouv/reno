@@ -24,32 +24,30 @@ export default function AnswerItem({
   return (
     <>
       <span>{getRuleTitle(answer, rules)}</span>
-      <span>
-        <Link
-          className="fr-btn fr-btn--secondary"
-          onClick={handleLinkClick}
-          href={setSearchParams(
-            {
-              question: encodeDottedName(answer),
-              ...encodeSituation(
-                situation,
-                false,
-                rawAnsweredQuestions.filter((q) => q !== answer),
-              ),
-            },
-            'url',
-          )}
-        >
-          <FormattedAnswer
-            {...{
-              answer,
+      <Link
+        className="fr-btn fr-btn--secondary fr-btn--sm fr-mt-0"
+        onClick={handleLinkClick}
+        href={setSearchParams(
+          {
+            question: encodeDottedName(answer),
+            ...encodeSituation(
               situation,
-              engine,
-              rules,
-            }}
-          />
-        </Link>
-      </span>
+              false,
+              rawAnsweredQuestions.filter((q) => q !== answer),
+            ),
+          },
+          'url',
+        )}
+      >
+        <FormattedAnswer
+          {...{
+            answer,
+            situation,
+            engine,
+            rules,
+          }}
+        />
+      </Link>
     </>
   )
 }
