@@ -90,6 +90,7 @@ PAR . montant:
       alors: 50000 €
     - si: MPR . accompagnée . éligible
       alors: 50000 €
+  par défaut: 50000 €
     
 PAR . taux: 0 %
 PAR . durée: 10 ans
