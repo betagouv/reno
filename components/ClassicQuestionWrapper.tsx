@@ -13,7 +13,6 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
-import { Content } from './explications/ExplicationUI'
 
 export const QuestionText = ({
   rule,
@@ -80,105 +79,96 @@ export default function ClassicQuestionWrapper({
           searchParams,
         }}
       />
-      <Content>
-        <AvertissementSimulation
-          {...{ avertissementState, setAvertissementState }}
-        />
-        <AmpleurModuleBanner
-          {...{
-            depuisModule,
-            setSearchParams,
-            situation,
-            remaining,
-          }}
-        />
-        <CopyButton searchParams={searchParams} />
-        <h2
-          css={`
-            color: var(--color);
-          `}
-          className="fr-text--lg fr-mb-1v"
-        >
-          {categoryTitle}
-        </h2>
-        <fieldset
-          className="fr-fieldset"
-          css={`
-            clear: both;
-          `}
-          id="storybook-form"
-          aria-labelledby="storybook-form-legend storybook-form-messages"
-        >
-          {!rule.type && (
-            <QuestionText
-              {...{
-                rule,
-                question: currentQuestion,
-                rules,
-                situation,
-                engine,
-              }}
-            />
-          )}
-          {!noSuggestions && (
-            <Suggestions
-              rule={rule}
-              onClick={(value) => {
-                setSearchParams(
-                  encodeSituation(
-                    {
-                      ...situation,
-                      [currentQuestion]: value,
-                    },
-                    false,
-                    answeredQuestions,
-                  ),
-                  'replace',
-                  false,
-                )
-              }}
-            />
-          )}
-          {children}
-        </fieldset>
-        {noButtons ? (
-          customButtons
-        ) : (
-          <FormButtons
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
+      />
+      <AmpleurModuleBanner
+        {...{
+          depuisModule,
+          setSearchParams,
+          situation,
+          remaining,
+        }}
+      />
+      <CopyButton searchParams={searchParams} />
+      <h2 className="fr-text--lg fr-mb-1v">{categoryTitle}</h2>
+      <fieldset
+        className="fr-fieldset"
+        css={`
+          clear: both;
+        `}
+        id="storybook-form"
+        aria-labelledby="storybook-form-legend storybook-form-messages"
+      >
+        {!rule.type && (
+          <QuestionText
             {...{
-              currentValue,
+              rule,
+              question: currentQuestion,
               rules,
-              setSearchParams,
-              encodeSituation,
-              answeredQuestions,
-              questionsToSubmit,
-              currentQuestion,
               situation,
-              depuisModule,
-              setAvertissementState,
+              engine,
             }}
           />
         )}
-        <Notifications {...{ currentQuestion, engine }} />
-        <section
-          css={`
-            margin-top: 8vh;
-          `}
-        >
-          <QuestionDescription {...{ currentQuestion, rule }} />
-          <Answers
-            {...{
-              answeredQuestions,
-              nextQuestions,
-              currentQuestion,
-              rules,
-              engine,
-              situation,
+        {!noSuggestions && (
+          <Suggestions
+            rule={rule}
+            onClick={(value) => {
+              setSearchParams(
+                encodeSituation(
+                  {
+                    ...situation,
+                    [currentQuestion]: value,
+                  },
+                  false,
+                  answeredQuestions,
+                ),
+                'replace',
+                false,
+              )
             }}
           />
-          <UserProblemBanner />
-        </section>
-      </Content>
+        )}
+        {children}
+      </fieldset>
+      {noButtons ? (
+        customButtons
+      ) : (
+        <FormButtons
+          {...{
+            currentValue,
+            rules,
+            setSearchParams,
+            encodeSituation,
+            answeredQuestions,
+            questionsToSubmit,
+            currentQuestion,
+            situation,
+            depuisModule,
+            setAvertissementState,
+          }}
+        />
+      )}
+      <Notifications {...{ currentQuestion, engine }} />
+      <section
+        css={`
+          margin-top: 8vh;
+        `}
+      >
+        <QuestionDescription {...{ currentQuestion, rule }} />
+        <Answers
+          {...{
+            answeredQuestions,
+            nextQuestions,
+            currentQuestion,
+            rules,
+            engine,
+            situation,
+          }}
+        />
+        <UserProblemBanner />
+      </section>
     </>
   )
 }

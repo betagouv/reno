@@ -1,8 +1,7 @@
+import Input from '@codegouvfr/react-dsfr/Input'
 import AideAmpleur from '../ampleur/AideAmpleur'
 import { createExampleSituation } from '../ampleur/AmpleurSummary'
-import Input from '../Input'
 import { encodeSituation } from '../publicodes/situationUtils'
-import { Card } from '../UI'
 import Value from '../Value'
 
 export default function MaPrimeAdapt({
@@ -34,7 +33,7 @@ export default function MaPrimeAdapt({
       }}
     >
       <h3>Comment est calculée l'aide ?</h3>
-      <Card $background="#f7f8f8">
+      <div className="fr-callout">
         {dottedName == 'mpa . occupant' && (
           <>
             <p>
@@ -67,50 +66,15 @@ export default function MaPrimeAdapt({
               />
               .
             </p>
-
-            <p>
-              Pour un montant de travaux de{' '}
-              <label>
-                <Input
-                  css={`
-                    vertical-align: text-bottom;
-                    padding: 0.2rem 0.3rem 0 0;
-                    max-width: 6rem !important;
-                  `}
-                  autoFocus={false}
-                  value={exampleSituation['mpa . montant travaux']}
-                  min="1000"
-                  onChange={(rawValue) => {
-                    const value = +rawValue === 0 ? undefined : rawValue
-                    setSearchParams(
-                      encodeSituation({
-                        [`mpa . montant travaux`]: value,
-                      }),
-                      'replace',
-                      false,
-                    )
-                  }}
-                  step="1000"
-                  css={`
-                    border-bottom: 2px solid #d1d1fb !important;
-                  `}
-                />
-                €{' '}
-                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                  HT
-                </span>
-              </label>
-              , je peux bénéficier de{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: dottedName + ' . montant',
-                  state: 'prime-black',
-                }}
-              />{' '}
-              d'aide.
-            </p>
+            <BlocMontantTravaux
+              {...{
+                engine,
+                situation,
+                exampleSituation,
+                dottedName,
+                setSearchParams,
+              }}
+            />
           </>
         )}
         {dottedName == 'mpa . bailleur' && (
@@ -156,49 +120,15 @@ export default function MaPrimeAdapt({
               )}
               ) .
             </p>
-            <p>
-              Pour un montant de travaux de{' '}
-              <label>
-                <Input
-                  css={`
-                    vertical-align: text-bottom;
-                    padding: 0.2rem 0.3rem 0 0;
-                    max-width: 6rem !important;
-                  `}
-                  autoFocus={false}
-                  value={exampleSituation['mpa . montant travaux']}
-                  min="1000"
-                  onChange={(rawValue) => {
-                    const value = +rawValue === 0 ? undefined : rawValue
-                    setSearchParams(
-                      encodeSituation({
-                        [`mpa . montant travaux`]: value,
-                      }),
-                      'replace',
-                      false,
-                    )
-                  }}
-                  step="1000"
-                  css={`
-                    border-bottom: 2px solid #d1d1fb !important;
-                  `}
-                />
-                €{' '}
-                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                  HT.
-                </span>
-              </label>
-              , je peux bénéficier de{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: dottedName + ' . montant',
-                  state: 'prime-black',
-                }}
-              />{' '}
-              d'aide.
-            </p>
+            <BlocMontantTravaux
+              {...{
+                engine,
+                situation,
+                exampleSituation,
+                dottedName,
+                setSearchParams,
+              }}
+            />
           </>
         )}
         {dottedName == 'mpa . copropriété' && (
@@ -224,53 +154,67 @@ export default function MaPrimeAdapt({
               />
               .
             </p>
-
-            <p>
-              Pour un montant de travaux de{' '}
-              <label>
-                <Input
-                  css={`
-                    vertical-align: text-bottom;
-                    padding: 0.2rem 0.3rem 0 0;
-                    max-width: 6rem !important;
-                  `}
-                  autoFocus={false}
-                  value={exampleSituation['mpa . montant travaux']}
-                  min="1000"
-                  onChange={(rawValue) => {
-                    const value = +rawValue === 0 ? undefined : rawValue
-                    setSearchParams(
-                      encodeSituation({
-                        [`mpa . montant travaux`]: value,
-                      }),
-                      'replace',
-                      false,
-                    )
-                  }}
-                  step="1000"
-                  css={`
-                    border-bottom: 2px solid #d1d1fb !important;
-                  `}
-                />
-                €{' '}
-                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                  HT.
-                </span>
-              </label>
-              , je peux bénéficier de{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: dottedName + ' . montant',
-                  state: 'prime-black',
-                }}
-              />{' '}
-              d'aide.
-            </p>
+            <BlocMontantTravaux
+              {...{
+                engine,
+                situation,
+                exampleSituation,
+                dottedName,
+                setSearchParams,
+              }}
+            />
           </>
         )}
-      </Card>
+      </div>
     </AideAmpleur>
   )
 }
+
+export const BlocMontantTravaux = ({
+  engine,
+  situation,
+  dottedName,
+  setSearchParams,
+  exampleSituation,
+}) => (
+  <p>
+    <Input
+      label="Pour un montant de travaux de : "
+      nativeInputProps={{
+        type: 'number',
+        name: 'montant-travaux',
+        min: 1000,
+        step: 1000,
+        onChange: (rawValue) => {
+          const value = +rawValue === 0 ? undefined : rawValue
+          setSearchParams(
+            encodeSituation({
+              'mpa . montant travaux': value,
+            }),
+            'replace',
+            false,
+          )
+        },
+        value: exampleSituation['mpa . montant travaux'],
+      }}
+      addon={
+        <>
+          €
+          <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+            HT
+          </span>
+        </>
+      }
+    />
+    , je peux bénéficier de{' '}
+    <Value
+      {...{
+        engine,
+        situation,
+        dottedName: dottedName + ' . montant',
+        state: 'prime-black',
+      }}
+    />{' '}
+    d'aide.
+  </p>
+)

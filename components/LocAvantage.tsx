@@ -1,11 +1,11 @@
 import { formatValue } from 'publicodes'
 import AideAmpleur from './ampleur/AideAmpleur'
 import { createExampleSituation } from './ampleur/AmpleurSummary'
-import { Key } from './explications/ExplicationUI'
-import { Select } from './InputUI'
 import { encodeSituation } from './publicodes/situationUtils'
 import { Card } from './UI'
 import Value from './Value'
+import Badge from '@codegouvfr/react-dsfr/Badge'
+import Select from '@codegouvfr/react-dsfr/Select'
 
 export default function LocAvantage({
   isEligible,
@@ -44,50 +44,39 @@ export default function LocAvantage({
       }}
     >
       <h3>Comment est calculée l'aide ?</h3>
-      <Card $background="#f7f8f8">
+      <Card>
         <p>
-          En appliquant un loyer{' '}
           <Select
-            defaultValue={'loc 1'}
-            onChange={(e) =>
-              setSearchParams(
-                encodeSituation({
-                  'locavantage . niveau loyer': e.target.value,
-                }),
-                'replace',
-                false,
-              )
-            }
-            css={`
-              font-weight: bold;
-              line-height: 1;
-              color: #000;
-              font-size: 95%;
-            `}
+            nativeSelectProps={{
+              onChange: (e) =>
+                setSearchParams(
+                  encodeSituation({
+                    'locavantage . niveau loyer': e.target.value,
+                  }),
+                  'replace',
+                  false,
+                ),
+              value: 'loc 1',
+            }}
+            label="En appliquant un loyer :"
           >
             <option value="'loc 1'">15%</option>
             <option value="'loc 2'">30%</option>
             <option value="'loc 3'">45%</option>
-          </Select>{' '}
-          inférieur au marché pendant <Key state="prime-black">6 ans</Key>{' '}
-          minimum et{' '}
+          </Select>
+          inférieur au marché pendant <Badge noIcon>6 ans</Badge> minimum et{' '}
           <Select
-            defaultValue={'loc 1'}
-            onChange={(e) =>
-              setSearchParams(
-                encodeSituation({
-                  'locavantage . intermédiation locative': e.target.value,
-                }),
-                'replace',
-                false,
-              )
-            }
-            css={`
-              font-weight: bold;
-              line-height: 1;
-              color: #000;
-              font-size: 95%;
-            `}
+            nativeSelectProps={{
+              onChange: (e) =>
+                setSearchParams(
+                  encodeSituation({
+                    'locavantage . intermédiation locative': e.target.value,
+                  }),
+                  'replace',
+                  false,
+                ),
+              value: 'oui',
+            }}
           >
             <option value="oui">en passant</option>
             <option value="non">en ne passant pas</option>
@@ -106,28 +95,19 @@ export default function LocAvantage({
         {primeLocation.nodeValue && (
           <>
             <p>De plus, vous aurez droit à:</p>
-            <ul
-              css={`
-                li {
-                  margin-bottom: 0.5rem;
-                }
-              `}
-            >
+            <ul>
               <li>
-                une prime de{' '}
-                <Key state="prime-black">{formatValue(primeLocation)}</Key> en
-                cas de recours à la location/sous-location
+                une prime de <Badge noIcon>{formatValue(primeLocation)}</Badge>{' '}
+                en cas de recours à la location/sous-location
               </li>
               <li>
-                une prime de{' '}
-                <Key state="prime-black">{formatValue(primeGestion)}</Key> en
-                cas de recours à un mandat de gestion
+                une prime de <Badge noIcon>{formatValue(primeGestion)}</Badge>{' '}
+                en cas de recours à un mandat de gestion
               </li>
               {primeSurface.nodeValue && (
                 <li>
-                  une prime de{' '}
-                  <Key state="prime-black">{formatValue(primeSurface)}</Key> car
-                  le logement est inférieur à 40m²
+                  une prime de <Badge noIcon>{formatValue(primeSurface)}</Badge>{' '}
+                  car le logement est inférieur à 40m²
                 </li>
               )}
             </ul>

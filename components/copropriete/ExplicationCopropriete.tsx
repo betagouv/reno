@@ -9,8 +9,6 @@ import {
 import { Card } from '@/components/UI'
 
 import useSetSearchParams from '@/components/useSetSearchParams'
-import editIcon from '@/public/crayon.svg'
-
 import informationIcon from '@/public/information.svg'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import Image from 'next/image'
@@ -18,16 +16,16 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
-import Input from '../Input'
 import { roundToThousands } from '../utils'
 import MprCategory from '../MprCategory'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
-import Select from '../Select'
 import CalculatorWidget from '../CalculatorWidget'
 import Value from '../Value'
 import ExplicationsCoproIneligible from './ExplicationsCoproIneligible'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import Select from '@codegouvfr/react-dsfr/Select'
+import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
@@ -113,182 +111,90 @@ export default function ExplicationCopropriete() {
           <>
             <CalculatorWidget isMobile={isMobile}>
               <div>
-                <div
-                  css={`
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    label {
-                      white-space: nowrap;
-                    }
-                  `}
+                <Input
+                  nativeInputProps={{
+                    type: 'number',
+                    name: 'prix-achat',
+                    min: 1,
+                    step: 1,
+                    onChange: (value) => {
+                      value = value === undefined ? 0 : value
+                      if (!Number.isInteger(parseInt(value))) return
+                      setSearchParams(
+                        encodeSituation({
+                          'copropriété . nombre de logements': value + '*',
+                        }),
+                        'replace',
+                        false,
+                      )
+                    },
+                    value: situation['copropriété . nombre de logements'],
+                  }}
+                  label="Nombre de logements :"
+                />
+                <Select
+                  nativeSelectProps={{
+                    onChange: (e) =>
+                      setSearchParams(
+                        encodeSituation({
+                          'copropriété . gain énergétique': e + '*',
+                        }),
+                        'replace',
+                        false,
+                      ),
+                    value: situation[
+                      'copropriété . gain énergétique'
+                    ].replaceAll('"', "'"),
+                  }}
+                  label="Gain énergétique :"
                 >
-                  <label htmlFor="nombre-logements">
-                    Nombre de logements :
-                  </label>
-                  <div>
-                    <Input
-                      id="nombre-logements"
-                      css={`
-                        line-height: 1.5rem;
-                        border: 2px solid var(--color) !important;
-                        border-radius: 0.3rem !important;
-                        padding: 0.7rem !important;
-                        box-shadow: var(--shadow-elevation-medium) !important;
-                        font-weight: bold;
-                        font-size: 100% !important;
-                        height: auto !important;
-                        color: #000;
-                      `}
-                      autoFocus={false}
-                      value={situation['copropriété . nombre de logements']}
-                      placeholder="0"
-                      min="1"
-                      onChange={(value) => {
-                        value = value === undefined ? 0 : value
-                        if (!Number.isInteger(parseInt(value))) return
-                        setSearchParams(
-                          encodeSituation({
-                            'copropriété . nombre de logements': value + '*',
-                          }),
-                          'replace',
-                          false,
-                        )
-                      }}
-                      step="1"
-                    />
-                  </div>
-                </div>
-                <div
-                  css={`
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                  `}
-                >
-                  <label htmlFor="gain-énergétique">Gain énergétique :</label>
-                  <div>
-                    <Select
-                      id="gain-énergétique"
-                      value={situation[
-                        'copropriété . gain énergétique'
-                      ].replaceAll('"', "'")}
-                      values={rules['copropriété . gain énergétique'][
-                        'une possibilité parmi'
-                      ]['possibilités']
-                        .slice(1, 3)
-                        .map(
-                          (i) => rules['copropriété . gain énergétique . ' + i],
-                        )}
-                      onChange={(e) =>
-                        setSearchParams(
-                          encodeSituation({
-                            'copropriété . gain énergétique': e + '*',
-                          }),
-                          'replace',
-                          false,
-                        )
-                      }
-                      css={`
-                        height: auto;
-                        border: 2px solid var(--color);
-                        border-radius: 0.3rem;
-                        padding: 0.7rem;
-                        box-shadow: var(--shadow-elevation-medium);
-                        font-weight: bold;
-                        font-size: 100%;
-                        color: #000;
-                      `}
-                    />{' '}
-                  </div>
-                </div>
-                <div
-                  css={`
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    flex-wrap: wrap;
-                  `}
-                >
-                  <label id="budget-travaux">Votre budget travaux (HT) :</label>
-                  <div
-                    css={`
-                      margin: auto;
-                      border: 2px solid var(--color);
-                      width: 100%;
-                      color: var(--color);
-                      text-align: center;
-                      border-radius: 0.3rem;
-                      padding: 0.7rem;
-                      box-shadow: var(--shadow-elevation-medium);
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                    `}
-                  >
-                    <div
-                      css={`
-                        flex-grow: 1;
-                      `}
-                    >
-                      <input
-                        id="budget-travaux"
-                        css={`
-                          border: none;
-                          background: transparent;
-                          -webkit-appearance: none;
-                          outline: none;
-                          color: var(--color);
-                          font-size: 110%;
-                          max-width: 6.5rem;
-                        `}
-                        autoFocus={true}
-                        value={situation['copropriété . montant travaux']}
-                        placeholder="mes travaux"
-                        min="0"
-                        max="999999"
-                        onChange={(e) => {
-                          const value =
-                            e.target.value === undefined || e.target.value == ''
-                              ? 0
-                              : e.target.value
-                          console.log('value', value)
-                          if (!Number.isInteger(parseInt(value))) return
+                  {rules['copropriété . gain énergétique'][
+                    'une possibilité parmi'
+                  ]['possibilités']
+                    .slice(1, 3)
+                    .map((i) => (
+                      <option
+                        key={i}
+                        value={
+                          rules['copropriété . gain énergétique . ' + i].valeur
+                        }
+                      >
+                        {rules['copropriété . gain énergétique . ' + i].titre}
+                      </option>
+                    ))}
+                </Select>
+                <Input
+                  label="Votre budget travaux (HT) :"
+                  nativeInputProps={{
+                    value: situation['copropriété . montant travaux'],
+                    min: '0',
+                    max: '999999',
+                    step: '100',
+                    onChange: (e) => {
+                      const value =
+                        e.target.value === undefined || e.target.value == ''
+                          ? 0
+                          : e.target.value
+                      if (!Number.isInteger(parseInt(value))) return
 
-                          const startPos = e.target.selectionStart
-                          setSearchParams(
-                            encodeSituation({
-                              'copropriété . montant travaux': value + '*',
-                            }),
-                            'replace',
-                            false,
-                          )
-                          requestAnimationFrame(() => {
-                            const inputBudget =
-                              document.querySelector('#budget-travaux')
-                            inputBudget.selectionStart = startPos
-                            inputBudget.selectionEnd = startPos
-                          })
-                        }}
-                        step="100"
-                      />
+                      setSearchParams(
+                        encodeSituation({
+                          'copropriété . montant travaux': value + '*',
+                        }),
+                        'replace',
+                        false,
+                      )
+                    },
+                  }}
+                  addon={
+                    <>
+                      €
                       <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                        €
+                        HT
                       </span>
-                    </div>
-                    <Image
-                      css={`
-                        cursor: pointer;
-                        margin-left: auto;
-                      `}
-                      src={editIcon}
-                      alt="Icône crayon pour éditer"
-                      onClick={() =>
-                        document.querySelector('#budget-travaux').focus()
-                      }
-                    />
-                  </div>
-                </div>
+                    </>
+                  }
+                />
               </div>
               <div
                 css={`

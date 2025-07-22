@@ -1,12 +1,12 @@
 import { Card } from '../UI'
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
-import Input from '../Input'
 import { encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
-import { Key } from '../explications/ExplicationUI'
-import { Select } from '../InputUI'
 import { roundToThousands } from '../utils'
+import Badge from '@codegouvfr/react-dsfr/Badge'
+import Select from '@codegouvfr/react-dsfr/Select'
+import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function Denormandie({
   isEligible,
@@ -52,8 +52,7 @@ export default function Denormandie({
     >
       {communeName && communeEligible && (
         <p>
-          La commune <Key $state={'prime-black'}>{communeName}</Key> de votre
-          logement{' '}
+          La commune <Badge noIcon>{communeName}</Badge> de votre logement{' '}
           {communeEligible === 'oui' ? (
             <Yes>est éligible</Yes>
           ) : (
@@ -64,55 +63,45 @@ export default function Denormandie({
       )}
       {expanded && (
         <>
-          <Card $background="#EEEEFF">
-            <p
-              css={`
-                line-height: 2rem;
-              `}
-            >
+          <Card>
+            <p>
               Par exemple : j'achète un logement d'une valeur de{' '}
               <Input
-                css={`
-                  vertical-align: text-bottom;
-                  padding: 0.2rem 0.3rem 0 0;
-                  max-width: 8rem !important;
-                  border-bottom: 2px solid #d1d1fb !important;
-                  width: 6rem !important;
-                `}
-                autoFocus={false}
-                value={situation["logement . prix d'achat"]}
-                placeholder="250000"
-                min="1000"
-                onChange={(rawValue) => {
-                  const value = +rawValue === 0 ? undefined : rawValue
-                  setSearchParams(
-                    encodeSituation({
-                      "logement . prix d'achat": value,
-                    }),
-                    'replace',
-                    false,
-                  )
+                nativeInputProps={{
+                  type: 'number',
+                  name: 'prix-achat',
+                  min: 1000,
+                  step: 1000,
+                  onChange: (rawValue) => {
+                    const value = +rawValue === 0 ? undefined : rawValue
+                    setSearchParams(
+                      encodeSituation({
+                        "logement . prix d'achat": value,
+                      }),
+                      'replace',
+                      false,
+                    )
+                  },
+                  value: situation["logement . prix d'achat"],
                 }}
-                step="1000"
-              />
-              €{' '}
-              <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                HT
-              </span>{' '}
+                addon={
+                  <>
+                    €
+                    <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                      HT
+                    </span>
+                  </>
+                }
+              />{' '}
               dans lequel je réalise des travaux de rénovation de{' '}
-              <label>
-                <Input
-                  css={`
-                    vertical-align: text-bottom;
-                    padding: 0.2rem 0.3rem 0 0;
-                    max-width: 6rem !important;
-                  `}
-                  autoFocus={false}
-                  value={situation['projet . travaux']}
-                  placeholder="0"
-                  min="1000"
-                  onChange={(rawValue) => {
-                    const value = +rawValue === 0 ? 0 : rawValue
+              <Input
+                nativeInputProps={{
+                  type: 'number',
+                  name: 'prix-achat',
+                  min: 1000,
+                  step: 1000,
+                  onChange: (rawValue) => {
+                    const value = +rawValue === 0 ? undefined : rawValue
                     setSearchParams(
                       encodeSituation({
                         'projet . travaux': value,
@@ -120,41 +109,33 @@ export default function Denormandie({
                       'replace',
                       false,
                     )
-                  }}
-                  step="1000"
-                  css={`
-                    border-bottom: 2px solid #d1d1fb !important;
-                  `}
-                />
-                €{' '}
-                <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                  HT.
-                </span>
-              </label>
-            </p>
-            <p
-              css={`
-                line-height: 2.2rem;
-              `}
-            >
-              Pour une période de location de{' '}
-              <Select
-                defaultValue={'12'}
-                onChange={(e) =>
-                  setSearchParams(
-                    encodeSituation({
-                      'denormandie . années de location': e.target.value,
-                    }),
-                    'replace',
-                    false,
-                  )
+                  },
+                  value: situation['projet . travaux'],
+                }}
+                addon={
+                  <>
+                    €
+                    <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                      HT
+                    </span>
+                  </>
                 }
-                css={`
-                  font-weight: bold;
-                  line-height: 1;
-                  color: #000;
-                  font-size: 95%;
-                `}
+              />
+            </p>
+            <p>
+              <Select
+                nativeSelectProps={{
+                  onChange: (e) =>
+                    setSearchParams(
+                      encodeSituation({
+                        'denormandie . années de location': e.target.value,
+                      }),
+                      'replace',
+                      false,
+                    ),
+                  value: '12',
+                }}
+                label="Pour une période de location de :"
               >
                 <option value="6">6 ans</option>
                 <option value="9">9 ans</option>

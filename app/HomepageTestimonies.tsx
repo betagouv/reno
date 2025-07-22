@@ -1,5 +1,5 @@
 'use client'
-import { Content, Key, Wrapper } from '@/components/explications/ExplicationUI'
+import { Key } from '@/components/explications/ExplicationUI'
 import useIsInIframe from '@/components/useIsInIframe'
 import { useState } from 'react'
 import DPELabel from '@/components/dpe/DPELabel'
@@ -123,67 +123,58 @@ export default function HomepageTestimonies() {
 
   return (
     !isInIFrame && (
-      <Wrapper $background="white" $noMargin={true} $last={false}>
-        <Content>
-          <h2
-            css={`
-              text-align: center;
-              margin-top: 0;
-            `}
-          >
-            Histoires d'usagers
-          </h2>
-          <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--top fr-grid-row--center">
-            {testimonials.map((testimonial, index) => (
-              <div
-                className="fr-col-12 fr-col-md-6"
-                key={index}
-                css={`
-                  .fr-tile__detail {
-                    display: block;
-                    text-align: start;
-                  }
-                `}
-              >
-                <Tile
-                  desc={
-                    <>
-                      {testimonial.shortText}
-                      <div
-                        css={`
-                          text-align: end;
-                          margin-top: 1em;
-                        `}
+      <>
+        <h2>Histoires d'usagers</h2>
+        <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--top fr-grid-row--center">
+          {testimonials.map((testimonial, index) => (
+            <div
+              className="fr-col-12 fr-col-md-6"
+              key={index}
+              css={`
+                .fr-tile__detail {
+                  display: block;
+                  text-align: start;
+                }
+              `}
+            >
+              <Tile
+                desc={
+                  <>
+                    {testimonial.shortText}
+                    <div
+                      css={`
+                        text-align: end;
+                        margin-top: 1em;
+                      `}
+                    >
+                      <Button
+                        iconId="fr-icon-money-euro-circle-line"
+                        onClick={() => {
+                          toggleExpand(index)
+                          push([
+                            'trackEvent',
+                            'Home',
+                            'Clic',
+                            testimonial.matomoAnchor,
+                          ])
+                        }}
+                        priority="tertiary"
                       >
-                        <Button
-                          iconId="fr-icon-money-euro-circle-line"
-                          onClick={() => {
-                            toggleExpand(index)
-                            push([
-                              'trackEvent',
-                              'Home',
-                              'Clic',
-                              testimonial.matomoAnchor,
-                            ])
-                          }}
-                          priority="tertiary"
-                        >
-                          Voir ses aides
-                        </Button>
-                      </div>
-                    </>
-                  }
-                  detail={expanded[index] && testimonial.moreText}
-                  enlargeLinkOrButton
-                  orientation="vertical"
-                  title={testimonial.title}
-                  titleAs="h3"
-                />
-              </div>
-            ))}
-          </div>
-        </Content>
-      </Wrapper>
+                        Voir ses aides
+                      </Button>
+                    </div>
+                  </>
+                }
+                detail={expanded[index] && testimonial.moreText}
+                enlargeLinkOrButton
+                orientation="vertical"
+                title={testimonial.title}
+                titleAs="h3"
+              />
+            </div>
+          ))}
+        </div>
+      </>
     )
   )
 }

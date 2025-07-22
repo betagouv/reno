@@ -25,7 +25,6 @@ export default function GesteQuestion({
   const onChange = (e) => {
     const value = e.target.value
     onChangeEvent && onChangeEvent(value)
-    console.log('value', value)
     const encodedSituation = encodeSituation(
       {
         ...situation,

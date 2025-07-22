@@ -4,13 +4,11 @@ import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
 import AddressSearch from '../AddressSearch'
-import Select from '../Select'
-import Image from 'next/image'
-import editIcon from '@/public/crayon.svg'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { DPEAppreciationInfo, hasResult } from '../module/PlusValueModule'
 import Input from '@codegouvfr/react-dsfr/Input'
+import Select from '@codegouvfr/react-dsfr/Select'
 
 const PlusValueWidget = ({
   engine,
@@ -73,33 +71,37 @@ const PlusValueWidget = ({
           {rules['logement . type']['une possibilité parmi'][
             'possibilités'
           ].map((i) => (
-            <option value={rules['logement . type . ' + i].valeur}>
+            <option key={i} value={rules['logement . type . ' + i].valeur}>
               {rules['logement . type . ' + i].titre}
             </option>
           ))}
         </Select>
         <Input
           label="Valeur du bien :"
-          id="prix-bien"
-          autoFocus={false}
-          placeholder="Prix du bien"
-          type="text"
-          inputMode="numeric"
-          pattern="\d+"
-          value={
-            answeredQuestions.includes("logement . prix d'achat")
+          nativeInputProps={{
+            type: 'number',
+            name: 'prix-achat',
+            min: 1000,
+            step: 1000,
+            onChange: (e) => {
+              const price = e.target.value
+              const invalid = isNaN(price) || price <= 0
+              if (invalid) return
+              push([
+                'trackEvent',
+                'Module',
+                'Interaction',
+                'prix achat ' + price,
+              ])
+              setSearchParams({
+                [encodeDottedName("logement . prix d'achat")]: price + '*',
+              })
+              e.target.value = formatNumberWithSpaces(price)
+            },
+            pattern: '\d+',
+            value: answeredQuestions.includes("logement . prix d'achat")
               ? situation["logement . prix d'achat"]
-              : undefined
-          }
-          onChange={(e) => {
-            const price = e.target.value
-            const invalid = isNaN(price) || price <= 0
-            if (invalid) return
-            push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + price])
-            setSearchParams({
-              [encodeDottedName("logement . prix d'achat")]: price + '*',
-            })
-            e.target.value = formatNumberWithSpaces(price)
+              : undefined,
           }}
         />
       </div>

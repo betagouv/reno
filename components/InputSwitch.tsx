@@ -4,7 +4,6 @@ import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
 import { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './dpe/DPESelector'
-import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
 import CheckboxQuestion from './CheckboxQuestion'
@@ -22,6 +21,8 @@ import Consentement from './Consentement'
 import ChoixTravauxChauffage from './ChoixTravauxChauffage'
 import ChoixCategorieTravaux from './ChoixCategorieTravaux'
 import ChoixTravaux from './ChoixTravaux'
+import Input from '@codegouvfr/react-dsfr/Input'
+import { serializeUnit } from 'publicodes'
 
 export default function InputSwitch({
   currentQuestion: givenCurrentQuestion,
@@ -542,33 +543,33 @@ export default function InputSwitch({
       }}
     >
       <Input
-        type={ruleQuestionType}
-        placeholder={evaluation.nodeValue}
-        value={currentValue == null ? '' : currentValue}
-        name={currentQuestion}
-        unit={evaluation.unit}
-        onChange={(value) => {
-          const encodedSituation = encodeSituation(
-            {
-              ...situation,
-              [currentQuestion]:
-                value == undefined
-                  ? undefined
-                  : ruleQuestionType === 'number'
-                    ? value
-                    : `"${value}"`,
-            },
-            false,
-            answeredQuestions,
-          )
-          console.log(
-            'on change will set encodedSituation',
-            encodedSituation,
-            situation,
-          )
+        nativeInputProps={{
+          type: ruleQuestionType,
+          name: currentQuestion,
+          onChange: (value) => {
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]:
+                  value == undefined
+                    ? undefined
+                    : ruleQuestionType === 'number'
+                      ? value
+                      : `"${value}"`,
+              },
+              false,
+              answeredQuestions,
+            )
 
-          setSearchParams(encodedSituation, 'replace', false)
+            setSearchParams(encodedSituation, 'replace', false)
+          },
+          value: currentValue == null ? '' : currentValue,
         }}
+        addon={
+          serializeUnit(evaluation.unit) === 'personne' && currentValue > 1
+            ? 'personnes'
+            : serializeUnit(evaluation.unit)
+        }
       />
     </ClassicQuestionWrapper>
   )
