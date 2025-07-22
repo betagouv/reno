@@ -1,4 +1,4 @@
-import { Card, ExternalLink } from '@/components/UI'
+import { Card } from '@/components/UI'
 import { getAdresse } from './MarSearch'
 import NotFound from './NotFound'
 
@@ -41,12 +41,14 @@ export default function Entreprise({ data }) {
       </div>
       {latitude && longitude && (
         <div>
-          <ExternalLink
+          <a
+            className="fr-link"
+            rel="noopener external"
             href={`https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=17/${latitude}/${longitude}`}
             target="_blank"
           >
             Voir sur une carte
-          </ExternalLink>
+          </a>
         </div>
       )}
       <br />
@@ -80,9 +82,14 @@ export default function Entreprise({ data }) {
             word-break: break-all;
           `}
         >
-          <ExternalLink href={site} target="_blank">
+          <a
+            className="fr-link"
+            rel="noopener external"
+            href={site}
+            target="_blank"
+          >
             {site}
-          </ExternalLink>
+          </a>
         </div>
       )}
       {horaires[0] != '' && (

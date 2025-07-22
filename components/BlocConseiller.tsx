@@ -1,44 +1,28 @@
 'use client'
 import { push } from '@socialgouv/matomo-next'
-import { CTA, CTAWrapper } from './UI'
-import iconArrow from '@/public/iconArrowCircled.svg'
-import Image from 'next/image'
-import MarSearch from '@/app/trouver-accompagnateur-renov/MarSearch'
+import MarSearch from '@/app/trouver-conseiller-france-renov/MarSearch'
 import { useState } from 'react'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function BlocConseiller({ situation }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <CTAWrapper $justify="left">
-        <CTA
-          css={`
-            padding: 1rem;
-            text-wrap: wrap;
-            text-align: center;
-            cursor: pointer;
-          `}
-          $fontSize="normal"
-          onClick={() => {
-            setIsOpen((prev) => !prev)
-            push([
-              'trackEvent',
-              'Simulateur Principal',
-              'Clic',
-              'trouver conseiller',
-            ])
-          }}
-        >
-          Prendre rdv avec un conseiller
-          <Image
-            src={iconArrow}
-            alt="icone fleche"
-            css={`
-              margin-left: 0.5rem;
-            `}
-          />
-        </CTA>
-      </CTAWrapper>
+      <Button
+        iconId="fr-icon-arrow-right-line"
+        iconPosition="right"
+        onClick={() => {
+          setIsOpen((prev) => !prev)
+          push([
+            'trackEvent',
+            'Simulateur Principal',
+            'Clic',
+            'trouver conseiller',
+          ])
+        }}
+      >
+        Prendre rdv avec un conseiller
+      </Button>
       {isOpen && (
         <MarSearch situation={situation} what={'trouver-conseiller-renov'} />
       )}

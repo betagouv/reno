@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { PersonnesQuestion } from '@/app/module/AmpleurQuestions'
 import useSetSearchParams from './useSetSearchParams'
 import { encodeSituation } from './publicodes/situationUtils'
-import rules from '@/app/règles/rules'
 
 export default function Questions() {
   const setSearchParams = useSetSearchParams()
@@ -12,7 +11,6 @@ export default function Questions() {
     <Wrapper>
       <PersonnesQuestion
         {...{
-          dot: false,
           text: 'Pour un ménage de',
           defaultSituation: {},
           situation: {},

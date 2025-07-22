@@ -1,4 +1,4 @@
-import { Badge, Card, Section } from './UI'
+import { Card, Section } from './UI'
 import iconConseiller from '@/public/icon-conseiller.svg'
 import iconLampe from '@/public/icon-lampe.svg'
 import iconPaper from '@/public/icon-paper.svg'
@@ -10,8 +10,6 @@ import iconTravaux from '@/public/icon-travaux.svg'
 import iconCard from '@/public/icon-card.svg'
 import Image from 'next/image'
 import { encodeSituation } from './publicodes/situationUtils'
-import Breadcrumb from './Breadcrumb'
-import { CustomQuestionWrapper } from './CustomQuestionUI'
 import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
@@ -19,6 +17,8 @@ import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
 import { push } from '@socialgouv/matomo-next'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function AideEtapes({
   setSearchParams,
@@ -28,10 +28,15 @@ export default function AideEtapes({
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
 
-  const aides = useAides(engine, situation)
-  const hasMPRA =
-    aides.find((aide) => aide.baseDottedName == 'MPR . accompagnée').status ===
-    true
+  const aides = useAides(engine, situation, situation["parcours d'aide"])
+  const hasMPRA = aides.find(
+    (aide) => aide.baseDottedName == 'MPR . accompagnée' && aide.status,
+  )
+  const hasMPA = aides.find(
+    (aide) => aide.baseDottedName == 'mpa' && aide.status,
+  )
+  const hasPret = aides.find((aide) => aide.type == 'prêt' && aide.status)
+
   return (
     <Section
       css={`
@@ -52,39 +57,32 @@ export default function AideEtapes({
         }
       `}
     >
-      <CustomQuestionWrapper>
+      <section>
         <Breadcrumb
-          links={[
+          currentPageLabel="Obtenir mes aides"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              Eligibilité: setSearchParams(
-                {
-                  ...encodeSituation(
-                    omit(['objectif'], situation),
-                    false,
-                    answeredQuestions,
-                  ),
-                },
-                'url',
-                true,
-              ),
-            },
-            {
-              'Obtenir mes aides': setSearchParams(
-                {
-                  ...encodeSituation(situation, false, answeredQuestions),
-                },
-                'url',
-                true,
-              ),
+              label: 'Eligibilité',
+              linkProps: {
+                href: setSearchParams(
+                  {
+                    ...encodeSituation(
+                      omit(['objectif'], situation),
+                      false,
+                      answeredQuestions,
+                    ),
+                  },
+                  'url',
+                  true,
+                ),
+              },
             },
           ]}
         />
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-          `}
-        >
+        <div className="fr-mb-5v">
           <BtnBackToParcoursChoice
             {...{
               setSearchParams,
@@ -123,7 +121,7 @@ export default function AideEtapes({
               padding: calc(0.5rem + 1vw);
             `}
           >
-            <Badge color="purple">prochaine étape</Badge>
+            <Badge noIcon>prochaine étape</Badge>
             <h2>
               <Image src={iconConseiller} alt="icone conseiller" />
               Un conseiller France Rénov' vous accompagne
@@ -151,26 +149,28 @@ export default function AideEtapes({
               showWithAnswer={false}
             />
           </Card>
-          <Card>
-            <h2>
-              <Image src={iconPaper} alt="icone papier" />
-              Votre projet prend forme. Demandez des devis
-            </h2>
-            <p>
-              Après votre rendez-vous avec un conseiller, contactez des artisans
-              RGE pour obtenir leurs devis.
-            </p>
-            <p>
-              {hasMPRA &&
-                "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
-            </p>
-            {hasMPRA && (
+          {(hasMPRA || hasMPA || hasPret) && (
+            <Card>
+              <h2>
+                <Image src={iconPaper} alt="icone papier" />
+                Votre projet prend forme. Demandez des devis
+              </h2>
               <p>
-                <strong>Important</strong> : ne signez pas encore les devis.
+                Après votre rendez-vous avec un conseiller, contactez des
+                artisans RGE pour obtenir leurs devis.
               </p>
-            )}
-          </Card>
-          {hasMPRA && (
+              <p>
+                {hasMPRA &&
+                  "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
+              </p>
+              {hasMPRA && (
+                <p>
+                  <strong>Important</strong> : ne signez pas encore les devis.
+                </p>
+              )}
+            </Card>
+          )}
+          {(hasMPRA || hasMPA) && (
             <>
               <Card>
                 <h2>
@@ -185,7 +185,7 @@ export default function AideEtapes({
                 </p>
               </Card>
               <Card>
-                <Badge color="purple">3 mois d'attente</Badge>
+                <Badge noIcon>3 mois d'attente</Badge>
                 <h2>
                   <Image src={iconValider} alt="icone valider" />
                   L'Anah instruit et valide votre dossier
@@ -199,7 +199,7 @@ export default function AideEtapes({
               </Card>
             </>
           )}
-          {!hasMPRA && (
+          {!hasMPRA && hasPret && (
             <>
               <Card>
                 <h2>
@@ -213,7 +213,7 @@ export default function AideEtapes({
                 </p>
               </Card>
               <Card>
-                <Badge color="purple">selon votre capacité d’endettement</Badge>
+                <Badge noIcon>selon votre capacité d’endettement</Badge>
                 <h2>
                   <Image src={iconValider} alt="icone valider" />
                   L’établissement de crédit examine et valide votre demande
@@ -227,49 +227,53 @@ export default function AideEtapes({
               </Card>
             </>
           )}
-          <Card>
-            <h2>
-              <Image src={iconSign} alt="icone signer" />
-              Signez les devis, et planifiez les travaux avec les artisans
-            </h2>
-            <p>C'est parti ! Les travaux vont bientôt commencer.</p>
-          </Card>
-          <Card>
-            {hasMPRA && <Badge color="blue">optionnel</Badge>}
-            <h2>
-              <Image src={iconEuro} alt="icone euro" />
-              Recevez le prêt et démarrez les travaux
-            </h2>
-            {hasMPRA ? (
-              <>
-                <p>
-                  Si vous êtes éligible, la banque vous verse le montant de
-                  votre Eco-PTZ.
-                  <br />
-                  L'Anah vous verse l'avance MaPrimeRénov'.
-                  <br />
-                  Vous pouvez payer l'acompte aux artisans. Les travaux débutent
-                  !
-                </p>
-              </>
-            ) : (
-              <>
-                <p>
-                  Le versement de l'éco-PTZ peut s'effectuer en 1 seule fois sur
-                  la base des devis ou en plusieurs fois sur la base des
-                  factures de travaux transmises au fur et à mesure jusqu'à la
-                  date de clôture du prêt.
-                </p>
-                <p>
-                  Vous pouvez payer l'acompte aux artisans. Les travaux débutent
-                  !
-                </p>
-              </>
-            )}
-          </Card>
+          {hasMPRA && (
+            <Card>
+              <h2>
+                <Image src={iconSign} alt="icone signer" />
+                Signez les devis, et planifiez les travaux avec les artisans
+              </h2>
+              <p>C'est parti ! Les travaux vont bientôt commencer.</p>
+            </Card>
+          )}
+          {hasPret && (
+            <Card>
+              {hasMPRA && <Badge noIcon>optionnel</Badge>}
+              <h2>
+                <Image src={iconEuro} alt="icone euro" />
+                Recevez le prêt et démarrez les travaux
+              </h2>
+              {hasMPRA ? (
+                <>
+                  <p>
+                    Si vous êtes éligible, la banque vous verse le montant de
+                    votre Eco-PTZ.
+                    <br />
+                    L'Anah vous verse l'avance MaPrimeRénov'.
+                    <br />
+                    Vous pouvez payer l'acompte aux artisans. Les travaux
+                    débutent !
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    Le versement de l'éco-PTZ peut s'effectuer en 1 seule fois
+                    sur la base des devis ou en plusieurs fois sur la base des
+                    factures de travaux transmises au fur et à mesure jusqu'à la
+                    date de clôture du prêt.
+                  </p>
+                  <p>
+                    Vous pouvez payer l'acompte aux artisans. Les travaux
+                    débutent !
+                  </p>
+                </>
+              )}
+            </Card>
+          )}
           {!hasMPRA && (
             <Card>
-              <Badge color="blue">optionnel</Badge>
+              <Badge noIcon>optionnel</Badge>
               <h2>
                 <Image src={iconEuro} alt="icone euro" />
                 Faire la demande d’autres aides complémentaires
@@ -290,7 +294,7 @@ export default function AideEtapes({
             </ul>
           </Card>
           <Card>
-            <Badge color="purple">1 mois d'attente</Badge>
+            <Badge noIcon>1 mois d'attente</Badge>
             <h2>
               <Image src={iconEuro} alt="icone euro" />
               Recevez vos autres aides
@@ -300,19 +304,21 @@ export default function AideEtapes({
               probablement une fois les travaux finis.
             </p>
           </Card>
-          <Card>
-            {hasMPRA && <Badge color="blue">optionnel</Badge>}
-            <h2>
-              <Image src={iconCard} alt="icone carte de crédit" />
-              Remboursement du prêt
-            </h2>
-            <p>
-              Vous continuez de rembourser votre prêt, tout en réalisant déjà
-              des économies d'énergie&nbsp;⚡️.
-            </p>
-          </Card>
+          {hasPret && (
+            <Card>
+              {hasMPRA && <Badge noIcon>optionnel</Badge>}
+              <h2>
+                <Image src={iconCard} alt="icone carte de crédit" />
+                Remboursement du prêt
+              </h2>
+              <p>
+                Vous continuez de rembourser votre prêt, tout en réalisant déjà
+                des économies d'énergie&nbsp;⚡️.
+              </p>
+            </Card>
+          )}
         </div>
-      </CustomQuestionWrapper>
+      </section>
       <Feedback />
     </Section>
   )

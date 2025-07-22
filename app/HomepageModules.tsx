@@ -1,19 +1,13 @@
 'use client'
-import { CardMosaic } from '@/components/DevenirPartenaire'
 import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import { Card } from '@/components/UI'
+import { Card } from '@codegouvfr/react-dsfr/Card'
 import useIsInIframe from '@/components/useIsInIframe'
-import Image from 'next/image'
-import calculetteImage from '@/public/illuModule.png'
-import ampleurImage from '@/public/illuAmpleur.png'
-import plusValueImage from '@/public/illuPlusValue.png'
-import Link from 'next/link'
 
 export default function HomepageModules() {
   const isInIFrame = useIsInIframe()
   return (
     !isInIFrame && (
-      <Wrapper $noMargin={true}>
+      <Wrapper $background="white" $noMargin={true}>
         <Content>
           <h2
             css={`
@@ -23,36 +17,54 @@ export default function HomepageModules() {
           >
             Nos calculettes prêtes à l'emploi
           </h2>
-          <CardMosaic $smallTitle $noPadding>
-            <Card>
-              <Image src={plusValueImage} alt="Logo Plus Value" />
-              <h3>
-                <Link href="/module/plus-value">Ma plus-value Réno</Link>
-              </h3>
-              <p>
-                Estimez la plus-value de votre logement après sa rénovation.
-              </p>
-            </Card>
-            <Card>
-              <Image src={ampleurImage} alt="Logo Ampleur" />
-              <h3>
-                <Link href="/module">Rénovation d'ampleur</Link>
-              </h3>
-              <p>
-                Calculez l'ensemble de vos aides pour une rénovation d'ampleur.
-              </p>
-            </Card>
-            <Card>
-              <Image src={calculetteImage} alt="Logo Calculatrice" />
-              <h3>
-                <Link href="/integration">Et bien plus encore...</Link>
-              </h3>
-              <p>
-                Pompe à chaleur, éco-PTZ... Découvrez nos autres calculatrices
-                spécialisées.
-              </p>
-            </Card>
-          </CardMosaic>
+          <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-grid-row--center">
+            <div className="fr-col-12 fr-col-md-4">
+              <Card
+                background
+                border
+                desc="Estimez la plus-value de votre logement après sa rénovation."
+                enlargeLink
+                imageAlt="Logo Plus Value"
+                imageUrl="illuPlusValue.png"
+                linkProps={{
+                  href: '/module/plus-value#',
+                }}
+                title="Ma plus-value Réno"
+                titleAs="h3"
+              />
+            </div>
+            <div className="fr-col-12 fr-col-md-4">
+              <Card
+                background
+                border
+                desc="Calculez l'ensemble de vos aides pour une rénovation d'ampleur."
+                enlargeLink
+                imageAlt="Logo Rénovation d'ampleur"
+                imageUrl="illuAmpleur.png"
+                linkProps={{
+                  href: '/module',
+                }}
+                title="Rénovation d'ampleur"
+                titleAs="h3"
+              />
+            </div>
+            <div className="fr-col-12 fr-col-md-4">
+              <Card
+                background
+                border
+                desc="Pompe à chaleur, éco-PTZ... Découvrez nos autres calculatrices
+                spécialisées."
+                enlargeLink
+                imageAlt="Logo Calculatrice"
+                imageUrl="illuModule.png"
+                linkProps={{
+                  href: '/integration',
+                }}
+                title="Et bien plus encore..."
+                titleAs="h3"
+              />
+            </div>
+          </div>
         </Content>
       </Wrapper>
     )

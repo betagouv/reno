@@ -1,10 +1,10 @@
 'use client'
 
-import styled from 'styled-components'
 import Image from 'next/image'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import FormButtons from '@/app/simulation/FormButtons'
 import { categories } from './utils'
+import React from 'react'
 
 export const getTravauxEnvisages = (situation) =>
   situation['projet . définition . travaux envisagés']
@@ -88,53 +88,55 @@ export default function ChoixTravaux({
     .split(',')
 
   return (
-    <div
-      css={`
-        h4 {
-          display: flex;
-          gap: 1rem;
-          margin: 2em 0 1em 0;
-          &:first-of-type {
-            margin-top: 1em;
-          }
-        }
-      `}
-    >
+    <>
       {categories
         .filter((categorie) => selectedCategories.includes(categorie['code']))
         .map((categorie) => (
-          <div key={categorie['code']}>
-            <h4>
+          <fieldset
+            key={categorie['code']}
+            className="fr-fieldset"
+            id={`storybook-form-${categorie['code']}`}
+            aria-labelledby="storybook-form-legend storybook-form-messages"
+          >
+            <legend
+              className="fr-fieldset__legend--bold fr-fieldset__legend fr-text"
+              css={`
+                display: flex;
+                gap: 1em;
+              `}
+            >
               <Image
                 src={categorie['image']}
                 alt={`Icone représentant une maison`}
               />
-              {categorie['titre']} :<br /> {categorie['question']}
-            </h4>
-            <Accordion geste="true">
-              {Object.entries(categorie.gestes).map((item) => {
-                return (
-                  <label key={item[0]}>
-                    <h3>
-                      <input
-                        type="checkbox"
-                        onChange={() =>
-                          handleCheckTravaux(
-                            item[0],
-                            situation,
-                            setSearchParams,
-                          )
-                        }
-                        value={item[0]}
-                        checked={isTravailChecked(item[0])}
-                      />
-                      <span>{item[1]}</span>
-                    </h3>
-                  </label>
-                )
-              })}
-            </Accordion>
-          </div>
+              {categorie['titre']} :<br />
+              {categorie['question']}
+            </legend>
+            {Object.entries(categorie.gestes).map((item) => {
+              return (
+                <div className="fr-fieldset__element" key={item[0]}>
+                  <div
+                    className="fr-checkbox-group fr-checkbox-rich"
+                    key={item[0]}
+                  >
+                    <input
+                      name={`checkbox-${categorie['code']}`}
+                      type="checkbox"
+                      id={`checkbox-${item[0]}`}
+                      onChange={() =>
+                        handleCheckTravaux(item[0], situation, setSearchParams)
+                      }
+                      value={item[0]}
+                      checked={isTravailChecked(item[0])}
+                    />
+                    <label className="fr-label" htmlFor={`checkbox-${item[0]}`}>
+                      {item[1]}
+                    </label>
+                  </div>
+                </div>
+              )
+            })}
+          </fieldset>
         ))}
       <FormButtons
         {...{
@@ -155,77 +157,6 @@ export default function ChoixTravaux({
             : null,
         }}
       />
-    </div>
+    </>
   )
 }
-
-export const Accordion = styled.div`
-  width: 100%;
-  margin-bottom: 3rem;
-  label {
-    cursor: pointer;
-    display: flex;
-    gap: 1rem;
-    border: 1px solid #dddddd;
-    ${(p) =>
-      p.geste &&
-      'border: 2px solid #dfdff0;border-radius: 5px;margin-bottom: 1rem;'}
-    padding: ${(p) => (p.geste ? '0.5rem' : '1rem')};
-    > h3 {
-      flex-grow: 1;
-      font-weight: normal;
-      margin: 0;
-      font-size: 100%;
-      display: flex;
-      align-items: center;
-      ${(p) => !p.geste && 'border-right: 1px solid #dfdff0;'}
-      input {
-        width: 1.6rem;
-        height: 1.6rem;
-        margin-right: 1rem;
-        cursor: pointer;
-      }
-      .sousTitre {
-        display: block;
-        font-weight: normal;
-        color: var(--mutedColor);
-      }
-    }
-    img {
-      margin-left: auto;
-    }
-  }
-  .estimer {
-    font-weight: normal;
-    &:hover {
-      background: var(--color);
-      color: white;
-    }
-  }
-  .slide-down {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 1s ease-out;
-  }
-  .slide-down.active {
-    max-height: fit-content;
-    background: white;
-  }
-  section > .slide-down.active {
-    padding: 1rem;
-  }
-  table {
-    width: 100%;
-    td {
-      border: none;
-    }
-  }
-  tr td:first-of-type > img {
-    width: 1rem;
-    height: auto;
-    margin: 0 0.5rem;
-  }
-  span {
-    cursor: pointer;
-  }
-`

@@ -1,8 +1,9 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
-import Breadcrumb from '@/components/Breadcrumb'
 import { Suspense } from 'react'
 import Denormandie from './Denormandie'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'Le dispositif Denormandie en ' + new Date().getFullYear(),
@@ -15,22 +16,33 @@ export const metadata: Metadata = {
 
 export default function Aides() {
   return (
-    <Main>
-      <Section>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Les exonérations fiscales': '/aides/exoneration-fiscale' },
+          currentPageLabel="Le dispositif Denormandie"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              'Le dispositif Denormandie':
-                '/aides/exoneration-fiscale/denormandie',
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: 'Les exonérations fiscales',
+              linkProps: {
+                href: '/aides/exoneration-fiscale',
+              },
             },
           ]}
         />
         <Suspense>
           <Denormandie />
         </Suspense>
-      </Section>
-    </Main>
+      </PageBlock>
+    </>
   )
 }

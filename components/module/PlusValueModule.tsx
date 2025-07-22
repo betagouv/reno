@@ -12,21 +12,17 @@ import { getCommune } from '../personas/enrichSituation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import {
   CommuneLogement,
-  Dot,
-  Li,
   LogementType,
   MontantQuestion,
-  QuestionList,
 } from '@/app/module/AmpleurQuestions'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import DPELabel, { conversionLettreIndex } from '../dpe/DPELabel'
 import { EvaluationValueWrapper } from '@/app/module/AmpleurEvaluation'
-import { Key } from '../explications/ExplicationUI'
 import { formatNumber } from '../RevenuInput'
-import { CTA, CTAWrapper } from '../UI'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import PlusValueWidget from '../plusValue/PlusValueWidget'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function PlusValueModule({ type }) {
   const engine = new Publicodes(rules)
@@ -74,171 +70,116 @@ export default function PlusValueModule({ type }) {
       isMobile={isMobile}
       title="Après rénovation, combien vaudra mon bien ?"
     >
-      <QuestionList>
-        <Li
-          $next={true}
-          $touched={answeredQuestions.includes('logement . type')}
-        >
-          <LogementType
-            {...{
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              text: 'Mon logement est ',
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('logement . type')}
-          $touched={answeredQuestions.includes('logement . commune')}
-        >
-          <CommuneLogement
-            {...{
-              situation,
-              text: 'Il est situé à',
-              onChange: (result) => {
-                setSearchParams({
-                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                  [encodeDottedName('logement . commune . nom')]:
-                    `"${result.nom}"*`,
-                })
-              },
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('logement . type')}
-          $touched={answeredQuestions.includes("logement . prix d'achat")}
-        >
-          <MontantQuestion
-            {...{
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              rule: "logement . prix d'achat",
-              text: "Aujourd'hui estimé à",
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes("logement . prix d'achat")}
-          $touched={answeredQuestions.includes('DPE . actuel')}
-        >
-          <Dot />
-          <DPEQuickSwitch
-            oldIndex={situation['DPE . actuel'] - 1}
-            situation={situation}
-            columnDisplay={isMobile}
-            text={'Et il a une étiquette DPE'}
-          />
-        </Li>
+      <form id="plus-value">
+        <LogementType
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            text: 'Mon logement est :',
+          }}
+        />
+        <CommuneLogement
+          {...{
+            situation,
+            disabled: !answeredQuestions.includes('logement . type'),
+            text: 'Il est situé à',
+            onChange: (result) => {
+              setSearchParams({
+                [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                [encodeDottedName('logement . commune . nom')]:
+                  `"${result.nom}"*`,
+              })
+            },
+          }}
+        />
+        <MontantQuestion
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            rule: "logement . prix d'achat",
+            text: "Aujourd'hui estimé à",
+            disabled: !answeredQuestions.includes('logement . type'),
+          }}
+        />
+        <DPEQuickSwitch
+          oldIndex={situation['DPE . actuel'] - 1}
+          situation={situation}
+          columnDisplay={isMobile}
+          disabled={!answeredQuestions.includes("logement . prix d'achat")}
+          text={'Et il a une étiquette DPE'}
+        />
         {situation['DPE . actuel'] > 2 && (
-          <Li
-            $next={answeredQuestions.includes('DPE . actuel')}
-            $touched={answeredQuestions.includes('projet . DPE visé')}
-          >
-            <Dot />
-            <span
-              css={`
-                li {
-                  margin: 0 !important;
-                }
-              `}
-            >
-              <TargetDPETabs
-                {...{
-                  oldIndex: situation['DPE . actuel'] - 1,
-                  setSearchParams,
-                  answeredQuestions,
-                  choice: Math.max(1, situation['projet . DPE visé'] - 1),
-                  engine,
-                  situation,
-                  columnDisplay: isMobile,
-                  text: 'Après les travaux, je vise',
-                }}
-              />
-            </span>
-          </Li>
+          <TargetDPETabs
+            {...{
+              disabled: !answeredQuestions.includes('DPE . actuel'),
+              oldIndex: situation['DPE . actuel'] - 1,
+              setSearchParams,
+              answeredQuestions,
+              choice: Math.max(1, situation['projet . DPE visé'] - 1),
+              engine,
+              situation,
+              columnDisplay: isMobile,
+              text: 'Après les travaux, je vise :',
+            }}
+          />
         )}
-      </QuestionList>
-      <EvaluationValueWrapper $active={plusValue != 0 && !isNaN(plusValue)}>
-        <h2
-          css={`
-            ${isMobile && 'font-size: 105% !important;'}
-          `}
-        >
+      </form>
+      <EvaluationValueWrapper
+        className={`fr-callout fr-callout--${plusValue != 0 && !isNaN(plusValue) ? 'green-emeraude' : 'yellow-moutarde'}`}
+      >
+        <h2 className="fr-callout__title">
           <span aria-hidden="true">💶</span> Après rénovation
           {!isMobile ? ' énergétique' : ''}, mon bien vaudra
           {!isMobile && ' :'}{' '}
         </h2>
         {situation['DPE . actuel'] <= 2 ? (
-          <>
+          <p className="fr-callout__text">
             🤔 Nous ne pouvons estimer l'impact d'une rénovation sur les biens
             classés <DPELabel index="0" /> ou <DPELabel index="1" />
-          </>
+          </p>
         ) : plusValue != 0 && !isNaN(plusValue) ? (
           <>
-            <div
-              css={`
-                width: 100%;
-              `}
-            >
-              <Key
-                $state="prime"
-                css={`
-                  width: 100%;
-                  margin: 0.5rem 0;
-                  font-size: 120%;
-                  padding: 0.5rem 0;
-                `}
-              >
-                {formatNumber(plusValue)} €
-              </Key>
-            </div>
-            <DPEAppreciationInfo
-              {...{
-                situation,
-                pourcentageAppreciation,
-                region,
-              }}
-            />
+            <Badge noIcon className="fr-display--xs">
+              {formatNumber(plusValue)} €
+            </Badge>
+            <p className="fr-hint-text">
+              <DPEAppreciationInfo
+                {...{
+                  situation,
+                  pourcentageAppreciation,
+                  region,
+                }}
+              />
+            </p>
           </>
         ) : (
-          <>
+          <p className="fr-callout__title">
             🤔 Répondez aux questions pour connaître la valeur verte de votre
             bien
-          </>
+          </p>
         )}
         {isNaN(plusValue) && (
-          <>
+          <p className="fr-callout__title">
             Nous n'avons pas assez de données concernant ce type de bien pour
             vous proposer une estimation précise.
-          </>
+          </p>
         )}
-        <CTAWrapper $justify="left" $customCss="margin: 0.5rem auto;">
-          <CTA $importance="primary" css="font-size: 100%;">
-            <AmpleurCTA
-              situation={situation}
-              isMobile={isMobile}
-              target="_blank"
-              text={'Découvrir vos aides à la réno'}
-              textMobile={'Découvrir vos aides à la réno'}
-            />
-          </CTA>
-        </CTAWrapper>
+        <AmpleurCTA
+          situation={situation}
+          isMobile={isMobile}
+          target="_blank"
+          text={'Découvrir vos aides à la réno'}
+          textMobile={'Découvrir vos aides à la réno'}
+        />
       </EvaluationValueWrapper>
-      <small
-        css={`
-          display: inline-block;
-          margin-top: 0.5rem;
-          @media (max-width: 400px) {
-            margin: 0rem;
-          }
-        `}
-      >
+      <p className="fr-hint-text">
         Source :{' '}
         <em>
           <a
+            rel="noopener external"
+            className="fr-link"
             href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
             title="Notaires de France"
             target="_blank"
@@ -246,7 +187,7 @@ export default function PlusValueModule({ type }) {
             Notaires de France, étude 2024 (données 2023)
           </a>
         </em>
-      </small>
+      </p>
     </ModuleWrapper>
   ) : (
     <PlusValueWidget
@@ -341,13 +282,13 @@ export const DPEAppreciationInfo = ({
     : 'une maison'
 
   return (
-    <small>
+    <>
       En région {region}, {logementType} classé
       {logementType == 'une maison' && 'e'}{' '}
       <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> a en moyenne
       une valeur <strong>{pourcentageAppreciation.toFixed(1)}%</strong> plus
       élevée qu'un bien classé{' '}
       <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
-    </small>
+    </>
   )
 }

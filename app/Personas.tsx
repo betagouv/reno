@@ -1,5 +1,5 @@
 import rules from '@/app/règles/rules'
-import { Card, ExternalLink, Main, Section } from '@/components/UI'
+import { Card } from '@/components/UI'
 import quoteIcon from '@/public/quote-remix.svg'
 import Image from 'next/image'
 import Publicodes from 'publicodes'
@@ -21,31 +21,29 @@ import enrichSituationServer from '@/components/personas/enrichSituationServer'
 const engine = new Publicodes(rules)
 export default function Personas({}) {
   return (
-    <Main>
-      <Section>
-        <h1>Tester un persona</h1>
-        <p>Ces personas constituent des profils fictifs de test. </p>
-        <p>
-          Certains sont complets : toutes les informations sont renseignées, les
-          montants sont exacts. D'autres non (par exemple, on connait le DPE de
-          départ, mais pas le DPE visé) : les aides sont alors calculées pour
-          donner les <em>aides maximales</em>.
-        </p>
-        <p>
-          💡 Cette page ne peut en principe pas contenir de test erroné, car un
-          seul test qui ne passe pas empêche le déploiement de Mes Aides Réno.
-        </p>
-        <PersonasList>
-          <ul>
-            {personas
-              //.filter((persona) => persona.description.includes('mais en IdF'))
-              .map((persona, personaIndex) => (
-                <PersonaCard {...{ engine, persona, personaIndex }} />
-              ))}
-          </ul>
-        </PersonasList>
-      </Section>
-    </Main>
+    <>
+      <h1>Tester un persona</h1>
+      <p>Ces personas constituent des profils fictifs de test. </p>
+      <p>
+        Certains sont complets : toutes les informations sont renseignées, les
+        montants sont exacts. D'autres non (par exemple, on connait le DPE de
+        départ, mais pas le DPE visé) : les aides sont alors calculées pour
+        donner les <em>aides maximales</em>.
+      </p>
+      <p>
+        💡 Cette page ne peut en principe pas contenir de test erroné, car un
+        seul test qui ne passe pas empêche le déploiement de Mes Aides Réno.
+      </p>
+      <PersonasList>
+        <ul>
+          {personas
+            //.filter((persona) => persona.description.includes('mais en IdF'))
+            .map((persona, personaIndex) => (
+              <PersonaCard {...{ engine, persona, personaIndex }} />
+            ))}
+        </ul>
+      </PersonasList>
+    </>
   )
 }
 
@@ -146,9 +144,13 @@ const PersonaCard = ({ engine, persona, personaIndex }) => {
             personaIndex={personaIndex}
             enrichedSituation={enrichedSituation}
           />
-          <ExternalLink href="https://github.com/betagouv/reno/blob/master/app/personas.yaml">
+          <a
+            rel="noopener external"
+            className="fr-link"
+            href="https://github.com/betagouv/reno/blob/master/app/personas.yaml"
+          >
             Inspecter
-          </ExternalLink>
+          </a>
         </div>
       </Card>
     </li>

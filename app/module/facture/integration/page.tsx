@@ -1,9 +1,13 @@
 import { Suspense } from 'react'
 import FactureIntegration from './FactureIntegration'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 export default function Integration() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <FactureIntegration />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <Suspense fallback={<div>Loading...</div>}>
+        <FactureIntegration />
+      </Suspense>
+    </>
   )
 }

@@ -1,4 +1,4 @@
-import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
+import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'

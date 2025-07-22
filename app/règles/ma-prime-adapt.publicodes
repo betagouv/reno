@@ -1,0 +1,191 @@
+mpa:
+  titre: MaPrime Adapt', l'aide pour l'adaptation à la perte d'autonomie
+  marque: MaPrime Adapt'
+  type: remboursement
+  description: |
+    MaPrimeAdapt' est l'aide dédiée aux personnes souhaitant adapter leur logement à leur perte d'autonomie, dans un contexte de transition démographique.
+  lien: https://france-renov.gouv.fr/aides/maprimeadapt
+mpa . montant:
+  variations:
+    - si: mpa . situation demandeur = 'occupant'
+      alors: occupant . montant
+    - si: mpa . situation demandeur = 'bailleur'
+      alors: bailleur . montant
+    - si: mpa . situation demandeur = 'copropriété'
+      alors: copropriété . montant
+mpa . situation demandeur:
+  question: Quelle est votre situation ?
+  description: |
+    D'autres statuts d'occupation spécifiques peuvent également ouvrir des droits à l'aide MaPrimeAdapt' notamment pour les usufruitiers, les titulaires d'un droit d'usage et d'habitation, ou les occupants d'un logement en viager.
+  une possibilité parmi:
+    possibilités:
+      - 'occupant'
+      - 'bailleur'
+      - 'copropriété'
+  par défaut: "'occupant'"
+mpa . situation demandeur . occupant:
+  valeur: "'occupant'"
+  titre: Propriétaire de mon logement ou locataire du parc privé
+mpa . situation demandeur . bailleur: 
+  valeur: "'bailleur'"
+  titre: Propriétaire d'un logement que vous louez ou que vous souhaitez mettre en location
+mpa . situation demandeur . copropriété: 
+  valeur: "'copropriété'"
+  titre: Syndicat de copropriété
+
+mpa . montant travaux:
+  question: Quel est le montant estimé de travaux pour l'adaptation du logement?
+  par défaut: 20000€
+  unité: '€'
+  description: |
+    Les travaux éligibles sont:
+      - Adaptation de la salle de bain
+        - Installation d'une douche de plain-pied en remplacement d'une baignoire ou d'une douche non adaptée 
+        - Rehaussement des toilettes 
+        - Pose de carrelage ou revêtement antidérapant 
+        - Pose de barres d'appui et mains courantes 
+      - Accessibilité du logement
+        -  Création d'une rampe d'accès 
+        - Installation d'un monte-escalier 
+        - Installation d'un ascenseur 
+        - Installation d'un monte-personne ou plateforme élévatrice 
+        - Amélioration de la circulation intérieure, élargissement de passages
+        - Aménagement d'une pièce
+      - Autres travaux y compris extérieurs
+        - Création d'une pièce supplémentaire 
+        - Création d'une unité de vie 
+        - Installation de meubles pour personnes à mobilité réduite 
+        - Élargissement ou aménagement  de parking 
+        - Aménagement du cheminement extérieur 
+        - Installation de volets roulants électriques 
+        - Motorisation de volets roulants 
+        - Autonomie et adaptation: autres besoins
+
+mpa . occupant:
+  titre: MaPrime Adapt'
+  marque: MaPrime Adapt'
+  type: remboursement 
+  description: |
+    MaPrimeAdapt' est l'aide dédiée aux personnes souhaitant adapter leur logement à leur perte d'autonomie, dans un contexte de transition démographique.
+  lien: https://france-renov.gouv.fr/aides/maprimeadapt
+mpa . occupant . condition age ou handicap:
+  question: |
+    Dans quelle situation se trouve le membre de votre foyer concerné ?
+  possibilités:
+  - gir
+  - age
+  - incapacité
+  - pch
+mpa . occupant . condition age ou handicap . gir:
+  valeur: gir
+  titre: Âgé de 60 à 69 ans sur conditions de GIR (groupe iso-ressources de 1 à 6)
+mpa . occupant . condition age ou handicap . age:
+  valeur: 70 ans
+  titre: Âgé de 70 ans ou plus
+mpa . occupant . condition age ou handicap . incapacité:
+  valeur: incapacité
+  titre: A un taux d'incapacité supérieur ou égal à 50%
+mpa . occupant . condition age ou handicap . pch:
+  valeur: pch
+  titre: Bénéficie de la Prestation de Compensation du Handicap (PCH)
+
+mpa . occupant . conditions de revenu:
+  une de ces conditions:
+    - ménage . revenu . classe = 'modeste'
+    - ménage . revenu . classe = 'très modeste'
+mpa . occupant . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'occupant'
+    - condition age ou handicap != 'aucune'
+    - conditions de revenu
+    - logement . période de construction = "au moins 15 ans"
+mpa . occupant . montant:
+  applicable si: condition éligibilité
+  produit:
+    - montant travaux
+    - pourcentage d'aide
+  unité: €
+  plafond:
+    produit:
+      - pourcentage d'aide
+      - montant travaux . plafond
+mpa . occupant . pourcentage d'aide:
+  unité: '%'
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 70 %
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 50 %
+    - sinon: 0 %
+mpa . occupant . montant travaux: montant travaux
+mpa . occupant . montant travaux . plafond: 22000 €
+
+mpa . bailleur:
+  titre: MaPrime Adapt' pour les propriétaires bailleurs 
+  marque: MaPrime Adapt'
+  type: remboursement
+  description: |
+    MaPrimeAdapt' est l'aide dédiée aux propriétaires bailleurs souhaitant adapter leur logement à leur locataire, dans un contexte de transition démographique.
+  lien: https://france-renov.gouv.fr/aides/maprimeadapt
+mpa . bailleur . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'bailleur'
+    - condition locataire != 'aucune'
+    - est défini: logement . surface
+mpa . bailleur . condition locataire:
+  question: Dans quelle situation se trouve votre locataire ?
+  possibilités:
+  - gir
+  - incapacité
+  - pch
+mpa . bailleur . condition locataire . gir:
+  valeur: gir
+  titre: A une perte d'autonomie attestée par un GIR (groupe iso-ressources)
+mpa . bailleur . condition locataire . incapacité:
+  valeur: incapacité
+  titre: A un taux d’incapacité supérieur ou égal à 50 %
+mpa . bailleur . condition locataire . pch:
+  valeur: pch
+  titre: Bénéficie de la Prestation de Compensation du Handicap (PCH)
+mpa . bailleur . montant:
+  applicable si: condition éligibilité
+  produit:
+    - montant travaux
+    - pourcentage d'aide
+  plafond: plafond
+  unité: €
+mpa . bailleur . montant . plafond: 
+  produit:
+    - le minimum de:
+      - logement . surface
+      - 80
+    - pourcentage d'aide
+    - 750 €
+  unité: €
+mpa . bailleur . pourcentage d'aide: 35 %
+
+
+mpa . copropriété:
+  titre: MaPrime Adapt' pour les syndicats de copropriété 
+  marque: MaPrime Adapt'
+  type: remboursement
+  description: |
+    MaPrimeAdapt' subventionne les travaux améliorant l'accessibilité de l'immeuble et portant sur les parties communes et équipements communs des copropriétés. Tous les travaux concourant à l'accessibilité des parties communes sont recevables.
+  conditions éligibilités: |
+    - Les travaux doivent être votés en assemblée générale et payés par l’ensemble des copropriétaires en fonction de leur quote-part.
+    - La demande d’aide doit être déposée par le syndicat des copropriétaires.
+  lien: https://france-renov.gouv.fr/aides/maprimeadapt
+mpa . copropriété . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'copropriété'
+mpa . copropriété . montant:
+  applicable si: condition éligibilité
+  produit:
+    - montant travaux
+    - pourcentage d'aide
+  plafond: plafond
+  unité: €
+mpa . copropriété . montant . plafond: 10000 €
+mpa . copropriété . montant travaux: montant travaux
+mpa . copropriété . montant travaux . plafond: 20000 €
+mpa . copropriété . pourcentage d'aide: 50 %

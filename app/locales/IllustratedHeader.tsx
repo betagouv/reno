@@ -1,3 +1,4 @@
+'use client'
 import useWikidata from '@/components/wikidata/useWikidata'
 
 export default function IllustratedHeader({ placeTitle, imageTitle }) {

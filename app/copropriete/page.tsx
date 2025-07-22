@@ -1,5 +1,5 @@
 import Copropriete from '@/components/copropriete/Copropriete'
-import { Main, PageBlock } from '@/components/UI'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
 
@@ -15,8 +15,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <Suspense>
-      <Copropriete />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <Suspense>
+        <Copropriete />
+      </Suspense>
+    </>
   )
 }

@@ -2,47 +2,38 @@
 import data from '@/app/faq/FAQ.yaml'
 import { Questions } from './FAQUI'
 import { parse } from 'marked'
-import css from '@/components/css/convertToJs'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { push } from '@socialgouv/matomo-next'
-import { CTA, CTAWrapper } from '@/components/UI'
+import Button from '@codegouvfr/react-dsfr/Button'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { Tag } from '@codegouvfr/react-dsfr/Tag'
 
 export default function FAQ() {
   const router = useRouter()
   return (
-    <section>
-      <CTAWrapper
-        $justify="start"
-        css={`
-          margin-top: 0;
-        `}
+    <>
+      <Breadcrumb
+        currentPageLabel="Questions et contact"
+        homeLinkProps={{
+          href: '/',
+        }}
+        segments={[]}
+      />
+      <Button
+        iconId="fr-icon-arrow-left-line fr-mb-5v"
+        priority="secondary"
+        onClick={() => {
+          push([
+            'trackEvent',
+            'Simulateur Principal',
+            'Clic',
+            'retour depuis FAQ',
+          ])
+          router.back()
+        }}
       >
-        <CTA
-          $fontSize="normal"
-          $importance="emptyBackground"
-          css={`
-            a {
-              padding: 0.5rem 0.8rem;
-            }
-          `}
-        >
-          <Link
-            href="#"
-            onClick={() => {
-              push([
-                'trackEvent',
-                'Simulateur Principal',
-                'Clic',
-                'retour depuis FAQ',
-              ])
-              router.back()
-            }}
-          >
-            ⬅ Retour
-          </Link>
-        </CTA>
-      </CTAWrapper>
+        Retour
+      </Button>
       <h1>Questions et contact</h1>
       <p>
         Voici quelques réponses aux questions les plus fréquentes au sujet des
@@ -61,25 +52,18 @@ export default function FAQ() {
               <details>
                 <summary open={false}>
                   <div>
-                    <small>{question.catégorie}</small>
-
+                    <Tag>{question.catégorie}</Tag>
                     <h3>{question.question}</h3>
                   </div>
                 </summary>
                 <section
                   dangerouslySetInnerHTML={{ __html: parse(question.réponse) }}
-                ></section>
+                />
               </details>
             </li>
           ))}
-        <p
-          style={css`
-            font-style: italic;
-          `}
-        >
-          De nouvelles questions viendront bientôt completer cette page.
-        </p>
+        <p>De nouvelles questions viendront bientôt completer cette page.</p>
       </Questions>
-    </section>
+    </>
   )
 }

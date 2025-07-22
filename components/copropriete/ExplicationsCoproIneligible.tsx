@@ -1,6 +1,6 @@
 import rules from '@/app/règles/rules'
-import { PrimeStyle } from '../UI'
 import styled from 'styled-components'
+import { Badge } from '@codegouvfr/react-dsfr/Badge'
 const rule = rules['copropriété . condition éligibilité']
 const conditions = Object.entries(rule['toutes ces conditions'])
 console.log('cyan é', rule)
@@ -22,9 +22,9 @@ export default function ExplicationsCoproIneligible({ engine, situation }) {
             return (
               <li key={dottedName}>
                 {condition.titre} :{' '}
-                <PrimeStyle $red={!value}>
+                <Badge noIcon severity={value ? 'success' : 'error'}>
                   {value ? '✔ oui' : '✗ non'}
-                </PrimeStyle>
+                </Badge>
               </li>
             )
           })}

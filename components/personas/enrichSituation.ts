@@ -52,6 +52,7 @@ export async function getCommune(
     const response = await fetch(url)
     return await response.json()
   }
+  if (!path) return null
   const url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
 
   const response = await fetch(url)

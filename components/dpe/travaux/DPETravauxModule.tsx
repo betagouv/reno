@@ -16,7 +16,6 @@ import {
   getAssociationTravauxDpe,
 } from './DPETravauxIsolation'
 import { DPETravauxChauffage } from './DPETravauxChauffage'
-import { CTA, PrimeStyle } from '../../UI'
 import getNextQuestions from '../../publicodes/getNextQuestions'
 import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
 import { AvanceTMO } from '../../mprg/BlocAideMPR'
@@ -24,6 +23,8 @@ import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 import useDpe from '../useDpe'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
+import Badge from '@codegouvfr/react-dsfr/Badge'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function DPETravauxModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
@@ -247,14 +248,13 @@ export default function DPETravauxModule({ type, numDpe }) {
               <span>
                 <Priorité valeur={getPriorite('ampleur')} />
               </span>
-              <CTA
-                $fontSize="normal"
-                $importance="secondary"
+              <Button
+                priority="secondary"
                 className="estimer"
                 onClick={() => setShowMPRA((prev) => !prev)}
               >
-                <span>{showMPRA ? 'Fermer' : 'Estimer'}</span>
-              </CTA>
+                {showMPRA ? 'Fermer' : 'Estimer'}
+              </Button>
             </h3>
             <div
               css={`
@@ -459,15 +459,13 @@ export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
           display: flex;
         `}
       >
-        <PrimeStyle
-          css={`
-            padding: 0.75rem;
-          `}
-          $inactive={
-            !(
-              Array.isArray(questions) &&
-              questions.every((question) => question in situation)
-            )
+        <Badge
+          noIcon
+          severity={
+            Array.isArray(questions) &&
+            questions.every((question) => question in situation)
+              ? 'success'
+              : 'default'
           }
         >
           {isEligible !== 'Non applicable' ? (
@@ -493,7 +491,7 @@ export function MontantPrimeTravaux({ questions, engine, rule, situation }) {
               Non Éligible
             </strong>
           )}
-        </PrimeStyle>
+        </Badge>
       </div>
       <div
         css={`

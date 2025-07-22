@@ -1,13 +1,7 @@
 import Link from 'next/link'
 import rules from '@/app/règles/rules'
-import { CTA } from '../UI'
-import {
-  encodeDottedName,
-  encodeSituation,
-  getSituation,
-} from '../publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 import iconCalculator from '@/public/calculator.svg'
-import iconFlecheDroite from '@/public/fleche-droite-bleue.svg'
 import { omit } from '@/components/utils'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
@@ -23,20 +17,14 @@ export default function AideCTAs({
   const isMobile = window.innerWidth <= 600
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+  const { objectif, ...situationSearchParams } = searchParams
 
   const detailUrl = setSearchParams(
-    {
-      ...encodeSituation(
-        {
-          ...getSituation(searchParams, rules),
-          ['details']: encodeDottedName(dottedName),
-        },
-        false,
-        answeredQuestions,
-      ),
-    },
+    encodeSituation({
+      ['details']: encodeDottedName(dottedName),
+    }),
     'url',
-    true,
+    false,
   )
 
   const backUrl =
@@ -48,70 +36,57 @@ export default function AideCTAs({
           false,
           answeredQuestions,
         ),
+        ['objectif']: objectif,
       },
       'url',
       true,
     )
 
   return (
-    <CTA
-      $fontSize="normal"
-      $importance="emptyBackground"
-      css={`
-        margin: ${expanded ? '1rem auto' : '1rem 0'};
-      `}
+    <Link
+      className={`fr-btn fr-btn--secondary ${!expanded && 'fr-icon-arrow-right-line fr-btn-icon--right'}`}
+      href={expanded ? backUrl : detailUrl}
+      onClick={() =>
+        !expanded &&
+        push(['trackEvent', 'Simulateur Principal', 'Détails', dottedName])
+      }
     >
-      <Link
-        href={expanded ? backUrl : detailUrl}
-        onClick={() =>
-          !expanded &&
-          push(['trackEvent', 'Simulateur Principal', 'Détails', dottedName])
-        }
+      <span
+        css={`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-wrap: auto;
+        `}
       >
-        <span
-          css={`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-wrap: auto;
-          `}
-        >
-          {expanded ? (
-            <>Revenir à la liste des aides</>
-          ) : (
-            <>
-              {[
-                'MPR . accompagnée',
-                'denormandie',
-                "CEE . rénovation d'ampleur",
-              ].includes(dottedName) ? (
-                <>
-                  <Image
-                    src={iconCalculator}
-                    alt="icone calculatrice"
-                    css={`
-                      margin-right: 0.5rem;
-                    `}
-                  />
-                  Calculer le montant d'aides
-                </>
-              ) : (
-                <>
-                  En savoir plus{' '}
-                  {!isMobile && <>sur {rules[dottedName].marque}</>}
-                </>
-              )}
-              <Image
-                src={iconFlecheDroite}
-                alt="icone fleche"
-                css={`
-                  margin-left: 0.5rem;
-                `}
-              />
-            </>
-          )}
-        </span>
-      </Link>
-    </CTA>
+        {expanded ? (
+          <>Revenir à la liste des aides</>
+        ) : (
+          <>
+            {[
+              'MPR . accompagnée',
+              'denormandie',
+              "CEE . rénovation d'ampleur",
+            ].includes(dottedName) ? (
+              <>
+                <Image
+                  src={iconCalculator}
+                  alt="icone calculatrice"
+                  css={`
+                    margin-right: 0.5rem;
+                  `}
+                />
+                Calculer le montant d'aides
+              </>
+            ) : (
+              <>
+                En savoir plus{' '}
+                {!isMobile && <>sur {rules[dottedName].marque}</>}
+              </>
+            )}
+          </>
+        )}
+      </span>
+    </Link>
   )
 }

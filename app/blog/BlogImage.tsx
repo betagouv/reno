@@ -24,7 +24,8 @@ export default function BlogImage() {
     <Image
       src={!isMobile ? illustrationBlog : illustrationMobile}
       style={{
-        margin: '.6rem 3rem',
+        width: '100%',
+        height: 'auto',
         ...(isMobile
           ? {
               ...css(mobileStyle),

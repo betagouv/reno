@@ -14,7 +14,7 @@ import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import simulationConfigCopropriete from '../../app/copropriete/simulationConfigCopro.yaml'
 import ExplicationCopropriete from './ExplicationCopropriete'
-import { Main, Section } from '../UI'
+import { PageBlock } from '../UI'
 
 const content = rules['copropriété'].descriptionHtml
 
@@ -47,34 +47,15 @@ export default function Copropriete() {
     rules,
   ).filter((q) => q != 'copropriété . montant travaux')
 
-  console.log('NQ', nextQuestions)
-
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
   const setSearchParams = useSetSearchParams()
 
   return (
-    <Main>
-      <Section>
-        {rule ? (
-          <div>
-            <InputSwitch
-              {...{
-                rules,
-                currentQuestion,
-                situation,
-                answeredQuestions,
-                setSearchParams,
-                engine,
-                nextQuestions,
-                searchParams,
-              }}
-            />
-
-            <div dangerouslySetInnerHTML={{ __html: content }} />
-          </div>
-        ) : (
-          <ExplicationCopropriete
+    <PageBlock>
+      {rule ? (
+        <>
+          <InputSwitch
             {...{
               rules,
               currentQuestion,
@@ -86,8 +67,25 @@ export default function Copropriete() {
               searchParams,
             }}
           />
-        )}
-      </Section>
-    </Main>
+          <div
+            className="fr-mt-5v"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        </>
+      ) : (
+        <ExplicationCopropriete
+          {...{
+            rules,
+            currentQuestion,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            engine,
+            nextQuestions,
+            searchParams,
+          }}
+        />
+      )}
+    </PageBlock>
   )
 }

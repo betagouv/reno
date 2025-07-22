@@ -1,5 +1,6 @@
-import Footer from '@/components/Footer'
-import { ExternalLink, Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 import { Metadata } from 'next/types'
 
 export const metadata: Metadata = {
@@ -8,12 +9,19 @@ export const metadata: Metadata = {
     "Mes Aides réno respecte votre vie privée, découvrez l'usage que nous faisons de vos données.",
 }
 
-export default function APIDoc() {
+export default function Confidentialite() {
   return (
-    <Main>
-      <Section>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Confidentialité"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[]}
+        />
         <h1>Confidentialité</h1>
-
         <h2>Traceurs</h2>
         <p>
           Nous utilisons le traceur libre Matomo, via l'instance hébergée par
@@ -72,15 +80,24 @@ export default function APIDoc() {
         <h2>Serveur</h2>
         <p>
           Notre serveur est géré par la société française{' '}
-          <ExternalLink href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">Scalingo
-          </ExternalLink>
+          <a
+            className="fr-link"
+            rel="noopener external"
+            href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483"
+          >
+            Scalingo
+          </a>
           , et est physiquement localisé en France. Voici le{' '}
-          <ExternalLink href="https://scalingo.com/fr/contrat-gestion-traitements-donnees-personnelles">
+          <a
+            className="fr-link"
+            rel="noopener external"
+            href="https://scalingo.com/fr/contrat-gestion-traitements-donnees-personnelles"
+          >
             Contrat de Gestion des Traitements de Données Personnelles
-          </ExternalLink>{' '}
+          </a>{' '}
           de Scalingo.
         </p>
-      </Section>
-    </Main>
+      </PageBlock>
+    </>
   )
 }

@@ -1,11 +1,11 @@
-import { getSituation } from '@/components/publicodes/situationUtils'
-import { Main, Section } from '@/components/UI'
 import ClientDocumentation from './ClientDocumentation'
 import rules from '@/app/règles/rules'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import { Marked } from 'marked'
 import markedPlaintify from 'marked-plaintify'
 import { utils } from 'publicodes'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import { PageBlock } from '@/components/UI'
 
 const parser = new Marked({ gfm: true }).use(markedPlaintify())
 const markdownToPlainText = (markdown) => parser.parse(markdown)
@@ -44,11 +44,14 @@ export default async function RuleDocumentation(props) {
   const dottedName = decodeURIComponent(rawDottedName.join('/'))
 
   return (
-    <Main>
-      <ClientDocumentation
-        dottedName={dottedName}
-        searchParams={searchParams}
-      />
-    </Main>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
+        <ClientDocumentation
+          dottedName={dottedName}
+          searchParams={searchParams}
+        />
+      </PageBlock>
+    </>
   )
 }

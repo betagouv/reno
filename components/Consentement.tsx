@@ -1,8 +1,7 @@
-import { BlueEm } from '@/app/LandingUI'
 import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import { postMessageEligibilityDone } from '@/utils/iframe'
 import { AnswerWrapper, Subtitle } from './InputUI'
-import { CTA, CTAWrapper, Card } from './UI'
+import { Card } from './UI'
 
 export interface ConsentementProps {
   setConsent: (consent: boolean) => void
@@ -32,10 +31,7 @@ export default function Consentement({
         <div>
           <small>Une dernière question</small>
 
-          <h1>
-            Acceptez-vous de partager votre simulation avec{' '}
-            <BlueEm>{hostTitle}</BlueEm> ?
-          </h1>
+          <h1>Acceptez-vous de partager votre simulation avec {hostTitle} ?</h1>
           <Subtitle>
             <p>
               Dans tous les cas, vous obtiendrez vos résultats sur l'écran
@@ -45,14 +41,19 @@ export default function Consentement({
         </div>
       </QuestionHeader>
       <AnswerWrapper>
-        <CTAWrapper $justify="flex-start">
-          <CTA $fontSize="normal" $importance="primary">
-            <button onClick={() => handleElibilityDone(true)}>Oui</button>
-          </CTA>
-          <CTA $fontSize="normal" $importance="primary">
-            <button onClick={() => handleElibilityDone(false)}>Non</button>
-          </CTA>
-        </CTAWrapper>
+        <div
+          style={{
+            display: 'flex',
+            gap: '1rem',
+          }}
+        >
+          <button className="fr-btn" onClick={() => handleElibilityDone(true)}>
+            Oui
+          </button>
+          <button className="fr-btn" onClick={() => handleElibilityDone(false)}>
+            Non
+          </button>
+        </div>
       </AnswerWrapper>
     </Card>
   )

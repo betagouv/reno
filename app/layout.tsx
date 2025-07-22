@@ -2,11 +2,15 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Matomo from '@/utils/Matomo'
 import localFont from 'next/font/local'
-import StyledComponentsRegistry from '../lib/registry'
 import './globals.css'
 import { description } from './page'
 import FooterContent from '@/components/FooterContent'
 import Banner from '@/components/Banner'
+import {
+  DsfrHead,
+  getHtmlAttributes,
+} from '@/src/dsfr-bootstrap/server-only-index'
+import { DsfrProvider } from '@/src/dsfr-bootstrap'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -63,17 +67,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const lang = 'fr'
   return (
-    <html lang="fr">
+    <html {...getHtmlAttributes({ lang })}>
+      <head>
+        <DsfrHead />
+      </head>
       <body className={marianneFont.className}>
-        <StyledComponentsRegistry>
+        <DsfrProvider lang={lang}>
           <Header />
           <Banner />
           {children}
           <Footer>
             <FooterContent />
           </Footer>
-        </StyledComponentsRegistry>
+        </DsfrProvider>
         <Matomo />
       </body>
     </html>

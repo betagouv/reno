@@ -16,6 +16,7 @@ ampleur . montant:
     - ampleur . prime individuelle copropriété . montant
 
 ampleur . tous les dispositifs:
+  applicable si: parcours d'aide = "rénovation énergétique"
   note: |
     Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
 

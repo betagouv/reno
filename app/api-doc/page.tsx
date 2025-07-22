@@ -1,5 +1,6 @@
 import { Metadata } from 'next/types'
 import API from './API'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'API - Mes aides réno',
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 }
 
 export default function APIDoc() {
-  return <API />
+  return (
+    <>
+      <StartDsfrOnHydration />
+      <API />
+    </>
+  )
 }

@@ -1,4 +1,4 @@
-import { CTA, CTAWrapper } from '@/components/UI'
+import Button from '@codegouvfr/react-dsfr/Button'
 import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
@@ -58,45 +58,34 @@ export default function Share({
           text-align: ${align};
         `}
       >
-        <CTAWrapper
-          $justify={align}
+        <Button
+          priority="secondary"
           css={`
-            margin: 2vh 0;
-          `}
-        >
-          <CTA
-            $importance="emptyBackground"
-            css={`
-              ${copied &&
-              `
+            ${copied &&
+            `
                 background: rgba(190, 242, 197, 0.2);
                 border: 1px dashed var(--validColor);
+                color: var(--validColor) !important;
+                box-shadow: 0 0 0 0;
               `}
-            `}
-            $fontSize="normal"
-            title="Cliquez pour partager le lien"
-            onClick={() => {
-              push(['trackEvent', 'Partage', 'Clic'])
-              isMobile && navigator.share ? share() : copyToClipboard()
-            }}
-          >
-            <span
-              css={`
-                ${copied && 'color: var(--validColor) !important;'}
-              `}
-            >
-              {!copied ? (
-                <>
-                  <span aria-hidden="true">🔗</span> Copier le lien
-                </>
-              ) : (
-                <>
-                  <span aria-hidden="true">✔</span> Lien copié
-                </>
-              )}
-            </span>
-          </CTA>
-        </CTAWrapper>
+          `}
+          title="Cliquez pour partager le lien"
+          onClick={(e) => {
+            e.preventDefault()
+            push(['trackEvent', 'Partage', 'Clic'])
+            isMobile && navigator.share ? share() : copyToClipboard()
+          }}
+        >
+          {!copied ? (
+            <>
+              <span aria-hidden="true">🔗</span> Copier le lien
+            </>
+          ) : (
+            <>
+              <span aria-hidden="true">✔</span> Lien copié
+            </>
+          )}
+        </Button>
         {searchParamsString && showWithAnswer && (
           <div
             css={`
@@ -121,7 +110,7 @@ export default function Share({
           </div>
         )}
         {!showWithAnswer && (
-          <p>
+          <p className="fr-mt-3v">
             Rappel : ce lien contient les données que vous avez saisies
             (adresse, catégorie de revenus…)
           </p>

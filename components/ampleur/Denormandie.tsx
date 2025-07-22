@@ -1,4 +1,4 @@
-import { Card, MiseEnAvant } from '../UI'
+import { Card } from '../UI'
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
 import Input from '../Input'
@@ -187,12 +187,8 @@ export default function Denormandie({
               .
             </p>
             {!isSeuilTravauxAtteint && (
-              <MiseEnAvant $type="warning">
-                <h4
-                  css={`
-                    margin: 0 0 1rem;
-                  `}
-                >
+              <div className="fr-callout fr-callout--yellow-moutarde">
+                <h4>
                   Attention : les conditions d'éligibilité ne sont pas remplies.
                 </h4>
                 Pour être éligible, les travaux doivent représenter au minimum{' '}
@@ -205,7 +201,7 @@ export default function Denormandie({
                   }}
                 />{' '}
                 HT (25 % du prix de revient: achat + travaux).
-              </MiseEnAvant>
+              </div>
             )}
           </Card>
           <h3>Carte des villes éligibles au dispositif Denormandie</h3>

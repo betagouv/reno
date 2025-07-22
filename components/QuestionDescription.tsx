@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
 import { useMediaQuery } from 'usehooks-ts'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function QuestionDescription({ currentQuestion, rule }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
@@ -31,31 +32,25 @@ export default function QuestionDescription({ currentQuestion, rule }) {
         <summary
           css={`
             outline: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
             &::-webkit-details-marker {
               display: none;
             }
             &::marker {
               display: none;
             }
-            padding: 0.5rem 1rem;
-            border: 1px solid #dddddd;
-            color: var(--color);
-            position: relative;
+            button {
+              width: 100%;
+              justify-content: center;
+              padding: 0;
+            }
           `}
           onClick={handleSummaryClick}
         >
-          <h2
-            css={`margin: 0;
-                  font-size: 100%;
-                  font-weight: normal;
-            }`}
-          >
+          <Button priority="tertiary">
             <span aria-hidden="true">💡</span>{' '}
             {isOpen ? "Cacher l'aide" : 'Comment répondre ?'}
-          </h2>
+          </Button>
         </summary>
         <div
           dangerouslySetInnerHTML={{ __html: rule.descriptionHtml }}

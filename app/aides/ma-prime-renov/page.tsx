@@ -1,11 +1,12 @@
-import { Card, InternalLink, Main, MiseEnAvant, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
-import mprImage from '@/public/maprimerenov.svg'
 import { categories, getRulesByCategory } from '@/components/utils'
 import Image from 'next/image'
-import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Link from 'next/link'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: "MaPrimeRénov'",
@@ -15,37 +16,32 @@ export const metadata: Metadata = {
 export default function MaPrimeRenov() {
   const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return (
-    <Main>
-      <Section>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { "MaPrimeRénov' rénovation par geste": '/aides/ma-prime-renov' },
+          currentPageLabel="MaPrimeRénov' rénovation par geste"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
           ]}
         />
-        <div
-          style={css`
-            display: flex;
-            margin: 1rem 0;
-          `}
+        <Link
+          className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+          href="/aides"
         >
-          <Image src={mprImage} alt="Logo MaPrimeRénov'" width="100" />
-          <h2
-            style={css`
-              margin-left: 1rem;
-            `}
-          >
-            MaPrimeRénov' rénovation par geste
-          </h2>
-        </div>
-        <MiseEnAvant>
-          <h3
-            style={css`
-              color: #0063cb;
-            `}
-          >
-            Informations
-          </h3>
+          Retour à la liste des aides
+        </Link>
+        <h1>MaPrimeRénov' rénovation par geste</h1>
+        <div className="fr-callout fr-icon-info-line">
+          <h2>Informations</h2>
           <p>
             Vous êtes éligible à l'aide MaPrimeRénov' rénovation par geste si :
           </p>
@@ -74,56 +70,40 @@ export default function MaPrimeRenov() {
             <strong>MaPrimeRénov' parcours accompagné</strong> pour une
             rénovation d'ampleur.
           </p>
-        </MiseEnAvant>
+        </div>
 
-        <h3>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h3>
+        <h2>Calculateurs d'aide MaPrimeRénov' rénovation par geste</h2>
         {Object.keys(rulesByCategory).map((category) => (
-          <Card key={category}>
-            <div
-              style={css`
-                display: flex;
-                align-items: flex-start;
-              `}
+          <div className="fr-callout" key={category}>
+            <h3
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+              }}
             >
               <Image
                 src={categories.find((c) => c.titre == category).image}
                 alt={`icone ${category}`}
-                width="60"
+                width="30"
               />
-              <div>
-                <h3
-                  style={css`
-                    margin-top: 1rem;
-                    padding-left: 1.6rem;
-                  `}
-                >
-                  {category}
-                </h3>
-                <ul
-                  style={css`
-                    list-style-position: inside;
-                  `}
-                >
-                  {rulesByCategory[category].map((rule, index) => (
-                    <li
-                      style={css`
-                        margin: 1rem 0;
-                      `}
-                      key={index}
-                    >
-                      <InternalLink
-                        href={`/aides/ma-prime-renov/${encodeURIComponent(rules[rule].titre)}`}
-                      >
-                        {rules[rule].titre}
-                      </InternalLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Card>
+              {category}
+            </h3>
+            <ul>
+              {rulesByCategory[category].map((rule, index) => (
+                <li key={index}>
+                  <a
+                    className="fr-link"
+                    href={`/aides/ma-prime-renov/${encodeURIComponent(rules[rule].titre)}`}
+                  >
+                    {rules[rule].titre}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </Section>
-    </Main>
+      </PageBlock>
+    </>
   )
 }

@@ -18,9 +18,7 @@ import { EvaluationValue } from './AmpleurEvaluation'
 import { ampleurQuestionsAnswered, usageLogementValues } from './AmpleurInputs'
 import {
   IdFQuestion,
-  Li,
   PersonnesQuestion,
-  QuestionList,
   RevenuQuestion,
   TypeResidence,
 } from './AmpleurQuestions'
@@ -58,9 +56,7 @@ export default function Ampleur({ type }) {
     ]),
   )
 
-  console.log('cyan aq', answeredSituation)
   const savedSituation = useSyncAmpleurSituation(answeredSituation)
-  console.log('cyan ss', savedSituation, userSituation)
 
   const answeredQuestions = savedSituation
     ? Object.keys(savedSituation)
@@ -127,69 +123,41 @@ export default function Ampleur({ type }) {
         L’État vous aide à financer votre rénovation énergétique : faites le
         calcul !
       </p>
-      <QuestionList>
-        <Li
-          key="typeResidence"
-          $next={true}
-          $touched={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-        >
-          <TypeResidence
-            {...{ setSearchParams, situation, answeredQuestions }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-          $touched={
-            answeredQuestions.includes('ménage . région . IdF') ||
-            answeredQuestions.includes('logement . région . IdF')
-          }
-          key="IdF"
-        >
-          <IdFQuestion
-            {...{
-              setSearchParams,
-              isMobile,
-              situation,
-              answeredQuestions,
-            }}
-          />
-        </Li>
-        <Li
-          key="personnes"
-          $next={
-            answeredQuestions.includes('ménage . région . IdF') ||
-            answeredQuestions.includes('logement . région . IdF')
-          }
-          $touched={answeredQuestions.includes('ménage . personnes')}
-        >
-          <PersonnesQuestion
-            {...{
-              defaultSituation,
-              onChange,
-              answeredQuestions,
-              situation,
-            }}
-          />
-        </Li>
-        <Li
-          key="revenu"
-          $next={answeredQuestions.includes('ménage . personnes')}
-          $touched={answeredQuestions.includes('ménage . revenu')}
-        >
-          <RevenuQuestion
-            {...{
-              answeredQuestions,
-              situation,
-              engine,
-              setSearchParams,
-            }}
-          />
-        </Li>
-      </QuestionList>
+      <form id="form-ampleur">
+        <TypeResidence {...{ setSearchParams, situation, answeredQuestions }} />
+        <IdFQuestion
+          {...{
+            setSearchParams,
+            isMobile,
+            situation,
+            answeredQuestions,
+            disabled: !answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            ),
+          }}
+        />
+        <PersonnesQuestion
+          {...{
+            defaultSituation,
+            onChange,
+            answeredQuestions,
+            situation,
+            disabled: !(
+              answeredQuestions.includes('ménage . région . IdF') ||
+              answeredQuestions.includes('logement . région . IdF')
+            ),
+          }}
+        />
+        <RevenuQuestion
+          {...{
+            answeredQuestions,
+            situation,
+            engine,
+            setSearchParams,
+            disabled: !answeredQuestions.includes('ménage . personnes'),
+          }}
+        />
+      </form>
       <UserData {...{ setSearchParams, situation }} />
       <EvaluationValue
         {...{

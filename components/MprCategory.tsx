@@ -1,8 +1,8 @@
 import rules from '@/app/règles/rules'
 import GesteQuestion from './GesteQuestion'
-import { BlocAide, PrimeStyle } from './UI'
+import { BlocAide } from './UI'
 import { formatValue } from 'publicodes'
-import StatusIcon from './ampleur/StatusIcon'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function MprCategory({
   engine,
@@ -49,38 +49,20 @@ export default function MprCategory({
             display: flex;
           `}
         >
-          <PrimeStyle
-            css={`
-              padding: 0.75rem;
-            `}
-            $inactive={!isExactTotal || !positiveValue}
+          <Badge
+            noIcon
+            severity={!isExactTotal || !positiveValue ? '' : 'success'}
           >
-            {' '}
             {positiveValue ? (
-              <span>
+              <>
                 Prime de{' '}
-                <strong
-                  css={`
-                    font-size: 1.5rem;
-                    padding: 0 0.1rem;
-                  `}
-                >
-                  {isExactTotal ? formatValue(primeIndividuelleObj) : '...'}
-                </strong>{' '}
+                {isExactTotal ? formatValue(primeIndividuelleObj) : '...'}
                 par logement
-              </span>
+              </>
             ) : (
-              <span
-                css={`
-                  display: flex;
-                  align-items: center;
-                  gap: 0.4rem;
-                `}
-              >
-                <StatusIcon status={false} /> Pas de prime
-              </span>
+              'Pas de prime'
             )}
-          </PrimeStyle>
+          </Badge>
         </div>
       </div>
     </BlocAide>

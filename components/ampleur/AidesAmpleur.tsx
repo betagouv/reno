@@ -1,15 +1,10 @@
 import { createExampleSituation } from './AmpleurSummary'
-import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import FatConseiller from '../FatConseiller'
 import { useAides } from './useAides'
-import { omit } from '@/components/utils'
 import { Section } from '../UI'
-import Feedback from '@/app/contact/Feedback'
 import { push } from '@socialgouv/matomo-next'
-import CopyButton from '../CopyButton'
-import Breadcrumb from '../Breadcrumb'
-import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
+import { correspondance } from '@/app/simulation/Form'
+import { encodeDottedName } from '../publicodes/situationUtils'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -18,7 +13,6 @@ export default function AidesAmpleur({
   engine,
   rules,
   searchParams,
-  correspondance,
 }) {
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Aides Ampleur'])
   const situation = givenSituation
@@ -44,18 +38,13 @@ export default function AidesAmpleur({
     return (
       <>
         {isEligible !== null && (
-          <h2 title={title}>
+          <h2 className="fr-mt-5v" title={title}>
             <span
-              css={`
-                color: var(--color);
-              `}
               dangerouslySetInnerHTML={{
                 __html:
                   title +
                   '&nbsp;' +
-                  (isEligible === false
-                    ? `<strong style="color: var(--color);">${aidesList.length}</strong>&nbsp;aides`
-                    : ''),
+                  (isEligible === false ? `${aidesList.length} aides` : ''),
               }}
             />
           </h2>
@@ -74,17 +63,12 @@ export default function AidesAmpleur({
           {aidesList.filter(hardCodedFilter).map((aide, i) => {
             const AideComponent = correspondance[aide.baseDottedName]
             const currentType = rules[aide.baseDottedName].type
-            const showType = currentType !== lastType && isEligible
+            const showType = currentType !== lastType
             lastType = currentType
             return (
               <div key={i}>
-                {showType && (
-                  <h4
-                    css={`
-                      font-weight: bold;
-                      margin: 1rem 0;
-                    `}
-                  >
+                {showType && isEligible && (
+                  <h3>
                     {rules[aide.baseDottedName].type === 'remboursement' ? (
                       <>
                         <span aria-hidden="true">💶</span> Remboursements
@@ -94,20 +78,11 @@ export default function AidesAmpleur({
                     ) : (
                       <>Exonérations fiscales</>
                     )}
-                  </h4>
+                  </h3>
                 )}
-
-                {isEligible === null && (
+                {showType && isEligible === null && (
                   <>
-                    <div
-                      css={`
-                        font-weight: bold;
-                        margin: 1rem 0 0 0;
-                        font-size: 120%;
-                      `}
-                    >
-                      {title}
-                    </div>
+                    <h3 className="fr-mt-5v">{title}</h3>
                     <p
                       css={`
                         margin-bottom: 1.5rem;
@@ -118,29 +93,20 @@ export default function AidesAmpleur({
                     </p>
                   </>
                 )}
-                <div
-                  id={'aide-' + encodeDottedName(aide.baseDottedName)}
-                  css={`
-                    border-bottom: 1px solid var(--lighterColor2);
-                    margin-bottom: 1rem;
-                    padding-left: 1.5rem;
-                  `}
-                >
-                  <AideComponent
-                    key={aide.baseDottedName}
-                    {...{
-                      isEligible,
-                      dottedName: aide.baseDottedName,
-                      setSearchParams,
-                      answeredQuestions,
-                      engine,
-                      situation,
-                      searchParams,
-                      rules,
-                      expanded: false,
-                    }}
-                  />
-                </div>
+                <AideComponent
+                  key={aide.baseDottedName}
+                  {...{
+                    isEligible,
+                    dottedName: aide.baseDottedName,
+                    setSearchParams,
+                    answeredQuestions,
+                    engine,
+                    situation,
+                    searchParams,
+                    rules,
+                    expanded: false,
+                  }}
+                />
               </div>
             )
           })}
@@ -152,20 +118,12 @@ export default function AidesAmpleur({
   return (
     <Section
       css={`
-        h2 {
-          font-size: 110%;
-          display: flex;
-          align-items: center;
-        }
-        h3 {
-          font-size: 90%;
-        }
         section {
           margin: 0;
         }
       `}
     >
-      <CustomQuestionWrapper>
+      <section>
         {renderAides(
           eligibles,
           '<span aria-hidden="true">🏦</span> Autres aides complémentaires',
@@ -182,7 +140,7 @@ export default function AidesAmpleur({
               ? false
               : true,
         )}
-      </CustomQuestionWrapper>
+      </section>
     </Section>
   )
 }

@@ -1,5 +1,4 @@
 import AideAmpleur from './AideAmpleur'
-import { BlueEm } from '@/app/LandingUI'
 import rules from '@/app/règles/rules'
 import AddressSearch from '../AddressSearch'
 import { encodeSituation } from '../publicodes/situationUtils'
@@ -46,10 +45,8 @@ export default function AidesLocales({
         <details>
           <summary>
             Nous ne connaissons pas votre commune, à vous de chercher son
-            éligibilté aux aides locales, ou{' '}
-            <BlueEm>cliquez pour la saisir</BlueEm>.
+            éligibilté aux aides locales, ou cliquez pour la saisir.
           </summary>
-
           <AddressSearch
             type="logement . commune"
             setChoice={(result) => {

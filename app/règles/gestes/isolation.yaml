@@ -59,7 +59,7 @@ isolation . vitres . CEE . question:
   valeurs:
     - surface
 isolation . vitres . CEE . surface:
-  question: Quelle surface de vitre souhaitez-vous remplacer
+  question: Quelle surface de vitre souhaitez-vous remplacer ?
   par défaut: 4 m2
   unité: m2
 isolation . vitres . CEE . montant:

@@ -1,4 +1,4 @@
-import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
+import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
@@ -9,6 +9,7 @@ function onlyNumbers(str) {
 }
 
 export default function AddressSearch({
+  label,
   setChoice,
   situation,
   type,
@@ -19,7 +20,7 @@ export default function AddressSearch({
   const [input] = useDebounce(immediateInput, 300)
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
-  const [clicked, setClicked] = useState(situation[type])
+  const [clicked, setClicked] = useState(situation && situation[type])
 
   const validInput = input && input.length >= 3
   // Get the commune name from the code if it exists to display it in the search box
@@ -65,17 +66,16 @@ export default function AddressSearch({
   }, [input, validInput])
 
   return (
-    <AddressInput>
+    <div
+      className={`fr-input-group ${clicked && input ? 'fr-input-group--valid' : ''}`}
+    >
+      <label className="fr-label" htmlFor="city">
+        {label}
+      </label>
       <input
-        css={`
-          ${clicked &&
-          input &&
-          `border-bottom: 2px solid var(--validColor) !important;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTg3NTNjIiBkPSJNMTIgMjJjLTUuNTIgMC0xMC00LjQ4LTEwLTEwUzYuNDggMiAxMiAyczEwIDQuNDggMTAgMTAtNC40OCAxMC0xMCAxMHptLS45OS02bDcuMDctNy4wNy0xLjQxLTEuNDEtNS42NiA1LjY2LTIuODMtMi44My0xLjQxIDEuNDFMMTEuMDEgMTZ6Ii8+PC9zdmc+') rgb(245, 245, 254) no-repeat top 5px right 5px !important;
-            background-size:  16px !important;
-            `}
-        `}
+        className="fr-input"
         type="text"
+        id="city"
         autoFocus={autoFocus}
         value={immediateInput}
         placeholder={'commune ou code postal'}
@@ -84,6 +84,20 @@ export default function AddressSearch({
           setInput(e.target.value)
         }}
       />
+      {clicked && input && (
+        <div
+          className="fr-messages-group"
+          id="input-0-messages"
+          aria-live="polite"
+        >
+          <p
+            className="fr-message fr-message--valid"
+            id="input-0-message-valid"
+          >
+            Adresse validée
+          </p>
+        </div>
+      )}
       <CityList>
         {isLoading && (
           <li
@@ -130,21 +144,9 @@ export default function AddressSearch({
           </>
         )}
       </CityList>
-    </AddressInput>
+    </div>
   )
 }
-
-export const AddressInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  input {
-    margin: 0;
-    padding-left: 1.5rem !important;
-    text-align: left !important;
-    outline: none;
-    height: 2.8rem !important;
-  }
-`
 
 export const CityList = styled.ul`
   padding: 0;
@@ -153,7 +155,6 @@ export const CityList = styled.ul`
   border: 1px solid #dfdff0;
   list-style-type: none;
   position: absolute;
-  margin-top: 35px;
   z-index: 999999;
   li {
     display: block !important;

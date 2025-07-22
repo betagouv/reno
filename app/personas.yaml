@@ -231,7 +231,7 @@
     conditions communes: non
     MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
-    PTZ . montant: 50000
+    PTZ . conditions . communes: oui
 
 - description: |
     Rennes, 3 sauts de DPE, ~ 50k € de travaux, couple intermédiaire.
