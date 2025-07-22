@@ -1,10 +1,7 @@
 import { createExampleSituation } from './AmpleurSummary'
-import { CustomQuestionWrapper } from '../CustomQuestionUI'
 import { useAides } from './useAides'
-import { Section } from '../UI'
 import { push } from '@socialgouv/matomo-next'
 import { correspondance } from '@/app/simulation/Form'
-import { encodeDottedName } from '../publicodes/situationUtils'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -59,88 +56,78 @@ export default function AidesAmpleur({
             éligible à ces aides :
           </p>
         )}
-        <section>
-          {aidesList.filter(hardCodedFilter).map((aide, i) => {
-            const AideComponent = correspondance[aide.baseDottedName]
-            const currentType = rules[aide.baseDottedName].type
-            const showType = currentType !== lastType
-            lastType = currentType
-            return (
-              <div key={i}>
-                {showType && isEligible && (
-                  <h3>
-                    {rules[aide.baseDottedName].type === 'remboursement' ? (
-                      <>
-                        <span aria-hidden="true">💶</span> Remboursements
-                      </>
-                    ) : rules[aide.baseDottedName].type === 'prêt' ? (
-                      <>Prêts à 0 %</>
-                    ) : (
-                      <>Exonérations fiscales</>
-                    )}
-                  </h3>
-                )}
-                {showType && isEligible === null && (
-                  <>
-                    <h3 className="fr-mt-5v">{title}</h3>
-                    <p
-                      css={`
-                        margin-bottom: 1.5rem;
-                      `}
-                    >
-                      C'est à vous de vous renseigner pour ces aides, car nous
-                      n'avons pas pu déterminer votre éligibilité :
-                    </p>
-                  </>
-                )}
-                <AideComponent
-                  key={aide.baseDottedName}
-                  {...{
-                    isEligible,
-                    dottedName: aide.baseDottedName,
-                    setSearchParams,
-                    answeredQuestions,
-                    engine,
-                    situation,
-                    searchParams,
-                    rules,
-                    expanded: false,
-                  }}
-                />
-              </div>
-            )
-          })}
-        </section>
+        {aidesList.filter(hardCodedFilter).map((aide, i) => {
+          const AideComponent = correspondance[aide.baseDottedName]
+          const currentType = rules[aide.baseDottedName].type
+          const showType = currentType !== lastType
+          lastType = currentType
+          return (
+            <div key={i}>
+              {showType && isEligible && (
+                <h3>
+                  {rules[aide.baseDottedName].type === 'remboursement' ? (
+                    <>
+                      <span aria-hidden="true">💶</span> Remboursements
+                    </>
+                  ) : rules[aide.baseDottedName].type === 'prêt' ? (
+                    <>Prêts à 0 %</>
+                  ) : (
+                    <>Exonérations fiscales</>
+                  )}
+                </h3>
+              )}
+              {showType && isEligible === null && (
+                <>
+                  <h3 className="fr-mt-5v">{title}</h3>
+                  <p
+                    css={`
+                      margin-bottom: 1.5rem;
+                    `}
+                  >
+                    C'est à vous de vous renseigner pour ces aides, car nous
+                    n'avons pas pu déterminer votre éligibilité :
+                  </p>
+                </>
+              )}
+              <AideComponent
+                key={aide.baseDottedName}
+                {...{
+                  isEligible,
+                  dottedName: aide.baseDottedName,
+                  setSearchParams,
+                  answeredQuestions,
+                  engine,
+                  situation,
+                  searchParams,
+                  rules,
+                  expanded: false,
+                }}
+              />
+            </div>
+          )
+        })}
       </>
     )
   }
 
   return (
-    <Section
-      css={`
-        section {
-          margin: 0;
-        }
-      `}
-    >
-      <section>
-        {renderAides(
-          eligibles,
-          '<span aria-hidden="true">🏦</span> Autres aides complémentaires',
-          true,
-        )}
-        {renderAides(neSaisPas, 'Aides potentielles', null)}
-        {renderAides(
-          nonEligibles,
-          '<span aria-hidden="true">⛔</span> Non éligible à',
-          false,
-          (aide) =>
-            givenSituation['logement . type'] === '"maison"' &&
-            aide.baseDottedName === 'ampleur . prime individuelle copropriété'
-              ? false
-              : true,
-        )}
-      </section>
-    </Section>
+    <>
+      {renderAides(
+        eligibles,
+        '<span aria-hidden="true">🏦</span> Autres aides complémentaires',
+        true,
+      )}
+      {renderAides(neSaisPas, 'Aides potentielles', null)}
+      {renderAides(
+        nonEligibles,
+        '<span aria-hidden="true">⛔</span> Non éligible à',
+        false,
+        (aide) =>
+          givenSituation['logement . type'] === '"maison"' &&
+          aide.baseDottedName === 'ampleur . prime individuelle copropriété'
+            ? false
+            : true,
+      )}
+    </>
   )
 }

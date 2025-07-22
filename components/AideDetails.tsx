@@ -6,6 +6,7 @@ import { push } from '@socialgouv/matomo-next'
 import { aideTitle } from './ampleur/AideAmpleur'
 import CopyButton from './CopyButton'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Stepper from '@codegouvfr/react-dsfr/Stepper'
 
 export default function AideDetails({
   setSearchParams,
@@ -25,67 +26,67 @@ export default function AideDetails({
   ])
   const AideComponent = correspondance[dottedName]
 
-  if (AideComponent)
-    return (
-      <section>
-        <Breadcrumb
-          currentPageLabel={aideTitle(dottedName)}
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[
-            {
-              label: 'Eligibilité',
-              linkProps: {
-                href: setSearchParams(
-                  {
-                    ...encodeSituation(
-                      omit(['details'], situation),
-                      false,
-                      answeredQuestions,
-                    ),
-                  },
-                  'url',
-                  true,
-                ),
-              },
+  return (
+    <>
+      <Breadcrumb
+        currentPageLabel={aideTitle(dottedName)}
+        homeLinkProps={{
+          href: '/',
+        }}
+        segments={[
+          {
+            label: 'Eligibilité',
+            linkProps: {
+              href: setSearchParams(
+                {
+                  ...encodeSituation(
+                    omit(['details'], situation),
+                    false,
+                    answeredQuestions,
+                  ),
+                },
+                'url',
+                true,
+              ),
             },
-            {
-              label: 'Les iframes',
-              linkProps: {
-                href: '/integration',
-              },
-            },
-          ]}
-        />
-        <div
-          css={`
-            display: flex;
-            justify-content: space-between;
-          `}
-        >
-          <BtnBackToParcoursChoice
-            {...{
-              setSearchParams,
-              situation: omit(['details'], situation),
-              answeredQuestions,
-            }}
-          />
-          <CopyButton searchParams={searchParams} />
-        </div>
-        <AideComponent
+          },
+        ]}
+      />
+      <Stepper
+        className="fr-mt-5v"
+        currentStep={3}
+        nextTitle={'Prochaines étapes'}
+        stepCount={4}
+        title="Eligibilité"
+      />
+      <div
+        css={`
+          display: flex;
+          justify-content: space-between;
+        `}
+      >
+        <BtnBackToParcoursChoice
           {...{
-            dottedName: dottedName,
             setSearchParams,
+            situation: omit(['details'], situation),
             answeredQuestions,
-            engine,
-            situation,
-            searchParams,
-            expanded: true,
-            rules,
           }}
         />
-        <Feedback />
-      </section>
-    )
+        <CopyButton searchParams={searchParams} />
+      </div>
+      <AideComponent
+        {...{
+          dottedName: dottedName,
+          setSearchParams,
+          answeredQuestions,
+          engine,
+          situation,
+          searchParams,
+          expanded: true,
+          rules,
+        }}
+      />
+      <Feedback />
+    </>
+  )
 }

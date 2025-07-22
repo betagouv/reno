@@ -204,19 +204,10 @@ const BlocAideMPR = ({ infoMPR }) => (
     </div>
     <div className="aide-details">
       <div className="details">
-        Précisions:
-        <ul>
-          <li>
-            La prestation doit être inférieure à{' '}
-            <strong>{infoMPR.plafond}</strong>
-          </li>
-          <li>
-            Sous condition de recours à un professionnel <strong>RGE</strong>
-          </li>
-          {rules[infoMPR.dottedName]?.description && (
-            <li>{rules[infoMPR.dottedName].description}</li>
-          )}
-        </ul>
+        Précisions: Sous condition de recours à un professionnel{' '}
+        <strong>RGE</strong>. La prestation doit être inférieure à{' '}
+        <strong>{infoMPR.plafond}</strong>.
+        {rules[infoMPR.dottedName]?.description}
       </div>
     </div>
   </BlocAide>
@@ -257,7 +248,6 @@ const BlocAideCEE = ({
   setSearchParams,
 }) => {
   const isApplicable = infoCEE.montant !== 'Non applicable'
-  console.log('infoCEE', infoCEE)
   return (
     <BlocAide display="geste">
       <div className="aide-header">

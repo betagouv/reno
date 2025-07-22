@@ -3,7 +3,6 @@ import { No } from '@/components/ResultUI'
 import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
 import PersonaBar from './PersonaBar'
-import { Section } from './UI'
 import { useAides } from './ampleur/useAides'
 import { decodeDottedName, encodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
@@ -23,6 +22,7 @@ import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import Stepper from '@codegouvfr/react-dsfr/Stepper'
 
 export default function Eligibility({
   setSearchParams,
@@ -45,106 +45,106 @@ export default function Eligibility({
       iframe.postMessageEligibilityDone(consent ? situation : {})
     }
   }, [isInIframe, consent, situation])
-
   return (
-    <Section
-      css={`
-        ${showPersonaBar && `margin-top: 4rem`}
-      `}
-    >
+    <>
       <PersonaBar
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
         engine={engine}
       />
-      <section>
-        <Breadcrumb
-          currentPageLabel="Eligibilité"
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[]}
+      <Breadcrumb
+        currentPageLabel="Eligibilité"
+        homeLinkProps={{
+          href: '/',
+        }}
+        segments={[]}
+      />
+      <Stepper
+        className="fr-mt-5v"
+        currentStep={3}
+        nextTitle={'Prochaines étapes'}
+        stepCount={4}
+        title="Eligibilité"
+      />
+      <div
+        className="fr-mb-5v"
+        css={`
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        `}
+      >
+        <BackToLastQuestion
+          {...{ setSearchParams, situation, answeredQuestions }}
         />
-        <div
-          className="fr-mb-5v"
-          css={`
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          `}
+        <Link
+          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+          href={setSearchParams({ objectif: 'etape' }, 'url')}
+          onClick={() => {
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Eligibilité',
+              'Obtenir aides',
+            ])
+          }}
+          title="Obtenir mes aides"
         >
-          <BackToLastQuestion
-            {...{ setSearchParams, situation, answeredQuestions }}
-          />
-          <Link
-            className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-            href={setSearchParams({ objectif: 'etape' }, 'url')}
-            onClick={() => {
-              push([
-                'trackEvent',
-                'Simulateur Principal',
-                'Eligibilité',
-                'Obtenir aides',
-              ])
-            }}
-            title="Obtenir mes aides"
-          >
-            Obtenir mes aides
-          </Link>
-          {/* <CopyButton searchParams={searchParams} /> */}
-        </div>
-        <h1>Vos résultats</h1>
-        {situation["parcours d'aide"] == '"rénovation énergétique"' && (
-          <EligibilityRenovationEnergetique
-            {...{
-              engine,
-              situation,
-              aides: useAides(engine, situation),
-              answeredQuestions,
-              rules,
-              setSearchParams,
-              searchParams,
-              expanded,
-            }}
-          />
-        )}
-        {situation["parcours d'aide"] == '"autonomie de la personne"' && (
-          <EligibilityMPA
-            {...{
-              engine,
-              situation,
-              aides: useAides(engine, situation, 'autonomie de la personne'),
-              answeredQuestions,
-              rules,
-              setSearchParams,
-              searchParams,
-            }}
-          />
-        )}
-        <div className="fr-my-5v">
-          <Link
-            className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-            css={`
-              width: 100%;
-              justify-content: center;
-            `}
-            href={setSearchParams({ objectif: 'etape' }, 'url')}
-            onClick={() => {
-              push([
-                'trackEvent',
-                'Simulateur Principal',
-                'Eligibilité',
-                'Obtenir aides',
-              ])
-            }}
-            title="Obtenir mes aides"
-          >
-            Obtenir mes aides
-          </Link>
-        </div>
-        {isInIframe ? null : <Feedback />}
-      </section>
-    </Section>
+          Obtenir mes aides
+        </Link>
+        {/* <CopyButton searchParams={searchParams} /> */}
+      </div>
+      <h1>Vos résultats</h1>
+      {situation["parcours d'aide"] == '"rénovation énergétique"' && (
+        <EligibilityRenovationEnergetique
+          {...{
+            engine,
+            situation,
+            aides: useAides(engine, situation),
+            answeredQuestions,
+            rules,
+            setSearchParams,
+            searchParams,
+            expanded,
+          }}
+        />
+      )}
+      {situation["parcours d'aide"] == '"autonomie de la personne"' && (
+        <EligibilityMPA
+          {...{
+            engine,
+            situation,
+            aides: useAides(engine, situation, 'autonomie de la personne'),
+            answeredQuestions,
+            rules,
+            setSearchParams,
+            searchParams,
+          }}
+        />
+      )}
+      <div className="fr-my-5v">
+        <Link
+          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+          css={`
+            width: 100%;
+            justify-content: center;
+          `}
+          href={setSearchParams({ objectif: 'etape' }, 'url')}
+          onClick={() => {
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Eligibilité',
+              'Obtenir aides',
+            ])
+          }}
+          title="Obtenir mes aides"
+        >
+          Obtenir mes aides
+        </Link>
+      </div>
+      {isInIframe ? null : <Feedback />}
+    </>
   )
 }
 

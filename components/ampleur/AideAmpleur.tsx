@@ -11,6 +11,7 @@ import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import { PrimeBadge } from '../Geste'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Button from '@codegouvfr/react-dsfr/Button'
+import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup'
 
 export default function AideAmpleur({
   isEligible,
@@ -25,127 +26,135 @@ export default function AideAmpleur({
 }) {
   const [isOpenConseiller, setIsOpenConseiller] = useState(false)
   return (
-    <Accordion
-      label={
-        <div
-          css={`
-            display: flex;
-            flex-direction: column;
-          `}
-        >
-          {aideTitle(dottedName)}
-          <PrimeBadge
-            {...{
-              situation,
-              engine,
-              dottedName,
+    <>
+      {expanded ? (
+        <>
+          <div
+            css={`
+              display: flex;
+              flex-direction: column;
+            `}
+            className="fr-my-5v"
+          >
+            <h1>
+              {aideTitle(dottedName)}
+              <br />
+              <PrimeBadge
+                {...{
+                  situation,
+                  engine,
+                  dottedName,
+                }}
+              />
+            </h1>
+          </div>
+          <h2 className="fr-mt-5">
+            <span
+              aria-hidden="true"
+              css={`
+                display: inline-block;
+                margin-right: 0.5rem;
+              `}
+            >
+              🤓
+            </span>
+            De quoi s’agit-il ?
+          </h2>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].descriptionHtml,
             }}
           />
-        </div>
-      }
-      onExpandedChange={() => {
-        push([
-          'trackEvent',
-          'Simulateur Principal',
-          'Page',
-          'Déplie geste ' + dottedName,
-        ])
-      }}
-    >
-      {expanded && (
-        <h2>
-          <span
-            aria-hidden="true"
-            css={`
-              display: inline-block;
-              margin-right: 0.5rem;
-            `}
-          >
-            🤓
-          </span>
-          De quoi s’agit-il ?
-        </h2>
-      )}
-      <div
-        dangerouslySetInnerHTML={{
-          __html: rules[dottedName].descriptionHtml,
-        }}
-      />
-      {addedText}
-      {!expanded && isEligible && (
-        <AideCTAs
-          {...{
-            dottedName,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-            expanded,
-          }}
-        />
-      )}
-      {expanded && (
-        <>
-          {children}
-          <ConditionEligibiliteUI>
-            {rules[dottedName].conditionsEligibilitesHTML}
-          </ConditionEligibiliteUI>
-          <p>
-            <a
-              rel="noopener external"
-              className="fr-link"
-              href={rules[dottedName]['lien']}
-              target="_blank"
-            >
-              Plus d'infos sur cette aide
-            </a>
-          </p>
-          <Button
-            onClick={() => {
-              setIsOpenConseiller(!isOpenConseiller)
-              push([
-                'trackEvent',
-                'Simulateur Principal',
-                'Clic',
-                'trouver conseiller',
-              ])
-            }}
-          >
-            Trouver mon conseiller local
-          </Button>
-          {isOpenConseiller && (
+          {
+            <>
+              {children}
+              <ConditionEligibiliteUI>
+                {rules[dottedName].conditionsEligibilitesHTML}
+              </ConditionEligibiliteUI>
+              <p>
+                <a
+                  rel="noopener external"
+                  className="fr-link"
+                  href={rules[dottedName]['lien']}
+                  target="_blank"
+                >
+                  Plus d'infos sur cette aide
+                </a>
+              </p>
+
+              {isOpenConseiller && (
+                <div
+                  css={`
+                    display: flex;
+                    justify-content: space-around;
+                    gap: 1rem;
+                    align-items: center;
+                    background: var(--lightestColor);
+                    padding: 1rem;
+                    margin-bottom: 1rem;
+                    border: 1px solid #d0d0ed;
+                    h3 {
+                      margin: 0 0 1rem 0;
+                    }
+                  `}
+                >
+                  <MarSearch
+                    situation={situation}
+                    what={'trouver-conseiller-renov'}
+                  />
+                </div>
+              )}
+            </>
+          }
+        </>
+      ) : (
+        <Accordion
+          label={
             <div
               css={`
                 display: flex;
-                justify-content: space-around;
-                gap: 1rem;
-                align-items: center;
-                background: var(--lightestColor);
-                padding: 1rem;
-                margin-bottom: 1rem;
-                border: 1px solid #d0d0ed;
-                h3 {
-                  margin: 0 0 1rem 0;
-                }
+                flex-direction: column;
               `}
             >
-              <MarSearch
-                situation={situation}
-                what={'trouver-conseiller-renov'}
+              {aideTitle(dottedName)}
+              <PrimeBadge
+                {...{
+                  situation,
+                  engine,
+                  dottedName,
+                }}
               />
             </div>
-          )}
-          <AideCTAs
-            {...{
-              dottedName,
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              expanded,
+          }
+          onExpandedChange={() => {
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Page',
+              'Déplie geste ' + dottedName,
+            ])
+          }}
+        >
+          <div
+            dangerouslySetInnerHTML={{
+              __html: rules[dottedName].descriptionHtml,
             }}
           />
-        </>
+          {addedText}
+          {isEligible && (
+            <AideCTAs
+              {...{
+                dottedName,
+                setSearchParams,
+                situation,
+                answeredQuestions,
+                expanded,
+              }}
+            />
+          )}
+        </Accordion>
       )}
-    </Accordion>
+    </>
   )
 }
 

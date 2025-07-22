@@ -24,22 +24,19 @@ export default function EcoPTZ({
         expanded,
       }}
     >
-      {' '}
-      {expanded && (
-        <p>
-          L'éco-PTZ est particulièrement adapté pour{' '}
-          <a
-            rel="noopener external"
-            className="fr-link"
-            href="https://www.service-public.fr/particuliers/vosdroits/F36448"
-          >
-            couvrir le reste à charge des travaux
-          </a>{' '}
-          du parcours MaPrimeRénov' parcours accompagné.
-        </p>
-      )}
       {expanded && (
         <>
+          <p>
+            L'éco-PTZ est particulièrement adapté pour{' '}
+            <a
+              rel="noopener external"
+              className="fr-link"
+              href="https://www.service-public.fr/particuliers/vosdroits/F36448"
+            >
+              couvrir le reste à charge des travaux
+            </a>{' '}
+            du parcours MaPrimeRénov' parcours accompagné.
+          </p>
           <p>
             L'éco-prêt à taux zéro est accessible à tous, sans condition de
             ressources.

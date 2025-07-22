@@ -4,6 +4,8 @@ import GesteDescription from './GesteDescription'
 import { getInfoForPrime } from './AideGeste'
 
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
+import { AideDurée } from './ampleur/AideAmpleur'
+import { createExampleSituation } from './ampleur/AmpleurSummary'
 
 // Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
 export const PrimeDisplay = ({
@@ -36,6 +38,7 @@ export const PrimeDisplay = ({
 )
 
 export const PrimeBadge = ({ engine, dottedName, situation }) => {
+  const bestSituation = createExampleSituation(situation, 'best')
   const { montantTotal, isExactTotal, eligibleMPRG, hasCoupDePouce } =
     getInfoForPrime({
       engine,
@@ -60,6 +63,13 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
                 : 'Prime de '
               : "Jusqu'à "}
             {montantTotal == 0 ? '0 €' : montantTotal}
+            <AideDurée
+              {...{
+                engine,
+                situation: bestSituation,
+                dottedName: dottedName + ' . montant',
+              }}
+            />
           </>
         )}
       </Badge>

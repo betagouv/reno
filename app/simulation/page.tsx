@@ -2,6 +2,7 @@ import rules from '@/app/règles/rules'
 import Form from './Form'
 import { Metadata } from 'next'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import { PageBlock } from '@/components/UI'
 
 export const metadata: Metadata = {
   title: 'Mes Aides Réno : Simulez vos aides à la rénovation énergétique',
@@ -15,9 +16,9 @@ export default function Page() {
   return (
     <>
       <StartDsfrOnHydration />
-      <main role="main" id="content">
+      <PageBlock>
         <Form rules={rules} />
-      </main>
+      </PageBlock>
     </>
   )
 }
