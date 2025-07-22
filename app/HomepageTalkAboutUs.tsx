@@ -33,48 +33,24 @@ export default function HomepageTalkAboutUs() {
   return (
     !isInIFrame && (
       <>
-        <h2
-          css={`
-            text-align: center;
-            margin-top: 0;
-          `}
-        >
-          Ils parlent de nous
-        </h2>
-        <div
-          css={`
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            gap: 1rem;
-            a {
-              width: 23%;
-              min-width: 150px;
-              img {
-                width: 100%;
-                height: auto;
-              }
-              &:hover {
-                background-size: 0;
-              }
-              &::after {
-                width: 0;
-              }
-            }
-          `}
-        >
+        <h2 className="fr-mt-5v">Ils parlent de nous</h2>
+        <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
           {links.map((link, index) => (
-            <a
-              key={index}
-              rel="noopener external"
-              className="fr-link"
-              href={link.href}
-              target="_blank"
-            >
-              <Image src={link.src} alt={link.alt} />
-            </a>
+            <div key={index} className="fr-col-6 fr-col-md-3">
+              <a
+                key={index}
+                rel="noopener external"
+                className="fr-raw-link"
+                href={link.href}
+                target="_blank"
+              >
+                <Image
+                  src={link.src}
+                  alt={link.alt}
+                  className="fr-responsive-img"
+                />
+              </a>
+            </div>
           ))}
         </div>
       </>

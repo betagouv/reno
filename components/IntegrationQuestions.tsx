@@ -128,14 +128,14 @@ export default function IntegrationQuestions({
                 },
               ]}
             />
-            <p className="fr-mt-5v">
+            <p className="fr-my-5v">
               Deux étapes sont nécessaires :<br /> 1) activer l'option dans
               l'iframe via le paramètre d'URL <strong>?sendDataToHost</strong> ;
               <br />
               2) implémenter la fonction qui écoute cet événement chez vous,
               dont voici un exemple :
             </p>
-            <Highlight>
+            <div className="fr-highlight">
               <code>{` 
   <script>
     const handleMesAidesRenoUserData = function (evt) {
@@ -147,25 +147,25 @@ export default function IntegrationQuestions({
     window.addEventListener('message', handleMesAidesRenoUserData)
 	</script>
 					  `}</code>
-              <p>
-                Voici un exemple de{' '}
-                <a
-                  rel="noopener external"
-                  className="fr-link"
-                  href="https://codesandbox.io/p/sandbox/5t55w6"
-                >
-                  bac à sable
-                </a>{' '}
-                qui capte les données.
-              </p>
-            </Highlight>
-            {dataReceived && (
-              <section>
-                ✅ données reçues depuis l'iframe : ouvrez la console pour les
-                inspecter
-              </section>
-            )}
+            </div>
+            <p>
+              Voici un exemple de{' '}
+              <a
+                rel="noopener external"
+                className="fr-link"
+                href="https://codesandbox.io/p/sandbox/5t55w6"
+              >
+                bac à sable
+              </a>{' '}
+              qui capte les données.
+            </p>
           </div>
+          {dataReceived && (
+            <section>
+              ✅ données reçues depuis l'iframe : ouvrez la console pour les
+              inspecter
+            </section>
+          )}
         </details>
       )}
     </Wrapper>

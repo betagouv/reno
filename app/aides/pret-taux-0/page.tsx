@@ -1,8 +1,7 @@
-import { PageBlock } from '@/components/UI'
+import { DsfrCard, PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
-import Card from '@codegouvfr/react-dsfr/Card'
 import Link from 'next/link'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
@@ -61,46 +60,34 @@ export default async function Aides() {
         </p>
         <div className="fr-grid-row fr-grid-row--gutters fr-mb-5v">
           <div className="fr-col-12 fr-col-md-4">
-            <Card
-              background
-              border
-              desc={
+            <DsfrCard
+              description={
                 <div
                   dangerouslySetInnerHTML={{
                     __html: rules['PTZ'].descriptionHtml,
                   }}
                 />
               }
-              enlargeLink
               imageAlt="Logo Eco-PTZ"
               imageUrl="/eco-ptz.png"
-              linkProps={{
-                href: '/aides/pret-taux-0/eco-ptz',
-              }}
-              size="medium"
-              title={rules['PTZ'].titre}
+              url="/aides/pret-taux-0/eco-ptz"
+              titre={rules['PTZ'].titre}
               titleAs="h2"
             />
           </div>
           <div className="fr-col-12 fr-col-md-4">
-            <Card
-              background
-              border
-              desc={
+            <DsfrCard
+              description={
                 <div
                   dangerouslySetInnerHTML={{
                     __html: rules['PAR'].descriptionHtml,
                   }}
                 />
               }
-              enlargeLink
               imageAlt="Logo Prêt Avance Rénovation"
               imageUrl="/par.png"
-              linkProps={{
-                href: '/aides/pret-taux-0/pret-avance-renovation',
-              }}
-              size="medium"
-              title={rules['PAR'].titre}
+              url="/aides/pret-taux-0/pret-avance-renovation"
+              titre={rules['PAR'].titre}
               titleAs="h2"
             />
           </div>

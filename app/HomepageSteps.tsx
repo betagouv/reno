@@ -11,7 +11,7 @@ export default function HomepageSteps() {
   return (
     !isInIFrame && (
       <ol
-        className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-grid-row--center"
+        className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-grid-row--center fr-my-5v"
         css={`
             li {
               display: flex;

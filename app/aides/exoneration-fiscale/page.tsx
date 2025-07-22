@@ -1,9 +1,8 @@
-import { PageBlock } from '@/components/UI'
+import { DsfrCard, PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import Link from 'next/link'
 import rules from '@/app/règles/rules'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
-import Card from '@codegouvfr/react-dsfr/Card'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
@@ -64,42 +63,30 @@ export default function ExonerationFiscale() {
         </p>
         <div className="fr-grid-row fr-grid-row--gutters fr-mb-5v">
           <div className="fr-col-12 fr-col-md-4">
-            <Card
-              background
-              border
-              desc={
+            <DsfrCard
+              description={
                 <div
                   dangerouslySetInnerHTML={{
                     __html: rules['taxe foncière'].descriptionHtml,
                   }}
                 />
               }
-              enlargeLink
-              linkProps={{
-                href: '/aides/exoneration-fiscale/taxe-fonciere',
-              }}
-              size="medium"
-              title={rules['taxe foncière'].marque}
+              url="/aides/exoneration-fiscale/taxe-fonciere"
+              titre={rules['taxe foncière'].marque}
               titleAs="h2"
             />
           </div>
           <div className="fr-col-12 fr-col-md-4">
-            <Card
-              background
-              border
-              desc={
+            <DsfrCard
+              description={
                 <div
                   dangerouslySetInnerHTML={{
                     __html: rules['denormandie'].descriptionHtml,
                   }}
                 />
               }
-              enlargeLink
-              linkProps={{
-                href: '/aides/exoneration-fiscale/denormandie',
-              }}
-              size="medium"
-              title={rules['denormandie'].marque}
+              url="/aides/exoneration-fiscale/denormandie"
+              titre={rules['denormandie'].marque}
               titleAs="h2"
             />
           </div>

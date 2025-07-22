@@ -10,7 +10,7 @@ export default function IframeIntegrator({ iframeUrl }) {
   return (
     !isInIframe && (
       <>
-        <h3>Intégrer ce simulateur à votre site</h3>
+        <h3 className="fr-mt-5v">Intégrer ce simulateur à votre site</h3>
         <p>
           Voici <strong>le code à intégrer</strong> dans votre HTML ou votre
           contenu Wordpress :

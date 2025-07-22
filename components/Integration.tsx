@@ -4,7 +4,7 @@ import Link from 'next/link'
 import rules from '@/app/règles/rules'
 import css from '@/components/css/convertToJs'
 import getAppUrl from './getAppUrl'
-import { PageBlock } from './UI'
+import { DsfrCard, PageBlock } from './UI'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import IntegrationQuestions from './IntegrationQuestions'
@@ -152,50 +152,32 @@ export default function Integration() {
       <h2>Nos dernières calculettes:</h2>
       <div className="fr-grid-row fr-grid-row--gutters fr-mb-5v">
         <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
-          <Card
-            background
-            border
-            desc="Evaluez l'impact financier d'une rénovation sur votre facture d'énergie."
-            enlargeLink
+          <DsfrCard
+            description="Evaluez l'impact financier d'une rénovation sur votre facture d'énergie."
             imageAlt="Illustration Facture"
             imageUrl="/illuFacture.png"
-            linkProps={{
-              href: '/module/facture/demonstration',
-            }}
-            size="medium"
-            title="Facture énergétique"
+            url="/module/facture/demonstration"
+            titre="Facture énergétique"
             titleAs="h3"
           />
         </div>
         <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
-          <Card
-            background
-            border
-            desc="Estimez la plus-value de votre logement après sa rénovation."
-            enlargeLink
+          <DsfrCard
+            description="Estimez la plus-value de votre logement après sa rénovation."
             imageAlt="Illustration Plus Value"
             imageUrl="/illuPlusValue.png"
-            linkProps={{
-              href: '/module/plus-value/demonstration',
-            }}
-            size="medium"
-            title="Ma plus-value Réno"
+            url="/module/plus-value/demonstration"
+            titre="Ma plus-value Réno"
             titleAs="h3"
           />
         </div>
         <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
-          <Card
-            background
-            border
-            desc="Calculez l'ensemble de vos aides pour une rénovation d'ampleur."
-            enlargeLink
+          <DsfrCard
+            description="Calculez l'ensemble de vos aides pour une rénovation d'ampleur."
             imageAlt="Illustration Ampleur"
             imageUrl="/illuAmpleur.png"
-            linkProps={{
-              href: '/module',
-            }}
-            size="medium"
-            title="Rénovation d'ampleur"
+            url="/module"
+            titre="Rénovation d'ampleur"
             titleAs="h3"
           />
         </div>

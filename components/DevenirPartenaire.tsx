@@ -1,5 +1,5 @@
 'use client'
-import { PageBlock } from '@/components/UI'
+import { DsfrCard, PageBlock } from '@/components/UI'
 import illustrationIntegration from '@/public/illustration-integration.png'
 import iconChrono from '@/public/chrono.svg'
 import iconChiffrage from '@/public/chiffrage.svg'
@@ -17,6 +17,7 @@ import Link from 'next/link'
 import { HeaderWrapper } from '@/app/LandingUI'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Card from '@codegouvfr/react-dsfr/Card'
+import Tile from '@codegouvfr/react-dsfr/Tile'
 
 export default function DevenirPartenaire() {
   return (
@@ -47,52 +48,46 @@ export default function DevenirPartenaire() {
         Dans un article, sur votre site web ou dans vos logiciels métiers, via
         une iframe, un paquet NPM ou une API.
       </p>
-      <div className="fr-grid-row fr-grid-row--gutters">
+      <div className="fr-grid-row fr-grid-row--gutters fr-my-5v">
         <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
-          <Card
-            background
-            border
-            desc="pour s'intégrer sur votre site web."
-            enlargeLink
-            imageAlt="icone iframe"
+          <Tile
+            enlargeLinkOrButton
+            imageAlt="icone d'une iframe"
             imageUrl="/icon-iframe.svg"
             linkProps={{
               href: '/integration',
             }}
-            size="medium"
+            orientation="vertical"
             title="Iframe"
+            desc="pour s'intégrer sur votre site web."
             titleAs="h3"
           />
         </div>
         <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
-          <Card
-            background
-            border
-            desc="pour communiquer avec notre logiciel."
-            enlargeLink
-            imageAlt="icone API"
+          <Tile
+            enlargeLinkOrButton
+            imageAlt="icone d'une API"
             imageUrl="/icon-api.png"
             linkProps={{
               href: '/api-doc',
             }}
-            size="medium"
+            orientation="vertical"
             title="API"
+            desc="pour communiquer avec notre logiciel."
             titleAs="h3"
           />
         </div>
         <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
-          <Card
-            background
-            border
-            desc="pour utiliser le modèle au sein de votre logiciel."
-            enlargeLink
-            imageAlt="icone NPM"
+          <Tile
+            enlargeLinkOrButton
+            imageAlt="Icone NPM"
             imageUrl="/icon-npm.png"
             linkProps={{
               href: '/npm',
             }}
-            size="medium"
+            orientation="vertical"
             title="Paquet NPM"
+            desc="pour utiliser le modèle au sein de votre logiciel."
             titleAs="h3"
           />
         </div>
@@ -106,14 +101,15 @@ export default function DevenirPartenaire() {
         Écrivez-nous, nous vous répondrons sous 3 jours ouvrés.
       </p>
       <Link
-        className="fr-btn fr-icon-mail-line fr-btn--icon-left"
+        className="fr-btn fr-icon-mail-line fr-btn--icon-left fr-mb-5v"
         href="/contact"
       >
         Prendre contact
       </Link>
 
+      <h2 className="fr-mt-5v">Nos avantages</h2>
       <div
-        className="fr-grid-row fr-grid-row--gutters fr-mt-5v"
+        className="fr-grid-row fr-grid-row--gutters fr-my-5v"
         css={`
           .fr-col {
             display: flex;

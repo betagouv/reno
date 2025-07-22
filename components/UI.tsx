@@ -117,3 +117,28 @@ export const Loader = () => (
     `}
   ></div>
 )
+
+export const DsfrCard = ({ titre, url, description, imageUrl, imageAlt, titleAs }) => (
+  <div className="fr-card fr-enlarge-link">
+    <div className="fr-card__body">
+      <div className="fr-card__content">
+        {titleAs == "h2" && (<h2 className="fr-card__title">
+          <a href={url}>{titre}</a>
+        </h2>)}
+        {titleAs == "h3" && (<h3 className="fr-card__title">
+          <a href={url}>{titre}</a>
+        </h3>)}
+        <p className="fr-card__desc">{description}</p>
+      </div>
+    </div>
+    {imageUrl && (<div className="fr-card__header">
+      <div className="fr-card__img">
+        <img
+          className="fr-responsive-img fr-ratio-1x1 fr-p-5v"
+          src={imageUrl}
+          alt={imageAlt}
+        />
+      </div>
+    </div>)}
+  </div>
+)

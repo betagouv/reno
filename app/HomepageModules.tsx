@@ -1,5 +1,5 @@
 'use client'
-import { Card } from '@codegouvfr/react-dsfr/Card'
+import { DsfrCard } from '@/components/UI'
 import useIsInIframe from '@/components/useIsInIframe'
 
 export default function HomepageModules() {
@@ -8,50 +8,35 @@ export default function HomepageModules() {
     !isInIFrame && (
       <>
         <h2>Nos calculettes prêtes à l'emploi</h2>
-        <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-grid-row--center">
+        <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--stretch fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-4">
-            <Card
-              background
-              border
-              desc="Estimez la plus-value de votre logement après sa rénovation."
-              enlargeLink
-              imageAlt="Logo Plus Value"
-              imageUrl="illuPlusValue.png"
-              linkProps={{
-                href: '/module/plus-value#',
-              }}
-              title="Ma plus-value Réno"
+            <DsfrCard
+              titre="Ma plus-value Réno"
+              url="/module/plus-value"
+              description="Estimez la plus-value de votre logement après sa rénovation."
+              imageUrl="/illuPlusValue.png"
+              imageAlt="Illustration d'un calcul de plus-value immobilière"
               titleAs="h3"
             />
           </div>
           <div className="fr-col-12 fr-col-md-4">
-            <Card
-              background
-              border
-              desc="Calculez l'ensemble de vos aides pour une rénovation d'ampleur."
-              enlargeLink
-              imageAlt="Logo Rénovation d'ampleur"
-              imageUrl="illuAmpleur.png"
-              linkProps={{
-                href: '/module',
-              }}
-              title="Rénovation d'ampleur"
+            <DsfrCard
+              titre="Rénovation d'ampleur"
+              url="/module"
+              description="Calculez l'ensemble de vos aides pour une rénovation d'ampleur."
+              imageUrl="/illuAmpleur.png"
+              imageAlt="Illustration d'une rénovation d'ampleur"
               titleAs="h3"
             />
           </div>
           <div className="fr-col-12 fr-col-md-4">
-            <Card
-              background
-              border
-              desc="Pompe à chaleur, éco-PTZ... Découvrez nos autres calculatrices
+            <DsfrCard
+              titre="Et bien plus encore..."
+              url="/integration"
+              description="Pompe à chaleur, éco-PTZ... Découvrez nos autres calculatrices
                 spécialisées."
-              enlargeLink
-              imageAlt="Logo Calculatrice"
-              imageUrl="illuModule.png"
-              linkProps={{
-                href: '/integration',
-              }}
-              title="Et bien plus encore..."
+              imageUrl="/illuModule.png"
+              imageAlt="Illustration d'une calculatrice"
               titleAs="h3"
             />
           </div>
