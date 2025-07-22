@@ -3,12 +3,12 @@ prioritaires:
   - logement . propriétaire occupant
   - logement . résidence principale propriétaire
   - logement . résidence principale locataire
-  - ménage . personnes
-  - ménage . revenu
   - logement . adresse
   - logement . type
   - logement . surface
   - logement . période de construction
+  - ménage . personnes
+  - ménage . revenu
   - logement . commune
   - ménage . commune
   - DPE . actuel
