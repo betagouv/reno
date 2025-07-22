@@ -507,6 +507,7 @@ export default function InputSwitch({
           nativeInputProps={{
             type: ruleQuestionType,
             name: currentQuestion,
+            min: 1,
             autoFocus: true,
             onChange: (e) => {
               const value = e.target.value

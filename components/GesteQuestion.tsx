@@ -171,6 +171,7 @@ const InputComponent = ({
     <Input
       nativeInputProps={{
         type: 'number',
+        min: 1,
         name: question,
         onChange: onChange,
         value: currentValue == null ? '' : currentValue,
