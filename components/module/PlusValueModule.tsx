@@ -17,7 +17,6 @@ import {
 } from '@/app/module/AmpleurQuestions'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import DPELabel, { conversionLettreIndex } from '../dpe/DPELabel'
-import { EvaluationValueWrapper } from '@/app/module/AmpleurEvaluation'
 import { formatNumber } from '../RevenuInput'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import PlusValueWidget from '../plusValue/PlusValueWidget'
@@ -126,13 +125,12 @@ export default function PlusValueModule({ type }) {
           />
         )}
       </form>
-      <EvaluationValueWrapper
-        className={`fr-callout fr-callout--${plusValue != 0 && !isNaN(plusValue) ? 'green-emeraude' : 'yellow-moutarde'}`}
+      <div
+        className={`fr-mt-5v fr-callout fr-callout--${plusValue != 0 && !isNaN(plusValue) ? 'blue-cumulus' : 'yellow-moutarde'}`}
       >
         <h2 className="fr-callout__title">
           <span aria-hidden="true">💶</span> Après rénovation
-          {!isMobile ? ' énergétique' : ''}, mon bien vaudra
-          {!isMobile && ' :'}{' '}
+          {!isMobile ? ' énergétique' : ''}, mon bien vaudra :
         </h2>
         {situation['DPE . actuel'] <= 2 ? (
           <p className="fr-callout__text">
@@ -141,10 +139,15 @@ export default function PlusValueModule({ type }) {
           </p>
         ) : plusValue != 0 && !isNaN(plusValue) ? (
           <>
-            <Badge noIcon className="fr-display--xs">
+            <Badge
+              noIcon
+              severity="success"
+              className="fr-display--xs fr-my-5v"
+              style={{ display: 'block', margin: 'auto' }}
+            >
               {formatNumber(plusValue)} €
             </Badge>
-            <p className="fr-hint-text">
+            <p className="fr-hint-text fr-mb-0">
               <DPEAppreciationInfo
                 {...{
                   situation,
@@ -155,7 +158,7 @@ export default function PlusValueModule({ type }) {
             </p>
           </>
         ) : (
-          <p className="fr-callout__title">
+          <p className="fr-callout__text">
             🤔 Répondez aux questions pour connaître la valeur verte de votre
             bien
           </p>
@@ -173,20 +176,18 @@ export default function PlusValueModule({ type }) {
           text={'Découvrir vos aides à la réno'}
           textMobile={'Découvrir vos aides à la réno'}
         />
-      </EvaluationValueWrapper>
+      </div>
       <p className="fr-hint-text">
         Source :{' '}
-        <em>
-          <a
-            rel="noopener external"
-            className="fr-link"
-            href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
-            title="Notaires de France"
-            target="_blank"
-          >
-            Notaires de France, étude 2024 (données 2023)
-          </a>
-        </em>
+        <a
+          rel="noopener external"
+          className="fr-link"
+          href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
+          title="Notaires de France"
+          target="_blank"
+        >
+          Notaires de France, étude 2024 (données 2023)
+        </a>
       </p>
     </ModuleWrapper>
   ) : (

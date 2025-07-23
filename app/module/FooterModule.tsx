@@ -1,53 +1,18 @@
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 import logo from '@/public/logo-service-de-FR.svg'
 import Image from 'next/image'
-import styled from 'styled-components'
 
 export default function FooterModule() {
   return (
-    <footer
-      css={`
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        justify-content: center;
-        margin-bottom: -1rem;
-        gap: 1rem;
-
-        p {
-          margin: 0;
-        }
-      `}
-    >
-      <a
-        css={`
-          text-decoration: none;
-          background: none;
-        `}
-        href="https://mesaidesreno.beta.gouv.fr"
-      >
-        <HeaderLogo
+    <footer>
+      <a className="fr-raw-link" href="https://mesaidesreno.beta.gouv.fr">
+        <Image
           src={logo}
+          className="fr-responsive-img"
           alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef."
         />
       </a>
-      <AboutContainer>
-        <ParFranceRénovTexte />
-      </AboutContainer>
+      <ParFranceRénovTexte />
     </footer>
   )
 }
-const HeaderLogo = styled(Image)`
-  height: 4.5rem;
-  width: auto;
-  margin-top: 0.6rem;
-  margin-bottom: 0.8rem;
-`
-
-export const AboutContainer = styled.p`
-  small {
-    line-height: 1rem;
-    color: gray;
-    display: block;
-  }
-`

@@ -35,48 +35,42 @@ export default function DPE({
             .dpe-label {
               display: flex;
               align-items: center;
-              margin-bottom: 6px;
               color: white;
               font-weight: bold;
-              border-radius: 2px;
-              clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 0 100%);
-              padding: 8px 10px;
+              padding: 10px;
+              margin: 1px 0;
+              clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
             }
 
             .A {
               background: #007c59;
-              width: 30%;
-              clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+              width: 200px;
             }
             .B {
               background: #2dae72;
-              width: 40%;
-              clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+              width: 220px;
             }
             .C {
               background: #a8cf45;
-              width: 50%;
-              clip-path: polygon(0 0, 93% 0, 100% 50%, 93% 100%, 0 100%);
+              width: 240px;
             }
             .D {
               background: #ffe039;
               color: black;
-              width: 60%;
+              width: 260px;
             }
             .E {
               background: #ffb931;
               color: black;
-              width: 70%;
+              width: 280px;
             }
             .F {
               background: #f97b4c;
-              width: 80%;
-              clip-path: polygon(0 0, 97% 0, 100% 50%, 97% 100%, 0 100%);
+              width: 300px;
             }
             .G {
               background: #e60000;
-              width: 90%;
-              clip-path: polygon(0 0, 97% 0, 100% 50%, 97% 100%, 0 100%);
+              width: 320px;
             }
           `}
         >
@@ -89,8 +83,8 @@ export default function DPE({
               checked={el.lettre === letter}
               onChange={() => onClick && onClick(index)}
             />
-            <label className="fr-label" htmlFor={`radio-${index}`}>
-              <div className={`dpe-label ${el.lettre}`}>
+            <label className="fr-label fr-py-0" htmlFor={`radio-${index}`}>
+              <span className={`dpe-label ${el.lettre}`}>
                 {el.lettre}{' '}
                 <span className="range">
                   {avecLegend && (
@@ -103,7 +97,7 @@ export default function DPE({
                     </small>
                   )}
                 </span>
-              </div>
+              </span>
             </label>
           </div>
         </div>

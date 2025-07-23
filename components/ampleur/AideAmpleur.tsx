@@ -158,12 +158,12 @@ export default function AideAmpleur({
   )
 }
 
-export const PrimeWithLabel = ({ engine, dottedName, situation }) => {
+export const PrimeWithLabel = ({ engine, dottedName, situation, severity }) => {
   const bestSituation = createExampleSituation(situation, 'best')
   const montantMax = engine.setSituation(bestSituation).evaluate(dottedName)
 
   return montantMax.nodeValue ? (
-    <Badge noIcon>
+    <Badge noIcon severity={severity}>
       <AideMontant
         {...{
           engine,

@@ -4,7 +4,7 @@ export default function ParFranceRénovTexte() {
   const isMobile = useMediaQuery('(max-width: 400px)')
 
   return (
-    <small>
+    <p className="fr-hint-text">
       Mes Aides Réno est un service public de{' '}
       <a
         rel="noopener external"
@@ -17,6 +17,6 @@ export default function ParFranceRénovTexte() {
         ? '.'
         : ` pour simplifier
             l'information sur les aides à la rénovation énergétique.`}
-    </small>
+    </p>
   )
 }

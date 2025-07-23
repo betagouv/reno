@@ -69,19 +69,24 @@ export default function ClassicQuestionWrapper({
 
   return (
     <>
-      <Stepper
-        className="fr-mt-5v"
-        currentStep={currentQuestion.startsWith('projet') ? 2 : 1}
-        nextTitle={
-          currentQuestion.startsWith('projet') ? 'Eligibilité' : 'Votre projet'
-        }
-        stepCount={4}
-        title={
-          currentQuestion.startsWith('projet')
-            ? 'Votre projet'
-            : 'Votre situation'
-        }
-      />
+      <div>
+        <CopyButton searchParams={searchParams} />
+        <Stepper
+          className="fr-mt-5v"
+          currentStep={currentQuestion.startsWith('projet') ? 2 : 1}
+          nextTitle={
+            currentQuestion.startsWith('projet')
+              ? 'Eligibilité'
+              : 'Votre projet'
+          }
+          stepCount={4}
+          title={
+            currentQuestion.startsWith('projet')
+              ? 'Votre projet'
+              : 'Votre situation'
+          }
+        />
+      </div>
       <AvertissementSimulation
         {...{ avertissementState, setAvertissementState }}
       />
@@ -93,66 +98,64 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
-      <CopyButton searchParams={searchParams} />
-      <h2 className="fr-text--lg fr-mb-1v">{categoryTitle}</h2>
-      <fieldset
-        className="fr-fieldset"
-        css={`
-          clear: both;
-        `}
-        id="storybook-form"
-        aria-labelledby="storybook-form-legend storybook-form-messages"
-      >
-        {!rule.type && (
-          <QuestionText
-            {...{
-              rule,
-              question: currentQuestion,
-              rules,
-              situation,
-              engine,
-            }}
-          />
-        )}
-        {!noSuggestions && (
-          <Suggestions
-            rule={rule}
-            onClick={(value) => {
-              setSearchParams(
-                encodeSituation(
-                  {
-                    ...situation,
-                    [currentQuestion]: value,
-                  },
+      <h1 className="fr-text--lg fr-mb-0">{categoryTitle}</h1>
+      <form id="simulator-form">
+        <fieldset
+          className="fr-fieldset"
+          form="simulator-form"
+          aria-labelledby="simulator-form-legend simulator-form-messages"
+        >
+          {!rule.type && (
+            <QuestionText
+              {...{
+                rule,
+                question: currentQuestion,
+                rules,
+                situation,
+                engine,
+              }}
+            />
+          )}
+          {!noSuggestions && (
+            <Suggestions
+              rule={rule}
+              onClick={(value) => {
+                setSearchParams(
+                  encodeSituation(
+                    {
+                      ...situation,
+                      [currentQuestion]: value,
+                    },
+                    false,
+                    answeredQuestions,
+                  ),
+                  'replace',
                   false,
-                  answeredQuestions,
-                ),
-                'replace',
-                false,
-              )
+                )
+              }}
+            />
+          )}
+          {children}
+        </fieldset>
+        {noButtons ? (
+          customButtons
+        ) : (
+          <FormButtons
+            {...{
+              currentValue,
+              rules,
+              setSearchParams,
+              encodeSituation,
+              answeredQuestions,
+              questionsToSubmit,
+              currentQuestion,
+              situation,
+              depuisModule,
+              setAvertissementState,
             }}
           />
         )}
-        {children}
-      </fieldset>
-      {noButtons ? (
-        customButtons
-      ) : (
-        <FormButtons
-          {...{
-            currentValue,
-            rules,
-            setSearchParams,
-            encodeSituation,
-            answeredQuestions,
-            questionsToSubmit,
-            currentQuestion,
-            situation,
-            depuisModule,
-            setAvertissementState,
-          }}
-        />
-      )}
+      </form>
       <Notifications {...{ currentQuestion, engine }} />
       <section
         css={`

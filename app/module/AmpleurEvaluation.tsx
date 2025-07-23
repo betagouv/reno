@@ -5,7 +5,6 @@ import { useAides } from '@/components/ampleur/useAides'
 import styled from 'styled-components'
 import { AmpleurAideSummary } from './AmpleurAideSummary'
 import AmpleurCTA from './AmpleurCTA'
-import { CTA } from '@/components/UI'
 import DPELabel from '@/components/dpe/DPELabel'
 import { push } from '@socialgouv/matomo-next'
 
@@ -24,7 +23,7 @@ export function EvaluationValue({
 
   if (!shouldDisplay)
     return (
-      <EvaluationValueWrapper className="fr-callout fr-callout--orange-terre-battue">
+      <div className="fr-callout fr-callout--yellow-moutarde">
         <h2>⏳️ En attente de résultats</h2>
         <div>
           <p>
@@ -32,11 +31,11 @@ export function EvaluationValue({
             💶&nbsp;&nbsp;💶
           </p>
         </div>
-      </EvaluationValueWrapper>
+      </div>
     )
   push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
   return (
-    <EvaluationValueWrapper className="fr-callout fr-callout--green-emeraude">
+    <div className="fr-callout fr-callout--blue-cumulus">
       <h2 className="fr-callout__title">🥳 Résultats</h2>
       <p className="fr-callout__text">Vous êtes éligible à :</p>
       <div className="fr-callout__text">
@@ -66,7 +65,7 @@ export function EvaluationValue({
       </div>
       <AmpleurCTA {...{ situation: noDefaultSituation }} />
       {disclaimer && (
-        <p className="fr-hint-text">
+        <p className="fr-hint-text fr-mt-3v">
           Pour bénéficier des aides du parcours accompagné, des gains
           énergétiques seront à réaliser, par exemple un saut d'au moins 2
           classes de DPE, soit passer du DPE actuel{' '}
@@ -74,7 +73,6 @@ export function EvaluationValue({
           <DPELabel index={targetDPE - 1} />.
         </p>
       )}
-    </EvaluationValueWrapper>
+    </div>
   )
 }
-export const EvaluationValueWrapper = styled.div``

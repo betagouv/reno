@@ -117,8 +117,6 @@ const Euro = () => (
 
 const Section = styled.section`
   margin: 0.6rem auto 1rem;
-  width: calc(800px - 2rem);
-  max-width: calc(100% - 2rem);
   background: #feecc2;
   border: 1px solid #c8a519;
   padding: 0.6rem 1rem;

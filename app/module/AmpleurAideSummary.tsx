@@ -21,42 +21,23 @@ export const AmpleurAideSummary = ({
 }) => {
   return (
     <>
-      <h3
-        css={`
-          display: flex;
-          align-items: center;
-          opacity: ${!status ? '.65' : '1'};
-          font-weight: 400;
-          margin: 0 0 0.4rem 0;
-          font-size: 100%;
-        `}
-      >
+      <>
         {text && <>{text}</>}
         {text2 && <>&nbsp;-&nbsp;{text2}</>}
-      </h3>
-      <div
-        css={`
-          display: flex;
-          justify-content: start;
-        `}
-      >
-        {status ? (
-          <PrimeWithLabel
-            css={`
-              font-size: 90%;
-              margin-top: 0.5rem;
-            `}
-            {...{
-              montant: evaluation,
-              engine,
-              situation,
-              dottedName,
-            }}
-          ></PrimeWithLabel>
-        ) : (
-          <Badge noIcon>{computeStatusTitle(status)}</Badge>
-        )}
-      </div>
+      </>
+      {status ? (
+        <PrimeWithLabel
+          {...{
+            severity: 'success',
+            montant: evaluation,
+            engine,
+            situation,
+            dottedName,
+          }}
+        ></PrimeWithLabel>
+      ) : (
+        <Badge noIcon>{computeStatusTitle(status)}</Badge>
+      )}
     </>
   )
 }

@@ -71,10 +71,6 @@ export default function Ampleur({ type }) {
   const defaultSituation = {
     ...extremeSituation, // pour déclencher Denormandie, taxe foncière, etc
     ...usageLogementValues[0].situation,
-    'vous . propriétaire . condition': 'oui',
-    'ménage . revenu': 25000, // Le revenu médian est de 20 000, mais le mettre à 25 000 permet de faire en sorte qu'il y ait une différence entre IdF et hors IdF pour que la case à cocher ait un effet
-    'ménage . personnes': 2,
-    'ménage . région . IdF': 'non',
   }
 
   const rawSituation = useMemo(

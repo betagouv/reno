@@ -18,6 +18,7 @@ export const createExampleSituation = (situation, type = 'normal') => {
       ? {
           'projet . travaux': 999999,
           'projet . DPE visé': 1,
+          'logement . type travaux': 'performance énergétique globale',
           'denormandie . années de location': 12,
         }
       : type == 'worst'

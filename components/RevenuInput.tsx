@@ -68,7 +68,7 @@ export default function RevenuInput({
       }}
       state={revenu !== undefined ? 'success' : 'default'}
     >
-      <option value="" disabled hidden>
+      <option value="" disabled>
         Sélectionnez une option
       </option>
       {selectValues.map(({ valeur, titre }, index) => (

@@ -18,7 +18,6 @@ export default function AmpleurModuleBanner({
       css={`
         margin: 0 1rem;
         > div {
-          max-width: calc(800px - 2rem);
           h2 {
             margin: 0;
             margin-bottom: 0.6rem;
