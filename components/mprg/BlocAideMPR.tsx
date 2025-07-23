@@ -147,7 +147,7 @@ export const AvanceTMO = ({ engine, situation }) => {
     <Alert
       className="fr-my-5v"
       description={
-        <p>
+        <>
           En tant que ménage au revenu <strong>{ménageClasse}</strong>
           , vous pourrez bénéficier d'une avance allant jusqu'à
           <Value
@@ -160,7 +160,7 @@ export const AvanceTMO = ({ engine, situation }) => {
           />
           de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé
           après travaux.
-        </p>
+        </>
       }
       onClose={function noRefCheck() {}}
       severity="info"

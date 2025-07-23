@@ -109,7 +109,7 @@ export default function AideCTAs({
                         dottedName,
                       ])
                   },
-                  iconId:
+                  className:
                     !expanded && 'fr-icon-arrow-right-line fr-btn--icon-right',
                 },
               },
@@ -146,7 +146,7 @@ export default function AideCTAs({
                         dottedName,
                       ])
                   },
-                  iconId:
+                  className:
                     !expanded && 'fr-icon-arrow-right-line fr-btn--icon-right',
                 },
               },

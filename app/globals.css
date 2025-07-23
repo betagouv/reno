@@ -32,14 +32,6 @@ details summary {
   cursor: pointer;
 }
 
-input[type='number'] {
-  width: 8rem;
-}
-
-input::placeholder {
-  color: var(--lighterColor3);
-}
-
 .fr-input-wrap--addon {
   align-items: center;
   gap: 1em;

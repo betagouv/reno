@@ -1,4 +1,3 @@
-import { Card } from '@/components/UI'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'

@@ -10,7 +10,7 @@ import HomepageModules from './HomepageModules'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
 import HomepageTestimonies from './HomepageTestimonies'
-import { HeaderWrapper, LandingGreenBanner } from './LandingUI'
+import { HeaderWrapper } from './LandingUI'
 
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
@@ -85,25 +85,14 @@ export default async function Page(props) {
               <FromStorageSimulationButtonLoader />
             </div>
           </HeaderWrapper>
-          <LandingGreenBanner>
-            <div>
+          <div className="fr-grid-row fr-my-5v fr-grid-row--gutters fr-grid-row--center fr-grid-row--middle">
+            <div className="fr-col-auto">
               <Image src={logoFranceRenov} alt="Logo de France Rénov" />
-              <p>
-                <ParFranceRénovTexte />{' '}
-                <small>
-                  <Link
-                    className="fr-link"
-                    href="/a-propos"
-                    style={css`
-                      white-space: nowrap;
-                    `}
-                  >
-                    En savoir plus.
-                  </Link>
-                </small>
-              </p>
             </div>
-          </LandingGreenBanner>
+            <div className="fr-col-6">
+              <ParFranceRénovTexte />
+            </div>
+          </div>
           <HomepageSteps />
           <HomepageModules />
           <HomepageTestimonies />
