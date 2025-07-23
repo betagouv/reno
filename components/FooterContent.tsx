@@ -12,7 +12,7 @@ export default async function FooterContent() {
           href: '/accessibilite',
         }}
         websiteMapLinkProps={{
-          href: '/sitemap.xml', //TODO: créer un plan de site consultable en non-xml
+          href: '/sitemap',
         }}
         termsLinkProps={{
           href: '/a-propos',
