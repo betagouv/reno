@@ -39,6 +39,7 @@ export const QuestionText = ({
 }
 
 export default function ClassicQuestionWrapper({
+  form,
   children,
   rule,
   currentQuestion,
@@ -49,7 +50,7 @@ export default function ClassicQuestionWrapper({
   questionsToSubmit = [currentQuestion],
   currentValue,
   engine,
-  noSuggestions,
+  suggestions,
   nextQuestions,
   noButtons = false,
   customButtons,
@@ -70,23 +71,41 @@ export default function ClassicQuestionWrapper({
   return (
     <>
       <div>
-        <CopyButton searchParams={searchParams} />
-        <Stepper
-          className="fr-mt-5v"
-          currentStep={currentQuestion.startsWith('projet') ? 2 : 1}
-          nextTitle={
-            currentQuestion.startsWith('projet')
-              ? 'Eligibilité'
-              : 'Votre projet'
-          }
-          stepCount={4}
-          title={
-            currentQuestion.startsWith('projet')
-              ? 'Votre projet'
-              : 'Votre situation'
-          }
-        />
+        {form != 'copropriété' && (
+          <>
+            <CopyButton
+              customCss={{
+                float: 'right',
+              }}
+              searchParams={searchParams}
+            />
+            <Stepper
+              className="fr-mt-5v"
+              currentStep={currentQuestion.startsWith('projet') ? 2 : 1}
+              nextTitle={
+                currentQuestion.startsWith('projet')
+                  ? 'Eligibilité'
+                  : 'Votre projet'
+              }
+              stepCount={4}
+              title={
+                currentQuestion.startsWith('projet')
+                  ? 'Votre projet'
+                  : 'Votre situation'
+              }
+            />
+          </>
+        )}
       </div>
+      {form == 'copropriété' && (
+        <CopyButton
+          customCss={{
+            alignItems: 'flex-end',
+            marginTop: '1rem',
+          }}
+          searchParams={searchParams}
+        />
+      )}
       <AvertissementSimulation
         {...{ avertissementState, setAvertissementState }}
       />
@@ -116,7 +135,7 @@ export default function ClassicQuestionWrapper({
               }}
             />
           )}
-          {!noSuggestions && (
+          {suggestions && (
             <Suggestions
               rule={rule}
               onClick={(value) => {

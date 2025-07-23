@@ -33,14 +33,6 @@ ménage . revenu:
     Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
   unité: €
   par défaut: 0 €
-  suggestions:
-    #Très modeste 1 personne: 15000 €
-    #modeste 2 personnes: 26000 €
-    #intermédiaires 1 personne: 25000 €
-    #supérieurs 2 personnes: 50000 €
-    bas: 20000 €
-    moyen: 50000 €
-    élevé: 80000 €
 
 vous:
   titre: Votre situation

@@ -55,7 +55,7 @@ export default function AvertissementSimulation({
   }, [])
 
   return (
-    <Section>
+    <Section className="fr-callout fr-callout--yellow-moutarde">
       <details open={open}>
         <summary
           onClick={(e) => {
@@ -115,11 +115,7 @@ const Euro = () => (
   />
 )
 
-const Section = styled.section`
-  margin: 0.6rem auto 1rem;
-  background: #feecc2;
-  border: 1px solid #c8a519;
-  padding: 0.6rem 1rem;
+const Section = styled.div`
   details {
     summary {
       list-style-type: none;

@@ -21,7 +21,8 @@ export default function Suggestions({ rule, onClick }) {
         <li key={k}>
           <Tag
             nativeButtonProps={{
-              onClick: function handleClick() {
+              onClick: function handleClick(e) {
+                e.preventDefault()
                 setPressedTag(k)
                 onClick(getValue(v))
               },
