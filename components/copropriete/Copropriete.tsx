@@ -57,6 +57,7 @@ export default function Copropriete() {
         <>
           <InputSwitch
             {...{
+              form: 'copropriété',
               rules,
               currentQuestion,
               situation,
