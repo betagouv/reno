@@ -3,7 +3,7 @@ import { Metadata } from 'next/types'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 import { getAllArticles } from '../blog/articles'
-import rules from '@/index'
+import rules from '@/app/règles/rules'
 
 export const metadata: Metadata = {
   title: 'Sitemap - Mes aides réno',
