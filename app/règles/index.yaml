@@ -138,14 +138,9 @@ logement . surface:
 logement . propriétaire occupant:
   applicable si: vous . propriétaire . condition
   question: Allez-vous vivre dans le logement à rénover (propriétaire occupant) ?
-  variations:
-    - si: mpa . situation demandeur . occupant
-      alors: oui
-    - si: mpa . situation demandeur . bailleur
-      alors: non
+  par défaut: non
   note: |
     Je pense que les aides qui se basent sur le booléen "propriétaire occupant" ne s'occupent pas du fait que le propriétaire soit occupant avant les travaux, mais seulement après. Ainsi cette formulation de la question permet de coller aussi bien aux propriétaires actuels qu'au acquéreurs.
-  par défaut: non
   description: |
     Cette question nous aide à déterminer les aides qui vous sont applicables : certaines sont réservées aux propriétaires occupants, d'autres aux propriétaires bailleurs.
 

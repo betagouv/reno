@@ -119,7 +119,7 @@ export default function ClassicQuestionWrapper({
         }}
       />
       {categoryTitle && <Tag>{categoryTitle}</Tag>}
-      <form id="simulator-form">
+      <form id="simulator-form" onSubmit={(e) => e.preventDefault()}>
         <fieldset
           className="fr-fieldset"
           form="simulator-form"

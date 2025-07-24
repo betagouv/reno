@@ -1,5 +1,5 @@
 prioritaires:
-  - parcours d'aide
+  # - parcours d'aide
 
   - mpa . situation demandeur
   - mpa . bailleur . condition locataire
@@ -22,4 +22,3 @@ prioritaires:
   - projet . définition
   - projet . définition . catégories travaux envisagées
   - projet . définition . travaux envisagés
-  - taxe foncière . condition de dépenses

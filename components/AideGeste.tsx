@@ -12,6 +12,7 @@ import GesteQuestion from './GesteQuestion'
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { getRuleName } from './publicodes/utils'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import Tooltip from '@codegouvfr/react-dsfr/Tooltip'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
@@ -87,7 +88,6 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     : null
 
   const evaluationTotal = engineSituation.evaluate(dottedName + ' . montant')
-  console.log(dottedName, evaluationTotal)
   isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 0
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
 
@@ -267,11 +267,20 @@ const BlocAideCEE = ({
             Prime CEE (Certificats d'Économie d'Énergie)
           </h4>
           <Badge noIcon severity={isApplicable ? 'success' : ''}>
-            {!infoCEE.isExactTotal
-              ? 'Prime existante'
-              : isApplicable
-                ? 'Prime indicative de ' + infoCEE.montant
-                : 'non cumulable avec la Prime Coup de pouce'}
+            {!infoCEE.isExactTotal ? (
+              <>
+                Prime existante&nbsp;
+                <Tooltip
+                  className="fr-ms-1v"
+                  kind="hover"
+                  title="Veuillez répondre aux questions pour préciser son montant."
+                />
+              </>
+            ) : isApplicable ? (
+              'Prime indicative de ' + infoCEE.montant
+            ) : (
+              'non cumulable avec la Prime Coup de pouce'
+            )}
           </Badge>
         </div>
       </div>
