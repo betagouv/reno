@@ -1,6 +1,6 @@
 'use client'
 
-import { PrimeWithLabel } from '@/components/ampleur/AideAmpleur'
+import { PrimeBadge } from '@/components/Geste'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const computeStatusTitle = (status) =>
@@ -23,10 +23,10 @@ export const AmpleurAideSummary = ({
     <>
       <>
         {text && <>{text}</>}
-        {text2 && <>&nbsp;-&nbsp;{text2}</>}
+        {text2 && <>&nbsp;-&nbsp;{text2}</>}ds
       </>
       {status ? (
-        <PrimeWithLabel
+        <PrimeBadge
           {...{
             severity: 'success',
             montant: evaluation,
@@ -34,7 +34,7 @@ export const AmpleurAideSummary = ({
             situation,
             dottedName,
           }}
-        ></PrimeWithLabel>
+        />
       ) : (
         <Badge noIcon>{computeStatusTitle(status)}</Badge>
       )}

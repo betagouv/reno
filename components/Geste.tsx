@@ -1,78 +1,93 @@
 'use client'
-import { getRuleName } from './publicodes/utils'
-import GesteDescription from './GesteDescription'
 import { getInfoForPrime } from './AideGeste'
-
+import rules from '@/app/règles/rules'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { AideDurée } from './ampleur/AideAmpleur'
 import { createExampleSituation } from './ampleur/AmpleurSummary'
+import { formatValue } from 'publicodes'
 
-// Dans le cas où l'on est éligible qu'au CEE mais pas MPR ni coup de pouce, il faut adapter la formulation
-export const PrimeDisplay = ({
-  situation,
-  engine,
-  rules,
-  dottedName,
-  description = true,
-}) => (
-  <div>
-    <h3
-      css={`
-        margin: 0 0 0.5rem 0 !important;
-        font-size: 120%;
-        color: var(--color);
-      `}
-    >
-      {rules[dottedName].titre || getRuleName(dottedName)}
-    </h3>
-    {description && <GesteDescription rule={rules[dottedName]} />}
-
-    <PrimeBadge
-      {...{
-        situation,
-        engine,
-        dottedName,
-      }}
-    />
-  </div>
-)
-
+import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 export const PrimeBadge = ({ engine, dottedName, situation }) => {
   const bestSituation = createExampleSituation(situation, 'best')
-  const { montantTotal, isExactTotal, eligibleMPRG, hasCoupDePouce } =
+  const { montantTotal, infoCEE, isExactTotal, eligibleMPRG, hasCoupDePouce } =
     getInfoForPrime({
       engine,
       dottedName,
       situation,
     })
   return (
-    montantTotal != '0 €' && (
-      <Badge
-        noIcon
-        severity={montantTotal !== 'Non applicable' ? 'success' : ''}
-      >
-        {montantTotal === 'Non applicable' ? (
-          <>Non applicable dans votre situation</>
-        ) : !eligibleMPRG && !hasCoupDePouce && !isExactTotal ? (
-          <>Prime existante</>
-        ) : (
-          <>
-            {isExactTotal
-              ? !hasCoupDePouce && !eligibleMPRG
-                ? 'Prime indicative de '
-                : 'Prime de '
-              : "Jusqu'à "}
-            {montantTotal == 0 ? '0 €' : montantTotal}
-            <AideDurée
-              {...{
-                engine,
-                situation: bestSituation,
-                dottedName: dottedName + ' . montant',
-              }}
-            />
-          </>
-        )}
-      </Badge>
-    )
+    <Badge
+      noIcon
+      severity={
+        montantTotal !== 'Non applicable' && montantTotal != 0 ? 'success' : ''
+      }
+    >
+      {montantTotal === 'Non applicable' || montantTotal == 0 ? (
+        <>Non applicable dans votre situation</>
+      ) : dottedName.includes('taxe foncière') ? (
+        <>
+          {situation['taxe foncière . commune . taux']}
+          <AideDurée
+            engine={engine}
+            situation={bestSituation}
+            dottedName={dottedName + ' . montant'}
+          />
+        </>
+      ) : dottedName.includes('denormandie') ? (
+        <>
+          Jusqu'à{' '}
+          {formatValue(
+            engine.setSituation(situation).evaluate('denormandie . taux'),
+          )}
+          <AideDurée
+            engine={engine}
+            situation={bestSituation}
+            dottedName={dottedName + ' . montant'}
+          />
+        </>
+      ) : rules[dottedName.replace(' . montant', '')].type === 'prêt' ? (
+        <>
+          Jusqu'à {montantTotal}
+          <AideDurée
+            engine={engine}
+            situation={bestSituation}
+            dottedName={dottedName + ' . montant'}
+          />
+        </>
+      ) : eligibleMPRG ? ( // Cas MPR avec ou sans Coup de pouce
+        <>
+          {!isExactTotal ? 'Au moins ' : 'Prime de '}
+          {montantTotal}
+        </>
+      ) : !eligibleMPRG && hasCoupDePouce && isExactTotal ? (
+        // Cas des Coup de pouce
+        <>Prime de {montantTotal}</>
+      ) : !eligibleMPRG && !hasCoupDePouce && isExactTotal ? (
+        // On a le droit qu'au CEE, si l'aide est à 0, ça veut dire qu'elle n'existe pas
+        <>
+          {montantTotal ? (
+            <>
+              Prime indicative de {montantTotal}&nbsp;{' '}
+              <Tooltip
+                className="fr-ms-1v"
+                kind="hover"
+                title="Ce montant correspond à la formule officielle de calcul. Cependant, les fournisseurs d'énergies sont libres d'adopter leur propre méthode de calcul."
+              />
+            </>
+          ) : (
+            'Non éligible' + montantTotal
+          )}
+        </>
+      ) : (
+        <>
+          Prime existante&nbsp;
+          <Tooltip
+            className="fr-ms-1v"
+            kind="hover"
+            title="Veuillez répondre aux questions pour préciser son montant."
+          />
+        </>
+      )}
+    </Badge>
   )
 }

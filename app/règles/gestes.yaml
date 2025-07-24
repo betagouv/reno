@@ -117,8 +117,6 @@ ventilation . double flux . CEE . question:
 ventilation . double flux . CEE . surface: logement . surface
 ventilation . double flux . CEE . type de ventilation:
   question: Quel type de ventilation souhaitez-vous installer ?
-  par défaut: "'autoréglable'"
-  maximum: "'modulée'"
   une possibilité parmi:
     possibilités:
       - 'autoréglable'
@@ -130,6 +128,7 @@ ventilation . double flux . CEE . type de ventilation . modulée:
   valeur: "'modulée'"
   titre: 'Modulée'
 ventilation . double flux . CEE . facteur correctif région:
+  par défaut: 0
   variations:
     - si: type de ventilation = 'autoréglable'
       alors: facteur correctif autoréglable

@@ -157,36 +157,6 @@ export default function AideAmpleur({
   )
 }
 
-export const PrimeWithLabel = ({ engine, dottedName, situation, severity }) => {
-  const bestSituation = createExampleSituation(situation, 'best')
-  const montantMax = engine.setSituation(bestSituation).evaluate(dottedName)
-
-  return montantMax.nodeValue ? (
-    <Badge noIcon severity={severity}>
-      <AideMontant
-        {...{
-          engine,
-          situation: bestSituation,
-          dottedName,
-        }}
-      />
-      <AideDurée
-        {...{
-          engine,
-          situation: bestSituation,
-          dottedName,
-        }}
-      />
-    </Badge>
-  ) : (
-    ![
-      'aides locales . montant',
-      'tva réduite . montant',
-      "crédit d'impôt . montant",
-    ].includes(dottedName) && <Badge noIcon>Non éligible</Badge>
-  )
-}
-
 export function AideCTA({ children, text }) {
   return (
     <details
@@ -232,39 +202,12 @@ export const aideTitle = (dottedName) => {
   const marque2 = rule['complément de marque']
   return rule.marque + (marque2 ? ' - ' + uncapitalise0(marque2) : '')
 }
-export function AideMontant({ engine, situation, dottedName }) {
-  const montantMax = engine.setSituation(situation).evaluate(dottedName)
-  const worstSituation = createExampleSituation(situation, 'worst')
-  const montantMin = engine.setSituation(worstSituation).evaluate(dottedName)
-  return dottedName.includes('taxe foncière') ? (
-    <strong>{situation['taxe foncière . commune . taux']}</strong>
-  ) : dottedName.includes('denormandie') ? (
-    <>
-      Jusqu'à{' '}
-      {formatValue(
-        engine.setSituation(situation).evaluate('denormandie . taux'),
-      )}
-    </>
-  ) : montantMax.nodeValue == montantMin.nodeValue ? (
-    <>
-      {rules[dottedName.replace(' . montant', '')].type == 'prêt'
-        ? "Jusqu'à"
-        : 'Prime de'}{' '}
-      {formatValue(montantMin)}
-    </>
-  ) : (
-    <>
-      De {formatValue(montantMin)} à{` `}
-      {formatValue(montantMax)} d'aides
-    </>
-  )
-}
+
 export function AideDurée({ engine, situation, dottedName }) {
   const duréeName =
-    dottedName.replace(/\s.\smontant$/, ' . ') +
-    (dottedName.includes('denormandie') ? 'années de location' : 'durée')
+    dottedName.replace(/\s.\smontant$/, '') +
+    (dottedName.includes('denormandie') ? 'années de location' : ' . durée')
   const duréeRule = rules[duréeName]
-
   if (!duréeRule) return null
   const evaluation = engine.setSituation(situation).evaluate(duréeName)
   return (

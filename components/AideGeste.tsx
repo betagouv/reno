@@ -16,7 +16,10 @@ import Badge from '@codegouvfr/react-dsfr/Badge'
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
 
-  const engineSituation = engine.setSituation(situation)
+  const engineSituation = engine.setSituation({
+    ...situation,
+    [dottedName]: 'oui',
+  })
   const relevant = rules[dottedName + ' . MPR . barème']
     ? dottedName + ' . MPR . barème'
     : dottedName + ' . montant'
@@ -35,7 +38,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
       code: rules[dottedNameCee].code,
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
-      isExactTotal: Object.keys(evaluationCEE.missingVariables).length === 1,
+      isExactTotal: Object.keys(evaluationCEE.missingVariables).length === 0,
       questions: rules[dottedNameCee + ' . question']?.valeurs
         .map((q) =>
           rules[dottedNameCee + ' . ' + q]
@@ -67,6 +70,12 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
       montant: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . montant'),
       ),
+      isExactTotal:
+        Object.keys(
+          engineSituation.evaluate(dottedNameMpr + ' . montant')
+            .missingVariables,
+        ).length === 0,
+
       plafond: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . plafond'),
       ),
@@ -78,6 +87,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     : null
 
   const evaluationTotal = engineSituation.evaluate(dottedName + ' . montant')
+  console.log(dottedName, evaluationTotal)
   isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 0
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
 
@@ -198,7 +208,7 @@ const BlocAideMPR = ({ infoMPR }) => (
       <div>
         <h4 className="fr-m-0">MaPrimeRénov'</h4>
         <Badge noIcon severity="success">
-          Prime de {infoMPR.montant}
+          Prime de {infoMPR.isExactTotal ? infoMPR.montant : '...'}
         </Badge>
       </div>
     </div>
