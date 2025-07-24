@@ -11,12 +11,15 @@ export default function MprCategory({
   answeredQuestions,
 }) {
   const questions = [
-    'ménage . commune',
+    'logement . commune',
     'ménage . personnes',
     'ménage . revenu',
   ]
   const primeIndividuelleObj = engine
-    .setSituation(situation)
+    .setSituation({
+      ...situation,
+      ['vous . propriétaire . statut']: 'acquéreur',
+    })
     .evaluate('copropriété . prime individuelle')
   const isExactTotal =
     Object.keys(primeIndividuelleObj.missingVariables).length === 0
@@ -51,13 +54,14 @@ export default function MprCategory({
         >
           <Badge
             noIcon
+            className="fr-text--xl"
             severity={!isExactTotal || !positiveValue ? '' : 'success'}
           >
             {positiveValue ? (
               <>
                 Prime de{' '}
-                {isExactTotal ? formatValue(primeIndividuelleObj) : '...'}
-                par logement
+                {isExactTotal ? formatValue(primeIndividuelleObj) : '...'} par
+                logement
               </>
             ) : (
               'Pas de prime'

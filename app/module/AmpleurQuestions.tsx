@@ -12,7 +12,7 @@ import styled from 'styled-components'
 import { getRevenusList } from '@/components/RevenuInput'
 import { usageLogement, usageLogementValues } from './AmpleurInputs'
 import { formatValue } from 'publicodes'
-import AddressSearch from '@/components/AddressSearch'
+import CommuneSearch from '@/components/CommuneSearch'
 import { formatNumberWithSpaces } from '@/components/utils'
 import Select from '@codegouvfr/react-dsfr/Select'
 import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
@@ -23,7 +23,7 @@ export const CommuneLogement = ({
   onChange,
   text = 'Ce logement est situé à',
 }) => (
-  <AddressSearch
+  <CommuneSearch
     {...{
       label: text + ' :',
       type: 'logement . commune',

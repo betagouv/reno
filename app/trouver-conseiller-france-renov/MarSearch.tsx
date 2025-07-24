@@ -1,6 +1,6 @@
 'use client'
 
-import AddressSearch from '@/components/AddressSearch'
+import CommuneSearch from '@/components/CommuneSearch'
 import { Card } from '@/components/UI'
 import { useEffect, useRef, useState } from 'react'
 import Entreprise from './Entreprise'
@@ -66,7 +66,7 @@ export default function MarSearch({
           `}
         >
           <span>Saisissez votre ville</span>
-          <AddressSearch
+          <CommuneSearch
             situation={situation}
             type={'ménage . commune'}
             setChoice={(result) => {

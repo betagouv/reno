@@ -1,4 +1,4 @@
-import AddressSearch from './AddressSearch'
+import CommuneSearch from './CommuneSearch'
 import BinaryQuestion from './BinaryQuestion'
 import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
@@ -10,7 +10,7 @@ import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import CoproAddressSearch from './CoproAddressSearch'
 import DPEMap from './dpe/DPEMap'
-import DPEAddressSearch from './dpe/DPEAddressSearch'
+import AddressSearch from './AddressSearch'
 import { useState } from 'react'
 import enrichSituation, { getCommune } from './personas/enrichSituation'
 import { useSendDataToHost } from './useIsInIframe'
@@ -131,7 +131,7 @@ export default function InputSwitch({
       ) : ['ménage . commune', 'logement . commune'].includes(
           currentQuestion,
         ) ? (
-        <AddressSearch
+        <CommuneSearch
           {...{
             type: currentQuestion,
             setChoice: (result) => {
@@ -170,7 +170,7 @@ export default function InputSwitch({
           }}
         />
       ) : currentQuestion === 'logement . adresse' ? (
-        <DPEAddressSearch
+        <AddressSearch
           {...{
             addressResults,
             setAddressResults,
@@ -364,63 +364,4 @@ export default function InputSwitch({
       }}
     />
   )
-
-  if (currentQuestion === 'copropriété . id')
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-
-          currentValue,
-          engine,
-        }}
-      >
-        <CoproAddressSearch
-          {...{
-            type: currentQuestion,
-            setChoice: (result) => {
-              const constructionPeriod = result['Période de construction']
-              const lessThan15Years = constructionPeriod === 'A_COMPTER_DE_2011'
-              // these are the possible values, obtained with the server route /periodes-construction
-              // ["AVANT_1949","A_COMPTER_DE_2011","DE_1949_A_1960","DE_1961_A_1974","DE_1975_A_1993","DE_1994_A_2000","DE_2001_A_2010","NON_CONNUE","non renseigné"]
-              const moreThan15Years =
-                !lessThan15Years && constructionPeriod.match(/\d\d\d\d/)
-
-              const id = result["Numéro d'immatriculation"]
-              console.log('cyan id', id)
-              const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  'logement . code région': `"${result['Code Officiel Région']}"`,
-                  'logement . code département': `"${result['Code Officiel Département']}"`,
-                  'logement . EPCI': `"${result['Code Officiel EPCI']}"`,
-                  'logement . commune': `"${result['Commune']}"`,
-                  'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
-                  'copropriété . id': `"${id}"`,
-                  'copropriété . nom': `"${result['Nom d’usage de la copropriété']}"`,
-                  'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
-                  'copropriété . nombre de logements': `"${result['Nombre de lots à usage d’habitation']}"`,
-                  ...(lessThan15Years
-                    ? { 'copropriété . condition 15 ans': 'non' }
-                    : moreThan15Years
-                      ? { 'copropriété . condition 15 ans': 'oui' }
-                      : {}),
-                },
-                false,
-                answeredQuestions,
-              )
-
-              setSearchParams(encodedSituation, 'push', false)
-            },
-            situation,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
 }

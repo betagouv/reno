@@ -7,7 +7,7 @@ import Ampleur from '@/app/module/Ampleur'
 import { useSearchParams } from 'next/navigation'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import DPEAddressSearch from './DPEAddressSearch'
+import AddressSearch from '../AddressSearch'
 import { useEffect, useState } from 'react'
 import enrichSituation from '../personas/enrichSituation'
 import DPEFactureModule from './DPEFactureModule'
@@ -99,11 +99,7 @@ export default function DPEPage({ numDpe: initialNumDpe }) {
           `}
         >
           <div>
-            <DPEAddressSearch
-              searchParams={searchParams}
-              dpe={dpe}
-              click={true}
-            />
+            <AddressSearch searchParams={searchParams} dpe={dpe} click={true} />
             <p>
               {dpe['type_batiment'] == 'maison'
                 ? 'maison constuite'

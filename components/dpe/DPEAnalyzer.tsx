@@ -10,7 +10,7 @@ import Value from '../Value'
 import { Key } from '../explications/ExplicationUI'
 import useSetSearchParams from '../useSetSearchParams'
 import data from './DPE.yaml'
-import DPEAddressSearch from './DPEAddressSearch'
+import AddressSearch from '../AddressSearch'
 import DPELabel from './DPELabel'
 import DPEMap from './DPEMap'
 import parseDpeXml from './parseDpeXml'
@@ -73,7 +73,7 @@ export default function DPEAnalyzer() {
         }
       `}
     >
-      <DPEAddressSearch
+      <AddressSearch
         {...{
           addressResults,
           setAddressResults,

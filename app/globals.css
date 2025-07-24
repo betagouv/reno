@@ -27,6 +27,9 @@ main {
 .fr-grid-row--stretch {
   align-items: stretch;
 }
+.fr-grid-row--between {
+  justify-content: space-between;
+}
 
 details summary {
   cursor: pointer;

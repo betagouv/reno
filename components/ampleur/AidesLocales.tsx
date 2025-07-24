@@ -1,6 +1,6 @@
 import AideAmpleur from './AideAmpleur'
 import rules from '@/app/règles/rules'
-import AddressSearch from '../AddressSearch'
+import CommuneSearch from '../CommuneSearch'
 import { encodeSituation } from '../publicodes/situationUtils'
 import AidesLocalesByLevel from './AidesLocalesByLevel'
 import { findAidesLocales } from './useAides'
@@ -47,7 +47,7 @@ export default function AidesLocales({
             Nous ne connaissons pas votre commune, à vous de chercher son
             éligibilté aux aides locales, ou cliquez pour la saisir.
           </summary>
-          <AddressSearch
+          <CommuneSearch
             type="logement . commune"
             setChoice={(result) => {
               setSearchParams(

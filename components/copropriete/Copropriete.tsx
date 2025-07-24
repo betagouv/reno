@@ -46,7 +46,6 @@ export default function Copropriete() {
     simulationConfigCopropriete,
     rules,
   ).filter((q) => q != 'copropriété . montant travaux')
-
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
   const setSearchParams = useSetSearchParams()

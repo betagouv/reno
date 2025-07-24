@@ -308,7 +308,7 @@ export function EligibilityRenovationEnergetique({
       />
       {!hasMPRA && (
         <>
-          <h3>Et maintenant ?</h3>
+          <h3 className="fr-mt-5v">Et maintenant ?</h3>
           <p>Un conseiller France Rénov’ peut vous aider à :</p>
           <ul
             css={`

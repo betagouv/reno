@@ -148,16 +148,16 @@ export const AvanceTMO = ({ engine, situation }) => {
       className="fr-my-5v"
       description={
         <>
-          En tant que ménage au revenu <strong>{ménageClasse}</strong>
-          , vous pourrez bénéficier d'une avance allant jusqu'à
+          En tant que ménage au revenu <strong>{ménageClasse}</strong>, vous
+          pourrez bénéficier d'une avance allant jusqu'à{' '}
           <Value
             {...{
+              state: 'success',
               engine,
               situation,
               dottedName: 'gestes . pourcentage avance',
-              state: 'none',
             }}
-          />
+          />{' '}
           de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé
           après travaux.
         </>

@@ -3,7 +3,7 @@ import { formatNumberWithSpaces } from '../utils'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
-import AddressSearch from '../AddressSearch'
+import CommuneSearch from '../CommuneSearch'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeDottedName } from '../publicodes/situationUtils'
 import { DPEAppreciationInfo, hasResult } from '../module/PlusValueModule'
@@ -32,7 +32,7 @@ const PlusValueWidget = ({
           }
         `}
       >
-        <AddressSearch
+        <CommuneSearch
           label="Ville :"
           {...{
             type: 'logement . commune',

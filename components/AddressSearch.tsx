@@ -1,183 +1,214 @@
+'use client'
 import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
+import Input from '@codegouvfr/react-dsfr/Input'
 import { useEffect, useState } from 'react'
-import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
-import { getCommune } from './personas/enrichSituation'
-
-function onlyNumbers(str) {
-  return /^\d+/.test(str)
-}
+import { useDebounce } from 'use-debounce'
 
 export default function AddressSearch({
-  label,
-  setChoice,
+  setCoordinates,
+  coordinates,
+  dpe,
   situation,
-  type,
-  autoFocus = true,
+  addressResults,
+  setAddressResults,
+  onChange = null,
 }) {
-  const [immediateInput, setInput] = useState('')
-
+  const [immediateInput, setInput] = useState(
+    dpe?.['adresse_ban'] ||
+      situation['logement . adresse']?.replaceAll('"', ''),
+  )
   const [input] = useDebounce(immediateInput, 300)
-  const [isLoading, setIsLoading] = useState(false)
-  const [results, setResults] = useState(null)
-  const [clicked, setClicked] = useState(situation && situation[type])
+  const [clicked, setClicked] = useState(situation['logement . adresse'] || '')
 
-  const validInput = input && input.length >= 3
-  // Get the commune name from the code if it exists to display it in the search box
-  useEffect(() => {
-    setInput('')
-    async function fetchCommune() {
-      const commune = await getCommune(situation, type)
-      if (commune) {
-        setInput(commune.nom + ' ' + commune.codeDepartement)
-      }
-    }
-    fetchCommune()
-  }, [situation, setInput])
+  const validInput = input && input.length >= 5
+  const [error, setError] = useState()
+
+  const validCoordinates = coordinates && coordinates.every(Boolean)
 
   useEffect(() => {
     if (!validInput) return
-    // Le code postal en France est une suite de cinq chiffres https://fr.wikipedia.org/wiki/Code_postal_en_France
-    if (onlyNumbers(input) && input.length !== 5) return
 
     const asyncFetch = async () => {
-      setIsLoading(true)
       const request = await fetch(
-        onlyNumbers(input)
-          ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
-          : `/api/geo/?path=${encodeURIComponent(
-              `communes?nom=${input}&boost=population&limit=5`,
-            )}`,
+        `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
-      const json = await request.json()
+      const { features } = await request.json()
 
-      const enrichedResults = await Promise.all(
-        json.map((commune) =>
-          fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
-            .then((response) => response.json())
-            .then((json) => ({ ...commune, eligibilite: json })),
-        ),
-      )
-      setIsLoading(false)
-      setResults(enrichedResults)
+      setAddressResults(features)
     }
 
     asyncFetch()
   }, [input, validInput])
 
   return (
-    <div
-      className={`fr-input-group ${clicked && input ? 'fr-input-group--valid' : ''}`}
-    >
-      <label className="fr-label" htmlFor="city">
-        {label}
-      </label>
-      <input
-        className="fr-input"
-        type="text"
-        id="city"
-        autoFocus={autoFocus}
-        value={immediateInput}
-        placeholder={'commune ou code postal'}
-        onChange={(e) => {
-          setClicked(false)
-          setInput(e.target.value)
-        }}
-      />
-      {clicked && input && (
+    <>
+      <div className="fr-fieldset__element">
         <div
-          className="fr-messages-group"
-          id="input-0-messages"
-          aria-live="polite"
+          className={`fr-input-group ${error && 'fr-input-group--error'} ${clicked && input && 'fr-input-group--valid'}`}
         >
-          <p
-            className="fr-message fr-message--valid"
-            id="input-0-message-valid"
-          >
-            Adresse validée
-          </p>
+          <Input
+            nativeInputProps={{
+              value: immediateInput,
+              onChange: (e) => {
+                setCoordinates([undefined, undefined])
+                setClicked(false)
+                setInput(e.target.value)
+              },
+              type: 'text',
+              name: 'sujet',
+              required: true,
+              autoFocus: true,
+            }}
+          />
+          {clicked && input && (
+            <div
+              className="fr-messages-group"
+              id="input-0-messages"
+              aria-live="polite"
+            >
+              <p
+                className="fr-message fr-message--valid"
+                id="input-0-message-valid"
+              >
+                Adresse validée
+              </p>
+            </div>
+          )}
+          {error && (
+            <div
+              className="fr-messages-group"
+              id="input-0-messages"
+              aria-live="polite"
+            >
+              <p className="fr-message input-0-message-error">
+                {error.message}{' '}
+              </p>
+            </div>
+          )}
         </div>
+      </div>
+      {validInput && !addressResults && (
+        <small
+          css={`
+            margin: 0.2rem 0;
+            display: flex;
+            align-items: center;
+          `}
+        >
+          <Loader />
+          Chargement...
+        </small>
       )}
-      <CityList>
-        {isLoading && (
-          <li
+      {addressResults && !clicked && (
+        <div
+          css={`
+            display: flex;
+            align-items: top;
+            gap: 1em;
+          `}
+        >
+          <small
             css={`
-              margin: 0.8rem 0;
-              display: flex;
-              align-items: center;
+              color: #929292;
+              margin: 0.2rem 0 0.2rem 0.1rem;
+              font-size: 90%;
             `}
           >
-            <Loader />
-            Chargement...
-          </li>
-        )}
-        {results && !clicked && (
-          <>
-            <li
-              css={`
-                color: #929292;
-              `}
-            >
-              {results.length > 0
-                ? 'Sélectionnez une ville'
-                : 'Aucune ville trouvée'}
-            </li>
-            {results.map((result) => (
-              <li
-                className={
-                  situation &&
-                  situation[type] &&
-                  situation[type].replace(/"/g, '') == result.code
-                    ? 'selected'
-                    : ''
-                }
-                key={result.code}
-                onClick={() => {
-                  setChoice(result)
-                  setInput(result.nom + ' ' + result.codeDepartement)
-                  setClicked(true)
-                }}
-              >
-                {result.nom} <small>{result?.codesPostaux[0]}</small>
-              </li>
-            ))}
-          </>
-        )}
-      </CityList>
-    </div>
+            Sélectionnez une adresse :
+          </small>
+          <CityList>
+            {addressResults.map((result) => {
+              const { label, id } = result.properties
+              return (
+                <li
+                  className={
+                    coordinates &&
+                    coordinates.join('|') ===
+                      result.geometry.coordinates.join('|')
+                      ? 'selected'
+                      : ''
+                  }
+                  key={id}
+                  onClick={() => {
+                    setInput(label)
+                    //setCoordinates(result.geometry.coordinates)
+                    setClicked(result)
+                    onChange && onChange(result)
+                  }}
+                >
+                  <span>{label}</span>
+                </li>
+              )
+            })}
+          </CityList>
+        </div>
+      )}
+    </>
   )
 }
+
+export const AddressInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  input {
+    margin: 0;
+    padding-left: 1.5rem !important;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none !important;
+    height: 2.8rem !important;
+    border-bottom: 2px solid #3a3a3a;
+  }
+`
+
+const Validated = styled.p`
+  margin: 0.5rem 0;
+  color: var(--validColor);
+  &::before {
+    background-color: currentColor;
+    content: '';
+    display: inline-block;
+    height: 1rem;
+    margin-right: 0.25rem;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    vertical-align: -0.125rem;
+    width: 1rem;
+    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
+  }
+`
 
 export const CityList = styled.ul`
   padding: 0;
   background: #f5f5fe;
   border-radius: 0 0 5px 5px;
   border: 1px solid #dfdff0;
-  list-style-type: none;
-  position: absolute;
   z-index: 999999;
+  margin-bottom: 0.6rem;
   li {
-    display: block !important;
-    margin: 0 !important;
-    padding: 8px 24px 8px 35px;
+    width: fit-content;
+    margin: 0.2rem 0 0.2rem 1.6rem;
     line-height: 1.2rem;
-    &::before,
-    &.selected::before {
-      content: '';
+    span {
+      padding: 0.1rem 0.2rem;
     }
-    &:not(:first-child):hover,
+    span:hover {
+      background: var(--color);
+      color: white;
+      border-radius: 0.2rem;
+    }
     &.selected {
       background: rgba(0, 0, 145, 0.1);
       color: var(--color);
+      list-style: none;
     }
-    &:not(:first-child):hover::before,
     &.selected::before {
       content: '✔';
       margin-left: -20px;
       margin-right: 7px;
     }
-    &:not(:first-child) {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `

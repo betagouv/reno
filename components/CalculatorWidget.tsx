@@ -1,9 +1,14 @@
 'use client'
 import calculatorIcon from '@/public/calculator-black.svg'
 import Image from 'next/image'
+import React from 'react'
 import { useEffect } from 'react'
 
-export default function CalculatorWidget({ isMobile = null, children }) {
+export default function CalculatorWidget({
+  isMobile = null,
+  titleAs = 'h3',
+  children,
+}) {
   useEffect(() => {
     if (!isMobile) {
       isMobile = window.innerWidth <= 600
@@ -24,21 +29,19 @@ export default function CalculatorWidget({ isMobile = null, children }) {
       //   }
       // `}
     >
-      <div
-        css={`
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1rem;
-          h3 {
-            margin: 0.5rem 0;
-          }
-        `}
-      >
-        <Image src={calculatorIcon} alt="icone calculatrice" />{' '}
-        <h3>À vos calculs !</h3>
-      </div>
+      <TitleWithIcon titleAs={titleAs} />
       {children}
     </div>
+  )
+}
+
+const TitleWithIcon = ({ titleAs }) => {
+  return React.createElement(
+    titleAs,
+    { className: 'fr-callout__title' },
+    <span aria-hidden="true">
+      <Image src={calculatorIcon} alt="icone calculatrice" />
+    </span>,
+    ' À vos calculs !',
   )
 }

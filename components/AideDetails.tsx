@@ -63,6 +63,7 @@ export default function AideDetails({
         css={`
           display: flex;
           justify-content: space-between;
+          align-items: flex-start;
         `}
       >
         <BtnBackToParcoursChoice

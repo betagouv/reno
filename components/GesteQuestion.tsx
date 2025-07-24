@@ -1,7 +1,7 @@
 import { Input } from '@codegouvfr/react-dsfr/Input'
 import { RadioButtons } from '@codegouvfr/react-dsfr/RadioButtons'
 import { encodeSituation } from './publicodes/situationUtils'
-import AddressSearch from './AddressSearch'
+import CommuneSearch from './CommuneSearch'
 import RevenuInput from './RevenuInput'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { Select } from '@codegouvfr/react-dsfr/Select'
@@ -72,7 +72,6 @@ const InputComponent = ({
   ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
     <RadioButtons
       legend={currentQuestion.question}
-      name="radio"
       options={[
         {
           label: 'Oui',
@@ -114,7 +113,7 @@ const InputComponent = ({
       ))}
     </Select>
   ) : ['ménage . commune', 'logement . commune'].includes(question) ? (
-    <AddressSearch
+    <CommuneSearch
       {...{
         label: currentQuestion.question,
         type: question,

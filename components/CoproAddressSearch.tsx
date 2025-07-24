@@ -25,7 +25,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [copro, setCopro] = useState(null)
   const [dpes, setDpes] = useState(null)
 
-  console.log('cyan dpes', results, copros, copro, dpes, input)
   const mapContainerRef = useRef(null)
   const setLocation = useCallback((location) => console.log(location), [])
 
@@ -49,7 +48,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
         const url = `${getServerUrl()}/findCopro/${lon}/${lat}/6`
         const request = await fetch(url)
         const json = await request.json()
-        console.log('cyan', json)
         setCopros(json)
         setError(null)
       } catch (e) {
@@ -98,16 +96,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
 
   return (
     <AddressInput>
-      {error && (
-        <p
-          css={`
-            background: #f9e2e2;
-            padding: 0.1rem 0.6rem;
-          `}
-        >
-          {error.message}{' '}
-        </p>
-      )}
+      {error && <p className="fr-text--error">{error.message} </p>}
       <input
         css={`
           ${clicked &&

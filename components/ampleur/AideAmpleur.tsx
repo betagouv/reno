@@ -11,7 +11,6 @@ import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import { PrimeBadge } from '../Geste'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Button from '@codegouvfr/react-dsfr/Button'
-import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup'
 
 export default function AideAmpleur({
   isEligible,

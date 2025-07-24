@@ -13,6 +13,7 @@ import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
 import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
+import Tag from '@codegouvfr/react-dsfr/Tag'
 
 export const QuestionText = ({
   rule,
@@ -117,7 +118,7 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
-      <h1 className="fr-text--lg fr-mb-0">{categoryTitle}</h1>
+      {categoryTitle && <Tag>{categoryTitle}</Tag>}
       <form id="simulator-form">
         <fieldset
           className="fr-fieldset"
