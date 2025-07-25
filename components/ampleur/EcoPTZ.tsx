@@ -1,6 +1,7 @@
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { Card } from '../UI'
 import AideAmpleur from './AideAmpleur'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 
 export default function EcoPTZ({
   isEligible,
@@ -46,35 +47,22 @@ export default function EcoPTZ({
             une rénovation d'ampleur.
           </p>
           <p>La durée du remboursement est de 20 ans maximum.</p>
-          <Card
-            $background="#EEEEFF"
-            css={`
-              padding: 1rem;
-            `}
-          >
-            <div
-              css={`
-                display: flex;
-                align-items: center;
-              `}
-            >
-              <p>
-                Par rapport à un prêt à la consommation de 50 000 € affecté aux
-                travaux à un taux de 5 % sur 20 ans, l'éco-PTZ peut vous faire
-                économiser{' '}
-                <Badge noIcon>
-                  <a
-                    rel="noopener external"
-                    className="fr-link"
-                    href="https://www.lafinancepourtous.com/outils/calculateurs/calculateur-de-credit-immobilier/"
-                  >
-                    30 000 € d'intérêts
-                  </a>
-                </Badge>
-                .
-              </p>
-            </div>
-          </Card>
+
+          <Highlight>
+            Par rapport à un prêt à la consommation de 50 000 € affecté aux
+            travaux à un taux de 5 % sur 20 ans, l'éco-PTZ peut vous faire
+            économiser{' '}
+            <Badge noIcon>
+              <a
+                rel="noopener external"
+                className="fr-link"
+                href="https://www.lafinancepourtous.com/outils/calculateurs/calculateur-de-credit-immobilier/"
+              >
+                30 000 € d'intérêts
+              </a>
+            </Badge>
+            .
+          </Highlight>
         </>
       )}
     </AideAmpleur>

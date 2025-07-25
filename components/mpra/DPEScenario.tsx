@@ -1,11 +1,9 @@
 import Value from '@/components/Value'
-import { Card } from '../UI'
 import { encodeSituation } from '../publicodes/situationUtils'
-import Image from 'next/image'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
-import editIcon from '@/public/crayon.svg'
 import CalculatorWidget from '../CalculatorWidget'
+import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function DPEScenario({
   engine,
@@ -38,101 +36,63 @@ export default function DPEScenario({
   }
   return (
     <CalculatorWidget isMobile={isMobile}>
-      <div>
-        <DPEQuickSwitch
-          oldIndex={oldIndex}
-          situation={situation}
-          columnDisplay={true}
-        />
-        <TargetDPETabs
-          {...{
-            oldIndex,
-            setSearchParams,
-            answeredQuestions,
-            choice,
-            engine,
-            situation,
-            columnDisplay: true,
-          }}
-        />
+      <div className="fr-grid-row fr-grid-row--gutters">
+        <div className="fr-col">
+          <DPEQuickSwitch
+            oldIndex={oldIndex}
+            situation={situation}
+            columnDisplay={true}
+          />
+        </div>
+        <div className="fr-col">
+          <TargetDPETabs
+            {...{
+              oldIndex,
+              setSearchParams,
+              answeredQuestions,
+              choice,
+              engine,
+              situation,
+              columnDisplay: true,
+            }}
+          />
+        </div>
         <div
+          className="fr-col"
           css={`
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
           `}
         >
-          <div>Budget de travaux de rénovation&nbsp;:</div>
-          <div
-            css={`
-              margin: auto;
-              border: 2px solid var(--color);
-              width: 100%;
-              color: var(--color);
-              text-align: center;
-              border-radius: 0.3rem;
-              padding: 0.7rem;
-              box-shadow: var(--shadow-elevation-medium);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
-            <div
-              css={`
-                flex-grow: 1;
-              `}
-            >
-              <input
-                id="budget-travaux"
-                css={`
-                  border: none;
-                  background: transparent;
-                  -webkit-appearance: none;
-                  outline: none;
-                  color: var(--color);
-                  font-size: 110%;
-                  max-width: 4rem;
-                `}
-                autoFocus={false}
-                value={montantTravaux}
-                placeholder="mes travaux"
-                min="0"
-                max="999999"
-                onChange={(e) => {
-                  const rawValue = e.target.value
-                  const startPos = e.target.selectionStart
-                  const value = +rawValue === 0 ? 0 : rawValue
-                  setSearchParams(
-                    encodeSituation({
-                      'projet . travaux': value + '*',
-                    }),
-                    'replace',
-                    false,
-                  )
-                  requestAnimationFrame(() => {
-                    const inputBudget =
-                      document.querySelector('#budget-travaux')
-                    inputBudget.selectionStart = startPos
-                    inputBudget.selectionEnd = startPos
-                  })
-                }}
-                step="100"
-              />
+          <Input
+            label="Budget de travaux de rénovation :"
+            nativeInputProps={{
+              autoFocus: false,
+              value: montantTravaux,
+              onChange: (e) => {
+                const rawValue = e.target.value
+                const value = +rawValue === 0 ? 0 : rawValue
+                setSearchParams(
+                  encodeSituation({
+                    'projet . travaux': value + '*',
+                  }),
+                  'replace',
+                  false,
+                )
+              },
+              min: '0',
+              max: '999999',
+              step: '100',
+              name: 'sujet',
+              required: true,
+            }}
+            addon={
               <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
                 € HT
               </span>
-            </div>
-            <Image
-              css={`
-                cursor: pointer;
-                margin-left: auto;
-              `}
-              src={editIcon}
-              alt="Icône crayon pour éditer"
-              onClick={() => document.querySelector('#budget-travaux').focus()}
-            />
-          </div>
+            }
+          />
           <div
             css={`
               text-align: center;
@@ -159,136 +119,113 @@ export default function DPEScenario({
           </div>
         </div>
       </div>
-      {oldIndex < 2 ? (
-        <Card
-          css={`
-            margin: 0.6rem 0;
-          `}
-        >
-          👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
-          bénéficier du parcours accompagné.
-        </Card>
-      ) : (
-        <>
-          <div
-            css={`
-              margin: 1rem 0;
-            `}
-          >
-            🥳 <strong>Bonne nouvelle</strong> : Vous êtes éligible à une aide
-            de
-            <Value
-              {...{
-                engine,
-                situation: futureSituation,
-                dottedName: 'MPR . accompagnée . pourcent dont bonus',
-              }}
-            />
-            {bonusSortiePassoire && (
-              <>
-                (dont <strong>{bonusSortiePassoire} %</strong> de bonus Sortie
-                de passoire)
-              </>
-            )}
-             du coût de vos travaux avec un plafond de
-            <Value
-              {...{
-                engine,
-                situation: futureSituation,
-                dottedName: 'projet . travaux . plafond',
-              }}
-            />
-            de travaux.
-          </div>
-          {isModeste && (
-            <div
-              css={`
-                background: #fdf8db;
-                padding: 1rem;
-                margin: 1rem 0;
-              `}
-            >
-              🍀 <strong>Bonus :</strong> En tant que ménage{' '}
+
+      <div className="fr-callout fr-callout--blue-cumulus">
+        {oldIndex < 2 ? (
+          <p>
+            👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
+            bénéficier du parcours accompagné.
+          </p>
+        ) : (
+          <>
+            <h2 className="fr-callout__title">🥳 Résultats</h2>
+            <div className="fr-callout__text">
+              Vous êtes éligible à une aide de{' '}
               <Value
                 {...{
+                  size: 'xl',
+                  state: 'success',
                   engine,
-                  situation,
-                  dottedName: 'ménage . revenu . classe',
-                  state: 'prime-black',
+                  situation: futureSituation,
+                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
                 }}
               />{' '}
-              ,{' '}
-              <strong>
+              du coût de vos travaux{' '}
+              <span className="fr-hint-text">
+                {bonusSortiePassoire && (
+                  <>
+                    dont <strong>{bonusSortiePassoire} %</strong> de bonus
+                    "Sortie de passoire"{' '}
+                  </>
+                )}
+                avec un plafond de
                 <Value
                   {...{
                     engine,
-                    situation,
-                    dottedName: 'MPR . accompagnée . pourcentage avance',
-                    state: 'prime-black',
+                    situation: futureSituation,
+                    dottedName: 'projet . travaux . plafond',
                   }}
                 />
-              </strong>{' '}
-              de cette aide peut vous être versée en avance de vos travaux.
-            </div>
-          )}
-          <div
-            css={`
-              display: flex;
-              justify-content: space-between;
-              gap: 1rem;
-              ${isMobile && 'flex-direction: column;'}
-              > div {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-              }
-            `}
-          >
-            <div>
-              <div>Vous toucherez un total d'aides de :</div>
+                de travaux.
+              </span>
+              {isModeste && (
+                <p className="fr-my-5v">
+                  🍀 <strong>Bonus :</strong> En tant que ménage{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation,
+                      dottedName: 'ménage . revenu . classe',
+                      state: 'prime-black',
+                    }}
+                  />{' '}
+                  ,{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation,
+                      dottedName: 'MPR . accompagnée . pourcentage avance',
+                      state: 'prime-black',
+                    }}
+                  />{' '}
+                  de cette aide peut vous être versée en avance de vos travaux.
+                </p>
+              )}
               <div
                 css={`
-                  margin-top: 0.5rem;
-                  text-align: center;
-                  background: var(--validColor1);
-                  color: var(--validColor);
-                  padding: 0.5rem;
+                  display: flex;
+                  justify-content: space-between;
+                  gap: 1rem;
+                  ${isMobile && 'flex-direction: column;'}
+                  > div {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                  }
                 `}
               >
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: futureSituation,
-                    dottedName: 'MPR . accompagnée . montant écrêté',
-                  }}
-                />
+                <div>
+                  <div>Vous toucherez un total d'aides de :</div>
+                  <Value
+                    {...{
+                      size: 'xl',
+                      state: 'success',
+                      engine,
+                      choice,
+                      situation: futureSituation,
+                      dottedName: 'MPR . accompagnée . montant écrêté',
+                    }}
+                  />
+                </div>
+                <div>
+                  <div>Il restera donc à votre charge :</div>
+                  <Value
+                    {...{
+                      engine,
+                      size: 'xl',
+                      state: 'warning',
+                      choice,
+                      situation: futureSituation,
+                      dottedName: 'MPR . accompagnée . reste à charge',
+                      addOn: 'TTC',
+                    }}
+                  />
+                </div>
               </div>
             </div>
-            <div>
-              <div>Il restera donc à votre charge :</div>
-              <div
-                css={`
-                  margin-top: 0.5rem;
-                  text-align: center;
-                  background: var(--warningColor);
-                  padding: 0.5rem;
-                `}
-              >
-                <Value
-                  {...{
-                    engine,
-                    choice,
-                    situation: futureSituation,
-                    dottedName: 'MPR . accompagnée . reste à charge',
-                  }}
-                />{' '}
-                TTC.
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </CalculatorWidget>
   )
 }

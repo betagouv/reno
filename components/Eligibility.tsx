@@ -263,10 +263,6 @@ export function EligibilityRenovationEnergetique({
                 css={`
                   border-bottom: 1px solid var(--lighterColor2);
                   margin-bottom: 1rem;
-                  padding-left: 1.5rem;
-                  h3 {
-                    font-size: 90%;
-                  }
                 `}
               >
                 <AideAmpleur

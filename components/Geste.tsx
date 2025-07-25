@@ -9,7 +9,7 @@ import { formatValue } from 'publicodes'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 export const PrimeBadge = ({ engine, dottedName, situation }) => {
   const bestSituation = createExampleSituation(situation, 'best')
-  const { montantTotal, infoCEE, isExactTotal, eligibleMPRG, hasCoupDePouce } =
+  const { montantTotal, isExactTotal, eligibleMPRG, hasCoupDePouce } =
     getInfoForPrime({
       engine,
       dottedName,

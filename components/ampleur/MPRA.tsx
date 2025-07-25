@@ -16,7 +16,6 @@ export default function MPRA({
   expanded,
 }) {
   const dottedName = 'MPR . accompagnée'
-  const isMobile = window.innerWidth <= 600
 
   // Si le montant des travaux n'est pas précisé, on l'estime
   if (!situation['projet . travaux']) {
