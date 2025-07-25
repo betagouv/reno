@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import GesteQuestion from '../GesteQuestion'
 import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'

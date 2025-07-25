@@ -248,7 +248,11 @@ const BlocAideCoupDePouce = ({ montantCoupDePouce }) => {
             noIcon
             severity={montantCoupDePouce !== 'Non applicable' ? 'success' : ''}
           >
-            {montantCoupDePouce}
+            {montantCoupDePouce === 'Non applicable' ? (
+              <>Non applicable</>
+            ) : (
+              <>Prime de {montantCoupDePouce}</>
+            )}
           </Badge>
           <span className="aide-details">
             {' '}
