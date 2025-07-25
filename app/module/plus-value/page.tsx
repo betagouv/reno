@@ -18,12 +18,10 @@ export default function Module({}) {
       <StartDsfrOnHydration />
       <PageBlock>
         <HeaderWrapper
-          image={
-            <Image
-              src={plusValueImage}
-              alt="Illustration du module plus value"
-            />
-          }
+          image={{
+            src: plusValueImage,
+            alt: 'Illustration du module plus-value',
+          }}
         >
           <h1>Plus value d'un logement après rénovation</h1>
           <p>

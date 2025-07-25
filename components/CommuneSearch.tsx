@@ -141,7 +141,6 @@ export const CityList = styled.ul`
   list-style-type: none;
   position: absolute;
   z-index: 999999;
-  top: 0;
   li {
     display: block !important;
     margin: 0 !important;

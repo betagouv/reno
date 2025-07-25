@@ -248,46 +248,39 @@ export function EligibilityRenovationEnergetique({
                   👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
                 </li>
                 <li>
-                  🥇 Au moins
+                  🥇 Au moins{' '}
                   <Value
                     {...{
                       engine,
                       situation,
                       dottedName: 'MPR . accompagnée . pourcent dont bonus',
                     }}
-                  />
+                  />{' '}
                   des travaux financés
                 </li>
               </ul>
-              <div
-                css={`
-                  border-bottom: 1px solid var(--lighterColor2);
-                  margin-bottom: 1rem;
-                `}
-              >
-                <AideAmpleur
-                  {...{
-                    isEligible: false,
-                    engine,
-                    dottedName: 'MPR . accompagnée',
-                    setSearchParams,
-                    situation,
-                    answeredQuestions,
-                    expanded,
-                    addedText: (
-                      <DPEScenario
-                        {...{
-                          rules,
-                          engine,
-                          situation,
-                          setSearchParams,
-                          answeredQuestions,
-                        }}
-                      />
-                    ),
-                  }}
-                />
-              </div>
+              <AideAmpleur
+                {...{
+                  isEligible: false,
+                  engine,
+                  dottedName: 'MPR . accompagnée',
+                  setSearchParams,
+                  situation,
+                  answeredQuestions,
+                  expanded,
+                  addedText: (
+                    <DPEScenario
+                      {...{
+                        rules,
+                        engine,
+                        situation,
+                        setSearchParams,
+                        answeredQuestions,
+                      }}
+                    />
+                  ),
+                }}
+              />
             </>
           )}
         </div>

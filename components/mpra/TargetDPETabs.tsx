@@ -11,7 +11,7 @@ export default function TargetDPETabs({
   choice,
   situation,
   disabled,
-  text = 'DPE visé',
+  text = 'DPE visé :',
   columnDisplay,
 }) {
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)

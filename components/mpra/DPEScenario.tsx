@@ -1,6 +1,6 @@
 import Value from '@/components/Value'
 import { encodeSituation } from '../publicodes/situationUtils'
-import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
+import DPEQuickSwitch2 from '../dpe/DPEQuickSwitch2'
 import TargetDPETabs from './TargetDPETabs'
 import CalculatorWidget from '../CalculatorWidget'
 import Input from '@codegouvfr/react-dsfr/Input'
@@ -38,7 +38,7 @@ export default function DPEScenario({
     <CalculatorWidget isMobile={isMobile}>
       <div className="fr-grid-row fr-grid-row--gutters">
         <div className="fr-col">
-          <DPEQuickSwitch
+          <DPEQuickSwitch2
             oldIndex={oldIndex}
             situation={situation}
             columnDisplay={true}
@@ -195,7 +195,9 @@ export default function DPEScenario({
                 `}
               >
                 <div>
-                  <div>Vous toucherez un total d'aides de :</div>
+                  <p className="fr-callout__text">
+                    Vous toucherez un total d'aides de :
+                  </p>
                   <Value
                     {...{
                       size: 'xl',
@@ -208,7 +210,9 @@ export default function DPEScenario({
                   />
                 </div>
                 <div>
-                  <div>Il restera donc à votre charge :</div>
+                  <p className="fr-callout__text">
+                    Il restera donc à votre charge :
+                  </p>
                   <Value
                     {...{
                       engine,
