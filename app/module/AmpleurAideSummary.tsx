@@ -23,16 +23,14 @@ export const AmpleurAideSummary = ({
     <>
       <>
         {text && <>{text}</>}
-        {text2 && <>&nbsp;-&nbsp;{text2}</>}ds
+        {text2 && <>&nbsp;-&nbsp;{text2}</>}
       </>
       {status ? (
         <PrimeBadge
           {...{
-            severity: 'success',
-            montant: evaluation,
             engine,
             situation,
-            dottedName,
+            dottedName: dottedName,
           }}
         />
       ) : (
