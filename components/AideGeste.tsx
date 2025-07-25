@@ -100,7 +100,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   const evaluationTotal = engineSituation.evaluate(
     dottedName.includes('montant') ? dottedName : dottedName + ' . montant',
   )
-  isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 0
+  isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 1
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
   if (!isExactTotal) {
     const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
