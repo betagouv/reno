@@ -44,123 +44,70 @@ export default function AddressSearch({
   return (
     <>
       <div className="fr-fieldset__element">
-        <div
-          className={`fr-input-group ${error && 'fr-input-group--error'} ${clicked && input && 'fr-input-group--valid'}`}
-        >
-          <Input
-            nativeInputProps={{
-              value: immediateInput,
-              onChange: (e) => {
-                setCoordinates([undefined, undefined])
-                setClicked(false)
-                setInput(e.target.value)
-              },
-              type: 'text',
-              name: 'sujet',
-              required: true,
-              autoFocus: true,
-            }}
-          />
-          {clicked && input && (
-            <div
-              className="fr-messages-group"
-              id="input-0-messages"
-              aria-live="polite"
-            >
-              <p
-                className="fr-message fr-message--valid"
-                id="input-0-message-valid"
-              >
-                Adresse validée
-              </p>
-            </div>
-          )}
-          {error && (
-            <div
-              className="fr-messages-group"
-              id="input-0-messages"
-              aria-live="polite"
-            >
-              <p className="fr-message input-0-message-error">
-                {error.message}{' '}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-      {validInput && !addressResults && (
-        <small
-          css={`
-            margin: 0.2rem 0;
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <Loader />
-          Chargement...
-        </small>
-      )}
-      {addressResults && !clicked && (
-        <div
-          css={`
-            display: flex;
-            align-items: top;
-            gap: 1em;
-          `}
-        >
-          <small
-            css={`
-              color: #929292;
-              margin: 0.2rem 0 0.2rem 0.1rem;
-              font-size: 90%;
-            `}
-          >
-            Sélectionnez une adresse :
-          </small>
-          <CityList>
-            {addressResults.map((result) => {
-              const { label, id } = result.properties
-              return (
-                <li
-                  className={
-                    coordinates &&
-                    coordinates.join('|') ===
-                      result.geometry.coordinates.join('|')
-                      ? 'selected'
-                      : ''
-                  }
-                  key={id}
-                  onClick={() => {
-                    setInput(label)
-                    //setCoordinates(result.geometry.coordinates)
-                    setClicked(result)
-                    onChange && onChange(result)
-                  }}
-                >
-                  <span>{label}</span>
-                </li>
+        <Input
+          nativeInputProps={{
+            value: immediateInput,
+            onChange: (e) => {
+              setCoordinates([undefined, undefined])
+              setClicked(false)
+              setInput(e.target.value)
+            },
+            type: 'text',
+            name: 'sujet',
+            required: true,
+            autoFocus: true,
+          }}
+          state={error ? 'error' : clicked && input ? 'success' : ''}
+          stateRelatedMessage={
+            clicked && input ? (
+              'Adresse validée'
+            ) : error ? (
+              error
+            ) : validInput && !addressResults ? (
+              <>
+                <Loader /> Chargement ...
+              </>
+            ) : input == '' ? (
+              <></>
+            ) : (
+              addressResults &&
+              !clicked && (
+                <>
+                  <span>Sélectionnez une adresse :</span>
+                  <CityList>
+                    {addressResults.map((result) => {
+                      const { label, id } = result.properties
+                      return (
+                        <li
+                          className={
+                            coordinates &&
+                            coordinates.join('|') ===
+                              result.geometry.coordinates.join('|')
+                              ? 'selected'
+                              : ''
+                          }
+                          key={id}
+                          onClick={() => {
+                            setInput(label)
+                            //setCoordinates(result.geometry.coordinates)
+                            setClicked(result)
+                            onChange && onChange(result)
+                          }}
+                        >
+                          <span>{label}</span>
+                        </li>
+                      )
+                    })}
+                  </CityList>
+                </>
               )
-            })}
-          </CityList>
-        </div>
-      )}
+            )
+          }
+        />
+      </div>
     </>
   )
 }
-
-export const AddressInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  input {
-    margin: 0;
-    padding-left: 1.5rem !important;
-    text-align: left !important;
-    outline: none;
-    box-shadow: none !important;
-    height: 2.8rem !important;
-    border-bottom: 2px solid #3a3a3a;
-  }
-`
 
 export const CityList = styled.ul`
   padding: 0;
