@@ -11,6 +11,7 @@ export default function MprCategory({
   answeredQuestions,
 }) {
   const questions = [
+    'logement . propriétaire occupant',
     'logement . commune',
     'ménage . personnes',
     'ménage . revenu',
@@ -24,6 +25,7 @@ export default function MprCategory({
   const isExactTotal =
     Object.keys(primeIndividuelleObj.missingVariables).length === 0
   const positiveValue = primeIndividuelleObj.nodeValue > 0
+
   return (
     <BlocAide>
       <div className="aide-header">
