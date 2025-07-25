@@ -2,7 +2,6 @@
 
 import { filterAidesToDisplay } from '@/components/ampleur/AmpleurSummary'
 import { useAides } from '@/components/ampleur/useAides'
-import styled from 'styled-components'
 import { AmpleurAideSummary } from './AmpleurAideSummary'
 import AmpleurCTA from './AmpleurCTA'
 import DPELabel from '@/components/dpe/DPELabel'

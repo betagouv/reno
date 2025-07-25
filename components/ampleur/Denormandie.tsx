@@ -7,6 +7,8 @@ import { roundToThousands } from '../utils'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Select from '@codegouvfr/react-dsfr/Select'
 import Input from '@codegouvfr/react-dsfr/Input'
+import CalculatorWidget from '../CalculatorWidget'
+import AmpleurCTA from '@/app/module/AmpleurCTA'
 
 export default function Denormandie({
   isEligible,
@@ -63,17 +65,18 @@ export default function Denormandie({
       )}
       {expanded && (
         <>
-          <Card>
-            <p>
-              Par exemple : j'achète un logement d'une valeur de{' '}
+          <CalculatorWidget>
+            <div className="fr-callout__text">
               <Input
+                label="Par exemple : j'achète un logement d'une valeur de "
                 nativeInputProps={{
                   type: 'number',
                   name: 'prix-achat',
                   min: 1000,
                   step: 1000,
-                  onChange: (rawValue) => {
-                    const value = +rawValue === 0 ? undefined : rawValue
+                  onChange: (e) => {
+                    const value =
+                      +e.target.value === 0 ? undefined : e.target.value
                     setSearchParams(
                       encodeSituation({
                         "logement . prix d'achat": value,
@@ -93,15 +96,16 @@ export default function Denormandie({
                   </>
                 }
               />{' '}
-              dans lequel je réalise des travaux de rénovation de{' '}
               <Input
+                label="je réalise des travaux de rénovation de "
                 nativeInputProps={{
                   type: 'number',
                   name: 'prix-achat',
                   min: 1000,
                   step: 1000,
-                  onChange: (rawValue) => {
-                    const value = +rawValue === 0 ? undefined : rawValue
+                  onChange: (e) => {
+                    const value =
+                      +e.target.value === 0 ? undefined : e.target.value
                     setSearchParams(
                       encodeSituation({
                         'projet . travaux': value,
@@ -121,8 +125,6 @@ export default function Denormandie({
                   </>
                 }
               />
-            </p>
-            <p>
               <Select
                 nativeSelectProps={{
                   onChange: (e) =>
@@ -133,7 +135,7 @@ export default function Denormandie({
                       'replace',
                       false,
                     ),
-                  value: '12',
+                  value: situation['denormandie . années de location'],
                 }}
                 label="Pour une période de location de :"
               >
@@ -141,50 +143,58 @@ export default function Denormandie({
                 <option value="9">9 ans</option>
                 <option value="12">12 ans</option>
               </Select>{' '}
-              : la réduction d'impôt s'élèverait à{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: 'denormandie . taux',
-                }}
-              />{' '}
-              du prix du bien
               {isSeuilTravauxAtteint && (
-                <>
-                  {' '}
-                  soit un total de{' '}
+                <div className="fr-callout">
+                  <h2 className="fr-callout__title">🥳 Résultats</h2>
+                  <p className="fr-callout__text">Vous êtes éligible à :</p>
+                  <div className="fr-callout__text">
+                    <p className="fr-mb-3v">
+                      Une réduction d'impôt de{' '}
+                      <Value
+                        {...{
+                          size: 'xl',
+                          state: 'success',
+                          engine,
+                          situation,
+                          dottedName: 'denormandie . taux',
+                        }}
+                      />{' '}
+                      du prix du bien soit un total de{' '}
+                      <Value
+                        {...{
+                          size: 'xl',
+                          state: 'success',
+                          engine,
+                          situation,
+                          dottedName: 'denormandie . montant',
+                        }}
+                      />{' '}
+                      de réduction d'impôt étalée sur la durée de location
+                    </p>
+                  </div>
+                  <AmpleurCTA {...{ situation: situation }} />
+                </div>
+              )}
+              {!isSeuilTravauxAtteint && (
+                <div className="fr-callout fr-callout--yellow-moutarde">
+                  <h4>
+                    Attention : les conditions d'éligibilité ne sont pas
+                    remplies.
+                  </h4>
+                  Pour être éligible, les travaux doivent représenter au minimum{' '}
                   <Value
                     {...{
                       engine,
                       situation,
-                      dottedName: 'denormandie . montant',
-                      state: 'prime',
+                      dottedName: 'denormandie . travaux minimum',
+                      state: 'prime-black',
                     }}
                   />{' '}
-                  de réduction d'impôt étalée sur la durée de location
-                </>
+                  HT (25 % du prix de revient: achat + travaux).
+                </div>
               )}
-              .
-            </p>
-            {!isSeuilTravauxAtteint && (
-              <div className="fr-callout fr-callout--yellow-moutarde">
-                <h4>
-                  Attention : les conditions d'éligibilité ne sont pas remplies.
-                </h4>
-                Pour être éligible, les travaux doivent représenter au minimum{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'denormandie . travaux minimum',
-                    state: 'prime-black',
-                  }}
-                />{' '}
-                HT (25 % du prix de revient: achat + travaux).
-              </div>
-            )}
-          </Card>
+            </div>
+          </CalculatorWidget>
           <h3>Carte des villes éligibles au dispositif Denormandie</h3>
           <iframe
             css={`

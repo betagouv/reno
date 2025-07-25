@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
+import Input from '@codegouvfr/react-dsfr/Input'
 
 function onlyNumbers(str) {
   return /^\d+/.test(str)
@@ -66,40 +67,22 @@ export default function CommuneSearch({
   }, [input, validInput])
 
   return (
-    <div
-      className={`fr-input-group ${clicked && input ? 'fr-input-group--valid' : ''}`}
-    >
-      <label className="fr-label" htmlFor="city">
-        {label}
-      </label>
+    <div className="fr-fieldset__element">
       <Input
+        label={label}
         nativeInputProps={{
           value: immediateInput,
           onChange: (e) => {
             setClicked(false)
             setInput(e.target.value)
           },
-          type: 'text',
-          name: 'sujet',
           required: true,
           autoFocus: autoFocus,
           placeholder: 'commune ou code postal',
         }}
+        state={clicked && input && 'success'}
+        stateRelatedMessage={clicked && input && 'Adresse validée'}
       />
-      {clicked && input && (
-        <div
-          className="fr-messages-group"
-          id="input-0-messages"
-          aria-live="polite"
-        >
-          <p
-            className="fr-message fr-message--valid"
-            id="input-0-message-valid"
-          >
-            Adresse validée
-          </p>
-        </div>
-      )}
       <CityList>
         {isLoading && (
           <li
@@ -158,6 +141,7 @@ export const CityList = styled.ul`
   list-style-type: none;
   position: absolute;
   z-index: 999999;
+  top: 0;
   li {
     display: block !important;
     margin: 0 !important;
