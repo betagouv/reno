@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
-import euroIcon from '@/public/euro-entouré.svg'
+import euroIcon from '@/public/euro-entoure.svg'
 
 const localStorageKey = 'avertissementSimulationLuLe'
 

@@ -12,7 +12,7 @@ export default function OtherSimulateur({ mprAssocie = [], ceeAssocie }) {
           <DsfrCard
             url="/simulation"
             imageAlt="Sigle euro"
-            imageUrl="/euro-entouré.svg"
+            imageUrl="/euro-entoure.svg"
             titre="L'ensemble de vos aides à la rénovation"
             titleAs="h3"
           />
