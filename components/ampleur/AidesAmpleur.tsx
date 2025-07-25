@@ -62,7 +62,7 @@ export default function AidesAmpleur({
           const showType = currentType !== lastType
           lastType = currentType
           return (
-            <div key={i}>
+            <div key={i} className="fr-mt-5v">
               {showType && isEligible && (
                 <h3>
                   {rules[aide.baseDottedName].type === 'remboursement' ? (
