@@ -2,7 +2,6 @@
 import { getSituation } from '@/components/publicodes/situationUtils'
 import { PageBlock } from '@/components/UI'
 import rules from '@/app/règles/rules'
-import simulationConfig from '../../app/simulation/simulationConfigMPR.yaml'
 import Publicodes, { formatValue } from 'publicodes'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import { useSearchParams } from 'next/navigation'
@@ -14,6 +13,7 @@ import IframeIntegrator from '../IframeIntegrator'
 import useIsInIframe from '@/components/useIsInIframe'
 import { push } from '@socialgouv/matomo-next'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { getInfoForPrime } from '../AideGeste'
 
 export default function PageMPRG({ params }: { params: { titre: string } }) {
   const isInIframe = useIsInIframe()
@@ -29,28 +29,18 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
       rules[rule].titre == decodeURIComponent(params.titre) &&
       !rule.includes('type'),
   )
+  if (!rule) return
   const situation = getSituation(situationSearchParams, rules)
-
-  // Le setSituation est nécessaire pour que les nextQuestions soient à jour
-  const questions = getNextQuestions(
-    engine.setSituation(situation).evaluate(rule + ' . MPR . montant'),
-    [],
-    simulationConfig,
+  const { infoMPR, eligibleMPRG } = getInfoForPrime({
+    engine,
+    dottedName: rule,
+    situation,
+  })
+  // Petit hack pour ne pas afficher la question logement . commune alors qu'on a logement . adresse
+  // et logement . commune . denormandie qui ne nous sert à rien
+  infoMPR.questions = infoMPR?.questions?.filter(
+    (q) => !q.includes('logement . commune'),
   )
-  // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
-  questions.unshift(...Object.keys(situation))
-
-  const infoMPR = {
-    montant: formatValue(
-      engine.setSituation(situation).evaluate(rule + ' . MPR . montant'),
-      { precision: 0 },
-    ),
-    titre: rules[rule].titre,
-    plafond: formatValue(
-      engine.setSituation(situation).evaluate(rule + ' . MPR . plafond'),
-    ),
-    questions: questions.filter((q) => rules[q].question),
-  }
 
   // Y a-t-il une aide CEE associée?
   const ceeAssocie = Object.keys(rules).includes(rule + ' . CEE')

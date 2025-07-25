@@ -194,7 +194,7 @@ export default function InputSwitch({
             setAddressResults,
             situation,
             coordinates: [searchParams.lon, searchParams.lat],
-            setCoordinates: ([lon, lat]) => setSearchParams({ lon, lat }),
+            setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
             onChange: async (adresse) => {
               const result = await getCommune(
                 null,

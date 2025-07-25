@@ -84,7 +84,7 @@ export default function DPEScenario({
               min: '0',
               max: '999999',
               step: '100',
-              name: 'sujet',
+              name: 'budget',
               required: true,
             }}
             addon={

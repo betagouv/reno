@@ -13,6 +13,7 @@ import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { getRuleName } from './publicodes/utils'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Tooltip from '@codegouvfr/react-dsfr/Tooltip'
+import getNextQuestions from './publicodes/getNextQuestions'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
@@ -65,7 +66,15 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
       ? questionRule
       : undefined
 
-  if (eligibleMPRG && typeof rules[dottedNameMpr] !== 'undefined') {
+  if (typeof rules[dottedNameMpr] !== 'undefined') {
+    const questions = getNextQuestions(
+      engine.setSituation(situation).evaluate(dottedNameMpr + ' . montant'),
+      [],
+      [],
+    )
+    // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
+    questions.unshift(...Object.keys(situation))
+    const filteredQuestion = new Set(questions)
     infoMPR = {
       dottedName: dottedNameMpr,
       montant: formatValue(
@@ -75,11 +84,12 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
         Object.keys(
           engineSituation.evaluate(dottedNameMpr + ' . montant')
             .missingVariables,
-        ).length === 0,
+        ).length === 1,
 
       plafond: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . plafond'),
       ),
+      questions: [...filteredQuestion].filter((q) => rules[q].question),
     }
   }
 
@@ -92,7 +102,6 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   )
   isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 0
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
-
   if (!isExactTotal) {
     const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
       .map((dn) => (rules[dn]?.maximum ? { [dn]: rules[dn].maximum } : null))

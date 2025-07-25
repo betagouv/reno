@@ -6,6 +6,9 @@ import RevenuInput from './RevenuInput'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { Select } from '@codegouvfr/react-dsfr/Select'
 import { serializeUnit } from 'publicodes'
+import { useState } from 'react'
+import AddressSearch from './AddressSearch'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
 
 export default function GesteQuestion({
   rules,
@@ -68,8 +71,9 @@ const InputComponent = ({
   setSearchParams,
   evaluation,
   autoFocus,
-}) =>
-  ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
+}) => {
+  const [addressResults, setAddressResults] = useState(null)
+  return ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
     <RadioButtons
       legend={currentQuestion.question}
       options={[
@@ -115,8 +119,8 @@ const InputComponent = ({
   ) : ['ménage . commune', 'logement . commune'].includes(question) ? (
     <CommuneSearch
       {...{
-        label: currentQuestion.question,
         type: question,
+        label: currentQuestion.question,
         setChoice: (result) => {
           const encodedSituation = encodeSituation(
             {
@@ -127,12 +131,14 @@ const InputComponent = ({
                     'ménage . code département': `"${result.codeDepartement}"`,
                     'ménage . EPCI': `"${result.codeEpci}"`,
                     'ménage . commune': `"${result.code}"`,
+                    'ménage . commune . nom': `"${result.nom}"`,
                   }
                 : {
                     'logement . code région': `"${result.codeRegion}"`,
                     'logement . code département': `"${result.codeDepartement}"`,
                     'logement . EPCI': `"${result.codeEpci}"`,
                     'logement . commune': `"${result.code}"`,
+                    'logement . commune . nom': `"${result.nom}"`,
                   }),
             },
             false,
@@ -166,6 +172,38 @@ const InputComponent = ({
         text: '',
       }}
     />
+  ) : question === 'logement . adresse' ? (
+    <AddressSearch
+      {...{
+        label: rules[question].question,
+        addressResults,
+        setAddressResults,
+        situation,
+        setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
+        onChange: async (adresse) => {
+          const result = await getCommune(
+            null,
+            null,
+            adresse.properties.citycode,
+          )
+
+          const newSituation = await enrichSituation({
+            ...situation,
+            'logement . adresse': `"${adresse.properties.label}"`,
+            'logement . code région': `"${result.codeRegion}"`,
+            'logement . code département': `"${result.codeDepartement}"`,
+            'logement . EPCI': `"${result.codeEpci}"`,
+            'logement . commune': `"${result.code}"`,
+            'logement . commune . nom': `"${result.nom}"`,
+          })
+          setSearchParams(
+            encodeSituation(newSituation, false, answeredQuestions),
+            'push',
+            false,
+          )
+        },
+      }}
+    />
   ) : (
     <Input
       nativeInputProps={{
@@ -186,3 +224,4 @@ const InputComponent = ({
       autoFocus={autoFocus}
     />
   )
+}

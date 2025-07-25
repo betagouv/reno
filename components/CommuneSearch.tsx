@@ -1,7 +1,6 @@
 import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
-import styled from 'styled-components'
 import { getCommune } from './personas/enrichSituation'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { CityList } from './AddressSearch'
@@ -17,7 +16,9 @@ export default function CommuneSearch({
   type,
   autoFocus = true,
 }) {
-  const [immediateInput, setInput] = useState('')
+  const [immediateInput, setInput] = useState(
+    situation[type]?.replaceAll('"', '') || '',
+  )
 
   const [input] = useDebounce(immediateInput, 300)
   const [isLoading, setIsLoading] = useState(false)

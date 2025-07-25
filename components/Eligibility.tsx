@@ -172,16 +172,15 @@ export function EligibilityRenovationEnergetique({
             <span aria-hidden="true">🥳</span> Vous êtes éligible aux aides
             présentées ci-dessous :
           </>
+        ) : !hasAides ? (
+          <>
+            Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
+            éligible.
+          </>
         ) : (
           <>
             <span aria-hidden="true">🥳</span> Des prêts et des aides sont
             disponibles pour vos travaux
-          </>
-        )}
-        {!hasAides && (
-          <>
-            Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
-            éligible.
           </>
         )}
       </p>

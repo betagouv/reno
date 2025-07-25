@@ -25,12 +25,12 @@ export const BlocAideMPR = ({
   // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
   const questionsAnswered = Object.keys(situation).filter(
     (q) =>
-      infoMPR.questions.includes(q) &&
+      infoMPR.questions?.includes(q) &&
       !getAnsweredQuestions(situationSearchParams, rules).includes(q),
   )
 
   let lastQuestionAnswered = -1
-  for (let i = infoMPR.questions.length - 1; i >= 0; i--) {
+  for (let i = infoMPR.questions?.length - 1; i >= 0; i--) {
     if (questionsAnswered.includes(infoMPR.questions[i])) {
       lastQuestionAnswered = i
       break

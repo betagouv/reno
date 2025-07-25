@@ -13,6 +13,7 @@ export default function AddressSearch({
   addressResults,
   setAddressResults,
   onChange = null,
+  label = '',
 }) {
   const [immediateInput, setInput] = useState(
     dpe?.['adresse_ban'] ||
@@ -45,6 +46,7 @@ export default function AddressSearch({
     <>
       <div className="fr-fieldset__element">
         <Input
+          label={label}
           nativeInputProps={{
             value: immediateInput,
             onChange: (e) => {
@@ -53,7 +55,7 @@ export default function AddressSearch({
               setInput(e.target.value)
             },
             type: 'text',
-            name: 'sujet',
+            name: 'adresse',
             required: true,
             autoFocus: true,
           }}

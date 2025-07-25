@@ -17,7 +17,6 @@ import {
 } from './DPETravauxIsolation'
 import { DPETravauxChauffage } from './DPETravauxChauffage'
 import getNextQuestions from '../../publicodes/getNextQuestions'
-import simulationConfig from '@/app/simulation/simulationConfigMPR.yaml'
 import { AvanceTMO } from '../../mprg/BlocAideMPR'
 import { DPETravauxAmpleur } from './DPETravauxAmpleur'
 import useDpe from '../useDpe'
@@ -289,7 +288,7 @@ export const getQuestions = (rule, situation, engine) => {
       })
       .evaluate(rule + ' . montant'),
     [],
-    simulationConfig,
+    [],
     rules,
   )
 
