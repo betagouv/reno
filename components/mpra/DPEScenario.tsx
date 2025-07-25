@@ -120,116 +120,114 @@ export default function DPEScenario({
         </div>
       </div>
 
-      <div className="fr-callout fr-callout--blue-cumulus">
-        {oldIndex < 2 ? (
-          <p>
-            👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
-            bénéficier du parcours accompagné.
-          </p>
-        ) : (
-          <>
-            <h2 className="fr-callout__title">🥳 Résultats</h2>
-            <div className="fr-callout__text">
-              Vous êtes éligible à une aide de{' '}
+      {oldIndex < 2 ? (
+        <p>
+          👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
+          bénéficier du parcours accompagné.
+        </p>
+      ) : (
+        <>
+          <h2 className="fr-callout__title">🥳 Résultats</h2>
+          <div className="fr-callout__text">
+            Vous êtes éligible à une aide de{' '}
+            <Value
+              {...{
+                size: 'xl',
+                state: 'success',
+                engine,
+                situation: futureSituation,
+                dottedName: 'MPR . accompagnée . pourcent dont bonus',
+              }}
+            />{' '}
+            du coût de vos travaux{' '}
+            <span className="fr-hint-text">
+              {bonusSortiePassoire && (
+                <>
+                  dont <strong>{bonusSortiePassoire} %</strong> de bonus "Sortie
+                  de passoire"{' '}
+                </>
+              )}
+              avec un plafond de
               <Value
                 {...{
-                  size: 'xl',
-                  state: 'success',
                   engine,
                   situation: futureSituation,
-                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
+                  dottedName: 'projet . travaux . plafond',
                 }}
-              />{' '}
-              du coût de vos travaux{' '}
-              <span className="fr-hint-text">
-                {bonusSortiePassoire && (
-                  <>
-                    dont <strong>{bonusSortiePassoire} %</strong> de bonus
-                    "Sortie de passoire"{' '}
-                  </>
-                )}
-                avec un plafond de
+              />
+              de travaux.
+            </span>
+            {isModeste && (
+              <p className="fr-my-5v">
+                🍀 <strong>Bonus :</strong> En tant que ménage{' '}
                 <Value
                   {...{
                     engine,
+                    situation,
+                    dottedName: 'ménage . revenu . classe',
+                    state: 'prime-black',
+                  }}
+                />{' '}
+                ,{' '}
+                <Value
+                  {...{
+                    engine,
+                    situation,
+                    dottedName: 'MPR . accompagnée . pourcentage avance',
+                    state: 'prime-black',
+                  }}
+                />{' '}
+                de cette aide peut vous être versée en avance de vos travaux.
+              </p>
+            )}
+            <div
+              css={`
+                display: flex;
+                justify-content: space-between;
+                gap: 1rem;
+                ${isMobile && 'flex-direction: column;'}
+                > div {
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+                }
+              `}
+            >
+              <div>
+                <p className="fr-callout__text">
+                  Vous toucherez un total d'aides de :
+                </p>
+                <Value
+                  {...{
+                    size: 'xl',
+                    state: 'success',
+                    engine,
+                    choice,
                     situation: futureSituation,
-                    dottedName: 'projet . travaux . plafond',
+                    dottedName: 'MPR . accompagnée . montant écrêté',
                   }}
                 />
-                de travaux.
-              </span>
-              {isModeste && (
-                <p className="fr-my-5v">
-                  🍀 <strong>Bonus :</strong> En tant que ménage{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'ménage . revenu . classe',
-                      state: 'prime-black',
-                    }}
-                  />{' '}
-                  ,{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'MPR . accompagnée . pourcentage avance',
-                      state: 'prime-black',
-                    }}
-                  />{' '}
-                  de cette aide peut vous être versée en avance de vos travaux.
+              </div>
+              <div>
+                <p className="fr-callout__text">
+                  Il restera donc à votre charge :
                 </p>
-              )}
-              <div
-                css={`
-                  display: flex;
-                  justify-content: space-between;
-                  gap: 1rem;
-                  ${isMobile && 'flex-direction: column;'}
-                  > div {
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                  }
-                `}
-              >
-                <div>
-                  <p className="fr-callout__text">
-                    Vous toucherez un total d'aides de :
-                  </p>
-                  <Value
-                    {...{
-                      size: 'xl',
-                      state: 'success',
-                      engine,
-                      choice,
-                      situation: futureSituation,
-                      dottedName: 'MPR . accompagnée . montant écrêté',
-                    }}
-                  />
-                </div>
-                <div>
-                  <p className="fr-callout__text">
-                    Il restera donc à votre charge :
-                  </p>
-                  <Value
-                    {...{
-                      engine,
-                      size: 'xl',
-                      state: 'warning',
-                      choice,
-                      situation: futureSituation,
-                      dottedName: 'MPR . accompagnée . reste à charge',
-                      addOn: 'TTC',
-                    }}
-                  />
-                </div>
+                <Value
+                  {...{
+                    engine,
+                    size: 'xl',
+                    state: 'warning',
+                    choice,
+                    situation: futureSituation,
+                    dottedName: 'MPR . accompagnée . reste à charge',
+                    addOn: 'TTC',
+                  }}
+                />
               </div>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </CalculatorWidget>
   )
 }
