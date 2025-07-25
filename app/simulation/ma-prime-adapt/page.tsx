@@ -1,9 +1,9 @@
-import index from '@/app/règles/index.yaml'
-import revenus from '@/app/règles/revenus.yaml'
-import mpa from '@/app/règles/ma-prime-adapt.publicodes'
+import rules from '@/app/règles/rules'
 import { Metadata } from 'next'
 import Form from '../Form'
+import simulationConfigMPA from '../simulationConfigMPA.yaml'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import { PageBlock } from '@/components/UI'
 
 const description = `Calculez les aides Ma Prime Adapt pour la rénovation de votre logement.`
 
@@ -19,13 +19,9 @@ export default function Page() {
   return (
     <>
       <StartDsfrOnHydration />
-      <Form
-        rules={{
-          ...index,
-          ...revenus,
-          ...mpa,
-        }}
-      />
+      <PageBlock>
+        <Form simulationConfig={simulationConfigMPA} rules={rules} />
+      </PageBlock>
     </>
   )
 }

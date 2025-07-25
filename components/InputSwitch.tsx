@@ -20,6 +20,7 @@ import ChoixCategorieTravaux from './ChoixCategorieTravaux'
 import ChoixTravaux from './ChoixTravaux'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
+import { mpaLogementValues } from '@/app/module/AmpleurInputs'
 
 export default function InputSwitch({
   form,
@@ -107,15 +108,32 @@ export default function InputSwitch({
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
           onChange={(value) => {
-            const encodedSituation = encodeSituation(
-              {
-                ...situation,
-                [currentQuestion]: `"${value}"`,
-              },
-              false,
-              answeredQuestions,
-            )
-            setSearchParams(encodedSituation, 'replace', false)
+            if (currentQuestion == 'mpa . situation demandeur') {
+              const additionalSituation = mpaLogementValues.find(
+                ({ valeur }) => valeur == value,
+              ).situation
+
+              const encodedSituation = encodeSituation(
+                additionalSituation,
+                true,
+                [
+                  ...Object.keys(additionalSituation).filter(
+                    (r) => r != 'mpa . situation demandeur',
+                  ),
+                ],
+              )
+              setSearchParams(encodedSituation)
+            } else {
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  [currentQuestion]: `"${value}"`,
+                },
+                false,
+                answeredQuestions,
+              )
+              setSearchParams(encodedSituation, 'replace', false)
+            }
           }}
         />
       ) : rule['possibilités'] ? (

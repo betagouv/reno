@@ -95,21 +95,7 @@ export default function Eligibility({
         {/* <CopyButton searchParams={searchParams} /> */}
       </div>
       <h1>Vos résultats</h1>
-      {/* {situation["parcours d'aide"] == '"rénovation énergétique"' && ( */}
-      <EligibilityRenovationEnergetique
-        {...{
-          engine,
-          situation,
-          aides: useAides(engine, situation),
-          answeredQuestions,
-          rules,
-          setSearchParams,
-          searchParams,
-          expanded,
-        }}
-      />
-      {/* )} */}
-      {situation["parcours d'aide"] == '"autonomie de la personne"' && (
+      {situation["parcours d'aide"] == '"autonomie de la personne"' ? (
         <EligibilityMPA
           {...{
             engine,
@@ -119,6 +105,19 @@ export default function Eligibility({
             rules,
             setSearchParams,
             searchParams,
+          }}
+        />
+      ) : (
+        <EligibilityRenovationEnergetique
+          {...{
+            engine,
+            situation,
+            aides: useAides(engine, situation),
+            answeredQuestions,
+            rules,
+            setSearchParams,
+            searchParams,
+            expanded,
           }}
         />
       )}

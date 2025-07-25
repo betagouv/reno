@@ -12,7 +12,6 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import simulationConfig from './simulationConfig.yaml'
 import { push } from '@socialgouv/matomo-next'
 import AideDetails from '@/components/AideDetails'
 import MPRA from '@/components/ampleur/MPRA'
@@ -47,7 +46,7 @@ export const correspondance = {
   "crédit d'impôt": CreditImpot,
 }
 
-function Form({ rules }) {
+function Form({ rules, simulationConfig }) {
   const isInIframe = useIsInIframe()
   if (isInIframe) {
     push(['trackEvent', 'Iframe', 'Page', 'Simulation'])
@@ -121,20 +120,18 @@ function Form({ rules }) {
   }
   return (
     <>
-      {
-        <InputSwitch
-          {...{
-            rules,
-            currentQuestion,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            engine,
-            nextQuestions,
-            searchParams,
-          }}
-        />
-      }
+      <InputSwitch
+        {...{
+          rules,
+          currentQuestion,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          engine,
+          nextQuestions,
+          searchParams,
+        }}
+      />
       {isInIframe && (
         <p
           css={`
@@ -151,10 +148,10 @@ function Form({ rules }) {
   )
 }
 
-export default function ({ rules }) {
+export default function ({ rules, simulationConfig }) {
   return (
     <Suspense>
-      <Form rules={rules} />
+      <Form rules={rules} simulationConfig={simulationConfig} />
     </Suspense>
   )
 }

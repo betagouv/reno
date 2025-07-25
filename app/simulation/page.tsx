@@ -3,6 +3,7 @@ import Form from './Form'
 import { Metadata } from 'next'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { PageBlock } from '@/components/UI'
+import simulationConfig from '/app/simulation/simulationConfig.yaml'
 
 export const metadata: Metadata = {
   title: 'Mes Aides Réno : Simulez vos aides à la rénovation énergétique',
@@ -17,7 +18,7 @@ export default function Page() {
     <>
       <StartDsfrOnHydration />
       <PageBlock>
-        <Form rules={rules} />
+        <Form simulationConfig={simulationConfig} rules={rules} />
       </PageBlock>
     </>
   )

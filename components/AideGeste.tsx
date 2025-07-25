@@ -95,7 +95,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
 
   if (!isExactTotal) {
     const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
-      .map((dn) => (rules[dn].maximum ? { [dn]: rules[dn].maximum } : null))
+      .map((dn) => (rules[dn]?.maximum ? { [dn]: rules[dn].maximum } : null))
       .filter(Boolean)
       .reduce((acc, obj) => ({ ...acc, ...obj }), {})
     calculatedMontantTotal = formatValue(

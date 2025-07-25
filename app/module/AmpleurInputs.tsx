@@ -54,6 +54,35 @@ export const usageLogementValues = [
   },
 ]
 
+export const mpaLogementValues = [
+  {
+    valeur: 'occupant',
+    situation: {
+      'mpa . situation demandeur': '"occupant"',
+      'vous . propriétaire . statut': '"propriétaire"',
+      'logement . résidence principale locataire': 'non',
+      'logement . résidence principale propriétaire': 'oui',
+      'logement . propriétaire occupant': 'oui',
+    },
+  },
+  {
+    valeur: 'bailleur',
+    situation: {
+      'mpa . situation demandeur': '"bailleur"',
+      'vous . propriétaire . statut': '"propriétaire"',
+      'logement . résidence principale locataire': 'oui',
+      'logement . résidence principale propriétaire': 'non',
+      'logement . propriétaire occupant': 'non',
+    },
+  },
+  {
+    valeur: 'copropriété',
+    situation: {
+      'mpa . situation demandeur': '"copropriété"',
+    },
+  },
+]
+
 export const usageLogement = (userSituation) => {
   const found = usageLogementValues.find(({ situation }) =>
     Object.entries(situation).every(([k, v]) => userSituation[k] === v),

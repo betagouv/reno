@@ -16,7 +16,14 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       situation,
     })
   return (
-    !dottedName.includes('locales') && (
+    ![
+      'mpa . montant',
+      'locavantage . montant',
+      'tva réduite',
+      "crédit d'impôt",
+      'aides locales',
+      'locales',
+    ].includes(dottedName) && (
       <Badge
         noIcon
         severity={
