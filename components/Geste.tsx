@@ -121,7 +121,15 @@ export default function Geste({
   }
 
   const evaluationTotal = engineSituation.evaluate(dottedName + ' . montant')
-  isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 0
+  const mv = evaluationTotal.missingVariables
+  isExactTotal = Object.keys(mv).length === 0
+  console.log(dottedName, {
+    mv,
+    isExactTotal,
+    eligibleMPRG,
+    hasCoupDePouce: infoCoupDePouce,
+  })
+
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
 
   if (!isExactTotal) {

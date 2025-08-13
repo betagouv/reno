@@ -101,6 +101,9 @@ export default function AideGeste({
 
   montantTotal = calculatedMontantTotal
 
+  const mv = evaluationTotal.missingVariables
+  console.log({ mv })
+
   return (
     <div
       css={`
