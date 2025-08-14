@@ -133,7 +133,7 @@ export default function Eligibility({
                 ])
               }}
             >
-              Obtenir mes aides
+              Voir les démarches
               <Image
                 css={`
                   margin-left: 0.5rem;
@@ -472,9 +472,8 @@ export default function Eligibility({
                   'Obtenir aides',
                 ])
               }}
-              title="Obtenir mes aides"
             >
-              Obtenir mes aides
+              Voir les démarches
               <Image
                 css={`
                   margin-left: 0.5rem;
