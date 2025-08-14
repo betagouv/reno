@@ -672,7 +672,7 @@ projet . travaux . plafond:
 
 projet . définition:
   titre: Votre projet
-  question: Que souhaitez-vous simuler ?
+  question: Vos aides sont prêtes ! Comment souhaitez-vous les voir ?
   sous-titre: On calcule votre éligibilité aux aides, et si vous savez déjà quels travaux faire, on rend cela plus concret !
   une possibilité parmi:
     possibilités:
