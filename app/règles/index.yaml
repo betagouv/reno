@@ -680,10 +680,12 @@ projet . définition:
       - 'travaux inconnus'
 projet . définition . travaux connus:
   valeur: '"travaux connus"'
-  titre: 'Je veux renseigner mes travaux pour connaître mes aides'
+  titre: 'Voir les aides adaptées à mes travaux'
+  description: Recommandé, 3 questions rapides sur vos travaux
 projet . définition . travaux inconnus:
   valeur: '"travaux inconnus"'
-  titre: 'Je veux voir les aides disponibles, je ne connais pas encore mes travaux'
+  titre: 'Voir toutes les aides'
+  description: Immédiat, non personnalisé
 
 projet . définition . catégories travaux envisagées:
   applicable si: définition = 'travaux connus'
