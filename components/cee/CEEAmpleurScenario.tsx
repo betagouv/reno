@@ -5,7 +5,7 @@ import { encodeSituation } from '../publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import CalculatorWidget from '../CalculatorWidget'
-import { useEffect, useState } from 'react'
+import useIsMobile from '../useIsMobile'
 
 export default function CEEAmpleurScenario({
   engine,
@@ -13,12 +13,7 @@ export default function CEEAmpleurScenario({
   setSearchParams,
   answeredQuestions,
 }) {
-  const [isMobile, setIsMobile] = useState(true)
-
-  useEffect(() => {
-    const isMobile = window.innerWidth <= 600
-    setIsMobile(isMobile)
-  }, [setIsMobile])
+  const isMobile = useIsMobile()
 
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
