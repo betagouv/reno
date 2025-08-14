@@ -10,6 +10,7 @@ export default function Input({
 
   return list.map((element, index) => {
     const questionParams = engine.getParsedRules()[name + ' . ' + element]
+    const subTitle = questionParams.rawNode['sous-titre']
     return (
       <label
         key={element}
@@ -40,7 +41,19 @@ export default function Input({
           checked={element === value}
           onChange={() => onChange(element)}
         />
-        <span>{questionParams ? questionParams.title : element}</span>
+        <span
+          css={`
+            display: flex;
+            flex-direction: column;
+          `}
+        >
+          <span>{questionParams ? questionParams.title : element}</span>
+          {subTitle && (
+            <small style={{ color: '#666', marginTop: '.4rem' }}>
+              {subTitle}
+            </small>
+          )}
+        </span>
       </label>
     )
   })
