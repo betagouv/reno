@@ -69,7 +69,7 @@ export default function AideEtapes({
               ),
             },
             {
-              'Obtenir mes aides': setSearchParams(
+              'Voir les démarches': setSearchParams(
                 {
                   ...encodeSituation(situation, false, answeredQuestions),
                 },
