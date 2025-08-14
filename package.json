@@ -33,6 +33,7 @@
     "@types/node": "20.11.30",
     "autoprefixer": "10.4.19",
     "bcrypt": "^5.1.1",
+    "caniuse-lite": "^1.0.30001735",
     "chart.js": "^4.4.6",
     "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-plugin-annotation": "^3.1.0",
