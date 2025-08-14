@@ -7,28 +7,27 @@ import menuIcon from '@/public/menu.svg'
 import closeMenuIcon from '@/public/menu-close.svg'
 
 export default function Menu({ isMobile }) {
-  const [state, setState] = useState(isMobile ? 'closed' : 'desktop')
+  const [open, setOpen] = useState(false)
 
-  if (state === 'desktop') return <MenuContent />
-  if (state === 'closed')
-    return <BurgerButton {...{ state: 'open', setState }} />
-  if (state === 'open')
+  if (!isMobile) return <MenuContent />
+  if (!open) return <BurgerButton {...{ open, setOpen }} />
+  if (open)
     return (
       <>
-        <BurgerButton {...{ state: 'closed', setState }} />
+        <BurgerButton {...{ open, setOpen }} />
         <MenuContent />
       </>
     )
 }
 
-const BurgerButton = ({ state, setState }) => {
+const BurgerButton = ({ open, setOpen }) => {
   return (
     <Button
-      onClick={() => setState(state)}
-      title={state === 'open' ? 'Ouvrir le menu' : 'Fermer le menu'}
+      onClick={() => setOpen(!open)}
+      title={!open ? 'Ouvrir le menu' : 'Fermer le menu'}
     >
       <Image
-        src={state === 'open' ? menuIcon : closeMenuIcon}
+        src={!open ? menuIcon : closeMenuIcon}
         alt="Icône dite burger représentant un menu de navigation"
       />
     </Button>
