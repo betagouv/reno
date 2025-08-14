@@ -681,11 +681,11 @@ projet . définition:
 projet . définition . travaux connus:
   valeur: '"travaux connus"'
   titre: 'Voir les aides adaptées à mes travaux'
-  description: Recommandé, 3 questions rapides sur vos travaux
+  sous-titre: Recommandé, 3 questions rapides sur vos travaux
 projet . définition . travaux inconnus:
   valeur: '"travaux inconnus"'
   titre: 'Voir toutes les aides'
-  description: Immédiat, non personnalisé
+  sous-titre: Immédiat, non personnalisé
 
 projet . définition . catégories travaux envisagées:
   applicable si: définition = 'travaux connus'
