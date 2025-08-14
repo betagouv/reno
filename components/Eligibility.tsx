@@ -132,7 +132,6 @@ export default function Eligibility({
                   'Obtenir aides',
                 ])
               }}
-              title="Obtenir mes aides"
             >
               Obtenir mes aides
               <Image
