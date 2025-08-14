@@ -17,7 +17,7 @@ export default function FormButtons({
   depuisModule,
   specificNextUrl,
   specificBackUrl,
-  setAvertissementState,
+  setAvertissementState = null,
 }) {
   const showValidation = currentValue != null
   return (
@@ -110,7 +110,9 @@ export default function FormButtons({
                 'Valide',
                 currentQuestion,
               ])
-              setAvertissementState(false)
+
+              typeof setAvertissementState === 'function' &&
+                setAvertissementState(false)
             }}
             title="Aller à l'étape suivante"
           >

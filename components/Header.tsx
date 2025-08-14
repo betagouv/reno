@@ -13,7 +13,10 @@ import Menu from './Menu'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
-  const isMobile = useMediaQuery('(max-width: 800px)')
+  const isMobile = useMediaQuery('(max-width: 800px)', {
+    initializeWithValue: false,
+    defaultValue: true,
+  })
   const pathname = usePathname()
   if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
     return
