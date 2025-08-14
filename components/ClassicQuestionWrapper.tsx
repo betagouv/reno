@@ -15,6 +15,7 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
+import Script from 'next/script'
 
 export const QuestionText = ({
   rule,
@@ -61,6 +62,8 @@ export default function ClassicQuestionWrapper({
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
+  const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
+
   return (
     <>
       <ProgressBar
@@ -84,6 +87,14 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
+      {tallyForm && (
+        <>
+          <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
+          <Script
+            id={tallyForm}
+          >{` window.TallyConfig = { "formId": "mKjKNk", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
+        </>
+      )}
       <QuestionCard>
         {!rule.type && (
           <QuestionHeader>
