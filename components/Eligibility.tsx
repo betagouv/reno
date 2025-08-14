@@ -43,7 +43,9 @@ export default function Eligibility({
   // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
   const MPRASuspendue = true
 
-  push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+  useEffect(() => {
+    push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+  }, [])
 
   const isInIframe = useIsInIframe()
   const [showAllByCategory, setShowAllByCategory] = useState({})
