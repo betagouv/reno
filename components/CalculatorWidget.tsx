@@ -2,14 +2,10 @@
 import calculatorIcon from '@/public/calculator-black.svg'
 import Image from 'next/image'
 import { Card } from './UI'
-import { useEffect } from 'react'
+import useIsMobile from './useIsMobile'
 
-export default function CalculatorWidget({ isMobile = null, children }) {
-  useEffect(() => {
-    if (!isMobile) {
-      isMobile = window.innerWidth <= 600
-    }
-  }, [])
+export default function CalculatorWidget({ children }) {
+  const isMobile = useIsMobile()
   return (
     <Card
       css={`

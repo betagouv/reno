@@ -6,6 +6,7 @@ import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import editIcon from '@/public/crayon.svg'
 import CalculatorWidget from '../CalculatorWidget'
+import useIsMobile from '../useIsMobile'
 
 export default function DPEScenario({
   engine,
@@ -18,7 +19,7 @@ export default function DPEScenario({
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
-  const isMobile = window.innerWidth <= 600
+  const isMobile = useIsMobile()
   const engineSituation = engine.setSituation(situation)
   const revenuClasseValue = engineSituation.evaluate(
     'ménage . revenu . classe',
@@ -37,7 +38,7 @@ export default function DPEScenario({
     'projet . travaux': montantTravaux,
   }
   return (
-    <CalculatorWidget isMobile={isMobile}>
+    <CalculatorWidget>
       <div>
         <DPEQuickSwitch
           oldIndex={oldIndex}

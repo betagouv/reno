@@ -12,6 +12,7 @@ import { omit } from '@/components/utils'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { push } from '@socialgouv/matomo-next'
+import useIsMobile from '../useIsMobile'
 
 export default function AideCTAs({
   dottedName,
@@ -20,7 +21,7 @@ export default function AideCTAs({
   setSearchParams,
   expanded,
 }) {
-  const isMobile = window.innerWidth <= 600
+  const isMobile = useIsMobile()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 

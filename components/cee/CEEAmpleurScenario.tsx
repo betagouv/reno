@@ -21,7 +21,7 @@ export default function CEEAmpleurScenario({
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   return (
-    <CalculatorWidget isMobile={isMobile}>
+    <CalculatorWidget>
       <div>
         <DPEQuickSwitch
           oldIndex={situation['DPE . actuel'] - 1}
