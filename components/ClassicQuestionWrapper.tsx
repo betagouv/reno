@@ -81,14 +81,14 @@ export default function ClassicQuestionWrapper({
               currentStep={currentQuestion.startsWith('projet') ? 2 : 1}
               nextTitle={
                 currentQuestion.startsWith('projet')
-                  ? 'Eligibilité'
-                  : 'Votre projet'
+                  ? 'Mes aides'
+                  : 'Mon projet'
               }
               stepCount={4}
               title={
                 currentQuestion.startsWith('projet')
-                  ? 'Votre projet'
-                  : 'Votre situation'
+                  ? 'Mon projet'
+                  : 'Ma situation'
               }
             />
           </>

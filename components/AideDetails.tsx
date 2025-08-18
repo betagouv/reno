@@ -35,7 +35,7 @@ export default function AideDetails({
         }}
         segments={[
           {
-            label: 'Eligibilité',
+            label: 'Mes aides',
             linkProps: {
               href: setSearchParams(
                 {
@@ -55,9 +55,9 @@ export default function AideDetails({
       <Stepper
         className="fr-mt-5v"
         currentStep={3}
-        nextTitle={'Prochaines étapes'}
+        nextTitle={'Mes démarches'}
         stepCount={4}
-        title="Eligibilité"
+        title="Mes aides"
       />
       <div
         css={`

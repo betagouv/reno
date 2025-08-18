@@ -41,7 +41,7 @@ export default function AideEtapes({
   return (
     <>
       <Breadcrumb
-        currentPageLabel="Voir les démarches"
+        currentPageLabel="Mes démarches"
         homeLinkProps={{
           href: '/',
         }}
@@ -68,7 +68,7 @@ export default function AideEtapes({
         className="fr-mt-5v"
         currentStep={4}
         stepCount={4}
-        title="Voir les démarches"
+        title="Mes démarches"
       />
       <div className="fr-mb-5v">
         <BtnBackToParcoursChoice

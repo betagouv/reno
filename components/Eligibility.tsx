@@ -59,7 +59,7 @@ export default function Eligibility({
         engine={engine}
       />
       <Breadcrumb
-        currentPageLabel="Eligibilité"
+        currentPageLabel="Mes aides"
         homeLinkProps={{
           href: '/',
         }}
@@ -68,9 +68,9 @@ export default function Eligibility({
       <Stepper
         className="fr-mt-5v"
         currentStep={3}
-        nextTitle={'Voir les démarches'}
+        nextTitle={'Mes démarches'}
         stepCount={4}
-        title="Eligibilité"
+        title="Mes aides"
       />
       <div
         className="fr-mb-5v"
