@@ -24,7 +24,16 @@ Le code métier est basé sur le langage [Publicodes](https://publi.codes/) po
 
 ## Mentions légales
 
-Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numérique</a>. Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
+Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numérique</a>. Téléphone : 01 71 21 11 33.
+
+
+### Directrice de la publication
+
+Madame Stéphanie SCHAER, en sa qualité de directrice générale de la DINUM
+
+### Hébergement de la plateforme
+
+Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
 `
 
 export const metadata: Metadata = {
