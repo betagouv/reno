@@ -204,6 +204,11 @@ const Sitemap = async () => {
                 </a>
               </li>
               <li>
+                <a href="/mentions-legales" className="fr-link">
+                  Mentions légales
+                </a>
+              </li>
+              <li>
                 <a className="fr-link" href="/simulation">
                   Simulateur
                 </a>

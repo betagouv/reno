@@ -15,7 +15,7 @@ export default async function FooterContent() {
           href: '/sitemap',
         }}
         termsLinkProps={{
-          href: '/a-propos',
+          href: '/mentions-legales',
         }}
         brandTop={
           <>

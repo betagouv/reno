@@ -11,6 +11,7 @@ const basePaths = [
   '',
   '/simulation',
   '/a-propos',
+  '/mentions-legales',
   '/faq',
   '/api-doc',
   '/personas',
