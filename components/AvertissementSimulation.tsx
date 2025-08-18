@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import Image from 'next/image'
-import euroIcon from '@/public/euro-entoure.svg'
+import { useEffect, useState } from 'react'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 
 const localStorageKey = 'avertissementSimulationLuLe'
 
@@ -50,42 +48,39 @@ export default function AvertissementSimulation({
   avertissementState: open,
   setAvertissementState: setOpen,
 }) {
-  const preventSummaryClick = useCallback((event) => {
-    event.preventDefault()
-  }, [])
-
   return (
-    <Section className="fr-callout fr-callout--yellow-moutarde fr-mt-5v">
-      <details open={open}>
-        <summary
-          onClick={(e) => {
-            preventSummaryClick(e)
-            setOpen(true)
-          }}
-        >
-          <div>
-            <Euro title="Symbole euro entouré">€</Euro> Ceci est une{' '}
-            <strong>simulation</strong>...
-          </div>
-          {!open && <button>Lire +</button>}
-        </summary>
-        <div>
-          <p>
+    <>
+      <Highlight
+        classes={{
+          root: 'fr-highlight--yellow-moutarde fr-mt-5v',
+        }}
+      >
+        <span
+          className="fr-icon-money-euro-circle-line"
+          aria-hidden="true"
+        ></span>{' '}
+        Ceci est une <strong>simulation</strong>...{' '}
+        {!open ? (
+          <button onClick={() => setOpen(true)}>Lire +</button>
+        ) : (
+          <>
+            <br />
+            <br />
             L'estimation des aides est indicative : elle est calculée à partir
             des informations que vous avez saisies, et des règles en vigueur au
             moment de la simulation.
-          </p>
-          <p>
+            <br />
             Cette simulation <strong>ne vaut pas pour décision</strong>. Elle
             n’engage pas l’Anah, le réseau France Rénov', ou les autres
             organismes financeurs.
-          </p>
-          <p>
+            <br />
             Les aides sont susceptibles de changer. Nous mettons à jour le
             simulateur régulièrement.
-          </p>
-          {open && (
-            <button onClick={() => setOpen(false)}>
+            <button
+              onClick={() => {
+                setOpen(false)
+              }}
+            >
               J'ai compris{' '}
               <span
                 style={{
@@ -97,46 +92,9 @@ export default function AvertissementSimulation({
                 ↵
               </span>
             </button>
-          )}
-        </div>
-      </details>
-    </Section>
+          </>
+        )}
+      </Highlight>
+    </>
   )
 }
-const Euro = () => (
-  <Image
-    src={euroIcon}
-    alt="icone euro"
-    css={`
-      width: 1.25rem;
-      vertical-align: sub;
-      height: auto;
-    `}
-  />
-)
-
-const Section = styled.div`
-  details {
-    summary {
-      list-style-type: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    > div {
-      margin-top: 1rem;
-      font-size: 90%;
-    }
-  }
-
-  button {
-    margin: 0.5rem 0;
-    background: none;
-    border: none;
-    color: var(--color);
-    font-size: 110%;
-    @media (max-width: 800px) {
-      margin: 0;
-    }
-  }
-`
