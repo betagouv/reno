@@ -36,7 +36,7 @@ export default function DPEScenario({
     'projet . travaux': montantTravaux,
   }
   return (
-    <CalculatorWidget isMobile={isMobile}>
+    <CalculatorWidget>
       <div className="fr-grid-row fr-grid-row--gutters">
         <div className="fr-col">
           <DPEQuickSwitch2

@@ -1,6 +1,5 @@
 'use client'
 
-import useIsInIframe from '@/components/useIsInIframe'
 import logo from '@/public/logo-service-de-FR.svg'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -8,12 +7,6 @@ import styled from 'styled-components'
 import { Header as DsfrHeader } from '@codegouvfr/react-dsfr/Header'
 
 export default function Header() {
-  const isInIframe = useIsInIframe()
-  const isMobile = useMediaQuery('(max-width: 800px)', {
-    initializeWithValue: false,
-    defaultValue: true,
-  })
-
   const pathname = usePathname()
   if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
     return

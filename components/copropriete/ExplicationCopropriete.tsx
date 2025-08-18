@@ -125,7 +125,7 @@ export default function ExplicationCopropriete() {
       <>
         {isEligibile ? (
           <>
-            <CalculatorWidget titleAs="h2" isMobile={isMobile}>
+            <CalculatorWidget titleAs="h2">
               <form id="storybook-form">
                 <fieldset
                   className="fr-fieldset fr-grid-row--between"

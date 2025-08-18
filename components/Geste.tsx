@@ -5,8 +5,8 @@ import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { AideDurée } from './ampleur/AideAmpleur'
 import { createExampleSituation } from './ampleur/AmpleurSummary'
 import { formatValue } from 'publicodes'
-
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
+
 export const PrimeBadge = ({ engine, dottedName, situation }) => {
   const bestSituation = createExampleSituation(situation, 'best')
   const { montantTotal, isExactTotal, eligibleMPRG, hasCoupDePouce } =

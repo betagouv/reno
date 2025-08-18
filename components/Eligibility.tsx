@@ -140,12 +140,12 @@ export default function Eligibility({
               'trackEvent',
               'Simulateur Principal',
               'Eligibilité',
-              'Obtenir aides',
+              'Voir les démarches',
             ])
           }}
-          title="Obtenir mes aides"
+          title="Voir les démarches"
         >
-          Obtenir mes aides
+          Voir les démarches
         </Link>
       </div>
       {isInIframe ? null : <Feedback />}

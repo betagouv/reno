@@ -5,7 +5,6 @@ import { omit } from '@/components/utils'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { push } from '@socialgouv/matomo-next'
-import { useEffect, useState } from 'react'
 import ButtonsGroup from '@codegouvfr/react-dsfr/ButtonsGroup'
 import useIsMobile from '../useIsMobile'
 
@@ -16,18 +15,6 @@ export default function AideCTAs({
   setSearchParams,
   expanded,
 }) {
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 600)
-    }
-
-    handleResize() // Set initial value
-    window.addEventListener('resize', handleResize)
-
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
   const rawSearchParams = useSearchParams()
   const searchParams = Object.fromEntries(rawSearchParams.entries())
   const { objectif, ...situationSearchParams } = searchParams
