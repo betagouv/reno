@@ -1,9 +1,6 @@
 'use client'
 
-import logo from '@/public/logo-service-de-FR.svg'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import styled from 'styled-components'
 import { Header as DsfrHeader } from '@codegouvfr/react-dsfr/Header'
 
 export default function Header() {
@@ -24,13 +21,12 @@ export default function Header() {
         href: '/',
         title: 'Accueil - Mes Aides Réno',
       }}
-      id="fr-header-simple-header-with-service-title-and-tagline"
-      serviceTitle={
-        <HeaderLogo
-          src={logo}
-          alt="Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef."
-        />
-      }
+      id="fr-header-with-horizontal-operator-logo"
+      operatorLogo={{
+        alt: `Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef.`,
+        imgUrl: 'logo-service-de-FR.svg',
+        orientation: 'horizontal',
+      }}
       quickAccessItems={[
         {
           text: 'Blog',
@@ -60,8 +56,3 @@ export default function Header() {
     />
   )
 }
-
-const HeaderLogo = styled(Image)`
-  height: 4rem;
-  width: auto;
-`

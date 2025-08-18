@@ -35,6 +35,10 @@ details summary {
   cursor: pointer;
 }
 
+.fr-header__operator img {
+  max-width: 20rem !important;
+}
+
 .fr-input-wrap--addon {
   align-items: center;
   gap: 1em;
