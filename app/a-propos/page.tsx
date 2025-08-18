@@ -33,7 +33,7 @@ Madame Stéphanie SCHAER, en sa qualité de directrice générale de la DINUM
 
 ### Hébergement de la plateforme
 
-Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
+Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](/confidentialite).
 `
 
 export const metadata: Metadata = {

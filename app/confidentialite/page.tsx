@@ -14,6 +14,14 @@ export default function APIDoc() {
       <Section>
         <h1>Confidentialité</h1>
 
+        <p>
+          La plateforme est protégée par un certificat électronique, matérialisé
+          pour la grande majorité des navigateurs par un cadenas. Cette
+          protection participe à la confidentialité des échanges. En aucun cas,
+          les services associés à la plateforme ne seront à l’origine d’envoi de
+          courriels pour vous demander la saisie d’informations personnelles.
+        </p>
+
         <h2>Traceurs</h2>
         <p>
           Nous utilisons le traceur libre Matomo, via l'instance hébergée par
@@ -72,7 +80,8 @@ export default function APIDoc() {
         <h2>Serveur</h2>
         <p>
           Notre serveur est géré par la société française{' '}
-          <ExternalLink href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">Scalingo
+          <ExternalLink href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">
+            Scalingo
           </ExternalLink>
           , et est physiquement localisé en France. Voici le{' '}
           <ExternalLink href="https://scalingo.com/fr/contrat-gestion-traitements-donnees-personnelles">
