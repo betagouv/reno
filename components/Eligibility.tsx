@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react'
 import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
 import AidesAmpleur from './ampleur/AidesAmpleur'
-import { Breadcrumb } from '@codegouvfr/react-dsfr/Breadcrumb'
 import AideGeste from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
@@ -52,13 +51,6 @@ export default function Eligibility({
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
         engine={engine}
-      />
-      <Breadcrumb
-        currentPageLabel="Mes aides"
-        homeLinkProps={{
-          href: '/',
-        }}
-        segments={[]}
       />
       <Stepper
         className="fr-mt-5v"

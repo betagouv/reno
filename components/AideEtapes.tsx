@@ -9,7 +9,6 @@ import iconEuro from '@/public/icon-euro.svg'
 import iconTravaux from '@/public/icon-travaux.svg'
 import iconCard from '@/public/icon-card.svg'
 import Image from 'next/image'
-import { encodeSituation } from './publicodes/situationUtils'
 import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
@@ -17,7 +16,6 @@ import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
 import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
 import { push } from '@socialgouv/matomo-next'
-import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Stepper from '@codegouvfr/react-dsfr/Stepper'
 
@@ -40,30 +38,6 @@ export default function AideEtapes({
 
   return (
     <>
-      <Breadcrumb
-        currentPageLabel="Mes démarches"
-        homeLinkProps={{
-          href: '/',
-        }}
-        segments={[
-          {
-            label: 'Eligibilité',
-            linkProps: {
-              href: setSearchParams(
-                {
-                  ...encodeSituation(
-                    omit(['objectif'], situation),
-                    false,
-                    answeredQuestions,
-                  ),
-                },
-                'url',
-                true,
-              ),
-            },
-          },
-        ]}
-      />
       <Stepper
         className="fr-mt-5v"
         currentStep={4}

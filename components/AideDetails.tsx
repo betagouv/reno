@@ -1,11 +1,9 @@
 import Feedback from '@/app/contact/Feedback'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
-import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import { decodeDottedName } from './publicodes/situationUtils'
 import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
-import { aideTitle } from './ampleur/AideAmpleur'
 import CopyButton from './CopyButton'
-import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 import Stepper from '@codegouvfr/react-dsfr/Stepper'
 
 export default function AideDetails({
@@ -28,30 +26,6 @@ export default function AideDetails({
 
   return (
     <>
-      <Breadcrumb
-        currentPageLabel={aideTitle(dottedName)}
-        homeLinkProps={{
-          href: '/',
-        }}
-        segments={[
-          {
-            label: 'Mes aides',
-            linkProps: {
-              href: setSearchParams(
-                {
-                  ...encodeSituation(
-                    omit(['details'], situation),
-                    false,
-                    answeredQuestions,
-                  ),
-                },
-                'url',
-                true,
-              ),
-            },
-          },
-        ]}
-      />
       <Stepper
         className="fr-mt-5v"
         currentStep={3}
