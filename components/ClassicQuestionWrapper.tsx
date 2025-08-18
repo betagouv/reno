@@ -62,21 +62,10 @@ export default function ClassicQuestionWrapper({
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
-  const tallyForm =
-    currentQuestion === 'projet . définition'
-      ? 'mKjKNk'
-      : currentQuestion ===
-            'projet . définition . catégories travaux envisagées' ||
-          currentQuestion === 'projet . définition . travaux envisagés' ||
-          currentQuestion ===
-            'projet . définition . travaux envisagés chauffage'
-        ? 'np2g2P'
-        : null
+  const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
 
   return (
     <>
-      {' '}
-      {currentQuestion}
       <ProgressBar
         {...{
           answeredQuestions,
@@ -98,17 +87,13 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
-      {tallyForm ? (
+      {tallyForm && (
         <>
           <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
           <Script
             id={tallyForm}
-          >{` window.TallyConfig = { "formId": "${tallyForm}", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
+          >{` window.TallyConfig = { "formId": "mKjKNk", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
         </>
-      ) : (
-        <Script
-          id={'ensureNoTallyPopup'}
-        >{` window.TallyConfig = undefined; window.Tally=undefined; `}</Script>
       )}
       <QuestionCard>
         {!rule.type && (
