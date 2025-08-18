@@ -64,6 +64,9 @@ export default function ClassicQuestionWrapper({
 
   return (
     <>
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
+      />
       <div>
         {form != 'copropriété' && (
           <>
@@ -100,9 +103,6 @@ export default function ClassicQuestionWrapper({
           searchParams={searchParams}
         />
       )}
-      <AvertissementSimulation
-        {...{ avertissementState, setAvertissementState }}
-      />
       <AmpleurModuleBanner
         {...{
           depuisModule,

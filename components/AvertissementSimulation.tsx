@@ -55,7 +55,7 @@ export default function AvertissementSimulation({
   }, [])
 
   return (
-    <Section className="fr-callout fr-callout--yellow-moutarde">
+    <Section className="fr-callout fr-callout--yellow-moutarde fr-mt-5v">
       <details open={open}>
         <summary
           onClick={(e) => {
