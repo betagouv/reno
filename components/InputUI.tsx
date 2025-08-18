@@ -12,7 +12,7 @@ export const SuggestionsList = styled.ul`
   margin: 0.2rem 0;
   padding: 0;
   li {
-    margin: 1rem 0.3rem;
+    margin: 0 0.3rem;
     &:first-child {
       margin-left: 0;
     }
