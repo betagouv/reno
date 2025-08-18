@@ -1,9 +1,6 @@
 import { correspondance } from '@/app/simulation/Form'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
-import { CustomQuestionWrapper } from '../CustomQuestionUI'
-import { Section } from '../UI'
-import { encodeDottedName } from '../publicodes/situationUtils'
 import { createExampleSituation } from './AmpleurSummary'
 import { useAides } from './useAides'
 

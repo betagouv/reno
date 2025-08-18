@@ -2,7 +2,7 @@ import FormButtons from '@/app/simulation/FormButtons'
 import Suggestions from '@/app/simulation/Suggestions'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
-import Answers, { categoryData } from '@/app/simulation/Answers'
+import Answers from '@/app/simulation/Answers'
 import { useSearchParams } from 'next/navigation'
 import AvertissementSimulation, {
   useAvertissementState,
@@ -13,7 +13,6 @@ import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
 import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
-import Tag from '@codegouvfr/react-dsfr/Tag'
 
 export const QuestionText = ({
   rule,
@@ -59,12 +58,6 @@ export default function ClassicQuestionWrapper({
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { depuisModule } = searchParams
-  const { categoryTitle } = categoryData(
-    nextQuestions,
-    currentQuestion,
-    answeredQuestions,
-    rules,
-  )
   const remaining = nextQuestions.length
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
@@ -118,7 +111,6 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
-      {categoryTitle && <Tag>{categoryTitle}</Tag>}
       <form id="simulator-form" onSubmit={(e) => e.preventDefault()}>
         <fieldset
           className="fr-fieldset"
