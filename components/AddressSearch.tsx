@@ -90,10 +90,12 @@ export default function AddressSearch({
                           }
                           key={id}
                           onClick={() => {
-                            setInput(label)
-                            //setCoordinates(result.geometry.coordinates)
-                            setClicked(result)
-                            onChange && onChange(result)
+                            onChange &&
+                              onChange(result).then(() => {
+                                setInput(label)
+                                //setCoordinates(result.geometry.coordinates)
+                                setClicked(result)
+                              })
                           }}
                         >
                           <span>{label}</span>
