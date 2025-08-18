@@ -92,7 +92,7 @@ export default function ClassicQuestionWrapper({
           <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
           <Script
             id={tallyForm}
-          >{` window.TallyConfig = { "formId": "mKjKNk", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
+          >{` window.TallyConfig = { "formId": ${tallyForm}, "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
         </>
       )}
       <QuestionCard>
