@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
 import { useMediaQuery } from 'usehooks-ts'
@@ -6,10 +7,13 @@ import Button from '@codegouvfr/react-dsfr/Button'
 export default function QuestionDescription({ currentQuestion, rule }) {
   const isMobile = useMediaQuery('(max-width: 800px)')
 
-  const [isOpen, setIsOpen] = useState(() => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
     const savedState = localStorage.getItem('isOpen')
-    return savedState !== null ? JSON.parse(savedState) : !isMobile
-  })
+    const result = savedState !== null ? JSON.parse(savedState) : !isMobile
+    setIsOpen(result)
+  }, [setIsOpen, isMobile])
 
   useEffect(() => {
     localStorage.setItem('isOpen', JSON.stringify(isOpen))

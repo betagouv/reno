@@ -1,7 +1,11 @@
+import { correspondance } from '@/app/simulation/Form'
+import { push } from '@socialgouv/matomo-next'
+import { useEffect } from 'react'
+import { CustomQuestionWrapper } from '../CustomQuestionUI'
+import { Section } from '../UI'
+import { encodeDottedName } from '../publicodes/situationUtils'
 import { createExampleSituation } from './AmpleurSummary'
 import { useAides } from './useAides'
-import { push } from '@socialgouv/matomo-next'
-import { correspondance } from '@/app/simulation/Form'
 
 export default function AidesAmpleur({
   setSearchParams,
@@ -11,7 +15,9 @@ export default function AidesAmpleur({
   rules,
   searchParams,
 }) {
-  push(['trackEvent', 'Simulateur Principal', 'Page', 'Aides Ampleur'])
+  useEffect(() => {
+    push(['trackEvent', 'Simulateur Principal', 'Page', 'Aides Ampleur'])
+  }, [])
   const situation = givenSituation
 
   const extremeSituation = createExampleSituation(situation, 'best')

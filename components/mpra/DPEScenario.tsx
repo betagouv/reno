@@ -4,6 +4,7 @@ import DPEQuickSwitch2 from '../dpe/DPEQuickSwitch2'
 import TargetDPETabs from './TargetDPETabs'
 import CalculatorWidget from '../CalculatorWidget'
 import Input from '@codegouvfr/react-dsfr/Input'
+import useIsMobile from '../useIsMobile'
 
 export default function DPEScenario({
   engine,
@@ -16,7 +17,7 @@ export default function DPEScenario({
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
-  const isMobile = window.innerWidth <= 600
+  const isMobile = useIsMobile()
   const engineSituation = engine.setSituation(situation)
   const revenuClasseValue = engineSituation.evaluate(
     'ménage . revenu . classe',

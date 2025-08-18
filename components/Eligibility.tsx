@@ -35,6 +35,12 @@ export default function Eligibility({
   consent = false,
   sendDataToHost = false,
 }) {
+  // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
+  const MPRASuspendue = true
+
+  useEffect(() => {
+    push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+  }, [])
   push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
 
   const isInIframe = useIsInIframe()
@@ -62,7 +68,7 @@ export default function Eligibility({
       <Stepper
         className="fr-mt-5v"
         currentStep={3}
-        nextTitle={'Prochaines étapes'}
+        nextTitle={'Voir les démarches'}
         stepCount={4}
         title="Eligibilité"
       />
@@ -85,12 +91,12 @@ export default function Eligibility({
               'trackEvent',
               'Simulateur Principal',
               'Eligibilité',
-              'Obtenir aides',
+              'Voir les démarches',
             ])
           }}
-          title="Obtenir mes aides"
+          title="Voir les démarches"
         >
-          Obtenir mes aides
+          Voir les démarches
         </Link>
         {/* <CopyButton searchParams={searchParams} /> */}
       </div>

@@ -27,7 +27,6 @@ import Tag from '@codegouvfr/react-dsfr/Tag'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
-  const isMobile = window.innerWidth <= 600
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const engine = useMemo(() => new Publicodes(rules), [rules])

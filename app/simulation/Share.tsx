@@ -1,4 +1,5 @@
 import Button from '@codegouvfr/react-dsfr/Button'
+import useIsMobile from '@/components/useIsMobile'
 import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
@@ -8,7 +9,8 @@ export default function Share({
   align = 'center',
   showWithAnswer = true,
 }) {
-  const isMobile = window !== undefined ? window.innerWidth <= 600 : false
+  const isMobile = useIsMobile()
+
   const pathname = usePathname(),
     searchParams = useSearchParams()
 

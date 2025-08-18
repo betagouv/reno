@@ -667,7 +667,7 @@ projet . travaux . plafond:
 
 projet . définition:
   titre: Votre projet
-  question: Que souhaitez-vous simuler ?
+  question: Vos aides sont prêtes ! Comment souhaitez-vous les voir ?
   sous-titre: On calcule votre éligibilité aux aides, et si vous savez déjà quels travaux faire, on rend cela plus concret !
   une possibilité parmi:
     possibilités:
@@ -675,10 +675,12 @@ projet . définition:
       - 'travaux inconnus'
 projet . définition . travaux connus:
   valeur: '"travaux connus"'
-  titre: 'Je veux renseigner mes travaux pour connaître mes aides'
+  titre: 'Voir les aides adaptées à mes travaux'
+  sous-titre: Recommandé, 3 questions rapides sur vos travaux
 projet . définition . travaux inconnus:
   valeur: '"travaux inconnus"'
-  titre: 'Je veux voir les aides disponibles, je ne connais pas encore mes travaux'
+  titre: 'Voir toutes les aides'
+  sous-titre: Immédiat, non personnalisé
 
 projet . définition . catégories travaux envisagées:
   applicable si: définition = 'travaux connus'

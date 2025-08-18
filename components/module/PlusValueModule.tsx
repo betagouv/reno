@@ -22,12 +22,11 @@ import AmpleurCTA from '@/app/module/AmpleurCTA'
 import PlusValueWidget from '../plusValue/PlusValueWidget'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import useIsMobile from '../useIsMobile'
 
 export default function PlusValueModule({ type }) {
   const engine = new Publicodes(rules)
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth <= 400,
-  )
+  const isMobile = useIsMobile(400)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())

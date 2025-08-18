@@ -22,15 +22,14 @@ import editIcon from '@/public/crayon.svg'
 import { push } from '@socialgouv/matomo-next'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import Select from '@codegouvfr/react-dsfr/Select'
+import useIsMobile from '../useIsMobile'
 
 const prixAbonnementElectricite = 160
 
 export default function DPEFactureModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
   const [showTable, setShowTable] = useState(false)
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth <= 400,
-  )
+  const isMobile = useIsMobile(400)
   const setSearchParams = useSetSearchParams()
   const energies = listeEnergies['énergies . type']['une possibilité parmi'][
     'possibilités'

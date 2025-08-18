@@ -13,7 +13,7 @@ import styled from 'styled-components'
 import FormButtons from '@/app/simulation/FormButtons'
 import React from 'react'
 import { getRuleName } from './publicodes/utils'
-import GesteDescription from './GesteDescription'
+import { useEffect } from 'react'
 
 const localIsMosaic = (dottedName, rule) =>
   dottedName.startsWith('gestes . ') &&
@@ -31,7 +31,9 @@ export default function ChoixTravauxChauffage({
   answeredQuestions,
   setSearchParams,
 }) {
-  push(['trackEvent', 'Simulateur Principal', 'Page', 'Choix chauffage'])
+  useEffect(() => {
+    push(['trackEvent', 'Simulateur Principal', 'Page', 'Choix chauffage'])
+  }, [])
   let travauxEnvisages = getTravauxEnvisages(situation)
   const gestes = gestesMosaicQuestions.filter(
     (k) =>

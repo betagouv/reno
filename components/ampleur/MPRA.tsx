@@ -1,12 +1,13 @@
-import DPEScenario from '@/components/mpra/DPEScenario'
-import AideAmpleur from './AideAmpleur'
-import { Card } from '../UI'
 import rules from '@/app/règles/rules'
-import Value from '../Value'
-import { Écrêtement } from '@/components/explications/Écrêtement'
+import DPEScenario from '@/components/mpra/DPEScenario'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
+import { Card } from '../UI'
+import useIsMobile from '../useIsMobile'
 import { roundToThousands } from '../utils'
+import Value from '../Value'
+import AideAmpleur from './AideAmpleur'
+
 export default function MPRA({
   isEligible,
   setSearchParams,
@@ -16,6 +17,7 @@ export default function MPRA({
   expanded,
 }) {
   const dottedName = 'MPR . accompagnée'
+  const isMobile = useIsMobile()
 
   // Si le montant des travaux n'est pas précisé, on l'estime
   if (!situation['projet . travaux']) {

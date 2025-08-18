@@ -42,7 +42,8 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
   }, [show])
 
   useEffect(() => {
-    if (!engine) return
+    if (!engine || !shown) return
+
     const doEnrich = async () => {
       personas.forEach(async (persona, index) => {
         const enrichedSituation = await enrichSituation(persona.situation)
@@ -67,7 +68,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
       })
     }
     doEnrich()
-  }, [setEnrichedPersonas, engine])
+  }, [setEnrichedPersonas, engine, shown])
 
   if (!shown) return
   return (

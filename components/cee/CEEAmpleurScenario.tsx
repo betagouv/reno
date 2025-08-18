@@ -5,6 +5,7 @@ import { encodeSituation } from '../publicodes/situationUtils'
 import editIcon from '@/public/crayon.svg'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import CalculatorWidget from '../CalculatorWidget'
+import useIsMobile from '../useIsMobile'
 
 export default function CEEAmpleurScenario({
   engine,
@@ -12,14 +13,15 @@ export default function CEEAmpleurScenario({
   setSearchParams,
   answeredQuestions,
 }) {
-  const isMobile = window.innerWidth <= 600
+  const isMobile = useIsMobile()
+
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
     choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
 
   return (
-    <CalculatorWidget isMobile={isMobile}>
+    <CalculatorWidget>
       <div>
         <DPEQuickSwitch
           oldIndex={situation['DPE . actuel'] - 1}

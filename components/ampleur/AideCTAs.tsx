@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect, useState } from 'react'
 import ButtonsGroup from '@codegouvfr/react-dsfr/ButtonsGroup'
+import useIsMobile from '../useIsMobile'
 
 export default function AideCTAs({
   dottedName,
@@ -15,7 +16,6 @@ export default function AideCTAs({
   setSearchParams,
   expanded,
 }) {
-  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,6 +31,7 @@ export default function AideCTAs({
   const rawSearchParams = useSearchParams()
   const searchParams = Object.fromEntries(rawSearchParams.entries())
   const { objectif, ...situationSearchParams } = searchParams
+  const isMobile = useIsMobile()
 
   const detailUrl = setSearchParams(
     encodeSituation({

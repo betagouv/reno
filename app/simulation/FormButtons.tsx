@@ -12,7 +12,7 @@ export default function FormButtons({
   depuisModule,
   specificNextUrl,
   specificBackUrl,
-  setAvertissementState,
+  setAvertissementState = null,
 }) {
   const showValidation = currentValue != null
   return (
@@ -97,13 +97,13 @@ export default function FormButtons({
               'Valide',
               currentQuestion,
             ])
-            setAvertissementState(false)
+			typeof setAvertissementState === 'function' &&
+				setAvertissementState(false)
           }}
           iconPosition="right"
           iconId="fr-icon-arrow-right-fill"
           title="Répondez à la question pour avancer dans le questionnaire"
-        >
-          Suivant
+        >          Suivant
         </Button>
       )}
     </div>

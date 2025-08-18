@@ -141,6 +141,7 @@ export default function AideGeste({
     dottedName,
     situation,
   })
+  
   return (
     <Accordion
       label={

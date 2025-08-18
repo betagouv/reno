@@ -9,6 +9,11 @@ import { Header as DsfrHeader } from '@codegouvfr/react-dsfr/Header'
 
 export default function Header() {
   const isInIframe = useIsInIframe()
+  const isMobile = useMediaQuery('(max-width: 800px)', {
+    initializeWithValue: false,
+    defaultValue: true,
+  })
+
   const pathname = usePathname()
   if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
     return
