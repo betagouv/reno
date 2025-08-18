@@ -119,7 +119,7 @@ function Form({ rules, simulationConfig }) {
     )
   }
   return (
-    <>
+    <div style={{ maxWidth: '65rem', margin: 'auto' }}>
       <InputSwitch
         {...{
           rules,
@@ -144,7 +144,7 @@ function Form({ rules, simulationConfig }) {
           l'information sur les aides à la rénovation énergétique.
         </p>
       )}
-    </>
+    </div>
   )
 }
 
