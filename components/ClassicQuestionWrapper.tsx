@@ -128,7 +128,7 @@ export default function ClassicQuestionWrapper({
               }}
             />
           )}
-          {suggestions && (
+          {/* {suggestions && (
             <Suggestions
               rule={rule}
               onClick={(value) => {
@@ -146,7 +146,7 @@ export default function ClassicQuestionWrapper({
                 )
               }}
             />
-          )}
+          )} */}
           {children}
         </fieldset>
         {noButtons ? (
