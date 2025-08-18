@@ -21,7 +21,6 @@ import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
-import Badge from '@codegouvfr/react-dsfr/Badge'
 import Stepper from '@codegouvfr/react-dsfr/Stepper'
 
 export default function Eligibility({
@@ -35,13 +34,9 @@ export default function Eligibility({
   consent = false,
   sendDataToHost = false,
 }) {
-  // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
-  const MPRASuspendue = true
-
   useEffect(() => {
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   }, [])
-  push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
 
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
@@ -225,10 +220,9 @@ export function EligibilityRenovationEnergetique({
         />
       )}
       {hasMPRA && (
-        <div className="fr-callout fr-callout--yellow-moutarde fr-my-5v">
+        <div className="fr-callout fr-icon-info-line fr-callout--purple-glycine fr-my-5v">
           {MPRASuspendue ? (
             <>
-              <Badge severity="warning">temporairement suspendue</Badge>
               <h3 className="fr-callout__title">
                 MaPrimeRénov&#39; parcours accompagné est temporairement
                 suspendue cet été
