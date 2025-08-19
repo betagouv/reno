@@ -90,7 +90,7 @@ export default function InputSwitch({
             const encodedSituation = encodeSituation(
               {
                 ...situation,
-                [currentQuestion]: value,
+                [currentQuestion]: value + '*',
               },
               false,
               answeredQuestions,
@@ -127,7 +127,7 @@ export default function InputSwitch({
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
-                  [currentQuestion]: `"${value}"`,
+                  [currentQuestion]: `"${value}"*`,
                 },
                 false,
                 answeredQuestions,
@@ -317,7 +317,7 @@ export default function InputSwitch({
             const encodedSituation = encodeSituation(
               {
                 ...situation,
-                [currentQuestion]: value,
+                [currentQuestion]: value + '*',
               },
               false,
               answeredQuestions,
