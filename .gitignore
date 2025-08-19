@@ -53,9 +53,4 @@ index.d.ts
 index.js
 .aider*
 
-webComponents/dist
-webComponents/.stencil
-webComponents/www
-webComponents/loader
 
-dist/
