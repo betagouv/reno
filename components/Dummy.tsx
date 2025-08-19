@@ -15,7 +15,7 @@ export default function Dummy({ name }) {
   const searchParams = useSearchParams()
   const { page, q1, q2 } = Object.fromEntries(searchParams.entries())
   return (
-    <section style={{ border: '2px solid blue', width: '400px' }}>
+    <section style={{ border: '2px solid blue' }}>
       <h1
         onClick={() => {
           document.querySelector('body').style = 'background: chartreuse'
