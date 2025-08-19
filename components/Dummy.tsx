@@ -1,14 +1,14 @@
 //import React from 'react'
 // a dummy component used to test the export of our simulator to a Web component
-import Link from 'next/link'
-import Image from 'next/image'
 import checkIcon from '@/app/public/check.svg'
+import Image from 'next/image'
+import Link from 'next/link'
 
+import rules from '@/app/règles/rules'
+import Form from '@/app/simulation/Form'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import styled from 'styled-components'
 import { useSearchParams } from './navigation.webcomponent'
-import Form from '@/app/simulation/Form'
-import rules from '@/app/règles/rules'
 
 export default function Dummy({ name }) {
   const setSearchParams = useSetSearchParams()
