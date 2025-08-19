@@ -24,10 +24,16 @@ function getSearchParamsAsObject(url) {
   // Crée un objet URL à partir de la chaîne
   const urlObj = new URL(window.location.protocol + window.location.host + url)
 
-  if (urlObj.pathname !== window.location.pathname)
+  const path1 = urlObj.pathname,
+    path2 = window.location.pathname
+  if (path1 !== path2) {
+    console.log(path1, path2)
+    /* Maybe we should block this one day
     throw new Error(
       'The webco attempted to change the path via a <Link componnt. It should not, see doc above.',
     )
+	*/
+  }
 
   // Récupère les paramètres de requête
   const searchParams = new URLSearchParams(urlObj.search)
