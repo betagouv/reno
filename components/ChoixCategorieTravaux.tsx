@@ -42,7 +42,7 @@ export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
     .filter((c) => c.code != 'autres')
     .map((c) => (
       <div className="fr-fieldset__element" key={c.code}>
-        <div className="fr-checkbox-group fr-checkbox-rich">
+        <div className="fr-custom-checkbox-group fr-checkbox-rich">
           <input
             type="checkbox"
             name="checkbox"
@@ -57,7 +57,9 @@ export default function ChoixCategorieTravaux({ situation, setSearchParams }) {
             {c.titre}
             {c.sousTitre && <span className="fr-hint-text">{c.sousTitre}</span>}
           </label>
-          <Image src={c.image} alt={`Icone ${c.titre} d'une maison`} />
+          <div className="fr-checkbox-rich__pictogram">
+            <Image src={c.image} alt={`Icone ${c.titre} d'une maison`} />
+          </div>
         </div>
       </div>
     ))

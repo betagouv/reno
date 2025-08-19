@@ -37,7 +37,7 @@ export default function CheckboxQuestion({
       engine.getParsedRules()[currentQuestion + ' . ' + element]
     return (
       <div className="fr-fieldset__element" key={index}>
-        <div className="fr-checkbox-group fr-checkbox-rich">
+        <div className="fr-custom-checkbox-group fr-checkbox-rich">
           <input
             type="checkbox"
             name="checkbox"

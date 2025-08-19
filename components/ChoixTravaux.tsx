@@ -116,7 +116,7 @@ export default function ChoixTravaux({
               return (
                 <div className="fr-fieldset__element" key={item[0]}>
                   <div
-                    className="fr-checkbox-group fr-checkbox-rich"
+                    className="fr-custom-checkbox-group fr-checkbox-rich"
                     key={item[0]}
                   >
                     <input

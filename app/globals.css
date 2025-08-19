@@ -45,54 +45,120 @@ details summary {
 }
 
 .fr-checkbox-rich {
-  padding-left: 1rem;
-  margin-left: 0;
-  align-self: stretch;
-  width: 100%;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  padding-right: 1rem;
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, 1rem 1rem, 1rem 1rem;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: 0 0, 100% 0, 0 100%, 0 0, 1rem 50%, 1rem 50%;
-  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
-  background-color: var(--background-default-grey);
+  max-width: 100%;
+  position: relative;
+}
+.fr-checkbox-rich input[type=checkbox] {
+  height: 1rem;
+  left: 1rem;
+  top: calc(50% - .5rem);
+  width: 1rem;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+}
+.fr-checkbox-rich input[type=checkbox]:checked+label {
+  background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), radial-gradient(transparent 6px, var(--border-active-blue-france) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
+}
+.fr-checkbox-rich input[type=checkbox]+label {
   --idle: transparent;
   --hover: var(--background-default-grey-hover);
   --active: var(--background-default-grey-active);
+  align-items: stretch;
+  align-self: stretch;
+  background-color: var(--background-default-grey);
+  background-image: 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey))
+  ;
+  background-position: 0 0, 100% 0, 0 100%, 0 0, 1rem 50%, 1rem 50%;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, 1rem 1rem, 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0;
+  padding: .75rem 1rem .75rem 3.25rem;
+  width: 100%;
 }
-
-.fr-radio-rich input[type=checkbox]+label::before {
+.fr-custom-checkbox-group input[type=checkbox]+label:before {
+  --data-uri-svg: none;
+  background-image: 
+    radial-gradient(at 5px 4px, transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), 
+    radial-gradient(at calc(100% - 5px) 4px, transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), 
+    radial-gradient(at calc(100% - 5px) calc(100% - 4px), transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), 
+    radial-gradient(at 5px calc(100% - 4px), transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), var(--data-uri-svg);
+  background-position: 0 0, .25rem 0, 100% 0, 0 .25rem, 100% 100%, calc(100% - .25rem) 100%, 0 100%, 100% .25rem, 50%;
+  background-repeat: no-repeat;
+  background-size: .25rem .25rem, calc(100% - .25rem) 1px, .25rem .25rem, 1px calc(100% - .5rem), .25rem .25rem, calc(100% - .5rem) 1px, .25rem .25rem, 1px calc(100% - .5rem), 1rem;
+  border-radius: .25rem;
   content: "";
   display: block;
+  height: 1.5rem;
+  left: 1rem;
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  margin-left: 0;
-  border-radius: 0;
+  width: 1.5rem;
 }
 
-.fr-checkbox-rich label {
-  width: 100%;
+.fr-custom-checkbox-group input[type=checkbox]:checked+label:before {
+  --data-uri-svg: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5f5fe' d='m10 15.17 9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/%3E%3C/svg%3E");
+  background-color: var(--background-active-blue-france);
 }
 
 .fr-checkbox-rich input[type=checkbox]:not(:disabled)~label {
   --hover-tint: var(--hover);
   --active-tint: var(--active);
 }
-
-.fr-checkbox-rich:hover {
+.fr-checkbox-rich input[type=checkbox]:checked+label {
+  background-image: 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france));
+}
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:hover {
+  background-color: var(--hover-tint);
+}
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:active {
+  background-color: var(--active-tint);
+}
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:hover+.fr-checkbox-rich__pictogram {
   background-color: var(--hover);
 }
-
-.fr-checkbox-rich:active {
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:active+.fr-checkbox-rich__pictogram {
   background-color: var(--active);
+}
+.fr-checkbox-rich .fr-checkbox-rich__pictogram {
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--background-default-grey);
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+  background-position: 0 0, 0 100%, 100% 0, 0 .25rem;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 100% 1px, 100% 1px, 1px 100%, 1px calc(100% - .5rem);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: -1px;
+  min-height: 5.5rem;
+  min-width: 5.5rem;
+  padding: .25rem;
+  pointer-events: none;
+  width: 5.5rem;
+}
+
+.fr-checkbox-rich input[type=checkbox]:checked~.fr-checkbox-rich__pictogram {
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
 }
