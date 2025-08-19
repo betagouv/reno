@@ -286,16 +286,12 @@ export function EligibilityRenovationEnergetique({
         }}
       />
       {!hasMPRA && (
-        <>
-          <h3 className="fr-mt-5v">Et maintenant ?</h3>
-          <p>Un conseiller France Rénov’ peut vous aider à :</p>
-          <ul
-            css={`
-              list-style-type: none;
-              padding: 0;
-              margin-bottom: 2rem;
-            `}
-          >
+        <div className="fr-callout">
+          <h3 className="fr-callout__title">Et maintenant ?</h3>
+          <p className="fr-callout__text">
+            Un conseiller France Rénov’ peut vous aider à :
+          </p>
+          <ul className="fr-callout__text">
             <li>🛠️ Identifier les bons travaux à faire</li>
             <li>💰 Monter un plan de financement adapté</li>
             <li>
@@ -303,7 +299,7 @@ export function EligibilityRenovationEnergetique({
               projet
             </li>
           </ul>
-        </>
+        </div>
       )}
     </>
   )
@@ -516,21 +512,19 @@ export function EligibilityMPA({
             </React.Fragment>
           )
         })}
-      <h4>Et maintenant ?</h4>
-      <p>Un conseiller France Rénov’ peut vous aider à :</p>
-      <ul
-        css={`
-          list-style-type: none;
-          padding: 0;
-          margin-bottom: 2rem;
-        `}
-      >
-        <li>🛠️ Identifier les bons travaux à faire</li>
-        <li>💰 Monter un plan de financement adapté</li>
-        <li>
-          🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
-        </li>
-      </ul>
+      <div className="fr-callout">
+        <h3 className="fr-callout__title">Et maintenant ?</h3>
+        <p className="fr-callout__text">
+          Un conseiller France Rénov’ peut vous aider à :
+        </p>
+        <ul className="fr-callout__text">
+          <li>🛠️ Identifier les bons travaux à faire</li>
+          <li>💰 Monter un plan de financement adapté</li>
+          <li>
+            🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
+          </li>
+        </ul>
+      </div>
     </>
   )
 }
