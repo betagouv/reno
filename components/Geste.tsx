@@ -55,7 +55,7 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
               dottedName={dottedName + ' . montant'}
             />
           </>
-        ) : rules[dottedName.replace(' . montant', '')].type === 'prêt' ? (
+        ) : rules[dottedName.replace(' . montant', '')]?.type === 'prêt' ? (
           <>
             Jusqu'à {montantTotal}
             <AideDurée
@@ -94,7 +94,7 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
             <Tooltip
               className="fr-ms-1v"
               kind="hover"
-              title="Veuillez répondre aux questions pour préciser son montant."
+              title="Vous êtes éligible à une prime, il vous faut répondre à des questions complémentaires pour préciser son montant."
             />
           </>
         )}

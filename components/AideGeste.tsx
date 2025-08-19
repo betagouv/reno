@@ -36,7 +36,9 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   if (typeof rules[dottedNameCee] !== 'undefined') {
     const evaluationCEE = engineSituation.evaluate(dottedNameCee + ' . montant')
     infoCEE = {
+      isEligible: engineSituation.evaluate('CEE . conditions').nodeValue,
       montant: formatValue(evaluationCEE, { precision: 0 }),
+      montantRaw: evaluationCEE.nodeValue,
       code: rules[dottedNameCee].code,
       titre: rules[dottedNameCee].titre,
       lien: rules[dottedNameCee].lien,
@@ -75,17 +77,12 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     // On ajoute les questions déja répondues qui ne sont pas renvoyées par le getNextQuestions
     questions.unshift(...Object.keys(situation))
     const filteredQuestion = new Set(questions)
+    const evaluationMpr = engineSituation.evaluate(dottedNameMpr + ' . montant')
     infoMPR = {
       dottedName: dottedNameMpr,
-      montant: formatValue(
-        engineSituation.evaluate(dottedNameMpr + ' . montant'),
-      ),
-      isExactTotal:
-        Object.keys(
-          engineSituation.evaluate(dottedNameMpr + ' . montant')
-            .missingVariables,
-        ).length === 1,
-
+      montant: formatValue(evaluationMpr),
+      montantRaw: evaluationMpr.nodeValue,
+      isExactTotal: Object.keys(evaluationMpr.missingVariables).length === 1,
       plafond: formatValue(
         engineSituation.evaluate(dottedNameMpr + ' . plafond'),
       ),
@@ -97,10 +94,12 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     ? formatValue(engineSituation.evaluate(dottedNameCP + ' . montant'))
     : null
 
-  const evaluationTotal = engineSituation.evaluate(
-    dottedName.includes('montant') ? dottedName : dottedName + ' . montant',
-  )
-  isExactTotal = Object.keys(evaluationTotal.missingVariables).length === 1
+  const evaluationTotal =
+    rules[dottedName + ' . montant'] &&
+    engineSituation.evaluate(
+      dottedName.includes('montant') ? dottedName : dottedName + ' . montant',
+    )
+  isExactTotal = Object.keys(evaluationTotal?.missingVariables).length === 1
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
   if (!isExactTotal) {
     const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
@@ -141,7 +140,7 @@ export default function AideGeste({
     dottedName,
     situation,
   })
-  
+
   return (
     <Accordion
       label={
@@ -213,15 +212,19 @@ export default function AideGeste({
   )
 }
 
-const BlocAideMPR = ({ infoMPR }) => (
+const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   <BlocAide display="geste">
     <div className="aide-header">
       <Image src={mprImage} alt="logo ma prime renov" width="100" />
       <div>
         <h4 className="fr-m-0">MaPrimeRénov'</h4>
-        <Badge noIcon severity="success">
-          Prime de {infoMPR.isExactTotal ? infoMPR.montant : '...'}
-        </Badge>
+        <PrimeBadge
+          {...{
+            situation,
+            engine,
+            dottedName: infoMPR.dottedName,
+          }}
+        />
       </div>
     </div>
     <div className="aide-details">

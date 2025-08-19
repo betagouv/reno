@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
 import AidesAmpleur from './ampleur/AidesAmpleur'
-import AideGeste from './AideGeste'
+import AideGeste, { getInfoForPrime } from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
 import Value from './Value'
@@ -154,7 +154,18 @@ export function EligibilityRenovationEnergetique({
   const MPRASuspendue = true
   const travauxEnvisages = getTravauxEnvisages(situation)
   const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
-  const hasAides = aides.filter((aide) => aide.status === true).length > 0
+  // On doit aussi vérifier geste par geste
+  const hasAides =
+    aides.filter((aide) => aide.status === true).length > 0 ||
+    travauxEnvisages.find((dottedName) => {
+      const { infoCEE, infoMPR } = getInfoForPrime({
+        engine,
+        dottedName: decodeDottedName(dottedName),
+        situation,
+      })
+      return infoCEE?.isEligible || infoMPR?.montantRaw > 0
+    })
+
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée').status === true
   return (

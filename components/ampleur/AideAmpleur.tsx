@@ -113,13 +113,15 @@ export default function AideAmpleur({
               `}
             >
               {aideTitle(dottedName)}
-              <PrimeBadge
-                {...{
-                  situation,
-                  engine,
-                  dottedName,
-                }}
-              />
+              {isEligible && (
+                <PrimeBadge
+                  {...{
+                    situation,
+                    engine,
+                    dottedName,
+                  }}
+                />
+              )}
             </div>
           }
           onExpandedChange={() => {

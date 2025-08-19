@@ -37,17 +37,27 @@ export default function AidesAmpleur({
     let lastType = null
     return (
       <>
-        {isEligible !== null && (
+        {isEligible !== null ? (
           <h2 className="fr-mt-5v" title={title}>
             <span
               dangerouslySetInnerHTML={{
                 __html:
                   title +
                   '&nbsp;' +
-                  (isEligible === false ? `${aidesList.length} aides` : ''),
+                  (isEligible === false
+                    ? `${aidesList.filter(hardCodedFilter).length} aides`
+                    : ''),
               }}
             />
           </h2>
+        ) : (
+          <>
+            <h3 className="fr-mt-5v">{title}</h3>
+            <p>
+              C'est à vous de vous renseigner pour ces aides, car nous n'avons
+              pas pu déterminer votre éligibilité :
+            </p>
+          </>
         )}
         {isEligible === false && (
           <p
@@ -65,9 +75,9 @@ export default function AidesAmpleur({
           const showType = currentType !== lastType
           lastType = currentType
           return (
-            <div key={i} className="fr-mt-5v">
+            <div key={i}>
               {showType && isEligible && (
-                <h3>
+                <h3 className="fr-mt-5v">
                   {rules[aide.baseDottedName].type === 'remboursement' ? (
                     <>
                       <span aria-hidden="true">💶</span> Remboursements
@@ -78,19 +88,6 @@ export default function AidesAmpleur({
                     <>Exonérations fiscales</>
                   )}
                 </h3>
-              )}
-              {showType && isEligible === null && (
-                <>
-                  <h3 className="fr-mt-5v">{title}</h3>
-                  <p
-                    css={`
-                      margin-bottom: 1.5rem;
-                    `}
-                  >
-                    C'est à vous de vous renseigner pour ces aides, car nous
-                    n'avons pas pu déterminer votre éligibilité :
-                  </p>
-                </>
               )}
               <AideComponent
                 key={aide.baseDottedName}
