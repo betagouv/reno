@@ -39,7 +39,7 @@ export async function getCommune(situation, type) {
     situation[type]
   ) {
     const path = `communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
-      url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
+      url = `${getAppUrl()}/api/geo?path=${encodeURIComponent(path)}`
 
     const response = await fetch(url)
     const json = await response.json()

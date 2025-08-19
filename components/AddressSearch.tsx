@@ -44,8 +44,8 @@ export default function AddressSearch({
       const request = await fetch(
         getAppUrl() +
           (onlyNumbers(input)
-            ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
-            : `/api/geo/?path=${encodeURIComponent(
+            ? `/api/geo?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
+            : `/api/geo?path=${encodeURIComponent(
                 `communes?nom=${input}&boost=population&limit=5`,
               )}`),
       )
@@ -53,7 +53,10 @@ export default function AddressSearch({
 
       const enrichedResults = await Promise.all(
         json.map((commune) =>
-          fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
+          fetch(
+            getAppUrl() +
+              `/api/communes?insee=${commune.code}&nom=${commune.nom}`,
+          )
             .then((response) => response.json())
             .then((json) => ({ ...commune, eligibilite: json })),
         ),
