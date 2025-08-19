@@ -22,9 +22,15 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     ...situation,
     [dottedName]: 'oui',
   })
-  const relevant = rules[dottedName + ' . MPR . barème']
-    ? dottedName + ' . MPR . barème'
-    : dottedName + ' . montant'
+  const possibleKeys = [
+    dottedName + ' . barème',
+    dottedName + ' . MPR . barème',
+    dottedName + ' . montant',
+  ]
+
+  const relevant =
+    possibleKeys.find((key) => rules[key]) || dottedName + ' . montant'
+
   const eligibleMPRG = engineSituation.evaluate(
     'MPR . non accompagnée . éligible',
   ).nodeValue
@@ -102,14 +108,8 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   isExactTotal = Object.keys(evaluationTotal?.missingVariables).length === 1
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
   if (!isExactTotal) {
-    const maximizeAideVariables = Object.keys(evaluationTotal.missingVariables)
-      .map((dn) => (rules[dn]?.maximum ? { [dn]: rules[dn].maximum } : null))
-      .filter(Boolean)
-      .reduce((acc, obj) => ({ ...acc, ...obj }), {})
     calculatedMontantTotal = formatValue(
-      engine
-        .setSituation({ ...situation, ...maximizeAideVariables })
-        .evaluate(relevant),
+      engine.setSituation(situation).evaluate(relevant),
       { precision: 0 },
     )
   }
