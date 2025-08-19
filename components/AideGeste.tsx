@@ -26,10 +26,10 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     dottedName + ' . barème',
     dottedName + ' . MPR . barème',
     dottedName + ' . montant',
+    dottedName,
   ]
 
-  const relevant =
-    possibleKeys.find((key) => rules[key]) || dottedName + ' . montant'
+  const relevant = possibleKeys.find((key) => rules[key])
 
   const eligibleMPRG = engineSituation.evaluate(
     'MPR . non accompagnée . éligible',
@@ -105,7 +105,9 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     engineSituation.evaluate(
       dottedName.includes('montant') ? dottedName : dottedName + ' . montant',
     )
-  isExactTotal = Object.keys(evaluationTotal?.missingVariables).length === 1
+  isExactTotal =
+    evaluationTotal?.missingVariables &&
+    Object.keys(evaluationTotal?.missingVariables).length === 1
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
   if (!isExactTotal) {
     calculatedMontantTotal = formatValue(

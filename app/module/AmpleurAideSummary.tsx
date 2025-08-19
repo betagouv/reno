@@ -14,7 +14,6 @@ export const AmpleurAideSummary = ({
   text,
   text2,
   status,
-  evaluation,
   engine,
   situation,
   dottedName,
@@ -24,6 +23,7 @@ export const AmpleurAideSummary = ({
       <>
         {text && <>{text}</>}
         {text2 && <>&nbsp;-&nbsp;{text2}</>}
+        <br />
       </>
       {status ? (
         <PrimeBadge
