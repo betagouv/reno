@@ -1,6 +1,8 @@
 import useSetSearchParams from './useSetSearchParams.webcomponent'
 
 const WebcoLink = ({ href, children, ...props }) => {
+  // This link component is particular : it avoids refreshing the page. It's like calling setSearchParams with the push option, but keeps the <a with its href for HTML standards, accessibility and SEO.
+  // This link component, used in Webco mode, cannot change the path ! A webco is typically integrated on a source page with a path : rewriting this path would kill the webco.
   const params = getSearchParamsAsObject(href)
 
   const setSearchParams = useSetSearchParams()
@@ -21,6 +23,11 @@ export default WebcoLink
 function getSearchParamsAsObject(url) {
   // Crée un objet URL à partir de la chaîne
   const urlObj = new URL(window.location.protocol + window.location.host + url)
+
+  if (urlObj.pathname !== window.location.pathname)
+    throw new Error(
+      'The webco attempted to change the path via a <Link componnt. It should not, see doc above.',
+    )
 
   // Récupère les paramètres de requête
   const searchParams = new URLSearchParams(urlObj.search)
