@@ -1,5 +1,4 @@
 import Feedback from '@/app/contact/Feedback'
-import { No } from '@/components/ResultUI'
 import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
 import PersonaBar from './PersonaBar'
@@ -171,29 +170,15 @@ export function EligibilityRenovationEnergetique({
   return (
     <>
       <p>
-        {hasMPRA ? (
+        {hasAides ? (
           <>
-            <span aria-hidden="true">🥳</span> Vous êtes éligible aux aides
-            présentées ci-dessous :
-          </>
-        ) : !hasAides ? (
-          <>
-            Nous n'avons <No>pas trouvé d'aide</No> à laquelle vous êtes
-            éligible.
+            <span aria-hidden="true">🥳</span> Bonne nouvelle, des aides sont
+            disponibles pour vous accompagner dans votre projet.
           </>
         ) : (
-          <>
-            <span aria-hidden="true">🥳</span> Des prêts et des aides sont
-            disponibles pour vos travaux
-          </>
+          <>Aucune aide disponible ne correspond à votre situation.</>
         )}
       </p>
-      {hasAides && !hasMPRA && (
-        <p>
-          Si vous n’avez pas encore de plan de travaux, vous pouvez construire
-          votre projet avec un conseiller France Rénov’.
-        </p>
-      )}
       <h2>
         <span aria-hidden="true">💶</span> Aides pour vos travaux
       </h2>
@@ -297,7 +282,7 @@ export function EligibilityRenovationEnergetique({
         }}
       />
       {!hasMPRA && (
-        <div className="fr-callout">
+        <div className="fr-callout fr-mt-5v">
           <h3 className="fr-callout__title">Et maintenant ?</h3>
           <p className="fr-callout__text">
             Un conseiller France Rénov’ peut vous aider à :
