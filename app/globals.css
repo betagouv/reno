@@ -158,7 +158,10 @@ details summary {
   pointer-events: none;
   width: 5.5rem;
 }
-
 .fr-checkbox-rich input[type=checkbox]:checked~.fr-checkbox-rich__pictogram {
   background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+}
+
+.fr-input[type="number"] {
+  max-width: 10rem;
 }
