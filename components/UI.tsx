@@ -118,7 +118,7 @@ export const Loader = () => (
   ></div>
 )
 
-export const DsfrCard = ({ titre, url, description, imageUrl, imageAlt, titleAs }) => (
+export const DsfrCard = ({ titre, url, description, imageUrl, imageAlt, titleAs, noRatio }) => (
   <div className="fr-card fr-enlarge-link">
     <div className="fr-card__body">
       <div className="fr-card__content">
@@ -134,7 +134,8 @@ export const DsfrCard = ({ titre, url, description, imageUrl, imageAlt, titleAs 
     {imageUrl && (<div className="fr-card__header">
       <div className="fr-card__img">
         <img
-          className="fr-responsive-img fr-ratio-1x1 fr-p-5v"
+          className={`fr-responsive-img ${!noRatio && "fr-ratio-1x1"} fr-p-5v`}
+          style={noRatio && { aspectRatio: "auto"}}
           src={imageUrl}
           alt={imageAlt}
         />

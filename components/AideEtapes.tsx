@@ -1,4 +1,4 @@
-import { Card, Section } from './UI'
+import { Card } from './UI'
 import iconConseiller from '@/public/icon-conseiller.svg'
 import iconLampe from '@/public/icon-lampe.svg'
 import iconPaper from '@/public/icon-paper.svg'

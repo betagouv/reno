@@ -1,4 +1,4 @@
-import { PageBlock } from '@/components/UI'
+import { DsfrCard, PageBlock } from '@/components/UI'
 import Image from 'next/image'
 import { HeaderWrapper } from '../LandingUI'
 import rssIcon from '@/public/rss-simple.svg'
@@ -43,23 +43,21 @@ const Page = async () => {
         <div className="fr-grid-row fr-grid-row--gutters">
           {sortedArticles.map(({ url, date, titre, tags, image }) => (
             <div key={url} className="fr-col">
-              <Tile
-                enlargeLinkOrButton
-                imageUrl={
-                  image.startsWith('/') ? image : `/blog-images/${image}`
-                }
-                linkProps={{
-                  href: url,
-                }}
-                orientation="horizontal"
-                title={titre}
-                titleAs="h2"
-                desc={
+              <DsfrCard
+                titre={titre}
+                url={url}
+                description={
                   <>
                     {tags?.map((tag) => <Badge key={tag}>{tag}</Badge>)}
                     <p>{dateCool(date)}</p>
                   </>
                 }
+                noRatio
+                imageUrl={
+                  image.startsWith('/') ? image : `/blog-images/${image}`
+                }
+                imageAlt="Image d'illustration d'un article de blog"
+                titleAs="h2"
               />
             </div>
           ))}
