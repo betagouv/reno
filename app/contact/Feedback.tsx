@@ -36,10 +36,12 @@ export default function Feedback({
   }
 
   return (
-    <div className="fr-callout fr-callout--yellow-tournesol">
+    <div
+      className="fr-callout fr-callout--yellow-tournesol fr-grid-row fr-grid-row--middle"
+      style={{ flexDirection: 'column' }}
+    >
       <h3>
-        <span aria-hidden="true">👋</span>
-        {title}
+        <span aria-hidden="true">👋</span> {title}
       </h3>
       <VoteBox>
         <div
