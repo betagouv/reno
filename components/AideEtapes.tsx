@@ -257,7 +257,7 @@ export default function AideEtapes({
             <Badge noIcon>optionnel</Badge>
             <h2>
               <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
-              Faire la demande d’autres aides complémentaires
+              Déposer vos demandes d’aides
             </h2>
             <p>Primes CEE, Exonération de taxe foncière, etc.</p>
           </Card>
@@ -278,7 +278,7 @@ export default function AideEtapes({
           <Badge noIcon>1 mois d'attente</Badge>
           <h2>
             <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
-            Recevez vos autres aides
+            Recevez vos aides
           </h2>
           <p>
             Subvention MaPrimeRénov', Primes CEE... Elles arriveront
