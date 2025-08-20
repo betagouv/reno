@@ -20,9 +20,13 @@ export default function AidesAmpleur({
   const extremeSituation = createExampleSituation(situation, 'best')
 
   const aides = useAides(engine, extremeSituation)
-  // On filtre les remboursements (donc MPRA et subvention MAR) car ils sont affichés différement
+
+  // On filtre les remboursements (donc MPRA, aide locales et subvention MAR) car ils sont affichés différement sauf CEE . ampleur
   const eligibles = aides.filter(
-    (aide) => aide.status === true && aide.type !== 'remboursement',
+    (aide) =>
+      aide.status === true &&
+      (aide.type !== 'remboursement' ||
+        aide.baseDottedName == "CEE . rénovation d'ampleur"),
   )
   const nonEligibles = aides.filter((aide) => aide.status === false)
   const neSaisPas = aides.filter((aide) => aide.status === null)
