@@ -340,7 +340,7 @@ export default function InputSwitch({
                   {
                     ...situation,
                     [currentQuestion]:
-                      value == undefined
+                      value == '' || parseInt(value) <= 0
                         ? undefined
                         : ruleQuestionType === 'number'
                           ? value
