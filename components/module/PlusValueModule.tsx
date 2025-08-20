@@ -102,9 +102,7 @@ export default function PlusValueModule({ type }) {
           }}
         />
         <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
-          columnDisplay={isMobile}
           disabled={!answeredQuestions.includes("logement . prix d'achat")}
           text={'Il a une étiquette DPE'}
         />

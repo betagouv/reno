@@ -13,7 +13,6 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
-import { useMediaQuery } from 'usehooks-ts'
 import { EvaluationValue } from './AmpleurEvaluation'
 import { ampleurQuestionsAnswered, usageLogementValues } from './AmpleurInputs'
 import {
@@ -25,13 +24,13 @@ import {
 import { ModuleWrapper } from './ModuleWrapper'
 import UserData from './UserData'
 import AmpleurWidget from '@/components/ampleur/AmpleurWidget'
+import useIsMobile from '@/components/useIsMobile'
 
 const engine = new Publicodes(rules)
 
 export default function Ampleur({ type }) {
   const setSearchParams = useSetSearchParams()
-  const isMobile = useMediaQuery('(max-width: 400px)')
-
+  const isMobile = useIsMobile(400)
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 

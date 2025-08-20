@@ -19,10 +19,10 @@ import { useSearchParams } from 'next/navigation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { useEffect } from 'react'
 import { push } from '@socialgouv/matomo-next'
-import { useMediaQuery } from 'usehooks-ts'
+import useIsMobile from '../useIsMobile'
 
 export default function EligibilityTaxeFonciere({ dottedName }) {
-  const isMobile = useMediaQuery('(max-width: 400px)')
+  const isMobile = useIsMobile()
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module Taxe fonciere'])
   }, [])

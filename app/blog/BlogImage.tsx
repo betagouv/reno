@@ -3,14 +3,12 @@
 import illustrationBlog from '@/public/illustration-blog.svg'
 import illustrationMobile from '@/public/chat.svg'
 import Image from 'next/image'
-import { useMediaQuery } from 'usehooks-ts'
 import css from '@/components/css/convertToJs'
 import { useState } from 'react'
+import useIsMobile from '@/components/useIsMobile'
 
 export default function BlogImage() {
-  const isMobile = useMediaQuery('(max-width: 800px)', {
-    initializeWithValue: false,
-  })
+  const isMobile = useIsMobile()
 
   const [color, setColor] = useState(true)
 

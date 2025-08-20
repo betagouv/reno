@@ -1,11 +1,9 @@
 'use client'
 import calculatorIcon from '@/public/calculator-black.svg'
 import Image from 'next/image'
-import useIsMobile from './useIsMobile'
 import React from 'react'
 
 export default function CalculatorWidget({ titleAs = 'h3', children }) {
-  const isMobile = useIsMobile()
   return (
     <div className="fr-callout fr-callout--blue-cumulus">
       <TitleWithIcon titleAs={titleAs} />

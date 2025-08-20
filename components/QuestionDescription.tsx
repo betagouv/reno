@@ -1,11 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
-import { useMediaQuery } from 'usehooks-ts'
 import Button from '@codegouvfr/react-dsfr/Button'
+import useIsMobile from './useIsMobile'
 
 export default function QuestionDescription({ currentQuestion, rule }) {
-  const isMobile = useMediaQuery('(max-width: 800px)')
+  const isMobile = useIsMobile()
 
   const [isOpen, setIsOpen] = useState(false)
 

@@ -20,10 +20,10 @@ import { useSearchParams } from 'next/navigation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
-import { useMediaQuery } from 'usehooks-ts'
+import useIsMobile from '../useIsMobile'
 
 export default function EligibilityDenormandie({ dottedName }) {
-  const isMobile = useMediaQuery('(max-width: 400px)')
+  const isMobile = useIsMobile()
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module Denormandie'])
   }, [])
