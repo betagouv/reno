@@ -3,10 +3,10 @@
   "version": "2.3.1",
   "scripts": {
     "build": "next build",
-    "predev": "react-dsfr update-icons",
+    "predev": "npx react-dsfr update-icons",
     "dev": "next dev -p 8080",
     "prettier": "prettier --write --ignore-unknown .",
-    "prebuild": "node lib/downloadData.mjs && react-dsfr update-icons",
+    "prebuild": "node lib/downloadData.mjs && npx react-dsfr update-icons",
     "prettier:check": "prettier --check --ignore-unknown .",
     "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
     "start": "node .next/standalone/server.js",
