@@ -12,6 +12,7 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
+import Script from 'next/script'
 import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
 
 export const QuestionText = ({
@@ -62,6 +63,8 @@ export default function ClassicQuestionWrapper({
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
+  const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
+
   return (
     <>
       <AvertissementSimulation
@@ -111,24 +114,41 @@ export default function ClassicQuestionWrapper({
           remaining,
         }}
       />
-      <form id="simulator-form" onSubmit={(e) => e.preventDefault()}>
-        <fieldset
-          className="fr-fieldset"
-          form="simulator-form"
-          aria-labelledby="simulator-form-legend simulator-form-messages"
-        >
-          {!rule.type && (
-            <QuestionText
-              {...{
-                rule,
-                question: currentQuestion,
-                rules,
-                situation,
-                engine,
-              }}
-            />
-          )}
-          {/* {suggestions && (
+      {tallyForm && (
+        <>
+          <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
+          <Script
+            id={tallyForm}
+          >{` window.TallyConfig = { "formId": "${tallyForm}", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
+        </>
+      )}
+      <QuestionCard>
+        {!rule.type && (
+          <QuestionHeader>
+            <div>
+              <small>{categoryTitle}</small>
+              <QuestionText
+                {...{
+                  rule,
+                  question: currentQuestion,
+                  rules,
+                  situation,
+                  engine,
+                }}
+              />
+              {rule['sous-titre'] && (
+                <Subtitle
+                  dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+                ></Subtitle>
+              )}
+            </div>
+            <div>
+              <CopyButton searchParams={searchParams} />
+            </div>
+          </QuestionHeader>
+        )}
+        <AnswerWrapper>
+          {!noSuggestions && (
             <Suggestions
               rule={rule}
               onClick={(value) => {

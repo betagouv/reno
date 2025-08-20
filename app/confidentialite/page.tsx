@@ -1,6 +1,5 @@
-import { PageBlock } from '@/components/UI'
-import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
-import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Footer from '@/components/Footer'
+import { ExternalLink, Main, Section } from '@/components/UI'
 import { Metadata } from 'next/types'
 
 export const metadata: Metadata = {
@@ -9,19 +8,20 @@ export const metadata: Metadata = {
     "Mes Aides réno respecte votre vie privée, découvrez l'usage que nous faisons de vos données.",
 }
 
-export default function Confidentialite() {
+export default function APIDoc() {
   return (
-    <>
-      <StartDsfrOnHydration />
-      <PageBlock>
-        <Breadcrumb
-          currentPageLabel="Confidentialité"
-          homeLinkProps={{
-            href: '/',
-          }}
-          segments={[]}
-        />
+    <Main>
+      <Section>
         <h1>Confidentialité</h1>
+
+        <p>
+          La plateforme est protégée par un certificat électronique, matérialisé
+          pour la grande majorité des navigateurs par un cadenas. Cette
+          protection participe à la confidentialité des échanges. En aucun cas,
+          les services associés à la plateforme ne seront à l’origine d’envoi de
+          courriels pour vous demander la saisie d’informations personnelles.
+        </p>
+
         <h2>Traceurs</h2>
         <p>
           Nous utilisons le traceur libre Matomo, via l'instance hébergée par
@@ -80,24 +80,16 @@ export default function Confidentialite() {
         <h2>Serveur</h2>
         <p>
           Notre serveur est géré par la société française{' '}
-          <a
-            className="fr-link"
-            rel="noopener external"
-            href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483"
-          >
+          <ExternalLink href="https://annuaire-entreprises.data.gouv.fr/entreprise/scalingo-808665483">
             Scalingo
-          </a>
+          </ExternalLink>
           , et est physiquement localisé en France. Voici le{' '}
-          <a
-            className="fr-link"
-            rel="noopener external"
-            href="https://scalingo.com/fr/contrat-gestion-traitements-donnees-personnelles"
-          >
+          <ExternalLink href="https://scalingo.com/fr/contrat-gestion-traitements-donnees-personnelles">
             Contrat de Gestion des Traitements de Données Personnelles
-          </a>{' '}
+          </ExternalLink>{' '}
           de Scalingo.
         </p>
-      </PageBlock>
-    </>
+      </Section>
+    </Main>
   )
 }
