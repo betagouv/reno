@@ -87,7 +87,12 @@ export default async function Page(props) {
           </HeaderWrapper>
           <div className="fr-grid-row fr-my-5v fr-grid-row--gutters fr-grid-row--center fr-grid-row--middle">
             <div className="fr-col-auto">
-              <Image src={logoFranceRenov} alt="Logo de France Rénov" />
+              <Image
+                src={logoFranceRenov}
+                alt="Logo de France Rénov"
+                className="fr-responsive-img"
+                style={{ maxWidth: '7rem' }}
+              />
             </div>
             <div className="fr-col-6">
               <ParFranceRénovTexte />
