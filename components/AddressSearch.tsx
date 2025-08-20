@@ -90,6 +90,7 @@ export default function AddressSearch({
                           }
                           key={id}
                           onClick={() => {
+                            setAddressResults(null)
                             onChange &&
                               onChange(result).then(() => {
                                 setInput(label)
