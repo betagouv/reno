@@ -2,7 +2,7 @@ import marianne from '@/public/marianne-sans-devise.svg'
 import FooterModule from '@/app/module/FooterModule'
 import Image from 'next/image'
 
-export const ModuleWrapper = ({ children, isMobile, title }) => (
+export const ModuleWrapper = ({ children, title }) => (
   <div
     css={`
       border: 2px solid var(--color);
@@ -55,8 +55,8 @@ export const ModuleWrapper = ({ children, isMobile, title }) => (
         <Image src={marianne} alt="Logo de la République Française" />
         <h1>{title}</h1>
       </header>
-      <div>{children}</div>
-      <FooterModule isMobile={isMobile} />
+      <div className="fr-mb-5v">{children}</div>
+      <FooterModule />
     </div>
   </div>
 )

@@ -233,11 +233,6 @@ export default function DPEFactureModule({ type, numDpe }) {
                     transform: translateY(55%) translateX(-150%);
                     pointer-events: none;
                   }
-                  select {
-                    height: 2.8rem;
-                    background: #f5f5fe;
-                    max-width: 90vw;
-                  }
                 `}
               >
                 <tbody>
@@ -253,7 +248,8 @@ export default function DPEFactureModule({ type, numDpe }) {
                                   energiesUtilisees.map((energieUtilisee, i) =>
                                     i === index
                                       ? energies.find(
-                                          (energie) => energie.titre === e,
+                                          (energie) =>
+                                            energie.titre === e.target.value,
                                         )
                                       : energieUtilisee,
                                   )
@@ -451,12 +447,8 @@ export default function DPEFactureModule({ type, numDpe }) {
     () =>
       ({ type, children }) =>
         type === 'module' ? (
-          <ModuleWrapper
-            isMobile={isMobile}
-            title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
-          >
+          <ModuleWrapper title="Estimer l'impact d'une rénovation sur ma facture d'énergie">
             {children}
-
             <AmpleurCTA
               situation={situation}
               isMobile={isMobile}
@@ -535,6 +527,7 @@ export default function DPEFactureModule({ type, numDpe }) {
 }
 
 export const DeuxColonnes = styled.div`
+  margin-bottom: 2rem;
   display: flex;
   ${(p) => p.$isMobile && 'flex-direction: column;'}
   position: relative;

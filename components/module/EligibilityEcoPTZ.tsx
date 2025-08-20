@@ -21,11 +21,8 @@ import { useSearchParams } from 'next/navigation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
-import useIsMobile from '../useIsMobile'
 
 export default function EligibilityEcoPTZ({ dottedName }) {
-  const isMobile = useIsMobile()
-
   const rulesWithInterets = {
     ...rules,
     ...rulesInteretEmprunt,
@@ -45,7 +42,7 @@ export default function EligibilityEcoPTZ({ dottedName }) {
     push(['trackEvent', 'Module', 'Page', 'Module Eco-PTZ'])
   }, [])
   return (
-    <ModuleWrapper isMobile={isMobile} title="Êtes-vous éligible à l'éco-PTZ ?">
+    <ModuleWrapper title="Êtes-vous éligible à l'éco-PTZ ?">
       <form id="form-eco-ptz">
         <TypeResidence {...{ setSearchParams, situation, answeredQuestions }} />
         <PeriodeConstructionQuestion

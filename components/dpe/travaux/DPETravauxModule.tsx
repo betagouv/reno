@@ -24,12 +24,10 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Button from '@codegouvfr/react-dsfr/Button'
-import useIsMobile from '@/components/useIsMobile'
 
 export default function DPETravauxModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
   const [showMPRA, setShowMPRA] = useState(false)
-  const isMobile = useIsMobile(400)
   const setSearchParams = useSetSearchParams()
   const [xml, setXml] = useState()
 
@@ -169,7 +167,7 @@ export default function DPETravauxModule({ type, numDpe }) {
 
   const Wrapper = ({ type, children }) =>
     type === 'module' ? (
-      <ModuleWrapper isMobile={isMobile} title="Quels travaux privilégier ?">
+      <ModuleWrapper title="Quels travaux privilégier ?">
         {children}
       </ModuleWrapper>
     ) : (

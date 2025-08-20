@@ -22,10 +22,8 @@ import { useSearchParams } from 'next/navigation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
-import useIsMobile from '../useIsMobile'
 
 export default function EligibilityPAR({ dottedName }) {
-  const isMobile = useIsMobile()
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module PAR'])
   }, [])
@@ -50,7 +48,7 @@ export default function EligibilityPAR({ dottedName }) {
         [encodeDottedName(dottedName)]: value + '*',
       })
   return (
-    <ModuleWrapper isMobile={isMobile} title="Êtes-vous éligible au PAR+ ?">
+    <ModuleWrapper title="Êtes-vous éligible au PAR+ ?">
       <form id="form-par">
         <TypeResidence {...{ setSearchParams, situation, answeredQuestions }} />
         <PeriodeConstructionQuestion

@@ -62,10 +62,7 @@ export default function PlusValueModule({ type }) {
   }, [situation])
 
   return type == 'module' ? (
-    <ModuleWrapper
-      isMobile={isMobile}
-      title="Après rénovation, combien vaudra mon bien ?"
-    >
+    <ModuleWrapper title="Après rénovation, combien vaudra mon bien ?">
       <form id="plus-value">
         <LogementType
           {...{
