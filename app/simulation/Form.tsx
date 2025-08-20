@@ -133,13 +133,7 @@ function Form({ rules, simulationConfig }) {
         }}
       />
       {isInIframe && (
-        <p
-          css={`
-            font-size: 0.7rem;
-            margin: 0 1rem;
-            line-height: 1rem;
-          `}
-        >
+        <p className="fr-hint-text fr-mt-5v">
           Un simulateur construit avec France&nbsp;Rénov' pour simplifier
           l'information sur les aides à la rénovation énergétique.
         </p>

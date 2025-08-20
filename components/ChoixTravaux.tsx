@@ -94,7 +94,7 @@ export default function ChoixTravaux({
         .map((categorie) => (
           <fieldset
             key={categorie['code']}
-            className="fr-fieldset"
+            className="fr-fieldset fr-mx-0"
             id={`storybook-form-${categorie['code']}`}
             aria-labelledby="storybook-form-legend storybook-form-messages"
           >
