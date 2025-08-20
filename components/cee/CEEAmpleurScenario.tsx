@@ -12,18 +12,15 @@ export default function CEEAmpleurScenario({
   setSearchParams,
   answeredQuestions,
 }) {
-  const isMobile = useIsMobile()
-
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
-    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+    choice = value ? Math.min(automaticChoice, value) : automaticChoice
 
   return (
     <CalculatorWidget>
       <div>
         <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
           noSuccess
           ecartClasse={2}
@@ -31,11 +28,8 @@ export default function CEEAmpleurScenario({
         />
         <TargetDPETabs
           {...{
-            oldIndex,
+            ecartClasse: 2,
             setSearchParams,
-            answeredQuestions,
-            choice,
-            engine,
             noSuccess: true,
             situation,
           }}

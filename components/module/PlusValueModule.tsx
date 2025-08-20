@@ -5,7 +5,6 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import { useSearchParams } from 'next/navigation'
 import rules from '@/app/règles/rules'
 import listeDepartementRegion from '@/app/règles/liste-departement-region.publicodes'
-import Publicodes from 'publicodes'
 import dataPlusValue from '@/data/valeur-verte.csv'
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { getCommune } from '../personas/enrichSituation'
@@ -20,12 +19,11 @@ import DPELabel, { conversionLettreIndex } from '../dpe/DPELabel'
 import { formatNumber } from '../RevenuInput'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import PlusValueWidget from '../plusValue/PlusValueWidget'
-import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import useIsMobile from '../useIsMobile'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 
 export default function PlusValueModule({ type }) {
-  const engine = new Publicodes(rules)
   const isMobile = useIsMobile(400)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
@@ -114,13 +112,8 @@ export default function PlusValueModule({ type }) {
           <TargetDPETabs
             {...{
               disabled: !answeredQuestions.includes('DPE . actuel'),
-              oldIndex: situation['DPE . actuel'] - 1,
               setSearchParams,
-              answeredQuestions,
-              choice: Math.max(1, situation['projet . DPE visé'] - 1),
-              engine,
               situation,
-              columnDisplay: isMobile,
               text: 'Après les travaux, je vise :',
             }}
           />
@@ -287,10 +280,9 @@ export const DPEAppreciationInfo = ({
     <>
       En région {region}, {logementType} classé
       {logementType == 'une maison' && 'e'}{' '}
-      <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> a en moyenne
-      une valeur <strong>{pourcentageAppreciation.toFixed(1)}%</strong> plus
-      élevée qu'un bien classé{' '}
-      <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
+      <DPELabel index={situation['projet . DPE visé'] - 1} /> a en moyenne une
+      valeur <strong>{pourcentageAppreciation.toFixed(1)}%</strong> plus élevée
+      qu'un bien classé <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
     </>
   )
 }

@@ -37,10 +37,9 @@ export default function DPEQuickSwitch({
               let params = { 'DPE . actuel': e.target.value + '*' }
               if (
                 situation['projet . DPE visé'] &&
-                situation['DPE . actuel'] <= situation['projet . DPE visé']
+                situation['projet . DPE visé'] > e.target.value - ecartClasse
               ) {
-                params['projet . DPE visé'] =
-                  situation['DPE . actuel'] - ecartClasse
+                params['projet . DPE visé'] = e.target.value - ecartClasse
               }
 
               setSearchParams(encodeSituation(params), 'replace', false)

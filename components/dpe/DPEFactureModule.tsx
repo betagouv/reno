@@ -518,11 +518,8 @@ export default function DPEFactureModule({ type, numDpe }) {
           <div>
             <TargetDPETabs
               {...{
-                oldIndex: situation['DPE . actuel'] - 1,
                 setSearchParams,
-                choice: situation['projet . DPE visé'] - 1,
                 situation,
-                columnDisplay: false,
               }}
             />
           </div>

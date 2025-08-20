@@ -118,13 +118,8 @@ const PlusValueWidget = ({
         />
         <TargetDPETabs
           {...{
-            oldIndex: situation['DPE . actuel'] - 1,
             setSearchParams,
-            answeredQuestions,
-            choice: situation['projet . DPE visé'] - 1,
-            engine,
             situation,
-            columnDisplay: true,
           }}
         />
       </div>

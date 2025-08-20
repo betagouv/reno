@@ -16,7 +16,7 @@ export default function DPEScenario({
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
-    choice = value ? Math.min(automaticChoice, value - 1) : automaticChoice
+    choice = value ? Math.min(automaticChoice, value) : automaticChoice
 
   const isMobile = useIsMobile()
   const engineSituation = engine.setSituation(situation)
@@ -39,7 +39,6 @@ export default function DPEScenario({
   return (
     <CalculatorWidget>
       <DPEQuickSwitch
-        oldIndex={oldIndex}
         situation={situation}
         noSuccess
         ecartClasse={2}
@@ -47,11 +46,8 @@ export default function DPEScenario({
       />
       <TargetDPETabs
         {...{
-          oldIndex,
+          ecartClasse: 2,
           setSearchParams,
-          answeredQuestions,
-          choice,
-          engine,
           noSuccess: true,
           situation,
         }}
