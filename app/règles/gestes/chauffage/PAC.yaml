@@ -78,8 +78,6 @@ chauffage . PAC . air-eau . CEE . montant:
 chauffage . PAC . air-eau . CEE . usage:
   question: Quel va être l'usage de cette pompe à chaleur ?
   titre: Usage
-  par défaut: "'chauffage et eau chaude'"
-  maximum: "'chauffage et eau chaude'"
   une possibilité parmi:
     possibilités:
       - chauffage et eau chaude
@@ -93,7 +91,6 @@ chauffage . PAC . air-eau . CEE . usage . chauffage seulement:
 chauffage . PAC . air-eau . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
   titre: Efficacité énergétique saisonnière
-  par défaut: "'entre 111 % et 140 %'"
   maximum: "'supérieur à 200 %'"
   une possibilité parmi:
     possibilités:
@@ -156,6 +153,7 @@ chauffage . PAC . air-eau . CEE . facteur correctif region:
     - si: CEE . région = 'H3'
       alors: 0.7
 chauffage . PAC . air-eau . CEE . barème:
+  par défaut: 0
   variations:
     - si:
         toutes ces conditions:
@@ -296,8 +294,6 @@ chauffage . PAC . géo . CEE . surface: logement . surface
 chauffage . PAC . géo . CEE . usage:
   question: Quel va être l'usage de cette pompe à chaleur ?
   titre: Usage
-  par défaut: "'chauffage et eau chaude'"
-  maximum: "'chauffage et eau chaude'"
   une possibilité parmi:
     possibilités:
       - chauffage et eau chaude
@@ -311,8 +307,6 @@ chauffage . PAC . géo . CEE . usage . chauffage seulement:
 chauffage . PAC . géo . CEE . Etas:
   question: Quelle serait l'efficacité énergétique saisonnière (Etas) de la Pompe à chaleur ?
   titre: Efficacité énergétique saisonnière
-  par défaut: "'entre 111 % et 140 %'"
-  maximum: "'supérieur à 230 %'"
   une possibilité parmi:
     possibilités:
       - 'entre 111 % et 140 %'
@@ -336,6 +330,7 @@ chauffage . PAC . géo . CEE . Etas . supérieur à 230 %:
   valeur: "'supérieur à 230 %'"
   titre: 'Supérieur à 230 %'
 chauffage . PAC . géo . CEE . barème:
+  par défaut: 0
   variations:
     - si: usage = 'chauffage seulement'
       alors: barème chauffage
@@ -565,8 +560,6 @@ chauffage . PAC . air-air . CEE . montant:
 chauffage . PAC . air-air . CEE . SCOP:
   question: Quelle serait le Coefficient de Performace (COP) de la Pompe à chaleur ?
   titre: Efficacité énergétique saisonnière
-  par défaut: 4
-  maximum: 5
   une possibilité parmi:
     possibilités:
       - 'peu efficace'
@@ -620,6 +613,7 @@ chauffage . PAC . air-air . CEE . facteur correctif surface appartement:
     - si: surface >= 130
       alors: 2.5
 chauffage . PAC . air-air . CEE . barème:
+  par défaut: 0
   variations:
     - si: logement . type = 'appartement'
       alors: barème appartement

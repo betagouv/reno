@@ -2,11 +2,13 @@ import React from 'react'
 import Image from 'next/image'
 import GesteQuestion from './../GesteQuestion'
 import mprImage from '@/public/maprimerenov.svg'
-import { BlocAide, MiseEnAvant, PrimeStyle } from '../UI'
+import { BlocAide } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import Value from '../Value'
 import { push } from '@socialgouv/matomo-next'
+import { Alert } from '@codegouvfr/react-dsfr/Alert'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const BlocAideMPR = ({
   infoMPR,
@@ -23,12 +25,12 @@ export const BlocAideMPR = ({
   // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
   const questionsAnswered = Object.keys(situation).filter(
     (q) =>
-      infoMPR.questions.includes(q) &&
+      infoMPR.questions?.includes(q) &&
       !getAnsweredQuestions(situationSearchParams, rules).includes(q),
   )
 
   let lastQuestionAnswered = -1
-  for (let i = infoMPR.questions.length - 1; i >= 0; i--) {
+  for (let i = infoMPR.questions?.length - 1; i >= 0; i--) {
     if (questionsAnswered.includes(infoMPR.questions[i])) {
       lastQuestionAnswered = i
       break
@@ -50,10 +52,9 @@ export const BlocAideMPR = ({
         <Image src={mprImage} alt="logo ma prime renov" width="100" />
         <div>
           {display === 'top' && (
-            <PrimeStyle>
-              {'Prime de '}
-              <strong>{infoMPR.montant}</strong>
-            </PrimeStyle>
+            <Badge noIcon severity="success">
+              Prime de <strong>{infoMPR.montant}</strong>
+            </Badge>
           )}
           <h2>{display !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'</h2>
         </div>
@@ -94,34 +95,17 @@ export const BlocAideMPR = ({
                 display: flex;
               `}
             >
-              <PrimeStyle
-                css={`
-                  padding: 0.75rem;
-                  margin-bottom: 1rem;
-                `}
-                $inactive={!isEligible}
+              <Badge
+                noIcon
+                severity={isEligible && 'success'}
+                className="fr-text--lead"
               >
                 {isEligible ? (
-                  <>
-                    Prime de{' '}
-                    <strong
-                      css={`
-                        font-size: 1.5rem;
-                      `}
-                    >
-                      {isExactTotal ? infoMPR.montant : '...'}
-                    </strong>
-                  </>
+                  <>Prime de {isExactTotal ? infoMPR.montant : '...'}</>
                 ) : (
-                  <strong
-                    css={`
-                      font-size: 1.25rem;
-                    `}
-                  >
-                    Non Éligible
-                  </strong>
+                  <>Non Éligible</>
                 )}
-              </PrimeStyle>
+              </Badge>
             </div>
             <AvanceTMO {...{ engine, situation }} />
           </>
@@ -160,21 +144,27 @@ export const AvanceTMO = ({ engine, situation }) => {
   }
 
   return (
-    <MiseEnAvant>
-      <p>
-        En tant que ménage au revenu <strong>{ménageClasse}</strong>
-        , vous pourrez bénéficier d'une avance allant jusqu'à
-        <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'gestes . pourcentage avance',
-            state: 'none',
-          }}
-        />
-        de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé après
-        travaux.
-      </p>
-    </MiseEnAvant>
+    <Alert
+      className="fr-my-5v"
+      description={
+        <>
+          En tant que ménage au revenu <strong>{ménageClasse}</strong>, vous
+          pourrez bénéficier d'une avance allant jusqu'à{' '}
+          <Value
+            {...{
+              state: 'success',
+              engine,
+              situation,
+              dottedName: 'gestes . pourcentage avance',
+            }}
+          />{' '}
+          de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé
+          après travaux.
+        </>
+      }
+      onClose={function noRefCheck() {}}
+      severity="info"
+      small
+    />
   )
 }

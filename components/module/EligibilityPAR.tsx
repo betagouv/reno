@@ -2,10 +2,8 @@
 
 import {
   IdFQuestion,
-  Li,
   PeriodeConstructionQuestion,
   PersonnesQuestion,
-  QuestionList,
   RevenuMaxQuestion,
   TypeResidence,
   TypeTravaux,
@@ -40,7 +38,6 @@ export default function EligibilityPAR({ dottedName }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const situation = getSituation(searchParams, rulesWithInterets)
-  situation["parcours d'aide"] = '"à la carte"'
 
   const answeredQuestions = getAnsweredQuestions(
     searchParams,
@@ -54,83 +51,56 @@ export default function EligibilityPAR({ dottedName }) {
       })
   return (
     <ModuleWrapper isMobile={isMobile} title="Êtes-vous éligible au PAR+ ?">
-      <QuestionList>
-        <Li
-          $next={true}
-          $touched={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-        >
-          <TypeResidence
-            {...{ setSearchParams, situation, answeredQuestions }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-          $touched={answeredQuestions.includes('logement . au moins 2 ans')}
-        >
-          <PeriodeConstructionQuestion
-            {...{
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              periode: 'au moins 2 ans',
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('logement . au moins 2 ans')}
-          $touched={answeredQuestions.includes('ménage . région . IdF')}
-        >
-          <IdFQuestion
-            {...{
-              setSearchParams,
-              situation,
-              answeredQuestions,
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('ménage . région . IdF')}
-          $touched={answeredQuestions.includes('ménage . personnes')}
-        >
-          <PersonnesQuestion
-            {...{
-              onChange,
-              answeredQuestions,
-              situation,
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('ménage . personnes')}
-          $touched={answeredQuestions.includes('ménage . revenu . classe')}
-        >
-          <RevenuMaxQuestion
-            {...{
-              engine,
-              onChange,
-              answeredQuestions,
-              situation,
-              setSearchParams,
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('ménage . revenu . classe')}
-          $touched={answeredQuestions.includes('logement . type travaux')}
-        >
-          <TypeTravaux
-            {...{
-              setSearchParams,
-              situation,
-              rules,
-            }}
-          />
-        </Li>
-      </QuestionList>
+      <form id="form-par">
+        <TypeResidence {...{ setSearchParams, situation, answeredQuestions }} />
+        <PeriodeConstructionQuestion
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            periode: 'au moins 2 ans',
+            disabled: !answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            ),
+          }}
+        />
+        <IdFQuestion
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            disabled: !answeredQuestions.includes('logement . au moins 2 ans'),
+          }}
+        />
+        <PersonnesQuestion
+          {...{
+            onChange,
+            answeredQuestions,
+            situation,
+            disabled:
+              !answeredQuestions.includes('ménage . région . IdF') &&
+              !answeredQuestions.includes('logement . région . IdF'),
+          }}
+        />
+        <RevenuMaxQuestion
+          {...{
+            engine,
+            onChange,
+            answeredQuestions,
+            situation,
+            setSearchParams,
+            disabled: !answeredQuestions.includes('ménage . personnes'),
+          }}
+        />
+        <TypeTravaux
+          {...{
+            setSearchParams,
+            situation,
+            rules,
+            disabled: !answeredQuestions.includes('ménage . revenu . classe'),
+          }}
+        />
+      </form>
       <EligibilityResult
         {...{
           engine,

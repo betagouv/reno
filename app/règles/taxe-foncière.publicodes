@@ -64,7 +64,7 @@ taxe foncière . conditions:
     - commune . éligible
 
 taxe foncière . condition de dépenses:
-  par défaut: non
+  par défaut: oui
   question: Les dépenses de rénovation sont-elles supérieures à 10 000€ (ou 15 000€ sur les 3 dernières années)
   description: |
     Pour bénéficier de cette exonération de 50 à 100 %, d’une durée de 3 ans, le montant total des dépenses payées par logement doit être supérieur à : 

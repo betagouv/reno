@@ -9,10 +9,9 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import Schema, { getPersonas } from './AmpleurSchema'
 import { mobileIframeStyle } from './ExampleIframe'
-import { BlueEm } from '../LandingUI'
 import IntegrationQuestions from '@/components/IntegrationQuestions'
 import { formatNumber } from '@/components/RevenuInput'
-import { IframeCodeWrapper } from '@/components/Integration'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 
 const modules = {
   ampleur: '750px',
@@ -157,13 +156,10 @@ export default function Demonstration({ moduleName }) {
         <Schema moduleName={moduleName} />
         <h3>L'URL de l'iframe à injecter de votre côté</h3>
         <p>
-          Voici{' '}
-          <BlueEm>
-            <strong>le code à intégrer</strong>
-          </BlueEm>{' '}
-          dans votre HTML ou votre contenu Wordpress :
+          Voici <strong>le code à intégrer</strong> dans votre HTML ou votre
+          contenu Wordpress :
         </p>
-        <IframeCodeWrapper>
+        <Highlight>
           <code
             css={`
               word-break: break-all;
@@ -171,7 +167,7 @@ export default function Demonstration({ moduleName }) {
           >
             {iframeCode(iframeUrl, moduleName, false)}
           </code>
-        </IframeCodeWrapper>
+        </Highlight>
         <p
           css={`
             margin-top: 1rem;
@@ -180,7 +176,7 @@ export default function Demonstration({ moduleName }) {
           Vous pouvez habiller le module en CSS avec par exemple une ombre
           portée, voici un exemple :{' '}
         </p>
-        <IframeCodeWrapper>
+        <Highlight>
           <code
             css={`
               word-break: break-all;
@@ -188,7 +184,7 @@ export default function Demonstration({ moduleName }) {
           >
             {iframeCode(iframeUrl, moduleName, true)}
           </code>
-        </IframeCodeWrapper>
+        </Highlight>
         <IntegrationQuestions />
         <section
           css={`

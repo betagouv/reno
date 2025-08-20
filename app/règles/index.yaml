@@ -2,20 +2,24 @@ simulation:
   description: Sont ici définies les options de simulation. Ce ne sont en général pas des questions à poser à l'utilisateur, mais des choix d'interface à faire.
 
 # C'est la variable qui lance le simulateur principal mes aides réno
-# Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig.ts
-# Nous réservons les questions précises telles que la liste des gestes pour la suite, après l'écran d'éligibilité, elles sont déclenchées via le paramètre d'URL `objectif = à la carte . montant` ou `ampleur . montant` et la condition dans gestes.yaml `applicable si: parcours d'aide = 'à la carte'`
+# Cette variable doit déclencher toutes les questions d'éligibilité pertinentes, mais ces dernières sont ordonnées via simulationConfig*.ts
 aides:
-  applicable si:
-    une de ces conditions:
-      - toutes ces conditions:
-          - projet . définition = "travaux connus"
-          - est défini: projet . définition . catégories travaux envisagées
-          - est défini: projet . définition . travaux envisagés
-      - projet . définition = "travaux inconnus"
-  somme:
-    - ampleur . tous les dispositifs # ampleur.yaml
-    - MPR . non accompagnée . montant
-    - à la carte . montant
+  variations:
+    - si:
+        toutes ces conditions:
+          - parcours d'aide = "rénovation énergétique"
+          - une de ces conditions:
+              - toutes ces conditions:
+                  - projet . définition = "travaux connus"
+                  - est défini: projet . définition . catégories travaux envisagées
+                  - est défini: projet . définition . travaux envisagés
+              - projet . définition = "travaux inconnus"
+      alors:
+        somme:
+          - ampleur . tous les dispositifs # ampleur.yaml
+          - MPR . non accompagnée . montant
+    - si: parcours d'aide = "autonomie de la personne"
+      alors: mpa . montant
 
 ménage . revenu:
   titre: Revenu fiscal de référence
@@ -29,14 +33,6 @@ ménage . revenu:
     Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
   unité: €
   par défaut: 0 €
-  suggestions:
-    #Très modeste 1 personne: 15000 €
-    #modeste 2 personnes: 26000 €
-    #intermédiaires 1 personne: 25000 €
-    #supérieurs 2 personnes: 50000 €
-    bas: 20000 €
-    moyen: 50000 €
-    élevé: 80000 €
 
 vous:
   titre: Votre situation
@@ -61,7 +57,6 @@ vous . propriétaire . statut:
       <li>nu-propriétaire</li>
       <li>personne morale (par exemple une société civile immobilière)</li>
     </ul>
-
   une possibilité parmi:
     possibilités:
       - 'propriétaire'
@@ -143,9 +138,9 @@ logement . surface:
 logement . propriétaire occupant:
   applicable si: vous . propriétaire . condition
   question: Allez-vous vivre dans le logement à rénover (propriétaire occupant) ?
+  par défaut: non
   note: |
     Je pense que les aides qui se basent sur le booléen "propriétaire occupant" ne s'occupent pas du fait que le propriétaire soit occupant avant les travaux, mais seulement après. Ainsi cette formulation de la question permet de coller aussi bien aux propriétaires actuels qu'au acquéreurs.
-  par défaut: non
   description: |
     Cette question nous aide à déterminer les aides qui vous sont applicables : certaines sont réservées aux propriétaires occupants, d'autres aux propriétaires bailleurs.
 
@@ -712,35 +707,25 @@ parcours d'aide:
   question: Votre choix du parcours d'aide
   description: |
 
-    Les aides à la rénovation énergétique sont séparées en deux grands parcours, qui sont exclusifs l'un à l'autre. 
+    Les aides à la rénovation sont séparées en trois volets. 
 
-    Vous devez choisir entre d'un côté, une rénovation d'ampleur de votre logement et de l'autre une rénovation à la carte d'un ou plusieurs gestes. 
+    Vous devez choisir entre :
+      - une rénovation énergétique d'ampleur (MaPrimeRénov Parcours Accompagnée) ou à la carte (MaPrimeRénov Parcours par geste). 
+      - une rénovation pour favoriser l'autonomie de la personne (MaPrimeAdapt')
+      - une rénovation pour assurer la sécurité et la salubrité du logement (Ma Prime Logement Décent) 
 
-    Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'. 
-
-    Le parcours à la carte propose des gestes via MaPrimeRénov', ainsi que de nombreuses possibilité de subvention via les CEE, dont les primes bonifiées dites "coup de pouce". 
-    La suite du test vous permettra de répondre aux conditions plus fines d'éligibilité, et choisir les travaux de rénovation envisagés.
+    Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'.
   par défaut:
-    texte: ampleur
-  possibilités:
-    - 'ampleur'
-    - 'à la carte'
+    texte: rénovation énergétique
+  une possibilité parmi:
+    possibilités:
+      - 'rénovation énergétique'
+      - 'autonomie de la personne'
+      - 'sécurité salubrité'
 
-parcours d'aide . ampleur:
-parcours d'aide . à la carte:
-
-à la carte:
-  diminutif: Aides à la carte
-  titre: Aides à la rénovation à la carte, geste par geste
-
-à la carte . montant:
-  description: |
-    Toutes les aides qui se basent sur des gestes précis de rénovation : isolation des murs par l'extérieur, pompe à chaleur air-eau, etc.
-
-  note: |
-    Pour l'instant il n'y a que les gestes dans cette variable, mais nous l'avons définie car d'autres dispositifs comme le prêt à taux zéro viendront subventionner les gestes mais sans être à proprement parler un geste d'isolation.
-  somme:
-    - gestes . montant
+parcours d'aide . rénovation énergétique:
+parcours d'aide . autonomie de la personne:
+parcours d'aide . sécurité salubrité:
 
 MPR . non accompagnée . pourcentage d'écrêtement:
   description: |

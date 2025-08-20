@@ -39,7 +39,7 @@ export default function Banner({}) {
         <div>
           <p>
             La réouverture de MaPrimeRénov’ dédiée à la rénovation globale
-            individuelle est prévue vers le 15 septembre 2025. Les autres aides
+            individuelle est prévue pour le 30 septembre 2025. Les autres aides
             restent disponibles (travaux par geste, copropriétés). Le simulateur
             sera bientôt mis à jour.
           </p>

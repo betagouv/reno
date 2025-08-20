@@ -1,12 +1,12 @@
 import TableauRevenus from '@/components/TableauRevenus'
 import Questions from '@/components/TableauRevenusQuestions'
 import { Parcours, Tables } from './UI'
-import { Card, PrimeStyle } from '@/components/UI'
+import { Card } from '@/components/UI'
 import DPELabel from '@/components/dpe/DPELabel'
 import { Suspense } from 'react'
 import Link from 'next/link'
 import ExampleBlock from './ExampleBlock'
-import { BlueEm } from '@/app/LandingUI'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function Content() {
   return (
@@ -30,9 +30,7 @@ export default function Content() {
         bénéficier d'un bouquet d'aides à la rénovation.
       </p>
       <p>
-        <BlueEm>
-          <strong>Suivez notre guide ⤵️ !</strong>
-        </BlueEm>
+        <strong>Suivez notre guide ⤵️ !</strong>
       </p>
       <h2>Des aides globalement stables en 2025</h2>
       <p>
@@ -84,13 +82,13 @@ export default function Content() {
       </Suspense>
       <h2>Toujours autant d'aides, sauf pour les ménages aisés</h2>
       <p>
-        Concernant le ⭐️ Parcours Accompagné, les taux d'aide ne changent pas en
-        2025 <strong>sauf pour les ménages au revenu supérieur</strong>.
+        Concernant le ⭐️ Parcours Accompagné, les taux d'aide ne changent pas
+        en 2025 <strong>sauf pour les ménages au revenu supérieur</strong>.
       </p>
       <ul>
         <li>
-          Pour 2 sauts de DPE, le financement MaPrimeRénov' parcours accompagné passe de
-          30 à 10 % des travaux.
+          Pour 2 sauts de DPE, le financement MaPrimeRénov' parcours accompagné
+          passe de 30 à 10 % des travaux.
         </li>
         <li>Pour 3 sauts de DPE, la subvention de 35 % est réduite à 15 %</li>
         <li>Pour 4 sauts de DPE, la subvention de 35 % est réduite à 20 %</li>
@@ -119,16 +117,17 @@ export default function Content() {
       </blockquote>
       <h2>Une baisse de l'avance pour les ménages modestes</h2>
       <p>
-        Les aides MaPrimeRénov' sont des subventions versées après travaux : une fois le dossier de
-        subvention effectué, les ménages peuvent lancer les travaux, et les
-        subventions seront versées par la suite.
+        Les aides MaPrimeRénov' sont des subventions versées après travaux : une
+        fois le dossier de subvention effectué, les ménages peuvent lancer les
+        travaux, et les subventions seront versées par la suite.
       </p>
       <p>
         Mais pour aider les ménages modestes et très modestes à payer les
         factures, une avance des aides de l'État peut être demandée. Elle était
-        de 70 % de MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour 
-        MaPrimeRénov’ parcours accompagné (pour une rénovation d’ampleur), et à 50 % pour MaPrimeRénov’ rénovation par geste où l'avance est
-        réservée aux ménages très modestes uniquement.
+        de 70 % de MaPrimeRénov' en 2024, mais diminue à 30 % en 2025 pour
+        MaPrimeRénov’ parcours accompagné (pour une rénovation d’ampleur), et à
+        50 % pour MaPrimeRénov’ rénovation par geste où l'avance est réservée
+        aux ménages très modestes uniquement.
       </p>
       <p>
         Cela dit, en 2025 l'éco-prêt à taux zéro (éco-PTZ) reste l'une des
@@ -138,7 +137,11 @@ export default function Content() {
         Depuis le 1er septembre 2024, en plus de l'éco-PTZ, pour les foyers
         modestes un nouveau prêt sans intérêts est disponible : le prêt avance
         rénovation, aussi nommé{' '}
-        <a href="https://www.service-public.fr/particuliers/vosdroits/F38425">
+        <a
+          className="fr-link"
+          rel="noopener external"
+          href="https://www.service-public.fr/particuliers/vosdroits/F38425"
+        >
           PAR+
         </a>
         .
@@ -151,10 +154,10 @@ export default function Content() {
       </p>
       <blockquote>
         À titre d'exemple, les chaudières à granulés automatiques restent
-        toujours largement subventionnées, de <PrimeStyle>2 100 €</PrimeStyle>{' '}
-        pour les ménages aux revenus intermédiaires jusqu'à{' '}
-        <PrimeStyle>5 000 €</PrimeStyle> pour les ménages aux revenus très
-        modestes.
+        toujours largement subventionnées, de{' '}
+        <Badge severity="success">2 100 €</Badge> pour les ménages aux revenus
+        intermédiaires jusqu'à <Badge severity="success">5 000 €</Badge> pour
+        les ménages aux revenus très modestes.
       </blockquote>
       <h2>Interdiction à la location des passoires classées G</h2>
       <p>
@@ -165,16 +168,22 @@ export default function Content() {
       </p>
       <p>
         La prochaine échéance sera dans 3 ans, en 2028. Consultez le{' '}
-        <Link href="/blog/interdiction-location-passoire-thermique">
+        <Link
+          className="fr-link"
+          href="/blog/interdiction-location-passoire-thermique"
+        >
           calendrier des interdictions de location
         </Link>
         .
       </p>
       <blockquote>
         Votre logement en location est dans une copropriété ? Les aides
-        MaPrimeRénov' Copropriété restent stable en 2025,
-        découvrez-les dans notre 🏙️{' '}
-        <Link href="/copropriete">parcours copro'</Link>.
+        MaPrimeRénov' Copropriété restent stable en 2025, découvrez-les dans
+        notre 🏙️{' '}
+        <Link className="fr-link" href="/copropriete">
+          parcours copro'
+        </Link>
+        .
       </blockquote>
       <h2>Au-delà de MaPrimeRénov', de multiples aides en 2025</h2>
       <p>

@@ -2,34 +2,6 @@ import rules from '@/app/règles/rules'
 import { capitalise0, formatValue } from 'publicodes'
 import { computeAideStatus } from './AmpleurSummary'
 
-const topList = rules['ampleur . tous les dispositifs'].somme,
-  // unfold the sums with one level only, no recursion yet
-  list = topList
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      if (rule.somme) return rule.somme
-      return dottedName
-    })
-    .flat()
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      const split = dottedName.split(' . montant')
-
-      if (split.length > 1) {
-        const parentRule = rules[split[0]]
-        return {
-          ...rule,
-          dottedName,
-          baseDottedName: split[0],
-          icône: parentRule.icône,
-          marque: parentRule.marque,
-          'complément de marque': parentRule['complément de marque'],
-          type: parentRule['type'],
-        }
-      }
-      return { ...rule, dottedName, baseDottedName: dottedName }
-    })
-
 const regexp = /aides locales \. (.+) \. montant$/
 
 export const findAidesLocales = (rules, engine) => {
@@ -66,7 +38,48 @@ export const findAidesLocales = (rules, engine) => {
   }
 }
 
-export function useAides(engine, situation) {
+export function useAides(
+  engine,
+  situation,
+  parcoursAide = 'rénovation énergétique',
+) {
+  const topList =
+    parcoursAide == 'rénovation énergétique'
+      ? [...rules['ampleur . tous les dispositifs'].somme]
+      : [
+          'mpa . montant',
+          'locavantage . montant',
+          'tva réduite',
+          "crédit d'impôt",
+          'aides locales',
+        ]
+  // unfold the sums with one level only, no recursion yet
+  const list = topList
+    .map((dottedName) => {
+      const rule = rules[dottedName]
+      if (rule.somme) return rule.somme
+      return dottedName
+    })
+    .flat()
+    .map((dottedName) => {
+      const rule = rules[dottedName]
+      const split = dottedName.split(' . montant')
+
+      if (split.length > 1) {
+        const parentRule = rules[split[0]]
+        return {
+          ...rule,
+          dottedName,
+          baseDottedName: split[0],
+          icône: parentRule.icône,
+          marque: parentRule.marque,
+          'complément de marque': parentRule['complément de marque'],
+          type: parentRule['type'],
+        }
+      }
+      return { ...rule, dottedName, baseDottedName: dottedName }
+    })
+
   const aides = list.map((aide) => {
     const evaluation = engine.setSituation(situation).evaluate(aide.dottedName)
     const value = formatValue(evaluation, { precision: 0 })
@@ -86,6 +99,5 @@ export function useAides(engine, situation) {
       'complément de marque': marque2,
     }
   })
-
   return aides
 }

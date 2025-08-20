@@ -1,21 +1,12 @@
-import { InternalLink } from '@/components/UI'
-import Image from 'next/image'
-import codeIcon from '@/public/icon-code.png'
-import css from '@/components/css/convertToJs'
-
 export default function ShareModule({ titre }) {
   return (
-    <InternalLink
-      href={`/integration?module=${encodeURIComponent('/module/' + titre)}`}
-      style={css`
-        display: flex;
-        align-items: center;
-        width: fit-content;
-        gap: 0.5rem;
-      `}
-    >
-      <Image src={codeIcon} alt="icone intégration iframe" width="24" />
-      Intégrer ce widget à mon site
-    </InternalLink>
+    <div className="fr-mt-5v">
+      <a
+        className="fr-link fr-icon-code-s-slash-line fr-link--icon-left"
+        href={`/integration?module=${encodeURIComponent('/module/' + titre)}`}
+      >
+        Intégrer ce widget à mon site
+      </a>
+    </div>
   )
 }

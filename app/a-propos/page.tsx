@@ -1,6 +1,8 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import { parse } from 'marked'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 const content = `
 
@@ -42,8 +44,18 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <Main>
-      <Section dangerouslySetInnerHTML={{ __html: parse(content) }}></Section>
-    </Main>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="A propos"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[]}
+        />
+        <section dangerouslySetInnerHTML={{ __html: parse(content) }} />
+      </PageBlock>
+    </>
   )
 }

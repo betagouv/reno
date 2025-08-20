@@ -1,4 +1,5 @@
 import PageCoupDePouce from '@/components/cee/PageCoupDePouce'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { Metadata } from 'next'
 
 export async function generateMetadata(props): Promise<Metadata> {
@@ -12,5 +13,10 @@ export async function generateMetadata(props): Promise<Metadata> {
 
 export default async function CoupDePouceCode(props) {
   const params = await props.params
-  return <PageCoupDePouce {...{ params }} />
+  return (
+    <>
+      <StartDsfrOnHydration />
+      <PageCoupDePouce {...{ params }} />
+    </>
+  )
 }

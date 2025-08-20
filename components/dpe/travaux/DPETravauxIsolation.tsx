@@ -10,6 +10,7 @@ import { Card, CTA } from '@/components/UI'
 import GesteQuestion from '@/components/GesteQuestion'
 import React from 'react'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export const getAssociationTravauxDpe = (dpe) => ({
   'gestes . isolation . vitres': 'qualite_isolation_menuiseries',
@@ -93,25 +94,16 @@ export function DPETravauxIsolation({
                     >
                       <Priorité valeur={dpe[e[1]]} />
                     </td>
-                    <td
-                      css={`
-                        div {
-                          margin: auto;
-                        }
-                      `}
-                    >
-                      <CTA
-                        $fontSize="normal"
-                        $importance="secondary"
+                    <td>
+                      <Button
+                        priority="secondary"
                         className="estimer"
                         onClick={() => {
                           handleIsolationClick(e[0])
                         }}
                       >
-                        <span>
-                          {situation[e[0]] === 'oui' ? 'Fermer' : 'Estimer'}
-                        </span>
-                      </CTA>
+                        {situation[e[0]] === 'oui' ? 'Fermer' : 'Estimer'}
+                      </Button>
                     </td>
                   </tr>
                   <tr>

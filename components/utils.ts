@@ -162,7 +162,9 @@ export const getRulesByCategory = (
     }
   })
   rulesByCategory['Autres travaux'].push('gestes . recommandés . audit')
-
+  if (type == 'CEE') {
+    delete rulesByCategory['Autres travaux']
+  }
   return rulesByCategory
 }
 

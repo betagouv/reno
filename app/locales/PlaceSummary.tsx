@@ -1,10 +1,10 @@
 import rules from '@/app/règles/rules'
-import { CTA, CTAWrapper, Card, PrimeStyle } from '@/components/UI'
 import { getRuleTitle, parentName } from '@/components/publicodes/utils'
 import { capitalise0 } from '@/components/utils'
 import Link from 'next/link'
 import Publicodes, { formatValue } from 'publicodes'
 import IllustratedHeader from './IllustratedHeader'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 const prefix = 'aides locales . '
 
 const engine = new Publicodes({ ...rules })
@@ -70,11 +70,7 @@ export default function PlaceSummary({ place, placeRules }) {
       <Link href={href}>
         <IllustratedHeader imageTitle={imageTitle} placeTitle={placeTitle} />
       </Link>
-      <Card
-        css={`
-          max-width: 36rem;
-        `}
-      >
+      <div className="fr-callout">
         <ul
           css={`
             padding-left: 0.6rem;
@@ -89,16 +85,16 @@ export default function PlaceSummary({ place, placeRules }) {
           {evaluations.map(([dottedName, evaluation, title]) => (
             <li key={dottedName}>
               <div>{title} </div>
-              <PrimeStyle>Jusqu'à {formatValue(evaluation)}</PrimeStyle>
+              <Badge noIcon severity="success">
+                Jusqu'à {formatValue(evaluation)}
+              </Badge>
             </li>
           ))}
         </ul>
-        <CTAWrapper $justify="left" css="margin-bottom: .6rem">
-          <CTA $importance="primary" css="font-size: 100%">
-            <Link href={href}>Explorer les aides {capitalise0(place)}</Link>
-          </CTA>
-        </CTAWrapper>
-      </Card>
+        <Link className="fr-btn" href={href}>
+          Explorer les aides {capitalise0(place)}
+        </Link>
+      </div>
     </li>
   )
 }

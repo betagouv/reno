@@ -18,7 +18,6 @@ export default function AmpleurModuleBanner({
       css={`
         margin: 0 1rem;
         > div {
-          max-width: calc(800px - 2rem);
           h2 {
             margin: 0;
             margin-bottom: 0.6rem;
@@ -63,11 +62,12 @@ export default function AmpleurModuleBanner({
             calculer vos aides.
           </p>
 
-          <CTA $fontSize="normal" $importance="secondary">
-            <Link href={setSearchParams({ depuisModule: undefined }, 'url')}>
-              OK
-            </Link>
-          </CTA>
+          <Link
+            className="fr-btn fr-btn--secondary"
+            href={setSearchParams({ depuisModule: undefined }, 'url')}
+          >
+            OK
+          </Link>
         </section>
       </div>
     </section>

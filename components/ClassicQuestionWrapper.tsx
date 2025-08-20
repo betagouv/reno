@@ -1,11 +1,8 @@
 import FormButtons from '@/app/simulation/FormButtons'
-import { QuestionHeader } from '@/app/simulation/QuestionHeader'
 import Suggestions from '@/app/simulation/Suggestions'
-import { AnswerWrapper, QuestionCard, Subtitle } from './InputUI'
 import Notifications from './Notifications'
 import { encodeSituation } from './publicodes/situationUtils'
-import Answers, { categoryData } from '@/app/simulation/Answers'
-import ProgressBar from '@/app/simulation/ProgressBar'
+import Answers from '@/app/simulation/Answers'
 import { useSearchParams } from 'next/navigation'
 import AvertissementSimulation, {
   useAvertissementState,
@@ -15,6 +12,7 @@ import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { getRuleName } from './publicodes/utils'
+import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
 import Script from 'next/script'
 
 export const QuestionText = ({
@@ -28,10 +26,21 @@ export const QuestionText = ({
   const text = rule.question.texte
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
-  return <h1>{text.replace(/\s\?/, '')}&nbsp;?</h1>
+  return (
+    <legend className="fr-fieldset__legend--bold fr-fieldset__legend fr-text--lead fr-pb-0">
+      {text.replace(/\s\?/, '')}&nbsp;?
+      {rule['sous-titre'] && (
+        <div
+          className="fr-hint-text"
+          dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+        />
+      )}
+    </legend>
+  )
 }
 
 export default function ClassicQuestionWrapper({
+  form,
   children,
   rule,
   currentQuestion,
@@ -42,23 +51,15 @@ export default function ClassicQuestionWrapper({
   questionsToSubmit = [currentQuestion],
   currentValue,
   engine,
-  noSuggestions,
+  suggestions,
   nextQuestions,
   noButtons = false,
+  customButtons,
 }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { depuisModule } = searchParams
-  const { categoryTitle } = categoryData(
-    nextQuestions,
-    currentQuestion,
-    answeredQuestions,
-    rules,
-  )
-  const remaining =
-    nextQuestions.indexOf("parcours d'aide") !== -1
-      ? nextQuestions.indexOf("parcours d'aide")
-      : nextQuestions.length
+  const remaining = nextQuestions.length
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
@@ -66,19 +67,45 @@ export default function ClassicQuestionWrapper({
 
   return (
     <>
-      <ProgressBar
-        {...{
-          answeredQuestions,
-          nextQuestions,
-          currentQuestion,
-          rules,
-          situation,
-          searchParams,
-        }}
-      />
       <AvertissementSimulation
         {...{ avertissementState, setAvertissementState }}
       />
+      <div>
+        {form != 'copropriété' && (
+          <>
+            <CopyButton
+              customCss={{
+                float: 'right',
+              }}
+              searchParams={searchParams}
+            />
+            <Stepper
+              className="fr-mt-5v"
+              currentStep={currentQuestion.startsWith('projet') ? 2 : 1}
+              nextTitle={
+                currentQuestion.startsWith('projet')
+                  ? 'Mes aides'
+                  : 'Mon projet'
+              }
+              stepCount={4}
+              title={
+                currentQuestion.startsWith('projet')
+                  ? 'Mon projet'
+                  : 'Ma situation'
+              }
+            />
+          </>
+        )}
+      </div>
+      {form == 'copropriété' && (
+        <CopyButton
+          customCss={{
+            alignItems: 'flex-end',
+            marginTop: '1rem',
+          }}
+          searchParams={searchParams}
+        />
+      )}
       <AmpleurModuleBanner
         {...{
           depuisModule,
@@ -95,36 +122,27 @@ export default function ClassicQuestionWrapper({
           >{` window.TallyConfig = { "formId": "${tallyForm}", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
         </>
       )}
-      <QuestionCard>
-        {!rule.type && (
-          <QuestionHeader>
-            <div>
-              <small>{categoryTitle}</small>
-              <QuestionText
-                {...{
-                  rule,
-                  question: currentQuestion,
-                  rules,
-                  situation,
-                  engine,
-                }}
-              />
-              {rule['sous-titre'] && (
-                <Subtitle
-                  dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-                ></Subtitle>
-              )}
-            </div>
-            <div>
-              <CopyButton searchParams={searchParams} />
-            </div>
-          </QuestionHeader>
-        )}
-        <AnswerWrapper>
-          {!noSuggestions && (
+      <form id="simulator-form" onSubmit={(e) => e.preventDefault()}>
+        <fieldset
+          className="fr-fieldset"
+          form="simulator-form"
+          aria-labelledby="simulator-form-legend simulator-form-messages"
+        >
+          {!rule.type && (
+            <QuestionText
+              {...{
+                rule,
+                question: currentQuestion,
+                rules,
+                situation,
+                engine,
+              }}
+            />
+          )}
+          {/* {suggestions && (
             <Suggestions
               rule={rule}
-              onClick={(value) =>
+              onClick={(value) => {
                 setSearchParams(
                   encodeSituation(
                     {
@@ -134,15 +152,17 @@ export default function ClassicQuestionWrapper({
                     false,
                     answeredQuestions,
                   ),
-                  'url',
+                  'replace',
                   false,
                 )
-              }
+              }}
             />
-          )}
+          )} */}
           {children}
-        </AnswerWrapper>
-        {!noButtons && (
+        </fieldset>
+        {noButtons ? (
+          customButtons
+        ) : (
           <FormButtons
             {...{
               currentValue,
@@ -158,27 +178,26 @@ export default function ClassicQuestionWrapper({
             }}
           />
         )}
-        <Notifications {...{ currentQuestion, engine }} />
-
-        <section
-          css={`
-            margin-top: 8vh;
-          `}
-        >
-          <QuestionDescription {...{ currentQuestion, rule }} />
-          <Answers
-            {...{
-              answeredQuestions,
-              nextQuestions,
-              currentQuestion,
-              rules,
-              engine,
-              situation,
-            }}
-          />
-          <UserProblemBanner />
-        </section>
-      </QuestionCard>
+      </form>
+      <Notifications {...{ currentQuestion, engine }} />
+      <section
+        css={`
+          margin-top: 8vh;
+        `}
+      >
+        <QuestionDescription {...{ currentQuestion, rule }} />
+        <Answers
+          {...{
+            answeredQuestions,
+            nextQuestions,
+            currentQuestion,
+            rules,
+            engine,
+            situation,
+          }}
+        />
+        <UserProblemBanner />
+      </section>
     </>
   )
 }

@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const Article = styled.article`
   margin: 0 auto;
-
   p {
     margin: 1.2rem 0;
   }
@@ -16,8 +15,6 @@ const Article = styled.article`
       max-width: 50rem;
       margin: 0 auto;
     }
-    img {
-    }
     small {
       margin-top: 1rem;
       display: block;
@@ -27,24 +24,6 @@ const Article = styled.article`
     }
   }
 
-  h1 {
-    font-size: 240%;
-    margin-bottom: 1rem;
-    line-height: 2.6rem;
-    text-align: center;
-    margin-top: 1rem;
-  }
-  header + section {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-  h2 {
-    font-size: 170%;
-    font-weight: 600;
-    line-height: 2rem;
-    margin-top: 2rem;
-  }
   img,
   video {
     max-width: 90%;
@@ -109,12 +88,6 @@ const Article = styled.article`
     text-decoration-color: var(--lightColor);
     text-decoration-style: wavy;
   }
-  ul {
-    li {
-      margin: 0.6rem 0;
-    }
-  }
-
   aside {
     background: var(--lighterColor3);
     margin-top: 2rem;

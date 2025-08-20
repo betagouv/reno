@@ -1,8 +1,9 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
-import Breadcrumb from '@/components/Breadcrumb'
 import PAR from './PAR'
 import { Suspense } from 'react'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title: 'PAR+: Le prêt avance rénovation',
@@ -15,22 +16,33 @@ export const metadata: Metadata = {
 
 export default function PagePAR() {
   return (
-    <Main>
-      <Section>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Les prêts à taux zéro': '/aides/pret-taux-0' },
+          currentPageLabel="Le prêt avance rénovation"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              'Le prêt avance rénovation':
-                '/aides/pret-taux-0/pret-avance-renovation',
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: 'Les prêts à taux 0',
+              linkProps: {
+                href: '/aides/pret-taux-0',
+              },
             },
           ]}
         />
         <Suspense>
           <PAR />
         </Suspense>
-      </Section>
-    </Main>
+      </PageBlock>
+    </>
   )
 }

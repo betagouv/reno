@@ -91,6 +91,7 @@ PTZ . montant:
       alors: 50000 €
     - si: logement . type travaux = "assainissement"
       alors: 10000 €
+  par défaut: 50000 €
 PTZ . taux: 0 %
 PTZ . durée:
   variations:
@@ -99,7 +100,9 @@ PTZ . durée:
     - si: logement . type travaux = "performance énergétique globale"
       alors: 20 ans
     - sinon: 15 ans 
+  par défaut: 20 ans
 PTZ . condition maprimerenov:
   note: Cette condition permet de savoir si le PTZ est demandé en complément de MaPrimeRénov' (parcours accompagné ou rénovation par geste)
-  toutes ces conditions:
-    - est défini: parcours d'aide
+  une de ces conditions:
+    - MPR . accompagnée . éligible
+    - MPR . non accompagnée . éligible

@@ -1,11 +1,10 @@
 'use client'
 import rules from '@/app/règles/rules'
-import React, { useState } from 'react'
-import { AccordionTitle } from '@/components/UI'
+import React from 'react'
+import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { parse } from 'marked'
 
 export default function ParametersList() {
-  const [activeParam, setActiveParam] = useState(null)
   const parametresData = [
     {
       title: 'denormandie . années de location',
@@ -101,7 +100,11 @@ export default function ParametersList() {
     {
       title: "parcours d'aide",
       description: parse(rules["parcours d'aide"].description),
-      values: ['ampleur', 'à la carte'],
+      values: [
+        'rénovation énergétique',
+        'autonomie de la personne',
+        'sécurité salubrité',
+      ],
     },
     {
       title: 'projet . DPE visé',
@@ -139,53 +142,23 @@ export default function ParametersList() {
     },
   ]
 
-  return (
-    <div
-      css={`
-        margin-bottom: 1rem;
-      `}
-    >
-      {parametresData.map(({ title, description, values }, index) => (
-        <div key={index}>
-          <AccordionTitle
-            aria-expanded={activeParam === index}
-            aria-controls={`accordion-param-${index}`}
-            onClick={() => setActiveParam(activeParam == index ? null : index)}
-            css={`
-              border: 0;
-              border-bottom: 1px solid #ddd;
-              color: black;
-            `}
-          >
-            <strong>{title}</strong>
-          </AccordionTitle>
-          {activeParam === index && (
-            <div
-              id={`accordion-param-${index}`}
-              css={`
-                padding: 1rem;
-                border: 1px solid #ddd;
-              `}
-            >
-              {description && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: '<u>Description:</u> ' + description,
-                  }}
-                />
-              )}
-              <u>Valeurs possibles:</u>
-              {values && (
-                <ul>
-                  {values.map((value, idx) => (
-                    <li key={idx}>{value}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  )
+  return parametresData.map(({ title, description, values }, index) => (
+    <Accordion key={index} label={title}>
+      {description && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: '<u>Description:</u> ' + description,
+          }}
+        />
+      )}
+      <u>Valeurs possibles:</u>
+      {values && (
+        <ul>
+          {values.map((value, idx) => (
+            <li key={idx}>{value}</li>
+          ))}
+        </ul>
+      )}
+    </Accordion>
+  ))
 }

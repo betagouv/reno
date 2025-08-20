@@ -1,182 +1,148 @@
-import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
+'use client'
+import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
+import Input from '@codegouvfr/react-dsfr/Input'
 import { useEffect, useState } from 'react'
-import { useDebounce } from 'use-debounce'
 import styled from 'styled-components'
-import { getCommune } from './personas/enrichSituation'
-
-function onlyNumbers(str) {
-  return /^\d+/.test(str)
-}
+import { useDebounce } from 'use-debounce'
 
 export default function AddressSearch({
-  setChoice,
+  setCoordinates,
+  coordinates,
+  dpe,
   situation,
-  type,
-  autoFocus = true,
+  addressResults,
+  setAddressResults,
+  onChange = null,
+  label = '',
 }) {
-  const [immediateInput, setInput] = useState('')
-
+  const [immediateInput, setInput] = useState(
+    dpe?.['adresse_ban'] ||
+      situation['logement . adresse']?.replaceAll('"', ''),
+  )
   const [input] = useDebounce(immediateInput, 300)
-  const [isLoading, setIsLoading] = useState(false)
-  const [results, setResults] = useState(null)
-  const [clicked, setClicked] = useState(situation[type])
+  const [clicked, setClicked] = useState(situation['logement . adresse'] || '')
 
-  const validInput = input && input.length >= 3
-  // Get the commune name from the code if it exists to display it in the search box
-  useEffect(() => {
-    setInput('')
-    async function fetchCommune() {
-      const commune = await getCommune(situation, type)
-      if (commune) {
-        setInput(commune.nom + ' ' + commune.codeDepartement)
-      }
-    }
-    fetchCommune()
-  }, [situation, setInput])
+  const validInput = input && input.length >= 5
+  const [error, setError] = useState()
+
+  const validCoordinates = coordinates && coordinates.every(Boolean)
 
   useEffect(() => {
     if (!validInput) return
-    // Le code postal en France est une suite de cinq chiffres https://fr.wikipedia.org/wiki/Code_postal_en_France
-    if (onlyNumbers(input) && input.length !== 5) return
 
     const asyncFetch = async () => {
-      setIsLoading(true)
       const request = await fetch(
-        onlyNumbers(input)
-          ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
-          : `/api/geo/?path=${encodeURIComponent(
-              `communes?nom=${input}&boost=population&limit=5`,
-            )}`,
+        `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
-      const json = await request.json()
+      const { features } = await request.json()
 
-      const enrichedResults = await Promise.all(
-        json.map((commune) =>
-          fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
-            .then((response) => response.json())
-            .then((json) => ({ ...commune, eligibilite: json })),
-        ),
-      )
-      setIsLoading(false)
-      setResults(enrichedResults)
+      setAddressResults(features)
     }
 
     asyncFetch()
   }, [input, validInput])
 
   return (
-    <AddressInput>
-      <input
-        css={`
-          ${clicked &&
-          input &&
-          `border-bottom: 2px solid var(--validColor) !important;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTg3NTNjIiBkPSJNMTIgMjJjLTUuNTIgMC0xMC00LjQ4LTEwLTEwUzYuNDggMiAxMiAyczEwIDQuNDggMTAgMTAtNC40OCAxMC0xMCAxMHptLS45OS02bDcuMDctNy4wNy0xLjQxLTEuNDEtNS42NiA1LjY2LTIuODMtMi44My0xLjQxIDEuNDFMMTEuMDEgMTZ6Ii8+PC9zdmc+') rgb(245, 245, 254) no-repeat top 5px right 5px !important;
-            background-size:  16px !important;
-            `}
-        `}
-        type="text"
-        autoFocus={autoFocus}
-        value={immediateInput}
-        placeholder={'commune ou code postal'}
-        onChange={(e) => {
-          setClicked(false)
-          setInput(e.target.value)
-        }}
-      />
-      <CityList>
-        {isLoading && (
-          <li
-            css={`
-              margin: 0.8rem 0;
-              display: flex;
-              align-items: center;
-            `}
-          >
-            <Loader />
-            Chargement...
-          </li>
-        )}
-        {results && !clicked && (
-          <>
-            <li
-              css={`
-                color: #929292;
-              `}
-            >
-              {results.length > 0
-                ? 'Sélectionnez une ville'
-                : 'Aucune ville trouvée'}
-            </li>
-            {results.map((result) => (
-              <li
-                className={
-                  situation &&
-                  situation[type] &&
-                  situation[type].replace(/"/g, '') == result.code
-                    ? 'selected'
-                    : ''
-                }
-                key={result.code}
-                onClick={() => {
-                  setChoice(result)
-                  setInput(result.nom + ' ' + result.codeDepartement)
-                  setClicked(true)
-                }}
-              >
-                {result.nom} <small>{result?.codesPostaux[0]}</small>
-              </li>
-            ))}
-          </>
-        )}
-      </CityList>
-    </AddressInput>
+    <>
+      <div className="fr-fieldset__element">
+        <Input
+          label={label}
+          nativeInputProps={{
+            value: immediateInput,
+            onChange: (e) => {
+              setCoordinates([undefined, undefined])
+              setClicked(false)
+              setInput(e.target.value)
+            },
+            type: 'text',
+            name: 'adresse',
+            required: true,
+            autoFocus: true,
+          }}
+          state={error ? 'error' : clicked && input ? 'success' : ''}
+          stateRelatedMessage={
+            clicked && input ? (
+              'Adresse validée'
+            ) : error ? (
+              error
+            ) : validInput && !addressResults ? (
+              <>
+                <Loader /> Chargement ...
+              </>
+            ) : input == '' ? (
+              <></>
+            ) : (
+              addressResults &&
+              !clicked && (
+                <>
+                  <span>Sélectionnez une adresse :</span>
+                  <CityList>
+                    {addressResults.map((result) => {
+                      const { label, id } = result.properties
+                      return (
+                        <li
+                          className={
+                            coordinates &&
+                            coordinates.join('|') ===
+                              result.geometry.coordinates.join('|')
+                              ? 'selected'
+                              : ''
+                          }
+                          key={id}
+                          onClick={() => {
+                            setAddressResults(null)
+                            onChange &&
+                              onChange(result).then(() => {
+                                setInput(label)
+                                //setCoordinates(result.geometry.coordinates)
+                                setClicked(result)
+                              })
+                          }}
+                        >
+                          <span>{label}</span>
+                        </li>
+                      )
+                    })}
+                  </CityList>
+                </>
+              )
+            )
+          }
+        />
+      </div>
+    </>
   )
 }
-
-export const AddressInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  input {
-    margin: 0;
-    padding-left: 1.5rem !important;
-    text-align: left !important;
-    outline: none;
-    height: 2.8rem !important;
-  }
-`
 
 export const CityList = styled.ul`
   padding: 0;
   background: #f5f5fe;
   border-radius: 0 0 5px 5px;
   border: 1px solid #dfdff0;
-  list-style-type: none;
-  position: absolute;
-  margin-top: 35px;
   z-index: 999999;
+  margin-bottom: 0.6rem;
   li {
-    display: block !important;
-    margin: 0 !important;
-    padding: 8px 24px 8px 35px;
+    width: fit-content;
+    margin: 0.2rem 0 0.2rem 1.6rem;
     line-height: 1.2rem;
-    &::before,
-    &.selected::before {
-      content: '';
+    span {
+      padding: 0.1rem 0.2rem;
     }
-    &:not(:first-child):hover,
+    span:hover {
+      background: var(--color);
+      color: white;
+      border-radius: 0.2rem;
+    }
     &.selected {
       background: rgba(0, 0, 145, 0.1);
       color: var(--color);
+      list-style: none;
     }
-    &:not(:first-child):hover::before,
     &.selected::before {
       content: '✔';
       margin-left: -20px;
       margin-right: 7px;
     }
-    &:not(:first-child) {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `

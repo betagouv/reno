@@ -29,7 +29,6 @@ isolation . vitres . MPR . montant:
 isolation . vitres . MPR . question: quantité
 isolation . vitres . MPR . quantité:
   question: Combien de parois vitrées voulez-vous isoler ?
-  par défaut: 3
   unité: équipements
 isolation . vitres . MPR . barème:
   variations:
@@ -59,8 +58,7 @@ isolation . vitres . CEE . question:
   valeurs:
     - surface
 isolation . vitres . CEE . surface:
-  question: Quelle surface de vitre souhaitez-vous remplacer
-  par défaut: 4 m2
+  question: Quelle surface de vitre souhaitez-vous remplacer ?
   unité: m2
 isolation . vitres . CEE . montant:
   applicable si: CEE . conditions
@@ -114,7 +112,6 @@ isolation . murs extérieurs . montant:
 isolation . murs extérieurs . MPR:
 isolation . murs extérieurs . MPR . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
-  par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . murs extérieurs . MPR . plafond: 150 €/m2
 isolation . murs extérieurs . MPR . montant:
@@ -137,7 +134,7 @@ isolation . murs extérieurs . MPR . barème:
 isolation . murs extérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
-  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-102%20vA65-4%20%C3%A0%20compter%20du%2001-01-2025.pdf
   technique: |
     La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m2.K/W**.
 isolation . murs extérieurs . CEE . question:
@@ -174,7 +171,6 @@ isolation . murs intérieurs . montant:
 isolation . murs intérieurs . MPR:
 isolation . murs intérieurs . MPR . surface:
   question: Quelle surface de murs intérieurs voulez-vous isoler ?
-  par défaut: 100 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . murs intérieurs . MPR . plafond: 70 €/m2
 isolation . murs intérieurs . MPR . montant:
@@ -195,7 +191,7 @@ isolation . murs intérieurs . MPR . barème:
 isolation . murs intérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
-  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-EN-102%20vA39-2%20%C3%A0%20compter%20du%2001-05-2022.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-102%20vA65-4%20%C3%A0%20compter%20du%2001-01-2025.pdf
   technique: |
     La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m².K/W**.
 isolation . murs intérieurs . CEE . question:
@@ -232,7 +228,6 @@ isolation . rampants . montant:
 isolation . rampants . MPR:
 isolation . rampants . MPR . surface:
   question: Quelle surface de rampants voulez-vous isoler ?
-  par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . rampants . MPR . plafond: 75 €/m2
 isolation . rampants . MPR . montant:
@@ -289,7 +284,6 @@ isolation . toitures terrasses . MPR:
 isolation . toitures terrasses . MPR . question: surface
 isolation . toitures terrasses . MPR . surface:
   question: Quelle surface de toiture terrasses voulez-vous isoler ?
-  par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . toitures terrasses . MPR . plafond: 180 €/m2
 isolation . toitures terrasses . MPR . montant:
@@ -353,7 +347,6 @@ isolation . plancher bas . CEE . question:
     - surface
 isolation . plancher bas . CEE . surface:
   question: Quelle surface de plancher voulez-vous isoler ?
-  par défaut: 60 m2 # TODO à confirmer, cible-t-on les maisons ou la moyenne nationale .
   unité: m2
 isolation . plancher bas . CEE . barème:
   variations:

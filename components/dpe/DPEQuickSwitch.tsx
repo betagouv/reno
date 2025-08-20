@@ -25,6 +25,7 @@ export default function DPEQuickSwitch({
   text = 'DPE actuel',
   validateTargetKey = true, // not sure about the necessity of this param, it could be used as "false" for all instances of DPEQuickSwitch. But what I know is that for CEEAmpleurScenario we need it to false else Form.tsx has no "nextQuestions"
   columnDisplay,
+  disabled,
   small = false,
   editMode = false,
 }) {

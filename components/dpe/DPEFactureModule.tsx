@@ -6,7 +6,6 @@ import listeEnergies from '@/app/règles/dpe/energies.publicodes'
 import { formatNumber } from '../RevenuInput'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
-import Select from '../Select'
 import informationIcon from '@/public/information.svg'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeSituation, getSituation } from '../publicodes/situationUtils'
@@ -22,7 +21,7 @@ import iconReduire from '@/public/reduire.svg'
 import editIcon from '@/public/crayon.svg'
 import { push } from '@socialgouv/matomo-next'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
-import { CTA, CTAWrapper } from '../UI'
+import Select from '@codegouvfr/react-dsfr/Select'
 import useIsMobile from '../useIsMobile'
 
 const prixAbonnementElectricite = 160
@@ -248,24 +247,30 @@ export default function DPEFactureModule({ type, numDpe }) {
                       <tr key={index}>
                         <td>
                           <Select
-                            disableInstruction={false}
-                            disabled={!editable}
-                            value={energiesUtilisees[index]?.titre}
-                            values={energies}
-                            onChange={(e) => {
-                              const newEnergiesUtilisees =
-                                energiesUtilisees.map((energieUtilisee, i) =>
-                                  i === index
-                                    ? energies.find(
-                                        (energie) => energie.titre === e,
-                                      )
-                                    : energieUtilisee,
+                            nativeSelectProps={{
+                              onChange: (e) => {
+                                const newEnergiesUtilisees =
+                                  energiesUtilisees.map((energieUtilisee, i) =>
+                                    i === index
+                                      ? energies.find(
+                                          (energie) => energie.titre === e,
+                                        )
+                                      : energieUtilisee,
+                                  )
+                                setEnergiesUtiliseesApresReno(
+                                  newEnergiesUtilisees,
                                 )
-                              setEnergiesUtiliseesApresReno(
-                                newEnergiesUtilisees,
-                              )
+                              },
+                              value: energiesUtilisees[index]?.titre,
                             }}
-                          />
+                            disabled={!editable}
+                          >
+                            {energies.map((e, i) => (
+                              <option key={i} value={e.valeur}>
+                                {e.titre}
+                              </option>
+                            ))}
+                          </Select>
                         </td>
                         <td>
                           {(pourcentages[index] != '?' || editable) && (
@@ -451,17 +456,14 @@ export default function DPEFactureModule({ type, numDpe }) {
             title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
           >
             {children}
-            <CTAWrapper $justify="center" $customCss="margin-top: 1rem auto;">
-              <CTA $importance="primary" css="font-size: 100%;">
-                <AmpleurCTA
-                  situation={situation}
-                  isMobile={isMobile}
-                  target="_blank"
-                  text={'Découvrir vos aides à la réno'}
-                  textMobile={'Découvrir vos aides à la réno'}
-                />
-              </CTA>
-            </CTAWrapper>
+
+            <AmpleurCTA
+              situation={situation}
+              isMobile={isMobile}
+              target="_blank"
+              text={'Découvrir vos aides à la réno'}
+              textMobile={'Découvrir vos aides à la réno'}
+            />
           </ModuleWrapper>
         ) : (
           <CalculatorWidget>{children}</CalculatorWidget>

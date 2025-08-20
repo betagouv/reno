@@ -1,6 +1,6 @@
 'use client'
 
-import AddressSearch from '@/components/AddressSearch'
+import CommuneSearch from '@/components/CommuneSearch'
 import { Card } from '@/components/UI'
 import { useEffect, useRef, useState } from 'react'
 import Entreprise from './Entreprise'
@@ -13,7 +13,8 @@ export default function MarSearch({
   what = 'trouver-accompagnateur-renov',
 }) {
   const givenCodeInsee =
-    situation['logement . commune'] || situation['ménage . commune']
+    situation &&
+    (situation['logement . commune'] || situation['ménage . commune'])
 
   if (what === 'trouver-accompagnateur-renov') return //  Disactivated, we were forbidden to use france-renov.gouv.fr's non documented APIs, and the UI doesn't expose this anymore
   const [selectedMarker, selectMarker] = useState(null)
@@ -21,8 +22,9 @@ export default function MarSearch({
   const mapContainerRef = useRef(null)
   const [localCodeInsee, setLocalCodeInsee] = useState(undefined)
   const [name, setName] = useState(
-    situation['logement . commune . nom'] ||
-      situation['ménage . commune . nom'],
+    situation &&
+      (situation['logement . commune . nom'] ||
+        situation['ménage . commune . nom']),
   )
 
   const rawCodeInsee =
@@ -64,7 +66,7 @@ export default function MarSearch({
           `}
         >
           <span>Saisissez votre ville</span>
-          <AddressSearch
+          <CommuneSearch
             situation={situation}
             type={'ménage . commune'}
             setChoice={(result) => {

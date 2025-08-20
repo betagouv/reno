@@ -1,4 +1,4 @@
-export default function Input({
+export default function RadioQuestion({
   situation,
   name,
   onChange,
@@ -12,49 +12,28 @@ export default function Input({
     const questionParams = engine.getParsedRules()[name + ' . ' + element]
     const subTitle = questionParams.rawNode['sous-titre']
     return (
-      <label
-        key={element}
-        css={`
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.6rem;
-          padding: calc(0.3rem + 0.7vw) calc(0.5rem + 1vw);
-          border: 2px solid #dfdff1;
-          border-radius: 0.3rem;
-          &:hover,
-          &:has(input:checked) {
-            border: 2px solid #004396;
-          }
-        `}
-      >
-        <input
-          css={`
-            width: 1.4rem;
-            height: 1.4rem;
-            cursor: pointer;
-            margin-right: 0.6rem;
-          `}
-          type="radio"
-          name={element}
-          value={element}
-          checked={element === value}
-          onChange={() => onChange(element)}
-        />
-        <span
-          css={`
-            display: flex;
-            flex-direction: column;
-          `}
-        >
-          <span>{questionParams ? questionParams.title : element}</span>
-          {subTitle && (
-            <small style={{ color: '#666', marginTop: '.4rem' }}>
+      <div className="fr-fieldset__element" key={index}>
+        <div className="fr-radio-group fr-radio-rich">
+          <input
+            type="radio"
+            name="radio"
+            id={`radio-${index}`}
+            value={element}
+            checked={element === value}
+            onChange={() => {
+              onChange(element)
+            }}
+          />
+          <label className="fr-label" htmlFor={`radio-${index}`}>
+            {questionParams ? questionParams.title : element}
+			{subTitle && (
+            <small className="fr-hint-text">
               {subTitle}
             </small>
           )}
-        </span>
-      </label>
+          </label>
+        </div>
+      </div>
     )
   })
 }

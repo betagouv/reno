@@ -1,5 +1,4 @@
 'use client'
-import { CTA } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -7,6 +6,7 @@ import styled from 'styled-components'
 import iconSmileyNo from '@/public/smiley-no.svg'
 import iconSmileyMaybe from '@/public/smiley-maybe.svg'
 import iconSmileyYes from '@/public/smiley-yes.svg'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function Feedback({
   title = 'Ce simulateur a-t-il été utile ?',
@@ -36,21 +36,13 @@ export default function Feedback({
   }
 
   return (
-    <ContactForm
-      css={`
-        background: #fdf8db;
-        align-items: center;
-        padding: 1rem;
-        text-align: center;
-      `}
+    <div
+      className="fr-callout fr-callout--yellow-tournesol fr-grid-row fr-grid-row--middle"
+      style={{ flexDirection: 'column' }}
     >
-      <div
-        css={`
-          font-weight: bold;
-        `}
-      >
+      <h3>
         <span aria-hidden="true">👋</span> {title}
-      </div>
+      </h3>
       <VoteBox>
         <div
           className={vote == 'insatisfait' ? 'unhappy-active' : 'unhappy'}
@@ -83,6 +75,27 @@ export default function Feedback({
           <div>Oui</div>
         </div>
       </VoteBox>
+      <Button
+        priority="secondary"
+        onClick={(e) => {
+          if (!isOpen) {
+            setIsOpen(true)
+            push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
+            return
+          }
+          push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
+          e.preventDefault()
+          if (!comment) {
+            return
+          }
+          createIssue(
+            comment + '\n> ' + 'Depuis la page: ' + window.location.href,
+            vote,
+          )
+        }}
+      >
+        Je donne mon avis
+      </Button>
       {(vote || sent) && (
         <div
           css={`
@@ -124,57 +137,12 @@ export default function Feedback({
                 />
               </>
             )}
-            <CTA
-              $fontSize="normal"
-              $importance="emptyBackground"
-              css={`
-                width: fit-content;
-                margin: auto;
-              `}
-              onClick={(e) => {
-                if (!isOpen) {
-                  setIsOpen(true)
-                  push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
-                  return
-                }
-                push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
-                e.preventDefault()
-                if (!comment) {
-                  return
-                }
-                createIssue(
-                  comment + '\n> ' + 'Depuis la page: ' + window.location.href,
-                  vote,
-                )
-              }}
-              title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
-            >
-              <span
-                css={`
-                  font-weight: bold;
-                `}
-              >
-                Je donne mon avis
-              </span>
-            </CTA>
           </form>
         )}
       </div>
-    </ContactForm>
+    </div>
   )
 }
-
-export const ContactForm = styled.div`
-  .slide-up {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 2s ease-out;
-  }
-
-  .slide-up.active {
-    max-height: 500px;
-  }
-`
 
 export const VoteBox = styled.div`
   display: flex;
@@ -182,6 +150,7 @@ export const VoteBox = styled.div`
   padding: 1rem 0;
   margin: 1rem 0;
   > div {
+    text-align: center;
     margin: 0 1.5rem;
   }
   .unhappy-active,

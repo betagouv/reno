@@ -1,12 +1,14 @@
 import { Main, PageBlock } from '@/components/UI'
 import StatistiquesInternes from './StatistiquesInternes'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export default function Page() {
   return (
-    <PageBlock>
-      <Main>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
         <StatistiquesInternes />
-      </Main>
-    </PageBlock>
+      </PageBlock>
+    </>
   )
 }

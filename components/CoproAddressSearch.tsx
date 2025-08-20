@@ -1,4 +1,4 @@
-import { Loader } from '@/app/trouver-accompagnateur-renov/UI'
+import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
@@ -25,7 +25,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
   const [copro, setCopro] = useState(null)
   const [dpes, setDpes] = useState(null)
 
-  console.log('cyan dpes', results, copros, copro, dpes, input)
   const mapContainerRef = useRef(null)
   const setLocation = useCallback((location) => console.log(location), [])
 
@@ -49,7 +48,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
         const url = `${getServerUrl()}/findCopro/${lon}/${lat}/6`
         const request = await fetch(url)
         const json = await request.json()
-        console.log('cyan', json)
         setCopros(json)
         setError(null)
       } catch (e) {
@@ -97,210 +95,190 @@ export default function AddressSearch({ setChoice, situation, type }) {
   }, [input, validInput])
 
   return (
-    <AddressInput>
-      {error && (
-        <p
+    <div className="fr-fieldset__element">
+      <div className="fr-input-group">
+        {error && <p className="fr-text--error">{error.message} </p>}
+        <input
           css={`
-            background: #f9e2e2;
-            padding: 0.1rem 0.6rem;
+            ${clicked &&
+            input &&
+            `border-bottom: 2px solid var(--validColor) !important;`};
           `}
-        >
-          {error.message}{' '}
-        </p>
-      )}
-      <input
-        css={`
-          ${clicked &&
-          input &&
-          `border-bottom: 2px solid var(--validColor) !important;`};
-        `}
-        type="text"
-        autoFocus={true}
-        value={immediateInput}
-        placeholder={'12 rue Victor Hugo Rennes'}
-        onChange={(e) => {
-          setClicked(false)
-          setInput(e.target.value)
-        }}
-      />
-      {clicked && input && <Validated>Adresse validée</Validated>}
-      {validInput && !results && (
-        <small
-          css={`
-            margin: 0.2rem 0;
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <Loader />
-          Chargement...
-        </small>
-      )}
-      {active && !clicked && (
-        <small
-          css={`
-            color: #929292;
-            margin: 0.2rem 0 0.2rem 0.1rem;
-            font-size: 90%;
-          `}
-        >
-          Sélectionnez une adresse :
-        </small>
-      )}
-      <ResultsList>
-        {active &&
-          !clicked &&
-          results.map((result) => {
-            const { label, id } = result.properties
-            return (
-              <li
-                className={
-                  situation &&
-                  situation[type] &&
-                  situation[type].replace(/"/g, '') == id
-                    ? 'selected'
-                    : ''
-                }
-                key={id}
-                onClick={() => {
-                  setInput(label)
-                  setClicked(result)
-                }}
-              >
-                <span>{label}</span>
-              </li>
-            )
-          })}
-      </ResultsList>
-      {copros?.length && selectedCoproId == null && (
-        <small
-          css={`
-            margin: 0.2rem 0 0.2rem 0.1rem;
-            font-size: 90%;
-            color: #929292;
-          `}
-        >
-          Sélectionnez une copropriété :
-        </small>
-      )}
-      {copros?.length > 0 && !copro && (
-        <ResultsList>
-          {copros.map((copro) => {
-            const {
-              'Nom d’usage de la copropriété': name,
-              "Numéro d'immatriculation": id,
-              distance,
-            } = copro
-
-            return (
-              <li
-                className={selectedCoproId === id ? 'selected' : ''}
-                key={id}
-                onClick={() => {
-                  setChoice(copro)
-                  setCopro(copro)
-                }}
-              >
-                <span>{name}</span>
-                <small>
-                  à{' '}
-                  {Math.round(
-                    distance * 10000, // why this factor ? Dunno, I've estimated it
-                  ) * 10}{' '}
-                  m
-                </small>
-              </li>
-            )
-          })}
-        </ResultsList>
-      )}
-      {copro && <CoproBlock copro={copro} setCopro={setCopro} />}
-      {map && active && (
-        <MapMarkers map={map} data={results} selectMarker={setClicked} />
-      )}
-      {copros && (
-        <MapMarkers
-          icon="copro.png"
-          map={map}
-          selected={copro}
-          data={copros.map((copro) => {
-            const { long: lon, lat } = copro
-            return { ...copro, geometry: { coordinates: [+lon, +lat] } }
-          })}
-          selectMarker={(arg) => {
-            setChoice(arg)
-            setCopro(arg)
+          className="fr-input"
+          type="text"
+          autoFocus={true}
+          value={immediateInput}
+          placeholder={'12 rue Victor Hugo Rennes'}
+          onChange={(e) => {
+            setClicked(false)
+            setInput(e.target.value)
           }}
         />
-      )}
-      {dpes && (
-        <DPEMarkers
-          map={map}
-          featureCollection={{
-            type: 'FeatureCollection',
-
-            features: dpes.map((dpe) => {
-              const { lon, lat, 'N°_étage_appartement': etage } = dpe
-              return {
-                type: 'Feature',
-                geometry: {
-                  coordinates: [+lon, +lat],
-                  type: 'Point',
-                },
-                properties: { ...dpe, etage: +etage, height: 3 },
-              }
-            }),
-          }}
-          selectMarker={() => null}
-        />
-      )}
-      {active && (
-        <div
-          ref={mapContainerRef}
-          css={`
-            width: 100%;
-            min-height: 400px;
-            height: 100%;
-            border-radius: 0.3rem;
-          `}
-        />
-      )}
-      {copros != null && <CoproNotFound />}
-      <Link
-        css={`
-          display: flex !important;
-          align-items: center !important;
-        `}
-        href={setSearchParams(
-          encodeSituation(
-            {
-              [noAddressDottedName]: '"evitee"',
-            },
-            false,
-            [noAddressDottedName],
-          ),
-          'url',
+        {clicked && input && <Validated>Adresse validée</Validated>}
+        {validInput && !results && (
+          <small
+            css={`
+              margin: 0.2rem 0;
+              display: flex;
+              align-items: center;
+            `}
+          >
+            <Loader />
+            Chargement...
+          </small>
         )}
-      >
-        Continuer sans saisir l'adresse
-      </Link>
-    </AddressInput>
+        {active && !clicked && (
+          <small
+            css={`
+              color: #929292;
+              margin: 0.2rem 0 0.2rem 0.1rem;
+              font-size: 90%;
+            `}
+          >
+            Sélectionnez une adresse :
+          </small>
+        )}
+        <ResultsList>
+          {active &&
+            !clicked &&
+            results.map((result) => {
+              const { label, id } = result.properties
+              return (
+                <li
+                  className={
+                    situation &&
+                    situation[type] &&
+                    situation[type].replace(/"/g, '') == id
+                      ? 'selected'
+                      : ''
+                  }
+                  key={id}
+                  onClick={() => {
+                    setInput(label)
+                    setClicked(result)
+                  }}
+                >
+                  <span>{label}</span>
+                </li>
+              )
+            })}
+        </ResultsList>
+        {copros?.length && selectedCoproId == null && (
+          <small
+            css={`
+              margin: 0.2rem 0 0.2rem 0.1rem;
+              font-size: 90%;
+              color: #929292;
+            `}
+          >
+            Sélectionnez une copropriété :
+          </small>
+        )}
+        {copros?.length > 0 && !copro && (
+          <ResultsList>
+            {copros.map((copro) => {
+              const {
+                'Nom d’usage de la copropriété': name,
+                "Numéro d'immatriculation": id,
+                distance,
+              } = copro
+
+              return (
+                <li
+                  className={selectedCoproId === id ? 'selected' : ''}
+                  key={id}
+                  onClick={() => {
+                    setChoice(copro)
+                    setCopro(copro)
+                  }}
+                >
+                  <span>{name}</span>
+                  <small>
+                    à{' '}
+                    {Math.round(
+                      distance * 10000, // why this factor ? Dunno, I've estimated it
+                    ) * 10}{' '}
+                    m
+                  </small>
+                </li>
+              )
+            })}
+          </ResultsList>
+        )}
+        {copro && <CoproBlock copro={copro} setCopro={setCopro} />}
+        {map && active && (
+          <MapMarkers map={map} data={results} selectMarker={setClicked} />
+        )}
+        {copros && (
+          <MapMarkers
+            icon="copro.png"
+            map={map}
+            selected={copro}
+            data={copros.map((copro) => {
+              const { long: lon, lat } = copro
+              return { ...copro, geometry: { coordinates: [+lon, +lat] } }
+            })}
+            selectMarker={(arg) => {
+              setChoice(arg)
+              setCopro(arg)
+            }}
+          />
+        )}
+        {dpes && (
+          <DPEMarkers
+            map={map}
+            featureCollection={{
+              type: 'FeatureCollection',
+
+              features: dpes.map((dpe) => {
+                const { lon, lat, 'N°_étage_appartement': etage } = dpe
+                return {
+                  type: 'Feature',
+                  geometry: {
+                    coordinates: [+lon, +lat],
+                    type: 'Point',
+                  },
+                  properties: { ...dpe, etage: +etage, height: 3 },
+                }
+              }),
+            }}
+            selectMarker={() => null}
+          />
+        )}
+        {active && (
+          <div
+            ref={mapContainerRef}
+            css={`
+              width: 100%;
+              min-height: 400px;
+              height: 100%;
+              border-radius: 0.3rem;
+            `}
+          />
+        )}
+        {copros != null && <CoproNotFound />}
+        <Link
+          css={`
+            display: flex !important;
+            align-items: center !important;
+          `}
+          href={setSearchParams(
+            encodeSituation(
+              {
+                [noAddressDottedName]: '"evitee"',
+              },
+              false,
+              [noAddressDottedName],
+            ),
+            'url',
+          )}
+        >
+          Continuer sans saisir l'adresse
+        </Link>
+      </div>
+    </div>
   )
 }
-
-export const AddressInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  input {
-    margin: 0;
-    padding-left: 1.5rem !important;
-    text-align: left !important;
-    outline: none;
-    box-shadow: none !important;
-    height: 2.8rem !important;
-    border-bottom: 2px solid #3a3a3a;
-  }
-`
 
 const Validated = styled.p`
   margin: 0.5rem 0;

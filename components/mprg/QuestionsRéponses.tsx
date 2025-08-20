@@ -1,6 +1,5 @@
 import { BlocQuestionRéponse } from '../BlocQuestionRéponse'
 import Value from '@/components/Value'
-import { ExternalLink } from '../UI'
 
 export default function QuestionsRéponses() {
   return (
@@ -49,12 +48,14 @@ export default function QuestionsRéponses() {
           Les entreprises qui feront les travaux{' '}
           <strong>
             doivent être{' '}
-            <ExternalLink
+            <a
+              rel="noopener external"
+              className="fr-link"
               href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
               target="_blank"
             >
               certifiées RGE
-            </ExternalLink>
+            </a>
           </strong>{' '}
           pour que vous puissiez rentrer dans le parcours MaPrimeRénov' et
           bénéficier des primes ci-dessus.
@@ -77,9 +78,9 @@ export default function QuestionsRéponses() {
           ans.
         </p>
         <p>
-          MaPrimeRénov’ rénovation par geste est cumulable avec les aides versées par les
-          fournisseurs d’énergie (CEE) ainsi que les aides des collectivités
-          locales et des caisses de retraite
+          MaPrimeRénov’ rénovation par geste est cumulable avec les aides
+          versées par les fournisseurs d’énergie (CEE) ainsi que les aides des
+          collectivités locales et des caisses de retraite
         </p>
         <details>
           <summary open={false}>Si vous êtes propriétaire bailleur</summary>

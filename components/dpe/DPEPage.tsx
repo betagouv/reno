@@ -1,15 +1,13 @@
 'use client'
 
 import DPELabel, { conversionLettreIndex } from '@/components/dpe/DPELabel'
-import { Section } from '@/components/UI'
-import css from '@/components/css/convertToJs'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
-import PlusValueModule from '@/components/module/PlusValue'
+import { PageBlock } from '@/components/UI'
+import PlusValueModule from '@/components/module/PlusValueModule'
 import Ampleur from '@/app/module/Ampleur'
 import { useSearchParams } from 'next/navigation'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
 import useSetSearchParams from '@/components/useSetSearchParams'
-import DPEAddressSearch from './DPEAddressSearch'
+import AddressSearch from '../AddressSearch'
 import { useEffect, useState } from 'react'
 import enrichSituation from '../personas/enrichSituation'
 import DPEFactureModule from './DPEFactureModule'
@@ -20,7 +18,6 @@ import iconEauChaude from '@/public/eauChaude.png'
 import iconSurface from '@/public/surface.png'
 import Image from 'next/image'
 import useDpe from './useDpe'
-import styled from 'styled-components'
 import Link from 'next/link'
 
 export const getIndexLettre = (dpe) =>
@@ -83,180 +80,151 @@ export default function DPEPage({ numDpe: initialNumDpe }) {
 
   if (!dpe)
     return (
-      <Main>
-        <Section>
-          <BackToSearch />
-        </Section>
+      <PageBlock>
+        <BackToSearch />
         <p>Chargement du DPE...</p>
-      </Main>
+      </PageBlock>
     )
   return (
     dpe && (
-      <Main>
-        <Section>
-          <BackToSearch />
-        </Section>
-        <Section>
-          <h1
-            style={css`
-              margin-top: 0.6rem;
-              margin-bottom: 1rem;
-            `}
-          >
-            Mon Étude Réno
-          </h1>
-          <div
-            css={`
-              display: flex;
-              > div {
-                width: 50%;
-              }
-            `}
-          >
-            <div>
-              <DPEAddressSearch
-                searchParams={searchParams}
-                dpe={dpe}
-                click={true}
-              />
-              <p>
-                {dpe['type_batiment'] == 'maison'
-                  ? 'maison constuite'
-                  : 'appartement construit'}{' '}
-                la période <strong>{dpe['periode_construction']}</strong>
-              </p>
+      <PageBlock>
+        <BackToSearch />
+        <h1>Mon Étude Réno</h1>
+        <div
+          css={`
+            display: flex;
+            > div {
+              width: 50%;
+            }
+          `}
+        >
+          <div>
+            <AddressSearch searchParams={searchParams} dpe={dpe} click={true} />
+            <p>
+              {dpe['type_batiment'] == 'maison'
+                ? 'maison constuite'
+                : 'appartement construit'}{' '}
+              la période <strong>{dpe['periode_construction']}</strong>
+            </p>
+            <div
+              css={`
+                > div {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  border-bottom: 1px solid grey;
+                  padding: 0.5rem 0;
+                }
+              `}
+            >
               <div
                 css={`
+                  justify-content: space-between;
                   > div {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    border-bottom: 1px solid grey;
-                    padding: 0.5rem 0;
+                    text-align: center;
+                  }
+                  > div > small {
+                    display: block;
                   }
                 `}
               >
-                <div
-                  css={`
-                    justify-content: space-between;
-                    > div {
-                      text-align: center;
-                    }
-                    > div > small {
-                      display: block;
-                    }
-                  `}
-                >
-                  <div>
-                    <div>Consommation d'énergie</div>
-                    <DPELabel label={dpe['etiquette_dpe']} small={false} />
-                    <small>
-                      {dpe['conso_5_usages_par_m2_ep']} p -{' '}
-                      {dpe['conso_5_usages_par_m2_ef']} f kWh/m2
-                    </small>
-                  </div>
-                  <div>
-                    <div>Émission Gaz à effet de serre</div>
-                    <DPELabel label={dpe['etiquette_ges']} small={false} />
-                    <small>
-                      {dpe['emission_ges_5_usages_par_m2']} kgCO2e/m2
-                    </small>
-                  </div>
+                <div>
+                  <div>Consommation d'énergie</div>
+                  <DPELabel label={dpe['etiquette_dpe']} small={false} />
+                  <small>
+                    {dpe['conso_5_usages_par_m2_ep']} p -{' '}
+                    {dpe['conso_5_usages_par_m2_ef']} f kWh/m2
+                  </small>
                 </div>
                 <div>
-                  <Image src={iconSurface} alt={`icone surface`} width="30" />
-                  <div>
-                    Surface habitable: {dpe['surface_habitable_logement']}m²
-                  </div>
+                  <div>Émission Gaz à effet de serre</div>
+                  <DPELabel label={dpe['etiquette_ges']} small={false} />
+                  <small>{dpe['emission_ges_5_usages_par_m2']} kgCO2e/m2</small>
                 </div>
+              </div>
+              <div>
+                <Image src={iconSurface} alt={`icone surface`} width="30" />
                 <div>
-                  <Image
-                    src={iconChauffage}
-                    alt={`icone chauffage`}
-                    width="30"
+                  Surface habitable: {dpe['surface_habitable_logement']}m²
+                </div>
+              </div>
+              <div>
+                <Image src={iconChauffage} alt={`icone chauffage`} width="30" />
+                <div>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: dpe[
+                        'description_installation_chauffage_n1'
+                      ]?.replace('.', '<br />'),
+                    }}
                   />
-                  <div>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: dpe[
-                          'description_installation_chauffage_n1'
-                        ]?.replace('.', '<br />'),
-                      }}
-                    />
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: dpe[
-                          'description_installation_chauffage_n2'
-                        ]?.replace('.', '<br />'),
-                      }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Image
-                    src={iconEauChaude}
-                    alt={`icone eau chaude sanitaire`}
-                    width="30"
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: dpe[
+                        'description_installation_chauffage_n2'
+                      ]?.replace('.', '<br />'),
+                    }}
                   />
-                  {dpe['type_generateur_n1_ecs_n1']}
                 </div>
+              </div>
+              <div>
+                <Image
+                  src={iconEauChaude}
+                  alt={`icone eau chaude sanitaire`}
+                  width="30"
+                />
+                {dpe['type_generateur_n1_ecs_n1']}
               </div>
             </div>
-            <DPEMap
-              searchParams={searchParams}
-              onSelectDpe={setNumDpe}
-              dpe={dpe}
-              dpeListStartOpen={false}
-            />
           </div>
-          <Wrapper $background="white" $noMargin={true}>
-            <Content>
-              <h2>Quel impact sur la valeur de mon logement ?</h2>
-              <PlusValueModule type="widget" />
-              <h2>Quelles aides sont mobilisables ?</h2>
-              <div
-                css={`
-                  h2 {
-                    font-size: 130% !important;
-                  }
-                `}
-              >
-                <Ampleur type="widget" />
-              </div>
-              <h2>Quels travaux privilégiés ?</h2>
-              <DPETravauxModule numDpe={numDpe} type="widget" />
-              <h2>Quels impact sur votre facture énergétique?</h2>
-              <DPEFactureModule numDpe={numDpe} type="widget" />
-              <h2>Une interdiction de location est-elle prévue?</h2>
-              {Object.keys(interdictionLocation).includes(dpe['etiquette']) ? (
-                <>
-                  Une interdiction de location est prévue à partir du{' '}
-                  <strong>
-                    1<sup>er</sup> janvier{' '}
-                    {interdictionLocation[dpe['etiquette']]}
-                  </strong>{' '}
-                  pour les logements avec un DPE{' '}
-                  <DPELabel label={dpe['etiquette']} />
-                </>
-              ) : (
-                <>
-                  Aucune interdiction de location n'est actuellement prévu pour
-                  un logement avec un DPE <DPELabel label={dpe['etiquette']} />
-                </>
-              )}
-            </Content>
-          </Wrapper>
-        </Section>
-      </Main>
+          <DPEMap
+            searchParams={searchParams}
+            onSelectDpe={setNumDpe}
+            dpe={dpe}
+            dpeListStartOpen={false}
+          />
+        </div>
+        <h2>Quel impact sur la valeur de mon logement ?</h2>
+        <PlusValueModule type="widget" />
+        <h2>Quelles aides sont mobilisables ?</h2>
+        <div
+          css={`
+            h2 {
+              font-size: 130% !important;
+            }
+          `}
+        >
+          <Ampleur type="widget" />
+        </div>
+        <h2>Quels travaux privilégiés ?</h2>
+        <DPETravauxModule numDpe={numDpe} type="widget" />
+        <h2>Quels impact sur votre facture énergétique?</h2>
+        <DPEFactureModule numDpe={numDpe} type="widget" />
+        <h2>Une interdiction de location est-elle prévue?</h2>
+        {Object.keys(interdictionLocation).includes(dpe['etiquette']) ? (
+          <>
+            Une interdiction de location est prévue à partir du{' '}
+            <strong>
+              1<sup>er</sup> janvier {interdictionLocation[dpe['etiquette']]}
+            </strong>{' '}
+            pour les logements avec un DPE <DPELabel label={dpe['etiquette']} />
+          </>
+        ) : (
+          <>
+            Aucune interdiction de location n'est actuellement prévu pour un
+            logement avec un DPE <DPELabel label={dpe['etiquette']} />
+          </>
+        )}
+      </PageBlock>
     )
   )
 }
 
 const BackToSearch = () => (
-  <Link href="/dpe/recherche">⬅ Retour à la recherche d'addresse</Link>
+  <Link
+    className="fr-btn fr-icon-arrow-left-line fr-btn--icon-left"
+    href="/dpe/recherche"
+  >
+    Retour à la recherche d'addresse
+  </Link>
 )
-
-const Main = styled.main`
-  background: white;
-  padding-top: calc(1.5vh + 1.5vw);
-`

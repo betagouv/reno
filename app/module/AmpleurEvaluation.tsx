@@ -2,10 +2,8 @@
 
 import { filterAidesToDisplay } from '@/components/ampleur/AmpleurSummary'
 import { useAides } from '@/components/ampleur/useAides'
-import styled from 'styled-components'
 import { AmpleurAideSummary } from './AmpleurAideSummary'
 import AmpleurCTA from './AmpleurCTA'
-import { CTA } from '@/components/UI'
 import DPELabel from '@/components/dpe/DPELabel'
 import { push } from '@socialgouv/matomo-next'
 
@@ -24,7 +22,7 @@ export function EvaluationValue({
 
   if (!shouldDisplay)
     return (
-      <EvaluationValueWrapper $active={shouldDisplay}>
+      <div className="fr-callout fr-callout--yellow-moutarde">
         <h2>⏳️ En attente de résultats</h2>
         <div>
           <p>
@@ -32,14 +30,14 @@ export function EvaluationValue({
             💶&nbsp;&nbsp;💶
           </p>
         </div>
-      </EvaluationValueWrapper>
+      </div>
     )
   push(['trackEvent', 'Module', 'Interaction', 'Affiche Resultat'])
   return (
-    <EvaluationValueWrapper $active={shouldDisplay}>
-      <h2>🥳 Résultats</h2>
-      <p>Vous êtes éligible à :</p>
-      <div>
+    <div className="fr-callout fr-callout--blue-cumulus">
+      <h2 className="fr-callout__title">🥳 Résultats</h2>
+      <p className="fr-callout__text">Vous êtes éligible à :</p>
+      <div className="fr-callout__text">
         <ol>
           {aidesToDisplay.slice(0, 3).map((aide) => {
             const text = aide.marque,
@@ -64,80 +62,16 @@ export function EvaluationValue({
           })}
         </ol>
       </div>
-      <CTA
-        css={`
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-          a  {
-            display: flex;
-            font-size: 85% !important;
-            align-items: center;
-            img {
-              height: 2rem;
-              width: auto;
-              margin-right: 0.6rem;
-            }
-          }
-        `}
-      >
-        <AmpleurCTA {...{ situation: noDefaultSituation }} />
-      </CTA>
+      <AmpleurCTA {...{ situation: noDefaultSituation }} />
       {disclaimer && (
-        <p
-          css={`
-            line-height: 1.3rem;
-          `}
-        >
-          <small>
-            Pour bénéficier des aides du parcours accompagné, des gains énergétiques
-            seront à réaliser, par exemple un saut d'au moins 2 classes de DPE,
-            soit passer du DPE actuel <DPELabel index={currentDPE - 1} /> à un
-            DPE <DPELabel index={targetDPE - 1} />.
-          </small>
+        <p className="fr-hint-text fr-mt-3v">
+          Pour bénéficier des aides du parcours accompagné, des gains
+          énergétiques seront à réaliser, par exemple un saut d'au moins 2
+          classes de DPE, soit passer du DPE actuel{' '}
+          <DPELabel index={currentDPE - 1} /> à un DPE{' '}
+          <DPELabel index={targetDPE - 1} />.
         </p>
       )}
-    </EvaluationValueWrapper>
+    </div>
   )
 }
-export const EvaluationValueWrapper = styled.section`
-h2 {margin: 0 0 .8rem 0 }
-  img {
-    width: 1.6rem;
-    height: auto;
-    margin-right: 1rem;
-  }
-  margin: 1.6rem 0 0 0;
-  @media (max-width: 400px) {
-    margin: 0.8rem 0;
-  }
-  > div {
-  display: flex;
-  align-items: center;
-  }
-  width: 100%;
-  background:  ${(p) => (p.$active ? 'var(--lightestColor)' : '#fdf8db')};
-  border-bottom: 4px solid var(--color);
-
-  padding: .8rem 1.3rem;
-  @media (max-width: 400px){padding: .6rem 1rem;}
-  small {
-    margin-bottom: 0.4rem;
-  }
-  h4 {font-size: 100%; font-weight: normal: margin: 0}
-  ol{padding: 0.2rem; list-style-type: none; 
-  li {
-
-display: flex; justify-content: start; 
-flex-wrap: wrap;
-align-items: center;
-margin-bottom: .3rem;
-@media (max-width: 800px){margin-bottom: .5rem}
-
-> h3 {
-width: 17rem;
-margin-bottom: 0;
-
-
-}
-  }}
-`

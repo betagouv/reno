@@ -2,9 +2,6 @@
 
 import styled from 'styled-components'
 
-export const P = styled.p`
-  line-height: 1.8rem;
-`
 export const Key = styled.em`
   border-radius: 0.2rem;
   white-space: nowrap;
@@ -40,29 +37,12 @@ export const Key = styled.em`
                 padding: 0.1rem 0.1rem 0.05rem;
 		          `
             : p.$state == 'prime-black'
-            ? `
+              ? `
                 border: 1px dashed black;
               `
-            : ''};
+              : ''};
   line-height: 1.4rem;
   display: inline-block;
   min-width: 3rem;
   text-align: center;
-`
-
-export const Wrapper = styled.section`
-  background: ${(p) => p.$background || '#f6f6f6'};
-  width: 100%;
-  padding: 1rem 0;
-  margin-top: 3vh;
-  ${(p) => p.$noMargin && `margin: 0; padding-top: 3vh;`}
-  ${(p) => p.$last && `padding-bottom: 6vh;`}
-`
-export const Content = styled.div`
-  width: 800px;
-  max-width: 90vw;
-  margin: 0 auto;
-  p {
-    color: #333;
-  }
 `

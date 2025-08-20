@@ -1,7 +1,8 @@
 import dpeValues from '@/components/dpe/DPE.yaml'
 import DPELabel from '../dpe/DPELabel'
-import { encodeSituation } from '../publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
+import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 
 export default function TargetDPETabs({
   oldIndex,
@@ -9,7 +10,8 @@ export default function TargetDPETabs({
   answeredQuestions,
   choice,
   situation,
-  text = 'DPE visé',
+  disabled,
+  text = 'DPE visé :',
   columnDisplay,
 }) {
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
@@ -25,59 +27,22 @@ export default function TargetDPETabs({
     )
   }
   return (
-    <div
-      css={`
-        display: flex;
-        align-items: center;
-        ${columnDisplay && 'flex-direction: column; align-items: baseline;'}
-        gap: 0.5rem;
-      `}
-    >
-      {text != '' && <div>{text}&nbsp;:</div>}
-      <nav>
-        <ol
-          css={`
-            padding: 0;
-            display: flex;
-            list-style-type: none;
-            input {
-              display: none;
-            }
-            li  {
-              label {
-                cursor: pointer;
-              }
-            }
-          `}
-        >
-          {possibilities.map((el, index) => (
-            <li
-              key={el.lettre}
-              css={
-                choice === index
-                  ? 'border: 2px solid var(--color); border-radius: 0.4rem;'
-                  : 'border: 2px solid transparent; opacity: 0.5'
-              }
-            >
-              <label>
-                <input
-                  css={`
-                    width: 1.4rem;
-                    height: 1.4rem;
-                    cursor: pointer;
-                    margin-right: 0.4rem;
-                  `}
-                  type="radio"
-                  name={index}
-                  checked={index === choice}
-                  onChange={() => doSetSearchParams(index + 1)}
-                />
-                <DPELabel index={index} small={false} />
-              </label>
-            </li>
-          ))}
-        </ol>
-      </nav>
-    </div>
+    <RadioButtons
+      legend={text}
+      options={possibilities.map((el, index) => {
+        return {
+          label: <DPELabel index={index} small={false} />,
+          nativeInputProps: {
+            value: index,
+            checked: index === choice,
+            onChange: () => doSetSearchParams(index + 1),
+          },
+        }
+      })}
+      name={`radio-${encodeDottedName('projet . DPE visé')}`}
+      disabled={disabled}
+      state={situation['projet . DPE visé'] && !disabled && 'success'}
+      stateRelatedMessage=""
+    />
   )
 }
