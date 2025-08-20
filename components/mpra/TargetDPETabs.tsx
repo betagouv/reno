@@ -7,12 +7,11 @@ import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 export default function TargetDPETabs({
   oldIndex,
   setSearchParams,
-  answeredQuestions,
   choice,
   situation,
   disabled,
   text = 'DPE visé :',
-  columnDisplay,
+  noSuccess = false,
 }) {
   const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
 
@@ -41,7 +40,10 @@ export default function TargetDPETabs({
       })}
       name={`radio-${encodeDottedName('projet . DPE visé')}`}
       disabled={disabled}
-      state={situation['projet . DPE visé'] && !disabled && 'success'}
+      state={
+        !noSuccess && situation['projet . DPE visé'] && !disabled && 'success'
+      }
+      orientation="horizontal"
       stateRelatedMessage=""
     />
   )

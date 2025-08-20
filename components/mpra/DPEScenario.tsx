@@ -1,10 +1,11 @@
 import Value from '@/components/Value'
 import { encodeSituation } from '../publicodes/situationUtils'
-import DPEQuickSwitch2 from '../dpe/DPEQuickSwitch2'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from './TargetDPETabs'
 import CalculatorWidget from '../CalculatorWidget'
 import Input from '@codegouvfr/react-dsfr/Input'
 import useIsMobile from '../useIsMobile'
+import { formatNumberWithSpaces } from '../utils'
 
 export default function DPEScenario({
   engine,
@@ -37,198 +38,196 @@ export default function DPEScenario({
   }
   return (
     <CalculatorWidget>
-      <div className="fr-grid-row fr-grid-row--gutters">
-        <div className="fr-col">
-          <DPEQuickSwitch2
-            oldIndex={oldIndex}
-            situation={situation}
-            columnDisplay={true}
-          />
-        </div>
-        <div className="fr-col">
-          <TargetDPETabs
-            {...{
-              oldIndex,
-              setSearchParams,
-              answeredQuestions,
-              choice,
-              engine,
-              situation,
-              columnDisplay: true,
-            }}
-          />
-        </div>
-        <div
-          className="fr-col"
-          css={`
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-          `}
-        >
-          <Input
-            label="Budget de travaux de rénovation :"
-            nativeInputProps={{
-              autoFocus: false,
-              value: montantTravaux,
-              onChange: (e) => {
-                const rawValue = e.target.value
-                const value = +rawValue === 0 ? 0 : rawValue
-                setSearchParams(
-                  encodeSituation({
-                    'projet . travaux': value + '*',
-                  }),
-                  'replace',
-                  false,
-                )
-              },
-              min: '0',
-              max: '999999',
-              step: '100',
-              name: 'budget',
-              required: true,
-            }}
-            addon={
+      <DPEQuickSwitch
+        oldIndex={oldIndex}
+        situation={situation}
+        noSuccess
+        ecartClasse={2}
+        possibilities={[2, 3, 4, 5, 6]}
+      />
+      <TargetDPETabs
+        {...{
+          oldIndex,
+          setSearchParams,
+          answeredQuestions,
+          choice,
+          engine,
+          noSuccess: true,
+          situation,
+        }}
+      />
+      <div className="fr-fieldset">
+        <Input
+          label="Budget de travaux de rénovation :"
+          nativeInputProps={{
+            pattern: '\d+',
+            type: 'text',
+            autoFocus: false,
+            value: formatNumberWithSpaces(montantTravaux),
+            onChange: (e) => {
+              const price = e.target.value.replace(/\s/g, '')
+              const invalid = isNaN(price) || price <= 0
+              if (invalid) return
+              setSearchParams(
+                encodeSituation({
+                  'projet . travaux': price + '*',
+                }),
+                'replace',
+                false,
+              )
+              e.target.value = formatNumberWithSpaces(price)
+            },
+            min: '0',
+            max: '999999',
+            step: '100',
+            name: 'budget',
+            inputMode: 'numeric',
+            required: true,
+          }}
+          addon={
+            <>
               <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
                 € HT
               </span>
-            }
-          />
-          <div
-            css={`
-              text-align: center;
-              font-style: italic;
-              em {
-                font-weight: normal !important;
-              }
-            `}
-          >
-            (soit
-            <Value
-              {...{
-                engine,
-                choice,
-                situation: futureSituation,
-                dottedName: 'projet . travaux . TTC',
-              }}
-            />
-            <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-              {' '}
-              TTC
-            </span>
-            )
-          </div>
-        </div>
+              <span
+                css={`
+                  text-align: center;
+                  font-style: italic;
+                  em {
+                    font-weight: normal !important;
+                  }
+                `}
+              >
+                (soit
+                <Value
+                  {...{
+                    engine,
+                    choice,
+                    situation: futureSituation,
+                    dottedName: 'projet . travaux . TTC',
+                  }}
+                />
+                <span title="En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                  {' '}
+                  TTC
+                </span>
+                )
+              </span>
+            </>
+          }
+        />
       </div>
 
-      {oldIndex < 2 ? (
-        <p>
-          👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
-          bénéficier du parcours accompagné.
-        </p>
-      ) : (
-        <>
-          <h2 className="fr-callout__title">🥳 Résultats</h2>
-          <div className="fr-callout__text">
-            Vous êtes éligible à une aide de{' '}
-            <Value
-              {...{
-                size: 'xl',
-                state: 'success',
-                engine,
-                situation: futureSituation,
-                dottedName: 'MPR . accompagnée . pourcent dont bonus',
-              }}
-            />{' '}
-            du coût de vos travaux{' '}
-            <span className="fr-hint-text">
-              {bonusSortiePassoire && (
-                <>
-                  dont <strong>{bonusSortiePassoire} %</strong> de bonus "Sortie
-                  de passoire"{' '}
-                </>
-              )}
-              avec un plafond de
+      <>
+        <h2 className="fr-callout__title fr-mt-8v">🥳 Résultats</h2>
+        <div className="fr-callout__text">
+          {oldIndex < 2 ? (
+            <p>
+              👌 Votre logement est trop performant (A&nbsp;ou&nbsp;B) pour
+              bénéficier du parcours accompagné.
+            </p>
+          ) : (
+            <>
+              Vous êtes éligible à une aide de{' '}
               <Value
                 {...{
+                  size: 'xl',
+                  state: 'success',
                   engine,
                   situation: futureSituation,
-                  dottedName: 'projet . travaux . plafond',
+                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
                 }}
-              />
-              de travaux.
-            </span>
-            {isModeste && (
-              <p className="fr-my-5v">
-                🍀 <strong>Bonus :</strong> En tant que ménage{' '}
+              />{' '}
+              du coût de vos travaux{' '}
+              <span className="fr-hint-text">
+                {bonusSortiePassoire && (
+                  <>
+                    dont <strong>{bonusSortiePassoire} %</strong> de bonus
+                    "Sortie de passoire"{' '}
+                  </>
+                )}
+                avec un plafond de
                 <Value
                   {...{
                     engine,
-                    situation,
-                    dottedName: 'ménage . revenu . classe',
-                    state: 'prime-black',
+                    situation: futureSituation,
+                    dottedName: 'projet . travaux . plafond',
                   }}
-                />{' '}
-                ,{' '}
-                <Value
-                  {...{
-                    engine,
-                    situation,
-                    dottedName: 'MPR . accompagnée . pourcentage avance',
-                    state: 'prime-black',
-                  }}
-                />{' '}
-                de cette aide peut vous être versée en avance de vos travaux.
-              </p>
-            )}
-            <div
-              css={`
-                display: flex;
-                justify-content: space-between;
-                gap: 1rem;
-                ${isMobile && 'flex-direction: column;'}
-                > div {
+                />
+                de travaux.
+              </span>
+              {isModeste && (
+                <p className="fr-my-5v">
+                  🍀 <strong>Bonus :</strong> En tant que ménage{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation,
+                      dottedName: 'ménage . revenu . classe',
+                      state: 'prime-black',
+                    }}
+                  />{' '}
+                  ,{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation,
+                      dottedName: 'MPR . accompagnée . pourcentage avance',
+                      state: 'prime-black',
+                    }}
+                  />{' '}
+                  de cette aide peut vous être versée en avance de vos travaux.
+                </p>
+              )}
+              <div
+                css={`
                   display: flex;
-                  flex-direction: column;
-                  width: 100%;
-                }
-              `}
-            >
-              <div>
-                <p className="fr-callout__text">
-                  Vous toucherez un total d'aides de :
-                </p>
-                <Value
-                  {...{
-                    size: 'xl',
-                    state: 'success',
-                    engine,
-                    choice,
-                    situation: futureSituation,
-                    dottedName: 'MPR . accompagnée . montant écrêté',
-                  }}
-                />
+                  justify-content: space-between;
+                  gap: 1rem;
+                  ${isMobile && 'flex-direction: column;'}
+                  > div {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                  }
+                `}
+              >
+                <div>
+                  <p className="fr-callout__text">
+                    Vous toucherez un total d'aides de :
+                  </p>
+                  <Value
+                    {...{
+                      size: 'xl',
+                      state: 'success',
+                      engine,
+                      choice,
+                      situation: futureSituation,
+                      dottedName: 'MPR . accompagnée . montant écrêté',
+                    }}
+                  />
+                </div>
+                <div>
+                  <p className="fr-callout__text">
+                    Il restera donc à votre charge :
+                  </p>
+                  <Value
+                    {...{
+                      engine,
+                      size: 'xl',
+                      state: 'warning',
+                      choice,
+                      situation: futureSituation,
+                      dottedName: 'MPR . accompagnée . reste à charge',
+                      addOn: 'TTC',
+                    }}
+                  />
+                </div>
               </div>
-              <div>
-                <p className="fr-callout__text">
-                  Il restera donc à votre charge :
-                </p>
-                <Value
-                  {...{
-                    engine,
-                    size: 'xl',
-                    state: 'warning',
-                    choice,
-                    situation: futureSituation,
-                    dottedName: 'MPR . accompagnée . reste à charge',
-                    addOn: 'TTC',
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+            </>
+          )}
+        </div>
+      </>
     </CalculatorWidget>
   )
 }

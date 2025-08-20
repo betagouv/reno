@@ -1,6 +1,5 @@
 import { push } from '@socialgouv/matomo-next'
 import { formatNumberWithSpaces } from '../utils'
-import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
 import CommuneSearch from '../CommuneSearch'
@@ -116,8 +115,6 @@ const PlusValueWidget = ({
         <DPEQuickSwitch
           oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
-          columnDisplay={true}
-          editMode={true}
         />
         <TargetDPETabs
           {...{

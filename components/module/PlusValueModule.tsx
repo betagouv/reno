@@ -77,20 +77,22 @@ export default function PlusValueModule({ type }) {
             text: 'Mon logement est :',
           }}
         />
-        <CommuneLogement
-          {...{
-            situation,
-            disabled: !answeredQuestions.includes('logement . type'),
-            text: 'Il est situé à',
-            onChange: (result) => {
-              setSearchParams({
-                [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                [encodeDottedName('logement . commune . nom')]:
-                  `"${result.nom}"*`,
-              })
-            },
-          }}
-        />
+        <div className="fr-input-group">
+          <CommuneLogement
+            {...{
+              situation,
+              disabled: !answeredQuestions.includes('logement . type'),
+              text: 'Il est situé à',
+              onChange: (result) => {
+                setSearchParams({
+                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                  [encodeDottedName('logement . commune . nom')]:
+                    `"${result.nom}"*`,
+                })
+              },
+            }}
+          />
+        </div>
         <MontantQuestion
           {...{
             setSearchParams,
@@ -106,7 +108,7 @@ export default function PlusValueModule({ type }) {
           situation={situation}
           columnDisplay={isMobile}
           disabled={!answeredQuestions.includes("logement . prix d'achat")}
-          text={'Et il a une étiquette DPE'}
+          text={'Il a une étiquette DPE'}
         />
         {situation['DPE . actuel'] > 2 && (
           <TargetDPETabs
@@ -180,7 +182,7 @@ export default function PlusValueModule({ type }) {
         Source :{' '}
         <a
           rel="noopener external"
-          className="fr-link"
+          className="fr-link fr-hint-text"
           href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
           title="Notaires de France"
           target="_blank"
