@@ -55,10 +55,10 @@ export default async function Page(props) {
             >
               <strong
                 style={css`
-                  color: #da504b;
+                  color: #CE2C23;
                 `}
               >
-                5 minutes chrono
+                En 3 minutes chrono
               </strong>{' '}
               et sans inscription.
             </p>
