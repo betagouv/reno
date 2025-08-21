@@ -14,7 +14,7 @@ export default function PageContact() {
       <StartDsfrOnHydration />
       <PageBlock>
         <Breadcrumb
-          currentPageLabel="Confidentialité"
+          currentPageLabel="Contact"
           homeLinkProps={{
             href: '/',
           }}

@@ -69,7 +69,7 @@ export default function CommuneSearch({
   }, [input, validInput])
 
   return (
-    <div className="fr-fieldset__element">
+    <div className="fr-fieldset__element fr-p-0">
       <Input
         label={label}
         nativeInputProps={{

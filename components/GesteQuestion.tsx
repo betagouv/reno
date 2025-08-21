@@ -163,11 +163,7 @@ const InputComponent = ({
   ) : question === 'projet . DPE visé' ? (
     <TargetDPETabs
       {...{
-        oldIndex: situation['DPE . actuel'] - 1,
-        choice: Math.max(1, situation['projet . DPE visé'] - 1),
         setSearchParams,
-        answeredQuestions,
-        engine,
         situation,
         text: '',
       }}

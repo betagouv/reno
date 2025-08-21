@@ -59,7 +59,7 @@ export const GithubContributionForm = ({ fromLocation }) => {
           plateforme (iPhone, Android, ordinateur Windows, etc.) ainsi que l'url
           concernée, vous nous aiderez à résoudre le bug plus rapidement."
         textArea
-        nativeInputProps={{
+        nativeTextAreaProps={{
           value: comment,
           onChange: (e) => setComment(e.target.value),
           name: 'commentaire',

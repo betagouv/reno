@@ -5,7 +5,6 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import { useSearchParams } from 'next/navigation'
 import rules from '@/app/règles/rules'
 import listeDepartementRegion from '@/app/règles/liste-departement-region.publicodes'
-import Publicodes from 'publicodes'
 import dataPlusValue from '@/data/valeur-verte.csv'
 import { encodeDottedName, getSituation } from '../publicodes/situationUtils'
 import { getCommune } from '../personas/enrichSituation'
@@ -20,12 +19,11 @@ import DPELabel, { conversionLettreIndex } from '../dpe/DPELabel'
 import { formatNumber } from '../RevenuInput'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
 import PlusValueWidget from '../plusValue/PlusValueWidget'
-import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import useIsMobile from '../useIsMobile'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 
 export default function PlusValueModule({ type }) {
-  const engine = new Publicodes(rules)
   const isMobile = useIsMobile(400)
   const setSearchParams = useSetSearchParams()
   const rawSearchParams = useSearchParams(),
@@ -64,10 +62,7 @@ export default function PlusValueModule({ type }) {
   }, [situation])
 
   return type == 'module' ? (
-    <ModuleWrapper
-      isMobile={isMobile}
-      title="Après rénovation, combien vaudra mon bien ?"
-    >
+    <ModuleWrapper title="Après rénovation, combien vaudra mon bien ?">
       <form id="plus-value">
         <LogementType
           {...{
@@ -77,20 +72,22 @@ export default function PlusValueModule({ type }) {
             text: 'Mon logement est :',
           }}
         />
-        <CommuneLogement
-          {...{
-            situation,
-            disabled: !answeredQuestions.includes('logement . type'),
-            text: 'Il est situé à',
-            onChange: (result) => {
-              setSearchParams({
-                [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                [encodeDottedName('logement . commune . nom')]:
-                  `"${result.nom}"*`,
-              })
-            },
-          }}
-        />
+        <div className="fr-input-group">
+          <CommuneLogement
+            {...{
+              situation,
+              disabled: !answeredQuestions.includes('logement . type'),
+              text: 'Il est situé à',
+              onChange: (result) => {
+                setSearchParams({
+                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                  [encodeDottedName('logement . commune . nom')]:
+                    `"${result.nom}"*`,
+                })
+              },
+            }}
+          />
+        </div>
         <MontantQuestion
           {...{
             setSearchParams,
@@ -102,23 +99,16 @@ export default function PlusValueModule({ type }) {
           }}
         />
         <DPEQuickSwitch
-          oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
-          columnDisplay={isMobile}
           disabled={!answeredQuestions.includes("logement . prix d'achat")}
-          text={'Et il a une étiquette DPE'}
+          text={'Il a une étiquette DPE'}
         />
         {situation['DPE . actuel'] > 2 && (
           <TargetDPETabs
             {...{
               disabled: !answeredQuestions.includes('DPE . actuel'),
-              oldIndex: situation['DPE . actuel'] - 1,
               setSearchParams,
-              answeredQuestions,
-              choice: Math.max(1, situation['projet . DPE visé'] - 1),
-              engine,
               situation,
-              columnDisplay: isMobile,
               text: 'Après les travaux, je vise :',
             }}
           />
@@ -180,7 +170,7 @@ export default function PlusValueModule({ type }) {
         Source :{' '}
         <a
           rel="noopener external"
-          className="fr-link"
+          className="fr-link fr-hint-text"
           href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
           title="Notaires de France"
           target="_blank"
@@ -285,10 +275,9 @@ export const DPEAppreciationInfo = ({
     <>
       En région {region}, {logementType} classé
       {logementType == 'une maison' && 'e'}{' '}
-      <DPELabel index={situation['projet . DPE visé'] - 1 || 1} /> a en moyenne
-      une valeur <strong>{pourcentageAppreciation.toFixed(1)}%</strong> plus
-      élevée qu'un bien classé{' '}
-      <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
+      <DPELabel index={situation['projet . DPE visé'] - 1} /> a en moyenne une
+      valeur <strong>{pourcentageAppreciation.toFixed(1)}%</strong> plus élevée
+      qu'un bien classé <DPELabel index={situation['DPE . actuel'] - 1 || 1} />.
     </>
   )
 }

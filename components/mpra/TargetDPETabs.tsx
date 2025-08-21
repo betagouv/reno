@@ -5,16 +5,16 @@ import { push } from '@socialgouv/matomo-next'
 import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 
 export default function TargetDPETabs({
-  oldIndex,
   setSearchParams,
-  answeredQuestions,
-  choice,
   situation,
   disabled,
+  ecartClasse = 1,
   text = 'DPE visé :',
-  columnDisplay,
+  noSuccess = false,
 }) {
-  const possibilities = dpeValues.filter((el, index) => index <= oldIndex - 2)
+  const possibilities = dpeValues.filter(
+    (el, index) => index + 1 <= situation['DPE . actuel'] - ecartClasse,
+  )
 
   const doSetSearchParams = (value) => {
     push(['trackEvent', 'Module', 'Interaction', 'DPE visé ' + value])
@@ -26,6 +26,7 @@ export default function TargetDPETabs({
       false,
     )
   }
+
   return (
     <RadioButtons
       legend={text}
@@ -33,15 +34,18 @@ export default function TargetDPETabs({
         return {
           label: <DPELabel index={index} small={false} />,
           nativeInputProps: {
-            value: index,
-            checked: index === choice,
+            value: index + 1,
+            checked: index + 1 == situation['projet . DPE visé'],
             onChange: () => doSetSearchParams(index + 1),
           },
         }
       })}
       name={`radio-${encodeDottedName('projet . DPE visé')}`}
       disabled={disabled}
-      state={situation['projet . DPE visé'] && !disabled && 'success'}
+      state={
+        !noSuccess && situation['projet . DPE visé'] && !disabled && 'success'
+      }
+      orientation="horizontal"
       stateRelatedMessage=""
     />
   )

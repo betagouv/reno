@@ -1,7 +1,7 @@
 'use client'
-import { useMediaQuery } from 'usehooks-ts'
+import useIsMobile from './useIsMobile'
 export default function ParFranceRénovTexte() {
-  const isMobile = useMediaQuery('(max-width: 400px)')
+  const isMobile = useIsMobile()
 
   return (
     <p className="fr-hint-text fr-mb-0">

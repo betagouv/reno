@@ -107,7 +107,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     )
   isExactTotal =
     evaluationTotal?.missingVariables &&
-    Object.keys(evaluationTotal?.missingVariables).length === 1
+    Object.keys(evaluationTotal?.missingVariables).length <= 1
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
   if (!isExactTotal) {
     calculatedMontantTotal = formatValue(
