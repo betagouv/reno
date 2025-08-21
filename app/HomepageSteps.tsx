@@ -32,7 +32,7 @@ export default function HomepageSteps() {
       >
         <li className="fr-col-12 fr-col-md-4" key="1">
           <strong>1</strong>
-          <h3>Je réponds à un questionnaire simplifié</h3>
+          <h2>Je réponds à un questionnaire simplifié</h2>
           <p>
             6 questions pour évaluer votre éligibilité et estimer le montant le
             vos aides.
@@ -40,7 +40,7 @@ export default function HomepageSteps() {
         </li>
         <li className="fr-col-12 fr-col-md-4" key="2">
           <strong>2</strong>
-          <h3>Je découvre le montant de mes aides</h3>
+          <h2>Je découvre le montant de mes aides</h2>
           <p>
             Et j’affine mon projet pour obtenir un montant d’enveloppe global
             pour mes travaux.
@@ -48,7 +48,7 @@ export default function HomepageSteps() {
         </li>
         <li className="fr-col-12 fr-col-md-4" key="3">
           <strong>3</strong>
-          <h3>J’exporte le résultat de ma simulation</h3>
+          <h2>J’exporte le résultat de ma simulation</h2>
           <p>
             Pour le partager avec mon conseiller local France Rénov’, mes
             proches ou mes artisans.
