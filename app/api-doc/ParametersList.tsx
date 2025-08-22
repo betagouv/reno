@@ -39,7 +39,7 @@ export default function ParametersList() {
       values: ['entier numérique'],
     },
     {
-      title: 'ménage . revenus',
+      title: 'ménage . revenu',
       description:
         'Le revenu fiscal de référence des personnes composant le ménage',
       values: ['entier numérique'],
