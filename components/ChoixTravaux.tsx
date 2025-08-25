@@ -64,16 +64,17 @@ export default function ChoixTravaux({
   let travauxEnvisages = getTravauxEnvisages(situation)
 
   // Test raccordement réseau chaleur, via FCU
-  isEligibleReseauChaleur(
-    situation['logement . coordonnees'].replaceAll('"', ''),
-  ).then((eligibility) => {
-    if (eligibility) {
-      categories.find((cat) => cat.code == 'chauffage').gestes[
-        'gestes . chauffage . raccordement réseau . chaleur'
-      ] = 'Raccordement à un réseau de chaleur'
-    }
-  })
-
+  if (situation['logement . coordonnees']) {
+    isEligibleReseauChaleur(
+      situation['logement . coordonnees'].replaceAll('"', ''),
+    ).then((eligibility) => {
+      if (eligibility) {
+        categories.find((cat) => cat.code == 'chauffage').gestes[
+          'gestes . chauffage . raccordement réseau . chaleur'
+        ] = 'Raccordement à un réseau de chaleur'
+      }
+    })
+  }
   const isTravailChecked = (value) => {
     return (
       encodeDottedName(value)
