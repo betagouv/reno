@@ -1,6 +1,5 @@
 import Answers from '@/app/simulation/Answers'
 import FormButtons from '@/app/simulation/FormButtons'
-import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
 import { useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 import AvertissementSimulation, {
@@ -13,7 +12,6 @@ import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
-import Script from 'next/script'
 
 export const QuestionText = ({
   rule,

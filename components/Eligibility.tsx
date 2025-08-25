@@ -19,7 +19,6 @@ import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
-import Stepper from '@codegouvfr/react-dsfr/Stepper'
 import Script from 'next/script'
 
 export default function Eligibility({
