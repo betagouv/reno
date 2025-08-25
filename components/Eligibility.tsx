@@ -20,6 +20,7 @@ import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Stepper from '@codegouvfr/react-dsfr/Stepper'
+import Script from 'next/script'
 
 export default function Eligibility({
   setSearchParams,
@@ -46,6 +47,12 @@ export default function Eligibility({
   }, [isInIframe, consent, situation])
   return (
     <>
+      <>
+        <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
+        <Script
+          id={'np2g9V'}
+        >{` window.TallyConfig = { "formId": "np2g9V", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
+      </>
       <PersonaBar
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
