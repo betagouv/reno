@@ -45,7 +45,7 @@ export default async function Page(props) {
             logement plus confortable et plus écologique.
           </p>
           <p>
-            <strong>5 minutes chrono</strong> et sans inscription.
+            <strong>En 3 minutes chrono</strong> et sans inscription.
           </p>
           <div
             style={css`
