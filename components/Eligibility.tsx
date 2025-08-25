@@ -19,7 +19,6 @@ import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
-import Stepper from '@codegouvfr/react-dsfr/Stepper'
 
 export default function Eligibility({
   setSearchParams,
@@ -51,13 +50,20 @@ export default function Eligibility({
         selectedPersona={searchParams.persona}
         engine={engine}
       />
-      <Stepper
-        className="fr-mt-5v"
-        currentStep={3}
-        nextTitle={'Mes démarches'}
-        stepCount={4}
-        title="Mes aides"
-      />
+      <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
+        <h1 className="fr-stepper__title">
+          Mes aides
+          <span className="fr-stepper__state">Étape 3 sur 4</span>
+        </h1>
+        <div
+          className="fr-stepper__steps"
+          data-fr-current-step="3"
+          data-fr-steps="4"
+        ></div>
+        <p className="fr-stepper__details">
+          <span className="fr-text--bold">Étape suivante :</span> Mes démarches
+        </p>
+      </div>
       <div
         className="fr-mb-5v"
         css={`
@@ -86,7 +92,7 @@ export default function Eligibility({
         </Link>
         {/* <CopyButton searchParams={searchParams} /> */}
       </div>
-      <h1>Vos résultats</h1>
+      <span className="fr-h1">Vos résultats</span>
       {situation["parcours d'aide"] == '"autonomie de la personne"' ? (
         <EligibilityMPA
           {...{
