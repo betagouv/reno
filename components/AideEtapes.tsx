@@ -1,14 +1,4 @@
 import { Card } from './UI'
-import iconConseiller from '@/public/icon-conseiller.svg'
-import iconLampe from '@/public/icon-lampe.svg'
-import iconPaper from '@/public/icon-paper.svg'
-import iconSend from '@/public/icon-send.svg'
-import iconValider from '@/public/icon-valider.svg'
-import iconSign from '@/public/icon-sign.svg'
-import iconEuro from '@/public/icon-euro.svg'
-import iconTravaux from '@/public/icon-travaux.svg'
-import iconCard from '@/public/icon-card.svg'
-import Image from 'next/image'
 import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
@@ -17,7 +7,6 @@ import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
 import { push } from '@socialgouv/matomo-next'
 import Badge from '@codegouvfr/react-dsfr/Badge'
-import Stepper from '@codegouvfr/react-dsfr/Stepper'
 
 export default function AideEtapes({
   setSearchParams,
@@ -38,12 +27,17 @@ export default function AideEtapes({
 
   return (
     <>
-      <Stepper
-        className="fr-mt-5v"
-        currentStep={4}
-        stepCount={4}
-        title="Mes démarches"
-      />
+      <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
+        <h1 className="fr-stepper__title">
+          Mes démarches
+          <span className="fr-stepper__state">Étape 4 sur 4</span>
+        </h1>
+        <div
+          className="fr-stepper__steps"
+          data-fr-current-step="4"
+          data-fr-steps="4"
+        ></div>
+      </div>
       <div className="fr-mb-5v">
         <BtnBackToParcoursChoice
           {...{
@@ -54,7 +48,7 @@ export default function AideEtapes({
           }}
         />
       </div>
-      <h1>Les étapes pour obtenir vos aides</h1>
+      <h2>Les étapes pour obtenir vos aides</h2>
       <div
         css={`
           border-left: 3px solid var(--color);
@@ -77,21 +71,12 @@ export default function AideEtapes({
           }
         `}
       >
-        <Card
-          css={`
-            background: #f5f5fe;
-            padding: calc(0.5rem + 1vw);
-          `}
-        >
+        <Card>
           <Badge noIcon>prochaine étape</Badge>
-          <h2>
-            <Image
-              src={iconConseiller}
-              alt="icone conseiller"
-              className="fr-mr-3v"
-            />
+          <h3>
+            <span className="fr-icon-user-line" aria-hidden="true"></span>
             Un conseiller France Rénov' vous accompagne
-          </h2>
+          </h3>
           <p>
             Neutres et gratuits, il existe plus de 600 Espaces conseil France
             Rénov' en France pour vous aider à :
@@ -104,10 +89,10 @@ export default function AideEtapes({
           <BlocConseiller situation={situation} />
         </Card>
         <Card>
-          <h2>
-            <Image src={iconLampe} alt="icone lampe" className="fr-mr-3v" />
+          <h3>
+            <span className="fr-icon-links-line" aria-hidden="true"></span>
             Conservez votre simulation pour plus tard
-          </h2>
+          </h3>
           <Share
             text="Elle pourra vous être utile pour votre rendez-vous en Espace conseil
             France Rénov'."
@@ -117,10 +102,10 @@ export default function AideEtapes({
         </Card>
         {(hasMPRA || hasMPA || hasPret) && (
           <Card>
-            <h2>
-              <Image src={iconPaper} alt="icone papier" className="fr-mr-3v" />
+            <h3>
+              <span className="fr-icon-draft-line" aria-hidden="true"></span>
               Votre projet prend forme. Demandez des devis
-            </h2>
+            </h3>
             <p>
               Après votre rendez-vous avec un conseiller, contactez des artisans
               RGE pour obtenir leurs devis.
@@ -139,14 +124,13 @@ export default function AideEtapes({
         {(hasMPRA || hasMPA) && (
           <>
             <Card>
-              <h2>
-                <Image
-                  src={iconSend}
-                  alt="icone envoyer"
-                  className="fr-mr-3v"
-                />
+              <h3>
+                <span
+                  className="fr-icon-send-plane-line"
+                  aria-hidden="true"
+                ></span>
                 Déposez le dossier auprès de l'Anah
-              </h2>
+              </h3>
               <p>
                 Vous pouvez le faire avec l'aide de votre Accompagnateur Rénov',
                 votre mandataire ou directement depuis la plateforme que vous a
@@ -156,14 +140,13 @@ export default function AideEtapes({
             </Card>
             <Card>
               <Badge noIcon>3 mois d'attente</Badge>
-              <h2>
-                <Image
-                  src={iconValider}
-                  alt="icone valider"
-                  className="fr-mr-3v"
-                />
+              <h3>
+                <span
+                  className="fr-icon-checkbox-circle-line fr-mr-1v"
+                  aria-hidden="true"
+                ></span>
                 L'Anah instruit et valide votre dossier
-              </h2>
+              </h3>
               <p>
                 La période d'instruction varie grandement en fonction de
                 l'affluence et de la lutte contre la fraude. Une fois validé,
@@ -176,14 +159,13 @@ export default function AideEtapes({
         {!hasMPRA && hasPret && (
           <>
             <Card>
-              <h2>
-                <Image
-                  src={iconSend}
-                  alt="icone envoyer"
-                  className="fr-mr-3v"
-                />
+              <h3>
+                <span
+                  className="fr-icon-send-plane-line fr-mr-1v"
+                  aria-hidden="true"
+                ></span>
                 Contactez votre banque pour faire la demande de prêts 0%
-              </h2>
+              </h3>
               <p>
                 L'éco-PTZ et le prêt avance rénovation (PAR+) sont proposés par
                 les établissements de crédit et les sociétés de financement qui
@@ -192,14 +174,13 @@ export default function AideEtapes({
             </Card>
             <Card>
               <Badge noIcon>selon votre capacité d’endettement</Badge>
-              <h2>
-                <Image
-                  src={iconValider}
-                  alt="icone valider"
-                  className="fr-mr-3v"
-                />
+              <h3>
+                <span
+                  className="fr-icon-checkbox-circle-line fr-mr-1v"
+                  aria-hidden="true"
+                ></span>
                 L’établissement de crédit examine et valide votre demande
-              </h2>
+              </h3>
               <p>
                 L'établissement ou la société décidera, comme pour toute demande
                 de prêt, de vous prêter la somme demandée en fonction de votre
@@ -210,20 +191,26 @@ export default function AideEtapes({
         )}
         {hasMPRA && (
           <Card>
-            <h2>
-              <Image src={iconSign} alt="icone signer" className="fr-mr-3v" />
+            <h3>
+              <span
+                className="fr-icon-pen-nib-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
               Signez les devis, et planifiez les travaux avec les artisans
-            </h2>
+            </h3>
             <p>C'est parti ! Les travaux vont bientôt commencer.</p>
           </Card>
         )}
         {hasPret && (
           <Card>
             {hasMPRA && <Badge noIcon>optionnel</Badge>}
-            <h2>
-              <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
+            <h3>
+              <span
+                className="fr-icon-money-euro-circle-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
               Recevez le prêt et démarrez les travaux
-            </h2>
+            </h3>
             {hasMPRA ? (
               <>
                 <p>
@@ -255,18 +242,24 @@ export default function AideEtapes({
         {!hasMPRA && (
           <Card>
             <Badge noIcon>optionnel</Badge>
-            <h2>
-              <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
+            <h3>
+              <span
+                className="fr-icon-money-euro-circle-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
               Déposer vos demandes d’aides
-            </h2>
+            </h3>
             <p>Primes CEE, Exonération de taxe foncière, etc.</p>
           </Card>
         )}
         <Card>
-          <h2>
-            <Image src={iconTravaux} alt="icone travaux" className="fr-mr-3v" />
+          <h3>
+            <span
+              className="fr-icon-warning-line fr-mr-1v"
+              aria-hidden="true"
+            ></span>
             Fin des travaux ! Votre logement est rénové
-          </h2>
+          </h3>
           <p>Dès les premiers mois, profitez de nombreux bénéfices :</p>
           <ul>
             <li>🧘 Plus de confort, en hiver comme en été</li>
@@ -276,10 +269,13 @@ export default function AideEtapes({
         </Card>
         <Card>
           <Badge noIcon>1 mois d'attente</Badge>
-          <h2>
-            <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
+          <h3>
+            <span
+              className="fr-icon-money-euro-circle-line fr-mr-1v"
+              aria-hidden="true"
+            ></span>
             Recevez vos aides
-          </h2>
+          </h3>
           <p>
             Subvention MaPrimeRénov', Primes CEE... Elles arriveront
             probablement une fois les travaux finis.
@@ -288,14 +284,13 @@ export default function AideEtapes({
         {hasPret && (
           <Card>
             {hasMPRA && <Badge noIcon>optionnel</Badge>}
-            <h2>
-              <Image
-                src={iconCard}
-                alt="icone carte de crédit"
-                className="fr-mr-3v"
-              />
+            <h3>
+              <span
+                className="fr-icon-bank-card-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
               Remboursement du prêt
-            </h2>
+            </h3>
             <p>
               Vous continuez de rembourser votre prêt, tout en réalisant déjà
               des économies d'énergie&nbsp;⚡️.

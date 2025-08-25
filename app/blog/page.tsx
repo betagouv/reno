@@ -12,7 +12,6 @@ const description =
 
 import { getAllArticles } from './articles'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
-import Tile from '@codegouvfr/react-dsfr/Tile'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const metadata: metadata = {
@@ -56,7 +55,7 @@ const Page = async () => {
                 imageUrl={
                   image.startsWith('/') ? image : `/blog-images/${image}`
                 }
-                imageAlt="Image d'illustration d'un article de blog"
+                imageAlt={`Illustration de l'article ${titre}`}
                 titleAs="h2"
               />
             </div>

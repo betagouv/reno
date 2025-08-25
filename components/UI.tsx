@@ -30,7 +30,6 @@ export const cardBorder = `
 `
 export const Card = styled.div`
   position: relative;
-  background: white;
   margin: 0.6rem 0;
   padding: 1rem 1.5rem;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}
@@ -47,7 +46,6 @@ export const BlocAide = styled.div`
   ${(p) => p.display == "geste" ? 
     'padding: 0.5rem 0.5rem 0.5rem 0;border-bottom: 1px solid #ddd;' : 
     'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
-  background: white;
   margin-bottom: 1rem;
   .aide-header {
     display: flex;
@@ -63,7 +61,6 @@ export const BlocAide = styled.div`
     margin-top: 1rem;
     font-size: 0.9rem;
     line-height: 1.25rem;
-    color: #3a3a3a;
   }
 `
 

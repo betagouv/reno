@@ -11,6 +11,7 @@ import {
   getHtmlAttributes,
 } from '@/src/dsfr-bootstrap/server-only-index'
 import { DsfrProvider } from '@/src/dsfr-bootstrap'
+import { SkipLinks } from '@codegouvfr/react-dsfr/SkipLinks'
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -75,6 +76,22 @@ export default function RootLayout({
       </head>
       <body className={marianneFont.className}>
         <DsfrProvider lang={lang}>
+          <SkipLinks
+            links={[
+              {
+                anchor: '#content',
+                label: 'Contenu',
+              },
+              {
+                anchor: '#fr-header-with-horizontal-operator-logo-menu-button',
+                label: 'Menu',
+              },
+              {
+                anchor: '#fr-footer',
+                label: 'Pied de page',
+              },
+            ]}
+          />
           <Header />
           <Banner />
           {children}

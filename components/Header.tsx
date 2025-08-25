@@ -23,7 +23,7 @@ export default function Header() {
       }}
       id="fr-header-with-horizontal-operator-logo"
       operatorLogo={{
-        alt: `Logo Mes Aides Réno, représentant une maison bleu blanc rouge ainsi que la marque à laquellee le service est rattaché, le visage souriant France Rénov' avec un toît en guise de couvre-chef.`,
+        alt: 'Logo Mes Aides Réno',
         imgUrl: '/logo-service-de-FR.svg',
         orientation: 'horizontal',
       }}
