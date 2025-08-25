@@ -1,11 +1,7 @@
 'use client'
 import { push } from '@socialgouv/matomo-next'
-import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconSmileyNo from '@/public/smiley-no.svg'
-import iconSmileyMaybe from '@/public/smiley-maybe.svg'
-import iconSmileyYes from '@/public/smiley-yes.svg'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function Feedback({
@@ -51,7 +47,7 @@ export default function Feedback({
             push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Non'])
           }}
         >
-          <Image src={iconSmileyNo} alt="smiley unhappy" />
+          <span aria-hidden="true" className="fr-icon-close-circle-line"></span>
           <div>Non</div>
         </div>
         <div
@@ -61,7 +57,7 @@ export default function Feedback({
             push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'En partie'])
           }}
         >
-          <Image alt="smiley normal" src={iconSmileyMaybe} />
+          <span className="fr-icon-warning-line" aria-hidden="true"></span>
           <div>En partie</div>
         </div>
         <div
@@ -71,7 +67,10 @@ export default function Feedback({
             push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Oui'])
           }}
         >
-          <Image alt="smiley happy" src={iconSmileyYes} />
+          <span
+            aria-hidden="true"
+            className="fr-icon-checkbox-circle-line"
+          ></span>
           <div>Oui</div>
         </div>
       </VoteBox>
