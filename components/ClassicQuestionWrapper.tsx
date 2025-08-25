@@ -1,19 +1,18 @@
-import FormButtons from '@/app/simulation/FormButtons'
-import Suggestions from '@/app/simulation/Suggestions'
-import Notifications from './Notifications'
-import { encodeSituation } from './publicodes/situationUtils'
 import Answers from '@/app/simulation/Answers'
+import FormButtons from '@/app/simulation/FormButtons'
+import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
 import { useSearchParams } from 'next/navigation'
+import Script from 'next/script'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
 import CopyButton from './CopyButton'
+import Notifications from './Notifications'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
+import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
-import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
-import Script from 'next/script'
 
 export const QuestionText = ({
   rule,
@@ -63,7 +62,11 @@ export default function ClassicQuestionWrapper({
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
-  const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
+  // Ceci a été introduit par https://github.com/betagouv/reno/issues/425,
+  // n'est pas sensé rester là à long-terme (par exemple au-delà de l'automne 2025
+  // Globalement l'intégration de Tally est imparfaite car ils ne nous permettent pas de détruire les hooks qu'ils initient...
+  //const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
+  const tallyForm = null
 
   return (
     <>
