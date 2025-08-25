@@ -77,12 +77,7 @@ export default function AideEtapes({
           }
         `}
       >
-        <Card
-          css={`
-            background: #f5f5fe;
-            padding: calc(0.5rem + 1vw);
-          `}
-        >
+        <Card>
           <Badge noIcon>prochaine étape</Badge>
           <h2>
             <Image

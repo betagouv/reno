@@ -116,7 +116,6 @@ export default function AddressSearch({
 
 export const CityList = styled.ul`
   padding: 0;
-  background: #f5f5fe;
   border-radius: 0 0 5px 5px;
   border: 1px solid #dfdff0;
   z-index: 999999;
