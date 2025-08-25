@@ -141,7 +141,7 @@ export default function ClassicQuestionWrapper({
           form="simulator-form"
           aria-labelledby="simulator-form-legend simulator-form-messages"
           css={`
-            .fr-input-group label.fr-label {
+            .fr-input-group > label.fr-label {
               font-weight: 700;
               width: 100%;
               color: var(--text-label-grey);
