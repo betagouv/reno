@@ -142,7 +142,7 @@ export default function AideEtapes({
               <Badge noIcon>3 mois d'attente</Badge>
               <h3>
                 <span
-                  className="fr-icon-checkbox-circle-line"
+                  className="fr-icon-checkbox-circle-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
                 L'Anah instruit et valide votre dossier
@@ -161,7 +161,7 @@ export default function AideEtapes({
             <Card>
               <h3>
                 <span
-                  className="fr-icon-send-plane-line"
+                  className="fr-icon-send-plane-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
                 Contactez votre banque pour faire la demande de prêts 0%
@@ -176,7 +176,7 @@ export default function AideEtapes({
               <Badge noIcon>selon votre capacité d’endettement</Badge>
               <h3>
                 <span
-                  className="fr-icon-checkbox-circle-line"
+                  className="fr-icon-checkbox-circle-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
                 L’établissement de crédit examine et valide votre demande
@@ -192,7 +192,10 @@ export default function AideEtapes({
         {hasMPRA && (
           <Card>
             <h3>
-              <span className="fr-icon-pen-nib-line" aria-hidden="true"></span>
+              <span
+                className="fr-icon-pen-nib-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
               Signez les devis, et planifiez les travaux avec les artisans
             </h3>
             <p>C'est parti ! Les travaux vont bientôt commencer.</p>
@@ -203,7 +206,7 @@ export default function AideEtapes({
             {hasMPRA && <Badge noIcon>optionnel</Badge>}
             <h3>
               <span
-                className="fr-icon-money-euro-circle-line"
+                className="fr-icon-money-euro-circle-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
               Recevez le prêt et démarrez les travaux
@@ -241,7 +244,7 @@ export default function AideEtapes({
             <Badge noIcon>optionnel</Badge>
             <h3>
               <span
-                className="fr-icon-money-euro-circle-line"
+                className="fr-icon-money-euro-circle-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
               Déposer vos demandes d’aides
@@ -251,7 +254,10 @@ export default function AideEtapes({
         )}
         <Card>
           <h3>
-            <span class="fr-icon-warning-line" aria-hidden="true"></span>
+            <span
+              className="fr-icon-warning-line fr-mr-1v"
+              aria-hidden="true"
+            ></span>
             Fin des travaux ! Votre logement est rénové
           </h3>
           <p>Dès les premiers mois, profitez de nombreux bénéfices :</p>
@@ -265,7 +271,7 @@ export default function AideEtapes({
           <Badge noIcon>1 mois d'attente</Badge>
           <h3>
             <span
-              className="fr-icon-money-euro-circle-line"
+              className="fr-icon-money-euro-circle-line fr-mr-1v"
               aria-hidden="true"
             ></span>
             Recevez vos aides
@@ -280,7 +286,7 @@ export default function AideEtapes({
             {hasMPRA && <Badge noIcon>optionnel</Badge>}
             <h3>
               <span
-                className="fr-icon-bank-card-line"
+                className="fr-icon-bank-card-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
               Remboursement du prêt
