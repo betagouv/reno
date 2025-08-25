@@ -32,6 +32,8 @@ export default function Eligibility({
   sendDataToHost = false,
 }) {
   useEffect(() => {
+    document.title =
+      'Résultats - Vos aides à la rénovation énergétiques disponibles'
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   }, [])
 
