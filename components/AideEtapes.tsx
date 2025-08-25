@@ -74,7 +74,10 @@ export default function AideEtapes({
         <Card>
           <Badge noIcon>prochaine étape</Badge>
           <h3>
-            <span className="fr-icon-user-line" aria-hidden="true"></span>
+            <span
+              className="fr-icon-user-line fr-mr-1v"
+              aria-hidden="true"
+            ></span>
             Un conseiller France Rénov' vous accompagne
           </h3>
           <p>
@@ -90,7 +93,10 @@ export default function AideEtapes({
         </Card>
         <Card>
           <h3>
-            <span className="fr-icon-links-line" aria-hidden="true"></span>
+            <span
+              className="fr-icon-links-line fr-mr-1v"
+              aria-hidden="true"
+            ></span>
             Conservez votre simulation pour plus tard
           </h3>
           <Share
@@ -103,7 +109,10 @@ export default function AideEtapes({
         {(hasMPRA || hasMPA || hasPret) && (
           <Card>
             <h3>
-              <span className="fr-icon-draft-line" aria-hidden="true"></span>
+              <span
+                className="fr-icon-draft-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
               Votre projet prend forme. Demandez des devis
             </h3>
             <p>
@@ -126,7 +135,7 @@ export default function AideEtapes({
             <Card>
               <h3>
                 <span
-                  className="fr-icon-send-plane-line"
+                  className="fr-icon-send-plane-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
                 Déposez le dossier auprès de l'Anah
