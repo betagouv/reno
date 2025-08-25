@@ -1,14 +1,4 @@
 import { Card } from './UI'
-import iconConseiller from '@/public/icon-conseiller.svg'
-import iconLampe from '@/public/icon-lampe.svg'
-import iconPaper from '@/public/icon-paper.svg'
-import iconSend from '@/public/icon-send.svg'
-import iconValider from '@/public/icon-valider.svg'
-import iconSign from '@/public/icon-sign.svg'
-import iconEuro from '@/public/icon-euro.svg'
-import iconTravaux from '@/public/icon-travaux.svg'
-import iconCard from '@/public/icon-card.svg'
-import Image from 'next/image'
 import { omit } from './utils'
 import BlocConseiller from './BlocConseiller'
 import Share from '@/app/simulation/Share'
@@ -84,11 +74,7 @@ export default function AideEtapes({
         <Card>
           <Badge noIcon>prochaine étape</Badge>
           <h3>
-            <Image
-              src={iconConseiller}
-              alt="icone conseiller"
-              className="fr-mr-3v"
-            />
+            <span className="fr-icon-user-line" aria-hidden="true"></span>
             Un conseiller France Rénov' vous accompagne
           </h3>
           <p>
@@ -104,7 +90,7 @@ export default function AideEtapes({
         </Card>
         <Card>
           <h3>
-            <Image src={iconLampe} alt="icone lampe" className="fr-mr-3v" />
+            <span className="fr-icon-links-line" aria-hidden="true"></span>
             Conservez votre simulation pour plus tard
           </h3>
           <Share
@@ -117,7 +103,7 @@ export default function AideEtapes({
         {(hasMPRA || hasMPA || hasPret) && (
           <Card>
             <h3>
-              <Image src={iconPaper} alt="icone papier" className="fr-mr-3v" />
+              <span className="fr-icon-draft-line" aria-hidden="true"></span>
               Votre projet prend forme. Demandez des devis
             </h3>
             <p>
@@ -139,11 +125,10 @@ export default function AideEtapes({
           <>
             <Card>
               <h3>
-                <Image
-                  src={iconSend}
-                  alt="icone envoyer"
-                  className="fr-mr-3v"
-                />
+                <span
+                  className="fr-icon-send-plane-line"
+                  aria-hidden="true"
+                ></span>
                 Déposez le dossier auprès de l'Anah
               </h3>
               <p>
@@ -156,11 +141,10 @@ export default function AideEtapes({
             <Card>
               <Badge noIcon>3 mois d'attente</Badge>
               <h3>
-                <Image
-                  src={iconValider}
-                  alt="icone valider"
-                  className="fr-mr-3v"
-                />
+                <span
+                  className="fr-icon-checkbox-circle-line"
+                  aria-hidden="true"
+                ></span>
                 L'Anah instruit et valide votre dossier
               </h3>
               <p>
@@ -176,11 +160,10 @@ export default function AideEtapes({
           <>
             <Card>
               <h3>
-                <Image
-                  src={iconSend}
-                  alt="icone envoyer"
-                  className="fr-mr-3v"
-                />
+                <span
+                  className="fr-icon-send-plane-line"
+                  aria-hidden="true"
+                ></span>
                 Contactez votre banque pour faire la demande de prêts 0%
               </h3>
               <p>
@@ -192,11 +175,10 @@ export default function AideEtapes({
             <Card>
               <Badge noIcon>selon votre capacité d’endettement</Badge>
               <h3>
-                <Image
-                  src={iconValider}
-                  alt="icone valider"
-                  className="fr-mr-3v"
-                />
+                <span
+                  className="fr-icon-checkbox-circle-line"
+                  aria-hidden="true"
+                ></span>
                 L’établissement de crédit examine et valide votre demande
               </h3>
               <p>
@@ -210,7 +192,7 @@ export default function AideEtapes({
         {hasMPRA && (
           <Card>
             <h3>
-              <Image src={iconSign} alt="icone signer" className="fr-mr-3v" />
+              <span className="fr-icon-pen-nib-line" aria-hidden="true"></span>
               Signez les devis, et planifiez les travaux avec les artisans
             </h3>
             <p>C'est parti ! Les travaux vont bientôt commencer.</p>
@@ -220,7 +202,10 @@ export default function AideEtapes({
           <Card>
             {hasMPRA && <Badge noIcon>optionnel</Badge>}
             <h3>
-              <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
+              <span
+                className="fr-icon-money-euro-circle-line"
+                aria-hidden="true"
+              ></span>
               Recevez le prêt et démarrez les travaux
             </h3>
             {hasMPRA ? (
@@ -255,7 +240,10 @@ export default function AideEtapes({
           <Card>
             <Badge noIcon>optionnel</Badge>
             <h3>
-              <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
+              <span
+                className="fr-icon-money-euro-circle-line"
+                aria-hidden="true"
+              ></span>
               Déposer vos demandes d’aides
             </h3>
             <p>Primes CEE, Exonération de taxe foncière, etc.</p>
@@ -263,7 +251,7 @@ export default function AideEtapes({
         )}
         <Card>
           <h3>
-            <Image src={iconTravaux} alt="icone travaux" className="fr-mr-3v" />
+            <span class="fr-icon-warning-line" aria-hidden="true"></span>
             Fin des travaux ! Votre logement est rénové
           </h3>
           <p>Dès les premiers mois, profitez de nombreux bénéfices :</p>
@@ -276,7 +264,10 @@ export default function AideEtapes({
         <Card>
           <Badge noIcon>1 mois d'attente</Badge>
           <h3>
-            <Image src={iconEuro} alt="icone euro" className="fr-mr-3v" />
+            <span
+              className="fr-icon-money-euro-circle-line"
+              aria-hidden="true"
+            ></span>
             Recevez vos aides
           </h3>
           <p>
@@ -288,11 +279,10 @@ export default function AideEtapes({
           <Card>
             {hasMPRA && <Badge noIcon>optionnel</Badge>}
             <h3>
-              <Image
-                src={iconCard}
-                alt="icone carte de crédit"
-                className="fr-mr-3v"
-              />
+              <span
+                className="fr-icon-bank-card-line"
+                aria-hidden="true"
+              ></span>
               Remboursement du prêt
             </h3>
             <p>
