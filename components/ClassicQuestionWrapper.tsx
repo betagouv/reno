@@ -63,6 +63,9 @@ export default function ClassicQuestionWrapper({
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
+  // Ceci a été introduit par https://github.com/betagouv/reno/issues/425,
+  // n'est pas sensé rester là à long-terme (par exemple au-delà de l'automne 2025
+  // Globalement l'intégration de Tally est imparfaite car ils ne nous permettent pas de détruire les hooks qu'ils initient...
   const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
 
   return (
