@@ -59,6 +59,11 @@ export default function InputSwitch({
     currentValue,
     engine,
     suggestions: rule && rule['suggestions'],
+    noLabel: [
+      'logement . adresse',
+      'logement . surface',
+      'ménage . personnes',
+    ].includes(currentQuestion),
     noButtons: [
       'projet . définition . travaux envisagés',
       'projet . définition . travaux envisagés chauffage',
@@ -188,38 +193,41 @@ export default function InputSwitch({
           }}
         />
       ) : currentQuestion === 'logement . adresse' ? (
-        <AddressSearch
-          {...{
-            addressResults,
-            setAddressResults,
-            situation,
-            coordinates: [searchParams.lon, searchParams.lat],
-            setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
-            onChange: async (adresse) => {
-              const result = await getCommune(
-                null,
-                null,
-                adresse.properties.citycode,
-              )
+        <div className="fr-fieldset__element">
+          <AddressSearch
+            {...{
+              addressResults,
+              setAddressResults,
+              situation,
+              label: rules[currentQuestion].question,
+              coordinates: [searchParams.lon, searchParams.lat],
+              setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
+              onChange: async (adresse) => {
+                const result = await getCommune(
+                  null,
+                  null,
+                  adresse.properties.citycode,
+                )
 
-              const newSituation = await enrichSituation({
-                ...situation,
-                'logement . adresse': `"${adresse.properties.label}"`,
-                'logement . code région': `"${result.codeRegion}"`,
-                'logement . code département': `"${result.codeDepartement}"`,
-                'logement . EPCI': `"${result.codeEpci}"`,
-                'logement . commune': `"${result.code}"`,
-                'logement . commune . nom': `"${result.nom}"`,
-                'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
-              })
-              setSearchParams(
-                encodeSituation(newSituation, false, answeredQuestions),
-                'push',
-                false,
-              )
-            },
-          }}
-        />
+                const newSituation = await enrichSituation({
+                  ...situation,
+                  'logement . adresse': `"${adresse.properties.label}"`,
+                  'logement . code région': `"${result.codeRegion}"`,
+                  'logement . code département': `"${result.codeDepartement}"`,
+                  'logement . EPCI': `"${result.codeEpci}"`,
+                  'logement . commune': `"${result.code}"`,
+                  'logement . commune . nom': `"${result.nom}"`,
+                  'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
+                })
+                setSearchParams(
+                  encodeSituation(newSituation, false, answeredQuestions),
+                  'push',
+                  false,
+                )
+              },
+            }}
+          />
+        </div>
       ) : // <DPEMap
       //   {...{
       //     searchParams,
@@ -329,6 +337,7 @@ export default function InputSwitch({
       ) : (
         <div className="fr-fieldset__element">
           <Input
+            label={rules[currentQuestion].question}
             nativeInputProps={{
               type: ruleQuestionType,
               name: currentQuestion,

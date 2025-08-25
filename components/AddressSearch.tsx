@@ -43,74 +43,70 @@ export default function AddressSearch({
   }, [input, validInput])
 
   return (
-    <>
-      <div className="fr-fieldset__element">
-        <Input
-          label={label}
-          nativeInputProps={{
-            value: immediateInput,
-            onChange: (e) => {
-              setCoordinates([undefined, undefined])
-              setClicked(false)
-              setInput(e.target.value)
-            },
-            type: 'text',
-            name: 'adresse',
-            required: true,
-            autoFocus: true,
-          }}
-          state={error ? 'error' : clicked && input ? 'success' : ''}
-          stateRelatedMessage={
-            clicked && input ? (
-              'Adresse validée'
-            ) : error ? (
-              error
-            ) : validInput && !addressResults ? (
-              <>
-                <Loader /> Chargement ...
-              </>
-            ) : input == '' ? (
-              <></>
-            ) : (
-              addressResults &&
-              !clicked && (
-                <>
-                  <span>Sélectionnez une adresse :</span>
-                  <CityList>
-                    {addressResults.map((result) => {
-                      const { label, id } = result.properties
-                      return (
-                        <li
-                          className={
-                            coordinates &&
-                            coordinates.join('|') ===
-                              result.geometry.coordinates.join('|')
-                              ? 'selected'
-                              : ''
-                          }
-                          key={id}
-                          onClick={() => {
-                            setAddressResults(null)
-                            onChange &&
-                              onChange(result).then(() => {
-                                setInput(label)
-                                //setCoordinates(result.geometry.coordinates)
-                                setClicked(result)
-                              })
-                          }}
-                        >
-                          <span>{label}</span>
-                        </li>
-                      )
-                    })}
-                  </CityList>
-                </>
-              )
-            )
-          }
-        />
-      </div>
-    </>
+    <Input
+      label={label}
+      nativeInputProps={{
+        value: immediateInput,
+        onChange: (e) => {
+          setCoordinates([undefined, undefined])
+          setClicked(false)
+          setInput(e.target.value)
+        },
+        type: 'text',
+        name: 'adresse',
+        required: true,
+        autoFocus: true,
+      }}
+      state={error ? 'error' : clicked && input ? 'success' : ''}
+      stateRelatedMessage={
+        clicked && input ? (
+          'Adresse validée'
+        ) : error ? (
+          error
+        ) : validInput && !addressResults ? (
+          <>
+            <Loader /> Chargement ...
+          </>
+        ) : input == '' ? (
+          <></>
+        ) : (
+          addressResults &&
+          !clicked && (
+            <>
+              <span>Sélectionnez une adresse :</span>
+              <CityList>
+                {addressResults.map((result) => {
+                  const { label, id } = result.properties
+                  return (
+                    <li
+                      className={
+                        coordinates &&
+                        coordinates.join('|') ===
+                          result.geometry.coordinates.join('|')
+                          ? 'selected'
+                          : ''
+                      }
+                      key={id}
+                      onClick={() => {
+                        setAddressResults(null)
+                        onChange &&
+                          onChange(result).then(() => {
+                            setInput(label)
+                            //setCoordinates(result.geometry.coordinates)
+                            setClicked(result)
+                          })
+                      }}
+                    >
+                      <span>{label}</span>
+                    </li>
+                  )
+                })}
+              </CityList>
+            </>
+          )
+        )
+      }
+    />
   )
 }
 

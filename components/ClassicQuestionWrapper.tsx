@@ -18,6 +18,7 @@ export const QuestionText = ({
   question: dottedName,
   situation,
   engine,
+  noLabel = false, // Parfois on veut un vrai élément label (déjà inclus via <Input label={...} ,ex: AddressSearch et logement . surface ) et pas un legend
 }) => {
   const ruleName = getRuleName(dottedName)
 
@@ -25,15 +26,17 @@ export const QuestionText = ({
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
   return (
-    <legend className="fr-fieldset__legend--bold fr-fieldset__legend fr-text--lead fr-pb-0">
-      {text.replace(/\s\?/, '')}&nbsp;?
-      {rule['sous-titre'] && (
-        <div
-          className="fr-hint-text"
-          dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
-        />
-      )}
-    </legend>
+    !noLabel && (
+      <legend className="fr-fieldset__legend--bold fr-fieldset__legend fr-text--lead fr-pb-0">
+        {text.replace(/\s\?/, '')}&nbsp;?
+        {rule['sous-titre'] && (
+          <div
+            className="fr-hint-text"
+            dangerouslySetInnerHTML={{ __html: rule.sousTitreHtml }}
+          />
+        )}
+      </legend>
+    )
   )
 }
 
@@ -52,7 +55,7 @@ export default function ClassicQuestionWrapper({
   suggestions,
   nextQuestions,
   noButtons = false,
-  customButtons,
+  noLabel = false,
 }) {
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
@@ -137,6 +140,16 @@ export default function ClassicQuestionWrapper({
           className="fr-fieldset"
           form="simulator-form"
           aria-labelledby="simulator-form-legend simulator-form-messages"
+          css={`
+            .fr-input-group label.fr-label {
+              font-weight: 700;
+              width: 100%;
+              color: var(--text-label-grey);
+              font-size: 1.25rem !important;
+              line-height: 2rem !important;
+              margin: var(--text-spacing);
+            }
+          `}
         >
           {!rule.type && (
             <QuestionText
@@ -146,6 +159,7 @@ export default function ClassicQuestionWrapper({
                 rules,
                 situation,
                 engine,
+                noLabel,
               }}
             />
           )}
@@ -170,9 +184,7 @@ export default function ClassicQuestionWrapper({
           )} */}
           {children}
         </fieldset>
-        {noButtons ? (
-          customButtons
-        ) : (
+        {!noButtons && (
           <FormButtons
             {...{
               currentValue,
