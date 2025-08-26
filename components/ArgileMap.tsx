@@ -38,8 +38,14 @@ export default function ArgileMap({ situation, setChoice }) {
         {error && <p className="fr-text--error">{error.message} </p>}
         {bdnb && bdnb.length > 0 ? (
           <section>
-            Niveau d'aléa argiles :
-            <p className="fr-badge">{bdnb[0].alea_argiles}</p>
+            <div>
+              Niveau d'aléa argiles :
+              <p className="fr-badge">{bdnb[0].alea_argiles}</p>
+            </div>
+            <div>
+              Année de construction :
+              <p className="fr-badge">{bdnb[0].annee_construction}</p>
+            </div>
           </section>
         ) : (
           <p>⏳️ En attente des données du bâtiment...</p>
