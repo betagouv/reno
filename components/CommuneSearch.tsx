@@ -3,11 +3,9 @@ import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import { getCommune } from './personas/enrichSituation'
 import Input from '@codegouvfr/react-dsfr/Input'
-import { CityList } from './AddressSearch'
-import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 
 function onlyNumbers(str) {
-  return /^\d+/.test(str)
+  return /^\d+$/.test(str)
 }
 
 export default function CommuneSearch({
@@ -15,40 +13,44 @@ export default function CommuneSearch({
   setChoice,
   situation,
   type,
+  empty = false,
   autoFocus = true,
 }) {
-  const [immediateInput, setInput] = useState(
-    situation[type]?.replaceAll('"', '') || '',
+  const [immediateInput, setImmediateInput] = useState(
+    !empty ? situation?.[type]?.replaceAll('"', '') || '' : '',
   )
 
   const [input] = useDebounce(immediateInput, 300)
+
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
-  const [clicked, setClicked] = useState(situation && situation[type])
+  const [clicked, setClicked] = useState(Boolean(!empty && situation?.[type]))
 
   const validInput = input && input.length >= 3
-  // Get the commune name from the code if it exists to display it in the search box
+
   useEffect(() => {
-    setInput('')
     async function fetchCommune() {
+      if (empty) return
       const commune = await getCommune(situation, type)
       if (commune) {
-        setInput(commune.nom + ' ' + commune.codeDepartement)
+        setImmediateInput(`${commune.nom} ${commune.codeDepartement}`)
       }
     }
     fetchCommune()
-  }, [situation, setInput])
+  }, [situation, type])
 
   useEffect(() => {
     if (!validInput) return
-    // Le code postal en France est une suite de cinq chiffres https://fr.wikipedia.org/wiki/Code_postal_en_France
     if (onlyNumbers(input) && input.length !== 5) return
-
     const asyncFetch = async () => {
       setIsLoading(true)
+      setResults(null)
+
       const request = await fetch(
         onlyNumbers(input)
-          ? `/api/geo/?path=${encodeURIComponent(`communes?codePostal=${input}`)}`
+          ? `/api/geo/?path=${encodeURIComponent(
+              `communes?codePostal=${input}`,
+            )}`
           : `/api/geo/?path=${encodeURIComponent(
               `communes?nom=${input}&boost=population&limit=5`,
             )}`,
@@ -59,9 +61,10 @@ export default function CommuneSearch({
         json.map((commune) =>
           fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
             .then((response) => response.json())
-            .then((json) => ({ ...commune, eligibilite: json })),
+            .then((eligibilite) => ({ ...commune, eligibilite })),
         ),
       )
+
       setIsLoading(false)
       setResults(enrichedResults)
     }
@@ -70,60 +73,52 @@ export default function CommuneSearch({
   }, [input, validInput])
 
   return (
-    <div className="fr-fieldset__element fr-p-0">
+    <>
       <Input
         label={label}
         nativeInputProps={{
           value: immediateInput,
           onChange: (e) => {
             setClicked(false)
-            setInput(e.target.value)
+            setImmediateInput(e.target.value)
           },
           required: true,
-          autoFocus: autoFocus,
-          placeholder: 'commune ou code postal',
+          autoFocus,
+          placeholder: 'Commune ou code postal',
         }}
-        state={clicked && input && 'success'}
-        stateRelatedMessage={
-          clicked && input ? (
-            'Adresse validée'
-          ) : validInput && !results ? (
-            <div className="fr-mt-3v">
-              <Loader /> Chargement ...
-            </div>
-          ) : input == '' ? (
-            <></>
-          ) : (
-            <div className="fr-mt-3v">
-              <RadioButtons
-                legend="Sélectionnez une ville :"
-                options={results?.map((result) => {
-                  return {
-                    label: (
-                      <span>
-                        {result.nom}&nbsp;
-                        <small>{result?.codesPostaux[0]}</small>
-                      </span>
-                    ),
-                    nativeInputProps: {
-                      value: result.nom + ' ' + result.codeDepartement,
-                      checked:
-                        situation &&
-                        situation[type] &&
-                        situation[type].replace(/"/g, '') == result.code,
-                      onChange: () => {
-                        setChoice(result)
-                        setInput(result.nom + ' ' + result.codeDepartement)
-                        setClicked(true)
-                      },
-                    },
-                  }
-                })}
-              />
-            </div>
-          )
-        }
+        state={clicked && input ? 'success' : undefined}
+        stateRelatedMessage={clicked && input ? 'Adresse validée' : undefined}
       />
-    </div>
+      {validInput && isLoading && (
+        <div className="fr-mt-3v">
+          <Loader /> Chargement ...
+        </div>
+      )}
+      {results && results.length > 0 && !clicked && (
+        <div>
+          <p className="fr-my-3v">Sélectionnez une ville :</p>
+          <ul>
+            {results.map((result, i) => {
+              return (
+                <li key={i}>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setChoice(result)
+                      setImmediateInput(
+                        `${result.nom} ${result.codeDepartement}`,
+                      )
+                      setClicked(true)
+                    }}
+                  >
+                    {result.nom}&nbsp;<small>{result.codesPostaux[0]}</small>
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
+    </>
   )
 }

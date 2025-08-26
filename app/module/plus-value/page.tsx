@@ -41,7 +41,7 @@ export default function Module({}) {
               justifyContent: 'center',
             }}
           >
-            <div style={{ margin: 'auto' }}>
+            <div style={{ margin: '0 auto 5rem' }}>
               <PlusValueModule type="module" />
             </div>
             <h2>Combien vaut mon logement après rénovation ?</h2>

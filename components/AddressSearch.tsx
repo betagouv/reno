@@ -2,8 +2,6 @@
 import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 import { useDebounce } from 'use-debounce'
 
 export default function AddressSearch({
@@ -36,7 +34,6 @@ export default function AddressSearch({
         `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
       const { features } = await request.json()
-
       setAddressResults(features)
     }
 
@@ -44,62 +41,61 @@ export default function AddressSearch({
   }, [input, validInput])
 
   return (
-    <Input
-      label={label}
-      nativeInputProps={{
-        value: immediateInput,
-        onChange: (e) => {
-          setCoordinates([undefined, undefined])
-          setClicked(false)
-          setInput(e.target.value)
-        },
-        type: 'text',
-        name: 'adresse',
-        required: true,
-        autoFocus: true,
-      }}
-      state={error ? 'error' : clicked && input ? 'success' : ''}
-      stateRelatedMessage={
-        clicked && input ? (
-          'Adresse validée'
-        ) : error ? (
-          error
-        ) : validInput && !addressResults ? (
-          <div className="fr-mt-3v">
-            <Loader /> Chargement ...
-          </div>
-        ) : input == '' ? (
-          <></>
-        ) : (
-          addressResults &&
-          !clicked && (
-            <div className="fr-mt-3v">
-              <RadioButtons
-                legend="Sélectionnez une adresse"
-                options={addressResults.map((result) => {
-                  const { label, id } = result.properties
-                  return {
-                    label: label,
-                    nativeInputProps: {
-                      value: id,
-                      checked: situation['logement . adresse'] === id,
-                      onChange: () => {
-                        setAddressResults(null)
-                        onChange &&
-                          onChange(result).then(() => {
-                            setInput(label)
-                            //setCoordinates(result.geometry.coordinates)
-                            setClicked(result)
-                          })
-                      },
-                    },
-                  }
-                })}
-              />
-            </div>
-          )
-        )
-      }
-    />
+    <>
+      <Input
+        label={label}
+        nativeInputProps={{
+          value: immediateInput,
+          onChange: (e) => {
+            setCoordinates([undefined, undefined])
+            setClicked(false)
+            setInput(e.target.value)
+          },
+          type: 'text',
+          name: 'adresse',
+          required: true,
+          autoFocus: true,
+        }}
+        state={error ? 'error' : clicked && input ? 'success' : undefined}
+        stateRelatedMessage={
+          clicked && input ? 'Adresse validée' : error ? error : undefined
+        }
+      />
+
+      {validInput && !addressResults && !clicked && !error && (
+        <div className="fr-mt-3v">
+          <Loader /> Chargement ...
+        </div>
+      )}
+
+      {addressResults && addressResults.length > 0 && !clicked && (
+        <div>
+          <p className="fr-my-3v">Sélectionnez une adresse :</p>
+          <ul>
+            {addressResults.map((result, i) => {
+              const { label, id } = result.properties
+              return (
+                <li key={id}>
+                  <button
+                    onClick={async (e) => {
+                      e.preventDefault()
+                      setAddressResults(null)
+                      if (onChange) {
+                        await onChange(result)
+                      }
+                      setInput(label)
+                      setCoordinates(result.geometry.coordinates)
+                      setClicked(result)
+                    }}
+                  >
+                    {label}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
+    </>
   )
 }
