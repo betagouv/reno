@@ -3077,17 +3077,16 @@
       "source-layer": "rga",
       "layout": { "visibility": "visible" },
       "paint": {
-        "fill-opacity": 0.6,
         "fill-color": [
           "match",
           ["get", "ALEA"],
           "Fort",
-          "#FF0000",
+          "red",
           "Moyen",
-          "#FFA500",
+          "orange",
           "Faible",
           "yellow",
-          "#00000000"
+          "transparent"
         ]
       }
     }
