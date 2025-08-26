@@ -48,7 +48,7 @@ export default function APIDoc() {
           >
             référentiel public d'accessibilité RGAA
           </a>
-          , d'où la mention "non conforme" dans le pied de page.
+          , d'où la mention "partiellement conforme" dans le pied de page.
         </p>
         <p>
           Nous n'avons pas non plus testé le site avec des utilisateurs dans une

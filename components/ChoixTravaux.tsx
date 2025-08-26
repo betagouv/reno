@@ -93,14 +93,14 @@ export default function ChoixTravaux({
       {categories
         .filter((categorie) => selectedCategories.includes(categorie['code']))
         .map((categorie) => (
-          <fieldset
+          <div
             key={categorie['code']}
-            className="fr-fieldset fr-mx-0"
+            style={{ width: '100%' }}
             id={`storybook-form-${categorie['code']}`}
             aria-labelledby="storybook-form-legend storybook-form-messages"
           >
-            <legend
-              className="fr-fieldset__legend--bold fr-fieldset__legend fr-text"
+            <div
+              className="fr-text--bold fr-my-3v fr-px-2v"
               css={`
                 display: flex;
                 gap: 1em;
@@ -112,7 +112,7 @@ export default function ChoixTravaux({
               />
               {categorie['titre']} :<br />
               {categorie['question']}
-            </legend>
+            </div>
             {Object.entries(categorie.gestes).map((item) => {
               return (
                 <div className="fr-fieldset__element" key={item[0]}>
@@ -137,7 +137,7 @@ export default function ChoixTravaux({
                 </div>
               )
             })}
-          </fieldset>
+          </div>
         ))}
       <FormButtons
         {...{

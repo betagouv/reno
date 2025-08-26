@@ -64,18 +64,6 @@ export default function AvertissementSimulation({
           <button onClick={() => setOpen(true)}>Lire +</button>
         ) : (
           <>
-            <br />
-            <br />
-            L'estimation des aides est indicative : elle est calculée à partir
-            des informations que vous avez saisies, et des règles en vigueur au
-            moment de la simulation.
-            <br />
-            Cette simulation <strong>ne vaut pas pour décision</strong>. Elle
-            n’engage pas l’Anah, le réseau France Rénov', ou les autres
-            organismes financeurs.
-            <br />
-            Les aides sont susceptibles de changer. Nous mettons à jour le
-            simulateur régulièrement.
             <button
               onClick={() => {
                 setOpen(false)
@@ -92,6 +80,18 @@ export default function AvertissementSimulation({
                 ↵
               </span>
             </button>
+            <br />
+            <br />
+            L'estimation des aides est indicative : elle est calculée à partir
+            des informations que vous avez saisies, et des règles en vigueur au
+            moment de la simulation.
+            <br />
+            Cette simulation <strong>ne vaut pas pour décision</strong>. Elle
+            n’engage pas l’Anah, le réseau France Rénov', ou les autres
+            organismes financeurs.
+            <br />
+            Les aides sont susceptibles de changer. Nous mettons à jour le
+            simulateur régulièrement.
           </>
         )}
       </Highlight>

@@ -64,7 +64,7 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
               dottedName={dottedName + ' . montant'}
             />
           </>
-        ) : eligibleMPRG ? ( // Cas MPR avec ou sans Coup de pouce
+        ) : eligibleMPRG && montantTotal != 'Pas encore défini' ? ( // Cas MPR avec ou sans CEE/Coup de pouce
           <>
             {!isExactTotal ? 'Au moins ' : 'Prime de '}
             {montantTotal}

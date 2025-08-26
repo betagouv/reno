@@ -1,12 +1,10 @@
 'use client'
 import { push } from '@socialgouv/matomo-next'
-import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconSmileyNo from '@/public/smiley-no.svg'
-import iconSmileyMaybe from '@/public/smiley-maybe.svg'
-import iconSmileyYes from '@/public/smiley-yes.svg'
 import Button from '@codegouvfr/react-dsfr/Button'
+import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
+import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function Feedback({
   title = 'Ce simulateur a-t-il été utile ?',
@@ -36,110 +34,129 @@ export default function Feedback({
   }
 
   return (
-    <div
-      className="fr-callout fr-callout--yellow-tournesol fr-grid-row fr-grid-row--middle"
-      style={{ flexDirection: 'column' }}
-    >
-      <h3>
-        <span aria-hidden="true">👋</span> {title}
-      </h3>
-      <VoteBox>
-        <div
-          className={vote == 'insatisfait' ? 'unhappy-active' : 'unhappy'}
-          onClick={() => {
-            setVote('insatisfait')
-            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Non'])
-          }}
-        >
-          <Image src={iconSmileyNo} alt="smiley unhappy" />
-          <div>Non</div>
-        </div>
-        <div
-          className={vote == 'normal' ? 'normal-active' : 'normal'}
-          onClick={() => {
-            setVote('normal')
-            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'En partie'])
-          }}
-        >
-          <Image alt="smiley normal" src={iconSmileyMaybe} />
-          <div>En partie</div>
-        </div>
-        <div
-          className={vote == 'satisfait' ? 'happy-active' : 'happy'}
-          onClick={() => {
-            setVote('satisfait')
-            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Oui'])
-          }}
-        >
-          <Image alt="smiley happy" src={iconSmileyYes} />
-          <div>Oui</div>
-        </div>
-      </VoteBox>
-      <Button
-        priority="secondary"
-        onClick={(e) => {
-          if (!isOpen) {
-            setIsOpen(true)
-            push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
-            return
-          }
-          push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
-          e.preventDefault()
-          if (!comment) {
-            return
-          }
-          createIssue(
-            comment + '\n> ' + 'Depuis la page: ' + window.location.href,
-            vote,
-          )
-        }}
+    <div className="fr-callout fr-callout--yellow-tournesol">
+      <form
+        id="form-feedback"
+        className="fr-callout__text fr-mt-5v"
+        style={{ margin: 'auto', maxWidth: '40rem' }}
       >
-        Je donne mon avis
-      </Button>
-      {(vote || sent) && (
-        <div
-          css={`
-            margin-bottom: 1rem;
-            font-weight: bold;
-          `}
-        >
-          ✅ Merci pour votre retour
-        </div>
-      )}
-      <div className="active">
-        {sent ? (
-          <p>
-            Vos suggestions nous aident à améliorer l'outil et à rendre
-            l'expérience plus efficace pour tous·tes. 🙏
-          </p>
+        <h3 className="fr-callout__title fr-mb-5v">
+          <span aria-hidden="true">👋</span> {title}
+        </h3>
+        <RadioButtons
+          options={[
+            {
+              illustration: (
+                <span
+                  aria-hidden="true"
+                  className="fr-icon-checkbox-circle-line"
+                ></span>
+              ),
+              label: 'Oui',
+              nativeInputProps: {
+                value: 'oui',
+                checked: vote == 'satisfait',
+                onChange: () => {
+                  setVote('satisfait')
+                  push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Oui'])
+                },
+              },
+            },
+            {
+              illustration: (
+                <span
+                  aria-hidden="true"
+                  className="fr-icon-warning-line"
+                ></span>
+              ),
+              label: 'En partie',
+              nativeInputProps: {
+                value: 'normal',
+                checked: vote == 'normal',
+                onChange: () => {
+                  setVote('normal')
+                  push([
+                    'trackEvent',
+                    'Feedback vote satisfait',
+                    'Clic',
+                    'En partie',
+                  ])
+                },
+              },
+            },
+            {
+              illustration: (
+                <span
+                  aria-hidden="true"
+                  className="fr-icon-close-circle-line"
+                ></span>
+              ),
+              label: 'Non',
+              nativeInputProps: {
+                value: 'non',
+                checked: vote == 'insatisfait',
+                onChange: () => {
+                  setVote('insatisfait')
+                  push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Non'])
+                },
+              },
+            },
+          ]}
+          disabled={vote}
+          state={(vote || sent) && 'success'}
+          stateRelatedMessage={(vote || sent) && 'Merci de votre retour'}
+          orientation="horizontal"
+        />
+        {isOpen ? (
+          <>
+            <Input
+              label="Comment pouvons-nous améliorer ce simulateur ?"
+              textArea
+              nativeTextAreaProps={{
+                value: comment,
+                onChange: (e) => setComment(e.target.value),
+                name: 'commentaire',
+                required: true,
+              }}
+              stateRelatedMessage={
+                sent && (
+                  <>
+                    Vos suggestions nous aident à améliorer l'outil et à rendre
+                    l'expérience plus efficace pour tous·tes. 🙏
+                  </>
+                )
+              }
+              state={sent && 'success'}
+            />
+            <Button
+              onClick={(e) => {
+                push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
+                e.preventDefault()
+                if (!comment) {
+                  return
+                }
+                createIssue(
+                  comment + '\n> ' + 'Depuis la page: ' + window.location.href,
+                  vote,
+                )
+              }}
+              disabled={sent}
+            >
+              Je valide mon avis
+            </Button>
+          </>
         ) : (
-          <form>
-            {isOpen && (
-              <>
-                <label htmlFor="commentaire">
-                  Comment pouvons-nous améliorer ce simulateur ?
-                </label>
-                <textarea
-                  css={`
-                    margin: 1rem 0;
-                    background: white;
-                    padding: 0.5rem;
-                    border-bottom: 3px solid #3a3a3a;
-                    height: 100px;
-                    width: 100%;
-                  `}
-                  id="commentaire"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  name="comment"
-                  placeholder=""
-                  required
-                />
-              </>
-            )}
-          </form>
+          <Button
+            priority="secondary"
+            onClick={(e) => {
+              setIsOpen(true)
+              push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
+            }}
+          >
+            Je donne mon avis
+          </Button>
         )}
-      </div>
+      </form>
     </div>
   )
 }

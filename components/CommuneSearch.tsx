@@ -4,6 +4,7 @@ import { useDebounce } from 'use-debounce'
 import { getCommune } from './personas/enrichSituation'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { CityList } from './AddressSearch'
+import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 
 function onlyNumbers(str) {
   return /^\d+/.test(str)
@@ -87,38 +88,39 @@ export default function CommuneSearch({
           clicked && input ? (
             'Adresse validée'
           ) : validInput && !results ? (
-            <>
+            <div className="fr-mt-3v">
               <Loader /> Chargement ...
-            </>
+            </div>
           ) : input == '' ? (
             <></>
           ) : (
-            <>
-              <div>
-                <small>Sélectionnez une ville :</small>
-                <CityList>
-                  {results?.map((result) => (
-                    <li
-                      className={
+            <div className="fr-mt-3v">
+              <RadioButtons
+                legend="Sélectionnez une ville :"
+                options={results?.map((result) => {
+                  return {
+                    label: (
+                      <span>
+                        {result.nom}&nbsp;
+                        <small>{result?.codesPostaux[0]}</small>
+                      </span>
+                    ),
+                    nativeInputProps: {
+                      value: result.nom + ' ' + result.codeDepartement,
+                      checked:
                         situation &&
                         situation[type] &&
-                        situation[type].replace(/"/g, '') == result.code
-                          ? 'selected'
-                          : ''
-                      }
-                      key={result.code}
-                      onClick={() => {
+                        situation[type].replace(/"/g, '') == result.code,
+                      onChange: () => {
                         setChoice(result)
                         setInput(result.nom + ' ' + result.codeDepartement)
                         setClicked(true)
-                      }}
-                    >
-                      {result.nom} <small>{result?.codesPostaux[0]}</small>
-                    </li>
-                  ))}
-                </CityList>
-              </div>
-            </>
+                      },
+                    },
+                  }
+                })}
+              />
+            </div>
           )
         }
       />

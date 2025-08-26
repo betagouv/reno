@@ -120,13 +120,7 @@ export default function Answers({
                     `}
                   >
                     {getRuleTitle(category, rules)}
-                    <span
-                      css={`
-                        color: var(--color);
-                      `}
-                    >
-                      Vos réponses
-                    </span>
+                    <span>Vos réponses</span>
                   </div>
                   <ol>
                     {questions.map((answer) => (
