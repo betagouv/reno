@@ -22,7 +22,7 @@ export default function DPESelector({
         const encodedSituation = encodeSituation(
           {
             ...situation,
-            [currentQuestion]: value + 1 + '*',
+            [currentQuestion]: value + 1,
           },
           false,
           answeredQuestions,
