@@ -6,7 +6,6 @@ export const FatConseillerWrapper = styled.section`
   display: flex;
   align-items: flex-start;
   margin: 3rem auto;
-  background: var(--lightestColor);
   padding: 1rem;
   border: 1px solid #d0d0ed;
   img {

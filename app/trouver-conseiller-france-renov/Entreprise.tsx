@@ -23,9 +23,6 @@ export default function Entreprise({ data }) {
   return (
     <Card
       css={`
-        a {
-          display: block;
-        }
         h4 {
           margin: 0;
         }
