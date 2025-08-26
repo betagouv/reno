@@ -1,4 +1,5 @@
-préface:
-  - logement . adresse
+#préface:
+#  - logement . adresse
 prioritaires:
+  #  - logement . adresse
   - zone aléa fort

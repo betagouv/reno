@@ -44,6 +44,8 @@ export default function RGA() {
     answeredQuestions,
     simulationConfig,
   )
+
+  console.log({ evaluation, answeredQuestions, nextQuestions })
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
   const setSearchParams = useSetSearchParams()
