@@ -52,6 +52,7 @@
     "micromark": "^4.0.0",
     "next": "^15.4.6",
     "next-mdx-remote-client": "^2.1.3",
+    "pmtiles": "^4.3.0",
     "postcss": "8.4.38",
     "publicodes": "^1.6.1",
     "raw-loader": "^4.0.2",
