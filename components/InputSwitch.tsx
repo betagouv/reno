@@ -81,7 +81,9 @@ export default function InputSwitch({
 
   return currentQuestion ? (
     <ClassicQuestionWrapper {...params}>
-      {rule['bornes intelligentes'] ? (
+      {currentQuestion === 'rga . zone aléa' ? (
+        <div>plop</div>
+      ) : rule['bornes intelligentes'] ? (
         <RevenuInput
           type={ruleQuestionType}
           rule={rule}
@@ -319,8 +321,6 @@ export default function InputSwitch({
             situation,
           }}
         />
-      ) : currentQuestion === 'rga . aléa' ? (
-        <div>plop</div>
       ) : ruleQuestionType === 'boolean' ? (
         <BinaryQuestion
           value={currentValue}

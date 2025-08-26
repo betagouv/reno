@@ -5,14 +5,14 @@ rga:
 
 rga . montant:
   applicable si: conditions
-  formule: 999
+  valeur: 999
 
 rga . conditions:
   toutes ces conditions:
     - zone aléa fort
 
 logement . pas plus d'un étage:
-  formule: logement . étages <= 1
+  valeur: logement . étages <= 1
 
 logement . étages:
   question: Combien d'étages a votre maison ?
@@ -37,7 +37,7 @@ rga . pas ou très peu sinistré:
     indemnisation catnat dans les 10 dernières année à 10k max
 
 rga . revenu éligible:
-  formule:
+  valeur:
     une de ces conditions:
       - ménage . revenu . classe = 'très modeste'
       - ménage . revenu . classe = 'modeste'
@@ -69,8 +69,8 @@ rga . département éligible:
 rga . zone aléa:
   question: Quel est le niveau d'aléa RGA du logement ?
   par défaut: 'faible'
-  possibilités:
-    une possibilité parmi:
+  une possibilité parmi:
+    possibilités:
       - 'fort'
       - 'moyen'
       - 'faible'
@@ -85,5 +85,5 @@ rga . zone aléa . nul:
 rga . zone aléa fort:
   question: Le logement est-il bâti dans une zone d'aléa RGA fort ?
   # tester le résultat de l'appel d'API
-  formule: zone aléa = 'fort'
+  valeur: zone aléa = 'fort'
   par défaut: non
