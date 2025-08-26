@@ -154,44 +154,48 @@ export default function InputSwitch({
       ) : ['ménage . commune', 'logement . commune'].includes(
           currentQuestion,
         ) ? (
-        <CommuneSearch
-          {...{
-            type: currentQuestion,
-            setChoice: (result) => {
-              const encodedSituation = encodeSituation(
-                currentQuestion == 'ménage . commune'
-                  ? {
-                      ...situation,
-                      'ménage . code région': `"${result.codeRegion}"`,
-                      'ménage . code département': `"${result.codeDepartement}"`,
-                      'ménage . EPCI': `"${result.codeEpci}"`,
-                      'ménage . commune': `"${result.code}"`,
-                      'ménage . commune . nom': `"${result.nom}"`,
-                    }
-                  : {
-                      'logement . code région': `"${result.codeRegion}"`,
-                      'logement . code département': `"${result.codeDepartement}"`,
-                      'logement . EPCI': `"${result.codeEpci}"`,
-                      'logement . commune': `"${result.code}"`,
-                      'logement . commune . nom': `"${result.nom}"`,
-                      'taxe foncière . commune . éligible':
-                        result.eligibilite[
-                          'taxe foncière . commune . éligible'
-                        ],
-                      'taxe foncière . commune . taux':
-                        result.eligibilite['taxe foncière . commune . taux'],
-                      'logement . commune . denormandie':
-                        result.eligibilite['logement . commune . denormandie'],
-                    },
-                false,
-                answeredQuestions,
-              )
+        <div className="fr-fieldset__element">
+          <CommuneSearch
+            {...{
+              type: currentQuestion,
+              setChoice: (result) => {
+                const encodedSituation = encodeSituation(
+                  currentQuestion == 'ménage . commune'
+                    ? {
+                        ...situation,
+                        'ménage . code région': `"${result.codeRegion}"`,
+                        'ménage . code département': `"${result.codeDepartement}"`,
+                        'ménage . EPCI': `"${result.codeEpci}"`,
+                        'ménage . commune': `"${result.code}"`,
+                        'ménage . commune . nom': `"${result.nom}"`,
+                      }
+                    : {
+                        'logement . code région': `"${result.codeRegion}"`,
+                        'logement . code département': `"${result.codeDepartement}"`,
+                        'logement . EPCI': `"${result.codeEpci}"`,
+                        'logement . commune': `"${result.code}"`,
+                        'logement . commune . nom': `"${result.nom}"`,
+                        'taxe foncière . commune . éligible':
+                          result.eligibilite[
+                            'taxe foncière . commune . éligible'
+                          ],
+                        'taxe foncière . commune . taux':
+                          result.eligibilite['taxe foncière . commune . taux'],
+                        'logement . commune . denormandie':
+                          result.eligibilite[
+                            'logement . commune . denormandie'
+                          ],
+                      },
+                  false,
+                  answeredQuestions,
+                )
 
-              setSearchParams(encodedSituation, 'push', false)
-            },
-            situation,
-          }}
-        />
+                setSearchParams(encodedSituation, 'push', false)
+              },
+              situation,
+            }}
+          />
+        </div>
       ) : currentQuestion === 'logement . adresse' ? (
         <div className="fr-fieldset__element">
           <AddressSearch

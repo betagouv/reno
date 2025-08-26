@@ -31,7 +31,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   )
   if (!rule) return
   const situation = getSituation(situationSearchParams, rules)
-  const { infoMPR, eligibleMPRG } = getInfoForPrime({
+  const { infoMPR } = getInfoForPrime({
     engine,
     dottedName: rule,
     situation,
@@ -41,7 +41,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   infoMPR.questions = infoMPR?.questions?.filter(
     (q) => !q.includes('logement . commune'),
   )
-
+  infoMPR.titre = decodeURIComponent(params.titre)
   // Y a-t-il une aide CEE associée?
   const ceeAssocie = Object.keys(rules).includes(rule + ' . CEE')
     ? rules[rule + ' . CEE']

@@ -1,10 +1,9 @@
 import conseillerIcon from '@/public/conseiller.png'
 import Image from 'next/image'
 import { FatConseillerWrapper } from './FatConseillerUI'
-import Button from '@codegouvfr/react-dsfr/Button'
 import BlocConseiller from './BlocConseiller'
 
-export default function FatConseiller({ situation, margin, titre, texte }) {
+export default function FatConseiller({ margin, titre, texte }) {
   return (
     <>
       <h3>{titre}</h3>

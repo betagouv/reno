@@ -125,7 +125,7 @@ export const DsfrCard = ({ titre, url, description, imageUrl, imageAlt, titleAs,
         {titleAs == "h3" && (<h3 className="fr-card__title">
           <a href={url}>{titre}</a>
         </h3>)}
-        <p className="fr-card__desc">{description}</p>
+        <div className="fr-card__desc">{description}</div>
       </div>
     </div>
     {imageUrl && (<div className="fr-card__header">

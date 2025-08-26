@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react'
 import Entreprise from './Entreprise'
 import MapShapes from './MapShape'
 import { Loader } from './UI'
-import Entreprises from './Entreprises'
 
 export default function MarSearch({
   situation,
@@ -48,59 +47,39 @@ export default function MarSearch({
   //const map = useAddMap(mapContainerRef, setLocation)
 
   return (
-    <div
-      css={`
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      `}
-    >
+    <div className="fr-mt-5v">
       {!codeInsee ? (
-        <label
-          css={`
-            display: flex;
-            align-items: center;
-            span {
-              margin-right: 1rem;
-            }
-          `}
-        >
-          <span>Saisissez votre ville</span>
-          <CommuneSearch
-            situation={situation}
-            type={'ménage . commune'}
-            setChoice={(result) => {
-              setData(null)
-              setName(result.nom)
-              setLocalCodeInsee('' + result.code)
-            }}
-          />
-        </label>
+        <CommuneSearch
+          label="Saisissez votre ville"
+          situation={situation}
+          empty
+          type={'ménage . commune'}
+          setChoice={(result) => {
+            setData(null)
+            setName(result.nom)
+            setLocalCodeInsee('' + result.code)
+          }}
+        />
       ) : (
-        <div
-          css={`
-            margin: auto;
-            margin-right: 0;
-          `}
-        >
-          <small>
-            Recherche de conseiller pour votre{' '}
-            {name ? (
-              <span>commune {name}</span>
-            ) : (
-              <span>code INSEE {codeInsee}</span>
-            )}{' '}
-            <button onClick={() => setLocalCodeInsee(null)}>Changer</button>
-          </small>
-        </div>
+        <small>
+          Recherche de conseiller pour votre{' '}
+          {name ? (
+            <span>commune {name}</span>
+          ) : (
+            <span>code INSEE {codeInsee}</span>
+          )}{' '}
+          <button
+            onClick={() => {
+              setLocalCodeInsee(null)
+              setName(null)
+            }}
+          >
+            Changer
+          </button>
+        </small>
       )}
-      <div
-        css={`
-          width: 100%;
-          max-width: 90vw;
-        `}
-      >
-        {<Entreprises data={data} />}
+      <div>
+        {codeInsee && <Entreprise data={data && data[0]} />}
         {/*Anciennement utilisé pour afficher la carte avec surlignage des conseillers sélectionnés */}
         {false && selectedMarker && (
           <Card
@@ -108,7 +87,7 @@ export default function MarSearch({
               margin: 1rem 0;
             `}
           >
-            <Entreprise data={selectedMarker} />
+            <Entreprise data={selectedMarker && selectedMarker[0]} />
           </Card>
         )}
         {false &&
@@ -116,16 +95,9 @@ export default function MarSearch({
             <section>
               {data.length === 1 ? (
                 <section>
-                  <h3
-                    css={`
-                      margin-top: 0;
-                      margin-bottom: 0rem;
-                    `}
-                  >
-                    Votre conseiller :{' '}
-                  </h3>
+                  <h3>Votre conseiller : </h3>
                   <br />
-                  <Entreprises data={data} />
+                  <Entreprise data={data && data[0]} />
                 </section>
               ) : (
                 <div>
