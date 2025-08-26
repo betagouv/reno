@@ -12,23 +12,23 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { useMemo } from 'react'
-import simulationConfigCopropriete from '../../app/copropriete/simulationConfigCopro.yaml'
-import ExplicationCopropriete from './ExplicationCopropriete'
+import simulationConfig from '@/app/rga/simulationConfig.yaml'
+import Explication from './Explication'
 import { PageBlock } from '../UI'
 
-const content = rules['copropriété'].descriptionHtml
+const content = rules['rga'].descriptionHtml
 
-export default function Copropriete() {
+export default function RGA() {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
-    ...Object.keys(simulationConfigCopropriete.situation || {}),
+    ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(searchParams, rules),
   ]
   const situation = {
-    ...(simulationConfigCopropriete.situation || {}),
+    ...(simulationConfig.situation || {}),
     ...getSituation(searchParams, rules),
   }
 
@@ -37,15 +37,13 @@ export default function Copropriete() {
   )
   const evaluation = engine
     .setSituation(validatedSituation)
-    .evaluate('copropriété . montant')
-  // On ne pose pas la question du montant des travaux dans le formulaire
-  // Il sera modifiable dans l'explication
+    .evaluate('rga . montant')
+
   const nextQuestions = getNextQuestions(
     evaluation,
     answeredQuestions,
-    simulationConfigCopropriete,
-    rules,
-  ).filter((q) => q != 'copropriété . montant travaux')
+    simulationConfig,
+  )
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
   const setSearchParams = useSetSearchParams()
@@ -56,7 +54,7 @@ export default function Copropriete() {
         <>
           <InputSwitch
             {...{
-              form: 'copropriété',
+              form: 'rga',
               rules,
               currentQuestion,
               situation,
@@ -73,7 +71,7 @@ export default function Copropriete() {
           />
         </>
       ) : (
-        <ExplicationCopropriete
+        <Explication
           {...{
             rules,
             currentQuestion,

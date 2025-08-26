@@ -1,9 +1,3 @@
 préface:
-  - copropriété . id
-prioritaires:
-  - copropriété . condition 15 ans
-  - copropriété . nombre de logements
-  - copropriété . condition résidence principale
-  - copropriété . gain énergétique
-  - copropriété . bonus sortie passoire
-  - copropriété . bonus copropriété fragile
+  - logement . adresse
+  - zone aléa fort

@@ -334,6 +334,10 @@ logement . adresse:
 logement . coordonnees:
   note: On stocke les coordonnées du logement sous la forme lat,lon afin de pouvoir déterminer son éligibilité au réseau de chaleur grâce à l'API France Chaleur Urbaine
 
+logement . clef ban:
+  description: |
+    La clef BAN formée par concaténation du code INSEE de la commune concernée, du code de la voie liée à l’adresse, du numéro de l’adresse et d’un éventuel indice de répétition.
+
 logement . commune:
   formule: logement . adresse
   titre: La commune du logement

@@ -218,6 +218,7 @@ export default function InputSwitch({
                   'logement . commune': `"${result.code}"`,
                   'logement . commune . nom': `"${result.nom}"`,
                   'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
+                  'clef ban': `"${adresse.properties.id}"`,
                 })
                 setSearchParams(
                   encodeSituation(newSituation, false, answeredQuestions),

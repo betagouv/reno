@@ -1,6 +1,7 @@
 # Dans ce fichier, on implémente un modèle de simulation d'une future potentielle aide sur le retrait gonflement des argiles (RGA)
 
 rga:
+  description: Retrait gonflement des argiles.
 
 rga . montant:
   applicable si: conditions
