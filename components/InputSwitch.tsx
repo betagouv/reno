@@ -319,6 +319,8 @@ export default function InputSwitch({
             situation,
           }}
         />
+      ) : currentQuestion === 'rga . aléa' ? (
+        <div>plop</div>
       ) : ruleQuestionType === 'boolean' ? (
         <BinaryQuestion
           value={currentValue}

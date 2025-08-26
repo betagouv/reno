@@ -8,17 +8,36 @@ rga . montant:
   formule: 999
 
 rga . conditions:
-  - département éligible
-  - zone aléa fort
-  - revenu éligible
-  - géométrie simple
-  - non mitoyen
-  - pas plus d'un étage
-  - logement . période de construction = 'au moins 15 ans'
-  - pas ou très peu sinistré
+  toutes ces conditions:
+    - département éligible
+    - zone aléa fort
+    - revenu éligible
+    - logement . géométrie simple
+    - logement . mitoyen = non
+    - logement . pas plus d'un étage
+    - logement . période de construction = 'au moins 15 ans'
+    - pas ou très peu sinistré
 
+logement . pas plus d'un étage:
+  formule: logement . étages <= 1
+
+logement . étages:
+  question: Combien d'étages a votre maison ?
+  description: |
+    Une maison plein pied a 0 étages. Une maison avec un rez-de-chaussée et des chambres à l'étage a 1 étage, et ainsi de suite.
+  unité: étage
+  par défaut: 1
+
+logement . mitoyen:
+  question: La maison est-elle mitoyenne ?
+  par défaut: non
+
+logement . géométrie simple:
+  question: La maison a-t-elle la géométrie au sol d'un simple et unique rectangle ?
+  par défaut: oui
 rga . pas ou très peu sinistré:
   question: Le logement est-il non sinistré, ou seulement très peu ?
+  par défaut: oui
   # checkbox
   sous-titre: |
     micro-fissure de 1mm max
