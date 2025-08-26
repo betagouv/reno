@@ -119,17 +119,30 @@ const Bar = ({ htmlFor, background, index, selected, children }) => (
           text-shadow: 1px 1px 2px black;
         }
       }
+      ${selected &&
+      `&::before {
+        content: '';
+        position: absolute;
+        right: -1.5rem;
+        top: 39% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        border-style: solid;
+        border-width: 1rem 0 1rem 1rem;
+        border-color: transparent transparent transparent var(--color);
+        transform: translateY(-50%);
+      }`}
       &::after {
         content: '';
         position: absolute;
-        right: -24px;
-        top: -0.2rem;
-        width: 24px;
-        height: 2rem;
-        background: ${background};
-        clip-path: polygon(0 0, 100% 50%, 0 100%);
-        z-index: -1;
-        ${selected && `background: var(--color);`}
+        right: ${selected ? '-0.9rem' : '-1rem'};
+        top: 39%;
+        ${selected && 'border-radius: 5px'};
+        border-style: solid;
+        border-width: 1rem 0 1rem 1rem;
+        box-sizing: border-box;
+        transform: translateY(-50%);
+        border-color: transparent transparent transparent ${background};
       }
     `}
     htmlFor={htmlFor}
