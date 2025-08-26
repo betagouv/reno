@@ -3076,7 +3076,20 @@
       "source": "argile",
       "source-layer": "rga",
       "layout": { "visibility": "visible" },
-      "paint": { "fill-color": "red" }
+      "paint": {
+        "fill-opacity": 0.6,
+        "fill-color": [
+          "match",
+          ["get", "ALEA"],
+          "Fort",
+          "#FF0000",
+          "Moyen",
+          "#FFA500",
+          "Faible",
+          "yellow",
+          "#00000000"
+        ]
+      }
     }
   ],
   "id": "bright"
