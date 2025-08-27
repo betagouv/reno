@@ -113,7 +113,7 @@ ampleur . pourcent d'écrêtement:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 100 %
     - si: ménage . revenu . classe = 'modeste'
-      alors: 80 %
+      alors: 90 %
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 80 %
     - sinon: 50 %
