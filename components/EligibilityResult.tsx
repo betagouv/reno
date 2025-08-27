@@ -54,9 +54,9 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
 
   return (
     <div
-      className={`fr-callout fr-icon-money-line fr-callout--${isEligible ? 'green-emeraude' : 'orange-terre-battue'} fr-mt-5v`}
+      className={`fr-callout fr-icon-money-line fr-callout--${isEligible ? 'blue-cumulus' : 'orange-terre-battue'} fr-mt-5v`}
     >
-      <p className="fr-callout__title fr-mb-5v">
+      <p className="fr-callout__title">
         {isEligible ? (
           <>
             Vous êtes éligible à{' '}
@@ -77,45 +77,42 @@ export function EligibilityResult({ engine, dottedName, situation, text }) {
         )}
       </p>
       {isEligible && (
-        <Badge className="fr-callout__title fr-mb-5v">
-          {['PAR', 'PTZ', 'denormandie'].includes(dottedName)
-            ? montantFormatte +
-              ('denormandie' == dottedName && ` sur ${dureeFormattee}`)
-            : `${taux} pendant ${dureeFormattee}`}
-        </Badge>
-      )}
-      {isEligible && (
-        <p className="fr-callout__text">
-          {dottedName === 'denormandie' && (
-            <>
-              <small
-                css={`
-                  display: block;
-                  margin: 0.5rem 0;
-                `}
-              >
-                Détail: <strong>{taux}</strong> du coût du bien{' '}
-                {engine.evaluate(dottedName + ' . assiette').nodeValue <
-                engine.evaluate(dottedName + ' . plafond').nodeValue ? (
-                  <>
-                    soit{' '}
-                    <strong>
-                      {formatValue(engine.evaluate(dottedName + ' . assiette'))}
-                    </strong>
-                  </>
-                ) : (
-                  <>
-                    plafonné à{' '}
-                    <strong>
-                      {formatValue(engine.evaluate(dottedName + ' . plafond'))}
-                    </strong>
-                  </>
-                )}
-              </small>
-            </>
+        <div style={{ textAlign: 'center' }}>
+          <Badge noIcon severity="success" className="fr-display--xs fr-my-5v">
+            {['PAR', 'PTZ', 'denormandie'].includes(dottedName)
+              ? montantFormatte
+              : taux}
+          </Badge>
+          {'denormandie' == dottedName && <> sur {dureeFormattee}</>}
+          {!['PAR', 'PTZ', 'denormandie'].includes(dottedName) && (
+            <> pendant {dureeFormattee}</>
           )}
           {['PAR', 'PTZ'].includes(dottedName) && (
-            <>maximum sans intérêt pendant {dureeFormattee}.</>
+            <>
+              <br />
+              <strong>sans intérêt</strong> pendant {dureeFormattee}.
+            </>
+          )}
+        </div>
+      )}
+      {isEligible && dottedName === 'denormandie' && (
+        <p className="fr-hint-text">
+          Détail: <strong>{taux}</strong> du coût du bien{' '}
+          {engine.evaluate(dottedName + ' . assiette').nodeValue <
+          engine.evaluate(dottedName + ' . plafond').nodeValue ? (
+            <>
+              soit{' '}
+              <strong>
+                {formatValue(engine.evaluate(dottedName + ' . assiette'))}
+              </strong>
+            </>
+          ) : (
+            <>
+              plafonné à{' '}
+              <strong>
+                {formatValue(engine.evaluate(dottedName + ' . plafond'))}
+              </strong>
+            </>
           )}
         </p>
       )}
@@ -140,11 +137,9 @@ export const ComparatifPretConso = ({ engine, situation, montant, duree }) => {
   const taux = evaluationintérêt.evaluate('intérêt . taux').nodeValue
 
   return (
-    <p className="fr-callout__text">
+    <p className="fr-hint-text fr-my-5v">
       Par rapport à un prêt à la consommation au taux de{' '}
-      <Badge>
-        {situation['intérêt . taux'] ? situation['intérêt . taux'] : taux}
-      </Badge>
+      {situation['intérêt . taux'] ? situation['intérêt . taux'] : taux}
       {/* TODO: Tant qu'on ne sait pas si on peut faire du input inline avec le dsfr, on passe le taux d'intérêt en badge  
        <input
         className="fr-input"
@@ -163,21 +158,16 @@ export const ComparatifPretConso = ({ engine, situation, montant, duree }) => {
         }}
         step="0.1"
       /> */}
-      % sur
+      % sur{' '}
+      {engine.setSituation(situation).evaluate('intérêt . durée').nodeValue}{' '}
+      ans, cela vous fait donc économiser{' '}
       <Value
         {...{
-          engine,
-          situation,
-          dottedName: 'intérêt . durée',
-        }}
-      />
-      , cela vous fait donc économiser{' '}
-      <Value
-        {...{
+          size: 'xl',
           engine,
           situation,
           dottedName: 'intérêt . coût total',
-          state: 'prime',
+          state: 'success',
         }}
       />{' '}
       d'intérêts.

@@ -14,7 +14,9 @@ export default ({
   const missingVariables = evaluation.missingVariables
   const missing = Object.entries(missingVariables)
 
-  return (
+  return state == 'normal' ? (
+    <strong>{value}</strong>
+  ) : (
     <Badge
       noIcon
       className={size == 'xl' ? 'fr-h3' : ''}
