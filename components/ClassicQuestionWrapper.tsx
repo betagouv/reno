@@ -122,9 +122,7 @@ export default function ClassicQuestionWrapper({
       <AmpleurModuleBanner
         {...{
           depuisModule,
-          setSearchParams,
           situation,
-          remaining,
         }}
       />
       {tallyForm && (
