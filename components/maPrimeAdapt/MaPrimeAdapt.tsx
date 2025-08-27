@@ -23,7 +23,7 @@ export default function MaPrimeAdapt({
       {...{
         isEligible,
         engine,
-        dottedName,
+        dottedName: 'mpa',
         setSearchParams,
         situation,
         answeredQuestions,

@@ -331,6 +331,7 @@ export function EligibilityMPA({
                 <AideComponent
                   key={aide.baseDottedName}
                   {...{
+                    isEligible: aide.status,
                     dottedName: aide.baseDottedName,
                     setSearchParams,
                     answeredQuestions,
