@@ -24,6 +24,7 @@ import { mpaLogementValues } from '@/app/module/AmpleurInputs'
 
 export default function InputSwitch({
   form,
+  nbStep,
   currentQuestion: givenCurrentQuestion,
   situation,
   answeredQuestions,
@@ -49,6 +50,7 @@ export default function InputSwitch({
   const [sendDataToHost, consent, setConsent] = useSendDataToHost()
   const params = {
     form,
+    nbStep,
     rule,
     currentQuestion,
     rules,
@@ -381,6 +383,7 @@ export default function InputSwitch({
   ) : (
     <Eligibility
       {...{
+        nbStep,
         currentQuestion,
         searchParams,
         setSearchParams,

@@ -61,6 +61,11 @@ function Form({ rules, simulationConfig }) {
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
 
+  const form = simulationConfig.prioritaires.find((e) => e.includes('parcours'))
+    ? 'full'
+    : null
+  const nbStep = form == 'full' ? 3 : 4
+
   const engine = useMemo(
     () =>
       new Publicodes(rules, {
@@ -82,7 +87,7 @@ function Form({ rules, simulationConfig }) {
     return (
       <AideEtapes
         {...{
-          searchParams,
+          nbStep,
           setSearchParams,
           situation,
           answeredQuestions,
@@ -105,6 +110,7 @@ function Form({ rules, simulationConfig }) {
     return (
       <AideDetails
         {...{
+          nbStep,
           currentQuestion,
           searchParams,
           setSearchParams,
@@ -122,6 +128,8 @@ function Form({ rules, simulationConfig }) {
     <div style={{ maxWidth: '65rem', margin: 'auto' }}>
       <InputSwitch
         {...{
+          form,
+          nbStep,
           rules,
           currentQuestion,
           situation,
