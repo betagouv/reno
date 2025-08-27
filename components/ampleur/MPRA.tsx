@@ -79,7 +79,6 @@ export default function MPRA({
             {...{
               engine,
               situation,
-              state: 'prime',
               dottedName: 'MPR . accompagnée . prise en charge MAR . montant',
             }}
           />

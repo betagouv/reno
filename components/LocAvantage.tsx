@@ -88,7 +88,7 @@ export default function LocAvantage({
               engine,
               situation,
               dottedName: 'locavantage . taux',
-              state: 'prime-black',
+              state: 'normal',
             }}
           />
         </p>

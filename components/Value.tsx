@@ -15,14 +15,16 @@ export default ({
   const missing = Object.entries(missingVariables)
 
   return state == 'normal' ? (
-    <strong>{value}</strong>
+    <strong>{value != 'Pas encore défini' ? value : '...'}</strong>
   ) : (
     <Badge
       noIcon
-      className={size == 'xl' ? 'fr-h3' : ''}
-      severity={state || (missing.length > 0 ? 'inProgress' : state)}
+      className={className + (size == 'xl' ? ' fr-h3' : '')}
+      severity={
+        state != 'none' ? state : missing.length > 0 ? state : 'success'
+      }
     >
-      {value}
+      {value != 'Pas encore défini' ? value : '...'}
       {addOn && <> {addOn}</>}
     </Badge>
   )

@@ -187,7 +187,6 @@ export default function Denormandie({
                       engine,
                       situation,
                       dottedName: 'denormandie . travaux minimum',
-                      state: 'prime-black',
                     }}
                   />{' '}
                   HT (25 % du prix de revient: achat + travaux).
