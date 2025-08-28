@@ -6,6 +6,7 @@ mpa:
     MaPrimeAdapt' est l'aide dédiée aux personnes souhaitant adapter leur logement à leur perte d'autonomie, dans un contexte de transition démographique.
   lien: https://france-renov.gouv.fr/aides/maprimeadapt
 mpa . montant:
+  applicable si: condition éligibilité
   variations:
     - si: mpa . situation demandeur = 'occupant'
       alors: occupant . montant
@@ -59,6 +60,15 @@ mpa . montant travaux:
         - Installation de volets roulants électriques 
         - Motorisation de volets roulants 
         - Autonomie et adaptation: autres besoins
+
+mpa . condition éligibilité: 
+  variations:
+    - si: mpa . situation demandeur = 'occupant'
+      alors: occupant . condition éligibilité 
+    - si: mpa . situation demandeur = 'bailleur'
+      alors: bailleur . condition éligibilité
+    - si: mpa . situation demandeur = 'copropriété'
+      alors: copropriété . condition éligibilité
 
 mpa . occupant:
   titre: MaPrime Adapt'
