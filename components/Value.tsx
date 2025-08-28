@@ -6,6 +6,7 @@ export default ({
   situation,
   dottedName,
   size,
+  className,
   state = 'none',
   addOn,
 }) => {
