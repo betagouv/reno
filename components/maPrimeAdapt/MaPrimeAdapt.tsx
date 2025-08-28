@@ -5,6 +5,7 @@ import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
 import { formatNumberWithSpaces } from '../utils'
 import { push } from '@socialgouv/matomo-next'
+import CalculatorWidget from '../CalculatorWidget'
 
 export default function MaPrimeAdapt({
   isEligible,
@@ -17,8 +18,8 @@ export default function MaPrimeAdapt({
   const dottedName =
     'mpa . ' + situation['mpa . situation demandeur'].replaceAll('"', '') // 'mpa . occupant'
 
-  const exampleSituation = createExampleSituation(engine, situation, false)
-  const extremeSituation = createExampleSituation(engine, situation, true)
+  const exampleSituation = createExampleSituation(situation)
+  const extremeSituation = createExampleSituation(situation, 'best')
 
   return (
     <AideAmpleur
@@ -35,7 +36,7 @@ export default function MaPrimeAdapt({
       }}
     >
       <h3>Comment est calculée l'aide ?</h3>
-      <div className="fr-callout">
+      <CalculatorWidget>
         {dottedName == 'mpa . occupant' && (
           <>
             <p>
@@ -115,7 +116,6 @@ export default function MaPrimeAdapt({
                       engine,
                       situation,
                       dottedName: 'logement . surface',
-                      state: 'prime-black',
                     }}
                   />
                 </>
@@ -167,7 +167,7 @@ export default function MaPrimeAdapt({
             />
           </>
         )}
-      </div>
+      </CalculatorWidget>
     </AideAmpleur>
   )
 }
@@ -201,6 +201,7 @@ export const BlocMontantTravaux = ({
             const price = e.target.value.replace(/\s/g, '')
             const invalid = price != '' && (isNaN(price) || price <= 0)
             if (invalid) return
+
             push([
               'trackEvent',
               'MPA',
@@ -210,11 +211,10 @@ export const BlocMontantTravaux = ({
             setSearchParams({
               [encodeDottedName(rule)]: price == '' ? undefined : price + '*',
             })
-            e.target.value = formatNumberWithSpaces(price)
           },
           value: exampleSituation['mpa . montant travaux']
             ? formatNumberWithSpaces(exampleSituation['mpa . montant travaux'])
-            : undefined,
+            : '',
         }}
         addon={
           <>
