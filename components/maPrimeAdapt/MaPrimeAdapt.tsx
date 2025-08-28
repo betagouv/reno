@@ -1,8 +1,11 @@
 import Input from '@codegouvfr/react-dsfr/Input'
 import AideAmpleur from '../ampleur/AideAmpleur'
 import { createExampleSituation } from '../ampleur/AmpleurSummary'
-import { encodeSituation } from '../publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
+import { formatNumberWithSpaces } from '../utils'
+import { push } from '@socialgouv/matomo-next'
+import CalculatorWidget from '../CalculatorWidget'
 
 export default function MaPrimeAdapt({
   isEligible,
@@ -15,15 +18,15 @@ export default function MaPrimeAdapt({
   const dottedName =
     'mpa . ' + situation['mpa . situation demandeur'].replaceAll('"', '') // 'mpa . occupant'
 
-  const exampleSituation = createExampleSituation(engine, situation, false)
-  const extremeSituation = createExampleSituation(engine, situation, true)
+  const exampleSituation = createExampleSituation(situation)
+  const extremeSituation = createExampleSituation(situation, 'best')
 
   return (
     <AideAmpleur
       {...{
         isEligible,
         engine,
-        dottedName,
+        dottedName: 'mpa',
         setSearchParams,
         situation,
         answeredQuestions,
@@ -33,7 +36,7 @@ export default function MaPrimeAdapt({
       }}
     >
       <h3>Comment est calculée l'aide ?</h3>
-      <div className="fr-callout">
+      <CalculatorWidget>
         {dottedName == 'mpa . occupant' && (
           <>
             <p>
@@ -43,7 +46,7 @@ export default function MaPrimeAdapt({
                   engine,
                   situation,
                   dottedName: 'ménage . revenu . classe',
-                  state: 'prime-black',
+                  state: 'normal',
                 }}
               />{' '}
               vous bénéficiez d'une aide de{' '}
@@ -52,7 +55,7 @@ export default function MaPrimeAdapt({
                   engine,
                   situation,
                   dottedName: dottedName + " . pourcentage d'aide",
-                  state: 'prime-black',
+                  state: 'normal',
                 }}
               />{' '}
               dans la limite d'un plafond de travaux subventionnables de{' '}
@@ -61,7 +64,7 @@ export default function MaPrimeAdapt({
                   engine,
                   situation,
                   dottedName: dottedName + ' . montant travaux . plafond',
-                  state: 'prime-black',
+                  state: 'normal',
                 }}
               />
               .
@@ -90,7 +93,7 @@ export default function MaPrimeAdapt({
                   engine,
                   situation,
                   dottedName: dottedName + " . pourcentage d'aide",
-                  state: 'prime-black',
+                  state: 'normal',
                 }}
               />{' '}
               plafonnée à{' '}
@@ -99,7 +102,7 @@ export default function MaPrimeAdapt({
                   engine,
                   situation,
                   dottedName: dottedName + ' . montant . plafond',
-                  state: 'prime-black',
+                  state: 'normal',
                 }}
               />{' '}
               par logement (750€/m²{' '}
@@ -113,7 +116,6 @@ export default function MaPrimeAdapt({
                       engine,
                       situation,
                       dottedName: 'logement . surface',
-                      state: 'prime-black',
                     }}
                   />
                 </>
@@ -165,7 +167,7 @@ export default function MaPrimeAdapt({
             />
           </>
         )}
-      </div>
+      </CalculatorWidget>
     </AideAmpleur>
   )
 }
@@ -176,45 +178,64 @@ export const BlocMontantTravaux = ({
   dottedName,
   setSearchParams,
   exampleSituation,
+  rule = 'mpa . montant travaux',
 }) => (
-  <p>
-    <Input
-      label="Pour un montant de travaux de : "
-      nativeInputProps={{
-        type: 'number',
-        name: 'montant-travaux',
-        min: 1000,
-        step: 1000,
-        onChange: (rawValue) => {
-          const value = +rawValue === 0 ? undefined : rawValue
-          setSearchParams(
-            encodeSituation({
-              'mpa . montant travaux': value,
-            }),
-            'replace',
-            false,
-          )
-        },
-        value: exampleSituation['mpa . montant travaux'],
-      }}
-      addon={
-        <>
-          €
-          <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-            HT
-          </span>
-        </>
-      }
-    />
-    , je peux bénéficier de{' '}
-    <Value
-      {...{
-        engine,
-        situation,
-        dottedName: dottedName + ' . montant',
-        state: 'prime-black',
-      }}
-    />{' '}
-    d'aide.
-  </p>
+  <div className="fr-grid-row fr-grid-row--center fr-mt-5v">
+    <div
+      css={`
+        text-align: center;
+        div {
+          justify-content: center;
+        }
+      `}
+      className="fr-col"
+    >
+      <Input
+        label="Montant estimée des travaux : "
+        nativeInputProps={{
+          pattern: '\d+',
+          type: 'text',
+          name: 'montant-travaux',
+          inputMode: 'numeric',
+          onChange: (e) => {
+            const price = e.target.value.replace(/\s/g, '')
+            const invalid = price != '' && (isNaN(price) || price <= 0)
+            if (invalid) return
+
+            push([
+              'trackEvent',
+              'MPA',
+              'Interaction',
+              'montant travaux ' + price,
+            ])
+            setSearchParams({
+              [encodeDottedName(rule)]: price == '' ? undefined : price + '*',
+            })
+          },
+          value: exampleSituation['mpa . montant travaux']
+            ? formatNumberWithSpaces(exampleSituation['mpa . montant travaux'])
+            : '',
+        }}
+        addon={
+          <>
+            <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+              € HT
+            </span>
+          </>
+        }
+      />
+    </div>
+    <div style={{ textAlign: 'center' }} className="fr-col">
+      Montant de l'aide : <br />
+      <Value
+        {...{
+          engine,
+          situation,
+          dottedName: dottedName + ' . montant',
+          className: 'fr-mt-2v',
+          size: 'xl',
+        }}
+      />
+    </div>
+  </div>
 )

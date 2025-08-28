@@ -1,23 +1,10 @@
 import rules from '@/app/règles/rules'
 import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
-import iconCalculator from '@/public/calculator.svg'
-import { omit } from '@/components/utils'
-import { useSearchParams } from 'next/navigation'
-import Image from 'next/image'
 import { push } from '@socialgouv/matomo-next'
 import ButtonsGroup from '@codegouvfr/react-dsfr/ButtonsGroup'
 import useIsMobile from '../useIsMobile'
 
-export default function AideCTAs({
-  dottedName,
-  situation,
-  answeredQuestions,
-  setSearchParams,
-  expanded,
-}) {
-  const rawSearchParams = useSearchParams()
-  const searchParams = Object.fromEntries(rawSearchParams.entries())
-  const { objectif, ...situationSearchParams } = searchParams
+export default function AideCTAs({ dottedName, setSearchParams }) {
   const isMobile = useIsMobile()
 
   const detailUrl = setSearchParams(
@@ -28,118 +15,43 @@ export default function AideCTAs({
     false,
   )
 
-  const backUrl =
-    situation &&
-    setSearchParams(
-      {
-        ...encodeSituation(
-          omit(['details'], situation),
-          false,
-          answeredQuestions,
-        ),
-        objectif: objectif,
-      },
-      'url',
-      true,
-    )
-
   return (
     <ButtonsGroup
       alignment="left"
       inlineLayoutWhen="always"
-      buttons={
-        expanded
-          ? [
-              {
-                children: 'Trouver mon conseiller local',
-
-                linkProps: {
-                  href: '',
-                  onClick: () => {
-                    setIsOpenConseiller(!isOpenConseiller)
-                    push([
-                      'trackEvent',
-                      'Simulateur Principal',
-                      'Clic',
-                      'trouver conseiller',
-                    ])
-                  },
-                },
-              },
-              {
-                priority: expanded && 'secondary',
-                children: expanded ? (
-                  'Revenir à la liste des aides'
-                ) : [
-                    'MPR . accompagnée',
-                    'denormandie',
-                    "CEE . rénovation d'ampleur",
-                  ].includes(dottedName) ? (
-                  <>
-                    <Image
-                      src={iconCalculator}
-                      alt="icone calculatrice"
-                      style={{ marginRight: '0.5rem' }}
-                    />
-                    Calculer le montant d'aides
-                  </>
-                ) : (
-                  `En savoir plus ${!isMobile && `sur ${rules[dottedName]?.marque}`}`
-                ),
-                linkProps: {
-                  href: expanded ? backUrl : detailUrl,
-                  onClick: () => {
-                    !expanded &&
-                      push([
-                        'trackEvent',
-                        'Simulateur Principal',
-                        'Détails',
-                        dottedName,
-                      ])
-                  },
-                  className:
-                    !expanded && 'fr-icon-arrow-right-line fr-btn--icon-right',
-                },
-              },
-            ]
-          : [
-              {
-                priority: expanded && 'secondary',
-                children: expanded ? (
-                  'Revenir à la liste des aides'
-                ) : [
-                    'MPR . accompagnée',
-                    'denormandie',
-                    "CEE . rénovation d'ampleur",
-                  ].includes(dottedName) ? (
-                  <>
-                    <Image
-                      src={iconCalculator}
-                      alt="icone calculatrice"
-                      style={{ marginRight: '0.5rem' }}
-                    />
-                    Calculer le montant d'aides
-                  </>
-                ) : (
-                  `En savoir plus ${!isMobile && `sur ${rules[dottedName]?.marque}`}`
-                ),
-                linkProps: {
-                  href: expanded ? backUrl : detailUrl,
-                  onClick: () => {
-                    !expanded &&
-                      push([
-                        'trackEvent',
-                        'Simulateur Principal',
-                        'Détails',
-                        dottedName,
-                      ])
-                  },
-                  className:
-                    !expanded && 'fr-icon-arrow-right-line fr-btn--icon-right',
-                },
-              },
-            ]
-      }
+      buttons={[
+        {
+          children: [
+            'MPR . accompagnée',
+            'denormandie',
+            "CEE . rénovation d'ampleur",
+            'mpa',
+            'locavantage',
+          ].includes(dottedName) ? (
+            <>
+              <span
+                className="fr-icon-money-euro-circle-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
+              Calculer le montant d'aides
+            </>
+          ) : (
+            `En savoir plus ${!isMobile && `sur ${rules[dottedName]?.marque}`}`
+          ),
+          linkProps: {
+            href: detailUrl,
+            onClick: () => {
+              push([
+                'trackEvent',
+                'Simulateur Principal',
+                'Détails',
+                dottedName,
+              ])
+            },
+            className: 'fr-icon-arrow-right-line fr-btn--icon-right',
+          },
+        },
+      ]}
     />
   )
 }

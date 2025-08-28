@@ -144,9 +144,6 @@ export default function AideAmpleur({
               {...{
                 dottedName,
                 setSearchParams,
-                situation,
-                answeredQuestions,
-                expanded,
               }}
             />
           )}

@@ -7,12 +7,7 @@ import Input from '@codegouvfr/react-dsfr/Input'
 import useIsMobile from '../useIsMobile'
 import { formatNumberWithSpaces } from '../utils'
 
-export default function DPEScenario({
-  engine,
-  situation,
-  setSearchParams,
-  answeredQuestions,
-}) {
+export default function DPEScenario({ engine, situation, setSearchParams }) {
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),

@@ -9,6 +9,7 @@ import { push } from '@socialgouv/matomo-next'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function AideEtapes({
+  nbStep,
   setSearchParams,
   situation,
   engine,
@@ -30,12 +31,14 @@ export default function AideEtapes({
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
           Mes démarches
-          <span className="fr-stepper__state">Étape 4 sur 4</span>
+          <span className="fr-stepper__state">
+            Étape {nbStep} sur {nbStep}
+          </span>
         </h1>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step="4"
-          data-fr-steps="4"
+          data-fr-current-step={nbStep}
+          data-fr-steps={nbStep}
         ></div>
       </div>
       <div className="fr-mb-5v">
