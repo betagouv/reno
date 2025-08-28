@@ -33,7 +33,7 @@ export default function Page() {
                 line-height: 1.3rem;
               `}
             >
-              <strong>5 minutes chrono</strong> et sans inscription.
+              <strong>3 minutes chrono</strong> et sans inscription.
             </p>
           </HeaderWrapper>
         </PageBlock>
