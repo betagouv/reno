@@ -21,6 +21,7 @@ import ChoixTravaux from './ChoixTravaux'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
 import { mpaLogementValues } from '@/app/module/AmpleurInputs'
+import ArgileMap from './ArgileMap'
 
 export default function InputSwitch({
   form,
@@ -81,7 +82,27 @@ export default function InputSwitch({
 
   return currentQuestion ? (
     <ClassicQuestionWrapper {...params}>
-      {rule['bornes intelligentes'] ? (
+      {currentQuestion === 'rga . zone aléa' ? (
+        <ArgileMap
+          {...{
+            setChoice: (bdnb) => {
+              const anneeConstruction = bdnb['annee_construction']
+
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  'logement . année de construction': `"${anneeConstruction}"`,
+                },
+                false,
+                answeredQuestions,
+              )
+
+              setSearchParams(encodedSituation, 'push', false)
+            },
+            situation,
+          }}
+        />
+      ) : rule['bornes intelligentes'] ? (
         <RevenuInput
           type={ruleQuestionType}
           rule={rule}
@@ -222,6 +243,7 @@ export default function InputSwitch({
                   'logement . commune': `"${result.code}"`,
                   'logement . commune . nom': `"${result.nom}"`,
                   'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
+                  'logement . clef ban': `"${adresse.properties.id}"`,
                 })
                 setSearchParams(
                   encodeSituation(newSituation, false, answeredQuestions),

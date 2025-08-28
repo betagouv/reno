@@ -188,7 +188,7 @@ logement . année de construction:
 
 logement . âge:
   titre: Âge du logement
-  formule: 2024 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
+  formule: 2025 - année de construction # TODO peut mieux faire, est-ce très imporant d'avoir les mois à ce stade ?
 
   # Il faudrait pouvoir injecter cela dans la période de construction
 logement . période de construction calculée:
@@ -333,6 +333,10 @@ logement . adresse:
 
 logement . coordonnees:
   note: On stocke les coordonnées du logement sous la forme lat,lon afin de pouvoir déterminer son éligibilité au réseau de chaleur grâce à l'API France Chaleur Urbaine
+
+logement . clef ban:
+  description: |
+    La clef BAN formée par concaténation du code INSEE de la commune concernée, du code de la voie liée à l’adresse, du numéro de l’adresse et d’un éventuel indice de répétition.
 
 logement . commune:
   formule: logement . adresse
