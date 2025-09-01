@@ -27,6 +27,7 @@ export default function AideCTAs({ dottedName, setSearchParams }) {
             "CEE . rénovation d'ampleur",
             'mpa',
             'locavantage',
+            "crédit d'impôt",
           ].includes(dottedName) ? (
             <>
               <span

@@ -50,7 +50,7 @@ export function useAides(
           'mpa . montant',
           'locavantage . montant',
           'tva réduite',
-          "crédit d'impôt",
+          "crédit d'impôt . montant",
           'aides locales',
         ]
   // unfold the sums with one level only, no recursion yet

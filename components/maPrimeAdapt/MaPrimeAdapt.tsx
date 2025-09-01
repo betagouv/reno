@@ -7,7 +7,6 @@ import { formatNumberWithSpaces } from '../utils'
 import { push } from '@socialgouv/matomo-next'
 import CalculatorWidget from '../CalculatorWidget'
 import rules from '@/app/règles/rules'
-import Select from '@codegouvfr/react-dsfr/Select'
 import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
@@ -239,7 +238,7 @@ export const BlocMontantTravaux = ({
   exampleSituation,
   rule = 'mpa . montant travaux',
 }) => (
-  <div className="fr-grid-row fr-grid-row--center fr-mt-5v">
+  <div className="fr-grid-row fr-grid-row--center fr-my-5v">
     <div
       css={`
         text-align: center;
