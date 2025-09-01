@@ -62,16 +62,18 @@ export default function AideAmpleur({
               <ConditionEligibiliteUI>
                 {rules[dottedName].conditionsEligibilitesHTML}
               </ConditionEligibiliteUI>
-              <p>
-                <a
-                  rel="noopener external"
-                  className="fr-link"
-                  href={rules[dottedName]['lien']}
-                  target="_blank"
-                >
-                  Plus d'infos sur cette aide
-                </a>
-              </p>
+              {rules[dottedName]['lien'] && (
+                <p>
+                  <a
+                    rel="noopener external"
+                    className="fr-link"
+                    href={rules[dottedName]['lien']}
+                    target="_blank"
+                  >
+                    Plus d'infos sur cette aide
+                  </a>
+                </p>
+              )}
             </>
           }
         </>
@@ -85,7 +87,7 @@ export default function AideAmpleur({
               `}
             >
               {aideTitle(dottedName)}
-              {isEligible && (
+              {isEligible !== false && (
                 <PrimeBadge
                   {...{
                     situation,
@@ -111,7 +113,7 @@ export default function AideAmpleur({
             }}
           />
           {addedText}
-          {isEligible && (
+          {isEligible !== false && (
             <AideCTAs
               {...{
                 dottedName,
