@@ -3,13 +3,16 @@ import { createRoot } from 'react-dom/client'
 import Dummy from './Dummy'
 import { StyleSheetManager } from 'styled-components'
 import '@/app/globals.css'
+import { startReactDsfr } from '@codegouvfr/react-dsfr/spa'
+
+startReactDsfr({ defaultColorScheme: 'system' })
 
 class DummyWebComponent extends HTMLElement {
   connectedCallback() {
     const name = this.getAttribute('name') || 'World'
 
     // Create a ShadowDOM
-    const dom = this.attachShadow({ mode: 'closed' })
+    const dom = this.attachShadow({ mode: 'open' })
 
     // create a slot where we will attach the StyleSheetManager
 
