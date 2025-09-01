@@ -26,10 +26,10 @@ export default function AideDetails({
   return (
     <>
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
-        <h1 className="fr-stepper__title">
+        <span className="fr-stepper__title fr-mb-3v">
           Mes aides
           <span className="fr-stepper__state">Étape 3 sur 4</span>
-        </h1>
+        </span>
         <div
           className="fr-stepper__steps"
           data-fr-current-step="3"
