@@ -100,8 +100,6 @@ const Bar = ({ htmlFor, background, index, selected, children }) => (
       > span {
         background: ${background};
         width: ${3 + (index + 1.5) * 1.5}rem;
-        color: white;
-        text-shadow: 1px 2px 4px black;
         font-weight: bold;
         font-size: 120%;
         display: flex;
@@ -147,6 +145,18 @@ const Bar = ({ htmlFor, background, index, selected, children }) => (
     `}
     htmlFor={htmlFor}
   >
-    <span>{children}</span>
+    <span>
+      <span
+        css={`
+          background: white;
+          border-radius: 50%;
+          width: 25px;
+          display: inline-block;
+          text-align: center;
+        `}
+      >
+        {children}
+      </span>
+    </span>
   </label>
 )
