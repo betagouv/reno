@@ -2,7 +2,6 @@ import { formatValue } from 'publicodes'
 import AideAmpleur from './ampleur/AideAmpleur'
 import { createExampleSituation } from './ampleur/AmpleurSummary'
 import { encodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import { Card } from './UI'
 import Value from './Value'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Select from '@codegouvfr/react-dsfr/Select'
@@ -56,7 +55,9 @@ export default function LocAvantage({
                 onChange: (e) =>
                   setSearchParams(
                     encodeSituation({
-                      'locavantage . niveau loyer': e.target.value,
+                      'locavantage . niveau loyer': e.target.value
+                        ? e.target.value
+                        : undefined,
                     }),
                     'replace',
                     false,
@@ -65,6 +66,7 @@ export default function LocAvantage({
               }}
               label="Loyer inférieur au marché de :"
             >
+              <option value=""></option>
               <option value="'loc 1'">15%</option>
               <option value="'loc 2'">30%</option>
               <option value="'loc 3'">45%</option>
@@ -143,32 +145,39 @@ export default function LocAvantage({
               situation,
               dottedName: 'locavantage . taux',
               className: 'fr-my-2v',
-              state: 'success',
               size: 'xl',
             }}
           />
         </div>
-        {primeLocation.nodeValue && (
-          <>
-            <p>De plus, vous aurez droit à:</p>
-            <ul>
-              <li>
-                une prime de <Badge noIcon>{formatValue(primeLocation)}</Badge>{' '}
-                en cas de recours à la location/sous-location
-              </li>
-              <li>
-                une prime de <Badge noIcon>{formatValue(primeGestion)}</Badge>{' '}
-                en cas de recours à un mandat de gestion
-              </li>
-              {primeSurface.nodeValue && (
-                <li>
-                  une prime de <Badge noIcon>{formatValue(primeSurface)}</Badge>{' '}
-                  car le logement est inférieur à 40m²
-                </li>
-              )}
-            </ul>
-          </>
-        )}
+        {primeLocation.nodeValue ||
+          (primeSurface.nodeValue && (
+            <>
+              <p>De plus, vous aurez droit à:</p>
+              <ul>
+                {primeLocation.nodeValue && (
+                  <>
+                    <li>
+                      une prime de{' '}
+                      <Badge noIcon>{formatValue(primeLocation)}</Badge> en cas
+                      de recours à la location/sous-location
+                    </li>
+                    <li>
+                      une prime de{' '}
+                      <Badge noIcon>{formatValue(primeGestion)}</Badge> en cas
+                      de recours à un mandat de gestion
+                    </li>
+                  </>
+                )}
+                {primeSurface.nodeValue && (
+                  <li>
+                    une prime de{' '}
+                    <Badge noIcon>{formatValue(primeSurface)}</Badge> car le
+                    logement est inférieur à 40m²
+                  </li>
+                )}
+              </ul>
+            </>
+          ))}
       </CalculatorWidget>
     </AideAmpleur>
   )

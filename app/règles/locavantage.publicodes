@@ -16,16 +16,15 @@ locavantage . montant:
   applicable si: condition éligibilité
   formule: taux * loyer
 locavantage . condition éligibilité: mpa . situation demandeur = 'bailleur'
-locavantage . loyer: 500€
+locavantage . loyer: 
 locavantage . intermédiation locative:
-  par défaut: oui
+  question: Allez-vous faire appel à un intermédiaire de gestion locative ? 
 locavantage . niveau loyer:
   une possibilité parmi:
     possibilités:
       - loc 1
       - loc 2
       - loc 3
-  par défaut: '"loc 1"'
 locavantage . niveau loyer . loc 1:
   valeur: loc 1
   titre: Loc 1
