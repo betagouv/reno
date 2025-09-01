@@ -129,6 +129,44 @@ mpa . occupant . pourcentage d'aide:
 mpa . occupant . montant travaux: montant travaux
 mpa . occupant . montant travaux . plafond: 22000 €
 mpa . occupant . avance: 30%
+mpa . occupant . accompagnement:
+  question: Quel type d'accompagnement souhaitez-vous ?
+  description: Le recours à un AMO (assistant à maîtrise d’ouvrage) à choisir avec votre conseiller est obligatoire et subventionné
+  une possibilité parmi:
+    possibilités:
+      - 'socle'
+      - 'complet'
+      - 'complet et rapport'
+  par défaut: "'occupant'"
+mpa . occupant . accompagnement . socle:
+  titre: "Socle"
+  description: |
+      Définition du projet de travaux : diagnostic logement autonomie et préconisation de travaux adaptés<br />
+      Vérification du dossier : Vérification de la complétude et la cohérence du dossier du ménage
+  valeur: socle
+  montant: 350 €
+mpa . occupant . accompagnement . complet:
+  titre: "Complet"
+  description: |
+    Socle +<br />
+    Ingénierie financière : Gestion des devis, identification des artisans et stratégie de minimisation du reste à charge<br />
+    Suivi des travaux : Planification et suivi logistique des travaux
+  valeur: complet
+  montant: 600 €
+mpa . occupant . accompagnement . complet et rapport:
+  titre: "Complet + rapport d'ergothérapie"
+  description : Complet + Rapport d’ergothérapie
+  valeur: complet et rapport
+  montant: 800 €
+mpa . occupant . accompagnement . montant: 
+  variations:
+    - si: socle
+      alors: 350 €
+    - si: complet
+      alors: 600 €
+    - si: complet et rapport
+      alors: 800 €
+    - sinon: 0 €
 
 mpa . bailleur:
   titre: MaPrime Adapt' pour les propriétaires bailleurs 

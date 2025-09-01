@@ -109,6 +109,28 @@ export default function AideEtapes({
             showWithAnswer={false}
           />
         </Card>
+
+        {hasMPA &&
+          situation['mpa . situation demandeur'] ==
+            '"occupant"' && (
+              <Card>
+                <h3>
+                  <span
+                    className="fr-icon-user-line fr-mr-1v"
+                    aria-hidden="true"
+                  ></span>
+                  Je réalise avec l’AMO mon diagnostic logement
+                </h3>
+                <p>
+                  L’AMO est un assistant à maîtrise d’ouvrage que vous avez pu
+                  choisir lors de votre rendez-vous avec le conseiller France
+                  Rénov'. Son rôle est de vous accompagner à chaque étape, de
+                  l’élaboration de votre projet au versement de l’aide.
+                </p>
+                <p> Il est obligatoire pour bénéficier de MaPrimeAdapt’.</p>
+              </Card>,
+            )}
+
         {(hasMPRA || hasMPA || hasPret) && (
           <Card>
             <h3>
@@ -251,7 +273,7 @@ export default function AideEtapes({
             )}
           </Card>
         )}
-        {!hasMPRA && (
+        {!hasMPRA && !hasMPA && (
           <Card>
             <Badge noIcon>optionnel</Badge>
             <h3>

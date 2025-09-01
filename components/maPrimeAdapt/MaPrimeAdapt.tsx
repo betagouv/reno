@@ -6,7 +6,10 @@ import Value from '../Value'
 import { formatNumberWithSpaces } from '../utils'
 import { push } from '@socialgouv/matomo-next'
 import CalculatorWidget from '../CalculatorWidget'
-import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import rules from '@/app/règles/rules'
+import Select from '@codegouvfr/react-dsfr/Select'
+import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function MaPrimeAdapt({
   isEligible,
@@ -18,7 +21,7 @@ export default function MaPrimeAdapt({
 }) {
   const dottedName =
     'mpa . ' + situation['mpa . situation demandeur'].replaceAll('"', '') // 'mpa . occupant'
-
+  const accompagnement = 'mpa . occupant . accompagnement'
   const exampleSituation = createExampleSituation(situation)
   const extremeSituation = createExampleSituation(situation, 'best')
 
@@ -79,7 +82,7 @@ export default function MaPrimeAdapt({
                 setSearchParams,
               }}
             />
-            <Highlight className="fr-mt-3v">
+            <div className="fr-highlight fr-my-5v">
               De plus, en tant que propriétaire occupant ou locataire, vous avez
               droit à une avance de{' '}
               <Value
@@ -90,7 +93,50 @@ export default function MaPrimeAdapt({
                 }}
               />{' '}
               du montant de l’aide.
-            </Highlight>
+            </div>
+            <RadioButtons
+              legend={rules[accompagnement]['question'] + ' : '}
+              hintText={rules[accompagnement]['description']}
+              options={rules[accompagnement]['une possibilité parmi'][
+                'possibilités'
+              ].map((i) => ({
+                label: (
+                  <div>
+                    {rules[`${accompagnement} . ${i}`].titre}{' '}
+                    <Badge
+                      noIcon
+                      severity={situation[accompagnement] === i && 'success'}
+                    >
+                      {rules[`${accompagnement} . ${i}`].montant}
+                    </Badge>
+                  </div>
+                ),
+                hintText: (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: rules[`${accompagnement} . ${i}`].description,
+                    }}
+                  />
+                ),
+                nativeInputProps: {
+                  value: i,
+                  checked: situation[accompagnement] === i,
+                  onChange: () => {
+                    push([
+                      'trackEvent',
+                      'MPA',
+                      'Interaction',
+                      'type accompagement',
+                    ])
+
+                    setSearchParams({
+                      [encodeDottedName(accompagnement)]: i + '*',
+                    })
+                  },
+                },
+              }))}
+              stateRelatedMessage=""
+            />
           </>
         )}
         {dottedName == 'mpa . bailleur' && (
