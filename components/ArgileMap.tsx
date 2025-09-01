@@ -40,12 +40,14 @@ export default function ArgileMap({ situation, setChoice }) {
           <section>
             <div>
               Niveau d'aléa argiles :
-              <p className="fr-badge">{bdnb[0].alea_argiles}</p>
+              <p className="fr-badge">{bdnb[0].alea_argiles || 'Nul'}</p>
             </div>
-            <div>
-              Année de construction :
-              <p className="fr-badge">{bdnb[0].annee_construction}</p>
-            </div>
+            {bdnb[0].annee_construction && (
+              <div>
+                Année de construction :
+                <p className="fr-badge">{bdnb[0].annee_construction}</p>
+              </div>
+            )}
           </section>
         ) : (
           <p>⏳️ En attente des données du bâtiment...</p>
