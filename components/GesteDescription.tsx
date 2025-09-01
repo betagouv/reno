@@ -10,7 +10,6 @@ export default function GesteDescription({ rule }) {
   return (
     <Details open={open}>
       <summary>
-        <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         <button
           onClick={() => setOpen(!open)}
           css={`

@@ -1,7 +1,9 @@
 import { SuggestionsList } from '@/components/InputUI'
-import Link from 'next/link'
+import { Tag } from '@codegouvfr/react-dsfr/Tag'
+import { useState } from 'react'
 
 export default function Suggestions({ rule, onClick }) {
+  const [pressedTag, setPressedTag] = useState(null)
   if (!rule.suggestions) return null
 
   const suggestions = Object.entries(rule.suggestions)
@@ -17,7 +19,18 @@ export default function Suggestions({ rule, onClick }) {
     <SuggestionsList>
       {suggestions.map(([k, v]) => (
         <li key={k}>
-          <Link href={onClick(getValue(v))}>{k}</Link>
+          <Tag
+            nativeButtonProps={{
+              onClick: function handleClick(e) {
+                e.preventDefault()
+                setPressedTag(k)
+                onClick(getValue(v))
+              },
+            }}
+            pressed={pressedTag === k}
+          >
+            {k}
+          </Tag>
         </li>
       ))}
     </SuggestionsList>

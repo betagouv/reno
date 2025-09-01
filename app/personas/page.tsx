@@ -2,6 +2,9 @@ import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import Personas from '../Personas'
 import Tests from './Tests'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { PageBlock } from '@/components/UI'
 
 export const metadata: Metadata = {
   title: 'Personas - Mes aides réno',
@@ -11,9 +14,21 @@ export const metadata: Metadata = {
 
 export default function PersonasPage() {
   return (
-    <Suspense>
-      <Personas />
-      <Tests />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="Personas"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[]}
+        />
+        <Suspense>
+          <Personas />
+          <Tests />
+        </Suspense>
+      </PageBlock>
+    </>
   )
 }

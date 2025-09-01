@@ -21,13 +21,11 @@ import logoMoneyVox from '@/public/logo-partenaire/logo-moneyvox.webp'
 import logoJDN from '@/public/logo-partenaire/logo-jdn.png'
 import logoOuestFranceImmo from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
 import logoLeProgres from '@/public/logo-partenaire/logo-le-progres.svg'
-import { Content, Wrapper } from '@/components/explications/ExplicationUI'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { ExternalLink } from '@/components/UI'
 import { Loader } from '@/components/UI'
 
 ChartJS.register(
@@ -197,35 +195,213 @@ export default function Statistiques() {
   )
 
   return (
-    <div
-      css={`
-        h4 {
-          font-size: 1rem;
-        }
-      `}
-    >
-      <Wrapper $background="white" $noMargin={true}>
-        <Content
+    <>
+      <h2>Statistiques</h2>
+      <p>
+        <strong>Notre mission</strong> : simplifier l'accès à l'information sur
+        les aides à la rénovation énergétique pour augmenter le nombre de
+        personnes qui engagent des travaux de rénovation.
+      </p>
+      <h3>Données d'interaction avec le simulateur</h3>
+      <p
+        css={`
+          color: #0974f6 !important;
+          font-weight: bold;
+        `}
+      >
+        Sur les 30 derniers jours :{' '}
+      </p>
+      <div
+        css={`
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 1rem;
+        `}
+      >
+        <StatCard
+          label="simulations terminées"
+          value={formatter.format(data.nbSimuEndedMonth)}
+          type="warning"
+          target="100 000"
+        />
+        <StatCard
+          label="taux de conversion*"
+          value={`${Math.round(data.transfoRateFranceRenov)}%`}
+          target="10%"
+          type="success"
+        />
+        <StatCard
+          label="durée moyenne<br />
+                des sessions (minutes)"
+          value={data.avgTimeOnSite}
+        />
+      </div>
+      <p
+        css={`
+          font-style: italic;
+          margin-top: 1rem;
+        `}
+      >
+        *taux de conversion : pourcentage de simulations pendant lesquelles
+        l'usager clique sur le bouton "Trouver mon conseiller local" par rapport
+        aux simulations terminées.
+      </p>
+      <h3>
+        Evolution des visiteurs uniques et simulations terminées (hebdomadaire)
+      </h3>
+      {data.weeklyData && <Line data={chartData} options={options} />}
+      <h3>Intégration du simulateur par des tiers</h3>
+      <p
+        css={`
+          margin: 1rem 0;
+        `}
+      >
+        Le simulateur Mes Aides Réno a été construit sur un modèle de calcul
+        open-source, documenté et à jour, disponible pour être intégré (iframe,
+        API ou paquet NPM) dans des parcours usagers de partenaires tiers
+        lorsque la question d'une rénovation énergétique se pose.
+      </p>
+      <div
+        css={`
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          justify-content: center;
+        `}
+      >
+        <StatCard
+          label="intégrations du simulateur<br />Mes aides réno"
+          value={12}
+        />
+        <StatCard label="mentions par des médias<br />&nbsp;" value="30+" />
+      </div>
+      <div
+        css={`
+          margin-top: 1rem;
+        `}
+      >
+        <Swiper
+          modules={[Navigation]}
+          navigation
+          loop={true}
+          breakpoints={{
+            640: { slidesPerView: 1, spaceBetween: 10 },
+            768: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
+          }}
           css={`
-            h3 {
-              font-size: 1.1rem;
+            .swiper-wrapper {
+              align-items: center;
+            }
+            .swiper-slide {
+              text-align: center;
+            }
+            img {
+              width: 200px;
+              height: auto;
+            }
+            .swiper-button-prev,
+            .swiper-button-next {
+              background: black;
+              border-radius: 5rem;
+              color: white;
+              padding: 0px 20px;
+              &:after {
+                font-size: 0.7rem;
+                font-weight: bold;
+              }
+            }
+            .swiper-button-prev {
+              left: 0;
+            }
+            .swiper-button-next {
+              right: 0;
             }
           `}
         >
-          <h2>Statistiques</h2>
-          <p>
-            <strong>Notre mission</strong> : simplifier l'accès à l'information
-            sur les aides à la rénovation énergétique pour augmenter le nombre
-            de personnes qui engagent des travaux de rénovation.
-          </p>
-          <h3>Données d'interaction avec le simulateur</h3>
-          <p
-            css={`
-              color: #0974f6 !important;
-              font-weight: bold;
-            `}
-          >
-            Sur les 30 derniers jours :{' '}
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
+              target="_blank"
+            >
+              <Image src={logoBonPote} alt="Logo Bon Pote" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://www.ouestfrance-immo.com/"
+              target="_blank"
+            >
+              <Image src={logoOuestFranceImmo} alt="Logo Ouest France Immo" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
+              target="_blank"
+            >
+              <Image src={logoFranceInfo} alt="Logo France Info" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://www.moneyvox.fr/immobilier/actualites/99663/renovation-energetique-ce-simulateur-officiel-gratuit-revele-les-aides-que-vous-ignorez"
+              target="_blank"
+            >
+              <Image src={logoMoneyVox} alt="Logo Money Vox" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
+              target="_blank"
+            >
+              <Image src={logoActualImmo} alt="Logo Actual Immo" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://www.tf1info.fr/immobilier/bouilloires-thermiques-comment-adapter-son-logement-aux-vagues-de-chaleur-2315763.html"
+              target="_blank"
+            >
+              <Image src={logoTf1Info} alt="Logo TF1 Info" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
+              target="_blank"
+            >
+              <Image src={logoLeProgres} alt="Logo Le Progrès" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
+              rel="noopener external"
+              href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
+              target="_blank"
+            >
+              <Image src={logoJDN} alt="Logo Journal du net" />
+            </a>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+
+      {satisfaction?.oui > 0 && (
+        <>
+          <h3>Satisfaction des usagers</h3>
+          <p className="fr-mt-3v">
+            Les taux de satisfaction ci-dessous correspondent aux pourcentages
+            d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
+            l'ensemble des usagers ayant répondu au module de satisfaction.
           </p>
           <div
             css={`
@@ -235,213 +411,18 @@ export default function Statistiques() {
               gap: 1rem;
             `}
           >
-            <StatCard
-              label="simulations terminées"
-              value={formatter.format(data.nbSimuEndedMonth)}
-              type="warning"
-              target="100 000"
-            />
-            <StatCard
-              label="taux de conversion*"
-              value={`${Math.round(data.transfoRateFranceRenov)}%`}
-              target="10%"
-              type="success"
-            />
-            <StatCard
-              label="durée moyenne<br />
-                des sessions (minutes)"
-              value={data.avgTimeOnSite}
-            />
-          </div>
-          <p
-            css={`
-              font-style: italic;
-              margin-top: 1rem;
-            `}
-          >
-            *taux de conversion : pourcentage de simulations pendant lesquelles
-            l'usager clique sur le bouton "Trouver mon conseiller local" par
-            rapport aux simulations terminées.
-          </p>
-          <h3>
-            Evolution des visiteurs uniques et simulations terminées
-            (hebdomadaire)
-          </h3>
-          {data.weeklyData && <Line data={chartData} options={options} />}
-          <h3>Intégration du simulateur par des tiers</h3>
-          <p
-            css={`
-              margin: 1rem 0;
-            `}
-          >
-            Le simulateur Mes Aides Réno a été construit sur un modèle de calcul
-            open-source, documenté et à jour, disponible pour être intégré
-            (iframe, API ou paquet NPM) dans des parcours usagers de partenaires
-            tiers lorsque la question d'une rénovation énergétique se pose.
-          </p>
-          <div
-            css={`
-              display: flex;
-              gap: 1rem;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
-            <StatCard
-              label="intégrations du simulateur<br />Mes aides réno"
-              value={12}
-            />
-            <StatCard label="mentions par des médias<br />&nbsp;" value="30+" />
-          </div>
-          <div
-            css={`
-              margin-top: 1rem;
-            `}
-          >
-            <Swiper
-              modules={[Navigation]}
-              navigation
-              loop={true}
-              breakpoints={{
-                640: { slidesPerView: 1, spaceBetween: 10 },
-                768: { slidesPerView: 2, spaceBetween: 20 },
-                1024: { slidesPerView: 3, spaceBetween: 30 },
-              }}
-              css={`
-                .swiper-wrapper {
-                  align-items: center;
-                }
-                .swiper-slide {
-                  text-align: center;
-                }
-                img {
-                  width: 200px;
-                  height: auto;
-                }
-                .swiper-button-prev,
-                .swiper-button-next {
-                  background: black;
-                  border-radius: 5rem;
-                  color: white;
-                  padding: 0px 20px;
-                  &:after {
-                    font-size: 0.7rem;
-                    font-weight: bold;
-                  }
-                }
-                .swiper-button-prev {
-                  left: 0;
-                }
-                .swiper-button-next {
-                  right: 0;
-                }
-              `}
-            >
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
-                  target="_blank"
-                >
-                  <Image src={logoBonPote} alt="Logo Bon Pote" />
-                </ExternalLink>
-              </SwiperSlide>
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://www.ouestfrance-immo.com/"
-                  target="_blank"
-                >
-                  <Image
-                    src={logoOuestFranceImmo}
-                    alt="Logo Ouest France Immo"
-                  />
-                </ExternalLink>
-              </SwiperSlide>
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
-                  target="_blank"
-                >
-                  <Image src={logoFranceInfo} alt="Logo France Info" />
-                </ExternalLink>
-              </SwiperSlide>
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://www.moneyvox.fr/immobilier/actualites/99663/renovation-energetique-ce-simulateur-officiel-gratuit-revele-les-aides-que-vous-ignorez"
-                  target="_blank"
-                >
-                  <Image src={logoMoneyVox} alt="Logo Money Vox" />
-                </ExternalLink>
-              </SwiperSlide>
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
-                  target="_blank"
-                >
-                  <Image src={logoActualImmo} alt="Logo Actual Immo" />
-                </ExternalLink>
-              </SwiperSlide>
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://www.tf1info.fr/immobilier/bouilloires-thermiques-comment-adapter-son-logement-aux-vagues-de-chaleur-2315763.html"
-                  target="_blank"
-                >
-                  <Image src={logoTf1Info} alt="Logo TF1 Info" />
-                </ExternalLink>
-              </SwiperSlide>
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
-                  target="_blank"
-                >
-                  <Image src={logoLeProgres} alt="Logo Le Progrès" />
-                </ExternalLink>
-              </SwiperSlide>
-              <SwiperSlide>
-                <ExternalLink
-                  href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
-                  target="_blank"
-                >
-                  <Image src={logoJDN} alt="Logo Journal du net" />
-                </ExternalLink>
-              </SwiperSlide>
-            </Swiper>
-          </div>
-        </Content>
-      </Wrapper>
-      {satisfaction?.oui > 0 && (
-        <Wrapper $background="white" $noMargin={true}>
-          <Content>
-            <h3>Satisfaction des usagers</h3>
-            <p
-              css={`
-                margin: 1rem 0;
-              `}
-            >
-              Les taux de satisfaction ci-dessous correspondent aux pourcentages
-              d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
-              l'ensemble des usagers ayant répondu au module de satisfaction.
-            </p>
-            <div
-              css={`
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                gap: 1rem;
-              `}
-            >
-              <StatCard label="Oui" value={`${satisfaction['oui']}%`} />
+            <StatCard label="Oui" value={`${satisfaction['oui']}%`} />
 
-              <StatCard
-                label="En partie"
-                value={`${satisfaction['en partie']}%`}
-              />
+            <StatCard
+              label="En partie"
+              value={`${satisfaction['en partie']}%`}
+            />
 
-              <StatCard label="Non" value={`${satisfaction['non']}%`} />
-            </div>
-          </Content>
-        </Wrapper>
+            <StatCard label="Non" value={`${satisfaction['non']}%`} />
+          </div>
+        </>
       )}
-    </div>
+    </>
   )
 }
 

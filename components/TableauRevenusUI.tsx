@@ -27,11 +27,6 @@ export const Table = styled.table`
 `
 export const TableWrapper = styled.div`
   max-width: 100vw;
-  overflow-x: scroll;
-  @media (min-width: 1000px) {
-    width: 60rem;
-    margin-left: -12rem;
-  }
 `
 
 export const Tr = styled.tr`

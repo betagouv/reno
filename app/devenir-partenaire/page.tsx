@@ -1,6 +1,7 @@
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import DevenirPartenaire from '@/components/DevenirPartenaire'
 import illustrationAmpleur from '@/public/illuAmpleur.png'
+import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router/DsfrProvider'
 
 export const metadata: Metadata = {
   title: 'Devenir Partenaire Mes Aides Réno',
@@ -9,5 +10,10 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <DevenirPartenaire />
+  return (
+    <>
+      <StartDsfrOnHydration />
+      <DevenirPartenaire />
+    </>
+  )
 }

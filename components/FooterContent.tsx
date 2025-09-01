@@ -1,239 +1,228 @@
 import { getAllArticles } from '@/app/blog/articles'
-import { ExternalLink, FooterWrapper, InternalLink } from './UI'
+import { Footer } from '@codegouvfr/react-dsfr/Footer'
 
 export default async function FooterContent() {
   const sortedArticles = await getAllArticles()
+
   return (
-    <FooterWrapper className="fr-footer" role="contentinfo">
-      <div>
-        <div className="fr-footer__top">
-          <div className="footer-col">
-            <h3 className="fr-footer__top-cat">
-              <InternalLink className="fr-footer__top-link" href={'/blog'}>
-                Blog
-              </InternalLink>
-            </h3>
-            <ul className="fr-footer__top-list">
-              {sortedArticles
-                .filter(
-                  ({ tags, brouillon }) =>
-                    !tags?.includes('notes de version') && !brouillon,
-                )
-                .map(({ url, titre }) => (
-                  <li key={url}>
-                    <InternalLink className="fr-footer__top-link" href={url}>
-                      {titre}
-                    </InternalLink>
-                  </li>
-                ))
-                .slice(0, 5)}
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h3 className="fr-footer__top-cat">
-              <InternalLink href="/aides">Les aides</InternalLink>
-            </h3>
-            <ul className="fr-footer__top-list">
-              <li>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href="/aides/ma-prime-renov"
-                >
-                  MaPrimeRénov
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href="/aides/bareme-revenus"
-                >
-                  Tableau des revenus
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href="/aides/coup-de-pouce"
-                >
-                  Les Coups de pouce
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink className="fr-footer__top-link" href="/aides/cee">
-                  Certificats d'économie d'énergie (CEE)
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href="/aides/pret-taux-0"
-                >
-                  Les prêts à taux zéro
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href="/aides/exoneration-fiscale/taxe-fonciere"
-                >
-                  L'exonération de taxe foncière
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href="/aides/exoneration-fiscale/denormandie"
-                >
-                  Le dispositif Denormandie
-                </InternalLink>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h3 className="fr-footer__top-cat">Nos partenaires</h3>
-            <ul className="fr-footer__top-list">
-              <li>
-                <ExternalLink
-                  className="fr-footer__top-link"
-                  title="France Rénov'"
-                  href="https://france-renov.gouv.fr"
-                >
-                  France Rénov'
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  className="fr-footer__top-link"
-                  title="Dossier Facile"
-                  href="https://www.dossierfacile.logement.gouv.fr"
-                >
-                  Dossier Facile
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  className="fr-footer__top-link"
-                  title="France Chaleur Urbaine"
-                  href="https://france-chaleur-urbaine.beta.gouv.fr"
-                >
-                  France Chaleur Urbaine
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  className="fr-footer__top-link"
-                  title="Pacoupa"
-                  href="https://pacoupa.ademe.fr"
-                >
-                  Pacoupa
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  className="fr-footer__top-link"
-                  title="Zéro Logement Vacant"
-                  href="https://zerologementvacant.beta.gouv.fr"
-                >
-                  Zéro Logement Vacant
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  className="fr-footer__top-link"
-                  title="Jagis"
-                  href="https://jagis.beta.gouv.fr"
-                >
-                  Jagis
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  className="fr-footer__top-link"
-                  title="Nos Gestes Climat"
-                  href="https://nosgestesclimat.fr/"
-                >
-                  Nos Gestes Climat
-                </ExternalLink>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h3 className="fr-footer__top-cat">Liens utiles</h3>
-            <ul className="fr-footer__top-list">
-              <li>
-                <InternalLink className="fr-footer__top-link" href="/a-propos">
-                  À propos
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink className="fr-footer__top-link" href="/faq">
-                  Questions fréquentes
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink className="fr-footer__top-link" href="/contact">
-                  Contact
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink className="fr-footer__top-link" href="/api-doc">
-                  API
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink
-                  className="fr-footer__top-link"
-                  href="/integration"
-                >
-                  Intégrer notre calculateur
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink className="fr-footer__top-link" href="/personas">
-                  Personas
-                </InternalLink>
-              </li>
-              <li>
-                <InternalLink className="fr-footer__top-link" href="/stats">
-                  Statistiques
-                </InternalLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="fr-footer__bottom">
-          <ul className="fr-footer_bottom-list">
-            <li className="fr-footer__bottom-item">
-              <InternalLink href="/accessibilite">
-                Accessibilité : non conforme
-              </InternalLink>
-            </li>
-            <li className="fr-footer__bottom-item">
-              <InternalLink
-                className="fr-footer__top-link"
-                href="/confidentialite"
-              >
-                Confidentialité
-              </InternalLink>
-            </li>
-          </ul>
-          <div className="fr-footer__bottom-copy">
-            <p>
-              Sauf mention contraire, tous les contenus de ce site sont sous{' '}
-              <ExternalLink
-                href="https://github.com/betagouv/reno/blob/master/LICENSE"
-                target="_blank"
-                title="licence MIT - nouvelle fenêtre"
-                css={`
-                  text-decoration: underline;
-                `}
-              >
-                licence MIT
-              </ExternalLink>
-            </p>
-          </div>
-        </div>
-      </div>
-    </FooterWrapper>
+    <>
+      <Footer
+        accessibility="partially compliant"
+        accessibilityLinkProps={{
+          href: '/accessibilite',
+        }}
+        websiteMapLinkProps={{
+          href: '/sitemap',
+        }}
+        termsLinkProps={{
+          href: '/mentions-legales',
+        }}
+        brandTop={
+          <>
+            RÉPUBLIQUE
+            <br />
+            FRANCAISE
+          </>
+        }
+        homeLinkProps={{
+          href: '/',
+          title: 'Accueil - Mes Aides Réno',
+        }}
+        bottomItems={[
+          {
+            text: 'Confidentialité',
+            linkProps: {
+              href: '/confidentialite',
+            },
+          },
+        ]}
+        contentDescription=""
+        license={
+          <>
+            Sauf mention contraire, tous les contenus de ce site sont sous{' '}
+            <a
+              href="https://github.com/betagouv/reno/blob/master/LICENSE"
+              target="_blank"
+            >
+              licence MIT
+            </a>{' '}
+          </>
+        }
+        linkList={[
+          {
+            categoryName: 'Blog',
+            links: sortedArticles
+              .filter(
+                ({ tags, brouillon }) =>
+                  !tags?.includes('notes de version') && !brouillon,
+              )
+              .map(({ url, titre }) => {
+                return {
+                  linkProps: {
+                    href: url,
+                  },
+                  text: titre,
+                }
+              })
+              .slice(0, 5),
+          },
+          {
+            categoryName: 'Les aides',
+            links: [
+              {
+                linkProps: {
+                  href: '/aides/ma-prime-renov',
+                },
+                text: "MaPrimeRénov'",
+              },
+              {
+                linkProps: {
+                  href: '/aides/bareme-revenus',
+                },
+                text: 'Tableau des revenus',
+              },
+              {
+                linkProps: {
+                  href: '/aides/coup-de-pouce',
+                },
+                text: 'Les Coups de pouce',
+              },
+              {
+                linkProps: {
+                  href: '/aides/cee',
+                },
+                text: "Certificats d'économie d'énergie (CEE)",
+              },
+              {
+                linkProps: {
+                  href: '/aides/pret-taux-0',
+                },
+                text: 'Les prêts à taux zéro',
+              },
+              {
+                linkProps: {
+                  href: '/aides/exoneration-fiscale/taxe-fonciere',
+                },
+                text: "L'exonération de taxe foncière",
+              },
+              {
+                linkProps: {
+                  href: '/aides/exoneration-fiscale/denormandie',
+                },
+                text: 'Le dispositif Denormandie',
+              },
+            ],
+          },
+          {
+            categoryName: 'Liens utiles',
+            links: [
+              {
+                linkProps: {
+                  href: '/a-propos',
+                },
+                text: 'À propos',
+              },
+              {
+                linkProps: {
+                  href: '/faq',
+                },
+                text: 'Questions fréquentes',
+              },
+              {
+                linkProps: {
+                  href: '/contact',
+                },
+                text: 'Contact',
+              },
+              {
+                linkProps: {
+                  href: '/api-doc',
+                },
+                text: 'API',
+              },
+              {
+                linkProps: {
+                  href: '/integration',
+                },
+                text: 'Intégrer nos calculettes',
+              },
+              {
+                linkProps: {
+                  href: '/personas',
+                },
+                text: 'Personas',
+              },
+              {
+                linkProps: {
+                  href: '/stats',
+                },
+                text: 'Statistiques',
+              },
+            ],
+          },
+        ]}
+        contentDescription={
+          <>
+            MesAidesRéno est propulsé par{' '}
+            <a
+              href="https://www.numerique.gouv.fr/numerique-etat/dinum/"
+              rel="noopener external"
+              target="_blank"
+            >
+              la direction interministérielle du numérique
+            </a>{' '}
+            en partenariat avec{' '}
+            <a
+              href="https://www.anah.gouv.fr"
+              rel="noopener external"
+              target="_blank"
+            >
+              l'ANAH
+            </a>
+            .
+            <br /> Le code source est disponible en licence libre
+          </>
+        }
+        operatorLogo={{
+          alt: 'Logo Mes Aides Réno',
+          imgUrl: '/logo.svg',
+          orientation: 'horizontal',
+        }}
+        partnersLogos={{
+          main: {
+            alt: "Logo France Rénov'",
+            href: 'https://france-renov.gouv.fr',
+            imgUrl: '/logo-france-renov-blanc.svg',
+          },
+          sub: [
+            {
+              alt: 'Logo ADEME',
+              href: 'https://www.ademe.fr',
+              imgUrl: '/logo-partenaire/logo-ademe.svg',
+            },
+            {
+              alt: 'Logo Nos Gestes Climat',
+              href: 'https://nosgestesclimat.fr',
+              imgUrl: '/logo-partenaire/logo-nos-gestes-climat.png',
+            },
+            {
+              alt: 'Logo Jagis',
+              href: 'https://jagis.beta.gouv.fr',
+              imgUrl: '/logo-partenaire/logo-jagis.svg',
+            },
+            {
+              alt: 'Logo Zéro Logement Vacant',
+              href: 'https://zerologementvacant.beta.gouv.fr',
+              imgUrl: '/logo-partenaire/logo-zero-logement-vacant.svg',
+            },
+            {
+              alt: 'Logo France Chaleur Urbaine',
+              href: 'https://france-chaleur-urbaine.beta.gouv.fr',
+              imgUrl: '/logo-partenaire/logo-fcu.jpg',
+            },
+          ],
+        }}
+      />
+    </>
   )
 }

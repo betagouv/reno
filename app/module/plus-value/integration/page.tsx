@@ -1,10 +1,14 @@
 import { Suspense } from 'react'
 import PlusValueModule from '@/components/module/PlusValueModule'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export default function Integration() {
   return (
-    <Suspense>
-      <PlusValueModule type="module" />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <Suspense>
+        <PlusValueModule type="module" />
+      </Suspense>
+    </>
   )
 }

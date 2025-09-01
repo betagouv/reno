@@ -1,10 +1,16 @@
-import { CTA, CTAWrapper } from '@/components/UI'
+import Button from '@codegouvfr/react-dsfr/Button'
+import useIsMobile from '@/components/useIsMobile'
 import { push } from '@socialgouv/matomo-next'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
-export default function Share() {
-  const isMobile = window.innerWidth <= 600
+export default function Share({
+  text = 'Partagez la simulation en cliquant ici :',
+  align = 'center',
+  showWithAnswer = true,
+}) {
+  const isMobile = useIsMobile()
+
   const pathname = usePathname(),
     searchParams = useSearchParams()
 
@@ -48,57 +54,46 @@ export default function Share() {
 
   return (
     <>
-      <p>Partagez la simulation en cliquant ici :</p>
+      <p>{text}</p>
       <form
         css={`
-          text-align: center;
+          text-align: ${align};
         `}
       >
-        <CTAWrapper
-          $justify="center"
+        <Button
+          priority="secondary"
           css={`
-            margin: 2vh 0;
-          `}
-        >
-          <CTA
-            $importance="emptyBackground"
-            css={`
-              ${copied &&
-              `
+            ${copied &&
+            `
                 background: rgba(190, 242, 197, 0.2);
                 border: 1px dashed var(--validColor);
+                color: var(--validColor) !important;
+                box-shadow: 0 0 0 0;
               `}
-            `}
-            $fontSize="normal"
-            title="Cliquez pour partager le lien"
-            onClick={() => {
-              push(['trackEvent', 'Partage', 'Clic'])
-              isMobile && navigator.share ? share() : copyToClipboard()
-            }}
-          >
-            <span
-              css={`
-                ${copied && 'color: var(--validColor) !important;'}
-              `}
-            >
-              {!copied ? (
-                <>
-                  <span aria-hidden="true">🔗</span> Copier le lien
-                </>
-              ) : (
-                <>
-                  <span aria-hidden="true">✔</span> Lien copié
-                </>
-              )}
-            </span>
-          </CTA>
-        </CTAWrapper>
-        {searchParamsString && (
+          `}
+          title="Cliquez pour partager le lien"
+          onClick={(e) => {
+            e.preventDefault()
+            push(['trackEvent', 'Partage', 'Clic'])
+            isMobile && navigator.share ? share() : copyToClipboard()
+          }}
+        >
+          {!copied ? (
+            <>
+              <span aria-hidden="true">🔗</span> Copier le lien
+            </>
+          ) : (
+            <>
+              <span aria-hidden="true">✔</span> Lien copié
+            </>
+          )}
+        </Button>
+        {searchParamsString && showWithAnswer && (
           <div
             css={`
               display: flex;
               align-items: center;
-              justify-content: space-between;
+              justify-content: ${align == 'center' ? 'space-between' : 'left'};
             `}
           >
             <input
@@ -115,6 +110,12 @@ export default function Share() {
               Intégrer mes données de simulation
             </label>
           </div>
+        )}
+        {!showWithAnswer && (
+          <p className="fr-mt-3v">
+            Rappel : ce lien contient les données que vous avez saisies
+            (adresse, catégorie de revenus…)
+          </p>
         )}
       </form>
     </>

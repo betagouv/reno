@@ -1,0 +1,51 @@
+tva réduite:
+  titre: TVA à taux réduit
+  marque: TVA à taux réduit
+  description: |
+    Dans le cadre de la rénovation de votre logement liée à la perte d’autonomie, certains travaux peuvent bénéficier de taux réduits de TVA.
+  lien: https://www.economie.gouv.fr/particuliers/tva-taux-reduits-travaux
+  conditions éligibilités: |
+    Au lieu d’un taux normal de 20 %, il existe deux taux réduits de TVA :
+
+    - Un taux réduit de 10 %
+    - Un taux réduit de 5,5 %
+
+    **Le taux réduit de TVA à 10 %**
+
+    Votre projet doit couvrir des travaux d’amélioration, de transformation, d’aménagement et d'entretien, à l'exception de la part correspondant à la fourniture d'équipements électroménagers et mobiliers ou de certains gros équipements tels les équipements collectifs de chauffage ou ascenseurs.
+
+    **Le taux réduit de TVA à 5,5 %**
+
+    Votre projet doit concerner des travaux ayant pour objet d’économiser de l’énergie ou de recourir à de l’énergie produite à partir de sources renouvelables, par exemple, l’isolation thermique, le chauffage, la ventilation et la production d’eau chaude sanitaire.
+
+    Le taux s’applique aussi aux prestations étroitement liées aux travaux de rénovation énergétique, par exemple : 
+
+    - les travaux liés au maintien de l’étanchéité de la toiture et de reprise d’étanchéité des points singuliers défaillants de la toiture (ex. remplacement de tuiles) dans le cadre de travaux d'isolation ; 
+    - les éventuelles modifications de l’installation électrique, de la plomberie, des réseaux intérieurs, de la plâtrerie, des peintures et des revêtements de sol consécutifs à des travaux d’isolation par l’intérieur.
+
+    À noter : pour la fourniture et la pose de chaudières gaz à condensation, le taux de TVA passe à 20 % le 1er mars 2025.
+  applicable si:
+    toutes ces conditions:
+      - parcours d'aide = "autonomie de la personne"
+      - logement . période de construction != 'moins de 2 ans'
+tva réduite . montant:
+
+crédit d'impôt:
+  titre: Le crédit d'impôt
+  marque: Le crédit d'impôt
+  description: |
+    Après avoir réalisé des travaux d’adaptation à la perte d’autonomie ou au handicap, vous pouvez bénéficier du crédit d’impôt. Le crédit d'impôt est désormais réservé aux personnes ayant des revenus intermédiaires.
+  lien: https://www.service-public.fr/particuliers/vosdroits/F10752
+  conditions éligibilités: |
+    Vous pouvez bénéficier du crédit d'impôt si vous êtes dans l'une des 2 situations suivantes :
+
+    - Vous êtes âgé de 60 ans ou plus et avec une perte d'autonomie qui vous classe dans l'un des groupes 1 à 4 de la grille nationale applicable pour l’allocation personnalisée d’autonomie.
+    - Vous avez un taux d'incapacité supérieur ou égal à 50 % (taux déterminé par décision de la Commission des droits et de l'autonomie des personnes handicapées - CDAPH).
+  applicable si:
+    toutes ces conditions:
+      - parcours d'aide = 'autonomie de la personne'
+      - ménage . revenu . classe = 'intermédiaire'
+      - une de ces conditions:
+          - mpa . occupant . condition age ou handicap = 'gir'
+          - mpa . occupant . condition age ou handicap = 'incapacité'
+crédit d'impôt . montant:

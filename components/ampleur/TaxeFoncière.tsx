@@ -34,8 +34,7 @@ export default function TaxeFoncière({
       }}
     >
       <p>
-        La commune <Key $state={'prime-black'}>{communeName}</Key> de votre
-        logement{' '}
+        La commune <strong>{communeName}</strong> de votre logement{' '}
         {!communeEligible ? (
           <>
             <No>n'a pas appliqué</No> l'exonération de taxe foncière l'année
@@ -44,7 +43,7 @@ export default function TaxeFoncière({
         ) : (
           <>
             <Yes>a appliqué</Yes> l'exonération de taxe foncière au taux de{' '}
-            <Key $state={'prime-black'}>{taux}</Key> l'année dernière.
+            <strong>{taux}</strong> l'année dernière.
           </>
         )}
       </p>

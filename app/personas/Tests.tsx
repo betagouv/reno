@@ -1,6 +1,5 @@
 import rules from '@/app/règles/rules'
 import rawTests from '@/app/règles/tests.csv'
-import { Section } from '@/components/UI'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
 import { formatValue } from '@/node_modules/publicodes/dist/index'
 import Link from 'next/link'
@@ -17,7 +16,7 @@ const engine = new Publicodes(rules)
 
 export default function Tests() {
   return (
-    <Section id="tests">
+    <section id="tests">
       <h2>Tests</h2>
       <p>
         Pour assurer la fiabilité de notre modèle de calcul, voici une liste de
@@ -104,6 +103,6 @@ export default function Tests() {
             })}
         </tbody>
       </Table>
-    </Section>
+    </section>
   )
 }

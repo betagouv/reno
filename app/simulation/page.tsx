@@ -1,14 +1,29 @@
 import rules from '@/app/règles/rules'
 import Form from './Form'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import { PageBlock } from '@/components/UI'
+import simulationConfig from '/app/simulation/simulationConfig.yaml'
 
-export const metadata: Metadata = {
-  title: 'Mes aides réno : Simulez vos aides à la rénovation énergétique',
-  description: `Calculez les aides Ma Prime Rénov' 2025 pour la rénovation de votre logement. MaPrimeRénov, CEE, Coup de pouce énergie, eco-ptz, exonération de taxe foncière et dispositif denormandie`,
-  alternates: {
-    canonical: '/simulation',
-  },
+export async function generateMetadata({ searchParams }) {
+  return {
+    title:
+      searchParams.objectif == 'etape'
+        ? 'Guide - Comment obtenir vos aides'
+        : 'Estimez vos aides à la rénovation énergétique',
+    description: `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. MaPrimeRénov', les aides des fournisseurs d’énergie (CEE), primes "Coup de Pouce", éco-ptz, exonération de taxe foncière et dispositif Denormandie`,
+    alternates: {
+      canonical: '/simulation',
+    },
+  }
 }
 
 export default function Page() {
-  return <Form rules={rules} />
+  return (
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
+        <Form simulationConfig={simulationConfig} rules={rules} />
+      </PageBlock>
+    </>
+  )
 }

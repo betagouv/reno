@@ -1,14 +1,14 @@
 'use client'
-import { CTA } from '@/components/UI'
 import { push } from '@socialgouv/matomo-next'
-import Image from 'next/image'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconSmileyNo from '@/public/smiley-no.svg'
-import iconSmileyMaybe from '@/public/smiley-maybe.svg'
-import iconSmileyYes from '@/public/smiley-yes.svg'
+import Button from '@codegouvfr/react-dsfr/Button'
+import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
+import Input from '@codegouvfr/react-dsfr/Input'
 
-export default function Feedback({ title, fromLocation }) {
+export default function Feedback({
+  title = 'Ce simulateur a-t-il été utile ?',
+}) {
   const [comment, setComment] = useState('')
   const [vote, setVote] = useState(null)
   const [sent, setSent] = useState(false)
@@ -34,107 +34,102 @@ export default function Feedback({ title, fromLocation }) {
   }
 
   return (
-    <ContactForm
-      css={`
-        background: #fdf8db;
-        align-items: center;
-        padding: 1rem;
-        text-align: center;
-      `}
-    >
-      <div
-        css={`
-          font-weight: bold;
-        `}
+    <div className="fr-callout fr-callout--yellow-tournesol">
+      <form
+        id="form-feedback"
+        className="fr-callout__text fr-mt-5v"
+        style={{ margin: 'auto', maxWidth: '40rem' }}
       >
-        <span aria-hidden="true">👋</span> {title}
-      </div>
-      <VoteBox>
-        <div
-          className={vote == 'insatisfait' ? 'unhappy-active' : 'unhappy'}
-          onClick={() => {
-            setVote('insatisfait')
-            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Non'])
-          }}
-        >
-          <Image src={iconSmileyNo} alt="smiley unhappy" />
-          <div>Non</div>
-        </div>
-        <div
-          className={vote == 'normal' ? 'normal-active' : 'normal'}
-          onClick={() => {
-            setVote('normal')
-            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'En partie'])
-          }}
-        >
-          <Image alt="smiley normal" src={iconSmileyMaybe} />
-          <div>En partie</div>
-        </div>
-        <div
-          className={vote == 'satisfait' ? 'happy-active' : 'happy'}
-          onClick={() => {
-            setVote('satisfait')
-            push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Oui'])
-          }}
-        >
-          <Image alt="smiley happy" src={iconSmileyYes} />
-          <div>Oui</div>
-        </div>
-      </VoteBox>
-      {(vote || sent) && (
-        <div
-          css={`
-            margin-bottom: 1rem;
-            font-weight: bold;
-          `}
-        >
-          ✅ Merci pour votre retour
-        </div>
-      )}
-      <div className="active">
-        {sent ? (
-          <p>
-            Vos suggestions nous aident à améliorer l'outil et à rendre
-            l'expérience plus efficace pour tous·tes. 🙏
-          </p>
-        ) : (
-          <form>
-            {isOpen && (
-              <>
-                <label htmlFor="commentaire">
-                  Comment pouvons-nous améliorer ce simulateur ?
-                </label>
-                <textarea
-                  css={`
-                    margin: 1rem 0;
-                    background: white;
-                    padding: 0.5rem;
-                    border-bottom: 3px solid #3a3a3a;
-                    height: 100px;
-                    width: 100%;
-                  `}
-                  id="commentaire"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  name="comment"
-                  placeholder=""
-                  required
-                />
-              </>
-            )}
-            <CTA
-              $fontSize="normal"
-              $importance="emptyBackground"
-              css={`
-                width: fit-content;
-                margin: auto;
-              `}
+        <h3 className="fr-callout__title fr-mb-5v">
+          <span aria-hidden="true">👋</span> {title}
+        </h3>
+        <RadioButtons
+          options={[
+            {
+              illustration: (
+                <span
+                  aria-hidden="true"
+                  className="fr-icon-checkbox-circle-line"
+                ></span>
+              ),
+              label: 'Oui',
+              nativeInputProps: {
+                value: 'oui',
+                checked: vote == 'satisfait',
+                onChange: () => {
+                  setVote('satisfait')
+                  push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Oui'])
+                },
+              },
+            },
+            {
+              illustration: (
+                <span
+                  aria-hidden="true"
+                  className="fr-icon-warning-line"
+                ></span>
+              ),
+              label: 'En partie',
+              nativeInputProps: {
+                value: 'normal',
+                checked: vote == 'normal',
+                onChange: () => {
+                  setVote('normal')
+                  push([
+                    'trackEvent',
+                    'Feedback vote satisfait',
+                    'Clic',
+                    'En partie',
+                  ])
+                },
+              },
+            },
+            {
+              illustration: (
+                <span
+                  aria-hidden="true"
+                  className="fr-icon-close-circle-line"
+                ></span>
+              ),
+              label: 'Non',
+              nativeInputProps: {
+                value: 'non',
+                checked: vote == 'insatisfait',
+                onChange: () => {
+                  setVote('insatisfait')
+                  push(['trackEvent', 'Feedback vote satisfait', 'Clic', 'Non'])
+                },
+              },
+            },
+          ]}
+          disabled={vote}
+          state={(vote || sent) && 'success'}
+          stateRelatedMessage={(vote || sent) && 'Merci de votre retour'}
+          orientation="horizontal"
+        />
+        {isOpen ? (
+          <>
+            <Input
+              label="Comment pouvons-nous améliorer ce simulateur ?"
+              textArea
+              nativeTextAreaProps={{
+                value: comment,
+                onChange: (e) => setComment(e.target.value),
+                name: 'commentaire',
+                required: true,
+              }}
+              stateRelatedMessage={
+                sent && (
+                  <>
+                    Vos suggestions nous aident à améliorer l'outil et à rendre
+                    l'expérience plus efficace pour tous·tes. 🙏
+                  </>
+                )
+              }
+              state={sent && 'success'}
+            />
+            <Button
               onClick={(e) => {
-                if (!isOpen) {
-                  setIsOpen(true)
-                  push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
-                  return
-                }
                 push(['trackEvent', 'Feedback', 'Clic', 'valide son avis'])
                 e.preventDefault()
                 if (!comment) {
@@ -145,34 +140,26 @@ export default function Feedback({ title, fromLocation }) {
                   vote,
                 )
               }}
-              title="Cette contribution sera privée et anonyme : n'hésitez pas à vous exprimer"
+              disabled={sent}
             >
-              <span
-                css={`
-                  font-weight: bold;
-                `}
-              >
-                Je donne mon avis
-              </span>
-            </CTA>
-          </form>
+              Je valide mon avis
+            </Button>
+          </>
+        ) : (
+          <Button
+            priority="secondary"
+            onClick={(e) => {
+              setIsOpen(true)
+              push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
+            }}
+          >
+            Je donne mon avis
+          </Button>
         )}
-      </div>
-    </ContactForm>
+      </form>
+    </div>
   )
 }
-
-export const ContactForm = styled.div`
-  .slide-up {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 2s ease-out;
-  }
-
-  .slide-up.active {
-    max-height: 500px;
-  }
-`
 
 export const VoteBox = styled.div`
   display: flex;
@@ -180,6 +167,7 @@ export const VoteBox = styled.div`
   padding: 1rem 0;
   margin: 1rem 0;
   > div {
+    text-align: center;
     margin: 0 1.5rem;
   }
   .unhappy-active,

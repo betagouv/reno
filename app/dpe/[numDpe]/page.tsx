@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import DPEPage from '@/components/dpe/DPEPage'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 export async function generateMetadata(props) {
   const params = await props.params
   return {
@@ -12,8 +13,11 @@ export default async function Page(props: Props) {
   const params = await props.params
 
   return (
-    <Suspense>
-      <DPEPage numDpe={params.numDpe} />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <Suspense>
+        <DPEPage numDpe={params.numDpe} />
+      </Suspense>
+    </>
   )
 }

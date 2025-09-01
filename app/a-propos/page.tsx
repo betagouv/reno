@@ -1,6 +1,8 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import { parse } from 'marked'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 
 const content = `
 
@@ -24,7 +26,16 @@ Le code métier est basé sur le langage [Publicodes](https://publi.codes/) po
 
 ## Mentions légales
 
-Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numériques</a>. Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](https://mesaidesreno.beta.gouv.fr/confidentialite).
+Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank">Direction Interministérielle du Numérique</a>. Téléphone : 01 71 21 11 33.
+
+
+### Directrice de la publication
+
+Madame Stéphanie SCHAER, en sa qualité de directrice générale de la DINUM
+
+### Hébergement de la plateforme
+
+Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](/confidentialite).
 `
 
 export const metadata: Metadata = {
@@ -33,8 +44,18 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <Main>
-      <Section dangerouslySetInnerHTML={{ __html: parse(content) }}></Section>
-    </Main>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
+        <Breadcrumb
+          currentPageLabel="A propos"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[]}
+        />
+        <section dangerouslySetInnerHTML={{ __html: parse(content) }} />
+      </PageBlock>
+    </>
   )
 }

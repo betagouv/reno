@@ -10,7 +10,7 @@ import Value from '../Value'
 import { Key } from '../explications/ExplicationUI'
 import useSetSearchParams from '../useSetSearchParams'
 import data from './DPE.yaml'
-import DPEAddressSearch from './DPEAddressSearch'
+import AddressSearch from '../AddressSearch'
 import DPELabel from './DPELabel'
 import DPEMap from './DPEMap'
 import parseDpeXml from './parseDpeXml'
@@ -36,7 +36,7 @@ export default function DPEAnalyzer() {
   const [addressResults, setAddressResults] = useState(null)
 
   const pourcentConso = (value) =>
-    formatNumber((value / dpe['Conso_5_usages_é_primaire']) * 100) + '%'
+    formatNumber((value / dpe['conso_5_usages_ep']) * 100) + '%'
   useEffect(() => {
     if (!dpe) return
     setSituation({
@@ -73,7 +73,7 @@ export default function DPEAnalyzer() {
         }
       `}
     >
-      <DPEAddressSearch
+      <AddressSearch
         {...{
           addressResults,
           setAddressResults,
@@ -108,10 +108,10 @@ export default function DPEAnalyzer() {
             >
               <Card>
                 <h2>Situation géographique</h2>
-                <div>{dpe['Adresse_(BAN)']}</div>
-                <div>{dpe["Complément_d'adresse_logement"]}</div>
-                {dpe['N°_étage_appartement'] > 0 && (
-                  <div>{dpe['N°_étage_appartement']} étage</div>
+                <div>{dpe['adresse_ban']}</div>
+                <div>{dpe['complement_adresse_logement']}</div>
+                {dpe['numero_etage_appartement'] > 0 && (
+                  <div>{dpe['numero_etage_appartement']} étage</div>
                 )}
               </Card>
               <Card>
@@ -135,17 +135,17 @@ export default function DPEAnalyzer() {
                   </div>
                   <div>
                     <span>Consommation</span>
-                    <DPELabel label={dpe['Etiquette_DPE']} small={false} />
+                    <DPELabel label={dpe['etiquette_dpe']} small={false} />
                     <span>
-                      {dpe['Conso_5_usages_par_m²_é_primaire']}
+                      {dpe['conso_5_usages_par_m2_ep']}
                       <small>kWh/m²/an</small>
                     </span>
                   </div>
                   <div>
                     <span>Emission GES</span>
-                    <DPELabel label={dpe['Etiquette_GES']} small={false} />
+                    <DPELabel label={dpe['etiquette_ges']} small={false} />
                     <span>
-                      {dpe['Emission_GES_5_usages_par_m²']}
+                      {dpe['emission_ges_5_usages_par_m2']}
                       <small>
                         kg CO<sub>2</sub>/m²/an
                       </small>
@@ -164,43 +164,31 @@ export default function DPEAnalyzer() {
                 <h2>Consommation</h2>
                 <div>
                   <u>Chauffage:</u>
-                  <br /> {Math.round(dpe['Conso_chauffage_é_primaire'])} soit
-                  <strong>
-                    {' '}
-                    {pourcentConso(dpe['Conso_chauffage_é_primaire'])}
-                  </strong>
+                  <br /> {Math.round(dpe['conso_chauffage_ep'])} soit
+                  <strong> {pourcentConso(dpe['conso_chauffage_ep'])}</strong>
                 </div>
                 <div>
                   <u>Eau chaude:</u>
-                  <br /> {Math.round(dpe['Conso_ECS_é_primaire'])} soit
-                  <strong> {pourcentConso(dpe['Conso_ECS_é_primaire'])}</strong>
+                  <br /> {Math.round(dpe['conso_ecs_ep'])} soit
+                  <strong> {pourcentConso(dpe['conso_ecs_ep'])}</strong>
                 </div>
                 <div>
                   <u>Auxiliaire:</u>
                   <br />
-                  {Math.round(dpe['Conso_auxiliaires_é_primaire'])} soit
-                  <strong>
-                    {' '}
-                    {pourcentConso(dpe['Conso_auxiliaires_é_primaire'])}
-                  </strong>
+                  {Math.round(dpe['conso_auxiliaires_ep'])} soit
+                  <strong> {pourcentConso(dpe['conso_auxiliaires_ep'])}</strong>
                 </div>
                 <div>
                   <u>Eclairage:</u>
                   <br />
-                  {Math.round(dpe['Conso_éclairage_é_primaire'])} soit
-                  <strong>
-                    {' '}
-                    {pourcentConso(dpe['Conso_éclairage_é_primaire'])}
-                  </strong>
+                  {Math.round(dpe['conso_eclairage_ep'])} soit
+                  <strong> {pourcentConso(dpe['conso_eclairage_ep'])}</strong>
                 </div>
                 <div>
                   <u>Climatisation:</u>
-                  <br /> {Math.round(
-                    dpe['Conso_refroidissement_é_primaire'],
-                  )}{' '}
-                  soit{' '}
+                  <br /> {Math.round(dpe['conso_refroidissement_ep'])} soit{' '}
                   <strong>
-                    {pourcentConso(dpe['Conso_refroidissement_é_primaire'])}
+                    {pourcentConso(dpe['conso_refroidissement_ep'])}
                   </strong>
                 </div>
               </Card>
@@ -210,72 +198,72 @@ export default function DPEAnalyzer() {
                   <u>Chauffage:</u>
                   <br />
                   <strong>
-                    {Math.round(dpe['Emission_GES_chauffage_énergie_n°1'])}
+                    {Math.round(dpe['emission_ges_chauffage_energie_n1'])}
                   </strong>
                 </div>
                 <div>
                   <u>Eau chaude:</u>
                   <br />
                   <strong>
-                    {Math.round(dpe['Emission_GES_ECS_énergie_n°1'])}
+                    {Math.round(dpe['emission_ges_ecs_energie_n1'])}
                   </strong>
                 </div>
                 <div>
                   <u>Auxiliaire:</u>
                   <br />
-                  <strong>{Math.round(dpe['Emission_GES_auxiliaires'])}</strong>
+                  <strong>{Math.round(dpe['emission_ges_auxiliaires'])}</strong>
                 </div>
                 <div>
                   <u>Eclairage:</u>
                   <br />
-                  <strong>{Math.round(dpe['Emission_GES_éclairage'])}</strong>
+                  <strong>{Math.round(dpe['emission_ges_eclairage'])}</strong>
                 </div>
                 <div>
                   <u>Climatisation:</u>
                   <br />
                   <strong>
-                    {Math.round(dpe['Emission_GES_refroidissement'])}
+                    {Math.round(dpe['emission_ges_refroidissement'])}
                   </strong>
                 </div>
               </Card>
               <Card>
                 <h2>Coûts</h2>
                 <u>Chauffage:</u>
-                <br /> <strong>{dpe['Coût_chauffage']}</strong>€
+                <br /> <strong>{dpe['cout_chauffage']}</strong>€
                 <br />
                 <u>Eau Chaude:</u>
-                <br /> <strong>{dpe['Coût_ECS']}</strong>€
+                <br /> <strong>{dpe['cout_ecs']}</strong>€
                 <br />
                 <u>Auxiliaire:</u>
-                <br /> <strong>{dpe['Coût_auxiliaires']}</strong>€
+                <br /> <strong>{dpe['cout_auxiliaires']}</strong>€
                 <br />
                 <u>Eclairage:</u>
-                <br /> <strong>{dpe['Coût_éclairage']}</strong>€
+                <br /> <strong>{dpe['cout_eclairage']}</strong>€
                 <br />
                 <u>Climatisation:</u>
                 <br />
-                <strong>{dpe['Coût_refroidissement']}</strong>€
+                <strong>{dpe['cout_refroidissement']}</strong>€
               </Card>
               <Card>
                 <h2>Confort d'été</h2>
                 <div>
                   Indicateur: <br />
-                  <strong>{dpe['Indicateur_confort_été']}</strong>
+                  <strong>{dpe['indicateur_confort_ete']}</strong>
                 </div>
                 <div>
                   Inertie lourde: <br />
-                  <strong>{dpe['Inertie_lourde_(0/1)'] ? 'Oui' : 'Non'}</strong>
+                  <strong>{dpe['inertie_lourde'] ? 'Oui' : 'Non'}</strong>
                 </div>
                 <div>
                   Présence brasseur d'air: <br />
                   <strong>
-                    {dpe['Présence_brasseur_air_(0/1)'] ? 'Oui' : 'Non'}
+                    {dpe['presence_brasseur_air'] ? 'Oui' : 'Non'}
                   </strong>
                 </div>
                 <div>
                   Protection solaire: <br />
                   <strong>
-                    {dpe['Protection_solaire_exterieure'] ? 'Oui' : 'Non'}
+                    {dpe['protection_solaire_exterieure'] ? 'Oui' : 'Non'}
                   </strong>
                 </div>
               </Card>
@@ -297,48 +285,44 @@ export default function DPEAnalyzer() {
                 <h2>Informations générales</h2>
                 <div>
                   N°DPE:
-                  <br /> <strong>{dpe['N°DPE']}</strong>
+                  <br /> <strong>{dpe['numero_dpe']}</strong>
                 </div>
                 <div>
                   Date d'établissement du DPE:
                   <br />
-                  <strong>{dpe['Date_établissement_DPE']}</strong>
+                  <strong>{dpe['date_etablissement_dpe']}</strong>
                 </div>
                 <div>
                   Date de fin de validité du DPE:
                   <br />
-                  <strong>{dpe['Date_fin_validité_DPE']}</strong>
+                  <strong>{dpe['date_fin_validite_dpe']}</strong>
                 </div>
                 <div>
                   Type de batiment:
-                  <br /> <strong>{dpe['Type_bâtiment']}</strong>
+                  <br /> <strong>{dpe['type_batiment']}</strong>
                 </div>
                 <div>
                   Période construction:
                   <br />
-                  <strong>{dpe['Période_construction']}</strong>
+                  <strong>{dpe['periode_construction']}</strong>
                 </div>
                 <div>
                   Surface habitable:
                   <br />
-                  <strong>{dpe['Surface_habitable_logement']}m²</strong>
+                  <strong>{dpe['surface_habitable_logement']}m²</strong>
                 </div>
                 <div>
                   Hauteur sous plafond:
                   <br />
-                  <strong>{dpe['Hauteur_sous-plafond']}m</strong>
+                  <strong>{dpe['hauteur_sous_plafond']}m</strong>
                 </div>
                 <div>
                   Isolation toiture: <br />
-                  <strong>
-                    {dpe['Isolation_toiture_(0/1)'] ? 'Oui' : 'Non'}
-                  </strong>
+                  <strong>{dpe['isolation_toiture'] ? 'Oui' : 'Non'}</strong>
                 </div>
                 <div>
                   Logement traversant: <br />
-                  <strong>
-                    {dpe['Logement_traversant_(0/1)'] ? 'Oui' : 'Non'}
-                  </strong>
+                  <strong>{dpe['logement_traversant'] ? 'Oui' : 'Non'}</strong>
                 </div>
               </Card>
               <Card
@@ -352,121 +336,124 @@ export default function DPEAnalyzer() {
                 <div>
                   <u>Eau chaude sanitaire</u>
                   <br />
-                  Energie: <strong>{dpe['Type_énergie_principale_ECS']}</strong>
+                  Energie: <strong>{dpe['type_energie_principale_ecs']}</strong>
                   <br />
-                  Générateur: <strong>{dpe['Type_générateur_ECS_n°1']}</strong>
+                  Générateur:{' '}
+                  <strong>{dpe['type_generateur_n1_ecs_n1']}</strong>
                   <br />
-                  Type: <strong>{dpe['Type_installation_ECS']}</strong>
+                  Type: <strong>{dpe['type_installation_ecs']}</strong>
                   <br />
                   Description:{' '}
-                  <strong>{dpe['Description_installation_ECS']}</strong>
+                  <strong>{dpe['description_installation_ecs_n1']}</strong>
                   <br />
                   Volume:{' '}
-                  <strong>{dpe['Volume_stockage_générateur_ECS_n°1']}</strong>
+                  <strong>{dpe['volume_stockage_generateur_n1_ecs_n1']}</strong>
                 </div>
                 <div>
                   <u>Chauffage</u>
                   <br />
                   Energie:{' '}
-                  <strong>{dpe['Type_énergie_principale_chauffage']}</strong>
+                  <strong>{dpe['type_energie_principale_chauffage']}</strong>
                   <br />
-                  Energie 2: <strong>{dpe['Type_énergie_n°2']}</strong>
+                  Energie 2: <strong>{dpe['type_energie_n2']}</strong>
                   <br />
                   Emetteur:{' '}
                   <strong>
-                    {dpe['Type_émetteur_installation_chauffage_n°1']}
+                    {dpe['type_emetteur_installation_chauffage_n1']}
                   </strong>
                   <br />
-                  Type: <strong>{dpe['Type_installation_chauffage']}</strong>
+                  Type: <strong>{dpe['type_installation_chauffage']}</strong>
                   <br />
                   Description:{' '}
                   <strong>
                     {' '}
-                    {dpe['Description_installation_chauffage_n°1']}
+                    {dpe['description_installation_chauffage_n1']}
                   </strong>
                 </div>
                 <div>
                   Besoin en chauffage:
                   <br />
-                  <strong>{dpe['Besoin_chauffage']}</strong>
+                  <strong>{dpe['besoin_chauffage']}</strong>
                 </div>
                 <div>
                   Besoin en eau chaude:
                   <br />
-                  <strong>{dpe['Besoin_ECS']}</strong>
+                  <strong>{dpe['besoin_ECS']}</strong>
                 </div>
                 <div>
                   Besoin en climatisation:
                   <br />
-                  <strong>{dpe['Besoin_refroidissement']}</strong>
+                  <strong>{dpe['besoin_refroidissement']}</strong>
                 </div>
                 <div>
                   Apports solaire:
                   <br />
-                  <strong>{dpe['Apports_solaires_saison_chauffe']}</strong>
+                  <strong>{dpe['apport_solaire_saison_chauffe']}</strong>
                 </div>
                 <div>
                   <span title="chaleur émise par les équipements électriques, l'équipement hydraulique, les occupants et leurs activités">
                     Apports internes:
                     <br />
                   </span>
-                  <strong>{dpe['Apports_internes_saison_chauffe_']}</strong>
+                  <strong>{dpe['apport_interne_saison_chauffe']}</strong>
                 </div>
                 <div>
                   Production d'électricité photovoltaïque:
                   <br />
-                  <strong>{dpe['Production_électricité_PV_(kWhep/an)']}</strong>
+                  <strong>
+                    {dpe['production_electricite_pv_kwhep_par_an']}
+                  </strong>
                 </div>
               </Card>
               <Card>
                 <h2>Isolation</h2>
                 <div>
                   Enveloppe:
-                  <br /> <Badge valeur={dpe['Qualité_isolation_enveloppe']} />
+                  <br /> <Badge valeur={dpe['qualite_isolation_enveloppe']} />
                 </div>
                 <div>
                   Menuiseries:
                   <br />
-                  <Badge valeur={dpe['Qualité_isolation_menuiseries']} />
+                  <Badge valeur={dpe['qualite_isolation_menuiseries']} />
                 </div>
                 <div>
                   Murs:
-                  <br /> <Badge valeur={dpe['Qualité_isolation_murs']} />
+                  <br /> <Badge valeur={dpe['qualite_isolation_murs']} />
                 </div>
                 <div>
                   Plancher:
                   <br />
-                  <Badge valeur={dpe['Qualité_isolation_plancher_bas']} />
+                  <Badge valeur={dpe['qualite_isolation_plancher_bas']} />
                 </div>
-                {dpe['Qualité_isolation_plancher_haut_toit_terrase'] && (
+                {dpe['qualite_isolation_plancher_haut_toit_terrase'] && (
                   <div>
                     Toit terrasse:
                     <br />
                     <Badge
                       valeur={
-                        dpe['Qualité_isolation_plancher_haut_toit_terrase']
+                        dpe['qualite_isolation_plancher_haut_toit_terrase']
                       }
                     />
                   </div>
                 )}
-                {dpe['Qualité_isolation_plancher_haut_comble_perdu'] && (
+                {dpe['qualite_isolation_plancher_haut_comble_perdu'] && (
                   <div>
                     Comble perdu:
                     <br />
                     <Badge
                       valeur={
-                        dpe['Qualité_isolation_plancher_haut_comble_perdu']
+                        dpe['qualite_isolation_plancher_haut_comble_perdu']
                       }
                     />
                   </div>
                 )}
-                {dpe['Qualité_isolation_plancher_haut_comble_aménagé'] && (
+                {dpe['qualite_isolation_plancher_haut_comble_amenage'] && (
                   <div>
                     Comble aménagé:
                     <br />
                     <Badge
                       valeur={
-                        dpe['Qualité_isolation_plancher_haut_comble_aménagé']
+                        dpe['qualite_isolation_plancher_haut_comble_amenage']
                       }
                     />
                   </div>
@@ -474,31 +461,31 @@ export default function DPEAnalyzer() {
                 <u>Déperditions</u>
                 <div>
                   Baies vitrées:{' '}
-                  <strong>{dpe['Deperditions_baies_vitrées']}</strong>
+                  <strong>{dpe['deperditions_baies_vitrees']}</strong>
                 </div>
                 <div>
-                  Portes: <strong>{dpe['Déperditions_portes']}</strong>
+                  Portes: <strong>{dpe['deperditions_portes']}</strong>
                 </div>
                 <div>
                   Ventilation:{' '}
-                  <strong>{dpe['Déperditions_renouvellement_air']}</strong>
+                  <strong>{dpe['deperditions_renouvellement_air']}</strong>
                 </div>
                 <div>
-                  Enveloppe: <strong>{dpe['Deperditions_enveloppe']}</strong>
+                  Enveloppe: <strong>{dpe['deperditions_enveloppe']}</strong>
                 </div>
                 <div>
-                  Murs: <strong>{dpe['Déperditions_murs']}</strong>
+                  Murs: <strong>{dpe['deperditions_murs']}</strong>
                 </div>
                 <div>
                   Pont thermiques:{' '}
-                  <strong>{dpe['Déperditions_ponts_thermiques']}</strong>
+                  <strong>{dpe['deperditions_ponts_thermiques']}</strong>
                 </div>
                 <div>
-                  Plancher: <strong>{dpe['Deperditions_planchers_bas']}</strong>
+                  Plancher: <strong>{dpe['deperditions_planchers_bas']}</strong>
                 </div>
                 <div>
                   Plafond:{' '}
-                  <strong>{dpe['Deperditions_planchers_hauts']}</strong>
+                  <strong>{dpe['deperditions_planchers_hauts']}</strong>
                 </div>
               </Card>
             </div>

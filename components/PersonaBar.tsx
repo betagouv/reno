@@ -2,13 +2,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import personas from '@/app/personas.yaml'
 import personaNames from '@/app/personaNames.yaml'
-import { Card, PrimeStyle } from './UI'
+import { Card } from './UI'
 import PersonaInjection from '@/app/PersonaInjection'
 import enrichSituation from './personas/enrichSituation'
 import rules from '@/app/règles/rules'
 import Publicodes, { formatValue } from 'publicodes'
 import { computeAideStatus } from './ampleur/AmpleurSummary'
 import StatusIcon from './ampleur/StatusIcon'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 const matrixLines = [
   'MPR . accompagnée',
@@ -41,7 +42,8 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
   }, [show])
 
   useEffect(() => {
-    if (!engine) return
+    if (!engine || !shown) return
+
     const doEnrich = async () => {
       personas.forEach(async (persona, index) => {
         const enrichedSituation = await enrichSituation(persona.situation)
@@ -66,7 +68,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
       })
     }
     doEnrich()
-  }, [setEnrichedPersonas, engine])
+  }, [setEnrichedPersonas, engine, shown])
 
   if (!shown) return
   return (
@@ -140,7 +142,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
             </Card>
             {persona.evaluations && (
               <section>
-                <ol>
+                <ul>
                   {persona.evaluations.map((evaluation) => {
                     const value = formatValue(evaluation)
                     const { dottedName, nodeValue } = evaluation
@@ -160,11 +162,15 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
                         `}
                       >
                         <StatusIcon status={status} />{' '}
-                        {status && <PrimeStyle>{value}</PrimeStyle>}
+                        {status && (
+                          <Badge noIcon severity="success">
+                            {value}
+                          </Badge>
+                        )}
                       </li>
                     )
                   })}
-                </ol>
+                </ul>
               </section>
             )}
           </li>
@@ -189,7 +195,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
           }
         `}
       >
-        <ol>
+        <ul>
           {matrixLines
             .map((dottedName) => ({ ...rules[dottedName], dottedName }))
             .map((rule) => {
@@ -199,7 +205,7 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
                 </li>
               )
             })}
-        </ol>
+        </ul>
       </section>
       <div css="position: absolute; bottom: -2.4rem; left: 50%; transform: translateX(-50%); padding: .2rem 1rem; border-radius: .4rem; background: yellow; width: 20rem">
         Sélectionnez un persona ci-dessus

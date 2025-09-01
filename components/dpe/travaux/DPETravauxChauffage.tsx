@@ -1,14 +1,12 @@
 import { Dot } from '@/app/module/AmpleurQuestions'
 import GesteQuestion from '@/components/GesteQuestion'
-import { Card, CTA, MiseEnAvant } from '@/components/UI'
+import { Card } from '@/components/UI'
 import { useEffect, useMemo, useState } from 'react'
 import React from 'react'
-import {
-  Explication,
-  getQuestions,
-  MontantPrimeTravaux,
-} from './DPETravauxModule'
+import { getQuestions, MontantPrimeTravaux } from './DPETravauxModule'
 import { encodeSituation } from '@/components/publicodes/situationUtils'
+import { isEligibleReseauChaleur } from '@/components/ChoixTravaux'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export function DPETravauxChauffage({
   dpe,
@@ -54,7 +52,7 @@ export function DPETravauxChauffage({
       priorite = 3
     }
     // Test raccordement réseau chaleur, via FCU
-    isEligibleReseauChaleur(dpe).then((eligibility) => {
+    isEligibleReseauChaleur(dpe['_geopoint']).then((eligibility) => {
       if (eligibility) {
         conseil = 'Votre domicile peut se raccorder à un réseau de chaleur'
         allGestes.push('gestes . chauffage . raccordement réseau . chaleur')
@@ -127,14 +125,6 @@ export function DPETravauxChauffage({
     )
     setGestes(allGestes)
   }, [dpe])
-  async function isEligibleReseauChaleur(dpe) {
-    const [lat, lon] = dpe['_geopoint'].split(',')
-    const response = await fetch(`/api/fcu?lat=${lat}&lon=${lon}`)
-    if (!response.ok) return false
-
-    const json = await response.json()
-    return json.isEligible
-  }
 
   const handleClick = (geste) => {
     if (geste.code.includes('chauffe-eau thermodynamique')) {
@@ -169,16 +159,13 @@ export function DPETravauxChauffage({
                       width: 1px;
                     `}
                   >
-                    <CTA
-                      $fontSize="normal"
-                      $importance="secondary"
+                    <Button
+                      priority="secondary"
                       className="estimer"
                       onClick={() => handleClick(geste)}
                     >
-                      <span>
-                        {situation[geste.code] === 'oui' ? 'Fermer' : 'Estimer'}
-                      </span>
-                    </CTA>
+                      {situation[geste.code] === 'oui' ? 'Fermer' : 'Estimer'}
+                    </Button>
                   </td>
                 </tr>
                 <tr>

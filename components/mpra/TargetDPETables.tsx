@@ -1,8 +1,8 @@
-import { useMediaQuery } from 'usehooks-ts'
 import DPELabel from '../dpe/DPELabel'
 import Value from '@/components/Value'
 import { encodeSituation } from '../publicodes/situationUtils'
 import data from '@/components/dpe/DPE.yaml'
+import useIsMobile from '../useIsMobile'
 
 // this component was our first attempt to make a dedicated interface for the user to explain this law
 // we're trying something even simpler, tabs. See TargetDPETabs
@@ -14,7 +14,7 @@ export default function TargetDPETable({
   engine,
   situation,
 }) {
-  const isMobile = useMediaQuery('(max-width: 800px)')
+  const isMobile = useIsMobile()
 
   const possibilities = data.filter((el, index) => index <= oldIndex - 2)
 

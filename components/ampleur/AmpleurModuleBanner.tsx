@@ -1,73 +1,22 @@
 import DPELabel from '../dpe/DPELabel'
-import checkIcon from '@/public/check.svg'
-import flag from '@/public/flag-filled.svg'
-import Image from 'next/image'
-import { CTA } from '../UI'
-import Link from 'next/link'
 
-export default function AmpleurModuleBanner({
-  depuisModule,
-  situation,
-  setSearchParams,
-  remaining,
-}) {
+export default function AmpleurModuleBanner({ depuisModule, situation }) {
   if (!depuisModule) return null
 
   return (
-    <section
-      css={`
-        margin: 0 1rem;
-        > div {
-          max-width: calc(800px - 2rem);
-          h2 {
-            margin: 0;
-            margin-bottom: 0.6rem;
-            font-size: 120%;
-          }
-          > section  {
-            padding: 0.8rem 1rem;
-            background: #e8edff;
-            border-radius: 5px;
-          }
-          margin: 0 auto;
-          img {
-            margin-right: 0.1rem;
-            margin-bottom: -0.05rem;
-            width: 1rem;
-            height: auto;
-            vertical-align: center;
-          }
-          strong {
-            color: var(--color);
-            font-style: normal;
-            font-weight: bold;
-          }
-        }
-      `}
-    >
+    <section>
       <div>
         <h2>
-          Simulation pour l'annonce immobilière
+          Simulation pour le bien situé
           <City situation={situation} />
           <DPE situation={situation} />
         </h2>
         <section>
           <p>
-            <Image src={checkIcon} alt="Icône case cochée" /> Grâce aux
-            informations de l'annonce, nous avons pré-rempli{' '}
-            {Object.keys(situation).length} réponses.
+            <span className="fr-icon-success-line" aria-hidden="true"></span>{' '}
+            Vous avons déjà répondu à {Object.keys(situation).length} questions,
+            plus que quelques-unes pour calculer vos aides.
           </p>
-          <p>
-            <Image src={flag} alt="Icône de drapeau représentant l'objectif" />{' '}
-            Il reste seulement <strong>{remaining} questions</strong> pour
-            calculer vos aides.
-          </p>
-
-          <CTA $fontSize="normal" $importance="secondary">
-            <Link href={setSearchParams({ depuisModule: undefined }, 'url')}>
-              OK
-            </Link>
-          </CTA>
         </section>
       </div>
     </section>

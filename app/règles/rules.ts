@@ -17,7 +17,10 @@ import denormandie from '@/app/règles/denormandie.publicodes'
 import taxeFoncière from '@/app/règles/taxe-foncière.publicodes'
 import aidesLocales from '@/app/règles/aides-locales.publicodes'
 import copropriete from '@/app/règles/copropriete.publicodes'
+import mpa from '@/app/règles/ma-prime-adapt.publicodes'
+import locavantage from '@/app/règles/locavantage.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
+import autresAides from '@/app/règles/autres-aides.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -40,9 +43,9 @@ const rules = {
   ...index,
   ...revenus,
   ...prefix(gestes, 'gestes'),
+  ...prefix(PAC, 'gestes'),
   ...prefix(chauffage, 'gestes'),
   ...prefix(isolation, 'gestes'),
-  ...prefix(PAC, 'gestes'),
   ...prefix(bois, 'gestes'),
   ...prefix(réseau, 'gestes'),
   ...prefix(solaire, 'gestes'),
@@ -55,6 +58,9 @@ const rules = {
   ...PTZ,
   ...PAR,
   ...copropriete,
+  ...mpa,
+  ...locavantage,
+  ...autresAides,
 }
 
 const rulesWithMarkdown = Object.fromEntries(

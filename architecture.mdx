@@ -58,6 +58,8 @@ Nous ne stockons pas de donnés utilisateur pour l'instant chez Mes Aides Réno,
 
 Nous envisageons de mettre en place rapidement un [loggueur d'erreurs client](https://github.com/betagouv/reno/issues/385) ainsi qu'un test de ping régulier du service. 
 
-En termes de fiabilité du modèle, nous avons des tests sours forme de "personas" qui nous permettent de surveiller la non-régression notamment lors des mises à jour du modèle de calcul quand la loi ou les règlements changent. 
+En termes de fiabilité du modèle, nous avons des tests sous forme de "personas" qui nous permettent de surveiller la non-régression notamment lors des mises à jour du modèle de calcul quand la loi ou les règlements changent. Les personas sont [exposés ici](https://mesaidesreno.beta.gouv.fr/personas) en ligne et [définis ici](https://github.com/betagouv/reno/blob/master/app/personas.yaml) dans le code. À la compilation de l'application, donc à chaque déploiement de nouveau code, la page personas est compilée et va casser le déploiement si un test de persona est erroné.
 
-Nous n'avons pas encore de tests en réel (via un navigateur factice) des parcours utilisateur.  
+
+
+Nous n'avons pas encore de tests en réel (via un navigateur factice) des parcours utilisateur, voir [ce ticket](https://github.com/betagouv/reno/issues/47).  

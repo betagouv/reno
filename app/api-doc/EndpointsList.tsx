@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from 'react'
-import { AccordionTitle } from '@/components/UI'
+import React from 'react'
 import Endpoint from './Endpoint'
+import { fr } from '@codegouvfr/react-dsfr'
+import Accordion from '@codegouvfr/react-dsfr/Accordion'
 
 const accordionSections = [
   { id: 'eligibilite', title: 'Eligibilité', componentType: 'eligibilite' },
@@ -12,12 +13,12 @@ const accordionSections = [
   },
   {
     id: 'mpr-accompagne',
-    title: "MaPrimeRénov' - Parcours accompagné",
+    title: "MaPrimeRénov' - Parcours Accompagné",
     componentType: 'mpra',
   },
   {
     id: 'mpr-geste',
-    title: "MaPrimeRénov' - Parcours par geste",
+    title: "MaPrimeRénov' - Rénovation par geste",
     componentType: 'MPR',
   },
   {
@@ -46,33 +47,13 @@ const accordionSections = [
 ]
 
 export default function EndpointsList() {
-  const [activeSection, setActiveSection] = useState('eligibilite')
-
   return (
-    <>
+    <div className={fr.cx('fr-accordions-group')}>
       {accordionSections.map(({ id, title, componentType }) => (
-        <section key={id}>
-          <AccordionTitle
-            aria-expanded={activeSection === id}
-            aria-controls={`accordion-${id}`}
-            onClick={() => setActiveSection(activeSection === id ? null : id)}
-          >
-            {title}
-          </AccordionTitle>
-          <div
-            id={`accordion-${id}`}
-            css={`
-              display: ${activeSection === id ? 'block' : 'none'};
-              border: 1px solid #ddd;
-              padding: 1rem;
-              border-top: 0px;
-              background: white;
-            `}
-          >
-            <Endpoint type={componentType} />
-          </div>
-        </section>
+        <Accordion key={id} label={title}>
+          <Endpoint type={componentType} />
+        </Accordion>
       ))}
-    </>
+    </div>
   )
 }

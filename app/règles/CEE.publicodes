@@ -26,24 +26,23 @@ CEE . projet . remplacement chaudière thermique:
   titre: Remplacement d'une chaudière thermique
   question: Prévoyez-vous de remplacer une chaudière individuelle au gaz (autres qu'à condensation), au fioul ou au charbon ?
   description: |
-    Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" CEE qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
+    Ce paramètre de votre projet de rénovation aura des implications sur certaines aides, notamment les primes "coup de pouce" des fournisseurs d'énergie qui ne sont ouvertes que pour le remplacement d'une chaudière qui émet beaucoup de CO2. 
 
-    À l'inverse, pour le dispositif MaPrimeRénov' par gestes, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
+    À l'inverse, pour le dispositif MaPrimeRénov' rénovation par geste, ce n'est pas une condition nécessaire, bien qu'en pratique par exemple l'installation d'une pompe à chaleur se combine souvent avec la mise au rebut de l'ancienne chaudière gaz devenue inutile.
   par défaut: non
-  maximum: oui
 
 CEE . rénovation d'ampleur:
   icône: 'cee.svg'
-  marque: CEE coup de pouce « Rénovation d’ampleur »
+  marque: Coup de pouce « Rénovation d’ampleur » des fournisseurs d'énergie
   type: remboursement # en réalité, cela peut être bon d'achat, etc...
   description: |
-    Le coup de pouce « Rénovation d’ampleur des maisons et appartements individuels » s'inscrit dans le cadre du dispositif des certificats d'économies d'énergie (CEE).
+    Le coup de pouce « Rénovation d’ampleur des maisons et appartements individuels » s'inscrit dans le cadre des aides des fournisseurs d’énergie (certificats d’économies d’énergie – CEE).
 
-    Il s'adresse aux ménages non éligibles aux aides de l'ANAH, notamment les propriétaires de résidence secondaire et les personnes morales.
+    Il s'adresse aux ménages non éligibles aux aides de l'Anah, notamment les propriétaires de résidence secondaire et les personnes morales.
   conditions éligibilités: |
     Les travaux sont définis par une étude énergétique préalable et s'inscrivent dans le cadre d'une rénovation thermique d'ampleur des logements relevant de fiche d'opération standardisée, consistant à mettre en œuvre un bouquet de travaux optimal sur le plan technico-économique.
   comment faire: |
-    Les primes sont versées, dans le cadre du dispositif des certificats d'économies d'énergie (CEE), par les signataires de la charte « Coup de pouce Rénovation performante d'une maison individuelle ». Il s'agit principalement des vendeurs d'énergie et de leurs délégataires.
+    Les primes sont versées, dans le cadre des aides des fournisseurs d’énergie (CEE) dispositif des certificats d'économies d'énergie (CEE), par les signataires de la charte « Coup de pouce Rénovation performante d'une maison individuelle ». Il s'agit principalement des vendeurs d'énergie et de leurs délégataires.
 
     Les signataires de la charte « Coup de pouce Rénovation performante d'une maison individuelle » doivent proposer un accompagnement complet aux bénéficiaires pour la réalisation de leurs travaux.
 
@@ -52,11 +51,11 @@ CEE . rénovation d'ampleur:
     - être déduite de la facture ;
     - ou prendre d'autres formes convenues avec le signataire de la charte lors de la contractualisation de son offre.
 
-    Prenez conseil auprès d'un espace conseil France Rénov' pour vérifier si l'offre que l'on vous propose correspond à votre besoin. Ensuite, reprenez contact avec le fournisseur d'énergie choisi ou l'installateur partenaire.
+    Prenez conseil auprès d'un Espace Conseil France Rénov' pour vérifier si l'offre que l'on vous propose correspond à votre besoin. Ensuite, reprenez contact avec le fournisseur d'énergie choisi ou l'installateur partenaire.
   lien: https://www.ecologie.gouv.fr/politiques-publiques/coup-pouce-renovation-dampleur-maisons-appartements-individuels
 CEE . rénovation d'ampleur . conditions:
   description: |
-    Il n'est possible de mobiliser le coup de pouce « Rénovation d'ampleur » que pour les ménages non éligibles à MaPrimeRénov' Parcours accompagné. Ce coup de pouce s'applique en maison individuelle et en appartement.
+    Il n'est possible de mobiliser les primes coup de pouce « Rénovation d'ampleur » des fournisseurs d'énergie pour les ménages non éligibles à MaPrimeRénov' parcours accompagné. Ce coup de pouce s'applique en maison individuelle et en appartement.
   toutes ces conditions:
     - MPR . accompagnée . éligible = non
     - sauts >= 2

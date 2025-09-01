@@ -11,14 +11,7 @@ export default function ProgressBar({
     (el) => rules[el]?.question,
   )
 
-  // Dans le cas du simulateur principale, on considère que le questionnaire s'arrête au moment du choix du parcours d'aide
-  const nbQuestionTotal =
-    answeredQuestions.indexOf("parcours d'aide") !== -1
-      ? answeredQuestions.indexOf("parcours d'aide")
-      : answeredQuestions.length +
-        (nextQuestions.indexOf("parcours d'aide") !== -1
-          ? nextQuestions.indexOf("parcours d'aide")
-          : nextQuestions.length)
+  const nbQuestionTotal = answeredQuestions.length + nextQuestions.length
 
   const indexQuestionActuel = answeredQuestions.length + 1
 

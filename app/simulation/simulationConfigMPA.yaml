@@ -1,0 +1,26 @@
+prioritaires:
+  - parcours d'aide
+
+  - mpa . situation demandeur
+  - mpa . bailleur . condition locataire
+  - mpa . occupant . condition age ou handicap
+  - mpa . occupant . condition 15 ans
+
+  - vous . propriétaire . statut
+  - logement . propriétaire occupant
+  - logement . résidence principale propriétaire
+  - logement . résidence principale locataire
+  - logement . adresse
+  - logement . type
+  - logement . surface
+  - logement . période de construction
+  - ménage . personnes
+  - ménage . revenu
+  - logement . commune
+  - ménage . commune
+  - ménage . personnes
+  - ménage . revenu
+  - DPE . actuel
+  - projet . définition
+  - projet . définition . catégories travaux envisagées
+  - projet . définition . travaux envisagés

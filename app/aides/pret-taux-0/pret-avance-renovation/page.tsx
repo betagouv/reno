@@ -1,13 +1,14 @@
-import { Main, Section } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
-import Breadcrumb from '@/components/Breadcrumb'
 import PAR from './PAR'
 import { Suspense } from 'react'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
-  title: 'PAR+: Le prêt avance mutation (ou rénovation)',
+  title: 'PAR+: Le prêt avance rénovation',
   description:
-    'Le prêt avance mutation (ou rénovation): Un prêt hypothécaire dédié à financer vos travaux de rénovation énergétique',
+    'Le prêt avance rénovation: Un prêt hypothécaire dédié à financer vos travaux de rénovation énergétique',
   alternates: {
     canonical: '/aides/pret-taux-0/pret-avance-renovation',
   },
@@ -15,22 +16,33 @@ export const metadata: Metadata = {
 
 export default function PagePAR() {
   return (
-    <Main>
-      <Section>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { 'Les prêts à taux 0': '/aides/pret-taux-0' },
+          currentPageLabel="Le prêt avance rénovation"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
             {
-              'Le Prêt Avance Rénovation':
-                '/aides/pret-taux-0/pret-avance-renovation',
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
+            {
+              label: 'Les prêts à taux 0',
+              linkProps: {
+                href: '/aides/pret-taux-0',
+              },
             },
           ]}
         />
         <Suspense>
           <PAR />
         </Suspense>
-      </Section>
-    </Main>
+      </PageBlock>
+    </>
   )
 }

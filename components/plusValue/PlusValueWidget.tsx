@@ -1,15 +1,13 @@
 import { push } from '@socialgouv/matomo-next'
 import { formatNumberWithSpaces } from '../utils'
-import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
-import AddressSearch from '../AddressSearch'
-import Select from '../Select'
-import Image from 'next/image'
-import editIcon from '@/public/crayon.svg'
+import CommuneSearch from '../CommuneSearch'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeDottedName } from '../publicodes/situationUtils'
-import { DPEAppreciationInfo, hasResult } from '../module/PlusValue'
+import { DPEAppreciationInfo, hasResult } from '../module/PlusValueModule'
+import Input from '@codegouvfr/react-dsfr/Input'
+import Select from '@codegouvfr/react-dsfr/Select'
 
 const PlusValueWidget = ({
   engine,
@@ -33,34 +31,26 @@ const PlusValueWidget = ({
           }
         `}
       >
-        <div>
-          <div>Ville:</div>
-          <AddressSearch
-            {...{
-              type: 'logement . commune',
-              setChoice: (result) => {
-                setSearchParams({
-                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                  [encodeDottedName('logement . commune . nom')]:
-                    `"${result.nom}"*`,
-                })
-              },
-              setSearchParams,
-              situation,
-              answeredQuestions,
-            }}
-          />
-        </div>
-        <div>
-          <div>Type de bien:</div>
-          <Select
-            css={`
-              height: 2.8rem;
-              background: #f5f5fe;
-              max-width: 90vw;
-            `}
-            disableInstruction={false}
-            onChange={(e) => {
+        <CommuneSearch
+          label="Ville :"
+          {...{
+            type: 'logement . commune',
+            setChoice: (result) => {
+              setSearchParams({
+                [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                [encodeDottedName('logement . commune . nom')]:
+                  `"${result.nom}"*`,
+              })
+            },
+            setSearchParams,
+            situation,
+            answeredQuestions,
+          }}
+        />
+        <Select
+          label="Type de bien :"
+          nativeSelectProps={{
+            onChange: (e) => {
               push([
                 'trackEvent',
                 'Module',
@@ -71,94 +61,48 @@ const PlusValueWidget = ({
                 [encodeDottedName('logement . type')]:
                   '"' + e.replaceAll("'", '') + '"*',
               })
-            }}
-            value={situation['logement . type']?.replaceAll('"', "'")}
-            values={rules['logement . type']['une possibilité parmi'][
-              'possibilités'
-            ].map((i) => rules['logement . type . ' + i])}
-          />
-        </div>
-        <div>
-          <div>Valeur du bien:</div>
-          <div
-            css={`
-              height: 2.8rem;
-              margin: auto;
-              border: 2px solid var(--color);
-              width: 10rem;
-              color: var(--color);
-              text-align: center;
-              border-radius: 0.3rem;
-              padding: 0.7rem;
-              box-shadow: var(--shadow-elevation-medium);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
-            <div
-              css={`
-                flex-grow: 1;
-              `}
-            >
-              <input
-                id="prix-bien"
-                css={`
-                  border: none !important;
-                  background: transparent !important;
-                  -webkit-appearance: none !important;
-                  outline: none !important;
-                  color: var(--color);
-                  font-size: 110% !important;
-                  max-width: 6rem !important;
-                  box-shadow: none !important;
-                `}
-                autoFocus={false}
-                placeholder="Prix du bien"
-                type="text"
-                inputMode="numeric"
-                pattern="\d+"
-                defaultValue={
-                  answeredQuestions.includes("logement . prix d'achat")
-                    ? formatNumberWithSpaces(
-                        situation["logement . prix d'achat"],
-                      )
-                    : undefined
-                }
-                onChange={(e) => {
-                  const price = e.target.value.replace(/\s/g, '')
-                  const startPos = e.target.selectionStart
-                  const invalid = isNaN(price) || price <= 0
-                  if (invalid) return
-                  push([
-                    'trackEvent',
-                    'Module',
-                    'Interaction',
-                    'prix achat ' + price,
-                  ])
-                  setSearchParams({
-                    [encodeDottedName("logement . prix d'achat")]: price + '*',
-                  })
-                  e.target.value = formatNumberWithSpaces(price)
-                  requestAnimationFrame(() => {
-                    const inputBudget = document.querySelector('#prix-bien')
-                    inputBudget.selectionStart = startPos
-                    inputBudget.selectionEnd = startPos
-                  })
-                }}
-              />
-            </div>
-            <Image
-              css={`
-                cursor: pointer;
-                margin-left: auto;
-              `}
-              src={editIcon}
-              alt="Icône crayon pour éditer"
-              onClick={() => document.querySelector('#prix-bien').focus()}
-            />
-          </div>
-        </div>
+            },
+            value: situation['logement . type']?.replaceAll('"', "'"),
+          }}
+          state={situation['logement . type'] !== '' ? 'success' : 'default'}
+        >
+          <option value="">Sélectionnez une option</option>
+          {rules['logement . type']['une possibilité parmi'][
+            'possibilités'
+          ].map((i) => (
+            <option key={i} value={rules['logement . type . ' + i].valeur}>
+              {rules['logement . type . ' + i].titre}
+            </option>
+          ))}
+        </Select>
+        <Input
+          label="Valeur du bien :"
+          nativeInputProps={{
+            type: 'number',
+            name: 'prix-achat',
+            min: 1000,
+            step: 1000,
+            onChange: (e) => {
+              const price = e.target.value
+              const invalid = isNaN(price) || price <= 0
+              if (invalid) return
+              push([
+                'trackEvent',
+                'Module',
+                'Interaction',
+                'prix achat ' + price,
+              ])
+              setSearchParams({
+                [encodeDottedName("logement . prix d'achat")]: price + '*',
+              })
+              e.target.value = formatNumberWithSpaces(price)
+            },
+            pattern: '\d+',
+            value: answeredQuestions.includes("logement . prix d'achat")
+              ? situation["logement . prix d'achat"]
+              : undefined,
+          }}
+        />
       </div>
       <div
         css={`
@@ -171,18 +115,11 @@ const PlusValueWidget = ({
         <DPEQuickSwitch
           oldIndex={situation['DPE . actuel'] - 1}
           situation={situation}
-          columnDisplay={true}
-          editMode={true}
         />
         <TargetDPETabs
           {...{
-            oldIndex: situation['DPE . actuel'] - 1,
             setSearchParams,
-            answeredQuestions,
-            choice: situation['projet . DPE visé'] - 1,
-            engine,
             situation,
-            columnDisplay: true,
           }}
         />
       </div>

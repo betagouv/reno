@@ -2,11 +2,13 @@ import React from 'react'
 import Image from 'next/image'
 import GesteQuestion from './../GesteQuestion'
 import mprImage from '@/public/maprimerenov.svg'
-import { BlocAide, MiseEnAvant, PrimeStyle } from '../UI'
+import { BlocAide } from '../UI'
 import { getAnsweredQuestions } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import Value from '../Value'
 import { push } from '@socialgouv/matomo-next'
+import { Alert } from '@codegouvfr/react-dsfr/Alert'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const BlocAideMPR = ({
   infoMPR,
@@ -15,7 +17,7 @@ export const BlocAideMPR = ({
   situation,
   answeredQuestions,
   setSearchParams,
-  displayPrime = 'top',
+  display = 'top',
 }) => {
   const rawSearchParams = useSearchParams(),
     situationSearchParams = Object.fromEntries(rawSearchParams.entries())
@@ -23,12 +25,12 @@ export const BlocAideMPR = ({
   // On affiche les questions répondues, mais pas celles validées (sinon elles s'affichent lors du parcours par geste)
   const questionsAnswered = Object.keys(situation).filter(
     (q) =>
-      infoMPR.questions.includes(q) &&
+      infoMPR.questions?.includes(q) &&
       !getAnsweredQuestions(situationSearchParams, rules).includes(q),
   )
 
   let lastQuestionAnswered = -1
-  for (let i = infoMPR.questions.length - 1; i >= 0; i--) {
+  for (let i = infoMPR.questions?.length - 1; i >= 0; i--) {
     if (questionsAnswered.includes(infoMPR.questions[i])) {
       lastQuestionAnswered = i
       break
@@ -49,15 +51,12 @@ export const BlocAideMPR = ({
       <div className="aide-header">
         <Image src={mprImage} alt="logo ma prime renov" width="100" />
         <div>
-          {displayPrime === 'top' && (
-            <PrimeStyle>
-              {'Prime de '}
-              <strong>{infoMPR.montant}</strong>
-            </PrimeStyle>
+          {display === 'top' && (
+            <Badge noIcon severity="success">
+              Prime de <strong>{infoMPR.montant}</strong>
+            </Badge>
           )}
-          <h2>
-            {displayPrime !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'
-          </h2>
+          <h2>{display !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'</h2>
         </div>
       </div>
       <div className="aide-details">
@@ -88,7 +87,7 @@ export const BlocAideMPR = ({
             }}
           />
         )}
-        {displayPrime == 'bottom' && (
+        {display == 'bottom' && (
           <>
             <div
               css={`
@@ -96,39 +95,22 @@ export const BlocAideMPR = ({
                 display: flex;
               `}
             >
-              <PrimeStyle
-                css={`
-                  padding: 0.75rem;
-                  margin-bottom: 1rem;
-                `}
-                $inactive={!isEligible}
+              <Badge
+                noIcon
+                severity={isEligible && 'success'}
+                className="fr-text--lead"
               >
                 {isEligible ? (
-                  <>
-                    Prime de{' '}
-                    <strong
-                      css={`
-                        font-size: 1.5rem;
-                      `}
-                    >
-                      {isExactTotal ? infoMPR.montant : '...'}
-                    </strong>
-                  </>
+                  <>Prime de {isExactTotal ? infoMPR.montant : '...'}</>
                 ) : (
-                  <strong
-                    css={`
-                      font-size: 1.25rem;
-                    `}
-                  >
-                    Non Éligible
-                  </strong>
+                  <>Non Éligible</>
                 )}
-              </PrimeStyle>
+              </Badge>
             </div>
             <AvanceTMO {...{ engine, situation }} />
           </>
         )}
-        {displayPrime === 'top' && (
+        {display === 'top' && (
           <div className="details">
             <AvanceTMO {...{ engine, situation }} />
             Précisions:
@@ -153,38 +135,36 @@ export const BlocAideMPR = ({
 }
 
 export const AvanceTMO = ({ engine, situation }) => {
+  const ménageClasse = engine.evaluate('ménage . revenu . classe').nodeValue
   const isEligible =
     engine.evaluate('ménage . revenu').nodeValue != 0 &&
-    engine.evaluate('ménage . revenu . classe').nodeValue === 'très modeste'
+    ménageClasse === 'très modeste'
   if (!isEligible) {
     return null
   }
 
   return (
-    <MiseEnAvant>
-      <h3>Bon à savoir</h3>
-      <p>
-        En tant que ménage au revenu{' '}
-        <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'ménage . revenu . classe',
-            state: 'prime-black',
-          }}
-        />
-        , vous pourrez <strong>bénéficier d'une avance</strong> allant jusqu'à{' '}
-        <Value
-          {...{
-            engine,
-            situation,
-            dottedName: 'gestes . pourcentage avance',
-            state: 'prime-black',
-          }}
-        />{' '}
-        maximum de la part MaPrimeRénov' des primes par gestes. Le reste sera
-        remboursé après travaux.
-      </p>
-    </MiseEnAvant>
+    <Alert
+      className="fr-my-5v"
+      description={
+        <>
+          En tant que ménage au revenu <strong>{ménageClasse}</strong>, vous
+          pourrez bénéficier d'une avance allant jusqu'à{' '}
+          <Value
+            {...{
+              state: 'success',
+              engine,
+              situation,
+              dottedName: 'gestes . pourcentage avance',
+            }}
+          />{' '}
+          de la part de MaPrimeRénov' (par gestes). Le reste sera remboursé
+          après travaux.
+        </>
+      }
+      onClose={function noRefCheck() {}}
+      severity="info"
+      small
+    />
   )
 }

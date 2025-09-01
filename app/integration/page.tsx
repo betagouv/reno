@@ -1,4 +1,5 @@
 import Integration from '@/components/Integration'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import { Suspense } from 'react'
 
@@ -12,8 +13,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <Suspense>
-      <Integration />
-    </Suspense>
+    <>
+      <StartDsfrOnHydration />
+      <Suspense>
+        <Integration />
+      </Suspense>
+    </>
   )
 }

@@ -1,15 +1,29 @@
 import { formatValue } from 'publicodes'
-import { Key } from './explications/ExplicationUI'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
-export default ({ engine, situation, dottedName, state = 'none' }) => {
+export default ({
+  engine,
+  situation,
+  dottedName,
+  size,
+  state = 'none',
+  addOn,
+}) => {
   const evaluation = engine.setSituation(situation).evaluate(dottedName),
     value = formatValue(evaluation, { precision: 0 })
   const missingVariables = evaluation.missingVariables
   const missing = Object.entries(missingVariables)
 
-  return (
-    <Key $state={state || (missing.length > 0 ? 'inProgress' : 'final')}>
+  return state == 'normal' ? (
+    <strong>{value}</strong>
+  ) : (
+    <Badge
+      noIcon
+      className={size == 'xl' ? 'fr-h3' : ''}
+      severity={state || (missing.length > 0 ? 'inProgress' : state)}
+    >
       {value}
-    </Key>
+      {addOn && <> {addOn}</>}
+    </Badge>
   )
 }

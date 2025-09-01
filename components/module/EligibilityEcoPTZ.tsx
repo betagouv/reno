@@ -21,11 +21,8 @@ import { useSearchParams } from 'next/navigation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
-import { useMediaQuery } from 'usehooks-ts'
 
 export default function EligibilityEcoPTZ({ dottedName }) {
-  const isMobile = useMediaQuery('(max-width: 400px)')
-
   const rulesWithInterets = {
     ...rules,
     ...rulesInteretEmprunt,
@@ -44,70 +41,46 @@ export default function EligibilityEcoPTZ({ dottedName }) {
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module Eco-PTZ'])
   }, [])
-
   return (
-    <ModuleWrapper isMobile={isMobile} title="Êtes-vous éligible à l'éco-PTZ ?">
-      <QuestionList>
-        <Li
-          $next={true}
-          $touched={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-        >
-          <TypeResidence
-            {...{ setSearchParams, situation, answeredQuestions }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes(
-            'logement . résidence principale propriétaire',
-          )}
-          $touched={answeredQuestions.includes('logement . au moins 2 ans')}
-        >
-          <PeriodeConstructionQuestion
-            {...{
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              periode: 'au moins 2 ans',
-            }}
-          />
-        </Li>
-        <Li
-          $next={answeredQuestions.includes('logement . au moins 2 ans')}
-          $touched={answeredQuestions.includes(
-            dottedName + ' . condition maprimerenov',
-          )}
-        >
-          <YesNoQuestion
-            {...{
-              setSearchParams,
-              situation,
-              answeredQuestions,
-              rules,
-              rule: dottedName + ' . condition maprimerenov',
-              text: "Sollicitez-vous également l'aide MaPrimeRénov' (parcours accompagné ou par geste)",
-            }}
-          />
-        </Li>
+    <ModuleWrapper title="Êtes-vous éligible à l'éco-PTZ ?">
+      <form id="form-eco-ptz">
+        <TypeResidence {...{ setSearchParams, situation, answeredQuestions }} />
+        <PeriodeConstructionQuestion
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            periode: 'au moins 2 ans',
+            disabled: !answeredQuestions.includes(
+              'logement . résidence principale propriétaire',
+            ),
+          }}
+        />
+        <YesNoQuestion
+          {...{
+            setSearchParams,
+            situation,
+            answeredQuestions,
+            rules,
+            rule: dottedName + ' . condition maprimerenov',
+            text: "Sollicitez-vous également l'aide MaPrimeRénov' (parcours accompagné ou rénovation par geste)",
+            disabled: !answeredQuestions.includes('logement . au moins 2 ans'),
+          }}
+        />
         {answeredQuestions.includes(dottedName + ' . condition maprimerenov') &&
           situation[dottedName + ' . condition maprimerenov'] == 'non' && (
-            <Li
-              $next={answeredQuestions.includes(
-                dottedName + ' . condition maprimerenov',
-              )}
-              $touched={answeredQuestions.includes('logement . type travaux')}
-            >
-              <TypeTravaux
-                {...{
-                  setSearchParams,
-                  situation,
-                  rules,
-                }}
-              />
-            </Li>
+            <TypeTravaux
+              {...{
+                setSearchParams,
+                situation,
+                rules,
+                disabled: !answeredQuestions.includes(
+                  dottedName + ' . condition maprimerenov',
+                ),
+              }}
+            />
           )}
-      </QuestionList>
+      </form>
       <EligibilityResult
         {...{
           engine,

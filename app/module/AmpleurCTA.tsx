@@ -17,8 +17,12 @@ export default function AmpleurCTA({
 }) {
   const url = situationToCtaUrl(situation)
   return (
-    <Link href={url} target={target}>
-      <span>{isMobile ? textMobile : text}&nbsp;⚡️&nbsp;➞</span>
+    <Link
+      className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-raw-link"
+      href={url}
+      target={target}
+    >
+      {isMobile ? textMobile : text}&nbsp;⚡️
     </Link>
   )
 }

@@ -1,7 +1,6 @@
 'use client'
 
 import InputSwitch from '@/components/InputSwitch'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import {
   decodeDottedName,
   getAnsweredQuestions,
@@ -13,7 +12,6 @@ import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
 import { Suspense, useMemo } from 'react'
-import simulationConfig from './simulationConfig.yaml'
 import { push } from '@socialgouv/matomo-next'
 import AideDetails from '@/components/AideDetails'
 import MPRA from '@/components/ampleur/MPRA'
@@ -24,9 +22,31 @@ import Denormandie from '@/components/ampleur/Denormandie'
 import EcoPTZ from '@/components/ampleur/EcoPTZ'
 import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
+import TVA from '@/components/autres-aides/TVA'
+import CreditImpot from '@/components/autres-aides/CreditImpot'
 import AidesLocales from '@/components/ampleur/AidesLocales'
+import AideEtapes from '@/components/AideEtapes'
+import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
+import LocAvantage from '@/components/LocAvantage'
+import getNextQuestions from '@/components/publicodes/getNextQuestions'
 
-function Form({ rules }) {
+export const correspondance = {
+  'MPR . accompagnée': MPRA,
+  'MPR . accompagnée . prise en charge MAR': AideMAR,
+  PTZ: EcoPTZ,
+  PAR: PAR,
+  'aides locales': AidesLocales,
+  'ampleur . prime individuelle copropriété': Copro,
+  'taxe foncière': TaxeFoncière,
+  denormandie: Denormandie,
+  "CEE . rénovation d'ampleur": CEEAmpleur,
+  mpa: MaPrimeAdapt,
+  locavantage: LocAvantage,
+  'tva réduite': TVA,
+  "crédit d'impôt": CreditImpot,
+}
+
+function Form({ rules, simulationConfig }) {
   const isInIframe = useIsInIframe()
   if (isInIframe) {
     push(['trackEvent', 'Iframe', 'Page', 'Simulation'])
@@ -35,50 +55,51 @@ function Form({ rules }) {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
+
   // this param `objectif` lets us optionally build the form to target one specific publicode rule
   const { objectif, depuisModule, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
 
-  const engine = useMemo(() => new Publicodes(rules), [rules])
-  const answeredQuestions = [
-    ...Object.keys(simulationConfig.situation || {}),
-    ...getAnsweredQuestions(situationSearchParams, rules),
-  ]
-
-  const situation = {
-    ...(simulationConfig.situation || {}),
-    ...getSituation(situationSearchParams, rules),
-  }
-
+  const engine = useMemo(
+    () =>
+      new Publicodes(rules, {
+        logger: {
+          warn: () => {},
+          log: () => {},
+          error: (message) => console.error(message),
+        },
+      }),
+    [rules],
+  )
+  const answeredQuestions = getAnsweredQuestions(situationSearchParams, rules)
+  const situation = getSituation(situationSearchParams, rules)
   const validatedSituation = Object.fromEntries(
     Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
   )
-
+  const setSearchParams = useSetSearchParams()
+  if (target == 'etape') {
+    return (
+      <AideEtapes
+        {...{
+          searchParams,
+          setSearchParams,
+          situation,
+          answeredQuestions,
+          engine,
+        }}
+      />
+    )
+  }
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
       simulationConfig,
-      rules,
     )
-
-  const currentQuestion = nextQuestions[0],
-    rule = currentQuestion && rules[currentQuestion]
-
-  const setSearchParams = useSetSearchParams()
-
-  const correspondance = {
-    'MPR . accompagnée': MPRA,
-    'MPR . accompagnée . prise en charge MAR': AideMAR,
-    PTZ: EcoPTZ,
-    PAR: PAR,
-    'aides locales': AidesLocales,
-    'ampleur . prime individuelle copropriété': Copro,
-    'taxe foncière': TaxeFoncière,
-    denormandie: Denormandie,
-    "CEE . rénovation d'ampleur": CEEAmpleur,
-  }
+  const currentQuestion = objectif
+    ? decodeDottedName(objectif)
+    : nextQuestions[0]
 
   if (searchParams['details']) {
     return (
@@ -98,42 +119,33 @@ function Form({ rules }) {
     )
   }
   return (
-    <>
-      {rule && (
-        <InputSwitch
-          {...{
-            rules,
-            currentQuestion,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            engine,
-            nextQuestions,
-            searchParams,
-            correspondance,
-          }}
-        />
-      )}
+    <div style={{ maxWidth: '65rem', margin: 'auto' }}>
+      <InputSwitch
+        {...{
+          rules,
+          currentQuestion,
+          situation,
+          answeredQuestions,
+          setSearchParams,
+          engine,
+          nextQuestions,
+          searchParams,
+        }}
+      />
       {isInIframe && (
-        <p
-          css={`
-            font-size: 0.7rem;
-            margin: 0 1rem;
-            line-height: 1rem;
-          `}
-        >
+        <p className="fr-hint-text fr-mt-5v">
           Un simulateur construit avec France&nbsp;Rénov' pour simplifier
           l'information sur les aides à la rénovation énergétique.
         </p>
       )}
-    </>
+    </div>
   )
 }
 
-export default function ({ rules }) {
+export default function ({ rules, simulationConfig }) {
   return (
     <Suspense>
-      <Form rules={rules} />
+      <Form rules={rules} simulationConfig={simulationConfig} />
     </Suspense>
   )
 }

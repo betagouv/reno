@@ -1,5 +1,4 @@
 'use client'
-import { styled } from 'styled-components'
 import css from '../css/convertToJs'
 import data from './DPE.yaml'
 
@@ -11,205 +10,143 @@ export default function DPE({
   avecLegend = false,
   gesLetter = undefined,
 }) {
-  /*
-   * data's format
-- énergie: 420
-  climat: 100
-  couleur: '#d7221f'
-  lettre: G
-*/
-
   return (
-    <Section>
-      <ClasseWrapper>
-        {avecLegend && (
-          <>
-            <h3>Classe Energétique</h3>
-            <p>Consommation d'énergie</p>
-          </>
-        )}
-        <Bars>
-          <ul>
-            {data.map((el, index) => (
-              <Li
-                key={el.lettre}
-                $selected={el.lettre === letter}
+    <>
+      {avecLegend && (
+        <>
+          <h3>Classe Energétique</h3>
+          <p>Consommation d'énergie</p>
+        </>
+      )}
+      {data.map((el, index) => (
+        <div className="fr-fieldset__element" key={el.lettre}>
+          <div className="fr-radio-group">
+            {onClick && (
+              <input
+                type="radio"
+                id={`radio-${el.lettre}`}
+                checked={el.lettre === letter}
+                onChange={() => onClick && onClick(index)}
+              />
+            )}
+            <Bar
+              htmlFor={`radio-${el.lettre}`}
+              background={el.couleur}
+              index={index}
+              selected={el.lettre === letter}
+            >
+              {el.lettre}{' '}
+              {avecLegend && (
+                <small>
+                  {index === 0
+                    ? '<= ' + data[index + 1].énergie
+                    : index === 6
+                      ? '> ' + el.énergie
+                      : el.énergie + 1 + ' à ' + data[index + 1].énergie}
+                </small>
+              )}
+            </Bar>
+          </div>
+        </div>
+      ))}
+      {avecLegend && <small>en kWhEP/m².an</small>}
+      {avecGES && (
+        <>
+          <h3>Classe GES</h3>
+          <p>Emissions de gaz à effet de serre</p>
+          {data.map((el, index) => (
+            <div className="fr-fieldset__element" key={el.lettre}>
+              <div
+                className="fr-radio-group"
                 onClick={() => onClick && onClick(index)}
               >
                 {onClick && (
-                  <input type="radio" checked={el.lettre === letter} />
+                  <input
+                    type="radio"
+                    id={`radio-${el.lettre}`}
+                    checked={el.lettre === gesLetter}
+                  />
                 )}
                 <Bar
-                  $background={el.couleur}
-                  $index={index}
-                  $selected={el.lettre === letter}
-                  $selected2={el.lettre === newLetter}
-                >
-                  {' '}
-                  <span>
-                    {el.lettre}{' '}
-                    {avecLegend && (
-                      <small>
-                        {index == 0
-                          ? '<= ' + data[index + 1].énergie
-                          : index == 6
-                            ? '> ' + el.énergie
-                            : el.énergie + 1 + ' à ' + data[index + 1].énergie}
-                      </small>
-                    )}
-                  </span>
-                </Bar>
-                <Triangle
-                  background={el.couleur}
-                  selected={el.lettre === letter}
+                  htmlFor={`radio-${el.lettre}`}
+                  background={el['couleur GES']}
+                  index={index}
+                  selected={el.lettre === gesLetter}
                   selected2={el.lettre === newLetter}
-                />
-              </Li>
-            ))}
-          </ul>
-        </Bars>
-        {avecLegend && <small>en kWhEP/m².an</small>}
-      </ClasseWrapper>
-      {avecGES && (
-        <ClasseWrapper>
-          <h3>Classe GES</h3>
-          <p>Emissions de gaz à effet de serre</p>
-          <Bars>
-            <ul>
-              {data.map((el, index) => (
-                <Li key={el.lettre} $selected={el.lettre === gesLetter}>
-                  {onClick && (
-                    <input type="radio" checked={el.lettre === letter} />
-                  )}
-                  <Bar
-                    $background={el['couleur GES']}
-                    $index={index}
-                    $selected={el.lettre === letter}
-                    $selected2={el.lettre === newLetter}
-                  >
-                    {' '}
-                    <span>
-                      {el.lettre}{' '}
-                      <small>
-                        {index == 0
-                          ? '<= ' + data[index + 1].climat
-                          : index == 6
-                            ? '> ' + el.climat
-                            : el.climat + 1 + ' à ' + data[index + 1].climat}
-                      </small>
-                    </span>
-                  </Bar>
-                  <Triangle
-                    background={el['couleur GES']}
-                    selected={el.lettre === letter}
-                    selected2={el.lettre === newLetter}
-                  />
-                </Li>
-              ))}
-            </ul>
-          </Bars>
+                >
+                  {el.lettre}{' '}
+                  <small>
+                    {index === 0
+                      ? '<= ' + data[index + 1].climat
+                      : index === 6
+                        ? '> ' + el.climat
+                        : el.climat + 1 + ' à ' + data[index + 1].climat}
+                  </small>
+                </Bar>
+              </div>
+            </div>
+          ))}
           <small>en kgeqCO²/m².an</small>
-        </ClasseWrapper>
+        </>
       )}
-    </Section>
+    </>
   )
 }
 
-const Section = styled.section`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`
-const ClasseWrapper = styled.div`
-  h3 {
-    margin: 0;
-  }
-`
-
-const Bars = styled.div`
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-`
-const size = '2.2rem'
-const Li = styled.li`
-  display: flex;
-  align-items: center;
-  svg {
-    width: ${(p) => p.$size || size};
-    height: ${(p) => p.$size || size};
-  }
-  input {
-    margin-right: 0.6rem;
-    cursor: pointer;
-  }
-`
-const Bar = styled.label`
-  background: ${(p) => p.$background};
-  width: ${(p) => 3 + (p.$index + 1.5) * 1.5}rem;
-  margin: 0.2rem 0;
-  padding-left: 0.6rem;
-  color: white;
-  text-shadow: 1px 2px 4px black;
-  display: flex;
-  align-items: center;
-  > span:first-child {
-    font-weight: bold;
-    font-size: 150%;
-    line-height: ${(p) => p.$size || size};
-  }
-  small {
-    font-size: 60%;
-    white-space: nowrap;
-    text-shadow: 1px 1px 2px black;
-  }
-
-  height: ${(p) => p.$size || size};
-  border: ${(p) =>
-    p.$selected
-      ? `2px solid var(--color)`
-      : p.$selected2
-        ? `2px dashed var(--color)`
-        : `none`};
-  border-right: none;
-  z-index: 1;
-  line-height: 1.6rem;
-  cursor: pointer;
-`
-
-const Triangle = ({ background, selected, selected2 }) => (
-  <svg
-    viewBox="0 0 400 400"
-    style={css(`
-
-  margin-left: -1px
-		  `)}
+const Bar = ({ htmlFor, background, index, selected, children }) => (
+  <label
+    className="fr-label"
+    css={`
+      > span {
+        background: ${background};
+        width: ${3 + (index + 1.5) * 1.5}rem;
+        color: white;
+        text-shadow: 1px 2px 4px black;
+        font-weight: bold;
+        font-size: 120%;
+        display: flex;
+        align-items: center;
+        height: 2rem;
+        ${selected && `border: 2px solid var(--color);`}
+        border-right: none;
+        line-height: 1.6rem;
+        padding-left: 0.5rem;
+        position: relative;
+        top: -0.2rem;
+        small {
+          font-size: 60%;
+          white-space: nowrap;
+          text-shadow: 1px 1px 2px black;
+        }
+      }
+      ${selected &&
+      `&::before {
+        content: '';
+        position: absolute;
+        right: -1.5rem;
+        top: 39% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        border-style: solid;
+        border-width: 1rem 0 1rem 1rem;
+        border-color: transparent transparent transparent var(--color);
+        transform: translateY(-50%);
+      }`}
+      &::after {
+        content: '';
+        position: absolute;
+        right: ${selected ? '-0.9rem' : '-1rem'};
+        top: 39%;
+        ${selected && 'border-radius: 5px'};
+        border-style: solid;
+        border-width: 1rem 0 1rem 1rem;
+        box-sizing: border-box;
+        transform: translateY(-50%);
+        border-color: transparent transparent transparent ${background};
+      }
+    `}
+    htmlFor={htmlFor}
   >
-
-    <polygon
-      points="0,0 180,200 0,400"
-      style={css(`
-
-  fill: ${background};
-  ${
-    selected
-      ? `
-  stroke-width: 20px;
-  stroke: var(--color);
-  `
-      : selected2
-        ? `
-  stroke-width: 20px;
-  stroke-dasharray: 55;
-  stroke: var(--color);
-
-		  `
-        : ``
-  }
-
-  
-		  `)}
-    />
-  </svg>
+    <span>{children}</span>
+  </label>
 )

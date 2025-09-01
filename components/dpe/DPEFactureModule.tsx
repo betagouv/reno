@@ -6,7 +6,6 @@ import listeEnergies from '@/app/règles/dpe/energies.publicodes'
 import { formatNumber } from '../RevenuInput'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
-import Select from '../Select'
 import informationIcon from '@/public/information.svg'
 import CalculatorWidget from '../CalculatorWidget'
 import { encodeSituation, getSituation } from '../publicodes/situationUtils'
@@ -21,15 +20,16 @@ import { getIndexLettre } from './DPEPage'
 import iconReduire from '@/public/reduire.svg'
 import editIcon from '@/public/crayon.svg'
 import { push } from '@socialgouv/matomo-next'
+import AmpleurCTA from '@/app/module/AmpleurCTA'
+import Select from '@codegouvfr/react-dsfr/Select'
+import useIsMobile from '../useIsMobile'
 
 const prixAbonnementElectricite = 160
 
 export default function DPEFactureModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
   const [showTable, setShowTable] = useState(false)
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth <= 400,
-  )
+  const isMobile = useIsMobile(400)
   const setSearchParams = useSetSearchParams()
   const energies = listeEnergies['énergies . type']['une possibilité parmi'][
     'possibilités'
@@ -233,11 +233,6 @@ export default function DPEFactureModule({ type, numDpe }) {
                     transform: translateY(55%) translateX(-150%);
                     pointer-events: none;
                   }
-                  select {
-                    height: 2.8rem;
-                    background: #f5f5fe;
-                    max-width: 90vw;
-                  }
                 `}
               >
                 <tbody>
@@ -247,24 +242,31 @@ export default function DPEFactureModule({ type, numDpe }) {
                       <tr key={index}>
                         <td>
                           <Select
-                            disableInstruction={false}
-                            disabled={!editable}
-                            value={energiesUtilisees[index]?.titre}
-                            values={energies}
-                            onChange={(e) => {
-                              const newEnergiesUtilisees =
-                                energiesUtilisees.map((energieUtilisee, i) =>
-                                  i === index
-                                    ? energies.find(
-                                        (energie) => energie.titre === e,
-                                      )
-                                    : energieUtilisee,
+                            nativeSelectProps={{
+                              onChange: (e) => {
+                                const newEnergiesUtilisees =
+                                  energiesUtilisees.map((energieUtilisee, i) =>
+                                    i === index
+                                      ? energies.find(
+                                          (energie) =>
+                                            energie.titre === e.target.value,
+                                        )
+                                      : energieUtilisee,
+                                  )
+                                setEnergiesUtiliseesApresReno(
+                                  newEnergiesUtilisees,
                                 )
-                              setEnergiesUtiliseesApresReno(
-                                newEnergiesUtilisees,
-                              )
+                              },
+                              value: energiesUtilisees[index]?.titre,
                             }}
-                          />
+                            disabled={!editable}
+                          >
+                            {energies.map((e, i) => (
+                              <option key={i} value={e.valeur}>
+                                {e.titre}
+                              </option>
+                            ))}
+                          </Select>
                         </td>
                         <td>
                           {(pourcentages[index] != '?' || editable) && (
@@ -445,11 +447,15 @@ export default function DPEFactureModule({ type, numDpe }) {
     () =>
       ({ type, children }) =>
         type === 'module' ? (
-          <ModuleWrapper
-            isMobile={isMobile}
-            title="Estimer l'impact d'une rénovation sur ma facture d'énergie"
-          >
+          <ModuleWrapper title="Estimer l'impact d'une rénovation sur ma facture d'énergie">
             {children}
+            <AmpleurCTA
+              situation={situation}
+              isMobile={isMobile}
+              target="_blank"
+              text={'Découvrir vos aides à la réno'}
+              textMobile={'Découvrir vos aides à la réno'}
+            />
           </ModuleWrapper>
         ) : (
           <CalculatorWidget>{children}</CalculatorWidget>
@@ -504,11 +510,8 @@ export default function DPEFactureModule({ type, numDpe }) {
           <div>
             <TargetDPETabs
               {...{
-                oldIndex: situation['DPE . actuel'] - 1,
                 setSearchParams,
-                choice: situation['projet . DPE visé'] - 1,
                 situation,
-                columnDisplay: false,
               }}
             />
           </div>
@@ -524,6 +527,7 @@ export default function DPEFactureModule({ type, numDpe }) {
 }
 
 export const DeuxColonnes = styled.div`
+  margin-bottom: 2rem;
   display: flex;
   ${(p) => p.$isMobile && 'flex-direction: column;'}
   position: relative;

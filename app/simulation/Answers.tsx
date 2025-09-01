@@ -1,13 +1,11 @@
-import { Card, LinkStyleButton } from '@/components/UI'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import Link from '@/node_modules/next/link'
 import { push } from '@socialgouv/matomo-next'
 import { useState } from 'react'
 import styled from 'styled-components'
-import iconEclair from '@/public/eclair.svg'
-import Image from 'next/image'
 import AnswerItem from './AnswerItem'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export const firstLevelCategory = (dottedName) => dottedName?.split(' . ')[0]
 
@@ -38,6 +36,9 @@ export const categoryData = (
     pastCategories,
   }
 }
+export const preventSummaryClick = (event) => {
+  event.preventDefault()
+}
 
 export default function Answers({
   answeredQuestions: rawAnsweredQuestions,
@@ -55,10 +56,6 @@ export default function Answers({
     setIsOpen((prevIsOpen) => !prevIsOpen) // Toggle the state using React
   }
 
-  const preventSummaryClick = (event) => {
-    event.preventDefault()
-  }
-
   const answeredQuestions = rawAnsweredQuestions.filter(
     (el) => rules[el]?.question,
   )
@@ -74,66 +71,45 @@ export default function Answers({
   return (
     answeredQuestions.length !== 0 && (
       <Details $noMarker={answeredQuestions.length === 0} open={isOpen}>
-        <summary onClick={preventSummaryClick}>
-          <LinkStyleButton onClick={handleSummaryClick}>
-            <Image src={iconEclair} alt="Icone pour modifier ses réponses" />
+        <summary
+          onClick={handleSummaryClick}
+          css={`
+            button {
+              width: 100%;
+              justify-content: center;
+              padding: 0;
+            }
+          `}
+        >
+          <Button priority="tertiary">
+            <span aria-hidden="true">✍️</span>
             {isOpen
               ? closedTitle || 'Cacher mes réponses'
               : 'Modifier mes réponses'}
-          </LinkStyleButton>
+          </Button>
         </summary>
         {isOpen && (
-          <Card
-            css={`
-              overflow: auto;
-            `}
-          >
+          <div className="fr-callout">
             <div
               css={`
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 1rem;
               `}
             >
-              <h3
-                css={`
-                  margin-bottom: 0;
-                `}
-              >
-                Vos réponses
-              </h3>
-              <div
-                css={`
-                  cursor: pointer;
-                  color: var(--color);
-                  text-decoration: underline;
-                  &:hover {
-                    text-decoration: none;
-                  }
-                `}
+              <h3 className="fr-callout__title">Vos réponses</h3>
+              <Button
+                iconId="fr-icon-close-circle-line"
                 onClick={handleSummaryClick}
-              >
-                Fermer
-              </div>
+                priority="tertiary no outline"
+                title="Fermer"
+              />
             </div>
-            <p
-              css={`
-                color: var(--mutedColor);
-              `}
-            >
+            <p className="fr-hint-text">
               Modifiez en cliquant sur la réponse, ou recommencez la simulation
               (lien en bas de page) :
             </p>
-            <ol
-              css={`
-                list-style-type: none;
-                padding-left: 0;
-                ol {
-                  list-style-type: none;
-                }
-              `}
-            >
+            <ol>
               {pastCategories.map(([category, questions]) => (
                 <li key={category}>
                   <div
@@ -143,49 +119,32 @@ export default function Answers({
                       justify-content: space-between;
                     `}
                   >
-                    <span
-                      css={`
-                        color: var(--color);
-                        font-weight: bold;
-                      `}
-                    >
-                      {getRuleTitle(category, rules)}
-                    </span>
-                    <span
-                      css={`
-                        color: var(--color);
-                      `}
-                    >
-                      Vos réponses
-                    </span>
+                    {getRuleTitle(category, rules)}
+                    <span>Vos réponses</span>
                   </div>
-                  <ol
-                    css={`
-                      margin: 0.6rem 0;
-                    `}
-                  >
+                  <ol>
                     {questions.map((answer) => (
-                      <li
-                        key={answer}
-                        css={`
-                          display: flex;
-                          align-items: center;
-                          justify-content: space-between;
-                          flex-wrap: nowrap;
-                          margin-bottom: 0.5rem;
-                        `}
-                      >
-                        <AnswerItem
-                          {...{
-                            answer,
-                            rules,
-                            engine,
-                            situation,
-                            setSearchParams,
-                            rawAnsweredQuestions,
-                            setIsOpen,
-                          }}
-                        />
+                      <li key={answer}>
+                        <div
+                          css={`
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            flex-wrap: nowrap;
+                          `}
+                        >
+                          <AnswerItem
+                            {...{
+                              answer,
+                              rules,
+                              engine,
+                              situation,
+                              setSearchParams,
+                              rawAnsweredQuestions,
+                              setIsOpen,
+                            }}
+                          />
+                        </div>
                       </li>
                     ))}
                   </ol>
@@ -205,21 +164,21 @@ export default function Answers({
             >
               Recommencer la simulation
             </Link>
-          </Card>
+          </div>
         )}
       </Details>
     )
   )
 }
 
-const Details = styled.details`
+export const Details = styled.details`
   h3 {
     margin-top: 0.6rem;
   }
+  margin-bottom: 2vh;
   summary{
-    cursor: default;
+    cursor: pointer;
     display: flex;
-    margin-top: 1vh;
     align-items: center;
     > span {color:inherit}       
     h2 {

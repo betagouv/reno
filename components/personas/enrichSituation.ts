@@ -4,7 +4,7 @@ export const extractCleanCodeInsee = (situation) => {
   const codeInseeRaw =
     situation['logement . commune'] || situation['ménage . commune']
   if (!codeInseeRaw) return situation
-  const codeInsee = codeInseeRaw.replace(/'/g, '')
+  const codeInsee = codeInseeRaw.replaceAll(/'/g, '').replaceAll('"', '')
   return codeInsee
 }
 
@@ -32,18 +32,30 @@ export const enrichSituationWithConstructionYear = (situation, engine) => {
   }
 }
 
-export async function getCommune(situation, type) {
+export async function getCommune(
+  situation = null,
+  type = null,
+  codeCommune = null,
+) {
+  let path = null
+  if (codeCommune) {
+    path = `communes/${codeCommune}`
+  }
   if (
     situation &&
     ['ménage . commune', 'logement . commune'].includes(type) &&
     situation[type]
   ) {
-    const path = `communes?code=${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
-      url = `${getAppUrl()}/api/geo?path=${encodeURIComponent(path)}`
+    const path = `communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
+      url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
 
     const response = await fetch(url)
-    const json = await response.json()
-    return json[0]
+    return await response.json()
   }
-  return null
+  if (!path) return null
+  const url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
+
+  const response = await fetch(url)
+  const json = await response.json()
+  return json
 }

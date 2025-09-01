@@ -2,9 +2,7 @@
 
 import {
   CommuneLogement,
-  Li,
   PeriodeConstructionQuestion,
-  QuestionList,
   TypeResidence,
   YesNoQuestion,
 } from '@/app/module/AmpleurQuestions'
@@ -21,10 +19,8 @@ import { useSearchParams } from 'next/navigation'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import { useEffect } from 'react'
 import { push } from '@socialgouv/matomo-next'
-import { useMediaQuery } from 'usehooks-ts'
 
 export default function EligibilityTaxeFonciere({ dottedName }) {
-  const isMobile = useMediaQuery('(max-width: 400px)')
   useEffect(() => {
     push(['trackEvent', 'Module', 'Page', 'Module Taxe fonciere'])
   }, [])
@@ -41,88 +37,61 @@ export default function EligibilityTaxeFonciere({ dottedName }) {
     .evaluate(dottedName + ' . conditions')
 
   return (
-    <ModuleWrapper
-      isMobile={isMobile}
-      title="Êtes-vous éligible à l'exonération de Taxe Foncière ?"
-    >
-      <QuestionList>
-        <Li
-          $next={true}
-          $touched={answeredQuestions.includes(
-            'taxe foncière . commune . éligible',
-          )}
-        >
-          <CommuneLogement
-            {...{
-              situation,
-              onChange: (result) => {
-                setSearchParams({
-                  [encodeDottedName('logement . commune')]: `"${result.code}"*`,
-                  [encodeDottedName('logement . commune . nom')]:
-                    `"${result.nom}"*`,
-                  [encodeDottedName('taxe foncière . commune . éligible')]:
-                    result.eligibilite['taxe foncière . commune . éligible'] +
-                    '*',
-                  ...(result.eligibilite['taxe foncière . commune . taux']
-                    ? {
-                        [encodeDottedName('taxe foncière . commune . taux')]:
-                          result.eligibilite['taxe foncière . commune . taux'] +
-                          '*',
-                      }
-                    : {}),
-                })
-              },
-            }}
-          />
-        </Li>
+    <ModuleWrapper title="Êtes-vous éligible à l'exonération de Taxe Foncière ?">
+      <form id="form-taxe-fonciere">
+        <CommuneLogement
+          {...{
+            situation,
+            onChange: (result) => {
+              setSearchParams({
+                [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                [encodeDottedName('logement . commune . nom')]:
+                  `"${result.nom}"*`,
+                [encodeDottedName('taxe foncière . commune . éligible')]:
+                  result.eligibilite['taxe foncière . commune . éligible'] +
+                  '*',
+                ...(result.eligibilite['taxe foncière . commune . taux']
+                  ? {
+                      [encodeDottedName('taxe foncière . commune . taux')]:
+                        result.eligibilite['taxe foncière . commune . taux'] +
+                        '*',
+                    }
+                  : {}),
+              })
+            },
+          }}
+        />
         {situation['taxe foncière . commune . éligible'] == 'oui' && (
           <>
-            <Li
-              $next={true}
-              $touched={answeredQuestions.includes(
-                'logement . résidence principale propriétaire',
-              )}
-            >
-              <TypeResidence
-                {...{ setSearchParams, situation, answeredQuestions }}
-              />
-            </Li>
-            <Li
-              $next={answeredQuestions.includes(
-                'logement . résidence principale propriétaire',
-              )}
-              $touched={answeredQuestions.includes(
-                'logement . au moins 10 ans',
-              )}
-            >
-              <PeriodeConstructionQuestion
-                {...{
-                  setSearchParams,
-                  situation,
-                  answeredQuestions,
-                  periode: 'au moins 10 ans',
-                }}
-              />
-            </Li>
-            <Li
-              $next={answeredQuestions.includes('logement . au moins 10 ans')}
-              $touched={answeredQuestions.includes(
-                'taxe foncière . condition de dépenses',
-              )}
-            >
-              <YesNoQuestion
-                {...{
-                  setSearchParams,
-                  situation,
-                  answeredQuestions,
-                  rules,
-                  rule: 'taxe foncière . condition de dépenses',
-                }}
-              />
-            </Li>
+            <TypeResidence
+              {...{ setSearchParams, situation, answeredQuestions }}
+            />
+            <PeriodeConstructionQuestion
+              {...{
+                setSearchParams,
+                situation,
+                answeredQuestions,
+                periode: 'au moins 10 ans',
+                disabled: !answeredQuestions.includes(
+                  'logement . résidence principale propriétaire',
+                ),
+              }}
+            />
+            <YesNoQuestion
+              {...{
+                setSearchParams,
+                situation,
+                answeredQuestions,
+                rules,
+                rule: 'taxe foncière . condition de dépenses',
+                disabled: !answeredQuestions.includes(
+                  'logement . au moins 10 ans',
+                ),
+              }}
+            />
           </>
         )}
-      </QuestionList>
+      </form>
       <EligibilityResult
         {...{
           evaluation,

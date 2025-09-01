@@ -1,27 +1,29 @@
-import AddressSearch from './AddressSearch'
+import CommuneSearch from './CommuneSearch'
 import BinaryQuestion from './BinaryQuestion'
-import {
-  decodeDottedName,
-  encodeSituation,
-  getAnsweredQuestions,
-} from './publicodes/situationUtils'
-
-import BooleanMosaic, { isMosaicQuestion } from './BooleanMosaic'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
 import ClassicQuestionWrapper from './ClassicQuestionWrapper'
-
-import { firstLevelCategory } from '@/app/simulation/Answers'
 import DPESelector from './dpe/DPESelector'
-import GestesBasket from './GestesBasket'
-import GestesMosaic, { gestesMosaicQuestions } from './GestesMosaic'
-import Input from './Input'
 import Eligibility from './Eligibility'
 import RadioQuestion from './RadioQuestion'
-import AidesAmpleur from '@/components/ampleur/AidesAmpleur'
+import CheckboxQuestion from './CheckboxQuestion'
 import RevenuInput from './RevenuInput'
 import questionType from './publicodes/questionType'
 import CoproAddressSearch from './CoproAddressSearch'
+import DPEMap from './dpe/DPEMap'
+import AddressSearch from './AddressSearch'
+import { useState } from 'react'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
+import { useSendDataToHost } from './useIsInIframe'
+import Consentement from './Consentement'
+import ChoixTravauxChauffage from './ChoixTravauxChauffage'
+import ChoixCategorieTravaux from './ChoixCategorieTravaux'
+import ChoixTravaux from './ChoixTravaux'
+import Input from '@codegouvfr/react-dsfr/Input'
+import { serializeUnit } from 'publicodes'
+import { mpaLogementValues } from '@/app/module/AmpleurInputs'
 
 export default function InputSwitch({
+  form,
   currentQuestion: givenCurrentQuestion,
   situation,
   answeredQuestions,
@@ -30,8 +32,8 @@ export default function InputSwitch({
   rules,
   nextQuestions,
   searchParams,
-  correspondance,
 }) {
+  const [addressResults, setAddressResults] = useState(null)
   const currentQuestion = searchParams.question
     ? decodeDottedName(searchParams.question)
     : givenCurrentQuestion
@@ -39,28 +41,47 @@ export default function InputSwitch({
   const rule = rules[currentQuestion]
   const evaluation =
     currentQuestion && engine.setSituation(situation).evaluate(currentQuestion)
-
   const ruleQuestionType = currentQuestion && questionType(evaluation, rule)
   const rawValue = situation[currentQuestion]
   const currentValue =
     rawValue && (ruleQuestionType === 'text' ? rawValue.slice(1, -1) : rawValue)
 
-  if (rule['bornes intelligentes'])
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          rule,
-          nextQuestions,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-          noSuggestions: true,
-        }}
-      >
+  const [sendDataToHost, consent, setConsent] = useSendDataToHost()
+  const params = {
+    form,
+    rule,
+    currentQuestion,
+    rules,
+    answeredQuestions,
+    situation,
+    setSearchParams,
+    nextQuestions,
+    currentValue,
+    engine,
+    suggestions: rule && rule['suggestions'],
+    noLabel: [
+      'logement . adresse',
+      'logement . surface',
+      'ménage . personnes',
+    ].includes(currentQuestion),
+    noButtons: [
+      'projet . définition . travaux envisagés',
+      'projet . définition . travaux envisagés chauffage',
+    ].includes(currentQuestion),
+    questionsToSubmit:
+      currentQuestion === 'copropriété . id'
+        ? [
+            'copropriété . id',
+            'copropriété . nombre de lots principaux',
+            'copropriété . nombre de logements',
+            'copropriété . condition 15 ans',
+          ]
+        : [currentQuestion],
+  }
+
+  return currentQuestion ? (
+    <ClassicQuestionWrapper {...params}>
+      {rule['bornes intelligentes'] ? (
         <RevenuInput
           type={ruleQuestionType}
           rule={rule}
@@ -82,69 +103,185 @@ export default function InputSwitch({
             setSearchParams(encodedSituation, 'replace', false)
           }}
         />
-      </ClassicQuestionWrapper>
-    )
-
-  if (rule['une possibilité parmi'])
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          nextQuestions,
-          currentValue,
-          engine,
-          noSuggestions: true,
-        }}
-      >
+      ) : rule['une possibilité parmi'] ? (
         <RadioQuestion
           rule={rule}
           engine={engine}
-          evaluation={evaluation}
+          currentQuestion={currentQuestion}
           situation={situation}
           placeholder={evaluation.nodeValue}
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
           onChange={(value) => {
-            const encodedSituation = encodeSituation(
-              {
-                ...situation,
-                [currentQuestion]: `"${value}"`,
-              },
-              false,
-              answeredQuestions,
-            )
-            setSearchParams(encodedSituation, 'replace', false)
+            if (currentQuestion == 'mpa . situation demandeur') {
+              const additionalSituation = mpaLogementValues.find(
+                ({ valeur }) => valeur == value,
+              ).situation
+
+              const encodedSituation = encodeSituation(
+                additionalSituation,
+                true,
+                [
+                  ...Object.keys(additionalSituation).filter(
+                    (r) => r != 'mpa . situation demandeur',
+                  ),
+                ],
+              )
+              setSearchParams(encodedSituation)
+            } else {
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  [currentQuestion]: `"${value}"`,
+                },
+                false,
+                answeredQuestions,
+              )
+              setSearchParams(encodedSituation, 'replace', false)
+            }
           }}
         />
-      </ClassicQuestionWrapper>
-    )
-
-  if (currentQuestion === 'copropriété . id')
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
+      ) : rule['possibilités'] ? (
+        <CheckboxQuestion
+          {...{
+            rule,
+            engine,
+            situation,
+            setSearchParams,
+            currentQuestion,
+          }}
+        />
+      ) : ['ménage . commune', 'logement . commune'].includes(
           currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          questionsToSubmit: [
-            'copropriété . id',
-            'copropriété . nombre de lots principaux',
-            'copropriété . nombre de logements',
-            'copropriété . condition 15 ans',
-          ],
-          currentValue,
-          engine,
-        }}
-      >
+        ) ? (
+        <div className="fr-fieldset__element">
+          <CommuneSearch
+            {...{
+              type: currentQuestion,
+              setChoice: (result) => {
+                const encodedSituation = encodeSituation(
+                  currentQuestion == 'ménage . commune'
+                    ? {
+                        ...situation,
+                        'ménage . code région': `"${result.codeRegion}"`,
+                        'ménage . code département': `"${result.codeDepartement}"`,
+                        'ménage . EPCI': `"${result.codeEpci}"`,
+                        'ménage . commune': `"${result.code}"`,
+                        'ménage . commune . nom': `"${result.nom}"`,
+                      }
+                    : {
+                        'logement . code région': `"${result.codeRegion}"`,
+                        'logement . code département': `"${result.codeDepartement}"`,
+                        'logement . EPCI': `"${result.codeEpci}"`,
+                        'logement . commune': `"${result.code}"`,
+                        'logement . commune . nom': `"${result.nom}"`,
+                        'taxe foncière . commune . éligible':
+                          result.eligibilite[
+                            'taxe foncière . commune . éligible'
+                          ],
+                        'taxe foncière . commune . taux':
+                          result.eligibilite['taxe foncière . commune . taux'],
+                        'logement . commune . denormandie':
+                          result.eligibilite[
+                            'logement . commune . denormandie'
+                          ],
+                      },
+                  false,
+                  answeredQuestions,
+                )
+
+                setSearchParams(encodedSituation, 'push', false)
+              },
+              situation,
+            }}
+          />
+        </div>
+      ) : currentQuestion === 'logement . adresse' ? (
+        <div className="fr-fieldset__element">
+          <AddressSearch
+            {...{
+              addressResults,
+              setAddressResults,
+              situation,
+              label: rules[currentQuestion].question,
+              coordinates: [searchParams.lon, searchParams.lat],
+              setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
+              onChange: async (adresse) => {
+                const result = await getCommune(
+                  null,
+                  null,
+                  adresse.properties.citycode,
+                )
+
+                const newSituation = await enrichSituation({
+                  ...situation,
+                  'logement . adresse': `"${adresse.properties.label}"`,
+                  'logement . code région': `"${result.codeRegion}"`,
+                  'logement . code département': `"${result.codeDepartement}"`,
+                  'logement . EPCI': `"${result.codeEpci}"`,
+                  'logement . commune': `"${result.code}"`,
+                  'logement . commune . nom': `"${result.nom}"`,
+                  'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
+                })
+                setSearchParams(
+                  encodeSituation(newSituation, false, answeredQuestions),
+                  'push',
+                  false,
+                )
+              },
+            }}
+          />
+        </div>
+      ) : // <DPEMap
+      //   {...{
+      //     searchParams,
+      //     addressResults,
+      //     dpeListStartOpen: false,
+      //     showDpeList: false,
+      //   }}
+      // />
+      currentQuestion ===
+        'projet . définition . catégories travaux envisagées' ? (
+        <ChoixCategorieTravaux
+          {...{
+            situation,
+            rules,
+            engine,
+            setSearchParams,
+            answeredQuestions,
+          }}
+        />
+      ) : currentQuestion === 'projet . définition . travaux envisagés' ? (
+        <ChoixTravaux
+          {...{
+            situation,
+            rules,
+            engine,
+            setSearchParams,
+            answeredQuestions,
+          }}
+        />
+      ) : currentQuestion ===
+        'projet . définition . travaux envisagés chauffage' ? (
+        <ChoixTravauxChauffage
+          {...{
+            situation,
+            rules,
+            engine,
+            setSearchParams,
+            answeredQuestions,
+          }}
+        />
+      ) : ['DPE . actuel'].includes(currentQuestion) ? (
+        <DPESelector
+          {...{
+            currentQuestion,
+            setSearchParams,
+            situation,
+            answeredQuestions,
+          }}
+        />
+      ) : currentQuestion === 'copropriété . id' ? (
         <CoproAddressSearch
           {...{
             type: currentQuestion,
@@ -185,204 +322,7 @@ export default function InputSwitch({
             situation,
           }}
         />
-      </ClassicQuestionWrapper>
-    )
-  if (['ménage . commune', 'logement . commune'].includes(currentQuestion))
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <AddressSearch
-          {...{
-            type: currentQuestion,
-            setChoice: (result) => {
-              const encodedSituation = encodeSituation(
-                currentQuestion == 'ménage . commune'
-                  ? {
-                      ...situation,
-                      'ménage . code région': `"${result.codeRegion}"`,
-                      'ménage . code département': `"${result.codeDepartement}"`,
-                      'ménage . EPCI': `"${result.codeEpci}"`,
-                      'ménage . commune': `"${result.code}"`,
-                      'ménage . commune . nom': `"${result.nom}"`,
-                    }
-                  : {
-                      'logement . code région': `"${result.codeRegion}"`,
-                      'logement . code département': `"${result.codeDepartement}"`,
-                      'logement . EPCI': `"${result.codeEpci}"`,
-                      'logement . commune': `"${result.code}"`,
-                      'logement . commune . nom': `"${result.nom}"`,
-                      'taxe foncière . commune . éligible':
-                        result.eligibilite[
-                          'taxe foncière . commune . éligible'
-                        ],
-                      'taxe foncière . commune . taux':
-                        result.eligibilite['taxe foncière . commune . taux'],
-                      'logement . commune . denormandie':
-                        result.eligibilite['logement . commune . denormandie'],
-                    },
-                false,
-                answeredQuestions,
-              )
-
-              setSearchParams(encodedSituation, 'push', false)
-            },
-            situation,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-
-  if (['DPE . actuel'].includes(currentQuestion))
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          rule,
-          nextQuestions,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <DPESelector
-          {...{
-            currentQuestion,
-            setSearchParams,
-            situation,
-            answeredQuestions,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-
-  if (currentQuestion === 'MPR . non accompagnée . confirmation') {
-    return (
-      <GestesBasket
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
-        }}
-      />
-    )
-  }
-
-  if (
-    getAnsweredQuestions(searchParams, rules).includes("parcours d'aide") &&
-    searchParams["parcours d'aide"].includes('à la carte')
-  ) {
-    return (
-      <GestesMosaic
-        {...{
-          rules,
-          engine,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          searchParams,
-          questions: gestesMosaicQuestions,
-        }}
-      />
-    )
-  }
-
-  if (firstLevelCategory(currentQuestion) === 'projet') {
-    return (
-      <AidesAmpleur
-        {...{
-          currentQuestion,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          searchParams,
-          correspondance,
-        }}
-      />
-    )
-  }
-
-  if (["parcours d'aide"].includes(currentQuestion)) {
-    return (
-      <Eligibility
-        {...{
-          currentQuestion,
-          searchParams,
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          nextQuestions,
-          expanded: searchParams.details === 'oui',
-        }}
-      />
-    )
-  }
-  // We kept the latter component before it got really specialized. TODO not completely functional
-  const mosaic = isMosaicQuestion(currentQuestion, rule, rules)
-  if (mosaic)
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          nextQuestions,
-          rule,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
-        <BooleanMosaic
-          {...{
-            rules,
-            rule,
-            engine,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            questions: mosaic,
-          }}
-        />
-      </ClassicQuestionWrapper>
-    )
-
-  if (ruleQuestionType === 'boolean')
-    return (
-      <ClassicQuestionWrapper
-        {...{
-          rule,
-          nextQuestions,
-          currentQuestion,
-          rules,
-          answeredQuestions,
-          situation,
-          setSearchParams,
-          currentValue,
-          engine,
-        }}
-      >
+      ) : ruleQuestionType === 'boolean' ? (
         <BinaryQuestion
           value={currentValue}
           onChange={(value) => {
@@ -394,69 +334,65 @@ export default function InputSwitch({
               false,
               answeredQuestions,
             )
-            console.log(
-              'binary question on change will set encodedSituation',
-              encodedSituation,
-            )
 
             setSearchParams(encodedSituation, 'push', false)
           }}
         />
-      </ClassicQuestionWrapper>
-    )
+      ) : (
+        <div className="fr-fieldset__element">
+          <Input
+            label={rules[currentQuestion].question}
+            nativeInputProps={{
+              type: ruleQuestionType,
+              name: currentQuestion,
+              min: 1,
+              autoFocus: true,
+              onChange: (e) => {
+                const value = e.target.value
+                const encodedSituation = encodeSituation(
+                  {
+                    ...situation,
+                    [currentQuestion]:
+                      value == '' || parseInt(value) <= 0
+                        ? undefined
+                        : ruleQuestionType === 'number'
+                          ? value
+                          : `"${value}"`,
+                  },
+                  false,
+                  answeredQuestions,
+                )
 
-  return (
-    <ClassicQuestionWrapper
-      {...{
-        rule,
-        nextQuestions,
-        currentQuestion,
-        rules,
-        answeredQuestions,
-        situation,
-        setSearchParams,
-        currentValue,
-        engine,
-      }}
-    >
-      <Input
-        css={`
-          border: 2px solid #dfdff1 !important;
-          border-radius: 0.3rem !important;
-          box-shadow: none !important;
-          background: white !important;
-          width: 6rem !important;
-          height: 2.8rem !important;
-          outline: none;
-        `}
-        type={ruleQuestionType}
-        placeholder={evaluation.nodeValue}
-        value={currentValue == null ? '' : currentValue}
-        name={currentQuestion}
-        unit={evaluation.unit}
-        onChange={(value) => {
-          const encodedSituation = encodeSituation(
-            {
-              ...situation,
-              [currentQuestion]:
-                value == undefined
-                  ? undefined
-                  : ruleQuestionType === 'number'
-                    ? value
-                    : `"${value}"`,
-            },
-            false,
-            answeredQuestions,
-          )
-          console.log(
-            'on change will set encodedSituation',
-            encodedSituation,
-            situation,
-          )
-
-          setSearchParams(encodedSituation, 'replace', false)
-        }}
-      />
+                setSearchParams(encodedSituation, 'replace', false)
+              },
+              value: currentValue == null ? '' : currentValue,
+            }}
+            addon={
+              serializeUnit(evaluation.unit) === 'personne' && currentValue > 1
+                ? 'personnes'
+                : serializeUnit(evaluation.unit)
+            }
+          />
+        </div>
+      )}
     </ClassicQuestionWrapper>
+  ) : sendDataToHost && consent === null ? (
+    <Consentement {...{ setConsent, situation, sendDataToHost }} />
+  ) : (
+    <Eligibility
+      {...{
+        currentQuestion,
+        searchParams,
+        setSearchParams,
+        situation,
+        answeredQuestions,
+        engine,
+        rules,
+        nextQuestions,
+        expanded: searchParams.details === 'oui',
+        consent,
+        sendDataToHost,
+      }}
+    />
   )
 }

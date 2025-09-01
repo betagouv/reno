@@ -1,19 +1,12 @@
-import {
-  InternalLink,
-  Main,
-  MiseEnAvant,
-  Section,
-  Badge,
-  BlocAide,
-  Card,
-} from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import rules from '@/app/règles/rules'
-import css from '@/components/css/convertToJs'
 import Image from 'next/image'
-import ceeImage from '@/public/cee.svg'
-import { categoriesGeste } from '@/components/utils'
-import Breadcrumb from '@/components/Breadcrumb'
+import { categories, getRulesByCategory } from '@/components/utils'
+import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Link from 'next/link'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export const metadata: Metadata = {
   title: "Certificats d'économie d'énergie (CEE)",
@@ -21,63 +14,38 @@ export const metadata: Metadata = {
 }
 
 export default function CEE() {
-  const allRulesCEE = Object.keys(rules).filter(
-    (item) => item.startsWith('gestes') && item.endsWith('CEE'),
-  )
-  const distinctRulesCEE: string[] = []
-
-  allRulesCEE.forEach((item) => {
-    const value = rules[item].code
-    if (!distinctRulesCEE.find((item) => rules[item].code == value)) {
-      distinctRulesCEE.push(item)
-    }
-  })
-
-  const rulesByCategory = Object.fromEntries(
-    categoriesGeste.map((category) => [category.titre, []]),
-  )
-  distinctRulesCEE.forEach((rule) => {
-    for (const category of categoriesGeste) {
-      if (rule.includes(category.code)) {
-        rulesByCategory[category.titre].push(rule)
-        break
-      }
-    }
-  })
-
+  const rulesByCategory = getRulesByCategory(rules, 'CEE')
   return (
-    <Main>
-      <Section>
+    <>
+      <StartDsfrOnHydration />
+      <PageBlock>
         <Breadcrumb
-          links={[
-            { 'Les aides': '/aides' },
-            { "Certificats d'économie d'énergie (CEE)": '/aides/cee' },
+          currentPageLabel="Certificats d'économie d'énergie (CEE)"
+          homeLinkProps={{
+            href: '/',
+          }}
+          segments={[
+            {
+              label: 'Les aides',
+              linkProps: {
+                href: '/aides',
+              },
+            },
           ]}
         />
-        <div
-          style={css`
-            display: flex;
-            margin: 1rem 0;
-          `}
+        <Link
+          className="fr-btn fr-btn--secondary fr-icon-arrow-left-line fr-btn--icon-left fr-mb-5v"
+          href="/aides"
         >
-          <Image src={ceeImage} alt="Logo CEE" width="100" />
-          <h1
-            style={css`
-              margin-left: 1rem;
-            `}
-          >
-            Les Certificats d'économie d'énergie (CEE)
-          </h1>
-        </div>
-        <MiseEnAvant>
-          <h3
-            style={css`
-              color: #0063cb;
-            `}
-          >
-            Informations
-          </h3>
-          <p>Vous êtes éligible à l'aide CEE si:</p>
+          Retour à la liste des aides
+        </Link>
+        <h1>Les Certificats d'économie d'énergie (CEE)</h1>
+        <div className="fr-callout fr-icon-info-line">
+          <h2>Informations sur les conditions d'obtention</h2>
+          <p>
+            Vous êtes éligible aux aides des fournisseurs d’énergie (certificats
+            d’économies d’énergie – CEE) si :
+          </p>
           <ul>
             <li>
               vous êtes <strong>propriétaire ou locataire</strong>
@@ -90,77 +58,54 @@ export default function CEE() {
               <strong>résidence principale ou secondaire</strong>.
             </li>
           </ul>
-          <p
-            style={css`
-              margin: 1rem 0;
-            `}
-          >
+          <p>
             Il n'y a <strong>pas de plafond de ressources à respecter</strong>,
-            mais le montant de l'aide CEE peut varier en fonction de vos
-            revenus.
+            mais le montant des aides des fournisseurs d’énergie (certificats
+            d’économies d’énergie – CEE) peut varier en fonction de vos revenus.
           </p>
-        </MiseEnAvant>
-
-        <h2
-          style={css`
-            font-size: 130%;
-          `}
-        >
-          Calculateurs d'aide CEE concernant la rénovation énergétique des
-          logements
+        </div>
+        <h2>
+          Calculateurs d'aide CEE pour la rénovation énergétique des logements
         </h2>
         <div>
           {Object.keys(rulesByCategory).map((category, i) => (
-            <Card key={i}>
-              <div
-                style={css`
-                  display: flex;
-                  align-items: flex-start;
-                `}
+            <div className="fr-callout" key={i}>
+              <h3
+                className="fr-callout__title"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                }}
               >
                 <Image
-                  src={categoriesGeste.find((c) => c.titre == category).icone}
+                  src={categories.find((c) => c.titre == category).image}
                   alt={`icone ${category}`}
-                  width="60"
+                  width="30"
                 />
-                <div>
-                  <h3
-                    style={css`
-                      margin-top: 1rem;
-                      padding-left: 1.6rem;
-                    `}
-                  >
-                    {category}
-                  </h3>
-                  <ul
-                    style={css`
-                      list-style-position: inside;
-                    `}
-                  >
-                    {rulesByCategory[category].map((rule, index) => (
-                      <li
-                        style={css`
-                          margin: 1rem 0;
-                        `}
-                        key={index}
+                {category}
+              </h3>
+              <div className="fr-callout__text">
+                <ul>
+                  {rulesByCategory[category].map((rule, index) => (
+                    <li key={index}>
+                      <a
+                        className="fr-link"
+                        href={`/aides/cee/${rules[rule].code}/${encodeURIComponent(rules[rule].titre)}`}
                       >
-                        <InternalLink
-                          href={`/aides/cee/${rules[rule].code}/${encodeURIComponent(rules[rule].titre)}`}
-                        >
-                          {rules[rule].titre}
-                        </InternalLink>{' '}
-                        <Badge>
-                          <small>{rules[rule].code}</small>
-                        </Badge>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                        {rules[rule].titre}
+                      </a>{' '}
+                      <Badge noIcon severity="info">
+                        {rules[rule].code}
+                      </Badge>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
-      </Section>
-    </Main>
+      </PageBlock>
+    </>
   )
 }

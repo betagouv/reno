@@ -1,10 +1,33 @@
 import styled from 'styled-components'
-import { IframeCodeWrapper } from './Integration'
+import { useEffect, useState } from 'react'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 
 export default function IntegrationQuestions({
   noScroll = null,
   setNoScroll = null,
+  sendUserDataOption = null,
+  setSendUserDataOption = null,
 }) {
+  const [dataReceived, setDataReceived] = useState(null)
+  useEffect(() => {
+    if (!sendUserDataOption) return
+
+    const handleMesAidesRenoUserData = function (evt) {
+      if (evt.data.kind === 'mesaidesreno-eligibility-done') {
+        console.log('mesaidesreno-eligibility-done event received !')
+        console.log(evt.data)
+        setDataReceived(evt.data)
+        // faire quelque chose avec en respectant la loi
+      }
+    }
+
+    window.addEventListener('message', handleMesAidesRenoUserData)
+
+    return () => {
+      window.removeEventListener('message', handleMesAidesRenoUserData)
+    }
+  }, [sendUserDataOption, setDataReceived])
   return (
     <Wrapper>
       <details>
@@ -47,29 +70,25 @@ export default function IntegrationQuestions({
               n'est pas nécessaire mais c'est possible : l'iframe prendra alors
               une hauteur dynamique en fonction de chaque page.
             </p>
-            <label
-              css={`
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-                padding: 0.6rem 0;
-              `}
-            >
-              <input
-                type="checkbox"
-                value={noScroll}
-                onChange={() => setNoScroll(!noScroll)}
-              />
-              <span>Tester le redimensionnement automatique</span>
-            </label>
+            <Checkbox
+              options={[
+                {
+                  label: 'Tester le redimensionnement automatique',
+                  nativeInputProps: {
+                    name: 'checkboxes-1',
+                    value: noScroll,
+                    onChange: () => setNoScroll(!noScroll),
+                  },
+                },
+              ]}
+            />
             <p>
               Cela nécessite ce petit bout de code Javascript à ajouter de votre
               côté sur votre page hôte.
             </p>
-            <IframeCodeWrapper>
+            <Highlight>
               <code>{` 
-
-<script>
+  <script>
     const handleHeightChange = function (evt) {
       if (evt.data.kind === 'mesaidesreno-resize-height') {
         document.querySelector('iframe#mesaidesreno').current.style.height = evt.data.value + 'px'
@@ -79,8 +98,74 @@ export default function IntegrationQuestions({
     window.addEventListener('message', handleHeightChange)
 	</script>
 					  `}</code>
-            </IframeCodeWrapper>
+            </Highlight>
           </div>
+        </details>
+      )}
+      {sendUserDataOption != null && setSendUserDataOption && (
+        <details>
+          <summary>Comment récupérer les saisies de l'utilisateur ?</summary>
+          <div>
+            <p>
+              Si vous désirez utiliser les saisies que l'utilisateur aura faites
+              sur l'iframe mesaidesreno.beta.gouv.fr, lors de son arrivée sur
+              l'écran d'éligibilité des aides, vous devrez 1) le justifier dans
+              vos conditions d'utilisation conformément au RGPD, en expliquant à
+              l'utilisateur dans quel but vous le faites et comment peut-il
+              supprimer ces données; 2) nous devons recueillir le consentement
+              de l'utilisateur avant d'envoyer ses données depuis notre domaine
+              vers le votre.
+            </p>
+            <Checkbox
+              options={[
+                {
+                  label: "Tester le renvoie de données à l'hôte",
+                  nativeInputProps: {
+                    name: 'checkboxes-2',
+                    value: sendUserDataOption,
+                    onChange: () => setSendUserDataOption(!sendUserDataOption),
+                  },
+                },
+              ]}
+            />
+            <p className="fr-my-5v">
+              Deux étapes sont nécessaires :<br /> 1) activer l'option dans
+              l'iframe via le paramètre d'URL <strong>?sendDataToHost</strong> ;
+              <br />
+              2) implémenter la fonction qui écoute cet événement chez vous,
+              dont voici un exemple :
+            </p>
+            <div className="fr-highlight">
+              <code>{` 
+  <script>
+    const handleMesAidesRenoUserData = function (evt) {
+      if (evt.data.kind === 'mesaidesreno-eligibility-done') {
+	  // faire quelque chose avec en respectant la loi
+      }
+    }
+
+    window.addEventListener('message', handleMesAidesRenoUserData)
+	</script>
+					  `}</code>
+            </div>
+            <p>
+              Voici un exemple de{' '}
+              <a
+                rel="noopener external"
+                className="fr-link"
+                href="https://codesandbox.io/p/sandbox/5t55w6"
+              >
+                bac à sable
+              </a>{' '}
+              qui capte les données.
+            </p>
+          </div>
+          {dataReceived && (
+            <section>
+              ✅ données reçues depuis l'iframe : ouvrez la console pour les
+              inspecter
+            </section>
+          )}
         </details>
       )}
     </Wrapper>

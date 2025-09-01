@@ -1,11 +1,14 @@
-import Input from './Input'
-import Select from './Select'
-import SegmentedControl from './SegmentedControl'
+import { Input } from '@codegouvfr/react-dsfr/Input'
+import { RadioButtons } from '@codegouvfr/react-dsfr/RadioButtons'
 import { encodeSituation } from './publicodes/situationUtils'
-import AddressSearch from './AddressSearch'
+import CommuneSearch from './CommuneSearch'
 import RevenuInput from './RevenuInput'
-import { Dot } from '@/app/module/AmpleurQuestions'
 import TargetDPETabs from './mpra/TargetDPETabs'
+import { Select } from '@codegouvfr/react-dsfr/Select'
+import { serializeUnit } from 'publicodes'
+import { useState } from 'react'
+import AddressSearch from './AddressSearch'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
 
 export default function GesteQuestion({
   rules,
@@ -16,61 +19,28 @@ export default function GesteQuestion({
   answeredQuestions,
   onChangeEvent,
   autoFocus,
-  dot = false,
 }) {
   const currentQuestion = rules[question]
   if (!currentQuestion) return null
   const evaluation =
     currentQuestion && engine.setSituation(situation).evaluate(question)
   let currentValue = situation[question]
-  const onChange = (value) => {
+  const onChange = (e) => {
+    const value = e.target.value
+    onChangeEvent && onChangeEvent(value)
     const encodedSituation = encodeSituation(
       {
         ...situation,
-        [question]: value == undefined ? undefined : value,
+        [question]: value == undefined || value == '' ? undefined : value,
       },
       false,
       answeredQuestions,
     )
     setSearchParams(encodedSituation, 'push', false)
-    onChangeEvent && onChangeEvent(value)
   }
 
   return (
-    <div
-      css={`
-        display: flex;
-        ${!dot && 'justify-content: space-between;'}
-        ${dot && 'gap: 1rem;'}
-        align-items: center;
-        margin: ${!dot ? '0.8rem' : '0'} 0;
-        padding: 0.4rem 0 1rem;
-        ${!dot && `border-bottom: 1px solid var(--lighterColor);`}
-        &:last-child {
-          border: none;
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
-        @media (max-width: 800px) {
-          flex-wrap: wrap;
-          justify-content: space-between;
-          > div {
-            margin-bottom: 0.8rem;
-          }
-          > select,
-          input,
-          fieldset {
-            margin: 0 0 0 auto;
-          }
-        }
-        img {
-          width: 1rem;
-          height: auto;
-        }
-      `}
-    >
-      {dot && <Dot css={``} />}
-      <div>{currentQuestion.question}</div>
+    <div className="fr-mb-5v">
       <InputComponent
         {...{
           currentQuestion,
@@ -101,25 +71,56 @@ const InputComponent = ({
   setSearchParams,
   evaluation,
   autoFocus,
-}) =>
-  ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
-    <SegmentedControl
-      value={currentValue}
-      name={question}
-      onChange={onChange}
+}) => {
+  const [addressResults, setAddressResults] = useState(null)
+  return ['oui', 'non'].includes(currentQuestion['par défaut']) ? (
+    <RadioButtons
+      legend={currentQuestion.question}
+      options={[
+        {
+          label: 'Oui',
+          nativeInputProps: {
+            value: 'oui',
+            checked: currentValue === 'oui',
+            onChange: onChange,
+          },
+        },
+        {
+          label: 'Non',
+          nativeInputProps: {
+            value: 'non',
+            checked: currentValue === 'non',
+            onChange: onChange,
+          },
+        },
+      ]}
+      state={currentValue !== undefined && 'success'}
+      stateRelatedMessage=""
+      orientation="horizontal"
     />
   ) : currentQuestion['une possibilité parmi'] ? (
     <Select
-      value={currentValue == null ? '' : currentValue}
-      values={currentQuestion['une possibilité parmi']['possibilités'].map(
-        (i) => rules[question + ' . ' + i],
-      )}
-      onChange={onChange}
-    />
+      label={currentQuestion.question}
+      nativeSelectProps={{
+        onChange: onChange,
+        value: currentValue == null ? '' : currentValue,
+      }}
+      state={currentValue !== undefined ? 'success' : 'default'}
+    >
+      <option value="" disabled>
+        Sélectionnez une option
+      </option>
+      {currentQuestion['une possibilité parmi']['possibilités'].map((i) => (
+        <option key={i} value={rules[question + ' . ' + i].valeur}>
+          {rules[question + ' . ' + i].titre}
+        </option>
+      ))}
+    </Select>
   ) : ['ménage . commune', 'logement . commune'].includes(question) ? (
-    <AddressSearch
+    <CommuneSearch
       {...{
         type: question,
+        label: currentQuestion.question,
         setChoice: (result) => {
           const encodedSituation = encodeSituation(
             {
@@ -130,12 +131,14 @@ const InputComponent = ({
                     'ménage . code département': `"${result.codeDepartement}"`,
                     'ménage . EPCI': `"${result.codeEpci}"`,
                     'ménage . commune': `"${result.code}"`,
+                    'ménage . commune . nom': `"${result.nom}"`,
                   }
                 : {
                     'logement . code région': `"${result.codeRegion}"`,
                     'logement . code département': `"${result.codeDepartement}"`,
                     'logement . EPCI': `"${result.codeEpci}"`,
                     'logement . commune': `"${result.code}"`,
+                    'logement . commune . nom': `"${result.nom}"`,
                   }),
             },
             false,
@@ -150,6 +153,7 @@ const InputComponent = ({
     />
   ) : question === 'ménage . revenu' ? (
     <RevenuInput
+      label={currentQuestion.question}
       type="select"
       engine={engine}
       situation={situation}
@@ -159,23 +163,61 @@ const InputComponent = ({
   ) : question === 'projet . DPE visé' ? (
     <TargetDPETabs
       {...{
-        oldIndex: situation['DPE . actuel'] - 1,
-        choice: Math.max(1, situation['projet . DPE visé'] - 1),
         setSearchParams,
-        answeredQuestions,
-        engine,
         situation,
         text: '',
       }}
     />
+  ) : question === 'logement . adresse' ? (
+    <AddressSearch
+      {...{
+        label: rules[question].question,
+        addressResults,
+        setAddressResults,
+        situation,
+        setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
+        onChange: async (adresse) => {
+          const result = await getCommune(
+            null,
+            null,
+            adresse.properties.citycode,
+          )
+
+          const newSituation = await enrichSituation({
+            ...situation,
+            'logement . adresse': `"${adresse.properties.label}"`,
+            'logement . code région': `"${result.codeRegion}"`,
+            'logement . code département': `"${result.codeDepartement}"`,
+            'logement . EPCI': `"${result.codeEpci}"`,
+            'logement . commune': `"${result.code}"`,
+            'logement . commune . nom': `"${result.nom}"`,
+          })
+          setSearchParams(
+            encodeSituation(newSituation, false, answeredQuestions),
+            'push',
+            false,
+          )
+        },
+      }}
+    />
   ) : (
     <Input
-      type={'number'}
-      placeholder={evaluation.nodeValue}
-      value={currentValue == null ? '' : currentValue}
-      name={question}
-      unit={evaluation.unit}
-      onChange={onChange}
+      nativeInputProps={{
+        type: 'number',
+        min: 1,
+        name: question,
+        onChange: onChange,
+        value: currentValue == null ? '' : currentValue,
+      }}
+      addon={
+        serializeUnit(evaluation.unit) === 'personne' && currentValue > 1
+          ? 'personnes'
+          : serializeUnit(evaluation.unit)
+      }
+      state={currentValue !== undefined && 'success'}
+      stateRelatedMessage=""
+      label={currentQuestion.question}
       autoFocus={autoFocus}
     />
   )
+}

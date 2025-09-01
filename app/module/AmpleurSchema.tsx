@@ -2,6 +2,7 @@ import examplePersonas from './examplePersonas.yaml'
 import examplePersonasPlusValue from './plus-value/examplePersonasValeurVerte.yaml'
 import exampleDpe from '@/components/dpe/exampleDpe.yaml'
 import rules from '@/app/règles/rules'
+import Accordion from '@codegouvfr/react-dsfr/Accordion'
 
 const getValues = (dottedName, moduleName) => {
   const values = getPersonas(moduleName)
@@ -31,52 +32,24 @@ export default function Schema({ moduleName }) {
   )
 
   return (
-    <ul
-      css={`
-        list-style-type: none;
-        > li {
-          margin: 0.4rem 0;
-        }
-        em {
-          font-style: normal;
-          padding: 0 0.3rem;
-          border: 1px solid var(--lighterColor);
-          background: var(--lightestColor);
-          border-radius: 0.2rem;
-        }
-        ul {
-          display: inline-flex;
-          list-style-type: none;
-          padding-left: 0.1rem;
-          li {
-            margin: 0 0.2rem;
-          }
-        }
-      `}
-    >
+    <div className="accordion-group fr-mb-5v">
       {[...dottedNames].map((dottedName) => {
         const values = getValues(dottedName, moduleName)
         return (
-          <li key={dottedName}>
-            <span>
-              <em>{dottedName}</em>
-            </span>{' '}
-            <span>{schema(dottedName)}</span>
-            <small>
-              {' '}
-              Exemples:
-              <ul>
-                {values.map((value, i) => (
-                  <li key={value}>
-                    {value}
-                    {i < values.length - 1 ? ', ' : '.'}
-                  </li>
-                ))}
-              </ul>
-            </small>
-          </li>
+          <Accordion key={dottedName} label={dottedName}>
+            <p>{schema(dottedName)}</p>
+            Exemples:
+            <ul>
+              {values.map((value, i) => (
+                <li key={value}>
+                  {value}
+                  {i < values.length - 1 ? ', ' : '.'}
+                </li>
+              ))}
+            </ul>
+          </Accordion>
         )
       })}
-    </ul>
+    </div>
   )
 }

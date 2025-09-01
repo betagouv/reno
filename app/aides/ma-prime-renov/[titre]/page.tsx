@@ -1,4 +1,5 @@
 import PageMPRG from '@/components/mprg/PageMPRG'
+import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { Metadata } from 'next'
 
 export async function generateMetadata(props): Promise<Metadata> {
@@ -14,5 +15,10 @@ export async function generateMetadata(props): Promise<Metadata> {
 export default async function MPRG(props) {
   const params = await props.params
 
-  return <PageMPRG {...{ params }} />
+  return (
+    <>
+      <StartDsfrOnHydration />
+      <PageMPRG {...{ params }} />
+    </>
+  )
 }

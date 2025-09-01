@@ -10,8 +10,8 @@
   --lightestColor: #f5f5fe;
   --mutedColor: #666666;
   --validColor: #18753c;
-  --validColor1: #BFF1C5;
-  --warningColor: #FDF8DB;
+  --validColor1: #bff1c5;
+  --warningColor: #fdf8db;
   --shadow-color: 180deg 2% 70%;
   --shadow-elevation-medium: 0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.31),
     0.7px 1.3px 1.6px -1px hsl(var(--shadow-color) / 0.29),
@@ -20,142 +20,149 @@
   accent-color: var(--color);
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-html,
-body {
-  max-width: 100vw;
-  background: white;
+main {
+  padding: 0 0 1em 0;
 }
 
-body {
-  color: #111;
-  min-height: 100%;
+.fr-grid-row--stretch {
+  align-items: stretch;
 }
-header {
-  margin: 0 auto;
-}
-
-h1 {
-  font-size: 220%;
-}
-h2 {
-  font-size: 180%;
-}
-h3 {
-  font-size: 130%;
-}
-h4 {
-  font-size: 120%;
-}
-h1,
-h2,
-h3,
-h4 {
-  margin: 4vh 0 3vh;
-}
-
-@media (max-width: 800px) {
-  h1 {
-    font-size: 150%;
-  }
-  h2 {
-    font-size: 130%;
-  }
-  h3 {
-    font-size: 115%;
-  }
-  h4 {
-    font-size: 105%;
-  }
-}
-
-p {
-  margin: 0 0 0.4rem;
-  line-height: 1.6rem;
-}
-
-ul,
-ol {
-  padding-left: 1.6rem;
-}
-
-button {
-  cursor: pointer;
-  padding: 0rem 0.3rem;
-  font-size: inherit;
+.fr-grid-row--between {
+  justify-content: space-between;
 }
 
 details summary {
   cursor: pointer;
 }
 
-fieldset {
-  border: none;
+.fr-header__operator img {
+  max-width: 20rem !important;
 }
 
-input {
-  margin-right: 0.2rem;
-}
-input[type]:not([type='checkbox']):not([type='radio']) {
-  height: 2.2rem;
-  text-align: right;
-  padding-right: 0.4rem;
-  border-top-left-radius: 0.4rem;
-  border-top-right-radius: 0.4rem;
-  border-bottom-left-radius: 0rem;
-  border-bottom-right-radius: 0rem;
-  background: var(--lightestColor);
-  border: none;
-  border-bottom: 2px solid var(--color);
-  font-size: 95%;
-  box-shadow:
-    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
-    rgba(61, 59, 53, 0.16) 0px 0px 0px 1px,
-    rgba(61, 59, 53, 0.08) 0px 2px 5px 0px;
-}
-input[type='number'] {
-  width: 8rem;
+.fr-input-wrap--addon {
+  align-items: center;
+  gap: 1em;
 }
 
-input[type='checkbox'] {
-  accent-color: var(--color);
-  height: 1.6rem;
-  width: 1.6rem;
-  vertical-align: middle;
+.fr-checkbox-rich {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  position: relative;
 }
-input[type='checkbox']:not(:checked):not(:disabled) {
-  appearance: none;
-  margin-bottom: 0;
-  height: 1.6rem;
-  width: 1.6rem;
-  vertical-align: middle;
-  background: white;
-  border: 2px solid var(--color);
-  border-radius: 0.2rem;
+.fr-checkbox-rich input[type=checkbox] {
+  height: 1rem;
+  left: 1rem;
+  top: calc(50% - .5rem);
+  width: 1rem;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
 }
-input[type='radio'] {
-  accent-color: var(--color);
-  height: 2rem;
-  width: 2rem;
-  vertical-align: middle;
+.fr-checkbox-rich input[type=checkbox]:checked+label {
+  background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), radial-gradient(transparent 6px, var(--border-active-blue-france) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
+}
+.fr-checkbox-rich input[type=checkbox]+label {
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+  align-items: stretch;
+  align-self: stretch;
+  background-color: var(--background-default-grey);
+  background-image: 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), 
+    linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey))
+  ;
+  background-position: 0 0, 100% 0, 0 100%, 0 0, 1rem 50%, 1rem 50%;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, 1rem 1rem, 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0;
+  padding: .75rem 1rem .75rem 3.25rem;
+  width: 100%;
+}
+.fr-custom-checkbox-group input[type=checkbox]+label:before {
+  --data-uri-svg: none;
+  background-image: 
+    radial-gradient(at 5px 4px, transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), 
+    radial-gradient(at calc(100% - 5px) 4px, transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), 
+    radial-gradient(at calc(100% - 5px) calc(100% - 4px), transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), 
+    radial-gradient(at 5px calc(100% - 4px), transparent 4px, var(--border-action-high-blue-france) 4px, var(--border-action-high-blue-france) 5px, transparent 6px), 
+    linear-gradient(var(--border-action-high-blue-france), var(--border-action-high-blue-france)), var(--data-uri-svg);
+  background-position: 0 0, .25rem 0, 100% 0, 0 .25rem, 100% 100%, calc(100% - .25rem) 100%, 0 100%, 100% .25rem, 50%;
+  background-repeat: no-repeat;
+  background-size: .25rem .25rem, calc(100% - .25rem) 1px, .25rem .25rem, 1px calc(100% - .5rem), .25rem .25rem, calc(100% - .5rem) 1px, .25rem .25rem, 1px calc(100% - .5rem), 1rem;
+  border-radius: .25rem;
+  content: "";
+  display: block;
+  height: 1.5rem;
+  left: 1rem;
+  position: absolute;
+  width: 1.5rem;
 }
 
-input[type='radio']:not(:checked):not(:disabled) {
-  appearance: none;
-  margin-bottom: 0;
-  height: 2rem;
-  width: 2rem;
-  vertical-align: middle;
-  background: white;
-  border: 2px solid var(--color);
-  border-radius: 50%;
+.fr-custom-checkbox-group input[type=checkbox]:checked+label:before {
+  --data-uri-svg: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f5f5fe' d='m10 15.17 9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/%3E%3C/svg%3E");
+  background-color: var(--background-active-blue-france);
 }
 
-input::placeholder {
-  color: var(--lighterColor3);
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label {
+  --hover-tint: var(--hover);
+  --active-tint: var(--active);
+}
+.fr-checkbox-rich input[type=checkbox]:checked+label {
+  background-image: 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), 
+    linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france));
+}
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:hover {
+  background-color: var(--hover-tint);
+}
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:active {
+  background-color: var(--active-tint);
+}
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:hover+.fr-checkbox-rich__pictogram {
+  background-color: var(--hover);
+}
+.fr-checkbox-rich input[type=checkbox]:not(:disabled)~label:active+.fr-checkbox-rich__pictogram {
+  background-color: var(--active);
+}
+.fr-checkbox-rich .fr-checkbox-rich__pictogram {
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--background-default-grey);
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+  background-position: 0 0, 0 100%, 100% 0, 0 .25rem;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 100% 1px, 100% 1px, 1px 100%, 1px calc(100% - .5rem);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: -1px;
+  min-height: 5.5rem;
+  min-width: 5.5rem;
+  padding: .25rem;
+  pointer-events: none;
+  width: 5.5rem;
+}
+.fr-checkbox-rich input[type=checkbox]:checked~.fr-checkbox-rich__pictogram {
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
 }
 
+.fr-input[type="number"],
+.fr-input[pattern="d+"] {
+  max-width: 10rem;
+}
