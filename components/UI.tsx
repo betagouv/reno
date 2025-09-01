@@ -37,20 +37,25 @@ export const Card = styled.div`
   ${(p) => p.$noBorder && `border: none;`}
 `
 
-export const PageBlock = ({children}) => {
-  return <main id="content" role="main"><div className="fr-container">{children}</div></main>
+export const PageBlock = ({ children }) => {
+  return (
+    <main id="content" role="main">
+      <div className="fr-container">{children}</div>
+    </main>
+  )
 }
 
 export const BlocAide = styled.div`
   text-align: left;
-  ${(p) => p.display == "geste" ? 
-    'padding: 0.5rem 0.5rem 0.5rem 0;border-bottom: 1px solid #ddd;' : 
-    'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
+  ${(p) =>
+    p.display == 'geste'
+      ? 'padding: 0.5rem 0.5rem 0.5rem 0;border-bottom: 1px solid #ddd;'
+      : 'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
   margin-bottom: 1rem;
   .aide-header {
     display: flex;
     align-items: flex-start;
-    ${(p) => p.display == "geste" && "margin-bottom: 1rem;"}
+    ${(p) => p.display == 'geste' && 'margin-bottom: 1rem;'}
     > img {
       margin-right: 1.4rem;
       width: 3.5rem;
@@ -65,28 +70,30 @@ export const BlocAide = styled.div`
 `
 
 export const ConditionEligibiliteUI = ({ children }) => {
-  return children && (
-    <>
-      <h2 className='fr-mt-5v'>Les principales conditions d'éligibilité ?</h2>
-      <div
-        css={`
-          list-style-image: url(${checkIcon.src});
-          list-style-position: inside;
-          ul {
-            padding: 0;
-          }
-          li {
-            margin: 1rem 0;
+  return (
+    children && (
+      <>
+        <h2 className="fr-mt-5v">Les principales conditions d'éligibilité ?</h2>
+        <div
+          css={`
+            list-style-image: url(${checkIcon.src});
+            list-style-position: inside;
             ul {
-              list-style-image: none;
+              padding: 0;
             }
-          }
-        `}
-        dangerouslySetInnerHTML={{
-          __html: children,
-        }}
-      />
-    </>,
+            li {
+              margin: 1rem 0;
+              ul {
+                list-style-image: none;
+              }
+            }
+          `}
+          dangerouslySetInnerHTML={{
+            __html: children,
+          }}
+        />
+      </>
+    )
   )
 }
 
@@ -99,8 +106,8 @@ export const Loader = () => (
       aspect-ratio: 1;
       border-radius: 50%;
       background: #000091;
-      --_m: conic-gradient(#0000 10%, #000),
-        linear-gradient(#000 0 0) content-box;
+      --_m:
+        conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
       -webkit-mask: var(--_m);
       mask: var(--_m);
       -webkit-mask-composite: source-out;
@@ -115,28 +122,42 @@ export const Loader = () => (
   ></div>
 )
 
-export const DsfrCard = ({ titre, url, description, imageUrl, imageAlt, titleAs, noRatio }) => (
+export const DsfrCard = ({
+  titre,
+  url,
+  description,
+  imageUrl,
+  imageAlt,
+  titleAs,
+  noRatio,
+}) => (
   <div className="fr-card fr-enlarge-link">
     <div className="fr-card__body">
       <div className="fr-card__content">
-        {titleAs == "h2" && (<h2 className="fr-card__title">
-          <a href={url}>{titre}</a>
-        </h2>)}
-        {titleAs == "h3" && (<h3 className="fr-card__title">
-          <a href={url}>{titre}</a>
-        </h3>)}
+        {titleAs == 'h2' && (
+          <h2 className="fr-card__title">
+            <a href={url}>{titre}</a>
+          </h2>
+        )}
+        {titleAs == 'h3' && (
+          <h3 className="fr-card__title">
+            <a href={url}>{titre}</a>
+          </h3>
+        )}
         <div className="fr-card__desc">{description}</div>
       </div>
     </div>
-    {imageUrl && (<div className="fr-card__header">
-      <div className="fr-card__img">
-        <img
-          className={`fr-responsive-img ${!noRatio && "fr-ratio-1x1"} fr-p-5v`}
-          style={noRatio && { aspectRatio: "auto"}}
-          src={imageUrl}
-          alt={imageAlt}
-        />
+    {imageUrl && (
+      <div className="fr-card__header">
+        <div className="fr-card__img">
+          <img
+            className={`fr-responsive-img ${!noRatio && 'fr-ratio-1x1'} fr-p-5v`}
+            style={noRatio && { aspectRatio: 'auto' }}
+            src={imageUrl}
+            alt={imageAlt}
+          />
+        </div>
       </div>
-    </div>)}
+    )}
   </div>
 )
