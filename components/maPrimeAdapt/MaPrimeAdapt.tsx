@@ -1,11 +1,12 @@
 import Input from '@codegouvfr/react-dsfr/Input'
 import AideAmpleur from '../ampleur/AideAmpleur'
 import { createExampleSituation } from '../ampleur/AmpleurSummary'
-import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
+import { encodeDottedName } from '../publicodes/situationUtils'
 import Value from '../Value'
 import { formatNumberWithSpaces } from '../utils'
 import { push } from '@socialgouv/matomo-next'
 import CalculatorWidget from '../CalculatorWidget'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 
 export default function MaPrimeAdapt({
   isEligible,
@@ -78,6 +79,18 @@ export default function MaPrimeAdapt({
                 setSearchParams,
               }}
             />
+            <Highlight className="fr-mt-3v">
+              De plus, en tant que propriétaire occupant ou locataire, vous avez
+              droit à une avance de{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'mpa . occupant . avance',
+                }}
+              />{' '}
+              du montant de l’aide.
+            </Highlight>
           </>
         )}
         {dottedName == 'mpa . bailleur' && (
