@@ -24,6 +24,7 @@ import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
 import TVA from '@/components/autres-aides/TVA'
 import CreditImpot from '@/components/autres-aides/CreditImpot'
+import PAH from '@/components/autres-aides/PAH'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
 import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
@@ -44,6 +45,7 @@ export const correspondance = {
   locavantage: LocAvantage,
   'tva réduite': TVA,
   "crédit d'impôt": CreditImpot,
+  pah: PAH,
 }
 
 function Form({ rules, simulationConfig }) {

@@ -52,6 +52,7 @@ export function useAides(
           'tva réduite',
           "crédit d'impôt . montant",
           'aides locales',
+          'pah',
         ]
   // unfold the sums with one level only, no recursion yet
   const list = topList

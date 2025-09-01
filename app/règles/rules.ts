@@ -20,6 +20,7 @@ import copropriete from '@/app/règles/copropriete.publicodes'
 import mpa from '@/app/règles/ma-prime-adapt.publicodes'
 import locavantage from '@/app/règles/locavantage.publicodes'
 import creditImpot from '@/app/règles/credit-impot.publicodes'
+import pah from '@/app/règles/pret-amelioration-habitat.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
 import autresAides from '@/app/règles/autres-aides.publicodes'
 
@@ -62,6 +63,7 @@ const rules = {
   ...mpa,
   ...locavantage,
   ...creditImpot,
+  ...pah,
   ...autresAides,
 }
 
