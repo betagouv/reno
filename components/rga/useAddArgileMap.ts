@@ -1,7 +1,7 @@
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
-import getAppUrl from './getAppUrl'
+import getAppUrl from '@/components/getAppUrl'
 import { Protocol } from 'pmtiles'
 
 const defaultCenter = [1.86, 46.67]

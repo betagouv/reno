@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import useAddArgileMap from './useAddArgileMap'
+import useArgileMapMarkers from './useArgileMapMarkers'
 
 export default function ArgileMap({ situation, setChoice }) {
   const [error, setError] = useState()
@@ -31,6 +32,15 @@ export default function ArgileMap({ situation, setChoice }) {
   const mapContainerRef = useRef(null)
 
   const map = useAddArgileMap(mapContainerRef)
+
+  const { 'logement . coordonnees': coordinatesRaw } = situation,
+    [lat, lon] = coordinatesRaw
+      .replace(/\"/g, '')
+      .split(',')
+      .map((coordinate) => +coordinate)
+
+  console.log({ coordinatesRaw, lon, lat })
+  useArgileMapMarkers(map, lon, lat)
 
   return (
     <div className="fr-fieldset__element">
