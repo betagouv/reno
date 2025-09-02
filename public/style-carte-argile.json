@@ -14,11 +14,13 @@
       "type": "vector",
       "tiles": [
         "https://rnb-api.beta.gouv.fr/api/alpha/tiles/shapes/{x}/{y}/{z}.pbf"
-      ]
+      ],
+      "promoteId": "rnb_id"
     },
     "rnb-points": {
       "type": "vector",
-      "tiles": ["https://rnb-api.beta.gouv.fr/api/alpha/tiles/{x}/{y}/{z}.pbf"]
+      "tiles": ["https://rnb-api.beta.gouv.fr/api/alpha/tiles/{x}/{y}/{z}.pbf"],
+      "promoteId": "rnb_id"
     },
     "argile": {
       "type": "vector",
@@ -3105,7 +3107,12 @@
       "source-layer": "default",
       "layout": { "visibility": "visible" },
       "paint": {
-        "circle-radius": 5,
+        "circle-radius": [
+          "case",
+          ["boolean", ["feature-state", "hover"], false],
+          8,
+          5
+        ],
         "circle-color": "#000091",
         "circle-stroke-width": 2,
         "circle-stroke-color": "white"

@@ -1,3 +1,4 @@
+import { hover } from 'framer-motion'
 import { Marker } from 'maplibre-gl'
 import { useEffect } from 'react'
 
@@ -34,4 +35,68 @@ export default function useArgileMapMarkers(map, lon, lat) {
       clearTimeout(timeout)
     }
   }, [map, lat, lon])
+}
+
+const pointsLayerId = 'points RNB',
+  pointsSourceId = 'rnb-points'
+
+let hoveredStateId = null
+
+//https://maplibre.org/maplibre-gl-js/docs/examples/create-a-hover-effect/
+export function useRnbLayerHoverEffects(map) {
+  useEffect(() => {
+    if (!map) return
+
+    const onMouseMove = (e) => {
+      console.log('onMouseMove', e.features)
+      if (e.features.length > 0) {
+        if (hoveredStateId) {
+          map.setFeatureState(
+            {
+              source: pointsSourceId,
+              sourceLayer: 'default',
+              id: hoveredStateId,
+            },
+            { hover: false },
+          )
+        }
+
+        hoveredStateId = e.features[0].id
+
+        // Set the feature state to "hover"
+        map.setFeatureState(
+          {
+            source: pointsSourceId,
+            id: hoveredStateId,
+            sourceLayer: 'default',
+          },
+          { hover: true },
+        )
+      }
+    }
+
+    // When the mouse moves over the map, check if it's over a point
+    map.on('mousemove', pointsLayerId, onMouseMove)
+
+    const onMouseLeave = () => {
+      if (hoveredStateId) {
+        // Reset all feature states for this layer
+        map.setFeatureState(
+          {
+            source: pointsSourceId,
+            sourceLayer: 'default',
+            id: hoveredStateId,
+          },
+          { hover: false },
+        )
+        hoveredStateId = null
+      }
+    }
+    // When the mouse leaves the point, reset the feature state
+    map.on('mouseleave', pointsLayerId, onMouseLeave)
+    return () => {
+      map.off('mousemove', pointsLayerId, onMouseMove)
+      map.off('mouseleave', pointsLayerId, onMouseLeave)
+    }
+  }, [map])
 }

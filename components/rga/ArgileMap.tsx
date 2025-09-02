@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import useAddArgileMap from './useAddArgileMap'
-import useArgileMapMarkers from './useArgileMapMarkers'
+import useArgileMapMarkers, {
+  useRnbLayerHoverEffects,
+} from './useArgileMapMarkers'
 import MapLegend from './MapLegend'
 
 export default function ArgileMap({ situation, setChoice }) {
@@ -43,6 +45,8 @@ export default function ArgileMap({ situation, setChoice }) {
 
   console.log({ coordinatesRaw, lon, lat })
   useArgileMapMarkers(map, lon, lat)
+
+  useRnbLayerHoverEffects(map)
 
   useEffect(() => {
     if (!data) return
