@@ -30,7 +30,7 @@ export default function AideDetails({
   return (
     <>
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
-        <h1 className="fr-stepper__title">
+        <span className="fr-stepper__title fr-mb-3v">
           Mes aides
           <span className="fr-stepper__state">
             Étape {nbStep - 1} sur {nbStep}

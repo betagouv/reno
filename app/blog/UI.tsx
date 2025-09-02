@@ -44,7 +44,7 @@ export const ArticleCta = () => (
           color: #da504b;
         `}
       >
-        5 minutes chrono
+        3 minutes chrono
       </strong>{' '}
       et sans inscription.
     </p>
