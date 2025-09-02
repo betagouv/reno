@@ -22,6 +22,9 @@ const Aside = styled.aside`
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
+  p {
+    margin: 0 0 0.4rem 0;
+  }
 `
 
 const LegendItem = styled.div<{ color: string }>`
