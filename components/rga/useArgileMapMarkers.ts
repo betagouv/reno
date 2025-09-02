@@ -25,7 +25,7 @@ export default function useArgileMapMarkers(map, lon, lat) {
     const marker = new Marker({ element: el }).setLngLat([lon, lat]).addTo(map)
 
     const timeoutFunction = () => {
-      map.flyTo({ center: [lon, lat], zoom: 10 })
+      map.flyTo({ center: [lon, lat], zoom: 11 })
     }
     const timeout = setTimeout(timeoutFunction, 1000)
 
