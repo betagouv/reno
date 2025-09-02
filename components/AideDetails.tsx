@@ -35,7 +35,7 @@ export default function AideDetails({
           <span className="fr-stepper__state">
             Étape {nbStep - 1} sur {nbStep}
           </span>
-        </h1>
+        </span>
         <div
           className="fr-stepper__steps"
           data-fr-current-step={nbStep - 1}
