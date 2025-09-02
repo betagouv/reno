@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import useAddArgileMap from './useAddArgileMap'
 import useArgileMapMarkers from './useArgileMapMarkers'
+import MapLegend from './MapLegend'
 
 export default function ArgileMap({ situation, setChoice }) {
   const [error, setError] = useState()
@@ -66,11 +67,12 @@ export default function ArgileMap({ situation, setChoice }) {
           ref={mapContainerRef}
           css={`
             width: 100%;
-            min-height: 400px;
+            min-height: 500px;
             height: 100%;
             border-radius: 0.3rem;
           `}
         />
+        <MapLegend />
       </div>
     </div>
   )
