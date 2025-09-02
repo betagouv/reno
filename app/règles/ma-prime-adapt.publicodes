@@ -110,9 +110,11 @@ mpa . occupant . condition éligibilité:
     - logement . période de construction = "au moins 15 ans"
 mpa . occupant . montant:
   applicable si: condition éligibilité
-  produit:
-    - montant travaux
-    - pourcentage d'aide
+  somme:
+    - produit:
+      - montant travaux
+      - pourcentage d'aide
+    - accompagnement . montant
   unité: €
   plafond:
     produit:
@@ -134,39 +136,39 @@ mpa . occupant . accompagnement:
   description: Le recours à un AMO (assistant à maîtrise d’ouvrage) à choisir avec votre conseiller est obligatoire et subventionné
   une possibilité parmi:
     possibilités:
-      - 'socle'
-      - 'complet'
-      - 'complet et rapport'
-  par défaut: "'occupant'"
+      - socle
+      - complet
+      - complet et rapport
 mpa . occupant . accompagnement . socle:
-  titre: "Socle"
+  titre: Socle
   description: |
       Définition du projet de travaux : diagnostic logement autonomie et préconisation de travaux adaptés<br />
       Vérification du dossier : Vérification de la complétude et la cohérence du dossier du ménage
-  valeur: socle
+  valeur: '"socle"'
   montant: 350 €
 mpa . occupant . accompagnement . complet:
-  titre: "Complet"
+  titre: Complet
   description: |
     Socle +<br />
     Ingénierie financière : Gestion des devis, identification des artisans et stratégie de minimisation du reste à charge<br />
     Suivi des travaux : Planification et suivi logistique des travaux
-  valeur: complet
+  valeur: '"complet"'
   montant: 600 €
 mpa . occupant . accompagnement . complet et rapport:
-  titre: "Complet + rapport d'ergothérapie"
+  titre: Complet + rapport d'ergothérapie
   description : Complet + Rapport d’ergothérapie
-  valeur: complet et rapport
+  valeur: '"complet et rapport"'
   montant: 800 €
-mpa . occupant . accompagnement . montant: 
+mpa . occupant . accompagnement . montant:
   variations:
-    - si: socle
+    - si: accompagnement = 'socle'
       alors: 350 €
-    - si: complet
+    - si: accompagnement = 'complet'
       alors: 600 €
-    - si: complet et rapport
+    - si: accompagnement = 'complet et rapport'
       alors: 800 €
     - sinon: 0 €
+  par défaut: 0 €
 
 mpa . bailleur:
   titre: MaPrime Adapt' pour les propriétaires bailleurs 

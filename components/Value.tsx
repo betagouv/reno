@@ -22,7 +22,11 @@ export default ({
       noIcon
       className={className + (size == 'xl' ? ' fr-h3' : '')}
       severity={
-        state != 'none' ? state : missing.length > 0 ? state : 'success'
+        state != 'none'
+          ? state
+          : missing.length > 0 && value == 'Pas encore défini'
+            ? state
+            : 'success'
       }
     >
       {value != 'Pas encore défini' ? value : '...'}
