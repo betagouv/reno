@@ -55,14 +55,29 @@ export default function ArgileMap({ situation, setChoice }) {
       <div className="fr-input-group">
         {error && <p className="fr-text--error">{error.message} </p>}
         {data ? (
-          <section>
+          <section
+            css={`
+              > div {
+                margin-bottom: 0.3rem;
+              }
+              span {
+                margin-right: 0.6rem;
+              }
+            `}
+          >
             <div>
-              Niveau d'aléa argiles :
+              <span>Adresse</span>
+              <p className="fr-badge">
+                {situation['logement . adresse'].replace(/"/g, '')}
+              </p>
+            </div>
+            <div>
+              <span>Niveau d'aléa argiles</span>
               <p className="fr-badge">{data.alea_argiles || 'Nul'}</p>
             </div>
             {data.annee_construction && (
               <div>
-                Année de construction :
+                <span>Année de construction</span>
                 <p className="fr-badge">{data.annee_construction}</p>
               </div>
             )}
