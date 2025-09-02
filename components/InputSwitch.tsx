@@ -86,11 +86,15 @@ export default function InputSwitch({
           {...{
             setChoice: (bdnb) => {
               const anneeConstruction = bdnb['annee_construction']
+              const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
+
+              console.log({ risque })
 
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
                   'logement . année de construction': `"${anneeConstruction}"`,
+                  'rga . zone aléa': `"${risque}"`,
                 },
                 false,
                 answeredQuestions,

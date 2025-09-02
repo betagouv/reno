@@ -10,13 +10,13 @@ rga . montant:
 rga . conditions:
   toutes ces conditions:
     - zone aléa fort
-    - département éligible
     - revenu éligible
-    - logement . géométrie simple
-    - logement . mitoyen = non
-    - logement . pas plus d'un étage
-    - logement . période de construction = 'au moins 15 ans'
-    - pas ou très peu sinistré
+    #- département éligible
+    #- logement . géométrie simple
+    #- logement . mitoyen = non
+    #- logement . pas plus d'un étage
+    #- logement . période de construction = 'au moins 15 ans'
+    #- pas ou très peu sinistré
 
 logement . pas plus d'un étage:
   valeur: logement . étages <= 1

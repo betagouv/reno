@@ -7,6 +7,7 @@ export default function ArgileMap({ situation, setChoice }) {
   const [error, setError] = useState()
 
   const [bdnb, setBdnb] = useState(null)
+  const data = bdnb && bdnb.length > 0 && bdnb[0] //TODO act on this
   const clefBan = situation['logement . clef ban']?.replace(/"/g, '')
 
   useEffect(() => {
@@ -43,20 +44,26 @@ export default function ArgileMap({ situation, setChoice }) {
   console.log({ coordinatesRaw, lon, lat })
   useArgileMapMarkers(map, lon, lat)
 
+  useEffect(() => {
+    if (!data) return
+
+    setChoice(data)
+  }, [data, setChoice])
+
   return (
     <div className="fr-fieldset__element">
       <div className="fr-input-group">
         {error && <p className="fr-text--error">{error.message} </p>}
-        {bdnb && bdnb.length > 0 ? (
+        {data ? (
           <section>
             <div>
               Niveau d'aléa argiles :
-              <p className="fr-badge">{bdnb[0].alea_argiles || 'Nul'}</p>
+              <p className="fr-badge">{data.alea_argiles || 'Nul'}</p>
             </div>
-            {bdnb[0].annee_construction && (
+            {data.annee_construction && (
               <div>
                 Année de construction :
-                <p className="fr-badge">{bdnb[0].annee_construction}</p>
+                <p className="fr-badge">{data.annee_construction}</p>
               </div>
             )}
           </section>
