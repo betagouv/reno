@@ -10,6 +10,16 @@
       "type": "vector",
       "url": "https://openmaptiles.data.gouv.fr/data/planet-vector.json"
     },
+    "rnb-formes": {
+      "type": "vector",
+      "tiles": [
+        "https://rnb-api.beta.gouv.fr/api/alpha/tiles/shapes/{x}/{y}/{z}.pbf"
+      ]
+    },
+    "rnb-points": {
+      "type": "vector",
+      "tiles": ["https://rnb-api.beta.gouv.fr/api/alpha/tiles/{x}/{y}/{z}.pbf"]
+    },
     "argile": {
       "type": "vector",
       "url": "pmtiles://https://serveur.cartes.app/gtfs/argile.pmtiles"
@@ -3073,6 +3083,32 @@
           "yellow",
           "transparent"
         ]
+      }
+    },
+    {
+      "id": "formes RNB",
+      "type": "line",
+      "source": "rnb-formes",
+      "source-layer": "default",
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": "#000091",
+        "line-width": 1,
+        "line-opacity": 1
+      },
+      "filter": ["==", "$type", "Polygon"]
+    },
+    {
+      "id": "points RNB",
+      "type": "circle",
+      "source": "rnb-points",
+      "source-layer": "default",
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "circle-radius": 5,
+        "circle-color": "#000091",
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "white"
       }
     }
   ],

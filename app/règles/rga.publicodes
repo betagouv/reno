@@ -75,7 +75,7 @@ rga . département éligible:
 
 rga . zone aléa:
   question: Quel est le niveau d'aléa RGA du logement ?
-  par défaut: 'faible'
+  par défaut: "'faible'"
   une possibilité parmi:
     possibilités:
       - 'fort'
