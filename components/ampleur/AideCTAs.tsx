@@ -28,6 +28,7 @@ export default function AideCTAs({ dottedName, setSearchParams }) {
             'mpa',
             'locavantage',
             "crédit d'impôt",
+            'pch',
           ].includes(dottedName) ? (
             <>
               <span

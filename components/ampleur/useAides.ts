@@ -53,6 +53,8 @@ export function useAides(
           "crédit d'impôt . montant",
           'aides locales',
           'pah',
+          'pch . montant',
+          'apa',
         ]
   // unfold the sums with one level only, no recursion yet
   const list = topList

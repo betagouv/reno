@@ -17,10 +17,12 @@ import denormandie from '@/app/règles/denormandie.publicodes'
 import taxeFoncière from '@/app/règles/taxe-foncière.publicodes'
 import aidesLocales from '@/app/règles/aides-locales.publicodes'
 import copropriete from '@/app/règles/copropriete.publicodes'
-import mpa from '@/app/règles/ma-prime-adapt.publicodes'
-import locavantage from '@/app/règles/locavantage.publicodes'
-import creditImpot from '@/app/règles/credit-impot.publicodes'
-import pah from '@/app/règles/pret-amelioration-habitat.publicodes'
+import mpa from '@/app/règles/mpa/ma-prime-adapt.publicodes'
+import locavantage from '@/app/règles/mpa/locavantage.publicodes'
+import creditImpot from '@/app/règles/mpa/credit-impot.publicodes'
+import pah from '@/app/règles/mpa/pret-amelioration-habitat.publicodes'
+import pch from '@/app/règles/mpa/prestation-compensation-handicap.publicodes'
+import apa from '@/app/règles/mpa/allocation-personnalisee-autonomie.publicodes'
 import tva from '@/app/règles/mpa/TVA.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
 
@@ -64,6 +66,8 @@ const rules = {
   ...locavantage,
   ...creditImpot,
   ...pah,
+  ...pch,
+  ...apa,
   ...tva,
 }
 

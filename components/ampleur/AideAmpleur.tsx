@@ -56,26 +56,22 @@ export default function AideAmpleur({
               __html: rules[dottedName].descriptionHtml,
             }}
           />
-          {
-            <>
-              {children}
-              <ConditionEligibiliteUI>
-                {rules[dottedName].conditionsEligibilitesHTML}
-              </ConditionEligibiliteUI>
-              {rules[dottedName]['lien'] && (
-                <p>
-                  <a
-                    rel="noopener external"
-                    className="fr-link"
-                    href={rules[dottedName]['lien']}
-                    target="_blank"
-                  >
-                    Plus d'infos sur cette aide
-                  </a>
-                </p>
-              )}
-            </>
-          }
+          {children}
+          <ConditionEligibiliteUI>
+            {rules[dottedName].conditionsEligibilitesHTML}
+          </ConditionEligibiliteUI>
+          {rules[dottedName]['lien'] && (
+            <p>
+              <a
+                rel="noopener external"
+                className="fr-link"
+                href={rules[dottedName]['lien']}
+                target="_blank"
+              >
+                Plus d'infos sur cette aide
+              </a>
+            </p>
+          )}
         </>
       ) : (
         <Accordion

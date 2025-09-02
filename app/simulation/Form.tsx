@@ -25,6 +25,8 @@ import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
 import TVA from '@/components/maPrimeAdapt/TVA'
 import CreditImpot from '@/components/maPrimeAdapt/CreditImpot'
 import PAH from '@/components/maPrimeAdapt/PAH'
+import PCH from '@/components/maPrimeAdapt/PCH'
+import APA from '@/components/maPrimeAdapt/APA'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
 import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
@@ -46,6 +48,8 @@ export const correspondance = {
   'tva réduite': TVA,
   "crédit d'impôt": CreditImpot,
   pah: PAH,
+  pch: PCH,
+  apa: APA,
 }
 
 function Form({ rules, simulationConfig }) {

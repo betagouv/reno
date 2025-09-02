@@ -1,0 +1,25 @@
+pah:
+  titre: Le prêt à l’amélioration de l’habitat (PAH)
+  marque: Le prêt à l’amélioration de l’habitat (PAH)
+  type: 'prêt'
+  description: |
+    Si vous êtes bénéficiaire d’une prestation familiale, la CAF peut vous accorder un prêt pour effectuer des travaux d’amélioration dans votre résidence principale.
+  lien: https://www.economie.gouv.fr/particuliers/tva-taux-reduits-travaux
+  conditions éligibilités: |
+    Le montant du prêt à l’amélioration de l’habitat peut couvrir jusqu’à 80% des dépenses, dans la limite de 1 067,14 euros. Son taux d’intérêt est de 1 %. Il est remboursable par fractions égales en 36 mensualités maximum. Le prêt est versé par moitié à la signature du contrat sur présentation du devis et à l’achèvement des travaux sur présentation de la facture.
+  
+    Pour pouvoir prétendre au prêt à l’amélioration de l’habitat, vous pouvez être soit locataire, soit propriétaire.
+
+    En revanche, vous ne pourrez pas en bénéficier si vous ne percevez que l’ALS, l’APL, l’AAH, le RSA, la Prime d'activité.
+
+    Ces travaux ont pour but d’adapter votre logement à vos besoins de confort et d’autonomie. Ils concernent  :
+
+      - Le remplacement d’un système de chauffage,
+      - L’isolation thermique de tout ou d’une partie de votre maison,
+      - Des travaux pour vous permettre plus d’autonomie : pose d’un monte-escalier, agrandissement de certaines entrées, automatisation des volets roulants, une barre dans la douche ou les toilettes.
+  applicable si: conditions éligibilités 
+pah . montant: 1067.14 €
+pah . durée: 3 ans
+pah . conditions éligibilités:
+  toutes ces conditions: 
+    - mpa . situation demandeur = 'occupant'

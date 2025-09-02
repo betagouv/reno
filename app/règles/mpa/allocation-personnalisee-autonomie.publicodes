@@ -1,0 +1,40 @@
+apa:
+  titre: "Allocation personnalisée d'autonomie (Apa)"
+  marque: "Allocation personnalisée d'autonomie (Apa)"
+  description: |
+    L'Apa sert à payer (en totalité ou en partie) les dépenses nécessaires pour vous permettre de rester à votre domicile.
+
+    Elle est versée par les services du département.
+  lien: https://www.service-public.fr/particuliers/vosdroits/F10009
+  conditions éligibilités: |
+    Un professionnel de l'équipe médico-sociale (EMS) de votre département se déplace à votre domicile afin de déterminer votre degré de perte d'autonomie sur la base de la grille Aggir ainsi qu'un plan d'aide. 
+    
+    Ce plan d'aide peut prévoir, par exemple, les prestations suivantes :
+      - Rémunération d'une aide à domicile ou d'un accueillant familial
+      - Aides concernant le transport, livraison de repas
+      - Aides techniques et des mesures d'adaptation du logement
+      - Accueil temporaire (en établissement ou famille d'accueil)
+
+    Le montant de l'APA que vous recevrez pourra couvrir en totalité ou en partie les aides prévues dans le plan d'aide.
+    
+    Vous devez respecter ces conditions :
+      - être âgé d'au moins 60 ans
+      - être dans une situation de perte d'autonomie (besoin d'aide pour accomplir les actes de la vie courante, ou état de santé nécessitant une surveillance constante). La perte d'autonomie se mesure à l'aide de la grille Aggir. Seule la personne classée en Gir 1, Gir 2, Gir 3 ou Gir 4 peut obtenir l'Apa.
+      - vous devez résider en France de façon stable et régulière :
+        - soit à votre domicile
+        - soit au domicile d'un proche qui vous héberge
+        - soit chez un accueillant familial
+        - soit dans une résidence autonomie (anciennement appelé foyer-logement)
+
+    Il n'est pas possible recevoir l'Apa lorsque l'on reçoit au moins l'une des prestations suivantes :
+      - Allocation simple d'aide sociale pour les personnes âgées
+      - Aides des caisses de retraite
+      - Aide financière pour rémunérer une aide à domicile
+      - Prestation de compensation du handicap (PCH)
+      - Majoration pour aide constante d'une tierce personne
+      - Prestation complémentaire pour recours à tierce personne (PCRTP). Mais la personne qui reçoit la PCRTP peut déposer un dossier de demande d'Apa, pour pouvoir ensuite choisir, entre ces 2 aides, celle qui lui convient le mieux.
+  applicable si: conditions éligibilités 
+apa . conditions éligibilités:
+  toutes ces conditions: 
+    - mpa . situation demandeur = 'occupant'
+    - mpa . occupant . condition age ou handicap = 'gir'
