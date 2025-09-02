@@ -22,12 +22,6 @@ export default function PAH({
         situation,
         expanded,
       }}
-    >
-      {expanded && (
-        <ConditionEligibiliteUI>
-          {rules[dottedName].conditionsEligibilitesHTML}
-        </ConditionEligibiliteUI>
-      )}
-    </AideAmpleur>
+    />
   )
 }

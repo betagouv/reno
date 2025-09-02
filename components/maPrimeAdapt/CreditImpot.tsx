@@ -3,13 +3,11 @@ import AideAmpleur from '../ampleur/AideAmpleur'
 import CalculatorWidget from '../CalculatorWidget'
 import Value from '../Value'
 import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
-import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
-import Select from '@codegouvfr/react-dsfr/Select'
+import { encodeDottedName } from '../publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
 import { createExampleSituation } from '../ampleur/AmpleurSummary'
-import { BlocMontantTravaux } from '../maPrimeAdapt/MaPrimeAdapt'
+import { BlocMontantTravaux } from './MaPrimeAdapt'
 import Input from '@codegouvfr/react-dsfr/Input'
-import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function CreditImpot({
   isEligible,
