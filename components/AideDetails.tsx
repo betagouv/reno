@@ -4,6 +4,7 @@ import { decodeDottedName } from './publicodes/situationUtils'
 import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
 import CopyButton from './CopyButton'
+import { useEffect } from 'react'
 
 export default function AideDetails({
   nbStep,
@@ -16,12 +17,14 @@ export default function AideDetails({
   correspondance,
 }) {
   const dottedName = decodeDottedName(searchParams['details'])
-  push([
-    'trackEvent',
-    'Simulateur Principal',
-    'Page',
-    'Aide Détails ' + dottedName,
-  ])
+  useEffect(() => {
+    push([
+      'trackEvent',
+      'Simulateur Principal',
+      'Page',
+      'Aide Détails ' + dottedName,
+    ])
+  }, [])
   const AideComponent = correspondance[dottedName]
 
   return (

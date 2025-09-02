@@ -7,6 +7,7 @@ import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
 import { push } from '@socialgouv/matomo-next'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import { useEffect } from 'react'
 
 export default function AideEtapes({
   nbStep,
@@ -15,8 +16,9 @@ export default function AideEtapes({
   engine,
   answeredQuestions,
 }) {
-  push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
-
+  useEffect(() => {
+    push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
+  },[])
   const aides = useAides(engine, situation, situation["parcours d'aide"])
   const hasMPRA = aides.find(
     (aide) => aide.baseDottedName == 'MPR . accompagnée' && aide.status,
