@@ -15,8 +15,6 @@ export default function useArgileMapMarkers(map, lon, lat) {
       properties: {},
     }
 
-    console.log({ point })
-
     const el = document.createElement('img')
     el.src = icon
     el.style.width = `${iconSize}px`
@@ -42,13 +40,28 @@ const pointsLayerId = 'points RNB',
 
 let hoveredStateId = null
 
+export function useOnPointClick(map, setSelectedBuilding) {
+  useEffect(() => {
+    if (!map) return
+    const onClick = (e) => {
+      const { id } = e.features[0]
+
+      setSelectedBuilding(id)
+    }
+    map.on('click', pointsLayerId, onClick)
+
+    return () => {
+      map.off('click', pointsLayerId, onClick)
+    }
+  }, [map, setSelectedBuilding])
+}
+
 //https://maplibre.org/maplibre-gl-js/docs/examples/create-a-hover-effect/
 export function useRnbLayerHoverEffects(map) {
   useEffect(() => {
     if (!map) return
 
     const onMouseMove = (e) => {
-      console.log('onMouseMove', e.features)
       if (e.features.length > 0) {
         if (hoveredStateId) {
           map.setFeatureState(

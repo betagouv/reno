@@ -87,6 +87,7 @@ export default function InputSwitch({
             setChoice: (bdnb) => {
               const anneeConstruction = bdnb['annee_construction']
               const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
+              const rnb = bdnb.rnb
 
               console.log({ risque })
 
@@ -95,6 +96,7 @@ export default function InputSwitch({
                   ...situation,
                   'logement . année de construction': `"${anneeConstruction}"`,
                   'rga . zone aléa': `"${risque}"`,
+                  'logement . rnb': `"${rnb}"`,
                 },
                 false,
                 answeredQuestions,

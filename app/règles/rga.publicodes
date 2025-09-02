@@ -18,6 +18,9 @@ rga . conditions:
     #- logement . période de construction = 'au moins 15 ans'
     #- pas ou très peu sinistré
 
+logement . rnb:
+  description: Identifiant RNB (Registre National des Bâtiments)
+
 logement . pas plus d'un étage:
   valeur: logement . étages <= 1
 

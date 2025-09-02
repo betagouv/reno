@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import useAddArgileMap from './useAddArgileMap'
 import useArgileMapMarkers, {
+  useOnPointClick,
   useRnbLayerHoverEffects,
 } from './useArgileMapMarkers'
 import MapLegend from './MapLegend'
+import Button from '@codegouvfr/react-dsfr/Button'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function ArgileMap({ situation, setChoice }) {
   const [error, setError] = useState()
@@ -43,17 +46,17 @@ export default function ArgileMap({ situation, setChoice }) {
       .split(',')
       .map((coordinate) => +coordinate)
 
-  console.log({ coordinatesRaw, lon, lat })
   useArgileMapMarkers(map, lon, lat)
-
   useRnbLayerHoverEffects(map)
 
-  useEffect(() => {
-    if (!data) return
+  const [rnb, setRnb] = useState()
+  const setSelectedBuilding = (id) => {
+    setChoice({ ...data, rnb: id })
+    setRnb(id)
+  }
+  useOnPointClick(map, setSelectedBuilding)
 
-    setChoice(data)
-  }, [data, setChoice])
-
+  console.log({ situation })
   return (
     <div className="fr-fieldset__element">
       <div className="fr-input-group">
@@ -89,9 +92,15 @@ export default function ArgileMap({ situation, setChoice }) {
         ) : (
           <p>⏳️ En attente des données du bâtiment...</p>
         )}
+        {!rnb ? (
+          <Button>Sélectionnez votre maison sur la carte</Button>
+        ) : (
+          <Badge severity="success">Bâtiment sélectionné</Badge>
+        )}
         <div
           ref={mapContainerRef}
           css={`
+            margin-top: 1rem;
             width: 100%;
             min-height: 500px;
             height: 100%;
