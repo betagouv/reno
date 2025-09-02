@@ -66,6 +66,8 @@ async function apiResponse(method: string, request: Request) {
           rawValue: aide['evaluation'].nodeValue
             ? aide['evaluation'].nodeValue
             : null,
+          // Les prêts et dispositifs d'exonérations se basent sur des taux et durées (plutôt que des montants)
+          // des infos qui peuvent être utiles à retourner
           taux: getTaux(aide['baseDottedName'], situation, engine),
           durée: getDuree(aide['baseDottedName'], situation, engine),
           missingVariables: Object.keys(aide['evaluation']['missingVariables']),
