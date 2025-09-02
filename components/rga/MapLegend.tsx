@@ -15,7 +15,7 @@ export default function MapLegend() {
 
 const Aside = styled.aside`
   position: absolute;
-  bottom: 4.5rem;
+  bottom: 1rem;
   left: 1rem;
   background-color: white;
   padding: 10px;
