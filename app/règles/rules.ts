@@ -21,8 +21,8 @@ import mpa from '@/app/règles/ma-prime-adapt.publicodes'
 import locavantage from '@/app/règles/locavantage.publicodes'
 import creditImpot from '@/app/règles/credit-impot.publicodes'
 import pah from '@/app/règles/pret-amelioration-habitat.publicodes'
+import tva from '@/app/règles/mpa/TVA.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
-import autresAides from '@/app/règles/autres-aides.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -64,7 +64,7 @@ const rules = {
   ...locavantage,
   ...creditImpot,
   ...pah,
-  ...autresAides,
+  ...tva,
 }
 
 const rulesWithMarkdown = Object.fromEntries(
