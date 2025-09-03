@@ -54,6 +54,8 @@ rga . pas ou très peu sinistré:
     indemnisation catnat dans les 10 dernières année à 10k max
 
 rga . revenu éligible:
+  description: |
+    Seules les catégories de revenu très modeste, modeste et intermédiaire sont éligibles.
   valeur:
     une de ces conditions:
       - ménage . revenu . classe = 'très modeste'
