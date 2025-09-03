@@ -17,12 +17,14 @@ locavantage . montant:
   formule: taux * loyer
 locavantage . condition éligibilité: 
   une de ces conditions:
-    - mpa . situation demandeur = 'bailleur'
+    - toutes ces conditions:
+      - parcours d'aide = "autonomie"
+      - mpa . situation demandeur = 'bailleur'
     - toutes ces conditions:
       - vous . propriétaire . condition
       - logement . propriétaire occupant = non
       - logement . résidence principale locataire = oui
-locavantage . loyer: 500€
+locavantage . loyer:
 locavantage . intermédiation locative:
   question: Allez-vous faire appel à un intermédiaire de gestion locative ? 
 locavantage . niveau loyer:
