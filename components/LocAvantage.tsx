@@ -149,35 +149,33 @@ export default function LocAvantage({
             }}
           />
         </div>
-        {primeLocation.nodeValue ||
-          (primeSurface.nodeValue && (
-            <>
-              <p>De plus, vous aurez droit à:</p>
-              <ul>
-                {primeLocation.nodeValue && (
-                  <>
-                    <li>
-                      une prime de{' '}
-                      <Badge noIcon>{formatValue(primeLocation)}</Badge> en cas
-                      de recours à la location/sous-location
-                    </li>
-                    <li>
-                      une prime de{' '}
-                      <Badge noIcon>{formatValue(primeGestion)}</Badge> en cas
-                      de recours à un mandat de gestion
-                    </li>
-                  </>
-                )}
-                {primeSurface.nodeValue && (
+        {(primeLocation.nodeValue || primeSurface.nodeValue) && (
+          <>
+            <p>De plus, vous aurez droit à:</p>
+            <ul>
+              {primeLocation.nodeValue && (
+                <>
                   <li>
                     une prime de{' '}
-                    <Badge noIcon>{formatValue(primeSurface)}</Badge> car le
-                    logement est inférieur à 40m²
+                    <Badge noIcon>{formatValue(primeLocation)}</Badge> en cas de
+                    recours à la location/sous-location
                   </li>
-                )}
-              </ul>
-            </>
-          ))}
+                  <li>
+                    une prime de{' '}
+                    <Badge noIcon>{formatValue(primeGestion)}</Badge> en cas de
+                    recours à un mandat de gestion
+                  </li>
+                </>
+              )}
+              {primeSurface.nodeValue && (
+                <li>
+                  une prime de <Badge noIcon>{formatValue(primeSurface)}</Badge>{' '}
+                  car le logement est inférieur à 40m²
+                </li>
+              )}
+            </ul>
+          </>
+        )}
       </CalculatorWidget>
     </AideAmpleur>
   )
