@@ -12,12 +12,18 @@ rga . conditions:
     # Ici on donne des chemins absolus aux variables pour ExplicationsDétaillées.tsx
     - rga . zone aléa fort
     - rga . revenu éligible
+    - rga . type de logement
     #- rga . département éligible
     #- logement . géométrie simple
     #- logement . mitoyen = non
     #- logement . pas plus d'un étage
     #- logement . période de construction = 'au moins 15 ans'
     #- rga . pas ou très peu sinistré
+
+rga . type de logement:
+  valeur: logement . type = 'maison'
+  description: |
+    Le dispositif fond argile ne concerne pour l'instant que les maisons individuelles, pas les copropriétés.
 
 logement . rnb:
   description: Identifiant RNB (Registre National des Bâtiments)

@@ -9,7 +9,8 @@ export default function ExplicationsDétaillées({ engine, situation }) {
     engine.setSituation(situation).evaluate(dottedName).nodeValue
   return (
     <>
-      En voici les raisons :
+      <p>Voici les conditions à respecter déclinées pour votre situation :</p>
+
       <ol>
         {conditions
           .map(([k, v]) => (typeof v === 'string' ? v : null))

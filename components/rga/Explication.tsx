@@ -83,7 +83,7 @@ export default function ExplicationCopropriete() {
             <Badge noIcon severity="error">
               n'est pas éligible
             </Badge>{' '}
-            au dispositif <strong>fond argile</strong>
+            au dispositif <strong>fond argile</strong>.
           </p>
         </>
       )}
