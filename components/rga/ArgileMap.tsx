@@ -54,7 +54,7 @@ export default function ArgileMap({ situation, setChoice }) {
     setChoice({ ...data, rnb: id })
     setRnb(id)
   }
-  useOnPointClick(map, setSelectedBuilding)
+  useOnPointClick(map, setSelectedBuilding, rnb)
 
   console.log({ situation })
   return (

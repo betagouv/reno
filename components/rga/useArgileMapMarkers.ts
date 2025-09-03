@@ -38,14 +38,52 @@ export default function useArgileMapMarkers(map, lon, lat) {
 const pointsLayerId = 'points RNB',
   pointsSourceId = 'rnb-points'
 
+const formsLayerId = 'formes RNB',
+  formsSourceId = 'rnb-formes'
 let hoveredStateId = null
 
-export function useOnPointClick(map, setSelectedBuilding) {
+export function useOnPointClick(map, setSelectedBuilding, rnb) {
   useEffect(() => {
     if (!map) return
     const onClick = (e) => {
       const { id } = e.features[0]
 
+      if (rnb) {
+        map.setFeatureState(
+          {
+            source: pointsSourceId,
+            sourceLayer: 'default',
+            id: rnb,
+          },
+          { selected: undefined },
+        )
+        map.setFeatureState(
+          {
+            source: formsSourceId,
+            sourceLayer: 'default',
+            id: rnb,
+          },
+          { selected: undefined },
+        )
+      }
+
+      map.setFeatureState(
+        {
+          source: pointsSourceId,
+          sourceLayer: 'default',
+          id,
+        },
+        { selected: true },
+      )
+
+      map.setFeatureState(
+        {
+          source: formsSourceId,
+          sourceLayer: 'default',
+          id,
+        },
+        { selected: true },
+      )
       setSelectedBuilding(id)
     }
     map.on('click', pointsLayerId, onClick)
@@ -53,7 +91,7 @@ export function useOnPointClick(map, setSelectedBuilding) {
     return () => {
       map.off('click', pointsLayerId, onClick)
     }
-  }, [map, setSelectedBuilding])
+  }, [map, setSelectedBuilding, rnb])
 }
 
 //https://maplibre.org/maplibre-gl-js/docs/examples/create-a-hover-effect/

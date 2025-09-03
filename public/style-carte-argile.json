@@ -3094,8 +3094,18 @@
       "source-layer": "default",
       "layout": { "visibility": "visible" },
       "paint": {
-        "line-color": "#000091",
-        "line-width": 1,
+        "line-color": [
+          "case",
+          ["boolean", ["feature-state", "selected"], false],
+          "#18753c",
+          "#000091"
+        ],
+        "line-width": [
+          "case",
+          ["boolean", ["feature-state", "selected"], false],
+          4,
+          1
+        ],
         "line-opacity": 1
       },
       "filter": ["==", "$type", "Polygon"]
@@ -3113,9 +3123,25 @@
           8,
           5
         ],
-        "circle-color": "#000091",
-        "circle-stroke-width": 2,
-        "circle-stroke-color": "white"
+        "circle-color": [
+          "case",
+          ["boolean", ["feature-state", "selected"], false],
+          "#18753c",
+          "#000091"
+        ],
+
+        "circle-stroke-width": [
+          "case",
+          ["boolean", ["feature-state", "selected"], false],
+          4,
+          2
+        ],
+        "circle-stroke-color": [
+          "case",
+          ["boolean", ["feature-state", "selected"], false],
+          "#b8fec9",
+          "white"
+        ]
       }
     }
   ],
