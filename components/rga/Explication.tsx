@@ -87,7 +87,7 @@ export default function ExplicationCopropriete() {
           </p>
         </>
       )}
-      <ExplicationsDétaillées {...{ situation, engine }} />
+      <ExplicationsDétaillées {...{ situation, engine, answeredQuestions }} />
     </>
   )
 }
