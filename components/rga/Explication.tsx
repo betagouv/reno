@@ -15,7 +15,7 @@ import Publicodes from 'publicodes'
 import { useMemo } from 'react'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
-import ExplicationsCoproIneligible from './ExplicationIneligible'
+import ExplicationsDétaillées from './ExplicationsDétaillées'
 
 export default function ExplicationCopropriete() {
   useSyncUrlLocalStorage()
@@ -85,9 +85,9 @@ export default function ExplicationCopropriete() {
             </Badge>{' '}
             au dispositif <strong>fond argile</strong>
           </p>
-          <ExplicationsCoproIneligible {...{ situation, engine }} />
         </>
       )}
+      <ExplicationsDétaillées {...{ situation, engine }} />
     </>
   )
 }

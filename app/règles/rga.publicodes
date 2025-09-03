@@ -9,14 +9,15 @@ rga . montant:
 
 rga . conditions:
   toutes ces conditions:
-    - zone aléa fort
-    - revenu éligible
-    #- département éligible
+    # Ici on donne des chemins absolus aux variables pour ExplicationsDétaillées.tsx
+    - rga . zone aléa fort
+    - rga . revenu éligible
+    #- rga . département éligible
     #- logement . géométrie simple
     #- logement . mitoyen = non
     #- logement . pas plus d'un étage
     #- logement . période de construction = 'au moins 15 ans'
-    #- pas ou très peu sinistré
+    #- rga . pas ou très peu sinistré
 
 logement . rnb:
   description: Identifiant RNB (Registre National des Bâtiments)
@@ -96,4 +97,6 @@ rga . zone aléa fort:
   question: Le logement est-il bâti dans une zone d'aléa RGA fort ?
   # tester le résultat de l'appel d'API
   valeur: zone aléa = 'fort'
+  description: |
+    Dans une première phase du dispositif fond argile, seuls les logements présents dans une zone d'aléa fort sont pris en charge.
   par défaut: non
