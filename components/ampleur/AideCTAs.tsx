@@ -1,9 +1,7 @@
 import rules from '@/app/règles/rules'
 import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
-import iconCalculator from '@/public/calculator.svg'
 import { omit } from '@/components/utils'
 import { useSearchParams } from 'next/navigation'
-import Image from 'next/image'
 import { push } from '@socialgouv/matomo-next'
 import ButtonsGroup from '@codegouvfr/react-dsfr/ButtonsGroup'
 import useIsMobile from '../useIsMobile'
@@ -76,11 +74,10 @@ export default function AideCTAs({
                     "CEE . rénovation d'ampleur",
                   ].includes(dottedName) ? (
                   <>
-                    <Image
-                      src={iconCalculator}
-                      alt="icone calculatrice"
-                      style={{ marginRight: '0.5rem' }}
-                    />
+                    <span
+                      className="fr-icon-money-euro-circle-line fr-mr-1v"
+                      aria-hidden="true"
+                    ></span>
                     Calculer le montant d'aides
                   </>
                 ) : (
@@ -113,11 +110,10 @@ export default function AideCTAs({
                     "CEE . rénovation d'ampleur",
                   ].includes(dottedName) ? (
                   <>
-                    <Image
-                      src={iconCalculator}
-                      alt="icone calculatrice"
-                      style={{ marginRight: '0.5rem' }}
-                    />
+                    <span
+                      className="fr-icon-money-euro-circle-line fr-mr-1v"
+                      aria-hidden="true"
+                    ></span>
                     Calculer le montant d'aides
                   </>
                 ) : (
