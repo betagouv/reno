@@ -14,7 +14,8 @@ locavantage:
   lien: https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location
 locavantage . montant:
   applicable si: condition éligibilité
-  formule: taux * loyer
+  formule: taux * loyer * 12
+  unité: €/an
 locavantage . condition éligibilité: 
   une de ces conditions:
     - toutes ces conditions:
@@ -25,6 +26,8 @@ locavantage . condition éligibilité:
       - logement . propriétaire occupant = non
       - logement . résidence principale locataire = oui
 locavantage . loyer:
+  question: Quel sera le loyer du logement ?
+  unité: € 
 locavantage . intermédiation locative:
   question: Allez-vous faire appel à un intermédiaire de gestion locative ? 
 locavantage . niveau loyer:

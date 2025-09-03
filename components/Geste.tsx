@@ -61,7 +61,11 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
           </>
         ) : eligibleMPRG && montantTotal != 'Pas encore défini' ? ( // Cas MPR avec ou sans CEE/Coup de pouce
           <>
-            {!isExactTotal ? 'Au moins ' : 'Prime de '}
+            {!isExactTotal
+              ? 'Au moins '
+              : dottedName.includes('locavantage')
+                ? "Réduction d'impôt de "
+                : 'Prime de '}
             {montantTotal}
           </>
         ) : !eligibleMPRG && hasCoupDePouce && isExactTotal ? (

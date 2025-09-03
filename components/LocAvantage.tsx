@@ -8,6 +8,7 @@ import Select from '@codegouvfr/react-dsfr/Select'
 import CalculatorWidget from './CalculatorWidget'
 import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 import { push } from '@socialgouv/matomo-next'
+import { MontantQuestion } from '@/app/module/AmpleurQuestions'
 
 export default function LocAvantage({
   isEligible,
@@ -49,7 +50,19 @@ export default function LocAvantage({
       <h3>Comment est calculée l'aide ?</h3>
       <CalculatorWidget>
         <div className="fr-grid-row fr-grid-row--gutters">
-          <div className="fr-col-12 fr-col-md-6">
+          <div className="fr-col-12 fr-col-md-4">
+            <MontantQuestion
+              {...{
+                setSearchParams,
+                situation,
+                answeredQuestions,
+                rule: 'locavantage . loyer',
+                text: 'Loyer envisagé',
+                state: 'default',
+              }}
+            />
+          </div>
+          <div className="fr-col-12 fr-col-md-4">
             <Select
               nativeSelectProps={{
                 onChange: (e) =>
@@ -72,7 +85,7 @@ export default function LocAvantage({
               <option value="'loc 3'">45%</option>
             </Select>
           </div>
-          <div className="fr-col-12 fr-col-md-6">
+          <div className="fr-col-12 fr-col-md-4">
             <RadioButtons
               legend="Intermédiaire de gestion locative : "
               orientation="horizontal"
@@ -136,14 +149,24 @@ export default function LocAvantage({
         <p>
           En louant ce logement pendant <strong>6 ans minimum</strong>, vous
           bénéficiez d'une réduction d'impôt calculée sur les revenus bruts du
-          logement loué de :
+          logement loué de{' '}
+          <Value
+            {...{
+              engine,
+              situation,
+              dottedName: 'locavantage . taux',
+              className: 'fr-my-2v',
+              state: 'normal',
+            }}
+          />{' '}
+          soit:
         </p>
         <div style={{ textAlign: 'center' }}>
           <Value
             {...{
               engine,
               situation,
-              dottedName: 'locavantage . taux',
+              dottedName: 'locavantage . montant',
               className: 'fr-my-2v',
               size: 'xl',
             }}
