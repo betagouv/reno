@@ -19,7 +19,9 @@ export default function AidesAmpleur({
 
   const extremeSituation = createExampleSituation(situation, 'best')
 
-  const aides = useAides(engine, extremeSituation)
+  const aides = useAides(engine, extremeSituation).sort((a, b) =>
+    a.type < b.type ? -1 : 1,
+  )
 
   // On filtre les remboursements (donc MPRA, aide locales et subvention MAR) car ils sont affichés différement sauf CEE . ampleur
   const eligibles = aides.filter(
