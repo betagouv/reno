@@ -54,14 +54,14 @@ export default function DPEScenario({ engine, situation, setSearchParams }) {
             pattern: '\d+',
             type: 'text',
             autoFocus: false,
-            value: formatNumberWithSpaces(montantTravaux),
+            value: montantTravaux ? formatNumberWithSpaces(montantTravaux) : '',
             onChange: (e) => {
               const price = e.target.value.replace(/\s/g, '')
-              const invalid = isNaN(price) || price <= 0
+              const invalid = price != '' && (isNaN(price) || price <= 0)
               if (invalid) return
               setSearchParams(
                 encodeSituation({
-                  'projet . travaux': price + '*',
+                  'projet . travaux': price == '' ? undefined : price + '*',
                 }),
                 'replace',
                 false,
