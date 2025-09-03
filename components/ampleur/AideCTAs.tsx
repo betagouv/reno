@@ -1,7 +1,5 @@
 import rules from '@/app/règles/rules'
 import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
-import { omit } from '@/components/utils'
-import { useSearchParams } from 'next/navigation'
 import { push } from '@socialgouv/matomo-next'
 import ButtonsGroup from '@codegouvfr/react-dsfr/ButtonsGroup'
 import useIsMobile from '../useIsMobile'
