@@ -55,6 +55,23 @@ export default function ExplicationsDétaillées({
                     __html: condition.descriptionHtml,
                   }}
                 />
+                {dottedName === 'rga . département éligible' && (
+                  <div>
+                    <p>Voici la liste des départements éligibles : </p>
+                    <ul
+                      css={`
+                        display: flex;
+                        gap: 1rem;
+                        list-style-type: none;
+                        padding-left: 0;
+                      `}
+                    >
+                      {condition['une de ces conditions'].map((el) => (
+                        <li key={el}>{el.match(/\d\d/)[0]}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </li>
             )
           })}

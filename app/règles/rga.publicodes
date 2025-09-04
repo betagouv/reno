@@ -11,9 +11,9 @@ rga . conditions:
   toutes ces conditions:
     # Ici on donne des chemins absolus aux variables pour ExplicationsDétaillées.tsx
     - rga . zone aléa fort
+    - rga . département éligible
     - rga . revenu éligible
     - rga . type de logement
-    #- rga . département éligible
     #- logement . géométrie simple
     #- logement . mitoyen = non
     #- logement . pas plus d'un étage
