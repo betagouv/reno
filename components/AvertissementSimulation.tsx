@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import useIsInIframe from './useIsInIframe'
 
 const localStorageKey = 'avertissementSimulationLuLe'
 
@@ -44,10 +45,14 @@ export const useAvertissementState = () => {
 
   return [open, setOpen]
 }
+
 export default function AvertissementSimulation({
   avertissementState: open,
   setAvertissementState: setOpen,
 }) {
+  const isInIframe = useIsInIframe()
+
+  if (isInIframe === 'rga') return null
   return (
     <>
       <Highlight

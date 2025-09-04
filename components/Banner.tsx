@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useLocalStorage } from 'usehooks-ts'
+import useIsInIframe from './useIsInIframe'
 
 const ls = 'bannière-guichet-juin-2025'
 export default function Banner({}) {
+  const isInIframe = useIsInIframe()
   const [bannerRead, setBannerRead] = useState()
 
   useEffect(() => {
@@ -15,6 +17,7 @@ export default function Banner({}) {
     setBannerRead(value || false)
   }, [setBannerRead, bannerRead])
 
+  if (isInIframe === 'rga') return null
   if (bannerRead == null) return null
   if (bannerRead) return null
   return (

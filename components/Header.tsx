@@ -2,11 +2,15 @@
 
 import { usePathname } from 'next/navigation'
 import { Header as DsfrHeader } from '@codegouvfr/react-dsfr/Header'
+import useIsInIframe from './useIsInIframe'
 
 export default function Header() {
   const pathname = usePathname()
+  const isInIframe = useIsInIframe()
+
+  if (isInIframe === 'rga') return null
   if (pathname.startsWith('/module/') && pathname.endsWith('integration'))
-    return
+    return null
 
   return (
     <DsfrHeader

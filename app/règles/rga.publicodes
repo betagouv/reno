@@ -1,7 +1,7 @@
 # Dans ce fichier, on implémente un modèle de simulation d'une future potentielle aide sur le retrait gonflement des argiles (RGA)
 
 rga:
-  description: Retrait gonflement des argiles.
+  description: Ce simulateur vous permet de tester votre éligibilité au nouveau fond de prévention du retrait gonflement des argiles, un phénomène naturel qui peut fragiliser les bâtiments situés dans certaines zones aux sols argileux.
 
 rga . montant:
   applicable si: conditions
@@ -18,7 +18,7 @@ rga . conditions:
     #- logement . mitoyen = non
     #- logement . pas plus d'un étage
     #- logement . période de construction = 'au moins 15 ans'
-    #- rga . pas ou très peu sinistré
+    - rga . pas ou très peu sinistré
 
 rga . type de logement:
   valeur: logement . type = 'maison'
@@ -45,6 +45,7 @@ logement . mitoyen:
 logement . géométrie simple:
   question: La maison a-t-elle la géométrie au sol d'un simple et unique rectangle ?
   par défaut: oui
+
 rga . pas ou très peu sinistré:
   question: Le logement est-il non sinistré, ou seulement très peu ?
   par défaut: oui
