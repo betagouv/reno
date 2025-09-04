@@ -6,13 +6,6 @@ export default function getNextQuestions(
   questionsConfig = [],
 ) {
   const { missingVariables } = evaluation
-  if (questionsConfig?.prioritaires?.length > 0) {
-    let questions = questionsConfig.prioritaires.filter((question) =>
-      Object.keys(missingVariables).includes(question),
-    )
-    questions.unshift(...(questionsConfig?.préface || []))
-    return questions.filter((question) => !answeredQuestions.includes(question))
-  }
 
   const allMissingEntries = Object.entries(missingVariables),
     missingEntries = allMissingEntries.filter(

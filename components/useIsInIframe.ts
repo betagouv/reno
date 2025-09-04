@@ -42,7 +42,7 @@ export function useSendDataToHost() {
 }
 
 export default function useIsInIframe() {
-  const [isInIframe, setIsInIframe] = useState(false)
+  const [isInIframe, setIsInIframe] = useState<boolean | string>(false)
 
   const params = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : '/',
@@ -52,7 +52,11 @@ export default function useIsInIframe() {
     let observer
 
     if (iframe.isInIframe(params)) {
-      setIsInIframe(true)
+      if (window.location.pathname.startsWith('/rga')) {
+        setIsInIframe('rga')
+      } else {
+        setIsInIframe(true)
+      }
 
       // NOTE: should we really want a minimum height for the iframe? Why?
       // Yes : without a minimum height, the lower border of the iframe would jump on every "short" question

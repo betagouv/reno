@@ -97,6 +97,7 @@ function Form({ rules, simulationConfig }) {
       answeredQuestions,
       simulationConfig,
     )
+
   const currentQuestion = objectif
     ? decodeDottedName(objectif)
     : nextQuestions[0]

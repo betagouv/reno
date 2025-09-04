@@ -1,26 +1,26 @@
-import CommuneSearch from './CommuneSearch'
-import BinaryQuestion from './BinaryQuestion'
-import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
-import ClassicQuestionWrapper from './ClassicQuestionWrapper'
-import DPESelector from './dpe/DPESelector'
-import Eligibility from './Eligibility'
-import RadioQuestion from './RadioQuestion'
-import CheckboxQuestion from './CheckboxQuestion'
-import RevenuInput from './RevenuInput'
-import questionType from './publicodes/questionType'
-import CoproAddressSearch from './CoproAddressSearch'
-import DPEMap from './dpe/DPEMap'
-import AddressSearch from './AddressSearch'
-import { useState } from 'react'
-import enrichSituation, { getCommune } from './personas/enrichSituation'
-import { useSendDataToHost } from './useIsInIframe'
-import Consentement from './Consentement'
-import ChoixTravauxChauffage from './ChoixTravauxChauffage'
-import ChoixCategorieTravaux from './ChoixCategorieTravaux'
-import ChoixTravaux from './ChoixTravaux'
+import { mpaLogementValues } from '@/app/module/AmpleurInputs'
+import ArgileMap from '@/components/rga/ArgileMap'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
-import { mpaLogementValues } from '@/app/module/AmpleurInputs'
+import { useState } from 'react'
+import AddressSearch from './AddressSearch'
+import BinaryQuestion from './BinaryQuestion'
+import CheckboxQuestion from './CheckboxQuestion'
+import ChoixCategorieTravaux from './ChoixCategorieTravaux'
+import ChoixTravaux from './ChoixTravaux'
+import ChoixTravauxChauffage from './ChoixTravauxChauffage'
+import ClassicQuestionWrapper from './ClassicQuestionWrapper'
+import CommuneSearch from './CommuneSearch'
+import Consentement from './Consentement'
+import CoproAddressSearch from './CoproAddressSearch'
+import Eligibility from './Eligibility'
+import RadioQuestion from './RadioQuestion'
+import RevenuInput from './RevenuInput'
+import DPESelector from './dpe/DPESelector'
+import enrichSituation, { getCommune } from './personas/enrichSituation'
+import questionType from './publicodes/questionType'
+import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import { useSendDataToHost } from './useIsInIframe'
 
 export default function InputSwitch({
   form,
@@ -81,7 +81,33 @@ export default function InputSwitch({
 
   return currentQuestion ? (
     <ClassicQuestionWrapper {...params}>
-      {rule['bornes intelligentes'] ? (
+      {currentQuestion === 'rga . zone aléa' ? (
+        <ArgileMap
+          {...{
+            setChoice: (bdnb) => {
+              const anneeConstruction = bdnb['annee_construction']
+              const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
+              const rnb = bdnb.rnb
+
+              console.log({ risque })
+
+              const encodedSituation = encodeSituation(
+                {
+                  ...situation,
+                  'logement . année de construction': `"${anneeConstruction}"`,
+                  'rga . zone aléa': `"${risque}"`,
+                  'logement . rnb': `"${rnb}"`,
+                },
+                false,
+                answeredQuestions,
+              )
+
+              setSearchParams(encodedSituation, 'push', false)
+            },
+            situation,
+          }}
+        />
+      ) : rule['bornes intelligentes'] ? (
         <RevenuInput
           type={ruleQuestionType}
           rule={rule}
@@ -222,6 +248,7 @@ export default function InputSwitch({
                   'logement . commune': `"${result.code}"`,
                   'logement . commune . nom': `"${result.nom}"`,
                   'logement . coordonnees': `"${adresse.geometry.coordinates.reverse().join(',')}"`,
+                  'logement . clef ban': `"${adresse.properties.id}"`,
                 })
                 setSearchParams(
                   encodeSituation(newSituation, false, answeredQuestions),

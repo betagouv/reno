@@ -1,0 +1,111 @@
+# Dans ce fichier, on implémente un modèle de simulation d'une future potentielle aide sur le retrait gonflement des argiles (RGA)
+
+rga:
+  description: Ce simulateur vous permet de tester votre éligibilité au nouveau fond de prévention du retrait gonflement des argiles, un phénomène naturel qui peut fragiliser les bâtiments situés dans certaines zones aux sols argileux.
+
+rga . montant:
+  applicable si: conditions
+  valeur: 999
+
+rga . conditions:
+  toutes ces conditions:
+    # Ici on donne des chemins absolus aux variables pour ExplicationsDétaillées.tsx
+    - rga . zone aléa fort
+    - rga . département éligible
+    - rga . revenu éligible
+    - rga . type de logement
+    #- logement . géométrie simple
+    #- logement . mitoyen = non
+    #- logement . pas plus d'un étage
+    #- logement . période de construction = 'au moins 15 ans'
+    - rga . pas ou très peu sinistré
+
+rga . type de logement:
+  valeur: logement . type = 'maison'
+  description: |
+    Le dispositif fond argile ne concerne pour l'instant que les maisons individuelles, pas les copropriétés.
+
+logement . rnb:
+  description: Identifiant RNB (Registre National des Bâtiments)
+
+logement . pas plus d'un étage:
+  valeur: logement . étages <= 1
+
+logement . étages:
+  question: Combien d'étages a votre maison ?
+  description: |
+    Une maison plein pied a 0 étages. Une maison avec un rez-de-chaussée et des chambres à l'étage a 1 étage, et ainsi de suite.
+  unité: étage
+  par défaut: 1
+
+logement . mitoyen:
+  question: La maison est-elle mitoyenne ?
+  par défaut: non
+
+logement . géométrie simple:
+  question: La maison a-t-elle la géométrie au sol d'un simple et unique rectangle ?
+  par défaut: oui
+
+rga . pas ou très peu sinistré:
+  question: Le logement est-il non sinistré, ou seulement très peu ?
+  par défaut: oui
+  # checkbox
+  sous-titre: |
+    micro-fissure de 1mm max
+    indemnisation catnat dans les 10 dernières année à 10k max
+
+rga . revenu éligible:
+  description: |
+    Seules les catégories de revenu très modeste, modeste et intermédiaire sont éligibles.
+  valeur:
+    une de ces conditions:
+      - ménage . revenu . classe = 'très modeste'
+      - ménage . revenu . classe = 'modeste'
+      - ménage . revenu . classe = 'intermédiaire'
+
+rga . département éligible:
+  une de ces conditions:
+    - logement . code département = '04'
+    - logement . code département = '24'
+    - logement . code département = '36'
+    - logement . code département = '47'
+    - logement . code département = '54'
+    - logement . code département = '63'
+    - logement . code département = '81'
+    - logement . code département = '32'
+    - logement . code département = '82'
+    - logement . code département = '03'
+#  - 04 Alpes de haute provence
+#  - 24 dordogne
+#  - 36 indre
+#  - 47 lot et garonne
+#  - 54 Meurthe et moselle
+#  - 63 Puy de dome
+#  - 81 Tarn
+#  - 32 Gers
+#  - 82 Tarn et garonne
+#  - 03 Allier
+
+rga . zone aléa:
+  question: Quel est le niveau d'aléa RGA du logement ?
+  par défaut: "'faible'"
+  une possibilité parmi:
+    possibilités:
+      - 'fort'
+      - 'moyen'
+      - 'faible'
+      - 'nul'
+  # appel d'API nécessaire ici
+
+rga . zone aléa . fort:
+rga . zone aléa . moyen:
+rga . zone aléa . faible:
+rga . zone aléa . nul:
+
+rga . zone aléa fort:
+  question: Le logement est-il bâti dans une zone d'aléa RGA fort ?
+  # tester le résultat de l'appel d'API
+  valeur: zone aléa = 'fort'
+  description: |
+    Dans une première phase du dispositif fond argile, seuls les logements présents dans une zone d'aléa fort sont pris en charge.
+  par défaut: non
