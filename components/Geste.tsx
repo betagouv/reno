@@ -16,14 +16,9 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       situation,
     })
   return (
-    ![
-      'mpa . montant',
-      'locavantage . montant',
-      'tva réduite',
-      "crédit d'impôt",
-      'aides locales',
-      'locales',
-    ].includes(dottedName) && (
+    !['tva réduite', "crédit d'impôt", 'aides locales', 'apa'].includes(
+      dottedName,
+    ) && (
       <Badge
         noIcon
         severity={
@@ -66,7 +61,11 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
           </>
         ) : eligibleMPRG && montantTotal != 'Pas encore défini' ? ( // Cas MPR avec ou sans CEE/Coup de pouce
           <>
-            {!isExactTotal ? 'Au moins ' : 'Prime de '}
+            {!isExactTotal
+              ? 'Au moins '
+              : dottedName.includes('locavantage')
+                ? "Réduction d'impôt de "
+                : 'Prime de '}
             {montantTotal}
           </>
         ) : !eligibleMPRG && hasCoupDePouce && isExactTotal ? (

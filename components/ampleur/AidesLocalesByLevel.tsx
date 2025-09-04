@@ -1,4 +1,3 @@
-import calculatorIcon from '@/public/calculator-empty.svg'
 import Image from 'next/image'
 import { No, Yes } from '../ResultUI'
 import { Card } from '../UI'
@@ -53,15 +52,10 @@ export default function AidesLocalesByLevel({
                   margin-top: 1rem;
                 `}
               >
-                <Image
-                  src={calculatorIcon}
-                  alt="Icône calculette"
-                  css={`
-                    width: 3rem !important;
-                    height: auto !important;
-                    margin-right: 0.8rem !important;
-                  `}
-                />
+                <span
+                  className="fr-icon-money-euro-circle-line fr-mr-1v"
+                  aria-hidden="true"
+                ></span>
                 {activeAide.dottedName.startsWith('aides locales . angers') ? (
                   <ExplicationAngers {...{ engine, situation }} />
                 ) : (

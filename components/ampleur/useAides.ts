@@ -50,8 +50,11 @@ export function useAides(
           'mpa . montant',
           'locavantage . montant',
           'tva réduite',
-          "crédit d'impôt",
+          "crédit d'impôt . montant",
           'aides locales',
+          'pah',
+          'pch . montant',
+          'apa',
         ]
   // unfold the sums with one level only, no recursion yet
   const list = topList
@@ -81,10 +84,11 @@ export function useAides(
     })
 
   const aides = list.map((aide) => {
-    const evaluation = engine.setSituation(situation).evaluate(aide.dottedName)
-    const value = formatValue(evaluation, { precision: 0 })
+    const cond = aide.dottedName.replace('montant', 'condition éligibilité')
+    const evaluation = engine
+      .setSituation(situation)
+      .evaluate(rules[cond] ? cond : aide.dottedName)
 
-    const status = computeAideStatus(evaluation)
     const marque2 = aide.dottedName.startsWith('aides locales')
       ? findAidesLocales(rules, engine)
           .map((aide) => aide.name)
@@ -94,8 +98,8 @@ export function useAides(
     return {
       ...aide,
       evaluation,
-      value,
-      status,
+      value: formatValue(evaluation, { precision: 0 }),
+      status: computeAideStatus(evaluation),
       'complément de marque': marque2,
     }
   })

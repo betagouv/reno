@@ -1,7 +1,7 @@
 import rules from '@/app/règles/rules'
 import AideAmpleur from '../ampleur/AideAmpleur'
 
-export default function CreditImpot({
+export default function APA({
   isEligible,
   engine,
   situation,

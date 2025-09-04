@@ -69,19 +69,6 @@ export const ConditionEligibiliteUI = ({ children }) => {
     <>
       <h2 className='fr-mt-5v'>Les principales conditions d'éligibilité ?</h2>
       <div
-        css={`
-          list-style-image: url(${checkIcon.src});
-          list-style-position: inside;
-          ul {
-            padding: 0;
-          }
-          li {
-            margin: 1rem 0;
-            ul {
-              list-style-image: none;
-            }
-          }
-        `}
         dangerouslySetInnerHTML={{
           __html: children,
         }}

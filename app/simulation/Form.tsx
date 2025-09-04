@@ -22,8 +22,11 @@ import Denormandie from '@/components/ampleur/Denormandie'
 import EcoPTZ from '@/components/ampleur/EcoPTZ'
 import PAR from '@/components/ampleur/PAR'
 import TaxeFoncière from '@/components/ampleur/TaxeFoncière'
-import TVA from '@/components/autres-aides/TVA'
-import CreditImpot from '@/components/autres-aides/CreditImpot'
+import TVA from '@/components/maPrimeAdapt/TVA'
+import CreditImpot from '@/components/maPrimeAdapt/CreditImpot'
+import PAH from '@/components/maPrimeAdapt/PAH'
+import PCH from '@/components/maPrimeAdapt/PCH'
+import APA from '@/components/maPrimeAdapt/APA'
 import AidesLocales from '@/components/ampleur/AidesLocales'
 import AideEtapes from '@/components/AideEtapes'
 import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
@@ -44,6 +47,9 @@ export const correspondance = {
   locavantage: LocAvantage,
   'tva réduite': TVA,
   "crédit d'impôt": CreditImpot,
+  pah: PAH,
+  pch: PCH,
+  apa: APA,
 }
 
 function Form({ rules, simulationConfig }) {
@@ -60,6 +66,11 @@ function Form({ rules, simulationConfig }) {
   const { objectif, depuisModule, ...situationSearchParams } = searchParams
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
+
+  const form = simulationConfig.prioritaires.find((e) => e.includes('parcours'))
+    ? 'full'
+    : null
+  const nbStep = form == 'full' ? 3 : 4
 
   const engine = useMemo(
     () =>
@@ -82,7 +93,7 @@ function Form({ rules, simulationConfig }) {
     return (
       <AideEtapes
         {...{
-          searchParams,
+          nbStep,
           setSearchParams,
           situation,
           answeredQuestions,
@@ -105,6 +116,7 @@ function Form({ rules, simulationConfig }) {
     return (
       <AideDetails
         {...{
+          nbStep,
           currentQuestion,
           searchParams,
           setSearchParams,
@@ -122,6 +134,8 @@ function Form({ rules, simulationConfig }) {
     <div style={{ maxWidth: '65rem', margin: 'auto' }}>
       <InputSwitch
         {...{
+          form,
+          nbStep,
           rules,
           currentQuestion,
           situation,

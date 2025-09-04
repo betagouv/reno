@@ -42,6 +42,7 @@ export const QuestionText = ({
 
 export default function ClassicQuestionWrapper({
   form,
+  nbStep,
   children,
   rule,
   currentQuestion,
@@ -60,7 +61,6 @@ export default function ClassicQuestionWrapper({
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { depuisModule } = searchParams
-  const remaining = nextQuestions.length
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
@@ -69,7 +69,6 @@ export default function ClassicQuestionWrapper({
   // Globalement l'intégration de Tally est imparfaite car ils ne nous permettent pas de détruire les hooks qu'ils initient...
   //const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
   const tallyForm = null
-
   return (
     <>
       <AvertissementSimulation
@@ -90,7 +89,8 @@ export default function ClassicQuestionWrapper({
                   ? 'Mon projet'
                   : 'Ma situation'}
                 <span className="fr-stepper__state">
-                  Étape {currentQuestion.startsWith('projet') ? 2 : 1} sur 4
+                  Étape {currentQuestion.startsWith('projet') ? 2 : 1} sur{' '}
+                  {nbStep}
                 </span>
               </h1>
               <div
@@ -98,11 +98,11 @@ export default function ClassicQuestionWrapper({
                 data-fr-current-step={
                   currentQuestion.startsWith('projet') ? 2 : 1
                 }
-                data-fr-steps="4"
+                data-fr-steps={nbStep}
               ></div>
               <p className="fr-stepper__details">
                 <span className="fr-text--bold">Étape suivante :</span>{' '}
-                {currentQuestion.startsWith('projet')
+                {currentQuestion.startsWith('projet') || nbStep == 3
                   ? 'Mes aides'
                   : 'Mon projet'}
               </p>
