@@ -1,0 +1,74 @@
+MPLD:
+  titre: Ma Prime Logement Décent
+  marque: Ma Prime Logement Décent
+  type: remboursement
+  conditions éligibilités: |
+    - Le ménage doit avoir des revenus modestes ou très modestes
+    - Le logement doit être construit depuis plus de 15 ans à la date de demande d’aide
+    - Le ménage doit y être domicilié au titre de résidence principale, et ce jusqu’à 3 ans après la fin des travaux communiquée à l’Anah
+    - Les travaux doivent être réalisés par des professionnels qualifiés, sauf en cas d’autoréhabilitation accompagnée (ARA).
+    - Le logement doit aussi :
+      - soit faire l’objet d’une évaluation par un opérateur à l’aide d’une grille de dégradation (évaluation de l’insalubrité de l’ARS supérieure ou égale à 0,4 ou évaluation de la dégradation de l’Anah supérieure ou égale à 0,35)
+      - soit être sous une procédure de police de mise en sécurité ordinaire (au titre du péril, de l’insalubrité, de la sécurité des équipements communs ou du saturnisme).
+  description: |
+    Ma Prime Logement Décent est une aide à destination des propriétaires occupants aux revenus modestes ou très modestes, souhaitant réaliser des travaux dans des logements notablement dégradés et/ou insalubres.
+  lien: https://france-renov.gouv.fr/aides/ma-prime-logement-decent
+
+MPLD . conditions éligibilités:
+  toutes ces conditions:
+    - une de ces conditions:
+      - ménage . revenu . classe = 'très modeste'
+      - ménage . revenu . classe = 'modeste'
+    - conditions communes
+MPLD . montant:
+  applicable si: condition éligibilité
+  variations:
+    - si: MPLD . situation demandeur = 'occupant'
+      alors: occupant . montant
+    - si: MPLD . situation demandeur = 'bailleur'
+      alors: bailleur . montant
+    - si: MPLD . situation demandeur = 'copropriété'
+      alors: copropriété . montant
+MPLD . situation demandeur:
+  question: Quelle est votre situation ?
+  une possibilité parmi:
+    possibilités:
+      - 'occupant'
+      - 'bailleur'
+      - 'copropriété'
+  par défaut: "'occupant'"
+MPLD . situation demandeur . occupant:
+  valeur: "'occupant'"
+  titre: Propriétaire de mon logement ou locataire du parc privé
+MPLD . situation demandeur . bailleur: 
+  valeur: "'bailleur'"
+  titre: Propriétaire d'un logement que vous louez ou que vous souhaitez mettre en location
+MPLD . situation demandeur . copropriété: 
+  valeur: "'copropriété'"
+  titre: Syndicat de copropriété
+
+MPLD . occupant:
+MPLD . occupant . montant:
+  produit:
+    - taux financement
+    - montant travaux
+  plafond: 70000 €
+  unité: €
+MPLD . occupant . taux financement:
+  somme:
+    - bonus
+    - variations:
+      - si: ménage . revenu . classe = 'très modeste'
+        alors: 80 %
+      - si: ménage . revenu . classe = 'modeste'
+        alors: 60 %
+MPLD . occupant . bonus:
+  titre: Bonus sortie de passoire
+  description: |
+    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification ne s'applique que si l'étiquette D est atteinte à minima.
+  applicable si: condition
+  valeur: 10 %
+MPLD . occupant . bonus . condition:
+  toutes ces conditions:
+    - projet . DPE visé <= 4
+    - DPE . actuel >= 6

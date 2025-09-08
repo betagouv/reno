@@ -20,6 +20,8 @@ aides:
           - MPR . non accompagnée . montant
     - si: parcours d'aide = "autonomie de la personne"
       alors: mpa . montant
+    - si: parcours d'aide = "sécurité salubrité"
+      alors: MPLD . montant
 
 ménage . revenu:
   titre: Revenu fiscal de référence
