@@ -38,6 +38,7 @@ export default function PCH({
                 answeredQuestions,
                 rules,
                 rule: 'pch . revenus taux plein',
+                noSuccess: true,
               }}
             />
           </div>

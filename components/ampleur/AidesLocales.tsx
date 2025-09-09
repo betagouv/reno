@@ -4,7 +4,6 @@ import CommuneSearch from '../CommuneSearch'
 import { encodeSituation } from '../publicodes/situationUtils'
 import AidesLocalesByLevel from './AidesLocalesByLevel'
 import { findAidesLocales } from './useAides'
-import { Key } from '../explications/ExplicationUI'
 
 const levels = rules['aides locales . montant'].somme
 
@@ -76,8 +75,7 @@ export default function AidesLocales({
       >
         <p>
           <strong>Nous ne disposons pas d'informations</strong> sur les aides
-          locales de votre commune{' '}
-          <Key $state={'prime-black'}>{communeName || commune}</Key>.
+          locales de votre commune <strong>{communeName || commune}</strong>.
         </p>
       </AideAmpleur>
     )

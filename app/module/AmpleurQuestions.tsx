@@ -423,6 +423,7 @@ export const YesNoQuestion = ({
   rule,
   text,
   disabled,
+  noSuccess,
 }) => {
   const answered = answeredQuestions.includes(rule)
   return (
@@ -458,7 +459,7 @@ export const YesNoQuestion = ({
         },
       ]}
       disabled={disabled}
-      state={answered && !disabled && 'success'}
+      state={!noSuccess && answered && !disabled && 'success'}
       stateRelatedMessage=""
       orientation="horizontal"
     />
