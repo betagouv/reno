@@ -3,12 +3,14 @@ import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
+import OutreMerInformation from './OutreMerInformation'
 
 export default function AddressSearch({
   setCoordinates,
   coordinates,
   dpe,
   situation,
+  engine = null,
   addressResults,
   setAddressResults,
   onChange = null,
@@ -96,6 +98,7 @@ export default function AddressSearch({
           </ul>
         </div>
       )}
+      <OutreMerInformation {...{ situation, engine }} />
     </>
   )
 }

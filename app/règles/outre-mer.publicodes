@@ -1,0 +1,12 @@
+outre-mer:
+  une de ces conditions:
+    - DROM
+    - COM
+
+outre-mer . DROM:
+  une de ces conditions:
+    - logement . code région = '01' # Guadeloupe
+    - logement . code région = '02' # Martinique
+    - logement . code région = '03' # Guyane
+  # la suite
+outre-mer . COM: non
