@@ -75,7 +75,14 @@ export default function AddressSearch({
           <p className="fr-my-3v">Sélectionnez une adresse :</p>
           <ul>
             {addressResults.map((result, i) => {
-              const { label, id } = result.properties
+              const { label, id, context } = result.properties
+              console.log({ address: result.properties })
+
+              const ambiguity = addressResults.find(
+                (result, index) =>
+                  i !== index && result.properties.label === label,
+              )
+
               return (
                 <li key={id}>
                   <button
@@ -90,7 +97,7 @@ export default function AddressSearch({
                       setClicked(result)
                     }}
                   >
-                    {label}
+                    {label} {ambiguity && <small>{context}</small>}
                   </button>
                 </li>
               )
