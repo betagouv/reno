@@ -14,7 +14,7 @@ export default function OutreMerInformation({ situation, engine }) {
               <div>
                 🔴 Désolé, le service Mes Aides Réno{' '}
                 <strong>ne prend pas encore en compte</strong> les règles
-                spécifiques aux collectivités d'outre-mer. <br />.
+                spécifiques aux <strong>collectivités d'outre-mer</strong>.
               </div>
             ) : (
               <div>
