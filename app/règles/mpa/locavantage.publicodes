@@ -22,6 +22,7 @@ locavantage . condition éligibilité:
       - parcours d'aide = "autonomie"
       - mpa . situation demandeur = 'bailleur'
     - toutes ces conditions:
+      - parcours d'aide = "rénovation énergétique"
       - vous . propriétaire . condition
       - logement . propriétaire occupant = non
       - logement . résidence principale locataire = oui
