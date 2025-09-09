@@ -14,7 +14,7 @@ export default function OutreMerInformation({ situation, engine }) {
             <div>
               🔴 Le service Mes Aides Réno{' '}
               <strong>ne prend pas encore en compte</strong> les règles
-              spécifiques de l'outre-mer. <br />
+              spécifiques à l'outre-mer. <br />
               En attendant, vous pouvez utiliser{' '}
               <a href="https://france-renov.gouv.fr/aides/simulation">
                 le simulateur France Rénov'
