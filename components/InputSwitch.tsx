@@ -20,7 +20,7 @@ import ChoixCategorieTravaux from './ChoixCategorieTravaux'
 import ChoixTravaux from './ChoixTravaux'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
-import { mpaLogementValues } from '@/app/module/AmpleurInputs'
+import { logementValues } from '@/app/module/AmpleurInputs'
 
 export default function InputSwitch({
   form,
@@ -115,17 +115,17 @@ export default function InputSwitch({
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
           onChange={(value) => {
-            if (currentQuestion == 'mpa . situation demandeur') {
-              const additionalSituation = mpaLogementValues.find(
+            if (currentQuestion.includes('situation demandeur')) {
+              const additionalSituation = logementValues.find(
                 ({ valeur }) => valeur == value,
               ).situation
 
               const encodedSituation = encodeSituation(
-                additionalSituation,
+                { ...additionalSituation, [currentQuestion]: `"${value}"` },
                 true,
                 [
                   ...Object.keys(additionalSituation).filter(
-                    (r) => r != 'mpa . situation demandeur',
+                    (r) => r != currentQuestion,
                   ),
                 ],
               )

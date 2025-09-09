@@ -136,6 +136,18 @@ export default function Eligibility({
             searchParams,
           }}
         />
+      ) : situation["parcours d'aide"] == '"sécurité salubrité"' ? (
+        <EligibilityMPLD
+          {...{
+            engine,
+            situation,
+            aides,
+            answeredQuestions,
+            rules,
+            setSearchParams,
+            searchParams,
+          }}
+        />
       ) : (
         <EligibilityRenovationEnergetique
           {...{
@@ -289,6 +301,69 @@ export function EligibilityRenovationEnergetique({
 }
 
 export function EligibilityMPA({
+  engine,
+  situation,
+  aides,
+  answeredQuestions,
+  rules,
+  setSearchParams,
+  searchParams,
+}) {
+  let lastStatus = false
+  return (
+    <>
+      {aides
+        .sort((a, b) => {
+          if (a.status === b.status) return 0
+          if (a.status === true) return -1
+          if (b.status === true) return 1
+          if (a.status === null) return -1
+          if (b.status === null) return 1
+          return 0
+        })
+        .map((aide, i) => {
+          const currentStatus = aide.status
+          const updatedLastStatus = lastStatus
+          lastStatus = currentStatus
+          const AideComponent = correspondance[aide.baseDottedName]
+          return (
+            <React.Fragment key={i}>
+              {aide.status === null && updatedLastStatus !== null && (
+                <h2 className="fr-mt-5v">
+                  <span aria-hidden="true">🏦</span> Autres aides
+                  complémentaires
+                </h2>
+              )}
+              {aide.status === false && updatedLastStatus !== false && (
+                <h2 className="fr-mt-5v">
+                  <span aria-hidden="true">⛔</span> Non éligible
+                </h2>
+              )}
+              <div>
+                <AideComponent
+                  key={aide.baseDottedName}
+                  {...{
+                    isEligible: aide.status,
+                    dottedName: aide.baseDottedName,
+                    setSearchParams,
+                    answeredQuestions,
+                    engine,
+                    situation,
+                    searchParams,
+                    rules,
+                    expanded: false,
+                  }}
+                />
+              </div>
+            </React.Fragment>
+          )
+        })}
+      <BlocEtMaintenant />
+    </>
+  )
+}
+
+export function EligibilityMPLD({
   engine,
   situation,
   aides,
