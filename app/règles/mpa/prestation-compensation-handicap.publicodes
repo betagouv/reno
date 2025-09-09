@@ -32,13 +32,13 @@ pch . revenus taux plein:
     Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
 pch . pourcentage d'aide:
   variations:
-    - si: montant travaux <= 15000 €
+    - si: montant travaux <= 1500 €
       alors:
         variations:
           - si: revenus taux plein 
             alors: 100%
           - sinon: 80%
-    - si: montant travaux > 15000 €
+    - si: montant travaux > 1500 €
       alors: 50%
 pch . montant travaux: mpa . montant travaux
 pch . condition éligibilité:
