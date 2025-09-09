@@ -17,9 +17,9 @@ pah:
       - Le remplacement d’un système de chauffage,
       - L’isolation thermique de tout ou d’une partie de votre maison,
       - Des travaux pour vous permettre plus d’autonomie : pose d’un monte-escalier, agrandissement de certaines entrées, automatisation des volets roulants, une barre dans la douche ou les toilettes.
-  applicable si: conditions éligibilités 
+  applicable si: condition éligibilité 
 pah . montant: 1067.14 €
 pah . durée: 3 ans
-pah . conditions éligibilités:
+pah . condition éligibilité:
   toutes ces conditions: 
     - mpa . situation demandeur = 'occupant'

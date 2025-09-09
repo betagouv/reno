@@ -18,7 +18,7 @@ pch:
     La PCH est attribuée sans condition de ressources. Toutefois, vos ressources sont prises en compte pour déterminer le taux de prise en charge de vos dépenses pour compenser votre situation de handicap.
 
     Ainsi, vos dépenses sont prises en charge à 100 % de leur tarif si vos ressources annuelles sont inférieures ou égales à 30 915,30 €, ou 80 % si elles sont supérieures.
-  applicable si: conditions éligibilités 
+  applicable si: condition éligibilité 
 pch . montant: 
   unité: €
   produit:
@@ -41,6 +41,6 @@ pch . pourcentage d'aide:
     - si: montant travaux > 15000 €
       alors: 50%
 pch . montant travaux: mpa . montant travaux
-pch . conditions éligibilités:
+pch . condition éligibilité:
   toutes ces conditions: 
     - mpa . situation demandeur = 'occupant'

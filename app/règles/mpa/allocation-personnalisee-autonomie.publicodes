@@ -33,8 +33,8 @@ apa:
       - Prestation de compensation du handicap (PCH)
       - Majoration pour aide constante d'une tierce personne
       - Prestation complémentaire pour recours à tierce personne (PCRTP). Mais la personne qui reçoit la PCRTP peut déposer un dossier de demande d'Apa, pour pouvoir ensuite choisir, entre ces 2 aides, celle qui lui convient le mieux.
-  applicable si: conditions éligibilités 
-apa . conditions éligibilités:
+  applicable si: condition éligibilité 
+apa . condition éligibilité:
   toutes ces conditions: 
     - mpa . situation demandeur = 'occupant'
     - mpa . occupant . condition age ou handicap = 'gir'
