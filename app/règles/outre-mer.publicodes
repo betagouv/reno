@@ -8,5 +8,6 @@ outre-mer . DROM:
     - logement . code région = '01' # Guadeloupe
     - logement . code région = '02' # Martinique
     - logement . code région = '03' # Guyane
-  # la suite
-outre-mer . COM: non
+    - logement . code région = '04' # La Réunion
+    - logement . code région = '06' # Mayotte
+outre-mer . COM: non # à faire
