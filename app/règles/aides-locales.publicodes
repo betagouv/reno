@@ -236,6 +236,7 @@ côte-d'or . aide aux travaux . conditions:
     - ménage . revenu . classe = 'très modeste'
     - projet . gain energétique > 40 %
     - conditions communes
+    - logement . au moins 15 ans
     - conditions géo
 
 côte-d'or . aide aux travaux . montant:
@@ -343,9 +344,9 @@ angers . aides socles . taux:
     - si: revenu très très modeste
       alors: 20 %
     - si: ménage . revenu . classe = "très modeste"
-      # TODO: Normalement 15 % ici, on peut se permettre de mettre 20 % car on affiche "jusqu'à" dans l'interface 
+      # TODO: Normalement 15 % ici, on peut se permettre de mettre 20 % car on affiche "jusqu'à" dans l'interface
       # à terme il faut trouver un meilleur moyen de gérer ça
-      alors: 20 % 
+      alors: 20 %
     - si:
         une de ces conditions:
           - ménage . revenu . classe = "intermédiaire"
