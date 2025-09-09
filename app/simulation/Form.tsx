@@ -32,6 +32,7 @@ import AideEtapes from '@/components/AideEtapes'
 import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
 import LocAvantage from '@/components/LocAvantage'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
+import MaPrimeLogementDecent from '@/components/maPrimeLogementDecent/MaPrimeLogementDecent'
 
 export const correspondance = {
   'MPR . accompagnée': MPRA,
@@ -50,6 +51,7 @@ export const correspondance = {
   pah: PAH,
   pch: PCH,
   apa: APA,
+  MPLD: MaPrimeLogementDecent,
 }
 
 function Form({ rules, simulationConfig }) {

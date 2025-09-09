@@ -54,11 +54,10 @@ export const usageLogementValues = [
   },
 ]
 
-export const mpaLogementValues = [
+export const logementValues = [
   {
     valeur: 'occupant',
     situation: {
-      'mpa . situation demandeur': '"occupant"',
       'vous . propriétaire . statut': '"propriétaire"',
       'logement . résidence principale locataire': 'non',
       'logement . résidence principale propriétaire': 'oui',
@@ -68,7 +67,6 @@ export const mpaLogementValues = [
   {
     valeur: 'bailleur',
     situation: {
-      'mpa . situation demandeur': '"bailleur"',
       'vous . propriétaire . statut': '"propriétaire"',
       'logement . résidence principale locataire': 'oui',
       'logement . résidence principale propriétaire': 'non',

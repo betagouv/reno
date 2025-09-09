@@ -13,13 +13,6 @@ MPLD:
   description: |
     Ma Prime Logement Décent est une aide à destination des propriétaires occupants aux revenus modestes ou très modestes, souhaitant réaliser des travaux dans des logements notablement dégradés et/ou insalubres.
   lien: https://france-renov.gouv.fr/aides/ma-prime-logement-decent
-
-MPLD . conditions éligibilités:
-  toutes ces conditions:
-    - une de ces conditions:
-      - ménage . revenu . classe = 'très modeste'
-      - ménage . revenu . classe = 'modeste'
-    - conditions communes
 MPLD . montant:
   applicable si: condition éligibilité
   variations:
@@ -29,6 +22,14 @@ MPLD . montant:
       alors: bailleur . montant
     - si: MPLD . situation demandeur = 'copropriété'
       alors: copropriété . montant
+MPLD . condition éligibilité: 
+  variations:
+    - si: MPLD . situation demandeur = 'occupant'
+      alors: occupant . condition éligibilité
+    - si: MPLD . situation demandeur = 'bailleur'
+      alors: bailleur . condition éligibilité
+    - si: MPLD . situation demandeur = 'copropriété'
+      alors: copropriété . condition éligibilité
 MPLD . situation demandeur:
   question: Quelle est votre situation ?
   une possibilité parmi:
@@ -48,21 +49,40 @@ MPLD . situation demandeur . copropriété:
   titre: Syndicat de copropriété
 
 MPLD . occupant:
+MPLD . occupant . conditions de revenu:
+  une de ces conditions:
+    - ménage . revenu . classe = 'modeste'
+    - ménage . revenu . classe = 'très modeste'
+MPLD . occupant . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'occupant'
+    - conditions de revenu
+    - logement . période de construction = "au moins 15 ans"
 MPLD . occupant . montant:
   produit:
-    - taux financement
+    - pourcentage d'aide
     - montant travaux
-  plafond: 70000 €
   unité: €
-MPLD . occupant . taux financement:
+MPLD . occupant . montant travaux: montant travaux
+MPLD . occupant . montant travaux . plafond: 
+  variations: 
+    - si: projet . DPE visé > 5
+      alors: 50000 €
+    - sinon: 70000 €
+MPLD . occupant . pourcentage d'aide:
+  unité: '%'
   somme:
     - bonus
     - variations:
+      - si: projet . DPE visé > 5
+        alors: 50 %
       - si: ménage . revenu . classe = 'très modeste'
         alors: 80 %
       - si: ménage . revenu . classe = 'modeste'
         alors: 60 %
+  
 MPLD . occupant . bonus:
+  unité: '%'
   titre: Bonus sortie de passoire
   description: |
     Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification ne s'applique que si l'étiquette D est atteinte à minima.
@@ -72,3 +92,24 @@ MPLD . occupant . bonus . condition:
   toutes ces conditions:
     - projet . DPE visé <= 4
     - DPE . actuel >= 6
+
+MPLD . bailleur:
+MPLD . bailleur . montant:
+MPLD . bailleur . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'bailleur'
+
+MPLD . copropriété:
+MPLD . copropriété . montant:
+  applicable si: condition éligibilité
+  produit:
+    - montant travaux
+    - 50 %
+  unité: €
+MPLD . copropriété . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'copropriété'
+
+MPLD . montant travaux:
+  question: Quel est le montant estimé de travaux ?
+  unité: '€'

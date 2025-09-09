@@ -25,6 +25,7 @@ import pch from '@/app/règles/mpa/prestation-compensation-handicap.publicodes'
 import apa from '@/app/règles/mpa/allocation-personnalisee-autonomie.publicodes'
 import tva from '@/app/règles/mpa/TVA.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
+import mpld from '@/app/règles/ma-prime-logement-decent.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -69,6 +70,7 @@ const rules = {
   ...pch,
   ...apa,
   ...tva,
+  ...mpld,
 }
 
 const rulesWithMarkdown = Object.fromEntries(

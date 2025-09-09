@@ -1,16 +1,12 @@
-import Input from '@codegouvfr/react-dsfr/Input'
 import AideAmpleur from '../ampleur/AideAmpleur'
 import { createExampleSituation } from '../ampleur/AmpleurSummary'
-import { encodeDottedName } from '../publicodes/situationUtils'
 import Value from '../Value'
-import { formatNumberWithSpaces } from '../utils'
-import { push } from '@socialgouv/matomo-next'
 import CalculatorWidget from '../CalculatorWidget'
-import rules from '@/app/règles/rules'
-import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
-import Badge from '@codegouvfr/react-dsfr/Badge'
+import TargetDPETabs from '../mpra/TargetDPETabs'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
+import { BlocMontantTravaux } from '../maPrimeAdapt/MaPrimeAdapt'
 
-export default function MaPrimeAdapt({
+export default function MaPrimeLogementDecent({
   isEligible,
   engine,
   situation,
@@ -19,17 +15,19 @@ export default function MaPrimeAdapt({
   expanded,
 }) {
   const dottedName =
-    'mpa . ' + situation['mpa . situation demandeur'].replaceAll('"', '') // 'mpa . occupant'
-  const accompagnement = 'mpa . occupant . accompagnement'
+    'MPLD . ' + situation['MPLD . situation demandeur'].replaceAll('"', '')
   const exampleSituation = createExampleSituation(situation)
   const extremeSituation = createExampleSituation(situation, 'best')
+  const bonusSortiePassoire = engine
+    .setSituation(situation)
+    .evaluate('MPLD . occupant . bonus').nodeValue
 
   return (
     <AideAmpleur
       {...{
         isEligible,
         engine,
-        dottedName: 'mpa',
+        dottedName: 'MPLD',
         setSearchParams,
         situation,
         answeredQuestions,
@@ -40,7 +38,7 @@ export default function MaPrimeAdapt({
     >
       <h3>Comment est calculée l'aide ?</h3>
       <CalculatorWidget>
-        {dottedName == 'mpa . occupant' && (
+        {dottedName == 'MPLD . occupant' && (
           <>
             <p>
               En tant que ménage{' '}
@@ -61,6 +59,12 @@ export default function MaPrimeAdapt({
                   state: 'normal',
                 }}
               />{' '}
+              {bonusSortiePassoire && (
+                <>
+                  (dont <strong>{bonusSortiePassoire} %</strong> de bonus
+                  "Sortie de passoire"){' '}
+                </>
+              )}
               dans la limite d'un plafond de travaux subventionnables de{' '}
               <Value
                 {...{
@@ -72,6 +76,17 @@ export default function MaPrimeAdapt({
               />
               .
             </p>
+            <div className="fr-mt-5v">
+              <DPEQuickSwitch situation={situation} noSuccess />
+              <TargetDPETabs
+                {...{
+                  setSearchParams,
+                  situation,
+                  text: 'DPE visé :',
+                  noSuccess: true,
+                }}
+              />
+            </div>
             <BlocMontantTravaux
               {...{
                 engine,
@@ -79,66 +94,12 @@ export default function MaPrimeAdapt({
                 exampleSituation,
                 dottedName,
                 setSearchParams,
+                rule: 'MPLD . montant travaux',
               }}
-            />
-            <div className="fr-highlight fr-my-5v">
-              De plus, en tant que propriétaire occupant ou locataire, vous avez
-              droit à une avance de{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: 'mpa . occupant . avance',
-                }}
-              />{' '}
-              du montant de l’aide.
-            </div>
-            <RadioButtons
-              legend={rules[accompagnement]['question'] + ' : '}
-              hintText={rules[accompagnement]['description']}
-              options={rules[accompagnement]['une possibilité parmi'][
-                'possibilités'
-              ].map((i) => ({
-                label: (
-                  <div>
-                    {rules[`${accompagnement} . ${i}`].titre}{' '}
-                    <Badge
-                      noIcon
-                      severity={situation[accompagnement] === i && 'success'}
-                    >
-                      {rules[`${accompagnement} . ${i}`].montant}
-                    </Badge>
-                  </div>
-                ),
-                hintText: (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: rules[`${accompagnement} . ${i}`].description,
-                    }}
-                  />
-                ),
-                nativeInputProps: {
-                  value: i,
-                  checked: situation[accompagnement] === i,
-                  onChange: () => {
-                    push([
-                      'trackEvent',
-                      'MPA',
-                      'Interaction',
-                      'type accompagement',
-                    ])
-
-                    setSearchParams({
-                      [encodeDottedName(accompagnement)]: i + '*',
-                    })
-                  },
-                },
-              }))}
-              stateRelatedMessage=""
             />
           </>
         )}
-        {dottedName == 'mpa . bailleur' && (
+        {dottedName == 'MPLD . bailleur' && (
           <>
             <p>
               Il est obligatoire de signer une convention avec l'Agence
@@ -191,7 +152,7 @@ export default function MaPrimeAdapt({
             />
           </>
         )}
-        {dottedName == 'mpa . copropriété' && (
+        {dottedName == 'MPLD . copropriété' && (
           <>
             <p>
               En tant que syndicat de copropriété vous bénéficiez d'une aide de{' '}
@@ -229,72 +190,3 @@ export default function MaPrimeAdapt({
     </AideAmpleur>
   )
 }
-
-export const BlocMontantTravaux = ({
-  engine,
-  situation,
-  dottedName,
-  setSearchParams,
-  exampleSituation,
-  rule = 'mpa . montant travaux',
-}) => (
-  <div className="fr-grid-row fr-grid-row--center fr-my-5v">
-    <div
-      css={`
-        text-align: center;
-        div {
-          justify-content: center;
-        }
-      `}
-      className="fr-col"
-    >
-      <Input
-        label="Montant estimée des travaux : "
-        nativeInputProps={{
-          pattern: '\d+',
-          type: 'text',
-          name: 'montant-travaux',
-          inputMode: 'numeric',
-          onChange: (e) => {
-            const price = e.target.value.replace(/\s/g, '')
-            const invalid = price != '' && (isNaN(price) || price <= 0)
-            if (invalid) return
-
-            push([
-              'trackEvent',
-              rule,
-              'Interaction',
-              'montant travaux ' + price,
-            ])
-            console.log('rule', rule)
-            setSearchParams({
-              [encodeDottedName(rule)]: price == '' ? undefined : price + '*',
-            })
-          },
-          value: exampleSituation[rule]
-            ? formatNumberWithSpaces(exampleSituation[rule])
-            : '',
-        }}
-        addon={
-          <>
-            <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-              € HT
-            </span>
-          </>
-        }
-      />
-    </div>
-    <div style={{ textAlign: 'center' }} className="fr-col">
-      Montant de l'aide : <br />
-      <Value
-        {...{
-          engine,
-          situation,
-          dottedName: dottedName + ' . montant',
-          className: 'fr-mt-2v',
-          size: 'xl',
-        }}
-      />
-    </div>
-  </div>
-)

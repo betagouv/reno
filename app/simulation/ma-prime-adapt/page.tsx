@@ -1,7 +1,7 @@
 import rules from '@/app/règles/rules'
 import { Metadata } from 'next'
 import Form from '../Form'
-import simulationConfigMPA from '../simulationConfigMPA.yaml'
+import simulationConfigAll from '../simulationConfigAll.yaml'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { PageBlock } from '@/components/UI'
 
@@ -20,7 +20,7 @@ export default function Page() {
     <>
       <StartDsfrOnHydration />
       <PageBlock>
-        <Form simulationConfig={simulationConfigMPA} rules={rules} />
+        <Form simulationConfig={simulationConfigAll} rules={rules} />
       </PageBlock>
     </>
   )

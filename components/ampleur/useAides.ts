@@ -46,16 +46,18 @@ export function useAides(
   const topList =
     parcoursAide == 'rénovation énergétique'
       ? [...rules['ampleur . tous les dispositifs'].somme]
-      : [
-          'mpa . montant',
-          'locavantage . montant',
-          'tva réduite',
-          "crédit d'impôt . montant",
-          'aides locales',
-          'pah',
-          'pch . montant',
-          'apa',
-        ]
+      : parcoursAide == '"sécurité salubrité"'
+        ? ['MPLD . montant']
+        : [
+            'mpa . montant',
+            'locavantage . montant',
+            'tva réduite',
+            "crédit d'impôt . montant",
+            'aides locales',
+            'pah',
+            'pch . montant',
+            'apa',
+          ]
   // unfold the sums with one level only, no recursion yet
   const list = topList
     .map((dottedName) => {
