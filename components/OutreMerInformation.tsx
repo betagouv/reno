@@ -21,15 +21,13 @@ export default function OutreMerInformation({ situation, engine }) {
               </a>
               .
             </div>
+            <div>
+              <small style={{ color: 'lightgray' }}>
+                Code région : {codeRegion.replace(/"/g, '')}
+              </small>
+            </div>
           </div>
-        ) : (
-          <span>L'adresse est en métropole</span>
-        )}
-      </div>
-      <div>
-        <small style={{ color: 'lightgray' }}>
-          Code région : {codeRegion.replace(/"/g, '')}
-        </small>
+        ) : null}
       </div>
     </section>
   )
