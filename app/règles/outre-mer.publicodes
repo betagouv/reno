@@ -4,6 +4,7 @@ outre-mer:
     - COM
 
 outre-mer . DROM:
+  titre: Départements et Régions d’outre-mer
   une de ces conditions:
     - logement . code région = '01' # Guadeloupe
     - logement . code région = '02' # Martinique
@@ -11,11 +12,13 @@ outre-mer . DROM:
     - logement . code région = '04' # La Réunion
     - logement . code région = '06' # Mayotte
 outre-mer . COM:
+  titre: Collectivités d'outre-mer
   une de ces conditions:
     - logement . code région = '975' # Saint-Pierre-et-Miquelon
+    - logement . code région = '976' # Terres australes et antarctiques françaises
     - logement . code région = '977' # Saint-Barthélemy (Antilles françaises)
     - logement . code région = '978' # Saint-Martin (Antilles françaises)
     - logement . code région = '986' # Wallis-et-Futuna
     - logement . code région = '987' # Polynésie française
-    - logement . code région = '988' # Nouvelle-Calédonie
+    - logement . code région = '988' # Nouvelle-Calédonie, a un statut particulier, mais souvent classée comme COM
 
