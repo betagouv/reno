@@ -1,5 +1,4 @@
 export default function OutreMerInformation({ situation, engine }) {
-  const { 'logement . code région': codeRegion } = situation
   const evaluation = engine.setSituation(situation).evaluate('outre-mer')
   const isOutreMer = evaluation.nodeValue,
     isDROM = engine.evaluate('outre-mer . DROM').nodeValue,
@@ -22,14 +21,8 @@ export default function OutreMerInformation({ situation, engine }) {
                 ✅ Les règles spécifiques aux départements et régions
                 d'outre-mer sont prises en compte dans la suite de la
                 simulation.
-                <br />
               </div>
             )}
-            <div>
-              <small style={{ color: 'lightgray' }}>
-                Code région : {codeRegion.replace(/"/g, '')}
-              </small>
-            </div>
           </div>
         ) : null}
       </div>
