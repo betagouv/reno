@@ -4,7 +4,7 @@ import { push } from '@socialgouv/matomo-next'
 import ButtonsGroup from '@codegouvfr/react-dsfr/ButtonsGroup'
 import useIsMobile from '../useIsMobile'
 
-export default function AideCTAs({ dottedName, setSearchParams }) {
+export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
   const isMobile = useIsMobile()
 
   const detailUrl = setSearchParams(
@@ -14,6 +14,17 @@ export default function AideCTAs({ dottedName, setSearchParams }) {
     'url',
     false,
   )
+  const hasCalculette =
+    [
+      'MPR . accompagnée',
+      'denormandie',
+      "CEE . rénovation d'ampleur",
+      'mpa',
+      'locavantage',
+      "crédit d'impôt",
+      'pch',
+      'MPLD',
+    ].includes(dottedName) && isEligible !== false
 
   return (
     <ButtonsGroup
@@ -21,16 +32,7 @@ export default function AideCTAs({ dottedName, setSearchParams }) {
       inlineLayoutWhen="always"
       buttons={[
         {
-          children: [
-            'MPR . accompagnée',
-            'denormandie',
-            "CEE . rénovation d'ampleur",
-            'mpa',
-            'locavantage',
-            "crédit d'impôt",
-            'pch',
-            'MPLD',
-          ].includes(dottedName) ? (
+          children: hasCalculette ? (
             <>
               <span
                 className="fr-icon-money-euro-circle-line fr-mr-1v"
@@ -42,7 +44,7 @@ export default function AideCTAs({ dottedName, setSearchParams }) {
             `En savoir plus ${!isMobile && `sur ${rules[dottedName]?.marque}`}`
           ),
           linkProps: {
-            href: detailUrl,
+            href: hasCalculette ? detailUrl : rules[dottedName]?.lien,
             onClick: () => {
               push([
                 'trackEvent',

@@ -1,6 +1,4 @@
-import rules from '@/app/règles/rules'
 import AideAmpleur from '../ampleur/AideAmpleur'
-import { ConditionEligibiliteUI } from '../UI'
 
 export default function PAH({
   isEligible,

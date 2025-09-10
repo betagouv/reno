@@ -109,14 +109,13 @@ export default function AideAmpleur({
             }}
           />
           {addedText}
-          {isEligible !== false && (
-            <AideCTAs
-              {...{
-                dottedName,
-                setSearchParams,
-              }}
-            />
-          )}
+          <AideCTAs
+            {...{
+              dottedName,
+              setSearchParams,
+              isEligible,
+            }}
+          />
         </Accordion>
       )}
     </>
