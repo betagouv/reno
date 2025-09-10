@@ -249,7 +249,7 @@ export const BlocMontantTravaux = ({
       className="fr-col"
     >
       <Input
-        label="Montant estimée des travaux : "
+        label="Montant estimé des travaux : "
         nativeInputProps={{
           pattern: '\d+',
           type: 'text',
