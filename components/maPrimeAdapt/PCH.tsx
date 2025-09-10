@@ -25,6 +25,7 @@ export default function PCH({
         answeredQuestions,
         situation,
         expanded,
+        noCondition: true,
       }}
     >
       <h3>Comment est calculée l'aide ?</h3>

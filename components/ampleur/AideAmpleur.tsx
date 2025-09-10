@@ -15,6 +15,7 @@ export default function AideAmpleur({
   children,
   expanded,
   addedText = null,
+  noCondition = false,
 }) {
   return (
     <>
@@ -57,9 +58,11 @@ export default function AideAmpleur({
             }}
           />
           {children}
-          <ConditionEligibiliteUI>
-            {rules[dottedName].conditionsEligibilitesHTML}
-          </ConditionEligibiliteUI>
+          {!noCondition && (
+            <ConditionEligibiliteUI>
+              {rules[dottedName].conditionsEligibilitesHTML}
+            </ConditionEligibiliteUI>
+          )}
           {rules[dottedName]['lien'] && (
             <p>
               <a
