@@ -177,12 +177,19 @@ MPLD . copropriété . montant:
   applicable si: condition éligibilité
   produit:
     - montant travaux
-    - 50 %
+    - pourcentage d'aide
   unité: €
+MPLD . copropriété . pourcentage d'aide: 50 %
 MPLD . copropriété . condition éligibilité:
   toutes ces conditions:
     - situation demandeur = 'copropriété'
+    - copropriété . condition 15 ans
+    - copropriété . condition résidence principale
+    - condition arrêté police
 
+MPLD . copropriété . condition arrêté police:
+  question: La copropriété fait-elle l’objet d’un arrêté de police administratif (insalubrité, saturnisme, péril, sécurité des équipements communs) ?
+  par défaut: oui
 MPLD . montant travaux:
   question: Quel est le montant estimé de travaux ?
   unité: '€'

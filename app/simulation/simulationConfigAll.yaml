@@ -5,6 +5,10 @@ prioritaires:
   - mpa . occupant . condition age ou handicap
   - MPLD . situation demandeur
   - MPLD . bailleur . ampleur travaux
+  - copropriété . condition 15 ans
+  - copropriété . condition résidence principale
+  - MPLD . copropriété . condition arrêté police
+
   - vous . propriétaire . statut
   - logement . propriétaire occupant
   - logement . résidence principale propriétaire

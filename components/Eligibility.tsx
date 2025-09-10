@@ -386,18 +386,17 @@ export function EligibilityMPLD({
         })
         .map((aide, i) => {
           const currentStatus = aide.status
-          const updatedLastStatus = lastStatus
           lastStatus = currentStatus
           const AideComponent = correspondance[aide.baseDottedName]
           return (
             <React.Fragment key={i}>
-              {aide.status === null && updatedLastStatus !== null && (
+              {aide.status === null && (
                 <h2 className="fr-mt-5v">
                   <span aria-hidden="true">🏦</span> Autres aides
                   complémentaires
                 </h2>
               )}
-              {aide.status === false && updatedLastStatus !== false && (
+              {aide.status === false && (
                 <h2 className="fr-mt-5v">
                   <span aria-hidden="true">⛔</span> Non éligible
                 </h2>

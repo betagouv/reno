@@ -172,16 +172,8 @@ export default function MaPrimeLogementDecent({
                   state: 'prime-black',
                 }}
               />{' '}
-              avec un plafond de dépenses subventionnables de{' '}
-              <Value
-                {...{
-                  engine,
-                  situation,
-                  dottedName: dottedName + ' . montant travaux . plafond',
-                  state: 'prime-black',
-                }}
-              />
-              .
+              sans plafond (travaux limités à ceux nécessaires pour lever la
+              procédure ou mettre fin à la situation d’habitat indigne) .
             </p>
             <BlocMontantTravaux
               {...{
@@ -190,6 +182,7 @@ export default function MaPrimeLogementDecent({
                 exampleSituation,
                 dottedName,
                 setSearchParams,
+                rule: 'MPLD . montant travaux',
               }}
             />
           </>
