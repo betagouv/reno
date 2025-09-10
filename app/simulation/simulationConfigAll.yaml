@@ -3,6 +3,8 @@ prioritaires:
 
   - mpa . situation demandeur
   - mpa . occupant . condition age ou handicap
+  - mpa . bailleur . condition locataire
+
   - MPLD . situation demandeur
   - MPLD . bailleur . ampleur travaux
   - copropriété . condition 15 ans

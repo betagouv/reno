@@ -26,6 +26,6 @@ tva réduite:
     À noter : pour la fourniture et la pose de chaudières gaz à condensation, le taux de TVA passe à 20 % le 1er mars 2025.
   applicable si:
     toutes ces conditions:
-      - parcours d'aide = "autonomie de la personne"
+      - parcours d'aide = "autonomie"
       - logement . période de construction != 'moins de 2 ans'
 tva réduite . montant:

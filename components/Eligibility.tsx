@@ -124,7 +124,7 @@ export default function Eligibility({
           <span aria-hidden="true">💶</span> Aides pour vos travaux
         </h2>
       )}
-      {situation["parcours d'aide"] == '"autonomie de la personne"' ? (
+      {situation["parcours d'aide"] == '"autonomie"' ? (
         <EligibilityMPA
           {...{
             engine,

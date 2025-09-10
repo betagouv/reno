@@ -10,7 +10,7 @@ crédit d'impôt:
     - Vous avez un taux d'incapacité supérieur ou égal à 50 % (taux déterminé par décision de la Commission des droits et de l'autonomie des personnes handicapées - CDAPH).
 crédit d'impôt . condition éligibilité:
   toutes ces conditions:
-    - parcours d'aide = 'autonomie de la personne'
+    - parcours d'aide = 'autonomie'
     - une de ces conditions:
       - ménage . revenu . classe = 'intermédiaire'
       - ménage . revenu . classe = 'supérieure'
