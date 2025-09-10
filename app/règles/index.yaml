@@ -722,12 +722,18 @@ parcours d'aide:
   une possibilité parmi:
     possibilités:
       - 'rénovation énergétique'
-      - 'autonomie de la personne'
+      - 'autonomie'
       - 'sécurité salubrité'
 
 parcours d'aide . rénovation énergétique:
-parcours d'aide . autonomie de la personne:
+  titre: Rénovation énergétique
+  sous-titre: Réduire ma facture d'énergie ou améliorer le confort de mon logement - Rénovation énergétique
+parcours d'aide . autonomie:
+  titre: Autonomie de la personne
+  sous-titre: Adapter mon logement au vieillissement ou à une situation de handicap - Autonomie
 parcours d'aide . sécurité salubrité:
+  titre: Sécurité / Salubrité
+  sous-titre: Mettre mon logement aux normes de sécurité et de salubrité - Sécurité, salubrité
 
 MPR . non accompagnée . pourcentage d'écrêtement:
   description: |

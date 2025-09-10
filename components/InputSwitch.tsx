@@ -109,9 +109,6 @@ export default function InputSwitch({
         <RadioQuestion
           rule={rule}
           engine={engine}
-          currentQuestion={currentQuestion}
-          situation={situation}
-          placeholder={evaluation.nodeValue}
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
           onChange={(value) => {

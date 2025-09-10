@@ -1,17 +1,11 @@
-import { parse } from 'marked'
-export default function RadioQuestion({
-  situation,
-  name,
-  onChange,
-  value,
-  rule,
-  engine,
-}) {
+import { parse, parseInline } from 'marked'
+export default function RadioQuestion({ name, onChange, value, rule, engine }) {
   const list = rule['une possibilité parmi'].possibilités
 
   return list.map((element, index) => {
     const questionParams = engine.getParsedRules()[name + ' . ' + element]
     const subTitle = questionParams.rawNode['sous-titre']
+
     return (
       <div className="fr-fieldset__element" key={index}>
         <div className="fr-radio-group fr-radio-rich">
@@ -28,10 +22,12 @@ export default function RadioQuestion({
           <label className="fr-label" htmlFor={`radio-${index}`}>
             {questionParams ? questionParams.title : element}
             {subTitle && (
-              <small
+              <span
                 className="fr-hint-text"
                 dangerouslySetInnerHTML={{
-                  __html: parse(subTitle),
+                  __html: subTitle?.includes('\n')
+                    ? parse(subTitle)
+                    : parseInline(subTitle),
                 }}
               />
             )}
