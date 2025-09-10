@@ -1,8 +1,8 @@
 import rules from '@/app/règles/rules'
 import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 import { push } from '@socialgouv/matomo-next'
-import ButtonsGroup from '@codegouvfr/react-dsfr/ButtonsGroup'
 import useIsMobile from '../useIsMobile'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
   const isMobile = useIsMobile()
@@ -26,37 +26,26 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
       'MPLD',
     ].includes(dottedName) && isEligible !== false
 
-  return (
-    <ButtonsGroup
-      alignment="left"
-      inlineLayoutWhen="always"
-      buttons={[
-        {
-          children: hasCalculette ? (
-            <>
-              <span
-                className="fr-icon-money-euro-circle-line fr-mr-1v"
-                aria-hidden="true"
-              ></span>
-              Calculer le montant d'aides
-            </>
-          ) : (
-            `En savoir plus ${!isMobile && `sur ${rules[dottedName]?.marque}`}`
-          ),
-          linkProps: {
-            href: hasCalculette ? detailUrl : rules[dottedName]?.lien,
-            onClick: () => {
-              push([
-                'trackEvent',
-                'Simulateur Principal',
-                'Détails',
-                dottedName,
-              ])
-            },
-            className: 'fr-icon-arrow-right-line fr-btn--icon-right',
-          },
-        },
-      ]}
-    />
+  return hasCalculette ? (
+    <Button
+      iconId="fr-icon-money-euro-circle-line"
+      onClick={function () {
+        push(['trackEvent', 'Simulateur Principal', 'Détails', dottedName])
+        window.location.href = detailUrl
+      }}
+      priority="secondary"
+    >
+      Calculer le montant d'aides
+    </Button>
+  ) : (
+    <a
+      title="libellé du lien - nouvelle fenêtre"
+      href="#"
+      target="_blank"
+      rel="noopener external"
+      className="fr-link"
+    >
+      En savoir plus {!isMobile && `sur ${rules[dottedName]?.marque}`}
+    </a>
   )
 }
