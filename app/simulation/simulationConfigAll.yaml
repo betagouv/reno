@@ -4,7 +4,7 @@ prioritaires:
   - mpa . situation demandeur
   - mpa . occupant . condition age ou handicap
   - MPLD . situation demandeur
-
+  - MPLD . bailleur . ampleur travaux
   - vous . propriétaire . statut
   - logement . propriétaire occupant
   - logement . résidence principale propriétaire

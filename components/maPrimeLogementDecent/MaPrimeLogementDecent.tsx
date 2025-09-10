@@ -5,6 +5,9 @@ import CalculatorWidget from '../CalculatorWidget'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 import { BlocMontantTravaux } from '../maPrimeAdapt/MaPrimeAdapt'
+import DPELabel from '../dpe/DPELabel'
+import { YesNoQuestion } from '@/app/module/AmpleurQuestions'
+import rules from '@/app/règles/rules'
 
 export default function MaPrimeLogementDecent({
   isEligible,
@@ -115,32 +118,32 @@ export default function MaPrimeLogementDecent({
                   state: 'normal',
                 }}
               />{' '}
-              plafonnée à{' '}
+              du montant des travaux avec un plafond de travaux maximum de{' '}
               <Value
                 {...{
                   engine,
                   situation,
-                  dottedName: dottedName + ' . montant . plafond',
+                  dottedName: dottedName + ' . montant travaux . plafond',
                   state: 'normal',
                 }}
               />{' '}
-              par logement (750€/m²{' '}
-              {situation['logement . surface'] > 80 ? (
-                ' limité à 80m²'
-              ) : (
-                <>
-                  pour un logement de{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'logement . surface',
-                    }}
-                  />
-                </>
-              )}
-              ) .
+              par logement
+              {situation['logement . surface'] > 80 &&
+                ' (dans la limite de 80m²)'}
+              .
             </p>
+            <div className="fr-mt-5v">
+              <YesNoQuestion
+                {...{
+                  setSearchParams,
+                  situation,
+                  answeredQuestions,
+                  rules,
+                  rule: 'MPLD . bailleur . bonus gain',
+                  noSuccess: true,
+                }}
+              />
+            </div>
             <BlocMontantTravaux
               {...{
                 engine,
@@ -148,8 +151,13 @@ export default function MaPrimeLogementDecent({
                 exampleSituation,
                 dottedName,
                 setSearchParams,
+                rule: 'MPLD . montant travaux',
               }}
             />
+            <div className="fr-highlight fr-highlight--yellow-moutarde fr-my-5v">
+              Sous réserve que le logement atteigne au moins la classe{' '}
+              <DPELabel index={3} />.
+            </div>
           </>
         )}
         {dottedName == 'MPLD . copropriété' && (

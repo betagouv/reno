@@ -95,9 +95,82 @@ MPLD . occupant . bonus . condition:
 
 MPLD . bailleur:
 MPLD . bailleur . montant:
+  somme:
+    - montant aide
+    - bonus
+  unité: €
+MPLD . bailleur . montant aide:
+  produit:
+    - pourcentage d'aide
+    - montant travaux
+  plafond: plafond
+  unité: €
+MPLD . bailleur . montant aide . plafond:
+  produit: 
+    - le minimum de:
+      - 80 m²
+      - logement . surface
+    - montant travaux . plafond
+    - pourcentage d'aide
+MPLD . bailleur . montant travaux: montant travaux
+MPLD . bailleur . montant travaux . plafond: 
+  variations:
+    - si: ampleur travaux = 'très dégradé'
+      alors: 1000 € HT/m²
+    - si: ampleur travaux = 'sécurité'
+      alors: 750 € HT/m²
+    - si: ampleur travaux = 'moyennement dégradé'
+      alors: 750 € HT/m²
 MPLD . bailleur . condition éligibilité:
   toutes ces conditions:
     - situation demandeur = 'bailleur'
+MPLD . bailleur . pourcentage d'aide:
+  variations:
+    - si: ampleur travaux = 'très dégradé'
+      alors: 35 %
+    - si: ampleur travaux = 'sécurité'
+      alors: 35 %
+    - si: ampleur travaux = 'moyennement dégradé'
+      alors: 25 %
+MPLD . bailleur . bonus:
+  applicable si: bonus gain
+  variations:
+    - si: DPE . actuel >= 6
+      alors: 2000 €
+    - sinon: 1500 €
+  unité: €
+MPLD . bailleur . bonus gain:
+  question: Le gain énergétique sera de 35 % minimum ?
+MPLD . bailleur . bonus sortie passoire:
+  applicable si: DPE . actuel > 6
+  valeur: 2000 €
+MPLD . bailleur . ampleur travaux:
+  question: Quelle est l'ampleur des travaux à réaliser ?
+  une possibilité parmi:
+    possibilités:
+      - 'très dégradé'
+      - 'sécurité'
+      - 'moyennement dégradé'
+MPLD . bailleur . ampleur travaux . très dégradé:
+  valeur: "'très dégradé'"
+  titre: Travaux de rénovation globale d'un logement indigne ou très dégradé
+  sous-titre: |
+    - Arrêté de mise en sécurité ou de traitement de l’insalubrité
+    - Rapport réalisé par un professionnel qualifié à l’aide d’un grille d’évaluation de l’insalubrité ou de la dégradation de l’habitat
+MPLD . bailleur . ampleur travaux . sécurité:
+  valeur: "'sécurité'"
+  titre: Travaux de rénovation globale pour la sécurité et la salubrité de l'habitat
+  sous-titre: |
+    - Arrêté de mise en sécurité ou de traitement de l'insalubrité
+    - Notification de travaux visant à supprimer le risque de saturnisme
+    - Constat d’exposition au plomb
+MPLD . bailleur . ampleur travaux . moyennement dégradé:
+  valeur: "'moyennement dégradé'"
+  titre: Travaux de rénovation globale d'un logement "moyennement" dégradé
+  sous-titre: |
+    - Rapport réalisé par un professionnel qualifié à l’aide d’un grille d’évaluation de la dégradation de l’habitat – dégradation « moyenne »
+    - Situation de non-conformité au règlement sanitaire départemental
+    - Situation de non-décence mis en évidence par un contrôle de la CAF ou de la CMSA
 
 MPLD . copropriété:
 MPLD . copropriété . montant:

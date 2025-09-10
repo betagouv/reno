@@ -1,3 +1,4 @@
+import { parse } from 'marked'
 export default function RadioQuestion({
   situation,
   name,
@@ -26,11 +27,14 @@ export default function RadioQuestion({
           />
           <label className="fr-label" htmlFor={`radio-${index}`}>
             {questionParams ? questionParams.title : element}
-			{subTitle && (
-            <small className="fr-hint-text">
-              {subTitle}
-            </small>
-          )}
+            {subTitle && (
+              <small
+                className="fr-hint-text"
+                dangerouslySetInnerHTML={{
+                  __html: parse(subTitle),
+                }}
+              />
+            )}
           </label>
         </div>
       </div>
