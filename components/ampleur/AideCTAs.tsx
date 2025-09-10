@@ -39,8 +39,8 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
     </Button>
   ) : (
     <a
-      title="libellé du lien - nouvelle fenêtre"
-      href="#"
+      title={`En savoir plus ${!isMobile ? `sur ${rules[dottedName]?.marque}` : ''} - nouvelle fenêtre`}
+      href={rules[dottedName].lien}
       target="_blank"
       rel="noopener external"
       className="fr-link"
