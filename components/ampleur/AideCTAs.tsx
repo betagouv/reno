@@ -21,7 +21,7 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
       "CEE . rénovation d'ampleur",
       'mpa',
       'locavantage',
-      "crédit d'impôt",
+      //"crédit d'impôt",
       'pch',
       'MPLD',
     ].includes(dottedName) && isEligible !== false
