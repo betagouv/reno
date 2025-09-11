@@ -13,7 +13,7 @@ export default function ExplicationsDétaillées({
     engine.setSituation(situation).evaluate(dottedName).nodeValue
   return (
     <>
-      <p>Voici les conditions à respecter déclinées pour votre situation :</p>
+      <p>Voici les conditions de l'aide déclinées pour votre situation :</p>
 
       <ol>
         {conditions

@@ -66,27 +66,21 @@ export default function Explication() {
         <Tag>Fond argile</Tag>
         <h1>Votre éligibilité au fond argile</h1>
       </header>
-      {isEligibile ? (
-        <>
-          <p>
-            Votre logement est{' '}
-            <Badge noIcon severity="success">
-              éligible
-            </Badge>{' '}
-            au dispositif <strong>fond argile</strong>.
-          </p>
-        </>
-      ) : (
-        <>
-          <p>
-            Votre logement{' '}
-            <Badge noIcon severity="error">
-              n'est pas éligible
-            </Badge>{' '}
-            au dispositif <strong>fond argile</strong>.
-          </p>
-        </>
-      )}
+      <div>
+        {isEligibile ? (
+          <Badge noIcon severity="success">
+            Éligible
+          </Badge>
+        ) : (
+          <Badge noIcon severity="error">
+            Non éligible
+          </Badge>
+        )}
+        <p>
+          Votre logement {isEligibile ? 'est éligible' : "n'est pas éligible"}{' '}
+          au dispositif.
+        </p>
+      </div>
       <ExplicationsDétaillées {...{ situation, engine, answeredQuestions }} />
     </>
   )
