@@ -46,7 +46,8 @@ export function useOnPointClick(map, setSelectedBuilding, rnb) {
   useEffect(() => {
     if (!map) return
     const onClick = (e) => {
-      const { id } = e.features[0]
+      const feature = e.features[0]
+      const { id } = feature
 
       if (rnb) {
         map.setFeatureState(

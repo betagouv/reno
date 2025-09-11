@@ -85,6 +85,25 @@ export default function InputSwitch({
         <ArgileMap
           {...{
             setChoice: (bdnb) => {
+              /* triggers an infinite call of useEffect in ArgileMap
+              if (bdnb == null) {
+                const noArgileSituation = {
+                  ...situation,
+
+                  'logement . année de construction': undefined,
+                  'rga . zone aléa': undefined,
+                  'logement . rnb': undefined,
+                }
+
+                console.log({ noArgileSituation })
+                setSearchParams(
+                  encodeSituation(noArgileSituation, false, answeredQuestions),
+                  'push',
+                  false,
+                )
+                return
+              }
+			  */
               const anneeConstruction = bdnb['annee_construction']
               const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
               const rnb = bdnb.rnb

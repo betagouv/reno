@@ -27,23 +27,35 @@ export default function ArgileMap({ situation, setChoice }) {
   const clefBan = situation['logement . clef ban']?.replace(/"/g, '')
 
   useEffect(() => {
-    if (!clefBan) return
+    if (!rnb) return
     async function doFetch() {
       try {
-        const url = `https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet/adresse?cle_interop_adr=eq.${clefBan}`
+        setBdnb(null)
+        // On peut faire un appel à la BDNB sur la base de la clef BAN. On oublie pour l'instant, on prefère que l'utilisateur sélectionne explicitement son bâtiment pour afficher les données de la BDNB
+        //const url = `https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet/adresse?cle_interop_adr=eq.${clefBan}`
+        const correspondanceUrl = `https://api.bdnb.io/v1/bdnb/donnees/batiment_construction?rnb_id=eq.${rnb}`
+        const correspondanceRequest = await fetch(correspondanceUrl)
+        const correspondanceJSON = await correspondanceRequest.json()
+
+        const { batiment_groupe_id } = correspondanceJSON[0]
+        const url = `https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet?batiment_groupe_id=eq.${batiment_groupe_id}`
         const request = await fetch(url)
         const json = await request.json()
         setBdnb(json)
+
+        const firstEntry = json[0]
+        if (rnb) setChoice({ ...firstEntry, rnb })
         setError(null)
       } catch (e) {
         console.error(e)
         setError({
-          message: 'Erreur pendant la récupération des données du bâtiment',
+          message:
+            'Erreur non gérée pendant la récupération des données du bâtiment',
         })
       }
     }
     doFetch()
-  }, [clefBan, setError, rnb])
+  }, [setError, rnb, setBdnb, setChoice])
 
   console.log({ bdnb, clefBan })
 
@@ -61,8 +73,6 @@ export default function ArgileMap({ situation, setChoice }) {
   useRnbLayerHoverEffects(map)
 
   const setSelectedBuilding = (id) => {
-    console.log({ id })
-    setChoice({ ...data, rnb: id })
     setRnb(id)
   }
   useOnPointClick(map, setSelectedBuilding, rnb)
