@@ -153,7 +153,7 @@ export default function Feedback({
               push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
             }}
           >
-            Je donne mon avis
+            Envoyer mon avis
           </Button>
         )}
       </form>
