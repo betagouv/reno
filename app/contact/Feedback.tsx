@@ -49,7 +49,7 @@ export default function Feedback({
               illustration: (
                 <span
                   aria-hidden="true"
-                  className="fr-icon-checkbox-circle-line"
+                  className="fr-icon-thumb-up-fill"
                 ></span>
               ),
               label: 'Oui',
@@ -66,7 +66,7 @@ export default function Feedback({
               illustration: (
                 <span
                   aria-hidden="true"
-                  className="fr-icon-warning-line"
+                  className="fr-icon-question-fill"
                 ></span>
               ),
               label: 'En partie',
@@ -88,7 +88,7 @@ export default function Feedback({
               illustration: (
                 <span
                   aria-hidden="true"
-                  className="fr-icon-close-circle-line"
+                  className="fr-icon-thumb-down-fill"
                 ></span>
               ),
               label: 'Non',
