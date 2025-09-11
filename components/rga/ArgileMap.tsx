@@ -89,11 +89,24 @@ export default function ArgileMap({ situation, setChoice }) {
         {data ? (
           <section
             css={`
+              margin-bottom: 1rem;
               > div {
                 margin-bottom: 0.3rem;
               }
               span {
                 margin-right: 0.6rem;
+              }
+              width: fit-content;
+              animation: flash 1s;
+              @keyframes flash {
+                0% {
+                  opacity: 0.2;
+                  background: #18753c;
+                }
+                100% {
+                  opacity: 1;
+                  background: none;
+                }
               }
             `}
           >
