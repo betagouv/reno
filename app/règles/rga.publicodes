@@ -85,28 +85,28 @@ rga . revenu éligible:
 
 rga . département éligible:
   une de ces conditions:
+    - logement . code département = '03'
     - logement . code département = '04'
     - logement . code département = '24'
+    - logement . code département = '32'
     - logement . code département = '36'
     - logement . code département = '47'
     - logement . code département = '54'
     - logement . code département = '59'
     - logement . code département = '63'
     - logement . code département = '81'
-    - logement . code département = '32'
     - logement . code département = '82'
-    - logement . code département = '03'
+#  - 03 Allier
 #  - 04 Alpes de haute provence
 #  - 24 dordogne
+#  - 32 Gers
 #  - 36 indre
 #  - 47 Lot et Garonne
 #  - 54 Meurthe et moselle
 #  - 59 Nord
 #  - 63 Puy de dome
 #  - 81 Tarn
-#  - 32 Gers
 #  - 82 Tarn et garonne
-#  - 03 Allier
 
 rga . zone aléa:
   question: Quel est le niveau d'aléa RGA du logement ?
