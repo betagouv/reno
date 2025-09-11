@@ -1,7 +1,11 @@
 # Dans ce fichier, on implémente un modèle de simulation d'une future potentielle aide sur le retrait gonflement des argiles (RGA)
 
 rga:
-  description: Ce simulateur vous permet de tester votre éligibilité au nouveau fond de prévention du retrait gonflement des argiles, un phénomène naturel qui peut fragiliser les bâtiments situés dans certaines zones aux sols argileux.
+  description: |
+    Ce simulateur vous permet de tester votre éligibilité au nouveau fond de prévention du retrait gonflement des argiles, un phénomène naturel qui peut fragiliser les bâtiments situés dans certaines zones aux sols argileux.
+
+	Ce simulateur facilite la lecture de l'[arrêté du 6 septembre 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370) précisant les critères d'éligibilité des bâtiments et des propriétaires à l'aide mise en place, à titre expérimental, pour la prévention des désordres dans les constructions liés au phénomène de retrait gonflement des sols argileux.
+
 
 rga . montant:
   applicable si: conditions
@@ -14,7 +18,7 @@ rga . conditions:
     - rga . département éligible
     - rga . revenu éligible
     - rga . type de logement
-    #- logement . géométrie simple
+    #- logement . géométrie simple # critère qui semble finalement supprimé dans l'arrêté https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370
     #- logement . mitoyen = non
     #- logement . condition niveaux
     #- logement . période de construction = 'au moins 15 ans'
