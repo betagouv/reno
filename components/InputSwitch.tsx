@@ -20,7 +20,6 @@ import ChoixCategorieTravaux from './ChoixCategorieTravaux'
 import ChoixTravaux from './ChoixTravaux'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
-import { logementValues } from '@/app/module/AmpleurInputs'
 
 export default function InputSwitch({
   form,
@@ -112,32 +111,15 @@ export default function InputSwitch({
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
           onChange={(value) => {
-            if (currentQuestion.includes('situation demandeur')) {
-              const additionalSituation = logementValues.find(
-                ({ valeur }) => valeur == value,
-              ).situation
-
-              const encodedSituation = encodeSituation(
-                { ...additionalSituation, [currentQuestion]: `"${value}"` },
-                true,
-                [
-                  ...Object.keys(additionalSituation).filter(
-                    (r) => r != currentQuestion,
-                  ),
-                ],
-              )
-              setSearchParams(encodedSituation)
-            } else {
-              const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  [currentQuestion]: `"${value}"`,
-                },
-                false,
-                answeredQuestions,
-              )
-              setSearchParams(encodedSituation, 'replace', false)
-            }
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]: `"${value}"`,
+              },
+              false,
+              answeredQuestions,
+            )
+            setSearchParams(encodedSituation, 'replace', false)
           }}
         />
       ) : rule['possibilités'] ? (

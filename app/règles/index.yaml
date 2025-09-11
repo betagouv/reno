@@ -300,7 +300,12 @@ ménage . personnes plus:
 
 ménage . revenu . classe:
   variations:
-    - si: logement . propriétaire occupant
+    - si:
+        une de ces conditions:
+          - toutes ces conditions:
+              - parcours d'aide = "autonomie"
+              - mpa . situation demandeur = "occupant"
+          - logement . propriétaire occupant
       alors:
         variations:
           - si: logement . région . IdF
