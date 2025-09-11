@@ -89,8 +89,9 @@ export default function InputSwitch({
       const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
       const rnb = bdnb.rnb
       const niveaux = bdnb.nb_niveau
+      const codeDépartement = bdnb['code_departement_insee']
 
-      console.log({ risque })
+      console.log({ codeDépartement })
 
       // On utilise setValueToSituation car niveaux peut être null
       // Exemple : https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet?batiment_groupe_id=eq.bdnb-bg-E756-YKX1-D181
@@ -104,6 +105,10 @@ export default function InputSwitch({
           'rga . zone aléa': setValueToSituation('string', risque),
           'logement . rnb': setValueToSituation('string', rnb),
           'logement . niveaux': setValueToSituation('num', niveaux),
+          'rga . code département': setValueToSituation(
+            'string',
+            codeDépartement,
+          ),
         },
         false,
         answeredQuestions,

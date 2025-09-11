@@ -87,20 +87,24 @@ rga . revenu éligible:
       - ménage . revenu . classe = 'modeste'
       - ménage . revenu . classe = 'intermédiaire'
 
+rga . code département:
+  question: Quel est le code du département ?
+  par défaut: '11'
+
 rga . département éligible:
   valeur:
     une de ces conditions:
-      - logement . code département = '03'
-      - logement . code département = '04'
-      - logement . code département = '24'
-      - logement . code département = '32'
-      - logement . code département = '36'
-      - logement . code département = '47'
-      - logement . code département = '54'
-      - logement . code département = '59'
-      - logement . code département = '63'
-      - logement . code département = '81'
-      - logement . code département = '82'
+      - rga . code département = '03'
+      - rga . code département = '04'
+      - rga . code département = '24'
+      - rga . code département = '32'
+      - rga . code département = '36'
+      - rga . code département = '47'
+      - rga . code département = '54'
+      - rga . code département = '59'
+      - rga . code département = '63'
+      - rga . code département = '81'
+      - rga . code département = '82'
 #  - 03 Allier
 #  - 04 Alpes de haute provence
 #  - 24 dordogne
