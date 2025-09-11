@@ -111,9 +111,11 @@ export default function InputSwitch({
           valueType: 'num',
         },
       }
+
       const valid = Object.entries(questionsToSubmit)
         .filter(
           ([question, { key, valueFunction = (v) => v }]) =>
+            question !== currentQuestion && // would validate the question before the submit button is clicked
             valueFunction(bdnb[key]) != null,
         )
         .map((el) => el[0])
