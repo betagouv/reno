@@ -34,19 +34,8 @@ export default function API() {
         .
       </p>
       <div className="fr-callout fr-icon-info-line">
-        <h2>Plus d'informations</h2>
-        <div
-          id="accompagnement"
-          css={`
-            blockquote {
-              margin-top: 0.8rem;
-              border-left: 4px solid var(--lighterColor);
-              padding: 0 0.6rem;
-              background: lightyellow;
-              color: #333;
-            }
-          `}
-        >
+        <h2 className="fr-callout__title">Plus d'informations</h2>
+        <div className="fr-callout__text" id="accompagnement">
           <p>Vous souhaitez utiliser l'API? Voici notre proposition :</p>
           <ul>
             <li
@@ -80,8 +69,8 @@ export default function API() {
         </div>
       </div>
       <div className="fr-callout fr-callout--yellow-moutarde">
-        <h3>Demandez votre token!</h3>
-        <p>
+        <h2 className="fr-callout__title">Demandez votre token!</h2>
+        <p className="fr-callout__text">
           Notre API est entièrement gratuite, libre d'accès et sans aucun quota
           d'utilisation. Nous vous demandons simplement de nous{' '}
           <a
@@ -92,7 +81,7 @@ export default function API() {
           </a>
           .
         </p>
-        <p>
+        <p className="fr-callout__text">
           Cela nous permettra de vous transmettre un token d'identification et
           de vous avertir en amont en cas de modifications majeures liées à
           d'éventuelles évolutions légales concernant les dispositifs d'aides à

@@ -242,7 +242,9 @@ export default function Endpoint({ type }) {
             ></div>
           </div>
         </div>
-        <Button onClick={(e) => handleSubmit(e, method)}>Exécuter</Button>
+        <Button priority="secondary" onClick={(e) => handleSubmit(e, method)}>
+          Exécuter
+        </Button>
       </div>
 
       {type == 'eligibilite' && result && (
