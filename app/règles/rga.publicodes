@@ -19,12 +19,13 @@ rga . conditions:
     - rga . type de logement
     - logement . non mitoyen
     - logement . condition niveaux
-    - logement . au moins 15 ans
+    - rga . condition âge
     - rga . peu endommagé
     - rga . pas indemnisé RGA
     - rga . assuré
     #- logement . géométrie simple # critère qui semble finalement supprimé dans l'arrêté https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370
 
+rga . condition âge: logement . période de construction calculée = "au moins 15 ans"
 rga . type de logement:
   valeur: logement . type = 'maison'
   description: |
