@@ -27,6 +27,7 @@ import aeeh from '@/app/règles/mpa/allocation-education-enfant-handicape.public
 import tva from '@/app/règles/mpa/TVA.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
 import mpld from '@/app/règles/ma-prime-logement-decent.publicodes'
+import outreMer from '@/app/règles/outre-mer.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -73,6 +74,7 @@ const rules = {
   ...aeeh,
   ...tva,
   ...mpld,
+  ...outreMer,
 }
 
 const rulesWithMarkdown = Object.fromEntries(

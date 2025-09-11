@@ -3,12 +3,14 @@ import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
+import OutreMerInformation from './OutreMerInformation'
 
 export default function AddressSearch({
   setCoordinates,
   coordinates,
   dpe,
   situation,
+  engine = null,
   addressResults,
   setAddressResults,
   onChange = null,
@@ -73,7 +75,14 @@ export default function AddressSearch({
           <p className="fr-my-3v">Sélectionnez une adresse :</p>
           <ul>
             {addressResults.map((result, i) => {
-              const { label, id } = result.properties
+              const { label, id, context } = result.properties
+              console.log({ address: result.properties })
+
+              const ambiguity = addressResults.find(
+                (result, index) =>
+                  i !== index && result.properties.label === label,
+              )
+
               return (
                 <li key={id}>
                   <button
@@ -88,7 +97,7 @@ export default function AddressSearch({
                       setClicked(result)
                     }}
                   >
-                    {label}
+                    {label} {ambiguity && <small>{context}</small>}
                   </button>
                 </li>
               )
@@ -96,6 +105,7 @@ export default function AddressSearch({
           </ul>
         </div>
       )}
+      <OutreMerInformation {...{ situation, engine }} />
     </>
   )
 }
