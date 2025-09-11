@@ -4,8 +4,7 @@ rga:
   description: |
     Ce simulateur vous permet de tester votre éligibilité au nouveau fond de prévention du retrait gonflement des argiles, un phénomène naturel qui peut fragiliser les bâtiments situés dans certaines zones aux sols argileux.
 
-	Ce simulateur facilite la lecture de l'[arrêté du 6 septembre 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370) précisant les critères d'éligibilité des bâtiments et des propriétaires à l'aide mise en place, à titre expérimental, pour la prévention des désordres dans les constructions liés au phénomène de retrait gonflement des sols argileux.
-
+    Il facilite la lecture de l'[arrêté du 6 septembre 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370) précisant les critères d'éligibilité des bâtiments et des propriétaires à l'aide mise en place, à titre expérimental, pour la prévention des désordres dans les constructions liés au phénomène de retrait gonflement des sols argileux.
 
 rga . montant:
   applicable si: conditions
