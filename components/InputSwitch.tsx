@@ -73,6 +73,7 @@ export default function InputSwitch({
       'projet . définition . travaux envisagés chauffage',
     ].includes(currentQuestion),
     questionsToSubmit:
+      // Si une question fait appel à un API, il faut renseigner ici les questions qui sont répondues via ceet appel d'API
       currentQuestion === 'copropriété . id'
         ? [
             'copropriété . id',
@@ -80,7 +81,10 @@ export default function InputSwitch({
             'copropriété . nombre de logements',
             'copropriété . condition 15 ans',
           ]
-        : [currentQuestion],
+        : currentQuestion === 'rga . zone aléa'
+          ? // TODO Ce truc est subtil : sans ça, les missingVariables seront considérées comme vides et la simulation s'arrête sans qu'on ne comprenne pourquoi. J'ai mis du temps à le trouver. Ça mériterait d'être mieux gérer, par exemple via un attribut dans les règles, documenté, qui injecterait tout seul les valeurs données
+            ['rga . zone aléa', 'logement . code département']
+          : [currentQuestion],
   }
 
   const setChoice = useCallback(
