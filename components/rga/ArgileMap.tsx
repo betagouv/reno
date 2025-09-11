@@ -1,12 +1,12 @@
+import Badge from '@codegouvfr/react-dsfr/Badge'
+import Button from '@codegouvfr/react-dsfr/Button'
 import { useEffect, useRef, useState } from 'react'
+import MapLegend from './MapLegend'
 import useAddArgileMap from './useAddArgileMap'
 import useArgileMapMarkers, {
   useOnPointClick,
   useRnbLayerHoverEffects,
 } from './useArgileMapMarkers'
-import MapLegend from './MapLegend'
-import Button from '@codegouvfr/react-dsfr/Button'
-import Badge from '@codegouvfr/react-dsfr/Badge'
 
 /*
  * Tel que je le comprends pour l'instant, la clef BAN désigne l'adresse.
@@ -28,6 +28,9 @@ export default function ArgileMap({ situation, setChoice }) {
 
   useEffect(() => {
     if (!rnb) return
+    if (situation?.['logement . rnb'] === `"${rnb}"`) {
+      return
+    }
     async function doFetch() {
       try {
         setBdnb(null)
@@ -41,6 +44,7 @@ export default function ArgileMap({ situation, setChoice }) {
         const url = `https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet?batiment_groupe_id=eq.${batiment_groupe_id}`
         const request = await fetch(url)
         const json = await request.json()
+        console.log({ setBdnb: 'oui', json })
         setBdnb(json)
 
         const firstEntry = json[0]

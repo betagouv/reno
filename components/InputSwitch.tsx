@@ -2,7 +2,7 @@ import { mpaLogementValues } from '@/app/module/AmpleurInputs'
 import ArgileMap from '@/components/rga/ArgileMap'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import AddressSearch from './AddressSearch'
 import BinaryQuestion from './BinaryQuestion'
 import CheckboxQuestion from './CheckboxQuestion'
@@ -79,13 +79,9 @@ export default function InputSwitch({
         : [currentQuestion],
   }
 
-  return currentQuestion ? (
-    <ClassicQuestionWrapper {...params}>
-      {currentQuestion === 'rga . zone aléa' ? (
-        <ArgileMap
-          {...{
-            setChoice: (bdnb) => {
-              /* triggers an infinite call of useEffect in ArgileMap
+  const setChoice = useCallback(
+    (bdnb) => {
+      /* triggers an infinite call of useEffect in ArgileMap
               if (bdnb == null) {
                 const noArgileSituation = {
                   ...situation,
@@ -104,25 +100,34 @@ export default function InputSwitch({
                 return
               }
 			  */
-              const anneeConstruction = bdnb['annee_construction']
-              const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
-              const rnb = bdnb.rnb
+      const anneeConstruction = bdnb['annee_construction']
+      const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
+      const rnb = bdnb.rnb
 
-              console.log({ risque })
+      console.log({ risque })
 
-              const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  'logement . année de construction': `"${anneeConstruction}"`,
-                  'rga . zone aléa': `"${risque}"`,
-                  'logement . rnb': `"${rnb}"`,
-                },
-                false,
-                answeredQuestions,
-              )
+      const encodedSituation = encodeSituation(
+        {
+          ...situation,
+          'logement . année de construction': `"${anneeConstruction}"`,
+          'rga . zone aléa': `"${risque}"`,
+          'logement . rnb': `"${rnb}"`,
+        },
+        false,
+        answeredQuestions,
+      )
 
-              setSearchParams(encodedSituation, 'push', false)
-            },
+      setSearchParams(encodedSituation, 'push', false)
+    },
+    [setSearchParams, answeredQuestions, situation],
+  )
+
+  return currentQuestion ? (
+    <ClassicQuestionWrapper {...params}>
+      {currentQuestion === 'rga . zone aléa' ? (
+        <ArgileMap
+          {...{
+            setChoice,
             situation,
           }}
         />
