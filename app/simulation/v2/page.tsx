@@ -8,10 +8,10 @@ import { PageBlock } from '@/components/UI'
 const description = `Calculez les aides Ma Prime Adapt pour la rénovation de votre logement.`
 
 export const metadata: Metadata = {
-  title: 'Aides rénovation MaPrimeAdapt 2024',
+  title: 'Calculez les aides à la rénovation en ' + new Date().getFullYear(),
   description,
   alternates: {
-    canonical: '/ma-prime-adapt',
+    canonical: '/v2',
   },
 }
 

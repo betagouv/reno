@@ -7,7 +7,7 @@ import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
 export const metadata: Metadata = {
   title:
-    'Les exonérations fiscales et réu destinées à la rénovation énergétique en ' +
+    "Les exonérations fiscales et réductions d'impôts destinées à la rénovation énergétique en " +
     new Date().getFullYear(),
   description:
     "Les exonérations fiscales et réductions d'impôts destinées à financer votre rénovation énergétique en " +
