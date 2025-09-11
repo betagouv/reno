@@ -70,6 +70,7 @@ rga . département éligible:
     - logement . code département = '36'
     - logement . code département = '47'
     - logement . code département = '54'
+    - logement . code département = '59'
     - logement . code département = '63'
     - logement . code département = '81'
     - logement . code département = '32'
@@ -78,8 +79,9 @@ rga . département éligible:
 #  - 04 Alpes de haute provence
 #  - 24 dordogne
 #  - 36 indre
-#  - 47 lot et garonne
+#  - 47 Lot et Garonne
 #  - 54 Meurthe et moselle
+#  - 59 Nord
 #  - 63 Puy de dome
 #  - 81 Tarn
 #  - 32 Gers
