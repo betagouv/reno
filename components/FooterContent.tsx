@@ -41,6 +41,7 @@ export default async function FooterContent() {
           <>
             Sauf mention contraire, tous les contenus de ce site sont sous{' '}
             <a
+              title="licence MIT  - nouvelle fenêtre"
               href="https://github.com/betagouv/reno/blob/master/LICENSE"
               target="_blank"
             >
@@ -165,6 +166,7 @@ export default async function FooterContent() {
           <>
             MesAidesRéno est propulsé par{' '}
             <a
+              title="La direction interministérielle du numérique  - nouvelle fenêtre"
               href="https://www.numerique.gouv.fr/numerique-etat/dinum/"
               rel="noopener external"
               target="_blank"
@@ -173,6 +175,7 @@ export default async function FooterContent() {
             </a>{' '}
             en partenariat avec{' '}
             <a
+              title="l'ANAH  - nouvelle fenêtre"
               href="https://www.anah.gouv.fr"
               rel="noopener external"
               target="_blank"

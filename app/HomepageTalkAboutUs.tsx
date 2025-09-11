@@ -38,6 +38,7 @@ export default function HomepageTalkAboutUs() {
           {links.map((link, index) => (
             <div key={index} className="fr-col-6 fr-col-md-3">
               <a
+                title={link.alt + ' - nouvelle fenêtre'}
                 key={index}
                 rel="noopener external"
                 className="fr-raw-link"

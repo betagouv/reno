@@ -51,6 +51,7 @@ export default function QuestionsRéponses() {
             <a
               rel="noopener external"
               className="fr-link"
+              title="certifiées RGE - nouvelle fenêtre"
               href="https://www.ecologie.gouv.fr/label-reconnu-garant-lenvironnement-rge"
               target="_blank"
             >

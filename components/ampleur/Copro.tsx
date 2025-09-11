@@ -73,7 +73,6 @@ export default function Copro({
           </p>
           <Link
             className="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-left"
-            target="_blank"
             href={
               '/copropriete/?' + new URLSearchParams(encodeSituation(situation))
             }

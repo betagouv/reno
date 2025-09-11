@@ -7,6 +7,7 @@ export default function ParFranceRénovTexte() {
     <p className="fr-hint-text fr-mb-0">
       Mes Aides Réno est un service public de{' '}
       <a
+        title="France Rénov' - nouvelle fenêtre"
         rel="noopener external"
         href="https://france-renov.gouv.fr"
         target="_blank"

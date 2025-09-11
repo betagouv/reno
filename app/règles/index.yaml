@@ -27,7 +27,7 @@ ménage . revenu:
   titre: Revenu fiscal de référence
   question: Quel est votre revenu fiscal de référence ?
   sous-titre: |
-    Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
+    Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank" title="avis d'impôt sur le revenu - nouvelle fenêtre">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
   bornes intelligentes: oui
   description: |
     Saisissez le revenu fiscal de référence des personnes composant votre ménage. 
@@ -445,9 +445,9 @@ DPE . actuel:
 
     Le DPE est exprimé comme une note de A (très bon) à G (passoire thermique). 
 
-    Si votre logement n'a pas de DPE, ou s'il date d'avant septembre 2021, date de mise en place du nouveau DPE, <a href="https://www.economie.gouv.fr/particuliers/immobilier-diagnostic-performance-energetique-dpe" target="_blank">vous pouvez le faire réaliser</a> pour un prix qui varie entre 120 et 300 €.
+    Si votre logement n'a pas de DPE, ou s'il date d'avant septembre 2021, date de mise en place du nouveau DPE, <a href="https://www.economie.gouv.fr/particuliers/immobilier-diagnostic-performance-energetique-dpe" target="_blank" title="vous pouvez le faire réaliser - nouvelle fenêtre">vous pouvez le faire réaliser</a> pour un prix qui varie entre 120 et 300 €.
 
-    Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoi que ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service <a href="https://particulier.gorenove.fr" target="_blank">Go Renov</a>.
+    Cela dit, **n'hésitez pas à faire une simulation avec un DPE estimé** : aucune saisie faite sur Mes Aides Réno ne vous engage à quoi que ce soit. Vous pourrez obtenir une estimation de votre DPE en 2 clics avec le service <a href="https://particulier.gorenove.fr" target="_blank" title="Go Renov - nouvelle fenêtre">Go Renov</a>.
   par défaut: 5 # Ce DPE de départ maximise les deux aides MPR, pratique !
   aide:
     G: 7
@@ -800,4 +800,4 @@ logement . loyer social ou très social:
   question: Le loyer du bail de location est-il "social" ou "très social" ?
   par défaut: non
   description: |
-    Le loyer dit "social" correspond à un loyer de 30 % en dessous des loyers du marché. Voir <a href="https://www.service-public.fr/particuliers/vosdroits/F2541" target="_blank">la fiche service-public.fr à propos du conventionnement Anah</a>.
+    Le loyer dit "social" correspond à un loyer de 30 % en dessous des loyers du marché. Voir <a href="https://www.service-public.fr/particuliers/vosdroits/F2541" target="_blank" title="la fiche service-public.fr à propos du conventionnement Anah - nouvelle fenêtre">la fiche service-public.fr à propos du conventionnement Anah</a>.

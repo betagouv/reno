@@ -70,7 +70,7 @@ export const BlocAideCEE = ({
               Plus d'infos:{' '}
               <a
                 className="fr-link"
-                title={`formulaire ${infoCEE.code}`}
+                title={`${infoCEE.code} - nouvelle fenêtre`}
                 href={infoCEE.lien}
                 target="_blank"
               >

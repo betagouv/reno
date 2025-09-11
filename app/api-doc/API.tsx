@@ -96,6 +96,7 @@ export default function API() {
       <p>
         Plus globalement, elle expose l'intégralité de{' '}
         <a
+          title="notre modèle de calcul - nouvelle fenêtre"
           rel="noopener external"
           className="fr-link"
           href="https://github.com/betagouv/reno/tree/master/app/r%C3%A8gles"
@@ -108,6 +109,7 @@ export default function API() {
         <br />
         Exemple :{' '}
         <a
+          title="/api/v1/?ménage.revenu.classe='modeste'&fields=ampleur.pourcent%20d%27écrêtement - nouvelle fenêtre"
           className="fr-link"
           href="/api/v1/?ménage.revenu.classe='modeste'&fields=ampleur.pourcent%20d%27écrêtement"
           target="_blank"
@@ -127,20 +129,16 @@ export default function API() {
       </h3>
       <p>
         Notre API est basée sur{' '}
-        <a
-          rel="noopener external"
-          className="fr-link"
-          href="https://publi.codes"
-        >
+        <a className="fr-link" href="https://publi.codes">
           Publicodes
         </a>
-        . Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la
+        . Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la{' '}
         <a
+          title="documentation - nouvelle fenêtre"
           rel="noopener external"
           className="fr-link"
           href="https://publi.codes/docs"
         >
-          {' '}
           documentation
         </a>{' '}
         de Publicodes pour mieux comprendre ses fondamentaux.
@@ -148,6 +146,7 @@ export default function API() {
       <p>
         Vous pouvez aussi consulter notre{' '}
         <a
+          title="modèle de calcul - nouvelle fenêtre"
           rel="noopener external"
           className="fr-link"
           href="https://github.com/betagouv/reno/tree/master/app/r%C3%A8gles"

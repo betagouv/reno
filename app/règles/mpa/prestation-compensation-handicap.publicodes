@@ -29,7 +29,7 @@ pch . revenus taux plein:
   titre: Revenu fiscal de référence
   question: Votre revenu fiscal de référence est-il inférieur à 30 915.30€ ?
   sous-titre: |
-    Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
+    Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank" title="avis d'impôt sur le revenu - nouvelle fenêtre">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
 pch . pourcentage d'aide:
   variations:
     - si: montant travaux <= 1500 €

@@ -66,6 +66,7 @@ export default function AideAmpleur({
           {rules[dottedName]['lien'] && (
             <p>
               <a
+                title="Plus d'infos sur cette aide - nouvelle fenêtre"
                 rel="noopener external"
                 className="fr-link"
                 href={rules[dottedName]['lien']}

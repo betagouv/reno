@@ -219,6 +219,7 @@ export default function DevenirPartenaire() {
         `}
       >
         <a
+          title="Ouest France Immo - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://ouest-france-immo.com/"
@@ -227,6 +228,7 @@ export default function DevenirPartenaire() {
           <Image src={logoOFI} alt="Logo Ouest France Immo" />
         </a>
         <a
+          title="Ademe - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://agirpourlatransition.ademe.fr/"
@@ -235,6 +237,7 @@ export default function DevenirPartenaire() {
           <Image src={logoAdeme} alt="Logo Ademe" />
         </a>
         <a
+          title="Bon Pote - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
@@ -243,6 +246,7 @@ export default function DevenirPartenaire() {
           <Image src={logoBonPote} alt="Logo Bon Pote" />
         </a>
         <a
+          title="Pro Réno - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://www.proreno.fr/services/mes-aides-reno"

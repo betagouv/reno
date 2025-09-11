@@ -104,7 +104,7 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
               rel="noopener external"
               className="fr-link"
               target="_blank"
-              title="site officiel MaPrimeRénov'"
+              title="maprimerenov.gouv.fr - nouvelle fenêtre"
               href="https://maprimerenov.gouv.fr"
             >
               maprimerenov.gouv.fr

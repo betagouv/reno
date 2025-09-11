@@ -172,7 +172,7 @@ export default function PlusValueModule({ type }) {
           rel="noopener external"
           className="fr-link fr-hint-text"
           href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
-          title="Notaires de France"
+          title="Notaires de France - nouvelle fenêtre"
           target="_blank"
         >
           Notaires de France, étude 2024 (données 2023)
