@@ -62,7 +62,8 @@ rga . peu endommagé:
 
     Il ne doit pas avoir subi des dommages structuraux susceptibles de compromettre la solidité du bâtiment et la sécurité de l'habitation.
 
-rga . pas indemnisé RGA:
+rga . pas indemnisé RGA: indemnisé RGA = non
+rga . indemnisé RGA:
   question: Le logement a-t-il déjà été indemnisé au titre du retrait-gonflement des argiles ?
   par défaut: non
   sous-titre: |

@@ -12,7 +12,6 @@ export default function ExplicationsDétaillées({
   const evaluate = (dottedName) =>
     engine.setSituation(situation).evaluate(dottedName).nodeValue
 
-  console.log({ evaluation: engine.evaluate('logement . âge') })
   return (
     <>
       <p>Voici les conditions de l'aide déclinées pour votre situation :</p>
@@ -34,7 +33,7 @@ export default function ExplicationsDétaillées({
 
             const conditionEvaluation = engine.evaluate(dottedName)
 
-            console.log({ conditionEvaluation })
+            console.log('concon', conditionEvaluation.nodeValue, dottedName)
             const inactive =
               Object.keys(conditionEvaluation.missingVariables).length > 0
 
