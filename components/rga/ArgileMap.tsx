@@ -8,9 +8,20 @@ import MapLegend from './MapLegend'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
+/*
+ * Tel que je le comprends pour l'instant, la clef BAN désigne l'adresse.
+ * La clef RNB désigne le bâtiment.
+ *
+ * La clef BAN nous sert à caler la carte, c'est comme une coordonnée, et charger les premières informations BDNB s'il y en a.
+ *
+ * Au clic sur un bâtiment, l'utilisateur confirme l'id RNB, qui identifie alors sans ambiguité le bâtiment.
+ *
+ * On part alors pour l'instant du principe que les données fiables et uniques sont celles de la BDNB, que l'utilisateur ne peut pas changer, par simplicité de dev, d'UI, et pour éviter les fraudes.
+ * */
 export default function ArgileMap({ situation, setChoice }) {
   const [error, setError] = useState()
 
+  const [rnb, setRnb] = useState()
   const [bdnb, setBdnb] = useState(null)
   const data = bdnb && bdnb.length > 0 && bdnb[0] //TODO act on this
   const clefBan = situation['logement . clef ban']?.replace(/"/g, '')
@@ -32,7 +43,7 @@ export default function ArgileMap({ situation, setChoice }) {
       }
     }
     doFetch()
-  }, [clefBan, setError])
+  }, [clefBan, setError, rnb])
 
   console.log({ bdnb, clefBan })
 
@@ -49,8 +60,8 @@ export default function ArgileMap({ situation, setChoice }) {
   useArgileMapMarkers(map, lon, lat)
   useRnbLayerHoverEffects(map)
 
-  const [rnb, setRnb] = useState()
   const setSelectedBuilding = (id) => {
+    console.log({ id })
     setChoice({ ...data, rnb: id })
     setRnb(id)
   }
