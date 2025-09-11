@@ -28,7 +28,8 @@ export default function Explication() {
   const engineSituation = engine.setSituation(situation)
   const setSearchParams = useSetSearchParams()
 
-  const isEligibile = engineSituation.evaluate('rga . conditions').nodeValue
+  const evaluation = engineSituation.evaluate('rga . conditions')
+  const isEligibile = evaluation.nodeValue
 
   return (
     <>
