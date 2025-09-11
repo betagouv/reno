@@ -16,7 +16,7 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       situation,
     })
   return (
-    !['tva réduite', "crédit d'impôt", 'aides locales', 'apa'].includes(
+    !['tva réduite', "crédit d'impôt", 'aides locales', 'apa', 'aeeh'].includes(
       dottedName,
     ) && (
       <Badge

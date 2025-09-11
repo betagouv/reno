@@ -1,0 +1,14 @@
+aeeh:
+  titre: "Allocation d'éducation de l'enfant handicapé (AEEH)"
+  marque: "Allocation d'éducation de l'enfant handicapé (AEEH)"
+  description: |
+    Il s'agit d'une aide financière destinée à compenser vos dépenses liées à la situation de handicap de votre enfant de moins de 20 ans. L'AEEH est versée aux parents.
+  lien: https://www.service-public.fr/particuliers/vosdroits/F14809
+  applicable si: condition éligibilité 
+aeeh . condition éligibilité:
+  toutes ces conditions: 
+    - mpa . situation demandeur = 'occupant'
+    - une de ces conditions: 
+      - mpa . occupant . condition age ou handicap = 'pch'
+      - mpa . occupant . condition age ou handicap = 'incapacité'
+aeeh . montant:

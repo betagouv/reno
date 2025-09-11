@@ -33,6 +33,7 @@ import MaPrimeAdapt from '@/components/maPrimeAdapt/MaPrimeAdapt'
 import LocAvantage from '@/components/LocAvantage'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import MaPrimeLogementDecent from '@/components/maPrimeLogementDecent/MaPrimeLogementDecent'
+import AEEH from '@/components/maPrimeAdapt/AEEH'
 
 export const correspondance = {
   'MPR . accompagnée': MPRA,
@@ -51,6 +52,7 @@ export const correspondance = {
   pah: PAH,
   pch: PCH,
   apa: APA,
+  aeeh: AEEH,
   MPLD: MaPrimeLogementDecent,
 }
 

@@ -23,6 +23,7 @@ import creditImpot from '@/app/règles/mpa/credit-impot.publicodes'
 import pah from '@/app/règles/mpa/pret-amelioration-habitat.publicodes'
 import pch from '@/app/règles/mpa/prestation-compensation-handicap.publicodes'
 import apa from '@/app/règles/mpa/allocation-personnalisee-autonomie.publicodes'
+import aeeh from '@/app/règles/mpa/allocation-education-enfant-handicape.publicodes'
 import tva from '@/app/règles/mpa/TVA.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
 import mpld from '@/app/règles/ma-prime-logement-decent.publicodes'
@@ -69,6 +70,7 @@ const rules = {
   ...pah,
   ...pch,
   ...apa,
+  ...aeeh,
   ...tva,
   ...mpld,
 }
