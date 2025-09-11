@@ -3,6 +3,7 @@ import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { capitalise0 } from 'publicodes'
 const rule = rules['rga . conditions']
 const conditions = Object.entries(rule['toutes ces conditions'])
+console.log({ conditions })
 
 export default function ExplicationsDétaillées({
   engine,
@@ -28,8 +29,6 @@ export default function ExplicationsDétaillées({
             const label = capitalise0(
               condition.titre || dottedName.split(' . ').slice(-1)[0],
             )
-
-            console.log({ condition })
 
             const conditionEvaluation = engine.evaluate(dottedName)
 
@@ -67,7 +66,7 @@ export default function ExplicationsDétaillées({
                         padding-left: 0;
                       `}
                     >
-                      {condition['une de ces conditions'].map((el) => (
+                      {condition.valeur['une de ces conditions'].map((el) => (
                         <li key={el}>{el.match(/\d\d/)[0]}</li>
                       ))}
                     </ul>

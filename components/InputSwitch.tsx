@@ -92,6 +92,8 @@ export default function InputSwitch({
 
       console.log({ risque })
 
+      // On utilise setValueToSituation car niveaux peut être null
+      // Exemple : https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet?batiment_groupe_id=eq.bdnb-bg-E756-YKX1-D181
       const encodedSituation = encodeSituation(
         {
           ...situation,

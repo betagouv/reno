@@ -12,18 +12,20 @@ rga . montant:
 
 rga . conditions:
   # Ici on donne des chemins absolus aux variables pour ExplicationsDétaillées.tsx
+  # Pour tester après une saisie d'adresse éligible
+  # http://localhost:8080/rga?logement.adresse="Lille"*&logement.code+région="32"&logement.code+département="59"&logement.EPCI="200093201"&logement.commune="59350"&logement.commune.nom="Lille"&logement.coordonnees="50.630993%2C3.045449"&logement.clef+ban="59350"&logement.commune.denormandie=non&taxe+foncière.commune.éligible=non&rga.zone+aléa="fort"*&logement.rnb="4EJZT2D5P24K"
   toutes ces conditions:
     - rga . zone aléa fort
     - rga . département éligible
     - logement . non mitoyen
     - rga . condition maison
     - logement . condition niveaux
-    - rga . condition âge
-    - rga . revenu éligible
-    - rga . peu endommagé
-    - rga . pas indemnisé RGA
-    - rga . assuré
-    #- logement . géométrie simple # critère qui semble finalement supprimé dans l'arrêté https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370
+  #- rga . condition âge
+  #- rga . revenu éligible
+  #- rga . peu endommagé
+  #- rga . pas indemnisé RGA
+  #- rga . assuré
+  #- logement . géométrie simple # critère qui semble finalement supprimé dans l'arrêté https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370
 
 rga . condition âge: logement . période de construction calculée = "au moins 15 ans"
 rga . condition maison:
@@ -86,18 +88,19 @@ rga . revenu éligible:
       - ménage . revenu . classe = 'intermédiaire'
 
 rga . département éligible:
-  une de ces conditions:
-    - logement . code département = '03'
-    - logement . code département = '04'
-    - logement . code département = '24'
-    - logement . code département = '32'
-    - logement . code département = '36'
-    - logement . code département = '47'
-    - logement . code département = '54'
-    - logement . code département = '59'
-    - logement . code département = '63'
-    - logement . code département = '81'
-    - logement . code département = '82'
+  valeur:
+    une de ces conditions:
+      - logement . code département = '03'
+      - logement . code département = '04'
+      - logement . code département = '24'
+      - logement . code département = '32'
+      - logement . code département = '36'
+      - logement . code département = '47'
+      - logement . code département = '54'
+      - logement . code département = '59'
+      - logement . code département = '63'
+      - logement . code département = '81'
+      - logement . code département = '82'
 #  - 03 Allier
 #  - 04 Alpes de haute provence
 #  - 24 dordogne
