@@ -15,11 +15,11 @@ rga . conditions:
     # Ici on donne des chemins absolus aux variables pour ExplicationsDétaillées.tsx
     - rga . zone aléa fort
     - rga . département éligible
-    - rga . revenu éligible
     - rga . type de logement
     - logement . non mitoyen
     - logement . condition niveaux
     - rga . condition âge
+    - rga . revenu éligible
     - rga . peu endommagé
     - rga . pas indemnisé RGA
     - rga . assuré

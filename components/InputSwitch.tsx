@@ -19,7 +19,11 @@ import RevenuInput from './RevenuInput'
 import DPESelector from './dpe/DPESelector'
 import enrichSituation, { getCommune } from './personas/enrichSituation'
 import questionType from './publicodes/questionType'
-import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import {
+  decodeDottedName,
+  encodeSituation,
+  setValueToSituation,
+} from './publicodes/situationUtils'
 import { useSendDataToHost } from './useIsInIframe'
 
 export default function InputSwitch({
@@ -91,10 +95,13 @@ export default function InputSwitch({
       const encodedSituation = encodeSituation(
         {
           ...situation,
-          'logement . année de construction': `"${anneeConstruction}"`,
-          'rga . zone aléa': `"${risque}"`,
-          'logement . rnb': `"${rnb}"`,
-          'logement . niveaux': `${niveaux}`,
+          'logement . année de construction': setValueToSituation(
+            'string',
+            anneeConstruction,
+          ),
+          'rga . zone aléa': setValueToSituation('string', risque),
+          'logement . rnb': setValueToSituation('string', rnb),
+          'logement . niveaux': setValueToSituation('num', niveaux),
         },
         false,
         answeredQuestions,

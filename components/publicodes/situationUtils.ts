@@ -78,3 +78,15 @@ export const testPublicodesStringContent = (value, test) => {
     return value.slice(1, -1) === test
   } else return null
 }
+
+export function setValueToSituation(questionType: 'string' | 'num', value) {
+  if (value == null) return undefined
+
+  if (questionType === 'string') {
+    return `"${value}"`
+  }
+
+  if (questionType === 'num') {
+    return `${+value}`
+  }
+}
