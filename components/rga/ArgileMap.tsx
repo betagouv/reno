@@ -89,7 +89,7 @@ export default function ArgileMap({ situation, setChoice }) {
         {data ? (
           <section
             css={`
-              margin-bottom: 1rem;
+              height: 8rem;
               > div {
                 margin-bottom: 0.3rem;
               }
@@ -126,9 +126,25 @@ export default function ArgileMap({ situation, setChoice }) {
                 <p className="fr-badge">{data.annee_construction}</p>
               </div>
             )}
+            <div>
+              <small
+                css={`
+                  color: #aaa;
+                `}
+              >
+                Données issues du <a href="https://rnb.beta.gouv.fr/">RNB</a>et
+                de la <a href="https://bdnb.io/">BDNB</a>
+              </small>
+            </div>
           </section>
         ) : (
-          <p>⏳️ En attente des données du bâtiment...</p>
+          <section
+            css={`
+              height: 8rem;
+            `}
+          >
+            <p>⏳️ En attente des données du bâtiment...</p>
+          </section>
         )}
         {!rnb ? (
           <Button>Sélectionnez votre maison sur la carte</Button>
