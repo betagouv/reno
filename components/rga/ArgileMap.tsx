@@ -132,7 +132,7 @@ export default function ArgileMap({ situation, setChoice }) {
                   color: #aaa;
                 `}
               >
-                Données issues du <a href="https://rnb.beta.gouv.fr/">RNB</a>et
+                Données issues du <a href="https://rnb.beta.gouv.fr/">RNB</a> et
                 de la <a href="https://bdnb.io/">BDNB</a>
               </small>
             </div>
