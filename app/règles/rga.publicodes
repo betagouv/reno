@@ -21,8 +21,8 @@ rga . conditions:
     - rga . condition maison
     - logement . condition niveaux
     - rga . condition âge
-  #- rga . revenu éligible
-  #- rga . peu endommagé
+    - rga . revenu éligible
+    - rga . peu endommagé
   #- rga . pas indemnisé RGA
   #- rga . assuré
   #- logement . géométrie simple # critère qui semble finalement supprimé dans l'arrêté https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370

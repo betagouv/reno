@@ -72,7 +72,7 @@ const rulesWithMarkdown = Object.fromEntries(
 export default rulesWithMarkdown
 
 function transformRuleObject(v) {
-  if (!v || !typeof v === 'object' || !v.description) return v
+  if (!v || typeof v !== 'object') return v
 
   const transformMarkdown = (text) => {
     if (!text) return undefined
