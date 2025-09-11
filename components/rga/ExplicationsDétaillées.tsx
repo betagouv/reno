@@ -1,7 +1,6 @@
 import rules from '@/app/règles/rules'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { capitalise0 } from 'publicodes'
-import { getAnsweredQuestions } from '../publicodes/situationUtils'
 const rule = rules['rga . conditions']
 const conditions = Object.entries(rule['toutes ces conditions'])
 
@@ -22,6 +21,7 @@ export default function ExplicationsDétaillées({
           .filter(Boolean)
           .map((dottedName) => {
             const condition = rules[dottedName]
+            if (condition == null) throw Error(`Règle ${dottedName} inconnue !`)
             const value = evaluate(dottedName)
 
             const label = capitalise0(

@@ -17,7 +17,7 @@ import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
 import ExplicationsDétaillées from './ExplicationsDétaillées'
 
-export default function ExplicationCopropriete() {
+export default function Explication() {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
