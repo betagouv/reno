@@ -16,7 +16,7 @@ rga . conditions:
     - rga . type de logement
     #- logement . géométrie simple
     #- logement . mitoyen = non
-    #- logement . pas plus d'un étage
+    #- logement . condition niveaux
     #- logement . période de construction = 'au moins 15 ans'
     - rga . pas ou très peu sinistré
 
@@ -28,15 +28,15 @@ rga . type de logement:
 logement . rnb:
   description: Identifiant RNB (Registre National des Bâtiments)
 
-logement . pas plus d'un étage:
-  valeur: logement . étages <= 1
+logement . condition niveaux:
+  valeur: logement . niveaux <= 2
 
-logement . étages:
-  question: Combien d'étages a votre maison ?
+logement . niveaux:
+  question: Combien de niveaux a votre maison ?
   description: |
-    Une maison plein pied a 0 étages. Une maison avec un rez-de-chaussée et des chambres à l'étage a 1 étage, et ainsi de suite.
-  unité: étage
-  par défaut: 1
+    Une maison plein pied a 1 niveau. Une maison avec un rez-de-chaussée et des chambres à l'étage a 2 niveaux, et ainsi de suite.
+  unité: niveau
+  par défaut: 2
 
 logement . mitoyen:
   question: La maison est-elle mitoyenne ?
