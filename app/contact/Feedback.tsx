@@ -7,7 +7,7 @@ import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function Feedback({
-  title = 'Ce simulateur a-t-il été utile ?',
+  title = 'Ce simulateur vous a-t-il été utile ?',
 }) {
   const [comment, setComment] = useState('')
   const [vote, setVote] = useState(null)
@@ -142,7 +142,7 @@ export default function Feedback({
               }}
               disabled={sent}
             >
-              Je valide mon avis
+              Valider mon avis
             </Button>
           </>
         ) : (
