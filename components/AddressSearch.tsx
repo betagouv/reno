@@ -1,9 +1,8 @@
 'use client'
 import { Loader } from '@/app/trouver-conseiller-france-renov/UI'
 import Input from '@codegouvfr/react-dsfr/Input'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
+import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 
 export default function AddressSearch({
@@ -60,6 +59,7 @@ export default function AddressSearch({
       }}
       state={error ? 'error' : clicked && input ? 'success' : ''}
       stateRelatedMessage={
+        // This looks to be a <p>. Injcting divs inside it triggers errors. Bad DSFR design probably, or bad usage, less probably...
         clicked && input ? (
           'Adresse validée'
         ) : error ? (
