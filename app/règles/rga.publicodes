@@ -13,14 +13,14 @@ rga . montant:
 rga . conditions:
   # Ici on donne des chemins absolus aux variables pour ExplicationsDétaillées.tsx
   # Pour tester après une saisie d'adresse éligible
-  # http://localhost:8080/rga?logement.adresse="Lille"*&logement.code+région="32"&logement.code+département="59"&logement.EPCI="200093201"&logement.commune="59350"&logement.commune.nom="Lille"&logement.coordonnees="50.630993%2C3.045449"&logement.clef+ban="59350"&logement.commune.denormandie=non&taxe+foncière.commune.éligible=non&rga.zone+aléa="fort"*&logement.rnb="4EJZT2D5P24K"
+  # http://localhost:8080/rga?logement.adresse="Lille"*&logement.code+région="32"&logement.code+département="59"*&logement.EPCI="200093201"&logement.commune="59350"&logement.commune.nom="Lille"&logement.coordonnees="50.630993%2C3.045449"&logement.clef+ban="59350"&logement.commune.denormandie=non&taxe+foncière.commune.éligible=non&rga.zone+aléa="fort"&logement.rnb="4EJZT2D5P24K"#16.57/50.631592/3.116019
   toutes ces conditions:
     - rga . zone aléa fort
     - rga . département éligible
     - logement . non mitoyen
     - rga . condition maison
     - logement . condition niveaux
-  #- rga . condition âge
+    - rga . condition âge
   #- rga . revenu éligible
   #- rga . peu endommagé
   #- rga . pas indemnisé RGA

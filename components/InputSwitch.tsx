@@ -74,6 +74,8 @@ export default function InputSwitch({
     ].includes(currentQuestion),
     questionsToSubmit:
       // Si une question fait appel à un API, il faut renseigner ici les questions qui sont répondues via ceet appel d'API
+      // TODO Ce truc est subtil : sans ça, les missingVariables seront considérées comme vides et la simulation s'arrête sans qu'on ne comprenne pourquoi. J'ai mis du temps à le trouver. Ça mériterait d'être mieux gérer, par exemple via un attribut dans les règles, documenté, qui injecterait tout seul les valeurs données
+
       currentQuestion === 'copropriété . id'
         ? [
             'copropriété . id',
@@ -81,36 +83,61 @@ export default function InputSwitch({
             'copropriété . nombre de logements',
             'copropriété . condition 15 ans',
           ]
-        : currentQuestion === 'rga . zone aléa'
-          ? // TODO Ce truc est subtil : sans ça, les missingVariables seront considérées comme vides et la simulation s'arrête sans qu'on ne comprenne pourquoi. J'ai mis du temps à le trouver. Ça mériterait d'être mieux gérer, par exemple via un attribut dans les règles, documenté, qui injecterait tout seul les valeurs données
-            ['rga . zone aléa', 'logement . code département']
-          : [currentQuestion],
+        : [currentQuestion],
   }
 
   const setChoice = useCallback(
     (bdnb) => {
-      const anneeConstruction = bdnb['annee_construction']
-      const risque = (bdnb['alea_argiles'] || 'nul').toLowerCase()
-      const rnb = bdnb.rnb
-      const niveaux = bdnb.nb_niveau
+      const questionsToSubmit = {
+        'logement . année de construction': {
+          key: 'annee_construction',
+          valueType: 'string',
+        },
 
-      console.log({ risque })
+        'rga . zone aléa': {
+          key: 'alea_argiles',
+          valueType: 'string',
+          valueFunction: (value) =>
+            (value === null ? 'nul' : value).toLowerCase(),
+        },
+        'logement . rnb': {
+          key: 'rnb',
+
+          valueType: 'string',
+        },
+        'logement . niveaux': {
+          key: 'nb_niveau',
+
+          valueType: 'num',
+        },
+      }
+      const valid = Object.entries(questionsToSubmit)
+        .filter(
+          ([question, { key, valueFunction = (v) => v }]) =>
+            valueFunction(bdnb[key]) != null,
+        )
+        .map((el) => el[0])
+
+      const newSituation = Object.fromEntries(
+        Object.entries(questionsToSubmit).map(
+          ([question, { key, valueFunction = (v) => v, valueType }]) => [
+            question,
+            setValueToSituation(valueType, valueFunction(bdnb[key])),
+          ],
+        ),
+      )
+      console.log({ valid })
 
       // On utilise setValueToSituation car niveaux peut être null
       // Exemple : https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet?batiment_groupe_id=eq.bdnb-bg-E756-YKX1-D181
       const encodedSituation = encodeSituation(
         {
           ...situation,
-          'logement . année de construction': setValueToSituation(
-            'string',
-            anneeConstruction,
-          ),
-          'rga . zone aléa': setValueToSituation('string', risque),
-          'logement . rnb': setValueToSituation('string', rnb),
-          'logement . niveaux': setValueToSituation('num', niveaux),
+
+          ...newSituation,
         },
         false,
-        answeredQuestions,
+        [...answeredQuestions, ...valid],
       )
 
       setSearchParams(encodedSituation, 'push', false)
