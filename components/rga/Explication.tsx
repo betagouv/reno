@@ -34,13 +34,13 @@ export default function Explication() {
   return (
     <>
       <Breadcrumb
-        currentPageLabel="Éligibilité fond argile"
+        currentPageLabel="Éligibilité fonds de prévention argile"
         homeLinkProps={{
           href: '/',
         }}
         segments={[
           {
-            label: 'Simulateur fond argile',
+            label: 'Simulateur fonds de prévention argile',
             linkProps: {
               href: '/rga',
             },
@@ -64,8 +64,8 @@ export default function Explication() {
         <CopyButton searchParams={searchParams} />
       </div>
       <header className="fr-mt-5v">
-        <Tag>Fond argile</Tag>
-        <h1>Votre éligibilité au fond argile</h1>
+        <Tag>Fonds de prévention argile</Tag>
+        <h1>Votre éligibilité au fonds de prévention argile</h1>
       </header>
       <div>
         {isEligibile ? (
