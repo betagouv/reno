@@ -110,23 +110,28 @@ export default function InputSwitch({
 
           valueType: 'num',
         },
+        'logement . code département': {},
       }
 
       const valid = Object.entries(questionsToSubmit)
         .filter(
           ([question, { key, valueFunction = (v) => v }]) =>
             question !== currentQuestion && // would validate the question before the submit button is clicked
-            valueFunction(bdnb[key]) != null,
+            (!key || // TODO This is to validate code département. It's a hack : it should be validated by the Input that sets its value, like we do here. This logic should be set directly in publicode attributes and instrumented here.
+              valueFunction(bdnb[key]) != null),
         )
         .map((el) => el[0])
 
       const newSituation = Object.fromEntries(
-        Object.entries(questionsToSubmit).map(
-          ([question, { key, valueFunction = (v) => v, valueType }]) => [
-            question,
-            setValueToSituation(valueType, valueFunction(bdnb[key])),
-          ],
-        ),
+        Object.entries(questionsToSubmit)
+          .map(
+            ([question, { key, valueFunction = (v) => v, valueType }]) =>
+              key != null && [
+                question,
+                setValueToSituation(valueType, valueFunction(bdnb[key])),
+              ],
+          )
+          .filter(Boolean),
       )
       console.log({ valid })
 
