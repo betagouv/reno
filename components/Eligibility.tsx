@@ -437,7 +437,7 @@ export const BlocEtMaintenant = () => (
 
 export const BlocVoirDemarche = ({ setSearchParams, customCss }) => (
   <Link
-    className="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right"
+    className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
     css={customCss}
     href={setSearchParams({ objectif: 'etape' }, 'url')}
     onClick={() => {
