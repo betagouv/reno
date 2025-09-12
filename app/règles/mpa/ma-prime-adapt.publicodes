@@ -81,21 +81,17 @@ mpa . occupant . condition age ou handicap:
   question: |
     Dans quelle situation se trouve le membre de votre foyer concerné ?
   possibilités:
-  - gir
-  - age
-  - incapacité
-  - pch
+    - gir
+    - age
+    - incapacité
+    - pch
 mpa . occupant . condition age ou handicap . gir:
-  valeur: gir
   titre: Âgé de 60 à 69 ans sur conditions de GIR (groupe iso-ressources de 1 à 6)
 mpa . occupant . condition age ou handicap . age:
-  valeur: 70 ans
   titre: Âgé de 70 ans ou plus
 mpa . occupant . condition age ou handicap . incapacité:
-  valeur: incapacité
   titre: A un taux d'incapacité supérieur ou égal à 50%
 mpa . occupant . condition age ou handicap . pch:
-  valeur: pch
   titre: Bénéficie de la Prestation de Compensation du Handicap (PCH)
 
 mpa . occupant . conditions de revenu:
@@ -185,9 +181,9 @@ mpa . bailleur . condition éligibilité:
 mpa . bailleur . condition locataire:
   question: Dans quelle situation se trouve votre locataire ?
   possibilités:
-  - gir
-  - incapacité
-  - pch
+    - gir
+    - incapacité
+    - pch
 mpa . bailleur . condition locataire . gir:
   valeur: gir
   titre: A une perte d'autonomie attestée par un GIR (groupe iso-ressources)

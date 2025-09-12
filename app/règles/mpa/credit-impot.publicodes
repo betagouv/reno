@@ -15,8 +15,8 @@ crédit d'impôt . condition éligibilité:
       - ménage . revenu . classe = 'intermédiaire'
       - ménage . revenu . classe = 'supérieure'
     - une de ces conditions:
-        - mpa . occupant . condition age ou handicap = 'gir'
-        - mpa . occupant . condition age ou handicap = 'incapacité'
+        - mpa . occupant . condition age ou handicap . gir
+        - mpa . occupant . condition age ou handicap . incapacité
 crédit d'impôt . montant:
   applicable si: condition éligibilité
   produit:

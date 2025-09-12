@@ -2,27 +2,25 @@ import { encodeDottedName } from './publicodes/situationUtils'
 
 const handleCheck = (value, situation, setSearchParams, rule) => {
   let checkboxes =
-    situation[rule]?.split(',').map((t) => t.replaceAll('"', '')) || []
-  if (checkboxes && checkboxes.includes(value)) {
-    checkboxes = checkboxes.filter((checkbox) => checkbox != value)
+    Object.keys(situation).filter((k) => k.startsWith(rule) && k !== rule) || []
+
+  const isAlreadyChecked = checkboxes.includes(rule + ' . ' + value)
+  if (isAlreadyChecked) {
+    checkboxes = checkboxes.filter((c) => c != rule + ' . ' + value)
   } else {
-    checkboxes.push(value)
+    checkboxes.push(rule + ' . ' + value)
   }
+
   setSearchParams(
     {
-      [encodeDottedName(rule)]: checkboxes.length
-        ? `"${checkboxes.join(',')}"`
+      [encodeDottedName(rule + '.' + value)]: !isAlreadyChecked
+        ? 'oui'
         : undefined,
+      [encodeDottedName(rule)]: checkboxes.length > 0 ? 'oui' : undefined,
     },
     'push',
     false,
   )
-}
-
-const isChecked = (value, situation, rule) => {
-  let checkboxes =
-    situation[rule]?.split(',').map((t) => t.replaceAll('"', '')) || []
-  return checkboxes.includes(value)
 }
 
 export default function CheckboxQuestion({
@@ -43,7 +41,7 @@ export default function CheckboxQuestion({
             name="checkbox"
             id={`checkbox-${index}`}
             aria-describedby={`checkbox-${index}-messages`}
-            checked={isChecked(element, situation, currentQuestion)}
+            checked={situation[currentQuestion + ' . ' + element] == 'oui'}
             onChange={() =>
               handleCheck(element, situation, setSearchParams, currentQuestion)
             }

@@ -44,3 +44,4 @@ pch . montant travaux: mpa . montant travaux
 pch . condition éligibilité:
   toutes ces conditions: 
     - mpa . situation demandeur = 'occupant'
+    - est non défini: mpa . occupant . condition age ou handicap . pch

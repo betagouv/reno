@@ -37,4 +37,4 @@ apa:
 apa . condition éligibilité:
   toutes ces conditions: 
     - mpa . situation demandeur = 'occupant'
-    - mpa . occupant . condition age ou handicap = 'gir'
+    - mpa . occupant . condition age ou handicap . gir

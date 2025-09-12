@@ -9,6 +9,6 @@ aeeh . condition éligibilité:
   toutes ces conditions: 
     - mpa . situation demandeur = 'occupant'
     - une de ces conditions: 
-      - mpa . occupant . condition age ou handicap = 'pch'
-      - mpa . occupant . condition age ou handicap = 'incapacité'
+      - mpa . occupant . condition age ou handicap . pch
+      - mpa . occupant . condition age ou handicap . incapacité
 aeeh . montant:
