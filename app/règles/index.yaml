@@ -305,6 +305,9 @@ ménage . revenu . classe:
           - toutes ces conditions:
               - parcours d'aide = "autonomie"
               - mpa . situation demandeur = "occupant"
+          - toutes ces conditions:
+              - parcours d'aide = "sécurité salubrité"
+              - MPLD . situation demandeur = "occupant"
           - logement . propriétaire occupant
       alors:
         variations:
