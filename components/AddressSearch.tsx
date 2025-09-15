@@ -18,7 +18,8 @@ export default function AddressSearch({
 }) {
   const [immediateInput, setInput] = useState(
     dpe?.['adresse_ban'] ||
-      situation['logement . adresse']?.replaceAll('"', ''),
+      situation['logement . adresse']?.replaceAll('"', '') ||
+      '',
   )
   const [input] = useDebounce(immediateInput, 300)
   const [clicked, setClicked] = useState(situation['logement . adresse'] || '')
