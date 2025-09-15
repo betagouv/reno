@@ -17,7 +17,7 @@ rga . conditions:
   # http://localhost:8080/rga?logement.adresse="Lille"*&logement.code+région="32"&logement.code+département="59"*&logement.EPCI="200093201"&logement.commune="59350"&logement.commune.nom="Lille"&logement.coordonnees="50.630993%2C3.045449"&logement.clef+ban="59350"&logement.commune.denormandie=non&taxe+foncière.commune.éligible=non&rga.zone+aléa="fort"&logement.rnb="4EJZT2D5P24K"#16.57/50.631592/3.116019
   toutes ces conditions:
     - vous . propriétaire . condition
-    - rga . zone d'exposition forte
+    - logement . zone d'exposition forte
     - rga . département éligible
     - logement . non mitoyen
     - rga . condition maison
@@ -121,7 +121,7 @@ rga . département éligible:
 #  - 81 Tarn
 #  - 82 Tarn et garonne
 
-rga . zone d'exposition:
+logement . zone d'exposition:
   question: Quel est le niveau d'exposition RGA du logement ?
   par défaut: "'faible'"
   une possibilité parmi:
@@ -132,12 +132,12 @@ rga . zone d'exposition:
       - 'nul'
   # appel d'API nécessaire ici
 
-rga . zone d'exposition . fort:
-rga . zone d'exposition . moyen:
-rga . zone d'exposition . faible:
-rga . zone d'exposition . nul:
+logement . zone d'exposition . fort:
+logement . zone d'exposition . moyen:
+logement . zone d'exposition . faible:
+logement . zone d'exposition . nul:
 
-rga . zone d'exposition forte:
+logement . zone d'exposition forte:
   question: Le logement est-il bâti dans une zone d'aléa RGA fort ?
   # tester le résultat de l'appel d'API
   valeur: zone d'exposition = 'fort'

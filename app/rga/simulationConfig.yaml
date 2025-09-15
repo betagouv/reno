@@ -1,8 +1,8 @@
 préface:
   - logement . adresse
-prioritaires:
+  - logement . zone d'exposition
+  #prioritaires:
   #  - logement . adresse
-  - rga . zone d'exposition
 chapitres:
   - logement
   - rga
