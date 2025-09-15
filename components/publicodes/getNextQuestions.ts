@@ -13,14 +13,34 @@ export default function getNextQuestions(
     ),
     orderedEntries = sortBy(([k, v]) => v)(missingEntries).reverse(),
     firstEntry = orderedEntries[0],
-    maxScore = firstEntry ? firstEntry[1] : 0,
-    prio = questionsConfig.prioritaires || []
+    maxScore = firstEntry ? firstEntry[1] : 0
+
+  const { chapitres } = questionsConfig
+  const orderedByChapter = !chapitres
+    ? orderedEntries
+    : sortBy(([dottedname]) => {
+        const chapterIndex = chapitres.findIndex((chapitre) => {
+          if (Array.isArray(chapitre)) {
+            return chapitre.some((element) =>
+              dottedname.startsWith(element + ' . '),
+            )
+          } else {
+            return dottedname.startsWith(chapitre + ' . ')
+          }
+        })
+        //        console.log('chapter', dottedname, chapterIndex)
+        return chapterIndex === -1 ? Infinity : chapterIndex
+      })(orderedEntries)
+
+  console.log('chapter', orderedByChapter)
+
+  const prio = questionsConfig.prioritaires || []
 
   const artificialOrdered = sortBy(([k, v]) =>
     prio.includes(k)
       ? maxScore + [...prio].reverse().findIndex((kk) => kk === k) + 1
       : v,
-  )(orderedEntries).reverse()
+  )(orderedByChapter).reverse()
 
   // Our "prioritaires" system would only retain questions that are included by publicodes in the missingVariables. Even if the model does not trigger question xyz, we may want manually trigger it in the config if it helps bypass other questions of the model, if these are more complex to anwser than e.g. using an API in the frontend to fill the questions.
   // It's easy in publicodes to make a variable depend on another (e.g. the department depend on a city question with "formule: city"), but this fails if the API question can be passed by the user : one rule should not depend on a formula referencing a question that can be "undefined" if the user passed it. Hence the following block of code

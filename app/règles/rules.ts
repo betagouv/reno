@@ -97,3 +97,12 @@ function transformRuleObject(v) {
   }
   return newV
 }
+
+export const noDefaultsRules = Object.fromEntries(
+  Object.entries(rulesWithMarkdown).map(([k, v]) => {
+    if (v == null) return [k, v]
+    const { 'par défaut': défaut, ...noDefault } = v
+
+    return [k, noDefault]
+  }),
+)

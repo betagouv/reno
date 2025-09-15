@@ -1,6 +1,7 @@
 'use client'
 
-import rules from '@/app/règles/rules'
+import simulationConfig from '@/app/rga/simulationConfig.yaml'
+import rules, { noDefaultsRules } from '@/app/règles/rules'
 import InputSwitch from '@/components/InputSwitch'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import {
@@ -11,18 +12,18 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
-import { useMemo } from 'react'
-import simulationConfig from '@/app/rga/simulationConfig.yaml'
-import Explication from './Explication'
 import { PageBlock } from '../UI'
+import Explication from './Explication'
 
 const content = rules['rga'].descriptionHtml
+
+const noDefaultsEngine = new Publicodes(noDefaultsRules)
+const engine = new Publicodes(rules)
 
 export default function RGA() {
   useSyncUrlLocalStorage()
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-  const engine = useMemo(() => new Publicodes(rules), [rules])
   const answeredQuestions = [
     ...Object.keys(simulationConfig.situation || {}),
     ...getAnsweredQuestions(searchParams, rules),
@@ -35,7 +36,7 @@ export default function RGA() {
   const validatedSituation = Object.fromEntries(
     Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
   )
-  const evaluation = engine
+  const evaluation = noDefaultsEngine
     .setSituation(validatedSituation)
     .evaluate('rga . montant')
 
@@ -48,10 +49,9 @@ export default function RGA() {
   console.log({
     evaluation,
     answeredQuestions,
-    nextQuestions,
   })
+  console.log('nextQuestions', nextQuestions)
 
-  console.log('missing', evaluation.missingVariables)
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
   const setSearchParams = useSetSearchParams()
