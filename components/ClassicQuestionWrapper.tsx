@@ -24,11 +24,11 @@ export const QuestionText = ({
 }) => {
   const ruleName = getRuleName(dottedName)
 
+  console.log({ questionText: rule })
   const text = rule.question.texte
     ? engine.setSituation(situation).evaluate(rule.question).nodeValue
     : rule.question || rule.titre || ruleName
 
-  console.log({ rule })
   return (
     !noLabel && (
       <legend className="fr-fieldset__legend--bold fr-fieldset__legend fr-text--lead fr-pb-0">

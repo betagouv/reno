@@ -29,7 +29,8 @@ rga . conditions:
     - rga . assuré
   #- logement . géométrie simple # critère qui semble finalement supprimé dans l'arrêté https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052201370
 
-rga . condition année de construction: logement . période de construction calculée = "au moins 15 ans"
+rga . condition année de construction:
+  valeur: logement . période de construction calculée = "au moins 15 ans"
 rga . condition maison:
   valeur: logement . type = 'maison'
   titre: Maison individuelle
@@ -52,7 +53,8 @@ logement . niveaux:
   unité: niveau
   par défaut: 2
 
-logement . non mitoyen: mitoyen = non
+logement . non mitoyen:
+  valeur: mitoyen = non
 logement . mitoyen:
   question: La maison est-elle mitoyenne ?
   par défaut: non
@@ -72,7 +74,8 @@ rga . peu endommagé:
 
     Elle ne doit pas avoir subi des dommages structuraux susceptibles de compromettre la solidité du bâtiment et la sécurité de l'habitation.
 
-rga . pas indemnisé RGA: indemnisé RGA = non
+rga . pas indemnisé RGA:
+  valeur: indemnisé RGA = non
 rga . indemnisé RGA:
   question: La maison a-t-elle déjà été indemnisée au titre du retrait-gonflement des argiles ?
   par défaut: non

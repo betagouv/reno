@@ -1,16 +1,15 @@
-import { useMemo } from 'react'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
-import CopyButton from '../CopyButton'
 import simulationConfig from '@/app/rga/simulationConfig.yaml'
+import rules from '@/app/règles/rules'
+import CopyButton from '../CopyButton'
 
-export default function ArgileFormHeader({
-  currentQuestion,
-  searchParams,
-  nextQuestions,
-  answeredQuestions,
-  situation,
-  engine,
-}) {
+const { chapitres } = simulationConfig
+export default function ArgileFormHeader({ currentQuestion, searchParams }) {
+  console.log('stepper', currentQuestion)
+  const stepKey = currentQuestion.split(' . ')[0],
+    step = chapitres.findIndex(
+      (chapitre) => chapitre === stepKey || chapitre.includes(stepKey),
+    ),
+    stepName = rules[stepKey].titre
   return (
     <section>
       <CopyButton
@@ -21,20 +20,21 @@ export default function ArgileFormHeader({
       />
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
-          {currentQuestion.startsWith('projet') ? 'Mon projet' : 'Ma situation'}
+          {stepName}
           <span className="fr-stepper__state">
-            Étape {currentQuestion.startsWith('projet') ? 2 : 1} sur 4
+            Étape {step + 1} sur {chapitres.length}
           </span>
         </h1>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step={currentQuestion.startsWith('projet') ? 2 : 1}
-          data-fr-steps="4"
+          data-fr-current-step={step + 1}
+          data-fr-steps={chapitres.length}
         ></div>
-        <p className="fr-stepper__details">
-          <span className="fr-text--bold">Étape suivante :</span>{' '}
-          {currentQuestion.startsWith('projet') ? 'Mes aides' : 'Mon projet'}
-        </p>
+        {false && ( // TODO
+          <p className="fr-stepper__details">
+            <span className="fr-text--bold">Étape suivante :</span> {chapitres}
+          </p>
+        )}
       </div>
     </section>
   )
