@@ -8,6 +8,7 @@ const iconSize = '40'
 export default function useArgileMapMarkers(map, lon, lat) {
   useEffect(() => {
     if (!map) return
+    if (!lon || !lat) return
 
     const point = {
       type: 'Feature',

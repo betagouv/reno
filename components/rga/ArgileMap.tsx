@@ -72,9 +72,11 @@ export default function ArgileMap({ situation, setChoice }) {
 
   const { 'logement . coordonnees': coordinatesRaw } = situation,
     [lat, lon] = coordinatesRaw
-      .replace(/\"/g, '')
-      .split(',')
-      .map((coordinate) => +coordinate)
+      ? coordinatesRaw
+          .replace(/\"/g, '')
+          .split(',')
+          .map((coordinate) => +coordinate)
+      : [null, null]
 
   useArgileMapMarkers(map, lon, lat)
   useRnbLayerHoverEffects(map)

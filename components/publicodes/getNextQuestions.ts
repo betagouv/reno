@@ -3,7 +3,7 @@ import { sortBy } from '../utils'
 export default function getNextQuestions(
   evaluation,
   answeredQuestions = [],
-  questionsConfig = [],
+  questionsConfig = {},
 ) {
   const { missingVariables } = evaluation
 

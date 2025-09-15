@@ -143,4 +143,3 @@ rga . zone d'exposition forte:
   valeur: zone d'exposition = 'fort'
   description: |
     Dans la phase expérimentale du fonds de prévention argile, seules les maisons individuelles présentes dans une zone d'aléa fort sont prises en charge.
-  par défaut: non
