@@ -13,6 +13,7 @@ import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
 import useIsInIframe from './useIsInIframe'
+import ArgileFormHeader from './rga/ArgileFormHeader'
 
 export const QuestionText = ({
   rule,
@@ -82,7 +83,7 @@ export default function ClassicQuestionWrapper({
         {...{ avertissementState, setAvertissementState }}
       />
       <div>
-        {form != 'copropriété' && (
+        {!['copropriété', 'rga'].includes(form) && (
           <>
             <CopyButton
               customCss={{
@@ -116,6 +117,7 @@ export default function ClassicQuestionWrapper({
           </>
         )}
       </div>
+      <ArgileFormHeader {...{ currentQuestion, searchParams }} />
       {form == 'copropriété' && (
         <CopyButton
           customCss={{
