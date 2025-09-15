@@ -1,12 +1,34 @@
+import { useMemo } from 'react'
 import CopyButton from '../CopyButton'
+import rules from '@/app/règles/rules'
+import Publicodes from 'publicodes'
+
+const noDefaultsRules = Object.fromEntries(
+  Object.entries(rules).map(([k, v]) => {
+    if (v == null) return [k, v]
+    const { 'par défaut': défaut, ...noDefault } = v
+
+    return [k, noDefault]
+  }),
+)
+
+const noDefaultsEngine = new Publicodes(noDefaultsRules)
 
 export default function ArgileFormHeader({
   currentQuestion,
   searchParams,
   nextQuestions,
   answeredQuestions,
+  situation,
+  engine,
 }) {
   console.log({ nextQuestions, answeredQuestions })
+
+  const evaluation = useMemo(() => {
+    return noDefaultsEngine.setSituation(situation).evaluate('rga . montant')
+  }, [situation])
+  console.log('mv', evaluation)
+
   return (
     <section>
       <CopyButton

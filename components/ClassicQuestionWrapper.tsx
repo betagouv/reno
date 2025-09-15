@@ -118,7 +118,14 @@ export default function ClassicQuestionWrapper({
         )}
       </div>
       <ArgileFormHeader
-        {...{ currentQuestion, searchParams, nextQuestions, answeredQuestions }}
+        {...{
+          currentQuestion,
+          searchParams,
+          nextQuestions,
+          answeredQuestions,
+          situation,
+          engine,
+        }}
       />
       {form == 'copropriété' && (
         <CopyButton
