@@ -168,7 +168,7 @@ export default function Denormandie({
                       dottedName: 'denormandie . montant',
                     }}
                   />{' '}
-                  étalée sur la durée de location
+                  étalé sur la durée de location
                 </p>
               </div>
             )}{' '}

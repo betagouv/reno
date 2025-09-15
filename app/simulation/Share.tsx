@@ -74,7 +74,7 @@ export default function Share({
           title="Cliquez pour partager le lien"
           onClick={(e) => {
             e.preventDefault()
-            push(['trackEvent', 'Partage', 'Clic'])
+            push(['trackEvent', 'Simulateur Principal', 'Partage', 'Clic'])
             isMobile && navigator.share ? share() : copyToClipboard()
           }}
         >
