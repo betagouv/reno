@@ -90,7 +90,7 @@ mpa . occupant . condition age ou handicap . gir:
 mpa . occupant . condition age ou handicap . age:
   titre: Âgé de 70 ans ou plus
 mpa . occupant . condition age ou handicap . incapacité:
-  titre: A un taux d'incapacité supérieur ou égal à 50%
+  titre: À un taux d'incapacité supérieur ou égal à 50%
 mpa . occupant . condition age ou handicap . pch:
   titre: Bénéficie de la Prestation de Compensation du Handicap (PCH)
 
