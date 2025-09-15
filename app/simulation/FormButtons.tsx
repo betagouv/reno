@@ -21,6 +21,16 @@ export default function FormButtons({
         display: flex;
         gap: 1em;
         margin-top: 1em;
+        @media (height <= 1000px) {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          padding: 1rem 1rem 1rem;
+          background: white;
+          filter: drop-shadow(var(--raised-shadow));
+          width: 100%;
+          z-index: 1000;
+        }
       `}
       onClick={() => {
         const isMobile = window.matchMedia('(max-width: 800px)').matches
