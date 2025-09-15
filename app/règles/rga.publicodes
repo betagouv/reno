@@ -40,6 +40,7 @@ logement . rnb:
 logement . condition niveaux:
   valeur: logement . niveaux <= 2
   titre: Nombre de niveaux
+  description: Le logement ne doit pas avoir plus d'un étage.
 
 logement . niveaux:
   question: Combien de niveaux a votre maison ?
