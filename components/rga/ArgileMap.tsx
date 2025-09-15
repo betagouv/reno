@@ -8,6 +8,7 @@ import useArgileMapMarkers, {
   useOnPointClick,
   useRnbLayerHoverEffects,
 } from './useArgileMapMarkers'
+import MapBlock from './MapBlock'
 
 /*
  * Tel que je le comprends pour l'instant, la clef BAN désigne l'adresse.
@@ -81,61 +82,16 @@ export default function ArgileMap({ situation, setChoice }) {
     setRnb(id)
   }
   useOnPointClick(map, setSelectedBuilding, rnb)
-  const [fullscreenMap, setFullscreenMap] = useState(false)
 
   console.log({ situation })
   return (
     <div className="fr-fieldset__element">
       <div className="fr-input-group">
-        <section
-          css={`
-            position: relative;
-            max-width: ${fullscreenMap ? '95%' : '36rem'};
-            border-radius: 0.3rem;
-            height: 100%;
-
-            margin-top: 1rem;
-            > button {
-              position: absolute;
-              top: 0.4rem;
-              left: 0.4rem;
-              background: white;
-              height: 1.8rem;
-              border-radius: 5px;
-              > img {
-                width: 1.2rem;
-                height: auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-            }
-          `}
-        >
-          <div
-            ref={mapContainerRef}
-            css={`
-              width: 100%;
-              min-height: 500px;
-              height: 100%;
-            `}
-          />
-          <button
-            onClick={() => setFullscreenMap((fullscreenMap) => !fullscreenMap)}
-          >
-            <img
-              src={
-                fullscreenMap
-                  ? '/fullscreen-line.svg'
-                  : '/fullscreen-exit-line.svg'
-              }
-              width="10"
-              height="10"
-              alt="Icône plein écran"
-            />
-          </button>
-          <MapLegend />
-        </section>
+        <MapBlock
+          {...{
+            mapContainerRef,
+          }}
+        />
         {error && <p className="fr-text--error">{error.message} </p>}
         <section
           css={`
