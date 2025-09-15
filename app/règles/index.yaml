@@ -735,13 +735,13 @@ parcours d'aide:
 
 parcours d'aide . rénovation énergétique:
   titre: Rénovation énergétique
-  sous-titre: Réduire ma facture d'énergie ou améliorer le confort de mon logement - Rénovation énergétique
+  sous-titre: Réduire ma facture d'énergie ou améliorer le confort de mon logement
 parcours d'aide . autonomie:
   titre: Autonomie de la personne
-  sous-titre: Adapter mon logement au vieillissement ou à une situation de handicap - Autonomie
+  sous-titre: Adapter mon logement au vieillissement ou à une situation de handicap
 parcours d'aide . sécurité salubrité:
-  titre: Sécurité / Salubrité
-  sous-titre: Mettre mon logement aux normes de sécurité et de salubrité - Sécurité, salubrité
+  titre: Sécurité, salubrité
+  sous-titre: Mettre mon logement aux normes de sécurité et de salubrité
 
 MPR . non accompagnée . pourcentage d'écrêtement:
   description: |
