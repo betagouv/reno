@@ -31,12 +31,16 @@ export default function AddressSearch({
 
   useEffect(() => {
     if (!validInput) return
-
+    setError('')
     const asyncFetch = async () => {
       const request = await fetch(
         `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
       const { features } = await request.json()
+
+      if (features.length == 0) {
+        setError("Aucune adresse n'a été trouvée")
+      }
       setAddressResults(features)
     }
 
