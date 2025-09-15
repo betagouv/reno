@@ -69,7 +69,6 @@ export default function Eligibility({
       <PersonaBar
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
-        engine={engine}
       />
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
@@ -158,6 +157,28 @@ export default function Eligibility({
       )}
       <div className="fr-my-5v">
         <BlocVoirDemarche setSearchParams={setSearchParams} />
+      </div>
+      <div className="fr-share">
+        <p className="fr-share__title">Partager la page</p>
+        <ul className="fr-btns-group">
+          <li>
+            <button
+              onClick={() => {
+                push(['trackEvent', 'Partage', 'Clic'])
+                navigator.clipboard
+                  .writeText(window.location)
+                  .then(function () {
+                    alert('Adresse copiée dans le presse papier.')
+                  })
+              }}
+              type="button"
+              id="copy-share-1"
+              className="fr-btn--copy fr-btn"
+            >
+              Copier dans le presse-papier
+            </button>
+          </li>
+        </ul>
       </div>
       {isInIframe ? null : <Feedback />}
     </>
