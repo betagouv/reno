@@ -9,8 +9,12 @@ export default function MapBlock({ rnb, mapContainerRef }) {
         position: relative;
         width: 100%;
         max-width: ${fullscreenMap ? '95%' : '36rem'};
-        border-radius: 0.3rem;
         height: 100%;
+        @media (width <= 800px) {
+          width: calc(
+            100% - 3rem
+          ); /* some space for the user to scroll in the iframe */
+        }
 
         > button {
           position: absolute;
@@ -40,6 +44,7 @@ export default function MapBlock({ rnb, mapContainerRef }) {
           width: 100%;
           min-height: 500px;
           height: 100%;
+          border-radius: 0.3rem;
         `}
       />
       <button

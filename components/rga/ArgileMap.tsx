@@ -93,6 +93,9 @@ export default function ArgileMap({ situation, setChoice }) {
           css={`
             display: flex;
             gap: 2rem;
+            @media (width <= 800px) {
+              flex-direction: column;
+            }
           `}
         >
           <MapBlock
@@ -101,13 +104,7 @@ export default function ArgileMap({ situation, setChoice }) {
               rnb,
             }}
           />
-          <section
-            css={`
-              height: 10rem;
-            `}
-          >
-            {data ? <ChosenBuildingInfo {...{ situation, data }} /> : null}
-          </section>
+          {data ? <ChosenBuildingInfo {...{ situation, data }} /> : null}
         </div>
       </div>
     </div>
