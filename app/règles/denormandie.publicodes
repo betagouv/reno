@@ -1,6 +1,6 @@
 denormandie:
   marque: Denormandie
-  complément de marque: Réduction d'impôt location
+  complément de marque: Réduction d'impôt
   nom court: Denormandie
   type: exonération fiscale
   description: |
@@ -34,10 +34,13 @@ denormandie . durée:
   valeur: années de location
   unité: ans
 denormandie . montant:
-  applicable si: conditions
-  formule: taux * assiette
+  applicable si: condition éligibilité
+  valeur: 
+    produit:
+      - taux
+      - assiette
 
-denormandie . conditions:
+denormandie . condition éligibilité:
   toutes ces conditions:
     - vous . propriétaire . condition
     - logement . propriétaire occupant = non
@@ -119,7 +122,6 @@ denormandie . gestes minimum:
 
 logement . prix d'achat:
   question: Quel est le prix d'achat du bien ?
-  par défaut: 250000 €
   unité: €
 
 denormandie . assiette:
@@ -131,13 +133,11 @@ denormandie . années de location:
   unité: ans
   description: |
     Le nombre d'années durant lequel le propriétaire s'engage à louer le logement
-  par défaut: 9
   une possibilité parmi:
     possibilités:
       - 6
       - 9
       - 12
-
 denormandie . taux:
   variations:
     - si: années de location = 6

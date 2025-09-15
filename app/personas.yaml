@@ -521,6 +521,7 @@
     taxe foncière . condition de dépenses: oui
     projet . travaux: 82000 €
     logement . prix d'achat: 230000 €
+    denormandie . années de location: 9 ans
   valeurs attendues:
     MPR . non accompagnée . éligible: oui
     taxe foncière . commune . éligible: oui

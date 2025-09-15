@@ -253,7 +253,6 @@ export const BlocMontantTravaux = ({
         nativeInputProps={{
           pattern: '\d+',
           type: 'text',
-          name: 'montant-travaux',
           inputMode: 'numeric',
           onChange: (e) => {
             const price = e.target.value.replace(/\s/g, '')
@@ -266,7 +265,6 @@ export const BlocMontantTravaux = ({
               'Interaction',
               'montant travaux ' + price,
             ])
-            console.log('rule', rule)
             setSearchParams({
               [encodeDottedName(rule)]: price == '' ? undefined : price + '*',
             })

@@ -725,7 +725,8 @@ parcours d'aide:
       - une rénovation pour assurer la sécurité et la salubrité du logement (Ma Prime Logement Décent) 
 
     Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'.
-  par défaut: 'rénovation énergétique'
+  par défaut:
+    texte: rénovation énergétique
   une possibilité parmi:
     possibilités:
       - 'rénovation énergétique'

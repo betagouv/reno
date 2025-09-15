@@ -14,7 +14,11 @@ locavantage:
   lien: https://france-renov.gouv.fr/aides/loc-avantages
 locavantage . montant:
   applicable si: condition éligibilité
-  formule: taux * loyer * 12
+  valeur: 
+    produit:
+      - taux
+      - loyer
+      - 12
   unité: €/an
 locavantage . condition éligibilité: 
   une de ces conditions:

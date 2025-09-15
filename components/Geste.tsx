@@ -15,6 +15,13 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       dottedName,
       situation,
     })
+  let tauxDenormandie = null
+  if (dottedName.includes('denormandie')) {
+    tauxDenormandie = engine
+      .setSituation(situation)
+      .evaluate('denormandie . taux').nodeValue
+  }
+
   return (
     !['tva réduite', "crédit d'impôt", 'aides locales', 'apa', 'aeeh'].includes(
       dottedName,
@@ -40,15 +47,18 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
           </>
         ) : dottedName.includes('denormandie') ? (
           <>
-            Jusqu'à{' '}
-            {formatValue(
-              engine.setSituation(situation).evaluate('denormandie . taux'),
+            {tauxDenormandie ? (
+              <>
+                Réduction d'impôt de {montantTotal}
+                <AideDurée
+                  engine={engine}
+                  situation={bestSituation}
+                  dottedName={dottedName + ' . montant'}
+                />
+              </>
+            ) : (
+              'Potentiellement éligible'
             )}
-            <AideDurée
-              engine={engine}
-              situation={bestSituation}
-              dottedName={dottedName + ' . montant'}
-            />
           </>
         ) : rules[dottedName.replace(' . montant', '')]?.type === 'prêt' ? (
           <>

@@ -1,14 +1,12 @@
-import { Card } from '../UI'
 import AideAmpleur from './AideAmpleur'
 import { No, Yes } from '../ResultUI'
-import { encodeSituation } from '../publicodes/situationUtils'
+import { encodeDottedName, encodeSituation } from '../publicodes/situationUtils'
 import Value from '../Value'
-import { roundToThousands } from '../utils'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Select from '@codegouvfr/react-dsfr/Select'
 import Input from '@codegouvfr/react-dsfr/Input'
 import CalculatorWidget from '../CalculatorWidget'
-import AmpleurCTA from '@/app/module/AmpleurCTA'
+import { formatNumberWithSpaces } from '../utils'
 
 export default function Denormandie({
   isEligible,
@@ -18,28 +16,15 @@ export default function Denormandie({
   setSearchParams,
   expanded,
 }) {
-  if (!situation['denormandie . années de location']) {
-    situation['denormandie . années de location'] = 12
-  }
-  if (!situation["logement . prix d'achat"]) {
-    situation["logement . prix d'achat"] = 150000
-  }
-  // Si le montant des travaux n'est pas précisé, on l'estime
-  if (!situation['projet . travaux']) {
-    situation['projet . travaux'] = roundToThousands(
-      engine.evaluate('projet . enveloppe estimée').nodeValue
-        ? engine.evaluate('projet . enveloppe estimée').nodeValue
-        : 0,
-      5,
-    )
-  }
-
   const communeName = situation['logement . commune . nom'],
     communeEligible = situation['logement . commune . denormandie']
-
+  const isSeuilCalculable = Boolean(
+    situation["logement . prix d'achat"] && situation['projet . travaux'],
+  )
   const isSeuilTravauxAtteint = engine
     .setSituation(situation)
     .evaluate('denormandie . seuil travaux minimum').nodeValue
+
   return (
     <AideAmpleur
       {...{
@@ -66,133 +51,143 @@ export default function Denormandie({
       {expanded && (
         <>
           <CalculatorWidget>
-            <div className="fr-callout__text">
-              <Input
-                label="Par exemple : j'achète un logement d'une valeur de "
-                nativeInputProps={{
-                  type: 'number',
-                  name: 'prix-achat',
-                  min: 1000,
-                  step: 1000,
-                  onChange: (e) => {
-                    const value =
-                      +e.target.value === 0 ? undefined : e.target.value
-                    setSearchParams(
-                      encodeSituation({
-                        "logement . prix d'achat": value,
-                      }),
-                      'replace',
-                      false,
-                    )
-                  },
-                  value: situation["logement . prix d'achat"],
-                }}
-                addon={
-                  <>
-                    €
-                    <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                      HT
-                    </span>
-                  </>
-                }
-              />{' '}
-              <Input
-                label="je réalise des travaux de rénovation de "
-                nativeInputProps={{
-                  type: 'number',
-                  name: 'prix-achat',
-                  min: 1000,
-                  step: 1000,
-                  onChange: (e) => {
-                    const value =
-                      +e.target.value === 0 ? undefined : e.target.value
-                    setSearchParams(
-                      encodeSituation({
-                        'projet . travaux': value,
-                      }),
-                      'replace',
-                      false,
-                    )
-                  },
-                  value: situation['projet . travaux'],
-                }}
-                addon={
-                  <>
-                    €
-                    <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
-                      HT
-                    </span>
-                  </>
-                }
-              />
-              <Select
-                nativeSelectProps={{
-                  onChange: (e) =>
-                    setSearchParams(
-                      encodeSituation({
-                        'denormandie . années de location': e.target.value,
-                      }),
-                      'replace',
-                      false,
-                    ),
-                  value: situation['denormandie . années de location'],
-                }}
-                label="Pour une période de location de :"
-              >
-                <option value="6">6 ans</option>
-                <option value="9">9 ans</option>
-                <option value="12">12 ans</option>
-              </Select>{' '}
-              {isSeuilTravauxAtteint && (
-                <div className="fr-callout">
-                  <h2 className="fr-callout__title">🥳 Résultats</h2>
-                  <p className="fr-callout__text">Vous êtes éligible à :</p>
-                  <div className="fr-callout__text">
-                    <p className="fr-mb-3v">
-                      Une réduction d'impôt de{' '}
-                      <Value
-                        {...{
-                          size: 'xl',
-                          state: 'success',
-                          engine,
-                          situation,
-                          dottedName: 'denormandie . taux',
-                        }}
-                      />{' '}
-                      du prix du bien soit un total de{' '}
-                      <Value
-                        {...{
-                          size: 'xl',
-                          state: 'success',
-                          engine,
-                          situation,
-                          dottedName: 'denormandie . montant',
-                        }}
-                      />{' '}
-                      de réduction d'impôt étalée sur la durée de location
-                    </p>
-                  </div>
-                  <AmpleurCTA {...{ situation: situation }} />
-                </div>
-              )}
-              {!isSeuilTravauxAtteint && (
-                <div className="fr-callout fr-callout--yellow-moutarde">
-                  <h4>
-                    Attention : les conditions d'éligibilité ne sont pas
-                    remplies.
-                  </h4>
-                  Pour être éligible, les travaux doivent représenter au minimum{' '}
+            <div className="fr-grid-row fr-grid-row--gutters fr-mb-5v">
+              <div className="fr-col-12 fr-col-md-4">
+                <Input
+                  label="Prix d'achat du bien"
+                  nativeInputProps={{
+                    pattern: '\d+',
+                    inputMode: 'numeric',
+                    type: 'text',
+                    onChange: (e) => {
+                      const price = e.target.value.replace(/\s/g, '')
+                      const invalid =
+                        price != '' && (isNaN(price) || price <= 0)
+                      if (invalid) return
+
+                      setSearchParams({
+                        [encodeDottedName("logement . prix d'achat")]:
+                          price == '' ? undefined : price + '*',
+                      })
+                    },
+                    value: situation["logement . prix d'achat"]
+                      ? formatNumberWithSpaces(
+                          situation["logement . prix d'achat"],
+                        )
+                      : '',
+                  }}
+                  addon={
+                    <>
+                      €
+                      <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                        HT
+                      </span>
+                    </>
+                  }
+                />
+              </div>
+              <div className="fr-col-12 fr-col-md-4">
+                <Input
+                  label="Montant des travaux"
+                  nativeInputProps={{
+                    pattern: '\d+',
+                    inputMode: 'numeric',
+                    type: 'text',
+                    onChange: (e) => {
+                      const price = e.target.value.replace(/\s/g, '')
+                      const invalid =
+                        price != '' && (isNaN(price) || price <= 0)
+                      if (invalid) return
+
+                      setSearchParams({
+                        [encodeDottedName('projet . travaux')]:
+                          price == '' ? undefined : price + '*',
+                      })
+                    },
+                    value: situation['projet . travaux']
+                      ? formatNumberWithSpaces(situation['projet . travaux'])
+                      : '',
+                  }}
+                  addon={
+                    <>
+                      €
+                      <span title="Hors taxes, soit hors TVA. En général, les travaux qui améliorent la performance énergétique sont taxés à 5,5 % de TVA">
+                        HT
+                      </span>
+                    </>
+                  }
+                />
+              </div>
+              <div className="fr-col-12 fr-col-md-4">
+                <Select
+                  nativeSelectProps={{
+                    onChange: (e) =>
+                      setSearchParams(
+                        encodeSituation({
+                          'denormandie . années de location': e.target.value,
+                        }),
+                        'replace',
+                        false,
+                      ),
+                    value: situation['denormandie . années de location'],
+                  }}
+                  label="Durée de location"
+                >
+                  <option value=""></option>
+                  <option value="6">6 ans</option>
+                  <option value="9">9 ans</option>
+                  <option value="12">12 ans</option>
+                </Select>
+              </div>
+            </div>
+            {isSeuilCalculable && isSeuilTravauxAtteint && (
+              <div>
+                <p className="fr-callout__text">
+                  🥳 Vous êtes éligible à <strong>une réduction d'impôt</strong>{' '}
+                  de{' '}
                   <Value
                     {...{
+                      state: 'normal',
                       engine,
                       situation,
-                      dottedName: 'denormandie . travaux minimum',
+                      dottedName: 'denormandie . taux',
                     }}
                   />{' '}
-                  HT (25 % du prix de revient: achat + travaux).
-                </div>
-              )}
-            </div>
+                  du coût total du bien soit un total de:
+                </p>
+                <p
+                  className="fr-callout__text fr-mt-5v"
+                  style={{ textAlign: 'center' }}
+                >
+                  <Value
+                    {...{
+                      size: 'xl',
+                      state: 'success',
+                      engine,
+                      situation,
+                      dottedName: 'denormandie . montant',
+                    }}
+                  />{' '}
+                  étalée sur la durée de location
+                </p>
+              </div>
+            )}{' '}
+            {isSeuilCalculable && !isSeuilTravauxAtteint && (
+              <div className="fr-callout fr-callout--yellow-moutarde">
+                <h4>
+                  Attention : les conditions d'éligibilité ne sont pas remplies.
+                </h4>
+                Pour être éligible, les travaux doivent représenter au minimum{' '}
+                <Value
+                  {...{
+                    engine,
+                    situation,
+                    dottedName: 'denormandie . travaux minimum',
+                  }}
+                />{' '}
+                HT (25 % du prix de revient: achat + travaux).
+              </div>
+            )}
           </CalculatorWidget>
           <h3>Carte des villes éligibles au dispositif Denormandie</h3>
           <iframe
