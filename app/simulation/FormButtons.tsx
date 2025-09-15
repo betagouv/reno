@@ -22,6 +22,20 @@ export default function FormButtons({
         gap: 1em;
         margin-top: 1em;
       `}
+      onClick={() => {
+        const isMobile = window.matchMedia('(max-width: 800px)').matches
+        if (!isMobile) return
+        const doc = window.document
+        const docEl = doc.documentElement
+
+        console.log('requestFullscreen')
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen()
+        } else if (docEl.webkitRequestFullscreen) {
+          /* Safari */
+          docEl.webkitRequestFullscreen()
+        }
+      }}
     >
       <Button
         iconId="fr-icon-arrow-left-fill"
@@ -97,13 +111,15 @@ export default function FormButtons({
               'Valide',
               currentQuestion,
             ])
-			typeof setAvertissementState === 'function' &&
-				setAvertissementState(false)
+            typeof setAvertissementState === 'function' &&
+              setAvertissementState(false)
           }}
           iconPosition="right"
           iconId="fr-icon-arrow-right-fill"
           title="Répondez à la question pour avancer dans le questionnaire"
-        >          Suivant
+        >
+          {' '}
+          Suivant
         </Button>
       )}
     </div>

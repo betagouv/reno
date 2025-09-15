@@ -1,5 +1,4 @@
 import getAppUrl from '@/components/getAppUrl'
-import styled from 'styled-components'
 
 export default function DemoIframeRGA() {
   return (
@@ -7,9 +6,17 @@ export default function DemoIframeRGA() {
       <h1>Démo iframe RGA</h1>
       <iframe
         src={getAppUrl() + '/rga'}
-        width="700px"
         height="600px"
-        style={{ margin: '2vh auto', display: 'block' }}
+        width="90%"
+        style={{
+          margin: '2vh auto',
+          display: 'block',
+          maxWidth: '1200px',
+          border: '2px solid var(--lightColor)',
+          borderRadius: '.6rem',
+        }}
+        allowFullScreen={true}
+        data-fullscreen={true}
       />
     </section>
   )
