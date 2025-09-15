@@ -30,6 +30,7 @@ rga . conditions:
 rga . condition année de construction: logement . période de construction calculée = "au moins 15 ans"
 rga . condition maison:
   valeur: logement . type = 'maison'
+  titre: Maison individuelle
   description: |
     Le fonds de prévention argile ne concerne pour l'instant que les maisons individuelles, pas les copropriétés.
 
@@ -38,9 +39,11 @@ logement . rnb:
 
 logement . condition niveaux:
   valeur: logement . niveaux <= 2
+  titre: Nombre de niveaux
 
 logement . niveaux:
   question: Combien de niveaux a votre maison ?
+  titre: Nombre de niveaux
   description: |
     Une maison plein pied a 1 niveau. Une maison avec un rez-de-chaussée et des chambres à l'étage a 2 niveaux, et ainsi de suite.
   unité: niveau
@@ -50,6 +53,7 @@ logement . non mitoyen: mitoyen = non
 logement . mitoyen:
   question: La maison est-elle mitoyenne ?
   par défaut: non
+  titre: Maison non mitoyenne
 
 logement . géométrie simple:
   question: La maison a-t-elle la géométrie au sol d'un simple et unique rectangle ?
@@ -58,6 +62,7 @@ logement . géométrie simple:
 rga . peu endommagé:
   question: La maison est non endommagée, ou seulement très peu ?
   par défaut: oui
+  titre: Maison pas ou très peu endommagée
   # checkbox
   sous-titre: |
     La maison ne doit pas présenter de désordres architecturaux ou présenter des fissures sur les murs intérieurs, les doublages et les cloisons dont l'écartement ne dépasse pas 1 millimètre.
@@ -75,6 +80,7 @@ rga . indemnisé RGA:
 
 rga . assuré:
   question: La maison est-elle couverte par un contrat d'assurance habitation ?
+  titre: Maison couverte par une assurance
   par défaut: oui
 
 rga . revenu éligible:
