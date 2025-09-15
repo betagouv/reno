@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 
 export default function setIframeFullscreen() {
   const isFullscreen = isInFullscreen()
-  const isMobile = window.matchMedia('(max-width: 800px)').matches
-  console.log({ isFullscreen, isMobile })
 
-  if (!isMobile) return
   const doc = window.document
   const docEl = doc.documentElement
 
