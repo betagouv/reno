@@ -21,6 +21,7 @@ export default function CommuneSearch({
   )
 
   const [input] = useDebounce(immediateInput, 300)
+  const [error, setError] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
@@ -40,6 +41,7 @@ export default function CommuneSearch({
   }, [situation, type])
 
   useEffect(() => {
+    setError('')
     if (!validInput) return
     if (onlyNumbers(input) && input.length !== 5) return
     const asyncFetch = async () => {
@@ -56,17 +58,20 @@ export default function CommuneSearch({
             )}`,
       )
       const json = await request.json()
-
-      const enrichedResults = await Promise.all(
-        json.map((commune) =>
-          fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
-            .then((response) => response.json())
-            .then((eligibilite) => ({ ...commune, eligibilite })),
-        ),
-      )
+      if (json.length == 0) {
+        setError("Aucune adresse n'a été trouvée")
+      } else {
+        const enrichedResults = await Promise.all(
+          json.map((commune) =>
+            fetch(`/api/communes?insee=${commune.code}&nom=${commune.nom}`)
+              .then((response) => response.json())
+              .then((eligibilite) => ({ ...commune, eligibilite })),
+          ),
+        )
+        setResults(enrichedResults)
+      }
 
       setIsLoading(false)
-      setResults(enrichedResults)
     }
 
     asyncFetch()
@@ -86,10 +91,12 @@ export default function CommuneSearch({
           autoFocus,
           placeholder: 'Commune ou code postal',
         }}
-        state={clicked && input ? 'success' : undefined}
-        stateRelatedMessage={clicked && input ? 'Adresse validée' : undefined}
+        state={error != '' ? 'error' : clicked && input ? 'success' : undefined}
+        stateRelatedMessage={
+          clicked && input ? 'Adresse validée' : error ? error : undefined
+        }
       />
-      {validInput && isLoading && (
+      {validInput && isLoading && !clicked && !error && (
         <div className="fr-mt-3v">
           <Loader /> Chargement ...
         </div>
