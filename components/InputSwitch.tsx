@@ -418,7 +418,7 @@ export default function InputSwitch({
       ) : (
         <div className="fr-fieldset__element">
           <Input
-            label={rule.type && rules[currentQuestion].question}
+            label={rules[currentQuestion].question}
             nativeInputProps={{
               type: ruleQuestionType,
               name: currentQuestion,
