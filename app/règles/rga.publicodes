@@ -128,7 +128,7 @@ rga . zone d'exposition . moyen:
 rga . zone d'exposition . faible:
 rga . zone d'exposition . nul:
 
-rga . zone d'exposition fort:
+rga . zone d'exposition forte:
   question: Le logement est-il bâti dans une zone d'aléa RGA fort ?
   # tester le résultat de l'appel d'API
   valeur: zone d'exposition = 'fort'
