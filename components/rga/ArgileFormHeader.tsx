@@ -1,6 +1,12 @@
 import CopyButton from '../CopyButton'
 
-export default function ArgileFormHeader({ currentQuestion, searchParams }) {
+export default function ArgileFormHeader({
+  currentQuestion,
+  searchParams,
+  nextQuestions,
+  answeredQuestions,
+}) {
+  console.log({ nextQuestions, answeredQuestions })
   return (
     <section>
       <CopyButton
