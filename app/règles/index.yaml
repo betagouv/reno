@@ -302,13 +302,13 @@ ménage . revenu . classe:
   variations:
     - si:
         une de ces conditions:
+          - logement . propriétaire occupant
           - toutes ces conditions:
               - parcours d'aide = "autonomie"
               - mpa . situation demandeur = "occupant"
           - toutes ces conditions:
               - parcours d'aide = "sécurité salubrité"
               - MPLD . situation demandeur = "occupant"
-          - logement . propriétaire occupant
       alors:
         variations:
           - si: logement . région . IdF
@@ -725,8 +725,7 @@ parcours d'aide:
       - une rénovation pour assurer la sécurité et la salubrité du logement (Ma Prime Logement Décent) 
 
     Le parcours rénovation d'ampleur est constitué essentiellement de l'aide MaPrimeRénov' parcours accompagné, d'aides locales et dans une moindre mesure de CEE pour les ménages non éligibles à MaPrimeRénov'.
-  par défaut:
-    texte: rénovation énergétique
+  par défaut: 'rénovation énergétique'
   une possibilité parmi:
     possibilités:
       - 'rénovation énergétique'

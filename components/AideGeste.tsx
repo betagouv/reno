@@ -1,7 +1,6 @@
 import rules from '@/app/règles/rules'
 import { BlocAide } from './UI'
 import { formatValue } from 'publicodes'
-import { useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
 import { PrimeBadge } from './Geste'
 import mprImage from '@/public/maprimerenov.svg'
@@ -17,7 +16,10 @@ import getNextQuestions from './publicodes/getNextQuestions'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
-
+  // Tant que MPA/MPLD ne sont pas intégré au simulateur principal, il faut forcer le parcours d'aide pour MPR
+  if (!situation["parcours d'aide"]) {
+    situation["parcours d'aide"] = '"rénovation énergétique"'
+  }
   const engineSituation = engine.setSituation({
     ...situation,
     [dottedName]: 'oui',
@@ -136,7 +138,6 @@ export default function AideGeste({
   situation,
   answeredQuestions,
 }) {
-  const [isOpen, setIsOpen] = useState(false)
   const { question, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
     engine,
     dottedName,
@@ -167,7 +168,7 @@ export default function AideGeste({
           'trackEvent',
           'Simulateur Principal',
           'Page',
-          (!isOpen ? 'Déplie geste' : 'Replie geste') + ' ' + dottedName,
+          'Déplie geste ' + dottedName,
         ])
       }}
     >

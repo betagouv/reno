@@ -2,8 +2,7 @@
 import { getSituation } from '@/components/publicodes/situationUtils'
 import { PageBlock } from '@/components/UI'
 import rules from '@/app/règles/rules'
-import Publicodes, { formatValue } from 'publicodes'
-import getNextQuestions from '@/components/publicodes/getNextQuestions'
+import Publicodes from 'publicodes'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { BlocAideMPR } from './BlocAideMPR'
@@ -31,6 +30,10 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   )
   if (!rule) return
   const situation = getSituation(situationSearchParams, rules)
+  if (!situation["parcours d'aide"]) {
+    situation["parcours d'aide"] = 'rénovation énergétique'
+  }
+
   const { infoMPR } = getInfoForPrime({
     engine,
     dottedName: rule,
@@ -38,8 +41,9 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
   })
   // Petit hack pour ne pas afficher la question logement . commune alors qu'on a logement . adresse
   // et logement . commune . denormandie qui ne nous sert à rien
+  // De même, pour MPRG, on sait qu'on est sur le parcours d'aide "rénovation énergétique"
   infoMPR.questions = infoMPR?.questions?.filter(
-    (q) => !q.includes('logement . commune'),
+    (q) => !q.includes('logement . commune') && !q.includes("parcours d'aide"),
   )
   infoMPR.titre = decodeURIComponent(params.titre)
   // Y a-t-il une aide CEE associée?
