@@ -12,6 +12,7 @@ import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
+import useIsInIframe from './useIsInIframe'
 
 export const QuestionText = ({
   rule,
@@ -65,6 +66,9 @@ export default function ClassicQuestionWrapper({
   const remaining = nextQuestions.length
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
+
+  const isInIframe = useIsInIframe(),
+    isRga = isInIframe === 'rga'
 
   // Ceci a été introduit par https://github.com/betagouv/reno/issues/425,
   // n'est pas sensé rester là à long-terme (par exemple au-delà de l'automne 2025
@@ -220,7 +224,7 @@ export default function ClassicQuestionWrapper({
             situation,
           }}
         />
-        <UserProblemBanner />
+        {!isRga && <UserProblemBanner />}
       </section>
     </>
   )
