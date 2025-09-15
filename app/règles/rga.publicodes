@@ -1,6 +1,7 @@
 # Dans ce fichier, on implémente un modèle de simulation d'une aide pour la prévention du phénomène de retrait-gonflement des argiles (RGA)
 
 rga:
+  titre: Retrait-gonflement des argiles
   description: |
     Ce simulateur vous permet de tester votre éligibilité au nouveau fonds de prévention du retrait-gonflement des argiles, un phénomène naturel qui peut fragiliser les bâtiments situés dans certaines zones aux sols argileux.
 
