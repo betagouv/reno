@@ -54,6 +54,9 @@ export default function RGA() {
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
+
+  console.log('mv', rule)
+
   const setSearchParams = useSetSearchParams()
 
   return (

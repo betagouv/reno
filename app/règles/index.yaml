@@ -357,7 +357,8 @@ logement . code département: # Necessaire pour déterminer le module valeur ver
 
 logement . région:
 
-logement . région . IdF: code région = "11"
+logement . région . IdF:
+  valeur: code région = "11"
 
 # logement . commune . denormandie: voir le fichier denormandie
 
@@ -410,7 +411,8 @@ ménage . id ban:
 
 ménage . région:
 
-ménage . région . IdF: code région = "11"
+ménage . région . IdF:
+  valeur: code région = "11"
 
 DPE:
   titre: Diagnostic de Performance Énergétique

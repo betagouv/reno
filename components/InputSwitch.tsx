@@ -94,7 +94,7 @@ export default function InputSwitch({
           valueType: 'string',
         },
 
-        "rga . zone d'exposition": {
+        "logement . zone d'exposition": {
           key: 'alea_argiles',
           valueType: 'string',
           valueFunction: (value) =>
@@ -154,7 +154,7 @@ export default function InputSwitch({
 
   return currentQuestion ? (
     <ClassicQuestionWrapper {...params}>
-      {currentQuestion === "rga . zone d'exposition" ? (
+      {currentQuestion === "logement . zone d'exposition" ? (
         <ArgileMap
           {...{
             setChoice,
