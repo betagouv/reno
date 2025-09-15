@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import MapLegend from './MapLegend'
 
-export default function MapBlock({ mapContainerRef }) {
+export default function MapBlock({ rnb, mapContainerRef }) {
   const [fullscreenMap, setFullscreenMap] = useState(false)
   return (
     <section
       css={`
         position: relative;
+        width: 100%;
         max-width: ${fullscreenMap ? '95%' : '36rem'};
         border-radius: 0.3rem;
         height: 100%;
 
-        margin-top: 1rem;
         > button {
           position: absolute;
-          top: 0.4rem;
+          top: 3.4rem;
           left: 0.4rem;
           background: white;
           height: 1.8rem;
@@ -29,6 +29,11 @@ export default function MapBlock({ mapContainerRef }) {
         }
       `}
     >
+      {rnb == null && (
+        <p>
+          <strong>⬇️ Sélectionnez votre maison sur la carte</strong>
+        </p>
+      )}
       <div
         ref={mapContainerRef}
         css={`

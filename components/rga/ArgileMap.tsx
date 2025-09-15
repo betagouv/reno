@@ -88,28 +88,27 @@ export default function ArgileMap({ situation, setChoice }) {
   return (
     <div className="fr-fieldset__element">
       <div className="fr-input-group">
-        <MapBlock
-          {...{
-            mapContainerRef,
-          }}
-        />
         {error && <p className="fr-text--error">{error.message} </p>}
-        <section
+        <div
           css={`
-            height: 10rem;
+            display: flex;
+            gap: 2rem;
           `}
         >
-          {data ? (
-            <ChosenBuildingInfo {...{ situation, data }} />
-          ) : (
-            <p>⏳️ En attente des données du bâtiment...</p>
-          )}
-        </section>
-        {!rnb ? (
-          <Button>Sélectionnez votre maison sur la carte</Button>
-        ) : (
-          <Badge severity="success">Bâtiment sélectionné</Badge>
-        )}
+          <MapBlock
+            {...{
+              mapContainerRef,
+              rnb,
+            }}
+          />
+          <section
+            css={`
+              height: 10rem;
+            `}
+          >
+            {data ? <ChosenBuildingInfo {...{ situation, data }} /> : null}
+          </section>
+        </div>
       </div>
     </div>
   )

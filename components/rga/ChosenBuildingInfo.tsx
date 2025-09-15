@@ -1,3 +1,5 @@
+import Badge from '@codegouvfr/react-dsfr/Badge'
+
 export default function ChosenBuildingInfo({ situation, data }) {
   return (
     <section
@@ -22,6 +24,9 @@ export default function ChosenBuildingInfo({ situation, data }) {
         }
       `}
     >
+      <Badge severity="success">Bâtiment sélectionné</Badge>
+      <br />
+      <br />
       <div>
         <span>Adresse</span>
         <p className="fr-badge">
