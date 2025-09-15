@@ -47,9 +47,14 @@ MPR . accompagnée . bénéficiaire:
 
 MPR . accompagnée . éligible:
   titre: Éligible parcours accompagné
+  formule: conditions
+
+MPR . accompagnée . conditions:
+  non applicable si: outre-mer
   formule:
     toutes ces conditions:
       - conditions communes
+      - logement . au moins 15 ans
       - condition de sauts
 
 MPR . accompagnée . condition de sauts:
@@ -170,7 +175,7 @@ MPR . accompagnée . pourcentage avance:
 
     Mais le décrêt consolidé ne parle d'avance que pour le parcours par geste.
 
-    Le guide de l'Anah 2025 version 3 janvier évoque lui une avance de 30 % seulement pour les ménages MO/TMO. 
+    Le guide de l'Anah 2025 version 3 janvier évoque lui une avance de 30 % seulement pour les ménages MO/TMO.
 
   note: Intégrer l'avance dans le modèle aussi pour le parcours par geste, et l'intégrer dans l'interface du site.
 
