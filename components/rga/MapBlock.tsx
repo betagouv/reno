@@ -17,6 +17,10 @@ export default function MapBlock({ rnb, mapContainerRef }) {
         }
 
         > button {
+          @media (width <= 800px) {
+            display: none;
+          }
+
           position: absolute;
           top: 3.4rem;
           left: 0.4rem;
