@@ -2,6 +2,7 @@ import Badge from '@codegouvfr/react-dsfr/Badge'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useEffect, useRef, useState } from 'react'
 import MapLegend from './MapLegend'
+import { fr } from '@codegouvfr/react-dsfr'
 import useAddArgileMap from './useAddArgileMap'
 import useArgileMapMarkers, {
   useOnPointClick,
@@ -80,11 +81,61 @@ export default function ArgileMap({ situation, setChoice }) {
     setRnb(id)
   }
   useOnPointClick(map, setSelectedBuilding, rnb)
+  const [fullscreenMap, setFullscreenMap] = useState(false)
 
   console.log({ situation })
   return (
     <div className="fr-fieldset__element">
       <div className="fr-input-group">
+        <section
+          css={`
+            position: relative;
+            max-width: ${fullscreenMap ? '95%' : '36rem'};
+            border-radius: 0.3rem;
+            height: 100%;
+
+            margin-top: 1rem;
+            > button {
+              position: absolute;
+              top: 0.4rem;
+              left: 0.4rem;
+              background: white;
+              height: 1.8rem;
+              border-radius: 5px;
+              > img {
+                width: 1.2rem;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+            }
+          `}
+        >
+          <div
+            ref={mapContainerRef}
+            css={`
+              width: 100%;
+              min-height: 500px;
+              height: 100%;
+            `}
+          />
+          <button
+            onClick={() => setFullscreenMap((fullscreenMap) => !fullscreenMap)}
+          >
+            <img
+              src={
+                fullscreenMap
+                  ? '/fullscreen-line.svg'
+                  : '/fullscreen-exit-line.svg'
+              }
+              width="10"
+              height="10"
+              alt="Icône plein écran"
+            />
+          </button>
+          <MapLegend />
+        </section>
         {error && <p className="fr-text--error">{error.message} </p>}
         <section
           css={`
@@ -156,17 +207,6 @@ export default function ArgileMap({ situation, setChoice }) {
         ) : (
           <Badge severity="success">Bâtiment sélectionné</Badge>
         )}
-        <div
-          ref={mapContainerRef}
-          css={`
-            margin-top: 1rem;
-            width: 100%;
-            min-height: 500px;
-            height: 100%;
-            border-radius: 0.3rem;
-          `}
-        />
-        <MapLegend />
       </div>
     </div>
   )
