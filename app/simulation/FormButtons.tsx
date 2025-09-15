@@ -1,3 +1,8 @@
+import setIframeFullscreen, {
+  isInFullscreen,
+  useIsFullscreen,
+} from '@/components/setIframeFullscreen'
+import useIsInIframe from '@/components/useIsInIframe'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { push } from '@socialgouv/matomo-next'
 
@@ -15,6 +20,11 @@ export default function FormButtons({
   setAvertissementState = null,
 }) {
   const showValidation = currentValue != null
+
+  const isIframe = useIsInIframe()
+
+  const isFullscreen = useIsFullscreen()
+
   return (
     <div
       css={`
@@ -32,20 +42,6 @@ export default function FormButtons({
           z-index: 1000;
         }
       `}
-      onClick={() => {
-        const isMobile = window.matchMedia('(max-width: 800px)').matches
-        if (!isMobile) return
-        const doc = window.document
-        const docEl = doc.documentElement
-
-        console.log('requestFullscreen')
-        if (docEl.requestFullscreen) {
-          docEl.requestFullscreen()
-        } else if (docEl.webkitRequestFullscreen) {
-          /* Safari */
-          docEl.webkitRequestFullscreen()
-        }
-      }}
     >
       <Button
         iconId="fr-icon-arrow-left-fill"
@@ -131,6 +127,30 @@ export default function FormButtons({
           {' '}
           Suivant
         </Button>
+      )}
+      {isIframe && (
+        <button
+          onClick={setIframeFullscreen}
+          css={`
+            height: 2.2rem;
+            img {
+              margin: 0.5rem 0;
+              width: 1.6rem;
+              height: auto;
+            }
+          `}
+        >
+          <img
+            src={
+              !isFullscreen
+                ? '/fullscreen-line.svg'
+                : '/fullscreen-exit-line.svg'
+            }
+            width="10"
+            height="10"
+            alt="Icône plein écran"
+          />
+        </button>
       )}
     </div>
   )
