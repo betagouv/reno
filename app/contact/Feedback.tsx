@@ -7,7 +7,7 @@ import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 import Input from '@codegouvfr/react-dsfr/Input'
 
 export default function Feedback({
-  title = 'Ce simulateur a-t-il été utile ?',
+  title = 'Ce simulateur vous a-t-il été utile ?',
 }) {
   const [comment, setComment] = useState('')
   const [vote, setVote] = useState(null)
@@ -49,7 +49,7 @@ export default function Feedback({
               illustration: (
                 <span
                   aria-hidden="true"
-                  className="fr-icon-checkbox-circle-line"
+                  className="fr-icon-thumb-up-fill"
                 ></span>
               ),
               label: 'Oui',
@@ -66,7 +66,7 @@ export default function Feedback({
               illustration: (
                 <span
                   aria-hidden="true"
-                  className="fr-icon-warning-line"
+                  className="fr-icon-question-fill"
                 ></span>
               ),
               label: 'En partie',
@@ -88,7 +88,7 @@ export default function Feedback({
               illustration: (
                 <span
                   aria-hidden="true"
-                  className="fr-icon-close-circle-line"
+                  className="fr-icon-thumb-down-fill"
                 ></span>
               ),
               label: 'Non',
@@ -142,7 +142,7 @@ export default function Feedback({
               }}
               disabled={sent}
             >
-              Je valide mon avis
+              Valider mon avis
             </Button>
           </>
         ) : (
@@ -153,7 +153,7 @@ export default function Feedback({
               push(['trackEvent', 'Feedback', 'Clic', 'donne son avis'])
             }}
           >
-            Je donne mon avis
+            Envoyer mon avis
           </Button>
         )}
       </form>

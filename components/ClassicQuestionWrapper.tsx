@@ -1,7 +1,6 @@
 import Answers from '@/app/simulation/Answers'
 import FormButtons from '@/app/simulation/FormButtons'
 import { useSearchParams } from 'next/navigation'
-import Script from 'next/script'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
@@ -64,11 +63,6 @@ export default function ClassicQuestionWrapper({
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
 
-  // Ceci a été introduit par https://github.com/betagouv/reno/issues/425,
-  // n'est pas sensé rester là à long-terme (par exemple au-delà de l'automne 2025
-  // Globalement l'intégration de Tally est imparfaite car ils ne nous permettent pas de détruire les hooks qu'ils initient...
-  //const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
-  const tallyForm = null
   return (
     <>
       <AvertissementSimulation
@@ -125,14 +119,6 @@ export default function ClassicQuestionWrapper({
           situation,
         }}
       />
-      {tallyForm && (
-        <>
-          <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
-          <Script
-            id={tallyForm}
-          >{` window.TallyConfig = { "formId": "${tallyForm}", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
-        </>
-      )}
       <form id="simulator-form" onSubmit={(e) => e.preventDefault()}>
         <fieldset
           className="fr-fieldset"
