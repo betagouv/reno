@@ -19,7 +19,7 @@ export default function AideEtapes({
   useEffect(() => {
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
   },[])
-  const aides = useAides(engine, situation, situation["parcours d'aide"])
+  const aides = useAides(engine, situation)
   const hasMPRA = aides.find(
     (aide) => aide.baseDottedName == 'MPR . accompagnée' && aide.status,
   )

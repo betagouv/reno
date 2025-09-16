@@ -40,11 +40,8 @@ export default function Eligibility({
 
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
-  const aides = useAides(
-    engine,
-    situation,
-    situation["parcours d'aide"] || null,
-  )
+  const aides = useAides(engine, situation)
+
   // On doit aussi vérifier geste par geste
   const travauxEnvisages = getTravauxEnvisages(situation)
   const hasAides =
