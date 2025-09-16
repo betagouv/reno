@@ -3,8 +3,6 @@ export default function OutreMerInformation({ situation, engine }) {
   const evaluation = engine.setSituation(situation).evaluate('outre-mer')
   const isOutreMer = evaluation.nodeValue
 
-  console.log({ evaluation, isOutreMer })
-
   return (
     <section>
       <div>

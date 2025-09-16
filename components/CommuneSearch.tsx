@@ -16,36 +16,31 @@ export default function CommuneSearch({
   empty = false,
   autoFocus = true,
 }) {
-  const [immediateInput, setImmediateInput] = useState(
-    !empty ? situation?.[type]?.replaceAll('"', '') || '' : '',
+  const [immediateInput, setInput] = useState(
+    !empty
+      ? situation?.[type + ' . nom']
+        ? (
+            situation?.[type + ' . nom'] +
+            ' ' +
+            situation?.[type.split('.')[0] + '. code département']
+          ).replaceAll('"', '')
+        : ''
+      : '',
   )
 
   const [input] = useDebounce(immediateInput, 300)
-  const [error, setError] = useState('')
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [results, setResults] = useState(null)
   const [clicked, setClicked] = useState(Boolean(!empty && situation?.[type]))
 
   const validInput = input && input.length >= 3
+  const [error, setError] = useState('')
 
-  useEffect(() => {
-    async function fetchCommune() {
-      if (empty) return
-      const commune = await getCommune(situation, type)
-      if (commune) {
-        setImmediateInput(`${commune.nom} ${commune.codeDepartement}`)
-      }
-    }
-    fetchCommune()
-  }, [situation, type])
+  const [results, setResults] = useState(null)
 
   useEffect(() => {
     setError('')
     if (!validInput) return
     if (onlyNumbers(input) && input.length !== 5) return
     const asyncFetch = async () => {
-      setIsLoading(true)
       setResults(null)
 
       const request = await fetch(
@@ -58,8 +53,9 @@ export default function CommuneSearch({
             )}`,
       )
       const json = await request.json()
+
       if (json.length == 0) {
-        setError("Aucune adresse n'a été trouvée")
+        setError("Aucune commune n'a été trouvée")
       } else {
         const enrichedResults = await Promise.all(
           json.map((commune) =>
@@ -70,13 +66,10 @@ export default function CommuneSearch({
         )
         setResults(enrichedResults)
       }
-
-      setIsLoading(false)
     }
 
     asyncFetch()
   }, [input, validInput])
-
   return (
     <>
       <Input
@@ -85,7 +78,7 @@ export default function CommuneSearch({
           value: immediateInput,
           onChange: (e) => {
             setClicked(false)
-            setImmediateInput(e.target.value)
+            setInput(e.target.value)
           },
           required: true,
           autoFocus,
@@ -93,10 +86,14 @@ export default function CommuneSearch({
         }}
         state={error != '' ? 'error' : clicked && input ? 'success' : undefined}
         stateRelatedMessage={
-          clicked && input ? 'Adresse validée' : error ? error : undefined
+          clicked && input && error == ''
+            ? 'Adresse validée'
+            : error
+              ? error
+              : undefined
         }
       />
-      {validInput && isLoading && !clicked && !error && (
+      {validInput && !results && !clicked && !error && (
         <div className="fr-mt-3v">
           <Loader /> Chargement ...
         </div>
@@ -112,9 +109,7 @@ export default function CommuneSearch({
                     onClick={(e) => {
                       e.preventDefault()
                       setChoice(result)
-                      setImmediateInput(
-                        `${result.nom} ${result.codeDepartement}`,
-                      )
+                      setInput(`${result.nom} ${result.codeDepartement}`)
                       setClicked(true)
                     }}
                   >

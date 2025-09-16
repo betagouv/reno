@@ -37,7 +37,6 @@ export default function AddressSearch({
         `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
       const { features } = await request.json()
-
       if (features.length == 0) {
         setError("Aucune adresse n'a été trouvée")
       }
@@ -65,7 +64,11 @@ export default function AddressSearch({
         }}
         state={error != '' ? 'error' : clicked && input ? 'success' : undefined}
         stateRelatedMessage={
-          clicked && input ? 'Adresse validée' : error ? error : undefined
+          clicked && input && error == ''
+            ? 'Adresse validée'
+            : error
+              ? error
+              : undefined
         }
       />
 
@@ -81,7 +84,6 @@ export default function AddressSearch({
           <ul>
             {addressResults.map((result, i) => {
               const { label, id, context } = result.properties
-              console.log({ address: result.properties })
 
               const ambiguity = addressResults.find(
                 (result, index) =>
