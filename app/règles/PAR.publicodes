@@ -35,14 +35,14 @@ PAR:
           
     L'établissement prêteur peut décider de verser le prêt en une ou plusieurs fois sur la base du descriptif et des devis détaillés des travaux à réaliser, ou bien à la fin des travaux.
 PAR . conditions:
-PAR . conditions . communes:
+PAR . condition éligibilité:
   valeur:
     toutes ces conditions:
       - vous . propriétaire . condition
       - logement . propriétaire occupant
-      - résidence principale
-      - ancienneté
-      - revenu
+      - conditions . résidence principale
+      - conditions . ancienneté
+      - conditions . revenu
 
 PAR . conditions . revenu:
   description: |
@@ -75,7 +75,7 @@ PAR . conditions . ancienneté:
 
 PAR . montant:
   titre: Montant du pret avance rénovation 0 %
-  applicable si: conditions . communes
+  applicable si: condition éligibilité
   variations:
     - si: logement . type travaux = "parois vitrées"
       alors: 7000 €
