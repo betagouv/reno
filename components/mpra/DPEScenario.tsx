@@ -7,12 +7,7 @@ import Input from '@codegouvfr/react-dsfr/Input'
 import useIsMobile from '../useIsMobile'
 import { formatNumberWithSpaces } from '../utils'
 
-export default function DPEScenario({
-  engine,
-  situation,
-  setSearchParams,
-  answeredQuestions,
-}) {
+export default function DPEScenario({ engine, situation, setSearchParams }) {
   const value = situation['projet . DPE visé'],
     oldIndex = +situation['DPE . actuel'] - 1,
     automaticChoice = Math.max(oldIndex - 2, 0),
@@ -59,14 +54,14 @@ export default function DPEScenario({
             pattern: '\d+',
             type: 'text',
             autoFocus: false,
-            value: formatNumberWithSpaces(montantTravaux),
+            value: montantTravaux ? formatNumberWithSpaces(montantTravaux) : '',
             onChange: (e) => {
               const price = e.target.value.replace(/\s/g, '')
-              const invalid = isNaN(price) || price <= 0
+              const invalid = price != '' && (isNaN(price) || price <= 0)
               if (invalid) return
               setSearchParams(
                 encodeSituation({
-                  'projet . travaux': price + '*',
+                  'projet . travaux': price == '' ? undefined : price + '*',
                 }),
                 'replace',
                 false,

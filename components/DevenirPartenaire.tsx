@@ -1,5 +1,5 @@
 'use client'
-import { DsfrCard, PageBlock } from '@/components/UI'
+import { PageBlock } from '@/components/UI'
 import illustrationIntegration from '@/public/illustration-integration.png'
 import iconChrono from '@/public/chrono.svg'
 import iconChiffrage from '@/public/chiffrage.svg'
@@ -16,7 +16,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { HeaderWrapper } from '@/app/LandingUI'
 import Badge from '@codegouvfr/react-dsfr/Badge'
-import Card from '@codegouvfr/react-dsfr/Card'
 import Tile from '@codegouvfr/react-dsfr/Tile'
 
 export default function DevenirPartenaire() {
@@ -97,11 +96,11 @@ export default function DevenirPartenaire() {
         <strong>
           L’équipe vous aide à intégrer les outils adaptés à vos besoins,
           gratuitement.
-        </strong>
+        </strong>{' '}
         Écrivez-nous, nous vous répondrons sous 3 jours ouvrés.
       </p>
       <Link
-        className="fr-btn fr-icon-mail-line fr-btn--icon-left fr-mb-5v"
+        className="fr-link fr-icon-mail-line fr-btn--icon-left fr-mb-5v"
         href="/contact"
       >
         Prendre contact
@@ -220,6 +219,7 @@ export default function DevenirPartenaire() {
         `}
       >
         <a
+          title="Ouest France Immo - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://ouest-france-immo.com/"
@@ -228,6 +228,7 @@ export default function DevenirPartenaire() {
           <Image src={logoOFI} alt="Logo Ouest France Immo" />
         </a>
         <a
+          title="Ademe - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://agirpourlatransition.ademe.fr/"
@@ -236,6 +237,7 @@ export default function DevenirPartenaire() {
           <Image src={logoAdeme} alt="Logo Ademe" />
         </a>
         <a
+          title="Bon Pote - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
@@ -244,6 +246,7 @@ export default function DevenirPartenaire() {
           <Image src={logoBonPote} alt="Logo Bon Pote" />
         </a>
         <a
+          title="Pro Réno - nouvelle fenêtre"
           className="fr-link"
           rel="noopener external"
           href="https://www.proreno.fr/services/mes-aides-reno"

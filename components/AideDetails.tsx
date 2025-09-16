@@ -4,8 +4,10 @@ import { decodeDottedName } from './publicodes/situationUtils'
 import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
 import CopyButton from './CopyButton'
+import { useEffect } from 'react'
 
 export default function AideDetails({
+  nbStep,
   setSearchParams,
   situation,
   rules,
@@ -15,12 +17,14 @@ export default function AideDetails({
   correspondance,
 }) {
   const dottedName = decodeDottedName(searchParams['details'])
-  push([
-    'trackEvent',
-    'Simulateur Principal',
-    'Page',
-    'Aide Détails ' + dottedName,
-  ])
+  useEffect(() => {
+    push([
+      'trackEvent',
+      'Simulateur Principal',
+      'Page',
+      'Aide Détails ' + dottedName,
+    ])
+  }, [])
   const AideComponent = correspondance[dottedName]
 
   return (
@@ -28,12 +32,14 @@ export default function AideDetails({
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <span className="fr-stepper__title fr-mb-3v">
           Mes aides
-          <span className="fr-stepper__state">Étape 3 sur 4</span>
+          <span className="fr-stepper__state">
+            Étape {nbStep - 1} sur {nbStep}
+          </span>
         </span>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step="3"
-          data-fr-steps="4"
+          data-fr-current-step={nbStep - 1}
+          data-fr-steps={nbStep}
         ></div>
         <p className="fr-stepper__details">
           <span className="fr-text--bold">Étape suivante :</span> Mes démarches

@@ -20,10 +20,10 @@ import ChoixCategorieTravaux from './ChoixCategorieTravaux'
 import ChoixTravaux from './ChoixTravaux'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
-import { mpaLogementValues } from '@/app/module/AmpleurInputs'
 
 export default function InputSwitch({
   form,
+  nbStep,
   currentQuestion: givenCurrentQuestion,
   situation,
   answeredQuestions,
@@ -49,6 +49,7 @@ export default function InputSwitch({
   const [sendDataToHost, consent, setConsent] = useSendDataToHost()
   const params = {
     form,
+    nbStep,
     rule,
     currentQuestion,
     rules,
@@ -107,38 +108,18 @@ export default function InputSwitch({
         <RadioQuestion
           rule={rule}
           engine={engine}
-          currentQuestion={currentQuestion}
-          situation={situation}
-          placeholder={evaluation.nodeValue}
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
           onChange={(value) => {
-            if (currentQuestion == 'mpa . situation demandeur') {
-              const additionalSituation = mpaLogementValues.find(
-                ({ valeur }) => valeur == value,
-              ).situation
-
-              const encodedSituation = encodeSituation(
-                additionalSituation,
-                true,
-                [
-                  ...Object.keys(additionalSituation).filter(
-                    (r) => r != 'mpa . situation demandeur',
-                  ),
-                ],
-              )
-              setSearchParams(encodedSituation)
-            } else {
-              const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  [currentQuestion]: `"${value}"`,
-                },
-                false,
-                answeredQuestions,
-              )
-              setSearchParams(encodedSituation, 'replace', false)
-            }
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]: `"${value}"`,
+              },
+              false,
+              answeredQuestions,
+            )
+            setSearchParams(encodedSituation, 'replace', false)
           }}
         />
       ) : rule['possibilités'] ? (
@@ -382,6 +363,7 @@ export default function InputSwitch({
   ) : (
     <Eligibility
       {...{
+        nbStep,
         currentQuestion,
         searchParams,
         setSearchParams,

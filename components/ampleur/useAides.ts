@@ -38,53 +38,36 @@ export const findAidesLocales = (rules, engine) => {
   }
 }
 
-export function useAides(
-  engine,
-  situation,
-  parcoursAide = 'rénovation énergétique',
-) {
-  const topList =
-    parcoursAide == 'rénovation énergétique'
-      ? [...rules['ampleur . tous les dispositifs'].somme]
-      : [
-          'mpa . montant',
-          'locavantage . montant',
-          'tva réduite',
-          "crédit d'impôt",
-          'aides locales',
-        ]
-  // unfold the sums with one level only, no recursion yet
-  const list = topList
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      if (rule.somme) return rule.somme
-      return dottedName
-    })
-    .flat()
-    .map((dottedName) => {
-      const rule = rules[dottedName]
-      const split = dottedName.split(' . montant')
+export function useAides(engine, situation) {
+  const parcoursAide = situation["parcours d'aide"] || 'rénovation énergétique'
+  const list = rules[
+    "parcours d'aide . " + parcoursAide.replaceAll('"', '')
+  ].dispositifs.map((dottedName) => {
+    const rule = rules[dottedName]
+    const split = dottedName.split(' . montant')
 
-      if (split.length > 1) {
-        const parentRule = rules[split[0]]
-        return {
-          ...rule,
-          dottedName,
-          baseDottedName: split[0],
-          icône: parentRule.icône,
-          marque: parentRule.marque,
-          'complément de marque': parentRule['complément de marque'],
-          type: parentRule['type'],
-        }
+    if (split.length > 1) {
+      const parentRule = rules[split[0]]
+      return {
+        ...rule,
+        dottedName,
+        baseDottedName: split[0],
+        icône: parentRule.icône,
+        marque: parentRule.marque,
+        'complément de marque': parentRule['complément de marque'],
+        type: parentRule['type'],
       }
-      return { ...rule, dottedName, baseDottedName: dottedName }
-    })
+    }
+    return { ...rule, dottedName, baseDottedName: dottedName }
+  })
 
   const aides = list.map((aide) => {
-    const evaluation = engine.setSituation(situation).evaluate(aide.dottedName)
-    const value = formatValue(evaluation, { precision: 0 })
+    const cond = aide.dottedName.replace('montant', 'condition éligibilité')
 
-    const status = computeAideStatus(evaluation)
+    const evaluation = engine
+      .setSituation(situation)
+      .evaluate(rules[cond] ? cond : aide.dottedName)
+
     const marque2 = aide.dottedName.startsWith('aides locales')
       ? findAidesLocales(rules, engine)
           .map((aide) => aide.name)
@@ -94,8 +77,8 @@ export function useAides(
     return {
       ...aide,
       evaluation,
-      value,
-      status,
+      value: formatValue(evaluation, { precision: 0 }),
+      status: computeAideStatus(evaluation),
       'complément de marque': marque2,
     }
   })

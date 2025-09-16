@@ -2,12 +2,9 @@ import rules from '@/app/règles/rules'
 import { ConditionEligibiliteUI } from '../UI'
 import { uncapitalise0 } from '../utils'
 import AideCTAs from './AideCTAs'
-import { useState } from 'react'
-import MarSearch from '@/app/trouver-conseiller-france-renov/MarSearch'
 import { push } from '@socialgouv/matomo-next'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import { PrimeBadge } from '../Geste'
-import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function AideAmpleur({
   isEligible,
@@ -15,12 +12,11 @@ export default function AideAmpleur({
   dottedName,
   setSearchParams,
   situation,
-  answeredQuestions,
   children,
   expanded,
   addedText = null,
+  noCondition = false,
 }) {
-  const [isOpenConseiller, setIsOpenConseiller] = useState(false)
   return (
     <>
       {expanded ? (
@@ -61,47 +57,25 @@ export default function AideAmpleur({
               __html: rules[dottedName].descriptionHtml,
             }}
           />
-          {
-            <>
-              {children}
-              <ConditionEligibiliteUI>
-                {rules[dottedName].conditionsEligibilitesHTML}
-              </ConditionEligibiliteUI>
-              <p>
-                <a
-                  rel="noopener external"
-                  className="fr-link"
-                  href={rules[dottedName]['lien']}
-                  target="_blank"
-                >
-                  Plus d'infos sur cette aide
-                </a>
-              </p>
-
-              {isOpenConseiller && (
-                <div
-                  css={`
-                    display: flex;
-                    justify-content: space-around;
-                    gap: 1rem;
-                    align-items: center;
-                    background: var(--lightestColor);
-                    padding: 1rem;
-                    margin-bottom: 1rem;
-                    border: 1px solid #d0d0ed;
-                    h3 {
-                      margin: 0 0 1rem 0;
-                    }
-                  `}
-                >
-                  <MarSearch
-                    situation={situation}
-                    what={'trouver-conseiller-renov'}
-                  />
-                </div>
-              )}
-            </>
-          }
+          {children}
+          {!noCondition && (
+            <ConditionEligibiliteUI>
+              {rules[dottedName].conditionsEligibilitesHTML}
+            </ConditionEligibiliteUI>
+          )}
+          {rules[dottedName]['lien'] && (
+            <p>
+              <a
+                title="Plus d'infos sur cette aide - nouvelle fenêtre"
+                rel="noopener external"
+                className="fr-link"
+                href={rules[dottedName]['lien']}
+                target="_blank"
+              >
+                Plus d'infos sur cette aide
+              </a>
+            </p>
+          )}
         </>
       ) : (
         <Accordion
@@ -113,7 +87,7 @@ export default function AideAmpleur({
               `}
             >
               {aideTitle(dottedName)}
-              {isEligible && (
+              {isEligible !== false && (
                 <PrimeBadge
                   {...{
                     situation,
@@ -139,61 +113,16 @@ export default function AideAmpleur({
             }}
           />
           {addedText}
-          {isEligible && (
-            <AideCTAs
-              {...{
-                dottedName,
-                setSearchParams,
-                situation,
-                answeredQuestions,
-                expanded,
-              }}
-            />
-          )}
+          <AideCTAs
+            {...{
+              dottedName,
+              setSearchParams,
+              isEligible,
+            }}
+          />
         </Accordion>
       )}
     </>
-  )
-}
-
-export function AideCTA({ children, text }) {
-  return (
-    <details
-      css={`
-        margin: 1.8rem 0 1rem;
-        summary {
-          list-style-type: none;
-        }
-        > section {
-          margin: 1rem 0;
-          padding-left: 1rem;
-          border-left: 2px solid var(--color);
-        }
-      `}
-    >
-      <summary>
-        <Button priority="secondary">
-          <span
-            css={`
-              display: flex;
-              align-items: center;
-              padding: 0.6rem 0;
-              img {
-                filter: invert(1);
-                width: 1.8rem;
-                margin-right: 0.6rem;
-                height: auto;
-                vertical-align: bottom;
-              }
-              color: inherit;
-            `}
-          >
-            {text}
-          </span>
-        </Button>
-      </summary>
-      <section>{children}</section>
-    </details>
   )
 }
 export const aideTitle = (dottedName) => {

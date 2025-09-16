@@ -16,6 +16,7 @@ import Image from 'next/image'
 import { Loader } from '@/components/UI'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Select from '@codegouvfr/react-dsfr/Select'
+import Link from 'next/link'
 
 export default function Endpoint({ type }) {
   const [method, setMethod] = useState('POST')
@@ -162,14 +163,7 @@ export default function Endpoint({ type }) {
         `}
       >
         {type != 'eligibilite' && (
-          <DocumentationLink href={documentationUrl} target="_blank">
-            <Image
-              src={iconDocumentation}
-              alt="Icône documentation"
-              width="24"
-            />
-            Documentation
-          </DocumentationLink>
+          <Link href={documentationUrl}>Documentation</Link>
         )}
       </div>
       {method === 'GET' && (
@@ -177,6 +171,7 @@ export default function Endpoint({ type }) {
           Il faut sérialiser les paramètres passés via l'url en utilisant la
           fonction{' '}
           <a
+            title="encodeSituation - nouvelle fenêtre"
             rel="noopener external"
             className="fr-link"
             href="https://github.com/betagouv/reno/blob/master/components/publicodes/situationUtils.ts#L55"
@@ -242,7 +237,9 @@ export default function Endpoint({ type }) {
             ></div>
           </div>
         </div>
-        <Button onClick={(e) => handleSubmit(e, method)}>Exécuter</Button>
+        <Button priority="secondary" onClick={(e) => handleSubmit(e, method)}>
+          Exécuter
+        </Button>
       </div>
 
       {type == 'eligibilite' && result && (
@@ -289,13 +286,6 @@ export default function Endpoint({ type }) {
     </>
   )
 }
-export const DocumentationLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  img {
-    margin-right: 0.5rem;
-  }
-`
 export const Code = styled.code`
   display: block;
   padding: 1rem;

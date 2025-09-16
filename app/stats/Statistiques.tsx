@@ -322,6 +322,7 @@ export default function Statistiques() {
         >
           <SwiperSlide>
             <a
+              title="Bon Pote - nouvelle fenêtre"
               rel="noopener external"
               href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
               target="_blank"
@@ -331,6 +332,7 @@ export default function Statistiques() {
           </SwiperSlide>
           <SwiperSlide>
             <a
+              title="Ouest France Immo - nouvelle fenêtre"
               rel="noopener external"
               href="https://www.ouestfrance-immo.com/"
               target="_blank"
@@ -340,6 +342,7 @@ export default function Statistiques() {
           </SwiperSlide>
           <SwiperSlide>
             <a
+              title="France Info - nouvelle fenêtre"
               rel="noopener external"
               href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
               target="_blank"
@@ -349,6 +352,7 @@ export default function Statistiques() {
           </SwiperSlide>
           <SwiperSlide>
             <a
+              title="Money Vox - nouvelle fenêtre"
               rel="noopener external"
               href="https://www.moneyvox.fr/immobilier/actualites/99663/renovation-energetique-ce-simulateur-officiel-gratuit-revele-les-aides-que-vous-ignorez"
               target="_blank"
@@ -358,6 +362,7 @@ export default function Statistiques() {
           </SwiperSlide>
           <SwiperSlide>
             <a
+              title="Actual Immo - nouvelle fenêtre"
               rel="noopener external"
               href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
               target="_blank"
@@ -367,6 +372,7 @@ export default function Statistiques() {
           </SwiperSlide>
           <SwiperSlide>
             <a
+              title="TF1 Info - nouvelle fenêtre"
               rel="noopener external"
               href="https://www.tf1info.fr/immobilier/bouilloires-thermiques-comment-adapter-son-logement-aux-vagues-de-chaleur-2315763.html"
               target="_blank"
@@ -376,6 +382,7 @@ export default function Statistiques() {
           </SwiperSlide>
           <SwiperSlide>
             <a
+              title="Le Progrès - nouvelle fenêtre"
               rel="noopener external"
               href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
               target="_blank"
@@ -385,6 +392,7 @@ export default function Statistiques() {
           </SwiperSlide>
           <SwiperSlide>
             <a
+              title="Journal du net - nouvelle fenêtre"
               rel="noopener external"
               href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
               target="_blank"

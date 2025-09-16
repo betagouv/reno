@@ -11,21 +11,36 @@ locavantage:
     - Ne pas louer une passoire thermique, soit tout logement classé en étiquette F et G ;
     - Il est possible de louer plusieurs logements via Loc'Avantages (une convention est obligatoire pour chaque logement). La réduction d'impôt suit les mêmes règles que les autres réductions d'impôt en faveur de l'investissement locatif : elle peut aller jusqu'à 10 000 € par an au plus.
     - Loc'Avantages n'est pas cumulable pour un même logement avec d'autres dispositifs en faveur de l'investissement locatif tels que le « Pinel », le « Denormandie dans l'ancien » ou le « Louer abordable » (abattement forfaitaire sur les revenus fonciers) ;
-  lien: https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location
+  lien: https://france-renov.gouv.fr/aides/loc-avantages
 locavantage . montant:
   applicable si: condition éligibilité
-  formule: taux * loyer
-locavantage . condition éligibilité: mpa . situation demandeur = 'bailleur'
-locavantage . loyer: 500€
+  valeur: 
+    produit:
+      - taux
+      - loyer
+      - 12
+  unité: €/an
+locavantage . condition éligibilité: 
+  une de ces conditions:
+    - toutes ces conditions:
+      - parcours d'aide = "autonomie"
+      - mpa . situation demandeur = 'bailleur'
+    - toutes ces conditions:
+      - parcours d'aide = "rénovation énergétique"
+      - vous . propriétaire . condition
+      - logement . propriétaire occupant = non
+      - logement . résidence principale locataire = oui
+locavantage . loyer:
+  question: Quel sera le loyer du logement ?
+  unité: € 
 locavantage . intermédiation locative:
-  par défaut: oui
+  question: Allez-vous faire appel à un intermédiaire de gestion locative ? 
 locavantage . niveau loyer:
   une possibilité parmi:
     possibilités:
       - loc 1
       - loc 2
       - loc 3
-  par défaut: '"loc 1"'
 locavantage . niveau loyer . loc 1:
   valeur: loc 1
   titre: Loc 1

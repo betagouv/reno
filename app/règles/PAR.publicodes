@@ -6,6 +6,7 @@ PAR:
   type: 'prêt'
   icône: 'pam-plus-bleu.svg'
   titre: Prêt avance rénovation à taux zéro
+  lien: https://www.service-public.fr/particuliers/actualites/A17657
   conditions éligibilités: |
     Pour bénéficier du plafond maximum à 50 000€, ce prêt est soumis à audit énergétique et gain de performance :
 
@@ -15,14 +16,14 @@ PAR:
     - Vous devez faire réaliser les travaux par un professionnel RGE.
 
   comment faire: |
-    Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">
-                    sont couverts</a> par ce dispositif.
+    Assurez-vous d'abord que vos travaux de rénovation <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank" title="soient couverts - nouvelle fenêtre">
+                    soient couverts</a> par ce dispositif.
 
     Dans le cas d'un dossier MaPrimeRénov' parcours accompagné, ce sera probablement le cas.
 
     > La liste des établissements distribuant le prêt avance rénovation ne portant pas intérêt n'est pas encore disponible. 
 
-    Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank">la démarche étape par étape</a>.
+    Découvrir <a href="https://www.service-public.fr/particuliers/vosdroits/F38425" target="_blank" title="la démarche étape par étape - nouvelle fenêtre">la démarche étape par étape</a>.
   montant: |
     Jusqu'à 50 000 € d'emprunt pour une rénovation d'ampleur : viser un DPE E au minimum et un gain énergétique de 35%.
   description: |
@@ -34,14 +35,14 @@ PAR:
           
     L'établissement prêteur peut décider de verser le prêt en une ou plusieurs fois sur la base du descriptif et des devis détaillés des travaux à réaliser, ou bien à la fin des travaux.
 PAR . conditions:
-PAR . conditions . communes:
+PAR . condition éligibilité:
   valeur:
     toutes ces conditions:
       - vous . propriétaire . condition
       - logement . propriétaire occupant
-      - résidence principale
-      - ancienneté
-      - revenu
+      - conditions . résidence principale
+      - conditions . ancienneté
+      - conditions . revenu
 
 PAR . conditions . revenu:
   description: |
@@ -74,7 +75,7 @@ PAR . conditions . ancienneté:
 
 PAR . montant:
   titre: Montant du pret avance rénovation 0 %
-  applicable si: conditions . communes
+  applicable si: condition éligibilité
   variations:
     - si: logement . type travaux = "parois vitrées"
       alors: 7000 €

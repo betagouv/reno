@@ -3,7 +3,7 @@ import { push } from '@socialgouv/matomo-next'
 import BackToLastQuestion from './BackToLastQuestion'
 import PersonaBar from './PersonaBar'
 import { useAides } from './ampleur/useAides'
-import { decodeDottedName, encodeDottedName } from './publicodes/situationUtils'
+import { decodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import * as iframe from '@/utils/iframe'
 import { useEffect, useState } from 'react'
@@ -21,6 +21,7 @@ import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function Eligibility({
+  nbStep,
   setSearchParams,
   situation,
   rules,
@@ -39,28 +40,44 @@ export default function Eligibility({
 
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
+  const aides = useAides(engine, situation)
+
+  // On doit aussi vérifier geste par geste
+  const travauxEnvisages = getTravauxEnvisages(situation)
+  const hasAides =
+    aides.filter((aide) => aide.status === true).length > 0 ||
+    travauxEnvisages.find((dottedName) => {
+      const { infoCEE, infoMPR } = getInfoForPrime({
+        engine,
+        dottedName: decodeDottedName(dottedName),
+        situation,
+      })
+      return infoCEE?.isEligible || infoMPR?.montantRaw > 0
+    })
 
   useEffect(() => {
     if (isInIframe && sendDataToHost) {
       iframe.postMessageEligibilityDone(consent ? situation : {})
     }
   }, [isInIframe, consent, situation])
+
   return (
     <>
       <PersonaBar
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
-        engine={engine}
       />
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
           Mes aides
-          <span className="fr-stepper__state">Étape 3 sur 4</span>
+          <span className="fr-stepper__state">
+            Étape {nbStep - 1} sur {nbStep}
+          </span>
         </h1>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step="3"
-          data-fr-steps="4"
+          data-fr-current-step={nbStep - 1}
+          data-fr-steps={nbStep}
         ></div>
         <p className="fr-stepper__details">
           <span className="fr-text--bold">Étape suivante :</span> Mes démarches
@@ -77,30 +94,43 @@ export default function Eligibility({
         <BackToLastQuestion
           {...{ setSearchParams, situation, answeredQuestions }}
         />
-        <Link
-          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-          href={setSearchParams({ objectif: 'etape' }, 'url')}
-          onClick={() => {
-            push([
-              'trackEvent',
-              'Simulateur Principal',
-              'Eligibilité',
-              'Voir les démarches',
-            ])
-          }}
-          title="Voir les démarches"
-        >
-          Voir les démarches
-        </Link>
+        <BlocVoirDemarche setSearchParams={setSearchParams} />
         {/* <CopyButton searchParams={searchParams} /> */}
       </div>
       <span className="fr-h1">Vos résultats</span>
-      {situation["parcours d'aide"] == '"autonomie de la personne"' ? (
+      <p>
+        {hasAides ? (
+          <>
+            <span aria-hidden="true">🥳</span> Bonne nouvelle, des aides sont
+            disponibles pour vous accompagner dans votre projet.
+          </>
+        ) : (
+          <>Aucune aide disponible ne correspond à votre situation.</>
+        )}
+      </p>
+      {hasAides && (
+        <h2>
+          <span aria-hidden="true">💶</span> Aides pour vos travaux
+        </h2>
+      )}
+      {situation["parcours d'aide"] == '"autonomie"' ? (
         <EligibilityMPA
           {...{
             engine,
             situation,
-            aides: useAides(engine, situation, 'autonomie de la personne'),
+            aides,
+            answeredQuestions,
+            rules,
+            setSearchParams,
+            searchParams,
+          }}
+        />
+      ) : situation["parcours d'aide"] == '"sécurité salubrité"' ? (
+        <EligibilityMPLD
+          {...{
+            engine,
+            situation,
+            aides,
             answeredQuestions,
             rules,
             setSearchParams,
@@ -112,7 +142,8 @@ export default function Eligibility({
           {...{
             engine,
             situation,
-            aides: useAides(engine, situation),
+            aides,
+            travauxEnvisages,
             answeredQuestions,
             rules,
             setSearchParams,
@@ -122,25 +153,29 @@ export default function Eligibility({
         />
       )}
       <div className="fr-my-5v">
-        <Link
-          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-          css={`
-            width: 100%;
-            justify-content: center;
-          `}
-          href={setSearchParams({ objectif: 'etape' }, 'url')}
-          onClick={() => {
-            push([
-              'trackEvent',
-              'Simulateur Principal',
-              'Eligibilité',
-              'Voir les démarches',
-            ])
-          }}
-          title="Voir les démarches"
-        >
-          Voir les démarches
-        </Link>
+        <BlocVoirDemarche setSearchParams={setSearchParams} />
+      </div>
+      <div className="fr-share">
+        <p className="fr-share__title">Partager la page</p>
+        <ul className="fr-btns-group">
+          <li>
+            <button
+              onClick={() => {
+                push(['trackEvent', 'Partage', 'Clic'])
+                navigator.clipboard
+                  .writeText(window.location)
+                  .then(function () {
+                    alert('Adresse copiée dans le presse papier.')
+                  })
+              }}
+              type="button"
+              id="copy-share-1"
+              className="fr-btn--copy fr-btn"
+            >
+              Copier dans le presse-papier
+            </button>
+          </li>
+        </ul>
       </div>
       {isInIframe ? null : <Feedback />}
     </>
@@ -150,6 +185,7 @@ export default function Eligibility({
 export function EligibilityRenovationEnergetique({
   engine,
   situation,
+  travauxEnvisages,
   aides,
   answeredQuestions,
   rules,
@@ -159,37 +195,12 @@ export function EligibilityRenovationEnergetique({
 }) {
   // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
   const MPRASuspendue = true
-  const travauxEnvisages = getTravauxEnvisages(situation)
   const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
-  // On doit aussi vérifier geste par geste
-  const hasAides =
-    aides.filter((aide) => aide.status === true).length > 0 ||
-    travauxEnvisages.find((dottedName) => {
-      const { infoCEE, infoMPR } = getInfoForPrime({
-        engine,
-        dottedName: decodeDottedName(dottedName),
-        situation,
-      })
-      return infoCEE?.isEligible || infoMPR?.montantRaw > 0
-    })
 
   const hasMPRA =
-    aides.find((a) => a.baseDottedName == 'MPR . accompagnée').status === true
+    aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true
   return (
     <>
-      <p>
-        {hasAides ? (
-          <>
-            <span aria-hidden="true">🥳</span> Bonne nouvelle, des aides sont
-            disponibles pour vous accompagner dans votre projet.
-          </>
-        ) : (
-          <>Aucune aide disponible ne correspond à votre situation.</>
-        )}
-      </p>
-      <h2>
-        <span aria-hidden="true">💶</span> Aides pour vos travaux
-      </h2>
       <AvanceTMO {...{ engine, situation }} />
       {travauxConnus ? (
         <TravauxConnus
@@ -289,25 +300,170 @@ export function EligibilityRenovationEnergetique({
           searchParams,
         }}
       />
-      {!hasMPRA && (
-        <div className="fr-callout fr-mt-5v">
-          <h3 className="fr-callout__title">Et maintenant ?</h3>
-          <p className="fr-callout__text">
-            Un conseiller France Rénov’ peut vous aider à :
-          </p>
-          <ul className="fr-callout__text">
-            <li>🛠️ Identifier les bons travaux à faire</li>
-            <li>💰 Monter un plan de financement adapté</li>
-            <li>
-              🎯 Accéder aux aides auxquelles vous aurez droit au moment du
-              projet
-            </li>
-          </ul>
-        </div>
-      )}
+      {!hasMPRA && <BlocEtMaintenant />}
     </>
   )
 }
+
+export function EligibilityMPA({
+  engine,
+  situation,
+  aides,
+  answeredQuestions,
+  rules,
+  setSearchParams,
+  searchParams,
+}) {
+  let lastStatus = false
+  return (
+    <>
+      {aides
+        .sort((a, b) => {
+          if (a.status === b.status) return 0
+          if (a.status === true) return -1
+          if (b.status === true) return 1
+          if (a.status === null) return -1
+          if (b.status === null) return 1
+          return 0
+        })
+        .map((aide, i) => {
+          const currentStatus = aide.status
+          const updatedLastStatus = lastStatus
+          lastStatus = currentStatus
+          const AideComponent = correspondance[aide.baseDottedName]
+          return (
+            <React.Fragment key={i}>
+              {aide.status === null && updatedLastStatus !== null && (
+                <h2 className="fr-mt-5v">
+                  <span aria-hidden="true">🏦</span> Autres aides
+                  complémentaires
+                </h2>
+              )}
+              {aide.status === false && updatedLastStatus !== false && (
+                <h2 className="fr-mt-5v">
+                  <span aria-hidden="true">⛔</span> Non éligible
+                </h2>
+              )}
+              <div>
+                <AideComponent
+                  key={aide.baseDottedName}
+                  {...{
+                    isEligible: aide.status,
+                    dottedName: aide.baseDottedName,
+                    setSearchParams,
+                    answeredQuestions,
+                    engine,
+                    situation,
+                    searchParams,
+                    rules,
+                    expanded: false,
+                  }}
+                />
+              </div>
+            </React.Fragment>
+          )
+        })}
+      <BlocEtMaintenant />
+    </>
+  )
+}
+
+export function EligibilityMPLD({
+  engine,
+  situation,
+  aides,
+  answeredQuestions,
+  rules,
+  setSearchParams,
+  searchParams,
+}) {
+  let lastStatus = false
+  return (
+    <>
+      {aides
+        .sort((a, b) => {
+          if (a.status === b.status) return 0
+          if (a.status === true) return -1
+          if (b.status === true) return 1
+          if (a.status === null) return -1
+          if (b.status === null) return 1
+          return 0
+        })
+        .map((aide, i) => {
+          const currentStatus = aide.status
+          lastStatus = currentStatus
+          const AideComponent = correspondance[aide.baseDottedName]
+          return (
+            <React.Fragment key={i}>
+              {aide.status === null && (
+                <h2 className="fr-mt-5v">
+                  <span aria-hidden="true">🏦</span> Autres aides
+                  complémentaires
+                </h2>
+              )}
+              {aide.status === false && (
+                <h2 className="fr-mt-5v">
+                  <span aria-hidden="true">⛔</span> Non éligible
+                </h2>
+              )}
+              <div>
+                <AideComponent
+                  key={aide.baseDottedName}
+                  {...{
+                    isEligible: aide.status,
+                    dottedName: aide.baseDottedName,
+                    setSearchParams,
+                    answeredQuestions,
+                    engine,
+                    situation,
+                    searchParams,
+                    rules,
+                    expanded: false,
+                  }}
+                />
+              </div>
+            </React.Fragment>
+          )
+        })}
+      <BlocEtMaintenant />
+    </>
+  )
+}
+
+export const BlocEtMaintenant = () => (
+  <div className="fr-callout fr-mt-5v">
+    <h3 className="fr-callout__title">Et maintenant ?</h3>
+    <p className="fr-callout__text">
+      Un conseiller France Rénov’ peut vous aider à :
+    </p>
+    <ul className="fr-callout__text">
+      <li>🛠️ Identifier les bons travaux à faire</li>
+      <li>💰 Monter un plan de financement adapté</li>
+      <li>
+        🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
+      </li>
+    </ul>
+  </div>
+)
+
+export const BlocVoirDemarche = ({ setSearchParams, customCss }) => (
+  <Link
+    className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+    css={customCss}
+    href={setSearchParams({ objectif: 'etape' }, 'url')}
+    onClick={() => {
+      push([
+        'trackEvent',
+        'Simulateur Principal',
+        'Eligibilité',
+        'Voir les démarches',
+      ])
+    }}
+    title="Voir les démarches"
+  >
+    Voir les démarches
+  </Link>
+)
 
 export function TravauxConnus({
   categories,
@@ -422,113 +578,4 @@ export function TravauxInconnus({
       )}
     </div>
   ))
-}
-
-export function EligibilityMPA({
-  engine,
-  situation,
-  aides,
-  answeredQuestions,
-  rules,
-  setSearchParams,
-  searchParams,
-}) {
-  const hasAides = aides.filter((aide) => aide.status === true).length > 0
-  let lastStatus = false
-  return (
-    <>
-      <p
-        css={`
-          margin: 0.5rem 0 !important;
-        `}
-      >
-        {hasAides ? (
-          <>
-            <span aria-hidden="true">🥳</span> Vous êtes éligible aux aides
-            présentées ci-dessous :
-          </>
-        ) : (
-          <>
-            Nous n’avons trouvé aucune aide spécifique pour les critères que
-            vous avez renseignés. N'hésitez pas à contacter l’un de nos
-            conseillers France Rénov’ pour obtenir des conseils personnalisés.
-          </>
-        )}
-      </p>
-      {hasAides && (
-        <h2>
-          <span aria-hidden="true">💶</span> Aides pour vos travaux
-        </h2>
-      )}
-      {aides
-        .sort((a, b) => {
-          if (a.status === b.status) return 0
-          if (a.status === true) return -1
-          if (b.status === true) return 1
-          if (a.status === null) return -1
-          if (b.status === null) return 1
-          return 0
-        })
-        .map((aide, i) => {
-          const currentStatus = aide.status
-          const updatedLastStatus = lastStatus
-          lastStatus = currentStatus
-          const AideComponent = correspondance[aide.baseDottedName]
-          return (
-            <React.Fragment key={i}>
-              {aide.status === null && updatedLastStatus !== null && (
-                <h2>
-                  <span aria-hidden="true">🏦</span> Autres aides
-                  complémentaires
-                </h2>
-              )}
-              {aide.status === false && updatedLastStatus !== false && (
-                <h2>
-                  <span aria-hidden="true">⛔</span> Non éligible
-                </h2>
-              )}
-              <div
-                id={'aide-' + encodeDottedName(aide.baseDottedName)}
-                key={aide.baseDottedName}
-                css={`
-                  border-bottom: 1px solid var(--lighterColor2);
-                  margin-bottom: 1rem;
-                  padding-left: 1.5rem;
-                  h3 {
-                    font-size: 90%;
-                  }
-                `}
-              >
-                <AideComponent
-                  key={aide.baseDottedName}
-                  {...{
-                    dottedName: aide.baseDottedName,
-                    setSearchParams,
-                    answeredQuestions,
-                    engine,
-                    situation,
-                    searchParams,
-                    rules,
-                    expanded: false,
-                  }}
-                />
-              </div>
-            </React.Fragment>
-          )
-        })}
-      <div className="fr-callout">
-        <h3 className="fr-callout__title">Et maintenant ?</h3>
-        <p className="fr-callout__text">
-          Un conseiller France Rénov’ peut vous aider à :
-        </p>
-        <ul className="fr-callout__text">
-          <li>🛠️ Identifier les bons travaux à faire</li>
-          <li>💰 Monter un plan de financement adapté</li>
-          <li>
-            🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
-          </li>
-        </ul>
-      </div>
-    </>
-  )
 }

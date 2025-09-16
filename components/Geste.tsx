@@ -15,15 +15,17 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       dottedName,
       situation,
     })
+  let tauxDenormandie = null
+  if (dottedName.includes('denormandie')) {
+    tauxDenormandie = engine
+      .setSituation(situation)
+      .evaluate('denormandie . taux').nodeValue
+  }
+
   return (
-    ![
-      'mpa . montant',
-      'locavantage . montant',
-      'tva réduite',
-      "crédit d'impôt",
-      'aides locales',
-      'locales',
-    ].includes(dottedName) && (
+    !['tva réduite', "crédit d'impôt", 'aides locales', 'apa', 'aeeh'].includes(
+      dottedName,
+    ) && (
       <Badge
         noIcon
         severity={
@@ -45,15 +47,18 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
           </>
         ) : dottedName.includes('denormandie') ? (
           <>
-            Jusqu'à{' '}
-            {formatValue(
-              engine.setSituation(situation).evaluate('denormandie . taux'),
+            {tauxDenormandie ? (
+              <>
+                Réduction d'impôt de {montantTotal}
+                <AideDurée
+                  engine={engine}
+                  situation={bestSituation}
+                  dottedName={dottedName + ' . montant'}
+                />
+              </>
+            ) : (
+              'Potentiellement éligible'
             )}
-            <AideDurée
-              engine={engine}
-              situation={bestSituation}
-              dottedName={dottedName + ' . montant'}
-            />
           </>
         ) : rules[dottedName.replace(' . montant', '')]?.type === 'prêt' ? (
           <>
@@ -66,7 +71,11 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
           </>
         ) : eligibleMPRG && montantTotal != 'Pas encore défini' ? ( // Cas MPR avec ou sans CEE/Coup de pouce
           <>
-            {!isExactTotal ? 'Au moins ' : 'Prime de '}
+            {!isExactTotal
+              ? 'Au moins '
+              : dottedName.includes('locavantage')
+                ? "Réduction d'impôt de "
+                : 'Prime de '}
             {montantTotal}
           </>
         ) : !eligibleMPRG && hasCoupDePouce && isExactTotal ? (

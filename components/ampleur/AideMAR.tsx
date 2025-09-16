@@ -33,7 +33,7 @@ export default function AideMAR({
         </p>
       )}
       {expanded && (
-        <Card $background="#EEEEFF">
+        <Card>
           <p>
             Par exemple : pour une prestation Mon Accompagnateur Rénov' de{' '}
             <Value
@@ -49,7 +49,6 @@ export default function AideMAR({
                 engine,
                 situation,
                 dottedName: 'ménage . revenu . classe',
-                state: 'prime-black',
               }}
             />{' '}
             vous bénéficiez d'une aide de{' '}
@@ -58,7 +57,6 @@ export default function AideMAR({
                 engine,
                 situation,
                 dottedName: dottedName + ' . pourcent',
-                state: 'prime-black',
               }}
             />{' '}
             appliquée à une assiette de subvention plafonnée à{' '}
@@ -75,7 +73,6 @@ export default function AideMAR({
                 engine,
                 situation,
                 dottedName: dottedName + ' . montant',
-                state: 'prime',
               }}
             />{' '}
             d'aide.

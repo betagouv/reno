@@ -20,6 +20,7 @@ export default function AmpleurCTA({
     <Link
       className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-raw-link"
       href={url}
+      title={target == '_self' ? text : text + ' - nouvelle fenêtre'}
       target={target}
     >
       {isMobile ? textMobile : text}&nbsp;⚡️

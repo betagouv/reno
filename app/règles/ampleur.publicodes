@@ -14,6 +14,7 @@ ampleur . montant:
     - aides locales . montant
     - CEE . rénovation d'ampleur . montant
     - ampleur . prime individuelle copropriété . montant
+    - locavantage . montant
 
 ampleur . tous les dispositifs:
   applicable si: parcours d'aide = "rénovation énergétique"

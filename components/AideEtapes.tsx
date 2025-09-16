@@ -7,16 +7,19 @@ import Feedback from '@/app/contact/Feedback'
 import { useAides } from './ampleur/useAides'
 import { push } from '@socialgouv/matomo-next'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import { useEffect } from 'react'
 
 export default function AideEtapes({
+  nbStep,
   setSearchParams,
   situation,
   engine,
   answeredQuestions,
 }) {
-  push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
-
-  const aides = useAides(engine, situation, situation["parcours d'aide"])
+  useEffect(() => {
+    push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
+  },[])
+  const aides = useAides(engine, situation)
   const hasMPRA = aides.find(
     (aide) => aide.baseDottedName == 'MPR . accompagnée' && aide.status,
   )
@@ -30,12 +33,14 @@ export default function AideEtapes({
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
           Mes démarches
-          <span className="fr-stepper__state">Étape 4 sur 4</span>
+          <span className="fr-stepper__state">
+            Étape {nbStep} sur {nbStep}
+          </span>
         </h1>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step="4"
-          data-fr-steps="4"
+          data-fr-current-step={nbStep}
+          data-fr-steps={nbStep}
         ></div>
       </div>
       <div className="fr-mb-5v">
@@ -106,6 +111,28 @@ export default function AideEtapes({
             showWithAnswer={false}
           />
         </Card>
+
+        {hasMPA &&
+          situation['mpa . situation demandeur'] ==
+            '"occupant"' && (
+              <Card>
+                <h3>
+                  <span
+                    className="fr-icon-user-line fr-mr-1v"
+                    aria-hidden="true"
+                  ></span>
+                  Je réalise avec l’AMO mon diagnostic logement
+                </h3>
+                <p>
+                  L’AMO est un assistant à maîtrise d’ouvrage que vous avez pu
+                  choisir lors de votre rendez-vous avec le conseiller France
+                  Rénov'. Son rôle est de vous accompagner à chaque étape, de
+                  l’élaboration de votre projet au versement de l’aide.
+                </p>
+                <p> Il est obligatoire pour bénéficier de MaPrimeAdapt’.</p>
+              </Card>,
+            )}
+
         {(hasMPRA || hasMPA || hasPret) && (
           <Card>
             <h3>
@@ -248,7 +275,7 @@ export default function AideEtapes({
             )}
           </Card>
         )}
-        {!hasMPRA && (
+        {!hasMPRA && !hasMPA && (
           <Card>
             <Badge noIcon>optionnel</Badge>
             <h3>
