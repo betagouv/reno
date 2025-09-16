@@ -139,11 +139,11 @@ export default function ExplicationCopropriete() {
                     <Input
                       nativeInputProps={{
                         type: 'number',
-                        name: 'prix-achat',
                         min: 1,
                         step: 1,
-                        onChange: (value) => {
-                          value = value === undefined ? 0 : value
+                        onChange: (e) => {
+                          const value =
+                            e.target.value === undefined ? 0 : e.target.value
                           if (!Number.isInteger(parseInt(value))) return
                           setSearchParams(
                             encodeSituation({

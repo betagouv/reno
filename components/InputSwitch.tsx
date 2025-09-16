@@ -287,8 +287,12 @@ export default function InputSwitch({
                   'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
                   'copropriété . id': `"${id}"`,
                   'copropriété . nom': `"${result['Nom d’usage de la copropriété']}"`,
-                  'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
-                  'copropriété . nombre de logements': `"${result['Nombre de lots à usage d’habitation']}"`,
+                  'copropriété . nombre de lots principaux':
+                    result[
+                      'Nombre total de lots à usage d’habitation, de bureaux ou de commerces'
+                    ],
+                  'copropriété . nombre de logements':
+                    result['Nombre de lots à usage d’habitation'],
                   ...(lessThan15Years
                     ? { 'copropriété . condition 15 ans': 'non' }
                     : moreThan15Years
