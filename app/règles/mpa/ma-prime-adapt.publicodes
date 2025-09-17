@@ -103,7 +103,6 @@ mpa . occupant . condition éligibilité:
     - situation demandeur = 'occupant'
     - condition age ou handicap != 'aucune'
     - conditions de revenu
-    - logement . période de construction = "au moins 15 ans"
 mpa . occupant . montant:
   applicable si: condition éligibilité
   somme:
