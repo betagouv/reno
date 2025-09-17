@@ -10,7 +10,6 @@ eligibilite:
   logement . propriétaire occupant: oui
   logement . résidence principale propriétaire: oui
   logement . période de construction: "'au moins 15 ans'"
-  parcours d'aide: "'rénovation énergétique'"
   taxe foncière . condition de dépenses: oui
 mpra:
   vous . propriétaire . statut: 'propriétaire'
@@ -59,7 +58,8 @@ ptz:
   vous . propriétaire . statut: 'propriétaire'
   logement . résidence principale: oui
   logement . période de construction: 'au moins 15 ans'
-  parcours d'aide: "'rénovation énergétique'"
+  DPE . actuel: 6
+  projet . DPE visé: 3
 par:
   vous . propriétaire . statut: 'propriétaire'
   logement . propriétaire occupant: oui
@@ -68,7 +68,9 @@ par:
   logement . commune: "'75056'"
   ménage . personnes: 2
   ménage . revenu: 20002
-  parcours d'aide: "'rénovation énergétique'"
+  DPE . actuel: 6
+  projet . DPE visé: 3
+  logement . type travaux: "'parois vitrées'"
 denormandie:
   vous . propriétaire . statut: 'propriétaire'
   logement . propriétaire occupant: non
