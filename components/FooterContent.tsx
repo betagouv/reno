@@ -35,6 +35,30 @@ export default async function FooterContent() {
               href: '/confidentialite',
             },
           },
+          {
+            text: 'A propos',
+            linkProps: {
+              href: '/a-propos',
+            },
+          },
+          {
+            text: 'Questions fréquentes',
+            linkProps: {
+              href: '/faq',
+            },
+          },
+          {
+            text: 'Personas',
+            linkProps: {
+              href: '/personas',
+            },
+          },
+          {
+            text: 'Statistiques',
+            linkProps: {
+              href: '/stats',
+            },
+          },
         ]}
         contentDescription=""
         license={
@@ -49,119 +73,6 @@ export default async function FooterContent() {
             </a>{' '}
           </>
         }
-        linkList={[
-          {
-            categoryName: 'Blog',
-            links: sortedArticles
-              .filter(
-                ({ tags, brouillon }) =>
-                  !tags?.includes('notes de version') && !brouillon,
-              )
-              .map(({ url, titre }) => {
-                return {
-                  linkProps: {
-                    href: url,
-                  },
-                  text: titre,
-                }
-              })
-              .slice(0, 5),
-          },
-          {
-            categoryName: 'Les aides',
-            links: [
-              {
-                linkProps: {
-                  href: '/aides/ma-prime-renov',
-                },
-                text: "MaPrimeRénov'",
-              },
-              {
-                linkProps: {
-                  href: '/aides/bareme-revenus',
-                },
-                text: 'Tableau des revenus',
-              },
-              {
-                linkProps: {
-                  href: '/aides/coup-de-pouce',
-                },
-                text: 'Les Coups de pouce',
-              },
-              {
-                linkProps: {
-                  href: '/aides/cee',
-                },
-                text: "Certificats d'économie d'énergie (CEE)",
-              },
-              {
-                linkProps: {
-                  href: '/aides/pret-taux-0',
-                },
-                text: 'Les prêts à taux zéro',
-              },
-              {
-                linkProps: {
-                  href: '/aides/exoneration-fiscale/taxe-fonciere',
-                },
-                text: "L'exonération de taxe foncière",
-              },
-              {
-                linkProps: {
-                  href: '/aides/exoneration-fiscale/denormandie',
-                },
-                text: 'Le dispositif Denormandie',
-              },
-            ],
-          },
-          {
-            categoryName: 'Liens utiles',
-            links: [
-              {
-                linkProps: {
-                  href: '/a-propos',
-                },
-                text: 'À propos',
-              },
-              {
-                linkProps: {
-                  href: '/faq',
-                },
-                text: 'Questions fréquentes',
-              },
-              {
-                linkProps: {
-                  href: '/contact',
-                },
-                text: 'Contact',
-              },
-              {
-                linkProps: {
-                  href: '/api-doc',
-                },
-                text: 'API',
-              },
-              {
-                linkProps: {
-                  href: '/integration',
-                },
-                text: 'Intégrer nos calculettes',
-              },
-              {
-                linkProps: {
-                  href: '/personas',
-                },
-                text: 'Personas',
-              },
-              {
-                linkProps: {
-                  href: '/stats',
-                },
-                text: 'Statistiques',
-              },
-            ],
-          },
-        ]}
         contentDescription={
           <>
             MesAidesRéno est propulsé par{' '}
