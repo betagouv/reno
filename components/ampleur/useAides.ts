@@ -63,10 +63,12 @@ export function useAides(engine, situation) {
 
   const aides = list.map((aide) => {
     const cond = aide.dottedName.replace('montant', 'condition éligibilité')
+    const engineSituation = engine.setSituation(situation)
+    const evaluation = engineSituation.evaluate(
+      rules[cond] ? cond : aide.dottedName,
+    )
 
-    const evaluation = engine
-      .setSituation(situation)
-      .evaluate(rules[cond] ? cond : aide.dottedName)
+    const evaluationValue = engineSituation.evaluate(aide.dottedName)
 
     const marque2 = aide.dottedName.startsWith('aides locales')
       ? findAidesLocales(rules, engine)
@@ -77,7 +79,7 @@ export function useAides(engine, situation) {
     return {
       ...aide,
       evaluation,
-      value: formatValue(evaluation, { precision: 0 }),
+      value: formatValue(evaluationValue, { precision: 0 }),
       status: computeAideStatus(evaluation),
       'complément de marque': marque2,
     }
