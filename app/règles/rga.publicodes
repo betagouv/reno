@@ -65,12 +65,12 @@ logement . géométrie simple:
   par défaut: oui
 
 rga . peu endommagé:
-  question: La maison est non endommagée, ou seulement très peu ?
+  question: La maison est-elle intègre (non endommagée), ou seulement très peu endommagée ?
   par défaut: oui
   titre: Maison pas ou très peu endommagée
   # checkbox
   sous-titre: |
-    La maison ne doit pas présenter de désordres architecturaux ou présenter des fissures sur les murs intérieurs, les doublages et les cloisons dont l'écartement ne dépasse pas 1 millimètre.
+    La maison ne doit pas présenter de désordres architecturaux mais peut présenter des fissures sur les murs intérieurs, les doublages et les cloisons dont l'écartement ne dépasse pas 1 millimètre.
 
     Elle ne doit pas avoir subi des dommages structuraux susceptibles de compromettre la solidité du bâtiment et la sécurité de l'habitation.
 
