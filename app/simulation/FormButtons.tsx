@@ -31,7 +31,7 @@ export default function FormButtons({
         display: flex;
         gap: 1em;
         margin-top: 1em;
-        @media (height <= 1000px) {
+        @media (height <= 1000px) and (width <= 800px) {
           position: fixed;
           bottom: 0;
           left: 0;
