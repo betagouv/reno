@@ -17,6 +17,8 @@ import { useMemo } from 'react'
 import BtnBackToParcoursChoice from '../BtnBackToParcoursChoice'
 import CopyButton from '../CopyButton'
 import ExplicationsDétaillées from './ExplicationsDétaillées'
+import Link from 'next/link'
+import { push } from '@socialgouv/matomo-next'
 
 export default function Explication() {
   useSyncUrlLocalStorage()
@@ -57,13 +59,34 @@ export default function Explication() {
           align-items: center;
         `}
       >
-        <BtnBackToParcoursChoice
-          {...{
-            setSearchParams,
-            situation,
-            answeredQuestions: answeredQuestions.slice(0, -1),
-          }}
-        />
+        {' '}
+        <div>
+          <BtnBackToParcoursChoice
+            {...{
+              setSearchParams,
+              situation,
+              answeredQuestions: answeredQuestions.slice(0, -1),
+              whichSimulator: 'Simulateur RGA',
+            }}
+          />
+          <Link
+            className="fr-btn fr-btn--tertiary fr-icon-arrow-go-back-fill fr-btn--icon-left"
+            css={`
+              margin-left: 1rem;
+            `}
+            href={'/rga'}
+            onClick={() =>
+              push([
+                'trackEvent',
+                'Simulateur RGA',
+                'Clic',
+                'relance simulation',
+              ])
+            }
+          >
+            Recommencer la simulation
+          </Link>
+        </div>
         <CopyButton searchParams={searchParams} />
       </div>
       <header className="fr-mt-5v">

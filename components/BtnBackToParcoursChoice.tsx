@@ -7,6 +7,7 @@ export default function BtnBackToParcoursChoice({
   situation,
   answeredQuestions,
   text = 'Retour',
+  whichSimulator = 'Simulateur Principal',
 }) {
   const backUrl = setSearchParams(
     {
@@ -21,12 +22,7 @@ export default function BtnBackToParcoursChoice({
       className="fr-btn fr-btn--tertiary fr-icon-arrow-left-line fr-btn--icon-left"
       href={backUrl}
       onClick={() =>
-        push([
-          'trackEvent',
-          'Simulateur Principal',
-          'Clic',
-          'retour choix parcours',
-        ])
+        push(['trackEvent', whichSimulator, 'Clic', 'retour choix parcours'])
       }
     >
       {text}
