@@ -67,6 +67,8 @@ export default function InputSwitch({
       'logement . adresse',
       'logement . surface',
       'ménage . personnes',
+      'logement . niveaux',
+      'logement . âge',
     ].includes(currentQuestion),
     noButtons: [
       'projet . définition . travaux envisagés',
