@@ -5,7 +5,15 @@ export default function getNextQuestions(
   answeredQuestions = [],
   questionsConfig = {},
 ) {
-  const { missingVariables } = evaluation
+  const { missingVariables: rawMissingVariables } = evaluation
+
+  const missingVariables = Object.fromEntries(
+    Object.entries(rawMissingVariables).map(([k, v]) => {
+      if (k === 'ménage . personnes')
+        return [k, v + rawMissingVariables['ménage . revenu']]
+      else return [k, v]
+    }),
+  )
 
   console.log('mv', missingVariables)
 
@@ -43,11 +51,6 @@ export default function getNextQuestions(
         return -score
       })(orderedEntries)
 
-  console.log(
-    'chapter',
-    [...orderedByChapter].map(([k, v]) => k),
-  )
-
   //TODO désactivé pour la v1 de RGA qui a plus besoin de catégories que d'ordre logique
   /*
   const prio = questionsConfig.prioritaires || []
@@ -78,6 +81,5 @@ export default function getNextQuestions(
     ...orederedByChapterNoPreface,
   ]
 
-  console.log('chapter2', nextQuestions)
   return nextQuestions
 }

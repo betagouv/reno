@@ -32,6 +32,8 @@ ménage . revenu:
 
     Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
   unité: €
+  note: |
+    Cette question dans sa forme "bornes intelligentes" dépend de la réponse à la question `ménage . personnes`.
   par défaut: 0 €
 
 vous:
