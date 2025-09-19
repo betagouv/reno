@@ -9,6 +9,7 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import CallOut from '@codegouvfr/react-dsfr/CallOut'
 import Tag from '@codegouvfr/react-dsfr/Tag'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
@@ -67,21 +68,28 @@ export default function Explication() {
         <Tag>Fonds de prévention argile</Tag>
         <h1>Votre éligibilité au fonds de prévention argile</h1>
       </header>
-      <div>
-        {isEligibile ? (
-          <Badge noIcon severity="success">
-            Éligible
-          </Badge>
-        ) : (
-          <Badge noIcon severity="error">
-            Non éligible
-          </Badge>
-        )}
-        <p>
-          Votre logement {isEligibile ? 'est éligible' : "n'est pas éligible"}{' '}
-          au dispositif.
-        </p>
-      </div>
+
+      <CallOut
+        buttonProps={
+          isEligibile
+            ? {
+                children: "Faire la demande d'aide",
+                linkProps: {
+                  href: 'https://fonds-argile-staging.osc-fr1.scalingo.io/demande',
+                },
+              }
+            : undefined
+        }
+        iconId={
+          isEligibile ? 'ri-information-line' : 'ri-cross-line' // ça marche pas, je sais pas pourquoi
+        }
+        title={isEligibile ? 'Vous êtes éligible' : "Vous n'êtes pas éligible"}
+        colorVariant={isEligibile ? 'green-emeraude' : 'orange-terre-battue'}
+      >
+        Votre logement {isEligibile ? 'est éligible' : "n'est pas éligible"} au
+        dispositif.
+      </CallOut>
+
       <ExplicationsDétaillées {...{ situation, engine, answeredQuestions }} />
     </>
   )
