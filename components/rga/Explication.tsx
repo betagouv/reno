@@ -32,6 +32,8 @@ export default function Explication() {
   const evaluation = engineSituation.evaluate('rga . conditions')
   const isEligibile = evaluation.nodeValue
 
+  const searchParamsString = rawSearchParams.toString()
+
   return (
     <section>
       <Breadcrumb
@@ -75,7 +77,9 @@ export default function Explication() {
             ? {
                 children: "Faire la demande d'aide",
                 linkProps: {
-                  href: 'https://fonds-argile-staging.osc-fr1.scalingo.io/demande',
+                  href:
+                    'https://fonds-argile-staging.osc-fr1.scalingo.io/demande?' +
+                    searchParamsString,
                 },
               }
             : undefined
