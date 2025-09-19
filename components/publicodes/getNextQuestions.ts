@@ -31,14 +31,16 @@ export default function getNextQuestions(
           }
         })
         //        console.log('chapter', dottedname, chapterIndex)
-        const firstLevelScore =
+        const safeChapterIndex =
           chapterIndex === -1 ? chapitres.length : chapterIndex
+
+        const firstLevelScore = chapitres.length - safeChapterIndex
 
         const secondLevelScore = v
 
         const score = firstLevelScore * 1000 + secondLevelScore
         console.log('score', dottedname, score)
-        return score
+        return -score
       })(orderedEntries)
 
   console.log(
