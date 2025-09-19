@@ -33,7 +33,7 @@ export default function Explication() {
   const isEligibile = evaluation.nodeValue
 
   return (
-    <>
+    <section>
       <Breadcrumb
         currentPageLabel="Éligibilité fonds de prévention argile"
         homeLinkProps={{
@@ -91,6 +91,6 @@ export default function Explication() {
       </CallOut>
 
       <ExplicationsDétaillées {...{ situation, engine, answeredQuestions }} />
-    </>
+    </section>
   )
 }
