@@ -20,7 +20,7 @@ export default function getNextQuestions(
   const { chapitres } = questionsConfig
   const orderedByChapter = !chapitres
     ? orderedEntries
-    : sortBy(([dottedname]) => {
+    : sortBy(([dottedname, v]) => {
         const chapterIndex = chapitres.findIndex((chapitre) => {
           if (Array.isArray(chapitre)) {
             return chapitre.some((element) =>
@@ -31,7 +31,14 @@ export default function getNextQuestions(
           }
         })
         //        console.log('chapter', dottedname, chapterIndex)
-        return chapterIndex === -1 ? Infinity : chapterIndex
+        const firstLevelScore =
+          chapterIndex === -1 ? chapitres.length : chapterIndex
+
+        const secondLevelScore = v
+
+        const score = firstLevelScore * 1000 + secondLevelScore
+        console.log('score', dottedname, score)
+        return score
       })(orderedEntries)
 
   console.log(
@@ -60,11 +67,13 @@ export default function getNextQuestions(
     questionsConfig['préface'] || []
   ).filter((question) => !answeredQuestions.find((q) => q === question))
 
+  const orederedByChapterNoPreface = orderedByChapter
+    .map(([k, v]) => k)
+    .filter((q) => !unansweredArtificialQuestions.includes(q))
+
   const nextQuestions = [
     ...unansweredArtificialQuestions,
-    ...orderedByChapter
-      .map(([k, v]) => k)
-      .filter((q) => !unansweredArtificialQuestions.includes(q)),
+    ...orederedByChapterNoPreface,
   ]
 
   console.log('chapter2', nextQuestions)

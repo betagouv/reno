@@ -51,6 +51,7 @@ export default function RGA() {
     answeredQuestions,
   })
   console.log('nextQuestions', nextQuestions)
+  console.log('score', evaluation.missingVariables)
 
   const currentQuestion = nextQuestions[0],
     rule = currentQuestion && rules[currentQuestion]
