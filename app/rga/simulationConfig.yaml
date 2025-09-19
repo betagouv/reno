@@ -8,3 +8,6 @@ chapitres:
   - rga
   - - ménage
     - vous
+situation:
+  logement . propriétaire occupant: oui
+  vous . propriétaire . condition: oui

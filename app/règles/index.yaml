@@ -81,6 +81,12 @@ vous . propriétaire . condition:
       - statut = 'propriétaire'
       - statut = 'acquéreur'
 
+vous . propriétaire occupant rga:
+  note: Cette question remplace d'autres ici pour le sujet RGA car les conditions sont différentes dans le décrêt, qui ne parle pas de résidence principale. Dans un premier temps aussi, on évite la complexité des aquéreurs futur propriétaires.
+  titre: Propriétaire ?
+  question: Êtes-vous propriétaire occupant du logement concerné ?
+  par défaut: oui
+
 vous . propriétaire . astuce:
   type: notification
   sévérité: information
