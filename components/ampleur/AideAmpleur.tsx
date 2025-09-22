@@ -112,7 +112,15 @@ export default function AideAmpleur({
               __html: rules[dottedName].descriptionHtml,
             }}
           />
-          {addedText}
+          {typeof addedText === 'object' ? (
+            addedText
+          ) : (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: addedText,
+              }}
+            />
+          )}
           <AideCTAs
             {...{
               dottedName,
