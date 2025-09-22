@@ -18,7 +18,7 @@ export default function AideEtapes({
 }) {
   useEffect(() => {
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
-  },[])
+  }, [])
   const aides = useAides(engine, situation)
   const hasMPRA = aides.find(
     (aide) => aide.baseDottedName == 'MPR . accompagnée' && aide.status,
@@ -112,39 +112,47 @@ export default function AideEtapes({
           />
         </Card>
 
-        {hasMPA &&
-          situation['mpa . situation demandeur'] ==
-            '"occupant"' && (
-              <Card>
-                <h3>
-                  <span
-                    className="fr-icon-user-line fr-mr-1v"
-                    aria-hidden="true"
-                  ></span>
-                  Je réalise avec l’AMO mon diagnostic logement
-                </h3>
-                <p>
-                  L’AMO est un assistant à maîtrise d’ouvrage que vous avez pu
-                  choisir lors de votre rendez-vous avec le conseiller France
-                  Rénov'. Son rôle est de vous accompagner à chaque étape, de
-                  l’élaboration de votre projet au versement de l’aide.
-                </p>
-                <p> Il est obligatoire pour bénéficier de MaPrimeAdapt’.</p>
-              </Card>,
-            )}
-
-        {(hasMPRA || hasMPA || hasPret) && (
+        {hasMPA && situation['mpa . situation demandeur'] == '"occupant"' && (
+          <Card>
+            <h3>
+              <span
+                className="fr-icon-user-line fr-mr-1v"
+                aria-hidden="true"
+              ></span>
+              Je réalise avec l’AMO mon diagnostic logement autonomie
+            </h3>
+            <p>
+              L'AMO (Assistant à Maîtrise d'Ouvrage) habilité par l'Anah, est un
+              interlocuteur que vous choisissez lors de votre rendez-vous avec
+              le conseiller France Rénov'.
+            </p>
+            <p>
+              Obligatoire pour bénéficier de MaPrimeAdapt', l'AMO vous
+              accompagne tout au long de votre projet : diagnostic logement
+              autonomie, définition des travaux, mise en relation avec des
+              artisans, suivi administratif et jusqu'au versement de la
+              subvention.
+            </p>
+          </Card>
+        )}
+        {hasMPA ? (
           <Card>
             <h3>
               <span
                 className="fr-icon-draft-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
-              Votre projet prend forme. Demandez des devis
+              Je choisis mon artisan / Demandez des devis
             </h3>
             <p>
-              Après votre rendez-vous avec un conseiller, contactez des artisans
-              RGE pour obtenir leurs devis.
+              Vous êtes libre de choisir un artisan labellisé ou non. Certains
+              labels, tels que Silverbat, Handibat ou Proadapt ..., permettent
+              néanmoins d'identifier des professionnels spécialisés dans les
+              travaux d'adaptation.
+            </p>
+            <p>
+              Votre AMO pourra vous accompagner dans l'analyse et la comparaison
+              de vos devis afin de sécuriser votre choix.
             </p>
             <p>
               {hasMPRA &&
@@ -156,6 +164,31 @@ export default function AideEtapes({
               </p>
             )}
           </Card>
+        ) : (
+          (hasMPRA || hasPret) && (
+            <Card>
+              <h3>
+                <span
+                  className="fr-icon-draft-line fr-mr-1v"
+                  aria-hidden="true"
+                ></span>
+                Votre projet prend forme. Demandez des devis
+              </h3>
+              <p>
+                Après votre rendez-vous avec un conseiller, contactez des
+                artisans RGE pour obtenir leurs devis.
+              </p>
+              <p>
+                {hasMPRA &&
+                  "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
+              </p>
+              {hasMPRA && (
+                <p>
+                  <strong>Important</strong> : ne signez pas encore les devis.
+                </p>
+              )}
+            </Card>
+          )
         )}
         {(hasMPRA || hasMPA) && (
           <>
@@ -167,12 +200,21 @@ export default function AideEtapes({
                 ></span>
                 Déposez le dossier auprès de l'Anah
               </h3>
-              <p>
-                Vous pouvez le faire avec l'aide de votre Accompagnateur Rénov',
-                votre mandataire ou directement depuis la plateforme que vous a
-                communiqué le conseiller. Les dossiers les mieux préparés sont
-                instruits plus rapidement.
-              </p>
+              {hasMPA && (
+                <p>
+                  Vous pouvez déposer votre dossier auprès de l'Anah avec
+                  l'appui de votre AMO. Plus votre dossier est complet et bien
+                  préparé, plus son instruction sera rapide.
+                </p>
+              )}
+              {hasMPRA && (
+                <p>
+                  Vous pouvez le faire avec l'aide de votre Accompagnateur
+                  Rénov', votre mandataire ou directement depuis la plateforme
+                  que vous a communiqué le conseiller. Les dossiers les mieux
+                  préparés sont instruits plus rapidement.
+                </p>
+              )}
             </Card>
             <Card>
               <Badge noIcon>3 mois d'attente</Badge>
@@ -294,14 +336,27 @@ export default function AideEtapes({
               className="fr-icon-warning-line fr-mr-1v"
               aria-hidden="true"
             ></span>
-            Fin des travaux ! Votre logement est rénové
+            Fin des travaux ! Votre logement est {hasMPA ? 'adapté' : 'rénové'}
           </h3>
           <p>Dès les premiers mois, profitez de nombreux bénéfices :</p>
-          <ul>
-            <li>🧘 Plus de confort, en hiver comme en été</li>
-            <li>🍀 Un logement plus respectueux de l'environnement</li>
-            <li>🥇 Une meilleure valorisation de votre bien</li>
-          </ul>
+          {hasMPA ? (
+            <ul>
+              <li>
+                Un logement plus sûr et mieux adapté à vos besoins quotidiens
+              </li>
+              <li>
+                Des déplacements facilités dans toutes les pièces de la maison
+              </li>
+              <li>Plus d'autonomie et de confort</li>
+              <li>Une meilleure valorisation de votre bien</li>
+            </ul>
+          ) : (
+            <ul>
+              <li>🧘 Plus de confort, en hiver comme en été</li>
+              <li>🍀 Un logement plus respectueux de l'environnement</li>
+              <li>🥇 Une meilleure valorisation de votre bien</li>
+            </ul>
+          )}
         </Card>
         <Card>
           <Badge noIcon>1 mois d'attente</Badge>
@@ -312,10 +367,17 @@ export default function AideEtapes({
             ></span>
             Recevez vos aides
           </h3>
-          <p>
-            Subvention MaPrimeRénov', Primes CEE... Elles arriveront
-            probablement une fois les travaux finis.
-          </p>
+          {hasMPA ? (
+            <p>
+              Subvention MaPrimeAdapt' : elle sera versée une fois les travaux
+              terminés.
+            </p>
+          ) : (
+            <p>
+              Subvention MaPrimeRénov', Primes CEE... Elles arriveront
+              probablement une fois les travaux finis.
+            </p>
+          )}
         </Card>
         {hasPret && (
           <Card>
