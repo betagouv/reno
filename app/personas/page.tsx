@@ -1,7 +1,6 @@
 import { Metadata } from 'next/types'
 import { Suspense } from 'react'
 import Personas from '../Personas'
-import Tests from './Tests'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 import { PageBlock } from '@/components/UI'
@@ -26,7 +25,6 @@ export default function PersonasPage() {
         />
         <Suspense>
           <Personas />
-          <Tests />
         </Suspense>
       </PageBlock>
     </>
