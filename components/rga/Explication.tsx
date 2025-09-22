@@ -36,21 +36,43 @@ export default function Explication() {
 
   const searchParamsString = rawSearchParams.toString()
 
-  const RGA_DOMAIN = 'https://staging.fonds-prevention-argile.beta.gouv.fr' // TODO Variabiliser en production
+  const RGA_ALLOWED_DOMAINS = [
+    'https://staging.fonds-prevention-argile.beta.gouv.fr',
+    'https://fonds-prevention-argile.beta.gouv.fr',
+    'https://fonds-argile-staging.osc-fr1.scalingo.io',
+    'https://fonds-argile.osc-secnum-fr1.scalingo.io',
+  ] // TODO Variabiliser en production
 
   // Fonction pour envoyer les données au parent
   const handleDemandeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    // Envoie du message au parent avec les searchParams
     if (window.parent !== window) {
-      window.parent.postMessage(
-        {
-          type: 'RGA_DEMANDE_AIDE',
-          searchParams: searchParamsString,
-        },
-        RGA_DOMAIN, // Domaine parent
-      )
+      const parentOrigin = document.referrer
+        ? new URL(document.referrer).origin
+        : null
+
+      // Vérifier si l'origine est autorisée
+      if (parentOrigin && RGA_ALLOWED_DOMAINS.includes(parentOrigin)) {
+        window.parent.postMessage(
+          {
+            type: 'RGA_DEMANDE_AIDE',
+            searchParams: searchParamsString,
+          },
+          parentOrigin,
+        )
+      } else {
+        // Fallback : envoyer à tous les domaines autorisés
+        RGA_ALLOWED_DOMAINS.forEach((domain) => {
+          window.parent.postMessage(
+            {
+              type: 'RGA_DEMANDE_AIDE',
+              searchParams: searchParamsString,
+            },
+            domain,
+          )
+        })
+      }
     }
   }
 
