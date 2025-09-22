@@ -36,6 +36,24 @@ export default function Explication() {
 
   const searchParamsString = rawSearchParams.toString()
 
+  const RGA_DOMAIN = 'https://staging.fonds-prevention-argile.beta.gouv.fr' // TODO Variabiliser en production
+
+  // Fonction pour envoyer les données au parent
+  const handleDemandeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
+    // Envoie du message au parent avec les searchParams
+    if (window.parent !== window) {
+      window.parent.postMessage(
+        {
+          type: 'RGA_DEMANDE_AIDE',
+          searchParams: searchParamsString,
+        },
+        RGA_DOMAIN, // Domaine parent
+      )
+    }
+  }
+
   return (
     <section>
       <Breadcrumb
@@ -99,17 +117,11 @@ export default function Explication() {
           isEligibile
             ? {
                 children: "Faire la demande d'aide",
-                linkProps: {
-                  href:
-                    'https://fonds-argile-staging.osc-fr1.scalingo.io/demande?' +
-                    searchParamsString,
-                },
+                onClick: handleDemandeClick,
               }
-            : undefined
+            : undefined // Ne rien faire ?
         }
-        iconId={
-          isEligibile ? 'ri-information-line' : 'ri-cross-line' // ça marche pas, je sais pas pourquoi
-        }
+        iconId={isEligibile ? 'ri-information-line' : 'ri-cross-line'}
         title={isEligibile ? 'Vous êtes éligible' : "Vous n'êtes pas éligible"}
         colorVariant={isEligibile ? 'green-emeraude' : 'orange-terre-battue'}
       >
