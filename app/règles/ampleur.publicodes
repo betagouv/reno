@@ -82,11 +82,7 @@ ampleur . montant écrêté:
 
     > Cela dit, le modèle actuel Mes Aides Réno ne donne pas encore la possibilité de calculer les autres aides, hors MPR (MaPrimeRénov'). 
 
-    Prenons l'exemple simple sans cumul, pour des travaux de 70 000 €, et un ménage qui peut bénéficier de 35 % d'aide MaPrimeRénov' parcours accompagné, bonifiée pour une sortie de passoire de 10 %, soit 45 %. L'assiette de l'aide est de 70 000 € pour un gain de 4 classes de DPE : notre citoyen a limité sa dépense totale au montant maximum couvert par MaPrimeRénov parcours accompagné.
-
-    L'écrêtement se fait à 40 %, mais *sur l'enveloppe TTC des dépenses*. Ainsi, dans notre cas, les 45 % d'aide seront rabaissés à 40 %... mais le 40 % est appliqué à l'enveloppe avec TVA, soit 70 000 * 105,5 % = 73 850 €, donc un écrêtement à 29 540 €, là où l'aide était de 70 000 * 45 % = 31 500 €. L'écrêtement n'a donc pas pour effet de baisser l'aide de 10 %, mais d'un montant moindre.
-
-    L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 70 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
+    L'écrêtement se fait sur ["*la dépense TTC*"](https://www.anah.gouv.fr/sites/default/files/2024-02/202402_Guide_des_aides_WEBA.pdf#page=24), donc s'il avait fait une dépense totale de 100 000 €, même si l'aide MPR-A a pour assiette un plafond de 40 000 €, l'écrêtement se ferait sur 100 000 € HT + TVA.
 
   valeur: soumises à écrêtement
   plafond: plafond d'écrêtement

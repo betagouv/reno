@@ -244,7 +244,7 @@ export function EligibilityRenovationEnergetique({
                   state: 'normal',
                   engine,
                   situation,
-                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
+                  dottedName: 'MPR . accompagnée . pourcent',
                 }}
               />{' '}
               des travaux financés
