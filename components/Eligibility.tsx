@@ -193,8 +193,6 @@ export function EligibilityRenovationEnergetique({
   searchParams,
   expanded,
 }) {
-  // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
-  const MPRASuspendue = true
   const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
 
   const hasMPRA =
@@ -228,66 +226,52 @@ export function EligibilityRenovationEnergetique({
       )}
       {hasMPRA && (
         <div className="fr-callout fr-icon-info-line fr-callout--purple-glycine fr-my-5v">
-          {MPRASuspendue ? (
-            <>
-              <h3 className="fr-callout__title">
-                MaPrimeRénov&#39; parcours accompagné est temporairement
-                suspendue cet été
-              </h3>
-              <p className="fr-callout__text">
-                Cet été, les demandes pour les rénovations d'ampleur (parcours
-                accompagné) sont temporairement suspendues.
-              </p>
-            </>
-          ) : (
-            <>
-              <strong>
-                {travauxConnus
-                  ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-                  : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
-              </strong>
-              <ul>
-                <li>📉 Réduction des factures d'énergie</li>
-                <li>🧘 Gain de confort hiver comme été</li>
-                <li>
-                  👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
-                </li>
-                <li>
-                  🥇 Au moins{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'MPR . accompagnée . pourcent dont bonus',
-                    }}
-                  />{' '}
-                  des travaux financés
-                </li>
-              </ul>
-              <AideAmpleur
+          <div className='fr-callout__title'>
+            {travauxConnus
+              ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
+              : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+          </div>
+          <ul className='fr-callout__text'>
+            <li>📉 Réduction des factures d'énergie</li>
+            <li>🧘 Gain de confort hiver comme été</li>
+            <li>
+              👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
+            </li>
+            <li>
+              🥇 Au moins{' '}
+              <Value
                 {...{
-                  isEligible: false,
+                  state: 'normal',
                   engine,
-                  dottedName: 'MPR . accompagnée',
-                  setSearchParams,
                   situation,
-                  answeredQuestions,
-                  expanded,
-                  addedText: (
-                    <DPEScenario
-                      {...{
-                        rules,
-                        engine,
-                        situation,
-                        setSearchParams,
-                        answeredQuestions,
-                      }}
-                    />
-                  ),
+                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
                 }}
-              />
-            </>
-          )}
+              />{' '}
+              des travaux financés
+            </li>
+          </ul>
+          <AideAmpleur
+            {...{
+              isEligible: false,
+              engine,
+              dottedName: 'MPR . accompagnée',
+              setSearchParams,
+              situation,
+              answeredQuestions,
+              expanded,
+              addedText: (
+                <DPEScenario
+                  {...{
+                    rules,
+                    engine,
+                    situation,
+                    setSearchParams,
+                    answeredQuestions,
+                  }}
+                />
+              ),
+            }}
+          />          
         </div>
       )}
       <AidesAmpleur
