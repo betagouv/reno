@@ -119,19 +119,15 @@ export default function AideEtapes({
                 className="fr-icon-user-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
-              Je réalise avec l’AMO mon diagnostic logement autonomie
+              Je réalise avec l’AMO le diagnostic autonomie de mon logement
             </h3>
             <p>
-              L'AMO (Assistant à Maîtrise d'Ouvrage) habilité par l'Anah, est un
+              L'assistant à maîtrise d'ouvrage (AMO) est habilité par l'Anah. C'est un
               interlocuteur que vous choisissez lors de votre rendez-vous avec
-              le conseiller France Rénov'.
+              le conseiller France Rénov'. Son rôle est de vous accompagner à chaque étape, de l’élaboration de votre projet au versement de l’aide.
             </p>
             <p>
-              Obligatoire pour bénéficier de MaPrimeAdapt', l'AMO vous
-              accompagne tout au long de votre projet : diagnostic logement
-              autonomie, définition des travaux, mise en relation avec des
-              artisans, suivi administratif et jusqu'au versement de la
-              subvention.
+              Il est obligatoire pour bénéficier de MaPrimeAdapt’.
             </p>
           </Card>
         )}
@@ -142,13 +138,12 @@ export default function AideEtapes({
                 className="fr-icon-draft-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
-              Je choisis mon artisan / Demandez des devis
+              Je choisis mon artisan
             </h3>
             <p>
-              Vous êtes libre de choisir un artisan labellisé ou non. Certains
-              labels, tels que Silverbat, Handibat ou Proadapt ..., permettent
-              néanmoins d'identifier des professionnels spécialisés dans les
-              travaux d'adaptation.
+              Après votre rendez-vous avec un conseiller, contactez des artisans pour obtenir leurs devis.
+              Bien qu'ils ne soient pas obligatoires, certains labels permettent d'identifier des professionnels spécialisés dans les travaux d'adaptation.
+              En voici quelques-uns : Silverbat, Handibat ou Proadapt.
             </p>
             <p>
               Votre AMO pourra vous accompagner dans l'analyse et la comparaison
@@ -198,7 +193,7 @@ export default function AideEtapes({
                   className="fr-icon-send-plane-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
-                Déposez le dossier auprès de l'Anah
+                Je dépose le dossier auprès de l'Anah
               </h3>
               {hasMPA && (
                 <p>
@@ -342,13 +337,10 @@ export default function AideEtapes({
           {hasMPA ? (
             <ul>
               <li>
-                Un logement plus sûr et mieux adapté à vos besoins quotidiens
+                🧘 Un logement plus sûr et mieux adapté à vos besoins quotidiens
               </li>
-              <li>
-                Des déplacements facilités dans toutes les pièces de la maison
-              </li>
-              <li>Plus d'autonomie et de confort</li>
-              <li>Une meilleure valorisation de votre bien</li>
+              <li>🍀 Plus d'autonomie et de confort</li>
+              <li>🥇 Une meilleure valorisation de votre bien</li>
             </ul>
           ) : (
             <ul>
