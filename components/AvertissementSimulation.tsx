@@ -26,21 +26,7 @@ function serializeDay(date) {
 }
 
 export const useAvertissementState = () => {
-  const [open, setOpen] = useState(undefined)
-
-  useEffect(() => {
-    const now = new Date()
-    const value = localStorage.getItem(localStorageKey)
-    if (value != undefined) {
-      const readDate = new Date(value)
-      if (isMoreThanOneMonthLater(readDate, now)) {
-        setOpen(true)
-      } else setOpen(false)
-    } else {
-      setOpen(true)
-    }
-    localStorage.setItem(localStorageKey, serializeDay(now))
-  }, [setOpen])
+  const [open, setOpen] = useState(false)
 
   return [open, setOpen]
 }
