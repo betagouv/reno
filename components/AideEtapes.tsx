@@ -102,7 +102,7 @@ export default function AideEtapes({
               className="fr-icon-links-line fr-mr-1v"
               aria-hidden="true"
             ></span>
-            Conservez votre simulation pour plus tard
+            Je sauvegarde le lien de ma simulation pour plus tard
           </h3>
           <Share
             text="Elle pourra vous être utile pour votre rendez-vous en Espace conseil
@@ -138,7 +138,7 @@ export default function AideEtapes({
                 className="fr-icon-draft-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
-              Je choisis mon artisan
+              Je choisis mon artisan et demande des devis
             </h3>
             <p>
               Après votre rendez-vous avec un conseiller, contactez des artisans pour obtenir leurs devis.
@@ -237,7 +237,7 @@ export default function AideEtapes({
                   className="fr-icon-send-plane-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
-                Contactez votre banque pour faire la demande de prêts 0%
+                Je contacte ma banque pour faire la demande de prêts 0%
               </h3>
               <p>
                 L'éco-PTZ et le prêt avance rénovation (PAR+) sont proposés par
@@ -269,7 +269,7 @@ export default function AideEtapes({
                 className="fr-icon-pen-nib-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
-              Signez les devis, et planifiez les travaux avec les artisans
+              Je signe les devis, et planifie les travaux avec les artisans
             </h3>
             <p>C'est parti ! Les travaux vont bientôt commencer.</p>
           </Card>
@@ -320,7 +320,7 @@ export default function AideEtapes({
                 className="fr-icon-money-euro-circle-line fr-mr-1v"
                 aria-hidden="true"
               ></span>
-              Déposer vos demandes d’aides
+              Je dépose mes demandes d’aides
             </h3>
             <p>Primes CEE, Exonération de taxe foncière, etc.</p>
           </Card>
