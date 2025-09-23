@@ -35,7 +35,7 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
       }}
       priority="secondary"
     >
-      Calculer le montant d'aides
+      Calculer le montant de l'aide
     </Button>
   ) : (
     <a
