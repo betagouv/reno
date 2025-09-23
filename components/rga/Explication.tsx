@@ -37,16 +37,18 @@ export default function Explication() {
   const searchParamsString = rawSearchParams.toString()
 
   const RGA_ALLOWED_DOMAINS = [
+    // Domaines de développement
+    'http://localhost:3000',
+    'http://localhost:3001',
+    // Domaines de production
     'https://staging.fonds-prevention-argile.beta.gouv.fr',
     'https://fonds-prevention-argile.beta.gouv.fr',
     'https://fonds-argile-staging.osc-fr1.scalingo.io',
     'https://fonds-argile.osc-secnum-fr1.scalingo.io',
-  ] // TODO Variabiliser en production
+  ]
 
   // Fonction pour envoyer les données au parent
-  const handleDemandeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
+  const handleDemandeClick = () => {
     if (window.parent !== window) {
       const parentOrigin = document.referrer
         ? new URL(document.referrer).origin
@@ -134,22 +136,28 @@ export default function Explication() {
         <h1>Votre éligibilité au fonds de prévention argile</h1>
       </header>
 
-      <CallOut
-        buttonProps={
-          isEligibile
-            ? {
-                children: "Faire la demande d'aide",
-                onClick: handleDemandeClick,
-              }
-            : undefined // Ne rien faire ?
-        }
-        iconId={isEligibile ? 'ri-information-line' : 'ri-cross-line'}
-        title={isEligibile ? 'Vous êtes éligible' : "Vous n'êtes pas éligible"}
-        colorVariant={isEligibile ? 'green-emeraude' : 'orange-terre-battue'}
-      >
-        Votre logement {isEligibile ? 'est éligible' : "n'est pas éligible"} au
-        dispositif.
-      </CallOut>
+      {isEligibile ? (
+        <div onClick={handleDemandeClick}>
+          <CallOut
+            buttonProps={{
+              children: "Faire la demande d'aide",
+            }}
+            iconId="ri-information-line"
+            title="Vous êtes éligible"
+            colorVariant="green-emeraude"
+          >
+            Votre logement est éligible au dispositif.
+          </CallOut>
+        </div>
+      ) : (
+        <CallOut
+          iconId="ri-cross-line"
+          title="Vous n'êtes pas éligible"
+          colorVariant="orange-terre-battue"
+        >
+          Votre logement n'est pas éligible au dispositif.
+        </CallOut>
+      )}
 
       <ExplicationsDétaillées {...{ situation, engine, answeredQuestions }} />
     </section>
