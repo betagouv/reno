@@ -2,8 +2,6 @@ mpa:
   titre: MaPrime Adapt', l'aide pour l'adaptation à la perte d'autonomie
   marque: MaPrime Adapt'
   type: remboursement
-  description: |
-    MaPrimeAdapt' est l'aide dédiée aux personnes souhaitant adapter leur logement à leur perte d'autonomie, dans un contexte de transition démographique.
   lien: https://france-renov.gouv.fr/aides/maprimeadapt
 mpa . montant:
   applicable si: condition éligibilité
