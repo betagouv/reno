@@ -49,7 +49,7 @@ export function useOnPointClick(map, setSelectedBuilding, rnb) {
       const feature = e.features[0]
       const { id } = feature
 
-      console.log('indigo', feature)
+      const { lat, lng } = e.lngLat
 
       if (rnb) {
         map.setFeatureState(
@@ -87,7 +87,7 @@ export function useOnPointClick(map, setSelectedBuilding, rnb) {
         },
         { selected: true },
       )
-      setSelectedBuilding(id)
+      setSelectedBuilding({ id, lat, lon: lng })
     }
     map.on('click', pointsLayerId, onClick)
 

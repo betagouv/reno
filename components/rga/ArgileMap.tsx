@@ -27,7 +27,7 @@ export default function ArgileMap({ situation, setChoice }) {
 
   useEffect(() => {
     if (!rnb) return
-    if (situation?.['logement . rnb'] === `"${rnb}"`) {
+    if (situation?.['logement . rnb'] === `"${rnb.id}"`) {
       return
     }
     async function doFetch() {
@@ -35,7 +35,7 @@ export default function ArgileMap({ situation, setChoice }) {
         setBdnb(null)
         // On peut faire un appel à la BDNB sur la base de la clef BAN. On oublie pour l'instant, on prefère que l'utilisateur sélectionne explicitement son bâtiment pour afficher les données de la BDNB
         //const url = `https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet/adresse?cle_interop_adr=eq.${clefBan}`
-        const correspondanceUrl = `https://api.bdnb.io/v1/bdnb/donnees/batiment_construction?rnb_id=eq.${rnb}`
+        const correspondanceUrl = `https://api.bdnb.io/v1/bdnb/donnees/batiment_construction?rnb_id=eq.${rnb.id}`
         const correspondanceRequest = await fetch(correspondanceUrl)
         const correspondanceJSON = await correspondanceRequest.json()
 
@@ -47,7 +47,7 @@ export default function ArgileMap({ situation, setChoice }) {
         setBdnb(json)
 
         const firstEntry = json[0]
-        if (rnb) setChoice({ ...firstEntry, rnb })
+        if (rnb) setChoice({ ...firstEntry, rnbId: rnb.id })
         setError(null)
       } catch (e) {
         console.error(e)
@@ -58,7 +58,7 @@ export default function ArgileMap({ situation, setChoice }) {
       }
     }
     doFetch()
-  }, [setError, rnb, setBdnb, setChoice])
+  }, [setError, rnb?.id, setBdnb, setChoice])
 
   console.log({ bdnb, clefBan })
 
@@ -77,10 +77,10 @@ export default function ArgileMap({ situation, setChoice }) {
   useArgileMapMarkers(map, lon, lat)
   useRnbLayerHoverEffects(map)
 
-  const setSelectedBuilding = (id) => {
-    setRnb(id)
+  const setSelectedBuilding = (rnb) => {
+    setRnb(rnb)
   }
-  useOnPointClick(map, setSelectedBuilding, rnb)
+  useOnPointClick(map, setSelectedBuilding, rnb?.id)
 
   console.log({ situation })
   return (
@@ -99,7 +99,7 @@ export default function ArgileMap({ situation, setChoice }) {
           <MapBlock
             {...{
               mapContainerRef,
-              rnb,
+              rnb: rnb.id,
             }}
           />
           {data ? <ChosenBuildingInfo {...{ situation, data }} /> : null}

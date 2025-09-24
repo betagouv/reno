@@ -91,6 +91,7 @@ export default function InputSwitch({
 
   const setChoice = useCallback(
     (bdnb) => {
+      console.log('indigo', bdnb)
       const questionsToSubmit = {
         'logement . année de construction': {
           key: 'annee_construction',
@@ -104,7 +105,7 @@ export default function InputSwitch({
             (value === null ? 'nul' : value).toLowerCase(),
         },
         'logement . rnb': {
-          key: 'rnb',
+          key: 'rnbId',
 
           valueType: 'string',
         },
