@@ -49,6 +49,8 @@ export function useOnPointClick(map, setSelectedBuilding, rnb) {
       const feature = e.features[0]
       const { id } = feature
 
+      console.log('indigo', feature)
+
       if (rnb) {
         map.setFeatureState(
           {

@@ -114,6 +114,18 @@ export default function InputSwitch({
           valueType: 'num',
         },
         'logement . code département': {},
+
+        /*
+         * logement . coordonnees | à passer en plus de bdnb
+         * logement . commune | code_commune_insee
+         * logement . commune . nom | libelle_commune_insee
+         * logement . code département | code_departement_insee
+         * logement . code région | code_region_insee
+         * logement . EPCI | code_epci_insee
+         * logement . adresse | libelle_adr_principale_ban
+         *
+         * logement . commune . denormandie:  undefined
+         */
       }
 
       const valid = Object.entries(questionsToSubmit)
