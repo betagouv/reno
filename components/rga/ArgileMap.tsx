@@ -1,15 +1,11 @@
-import Badge from '@codegouvfr/react-dsfr/Badge'
-import Button from '@codegouvfr/react-dsfr/Button'
 import { useEffect, useRef, useState } from 'react'
-import MapLegend from './MapLegend'
-import { fr } from '@codegouvfr/react-dsfr'
+import ChosenBuildingInfo from './ChosenBuildingInfo'
+import MapBlock from './MapBlock'
 import useAddArgileMap from './useAddArgileMap'
 import useArgileMapMarkers, {
   useOnPointClick,
   useRnbLayerHoverEffects,
 } from './useArgileMapMarkers'
-import MapBlock from './MapBlock'
-import ChosenBuildingInfo from './ChosenBuildingInfo'
 
 /*
  * Tel que je le comprends pour l'instant, la clef BAN désigne l'adresse.

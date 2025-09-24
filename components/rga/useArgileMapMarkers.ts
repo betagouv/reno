@@ -1,4 +1,3 @@
-import { hover } from 'framer-motion'
 import { Marker } from 'maplibre-gl'
 import { useEffect } from 'react'
 
