@@ -114,23 +114,44 @@ export default function InputSwitch({
 
           valueType: 'num',
         },
+        'logement . clef ban': {
+          key: 'cle_interop_adr_principale_ban',
+          valueType: 'string',
+        },
+        // This component must also override the address variables set by AddressSearch. That's quite cumbersome but avoids a new request
         'logement . coordonnees': {
           valueType: 'string',
           key: 'lat',
           valueFunction: (_, bdnb) => bdnb.lat + ',' + bdnb.lon,
         },
-        'logement . code département': {},
+        'logement . code département': {
+          key: 'code_departement_insee',
+          valueType: 'string',
+        },
+
+        'logement . commune': {
+          key: 'code_commune_insee',
+          valueType: 'string',
+        },
+        'logement . commune . nom': {
+          key: 'libelle_commune_insee',
+          valueType: 'string',
+        },
+        'logement . code région': {
+          key: 'code_region_insee',
+          valueType: 'string',
+        },
+        'logement . EPCI': {
+          key: 'code_epci_insee',
+          valueType: 'string',
+        },
+        'logement . adresse': {
+          key: 'libelle_adr_principale_ban',
+          valueType: 'string',
+        },
 
         /*
-         * logement . coordonnees | à passer en plus de bdnb
-         * logement . commune | code_commune_insee
-         * logement . commune . nom | libelle_commune_insee
-         * logement . code département | code_departement_insee
-         * logement . code région | code_region_insee
-         * logement . EPCI | code_epci_insee
-         * logement . adresse | libelle_adr_principale_ban
-         *
-         * logement . commune . denormandie:  undefined
+         * TODO logement . commune . denormandie à mettre en undefined
          */
       }
 
@@ -138,8 +159,9 @@ export default function InputSwitch({
         .filter(
           ([question, { key, valueFunction = (v) => v }]) =>
             question !== currentQuestion && // would validate the question before the submit button is clicked
-            (!key || // TODO This is to validate code département. It's a hack : it should be validated by the Input that sets its value, like we do here. This logic should be set directly in publicode attributes and instrumented here.
-              valueFunction(bdnb[key], bdnb) != null),
+            //(!key || // TODO This is to validate code département. It's a hack : it should be validated by the Input that sets its value, like we do here. This logic should be set directly in publicode attributes and instrumented here.
+            valueFunction(bdnb[key], bdnb) != null,
+          //),
         )
         .map((el) => el[0])
 
