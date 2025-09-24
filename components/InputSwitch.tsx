@@ -25,6 +25,7 @@ import {
   setValueToSituation,
 } from './publicodes/situationUtils'
 import { useSendDataToHost } from './useIsInIframe'
+import useDebugSituation from './useDebugSituation'
 
 export default function InputSwitch({
   form,
@@ -153,6 +154,8 @@ export default function InputSwitch({
     },
     [setSearchParams, answeredQuestions, situation],
   )
+
+  useDebugSituation(situation)
 
   return currentQuestion ? (
     <ClassicQuestionWrapper {...params}>
