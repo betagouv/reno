@@ -114,6 +114,11 @@ export default function InputSwitch({
 
           valueType: 'num',
         },
+        'logement . coordonnees': {
+          valueType: 'string',
+          key: 'lat',
+          valueFunction: (_, bdnb) => bdnb.lat + ',' + bdnb.lon,
+        },
         'logement . code département': {},
 
         /*
@@ -134,7 +139,7 @@ export default function InputSwitch({
           ([question, { key, valueFunction = (v) => v }]) =>
             question !== currentQuestion && // would validate the question before the submit button is clicked
             (!key || // TODO This is to validate code département. It's a hack : it should be validated by the Input that sets its value, like we do here. This logic should be set directly in publicode attributes and instrumented here.
-              valueFunction(bdnb[key]) != null),
+              valueFunction(bdnb[key], bdnb) != null),
         )
         .map((el) => el[0])
 
@@ -144,7 +149,7 @@ export default function InputSwitch({
             ([question, { key, valueFunction = (v) => v, valueType }]) =>
               key != null && [
                 question,
-                setValueToSituation(valueType, valueFunction(bdnb[key])),
+                setValueToSituation(valueType, valueFunction(bdnb[key], bdnb)),
               ],
           )
           .filter(Boolean),

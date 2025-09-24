@@ -47,7 +47,13 @@ export default function ArgileMap({ situation, setChoice }) {
         setBdnb(json)
 
         const firstEntry = json[0]
-        if (rnb) setChoice({ ...firstEntry, rnbId: rnb.id })
+        if (rnb)
+          setChoice({
+            ...firstEntry,
+            rnbId: rnb.id,
+            lat: rnb.lat,
+            lon: rnb.lon,
+          })
         setError(null)
       } catch (e) {
         console.error(e)
@@ -99,7 +105,7 @@ export default function ArgileMap({ situation, setChoice }) {
           <MapBlock
             {...{
               mapContainerRef,
-              rnb: rnb.id,
+              rnb: rnb?.id,
             }}
           />
           {data ? <ChosenBuildingInfo {...{ situation, data }} /> : null}
