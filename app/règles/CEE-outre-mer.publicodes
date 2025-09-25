@@ -10,7 +10,7 @@ isolation . combles perdus agir plus La Réunion . montant:
       alors: 15 €/m2
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 13 €/m2
-    - sinon: 13 €
+    - sinon: 13 €/m2
 
 isolation . autre toiture agir plus La Réunion:
   titre: Combles aménagés, rampants et toitures terrasses
@@ -25,7 +25,7 @@ isolation . autre toiture agir plus La Réunion . montant:
       alors: 20 €/m2
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
-    - sinon: 15 €
+    - sinon: 15 €/m2
 
 isolation . toiture agir plus Guadeloupe:
   par défaut: oui
@@ -94,3 +94,18 @@ isolation . toiture agir plus Guyane . intérieur accès fleuve:
 		  - ménage . revenu . classe = 'modeste'
       alors: 35 €/m2
     - sinon: 0 €/m2
+
+isolation . surtoiture ventilée: 
+isolation . surtoiture ventilée . plafond: 110 €/m2
+  description: Plafonds de dépenses éligibles
+isolation . surtoiture ventilée . montant: 
+  applicable si: outre-mer . DROM
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 75 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 60 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 40 €/m2
+    - sinon: 15 €/m2
+
