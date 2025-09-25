@@ -783,7 +783,7 @@ MPR . non accompagnée . condition âge logement:
   variations:
     - si: outre-mer
       alors: logement . au moins 2 ans
-    - sinon: au moins 15 ans
+    - sinon: logement . au moins 15 ans
 
 MPR . non accompagnée . conditions:
   valeur:
