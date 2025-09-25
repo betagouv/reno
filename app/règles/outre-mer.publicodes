@@ -9,7 +9,7 @@ outre-mer . DROM:
     - logement . code région = '01' # Guadeloupe
     - logement . code région = '02' # Martinique
     - logement . code région = '03' # Guyane
-    - logement . code région = '04' # La Réunion
+    - La Réunion
     - logement . code région = '06' # Mayotte
 outre-mer . COM:
   titre: Collectivités d'outre-mer
@@ -22,3 +22,4 @@ outre-mer . COM:
     - logement . code région = '987' # Polynésie française
     - logement . code région = '988' # Nouvelle-Calédonie, a un statut particulier, mais souvent classée comme COM
 
+outre-mer . La Réunion: logement . code région = '04'
