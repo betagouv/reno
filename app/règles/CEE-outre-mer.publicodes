@@ -30,7 +30,7 @@ isolation . autre toiture agir plus La Réunion . montant:
 isolation . toiture agir plus Guadeloupe:
   par défaut: oui
 isolation . toiture agir plus Guadeloupe . montant:
-  applicable si: Guadeloupe
+  applicable si: outre-mer . Guadeloupe
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 16 €/m2
@@ -39,7 +39,7 @@ isolation . toiture agir plus Guadeloupe . montant:
 isolation . toiture agir plus Martinique:
   par défaut: oui
 isolation . toiture agir plus Martinique . montant:
-  applicable si: Martinique
+  applicable si: outre-mer . Martinique
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 20 €/m2
@@ -50,12 +50,12 @@ isolation . toiture agir plus Martinique . montant:
 isolation . toiture agir plus Mayotte:
   par défaut: oui
 isolation . toiture agir plus Mayotte . montant:
-  applicable si: Mayotte
+  applicable si: outre-mer . Mayotte
   variations:
-    - si: 
-       une de ces conditions: 
-         - ménage . revenu . classe = 'très modeste'
-         - ménage . revenu . classe = 'modeste'
+    - si:
+        une de ces conditions:
+          - ménage . revenu . classe = 'très modeste'
+          - ménage . revenu . classe = 'modeste'
       alors: 25 €/m2
     - sinon: 20 €/m2
 
@@ -63,42 +63,43 @@ isolation . toiture agir plus Guyane:
   par défaut: oui
 
 isolation . toiture agir plus Guyane . montant:
-  applicable si: Guyane
-  somme: 
+  applicable si: outre-mer . Guyane
+  somme:
     - littoral
     - intérieur accès route
     - intérieur accès fleuve
 
-
 isolation . toiture agir plus Guyane . littoral:
   variations:
-    - si: 
-        un de ces conditions: 
+    - si:
+        une de ces conditions:
           - ménage . revenu . classe = 'très modeste'
           - ménage . revenu . classe = 'modeste'
       alors: 18 €/m2
     - sinon: 17 €/m2
 isolation . toiture agir plus Guyane . intérieur accès route:
   variations:
-    - si: 
-        une de ces conditions: 
+    - si:
+        une de ces conditions:
           - ménage . revenu . classe = 'très modeste'
           - ménage . revenu . classe = 'modeste'
       alors: 20 €/m2
     - sinon: 0 €/m2
 isolation . toiture agir plus Guyane . intérieur accès fleuve:
   variations:
-    - si: 
-        une de ces conditions: 
+    - si:
+        une de ces conditions:
           - ménage . revenu . classe = 'très modeste'
           - ménage . revenu . classe = 'modeste'
       alors: 35 €/m2
     - sinon: 0 €/m2
 
-isolation . surtoiture ventilée: 
-isolation . surtoiture ventilée . plafond: 110 €/m2
+isolation . surtoiture ventilée:
+isolation . surtoiture ventilée . plafond:
+  valeur: 110 €/m2
   description: Plafonds de dépenses éligibles
-isolation . surtoiture ventilée . montant: 
+
+isolation . surtoiture ventilée . montant:
   applicable si: outre-mer . DROM
   variations:
     - si: ménage . revenu . classe = 'très modeste'
@@ -108,4 +109,3 @@ isolation . surtoiture ventilée . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 15 €/m2
-

@@ -64,7 +64,7 @@ const rules = {
   ...locavantage,
   ...autresAides,
   ...outreMer,
-  ...CEEOutreMer,
+  ...prefix(CEEOutreMer, 'gestes'),
 }
 
 const rulesWithMarkdown = Object.fromEntries(
