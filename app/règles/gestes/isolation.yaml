@@ -6,6 +6,7 @@ isolation:
     - murs intérieurs . montant
     - rampants . montant
     - toitures terrasses . montant
+    - outre-mer
 
 isolation . vitres:
   titre: Remplacement de simple vitrage

@@ -1,3 +1,7 @@
+isolation . outre-mer:
+  somme:
+    - combles perdus agir plus La Réunion . montant
+
 isolation . combles perdus agir plus La Réunion:
   par défaut: oui
 
