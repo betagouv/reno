@@ -55,27 +55,14 @@ MPR . accompagnée . éligible:
 MPR . accompagnée . condition de sauts:
   formule:
     toutes ces conditions:
-      - DPE . actuel > 2
+      - DPE . actuel > 5
       - sauts >= sauts minimum
 
-MPR . accompagnée . bonus . condition:
-  toutes ces conditions:
-    - projet . DPE visé <= 4
-    - DPE . actuel >= 6
-MPR . accompagnée . bonus:
-  titre: Bonus sortie de passoire
-  description: |
-    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification se s'applique que si l'étiquette D est atteinte à minima.
-  applicable si: condition
-  valeur: 10 %
 MPR . accompagnée . montant si assiette maximum:
-  formule: MPR . accompagnée . pourcent dont bonus * projet . travaux . plafond
-MPR . accompagnée . pourcent dont bonus:
-  titre: '% accompagné dont bonus'
-  formule: pourcent brut + bonus
+  formule: MPR . accompagnée . pourcent * projet . travaux . plafond
 
 MPR . accompagnée . sauts minimum: 2
-MPR . accompagnée . pourcent brut:
+MPR . accompagnée . pourcent:
   formule:
     variations:
       - si: sauts < sauts minimum
@@ -189,7 +176,7 @@ MPR . accompagnée . montant écrêté:
   plafond: ampleur . montant écrêté
 
 MPR . accompagnée . montant avant écrêtement:
-  formule: pourcent dont bonus * projet . travaux . plafonnés
+  formule: pourcent * projet . travaux . plafonnés
 
 MPR . accompagnée . reste à charge:
   titre: Reste à charge après MaPrimeRénov' parcours accompagné

@@ -20,9 +20,6 @@ export default function DPEScenario({ engine, situation, setSearchParams }) {
   ).nodeValue
 
   const isModeste = revenuClasseValue.includes('modeste')
-  const bonusSortiePassoire = engineSituation.evaluate(
-    'MPR . accompagnée . bonus',
-  ).nodeValue
   const montantTravaux =
     situation['projet . travaux'] ||
     engineSituation.evaluate('projet . travaux').nodeValue
@@ -126,17 +123,11 @@ export default function DPEScenario({ engine, situation, setSearchParams }) {
                   state: 'success',
                   engine,
                   situation: futureSituation,
-                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
+                  dottedName: 'MPR . accompagnée . pourcent',
                 }}
               />{' '}
               du coût de vos travaux{' '}
               <span className="fr-hint-text">
-                {bonusSortiePassoire && (
-                  <>
-                    dont <strong>{bonusSortiePassoire} %</strong> de bonus
-                    "Sortie de passoire"{' '}
-                  </>
-                )}
                 avec un plafond de
                 <Value
                   {...{

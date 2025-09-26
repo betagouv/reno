@@ -28,7 +28,7 @@
     CEE . projet . remplacement chaudière thermique: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
-    MPR . accompagnée . montant: 59835
+    MPR . accompagnée . montant: 53187
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 500
@@ -102,7 +102,7 @@
     CEE . projet . remplacement chaudière thermique: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée . montant: 30256
+    MPR . accompagnée . montant: 25213
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 300
@@ -172,7 +172,7 @@
     gestes . chauffage . bois . poêle . à granulés . CEE . Etas: "'supérieur à 80 %'"
     CEE . projet . remplacement chaudière thermique: oui
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 0
+    MPR . accompagnée . pourcent: 0
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 400
@@ -272,7 +272,7 @@
     projet . travaux: 82000
     logement . prix d'achat: 230000
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 30
+    MPR . accompagnée . pourcent: 20
     MPR . non accompagnée . éligible: non
     logement . commune . denormandie: oui
 
@@ -310,7 +310,7 @@
     CEE . projet . remplacement chaudière thermique: non
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
-    MPR . accompagnée . montant: 59835
+    MPR . accompagnée . montant: 53187
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 1078.4
@@ -359,7 +359,7 @@
     CEE . projet . remplacement chaudière thermique: non
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée . montant: 30256
+    MPR . accompagnée . montant: 25213
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 968
@@ -406,7 +406,7 @@
     gestes . ventilation . double flux . CEE . type de ventilation: "'autoréglable'"
     CEE . projet . remplacement chaudière thermique: non
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 0
+    MPR . accompagnée . pourcent: 0
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 804
@@ -438,7 +438,7 @@
     logement . surface: 50
     logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 15
+    MPR . accompagnée . pourcent: 15
     MPR . non accompagnée . éligible: non
 - description: |
     Propriétaire éligible MPR, mais pas d'autres infos
@@ -598,7 +598,7 @@
     logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 0
+    MPR . accompagnée . pourcent: 0
     MPR . non accompagnée . éligible: non
 - description: |
     DPE C, revenu aisé -> 1 seul scénario MPR accompagné.
@@ -609,7 +609,7 @@
     projet . DPE visé: 1
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . pourcent dont bonus: 10
+    MPR . accompagnée . pourcent: 10
     MPR . non accompagnée . éligible: non
     ménage . revenu . classe: 'supérieure'
 
