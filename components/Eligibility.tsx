@@ -9,7 +9,6 @@ import * as iframe from '@/utils/iframe'
 import { useEffect, useState } from 'react'
 import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
-import AidesAmpleur from './ampleur/AidesAmpleur'
 import AideGeste, { getInfoForPrime } from './AideGeste'
 import Link from 'next/link'
 import DPEScenario from './mpra/DPEScenario'
@@ -19,6 +18,8 @@ import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Share from '@/app/simulation/Share'
+import styled from 'styled-components'
 
 export default function Eligibility({
   nbStep,
@@ -83,21 +84,20 @@ export default function Eligibility({
           <span className="fr-text--bold">Étape suivante :</span> Mes démarches
         </p>
       </div>
-      <div
-        className="fr-mb-5v"
-        css={`
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        `}
+      <BlocEtMaintenant
+        title={
+          <>
+            <span className="fr-icon-flag-line" aria-hidden="true"></span>Psst !
+            La simulation n’est pas terminée...
+          </>
+        }
+        setSearchParams={setSearchParams}
       >
-        <BackToLastQuestion
-          {...{ setSearchParams, situation, answeredQuestions }}
-        />
-        <BlocVoirDemarche setSearchParams={setSearchParams} />
-        {/* <CopyButton searchParams={searchParams} /> */}
-      </div>
-      <span className="fr-h1">Vos résultats</span>
+        <p className="fr-callout__text">
+          Le service public vous accompagne : parlez à un conseiller France
+          Rénov'
+        </p>
+      </BlocEtMaintenant>
       <p>
         {hasAides ? (
           <>
@@ -108,11 +108,6 @@ export default function Eligibility({
           <>Aucune aide disponible ne correspond à votre situation.</>
         )}
       </p>
-      {hasAides && (
-        <h2>
-          <span aria-hidden="true">💶</span> Aides pour vos travaux
-        </h2>
-      )}
       {situation["parcours d'aide"] == '"autonomie"' ? (
         <EligibilityMPA
           {...{
@@ -152,30 +147,47 @@ export default function Eligibility({
           }}
         />
       )}
-      <div className="fr-my-5v">
-        <BlocVoirDemarche setSearchParams={setSearchParams} />
-      </div>
-      <div className="fr-share">
-        <p className="fr-share__title">Partager la page</p>
-        <ul className="fr-btns-group">
+      <BlocEtMaintenant
+        title="Et maintenant, on fait quoi ?"
+        setSearchParams={setSearchParams}
+      >
+        <p className="fr-callout__text">
+          Un conseiller France Rénov’ peut vous aider à :
+        </p>
+        <ul className="fr-callout__text">
+          <li>🛠️ Identifier les bons travaux à faire</li>
+          <li>💰 Monter un plan de financement adapté</li>
           <li>
-            <button
-              onClick={() => {
-                push(['trackEvent', 'Partage', 'Clic'])
-                navigator.clipboard
-                  .writeText(window.location)
-                  .then(function () {
-                    alert('Adresse copiée dans le presse papier.')
-                  })
-              }}
-              type="button"
-              id="copy-share-1"
-              className="fr-btn--copy fr-btn"
-            >
-              Copier dans le presse-papier
-            </button>
+            🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
           </li>
         </ul>
+      </BlocEtMaintenant>
+      <div
+        className="fr-mb-5v"
+        css={`
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        `}
+      >
+        <BackToLastQuestion
+          {...{ setSearchParams, situation, answeredQuestions }}
+        />
+        <Link
+          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+          href={setSearchParams({ objectif: 'etape' }, 'url')}
+          onClick={() => {
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Eligibilité',
+              'Voir les démarches',
+            ])
+          }}
+          title="Continuer vers les démarches"
+        >
+          Continuer vers les démarches
+        </Link>
       </div>
       {isInIframe ? null : <Feedback />}
     </>
@@ -197,94 +209,155 @@ export function EligibilityRenovationEnergetique({
 
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true
+
+  // On filtre les remboursements (donc MPRA, aide locales et subvention MAR) car ils sont affichés différement sauf CEE . ampleur
+  const eligibles = aides.filter(
+    (aide) =>
+      (aide.status === true || aide.status === null) &&
+      (aide.type !== 'remboursement' ||
+        aide.baseDottedName == "CEE . rénovation d'ampleur"),
+  )
+  const nonEligibles = aides.filter((aide) => aide.status === false)
   return (
     <>
-      <AvanceTMO {...{ engine, situation }} />
-      {travauxConnus ? (
-        <TravauxConnus
-          {...{
-            categories,
-            situation,
-            travauxEnvisages,
-            rules,
-            answeredQuestions,
-            engine,
-            setSearchParams,
-          }}
-        />
-      ) : (
-        <TravauxInconnus
-          {...{
-            categories,
-            situation,
-            rules,
-            answeredQuestions,
-            engine,
-            setSearchParams,
-          }}
-        />
+      {eligibles.length > 0 && (
+        <Card>
+          <h2 className="fr-h4">
+            <span aria-hidden="true">🏦</span> Aides de financement
+          </h2>
+          <RenderAides
+            {...{
+              isEligible: true,
+              aidesList: eligibles,
+              setSearchParams,
+              answeredQuestions,
+              engine,
+              situation,
+              searchParams,
+              rules,
+            }}
+          />
+        </Card>
       )}
-      {hasMPRA && (
-        <div className="fr-callout fr-icon-info-line fr-callout--purple-glycine fr-my-5v">
-          <div className='fr-callout__title'>
-            {travauxConnus
-              ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-              : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
-          </div>
-          <ul className='fr-callout__text'>
-            <li>📉 Réduction des factures d'énergie</li>
-            <li>🧘 Gain de confort hiver comme été</li>
-            <li>
-              👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
-            </li>
-            <li>
-              🥇 Au moins{' '}
-              <Value
+      <Card>
+        <h2 className="fr-h4">
+          <span aria-hidden="true">💶</span> Aides pour vos travaux
+        </h2>
+        {hasMPRA && (
+          <>
+            <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
+              <div className="fr-callout__title">
+                {travauxConnus
+                  ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
+                  : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+              </div>
+              <ul className="fr-callout__text">
+                <li>📉 Réduction des factures d'énergie</li>
+                <li>🧘 Gain de confort hiver comme été</li>
+                <li>
+                  👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
+                </li>
+                <li>
+                  🥇 Au moins{' '}
+                  <Value
+                    {...{
+                      engine,
+                      situation,
+                      dottedName: 'MPR . accompagnée . pourcent',
+                    }}
+                  />{' '}
+                  des travaux financés
+                </li>
+              </ul>
+              <AideAmpleur
                 {...{
-                  state: 'normal',
+                  isEligible: false,
                   engine,
+                  dottedName: 'MPR . accompagnée',
+                  setSearchParams,
                   situation,
-                  dottedName: 'MPR . accompagnée . pourcent',
+                  answeredQuestions,
+                  expanded,
+                  addedText: (
+                    <DPEScenario
+                      {...{
+                        rules,
+                        engine,
+                        situation,
+                        setSearchParams,
+                        answeredQuestions,
+                      }}
+                    />
+                  ),
                 }}
-              />{' '}
-              des travaux financés
-            </li>
-          </ul>
-          <AideAmpleur
+              />
+              <div className="fr-callout fr-icon-info-line fr-callout--blue-cumulus">
+                <div className="fr-callout__title">
+                  Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+                </div>
+                <div className="fr-callout__text">
+                  Aujourd’hui, seuls les ménages très modestes peuvent en
+                  bénéficier. L’aide pourrait s’ouvrir aux autres revenus d’ici
+                  fin 2025. Revenez régulièrement, le simulateur sera mis à
+                  jour.
+                  <Share text="" showWithAnswer={false} align="left" />
+                </div>
+              </div>
+            </div>
+            <p>OU optez pour les aides par gestes individuels :</p>
+          </>
+        )}
+        <AvanceTMO {...{ engine, situation }} />
+        {travauxConnus ? (
+          <TravauxConnus
+            {...{
+              categories,
+              situation,
+              travauxEnvisages,
+              rules,
+              answeredQuestions,
+              engine,
+              setSearchParams,
+            }}
+          />
+        ) : (
+          <TravauxInconnus
+            {...{
+              categories,
+              situation,
+              rules,
+              answeredQuestions,
+              engine,
+              setSearchParams,
+            }}
+          />
+        )}
+      </Card>
+      {nonEligibles.length > 0 && (
+        <Card>
+          <h2 className="fr-h4">
+            <span aria-hidden="true">⛔</span> Non éligible à
+          </h2>
+          <RenderAides
             {...{
               isEligible: false,
-              engine,
-              dottedName: 'MPR . accompagnée',
+              aidesList: nonEligibles,
               setSearchParams,
-              situation,
               answeredQuestions,
-              expanded,
-              addedText: (
-                <DPEScenario
-                  {...{
-                    rules,
-                    engine,
-                    situation,
-                    setSearchParams,
-                    answeredQuestions,
-                  }}
-                />
-              ),
+              engine,
+              situation,
+              searchParams,
+              rules,
+              hardCodedFilter: (aide) =>
+                situation['logement . type'] === '"maison"' &&
+                aide.baseDottedName ===
+                  'ampleur . prime individuelle copropriété'
+                  ? false
+                  : true,
             }}
-          />          
-        </div>
+          />
+        </Card>
       )}
-      <AidesAmpleur
-        {...{
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          searchParams,
-        }}
-      />
-      {!hasMPRA && <BlocEtMaintenant />}
     </>
   )
 }
@@ -347,7 +420,6 @@ export function EligibilityMPA({
             </React.Fragment>
           )
         })}
-      <BlocEtMaintenant />
     </>
   )
 }
@@ -361,7 +433,6 @@ export function EligibilityMPLD({
   setSearchParams,
   searchParams,
 }) {
-  let lastStatus = false
   return (
     <>
       {aides
@@ -409,44 +480,75 @@ export function EligibilityMPLD({
             </React.Fragment>
           )
         })}
-      <BlocEtMaintenant />
     </>
   )
 }
 
-export const BlocEtMaintenant = () => (
-  <div className="fr-callout fr-mt-5v">
-    <h3 className="fr-callout__title">Et maintenant ?</h3>
-    <p className="fr-callout__text">
-      Un conseiller France Rénov’ peut vous aider à :
-    </p>
-    <ul className="fr-callout__text">
-      <li>🛠️ Identifier les bons travaux à faire</li>
-      <li>💰 Monter un plan de financement adapté</li>
-      <li>
-        🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
-      </li>
-    </ul>
-  </div>
-)
+export function RenderAides({
+  setSearchParams,
+  answeredQuestions,
+  engine,
+  situation,
+  searchParams,
+  aidesList,
+  isEligible,
+  rules,
+  hardCodedFilter = () => true,
+}) {
+  if (aidesList.length === 0) return null
+  return aidesList.filter(hardCodedFilter).map((aide, i) => {
+    const AideComponent = correspondance[aide.baseDottedName]
+    return (
+      <AideComponent
+        key={aide.baseDottedName}
+        {...{
+          isEligible,
+          dottedName: aide.baseDottedName,
+          setSearchParams,
+          answeredQuestions,
+          engine,
+          situation,
+          searchParams,
+          rules,
+          expanded: false,
+        }}
+      />
+    )
+  })
+}
 
-export const BlocVoirDemarche = ({ setSearchParams, customCss }) => (
-  <Link
-    className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-    css={customCss}
-    href={setSearchParams({ objectif: 'etape' }, 'url')}
-    onClick={() => {
-      push([
-        'trackEvent',
-        'Simulateur Principal',
-        'Eligibilité',
-        'Voir les démarches',
-      ])
-    }}
-    title="Voir les démarches"
-  >
-    Voir les démarches
-  </Link>
+export const BlocEtMaintenant = ({ children, title, setSearchParams }) => (
+  <div className="fr-callout fr-mt-5v">
+    <h3 className="fr-callout__title">{title}</h3>
+    {children}
+    <div className="fr-grid-row fr-grid-row--gutters">
+      <div className="fr-col-12 fr-col-md-6">
+        <Link
+          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+          style={{ width: '100%', justifyContent: 'center' }}
+          href={setSearchParams({ objectif: 'etape' }, 'url')}
+          onClick={() => {
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Eligibilité',
+              'trouver conseiller',
+            ])
+          }}
+          title="Continuer un conseiller (gratuit)"
+        >
+          Contacter un conseiller (gratuit)
+        </Link>
+      </div>
+      <div className="fr-col-12 fr-col-md-6">
+        <Share
+          text=""
+          showWithAnswer={false}
+          customCss={{ width: '100%', justifyContent: 'center' }}
+        />
+      </div>
+    </div>
+  </div>
 )
 
 export function TravauxConnus({
@@ -464,7 +566,7 @@ export function TravauxConnus({
     )
     .map((category) => (
       <div key={category['code']}>
-        <h3 className="fr-mt-5v">{category['titre']}</h3>
+        <h3 className="fr-mt-5v fr-h5">{category['titre']}</h3>
         {category['code'] == 'isolation' && <p>{category['sousTitre']}</p>}
         {travauxEnvisages
           .filter(
@@ -524,7 +626,7 @@ export function TravauxInconnus({
   const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return Object.keys(rulesByCategory).map((category) => (
     <div key={category}>
-      <h3 className="fr-mt-5v">{category}</h3>
+      <h3 className="fr-mt-5v fr-h5">{category}</h3>
       {rulesByCategory[category].map((dottedName, index) => {
         const shouldShow = showAllByCategory[category] || index < 2
         return (
@@ -544,12 +646,7 @@ export function TravauxInconnus({
         )
       })}
       {rulesByCategory[category].length > 2 && (
-        <div
-          className="fr-m-3v"
-          css={`
-            text-align: center;
-          `}
-        >
+        <div className="fr-m-3v">
           <Button
             priority="secondary"
             title="Afficher les aides"
@@ -563,3 +660,10 @@ export function TravauxInconnus({
     </div>
   ))
 }
+
+export const Card = styled.div`
+  border: 1px solid rgba(207, 207, 207, 1);
+  box-shadow: 0px 4px 4px 0px rgba(221, 221, 221, 1);
+  padding: 1rem;
+  margin-bottom: 2rem;
+`

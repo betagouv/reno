@@ -80,23 +80,24 @@ export default function AideAmpleur({
       ) : (
         <Accordion
           label={
-            <div
+            <span
               css={`
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+                padding-right: 0.5rem;
               `}
             >
               {aideTitle(dottedName)}
-              {isEligible !== false && (
-                <PrimeBadge
-                  {...{
-                    situation,
-                    engine,
-                    dottedName,
-                  }}
-                />
-              )}
-            </div>
+              <PrimeBadge
+                {...{
+                  situation,
+                  engine,
+                  dottedName,
+                }}
+              />
+            </span>
           }
           onExpandedChange={() => {
             push([
