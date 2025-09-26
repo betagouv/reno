@@ -19,6 +19,7 @@ import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Share from '@/app/simulation/Share'
 
 export default function Eligibility({
   nbStep,
@@ -226,19 +227,19 @@ export function EligibilityRenovationEnergetique({
       )}
       {hasMPRA && (
         <div className="fr-callout fr-icon-info-line fr-callout--purple-glycine fr-my-5v">
-          <div className='fr-callout__title'>
+          <div className="fr-callout__title">
             {travauxConnus
               ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
               : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
           </div>
-          <ul className='fr-callout__text'>
+          <ul className="fr-callout__text">
             <li>📉 Réduction des factures d'énergie</li>
             <li>🧘 Gain de confort hiver comme été</li>
             <li>
               👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
             </li>
             <li>
-              🥇 Au moins{' '}
+              🥇 Jusqu'à{' '}
               <Value
                 {...{
                   state: 'normal',
@@ -259,19 +260,19 @@ export function EligibilityRenovationEnergetique({
               situation,
               answeredQuestions,
               expanded,
-              addedText: (
-                <DPEScenario
-                  {...{
-                    rules,
-                    engine,
-                    situation,
-                    setSearchParams,
-                    answeredQuestions,
-                  }}
-                />
-              ),
             }}
-          />          
+          />
+          <div className="fr-callout fr-icon-info-line fr-callout--blue-cumulus">
+            <div className="fr-callout__title">
+              Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+            </div>
+            <div className="fr-callout__text">
+              Aujourd’hui, seuls les ménages très modestes peuvent en
+              bénéficier. L’aide pourrait s’ouvrir aux autres revenus d’ici fin
+              2025. Revenez régulièrement, le simulateur sera mis à jour.
+              <Share text="" showWithAnswer={false} align="left" />
+            </div>
+          </div>
         </div>
       )}
       <AidesAmpleur
