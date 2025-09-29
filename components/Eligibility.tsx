@@ -295,17 +295,17 @@ export function EligibilityRenovationEnergetique({
                   ),
                 }}
               />
-              <div className="fr-callout fr-icon-info-line fr-callout--blue-cumulus">
-                <div className="fr-callout__title">
+              <div className="fr-alert fr-alert--info">
+                <div className="fr-alert__title">
                   Qui peut avoir MaPrimeRénov’ parcours accompagné ?
                 </div>
-                <div className="fr-callout__text">
+                <p>
                   Aujourd’hui, seuls les ménages très modestes peuvent en
                   bénéficier. L’aide pourrait s’ouvrir aux autres revenus d’ici
                   fin 2025. Revenez régulièrement, le simulateur sera mis à
                   jour.
                   <Share text="" showWithAnswer={false} align="left" />
-                </div>
+                </p>
               </div>
             </div>
             <p>OU optez pour les aides par gestes individuels :</p>
