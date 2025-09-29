@@ -21,8 +21,7 @@ export default function DPEScenario({ engine, situation, setSearchParams }) {
     'projet . DPE visé': choice,
     'projet . travaux': montantTravaux,
   }
-  console.log('situation', situation)
-  console.log('futureSituation', futureSituation)
+
   return (
     <CalculatorWidget>
       <div className="fr-grid-row fr-grid-row--gutters">
