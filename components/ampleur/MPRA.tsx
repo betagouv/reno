@@ -3,7 +3,6 @@ import DPEScenario from '@/components/mpra/DPEScenario'
 import Link from 'next/link'
 import { encodeSituation } from '../publicodes/situationUtils'
 import { Card } from '../UI'
-import { roundToThousands } from '../utils'
 import Value from '../Value'
 import AideAmpleur from './AideAmpleur'
 
@@ -16,16 +15,6 @@ export default function MPRA({
   expanded,
 }) {
   const dottedName = 'MPR . accompagnée'
-
-  // Si le montant des travaux n'est pas précisé, on l'estime
-  if (!situation['projet . travaux']) {
-    situation['projet . travaux'] = roundToThousands(
-      engine.evaluate('projet . enveloppe estimée').nodeValue
-        ? engine.evaluate('projet . enveloppe estimée').nodeValue
-        : 0,
-      5,
-    )
-  }
 
   return (
     <AideAmpleur

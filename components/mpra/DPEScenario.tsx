@@ -13,13 +13,10 @@ export default function DPEScenario({ engine, situation, setSearchParams }) {
   ).nodeValue
 
   const isModeste = revenuClasseValue.includes('modeste')
-  const montantTravaux =
-    situation['projet . travaux'] ||
-    engineSituation.evaluate('projet . travaux').nodeValue
+
   const futureSituation = {
     ...situation,
     'projet . DPE visé': choice,
-    'projet . travaux': montantTravaux,
   }
 
   return (
