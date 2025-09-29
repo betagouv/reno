@@ -230,7 +230,7 @@ export function EligibilityRenovationEnergetique({
         />
       )}
       {hasMPRA && (
-        <div className="fr-callout fr-icon-info-line fr-callout--purple-glycine fr-my-5v">
+        <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
           <div className="fr-callout__title">
             {travauxConnus
               ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
