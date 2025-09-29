@@ -217,6 +217,10 @@ isolation . murs intérieurs . CEE . barème:
 
 isolation . rampants:
   titre: Isolation des rampants de toiture ou plafonds de combles
+  note: |
+    Le guide des aides financières 2025 parle page 52 de conditions techniques applicables à MPR gestes qui mentionnent "PLANCHERS DE COMBLES PERDUS". On en déduit que cette aide s'applique aussi à cette catégorie de travaux. Le guide outre-mer page 5 à 7 confirme en listant explicitement les planchers des combles comme numéro 2 de l'illustration des travaux possibles.
+
+    Faut-il changer le titre pour inclure planchers de combles perdus ? Ou dans une description au clic sur le geste ?
   par défaut: oui
 isolation . rampants . montant:
   applicable si:
