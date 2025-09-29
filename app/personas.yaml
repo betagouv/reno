@@ -229,7 +229,7 @@
     logement . période de construction: "'de 10 à 15 ans'"
   valeurs attendues:
     conditions communes: non
-    MPR . accompagnée . éligible: non
+    MPR . accompagnée . condition éligibilité: non
     MPR . non accompagnée . éligible: non
     PTZ . condition éligibilité: oui
 
@@ -444,7 +444,7 @@
   situation:
     vous . propriétaire . condition: oui
   valeurs attendues:
-    MPR . accompagnée . éligible: oui
+    MPR . accompagnée . condition éligibilité: oui
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple très modeste, revenu 35k, enveloppe 49k rénove en Bretagne mais habite paris.
@@ -564,7 +564,7 @@
     logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . éligible: non
+    MPR . accompagnée . condition éligibilité: non
     MPR . non accompagnée . éligible: oui
 - description: |
     Éligible seulement au parcours accompagné car trop riche.
@@ -575,7 +575,7 @@
     logement . code région: "'53'"
     logement . propriétaire occupant: 92051
   valeurs attendues:
-    MPR . accompagnée . éligible: oui
+    MPR . accompagnée . condition éligibilité: oui
     MPR . non accompagnée . éligible: non
 - description: |
     Éligible seulement au parcours par gestes car trop bon DPE.
@@ -585,7 +585,7 @@
     DPE . actuel: 2
     logement . code région: "'53'"
   valeurs attendues:
-    MPR . accompagnée . éligible: non
+    MPR . accompagnée . condition éligibilité: non
     MPR . non accompagnée . éligible: oui
 - description: |
     1 saut, aisé.
@@ -674,7 +674,7 @@
     logement . période de construction: "'moins de 2 ans'"
   valeurs attendues:
     conditions communes: non
-    MPR . accompagnée . éligible: non
+    MPR . accompagnée . condition éligibilité: non
     MPR . non accompagnée . éligible: non
     PTZ . montant: 0
 
@@ -698,6 +698,6 @@
     taxe foncière . condition de dépenses: oui
     taxe foncière . commune . éligible: oui
   valeurs attendues:
-    MPR . accompagnée . éligible: non
+    MPR . accompagnée . condition éligibilité: non
     taxe foncière . commune . éligible: oui
     taxe foncière . montant: 2433

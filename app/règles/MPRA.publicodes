@@ -38,11 +38,11 @@ MPR . accompagnée:
   lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
 
 MPR . accompagnée . bénéficiaire:
-  applicable si: éligible
+  applicable si: condition éligibilité
   titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
   par défaut: oui
 
-MPR . accompagnée . éligible:
+MPR . accompagnée . condition éligibilité:
   titre: Éligible parcours accompagné
   formule:
     toutes ces conditions:
@@ -93,7 +93,7 @@ MPR . accompagnée . prise en charge MAR:
     Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ parcours accompagné et de la subvention travaux de <a href="https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location" target="_blank" title="Loc’Avantages - nouvelle fenêtre">Loc’Avantages</a>.
   conditions éligibilités: |
     - Seuls les professionnels ayant obtenu l'agrément délivré par l’État peuvent intervenir comme Mon Accompagnateur Rénov’. Consultez l'<a href="https://france-renov.gouv.fr/annuaires-professionnels/mon-accompagnateur-renov" target="_blank" title="annuaire officiel - nouvelle fenêtre">annuaire officiel</a> pour trouver un Mon Accompagnateur Rénov’ agréé.
-  applicable si: MPR . accompagnée . éligible
+  applicable si: MPR . accompagnée . condition éligibilité
   icône: maprimerenov.svg
   marque: Mon Accompagnateur Rénov'
   complément de marque: Subvention
@@ -162,7 +162,7 @@ MPR . accompagnée . remboursement: montant - avance
 
 MPR . accompagnée . montant:
   titre: Aide accompagnée
-  applicable si: éligible
+  applicable si: condition éligibilité
   note: |
     Nous calculons pour l'instant ici l'écrêtement au niveau de la règle "aides globales". En pratique pourtant, il semblerait que ce soit le montant de MaPrimeRénov' qui soit écrêté avant celui des aides locales et diverses.
   formule: montant avant écrêtement

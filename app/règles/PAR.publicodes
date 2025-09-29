@@ -89,7 +89,7 @@ PAR . montant:
       alors: 10000 €
     - si: logement . type travaux = "performance énergétique globale"
       alors: 50000 €
-    - si: MPR . accompagnée . éligible
+    - si: MPR . accompagnée . condition éligibilité
       alors: 50000 €
   par défaut: 50000 €
     
