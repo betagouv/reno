@@ -12,7 +12,6 @@ import AideAmpleur from './ampleur/AideAmpleur'
 import AidesAmpleur from './ampleur/AidesAmpleur'
 import AideGeste, { getInfoForPrime } from './AideGeste'
 import Link from 'next/link'
-import DPEScenario from './mpra/DPEScenario'
 import Value from './Value'
 import { categories, getRulesByCategory } from './utils'
 import { AvanceTMO } from './mprg/BlocAideMPR'
@@ -257,7 +256,6 @@ export function EligibilityRenovationEnergetique({
           </ul>
           <AideAmpleur
             {...{
-              isEligible: false,
               engine,
               dottedName: 'MPR . accompagnée',
               setSearchParams,

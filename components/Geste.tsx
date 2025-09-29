@@ -97,6 +97,15 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
               'Non éligible' + montantTotal
             )}
           </>
+        ) : dottedName == 'MPR . accompagnée' ? (
+          <>
+            Jusqu'à{' '}
+            {formatValue(
+              engine
+                .setSituation(bestSituation)
+                .evaluate(dottedName + ' . montant'),
+            )}
+          </>
         ) : (
           <>
             Prime existante&nbsp;
