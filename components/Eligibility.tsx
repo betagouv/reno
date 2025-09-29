@@ -48,12 +48,6 @@ export default function Eligibility({
   }, [isInIframe, consent, situation])
   return (
     <>
-      <>
-        <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
-        <Script
-          id={'np2g9V'}
-        >{` window.TallyConfig = { "formId": "np2g9V", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
-      </>
       <PersonaBar
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
