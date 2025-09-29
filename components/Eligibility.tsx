@@ -198,6 +198,10 @@ export function EligibilityRenovationEnergetique({
 
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true
+
+  const isTMO =
+    engine.setSituation(situation).evaluate('ménage . revenu . classe')
+      .nodeValue == 'très modeste'
   return (
     <>
       <AvanceTMO {...{ engine, situation }} />
@@ -262,17 +266,19 @@ export function EligibilityRenovationEnergetique({
               expanded,
             }}
           />
-          <div className="fr-callout fr-icon-info-line fr-callout--blue-cumulus">
-            <div className="fr-callout__title">
-              Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+          {!isTMO && (
+            <div className="fr-alert fr-alert--info">
+              <div className="fr-alert__title">
+                Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+              </div>
+              <p>
+                Aujourd’hui, seuls les ménages très modestes peuvent en
+                bénéficier. L’aide pourrait s’ouvrir aux autres revenus d’ici
+                fin 2025. Revenez régulièrement, le simulateur sera mis à jour.
+                <Share text="" showWithAnswer={false} align="left" />
+              </p>
             </div>
-            <div className="fr-callout__text">
-              Aujourd’hui, seuls les ménages très modestes peuvent en
-              bénéficier. L’aide pourrait s’ouvrir aux autres revenus d’ici fin
-              2025. Revenez régulièrement, le simulateur sera mis à jour.
-              <Share text="" showWithAnswer={false} align="left" />
-            </div>
-          </div>
+          )}
         </div>
       )}
       <AidesAmpleur
