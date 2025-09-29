@@ -28,7 +28,7 @@
     CEE . projet . remplacement chaudière thermique: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
-    MPR . accompagnée . montant: 53187
+    MPR . accompagnée . montant: 32000
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 500
@@ -102,7 +102,7 @@
     CEE . projet . remplacement chaudière thermique: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée . montant: 25213
+    MPR . accompagnée . montant: 20000
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 300
@@ -251,7 +251,6 @@
     logement . surface: 110
     logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
-    MPR . accompagnée . montant: 24650
     MPR . non accompagnée . éligible: oui
     aides locales . montant: 0
 - description: |
@@ -310,7 +309,7 @@
     CEE . projet . remplacement chaudière thermique: non
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=8
-    MPR . accompagnée . montant: 53187
+    MPR . accompagnée . montant: 32000
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 1078.4
@@ -359,7 +358,7 @@
     CEE . projet . remplacement chaudière thermique: non
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée . montant: 25213
+    MPR . accompagnée . montant: 20000
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 968
@@ -441,7 +440,7 @@
     MPR . accompagnée . pourcent: 15
     MPR . non accompagnée . éligible: non
 - description: |
-    Propriétaire éligible MPR, mais pas d'autres infos
+    Propriétaire éligible MPR geste, mais pas d'autres infos
   situation:
     vous . propriétaire . condition: oui
   valeurs attendues:
@@ -452,7 +451,7 @@
   situation:
     ménage . personnes: 2
     ménage . revenu: 20000
-    DPE . actuel: 4
+    DPE . actuel: 5
     projet . DPE visé: 1
     projet . travaux: 49000
     logement . code région: "'53'"
@@ -461,20 +460,20 @@
     ménage . commune: "'75056'"
   valeurs attendues:
     ménage . revenu . classe: 'très modeste'
-    MPR . accompagnée . montant: 39200
+    MPR . accompagnée . montant: 32000
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 58k donc plafonnée, Bretagne.
   situation:
     ménage . personnes: 2
     ménage . revenu: 35000
-    DPE . actuel: 4
+    DPE . actuel: 5
     projet . DPE visé: 1
     projet . travaux: 58000
     logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . montant: 27500
+    MPR . accompagnée . montant: 20000
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
@@ -486,7 +485,7 @@
     logement . période de construction: "'au moins 15 ans'"
     ménage . personnes: 2
     ménage . revenu: 35000
-    DPE . actuel: 4
+    DPE . actuel: 5
     projet . DPE visé: 1
     projet . travaux: 49000
     logement . code région: "'11'"
@@ -495,7 +494,7 @@
     logement . propriétaire occupant: oui
     taxe foncière . condition de dépenses: oui
   valeurs attendues:
-    MPR . accompagnée . montant: 29400
+    MPR . accompagnée . montant: 24000
     MPR . non accompagnée . éligible: oui
     taxe foncière . commune . éligible: oui
     taxe foncière . montant: 2433
@@ -557,7 +556,7 @@
   valeurs attendues:
     ménage . revenu . classe: intermédiaire
 - description: |
-    Éligible aux deux parcours.
+    Non éligible au parcours accomapgné car DPE trop élevé.
   situation:
     ménage . personnes: 2
     ménage . revenu: 25000
@@ -565,7 +564,7 @@
     logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . éligible: oui
+    MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: oui
 - description: |
     Éligible seulement au parcours accompagné car trop riche.

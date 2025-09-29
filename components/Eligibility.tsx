@@ -210,6 +210,10 @@ export function EligibilityRenovationEnergetique({
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true
 
+  const isTMO =
+    engine.setSituation(situation).evaluate('ménage . revenu . classe')
+      .nodeValue == 'très modeste'
+
   // On filtre les remboursements (donc MPRA, aide locales et subvention MAR) car ils sont affichés différement sauf CEE . ampleur
   const eligibles = aides.filter(
     (aide) =>
