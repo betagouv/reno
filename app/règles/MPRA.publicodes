@@ -52,7 +52,7 @@ MPR . accompagnée . éligible:
 MPR . accompagnée . condition de sauts:
   formule:
     toutes ces conditions:
-      - DPE . actuel > 5
+      - DPE . actuel >= 5
       - sauts >= sauts minimum
 
 MPR . accompagnée . montant si assiette maximum:
