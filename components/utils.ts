@@ -66,6 +66,7 @@ export const categories = [
         'Toit plat mal isolé, surchauffe en été',
       'gestes . isolation . plancher bas': 'Sensation de froid venant du sol',
       'gestes . isolation . vitres': 'Simple vitrage ou fenêtres anciennes',
+      'gestes . isolation . surtoiture ventilée': 'Dernier étage trop chaud',
     },
   },
   {
