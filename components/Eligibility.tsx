@@ -231,9 +231,8 @@ export function EligibilityRenovationEnergetique({
       {hasMPRA && (
         <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
           <div className="fr-callout__title">
-            {travauxConnus
-              ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-              : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+            Vous êtes éligible à une subvention pour réaliser une rénovation
+            d'ampleur :
           </div>
           <ul className="fr-callout__text">
             <li>📉 Réduction des factures d'énergie</li>
@@ -270,8 +269,9 @@ export function EligibilityRenovationEnergetique({
                 Qui peut avoir MaPrimeRénov’ parcours accompagné ?
               </div>
               <p>
-                Jusqu'au 31 décembre 2025 seuls les ménages très modestes peuvent en
-                bénéficier. L’aide pourrait réouvrir aux autres catégories de revenus début 2026.
+                Jusqu'au 31 décembre 2025 seuls les ménages très modestes
+                peuvent en bénéficier. L’aide pourrait réouvrir aux autres
+                catégories de revenus début 2026.
                 <Share text="" showWithAnswer={false} align="left" />
               </p>
             </div>
