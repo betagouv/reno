@@ -56,7 +56,7 @@ chauffage . PAC . air-eau . MPR . montant:
 chauffage . PAC . air-eau . CEE:
   code: BAR-TH-171
   titre: Pompe à chaleur de type air/eau
-  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-171%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-171%20vA74-3%20%C3%A0%20compter%20du%2001-10-2025.pdf
   technique: |
     Les PAC **associées à un autre système de chauffage** et les PAC utilisées **uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
       
@@ -178,43 +178,43 @@ chauffage . PAC . air-eau . CEE . barème:
 chauffage . PAC . air-eau . CEE . barème maison chauffage:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 37600
+      alors: 79500
     - si: Etas = "entre 140 % et 170 %"
-      alors: 60800
+      alors: 91600
     - si: Etas = "entre 170 % et 200 %"
-      alors: 76300
+      alors: 99700
     - si: Etas = "supérieur à 200 %"
-      alors: 83300
+      alors: 103400
 chauffage . PAC . air-eau . CEE . barème maison chauffage et eau:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 47800
+      alors: 96700
     - si: Etas = "entre 140 % et 170 %"
-      alors: 77300
+      alors: 111500
     - si: Etas = "entre 170 % et 200 %"
-      alors: 97100
+      alors: 121400
     - si: Etas = "supérieur à 200 %"
-      alors: 106000
+      alors: 125800
 chauffage . PAC . air-eau . CEE . barème appartement chauffage:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 16600
+      alors: 38400
     - si: Etas = "entre 140 % et 170 %"
-      alors: 26900
+      alors: 44300
     - si: Etas = "entre 170 % et 200 %"
-      alors: 33700
+      alors: 48200
     - si: Etas = "supérieur à 200 %"
-      alors: 36800
+      alors: 50000
 chauffage . PAC . air-eau . CEE . barème appartement chauffage et eau:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 26000
+      alors: 54000
     - si: Etas = "entre 140 % et 170 %"
-      alors: 42000
+      alors: 62300
     - si: Etas = "entre 170 % et 200 %"
-      alors: 52700
+      alors: 67800
     - si: Etas = "supérieur à 200 %"
-      alors: 57600
+      alors: 70300
 chauffage . PAC . air-eau . Coup de pouce:
 chauffage . PAC . air-eau . Coup de pouce . montant:
   applicable si: CEE . projet . remplacement chaudière thermique
@@ -271,7 +271,7 @@ chauffage . PAC . géo . Coup de pouce . question: CEE . projet . remplacement c
 chauffage . PAC . géo . CEE:
   code: BAR-TH-172
   titre: Pompe à chaleur de type eau/eau ou sol/eau
-  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-172%20vA74-3%20%C3%A0%20compter%20du%2001-10-2025.pdf
   technique: |
     Les PAC **associées à un autre système de chauffage**** et les PAC **utilisées uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
       
@@ -339,27 +339,27 @@ chauffage . PAC . géo . CEE . barème:
 chauffage . PAC . géo . CEE . barème chauffage:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 42000
+      alors: 88800
     - si: Etas = "entre 140 % et 170 %"
-      alors: 67900
+      alors: 102300
     - si: Etas = "entre 170 % et 200 %"
-      alors: 85200
+      alors: 111400
     - si: Etas = "entre 200 % et 230 %"
-      alors: 97600
+      alors: 117900
     - si: Etas = "supérieur à 230 %"
-      alors: 103500
+      alors: 120900
 chauffage . PAC . géo . CEE . barème chauffage et eau:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 53400
+      alors: 108100
     - si: Etas = "entre 140 % et 170 %"
-      alors: 86400
+      alors: 124600
     - si: Etas = "entre 170 % et 200 %"
-      alors: 108400
+      alors: 135600
     - si: Etas = "entre 200 % et 230 %"
-      alors: 124200
+      alors: 143500
     - si: Etas = "supérieur à 230 %"
-      alors: 131600
+      alors: 147200
 chauffage . PAC . géo . CEE . facteur correctif surface:
   variations:
     - si: surface < 70
@@ -419,7 +419,7 @@ chauffage . PAC . solaire . Coup de pouce . question: CEE . projet . remplacemen
 chauffage . PAC . solaire . CEE:
   code: BAR-TH-172
   titre: Pompe à chaleur de type eau/eau ou sol/eau
-  lien: https://www.ecologie.gouv.fr/sites/default/files/BAR-TH-172%20vA55-1%20%C3%A0%20compter%20du%2001-01-2024_0.pdf
+  lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-172%20vA74-3%20%C3%A0%20compter%20du%2001-10-2025.pdf
   technique: |
     Les PAC **associées à un autre système de chauffage**** et les PAC **utilisées uniquement pour le chauffage de l'eau chaude sanitaire** sont **exclues de ce dispositif**.  
       
@@ -490,27 +490,27 @@ chauffage . PAC . solaire . CEE . barème:
 chauffage . PAC . solaire . CEE . barème chauffage:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 42000
+      alors: 88800
     - si: Etas = "entre 140 % et 170 %"
-      alors: 67900
+      alors: 102300
     - si: Etas = "entre 170 % et 200 %"
-      alors: 85200
+      alors: 111400
     - si: Etas = "entre 200 % et 230 %"
-      alors: 97600
+      alors: 117900
     - si: Etas = "supérieur à 230 %"
-      alors: 103500
+      alors: 120900
 chauffage . PAC . solaire . CEE . barème chauffage et eau:
   variations:
     - si: Etas = "entre 111 % et 140 %"
-      alors: 53400
+      alors: 108100
     - si: Etas = "entre 140 % et 170 %"
-      alors: 86400
+      alors: 124600
     - si: Etas = "entre 170 % et 200 %"
-      alors: 108400
+      alors: 135600
     - si: Etas = "entre 200 % et 230 %"
-      alors: 124200
+      alors: 143500
     - si: Etas = "supérieur à 230 %"
-      alors: 131600
+      alors: 147200
 chauffage . PAC . solaire . CEE . facteur correctif surface:
   variations:
     - si: surface < 70
