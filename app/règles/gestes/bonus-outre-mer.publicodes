@@ -12,6 +12,7 @@ isolation . rampants . bonus outre-mer . montant:
   produit:
     - barème
     - MPR . surface
+
 isolation . rampants . bonus outre-mer . barème:
   variations:
     - si: outre-mer . La Réunion
@@ -29,9 +30,22 @@ isolation . rampants . bonus outre-mer . barème:
           alors: 16 €/m2
         - sinon: 12 €/m2
 
+isolation . rampants . choix:
+  par défaut: "'autres gestes'"
+  une possibilité parmi:
+    possibilités:
+      - combles perdus
+      - autres gestes
+
+isolation . rampants . choix . combles perdus:
+  valeur: "'combles perdus'"
+
+isolation . rampants . choix . autres gestes:
+  valeur: "'autres gestes'"
+  titre: Combles aménagés, rampants et toitures terrasses
+
 isolation . rampants . combles perdus La Réunion:
-  dispositif: Agir Plus
-  par défaut: oui
+  applicable si: rampants . choix = 'combles perdus'
 
 isolation . rampants . combles perdus La Réunion . montant:
   variations:
@@ -46,8 +60,8 @@ isolation . rampants . combles perdus La Réunion . montant:
 #### Le reste reste à intégrer dans la structure ci-dessus
 
 isolation . rampants . autres gestes La Réunion:
+  applicable si: rampants . choix = 'autres gestes'
   titre: Combles aménagés, rampants et toitures terrasses
-  par défaut: oui
 
 isolation . rampants . autres gestes La Réunion . montant:
   variations:
