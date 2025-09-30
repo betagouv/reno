@@ -1,17 +1,17 @@
-isolation . rampants . bonus outre-mer: 
-  variations: 
+isolation . rampants . bonus outre-mer:
+  variations:
     - si: outre-mer . La Réunion
       alors:
-       somme: 
-        - combles perdus La Réunion
-        - autres gestes La Réunion
+        somme:
+          - combles perdus La Réunion
+          - autres gestes La Réunion
     - si: outre-mer . Guadeloupe
-        alors:
-          dispositif: Agir plus
-          variations:
-            - si: ménage . revenu . classe = 'très modeste'
-              alors: 16 €/m2
-            - sinon: 12 €/m2
+      alors:
+        dispositif: Agir plus
+        variations:
+          - si: ménage . revenu . classe = 'très modeste'
+            alors: 16 €/m2
+          - sinon: 12 €/m2
 
 isolation . rampants . combles perdus La Réunion:
   dispositif: Agir Plus
