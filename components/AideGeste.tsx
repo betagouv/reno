@@ -14,6 +14,7 @@ import { getRuleName } from './publicodes/utils'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Tooltip from '@codegouvfr/react-dsfr/Tooltip'
 import getNextQuestions from './publicodes/getNextQuestions'
+import BonusOutreMer from './outre-mer/BonusOutreMer'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
@@ -193,6 +194,7 @@ export default function AideGeste({
           }}
         />
       )}
+      <BonusOutreMer {...{ engine, situation, dottedName, rules }} />
       {montantCoupDePouce && (
         <BlocAideCoupDePouce
           {...{
@@ -200,6 +202,7 @@ export default function AideGeste({
           }}
         />
       )}
+
       {infoCEE && (
         <BlocAideCEE
           {...{
