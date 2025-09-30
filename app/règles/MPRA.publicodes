@@ -70,7 +70,7 @@ MPR . accompagnée . pourcent:
         alors: 60 %
       - si: ménage . revenu . classe = 'intermédiaire'
         alors: 45 %
-      - si: ménage . revenu . classe: 'supérieure'
+      - si: ménage . revenu . classe = 'supérieure'
         alors: 10 %
   description: |
     En 2024, c'est l'Anah qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
