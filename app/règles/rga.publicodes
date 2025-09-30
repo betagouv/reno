@@ -113,6 +113,7 @@ rga . indemnisé . montant indemnité:
   unité: €
 
 rga . assuré:
+  applicable si: indemnisé . pas déjà indemnisé RGA # pour palier à un problème d'ordre des questions, rga . assuré et rga . indemnisé . montant indemnité ont le même score de variables manquantes, ça devrait pas, l'ordre de "toutes ces conditions" devrait être pris en compte par publicodes
   question: La maison est-elle couverte par un contrat d'assurance habitation ?
   titre: Maison couverte par une assurance
   par défaut: oui
