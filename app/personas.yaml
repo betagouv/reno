@@ -102,7 +102,7 @@
     CEE . projet . remplacement chaudière thermique: oui
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée . montant: 20000
+    MPR . accompagnée . montant: 18000
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . recommandés . audit . MPR . montant: 300
@@ -271,7 +271,7 @@
     projet . travaux: 82000
     logement . prix d'achat: 230000
   valeurs attendues:
-    MPR . accompagnée . pourcent: 20
+    MPR . accompagnée . pourcent: 10
     MPR . non accompagnée . éligible: non
     logement . commune . denormandie: oui
 
@@ -321,9 +321,9 @@
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . automatique . CEE . montant: 330.4
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 0
-    gestes . chauffage . PAC . air-eau . CEE . montant: 742
+    gestes . chauffage . PAC . air-eau . CEE . montant: 1070
     gestes . chauffage . PAC . géo . Coup de pouce . montant: 0
-    gestes . chauffage . PAC . géo . CEE . montant: 1040.6
+    gestes . chauffage . PAC . géo . CEE . montant: 1302
     gestes . chauffage . raccordement réseau . chaleur . Coup de pouce . montant: 0
     gestes . chauffage . raccordement réseau . chaleur . CEE . montant: 386.4
 - description: |
@@ -358,7 +358,7 @@
     CEE . projet . remplacement chaudière thermique: non
   valeurs attendues:
     # d'après https://www.ecologie.gouv.fr/sites/default/files/DP_MPR2024.pdf#page=9
-    MPR . accompagnée . montant: 20000
+    MPR . accompagnée . montant: 18000
     MPR . non accompagnée . éligible: oui
   autres valeurs attendues:
     gestes . chauffage . solaire . solaire combiné . CEE . montant: 968
@@ -370,9 +370,9 @@
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . automatique . CEE . montant: 270.4
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 0
-    gestes . chauffage . PAC . air-eau . CEE . montant: 854.4
+    gestes . chauffage . PAC . air-eau . CEE . montant: 1068
     gestes . chauffage . PAC . géo . Coup de pouce . montant: 0
-    gestes . chauffage . PAC . géo . CEE . montant: 1093
+    gestes . chauffage . PAC . géo . CEE . montant: 1263
     gestes . chauffage . raccordement réseau . chaleur . Coup de pouce . montant: 0
     gestes . chauffage . raccordement réseau . chaleur . CEE . montant: 353.7
 - description: |
@@ -417,9 +417,9 @@
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 0
     gestes . chauffage . bois . chaudière . automatique . CEE . montant: 210.4
     gestes . chauffage . PAC . air-eau . Coup de pouce . montant: 0
-    gestes . chauffage . PAC . air-eau . CEE . montant: 322.5
+    gestes . chauffage . PAC . air-eau . CEE . montant: 394
     gestes . chauffage . PAC . géo . Coup de pouce . montant: 0
-    gestes . chauffage . PAC . géo . CEE . montant: 368.4
+    gestes . chauffage . PAC . géo . CEE . montant: 412
     gestes . chauffage . raccordement réseau . chaleur . Coup de pouce . montant: 0
     gestes . chauffage . raccordement réseau . chaleur . CEE . montant: 118.4
 
@@ -437,7 +437,7 @@
     logement . surface: 50
     logement . période de construction: "'au moins 15 ans'"
   valeurs attendues:
-    MPR . accompagnée . pourcent: 15
+    MPR . accompagnée . pourcent: 10
     MPR . non accompagnée . éligible: non
 - description: |
     Propriétaire éligible MPR geste, mais pas d'autres infos
@@ -473,7 +473,7 @@
     logement . code région: "'53'"
     logement . propriétaire occupant: oui
   valeurs attendues:
-    MPR . accompagnée . montant: 20000
+    MPR . accompagnée . montant: 18000
     MPR . non accompagnée . éligible: oui
 - description: |
     Couple moyen, revenu 35k, enveloppe 49k mais en IdF.
