@@ -9,6 +9,10 @@ outre-mer . dispositif:
 
 isolation . rampants . bonus outre-mer:
 isolation . rampants . bonus outre-mer . montant:
+  produit:
+    - barème
+    - MPR . surface
+isolation . rampants . bonus outre-mer . barème:
   variations:
     - si: outre-mer . La Réunion
       alors:

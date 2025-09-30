@@ -15,9 +15,12 @@ export default function BonusOutreMer({
 
   if (bonusRule === undefined) return
 
+  const hasSurface = situation[dottedName + ' . MPR . surface']
+
+  const key = hasSurface ? 'montant' : 'barème'
   const evaluation = engine
     .setSituation(situation)
-    .evaluate(bonusDottedName + ' . montant')
+    .evaluate(bonusDottedName + ' . ' + key)
 
   //TODO ne pas afficher si !nodeValue
   const isEligible = true
