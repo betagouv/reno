@@ -194,7 +194,17 @@ export default function AideGeste({
           }}
         />
       )}
-      <BonusOutreMer {...{ engine, situation, dottedName, rules }} />
+      <BonusOutreMer
+        {...{
+          engine,
+          situation,
+          dottedName,
+          rules,
+
+          answeredQuestions,
+          setSearchParams,
+        }}
+      />
       {montantCoupDePouce && (
         <BlocAideCoupDePouce
           {...{

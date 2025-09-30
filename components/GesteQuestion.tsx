@@ -5,7 +5,7 @@ import CommuneSearch from './CommuneSearch'
 import RevenuInput from './RevenuInput'
 import TargetDPETabs from './mpra/TargetDPETabs'
 import { Select } from '@codegouvfr/react-dsfr/Select'
-import { serializeUnit } from 'publicodes'
+import { capitalise0, serializeUnit } from 'publicodes'
 import { useState } from 'react'
 import AddressSearch from './AddressSearch'
 import enrichSituation, { getCommune } from './personas/enrichSituation'
@@ -112,7 +112,7 @@ const InputComponent = ({
       </option>
       {currentQuestion['une possibilité parmi']['possibilités'].map((i) => (
         <option key={i} value={rules[question + ' . ' + i].valeur}>
-          {rules[question + ' . ' + i].titre}
+          {rules[question + ' . ' + i].titre || capitalise0(i)}
         </option>
       ))}
     </Select>

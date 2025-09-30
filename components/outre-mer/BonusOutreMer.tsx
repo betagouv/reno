@@ -2,15 +2,42 @@ import Badge from '@codegouvfr/react-dsfr/Badge'
 import { formatValue } from 'publicodes'
 import { BlocAide } from '../UI'
 import outreMerPublicodes from '@/app/règles/outre-mer.publicodes'
+import getNextQuestions from '../publicodes/getNextQuestions'
+import GesteQuestion from '../GesteQuestion'
+import { encodeSituation } from '../publicodes/situationUtils'
+import { useEffect } from 'react'
+
+/*
+ * Ce composant ne devrait presque pas exister. Les différentes couches qui font les aides par geste devraient être gérées de façon générique avec seul l'icône et d'autres métadonnées ajoutées en personnalisation depuis des attributs publicodes.
+ *
+ * C'est une copie des autres composants, un peu moins complexe car TODO dans un premier temps intégrée seulement dans le simulateur principal.
+ *
+ * */
 
 export default function BonusOutreMer({
   engine,
   dottedName,
   rules,
   situation,
+  answeredQuestions,
+  setSearchParams,
 }) {
   const bonusDottedName = dottedName + ' . bonus outre-mer',
     bonusRule = rules[bonusDottedName]
+
+  /* TODO tiré de BlocAideCEE, mais non documenté, ça sert à quoi ?
+  const encodedSituation = encodeSituation(
+    {
+      ...situation,
+    },
+    false,
+    answeredQuestions,
+  )
+
+  useEffect(() => {
+    setSearchParams(encodedSituation, 'push', false)
+  }, [encodedSituation, setSearchParams])
+  */
 
   if (bonusRule === undefined) return
 
@@ -25,11 +52,26 @@ export default function BonusOutreMer({
   const isEligible = true
 
   const value = formatValue(evaluation)
-  console.log('indigo', evaluation, value)
 
   const dispositif = engine.evaluate(
     'gestes . outre-mer . dispositif',
   ).nodeValue
+
+  const questions = getNextQuestions(
+    engine.setSituation(situation).evaluate(bonusDottedName + ' . barème'),
+  )
+
+  const relevantQuestions = questions.filter((q) => q !== dottedName)
+
+  //TODO problème, les questions disparaissent. C'est sûrement la raison de la gestion via . questions: des autres composants. On va pas laisser ça comme ça.
+  console.log(
+    'indigo',
+    evaluation,
+    value,
+    relevantQuestions,
+    answeredQuestions,
+    situation,
+  )
 
   return (
     <BlocAide display="geste">
@@ -42,6 +84,21 @@ export default function BonusOutreMer({
           <Badge noIcon severity={isEligible ? 'success' : 'default'}>
             Prime de {value}
           </Badge>
+        </div>
+        <div className="aide-details">
+          {relevantQuestions?.map((question, idx) => (
+            <GesteQuestion
+              key={idx}
+              {...{
+                rules,
+                question,
+                engine,
+                situation,
+                answeredQuestions,
+                setSearchParams,
+              }}
+            />
+          ))}
         </div>
       </div>
     </BlocAide>
