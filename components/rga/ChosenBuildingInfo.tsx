@@ -55,8 +55,8 @@ export default function ChosenBuildingInfo({ situation, data }) {
             color: #aaa;
           `}
         >
-          Données issues du <a href="https://rnb.beta.gouv.fr/">RNB</a> et de la{' '}
-          <a href="https://bdnb.io/">BDNB</a>
+          Données issues du <a href="https://rnb.beta.gouv.fr/">RNB</a>, de la{' '}
+          <a href="https://bdnb.io/">BDNB</a> et de <a href="https://www.georisques.gouv.fr/">Géorisques</a>
         </small>
       </div>
     </section>
