@@ -100,14 +100,15 @@ rga . indemnité non récente:
   question: Avez-vous reçu cette indemnité au titre du retrait-gonflement des argiles avant le 1er juillet 2025 ?
   par défaut: non
 rga . indemnité ancienne:
-  applicable si: indemnisé RGA = oui
-  question: Avez-vous reçu cette indemnité au titre du retrait-gonflement des argiles avant le 1er juillet 2015 ?
-  par défaut: non
+  applicable si: indemnité non récente = oui
+  question: La date de cette indemnité précède-elle le 1er juillet 2015 ? # Je change le texte de la question ici car elle vient après l'autre date, faut pas que l'utilisateur croie répondre à la même question deux fois à cause d'un bug
+  par défaut: oui
 
 rga . montant indemnité:
-  applicable si: indemnisé RGA = oui
+  applicable si: indemnité ancienne = non
   question: Quel est le montant TTC de l'indemnisation reçue au titre du retrait-gonflement des argiles ?
   par défaut: 15000 € # au pif, on estime que le montant est conséquent et au-dessus du seuil
+  unité: €
 
 rga . assuré:
   question: La maison est-elle couverte par un contrat d'assurance habitation ?

@@ -70,6 +70,7 @@ export default function InputSwitch({
       'ménage . personnes',
       'logement . niveaux',
       'logement . âge',
+      'rga . montant indemnité',
     ].includes(currentQuestion),
     noButtons: [
       'projet . définition . travaux envisagés',
