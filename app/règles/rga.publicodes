@@ -75,11 +75,11 @@ rga . peu endommagé:
     Elle ne doit pas avoir subi des dommages structuraux susceptibles de compromettre la solidité du bâtiment et la sécurité de l'habitation.
 
 rga . pas indemnisé RGA:
-  valeur: 
-  une de ces conditions: 
-  - indemnisé RGA = non
-  - indemnisé RGA = oui et date indemnité RGA < 2015-07-01
-  - indemnisé RGA = oui et date indemnité RGA >= 2015-07-01 et date indemnité RGA <= 2025-06-30 et montant indemnité <= 10000
+  valeur:
+    une de ces conditions:
+      - indemnisé RGA = non
+      - indemnité RGA ancienne
+      - indemnisé RGA = oui et date indemnité RGA >= 2015-07-01 et date indemnité RGA <= 2025-06-30 et montant indemnité <= 10000
 
 rga . indemnisé RGA:
   question: La maison a-t-elle déjà été indemnisée au titre du retrait-gonflement des argiles ?
@@ -88,15 +88,15 @@ rga . indemnisé RGA:
     Sont exclus du dispositif, les maisons ayant déjà été indemnisées par leur assureur dans le cas d'un sinistre survenu sur leur habitation lié aux mouvements de terrain différentiels consécutifs à la sécheresse et à la réhydratation des sols, reconnu au titre du régime d'indemnisation des catastrophes naturelles :
     - soit lorsque cette indemnisation est intervenue après le 30 juin 2025 ;
     - soit lorsque cette indemnisation est intervenue entre le 1er juillet 2015 et le 30 juin 2025 et que l'indemnisation reçue a été supérieure à 10 000 euros TTC.
-rga . date indemnité RGA: 
-  applicable si: indemnisé RGA = oui
-  question: En quelle année avez-vous reçu cette indemnité au titre du retrait-gonflement des argiles ?
+rga . indemnité RGA ancienne:
+  question: Avez-vous reçu cette indemnité au titre du retrait-gonflement des argiles avant le 1er juillet 2025 ?
+  par défaut: non
 
 rga . montant indemnité RGA:
   applicable si: indemnisé RGA = oui et date indemnité RGA >= 2015-07-01 et date indemnité RGA <= 2025-06-30
   question: Quel est le montant TTC de l'indemnisation reçue au titre du retrait-gonflement des argiles ?
   sous-titre: |
-    Merci d'indiquer le montant toutes charges comprises en € de l'indemnisation reçue au titre du retrait gonflement des argiles 
+    Merci d'indiquer le montant toutes charges comprises en € de l'indemnisation reçue au titre du retrait gonflement des argiles
 
 rga . assuré:
   question: La maison est-elle couverte par un contrat d'assurance habitation ?
