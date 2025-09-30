@@ -1,6 +1,15 @@
-isolation . outre-mer:
-  somme:
-    - combles perdus agir plus La Réunion . montant
+isolation . rampants . bonus outre-mer: 
+  variations: 
+    - si: outre-mer . La Réunion
+      alors:
+       somme: 
+        - combles perdus La Réunion
+        - autres gestes La Réunion
+    - si: outre-mer . Guadeloupe
+        variations:
+          - si: ménage . revenu . classe = 'très modeste'
+            alors: 16 €/m2
+          - sinon: 12 €/m2
 
 isolation . combles perdus agir plus La Réunion:
   par défaut: oui
@@ -30,15 +39,6 @@ isolation . autre toiture agir plus La Réunion . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 15 €/m2
-
-isolation . toiture agir plus Guadeloupe:
-  par défaut: oui
-isolation . toiture agir plus Guadeloupe . montant:
-  applicable si: outre-mer . Guadeloupe
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 16 €/m2
-    - sinon: 12 €/m2
 
 isolation . toiture agir plus Martinique:
   par défaut: oui
