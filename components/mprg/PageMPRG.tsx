@@ -88,10 +88,6 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
         <h2>Informations sur les conditions d'obtention</h2>
         <ul>
           <li>
-            La prestation doit être inférieure à{' '}
-            <strong>{infoMPR.plafond}</strong>.
-          </li>
-          <li>
             Recours à un professionnel <strong>RGE</strong>
           </li>
 

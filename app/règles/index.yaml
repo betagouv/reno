@@ -632,7 +632,6 @@ projet . travaux:
   question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
   groupe de questions: scénario MPRA
   unité: €
-  par défaut: enveloppe estimée
   suggestions:
     basse: 10000 €
     moyenne: 40000 €
@@ -660,16 +659,14 @@ projet . travaux . plafonnés:
 projet . travaux . plafond:
   variations:
     - si: sauts = 2
+      alors: 30000 €
+    - si: sauts >= 3
       alors: 40000 €
-    - si: sauts = 3
-      alors: 55000 €
-    - si: sauts >= 4
-      alors: 70000 €
 
   # Si l'on a besoin dans un second temps d'avoir l'âge exact
   # âge >= 15
   ## variations:
-  #TODO outre-mer :  MAR accompagné est réservée à un logement en France métropolitaine
+  #TODO outre-mer :  MPR accompagné est réservée à un logement en France métropolitaine
   #TODO question des mois
   ## - si: outre-mer # TODO question : il n'y a pas de condition d'outre-mer pour MPR accompagné. C'est étrange, je me demande même si cette aide est éligible en outre-mer ?
   ## alors: âge >= 2

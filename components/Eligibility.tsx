@@ -12,13 +12,13 @@ import AideAmpleur from './ampleur/AideAmpleur'
 import AidesAmpleur from './ampleur/AidesAmpleur'
 import AideGeste, { getInfoForPrime } from './AideGeste'
 import Link from 'next/link'
-import DPEScenario from './mpra/DPEScenario'
 import Value from './Value'
 import { categories, getRulesByCategory } from './utils'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Share from '@/app/simulation/Share'
 
 export default function Eligibility({
   nbStep,
@@ -193,12 +193,14 @@ export function EligibilityRenovationEnergetique({
   searchParams,
   expanded,
 }) {
-  // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
-  const MPRASuspendue = true
   const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
 
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true
+
+  const isTMO =
+    engine.setSituation(situation).evaluate('ménage . revenu . classe')
+      .nodeValue == 'très modeste'
   return (
     <>
       <AvanceTMO {...{ engine, situation }} />
@@ -227,66 +229,52 @@ export function EligibilityRenovationEnergetique({
         />
       )}
       {hasMPRA && (
-        <div className="fr-callout fr-icon-info-line fr-callout--purple-glycine fr-my-5v">
-          {MPRASuspendue ? (
-            <>
-              <h3 className="fr-callout__title">
-                MaPrimeRénov&#39; parcours accompagné est temporairement
-                suspendue cet été
-              </h3>
-              <p className="fr-callout__text">
-                Cet été, les demandes pour les rénovations d'ampleur (parcours
-                accompagné) sont temporairement suspendues.
-              </p>
-            </>
-          ) : (
-            <>
-              <strong>
-                {travauxConnus
-                  ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-                  : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
-              </strong>
-              <ul>
-                <li>📉 Réduction des factures d'énergie</li>
-                <li>🧘 Gain de confort hiver comme été</li>
-                <li>
-                  👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
-                </li>
-                <li>
-                  🥇 Au moins{' '}
-                  <Value
-                    {...{
-                      engine,
-                      situation,
-                      dottedName: 'MPR . accompagnée . pourcent dont bonus',
-                    }}
-                  />{' '}
-                  des travaux financés
-                </li>
-              </ul>
-              <AideAmpleur
+        <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
+          <div className="fr-callout__title">
+            {travauxConnus
+              ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
+              : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+          </div>
+          <ul className="fr-callout__text">
+            <li>📉 Réduction des factures d'énergie</li>
+            <li>🧘 Gain de confort hiver comme été</li>
+            <li>
+              👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
+            </li>
+            <li>
+              🥇 Jusqu'à{' '}
+              <Value
                 {...{
-                  isEligible: false,
+                  state: 'normal',
                   engine,
-                  dottedName: 'MPR . accompagnée',
-                  setSearchParams,
                   situation,
-                  answeredQuestions,
-                  expanded,
-                  addedText: (
-                    <DPEScenario
-                      {...{
-                        rules,
-                        engine,
-                        situation,
-                        setSearchParams,
-                        answeredQuestions,
-                      }}
-                    />
-                  ),
+                  dottedName: 'MPR . accompagnée . pourcent',
                 }}
-              />
-            </>
+              />{' '}
+              des travaux financés
+            </li>
+          </ul>
+          <AideAmpleur
+            {...{
+              engine,
+              dottedName: 'MPR . accompagnée',
+              setSearchParams,
+              situation,
+              answeredQuestions,
+              expanded,
+            }}
+          />
+          {!isTMO && (
+            <div className="fr-alert fr-alert--info">
+              <div className="fr-alert__title">
+                Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+              </div>
+              <p>
+                Jusqu'au 31 décembre 2025 seuls les ménages très modestes peuvent en
+                bénéficier. L’aide pourrait réouvrir aux autres catégories de revenus début 2026.
+                <Share text="" showWithAnswer={false} align="left" />
+              </p>
+            </div>
           )}
         </div>
       )}

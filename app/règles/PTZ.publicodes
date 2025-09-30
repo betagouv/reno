@@ -104,5 +104,5 @@ PTZ . durée:
 PTZ . condition maprimerenov:
   note: Cette condition permet de savoir si le PTZ est demandé en complément de MaPrimeRénov' (parcours accompagné ou rénovation par geste)
   une de ces conditions:
-    - MPR . accompagnée . éligible
+    - MPR . accompagnée . condition éligibilité
     - MPR . non accompagnée . éligible

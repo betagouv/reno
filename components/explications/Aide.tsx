@@ -1,5 +1,5 @@
 import { formatValue } from '@/node_modules/publicodes/dist/index'
-import { Key, P } from './ExplicationUI'
+import { Key } from './ExplicationUI'
 import ParGeste from './ParGeste'
 
 const getMissings = (evaluation, rules) => {
@@ -25,15 +25,6 @@ export default function Travaux({ engine, rules, situation }) {
     upEngine,
     rules,
   )
-  const bonus = compute('MPR . accompagnée . bonus', upEngine, rules)
-  const bonusCondition = compute(
-    'MPR . accompagnée . bonus . condition',
-    upEngine,
-    rules,
-  )
-
-  const écrêté = compute('MPR . accompagnée . pourcent écrêté', upEngine, rules)
-  const brut = compute('MPR . accompagnée . pourcent brut', upEngine, rules)
   const écrêtement = compute(
     'MPR . accompagnée . pourcent écrêté',
     upEngine,
@@ -46,7 +37,7 @@ export default function Travaux({ engine, rules, situation }) {
     <section>
       <h3>Votre aide</h3>
       <h4>MaPrimeRénov' parcours accompagné</h4>
-      <P>
+      <p>
         Votre aide MaPrimeRénov' parcours accompagné s'élèvera à&nbsp;
         <Key $state={montant.hasMissing ? 'inProgress' : 'final'}>
           {montant.value}
@@ -64,22 +55,8 @@ export default function Travaux({ engine, rules, situation }) {
         ) : (
           ''
         )}
-      </P>
-      <P>
-        {bonusCondition.value === 'oui' ? (
-          <span>Vous bénéficiez</span>
-        ) : (
-          <span>Vous ne bénéficiez pas</span>
-        )}{' '}
-        du bonus de&nbsp;
-        <Key $state={bonus.hasMissing ? 'inProgress' : 'final'}>
-          {bonus.source.valeur}
-        </Key>{' '}
-        applicables à partir de {sautsMinBonus.source} sauts de DPE, qui
-        s'ajoute au taux brut de{' '}
-        <Key $state={brut.hasMissing ? 'inProgress' : 'final'}>
-          {brut.value}
-        </Key>
+      </p>
+      <p>
         {isÉcrêté.value === 'oui' ? (
           <span>
             {' '}
@@ -90,7 +67,7 @@ export default function Travaux({ engine, rules, situation }) {
           ''
         )}
         .
-      </P>
+      </p>
       <ParGeste engine={engine} rules={rules} />
     </section>
   )

@@ -111,7 +111,7 @@ export default function Share({
             </label>
           </div>
         )}
-        {!showWithAnswer && (
+        {!showWithAnswer && copied && (
           <p className="fr-mt-3v">
             Rappel : ce lien contient les données que vous avez saisies
             (adresse, catégorie de revenus…)

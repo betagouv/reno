@@ -116,10 +116,6 @@ export const BlocAideMPR = ({
             Précisions:
             <ul>
               <li>
-                La prestation doit être inférieure à{' '}
-                <strong>{infoMPR.plafond}</strong>
-              </li>
-              <li>
                 Sous condition de recours à un professionnel{' '}
                 <strong>RGE</strong>
               </li>

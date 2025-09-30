@@ -253,7 +253,7 @@ côte-d'or . aide au dossier de subvention Anah:
 côte-d'or . aide au dossier de subvention Anah . montant:
   applicable si:
     toutes ces conditions:
-      - MPR . accompagnée . éligible
+      - MPR . accompagnée . condition éligibilité
       - hors opération programmée
   description: |
     Aide au financement de l’ingénierie spécialisée (assistance administrative, technique et financière à l’élaboration d’un dossier de demande de subvention Anah) :

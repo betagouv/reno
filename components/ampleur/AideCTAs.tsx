@@ -15,8 +15,7 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
     false,
   )
   const hasCalculette =
-    [
-      'MPR . accompagnée',
+    ([
       'denormandie',
       "CEE . rénovation d'ampleur",
       'mpa',
@@ -24,7 +23,9 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
       //"crédit d'impôt",
       'pch',
       'MPLD',
-    ].includes(dottedName) && isEligible !== false
+    ].includes(dottedName) &&
+      isEligible !== false) ||
+    'MPR . accompagnée' == dottedName
 
   return hasCalculette ? (
     <Button
