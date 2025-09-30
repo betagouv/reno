@@ -270,9 +270,8 @@ export function EligibilityRenovationEnergetique({
                 Qui peut avoir MaPrimeRénov’ parcours accompagné ?
               </div>
               <p>
-                Aujourd’hui, seuls les ménages très modestes peuvent en
-                bénéficier. L’aide pourrait s’ouvrir aux autres revenus d’ici
-                fin 2025. Revenez régulièrement, le simulateur sera mis à jour.
+                Jusqu'au 31 décembre 2025 seuls les ménages très modestes peuvent en
+                bénéficier. L’aide pourrait réouvrir aux autres catégories de revenus début 2026.
                 <Share text="" showWithAnswer={false} align="left" />
               </p>
             </div>
