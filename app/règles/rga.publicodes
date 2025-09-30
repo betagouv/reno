@@ -65,7 +65,7 @@ logement . géométrie simple:
   par défaut: oui
 
 rga . peu endommagé:
-  question: La maison est-elle intègre (non endommagée), ou seulement très peu endommagée ?
+  question: La maison est-elle intègre, ou seulement très peu endommagée ?
   par défaut: oui
   titre: Maison pas ou très peu endommagée
   # checkbox
