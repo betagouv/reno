@@ -38,6 +38,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   const dottedNameCee = dottedName + ' . CEE'
   const dottedNameMpr = dottedName + ' . MPR'
   const dottedNameCP = dottedName + ' . Coup de pouce'
+  const dottedNameOutreMer = dottedName + ' . bonus outre-mer'
 
   if (typeof rules[dottedNameCee] !== 'undefined') {
     const evaluationCEE = engineSituation.evaluate(dottedNameCee + ' . montant')
