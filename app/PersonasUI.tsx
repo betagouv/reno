@@ -3,7 +3,13 @@ import styled from 'styled-components'
 
 export const PersonasList = styled.div`
   margin-top: 0.8rem;
-  ul {
+  > ul {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    list-style-type: none;
+  }
+  ul > li > ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;

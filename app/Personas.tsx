@@ -18,7 +18,17 @@ import { personaTest } from '@/components/tests/personaTest'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import enrichSituationServer from '@/components/personas/enrichSituationServer'
 import enrichPersonaSituationWithTemplate from '@/components/personas/enrichPersonaSituationWithTmplate'
+import { capitalise0 } from '@/components/utils'
 
+const personasByCategory = Object.entries(
+  personas.reduce((memo, next) => {
+    const category = next.catégorie || 'principaux'
+    return {
+      ...memo,
+      [category]: [...(memo[category] || []), next],
+    }
+  }, {}),
+)
 const engine = new Publicodes(rules)
 export default function Personas({}) {
   return (
@@ -37,15 +47,22 @@ export default function Personas({}) {
       </p>
       <PersonasList>
         <ul>
-          {personas
-            .filter((p) => p.gabarit !== 'oui')
-            //.filter((persona) => persona.description.includes('mais en IdF'))
-            .map((persona, personaIndex) => (
-              <PersonaCard
-                {...{ engine, persona, personaIndex }}
-                key={persona.description}
-              />
-            ))}
+          {personasByCategory.map(([category, categoryPersonas]) => (
+            <li key={category}>
+              <h2 id={category}>{capitalise0(category)}</h2>
+              <ul>
+                {categoryPersonas
+                  .filter((p) => p.gabarit !== 'oui')
+                  //.filter((persona) => persona.description.includes('mais en IdF'))
+                  .map((persona, personaIndex) => (
+                    <PersonaCard
+                      {...{ engine, persona, personaIndex }}
+                      key={persona.description}
+                    />
+                  ))}
+              </ul>
+            </li>
+          ))}
         </ul>
       </PersonasList>
     </>

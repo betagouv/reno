@@ -718,38 +718,45 @@
     DPE . actuel: 4
 
 - description: La Réunion
+  catégorie: outre-mer
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97404'"
     logement . code région: "'04'"
 - description: Mayotte
+  catégorie: outre-mer
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97610'"
     logement . code région: "'06'"
 - description: Guadeloupe
+  catégorie: outre-mer
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97110'"
     logement . code région: "'01'"
 - description: Martinique
+  catégorie: outre-mer
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97205'"
     logement . code région: "'02'"
 - description: Guyane littoral
+  catégorie: outre-mer
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97307'"
     logement . code région: "'03'"
     outre-mer . zone Guyane: "'littoral'" # pas récupéré automatiquement, question à l'utilisateur
 - description: Guyane intérieur accès route
+  catégorie: outre-mer
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97353'"
     logement . code région: "'03'"
     outre-mer . zone Guyane: "'intérieur accès route'"
 - description: Guyane intérieur accès fleuve
+  catégorie: outre-mer
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97353'"
