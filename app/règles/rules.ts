@@ -22,7 +22,8 @@ import locavantage from '@/app/règles/locavantage.publicodes'
 import MPRA from '@/app/règles/MPRA.publicodes'
 import autresAides from '@/app/règles/autres-aides.publicodes'
 import outreMer from '@/app/règles/outre-mer.publicodes'
-import bonusGestesOutreMer from '@/app/règles/gestes/bonus-outre-mer.publicodes'
+import bonusGestesOutreMer from '@/app/règles/gestes/bonus-outre-mer/index.publicodes'
+import outreMerRampants from '@/app/règles/gestes/bonus-outre-mer/rampants.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -65,6 +66,7 @@ const rules = {
   ...autresAides,
   ...outreMer,
   ...prefix(bonusGestesOutreMer, 'gestes'),
+  ...prefix(outreMerRampants, 'gestes'),
 }
 
 const rulesWithMarkdown = Object.fromEntries(

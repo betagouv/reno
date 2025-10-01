@@ -1,12 +1,3 @@
-outre-mer:
-outre-mer . dispositif:
-  variations:
-    - si: outre-mer . Mayotte
-      alors:
-        texte: HODARI
-    - sinon:
-        texte: Agir plus
-
 isolation . rampants . bonus outre-mer:
 isolation . rampants . bonus outre-mer . montant:
   produit:
@@ -126,27 +117,3 @@ isolation . rampants . bonus outre-mer . barème Guyane:
                 - ménage . revenu . classe = 'modeste'
             alors: 35 €/m2
           - sinon: 0 €/m2
-
-isolation . surtoiture ventilée:
-  applicable si: outre-mer . DROM
-  par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
-
-isolation . surtoiture ventilée . montant:
-  somme:
-    - MPR . montant
-
-isolation . surtoiture ventilée . MPR:
-
-isolation . surtoiture ventilée . MPR . plafond:
-  valeur: 110 €/m2
-  description: Plafonds de dépenses éligibles
-
-isolation . surtoiture ventilée . MPR . montant:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 75 €/m2
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 60 €/m2
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 40 €/m2
-    - sinon: 15 €/m2
