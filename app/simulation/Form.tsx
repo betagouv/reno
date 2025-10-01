@@ -97,6 +97,8 @@ function Form({ rules, simulationConfig }) {
       answeredQuestions,
       simulationConfig,
     )
+
+  console.log('missingVariables', evaluation.missingVariables)
   const currentQuestion = objectif
     ? decodeDottedName(objectif)
     : nextQuestions[0]

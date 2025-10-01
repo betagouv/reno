@@ -30,6 +30,7 @@ outre-mer . Guadeloupe: logement . code région = '01'
 
 outre-mer . zone Guyane:
   par défaut: "'littoral'"
+  question: Le logement est en Guyane, de quel type de zone s'agit-il ?
   une possibilité parmi:
     possibilités:
       - littoral

@@ -231,7 +231,7 @@ isolation . rampants . montant:
   somme:
     - MPR . montant
     - CEE . montant
-    - bonus outre-mer
+    - bonus outre-mer . montant
 
 isolation . rampants . MPR:
 isolation . rampants . MPR . surface:
