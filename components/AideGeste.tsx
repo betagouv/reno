@@ -150,7 +150,9 @@ export default function AideGeste({
         <div
           css={`
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            padding-right: 0.5rem;
           `}
         >
           {rules[dottedName].titre || getRuleName(dottedName)}

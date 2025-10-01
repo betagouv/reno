@@ -8,6 +8,7 @@ export default function Share({
   text = 'Partagez la simulation en cliquant ici :',
   align = 'center',
   showWithAnswer = true,
+  customCss,
 }) {
   const isMobile = useIsMobile()
 
@@ -62,6 +63,7 @@ export default function Share({
       >
         <Button
           priority="secondary"
+          style={customCss}
           css={`
             ${copied &&
             `
@@ -80,7 +82,7 @@ export default function Share({
         >
           {!copied ? (
             <>
-              <span aria-hidden="true">🔗</span> Copier le lien
+              <span aria-hidden="true">🔗</span> Copier le lien de ma simulation
             </>
           ) : (
             <>

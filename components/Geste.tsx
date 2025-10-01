@@ -4,7 +4,6 @@ import rules from '@/app/règles/rules'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { AideDurée } from './ampleur/AideAmpleur'
 import { createExampleSituation } from './ampleur/AmpleurSummary'
-import { formatValue } from 'publicodes'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 export const PrimeBadge = ({ engine, dottedName, situation }) => {
@@ -27,15 +26,17 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       dottedName,
     ) && (
       <Badge
-        noIcon
         severity={
-          montantTotal !== 'Non applicable' && montantTotal != 0
-            ? 'success'
-            : ''
+          montantTotal === 'Non applicable' || montantTotal == 0
+            ? 'error'
+            : (isExactTotal && montantTotal != 0) ||
+                rules[dottedName.replace(' . montant', '')]?.type === 'prêt'
+              ? 'success'
+              : 'new'
         }
       >
         {montantTotal === 'Non applicable' || montantTotal == 0 ? (
-          <>Non applicable dans votre situation</>
+          <>Non éligible</>
         ) : dottedName.includes('taxe foncière') ? (
           <>
             {situation['taxe foncière . commune . taux']}
@@ -72,11 +73,10 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
         ) : eligibleMPRG && montantTotal != 'Pas encore défini' ? ( // Cas MPR avec ou sans CEE/Coup de pouce
           <>
             {!isExactTotal
-              ? 'Au moins '
+              ? 'A compléter'
               : dottedName.includes('locavantage')
-                ? "Réduction d'impôt de "
-                : 'Prime de '}
-            {montantTotal}
+                ? "Réduction d'impôt de " + montantTotal
+                : 'Prime de ' + montantTotal}
           </>
         ) : !eligibleMPRG && hasCoupDePouce && isExactTotal ? (
           // Cas des Coup de pouce
