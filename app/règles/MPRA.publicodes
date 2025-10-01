@@ -22,10 +22,10 @@ MPR . accompagnée:
     - Pour réaliser les travaux vous devez faire appel à des artisans labellisés reconnu garant de l'environnement (RGE).
     - Vous devrez déposer votre dossier de demande d'aide et vous devez attendre l'accord de l'Anah avant de signer le devis et commencer vos travaux avec l'artisan sélectionné.
   description: |
-    Recommandé pour les logements ayant une consommation énergétique
-    importante, une rénovation globale consiste à réaliser au moins 2
-    travaux complémentaires d'isolation thermique et ainsi viser 2
-    classes de DPE.<br /><br />
+    Une rénovation globale est recommandé pour les logements ayant une consommation énergétique
+    importante. Cela consiste à réaliser au moins 2
+    travaux complémentaires d'isolation thermique et ainsi viser une augmentation de 2
+    classes de DPE. Avant les travaux, le logement doit avoir une classe de DPE E, F ou G. <br /><br />
     Ce dispositif n'est pas cumulable avec les primes par gestes de
     travaux.
     <strong>Définissez votre projet avec un conseiller France Renov'</strong>
@@ -38,11 +38,11 @@ MPR . accompagnée:
   lien: https://www.economie.gouv.fr/particuliers/maprimerenov-parcours-accompagne-tout-savoir-sur-cette-aide
 
 MPR . accompagnée . bénéficiaire:
-  applicable si: éligible
+  applicable si: condition éligibilité
   titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
   par défaut: oui
 
-MPR . accompagnée . éligible:
+MPR . accompagnée . condition éligibilité:
   titre: Éligible parcours accompagné
   formule:
     toutes ces conditions:
@@ -69,18 +69,9 @@ MPR . accompagnée . pourcent:
       - si: ménage . revenu . classe = 'modeste'
         alors: 60 %
       - si: ménage . revenu . classe = 'intermédiaire'
-        alors:
-          variations:
-            - si: sauts < 3
-              alors: 45 %
-            - sinon: 50 %
-      - sinon:
-          variations:
-            - si: sauts < 3
-              alors: 10 %
-            - si: sauts < 4
-              alors: 15 %
-            - sinon: 20 %
+        alors: 45 %
+      - si: ménage . revenu . classe = 'supérieure'
+        alors: 10 %
   description: |
     En 2024, c'est l'Anah qui gère directement les CEE, en toute transparence pour le citoyen. Les anciennes primes CEE sont donc intégrées dans ces pourcentages d'aide.
 
@@ -93,7 +84,7 @@ MPR . accompagnée . prise en charge MAR:
     Le recours à Mon Accompagnateur Rénov’ est obligatoire pour l’obtention de MaPrimeRénov’ parcours accompagné et de la subvention travaux de <a href="https://www.economie.gouv.fr/particuliers/locavantages-reduction-impot-location" target="_blank" title="Loc’Avantages - nouvelle fenêtre">Loc’Avantages</a>.
   conditions éligibilités: |
     - Seuls les professionnels ayant obtenu l'agrément délivré par l’État peuvent intervenir comme Mon Accompagnateur Rénov’. Consultez l'<a href="https://france-renov.gouv.fr/annuaires-professionnels/mon-accompagnateur-renov" target="_blank" title="annuaire officiel - nouvelle fenêtre">annuaire officiel</a> pour trouver un Mon Accompagnateur Rénov’ agréé.
-  applicable si: MPR . accompagnée . éligible
+  applicable si: MPR . accompagnée . condition éligibilité
   icône: maprimerenov.svg
   marque: Mon Accompagnateur Rénov'
   complément de marque: Subvention
@@ -162,7 +153,7 @@ MPR . accompagnée . remboursement: montant - avance
 
 MPR . accompagnée . montant:
   titre: Aide accompagnée
-  applicable si: éligible
+  applicable si: condition éligibilité
   note: |
     Nous calculons pour l'instant ici l'écrêtement au niveau de la règle "aides globales". En pratique pourtant, il semblerait que ce soit le montant de MaPrimeRénov' qui soit écrêté avant celui des aides locales et diverses.
   formule: montant avant écrêtement

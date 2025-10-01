@@ -632,7 +632,6 @@ projet . travaux:
   question: Quelle est l'enveloppe totale hors taxe (HT) de vos travaux ?
   groupe de questions: scénario MPRA
   unité: €
-  par défaut: enveloppe estimée
   suggestions:
     basse: 10000 €
     moyenne: 40000 €

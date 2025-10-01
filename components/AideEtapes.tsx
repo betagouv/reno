@@ -221,10 +221,13 @@ export default function AideEtapes({
                 L'Anah instruit et valide votre dossier
               </h3>
               <p>
-                La période d'instruction varie grandement en fonction de
-                l'affluence et de la lutte contre la fraude. Une fois validé,
+                {hasMPRA ? (
+                  <>MaPrimeRénov’ parcours accompagné : les dossiers déposés à partir du 30/09/2025 seront traités au premier trimestre 2026.</>
+                ) : (
+                  <>La période d'instruction varie grandement en fonction de l'affluence et de la lutte contre la fraude. Une fois validé,
                 vous savez de quelles aides vous allez bénéficier et quand vous
-                les recevrez.
+                les recevrez.</>
+                )}
               </p>
             </Card>
           </>

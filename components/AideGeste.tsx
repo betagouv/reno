@@ -235,9 +235,7 @@ const BlocAideMPR = ({ infoMPR, engine, situation }) => (
     <div className="aide-details">
       <div className="details">
         Précisions: Sous condition de recours à un professionnel{' '}
-        <strong>RGE</strong>. La prestation doit être inférieure à{' '}
-        <strong>{infoMPR.plafond}</strong>.
-        {rules[infoMPR.dottedName]?.description}
+        <strong>RGE</strong>. {rules[infoMPR.dottedName]?.description}
       </div>
     </div>
   </BlocAide>
