@@ -161,8 +161,10 @@ export function EligibilityRenovationEnergetique({
   // Il faudra remettre le bloc concerné par cette condition lorsque MPRA sera réactivée
   const MPRASuspendue = true
   const travauxEnvisages = getTravauxEnvisages(situation)
-  const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
+  const travauxConnus =
+    !situation['projet . définition'].includes('travaux inconnus') //beware of " vs ' encoding, it seems that personas use another one that the app. Tricky
   // On doit aussi vérifier geste par geste
+
   const hasAides =
     aides.filter((aide) => aide.status === true).length > 0 ||
     travauxEnvisages.find((dottedName) => {
