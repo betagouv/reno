@@ -228,7 +228,7 @@
     logement . surface: 55
     logement . période de construction: "'de 10 à 15 ans'"
   valeurs attendues:
-    MPRA . accompagnée . conditions: non
+    MPR . accompagnée . conditions: non
     MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
     PTZ . conditions . communes: oui
@@ -673,7 +673,7 @@
     logement . surface: 55
     logement . période de construction: "'moins de 2 ans'"
   valeurs attendues:
-    MPRA . accompagnée . conditions: non
+    MPR . accompagnée . conditions: non
     MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
     PTZ . montant: 0
