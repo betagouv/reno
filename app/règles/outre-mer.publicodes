@@ -29,10 +29,12 @@ outre-mer . Martinique: logement . code région = '02'
 outre-mer . Guadeloupe: logement . code région = '01'
 
 outre-mer . zone Guyane:
+  par défaut: "'littoral'"
   une possibilité parmi:
-    - littoral
-    - intérieur accès route
-    - intérieur accès fleuve
+    possibilités:
+      - littoral
+      - intérieur accès route
+      - intérieur accès fleuve
 
 outre-mer . zone Guyane . littoral:
   valeur: "'littoral'"
