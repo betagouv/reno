@@ -235,7 +235,7 @@ isolation . rampants . montant:
 
 isolation . rampants . MPR:
 isolation . rampants . MPR . surface:
-  question: Quelle surface de rampants voulez-vous isoler ?
+  question: Quelle surface de rampants, plafond ou plancher des combles voulez-vous isoler ?
   unité: m2
 isolation . rampants . MPR . plafond: 75 €/m2
 isolation . rampants . MPR . montant:

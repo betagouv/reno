@@ -58,8 +58,6 @@ isolation . rampants . combles perdus La Réunion . montant:
       alors: 13 €/m2
     - sinon: 13 €/m2
 
-#### Le reste reste à intégrer dans la structure ci-dessus
-
 isolation . rampants . autres gestes La Réunion:
   applicable si: rampants . choix = 'autres gestes'
   titre: Combles aménagés, rampants et toitures terrasses
@@ -73,6 +71,8 @@ isolation . rampants . autres gestes La Réunion . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 15 €/m2
     - sinon: 15 €/m2
+
+#### Le reste reste à intégrer dans la structure ci-dessus
 
 isolation . toiture agir plus Martinique:
   par défaut: oui
