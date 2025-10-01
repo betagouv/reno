@@ -60,6 +60,8 @@ const PersonaCard = ({ engine, persona, personaIndex }) => {
   const situationWithTemplate = { ...template, ...persona.situation }
   const enrichedSituation = enrichSituationServer(situationWithTemplate)
 
+  if (persona.injection) console.log('enriched', enrichedSituation)
+
   engine.setSituation({
     ...enrichedSituation,
   })
