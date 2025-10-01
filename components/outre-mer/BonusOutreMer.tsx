@@ -63,6 +63,14 @@ export default function BonusOutreMer({
 
   const relevantQuestions = questions.filter((q) => q !== dottedName)
 
+  const relevantAnsweredQuestions = Object.keys(situation).filter((k) =>
+    k.startsWith(dottedName),
+  )
+  const withAnsweredQuestions = [
+    ...relevantAnsweredQuestions,
+    ...relevantQuestions,
+  ]
+
   //TODO problème, les questions disparaissent. C'est sûrement la raison de la gestion via . questions: des autres composants. On va pas laisser ça comme ça.
   console.log(
     'indigo',
@@ -71,6 +79,7 @@ export default function BonusOutreMer({
     relevantQuestions,
     answeredQuestions,
     situation,
+    withAnsweredQuestions,
   )
 
   return (
@@ -86,7 +95,7 @@ export default function BonusOutreMer({
           </Badge>
         </div>
         <div className="aide-details">
-          {relevantQuestions?.map((question, idx) => (
+          {withAnsweredQuestions?.map((question, idx) => (
             <GesteQuestion
               key={idx}
               {...{

@@ -32,6 +32,7 @@ isolation . rampants . bonus outre-mer . barème:
 
 isolation . rampants . choix:
   par défaut: "'autres gestes'"
+  question: Quel type d'isolation de la toiture voulez-vous faire ?
   une possibilité parmi:
     possibilités:
       - combles perdus
