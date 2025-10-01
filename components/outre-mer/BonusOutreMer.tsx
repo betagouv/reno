@@ -117,9 +117,10 @@ export default function BonusOutreMer({
 const OutreMerImage = ({ codeRégion }) => {
   if (!codeRégion) return 'Région non renseignée'
 
+  const codeInt = codeRégion.match(/(\d\d)/)[0]
+
   const region = Object.entries(outreMerPublicodes).find(([key, value]) => {
-    const test = `'${codeRégion}'`
-    return typeof value === 'string' && value.endsWith(test)
+    return typeof value === 'string' && value.includes(codeInt)
   })
 
   if (!region) return 'Région hors DROM'
@@ -140,7 +141,7 @@ const OutreMerImage = ({ codeRégion }) => {
       `}
     >
       <img
-        src={`/outre-mer/${codeRégion}.svg`}
+        src={`/outre-mer/${codeInt}.svg`}
         width="10"
         height="10"
         alt={`Image représentant la form de ${nom}`}
