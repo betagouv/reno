@@ -701,3 +701,27 @@
     MPR . accompagnée . éligible: non
     taxe foncière . commune . éligible: oui
     taxe foncière . montant: 2433
+- description: La Réunion
+  situation:
+    logement . commune: "'97404'"
+- description: Mayotte
+  situation:
+    logement . commune: "'97610'"
+- description: Guadeloupe
+  situation:
+    logement . commune: "'97110'"
+- description: Martinique
+  situation:
+    logement . commune: "'97205'"
+- description: Guyane littoral
+  situation:
+    logement . commune: "'97307'"
+    outre-mer . zone guyane: "'littoral'"# pas récupéré automatiquement, question à l'utilisateur
+- description: Guyane intérieur accès route
+  situation:
+    logement . commune: "'97353'"
+    outre-mer . zone guyane: "'intérieur accès route'"
+- description: Guyane intérieur accès fleuve
+  situation:
+    logement . commune: "'97353'"
+    outre-mer . zone guyane: "'intérieur accès fleuve'"
