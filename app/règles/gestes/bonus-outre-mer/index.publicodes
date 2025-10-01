@@ -7,21 +7,34 @@ outre-mer . dispositif:
     - sinon:
         texte: Agir plus
 
+# Quelques gestes qui ne nécessitent pas un fichier dédié car peu complexes
+
 isolation . surtoiture ventilée:
   applicable si: outre-mer . DROM
   par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
+  description: |
+    La surtoiture ventilée consiste en un pare-soleil protégeant la paroi horizontale des rayonnements solaires tel que le taux d’ouverture (surface d’ouverture rapportée à la surface de la paroi) est au moins égal à 5 %.
 
 isolation . surtoiture ventilée . montant:
   somme:
     - MPR . montant
 
 isolation . surtoiture ventilée . MPR:
+  par défaut: oui
 
 isolation . surtoiture ventilée . MPR . plafond:
   valeur: 110 €/m2
   description: Plafonds de dépenses éligibles
 
+isolation . surtoiture ventilée . MPR . surface:
+  question: Quelle surface de surtoiture ventilée voulez-vous installer ?
+  unité: m2
 isolation . surtoiture ventilée . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - surface
+    - barème
+isolation . surtoiture ventilée . MPR . barème:
   variations:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 75 €/m2
@@ -30,3 +43,85 @@ isolation . surtoiture ventilée . MPR . montant:
     - si: ménage . revenu . classe = 'intermédiaire'
       alors: 40 €/m2
     - sinon: 15 €/m2
+
+################
+
+isolation . protection solaire toiture:
+  par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
+  description: |
+    Des équipements et matériaux peuvent protéger la toiture contre le rayonnement solaire et rendre le logement plus confortable.
+
+isolation . protection solaire toiture . montant:
+  applicable si: outre-mer . DROM
+  somme:
+    - MPR . montant
+    - bonus outre-mer . montant
+
+isolation . protection solaire toiture . MPR:
+  par défaut: oui
+
+isolation . protection solaire toiture . MPR . plafond:
+  valeur: 200 €/m2
+  description: Plafonds de dépenses éligibles
+
+isolation . protection solaire toiture . MPR . surface:
+  question: Quelle surface de protection solaire en toiture voulez-vous installer ?
+  unité: m2
+isolation . protection solaire toiture . MPR . montant:
+  produit:
+    - surface
+    - barème
+
+isolation . protection solaire toiture . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 25 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 0 €/m2
+
+isolation . protection solaire toiture . bonus outre-mer:
+isolation . protection solaire toiture . bonus outre-mer . montant:
+  produit:
+    - MPR . surface
+    - barème
+isolation . protection solaire toiture . bonus outre-mer . barème:
+  variations:
+    - si: outre-mer . La Réunion
+      alors: barème La Réunion
+    - si: outre-mer . Guadeloupe
+      alors: barème Guadeloupe
+    - si: outre-mer . Martinique
+      alors: barème Martinique
+    - si: outre-mer . Mayotte
+      alors: barème Mayotte
+    - si: outre-mer . Guyane
+      alors: 15 €/m2
+  avec:
+    barème La Réunion:
+      variations:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 30 €/m2
+        - sinon: 20 €/m2
+    barème Guadeloupe: 20 €/m2
+    barème Martinique:
+      variations:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 18 €/m2
+        - sinon: 14 €/m2 # TODO MAJ 2025 étrange qui donnerait 20 € soit plus au plus aisés, donc on garde les valeurs de 2024
+    barème Mayotte:
+      variations:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 20 €/m2
+        - sinon: 15 €/m2
