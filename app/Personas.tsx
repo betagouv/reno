@@ -37,9 +37,13 @@ export default function Personas({}) {
       <PersonasList>
         <ul>
           {personas
+            .filter((p) => p.gabarit !== 'oui')
             //.filter((persona) => persona.description.includes('mais en IdF'))
             .map((persona, personaIndex) => (
-              <PersonaCard {...{ engine, persona, personaIndex }} />
+              <PersonaCard
+                {...{ engine, persona, personaIndex }}
+                key={persona.description}
+              />
             ))}
         </ul>
       </PersonasList>
@@ -48,7 +52,13 @@ export default function Personas({}) {
 }
 
 const PersonaCard = ({ engine, persona, personaIndex }) => {
-  const enrichedSituation = enrichSituationServer(persona.situation)
+  const template =
+    persona.injection != null
+      ? personas.find((p) => p.gabarit === 'oui' && p.id === persona.injection)
+          .situation
+      : {}
+  const situationWithTemplate = { ...template, ...persona.situation }
+  const enrichedSituation = enrichSituationServer(situationWithTemplate)
 
   engine.setSituation({
     ...enrichedSituation,

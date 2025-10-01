@@ -701,27 +701,48 @@
     MPR . accompagnée . éligible: non
     taxe foncière . commune . éligible: oui
     taxe foncière . montant: 2433
+
+# Outre mer
+- gabarit: oui
+  id: outre-mer-gestes
+  situation:
+    logement . résidence principale propriétaire: oui
+    vous . propriétaire . condition: oui
+    logement . type: "'maison'"
+    logement . surface: 87
+    logement . période de construction: "'au moins 2 ans'"
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 4
+
 - description: La Réunion
+  injection: outre-mer-gestes
   situation:
     logement . commune: "'97404'"
 - description: Mayotte
+  injection: outre-mer-gestes
   situation:
     logement . commune: "'97610'"
 - description: Guadeloupe
+  injection: outre-mer-gestes
   situation:
     logement . commune: "'97110'"
 - description: Martinique
+  injection: outre-mer-gestes
   situation:
     logement . commune: "'97205'"
 - description: Guyane littoral
+  injection: outre-mer-gestes
   situation:
     logement . commune: "'97307'"
-    outre-mer . zone guyane: "'littoral'"# pas récupéré automatiquement, question à l'utilisateur
+    outre-mer . zone guyane: "'littoral'" # pas récupéré automatiquement, question à l'utilisateur
 - description: Guyane intérieur accès route
+  injection: outre-mer-gestes
   situation:
     logement . commune: "'97353'"
     outre-mer . zone guyane: "'intérieur accès route'"
 - description: Guyane intérieur accès fleuve
+  injection: outre-mer-gestes
   situation:
     logement . commune: "'97353'"
     outre-mer . zone guyane: "'intérieur accès fleuve'"
