@@ -27,3 +27,16 @@ outre-mer . La Réunion: logement . code région = '04'
 outre-mer . Guyane: logement . code région = '03'
 outre-mer . Martinique: logement . code région = '02'
 outre-mer . Guadeloupe: logement . code région = '01'
+
+outre-mer . zone Guyane:
+  une possibilité parmi:
+    - littoral
+    - intérieur accès route
+    - intérieur accès fleuve
+
+outre-mer . zone Guyane . littoral:
+  valeur: "'littoral'"
+outre-mer . zone Guyane . intérieur accès route:
+  valeur: "'intérieur accès route'"
+outre-mer . zone Guyane . intérieur accès fleuve:
+  valeur: "'intérieur accès fleuve'"
