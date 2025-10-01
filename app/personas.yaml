@@ -735,14 +735,14 @@
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97307'"
-    outre-mer . zone guyane: "'littoral'" # pas récupéré automatiquement, question à l'utilisateur
+    outre-mer . zone Guyane: "'littoral'" # pas récupéré automatiquement, question à l'utilisateur
 - description: Guyane intérieur accès route
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97353'"
-    outre-mer . zone guyane: "'intérieur accès route'"
+    outre-mer . zone Guyane: "'intérieur accès route'"
 - description: Guyane intérieur accès fleuve
   injection: outre-mer-gestes
   situation:
     logement . commune: "'97353'"
-    outre-mer . zone guyane: "'intérieur accès fleuve'"
+    outre-mer . zone Guyane: "'intérieur accès fleuve'"
