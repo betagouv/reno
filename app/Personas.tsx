@@ -17,6 +17,7 @@ import css from '@/components/css/convertToJs'
 import { personaTest } from '@/components/tests/personaTest'
 import { getRuleTitle } from '@/components/publicodes/utils'
 import enrichSituationServer from '@/components/personas/enrichSituationServer'
+import enrichPersonaSituationWithTemplate from '@/components/personas/enrichPersonaSituationWithTmplate'
 
 const engine = new Publicodes(rules)
 export default function Personas({}) {
@@ -52,13 +53,8 @@ export default function Personas({}) {
 }
 
 const PersonaCard = ({ engine, persona, personaIndex }) => {
-  const template =
-    persona.injection != null
-      ? personas.find((p) => p.gabarit === 'oui' && p.id === persona.injection)
-          .situation
-      : {}
-  const situationWithTemplate = { ...template, ...persona.situation }
-  const enrichedSituation = enrichSituationServer(situationWithTemplate)
+  const situation = enrichPersonaSituationWithTemplate(persona, personas)
+  const enrichedSituation = enrichSituationServer(situation)
 
   if (persona.injection) console.log('enriched', enrichedSituation)
 
