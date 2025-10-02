@@ -189,3 +189,63 @@ isolation . pack chaleur toiture . bonus outre-mer . barème:
     - si: ménage . revenu . classe = 'très modeste'
       alors: 36 €/m2
     - sinon: 32 €/m2
+
+######### Protections solaires des murs
+
+isolation . bardage ventilé:
+  par défaut: oui
+
+isolation . bardage ventilé . MPR:
+  par défaut: oui
+
+isolation . bardage ventilé . MPR . question: surface
+isolation . bardage ventilé . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - surface
+
+isolation . bardage ventilé . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 75 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 60 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 40 €/m2
+    - sinon: 15 €
+
+isolation . bardage ventilé . MPR . plafond: 105 €/m2
+isolation . bardage ventilé . MPR . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler ?
+  unité: m2
+
+##
+
+isolation . pare-soleil horizontal:
+  par défaut: oui
+
+isolation . pare-soleil horizontal . MPR:
+  par défaut: oui
+
+isolation . pare-soleil horizontal . MPR . question: surface
+isolation . pare-soleil horizontal . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - surface
+
+isolation . pare-soleil horizontal . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 25 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 0 €
+
+isolation . pare-soleil horizontal . MPR . plafond: 200 €/m2
+isolation . pare-soleil horizontal . MPR . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler ?
+  unité: m2
