@@ -1,0 +1,57 @@
+isolation . murs intérieurs . bonus outre-mer:
+isolation . murs intérieurs . bonus outre-mer . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - MPR . surface
+isolation . murs intérieurs . bonus outre-mer . barème: murs . bonus outre-mer . barème commun
+
+isolation . murs extérieurs . bonus outre-mer:
+isolation . murs extérieurs . bonus outre-mer . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - MPR . surface
+isolation . murs extérieurs . bonus outre-mer . barème: murs . bonus outre-mer . barème commun
+
+isolation . murs . bonus outre-mer:
+  description: |
+    Les bonus outre-mer sont communs aux murs extérieurs et intérieur.
+    En pratique on peut isoler par l'extérieur un côté, puis par l'intérieur un autre par exemple pour contourner une façade classée.
+    On les ajoute donc aux deux aides MPR
+isolation . murs . bonus outre-mer . barème commun:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 22 €/m2
+          - sinon: 20 €/m2
+    - si: outre-mer . Guadeloupe
+      alors:
+        variations:
+          - si: ménage . revenu . classe = 'très modeste'
+            alors: 14 €/m2
+          - sinon: 12 €/m2
+    - si: outre-mer . Martinique
+      alors: 14 €/m2
+    - si: outre-mer . Mayotte
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 20 €/m2
+          - sinon: 10 €/m2
+    - si: outre-mer . Guyane
+      alors: barème Guyane
+
+isolation . murs . bonus outre-mer . barème Guyane:
+  variations:
+    - si: outre-mer . zone Guyane = 'littoral'
+      alors: 30 €/m2
+    - sinon: 25 €/m2

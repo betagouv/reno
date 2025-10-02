@@ -111,6 +111,7 @@ isolation . murs extérieurs . montant:
   somme:
     - MPR . montant
     - CEE . montant
+    - bonus outre-mer . montant
 isolation . murs extérieurs . MPR:
 isolation . murs extérieurs . MPR . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
@@ -170,6 +171,7 @@ isolation . murs intérieurs . montant:
   somme:
     - MPR . montant
     - CEE . montant
+    - bonus outre-mer . montant
 isolation . murs intérieurs . MPR:
 isolation . murs intérieurs . MPR . surface:
   question: Quelle surface de murs intérieurs voulez-vous isoler ?

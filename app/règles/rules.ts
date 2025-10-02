@@ -24,6 +24,7 @@ import autresAides from '@/app/règles/autres-aides.publicodes'
 import outreMer from '@/app/règles/outre-mer.publicodes'
 import bonusGestesOutreMer from '@/app/règles/gestes/bonus-outre-mer/index.publicodes'
 import outreMerRampants from '@/app/règles/gestes/bonus-outre-mer/rampants.publicodes'
+import outreMerMurs from '@/app/règles/gestes/bonus-outre-mer/murs.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -67,6 +68,7 @@ const rules = {
   ...outreMer,
   ...prefix(bonusGestesOutreMer, 'gestes'),
   ...prefix(outreMerRampants, 'gestes'),
+  ...prefix(outreMerMurs, 'gestes'),
 }
 
 const rulesWithMarkdown = Object.fromEntries(
