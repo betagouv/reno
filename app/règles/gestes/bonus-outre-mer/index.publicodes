@@ -125,3 +125,22 @@ isolation . protection solaire toiture . bonus outre-mer . barème:
               - ménage . revenu . classe = 'modeste'
           alors: 20 €/m2
         - sinon: 15 €/m2
+
+##########
+
+isolation . peinture:
+  titre: Pose d'une peinture thermoréfléchissante
+  par défaut: oui
+  description: |
+    La mise en place sur une toiture terrasse d’une peinture thermoréflechissante doit disposer d’un facteur solaire ≤ 0,02.
+  note: |
+    La documentation de l'ANAH outre mer PDF ne précise pas si la peinture peut aussi s'appliquer sur un toit pentu en métal par exemple.
+
+isolation . peinture . montant:
+  applicable si: outre-mer . Mayotte
+  produit:
+    - surface
+    - 10 €/m2 # pas de variation selon les classes de revenu de ménage
+
+isolation . peinture . surface:
+  question: Quelle surface de toiture voulez-vous peindre ?
