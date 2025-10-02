@@ -20,6 +20,9 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import Share from '@/app/simulation/Share'
 import styled from 'styled-components'
 import { usePathname, useSearchParams } from 'next/navigation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
 
 export default function Eligibility({
   nbStep,
@@ -39,6 +42,7 @@ export default function Eligibility({
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   }, [])
 
+  const [avertissementState, setAvertissementState] = useAvertissementState()
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
   const aides = useAides(engine, situation)
@@ -67,6 +71,9 @@ export default function Eligibility({
       <PersonaBar
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
+      />
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
       />
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
