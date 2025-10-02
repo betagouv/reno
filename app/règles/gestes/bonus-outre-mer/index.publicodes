@@ -156,3 +156,36 @@ isolation . peinture . bonus outre-mer . barème:
 isolation . peinture . surface:
   question: Quelle surface de toiture voulez-vous peindre ?
   unité: m2
+
+##############
+
+isolation . pack chaleur toiture:
+  titre: Installation d'un pack isolation de toiture contre la chaleur
+  par défaut: oui
+  description: |
+    L’objectif est de limiter deux types de transferts de chaleur en toiture par conduction et par réflexion en combinant les deux solutions techniques.
+
+isolation . pack chaleur toiture . MPR:
+  applicable si: non
+  note: Ce geste n'est pas adossée à une aide MPR, contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
+isolation . pack chaleur toiture . MPR . montant: 0
+
+isolation . pack chaleur toiture . montant:
+  somme:
+    - bonus outre-mer
+isolation . pack chaleur toiture . bonus outre-mer:
+isolation . pack chaleur toiture . bonus outre-mer . montant:
+  applicable si: outre-mer . Guadeloupe
+  note: |
+    En 2024 ce geste était disponible pour La Réunion et la Martinique. Ce n'est plus le cas en 2025.
+  produit:
+    - surface
+    - barème
+isolation . pack chaleur toiture . surface:
+  question: Quelle surface de toiture voulez-vous isoler du chaud ?
+  unité: m2
+isolation . pack chaleur toiture . bonus outre-mer . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 36 €/m2
+    - sinon: 32 €/m2
