@@ -51,8 +51,11 @@ export default function BonusOutreMer({
     .setSituation(situation)
     .evaluate(bonusDottedName + ' . ' + key)
 
-  //TODO ne pas afficher si !nodeValue
-  const isEligible = true
+  const eligibleEvaluation = engine.evaluate(bonusDottedName + ' . montant')
+
+  const isEligible = formatValue(eligibleEvaluation) !== 'Non applicable'
+
+  if (!isEligible) return
 
   const value = formatValue(evaluation)
 
@@ -93,7 +96,7 @@ export default function BonusOutreMer({
         />
         <div>
           <h4 className="fr-m-0">Prime {dispositif}</h4>
-          <Badge noIcon severity={isEligible ? 'success' : 'default'}>
+          <Badge noIcon severity={'success'}>
             Prime de {value}
           </Badge>
         </div>
