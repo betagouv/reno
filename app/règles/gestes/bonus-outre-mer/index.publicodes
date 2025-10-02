@@ -249,3 +249,50 @@ isolation . pare-soleil horizontal . MPR . plafond: 200 €/m2
 isolation . pare-soleil horizontal . MPR . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler ?
   unité: m2
+
+## maintenant les déclinaisons bonus outre-mer pour les protections solaires des murs
+
+isolation . protection solaire murs:
+  par défaut: oui
+isolation . protection solaire murs . MPR:
+  applicable si: non
+  note: Ce geste n'est pas adossée à une aide MPR, car les aides MPR sont plus restreintes que les bonus... contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
+isolation . protection solaire murs . MPR . montant: 0
+
+isolation . protection solaire murs . bonus outre-mer:
+isolation . protection solaire murs . bonus outre-mer . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - surface
+    - barème
+
+isolation . protection solaire murs . bonus outre-mer . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler du soleil ?
+  unité: m2
+
+isolation . protection solaire murs . bonus outre-mer . barème:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 30 €/m2
+          - sinon: 20 €/m2
+    - si: outre-mer . Guadeloupe
+      alors: 14 €/m2
+    - si: outre-mer . Martinique
+      alors: 8 €/m2
+    - si: outre-mer . Mayotte
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 15 €/m2
+          - sinon: 10 €/m2
+    - si: outre-mer . Guyane
+      alors: 12 €/m2
