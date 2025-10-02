@@ -327,3 +327,73 @@ isolation . paroi en terre . bonus outre-mer . barème:
 isolation . paroi en terre . surface:
   question: Quelle surface de paroi voulez-vous construire ?
   unité: m2
+
+########
+
+isolation . protection solaire vitres:
+  titre: Protection solaire des parois vitrées
+  par défaut: oui
+  description: |
+    Les parois vitrées peuvent être protégées à l’aide de brise-soleils verticaux, protections solaires mobiles, lames orientables opaques, films réfléchissants sur lames transparentes.
+
+isolation . protection solaire vitres . montant:
+  somme:
+    - MPR . montant
+    - bonus outre-mer . montant
+isolation . protection solaire vitres . MPR:
+
+isolation . protection solaire vitres . MPR . question: surface
+isolation . protection solaire vitres . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - surface
+
+isolation . protection solaire vitres . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 25 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 0 €
+
+isolation . protection solaire vitres . MPR . plafond: 200 €/m2
+isolation . protection solaire vitres . MPR . surface:
+  question: Quelle surface de vitres voulez-vous protéger du soleil ?
+  unité: m2
+
+isolation . protection solaire vitres . bonus outre-mer:
+isolation . protection solaire vitres . bonus outre-mer . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - MPR . surface
+    - barème
+
+isolation . protection solaire vitres . bonus outre-mer . barème:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 100 €/m2
+          - sinon: 110 €/m2
+    - si: outre-mer . Guadeloupe
+      alors: 65 €/m2
+    - si: outre-mer . Martinique
+      alors: 0 €/m2
+    - si: outre-mer . Mayotte
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 35 €/m2
+          - sinon: 30 €/m2
+    - si: outre-mer . Guyane
+      alors: 15 €/m2
