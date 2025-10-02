@@ -19,6 +19,7 @@ import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Share from '@/app/simulation/Share'
 import styled from 'styled-components'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 export default function Eligibility({
   nbStep,
@@ -84,17 +85,13 @@ export default function Eligibility({
         </p>
       </div>
       <BlocEtMaintenant
-        title={
-          <>
-            <span className="fr-icon-flag-line" aria-hidden="true"></span>Psst !
-            La simulation n’est pas terminée...
-          </>
-        }
+        title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}
         setSearchParams={setSearchParams}
+        withCTA
       >
         <p className="fr-callout__text">
           Le service public vous accompagne : parlez à un conseiller France
-          Rénov'
+          Rénov'.
         </p>
       </BlocEtMaintenant>
       <p>
@@ -261,9 +258,10 @@ export function EligibilityRenovationEnergetique({
                   👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
                 </li>
                 <li>
-                  🥇 Au moins{' '}
+                  🥇 Jusqu'à{' '}
                   <Value
                     {...{
+                      state: 'normal',
                       engine,
                       situation,
                       dottedName: 'MPR . accompagnée . pourcent',
@@ -274,38 +272,27 @@ export function EligibilityRenovationEnergetique({
               </ul>
               <AideAmpleur
                 {...{
-                  isEligible: false,
                   engine,
                   dottedName: 'MPR . accompagnée',
                   setSearchParams,
                   situation,
                   answeredQuestions,
                   expanded,
-                  addedText: (
-                    <DPEScenario
-                      {...{
-                        rules,
-                        engine,
-                        situation,
-                        setSearchParams,
-                        answeredQuestions,
-                      }}
-                    />
-                  ),
                 }}
               />
-              <div className="fr-alert fr-alert--info">
-                <div className="fr-alert__title">
-                  Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+              {!isTMO && (
+                <div className="fr-alert fr-alert--info">
+                  <div className="fr-alert__title">
+                    Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+                  </div>
+                  <p>
+                    Jusqu'au 31 décembre 2025 seuls les ménages très modestes
+                    peuvent en bénéficier. L’aide pourrait réouvrir aux autres
+                    catégories de revenus début 2026.
+                    <Share text="" showWithAnswer={false} align="left" />
+                  </p>
                 </div>
-                <p>
-                  Aujourd’hui, seuls les ménages très modestes peuvent en
-                  bénéficier. L’aide pourrait s’ouvrir aux autres revenus d’ici
-                  fin 2025. Revenez régulièrement, le simulateur sera mis à
-                  jour.
-                  <Share text="" showWithAnswer={false} align="left" />
-                </p>
-              </div>
+              )}
             </div>
             <p>OU optez pour les aides par gestes individuels :</p>
           </>
@@ -520,39 +507,97 @@ export function RenderAides({
   })
 }
 
-export const BlocEtMaintenant = ({ children, title, setSearchParams }) => (
-  <div className="fr-callout fr-mt-5v">
-    <h3 className="fr-callout__title">{title}</h3>
-    {children}
-    <div className="fr-grid-row fr-grid-row--gutters">
-      <div className="fr-col-12 fr-col-md-6">
-        <Link
-          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-          style={{ width: '100%', justifyContent: 'center' }}
-          href={setSearchParams({ objectif: 'etape' }, 'url')}
-          onClick={() => {
-            push([
-              'trackEvent',
-              'Simulateur Principal',
-              'Eligibilité',
-              'trouver conseiller',
-            ])
-          }}
-          title="Continuer un conseiller (gratuit)"
-        >
-          Contacter un conseiller (gratuit)
-        </Link>
-      </div>
-      <div className="fr-col-12 fr-col-md-6">
-        <Share
-          text=""
-          showWithAnswer={false}
-          customCss={{ width: '100%', justifyContent: 'center' }}
-        />
-      </div>
+export function BlocEtMaintenant({
+  children,
+  title,
+  setSearchParams,
+  withCTA = false,
+}) {
+  const [copied, setCopied] = useState(false)
+  const pathname = usePathname(),
+    searchParams = useSearchParams()
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        'https://mesaidesreno.beta.gouv.fr' +
+          pathname +
+          '?' +
+          searchParams.toString(),
+      )
+      setCopied(true)
+    } catch (error) {
+      console.error('Failed to copy:', error)
+    }
+  }
+  return (
+    <div className="fr-callout fr-mt-5v">
+      <h3 className="fr-callout__title fr-h5">
+        <span className="fr-icon-flag-line" aria-hidden="true"></span>
+        {title}
+      </h3>
+      {children}
+      {withCTA && (
+        <>
+          <div className="fr-grid-row fr-grid-row--gutters">
+            <div className="fr-col-12 fr-col-md-6">
+              <Link
+                className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+                style={{ width: '100%', justifyContent: 'center' }}
+                href={setSearchParams({ objectif: 'etape' }, 'url')}
+                onClick={() => {
+                  push([
+                    'trackEvent',
+                    'Simulateur Principal',
+                    'Eligibilité',
+                    'trouver conseiller',
+                  ])
+                }}
+                title="Continuer un conseiller (gratuit)"
+              >
+                Contacter un conseiller (gratuit)
+              </Link>
+            </div>
+            <div className="fr-col-12 fr-col-md-6">
+              <Button
+                priority="secondary"
+                title="Cliquez pour partager le lien"
+                style={{ width: '100%', justifyContent: 'center' }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  push([
+                    'trackEvent',
+                    'Simulateur Principal',
+                    'Partage',
+                    'Clic',
+                  ])
+                  copyToClipboard()
+                }}
+              >
+                <span aria-hidden="true">🔗</span> Copier le lien de ma
+                simulation
+              </Button>
+            </div>
+          </div>
+          {copied && (
+            <div className="fr-alert fr-alert--success fr-mt-3v">
+              <p>
+                Le lien de la simulation a bien été copié dans le presse-papier.
+              </p>
+              <button
+                title="Masquer le message"
+                onClick={() => setCopied(false)}
+                type="button"
+                className="fr-btn--close fr-btn fr-mt-0"
+              >
+                Masquer le message
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
-  </div>
-)
+  )
+}
 
 export function TravauxConnus({
   categories,
