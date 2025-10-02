@@ -8,11 +8,7 @@ import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import { formatValue } from 'publicodes'
 
 export const PrimeBadge = ({ engine, dottedName, situation }) => {
-  if (
-    ['tva réduite', "crédit d'impôt", 'aides locales', 'apa', 'aeeh'].includes(
-      dottedName,
-    )
-  ) {
+  if (['tva réduite', "crédit d'impôt", 'apa', 'aeeh'].includes(dottedName)) {
     return
   }
   const bestSituation = createExampleSituation(situation, 'best')
@@ -30,19 +26,38 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
   }
 
   const status =
-    montantTotal === 'Non applicable' || montantTotal == 0
-      ? 'error'
-      : (isExactTotal && montantTotal != 0) ||
-          rules[dottedName.replace(' . montant', '')]?.type === 'prêt'
-        ? 'success'
-        : 'new'
-
+    dottedName == 'aides locales'
+      ? ''
+      : montantTotal === 'Non applicable' || montantTotal == 0
+        ? 'error'
+        : (isExactTotal && montantTotal != 0) ||
+            rules[dottedName.replace(' . montant', '')]?.type === 'prêt' ||
+            dottedName == 'MPR . accompagnée'
+          ? 'success'
+          : 'new'
   return (
     <Badge
       severity={status}
-      className={status === 'success' ? 'badge-success-custom' : ''}
+      className={
+        status === 'success'
+          ? 'badge-success-custom'
+          : status === ''
+            ? 'fr-icon-checkbox-line fr-badge--icon-left badge-info-custom'
+            : ''
+      }
     >
-      {montantTotal === 'Non applicable' || montantTotal == 0 ? (
+      {dottedName == 'MPR . accompagnée' ? (
+        <>
+          Jusqu'à{' '}
+          {formatValue(
+            engine
+              .setSituation(bestSituation)
+              .evaluate(dottedName + ' . montant'),
+          )}
+        </>
+      ) : dottedName == 'aides locales' ? (
+        <>A vérifier</>
+      ) : montantTotal === 'Non applicable' || montantTotal == 0 ? (
         <>Non éligible</>
       ) : dottedName.includes('taxe foncière') ? (
         <>
@@ -102,15 +117,6 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
             </>
           ) : (
             'Non éligible' + montantTotal
-          )}
-        </>
-      ) : dottedName == 'MPR . accompagnée' ? (
-        <>
-          Jusqu'à{' '}
-          {formatValue(
-            engine
-              .setSituation(bestSituation)
-              .evaluate(dottedName + ' . montant'),
           )}
         </>
       ) : (

@@ -217,25 +217,30 @@ export function EligibilityRenovationEnergetique({
     engine.setSituation(situation).evaluate('ménage . revenu . classe')
       .nodeValue == 'très modeste'
 
-  // On filtre les remboursements (donc MPRA, aide locales et subvention MAR) car ils sont affichés différement sauf CEE . ampleur
-  const eligibles = aides.filter(
-    (aide) =>
-      (aide.status === true || aide.status === null) &&
-      (aide.type !== 'remboursement' ||
-        aide.baseDottedName == "CEE . rénovation d'ampleur"),
+  const prets = aides.filter(
+    (aide) => aide.status !== false && aide.type == 'prêt',
   )
-  const nonEligibles = aides.filter((aide) => aide.status === false)
+  const aidesDiverses = aides
+    .filter((aide) => aide.status !== false && aide.type != 'prêt')
+    .filter((aide) => !aide.dottedName.includes('MPR . accompagnée'))
+
+  const nonEligibles = aides.filter(
+    (aide) =>
+      aide.status === false &&
+      aide.baseDottedName != 'ampleur . prime individuelle copropriété',
+  )
+
   return (
     <>
-      {eligibles.length > 0 && (
+      {prets.length > 0 && (
         <Card>
           <h2 className="fr-h4">
-            <span aria-hidden="true">🏦</span> Aides de financement
+            <span aria-hidden="true">🏦</span> Prêts à 0%
           </h2>
           <RenderAides
             {...{
               isEligible: true,
-              aidesList: eligibles,
+              aidesList: prets,
               setSearchParams,
               answeredQuestions,
               engine,
@@ -330,6 +335,23 @@ export function EligibilityRenovationEnergetique({
           />
         )}
       </Card>
+      {aidesDiverses.length > 0 && (
+        <Card>
+          <h2 className="fr-h4">Aides diverses</h2>
+          <RenderAides
+            {...{
+              isEligible: false,
+              aidesList: aidesDiverses,
+              setSearchParams,
+              answeredQuestions,
+              engine,
+              situation,
+              searchParams,
+              rules,
+            }}
+          />
+        </Card>
+      )}
       {nonEligibles.length > 0 && (
         <Card>
           <h2 className="fr-h4">
@@ -345,12 +367,6 @@ export function EligibilityRenovationEnergetique({
               situation,
               searchParams,
               rules,
-              hardCodedFilter: (aide) =>
-                situation['logement . type'] === '"maison"' &&
-                aide.baseDottedName ===
-                  'ampleur . prime individuelle copropriété'
-                  ? false
-                  : true,
             }}
           />
         </Card>
@@ -490,16 +506,15 @@ export function RenderAides({
   aidesList,
   isEligible,
   rules,
-  hardCodedFilter = () => true,
 }) {
   if (aidesList.length === 0) return null
-  return aidesList.filter(hardCodedFilter).map((aide, i) => {
+  return aidesList.map((aide, i) => {
     const AideComponent = correspondance[aide.baseDottedName]
     return (
       <AideComponent
         key={aide.baseDottedName}
         {...{
-          isEligible,
+          isEligible: isEligible ? isEligible : aide.status,
           dottedName: aide.baseDottedName,
           setSearchParams,
           answeredQuestions,
