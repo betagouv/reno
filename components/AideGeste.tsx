@@ -91,9 +91,9 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
       montant: formatValue(evaluationMpr),
       montantRaw: evaluationMpr.nodeValue,
       isExactTotal: Object.keys(evaluationMpr.missingVariables).length === 1,
-      plafond: formatValue(
-        engineSituation.evaluate(dottedNameMpr + ' . plafond'),
-      ),
+      plafond:
+        rules[dottedNameMpr + ' . plafond'] != null &&
+        formatValue(engineSituation.evaluate(dottedNameMpr + ' . plafond')),
       questions: [...filteredQuestion].filter((q) => rules[q].question),
     }
   }
@@ -111,6 +111,8 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     evaluationTotal?.missingVariables &&
     Object.keys(evaluationTotal?.missingVariables).length <= 1
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
+
+  console.log('relevant', relevant, dottedName)
   if (!isExactTotal) {
     calculatedMontantTotal = formatValue(
       engine.setSituation(situation).evaluate(relevant),

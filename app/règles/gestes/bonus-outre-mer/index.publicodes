@@ -136,11 +136,23 @@ isolation . peinture:
   note: |
     La documentation de l'ANAH outre mer PDF ne précise pas si la peinture peut aussi s'appliquer sur un toit pentu en métal par exemple.
 
+isolation . peinture . MPR:
+  applicable si: non
+  note: Ce geste n'est pas adossée à une aide MPR, contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
+isolation . peinture . MPR . montant: 0
+
 isolation . peinture . montant:
+  somme:
+    - bonus outre-mer
+isolation . peinture . bonus outre-mer:
+isolation . peinture . bonus outre-mer . montant:
   applicable si: outre-mer . Mayotte
   produit:
     - surface
-    - 10 €/m2 # pas de variation selon les classes de revenu de ménage
-
+    - barème
+isolation . peinture . bonus outre-mer . barème:
+  valeur: 10 €/m2
+  description: Pas de variation selon les classes de revenu de ménage
 isolation . peinture . surface:
   question: Quelle surface de toiture voulez-vous peindre ?
+  unité: m2

@@ -67,6 +67,7 @@ export const categories = [
       'gestes . isolation . plancher bas': 'Sensation de froid venant du sol',
       'gestes . isolation . vitres': 'Simple vitrage ou fenêtres anciennes',
       'gestes . isolation . surtoiture ventilée': 'Dernier étage trop chaud',
+      'gestes . isolation . peinture': 'Dernier étage trop chaud',
     },
   },
   {

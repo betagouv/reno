@@ -333,6 +333,7 @@ isolation . toitures terrasses . CEE . barème:
 isolation . plancher bas:
   titre: Isolation du plancher
   par défaut: oui
+
 isolation . plancher bas . montant:
   somme:
     - CEE . montant

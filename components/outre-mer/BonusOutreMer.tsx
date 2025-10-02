@@ -41,7 +41,10 @@ export default function BonusOutreMer({
 
   if (bonusRule === undefined) return
 
-  const hasSurface = situation[dottedName + ' . MPR . surface']
+  const surfaceKeyEntry = Object.entries(rules).find(
+    ([key]) => key.startsWith(dottedName) && key.endsWith(' . surface'),
+  )
+  const hasSurface = surfaceKeyEntry && situation[surfaceKeyEntry[0]]
 
   const key = hasSurface ? 'montant' : 'barème'
   const evaluation = engine
@@ -58,7 +61,7 @@ export default function BonusOutreMer({
   ).nodeValue
 
   const questions = getNextQuestions(
-    engine.setSituation(situation).evaluate(bonusDottedName + ' . barème'),
+    engine.setSituation(situation).evaluate(bonusDottedName + ' . montant'),
   )
 
   const relevantQuestions = questions.filter((q) => q !== dottedName)
