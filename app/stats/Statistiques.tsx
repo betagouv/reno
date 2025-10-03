@@ -82,7 +82,7 @@ export default function Statistiques() {
 
       const transfoRateFranceRenov =
         (Object.values(dataLastMonth).reduce(
-          (acc, curr) => acc + curr[14].step_nb_visits_actual,
+          (acc, curr) => acc + curr[15].step_nb_visits_actual,
           0,
         ) /
           nbSimuEndedMonth) *
