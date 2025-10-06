@@ -30,6 +30,7 @@ chauffage . solaire . chauffe-eau solaire . montant:
   somme:
     - MPR . montant
     - CEE . montant
+    - bonus outre-mer . montant
 chauffage . solaire . chauffe-eau solaire . MPR:
 chauffage . solaire . chauffe-eau solaire . MPR . plafond: 7000 €
 chauffage . solaire . chauffe-eau solaire . MPR . montant:

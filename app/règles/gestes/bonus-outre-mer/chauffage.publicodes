@@ -117,3 +117,30 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . éligible aide com
       - ménage . revenu . classe = 'très modeste'
   question: Le ménage est-il éligible à l'aide complémentaire FEDER (ménages éco-solidaires) de la région ?
   par défaut: non
+
+############## thermodynamique
+
+chauffage . solaire . chauffe-eau thermodynamique . bonus outre-mer:
+chauffage . solaire . chauffe-eau thermodynamique . bonus outre-mer . montant:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 900 €
+          - sinon: 600 €
+    - si: outre-mer . Guadeloupe
+      alors:
+        variations:
+          - si: ménage . revenu . classe = 'très modeste'
+            alors: 1400 €
+          - sinon: 1000 €
+    - si: outre-mer . Martinique
+      alors: 600 €
+    - si: outre-mer . Mayotte
+      alors: 0 €
+    - si: outre-mer . Guyane
+      alors: 600 €

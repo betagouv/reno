@@ -36,6 +36,7 @@ chauffage . chauffe-eau thermodynamique . montant:
   somme:
     - MPR . montant
     - CEE . montant
+    - bonus outre-mer . montant
 chauffage . chauffe-eau thermodynamique . MPR:
 chauffage . chauffe-eau thermodynamique . MPR . plafond:
   valeur: 3500 €
