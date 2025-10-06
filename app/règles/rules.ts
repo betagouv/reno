@@ -26,6 +26,7 @@ import bonusGestesOutreMer from '@/app/règles/gestes/bonus-outre-mer/index.publ
 import outreMerRampants from '@/app/règles/gestes/bonus-outre-mer/rampants.publicodes'
 import outreMerMurs from '@/app/règles/gestes/bonus-outre-mer/murs.publicodes'
 import outreMerChauffage from '@/app/règles/gestes/bonus-outre-mer/chauffage.publicodes'
+import outreMerClim from '@/app/règles/gestes/bonus-outre-mer/clim.publicodes'
 
 /* TODO this doesn't work, investigate why, it should
  *
@@ -71,6 +72,7 @@ const rules = {
   ...prefix(outreMerRampants, 'gestes'),
   ...prefix(outreMerMurs, 'gestes'),
   ...prefix(outreMerChauffage, 'gestes'),
+  ...prefix(outreMerClim, 'gestes'),
 }
 
 const rulesWithMarkdown = Object.fromEntries(

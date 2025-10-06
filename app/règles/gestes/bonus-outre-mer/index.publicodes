@@ -415,11 +415,12 @@ ventilation . brasseurs . MPR:
   par défaut: oui
 
 ventilation . brasseurs . MPR . nombre:
-  question: Quelle surface de brasseurs voulez-vous installer ?
-  unité: m2
+  question: Combien de brasseurs voulez-vous installer ?
+  unité: unité
 ventilation . brasseurs . MPR . montant: 0 €
 
 ventilation . brasseurs . bonus outre-mer:
+ventilation . brasseurs . bonus outre-mer . montant: barème
 ventilation . brasseurs . bonus outre-mer . barème:
   variations:
     - si:
@@ -427,12 +428,13 @@ ventilation . brasseurs . bonus outre-mer . barème:
           - outre-mer . La Réunion
           - outre-mer . Martinique
       alors:
-        - si:
-            une de ces conditions:
-              - ménage . revenu . classe = 'très modeste'
-              - ménage . revenu . classe = 'modeste'
-          alors: 150 €
-        - sinon: 120 €
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 150 €
+          - sinon: 120 €
     - si: outre-mer . Guadeloupe
       alors:
         variations:
@@ -441,13 +443,15 @@ ventilation . brasseurs . bonus outre-mer . barème:
           - sinon: 150 €
     - si: outre-mer . Mayotte
       alors:
-        - si: avec installation
-          alors: 100 €
-        - sinon: 40 €
+        variations:
+          - si: avec installation
+            alors: 100 €
+          - sinon: 40 €
     - si: outre-mer . Guyane
       alors:
         variations:
           - si: outre-mer . zone Guyane = 'littoral'
+            alors:
               variations:
                 - si: ménage . revenu . classe = 'très modeste'
                   alors: 150 €

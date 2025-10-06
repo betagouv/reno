@@ -1,5 +1,6 @@
 chauffage . solaire . chauffe-eau solaire . bonus outre-mer:
-chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant: barème
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . barème:
   variations:
     - si: outre-mer . La Réunion
       alors:
@@ -66,7 +67,7 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
               - sinon: 1200 €
         - sinon: 0 €
 
-chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant . barème Guyane:
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . barème Guyane:
   variations:
     - si: outre-mer . zone Guyane = 'littoral'
       alors:
@@ -108,7 +109,7 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . capacité:
   unité: L
 
 chauffage . solaire . chauffe-eau solaire . bonus outre-mer . prime FEDER:
-  applicable si: éligible aide complémentaire
+  applicable si: éligible aide complémentaire FEDER
   valeur: 1200 €
 chauffage . solaire . chauffe-eau solaire . bonus outre-mer . éligible aide complémentaire FEDER:
   applicable si:
@@ -120,8 +121,11 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . éligible aide com
 
 ############## thermodynamique
 
-chauffage . solaire . chauffe-eau thermodynamique . bonus outre-mer:
-chauffage . solaire . chauffe-eau thermodynamique . bonus outre-mer . montant:
+chauffage . chauffe-eau thermodynamique . bonus outre-mer:
+  applicable si: outre-mer . DROM
+
+chauffage . chauffe-eau thermodynamique . bonus outre-mer . montant: barème
+chauffage . chauffe-eau thermodynamique . bonus outre-mer . barème:
   variations:
     - si: outre-mer . La Réunion
       alors:
