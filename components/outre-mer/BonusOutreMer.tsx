@@ -46,10 +46,12 @@ export default function BonusOutreMer({
   )
   const hasSurface = surfaceKeyEntry && situation[surfaceKeyEntry[0]]
 
-  const key = hasSurface ? 'montant' : 'barème'
-  const evaluation = engine
-    .setSituation(situation)
-    .evaluate(bonusDottedName + ' . ' + key)
+  console.log(dottedName, { hasSurface, surfaceKeyEntry })
+
+  const key = surfaceKeyEntry ? (hasSurface ? 'montant' : 'barème') : 'montant'
+  const valueDottedName = bonusDottedName + ' . ' + key,
+    valueRule = rules[valueDottedName]
+  const evaluation = engine.setSituation(situation).evaluate(valueDottedName)
 
   const eligibleEvaluation = engine.evaluate(bonusDottedName + ' . montant')
 
@@ -77,6 +79,8 @@ export default function BonusOutreMer({
     ...relevantQuestions,
   ]
 
+  const isMinimum = valueRule['borne minimum'] === 'oui'
+
   //TODO problème, les questions disparaissent. C'est sûrement la raison de la gestion via . questions: des autres composants. On va pas laisser ça comme ça.
   console.log(
     'indigo',
@@ -97,7 +101,7 @@ export default function BonusOutreMer({
         <div>
           <h4 className="fr-m-0">Prime {dispositif}</h4>
           <Badge noIcon severity={'success'}>
-            Prime de {value}
+            Prime {isMinimum ? 'minimum ' : ''}de {value}
           </Badge>
         </div>
         <div className="aide-details">

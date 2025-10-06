@@ -1,6 +1,5 @@
 chauffage . solaire . chauffe-eau solaire . bonus outre-mer:
-chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant: barème
-chauffage . solaire . chauffe-eau solaire . bonus outre-mer . barème:
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
   variations:
     - si: outre-mer . La Réunion
       alors:
@@ -124,8 +123,7 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . éligible aide com
 chauffage . chauffe-eau thermodynamique . bonus outre-mer:
   applicable si: outre-mer . DROM
 
-chauffage . chauffe-eau thermodynamique . bonus outre-mer . montant: barème
-chauffage . chauffe-eau thermodynamique . bonus outre-mer . barème:
+chauffage . chauffe-eau thermodynamique . bonus outre-mer . montant:
   variations:
     - si: outre-mer . La Réunion
       alors:

@@ -420,8 +420,7 @@ ventilation . brasseurs . MPR . nombre:
 ventilation . brasseurs . MPR . montant: 0 €
 
 ventilation . brasseurs . bonus outre-mer:
-ventilation . brasseurs . bonus outre-mer . montant: barème
-ventilation . brasseurs . bonus outre-mer . barème:
+ventilation . brasseurs . bonus outre-mer . montant:
   variations:
     - si:
         une de ces conditions:

@@ -53,6 +53,7 @@ ventilation:
   somme:
     - double flux . montant
     - brasseurs
+    - clim
 
 ventilation . double flux:
   titre: Ventilation double flux
