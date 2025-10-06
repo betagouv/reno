@@ -28,13 +28,16 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
   const status =
     dottedName == 'aides locales'
       ? ''
-      : montantTotal === 'Non applicable' || montantTotal == 0
+      : montantTotal === 'Non applicable'
         ? 'error'
-        : (isExactTotal && montantTotal != 0) ||
+        : (isExactTotal &&
+              montantTotal != 0 &&
+              montantTotal != 'Pas encore défini') ||
             rules[dottedName.replace(' . montant', '')]?.type === 'prêt' ||
             dottedName == 'MPR . accompagnée'
           ? 'success'
           : 'new'
+
   return (
     <Badge
       severity={status}
@@ -46,7 +49,9 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
             : ''
       }
     >
-      {dottedName == 'MPR . accompagnée' ? (
+      {status == 'error' ? (
+        <>Non éligible</>
+      ) : dottedName == 'MPR . accompagnée' ? (
         <>
           Jusqu'à{' '}
           {formatValue(
@@ -57,8 +62,6 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
         </>
       ) : dottedName == 'aides locales' ? (
         <>A vérifier</>
-      ) : montantTotal === 'Non applicable' || montantTotal == 0 ? (
-        <>Non éligible</>
       ) : dottedName.includes('taxe foncière') ? (
         <>
           {situation['taxe foncière . commune . taux']}
@@ -92,42 +95,23 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
             dottedName={dottedName + ' . montant'}
           />
         </>
-      ) : eligibleMPRG && montantTotal != 'Pas encore défini' ? ( // Cas MPR avec ou sans CEE/Coup de pouce
-        <>
-          {!isExactTotal
-            ? 'A compléter'
-            : dottedName.includes('locavantage')
-              ? "Réduction d'impôt de " + montantTotal
-              : 'Prime de ' + montantTotal}
-        </>
-      ) : !eligibleMPRG && hasCoupDePouce && isExactTotal ? (
-        // Cas des Coup de pouce
-        <>Prime de {montantTotal}</>
-      ) : !eligibleMPRG && !hasCoupDePouce && isExactTotal ? (
+      ) : status == 'new' ? ( // Cas MPR avec ou sans CEE/Coup de pouce
+        <>A compléter</>
+      ) : dottedName.includes('locavantage') ? (
+        <>Réduction d'impôt de {montantTotal}</>
+      ) : (!eligibleMPRG && !hasCoupDePouce && isExactTotal && montantTotal) ||
+        dottedName.endsWith('CEE') ? (
         // On a le droit qu'au CEE, si l'aide est à 0, ça veut dire qu'elle n'existe pas
         <>
-          {montantTotal ? (
-            <>
-              Prime indicative de {montantTotal}&nbsp;{' '}
-              <Tooltip
-                className="fr-ms-1v"
-                kind="hover"
-                title="Ce montant correspond à la formule officielle de calcul. Cependant, les fournisseurs d'énergies sont libres d'adopter leur propre méthode de calcul."
-              />
-            </>
-          ) : (
-            'Non éligible' + montantTotal
-          )}
-        </>
-      ) : (
-        <>
-          Prime existante&nbsp;
+          Prime indicative de {montantTotal}&nbsp;{' '}
           <Tooltip
             className="fr-ms-1v"
             kind="hover"
-            title="Vous êtes éligible à une prime, il vous faut répondre à des questions complémentaires pour préciser son montant."
+            title="Ce montant correspond à la formule officielle de calcul. Cependant, les fournisseurs d'énergies sont libres d'adopter leur propre méthode de calcul."
           />
         </>
+      ) : (
+        <>Prime de {montantTotal}</>
       )}
     </Badge>
   )

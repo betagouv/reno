@@ -199,6 +199,9 @@ export default function AideGeste({
         <BlocAideCoupDePouce
           {...{
             montantCoupDePouce,
+            engine,
+            situation,
+            dottedName,
           }}
         />
       )}
@@ -208,6 +211,7 @@ export default function AideGeste({
             infoCEE,
             engine,
             situation,
+            dottedName,
             answeredQuestions,
             setSearchParams,
           }}
@@ -220,17 +224,14 @@ export default function AideGeste({
 const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   <BlocAide display="geste">
     <div className="aide-header">
-      <Image src={mprImage} alt="logo ma prime renov" width="100" />
-      <div>
-        <h4 className="fr-m-0">MaPrimeRénov'</h4>
-        <PrimeBadge
-          {...{
-            situation,
-            engine,
-            dottedName: infoMPR.dottedName,
-          }}
-        />
-      </div>
+      <h4 className="fr-m-0">MaPrimeRénov'</h4>
+      <PrimeBadge
+        {...{
+          situation,
+          engine,
+          dottedName: infoMPR.dottedName,
+        }}
+      />
     </div>
     <div className="aide-details">
       <div className="details">
@@ -241,26 +242,29 @@ const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   </BlocAide>
 )
 
-const BlocAideCoupDePouce = ({ montantCoupDePouce }) => {
+const BlocAideCoupDePouce = ({
+  montantCoupDePouce,
+  engine,
+  situation,
+  dottedName,
+}) => {
   const remplacementChaudiere =
     rules['CEE . projet . remplacement chaudière thermique'].titre
 
   return (
     <BlocAide display="geste">
       <div className="aide-header">
-        <Image src={coupDePouceImage} alt="logo Coup de Pouce" width="100" />
-        <div>
-          <h4 className="fr-m-0">Prime Coup de pouce</h4>
-          <Badge
-            noIcon
-            severity={montantCoupDePouce !== 'Non applicable' ? 'success' : ''}
-          >
-            {montantCoupDePouce === 'Non applicable' ? (
-              <>Non applicable</>
-            ) : (
-              <>Prime de {montantCoupDePouce}</>
-            )}
-          </Badge>
+        <h4 className="fr-m-0">Prime Coup de pouce</h4>
+        <PrimeBadge
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . Coup de pouce',
+          }}
+        />
+      </div>
+      <div className="aide-details">
+        <div className="details">
           <span className="aide-details">
             {' '}
             {montantCoupDePouce === 'Non applicable' ? 'sans' : 'si'}{' '}
@@ -278,40 +282,23 @@ const BlocAideCEE = ({
   situation,
   answeredQuestions,
   setSearchParams,
+  dottedName,
 }) => {
   const isApplicable = infoCEE.montant !== 'Non applicable'
   return (
     <BlocAide display="geste">
       <div className="aide-header">
-        <Image src={ceeImage} alt="logo Cee" width="60" />
-        <div>
-          <h4 className="fr-m-0">
-            Prime CEE (Certificats d'Économie d'Énergie)
-          </h4>
-          <Badge noIcon severity={isApplicable ? 'success' : ''}>
-            {!infoCEE.isExactTotal ? (
-              <>
-                Prime existante&nbsp;
-                <Tooltip
-                  className="fr-ms-1v"
-                  kind="hover"
-                  title="Veuillez répondre aux questions pour préciser son montant."
-                />
-              </>
-            ) : isApplicable ? (
-              'Prime indicative de ' + infoCEE.montant
-            ) : (
-              'non cumulable avec la Prime Coup de pouce'
-            )}
-          </Badge>
-        </div>
+        <h4 className="fr-m-0">Prime CEE *</h4>
+        <PrimeBadge
+          {...{ engine, situation, dottedName: dottedName + ' . CEE' }}
+        />
       </div>
       {isApplicable && (
         <div className="aide-details">
           <p>
-            Ce montant vous est donné à titre indicatif, il vous appartient de
-            mettre en concurrence les offres CEE des fournisseurs d'énergie.
-            Plus d'infos:{' '}
+            Certificats d'Économie d'Énergie : ce montant vous est donné à titre
+            indicatif, il vous appartient de mettre en concurrence les offres
+            CEE des fournisseurs d'énergie. Plus d'infos:{' '}
             <a
               className="fr-link"
               title={`${infoCEE.code} - nouvelle fenêtre`}
