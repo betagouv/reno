@@ -15,7 +15,7 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
   avec:
     barème Guadeloupe:
       variations:
-        - si: capacité <= 300 l
+        - si: capacité <= 300 L
           alors:
             variations:
               - si: ménage . revenu . classe = 'très modeste'
@@ -29,3 +29,8 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
                     - ménage . revenu . classe = 'modeste'
                 alors: 1100 €
               - sinon: 800 €
+
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . capacité:
+  question: Quelle est la capacité en litres du chauffe-eau solaire que vous comptez installer ?
+  par défaut: 250 L # au pif, en-dessous du seuil
+  unité: L
