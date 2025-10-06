@@ -1,0 +1,31 @@
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer:
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
+  variations:
+    - si: outre-mer . La Réunion
+      alors: 1200 €/m2
+    - si: outre-mer . Guadeloupe
+      alors: barème Guadeloupe
+    - si: outre-mer . Martinique
+      alors: barème Martinique
+    - si: outre-mer . Mayotte
+      alors: barème Mayotte
+    - si: outre-mer . Guyane
+      alors: 15 €/m2
+
+  avec:
+    barème Guadeloupe:
+      variations:
+        - si: capacité <= 300 l
+          alors:
+            variations:
+              - si: ménage . revenu . classe = 'très modeste'
+                alors: 1200 €
+              - sinon: 1000 €
+        - sinon:
+            variations:
+              - si:
+                  une de ces conditions:
+                    - ménage . revenu . classe = 'très modeste'
+                    - ménage . revenu . classe = 'modeste'
+                alors: 1100 €
+              - sinon: 800 €
