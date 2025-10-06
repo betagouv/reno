@@ -1,0 +1,18 @@
+ventilation . clim:
+  titre: Climatiseur performant
+  applicable si: outre-mer . DROM
+  par défaut: oui
+
+ventilation . clim . montant:
+  somme:
+    - bonus outre-mer . montant
+
+ventilation . clim . MPR:
+  par défaut: oui
+
+ventilation . clim . MPR . montant: 0 €
+
+ventilation . clim . bonus outre-mer:
+ventilation . clim . bonus outre-mer . montant:
+  valeur: 150 €
+  borne minimum: oui
