@@ -1,3 +1,5 @@
+import { OutreMerImage } from './outre-mer/BonusOutreMer'
+
 export default function OutreMerInformation({ situation, engine }) {
   const evaluation = engine.setSituation(situation).evaluate('outre-mer')
   const isOutreMer = evaluation.nodeValue,
@@ -18,9 +20,25 @@ export default function OutreMerInformation({ situation, engine }) {
               </div>
             ) : (
               <div>
-                ✅ Les règles spécifiques aux départements et régions
-                d'outre-mer sont prises en compte dans la suite de la
-                simulation.
+                <div
+                  css={`
+                    width: fit-content;
+                    margin: 1rem 0;
+                  `}
+                >
+                  <OutreMerImage
+                    codeRégion={situation['logement . code région']?.replace(
+                      /"/g,
+                      '',
+                    )}
+                  />
+                </div>
+
+                <p>
+                  ✅ Les règles spécifiques aux départements et régions
+                  d'outre-mer sont prises en compte dans la suite de la
+                  simulation.
+                </p>
               </div>
             )}
           </div>

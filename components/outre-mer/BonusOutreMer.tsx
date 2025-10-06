@@ -124,7 +124,7 @@ export default function BonusOutreMer({
   )
 }
 
-const OutreMerImage = ({ codeRégion }) => {
+export const OutreMerImage = ({ codeRégion }) => {
   if (!codeRégion) return 'Région non renseignée'
 
   const codeInt = codeRégion.match(/(\d\d)/)[0]
