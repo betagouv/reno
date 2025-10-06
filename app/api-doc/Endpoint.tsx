@@ -56,9 +56,11 @@ export default function Endpoint({ type }) {
       )
       .map((item) => {
         const rule = item.replace(` . ${type}`, '').replace(' . montant', '')
+        const name = rule.split(' . ').slice(-1)[0]
+        const titre = rules[rule]?.titre || name
         return {
           valeur: rule,
-          titre: rules[rule].titre,
+          titre,
         }
       })
   }, [type])
