@@ -7,7 +7,9 @@ outre-mer . dispositif:
     - sinon:
         texte: Agir plus
 
-# Quelques gestes qui ne nécessitent pas un fichier dédié car peu complexes
+##########
+# Ci-dessous, quelques gestes qui ne nécessitent pas un fichier dédié car peu complexes
+##########
 
 isolation . surtoiture ventilée:
   applicable si: outre-mer . DROM
@@ -397,3 +399,64 @@ isolation . protection solaire vitres . bonus outre-mer . barème:
           - sinon: 30 €/m2
     - si: outre-mer . Guyane
       alors: 15 €/m2
+
+##############
+
+ventilation . brasseurs:
+  titre: Brasseurs d’air fixes plafonniers
+  applicable si: outre-mer . DROM
+  par défaut: oui
+
+ventilation . brasseurs . montant:
+  somme:
+    - bonus outre-mer . montant
+
+ventilation . brasseurs . MPR:
+  par défaut: oui
+
+ventilation . brasseurs . MPR . nombre:
+  question: Quelle surface de brasseurs voulez-vous installer ?
+  unité: m2
+ventilation . brasseurs . MPR . montant: 0 €
+
+ventilation . brasseurs . bonus outre-mer:
+ventilation . brasseurs . bonus outre-mer . barème:
+  variations:
+    - si:
+        une de ces conditions:
+          - outre-mer . La Réunion
+          - outre-mer . Martinique
+      alors:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 150 €
+        - sinon: 120 €
+    - si: outre-mer . Guadeloupe
+      alors:
+        variations:
+          - si: ménage . revenu . classe = 'très modeste'
+            alors: 180 €
+          - sinon: 150 €
+    - si: outre-mer . Mayotte
+      alors:
+        - si: avec installation
+          alors: 100 €
+        - sinon: 40 €
+    - si: outre-mer . Guyane
+      alors:
+        variations:
+          - si: outre-mer . zone Guyane = 'littoral'
+              variations:
+                - si: ménage . revenu . classe = 'très modeste'
+                  alors: 150 €
+                - sinon: 120 €
+          - si: outre-mer . zone Guyane = 'intérieur accès route'
+            alors: 250 €
+          - sinon: 300 €
+
+ventilation . brasseurs . bonus outre-mer . avec installation:
+  applicable si: outre-mer . Mayotte
+  question: L'achat inclut-il l'installation ?
+  par défaut: non
