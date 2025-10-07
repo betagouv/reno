@@ -12,7 +12,7 @@ import AideAmpleur from './ampleur/AideAmpleur'
 import AideGeste, { getInfoForPrime } from './AideGeste'
 import Link from 'next/link'
 import Value from './Value'
-import { categories, getRulesByCategory } from './utils'
+import { categories, getCurDate, getRulesByCategory } from './utils'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
@@ -46,7 +46,7 @@ export default function Eligibility({
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
   const aides = useAides(engine, situation)
-
+  const today = getCurDate()
   // On doit aussi vérifier geste par geste
   const travauxEnvisages = getTravauxEnvisages(situation)
   const hasAides =
@@ -95,6 +95,7 @@ export default function Eligibility({
         title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}
         setSearchParams={setSearchParams}
         withCTA
+        today={today}
       >
         <p className="fr-callout__text">
           Le service public vous accompagne : parlez à un conseiller France
@@ -178,7 +179,7 @@ export default function Eligibility({
         />
         <Link
           className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-          href={setSearchParams({ objectif: 'etape' }, 'url')}
+          href={setSearchParams({ objectif: 'etape', date: today }, 'url')}
           onClick={() => {
             push([
               'trackEvent',
@@ -348,7 +349,9 @@ export function EligibilityRenovationEnergetique({
                 </div>
               )}
             </div>
-            <p>OU optez pour les aides par gestes individuels :</p>
+            <p className="fr-h3">
+              Sinon, optez pour les aides par gestes individuels :
+            </p>
           </>
         )}
         <AvanceTMO {...{ engine, situation }} />
@@ -576,6 +579,7 @@ export function BlocEtMaintenant({
   title,
   setSearchParams,
   withCTA = false,
+  today,
 }) {
   const [copied, setCopied] = useState(false)
   const pathname = usePathname(),
@@ -607,7 +611,10 @@ export function BlocEtMaintenant({
               <Link
                 className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
                 style={{ width: '100%', justifyContent: 'center' }}
-                href={setSearchParams({ objectif: 'etape' }, 'url')}
+                href={setSearchParams(
+                  { objectif: 'etape', date: today },
+                  'url',
+                )}
                 onClick={() => {
                   push([
                     'trackEvent',
