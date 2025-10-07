@@ -17,9 +17,9 @@ export const formatNumberWithSpaces = (num) => {
 export const getCurDate = () => {
   const curDate = new Date()
   return (
-    String(curDate.getDay()).padStart(2, '0') +
+    String(curDate.getDate()).padStart(2, '0') +
     '-' +
-    String(curDate.getMonth()).padStart(2, '0') +
+    String(curDate.getMonth() + 1).padStart(2, '0') +
     '-' +
     curDate.getFullYear()
   )
