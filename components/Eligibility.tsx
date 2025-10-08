@@ -97,7 +97,7 @@ export default function Eligibility({
         withCTA
         today={today}
       >
-        <p className="fr-callout__text">
+        <p>
           Le service public vous accompagne : parlez à un conseiller France
           Rénov'.
         </p>
@@ -681,7 +681,12 @@ export function TravauxConnus({
 }) {
   return categories
     .filter(
-      (c) => isCategorieChecked(c['code'], situation) || c['code'] == 'autres',
+      (c) =>
+        isCategorieChecked(c['code'], situation) ||
+        (c['code'] == 'autres' &&
+          engine
+            .setSituation(situation)
+            .evaluate('gestes . recommandés . audit . montant').nodeValue),
     )
     .map((category) => (
       <div key={category['code']}>
