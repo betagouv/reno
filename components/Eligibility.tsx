@@ -155,10 +155,8 @@ export default function Eligibility({
         title="Et maintenant, on fait quoi ?"
         setSearchParams={setSearchParams}
       >
-        <p className="fr-callout__text">
-          Un conseiller France Rénov’ peut vous aider à :
-        </p>
-        <ul className="fr-callout__text">
+        <p>Un conseiller France Rénov’ peut vous aider à :</p>
+        <ul>
           <li>🛠️ Identifier les bons travaux à faire</li>
           <li>💰 Monter un plan de financement adapté</li>
           <li>
