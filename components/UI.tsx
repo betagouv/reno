@@ -1,6 +1,5 @@
 'use client'
 import styled from 'styled-components'
-import checkIcon from '@/public/check-square.png'
 
 export const Section = styled.section`
   margin: 0 auto;
@@ -49,13 +48,9 @@ export const BlocAide = styled.div`
   margin-bottom: 1rem;
   .aide-header {
     display: flex;
-    align-items: flex-start;
-    ${(p) => p.display == "geste" && "margin-bottom: 1rem;"}
-    > img {
-      margin-right: 1.4rem;
-      width: 3.5rem;
-      height: auto;
-    }
+    ${(p) => p.display == "geste" ? 'justify-content: space-between;' : 'align-items: center;gap: 1rem;'}
+    width: 100%;
+    padding-right: 0.5rem;
   }
   .aide-details {
     margin-top: 1rem;

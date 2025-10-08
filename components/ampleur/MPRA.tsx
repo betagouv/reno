@@ -15,6 +15,9 @@ export default function MPRA({
   expanded,
 }) {
   const dottedName = 'MPR . accompagnée'
+  const isTMO =
+    engine.setSituation(situation).evaluate('ménage . revenu . classe')
+      .nodeValue == 'très modeste'
 
   return (
     <AideAmpleur
@@ -28,6 +31,18 @@ export default function MPRA({
         expanded,
       }}
     >
+      {!isTMO && (
+        <div className="fr-alert fr-alert--info fr-mb-5v">
+          <div className="fr-alert__title">
+            Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+          </div>
+          <p>
+            Jusqu'au 31 décembre 2025 seuls les ménages très modestes peuvent en
+            bénéficier. L’aide pourrait réouvrir aux autres catégories de
+            revenus début 2026.
+          </p>
+        </div>
+      )}
       <DPEScenario
         {...{
           rules,

@@ -14,6 +14,17 @@ export const formatNumberWithSpaces = (num) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }
 
+export const getCurDate = () => {
+  const curDate = new Date()
+  return (
+    String(curDate.getDate()).padStart(2, '0') +
+    '-' +
+    String(curDate.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    curDate.getFullYear()
+  )
+}
+
 export const sortBy = (f) => (list) =>
   list.sort((a, b) => {
     const fa = f(a),
