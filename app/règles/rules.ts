@@ -12,6 +12,7 @@ import solaire from '@/app/règles/gestes/chauffage/solaire.yaml'
 import isolation from '@/app/règles/gestes/isolation.yaml'
 import index from '@/app/règles/index.yaml'
 import revenus from '@/app/règles/revenus.yaml'
+import revenus2024 from '@/app/règles/revenus-2024.yaml'
 import CEE from '@/app/règles/CEE.publicodes'
 import denormandie from '@/app/règles/denormandie.publicodes'
 import taxeFoncière from '@/app/règles/taxe-foncière.publicodes'
@@ -43,6 +44,7 @@ const prefix = (rules, prefix) =>
 const rules = {
   ...index,
   ...revenus,
+  ...revenus2024,
   ...prefix(gestes, 'gestes'),
   ...prefix(PAC, 'gestes'),
   ...prefix(chauffage, 'gestes'),
