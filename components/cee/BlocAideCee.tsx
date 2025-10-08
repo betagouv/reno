@@ -63,7 +63,7 @@ export const BlocAideCEE = ({
                 Prime indicative de {infoCEE.montant}
               </Badge>
             ))}
-          <h3>
+          <h3 className="fr-m-0">
             Prime CEE (Certificats d'Économie d'Énergie)
             <br />
             <span className="fr-hint-text">
@@ -80,7 +80,7 @@ export const BlocAideCEE = ({
           </h3>
         </div>
       </div>
-      <div className="aide-details">
+      <div className="aide-details fr-pt-3v">
         <Highlight>
           Ce montant vous est donné à titre indicatif, il vous appartient de
           mettre en concurrence les offres CEE des fournisseurs d'énergie.
