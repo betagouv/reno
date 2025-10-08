@@ -691,7 +691,6 @@ export function TravauxConnus({
     .map((category) => (
       <div key={category['code']}>
         <h3 className="fr-mt-5v fr-h5">{category['titre']}</h3>
-        {category['code'] == 'isolation' && <p>{category['sousTitre']}</p>}
         {travauxEnvisages
           .filter(
             (travaux) =>
