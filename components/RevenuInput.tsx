@@ -1,7 +1,13 @@
 import Select from '@codegouvfr/react-dsfr/Select'
 import { omit } from './utils'
-export const displayRevenuLabel = (situation, engine, threshold) => {
-  const list = getRevenusList(situation, engine)
+
+export const displayRevenuLabel = (
+  situation,
+  engine,
+  threshold,
+  dottedName,
+) => {
+  const list = getRevenusList(situation, engine, dottedName)
   const lastThreshold = list.slice(-1)[0]
   return threshold > lastThreshold
     ? 'supérieur ou égal à ' + formatNumber(lastThreshold) + ' €'
@@ -13,15 +19,15 @@ export const formatNumber = (n) =>
     maximumFractionDigits: 0,
   }).format(n)
 
-export function getRevenusList(situation, engine) {
-  const targets = ['ménage . revenu . barème IdF', 'ménage . revenu . barème']
+export function getRevenusList(situation, engine, dottedName) {
+  const targets = [dottedName + ' . barème IdF', dottedName + ' . barème']
   const idf = engine.evaluate(
     (situation['logement . propriétaire occupant'] == 'oui'
       ? 'logement'
       : 'ménage') + ' . région . IdF',
   )
   const activeEvaluation = engine
-    .setSituation(omit(['ménage . revenu'], situation))
+    .setSituation(omit([dottedName], situation))
     .evaluate(targets[idf.nodeValue ? 0 : 1])
 
   const activeBarème =
@@ -49,14 +55,15 @@ export default function RevenuInput({
   engine,
   type,
   disabled,
+  dottedName = 'ménage . revenu',
 }) {
-  const revenu = situation['ménage . revenu']
-  const list = getRevenusList(situation, engine)
+  const revenu = situation[dottedName]
+  const list = getRevenusList(situation, engine, dottedName)
   const lastThreshold = list.slice(-1)[0]
   // Generate selectable items for the list
   const selectValues = [...list, lastThreshold + 1].map((threshold) => ({
     valeur: threshold === lastThreshold + 1 ? lastThreshold + 1 : threshold - 1,
-    titre: displayRevenuLabel(situation, engine, threshold),
+    titre: displayRevenuLabel(situation, engine, threshold, dottedName),
   }))
   return type === 'select' ? (
     <Select

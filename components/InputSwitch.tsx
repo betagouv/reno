@@ -207,10 +207,10 @@ export default function InputSwitch({
             situation,
           }}
         />
-      ) : rule['bornes intelligentes'] ? (
+      ) : rule['bornes intelligentes'] ? ( // Attention, contrairement à ce que ce test suggère, ce n'est pas un composant générique, mais dédié à la question du revenu
         <RevenuInput
           type={ruleQuestionType}
-          rule={rule}
+          dottedName={currentQuestion}
           engine={engine}
           evaluation={evaluation}
           situation={situation}

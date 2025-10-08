@@ -295,7 +295,7 @@ export const RevenuMaxQuestion = ({
   const rule = 'ménage . revenu . classe'
   const answered = answeredQuestions.includes(rule)
   // On doit trouver la valeur pour la classe modeste
-  const revenuMax = getRevenusList(situation, engine)[1]
+  const revenuMax = getRevenusList(situation, engine, 'ménage . revenu')[1]
   if (revenuQuestionDependenciesSatisfied(answeredQuestions)) {
     const currentValue = situation['ménage . revenu']
     const onChange = (value) => {
