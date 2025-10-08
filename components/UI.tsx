@@ -41,11 +41,8 @@ export const PageBlock = ({children}) => {
 }
 
 export const BlocAide = styled.div`
-  text-align: left;
-  ${(p) => p.display == "geste" ? 
-    'padding: 0.5rem 0.5rem 0.5rem 0;border-bottom: 1px solid #ddd;' : 
+  ${(p) => p.display != "geste" && 
     'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
-  margin-bottom: 1rem;
   .aide-header {
     display: flex;
     ${(p) => p.display == "geste" ? 'justify-content: space-between;' : 'align-items: center;gap: 1rem;'}
@@ -53,9 +50,8 @@ export const BlocAide = styled.div`
     padding-right: 0.5rem;
   }
   .aide-details {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     font-size: 0.9rem;
-    line-height: 1.25rem;
   }
 `
 

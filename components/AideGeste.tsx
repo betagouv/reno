@@ -186,37 +186,45 @@ export default function AideGeste({
           }}
         />
       )}
-      {infoMPR && (
-        <BlocAideMPR
-          {...{
-            infoMPR,
-            engine,
-            situation,
-          }}
-        />
-      )}
-      {montantCoupDePouce && (
-        <BlocAideCoupDePouce
-          {...{
-            montantCoupDePouce,
-            engine,
-            situation,
-            dottedName,
-          }}
-        />
-      )}
-      {infoCEE && (
-        <BlocAideCEE
-          {...{
-            infoCEE,
-            engine,
-            situation,
-            dottedName,
-            answeredQuestions,
-            setSearchParams,
-          }}
-        />
-      )}
+      <div className="fr-grid-row fr-grid-row--gutters">
+        {infoMPR && (
+          <div className="fr-col-6">
+            <BlocAideMPR
+              {...{
+                infoMPR,
+                engine,
+                situation,
+              }}
+            />
+          </div>
+        )}
+        {montantCoupDePouce && (
+          <div className="fr-col-6">
+            <BlocAideCoupDePouce
+              {...{
+                montantCoupDePouce,
+                engine,
+                situation,
+                dottedName,
+              }}
+            />
+          </div>
+        )}
+        {infoCEE && (
+          <div className="fr-col-6">
+            <BlocAideCEE
+              {...{
+                infoCEE,
+                engine,
+                situation,
+                dottedName,
+                answeredQuestions,
+                setSearchParams,
+              }}
+            />
+          </div>
+        )}
+      </div>
     </Accordion>
   )
 }
@@ -224,12 +232,13 @@ export default function AideGeste({
 const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   <BlocAide display="geste">
     <div className="aide-header">
-      <h4 className="fr-m-0">MaPrimeRénov'</h4>
+      <h4 className="fr-m-0 fr-h6">MaPrimeRénov'</h4>
       <PrimeBadge
         {...{
           situation,
           engine,
           dottedName: infoMPR.dottedName,
+          montantSeul: true,
         }}
       />
     </div>
@@ -242,33 +251,27 @@ const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   </BlocAide>
 )
 
-const BlocAideCoupDePouce = ({
-  montantCoupDePouce,
-  engine,
-  situation,
-  dottedName,
-}) => {
+const BlocAideCoupDePouce = ({ engine, situation, dottedName }) => {
   const remplacementChaudiere =
     rules['CEE . projet . remplacement chaudière thermique'].titre
 
   return (
     <BlocAide display="geste">
       <div className="aide-header">
-        <h4 className="fr-m-0">Prime Coup de pouce</h4>
+        <h4 className="fr-m-0 fr-h6">Prime Coup de pouce</h4>
         <PrimeBadge
           {...{
             engine,
             situation,
             dottedName: dottedName + ' . Coup de pouce',
+            montantSeul: true,
           }}
         />
       </div>
       <div className="aide-details">
         <div className="details">
           <span className="aide-details">
-            {' '}
-            {montantCoupDePouce === 'Non applicable' ? 'sans' : 'si'}{' '}
-            {remplacementChaudiere}
+            Précision: Seulement si {remplacementChaudiere}
           </span>
         </div>
       </div>
@@ -288,26 +291,19 @@ const BlocAideCEE = ({
   return (
     <BlocAide display="geste">
       <div className="aide-header">
-        <h4 className="fr-m-0">Prime CEE *</h4>
+        <h4 className="fr-m-0 fr-h6">Prime CEE *</h4>
         <PrimeBadge
-          {...{ engine, situation, dottedName: dottedName + ' . CEE' }}
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . CEE',
+            montantSeul: true,
+          }}
         />
       </div>
       {isApplicable && (
         <div className="aide-details">
-          <p>
-            Certificats d'Économie d'Énergie : ce montant vous est donné à titre
-            indicatif, il vous appartient de mettre en concurrence les offres
-            CEE des fournisseurs d'énergie. Plus d'infos:{' '}
-            <a
-              className="fr-link"
-              title={`${infoCEE.code} - nouvelle fenêtre`}
-              href={infoCEE.lien}
-              target="_blank"
-            >
-              {infoCEE.code}
-            </a>
-          </p>
+          * Certificats d'Économie d'Énergie
           {infoCEE.questions?.map((question, idx) => (
             <GesteQuestion
               key={idx}

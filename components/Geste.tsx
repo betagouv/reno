@@ -7,7 +7,7 @@ import { createExampleSituation } from './ampleur/AmpleurSummary'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import { formatValue } from 'publicodes'
 
-export const PrimeBadge = ({ engine, dottedName, situation }) => {
+export const PrimeBadge = ({ engine, dottedName, situation, montantSeul }) => {
   if (['tva réduite', "crédit d'impôt", 'apa', 'aeeh'].includes(dottedName)) {
     return
   }
@@ -103,7 +103,7 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
         dottedName.endsWith('CEE') ? (
         // On a le droit qu'au CEE, si l'aide est à 0, ça veut dire qu'elle n'existe pas
         <>
-          Prime indicative de {montantTotal}&nbsp;{' '}
+          {!montantSeul && 'Prime indicative de'} {montantTotal}&nbsp;{' '}
           <Tooltip
             className="fr-ms-1v"
             kind="hover"
@@ -111,7 +111,9 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
           />
         </>
       ) : (
-        <>Prime de {montantTotal}</>
+        <>
+          {!montantSeul && 'Prime de'} {montantTotal}
+        </>
       )}
     </Badge>
   )
