@@ -1,4 +1,35 @@
-ménage . revenu . barème IdF:
+ménage . revenu 2024:
+  titre: Revenu fiscal de référence barème de 2024
+  question: Quel est votre revenu fiscal de référence ?
+  sous-titre: |
+    Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
+  bornes intelligentes: oui
+  description: |
+    Saisissez le revenu fiscal de référence des personnes composant votre ménage. 
+
+    Si ces dernières ont des avis d'imposition distincts, le montant à prendre en compte est la somme de leurs revenus fiscaux de référence.
+  unité: €
+  note: |
+    Cette question dans sa forme "bornes intelligentes" dépend de la réponse à la question `ménage . personnes`.
+
+    Attention, on nomme cet espace revenu 2024 car le barème de RGA est basé sur le barème des revenus 2024.
+  par défaut: 0 €
+
+ménage . revenu 2024 . classe:
+  variations:
+    - si: logement . propriétaire occupant
+      alors:
+        variations:
+          - si: logement . région . IdF
+            alors: barème IdF
+          - sinon: barème
+    - sinon:
+        variations:
+          - si: ménage . région . IdF
+            alors: barème IdF
+          - sinon: barème
+
+ménage . revenu 2024 . barème IdF:
   titre: Barème pour l'Île-de-France
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
@@ -69,7 +100,7 @@ ménage . revenu . barème IdF:
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
 
-ménage . revenu . barème:
+ménage . revenu 2024 . barème:
   titre: Barème pour la France hors Île-de-France
   description: |
     Source Web : https://france-renov.gouv.fr/bareme
