@@ -123,9 +123,9 @@ rga . revenu éligible:
     Seules les catégories de revenu très modeste, modeste et intermédiaire sont éligibles.
   valeur:
     une de ces conditions:
-      - ménage . revenu 2024 . classe = 'très modeste'
-      - ménage . revenu 2024 . classe = 'modeste'
-      - ménage . revenu 2024 . classe = 'intermédiaire'
+      - ménage . revenu rga . classe = 'très modeste'
+      - ménage . revenu rga . classe = 'modeste'
+      - ménage . revenu rga . classe = 'intermédiaire'
 
 rga . département éligible:
   valeur:

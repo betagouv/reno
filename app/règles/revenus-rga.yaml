@@ -1,5 +1,5 @@
-ménage . revenu 2024:
-  titre: Revenu fiscal de référence barème de 2024
+ménage . revenu rga:
+  titre: Revenu fiscal de référence barème pour le fonds prévention argile
   question: Quel est votre revenu fiscal de référence ?
   sous-titre: |
     Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
@@ -12,10 +12,10 @@ ménage . revenu 2024:
   note: |
     Cette question dans sa forme "bornes intelligentes" dépend de la réponse à la question `ménage . personnes`.
 
-    Attention, on nomme cet espace revenu 2024 car le barème de RGA est basé sur le barème des revenus 2024.
+    Attention, on nomme cet espace revenu rga car le barème de RGA est basé sur un barème spécifique.
   par défaut: 0 €
 
-ménage . revenu 2024 . classe:
+ménage . revenu rga . classe:
   variations:
     - si: logement . propriétaire occupant
       alors:
@@ -29,12 +29,13 @@ ménage . revenu 2024 . classe:
             alors: barème IdF
           - sinon: barème
 
-ménage . revenu 2024 . barème IdF:
+ménage . revenu rga . barème IdF:
   titre: Barème pour l'Île-de-France
   description: |
     Source Web : https://france-renov.gouv.fr/bareme#fr_idf-threshold
     Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
   note: |
+    Attention, ce bareme IDF n'est pas utilisé pour le RGA, il est donc non pertinent à l'heure actuelle de l'expérimentation
     Par rapport au barème en lien ci-dessus, nous ajoutons 1 à chaque seuil car les deux dernières colonnes nous font comprendre que le "jusqu'à 23541" est à comprendre comme "inférieur ou égal à 23541.999999", ce qui semble être une utilisation erronée du mot jusqu'à.
 
     Nous gardons les nombres officiels augmentés du + 1 pour ne pas imposer un calcul mental de correspondance.
@@ -43,126 +44,127 @@ ménage . revenu 2024 . barème IdF:
       - si: personnes = 1
         alors:
           variations:
-            - si: revenu 2024 < 23541 + 1 €
+            - si: revenu rga < 23541 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 28657 + 1 €
+            - si: revenu rga < 28657 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 40018 + 1 €
+            - si: revenu rga < 40018 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 2
         alors:
           variations:
-            - si: revenu 2024 < 34551 + 1 €
+            - si: revenu rga < 34551 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 42058 + 1 €
+            - si: revenu rga < 42058 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 58827 + 1 €
+            - si: revenu rga < 58827 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 3
         alors:
           variations:
-            - si: revenu 2024 < 41493 + 1 €
+            - si: revenu rga < 41493 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 50513 + 1 €
+            - si: revenu rga < 50513 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 70382 + 1 €
+            - si: revenu rga < 70382 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 4
         alors:
           variations:
-            - si: revenu 2024 < 48447 + 1 €
+            - si: revenu rga < 48447 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 58981 + 1 €
+            - si: revenu rga < 58981 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 82839 + 1 €
+            - si: revenu rga < 82839 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 5
         alors:
           variations:
-            - si: revenu 2024 < 55427 + 1 €
+            - si: revenu rga < 55427 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 67473 + 1 €
+            - si: revenu rga < 67473 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 94844 + 1 €
+            - si: revenu rga < 94844 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
           variations:
-            - si: revenu 2024 < (55427 + 1 + personnes plus * 6970 €)
+            - si: revenu rga < (55427 + 1 + personnes plus * 6970 €)
               alors: '"très modeste"'
-            - si: revenu 2024 < (67473 + 1 + personnes plus * 8486 €)
+            - si: revenu rga < (67473 + 1 + personnes plus * 8486 €)
               alors: '"modeste"'
-            - si: revenu 2024 < (94844 + 1 + personnes plus * 12006 €)
+            - si: revenu rga < (94844 + 1 + personnes plus * 12006 €)
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
 
-ménage . revenu 2024 . barème:
+ménage . revenu rga . barème:
   titre: Barème pour la France hors Île-de-France
   description: |
-    Source Web : https://france-renov.gouv.fr/bareme
-    Source PDF : https://www.anah.gouv.fr/sites/default/files/2023-12/202401_guide-aides-financieres-2024.pdf#page=5
+    Source Web pour revenus TMO MO : https://france-renov.gouv.fr/bareme
+    Source PDF pour TMO MO : https://www.anah.gouv.fr/sites/default/files/2025-01/2025-guide-aides-financieres.pdf
+    Source PDF pour Int : https://www.anah.gouv.fr/sites/default/files/2023-07/2304_guideAidesMaPrimeRenov_WEBA.pdf
   formule:
     variations:
       - si: personnes = 1
         alors:
           variations:
-            - si: revenu 2024 < 17009 + 1 €
+            - si: revenu rga < 17173 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 21805 + 1 €
+            - si: revenu rga < 22015 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 30549 + 1 €
+            - si: revenu rga < 29148 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 2
         alors:
           variations:
-            - si: revenu 2024 < 24875 + 1 €
+            - si: revenu rga < 25115 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 31889 + 1 €
+            - si: revenu rga < 32197 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 44907 + 1 €
+            - si: revenu rga < 42848 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 3
         alors:
           variations:
-            - si: revenu 2024 < 29917 + 1 €
+            - si: revenu rga < 30206 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 38349 + 1 €
+            - si: revenu rga < 38719 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 54071 + 1 €
+            - si: revenu rga < 51592 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 4
         alors:
           variations:
-            - si: revenu 2024 < 34948 + 1 €
+            - si: revenu rga < 35285 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 44802 + 1 €
+            - si: revenu rga < 45234 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 63235 + 1 €
+            - si: revenu rga < 60336 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - si: personnes = 5
         alors:
           variations:
-            - si: revenu 2024 < 40002 + 1 €
+            - si: revenu rga < 40388 + 1 €
               alors: '"très modeste"'
-            - si: revenu 2024 < 51281 + 1 €
+            - si: revenu rga < 51775 + 1 €
               alors: '"modeste"'
-            - si: revenu 2024 < 72400 + 1 €
+            - si: revenu rga < 69081 + 1 €
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
       - sinon:
           variations:
-            - si: revenu 2024 < (40002 + 1 + personnes plus * 5045 €)
+            - si: revenu rga < (40388 + 1 + personnes plus * 5094 €)
               alors: '"très modeste"'
-            - si: revenu 2024 < (51281 + 1 + personnes plus * 6462 €)
+            - si: revenu rga < (51775 + 1 + personnes plus * 6525 €)
               alors: '"modeste"'
-            - si: revenu 2024 < (72400 + 1 + personnes plus * 9165 €)
+            - si: revenu rga < (69081 + 1 + personnes plus * 8744 €)
               alors: '"intermédiaire"'
             - sinon: '"supérieure"'
