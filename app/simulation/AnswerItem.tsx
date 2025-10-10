@@ -58,7 +58,12 @@ function FormattedAnswer({ answer, situation, engine, rules }) {
 
   let formattedValue
   if (answer === 'ménage . revenu') {
-    formattedValue = displayRevenuLabel(situation, engine, parseInt(value) + 1)
+    formattedValue = displayRevenuLabel(
+      situation,
+      engine,
+      parseInt(value) + 1,
+      answer,
+    )
     unit = ''
   } else if (['ménage . commune', 'logement . commune'].includes(answer)) {
     formattedValue = `${situation[answer + ' . nom'].replaceAll('"', '')}  (${situation[answer.replace('commune', '') + 'code département'].replaceAll('"', '')})`

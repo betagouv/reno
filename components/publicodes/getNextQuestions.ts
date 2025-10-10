@@ -10,7 +10,12 @@ export default function getNextQuestions(
   const missingVariables = Object.fromEntries(
     Object.entries(rawMissingVariables).map(([k, v]) => {
       if (k === 'ménage . personnes')
-        return [k, v + rawMissingVariables['ménage . revenu']]
+        return [
+          k,
+          v +
+            (rawMissingVariables['ménage . revenu'] || 0) +
+            (rawMissingVariables['ménage . revenu rga'] || 0), // pas propre tout ça
+        ]
       else return [k, v]
     }),
   )
