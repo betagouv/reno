@@ -15,7 +15,7 @@ mpa . montant:
 mpa . situation demandeur:
   question: Quelle est votre situation ?
   description: |
-    D'autres statuts d'occupation spécifiques peuvent également ouvrir des droits à l'aide MaPrimeAdapt' notamment pour les usufruitiers, les titulaires d'un droit d'usage et d'habitation, ou les occupants d'un logement en viager.
+    D'autres statuts d'occupation spécifiques peuvent également ouvrir des droits à l'aide MaPrimeAdapt' notamment pour les usufruitiers, les titulaires d'un droit d'usage et d'habitation, ou les occupants d'un logement en viager. En cas de doute, choisissez "Propriétaire de mon logement".
   une possibilité parmi:
     possibilités:
       - 'occupant'
