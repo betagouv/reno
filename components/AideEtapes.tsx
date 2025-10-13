@@ -79,7 +79,7 @@ export default function AideEtapes({
             className="fr-icon-success-line fr-mr-1v"
             aria-hidden="true"
           ></span>{' '}
-          Simulation réalisé le {curDate}
+          Simulation réalisée le {curDate}
         </div>
         <Card>
           <Badge severity="success">Terminé</Badge>
