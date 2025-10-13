@@ -74,9 +74,9 @@ rga . sinistres:
   une possibilité:
     - saine: "Saine"
     - peu-endommagee: |
-      Très peu endommagée : 
-      - Fissures dont l'écartement est inférieur à 1mm
-      - uniquement sur les murs intérieurs, doublages et/ou cloisons
+        Très peu endommagée : 
+        - Fissures dont l'écartement est inférieur à 1mm
+        - uniquement sur les murs intérieurs, doublages et/ou cloisons
     - endommagee: 'Endommagée avec des premiers désordres structuraux déjà présents'
 
 rga . peu endommagée:
