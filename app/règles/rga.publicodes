@@ -70,7 +70,7 @@ rga . sinistres:
     La maison ne doit pas présenter de désordres architecturaux mais peut présenter des fissures sur les murs intérieurs, les doublages et les cloisons dont l'écartement ne dépasse pas 1 millimètre.
 
     Elle ne doit pas avoir subi des dommages structuraux susceptibles de compromettre la solidité du bâtiment et la sécurité de l'habitation.
-  par défaut: "'saine'"
+  par défaut: saine
   
   formule:
     une possibilité:
@@ -85,8 +85,8 @@ rga . peu endommagée:
   titre: Votre maison est saine ou très peu endommagée
   valeur:
     une de ces conditions:
-      - rga . sinistres = 'saine'
-      - rga . sinistres = 'peu-endommagee'
+      - rga . sinistres = saine
+      - rga . sinistres = peu-endommagee
 
 
 rga . indemnisé:
