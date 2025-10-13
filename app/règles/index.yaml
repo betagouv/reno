@@ -440,7 +440,7 @@ DPE . actuel . efficace:
 DPE . actuel:
   titre: Votre DPE actuel
   question: Quel est le DPE actuel de votre logement ?
-  sous-titre: Si vous l'ignorez, nous vous conseillons de choisir la lettre qui vous semble la plus conforme à la réalité. Vous pourrez la changer plus tard dans la simulation et voir ainsi l'impact sur le montant des aides.
+  sous-titre: Vous avez un doute ? Sélectionnez la lettre qui vous semble la plus juste. Vous pourrez changer ce choix ensuite et comparer l’effet sur vos aides.
   description: |
     Le DPE, c'est le Diagnostic de Performance Énergétique de votre logement. 
 

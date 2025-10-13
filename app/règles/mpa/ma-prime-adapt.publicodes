@@ -15,7 +15,7 @@ mpa . montant:
 mpa . situation demandeur:
   question: Quelle est votre situation ?
   description: |
-    D'autres statuts d'occupation spécifiques peuvent également ouvrir des droits à l'aide MaPrimeAdapt' notamment pour les usufruitiers, les titulaires d'un droit d'usage et d'habitation, ou les occupants d'un logement en viager.
+    D'autres statuts d'occupation spécifiques peuvent également ouvrir des droits à l'aide MaPrimeAdapt' notamment pour les usufruitiers, les titulaires d'un droit d'usage et d'habitation, ou les occupants d'un logement en viager. En cas de doute, choisissez "Propriétaire de mon logement".
   une possibilité parmi:
     possibilités:
       - 'occupant'
@@ -88,7 +88,7 @@ mpa . occupant . condition age ou handicap . gir:
 mpa . occupant . condition age ou handicap . age:
   titre: Âgé de 70 ans ou plus
 mpa . occupant . condition age ou handicap . incapacité:
-  titre: À un taux d'incapacité supérieur ou égal à 50%
+  titre: A un taux d'incapacité supérieur ou égal à 50%
 mpa . occupant . condition age ou handicap . pch:
   titre: Bénéficie de la Prestation de Compensation du Handicap (PCH)
 

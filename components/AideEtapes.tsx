@@ -138,11 +138,12 @@ export default function AideEtapes({
               Je réalise avec l’AMO le diagnostic autonomie de mon logement
             </h3>
             <p>
-              L'assistant à maîtrise d'ouvrage (AMO) est habilité par l'Anah.
-              C'est un interlocuteur que vous choisissez lors de votre
-              rendez-vous avec le conseiller France Rénov'. Son rôle est de vous
-              accompagner à chaque étape, de l’élaboration de votre projet au
-              versement de l’aide.
+              L'assistant à maîtrise d'ouvrage (AMO) est habilité par l'Anah. C'est un
+              interlocuteur que vous choisissez lors de votre rendez-vous avec
+              le conseiller France Rénov'. Son rôle est de vous accompagner tout au long de votre projet : diagnostic logement autonomie à domicile, définition des travaux, plan de financement, mise en relation avec des artisans, suivi administratif et jusqu'au versement de la subvention.
+            </p>
+            <p>
+              Il est obligatoire pour bénéficier de MaPrimeAdapt’.
             </p>
             <p>Il est obligatoire pour bénéficier de MaPrimeAdapt’.</p>
           </Card>
