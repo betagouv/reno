@@ -82,24 +82,6 @@ export default async function Page(props) {
             <ParFranceRénovTexte />
           </div>
         </div>
-        <div className="fr-callout fr-callout--green-archipel">
-          <h3 className="fr-callout__title">
-            Envie d'améliorer France Rénov' ?
-          </h3>
-          <p className="fr-callout__text">
-            Nous construisons le futur de France Rénov’ et nous avons besoin de
-            votre avis ! En participant à un test utilisateur d’1 heure en
-            visioconférence (depuis votre ordinateur), vous nous aiderez à
-            rendre nos services plus simples et utiles pour tous.
-          </p>
-          <a
-            href="https://cal.com/agencenationaledel-habitat/france-renov-tests-utilisateurs-4"
-            target="_blank"
-            className="fr-btn"
-          >
-            Réserver mon créneau
-          </a>
-        </div>
         <HomepageSteps />
         <HomepageModules />
         <HomepageTalkAboutUs />
