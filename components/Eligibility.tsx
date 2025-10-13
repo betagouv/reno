@@ -193,14 +193,21 @@ export default function Eligibility({
         </Link>
       </div>
       {isInIframe ? null : <Feedback />}
-      <div className="fr-share">
-        <p className="fr-share__title">Partager la page</p>
-        <ul className="fr-btns-group">
-          <li>
-            <a
-              id="mail-share-1"
-              href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation')}&body=${encodeURIComponent(
-                `Bonjour,
+      <SharePage />
+    </>
+  )
+}
+
+export function SharePage({ title = 'Partager la page' }) {
+  return (
+    <div className="fr-share">
+      <p className="fr-share__title">{title}</p>
+      <ul className="fr-btns-group">
+        <li>
+          <a
+            id="mail-share-1"
+            href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation')}&body=${encodeURIComponent(
+              `Bonjour,
 
 Veuillez retrouver votre simulation à cette adresse : 
 
@@ -208,34 +215,31 @@ ${window.location.href}
 
 Cordialement,
 L'équipe MesAidesRéno`,
-              )}`}
-              target="_blank"
-              rel="noopener external"
-              className="fr-btn--mail fr-btn"
-            >
-              Partager par email
-            </a>
-          </li>
-          <li>
-            <Button
-              iconId="fr-btn--copy"
-              priority="tertiary"
-              title="Cliquez pour partager le lien"
-              onClick={() => {
-                push(['trackEvent', 'Partage', 'Clic'])
-                navigator.clipboard
-                  .writeText(window.location)
-                  .then(function () {
-                    alert('Adresse copiée dans le presse papier.')
-                  })
-              }}
-            >
-              Copier dans le presse-papier
-            </Button>
-          </li>
-        </ul>
-      </div>
-    </>
+            )}`}
+            target="_blank"
+            rel="noopener external"
+            className="fr-btn--mail fr-btn"
+          >
+            Partager par email
+          </a>
+        </li>
+        <li>
+          <Button
+            iconId="fr-btn--copy"
+            priority="tertiary"
+            title="Cliquez pour partager le lien"
+            onClick={() => {
+              push(['trackEvent', 'Partage', 'Clic'])
+              navigator.clipboard.writeText(window.location).then(function () {
+                alert('Adresse copiée dans le presse papier.')
+              })
+            }}
+          >
+            Copier dans le presse-papier
+          </Button>
+        </li>
+      </ul>
+    </div>
   )
 }
 

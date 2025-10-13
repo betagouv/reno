@@ -1,6 +1,6 @@
 import Feedback from '@/app/contact/Feedback'
 import BtnBackToParcoursChoice from './BtnBackToParcoursChoice'
-import { decodeDottedName, encodeSituation } from './publicodes/situationUtils'
+import { decodeDottedName } from './publicodes/situationUtils'
 import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'

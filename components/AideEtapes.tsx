@@ -9,6 +9,7 @@ import Badge from '@codegouvfr/react-dsfr/Badge'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Button from '@codegouvfr/react-dsfr/Button'
+import { SharePage } from './Eligibility'
 
 export default function AideEtapes({
   nbStep,
@@ -434,6 +435,17 @@ export default function AideEtapes({
             )}
           </>
         )}
+      </div>
+      <SharePage title="Partager la simulation" />
+      <div className="fr-my-10v">
+        <BtnBackToParcoursChoice
+          {...{
+            setSearchParams,
+            situation: omit(['objectif'], situation),
+            answeredQuestions,
+            text: 'Retour',
+          }}
+        />
       </div>
       <Feedback />
     </>
