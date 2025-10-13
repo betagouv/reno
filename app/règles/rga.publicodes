@@ -73,20 +73,20 @@ rga . sinistres:
   par défaut: "'saine'"
   
   formule:
-    variations:
-      - si: 'Saine'
-        alors: 'saine'
-      - si: "Très peu endommagée avec uniquement des fissures de moins d'1mm d'écartement sur les murs intérieurs, doublages et/ou cloisons"
-        alors: 'peu endommagée'
-      - si: 'Endommagée avec des premiers désordres structuraux déjà présents'
-        alors: 'endommagée'
+    une possibilité:
+      - saine: "Saine"
+      - peu-endommagee: |
+        Très peu endommagée : 
+        - Fissures dont l'écartement est inférieur à 1mm
+        - uniquement sur les murs intérieurs, doublages et/ou cloisons
+      - endommagee: 'Endommagée avec des premiers désordres structuraux déjà présents'
 
 rga . peu endommagée:
   titre: Votre maison est saine ou très peu endommagée
   valeur:
     une de ces conditions:
       - rga . sinistres = 'saine'
-      - rga . sinistres = 'peu endommagée'
+      - rga . sinistres = 'peu-endommagee'
 
 
 rga . indemnisé:
