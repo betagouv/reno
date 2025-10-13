@@ -348,7 +348,7 @@ export function EligibilityRenovationEnergetique({
                 </div>
               )}
             </div>
-            <p className="fr-h3">
+            <p className="fr-h4">
               Sinon, optez pour les aides par gestes individuels :
             </p>
           </>
