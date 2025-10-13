@@ -71,10 +71,11 @@ rga . sinistres:
 
     Elle ne doit pas avoir subi des dommages structuraux susceptibles de compromettre la solidité du bâtiment et la sécurité de l'habitation.
   par défaut: saine
-  une possibilité:
-    - saine: "Saine"
-    - fissure-1mm: "Très peu endommagée : fissures < 1mm, uniquement sur murs intérieurs, doublages et/ou cloisons"
-    - endommagee: "Endommagée avec des premiers désordres structuraux déjà présents"
+  une possibilité parmi:
+    possibilités:
+      - saine: "Saine"
+      - fissure-1mm: "Très peu endommagée : fissures < 1mm, uniquement sur murs intérieurs, doublages et/ou cloisons"
+      - endommagee: "Endommagée avec des premiers désordres structuraux déjà présents"
 
 rga . peu endommagé:
   titre: Votre maison est saine ou très peu endommagée
