@@ -202,10 +202,18 @@ export default function AideEtapes({
             </Card>
           )
         )}
-        <Button priority="tertiary" onClick={() => setDisplayAll(!displayAll)}>
-          Afficher les étapes suivantes{' '}
-          <span className="fr-icon-arrow-down-s-line" aria-hidden="true"></span>
-        </Button>
+        {!displayAll && (
+          <Button
+            priority="tertiary"
+            onClick={() => setDisplayAll(!displayAll)}
+          >
+            Afficher les étapes suivantes{' '}
+            <span
+              className="fr-icon-arrow-down-s-line"
+              aria-hidden="true"
+            ></span>
+          </Button>
+        )}
         {displayAll && (
           <>
             {(hasMPRA || hasMPA) && (
