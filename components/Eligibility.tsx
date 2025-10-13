@@ -748,7 +748,7 @@ export function TravauxInconnus({
   const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return Object.keys(rulesByCategory).map((category) => (
     <div key={category}>
-      <h3 className="fr-mt-5v fr-h5">{category}</h3>
+      <h3 className="fr-mt-10v fr-h5">{category}</h3>
       {rulesByCategory[category].map((dottedName, index) => {
         const shouldShow = showAllByCategory[category] || index < 2
         return (
@@ -768,7 +768,7 @@ export function TravauxInconnus({
         )
       })}
       {rulesByCategory[category].length > 2 && (
-        <div className="fr-m-3v">
+        <div className="fr-my-5v">
           <Button
             priority="secondary"
             title="Afficher les aides"
@@ -787,5 +787,5 @@ export const Card = styled.div`
   border: 1px solid rgba(207, 207, 207, 1);
   box-shadow: 0px 4px 4px 0px rgba(221, 221, 221, 1);
   padding: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 `
