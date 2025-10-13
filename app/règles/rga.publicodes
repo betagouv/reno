@@ -64,26 +64,33 @@ logement . géométrie simple:
   question: La maison a-t-elle la géométrie au sol d'un simple et unique rectangle ?
   par défaut: oui
 
-rga . sinistres: 
-  question: La maison est : 
+rga . sinistres:
+  question: Quel est l'état de la maison ?
   description: |
     La maison ne doit pas présenter de désordres architecturaux mais peut présenter des fissures sur les murs intérieurs, les doublages et les cloisons dont l'écartement ne dépasse pas 1 millimètre.
 
     Elle ne doit pas avoir subi des dommages structuraux susceptibles de compromettre la solidité du bâtiment et la sécurité de l'habitation.
-  par défaut: saine
+  par défaut:
+    texte: saine
   une possibilité parmi:
     possibilités:
-      - saine: "Saine"
-      - fissure-1mm: "Très peu endommagée : fissures < 1mm, uniquement sur murs intérieurs, doublages et/ou cloisons"
-      - endommagee: "Endommagée avec des premiers désordres structuraux déjà présents"
+      - saine
+      - très peu endommagée
+      - endommagée
+
+rga . sinistres . saine:
+rga . sinistres . très peu endommagée:
+  titre: Très peu endommagée
+  précision: Fissures < 1mm, uniquement sur murs intérieurs, doublages et/ou cloisons
+rga . sinistres . endommagée:
+  titre: Endommagée avec des premiers désordres structuraux déjà présents
 
 rga . peu endommagé:
   titre: Votre maison est saine ou très peu endommagée
   valeur:
     une de ces conditions:
-      - rga . sinistres = saine
-      - rga . sinistres = fissure-1mm
-
+      - rga . sinistres = "saine"
+      - rga . sinistres = "très peu endommagée"
 
 rga . indemnisé:
   description: Pour obtenir l'aide, il faut ne pas avoir été indemnisé, ou l'avoir été à des conditions particulières de date et de montant.

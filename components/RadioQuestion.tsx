@@ -11,6 +11,7 @@ export default function RadioQuestion({
   return list.map((element, index) => {
     const questionParams = engine.getParsedRules()[name + ' . ' + element]
     const subTitle = questionParams.rawNode['sous-titre']
+    const precision = questionParams.rawNode['précision']
     return (
       <div className="fr-fieldset__element" key={index}>
         <div className="fr-radio-group fr-radio-rich">
@@ -26,11 +27,15 @@ export default function RadioQuestion({
           />
           <label className="fr-label" htmlFor={`radio-${index}`}>
             {questionParams ? questionParams.title : element}
-			{subTitle && (
-            <small className="fr-hint-text">
-              {subTitle}
-            </small>
-          )}
+            {subTitle && <small className="fr-hint-text">{subTitle}</small>}
+            {precision && (
+              <span
+                style={{ fontSize: '1rem', color: '#000091' }}
+                className="fr-hint-text"
+              >
+                {precision}
+              </span>
+            )}
           </label>
         </div>
       </div>
