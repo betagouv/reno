@@ -10,6 +10,9 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { SharePage } from './Eligibility'
+import Image from 'next/image'
+import Link from 'next/link'
+import iconEnvelope from '@/public/icon-envelope.svg'
 
 export default function AideEtapes({
   nbStep,
@@ -23,10 +26,11 @@ export default function AideEtapes({
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
   }, [])
   const [displayAll, setDisplayAll] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
-  const curDate = searchParams.date.replaceAll('-', '/') || getCurDate()
+  const curDate = searchParams.date?.replaceAll('-', '/') || getCurDate()
   const aides = useAides(engine, situation)
   const hasMPRA = aides.find(
     (aide) => aide.baseDottedName == 'MPR . accompagnée' && aide.status,
@@ -35,6 +39,19 @@ export default function AideEtapes({
     (aide) => aide.baseDottedName == 'mpa' && aide.status,
   )
   const hasPret = aides.find((aide) => aide.type == 'prêt' && aide.status)
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        'https://mesaidesreno.beta.gouv.fr' +
+          pathname +
+          '?' +
+          searchParams.toString(),
+      )
+      setCopied(true)
+    } catch (error) {
+      console.error('Failed to copy:', error)
+    }
+  }
 
   return (
     <>
@@ -75,12 +92,118 @@ export default function AideEtapes({
           }
         `}
       >
-        <div className="fr-mb-3v">
-          <span
-            className="fr-icon-success-line fr-mr-1v"
-            aria-hidden="true"
-          ></span>{' '}
-          Simulation réalisée le {curDate}
+        <div
+          className="fr-mb-3v"
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+        >
+          <div>
+            <span
+              className="fr-icon-success-line fr-mr-1v"
+              aria-hidden="true"
+            ></span>{' '}
+            Simulation réalisée le {curDate}
+          </div>
+          <button
+            aria-controls="modal-0"
+            data-fr-opened="false"
+            type="button"
+            className="fr-btn fr-btn--tertiary fr-icon-share-line fr-btn--icon-right"
+          >
+            Partager
+          </button>
+          <dialog
+            id="modal-0"
+            className="fr-modal"
+            aria-labelledby="modal-0-title"
+            data-fr-concealing-backdrop="true"
+          >
+            <div className="fr-container fr-container--fluid fr-container-md">
+              <div className="fr-grid-row fr-grid-row--center">
+                <div className="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                  <div className="fr-modal__body">
+                    <div className="fr-modal__header">
+                      <button
+                        aria-controls="modal-0"
+                        title="Fermer"
+                        type="button"
+                        id="button-5"
+                        class="fr-btn--close fr-btn"
+                      >
+                        Fermer
+                      </button>
+                    </div>
+                    <div className="fr-modal__content">
+                      <h2 id="modal-0-title" className="fr-modal__title">
+                        Partager le lien de votre simulation
+                      </h2>
+                      <p>
+                        Conservez les résultats de votre simulation en la
+                        partageant par mail ou en copiant le lien.
+                      </p>
+                      <div className="fr-col-12">
+                        <Button
+                          priority="secondary"
+                          title="Cliquez pour partager le lien"
+                          style={{ width: '100%', justifyContent: 'center' }}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            push([
+                              'trackEvent',
+                              'Simulateur Principal',
+                              'Partage',
+                              'Clic',
+                            ])
+                            copyToClipboard()
+                          }}
+                        >
+                          <span aria-hidden="true">🔗</span> Copier le lien de
+                          ma simulation
+                        </Button>
+                      </div>
+                      {copied && (
+                        <div className="fr-alert fr-alert--success fr-mt-3v">
+                          <p>
+                            Le lien de la simulation a bien été copié dans le
+                            presse-papier.
+                          </p>
+                          <button
+                            title="Masquer le message"
+                            onClick={() => setCopied(false)}
+                            type="button"
+                            className="fr-btn--close fr-btn fr-mt-0"
+                          >
+                            Masquer le message
+                          </button>
+                        </div>
+                      )}
+                      <div className="fr-col-12 fr-mt-3v">
+                        <Link
+                          className="fr-btn fr-btn--secondary"
+                          title="Cliquez pour partager le lien"
+                          style={{ width: '100%', justifyContent: 'center' }}
+                          href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation')}&body=${encodeURIComponent(
+                            `Bonjour,
+
+Veuillez retrouver votre simulation à cette adresse : 
+
+${window.location.href}
+
+Cordialement,
+L'équipe MesAidesRéno`,
+                          )}`}
+                        >
+                          <span aria-hidden="true" className="fr-mr-1v">
+                            <Image src={iconEnvelope} alt="icone envoyer" />
+                          </span>{' '}
+                          Envoyer le lien par email
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dialog>
         </div>
         <Card>
           <Badge severity="success">Terminé</Badge>
@@ -95,7 +218,8 @@ export default function AideEtapes({
             className="fr-badge fr-badge--new fr-py-3v fr-my-3v"
             style={{ width: '100%', textTransform: 'none' }}
           >
-            Il vous reste des aides potentielles à découvrir
+            Certaines aides sont encore à compléter pour connaître vos montants
+            exacts.
           </p>
           <p>
             <BtnBackToParcoursChoice
@@ -138,13 +262,15 @@ export default function AideEtapes({
               Je réalise avec l’AMO le diagnostic autonomie de mon logement
             </h3>
             <p>
-              L'assistant à maîtrise d'ouvrage (AMO) est habilité par l'Anah. C'est un
-              interlocuteur que vous choisissez lors de votre rendez-vous avec
-              le conseiller France Rénov'. Son rôle est de vous accompagner tout au long de votre projet : diagnostic logement autonomie à domicile, définition des travaux, plan de financement, mise en relation avec des artisans, suivi administratif et jusqu'au versement de la subvention.
+              L'assistant à maîtrise d'ouvrage (AMO) est habilité par l'Anah.
+              C'est un interlocuteur que vous choisissez lors de votre
+              rendez-vous avec le conseiller France Rénov'. Son rôle est de vous
+              accompagner tout au long de votre projet : diagnostic logement
+              autonomie à domicile, définition des travaux, plan de financement,
+              mise en relation avec des artisans, suivi administratif et
+              jusqu'au versement de la subvention.
             </p>
-            <p>
-              Il est obligatoire pour bénéficier de MaPrimeAdapt’.
-            </p>
+            <p>Il est obligatoire pour bénéficier de MaPrimeAdapt’.</p>
             <p>Il est obligatoire pour bénéficier de MaPrimeAdapt’.</p>
           </Card>
         )}
