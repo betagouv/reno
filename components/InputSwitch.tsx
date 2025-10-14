@@ -63,6 +63,7 @@ export default function InputSwitch({
     noLabel: [
       'logement . adresse',
       'logement . surface',
+      'copropriété . nombre de logements',
       'ménage . personnes',
     ].includes(currentQuestion),
     noButtons: [
