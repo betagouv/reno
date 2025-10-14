@@ -65,9 +65,7 @@ export function EvaluationValue({
       <AmpleurCTA {...{ situation: noDefaultSituation }} />
       {disclaimer && (
         <p className="fr-hint-text fr-mt-3v">
-          Pour bénéficier des aides du parcours accompagné, des gains
-          énergétiques seront à réaliser, par exemple un saut d'au moins 2
-          classes de DPE, soit passer du DPE actuel{' '}
+          Pour bénéficier du parcours accompagné, le projet de rénovation doit viser d'améliorer le DPE d’au moins 2 classes. Ici, passer du DPE actuel{' '}
           <DPELabel index={currentDPE - 1} /> à un DPE{' '}
           <DPELabel index={targetDPE - 1} />.
         </p>
