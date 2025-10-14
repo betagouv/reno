@@ -230,7 +230,7 @@ L'équipe MesAidesRéno`,
             />
           </p>
         </Card>
-        <Card>
+        <Card $background="#E8EDFF">
           <Badge noIcon>prochaine étape</Badge>
           <h3 className="fr-h5 fr-mt-3v">
             <span
