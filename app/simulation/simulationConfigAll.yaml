@@ -7,7 +7,9 @@ prioritaires:
 
   - MPLD . situation demandeur
   - MPLD . bailleur . ampleur travaux
+
   - copropriété . condition 15 ans
+  - copropriété . nombre de logements
   - copropriété . condition résidence principale
   - MPLD . copropriété . condition arrêté police
 

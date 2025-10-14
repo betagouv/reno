@@ -139,7 +139,9 @@ export default function ExplicationCopropriete() {
                           false,
                         )
                       },
-                      value: situation['copropriété . nombre de logements'],
+                      value: situation[
+                        'copropriété . nombre de logements'
+                      ]?.replaceAll('"', ''),
                     }}
                     label="Nombre de logements :"
                   />

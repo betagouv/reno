@@ -379,7 +379,6 @@ export function EligibilityMPLD({
         })
         .map((aide, i) => {
           const currentStatus = aide.status
-          lastStatus = currentStatus
           const AideComponent = correspondance[aide.baseDottedName]
           return (
             <React.Fragment key={i}>
