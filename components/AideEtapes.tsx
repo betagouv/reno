@@ -42,9 +42,7 @@ export default function AideEtapes({
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(
-        'https://mesaidesreno.beta.gouv.fr' +
-          pathname +
-          '?' +
+        'https://mesaidesreno.beta.gouv.fr/simulation?' +
           searchParams.toString(),
       )
       setCopied(true)
