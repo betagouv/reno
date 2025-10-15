@@ -39,7 +39,8 @@ export default function Eligibility({
   useEffect(() => {
     document.title =
       'Résultats - Vos aides à la rénovation énergétiques disponibles'
-    document.body.style.backgroundColor = '#F9FAFF'
+    if (!window.matchMedia('(prefers-color-scheme: dark)').matches)
+      document.body.style.backgroundColor = '#F9FAFF'
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   }, [])
 
@@ -791,4 +792,8 @@ export const Card = styled.div`
   box-shadow: 0px 4px 4px 0px rgba(221, 221, 221, 1);
   padding: 1rem;
   margin-bottom: 3rem;
+  background: white;
+  @media (prefers-color-scheme: dark) {
+    background: #0f0f0f;
+  }
 `

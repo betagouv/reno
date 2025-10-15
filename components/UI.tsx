@@ -31,9 +31,12 @@ export const Card = styled.div`
   position: relative;
   margin: 0.6rem 0;
   padding: 1rem 1.5rem;
-  ${(p) => (p.$background ? `background: ${p.$background};` : '')}
+  ${(p) => (p.$background ? `background: ${p.$background};` : 'white')}
   ${cardBorder}
   ${(p) => p.$noBorder && `border: none;`}
+  @media (prefers-color-scheme: dark) {
+    background: #0f0f0f;
+  }
 `
 
 export const PageBlock = ({children}) => {

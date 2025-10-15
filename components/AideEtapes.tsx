@@ -22,7 +22,8 @@ export default function AideEtapes({
   answeredQuestions,
 }) {
   useEffect(() => {
-    document.body.style.backgroundColor = '#F9FAFF'
+    if (!window.matchMedia('(prefers-color-scheme: dark)').matches)
+      document.body.style.backgroundColor = '#F9FAFF'
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
   }, [])
   const [displayAll, setDisplayAll] = useState(false)
