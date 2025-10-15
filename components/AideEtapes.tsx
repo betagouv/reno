@@ -126,7 +126,7 @@ export default function AideEtapes({
                         title="Fermer"
                         type="button"
                         id="button-5"
-                        class="fr-btn--close fr-btn"
+                        className="fr-btn--close fr-btn"
                       >
                         Fermer
                       </button>

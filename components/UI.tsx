@@ -31,7 +31,8 @@ export const Card = styled.div`
   position: relative;
   margin: 0.6rem 0;
   padding: 1rem 1.5rem;
-  ${(p) => (p.$background ? `background: ${p.$background};` : 'white')}
+  background: white,
+  ${(p) => (p.$background ? `background: ${p.$background};` : '')}
   ${cardBorder}
   ${(p) => p.$noBorder && `border: none;`}
   @media (prefers-color-scheme: dark) {
