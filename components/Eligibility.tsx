@@ -9,16 +9,20 @@ import * as iframe from '@/utils/iframe'
 import { useEffect, useState } from 'react'
 import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
 import AideAmpleur from './ampleur/AideAmpleur'
-import AidesAmpleur from './ampleur/AidesAmpleur'
 import AideGeste, { getInfoForPrime } from './AideGeste'
 import Link from 'next/link'
 import Value from './Value'
-import { categories, getRulesByCategory } from './utils'
+import { categories, getCurDate, getRulesByCategory } from './utils'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
 import React from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Share from '@/app/simulation/Share'
+import styled from 'styled-components'
+import { usePathname, useSearchParams } from 'next/navigation'
+import AvertissementSimulation, {
+  useAvertissementState,
+} from './AvertissementSimulation'
 
 export default function Eligibility({
   nbStep,
@@ -35,13 +39,16 @@ export default function Eligibility({
   useEffect(() => {
     document.title =
       'Résultats - Vos aides à la rénovation énergétiques disponibles'
+    if (!window.matchMedia('(prefers-color-scheme: dark)').matches)
+      document.body.style.backgroundColor = '#F9FAFF'
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
   }, [])
 
+  const [avertissementState, setAvertissementState] = useAvertissementState()
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
   const aides = useAides(engine, situation)
-
+  const today = getCurDate()
   // On doit aussi vérifier geste par geste
   const travauxEnvisages = getTravauxEnvisages(situation)
   const hasAides =
@@ -67,6 +74,9 @@ export default function Eligibility({
         startShown={showPersonaBar}
         selectedPersona={searchParams.persona}
       />
+      <AvertissementSimulation
+        {...{ avertissementState, setAvertissementState }}
+      />
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
           Mes aides
@@ -83,21 +93,17 @@ export default function Eligibility({
           <span className="fr-text--bold">Étape suivante :</span> Mes démarches
         </p>
       </div>
-      <div
-        className="fr-mb-5v"
-        css={`
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        `}
+      <BlocEtMaintenant
+        title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}
+        setSearchParams={setSearchParams}
+        withCTA
+        today={today}
       >
-        <BackToLastQuestion
-          {...{ setSearchParams, situation, answeredQuestions }}
-        />
-        <BlocVoirDemarche setSearchParams={setSearchParams} />
-        {/* <CopyButton searchParams={searchParams} /> */}
-      </div>
-      <span className="fr-h1">Vos résultats</span>
+        <p>
+          Le service public vous accompagne : parlez à un conseiller France
+          Rénov'.
+        </p>
+      </BlocEtMaintenant>
       <p>
         {hasAides ? (
           <>
@@ -108,11 +114,6 @@ export default function Eligibility({
           <>Aucune aide disponible ne correspond à votre situation.</>
         )}
       </p>
-      {hasAides && (
-        <h2>
-          <span aria-hidden="true">💶</span> Aides pour vos travaux
-        </h2>
-      )}
       {situation["parcours d'aide"] == '"autonomie"' ? (
         <EligibilityMPA
           {...{
@@ -152,33 +153,94 @@ export default function Eligibility({
           }}
         />
       )}
-      <div className="fr-my-5v">
-        <BlocVoirDemarche setSearchParams={setSearchParams} />
-      </div>
-      <div className="fr-share">
-        <p className="fr-share__title">Partager la page</p>
-        <ul className="fr-btns-group">
+      <BlocEtMaintenant
+        title="Et maintenant, on fait quoi ?"
+        setSearchParams={setSearchParams}
+      >
+        <p>Un conseiller France Rénov’ peut vous aider à :</p>
+        <ul>
+          <li>🛠️ Identifier les bons travaux à faire</li>
+          <li>💰 Monter un plan de financement adapté</li>
           <li>
-            <button
-              onClick={() => {
-                push(['trackEvent', 'Partage', 'Clic'])
-                navigator.clipboard
-                  .writeText(window.location)
-                  .then(function () {
-                    alert('Adresse copiée dans le presse papier.')
-                  })
-              }}
-              type="button"
-              id="copy-share-1"
-              className="fr-btn--copy fr-btn"
-            >
-              Copier dans le presse-papier
-            </button>
+            🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
           </li>
         </ul>
+      </BlocEtMaintenant>
+      <div
+        className="fr-mb-5v"
+        css={`
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        `}
+      >
+        <BackToLastQuestion
+          {...{ setSearchParams, situation, answeredQuestions }}
+        />
+        <Link
+          className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+          href={setSearchParams({ objectif: 'etape', date: today }, 'url')}
+          onClick={() => {
+            push([
+              'trackEvent',
+              'Simulateur Principal',
+              'Eligibilité',
+              'Voir les démarches',
+            ])
+          }}
+          title="Continuer vers les démarches"
+        >
+          Continuer vers les démarches
+        </Link>
       </div>
       {isInIframe ? null : <Feedback />}
+      <SharePage />
     </>
+  )
+}
+
+export function SharePage({ title = 'Partager la page' }) {
+  return (
+    <div className="fr-share">
+      <p className="fr-share__title">{title}</p>
+      <ul className="fr-btns-group">
+        <li>
+          <a
+            id="mail-share-1"
+            href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation')}&body=${encodeURIComponent(
+              `Bonjour,
+
+Veuillez retrouver votre simulation à cette adresse : 
+
+${window.location.href}
+
+Cordialement,
+L'équipe MesAidesRéno`,
+            )}`}
+            target="_blank"
+            rel="noopener external"
+            className="fr-btn--mail fr-btn"
+          >
+            Partager par email
+          </a>
+        </li>
+        <li>
+          <Button
+            iconId="fr-btn--copy"
+            priority="tertiary"
+            title="Cliquez pour partager le lien"
+            onClick={() => {
+              push(['trackEvent', 'Partage', 'Clic'])
+              navigator.clipboard.writeText(window.location).then(function () {
+                alert('Adresse copiée dans le presse papier.')
+              })
+            }}
+          >
+            Copier dans le presse-papier
+          </Button>
+        </li>
+      </ul>
+    </div>
   )
 }
 
@@ -201,94 +263,163 @@ export function EligibilityRenovationEnergetique({
   const isTMO =
     engine.setSituation(situation).evaluate('ménage . revenu . classe')
       .nodeValue == 'très modeste'
+
+  const prets = aides.filter(
+    (aide) => aide.status !== false && aide.type == 'prêt',
+  )
+  const aidesDiverses = aides
+    .filter((aide) => aide.status !== false && aide.type != 'prêt')
+    .filter((aide) => !aide.dottedName.includes('MPR . accompagnée'))
+
+  const nonEligibles = aides.filter(
+    (aide) =>
+      aide.status === false &&
+      aide.baseDottedName != 'ampleur . prime individuelle copropriété',
+  )
+
   return (
     <>
-      <AvanceTMO {...{ engine, situation }} />
-      {travauxConnus ? (
-        <TravauxConnus
-          {...{
-            categories,
-            situation,
-            travauxEnvisages,
-            rules,
-            answeredQuestions,
-            engine,
-            setSearchParams,
-          }}
-        />
-      ) : (
-        <TravauxInconnus
-          {...{
-            categories,
-            situation,
-            rules,
-            answeredQuestions,
-            engine,
-            setSearchParams,
-          }}
-        />
-      )}
-      {hasMPRA && (
-        <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
-          <div className="fr-callout__title">
-            Vous êtes éligible à une subvention pour réaliser une rénovation
-            d'ampleur :
-          </div>
-          <ul className="fr-callout__text">
-            <li>📉 Réduction des factures d'énergie</li>
-            <li>🧘 Gain de confort hiver comme été</li>
-            <li>
-              👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
-            </li>
-            <li>
-              🥇 Jusqu'à{' '}
-              <Value
-                {...{
-                  state: 'normal',
-                  engine,
-                  situation,
-                  dottedName: 'MPR . accompagnée . pourcent',
-                }}
-              />{' '}
-              des travaux financés
-            </li>
-          </ul>
-          <AideAmpleur
+      {prets.length > 0 && (
+        <Card>
+          <h2 className="fr-h4">
+            <span aria-hidden="true">🏦</span> Prêts à 0%
+          </h2>
+          <RenderAides
             {...{
-              engine,
-              dottedName: 'MPR . accompagnée',
+              isEligible: true,
+              aidesList: prets,
               setSearchParams,
-              situation,
               answeredQuestions,
-              expanded,
+              engine,
+              situation,
+              searchParams,
+              rules,
             }}
           />
-          {!isTMO && (
-            <div className="fr-alert fr-alert--info">
-              <div className="fr-alert__title">
-                Qui peut avoir MaPrimeRénov’ parcours accompagné ?
-              </div>
-              <p>
-                Jusqu'au 31 décembre 2025 seuls les ménages très modestes
-                peuvent en bénéficier. L’aide pourrait réouvrir aux autres
-                catégories de revenus début 2026.
-                <Share text="" showWithAnswer={false} align="left" />
-              </p>
-            </div>
-          )}
-        </div>
+        </Card>
       )}
-      <AidesAmpleur
-        {...{
-          setSearchParams,
-          situation,
-          answeredQuestions,
-          engine,
-          rules,
-          searchParams,
-        }}
-      />
-      {!hasMPRA && <BlocEtMaintenant />}
+      <Card>
+        <h2 className="fr-h4">
+          <span aria-hidden="true">💶</span> Aides pour vos travaux
+        </h2>
+        {hasMPRA && (
+          <>
+            <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
+              <div className="fr-callout__title">
+                {travauxConnus
+                  ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
+                  : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+              </div>
+              <ul className="fr-callout__text">
+                <li>📉 Réduction des factures d'énergie</li>
+                <li>🧘 Gain de confort hiver comme été</li>
+                <li>
+                  👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
+                </li>
+                <li>
+                  🥇 Jusqu'à{' '}
+                  <Value
+                    {...{
+                      state: 'normal',
+                      engine,
+                      situation,
+                      dottedName: 'MPR . accompagnée . pourcent',
+                    }}
+                  />{' '}
+                  des travaux financés
+                </li>
+              </ul>
+              <AideAmpleur
+                {...{
+                  engine,
+                  dottedName: 'MPR . accompagnée',
+                  setSearchParams,
+                  situation,
+                  answeredQuestions,
+                  expanded,
+                }}
+              />
+              {!isTMO && (
+                <div className="fr-alert fr-alert--info">
+                  <div className="fr-alert__title">
+                    Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+                  </div>
+                  <p>
+                    Jusqu'au 31 décembre 2025 seuls les ménages très modestes
+                    peuvent en bénéficier. L’aide pourrait réouvrir aux autres
+                    catégories de revenus début 2026.
+                    <Share text="" showWithAnswer={false} align="left" />
+                  </p>
+                </div>
+              )}
+            </div>
+            <p className="fr-h4">
+              Sinon, optez pour les aides par gestes individuels :
+            </p>
+          </>
+        )}
+        <AvanceTMO {...{ engine, situation }} />
+        {travauxConnus ? (
+          <TravauxConnus
+            {...{
+              categories,
+              situation,
+              travauxEnvisages,
+              rules,
+              answeredQuestions,
+              engine,
+              setSearchParams,
+            }}
+          />
+        ) : (
+          <TravauxInconnus
+            {...{
+              categories,
+              situation,
+              rules,
+              answeredQuestions,
+              engine,
+              setSearchParams,
+            }}
+          />
+        )}
+      </Card>
+      {aidesDiverses.length > 0 && (
+        <Card>
+          <h2 className="fr-h4">Aides diverses</h2>
+          <RenderAides
+            {...{
+              isEligible: false,
+              aidesList: aidesDiverses,
+              setSearchParams,
+              answeredQuestions,
+              engine,
+              situation,
+              searchParams,
+              rules,
+            }}
+          />
+        </Card>
+      )}
+      {nonEligibles.length > 0 && (
+        <Card>
+          <h2 className="fr-h4">
+            <span aria-hidden="true">⛔</span> Non éligible à
+          </h2>
+          <RenderAides
+            {...{
+              isEligible: false,
+              aidesList: nonEligibles,
+              setSearchParams,
+              answeredQuestions,
+              engine,
+              situation,
+              searchParams,
+              rules,
+            }}
+          />
+        </Card>
+      )}
     </>
   )
 }
@@ -351,7 +482,6 @@ export function EligibilityMPA({
             </React.Fragment>
           )
         })}
-      <BlocEtMaintenant />
     </>
   )
 }
@@ -365,7 +495,6 @@ export function EligibilityMPLD({
   setSearchParams,
   searchParams,
 }) {
-  let lastStatus = false
   return (
     <>
       {aides
@@ -412,45 +541,137 @@ export function EligibilityMPLD({
             </React.Fragment>
           )
         })}
-      <BlocEtMaintenant />
     </>
   )
 }
 
-export const BlocEtMaintenant = () => (
-  <div className="fr-callout fr-mt-5v">
-    <h3 className="fr-callout__title">Et maintenant ?</h3>
-    <p className="fr-callout__text">
-      Un conseiller France Rénov’ peut vous aider à :
-    </p>
-    <ul className="fr-callout__text">
-      <li>🛠️ Identifier les bons travaux à faire</li>
-      <li>💰 Monter un plan de financement adapté</li>
-      <li>
-        🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
-      </li>
-    </ul>
-  </div>
-)
+export function RenderAides({
+  setSearchParams,
+  answeredQuestions,
+  engine,
+  situation,
+  searchParams,
+  aidesList,
+  isEligible,
+  rules,
+}) {
+  if (aidesList.length === 0) return null
+  return aidesList.map((aide, i) => {
+    const AideComponent = correspondance[aide.baseDottedName]
+    return (
+      <AideComponent
+        key={aide.baseDottedName}
+        {...{
+          isEligible: isEligible ? isEligible : aide.status,
+          dottedName: aide.baseDottedName,
+          setSearchParams,
+          answeredQuestions,
+          engine,
+          situation,
+          searchParams,
+          rules,
+          expanded: false,
+        }}
+      />
+    )
+  })
+}
 
-export const BlocVoirDemarche = ({ setSearchParams, customCss }) => (
-  <Link
-    className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
-    css={customCss}
-    href={setSearchParams({ objectif: 'etape' }, 'url')}
-    onClick={() => {
-      push([
-        'trackEvent',
-        'Simulateur Principal',
-        'Eligibilité',
-        'Voir les démarches',
-      ])
-    }}
-    title="Voir les démarches"
-  >
-    Voir les démarches
-  </Link>
-)
+export function BlocEtMaintenant({
+  children,
+  title,
+  setSearchParams,
+  withCTA = false,
+  today,
+}) {
+  const [copied, setCopied] = useState(false)
+  const pathname = usePathname(),
+    searchParams = useSearchParams()
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        'https://mesaidesreno.beta.gouv.fr' +
+          pathname +
+          '?' +
+          searchParams.toString(),
+      )
+      setCopied(true)
+    } catch (error) {
+      console.error('Failed to copy:', error)
+    }
+  }
+  return (
+    <div className="fr-callout fr-mt-5v">
+      <h3 className="fr-callout__title fr-h5">
+        <span className="fr-icon-flag-line" aria-hidden="true"></span>
+        {title}
+      </h3>
+      {children}
+      {withCTA && (
+        <>
+          <div className="fr-grid-row fr-grid-row--gutters">
+            <div className="fr-col-12 fr-col-md-6">
+              <Link
+                className="fr-btn fr-icon-arrow-right-line fr-btn--icon-right"
+                style={{ width: '100%', justifyContent: 'center' }}
+                href={setSearchParams(
+                  { objectif: 'etape', date: today },
+                  'url',
+                )}
+                onClick={() => {
+                  push([
+                    'trackEvent',
+                    'Simulateur Principal',
+                    'Eligibilité',
+                    'trouver conseiller',
+                  ])
+                }}
+                title="Continuer un conseiller (gratuit)"
+              >
+                Contacter un conseiller (gratuit)
+              </Link>
+            </div>
+            <div className="fr-col-12 fr-col-md-6">
+              <Button
+                priority="secondary"
+                title="Cliquez pour partager le lien"
+                style={{ width: '100%', justifyContent: 'center' }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  push([
+                    'trackEvent',
+                    'Simulateur Principal',
+                    'Partage',
+                    'Clic',
+                  ])
+                  copyToClipboard()
+                }}
+              >
+                <span aria-hidden="true">🔗</span> Copier le lien de ma
+                simulation
+              </Button>
+            </div>
+          </div>
+          {copied && (
+            <div className="fr-alert fr-alert--success fr-mt-3v">
+              <p>
+                Le lien de la simulation a bien été copié dans le presse-papier.
+              </p>
+              <button
+                title="Masquer le message"
+                onClick={() => setCopied(false)}
+                type="button"
+                className="fr-btn--close fr-btn fr-mt-0"
+              >
+                Masquer le message
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
 
 export function TravauxConnus({
   categories,
@@ -463,12 +684,16 @@ export function TravauxConnus({
 }) {
   return categories
     .filter(
-      (c) => isCategorieChecked(c['code'], situation) || c['code'] == 'autres',
+      (c) =>
+        isCategorieChecked(c['code'], situation) ||
+        (c['code'] == 'autres' &&
+          engine
+            .setSituation(situation)
+            .evaluate('gestes . recommandés . audit . montant').nodeValue),
     )
     .map((category) => (
       <div key={category['code']}>
-        <h3 className="fr-mt-5v">{category['titre']}</h3>
-        {category['code'] == 'isolation' && <p>{category['sousTitre']}</p>}
+        <h3 className="fr-mt-5v fr-h5">{category['titre']}</h3>
         {travauxEnvisages
           .filter(
             (travaux) =>
@@ -527,7 +752,7 @@ export function TravauxInconnus({
   const rulesByCategory = getRulesByCategory(rules, 'MPR')
   return Object.keys(rulesByCategory).map((category) => (
     <div key={category}>
-      <h3 className="fr-mt-5v">{category}</h3>
+      <h3 className="fr-mt-10v fr-h5">{category}</h3>
       {rulesByCategory[category].map((dottedName, index) => {
         const shouldShow = showAllByCategory[category] || index < 2
         return (
@@ -547,12 +772,7 @@ export function TravauxInconnus({
         )
       })}
       {rulesByCategory[category].length > 2 && (
-        <div
-          className="fr-m-3v"
-          css={`
-            text-align: center;
-          `}
-        >
+        <div className="fr-my-5v">
           <Button
             priority="secondary"
             title="Afficher les aides"
@@ -566,3 +786,14 @@ export function TravauxInconnus({
     </div>
   ))
 }
+
+export const Card = styled.div`
+  border: 1px solid rgba(207, 207, 207, 1);
+  box-shadow: 0px 4px 4px 0px rgba(221, 221, 221, 1);
+  padding: 1rem;
+  margin-bottom: 3rem;
+  background: white;
+  @media (prefers-color-scheme: dark) {
+    background: #0f0f0f;
+  }
+`
