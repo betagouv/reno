@@ -186,6 +186,7 @@ MPLD . copropriété . condition éligibilité:
   toutes ces conditions:
     - situation demandeur = 'copropriété'
     - copropriété . condition 15 ans
+    - est défini: copropriété . nombre de logements
     - copropriété . condition résidence principale
     - condition arrêté police
 

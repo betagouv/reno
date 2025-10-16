@@ -54,8 +54,6 @@ copropriété . condition 15 ans:
   question: La copropriété a-t-elle été construite il y a plus de 15 ans ?
   par défaut: oui
 copropriété . condition résidence principale:
-  applicable si:
-    est défini: copropriété . nombre de logements
   titre: Quota d'habitations principales
   question:
     texte: >
