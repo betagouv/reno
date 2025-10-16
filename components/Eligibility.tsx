@@ -307,7 +307,7 @@ export function EligibilityRenovationEnergetique({
               <div className="fr-callout__title">
                 {travauxConnus
                   ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-                  : "Vous êtes éligible à une subvention pour réaliser une rénovation d'ampleur :"}
+                  : "Avez-vous pensé à une rénovation ambitieuse ? :"}
               </div>
               <ul className="fr-callout__text">
                 <li>📉 Réduction des factures d'énergie</li>
