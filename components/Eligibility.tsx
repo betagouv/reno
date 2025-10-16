@@ -107,8 +107,7 @@ export default function Eligibility({
       <p>
         {hasAides ? (
           <>
-            <span aria-hidden="true">🥳</span> Bonne nouvelle, des aides sont
-            disponibles pour vous accompagner dans votre projet.
+            <span aria-hidden="true">🥳</span>Vous êtes éligible aux aides ci-dessous :
           </>
         ) : (
           <>Aucune aide disponible ne correspond à votre situation.</>
