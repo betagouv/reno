@@ -94,7 +94,15 @@ export default async function FooterContent() {
               l'ANAH
             </a>
             .
-            <br /> Le code source est disponible en licence libre
+            <br /> 
+            <a
+              title="Code source MesAidesRéno sur Github - nouvelle fenêtre"
+              href="https://github.com/betagouv/reno"
+              rel="noopener external"
+              target="_blank"
+            >
+              Le code source est disponible
+            </a> en licence libre
           </>
         }
         operatorLogo={{
