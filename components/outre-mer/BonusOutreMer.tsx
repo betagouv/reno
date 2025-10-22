@@ -67,7 +67,13 @@ export default function BonusOutreMer({
     engine.setSituation(situation).evaluate(bonusDottedName + ' . montant'),
   )
 
-  const relevantQuestions = questions.filter((q) => q !== dottedName)
+  const relevantQuestions = questions.filter((q) => {
+    const isRootRule = q === dottedName
+
+    const hasQuestion = rules[q].question != null
+
+    return !isRootRule && hasQuestion
+  })
 
   const relevantAnsweredQuestions = Object.keys(situation).filter((k) =>
     k.startsWith(dottedName),
@@ -80,15 +86,7 @@ export default function BonusOutreMer({
   const isMinimum = valueRule['borne minimum'] === 'oui'
 
   //TODO problème, les questions disparaissent. C'est sûrement la raison de la gestion via . questions: des autres composants. On va pas laisser ça comme ça.
-  console.log(
-    'indigo',
-    evaluation,
-    value,
-    relevantQuestions,
-    answeredQuestions,
-    situation,
-    withAnsweredQuestions,
-  )
+  console.log('indigo', value, relevantAnsweredQuestions, relevantQuestions)
 
   return (
     <BlocAide display="geste">
