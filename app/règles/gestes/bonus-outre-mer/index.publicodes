@@ -24,6 +24,7 @@ isolation . surtoiture ventilée . montant:
 isolation . surtoiture ventilée . MPR:
   par défaut: oui
 
+isolation . surtoiture ventilée . MPR . question: surface
 isolation . surtoiture ventilée . MPR . plafond:
   valeur: 110 €/m2
   description: Plafonds de dépenses éligibles
