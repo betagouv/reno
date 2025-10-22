@@ -1,11 +1,9 @@
+import outreMerPublicodes from '@/app/règles/outre-mer.publicodes'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { formatValue } from 'publicodes'
-import { BlocAide } from '../UI'
-import outreMerPublicodes from '@/app/règles/outre-mer.publicodes'
-import getNextQuestions from '../publicodes/getNextQuestions'
 import GesteQuestion from '../GesteQuestion'
-import { encodeSituation } from '../publicodes/situationUtils'
-import { useEffect } from 'react'
+import { BlocAide } from '../UI'
+import getNextQuestions from '../publicodes/getNextQuestions'
 
 /*
  * Ce composant ne devrait presque pas exister. Les différentes couches qui font les aides par geste devraient être gérées de façon générique avec seul l'icône et d'autres métadonnées ajoutées en personnalisation depuis des attributs publicodes.
