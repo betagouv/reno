@@ -321,7 +321,7 @@ isolation . paroi en terre . MPR . montant: 0
 
 isolation . paroi en terre . montant:
   somme:
-    - bonus outre-mer
+    - bonus outre-mer . montant
 isolation . paroi en terre . bonus outre-mer:
 isolation . paroi en terre . bonus outre-mer . montant:
   applicable si: outre-mer . Mayotte
