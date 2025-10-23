@@ -39,7 +39,6 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   const dottedNameCee = dottedName + ' . CEE'
   const dottedNameMpr = dottedName + ' . MPR'
   const dottedNameCP = dottedName + ' . Coup de pouce'
-  const dottedNameOutreMer = dottedName + ' . bonus outre-mer'
 
   if (typeof rules[dottedNameCee] !== 'undefined') {
     const evaluationCEE = engineSituation.evaluate(dottedNameCee + ' . montant')
@@ -109,10 +108,21 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     )
   isExactTotal =
     evaluationTotal?.missingVariables &&
-    Object.keys(evaluationTotal?.missingVariables).length <= 1
+    Object.keys(evaluationTotal?.missingVariables).filter(
+      (questionKey) =>
+        rules[questionKey] != null && rules[questionKey].question,
+    ).length === 0
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
 
-  console.log('relevant', relevant, dottedName)
+  console.log(
+    'PrimeBadge',
+    dottedName,
+    'relevant',
+    relevant,
+    evaluationTotal?.missingVariables,
+    isExactTotal,
+  )
+
   if (!isExactTotal) {
     calculatedMontantTotal = formatValue(
       engine.setSituation(situation).evaluate(relevant),

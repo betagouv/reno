@@ -15,6 +15,7 @@ export const PrimeBadge = ({ engine, dottedName, situation }) => {
       dottedName,
       situation,
     })
+  console.log('PrimeBadge', dottedName, montantTotal)
   return (
     ![
       'mpa . montant',
