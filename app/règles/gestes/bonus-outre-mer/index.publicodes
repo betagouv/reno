@@ -198,6 +198,8 @@ isolation . pack chaleur toiture . bonus outre-mer . barème:
 isolation . bardage ventilé:
   par défaut: oui
 
+isolation . bardage ventilé . montant: MPR . montant
+
 isolation . bardage ventilé . MPR:
   par défaut: oui
 
@@ -228,6 +230,7 @@ isolation . bardage ventilé . MPR . surface:
 isolation . pare-soleil horizontal:
   par défaut: oui
 
+isolation . pare-soleil horizontal . montant: MPR . montant
 isolation . pare-soleil horizontal . MPR:
   par défaut: oui
 
@@ -257,6 +260,7 @@ isolation . pare-soleil horizontal . MPR . surface:
 
 isolation . protection solaire murs:
   par défaut: oui
+isolation . protection solaire murs . montant: bonus outre-mer . montant
 isolation . protection solaire murs . MPR:
   applicable si: non
   note: Ce geste n'est pas adossée à une aide MPR, car les aides MPR sont plus restreintes que les bonus... contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
