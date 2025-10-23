@@ -49,6 +49,8 @@ export default function BonusOutreMer({
   const key = surfaceKeyEntry ? (hasSurface ? 'montant' : 'barème') : 'montant'
   const valueDottedName = bonusDottedName + ' . ' + key,
     valueRule = rules[valueDottedName]
+  console.log('EVAL bom')
+
   const evaluation = engine.setSituation(situation).evaluate(valueDottedName)
 
   const eligibleEvaluation = engine.evaluate(bonusDottedName + ' . montant')

@@ -17,6 +17,7 @@ import getNextQuestions from './publicodes/getNextQuestions'
 import BonusOutreMer from './outre-mer/BonusOutreMer'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
+  console.log('EVAL prime')
   let infoCEE, infoMPR, montantTotal, isExactTotal
 
   const engineSituation = engine.setSituation({
