@@ -91,6 +91,7 @@ function Form({ rules, simulationConfig }) {
       />
     )
   }
+  console.log('EVAL form')
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,

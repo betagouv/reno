@@ -4,6 +4,7 @@ import { formatValue } from 'publicodes'
 import GesteQuestion from '../GesteQuestion'
 import { BlocAide } from '../UI'
 import getNextQuestions from '../publicodes/getNextQuestions'
+import { useEffect, useState } from 'react'
 
 /*
  * Ce composant ne devrait presque pas exister. Les différentes couches qui font les aides par geste devraient être gérées de façon générique avec seul l'icône et d'autres métadonnées ajoutées en personnalisation depuis des attributs publicodes.
@@ -23,6 +24,38 @@ export default function BonusOutreMer({
   const bonusDottedName = dottedName + ' . bonus outre-mer',
     bonusRule = rules[bonusDottedName]
 
+  const [evaluations, setEvaluations] = useState(null)
+
+  const surfaceKeyEntry = Object.entries(rules).find(
+    ([key]) => key.startsWith(dottedName) && key.endsWith(' . surface'),
+  )
+  const hasSurface = surfaceKeyEntry && situation[surfaceKeyEntry[0]]
+  const key = surfaceKeyEntry ? (hasSurface ? 'montant' : 'barème') : 'montant'
+
+  console.log(dottedName, { hasSurface, surfaceKeyEntry })
+  const valueDottedName = bonusDottedName + ' . ' + key,
+    valueRule = rules[valueDottedName]
+  useEffect(() => {
+    if (bonusRule === undefined) return
+    console.log('EVAL bom')
+    const evaluation = engine.setSituation(situation).evaluate(valueDottedName)
+
+    const eligibleEvaluation = engine.evaluate(bonusDottedName + ' . montant')
+    const montantBonusEvaluation = engine.evaluate(
+      bonusDottedName + ' . montant',
+    )
+    const dispositif = engine.evaluate(
+      'gestes . outre-mer . dispositif',
+    ).nodeValue
+
+    setEvaluations([
+      evaluation,
+      eligibleEvaluation,
+      montantBonusEvaluation,
+      dispositif,
+    ])
+  }, [setEvaluations, situation, engine, bonusDottedName, valueDottedName])
+
   /* TODO tiré de BlocAideCEE, mais non documenté, ça sert à quoi ?
   const encodedSituation = encodeSituation(
     {
@@ -37,23 +70,10 @@ export default function BonusOutreMer({
   }, [encodedSituation, setSearchParams])
   */
 
-  if (bonusRule === undefined) return
+  if (!evaluations) return
 
-  const surfaceKeyEntry = Object.entries(rules).find(
-    ([key]) => key.startsWith(dottedName) && key.endsWith(' . surface'),
-  )
-  const hasSurface = surfaceKeyEntry && situation[surfaceKeyEntry[0]]
-
-  console.log(dottedName, { hasSurface, surfaceKeyEntry })
-
-  const key = surfaceKeyEntry ? (hasSurface ? 'montant' : 'barème') : 'montant'
-  const valueDottedName = bonusDottedName + ' . ' + key,
-    valueRule = rules[valueDottedName]
-  console.log('EVAL bom')
-
-  const evaluation = engine.setSituation(situation).evaluate(valueDottedName)
-
-  const eligibleEvaluation = engine.evaluate(bonusDottedName + ' . montant')
+  const [evaluation, eligibleEvaluation, montantBonusEvaluation, dispositif] =
+    evaluations
 
   const isEligible = formatValue(eligibleEvaluation) !== 'Non applicable'
 
@@ -61,13 +81,7 @@ export default function BonusOutreMer({
 
   const value = formatValue(evaluation)
 
-  const dispositif = engine.evaluate(
-    'gestes . outre-mer . dispositif',
-  ).nodeValue
-
-  const questions = getNextQuestions(
-    engine.setSituation(situation).evaluate(bonusDottedName + ' . montant'),
-  )
+  const questions = getNextQuestions(montantBonusEvaluation)
 
   const relevantQuestions = questions.filter((q) => {
     const isRootRule = q === dottedName
