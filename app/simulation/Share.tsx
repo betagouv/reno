@@ -8,6 +8,7 @@ export default function Share({
   text = 'Partagez la simulation en cliquant ici :',
   align = 'center',
   showWithAnswer = true,
+  customCss,
 }) {
   const isMobile = useIsMobile()
 
@@ -62,6 +63,7 @@ export default function Share({
       >
         <Button
           priority="secondary"
+          style={customCss}
           css={`
             ${copied &&
             `
@@ -74,13 +76,13 @@ export default function Share({
           title="Cliquez pour partager le lien"
           onClick={(e) => {
             e.preventDefault()
-            push(['trackEvent', 'Partage', 'Clic'])
+            push(['trackEvent', 'Simulateur Principal', 'Partage', 'Clic'])
             isMobile && navigator.share ? share() : copyToClipboard()
           }}
         >
           {!copied ? (
             <>
-              <span aria-hidden="true">🔗</span> Copier le lien
+              <span aria-hidden="true">🔗</span> Copier le lien de ma simulation
             </>
           ) : (
             <>
@@ -111,7 +113,7 @@ export default function Share({
             </label>
           </div>
         )}
-        {!showWithAnswer && (
+        {!showWithAnswer && copied && (
           <p className="fr-mt-3v">
             Rappel : ce lien contient les données que vous avez saisies
             (adresse, catégorie de revenus…)

@@ -50,6 +50,7 @@ export default function Module({}) {
               numérique Mes Aides Réno propose la première calculette Ma
               Plus-Value Réno, basée sur{' '}
               <a
+                title="la dernière étude - nouvelle fenêtre"
                 rel="noopener external"
                 className="fr-link"
                 href="https://www.notaires.fr/fr/immobilier-fiscalite/etudes-et-analyses-immobilieres/performance-energetique-la-valeur-verte-des-logements"
@@ -79,6 +80,7 @@ export default function Module({}) {
               sur n'importe quelle page web ou article en 3 minutes. Le
               communiqué de presse sur la calculette Ma plus-value Réno est{' '}
               <a
+                title="disponible ici - nouvelle fenêtre"
                 rel="noopener external"
                 className="fr-link"
                 href="https://mesaidesreno.notion.site/"

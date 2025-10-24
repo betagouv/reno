@@ -42,16 +42,16 @@ export default function NPMDoc() {
           .
         </p>
         <div className="fr-callout fr-icon-info-line">
-          <h2>Plus d'informations</h2>
-          <p>
+          <h2 className="fr-callout__title">Plus d'informations</h2>
+          <p className="fr-callout__text">
             Ce paquet NPM est basée sur le modèle de calcul qui fait tourner
             mesaidesreno.beta.gouv.fr, déjà utilisé par des milliers
             d'utilisateurs par mois.
           </p>
-          <p>
+          <p className="fr-callout__text">
             Vous souhaitez utiliser le paquet NPM? Voici notre proposition :
           </p>
-          <ul>
+          <ul className="fr-callout__text">
             <li>
               <strong>
                 <u>Accompagnement sur-mesure</u>
@@ -71,7 +71,9 @@ export default function NPMDoc() {
               existante ? Elle est accessible juste en-dessous.
             </li>
           </ul>
-          <p>À votre disposition pour avancer ensemble !</p>
+          <p className="fr-callout__text">
+            À votre disposition pour avancer ensemble !
+          </p>
         </div>
         <p>
           Publicodes offre nativement une documentation Web qui vous permet
@@ -82,7 +84,7 @@ export default function NPMDoc() {
           </a>
           .
         </p>
-        <h3>Le code</h3>
+        <h2>Le code</h2>
         <p>
           Tout le code du calculateur (site en NextJS), l'API (Route handler
           NextJS) ainsi que les règles de calcul complètes sont disponibles sur{' '}
@@ -99,7 +101,7 @@ export default function NPMDoc() {
           </a>
           .
         </p>
-        <h3>Privilégiez l'intégration directe du modèle si vous le pouvez</h3>
+        <h2>Privilégiez l'intégration directe du modèle si vous le pouvez</h2>
         <p>
           Plutôt que de dépendre d'une API tierce, si vous avez confiance dans
           votre capacité à mettre des services en ligne, le mieux reste
@@ -115,7 +117,7 @@ export default function NPMDoc() {
           de facto de la publication de module de code Javascript.{' '}
         </p>
         <NPM />
-        <h3 className="fr-mt-5v">Démonstration d'intégration</h3>
+        <h2 className="fr-mt-5v">Démonstration d'intégration</h2>
         <p>
           Ci-dessous, un exemple très basique d'intégration du modèle de calcul
           dans une maquette de projet NextJS.

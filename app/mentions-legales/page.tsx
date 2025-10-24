@@ -56,6 +56,9 @@ export default function MentionsLegales() {
           toutes et à tous. Pour en savoir plus sur la politique d’accessibilité
           numérique de l’État :<br />
           <a
+            title={
+              'https://accessibilite.numerique.gouv.fr/ - nouvelle fenêtre'
+            }
             className="fr-link"
             rel="noopener external"
             target="_blank"

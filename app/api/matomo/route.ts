@@ -1,7 +1,7 @@
 const apiConfig = {
   token: process.env.MATOMO_API_TOKEN,
   funnels: {
-    simulateur: 122,
+    simulateur: 165,
     module: 127,
   },
   baseUrl: 'https://stats.beta.gouv.fr/?module=API&idSite=101&format=JSON',

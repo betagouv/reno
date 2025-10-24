@@ -1,6 +1,6 @@
 denormandie:
   marque: Denormandie
-  complément de marque: Réduction d'impôt location
+  complément de marque: Réduction d'impôt
   nom court: Denormandie
   type: exonération fiscale
   description: |
@@ -21,7 +21,7 @@ denormandie:
   informations utiles : |
     Si vous achetez un logement dans l'une des 454 communes éligibles Denormandie et que vous y faites une rénovation d'ampleur, une importante exonération d'impôt sur le revenu vous est offerte.
     - Applicable pour un logement ancien, loué non meublé, pendant au moins 6 ans
-    - Au <a href="https://www.service-public.fr/particuliers/vosdroits/F35011#fiche-item-aria-2" target="_blank">loyer plafonné</a>
+    - Au <a href="https://www.service-public.fr/particuliers/vosdroits/F35011#fiche-item-aria-2" target="_blank" title="loyer plafonné - nouvelle fenêtre">loyer plafonné</a>
     - Des travaux d'au moins 25 % du prix de revient du logement et à terminer dans les deux ans
   comment faire: |
     Pour bénéficier de la réduction d'impôts, vous devez déclarer cet investissement locatif au moment de la déclaration annuelle de revenus.
@@ -30,14 +30,17 @@ denormandie:
   lien: https://www.economie.gouv.fr/particuliers/reduction-impot-denormandie
 denormandie . durée:
   description: |
-    L'avantage fiscal est étalé sur la durée de location. Son montant est calculé en appliquant au prix net de revient du logement un pourcentage variant en fonction de la durée de location (pour les logements situés en métropole). <a href="https://www.economie.gouv.fr/particuliers/reduction-impot-denormandie" target="_blank">Source</a>.
+    L'avantage fiscal est étalé sur la durée de location. Son montant est calculé en appliquant au prix net de revient du logement un pourcentage variant en fonction de la durée de location (pour les logements situés en métropole). <a href="https://www.economie.gouv.fr/particuliers/reduction-impot-denormandie" target="_blank" title="Source - nouvelle fenêtre">Source</a>.
   valeur: années de location
   unité: ans
 denormandie . montant:
-  applicable si: conditions
-  formule: taux * assiette
+  applicable si: condition éligibilité
+  valeur: 
+    produit:
+      - taux
+      - assiette
 
-denormandie . conditions:
+denormandie . condition éligibilité:
   toutes ces conditions:
     - vous . propriétaire . condition
     - logement . propriétaire occupant = non
@@ -119,7 +122,6 @@ denormandie . gestes minimum:
 
 logement . prix d'achat:
   question: Quel est le prix d'achat du bien ?
-  par défaut: 250000 €
   unité: €
 
 denormandie . assiette:
@@ -131,13 +133,11 @@ denormandie . années de location:
   unité: ans
   description: |
     Le nombre d'années durant lequel le propriétaire s'engage à louer le logement
-  par défaut: 9
   une possibilité parmi:
     possibilités:
       - 6
       - 9
       - 12
-
 denormandie . taux:
   variations:
     - si: années de location = 6

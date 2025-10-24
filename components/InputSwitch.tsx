@@ -1,4 +1,3 @@
-import { mpaLogementValues } from '@/app/module/AmpleurInputs'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { serializeUnit } from 'publicodes'
 import { useState } from 'react'
@@ -23,6 +22,7 @@ import { useSendDataToHost } from './useIsInIframe'
 
 export default function InputSwitch({
   form,
+  nbStep,
   currentQuestion: givenCurrentQuestion,
   situation,
   answeredQuestions,
@@ -48,6 +48,7 @@ export default function InputSwitch({
   const [sendDataToHost, consent, setConsent] = useSendDataToHost()
   const params = {
     form,
+    nbStep,
     rule,
     currentQuestion,
     rules,
@@ -61,6 +62,7 @@ export default function InputSwitch({
     noLabel: [
       'logement . adresse',
       'logement . surface',
+      'copropriété . nombre de logements',
       'ménage . personnes',
     ].includes(currentQuestion),
     noButtons: [
@@ -106,38 +108,18 @@ export default function InputSwitch({
         <RadioQuestion
           rule={rule}
           engine={engine}
-          currentQuestion={currentQuestion}
-          situation={situation}
-          placeholder={evaluation.nodeValue}
           value={currentValue == null ? '' : currentValue}
           name={currentQuestion}
           onChange={(value) => {
-            if (currentQuestion == 'mpa . situation demandeur') {
-              const additionalSituation = mpaLogementValues.find(
-                ({ valeur }) => valeur == value,
-              ).situation
-
-              const encodedSituation = encodeSituation(
-                additionalSituation,
-                true,
-                [
-                  ...Object.keys(additionalSituation).filter(
-                    (r) => r != 'mpa . situation demandeur',
-                  ),
-                ],
-              )
-              setSearchParams(encodedSituation)
-            } else {
-              const encodedSituation = encodeSituation(
-                {
-                  ...situation,
-                  [currentQuestion]: `"${value}"`,
-                },
-                false,
-                answeredQuestions,
-              )
-              setSearchParams(encodedSituation, 'replace', false)
-            }
+            const encodedSituation = encodeSituation(
+              {
+                ...situation,
+                [currentQuestion]: `"${value}"`,
+              },
+              false,
+              answeredQuestions,
+            )
+            setSearchParams(encodedSituation, 'replace', false)
           }}
         />
       ) : rule['possibilités'] ? (
@@ -305,8 +287,12 @@ export default function InputSwitch({
                   'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
                   'copropriété . id': `"${id}"`,
                   'copropriété . nom': `"${result['Nom d’usage de la copropriété']}"`,
-                  'copropriété . nombre de lots principaux': `"${result['Nombre total de lots à usage d’habitation, de bureaux ou de commerces']}"`,
-                  'copropriété . nombre de logements': `"${result['Nombre de lots à usage d’habitation']}"`,
+                  'copropriété . nombre de lots principaux':
+                    result[
+                      'Nombre total de lots à usage d’habitation, de bureaux ou de commerces'
+                    ],
+                  'copropriété . nombre de logements':
+                    result['Nombre de lots à usage d’habitation'],
                   ...(lessThan15Years
                     ? { 'copropriété . condition 15 ans': 'non' }
                     : moreThan15Years
@@ -381,6 +367,7 @@ export default function InputSwitch({
   ) : (
     <Eligibility
       {...{
+        nbStep,
         currentQuestion,
         searchParams,
         setSearchParams,

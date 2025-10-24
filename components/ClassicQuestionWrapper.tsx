@@ -1,7 +1,6 @@
 import Answers from '@/app/simulation/Answers'
 import FormButtons from '@/app/simulation/FormButtons'
 import { useSearchParams } from 'next/navigation'
-import Script from 'next/script'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
@@ -42,6 +41,7 @@ export const QuestionText = ({
 
 export default function ClassicQuestionWrapper({
   form,
+  nbStep,
   children,
   rule,
   currentQuestion,
@@ -60,15 +60,8 @@ export default function ClassicQuestionWrapper({
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
   const { depuisModule } = searchParams
-  const remaining = nextQuestions.length
 
   const [avertissementState, setAvertissementState] = useAvertissementState()
-
-  // Ceci a été introduit par https://github.com/betagouv/reno/issues/425,
-  // n'est pas sensé rester là à long-terme (par exemple au-delà de l'automne 2025
-  // Globalement l'intégration de Tally est imparfaite car ils ne nous permettent pas de détruire les hooks qu'ils initient...
-  //const tallyForm = currentQuestion === 'projet . définition' ? 'mKjKNk' : null
-  const tallyForm = null
 
   return (
     <>
@@ -90,7 +83,8 @@ export default function ClassicQuestionWrapper({
                   ? 'Mon projet'
                   : 'Ma situation'}
                 <span className="fr-stepper__state">
-                  Étape {currentQuestion.startsWith('projet') ? 2 : 1} sur 4
+                  Étape {currentQuestion.startsWith('projet') ? 2 : 1} sur{' '}
+                  {nbStep}
                 </span>
               </h1>
               <div
@@ -98,11 +92,11 @@ export default function ClassicQuestionWrapper({
                 data-fr-current-step={
                   currentQuestion.startsWith('projet') ? 2 : 1
                 }
-                data-fr-steps="4"
+                data-fr-steps={nbStep}
               ></div>
               <p className="fr-stepper__details">
                 <span className="fr-text--bold">Étape suivante :</span>{' '}
-                {currentQuestion.startsWith('projet')
+                {currentQuestion.startsWith('projet') || nbStep == 3
                   ? 'Mes aides'
                   : 'Mon projet'}
               </p>
@@ -125,14 +119,6 @@ export default function ClassicQuestionWrapper({
           situation,
         }}
       />
-      {tallyForm && (
-        <>
-          <Script src="https://tally.so/widgets/embed.js"></Script>{' '}
-          <Script
-            id={tallyForm}
-          >{` window.TallyConfig = { "formId": "${tallyForm}", "popup": { "emoji": { "text": "👋", "animation": "wave" }, "open": { "trigger": "exit" } } }; `}</Script>
-        </>
-      )}
       <form id="simulator-form" onSubmit={(e) => e.preventDefault()}>
         <fieldset
           className="fr-fieldset"

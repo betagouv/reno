@@ -63,7 +63,7 @@ function FormattedAnswer({ answer, situation, engine, rules }) {
   } else if (['ménage . commune', 'logement . commune'].includes(answer)) {
     formattedValue = `${situation[answer + ' . nom'].replaceAll('"', '')}  (${situation[answer.replace('commune', '') + 'code département'].replaceAll('"', '')})`
   } else if (answer === 'DPE . actuel') {
-    formattedValue = <DPELabel index={value} />
+    formattedValue = <DPELabel index={value - 1} />
   } else {
     formattedValue = value?.replace(/['"]+/g, '')
   }

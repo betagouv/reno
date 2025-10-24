@@ -34,19 +34,8 @@ export default function API() {
         .
       </p>
       <div className="fr-callout fr-icon-info-line">
-        <h2>Plus d'informations</h2>
-        <div
-          id="accompagnement"
-          css={`
-            blockquote {
-              margin-top: 0.8rem;
-              border-left: 4px solid var(--lighterColor);
-              padding: 0 0.6rem;
-              background: lightyellow;
-              color: #333;
-            }
-          `}
-        >
+        <h2 className="fr-callout__title">Plus d'informations</h2>
+        <div className="fr-callout__text" id="accompagnement">
           <p>Vous souhaitez utiliser l'API? Voici notre proposition :</p>
           <ul>
             <li
@@ -80,8 +69,8 @@ export default function API() {
         </div>
       </div>
       <div className="fr-callout fr-callout--yellow-moutarde">
-        <h3>Demandez votre token!</h3>
-        <p>
+        <h2 className="fr-callout__title">Demandez votre token!</h2>
+        <p className="fr-callout__text">
           Notre API est entièrement gratuite, libre d'accès et sans aucun quota
           d'utilisation. Nous vous demandons simplement de nous{' '}
           <a
@@ -92,7 +81,7 @@ export default function API() {
           </a>
           .
         </p>
-        <p>
+        <p className="fr-callout__text">
           Cela nous permettra de vous transmettre un token d'identification et
           de vous avertir en amont en cas de modifications majeures liées à
           d'éventuelles évolutions légales concernant les dispositifs d'aides à
@@ -107,6 +96,7 @@ export default function API() {
       <p>
         Plus globalement, elle expose l'intégralité de{' '}
         <a
+          title="notre modèle de calcul - nouvelle fenêtre"
           rel="noopener external"
           className="fr-link"
           href="https://github.com/betagouv/reno/tree/master/app/r%C3%A8gles"
@@ -119,6 +109,7 @@ export default function API() {
         <br />
         Exemple :{' '}
         <a
+          title="/api/v1/?ménage.revenu.classe='modeste'&fields=ampleur.pourcent%20d%27écrêtement - nouvelle fenêtre"
           className="fr-link"
           href="/api/v1/?ménage.revenu.classe='modeste'&fields=ampleur.pourcent%20d%27écrêtement"
           target="_blank"
@@ -138,20 +129,16 @@ export default function API() {
       </h3>
       <p>
         Notre API est basée sur{' '}
-        <a
-          rel="noopener external"
-          className="fr-link"
-          href="https://publi.codes"
-        >
+        <a className="fr-link" href="https://publi.codes">
           Publicodes
         </a>
-        . Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la
+        . Nous vous conseillons de faire un petit tour (10&nbsp;minutes) sur la{' '}
         <a
+          title="documentation - nouvelle fenêtre"
           rel="noopener external"
           className="fr-link"
           href="https://publi.codes/docs"
         >
-          {' '}
           documentation
         </a>{' '}
         de Publicodes pour mieux comprendre ses fondamentaux.
@@ -159,6 +146,7 @@ export default function API() {
       <p>
         Vous pouvez aussi consulter notre{' '}
         <a
+          title="modèle de calcul - nouvelle fenêtre"
           rel="noopener external"
           className="fr-link"
           href="https://github.com/betagouv/reno/tree/master/app/r%C3%A8gles"

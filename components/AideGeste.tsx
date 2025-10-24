@@ -1,25 +1,21 @@
 import rules from '@/app/règles/rules'
-import { BlocAide } from './UI'
-import { formatValue } from 'publicodes'
-import { useState } from 'react'
-import { push } from '@socialgouv/matomo-next'
-import { PrimeBadge } from './Geste'
-import mprImage from '@/public/maprimerenov.svg'
-import ceeImage from '@/public/cee.svg'
-import Image from 'next/image'
-import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
-import GesteQuestion from './GesteQuestion'
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
-import { getRuleName } from './publicodes/utils'
-import Badge from '@codegouvfr/react-dsfr/Badge'
-import Tooltip from '@codegouvfr/react-dsfr/Tooltip'
-import getNextQuestions from './publicodes/getNextQuestions'
+import { push } from '@socialgouv/matomo-next'
+import { formatValue } from 'publicodes'
+import { PrimeBadge } from './Geste'
+import GesteQuestion from './GesteQuestion'
+import { BlocAide } from './UI'
 import BonusOutreMer from './outre-mer/BonusOutreMer'
+import getNextQuestions from './publicodes/getNextQuestions'
+import { getRuleName } from './publicodes/utils'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   console.log('EVAL prime')
   let infoCEE, infoMPR, montantTotal, isExactTotal
-
+  // Tant que MPA/MPLD ne sont pas intégré au simulateur principal, il faut forcer le parcours d'aide pour MPR
+  if (!situation["parcours d'aide"]) {
+    situation["parcours d'aide"] = '"rénovation énergétique"'
+  }
   const engineSituation = engine.setSituation({
     ...situation,
     [dottedName]: 'oui',
@@ -151,7 +147,6 @@ export default function AideGeste({
   situation,
   answeredQuestions,
 }) {
-  const [isOpen, setIsOpen] = useState(false)
   const { question, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
     engine,
     dottedName,
@@ -164,7 +159,9 @@ export default function AideGeste({
         <div
           css={`
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            padding-right: 0.5rem;
           `}
         >
           {rules[dottedName].titre || getRuleName(dottedName)}
@@ -182,7 +179,7 @@ export default function AideGeste({
           'trackEvent',
           'Simulateur Principal',
           'Page',
-          (!isOpen ? 'Déplie geste' : 'Replie geste') + ' ' + dottedName,
+          'Déplie geste ' + dottedName,
         ])
       }}
     >
@@ -198,45 +195,56 @@ export default function AideGeste({
           }}
         />
       )}
-      {infoMPR && (
-        <BlocAideMPR
+      <div className="fr-grid-row fr-grid-row--gutters">
+        {infoMPR && (
+          <div className="fr-col-6">
+            <BlocAideMPR
+              {...{
+                infoMPR,
+                engine,
+                situation,
+              }}
+            />
+          </div>
+        )}
+        <BonusOutreMer
           {...{
-            infoMPR,
             engine,
             situation,
-          }}
-        />
-      )}
-      <BonusOutreMer
-        {...{
-          engine,
-          situation,
-          dottedName,
-          rules,
+            dottedName,
+            rules,
 
-          answeredQuestions,
-          setSearchParams,
-        }}
-      />
-      {montantCoupDePouce && (
-        <BlocAideCoupDePouce
-          {...{
-            montantCoupDePouce,
-          }}
-        />
-      )}
-
-      {infoCEE && (
-        <BlocAideCEE
-          {...{
-            infoCEE,
-            engine,
-            situation,
             answeredQuestions,
             setSearchParams,
           }}
         />
-      )}
+        {montantCoupDePouce && (
+          <div className="fr-col-6">
+            <BlocAideCoupDePouce
+              {...{
+                montantCoupDePouce,
+                engine,
+                situation,
+                dottedName,
+              }}
+            />
+          </div>
+        )}
+        {infoCEE && (
+          <div className="fr-col-6">
+            <BlocAideCEE
+              {...{
+                infoCEE,
+                engine,
+                situation,
+                dottedName,
+                answeredQuestions,
+                setSearchParams,
+              }}
+            />
+          </div>
+        )}
+      </div>
     </Accordion>
   )
 }
@@ -244,53 +252,46 @@ export default function AideGeste({
 const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   <BlocAide display="geste">
     <div className="aide-header">
-      <Image src={mprImage} alt="logo ma prime renov" width="100" />
-      <div>
-        <h4 className="fr-m-0">MaPrimeRénov'</h4>
-        <PrimeBadge
-          {...{
-            situation,
-            engine,
-            dottedName: infoMPR.dottedName,
-          }}
-        />
-      </div>
+      <h4 className="fr-m-0 fr-h6">MaPrimeRénov'</h4>
+      <PrimeBadge
+        {...{
+          situation,
+          engine,
+          dottedName: infoMPR.dottedName,
+          montantSeul: true,
+        }}
+      />
     </div>
     <div className="aide-details">
       <div className="details">
         Précisions: Sous condition de recours à un professionnel{' '}
-        <strong>RGE</strong>. La prestation doit être inférieure à{' '}
-        <strong>{infoMPR.plafond}</strong>.
-        {rules[infoMPR.dottedName]?.description}
+        <strong>RGE</strong>. {rules[infoMPR.dottedName]?.description}
       </div>
     </div>
   </BlocAide>
 )
 
-const BlocAideCoupDePouce = ({ montantCoupDePouce }) => {
+const BlocAideCoupDePouce = ({ engine, situation, dottedName }) => {
   const remplacementChaudiere =
     rules['CEE . projet . remplacement chaudière thermique'].titre
 
   return (
     <BlocAide display="geste">
       <div className="aide-header">
-        <Image src={coupDePouceImage} alt="logo Coup de Pouce" width="100" />
-        <div>
-          <h4 className="fr-m-0">Prime Coup de pouce</h4>
-          <Badge
-            noIcon
-            severity={montantCoupDePouce !== 'Non applicable' ? 'success' : ''}
-          >
-            {montantCoupDePouce === 'Non applicable' ? (
-              <>Non applicable</>
-            ) : (
-              <>Prime de {montantCoupDePouce}</>
-            )}
-          </Badge>
+        <h4 className="fr-m-0 fr-h6">Prime Coup de pouce</h4>
+        <PrimeBadge
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . Coup de pouce',
+            montantSeul: true,
+          }}
+        />
+      </div>
+      <div className="aide-details">
+        <div className="details">
           <span className="aide-details">
-            {' '}
-            {montantCoupDePouce === 'Non applicable' ? 'sans' : 'si'}{' '}
-            {remplacementChaudiere}
+            Précision: Seulement si {remplacementChaudiere}
           </span>
         </div>
       </div>
@@ -304,49 +305,25 @@ const BlocAideCEE = ({
   situation,
   answeredQuestions,
   setSearchParams,
+  dottedName,
 }) => {
   const isApplicable = infoCEE.montant !== 'Non applicable'
   return (
     <BlocAide display="geste">
       <div className="aide-header">
-        <Image src={ceeImage} alt="logo Cee" width="60" />
-        <div>
-          <h4 className="fr-m-0">
-            Prime CEE (Certificats d'Économie d'Énergie)
-          </h4>
-          <Badge noIcon severity={isApplicable ? 'success' : ''}>
-            {!infoCEE.isExactTotal ? (
-              <>
-                Prime existante&nbsp;
-                <Tooltip
-                  className="fr-ms-1v"
-                  kind="hover"
-                  title="Veuillez répondre aux questions pour préciser son montant."
-                />
-              </>
-            ) : isApplicable ? (
-              'Prime indicative de ' + infoCEE.montant
-            ) : (
-              'non cumulable avec la Prime Coup de pouce'
-            )}
-          </Badge>
-        </div>
+        <h4 className="fr-m-0 fr-h6">Prime CEE *</h4>
+        <PrimeBadge
+          {...{
+            engine,
+            situation,
+            dottedName: dottedName + ' . CEE',
+            montantSeul: true,
+          }}
+        />
       </div>
       {isApplicable && (
         <div className="aide-details">
-          <p>
-            Ce montant vous est donné à titre indicatif, il vous appartient de
-            mettre en concurrence les offres CEE des fournisseurs d'énergie.
-            Plus d'infos:{' '}
-            <a
-              className="fr-link"
-              title={`formulaire ${infoCEE.code}`}
-              href={infoCEE.lien}
-              target="_blank"
-            >
-              {infoCEE.code}
-            </a>
-          </p>
+          * Certificats d'Économie d'Énergie
           {infoCEE.questions?.map((question, idx) => (
             <GesteQuestion
               key={idx}

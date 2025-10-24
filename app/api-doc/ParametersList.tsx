@@ -100,11 +100,7 @@ export default function ParametersList() {
     {
       title: "parcours d'aide",
       description: parse(rules["parcours d'aide"].description),
-      values: [
-        'rénovation énergétique',
-        'autonomie de la personne',
-        'sécurité salubrité',
-      ],
+      values: ['rénovation énergétique', 'autonomie', 'sécurité salubrité'],
     },
     {
       title: 'projet . DPE visé',

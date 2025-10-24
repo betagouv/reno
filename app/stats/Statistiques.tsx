@@ -82,7 +82,7 @@ export default function Statistiques() {
 
       const transfoRateFranceRenov =
         (Object.values(dataLastMonth).reduce(
-          (acc, curr) => acc + curr[2].step_nb_visits_actual,
+          (acc, curr) => acc + curr[15].step_nb_visits_actual,
           0,
         ) /
           nbSimuEndedMonth) *
@@ -322,72 +322,64 @@ export default function Statistiques() {
         >
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="Bon Pote"
               href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
-              target="_blank"
             >
               <Image src={logoBonPote} alt="Logo Bon Pote" />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="Ouest France Immo"
               href="https://www.ouestfrance-immo.com/"
-              target="_blank"
             >
               <Image src={logoOuestFranceImmo} alt="Logo Ouest France Immo" />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="France Info"
               href="https://www.francetvinfo.fr/economie/immobilier/logements-bouilloires-ces-obstacles-qui-freinent-l-adaptation-aux-fortes-chaleurs_6737814.html"
-              target="_blank"
             >
               <Image src={logoFranceInfo} alt="Logo France Info" />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="Money Vox"
               href="https://www.moneyvox.fr/immobilier/actualites/99663/renovation-energetique-ce-simulateur-officiel-gratuit-revele-les-aides-que-vous-ignorez"
-              target="_blank"
             >
               <Image src={logoMoneyVox} alt="Logo Money Vox" />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="Actual Immo"
               href="https://www.actual-immo.fr/investissement-passoires-energetiques/"
-              target="_blank"
             >
               <Image src={logoActualImmo} alt="Logo Actual Immo" />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="TF1 Info"
               href="https://www.tf1info.fr/immobilier/bouilloires-thermiques-comment-adapter-son-logement-aux-vagues-de-chaleur-2315763.html"
-              target="_blank"
             >
               <Image src={logoTf1Info} alt="Logo TF1 Info" />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="Le Progrès"
               href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
-              target="_blank"
             >
               <Image src={logoLeProgres} alt="Logo Le Progrès" />
             </a>
           </SwiperSlide>
           <SwiperSlide>
             <a
-              rel="noopener external"
+              title="Journal du net"
               href="https://www.leprogres.fr/magazine-immobilier/2024/09/30/connaissez-vous-ce-nouvel-outil-qui-vous-permet-d-estimer-vos-travaux"
-              target="_blank"
             >
               <Image src={logoJDN} alt="Logo Journal du net" />
             </a>

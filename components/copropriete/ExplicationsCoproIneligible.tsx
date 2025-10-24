@@ -1,5 +1,4 @@
 import rules from '@/app/règles/rules'
-import styled from 'styled-components'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 const rule = rules['copropriété . condition éligibilité']
 const conditions = Object.entries(rule['toutes ces conditions'])

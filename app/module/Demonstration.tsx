@@ -186,38 +186,26 @@ export default function Demonstration({ moduleName }) {
           </code>
         </Highlight>
         <IntegrationQuestions />
-        <section
+        <h2>Le module de simulation que verra l'usager sur écran large</h2>
+        <iframe
+          src={iframeUrl}
           css={`
-            margin: auto;
+            border: none;
+            margin: 3rem auto;
+            height: ${modules[moduleName]};
+            width: 600px;
+            max-width: 90vw;
+            --shadow-color: 0deg 0% 63%;
+            --shadow-elevation-medium:
+              0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
+              0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+              2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+              5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+            box-shadow: var(--shadow-elevation-medium);
           `}
-        >
-          <h3>Le module de simulation que verra l'usager sur écran large</h3>
-          <iframe
-            src={iframeUrl}
-            css={`
-              border: none;
-              margin: 3rem auto;
-              height: ${modules[moduleName]};
-              width: 600px;
-              max-width: 90vw;
-              --shadow-color: 0deg 0% 63%;
-              --shadow-elevation-medium:
-                0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
-                0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-                2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-                5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
-              box-shadow: var(--shadow-elevation-medium);
-            `}
-          ></iframe>
-          <h3
-            css={`
-              margin: 0;
-            `}
-          >
-            ... et sur écran mobile
-          </h3>
-          <iframe src={iframeUrl} css={mobileIframeStyle}></iframe>
-        </section>
+        ></iframe>
+        <h2>... et sur écran mobile</h2>
+        <iframe src={iframeUrl} css={mobileIframeStyle}></iframe>
       </div>
     </section>
   )

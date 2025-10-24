@@ -17,7 +17,7 @@
     intercommunalité: 0 €
     département: 0 €
     région: 0 €
-  lien: https://www.anil.org/aides-locales-travaux
+  lien: https://france-renov.gouv.fr/aides/collectivites-locales
 
 montant:
   icône: 'hexagone-contour.svg'
@@ -254,7 +254,7 @@ côte-d'or . aide au dossier de subvention Anah:
 côte-d'or . aide au dossier de subvention Anah . montant:
   applicable si:
     toutes ces conditions:
-      - MPR . accompagnée . éligible
+      - MPR . accompagnée . condition éligibilité
       - hors opération programmée
   description: |
     Aide au financement de l’ingénierie spécialisée (assistance administrative, technique et financière à l’élaboration d’un dossier de demande de subvention Anah) :

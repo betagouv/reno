@@ -9,7 +9,6 @@ import Link from 'next/link'
 import HomepageModules from './HomepageModules'
 import HomepageSteps from './HomepageSteps'
 import HomepageTalkAboutUs from './HomepageTalkAboutUs'
-import HomepageTestimonies from './HomepageTestimonies'
 import { HeaderWrapper } from './LandingUI'
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
@@ -85,7 +84,6 @@ export default async function Page(props) {
         </div>
         <HomepageSteps />
         <HomepageModules />
-        <HomepageTestimonies />
         <HomepageTalkAboutUs />
       </PageBlock>
     </>

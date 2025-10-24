@@ -1,0 +1,198 @@
+MPLD:
+  titre: Ma Prime Logement Décent
+  marque: Ma Prime Logement Décent
+  type: remboursement
+  conditions éligibilités: |
+    - Le ménage doit avoir des revenus modestes ou très modestes
+    - Le logement doit être construit depuis plus de 15 ans à la date de demande d’aide
+    - Le ménage doit y être domicilié au titre de résidence principale, et ce jusqu’à 3 ans après la fin des travaux communiquée à l’Anah
+    - Les travaux doivent être réalisés par des professionnels qualifiés, sauf en cas d’autoréhabilitation accompagnée (ARA).
+    - Le logement doit aussi :
+      - soit faire l’objet d’une évaluation par un opérateur à l’aide d’une grille de dégradation (évaluation de l’insalubrité de l’ARS supérieure ou égale à 0,4 ou évaluation de la dégradation de l’Anah supérieure ou égale à 0,35)
+      - soit être sous une procédure de police de mise en sécurité ordinaire (au titre du péril, de l’insalubrité, de la sécurité des équipements communs ou du saturnisme).
+  description: |
+    Ma Prime Logement Décent est une aide à destination des propriétaires occupants aux revenus modestes ou très modestes, souhaitant réaliser des travaux dans des logements notablement dégradés et/ou insalubres.
+  lien: https://france-renov.gouv.fr/aides/ma-prime-logement-decent
+MPLD . montant:
+  applicable si: condition éligibilité
+  variations:
+    - si: MPLD . situation demandeur = 'occupant'
+      alors: occupant . montant
+    - si: MPLD . situation demandeur = 'bailleur'
+      alors: bailleur . montant
+    - si: MPLD . situation demandeur = 'copropriété'
+      alors: copropriété . montant
+MPLD . condition éligibilité: 
+  variations:
+    - si: MPLD . situation demandeur = 'occupant'
+      alors: occupant . condition éligibilité
+    - si: MPLD . situation demandeur = 'bailleur'
+      alors: bailleur . condition éligibilité
+    - si: MPLD . situation demandeur = 'copropriété'
+      alors: copropriété . condition éligibilité
+MPLD . situation demandeur:
+  question: Quelle est votre situation ?
+  une possibilité parmi:
+    possibilités:
+      - 'occupant'
+      - 'bailleur'
+      - 'copropriété'
+  par défaut: "'occupant'"
+MPLD . situation demandeur . occupant:
+  valeur: "'occupant'"
+  titre: Propriétaire de mon logement ou locataire du parc privé
+MPLD . situation demandeur . bailleur: 
+  valeur: "'bailleur'"
+  titre: Propriétaire d'un logement que je loue ou que je souhaite mettre en location
+MPLD . situation demandeur . copropriété: 
+  valeur: "'copropriété'"
+  titre: Syndicat de copropriété
+
+MPLD . occupant:
+MPLD . occupant . conditions de revenu:
+  une de ces conditions:
+    - ménage . revenu . classe = 'modeste'
+    - ménage . revenu . classe = 'très modeste'
+MPLD . occupant . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'occupant'
+    - conditions de revenu
+    - logement . période de construction = "au moins 15 ans"
+MPLD . occupant . montant:
+  produit:
+    - pourcentage d'aide
+    - montant travaux
+  unité: €
+MPLD . occupant . montant travaux: montant travaux
+MPLD . occupant . montant travaux . plafond: 
+  variations: 
+    - si: projet . DPE visé > 5
+      alors: 50000 €
+    - sinon: 70000 €
+MPLD . occupant . pourcentage d'aide:
+  unité: '%'
+  somme:
+    - bonus
+    - variations:
+      - si: projet . DPE visé > 5
+        alors: 50 %
+      - si: ménage . revenu . classe = 'très modeste'
+        alors: 80 %
+      - si: ménage . revenu . classe = 'modeste'
+        alors: 60 %
+  
+MPLD . occupant . bonus:
+  unité: '%'
+  titre: Bonus sortie de passoire
+  description: |
+    Une aide majorée est mise en place pour les passoires énergétiques. Cette bonification ne s'applique que si l'étiquette D est atteinte à minima.
+  applicable si: condition
+  valeur: 10 %
+MPLD . occupant . bonus . condition:
+  toutes ces conditions:
+    - projet . DPE visé <= 4
+    - DPE . actuel >= 6
+
+MPLD . bailleur:
+MPLD . bailleur . montant:
+  somme:
+    - montant aide
+    - bonus
+  plafond: taux écrêtement * montant travaux
+  unité: €
+MPLD . bailleur . taux écrêtement: 80 %
+MPLD . bailleur . montant aide:
+  produit:
+    - pourcentage d'aide
+    - montant travaux
+  plafond: plafond
+  unité: €
+MPLD . bailleur . montant aide . plafond:
+  produit: 
+    - le minimum de:
+      - 80 m²
+      - logement . surface
+    - montant travaux . plafond
+    - pourcentage d'aide
+MPLD . bailleur . montant travaux: montant travaux
+MPLD . bailleur . montant travaux . plafond: 
+  variations:
+    - si: ampleur travaux = 'très dégradé'
+      alors: 1000 € HT/m²
+    - si: ampleur travaux = 'sécurité'
+      alors: 750 € HT/m²
+    - si: ampleur travaux = 'moyennement dégradé'
+      alors: 750 € HT/m²
+MPLD . bailleur . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'bailleur'
+MPLD . bailleur . pourcentage d'aide:
+  variations:
+    - si: ampleur travaux = 'très dégradé'
+      alors: 35 %
+    - si: ampleur travaux = 'sécurité'
+      alors: 35 %
+    - si: ampleur travaux = 'moyennement dégradé'
+      alors: 25 %
+MPLD . bailleur . bonus:
+  applicable si: bonus gain
+  variations:
+    - si: DPE . actuel >= 6
+      alors: 2000 €
+    - sinon: 1500 €
+  unité: €
+MPLD . bailleur . bonus gain:
+  question: Le gain énergétique sera de 35 % minimum ?
+MPLD . bailleur . bonus sortie passoire:
+  applicable si: DPE . actuel > 6
+  valeur: 2000 €
+MPLD . bailleur . ampleur travaux:
+  question: Quelle est l'ampleur des travaux à réaliser ?
+  une possibilité parmi:
+    possibilités:
+      - 'très dégradé'
+      - 'sécurité'
+      - 'moyennement dégradé'
+MPLD . bailleur . ampleur travaux . très dégradé:
+  valeur: "'très dégradé'"
+  titre: Travaux de rénovation globale d'un logement indigne ou très dégradé
+  sous-titre: |
+    - Arrêté de mise en sécurité ou de traitement de l’insalubrité
+    - Rapport réalisé par un professionnel qualifié à l’aide d’un grille d’évaluation de l’insalubrité ou de la dégradation de l’habitat
+MPLD . bailleur . ampleur travaux . sécurité:
+  valeur: "'sécurité'"
+  titre: Travaux de rénovation globale pour la sécurité et la salubrité de l'habitat
+  sous-titre: |
+    - Arrêté de mise en sécurité ou de traitement de l'insalubrité
+    - Notification de travaux visant à supprimer le risque de saturnisme
+    - Constat d’exposition au plomb
+MPLD . bailleur . ampleur travaux . moyennement dégradé:
+  valeur: "'moyennement dégradé'"
+  titre: Travaux de rénovation globale d'un logement "moyennement" dégradé
+  sous-titre: |
+    - Rapport réalisé par un professionnel qualifié à l’aide d’un grille d’évaluation de la dégradation de l’habitat – dégradation « moyenne »
+    - Situation de non-conformité au règlement sanitaire départemental
+    - Situation de non-décence mis en évidence par un contrôle de la CAF ou de la CMSA
+
+MPLD . copropriété:
+MPLD . copropriété . montant:
+  applicable si: condition éligibilité
+  produit:
+    - montant travaux
+    - pourcentage d'aide
+  unité: €
+MPLD . copropriété . pourcentage d'aide: 50 %
+MPLD . copropriété . condition éligibilité:
+  toutes ces conditions:
+    - situation demandeur = 'copropriété'
+    - copropriété . condition 15 ans
+    - est défini: copropriété . nombre de logements
+    - copropriété . condition résidence principale
+    - condition arrêté police
+
+MPLD . copropriété . condition arrêté police:
+  question: La copropriété fait-elle l’objet d’un arrêté de police (insalubrité, saturnisme, péril, sécurité des équipements communs) ?
+  par défaut: oui
+MPLD . montant travaux:
+  question: Quel est le montant estimé de travaux ?
+  unité: '€'

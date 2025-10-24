@@ -50,7 +50,7 @@ export default function StatistiquesInternes() {
       nbActions: dayData.nb_actions_per_visit,
       nbDisplay: dayData[0]?.step_nb_visits_actual || 0,
       nbInteraction: dayData[1]?.step_nb_visits_actual || 0,
-      nbClick: dayData[2]?.step_nb_visits_actual || 0,
+      nbClick: dayData[15]?.step_nb_visits_actual || 0,
     }))
   }
   useEffect(() => {

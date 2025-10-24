@@ -169,6 +169,7 @@ export const MontantQuestion = ({
   rule,
   text,
   disabled,
+  state,
 }) => {
   return (
     <Input
@@ -177,21 +178,21 @@ export const MontantQuestion = ({
         type: 'text',
         value: answeredQuestions.includes(rule)
           ? formatNumberWithSpaces(situation[rule])
-          : undefined,
+          : '',
         name: 'montant',
         inputMode: 'numeric',
         onChange: (e) => {
           const price = e.target.value.replace(/\s/g, '')
-          const invalid = isNaN(price) || price <= 0
+          const invalid = price != '' && (isNaN(price) || price <= 0)
           if (invalid) return
-          push(['trackEvent', 'Module', 'Interaction', 'prix achat ' + price])
+          push(['trackEvent', 'Module', 'Interaction', rule + ' ' + price])
           setSearchParams({
-            [encodeDottedName(rule)]: price + '*',
+            [encodeDottedName(rule)]: price == '' ? undefined : price + '*',
           })
           e.target.value = formatNumberWithSpaces(price)
         },
       }}
-      state={answeredQuestions.includes(rule) && 'success'}
+      state={state ? state : answeredQuestions.includes(rule) && 'success'}
       disabled={disabled}
       stateRelatedMessage=""
       label={text + ' :'}
@@ -422,6 +423,7 @@ export const YesNoQuestion = ({
   rule,
   text,
   disabled,
+  noSuccess,
 }) => {
   const answered = answeredQuestions.includes(rule)
   return (
@@ -457,7 +459,7 @@ export const YesNoQuestion = ({
         },
       ]}
       disabled={disabled}
-      state={answered && !disabled && 'success'}
+      state={!noSuccess && answered && !disabled && 'success'}
       stateRelatedMessage=""
       orientation="horizontal"
     />

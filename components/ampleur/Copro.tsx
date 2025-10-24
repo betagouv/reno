@@ -28,7 +28,7 @@ export default function Copro({
     >
       {expanded && (
         <>
-          <Card $background="#EEEEFF">
+          <Card>
             <p>
               En tant que ménage{' '}
               <Value
@@ -36,7 +36,6 @@ export default function Copro({
                   engine,
                   situation,
                   dottedName: 'ménage . revenu . classe',
-                  state: 'prime-black',
                 }}
               />
               , vous êtes éligible à une prime individuelle de{' '}
@@ -46,7 +45,6 @@ export default function Copro({
                   situation,
                   dottedName:
                     'ampleur . prime individuelle copropriété . montant',
-                  state: 'prime-black',
                 }}
               />
               .
@@ -75,7 +73,6 @@ export default function Copro({
           </p>
           <Link
             className="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-left"
-            target="_blank"
             href={
               '/copropriete/?' + new URLSearchParams(encodeSituation(situation))
             }

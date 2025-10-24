@@ -56,7 +56,9 @@ export const BlocAideMPR = ({
               Prime de <strong>{infoMPR.montant}</strong>
             </Badge>
           )}
-          <h2>{display !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'</h2>
+          <h2 className="fr-m-0">
+            {display !== 'top' ? "Calculateur d'aide" : ''} MaPrimeRénov'
+          </h2>
         </div>
       </div>
       <div className="aide-details">
@@ -115,10 +117,6 @@ export const BlocAideMPR = ({
             <AvanceTMO {...{ engine, situation }} />
             Précisions:
             <ul>
-              <li>
-                La prestation doit être inférieure à{' '}
-                <strong>{infoMPR.plafond}</strong>
-              </li>
               <li>
                 Sous condition de recours à un professionnel{' '}
                 <strong>RGE</strong>

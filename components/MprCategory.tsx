@@ -28,11 +28,9 @@ export default function MprCategory({
 
   return (
     <BlocAide>
-      <div className="aide-header">
-        <div>
-          <h3>Prime individuelle MaPrimeRénov' Copropriété</h3>
-        </div>
-      </div>
+      <h3 className="aide-header">
+        Prime individuelle MaPrimeRénov' Copropriété
+      </h3>
       <div className="aide-details">
         {questions.map((question, idx) => (
           <GesteQuestion

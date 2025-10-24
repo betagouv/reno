@@ -39,6 +39,7 @@ export default function Entreprise({ data }) {
       {latitude && longitude && (
         <div>
           <a
+            title="Voir sur une carte - nouvelle fenêtre"
             className="fr-link"
             rel="noopener external"
             href={`https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=17/${latitude}/${longitude}`}
@@ -80,6 +81,7 @@ export default function Entreprise({ data }) {
           `}
         >
           <a
+            title={site + ' - nouvelle fenêtre'}
             className="fr-link"
             rel="noopener external"
             href={site}

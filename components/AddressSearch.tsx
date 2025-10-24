@@ -18,24 +18,28 @@ export default function AddressSearch({
 }) {
   const [immediateInput, setInput] = useState(
     dpe?.['adresse_ban'] ||
-      situation['logement . adresse']?.replaceAll('"', ''),
+      situation['logement . adresse']?.replaceAll('"', '') ||
+      '',
   )
   const [input] = useDebounce(immediateInput, 300)
   const [clicked, setClicked] = useState(situation['logement . adresse'] || '')
 
   const validInput = input && input.length >= 5
-  const [error, setError] = useState()
+  const [error, setError] = useState('')
 
   const validCoordinates = coordinates && coordinates.every(Boolean)
 
   useEffect(() => {
+    setError('')
     if (!validInput) return
-
     const asyncFetch = async () => {
       const request = await fetch(
         `https://api-adresse.data.gouv.fr/search/?q=${input}&limit=5`,
       )
       const { features } = await request.json()
+      if (features.length == 0) {
+        setError("Aucune adresse n'a été trouvée")
+      }
       setAddressResults(features)
     }
 
@@ -58,9 +62,13 @@ export default function AddressSearch({
           required: true,
           autoFocus: true,
         }}
-        state={error ? 'error' : clicked && input ? 'success' : undefined}
+        state={error != '' ? 'error' : clicked && input ? 'success' : undefined}
         stateRelatedMessage={
-          clicked && input ? 'Adresse validée' : error ? error : undefined
+          clicked && input && error == ''
+            ? 'Adresse validée'
+            : error
+              ? error
+              : undefined
         }
       />
 
@@ -76,7 +84,6 @@ export default function AddressSearch({
           <ul>
             {addressResults.map((result, i) => {
               const { label, id, context } = result.properties
-              console.log({ address: result.properties })
 
               const ambiguity = addressResults.find(
                 (result, index) =>

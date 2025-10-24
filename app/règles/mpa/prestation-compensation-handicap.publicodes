@@ -1,0 +1,47 @@
+pch:
+  titre: Prestation de compensation du handicap (PCH)
+  marque: Prestation de compensation du handicap (PCH)
+  description: |
+    La prestation de compensation du handicap (PCH) comporte un volet "Aide à l'amélioration du logement" qui est destinée à prendre en charge une partie des travaux de votre logement pour compenser votre situation de handicap.
+  lien: https://www.service-public.fr/particuliers/vosdroits/F14202
+  conditions éligibilités: |
+    Vous devez être dans l'une des situations suivantes :
+
+    - Vous rencontrez une difficulté absolue pour la réalisation d'une activité importante du quotidien parmi un référentiel d'activités (par exemple, se laver). La difficulté est qualifiée d'absolue si vous ne pouvez pas du tout réaliser l'activité.
+    - Vous rencontrez une difficulté grave pour la réalisation d'au moins 2 activités importantes du quotidien parmi un référentiel d'activités (par exemple, se laver et marcher). La difficulté à accomplir ces activités est qualifiée de grave si vous pouvez difficilement réaliser ces activités.
+    Les difficultés dans la réalisation de cette ou de ces activités doivent être définitives, ou d'une durée prévisible d'au moins 1 an.
+  
+    Vous devez avoir moins de 60 ans pour demander la PCH.
+
+    Vous pouvez toutefois demander la PCH au-delà de 60 ans et sans limite d'âge si vous remplissiez déjà les conditions d'attribution avant 60 ans ou si vous continuez à travailler.
+
+    La PCH est attribuée sans condition de ressources. Toutefois, vos ressources sont prises en compte pour déterminer le taux de prise en charge de vos dépenses pour compenser votre situation de handicap.
+
+    Ainsi, vos dépenses sont prises en charge à 100 % de leur tarif si vos ressources annuelles sont inférieures ou égales à 30 915,30 €, ou 80 % si elles sont supérieures.
+  applicable si: condition éligibilité 
+pch . montant: 
+  unité: €
+  produit:
+    - montant travaux
+    - pourcentage d'aide
+  plafond: 10000 €
+pch . revenus taux plein:
+  titre: Revenu fiscal de référence
+  question: Votre revenu fiscal de référence est-il inférieur à 30 915.30€ ?
+  sous-titre: |
+    Le revenu fiscal de référence se trouve sur la première page de votre dernier <a href="https://www.service-public.fr/particuliers/vosdroits/F99" target="_blank" title="avis d'impôt sur le revenu - nouvelle fenêtre">avis&nbsp;d'impôt&nbsp;sur&nbsp;le&nbsp;revenu</a>.
+pch . pourcentage d'aide:
+  variations:
+    - si: montant travaux <= 1500 €
+      alors:
+        variations:
+          - si: revenus taux plein 
+            alors: 100%
+          - sinon: 80%
+    - si: montant travaux > 1500 €
+      alors: 50%
+pch . montant travaux: mpa . montant travaux
+pch . condition éligibilité:
+  toutes ces conditions: 
+    - mpa . situation demandeur = 'occupant'
+    - est non défini: mpa . occupant . condition age ou handicap . pch

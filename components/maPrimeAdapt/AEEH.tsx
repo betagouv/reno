@@ -1,7 +1,6 @@
-import rules from '@/app/règles/rules'
 import AideAmpleur from '../ampleur/AideAmpleur'
 
-export default function CreditImpot({
+export default function AEEH({
   isEligible,
   engine,
   situation,
@@ -21,16 +20,6 @@ export default function CreditImpot({
         situation,
         expanded,
       }}
-    >
-      {expanded && (
-        <>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].explicationHTML,
-            }}
-          />
-        </>
-      )}
-    </AideAmpleur>
+    />
   )
 }

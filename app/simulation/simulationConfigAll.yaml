@@ -2,9 +2,16 @@ prioritaires:
   - parcours d'aide
 
   - mpa . situation demandeur
-  - mpa . bailleur . condition locataire
   - mpa . occupant . condition age ou handicap
-  - mpa . occupant . condition 15 ans
+  - mpa . bailleur . condition locataire
+
+  - MPLD . situation demandeur
+  - MPLD . bailleur . ampleur travaux
+
+  - copropriété . condition 15 ans
+  - copropriété . nombre de logements
+  - copropriété . condition résidence principale
+  - MPLD . copropriété . condition arrêté police
 
   - vous . propriétaire . statut
   - logement . propriétaire occupant

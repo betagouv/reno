@@ -1,6 +1,5 @@
 'use client'
-import calculatorIcon from '@/public/calculator-black.svg'
-import Image from 'next/image'
+
 import React from 'react'
 
 export default function CalculatorWidget({ titleAs = 'h3', children }) {
@@ -16,9 +15,10 @@ const TitleWithIcon = ({ titleAs }) => {
   return React.createElement(
     titleAs,
     { className: 'fr-callout__title' },
-    <span aria-hidden="true">
-      <Image src={calculatorIcon} alt="icone calculatrice" />
-    </span>,
+    <span
+      className="fr-icon-money-euro-circle-line fr-mr-1v"
+      aria-hidden="true"
+    ></span>,
     ' À vos calculs !',
   )
 }

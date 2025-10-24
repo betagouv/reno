@@ -58,7 +58,7 @@ CEE . rénovation d'ampleur . conditions:
   description: |
     Il n'est possible de mobiliser les primes coup de pouce « Rénovation d'ampleur » des fournisseurs d'énergie pour les ménages non éligibles à MaPrimeRénov' parcours accompagné. Ce coup de pouce s'applique en maison individuelle et en appartement.
   toutes ces conditions:
-    - MPR . accompagnée . éligible = non
+    - MPR . accompagnée . condition éligibilité = non
     - sauts >= 2
     - logement . période de construction != 'moins de 2 ans'
     # France métropolitaine seulement

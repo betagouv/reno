@@ -134,7 +134,7 @@ export default function TargetDPETable({
                     ...situation,
                     'projet . DPE visé': index + 1,
                   },
-                  dottedName: 'MPR . accompagnée . pourcent dont bonus',
+                  dottedName: 'MPR . accompagnée . pourcent',
                   state: 'none',
                 }}
               />

@@ -5,7 +5,6 @@ import localFont from 'next/font/local'
 import './globals.css'
 import { description } from './page'
 import FooterContent from '@/components/FooterContent'
-import Banner from '@/components/Banner'
 import {
   DsfrHead,
   getHtmlAttributes,
@@ -93,7 +92,6 @@ export default function RootLayout({
             ]}
           />
           <Header />
-          <Banner />
           {children}
           <Footer>
             <FooterContent />
