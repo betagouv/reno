@@ -148,7 +148,8 @@ const Bar = ({ htmlFor, background, index, selected, children }) => (
     <span>
       <span
         css={`
-          background: white;
+          ${!window.matchMedia('(prefers-color-scheme: dark)').matches &&
+          'background: white;'}
           border-radius: 50%;
           width: 25px;
           display: inline-block;
