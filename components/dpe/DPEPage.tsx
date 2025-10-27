@@ -99,7 +99,13 @@ export default function DPEPage({ numDpe: initialNumDpe }) {
           `}
         >
           <div>
-            <AddressSearch searchParams={searchParams} dpe={dpe} click={true} />
+            {false && ( // to reactivate this, we need a situation, setSituation, engine here
+              <AddressSearch
+                searchParams={searchParams}
+                dpe={dpe}
+                click={true}
+              />
+            )}
             <p>
               {dpe['type_batiment'] == 'maison'
                 ? 'maison constuite'

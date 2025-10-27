@@ -8,6 +8,7 @@ import { encodeDottedName } from '../publicodes/situationUtils'
 import { DPEAppreciationInfo, hasResult } from '../module/PlusValueModule'
 import Input from '@codegouvfr/react-dsfr/Input'
 import Select from '@codegouvfr/react-dsfr/Select'
+import DPEQuickSwitch from '../dpe/DPEQuickSwitch'
 
 const PlusValueWidget = ({
   engine,
