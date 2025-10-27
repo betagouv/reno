@@ -33,7 +33,7 @@ export default function AideDetails({
   const AideComponent = correspondance[dottedName]
 
   return (
-    <>
+    <div style={{ maxWidth: '50rem', margin: 'auto' }}>
       <AvertissementSimulation
         {...{ avertissementState, setAvertissementState }}
       />
@@ -102,6 +102,6 @@ export default function AideDetails({
         </Button>
       </div>
       <Feedback />
-    </>
+    </div>
   )
 }

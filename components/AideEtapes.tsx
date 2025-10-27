@@ -53,7 +53,7 @@ export default function AideEtapes({
   }
 
   return (
-    <>
+    <div style={{ maxWidth: '50rem', margin: 'auto' }}>
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
           Mes démarches
@@ -574,6 +574,6 @@ L'équipe MesAidesRéno`,
         />
       </div>
       <Feedback />
-    </>
+    </div>
   )
 }
