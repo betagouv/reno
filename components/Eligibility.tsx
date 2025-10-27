@@ -108,7 +108,8 @@ export default function Eligibility({
       <p>
         {hasAides ? (
           <>
-            <span aria-hidden="true">🥳</span>Vous êtes éligible aux aides ci-dessous :
+            <span aria-hidden="true">🥳</span>Vous êtes éligible aux aides
+            ci-dessous :
           </>
         ) : (
           <>Aucune aide disponible ne correspond à votre situation.</>
@@ -306,9 +307,7 @@ export function EligibilityRenovationEnergetique({
           <>
             <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
               <div className="fr-callout__title">
-                {travauxConnus
-                  ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-                  : "Avez-vous pensé à une rénovation ambitieuse ? :"}
+                Avez-vous pensé à une rénovation ambitieuse ?
               </div>
               <ul className="fr-callout__text">
                 <li>📉 Réduction des factures d'énergie</li>
