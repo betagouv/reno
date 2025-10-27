@@ -185,7 +185,7 @@ export default function Statistiques() {
           },
         },
         y: {
-          max: 40000,
+          max: 65000,
           beginAtZero: true,
           title: { display: true, text: 'Nombre de simulation' },
         },
