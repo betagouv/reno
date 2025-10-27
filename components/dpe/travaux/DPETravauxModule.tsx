@@ -24,6 +24,7 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Button from '@codegouvfr/react-dsfr/Button'
+import simulationConfig from '@/app/simulation/simulationConfig.yaml'
 
 export default function DPETravauxModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)

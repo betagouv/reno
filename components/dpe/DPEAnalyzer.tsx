@@ -29,7 +29,7 @@ export default function DPEAnalyzer() {
   const engine = new Publicodes(rules)
   const [dpe, setDpe] = useState()
   const [xml, setXml] = useState()
-  const [situation, setSituation] = useState()
+  const [situation, setSituation] = useState({})
   const rawSearchParams = useSearchParams(),
     searchParams = Object.fromEntries(rawSearchParams.entries())
 
@@ -37,6 +37,7 @@ export default function DPEAnalyzer() {
 
   const pourcentConso = (value) =>
     formatNumber((value / dpe['conso_5_usages_ep']) * 100) + '%'
+
   useEffect(() => {
     if (!dpe) return
     setSituation({
@@ -77,6 +78,9 @@ export default function DPEAnalyzer() {
         {...{
           addressResults,
           setAddressResults,
+          situation,
+          setSituation,
+          engine,
         }}
         coordinates={[searchParams.lon, searchParams.lat]}
         setCoordinates={([lon, lat]) => setSearchParams({ lon, lat })}

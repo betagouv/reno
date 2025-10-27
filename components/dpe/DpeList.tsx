@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import DPELabel from './DPELabel'
 import computeDistance from '@turf/distance'
 import enrich, { etageKey } from './enrich'
+import Link from 'next/link'
 
 const spec = {
   etiquette_dpe: { label: '' },
@@ -73,6 +74,16 @@ export default function DpeList({ dpes: rawDpes, startOpen = true, latLon }) {
                   )}
                 </li>
               </ol>
+              <Link
+                href={'/dpe/' + dpe.numero_dpe}
+                css={`
+                  position: absolute;
+                  right: 3rem;
+                  bottom: 0;
+                `}
+              >
+                Choisir
+              </Link>
               <button
                 css={`
                   position: absolute;
