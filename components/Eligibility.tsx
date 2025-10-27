@@ -42,6 +42,7 @@ export default function Eligibility({
     if (!window.matchMedia('(prefers-color-scheme: dark)').matches)
       document.body.style.backgroundColor = '#F9FAFF'
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+    return () => (document.body.style.backgroundColor = '#fff')
   }, [])
 
   const [avertissementState, setAvertissementState] = useAvertissementState()

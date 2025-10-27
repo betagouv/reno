@@ -25,6 +25,7 @@ export default function AideEtapes({
     if (!window.matchMedia('(prefers-color-scheme: dark)').matches)
       document.body.style.backgroundColor = '#F9FAFF'
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Frise'])
+    return () => (document.body.style.backgroundColor = '#fff')
   }, [])
   const [displayAll, setDisplayAll] = useState(false)
   const [copied, setCopied] = useState(false)
