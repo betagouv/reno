@@ -5,6 +5,7 @@ import AideCTAs from './AideCTAs'
 import { push } from '@socialgouv/matomo-next'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import { PrimeBadge } from '../Geste'
+import useIsMobile from '../useIsMobile'
 
 export default function AideAmpleur({
   isEligible,
@@ -17,6 +18,7 @@ export default function AideAmpleur({
   addedText = null,
   noCondition = false,
 }) {
+  const isMobile = useIsMobile()
   return (
     <>
       {expanded ? (
@@ -83,7 +85,7 @@ export default function AideAmpleur({
             <span
               css={`
                 display: flex;
-                flex-direction: row;
+                flex-direction: ${isMobile ? 'column' : 'row'};
                 justify-content: space-between;
                 width: 100%;
                 padding-right: 0.5rem;

@@ -13,6 +13,7 @@ import { getRuleName } from './publicodes/utils'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Tooltip from '@codegouvfr/react-dsfr/Tooltip'
 import getNextQuestions from './publicodes/getNextQuestions'
+import useIsMobile from './useIsMobile'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
@@ -138,6 +139,7 @@ export default function AideGeste({
   situation,
   answeredQuestions,
 }) {
+  const isMobile = useIsMobile()
   const { question, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
     engine,
     dottedName,
@@ -150,6 +152,7 @@ export default function AideGeste({
         <div
           css={`
             display: flex;
+            ${isMobile && 'flex-direction: column;'}
             justify-content: space-between;
             width: 100%;
             padding-right: 0.5rem;

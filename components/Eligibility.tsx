@@ -23,6 +23,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
+import useIsMobile from './useIsMobile'
 
 export default function Eligibility({
   nbStep,
@@ -47,7 +48,7 @@ export default function Eligibility({
         document.body.style.backgroundColor = '#fff'
     }
   }, [])
-
+  const isMobile = useIsMobile()
   const [avertissementState, setAvertissementState] = useAvertissementState()
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
@@ -174,8 +175,10 @@ export default function Eligibility({
         className="fr-mb-5v"
         css={`
           display: flex;
+          gap: 1rem;
+          ${isMobile && 'flex-direction: column-reverse;'}
           justify-content: space-between;
-          align-items: center;
+          align-items: ${isMobile ? 'flex-start' : 'center'};
         `}
       >
         <BackToLastQuestion
@@ -605,7 +608,7 @@ export function BlocEtMaintenant({
     }
   }
   return (
-    <div className="fr-callout fr-mt-5v">
+    <div className="fr-callout fr-callout--blue-cumulus fr-mt-5v">
       <h3 className="fr-callout__title fr-h5">
         <span className="fr-icon-flag-line" aria-hidden="true"></span>
         {title}
