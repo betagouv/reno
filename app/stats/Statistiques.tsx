@@ -323,6 +323,14 @@ export default function Statistiques() {
         >
           <SwiperSlide>
             <a
+              title="leboncoin"
+              href="https://www.leboncoin.fr/guide/immobilier/Renovation-energetique-leboncoin-sallie-a-Mes-Aides-Reno-pour-simplifier-vos-demarches-qdl94tpj.html"
+            >
+              <Image src={logoLeboncoin} alt="Logo leboncoin" />
+            </a>
+          </SwiperSlide>
+          <SwiperSlide>
+            <a
               title="Bon Pote"
               href="https://bonpote.com/connaitre-en-quelques-clics-les-aides-de-letat-pour-renover-son-logement/"
             >
