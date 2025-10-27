@@ -202,18 +202,20 @@ export default function Eligibility({
 
 export function SharePage({ title = 'Partager la page' }) {
   return (
-    <div className="fr-share">
+    <div className="fr-share fr-mt-5v">
       <p className="fr-share__title">{title}</p>
       <ul className="fr-btns-group">
         <li>
           <a
             id="mail-share-1"
-            href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation')}&body=${encodeURIComponent(
+            href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation pour une rénovation énergétique')}&body=${encodeURIComponent(
               `Bonjour,
 
-Veuillez retrouver votre simulation à cette adresse : 
+Voici le lien vers ma simulation MesAidesRéno pour mon projet de rénovation énergétique :
 
 ${window.location.href}
+
+ℹ️ Petite précision : oui, le lien est très long ! C'est parce qu'il contient toutes les données de la simulation. Pas d'inquiétude, c'est volontaire et sécurisé.
 
 Cordialement,
 L'équipe MesAidesRéno`,
