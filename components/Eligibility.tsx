@@ -194,8 +194,8 @@ export default function Eligibility({
           Continuer vers les démarches
         </Link>
       </div>
-      {isInIframe ? null : <Feedback />}
       <SharePage />
+      {isInIframe ? null : <Feedback />}
     </>
   )
 }
