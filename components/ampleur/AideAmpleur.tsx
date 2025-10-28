@@ -17,6 +17,8 @@ export default function AideAmpleur({
   expanded,
   addedText = null,
   noCondition = false,
+  noDescription = false,
+  calculette,
 }) {
   const isMobile = useIsMobile()
   return (
@@ -42,6 +44,7 @@ export default function AideAmpleur({
               />
             </h1>
           </div>
+          {calculette && calculette}
           <h2 className="fr-mt-5">
             <span
               aria-hidden="true"
@@ -110,11 +113,13 @@ export default function AideAmpleur({
             ])
           }}
         >
-          <div
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].descriptionHtml,
-            }}
-          />
+          {!noDescription && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: rules[dottedName].descriptionHtml,
+              }}
+            />
+          )}
           {typeof addedText === 'object' ? (
             addedText
           ) : (

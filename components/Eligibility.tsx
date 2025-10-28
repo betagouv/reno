@@ -344,6 +344,7 @@ export function EligibilityRenovationEnergetique({
                   situation,
                   answeredQuestions,
                   expanded,
+                  noDescription: true,
                 }}
               />
               {!isTMO && (
