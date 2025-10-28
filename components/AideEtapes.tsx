@@ -236,7 +236,7 @@ L'équipe MesAidesRéno`,
           </p>
         </Card>
         <Card $background="#E8EDFF">
-          <Badge noIcon>prochaine étape</Badge>
+          <p className="fr-badge fr-badge--purple-glycine">prochaine étape</p>
           <h3 className="fr-h5 fr-mt-3v">
             <span
               className="fr-icon-user-line fr-mr-1v"
