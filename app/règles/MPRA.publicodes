@@ -42,6 +42,8 @@ MPR . accompagnée . bénéficiaire:
   titre: Ménage bénéficiaire de MaPrimeRénov' parcours accompagné
   par défaut: oui
 
+MPR . accompagnée . éligible: condition éligibilité
+
 MPR . accompagnée . condition éligibilité:
   titre: Éligible parcours accompagné
   formule: conditions
