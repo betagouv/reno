@@ -71,7 +71,7 @@ export default function AideEtapes({
           data-fr-steps={nbStep}
         ></div>
       </div>
-      <h2>Les étapes clés de la rénovation énergétique</h2>
+      <h2>Les étapes clés de votre rénovation énergétique</h2>
       <div
         className="fr-mb-5v"
         css={`
