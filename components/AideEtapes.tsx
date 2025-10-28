@@ -334,16 +334,32 @@ L'équipe MesAidesRéno`,
           )
         )}
         {!displayAll && (
-          <Button
-            priority="tertiary"
-            onClick={() => setDisplayAll(!displayAll)}
-          >
-            Afficher les étapes suivantes{' '}
+          <>
             <span
               className="fr-icon-arrow-down-s-line"
+              css={`
+                color: var(--color);
+                position: absolute;
+                margin-left: -2.33rem;
+                margin-top: 1rem;
+                &::before {
+                  --icon-size: 20px;
+                  zoom: 2;
+                }
+              `}
               aria-hidden="true"
-            ></span>
-          </Button>
+            ></span>{' '}
+            <Button
+              priority="tertiary"
+              onClick={() => setDisplayAll(!displayAll)}
+            >
+              Afficher les étapes suivantes{' '}
+              <span
+                className="fr-icon-arrow-down-s-line"
+                aria-hidden="true"
+              ></span>
+            </Button>
+          </>
         )}
         {displayAll && (
           <>
