@@ -109,7 +109,7 @@ export default function Eligibility({
           Rénov'.
         </p>
       </BlocEtMaintenant>
-      <p>
+      <p className="fr-mt-15v">
         {hasAides ? (
           <>
             <span aria-hidden="true">🥳</span>Vous êtes éligible aux aides
@@ -172,7 +172,7 @@ export default function Eligibility({
         </ul>
       </BlocEtMaintenant>
       <div
-        className="fr-mb-5v"
+        className="fr-my-15v"
         css={`
           display: flex;
           gap: 1rem;
@@ -200,7 +200,9 @@ export default function Eligibility({
           Continuer vers les démarches
         </Link>
       </div>
-      <SharePage />
+      <div className="fr-mt-20v fr-mb-30v">
+        <SharePage />
+      </div>
       {isInIframe ? null : <Feedback />}
     </>
   )

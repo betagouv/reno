@@ -97,15 +97,8 @@ export default function AideEtapes({
       >
         <div
           className="fr-mb-3v"
-          style={{ display: 'flex', justifyContent: 'space-between' }}
+          style={{ display: 'flex', justifyContent: 'flex-end' }}
         >
-          <div>
-            <span
-              className="fr-icon-success-line fr-mr-1v"
-              aria-hidden="true"
-            ></span>{' '}
-            Simulation réalisée le {curDate}
-          </div>
           <button
             aria-controls="modal-0"
             data-fr-opened="false"
@@ -212,7 +205,7 @@ L'équipe MesAidesRéno`,
           <Badge severity="success">Terminé</Badge>
           <h3 className="fr-h5 fr-mt-3v">
             <span className="fr-icon-lightbulb-line" aria-hidden="true"></span>
-            Vous êtes éligibles à plusieurs aides pour vos travaux
+            Vous avez simulé vos aides le {curDate}
           </h3>
           <p className="fr-my-1v">
             Vous avez réalisé votre simulation et découvert vos aides éligibles.
@@ -582,8 +575,10 @@ L'équipe MesAidesRéno`,
           </>
         )}
       </div>
-      <SharePage title="Partager la simulation" />
-      <div className="fr-my-10v">
+      <div className="fr-mt-20v fr-mb-10v">
+        <SharePage title="Partager la simulation" />
+      </div>
+      <div className="fr-mb-10v">
         <BtnBackToParcoursChoice
           {...{
             setSearchParams,

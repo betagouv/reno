@@ -34,7 +34,7 @@ export default function Feedback({
   }
 
   return (
-    <div className="fr-callout fr-callout--yellow-tournesol">
+    <div className="fr-callout fr-callout--yellow-tournesol fr-mb-15v">
       <form
         id="form-feedback"
         className="fr-callout__text fr-mt-5v"

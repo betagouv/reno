@@ -2,10 +2,8 @@ import { getAllArticles } from '@/app/blog/articles'
 import { Footer } from '@codegouvfr/react-dsfr/Footer'
 
 export default async function FooterContent() {
-  const sortedArticles = await getAllArticles()
-
   return (
-    <>
+    <div className="fr-mt-20v">
       <Footer
         accessibility="partially compliant"
         accessibilityLinkProps={{
@@ -94,7 +92,7 @@ export default async function FooterContent() {
               l'ANAH
             </a>
             .
-            <br /> 
+            <br />
             <a
               title="Code source MesAidesRéno sur Github - nouvelle fenêtre"
               href="https://github.com/betagouv/reno"
@@ -102,7 +100,8 @@ export default async function FooterContent() {
               target="_blank"
             >
               Le code source est disponible
-            </a> en licence libre
+            </a>{' '}
+            en licence libre
           </>
         }
         operatorLogo={{
@@ -145,6 +144,6 @@ export default async function FooterContent() {
           ],
         }}
       />
-    </>
+    </div>
   )
 }

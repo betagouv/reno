@@ -29,7 +29,7 @@ export const cardBorder = `
 `
 export const Card = styled.div`
   position: relative;
-  margin: 0.6rem 0;
+  margin: 1rem 0 3rem 0;
   padding: 1rem 1.5rem;
   background: white;
   ${(p) => (p.$background ? `background: ${p.$background};` : '')}

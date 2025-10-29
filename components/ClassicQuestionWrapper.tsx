@@ -174,7 +174,7 @@ export default function ClassicQuestionWrapper({
       <Notifications {...{ currentQuestion, engine }} />
       <section
         css={`
-          margin-top: 8vh;
+          margin-top: 10vh;
         `}
       >
         <QuestionDescription {...{ currentQuestion, rule }} />
