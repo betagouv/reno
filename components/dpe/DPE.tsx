@@ -148,7 +148,8 @@ const Bar = ({ htmlFor, background, index, selected, children }) => (
     <span>
       <span
         css={`
-          ${!window.matchMedia('(prefers-color-scheme: dark)').matches &&
+          ${typeof window !== 'undefined' &&
+          !window.matchMedia('(prefers-color-scheme: dark)').matches &&
           'background: white;'}
           border-radius: 50%;
           width: 25px;
