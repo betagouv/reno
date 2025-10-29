@@ -13,7 +13,7 @@ import {
 } from 'chart.js'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import 'chartjs-adapter-date-fns'
-import logoLeboncoin from '@/public/logo-partenaire/logoleboncoin.jpg'
+import logoLeboncoin from '@/public/logo-partenaire/logo-leboncoin.jpg'
 import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
 import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
 import logoTf1Info from '@/public/logo-partenaire/logo-tf1-info.svg'
