@@ -22,6 +22,7 @@ import { AvanceTMO } from './mprg/BlocAideMPR'
 import { decodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import { categories, getCurDate, getRulesByCategory } from './utils'
+import { textValueEquality } from './publicodes/utils'
 
 export default function Eligibility({
   nbStep,
@@ -254,7 +255,12 @@ export function EligibilityRenovationEnergetique({
   searchParams,
   expanded,
 }) {
-  const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
+  const travauxConnus = !textValueEquality(
+    situation['projet . définition'],
+    'travaux inconnus',
+  )
+
+  console.log(travauxConnus)
 
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true

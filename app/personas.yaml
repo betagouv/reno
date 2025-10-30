@@ -709,7 +709,7 @@
     logement . résidence principale propriétaire: oui
     vous . propriétaire . statut: "'propriétaire'"
     logement . propriétaire occupant: oui
-    projet . définition: "'travaux inconnus'"
+    projet . définition: '"travaux inconnus"'
     logement . type: "'maison'"
     logement . surface: 87
     logement . période de construction: "'de 2 à 10 ans'"
