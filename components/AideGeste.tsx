@@ -10,7 +10,6 @@ import getNextQuestions from './publicodes/getNextQuestions'
 import { getRuleName } from './publicodes/utils'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
-  console.log('EVAL prime')
   let infoCEE, infoMPR, montantTotal, isExactTotal
   // Tant que MPA/MPLD ne sont pas intégré au simulateur principal, il faut forcer le parcours d'aide pour MPR
   if (!situation["parcours d'aide"]) {

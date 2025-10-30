@@ -108,14 +108,19 @@ export default function BonusOutreMer({
     <div className="fr-col-6">
       <BlocAide display="geste">
         <div className="aide-header">
-          <OutreMerImage
-            codeRégion={situation['logement . code région']?.replace(/"/g, '')}
-          />
           <div>
-            <h4 className="fr-m-0">Prime {dispositif}</h4>
-            <Badge noIcon severity={'success'}>
-              Prime {isMinimum ? 'minimum ' : ''}de {value}
-            </Badge>
+            <OutreMerImage
+              codeRégion={situation['logement . code région']?.replace(
+                /"/g,
+                '',
+              )}
+            />
+            <div>
+              <h4 className="fr-m-0">Prime {dispositif}</h4>
+              <Badge noIcon severity={'success'}>
+                Prime {isMinimum ? 'minimum ' : ''}de {value}
+              </Badge>
+            </div>
           </div>
           <div className="aide-details">
             {withAnsweredQuestions?.map((question, idx) => (
