@@ -13,6 +13,7 @@ import {
 } from 'chart.js'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import 'chartjs-adapter-date-fns'
+import logoLeboncoin from '@/public/logo-partenaire/logo-leboncoin.jpg'
 import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
 import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
 import logoTf1Info from '@/public/logo-partenaire/logo-tf1-info.svg'
@@ -185,7 +186,7 @@ export default function Statistiques() {
           },
         },
         y: {
-          max: 40000,
+          max: 65000,
           beginAtZero: true,
           title: { display: true, text: 'Nombre de simulation' },
         },
@@ -320,6 +321,14 @@ export default function Statistiques() {
             }
           `}
         >
+          <SwiperSlide>
+            <a
+              title="leboncoin"
+              href="https://www.leboncoin.fr/guide/immobilier/Renovation-energetique-leboncoin-sallie-a-Mes-Aides-Reno-pour-simplifier-vos-demarches-qdl94tpj.html"
+            >
+              <Image src={logoLeboncoin} alt="Logo leboncoin" />
+            </a>
+          </SwiperSlide>
           <SwiperSlide>
             <a
               title="Bon Pote"
