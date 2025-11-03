@@ -89,6 +89,7 @@ export default function AideAmpleur({
               css={`
                 display: flex;
                 flex-direction: ${isMobile ? 'column' : 'row'};
+                ${isMobile && 'gap:0.5rem;'}
                 justify-content: space-between;
                 width: 100%;
                 padding-right: 0.5rem;

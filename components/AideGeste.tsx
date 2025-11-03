@@ -146,7 +146,7 @@ export default function AideGeste({
         <div
           css={`
             display: flex;
-            ${isMobile && 'flex-direction: column;'}
+            ${isMobile && 'flex-direction: column;gap:0.5rem;'}
             justify-content: space-between;
             width: 100%;
             padding-right: 0.5rem;

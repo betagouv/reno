@@ -51,7 +51,7 @@ export const BlocAide = styled.div`
   }
   .aide-header {
     display: flex;
-    ${(p) => p.isMobile && "flex-direction: column;"}
+    ${(p) => p.isMobile && 'flex-direction: column;'}
     ${(p) => p.display == "geste" ? 'justify-content: space-between;' : 'align-items: center;gap: 1rem;'}
     width: 100%;
     padding-right: 0.5rem;
