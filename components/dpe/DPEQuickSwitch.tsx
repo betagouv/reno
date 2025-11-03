@@ -28,7 +28,7 @@ export default function DPEQuickSwitch({
       legend={text}
       options={possibilities.map((el, index) => {
         return {
-          label: <DPELabel index={el} small={false} />,
+          label: <DPELabel index={el} small={true} />,
           nativeInputProps: {
             value: el + 1,
             checked: el + 1 == situation['DPE . actuel'],
@@ -50,8 +50,8 @@ export default function DPEQuickSwitch({
       name={`radio-${encodeDottedName('DPE . actuel')}`}
       disabled={disabled}
       state={!noSuccess && situation['DPE . actuel'] && !disabled && 'success'}
-      stateRelatedMessage=""
       orientation="horizontal"
+      className="fr-mb-0"
     />
   )
 }

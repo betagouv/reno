@@ -616,7 +616,7 @@ export function BlocEtMaintenant({
   return (
     <div className="fr-callout fr-callout--blue-cumulus fr-mt-5v">
       <h3 className="fr-callout__title fr-h5">
-        <span className="fr-icon-flag-line" aria-hidden="true"></span>
+        <span className="fr-icon-flag-line fr-mr-2v" aria-hidden="true"></span>
         {title}
       </h3>
       {children}

@@ -15,7 +15,13 @@ export default ({
   const missingVariables = evaluation.missingVariables
   const missing = Object.entries(missingVariables)
 
-  return state == 'normal' ? (
+  return state == 'empty' ? (
+    value != 'Pas encore défini' ? (
+      value
+    ) : (
+      '...'
+    )
+  ) : state == 'normal' ? (
     <strong>{value != 'Pas encore défini' ? value : '...'}</strong>
   ) : (
     <Badge

@@ -6,6 +6,7 @@ import { Card } from '../UI'
 import Value from '../Value'
 import AideAmpleur from './AideAmpleur'
 import { BlocEtMaintenant } from '../Eligibility'
+import useIsMobile from '../useIsMobile'
 
 export default function MPRA({
   isEligible,
@@ -15,6 +16,7 @@ export default function MPRA({
   situation,
   expanded,
 }) {
+  const isMobile = useIsMobile()
   const dottedName = 'MPR . accompagnée'
   const isTMO =
     engine.setSituation(situation).evaluate('ménage . revenu . classe')
@@ -32,31 +34,34 @@ export default function MPRA({
           answeredQuestions,
           expanded,
           calculette: (
-            <DPEScenario
-              {...{
-                rules,
-                engine,
-                situation,
-                setSearchParams,
-                answeredQuestions,
-              }}
-            />
+            <>
+              <DPEScenario
+                {...{
+                  rules,
+                  engine,
+                  situation,
+                  setSearchParams,
+                  answeredQuestions,
+                  isMobile,
+                }}
+              />
+              {!isTMO && (
+                <div className="fr-alert fr-alert--info fr-my-10v">
+                  <div className="fr-alert__title">
+                    Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+                  </div>
+                  <p>
+                    Aujourd’hui, seuls les ménages très modestes peuvent en
+                    bénéficier. L’aide pourrait s’ouvrir aux autres revenus
+                    d’ici fin 2025. Revenez régulièrement, le simulateur sera
+                    mis à jour.
+                  </p>
+                </div>
+              )}
+            </>
           ),
         }}
       >
-        {!isTMO && (
-          <div className="fr-alert fr-alert--info fr-mb-5v">
-            <div className="fr-alert__title">
-              Qui peut avoir MaPrimeRénov’ parcours accompagné ?
-            </div>
-            <p>
-              Jusqu'au 31 décembre 2025 seuls les ménages très modestes peuvent
-              en bénéficier. L’aide pourrait réouvrir aux autres catégories de
-              revenus début 2026.
-            </p>
-          </div>
-        )}
-
         <Card
           css={`
             background: #f4efff;
