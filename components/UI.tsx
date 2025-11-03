@@ -45,10 +45,13 @@ export const PageBlock = ({children}) => {
 }
 
 export const BlocAide = styled.div`
-  ${(p) => p.display != "geste" && 
-    'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);'}
+  ${(p) => p.display != "geste" ? 
+    'padding: 1.5rem 1.5rem 1.75rem;border: 1px solid #ddd;border-bottom: 3px solid var(--color);':
+    'padding: 0 1rem;'
+  }
   .aide-header {
     display: flex;
+    ${(p) => p.isMobile && "flex-direction: column;"}
     ${(p) => p.display == "geste" ? 'justify-content: space-between;' : 'align-items: center;gap: 1rem;'}
     width: 100%;
     padding-right: 0.5rem;

@@ -3,15 +3,9 @@ import { BlocAide } from './UI'
 import { formatValue } from 'publicodes'
 import { push } from '@socialgouv/matomo-next'
 import { PrimeBadge } from './Geste'
-import mprImage from '@/public/maprimerenov.svg'
-import ceeImage from '@/public/cee.svg'
-import Image from 'next/image'
-import coupDePouceImage from '@/public/cee-coup-de-pouce.svg'
 import GesteQuestion from './GesteQuestion'
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { getRuleName } from './publicodes/utils'
-import Badge from '@codegouvfr/react-dsfr/Badge'
-import Tooltip from '@codegouvfr/react-dsfr/Tooltip'
 import getNextQuestions from './publicodes/getNextQuestions'
 import useIsMobile from './useIsMobile'
 
@@ -191,30 +185,32 @@ export default function AideGeste({
       )}
       <div className="fr-grid-row fr-grid-row--gutters">
         {infoMPR && (
-          <div className="fr-col-6">
+          <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
             <BlocAideMPR
               {...{
                 infoMPR,
                 engine,
                 situation,
+                isMobile,
               }}
             />
           </div>
         )}
         {montantCoupDePouce && (
-          <div className="fr-col-6">
+          <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
             <BlocAideCoupDePouce
               {...{
                 montantCoupDePouce,
                 engine,
                 situation,
                 dottedName,
+                isMobile,
               }}
             />
           </div>
         )}
         {infoCEE && (
-          <div className="fr-col-6">
+          <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
             <BlocAideCEE
               {...{
                 infoCEE,
@@ -223,6 +219,7 @@ export default function AideGeste({
                 dottedName,
                 answeredQuestions,
                 setSearchParams,
+                isMobile,
               }}
             />
           </div>
@@ -232,8 +229,8 @@ export default function AideGeste({
   )
 }
 
-const BlocAideMPR = ({ infoMPR, engine, situation }) => (
-  <BlocAide display="geste">
+const BlocAideMPR = ({ infoMPR, engine, situation, isMobile }) => (
+  <BlocAide display="geste" isMobile={isMobile}>
     <div className="aide-header">
       <h4 className="fr-m-0 fr-h6">MaPrimeRénov'</h4>
       <PrimeBadge
@@ -254,12 +251,12 @@ const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   </BlocAide>
 )
 
-const BlocAideCoupDePouce = ({ engine, situation, dottedName }) => {
+const BlocAideCoupDePouce = ({ engine, situation, dottedName, isMobile }) => {
   const remplacementChaudiere =
     rules['CEE . projet . remplacement chaudière thermique'].titre
 
   return (
-    <BlocAide display="geste">
+    <BlocAide display="geste" isMobile={isMobile}>
       <div className="aide-header">
         <h4 className="fr-m-0 fr-h6">Prime Coup de pouce</h4>
         <PrimeBadge
@@ -289,10 +286,11 @@ const BlocAideCEE = ({
   answeredQuestions,
   setSearchParams,
   dottedName,
+  isMobile,
 }) => {
   const isApplicable = infoCEE.montant !== 'Non applicable'
   return (
-    <BlocAide display="geste">
+    <BlocAide display="geste" isMobile={isMobile}>
       <div className="aide-header">
         <h4 className="fr-m-0 fr-h6">Prime CEE *</h4>
         <PrimeBadge
