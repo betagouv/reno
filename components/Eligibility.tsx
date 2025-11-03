@@ -155,6 +155,7 @@ export default function Eligibility({
             setSearchParams,
             searchParams,
             expanded,
+            isMobile,
           }}
         />
       )}
@@ -265,6 +266,7 @@ export function EligibilityRenovationEnergetique({
   setSearchParams,
   searchParams,
   expanded,
+  isMobile,
 }) {
   const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
 
@@ -390,6 +392,7 @@ export function EligibilityRenovationEnergetique({
               answeredQuestions,
               engine,
               setSearchParams,
+              isMobile,
             }}
           />
         )}
@@ -751,6 +754,7 @@ export function TravauxInconnus({
   answeredQuestions,
   engine,
   setSearchParams,
+  isMobile,
 }) {
   const [showAllByCategory, setShowAllByCategory] = useState({})
   const handleShowAll = (category) => {
@@ -787,6 +791,7 @@ export function TravauxInconnus({
             priority="secondary"
             title="Afficher les aides"
             onClick={() => handleShowAll(category)}
+            className={`${isMobile && 'fr-px-2v'}`}
           >
             {showAllByCategory[category] ? 'Cacher' : 'Afficher'} toutes les
             aides {categories.find((c) => c.titre == category).suffix}
