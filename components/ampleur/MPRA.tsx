@@ -99,7 +99,7 @@ export default function MPRA({
             .
           </p>
           <Link
-            className="fr-btn fr-btn--secondary"
+            className="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right"
             href={setSearchParams(
               {
                 ...encodeSituation(
@@ -115,7 +115,7 @@ export default function MPRA({
               true,
             )}
           >
-            En savoir plus sur l'aide <span aria-hidden="true">➞</span>
+            En savoir plus sur l'aide
           </Link>
         </Card>
         {/*  <Écrêtement {...{ engine, rules, situation }} /> */}

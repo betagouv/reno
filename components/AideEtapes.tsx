@@ -205,17 +205,13 @@ L'équipe MesAidesRéno`,
           <Badge severity="success">Terminé</Badge>
           <h3 className="fr-h5 fr-mt-3v">
             <span className="fr-icon-lightbulb-line" aria-hidden="true"></span>
-            Vous avez simulé vos aides le {curDate}
+            Vous avez simulé vos aides le {curDate.replaceAll('-', '/')}
           </h3>
-          <p className="fr-my-1v">
-            Vous avez réalisé votre simulation et découvert vos aides éligibles.
-          </p>
           <p
             className="fr-badge fr-badge--new fr-py-3v fr-my-3v"
             style={{ width: '100%', textTransform: 'none' }}
           >
-            Certaines aides sont encore à compléter pour connaître vos montants
-            exacts.
+            Il reste des aides à compléter pour connaître leur montant.
           </p>
           <p>
             <BtnBackToParcoursChoice
@@ -235,18 +231,13 @@ L'équipe MesAidesRéno`,
               className="fr-icon-user-line fr-mr-1v"
               aria-hidden="true"
             ></span>
-            Un conseiller France Rénov' vous accompagne
+            Rencontrez votre conseiller France Rénov’
           </h3>
-          <p>
-            Neutres et gratuits, il existe plus de 600 Espaces conseil France
-            Rénov' en France pour vous aider à :
-          </p>
-          <ul>
-            <li>👷 élaborer votre projet de rénovation,</li>
-            <li>💰 trouver des aides financières pour votre projet,</li>
-            <li>🥇 choisir les professionnels compétents.</li>
-          </ul>
           <BlocConseiller situation={situation} />
+          <p className="fr-mt-5v">
+            ℹ️ Plus de 600 conseillers France Rénov' vous accompagnent
+            gratuitement : projet, aides financières, choix des professionnels.
+          </p>
         </Card>
         {hasMPA && situation['mpa . situation demandeur'] == '"occupant"' && (
           <Card>
@@ -308,21 +299,14 @@ L'équipe MesAidesRéno`,
                   className="fr-icon-draft-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
-                Votre projet prend forme. Demandez des devis
+                Demandez des devis
               </h3>
               <p>
-                Après votre rendez-vous avec un conseiller, contactez des
-                artisans RGE pour obtenir leurs devis.
-              </p>
-              <p>
+                Demandez plusieurs devis à des artisans RGE.
                 {hasMPRA &&
-                  "Votre Accompagnateur Rénov' vous aidera à choisir les plus adaptés pour la suite de votre projet."}
+                  "Votre Accompagnateur Rénov' vous aide à choisir les meilleures offres."}
               </p>
-              {hasMPRA && (
-                <p>
-                  <strong>Important</strong> : ne signez pas encore les devis.
-                </p>
-              )}
+              {hasMPRA && <p>⚠️ Ne signez pas encore les devis.</p>}
             </Card>
           )
         )}
@@ -364,7 +348,7 @@ L'équipe MesAidesRéno`,
                       className="fr-icon-send-plane-line fr-mr-1v"
                       aria-hidden="true"
                     ></span>
-                    Je dépose le dossier auprès de l'Anah
+                    Déposez votre dossier auprès de l'Anah
                   </h3>
                   {hasMPA && (
                     <p>
@@ -375,11 +359,10 @@ L'équipe MesAidesRéno`,
                   )}
                   {hasMPRA && (
                     <p>
-                      Vous pouvez le faire avec l'aide de votre Accompagnateur
-                      Rénov', votre mandataire ou directement depuis la
-                      plateforme que vous a communiqué le conseiller. Les
-                      dossiers les mieux préparés sont instruits plus
-                      rapidement.
+                      Faites-vous accompagner par votre Accompagnateur Rénov',
+                      votre mandataire ou déposez-le directement sur la
+                      plateforme. Les dossiers les mieux préparés sont instruits
+                      plus rapidement.
                     </p>
                   )}
                 </Card>
@@ -390,7 +373,7 @@ L'équipe MesAidesRéno`,
                       className="fr-icon-checkbox-circle-line fr-mr-1v"
                       aria-hidden="true"
                     ></span>
-                    L'Anah instruit et valide votre dossier
+                    L'Anah instruit votre dossier
                   </h3>
                   <p>
                     {hasMPRA ? (
@@ -452,9 +435,8 @@ L'équipe MesAidesRéno`,
                     className="fr-icon-pen-nib-line fr-mr-1v"
                     aria-hidden="true"
                   ></span>
-                  Je signe les devis, et planifie les travaux avec les artisans
+                  Signez les devis et planifiez les travaux
                 </h3>
-                <p>C'est parti ! Les travaux vont bientôt commencer.</p>
               </Card>
             )}
             {hasPret && (
@@ -465,18 +447,14 @@ L'équipe MesAidesRéno`,
                     className="fr-icon-money-euro-circle-line fr-mr-1v"
                     aria-hidden="true"
                   ></span>
-                  Recevez le prêt et démarrez les travaux
+                  Recevez les avances et démarrez les travaux
                 </h3>
                 {hasMPRA ? (
                   <>
                     <p>
-                      Si vous êtes éligible, la banque vous verse le montant de
-                      votre Eco-PTZ.
-                      <br />
-                      L'Anah vous verse l'avance MaPrimeRénov'.
-                      <br />
-                      Vous pouvez payer l'acompte aux artisans. Les travaux
-                      débutent !
+                      Si vous êtes éligible, vous recevez l'Éco-PTZ de votre
+                      banque et l'avance MaPrimeRénov' de l'Anah pour démarrer
+                      le chantier !
                     </p>
                   </>
                 ) : (
@@ -514,25 +492,27 @@ L'équipe MesAidesRéno`,
                   className="fr-icon-warning-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
-                Fin des travaux ! Votre logement est{' '}
+                Travaux terminés : profitez de votre logement
                 {hasMPA ? 'adapté' : 'rénové'}
               </h3>
-              <p>Dès les premiers mois, profitez de nombreux bénéfices :</p>
               {hasMPA ? (
-                <ul>
-                  <li>
-                    🧘 Un logement plus sûr et mieux adapté à vos besoins
-                    quotidiens
-                  </li>
-                  <li>🍀 Plus d'autonomie et de confort</li>
-                  <li>🥇 Une meilleure valorisation de votre bien</li>
-                </ul>
+                <>
+                  <p>Dès les premiers mois, profitez de nombreux bénéfices :</p>
+                  <ul>
+                    <li>
+                      🧘 Un logement plus sûr et mieux adapté à vos besoins
+                      quotidiens
+                    </li>
+                    <li>🍀 Plus d'autonomie et de confort</li>
+                    <li>🥇 Une meilleure valorisation de votre bien</li>
+                  </ul>
+                </>
               ) : (
-                <ul>
-                  <li>🧘 Plus de confort, en hiver comme en été</li>
-                  <li>🍀 Un logement plus respectueux de l'environnement</li>
-                  <li>🥇 Une meilleure valorisation de votre bien</li>
-                </ul>
+                <>
+                  Confort thermique, économies d'énergie, valorisation
+                  immobilière : les premiers effets se font sentir dès les
+                  premiers mois.
+                </>
               )}
             </Card>
             <Card>
@@ -564,12 +544,8 @@ L'équipe MesAidesRéno`,
                     className="fr-icon-bank-card-line fr-mr-1v"
                     aria-hidden="true"
                   ></span>
-                  Remboursement du prêt
+                  Remboursez votre prêt
                 </h3>
-                <p>
-                  Vous continuez de rembourser votre prêt, tout en réalisant
-                  déjà des économies d'énergie&nbsp;⚡️.
-                </p>
               </Card>
             )}
           </>
