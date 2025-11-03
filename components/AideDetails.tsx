@@ -4,7 +4,7 @@ import { decodeDottedName } from './publicodes/situationUtils'
 import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
-import { BlocEtMaintenant } from './Eligibility'
+import { BlocEtMaintenant, SharePage } from './Eligibility'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
@@ -102,6 +102,10 @@ export default function AideDetails({
         >
           Voir mes démarches
         </Button>
+      </div>
+
+      <div className="fr-mt-20v fr-mb-30v">
+        <SharePage title="Partager la simulation" />
       </div>
       <Feedback />
     </div>
