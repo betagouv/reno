@@ -70,7 +70,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     : rules[questionRule]
       ? questionRule
       : undefined
-
+  let questions = [question].concat(infoCEE?.questions).filter(Boolean)
   if (typeof rules[dottedNameMpr] !== 'undefined') {
     const questions = getNextQuestions(
       engine.setSituation(situation).evaluate(dottedNameMpr + ' . montant'),
@@ -122,6 +122,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     infoMPR,
     eligibleMPRG,
     question,
+    questions,
     hasCoupDePouce,
   }
 }
@@ -134,7 +135,7 @@ export default function AideGeste({
   answeredQuestions,
 }) {
   const isMobile = useIsMobile()
-  const { question, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
+  const { questions, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
     engine,
     dottedName,
     situation,
@@ -171,7 +172,7 @@ export default function AideGeste({
         ])
       }}
     >
-      {question && (
+      {questions?.map((question) => (
         <GesteQuestion
           {...{
             rules,
@@ -182,7 +183,7 @@ export default function AideGeste({
             answeredQuestions,
           }}
         />
-      )}
+      ))}
       <div className="fr-grid-row fr-grid-row--gutters">
         {infoMPR && (
           <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
@@ -305,7 +306,7 @@ const BlocAideCEE = ({
       {isApplicable && (
         <div className="aide-details">
           * Certificats d'Économie d'Énergie
-          {infoCEE.questions?.map((question, idx) => (
+          {/* {infoCEE.questions?.map((question, idx) => (
             <GesteQuestion
               key={idx}
               {...{
@@ -317,7 +318,7 @@ const BlocAideCEE = ({
                 setSearchParams,
               }}
             />
-          ))}
+          ))} */}
         </div>
       )}
     </BlocAide>
