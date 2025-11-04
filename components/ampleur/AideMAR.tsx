@@ -1,4 +1,3 @@
-import { Card } from '../UI'
 import Value from '../Value'
 import AideAmpleur from './AideAmpleur'
 
@@ -23,61 +22,52 @@ export default function AideMAR({
         expanded,
       }}
     >
-      {' '}
       {expanded && (
-        <p>
-          Votre Accompagnateur Rénov' évalue avec vous vos besoins, vous aide à
-          mobiliser les aides, dont MaPrimeRénov', pour financer vos travaux et
-          s'assure de leur qualité et de leur concordance par rapport à l'audit
-          énergétique.
-        </p>
-      )}
-      {expanded && (
-        <Card>
+        <>
           <p>
-            Par exemple : pour une prestation Mon Accompagnateur Rénov' de{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: dottedName + ' . prix moyen',
-              }}
-            />
-            , en tant que ménage{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: 'ménage . revenu . classe',
-              }}
-            />{' '}
-            vous bénéficiez d'une aide de{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: dottedName + ' . pourcent',
-              }}
-            />{' '}
-            appliquée à une assiette de subvention plafonnée à{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: dottedName + ' . plafond',
-              }}
-            />
-            soit{' '}
-            <Value
-              {...{
-                engine,
-                situation,
-                dottedName: dottedName + ' . montant',
-              }}
-            />{' '}
-            d'aide.
+            Votre Accompagnateur Rénov' évalue avec vous vos besoins, vous aide
+            à mobiliser les aides, dont MaPrimeRénov', pour financer vos travaux
+            et s'assure de leur qualité et de leur concordance par rapport à
+            l'audit énergétique.
           </p>
-        </Card>
+          <div className="fr-callout">
+            <p className="fr-callout__text">
+              Dans votre cas : en tant que ménage{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: 'ménage . revenu . classe',
+                }}
+              />{' '}
+              vous bénéficiez d'une aide de{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: dottedName + ' . pourcent',
+                }}
+              />{' '}
+              pour une prestation Mon Accompagnateur Rénov' de maximum{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: dottedName + ' . plafond',
+                }}
+              />{' '}
+              , soit{' '}
+              <Value
+                {...{
+                  engine,
+                  situation,
+                  dottedName: dottedName + ' . montant',
+                }}
+              />{' '}
+              d'aide.
+            </p>
+          </div>
+        </>
       )}
     </AideAmpleur>
   )
