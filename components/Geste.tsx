@@ -24,7 +24,6 @@ export const PrimeBadge = ({ engine, dottedName, situation, montantSeul }) => {
       .setSituation(situation)
       .evaluate('denormandie . taux').nodeValue
   }
-
   const status =
     dottedName == 'aides locales'
       ? ''

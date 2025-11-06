@@ -106,7 +106,7 @@ function Form({ rules, simulationConfig }) {
       />
     )
   }
-  console.log('EVAL form')
+
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,
@@ -114,7 +114,6 @@ function Form({ rules, simulationConfig }) {
       simulationConfig,
     )
 
-  console.log('missingVariables', evaluation.missingVariables)
   const currentQuestion = objectif
     ? decodeDottedName(objectif)
     : nextQuestions[0]

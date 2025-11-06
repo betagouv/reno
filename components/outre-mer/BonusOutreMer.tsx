@@ -32,12 +32,10 @@ export default function BonusOutreMer({
   const hasSurface = surfaceKeyEntry && situation[surfaceKeyEntry[0]]
   const key = surfaceKeyEntry ? (hasSurface ? 'montant' : 'barème') : 'montant'
 
-  console.log(dottedName, { hasSurface, surfaceKeyEntry })
   const valueDottedName = bonusDottedName + ' . ' + key,
     valueRule = rules[valueDottedName]
   useEffect(() => {
     if (bonusRule === undefined) return
-    console.log('EVAL bom')
     const evaluation = engine.setSituation(situation).evaluate(valueDottedName)
 
     const eligibleEvaluation = engine.evaluate(bonusDottedName + ' . montant')
@@ -102,7 +100,7 @@ export default function BonusOutreMer({
   const isMinimum = valueRule['borne minimum'] === 'oui'
 
   //TODO problème, les questions disparaissent. C'est sûrement la raison de la gestion via . questions: des autres composants. On va pas laisser ça comme ça.
-  console.log('indigo', value, relevantAnsweredQuestions, relevantQuestions)
+  //console.log('indigo', value, relevantAnsweredQuestions, relevantQuestions)
 
   return (
     <div className="fr-col-6">

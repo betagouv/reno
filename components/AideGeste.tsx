@@ -111,14 +111,14 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     ).length === 0
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
 
-  console.log(
-    'PrimeBadge',
-    dottedName,
-    'relevant',
-    relevant,
-    evaluationTotal?.missingVariables,
-    isExactTotal,
-  )
+  // console.log(
+  //   'PrimeBadge',
+  //   dottedName,
+  //   'relevant',
+  //   relevant,
+  //   evaluationTotal?.missingVariables,
+  //   isExactTotal,
+  // )
 
   if (!isExactTotal) {
     calculatedMontantTotal = formatValue(

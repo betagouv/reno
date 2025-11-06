@@ -273,8 +273,6 @@ export function EligibilityRenovationEnergetique({
     'travaux inconnus',
   )
 
-  console.log(travauxConnus)
-
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true
 
