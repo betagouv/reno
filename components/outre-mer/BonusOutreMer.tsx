@@ -108,35 +108,35 @@ export default function BonusOutreMer({
     <div className="fr-col-6">
       <BlocAide display="geste">
         <div className="aide-header">
-          <div>
-            <OutreMerImage
-              codeRégion={situation['logement . code région']?.replace(
-                /"/g,
-                '',
-              )}
-            />
+          <h4 className="fr-m-0">Prime {dispositif}</h4>
+          <Badge noIcon severity={'success'}>
+            Prime {isMinimum ? 'minimum ' : ''}de {value}
+          </Badge>
+        </div>
+        <div className="aide-details">
+          <div className="details">
             <div>
-              <h4 className="fr-m-0">Prime {dispositif}</h4>
-              <Badge noIcon severity={'success'}>
-                Prime {isMinimum ? 'minimum ' : ''}de {value}
-              </Badge>
+              <OutreMerImage
+                codeRégion={situation['logement . code région']?.replace(
+                  /"/g,
+                  '',
+                )}
+              />
             </div>
           </div>
-          <div className="aide-details">
-            {withAnsweredQuestions?.map((question, idx) => (
-              <GesteQuestion
-                key={idx}
-                {...{
-                  rules,
-                  question,
-                  engine,
-                  situation,
-                  answeredQuestions,
-                  setSearchParams,
-                }}
-              />
-            ))}
-          </div>
+          {withAnsweredQuestions?.map((question, idx) => (
+            <GesteQuestion
+              key={idx}
+              {...{
+                rules,
+                question,
+                engine,
+                situation,
+                answeredQuestions,
+                setSearchParams,
+              }}
+            />
+          ))}
         </div>
       </BlocAide>
     </div>
@@ -165,8 +165,6 @@ export const OutreMerImage = ({ codeRégion }) => {
         }
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-right: 1rem;
       `}
     >
       <img
