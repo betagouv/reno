@@ -11,7 +11,7 @@ import { getRuleName } from './publicodes/utils'
 import useIsMobile from './useIsMobile'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
-  let infoCEE, infoMPR, montantTotal, isExactTotal
+  let infoCEE, infoMPR, infoOM, montantTotal, isExactTotal
   // Tant que MPA/MPLD ne sont pas intégré au simulateur principal, il faut forcer le parcours d'aide pour MPR
   if (!situation["parcours d'aide"]) {
     situation["parcours d'aide"] = '"rénovation énergétique"'
@@ -36,6 +36,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   const dottedNameCee = dottedName + ' . CEE'
   const dottedNameMpr = dottedName + ' . MPR'
   const dottedNameCP = dottedName + ' . Coup de pouce'
+  const dottedNameOM = dottedName + ' . bonus outre-mer'
 
   if (typeof rules[dottedNameCee] !== 'undefined') {
     const evaluationCEE = engineSituation.evaluate(dottedNameCee + ' . montant')
@@ -62,6 +63,11 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
         ),
     }
   }
+  if (typeof rules[dottedNameOM] !== 'undefined') {
+    infoOM = {
+      questions: dottedName + ' . ' + rules[dottedNameOM + ' . question'],
+    }
+  }
 
   const hasCoupDePouce = typeof rules[dottedNameCP] !== 'undefined'
   const questionRule =
@@ -71,7 +77,11 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     : rules[questionRule]
       ? questionRule
       : undefined
-  let questions = [question].concat(infoCEE?.questions).filter(Boolean)
+  let questions = [question]
+    .concat(infoCEE?.questions)
+    .concat(infoOM?.questions)
+    .filter(Boolean)
+
   if (typeof rules[dottedNameMpr] !== 'undefined') {
     const questions = getNextQuestions(
       engine.setSituation(situation).evaluate(dottedNameMpr + ' . montant'),

@@ -122,19 +122,20 @@ export default function BonusOutreMer({
               />
             </div>
           </div>
-          {withAnsweredQuestions?.map((question, idx) => (
-            <GesteQuestion
-              key={idx}
-              {...{
-                rules,
-                question,
-                engine,
-                situation,
-                answeredQuestions,
-                setSearchParams,
-              }}
-            />
-          ))}
+          {false &&
+            withAnsweredQuestions?.map((question, idx) => (
+              <GesteQuestion
+                key={idx}
+                {...{
+                  rules,
+                  question,
+                  engine,
+                  situation,
+                  answeredQuestions,
+                  setSearchParams,
+                }}
+              />
+            ))}
         </div>
       </BlocAide>
     </div>
