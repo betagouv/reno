@@ -48,7 +48,7 @@ export default function AideEtapes({
     try {
       await navigator.clipboard.writeText(
         'https://mesaidesreno.beta.gouv.fr/simulation?' +
-          searchParams.toString(),
+          rawSearchParams.toString(),
       )
       setCopied(true)
     } catch (error) {
