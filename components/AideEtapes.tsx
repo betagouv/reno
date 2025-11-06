@@ -306,7 +306,7 @@ L'équipe MesAidesRéno`,
                 {hasMPRA &&
                   " Votre Accompagnateur Rénov' vous aide à choisir les meilleures offres."}
               </p>
-              {hasMPRA && <p>⚠️ Ne signez pas encore les devis.</p>}
+              {hasMPRA && <p>⚠️ Attention : Ne signez pas encore les devis.</p>}
             </Card>
           )
         )}
