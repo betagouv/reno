@@ -492,7 +492,7 @@ L'équipe MesAidesRéno`,
                   className="fr-icon-warning-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
-                Travaux terminés : profitez de votre logement
+                Travaux terminés : profitez de votre logement 
                 {hasMPA ? 'adapté' : 'rénové'}
               </h3>
               {hasMPA ? (
