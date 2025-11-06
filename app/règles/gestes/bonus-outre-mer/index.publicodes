@@ -63,6 +63,7 @@ isolation . protection solaire toiture . montant:
 isolation . protection solaire toiture . MPR:
   par défaut: oui
 
+isolation . protection solaire toiture . MPR . question: surface
 isolation . protection solaire toiture . MPR . plafond:
   valeur: 200 €/m2
   description: Plafonds de dépenses éligibles
@@ -143,11 +144,12 @@ isolation . peinture . MPR:
   applicable si: non
   note: Ce geste n'est pas adossée à une aide MPR, contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
 isolation . peinture . MPR . montant: 0
-
+isolation . peinture . MPR . question: surface
 isolation . peinture . montant:
   somme:
     - bonus outre-mer
 isolation . peinture . bonus outre-mer:
+isolation . peinture . bonus outre-mer . question: surface
 isolation . peinture . bonus outre-mer . montant:
   applicable si: outre-mer . Mayotte
   produit:
