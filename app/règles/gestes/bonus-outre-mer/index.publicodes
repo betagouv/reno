@@ -133,6 +133,7 @@ isolation . protection solaire toiture . bonus outre-mer . barème:
 ##########
 
 isolation . peinture:
+  applicable si: outre-mer . Mayotte
   titre: Pose d'une peinture thermoréfléchissante
   par défaut: oui
   description: |
@@ -151,7 +152,6 @@ isolation . peinture . montant:
 isolation . peinture . bonus outre-mer:
 isolation . peinture . bonus outre-mer . question: surface
 isolation . peinture . bonus outre-mer . montant:
-  applicable si: outre-mer . Mayotte
   produit:
     - surface
     - barème
@@ -165,6 +165,7 @@ isolation . peinture . surface:
 ##############
 
 isolation . pack chaleur toiture:
+  applicable si: outre-mer . Guadeloupe
   titre: Installation d'un pack isolation de toiture contre la chaleur
   par défaut: oui
   description: |
@@ -177,10 +178,10 @@ isolation . pack chaleur toiture . MPR . montant: 0
 
 isolation . pack chaleur toiture . montant:
   somme:
-    - bonus outre-mer
+    - bonus outre-mer . montant
 isolation . pack chaleur toiture . bonus outre-mer:
+isolation . pack chaleur toiture . bonus outre-mer . question: surface
 isolation . pack chaleur toiture . bonus outre-mer . montant:
-  applicable si: outre-mer . Guadeloupe
   note: |
     En 2024 ce geste était disponible pour La Réunion et la Martinique. Ce n'est plus le cas en 2025.
   produit:
@@ -262,6 +263,7 @@ isolation . pare-soleil horizontal . MPR . surface:
 
 isolation . protection solaire murs:
   par défaut: oui
+isolation . protection solaire murs . question: surface
 isolation . protection solaire murs . montant: bonus outre-mer . montant
 isolation . protection solaire murs . MPR:
   applicable si: non
@@ -275,10 +277,10 @@ isolation . protection solaire murs . bonus outre-mer . montant:
     - surface
     - barème
 
-isolation . protection solaire murs . bonus outre-mer . surface:
+isolation . protection solaire murs . surface:
   question: Quelle surface de murs extérieurs voulez-vous isoler du soleil ?
   unité: m2
-
+isolation . protection solaire murs . bonus outre-mer . question: surface
 isolation . protection solaire murs . bonus outre-mer . barème:
   variations:
     - si: outre-mer . La Réunion
@@ -309,6 +311,7 @@ isolation . protection solaire murs . bonus outre-mer . barème:
 #####
 
 isolation . paroi en terre:
+  applicable si: outre-mer . Mayotte
   titre: Paroi en briques de terre comprimée
   par défaut: oui
   description: |
@@ -326,7 +329,6 @@ isolation . paroi en terre . montant:
     - bonus outre-mer . montant
 isolation . paroi en terre . bonus outre-mer:
 isolation . paroi en terre . bonus outre-mer . montant:
-  applicable si: outre-mer . Mayotte
   produit:
     - surface
     - barème
