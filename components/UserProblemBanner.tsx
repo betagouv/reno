@@ -4,7 +4,7 @@ export default function UserProblemBanner() {
   return (
     <a
       href="/faq"
-      className="fr-btn fr-btn--tertiary"
+      className="fr-btn fr-btn--tertiary fr-mb-15v"
       css={`
         width: 100%;
         justify-content: center;

@@ -32,7 +32,7 @@ export default function TargetDPETabs({
       legend={text}
       options={possibilities.map((el, index) => {
         return {
-          label: <DPELabel index={index} small={false} />,
+          label: <DPELabel index={index} small={true} />,
           nativeInputProps: {
             value: index + 1,
             checked: index + 1 == situation['projet . DPE visé'],
@@ -46,7 +46,6 @@ export default function TargetDPETabs({
         !noSuccess && situation['projet . DPE visé'] && !disabled && 'success'
       }
       orientation="horizontal"
-      stateRelatedMessage=""
     />
   )
 }

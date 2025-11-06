@@ -83,7 +83,7 @@ export default function AddressSearch({
           <p className="fr-my-3v">Sélectionnez une adresse :</p>
           <ul>
             {addressResults.map((result, i) => {
-              const { label, id, context } = result.properties
+              const { label, id, context, postcode } = result.properties
 
               const ambiguity = addressResults.find(
                 (result, index) =>
@@ -104,7 +104,8 @@ export default function AddressSearch({
                       setClicked(result)
                     }}
                   >
-                    {label} {ambiguity && <small>{context}</small>}
+                    {label} {postcode}
+                    {ambiguity && <small>{context}</small>}
                   </button>
                 </li>
               )

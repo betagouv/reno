@@ -114,7 +114,7 @@ MPR . accompagnée . prise en charge MAR . plafond:
   note: Nous n'avons pas encore intégré les logements jugés indignes ou la précarité énergétique qui augmente le plafond à 4000 €
   valeur: 2000 €
 MPR . accompagnée . prise en charge MAR . prix moyen:
-  valeur: 1500 €
+  valeur: 2000 €
   description: |
     Comme expliqué sur la page [Mon Accompagnateur Rénov'](https://www.ecologie.gouv.fr/mon-accompagnateur-renov) du site du Ministère de l'Écologie : 
 

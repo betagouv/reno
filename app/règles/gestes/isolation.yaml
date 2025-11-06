@@ -55,12 +55,13 @@ isolation . vitres . CEE:
         - **Uw** ≤ 1,8 W/m2.K et **Sw** ≥ 0,32.  
 
     <br />L'installation d'une double fenêtre consiste en la pose, sur la baie existante, d'une seconde fenêtre à double vitrage renforcé.
-isolation . vitres . CEE . question:
-  type: liste
-  valeurs:
-    - surface
+# isolation . vitres . CEE . question:
+#  type: liste
+#  valeurs:
+#    - surface
 isolation . vitres . CEE . surface:
-  question: Quelle surface de vitre souhaitez-vous remplacer ?
+  # question: Quelle surface de vitre souhaitez-vous remplacer ?
+  valeur: MPR . quantité * 2 # on prend ce raccourci pour éviter une question un peu redondante
   unité: m2
 isolation . vitres . CEE . montant:
   applicable si: CEE . conditions

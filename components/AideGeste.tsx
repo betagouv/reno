@@ -8,6 +8,7 @@ import { BlocAide } from './UI'
 import BonusOutreMer from './outre-mer/BonusOutreMer'
 import getNextQuestions from './publicodes/getNextQuestions'
 import { getRuleName } from './publicodes/utils'
+import useIsMobile from './useIsMobile'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   let infoCEE, infoMPR, montantTotal, isExactTotal
@@ -70,7 +71,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     : rules[questionRule]
       ? questionRule
       : undefined
-
+  let questions = [question].concat(infoCEE?.questions).filter(Boolean)
   if (typeof rules[dottedNameMpr] !== 'undefined') {
     const questions = getNextQuestions(
       engine.setSituation(situation).evaluate(dottedNameMpr + ' . montant'),
@@ -135,6 +136,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     infoMPR,
     eligibleMPRG,
     question,
+    questions,
     hasCoupDePouce,
   }
 }
@@ -146,7 +148,8 @@ export default function AideGeste({
   situation,
   answeredQuestions,
 }) {
-  const { question, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
+  const isMobile = useIsMobile()
+  const { questions, infoMPR, infoCEE, montantCoupDePouce } = getInfoForPrime({
     engine,
     dottedName,
     situation,
@@ -158,6 +161,7 @@ export default function AideGeste({
         <div
           css={`
             display: flex;
+            ${isMobile && 'flex-direction: column;gap:0.5rem;'}
             justify-content: space-between;
             width: 100%;
             padding-right: 0.5rem;
@@ -182,7 +186,7 @@ export default function AideGeste({
         ])
       }}
     >
-      {question && (
+      {questions?.map((question) => (
         <GesteQuestion
           {...{
             rules,
@@ -193,15 +197,16 @@ export default function AideGeste({
             answeredQuestions,
           }}
         />
-      )}
+      ))}
       <div className="fr-grid-row fr-grid-row--gutters">
         {infoMPR && (
-          <div className="fr-col-6">
+          <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
             <BlocAideMPR
               {...{
                 infoMPR,
                 engine,
                 situation,
+                isMobile,
               }}
             />
           </div>
@@ -218,19 +223,20 @@ export default function AideGeste({
           }}
         />
         {montantCoupDePouce && (
-          <div className="fr-col-6">
+          <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
             <BlocAideCoupDePouce
               {...{
                 montantCoupDePouce,
                 engine,
                 situation,
                 dottedName,
+                isMobile,
               }}
             />
           </div>
         )}
         {infoCEE && (
-          <div className="fr-col-6">
+          <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
             <BlocAideCEE
               {...{
                 infoCEE,
@@ -239,6 +245,7 @@ export default function AideGeste({
                 dottedName,
                 answeredQuestions,
                 setSearchParams,
+                isMobile,
               }}
             />
           </div>
@@ -248,8 +255,8 @@ export default function AideGeste({
   )
 }
 
-const BlocAideMPR = ({ infoMPR, engine, situation }) => (
-  <BlocAide display="geste">
+const BlocAideMPR = ({ infoMPR, engine, situation, isMobile }) => (
+  <BlocAide display="geste" isMobile={isMobile}>
     <div className="aide-header">
       <h4 className="fr-m-0 fr-h6">MaPrimeRénov'</h4>
       <PrimeBadge
@@ -270,12 +277,12 @@ const BlocAideMPR = ({ infoMPR, engine, situation }) => (
   </BlocAide>
 )
 
-const BlocAideCoupDePouce = ({ engine, situation, dottedName }) => {
+const BlocAideCoupDePouce = ({ engine, situation, dottedName, isMobile }) => {
   const remplacementChaudiere =
     rules['CEE . projet . remplacement chaudière thermique'].titre
 
   return (
-    <BlocAide display="geste">
+    <BlocAide display="geste" isMobile={isMobile}>
       <div className="aide-header">
         <h4 className="fr-m-0 fr-h6">Prime Coup de pouce</h4>
         <PrimeBadge
@@ -305,10 +312,11 @@ const BlocAideCEE = ({
   answeredQuestions,
   setSearchParams,
   dottedName,
+  isMobile,
 }) => {
   const isApplicable = infoCEE.montant !== 'Non applicable'
   return (
-    <BlocAide display="geste">
+    <BlocAide display="geste" isMobile={isMobile}>
       <div className="aide-header">
         <h4 className="fr-m-0 fr-h6">Prime CEE *</h4>
         <PrimeBadge
@@ -323,7 +331,7 @@ const BlocAideCEE = ({
       {isApplicable && (
         <div className="aide-details">
           * Certificats d'Économie d'Énergie
-          {infoCEE.questions?.map((question, idx) => (
+          {/* {infoCEE.questions?.map((question, idx) => (
             <GesteQuestion
               key={idx}
               {...{
@@ -335,7 +343,7 @@ const BlocAideCEE = ({
                 setSearchParams,
               }}
             />
-          ))}
+          ))} */}
         </div>
       )}
     </BlocAide>

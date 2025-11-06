@@ -105,9 +105,15 @@ export const BlocAideCEE = ({
               display: flex;
             `}
           >
-            <Badge noIcon severity="success" className="fr-text--lead">
-              Prime indicative de {isExactTotal ? infoCEE.montant : '...'}
-            </Badge>
+            {infoCEE.montant === 'Non applicable' ? (
+              <Badge severity="error" className="fr-text--lead">
+                <strong>Non applicable</strong>
+              </Badge>
+            ) : (
+              <Badge noIcon severity="success" className="fr-text--lead">
+                Prime indicative de {isExactTotal ? infoCEE.montant : '...'}
+              </Badge>
+            )}
           </div>
         )}
       </div>

@@ -5,6 +5,7 @@ import AideCTAs from './AideCTAs'
 import { push } from '@socialgouv/matomo-next'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import { PrimeBadge } from '../Geste'
+import useIsMobile from '../useIsMobile'
 
 export default function AideAmpleur({
   isEligible,
@@ -16,7 +17,10 @@ export default function AideAmpleur({
   expanded,
   addedText = null,
   noCondition = false,
+  noDescription = false,
+  calculette,
 }) {
+  const isMobile = useIsMobile()
   return (
     <>
       {expanded ? (
@@ -40,6 +44,7 @@ export default function AideAmpleur({
               />
             </h1>
           </div>
+          {calculette && calculette}
           <h2 className="fr-mt-5">
             <span
               aria-hidden="true"
@@ -83,7 +88,8 @@ export default function AideAmpleur({
             <span
               css={`
                 display: flex;
-                flex-direction: row;
+                flex-direction: ${isMobile ? 'column' : 'row'};
+                ${isMobile && 'gap:0.5rem;'}
                 justify-content: space-between;
                 width: 100%;
                 padding-right: 0.5rem;
@@ -108,11 +114,13 @@ export default function AideAmpleur({
             ])
           }}
         >
-          <div
-            dangerouslySetInnerHTML={{
-              __html: rules[dottedName].descriptionHtml,
-            }}
-          />
+          {!noDescription && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: rules[dottedName].descriptionHtml,
+              }}
+            />
+          )}
           {typeof addedText === 'object' ? (
             addedText
           ) : (

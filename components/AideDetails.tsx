@@ -4,7 +4,7 @@ import { decodeDottedName } from './publicodes/situationUtils'
 import { omit } from './utils'
 import { push } from '@socialgouv/matomo-next'
 import { useEffect } from 'react'
-import { BlocEtMaintenant } from './Eligibility'
+import { BlocEtMaintenant, SharePage } from './Eligibility'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
@@ -33,7 +33,7 @@ export default function AideDetails({
   const AideComponent = correspondance[dottedName]
 
   return (
-    <>
+    <div style={{ maxWidth: '50rem', margin: 'auto' }}>
       <AvertissementSimulation
         {...{ avertissementState, setAvertissementState }}
       />
@@ -53,16 +53,18 @@ export default function AideDetails({
           <span className="fr-text--bold">Étape suivante :</span> Mes démarches
         </p>
       </div>
-      <BlocEtMaintenant
-        title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}
-        setSearchParams={setSearchParams}
-        withCTA
-      >
-        <p className="fr-callout__text">
-          Le service public vous accompagne : parlez à un conseiller France
-          Rénov'.
-        </p>
-      </BlocEtMaintenant>
+      {dottedName != 'MPR . accompagnée' && (
+        <BlocEtMaintenant
+          title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}
+          setSearchParams={setSearchParams}
+          withCTA
+        >
+          <p className="fr-callout__text">
+            Le service public vous accompagne : parlez à un conseiller France
+            Rénov'.
+          </p>
+        </BlocEtMaintenant>
+      )}
       <AideComponent
         {...{
           dottedName: dottedName,
@@ -101,7 +103,11 @@ export default function AideDetails({
           Voir mes démarches
         </Button>
       </div>
+
+      <div className="fr-mt-20v fr-mb-30v">
+        <SharePage title="Partager la simulation" />
+      </div>
       <Feedback />
-    </>
+    </div>
   )
 }

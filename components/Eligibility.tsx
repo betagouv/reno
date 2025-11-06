@@ -23,6 +23,7 @@ import { decodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
 import { categories, getCurDate, getRulesByCategory } from './utils'
 import { textValueEquality } from './publicodes/utils'
+import useIsMobile from './useIsMobile'
 
 export default function Eligibility({
   nbStep,
@@ -42,8 +43,12 @@ export default function Eligibility({
     if (!window.matchMedia('(prefers-color-scheme: dark)').matches)
       document.body.style.backgroundColor = '#F9FAFF'
     push(['trackEvent', 'Simulateur Principal', 'Page', 'Eligibilité'])
+    return () => {
+      if (!window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.body.style.backgroundColor = '#fff'
+    }
   }, [])
-
+  const isMobile = useIsMobile()
   const [avertissementState, setAvertissementState] = useAvertissementState()
   const isInIframe = useIsInIframe()
   const showPersonaBar = searchParams.personas != null
@@ -104,7 +109,7 @@ export default function Eligibility({
           Rénov'.
         </p>
       </BlocEtMaintenant>
-      <p>
+      <p className="fr-mt-15v">
         {hasAides ? (
           <>
             <span aria-hidden="true">🥳</span>Vous êtes éligible aux aides
@@ -150,6 +155,7 @@ export default function Eligibility({
             setSearchParams,
             searchParams,
             expanded,
+            isMobile,
           }}
         />
       )}
@@ -167,11 +173,13 @@ export default function Eligibility({
         </ul>
       </BlocEtMaintenant>
       <div
-        className="fr-mb-5v"
+        className="fr-my-15v"
         css={`
           display: flex;
+          gap: 1rem;
+          ${isMobile && 'flex-direction: column-reverse;'}
           justify-content: space-between;
-          align-items: center;
+          align-items: ${isMobile ? 'flex-start' : 'center'};
         `}
       >
         <BackToLastQuestion
@@ -193,26 +201,30 @@ export default function Eligibility({
           Continuer vers les démarches
         </Link>
       </div>
+      <div className="fr-mt-20v fr-mb-30v">
+        <SharePage />
+      </div>
       {isInIframe ? null : <Feedback />}
-      <SharePage />
     </>
   )
 }
 
 export function SharePage({ title = 'Partager la page' }) {
   return (
-    <div className="fr-share">
+    <div className="fr-share fr-mt-5v">
       <p className="fr-share__title">{title}</p>
       <ul className="fr-btns-group">
         <li>
           <a
             id="mail-share-1"
-            href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation')}&body=${encodeURIComponent(
+            href={`mailto:?subject=${encodeURIComponent('[MesAidesRéno] Lien de ma simulation pour une rénovation énergétique')}&body=${encodeURIComponent(
               `Bonjour,
 
-Veuillez retrouver votre simulation à cette adresse : 
+Voici le lien vers ma simulation MesAidesRéno pour mon projet de rénovation énergétique :
 
 ${window.location.href}
+
+ℹ️ Petite précision : oui, le lien est très long ! C'est parce qu'il contient toutes les données de la simulation. Pas d'inquiétude, c'est volontaire et sécurisé.
 
 Cordialement,
 L'équipe MesAidesRéno`,
@@ -254,6 +266,7 @@ export function EligibilityRenovationEnergetique({
   setSearchParams,
   searchParams,
   expanded,
+  isMobile,
 }) {
   const travauxConnus = !textValueEquality(
     situation['projet . définition'],
@@ -311,9 +324,7 @@ export function EligibilityRenovationEnergetique({
           <>
             <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
               <div className="fr-callout__title">
-                {travauxConnus
-                  ? 'Avez-vous pensé à une rénovation plus ambitieuse ?'
-                  : 'Avez-vous pensé à une rénovation ambitieuse ? :'}
+                Avez-vous pensé à une rénovation ambitieuse ?
               </div>
               <ul className="fr-callout__text">
                 <li>📉 Réduction des factures d'énergie</li>
@@ -342,6 +353,7 @@ export function EligibilityRenovationEnergetique({
                   situation,
                   answeredQuestions,
                   expanded,
+                  noDescription: true,
                 }}
               />
               {!isTMO && (
@@ -385,6 +397,7 @@ export function EligibilityRenovationEnergetique({
               answeredQuestions,
               engine,
               setSearchParams,
+              isMobile,
             }}
           />
         )}
@@ -606,9 +619,9 @@ export function BlocEtMaintenant({
     }
   }
   return (
-    <div className="fr-callout fr-mt-5v">
+    <div className="fr-callout fr-callout--blue-cumulus fr-mt-5v">
       <h3 className="fr-callout__title fr-h5">
-        <span className="fr-icon-flag-line" aria-hidden="true"></span>
+        <span className="fr-icon-flag-line fr-mr-2v" aria-hidden="true"></span>
         {title}
       </h3>
       {children}
@@ -746,6 +759,7 @@ export function TravauxInconnus({
   answeredQuestions,
   engine,
   setSearchParams,
+  isMobile,
 }) {
   const [showAllByCategory, setShowAllByCategory] = useState({})
   const handleShowAll = (category) => {
@@ -782,6 +796,7 @@ export function TravauxInconnus({
             priority="secondary"
             title="Afficher les aides"
             onClick={() => handleShowAll(category)}
+            className={`${isMobile && 'fr-px-2v'}`}
           >
             {showAllByCategory[category] ? 'Cacher' : 'Afficher'} toutes les
             aides {categories.find((c) => c.titre == category).suffix}
