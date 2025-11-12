@@ -65,7 +65,9 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   }
   if (typeof rules[dottedNameOM] !== 'undefined') {
     infoOM = {
-      questions: dottedName + ' . ' + rules[dottedNameOM + ' . question'],
+      questions: rules[dottedNameOM + ' . question']
+        ? dottedName + ' . ' + rules[dottedNameOM + ' . question']
+        : {},
     }
   }
 
@@ -120,15 +122,6 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
         rules[questionKey] != null && rules[questionKey].question,
     ).length === 0
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
-
-  // console.log(
-  //   'PrimeBadge',
-  //   dottedName,
-  //   'relevant',
-  //   relevant,
-  //   evaluationTotal?.missingVariables,
-  //   isExactTotal,
-  // )
 
   if (!isExactTotal) {
     calculatedMontantTotal = formatValue(
