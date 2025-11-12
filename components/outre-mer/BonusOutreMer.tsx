@@ -5,6 +5,7 @@ import GesteQuestion from '../GesteQuestion'
 import { BlocAide } from '../UI'
 import getNextQuestions from '../publicodes/getNextQuestions'
 import { useEffect, useState } from 'react'
+import { PrimeBadge } from '../Geste'
 
 /*
  * Ce composant ne devrait presque pas exister. Les différentes couches qui font les aides par geste devraient être gérées de façon générique avec seul l'icône et d'autres métadonnées ajoutées en personnalisation depuis des attributs publicodes.
@@ -34,6 +35,8 @@ export default function BonusOutreMer({
 
   const valueDottedName = bonusDottedName + ' . ' + key,
     valueRule = rules[valueDottedName]
+
+  if (!valueRule) return
   useEffect(() => {
     if (bonusRule === undefined) return
     const evaluation = engine.setSituation(situation).evaluate(valueDottedName)
@@ -107,9 +110,17 @@ export default function BonusOutreMer({
       <BlocAide display="geste">
         <div className="aide-header">
           <h4 className="fr-m-0">Prime {dispositif}</h4>
-          <Badge noIcon severity={'success'}>
-            Prime {isMinimum ? 'minimum ' : ''}de {value}
-          </Badge>
+          {(montantBonusEvaluation.nodeValue ||
+            montantBonusEvaluation.missingVariables) && (
+            <PrimeBadge
+              {...{
+                situation,
+                engine,
+                dottedName: bonusDottedName,
+                montantSeul: true,
+              }}
+            />
+          )}
         </div>
         <div className="aide-details">
           <div className="details">
