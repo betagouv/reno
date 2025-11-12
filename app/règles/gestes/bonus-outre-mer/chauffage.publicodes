@@ -1,4 +1,5 @@
 chauffage . solaire . chauffe-eau solaire . bonus outre-mer:
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . question: capacité
 chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
   variations:
     - si: outre-mer . La Réunion
@@ -102,9 +103,8 @@ chauffage . solaire . chauffe-eau solaire . bonus outre-mer . barème Guyane:
             alors: 2600 €
           - sinon: 3400 €
 
-chauffage . solaire . chauffe-eau solaire . bonus outre-mer . capacité:
+chauffage . solaire . chauffe-eau solaire . capacité:
   question: Quelle est la capacité en litres du chauffe-eau solaire que vous comptez installer ?
-  par défaut: 250 L # au pif, en-dessous du seuil
   unité: L
 
 chauffage . solaire . chauffe-eau solaire . bonus outre-mer . prime FEDER:
