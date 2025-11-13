@@ -35,6 +35,7 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
         window.location.href = detailUrl
       }}
       priority="secondary"
+      className={`${isMobile && 'fr-px-2v'}`}
     >
       Calculer le montant de l'aide
     </Button>

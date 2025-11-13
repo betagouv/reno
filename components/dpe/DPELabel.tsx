@@ -20,7 +20,7 @@ export default function DPELabel({
           display: inline-block;
           background: lightgrey;
           text-align: center;
-          padding: ${small ? '0.05rem 0.45rem' : '0.7rem 1rem'};
+          padding: ${small ? '0.5rem 0.8rem' : '0.7rem 1rem'};
           font-weight: bold;
           color: black;
           border-radius: 0.3rem;
@@ -49,7 +49,7 @@ export default function DPELabel({
         display: inline-block;
         background: ${couleur};
         text-align: center;
-        padding: ${small ? '0.05rem 0.45rem' : '0.7rem 1rem'};
+        padding: ${small ? '0.2rem 0.6rem' : '0.7rem 1rem'};
         font-weight: bold;
         color: ${textColor || 'black'};
         border-radius: 0.3rem;

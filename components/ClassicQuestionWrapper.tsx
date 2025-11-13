@@ -11,6 +11,7 @@ import UserProblemBanner from './UserProblemBanner'
 import AmpleurModuleBanner from './ampleur/AmpleurModuleBanner'
 import { encodeSituation } from './publicodes/situationUtils'
 import { getRuleName } from './publicodes/utils'
+import { SharePage } from './Eligibility'
 
 export const QuestionText = ({
   rule,
@@ -71,12 +72,6 @@ export default function ClassicQuestionWrapper({
       <div>
         {form != 'copropriété' && (
           <>
-            <CopyButton
-              customCss={{
-                float: 'right',
-              }}
-              searchParams={searchParams}
-            />
             <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
               <h1 className="fr-stepper__title">
                 {currentQuestion.startsWith('projet')
@@ -104,15 +99,6 @@ export default function ClassicQuestionWrapper({
           </>
         )}
       </div>
-      {form == 'copropriété' && (
-        <CopyButton
-          customCss={{
-            alignItems: 'flex-end',
-            marginTop: '1rem',
-          }}
-          searchParams={searchParams}
-        />
-      )}
       <AmpleurModuleBanner
         {...{
           depuisModule,
@@ -188,7 +174,7 @@ export default function ClassicQuestionWrapper({
       <Notifications {...{ currentQuestion, engine }} />
       <section
         css={`
-          margin-top: 8vh;
+          margin-top: 10vh;
         `}
       >
         <QuestionDescription {...{ currentQuestion, rule }} />
@@ -203,6 +189,7 @@ export default function ClassicQuestionWrapper({
           }}
         />
         <UserProblemBanner />
+        <SharePage />
       </section>
     </>
   )

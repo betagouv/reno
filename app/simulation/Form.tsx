@@ -135,7 +135,7 @@ function Form({ rules, simulationConfig }) {
     )
   }
   return (
-    <div style={{ maxWidth: '65rem', margin: 'auto' }}>
+    <div style={{ maxWidth: '50rem', margin: 'auto' }}>
       <InputSwitch
         {...{
           form,
