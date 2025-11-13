@@ -228,8 +228,8 @@
     logement . surface: 55
     logement . période de construction: "'de 10 à 15 ans'"
   valeurs attendues:
-    conditions communes: non
-    MPR . accompagnée . condition éligibilité: non
+    MPR . accompagnée . conditions: non
+    MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
     PTZ . condition éligibilité: oui
 
@@ -673,8 +673,8 @@
     logement . surface: 55
     logement . période de construction: "'moins de 2 ans'"
   valeurs attendues:
-    conditions communes: non
-    MPR . accompagnée . condition éligibilité: non
+    MPR . accompagnée . conditions: non
+    MPR . accompagnée . éligible: non
     MPR . non accompagnée . éligible: non
     PTZ . montant: 0
 
@@ -701,3 +701,64 @@
     MPR . accompagnée . condition éligibilité: non
     taxe foncière . commune . éligible: oui
     taxe foncière . montant: 2433
+
+# Outre mer
+- gabarit: oui
+  id: outre-mer-gestes
+  situation:
+    logement . résidence principale propriétaire: oui
+    vous . propriétaire . statut: "'propriétaire'"
+    logement . propriétaire occupant: oui
+    projet . définition: '"travaux inconnus"'
+    logement . type: "'maison'"
+    logement . surface: 87
+    logement . période de construction: "'de 2 à 10 ans'"
+    ménage . personnes: 2
+    ménage . revenu: 35000
+    DPE . actuel: 4
+
+- description: La Réunion
+  catégorie: outre-mer
+  injection: outre-mer-gestes
+  situation:
+    logement . commune: "'97404'"
+    logement . code région: "'04'"
+- description: Mayotte
+  catégorie: outre-mer
+  injection: outre-mer-gestes
+  situation:
+    logement . commune: "'97610'"
+    logement . code région: "'06'"
+- description: Guadeloupe
+  catégorie: outre-mer
+  injection: outre-mer-gestes
+  situation:
+    logement . commune: "'97110'"
+    logement . code région: "'01'"
+- description: Martinique
+  catégorie: outre-mer
+  injection: outre-mer-gestes
+  situation:
+    logement . commune: "'97205'"
+    logement . code région: "'02'"
+- description: Guyane littoral
+  catégorie: outre-mer
+  injection: outre-mer-gestes
+  situation:
+    logement . commune: "'97307'"
+    logement . code région: "'03'"
+    outre-mer . zone Guyane: "'littoral'" # pas récupéré automatiquement, question à l'utilisateur
+- description: Guyane intérieur accès route
+  catégorie: outre-mer
+  injection: outre-mer-gestes
+  situation:
+    logement . commune: "'97353'"
+    logement . code région: "'03'"
+    outre-mer . zone Guyane: "'intérieur accès route'"
+- description: Guyane intérieur accès fleuve
+  catégorie: outre-mer
+  injection: outre-mer-gestes
+  situation:
+    logement . commune: "'97353'"
+    logement . code région: "'03'"
+    outre-mer . zone Guyane: "'intérieur accès fleuve'"

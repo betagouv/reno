@@ -10,6 +10,7 @@ import Publicodes, { formatValue } from 'publicodes'
 import { computeAideStatus } from './ampleur/AmpleurSummary'
 import StatusIcon from './ampleur/StatusIcon'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import enrichPersonaSituationWithTemplate from './personas/enrichPersonaSituationWithTmplate'
 
 const matrixLines = [
   'MPR . accompagnée',
@@ -46,7 +47,8 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
 
     const doEnrich = async () => {
       personas.forEach(async (persona, index) => {
-        const enrichedSituation = await enrichSituation(persona.situation)
+        const situation = enrichPersonaSituationWithTemplate(persona, personas)
+        const enrichedSituation = await enrichSituation(situation)
 
         const evaluations = matrixLines.map((dottedName) =>
           engine
@@ -111,70 +113,72 @@ export default function PersonaBar({ startShown = false, selectedPersona }) {
           }
         `}
       >
-        {enrichedPersonas.map((persona, personaIndex) => (
-          <li
-            key={persona.description}
-            css={`
-              > div {
-                padding: 0.2rem 0.4rem;
-                min-height: 9rem;
-                height: 9rem;
-                justify-content: space-between;
-                display: flex;
-                flex-direction: column;
-              }
-              ${selectedPersona == personaIndex &&
-              `
+        {enrichedPersonas
+          .filter((p) => p.gabarit !== 'oui')
+          .map((persona, personaIndex) => (
+            <li
+              key={persona.description}
+              css={`
+                > div {
+                  padding: 0.2rem 0.4rem;
+                  min-height: 9rem;
+                  height: 9rem;
+                  justify-content: space-between;
+                  display: flex;
+                  flex-direction: column;
+                }
+                ${selectedPersona == personaIndex &&
+                `
 			  > div{border: 2px solid var(--color); background: var(--lighterColor2)}`}
-            `}
-          >
-            <Card>
-              <div>{personaNames[personaIndex]}</div>
-              <div>
-                <small>{persona.description}</small>
-              </div>
-              <PersonaInjection
-                persona={persona}
-                keepPersonaBar={true}
-                personaIndex={personaIndex}
-                enrichedSituation={persona.situation}
-              />
-            </Card>
-            {persona.evaluations && (
-              <section>
-                <ul>
-                  {persona.evaluations.map((evaluation) => {
-                    const value = formatValue(evaluation)
-                    const { dottedName, nodeValue } = evaluation
-                    const status = computeAideStatus(evaluation)
-                    return (
-                      <li
-                        key={dottedName}
-                        css={`
-                          img {
-                            width: 1rem;
-                            height: auto;
-                            vertical-align: middle;
-                          }
-                          > span {
-                            font-size: 75%;
-                          }
-                        `}
-                      >
-                        <StatusIcon status={status} />{' '}
-                        {status && (
-                          <Badge noIcon severity="success">
-                            {value}
-                          </Badge>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </section>
-            )}
-          </li>
-        ))}
+              `}
+            >
+              <Card>
+                <div>{personaNames[personaIndex]}</div>
+                <div>
+                  <small>{persona.description}</small>
+                </div>
+                <PersonaInjection
+                  persona={persona}
+                  keepPersonaBar={true}
+                  personaIndex={personaIndex}
+                  enrichedSituation={persona.situation}
+                />
+              </Card>
+              {persona.evaluations && (
+                <section>
+                  <ul>
+                    {persona.evaluations.map((evaluation) => {
+                      const value = formatValue(evaluation)
+                      const { dottedName, nodeValue } = evaluation
+                      const status = computeAideStatus(evaluation)
+                      return (
+                        <li
+                          key={dottedName}
+                          css={`
+                            img {
+                              width: 1rem;
+                              height: auto;
+                              vertical-align: middle;
+                            }
+                            > span {
+                              font-size: 75%;
+                            }
+                          `}
+                        >
+                          <StatusIcon status={status} />{' '}
+                          {status && (
+                            <Badge noIcon severity="success">
+                              {value}
+                            </Badge>
+                          )}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </section>
+              )}
+            </li>
+          ))}
       </ul>
       <section
         css={`

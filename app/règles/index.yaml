@@ -702,7 +702,7 @@ conditions communes:
   titre: Conditions d'éligibilité de base
   toutes ces conditions:
     - vous . propriétaire . condition
-    - logement . au moins 15 ans
+    # - logement . au moins 15 ans # était précédemment commune à MPRA et MPRG, mais l'outre-mer introduit la possibilité de + de 2 ans pour MPRG (MRA pas dispo en outre-mer)
     - logement . résidence principale
 
 MPR:
@@ -777,7 +777,10 @@ MPR . non accompagnée . pourcentage d'écrêtement:
       alors: 60 %
     - sinon: 40 %
 
-MPR . non accompagnée . conditions excluantes: ménage . revenu . classe = "supérieure"
+MPR . non accompagnée . conditions excluantes:
+  une de ces conditions:
+    - ménage . revenu . classe = "supérieure"
+    - outre-mer . COM
 
 MPR . non accompagnée . confirmation:
   question: Confirmation de vos choix de gestes
@@ -802,15 +805,27 @@ MPR . non accompagnée:
 MPR . non accompagnée . montant:
   titre: Aide non accompagnée
   valeur: gestes . montant
-  applicable si: conditions communes
+  applicable si: conditions
   non applicable si: conditions excluantes
 
 MPR . non accompagnée . éligible:
   titre: Éligible parcours par gestes
   formule:
     toutes ces conditions:
-      - conditions communes
+      - conditions
       - conditions excluantes = non
+
+MPR . non accompagnée . condition âge logement:
+  variations:
+    - si: outre-mer
+      alors: logement . au moins 2 ans
+    - sinon: logement . au moins 15 ans
+
+MPR . non accompagnée . conditions:
+  valeur:
+    toutes ces conditions:
+      - conditions communes
+      - condition âge logement
 
 gestes: # gestes.yaml
   titre: Parcours par gestes

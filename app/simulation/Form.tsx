@@ -106,12 +106,14 @@ function Form({ rules, simulationConfig }) {
       />
     )
   }
+
   const evaluation = engine.setSituation(validatedSituation).evaluate(target),
     nextQuestions = getNextQuestions(
       evaluation,
       answeredQuestions,
       simulationConfig,
     )
+
   const currentQuestion = objectif
     ? decodeDottedName(objectif)
     : nextQuestions[0]

@@ -20,6 +20,7 @@ CEE . conditions:
     # propriétaires ou locataires
     # résidence principales ou secondaire
     - logement . condition d'ancienneté
+    - outre-mer = non
 
 CEE . projet:
 CEE . projet . remplacement chaudière thermique:

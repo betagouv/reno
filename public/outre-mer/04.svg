@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="210mm"
+   viewBox="0 0 210 210"
+   version="1.1"
+   id="svg1370"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="04.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1372"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.37592154"
+     inkscape:cx="969.61723"
+     inkscape:cy="615.82"
+     inkscape:window-width="949"
+     inkscape:window-height="1041"
+     inkscape:window-x="962"
+     inkscape:window-y="5"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1367" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <polygon
+       class="p"
+       points="41.788,406.228 43.609,405.817 45.636,406.698 46.957,406.433 50.188,408.107 51.539,407.931 54.828,409.576 56.443,411.514 58.029,413.746 58.441,415.391 58.441,418.328 58.969,420.501 60.115,421.294 61.7,423.408 61.7,424.73 65.195,428.665 66.693,431.514 68.103,431.514 69.513,432.718 72.068,434.01 72.567,435.655 72.567,438.21 71.451,438.798 71.539,440.295 70.482,441.529 69.248,446.58 69.953,449.723 69.513,451.749 70.041,454.833 69.043,456.331 66.341,458.269 64.314,458.269 63.463,458.269 59.087,459.591 56.708,459.591 55.915,460.178 54.505,460.178 53.272,461.177 51.803,460.295 49.395,460.648 46.752,459.062 45.195,459.855 44.079,458.944 43.169,459.326 41.319,458.093 37.912,456.918 36.267,457.124 35.445,456.125 33.712,456.066 32.537,454.48 29.571,454.04 27.633,451.661 26.252,450.633 23.345,449.458 21.319,449.37 20.291,448.401 20.349,446.903 19.292,446.463 19.233,445.67 16.062,443.497 14.975,440.824 15.621,438.475 15.503,436.184 13.8,434.48 13.8,433.188 12.361,431.338 12.361,430.369 9.483,428.401 8.426,426.58 8.866,424.201 8.426,422.645 9.923,420.413 11.157,420.501 12.537,419.825 14.299,418.386 14.975,415.391 14.387,413.629 15.239,411.074 15.503,409.958 19.028,410.809 20.702,409.958 21.935,408.195 25.518,405.963 26.575,404.935 28.866,404.143 31.069,404.143 32.009,404.143 33.859,404.994 35.885,405.288 37.647,404.935 "
+       id="polygon446"
+       style="fill:#efdcba;stroke:#000000"
+       transform="matrix(2.6815138,0,0,2.6815138,-1.0175866,-1051.6981)" />
+  </g>
+</svg>

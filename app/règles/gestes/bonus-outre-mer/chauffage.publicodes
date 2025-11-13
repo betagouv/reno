@@ -1,0 +1,148 @@
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer:
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . question: capacité
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . montant:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        somme:
+          - 1200 €/m2
+          - prime FEDER
+    - si: outre-mer . Guadeloupe
+      alors: barème Guadeloupe
+    - si: outre-mer . Martinique
+      alors: barème Martinique
+    - si: outre-mer . Mayotte
+      alors: barème Mayotte
+    - si: outre-mer . Guyane
+      alors: barème Guyane
+
+  avec:
+    barème Guadeloupe:
+      variations:
+        - si: capacité <= 300 L
+          alors:
+            variations:
+              - si: ménage . revenu . classe = 'très modeste'
+                alors: 1200 €
+              - sinon: 1000 €
+        - sinon:
+            variations:
+              - si:
+                  une de ces conditions:
+                    - ménage . revenu . classe = 'très modeste'
+                    - ménage . revenu . classe = 'modeste'
+                alors: 1100 €
+              - sinon: 800 €
+    barème Martinique:
+      variations:
+        - si: capacité > 300 L
+          alors:
+            variations:
+              - si:
+                  une de ces conditions:
+                    - ménage . revenu . classe = 'très modeste'
+                    - ménage . revenu . classe = 'modeste'
+                alors: 1100 €
+              - sinon: 800 €
+        - sinon: 0 €
+    barème Mayotte:
+      variations:
+        - si: capacité < 200 L
+          alors:
+            variations:
+              - si:
+                  une de ces conditions:
+                    - ménage . revenu . classe = 'très modeste'
+                    - ménage . revenu . classe = 'modeste'
+                alors: 850 €
+              - sinon: 800 €
+        - si: capacité < 300 L
+          alors:
+            variations:
+              - si:
+                  une de ces conditions:
+                    - ménage . revenu . classe = 'très modeste'
+                    - ménage . revenu . classe = 'modeste'
+                alors: 1300 €
+              - sinon: 1200 €
+        - sinon: 0 €
+
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . barème Guyane:
+  variations:
+    - si: outre-mer . zone Guyane = 'littoral'
+      alors:
+        variations:
+          - si: capacité < 200 L
+            alors:
+              variations:
+                - si:
+                    une de ces conditions:
+                      - ménage . revenu . classe = 'très modeste'
+                      - ménage . revenu . classe = 'modeste'
+                      - ménage . revenu . classe = 'intermédiaire'
+                  alors: 1000 €
+                - sinon: 2050 €
+          - sinon:
+              variations:
+                - si:
+                    une de ces conditions:
+                      - ménage . revenu . classe = 'modeste'
+                      - ménage . revenu . classe = 'intermédiaire'
+                      - ménage . revenu . classe = 'supérieur'
+                  alors: 880 €
+                - sinon: 1350 €
+    - si: outre-mer . zone Guyane = 'intérieur accès route'
+      alors:
+        variations:
+          - si: capacité >= 200 L
+            alors: 1660 €
+          - sinon: 2300 €
+    - sinon:
+        variations:
+          - si: capacité >= 200 L
+            alors: 2600 €
+          - sinon: 3400 €
+
+chauffage . solaire . chauffe-eau solaire . capacité:
+  question: Quelle est la capacité en litres du chauffe-eau solaire que vous comptez installer ?
+  unité: L
+
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . prime FEDER:
+  applicable si: éligible aide complémentaire FEDER
+  valeur: 1200 €
+chauffage . solaire . chauffe-eau solaire . bonus outre-mer . éligible aide complémentaire FEDER:
+  applicable si:
+    toutes ces conditions:
+      - outre-mer . La Réunion
+      - ménage . revenu . classe = 'très modeste'
+  question: Le ménage est-il éligible à l'aide complémentaire FEDER (ménages éco-solidaires) de la région ?
+  par défaut: non
+
+############## thermodynamique
+
+chauffage . chauffe-eau thermodynamique . bonus outre-mer:
+  applicable si: outre-mer . DROM
+
+chauffage . chauffe-eau thermodynamique . bonus outre-mer . montant:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 900 €
+          - sinon: 600 €
+    - si: outre-mer . Guadeloupe
+      alors:
+        variations:
+          - si: ménage . revenu . classe = 'très modeste'
+            alors: 1400 €
+          - sinon: 1000 €
+    - si: outre-mer . Martinique
+      alors: 600 €
+    - si: outre-mer . Mayotte
+      alors: 0 €
+    - si: outre-mer . Guyane
+      alors: 600 €

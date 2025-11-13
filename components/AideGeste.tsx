@@ -1,16 +1,17 @@
 import rules from '@/app/règles/rules'
-import { BlocAide } from './UI'
-import { formatValue } from 'publicodes'
+import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { push } from '@socialgouv/matomo-next'
+import { formatValue } from 'publicodes'
 import { PrimeBadge } from './Geste'
 import GesteQuestion from './GesteQuestion'
-import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
-import { getRuleName } from './publicodes/utils'
+import { BlocAide } from './UI'
+import BonusOutreMer from './outre-mer/BonusOutreMer'
 import getNextQuestions from './publicodes/getNextQuestions'
+import { getRuleName } from './publicodes/utils'
 import useIsMobile from './useIsMobile'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
-  let infoCEE, infoMPR, montantTotal, isExactTotal
+  let infoCEE, infoMPR, infoOM, montantTotal, isExactTotal
   // Tant que MPA/MPLD ne sont pas intégré au simulateur principal, il faut forcer le parcours d'aide pour MPR
   if (!situation["parcours d'aide"]) {
     situation["parcours d'aide"] = '"rénovation énergétique"'
@@ -35,6 +36,7 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
   const dottedNameCee = dottedName + ' . CEE'
   const dottedNameMpr = dottedName + ' . MPR'
   const dottedNameCP = dottedName + ' . Coup de pouce'
+  const dottedNameOM = dottedName + ' . bonus outre-mer'
 
   if (typeof rules[dottedNameCee] !== 'undefined') {
     const evaluationCEE = engineSituation.evaluate(dottedNameCee + ' . montant')
@@ -61,6 +63,13 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
         ),
     }
   }
+  if (typeof rules[dottedNameOM] !== 'undefined') {
+    infoOM = {
+      questions: rules[dottedNameOM + ' . question']
+        ? dottedName + ' . ' + rules[dottedNameOM + ' . question']
+        : {},
+    }
+  }
 
   const hasCoupDePouce = typeof rules[dottedNameCP] !== 'undefined'
   const questionRule =
@@ -70,7 +79,11 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     : rules[questionRule]
       ? questionRule
       : undefined
-  let questions = [question].concat(infoCEE?.questions).filter(Boolean)
+  let questions = [question]
+    .concat(infoCEE?.questions)
+    .concat(infoOM?.questions)
+    .filter(Boolean)
+
   if (typeof rules[dottedNameMpr] !== 'undefined') {
     const questions = getNextQuestions(
       engine.setSituation(situation).evaluate(dottedNameMpr + ' . montant'),
@@ -86,9 +99,9 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
       montant: formatValue(evaluationMpr),
       montantRaw: evaluationMpr.nodeValue,
       isExactTotal: Object.keys(evaluationMpr.missingVariables).length === 1,
-      plafond: formatValue(
-        engineSituation.evaluate(dottedNameMpr + ' . plafond'),
-      ),
+      plafond:
+        rules[dottedNameMpr + ' . plafond'] != null &&
+        formatValue(engineSituation.evaluate(dottedNameMpr + ' . plafond')),
       questions: [...filteredQuestion].filter((q) => rules[q].question),
     }
   }
@@ -104,8 +117,12 @@ export const getInfoForPrime = ({ engine, dottedName, situation }) => {
     )
   isExactTotal =
     evaluationTotal?.missingVariables &&
-    Object.keys(evaluationTotal?.missingVariables).length <= 1
+    Object.keys(evaluationTotal?.missingVariables).filter(
+      (questionKey) =>
+        rules[questionKey] != null && rules[questionKey].question,
+    ).length === 0
   let calculatedMontantTotal = formatValue(evaluationTotal, { precision: 0 })
+
   if (!isExactTotal) {
     calculatedMontantTotal = formatValue(
       engine.setSituation(situation).evaluate(relevant),
@@ -197,6 +214,17 @@ export default function AideGeste({
             />
           </div>
         )}
+        <BonusOutreMer
+          {...{
+            engine,
+            situation,
+            dottedName,
+            rules,
+
+            answeredQuestions,
+            setSearchParams,
+          }}
+        />
         {montantCoupDePouce && (
           <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
             <BlocAideCoupDePouce

@@ -1,0 +1,119 @@
+isolation . rampants . bonus outre-mer:
+isolation . rampants . bonus outre-mer . montant:
+  produit:
+    - barème
+    - MPR . surface
+
+isolation . rampants . bonus outre-mer . barème:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        somme:
+          - combles perdus La Réunion . montant
+          - autres gestes La Réunion . montant
+    - si: outre-mer . Guadeloupe
+      alors: barème Guadeloupe
+    - si: outre-mer . Martinique
+      alors: barème Martinique
+    - si: outre-mer . Mayotte
+      alors: barème Mayotte
+    - si: outre-mer . Guyane
+      alors: barème Guyane
+  avec:
+    barème Guadeloupe:
+      variations:
+        - si: ménage . revenu . classe = 'très modeste'
+          alors: 16 €/m2
+        - sinon: 12 €/m2
+    barème Martinique:
+      variations:
+        - si: ménage . revenu . classe = 'très modeste'
+          alors: 20 €/m2
+        - si: ménage . revenu . classe = 'modeste'
+          alors: 20 €/m2
+        - sinon: 18 €/m2
+    barème Mayotte:
+      variations:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 25 €/m2
+        - sinon: 20 €/m2
+
+isolation . rampants . choix:
+  par défaut: "'autres gestes'"
+  question: Quel type d'isolation de la toiture voulez-vous faire ?
+  une possibilité parmi:
+    possibilités:
+      - combles perdus
+      - autres gestes
+
+isolation . rampants . choix . combles perdus:
+  valeur: "'combles perdus'"
+
+isolation . rampants . choix . autres gestes:
+  valeur: "'autres gestes'"
+  titre: Combles aménagés, rampants et toitures terrasses
+
+isolation . rampants . combles perdus La Réunion:
+  applicable si: rampants . choix = 'combles perdus'
+
+isolation . rampants . combles perdus La Réunion . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 15 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 15 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 13 €/m2
+    - sinon: 13 €/m2
+
+isolation . rampants . autres gestes La Réunion:
+  applicable si: rampants . choix = 'autres gestes'
+  titre: Combles aménagés, rampants et toitures terrasses
+
+isolation . rampants . autres gestes La Réunion . montant:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 15 €/m2
+
+#### Le reste reste à intégrer dans la structure ci-dessus
+
+isolation . toiture agir plus Guyane:
+  par défaut: oui
+
+isolation . rampants . bonus outre-mer . barème Guyane:
+  variations:
+    - si: outre-mer . zone Guyane = 'littoral'
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 18 €/m2
+          - sinon: 17 €/m2
+    - si: outre-mer . zone Guyane = 'intérieur accès route'
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 20 €/m2
+          - sinon: 0 €/m2
+    - si: outre-mer . zone Guyane = 'intérieur accès fleuve'
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 35 €/m2
+          - sinon: 0 €/m2

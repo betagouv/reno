@@ -1,0 +1,474 @@
+outre-mer:
+outre-mer . dispositif:
+  variations:
+    - si: outre-mer . Mayotte
+      alors:
+        texte: HODARI
+    - sinon:
+        texte: Agir plus
+
+##########
+# Ci-dessous, quelques gestes qui ne nécessitent pas un fichier dédié car peu complexes
+##########
+
+isolation . surtoiture ventilée:
+  applicable si: outre-mer . DROM
+  par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
+  description: |
+    La surtoiture ventilée consiste en un pare-soleil protégeant la paroi horizontale des rayonnements solaires tel que le taux d’ouverture (surface d’ouverture rapportée à la surface de la paroi) est au moins égal à 5 %.
+
+isolation . surtoiture ventilée . montant:
+  somme:
+    - MPR . montant
+
+isolation . surtoiture ventilée . MPR:
+  par défaut: oui
+
+isolation . surtoiture ventilée . MPR . question: surface
+isolation . surtoiture ventilée . MPR . plafond:
+  valeur: 110 €/m2
+  description: Plafonds de dépenses éligibles
+
+isolation . surtoiture ventilée . MPR . surface:
+  question: Quelle surface de surtoiture ventilée voulez-vous installer ?
+  unité: m2
+isolation . surtoiture ventilée . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - surface
+    - barème
+isolation . surtoiture ventilée . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 75 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 60 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 40 €/m2
+    - sinon: 15 €/m2
+
+################
+
+isolation . protection solaire toiture:
+  par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
+  description: |
+    Des équipements et matériaux peuvent protéger la toiture contre le rayonnement solaire et rendre le logement plus confortable.
+
+isolation . protection solaire toiture . montant:
+  applicable si: outre-mer . DROM
+  somme:
+    - MPR . montant
+    - bonus outre-mer . montant
+
+isolation . protection solaire toiture . MPR:
+  par défaut: oui
+
+isolation . protection solaire toiture . MPR . question: surface
+isolation . protection solaire toiture . MPR . plafond:
+  valeur: 200 €/m2
+  description: Plafonds de dépenses éligibles
+
+isolation . protection solaire toiture . MPR . surface:
+  question: Quelle surface de protection solaire en toiture voulez-vous installer ?
+  unité: m2
+isolation . protection solaire toiture . MPR . montant:
+  produit:
+    - surface
+    - barème
+
+isolation . protection solaire toiture . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 25 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 0 €/m2
+
+isolation . protection solaire toiture . bonus outre-mer:
+isolation . protection solaire toiture . bonus outre-mer . montant:
+  produit:
+    - MPR . surface
+    - barème
+isolation . protection solaire toiture . bonus outre-mer . barème:
+  variations:
+    - si: outre-mer . La Réunion
+      alors: barème La Réunion
+    - si: outre-mer . Guadeloupe
+      alors: barème Guadeloupe
+    - si: outre-mer . Martinique
+      alors: barème Martinique
+    - si: outre-mer . Mayotte
+      alors: barème Mayotte
+    - si: outre-mer . Guyane
+      alors: 15 €/m2
+  avec:
+    barème La Réunion:
+      variations:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 30 €/m2
+        - sinon: 20 €/m2
+    barème Guadeloupe: 20 €/m2
+    barème Martinique:
+      variations:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 18 €/m2
+        - sinon: 14 €/m2 # TODO MAJ 2025 étrange qui donnerait 20 € soit plus au plus aisés, donc on garde les valeurs de 2024
+    barème Mayotte:
+      variations:
+        - si:
+            une de ces conditions:
+              - ménage . revenu . classe = 'très modeste'
+              - ménage . revenu . classe = 'modeste'
+          alors: 20 €/m2
+        - sinon: 15 €/m2
+
+##########
+
+isolation . peinture:
+  applicable si: outre-mer . Mayotte
+  titre: Pose d'une peinture thermoréfléchissante
+  par défaut: oui
+  description: |
+    La mise en place sur une toiture terrasse d’une peinture thermoréflechissante doit disposer d’un facteur solaire ≤ 0,02.
+  note: |
+    La documentation de l'ANAH outre mer PDF ne précise pas si la peinture peut aussi s'appliquer sur un toit pentu en métal par exemple.
+
+isolation . peinture . MPR:
+  applicable si: non
+  note: Ce geste n'est pas adossée à une aide MPR, contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
+isolation . peinture . MPR . montant: 0
+isolation . peinture . MPR . question: surface
+isolation . peinture . montant:
+  somme:
+    - bonus outre-mer
+isolation . peinture . bonus outre-mer:
+isolation . peinture . bonus outre-mer . question: surface
+isolation . peinture . bonus outre-mer . montant:
+  produit:
+    - surface
+    - barème
+isolation . peinture . bonus outre-mer . barème:
+  valeur: 10 €/m2
+  description: Pas de variation selon les classes de revenu de ménage
+isolation . peinture . surface:
+  question: Quelle surface de toiture voulez-vous peindre ?
+  unité: m2
+
+##############
+
+isolation . pack chaleur toiture:
+  applicable si: outre-mer . Guadeloupe
+  titre: Installation d'un pack isolation de toiture contre la chaleur
+  par défaut: oui
+  description: |
+    L’objectif est de limiter deux types de transferts de chaleur en toiture par conduction et par réflexion en combinant les deux solutions techniques.
+
+isolation . pack chaleur toiture . MPR:
+  applicable si: non
+  note: Ce geste n'est pas adossée à une aide MPR, contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
+isolation . pack chaleur toiture . MPR . montant: 0
+
+isolation . pack chaleur toiture . montant:
+  somme:
+    - bonus outre-mer . montant
+isolation . pack chaleur toiture . bonus outre-mer:
+isolation . pack chaleur toiture . bonus outre-mer . question: surface
+isolation . pack chaleur toiture . bonus outre-mer . montant:
+  note: |
+    En 2024 ce geste était disponible pour La Réunion et la Martinique. Ce n'est plus le cas en 2025.
+  produit:
+    - surface
+    - barème
+isolation . pack chaleur toiture . surface:
+  question: Quelle surface de toiture voulez-vous isoler du chaud ?
+  unité: m2
+isolation . pack chaleur toiture . bonus outre-mer . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 36 €/m2
+    - sinon: 32 €/m2
+
+######### Protections solaires des murs
+
+isolation . bardage ventilé:
+  par défaut: oui
+
+isolation . bardage ventilé . montant: MPR . montant
+
+isolation . bardage ventilé . MPR:
+  par défaut: oui
+
+isolation . bardage ventilé . MPR . question: surface
+isolation . bardage ventilé . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - surface
+
+isolation . bardage ventilé . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 75 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 60 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 40 €/m2
+    - sinon: 15 €
+
+isolation . bardage ventilé . MPR . plafond: 105 €/m2
+isolation . bardage ventilé . MPR . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler ?
+  unité: m2
+
+##
+
+isolation . pare-soleil horizontal:
+  par défaut: oui
+
+isolation . pare-soleil horizontal . montant: MPR . montant
+isolation . pare-soleil horizontal . MPR:
+  par défaut: oui
+
+isolation . pare-soleil horizontal . MPR . question: surface
+isolation . pare-soleil horizontal . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - surface
+
+isolation . pare-soleil horizontal . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 25 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 0 €
+
+isolation . pare-soleil horizontal . MPR . plafond: 200 €/m2
+isolation . pare-soleil horizontal . MPR . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler ?
+  unité: m2
+
+## maintenant les déclinaisons bonus outre-mer pour les protections solaires des murs
+
+isolation . protection solaire murs:
+  par défaut: oui
+isolation . protection solaire murs . question: surface
+isolation . protection solaire murs . montant: bonus outre-mer . montant
+isolation . protection solaire murs . MPR:
+  applicable si: non
+  note: Ce geste n'est pas adossée à une aide MPR, car les aides MPR sont plus restreintes que les bonus... contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
+isolation . protection solaire murs . MPR . montant: 0
+
+isolation . protection solaire murs . bonus outre-mer:
+isolation . protection solaire murs . bonus outre-mer . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - surface
+    - barème
+
+isolation . protection solaire murs . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler du soleil ?
+  unité: m2
+isolation . protection solaire murs . bonus outre-mer . question: surface
+isolation . protection solaire murs . bonus outre-mer . barème:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 30 €/m2
+          - sinon: 20 €/m2
+    - si: outre-mer . Guadeloupe
+      alors: 14 €/m2
+    - si: outre-mer . Martinique
+      alors: 8 €/m2
+    - si: outre-mer . Mayotte
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 15 €/m2
+          - sinon: 10 €/m2
+    - si: outre-mer . Guyane
+      alors: 12 €/m2
+
+#####
+
+isolation . paroi en terre:
+  applicable si: outre-mer . Mayotte
+  titre: Paroi en briques de terre comprimée
+  par défaut: oui
+  description: |
+    L’exigence technique associée : le facteur solaire doit être ≥ 0,20.
+  note: |
+    Cette exigence technique nous fait comprendre qu'il s'agit là d'un pare soleil avant tout ?
+
+isolation . paroi en terre . MPR:
+  applicable si: non
+  note: Ce geste n'est pas adossée à une aide MPR, contrairement à la plupart des autres aides. L'implémentation actuelle nous fait passer par une règle MPR mais on ne devrait pas en avoir besoin. À régler TODO
+isolation . paroi en terre . MPR . montant: 0
+
+isolation . paroi en terre . montant:
+  somme:
+    - bonus outre-mer . montant
+isolation . paroi en terre . bonus outre-mer:
+isolation . paroi en terre . bonus outre-mer . montant:
+  produit:
+    - surface
+    - barème
+isolation . paroi en terre . bonus outre-mer . barème:
+  valeur: 25 €/m2
+  description: Pas de variation selon les classes de revenu de ménage
+isolation . paroi en terre . surface:
+  question: Quelle surface de paroi voulez-vous construire ?
+  unité: m2
+
+########
+
+isolation . protection solaire vitres:
+  titre: Protection solaire des parois vitrées
+  par défaut: oui
+  description: |
+    Les parois vitrées peuvent être protégées à l’aide de brise-soleils verticaux, protections solaires mobiles, lames orientables opaques, films réfléchissants sur lames transparentes.
+
+isolation . protection solaire vitres . montant:
+  somme:
+    - MPR . montant
+    - bonus outre-mer . montant
+isolation . protection solaire vitres . MPR:
+
+isolation . protection solaire vitres . MPR . question: surface
+isolation . protection solaire vitres . MPR . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - barème
+    - surface
+
+isolation . protection solaire vitres . MPR . barème:
+  variations:
+    - si: ménage . revenu . classe = 'très modeste'
+      alors: 25 €/m2
+    - si: ménage . revenu . classe = 'modeste'
+      alors: 20 €/m2
+    - si: ménage . revenu . classe = 'intermédiaire'
+      alors: 15 €/m2
+    - sinon: 0 €
+
+isolation . protection solaire vitres . MPR . plafond: 200 €/m2
+isolation . protection solaire vitres . MPR . surface:
+  question: Quelle surface de vitres voulez-vous protéger du soleil ?
+  unité: m2
+
+isolation . protection solaire vitres . bonus outre-mer:
+isolation . protection solaire vitres . bonus outre-mer . montant:
+  applicable si: outre-mer . DROM
+  produit:
+    - MPR . surface
+    - barème
+
+isolation . protection solaire vitres . bonus outre-mer . barème:
+  variations:
+    - si: outre-mer . La Réunion
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 100 €/m2
+          - sinon: 110 €/m2
+    - si: outre-mer . Guadeloupe
+      alors: 65 €/m2
+    - si: outre-mer . Martinique
+      alors: 0 €/m2
+    - si: outre-mer . Mayotte
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 35 €/m2
+          - sinon: 30 €/m2
+    - si: outre-mer . Guyane
+      alors: 15 €/m2
+
+##############
+
+ventilation . brasseurs:
+  titre: Brasseurs d’air fixes plafonniers
+  applicable si: outre-mer . DROM
+  par défaut: oui
+
+ventilation . brasseurs . montant:
+  somme:
+    - bonus outre-mer . montant
+
+ventilation . brasseurs . MPR:
+  par défaut: oui
+
+ventilation . brasseurs . MPR . nombre:
+  question: Combien de brasseurs voulez-vous installer ?
+  unité: unité
+ventilation . brasseurs . MPR . montant: 0 €
+
+ventilation . brasseurs . bonus outre-mer:
+ventilation . brasseurs . bonus outre-mer . montant:
+  variations:
+    - si:
+        une de ces conditions:
+          - outre-mer . La Réunion
+          - outre-mer . Martinique
+      alors:
+        variations:
+          - si:
+              une de ces conditions:
+                - ménage . revenu . classe = 'très modeste'
+                - ménage . revenu . classe = 'modeste'
+            alors: 150 €
+          - sinon: 120 €
+    - si: outre-mer . Guadeloupe
+      alors:
+        variations:
+          - si: ménage . revenu . classe = 'très modeste'
+            alors: 180 €
+          - sinon: 150 €
+    - si: outre-mer . Mayotte
+      alors:
+        variations:
+          - si: avec installation
+            alors: 100 €
+          - sinon: 40 €
+    - si: outre-mer . Guyane
+      alors:
+        variations:
+          - si: outre-mer . zone Guyane = 'littoral'
+            alors:
+              variations:
+                - si: ménage . revenu . classe = 'très modeste'
+                  alors: 150 €
+                - sinon: 120 €
+          - si: outre-mer . zone Guyane = 'intérieur accès route'
+            alors: 250 €
+          - sinon: 300 €
+
+ventilation . brasseurs . bonus outre-mer . avec installation:
+  applicable si: outre-mer . Mayotte
+  question: L'achat inclut-il l'installation ?
+  par défaut: non

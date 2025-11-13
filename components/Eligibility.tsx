@@ -1,28 +1,28 @@
 import Feedback from '@/app/contact/Feedback'
-import { push } from '@socialgouv/matomo-next'
-import BackToLastQuestion from './BackToLastQuestion'
-import PersonaBar from './PersonaBar'
-import { useAides } from './ampleur/useAides'
-import { decodeDottedName } from './publicodes/situationUtils'
-import useIsInIframe from './useIsInIframe'
-import * as iframe from '@/utils/iframe'
-import { useEffect, useState } from 'react'
-import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
-import AideAmpleur from './ampleur/AideAmpleur'
-import AideGeste, { getInfoForPrime } from './AideGeste'
-import Link from 'next/link'
-import Value from './Value'
-import { categories, getCurDate, getRulesByCategory } from './utils'
-import { AvanceTMO } from './mprg/BlocAideMPR'
 import { correspondance } from '@/app/simulation/Form'
-import React from 'react'
-import Button from '@codegouvfr/react-dsfr/Button'
 import Share from '@/app/simulation/Share'
-import styled from 'styled-components'
+import * as iframe from '@/utils/iframe'
+import Button from '@codegouvfr/react-dsfr/Button'
+import { push } from '@socialgouv/matomo-next'
+import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import AideGeste, { getInfoForPrime } from './AideGeste'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
+import BackToLastQuestion from './BackToLastQuestion'
+import { getTravauxEnvisages, isCategorieChecked } from './ChoixTravaux'
+import PersonaBar from './PersonaBar'
+import Value from './Value'
+import AideAmpleur from './ampleur/AideAmpleur'
+import { useAides } from './ampleur/useAides'
+import { AvanceTMO } from './mprg/BlocAideMPR'
+import { decodeDottedName } from './publicodes/situationUtils'
+import useIsInIframe from './useIsInIframe'
+import { categories, getCurDate, getRulesByCategory } from './utils'
+import { textValueEquality } from './publicodes/utils'
 import useIsMobile from './useIsMobile'
 
 export default function Eligibility({
@@ -268,7 +268,10 @@ export function EligibilityRenovationEnergetique({
   expanded,
   isMobile,
 }) {
-  const travauxConnus = situation['projet . définition'] != '"travaux inconnus"'
+  const travauxConnus = !textValueEquality(
+    situation['projet . définition'],
+    'travaux inconnus',
+  )
 
   const hasMPRA =
     aides.find((a) => a.baseDottedName == 'MPR . accompagnée')?.status === true
