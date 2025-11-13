@@ -24,7 +24,7 @@
     },
     "argile": {
       "type": "vector",
-      "url": "pmtiles://https://serveur.cartes.app/gtfs/argile.pmtiles"
+      "url": "pmtiles://https://static.data.gouv.fr/resources/carte-des-risques-retrait-gonflement-des-argiles/20251113-144847/argile.pmtiles"
     }
   },
   "sprite": "https://openmaptiles.data.gouv.fr/sprites/sprite",
