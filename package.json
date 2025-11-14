@@ -1,5 +1,5 @@
 {
-  "name": "mesaidesreno",
+  "name": "@redfroggy/reno",
   "version": "2.3.1",
   "scripts": {
     "build": "next build",
