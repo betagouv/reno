@@ -28,7 +28,6 @@
   },
   "module": "index.js",
   "types": "index.d.ts",
-  "private": true,
   "dependencies": {
     "@adobe/css-tools": "^4.3.3",
     "@codegouvfr/react-dsfr": "^1.26.0",
