@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Release library to private registry
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
