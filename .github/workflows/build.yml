@@ -39,4 +39,5 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run build
+          sed -i '0,/{/s/{/{\n  "type": "module",/' package.json
           npm publish
