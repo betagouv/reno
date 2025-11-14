@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": ".git",
-    "url": "https://github.com/RedFroggy/reno.git"
+    "url": "git+https://github.com/RedFroggy/reno.git"
   },
   "module": "index.js",
   "types": "index.d.ts",
