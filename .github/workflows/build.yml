@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    name: Build
+    name: Release lib
     runs-on: ubuntu-24.04
     env:
       NODE_OPTIONS: '--max-old-space-size=4096'
