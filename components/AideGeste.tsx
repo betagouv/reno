@@ -189,8 +189,9 @@ export default function AideGeste({
         ])
       }}
     >
-      {questions?.map((question) => (
+      {questions?.map((question, i) => (
         <GesteQuestion
+          key={i}
           {...{
             rules,
             question,

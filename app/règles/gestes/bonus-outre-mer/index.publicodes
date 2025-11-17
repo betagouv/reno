@@ -50,6 +50,7 @@ isolation . surtoiture ventilée . MPR . barème:
 ################
 
 isolation . protection solaire toiture:
+  applicable si: outre-mer . DROM
   par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
   description: |
     Des équipements et matériaux peuvent protéger la toiture contre le rayonnement solaire et rendre le logement plus confortable.
@@ -199,6 +200,7 @@ isolation . pack chaleur toiture . bonus outre-mer . barème:
 ######### Protections solaires des murs
 
 isolation . bardage ventilé:
+  applicable si: outre-mer . DROM
   par défaut: oui
 
 isolation . bardage ventilé . montant: MPR . montant
@@ -231,6 +233,7 @@ isolation . bardage ventilé . MPR . surface:
 ##
 
 isolation . pare-soleil horizontal:
+  applicable si: outre-mer . DROM
   par défaut: oui
 
 isolation . pare-soleil horizontal . montant: MPR . montant
@@ -262,6 +265,7 @@ isolation . pare-soleil horizontal . MPR . surface:
 ## maintenant les déclinaisons bonus outre-mer pour les protections solaires des murs
 
 isolation . protection solaire murs:
+  applicable si: outre-mer . DROM
   par défaut: oui
 isolation . protection solaire murs . question: surface
 isolation . protection solaire murs . montant: bonus outre-mer . montant
@@ -342,6 +346,7 @@ isolation . paroi en terre . surface:
 ########
 
 isolation . protection solaire vitres:
+  applicable si: outre-mer . DROM
   titre: Protection solaire des parois vitrées
   par défaut: oui
   description: |

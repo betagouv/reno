@@ -770,25 +770,29 @@ export function TravauxInconnus({
   return Object.keys(rulesByCategory).map((category) => (
     <div key={category}>
       <h3 className="fr-mt-10v fr-h5">{category}</h3>
-      {rulesByCategory[category].map((dottedName, index) => {
-        const shouldShow = showAllByCategory[category] || index < 2
-        return (
-          shouldShow && (
-            <div key={dottedName}>
-              <AideGeste
-                {...{
-                  engine,
-                  dottedName,
-                  setSearchParams,
-                  answeredQuestions,
-                  situation,
-                }}
-              />
-            </div>
+      {rulesByCategory[category]
+        .filter((dottedName) => engine.evaluate(dottedName).nodeValue)
+        .map((dottedName, index) => {
+          const shouldShow = showAllByCategory[category] || index < 2
+          return (
+            shouldShow && (
+              <div key={dottedName}>
+                <AideGeste
+                  {...{
+                    engine,
+                    dottedName,
+                    setSearchParams,
+                    answeredQuestions,
+                    situation,
+                  }}
+                />
+              </div>
+            )
           )
-        )
-      })}
-      {rulesByCategory[category].length > 2 && (
+        })}
+      {rulesByCategory[category].filter(
+        (dottedName) => engine.evaluate(dottedName).nodeValue,
+      ).length > 2 && (
         <div className="fr-my-5v">
           <Button
             priority="secondary"
