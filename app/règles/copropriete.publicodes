@@ -158,6 +158,7 @@ copropriété . pourcentage d'aide:
 
 copropriété . condition éligibilité:
   toutes ces conditions:
+    - vous . propriétaire . statut = 'copropriété'
     - condition résidence principale
     - condition 15 ans
     - gain énergétique . condition

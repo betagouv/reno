@@ -24,6 +24,7 @@ import useIsInIframe from './useIsInIframe'
 import { categories, getCurDate, getRulesByCategory } from './utils'
 import { textValueEquality } from './publicodes/utils'
 import useIsMobile from './useIsMobile'
+import ExplicationCopropriete from './copropriete/ExplicationCopropriete'
 
 export default function Eligibility({
   nbStep,
@@ -295,146 +296,162 @@ export function EligibilityRenovationEnergetique({
 
   return (
     <>
-      {prets.length > 0 && (
-        <Card>
-          <h2 className="fr-h4">
-            <span aria-hidden="true">🏦</span> Prêts à 0%
-          </h2>
-          <RenderAides
-            {...{
-              isEligible: true,
-              aidesList: prets,
-              setSearchParams,
-              answeredQuestions,
-              engine,
-              situation,
-              searchParams,
-              rules,
-            }}
-          />
-        </Card>
-      )}
-      <Card>
-        <h2 className="fr-h4">
-          <span aria-hidden="true">💶</span> Aides pour vos travaux
-        </h2>
-        {hasMPRA && (
-          <>
-            <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
-              <div className="fr-callout__title">
-                Avez-vous pensé à une rénovation ambitieuse ?
-              </div>
-              <ul className="fr-callout__text">
-                <li>📉 Réduction des factures d'énergie</li>
-                <li>🧘 Gain de confort hiver comme été</li>
-                <li>
-                  👷 <strong>Mon accompagnateur rénov'</strong> assure le suivi
-                </li>
-                <li>
-                  🥇 Jusqu'à{' '}
-                  <Value
-                    {...{
-                      state: 'normal',
-                      engine,
-                      situation,
-                      dottedName: 'MPR . accompagnée . pourcent',
-                    }}
-                  />{' '}
-                  des travaux financés
-                </li>
-              </ul>
-              <AideAmpleur
+      {situation['vous . propriétaire . statut'] == '"copropriété"' ? (
+        <ExplicationCopropriete
+          {...{
+            rules,
+            situation,
+            answeredQuestions,
+            setSearchParams,
+            engine,
+            searchParams,
+          }}
+        />
+      ) : (
+        <>
+          {prets.length > 0 && (
+            <Card>
+              <h2 className="fr-h4">
+                <span aria-hidden="true">🏦</span> Prêts à 0%
+              </h2>
+              <RenderAides
                 {...{
-                  engine,
-                  dottedName: 'MPR . accompagnée',
+                  isEligible: true,
+                  aidesList: prets,
                   setSearchParams,
-                  situation,
                   answeredQuestions,
-                  expanded,
-                  noDescription: true,
+                  engine,
+                  situation,
+                  searchParams,
+                  rules,
                 }}
               />
-              {!isTMO && (
-                <div className="fr-alert fr-alert--info">
-                  <div className="fr-alert__title">
-                    Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+            </Card>
+          )}
+          <Card>
+            <h2 className="fr-h4">
+              <span aria-hidden="true">💶</span> Aides pour vos travaux
+            </h2>
+            {hasMPRA && (
+              <>
+                <div className="fr-callout fr-callout--purple-glycine fr-my-5v">
+                  <div className="fr-callout__title">
+                    Avez-vous pensé à une rénovation ambitieuse ?
                   </div>
-                  <p>
-                    Jusqu'au 31 décembre 2025 seuls les ménages très modestes
-                    peuvent en bénéficier. L’aide pourrait réouvrir aux autres
-                    catégories de revenus début 2026.
-                    <Share text="" showWithAnswer={false} align="left" />
-                  </p>
+                  <ul className="fr-callout__text">
+                    <li>📉 Réduction des factures d'énergie</li>
+                    <li>🧘 Gain de confort hiver comme été</li>
+                    <li>
+                      👷 <strong>Mon accompagnateur rénov'</strong> assure le
+                      suivi
+                    </li>
+                    <li>
+                      🥇 Jusqu'à{' '}
+                      <Value
+                        {...{
+                          state: 'normal',
+                          engine,
+                          situation,
+                          dottedName: 'MPR . accompagnée . pourcent',
+                        }}
+                      />{' '}
+                      des travaux financés
+                    </li>
+                  </ul>
+                  <AideAmpleur
+                    {...{
+                      engine,
+                      dottedName: 'MPR . accompagnée',
+                      setSearchParams,
+                      situation,
+                      answeredQuestions,
+                      expanded,
+                      noDescription: true,
+                    }}
+                  />
+                  {!isTMO && (
+                    <div className="fr-alert fr-alert--info">
+                      <div className="fr-alert__title">
+                        Qui peut avoir MaPrimeRénov’ parcours accompagné ?
+                      </div>
+                      <p>
+                        Jusqu'au 31 décembre 2025 seuls les ménages très
+                        modestes peuvent en bénéficier. L’aide pourrait réouvrir
+                        aux autres catégories de revenus début 2026.
+                        <Share text="" showWithAnswer={false} align="left" />
+                      </p>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            <p className="fr-h4">
-              Sinon, optez pour les aides par gestes individuels :
-            </p>
-          </>
-        )}
-        <AvanceTMO {...{ engine, situation }} />
-        {travauxConnus ? (
-          <TravauxConnus
-            {...{
-              categories,
-              situation,
-              travauxEnvisages,
-              rules,
-              answeredQuestions,
-              engine,
-              setSearchParams,
-            }}
-          />
-        ) : (
-          <TravauxInconnus
-            {...{
-              categories,
-              situation,
-              rules,
-              answeredQuestions,
-              engine,
-              setSearchParams,
-              isMobile,
-            }}
-          />
-        )}
-      </Card>
-      {aidesDiverses.length > 0 && (
-        <Card>
-          <h2 className="fr-h4">Aides diverses</h2>
-          <RenderAides
-            {...{
-              isEligible: false,
-              aidesList: aidesDiverses,
-              setSearchParams,
-              answeredQuestions,
-              engine,
-              situation,
-              searchParams,
-              rules,
-            }}
-          />
-        </Card>
-      )}
-      {nonEligibles.length > 0 && (
-        <Card>
-          <h2 className="fr-h4">
-            <span aria-hidden="true">⛔</span> Non éligible à
-          </h2>
-          <RenderAides
-            {...{
-              isEligible: false,
-              aidesList: nonEligibles,
-              setSearchParams,
-              answeredQuestions,
-              engine,
-              situation,
-              searchParams,
-              rules,
-            }}
-          />
-        </Card>
+                <p className="fr-h4">
+                  Sinon, optez pour les aides par gestes individuels :
+                </p>
+              </>
+            )}
+            <AvanceTMO {...{ engine, situation }} />
+            {travauxConnus ? (
+              <TravauxConnus
+                {...{
+                  categories,
+                  situation,
+                  travauxEnvisages,
+                  rules,
+                  answeredQuestions,
+                  engine,
+                  setSearchParams,
+                }}
+              />
+            ) : (
+              <TravauxInconnus
+                {...{
+                  categories,
+                  situation,
+                  rules,
+                  answeredQuestions,
+                  engine,
+                  setSearchParams,
+                  isMobile,
+                }}
+              />
+            )}
+          </Card>
+          {aidesDiverses.length > 0 && (
+            <Card>
+              <h2 className="fr-h4">Aides diverses</h2>
+              <RenderAides
+                {...{
+                  isEligible: false,
+                  aidesList: aidesDiverses,
+                  setSearchParams,
+                  answeredQuestions,
+                  engine,
+                  situation,
+                  searchParams,
+                  rules,
+                }}
+              />
+            </Card>
+          )}
+          {nonEligibles.length > 0 && (
+            <Card>
+              <h2 className="fr-h4">
+                <span aria-hidden="true">⛔</span> Non éligible à
+              </h2>
+              <RenderAides
+                {...{
+                  isEligible: false,
+                  aidesList: nonEligibles,
+                  setSearchParams,
+                  answeredQuestions,
+                  engine,
+                  situation,
+                  searchParams,
+                  rules,
+                }}
+              />
+            </Card>
+          )}
+        </>
       )}
     </>
   )

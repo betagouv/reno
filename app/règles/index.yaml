@@ -8,6 +8,11 @@ aides:
     - si:
         toutes ces conditions:
           - parcours d'aide = "rénovation énergétique"
+          - vous . propriétaire . statut = 'copropriété'
+      alors: copropriété . montant
+    - si:
+        toutes ces conditions:
+          - parcours d'aide = "rénovation énergétique"
           - une de ces conditions:
               - toutes ces conditions:
                   - projet . définition = "travaux connus"
@@ -64,6 +69,7 @@ vous . propriétaire . statut:
       - 'propriétaire'
       - 'acquéreur'
       - 'non propriétaire'
+      - 'copropriété'
   par défaut: "'propriétaire'"
 
 vous . propriétaire . statut . propriétaire:
@@ -75,6 +81,9 @@ vous . propriétaire . statut . acquéreur:
 vous . propriétaire . statut . non propriétaire:
   valeur: "'non propriétaire'"
   titre: Je suis locataire
+vous . propriétaire . statut . copropriété:
+  valeur: "'copropriété'"
+  titre: Je représente une copropriété
 
 vous . propriétaire . condition:
   titre: Propriétaire ?
