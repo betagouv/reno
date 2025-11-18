@@ -53,6 +53,7 @@ copropriété . condition 15 ans:
   titre: Construite il y a plus de 15 ans
   question: La copropriété a-t-elle été construite il y a plus de 15 ans ?
   par défaut: oui
+  formule: copropriété . id
 copropriété . condition résidence principale:
   titre: Quota d'habitations principales
   question:
