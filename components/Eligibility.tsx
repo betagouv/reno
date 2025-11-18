@@ -25,6 +25,7 @@ import { categories, getCurDate, getRulesByCategory } from './utils'
 import { textValueEquality } from './publicodes/utils'
 import useIsMobile from './useIsMobile'
 import ExplicationCopropriete from './copropriete/ExplicationCopropriete'
+import ExplicationCoproprieteContent from './copropriete/ExplicationCoproprieteContent'
 
 export default function Eligibility({
   nbStep,
@@ -297,15 +298,8 @@ export function EligibilityRenovationEnergetique({
   return (
     <>
       {situation['vous . propriétaire . statut'] == '"copropriété"' ? (
-        <ExplicationCopropriete
-          {...{
-            rules,
-            situation,
-            answeredQuestions,
-            setSearchParams,
-            engine,
-            searchParams,
-          }}
+        <ExplicationCoproprieteContent
+          {...{ engine, situation, setSearchParams, answeredQuestions }}
         />
       ) : (
         <>
