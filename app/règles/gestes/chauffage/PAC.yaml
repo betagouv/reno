@@ -153,7 +153,6 @@ chauffage . PAC . air-eau . CEE . facteur correctif region:
     - si: CEE . région = 'H3'
       alors: 0.7
 chauffage . PAC . air-eau . CEE . barème:
-  par défaut: 0
   variations:
     - si:
         toutes ces conditions:
@@ -330,7 +329,6 @@ chauffage . PAC . géo . CEE . Etas . supérieur à 230 %:
   valeur: "'supérieur à 230 %'"
   titre: 'Supérieur à 230 %'
 chauffage . PAC . géo . CEE . barème:
-  par défaut: 0
   variations:
     - si: usage = 'chauffage seulement'
       alors: barème chauffage
@@ -613,7 +611,6 @@ chauffage . PAC . air-air . CEE . facteur correctif surface appartement:
     - si: surface >= 130
       alors: 2.5
 chauffage . PAC . air-air . CEE . barème:
-  par défaut: 0
   variations:
     - si: logement . type = 'appartement'
       alors: barème appartement
