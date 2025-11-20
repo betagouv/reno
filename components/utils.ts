@@ -167,7 +167,11 @@ export const getRulesByCategory = (
 
       if (ceeDuplicate) continue
       // Cas particulier du solaire qui contient souvent chauffage dans sa rule
-      if (rule.includes('solaire') && catCode == 'chauffage') continue
+      if (
+        (rule.includes('solaire') && catCode == 'chauffage') ||
+        (rule.includes('solaire') && catCode == 'isolation')
+      )
+        continue
       if (!rulesByCategory[catTitle]) {
         rulesByCategory[catTitle] = []
       }
