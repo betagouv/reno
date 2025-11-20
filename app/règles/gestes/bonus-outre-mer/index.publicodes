@@ -12,6 +12,7 @@ outre-mer . dispositif:
 ##########
 
 isolation . surtoiture ventilée:
+  titre: Surtoiture ventilée
   applicable si: outre-mer . DROM
   par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
   description: |
@@ -50,6 +51,7 @@ isolation . surtoiture ventilée . MPR . barème:
 ################
 
 isolation . protection solaire toiture:
+  titre: Protection solaire des toitures
   applicable si: outre-mer . DROM
   par défaut: oui # TODO nécessaire mais très relou, on doit pouvoir s'en passer et clarifier le code avec une évaluation sans valeur par défaut comme fait dans RGA.tsx ?
   description: |
@@ -200,6 +202,7 @@ isolation . pack chaleur toiture . bonus outre-mer . barème:
 ######### Protections solaires des murs
 
 isolation . bardage ventilé:
+  titre: Bardage ventilé
   applicable si: outre-mer . DROM
   par défaut: oui
 
@@ -233,6 +236,7 @@ isolation . bardage ventilé . MPR . surface:
 ##
 
 isolation . pare-soleil horizontal:
+  titre: Installation de pare-soleil horizontaux
   applicable si: outre-mer . DROM
   par défaut: oui
 
@@ -265,6 +269,7 @@ isolation . pare-soleil horizontal . MPR . surface:
 ## maintenant les déclinaisons bonus outre-mer pour les protections solaires des murs
 
 isolation . protection solaire murs:
+  titre: Protection solaire des murs
   applicable si: outre-mer . DROM
   par défaut: oui
 isolation . protection solaire murs . question: surface
