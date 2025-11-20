@@ -82,24 +82,6 @@ export default async function Page(props) {
             <ParFranceRénovTexte />
           </div>
         </div>
-        <div className="fr-callout fr-callout--green-archipel">
-          <h3 className="fr-callout__title">
-            2 minutes pour améliorer votre futur projet de rénovation !
-          </h3>
-          <p className="fr-callout__text">
-            Qu'est-ce qui vous aiderait vraiment dans votre projet ? Nous créons
-            des outils pour simplifier vos projets de rénovation énergétique.
-            Partagez-nous vos attentes en moins de 2 minutes : votre avis est
-            essentiel pour développer le service qui vous correspond.
-          </p>
-          <a
-            href="https://tally.so/r/pbx8A1"
-            target="_blank"
-            className="fr-btn"
-          >
-            Donner mon avis
-          </a>
-        </div>
         <HomepageSteps />
         <HomepageModules />
         <HomepageTalkAboutUs />
