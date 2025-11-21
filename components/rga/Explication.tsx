@@ -33,7 +33,11 @@ export default function Explication() {
 
   const evaluation = engineSituation.evaluate('rga . conditions')
   const isEligibile = evaluation.nodeValue
-
+  push([
+    'trackEvent',
+    'Simulateur RGA',
+    isEligibile ? 'eligible' : 'non eligible',
+  ])
   const searchParamsString = rawSearchParams.toString()
 
   const RGA_ALLOWED_DOMAINS = [
