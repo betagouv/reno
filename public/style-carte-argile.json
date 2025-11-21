@@ -3098,7 +3098,7 @@
           "case",
           ["boolean", ["feature-state", "selected"], false],
           "#18753c",
-          "#000091"
+          "#aaa"
         ],
         "line-width": [
           "case",
