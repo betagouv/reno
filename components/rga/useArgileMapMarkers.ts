@@ -91,6 +91,10 @@ export function useOnPointClick(map, setSelectedBuilding, rnb) {
     }
     map.on('click', pointsLayerId, onClick)
 
+    map.on('click', formsLayerId, (e) => {
+      console.log('click', e)
+    })
+
     return () => {
       map.off('click', pointsLayerId, onClick)
     }

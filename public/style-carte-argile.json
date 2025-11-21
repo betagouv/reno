@@ -3089,24 +3089,24 @@
     },
     {
       "id": "formes RNB",
-      "type": "line",
+      "type": "fill",
       "source": "rnb-formes",
       "source-layer": "default",
       "layout": { "visibility": "visible" },
       "paint": {
-        "line-color": [
+        "fill-outline-color": [
           "case",
           ["boolean", ["feature-state", "selected"], false],
           "#18753c",
           "#aaa"
         ],
-        "line-width": [
+        "fill-color": [
           "case",
           ["boolean", ["feature-state", "selected"], false],
-          4,
-          1
+          "#18753c20",
+          "#eee"
         ],
-        "line-opacity": 1
+        "fill-opacity": 0.8
       },
       "filter": ["==", "$type", "Polygon"]
     },

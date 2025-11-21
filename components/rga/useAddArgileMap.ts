@@ -59,13 +59,5 @@ export default function useAddAddressMap(mapContainerRef) {
     }
   }, [setMap, mapContainerRef]) // styleUrl not listed on purpose
 
-  useEffect(() => {
-    if (!map) return
-
-    map.on('click', (e) => {
-      console.log({ click: e })
-    })
-  }, [map])
-
   return map
 }
