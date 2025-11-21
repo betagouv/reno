@@ -172,7 +172,8 @@ rga . département éligible:
 #  - 82 Tarn et garonne
 
 logement . zone d'exposition:
-  question: Quel est le niveau d'exposition RGA du logement ?
+  titre: Niveau d'exposition RGA du logement
+  question: Sélectionnez le point bleu correspondant à votre logement sur la carte
   par défaut: "'faible'"
   une possibilité parmi:
     possibilités:
