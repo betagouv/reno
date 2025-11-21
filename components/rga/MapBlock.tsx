@@ -37,11 +37,14 @@ export default function MapBlock({ rnb, mapContainerRef }) {
         }
       `}
     >
-      {rnb == null && (
-        <p>
-          <strong>⬇️ Sélectionnez votre maison sur la carte</strong>
-        </p>
-      )}
+      {
+        /* Désactivé suite au changement du texte de la question pour une instruction */
+        false && rnb == null && (
+          <p>
+            <strong>⬇️ Sélectionnez votre maison sur la carte</strong>
+          </p>
+        )
+      }
       <div
         ref={mapContainerRef}
         css={`

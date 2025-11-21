@@ -32,7 +32,11 @@ export const QuestionText = ({
   return (
     !noLabel && (
       <legend className="fr-fieldset__legend--bold fr-fieldset__legend fr-text--lead fr-pb-0">
-        {text.replace(/\s\?/, '')}&nbsp;?
+        {text.includes(' ?') ? (
+          <span>{text.replace(/\s\?/, '')}&nbsp;?</span>
+        ) : (
+          text
+        )}
         {rule['sous-titre'] && (
           <div
             className="fr-hint-text"
