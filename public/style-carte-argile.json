@@ -3103,7 +3103,7 @@
         "fill-color": [
           "case",
           ["boolean", ["feature-state", "selected"], false],
-          "#18753c20",
+          "#18753c60",
           "#eee"
         ],
         "fill-opacity": 0.8
@@ -3119,28 +3119,19 @@
       "paint": {
         "circle-radius": [
           "case",
-          ["boolean", ["feature-state", "hover"], false],
+          [
+            "any",
+            ["boolean", ["feature-state", "hover"], false],
+            ["boolean", ["feature-state", "selected"], false]
+          ],
           8,
           5
         ],
         "circle-color": [
           "case",
           ["boolean", ["feature-state", "selected"], false],
-          "#18753c",
+          "#163623",
           "#000091"
-        ],
-
-        "circle-stroke-width": [
-          "case",
-          ["boolean", ["feature-state", "selected"], false],
-          4,
-          2
-        ],
-        "circle-stroke-color": [
-          "case",
-          ["boolean", ["feature-state", "selected"], false],
-          "#b8fec9",
-          "white"
         ]
       }
     }

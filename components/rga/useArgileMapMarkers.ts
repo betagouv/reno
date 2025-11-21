@@ -47,6 +47,7 @@ export function useOnPointClick(map, setSelectedBuilding, rnb) {
     if (!map) return
     const onClick = (e) => {
       const feature = e.features[0]
+      console.log('click features', e.features)
       const { id } = feature
 
       const { lat, lng } = e.lngLat
@@ -91,12 +92,11 @@ export function useOnPointClick(map, setSelectedBuilding, rnb) {
     }
     map.on('click', pointsLayerId, onClick)
 
-    map.on('click', formsLayerId, (e) => {
-      console.log('click', e)
-    })
+    map.on('click', formsLayerId, onClick)
 
     return () => {
       map.off('click', pointsLayerId, onClick)
+      map.off('click', formsLayerId, onClick)
     }
   }, [map, setSelectedBuilding, rnb])
 }
