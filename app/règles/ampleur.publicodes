@@ -17,7 +17,10 @@ ampleur . montant:
     - locavantage . montant
 
 ampleur . tous les dispositifs:
-  applicable si: parcours d'aide = "rénovation énergétique"
+  applicable si: 
+    toutes ces conditions:
+      - parcours d'aide = "rénovation énergétique"
+      - vous . propriétaire . condition
   note: |
     Cette somme n'a pas trop de sens, car elle somme des montants certes exprimés en € mais qui peuvent être des aides, des prêts, des exonérations d'impôt, etc.
 
