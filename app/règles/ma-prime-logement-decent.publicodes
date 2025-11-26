@@ -43,7 +43,7 @@ MPLD . situation demandeur . occupant:
   titre: Je suis propriétaire ou locataire de mon logement
 MPLD . situation demandeur . bailleur: 
   valeur: "'bailleur'"
-  titre: Propriétaire d'un logement que je loue ou que je souhaite mettre en location
+  titre: Je suis propriétaire bailleur
 MPLD . situation demandeur . copropriété: 
   valeur: "'copropriété'"
   titre: Je représente une copropriété
