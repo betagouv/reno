@@ -720,7 +720,7 @@ MPR:
 Coup de pouce:
   marque: 'Coup de pouce Chauffage'
 parcours d'aide:
-  question: Votre choix du parcours d'aide
+  question: Quel est votre besoin
   description: |
 
     Les aides à la rénovation sont séparées en trois volets. 
