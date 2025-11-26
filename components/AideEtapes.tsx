@@ -493,7 +493,7 @@ L'équipe MesAidesRéno`,
                   aria-hidden="true"
                 ></span>
                 Travaux terminés : profitez de votre logement 
-                {hasMPA ? 'adapté' : 'rénové'}
+                {hasMPA ? ' adapté' : ' rénové'}
               </h3>
               {hasMPA ? (
                 <>
