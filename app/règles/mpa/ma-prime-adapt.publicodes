@@ -30,7 +30,7 @@ mpa . situation demandeur . bailleur:
   titre: Propriétaire d'un logement que je loue ou que je souhaite mettre en location
 mpa . situation demandeur . copropriété: 
   valeur: "'copropriété'"
-  titre: Syndicat de copropriété
+  titre: Je représente une copropriété
 
 mpa . montant travaux:
   question: Quel est le montant estimé de travaux pour l'adaptation du logement?
