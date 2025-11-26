@@ -46,7 +46,7 @@ MPLD . situation demandeur . bailleur:
   titre: Propriétaire d'un logement que je loue ou que je souhaite mettre en location
 MPLD . situation demandeur . copropriété: 
   valeur: "'copropriété'"
-  titre: Syndicat de copropriété
+  titre: Je représente une copropriété
 
 MPLD . occupant:
 MPLD . occupant . conditions de revenu:
