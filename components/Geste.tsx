@@ -112,7 +112,7 @@ export const PrimeBadge = ({ engine, dottedName, situation, montantSeul }) => {
           <Tooltip
             className="fr-ms-1v"
             kind="hover"
-            title="Ce montant correspond à la formule officielle de calcul. Cependant, les fournisseurs d'énergies sont libres d'adopter leur propre méthode de calcul."
+            title="Ce montant correspond à une hypothèse moyenne de prix des CEE. Les fournisseurs d'énergie et leurs délégataires sont libres d'adapter le prix proposé."
           />
         </>
       ) : (
