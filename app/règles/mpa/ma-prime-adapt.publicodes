@@ -27,7 +27,7 @@ mpa . situation demandeur . occupant:
   titre: Je suis propriétaire ou locataire de mon logement
 mpa . situation demandeur . bailleur: 
   valeur: "'bailleur'"
-  titre: Propriétaire d'un logement que je loue ou que je souhaite mettre en location
+  titre: Je suis propriétaire bailleur
 mpa . situation demandeur . copropriété: 
   valeur: "'copropriété'"
   titre: Je représente une copropriété
