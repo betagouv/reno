@@ -40,13 +40,13 @@ MPLD . situation demandeur:
   par défaut: "'occupant'"
 MPLD . situation demandeur . occupant:
   valeur: "'occupant'"
-  titre: Propriétaire de mon logement ou locataire du parc privé
+  titre: Je suis propriétaire ou locataire de mon logement
 MPLD . situation demandeur . bailleur: 
   valeur: "'bailleur'"
-  titre: Propriétaire d'un logement que je loue ou que je souhaite mettre en location
+  titre: Je suis propriétaire bailleur
 MPLD . situation demandeur . copropriété: 
   valeur: "'copropriété'"
-  titre: Syndicat de copropriété
+  titre: Je représente une copropriété
 
 MPLD . occupant:
 MPLD . occupant . conditions de revenu:

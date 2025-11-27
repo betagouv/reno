@@ -8,6 +8,7 @@ import { BlocAide } from './UI'
 import BonusOutreMer from './outre-mer/BonusOutreMer'
 import getNextQuestions from './publicodes/getNextQuestions'
 import { getRuleName } from './publicodes/utils'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
 import useIsMobile from './useIsMobile'
 
 export const getInfoForPrime = ({ engine, dottedName, situation }) => {
@@ -202,6 +203,12 @@ export default function AideGeste({
           }}
         />
       ))}
+      <div className="aide-details">
+        <Highlight>
+          Précisions: Sous condition de recours à un professionnel{' '}
+          <strong>RGE</strong>.
+        </Highlight>
+      </div>
       <div className="fr-grid-row fr-grid-row--gutters">
         {infoMPR && (
           <div className={isMobile ? 'fr-col-12' : 'fr-col-6'}>
@@ -273,10 +280,7 @@ const BlocAideMPR = ({ infoMPR, engine, situation, isMobile }) => (
       />
     </div>
     <div className="aide-details">
-      <div className="details">
-        Précisions: Sous condition de recours à un professionnel{' '}
-        <strong>RGE</strong>. {rules[infoMPR.dottedName]?.description}
-      </div>
+      <div className="details">{rules[infoMPR.dottedName]?.description}</div>
     </div>
   </BlocAide>
 )
