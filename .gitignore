@@ -42,7 +42,7 @@ next-env.d.ts
 
 data/*
 !data/README.md
-!data/exonération-taxe-foncière-population.csv
+!data/exoneration_taxe_fonciere_population.csv
 !data/ort.csv
 !data/valeur-verte.csv
 
