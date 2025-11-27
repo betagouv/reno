@@ -1,0 +1,93 @@
+= Mise à jour de la base TFPB
+:toc:
+:toclevels: 3
+
+== Objet
+Ce document décrit le fonctionnement et le processus de mise à jour annuelle du fichier `data/exoneration_taxe_fonciere_population.csv` utilisé pour le calcul des exonérations de taxe foncière sur les propriétés bâties (TFPB).
+
+== Source de données DGFIP
+Chaque année, la DGFIP transmet, après notre demande, un fichier Excel contenant trois onglets :
+
+* *COM_VOTE_2025_ANC_ET_NOUV_EXO* : communes ayant appliqué l'ancienne et la nouvelle exonération.
+* *COM_VOTE_2025_ANCIENNE_EXO* : communes ayant appliqué uniquement l'ancienne exonération.
+* *COM_VOTE_2025_NOUVELLE_EXO* : communes ayant appliqué uniquement la nouvelle exonération.
+
+Ces onglets sont utilisés pour remplir les colonnes initiales du CSV. Avant cette étape, le contenu précédent du fichier doit être supprimé puis remplacé intégralement par les nouvelles données issues de la DGFIP.
+
+== Champs à remplir dans le CSV
+Les colonnes suivantes doivent être complétées à partir des données DGFIP :
+
+* `codeDepartement`
+* `codeCollectivite`
+* `nomCollectivite`
+* `fbExonerationPartielleVlAnciensEconomesTaux`
+* `fbNouvelleExonPartielleVlAnciensLogEconomesTaux`
+
+== Exécution du script de mise à jour
+Une fois les données DGFIP intégrées dans le CSV, exécuter :
+
+```
+yarn compute-taxe-fonciere
+```
+
+== Fonctionnement du script
+Il s'appuie sur le fichier `lib/computeTaxeFoncierePopulation.ts` et sur la variable d'environnement obligatoire :
+
+```
+GEO_API_BASE_URL=https://geo.api.gouv.fr
+```
+
+Le script réalise les opérations suivantes :
+
+. Lecture du CSV existant.
+. Récupération des populations via l'API Géo.
+. Traitement ligne par ligne :
+.. Validation des données.
+.. Détection des doublons.
+.. Ajout du code Insee, de la population et du taux final.
+. Écriture du CSV mis à jour.
+. Affichage du nombre total de lignes traitées.
+
+== Règles de calcul
+
+== Validation des données
+Le script applique plusieurs contrôles stricts :
+
+* Vérification des champs obligatoires : `codeDepartement`, `codeCollectivite`, `nomCollectivite`.
+* Vérification qu'au moins un des deux taux est renseigné (`fbNouvelle...` ou `fbExoneration...`).
+* Détection automatique des doublons sur `codeInsee` (concaténation des codes).
+* Arrêt du traitement avec message d'erreur en cas d'anomalie.
+
+=== Code INSEE
+Le champ `codeInsee` est généré via :
+
+```
+codeInsee = codeDepartement + codeCollectivite
+```
+
+=== Population
+La population est obtenue automatiquement pour chaque commune en interrogeant l’API Géo :
+
+```
+https://geo.api.gouv.fr/communes?fields=population
+```
+
+Le script recherche directement la population correspondant au `codeInsee` et l’intègre dans la ligne traitée.
+
+
+=== Taux retenu :
+Pour chaque commune, le script définit le taux final de la manière suivante:
+
+* Priorité au taux de la nouvelle exonération fbNouvelleExonPartielleVlAnciensLogEconomesTaux si présent, cette valeur est alors prise en compte pour le calcul du taux final.
+
+* Sinon, utilisation du taux de l’ancienne exonération fbExonerationPartielleVlAnciensEconomesTaux, cette valeur est alors prise en compte pour le calcul du taux final.
+
+== Fichier mis à jour
+À l’issue du traitement, le fichier `data/exoneration_taxe_fonciere_population.csv` contient :
+
+* données DGFIP enrichies,
+* `codeInsee`,
+* `population`,
+* `taux` final.
+
+Ce fichier constitue la base de référence pour les calculs TFPB de l'application.

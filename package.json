@@ -10,7 +10,7 @@
     "prettier:check": "prettier --check --ignore-unknown .",
     "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next",
     "start": "node .next/standalone/server.js",
-    "compute-taxe-foncière": "deno run --allow-read --allow-net --allow-write lib/computeTaxeFoncièrePopulation.ts"
+    "compute-taxe-fonciere": "deno run --allow-read --allow-net --allow-write --allow-env lib/computeTaxeFoncierePopulation.ts"
   },
   "main": "index.js",
   "files": [
