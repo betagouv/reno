@@ -56,8 +56,8 @@ export default function NPMDoc() {
               <strong>
                 <u>Accompagnement sur-mesure</u>
               </strong>
-              :<br /> L'un des développeurs de l'équipe, Morgan ou Maël, peut se
-              rendre disponible pour vous assister en live dans l'intégration.
+              :<br /> L'un des développeurs de l'équipe peut se rendre
+              disponible pour vous assister en live dans l'intégration.
               D'expérience, 45 minutes suffisent. C'est votre souhait ? Merci
               d’adresser votre demande{' '}
               <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons
