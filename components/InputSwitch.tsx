@@ -186,6 +186,7 @@ export default function InputSwitch({
               situation,
               engine,
               label: rules[currentQuestion].question,
+              hintText: rule['sous-titre'],
               coordinates: [searchParams.lon, searchParams.lat],
               setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
               onChange: async (adresse) => {
