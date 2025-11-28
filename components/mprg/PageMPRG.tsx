@@ -90,7 +90,10 @@ export default function PageMPRG({ params }: { params: { titre: string } }) {
           <li>
             Recours à un professionnel <strong>RGE</strong>
           </li>
-
+          <li>
+            Le plafond de dépense éligible est de{' '}
+            <strong>{infoMPR.plafond}</strong>
+          </li>
           {rules[rule + ' . MPR']?.description && (
             <li>{rules[rule + ' . MPR']?.description}</li>
           )}

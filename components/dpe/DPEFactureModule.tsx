@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import data from '@/components/dpe/DPE.yaml'
 import iconArgent from '@/public/icon-argent.png'
-import listeEnergies from '@/app/règles/dpe/energies.publicodes'
+import listeEnergies from '@/app/règles/energies.publicodes'
 import { formatNumber } from '../RevenuInput'
 import TargetDPETabs from '../mpra/TargetDPETabs'
 import rules from '@/app/règles/rules'
@@ -12,7 +12,7 @@ import { encodeSituation, getSituation } from '../publicodes/situationUtils'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import useSetSearchParams from '../useSetSearchParams'
-import DPELabel from './DPELabel'
+import DPELabel, { conversionLettreIndex } from './DPELabel'
 import { ModuleWrapper } from '@/app/module/ModuleWrapper'
 import styled from 'styled-components'
 import useDpe from './useDpe'
@@ -25,6 +25,13 @@ import Select from '@codegouvfr/react-dsfr/Select'
 import useIsMobile from '../useIsMobile'
 
 const prixAbonnementElectricite = 160
+export const getIndexLettre = (dpe) =>
+  conversionLettreIndex.indexOf(
+    conversionLettreIndex.indexOf(dpe['etiquette_dpe']) >
+      conversionLettreIndex.indexOf(dpe['etiquette_ges'])
+      ? dpe['etiquette_dpe']
+      : dpe['etiquette_ges'],
+  ) + 1
 
 export default function DPEFactureModule({ type, numDpe }) {
   const dpe = useDpe(numDpe)
