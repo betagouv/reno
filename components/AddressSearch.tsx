@@ -15,6 +15,7 @@ export default function AddressSearch({
   setAddressResults,
   onChange = null,
   label = '',
+  hideLabel=false
 }) {
   const [immediateInput, setInput] = useState(
     dpe?.['adresse_ban'] ||
@@ -50,6 +51,7 @@ export default function AddressSearch({
     <>
       <Input
         label={label}
+        hideLabel={hideLabel}
         nativeInputProps={{
           value: immediateInput,
           onChange: (e) => {
