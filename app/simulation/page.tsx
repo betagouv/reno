@@ -2,7 +2,7 @@ import rules from '@/app/règles/rules'
 import Form from './Form'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { PageBlock } from '@/components/UI'
-import simulationConfig from '/app/simulation/simulationConfig.yaml'
+import simulationConfigAll from './simulationConfigAll.yaml'
 
 export async function generateMetadata(props) {
   const { objectif } = await props.searchParams
@@ -23,7 +23,7 @@ export default function Page() {
     <>
       <StartDsfrOnHydration />
       <PageBlock>
-        <Form simulationConfig={simulationConfig} rules={rules} />
+        <Form simulationConfig={simulationConfigAll} rules={rules} />
       </PageBlock>
     </>
   )

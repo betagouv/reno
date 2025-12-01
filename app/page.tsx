@@ -63,9 +63,6 @@ export default async function Page(props) {
             >
               C'est parti !
             </Link>
-            <Link href="/copropriete" className="fr-btn fr-btn--secondary">
-              Je représente une copropriété
-            </Link>
             <FromStorageSimulationButtonLoader />
           </div>
         </HeaderWrapper>

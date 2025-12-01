@@ -121,6 +121,10 @@ export const BlocAideMPR = ({
                 Sous condition de recours à un professionnel{' '}
                 <strong>RGE</strong>
               </li>
+              <li>
+                Le plafond de dépense éligible est de{' '}
+                <strong>{infoMPR.plafond}</strong>
+              </li>
               {rules[infoMPR.dottedName]?.description && (
                 <li>{rules[infoMPR.dottedName].description}</li>
               )}

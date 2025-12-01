@@ -24,13 +24,13 @@ mpa . situation demandeur:
   par défaut: "'occupant'"
 mpa . situation demandeur . occupant:
   valeur: "'occupant'"
-  titre: Propriétaire de mon logement ou locataire du parc privé
+  titre: Je suis propriétaire ou locataire de mon logement
 mpa . situation demandeur . bailleur: 
   valeur: "'bailleur'"
-  titre: Propriétaire d'un logement que je loue ou que je souhaite mettre en location
+  titre: Je suis propriétaire bailleur
 mpa . situation demandeur . copropriété: 
   valeur: "'copropriété'"
-  titre: Syndicat de copropriété
+  titre: Je représente une copropriété
 
 mpa . montant travaux:
   question: Quel est le montant estimé de travaux pour l'adaptation du logement?
