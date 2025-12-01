@@ -38,7 +38,7 @@ export default function Integration() {
 
   const listeModule = [
     {
-      titre: 'Module Principal',
+      titre: 'Simulateur principal',
       valeur: '/',
     },
     {
