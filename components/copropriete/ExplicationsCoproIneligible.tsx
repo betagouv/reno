@@ -16,6 +16,7 @@ export default function ExplicationsCoproIneligible({ engine, situation }) {
           .map((dottedNamePart) => {
             const dottedName = 'copropriété . ' + dottedNamePart
             const condition = rules[dottedName]
+            if (!condition) return
             const value = evaluate(dottedName)
 
             return (
