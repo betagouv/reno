@@ -161,19 +161,22 @@ export default function Eligibility({
           }}
         />
       )}
-      <BlocEtMaintenant
-        title="Et maintenant, on fait quoi ?"
-        setSearchParams={setSearchParams}
-      >
-        <p>Un conseiller France Rénov’ peut vous aider à :</p>
-        <ul>
-          <li>🛠️ Identifier les bons travaux à faire</li>
-          <li>💰 Monter un plan de financement adapté</li>
-          <li>
-            🎯 Accéder aux aides auxquelles vous aurez droit au moment du projet
-          </li>
-        </ul>
-      </BlocEtMaintenant>
+      {hasAides && (
+        <BlocEtMaintenant
+          title="Et maintenant, on fait quoi ?"
+          setSearchParams={setSearchParams}
+        >
+          <p>Un conseiller France Rénov’ peut vous aider à :</p>
+          <ul>
+            <li>🛠️ Identifier les bons travaux à faire</li>
+            <li>💰 Monter un plan de financement adapté</li>
+            <li>
+              🎯 Accéder aux aides auxquelles vous aurez droit au moment du
+              projet
+            </li>
+          </ul>
+        </BlocEtMaintenant>
+      )}
       <div
         className="fr-my-15v"
         css={`

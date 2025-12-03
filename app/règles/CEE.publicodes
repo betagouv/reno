@@ -61,6 +61,7 @@ CEE . rénovation d'ampleur . conditions:
     - MPR . accompagnée . condition éligibilité = non
     - sauts >= 2
     - logement . période de construction != 'moins de 2 ans'
+    - vous . propriétaire . statut != 'copropriété'
     # France métropolitaine seulement
     # Entreprise RGE
 
