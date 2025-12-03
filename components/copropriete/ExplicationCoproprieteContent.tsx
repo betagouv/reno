@@ -145,13 +145,14 @@ export default function ExplicationCoproprieteContent({
                         ? formatNumberWithSpaces(
                             situation['copropriété . montant travaux'],
                           )
-                        : '',
+                        : 0,
                       onChange: (e) => {
                         const price = e.target.value.replace(/\s/g, '')
                         const invalid =
-                          price != '' && (isNaN(price) || price <= 0)
+                          price != '' && (isNaN(price) || price < 0)
                         if (invalid) return
 
+                        const valueToStore = price === '' ? '0' : price;
                         push([
                           'trackEvent',
                           'copropriété . montant travaux',
@@ -160,8 +161,8 @@ export default function ExplicationCoproprieteContent({
                         ])
                         setSearchParams({
                           [encodeDottedName('copropriété . montant travaux')]:
-                            price == '' ? undefined : price + '*',
-                        })
+                            valueToStore == '' ? undefined : valueToStore + '*',
+                        });
                       },
                     }}
                     addon={
