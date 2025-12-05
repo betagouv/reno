@@ -118,7 +118,6 @@ export default function MPRA({
             En savoir plus sur l'aide
           </Link>
         </Card>
-        {/*  <Écrêtement {...{ engine, rules, situation }} /> */}
       </AideAmpleur>
       <BlocEtMaintenant
         title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}

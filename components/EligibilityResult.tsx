@@ -1,6 +1,5 @@
 import { formatValue } from 'publicodes'
 import AmpleurCTA from '@/app/module/AmpleurCTA'
-import { Key } from '@/components/explications/ExplicationUI'
 import Value from './Value'
 import { push } from '@socialgouv/matomo-next'
 import useSetSearchParams from './useSetSearchParams'

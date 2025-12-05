@@ -47,6 +47,7 @@ export default function API() {
                 <u>Accompagnement sur-mesure</u>
               </strong>
               :<br /> Une personne de l'équipe de développement peut vous assister en live dans l'intégration.
+
               D'expérience, 45 minutes suffisent. C'est votre souhait ? Merci
               d’adresser votre demande{' '}
               <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons
