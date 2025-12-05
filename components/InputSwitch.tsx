@@ -60,7 +60,6 @@ export default function InputSwitch({
     engine,
     suggestions: rule && rule['suggestions'],
     noLabel: [
-      'logement . adresse',
       'logement . surface',
       'copropriété . nombre de logements',
       'ménage . personnes',
@@ -185,7 +184,7 @@ export default function InputSwitch({
               setAddressResults,
               situation,
               engine,
-              label: rules[currentQuestion].question,
+              hideLabel: true,
               coordinates: [searchParams.lon, searchParams.lat],
               setCoordinates: () => true, // ([lon, lat]) => setSearchParams({ lon, lat }),
               onChange: async (adresse) => {
