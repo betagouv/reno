@@ -2,7 +2,7 @@ import { PageBlock } from '@/components/UI'
 import illustrationAccueil from '@/public/illustration-accueil.resized.webp'
 import { Metadata } from 'next/types'
 import { HeaderWrapper } from '@/app/LandingUI'
-import communes from '@/data/exonération-taxe-foncière-population.csv'
+import communes from '@/data/exoneration_taxe_fonciere_population.csv'
 import { sortBy } from '@/components/utils'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import Badge from '@codegouvfr/react-dsfr/Badge'
@@ -51,11 +51,11 @@ export default function Module({}) {
         </p>
         <ul>
           {sortBy((c) => c.commune)(communes).map(
-            ({ 'Nom de la collectivité': commune, code, taux, population }) => {
+            ({ 'nomCollectivite': commune, codeInsee, taux, population }) => {
               return (
                 <li key={commune} className="fr-mb-3v">
                   <h3>{commune}</h3>
-                  <div>Code commune : {code || <em>à renseigner</em>}</div>
+                  <div>Code commune : {codeInsee || <em>à renseigner</em>}</div>
                   <div>
                     Taux d'exonération :{' '}
                     <Badge severity="success" noIcon>
