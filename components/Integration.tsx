@@ -380,16 +380,6 @@ export const ContactIntegration = ({ type }) => (
           API de calcul des aides à la rénovation
         </Link>
       )}
-      {type == 'api' && (
-        <Link className="fr-link" href="/npm">
-          paquet NPM de calcul des aides à la rénovation
-        </Link>
-      )}
-      {type == 'npm' && (
-        <Link className="fr-link" href="/api-doc">
-          API de calcul des aides à la rénovation
-        </Link>
-      )}
       .
     </p>
     <Link

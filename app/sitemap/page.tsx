@@ -192,11 +192,6 @@ const Sitemap = async () => {
                     API
                   </a>
                 </li>
-                <li>
-                  <a className="fr-link" href="/npm">
-                    NPM
-                  </a>
-                </li>
               </ul>
               <li>
                 <a href="/a-propos" className="fr-link">
