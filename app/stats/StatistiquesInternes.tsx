@@ -17,7 +17,7 @@ import 'chartjs-adapter-date-fns'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Line } from 'react-chartjs-2'
-import { formatter, formatTime, StatCard } from '../Statistiques'
+import { formatTime, StatCard, formatter } from './Statistiques'
 ChartJS.register(
   LinearScale,
   TimeScale,
@@ -225,7 +225,13 @@ export default function StatistiquesInternes() {
 
   return (
     <>
-      <h2>Statistiques Internes</h2>
+      <h2
+        css={`
+          margin: 3rem 0;
+        `}
+      >
+        Détails
+      </h2>
       {[
         { title: 'Global', data: data.global, chart: globalChart, options },
         { title: 'Site', data: data.site, chart: siteChart, options },

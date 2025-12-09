@@ -186,7 +186,7 @@ export default function Statistiques() {
           },
         },
         y: {
-          max: 65000,
+          max: 100000,
           beginAtZero: true,
           title: { display: true, text: 'Nombre de simulation' },
         },
@@ -252,7 +252,13 @@ export default function Statistiques() {
         Evolution des visiteurs uniques et simulations terminées (hebdomadaire)
       </h3>
       {data.weeklyData && <Line data={chartData} options={options} />}
-      <h3>Intégration du simulateur par des tiers</h3>
+      <h3
+        css={`
+          margin: 1rem 0;
+        `}
+      >
+        Intégration du simulateur par des tiers
+      </h3>
       <p
         css={`
           margin: 1rem 0;
@@ -398,7 +404,13 @@ export default function Statistiques() {
 
       {satisfaction?.oui > 0 && (
         <>
-          <h3>Satisfaction des usagers</h3>
+          <h3
+            css={`
+              margin: 1rem 0;
+            `}
+          >
+            Satisfaction des usagers
+          </h3>
           <p className="fr-mt-3v">
             Les taux de satisfaction ci-dessous correspondent aux pourcentages
             d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
