@@ -29,12 +29,6 @@ export default function Header() {
       }}
       quickAccessItems={[
         {
-          text: 'Blog',
-          linkProps: {
-            href: '/blog',
-          },
-        },
-        {
           text: 'Les aides',
           linkProps: {
             href: '/aides',

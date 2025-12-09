@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next'
 import rules from '@/app/règles/rules'
-import generateBlogSitemap from '@/blogSitemap'
 import writePublicodesJson from '@/lib/writePublicodesJson'
 
 writePublicodesJson()
@@ -29,12 +28,7 @@ const basePaths = [
   '/interdiction-location',
   '/integration',
   '/module',
-  '/blog',
 ]
-
-const documentationPaths = Object.keys(rules)
-  .filter((dottedName) => !dottedName.startsWith('aides locales'))
-  .map((dottedName) => '/documentation/' + dottedName)
 
 const aidesLocales = Object.keys(rules)
   .filter(
@@ -78,7 +72,6 @@ const simulateurCoupDePouce = Object.keys(rules)
 
 const paths = [
   ...basePaths,
-  //...documentationPaths, // We're trying a version of the site where search engines don't see the documentation, to avoid duplicate content with our simulators and half-empty non optimized pages
   ...aidesLocales,
   ...[...new Set(simulateurCEE)], // pour éviter les doublons
   ...[...new Set(simulateurMPR)], // pour éviter les doublons
@@ -86,12 +79,9 @@ const paths = [
 ]
 
 export default async function sitemap(): MetadataRoute.Sitemap {
-  const blogSitemap = await generateBlogSitemap()
-
   return [
     ...paths.map((path) => ({
       url: domain + path,
     })),
-    ...blogSitemap,
   ]
 }

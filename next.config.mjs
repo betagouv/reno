@@ -1,5 +1,4 @@
 import createMDX from '@next/mdx'
-import mdxOptions from './mdxOptions.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -96,9 +95,6 @@ const nextConfig = {
     ]
   },
   output: 'standalone',
-  outputFileTracingIncludes: {
-    '/*': ['./articles/*.mdx'],
-  },
   images: {
     remotePatterns: [
       {
@@ -109,8 +105,4 @@ const nextConfig = {
   },
 }
 
-const withMDX = createMDX({ options: mdxOptions })
-
-const finalConfig = withMDX(nextConfig)
-
-export default finalConfig
+export default nextConfig
