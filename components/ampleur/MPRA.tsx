@@ -120,16 +120,18 @@ export default function MPRA({
         </Card>
         {/*  <Écrêtement {...{ engine, rules, situation }} /> */}
       </AideAmpleur>
-      <BlocEtMaintenant
-        title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}
-        setSearchParams={setSearchParams}
-        withCTA
-      >
-        <p className="fr-callout__text">
-          Le service public vous accompagne : parlez à un conseiller France
-          Rénov'.
-        </p>
-      </BlocEtMaintenant>
+      {isEligible !== false && (
+        <BlocEtMaintenant
+          title={<>Psst ! Votre projet mérite un vrai coup de pouce</>}
+          setSearchParams={setSearchParams}
+          withCTA
+        >
+          <p className="fr-callout__text">
+            Le service public vous accompagne : parlez à un conseiller France
+            Rénov'.
+          </p>
+        </BlocEtMaintenant>
+      )}
     </>
   )
 }
