@@ -27,7 +27,7 @@ export default function AideCTAs({ dottedName, setSearchParams, isEligible }) {
       isEligible !== false) ||
     'MPR . accompagnée' == dottedName
 
-  return hasCalculette ? (
+  return hasCalculette && isEligible !== false ? (
     <Button
       iconId="fr-icon-money-euro-circle-line"
       onClick={function () {
