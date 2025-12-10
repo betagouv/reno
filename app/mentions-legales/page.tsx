@@ -22,74 +22,49 @@ export default function MentionsLegales() {
         <h1>Mentions légales</h1>
         <h2>Éditeur de la plateforme</h2>
         <p>
-          Mes Aides Réno est à l’initiative de la Direction Interministérielle
-          du Numérique (DINUM) située :
+          Mes Aides Réno est édité et géré par l’Agence nationale de l’habitat (Anah) située :
         </p>
         <p>
-          20 Av. de Ségur
-          <br /> 75007 Paris
+          8 avenue de l’Opéra
+          <br /> 75001 Paris
           <br /> France
-          <br /> Téléphone : 01 71 21 11 33
+          <br /> Téléphone : 0806 70 38 03
         </p>
         <h2>Directrice de la publication</h2>
         <p>
-          Madame Stéphanie SCHAER, en sa qualité de directrice générale de la
-          DINUM
+          Valérie Mancret-Taylor, directrice générale de l’Anah.
         </p>
         <h2>Hébergement de la plateforme</h2>
         <p>
-          Scalingo SAS
+          Orange Business Services - Direction EOLAS
           <br />
-          13 rue Jacques Peirotes
+          Dénomination sociale : Orange Business Services SA au capital de 1.063.592.809,20 €
           <br />
-          67000 Strasbourg
-          <br /> France
-          <br />
-          <a className="fr-link" href="mailto:support@scalingo.com">
-            support@scalingo.com
-          </a>
+          Siège social : 29 rue Servan, 38000 Grenoble, France - SIRET 345 039 416 00713
+          <br /> Numéro de TVA intracommunautaire : FR26345039416
+          <br /> Téléphone : +33 4 76 44 50 50
+          <br /> RCS Bobigny 345 039 416
         </p>
         <h2>Accessibilité</h2>
         <p>
-          La conformité aux normes d’accessibilité numérique est un objectif
-          ultérieur mais nous tâchons de rendre cette plateforme accessible à
-          toutes et à tous. Pour en savoir plus sur la politique d’accessibilité
-          numérique de l’État :<br />
-          <a
-            title={
-              'https://accessibilite.numerique.gouv.fr/ - nouvelle fenêtre'
-            }
-            className="fr-link"
-            rel="noopener external"
-            target="_blank"
-            href="https://accessibilite.numerique.gouv.fr/"
-          >
-            https://accessibilite.numerique.gouv.fr/
-          </a>
+          Si, malgré notre vigilance, vous rencontrez le moindre problème d’accessibilité sur notre site,
+          vous pouvez transmettre votre message à l’adresse suivante  <a className="fr-link" href="mailto:webmestre@anah.gouv.fr">
+          webmestre@anah.gouv.fr
+        </a>. Plus d’informations sur le sujet dans la rubrique Accessibilité.
         </p>
+        <h2>Propriété intellectuelle</h2>
         <p>
-          Pour nous signaler un défaut d’accessibilité vous empêchant d’accéder
-          à un contenu ou une fonctionnalité de la plateforme, merci de nous en
-          faire part à l’adresse suivante :<br />
-          <a className="fr-link" href="mailto:contact@mesaidesreno.fr">
-            contact@mesaidesreno.fr
-          </a>
-        </p>
-        <p>
-          Si vous n’obtenez pas de réponse rapide de notre part, vous êtes en
-          droit de faire parvenir vos doléances ou une demande de saisine au
-          Défenseur des droits.
+          L'ensemble des éléments techniques, graphiques, textuels ou autres constituant le Site sont la propriété exclusive de l’Anah ou, le cas échéant, de ses prestataires fournisseurs. L’internaute du Site reconnaît qu'aucune propriété ne lui est transmise, et qu'aucun droit ou licence ne lui est accordé, en dehors du droit de visiter le Site et d'utiliser les services de ce dernier auquel il a accès.
+          <br />
+          Toute représentation, reproduction, adaptation, traduction, rediffusion, totale ou partielle du Site, de son contenu, de ses marques, par quelque procédé que ce soit, sans autorisation préalable et expresse de l’Anah, engage la responsabilité civile et/ou pénale de son auteur et sera susceptible d'entraîner des poursuites judiciaires à son encontre.
         </p>
         <h2>Sécurité</h2>
         <p>
-          La plateforme est protégée par un certificat électronique, matérialisé
-          pour la grande majorité des navigateurs par un cadenas. Cette
-          protection participe à la confidentialité des échanges.
+          La plateforme est protégée par un certificat électronique, matérialisé pour la grande majorité des navigateurs par un cadenas.
+          Cette protection participe à la confidentialité des échanges.
         </p>
         <p>
-          En aucun cas, les services associés à la plateforme ne seront à
-          l’origine d’envoi de courriels pour vous demander la saisie
-          d’informations personnelles.
+          En aucun cas, les services associés à la plateforme ne seront à l’origine d’envoi de courriels pour vous demander la saisie d’informations personnelles.
         </p>
       </PageBlock>
     </>

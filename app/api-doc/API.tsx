@@ -50,7 +50,7 @@ export default function API() {
 
               D'expérience, 45 minutes suffisent. C'est votre souhait ? Merci
               d’adresser votre demande{' '}
-              <a href="mailto:contact@mesaidesreno.fr">ici</a>. Nous prendrons
+              <a href="mailto:mesaidesreno@anah.gouv.fr">ici</a>. Nous prendrons
               contact avec vous rapidement.
             </li>
             <li
@@ -75,7 +75,7 @@ export default function API() {
           d'utilisation. Nous vous demandons simplement de nous{' '}
           <a
             className="fr-link"
-            href="mailto:contact@mesaidesreno.fr?subject=Demande de token API"
+            href="mailto:mesaidesreno@anah.gouv.fr?subject=Demande de token API"
           >
             informer de son utilisation
           </a>

@@ -8,36 +8,22 @@ const content = `
 
 # À propos de Mes Aides Réno
 
-Mes Aides Réno est un service conçu par la [Direction Interministérielle du Numérique](https://www.numerique.gouv.fr/dinum/) en partenariat avec <a href="https://france-renov.gouv.fr/" target="_blank" title="France Rénov' - nouvelle fenêtre">France Rénov'</a> et le [Secrétariat général à la planification écologique (SGPE)](https://www.info.gouv.fr/france-nation-verte).
-
-Ce service a pour objectif de simplifier l’accès à l’information sur les aides à la rénovation énergétique. Il est incubé par l'incubateur des services numériques de l'État, [beta.gouv](https://beta.gouv.fr). 
-
-Mes Aides Réno a été lancé en version beta. L’objectif est de le confronter à des usagers pour le faire rapidement évoluer en fonction des premiers retours. 
-
-Vous pouvez en apprendre davantage sur le problème que nous souhaitons résoudre, les solutions que nous expérimentons et comment nous comptons en étudier l'impact en lisant notre [fiche produit](https://www.beta.gouv.fr/startups/mesaidesreno.html).
-
+Mes Aides Réno est un service de France Rénov’ opéré par l’Agence nationale de l’habitat (Anah)
+destiné à simplifier l’accès à l’information sur les aides à la rénovation. Conçu au sein de l’incubateur beta.gouv dans le cadre d’une phase d’expérimentation portée par la Direction interministérielle du numérique (DINUM), 
+le service est désormais pérennisé et déployé à l’échelle nationale sous la responsabilité de l’Anah <a href="https://www.beta.gouv.fr/startups/mesaidesreno.html">fiche produit</a>.
 ## Partenaires et développeurs
 
-Mes Aides Réno a été conçu pour être facilement réutilisable et intégrable par des services tiers. 
+Mes Aides Réno a été conçu pour être facilement réutilisable et intégrable par des services tiers.
+Le code du site <a href="https://github.com/betagouv/reno" >est intégralement ouvert</a>, et basé sur des bibliothèques elles-même ouvertes.
 
-Le code du site [est intégralement ouvert](https://github.com/betagouv/reno), et basé sur des bibliothèques elles-même ouvertes.
-
-Le code métier est basé sur le langage [Publicodes](https://publi.codes/) pour maximiser son ouverture et sa lisibilité. [Une API](https://mesaidesreno.beta.gouv.fr/api-doc) est disponible pour comprendre notre modèle métier et réutiliser les données.
+Le code métier est basé sur le langage <a href="https://publi.codes">Publicodes</a> pour maximiser son ouverture et sa lisibilité.
+<a href="https://mesaides.france-renov.gouv.fr/api-doc">Une API</a> est disponible pour comprendre notre modèle métier et réutiliser les données.
 
 ## Mentions légales
 
-Ce site Web est opéré par la <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/direction-interministerielle-du-numerique-dinum-130025265" target="_blank" title="Direction Interministérielle du Numérique - nouvelle fenêtre">Direction Interministérielle du Numérique</a>. Téléphone : 01 71 21 11 33.
-
-
-### Directrice de la publication
-
-Madame Stéphanie SCHAER, en sa qualité de directrice générale de la DINUM
-
-### Hébergement de la plateforme
-
-Il est hébergé sur un serveur français, comme expliqué sur la page [confidentialité](/confidentialite).
+Ce site Web est opéré par l’Agence nationale de l’habitat (Anah). Téléphone Relation usager : 0806 70 38 03 (Service gratuit + prix d'un appel)
 `
-
+//TODO a remplacer le lien https://github.com/betagouv/reno par le nouveau github Anah pour l'open source
 export const metadata: Metadata = {
   title: 'À propos - Mes aides réno',
 }

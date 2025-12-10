@@ -24,7 +24,7 @@ async function apiResponse(method: string, request: Request) {
     // Pour l'instant on ne contrôle pas les tokens le temps que la transition se fasse
     // if (!token && !isTest) {
     //   throw new Error(
-    //     "Le paramètre token est manquant. N'hésitez pas à adresser une demande de token à l'adresse: contact@mesaidesreno.fr",
+    //     "Le paramètre token est manquant. N'hésitez pas à adresser une demande de token à l'adresse: mesaidesreno@anah.gouv.fr",
     //   )
     // }
     // if (!tokenList[token] && !isTest) {
