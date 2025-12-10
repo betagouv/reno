@@ -60,7 +60,7 @@ export default function Statistiques() {
     'en partie': 0,
     non: 0,
   })
-
+  const [apiWeeklyData, setApiWeeklyData] = useState(null)
   const fetchVisitData = async () => {
     try {
       const responseVisitors = await fetch('/api/matomo?type=visitors')
@@ -111,10 +111,30 @@ export default function Statistiques() {
       console.error('Error fetching events data:', error)
     }
   }
+  const fetchApiEventsData = async () => {
+    try {
+      const response = await fetch('/api/matomo?type=apiEvents')
+      const dataApi = await response.json()
 
+      const weekly = Object.entries(dataApi).map(([key, value]) => {
+        const parts = key.split(',')
+        const dateString = parts[1] ?? parts[0]
+
+        return {
+          date: new Date(dateString),
+          calls: Number(value) || 0,
+        }
+      })
+
+      setApiWeeklyData(weekly)
+    } catch (error) {
+      console.error('Error fetching API events data:', error)
+    }
+  }
   useEffect(() => {
     fetchVisitData()
     fetchSatisficationData()
+    fetchApiEventsData()
   }, [])
 
   const chartData = useMemo(
@@ -195,6 +215,46 @@ export default function Statistiques() {
     [],
   )
 
+  const apiChartData = useMemo(
+    () => ({
+      labels: apiWeeklyData ? apiWeeklyData.map((entry) => entry.date) : [],
+      datasets: [
+        {
+          label: 'Nombre d’appels API ',
+          data: apiWeeklyData ? apiWeeklyData.map((entry) => entry.calls) : [],
+          borderColor: '#0072f5',
+          borderWidth: 1,
+          backgroundColor: 'rgba(0, 114, 245, 0.3)',
+          yAxisID: 'y',
+        },
+      ],
+    }),
+    [apiWeeklyData],
+  )
+  const apiOptions = useMemo(
+    () => ({
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'week',
+            tooltipFormat: 'dd/MM/yyyy',
+            displayFormats: { week: 'dd/MM/yyyy' },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: "Nombre d'appels API" },
+        },
+      },
+    }),
+    [],
+  )
+
   return (
     <>
       <h2>Statistiques</h2>
@@ -254,6 +314,14 @@ export default function Statistiques() {
       {data.weeklyData && <Line data={chartData} options={options} />}
       <h3
         css={`
+          margin-top: 2rem;
+        `}
+      >
+        Appels à l’API Mes Aides Réno (hebdomadaire)
+      </h3>
+      {apiWeeklyData && <Line data={apiChartData} options={apiOptions} />}
+      <h3
+        css={`
           margin: 1rem 0;
         `}
       >
@@ -265,9 +333,9 @@ export default function Statistiques() {
         `}
       >
         Le simulateur Mes Aides Réno a été construit sur un modèle de calcul
-        open-source, documenté et à jour, disponible pour être intégré (iframe,
-        API ou paquet NPM) dans des parcours usagers de partenaires tiers
-        lorsque la question d'une rénovation énergétique se pose.
+        open-source, documenté et à jour, disponible pour être intégré (iframe
+        ou API) dans des parcours usagers de partenaires tiers lorsque la
+        question d'une rénovation énergétique se pose.
       </p>
       <div
         css={`
