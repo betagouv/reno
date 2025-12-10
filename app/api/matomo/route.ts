@@ -20,6 +20,8 @@ export async function GET(request: Request) {
       data = await getLastMonthData()
     } else if (type === 'internes') {
       data = await getInternalData(searchParams.get('segment'))
+    } else if (type === 'apiEvents') {
+      data = await getApiEventsWeekly()
     }
 
     return new Response(JSON.stringify(data), {
@@ -126,6 +128,28 @@ async function getInternalData(segment) {
   delete mergedData[lastDay]
 
   return mergedData
+}
+async function getApiEventsWeekly() {
+  const { baseUrl } = apiConfig
+
+  const raw = await fetchMatomoData(
+    `${baseUrl}&period=week&date=last9&method=Events.getCategory&segment=eventCategory==API`,
+  )
+
+  const result: Record<string, number> = {}
+  for (const [week, rows] of Object.entries(raw)) {
+    const list = Array.isArray(rows) ? (rows as any[]) : []
+    const apiRow = list.find((r) => r.label === 'API') || list[0]
+    const nbEvents = apiRow ? Number(apiRow.nb_events) || 0 : 0
+    result[week] = nbEvents
+  }
+
+  const lastWeekKey = Object.keys(result).pop()
+  if (lastWeekKey) {
+    delete result[lastWeekKey]
+  }
+
+  return result
 }
 
 function createFetchOptions(token, date) {
