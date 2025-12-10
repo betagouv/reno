@@ -7,6 +7,7 @@ import {
   PeriodeConstructionQuestion,
   YesNoQuestion,
   TypeTravaux,
+  CommuneLogement,
 } from '@/app/module/AmpleurQuestions'
 import rules from '@/app/règles/rules'
 import rulesInteretEmprunt from '@/app/règles/intérêt-emprunt.publicodes'
@@ -14,6 +15,7 @@ import Publicodes from 'publicodes'
 import { EligibilityResult } from '@/components/EligibilityResult'
 import useSetSearchParams from '@/components/useSetSearchParams'
 import {
+  encodeDottedName,
   getAnsweredQuestions,
   getSituation,
 } from '../publicodes/situationUtils'
@@ -44,6 +46,20 @@ export default function EligibilityEcoPTZ({ dottedName }) {
   return (
     <ModuleWrapper title="Êtes-vous éligible à l'éco-PTZ ?">
       <form id="form-eco-ptz">
+        <CommuneLogement
+          {...{
+            situation,
+            onChange: (result) => {
+              setSearchParams({
+                [encodeDottedName('logement . commune')]: `"${result.code}"*`,
+                [encodeDottedName('logement . commune . nom')]:
+                  `"${result.nom}"*`,
+                [encodeDottedName('logement . code département')]:
+                  `"${result.codeDepartement}"*`,
+              })
+            },
+          }}
+        />
         <TypeResidence {...{ setSearchParams, situation, answeredQuestions }} />
         <PeriodeConstructionQuestion
           {...{
