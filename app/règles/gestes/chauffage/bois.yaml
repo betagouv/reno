@@ -29,26 +29,10 @@ chauffage . bois . chaudière . manuelle:
     En savoir plus sur [France-Rénov](https://france-renov.gouv.fr/renovation/chauffage/chaudiere-buches).
   par défaut: oui
 chauffage . bois . chaudière . manuelle . montant:
-  applicable si:
-    une de ces conditions:
-      - MPR . non accompagnée . éligible
-      - CEE . conditions
+  applicable si: CEE . conditions
   somme:
-    - MPR . montant
     - CEE . montant
     - Coup de pouce . montant
-chauffage . bois . chaudière . manuelle . MPR:
-chauffage . bois . chaudière . manuelle . MPR . plafond: 16000 €
-chauffage . bois . chaudière . manuelle . MPR . montant:
-  applicable si: MPR . non accompagnée . éligible
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 3750 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 3150 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 1400 €
-    - sinon: 0 €
 chauffage . bois . chaudière . manuelle . Coup de pouce:
 chauffage . bois . chaudière . manuelle . Coup de pouce . montant:
   applicable si:
@@ -101,26 +85,10 @@ chauffage . bois . chaudière . automatique:
   description: Chaudière bois à alimentation automatique (granulés, plaquettes)
   par défaut: oui
 chauffage . bois . chaudière . automatique . montant:
-  applicable si:
-    une de ces conditions:
-      - MPR . non accompagnée . éligible
-      - CEE . conditions
+  applicable si: CEE . conditions
   somme:
-    - MPR . montant
     - CEE . montant
     - Coup de pouce . montant
-chauffage . bois . chaudière . automatique . MPR:
-chauffage . bois . chaudière . automatique . MPR . plafond: 18000 €
-chauffage . bois . chaudière . automatique . MPR . montant:
-  applicable si: MPR . non accompagnée . éligible
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 5000 €
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 3850 €
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 2100 €
-    - sinon: 0 €
 chauffage . bois . chaudière . automatique . Coup de pouce:
 chauffage . bois . chaudière . automatique . Coup de pouce . montant:
   applicable si:

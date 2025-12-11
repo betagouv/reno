@@ -21,7 +21,7 @@ import { useAides } from './ampleur/useAides'
 import { AvanceTMO } from './mprg/BlocAideMPR'
 import { decodeDottedName } from './publicodes/situationUtils'
 import useIsInIframe from './useIsInIframe'
-import { categories, getCurDate, getRulesByCategory } from './utils'
+import { categories, getCurDate, getRulesByCategoryByTypes } from './utils'
 import { textValueEquality } from './publicodes/utils'
 import useIsMobile from './useIsMobile'
 import ExplicationCoproprieteContent from './copropriete/ExplicationCoproprieteContent'
@@ -776,7 +776,7 @@ export function TravauxInconnus({
       [category]: !prev[category],
     }))
   }
-  const rulesByCategory = getRulesByCategory(rules, 'MPR')
+  const rulesByCategory = getRulesByCategoryByTypes(rules, ['MPR','CEE']);
   return Object.keys(rulesByCategory).map((category) => (
     <div key={category}>
       <h3 className="fr-mt-10v fr-h5">{category}</h3>
