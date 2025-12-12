@@ -8,9 +8,8 @@ const nextConfig = {
   },
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-  serverExternalPackages: ['duckdb'],
 
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     config.module.rules.push({
       test: /(\.ya?ml$)|\.publicodes/,
       use: 'yaml-loader',
@@ -30,22 +29,6 @@ const nextConfig = {
       test: /\.woff2$/,
       type: 'asset/resource',
     })
-
-    if (isServer) {
-      const orig = config.externals
-      if (Array.isArray(orig)) {
-        config.externals = [...orig, { duckdb: 'commonjs duckdb' }]
-      } else if (typeof orig === 'function') {
-        config.externals = async (...args) => {
-          const res = await orig(...args)
-          return Array.isArray(res) ? [...res, { duckdb: 'commonjs duckdb' }] : res
-        }
-      } else if (orig) {
-        config.externals = [orig, { duckdb: 'commonjs duckdb' }]
-      } else {
-        config.externals = [{ duckdb: 'commonjs duckdb' }]
-      }
-    }
 
     return config
   },
@@ -77,10 +60,15 @@ const nextConfig = {
   },
 
   output: 'standalone',
-  outputFileTracingIncludes: {
-    '/*': ['./articles/*.mdx'],
-  },
 
+  outputFileTracingIncludes: {
+    '/*': [
+      './articles/*.mdx',
+      './data/copro.min.ndjson',
+      './data/copro_tiles/**',
+      './data/copro_tiles/meta.json',
+    ],
+  },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'commons.wikimedia.org' }],
   },

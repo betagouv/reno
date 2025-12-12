@@ -213,15 +213,7 @@ export default function InputSwitch({
             }}
           />
         </div>
-      ) : // <DPEMap
-      //   {...{
-      //     searchParams,
-      //     addressResults,
-      //     dpeListStartOpen: false,
-      //     showDpeList: false,
-      //   }}
-      // />
-      currentQuestion ===
+      ) : currentQuestion ===
         'projet . définition . catégories travaux envisagées' ? (
         <ChoixCategorieTravaux
           {...{
@@ -267,31 +259,25 @@ export default function InputSwitch({
           {...{
             type: currentQuestion,
             setChoice: (result) => {
-              const constructionPeriod = result['Période de construction']
+              const constructionPeriod = result['periode']
               const lessThan15Years = constructionPeriod === 'A_COMPTER_DE_2011'
-              // these are the possible values, obtained with the server route /periodes-construction
-              // ["AVANT_1949","A_COMPTER_DE_2011","DE_1949_A_1960","DE_1961_A_1974","DE_1975_A_1993","DE_1994_A_2000","DE_2001_A_2010","NON_CONNUE","non renseigné"]
               const moreThan15Years =
                 !lessThan15Years && constructionPeriod.match(/\d\d\d\d/)
 
-              const id = result["Numéro d'immatriculation"]
-              console.log('cyan id', id)
+              const id = result['id']
               const encodedSituation = encodeSituation(
                 {
                   ...situation,
-                  'logement . code région': `"${result['Code Officiel Région']}"`,
-                  'logement . code département': `"${result['Code Officiel Département']}"`,
-                  'logement . EPCI': `"${result['Code Officiel EPCI']}"`,
-                  'logement . commune': `"${result['Commune']}"`,
-                  'logement . commune . nom': `"${result['Nom Officiel Commune']}"`,
+                  'logement . code région': `"${result['codeReg']}"`,
+                  'logement . code département': `"${result['codeDep']}"`,
+                  'logement . EPCI': `"${result['epci']}"`,
+                  'logement . commune': `"${result['codeCommune']}"`,
+                  'logement . commune . nom': `"${result['nomCommune']}"`,
                   'copropriété . id': `"${id}"`,
-                  'copropriété . nom': `"${result['Nom d’usage de la copropriété']}"`,
+                  'copropriété . nom': `"${result['adresse']}"`,
                   'copropriété . nombre de lots principaux':
-                    result[
-                      'Nombre total de lots à usage d’habitation, de bureaux ou de commerces'
-                    ],
-                  'copropriété . nombre de logements':
-                    result['Nombre de lots à usage d’habitation'],
+                    result['lotsTotal'],
+                  'copropriété . nombre de logements': result['lotsHab'],
                   ...(lessThan15Years
                     ? { 'copropriété . condition 15 ans': 'non' }
                     : moreThan15Years

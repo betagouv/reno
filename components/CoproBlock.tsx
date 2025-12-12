@@ -24,10 +24,8 @@ export default function CoproBlock({ setCopro, copro }) {
         <Image src={closeIcon} alt="Icône croix" />
       </button>
       <div>
-        <div>{copro['Nom d’usage de la copropriété']}</div>
-        <div>
-          {copro['Nombre de lots à usage d’habitation']} lots d'habitation
-        </div>
+        <div>{copro['adresse']}</div>
+        <div>{copro['lotsHab']} lots d'habitation</div>
       </div>
     </section>
   )

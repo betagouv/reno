@@ -68,7 +68,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
         const url = `${getServerUrl()}/findDPE/${lon}/${lat}`
         const request = await fetch(url)
         const json = await request.json()
-        console.log('cyan', json)
         setDpes(json)
         setError(null)
       } catch (e) {
@@ -177,11 +176,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
         {copros?.length > 0 && !copro && (
           <ResultsList>
             {copros.map((copro) => {
-              const {
-                'Nom d’usage de la copropriété': name,
-                "Numéro d'immatriculation": id,
-                distance,
-              } = copro
+              const { id, adresse } = copro
 
               return (
                 <li
@@ -192,7 +187,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
                     setCopro(copro)
                   }}
                 >
-                  <span>{name}</span>
+                  <span>{adresse}</span>
                 </li>
               )
             })}
@@ -208,8 +203,8 @@ export default function AddressSearch({ setChoice, situation, type }) {
             map={map}
             selected={copro}
             data={copros.map((copro) => {
-              const { long: lon, lat } = copro
-              return { ...copro, geometry: { coordinates: [+lon, +lat] } }
+              const { lat_d, lon_d } = copro
+              return { ...copro, geometry: { coordinates: [+lon_d, +lat_d] } }
             })}
             selectMarker={(arg) => {
               setChoice(arg)
