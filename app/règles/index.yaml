@@ -22,7 +22,7 @@ aides:
       alors:
         somme:
           - ampleur . tous les dispositifs # ampleur.yaml
-          - MPR . non accompagnée . montant
+          - gestes . montant
     - si: parcours d'aide = "autonomie"
       alors: mpa . montant
     - si: parcours d'aide = "sécurité salubrité"
