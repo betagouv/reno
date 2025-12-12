@@ -68,7 +68,7 @@ export default function Statistiques() {
 
       const weeklyData = Object.entries(data).map(([dateRange, weekData]) => ({
         date: new Date(dateRange.split(',')[1]),
-        visits: weekData[1] ? weekData[1].step_nb_visits_actual : 0,
+        visits: weekData.funnel[1]?.step_nb_visits,
         uniqVisitors: weekData.nb_uniq_visitors,
       }))
       const totalTimeOnSite = Object.entries(data)
@@ -77,13 +77,13 @@ export default function Statistiques() {
       const responseLastMonth = await fetch('/api/matomo?type=lastMonth')
       const dataLastMonth = await responseLastMonth.json()
       const nbSimuEndedMonth = Object.values(dataLastMonth).reduce(
-        (acc, curr) => acc + curr[1].step_nb_visits_actual,
+        (acc, curr) => acc + (curr[1]?.step_nb_visits_actual || 0),
         0,
       )
 
       const transfoRateFranceRenov =
         (Object.values(dataLastMonth).reduce(
-          (acc, curr) => acc + curr[15].step_nb_visits_actual,
+          (acc, curr) => acc + (curr[3]?.step_nb_visits_actual || 0),
           0,
         ) /
           nbSimuEndedMonth) *
@@ -136,7 +136,6 @@ export default function Statistiques() {
     fetchSatisficationData()
     fetchApiEventsData()
   }, [])
-
   const chartData = useMemo(
     () => ({
       labels: data.weeklyData ? data.weeklyData.map((entry) => entry.date) : [],
