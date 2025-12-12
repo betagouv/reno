@@ -77,17 +77,21 @@ export default function Statistiques() {
       const responseLastMonth = await fetch('/api/matomo?type=lastMonth')
       const dataLastMonth = await responseLastMonth.json()
       const nbSimuEndedMonth = Object.values(dataLastMonth).reduce(
-        (acc, curr) => acc + curr[1].step_nb_visits_actual,
+        (acc, curr) => {
+          const step1 = curr[1];
+          return acc + (step1?.step_nb_visits_actual ?? 0);
+        },
         0,
-      )
+      );
 
       const transfoRateFranceRenov =
         (Object.values(dataLastMonth).reduce(
-          (acc, curr) => acc + curr[15].step_nb_visits_actual,
-          0,
-        ) /
+          (acc, curr) => {
+          const step15 = curr[15];
+          return acc + (step15?.step_nb_visits_actual ?? 0)
+        }, 0) /
           nbSimuEndedMonth) *
-        100
+        100;
 
       const avgTimeOnSite = formatTime(totalTimeOnSite / 4)
 
