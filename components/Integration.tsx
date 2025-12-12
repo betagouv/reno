@@ -384,7 +384,7 @@ export const ContactIntegration = ({ type }) => (
     </p>
     <Link
       className="fr-btn fr-icon-mail-line fr-btn--icon-left"
-      href="mailto:contact@mesaidesreno.fr"
+      href="mailto:mesaidesreno@anah.gouv.fr"
     >
       Nous contacter
     </Link>

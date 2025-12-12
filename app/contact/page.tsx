@@ -24,7 +24,7 @@ export default function PageContact() {
         <p>
           Pour des demandes privées ou nécessitant une réponse, vous pouvez
           écrire directement à l'équipe à{' '}
-          <a className="fr-link" href="mailto:contact@mesaidesreno.fr">
+          <a className="fr-link" href="mailto:mesaidesreno@anah.gouv.fr">
             notre adresse mel
           </a>
           .
