@@ -1,5 +1,5 @@
 'use client'
-import css from '../css/convertToJs'
+
 import data from './DPE.yaml'
 
 export default function DPE({

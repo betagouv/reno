@@ -213,14 +213,7 @@ export default function InputSwitch({
             }}
           />
         </div>
-      ) : // <DPEMap
-      //   {...{
-      //     searchParams,
-      //     addressResults,
-      //     dpeListStartOpen: false,
-      //     showDpeList: false,
-      //   }}
-      // />
+      ) :
       currentQuestion ===
         'projet . définition . catégories travaux envisagées' ? (
         <ChoixCategorieTravaux

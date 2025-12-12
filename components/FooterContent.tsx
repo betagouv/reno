@@ -1,4 +1,3 @@
-import { getAllArticles } from '@/app/blog/articles'
 import { Footer } from '@codegouvfr/react-dsfr/Footer'
 
 export default async function FooterContent() {

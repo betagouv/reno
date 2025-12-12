@@ -118,7 +118,6 @@ export default function MPRA({
             En savoir plus sur l'aide
           </Link>
         </Card>
-        {/*  <Écrêtement {...{ engine, rules, situation }} /> */}
       </AideAmpleur>
       {isEligible !== false && (
         <BlocEtMaintenant

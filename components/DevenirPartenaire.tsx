@@ -45,7 +45,7 @@ export default function DevenirPartenaire() {
       <h2>Intégrez la solution Mes Aides Réno au bon format</h2>
       <p>
         Dans un article, sur votre site web ou dans vos logiciels métiers, via
-        une iframe, un paquet NPM ou une API.
+        une iframe ou une API.
       </p>
       <div className="fr-grid-row fr-grid-row--gutters fr-my-5v">
         <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
@@ -73,20 +73,6 @@ export default function DevenirPartenaire() {
             orientation="vertical"
             title="API"
             desc="pour communiquer avec notre logiciel."
-            titleAs="h3"
-          />
-        </div>
-        <div className="fr-col-12 fr-col-sm-6 fr-col-md-4">
-          <Tile
-            enlargeLinkOrButton
-            imageAlt="Icone NPM"
-            imageUrl="/icon-npm.png"
-            linkProps={{
-              href: '/npm',
-            }}
-            orientation="vertical"
-            title="Paquet NPM"
-            desc="pour utiliser le modèle au sein de votre logiciel."
             titleAs="h3"
           />
         </div>

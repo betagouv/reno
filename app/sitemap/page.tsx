@@ -2,14 +2,12 @@ import { PageBlock } from '@/components/UI'
 import { Metadata } from 'next/types'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
-import { getAllArticles } from '../blog/articles'
 import rules from '@/app/règles/rules'
 
 export const metadata: Metadata = {
   title: 'Sitemap - Mes aides réno',
 }
 const Sitemap = async () => {
-  const sortedArticles = await getAllArticles()
   const simulateurMPR = Object.keys(rules)
     .filter(
       (dottedName) =>
@@ -60,20 +58,6 @@ const Sitemap = async () => {
               Accueil
             </a>
             <ul>
-              <li>
-                <a className="fr-link" href="/blog">
-                  Blog
-                </a>
-              </li>
-              <ul>
-                {sortedArticles.map(({ url, titre }, i) => (
-                  <li key={i}>
-                    <a href={url} className="fr-link">
-                      {titre}
-                    </a>
-                  </li>
-                ))}
-              </ul>
               <li>
                 <a className="fr-link" href="/aides">
                   Les Aides
@@ -190,11 +174,6 @@ const Sitemap = async () => {
                 <li>
                   <a className="fr-link" href="/api-doc">
                     API
-                  </a>
-                </li>
-                <li>
-                  <a className="fr-link" href="/npm">
-                    NPM
                   </a>
                 </li>
               </ul>
