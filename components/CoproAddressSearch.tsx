@@ -45,7 +45,7 @@ export default function AddressSearch({ setChoice, situation, type }) {
     const [lat, lon] = clicked.geometry.coordinates
     async function fetchCopros() {
       try {
-        const url = `${getServerUrl()}/findCopro/${lon}/${lat}/6`
+        const url = `api/copro/${lon}/${lat}`
         const request = await fetch(url)
         const json = await request.json()
         setCopros(json)
@@ -193,13 +193,6 @@ export default function AddressSearch({ setChoice, situation, type }) {
                   }}
                 >
                   <span>{name}</span>
-                  <small>
-                    à{' '}
-                    {Math.round(
-                      distance * 10000, // why this factor ? Dunno, I've estimated it
-                    ) * 10}{' '}
-                    m
-                  </small>
                 </li>
               )
             })}
