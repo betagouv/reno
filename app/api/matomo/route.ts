@@ -1,7 +1,7 @@
 const apiConfig = {
   token: process.env.MATOMO_API_TOKEN,
   funnels: {
-    simulateur: 165,
+    simulateur: 192,
     module: 127,
   },
   baseUrl: 'https://stats.beta.gouv.fr/?module=API&idSite=101&format=JSON',
@@ -78,20 +78,35 @@ async function getEventData() {
 
 async function getVisitorData() {
   const { baseUrl, funnels } = apiConfig
-  const funnelData = await fetchMatomoData(
-    `${baseUrl}&period=week&date=last9&method=Funnels.getFunnelFlow&idFunnel=${funnels.simulateur}`,
-  )
 
   const visitorData = await fetchMatomoData(
     `${baseUrl}&period=week&date=last9&method=VisitsSummary.get`,
   )
 
-  const mergedData = mergeData(funnelData, visitorData)
-  // On exclue la semaine actuelle pour ne pas dénaturer les stats
-  const lastWeek = Object.keys(mergedData).pop()
-  delete mergedData[lastWeek]
+  const weekKeys = Object.keys(visitorData).sort()
 
-  return mergedData
+  const [firstStart] = weekKeys[0].split(',')
+  const [, lastEnd] = weekKeys[weekKeys.length - 1].split(',')
+
+  const funnelDaily = await fetchMatomoData(
+    `${baseUrl}&period=day&date=${firstStart},${lastEnd}&method=Funnels.getFunnelFlow&idFunnel=${funnels.simulateur}`,
+  )
+
+  const funnelWeekly = aggregateFunnelFlowDailyToWeeks(funnelDaily, weekKeys)
+
+  const merged = {}
+  for (const wk of weekKeys) {
+    merged[wk] = {
+      ...visitorData[wk],
+      funnel: funnelWeekly[wk] ?? [],
+    }
+  }
+
+  // On exclue la semaine actuelle pour ne pas dénaturer les stats
+  const lastWeek = weekKeys[weekKeys.length - 1]
+  delete merged[lastWeek]
+
+  return merged
 }
 
 async function getLastMonthData() {
@@ -180,4 +195,46 @@ function mergeData(data, visitorData) {
     acc[key] = { ...value, ...visitorData[key] }
     return acc
   }, {})
+}
+
+function aggregateFunnelFlowDailyToWeeks(dailyFlow, weekKeys) {
+  const weekly = Object.fromEntries(weekKeys.map((k) => [k, []]))
+
+  const weekRanges = weekKeys.map((k) => {
+    const [start, end] = k.split(',')
+    return { k, start, end }
+  })
+
+  const getWeekKey = (day) =>
+    weekRanges.find((w) => w.start <= day && day <= w.end)?.k ?? null
+
+  const sumRow = (acc, row) => {
+    if (!acc) return { ...row }
+    const out = { ...acc }
+
+    for (const [k, v] of Object.entries(row)) {
+      if (k === 'label') {
+        out.label = out.label ?? v
+        continue
+      }
+
+      out[k] = out[k] + v
+    }
+    return out
+  }
+  for (const [day, rows] of Object.entries(dailyFlow)) {
+    const wk = getWeekKey(day)
+    if (!wk) continue
+
+    const accRows = weekly[wk] ?? []
+    const next: any[] = []
+
+    const list = Array.isArray(rows) ? rows : []
+    for (let i = 0; i < list.length; i++) {
+      next[i] = sumRow(accRows[i], list[i])
+    }
+    weekly[wk] = next
+  }
+
+  return weekly
 }
