@@ -1,5 +1,7 @@
 'use client'
+
 import { useEffect, useMemo, useState } from 'react'
+import Image from 'next/image'
 import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -7,12 +9,20 @@ import {
   TimeScale,
   PointElement,
   LineElement,
+  BarElement,
+  BarController,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import 'chartjs-adapter-date-fns'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+
 import logoLeboncoin from '@/public/logo-partenaire/logo-leboncoin.jpg'
 import logoBonPote from '@/public/logo-partenaire/logo-bon-pote-rect.png'
 import logoFranceInfo from '@/public/logo-partenaire/logo-france-info.jpg'
@@ -22,11 +32,7 @@ import logoMoneyVox from '@/public/logo-partenaire/logo-moneyvox.webp'
 import logoJDN from '@/public/logo-partenaire/logo-jdn.png'
 import logoOuestFranceImmo from '@/public/logo-partenaire/logo-ouestfrance-immo.png'
 import logoLeProgres from '@/public/logo-partenaire/logo-le-progres.svg'
-import Image from 'next/image'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
+
 import { Loader } from '@/components/UI'
 
 ChartJS.register(
@@ -34,6 +40,8 @@ ChartJS.register(
   TimeScale,
   PointElement,
   LineElement,
+  BarController,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -48,6 +56,68 @@ export const formatTime = (seconds) => {
     .toString()
     .padStart(2, '0')}`
 }
+
+export const StatCard = ({
+  label,
+  value,
+  target = null,
+  type = 'none',
+  noMinWidth,
+}) => (
+  <div
+    css={`
+      padding: 1rem;
+      ${!noMinWidth ? 'min-width: 250px;' : ''}
+      text-align: center;
+      border: 1px solid #d9d9ee;
+      border-radius: 5px;
+      > strong {
+        display: block;
+        font-size: 2rem;
+        padding: 1rem;
+        color: #000091;
+      }
+      span {
+        font-size: 0.9rem;
+      }
+    `}
+  >
+    <strong>
+      {value && value !== '0%' && value != 0 ? value : <Loader></Loader>}
+    </strong>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: label,
+      }}
+    />
+    {target && (
+      <div
+        css={`
+          width: fit-content;
+          border-radius: 1rem;
+          padding: 0.2rem 0.5rem;
+          margin: auto;
+          font-weight: bold;
+          margin-top: 1rem;
+          ${type == 'success'
+            ? `
+              background: #DCFFDC;
+              color: #1A4F23;
+            `
+            : ''}
+          ${type == 'warning'
+            ? `
+              background: #FDF8DB;
+              color: #6E4444;
+            `
+            : ''}
+        `}
+      >
+        🎯cible: {target}
+      </div>
+    )}
+  </div>
+)
 export default function Statistiques() {
   const [data, setData] = useState({
     weeklyData: null,
@@ -55,27 +125,41 @@ export default function Statistiques() {
     nbSimuEndedMonth: 0,
     avgTimeOnSite: '',
   })
+
   const [satisfaction, setSatisfaction] = useState({
     oui: 0,
     'en partie': 0,
     non: 0,
   })
+
   const [apiWeeklyData, setApiWeeklyData] = useState(null)
+
+  const [internal, setInternal] = useState({
+    global: null,
+    site: null,
+    iframe: null,
+  })
+
   const fetchVisitData = async () => {
     try {
       const responseVisitors = await fetch('/api/matomo?type=visitors')
-      const data = await responseVisitors.json()
+      const visitorsJson = await responseVisitors.json()
 
-      const weeklyData = Object.entries(data).map(([dateRange, weekData]) => ({
-        date: new Date(dateRange.split(',')[1]),
-        visits: weekData.funnel[1]?.step_nb_visits,
-        uniqVisitors: weekData.nb_uniq_visitors,
-      }))
-      const totalTimeOnSite = Object.entries(data)
+      const weeklyData = Object.entries(visitorsJson).map(
+        ([dateRange, weekData]) => ({
+          date: new Date(dateRange.split(',')[1]),
+          visits: weekData.funnel[1]?.step_nb_visits,
+          uniqVisitors: weekData.nb_uniq_visitors,
+        }),
+      )
+
+      const totalTimeOnSite = Object.entries(visitorsJson)
         .slice(-4)
         .reduce((acc, [, weekData]) => acc + weekData.avg_time_on_site, 0)
+
       const responseLastMonth = await fetch('/api/matomo?type=lastMonth')
       const dataLastMonth = await responseLastMonth.json()
+
       const nbSimuEndedMonth = Object.values(dataLastMonth).reduce(
         (acc, curr) => acc + (curr[1]?.step_nb_visits_actual || 0),
         0,
@@ -86,7 +170,7 @@ export default function Statistiques() {
           (acc, curr) => acc + (curr[3]?.step_nb_visits_actual || 0),
           0,
         ) /
-          nbSimuEndedMonth) *
+          (nbSimuEndedMonth || 1)) *
         100
 
       const avgTimeOnSite = formatTime(totalTimeOnSite / 4)
@@ -101,16 +185,17 @@ export default function Statistiques() {
       console.error('Error fetching visit data:', error)
     }
   }
+
   const fetchSatisficationData = async () => {
     try {
       const responseEvents = await fetch('/api/matomo?type=events')
       const satisfied = await responseEvents.json()
-
       setSatisfaction(satisfied)
     } catch (error) {
       console.error('Error fetching events data:', error)
     }
   }
+
   const fetchApiEventsData = async () => {
     try {
       const response = await fetch('/api/matomo?type=apiEvents')
@@ -119,7 +204,6 @@ export default function Statistiques() {
       const weekly = Object.entries(dataApi).map(([key, value]) => {
         const parts = key.split(',')
         const dateString = parts[1] ?? parts[0]
-
         return {
           date: new Date(dateString),
           calls: Number(value) || 0,
@@ -131,11 +215,41 @@ export default function Statistiques() {
       console.error('Error fetching API events data:', error)
     }
   }
+
+  const fetchSegmentData = async (segment = '') => {
+    const response = await fetch(`/api/matomo?type=internes&segment=${segment}`)
+    const json = await response.json()
+
+    return Object.entries(json).map(([date, dayData]) => ({
+      date: new Date(date),
+      simuEnded: dayData[1]?.step_nb_visits_actual || 0,
+      uniqVisitors: dayData.nb_uniq_visitors,
+      avgTime: dayData.avg_time_on_site,
+      nbActions: dayData.nb_actions_per_visit,
+      nbDisplay: dayData[0]?.step_nb_visits_actual || 0,
+      nbClick: dayData[3]?.step_nb_visits_actual || 0,
+    }))
+  }
+
+  const fetchInternalData = async () => {
+    try {
+      const global = await fetchSegmentData('')
+      const site = await fetchSegmentData('site')
+      const iframe = await fetchSegmentData('iframe')
+
+      setInternal({ global, site, iframe })
+    } catch (error) {
+      console.error('Error fetching internal data:', error)
+    }
+  }
+
   useEffect(() => {
     fetchVisitData()
     fetchSatisficationData()
     fetchApiEventsData()
+    fetchInternalData()
   }, [])
+
   const chartData = useMemo(
     () => ({
       labels: data.weeklyData ? data.weeklyData.map((entry) => entry.date) : [],
@@ -185,9 +299,7 @@ export default function Statistiques() {
                 position: 'end',
                 color: 'white',
                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                font: {
-                  size: 14,
-                },
+                font: { size: 14 },
                 padding: { top: 5, bottom: 5, left: 5, right: 5 },
                 yAdjust: -20,
               },
@@ -230,12 +342,11 @@ export default function Statistiques() {
     }),
     [apiWeeklyData],
   )
+
   const apiOptions = useMemo(
     () => ({
       responsive: true,
-      plugins: {
-        legend: { position: 'bottom' },
-      },
+      plugins: { legend: { position: 'bottom' } },
       scales: {
         x: {
           type: 'time',
@@ -252,6 +363,172 @@ export default function Statistiques() {
       },
     }),
     [],
+  )
+
+  const detailsDataset = useMemo(
+    () => [
+      {
+        label: 'Nombre de simulations terminées',
+        getData: (entry) => entry.simuEnded,
+        borderColor: '#000091',
+        backgroundColor: '#2a82dd',
+      },
+      {
+        label: 'Nombre de visiteurs uniques',
+        getData: (entry) => entry.uniqVisitors,
+        borderColor: '#ff5c8d',
+        backgroundColor: '#ff97b5',
+      },
+      // {
+      //   label: 'Durée de la visite',
+      //   getData: (entry) => entry.avgTime,
+      //   borderColor: '#CCC',
+      //   backgroundColor: '#CCC',
+      //   yAxisID: 'y2',
+      //   type: 'bar',
+      // },
+    ],
+    [],
+  )
+
+  const makeDetailChart = (series) => ({
+    labels: series ? series.map((entry) => entry.date) : [],
+    datasets: detailsDataset.map((cfg) => ({
+      label: cfg.label,
+      data: series ? series.map((entry) => cfg.getData(entry)) : [],
+      borderColor: cfg.borderColor,
+      backgroundColor: cfg.backgroundColor,
+      borderWidth: 1,
+      type: cfg.type,
+      yAxisID: cfg.yAxisID || 'y',
+    })),
+  })
+
+  const globalChart = useMemo(
+    () => makeDetailChart(internal.global),
+    [internal.global, detailsDataset],
+  )
+  const siteChart = useMemo(
+    () => makeDetailChart(internal.site),
+    [internal.site, detailsDataset],
+  )
+  const iframeChart = useMemo(
+    () => makeDetailChart(internal.iframe),
+    [internal.iframe, detailsDataset],
+  )
+
+  const internalOptions = useMemo(
+    () => ({
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const label = context.dataset.label || ''
+              const value = context.raw
+              if (label === 'Durée de la visite')
+                return `${label}: ${formatTime(value)}`
+              return `${label}: ${value}`
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'week',
+            tooltipFormat: 'dd/MM/yyyy',
+            displayFormats: { week: 'dd/MM/yyyy' },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'Nombre de simulation' },
+        },
+        // y2: {
+        //   beginAtZero: true,
+        //   position: 'right',
+        //   title: { display: true, text: 'Durée de la visite' },
+        //   grid: { display: false },
+        //   ticks: { callback: (value) => formatTime(value) },
+        // },
+      },
+    }),
+    [],
+  )
+
+  const InternalDetails = ({ title, series, chart }) => (
+    <section>
+      <h3>{title}</h3>
+      <p
+        css={`
+          color: #0974f6 !important;
+          font-weight: bold;
+        `}
+      >
+        Sur les 30 derniers jours :
+      </p>
+      {series ? (
+        <>
+          <div
+            css={`
+              display: flex;
+              gap: 1rem;
+              flex-wrap: wrap;
+            `}
+          >
+            <StatCard
+              label="Visiteurs uniques"
+              value={formatter.format(
+                series.reduce((a, c) => a + c.uniqVisitors, 0),
+              )}
+              noMinWidth
+            />
+            <StatCard
+              label="Simulations terminées"
+              value={formatter.format(
+                series.reduce((a, c) => a + c.simuEnded, 0),
+              )}
+              noMinWidth
+            />
+            <StatCard
+              label="Durée moyenne<br />des sessions"
+              value={formatTime(
+                series.reduce((a, c) => a + (c.avgTime || 0), 0) /
+                  Math.max(1, series.filter((e) => e.uniqVisitors > 0).length),
+              )}
+              noMinWidth
+            />
+            <StatCard
+              label="Nombre d'action"
+              value={Math.round(
+                series.reduce((a, c) => a + (c.nbActions || 0), 0) /
+                  Math.max(1, series.filter((e) => e.uniqVisitors > 0).length),
+              )}
+              noMinWidth
+            />
+            <StatCard
+              label="Taux de transformation"
+              value={
+                Math.round(
+                  (series.reduce((a, c) => a + c.nbClick, 0) /
+                    Math.max(
+                      1,
+                      series.reduce((a, c) => a + c.simuEnded, 0),
+                    )) *
+                    100,
+                ) + '%'
+              }
+              noMinWidth
+            />
+          </div>
+
+          <Line data={chart} options={internalOptions} />
+        </>
+      ) : null}
+    </section>
   )
 
   return (
@@ -292,11 +569,12 @@ export default function Statistiques() {
           type="success"
         />
         <StatCard
-          label="durée moyenne<br />
-                des sessions (minutes)"
+          label={`durée moyenne<br />
+                des sessions (minutes)`}
           value={data.avgTimeOnSite}
         />
       </div>
+
       <p
         css={`
           font-style: italic;
@@ -311,6 +589,24 @@ export default function Statistiques() {
         Evolution des visiteurs uniques et simulations terminées (hebdomadaire)
       </h3>
       {data.weeklyData && <Line data={chartData} options={options} />}
+      <h2
+        css={`
+          margin: 3rem 0;
+        `}
+      >
+        Détails
+      </h2>
+      {/* <InternalDetails
+        title="Global"
+        series={internal.global}
+        chart={globalChart}
+      /> */}
+      <InternalDetails title="Site" series={internal.site} chart={siteChart} />
+      <InternalDetails
+        title="Iframe"
+        series={internal.iframe}
+        chart={iframeChart}
+      />
       <h3
         css={`
           margin-top: 2rem;
@@ -402,6 +698,7 @@ export default function Statistiques() {
               <Image src={logoLeboncoin} alt="Logo leboncoin" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="Bon Pote"
@@ -410,6 +707,7 @@ export default function Statistiques() {
               <Image src={logoBonPote} alt="Logo Bon Pote" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="Ouest France Immo"
@@ -418,6 +716,7 @@ export default function Statistiques() {
               <Image src={logoOuestFranceImmo} alt="Logo Ouest France Immo" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="France Info"
@@ -426,6 +725,7 @@ export default function Statistiques() {
               <Image src={logoFranceInfo} alt="Logo France Info" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="Money Vox"
@@ -434,6 +734,7 @@ export default function Statistiques() {
               <Image src={logoMoneyVox} alt="Logo Money Vox" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="Actual Immo"
@@ -442,6 +743,7 @@ export default function Statistiques() {
               <Image src={logoActualImmo} alt="Logo Actual Immo" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="TF1 Info"
@@ -450,6 +752,7 @@ export default function Statistiques() {
               <Image src={logoTf1Info} alt="Logo TF1 Info" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="Le Progrès"
@@ -458,6 +761,7 @@ export default function Statistiques() {
               <Image src={logoLeProgres} alt="Logo Le Progrès" />
             </a>
           </SwiperSlide>
+
           <SwiperSlide>
             <a
               title="Journal du net"
@@ -468,7 +772,6 @@ export default function Statistiques() {
           </SwiperSlide>
         </Swiper>
       </div>
-
       {satisfaction?.oui > 0 && (
         <>
           <h3
@@ -478,11 +781,13 @@ export default function Statistiques() {
           >
             Satisfaction des usagers
           </h3>
+
           <p className="fr-mt-3v">
             Les taux de satisfaction ci-dessous correspondent aux pourcentages
             d'usagers ayant cliqué sur "Oui" / "En partie" / "Non" sur
             l'ensemble des usagers ayant répondu au module de satisfaction.
           </p>
+
           <div
             css={`
               display: flex;
@@ -492,12 +797,10 @@ export default function Statistiques() {
             `}
           >
             <StatCard label="Oui" value={`${satisfaction['oui']}%`} />
-
             <StatCard
               label="En partie"
               value={`${satisfaction['en partie']}%`}
             />
-
             <StatCard label="Non" value={`${satisfaction['non']}%`} />
           </div>
         </>
@@ -505,63 +808,3 @@ export default function Statistiques() {
     </>
   )
 }
-
-export const StatCard = ({
-  label,
-  value,
-  target = null,
-  type = 'none',
-  noMinWidth,
-}) => (
-  <div
-    css={`
-      padding: 1rem;
-      ${!noMinWidth && 'min-width: 250px;'}
-      text-align: center;
-      border: 1px solid #d9d9ee;
-      border-radius: 5px;
-      > strong {
-        display: block;
-        font-size: 2rem;
-        padding: 1rem;
-        color: #000091;
-      }
-      span {
-        font-size: 0.9rem;
-      }
-    `}
-  >
-    <strong>
-      {value && value !== '0%' && value != 0 ? value : <Loader></Loader>}
-    </strong>
-    <div
-      dangerouslySetInnerHTML={{
-        __html: label,
-      }}
-    />
-    {target && (
-      <div
-        css={`
-          width: fit-content;
-          border-radius: 1rem;
-          padding: 0.2rem 0.5rem;
-          margin: auto;
-          font-weight: bold;
-          margin-top: 1rem;
-          ${type == 'success' &&
-          `
-              background: #DCFFDC;
-              color: #1A4F23;
-            `}
-          ${type == 'warning' &&
-          `
-              background: #FDF8DB;
-              color: #6E4444;
-            `}
-        `}
-      >
-        🎯cible: {target}
-      </div>
-    )}
-  </div>
-)

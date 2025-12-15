@@ -29,7 +29,6 @@ export default function Page() {
           segments={[]}
         />
         <Statistiques />
-        <StatistiquesInternes />
       </PageBlock>
     </>
   )
