@@ -35,13 +35,11 @@ export default function StatistiquesInternes() {
     global: null,
     site: null,
     iframe: null,
-    module: null,
   })
 
   const fetchSegmentData = async (segment: string = '') => {
     const response = await fetch(`/api/matomo?type=internes&segment=${segment}`)
     const json = await response.json()
-
     return Object.entries(json).map(([date, dayData]: [string, any]) => ({
       date: new Date(date),
       simuEnded: dayData[1]?.step_nb_visits_actual || 0,
@@ -49,8 +47,7 @@ export default function StatistiquesInternes() {
       avgTime: dayData.avg_time_on_site,
       nbActions: dayData.nb_actions_per_visit,
       nbDisplay: dayData[0]?.step_nb_visits_actual || 0,
-      nbInteraction: dayData[1]?.step_nb_visits_actual || 0,
-      nbClick: dayData[15]?.step_nb_visits_actual || 0,
+      nbClick: dayData[3]?.step_nb_visits_actual || 0,
     }))
   }
   useEffect(() => {
@@ -62,8 +59,6 @@ export default function StatistiquesInternes() {
         setData((prev) => ({ ...prev, site }))
         const iframe = await fetchSegmentData('iframe')
         setData((prev) => ({ ...prev, iframe }))
-        const module = await fetchSegmentData('module')
-        setData((prev) => ({ ...prev, module }))
       } catch (error) {
         console.error('Error fetching visit data:', error)
       }
@@ -107,7 +102,6 @@ export default function StatistiquesInternes() {
       type: 'bar',
     },
   ]
-
   const globalChart = useMemo(
     () => generateChartConfig(data.global, dataSets),
     [data.global],
@@ -121,43 +115,6 @@ export default function StatistiquesInternes() {
   const iframeChart = useMemo(
     () => generateChartConfig(data.iframe, dataSets),
     [data.iframe],
-  )
-
-  const moduleChart = useMemo(
-    () =>
-      generateChartConfig(data.module, [
-        {
-          label: "Nombre d'affichage du module OFI",
-          getData: (entry) => entry.nbDisplay,
-          borderColor: '#ff5c8d',
-          backgroundColor: '#ff97b5',
-        },
-        {
-          label: "% d'interaction",
-          getData: (entry) =>
-            Math.round((entry.nbInteraction / entry.nbDisplay) * 100),
-          borderColor: '#000091',
-          backgroundColor: '#2a82dd',
-          yAxisID: 'y2',
-          type: 'line',
-        },
-        {
-          label: '% de clic',
-          getData: (entry) =>
-            Math.round((entry.nbClick / entry.nbDisplay) * 100),
-          borderColor: '#00FF00',
-          backgroundColor: '#00FF00',
-          yAxisID: 'y2',
-          type: 'line',
-        },
-        {
-          label: 'Durée de la visite',
-          getData: (entry) => entry.avgTime,
-          borderColor: '#CCC',
-          backgroundColor: '#CCC',
-        },
-      ]),
-    [data.module],
   )
 
   const createChartOptions = (customScales = {}) => ({
@@ -210,18 +167,6 @@ export default function StatistiquesInternes() {
       }),
     [],
   )
-  const optionsModule = useMemo(
-    () =>
-      createChartOptions({
-        y2: {
-          beginAtZero: true,
-          position: 'right',
-          title: { display: true, text: 'Taux de transfo' },
-          grid: { display: false },
-        },
-      }),
-    [],
-  )
 
   return (
     <>
@@ -236,12 +181,6 @@ export default function StatistiquesInternes() {
         { title: 'Global', data: data.global, chart: globalChart, options },
         { title: 'Site', data: data.site, chart: siteChart, options },
         { title: 'Iframe', data: data.iframe, chart: iframeChart, options },
-        {
-          title: 'Module',
-          data: data.module,
-          chart: moduleChart,
-          options: optionsModule,
-        },
       ].map(({ title, data, chart, options }, index) => {
         return (
           <section key={index}>
@@ -263,18 +202,14 @@ export default function StatistiquesInternes() {
                   `}
                 >
                   <StatCard
-                    label={'Visiteurs uniques'}
+                    label="Visiteurs uniques"
                     value={formatter.format(
                       data.reduce((a, c) => a + c.uniqVisitors, 0),
                     )}
                     noMinWidth
                   />
                   <StatCard
-                    label={
-                      title === 'Module'
-                        ? 'Clic sur<br />Découvrir mes aides'
-                        : 'Simulations terminées'
-                    }
+                    label="Simulations terminées"
                     value={formatter.format(
                       data.reduce((a, c) => a + c.simuEnded, 0),
                     )}
