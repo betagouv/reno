@@ -1,9 +1,6 @@
 const apiConfig = {
   token: process.env.MATOMO_API_TOKEN,
-  funnels: {
-    simulateur: 192,
-    module: 127,
-  },
+  funnelSimulateur: 192,
   baseUrl: 'https://stats.beta.gouv.fr/?module=API&idSite=101&format=JSON',
 }
 export async function GET(request: Request) {
@@ -77,7 +74,7 @@ async function getEventData() {
 }
 
 async function getVisitorData() {
-  const { baseUrl, funnels } = apiConfig
+  const { baseUrl, funnelSimulateur } = apiConfig
 
   const visitorData = await fetchMatomoData(
     `${baseUrl}&period=week&date=last9&method=VisitsSummary.get`,
@@ -89,7 +86,7 @@ async function getVisitorData() {
   const [, lastEnd] = weekKeys[weekKeys.length - 1].split(',')
 
   const funnelDaily = await fetchMatomoData(
-    `${baseUrl}&period=day&date=${firstStart},${lastEnd}&method=Funnels.getFunnelFlow&idFunnel=${funnels.simulateur}`,
+    `${baseUrl}&period=day&date=${firstStart},${lastEnd}&method=Funnels.getFunnelFlow&idFunnel=${funnelSimulateur}`,
   )
 
   const funnelWeekly = aggregateFunnelFlowDailyToWeeks(funnelDaily, weekKeys)
@@ -110,10 +107,10 @@ async function getVisitorData() {
 }
 
 async function getLastMonthData() {
-  const { baseUrl, funnels } = apiConfig
+  const { baseUrl, funnelSimulateur } = apiConfig
 
   const data = await fetchMatomoData(
-    `${baseUrl}&period=day&date=last31&method=Funnels.getFunnelFlow&idFunnel=${funnels.simulateur}`,
+    `${baseUrl}&period=day&date=last31&method=Funnels.getFunnelFlow&idFunnel=${funnelSimulateur}`,
   )
 
   // On exclue le jours courant
@@ -124,20 +121,17 @@ async function getLastMonthData() {
 }
 
 async function getInternalData(segment) {
-  const { baseUrl, funnels } = apiConfig
+  const { baseUrl, funnelSimulateur } = apiConfig
 
   const segmentQuery = getSegmentQuery(segment)
-  const funnelId = segment === 'module' ? funnels.module : funnels.simulateur
-
   const funnelData = await fetchMatomoData(
-    `${baseUrl}&period=day&date=last31&method=Funnels.getFunnelFlow&idFunnel=${funnelId}${segmentQuery}`,
+    `${baseUrl}&period=day&date=last31&method=Funnels.getFunnelFlow&idFunnel=${funnelSimulateur}${segmentQuery}`,
   )
   const visitorData = await fetchMatomoData(
     `${baseUrl}&period=day&date=last31&method=VisitsSummary.get${segmentQuery}`,
   )
 
   const mergedData = mergeData(funnelData, visitorData)
-
   // On exclue le jours courant
   const lastDay = Object.keys(mergedData).pop()
   delete mergedData[lastDay]
@@ -167,7 +161,7 @@ async function getApiEventsWeekly() {
   return result
 }
 
-function createFetchOptions(token, date) {
+function createFetchOptions(token) {
   let formData = new FormData()
   formData.append('token_auth', token)
   return {
@@ -183,8 +177,6 @@ function getSegmentQuery(segment) {
       return '&segment=eventCategory==Iframe'
     case 'site':
       return '&segment=eventCategory!=Iframe'
-    case 'module':
-      return '&segment=eventCategory==Module'
     default:
       return ''
   }
