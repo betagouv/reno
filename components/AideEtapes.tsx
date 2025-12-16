@@ -15,7 +15,6 @@ import Link from 'next/link'
 import iconEnvelope from '@/public/icon-envelope.svg'
 
 export default function AideEtapes({
-  nbStep,
   setSearchParams,
   situation,
   engine,
@@ -61,14 +60,12 @@ export default function AideEtapes({
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
           Mes démarches
-          <span className="fr-stepper__state">
-            Étape {nbStep} sur {nbStep}
-          </span>
+          <span className="fr-stepper__state">Étape 3 sur 3</span>
         </h1>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step={nbStep}
-          data-fr-steps={nbStep}
+          data-fr-current-step="3"
+          data-fr-steps="3"
         ></div>
       </div>
       <h2>Les étapes clés de votre rénovation énergétique</h2>
@@ -492,7 +489,7 @@ L'équipe MesAidesRéno`,
                   className="fr-icon-warning-line fr-mr-1v"
                   aria-hidden="true"
                 ></span>
-                Travaux terminés : profitez de votre logement 
+                Travaux terminés : profitez de votre logement
                 {hasMPA ? ' adapté' : ' rénové'}
               </h3>
               {hasMPA ? (

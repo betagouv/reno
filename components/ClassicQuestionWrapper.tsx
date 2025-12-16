@@ -4,7 +4,6 @@ import { useSearchParams } from 'next/navigation'
 import AvertissementSimulation, {
   useAvertissementState,
 } from './AvertissementSimulation'
-import CopyButton from './CopyButton'
 import Notifications from './Notifications'
 import QuestionDescription from './QuestionDescription'
 import UserProblemBanner from './UserProblemBanner'
@@ -41,8 +40,6 @@ export const QuestionText = ({
 }
 
 export default function ClassicQuestionWrapper({
-  form,
-  nbStep,
   children,
   rule,
   currentQuestion,
@@ -69,35 +66,22 @@ export default function ClassicQuestionWrapper({
       <AvertissementSimulation
         {...{ avertissementState, setAvertissementState }}
       />
-      <div>
-        {form != 'copropriété' && (
-          <>
-            <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
-              <h1 className="fr-stepper__title">
-                {currentQuestion.startsWith('projet')
-                  ? 'Mon projet'
-                  : 'Ma situation'}
-                <span className="fr-stepper__state">
-                  Étape {currentQuestion.startsWith('projet') ? 2 : 1} sur{' '}
-                  {nbStep}
-                </span>
-              </h1>
-              <div
-                className="fr-stepper__steps"
-                data-fr-current-step={
-                  currentQuestion.startsWith('projet') ? 2 : 1
-                }
-                data-fr-steps={nbStep}
-              ></div>
-              <p className="fr-stepper__details">
-                <span className="fr-text--bold">Étape suivante :</span>{' '}
-                {currentQuestion.startsWith('projet') || nbStep == 3
-                  ? 'Mes aides'
-                  : 'Mon projet'}
-              </p>
-            </div>
-          </>
-        )}
+      <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
+        <h1 className="fr-stepper__title">
+          {currentQuestion.startsWith('projet') ? 'Mon projet' : 'Ma situation'}
+          <span className="fr-stepper__state">
+            Étape {currentQuestion.startsWith('projet') ? 2 : 1} sur 3
+          </span>
+        </h1>
+        <div
+          className="fr-stepper__steps"
+          data-fr-current-step={currentQuestion.startsWith('projet') ? 2 : 1}
+          data-fr-steps={3}
+        ></div>
+        <p className="fr-stepper__details">
+          <span className="fr-text--bold">Étape suivante :</span>{' '}
+          {currentQuestion.startsWith('projet') ? 'Mes aides' : 'Mon projet'}
+        </p>
       </div>
       <AmpleurModuleBanner
         {...{
