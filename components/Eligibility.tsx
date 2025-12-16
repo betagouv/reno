@@ -24,11 +24,9 @@ import useIsInIframe from './useIsInIframe'
 import { categories, getCurDate, getRulesByCategory } from './utils'
 import { textValueEquality } from './publicodes/utils'
 import useIsMobile from './useIsMobile'
-import ExplicationCopropriete from './copropriete/ExplicationCopropriete'
 import ExplicationCoproprieteContent from './copropriete/ExplicationCoproprieteContent'
 
 export default function Eligibility({
-  nbStep,
   setSearchParams,
   situation,
   rules,
@@ -87,14 +85,12 @@ export default function Eligibility({
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <h1 className="fr-stepper__title">
           Mes aides
-          <span className="fr-stepper__state">
-            Étape {nbStep - 1} sur {nbStep}
-          </span>
+          <span className="fr-stepper__state">Étape 2 sur 3</span>
         </h1>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step={nbStep - 1}
-          data-fr-steps={nbStep}
+          data-fr-current-step={2}
+          data-fr-steps={3}
         ></div>
         <p className="fr-stepper__details">
           <span className="fr-text--bold">Étape suivante :</span> Mes démarches

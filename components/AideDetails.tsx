@@ -11,7 +11,6 @@ import AvertissementSimulation, {
 import Button from '@codegouvfr/react-dsfr/Button'
 
 export default function AideDetails({
-  nbStep,
   setSearchParams,
   situation,
   rules,
@@ -40,14 +39,12 @@ export default function AideDetails({
       <div id="fr-stepper-_r_f_" className="fr-stepper fr-mt-5v">
         <span className="fr-stepper__title fr-mb-3v">
           Mes aides
-          <span className="fr-stepper__state">
-            Étape {nbStep - 1} sur {nbStep}
-          </span>
+          <span className="fr-stepper__state">Étape 2 sur 3</span>
         </span>
         <div
           className="fr-stepper__steps"
-          data-fr-current-step={nbStep - 1}
-          data-fr-steps={nbStep}
+          data-fr-current-step={2}
+          data-fr-steps={3}
         ></div>
         <p className="fr-stepper__details">
           <span className="fr-text--bold">Étape suivante :</span> Mes démarches
