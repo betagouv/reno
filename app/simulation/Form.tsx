@@ -168,29 +168,42 @@ function Form({ rules, simulationConfig }) {
   }
   return (
     <div style={{ maxWidth: '50rem', margin: 'auto' }}>
-      <InputSwitch
-        {...{
-          rules,
-          currentQuestion,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          engine,
-          nextQuestions,
-          searchParams,
-        }}
-      />
-      {isInIframe && (
-        <p className="fr-hint-text fr-mt-5v">
-          Un simulateur construit avec France&nbsp;Rénov' pour simplifier
-          l'information sur les aides à la rénovation énergétique.
+      {isEnriching ? (
+        <p
+          className="fr-mt-5v"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Loader /> Chargement ...
         </p>
+      ) : (
+        <>
+          <InputSwitch
+            {...{
+              rules,
+              currentQuestion,
+              situation,
+              answeredQuestions,
+              setSearchParams,
+              engine,
+              nextQuestions,
+              searchParams,
+            }}
+          />
+
+          {isInIframe && (
+            <p className="fr-hint-text fr-mt-5v">
+              Un simulateur construit avec France&nbsp;Rénov&apos; pour
+              simplifier l&apos;information sur les aides à la rénovation
+              énergétique.
+            </p>
+          )}
+        </>
       )}
     </div>
   )
 }
 
-export default function ({ rules, simulationConfig }) {
+export default function Simulation({ rules, simulationConfig }) {
   return (
     <Suspense>
       <Form rules={rules} simulationConfig={simulationConfig} />
