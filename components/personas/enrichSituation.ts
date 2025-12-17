@@ -16,6 +16,36 @@ export default async function enrichSituation(situation) {
   return { ...situation, ...éligibilité }
 }
 
+export const enrichSituationWithLatLon = async (situationParams) => {
+  const lat = situationParams?.lat
+  const lon = situationParams?.lon
+  if (lat == null || lon == null) return situationParams
+
+  // Ne rien faire si déjà renseigné
+  const existingCodeInsee =
+    situationParams['logement . commune'] || situationParams['ménage . commune']
+  if (existingCodeInsee) return situationParams
+
+  try {
+    const communeJson = await getCommune(null, null, null, lat, lon)
+    const commune = Array.isArray(communeJson) ? communeJson?.[0] : communeJson
+    const codeInsee = commune?.code
+    if (!codeInsee) return situationParams
+    const situationWithCommune = {
+      'logement . commune': `"${codeInsee}"*`,
+      'logement . code région': `"${commune.codeRegion}"*`,
+      'logement . code département': `"${commune.codeDepartement}"*`,
+      'logement . EPCI': `"${commune.codeEpci}"*`,
+      'logement . commune . nom': `"${commune.nom}"*`,
+    }
+
+    return await enrichSituation(situationWithCommune)
+  } catch (e) {
+    console.error('enrichSituationWithLatLon failed', e)
+    return situationParams
+  }
+}
+
 // TODO this because I can't figure out an easy way to do this translation in publicodes ! It's only used by the /module for now
 export const enrichSituationWithConstructionYear = (situation, engine) => {
   const year = situation['logement . année de construction']
@@ -42,6 +72,8 @@ export async function getCommune(
   situation = null,
   type = null,
   codeCommune = null,
+  lat = null,
+  lon = null,
 ) {
   const path =
     lat != null && lon != null
