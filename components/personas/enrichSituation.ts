@@ -32,30 +32,29 @@ export const enrichSituationWithConstructionYear = (situation, engine) => {
   }
 }
 
+const fetchGeo = async (path) => {
+  const url = `/api/geo?path=${encodeURIComponent(path)}`
+  const res = await fetch(url)
+  return await res.json()
+}
+
 export async function getCommune(
   situation = null,
   type = null,
   codeCommune = null,
 ) {
-  let path = null
-  if (codeCommune) {
-    path = `communes/${codeCommune}`
-  }
-  if (
-    situation &&
-    ['ménage . commune', 'logement . commune'].includes(type) &&
-    situation[type]
-  ) {
-    const path = `communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`,
-      url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
+  const path =
+    lat != null && lon != null
+      ? `communes?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}`
+      : codeCommune
+        ? `communes/${codeCommune}`
+        : situation &&
+            type &&
+            ['ménage . commune', 'logement . commune'].includes(type) &&
+            situation[type]
+          ? `communes/${situation[type].replace(/"/g, '').replace(/'/g, '')}`
+          : null
 
-    const response = await fetch(url)
-    return await response.json()
-  }
   if (!path) return null
-  const url = `${getAppUrl()}/api/geo/?path=${encodeURIComponent(path)}`
-
-  const response = await fetch(url)
-  const json = await response.json()
-  return json
+  return await fetchGeo(path)
 }
