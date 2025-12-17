@@ -3,6 +3,8 @@
 import InputSwitch from '@/components/InputSwitch'
 import {
   decodeDottedName,
+  encodeDottedName,
+  encodeSituation,
   getAnsweredQuestions,
   getSituation,
 } from '@/components/publicodes/situationUtils'
@@ -11,7 +13,7 @@ import useSetSearchParams from '@/components/useSetSearchParams'
 import useSyncUrlLocalStorage from '@/utils/useSyncUrlLocalStorage'
 import { useSearchParams } from 'next/navigation'
 import Publicodes from 'publicodes'
-import { Suspense, useMemo } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
 import { push } from '@socialgouv/matomo-next'
 import AideDetails from '@/components/AideDetails'
 import MPRA from '@/components/ampleur/MPRA'
@@ -34,6 +36,8 @@ import LocAvantage from '@/components/LocAvantage'
 import getNextQuestions from '@/components/publicodes/getNextQuestions'
 import MaPrimeLogementDecent from '@/components/maPrimeLogementDecent/MaPrimeLogementDecent'
 import AEEH from '@/components/maPrimeAdapt/AEEH'
+import { enrichSituationWithLatLon } from '@/components/personas/enrichSituation'
+import { Loader } from '../trouver-conseiller-france-renov/UI'
 
 export const correspondance = {
   'MPR . accompagnée': MPRA,
@@ -61,13 +65,21 @@ function Form({ rules, simulationConfig }) {
   if (isInIframe) {
     push(['trackEvent', 'Iframe', 'Page', 'Simulation'])
   }
+  const setSearchParams = useSetSearchParams()
 
   useSyncUrlLocalStorage()
-  const rawSearchParams = useSearchParams(),
-    searchParams = Object.fromEntries(rawSearchParams.entries())
 
-  // this param `objectif` lets us optionally build the form to target one specific publicode rule
-  const { objectif, depuisModule, ...situationSearchParams } = searchParams
+  const rawSearchParams = useSearchParams()
+
+  const { searchParams, objectif, situationSearchParams } = useMemo(() => {
+    const sp = Object.fromEntries(rawSearchParams.entries())
+    const { objectif, ...rest } = sp
+    return {
+      searchParams: sp,
+      objectif,
+      situationSearchParams: rest,
+    }
+  }, [rawSearchParams])
 
   const target = objectif ? decodeDottedName(objectif) : 'aides'
 
@@ -82,13 +94,38 @@ function Form({ rules, simulationConfig }) {
       }),
     [rules],
   )
+
+  const [isEnriching, setIsEnriching] = useState(false)
+  useEffect(() => {
+    async function ckeckEnrichSituation() {
+      if (
+        !(
+          situationSearchParams['lat'] &&
+          situationSearchParams['lon'] &&
+          !situationSearchParams['logement.commune']
+        )
+      ) {
+        setIsEnriching(false)
+        return
+      }
+      setIsEnriching(true)
+
+      const newSituation = await enrichSituationWithLatLon(
+        situationSearchParams,
+      )
+
+      setSearchParams(encodeSituation(newSituation, true), 'replace', false)
+      setIsEnriching(false)
+    }
+    ckeckEnrichSituation()
+  }, [])
   const answeredQuestions = getAnsweredQuestions(situationSearchParams, rules)
   const situation = getSituation(situationSearchParams, rules)
   const validatedSituation = Object.fromEntries(
-    Object.entries(situation).filter(([k, v]) => answeredQuestions.includes(k)),
+    Object.entries(situation).filter(([k]) => answeredQuestions.includes(k)),
   )
-  const setSearchParams = useSetSearchParams()
-  if (target == 'etape') {
+
+  if (target === 'etape') {
     return (
       <AideEtapes
         {...{
@@ -131,29 +168,42 @@ function Form({ rules, simulationConfig }) {
   }
   return (
     <div style={{ maxWidth: '50rem', margin: 'auto' }}>
-      <InputSwitch
-        {...{
-          rules,
-          currentQuestion,
-          situation,
-          answeredQuestions,
-          setSearchParams,
-          engine,
-          nextQuestions,
-          searchParams,
-        }}
-      />
-      {isInIframe && (
-        <p className="fr-hint-text fr-mt-5v">
-          Un simulateur construit avec France&nbsp;Rénov' pour simplifier
-          l'information sur les aides à la rénovation énergétique.
+      {isEnriching ? (
+        <p
+          className="fr-mt-5v"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Loader /> Chargement ...
         </p>
+      ) : (
+        <>
+          <InputSwitch
+            {...{
+              rules,
+              currentQuestion,
+              situation,
+              answeredQuestions,
+              setSearchParams,
+              engine,
+              nextQuestions,
+              searchParams,
+            }}
+          />
+
+          {isInIframe && (
+            <p className="fr-hint-text fr-mt-5v">
+              Un simulateur construit avec France&nbsp;Rénov&apos; pour
+              simplifier l&apos;information sur les aides à la rénovation
+              énergétique.
+            </p>
+          )}
+        </>
       )}
     </div>
   )
 }
 
-export default function ({ rules, simulationConfig }) {
+export default function Simulation({ rules, simulationConfig }) {
   return (
     <Suspense>
       <Form rules={rules} simulationConfig={simulationConfig} />
