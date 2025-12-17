@@ -16,8 +16,8 @@
     logement . type: "'maison'"
     logement . surface: 91
     logement . période de construction: "'au moins 15 ans'"
-    gestes . isolation . murs extérieurs . MPR . surface: 85
-    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . murs extérieurs . CEE . surface: 85
+    gestes . isolation . murs intérieurs . CEE . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
@@ -42,18 +42,14 @@
     gestes . ventilation . double flux . MPR . montant: 2500
     gestes . isolation . vitres . MPR . montant: 500
     gestes . isolation . vitres . CEE . montant: 182.4
-    gestes . isolation . murs extérieurs . MPR . montant: 6375
     gestes . isolation . murs extérieurs . CEE . montant: 1088
-    gestes . isolation . murs intérieurs . MPR . montant: 2125
     gestes . isolation . murs intérieurs . CEE . montant: 1088
     gestes . isolation . rampants . MPR . montant: 1500
     gestes . isolation . rampants . CEE . montant: 816
     gestes . isolation . toitures terrasses . MPR . montant: 4500
     gestes . isolation . toitures terrasses . CEE . montant: 576
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3750
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . manuelle . CEE . montant: 0
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 5000
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
     gestes . chauffage . bois . chaudière . automatique . CEE . montant: 0
     gestes . chauffage . bois . foyer et insert . MPR . montant: 1250
@@ -90,8 +86,8 @@
     logement . type: "'maison'"
     logement . surface: 110
     logement . période de construction: "'au moins 15 ans'"
-    gestes . isolation . murs extérieurs . MPR . surface: 85
-    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . murs extérieurs . CEE . surface: 85
+    gestes . isolation . murs intérieurs . CEE . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
@@ -119,16 +115,12 @@
     gestes . ventilation . double flux . MPR . montant: 1500
     gestes . isolation . vitres . MPR . montant: 200
     gestes . isolation . vitres . CEE . montant: 148.8
-    gestes . isolation . murs extérieurs . MPR . montant: 3400
     gestes . isolation . murs extérieurs . CEE . montant: 884
-    gestes . isolation . murs intérieurs . MPR . montant: 1275
     gestes . isolation . murs intérieurs . CEE . montant: 884
     gestes . isolation . rampants . MPR . montant: 900
     gestes . isolation . rampants . CEE . montant: 672
     gestes . isolation . toitures terrasses . MPR . montant: 2400
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 1400
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 2500
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 2100
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 2500
     gestes . chauffage . bois . foyer et insert . MPR . montant: 500
     gestes . chauffage . bois . foyer et insert . CEE . montant: 154.4
@@ -161,8 +153,8 @@
     logement . type: "'appartement'"
     logement . surface: 65
     logement . période de construction: "'au moins 15 ans'"
-    gestes . isolation . murs extérieurs . MPR . surface: 85
-    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . murs extérieurs . CEE . surface: 85
+    gestes . isolation . murs intérieurs . CEE . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
@@ -188,16 +180,12 @@
     gestes . ventilation . double flux . MPR . montant: 2000
     gestes . isolation . vitres . MPR . montant: 400
     gestes . isolation . vitres . CEE . montant: 100.8
-    gestes . isolation . murs extérieurs . MPR . montant: 5100
     gestes . isolation . murs extérieurs . CEE . montant: 598.4
-    gestes . isolation . murs intérieurs . MPR . montant: 1700
     gestes . isolation . murs intérieurs . CEE . montant: 598.4
     gestes . isolation . rampants . MPR . montant: 1200
     gestes . isolation . rampants . CEE . montant: 432
     gestes . isolation . toitures terrasses . MPR . montant: 3600
-    gestes . chauffage . bois . chaudière . manuelle . MPR . montant: 3150
     gestes . chauffage . bois . chaudière . manuelle . Coup de pouce . montant: 4000
-    gestes . chauffage . bois . chaudière . automatique . MPR . montant: 3850
     gestes . chauffage . bois . chaudière . automatique . Coup de pouce . montant: 4000
     gestes . chauffage . bois . foyer et insert . MPR . montant: 750
     gestes . chauffage . bois . foyer et insert . CEE . montant: 40.8
@@ -292,8 +280,8 @@
     logement . type: "'maison'"
     logement . surface: 91
     logement . période de construction: "'au moins 15 ans'"
-    gestes . isolation . murs extérieurs . MPR . surface: 85
-    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . murs extérieurs . CEE . surface: 85
+    gestes . isolation . murs intérieurs . CEE . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
@@ -341,8 +329,8 @@
     logement . type: "'maison'"
     logement . surface: 110
     logement . période de construction: "'au moins 15 ans'"
-    gestes . isolation . murs extérieurs . MPR . surface: 85
-    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . murs extérieurs . CEE . surface: 85
+    gestes . isolation . murs intérieurs . CEE . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5
@@ -389,8 +377,8 @@
     logement . type: "'appartement'"
     logement . surface: 65
     logement . période de construction: "'au moins 15 ans'"
-    gestes . isolation . murs extérieurs . MPR . surface: 85
-    gestes . isolation . murs intérieurs . MPR . surface: 85
+    gestes . isolation . murs extérieurs . CEE . surface: 85
+    gestes . isolation . murs intérieurs . CEE . surface: 85
     gestes . isolation . rampants . MPR . surface: 60
     gestes . isolation . toitures terrasses . MPR . surface: 60
     gestes . isolation . vitres . MPR . quantité: 5

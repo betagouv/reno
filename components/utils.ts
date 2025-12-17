@@ -185,6 +185,58 @@ export const getRulesByCategory = (
   return rulesByCategory
 }
 
+export const getRulesByCategoryByTypes = (
+  rules: { [k: string]: any },
+  types: string[],
+) => {
+  // 1. Sélection + normalisation : suppression de tous les types dans le nom
+  const normalizedRules = Object.keys(rules)
+    .filter((item) => item.startsWith('gestes') && types.some((type) => item.endsWith(type)))
+    .map((item) => {
+      let normalized = item;
+      types.forEach((type) => {
+        normalized = normalized.replace(` . ${type}`, '');
+      })
+      return normalized
+    })
+
+  // 2. Déduplication
+  const distinctRules = Array.from(new Set(normalizedRules));
+
+  const rulesByCategory: { [k: string]: string[] } = Object.fromEntries(
+    categories.map((category) => [category.titre, []])
+  );
+
+  // 3. Classement par catégorie
+  distinctRules.forEach((rule) => {
+    for (const category of categories) {
+      const catTitle = category.titre
+      const catCode = category.code
+
+      if (!rule.includes(catCode)) continue;
+
+      // Cas particulier solaire
+      if (rule.includes('solaire') && (catCode === 'chauffage' || catCode === 'isolation')) {
+        continue;
+      }
+
+      if (!rulesByCategory[catTitle].includes(rule)) {
+        rulesByCategory[catTitle].push(rule);
+      }
+    }
+  })
+  // 4. Gestion spécifique "Autres travaux"
+  rulesByCategory['Autres travaux'].push('gestes . recommandés . audit');
+
+  // Supprime "Autres travaux" uniquement si types contient un seul élément égal à "CEE"
+  if (types.length === 1 && types[0] === 'CEE') {
+    delete rulesByCategory['Autres travaux'];
+  }
+
+  return rulesByCategory;
+}
+
+
 export const aideStyles = {
   prêt: {
     color: '#79A5DB',

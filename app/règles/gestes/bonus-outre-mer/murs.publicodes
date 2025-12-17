@@ -3,7 +3,7 @@ isolation . murs intérieurs . bonus outre-mer . montant:
   applicable si: outre-mer . DROM
   produit:
     - barème
-    - MPR . surface
+    - CEE . surface
 isolation . murs intérieurs . bonus outre-mer . barème: murs . bonus outre-mer . barème commun
 
 isolation . murs extérieurs . bonus outre-mer:
@@ -11,7 +11,7 @@ isolation . murs extérieurs . bonus outre-mer . montant:
   applicable si: outre-mer . DROM
   produit:
     - barème
-    - MPR . surface
+    - CEE . surface
 isolation . murs extérieurs . bonus outre-mer . barème: murs . bonus outre-mer . barème commun
 
 isolation . murs . bonus outre-mer:

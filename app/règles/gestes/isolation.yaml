@@ -105,50 +105,27 @@ isolation . murs extérieurs:
   titre: Isolation des murs par l'extérieur
   par défaut: oui
 isolation . murs extérieurs . montant:
-  applicable si:
-    une de ces conditions:
-      - MPR . non accompagnée . éligible
-      - CEE . conditions
+  applicable si: CEE . conditions
   somme:
-    - MPR . montant
     - CEE . montant
     - bonus outre-mer . montant
-isolation . murs extérieurs . MPR:
-isolation . murs extérieurs . MPR . surface:
-  question: Quelle surface de murs extérieurs voulez-vous isoler ?
-  unité: m2
-isolation . murs extérieurs . MPR . plafond: 150 €/m2
-isolation . murs extérieurs . MPR . montant:
-  applicable si: MPR . non accompagnée . éligible
-  produit:
-    - le minimum de:
-        - surface
-        - 100 m2
-    - barème
-isolation . murs extérieurs . MPR . question: surface
-isolation . murs extérieurs . MPR . barème:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 75 €/m2
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 60 €/m2
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 40 €/m2
-    - sinon: 0 €
 isolation . murs extérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-102%20vA65-4%20%C3%A0%20compter%20du%2001-01-2025.pdf
   technique: |
     La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m2.K/W**.
+isolation . murs extérieurs . CEE . surface:
+  question: Quelle surface de murs extérieurs voulez-vous isoler ?
+  unité: m2
 isolation . murs extérieurs . CEE . question:
   type: liste
   valeurs:
-    - MPR . surface
+    - CEE . surface
 isolation . murs extérieurs . CEE . montant:
   applicable si: CEE . conditions
   produit:
-    - MPR . surface
+    - CEE . surface
     - barème
     - CEE . prix kWh Cumac
   unité: €
@@ -165,48 +142,27 @@ isolation . murs intérieurs:
   titre: Isolation des murs par l'intérieur
   par défaut: oui
 isolation . murs intérieurs . montant:
-  applicable si:
-    une de ces conditions:
-      - MPR . non accompagnée . éligible
-      - CEE . conditions
+  applicable si: CEE . conditions
   somme:
-    - MPR . montant
     - CEE . montant
     - bonus outre-mer . montant
-isolation . murs intérieurs . MPR:
-isolation . murs intérieurs . MPR . surface:
-  question: Quelle surface de murs intérieurs voulez-vous isoler ?
-  unité: m2
-isolation . murs intérieurs . MPR . plafond: 70 €/m2
-isolation . murs intérieurs . MPR . montant:
-  applicable si: MPR . non accompagnée . éligible
-  produit:
-    - surface
-    - barème
-isolation . murs intérieurs . MPR . question: surface
-isolation . murs intérieurs . MPR . barème:
-  variations:
-    - si: ménage . revenu . classe = 'très modeste'
-      alors: 25 €/m2
-    - si: ménage . revenu . classe = 'modeste'
-      alors: 20 €/m2
-    - si: ménage . revenu . classe = 'intermédiaire'
-      alors: 15 €/m2
-    - sinon: 0 €
 isolation . murs intérieurs . CEE:
   code: BAR-EN-102
   titre: Isolation des murs
   lien: https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-102%20vA65-4%20%C3%A0%20compter%20du%2001-01-2025.pdf
   technique: |
     La résistance thermique **R** de l'isolation installée (la résistance thermique de l'isolation existante n'étant pas, le cas échéant, prise en compte) est supérieure ou égale à **3,7 m².K/W**.
+isolation . murs intérieurs . CEE . surface:
+  question: Quelle surface de murs intérieurs voulez-vous isoler ?
+  unité: m2
 isolation . murs intérieurs . CEE . question:
   type: liste
   valeurs:
-    - MPR . surface
+    - CEE . surface
 isolation . murs intérieurs . CEE . montant:
   applicable si: CEE . conditions
   produit:
-    - MPR . surface
+    - CEE . surface
     - barème
     - CEE . prix kWh Cumac
   unité: €
