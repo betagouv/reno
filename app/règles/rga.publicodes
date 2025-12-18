@@ -43,13 +43,13 @@ logement . rnb:
 logement . condition niveaux:
   valeur: logement . niveaux <= 2
   titre: Nombre de niveaux
-  description: Le logement ne doit pas avoir plus d'un étage.
+  description: Le logement ne doit pas avoir plus de deux niveaux (sous-sol compris).
 
 logement . niveaux:
   question: Combien de niveaux a votre maison ?
   titre: Nombre de niveaux
   description: |
-    Une maison plein pied a 1 niveau. Une maison avec un rez-de-chaussée et des chambres à l'étage a 2 niveaux, et ainsi de suite.
+    Le sous-sol est considéré comme un niveau. A titre d'exemple, une maison avec 2 niveaux sans sous-sol est éligible. En revanche, une maison avec 2 niveaux et 1 sous-sol n'est pas éligible.
   unité: niveau
   par défaut: 2
 
@@ -79,11 +79,14 @@ rga . sinistres:
       - endommagée
 
 rga . sinistres . saine:
+  titre: Saine
+  précision: Aucune fissure visible à l'intérieur comme à l'extérieur
 rga . sinistres . très peu endommagée:
   titre: Très peu endommagée
-  précision: Fissures < 1mm, uniquement sur murs intérieurs, doublages et/ou cloisons
+  précision: Micro-fissures (1mm d'écartement maximum) sur les murs intérieurs et/ou extérieurs
 rga . sinistres . endommagée:
   titre: Endommagée avec des premiers désordres structuraux déjà présents
+  précision: Fissures importantes (plus d'1mm d'écartement) sur les murs intérieurs et/ou extérieurs
 
 rga . peu endommagé:
   titre: Votre maison est saine ou très peu endommagée
