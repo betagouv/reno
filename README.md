@@ -1,10 +1,14 @@
-# Aides et coût d'une rénovation thermique en 2025
+# MesAidesRéno est transféré à FranceRénov'
+[!IMPORTANT]
+- ⛔️ Ce projet n'est plus en développement actif. La dernière évolution majeur de ce projet est la prise en compte des aides à la rénovation énergétique au 01/01/2026. Consultez [les dernières évolutions](https://github.com/betagouv/reno/commits/master/).
+- ➡️  Le projet a été repris par l'administration porteuse de la politique publique. Il est à retrouver sur [mesaides.france-renov.gouv.fr](https://mesaides.france-renov.gouv.fr/). Plus d'infos sur [la fiche produit](https://beta.gouv.fr/startups/mesaidesreno.html).
+-  ✨ Le code du nouveau projet sera bientôt ouvert, à retrouver sur [github.com/anahgouv](https://github.com/anahgouv).
 
-> [!IMPORTANT]
-> 💡 Ce projet est en développement actif.
+# Informations sur le dépôt MesAidesRéno
+## Informations sur le modèle de calcul
 > En tant que seul modèle ouvert et officiel des aides à la rénovation énergétique françaises, de nouvelles versions sont publiées fréquemment, potentiellement toutes les semaines.
 > En particulier, le modèle de calcul évolue en fonction de la loi et des améliorations métier, selon le versionage sémantique.
-> Si vous l'intégrez, il est de votre responsabilité de le maintenir à jour régulièrement en suivant les changements de ce dépôt dont la publicité est faite via **ce fichier [CHANGELOG](https://github.com/betagouv/reno/blob/master/app/r%C3%A8gles/CHANGELOG.md)**.
+> Si vous l'intégrez, il est de votre responsabilité de le maintenir à jour régulièrement en suivant les changements de ce dépôt.
 
 ## Le calcul des aides
 
