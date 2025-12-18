@@ -17,7 +17,7 @@ export async function generateMetadata(
   parent?: ResolvingMetadata,
 ): Promise<Metadata> {
   return {
-    title: 'Mes aides réno 2025',
+    title: 'Mes aides réno 2026',
     description: description,
     metadataBase: new URL('https://mesaidesreno.beta.gouv.fr'),
     openGraph: {

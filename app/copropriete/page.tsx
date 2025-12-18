@@ -3,10 +3,10 @@ import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
 
-const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre copropriété.`
+const description = `Calculez les aides MaPrimeRénov' 2026 pour la rénovation de votre copropriété.`
 
 export const metadata: Metadata = {
-  title: "Aides rénovation MaPrimeRénov' Copropriété 2025",
+  title: "Aides rénovation MaPrimeRénov' Copropriété 2026",
   description,
   alternates: {
     canonical: '/copropriete',

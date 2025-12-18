@@ -13,11 +13,11 @@ import { HeaderWrapper } from './LandingUI'
 import ParFranceRénovTexte from '@/components/ParFranceRénovTexte'
 import { StartDsfrOnHydration } from '@/src/dsfr-bootstrap'
 
-export const description = `Calculez les aides MaPrimeRénov' 2025 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
+export const description = `Calculez les aides MaPrimeRénov' 2026 pour la rénovation de votre logement. Découvrez aussi les prêts à taux zéro, les gestes de rénovation, les exonérations fiscales telles que Denormandie.`
 
 export const metadata: Metadata = {
   title:
-    'Mes aides réno : simulateur officiel des aides à la rénovation energétique 2025',
+    'Mes aides réno : simulateur officiel des aides à la rénovation energétique 2026',
   description,
   openGraph: { images: ['/jaquette.png'] },
 }

@@ -281,7 +281,7 @@ export const HistoriqueVersion = () => (
     <p>
       En intégrant dès maintenant le calculateur sur votre site, vous profiterez
       automatiquement des mises à jour qui auront lieu très prochainement en
-      janvier 2025.
+      janvier 2026.
     </p>
     <h2>Historique des versions</h2>
     <h3>v1 (été 2024)</h3>
