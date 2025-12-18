@@ -46,7 +46,7 @@ logement . condition niveaux:
   description: Le logement ne doit pas avoir plus de deux niveaux (sous-sol compris).
 
 logement . niveaux:
-  question: Combien de niveaux a votre maison ?
+  question: Combien de niveaux a votre maison (sous-sol inclus)?
   titre: Nombre de niveaux
   description: |
     Le sous-sol est considéré comme un niveau. A titre d'exemple, une maison avec 2 niveaux sans sous-sol est éligible. En revanche, une maison avec 2 niveaux et 1 sous-sol n'est pas éligible.
